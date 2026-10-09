@@ -626,7 +626,7 @@ async fn party_location_url(state: &AppState, party_id: &str) -> String {
         return "/".to_string();
     };
     match &party.current_settlement_id {
-        Some(settlement) => format!("/settlements/{settlement}"),
+        Some(settlement) => crate::location_urls::patterns::SETTLEMENT.url([&settlement]),
         None => "/".to_string(),
     }
 }

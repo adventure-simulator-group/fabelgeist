@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::body_region_type::BodyRegion;
 use super::intervention_route_type::InterventionRoute;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -17,8 +18,8 @@ pub struct PhysiologyAdministration {
     pub route: InterventionRoute,
     pub dose_milliunits: u32,
     pub region: Option<BodyRegion>,
-    pub administered_at: u64,
-    pub stopped_at: Option<u64>,
+    pub administered_at: StrategicMinute,
+    pub stopped_at: Option<StrategicMinute>,
     pub sensitivity_bps: i16,
     pub adverse_bps: u16,
     pub ruleset_version: u16,
@@ -40,8 +41,8 @@ pub struct PhysiologyAdministrationCols {
     pub route: __sdk::__query_builder::Col<PhysiologyAdministration, InterventionRoute>,
     pub dose_milliunits: __sdk::__query_builder::Col<PhysiologyAdministration, u32>,
     pub region: __sdk::__query_builder::Col<PhysiologyAdministration, Option<BodyRegion>>,
-    pub administered_at: __sdk::__query_builder::Col<PhysiologyAdministration, u64>,
-    pub stopped_at: __sdk::__query_builder::Col<PhysiologyAdministration, Option<u64>>,
+    pub administered_at: __sdk::__query_builder::Col<PhysiologyAdministration, StrategicMinute>,
+    pub stopped_at: __sdk::__query_builder::Col<PhysiologyAdministration, Option<StrategicMinute>>,
     pub sensitivity_bps: __sdk::__query_builder::Col<PhysiologyAdministration, i16>,
     pub adverse_bps: __sdk::__query_builder::Col<PhysiologyAdministration, u16>,
     pub ruleset_version: __sdk::__query_builder::Col<PhysiologyAdministration, u16>,

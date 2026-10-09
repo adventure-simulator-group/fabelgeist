@@ -1,8 +1,11 @@
+mod summary;
+use summary::character_summary_rail;
+
 use adventuresim_core::{
     organization::{OrganizationDefinition, OrganizationRoleDefinition, organization},
     strategic_schedule::CombatTrainingProfile,
 };
-use adventuresim_world_schema::OfficialReligion;
+use adventuresim_world_schema::{OfficialReligion, calendar::StrategicMinute};
 use maud::{Markup, html};
 
 use super::{
@@ -13,7 +16,7 @@ use super::{
         ActivityPreviewRates, CharacterSheetActions, SummaryIconKind, character_summary_icons,
         party_skills_rail, skill_rank_tier,
     },
-    chrome::{VisualStageKind, party_portrait_overlay, visual_stage},
+    chrome::{VisualStageKind, party_portrait_overlay, profile_membership, visual_stage},
     context::LocationView,
     religion::religious_demand_rail,
     social::player_chat_area,
@@ -28,57 +31,6 @@ use crate::spacetimedb::{
 use crate::templates::{
     decorative_game_icon, organization_charge, organization_colors, religion_icon, sidebar_section,
 };
-
-fn character_summary_rail(
-    capability: Option<&CharacterCapability>,
-    attributes: Option<&CharacterAttributes>,
-    skills: Option<&CharacterSkills>,
-    combat_profile: CombatTrainingProfile,
-    religion_context: Option<OfficialReligion>,
-) -> Markup {
-    let icons = character_summary_icons(
-        capability,
-        attributes,
-        skills,
-        combat_profile,
-        religion_context,
-    );
-    html! {
-        (sidebar_section("Summary", html! {
-            @if icons.is_empty() {
-                p class="text-muted small-copy" { "No notable capabilities." }
-            } @else {
-                div class="character-summary-icons" role="list"
-                    aria-label="Character capability summary" {
-                    @for icon in icons {
-                        span class=(format!(
-                                "character-summary-icon skill-rank-tier-{}",
-                                skill_rank_tier(icon.rank)
-                            ))
-                            role="listitem" tabindex="0" aria-label=(&icon.label)
-                            data-strategic-tooltip=(&icon.tooltip) {
-                            @match icon.kind {
-                                SummaryIconKind::Mask(path) => {
-                                    span class="character-summary-icon-mask"
-                                        style=(format!("--summary-icon: url('{path}')"))
-                                        aria-hidden="true" {}
-                                }
-                                SummaryIconKind::Monogram { text, germanic_style, written } => {
-                                    span class=(format!(
-                                            "character-summary-monogram language-{}{}",
-                                            if written { "written" } else { "oral" },
-                                            if germanic_style { " language-blackletter" } else { "" },
-                                        ))
-                                        aria-hidden="true" { (text) }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }))
-    }
-}
 
 #[expect(
     clippy::too_many_arguments,
@@ -135,7 +87,7 @@ pub(crate) struct CharacterSheetView<'a> {
     pub can_renounce: bool,
     pub organization_memberships: &'a [BackendOrganizationMembership],
     pub organization_presentation: Option<&'a OrganizationPresentation>,
-    pub organization_minute: u64,
+    pub organization_minute: StrategicMinute,
     pub physiology_dialog_id: Option<&'a str>,
     pub surgery: Option<(&'a str, Option<&'a str>)>,
     pub injuries: &'a [LimbInjury],
@@ -248,7 +200,7 @@ pub fn party_personal_page(
     religion_id: Option<&str>,
     organization_memberships: &[BackendOrganizationMembership],
     organization_presentation: Option<&OrganizationPresentation>,
-    organization_minute: u64,
+    organization_minute: StrategicMinute,
     prayer_religion_check: f32,
     schedule: Option<&CharacterTrainingSchedule>,
     combat_profile: CombatTrainingProfile,
@@ -357,7 +309,7 @@ pub fn party_personal_page(
         portraits,
         center_after,
         left_after,
-        right_after: html! {},
+        right_after: profile_membership(active_character, party_members, &location_path),
         after,
     });
     location.render_layout("Party", content, Some(&active_character.name))
@@ -463,7 +415,7 @@ pub fn party_stats_page(
         can_renounce: selected.id == active_character.id,
         organization_memberships: &[],
         organization_presentation: None,
-        organization_minute: 0,
+        organization_minute: StrategicMinute::ZERO,
         physiology_dialog_id: Some("physiology-chart-dialog"),
         surgery: Some((&surgery_path_template, surgery_open)),
         injuries,
@@ -516,7 +468,7 @@ fn character_bio_rail(
     location_path: &str,
     organization_memberships: &[BackendOrganizationMembership],
     organization_presentation: Option<&OrganizationPresentation>,
-    organization_minute: u64,
+    organization_minute: StrategicMinute,
 ) -> Markup {
     html! {
         (sidebar_section("Bio", html! {
@@ -527,7 +479,7 @@ fn character_bio_rail(
                 @if let Some(personality) = personality {
                     @let tags = personality_tags(personality);
                     @if !tags.is_empty() {
-                        div { dt { "Personality" } dd class="personality-tags" {
+                        div { dt { "Traits and identity" } dd class="personality-tags" {
                             @for (name, description) in tags {
                                 span class="personality-tag" title=(description) { (name) }
                             }
@@ -647,7 +599,7 @@ fn organization_identity_picker(
     _location_path: &str,
     memberships: &[BackendOrganizationMembership],
     presentation: Option<&OrganizationPresentation>,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Markup {
     let choices = memberships
         .iter()
@@ -655,7 +607,7 @@ fn organization_identity_picker(
             let definition = organization(&membership.organization_id)?;
             let role = definition.role(&membership.role_id)?;
             (membership.status == OrganizationMembershipStatus::Active
-                && minute <= membership.dues_paid_through_minute
+                && minute <= StrategicMinute::new(membership.dues_paid_through_minute.minutes)
                 && definition.recognition.includes(settlement_id))
             .then_some((membership, definition, role))
         })
@@ -666,10 +618,7 @@ fn organization_identity_picker(
             .copied()
             .find(|(_, definition, _)| definition.id == presentation.organization_id)
     });
-    let base = format!(
-        "/locations/settlement/{settlement_id}/party/{}",
-        character.id
-    );
+    let base = crate::location_urls::party_path(settlement_id, character.id);
     let summary_class = if selected.is_none() {
         "identity-control organization-identity-control is-empty"
     } else {
@@ -1031,8 +980,9 @@ mod tests {
         )
         .into_string();
         assert!(markup.contains("class=\"character-summary-icons\" role=\"list\""));
-        assert!(markup.contains("role=\"listitem\" tabindex=\"0\""));
-        assert!(markup.contains("aria-label=\"Sword —"));
+        assert!(markup.contains("role=\"listitem\""));
+        assert!(markup.contains("role=\"button\" aria-pressed=\"false\" tabindex=\"0\""));
+        assert!(markup.contains("aria-label=\"Sword\""));
         assert!(markup.contains("data-strategic-tooltip=\"Sword —"));
         assert!(!markup.contains("character-summary-tag"));
         assert!(!markup.contains(" title="));

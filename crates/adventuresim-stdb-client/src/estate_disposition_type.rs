@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::estate_disposition_status_type::EstateDispositionStatus;
 use super::estate_heir_kind_type::EstateHeirKind;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -13,9 +14,9 @@ pub struct EstateDisposition {
     pub decedent_id: u64,
     pub chosen_heir_id: u64,
     pub heir_kind: EstateHeirKind,
-    pub effective_minute: u64,
+    pub effective_minute: StrategicMinute,
     pub status: EstateDispositionStatus,
-    pub settled_minute: Option<u64>,
+    pub settled_minute: Option<StrategicMinute>,
 }
 
 impl __sdk::InModule for EstateDisposition {
@@ -29,9 +30,9 @@ pub struct EstateDispositionCols {
     pub decedent_id: __sdk::__query_builder::Col<EstateDisposition, u64>,
     pub chosen_heir_id: __sdk::__query_builder::Col<EstateDisposition, u64>,
     pub heir_kind: __sdk::__query_builder::Col<EstateDisposition, EstateHeirKind>,
-    pub effective_minute: __sdk::__query_builder::Col<EstateDisposition, u64>,
+    pub effective_minute: __sdk::__query_builder::Col<EstateDisposition, StrategicMinute>,
     pub status: __sdk::__query_builder::Col<EstateDisposition, EstateDispositionStatus>,
-    pub settled_minute: __sdk::__query_builder::Col<EstateDisposition, Option<u64>>,
+    pub settled_minute: __sdk::__query_builder::Col<EstateDisposition, Option<StrategicMinute>>,
 }
 
 impl __sdk::__query_builder::HasCols for EstateDisposition {

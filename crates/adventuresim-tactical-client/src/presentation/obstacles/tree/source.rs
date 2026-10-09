@@ -1,12 +1,15 @@
+const RNG_VISUAL_OBSTACLES_TREE_SOURCE_SPECIES: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("visual.obstacles.tree.source.species");
 use super::impostor::{BEECH_TREE_BAKE_STYLE, OAK_TREE_BAKE_STYLE, TreeBakeStyle};
 use super::{
     COMMON_BEECH_PARAMETERS, OAK_GNARLING_SHOWCASE, OakGnarlingParameters, TreeBranchSegment,
     TreeLeaf, procedural_oak_leaves, procedural_oak_skeleton_with_gnarling,
     procedural_tree_skeleton, procedural_woody_plant_leaves, procedural_woody_plant_skeleton,
 };
-use crate::presentation::{SceneEnvironment, unit_hash};
+use crate::presentation::SceneEnvironment;
 use bevy::prelude::*;
-use fabelgeist_determinism::splitmix64;
+use fabelgeist_determinism::Seed;
+use fabelgeist_determinism::StreamId;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum TreePresentationSpecies {
@@ -56,8 +59,13 @@ pub(crate) fn tree_species_for_site(
     let community_x = (position.x / 30.0).floor() as i32;
     let community_z = (position.z / 30.0).floor() as i32;
     let community = ((community_x as u32 as u64) << 32) | community_z as u32 as u64;
-    let hash = splitmix64(oak_site_key(environment) ^ community ^ 0xbeec_7a1d);
-    if unit_hash(hash) < probability {
+    let hash = StreamId::new("visual.obstacles.tree.source.community")
+        .seed(oak_site_key(environment).into(), &[community]);
+    if RNG_VISUAL_OBSTACLES_TREE_SOURCE_SPECIES
+        .rng(hash, &[])
+        .inclusive_unit_f32()
+        < probability
+    {
         TreePresentationSpecies::CommonBeech
     } else {
         TreePresentationSpecies::EnglishOak
@@ -70,21 +78,26 @@ pub(in crate::presentation) fn canopy_competition(canopy_bps: u16) -> f32 {
 }
 
 pub(super) fn oak_site_key(environment: &SceneEnvironment) -> u64 {
-    let location = u64::from(environment.latitude_microdegrees as u32) << 32
-        | u64::from(environment.longitude_microdegrees as u32);
-    let terrain = u64::from(environment.hilly_bps)
-        | u64::from(environment.wetland_bps) << 14
-        | u64::from(environment.cultivation_bps) << 28
-        | u64::from(environment.canopy_bps) << 42;
-    splitmix64(
-        location ^ terrain ^ (environment.absolute_elevation_metres as i64 as u64).rotate_left(9),
-    )
+    StreamId::new("visual.tree.site")
+        .seed(
+            0.into(),
+            &[
+                environment.latitude_microdegrees.get() as u32 as u64,
+                environment.longitude_microdegrees.get() as u32 as u64,
+                u64::from(environment.hilly_bps),
+                u64::from(environment.wetland_bps),
+                u64::from(environment.cultivation_bps),
+                u64::from(environment.canopy_bps),
+                environment.absolute_elevation_metres.get() as i64 as u64,
+            ],
+        )
+        .to_u64()
 }
 
 pub(super) fn oak_gnarling_for_site(
     mut recipe: OakGnarlingParameters,
     environment: &SceneEnvironment,
-    tree_seed: u64,
+    tree_seed: Seed,
 ) -> OakGnarlingParameters {
     let canopy = crate::presentation::procedural::bps(environment.canopy_bps);
     let open_exposure = 1.0 - canopy;
@@ -92,15 +105,23 @@ pub(super) fn oak_gnarling_for_site(
     let wetland = crate::presentation::procedural::bps(environment.wetland_bps);
     let cultivation = crate::presentation::procedural::bps(environment.cultivation_bps);
     let elevation =
-        ((f32::from(environment.absolute_elevation_metres) - 40.0) / 900.0).clamp(0.0, 1.0);
-    let susceptibility = 0.72 + unit_hash(splitmix64(tree_seed ^ 0x5355_5343)) * 0.28;
+        ((f32::from(environment.absolute_elevation_metres.get()) - 40.0) / 900.0).clamp(0.0, 1.0);
+    let susceptibility = 0.72
+        + StreamId::new("visual.obstacles.tree.source.susceptibility")
+            .rng(tree_seed, &[])
+            .inclusive_unit_f32()
+            * 0.28;
     let wind_exposure =
         (open_exposure * 0.46 + slope * 0.34 + elevation * 0.2).clamp(0.0, 1.0) * susceptibility;
-    let age_and_wounds = unit_hash(splitmix64(tree_seed ^ 0x4147_4557));
-    let location = u64::from(environment.latitude_microdegrees as u32) << 32
-        | u64::from(environment.longitude_microdegrees as u32);
-    recipe.stress_azimuth_radians =
-        unit_hash(splitmix64(location ^ 0x5749_4e44)) * core::f32::consts::TAU;
+    let age_and_wounds = StreamId::new("visual.obstacles.tree.source.age-wounds")
+        .rng(tree_seed, &[])
+        .inclusive_unit_f32();
+    let location = u64::from(environment.latitude_microdegrees.get() as u32) << 32
+        | u64::from(environment.longitude_microdegrees.get() as u32);
+    recipe.stress_azimuth_radians = StreamId::new("visual.obstacles.tree.source.wind-azimuth")
+        .rng(location.into(), &[])
+        .inclusive_unit_f32()
+        * core::f32::consts::TAU;
     let add = |value: f32, stress: f32| (value + stress).clamp(0.0, 1.0);
     recipe.root_spread = add(
         recipe.root_spread,
@@ -143,7 +164,7 @@ pub(super) fn oak_gnarling_for_site(
 }
 
 pub(super) fn vista_tree_source(
-    variant_seed: u64,
+    variant_seed: Seed,
     competition: f32,
     species: TreePresentationSpecies,
 ) -> (Vec<TreeBranchSegment>, Vec<TreeLeaf>) {
@@ -169,7 +190,7 @@ pub(super) fn vista_tree_source(
 
 pub(super) fn playable_tree_source(
     species: TreePresentationSpecies,
-    variant_seed: u64,
+    variant_seed: Seed,
     variant_index: usize,
     competition: f32,
     environment: &SceneEnvironment,

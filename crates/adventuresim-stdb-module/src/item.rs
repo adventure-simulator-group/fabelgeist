@@ -1,6 +1,11 @@
+#[cfg(feature = "authority-tests")]
+#[path = "item/authority_tests.rs"]
+mod authority_tests;
+
 use crate::{
     inventory_amount::inventory_item_amount, repair::item_condition, strategic::settlement,
 };
+pub use adventuresim_core::item_classification::CatalogItemKind;
 use adventuresim_core::{
     combat_style::MeleeAttackStyle,
     equipment::WeaponSkillDistribution,
@@ -47,40 +52,9 @@ pub struct InventoryItem {
     pub character_id: u64,
     #[index(btree)]
     pub item_id: String,
+    /// Count of whole stack units; measured or non-fungible rows always use one.
+    /// Their remaining material belongs to the amount or food-lot authority.
     pub quantity: u32,
-}
-
-#[derive(SpacetimeType, Default, Clone, Copy, Debug, PartialEq)]
-pub enum PersistedItemKind {
-    #[default]
-    Simple,
-    Weapon,
-    Armor,
-    Shield,
-    Clothing,
-    Container,
-    Currency,
-    Ingredient,
-    Medication,
-    Food,
-}
-
-pub(crate) const fn economy_catalog_kind(
-    kind: PersistedItemKind,
-) -> adventuresim_core::settlement_economy::CatalogKind {
-    use adventuresim_core::settlement_economy::CatalogKind as C;
-    match kind {
-        PersistedItemKind::Simple => C::Simple,
-        PersistedItemKind::Weapon => C::Weapon,
-        PersistedItemKind::Armor => C::Armor,
-        PersistedItemKind::Shield => C::Shield,
-        PersistedItemKind::Clothing => C::Clothing,
-        PersistedItemKind::Container => C::Simple,
-        PersistedItemKind::Currency => C::Currency,
-        PersistedItemKind::Ingredient => C::Ingredient,
-        PersistedItemKind::Medication => C::Medication,
-        PersistedItemKind::Food => C::Food,
-    }
 }
 
 #[derive(SpacetimeType, Clone, Debug, PartialEq)]
@@ -110,7 +84,7 @@ pub struct Item {
     /// Exterior displacement for generic inventory containment.
     pub exterior_volume_ml: u32,
     pub slot: Slot,
-    pub kind: PersistedItemKind,
+    pub kind: CatalogItemKind,
     pub equipment_placements: Vec<PersistedEquipmentPlacement>,
     pub attachment_tags: Vec<String>,
     pub attachment_points: Vec<PersistedEquipmentAttachmentPoint>,
@@ -206,25 +180,25 @@ fn project_definition(definition: &adventuresim_core::item_catalog::ItemDefiniti
         }
     }
     match &definition.kind {
-        K::Simple => item.kind = PersistedItemKind::Simple,
+        K::Simple => item.kind = CatalogItemKind::Simple,
         K::Container {
             slot: authored_slot,
         } => {
-            item.kind = PersistedItemKind::Container;
+            item.kind = CatalogItemKind::Container;
             item.slot = *authored_slot;
         }
-        K::Currency => item.kind = PersistedItemKind::Currency,
-        K::Ingredient => item.kind = PersistedItemKind::Ingredient,
-        K::Medication => item.kind = PersistedItemKind::Medication,
+        K::Currency => item.kind = CatalogItemKind::Currency,
+        K::Ingredient => item.kind = CatalogItemKind::Ingredient,
+        K::Medication => item.kind = CatalogItemKind::Medication,
         K::Clothing => {
-            item.kind = PersistedItemKind::Clothing;
+            item.kind = CatalogItemKind::Clothing;
         }
-        K::Food => item.kind = PersistedItemKind::Food,
+        K::Food => item.kind = CatalogItemKind::Food,
         K::Shield {
             slot: authored_slot,
             block,
         } => {
-            item.kind = PersistedItemKind::Shield;
+            item.kind = CatalogItemKind::Shield;
             item.slot = *authored_slot;
             item.block = *block;
         }
@@ -236,7 +210,7 @@ fn project_definition(definition: &adventuresim_core::item_catalog::ItemDefiniti
             flexibility,
             range_of_motion,
         } => {
-            item.kind = PersistedItemKind::Armor;
+            item.kind = CatalogItemKind::Armor;
             item.slot = *authored_slot;
             item.coverage = *coverage;
             item.resistance = *resistance;
@@ -257,7 +231,7 @@ fn project_definition(definition: &adventuresim_core::item_catalog::ItemDefiniti
             ranged,
             skills,
         } => {
-            item.kind = PersistedItemKind::Weapon;
+            item.kind = CatalogItemKind::Weapon;
             item.slot = *authored_slot;
             item.preferred_melee_style = *preferred_attack;
             item.reach = *reach_m;
@@ -346,11 +320,11 @@ pub(crate) fn upsert_surgery_items(ctx: &ReducerContext) {
 }
 
 pub(crate) fn inventory_food_definition(
-    kind: Option<PersistedItemKind>,
+    kind: Option<CatalogItemKind>,
     item_id: &str,
 ) -> Result<Option<&'static adventuresim_core::food::FoodDefinition>, String> {
     let definition = adventuresim_core::food::definition(item_id);
-    if kind == Some(PersistedItemKind::Food) || definition.is_some() {
+    if kind == Some(CatalogItemKind::Food) || definition.is_some() {
         definition
             .map(Some)
             .ok_or_else(|| format!("Food definition not found for {item_id}"))
@@ -367,8 +341,8 @@ pub(crate) fn requires_stable_object(
     food || measured
         || definition.is_some_and(|definition| {
             definition.repairable
-                || definition.kind == PersistedItemKind::Medication
-                || (definition.kind == PersistedItemKind::Weapon && definition.melee)
+                || definition.kind == CatalogItemKind::Medication
+                || (definition.kind == CatalogItemKind::Weapon && definition.melee)
                 || definition.container_capacity_ml > 0
                 || !definition.attachment_points.is_empty()
         })
@@ -468,7 +442,7 @@ pub fn is_currency(ctx: &ReducerContext, item_id: &str) -> bool {
         .item()
         .id()
         .find(item_id.to_owned())
-        .is_some_and(|item| item.kind == PersistedItemKind::Currency)
+        .is_some_and(|item| item.kind == CatalogItemKind::Currency)
 }
 
 pub fn personal_currency_total(ctx: &ReducerContext, character_id: u64) -> u64 {
@@ -656,7 +630,7 @@ pub fn change_inventory_item(
         .item()
         .id()
         .find(item_id.to_owned())
-        .is_some_and(|definition| definition.kind == PersistedItemKind::Food)
+        .is_some_and(|definition| definition.kind == CatalogItemKind::Food)
         || adventuresim_core::food::definition(item_id).is_some();
     let measured = crate::inventory_amount::is_measured_item(ctx, item_id);
     if measured {
@@ -752,13 +726,13 @@ mod tests {
 
     #[test]
     fn food_inventory_is_prevalidated_before_rows_can_be_inserted() {
-        let cooked = inventory_food_definition(Some(PersistedItemKind::Food), "cooked_meal")
+        let cooked = inventory_food_definition(Some(CatalogItemKind::Food), "cooked_meal")
             .unwrap()
             .expect("cooked meal definition");
         assert!(cooked.kcal_per_unit > 0.0);
-        assert!(inventory_food_definition(Some(PersistedItemKind::Food), "missing_food").is_err());
+        assert!(inventory_food_definition(Some(CatalogItemKind::Food), "missing_food").is_err());
         assert_eq!(
-            inventory_food_definition(Some(PersistedItemKind::Simple), "torch").unwrap(),
+            inventory_food_definition(Some(CatalogItemKind::Simple), "torch").unwrap(),
             None
         );
         let source = crate::production_source(include_str!("item.rs"));
@@ -797,7 +771,7 @@ mod tests {
                     .next()
             })
             .expect("stable-object policy");
-        assert!(stable_object_policy.contains("definition.kind == PersistedItemKind::Medication"));
+        assert!(stable_object_policy.contains("definition.kind == CatalogItemKind::Medication"));
         assert!(checked.contains("let count = if individual { quantity } else { 1 }"));
         assert!(checked.contains("quantity: if individual { 1 } else { quantity }"));
         assert_eq!(
@@ -886,14 +860,12 @@ mod tests {
             .filter(|item| {
                 matches!(
                     item.kind,
-                    PersistedItemKind::Weapon
-                        | PersistedItemKind::Armor
-                        | PersistedItemKind::Shield
+                    CatalogItemKind::Weapon | CatalogItemKind::Armor | CatalogItemKind::Shield
                 )
             })
             .collect();
         assert!(projected.iter().any(|definition| {
-            definition.kind == PersistedItemKind::Armor && definition.slot == Slot::Head
+            definition.kind == CatalogItemKind::Armor && definition.slot == Slot::Head
         }));
         for definition in projected {
             assert!(definition.weight > 0.0, "{} has no weight", definition.id);
@@ -909,13 +881,13 @@ mod tests {
             );
 
             match definition.kind {
-                PersistedItemKind::Weapon => {
+                CatalogItemKind::Weapon => {
                     assert_eq!(definition.slot, Slot::AnyHolding);
                     assert!(definition.precision > 0.0);
                     assert!(definition.reach > 0.0);
                     assert_ne!(definition.melee, definition.ranged);
                 }
-                PersistedItemKind::Armor => {
+                CatalogItemKind::Armor => {
                     assert!(matches!(
                         definition.slot,
                         Slot::AnyArm | Slot::AnyLeg | Slot::Chest | Slot::Stomach | Slot::Head
@@ -926,7 +898,7 @@ mod tests {
                     assert!((0.0..=1.0).contains(&definition.flexibility));
                     assert!((0.0..=1.0).contains(&definition.range_of_motion));
                 }
-                PersistedItemKind::Shield => {
+                CatalogItemKind::Shield => {
                     assert_eq!(definition.slot, Slot::AnyHolding);
                     assert!((1.0..=5.0).contains(&definition.block));
                 }
@@ -939,7 +911,7 @@ mod tests {
     fn projection_preserves_container_and_authored_repairability() {
         let waterskin =
             project_definition(adventuresim_core::item_catalog::definition("waterskin").unwrap());
-        assert_eq!(waterskin.kind, PersistedItemKind::Container);
+        assert_eq!(waterskin.kind, CatalogItemKind::Container);
         assert_eq!(waterskin.slot, Slot::None);
         assert!(!waterskin.repairable);
 
@@ -954,7 +926,7 @@ mod tests {
         let book = project_definition(
             adventuresim_core::item_catalog::definition("human_anatomy").unwrap(),
         );
-        assert_eq!(book.kind, PersistedItemKind::Simple);
+        assert_eq!(book.kind, CatalogItemKind::Simple);
         assert_eq!(book.quality, 4);
         assert!(!book.repairable);
     }

@@ -32,7 +32,7 @@ fn configure_tactical_enemy_fixture(
         let loadout = enemy
             .loadout
             .iter()
-            .map(|item| (item.item_id.as_str(), item.slot.into()))
+            .map(|item| (item.item_id.as_str(), item.slot))
             .collect::<Vec<_>>();
         crate::character::replace_development_loadout(ctx, character_id, &loadout)?;
         if enemy.add_basic_clothing {

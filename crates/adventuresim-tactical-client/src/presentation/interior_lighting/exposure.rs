@@ -3,11 +3,14 @@ use super::{InteriorField, daylight_response};
 use crate::presentation::{PresentedCelestialLighting, TacticalGameplayCamera};
 use bevy::{camera::Exposure, prelude::*};
 
-const MAX_INTERIOR_EXPOSURE_STOPS: f32 = 2.0;
+const MAX_INTERIOR_EXPOSURE_STOPS: f32 = 6.0;
 const DARK_ADAPTATION_SECONDS: f32 = 1.5;
 const LIGHT_ADAPTATION_SECONDS: f32 = 0.35;
-const WELL_LIT_SAMPLE: f32 = 0.4;
 const EXPOSURE_SETTLED_TOLERANCE_STOPS: f32 = 0.005;
+
+/// A composed view uses the settled tactical exposure at its own position.
+#[derive(Component)]
+pub(crate) struct FixedViewExposure;
 
 #[derive(Resource, Default)]
 pub(crate) struct InteriorExposure {
@@ -57,26 +60,55 @@ pub(super) fn adapt_exposure(
         state.compensation = 0.0;
         state.scene = Some(snapshot.scene);
     }
-    let mut target: f32 = 0.0;
-    for (field, building_transform) in &fields {
-        let point = building_transform
-            .affine()
-            .inverse()
-            .transform_point3(transform.translation());
-        if let Some(sample) = field.sample(point) {
-            let brightness =
-                (sample.positive.truncate() + sample.negative.truncate()).element_sum() / 6.0;
-            let shelter = 1.0 - (brightness / WELL_LIT_SAMPLE).clamp(0.0, 1.0);
-            target =
-                target.max(MAX_INTERIOR_EXPOSURE_STOPS * shelter * daylight_response(&celestial).w);
-        }
-    }
+    let target = compensation_at(transform.translation(), &fields, &celestial);
     state.compensation = approach(state.compensation, target, time.delta_secs());
     state.settled = state.compensation == target;
     exposure.ev100 = snapshot.exposure_ev100
         - state
             .compensation
             .min(MAX_INTERIOR_EXPOSURE_STOPS * daylight_response(&celestial).w);
+}
+
+fn compensation_at(
+    position: Vec3,
+    fields: &Query<(&InteriorField, &GlobalTransform)>,
+    celestial: &PresentedCelestialLighting,
+) -> f32 {
+    let mut target: f32 = 0.0;
+    for (field, building_transform) in fields {
+        let point = building_transform
+            .affine()
+            .inverse()
+            .transform_point3(position);
+        if let Some(sample) = field.sample(point) {
+            let brightness =
+                (sample.positive.truncate() + sample.negative.truncate()).element_sum() / 6.0;
+            // Match the daylight field's irradiance to the outdoor sunlight
+            // exposure. Stops are logarithmic; a linear two-stop cap leaves
+            // physically shaded rooms almost black even when their field is lit.
+            let reference =
+                bevy::light::light_consts::lux::RAW_SUNLIGHT / super::DAYLIGHT_IRRADIANCE;
+            let stops = (reference / brightness.max(f32::MIN_POSITIVE))
+                .log2()
+                .clamp(0.0, MAX_INTERIOR_EXPOSURE_STOPS);
+            target = target.max(stops * daylight_response(celestial).w);
+        }
+    }
+    target
+}
+
+pub(super) fn expose_fixed_views(
+    mut cameras: Query<(&GlobalTransform, &mut Exposure), With<FixedViewExposure>>,
+    fields: Query<(&InteriorField, &GlobalTransform)>,
+    celestial: Res<PresentedCelestialLighting>,
+) {
+    let Some(snapshot) = &celestial.snapshot else {
+        return;
+    };
+    for (transform, mut exposure) in &mut cameras {
+        exposure.ev100 =
+            snapshot.exposure_ev100 - compensation_at(transform.translation(), &fields, &celestial);
+    }
 }
 
 #[cfg(test)]

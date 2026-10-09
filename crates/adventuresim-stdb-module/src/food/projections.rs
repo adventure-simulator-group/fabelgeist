@@ -299,7 +299,7 @@ pub fn backend_ingredient_preparation_plans(
         .filter(0u64..)
         .filter(|actor| {
             actor.alive
-                && !actor.in_server
+                && !actor.has_tactical_server_assignment()
                 && actor.current_settlement_id.is_some()
                 && !actor.party_id.as_deref().is_some_and(|party_id| {
                     ctx.db
@@ -320,7 +320,7 @@ pub fn backend_ingredient_preparation_plans(
                                     .party_id()
                                     .filter(&party_id.to_string())
                                     .any(|challenge| {
-                                        challenge.open
+                                        challenge.is_open()
                                             && crate::strategic::party_at_bound_road_challenge_view(
                                                 ctx, &party, &challenge,
                                             )
@@ -331,13 +331,7 @@ pub fn backend_ingredient_preparation_plans(
         .collect::<Vec<_>>();
     let mut plans = Vec::new();
     for actor in actors {
-        let Some(_) = ctx
-            .db
-            .character_time()
-            .character_id()
-            .find(actor.id)
-            .map(|time| time.minutes)
-        else {
+        let Some(_) = ctx.db.character_time().character_id().find(actor.id) else {
             continue;
         };
         let Some(place) = actor.current_settlement_id.as_deref().and_then(|id| {
@@ -401,7 +395,7 @@ pub fn backend_ingredient_preparation_plans(
                         (
                             IngredientPreparationAction::Cut,
                             Skill::Knife,
-                            herbalism::PhysicalPreparation::Cut,
+                            IngredientPreparationAction::Cut,
                             "Cut",
                             tool_binding,
                         )
@@ -409,7 +403,7 @@ pub fn backend_ingredient_preparation_plans(
                     Some((
                         IngredientPreparationAction::Grind,
                         Skill::Bludgeon,
-                        herbalism::PhysicalPreparation::Ground,
+                        IngredientPreparationAction::Grind,
                         "Ground",
                         grinding_tool.clone(),
                     )),
@@ -419,7 +413,7 @@ pub fn backend_ingredient_preparation_plans(
                     Some((
                         IngredientPreparationAction::Grind,
                         Skill::Bludgeon,
-                        herbalism::PhysicalPreparation::Ground,
+                        IngredientPreparationAction::Grind,
                         "Ground",
                         grinding_tool.clone(),
                     )),
@@ -516,7 +510,7 @@ pub struct BackendFireplaceDish {
     pub fireplace_fixture_id: String,
     pub contributor_name: String,
     pub method: CookingMethod,
-    pub started_at_minute: u64,
+    pub started_at_minute: StrategicMinute,
     pub target_minutes: u32,
     pub display_name: String,
 }

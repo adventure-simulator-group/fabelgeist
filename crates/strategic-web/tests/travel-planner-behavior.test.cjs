@@ -159,7 +159,7 @@ test("calendar labels preserve the canonical Monday-first week and 365-day year"
 test("planner source covers midnight chronology, hidden fatigue detail, config bounds, and live remount", () => {
   const source = fs.readFileSync(plannerPath, "utf8");
   const template = readRustModuleSource(path.join(root, "src", "templates", "settlement", "mod.rs"));
-  assert.match(source, /Math\.ceil\(departure \/ DAY\) \* DAY/);
+  assert.match(source, /calendar\.nextMidnightAtOrAfter\(departure\)/);
   assert.match(source, /travel-midnight-tick/);
   assert.match(source, /travel-calendar-label/);
   assert.match(source, /Average fatigue ·/);

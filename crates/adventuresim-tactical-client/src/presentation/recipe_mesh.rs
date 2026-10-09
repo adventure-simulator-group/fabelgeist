@@ -37,7 +37,7 @@ pub(super) fn metric_cuboid(size: Vec3) -> Mesh {
     mesh
 }
 
-pub(super) fn recipe_mesh(batch: &LodMesh, local_origin: Vec3) -> Mesh {
+pub(crate) fn recipe_mesh(batch: &LodMesh, local_origin: Vec3) -> Mesh {
     let mut mesh = Mesh::new(
         PrimitiveTopology::TriangleList,
         RenderAssetUsages::RENDER_WORLD | RenderAssetUsages::MAIN_WORLD,

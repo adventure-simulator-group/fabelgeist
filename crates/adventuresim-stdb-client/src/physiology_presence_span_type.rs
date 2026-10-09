@@ -4,14 +4,16 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct PhysiologyPresenceSpan {
     pub id: u64,
     pub low_id: u64,
     pub high_id: u64,
-    pub started_at: u64,
-    pub ended_at: Option<u64>,
+    pub started_at: StrategicMinute,
+    pub ended_at: Option<StrategicMinute>,
     pub low_observer_band: u8,
     pub high_observer_band: u8,
 }
@@ -27,8 +29,8 @@ pub struct PhysiologyPresenceSpanCols {
     pub id: __sdk::__query_builder::Col<PhysiologyPresenceSpan, u64>,
     pub low_id: __sdk::__query_builder::Col<PhysiologyPresenceSpan, u64>,
     pub high_id: __sdk::__query_builder::Col<PhysiologyPresenceSpan, u64>,
-    pub started_at: __sdk::__query_builder::Col<PhysiologyPresenceSpan, u64>,
-    pub ended_at: __sdk::__query_builder::Col<PhysiologyPresenceSpan, Option<u64>>,
+    pub started_at: __sdk::__query_builder::Col<PhysiologyPresenceSpan, StrategicMinute>,
+    pub ended_at: __sdk::__query_builder::Col<PhysiologyPresenceSpan, Option<StrategicMinute>>,
     pub low_observer_band: __sdk::__query_builder::Col<PhysiologyPresenceSpan, u8>,
     pub high_observer_band: __sdk::__query_builder::Col<PhysiologyPresenceSpan, u8>,
 }

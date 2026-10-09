@@ -3,7 +3,7 @@ use super::*;
 #[test]
 fn entire_catalog_obeys_triangle_budgets_at_every_tier_and_seed() {
     for species in PlantSpecies::ALL {
-        for seed in [0, 42, 99, u64::MAX] {
+        for seed in [0, 42, 99, u64::MAX].map(fabelgeist_determinism::Seed::from_u64) {
             let mut previous = usize::MAX;
             for lod in PlantLod::ALL {
                 let mesh = species.generate(seed, lod).unwrap();
@@ -36,7 +36,9 @@ fn maximum_authored_organ_counts_are_aggregated_within_budget() {
         p.leaflets = 7;
         p.stamens = 48;
         for lod in PlantLod::ALL {
-            let mesh = p.generate(42, lod).unwrap();
+            let mesh = p
+                .generate(fabelgeist_determinism::Seed::from_u64(42), lod)
+                .unwrap();
             assert!(
                 mesh.indices.len() / 3 <= lod.triangle_budget(),
                 "{species:?} {lod:?}"
@@ -53,7 +55,14 @@ fn maximum_authored_organ_counts_are_aggregated_within_budget() {
         p.ornament_count = 220;
         p.fold_count = 120;
         for lod in PlantLod::ALL {
-            assert!(p.generate(42, lod).unwrap().indices.len() / 3 <= lod.triangle_budget());
+            assert!(
+                p.generate(fabelgeist_determinism::Seed::from_u64(42), lod)
+                    .unwrap()
+                    .indices
+                    .len()
+                    / 3
+                    <= lod.triangle_budget()
+            );
         }
     }
 }

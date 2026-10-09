@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::witness_claim_resolution_type::WitnessClaimResolution;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct BackendDialogueWitnessClaim {
@@ -19,9 +21,7 @@ pub struct BackendDialogueWitnessClaim {
     pub bluff_response: Option<String>,
     pub assessment_direction: String,
     pub assessment_strength: f32,
-    pub resolved: bool,
-    pub outcome: String,
-    pub affinity_delta: f32,
+    pub resolution: Option<WitnessClaimResolution>,
 }
 
 impl __sdk::InModule for BackendDialogueWitnessClaim {
@@ -44,9 +44,8 @@ pub struct BackendDialogueWitnessClaimCols {
     pub bluff_response: __sdk::__query_builder::Col<BackendDialogueWitnessClaim, Option<String>>,
     pub assessment_direction: __sdk::__query_builder::Col<BackendDialogueWitnessClaim, String>,
     pub assessment_strength: __sdk::__query_builder::Col<BackendDialogueWitnessClaim, f32>,
-    pub resolved: __sdk::__query_builder::Col<BackendDialogueWitnessClaim, bool>,
-    pub outcome: __sdk::__query_builder::Col<BackendDialogueWitnessClaim, String>,
-    pub affinity_delta: __sdk::__query_builder::Col<BackendDialogueWitnessClaim, f32>,
+    pub resolution:
+        __sdk::__query_builder::Col<BackendDialogueWitnessClaim, Option<WitnessClaimResolution>>,
 }
 
 impl __sdk::__query_builder::HasCols for BackendDialogueWitnessClaim {
@@ -77,9 +76,7 @@ impl __sdk::__query_builder::HasCols for BackendDialogueWitnessClaim {
                 table_name,
                 "assessment_strength",
             ),
-            resolved: __sdk::__query_builder::Col::new(table_name, "resolved"),
-            outcome: __sdk::__query_builder::Col::new(table_name, "outcome"),
-            affinity_delta: __sdk::__query_builder::Col::new(table_name, "affinity_delta"),
+            resolution: __sdk::__query_builder::Col::new(table_name, "resolution"),
         }
     }
 }

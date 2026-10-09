@@ -27,10 +27,10 @@ const CARBONATE_RESIDUAL_RELIEF_FRACTION: f32 = 0.05;
 pub(crate) fn patch(
     terrain: &SceneTerrain,
     recipe: TerrainLandformRecipe,
-) -> Result<SceneTerrainPatch, &'static str> {
-    let spacing = f32::from(recipe.lod.voxel_cm()) / 100.0;
-    let origin = Vec2::new(recipe.origin_cm[0] as f32, recipe.origin_cm[1] as f32) / 100.0;
-    let radius = f32::from(recipe.half_length_cm.max(recipe.half_width_cm)) / 100.0 + 2.0;
+) -> crate::volumetric_terrain::TerrainRecipeResult<SceneTerrainPatch> {
+    let spacing = f32::from(recipe.lod().voxel_cm()) / 100.0;
+    let origin = Vec2::new(recipe.origin_cm()[0] as f32, recipe.origin_cm()[1] as f32) / 100.0;
+    let radius = f32::from(recipe.half_length_cm().max(recipe.half_width_cm())) / 100.0 + 2.0;
     let radius = (radius / spacing).ceil() * spacing + spacing;
     let side = (radius * 2.0 / spacing).round() as usize + 1;
     let mut minimum = f32::INFINITY;
@@ -43,13 +43,13 @@ pub(crate) fn patch(
             maximum = maximum.max(height);
         }
     }
-    let relief = f32::from(recipe.relief_cm) / 100.0;
+    let relief = f32::from(recipe.relief_cm()) / 100.0;
     let bottom = ((minimum - relief - spacing * SAMPLE_MARGIN_CELLS) / spacing).floor() * spacing
         - spacing * 0.5;
     let top = maximum + spacing * SAMPLE_MARGIN_CELLS;
     let vertical = ((top - bottom) / spacing).ceil() as usize + 1;
     if side > MAX_GRID_SIDE || vertical > MAX_GRID_HEIGHT {
-        return Err("erosional patch voxel grid exceeds its bound");
+        return Err(crate::volumetric_terrain::TerrainRecipeError::ErosionVoxelGridBound);
     }
     marching_tetrahedra(
         [side, vertical, side],
@@ -82,18 +82,18 @@ fn field(terrain: &SceneTerrain, recipe: TerrainLandformRecipe, point: Vec3) -> 
     }
     let local = collar.local_coordinates(point.xz());
     let tangent = Vec2::new(
-        f32::from(recipe.tangent_permyriad[0]),
-        f32::from(recipe.tangent_permyriad[1]),
+        f32::from(recipe.tangent_permyriad()[0]),
+        f32::from(recipe.tangent_permyriad()[1]),
     )
     .normalize();
     let downhill = Vec2::new(-tangent.y, tangent.x);
-    let foot_distance = f32::from(recipe.half_width_cm - recipe.collar_cm) / 100.0;
+    let foot_distance = f32::from(recipe.half_width_cm() - recipe.collar_cm()) / 100.0;
     // Grade to the existing downhill foot. Subtracting relief from every local
     // height would create a closed trench when the collar returned uphill.
     let foot = terrain_height(terrain, point.xz() + downhill * (foot_distance - local.y));
     let relief = (height - foot)
         .max(0.001)
-        .min(f32::from(recipe.relief_cm) / 100.0);
+        .min(f32::from(recipe.relief_cm()) / 100.0);
     let depth_fraction = ((height - point.y) / relief).clamp(0.0, 1.0);
     // A thick upper ledge remains above a shallow weathering alcove. This is
     // variation within sandstone, not an invented sandstone/shale contact.
@@ -101,21 +101,21 @@ fn field(terrain: &SceneTerrain, recipe: TerrainLandformRecipe, point: Vec3) -> 
         * std::f32::consts::PI)
         .sin()
         .max(0.0);
-    let (front, debris_fraction) = match recipe.kind {
+    let (front, debris_fraction) = match recipe.kind() {
         TerrainLandformKind::SandstoneAlcove => (
             -SANDSTONE_RECESS_METRES.min(relief * 0.35) * recess,
             TALUS_RELIEF_FRACTION,
         ),
         TerrainLandformKind::CarbonateDissolution => (
-            carbonate::front(local.x, depth_fraction, relief, recipe.seed),
+            carbonate::front(local.x, depth_fraction, relief, recipe.seed()),
             CARBONATE_RESIDUAL_RELIEF_FRACTION,
         ),
         TerrainLandformKind::GraniteJointRockfall => (
-            granite::front(local.x, depth_fraction, relief, recipe.seed),
+            granite::front(local.x, depth_fraction, relief, recipe.seed()),
             TALUS_RELIEF_FRACTION,
         ),
         TerrainLandformKind::BasaltCoolingColumns => {
-            (basalt::front(local.x, recipe.seed), TALUS_RELIEF_FRACTION)
+            (basalt::front(local.x, recipe.seed()), TALUS_RELIEF_FRACTION)
         }
         TerrainLandformKind::CohesiveSlumpHeadscarp => {
             (slump::front(local.x, depth_fraction, relief), 0.0)
@@ -125,7 +125,7 @@ fn field(terrain: &SceneTerrain, recipe: TerrainLandformRecipe, point: Vec3) -> 
     let talus = (1.0 - ((local.y - TALUS_CENTRE_METRES) / TALUS_HALF_WIDTH_METRES).abs()).max(0.0)
         * relief
         * debris_fraction;
-    let retained_material = match recipe.kind {
+    let retained_material = match recipe.kind() {
         TerrainLandformKind::GraniteJointRockfall => granite::fragments(local.x, local.y, relief),
         TerrainLandformKind::CohesiveSlumpHeadscarp => slump::bench(local.x, local.y),
         _ => 0.0,
@@ -145,15 +145,16 @@ mod tests {
     use std::collections::HashMap;
 
     fn recipe() -> TerrainLandformRecipe {
-        TerrainLandformRecipe {
+        TerrainLandformRecipe::from_quantized(crate::volumetric_terrain::QuantizedLandformRecipe {
             kind: TerrainLandformKind::SandstoneAlcove,
             surface: TerrainSurfaceRecipe::new(
                 SurfaceLithology::Sedimentary(SedimentaryRock::Sandstone),
                 TerrainSurfaceSource::AuthoredFixture,
-                47115,
+                47115.into(),
                 [10000, 0],
-            ),
-            seed: 47115,
+            )
+            .unwrap(),
+            seed: 47115.into(),
             origin_cm: [0, 0],
             tangent_permyriad: [10000, 0],
             relief_cm: 600,
@@ -161,12 +162,13 @@ mod tests {
             half_width_cm: 1000,
             collar_cm: 250,
             lod: TerrainLandformLod::Detail,
-        }
+        })
+        .unwrap()
     }
 
     #[test]
     fn sandstone_has_a_supported_roof_and_multiple_vertical_crossings() {
-        let terrain = SceneTerrain::new(60, 60, 1.0, |p| -(p.y - 30.0) * 0.4);
+        let terrain = SceneTerrain::new(60, 60, 1.0, |p| -(p.y - 30.0) * 0.4).unwrap();
         let recipe = recipe();
         let collar = recipe.transition_collar();
         let centre = (0..100)
@@ -192,7 +194,7 @@ mod tests {
 
     #[test]
     fn erosion_foot_rejoins_downhill_without_an_exit_lip() {
-        let terrain = SceneTerrain::new(60, 60, 1.0, |p| -(p.y - 30.0) * 0.4);
+        let terrain = SceneTerrain::new(60, 60, 1.0, |p| -(p.y - 30.0) * 0.4).unwrap();
         let recipe = recipe();
         // Beyond the talus apron the surface drains to the uncut hillside.
         let surface = |z| {
@@ -210,14 +212,13 @@ mod tests {
 
     #[test]
     fn collar_cannot_be_longer_than_the_landform() {
-        let terrain = SceneTerrain::new(60, 60, 1.0, |_| 0.0);
-        let invalid = TerrainLandformRecipe {
+        let invalid = crate::volumetric_terrain::QuantizedLandformRecipe {
             half_length_cm: 400,
             collar_cm: 500,
             half_width_cm: 2000,
-            ..recipe()
+            ..crate::volumetric_terrain::QuantizedLandformRecipe::from(recipe())
         };
-        assert!(invalid.validate(&terrain).is_err());
+        assert!(TerrainLandformRecipe::from_quantized(invalid).is_err());
     }
 
     #[test]
@@ -232,11 +233,14 @@ mod tests {
 
     #[test]
     fn carbonate_has_separate_open_hollows_with_solid_bridges() {
-        let terrain = SceneTerrain::new(60, 60, 1.0, |p| -(p.y - 30.0) * 0.4);
-        let recipe = TerrainLandformRecipe {
-            kind: TerrainLandformKind::CarbonateDissolution,
-            ..recipe()
-        };
+        let terrain = SceneTerrain::new(60, 60, 1.0, |p| -(p.y - 30.0) * 0.4).unwrap();
+        let recipe = TerrainLandformRecipe::from_quantized(
+            crate::volumetric_terrain::QuantizedLandformRecipe {
+                kind: TerrainLandformKind::CarbonateDissolution,
+                ..crate::volumetric_terrain::QuantizedLandformRecipe::from(recipe())
+            },
+        )
+        .unwrap();
         let max_crossings = |x| {
             (0..80)
                 .map(|step| {
@@ -288,12 +292,16 @@ mod tests {
     }
 
     fn assert_sound_mesh_lod(kind: TerrainLandformKind, lod: TerrainLandformLod) {
-        let terrain = SceneTerrain::new(60, 60, 1.0, |p| -(p.y - 30.0) * 0.4 + (p.x - 30.0) * 0.03);
-        let recipe = TerrainLandformRecipe {
-            kind,
-            lod,
-            ..recipe()
-        };
+        let terrain =
+            SceneTerrain::new(60, 60, 1.0, |p| -(p.y - 30.0) * 0.4 + (p.x - 30.0) * 0.03).unwrap();
+        let recipe = TerrainLandformRecipe::from_quantized(
+            crate::volumetric_terrain::QuantizedLandformRecipe {
+                kind,
+                lod,
+                ..crate::volumetric_terrain::QuantizedLandformRecipe::from(recipe())
+            },
+        )
+        .unwrap();
         let generate = |threads| {
             rayon::ThreadPoolBuilder::new()
                 .num_threads(threads)
@@ -306,8 +314,8 @@ mod tests {
         let mesh = generate(1);
         assert_eq!(mesh, generate(4));
         let mut edges = HashMap::<(u32, u32), (usize, i32)>::new();
-        for triangle in mesh.indices.as_chunks::<3>().0 {
-            let [a, b, c] = triangle.map(|i| Vec3::from_array(mesh.positions[i as usize]));
+        for triangle in mesh.indices().as_chunks::<3>().0 {
+            let [a, b, c] = triangle.map(|i| Vec3::from_array(mesh.positions()[i as usize]));
             assert!(a.is_finite() && b.is_finite() && c.is_finite());
             assert!((b - a).cross(c - a).length_squared() > 0.0);
             for (a, b) in [
@@ -321,8 +329,8 @@ mod tests {
             }
         }
         for ((a, b), (count, direction_sum)) in edges {
-            let midpoint = (Vec3::from_array(mesh.positions[a as usize])
-                + Vec3::from_array(mesh.positions[b as usize]))
+            let midpoint = (Vec3::from_array(mesh.positions()[a as usize])
+                + Vec3::from_array(mesh.positions()[b as usize]))
                 * 0.5;
             assert!(count <= 2);
             if count == 2 {
@@ -331,11 +339,15 @@ mod tests {
                     "adjacent faces must wind opposite ways on their shared edge"
                 );
             }
-            if recipe.transition_collar().contains(midpoint.xz()) {
+            if crate::scene_coordinates::ScenePlanPoint::try_from(midpoint.xz())
+                .is_ok_and(|point| recipe.transition_collar().contains(point))
+            {
                 assert_eq!(
-                    count, 2,
+                    count,
+                    2,
                     "interior edge {:?} -> {:?}",
-                    mesh.positions[a as usize], mesh.positions[b as usize]
+                    mesh.positions()[a as usize],
+                    mesh.positions()[b as usize]
                 );
             }
         }
@@ -344,12 +356,13 @@ mod tests {
             TerrainLandformKind::BasaltCoolingColumns | TerrainLandformKind::CohesiveSlumpHeadscarp
         ) {
             let vertical_area: f32 = mesh
-                .indices
+                .indices()
                 .as_chunks::<3>()
                 .0
                 .iter()
                 .map(|triangle| {
-                    let [a, b, c] = triangle.map(|i| Vec3::from_array(mesh.positions[i as usize]));
+                    let [a, b, c] =
+                        triangle.map(|i| Vec3::from_array(mesh.positions()[i as usize]));
                     let cross = (b - a).cross(c - a);
                     if cross.normalize().y.abs() < 0.025 {
                         cross.length() * 0.5
@@ -360,7 +373,7 @@ mod tests {
                 .sum();
             assert!(vertical_area > 5.0, "vertical area {vertical_area}");
         } else if kind != TerrainLandformKind::FaultScarp {
-            assert!(mesh.normals.iter().any(|normal| normal[1] < -0.2));
+            assert!(mesh.normals().iter().any(|normal| normal[1] < -0.2));
         }
         assert!(mesh.triangle_count() < 150000);
     }

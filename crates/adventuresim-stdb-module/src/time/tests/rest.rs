@@ -1,9 +1,15 @@
 #[test]
 fn settlement_arrival_only_catches_up_to_local_time_of_day() {
-    assert_eq!(settlement_arrival_downtime(600, 600), 0);
-    assert_eq!(settlement_arrival_downtime(600, 660), 60);
-    assert_eq!(settlement_arrival_downtime(1_380, 60), 120);
-    assert!(settlement_arrival_downtime(0, 1_439) < MINUTES_PER_DAY);
+    assert_eq!(StrategicMinute::new(600).minutes_until_time_of_day(600), Some(0));
+    assert_eq!(StrategicMinute::new(600).minutes_until_time_of_day(660), Some(60));
+    assert_eq!(StrategicMinute::new(1_380).minutes_until_time_of_day(60), Some(120));
+    assert!(
+        u64::from(
+            StrategicMinute::ZERO
+                .minutes_until_time_of_day(1_439)
+                .unwrap()
+        ) < MINUTES_PER_DAY
+    );
 }
 
 #[test]

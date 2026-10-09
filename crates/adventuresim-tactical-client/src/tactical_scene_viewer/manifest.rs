@@ -1,4 +1,5 @@
 use adventuresim_tactical_core::prelude::{SceneRepairReport, SceneSource, WeatherSnapshot};
+use fabelgeist_determinism::Seed;
 use serde::Serialize;
 
 #[cfg(test)]
@@ -123,7 +124,7 @@ pub(super) struct FoliageSummary {
 
 #[derive(Serialize)]
 pub(super) struct TreeBakeSummary {
-    pub(super) seed: u64,
+    pub(super) seed: Seed,
     pub(super) lod: u8,
     pub(super) bake_version: u32,
     pub(super) source_geometry_hash: String,
@@ -155,7 +156,7 @@ pub(super) struct RecursiveTreeLodSummary {
 #[derive(Serialize)]
 pub(super) struct VistaSummary {
     pub(super) supplied_lods: usize,
-    pub(super) presented_lods: Vec<u8>,
+    pub(super) presented_lods: Vec<adventuresim_tactical_core::scene_input::VistaLevelIndex>,
     pub(super) presented_chunks: usize,
     pub(super) diameter_metres: f32,
     pub(super) minimum_height_metres: f32,
@@ -192,8 +193,7 @@ pub(super) struct ValidationSummary {
     pub(super) forest_floor_scatter_present_when_trees: bool,
     pub(super) understory_present_when_expected: bool,
     pub(super) loose_stone_scatter_present_when_expected: bool,
-    pub(super) vista_has_three_lods: bool,
-    pub(super) vista_reaches_fifty_kilometres: bool,
+    pub(super) vista_matches_declared_rings: bool,
     pub(super) vista_has_no_colliders: bool,
     pub(super) precipitation_particles_present_when_expected: bool,
     pub(super) fixture_feature_expectation_met: bool,
@@ -207,7 +207,7 @@ pub(super) struct SceneCaptureManifest {
     pub(super) fixture: String,
     pub(super) source_input: String,
     pub(super) scene_digest: String,
-    pub(super) seed: u64,
+    pub(super) seed: Seed,
     pub(super) absolute_minute: u64,
     pub(super) canopy_bps: u16,
     pub(super) generation_version: u16,
@@ -504,8 +504,7 @@ pub(super) fn validation_passes(validation: &ValidationSummary) -> bool {
         && validation.forest_floor_scatter_present_when_trees
         && validation.understory_present_when_expected
         && validation.loose_stone_scatter_present_when_expected
-        && validation.vista_has_three_lods
-        && validation.vista_reaches_fifty_kilometres
+        && validation.vista_matches_declared_rings
         && validation.vista_has_no_colliders
         && validation.precipitation_particles_present_when_expected
         && validation.fixture_feature_expectation_met
@@ -572,8 +571,7 @@ mod tests {
             forest_floor_scatter_present_when_trees: true,
             understory_present_when_expected: true,
             loose_stone_scatter_present_when_expected: true,
-            vista_has_three_lods: true,
-            vista_reaches_fifty_kilometres: true,
+            vista_matches_declared_rings: true,
             vista_has_no_colliders: true,
             precipitation_particles_present_when_expected: true,
             fixture_feature_expectation_met: true,

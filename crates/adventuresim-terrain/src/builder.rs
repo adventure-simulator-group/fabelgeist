@@ -269,7 +269,7 @@ mod bounds_tests {
 
     #[test]
     fn only_chunks_intersecting_exact_bounds_are_emitted() {
-        let bounds = [8.965, 50.877, 11.110, 52.211];
+        let bounds = [8.965, 50.877, 11.200, 52.250];
         assert!(!chunk_intersects_bounds(
             50, 8, 3_600, 3_600, 0, 0, 256, 256, bounds
         ));

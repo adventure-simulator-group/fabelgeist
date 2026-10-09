@@ -23,6 +23,7 @@ fn settlement(id: &str, population: u32) -> SettlementSceneProfile {
         population_level: 1,
         population_estimate: population,
         economy: economy(population),
+        operators: Vec::new(),
     }
 }
 
@@ -30,7 +31,12 @@ fn layout(id: &str, population: u32) -> CitySceneLayout {
     place_settlement_buildings(&settlement(id, population), 50.0).unwrap()
 }
 
-fn ordered_centres(layout: &CitySceneLayout) -> Vec<(u64, bevy::math::Vec2)> {
+fn ordered_centres(
+    layout: &CitySceneLayout,
+) -> Vec<(
+    adventuresim_tactical_core::scene_input::SceneBuildingId,
+    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint,
+)> {
     let mut centres = layout
         .playable
         .iter()
@@ -57,12 +63,13 @@ fn layout_is_stable_and_population_increases_occupied_cells() {
     );
     assert!(town.playable.len() + town.distant.len() < city.playable.len() + city.distant.len());
     assert!(city.playable.iter().all(|building| {
-        building.centre_metres.abs().max_element() <= 50.0 && building.orientation.is_valid()
+        building.centre_metres.metres().abs().max_element() <= 50.0
+            && building.orientation.is_valid()
     }));
     assert!(
         city.distant
             .iter()
-            .all(|building| building.centre_metres.abs().max_element() > 50.0)
+            .all(|building| building.centre_metres.metres().abs().max_element() > 50.0)
     );
 }
 
@@ -81,12 +88,13 @@ fn missing_estimate_uses_the_shared_population_level_fallback() {
         population_level: 4,
         population_estimate: 0,
         economy: economy(6_500),
+        operators: Vec::new(),
     };
     let population = settlement.effective_population();
     let buildings = place_settlement_buildings(&settlement, 50.0).unwrap();
     let expected = CitySite::central_german_market_town()
         .generate(
-            settlement_seed(&settlement.id),
+            adventuresim_core::settlement_population::settlement_building_seed(&settlement.id),
             population,
             &settlement.economy,
         )
@@ -100,25 +108,31 @@ fn missing_estimate_uses_the_shared_population_level_fallback() {
 
 #[test]
 fn dense_city_layout_passes_tactical_pad_validation() {
-    let mut layout = place_settlement_buildings(&settlement("dense", 40_000), 50.0).unwrap();
-    // This fixture exercises the playable pads without a distant vista.
-    layout.compounds.retain(|compound| {
-        layout
-            .playable
-            .iter()
-            .any(|building| building.id == compound.front_building_id)
-    });
+    let layout = place_settlement_buildings(&settlement("dense", 40_000), 50.0).unwrap();
+    // Keep complete property metadata while exercising only playable pads.
     let mut input = TacticalSceneInput {
+        grounding: None,
+        properties: None,
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-        seed: 42,
+        seed: 42.into(),
         scene_key: "city".into(),
         source: SceneSource::SyntheticFixture("city".into()),
-        latitude_microdegrees: 53_500_000,
-        longitude_microdegrees: 10_000_000,
-        absolute_minute: 1,
-        lunar_phase_minute: 1,
-        absolute_elevation_metres: 0,
+        latitude_microdegrees: const {
+            match adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000) {
+                Some(value) => value,
+                None => panic!("invalid authored latitude"),
+            }
+        },
+        longitude_microdegrees: const {
+            match adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(10_000_000) {
+                Some(value) => value,
+                None => panic!("invalid authored longitude"),
+            }
+        },
+        absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(1),
+        lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(1),
+        absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(0).unwrap(),
         playable: TerrainSampleGrid {
             width: 101,
             depth: 101,
@@ -127,16 +141,40 @@ fn dense_city_layout_passes_tactical_pad_validation() {
             environment: vec![EnvironmentalSample::default(); 101 * 101],
         },
         landform: None,
-        streets: layout.streets,
-        yards: layout.yards,
-        parishes: layout.parishes,
-        compounds: layout.compounds,
-        gardens: layout.gardens,
-        buildings: layout.playable,
-        distant_buildings: Vec::new(),
-        vista: VistaSample::default(),
-        weather: adventuresim_core::weather::weather_at(42, 1, 53_500_000, 10_000_000, 0),
+        streets: layout.streets.clone(),
+        yards: layout.yards.clone(),
+        parishes: layout.parishes.clone(),
+        compounds: layout.compounds.clone(),
+        gardens: layout.gardens.clone(),
+        buildings: layout.playable.clone(),
+        distant_buildings: layout.distant.clone(),
+        establishments: Vec::new(),
+        vista: VistaSample {
+            lods: vec![VistaLod {
+                level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(1),
+                spacing_metres: 1_000.0,
+                width: 41,
+                depth: 41,
+                origin_east_metres: 0.0,
+                origin_north_metres: 0.0,
+                heights_metres: vec![0.0; 41 * 41],
+                environment: vec![EnvironmentalSample::default(); 41 * 41],
+            }],
+        },
+        weather: adventuresim_core::weather::weather_at(
+            fabelgeist_determinism::Seed::from_u64(42),
+            adventuresim_world_schema::calendar::StrategicMinute::new(1),
+            53_500_000,
+            10_000_000,
+            0,
+        ),
     };
+    input = input
+        .ground_generated_city(
+            &layout,
+            adventuresim_tactical_core::city_layout::CompoundGradingPolicy::bounded_settlement(),
+        )
+        .expect("complete flat city retains accepted property support");
     input.validate().unwrap();
     let generated = input.generate().unwrap();
     assert_eq!(generated.buildings.len(), input.buildings.len());
@@ -154,7 +192,9 @@ fn large_city_uses_valid_deterministic_recipes_and_preserves_all_plots() {
         buildings.playable.len() + buildings.distant.len(),
         CitySite::central_german_market_town()
             .generate(
-                settlement_seed("massive-city-3229"),
+                adventuresim_core::settlement_population::settlement_building_seed(
+                    "massive-city-3229",
+                ),
                 100_000,
                 &economy(100_000)
             )
@@ -177,7 +217,10 @@ fn large_city_uses_valid_deterministic_recipes_and_preserves_all_plots() {
 #[test]
 fn city_house_class_dimensions_match_generated_programmes() {
     for house_class in CityHouseClass::ALL {
-        let program = BuildingProgram::fixture(house_class.archetype(), 42);
+        let program = BuildingProgram::fixture(
+            house_class.archetype(),
+            fabelgeist_determinism::Seed::from_u64(42),
+        );
         let (width_cells, depth_cells) = program.footprint.dimensions();
         assert_eq!(
             bevy::math::Vec2::new(

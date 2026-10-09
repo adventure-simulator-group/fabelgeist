@@ -6,7 +6,7 @@ use adventuresim_building_generator::{
 use adventuresim_world_schema::settlement_buildings::{BuildingDistrict, ParishBuildingRole};
 use std::collections::BTreeMap;
 
-const SERVICE_SITING_DOMAIN: u64 = 0x7365_7276_6963_6573;
+const SERVICE_SITING_DOMAIN: StreamId = StreamId::new("city.service-siting");
 pub(super) const SERVICE_EDGE_CLEARANCE_METRES: f32 = PRIMARY_STREET_HALF_WIDTH_METRES + 0.5;
 const SERVICE_SPREAD_METRES: f32 = 80.0;
 const REFERENCE_CITY_POPULATION: f32 = 40_000.0;
@@ -33,7 +33,7 @@ impl CityBuildingLot {
 }
 
 pub(super) fn place_services(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     population: u32,
     blocks: &[CityBlock],
     candidates: &[CandidateLot],
@@ -89,23 +89,22 @@ pub(super) fn place_services(
 }
 
 fn request_choices(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     radius: f32,
     blocks: &BTreeMap<BlockId, CityBlock>,
     candidates: &[CandidateLot],
     request: BuildingDemand,
     placed: &[CandidateLot],
 ) -> Vec<CandidateLot> {
-    let key = mix64(
-        seed ^ SERVICE_SITING_DOMAIN
-            ^ (request.usage() as u64).rotate_left(23)
-            ^ u64::from(request.ordinal()),
+    let key = SERVICE_SITING_DOMAIN.seed(
+        seed,
+        &[request.usage() as u64, u64::from(request.ordinal())],
     );
     let district = request.usage().definition().district;
     let mut program = BuildingProgram::settlement(
         settlement_archetype(request.usage()),
         Some(request.usage()),
-        0,
+        fabelgeist_determinism::Seed::from_u64(0),
     );
     if let Some(size) = ServiceBuildingSize::for_demand(request) {
         program = program.with_service_size(size);
@@ -120,14 +119,19 @@ fn request_choices(
             parish_siting_distance(request, candidate.lot.centre_metres, placed, radius).is_some()
         })
         .collect::<Vec<_>>();
-    choices.sort_by_key(|candidate| {
+    // Seeded ranks are expensive. Cache each complete key once while retaining
+    // the stable ordering of equal ranks and the exact accepted property sites.
+    choices.sort_by_cached_key(|candidate| {
         if let Some(distance) =
             parish_siting_distance(request, candidate.lot.centre_metres, placed, radius)
             && matches!(request, BuildingDemand::Parish { .. })
         {
             return (
                 (distance * 100.0) as u32,
-                mix64(key ^ candidate.selection_key),
+                StreamId::new("city.service-lot-rank")
+                    .rng(key, &[candidate.lot.id])
+                    .next_u64(),
+                candidate.lot.id,
             );
         }
         let distance = candidate.lot.centre_metres.length();
@@ -135,11 +139,20 @@ fn request_choices(
             BuildingDistrict::Market => 0.0,
             BuildingDistrict::Edge => radius,
             BuildingDistrict::Neighbourhood | BuildingDistrict::Craft => {
-                radius * (key as u16 as f32 / u16::MAX as f32)
+                radius
+                    * StreamId::new("city.service-district-radius")
+                        .rng(key, &[])
+                        .inclusive_unit_f32()
             }
         };
         let band = ((distance - target).abs() / SERVICE_SPREAD_METRES) as u32;
-        (band, mix64(key ^ candidate.selection_key))
+        (
+            band,
+            StreamId::new("city.service-lot-rank")
+                .rng(key, &[candidate.lot.id])
+                .next_u64(),
+            candidate.lot.id,
+        )
     });
     choices
 }

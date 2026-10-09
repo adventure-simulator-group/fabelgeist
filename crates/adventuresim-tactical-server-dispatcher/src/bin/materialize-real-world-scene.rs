@@ -68,8 +68,8 @@ fn main() -> Result<(), String> {
         &args.scene_key,
         latitude_e7,
         longitude_e7,
-        args.absolute_minute,
-        args.absolute_minute,
+        adventuresim_world_schema::calendar::StrategicMinute::new(args.absolute_minute),
+        adventuresim_world_schema::calendar::StrategicMinute::new(args.absolute_minute),
         None,
     )?;
     let path = materialize_scene_input(&args.output_dir, &mission_id, &input)?;

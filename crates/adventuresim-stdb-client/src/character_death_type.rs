@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::death_cause_type::DeathCause;
 use super::death_source_type::DeathSource;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -14,7 +15,7 @@ pub struct CharacterDeath {
     pub cause: DeathCause,
     pub source: DeathSource,
     pub source_id: Option<String>,
-    pub strategic_minute: u64,
+    pub strategic_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for CharacterDeath {
@@ -29,7 +30,7 @@ pub struct CharacterDeathCols {
     pub cause: __sdk::__query_builder::Col<CharacterDeath, DeathCause>,
     pub source: __sdk::__query_builder::Col<CharacterDeath, DeathSource>,
     pub source_id: __sdk::__query_builder::Col<CharacterDeath, Option<String>>,
-    pub strategic_minute: __sdk::__query_builder::Col<CharacterDeath, u64>,
+    pub strategic_minute: __sdk::__query_builder::Col<CharacterDeath, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for CharacterDeath {

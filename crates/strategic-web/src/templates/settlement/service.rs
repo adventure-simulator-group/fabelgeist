@@ -85,7 +85,7 @@ pub(super) fn service_page(
             }
         }
         main class="center-content settlement-main" {
-            (party_portrait_overlay(party_members, active_character, &format!("/locations/settlement/{}", settlement.id), None))
+            (party_portrait_overlay(party_members, active_character, &crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]), None))
             (npc_portrait_strip(&settlement.id, npc_location_id(service_id)))
             (npc_description_stage(npc_name, &format!("{title} host and service counter")))
             (settlement_resident_chat_area(title, active_character, &settlement.id, npc_location_id(service_id), Some(service_id)))

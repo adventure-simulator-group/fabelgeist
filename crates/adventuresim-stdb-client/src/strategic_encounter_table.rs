@@ -5,6 +5,7 @@
 use super::strategic_encounter_loss_type::StrategicEncounterLoss;
 use super::strategic_encounter_status_type::StrategicEncounterStatus;
 use super::strategic_encounter_type::StrategicEncounter;
+use super::strategic_minute_type::StrategicMinute;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `strategic_encounter`.

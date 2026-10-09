@@ -58,3 +58,9 @@ pub const REQUIRED_GAMEPLAY_ITEM_IDS: [&str; 19] = [
     "travel_ration",
     "waterskin",
 ];
+
+#[cfg(runtime_catalog)]
+#[path = "item_references/gameplay.rs"]
+mod gameplay;
+#[cfg(runtime_catalog)]
+pub use gameplay::{MissingGameplayItemReferences, validate_gameplay_references};

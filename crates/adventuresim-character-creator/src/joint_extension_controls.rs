@@ -1,6 +1,6 @@
 //! Separate distal plates beneath a knee or elbow cup.
-use adventuresim_armor_model::JointExtension;
 use bevy_egui::egui;
+use fabelgeist_armor::JointExtension;
 
 pub(super) fn show(ui: &mut egui::Ui, extension: &mut Option<JointExtension>) -> bool {
     let original = extension.clone();

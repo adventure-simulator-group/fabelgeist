@@ -6,7 +6,7 @@ use std::path::Path;
 
 use adventuresim_world_schema::{
     CatholicLutheranChurch, CatholicReformedChurch, LutheranReformedChurch, OfficialReligion,
-    SettlementReligiousStatus, WesternChristianArrangement,
+    SettlementReligiousStatus, WesternChristianArrangement, calendar::WORLD_START_YEAR,
 };
 use serde::Deserialize;
 
@@ -14,8 +14,6 @@ use crate::{
     Error, Result,
     draft::{GeologySettlementDraft, ReligionSettlementDraft, WorldDraft, push_source_note},
 };
-
-const SUPPORTED_YEAR: i32 = 1544;
 
 #[derive(Debug, Deserialize)]
 struct RawRegion {
@@ -256,9 +254,9 @@ pub(crate) fn enrich(
     mut draft: WorldDraft<GeologySettlementDraft>,
     regions_path: &Path,
 ) -> Result<WorldDraft<ReligionSettlementDraft>> {
-    if draft.year != SUPPORTED_YEAR {
+    if draft.year != WORLD_START_YEAR {
         return Err(Error::Validation(format!(
-            "IEG intermediate represents {SUPPORTED_YEAR}, not {}",
+            "IEG intermediate represents {WORLD_START_YEAR}, not {}",
             draft.year
         )));
     }

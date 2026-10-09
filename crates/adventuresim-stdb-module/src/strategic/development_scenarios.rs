@@ -1,7 +1,6 @@
 // Private, capability-gated catalog for isolated strategic development scenarios.
-//
-// Scenario metadata is deliberately separate from player and quest models. A
-// normal module build cannot project, adopt, or mutate this authority.
+mod scenario_characters;
+use scenario_characters::ensure_scenario_character_at;
 
 #[derive(Clone, Debug)]
 #[table(accessor = development_scenario)]
@@ -41,7 +40,7 @@ pub struct DevelopmentScenarioUpdateReceipt {
     pub scenario_slug: String,
     pub problem_id: String,
     pub resulting_incident_ordinal: u16,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -232,35 +231,6 @@ pub(crate) fn ensure_foraging_demo_settlement(ctx: &ReducerContext) -> Result<()
     ensure_settlement_activity(ctx, ID.into())
 }
 
-fn ensure_scenario_character_at(
-    ctx: &ReducerContext,
-    character_id: u64,
-    name: &str,
-    settlement_id: &str,
-) -> Result<(), String> {
-    if let Some(character) = ctx.db.character().id().find(character_id) {
-        return (character.current_settlement_id.as_deref() == Some(settlement_id))
-            .then_some(())
-            .ok_or_else(|| "Development scenario character is in the wrong settlement".into());
-    }
-    crate::character::insert_character_with_origin(
-        ctx,
-        name.into(),
-        character_id,
-        crate::character::CharacterCreationOptions {
-            origin_settlement_id: Some(settlement_id),
-            mode: crate::character::CharacterCreationMode::Player,
-            create_solo_party: true,
-            materialize_generated_carry: true,
-            stable_seed: character_id,
-            initial_time_minute: None,
-            field_actor: false,
-        },
-        None,
-        None,
-    )
-}
-
 const RECURRING_THREAT_RATIONS: u32 = 10;
 const RECURRING_THREAT_WATERSKINS: u32 = 4;
 const RECURRING_THREAT_FIELD_TENTS: u32 = 1;
@@ -423,7 +393,7 @@ pub(crate) fn materialize_gallery_item(ctx: &ReducerContext, index: usize) -> Re
                 ctx,
                 THREAT_ID,
                 adventuresim_core::quest_generation::TemplateFamily::RecurringDepredation,
-                0x5448_5245_4154_0001,
+                fabelgeist_determinism::Seed::from_u64(0x5448_5245_4154_0001),
             )?;
             ensure_recurring_threat_offer_awareness(ctx, &threat_problem_id)?;
             crate::local_problem::discover_development_problem(
@@ -447,7 +417,7 @@ pub(crate) fn materialize_gallery_item(ctx: &ReducerContext, index: usize) -> Re
                 None,
                 ErrantryLaunch::DirectDemoCamp(kind),
             )?;
-            register_development_scenario(ctx, &slug, "Puzzles", &format!("{} puzzle", kind.slug().replace('-', " ")), "Solve this puzzle from its ordinary journey-camp entry state.", character_id, "/camp")?;
+            register_development_scenario(ctx, &slug, "Puzzles", &format!("{} puzzle", kind.slug().replace('-', " ")), "Solve this puzzle from its ordinary journey-camp entry state.", character_id, "/locations/camp")?;
             register_development_subject(ctx, &slug, "case", &materialized.case_id)?;
         }
         i => {
@@ -464,7 +434,7 @@ pub(crate) fn materialize_gallery_item(ctx: &ReducerContext, index: usize) -> Re
                 .cast
                 .first()
                 .map_or_else(|| definition.id.replace(['-', '_'], " "), |speaker| format!("Encounter with {}", speaker.name));
-            register_development_scenario(ctx, &scenario_slug, "Road encounters", &label, "Play this compiled encounter through its ordinary journey-camp presentation.", character_id, "/camp")?;
+            register_development_scenario(ctx, &scenario_slug, "Road encounters", &label, "Play this compiled encounter through its ordinary journey-camp presentation.", character_id, "/locations/camp")?;
             register_development_subject(ctx, &scenario_slug, "road_encounter", &occurrence_id)?;
     }
     }
@@ -648,16 +618,16 @@ pub fn backend_development_quests(ctx: &ViewContext) -> Vec<BackendDevelopmentQu
             continue;
         };
         rows.push(BackendDevelopmentQuest {
+            status: if challenge.is_open() {
+                "open".into()
+            } else {
+                "resolved".into()
+            },
             scenario_slug: scenario_slug.clone(),
             quest_kind: "road encounter".into(),
             subject_id: challenge.id,
             canonical_case_id: challenge.case_id,
             title: challenge.catalog_id,
-            status: if challenge.open {
-                "open".into()
-            } else {
-                "resolved".into()
-            },
             incident_count: 0,
             public_awareness_bps: 0,
             supports_incident_action: false,

@@ -11,13 +11,7 @@ pub(super) struct PrepareIngredientForm {
     return_to: Option<String>,
 }
 
-fn parse_preparation_action(value: &str) -> Option<IngredientPreparationAction> {
-    match value {
-        "cut" => Some(IngredientPreparationAction::Cut),
-        "grind" => Some(IngredientPreparationAction::Grind),
-        _ => None,
-    }
-}
+use crate::spacetimedb::parse_ingredient_preparation_action;
 
 pub(super) async fn prepare_ingredient_lot(
     State(state): State<AppState>,
@@ -27,7 +21,7 @@ pub(super) async fn prepare_ingredient_lot(
     let Some(character_id) = session.character_id_u64() else {
         return (StatusCode::UNAUTHORIZED, "Select a character first").into_response();
     };
-    let Some(preparation_action) = parse_preparation_action(&form.preparation_action) else {
+    let Some(preparation_action) = parse_ingredient_preparation_action(&form.preparation_action) else {
         return (StatusCode::BAD_REQUEST, "Invalid ingredient preparation").into_response();
     };
     let action = match preparation_action {
@@ -59,7 +53,7 @@ pub(super) async fn prepare_ingredient_lot(
 
 #[cfg(test)]
 mod tests {
-    use super::parse_preparation_action;
+    use super::parse_ingredient_preparation_action;
     use crate::spacetimedb::IngredientPreparationAction;
 
     #[test]
@@ -79,13 +73,13 @@ mod tests {
     #[test]
     fn preparation_action_form_uses_closed_wire_tags() {
         assert_eq!(
-            parse_preparation_action("cut"),
+            parse_ingredient_preparation_action("cut"),
             Some(IngredientPreparationAction::Cut)
         );
         assert_eq!(
-            parse_preparation_action("grind"),
+            parse_ingredient_preparation_action("grind"),
             Some(IngredientPreparationAction::Grind)
         );
-        assert_eq!(parse_preparation_action("chop"), None);
+        assert_eq!(parse_ingredient_preparation_action("chop"), None);
     }
 }

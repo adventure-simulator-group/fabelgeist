@@ -6,6 +6,7 @@ pub(crate) struct ProceduralEquipmentPart {
     pub(crate) item: Entity,
     pub(super) inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
     pub(crate) joint_names: Vec<String>,
+    pub(super) rigid_center: Vec3,
 }
 
 impl ProceduralEquipmentPart {
@@ -13,11 +14,13 @@ impl ProceduralEquipmentPart {
         item: Entity,
         inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
         joint_names: Vec<String>,
+        rigid_center: Vec3,
     ) -> Self {
         Self {
             item,
             inverse_bindposes,
             joint_names,
+            rigid_center,
         }
     }
 
@@ -68,12 +71,12 @@ pub(super) fn sync_render_bindings(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut parts: Query<EquipmentRenderState>,
-    items: Query<(Option<&ItemOf>, Has<TacticalSceneItem>)>,
+    items: Query<(Option<&ItemOf>, Option<&EquipSlot>, Has<TacticalSceneItem>)>,
 ) {
     for (entity, part, current_mesh, skin, current_sources, mut visibility) in &mut parts {
-        let worn = items
-            .get(part.item)
-            .is_ok_and(|(owner, scene)| owner.is_some() && !scene);
+        let worn = items.get(part.item).is_ok_and(|(owner, slot, scene)| {
+            owner.is_some() && !scene && holding_side(slot).is_none()
+        });
         if worn && skin.is_none() {
             visibility.set_if_neq(Visibility::Hidden);
             continue;
@@ -96,6 +99,7 @@ pub(super) fn sync_render_bindings(
                 let mut unbound = source.clone();
                 unbound.remove_attribute(Mesh::ATTRIBUTE_JOINT_INDEX);
                 unbound.remove_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT);
+                center_unbound_mesh(&mut unbound, part.rigid_center);
                 sources.unbound = Some(meshes.add(unbound));
                 sources_changed = true;
             }
@@ -113,6 +117,25 @@ pub(super) fn sync_render_bindings(
         }
         visibility.set_if_neq(Visibility::Inherited);
     }
+}
+
+/// Fitted geometry uses body coordinates. Rigid carried/world geometry uses
+/// its own center, excluding unused body vertices left by clothing cutouts.
+fn center_unbound_mesh(mesh: &mut Mesh, center: Vec3) {
+    let Some(positions) = mesh
+        .attribute(Mesh::ATTRIBUTE_POSITION)
+        .and_then(bevy::mesh::VertexAttributeValues::as_float3)
+    else {
+        return;
+    };
+    if !center.is_finite() {
+        return;
+    }
+    let centered: Vec<_> = positions
+        .iter()
+        .map(|position| (Vec3::from_array(*position) - center).to_array())
+        .collect();
+    mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, centered);
 }
 
 #[cfg(test)]
@@ -143,6 +166,7 @@ mod tests {
                     item,
                     inverse_bindposes: default(),
                     joint_names: vec!["pelvis".into()],
+                    rigid_center: Vec3::ZERO,
                 },
                 Mesh3d(original.clone()),
                 Visibility::Hidden,

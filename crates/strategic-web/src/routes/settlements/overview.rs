@@ -11,30 +11,34 @@ pub(super) async fn settlement_map(
 ) -> Html<String> {
     let settlements: Vec<SettlementView> = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
-            "SELECT * FROM settlement",
-        )
+        .query_sats_into::<DbSettlement, SettlementView>("SELECT * FROM settlement")
         .await
         .unwrap_or_default();
     let Some(settlement) = settlements.iter().find(|settlement| settlement.id == id) else {
         return Html("<h1>Settlement not found</h1>".to_string());
     };
-    let edges: Vec<TravelEdgeView> = state
-        .db
-        .query_sats_into::<adventuresim_stdb_client::TravelEdge, TravelEdgeView>(
-            "SELECT * FROM travel_edge",
-        )
-        .await
-        .unwrap_or_default();
+    super::entry::activate_settlement(&state, &id);
     let map_data_initialized = crate::strategic_map::has_geographic_source(settlement);
+    let edges = if map_data_initialized {
+        TRAVEL_EDGE_CACHE.load(&state.db).await
+    } else {
+        None
+    };
     let mut destinations = if map_data_initialized {
-        connected_destinations(settlement, &settlements, &edges)
+        connected_destinations(
+            settlement,
+            &settlements,
+            edges.as_deref().map_or(&[], Vec::as_slice),
+        )
     } else {
         Vec::new()
     };
     let quests: Vec<BackendContract> = state
         .db
-        .query_sats("SELECT * FROM backend_contracts")
+        .query_sats(&format!(
+            "SELECT * FROM backend_contracts WHERE settlement_id = {}",
+            sql_string_literal(&id)
+        ))
         .await
         .unwrap_or_default();
     let active_character = get_active_character(&state, session.character_id_u64()).await;
@@ -44,7 +48,9 @@ pub(super) async fn settlement_map(
     {
         state
             .db
-            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&crate::spacetimedb::party_by_id(party_id))
+            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&db::party_by_id(
+                party_id,
+            ))
             .await
             .unwrap_or_default()
             .into_iter()
@@ -84,14 +90,14 @@ pub(super) async fn settlement_map(
                 description: site.description.clone(),
                 summary: CaseSiteKnowledgePresentation::from_stage(site.knowledge_stage)
                     .map(|knowledge| knowledge.label().to_string()),
-                travel_action: format!("/case-sites/{}/travel", site.case_site_id.value),
-                track_action: Some(format!("/case-sites/{}/track", site.case_site_id.value)),
+                travel_action: paths::TRAVEL_TO_CASE_SITE.url([&site.case_site_id.value]),
+                track_action: Some(paths::TRACK_CASE_SITE.url([&site.case_site_id.value])),
                 tracked: site.tracked,
                 distance_m,
                 journey_minutes: crate::routes::quests::offroad_journey_minutes(distance_m),
                 camp_stop_minutes: Vec::new(),
                 camp_forecasts: Vec::new(),
-                departure_minute: 0,
+                departure_minute: adventuresim_world_schema::calendar::StrategicMinute::ZERO,
                 itinerary_total_elapsed_minutes: crate::routes::quests::offroad_journey_minutes(
                     distance_m,
                 )
@@ -117,39 +123,15 @@ pub(super) async fn settlement_map(
             .iter_mut()
             .find(|destination| destination.id == selected_id)
     {
-        let goal = if let Some(site) = case_sites
-            .iter()
-            .find(|site| site.case_site_id.value == destination.id)
-        {
-            super::super::wgs84_latitude_longitude_degrees(
-                site.latitude_e_7,
-                site.longitude_e_7,
-            )
-            .ok()
-        } else {
-            settlements
-                .iter()
-                .find(|candidate| candidate.id == destination.id)
-                .map(|candidate| (candidate.latitude, candidate.longitude))
-        };
-        if let Some(goal) = goal {
-            let terrain_profile = if let Some((character, _)) = active_character.as_ref() {
-                crate::routes::party_terrain_profile(&state, character)
-                    .await
-                    .unwrap_or_default()
-                    .0
-            } else {
-                adventuresim_terrain::TerrainSkillProfile::default()
-            };
-            crate::routes::travel::apply_terrain_route(
-                destination,
-                state.terrain.as_deref(),
-                (settlement.latitude, settlement.longitude),
-                goal,
-                terrain_profile,
+        destination
+            .apply_selected_terrain(
+                &state,
+                settlement,
+                &settlements,
+                &case_sites,
+                active_character.as_ref().map(|(character, _)| character),
             )
             .await;
-        }
     }
     let party_members = get_active_party_members(
         &state,
@@ -167,7 +149,7 @@ pub(super) async fn settlement_map(
         .filter_map(|member| stats.iter().find(|row| row.character_id == member.id))
         .map(|row| {
             (row.calories_used.max(0.0) / STRATEGIC_TRAVEL_KCAL_PER_DAY
-                * adventuresim_core::strategic_time::MINUTES_PER_DAY as f32)
+                * adventuresim_world_schema::calendar::MINUTES_PER_DAY as f32)
                 .ceil() as u64
         })
         .max()
@@ -294,7 +276,6 @@ pub(super) fn can_abandon_active_contract(
 ) -> bool {
     contract.status == ContractStatus::Accepted && current_case_site_id.is_none()
 }
-
 #[cfg(test)]
 mod map_quest_tests {
     use super::*;
@@ -303,8 +284,8 @@ mod map_quest_tests {
     fn exact_owned_case_sites_use_the_current_settlement_as_the_map_origin() {
         let source = SETTLEMENTS_SOURCE;
         let map = source
-            .split("async fn settlement_map(")
-            .nth(1)
+            .rsplit_once("\npub(super) async fn settlement_map(")
+            .map(|(_, tail)| tail)
             .and_then(|tail| tail.split("fn settlement_html_travel_available").next())
             .expect("settlement map route");
 

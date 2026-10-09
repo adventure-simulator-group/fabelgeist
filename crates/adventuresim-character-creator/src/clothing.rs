@@ -630,6 +630,7 @@ mod tests {
                 order: 0,
             }],
             parents: Vec::new(),
+            layers_over: Vec::new(),
             protection: vec![EquipmentBodyPart::LeftArm],
             surface: vec![EquipmentSurfaceSpan {
                 regions: vec![Region::LeftForearm],

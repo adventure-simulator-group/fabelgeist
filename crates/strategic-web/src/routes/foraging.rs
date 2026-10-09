@@ -1,4 +1,7 @@
-use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
+use super::vicinity::vicinity;
+mod feedback;
+
+use adventuresim_world_schema::calendar::StrategicMinute;
 use axum::{
     Router,
     extract::{DefaultBodyLimit, RawForm, State},
@@ -16,16 +19,12 @@ use std::{
     time::{SystemTime, UNIX_EPOCH},
 };
 
-use super::{
-    AppState, local_return_url, persisted_route_position, wgs84_e7,
-    wgs84_latitude_longitude_degrees,
-};
+use super::{AppState, local_return_url, wgs84_e7};
 use crate::{
     session::Session,
     spacetimedb::{
-        BackendCaseSitePin, BackendForageAttemptState, BackendForageReceipt,
-        BackendOrganizationMembership, CharacterTime, CharacterView, OrganizationMembershipStatus,
-        OrganizationPresentation, PartyJourney, PartyJourneyRouteView, PartyView, SettlementView,
+        BackendForageAttemptState, BackendForageReceipt, BackendOrganizationMembership,
+        CharacterTime, CharacterView, OrganizationMembershipStatus, OrganizationPresentation,
         sql_string_literal,
     },
 };
@@ -63,9 +62,7 @@ fn parse_forage_form(body: &[u8]) -> Result<ForageForm, ()> {
             return Err(());
         }
         match key.as_ref() {
-            // Repeated checkbox names are the canonical browser encoding for
-            // zero, one, or many selected sources. Preserve duplicates so the
-            // authoritative reducer can reject that malformed contract.
+            // Preserve duplicates so the reducer can reject malformed requests.
             "source" => {
                 if source.len() >= FORAGE_FORM_MAX_SOURCES
                     || value.len() > FORAGE_FORM_MAX_SOURCE_LEN
@@ -94,14 +91,6 @@ fn parse_forage_form(body: &[u8]) -> Result<ForageForm, ()> {
         hours: hours.ok_or(())?,
         return_to: return_to.ok_or(())?,
     })
-}
-
-struct Vicinity {
-    kind: String,
-    id: String,
-    latitude: f64,
-    longitude: f64,
-    settlement: bool,
 }
 
 #[derive(Serialize)]
@@ -162,7 +151,7 @@ async fn advisory_privileges(
         .await
         .ok()
         .flatten()
-        .map(|row| row.minutes);
+        .map(|row| StrategicMinute::new(row.minutes.minutes));
     advisory_privileges_for(
         presentation
             .as_ref()
@@ -175,7 +164,7 @@ async fn advisory_privileges(
 fn advisory_privileges_for(
     presented_organization_id: Option<&str>,
     memberships: &[BackendOrganizationMembership],
-    minute: Option<u64>,
+    minute: Option<StrategicMinute>,
 ) -> BTreeSet<adventuresim_core::organization::Privilege> {
     let Some((presented_organization_id, minute)) = presented_organization_id.zip(minute) else {
         return BTreeSet::new();
@@ -187,7 +176,7 @@ fn advisory_privileges_for(
     let Some(membership) = memberships.iter().find(|membership| {
         membership.organization_id == presented_organization_id
             && membership.status == OrganizationMembershipStatus::Active
-            && minute <= membership.dues_paid_through_minute
+            && minute <= StrategicMinute::new(membership.dues_paid_through_minute.minutes)
     }) else {
         return BTreeSet::new();
     };
@@ -238,93 +227,6 @@ fn source_rows(
             }
         }
     }
-}
-
-async fn vicinity(state: &AppState, character: &CharacterView) -> Result<Vicinity, String> {
-    if let Some(id) = character.current_settlement_id.as_deref() {
-        let row = state
-            .db
-            .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
-                &crate::spacetimedb::settlement_by_id(id),
-            )
-            .await
-            .map_err(|error| error.to_string())?
-            .ok_or("Current settlement not found")?;
-        let coordinate = Wgs84CoordinateMicrodegrees::from_longitude_latitude_degrees(
-            row.longitude,
-            row.latitude,
-        )
-        .ok_or("persisted settlement coordinate is outside WGS84 bounds")?;
-        let (longitude, latitude) = coordinate.longitude_latitude_degrees();
-        return Ok(Vicinity {
-            kind: "settlement".into(),
-            id: id.into(),
-            latitude,
-            longitude,
-            settlement: true,
-        });
-    }
-    if let Some(id) = character.current_case_site_id.as_deref() {
-        let row = state
-            .db
-            .query_one_sats::<BackendCaseSitePin>(&format!(
-                "SELECT * FROM backend_case_site_pins WHERE owner_character_id = {} AND case_site_id = {}",
-                character.id,
-                sql_string_literal(id)
-            ))
-            .await
-            .map_err(|error| error.to_string())?
-            .ok_or("Current case site is not exact")?;
-        let (latitude, longitude) =
-            wgs84_latitude_longitude_degrees(row.latitude_e_7, row.longitude_e_7)
-                .map_err(str::to_owned)?;
-        return Ok(Vicinity {
-            kind: "case_site".into(),
-            id: id.into(),
-            latitude,
-            longitude,
-            settlement: false,
-        });
-    }
-    let party_id = character
-        .party_id
-        .as_deref()
-        .ok_or("Character has no stationary vicinity")?;
-    let party = state
-        .db
-        .query_one_sats_into::<adventuresim_stdb_client::Party, PartyView>(
-            &crate::spacetimedb::party_by_id(party_id),
-        )
-        .await
-        .map_err(|error| error.to_string())?
-        .ok_or("Party not found")?;
-    if party.camp_destination.is_none() {
-        return Err("Foraging is unavailable while moving or without a known location".into());
-    }
-    let journey = state
-        .db
-        .query_one_sats::<PartyJourney>(&crate::spacetimedb::party_journey_by_party_id(party_id))
-        .await
-        .map_err(|error| error.to_string())?
-        .ok_or("Camp journey not found")?;
-    let route = state
-        .db
-        .query_one_sats_into::<adventuresim_stdb_client::PartyJourneyRoute, PartyJourneyRouteView>(
-            &crate::spacetimedb::party_journey_route_by_party_id(party_id),
-        )
-        .await
-        .map_err(|error| error.to_string())?
-        .ok_or("Camp terrain route not found")?;
-    let (latitude, longitude) =
-        persisted_route_position(&route, journey.completed_movement_minutes)
-            .ok_or("Camp terrain position is unavailable")?;
-    Ok(Vicinity {
-        kind: "camp".into(),
-        id: party_id.into(),
-        latitude,
-        longitude,
-        settlement: false,
-    })
 }
 
 fn forage_request_id(character_id: u64) -> String {
@@ -380,9 +282,7 @@ fn forage_error_code(_error: &str) -> &'static str {
 }
 
 fn forage_error_href(return_to: &str, code: &str) -> String {
-    let code = forage_error_message(code)
-        .map(|_| code)
-        .unwrap_or("unavailable");
+    let code = forage_error_message(code).map_or("unavailable", |_| code);
     format!(
         "{return_to}{}forage=true&forage_error={code}",
         if return_to.contains('?') { "&" } else { "?" }
@@ -531,10 +431,7 @@ pub(crate) async fn activity_dialog(
                         a class="btn btn-primary character-action-dialog-close" href=(return_to) { "Return" }
                     }
                 } @else if let Some(reason) = unavailable {
-                    p role="alert" class="badge badge-danger" { (reason) }
-                    div class="modal-actions" {
-                        a class="btn btn-secondary character-action-dialog-close" href=(return_to) { "Return" }
-                    }
+                    (feedback::unavailable(reason, return_to))
                 } @else {
                     @if let Some(message) = error_message {
                         p role="alert" class="badge badge-danger" { (message) }
@@ -654,19 +551,21 @@ mod tests {
     #[test]
     fn browser_checkbox_form_accepts_one_or_many_sources_without_javascript() {
         assert_eq!(
-            parse_forage_form(b"return_to=%2Fcamp&source=plants&hours=1"),
+            parse_forage_form(b"return_to=%2Flocations%2Fcamp&source=plants&hours=1"),
             Ok(ForageForm {
                 source: vec!["plants".into()],
                 hours: 1,
-                return_to: "/camp".into(),
+                return_to: "/locations/camp".into(),
             })
         );
         assert_eq!(
-            parse_forage_form(b"return_to=%2Fcamp&source=high_game&source=plants&hours=24"),
+            parse_forage_form(
+                b"return_to=%2Flocations%2Fcamp&source=high_game&source=plants&hours=24"
+            ),
             Ok(ForageForm {
                 source: vec!["high_game".into(), "plants".into()],
                 hours: 24,
-                return_to: "/camp".into(),
+                return_to: "/locations/camp".into(),
             })
         );
     }
@@ -674,15 +573,15 @@ mod tests {
     #[test]
     fn browser_checkbox_form_preserves_none_and_duplicates_for_authoritative_validation() {
         assert_eq!(
-            parse_forage_form(b"return_to=%2Fcamp&hours=1"),
+            parse_forage_form(b"return_to=%2Flocations%2Fcamp&hours=1"),
             Ok(ForageForm {
                 source: Vec::new(),
                 hours: 1,
-                return_to: "/camp".into(),
+                return_to: "/locations/camp".into(),
             })
         );
         assert_eq!(
-            parse_forage_form(b"return_to=%2Fcamp&source=plants&source=plants&hours=1")
+            parse_forage_form(b"return_to=%2Flocations%2Fcamp&source=plants&source=plants&hours=1")
                 .unwrap()
                 .source,
             ["plants", "plants"]
@@ -692,10 +591,15 @@ mod tests {
     #[test]
     fn browser_checkbox_form_rejects_ambiguous_scalar_fields() {
         assert!(
-            parse_forage_form(b"return_to=%2Fcamp&return_to=%2Fother&source=plants&hours=1")
+            parse_forage_form(
+                b"return_to=%2Flocations%2Fcamp&return_to=%2Fother&source=plants&hours=1"
+            )
+            .is_err()
+        );
+        assert!(
+            parse_forage_form(b"return_to=%2Flocations%2Fcamp&source=plants&hours=1&hours=2")
                 .is_err()
         );
-        assert!(parse_forage_form(b"return_to=%2Fcamp&source=plants&hours=1&hours=2").is_err());
     }
 
     #[test]
@@ -732,8 +636,10 @@ mod tests {
             character_id: 7,
             organization_id: "lodge_hart_king".into(),
             role_id: role_id.into(),
-            joined_minute: 0,
-            dues_paid_through_minute: paid_through,
+            joined_minute: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+            dues_paid_through_minute: adventuresim_stdb_client::StrategicMinute {
+                minutes: paid_through,
+            },
             status,
             apprenticeship_minutes_accrued: 0,
             practice_minutes_accrued: 0,
@@ -747,7 +653,7 @@ mod tests {
         let common = advisory_privileges_for(
             Some("lodge_hart_king"),
             std::slice::from_ref(&warden),
-            Some(100),
+            Some(StrategicMinute::new(100)),
         );
         assert!(common.contains(&Privilege::ForageLowGame));
         assert!(common.contains(&Privilege::ForageFish));
@@ -756,23 +662,46 @@ mod tests {
 
         let master = ranger_membership("master", OrganizationMembershipStatus::Active, 100);
         assert!(
-            advisory_privileges_for(Some("lodge_hart_king"), &[master], Some(100))
-                .contains(&Privilege::ForageHighGame)
+            advisory_privileges_for(
+                Some("lodge_hart_king"),
+                &[master],
+                Some(StrategicMinute::new(100))
+            )
+            .contains(&Privilege::ForageHighGame)
         );
-        assert!(advisory_privileges_for(None, std::slice::from_ref(&warden), Some(100)).is_empty());
+        assert!(
+            advisory_privileges_for(
+                None,
+                std::slice::from_ref(&warden),
+                Some(StrategicMinute::new(100))
+            )
+            .is_empty()
+        );
         assert!(
             advisory_privileges_for(
                 Some("hunt_pale_lantern"),
                 std::slice::from_ref(&warden),
-                Some(100)
+                Some(StrategicMinute::new(100))
             )
             .is_empty()
         );
         let lapsed = ranger_membership("master", OrganizationMembershipStatus::Active, 99);
-        assert!(advisory_privileges_for(Some("lodge_hart_king"), &[lapsed], Some(100)).is_empty());
+        assert!(
+            advisory_privileges_for(
+                Some("lodge_hart_king"),
+                &[lapsed],
+                Some(StrategicMinute::new(100))
+            )
+            .is_empty()
+        );
         let suspended = ranger_membership("master", OrganizationMembershipStatus::Suspended, 100);
         assert!(
-            advisory_privileges_for(Some("lodge_hart_king"), &[suspended], Some(100)).is_empty()
+            advisory_privileges_for(
+                Some("lodge_hart_king"),
+                &[suspended],
+                Some(StrategicMinute::new(100))
+            )
+            .is_empty()
         );
     }
 
@@ -781,21 +710,23 @@ mod tests {
         assert!(parse_forage_form(&vec![b'x'; FORAGE_FORM_MAX_BYTES + 1]).is_err());
 
         let too_many_pairs = format!(
-            "return_to=%2Fcamp&hours=1{}",
+            "return_to=%2Flocations%2Fcamp&hours=1{}",
             "&ignored=x".repeat(FORAGE_FORM_MAX_PAIRS - 1)
         );
         assert!(parse_forage_form(too_many_pairs.as_bytes()).is_err());
 
         let too_many_sources = format!(
-            "return_to=%2Fcamp&hours=1{}",
+            "return_to=%2Flocations%2Fcamp&hours=1{}",
             "&source=plants".repeat(FORAGE_FORM_MAX_SOURCES + 1)
         );
         assert!(parse_forage_form(too_many_sources.as_bytes()).is_err());
 
         let long_source = "x".repeat(FORAGE_FORM_MAX_SOURCE_LEN + 1);
         assert!(
-            parse_forage_form(format!("return_to=%2Fcamp&hours=1&source={long_source}").as_bytes())
-                .is_err()
+            parse_forage_form(
+                format!("return_to=%2Flocations%2Fcamp&hours=1&source={long_source}").as_bytes()
+            )
+            .is_err()
         );
 
         let long_return = "x".repeat(FORAGE_FORM_MAX_RETURN_TO_LEN + 1);
@@ -870,8 +801,12 @@ mod tests {
         assert!(valid_forage_request_id(&request));
         assert!(!valid_forage_request_id("../client-feedback"));
         assert_eq!(
-            forage_result_href("/camp", &request),
-            format!("/camp?forage=true&forage_receipt={request}")
+            forage_result_href("/locations/camp", &request),
+            format!(
+                "{}?forage=true&forage_receipt={}",
+                crate::location_urls::patterns::CAMP.url([]),
+                crate::location_urls::encode_component(&request.to_string())
+            )
         );
         assert_eq!(
             forage_result_href(
@@ -879,7 +814,13 @@ mod tests {
                 &request
             ),
             format!(
-                "/locations/settlement/lubeck/party/17?building=public-square&forage=true&forage_receipt={request}"
+                "{}?building=public-square&forage=true&forage_receipt={}",
+                crate::location_urls::patterns::PARTY_PERSONAL.url([
+                    &("settlement"),
+                    &("lubeck"),
+                    &("17")
+                ]),
+                crate::location_urls::encode_component(&request.to_string())
             )
         );
     }
@@ -894,8 +835,8 @@ mod tests {
         assert_eq!(forage_error_code("database exploded"), "unavailable");
         assert_eq!(forage_error_message("../raw-error"), None);
         assert_eq!(
-            forage_error_href("/camp", "../raw-error"),
-            "/camp?forage=true&forage_error=unavailable"
+            forage_error_href("/locations/camp", "../raw-error"),
+            "/locations/camp?forage=true&forage_error=unavailable"
         );
         assert_eq!(
             forage_error_href(

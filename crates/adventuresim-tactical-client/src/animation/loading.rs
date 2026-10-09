@@ -270,7 +270,7 @@ pub(super) fn targets_match_base<'a>(
 pub(super) fn attach_loaded_rig_scenes(
     mut commands: Commands,
     runtime: Res<AnimationRuntime>,
-    players: Query<(Entity, &SkeletonState, Has<AnimationRigAttached>), With<Player>>,
+    players: Query<(Entity, &SkeletonState, Has<AnimationRigAttached>), AnimatedActors>,
 ) {
     for (player, _skeleton, attached) in &players {
         if attached {

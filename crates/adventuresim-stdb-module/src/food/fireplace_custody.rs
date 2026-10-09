@@ -518,7 +518,7 @@ pub fn place_fireplace_container(
 ) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
     let actor = crate::character::require_living_character(ctx, character_id)?;
-    if actor.in_server {
+    if actor.has_tactical_server_assignment() {
         return Err("Cooking is unavailable during a tactical encounter".into());
     }
     validate_fireplace_fixture(ctx, &actor, &fireplace_fixture_id)?;
@@ -575,7 +575,7 @@ pub fn retrieve_fireplace_container(
 ) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
     let actor = crate::character::require_living_character(ctx, character_id)?;
-    if actor.in_server {
+    if actor.has_tactical_server_assignment() {
         return Err("Cooking is unavailable during a tactical encounter".into());
     }
     validate_fireplace_fixture(ctx, &actor, &fireplace_fixture_id)?;

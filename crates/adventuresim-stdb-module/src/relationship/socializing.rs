@@ -8,7 +8,12 @@ fn socializing_id(actor_id: u64, day: u64, target_id: u64) -> String {
 /// A row whose anchor is newer than the requested minute cannot be
 /// reconstructed from compact soft state, so callers fail closed instead of
 /// letting a future opinion authorize a backdated exclusive relationship.
-fn affinity_at(ctx: &ReducerContext, subject_id: u64, actor_id: u64, minute: u64) -> Option<f32> {
+fn affinity_at(
+    ctx: &ReducerContext,
+    subject_id: u64,
+    actor_id: u64,
+    minute: StrategicMinute,
+) -> Option<f32> {
     let Some(row) = ctx
         .db
         .character_affinity()
@@ -20,7 +25,7 @@ fn affinity_at(ctx: &ReducerContext, subject_id: u64, actor_id: u64, minute: u64
     (row.anchor_minute <= minute).then(|| {
         adventuresim_core::social::settle_affinity(
             row.anchor,
-            minute.saturating_sub(row.anchor_minute),
+            minute.elapsed_since(row.anchor_minute),
         )
     })
 }
@@ -28,7 +33,7 @@ fn affinity_at(ctx: &ReducerContext, subject_id: u64, actor_id: u64, minute: u64
 fn active_romantic_partners(
     ctx: &ReducerContext,
     actor_id: u64,
-    effective_minute: u64,
+    effective_minute: StrategicMinute,
 ) -> Vec<u64> {
     ctx.db
         .courtship()
@@ -54,7 +59,7 @@ fn socializing_target(
     ctx: &ReducerContext,
     actor_id: u64,
     day: u64,
-    effective_minute: u64,
+    effective_minute: StrategicMinute,
 ) -> Option<u64> {
     let actor = ctx.db.character().id().find(actor_id)?;
     let same_settlement = |candidate: &crate::Character| {
@@ -153,17 +158,17 @@ fn socializing_target(
 fn next_socializing_boundary(
     ctx: &ReducerContext,
     actor_id: u64,
-    start_minute: u64,
-    end_minute: u64,
-) -> Option<u64> {
+    start_minute: StrategicMinute,
+    end_minute: StrategicMinute,
+) -> Option<StrategicMinute> {
     let actor_settlement = ctx
         .db
         .character()
         .id()
         .find(actor_id)
         .and_then(|actor| actor.current_settlement_id);
-    let day_start = (start_minute / MINUTES_PER_DAY).saturating_mul(MINUTES_PER_DAY);
-    let resident: Vec<u64> = actor_settlement.map_or_else(Vec::new, |settlement_id| {
+    let day_start = start_minute.day_start();
+    let resident: Vec<StrategicMinute> = actor_settlement.map_or_else(Vec::new, |settlement_id| {
         ctx.db
             .settlement_resident_presence()
             .iter()
@@ -171,7 +176,7 @@ fn next_socializing_boundary(
             .flat_map(|presence| {
                 [presence.start_minute, presence.end_minute]
                     .into_iter()
-                    .map(|offset| day_start.saturating_add(u64::from(offset)))
+                    .map(|offset| day_start.saturating_add_minutes(u64::from(offset)))
             })
             .collect()
     });
@@ -179,7 +184,7 @@ fn next_socializing_boundary(
         .db
         .character_birth()
         .iter()
-        .filter_map(|birth| u64::try_from(birth.birth_minute).ok());
+        .filter_map(|birth| u64::try_from(birth.birth_minute).ok().map(StrategicMinute::new));
     let deaths = ctx
         .db
         .character_death()
@@ -208,8 +213,8 @@ fn record_socializing_receipt(
     actor_id: u64,
     target_id: u64,
     day: u64,
-    start_minute: u64,
-    end_minute: u64,
+    start_minute: StrategicMinute,
+    end_minute: StrategicMinute,
     minutes: u64,
 ) {
     let id = socializing_id(actor_id, day, target_id);
@@ -241,22 +246,20 @@ pub fn apply_scheduled_socializing(
     ctx: &ReducerContext,
     actor_id: u64,
     schedule_minutes_per_day: u16,
-    interval_start: u64,
-    interval_end: u64,
+    interval_start: StrategicMinute,
+    interval_end: StrategicMinute,
 ) -> Result<(), String> {
     if schedule_minutes_per_day == 0 || interval_end <= interval_start {
         return Ok(());
     }
-    let first_day = interval_start / MINUTES_PER_DAY;
-    let last_day = interval_end.saturating_sub(1) / MINUTES_PER_DAY;
+    let first_day = interval_start.day_index();
+    let last_day = interval_end.saturating_sub_minutes(1).day_index();
     for day in first_day..=last_day {
-        let day_start = day.saturating_mul(MINUTES_PER_DAY);
+        let day_start = StrategicMinute::day_start_for_index(day);
         let start = interval_start.max(day_start);
-        let end = interval_end.min(day_start.saturating_add(MINUTES_PER_DAY));
-        let allocation = |minute: u64| {
-            minute
-                .saturating_sub(day_start)
-                .saturating_mul(u64::from(schedule_minutes_per_day))
+        let end = interval_end.min(day_start.saturating_add_days(1));
+        let allocation = |minute: StrategicMinute| {
+            minute.elapsed_since(day_start).saturating_mul(u64::from(schedule_minutes_per_day))
                 / MINUTES_PER_DAY
         };
         let applied_through = ctx

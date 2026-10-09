@@ -1,29 +1,19 @@
 //! Character selection and creation templates.
 
+use adventuresim_core::equipment::LoadoutSlot;
+mod candidate;
+use candidate::CandidatePresentation;
+
 use maud::{Markup, html};
 
 use super::settlement::{
-    CharacterPortraitView, CharacterSheetActions, CharacterSheetView, CharacterSkillHours,
-    character_portrait_overlay, character_sheet_markup,
+    CharacterPortraitView, CharacterSheetActions, CharacterSheetView, character_portrait_overlay,
+    character_sheet_markup,
 };
 use super::{entry_layout, item_display_name, item_type_icon, panel, sidebar_section};
 use crate::medical::MedicalPresentation;
-use crate::spacetimedb::{
-    BackendDevelopmentScenario, BackendOrganizationMembership, CharacterAttributes,
-    CharacterCapability, CharacterLimbs, CharacterSkills, CharacterView, Conscience, Conviction,
-    Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, OrganizationMembershipStatus,
-    OrganizationPresentation, Outlook, Personality, Presentation, SelfKnowledge, SelfRegard, Sex,
-    Sociability, Temperance, Transparency,
-};
-use adventuresim_core::starting_character::{
-    StartingAgeTier, StartingCharacterSpec, StartingInclination, StartingPersonalityTrait,
-    StartingPresentation, StartingSex, StartingSlot,
-};
-use adventuresim_core::{
-    equipment::weapon_skill_distribution_for_item,
-    skill::{PlayerSkills, Skill},
-    strategic_schedule::{CombatTrainingProfile, EquippedCombatItem},
-};
+use crate::spacetimedb::{BackendDevelopmentScenario, CharacterView};
+use adventuresim_core::starting_character::{StartingAgeTier, StartingCharacterSpec};
 
 /// List all characters and select the adventurer who enters the strategic layer.
 pub fn characters_list_page(
@@ -34,7 +24,7 @@ pub fn characters_list_page(
     let content = html! {
         aside class="left-sidebar" {
             (sidebar_section("Choose an adventurer", html! {
-                p class="small-copy text-muted" { "A character must be selected before entering the strategic layer." }
+                p class="small-copy text-muted" { "Continue with an adventurer, or create another." }
             }))
         }
 
@@ -73,7 +63,7 @@ pub fn characters_list_page(
                     }
                 }
             }
-            a href="/characters/candidates" class="btn btn-primary candidate-play-action" {
+            a href="/characters/candidates" class="btn btn-secondary candidate-play-action" {
                 "Create another adventurer"
             }
             @if !scenarios.is_empty() {
@@ -129,9 +119,10 @@ pub fn character_switcher_options(
                         method="post" data-hard-navigation {
                         button type="submit"
                             class=(if current { "character-switcher-option is-current" } else { "character-switcher-option" })
+                            data-character-id=(character.id)
                             aria-current=(if current { "true" } else { "false" }) {
                             span class="character-switcher-option-portrait" aria-hidden="true" {
-                                (character.name.chars().next().unwrap_or('?'))
+                                span data-bevy-character=(character.id) { (character.name.chars().next().unwrap_or('?')) }
                             }
                             span class="character-switcher-option-copy" {
                                 strong { (&character.name) }
@@ -211,19 +202,21 @@ pub fn character_candidates_bootstrap_page(version: u16) -> Markup {
     let content = html! {
         main class="center-content candidate-bootstrap" {
             h2 class="page-title" { "Choose a stage of life" }
+            p { "Choose a starting background, then compare the adventurers available. Your choice is final only when you select Play." }
             noscript { p role="alert" { "JavaScript is required to prepare a private candidate roster." } }
             div data-candidate-bootstrap data-generator-version=(version) {}
             nav class="candidate-age-options" aria-label="Starting age" {
                 a class="candidate-age-option" data-candidate-age="young" href="#" {
-                    strong { "Young" } span { "Age 16 - No profession" }
+                    strong { "Young" } span { "Age 16 — No profession" } p { "Start without a trade and find your vocation." }
                 }
                 a class="candidate-age-option" data-candidate-age="adult" href="#" {
-                    strong { "Adult" } span { "Age 22 - Newly qualified" }
+                    strong { "Adult" } span { "Age 22 — Newly qualified" } p { "Begin with a profession at journeyman level." }
                 }
                 a class="candidate-age-option" data-candidate-age="old" href="#" {
-                    strong { "Old" } span { "Age 40 - Master" }
+                    strong { "Experienced" } span { "Age 40 — Master" } p { "Begin with a profession at master level." }
                 }
             }
+            a href="/characters" class="btn btn-secondary" { "Back to adventurers" }
             script src="/static/character-candidates.js?v=3" defer {}
         }
     };
@@ -237,11 +230,11 @@ pub fn character_candidates_page(
     candidates: &[StartingCharacterSpec],
     selected: Option<u8>,
     show_inventory: bool,
-) -> Markup {
+) -> Result<Markup, adventuresim_world_schema::person_names::NameCatalogError> {
     let presentations = candidates
         .iter()
-        .map(CandidatePresentation::from)
-        .collect::<Vec<_>>();
+        .map(CandidatePresentation::try_from)
+        .collect::<Result<Vec<_>, _>>()?;
     let selected_slot = selected.unwrap_or(0) as usize;
     let candidate = &presentations[selected_slot];
     let spec = &candidates[selected_slot];
@@ -259,11 +252,11 @@ pub fn character_candidates_page(
                 name: &candidate.character.name,
                 alive: true,
                 active: false,
-                selected: selected == Some(slot as u8),
+                selected: selected_slot == slot,
                 href: profile_href,
                 title: format!("Inspect {}", candidate.character.name),
                 aria_label: format!("Inspect {}", candidate.character.name),
-                decoration: None,
+                decoration: Some(html! { span class="candidate-portrait-background" { (&candidates[slot].background) } }),
                 badge: None,
                 actions: Some(html! {
                     span class="party-portrait-actions" aria-label=(format!("Actions for {}", candidate.character.name)) {
@@ -284,8 +277,7 @@ pub fn character_candidates_page(
     let attributes_title = format!("{}'s attributes", candidate.character.name);
     let skills_title = format!("{}'s skills", candidate.character.name);
     let portraits = character_portrait_overlay("Candidate adventurers", None, &portraits);
-    let center_before =
-        html! { span data-candidate-roster data-age-tier=(age_tier.as_str()) hidden {} };
+    let center_before = html! { nav class="candidate-navigation" { a href="/characters/candidates" { "Change life stage" } span { "Select an adventurer to compare their details" } } span data-candidate-roster data-age-tier=(age_tier.as_str()) hidden {} };
     let center_after = html! {
             @if show_inventory {
                 (candidate_inventory_view(spec))
@@ -294,17 +286,15 @@ pub fn character_candidates_page(
                     p { strong { "Background: " } (&spec.background) }
                 }
             }
-            @if let Some(selected) = selected {
                 form action="/characters/candidates" method="post" class="candidate-play-action" data-candidate-confirm-form {
                     input type="hidden" name="version" value=(version);
                     input type="hidden" name="seed" value=(seed);
                     input type="hidden" name="age" value=(age_tier.as_str());
-                    input type="hidden" name="slot" value=(selected);
+                    input type="hidden" name="slot" value=(selected_slot);
                     button type="submit" class="btn btn-primary" {
                         "Play as " (&candidate.character.name)
                     }
                 }
-            }
             script src="/static/character-candidates.js?v=3" defer {}
     };
     let content = character_sheet_markup(CharacterSheetView {
@@ -326,7 +316,7 @@ pub fn character_candidates_page(
         can_renounce: false,
         organization_memberships: &candidate.organization_memberships,
         organization_presentation: candidate.organization_presentation.as_ref(),
-        organization_minute: 0,
+        organization_minute: adventuresim_world_schema::calendar::StrategicMinute::ZERO,
         physiology_dialog_id: None,
         surgery: None,
         injuries: &[],
@@ -347,7 +337,7 @@ pub fn character_candidates_page(
         after: html! {},
     });
 
-    entry_layout("Choose Your Adventurer", content)
+    Ok(entry_layout("Choose Your Adventurer", content))
 }
 
 fn candidate_inventory_view(spec: &StartingCharacterSpec) -> Markup {
@@ -379,351 +369,20 @@ fn candidate_inventory_view(spec: &StartingCharacterSpec) -> Markup {
     }
 }
 
-fn starting_slot_label(slot: StartingSlot) -> &'static str {
+fn starting_slot_label(slot: LoadoutSlot) -> &'static str {
     match slot {
-        StartingSlot::LeftHand => "left hand",
-        StartingSlot::RightHand => "right hand",
-        StartingSlot::LeftArm => "left arm",
-        StartingSlot::RightArm => "right arm",
-        StartingSlot::LeftLeg => "left leg",
-        StartingSlot::RightLeg => "right leg",
-        StartingSlot::LeftFoot => "left foot",
-        StartingSlot::RightFoot => "right foot",
-        StartingSlot::Head => "head",
-        StartingSlot::Chest => "chest",
-        StartingSlot::Stomach => "stomach",
+        LoadoutSlot::LeftHand => "left hand",
+        LoadoutSlot::RightHand => "right hand",
+        LoadoutSlot::LeftArm => "left arm",
+        LoadoutSlot::RightArm => "right arm",
+        LoadoutSlot::LeftLeg => "left leg",
+        LoadoutSlot::RightLeg => "right leg",
+        LoadoutSlot::LeftFoot => "left foot",
+        LoadoutSlot::RightFoot => "right foot",
+        LoadoutSlot::Head => "head",
+        LoadoutSlot::Chest => "chest",
+        LoadoutSlot::Stomach => "stomach",
     }
-}
-
-struct CandidatePresentation {
-    character: CharacterView,
-    attributes: CharacterAttributes,
-    capability: CharacterCapability,
-    limbs: CharacterLimbs,
-    personality: Personality,
-    skills: CharacterSkills,
-    religion_id: Option<String>,
-    organization_memberships: Vec<BackendOrganizationMembership>,
-    organization_presentation: Option<OrganizationPresentation>,
-    combat_profile: CombatTrainingProfile,
-}
-
-impl From<&StartingCharacterSpec> for CandidatePresentation {
-    fn from(spec: &StartingCharacterSpec) -> Self {
-        let character = CharacterView {
-            id: spec.id,
-            name: spec.name.clone(),
-            xp: 0,
-            level: 1,
-            current_settlement_id: None,
-            current_case_site_id: None,
-            party_id: None,
-            age_years: spec.age_years,
-            alive: true,
-            temporary: false,
-            social_notification_count: 0,
-            automatic_social_chat_enabled: false,
-        };
-        let attributes = CharacterAttributes {
-            character_id: spec.id,
-            endurance: spec.attributes.endurance,
-            immunity: spec.attributes.immunity,
-            gut: spec.attributes.gut,
-            intelligence: spec.attributes.intelligence,
-            instinct: spec.attributes.instinct,
-            eyesight: spec.attributes.eyesight,
-            hearing: spec.attributes.hearing,
-            left_arm_strength: spec.attributes.strength,
-            right_arm_strength: spec.attributes.strength,
-            left_leg_strength: spec.attributes.strength,
-            right_leg_strength: spec.attributes.strength,
-            left_arm_agility: spec.attributes.agility,
-            right_arm_agility: spec.attributes.agility,
-            left_leg_agility: spec.attributes.agility,
-            right_leg_agility: spec.attributes.agility,
-        };
-        let skills = CharacterSkills {
-            character_id: spec.id,
-            polearm_hours: spec.skills.polearm,
-            axe_hours: spec.skills.axe,
-            bludgeon_hours: spec.skills.bludgeon,
-            sword_hours: spec.skills.sword,
-            knife_hours: spec.skills.knife,
-            dodge_hours: spec.skills.dodge,
-            block_hours: spec.skills.block,
-            bow_hours: spec.skills.bow,
-            crossbow_hours: spec.skills.crossbow,
-            firearm_hours: spec.skills.firearm,
-            throw_hours: spec.skills.throw,
-            will_hours: spec.skills.will,
-            insight_hours: spec.skills.insight,
-            charm_hours: spec.skills.charm,
-            command_hours: spec.skills.command,
-            deception_hours: spec.skills.deception,
-            physiology_hours: spec.skills.physiology,
-            cooking_hours: spec.skills.cooking,
-            herbalism_hours: spec.skills.herbalism,
-            religion_hours: crate::spacetimedb::religion_hours_from_core(&spec.skills.religion),
-            oral_languages: crate::spacetimedb::empty_oral_language_hours(),
-            written_languages: crate::spacetimedb::empty_written_language_hours(),
-            stealth_hours: spec.skills.stealth,
-            balance_hours: spec.skills.balance,
-            terrain_plains_hours: spec.skills.terrain_plains,
-            terrain_forest_hours: spec.skills.terrain_forest,
-            terrain_hills_hours: spec.skills.terrain_hills,
-            terrain_wetlands_hours: spec.skills.terrain_wetlands,
-            terrain_urban_hours: spec.skills.terrain_urban,
-            terrain_snow_hours: spec.skills.terrain_snow,
-            bestiary_hours: crate::spacetimedb::bestiary_hours_from_core(&spec.skills.bestiary),
-            surgery_hours: spec.skills.surgery,
-            tailoring_hours: spec.skills.tailoring,
-            smithing_hours: spec.skills.smithing,
-        };
-        let effective_skill_hours = CharacterSkillHours(&skills);
-        let armor_slots = spec
-            .inventory
-            .iter()
-            .filter(|item| {
-                matches!(
-                    item.equipped,
-                    Some(
-                        StartingSlot::LeftArm
-                            | StartingSlot::RightArm
-                            | StartingSlot::LeftLeg
-                            | StartingSlot::RightLeg
-                            | StartingSlot::Head
-                            | StartingSlot::Chest
-                            | StartingSlot::Stomach
-                    )
-                )
-            })
-            .count();
-        let equipped_item_ids = spec
-            .inventory
-            .iter()
-            .filter(|item| item.equipped.is_some())
-            .map(|item| item.item_id.as_str())
-            .collect::<Vec<_>>();
-        let combat_profile = CombatTrainingProfile::from_equipped_hands(
-            spec.inventory
-                .iter()
-                .filter(|item| {
-                    matches!(
-                        item.equipped,
-                        Some(StartingSlot::LeftHand | StartingSlot::RightHand)
-                    )
-                })
-                .map(|item| {
-                    let shield = matches!(
-                        item.item_id.as_str(),
-                        "buckler" | "targe" | "heater_shield" | "round_shield" | "pavise"
-                    );
-                    EquippedCombatItem {
-                        weapons: if shield {
-                            Default::default()
-                        } else {
-                            weapon_skill_distribution_for_item(&item.item_id)
-                        },
-                        shield,
-                        balance: 1.0,
-                    }
-                }),
-        );
-        let has = |choices: &[&str]| equipped_item_ids.iter().any(|item| choices.contains(item));
-        let ranged = has(&[
-            "self_bow",
-            "longbow",
-            "light_crossbow",
-            "heavy_crossbow",
-            "matchlock_arquebus",
-            "hooked_arquebus",
-        ]);
-        let melee = has(&[
-            "arming_sword",
-            "baselard",
-            "bauernwehr",
-            "club",
-            "flanged_mace",
-            "halberd",
-            "hand_axe",
-            "hunting_spear",
-            "katzbalger",
-            "kriegsmesser",
-            "longsword",
-            "messer",
-            "military_pike",
-            "misericorde",
-            "rapier",
-            "rondel_dagger",
-            "utility_knife",
-            "walking_staff",
-            "war_hammer",
-            "zweihander",
-        ]);
-        let weapon_precision = equipped_item_ids
-            .iter()
-            .filter_map(|id| adventuresim_core::item_catalog::weapon_precision(id))
-            .fold(0.0_f32, f32::max);
-        let capability = CharacterCapability {
-            character_id: spec.id,
-            melee,
-            ranged,
-            heavy: has(&[
-                "heavy_crossbow",
-                "hooked_arquebus",
-                "military_pike",
-                "war_hammer",
-                "zweihander",
-            ]),
-            quarter_armor: armor_slots >= 2,
-            half_armor: armor_slots >= 4,
-            three_quarter_armor: armor_slots >= 6,
-            full_armor: armor_slots >= 7,
-            athletics: Skill::Dodge
-                .capped_training_rank(spec.skills.dodge, &spec.attributes)
-                .max(Skill::Balance.capped_training_rank(spec.skills.balance, &spec.attributes)),
-            endurance: spec.attributes.endurance,
-            physiology: Skill::Physiology
-                .capped_training_rank(spec.skills.physiology, &spec.attributes),
-            knife: Skill::Knife.capped_training_rank(spec.skills.knife, &spec.attributes),
-            tailoring: Skill::Tailoring
-                .capped_training_rank(spec.skills.tailoring, &spec.attributes),
-            surgery: Skill::Surgery.capped_training_rank(
-                effective_skill_hours.effective_skill_hours(Skill::Surgery),
-                &spec.attributes,
-            ),
-            command: Skill::Command.capped_training_rank(spec.skills.command, &spec.attributes),
-            religion: Skill::Religion
-                .capped_training_rank(spec.skills.religion.maximum_effective(), &spec.attributes),
-            weapon_precision,
-            autoresolve_combat_power: 0,
-        };
-        let organization_memberships = spec
-            .organization
-            .iter()
-            .map(|organization| {
-                let paid_through =
-                    adventuresim_core::organization::organization(&organization.organization_id)
-                        .and_then(|definition| definition.dues.as_ref())
-                        .map_or(u64::MAX, |dues| {
-                            u64::from(dues.interval_days)
-                                * adventuresim_core::strategic_time::MINUTES_PER_DAY
-                        });
-                BackendOrganizationMembership {
-                    id: 0,
-                    character_id: spec.id,
-                    organization_id: organization.organization_id.clone(),
-                    role_id: organization.role_id.clone(),
-                    joined_minute: 0,
-                    dues_paid_through_minute: paid_through,
-                    status: OrganizationMembershipStatus::Active,
-                    apprenticeship_minutes_accrued: 0,
-                    practice_minutes_accrued: 0,
-                }
-            })
-            .collect();
-        let organization_presentation =
-            spec.organization
-                .as_ref()
-                .map(|organization| OrganizationPresentation {
-                    character_id: spec.id,
-                    organization_id: organization.organization_id.clone(),
-                });
-        Self {
-            character,
-            attributes,
-            capability,
-            limbs: CharacterLimbs {
-                character_id: spec.id,
-                left_arm_health: 1.0,
-                right_arm_health: 1.0,
-                left_leg_health: 1.0,
-                right_leg_health: 1.0,
-                head_health: 1.0,
-                chest_health: 1.0,
-                stomach_health: 1.0,
-            },
-            personality: candidate_personality(spec),
-            skills,
-            religion_id: spec.religion_id.clone(),
-            organization_memberships,
-            organization_presentation,
-            combat_profile,
-        }
-    }
-}
-
-fn candidate_personality(spec: &StartingCharacterSpec) -> Personality {
-    let mut personality = Personality {
-        nerve: Nerve::Neutral,
-        drive: Drive::Neutral,
-        outlook: Outlook::Neutral,
-        sociability: Sociability::Neutral,
-        conscience: Conscience::Neutral,
-        self_regard: SelfRegard::Neutral,
-        conviction: Conviction::Neutral,
-        hygiene: Hygiene::Neutral,
-        temperance: Temperance::Neutral,
-        mirth: Mirth::Neutral,
-        courtship: Courtship::Neutral,
-        transparency: Transparency::Neutral,
-        self_knowledge: SelfKnowledge::Neutral,
-        sex: match spec.personality.sex {
-            StartingSex::Female => Sex::Female,
-            StartingSex::Male => Sex::Male,
-        },
-        presentation: match spec.personality.presentation {
-            StartingPresentation::Man => Presentation::Man,
-            StartingPresentation::Ambiguous => Presentation::Ambiguous,
-            StartingPresentation::Woman => Presentation::Woman,
-        },
-        inclination: match spec.personality.inclination {
-            StartingInclination::Men => Inclination::Men,
-            StartingInclination::Either => Inclination::Either,
-            StartingInclination::Women => Inclination::Women,
-            StartingInclination::Neither => Inclination::Neither,
-        },
-    };
-    for personality_trait in &spec.personality.traits {
-        match personality_trait {
-            StartingPersonalityTrait::Brave => personality.nerve = Nerve::Brave,
-            StartingPersonalityTrait::Fearful => personality.nerve = Nerve::Fearful,
-            StartingPersonalityTrait::Ambitious => personality.drive = Drive::Ambitious,
-            StartingPersonalityTrait::Content => personality.drive = Drive::Content,
-            StartingPersonalityTrait::Sanguine => personality.outlook = Outlook::Sanguine,
-            StartingPersonalityTrait::Brooding => personality.outlook = Outlook::Brooding,
-            StartingPersonalityTrait::Gregarious => {
-                personality.sociability = Sociability::Gregarious
-            }
-            StartingPersonalityTrait::Solitary => personality.sociability = Sociability::Solitary,
-            StartingPersonalityTrait::Compassionate => {
-                personality.conscience = Conscience::Compassionate
-            }
-            StartingPersonalityTrait::Callous => personality.conscience = Conscience::Callous,
-            StartingPersonalityTrait::Cruel => personality.conscience = Conscience::Cruel,
-            StartingPersonalityTrait::Proud => personality.self_regard = SelfRegard::Proud,
-            StartingPersonalityTrait::Humble => personality.self_regard = SelfRegard::Humble,
-            StartingPersonalityTrait::Zealous => personality.conviction = Conviction::Zealous,
-            StartingPersonalityTrait::Irreverent => personality.conviction = Conviction::Irreverent,
-            StartingPersonalityTrait::Slovenly => personality.hygiene = Hygiene::Slovenly,
-            StartingPersonalityTrait::Cleanly => personality.hygiene = Hygiene::Cleanly,
-            StartingPersonalityTrait::Temperate => personality.temperance = Temperance::Temperate,
-            StartingPersonalityTrait::Drunkard => personality.temperance = Temperance::Drunkard,
-            StartingPersonalityTrait::Merry => personality.mirth = Mirth::Merry,
-            StartingPersonalityTrait::Grave => personality.mirth = Mirth::Grave,
-            StartingPersonalityTrait::Amorous => personality.courtship = Courtship::Amorous,
-            StartingPersonalityTrait::Proper => personality.courtship = Courtship::Proper,
-            StartingPersonalityTrait::Open => personality.transparency = Transparency::Open,
-            StartingPersonalityTrait::Guarded => personality.transparency = Transparency::Guarded,
-            StartingPersonalityTrait::Introspective => {
-                personality.self_knowledge = SelfKnowledge::Introspective
-            }
-            StartingPersonalityTrait::SelfDeceiving => {
-                personality.self_knowledge = SelfKnowledge::SelfDeceiving
-            }
-        }
-    }
-    personality
 }
 
 #[cfg(test)]
@@ -731,6 +390,31 @@ mod creation_tests {
     use super::{CandidatePresentation, character_candidates_page};
     use adventuresim_core::organization::StartingProfession;
     use adventuresim_core::starting_character::{StartingAgeTier, StartingItem, roster};
+
+    #[test]
+    fn invalid_semantic_identity_fails_candidate_and_page_conversion() {
+        use adventuresim_world_schema::{
+            Culture,
+            person_names::{NameCatalogError, PersonalNameIdentity},
+        };
+        let mut candidate = adventuresim_core::starting_character::default_character("preview");
+        candidate.name_identity = PersonalNameIdentity::authored("\n", Culture::German);
+        assert!(matches!(
+            CandidatePresentation::try_from(&candidate),
+            Err(NameCatalogError::InvalidRenderedName)
+        ));
+        assert!(matches!(
+            character_candidates_page(
+                adventuresim_core::starting_character::GENERATOR_VERSION,
+                "00112233445566778899aabbccddeeff",
+                StartingAgeTier::Young,
+                &[candidate],
+                Some(0),
+                false,
+            ),
+            Err(NameCatalogError::InvalidRenderedName)
+        ));
+    }
 
     #[test]
     fn initial_roster_has_preview_but_no_dialog_or_customization() {
@@ -748,6 +432,7 @@ mod creation_tests {
             None,
             false,
         )
+        .unwrap()
         .into_string();
         assert!(markup.matches("party-portrait").count() >= 5);
         assert!(!markup.contains("prototype-disclaimer"));
@@ -759,7 +444,8 @@ mod creation_tests {
         assert!(markup.contains("candidate-inventory-action"));
         assert!(!markup.contains("class=\"schedule-section-heading\""));
         assert!(!markup.contains("data-skill-schedule"));
-        assert!(!markup.contains("data-candidate-confirm-form"));
+        assert!(markup.contains("data-candidate-confirm-form"));
+        assert!(markup.contains("name=\"slot\" value=\"0\""));
         assert!(!markup.contains("name=\"name\""));
     }
 
@@ -779,6 +465,7 @@ mod creation_tests {
             Some(2),
             false,
         )
+        .unwrap()
         .into_string();
         assert!(!markup.contains("role=\"dialog\""));
         assert!(!markup.contains("aria-modal=\"true\""));
@@ -810,6 +497,7 @@ mod creation_tests {
             Some(2),
             true,
         )
+        .unwrap()
         .into_string();
         assert!(markup.contains("data-candidate-inventory"));
         assert!(markup.contains("Starting inventory"));
@@ -834,7 +522,7 @@ mod creation_tests {
             quantity: 1,
             equipped: None,
         });
-        let preview = CandidatePresentation::from(&young);
+        let preview = CandidatePresentation::try_from(&young).unwrap();
         assert!(!preview.capability.ranged);
 
         let mut adult = roster(
@@ -847,7 +535,7 @@ mod creation_tests {
         .find(|candidate| candidate.profession == Some(StartingProfession::Herbalist))
         .unwrap();
         adult.skills.physiology = 100.0;
-        let preview = CandidatePresentation::from(&adult);
+        let preview = CandidatePresentation::try_from(&adult).unwrap();
         assert!(preview.capability.physiology > 0.0);
         assert_eq!(preview.capability.surgery, 0.0);
         assert!(preview.capability.weapon_precision > 0.0);
@@ -855,16 +543,25 @@ mod creation_tests {
         adult.skills.knife = 10_000.0;
         adult.skills.tailoring = 10_000.0;
         assert_eq!(
-            CandidatePresentation::from(&adult).capability.surgery,
+            CandidatePresentation::try_from(&adult)
+                .unwrap()
+                .capability
+                .surgery,
             0.0,
             "correlated crafts must not unlock a trained skill without direct Surgery study"
         );
 
         adult.skills.surgery = 100.0;
-        let correlated = CandidatePresentation::from(&adult).capability.surgery;
+        let correlated = CandidatePresentation::try_from(&adult)
+            .unwrap()
+            .capability
+            .surgery;
         adult.skills.knife = 0.0;
         adult.skills.tailoring = 0.0;
-        let direct_only = CandidatePresentation::from(&adult).capability.surgery;
+        let direct_only = CandidatePresentation::try_from(&adult)
+            .unwrap()
+            .capability
+            .surgery;
         assert!(correlated > direct_only);
     }
 
@@ -884,7 +581,10 @@ mod creation_tests {
         candidate.skills.knife = 0.0;
         candidate.skills.tailoring = 0.0;
 
-        let surgery = CandidatePresentation::from(&candidate).capability.surgery;
+        let surgery = CandidatePresentation::try_from(&candidate)
+            .unwrap()
+            .capability
+            .surgery;
         assert!((surgery - 3.15).abs() < 0.001);
     }
 
@@ -909,13 +609,21 @@ mod creation_tests {
                 })
             })
             .unwrap();
-        let preview = CandidatePresentation::from(&candidate);
+        let preview = CandidatePresentation::try_from(&candidate).unwrap();
         let membership = &preview.organization_memberships[0];
         let definition =
             adventuresim_core::organization::organization(&membership.organization_id).unwrap();
-        let expected = u64::from(definition.dues.as_ref().unwrap().interval_days)
-            * adventuresim_core::strategic_time::MINUTES_PER_DAY;
-        assert_eq!(membership.joined_minute, 0);
-        assert_eq!(membership.dues_paid_through_minute, expected);
+        let expected = adventuresim_world_schema::calendar::StrategicMinute::ZERO
+            .saturating_add_days(u64::from(definition.dues.as_ref().unwrap().interval_days));
+        assert_eq!(
+            membership.joined_minute,
+            adventuresim_stdb_client::StrategicMinute { minutes: 0 }
+        );
+        assert_eq!(
+            membership.dues_paid_through_minute,
+            adventuresim_stdb_client::StrategicMinute {
+                minutes: expected.get(),
+            }
+        );
     }
 }

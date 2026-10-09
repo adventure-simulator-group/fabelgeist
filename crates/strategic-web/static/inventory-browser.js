@@ -170,13 +170,25 @@
     const aside = browser.closest(".left-sidebar, .right-sidebar");
     const grid = aside?.closest(".main-grid");
     if (!aside || !grid) return;
-    const styles = global.getComputedStyle(aside);
-    const frameWidth = (Number.parseFloat(styles.paddingLeft) || 0) + (Number.parseFloat(styles.paddingRight) || 0);
-    const table = browser.querySelector(".trade-inventory-table");
-    const tableWidth = table?.getBoundingClientRect?.().width || table?.clientWidth || 0;
-    const browserWidth = browser.getBoundingClientRect?.().width || browser.clientWidth || 0;
-    const contentWidth = Math.ceil(Math.max(browserWidth, tableWidth));
+    const gridStyles = global.getComputedStyle(grid);
     const side = aside.classList.contains("left-sidebar") ? "left" : "right";
+    if (gridStyles.display !== "grid" || gridStyles.gridTemplateColumns.trim().split(/\s+/).length === 1) {
+      grid.style.removeProperty(`--inventory-${side}-width`);
+      return;
+    }
+    // Account for the nested frame, borders and scroll gutters, rather than
+    // only the rail padding. The browser fills the rail's available content.
+    const browserWidth = browser.getBoundingClientRect?.().width || browser.clientWidth || 0;
+    const asideWidth = aside.getBoundingClientRect?.().width || aside.clientWidth || 0;
+    const frameWidth = Math.max(0, asideWidth - browserWidth);
+    const table = browser.querySelector(".trade-inventory-table");
+    // Measure intrinsic content, independent of the column's current stretched width.
+    const stretchedMinimum = table?.style.minWidth || "";
+    if (table) table.style.minWidth = "0";
+    const tableWidth = table?.getBoundingClientRect?.().width || table?.clientWidth || 0;
+    if (table) table.style.minWidth = stretchedMinimum;
+    const minimumWidth = Number.parseFloat(global.getComputedStyle(browser).minWidth) || 0;
+    const contentWidth = Math.ceil(Math.max(minimumWidth, tableWidth));
     grid.style.setProperty(`--inventory-${side}-width`, `${contentWidth + frameWidth}px`);
   }
 
@@ -438,6 +450,21 @@
     groupFoodRows(browser);
     const body = browser.querySelector("tbody");
     if (!body) return;
+    const actionsFirst = Boolean(browser.closest(".right-sidebar"));
+    browser.querySelectorAll(".inventory-actions-header, col.inventory-column-actions").forEach((cell) => {
+      if (actionsFirst) cell.parentElement.prepend(cell);
+      else cell.parentElement.append(cell);
+    });
+    if (actionsFirst) {
+      browser.querySelectorAll(".inventory-repair-header, col.inventory-column-repair").forEach((cell) => {
+        const actionCell = cell.parentElement.querySelector(":scope > .inventory-actions-header, :scope > col.inventory-column-actions");
+        actionCell?.after(cell);
+      });
+    }
+    body.querySelectorAll(":scope > tr.trade-inventory-row").forEach((row) => {
+      const { cell, actions } = ensureRowActionRail(row);
+      if (browser.dataset.repairActions === "true") ensureRepairActionCell(row, cell, actions, actionsFirst);
+    });
     const rows = [...body.querySelectorAll(":scope > tr.trade-inventory-row:not(.inventory-detail-row):not(.currency-component-row):not(.alcohol-component-row):not(.food-component-row)")];
     rows.forEach((row) => normalizeDestinationRow(row, browser));
     body.querySelectorAll(":scope > tr.alcohol-component-row, :scope > tr.food-component-row")
@@ -571,7 +598,25 @@
       actions.className = "inventory-row-actions";
     }
     if (actions.parentElement !== cell) cell.prepend(actions);
+    if (row.closest(".right-sidebar")) row.prepend(cell);
+    else row.append(cell);
     return { cell, actions };
+  }
+
+  function ensureRepairActionCell(row, actionCell, actions, actionsFirst) {
+    let cell = row.querySelector(":scope > .inventory-repair-cell");
+    if (!cell) {
+      cell = document.createElement("td");
+      cell.className = "inventory-repair-cell";
+      cell.setAttribute("aria-label", "Repair item");
+    }
+    if (actionsFirst) actionCell.after(cell);
+    else row.insertBefore(cell, actionCell);
+    const repair = actions.querySelector(":scope > .row-repair-form");
+    if (repair) {
+      cell.append(repair);
+      actions.classList.remove("smith-player-actions");
+    }
   }
 
   function bindContainerRowDragDrop(browser, row, open) {
@@ -1108,6 +1153,9 @@
   if (global.document) {
     global.addEventListener("DOMContentLoaded", () => { mountAll(); hydrateContainerState(); });
     global.addEventListener("popstate", () => mountAll());
+    global.addEventListener("resize", () => {
+      global.document.querySelectorAll("[data-inventory-browser]").forEach(syncPanelWidth);
+    });
     global.document.addEventListener("strategic-page-mounted", () => { mountAll(); hydrateContainerState(); });
     global.document.addEventListener("inventory-container-move", (event) => {
       postContainer("/api/inventory/containers/move", {

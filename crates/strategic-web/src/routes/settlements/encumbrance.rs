@@ -443,7 +443,7 @@ pub(crate) async fn get_active_party_members(
         let automatic_targets: HashSet<u64> = automatic_chats
             .unwrap_or_default()
             .into_iter()
-            .filter(|preference| preference.enabled && preference.actor_id == actor.id)
+            .filter(|preference| preference.actor_id == actor.id)
             .map(|preference| preference.target_id)
             .collect();
         for member in &mut members {

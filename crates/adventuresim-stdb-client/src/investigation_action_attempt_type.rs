@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct InvestigationActionAttempt {
@@ -12,8 +14,8 @@ pub struct InvestigationActionAttempt {
     pub owner_character_id: u64,
     pub expected_version: u32,
     pub method: String,
-    pub started_at: u64,
-    pub completed_at: u64,
+    pub started_at: StrategicMinute,
+    pub completed_at: StrategicMinute,
     pub duration_minutes: u32,
     pub success: bool,
     pub resulting_uncertainty_bps: u16,
@@ -33,8 +35,8 @@ pub struct InvestigationActionAttemptCols {
     pub owner_character_id: __sdk::__query_builder::Col<InvestigationActionAttempt, u64>,
     pub expected_version: __sdk::__query_builder::Col<InvestigationActionAttempt, u32>,
     pub method: __sdk::__query_builder::Col<InvestigationActionAttempt, String>,
-    pub started_at: __sdk::__query_builder::Col<InvestigationActionAttempt, u64>,
-    pub completed_at: __sdk::__query_builder::Col<InvestigationActionAttempt, u64>,
+    pub started_at: __sdk::__query_builder::Col<InvestigationActionAttempt, StrategicMinute>,
+    pub completed_at: __sdk::__query_builder::Col<InvestigationActionAttempt, StrategicMinute>,
     pub duration_minutes: __sdk::__query_builder::Col<InvestigationActionAttempt, u32>,
     pub success: __sdk::__query_builder::Col<InvestigationActionAttempt, bool>,
     pub resulting_uncertainty_bps: __sdk::__query_builder::Col<InvestigationActionAttempt, u16>,

@@ -12,10 +12,12 @@ use crate::strategic_schedule::{
     ActivityTrainingProfile, DailySchedule, SkillHours, SocializingSociability,
     apply_curriculum_training, apply_religion_training, apply_schedule_training,
 };
-use crate::strategic_time::{DAYS_PER_YEAR, MINUTES_PER_DAY, MINUTES_PER_YEAR};
+use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::{DAYS_PER_YEAR, MINUTES_PER_YEAR};
 use adventuresim_world_schema::{
     OfficialReligion, OralLanguageHours, WrittenLanguage, WrittenLanguageHours,
 };
+use fabelgeist_determinism::Seed;
 
 pub const TRAINING_START_AGE: u16 = 6;
 
@@ -47,7 +49,7 @@ impl HistoricalActivity {
 }
 
 pub struct LifeSimulationInput<'a, A: PlayerAttributes> {
-    pub stable_seed: u64,
+    pub stable_seed: Seed,
     pub age_years: u16,
     pub attributes: &'a A,
     pub organization: Option<&'a OrganizationDefinition>,
@@ -84,7 +86,7 @@ pub fn simulate_life<A: PlayerAttributes>(
 
     let childhood_end = input.age_years.min(12);
     if childhood_end > TRAINING_START_AGE {
-        let emphasis = 45 + (domain_draw(input.stable_seed, "childhood") % 31) as u16;
+        let emphasis = 45 + domain_draw(input.stable_seed, "childhood").index(31) as u16;
         let schedule = DailySchedule {
             labor: 120,
             prayer: 30,
@@ -356,12 +358,13 @@ pub fn apply_creation_literacy(
     true
 }
 
-fn domain_draw(seed: u64, domain: &str) -> u64 {
-    domain
-        .bytes()
-        .fold(seed ^ 0x6c69_6665_2d76_3100, |value, byte| {
-            (value ^ u64::from(byte)).wrapping_mul(0x100000001b3)
-        })
+fn domain_draw(seed: Seed, domain: &str) -> fabelgeist_determinism::DeterministicRng {
+    fabelgeist_determinism::Seed::derive(
+        &seed.to_le_bytes(),
+        fabelgeist_determinism::StreamId::new("life-simulation.draw"),
+        &[domain.as_bytes()],
+    )
+    .rng()
 }
 
 #[cfg(test)]
@@ -381,7 +384,7 @@ mod tests {
         }
     }
 
-    fn run(seed: u64, age: u16) -> LifeSimulationOutput {
+    fn run(seed: Seed, age: u16) -> LifeSimulationOutput {
         simulate_life(LifeSimulationInput {
             stable_seed: seed,
             age_years: age,
@@ -397,15 +400,21 @@ mod tests {
 
     #[test]
     fn replay_is_exact_and_seed_changes_emphasis() {
-        assert_eq!(run(7, 25), run(7, 25));
-        assert_ne!(run(7, 25), run(8, 25));
+        assert_eq!(
+            run(fabelgeist_determinism::Seed::from_u64(7), 25),
+            run(fabelgeist_determinism::Seed::from_u64(7), 25)
+        );
+        assert_ne!(
+            run(fabelgeist_determinism::Seed::from_u64(7), 25),
+            run(fabelgeist_determinism::Seed::from_u64(8), 25)
+        );
     }
 
     #[test]
     fn phases_are_bounded_and_age_adds_training() {
-        let young = run(1, 16);
-        let adult = run(1, 22);
-        let old = run(1, 40);
+        let young = run(fabelgeist_determinism::Seed::from_u64(1), 16);
+        let adult = run(fabelgeist_determinism::Seed::from_u64(1), 22);
+        let old = run(fabelgeist_determinism::Seed::from_u64(1), 40);
         assert_eq!(young.phases_advanced, 2);
         assert_eq!(adult.phases_advanced, 3);
         assert_eq!(old.phases_advanced, 3);
@@ -427,7 +436,7 @@ mod tests {
 
         let attributes = Attributes(2.5);
         let input = LifeSimulationInput {
-            stable_seed: 1,
+            stable_seed: fabelgeist_determinism::Seed::from_u64(1),
             age_years: 22,
             attributes: &attributes,
             organization: None,
@@ -500,7 +509,7 @@ mod tests {
         assert!((normalized.iter().map(|entry| entry.weight).sum::<f32>() - 1.0).abs() < 0.0001);
         let attributes = Attributes(2.5);
         let input = LifeSimulationInput {
-            stable_seed: 9,
+            stable_seed: fabelgeist_determinism::Seed::from_u64(9),
             age_years: 22,
             attributes: &attributes,
             organization: Some(definition),

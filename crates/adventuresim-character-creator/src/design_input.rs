@@ -2,8 +2,8 @@
 
 use std::path::Path;
 
-use adventuresim_armor_model::{BreastplateDesign, validate_breastplate};
 use anyhow::{Context, Result};
+use fabelgeist_armor::{BreastplateDesign, validate_breastplate};
 
 pub fn load_breastplate_design(path: Option<&Path>) -> Result<BreastplateDesign> {
     let Some(path) = path else {
@@ -24,7 +24,7 @@ fn parse_breastplate_design(bytes: &[u8]) -> Result<BreastplateDesign> {
     Ok(design)
 }
 
-pub fn load_bracer_design(path: Option<&Path>) -> Result<adventuresim_armor_model::BracerDesign> {
+pub fn load_bracer_design(path: Option<&Path>) -> Result<fabelgeist_armor::BracerDesign> {
     let Some(path) = path else {
         return parse_bracer_design(include_bytes!(
             "../../../assets_src/equipment/vambrace-design.json"
@@ -35,27 +35,24 @@ pub fn load_bracer_design(path: Option<&Path>) -> Result<adventuresim_armor_mode
         .with_context(|| format!("loading vambrace design {}", path.display()))
 }
 
-fn parse_bracer_design(bytes: &[u8]) -> Result<adventuresim_armor_model::BracerDesign> {
+fn parse_bracer_design(bytes: &[u8]) -> Result<fabelgeist_armor::BracerDesign> {
     let design = serde_json::from_slice(bytes).context("parsing vambrace design")?;
-    adventuresim_armor_model::validate(&design).context("invalid vambrace design")?;
+    fabelgeist_armor::validate(&design).context("invalid vambrace design")?;
     Ok(design)
 }
 
 #[cfg(test)]
 mod tests {
-    use adventuresim_armor_model::Millimeters;
+    use fabelgeist_armor::Millimeters;
 
     use super::*;
 
     #[test]
     fn misspelled_optional_vambrace_fluting_is_rejected() {
-        let mut document =
-            serde_json::to_value(adventuresim_armor_model::BracerDesign::default()).unwrap();
+        let mut document = serde_json::to_value(fabelgeist_armor::BracerDesign::default()).unwrap();
         document.as_object_mut().unwrap().remove("fluting");
         document["flutng"] = serde_json::json!({"count":9});
-        assert!(
-            serde_json::from_value::<adventuresim_armor_model::BracerDesign>(document).is_err()
-        );
+        assert!(serde_json::from_value::<fabelgeist_armor::BracerDesign>(document).is_err());
     }
 
     #[test]
@@ -77,7 +74,7 @@ mod tests {
             .unwrap()
         );
         assert_ne!(breastplate, BreastplateDesign::default());
-        assert_ne!(vambrace, adventuresim_armor_model::BracerDesign::default());
+        assert_ne!(vambrace, fabelgeist_armor::BracerDesign::default());
     }
 
     #[test]

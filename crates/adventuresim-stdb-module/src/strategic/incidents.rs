@@ -1,3 +1,4 @@
+
 struct IncidentSpec<'a> {
     kind: IncidentKind,
     title: &'a str,
@@ -90,7 +91,7 @@ pub fn backend_authority_arrest_actions(
                 .filter(incident.instigator_id)
                 .filter(|stack| {
                     ctx.db.item().id().find(&stack.item_id).is_some_and(|item| {
-                        item.kind == crate::item::PersistedItemKind::Currency
+                        item.kind == crate::item::CatalogItemKind::Currency
                     })
                 })
                 .map(|stack| u64::from(stack.quantity))
@@ -228,7 +229,7 @@ fn create_strategic_incident(
         id_key: incident_id.value.clone(),
         id: incident_id.clone(),
         source_id,
-        action_token: format!("{:016x}{:016x}", ctx.random::<u64>(), ctx.random::<u64>()),
+        action_token: format!("{:016x}{:016x}", ctx.random::<Seed>(), ctx.random::<Seed>()),
         party_id: party_id.into(),
         settlement_id: settlement.id.clone(),
         instigator_id,
@@ -298,7 +299,7 @@ fn maybe_trigger_religious_incident(
     let Some((instigator_id, instigator_fervor)) = instigator else {
         return Ok(None);
     };
-    let roll = (ctx.random::<u64>() >> 40) as f32 / ((1_u32 << 24) as f32);
+    let roll = fabelgeist_determinism::StreamId::new("incident.fervor").rng(ctx.random::<Seed>(), &[instigator_id]).unit_f32();
     if !fervor_event_occurs(instigator_fervor, roll) {
         return Ok(None);
     }
@@ -364,7 +365,7 @@ pub(crate) fn maybe_trigger_activity_incident(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let entropy_id = format!(
         "activity-entropy:{party_id}:{}:{character_id}:{occurrence_minute}",
         settlement.id
@@ -373,7 +374,7 @@ pub(crate) fn maybe_trigger_activity_incident(
     {
         row.seed
     } else {
-        let seed = ctx.random::<u64>();
+        let seed = ctx.random::<Seed>();
         ctx.db
             .activity_incident_entropy()
             .insert(ActivityIncidentEntropy {
@@ -620,7 +621,7 @@ pub(crate) fn finish_incident_for_hostile_group(
             .character_time()
             .character_id()
             .find(incident.instigator_id)
-            .map_or(0, |time| time.minutes);
+            .map_or(StrategicMinute::ZERO, |t| t.minutes);
         crate::reputation::record_event(
             ctx,
             format!("resist-authority:{}", incident.id.value),
@@ -659,7 +660,7 @@ fn activity_incident_source_id(
     party_id: &str,
     settlement_id: &str,
     character_id: u64,
-    occurrence_minute: u64,
+    occurrence_minute: StrategicMinute,
 ) -> IncidentSourceId {
     IncidentSourceId {
         value: format!(

@@ -1,7 +1,7 @@
 //! Capture readiness reads the same resolved meshes and wearer skins as gameplay.
 use crate::equipment::{
     ItemPlaceholder, ProceduralEquipmentFailed, ProceduralEquipmentPart,
-    ProceduralEquipmentResolved,
+    ProceduralEquipmentResolved, RuntimeEquipmentWarmup,
 };
 use crate::presentation::interior_lighting::InteriorMaterial;
 use bevy::{
@@ -38,6 +38,7 @@ type EquipmentRenderPart = (
 /// Loading cuboid proxies never qualify as captured armor.
 #[derive(SystemParam)]
 pub(in crate::animation_viewer) struct EquipmentVisualStatus<'w, 's> {
+    warmup: Res<'w, RuntimeEquipmentWarmup>,
     roots: Query<
         'w,
         's,
@@ -60,6 +61,11 @@ impl EquipmentVisualStatus<'_, '_> {
         item: Entity,
         required: EquipmentVisualRequirements,
     ) -> EquipmentVisualState {
+        match self.warmup.check() {
+            Ok(true) => {}
+            Ok(false) => return EquipmentVisualState::Loading,
+            Err(_) => return EquipmentVisualState::Failed,
+        }
         let Some((_, resolved, failed)) = self.roots.iter().find(|(root, _, _)| root.0 == item)
         else {
             return EquipmentVisualState::Missing;
@@ -88,9 +94,15 @@ impl EquipmentVisualStatus<'_, '_> {
                 return EquipmentVisualState::Failed;
             }
             if required.morph_targets.is_some_and(|count| {
-                mesh.morph_target_names().is_none_or(|names| names.len() != count)
-                    || !matches!(morphs, Some(MeshMorphWeights::Value { weights })
-                        if weights.len() == count && weights.iter().all(|weight| weight.is_finite()))
+                mesh.morph_target_names().map_or(0, <[String]>::len) != count
+                    || match morphs {
+                        None => count != 0,
+                        Some(MeshMorphWeights::Value { weights }) => {
+                            weights.len() != count
+                                || weights.iter().any(|weight| !weight.is_finite())
+                        }
+                        Some(_) => true,
+                    }
             }) {
                 return EquipmentVisualState::Loading;
             }
@@ -159,22 +171,20 @@ mod tests {
     use bevy::ecs::system::RunSystemOnce;
 
     #[test]
-    fn helmet_requires_all_three_bound_parts_with_complete_morph_weights() {
+    fn requested_parts_require_skins_and_reject_equipment_morphs() {
         let mut world = World::new();
+        world.insert_resource(RuntimeEquipmentWarmup::ready_for_tests());
         world.init_resource::<Assets<Mesh>>();
         world.init_resource::<Assets<StandardMaterial>>();
         world.init_resource::<Assets<Image>>();
         let item = world.spawn_empty().id();
         world.spawn((ItemPlaceholder(item), ProceduralEquipmentResolved));
-        let required = super::super::ArmorHarness::CloseHelmet.visual_requirements();
-        let morph_count = required.morph_targets.unwrap();
+        let required = EquipmentVisualRequirements {
+            names: &["shell", "visor", "bevor"],
+            morph_targets: Some(0),
+        };
         let mut mesh = Mesh::new(bevy::mesh::PrimitiveTopology::TriangleList, default());
         mesh.insert_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT, vec![[1.0, 0.0, 0.0, 0.0]]);
-        mesh.set_morph_target_names(
-            (0..morph_count)
-                .map(|index| format!("fit_{index}"))
-                .collect(),
-        );
         let mesh = world.resource_mut::<Assets<Mesh>>().add(mesh);
         let material = world
             .resource_mut::<Assets<StandardMaterial>>()
@@ -192,7 +202,12 @@ mod tests {
             entities.push(
                 world
                     .spawn((
-                        ProceduralEquipmentPart::new(item, default(), vec!["c_head".into()]),
+                        ProceduralEquipmentPart::new(
+                            item,
+                            default(),
+                            vec!["c_head".into()],
+                            Vec3::ZERO,
+                        ),
                         Name::new(*name),
                         Mesh3d(mesh.clone()),
                         crate::presentation::interior_lighting::InteriorMaterialSource(
@@ -201,9 +216,6 @@ mod tests {
                         SkinnedMesh {
                             inverse_bindposes: default(),
                             joints: vec![item],
-                        },
-                        MeshMorphWeights::Value {
-                            weights: vec![0.0; morph_count],
                         },
                     ))
                     .id(),
@@ -246,15 +258,9 @@ mod tests {
         });
         world
             .entity_mut(entities[2])
-            .insert(MeshMorphWeights::Value {
-                weights: vec![0.0; morph_count - 1],
-            });
+            .insert(MeshMorphWeights::Value { weights: vec![0.0] });
         assert_eq!(state(&mut world), EquipmentVisualState::Loading);
-        world
-            .entity_mut(entities[2])
-            .insert(MeshMorphWeights::Value {
-                weights: vec![0.0; morph_count],
-            });
+        world.entity_mut(entities[2]).remove::<MeshMorphWeights>();
         world
             .entity_mut(entities[2])
             .insert(Name::new("unrelated plate"));
@@ -264,6 +270,7 @@ mod tests {
     #[test]
     fn missing_fallback_and_unbound_equipment_never_pass_capture_readiness() {
         let mut world = World::new();
+        world.insert_resource(RuntimeEquipmentWarmup::ready_for_tests());
         world.init_resource::<Assets<Mesh>>();
         world.init_resource::<Assets<StandardMaterial>>();
         world.init_resource::<Assets<Image>>();

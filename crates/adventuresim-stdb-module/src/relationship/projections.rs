@@ -12,9 +12,9 @@ pub struct BackendCharacterRelationshipStatus {
     pub courtship_exposed: bool,
     pub wedding_commitment_id: Option<String>,
     pub wedding_partner_id: Option<u64>,
-    pub wedding_effective_minute: Option<u64>,
+    pub wedding_effective_minute: Option<StrategicMinute>,
     pub wedding_settlement_id: Option<String>,
-    pub pregnancy_due_minute: Option<u64>,
+    pub pregnancy_due_minute: Option<StrategicMinute>,
     pub pregnancy_child_id: Option<u64>,
 }
 
@@ -26,7 +26,7 @@ pub struct BackendCourtshipDiscoveryStatus {
     pub observer_character_id: u64,
     pub first_character_id: u64,
     pub second_character_id: u64,
-    pub discovered_minute: u64,
+    pub discovered_minute: StrategicMinute,
 }
 
 fn is_strategic_gateway(ctx: &ViewContext) -> bool {
@@ -69,7 +69,7 @@ pub fn backend_character_relationship_statuses(
                     .character_time()
                     .character_id()
                     .find(character.id)
-                    .map_or(0, |time| time.minutes);
+                    .map_or(StrategicMinute::ZERO, |t| t.minutes);
                 let spouse_id = ctx
                     .db
                     .marriage()
@@ -240,7 +240,7 @@ pub fn backend_courtship_discoveries(ctx: &ViewContext) -> Vec<BackendCourtshipD
                 .character_time()
                 .character_id()
                 .find(receipt.observer_id)
-                .map_or(0, |time| time.minutes);
+                .map_or(StrategicMinute::ZERO, |t| t.minutes);
             (receipt.attempted_minute <= observer_minute)
                 .then(|| ctx.db.courtship().id().find(&receipt.courtship_id))
                 .flatten()

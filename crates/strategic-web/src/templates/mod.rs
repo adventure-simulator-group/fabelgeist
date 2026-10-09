@@ -1,4 +1,5 @@
 //! Maud HTML templates
+mod architecture;
 mod equipment_icons;
 
 use std::sync::atomic::{AtomicU64, Ordering};
@@ -16,6 +17,7 @@ pub(crate) fn fresh_request_token(prefix: &str) -> String {
 }
 
 mod components;
+mod interface_help;
 mod inventory_browser;
 mod layout;
 

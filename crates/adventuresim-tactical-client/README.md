@@ -1,5 +1,70 @@
 # Fabelgeist tactical client
 
+## Runtime equipment fitting
+
+Armor and clothing are generated locally from each wearer's evaluated, unposed
+body. Identity and skeletal fit morphs are evaluated on the body once; skeletal
+proportion offsets then place its vertices and fitting landmarks. Equipment
+contains no body-shape morph targets. Its inverse bind poses belong to that
+wearer's rest skeleton, so animation does not apply proportion changes twice.
+
+The client queues fitting outside frame updates on native builds and awaits
+WebGPU initialization and readback in the browser. The compute device creates
+no canvas; Bevy renders the resulting geometry in the existing game canvas.
+Offline exporters retain their reusable morph-equipped asset workflow.
+Compute and rendering dependencies must use the same `wgpu` release: linking
+two releases into the browser client duplicates their vendored WebGPU bindings.
+
+Initial loading exercises every authored armor placement on the canonical body,
+plus layered shoulders and alternate cuirass and tasset constructions. These
+temporary meshes are discarded; the device and compiled compute kernels stay
+alive across city travel. Strategic scene readiness waits for this preparation,
+even when the initial city has no equipped NPCs. Preparation failures surface as
+loading errors. Newly encountered wearers still receive their own fitted meshes;
+initial preparation does not cache canonical fits as substitutes for them.
+
+Fits are cached by item design, anatomical placement, and evaluated body shape.
+The last 128 variants remain available across travel; live entities retain their
+own mesh handles after cache eviction. Changing wearer or proportions requests a
+new fit. Holding or dropping a previously fitted item preserves its shape and
+anatomical placement across placeholder rebuilds. Carried and dropped meshes
+are centered rigid objects; only worn equipment binds to the wearer's skeleton.
+
+Measure fitting separately from rendering with the real canonical body:
+
+```powershell
+cargo run -p adventuresim-tactical-client --example runtime_equipment_bench -- assets/animations/biped/unarmed/base.glb 3
+```
+
+The JSON records separate device opening, first use, and repeated fits. The
+vambrace and breastplate comparisons use the same batched readback for one body
+and the full set of body morph endpoints; they isolate morph generation cost.
+The browser probe example exercises the same asynchronous runtime generator.
+Build it with `cargo build -p adventuresim-tactical-client --example
+armor_browser_probe --target wasm32-unknown-unknown --no-default-features`.
+Run the matching `wasm-bindgen` CLI with `--target web` into an output directory,
+copy `examples/armor_browser_probe.html` there as `index.html`, and copy
+`assets/animations/biped/unarmed/base.glb` from the repository as `body.glb`.
+Serve that directory on localhost. The page reports initial preparation time,
+geometry validity, and first and repeated fitting times for twelve equipment
+types after preparation. Kernel counts identify any missed first-use work.
+Gorget and mail-coif section measurements intersect body triangles, so fitting
+does not require dense vertices near each anatomical measurement plane.
+
+`animation-viewer --armor-harness wearer-fit` renders a gorget, cuirass, and
+paired vambraces on the actual animated wearer for fitting inspection.
+Device builders generate pauldrons, wrapped tassets, anime breastplates, and
+puff-and-slash clothing as well. Unsupported recipes fail readiness instead of
+loading served equipment meshes or silently substituting another design.
+
+Generated equipment uses ordinary skeletal attachment during animation. Metal
+parts retain their authored rigid joint ownership; cuirass courses share one
+chest attachment, and pauldron distal lames follow the upper arm. There is no
+runtime plate solver, body collision mesh, or per-frame contact search in this
+generation path. Generation-time layer fitting and closed-shell validation do
+not establish collision-free animation. Independent plate articulation and
+contact correction are separate work.
+
 ## Browser release builds
 
 `just build-wasm` keeps the gameplay client on the workspace `release` profile
@@ -215,15 +280,27 @@ Run it from the repository root:
 cargo run -p adventuresim-tactical-client --bin animation-viewer -- --output target/animation-captures/locomotion-review
 ```
 
-Use `--armor-harness close-helmet` to equip the installed close helmet through
-normal gameplay equipment loading. Capture waits for the separate skull, bevor,
-and visor meshes, their materials, wearer skin bindings, and all 57 morph
-weights. Front and side views follow the head at inspection distance; the
+Use `--armor-harness close-helmet` to generate the close helmet through
+normal gameplay equipment loading. Capture waits for fitted geometry,
+materials, wearer skin bindings, and the absence of equipment morph targets.
+Front and side views follow the head at inspection distance; the
 gameplay view keeps its usual framing. `armor-readiness.json` records the
 resolved parts and weights. `--scenario ordinary-camera-pitch` exercises
 lowered-guard idle and head pitch; `--scenario raised-guard-stationary-turn`
 exercises guard and turning. Add `--hidden` for automated captures without a
 visible desktop window.
+
+For supplementary boundary inspection, use `--camera-orbit-degrees 120` to
+rotate the front and side cameras around their existing focus. Gameplay framing
+stays unchanged. `--diffuse-armor` removes metallic highlights and makes the
+supporting cuirass translucent while keeping body anatomy visible. The capture
+records these options in `inspection.json`; neither option changes fitting.
+
+Use `--armor-harness puffed` for paired puff-and-slash sleeves and hose. Their
+ring and panel geometry, anatomical section fitting, shell extrusion, and skin
+correspondence run on the client GPU. Component materials retain the authored
+outer fabric and undercloth colors. Worn parts share the evaluated wearer rig;
+carried or dropped material parts retain one common item origin.
 
 Use `--asset-root` when invoking it outside the repository root,
 `--scenario steady-walk-2.0` for a focused iteration, and
@@ -457,6 +534,43 @@ turning continuity and axle variation. Ground meshes sample the same presented
 terrain surface; material relief does not change tactical collision or create
 physical ruts.
 
+Vista construction shades each environmental sample once for its exact weather
+snapshot, then interpolates those linear colours across terrain vertices and
+LOD seams. The temporary sample fields stay local to one ring construction and
+follow the scene sample bounds. Geometry, colour interpolation order, substrate
+pigments and distant sward coverage remain unchanged. Playable-edge pigment is
+prepared once with the same scene environment.
+
+Whole foundations are selected conservatively against each ring’s output
+rectangles before internal sides are matched. Their bounds include closed-cell
+vertices and exposed cut faces. Every intersecting property retains its
+original face order and exact clipping; the physical support and collision
+representation remain complete. Selection stays local to preparation.
+
+The vista partitioner scans ordered accepted faces once per ring and prepares
+each face's rectangle bounds once. Per-rectangle buffers retain source triangle
+order; complete chunks retain clipping, normals, pigments and mesh indices.
+These buffers contain only current mesh output and are released after
+preparation. They do not retain another terrain or collision representation.
+
+Operable windows retain checked scene positions/directions and positive leaf
+dimensions through installation and presentation. The closure mesh cache accepts
+`LeafDimensions` and converts to the cuboid mesh contract at its explicit native
+cache/mesh adapter. Fixed glazing still admits thin or degenerate cuboid geometry.
+Cache keys, shared handles and material selection keep their native layouts.
+Core's paired `SceneWindowPose` supplies the converted leaf and native rotation.
+Building closure visibility and shutter lighting carry `SceneBuildingId` and
+`OpeningAssemblyId` through their joins. Material palette selection extracts the
+native building number only at the existing deterministic seed/hash adapter.
+Fixed bar presence uses the named `WindowBarPresence` enum in both scene APIs
+and the serialized `bars` field.
+
+Window animation and catch decisions remain transient server state. The mutable
+controller's current angle and ordinary toggle `bool` are a documented #770
+handoff under #765; distinguishing controller missing/blocked outcomes is outside
+the selected #794 geometry change. Generator admission belongs to #766 and the
+shared architectural-to-scene conversion belongs to #767.
+
 Outdoor furniture arrives as compact immutable recipe references and normal
 entity transforms. Shared mesh handles and the building material palette
 render each accepted instance. Small furniture fades over 180-230 metres;
@@ -484,3 +598,21 @@ cargo test -p adventuresim-tactical-client --bin art-demo \
 
 Production tactical scenes do not use these assets and retain runtime cloud
 animation.
+
+## Terrain comparison captures
+
+The `terrain-grounding` capture profile requires explicit frozen world-space
+cameras through `--city-cameras`. It renders at 2240 × 1260 physical pixels,
+independent of desktop scaling. The image manifest reports those same physical
+dimensions. Other capture profiles retain their standard 1280 × 720 images;
+scene-performance measurements use a separate 2560 × 1440 offscreen target.
+Cameras, time, weather, exposure and physical member selection must be fixed
+when comparing terrain support across generated products and building LODs.
+Explicit capture members are prepared for playable presentation only after the
+unchanged input has reconstructed its accepted terrain. Their exact programmes,
+placements and floor elevations are retained, and their distant drawing entries
+are suppressed. The existing authoritative projectors generate each selected
+owner's enclosure and garden against that same accepted terrain. The saved
+input and scene digest identify the authoritative
+source; `fixed-camera-contract.json` records this presentation selection.
+Ordinary images and wireframe/collision diagnostics are separate evidence.

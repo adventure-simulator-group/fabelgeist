@@ -5,10 +5,7 @@
   const { minutesPerDay: DAY_MINUTES } = calendar;
   const ACCRUAL_SCALE = DAY_MINUTES;
   const FOCUSABLE_SELECTOR = 'button:not(:disabled), input:not([type="hidden"]):not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])';
-  const clock = (minutes) => {
-    const wrapped = ((minutes % DAY_MINUTES) + DAY_MINUTES) % DAY_MINUTES;
-    return `${String(Math.floor(wrapped / 60)).padStart(2, '0')}:${String(wrapped % 60).padStart(2, '0')}`;
-  };
+  const clock = (minutes) => calendar.formatClock(minutes);
   const rounded = (kind, value) => kind === 'gold' ? Math.round(value) : Number(value.toFixed(1));
   const signed = (kind, value) => {
     const result = rounded(kind, value);
@@ -89,10 +86,10 @@
     const render = () => {
       const hours = Number(slider.value);
       modal.querySelector('[data-activity-minutes]').value = String(hours * 60);
-      modal.querySelector('[data-activity-end]').textContent = `Ends at ${clock(state.start + hours * 60)}`;
-      modal.querySelector('[data-activity-hours]').textContent = `${hours} h spent`;
-      slider.setAttribute('aria-valuetext', `${hours} hours; ends at ${clock(state.start + hours * 60)}`);
-      modal.querySelector('[data-activity-submit]').textContent = `Spend ${hours} ${hours === 1 ? 'hour' : 'hours'}`;
+      modal.querySelector('[data-activity-end]').textContent = `Ends at ${clock(calendar.addMinutes(state.start, hours * 60))}`;
+      modal.querySelector('[data-activity-hours]').textContent = `Takes ${hours} ${hours === 1 ? 'hour' : 'hours'}`;
+      slider.setAttribute('aria-valuetext', `${hours} hours; ends at ${clock(calendar.addMinutes(state.start, hours * 60))}`);
+      modal.querySelector('[data-activity-submit]').textContent = `${modal.querySelector('[data-activity-preview-label]').textContent} for ${hours} ${hours === 1 ? 'hour' : 'hours'}`;
       if (state.source) copyPreview(state.source, modal.querySelector('[data-activity-preview-row]'), hours);
     };
     const close = () => {
@@ -112,7 +109,7 @@
       const label = state.source.querySelector('.sr-only')?.textContent?.trim() || 'Activity';
       const tier = state.source.dataset.professionTier;
       const previewLabel = tier ? `${label} (${tier})` : label;
-      modal.querySelector('[data-activity-title]').textContent = `Perform ${previewLabel}`;
+      modal.querySelector('[data-activity-title]').textContent = previewLabel;
       modal.querySelector('[data-activity-preview-label]').textContent = previewLabel;
       modal.querySelector('[data-activity-kind]').value = kind;
       const schedule = button.closest('[data-skill-schedule]')

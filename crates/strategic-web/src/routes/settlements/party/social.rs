@@ -1,11 +1,11 @@
 fn observer_safe_relationship_answer(
-    status: &crate::spacetimedb::BackendCharacterRelationshipStatus,
+    status: &db::BackendCharacterRelationshipStatus,
     observer_id: u64,
 ) -> String {
     let observer_is_partner = status.courtship_partner_id == Some(observer_id)
         || status.wedding_partner_id == Some(observer_id);
     let courtship_is_public = status.courtship_kind.as_ref().is_some_and(|kind| {
-        !matches!(kind, crate::spacetimedb::CourtshipKind::Informal)
+        !matches!(kind, db::CourtshipKind::Informal)
             || status.courtship_exposed
             || observer_is_partner
     });
@@ -81,23 +81,21 @@ pub(super) async fn party_social(
         .iter()
         .filter(|source| {
             adventuresim_core::social::social_source_eligible(
-                crate::spacetimedb::core_morale_source_kind(source.kind),
+                db::core_morale_source_kind(source.kind),
                 source.magnitude,
             )
         })
         .filter_map(|source| {
-            adventuresim_core::social::topic_for_source_kind(
-                crate::spacetimedb::core_morale_source_kind(source.kind),
-            )
+            adventuresim_core::social::topic_for_source_kind(db::core_morale_source_kind(
+                source.kind,
+            ))
         })
         .collect::<Vec<_>>();
     shared_concerns.sort_by_key(|topic| social_topic_order(*topic));
     shared_concerns.dedup();
     let target_condition_result = state
         .db
-        .query_one_sats::<CharacterCondition>(&crate::spacetimedb::character_condition_by_character_id(
-            target_id,
-        ))
+        .query_one_sats::<CharacterCondition>(&db::character_condition_by_character_id(target_id))
         .await;
     let religion_id = target_condition_result
         .as_ref()
@@ -111,31 +109,24 @@ pub(super) async fn party_social(
     let infamy = reputation
         .as_ref()
         .map_or(0.0, |value| value.infamy as f32 / 100.0);
-    let target_minute = query_single::<CharacterTime>(
-        &state,
-        crate::spacetimedb::character_time_by_character_id(target_id),
-    )
-    .await
-    .map_or(0, |v| v.minutes);
+    let target_minute =
+        query_single::<CharacterTime>(&state, db::character_time_by_character_id(target_id))
+            .await
+            .map_or(StrategicMinute::ZERO, |v| StrategicMinute::new(v.minutes.minutes));
     let affinity_id = format!("{target_id}:{}", active.id);
     let affinity_result = state
         .db
-        .query_one_sats::<CharacterAffinity>(&crate::spacetimedb::character_affinity_by_id(&affinity_id))
+        .query_one_sats::<CharacterAffinity>(&db::character_affinity_by_id(&affinity_id))
         .await;
     let affinity_available = affinity_result.is_ok();
     let affinity = affinity_result.ok().flatten().map_or(0.0, |v| {
-        adventuresim_core::social::settle_affinity(
-            v.anchor,
-            target_minute.saturating_sub(v.anchor_minute),
-        )
+        settle_affinity(v.anchor, target_minute.elapsed_since(StrategicMinute::new(v.anchor_minute.minutes)))
     });
     let (low, high) = (active.id.min(target_id), active.id.max(target_id));
     let familiarity_id = format!("{low}:{high}");
     let familiarity_result = state
         .db
-        .query_one_sats::<CharacterFamiliarity>(&crate::spacetimedb::character_familiarity_by_id(
-            &familiarity_id,
-        ))
+        .query_one_sats::<CharacterFamiliarity>(&db::character_familiarity_by_id(&familiarity_id))
         .await;
     let familiarity_available = familiarity_result.is_ok();
     let shared_minutes = familiarity_result
@@ -177,18 +168,19 @@ pub(super) async fn party_social(
     } else {
         state
             .db
-            .query_one_sats::<AutomaticSocialChat>(&crate::spacetimedb::automatic_social_chat_by_id(
-                &format!("{}:{target_id}", active.id),
-            ))
+            .query_one_sats::<AutomaticSocialChat>(&db::automatic_social_chat_by_id(&format!(
+                "{}:{target_id}",
+                active.id
+            )))
             .await
             .ok()
             .flatten()
-            .is_some_and(|row| row.enabled)
+            .is_some()
     };
     let relationship_answer = state
         .db
         .query_one_sats::<BackendCharacterRelationshipStatus>(
-            &crate::spacetimedb::character_relationship_status_by_character_id(target_id),
+            &db::character_relationship_status_by_character_id(target_id),
         )
         .await
         .ok()
@@ -197,16 +189,16 @@ pub(super) async fn party_social(
 
     let actor_personality_result = state
         .db
-        .query_sats::<adventuresim_stdb_client::CharacterPersonality>(&crate::spacetimedb::character_personality_by_character_id(
-            active.id,
-        ))
+        .query_sats::<adventuresim_stdb_client::CharacterPersonality>(
+            &db::character_personality_by_character_id(active.id),
+        )
         .await;
     let actor_personality_available = actor_personality_result.is_ok();
     let actor_personality = match actor_personality_result {
         Ok(rows) => rows
             .into_iter()
             .next()
-            .map(|row| crate::spacetimedb::core_personality(&row)),
+            .map(|row| db::core_personality(&row)),
         Err(error) => {
             tracing::error!(
                 %error,
@@ -218,17 +210,16 @@ pub(super) async fn party_social(
     };
     let actor_skills_result = state
         .db
-        .query_one_sats::<CharacterSkills>(&crate::spacetimedb::character_skills_by_character_id(
-            active.id,
-        ))
+        .query_one_sats::<CharacterSkills>(&db::character_skills_by_character_id(active.id))
         .await;
     let prayer_disabled_reason = if target_id == active.id {
         None
     } else if !actor_personality_available || actor_personality.is_none() {
         Some("Prayer eligibility is unavailable right now.".to_owned())
-    } else if actor_personality.as_ref().is_some_and(|personality| {
-        personality.conviction == crate::spacetimedb::Conviction::Zealous
-    }) {
+    } else if actor_personality
+        .as_ref()
+        .is_some_and(|personality| personality.conviction == db::Conviction::Zealous)
+    {
         Some("Your Zealous conviction prevents you from leading a companion's prayer.".to_owned())
     } else {
         match &target_condition_result {
@@ -372,7 +363,7 @@ pub(super) async fn set_automatic_social_chat(
                 &state,
                 &kind,
                 &id,
-                format!("/locations/{kind}/{id}/party/{target_id}/social"),
+                paths::PARTY_SOCIAL.url([&kind, &id, &target_id]),
             )
             .await,
     )
@@ -407,7 +398,7 @@ pub(super) async fn perform_social_action(
             let address_id = format!("{actor_id}:{target_id}:{}", form.source_id);
             match state
                 .db
-                .query_one_sats::<SocialAddress>(&crate::spacetimedb::social_address_by_id(&address_id))
+                .query_one_sats::<SocialAddress>(&db::social_address_by_id(&address_id))
                 .await
             {
                 Ok(Some(_)) => "addressed",
@@ -430,7 +421,9 @@ pub(super) async fn perform_social_action(
                 &kind,
                 &id,
                 format!(
-                    "/locations/{kind}/{id}/party/{target_id}/social?social_feedback={feedback}"
+                    "{}?social_feedback={}",
+                    paths::PARTY_SOCIAL.url([&kind, &id, &target_id]),
+                    crate::location_urls::encode_component(feedback)
                 ),
             )
             .await,
@@ -463,7 +456,7 @@ pub(super) async fn chat_with_party_member(
     let feedback = match result {
         Ok(()) => state
             .db
-            .query_one_sats::<crate::spacetimedb::BackendSocialChatReceipt>(&format!(
+            .query_one_sats::<db::BackendSocialChatReceipt>(&format!(
                 "SELECT * FROM backend_social_chat_receipts WHERE id = {} AND actor_id = {actor_id}",
                 sql_string_literal(&format!("{actor_id}:{}", form.action_id.as_str()))
             ))
@@ -487,7 +480,9 @@ pub(super) async fn chat_with_party_member(
                 &kind,
                 &id,
                 format!(
-                    "/locations/{kind}/{id}/party/{target_id}/social?social_feedback={feedback}"
+                    "{}?social_feedback={}",
+                    paths::PARTY_SOCIAL.url([&kind, &id, &target_id]),
+                    crate::location_urls::encode_component(feedback)
                 ),
             )
             .await,
@@ -564,12 +559,12 @@ pub(super) fn social_feedback(
 mod relationship_privacy_tests {
     use super::*;
 
-    fn informal(exposed: bool) -> crate::spacetimedb::BackendCharacterRelationshipStatus {
-        crate::spacetimedb::BackendCharacterRelationshipStatus {
+    fn informal(exposed: bool) -> db::BackendCharacterRelationshipStatus {
+        db::BackendCharacterRelationshipStatus {
             character_id: 2,
             spouse_id: None,
             courtship_partner_id: Some(7),
-            courtship_kind: Some(crate::spacetimedb::CourtshipKind::Informal),
+            courtship_kind: Some(db::CourtshipKind::Informal),
             courtship_exposed: exposed,
             wedding_commitment_id: None,
             wedding_partner_id: None,

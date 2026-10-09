@@ -17,10 +17,6 @@ pub enum ResidenceTransitionKind {
     Dormant,
 
     Recovered,
-
-    OccupantAdmitted,
-
-    OccupantRemoved,
 }
 
 impl __sdk::InModule for ResidenceTransitionKind {

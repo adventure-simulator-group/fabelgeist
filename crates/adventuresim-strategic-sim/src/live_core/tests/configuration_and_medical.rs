@@ -3,7 +3,7 @@ fn refuses_non_loopback_and_shared_database() {
     let mut config = CoreLoopConfig {
         host: "https://example.com".into(),
         database: "adventuresim-stdb-module".into(),
-        seed: 1,
+        seed: fabelgeist_determinism::Seed::from_u64(1),
         population: 2,
         cycles: 1,
         duration_days: 1,
@@ -61,7 +61,7 @@ fn dead_or_replaced_leader_is_never_a_policy_actor() {
 
 #[test]
 fn medical_rest_schedule_suspends_but_does_not_replace_profile_policy() {
-    let profile = generate_profile(42, 0);
+    let profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
     let saved = live_schedule(&profile);
     let rest = medical_rest_schedule();
     assert_eq!(
@@ -163,19 +163,37 @@ fn public_intervention_score_is_deterministic_and_penalizes_adverse_effects() {
     let first = public_intervention_score(&differential, &helpful);
     assert_eq!(first, public_intervention_score(&differential, &helpful));
     assert!(first > 0);
+    // Unknown keys cannot dilute a known public differential's likelihood.
+    let mut mixed = differential.clone();
+    mixed.push(BackendPhysiologyDifferential {
+        disease_id: "ShroudFever".into(),
+        label: "unknown disease".into(),
+        likelihood_bps: u16::MAX,
+    });
+    assert_eq!(public_intervention_score(&mixed, &helpful), first);
+    assert_eq!(public_intervention_score(&mixed[1..], &helpful), 0);
     assert!(public_intervention_score(&differential, &adverse) < first);
 }
 
 #[test]
 fn chart_ranking_prefers_skilled_recent_clinician_and_rejects_stale_rows() {
     assert_eq!(
-        compare_public_chart_rank(8_500, 900, 20, "physician", 3_000, 901, 10, "self"),
+        compare_public_chart_rank(
+            8_500,
+            StrategicMinute::new(900),
+            20,
+            "physician",
+            3_000,
+            StrategicMinute::new(901),
+            10,
+            "self",
+        ),
         std::cmp::Ordering::Less,
         "a minute-newer weak self chart must not displace a skilled clinician"
     );
-    assert!(public_chart_is_fresh(2_000, 560));
-    assert!(!public_chart_is_fresh(2_001, 560));
-    assert!(!public_chart_is_fresh(559, 560));
+    assert!(public_chart_is_fresh(StrategicMinute::new(2_000), StrategicMinute::new(560)));
+    assert!(!public_chart_is_fresh(StrategicMinute::new(2_001), StrategicMinute::new(560)));
+    assert!(!public_chart_is_fresh(StrategicMinute::new(559), StrategicMinute::new(560)));
 }
 
 #[test]
@@ -228,7 +246,7 @@ fn medical_policy_uses_only_authorized_public_chart_and_patient_inventory() {
     assert!(recovery.contains("authoritative_terminal_boundary"));
     assert!(recovery.contains("medical_rest_requested_minutes={MINUTES_PER_DAY}"));
     assert!(recovery.contains("medical_rest_actual_minutes="));
-    assert!(recovery.contains("saturating_sub(medical_rest_started_at)"));
+    assert!(recovery.contains("elapsed_since(StrategicMinute::new(medical_rest_started_at.minutes))"));
     let schedule_sync = recovery.find("set_medical_rest_schedule(agent)").unwrap();
     let chart_read = recovery
         .find("public_physician_chart(character_id)")
@@ -275,13 +293,13 @@ fn owned_supported_medicine_does_not_require_a_storefront_quote() {
 
 #[test]
 fn disposable_disease_fixture_is_validated_and_parameterized() {
-    let source = include_str!("../../../../adventuresim-stdb-module/src/simulation.rs");
+    let source = include_str!("../../../../adventuresim-stdb-module/src/simulation/disease_fixture.rs");
     let fixture = source
         .split("pub fn seed_simulation_disease")
         .nth(1)
         .expect("disease fixture");
     assert!(fixture.contains("disease_id: String"));
-    assert!(fixture.contains("parse_id(&disease_id)"));
+    assert!(fixture.contains("parse::<adventuresim_core::disease::DiseaseId>()"));
     assert!(fixture.contains("definition(disease)"));
     assert!(!fixture.contains("DiseaseId::Influenza"));
 }
@@ -356,7 +374,7 @@ fn settlement_rest_sponsorship_is_public_bounded_and_self_payment_first() {
     assert!(recovery.contains("thermal_strain_before"));
     assert!(recovery.contains("emergency_temple_rest"));
     assert!(recovery.contains("actual_elapsed_minutes={actual_rest_minutes}"));
-    assert!(recovery.contains("saturating_sub(rest_started_at)"));
+    assert!(recovery.contains("elapsed_since(StrategicMinute::new(rest_started_at.minutes))"));
     assert!(recovery.contains("sponsored_settlement_rest_requested_minutes"));
     assert!(recovery.contains("sponsored_settlement_rest_elapsed_minutes"));
     assert!(recovery.contains("patient_party_stake.min(party_treasury)"));

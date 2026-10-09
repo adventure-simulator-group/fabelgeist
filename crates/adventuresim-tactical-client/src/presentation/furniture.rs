@@ -14,6 +14,13 @@ pub(crate) use visibility::InteriorFurnitureExhibition;
 const SMALL_FURNITURE_FADE_METRES: std::ops::Range<f32> = 180.0..230.0;
 const STALL_FADE_METRES: std::ops::Range<f32> = 350.0..450.0;
 
+pub(super) fn outdoor_range(kind: FurnitureKind) -> std::ops::Range<f32> {
+    match kind {
+        FurnitureKind::CanvasStall => STALL_FADE_METRES,
+        _ => SMALL_FURNITURE_FADE_METRES,
+    }
+}
+
 #[derive(Component)]
 pub(crate) struct PresentedFurnitureMesh {
     pub(crate) material: BuildingLodMaterial,
@@ -52,29 +59,31 @@ fn on_furniture_added(
     materials: Res<TacticalBuildingMaterials>,
 ) -> Result {
     let instance = furniture.get(event.entity)?;
-    let batches = cache.0.entry(instance.key).or_insert_with(|| {
-        instance
-            .key
-            .recipe()
-            .meshes
-            .iter()
-            .map(|batch| FurnitureBatch {
-                mesh: meshes.add(recipe_mesh(batch, Vec3::ZERO)),
-                material: batch.material,
-            })
-            .collect()
-    });
+    let batches = match cache.0.entry(instance.key) {
+        std::collections::btree_map::Entry::Occupied(entry) => entry.into_mut(),
+        std::collections::btree_map::Entry::Vacant(entry) => {
+            let recipe = instance.key.recipe()?;
+            entry.insert(
+                recipe
+                    .meshes
+                    .iter()
+                    .map(|batch| FurnitureBatch {
+                        mesh: meshes.add(recipe_mesh(batch, Vec3::ZERO)),
+                        material: batch.material,
+                    })
+                    .collect(),
+            )
+        }
+    };
     let range = match instance.location {
         FurnitureLocation::Interior { .. } => None,
         FurnitureLocation::Outdoor { .. } => Some(VisibilityRange {
             start_margin: 0.0..0.0,
-            end_margin: match instance.key.kind() {
-                FurnitureKind::CanvasStall => STALL_FADE_METRES,
-                _ => SMALL_FURNITURE_FADE_METRES,
-            },
+            end_margin: outdoor_range(instance.key.kind()),
             use_aabb: false,
         }),
     };
+    let palette = materials.for_building(instance.id.0);
     commands
         .entity(event.entity)
         .insert(Visibility::default())
@@ -86,7 +95,7 @@ fn on_furniture_added(
                         material: batch.material,
                     },
                     Mesh3d(batch.mesh.clone()),
-                    MeshMaterial3d(materials.get_for_building(instance.id.0, batch.material)),
+                    MeshMaterial3d(palette.get(batch.material)),
                     Transform::IDENTITY,
                 ));
                 if let Some(range) = &range {
@@ -98,7 +107,7 @@ fn on_furniture_added(
 }
 
 #[derive(Component)]
-struct VistaFurniturePresentation;
+pub(super) struct VistaFurniturePresentation;
 fn on_vista_furniture(
     bundle: On<SceneVistaBundle>,
     mut commands: Commands,
@@ -111,7 +120,7 @@ fn on_vista_furniture(
         commands.spawn((
             VistaFurniturePresentation,
             instance.scene,
-            Transform::from_translation(instance.position_metres)
+            Transform::from_translation(instance.position_metres.metres())
                 .with_rotation(Quat::from_rotation_y(instance.orientation.yaw_radians())),
         ));
     }

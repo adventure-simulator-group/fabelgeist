@@ -9,6 +9,7 @@ use super::persisted_world_event_payload_ref_type::PersistedWorldEventPayloadRef
 use super::persisted_world_event_place_type::PersistedWorldEventPlace;
 use super::persisted_world_event_source_type::PersistedWorldEventSource;
 use super::persisted_world_event_subject_type::PersistedWorldEventSubject;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -18,7 +19,7 @@ pub struct PersistedWorldEventEnvelope {
     pub actor: PersistedWorldEventActor,
     pub subjects: Vec<PersistedWorldEventSubject>,
     pub place: PersistedWorldEventPlace,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
     pub payload: PersistedWorldEventPayloadRef,
 }
 

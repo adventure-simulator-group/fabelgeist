@@ -5,6 +5,7 @@
 use super::backend_estate_disposition_type::BackendEstateDisposition;
 use super::estate_disposition_status_type::EstateDispositionStatus;
 use super::estate_heir_kind_type::EstateHeirKind;
+use super::strategic_minute_type::StrategicMinute;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `backend_estate_dispositions`.

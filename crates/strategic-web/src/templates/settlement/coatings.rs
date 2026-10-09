@@ -42,7 +42,7 @@ pub(super) fn filth_status_bar(
     );
     html! {
         div class="coating-status" role="group" aria-label="Coatings" {
-          strong class="metric-label filth-status-label" { "Filth" }
+          strong class="metric-label filth-status-label" { "Filth " (total) "% · Wet " (wetness_bps / 100) "%" }
           div class="coating-track-stack" {
             div class="wetness-status" role="meter"
                 aria-valuemin="0" aria-valuemax="100"

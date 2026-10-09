@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::personality_axis_type::PersonalityAxis;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -15,7 +16,7 @@ pub struct SocialBelief {
     pub axis: PersonalityAxis,
     pub perceived_value: i8,
     pub confidence: f32,
-    pub observed_at_minute: u64,
+    pub observed_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for SocialBelief {
@@ -32,7 +33,7 @@ pub struct SocialBeliefCols {
     pub axis: __sdk::__query_builder::Col<SocialBelief, PersonalityAxis>,
     pub perceived_value: __sdk::__query_builder::Col<SocialBelief, i8>,
     pub confidence: __sdk::__query_builder::Col<SocialBelief, f32>,
-    pub observed_at_minute: __sdk::__query_builder::Col<SocialBelief, u64>,
+    pub observed_at_minute: __sdk::__query_builder::Col<SocialBelief, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for SocialBelief {

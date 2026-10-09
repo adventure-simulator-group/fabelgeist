@@ -1,11 +1,17 @@
+use crate::location_urls::LocationKind;
+use crate::location_urls::patterns as paths;
+use crate::spacetimedb as db;
 use adventuresim_core::{
-    durability::RepairService,
     equipment::{EncumbranceSummary, encumbrance_capacity_kg},
     item_references::{STANDARD_TRAVEL_RATION_ID, STANDARD_WATERSKIN_ID},
     physical_object::OperationalCustody,
     prelude::{PartyProvisioningInputs, STRATEGIC_TRAVEL_KCAL_PER_DAY, Skill},
     strategic_schedule::{CombatTrainingProfile, EquippedCombatItem},
     strategic_time::{is_walking_time, minutes_until_next_walking_start},
+};
+use adventuresim_stdb_client::{
+    Character as DbCharacter, Item as DbItem, PartyJourneyRoute as DbPartyJourneyRoute,
+    Settlement as DbSettlement,
 };
 use adventuresim_world_schema::OfficialReligion;
 use axum::{
@@ -23,6 +29,52 @@ use maud::Markup;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use std::collections::{HashMap, HashSet};
+
+use super::inventory_forms::{
+    DiscardInventoryForm, MerchantOfferForm, PartyOfferForm, PartyPoolTransferForm,
+};
+use super::redirect_to_local;
+use super::travel::{
+    CaseSiteKnowledgePresentation, ItineraryForecastSources, TRAVEL_EDGE_CACHE, TravelDestination,
+    TravelForm, TravelProvisionForecast, connected_destinations, populate_itinerary_forecasts,
+};
+use super::{
+    AppState, PartyAction, PartyActionOutcome, SocialActionId, SocialDuration,
+    execute_or_request_party_action,
+};
+use crate::session::Session;
+use crate::spacetimedb::{
+    AlcoholConsumption, AutomaticSocialChat, BackendCaseSitePin, BackendChallenge,
+    BackendCharacterRelationshipStatus, BackendCharacterResidenceStatus, BackendContextCharacter,
+    BackendContract, BackendCorpse, BackendFamilyChild, BackendFireplaceDish,
+    BackendFireplaceStation, BackendIngredientPreparationPlan, BackendLocalProblemTradeEffect,
+    BackendPhysiologyAdministration, BackendPhysiologyChart, BackendRoadChallenge,
+    BackendTinctureStatus, BestiaryHoursExt, BodyRegion, CatalogItemKind, CatalogItemView,
+    CharacterAffinity, CharacterAttributes, CharacterCapability, CharacterCondition,
+    CharacterEquipmentGraph, CharacterFamiliarity, CharacterFilth, CharacterLimbs,
+    CharacterMoraleSource, CharacterNeeds, CharacterSettlementReputation, CharacterSkills,
+    CharacterStats, CharacterStrategicCondition, CharacterTime, CharacterTrainingSchedule,
+    CharacterView, ContainerLiquid, ContractStatus, EquipmentAnchorKind, EquipmentAttachmentTarget,
+    EquipmentOccupancy, EquippedItemView, FoodLot, IngredientPreparationAction,
+    InventoryContainment, InventoryItem, InventoryItemAmount, InventoryLocation, InventoryObject,
+    InventoryQuantityTarget, ItemCondition, ItemConditionExt, JourneyEndpointExt, LimbInjury,
+    PartyInventoryItem, PartyItemAmount, PartyJourney, PartyJourneyRouteView, PartyMember,
+    PartyStake, PartyView, Personality, RecruitmentOffer, RecruitmentOfferStatus,
+    RecruitmentRoleView, ReligionHoursExt, ReligiousDemand, RepairOrder, RetainedProjectile,
+    RoleRequirements, ScheduleAllocation, SettlementAlias, SettlementDescription, SettlementSmith,
+    SettlementView, SocialAddress, SocialBelief, SocialChatOutcome, StrategicEncounter,
+    StrategicEncounterStatus,
+};
+use crate::spacetimedb::{party_by_id, settlement_by_id, sql_string_literal};
+use crate::templates::settlement::{
+    ActivityPreviewRates, CampTravelDestination, ChildPresentation, LocationView,
+    RelationshipPresentation, RestServiceKind, RestSummary, SoapRestPreview, SocialPresentation,
+    Storefront, WeddingPresentation, camp_page, live_merchant_shop_page, merchants_page,
+    party_discard_page, party_inventory_page, party_personal_page, party_pool_page,
+    party_social_dialog, party_stats_page, religion_page, rest_default_minutes, rest_result_page,
+    settlement_map_page, settlement_overview_page, settlement_residence_page,
+    settlement_resident_location_page, surgery_dialog,
+};
 
 #[derive(Clone, Debug, Default, Deserialize)]
 struct BuildingQuery {
@@ -45,12 +97,7 @@ impl BuildingQuery {
     fn append_to_location(&self, location: &LocationView, path: String) -> String {
         self.valid_for(location).map_or_else(
             || path.clone(),
-            |building| {
-                format!(
-                    "{path}{}building={building}",
-                    if path.contains('?') { "&" } else { "?" }
-                )
-            },
+            |building| crate::location_urls::with_query(&path, "building", building),
         )
     }
 
@@ -62,6 +109,330 @@ impl BuildingQuery {
     }
 }
 
+pub fn routes() -> Router<AppState> {
+    settlement_routes()
+        .merge(camp_routes())
+        .merge(party_routes())
+        .merge(inventory_routes())
+        .merge(commerce_routes())
+        .layer(axum::middleware::from_fn(
+            crate::location_urls::require_canonical_location_path,
+        ))
+}
+
+fn contained_water_ml_for_custody(
+    objects: &[InventoryObject],
+    containment: &[InventoryContainment],
+    liquids: &[ContainerLiquid],
+    custody: &OperationalCustody,
+) -> u64 {
+    liquids.iter().fold(0_u64, |total, liquid| {
+        let mut cursor = liquid.container_object_id;
+        let mut visited = std::collections::BTreeSet::new();
+        let root =
+            (0..=adventuresim_core::inventory_containers::MAX_CONTAINER_DEPTH).find_map(|_| {
+                if !visited.insert(cursor) {
+                    return Some(None);
+                }
+                let object = objects.iter().find(|object| object.id == cursor)?;
+                match containment
+                    .iter()
+                    .find(|edge| edge.child_object_id == cursor)
+                {
+                    Some(edge) => {
+                        cursor = edge.parent_object_id;
+                        None
+                    }
+                    None => Some(Some(object)),
+                }
+            });
+        let held = root.flatten().is_some_and(|root| {
+            matches!(
+                (&root.location, custody),
+                (
+                    InventoryLocation::Personal(location),
+                    OperationalCustody::Character(character_id)
+                ) if location.character_id == character_id.get()
+            ) || matches!(
+                (&root.location, custody),
+                (InventoryLocation::Party(location), OperationalCustody::Party(party_id))
+                    if location.party_id == party_id.as_str()
+            )
+        });
+        if held {
+            total.saturating_add(liquid.water_ml)
+        } else {
+            total
+        }
+    })
+}
+
+fn settlement_routes() -> Router<AppState> {
+    Router::new()
+        .route(
+            paths::SETTLEMENT_PLACE.pattern(),
+            get(settlement_resident_place),
+        )
+        .route(paths::CHANGE_RESIDENCE.pattern(), post(change_residence))
+        .route(
+            paths::PUBLIC_SQUARE.pattern(),
+            get(show_settlement_location),
+        )
+        .route(
+            paths::SETTLEMENT_FIREPLACE.pattern(),
+            get(settlement_fireplace),
+        )
+        .route(
+            paths::SETTLEMENT_FIREPLACE_INGREDIENTS.pattern(),
+            post(settlement_fireplace_ingredients),
+        )
+        .route(
+            paths::SETTLEMENT_FIREPLACE_RETRIEVE.pattern(),
+            post(settlement_fireplace_retrieve),
+        )
+        .route(
+            paths::SETTLEMENT_FIREPLACE_CONTAINER_PLACE.pattern(),
+            post(settlement_fireplace_container_place),
+        )
+        .route(
+            paths::SETTLEMENT_FIREPLACE_CONTAINER_START.pattern(),
+            post(settlement_fireplace_container_start),
+        )
+        .route(
+            paths::SETTLEMENT_FIREPLACE_CONTAINER_REMOVE.pattern(),
+            post(settlement_fireplace_container_remove),
+        )
+        .route(paths::SETTLEMENT.pattern(), get(settlement_map))
+        .route(paths::ALCHEMY.pattern(), get(alchemy))
+        .route(
+            paths::UPDATE_TRAVEL_CONFIGURATION.pattern(),
+            post(update_travel_configuration),
+        )
+        .route(
+            paths::REST_AT_SETTLEMENT_MAP.pattern(),
+            post(rest_at_settlement_map),
+        )
+        .route(
+            paths::UPDATE_CASE_SITE_TRAVEL_CONFIGURATION.pattern(),
+            post(update_travel_configuration),
+        )
+}
+
+fn camp_routes() -> Router<AppState> {
+    Router::new()
+        .route(paths::CAMP.pattern(), get(camp))
+        .route(
+            paths::CAMP_FIREPLACE_PAGE.pattern(),
+            get(camp_fireplace_page),
+        )
+        .route(
+            paths::CAMP_FIREPLACE_INGREDIENTS.pattern(),
+            post(camp_fireplace_ingredients),
+        )
+        .route(
+            paths::CAMP_FIREPLACE_RETRIEVE.pattern(),
+            post(camp_fireplace_retrieve),
+        )
+        .route(
+            paths::CAMP_FIREPLACE_CONTAINER_PLACE.pattern(),
+            post(camp_fireplace_container_place),
+        )
+        .route(
+            paths::CAMP_FIREPLACE_CONTAINER_START.pattern(),
+            post(camp_fireplace_container_start),
+        )
+        .route(
+            paths::CAMP_FIREPLACE_CONTAINER_REMOVE.pattern(),
+            post(camp_fireplace_container_remove),
+        )
+        .route(paths::REST_AT_CAMP.pattern(), post(rest_at_camp))
+        .route(
+            paths::RESOLVE_ERRANTRY_ROAD_CHALLENGE.pattern(),
+            post(resolve_errantry_road_challenge),
+        )
+        .route(
+            paths::UPDATE_CAMP_TRAVEL_CONFIGURATION.pattern(),
+            post(update_camp_travel_configuration),
+        )
+        .route(
+            paths::CONTINUE_CAMP_TRAVEL.pattern(),
+            post(continue_camp_travel),
+        )
+        .route(
+            paths::RESOLVE_CAMP_ENCOUNTER.pattern(),
+            post(resolve_camp_encounter),
+        )
+        .route(
+            paths::CONTACT_CAMP_COUNTERPARTY.pattern(),
+            post(contact_camp_counterparty),
+        )
+        .route(
+            paths::BANDAGE_CAMP_COUNTERPARTY.pattern(),
+            post(bandage_camp_counterparty),
+        )
+        .route(
+            paths::CHANGE_CAMP_DESTINATION.pattern(),
+            post(change_camp_destination),
+        )
+}
+
+fn party_routes() -> Router<AppState> {
+    Router::new()
+        .route(paths::PARTY_PERSONAL.pattern(), get(party_personal))
+        .route(
+            paths::UPDATE_ORGANIZATION_PRESENTATION.pattern(),
+            post(update_organization_presentation),
+        )
+        .route(
+            paths::CLEAR_PRESENTED_ORGANIZATION.pattern(),
+            post(clear_presented_organization),
+        )
+        .route(paths::STOP_PREPARATION.pattern(), post(stop_preparation))
+        .route(paths::PARTY_MEMBER.pattern(), get(party_member))
+        .route(
+            paths::TRANSFER_PARTY_ITEM.pattern(),
+            post(transfer_party_item),
+        )
+        .route(
+            paths::REMOVE_PARTY_MEMBER.pattern(),
+            post(remove_party_member),
+        )
+        .route(
+            paths::FINALIZE_PARTY_OFFER.pattern(),
+            post(finalize_party_offer),
+        )
+        .route(
+            paths::DISCARD_INVENTORY_ITEMS.pattern(),
+            post(discard_inventory_items),
+        )
+        .route(
+            paths::PARTY_POOL_INVENTORY.pattern(),
+            get(party_pool_inventory),
+        )
+        .route(
+            paths::DEPOSIT_PARTY_INVENTORY.pattern(),
+            post(deposit_party_inventory),
+        )
+        .route(
+            paths::WITHDRAW_PARTY_INVENTORY.pattern(),
+            post(withdraw_party_inventory),
+        )
+        .route(
+            paths::LIQUIDATE_PARTY_ASSETS.pattern(),
+            post(liquidate_party_assets),
+        )
+        .route(paths::PARTY_STATS.pattern(), get(party_stats))
+        .route(
+            paths::PARTY_SOCIAL.pattern(),
+            get(party_social).post(perform_social_action),
+        )
+        .route(
+            paths::CHAT_WITH_PARTY_MEMBER.pattern(),
+            post(chat_with_party_member),
+        )
+        .route(
+            paths::SET_AUTOMATIC_SOCIAL_CHAT.pattern(),
+            post(set_automatic_social_chat),
+        )
+        .route(paths::SURGERY.pattern(), get(surgery))
+        .route(paths::PERFORM_SURGERY.pattern(), post(perform_surgery))
+        .route(paths::PARTY_STATS_PLAYER.pattern(), get(party_stats))
+        .route(
+            paths::UPDATE_TRAINING_SCHEDULE.pattern(),
+            post(update_training_schedule),
+        )
+        .route(
+            paths::PREVIEW_TRAINING_SCHEDULE.pattern(),
+            post(preview_training_schedule),
+        )
+        .route(
+            paths::PERFORM_IMMEDIATE_ACTIVITY.pattern(),
+            post(perform_immediate_activity),
+        )
+        .route(paths::RENOUNCE_RELIGION.pattern(), post(renounce_religion))
+        .route(
+            paths::RESOLVE_RELIGIOUS_DEMAND.pattern(),
+            post(resolve_religious_demand),
+        )
+}
+
+fn inventory_routes() -> Router<AppState> {
+    Router::new()
+        .route("/api/inventory/containers", get(inventory_containers))
+        .route(
+            "/api/inventory/containers/move",
+            post(move_inventory_container_item),
+        )
+        .route(
+            "/api/inventory/containers/remove",
+            post(remove_inventory_container_item),
+        )
+        .route(
+            "/api/inventory/containers/discard-water",
+            post(discard_inventory_container_water),
+        )
+        .route(
+            "/api/inventory/containers/tincture-spirit",
+            post(pour_inventory_container_tincture_spirit),
+        )
+        .route(
+            "/api/inventory/containers/tincture-start",
+            post(start_inventory_container_tincture),
+        )
+        .route(
+            "/api/inventory/containers/tincture-refresh",
+            post(refresh_inventory_container_tincture),
+        )
+        .route(
+            "/api/inventory/containers/tincture-dose",
+            post(dose_inventory_container_tincture),
+        )
+        .route("/api/inventory/prepare", post(prepare_ingredient_lot))
+        .route("/api/inventory-target", post(set_inventory_target))
+        .route("/api/equipment", post(set_equipment))
+}
+
+fn commerce_routes() -> Router<AppState> {
+    Router::new()
+        .route(
+            paths::SERVICE_QUEST_OFFERS.pattern(),
+            get(service_quest_offers),
+        )
+        .route(
+            paths::BEGIN_SERVICE_APPRENTICESHIP.pattern(),
+            post(begin_service_apprenticeship),
+        )
+        .route(
+            paths::RELIGION_DIALOGUE.pattern(),
+            get(religion_dialogue).post(set_religion),
+        )
+        .route(paths::MERCHANTS.pattern(), get(merchants))
+        .route(
+            paths::FINALIZE_MERCHANT_OFFER.pattern(),
+            post(finalize_merchant_offer),
+        )
+        .route(paths::WEAPONS.pattern(), get(weapons))
+        .route(paths::FORGE_WEAPON.pattern(), post(forge_weapon))
+        .route(paths::ARMOR.pattern(), get(armor))
+        .route(paths::SUBMIT_REPAIR.pattern(), post(submit_repair))
+        .route(
+            paths::SUBMIT_ALL_REPAIRS.pattern(),
+            post(submit_all_repairs),
+        )
+        .route(paths::RETRIEVE_REPAIR.pattern(), post(retrieve_repair))
+        .route(paths::RETRIEVE_REPAIRS.pattern(), post(retrieve_repairs))
+        .route(paths::CLOTHING.pattern(), get(clothing))
+        .route(paths::BOOKSTORE.pattern(), get(bookstore))
+        .route(paths::HERBALIST.pattern(), get(herbalist))
+        .route(
+            paths::PURCHASE_FROM_HERBALIST.pattern(),
+            post(purchase_from_herbalist),
+        )
+        .route(paths::INN.pattern(), get(inn))
+        .route(paths::RELIGION.pattern(), get(religion))
+        .route(paths::REST.pattern(), post(rest))
+        .route(paths::TRAVEL.pattern(), post(travel))
+}
 #[cfg(test)]
 mod building_query_tests {
     use super::{BuildingQuery, SETTLEMENTS_SOURCE, merchant_service_location};
@@ -87,7 +458,7 @@ mod building_query_tests {
             })
             .expect("standalone catalog chapter");
         let location = crate::templates::settlement::LocationView {
-            kind: crate::templates::settlement::LocationKind::Settlement,
+            kind: crate::location_urls::LocationKind::Settlement,
             id: chapter.settlement_id.clone(),
             name: "Place".into(),
             religion_id: None,
@@ -157,9 +528,15 @@ mod building_query_tests {
 
     #[test]
     fn merchant_offer_routes_accept_only_bound_storefront_services() {
-        let source = SETTLEMENTS_SOURCE;
-        assert!(source.contains("\"/settlements/{id}/storefront/{service_id}/offer\""));
-        assert!(!source.contains("\"/settlements/{id}/{service_id}/offer\""));
+        assert_eq!(
+            crate::location_urls::place_service("market"),
+            Some("merchants")
+        );
+        assert_eq!(
+            crate::location_urls::place_service("forge"),
+            Some("weapons")
+        );
+        assert_eq!(crate::location_urls::place_service("weapons"), None);
         assert_eq!(merchant_service_location("merchants"), Some("market"));
         assert_eq!(merchant_service_location("weapons"), Some("forge"));
         assert_eq!(merchant_service_location("armor"), Some("armoury"));
@@ -171,17 +548,14 @@ mod building_query_tests {
 
     #[test]
     fn settlement_entry_activates_activity_without_a_local_server_bypass() {
-        let source = SETTLEMENTS_SOURCE.replace('\r', "");
-        let entry = source
-            .rsplit("async fn show_settlement_location")
-            .next()
-            .and_then(|tail| tail.split("async fn settlement_map").next())
-            .expect("settlement entry route");
-        assert!(entry.contains(".call("));
-        assert!(entry.contains("\"ensure_settlement_activity\""));
-        assert!(!entry.contains("is_local()"));
+        for source in [include_str!("medical.rs"), include_str!("overview.rs")] {
+            assert!(source.contains("entry::activate_settlement(&state, &id);"));
+        }
+        let activation = include_str!("entry.rs");
+        assert!(activation.contains("ensure_settlement_activity"));
+        assert!(!activation.contains("is_local()"));
 
-        let offers = source
+        let offers = SETTLEMENTS_SOURCE
             .split("async fn service_quest_offers")
             .nth(1)
             .and_then(|tail| tail.split("fn service_quest_greeting").next())
@@ -209,306 +583,4 @@ mod building_query_tests {
         assert!(source.contains("StrategicPlaceId::journey_camp"));
         assert!(!source.contains("format!(\"camp|"));
     }
-}
-
-use super::inventory_forms::{
-    DiscardInventoryForm, MerchantOfferForm, PartyOfferForm, PartyPoolTransferForm,
-};
-use super::redirect_to_local;
-use super::travel::{
-    CaseSiteKnowledgePresentation, ItineraryForecastSources, TravelDestination, TravelForm,
-    TravelProvisionForecast, active_contract_tooltip, connected_destinations,
-    populate_itinerary_forecasts,
-};
-use super::{
-    AppState, PartyAction, PartyActionOutcome, SocialActionId, SocialDuration,
-    execute_or_request_party_action,
-};
-use crate::session::Session;
-use crate::spacetimedb::{
-    AlcoholConsumption, AutomaticSocialChat, BackendCaseSitePin, BackendChallenge,
-    BackendCharacterRelationshipStatus, BackendCharacterResidenceStatus, BackendContextCharacter,
-    BackendCorpse, BackendFamilyChild, BackendFireplaceDish, BackendFireplaceStation,
-    BackendIngredientPreparationPlan, BackendLocalProblemTradeEffect,
-    BackendPhysiologyAdministration, BackendPhysiologyChart, BackendRoadChallenge,
-    BackendTinctureStatus, BodyRegion, CharacterView, CharacterAffinity, CharacterAttributes,
-    BestiaryHoursExt, CharacterCapability, CharacterCondition, CharacterEquipmentGraph,
-    EquippedItemView,
-    CharacterFamiliarity, CharacterFilth, CharacterLimbs, CharacterMoraleSource, CharacterNeeds,
-    Personality, CharacterSettlementReputation, CharacterSkills, CharacterStats,
-    CharacterStrategicCondition, CharacterTime, CharacterTrainingSchedule, ContainerLiquid,
-    BackendContract, ContractStatus, EquipmentAnchorKind, EquipmentAttachmentTarget,
-    EquipmentOccupancy, FoodLot, IngredientPreparationAction, InventoryContainment,
-    InventoryItem, InventoryItemAmount, InventoryLocation, InventoryObject,
-    InventoryQuantityTarget, ItemCondition,
-    ItemConditionExt, JourneyEndpointExt, ReligionHoursExt, CatalogItemView,
-    CatalogItemKind, LimbInjury, PartyView, PartyInventoryItem, PartyItemAmount, PartyJourney,
-    PartyJourneyRouteView, PartyMember, RecruitmentRoleView, PartyStake, RecruitmentOffer,
-    RecruitmentOfferStatus, RoleRequirements, ReligiousDemand, RepairOrder,
-    RetainedProjectile, ScheduleAllocation, SettlementView, SettlementAlias, SettlementDescription,
-    SettlementResidenceOffer, SettlementSmith, SocialAddress, SocialBelief, SocialChatOutcome,
-    StrategicEncounter, StrategicEncounterStatus, TravelEdgeView,
-};
-use crate::spacetimedb::{party_by_id, settlement_by_id, sql_string_literal};
-use crate::templates::settlement::{
-    ActivityPreviewRates, CampTravelDestination, ChildPresentation, LocationKind, LocationView,
-    MerchantShop, RelationshipPresentation, RestServiceKind, RestSummary, SoapRestPreview,
-    SocialPresentation, WeddingPresentation, camp_page, live_merchant_shop_page, merchants_page,
-    party_discard_page, party_inventory_page, party_personal_page, party_pool_page,
-    party_social_dialog, party_stats_page, religion_page, rest_default_minutes, rest_result_page,
-    settlement_map_page, settlement_overview_page, settlement_residence_page,
-    settlement_resident_location_page, surgery_dialog,
-};
-
-fn contained_water_ml_for_custody(
-    objects: &[InventoryObject],
-    containment: &[InventoryContainment],
-    liquids: &[ContainerLiquid],
-    custody: &OperationalCustody,
-) -> u64 {
-    liquids.iter().fold(0_u64, |total, liquid| {
-        let mut cursor = liquid.container_object_id;
-        let mut visited = std::collections::BTreeSet::new();
-        let root =
-            (0..=adventuresim_core::inventory_containers::MAX_CONTAINER_DEPTH).find_map(|_| {
-                if !visited.insert(cursor) {
-                    return Some(None);
-                }
-                let object = objects.iter().find(|object| object.id == cursor)?;
-                match containment
-                    .iter()
-                    .find(|edge| edge.child_object_id == cursor)
-                {
-                    Some(edge) => {
-                        cursor = edge.parent_object_id;
-                        None
-                    }
-                    None => Some(Some(object)),
-                }
-            });
-        let held = root.flatten().is_some_and(|root| {
-            matches!(
-                (&root.location, custody),
-                (
-                    InventoryLocation::Personal(location),
-                    OperationalCustody::Character(character_id)
-                ) if location.character_id == character_id.get()
-            ) || matches!(
-                (&root.location, custody),
-                (InventoryLocation::Party(location), OperationalCustody::Party(party_id))
-                    if location.party_id == party_id.as_str()
-            )
-        });
-        if held {
-            total.saturating_add(liquid.water_ml)
-        } else {
-            total
-        }
-    })
-}
-
-pub fn routes() -> Router<AppState> {
-    Router::new()
-        .route("/settlements/{id}", get(show_settlement))
-        .route(
-            "/settlements/{id}/places/{place}",
-            get(settlement_resident_place),
-        )
-        .route(
-            "/settlements/{id}/residences/{action}/{tier}",
-            post(change_residence),
-        )
-        .route("/locations/settlement/{id}", get(show_settlement_location))
-        .route("/locations/settlement/{id}/fireplace", get(settlement_fireplace))
-        .route("/locations/settlement/{id}/fireplace/ingredients", post(settlement_fireplace_ingredients))
-        .route("/locations/settlement/{id}/fireplace/retrieve", post(settlement_fireplace_retrieve))
-        .route("/locations/settlement/{id}/fireplace/container/place", post(settlement_fireplace_container_place))
-        .route("/locations/settlement/{id}/fireplace/container/start", post(settlement_fireplace_container_start))
-        .route("/locations/settlement/{id}/fireplace/container/remove", post(settlement_fireplace_container_remove))
-        .route("/locations/settlement/{id}/map", get(settlement_map))
-        .route("/locations/settlement/{id}/alchemy", get(alchemy))
-        .route(
-            "/locations/settlement/{id}/map/travel-configuration",
-            post(update_travel_configuration),
-        )
-        .route(
-            "/locations/settlement/{id}/map/rest",
-            post(rest_at_settlement_map),
-        )
-        .route(
-            "/locations/case-site/{id}/map/travel-configuration",
-            post(update_travel_configuration),
-        )
-        .route("/camp", get(camp))
-        .route("/camp/fireplace", get(camp_fireplace_page))
-        .route("/camp/fireplace/ingredients", post(camp_fireplace_ingredients))
-        .route("/camp/fireplace/retrieve", post(camp_fireplace_retrieve))
-        .route("/camp/fireplace/container/place", post(camp_fireplace_container_place))
-        .route("/camp/fireplace/container/start", post(camp_fireplace_container_start))
-        .route("/camp/fireplace/container/remove", post(camp_fireplace_container_remove))
-        .route("/api/inventory/containers", get(inventory_containers))
-        .route("/api/inventory/containers/move", post(move_inventory_container_item))
-        .route("/api/inventory/containers/remove", post(remove_inventory_container_item))
-        .route("/api/inventory/containers/discard-water", post(discard_inventory_container_water))
-        .route("/api/inventory/containers/tincture-spirit", post(pour_inventory_container_tincture_spirit))
-        .route("/api/inventory/containers/tincture-start", post(start_inventory_container_tincture))
-        .route("/api/inventory/containers/tincture-refresh", post(refresh_inventory_container_tincture))
-        .route("/api/inventory/containers/tincture-dose", post(dose_inventory_container_tincture))
-        .route("/api/inventory/prepare", post(prepare_ingredient_lot))
-        .route("/camp/rest", post(rest_at_camp))
-        .route(
-            "/camp/errantry-road-challenge",
-            post(resolve_errantry_road_challenge),
-        )
-        .route(
-            "/camp/travel-configuration",
-            post(update_camp_travel_configuration),
-        )
-        .route("/camp/continue", post(continue_camp_travel))
-        .route("/camp/encounter", post(resolve_camp_encounter))
-        .route("/camp/counterparty/contact", post(contact_camp_counterparty))
-        .route("/camp/counterparty/bandage", post(bandage_camp_counterparty))
-        .route("/camp/destination/{id}", post(change_camp_destination))
-        .route(
-            "/api/settlements/{id}/service-quests",
-            get(service_quest_offers),
-        )
-        .route(
-            "/api/settlements/{id}/professions/{service_id}/apprenticeship",
-            post(begin_service_apprenticeship),
-        )
-        .route(
-            "/api/settlements/{id}/religion",
-            get(religion_dialogue).post(set_religion),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}",
-            get(party_personal),
-        )
-        .route(
-            "/locations/settlement/{id}/party/{character_id}/organization-presentation/{organization_id}",
-            post(update_organization_presentation),
-        )
-        .route(
-            "/locations/settlement/{id}/party/{character_id}/organization-presentation-none",
-            post(clear_presented_organization),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/physiology/{administration_id}/stop",
-            post(stop_preparation),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/inventory",
-            get(party_member),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/inventory/transfer",
-            post(transfer_party_item),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/remove",
-            post(remove_party_member),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/inventory/offer",
-            post(finalize_party_offer),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/inventory/discard",
-            post(discard_inventory_items),
-        )
-        .route(
-            "/locations/{kind}/{id}/party-inventory",
-            get(party_pool_inventory),
-        )
-        .route(
-            "/locations/{kind}/{id}/party-inventory/deposit",
-            post(deposit_party_inventory),
-        )
-        .route(
-            "/locations/{kind}/{id}/party-inventory/withdraw",
-            post(withdraw_party_inventory),
-        )
-        .route(
-            "/locations/{kind}/{id}/party-inventory/liquidate",
-            post(liquidate_party_assets),
-        )
-        .route("/api/inventory-target", post(set_inventory_target))
-        .route("/api/equipment", post(set_equipment))
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/stats",
-            get(party_stats),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/social",
-            get(party_social).post(perform_social_action),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/social/chat",
-            post(chat_with_party_member),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/social/automatic",
-            post(set_automatic_social_chat),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/surgery/{limb}",
-            get(surgery),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/surgery/{limb}/procedure",
-            post(perform_surgery),
-        )
-        .route(
-            "/locations/{kind}/{id}/players/{character_id}",
-            get(party_stats),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/schedule",
-            post(update_training_schedule),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/activity",
-            post(perform_immediate_activity),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/religion/renounce",
-            post(renounce_religion),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/religious-demand/{demand_id}",
-            post(resolve_religious_demand),
-        )
-        .route("/settlements/{id}/merchants", get(merchants))
-        .route(
-            "/settlements/{id}/storefront/{service_id}/offer",
-            post(finalize_merchant_offer),
-        )
-        .route("/settlements/{id}/weapons", get(weapons))
-        .route("/settlements/{id}/weapons/forge", post(forge_weapon))
-        .route("/settlements/{id}/armor", get(armor))
-        .route("/settlements/{id}/{shop}/repair", post(submit_repair))
-        .route(
-            "/settlements/{id}/{shop}/repair-all",
-            post(submit_all_repairs),
-        )
-        .route(
-            "/settlements/{id}/{shop}/repairs/{order_id}/retrieve",
-            post(retrieve_repair),
-        )
-        .route(
-            "/settlements/{id}/{shop}/repairs/retrieve",
-            post(retrieve_repairs),
-        )
-        .route("/settlements/{id}/clothing", get(clothing))
-        .route("/settlements/{id}/books", get(bookstore))
-        .route("/settlements/{id}/herbalist", get(herbalist))
-        .route(
-            "/settlements/{id}/herbalist/purchase",
-            post(purchase_from_herbalist),
-        )
-        .route("/settlements/{id}/inn", get(inn))
-        .route("/settlements/{id}/religion", get(religion))
-        .route("/settlements/{id}/rest/{kind}", post(rest))
-        .route("/settlements/{id}/travel", post(travel))
 }

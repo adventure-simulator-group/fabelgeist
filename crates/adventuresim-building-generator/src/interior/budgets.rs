@@ -29,10 +29,9 @@ pub fn furniture_budgets(program: &BuildingProgram, room: &Room) -> Vec<Furnitur
     let mut add = |kind, metres_per_item: f32, cap: usize, position| {
         result.push(FurnitureBudget {
             kind,
-            count: (area / metres_per_item).floor().max(1.0) as usize,
+            count: ((area / metres_per_item).floor().max(1.0) as usize).min(cap),
             position,
         });
-        result.last_mut().unwrap().count = result.last().unwrap().count.min(cap);
     };
     match room.kind {
         RoomKind::EntranceHall | RoomKind::Passage | RoomKind::StairHall | RoomKind::Gallery => {}

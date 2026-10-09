@@ -59,7 +59,7 @@ pub(crate) enum RestDurationError {
 
 impl std::fmt::Display for RestDurationError {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        use adventuresim_core::strategic_time::DAYS_PER_YEAR;
+        use adventuresim_world_schema::calendar::DAYS_PER_YEAR;
 
         match self {
             Self::SettlementBelowMinimum => {
@@ -92,7 +92,7 @@ impl std::error::Error for RestDurationError {}
 
 pub(super) fn settlement_rest_minutes(form: &RestForm) -> Result<u64, RestDurationError> {
     let minutes = parsed_rest_minutes(form)?;
-    if minutes < adventuresim_core::strategic_time::MINUTES_PER_DAY {
+    if minutes < adventuresim_world_schema::calendar::MINUTES_PER_DAY {
         return Err(RestDurationError::SettlementBelowMinimum);
     }
     if minutes > MAX_SETTLEMENT_REST_MINUTES {
@@ -151,7 +151,7 @@ pub(super) fn parsed_rest_minutes(form: &RestForm) -> Result<u64, RestDurationEr
                 .duration
                 .parse::<u64>()
                 .map_err(|_| RestDurationError::DaysNotWhole)?;
-            days.saturating_mul(adventuresim_core::strategic_time::MINUTES_PER_DAY)
+            days.saturating_mul(adventuresim_world_schema::calendar::MINUTES_PER_DAY)
         }
         _ => return Err(RestDurationError::UnknownUnit),
     })
@@ -191,9 +191,7 @@ pub(super) async fn rest(
     let settlement_query = settlement_by_id(&id);
     let settlements: Vec<SettlementView> = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
-            settlement_query.as_str(),
-        )
+        .query_sats_into::<DbSettlement, SettlementView>(settlement_query.as_str())
         .await
         .unwrap_or_default();
     let Some(settlement) = settlements.first() else {
@@ -230,7 +228,7 @@ pub(super) async fn rest(
                     crate::templates::strategic_notice_page(
                         "Unable to rest",
                         &message,
-                        &format!("/settlements/{id}/{}", service_kind.page_path()),
+                        &paths::SETTLEMENT_PLACE.url([&id, &(service_kind.place())]),
                         "Return to rest service",
                         None,
                     )
@@ -241,21 +239,15 @@ pub(super) async fn rest(
         }
     };
     let before_character = get_active_character(&state, Some(character_id)).await;
-    let before_limbs = query_single::<CharacterLimbs>(
-        &state,
-        crate::spacetimedb::character_limbs_by_character_id(character_id),
-    )
-    .await;
-    let before_skills = query_single::<CharacterSkills>(
-        &state,
-        crate::spacetimedb::character_skills_by_character_id(character_id),
-    )
-    .await;
-    let before_time = query_single::<crate::spacetimedb::CharacterTime>(
-        &state,
-        crate::spacetimedb::character_time_by_character_id(character_id),
-    )
-    .await;
+    let before_limbs =
+        query_single::<CharacterLimbs>(&state, db::character_limbs_by_character_id(character_id))
+            .await;
+    let before_skills =
+        query_single::<CharacterSkills>(&state, db::character_skills_by_character_id(character_id))
+            .await;
+    let before_time =
+        query_single::<db::CharacterTime>(&state, db::character_time_by_character_id(character_id))
+            .await;
     let before_reputation = query_local_reputation(&state, character_id, &id).await;
     let character_settlement_id = before_character
         .as_ref()
@@ -290,7 +282,7 @@ pub(super) async fn rest(
                 crate::templates::strategic_notice_page(
                     "Unable to rest",
                     safe_rest_error(&error.to_string()),
-                    &format!("/settlements/{id}/{}", service_kind.page_path()),
+                    &paths::SETTLEMENT_PLACE.url([&id, &(service_kind.place())]),
                     "Return to rest service",
                     None,
                 )
@@ -305,28 +297,22 @@ pub(super) async fn rest(
         .as_ref()
         .and_then(|(character, _)| character.current_case_site_id.as_deref())
     {
-        return Redirect::to(&format!("/locations/case-site/{case_site_id}")).into_response();
+        return Redirect::to(&paths::CASE_SITE.url([&case_site_id])).into_response();
     }
     let party_members = get_active_party_members(
         &state,
         active_character.as_ref().map(|(character, _)| character),
     )
     .await;
-    let after_limbs = query_single::<CharacterLimbs>(
-        &state,
-        crate::spacetimedb::character_limbs_by_character_id(character_id),
-    )
-    .await;
-    let after_skills = query_single::<CharacterSkills>(
-        &state,
-        crate::spacetimedb::character_skills_by_character_id(character_id),
-    )
-    .await;
-    let after_time = query_single::<crate::spacetimedb::CharacterTime>(
-        &state,
-        crate::spacetimedb::character_time_by_character_id(character_id),
-    )
-    .await;
+    let after_limbs =
+        query_single::<CharacterLimbs>(&state, db::character_limbs_by_character_id(character_id))
+            .await;
+    let after_skills =
+        query_single::<CharacterSkills>(&state, db::character_skills_by_character_id(character_id))
+            .await;
+    let after_time =
+        query_single::<db::CharacterTime>(&state, db::character_time_by_character_id(character_id))
+            .await;
     let after_reputation = query_local_reputation(&state, character_id, &id).await;
     let summary = rest_summary(RestSummaryObservation {
         before_inventory: before_character
@@ -351,7 +337,7 @@ pub(super) async fn rest(
         .map(|(character, _)| character.name.clone());
     let items = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
         .await
         .unwrap_or_default();
     let food_lots = state
@@ -391,7 +377,7 @@ pub(super) async fn rest(
 
 pub(super) async fn query_single<T: spacetimedb_sats::de::DeserializeOwned>(
     state: &AppState,
-    query: crate::spacetimedb::SqlQuery,
+    query: db::SqlQuery,
 ) -> Option<T> {
     state.db.query_one_sats(&query).await.ok().flatten()
 }
@@ -405,7 +391,7 @@ pub(super) async fn query_local_reputation(
         .db
         .query_sats(&format!(
             "SELECT * FROM character_settlement_reputation WHERE character_id = {character_id} AND settlement_id = {}",
-            crate::spacetimedb::sql_string_literal(settlement_id)
+            db::sql_string_literal(settlement_id)
         ))
         .await
         .unwrap_or_default()
@@ -420,8 +406,8 @@ pub(super) struct RestSummaryObservation<'a> {
     after_limbs: Option<&'a CharacterLimbs>,
     before_skills: Option<&'a CharacterSkills>,
     after_skills: Option<&'a CharacterSkills>,
-    before_time: Option<&'a crate::spacetimedb::CharacterTime>,
-    after_time: Option<&'a crate::spacetimedb::CharacterTime>,
+    before_time: Option<&'a db::CharacterTime>,
+    after_time: Option<&'a db::CharacterTime>,
     before_reputation: Option<&'a CharacterSettlementReputation>,
     after_reputation: Option<&'a CharacterSettlementReputation>,
     public_service: Option<adventuresim_world_schema::SettlementActionService>,
@@ -444,7 +430,7 @@ pub(super) fn rest_summary(observation: RestSummaryObservation<'_>) -> RestSumma
         requested_minutes,
     } = observation;
     let minutes = before_time.zip(after_time).map_or(0, |(before, after)| {
-        after.minutes.saturating_sub(before.minutes)
+        StrategicMinute::new(after.minutes.minutes).elapsed_since(StrategicMinute::new(before.minutes.minutes))
     });
     let currency_total = |inventory: &[InventoryItem]| -> u32 {
         inventory
@@ -624,7 +610,7 @@ pub(super) async fn weapons(
     Path(id): Path<String>,
     session: Session,
 ) -> Html<String> {
-    merchant_shop(state, id, session, MerchantShop::Weapons).await
+    merchant_shop(state, id, session, Storefront::Weapons).await
 }
 
 #[derive(Deserialize)]
@@ -659,7 +645,7 @@ pub(super) async fn forge_weapon(
         )
         .await
     {
-        Ok(()) => Redirect::to(&format!("/settlements/{id}/weapons")).into_response(),
+        Ok(()) => Redirect::to(&paths::WEAPONS.url([&id])).into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
 }
@@ -669,7 +655,7 @@ pub(super) async fn armor(
     Path(id): Path<String>,
     session: Session,
 ) -> Html<String> {
-    merchant_shop(state, id, session, MerchantShop::Armor).await
+    merchant_shop(state, id, session, Storefront::Armor).await
 }
 
 pub(super) async fn clothing(
@@ -677,7 +663,7 @@ pub(super) async fn clothing(
     Path(id): Path<String>,
     session: Session,
 ) -> Html<String> {
-    merchant_shop(state, id, session, MerchantShop::Clothing).await
+    merchant_shop(state, id, session, Storefront::Clothing).await
 }
 
 pub(super) async fn herbalist(
@@ -685,7 +671,7 @@ pub(super) async fn herbalist(
     Path(id): Path<String>,
     session: Session,
 ) -> Html<String> {
-    merchant_shop(state, id, session, MerchantShop::Herbalist).await
+    merchant_shop(state, id, session, Storefront::Herbalist).await
 }
 
 pub(super) async fn bookstore(
@@ -693,7 +679,7 @@ pub(super) async fn bookstore(
     Path(id): Path<String>,
     session: Session,
 ) -> Html<String> {
-    merchant_shop(state, id, session, MerchantShop::Books).await
+    merchant_shop(state, id, session, Storefront::Books).await
 }
 
 pub(super) async fn purchase_from_herbalist(
@@ -702,7 +688,7 @@ pub(super) async fn purchase_from_herbalist(
     session: Session,
     Form(form): Form<MerchantOfferForm>,
 ) -> Redirect {
-    let fallback = format!("/settlements/{id}/herbalist");
+    let fallback = paths::HERBALIST.url([&id]);
     let Some((character, _)) = get_active_character(&state, session.character_id_u64()).await
     else {
         return Redirect::to("/characters");
@@ -821,7 +807,7 @@ mod service_availability_tests {
         assert!(!production.contains("\"join\" => \"join_organization\""));
         assert!(!production.contains("\"pay\" => \"pay_organization_dues\""));
         assert!(!production.contains("\"promote\" => \"promote_organization_membership\""));
-        assert!(routes.contains("organization-presentation/{organization_id}"));
+        assert!(routes.contains("paths::UPDATE_ORGANIZATION_PRESENTATION.pattern()"));
         assert!(production.contains("organization_chapter_at(&id, &place)"));
     }
 
@@ -836,8 +822,8 @@ mod service_availability_tests {
                     .next()
             })
             .expect("service apprenticeship handler");
-        assert!(handler.contains("organizations_for_chapter(&id)"));
-        assert!(handler.contains("organization.service_id"));
+        assert!(handler.contains("organization_service_chapter(&id, service)"));
+        assert!(handler.contains("crate::location_urls::place_service(&place)"));
         assert!(handler.contains("exact_apprenticeship_representative_present"));
         assert!(handler.contains("settlement_resident_presence"));
         assert!(handler.contains("chapter_effective_location_id"));

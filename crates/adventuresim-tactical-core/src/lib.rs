@@ -10,16 +10,19 @@ pub mod combat;
 pub mod combat_config;
 pub mod doors;
 mod erosional_terrain;
+pub mod geometry_transport;
 pub mod inventory;
 mod inventory_armor;
 mod marching_tetrahedra;
 pub mod physics;
 pub mod player;
 pub mod scene;
+pub mod scene_coordinates;
 mod scene_fault;
 mod scene_ground;
 pub mod scene_input;
 mod scene_transition_mesh;
+pub mod terrain_streams;
 mod terrain_transition;
 pub mod volumetric_terrain;
 
@@ -106,17 +109,19 @@ pub mod prelude {
         SceneFurniture, SceneFurnitureGroup, SceneVistaFurniture, furniture_collider,
     };
     pub use crate::scene_input::{
-        BuildingOrientation, DistantBuildingPlacement, EnvironmentalSample, GeneratedBoundary,
-        GeneratedBuilding, GeneratedGarden, GeneratedObstacle, GeneratedTacticalScene,
+        BuildingOrientation, DistantBuildingPlacement, EnvironmentalSample, GardenPlantSupport,
+        GeneratedBoundary, GeneratedBuilding, GeneratedObstacle, GeneratedTacticalScene,
         ROCK_RADIUS_METRES, RockArchetype, RockLithology, RockRecipe, SceneBoundary, SceneBuilding,
-        SceneDoor, SceneEnvironment, SceneEnvironmentFixture, SceneGarden, SceneInputError,
-        SceneObstacle, SceneRepairReport, SceneSource, SceneWindow,
+        SceneDoor, SceneEnvironment, SceneEnvironmentFixture, SceneEstablishment, SceneGarden,
+        SceneInputError, SceneObstacle, SceneRepairReport, SceneSource, SceneWindow,
         TACTICAL_SCENE_GENERATION_VERSION, TACTICAL_SCENE_SCHEMA_VERSION,
         TREE_CANOPY_GROUND_RADIUS_METRES, TREE_TRUNK_HEIGHT_METRES, TREE_TRUNK_RADIUS_METRES,
         TacticalBuildingPlacement, TacticalSceneInput, TacticalSurface, TerrainSampleGrid,
         VistaLod, VistaSample,
     };
-    pub use crate::terrain_transition::TerrainTransitionCollar;
+    pub use crate::terrain_transition::{
+        CollarWidthVariation, RuptureWander, TerrainCollarParameters, TerrainTransitionCollar,
+    };
     pub use crate::volumetric_terrain::{
         SceneTerrainPatch, TerrainGeologicStructure, TerrainLandformKind, TerrainLandformLod,
         TerrainLandformRecipe, TerrainSurfaceParameters, TerrainSurfacePreset,

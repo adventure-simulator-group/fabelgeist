@@ -20,7 +20,7 @@ pub fn travel_to_case_site_planned(
 }
 
 fn authoritative_case_route_binding_digest(
-    departure_minute: u64,
+    departure_minute: StrategicMinute,
     origin: &JourneyRoutePoint,
     destination: &JourneyRoutePoint,
     coordinates_are_geographic: bool,
@@ -33,7 +33,7 @@ fn authoritative_case_route_binding_digest(
     for value in [
         b"adventuresim.authoritative-case-route".as_slice(),
         1u16.to_le_bytes().as_slice(),
-        departure_minute.to_le_bytes().as_slice(),
+        departure_minute.get().to_le_bytes().as_slice(),
         origin.latitude_e7.to_le_bytes().as_slice(),
         origin.longitude_e7.to_le_bytes().as_slice(),
         destination.latitude_e7.to_le_bytes().as_slice(),
@@ -49,7 +49,7 @@ fn authoritative_case_route_binding_digest(
 }
 
 fn authoritative_straight_line_case_route(
-    departure_minute: u64,
+    departure_minute: StrategicMinute,
     origin: (f64, f64),
     destination: (f64, f64),
     coordinates_are_geographic: bool,
@@ -83,11 +83,7 @@ fn authoritative_straight_line_case_route(
         origin_microdegrees.longitude().get(),
         0,
     );
-    let precipitation = match weather.precipitation {
-        adventuresim_core::weather::Precipitation::Clear => JourneyPrecipitation::Clear,
-        adventuresim_core::weather::Precipitation::Rain => JourneyPrecipitation::Rain,
-        adventuresim_core::weather::Precipitation::Snow => JourneyPrecipitation::Snow,
-    };
+    let precipitation = weather.precipitation;
     let package_digest = authoritative_case_route_binding_digest(
         departure_minute,
         &points[0],
@@ -821,9 +817,7 @@ pub fn set_party_travel_itinerary(
         return Err("Daily walking time must be between 0 and 24 hours".into());
     }
     let Some(journey_start) =
-        adventuresim_core::strategic_time::StrategicMinuteOfDay::new(
-            journey_start_minute_of_day,
-        )
+        adventuresim_core::strategic_time::StrategicMinuteOfDay::new(journey_start_minute_of_day)
     else {
         return Err("Journey departure time must be within one day".into());
     };

@@ -50,9 +50,9 @@ struct PublicInterventionOffer {
     inventory_item_id: Option<u64>,
 }
 
-fn public_chart_is_fresh(patient_minute: u64, observed_at: u64) -> bool {
+fn public_chart_is_fresh(patient_minute: StrategicMinute, observed_at: StrategicMinute) -> bool {
     observed_at <= patient_minute
-        && patient_minute.saturating_sub(observed_at) <= MAX_ACTIONABLE_PHYSIOLOGY_CHART_AGE_MINUTES
+        && patient_minute.elapsed_since(observed_at) <= MAX_ACTIONABLE_PHYSIOLOGY_CHART_AGE_MINUTES
 }
 
 #[expect(
@@ -61,11 +61,11 @@ fn public_chart_is_fresh(patient_minute: u64, observed_at: u64) -> bool {
 )]
 fn compare_public_chart_rank(
     left_confidence: u16,
-    left_observed_at: u64,
+    left_observed_at: StrategicMinute,
     left_observer_id: u64,
     left_id: &str,
     right_confidence: u16,
-    right_observed_at: u64,
+    right_observed_at: StrategicMinute,
     right_observer_id: u64,
     right_id: &str,
 ) -> std::cmp::Ordering {
@@ -74,25 +74,6 @@ fn compare_public_chart_rank(
         .then_with(|| right_observed_at.cmp(&left_observed_at))
         .then_with(|| left_observer_id.cmp(&right_observer_id))
         .then_with(|| left_id.cmp(right_id))
-}
-
-fn public_disease_id(value: &str) -> Option<adventuresim_core::disease::DiseaseId> {
-    use adventuresim_core::disease::DiseaseId;
-    match value {
-        "influenza" => Some(DiseaseId::Influenza),
-        "dysentery" => Some(DiseaseId::Dysentery),
-        "typhus" => Some(DiseaseId::Typhus),
-        "tetanus" => Some(DiseaseId::Tetanus),
-        "erysipelas" => Some(DiseaseId::Erysipelas),
-        "smallpox" => Some(DiseaseId::Smallpox),
-        "plague" => Some(DiseaseId::Plague),
-        "consumption" => Some(DiseaseId::Consumption),
-        "mahrdruck" => Some(DiseaseId::Mahrdruck),
-        "shroud_fever" => Some(DiseaseId::ShroudFever),
-        "bilwisschuss" => Some(DiseaseId::Bilwisschuss),
-        "kobeldunst" => Some(DiseaseId::Kobeldunst),
-        _ => None,
-    }
 }
 
 /// Score only the observer-safe weighted differential and public generic
@@ -106,7 +87,7 @@ fn public_intervention_score(
     use adventuresim_core::physiology::{METER_COUNT, Meter};
     let total_likelihood = differential
         .iter()
-        .filter(|row| public_disease_id(&row.disease_id).is_some())
+        .filter(|row| row.disease_id.parse::<adventuresim_core::disease::DiseaseId>().is_ok())
         .map(|row| u64::from(row.likelihood_bps))
         .sum::<u64>();
     if total_likelihood == 0 {
@@ -114,7 +95,7 @@ fn public_intervention_score(
     }
     let mut expected_loss = [0.0_f64; METER_COUNT];
     for row in differential {
-        let Some(disease_id) = public_disease_id(&row.disease_id) else {
+        let Ok(disease_id) = row.disease_id.parse::<adventuresim_core::disease::DiseaseId>() else {
             continue;
         };
         let weight = f64::from(row.likelihood_bps) / total_likelihood as f64;
@@ -574,8 +555,8 @@ fn live_personality(character_id: u64, p: &core_personality::Personality) -> Cha
             core_personality::Presentation::Woman => adventuresim_stdb_client::Presentation::Woman,
         },
         sex: match p.sex {
-            core_personality::Sex::Female => adventuresim_stdb_client::Sex::Female,
-            core_personality::Sex::Male => adventuresim_stdb_client::Sex::Male,
+            adventuresim_world_schema::Sex::Female => adventuresim_stdb_client::Sex::Female,
+            adventuresim_world_schema::Sex::Male => adventuresim_stdb_client::Sex::Male,
         },
     }
 }

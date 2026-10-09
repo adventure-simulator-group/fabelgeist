@@ -25,10 +25,7 @@ fn preparation_request_id(
     hash.update(food_lot_id.to_le_bytes());
     hash.update(material_object_id.to_le_bytes());
     hash.update(revision.to_le_bytes());
-    hash.update([match action {
-        IngredientPreparationAction::Cut => 1,
-        IngredientPreparationAction::Grind => 2,
-    }]);
+    hash.update([action.stable_code()]);
     hash.update(attempt_generation.to_le_bytes());
     hash.update((canonical_place.len() as u64).to_le_bytes());
     hash.update(canonical_place.as_bytes());
@@ -67,7 +64,7 @@ fn preparation_material_source_digest(ctx: &ReducerContext, food_lot_id: u64) ->
     if let Some(row) = ctx.db.food_contamination().food_lot_id().find(food_lot_id) {
         hash.update(row.concentration_anchor.to_bits().to_le_bytes());
         hash.update(row.growth_per_hour.to_bits().to_le_bytes());
-        hash.update(row.anchor_minute.to_le_bytes());
+        hash.update(row.anchor_minute.get().to_le_bytes());
     }
     let mut components = ctx
         .db
@@ -94,7 +91,7 @@ fn preparation_material_source_digest(ctx: &ReducerContext, food_lot_id: u64) ->
 fn preparation_material_current_digest(
     ctx: &ReducerContext,
     food_lot_id: u64,
-    current_minute: u64,
+    current_minute: StrategicMinute,
 ) -> String {
     use sha2::Digest as _;
     let mut hash = sha2::Sha256::new();
@@ -104,7 +101,7 @@ fn preparation_material_current_digest(
         let current = food::contamination_at(
             row.concentration_anchor,
             row.growth_per_hour,
-            current_minute.saturating_sub(row.anchor_minute),
+            current_minute.elapsed_since(row.anchor_minute),
         );
         hash.update(current.to_bits().to_le_bytes());
     }
@@ -173,7 +170,7 @@ fn material_snapshot(
     lot: &FoodLot,
     object: &crate::InventoryObject,
     custody: adventuresim_core::physical_object::OperationalCustody,
-    current_minute: u64,
+    current_minute: StrategicMinute,
 ) -> Result<
     adventuresim_core::material::PrivateMaterialSnapshot<
         herbalism::IngredientMaterialPreparation,
@@ -225,7 +222,7 @@ fn material_snapshot(
             let current = food::contamination_at(
                 row.concentration_anchor,
                 row.growth_per_hour,
-                current_minute.saturating_sub(row.anchor_minute),
+                current_minute.elapsed_since(row.anchor_minute),
             );
             let load = f64::from(current.max(0.0)) * mass_milligrams as f64;
             NonZeroU64::new(load.round() as u64).map(|load| ContaminantLoad {
@@ -327,10 +324,7 @@ fn preparation_material_receipt(
         )
         .map_err(|error| format!("Invalid preparation conservation: {error:?}"))?,
         herbalism::PreparationMaterialReceipt {
-            action: match action {
-                IngredientPreparationAction::Cut => herbalism::PreparationAction::Cut,
-                IngredientPreparationAction::Grind => herbalism::PreparationAction::Grind,
-            },
+            action,
         },
     )
     .map_err(|error| format!("Ingredient conservation failed: {error:?}"))
@@ -350,7 +344,7 @@ fn load_preparation_authority(
     request_id: &str,
     expected_revision: u64,
     action: IngredientPreparationAction,
-    current_minute: u64,
+    current_minute: StrategicMinute,
 ) -> Result<PreparationAuthority, String> {
     let inventory_scope =
         CarriedInventoryScope::try_from(inventory_scope).map_err(|error| error.to_string())?;
@@ -380,7 +374,7 @@ fn load_preparation_authority(
     if crate::inventory_container::ancestry_reaches_fireplace(ctx, object.id) {
         return Err("Ingredient lot is not in carried preparation custody".into());
     }
-    let (skill, physical, next, prefix, tool_binding) = match action {
+    let (skill, next, prefix, tool_binding) = match action {
         IngredientPreparationAction::Cut => {
             if lot.preparation != FoodPreparation::Raw {
                 return Err("Only a raw ingredient can be cut".into());
@@ -390,7 +384,6 @@ fn load_preparation_authority(
             )?;
             (
                 Skill::Knife,
-                herbalism::PhysicalPreparation::Cut,
                 FoodPreparation::Cut,
                 "Cut",
                 tool_binding,
@@ -402,7 +395,6 @@ fn load_preparation_authority(
             }
             (
                 Skill::Bludgeon,
-                herbalism::PhysicalPreparation::Ground,
                 FoodPreparation::Ground,
                 "Ground",
                 grinding_tool_binding(ctx, actor.id),
@@ -410,7 +402,7 @@ fn load_preparation_authority(
         }
     };
     let duration = herbalism::physical_preparation_minutes(
-        physical,
+        action,
         preparation_skill_check(ctx, actor.id, skill)?,
         tool_binding != "hands",
     );
@@ -453,8 +445,8 @@ fn build_preparation_planner(
     authority: &PreparationAuthority,
     request_id: &str,
     action: IngredientPreparationAction,
-    current_minute: u64,
-    terminal_minute: Option<u64>,
+    current_minute: StrategicMinute,
+    terminal_minute: Option<StrategicMinute>,
     attempt_generation: u64,
 ) -> Result<herbalism::PreparationPlanningOutcome, String> {
     use adventuresim_core::{
@@ -504,10 +496,7 @@ fn build_preparation_planner(
             provenance: PlanProvenance {
                 request_id: ActionRequestId::try_new(request_id)
                     .map_err(|_| "Ingredient preparation request is malformed")?,
-                action_id: ActionDefinitionId::try_new(match action {
-                    IngredientPreparationAction::Cut => "ingredient-preparation:cut",
-                    IngredientPreparationAction::Grind => "ingredient-preparation:grind",
-                })
+                action_id: ActionDefinitionId::try_new(action.definition_id())
                 .map_err(|_| "Ingredient preparation definition is malformed")?,
                 input_digest: SnapshotDigest(digest),
                 authority_binding: AuthorityBinding(digest),
@@ -525,10 +514,7 @@ fn build_preparation_planner(
             revision_current: true,
             transition_allowed: true,
             required_tool_available: true,
-            action: match action {
-                IngredientPreparationAction::Cut => herbalism::PreparationAction::Cut,
-                IngredientPreparationAction::Grind => herbalism::PreparationAction::Grind,
-            },
+            action,
             expected_revision: authority.lot.material_revision,
             next_display_name: format!("{prefix} {base_name}"),
         },
@@ -539,8 +525,8 @@ fn preparation_authority_digest(
     actor: &crate::Character,
     authority: &PreparationAuthority,
     action: IngredientPreparationAction,
-    current_minute: u64,
-    terminal_minute: Option<u64>,
+    current_minute: StrategicMinute,
+    terminal_minute: Option<StrategicMinute>,
     attempt_generation: u64,
 ) -> [u8; 32] {
     preparation_authority_digest_parts(
@@ -585,8 +571,8 @@ fn preparation_authority_digest_parts(
     material_source_digest: &str,
     material_current_digest: &str,
     action: IngredientPreparationAction,
-    current_minute: u64,
-    terminal_minute: Option<u64>,
+    current_minute: StrategicMinute,
+    terminal_minute: Option<StrategicMinute>,
     attempt_generation: u64,
 ) -> [u8; 32] {
     use sha2::Digest as _;
@@ -607,10 +593,10 @@ fn preparation_authority_digest_parts(
     frame(lot.display_name.as_bytes());
     frame(&[lot.preparation as u8]);
     frame(&[lot.quality]);
-    frame(&lot.created_at_minute.to_le_bytes());
+    frame(&lot.created_at_minute.get().to_le_bytes());
     frame(&duration.to_le_bytes());
-    frame(&current_minute.to_le_bytes());
-    frame(&terminal_minute.unwrap_or(u64::MAX).to_le_bytes());
+    frame(&current_minute.get().to_le_bytes());
+    frame(&terminal_minute.unwrap_or(StrategicMinute::MAX).get().to_le_bytes());
     frame(&attempt_generation.to_le_bytes());
     frame(&[match skill {
         Skill::Knife => 1,
@@ -644,9 +630,6 @@ fn preparation_authority_digest_parts(
     }
     frame(material_source_digest.as_bytes());
     frame(material_current_digest.as_bytes());
-    frame(&[match action {
-        IngredientPreparationAction::Cut => 1,
-        IngredientPreparationAction::Grind => 2,
-    }]);
+    frame(&[action.stable_code()]);
     hash.finalize().into()
 }

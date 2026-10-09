@@ -81,6 +81,79 @@ impl From<TextureFormat> for wgpu::TextureFormat {
     }
 }
 
+impl From<TextureFormat> for fabelgeist_color::PixelFormat {
+    fn from(f: TextureFormat) -> Self {
+        match f {
+            TextureFormat::R32Float => fabelgeist_color::PixelFormat::R32Float,
+            TextureFormat::Rg32Float => fabelgeist_color::PixelFormat::Rg32Float,
+            TextureFormat::Rgba32Float => fabelgeist_color::PixelFormat::Rgba32Float,
+            TextureFormat::Rgba16Float => fabelgeist_color::PixelFormat::Rgba16Float,
+            TextureFormat::Depth32Float => fabelgeist_color::PixelFormat::Depth32Float,
+            TextureFormat::R8Uint => fabelgeist_color::PixelFormat::R8Uint,
+            TextureFormat::R8Sint => fabelgeist_color::PixelFormat::R8Sint,
+            TextureFormat::R8Snorm => fabelgeist_color::PixelFormat::R8Snorm,
+            TextureFormat::R8Unorm => fabelgeist_color::PixelFormat::R8Unorm,
+            TextureFormat::Rg8Uint => fabelgeist_color::PixelFormat::Rg8Uint,
+            TextureFormat::Rg8Sint => fabelgeist_color::PixelFormat::Rg8Sint,
+            TextureFormat::Rg8Snorm => fabelgeist_color::PixelFormat::Rg8Snorm,
+            TextureFormat::Rg8Unorm => fabelgeist_color::PixelFormat::Rg8Unorm,
+            TextureFormat::Rgba8Uint => fabelgeist_color::PixelFormat::Rgba8Uint,
+            TextureFormat::Rgba8Sint => fabelgeist_color::PixelFormat::Rgba8Sint,
+            TextureFormat::Rgba8Snorm => fabelgeist_color::PixelFormat::Rgba8Snorm,
+            TextureFormat::Rgba8Unorm => fabelgeist_color::PixelFormat::Rgba8Unorm,
+            TextureFormat::Rgba8UnormSrgb => fabelgeist_color::PixelFormat::Rgba8UnormSrgb,
+            TextureFormat::Bgra8Unorm => fabelgeist_color::PixelFormat::Bgra8Unorm,
+            TextureFormat::Bgra8UnormSrgb => fabelgeist_color::PixelFormat::Bgra8UnormSrgb,
+            TextureFormat::R32Sint => fabelgeist_color::PixelFormat::R32Sint,
+            TextureFormat::Rg32Sint => fabelgeist_color::PixelFormat::Rg32Sint,
+            TextureFormat::Rgba32Sint => fabelgeist_color::PixelFormat::Rgba32Sint,
+            TextureFormat::R32Uint => fabelgeist_color::PixelFormat::R32Uint,
+            TextureFormat::Rg32Uint => fabelgeist_color::PixelFormat::Rg32Uint,
+            TextureFormat::Rgba32Uint => fabelgeist_color::PixelFormat::Rgba32Uint,
+            TextureFormat::Rg16Float => fabelgeist_color::PixelFormat::Rg16Float,
+            TextureFormat::R16Float => fabelgeist_color::PixelFormat::R16Float,
+        }
+    }
+}
+
+impl TryFrom<fabelgeist_color::PixelFormat> for TextureFormat {
+    type Error = &'static str;
+
+    fn try_from(pf: fabelgeist_color::PixelFormat) -> Result<Self, Self::Error> {
+        match pf {
+            fabelgeist_color::PixelFormat::R32Float => Ok(TextureFormat::R32Float),
+            fabelgeist_color::PixelFormat::Rg32Float => Ok(TextureFormat::Rg32Float),
+            fabelgeist_color::PixelFormat::Rgba32Float => Ok(TextureFormat::Rgba32Float),
+            fabelgeist_color::PixelFormat::Rgba16Float => Ok(TextureFormat::Rgba16Float),
+            fabelgeist_color::PixelFormat::Depth32Float => Ok(TextureFormat::Depth32Float),
+            fabelgeist_color::PixelFormat::R8Uint => Ok(TextureFormat::R8Uint),
+            fabelgeist_color::PixelFormat::R8Sint => Ok(TextureFormat::R8Sint),
+            fabelgeist_color::PixelFormat::R8Snorm => Ok(TextureFormat::R8Snorm),
+            fabelgeist_color::PixelFormat::R8Unorm => Ok(TextureFormat::R8Unorm),
+            fabelgeist_color::PixelFormat::Rg8Uint => Ok(TextureFormat::Rg8Uint),
+            fabelgeist_color::PixelFormat::Rg8Sint => Ok(TextureFormat::Rg8Sint),
+            fabelgeist_color::PixelFormat::Rg8Snorm => Ok(TextureFormat::Rg8Snorm),
+            fabelgeist_color::PixelFormat::Rg8Unorm => Ok(TextureFormat::Rg8Unorm),
+            fabelgeist_color::PixelFormat::Rgba8Uint => Ok(TextureFormat::Rgba8Uint),
+            fabelgeist_color::PixelFormat::Rgba8Sint => Ok(TextureFormat::Rgba8Sint),
+            fabelgeist_color::PixelFormat::Rgba8Snorm => Ok(TextureFormat::Rgba8Snorm),
+            fabelgeist_color::PixelFormat::Rgba8Unorm => Ok(TextureFormat::Rgba8Unorm),
+            fabelgeist_color::PixelFormat::Rgba8UnormSrgb => Ok(TextureFormat::Rgba8UnormSrgb),
+            fabelgeist_color::PixelFormat::Bgra8Unorm => Ok(TextureFormat::Bgra8Unorm),
+            fabelgeist_color::PixelFormat::Bgra8UnormSrgb => Ok(TextureFormat::Bgra8UnormSrgb),
+            fabelgeist_color::PixelFormat::R32Sint => Ok(TextureFormat::R32Sint),
+            fabelgeist_color::PixelFormat::Rg32Sint => Ok(TextureFormat::Rg32Sint),
+            fabelgeist_color::PixelFormat::Rgba32Sint => Ok(TextureFormat::Rgba32Sint),
+            fabelgeist_color::PixelFormat::R32Uint => Ok(TextureFormat::R32Uint),
+            fabelgeist_color::PixelFormat::Rg32Uint => Ok(TextureFormat::Rg32Uint),
+            fabelgeist_color::PixelFormat::Rgba32Uint => Ok(TextureFormat::Rgba32Uint),
+            fabelgeist_color::PixelFormat::Rg16Float => Ok(TextureFormat::Rg16Float),
+            fabelgeist_color::PixelFormat::R16Float => Ok(TextureFormat::R16Float),
+            _ => Err("PixelFormat has no equivalent TextureFormat in fabelgeist-gpu"),
+        }
+    }
+}
+
 impl TextureFormat {
     pub fn naga_to_wgpu_format(format: wgpu::naga::StorageFormat) -> wgpu::TextureFormat {
         match format {

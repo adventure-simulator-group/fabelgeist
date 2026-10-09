@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct SocialActionCooldown {
@@ -12,7 +14,7 @@ pub struct SocialActionCooldown {
     pub target_id: u64,
     pub topic: String,
     pub action_kind: String,
-    pub available_at_minute: u64,
+    pub available_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for SocialActionCooldown {
@@ -28,7 +30,7 @@ pub struct SocialActionCooldownCols {
     pub target_id: __sdk::__query_builder::Col<SocialActionCooldown, u64>,
     pub topic: __sdk::__query_builder::Col<SocialActionCooldown, String>,
     pub action_kind: __sdk::__query_builder::Col<SocialActionCooldown, String>,
-    pub available_at_minute: __sdk::__query_builder::Col<SocialActionCooldown, u64>,
+    pub available_at_minute: __sdk::__query_builder::Col<SocialActionCooldown, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for SocialActionCooldown {

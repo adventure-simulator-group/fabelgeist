@@ -161,9 +161,9 @@ fn grinding_tool_binding(ctx: &ReducerContext, character_id: u64) -> String {
 fn preparation_terminal_minute(
     ctx: &ReducerContext,
     character_id: u64,
-    current_minute: u64,
+    current_minute: StrategicMinute,
     duration: u64,
-) -> Result<Option<u64>, String> {
+) -> Result<Option<StrategicMinute>, String> {
     let injury = crate::surgery::preview_injury_boundary(
         ctx,
         character_id,
@@ -174,7 +174,7 @@ fn preparation_terminal_minute(
         crate::disease::preview_disease_terminal_boundary(ctx, character_id, injury.elapsed, true)?;
     let safe = injury.elapsed.min(disease_safe);
     Ok((safe < duration || injury.terminal || disease_terminal)
-        .then_some(current_minute.saturating_add(safe)))
+        .then_some(current_minute.saturating_add_minutes(safe)))
 }
 
 #[expect(
@@ -233,10 +233,7 @@ fn preparation_attempt_state_key(
     hash.update(food_lot_id.to_le_bytes());
     hash.update(material_object_id.to_le_bytes());
     hash.update(expected_revision.to_le_bytes());
-    hash.update([match action {
-        IngredientPreparationAction::Cut => 1,
-        IngredientPreparationAction::Grind => 2,
-    }]);
+    hash.update([action.stable_code()]);
     encode_digest(&hash.finalize())
 }
 
@@ -328,7 +325,7 @@ pub fn prepare_ingredient_lot(
         };
     }
     let actor = crate::character::require_living_character(ctx, character_id)?;
-    if actor.in_server {
+    if actor.has_tactical_server_assignment() {
         return Err("Ingredient preparation is unavailable during a tactical encounter".into());
     }
     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
@@ -479,15 +476,11 @@ pub fn prepare_ingredient_lot(
     }
     let (effect_actor, duration) =
         effect_duration.ok_or("Ingredient preparation planner omitted its wait effect")?;
-    let core_action = match action {
-        IngredientPreparationAction::Cut => herbalism::PreparationAction::Cut,
-        IngredientPreparationAction::Grind => herbalism::PreparationAction::Grind,
-    };
     if effect_actor != character_id || duration != u64::from(authority.duration) {
         return Err("Ingredient preparation planner effects do not match authority".into());
     }
     if let Some((effect_action, effect_revision, _)) = &effect_commit
-        && (*effect_action != core_action || *effect_revision != expected_revision)
+        && (*effect_action != action || *effect_revision != expected_revision)
     {
         return Err("Ingredient preparation planner effects do not match authority".into());
     }
@@ -541,7 +534,7 @@ pub fn prepare_ingredient_lot(
     }
     let (_, _, next_display_name) = effect_commit.expect("completion effect checked");
     let post_actor = crate::character::require_living_character(ctx, character_id)?;
-    if post_actor.in_server {
+    if post_actor.has_tactical_server_assignment() {
         return Err("Ingredient preparation became unavailable during its wait".into());
     }
     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;

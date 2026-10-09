@@ -1,8 +1,20 @@
 //! Repair eligibility, submission, custody, and completion presentation.
 
 use super::*;
-use super::{inventory::*, merchant::MerchantShop};
+use super::{Storefront, inventory::*};
 
+pub(super) fn merchant_sell_action_controls(
+    id: u64,
+    item_id: &str,
+    price: u32,
+    quantity: u32,
+    target: u32,
+    can_sell: bool,
+) -> Markup {
+    html! { div class="inventory-row-actions" { (merchant_sale_action(id, item_id, price, quantity, target, can_sell, true)) } }
+}
+
+#[cfg(test)]
 pub(super) fn merchant_sell_repair_controls(
     id: u64,
     item_id: &str,
@@ -13,15 +25,29 @@ pub(super) fn merchant_sell_repair_controls(
     repair: Option<Markup>,
 ) -> Markup {
     let has_repair = repair.is_some();
-    let item_name = item_display_name(item_id);
     html! { div class=(if has_repair { "inventory-row-actions smith-player-actions" } else { "inventory-row-actions" }) {
         @if let Some(repair) = repair { (repair) }
+        (merchant_sale_action(id, item_id, price, quantity, target, can_sell, has_repair))
+    } }
+}
+
+fn merchant_sale_action(
+    id: u64,
+    item_id: &str,
+    price: u32,
+    quantity: u32,
+    target: u32,
+    can_sell: bool,
+    has_repair: bool,
+) -> Markup {
+    let item_name = item_display_name(item_id);
+    html! {
         @if can_sell {
             button type="button" class="trade-transfer trade-transfer-left" data-dynamic-transfer data-default-transfer-mode="one" data-merchant-sell=(id) data-item-name=(item_id) data-merchant-sell-price=(price) data-transfer-mode="one" data-count=(quantity) data-target=(target) data-label-one=(format!("Sell one {item_name}")) data-label-target=(format!("Sell surplus {item_name}")) data-label-all=(format!("Sell all {item_name}")) aria-label=(format!("Sell one {item_name}")) title=(format!("Sell one {item_name}")) { (transfer_glyph(1)) }
         } @else if has_repair {
             (disabled_transfer_button("left", "Equipped items cannot be sold"))
         }
-    } }
+    }
 }
 
 pub(super) fn condition_bar(
@@ -74,7 +100,7 @@ pub(super) fn completed_repair_condition_bar(
 
 pub(super) fn repair_all_control(settlement: &SettlementView, service_id: &str) -> Markup {
     html! {
-        form class="repair-all-form inventory-footer-repair" action=(format!("/settlements/{}/{}/repair-all", settlement.id, service_id)) method="post" {
+        form class="repair-all-form inventory-footer-repair" action=(crate::location_urls::patterns::SUBMIT_ALL_REPAIRS.url([&settlement.id, &(crate::location_urls::service_place(service_id).id())])) method="post" {
             button type="submit" class="repair-all-button" title="Entrust all eligible items for repair" aria-label="Repair all eligible items" {
                 span class="repair-action-icon" aria-hidden="true" {}
             }
@@ -103,7 +129,7 @@ pub(super) fn repair_submit_control(
         format!("Repair all damage (smith level {skill})")
     };
     html! {
-        form class="row-repair-form" action=(format!("/settlements/{}/{}/repair", settlement.id, service_id)) method="post" {
+        form class="row-repair-form" action=(crate::location_urls::patterns::SUBMIT_REPAIR.url([&settlement.id, &(crate::location_urls::service_place(service_id).id())])) method="post" {
             input type="hidden" name="inventory_item_id" value=(inventory_item_id);
             @if disabled {
                 span class="disabled-repair-explanation" tabindex="0" title=(&explanation) aria-label=(&explanation) {
@@ -118,11 +144,11 @@ pub(super) fn repair_submit_control(
 
 pub(super) fn repair_custody_panel(
     settlement: &SettlementView,
-    shop: MerchantShop,
+    shop: Storefront,
     orders: &[crate::spacetimedb::RepairOrder],
     conditions: &[crate::spacetimedb::ItemCondition],
     items: &[crate::spacetimedb::CatalogItemView],
-    now: u64,
+    now: adventuresim_world_schema::calendar::StrategicMinute,
     smith_skill: u8,
 ) -> Markup {
     let service_id = shop.service_id();
@@ -136,13 +162,18 @@ pub(super) fn repair_custody_panel(
                     .is_some_and(|item| shop.stocks(item))
         })
         .collect();
-    matching.sort_by_key(|order| (order.submitted_at_minutes, order.id));
+    matching.sort_by_key(|order| {
+        (
+            crate::spacetimedb::calendar_minute(&order.submitted_at_minutes),
+            order.id,
+        )
+    });
     html! {
         section class="repair-custody-panel" aria-label="Items entrusted for repair"
             data-repair-custody-service=(service_id) hidden {
             header class="repair-custody-header" {
-                h3 { @if matches!(shop, MerchantShop::Clothing) { "In the tailor's care" } @else { "In the smith's care" } }
-                @let craft = if matches!(shop, MerchantShop::Clothing) { "Tailoring" } else { "Smithing" };
+                h3 { @if matches!(shop, Storefront::Clothing) { "In the tailor's care" } @else { "In the smith's care" } }
+                @let craft = if matches!(shop, Storefront::Clothing) { "Tailoring" } else { "Smithing" };
                 span class="repair-custody-skill" title=(format!("{craft} {smith_skill}")) {
                     (stat_icon(craft, "skills", if craft == "Tailoring" { "sewing-needle" } else { "smithing" }, false))
                     (skill_rank_bar(f32::from(smith_skill), f32::from(smith_skill), &format!("{craft} {smith_skill}"), SkillRankBarOptions::default()))
@@ -168,7 +199,7 @@ pub(super) fn repair_custody_panel(
                             th scope="col" class="inventory-column-gold" title="Full repair cost (Currency)" { (currency_header("Full repair cost in Currency")) }
                             th class="inventory-actions-header" aria-label="Repair retrieval actions" {
                                 div class="inventory-footer-actions repair-custody-header-actions" {
-                                    form class="repair-retrieve-all-form" data-repair-retrieve-form data-bulk-action=(format!("/settlements/{}/{}/repairs/retrieve", settlement.id, service_id)) action=(format!("/settlements/{}/{}/repairs/retrieve", settlement.id, service_id)) method="post" {
+                                    form class="repair-retrieve-all-form" data-repair-retrieve-form data-bulk-action=(crate::location_urls::patterns::RETRIEVE_REPAIRS.url([&settlement.id, &(crate::location_urls::service_place(service_id).id())])) action=(crate::location_urls::patterns::RETRIEVE_REPAIRS.url([&settlement.id, &(crate::location_urls::service_place(service_id).id())])) method="post" {
                                         input type="hidden" name="limit" value="2";
                                         button type="submit" class="trade-transfer trade-transfer-right inventory-footer-transfer repair-retrieve-all" data-dynamic-transfer data-default-transfer-mode="target" data-transfer-mode="target" data-label-target="Retrieve up to two completed repairs" data-label-all="Retrieve all completed repairs" title="Retrieve up to two completed repairs" aria-label="Retrieve up to two completed repairs" { (transfer_glyph(2)) }
                                     }
@@ -179,8 +210,9 @@ pub(super) fn repair_custody_panel(
                         @for order in matching {
                             @let condition = conditions.iter().find(|condition| condition.inventory_item_id == order.inventory_item_id);
                             @let definition = items.iter().find(|item| item.id == order.item_id);
-                            @let ready = now >= order.ready_at_minutes;
-                            @let remaining = order.ready_at_minutes.saturating_sub(now);
+                            @let ready_at = adventuresim_world_schema::calendar::StrategicMinute::new(order.ready_at_minutes.minutes);
+                            @let ready = now >= ready_at;
+                            @let remaining = ready_at.elapsed_since(now);
                             tr class="trade-inventory-row trade-row-merchant repair-order-row" {
                                 td class="inventory-item-type" { (item_type_icon(&order.item_id)) }
                                 td class="inventory-item-name" { (item_name_with_quality(&order.item_id, definition)) }
@@ -192,7 +224,7 @@ pub(super) fn repair_custody_panel(
                                 td class="inventory-gold" title="Quoted full-job cost, paid on retrieval" { (order.quoted_cost) }
                                 td class="inventory-actions-cell" aria-label="Item actions" {
                                     span class="inventory-row-actions repair-retrieve-actions" {
-                                        form data-repair-retrieve-form data-single-action=(format!("/settlements/{}/{}/repairs/{}/retrieve", settlement.id, service_id, order.id)) data-bulk-action=(format!("/settlements/{}/{}/repairs/retrieve", settlement.id, service_id)) action=(format!("/settlements/{}/{}/repairs/{}/retrieve", settlement.id, service_id, order.id)) method="post" {
+                                        form data-repair-retrieve-form data-single-action=(crate::location_urls::patterns::RETRIEVE_REPAIR.url([&settlement.id, &(crate::location_urls::service_place(service_id).id()), &order.id])) data-bulk-action=(crate::location_urls::patterns::RETRIEVE_REPAIRS.url([&settlement.id, &(crate::location_urls::service_place(service_id).id())])) action=(crate::location_urls::patterns::RETRIEVE_REPAIR.url([&settlement.id, &(crate::location_urls::service_place(service_id).id()), &order.id])) method="post" {
                                             input type="hidden" name="item_id" value=(&order.item_id);
                                             input type="hidden" name="limit" value="1" disabled;
                                             button type="submit" class="trade-transfer trade-transfer-right" data-dynamic-transfer data-default-transfer-mode="one" data-transfer-mode="one" data-label-one="Retrieve this completed item" data-label-target="Retrieve up to two completed matching items" data-label-all="Retrieve all completed matching items" disabled[!ready] title=(if ready { "Retrieve this completed item" } else { "Repair is still underway" }) aria-label="Retrieve this completed item" { (transfer_glyph(1)) }
@@ -245,7 +277,7 @@ mod tests {
         };
         let rendered =
             repair_submit_control(&settlement(), "clothing", 4, Some(&condition), 2).into_string();
-        assert!(rendered.contains("/clothing/repair"));
+        assert!(rendered.contains("/places/tailor/repair"));
         assert!(rendered.contains("row-repair-form"));
         assert!(!rendered.contains("disabled"));
     }
@@ -345,8 +377,8 @@ mod tests {
                 item_id: "sword".into(),
                 settlement_id: "viabundus-1".into(),
                 smith_skill: 3,
-                submitted_at_minutes: 0,
-                ready_at_minutes: 10,
+                submitted_at_minutes: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+                ready_at_minutes: adventuresim_stdb_client::StrategicMinute { minutes: 10 },
                 target_condition: 1.0,
                 equipped_placement_id: None,
                 attachment_targets: Vec::new(),
@@ -359,8 +391,8 @@ mod tests {
                 item_id: "cuirass".into(),
                 settlement_id: "viabundus-1".into(),
                 smith_skill: 3,
-                submitted_at_minutes: 0,
-                ready_at_minutes: 10,
+                submitted_at_minutes: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+                ready_at_minutes: adventuresim_stdb_client::StrategicMinute { minutes: 10 },
                 target_condition: 1.0,
                 equipped_placement_id: None,
                 attachment_targets: Vec::new(),
@@ -405,21 +437,21 @@ mod tests {
         ];
         let weapons = repair_custody_panel(
             &settlement(),
-            MerchantShop::Weapons,
+            Storefront::Weapons,
             &orders,
             &[],
             &items,
-            0,
+            adventuresim_world_schema::calendar::StrategicMinute::ZERO,
             4,
         )
         .into_string();
         let armor = repair_custody_panel(
             &settlement(),
-            MerchantShop::Armor,
+            Storefront::Armor,
             &orders,
             &[],
             &items,
-            0,
+            adventuresim_world_schema::calendar::StrategicMinute::ZERO,
             3,
         )
         .into_string();

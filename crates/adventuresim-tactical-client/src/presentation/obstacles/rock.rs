@@ -1,4 +1,6 @@
 use super::super::*;
+use fabelgeist_determinism::Seed;
+use fabelgeist_determinism::StreamId;
 
 const BOULDER_GRID_SAMPLES: usize = 18;
 
@@ -6,7 +8,10 @@ fn rock_field(recipe: RockRecipe, point: Vec3) -> f32 {
     let dimensions = Vec3::from_array(recipe.dimensions_metres());
     let half_extents = dimensions * 0.5;
     let normalized = point / half_extents;
-    let phase = unit_hash(recipe.seed) * core::f32::consts::TAU;
+    let phase = StreamId::new("visual.obstacles.rock.phase")
+        .rng(recipe.seed, &[])
+        .inclusive_unit_f32()
+        * core::f32::consts::TAU;
     let (sin_phase, cos_phase) = phase.sin_cos();
     let oriented = Vec3::new(
         normalized.x * cos_phase - normalized.z * sin_phase,
@@ -145,7 +150,10 @@ fn rock_material_with_textures(
             arm,
             surface: tint.extend(roughness_bias),
             geology: Vec4::new(
-                unit_hash(recipe.seed) * core::f32::consts::TAU,
+                StreamId::new("visual.obstacles.rock.phase")
+                    .rng(recipe.seed, &[])
+                    .inclusive_unit_f32()
+                    * core::f32::consts::TAU,
                 0.5,
                 macro_strength,
                 normal_strength,
@@ -163,7 +171,7 @@ mod tests {
 
     use super::*;
 
-    fn recipe(seed: u64, archetype: RockArchetype) -> RockRecipe {
+    fn recipe(seed: Seed, archetype: RockArchetype) -> RockRecipe {
         RockRecipe {
             seed,
             archetype,
@@ -184,7 +192,9 @@ mod tests {
             (0, RockArchetype::Rounded),
             (1, RockArchetype::Angular),
             (42, RockArchetype::Slab),
-        ] {
+        ]
+        .map(|(word, archetype)| (fabelgeist_determinism::Seed::from_u64(word), archetype))
+        {
             let recipe = recipe(seed, archetype);
             let mesh = procedural_rock_mesh(recipe);
             let repeated = procedural_rock_mesh(recipe);
@@ -212,7 +222,7 @@ mod tests {
             RockArchetype::Angular,
             RockArchetype::Slab,
         ] {
-            let recipe = recipe(17, archetype);
+            let recipe = recipe(fabelgeist_determinism::Seed::from_u64(17), archetype);
             let radius = recipe.collision_radius_metres();
             assert!(rock_field(recipe, Vec3::new(0.0, -radius, 0.0)) > 0.0);
             assert!(rock_field(recipe, Vec3::ZERO) < 0.0);
@@ -223,7 +233,13 @@ mod tests {
             RockArchetype::Angular,
             RockArchetype::Slab,
         ]
-        .map(|archetype| rock_field(recipe(17, archetype), point).to_bits());
+        .map(|archetype| {
+            rock_field(
+                recipe(fabelgeist_determinism::Seed::from_u64(17), archetype),
+                point,
+            )
+            .to_bits()
+        });
         assert_ne!(values[0], values[1]);
         assert_ne!(values[1], values[2]);
     }
@@ -236,7 +252,10 @@ mod tests {
             RockLithology::Limestone,
             RockLithology::Sandstone,
         ] {
-            let mut recipe = recipe(42, RockArchetype::Angular);
+            let mut recipe = recipe(
+                fabelgeist_determinism::Seed::from_u64(42),
+                RockArchetype::Angular,
+            );
             recipe.lithology = lithology;
             let material = rock_material_with_textures(
                 recipe,

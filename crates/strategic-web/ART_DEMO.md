@@ -121,12 +121,16 @@ used. Fitting uses complete shells, while display metal retains the outer
 sheets with two-sided materials. Dense geometry exists only as bake input.
 The checked-in source and prepared character bases both use LOD4.
 
-To rebuild a museum assembly, use its `body.json`, `armor.json`,
-`breastplate.json`, `vambrace.json`, and `fasteners.json` from
-`crates/adventuresim-armor-model/review/museum/{henry,nuremberg}` with the
-character creator's recipe and design flags. Export at `--lod 4` with
-`--armor-review-selection recipe --armor-review-dir RUNTIME_DIRECTORY`.
-Repeat to a separate source directory with `--armor-bake-source`. Run
+The museum recipes live in
+`crates/fabelgeist-armor/review/museum/{henry,nuremberg}`. The armor device
+does not yet build their fastenings, pauldrons and other options listed in the
+creator guide, nor dense bake sources, so the checked-in assemblies cannot be
+rebuilt until those are ported. They were built from the
+museum's `body.json`, `armor.json`, `breastplate.json`, `vambrace.json` and
+`fasteners.json` with the character creator's recipe and design flags, at
+`--lod 4` with `--armor-review-selection recipe --armor-review-dir
+RUNTIME_DIRECTORY`, and again to a separate source directory with
+`--armor-bake-source`. Run
 `scripts/finish_equipment.py RUNTIME_DIRECTORY --stage uv`, then use
 `--stage bake --source-directory SOURCE_DIRECTORY` to bake the runtime GLBs.
 Apply the museum's `metal.json` with `scripts/color_armor.py` and then its
@@ -141,19 +145,15 @@ does not require a museum worktree or any dense bake inputs.
 Regenerate the city layout with
 `cargo run -p adventuresim-tactical-client --example generate-art-demo-city`.
 The browser reads `assets/art-demo/city-layout.json` and the companion
-`city-furniture.json`; expensive settlement recipe validation and furniture
-placement run during asset generation instead of tab navigation.
+`city-furniture.json`. The layout carries current scene-format versions,
+exact establishment bindings and accepted support plans for every building.
+The client reconstructs that support against the complete geographic input
+without removing distant buildings, compounds or gardens. Settlement planning
+and furniture placement run during asset generation instead of tab navigation.
 
-Then run
-`cargo run -p adventuresim-tactical-client --example prepare-art-demo-buildings`.
-Pass `-- --output target/art-demo-buildings` to prepare an isolated copy for
-validation without replacing the shipped assets.
-This writes the production facade, shell and detail meshes to
-`assets/art-demo/buildings`, keyed by the serialized recipe. Overview and
-inspection assets are separate; placement materials and shop names remain
-deterministic at runtime. Regenerate these assets after changing building
-recipes or the city layout. The browser does not compile building geometry
-or collision.
+The client generates building geometry and LODs from those recipes. Compiled
+building meshes are not served. Reusable surface textures may be served;
+placement materials and shop names remain deterministic at runtime.
 
 After changing the fixed oak specimen, tree geometry, or impostor renderer,
 regenerate its canonical impostors with:

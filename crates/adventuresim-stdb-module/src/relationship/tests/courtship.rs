@@ -29,7 +29,7 @@ fn formal_route_uses_living_father_and_retry_is_explicit() {
         .split("#[reducer]\npub fn begin_informal_courtship")
         .next()
         .unwrap();
-    assert!(formal.contains("father_of_at(ctx, partner_id, minute)"));
+    assert!(formal.contains("father_of_at(ctx, partner_id, StrategicMinute::new(minute))"));
     let establishment = source
         .split("fn establish_courtship")
         .nth(1)

@@ -1,7 +1,7 @@
 //! Framework-neutral strategic filth, exposure, and automatic washing rules.
 
 use crate::disease::{DiseaseId, TransmissionVector, definition};
-use crate::strategic_time::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use serde::{Deserialize, Serialize};
 
 /// The character sheet meter is deliberately bounded and deposits are clipped.
@@ -41,7 +41,7 @@ pub struct Deposit {
     pub substance: FilthSubstance,
     pub source_character_id: Option<u64>,
     pub amount: u16,
-    pub deposited_at: u64,
+    pub deposited_at: StrategicMinute,
     pub diseases: Vec<DiseaseSnapshot>,
 }
 
@@ -78,8 +78,8 @@ pub fn travel_dirt_accrual(remainder_numerator: u16, minutes: u64) -> (u16, u16)
     (dirt, (numerator % minutes_per_day) as u16)
 }
 
-pub fn infectious_fraction(deposited_at: u64, now: u64) -> f32 {
-    let age = now.saturating_sub(deposited_at);
+pub fn infectious_fraction(deposited_at: StrategicMinute, now: StrategicMinute) -> f32 {
+    let age = now.elapsed_since(deposited_at);
     if age >= BLOOD_INFECTIOUS_MINUTES {
         0.0
     } else {
@@ -92,13 +92,13 @@ pub fn infectious_fraction(deposited_at: u64, now: u64) -> f32 {
 pub fn blood_infectious_windows(
     deposits: &[Deposit],
     disease_id: DiseaseId,
-    from: u64,
-    to: u64,
-) -> Vec<(u64, u64)> {
+    from: StrategicMinute,
+    to: StrategicMinute,
+) -> Vec<(StrategicMinute, StrategicMinute)> {
     if to <= from {
         return Vec::new();
     }
-    let first_uncommitted = from.saturating_add(1);
+    let first_uncommitted = from.saturating_add_minutes(1);
     let mut windows = deposits
         .iter()
         .filter(|deposit| deposit.foreign_blood() && deposit.amount > 0)
@@ -111,18 +111,18 @@ pub fn blood_infectious_windows(
         .filter_map(|deposit| {
             let infectious_end = deposit
                 .deposited_at
-                .saturating_add(BLOOD_INFECTIOUS_MINUTES)
-                .saturating_sub(1);
+                .saturating_add_minutes(BLOOD_INFECTIOUS_MINUTES)
+                .saturating_sub_minutes(1);
             let start = first_uncommitted.max(deposit.deposited_at);
             let end = to.min(infectious_end);
             (start <= end).then_some((start, end))
         })
         .collect::<Vec<_>>();
     windows.sort_unstable();
-    let mut merged: Vec<(u64, u64)> = Vec::new();
+    let mut merged: Vec<(StrategicMinute, StrategicMinute)> = Vec::new();
     for (start, end) in windows {
         if let Some(last) = merged.last_mut()
-            && start <= last.1.saturating_add(1)
+            && start <= last.1.saturating_add_minutes(1)
         {
             last.1 = last.1.max(end);
         } else {
@@ -175,7 +175,7 @@ pub fn dirt_wound_multiplier(total_dirt: u16) -> f32 {
 pub fn blood_exposure(
     deposits: &[Deposit],
     disease_id: DiseaseId,
-    now: u64,
+    now: StrategicMinute,
     cut_route: f32,
 ) -> f32 {
     blood_exposure_for_vector(
@@ -190,7 +190,7 @@ pub fn blood_exposure(
 pub fn blood_exposure_for_vector(
     deposits: &[Deposit],
     disease_id: DiseaseId,
-    now: u64,
+    now: StrategicMinute,
     cut_route: f32,
     blood_compatible: bool,
 ) -> f32 {
@@ -331,7 +331,7 @@ pub fn plan_wash(deposits: &[Deposit], stacks: &[WashStack], has_cut: bool) -> W
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::strategic_time::MINUTES_PER_YEAR;
+    use adventuresim_world_schema::calendar::MINUTES_PER_YEAR;
 
     fn d(id: u64, kind: FilthSubstance, source: Option<u64>, amount: u16) -> Deposit {
         Deposit {
@@ -340,7 +340,7 @@ mod tests {
             substance: kind,
             source_character_id: source,
             amount,
-            deposited_at: id,
+            deposited_at: StrategicMinute::new(id),
             diseases: vec![],
         }
     }
@@ -473,15 +473,31 @@ mod tests {
     #[test]
     fn long_clean_and_expired_blood_intervals_have_no_scan_windows() {
         let year = MINUTES_PER_YEAR;
-        assert!(blood_infectious_windows(&[], DiseaseId::Plague, 0, year).is_empty());
+        assert!(
+            blood_infectious_windows(
+                &[],
+                DiseaseId::Plague,
+                StrategicMinute::ZERO,
+                StrategicMinute::new(year)
+            )
+            .is_empty()
+        );
         let mut own = d(2, FilthSubstance::Blood, Some(7), 20);
         own.diseases.push(DiseaseSnapshot {
             disease_id: DiseaseId::Plague,
             episode_id: 3,
         });
-        assert!(blood_infectious_windows(&[own], DiseaseId::Plague, 0, year).is_empty());
+        assert!(
+            blood_infectious_windows(
+                &[own],
+                DiseaseId::Plague,
+                StrategicMinute::ZERO,
+                StrategicMinute::new(year)
+            )
+            .is_empty()
+        );
         let mut expired = d(1, FilthSubstance::Blood, Some(8), 20);
-        expired.deposited_at = 10;
+        expired.deposited_at = StrategicMinute::new(10);
         expired.diseases.push(DiseaseSnapshot {
             disease_id: DiseaseId::Plague,
             episode_id: 4,
@@ -490,8 +506,8 @@ mod tests {
             blood_infectious_windows(
                 &[expired],
                 DiseaseId::Plague,
-                BLOOD_INFECTIOUS_MINUTES + 20,
-                year,
+                StrategicMinute::new(BLOOD_INFECTIOUS_MINUTES + 20),
+                StrategicMinute::new(year),
             )
             .is_empty()
         );
@@ -500,14 +516,28 @@ mod tests {
     #[test]
     fn active_blood_work_is_bounded_to_two_days() {
         let mut blood = d(1, FilthSubstance::Blood, Some(8), 20);
-        blood.deposited_at = 100;
+        blood.deposited_at = StrategicMinute::new(100);
         blood.diseases.push(DiseaseSnapshot {
             disease_id: DiseaseId::Plague,
             episode_id: 4,
         });
-        let windows = blood_infectious_windows(&[blood], DiseaseId::Plague, 0, MINUTES_PER_YEAR);
-        assert_eq!(windows, vec![(100, 100 + BLOOD_INFECTIOUS_MINUTES - 1)]);
-        assert_eq!(windows[0].1 - windows[0].0 + 1, BLOOD_INFECTIOUS_MINUTES);
+        let windows = blood_infectious_windows(
+            &[blood],
+            DiseaseId::Plague,
+            StrategicMinute::ZERO,
+            StrategicMinute::new(MINUTES_PER_YEAR),
+        );
+        assert_eq!(
+            windows,
+            vec![(
+                StrategicMinute::new(100),
+                StrategicMinute::new(100 + BLOOD_INFECTIOUS_MINUTES - 1)
+            )]
+        );
+        assert_eq!(
+            windows[0].1.elapsed_since(windows[0].0) + 1,
+            BLOOD_INFECTIOUS_MINUTES
+        );
     }
 
     #[test]
@@ -545,9 +575,15 @@ mod tests {
 
     #[test]
     fn infectiousness_decays_but_visible_amount_does_not() {
-        assert_eq!(infectious_fraction(100, 100), 1.0);
         assert_eq!(
-            infectious_fraction(100, 100 + BLOOD_INFECTIOUS_MINUTES),
+            infectious_fraction(StrategicMinute::new(100), StrategicMinute::new(100)),
+            1.0
+        );
+        assert_eq!(
+            infectious_fraction(
+                StrategicMinute::new(100),
+                StrategicMinute::new(100 + BLOOD_INFECTIOUS_MINUTES)
+            ),
             0.0
         );
         let blood = d(1, FilthSubstance::Blood, Some(8), 20);
@@ -569,10 +605,24 @@ mod tests {
             episode_id: 44,
         });
         assert_eq!(
-            blood_exposure_for_vector(&[blood.clone()], DiseaseId::Influenza, 1, 1.0, false),
+            blood_exposure_for_vector(
+                &[blood.clone()],
+                DiseaseId::Influenza,
+                StrategicMinute::new(1),
+                1.0,
+                false
+            ),
             0.0
         );
-        assert!(blood_exposure_for_vector(&[blood], DiseaseId::Influenza, 1, 1.0, true) > 0.4);
+        assert!(
+            blood_exposure_for_vector(
+                &[blood],
+                DiseaseId::Influenza,
+                StrategicMinute::new(1),
+                1.0,
+                true
+            ) > 0.4
+        );
         assert!(crate::disease::definition(DiseaseId::Plague).supports(TransmissionVector::Blood));
         assert!(
             !crate::disease::definition(DiseaseId::Influenza).supports(TransmissionVector::Blood)

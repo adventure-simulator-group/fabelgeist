@@ -4,8 +4,13 @@
 //! private target to an opaque capability and supplies only authoritative
 //! environmental and party inputs.
 
-use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
-use fabelgeist_determinism::mix64;
+mod vocabulary;
+pub use vocabulary::{
+    InvestigationActionKind, ParseInvestigationActionKindError, ParseTerrainError, Terrain,
+};
+
+use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, calendar::StrategicMinute};
+use fabelgeist_determinism::{Seed, StreamId};
 use serde::{Deserialize, Serialize};
 
 use crate::{
@@ -24,24 +29,6 @@ use crate::{
     },
     strategic_place::StrategicPlaceId,
 };
-
-const INVESTIGATION_ACTION_ROLL_DOMAIN: u64 = 0x494e_5645_5354_4143;
-const INVESTIGATION_ATTEMPT_SHIFT: u32 = 17;
-const INVESTIGATION_KIND_SHIFT: u32 = 41;
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum InvestigationActionKind {
-    InspectSite,
-    SearchArea,
-    FollowTracks,
-    ReacquireTracks,
-    LocateContact,
-    Watch,
-    Patrol,
-    LayAmbush,
-    ApproachLead,
-}
 
 /// Stable observer-facing result of evaluating whether an investigation action
 /// can begin now.
@@ -255,34 +242,6 @@ pub fn tracking_route_edge_is_coherent(
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum Terrain {
-    Road,
-    Settlement,
-    Plains,
-    Forest,
-    Hills,
-    Marsh,
-    Ruins,
-    Underground,
-}
-
-impl Terrain {
-    pub const fn stable_id(self) -> &'static str {
-        match self {
-            Self::Road => "road",
-            Self::Settlement => "settlement",
-            Self::Plains => "plains",
-            Self::Forest => "forest",
-            Self::Hills => "hills",
-            Self::Marsh => "marsh",
-            Self::Ruins => "ruins",
-            Self::Underground => "underground",
-        }
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
 pub enum TimeOfDay {
     Day,
     Night,
@@ -337,7 +296,7 @@ pub struct StrategicCost {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct ResolutionInput {
-    pub seed: u64,
+    pub seed: Seed,
     pub attempt_index: u32,
     pub kind: InvestigationActionKind,
     pub terrain: Terrain,
@@ -406,12 +365,12 @@ mod planning_adapter_tests {
                 revision: SnapshotRevision(3),
                 digest: SnapshotDigest([2; 32]),
             },
-            current_minute: 100,
+            current_minute: StrategicMinute::new(100),
             duration: RequestedDuration::try_new(45).unwrap(),
             boundaries: TimeBoundaries {
                 terminal_minute: None,
                 interruption: boundary.map(|at_minute| ScheduledInterruption {
-                    at_minute,
+                    at_minute: StrategicMinute::new(at_minute),
                     cause: InvestigationPlanInterruption::ParticipantBoundary,
                 }),
             },
@@ -655,7 +614,7 @@ pub struct InvestigationPlanAuthority {
     pub coordinates: ActionCoordinates<InvestigationPlanTarget>,
     pub provenance: PlanProvenance,
     pub snapshot: AuthoritativeSnapshot,
-    pub current_minute: u64,
+    pub current_minute: StrategicMinute,
     pub duration: RequestedDuration,
     pub boundaries: TimeBoundaries<InvestigationPlanInterruption>,
     pub rights: PrivateRightsDecision<InvestigationRightsEvidence>,
@@ -898,7 +857,7 @@ pub fn resolve(input: ResolutionInput) -> Resolution {
         resulting_uncertainty_bps,
         risk_bps,
         risk_triggered: domain_roll(
-            input.seed ^ 0x5249_534b_5f52_4f4c,
+            input.seed.xor_word(0x5249_534b_5f52_4f4c),
             input.attempt_index,
             input.kind,
         ) < risk_bps,
@@ -972,7 +931,7 @@ pub fn resolve_with_bounded_progress(
         resolution.result = result_kind(input.kind, success);
         resolution.risk_bps = 500;
         resolution.risk_triggered = domain_roll(
-            input.seed ^ 0x5249_534b_5f52_4f4c,
+            input.seed.xor_word(0x5249_534b_5f52_4f4c),
             input.attempt_index,
             input.kind,
         ) < resolution.risk_bps;
@@ -1012,12 +971,10 @@ fn result_kind(kind: InvestigationActionKind, success: bool) -> ActionResultKind
     }
 }
 
-fn domain_roll(seed: u64, attempt: u32, kind: InvestigationActionKind) -> u16 {
-    (mix64(
-        seed ^ INVESTIGATION_ACTION_ROLL_DOMAIN
-            ^ (u64::from(attempt) << INVESTIGATION_ATTEMPT_SHIFT)
-            ^ ((kind as u64) << INVESTIGATION_KIND_SHIFT),
-    ) % u64::from(BASIS_POINTS_PER_WHOLE)) as u16
+fn domain_roll(seed: Seed, attempt: u32, kind: InvestigationActionKind) -> u16 {
+    StreamId::new("investigation.action")
+        .rng(seed, &[u64::from(attempt), kind as u64])
+        .index(usize::from(BASIS_POINTS_PER_WHOLE)) as u16
 }
 
 #[cfg(test)]
@@ -1026,7 +983,7 @@ mod tests {
 
     fn input(kind: InvestigationActionKind) -> ResolutionInput {
         ResolutionInput {
-            seed: 42,
+            seed: fabelgeist_determinism::Seed::from_u64(42),
             attempt_index: 0,
             kind,
             terrain: Terrain::Forest,
@@ -1139,7 +1096,7 @@ mod tests {
             candidate.target_terrain = Terrain::Forest;
             candidate.evidence_age_minutes = if high_skill { 0 } else { 600_000 };
             let mut saw_ordinary_early_success = false;
-            for seed in 0..128 {
+            for seed in (0..128).map(fabelgeist_determinism::Seed::from_u64) {
                 candidate.seed = seed;
                 let ordinary = resolve(candidate);
                 assert_eq!(ordinary.effective_skill_bps, expected_effective);
@@ -1192,6 +1149,7 @@ mod tests {
         candidate.terrain = Terrain::Road;
         candidate.evidence_age_minutes = 600_000;
         let failing_seed = (0..u64::MAX)
+            .map(fabelgeist_determinism::Seed::from_u64)
             .find(|seed| {
                 !resolve_with_bounded_progress(
                     ResolutionInput {
@@ -1237,7 +1195,7 @@ mod tests {
     #[test]
     fn failures_never_delete_the_route() {
         let mut hard = input(InvestigationActionKind::ReacquireTracks);
-        hard.seed = 1;
+        hard.seed = fabelgeist_determinism::Seed::from_u64(2);
         hard.skills.terrain_bps = 0;
         hard.skills.assistance_bps = 0;
         hard.skills.familiarity_bps = 0;

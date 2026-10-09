@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::body_region_type::BodyRegion;
 use super::intervention_route_type::InterventionRoute;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -17,8 +18,8 @@ pub struct BackendPhysiologyAdministration {
     pub route: InterventionRoute,
     pub dose_milliunits: u32,
     pub region: Option<BodyRegion>,
-    pub administered_at: u64,
-    pub stopped_at: Option<u64>,
+    pub administered_at: StrategicMinute,
+    pub stopped_at: Option<StrategicMinute>,
 }
 
 impl __sdk::InModule for BackendPhysiologyAdministration {
@@ -36,8 +37,10 @@ pub struct BackendPhysiologyAdministrationCols {
     pub route: __sdk::__query_builder::Col<BackendPhysiologyAdministration, InterventionRoute>,
     pub dose_milliunits: __sdk::__query_builder::Col<BackendPhysiologyAdministration, u32>,
     pub region: __sdk::__query_builder::Col<BackendPhysiologyAdministration, Option<BodyRegion>>,
-    pub administered_at: __sdk::__query_builder::Col<BackendPhysiologyAdministration, u64>,
-    pub stopped_at: __sdk::__query_builder::Col<BackendPhysiologyAdministration, Option<u64>>,
+    pub administered_at:
+        __sdk::__query_builder::Col<BackendPhysiologyAdministration, StrategicMinute>,
+    pub stopped_at:
+        __sdk::__query_builder::Col<BackendPhysiologyAdministration, Option<StrategicMinute>>,
 }
 
 impl __sdk::__query_builder::HasCols for BackendPhysiologyAdministration {

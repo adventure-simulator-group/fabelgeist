@@ -4,14 +4,16 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct OutbreakSourcePresenceSpan {
     pub id: String,
     pub character_id: u64,
     pub source_place_id: String,
-    pub started_at: u64,
-    pub ended_at: Option<u64>,
+    pub started_at: StrategicMinute,
+    pub ended_at: Option<StrategicMinute>,
 }
 
 impl __sdk::InModule for OutbreakSourcePresenceSpan {
@@ -25,8 +27,8 @@ pub struct OutbreakSourcePresenceSpanCols {
     pub id: __sdk::__query_builder::Col<OutbreakSourcePresenceSpan, String>,
     pub character_id: __sdk::__query_builder::Col<OutbreakSourcePresenceSpan, u64>,
     pub source_place_id: __sdk::__query_builder::Col<OutbreakSourcePresenceSpan, String>,
-    pub started_at: __sdk::__query_builder::Col<OutbreakSourcePresenceSpan, u64>,
-    pub ended_at: __sdk::__query_builder::Col<OutbreakSourcePresenceSpan, Option<u64>>,
+    pub started_at: __sdk::__query_builder::Col<OutbreakSourcePresenceSpan, StrategicMinute>,
+    pub ended_at: __sdk::__query_builder::Col<OutbreakSourcePresenceSpan, Option<StrategicMinute>>,
 }
 
 impl __sdk::__query_builder::HasCols for OutbreakSourcePresenceSpan {

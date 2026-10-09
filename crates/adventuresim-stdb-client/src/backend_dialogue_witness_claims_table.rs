@@ -3,6 +3,7 @@
 
 #![allow(unused, clippy::all)]
 use super::backend_dialogue_witness_claim_type::BackendDialogueWitnessClaim;
+use super::witness_claim_resolution_type::WitnessClaimResolution;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `backend_dialogue_witness_claims`.

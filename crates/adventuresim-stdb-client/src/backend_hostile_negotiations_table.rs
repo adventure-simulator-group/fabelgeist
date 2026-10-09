@@ -2,9 +2,9 @@
 // WILL NOT BE SAVED. MODIFY TABLES IN YOUR MODULE SOURCE CODE INSTEAD.
 
 #![allow(unused, clippy::all)]
-use super::backend_contextual_decision_type::BackendContextualDecision;
 use super::backend_hostile_negotiation_type::BackendHostileNegotiation;
 use super::case_site_id_type::CaseSiteId;
+use super::interaction_presentation_decision_type::InteractionPresentationDecision;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `backend_hostile_negotiations`.

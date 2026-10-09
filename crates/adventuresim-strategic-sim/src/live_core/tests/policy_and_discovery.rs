@@ -60,7 +60,7 @@ fn startup_registers_and_resubscribes_gateway_before_seeding() {
 
 #[test]
 fn live_schedule_reallocates_disabled_tactical_crime_to_legal_labor() {
-    let mut profile = generate_profile(42, 0);
+    let mut profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
     profile.schedule.combat_training_minutes = 17;
     profile.schedule.apprenticeship_minutes = 60;
     profile.schedule.profession_practice_minutes = 60;
@@ -194,7 +194,7 @@ fn committed_reserve_keeps_visible_medical_cost_and_attainable_cash_target() {
 
 #[test]
 fn prayer_switches_to_installed_labor_plan_under_reserve_pressure() {
-    let mut profile = generate_profile(42, 0);
+    let mut profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
     profile.preferred_activity = ActivityPreference::Prayer;
     profile.schedule.labor = 0;
     profile.schedule.thievery = 0;
@@ -355,15 +355,15 @@ fn quest_selection_trace_precedes_discovery_reducers() {
 #[test]
 fn generated_case_views_filter_by_owner_and_sort_stably() {
     let rows = vec![
-        (9, "case-b".into(), "B".into(), DomainCaseStatus::Open, 10),
-        (7, "case-z".into(), "Z".into(), DomainCaseStatus::Open, 1),
-        (9, "case-a".into(), "A".into(), DomainCaseStatus::Open, 20),
+        (9, "case-b".into(), "B".into(), DomainCaseStatus::Open, StrategicMinute::new(10)),
+        (7, "case-z".into(), "Z".into(), DomainCaseStatus::Open, StrategicMinute::new(1)),
+        (9, "case-a".into(), "A".into(), DomainCaseStatus::Open, StrategicMinute::new(20)),
         (
             9,
             "case-c".into(),
             "C".into(),
             DomainCaseStatus::Resolved,
-            0,
+            StrategicMinute::ZERO,
         ),
     ];
     assert_eq!(
@@ -731,17 +731,17 @@ fn public_discovery_backoff_expires_or_invalidates_on_public_change() {
         active_symptoms: vec![(
             "missing livestock".into(),
             "Several goats have vanished.".into(),
-            1_000,
-            20_000,
+            StrategicMinute::new(1_000),
+            StrategicMinute::new(20_000),
         )],
     };
     let backoff = PublicDiscoveryBackoff {
         fingerprint: initial.clone(),
         last_contact: initial.contacts[0].clone(),
-        retry_at: 3_880,
+        retry_at: StrategicMinute::new(3_880),
     };
-    assert!(public_discovery_backoff_active(&backoff, &initial, 3_879));
-    assert!(!public_discovery_backoff_active(&backoff, &initial, 3_880));
+    assert!(public_discovery_backoff_active(&backoff, &initial, StrategicMinute::new(3_879)));
+    assert!(!public_discovery_backoff_active(&backoff, &initial, StrategicMinute::new(3_880)));
     assert_eq!(
         public_discovery_previous_contact(Some(&backoff), &initial),
         Some(&backoff.last_contact)
@@ -749,7 +749,7 @@ fn public_discovery_backoff_expires_or_invalidates_on_public_change() {
 
     let mut changed = initial;
     changed.contacts[0].location_id = "overview".into();
-    assert!(!public_discovery_backoff_active(&backoff, &changed, 2_000));
+    assert!(!public_discovery_backoff_active(&backoff, &changed, StrategicMinute::new(2_000)));
     assert_eq!(
         public_discovery_previous_contact(Some(&backoff), &changed),
         None,
@@ -768,7 +768,7 @@ fn discovery_prioritizes_new_referrals_and_retries_unresolved_public_referrals()
         expected_location: "inn".into(),
         current_learned_location: String::new(),
         corrected_by: corrected_by.into(),
-        recorded_at,
+        recorded_at: StrategicMinute::new(recorded_at),
     };
     let original = referral(10, "");
     let before = HashMap::from([(original.lead_id.clone(), original.clone())]);
@@ -905,9 +905,23 @@ fn dialogue_topics_suppress_no_progress_and_reenable_after_public_change() {
 
 #[test]
 fn public_dialogue_presence_rejects_suppression_and_replans_authority_races() {
-    assert!(npc_is_publicly_present(480, 1_020, false, false, 900));
-    assert!(!npc_is_publicly_present(480, 1_020, true, false, 900));
-    assert!(!npc_is_publicly_present(480, 1_020, false, true, 900));
+    assert!(npc_is_publicly_present(480, 1_020, false, false, StrategicMinute::new(900)));
+    assert!(!npc_is_publicly_present(480, 1_020, true, false, StrategicMinute::new(900)));
+    assert!(!npc_is_publicly_present(480, 1_020, false, true, StrategicMinute::new(900)));
+    assert!(npc_is_publicly_present(
+        1_200,
+        120,
+        false,
+        false,
+        StrategicMinute::new(1_380)
+    ));
+    assert!(!npc_is_publicly_present(
+        1_200,
+        120,
+        false,
+        false,
+        StrategicMinute::new(600)
+    ));
     let coded = adventuresim_core::reducer_error::coded_reducer_error(
         ReducerErrorCode::DialogueContactUnavailable,
         "wording is not part of control flow",

@@ -4,7 +4,7 @@ mod tests {
 
     #[test]
     fn command_abi_produces_a_stable_player_build_snapshot() {
-        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, 42);
+        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         let plan = generate_document(&document).unwrap();
         let mut runtime = EditorRuntime::new(
             document,
@@ -38,7 +38,7 @@ mod tests {
 
     #[test]
     fn wall_draw_command_snaps_to_grid_and_spans_dragged_cells() {
-        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, 42);
+        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         let plan = generate_document(&document).unwrap();
         let mut runtime = EditorRuntime::new(
             document,
@@ -106,7 +106,7 @@ mod tests {
 
     #[test]
     fn new_freeform_build_action_enables_construct_mode_and_save_path() {
-        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, 42);
+        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         let plan = generate_document(&document).unwrap();
         let mut runtime =
             EditorRuntime::new(document, plan, PathBuf::from("my-house.json"), None, None);
@@ -129,7 +129,7 @@ mod tests {
 
     #[test]
     fn detaching_replaces_the_generated_scene_at_its_shared_origin() {
-        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, 42);
+        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         let plan = generate_document(&document).unwrap();
         let expected_wall_count = plan
             .storeys
@@ -157,7 +157,7 @@ mod tests {
 
     #[test]
     fn detached_assembly_renders_roofs_with_roof_visibility_targets() {
-        let plan = generate_document(&BuildingDocument::fixture(BuildingArchetype::TownHouse, 42))
+        let plan = generate_document(&BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42)))
             .unwrap();
         assert!(!plan.roofs.is_empty());
         let document = PlayerBuildDocument::from_plan(&plan);
@@ -175,7 +175,7 @@ mod tests {
 
     #[test]
     fn player_build_visibility_changes_entity_components_for_hide_and_levels() {
-        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, 42);
+        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         let plan = generate_document(&document).unwrap();
         let player_build = PlayerBuildDocument::empty()
             .apply(PlayerBuildEdit::DrawWall {
@@ -259,7 +259,7 @@ mod tests {
 
     #[test]
     fn generated_editor_geometry_receives_the_same_visibility_components() {
-        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, 42);
+        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         let plan = generate_document(&document).unwrap();
         let wall_owner = plan.wall_assemblies.first().unwrap().owner.0;
         let roof_owner = plan.roof_assemblies.first().unwrap().owner.0;
@@ -386,7 +386,7 @@ mod tests {
 
     #[test]
     fn ground_level_hides_every_upper_mesh_in_the_real_fachwerk_editor_scene() {
-        let document = BuildingDocument::fixture(BuildingArchetype::FachwerkMerchantHouse, 42);
+        let document = BuildingDocument::fixture(BuildingArchetype::FachwerkMerchantHouse, fabelgeist_determinism::Seed::from_u64(42));
         let plan = generate_document(&document).unwrap();
         let mut world = World::new();
         world.init_resource::<Assets<Mesh>>();
@@ -398,7 +398,8 @@ mod tests {
             ProjectedProofKind::Machicolation,
             None,
             SceneSetup::EditorBuilding,
-        );
+        )
+        .unwrap();
         configure_editor_scene(&mut world, &plan, false);
         world.insert_resource(EditorRuntime::new(
             document,
@@ -430,7 +431,7 @@ mod tests {
 
     #[test]
     fn timber_programme_and_detached_build_share_one_stair_authority() {
-        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, 42);
+        let document = BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42));
         let plan = generate_document(&document).unwrap();
         let Stair::Straight {
             start,
@@ -456,7 +457,7 @@ mod tests {
             .find(|solid| solid.id == first_tread)
             .expect("resolved first timber stair tread");
         assert!(
-            (Vec2::new(first_tread.centre.x, first_tread.centre.z)
+            (Vec2::new(first_tread.centre.metres().x, first_tread.centre.metres().z)
                 - (start + axis * (run_metres / 18.0)))
                 .length()
                 < 0.02,
@@ -473,7 +474,8 @@ mod tests {
             ProjectedProofKind::Machicolation,
             None,
             SceneSetup::EditorBuilding,
-        );
+        )
+        .unwrap();
         let mut programme_names = programme_world.query::<&Name>();
         assert!(
             programme_names
@@ -513,7 +515,7 @@ mod tests {
 
     #[test]
     fn detached_stair_has_a_full_height_clear_arrival_opening() {
-        let plan = generate_document(&BuildingDocument::fixture(BuildingArchetype::TownHouse, 42))
+        let plan = generate_document(&BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42)))
             .unwrap();
         let document = PlayerBuildDocument::from_plan(&plan);
         let mut world = World::new();
@@ -594,7 +596,7 @@ mod tests {
 
     #[test]
     fn detached_stair_landings_reach_real_room_doorways() {
-        let plan = generate_document(&BuildingDocument::fixture(BuildingArchetype::TownHouse, 42))
+        let plan = generate_document(&BuildingDocument::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42)))
             .unwrap();
         let document = PlayerBuildDocument::from_plan(&plan);
         let mut world = World::new();
@@ -703,7 +705,7 @@ mod tests {
 
     #[test]
     fn fixture_reconfiguration_preserves_camera_and_editor_environment() {
-        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(42))).unwrap();
         let mut world = World::new();
         let camera = world
             .spawn((
@@ -740,7 +742,7 @@ mod tests {
     fn editor_maps_resolved_owners_to_stable_individual_targets() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let (owner_targets, item_targets) = editor_owner_targets(&plan);
@@ -834,7 +836,7 @@ mod tests {
     #[test]
     fn roof_face_meshes_remain_closed_after_authoritative_child_cuts() {
         for archetype in BuildingArchetype::ALL {
-            let plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
+            let plan = generate(&BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(42))).unwrap();
             for face in plan.roof_assemblies.iter().flat_map(|roof| &roof.faces) {
                 let mesh = roof_face_prism_mesh(face);
                 let positions = match mesh.attribute(Mesh::ATTRIBUTE_POSITION).unwrap() {
@@ -883,7 +885,7 @@ mod tests {
 
     #[test]
     fn radial_tower_shell_mesh_is_closed_with_true_wall_thickness() {
-        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::WalledKeep, 42)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::WalledKeep, fabelgeist_determinism::Seed::from_u64(42))).unwrap();
         let tower = plan.towers[0];
         let portals = plan
             .tower_portals
@@ -924,7 +926,7 @@ mod tests {
             BuildingArchetype::RenaissanceTownHall,
             BuildingArchetype::Cathedral,
         ] {
-            let plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
+            let plan = generate(&BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(42))).unwrap();
             let opening =
                 plan.opening_assemblies
                     .iter()
@@ -959,9 +961,9 @@ mod tests {
                 _ => unreachable!(),
             };
             let mesh = arched_spandrel_mesh(
-                solid.size.x.max(solid.size.z),
-                solid.size.y,
-                solid.size.x.min(solid.size.z),
+                solid.size.metres().x.max(solid.size.metres().z),
+                solid.size.metres().y,
+                solid.size.metres().x.min(solid.size.metres().z),
                 rise,
                 radius,
             );
@@ -984,7 +986,7 @@ mod tests {
     fn resolved_renderer_fingerprint_rejects_omission_duplication_and_transform_drift() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::CourtyardCastle,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let fingerprints = |solids: &[adventuresim_building_generator::ResolvedSolid]| {
@@ -1000,10 +1002,20 @@ mod tests {
         duplicated.push(duplicated[0].clone());
         assert_ne!(expected, fingerprints(&duplicated));
         let mut moved = plan.resolved_geometry.solids.clone();
-        moved[0].centre.x += 0.05;
+        let mut centre = moved[0].centre.metres();
+        centre.x += 0.05;
+        moved[0].centre =
+            adventuresim_building_generator::spatial_geometry::Position::from_metres(centre)
+                .unwrap();
         assert_ne!(expected, fingerprints(&moved));
         let mut resized = plan.resolved_geometry.solids.clone();
-        resized[0].size.y += 0.05;
+        let mut dimensions = resized[0].size.metres();
+        dimensions.y += 0.05;
+        resized[0].size =
+            adventuresim_building_generator::spatial_geometry::CuboidDimensions::from_metres(
+                dimensions,
+            )
+            .unwrap();
         assert_ne!(expected, fingerprints(&resized));
     }
 
@@ -1102,7 +1114,7 @@ mod tests {
         assert!(validate_projected_suite_records(&missing_exact_ids).is_err());
 
         let mut stale_seed_state = records();
-        stale_seed_state[10].1.seed = 42;
+        stale_seed_state[10].1.seed = fabelgeist_determinism::Seed::from_u64(42);
         assert!(validate_projected_suite_records(&stale_seed_state).is_err());
     }
 
@@ -1129,7 +1141,7 @@ mod tests {
                         OpeningsSuiteManifest {
                             fixture: expected.fixture.to_owned(),
                             view: expected.view.to_owned(),
-                            seed: 42,
+                            seed: fabelgeist_determinism::Seed::from_u64(42),
                             resolver_schema_version: 2,
                             resolved_geometry_hash: format!("resolved-{}", expected.fixture),
                             source_revision: "revision-a".to_owned(),
@@ -1343,7 +1355,7 @@ mod tests {
                         ChurchSuiteManifest {
                             fixture: "cathedral".to_owned(),
                             view: (*slug).to_owned(),
-                            seed: 47,
+                            seed: fabelgeist_determinism::Seed::from_u64(47),
                             resolver_schema_version: 2,
                             source_revision: "revision-a".to_owned(),
                             source_dirty_fingerprint: "source-a".to_owned(),
@@ -1457,7 +1469,7 @@ mod tests {
                         TimberSuiteManifest {
                             fixture: fixture.clone(),
                             view: timber_proof_suffix(view).unwrap().to_owned(),
-                            seed: 47,
+                            seed: fabelgeist_determinism::Seed::from_u64(47),
                             resolver_schema_version: 2,
                             source_revision: "revision-a".to_owned(),
                             source_dirty_fingerprint: "source-a".to_owned(),

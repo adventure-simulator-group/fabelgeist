@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::estate_disposition_status_type::EstateDispositionStatus;
 use super::estate_heir_kind_type::EstateHeirKind;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -16,7 +17,7 @@ pub struct BackendEstateDisposition {
     pub chosen_heir_id: Option<u64>,
     pub heir_kind: EstateHeirKind,
     pub status: EstateDispositionStatus,
-    pub effective_minute: u64,
+    pub effective_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for BackendEstateDisposition {
@@ -33,7 +34,7 @@ pub struct BackendEstateDispositionCols {
     pub chosen_heir_id: __sdk::__query_builder::Col<BackendEstateDisposition, Option<u64>>,
     pub heir_kind: __sdk::__query_builder::Col<BackendEstateDisposition, EstateHeirKind>,
     pub status: __sdk::__query_builder::Col<BackendEstateDisposition, EstateDispositionStatus>,
-    pub effective_minute: __sdk::__query_builder::Col<BackendEstateDisposition, u64>,
+    pub effective_minute: __sdk::__query_builder::Col<BackendEstateDisposition, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for BackendEstateDisposition {

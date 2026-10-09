@@ -1,9 +1,13 @@
 //! Dependency-light validation shared verbatim by `build.rs`, runtime startup,
 //! and the authoring checker.
 
-use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, Sex};
 use serde_json::{Map, Value};
 use std::collections::{BTreeMap, BTreeSet};
+
+#[path = "quest_catalog_validation/demographic.rs"]
+mod demographic;
+use demographic::{parse_sexes, sex_selectors_overlap};
 
 pub(crate) const MAX_BESTIARY_INTERPRETATION_BYTES: usize = 1_024;
 pub(crate) const MAX_QUEST_DIALOGUE_TEMPLATE_CHARS: usize = 1_024;
@@ -359,7 +363,7 @@ struct DemographicRule {
     at: String,
     priority: i32,
     age_bands: Vec<String>,
-    sexes: Vec<String>,
+    sexes: Vec<Sex>,
     professions: Vec<String>,
     local_roles: Vec<String>,
     fallback: bool,
@@ -875,7 +879,7 @@ pub fn validate_documents(documents: &[Value], files: &[String]) -> Result<(), S
                                 &rule_at,
                             )? as i32;
                             let age_bands = list_strings(rule, "age_bands", &rule_at)?;
-                            let sexes = list_strings(rule, "sexes", &rule_at)?;
+                            let sexes = parse_sexes(rule).map_err(|error| error.at(&rule_at))?;
                             let professions = list_strings(rule, "professions", &rule_at)?;
                             let local_roles = list_strings(rule, "local_roles", &rule_at)?;
                             for age in &age_bands {
@@ -884,9 +888,6 @@ pub fn validate_documents(documents: &[Value], files: &[String]) -> Result<(), S
                                     &["child", "adolescent", "adult", "elder"],
                                     &format!("{rule_at}.age_bands"),
                                 )?;
-                            }
-                            for sex in &sexes {
-                                enum_value(sex, &["female", "male"], &format!("{rule_at}.sexes"))?;
                             }
                             for (key, values) in
                                 [("professions", &professions), ("local_roles", &local_roles)]
@@ -1456,7 +1457,7 @@ pub fn validate_documents(documents: &[Value], files: &[String]) -> Result<(), S
                     &right.age_bands,
                     &["child", "adolescent", "adult", "elder"],
                 )
-                && selectors_overlap(&left.sexes, &right.sexes, &["female", "male"])
+                && sex_selectors_overlap(&left.sexes, &right.sexes)
                 && selectors_overlap(&left.professions, &right.professions, PROFESSION_FACTS)
                 && selectors_overlap(&left.local_roles, &right.local_roles, LOCAL_ROLE_FACTS)
             {

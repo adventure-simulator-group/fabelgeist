@@ -16,7 +16,7 @@ pub(super) struct LightSample {
 }
 
 #[derive(Component, Clone)]
-pub(in crate::presentation) struct InteriorField {
+pub(crate) struct InteriorField {
     pub origin: Vec3,
     pub dimensions: UVec3,
     pub storey_height: f32,
@@ -26,6 +26,25 @@ pub(in crate::presentation) struct InteriorField {
 }
 
 impl InteriorField {
+    /// Available diffuse daylight for choosing a readable, physically lit viewpoint.
+    #[cfg(test)]
+    pub(crate) fn daylight_at(&self, local_position: Vec3) -> f32 {
+        self.sample(local_position).map_or(0.0, |sample| {
+            (sample.positive.truncate() + sample.negative.truncate()).element_sum()
+        })
+    }
+
+    pub(crate) fn directional_daylight_at(&self, local_position: Vec3, normal: Vec3) -> f32 {
+        self.sample(local_position).map_or(0.0, |sample| {
+            let lobes = Vec3::select(
+                normal.cmpge(Vec3::ZERO),
+                sample.positive.truncate(),
+                sample.negative.truncate(),
+            );
+            lobes.dot(normal * normal)
+        })
+    }
+
     pub fn from_plan(plan: &BuildingPlan, local_origin: Vec3) -> Self {
         let cells: Vec<_> = plan
             .storeys
@@ -45,7 +64,10 @@ impl InteriorField {
             .unwrap_or(1);
         let dimensions = UVec3::new(width, levels, depth);
         let mut samples = vec![LightSample::default(); (width * depth * levels) as usize];
-        let mut shutters = std::collections::BTreeMap::<u64, Vec<(usize, LightSample)>>::new();
+        let mut shutters = std::collections::BTreeMap::<
+            adventuresim_building_generator::OpeningAssemblyId,
+            Vec<(usize, LightSample)>,
+        >::new();
         for storey in &plan.storeys {
             for room in &storey.rooms {
                 for cell in &room.cells {
@@ -138,7 +160,11 @@ fn opening_light(
     storey: &adventuresim_building_generator::StoreyPlan,
     opening: &adventuresim_building_generator::Opening,
     point: Vec3,
-) -> (Option<u64>, Vec3, Vec3) {
+) -> (
+    Option<adventuresim_building_generator::OpeningAssemblyId>,
+    Vec3,
+    Vec3,
+) {
     const OPENING_MATCH_TOLERANCE_METRES: f32 = 0.01;
     let wall = storey.walls[opening.wall];
     let opaque = plan
@@ -155,7 +181,7 @@ fn opening_light(
                     .abs()
                     < OPENING_MATCH_TOLERANCE_METRES
         })
-        .map(|assembly| assembly.id.0);
+        .map(|assembly| assembly.id);
     let centre = wall.centre();
     let source = Vec3::new(
         centre.x,

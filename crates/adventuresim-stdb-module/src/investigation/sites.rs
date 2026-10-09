@@ -1,3 +1,9 @@
+#[path = "sites/provenance.rs"]
+mod provenance;
+pub(crate) use provenance::{case_site_provenance_view, case_site_provenance_reducer};
+#[cfg(test)]
+use provenance::validated_case_site_aliases;
+use crate::strategic::strategic_incident__view;
 #[view(accessor = backend_case_site_pins, public)]
 pub fn backend_case_site_pins(ctx: &ViewContext) -> Vec<BackendCaseSitePin> {
     if !is_gateway(ctx) {
@@ -37,7 +43,12 @@ pub fn backend_case_site_pins(ctx: &ViewContext) -> Vec<BackendCaseSitePin> {
                     row.observer_character_id == lead.owner_character_id
                         && row.case_site_id == site.id
                 });
+            let raiding_allowed = adventuresim_core::activity::ActivityLocation::case_site(
+                site.distance_m,
+                ctx.db.strategic_incident().id_key().find(&site.case_id).is_some(),
+            ).allows(adventuresim_core::activity::LocationActivity::Raiding);
             Some(BackendCaseSitePin {
+                raiding_allowed,
                 owner_character_id: lead.owner_character_id,
                 case_id: aliases
                     .as_ref()
@@ -203,98 +214,11 @@ fn lead_projects_exact_case_site_pin(
         && lead.longitude_e7 == site.longitude_e7
 }
 
-fn validated_case_site_aliases(
-    case: &crate::strategic::CaseAuthority,
-    authorities: impl IntoIterator<Item = crate::strategic::QuestGenerationAuthority>,
-) -> Option<Option<(String, String)>> {
-    let mut authorities: Vec<_> = authorities
-        .into_iter()
-        .filter(|authority| {
-            authority.case_id == case.id
-                || authority.public_case_id == case.id
-                || (!case.generated_case_id.is_empty()
-                    && (authority.case_id == case.generated_case_id
-                        || authority.public_case_id == case.generated_case_id))
-        })
-        .collect();
-    authorities.sort_by(|left, right| left.case_id.cmp(&right.case_id));
-    authorities.dedup_by(|left, right| left.case_id == right.case_id);
-    match case.provenance_kind {
-        InvestigationProvenanceKind::Manual
-            if case.generated_case_id.is_empty() && authorities.is_empty() =>
-        {
-            Some(None)
-        }
-        InvestigationProvenanceKind::Generated
-            if case.generated_case_id == case.id && authorities.len() == 1 =>
-        {
-            let validated = validate_quest_generation_authority(&authorities[0]).ok()?;
-            (validated.manifest.canonical_case_id == case.id).then_some(Some((
-                validated.manifest.canonical_case_id,
-                validated.manifest.public_case_id,
-            )))
-        }
-        _ => None,
-    }
-}
 
-pub(crate) fn case_site_provenance_view(
-    ctx: &ViewContext,
-    site: &CaseSiteAuthority,
-) -> Option<Option<(String, String)>> {
-    let case = ctx.db.case_authority().id().find(&site.case_id)?;
-    let mut authorities = Vec::new();
-    for alias in [&case.id, &case.generated_case_id] {
-        if alias.is_empty()
-            || authorities
-                .iter()
-                .any(|authority: &crate::strategic::QuestGenerationAuthority| {
-                    authority.case_id == alias.as_str()
-                })
-        {
-            continue;
-        }
-        if let Some(authority) = ctx.db.quest_generation_authority().case_id().find(alias) {
-            authorities.push(authority);
-        }
-        authorities.extend(
-            ctx.db
-                .quest_generation_authority()
-                .public_case_id()
-                .filter(alias),
-        );
-    }
-    validated_case_site_aliases(&case, authorities)
-}
 
-pub(crate) fn case_site_provenance_reducer(
-    ctx: &ReducerContext,
-    site: &CaseSiteAuthority,
-) -> Option<Option<(String, String)>> {
-    let case = ctx.db.case_authority().id().find(&site.case_id)?;
-    let mut authorities = Vec::new();
-    for alias in [&case.id, &case.generated_case_id] {
-        if alias.is_empty()
-            || authorities
-                .iter()
-                .any(|authority: &crate::strategic::QuestGenerationAuthority| {
-                    authority.case_id == alias.as_str()
-                })
-        {
-            continue;
-        }
-        if let Some(authority) = ctx.db.quest_generation_authority().case_id().find(alias) {
-            authorities.push(authority);
-        }
-        authorities.extend(
-            ctx.db
-                .quest_generation_authority()
-                .public_case_id()
-                .filter(alias),
-        );
-    }
-    validated_case_site_aliases(&case, authorities)
-}
+
+
+
 
 #[view(accessor = backend_character_case_site_locations, public)]
 pub fn backend_character_case_site_locations(
@@ -366,18 +290,18 @@ pub(crate) fn exact_case_site_for_observer(
     observer_character_id: u64,
     case_site_id: &str,
 ) -> Option<(CaseSiteAuthority, InvestigationLead)> {
-    exact_case_site_for_observer_at(ctx, observer_character_id, case_site_id, u64::MAX)
+    exact_case_site_for_observer_at(ctx, observer_character_id, case_site_id, StrategicMinute::MAX)
 }
 
 fn lead_temporally_live(
-    recorded_at: u64,
-    correction_recorded_at: Option<u64>,
-    minute: u64,
+    recorded_at: StrategicMinute,
+    correction_recorded_at: Option<StrategicMinute>,
+    minute: StrategicMinute,
 ) -> bool {
     recorded_at <= minute && correction_recorded_at.is_none_or(|corrected_at| corrected_at > minute)
 }
 
-fn lead_is_live_at(ctx: &ReducerContext, lead: &InvestigationLead, minute: u64) -> bool {
+fn lead_is_live_at(ctx: &ReducerContext, lead: &InvestigationLead, minute: StrategicMinute) -> bool {
     if lead.corrected_by.is_empty() {
         return lead_temporally_live(lead.recorded_at, None, minute);
     }
@@ -389,14 +313,18 @@ fn lead_is_live_at(ctx: &ReducerContext, lead: &InvestigationLead, minute: u64) 
         .filter(|correction| correction.owner_character_id == lead.owner_character_id)
         .map(|correction| correction.recorded_at);
     correction_recorded_at.is_some()
-        && lead_temporally_live(lead.recorded_at, correction_recorded_at, minute)
+        && lead_temporally_live(
+            lead.recorded_at,
+            correction_recorded_at,
+            minute,
+        )
 }
 
 pub(crate) fn exact_case_site_for_observer_at(
     ctx: &ReducerContext,
     observer_character_id: u64,
     case_site_id: &str,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<(CaseSiteAuthority, InvestigationLead)> {
     let requested_place = canonical_case_site_place(case_site_id)?;
     let site = ctx
@@ -432,7 +360,7 @@ pub(crate) fn case_site_presence_for_observer(
     ctx: &ReducerContext,
     observer_character_id: u64,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<adventuresim_core::strategic_presence::StrategicPresence> {
     let occupancy =
         crate::investigation::character_case_site_occupancy_at(ctx, character_id, minute)?;
@@ -467,7 +395,7 @@ pub(crate) fn case_context_presence_for_observer(
     membership: &crate::world_actor::CharacterContextMembership,
     expected_membership_id: &str,
     expected_revision: u32,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<adventuresim_core::strategic_presence::StrategicPresence> {
     if !matches!(
         membership.context_kind,
@@ -541,7 +469,7 @@ pub(crate) fn disclose_exact_case_site(
         return Err("Case-site disclosure does not belong to the disclosed case".into());
     }
     let base_id = format!("case-site-disclosure:{observer_character_id}:{}", site.id);
-    let recorded_at = crate::time::refresh_clock(ctx).unwrap_or(0);
+    let recorded_at = crate::time::refresh_clock(ctx).unwrap_or_default();
     let mut disclosures: Vec<_> = ctx
         .db
         .investigation_lead()
@@ -663,16 +591,27 @@ pub(crate) fn mark_case_site_visited(
 #[cfg(test)]
 mod temporal_disclosure_tests {
     use super::lead_temporally_live;
+    use adventuresim_world_schema::calendar::StrategicMinute;
 
     #[test]
     fn future_disclosure_is_not_visible_at_an_earlier_frontier() {
-        assert!(!lead_temporally_live(101, None, 100));
-        assert!(lead_temporally_live(100, None, 100));
+        let earlier = StrategicMinute::new(100);
+        assert!(!lead_temporally_live(StrategicMinute::new(101), None, earlier));
+        assert!(lead_temporally_live(earlier, None, earlier));
     }
 
     #[test]
     fn correction_only_retires_a_lead_when_the_correction_reaches_the_frontier() {
-        assert!(lead_temporally_live(50, Some(101), 100));
-        assert!(!lead_temporally_live(50, Some(101), 101));
+        let correction = Some(StrategicMinute::new(101));
+        assert!(lead_temporally_live(
+            StrategicMinute::new(50),
+            correction,
+            StrategicMinute::new(100)
+        ));
+        assert!(!lead_temporally_live(
+            StrategicMinute::new(50),
+            correction,
+            StrategicMinute::new(101)
+        ));
     }
 }

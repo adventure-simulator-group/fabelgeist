@@ -1,4 +1,5 @@
 use super::AppState;
+use crate::location_urls::patterns as paths;
 use crate::{
     session::Session,
     spacetimedb::{
@@ -10,18 +11,16 @@ use axum::{
     Json, Router,
     extract::{Path, State},
     http::StatusCode,
-    routing::{get, post},
+    routing::get,
 };
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
 pub fn routes() -> Router<AppState> {
-    Router::new()
-        .route(
-            "/api/evidence/case-sites/{case_site_id}",
-            get(case_site_evidence),
-        )
-        .route("/api/evidence/inspect", post(inspect))
+    Router::new().route(
+        paths::CASE_SITE_EVIDENCE.pattern(),
+        get(case_site_evidence).post(inspect),
+    )
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -102,8 +101,12 @@ async fn evidence_at_site(
                 .filter(|attempt| attempt.evidence_id == item.evidence_id)
                 .cloned()
                 .collect::<Vec<_>>();
-            item_inspections
-                .sort_by_key(|attempt| (attempt.attempted_at, attempt.attempt_id.clone()));
+            item_inspections.sort_by_key(|attempt| {
+                (
+                    crate::spacetimedb::calendar_minute(&attempt.attempted_at),
+                    attempt.attempt_id.clone(),
+                )
+            });
             EvidenceView {
                 id: item.evidence_id,
                 label: item.label,
@@ -150,18 +153,18 @@ struct InspectRequest {
     evidence_id: String,
     topic_id: String,
     action_id: String,
-    case_site_id: String,
 }
 
 async fn inspect(
     State(state): State<AppState>,
+    Path(case_site_id): Path<String>,
     session: Session,
     Json(request): Json<InspectRequest>,
 ) -> Result<Json<EvidenceView>, StatusCode> {
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     // Validate location and observer-safe availability before invoking private
     // authority. The reducer repeats the position and topic checks.
-    if !evidence_at_site(&state, character_id, &request.case_site_id)
+    if !evidence_at_site(&state, character_id, &case_site_id)
         .await?
         .iter()
         .any(|item| item.id == request.evidence_id)
@@ -190,7 +193,7 @@ async fn inspect(
             );
             StatusCode::CONFLICT
         })?;
-    evidence_at_site(&state, character_id, &request.case_site_id)
+    evidence_at_site(&state, character_id, &case_site_id)
         .await?
         .into_iter()
         .find(|item| item.id == request.evidence_id)
@@ -207,6 +210,15 @@ mod tests {
         assert!(production.contains("inspect_physical_evidence"));
         assert!(!production.contains("difficulty_milli"));
         assert!(!production.contains("current_value"));
+    }
+
+    #[test]
+    fn evidence_inspection_uses_the_case_site_resource_path() {
+        let source = include_str!("evidence.rs");
+        let production = source.split("#[cfg(test)]").next().unwrap();
+        assert!(production.contains("get(case_site_evidence).post(inspect)"));
+        assert!(!production.contains("/api/evidence/inspect"));
+        assert!(production.contains("Path(case_site_id): Path<String>"));
     }
 
     #[test]

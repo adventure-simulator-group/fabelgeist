@@ -1,22 +1,49 @@
 //! Floor member stations keep masonry bays within the authored maximum pitch.
 use crate::BuildingProgram;
+use crate::spatial_geometry::{Architectural, GeometryError, SpatialBounds};
+mod measurements;
+use measurements::FloorSpan;
+pub(super) use measurements::{FloorStation, FloorWidth};
 const MAXIMUM_JOIST_PITCH_METRES: f32 = 1.35;
 const EDGE_BEARING_INSET_METRES: f32 = 0.20;
-const HEATED_BAY_SET_OUT_METRES: [f32; 3] = [0.0, 0.04, 0.08];
+const UPPER_HEATED_BAY_SET_OUT_METRES: f32 = 0.08;
+const GROUNDED_HEATED_BAY_SET_OUT_METRES: [f32; 3] = [0.0, 0.04, 0.08];
 
-fn joists(program: &BuildingProgram, width: f32) -> Vec<f32> {
+fn joists(
+    program: &BuildingProgram,
+    width: FloorWidth,
+) -> Result<Vec<FloorStation>, GeometryError> {
+    let width = width.metres();
     let count = (width / MAXIMUM_JOIST_PITCH_METRES).ceil().max(2.0) as usize;
-    let span = width - 2.0 * EDGE_BEARING_INSET_METRES;
+    let span = FloorSpan::from_metres(width - 2.0 * EDGE_BEARING_INSET_METRES)?.metres();
     let heated = program.domestic_heating.is_some() && program.storeys.len() > 1;
     if !heated {
         return (0..=count)
-            .map(|index| EDGE_BEARING_INSET_METRES + span * index as f32 / count as f32)
+            .map(|index| {
+                FloorStation::from_metres(
+                    EDGE_BEARING_INSET_METRES + span * index as f32 / count as f32,
+                )
+            })
             .collect();
     }
-    // Full bays retain room for the masonry; the final bay takes the remainder.
+    // Align the reserved rear masonry bay with the unchanged roof frame.
+    // A seeded set-out could admit the plinth but put its bearing ledge into
+    // a joist, while the next clear floor station met a roof girder.
     let pitch = MAXIMUM_JOIST_PITCH_METRES;
-    let set_out =
-        HEATED_BAY_SET_OUT_METRES[(program.seed % HEATED_BAY_SET_OUT_METRES.len() as u64) as usize];
+    let set_out = if super::heated_rooms::HeatingStorey::for_program(
+        program,
+        crate::StoreyIndex::FIRST_UPPER,
+    )
+    .is_some()
+    {
+        UPPER_HEATED_BAY_SET_OUT_METRES
+    } else {
+        GROUNDED_HEATED_BAY_SET_OUT_METRES[fabelgeist_determinism::StreamId::new(
+            "building.heated-bay-set-out",
+        )
+        .rng(program.seed, &[])
+        .index(GROUNDED_HEATED_BAY_SET_OUT_METRES.len())]
+    };
     let mut stations = vec![0.0];
     stations.extend(
         (1..=count)
@@ -32,46 +59,56 @@ fn joists(program: &BuildingProgram, width: f32) -> Vec<f32> {
     }
     stations
         .into_iter()
-        .map(|station| station + EDGE_BEARING_INSET_METRES)
+        .map(|station| FloorStation::from_metres(station + EDGE_BEARING_INSET_METRES))
         .collect()
 }
 
 pub(super) fn with_stair(
     program: &BuildingProgram,
-    width: f32,
-    opening: Option<(bevy::math::Vec2, bevy::math::Vec2)>,
-) -> Vec<f32> {
+    width: FloorWidth,
+    opening: Option<SpatialBounds<Architectural>>,
+) -> Result<Vec<FloorStation>, GeometryError> {
     const STATION_MERGE_DISTANCE_METRES: f32 = 0.08;
-    let mut stations = joists(program, width);
-    if let Some((min, max)) = opening {
-        stations.extend([min.x, max.x]);
-        stations.sort_by(f32::total_cmp);
-        stations.dedup_by(|a, b| (*a - *b).abs() < STATION_MERGE_DISTANCE_METRES);
+    let mut stations = joists(program, width)?;
+    if let Some(opening) = opening {
+        stations.extend([
+            FloorStation::from_metres(opening.min().metres().x)?,
+            FloorStation::from_metres(opening.max().metres().x)?,
+        ]);
+        stations.sort_by(|a, b| a.metres().total_cmp(&b.metres()));
+        stations.dedup_by(|a, b| (a.metres() - b.metres()).abs() < STATION_MERGE_DISTANCE_METRES);
     }
-    stations
+    Ok(stations)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     #[test]
-    fn heated_bays_keep_edge_bearings_inside_the_envelope_at_every_set_out() {
-        let mut program = BuildingProgram::fixture(crate::BuildingArchetype::TownHouse, 0);
+    fn heated_bays_keep_edge_bearings_and_maximum_pitch_across_dimensions_and_seeds() {
+        let mut program = BuildingProgram::fixture(
+            crate::BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(0),
+        );
         program.domestic_heating = Some(crate::DomesticHeatingProgramme::HearthAndRearFedStove);
         for width in (3..24)
             .map(|cells| cells as f32 * crate::CELL_SIZE_METRES)
             .chain([11.0])
         {
-            for seed in 0..HEATED_BAY_SET_OUT_METRES.len() {
-                program.seed = seed as u64;
-                let stations = joists(&program, width);
-                assert_eq!(stations[0], EDGE_BEARING_INSET_METRES);
+            for seed in [0, 42, 47, 101, u64::MAX].map(fabelgeist_determinism::Seed::from_u64) {
+                program.seed = seed;
+                let stations = joists(&program, FloorWidth::from_metres(width).unwrap()).unwrap();
+                assert_eq!(stations[0].metres(), EDGE_BEARING_INSET_METRES);
                 assert!(
-                    (stations.last().unwrap() - (width - EDGE_BEARING_INSET_METRES)).abs() < 0.0001
+                    (stations.last().unwrap().metres() - (width - EDGE_BEARING_INSET_METRES)).abs()
+                        < 0.0001
                 );
                 assert!(
-                    stations.windows(2).all(|bay| bay[1] > bay[0]
-                        && bay[1] - bay[0] <= MAXIMUM_JOIST_PITCH_METRES + 0.0001)
+                    stations
+                        .windows(2)
+                        .all(|bay| bay[1].metres() > bay[0].metres()
+                            && bay[1].metres() - bay[0].metres()
+                                <= MAXIMUM_JOIST_PITCH_METRES + 0.0001)
                 );
             }
         }

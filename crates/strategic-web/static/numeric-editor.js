@@ -24,6 +24,8 @@
     saveLabel = 'Save number',
     cancelLabel = 'Cancel number edit',
     onCommit,
+    onChange = () => {},
+    onCancel = () => {},
   }) => {
     if (!display || display.dataset.editing || document.querySelector('.numeric-editor')) return false;
     display.dataset.editing = 'true';
@@ -86,6 +88,7 @@
       }
       finished = true;
       if (commit) onCommit(clamp(parsed, minimum, maximum));
+      else onCancel();
       delete display.dataset.editing;
       rail?.removeEventListener('scroll', positionEditor);
       window.removeEventListener('resize', positionEditor);
@@ -98,6 +101,7 @@
         parse, format, step, minimum, maximum, initialValue,
       });
       input.removeAttribute('aria-invalid');
+      onChange(parse(input.value));
     };
     input.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
@@ -111,7 +115,10 @@
         adjust(event.key === 'ArrowUp' ? 1 : -1);
       }
     });
-    input.addEventListener('input', () => input.removeAttribute('aria-invalid'));
+    input.addEventListener('input', () => {
+      input.removeAttribute('aria-invalid');
+      onChange(parse(input.value));
+    });
     input.addEventListener('wheel', (event) => {
       event.preventDefault();
       adjust(event.deltaY < 0 ? 1 : -1);

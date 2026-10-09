@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct LocalProblemSymptom {
@@ -11,8 +13,8 @@ pub struct LocalProblemSymptom {
     pub settlement_id: String,
     pub symptom: String,
     pub public_summary: String,
-    pub active_from: u64,
-    pub active_until: u64,
+    pub active_from: StrategicMinute,
+    pub active_until: StrategicMinute,
 }
 
 impl __sdk::InModule for LocalProblemSymptom {
@@ -27,8 +29,8 @@ pub struct LocalProblemSymptomCols {
     pub settlement_id: __sdk::__query_builder::Col<LocalProblemSymptom, String>,
     pub symptom: __sdk::__query_builder::Col<LocalProblemSymptom, String>,
     pub public_summary: __sdk::__query_builder::Col<LocalProblemSymptom, String>,
-    pub active_from: __sdk::__query_builder::Col<LocalProblemSymptom, u64>,
-    pub active_until: __sdk::__query_builder::Col<LocalProblemSymptom, u64>,
+    pub active_from: __sdk::__query_builder::Col<LocalProblemSymptom, StrategicMinute>,
+    pub active_until: __sdk::__query_builder::Col<LocalProblemSymptom, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for LocalProblemSymptom {

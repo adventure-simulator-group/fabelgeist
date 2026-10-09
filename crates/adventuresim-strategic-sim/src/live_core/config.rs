@@ -1,6 +1,7 @@
 //! Core-loop configuration, shared limits, and stable domain mappings.
 
 use super::*;
+use fabelgeist_determinism::Seed;
 
 pub(super) const ACTION_TIMEOUT: Duration = Duration::from_secs(20);
 /// Severe but non-incapacitating injuries can reduce overland pace enough for
@@ -49,7 +50,7 @@ pub(super) fn default_simulation_disease() -> String {
 pub struct CoreLoopConfig {
     pub host: String,
     pub database: String,
-    pub seed: u64,
+    pub seed: Seed,
     pub population: u32,
     pub cycles: u32,
     pub duration_days: u32,
@@ -71,7 +72,7 @@ impl CoreLoopConfig {
     pub fn validate(&self) -> Result<(), String> {
         const MAX_DURATION_YEARS: u32 = 100;
         const MAX_DURATION_DAYS: u32 =
-            adventuresim_core::strategic_time::DAYS_PER_YEAR as u32 * MAX_DURATION_YEARS;
+            adventuresim_world_schema::calendar::DAYS_PER_YEAR as u32 * MAX_DURATION_YEARS;
 
         validate_loopback_url(&self.host)?;
         if !self.database.starts_with("adventuresim-sim-")

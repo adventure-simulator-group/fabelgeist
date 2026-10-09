@@ -11,7 +11,7 @@ use crate::inventory_container::inventory_object__view;
 use crate::item::item;
 use crate::strategic::PartyInventoryItem;
 use crate::strategic::strategic_gateway_authority__view;
-use crate::{InventoryItem, PersistedItemKind, inventory_object};
+use crate::{CatalogItemKind, InventoryItem, inventory_object};
 
 mod appearance;
 mod evaluation;
@@ -29,6 +29,9 @@ fn checked_scaled_u32(value: f32, scale: f32, label: &str) -> Result<u32, String
 }
 
 #[derive(Clone, Debug, PartialEq)]
+/// Immutable evaluated recipe and storage projections, owned by
+/// `from_evaluation`. Consumption re-evaluates the recipe and compares every
+/// projection; catalog defaults never rewrite an existing physical object.
 #[table(accessor = weapon_instance)]
 pub struct WeaponInstance {
     #[primary_key]
@@ -42,6 +45,8 @@ pub struct WeaponInstance {
 }
 
 #[derive(Clone, Debug, PartialEq)]
+/// Independently evaluated holder recipe with the same construction and
+/// authentication contract as `WeaponInstance`; holder geometry is distinct.
 #[table(accessor = weapon_holder_instance)]
 pub struct WeaponHolderInstance {
     #[primary_key]
@@ -140,7 +145,7 @@ pub(crate) fn initialize_personal_weapon(
     let Some(definition) = ctx.db.item().id().find(inventory.item_id.clone()) else {
         return Err(format!("Unknown weapon definition {}", inventory.item_id));
     };
-    if definition.kind != PersistedItemKind::Weapon || !definition.melee {
+    if definition.kind != CatalogItemKind::Weapon || !definition.melee {
         return Ok(());
     }
     let Some(design) = default_design(&inventory.item_id) else {
@@ -166,7 +171,7 @@ pub(crate) fn initialize_party_weapon(
     let Some(definition) = ctx.db.item().id().find(inventory.item_id.clone()) else {
         return Err(format!("Unknown weapon definition {}", inventory.item_id));
     };
-    if definition.kind != PersistedItemKind::Weapon || !definition.melee {
+    if definition.kind != CatalogItemKind::Weapon || !definition.melee {
         return Ok(());
     }
     let Some(design) = default_design(&inventory.item_id) else {
@@ -296,7 +301,7 @@ pub(crate) fn replace_design(
         .id()
         .find(object.item_id.clone())
         .ok_or("Weapon catalog definition not found")?;
-    if definition.kind != PersistedItemKind::Weapon || !definition.melee {
+    if definition.kind != CatalogItemKind::Weapon || !definition.melee {
         return Err("Only melee weapon objects accept parametric designs".into());
     }
     if design.catalog_id != object.item_id {

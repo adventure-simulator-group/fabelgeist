@@ -20,19 +20,25 @@ impl crate::WorkplaceMaterial {
 }
 
 /// Preserve the working building's major parts in both distant representations.
-pub(crate) fn compile_workplace_lod(plan: &BuildingPlan) -> BuildingDetail {
+pub(crate) fn compile_workplace_lod(
+    plan: &BuildingPlan,
+) -> Result<BuildingDetail, crate::GenerationError> {
     let mut detail = BuildingDetail { meshes: Vec::new() };
     if let Some(workplace) = &plan.workplace {
-        for part in workplace.parts.iter().filter(|part| part.silhouette) {
+        for part in workplace
+            .parts
+            .iter()
+            .filter(|part| part.silhouette.contributes_to_silhouette())
+        {
             if let Some(solid) = plan
                 .resolved_geometry
                 .solids
                 .iter()
                 .find(|solid| solid.id == part.solid)
             {
-                append_oriented_cuboid(&mut detail, part.material.render_material(), solid, None);
+                append_oriented_cuboid(&mut detail, part.material.render_material(), solid, None)?;
             }
         }
     }
-    detail
+    Ok(detail)
 }

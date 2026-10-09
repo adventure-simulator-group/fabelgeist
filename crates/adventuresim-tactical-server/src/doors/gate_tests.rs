@@ -7,25 +7,34 @@ fn property_gate_has_authoritative_collision_hinge_and_passage_control() {
     ))
     .unwrap();
     assert_eq!(input.compounds.len(), 2);
-    for compound in &input.compounds {
-        assert_property_gate(compound);
+    for boundary in input.generate().unwrap().boundaries {
+        assert_property_gate(boundary);
     }
 }
 
-fn assert_property_gate(compound: &adventuresim_tactical_core::city_layout::CityCompound) {
-    let spec = compound.boundary.gate.door(compound.id);
-    let elevation = Vec3::Y * 3.0;
+fn assert_property_gate(boundary: GeneratedBoundary) {
+    let building_id = boundary.scene().front_building_id();
+    let spec = boundary
+        .scene()
+        .boundary()
+        .gate
+        .door(boundary.scene().property_id())
+        .unwrap();
+    let elevation = Vec3::Y * boundary.elevation_metres().metres();
+    let spec = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
+        boundary.elevation_metres().metres(),
+    )
+    .unwrap()
+    .door(spec)
+    .unwrap()
+    .leaf();
     let mut app = App::new();
     app.add_plugins((MinimalPlugins, PhysicsPlugins::default(), TransformPlugin));
     app.add_observer(super::super::boundaries::on_scene_boundary_added);
     let anchor = app
         .world_mut()
         .spawn((
-            SceneBoundary {
-                property_id: compound.id,
-                front_building_id: compound.front_building_id,
-                boundary: compound.boundary.clone(),
-            },
+            boundary.into_scene(),
             Transform::from_translation(elevation),
         ))
         .id();
@@ -38,9 +47,9 @@ fn assert_property_gate(compound: &adventuresim_tactical_core::city_layout::City
         .world_mut()
         .query::<(Entity, &SceneDoor, &Transform, &Collider, &DoorController)>();
     let (entity, door, transform, collider, controller) = query.single(app.world()).unwrap();
-    assert_eq!(door.opening_id, spec.opening.0);
-    assert_eq!(door.building_id, compound.front_building_id);
-    let ray = spec.closed_centre + elevation + Vec3::NEG_Z * 2.0;
+    assert_eq!(door.opening_id, spec.opening);
+    assert_eq!(door.building_id, building_id);
+    let ray = spec.closed_centre.metres() + Vec3::NEG_Z * 2.0;
     assert!(
         collider
             .cast_ray(
@@ -53,9 +62,9 @@ fn assert_property_gate(compound: &adventuresim_tactical_core::city_layout::City
             )
             .is_some()
     );
-    let rotation = Quat::from_rotation_y(spec.open_angle_radians);
-    let open_centre =
-        spec.hinge_centre + elevation + rotation * (spec.closed_centre - spec.hinge_centre);
+    let rotation = Quat::from_rotation_y(spec.open_angle_radians.radians());
+    let open_centre = spec.hinge_centre.metres()
+        + rotation * (spec.closed_centre.metres() - spec.hinge_centre.metres());
     assert!(
         collider
             .cast_ray(
@@ -69,8 +78,8 @@ fn assert_property_gate(compound: &adventuresim_tactical_core::city_layout::City
             .is_none()
     );
     let joint = controller.joint;
-    let doorway = controller.doorway_centre;
-    let outward = controller.outward;
+    let doorway = controller.doorway_centre.metres();
+    let outward = controller.outward.vector();
     let gate_entity = entity;
     let mut exemption = DoorPassageExemptions::default();
     exemption.grant(gate_entity);
@@ -88,6 +97,6 @@ fn assert_property_gate(compound: &adventuresim_tactical_core::city_layout::City
             .unwrap()
             .motor
             .target_position,
-        spec.open_angle_radians
+        spec.open_angle_radians.radians()
     );
 }

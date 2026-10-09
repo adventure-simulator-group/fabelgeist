@@ -4,8 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
-use super::backend_contextual_decision_type::BackendContextualDecision;
 use super::case_site_id_type::CaseSiteId;
+use super::interaction_presentation_decision_type::InteractionPresentationDecision;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -15,7 +15,7 @@ pub struct BackendHostileNegotiation {
     pub spokesman_id: u64,
     pub context_ref: String,
     pub expected_revision: u32,
-    pub decision: BackendContextualDecision,
+    pub decision: InteractionPresentationDecision,
     pub latest_response: Option<String>,
 }
 
@@ -32,7 +32,8 @@ pub struct BackendHostileNegotiationCols {
     pub spokesman_id: __sdk::__query_builder::Col<BackendHostileNegotiation, u64>,
     pub context_ref: __sdk::__query_builder::Col<BackendHostileNegotiation, String>,
     pub expected_revision: __sdk::__query_builder::Col<BackendHostileNegotiation, u32>,
-    pub decision: __sdk::__query_builder::Col<BackendHostileNegotiation, BackendContextualDecision>,
+    pub decision:
+        __sdk::__query_builder::Col<BackendHostileNegotiation, InteractionPresentationDecision>,
     pub latest_response: __sdk::__query_builder::Col<BackendHostileNegotiation, Option<String>>,
 }
 

@@ -23,6 +23,20 @@ class CaptureTacticalScenesTests(unittest.TestCase):
         self.assertIsNotNone(match)
         self.assertEqual(MODULE.EXPECTED_CAMERA_VERSION, int(match[1]))
 
+    def test_expected_generation_and_profile_match_native_producers(self):
+        owners = (
+            ("crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+             "TACTICAL_SCENE_GENERATION_VERSION", MODULE.EXPECTED_GENERATION_VERSION),
+            ("crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+             "CAPTURE_PROFILE_VERSION", MODULE.EXPECTED_PROFILE_VERSION),
+        )
+        for owner, symbol, expected in owners:
+            with self.subTest(symbol=symbol):
+                source = (SCRIPT.parent.parent / owner).read_text(encoding="utf-8")
+                match = re.search(rf"const {symbol}: u\d+ = (\d+);", source)
+                self.assertIsNotNone(match)
+                self.assertEqual(expected, int(match[1]))
+
     def test_source_identity_includes_all_viewer_modules(self):
         self.assertIn(
             "crates/adventuresim-tactical-client/src/tactical_scene_viewer",
@@ -120,6 +134,10 @@ class CaptureTacticalScenesTests(unittest.TestCase):
                                  ("absolute_minute", 0), ("source_identity", "stale"),
                                   ("revision", "wrong"), ("camera_version", 99),
                                   ("generation_version", 99),
+                                  ("generation_version", 59),
+                                  ("camera_version", 30),
+                                  ("capture_profile_version", 43),
+                                  ("capture_profile_version", 47),
                                   ("scene_source", {"kind": "synthetic_fixture", "id": "wrong"}),
                                  ("resolution", [1, 1]),
                                  ("presentation_features", {"celestial": False})):

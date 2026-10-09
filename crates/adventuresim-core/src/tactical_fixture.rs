@@ -4,7 +4,7 @@ use std::path::Path;
 
 use serde::Deserialize;
 
-use crate::starting_character::StartingSlot;
+use crate::equipment::LoadoutSlot;
 
 const ENEMY_FIXTURE_VERSION: u32 = 1;
 const MAX_ENEMY_FIXTURE_BYTES: u64 = 16 * 1024;
@@ -42,41 +42,7 @@ pub enum TacticalEnemyBehavior {
 #[serde(deny_unknown_fields)]
 pub struct TacticalEnemyItem {
     pub item_id: String,
-    pub slot: TacticalEnemySlot,
-}
-
-#[derive(Clone, Copy, Debug, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "snake_case")]
-pub enum TacticalEnemySlot {
-    LeftHand,
-    RightHand,
-    LeftArm,
-    RightArm,
-    LeftLeg,
-    RightLeg,
-    LeftFoot,
-    RightFoot,
-    Head,
-    Chest,
-    Stomach,
-}
-
-impl From<TacticalEnemySlot> for StartingSlot {
-    fn from(value: TacticalEnemySlot) -> Self {
-        match value {
-            TacticalEnemySlot::LeftHand => Self::LeftHand,
-            TacticalEnemySlot::RightHand => Self::RightHand,
-            TacticalEnemySlot::LeftArm => Self::LeftArm,
-            TacticalEnemySlot::RightArm => Self::RightArm,
-            TacticalEnemySlot::LeftLeg => Self::LeftLeg,
-            TacticalEnemySlot::RightLeg => Self::RightLeg,
-            TacticalEnemySlot::LeftFoot => Self::LeftFoot,
-            TacticalEnemySlot::RightFoot => Self::RightFoot,
-            TacticalEnemySlot::Head => Self::Head,
-            TacticalEnemySlot::Chest => Self::Chest,
-            TacticalEnemySlot::Stomach => Self::Stomach,
-        }
-    }
+    pub slot: LoadoutSlot,
 }
 
 impl TacticalEnemyFixture {
@@ -194,10 +160,7 @@ enemies:
             fixture.enemy_named("Dodger").unwrap().behavior,
             TacticalEnemyBehavior::AlwaysDodge
         );
-        assert_eq!(
-            StartingSlot::from(fixture.enemies()[0].loadout[0].slot),
-            StartingSlot::Head
-        );
+        assert_eq!(fixture.enemies()[0].loadout[0].slot, LoadoutSlot::Head);
     }
 
     #[test]

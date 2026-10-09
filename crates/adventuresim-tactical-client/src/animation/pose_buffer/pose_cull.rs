@@ -6,36 +6,24 @@
 //! character is filtered out of their queries rather than being solved for a
 //! pose nothing can see.
 
-use bevy::camera::primitives::{Frustum, Sphere};
 use bevy::prelude::*;
 
-use super::{PoseBufferMetrics, PoseBufferRig, pose_tuning};
+use super::{PoseBufferMetrics, PoseBufferRig};
 
 /// Marks a character whose pose evaluation was culled.
 #[derive(Component)]
 pub(in crate::animation) struct PoseCulled;
 
-/// Returns whether `rig` is culled this frame, maintaining [`PoseCulled`] and
-/// resetting the interpolation state a rig carries back into view.
+/// Applies this frame's cull decision to `rig`, maintaining [`PoseCulled`] and
+/// resetting the interpolation state a rig carries back into view. Returns
+/// `culled`.
 pub(super) fn cull_pose_rig(
     rig: &mut PoseBufferRig,
     owner: Entity,
-    position: Vec3,
-    camera: Option<(&GlobalTransform, &Frustum)>,
+    culled: bool,
     commands: &mut Commands<'_, '_>,
     metrics: &mut PoseBufferMetrics,
 ) -> bool {
-    let culled = camera.is_some_and(|(camera_transform, frustum)| {
-        position.distance_squared(camera_transform.translation())
-            > pose_tuning().cull_distance_metres * pose_tuning().cull_distance_metres
-            || !frustum.intersects_sphere(
-                &Sphere {
-                    center: position.into(),
-                    radius: pose_tuning().cull_radius_metres,
-                },
-                false,
-            )
-    });
     if culled {
         rig.frozen = true;
         commands.entity(owner).insert(PoseCulled);

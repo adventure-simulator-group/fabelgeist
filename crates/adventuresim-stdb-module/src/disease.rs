@@ -1,12 +1,20 @@
 //! Durable strategic disease facts and authoritative treatment.
 
+mod administration_adapter;
+#[cfg(feature = "authority-tests")]
+mod authority_tests;
+mod exposure_sources;
+mod fixture_administrations;
+mod interval;
+use administration_adapter::administration;
+
 use std::collections::{BTreeMap, BTreeSet};
 
 use adventuresim_core::disease::{
     self, DiseaseEventKind, DiseaseId, InfectionEpisode, TerminalFailure, TransmissionVector,
 };
 use adventuresim_core::physiology::{self, BodyRegion, InterventionRoute};
-use adventuresim_core::strategic_time::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::capability::{character_capability, character_capability__view};
@@ -34,7 +42,7 @@ pub struct InfectionEpisodeRow {
     #[index(btree)]
     pub character_id: u64,
     pub disease_id: String,
-    pub contracted_at: u64,
+    pub contracted_at: StrategicMinute,
     pub ruleset_version: u16,
     pub phenotype_key_version: u16,
 }
@@ -61,8 +69,8 @@ pub struct SettlementOutbreak {
     #[index(btree)]
     pub settlement_id: String,
     pub disease_id: String,
-    pub start_minute: u64,
-    pub end_minute: u64,
+    pub start_minute: StrategicMinute,
+    pub end_minute: StrategicMinute,
     pub intensity: f32,
 }
 
@@ -76,7 +84,7 @@ pub struct CommittedCut {
     pub id: u64,
     #[index(btree)]
     pub character_id: u64,
-    pub committed_at: u64,
+    pub committed_at: StrategicMinute,
     pub severity: f32,
     pub surgery_check: f32,
 }
@@ -90,7 +98,7 @@ pub struct DiseaseNotice {
     pub id: String,
     #[index(btree)]
     pub character_id: u64,
-    pub minute: u64,
+    pub minute: StrategicMinute,
     pub kind: String,
     pub message: String,
 }
@@ -104,7 +112,7 @@ pub struct CharacterIllnessStatus {
     pub character_id: u64,
     pub symptomatic: bool,
     pub critical: bool,
-    pub updated_at_minute: u64,
+    pub updated_at_minute: StrategicMinute,
 }
 
 /// Durable administration/start-stop history. Effects are selected solely by
@@ -124,8 +132,8 @@ pub struct PhysiologyAdministration {
     pub route: InterventionRoute,
     pub dose_milliunits: u32,
     pub region: Option<BodyRegion>,
-    pub administered_at: u64,
-    pub stopped_at: Option<u64>,
+    pub administered_at: StrategicMinute,
+    pub stopped_at: Option<StrategicMinute>,
     pub sensitivity_bps: i16,
     pub adverse_bps: u16,
     pub ruleset_version: u16,
@@ -146,7 +154,7 @@ pub struct BackendPhysiologyChart {
     pub id: String,
     pub observer_id: u64,
     pub patient_id: u64,
-    pub observed_at: u64,
+    pub observed_at: StrategicMinute,
     pub physiology_band: u8,
     pub observation_minutes: u64,
     pub sanguine_bps: Vec<i16>,
@@ -156,8 +164,8 @@ pub struct BackendPhysiologyChart {
     pub possible_diseases: Vec<BackendPhysiologyDifferential>,
     pub known_interventions: Vec<String>,
     pub confidence_bps: u16,
-    pub gap_from: Option<u64>,
-    pub gap_to: Option<u64>,
+    pub gap_from: Option<StrategicMinute>,
+    pub gap_to: Option<StrategicMinute>,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -169,8 +177,8 @@ pub struct BackendPhysiologyAdministration {
     pub route: InterventionRoute,
     pub dose_milliunits: u32,
     pub region: Option<BodyRegion>,
-    pub administered_at: u64,
-    pub stopped_at: Option<u64>,
+    pub administered_at: StrategicMinute,
+    pub stopped_at: Option<StrategicMinute>,
 }
 
 #[view(accessor = backend_committed_cuts, public)]
@@ -246,17 +254,30 @@ pub(crate) fn initialize_physiology_key(ctx: &ReducerContext) {
         });
 }
 
+fn chart_clock(ctx: &ViewContext, character_id: u64) -> StrategicMinute {
+    ctx.db
+        .character_time()
+        .character_id()
+        .find(character_id)
+        .map_or(StrategicMinute::ZERO, |time| time.minutes)
+}
+
+fn chart_patient_times(ctx: &ViewContext) -> Vec<crate::time::CharacterTime> {
+    let mut times = ctx
+        .db
+        .character_time()
+        .scan_id()
+        .filter(0u64..)
+        .collect::<Vec<_>>();
+    times.sort_by_key(|row| (row.minutes, row.character_id));
+    times
+}
+
 fn derive_physiology_chart(ctx: &ViewContext) -> Vec<BackendPhysiologyChart> {
     let Some(key) = ctx.db.physiology_key_material().id().find(0) else {
         return Vec::new();
     };
-    let clock = |id| {
-        ctx.db
-            .character_time()
-            .character_id()
-            .find(id)
-            .map_or(0, |row| row.minutes)
-    };
+    let clock = |id| chart_clock(ctx, id);
     let mut spans = ctx
         .db
         .physiology_presence_span()
@@ -266,8 +287,8 @@ fn derive_physiology_chart(ctx: &ViewContext) -> Vec<BackendPhysiologyChart> {
         .collect::<Vec<_>>();
     spans.sort_by_key(|span| (span.low_id, span.high_id, span.started_at, span.id));
     let mut result = Vec::new();
-    let mut previous = BTreeMap::<(u64, u64), u64>::new();
-    let mut continuous_starts = BTreeMap::<(u64, u64), u64>::new();
+    let mut previous = BTreeMap::<(u64, u64), StrategicMinute>::new();
+    let mut continuous_starts = BTreeMap::<(u64, u64), StrategicMinute>::new();
     let mut visible_history = BTreeMap::<(u64, u64), Vec<VisibleHumourReading>>::new();
     for span in spans {
         let joint_now = clock(span.low_id).min(clock(span.high_id));
@@ -285,7 +306,7 @@ fn derive_physiology_chart(ctx: &ViewContext) -> Vec<BackendPhysiologyChart> {
             }
             let start = span
                 .started_at
-                .max(end.saturating_sub(PHYSIOLOGY_CHART_MAX_RANGE_MINUTES));
+                .max(end.saturating_sub_minutes(PHYSIOLOGY_CHART_MAX_RANGE_MINUTES));
             if let Some(previous_end) = previous.get(&(observer_id, patient_id)).copied() {
                 if previous_end < start {
                     result.push(BackendPhysiologyChart {
@@ -316,7 +337,7 @@ fn derive_physiology_chart(ctx: &ViewContext) -> Vec<BackendPhysiologyChart> {
             let available = PHYSIOLOGY_CHART_MAX_ROWS
                 .saturating_sub(result.len())
                 .max(1);
-            let natural_count = ((end.saturating_sub(start)) / cadence + 1) as usize;
+            let natural_count = (end.elapsed_since(start) / cadence + 1) as usize;
             let stride = cadence.saturating_mul(
                 u64::try_from(natural_count.div_ceil(available))
                     .unwrap_or(1)
@@ -336,7 +357,7 @@ fn derive_physiology_chart(ctx: &ViewContext) -> Vec<BackendPhysiologyChart> {
                     patient_id,
                     band,
                     minute,
-                    minute.saturating_sub(continuous_start),
+                    minute.elapsed_since(continuous_start),
                     &patient_state,
                     history,
                 );
@@ -344,15 +365,15 @@ fn derive_physiology_chart(ctx: &ViewContext) -> Vec<BackendPhysiologyChart> {
                     history.push(visible);
                 }
                 result.push(reading);
-                if end.saturating_sub(minute) < stride {
+                if end.elapsed_since(minute) < stride {
                     break;
                 }
-                minute = minute.saturating_add(stride);
+                minute = minute.saturating_add_minutes(stride);
             }
             previous.insert(pair, end);
         }
     }
-    for patient_time in ctx.db.character_time().minutes().filter(0u64..) {
+    for patient_time in chart_patient_times(ctx) {
         if result.len() >= PHYSIOLOGY_CHART_MAX_ROWS {
             break;
         }
@@ -425,7 +446,7 @@ fn chart_patient_state(ctx: &ViewContext, patient_id: u64) -> ChartPatientState 
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 struct VisibleHumourReading {
-    observed_at: u64,
+    observed_at: StrategicMinute,
     mix: [f32; physiology::HUMOUR_COUNT],
 }
 
@@ -439,7 +460,7 @@ fn derive_chart_reading(
     observer_id: u64,
     patient_id: u64,
     band: u8,
-    minute: u64,
+    minute: StrategicMinute,
     observation_minutes: u64,
     patient_state: &ChartPatientState,
     prior_visible: &[VisibleHumourReading],
@@ -527,7 +548,7 @@ fn chart_regional_state(
     key: &[u8],
     key_version: u16,
     patient_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     patient_state: &ChartPatientState,
 ) -> [physiology::MeterVector; physiology::REGION_COUNT] {
     let mut regional = disease::private_regional_meter_state(
@@ -599,7 +620,7 @@ fn derive_possible_diseases(
             let differentiated = (0.5 + (fit - mean) * 2.2).clamp(0.0, 1.0);
             let likelihood = 0.5 + (differentiated - 0.5) * reliability;
             BackendPhysiologyDifferential {
-                disease_id: disease_key(definition.id).to_owned(),
+                disease_id: definition.id.stable_id().to_owned(),
                 label: definition.period_name.to_owned(),
                 likelihood_bps: (likelihood
                     * f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE))
@@ -627,7 +648,7 @@ fn longitudinal_sequence_bonus(
         .first()
         .zip(visible_sequence.last())
         .map_or(0, |(first, last)| {
-            last.observed_at.saturating_sub(first.observed_at)
+            last.observed_at.elapsed_since(first.observed_at)
         });
     if band < 3
         || observation_minutes < pattern.minimum_observation_minutes
@@ -665,11 +686,13 @@ fn visible_sequence_fit(visible: &[VisibleHumourReading], candidate: DiseaseId) 
         .saturating_add(definition.rise_minutes)
         .saturating_add(definition.peak_minutes)
         .saturating_add(definition.recovery_minutes);
-    let first_minute = visible.first().map_or(0, |reading| reading.observed_at);
+    let first_minute = visible
+        .first()
+        .map_or(StrategicMinute::ZERO, |reading| reading.observed_at);
     let last_minute = visible
         .last()
         .map_or(first_minute, |reading| reading.observed_at);
-    let window = last_minute.saturating_sub(first_minute);
+    let window = last_minute.elapsed_since(first_minute);
     if window == 0 {
         return 0.0;
     }
@@ -678,7 +701,7 @@ fn visible_sequence_fit(visible: &[VisibleHumourReading], candidate: DiseaseId) 
         let latest_age = window.saturating_add(total.saturating_sub(window) * step / 24);
         let mut error = 0.0;
         for reading in visible {
-            let age = latest_age.saturating_sub(last_minute.saturating_sub(reading.observed_at));
+            let age = latest_age.saturating_sub(last_minute.elapsed_since(reading.observed_at));
             let expected = expected_public_mix(candidate, age);
             error += reading
                 .mix
@@ -744,7 +767,7 @@ fn notice(
     ctx: &ReducerContext,
     character_id: u64,
     infection_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     kind: &str,
     message: &str,
 ) -> Result<(), String> {
@@ -797,33 +820,7 @@ fn notice(
     Ok(())
 }
 
-#[derive(Clone, Copy, Debug, SpacetimeType)]
-pub enum DiseaseTerminalCause {
-    Respiratory,
-    Circulatory,
-    Homeostatic,
-    Neurologic,
-}
-
-pub(crate) fn parse_id(value: &str) -> Result<DiseaseId, String> {
-    match value {
-        "influenza" => Ok(DiseaseId::Influenza),
-        "dysentery" => Ok(DiseaseId::Dysentery),
-        "typhus" => Ok(DiseaseId::Typhus),
-        "tetanus" => Ok(DiseaseId::Tetanus),
-        "erysipelas" => Ok(DiseaseId::Erysipelas),
-        "smallpox" => Ok(DiseaseId::Smallpox),
-        "plague" => Ok(DiseaseId::Plague),
-        "consumption" => Ok(DiseaseId::Consumption),
-        "mahrdruck" => Ok(DiseaseId::Mahrdruck),
-        "shroud_fever" => Ok(DiseaseId::ShroudFever),
-        "bilwisschuss" => Ok(DiseaseId::Bilwisschuss),
-        "kobeldunst" => Ok(DiseaseId::Kobeldunst),
-        _ => Err("Unknown disease".into()),
-    }
-}
-
-fn episode(row: &InfectionEpisodeRow) -> Result<InfectionEpisode, String> {
+pub(crate) fn episode(row: &InfectionEpisodeRow) -> Result<InfectionEpisode, String> {
     if row.ruleset_version != physiology::PHYSIOLOGY_RULESET_VERSION {
         return Err(format!(
             "Unsupported physiology ruleset version {}",
@@ -839,8 +836,13 @@ fn episode(row: &InfectionEpisodeRow) -> Result<InfectionEpisode, String> {
     Ok(InfectionEpisode {
         id: row.id,
         character_id: row.character_id,
-        disease_id: parse_id(&row.disease_id)?,
-        contracted_at: row.contracted_at,
+        disease_id: row
+            .disease_id
+            .parse::<DiseaseId>()
+            .map_err(|error| error.to_string())?,
+        contracted_at: adventuresim_world_schema::calendar::StrategicMinute::new(
+            (row.contracted_at).get(),
+        ),
         ruleset_version: row.ruleset_version,
         phenotype_key_version: row.phenotype_key_version,
     })
@@ -900,7 +902,7 @@ fn bounded_physiology_spans(
 pub(crate) fn party_physiology_check_at(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> f32 {
     try_party_physiology_check_at(ctx, character_id, minute).unwrap_or(0.0)
 }
@@ -908,14 +910,14 @@ pub(crate) fn party_physiology_check_at(
 fn try_party_physiology_check_at(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<f32, String> {
     let clock = |id| {
         ctx.db
             .character_time()
             .character_id()
             .find(id)
-            .map_or(0, |row| row.minutes)
+            .map_or(StrategicMinute::ZERO, |t| t.minutes)
     };
     let mut coverage = Vec::new();
     for span in bounded_physiology_spans(ctx, &[character_id])? {
@@ -945,7 +947,7 @@ fn try_party_physiology_check_at(
 pub(crate) fn protected_exposure_at(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     vector: TransmissionVector,
     exposure: f32,
 ) -> f32 {
@@ -962,7 +964,7 @@ pub(crate) fn protected_exposure_at(
 pub(crate) fn protected_point_exposure(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     vector: TransmissionVector,
     exposure: f32,
 ) -> Result<f32, String> {
@@ -991,15 +993,15 @@ fn blood_interval_work_budget(minutes: u64) -> u64 {
 #[derive(Clone, Debug)]
 struct CachedCoverage {
     contributor_id: u64,
-    start: u64,
-    end: u64,
+    start: StrategicMinute,
+    end: StrategicMinute,
     check: f32,
 }
 
 #[derive(Clone, Debug)]
 struct CachedCheckSegment {
-    start: u64,
-    end: u64,
+    start: StrategicMinute,
+    end: StrategicMinute,
     check: f32,
 }
 
@@ -1007,8 +1009,8 @@ struct CachedCheckSegment {
 struct CachedPairPresence {
     low_id: u64,
     high_id: u64,
-    start: u64,
-    end: u64,
+    start: StrategicMinute,
+    end: StrategicMinute,
 }
 
 /// Reducer-local immutable acquisition snapshot for members explicitly known
@@ -1022,7 +1024,7 @@ pub struct PartyDiseaseIntervalPlan {
 }
 
 impl PartyDiseaseIntervalPlan {
-    pub(crate) fn check_at(&self, character_id: u64, minute: u64) -> f32 {
+    pub(crate) fn check_at(&self, character_id: u64, minute: StrategicMinute) -> f32 {
         let Some(segments) = self.coverage.get(&character_id) else {
             return 0.0;
         };
@@ -1033,7 +1035,12 @@ impl PartyDiseaseIntervalPlan {
             .map_or(0.0, |segment| segment.check)
     }
 
-    fn proposals_for(&self, character_id: u64, from: u64, to: u64) -> Vec<InfectionEpisode> {
+    fn proposals_for(
+        &self,
+        character_id: u64,
+        from: StrategicMinute,
+        to: StrategicMinute,
+    ) -> Vec<InfectionEpisode> {
         self.proposals
             .get(&character_id)
             .into_iter()
@@ -1070,7 +1077,7 @@ pub fn plan_party_disease_interval(
         .collect::<Result<BTreeMap<_, _>, _>>()?;
     let horizons = starts
         .iter()
-        .map(|(id, start)| (*id, start.saturating_add(requested)))
+        .map(|(id, start)| (*id, start.saturating_add_minutes(requested)))
         .collect::<BTreeMap<_, _>>();
     let mut coverage = BTreeMap::<u64, Vec<CachedCoverage>>::new();
     let mut pairs = Vec::new();
@@ -1093,7 +1100,7 @@ pub fn plan_party_disease_interval(
                         .character_time()
                         .character_id()
                         .find(id)
-                        .map_or(0, |row| row.minutes)
+                        .map_or(StrategicMinute::ZERO, |t| t.minutes)
                 }),
             )
         })
@@ -1161,7 +1168,7 @@ pub fn plan_party_disease_interval(
         .map(|(character_id, spans)| {
             let mut boundaries = spans
                 .iter()
-                .flat_map(|span| [span.start, span.end.saturating_add(1)])
+                .flat_map(|span| [span.start, span.end.saturating_add_minutes(1)])
                 .collect::<Vec<_>>();
             boundaries.sort_unstable();
             boundaries.dedup();
@@ -1169,7 +1176,7 @@ pub fn plan_party_disease_interval(
                 .windows(2)
                 .filter_map(|window| {
                     let start = window[0];
-                    let end = window[1].saturating_sub(1);
+                    let end = window[1].saturating_sub_minutes(1);
                     let check = disease::historical_physiology_check_at(
                         spans
                             .iter()
@@ -1222,54 +1229,17 @@ pub fn plan_party_disease_interval(
             continue;
         };
         if let Some(settlement_id) = character.current_settlement_id {
-            let mut outbreaks = ctx
-                .db
-                .settlement_outbreak()
-                .settlement_id()
-                .filter(&settlement_id)
-                .map(|row| {
-                    (
-                        row.id,
-                        row.disease_id,
-                        row.start_minute,
-                        row.end_minute,
-                        row.intensity,
-                        false,
-                    )
-                })
-                .collect::<Vec<_>>();
-            outbreaks
-                .sort_by(|left, right| (left.2, left.0.as_str()).cmp(&(right.2, right.0.as_str())));
-            let scope_key = format!("settlement:{settlement_id}");
-            let mut problems = ctx
-                .db
-                .local_problem_authority()
-                .scope_key()
-                .filter(&scope_key)
-                .filter(|row| {
-                    !row.disease_id.is_empty()
-                        && row.disease_intensity > 0
-                        && row.mitigation_bps < adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
-                })
-                .collect::<Vec<_>>();
-            problems.sort_by(|left, right| left.id.cmp(&right.id));
-            problems.truncate(adventuresim_core::local_problem::MAX_ACTIVE_PER_SCOPE);
-            let sources = outbreaks.into_iter().chain(problems.into_iter().map(|row| {
-                (
-                    row.id,
-                    row.disease_id,
-                    row.starts_at,
-                    row.ends_at.min(row.resolved_at.unwrap_or(u64::MAX)),
-                    adventuresim_core::local_problem::mitigated_disease_exposure(
-                        row.disease_intensity,
-                        adventuresim_world_schema::UnitBasisPoints::new(row.mitigation_bps)
-                            .expect("filtered mitigation is a unit basis-point value"),
-                    ),
-                    true,
-                )
-            }));
-            for (source_id, disease_key, source_start, source_end, intensity, scoped) in sources {
-                let disease_id = parse_id(&disease_key)?;
+            for source in
+                exposure_sources::SettlementExposureSource::for_settlement(ctx, &settlement_id)?
+            {
+                let exposure_sources::SettlementExposureSource {
+                    id: source_id,
+                    disease_id,
+                    start: source_start,
+                    end: source_end,
+                    intensity,
+                    scoped,
+                } = source;
                 let from = start.max(source_start);
                 let to = end.min(source_end);
                 let definition = disease::definition(disease_id);
@@ -1309,7 +1279,7 @@ pub fn plan_party_disease_interval(
             false,
             allow_healing,
             Some(&plan),
-            blood_interval_work_budget(end.saturating_sub(start)),
+            blood_interval_work_budget(end.elapsed_since(start)),
         )?;
         if blood_attempts.len()
             > MAX_PARTY_INTERVAL_CANDIDATES
@@ -1320,37 +1290,8 @@ pub fn plan_party_disease_interval(
         }
         scheduled.extend(blood_attempts);
     }
-    let windows = pairs
-        .into_iter()
-        .filter_map(|pair| {
-            let participant_starts = [pair.low_id, pair.high_id]
-                .into_iter()
-                .filter_map(|id| starts.get(&id).copied())
-                .collect::<Vec<_>>();
-            let participant_horizons = [pair.low_id, pair.high_id]
-                .into_iter()
-                .filter_map(|id| horizons.get(&id).copied())
-                .collect::<Vec<_>>();
-            let start = participant_starts
-                .into_iter()
-                .max()
-                .unwrap_or(pair.start)
-                .saturating_add(1)
-                .max(pair.start);
-            let end = participant_horizons
-                .into_iter()
-                .min()
-                .unwrap_or(pair.end)
-                .min(pair.end);
-            (start <= end).then_some(disease::ContactWindow {
-                low_id: pair.low_id,
-                high_id: pair.high_id,
-                start,
-                end,
-            })
-        })
-        .collect::<Vec<_>>();
-    let from = starts.values().copied().min().unwrap_or(0);
+    let windows = interval::contact_windows(pairs, &starts, &horizons);
+    let from = starts.values().copied().min().unwrap_or_default();
     let to = horizons.values().copied().max().unwrap_or(from);
     let resolved = disease::resolve_acquisition_timeline(
         &id_set,
@@ -1379,8 +1320,8 @@ pub fn plan_party_disease_interval(
 fn party_contact_episodes_through(
     ctx: &ReducerContext,
     character_id: u64,
-    from: u64,
-    to: u64,
+    from: StrategicMinute,
+    to: StrategicMinute,
 ) -> Result<Vec<InfectionEpisode>, String> {
     if to <= from {
         return Ok(Vec::new());
@@ -1390,9 +1331,9 @@ fn party_contact_episodes_through(
             .character_time()
             .character_id()
             .find(id)
-            .map_or(0, |row| row.minutes)
+            .map_or(StrategicMinute::ZERO, |t| t.minutes)
     };
-    let mut source_windows = BTreeMap::<u64, Vec<(u64, u64)>>::new();
+    let mut source_windows = BTreeMap::<u64, Vec<(StrategicMinute, StrategicMinute)>>::new();
     for span in ctx
         .db
         .physiology_presence_span()
@@ -1440,22 +1381,21 @@ fn party_contact_episodes_through(
                 continue;
             }
             for (start, end) in &windows {
-                for minute in *start..=*end {
-                    if !evaluated.insert((source_episode.id, minute))
+                for at in start.iter_through(*end) {
+                    if !evaluated.insert((source_episode.id, at))
                         || disease::has_unresolved_disease(
                             &target_episodes,
                             source_episode.disease_id,
-                            minute,
+                            at,
                             immunity,
                         )
                     {
                         continue;
                     }
-                    let infectiousness =
-                        disease::close_contact_infectiousness(source_episode, minute);
+                    let infectiousness = disease::close_contact_infectiousness(source_episode, at);
                     if infectiousness <= 0.0
                         || matches!(
-                            disease::evaluate(source_episode, minute, source_immunity).stage,
+                            disease::evaluate(source_episode, at, source_immunity,).stage,
                             disease::DiseaseStage::Resolved
                         )
                     {
@@ -1464,28 +1404,28 @@ fn party_contact_episodes_through(
                     let exposure = protected_exposure_at(
                         ctx,
                         character_id,
-                        minute,
+                        at,
                         TransmissionVector::CloseContact,
                         infectiousness / MINUTES_PER_DAY as f32,
                     );
                     let prior = disease::acquired_immunity(
                         &target_episodes,
                         source_episode.disease_id,
-                        minute,
+                        at,
                         immunity,
                     );
                     let seed = disease::contact_exposure_seed(
                         character_id,
                         source_id,
                         source_episode.id,
-                        minute,
+                        at,
                     );
                     if disease::acquisition_succeeds(seed, definition, immunity, prior, exposure) {
                         proposals.push(InfectionEpisode {
-                            id: seed,
+                            id: seed.to_u64(),
                             character_id,
                             disease_id: source_episode.disease_id,
-                            contracted_at: minute,
+                            contracted_at: at,
                             ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
                             phenotype_key_version: physiology::PHENOTYPE_KEY_VERSION,
                         });
@@ -1513,11 +1453,11 @@ fn first_protected_presence_exposure_minute(
     disease_id: DiseaseId,
     character_id: u64,
     exposure_id: &str,
-    from: u64,
-    to: u64,
+    from: StrategicMinute,
+    to: StrategicMinute,
     intensity: f32,
     immunity: f32,
-) -> Option<u64> {
+) -> Option<StrategicMinute> {
     let definition = disease::definition(disease_id);
     disease::first_eligible_protected_presence_exposure_minute(
         episodes,
@@ -1544,7 +1484,7 @@ pub fn effective_attributes(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |t| t.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let (penalty, _, _, _) = disease::combined_state(
         &character_episodes(ctx, character_id)?,
         now,
@@ -1574,8 +1514,8 @@ pub fn effective_attributes(
 fn outbreak_episodes_through(
     ctx: &ReducerContext,
     character_id: u64,
-    from: u64,
-    to: u64,
+    from: StrategicMinute,
+    to: StrategicMinute,
 ) -> Result<Vec<InfectionEpisode>, String> {
     let Some(character) = ctx.db.character().id().find(character_id) else {
         return Ok(Vec::new());
@@ -1601,7 +1541,10 @@ fn outbreak_episodes_through(
         (left.start_minute, left.id.as_str()).cmp(&(right.start_minute, right.id.as_str()))
     });
     for outbreak in outbreaks {
-        let disease_id = parse_id(&outbreak.disease_id)?;
+        let disease_id = outbreak
+            .disease_id
+            .parse::<DiseaseId>()
+            .map_err(|error| error.to_string())?;
         let overlap_from = from.max(outbreak.start_minute);
         let overlap_to = to.min(outbreak.end_minute);
         if overlap_to <= overlap_from {
@@ -1625,7 +1568,8 @@ fn outbreak_episodes_through(
             .any(|episode| episode.disease_id == disease_id && episode.contracted_at == at)
         {
             episodes.push(InfectionEpisode {
-                id: disease::outbreak_exposure_seed(character_id, &format!("{}:{at}", outbreak.id)),
+                id: disease::outbreak_exposure_seed(character_id, &format!("{}:{at}", outbreak.id))
+                    .to_u64(),
                 character_id,
                 disease_id,
                 contracted_at: at,
@@ -1650,13 +1594,16 @@ fn outbreak_episodes_through(
         let overlap_from = from.max(problem.starts_at);
         let overlap_to = to
             .min(problem.ends_at)
-            .min(problem.resolved_at.unwrap_or(u64::MAX));
+            .min(problem.resolved_at.unwrap_or(StrategicMinute::MAX));
         if overlap_to <= overlap_from
             || problem.mitigation_bps >= adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
         {
             continue;
         }
-        let disease_id = parse_id(&problem.disease_id)?;
+        let disease_id = problem
+            .disease_id
+            .parse::<DiseaseId>()
+            .map_err(|error| error.to_string())?;
         let intensity = adventuresim_core::local_problem::mitigated_disease_exposure(
             problem.disease_intensity,
             adventuresim_world_schema::UnitBasisPoints::new(problem.mitigation_bps)
@@ -1690,7 +1637,8 @@ fn outbreak_episodes_through(
                     id: disease::outbreak_exposure_seed(
                         character_id,
                         &format!("{}:{at}", problem.id),
-                    ),
+                    )
+                    .to_u64(),
                     character_id,
                     disease_id,
                     contracted_at: at,
@@ -1709,7 +1657,7 @@ fn persist_acquisition_episodes(
     episodes: impl IntoIterator<Item = InfectionEpisode>,
 ) -> Result<(), String> {
     for episode in episodes {
-        let disease_id = disease_key(episode.disease_id);
+        let disease_id = episode.disease_id.stable_id();
         if !ctx
             .db
             .infection_episode()
@@ -1772,29 +1720,6 @@ pub(crate) fn physiology_key(ctx: &ReducerContext) -> Result<PhysiologyKeyMateri
     Ok(key)
 }
 
-fn administration(row: &PhysiologyAdministration) -> Result<physiology::Administration, String> {
-    if row.ruleset_version != physiology::PHYSIOLOGY_RULESET_VERSION {
-        return Err(format!(
-            "Unsupported intervention ruleset version {}",
-            row.ruleset_version
-        ));
-    }
-    Ok(physiology::Administration {
-        id: row.id,
-        patient_id: row.patient_id,
-        preparation_id: row.preparation_id.clone(),
-        profile_version: row.profile_version,
-        route: row.route,
-        dose: physiology::DoseMilliunits::try_new(row.dose_milliunits)
-            .map_err(|_| "Persisted intervention dose exceeds the supported maximum")?,
-        region: row.region,
-        administered_at: row.administered_at,
-        stopped_at: row.stopped_at,
-        sensitivity_bps: row.sensitivity_bps,
-        adverse_bps: row.adverse_bps,
-    })
-}
-
 fn intervention_rows(
     ctx: &ReducerContext,
     character_id: u64,
@@ -1811,7 +1736,7 @@ fn private_combined_at(
     patient_id: u64,
     episodes: &[InfectionEpisode],
     interventions: &[physiology::Administration],
-    minute: u64,
+    minute: StrategicMinute,
     immunity: f32,
     key: &PhysiologyKeyMaterial,
 ) -> physiology::MeterVector {
@@ -1846,10 +1771,10 @@ pub(crate) fn first_private_terminal(
     ctx: &ReducerContext,
     character_id: u64,
     episodes: &[InfectionEpisode],
-    from: u64,
-    to: u64,
+    from: StrategicMinute,
+    to: StrategicMinute,
     immunity: f32,
-) -> Result<Option<(u64, TerminalFailure)>, String> {
+) -> Result<Option<(StrategicMinute, TerminalFailure)>, String> {
     let interventions = intervention_rows(ctx, character_id)?;
     let key = physiology_key(ctx)?;
     let mut structural = vec![from, to];
@@ -1869,7 +1794,7 @@ pub(crate) fn first_private_terminal(
         .map(|profile| {
             administration
                 .administered_at
-                .saturating_add(profile.duration_minutes)
+                .saturating_add_minutes(profile.duration_minutes)
         });
         structural.extend(
             [
@@ -1919,7 +1844,7 @@ fn clip_elapsed_for_disease_planned(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |t| t.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let immunity = ctx
         .db
         .character_attributes()
@@ -1927,25 +1852,15 @@ fn clip_elapsed_for_disease_planned(
         .find(character_id)
         .map_or(3.0, |a| a.immunity);
     let mut episodes = character_episodes(ctx, character_id)?;
-    let interval_end = now.saturating_add(requested);
+    let interval_end = now.saturating_add_minutes(requested);
     let proposed = plan.proposals_for(character_id, now, interval_end);
     episodes.extend(proposed.iter().copied());
-    let mut events = episodes
-        .iter()
-        .copied()
-        .flat_map(|e| disease::interval_events(e, now, now.saturating_add(requested), immunity))
-        .collect::<Vec<_>>();
+    let mut events = interval::disease_events(&episodes, now, interval_end, immunity);
     events.sort_by_key(|e| e.minute);
-    let terminal = first_private_terminal(
-        ctx,
-        character_id,
-        &episodes,
-        now,
-        now.saturating_add(requested),
-        immunity,
-    )?;
+    let terminal =
+        first_private_terminal(ctx, character_id, &episodes, now, interval_end, immunity)?;
     let death_minute = terminal.map(|value| value.0);
-    let through = death_minute.unwrap_or_else(|| now.saturating_add(requested));
+    let through = death_minute.unwrap_or(interval_end);
     // The terminal minute is inclusive: infections and notices occurring at
     // that boundary are committed; later effects from the requested interval
     // are never persisted.
@@ -1966,7 +1881,7 @@ fn clip_elapsed_for_disease_planned(
         true,
         allow_healing,
         Some(plan),
-        blood_interval_work_budget(through.saturating_sub(now)),
+        blood_interval_work_budget(through.elapsed_since(now)),
     )?;
     for event in events.iter().filter(|event| event.minute <= through) {
         match event.kind {
@@ -2009,7 +1924,7 @@ fn clip_elapsed_for_disease_planned(
         "A vital humour is failing.",
     )?;
     Ok((
-        death_minute.saturating_sub(now),
+        death_minute.elapsed_since(now),
         terminal.map(|value| value.1),
     ))
 }
@@ -2054,7 +1969,7 @@ fn preview_disease_boundary_planned(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |t| t.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let immunity = ctx
         .db
         .character_attributes()
@@ -2062,17 +1977,17 @@ fn preview_disease_boundary_planned(
         .find(character_id)
         .map_or(3.0, |a| a.immunity);
     let mut episodes = character_episodes(ctx, character_id)?;
-    episodes.extend(plan.proposals_for(character_id, now, now.saturating_add(requested)));
+    episodes.extend(plan.proposals_for(character_id, now, now.saturating_add_minutes(requested)));
     let terminal = first_private_terminal(
         ctx,
         character_id,
         &episodes,
         now,
-        now.saturating_add(requested),
+        now.saturating_add_minutes(requested),
         immunity,
     )?;
     Ok((
-        terminal.map_or(requested, |(minute, _)| minute.saturating_sub(now)),
+        terminal.map_or(requested, |(minute, _)| minute.elapsed_since(now)),
         terminal.is_some(),
     ))
 }
@@ -2139,34 +2054,17 @@ pub fn finish_disease_interval(
     Ok(())
 }
 
-pub(crate) fn disease_key(id: DiseaseId) -> &'static str {
-    match id {
-        DiseaseId::Influenza => "influenza",
-        DiseaseId::Dysentery => "dysentery",
-        DiseaseId::Typhus => "typhus",
-        DiseaseId::Tetanus => "tetanus",
-        DiseaseId::Erysipelas => "erysipelas",
-        DiseaseId::Smallpox => "smallpox",
-        DiseaseId::Plague => "plague",
-        DiseaseId::Consumption => "consumption",
-        DiseaseId::Mahrdruck => "mahrdruck",
-        DiseaseId::ShroudFever => "shroud_fever",
-        DiseaseId::Bilwisschuss => "bilwisschuss",
-        DiseaseId::Kobeldunst => "kobeldunst",
-    }
-}
-
 fn private_variation(
     ctx: &ReducerContext,
     patient_id: u64,
-    administration_minute: u64,
+    administration_minute: StrategicMinute,
     preparation_id: &str,
 ) -> Result<(i16, u16), String> {
     use sha2::{Digest, Sha256};
     let key = physiology_key(ctx)?;
     let mut input = Sha256::new();
     input.update(b"adventuresim/physiology/administration");
-    input.update(administration_minute.to_le_bytes());
+    input.update(administration_minute.get().to_le_bytes());
     input.update(preparation_id.as_bytes());
     let discriminator =
         u64::from_le_bytes(input.finalize()[..8].try_into().expect("SHA-256 prefix"));
@@ -2205,7 +2103,7 @@ pub(crate) fn require_intervention_relationship(
 fn commit_terminal_at_boundary(
     ctx: &ReducerContext,
     patient_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     let episodes = character_episodes(ctx, patient_id)?;
     let immunity = ctx
@@ -2417,7 +2315,7 @@ pub fn record_committed_cut(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |t| t.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let cut = ctx.db.committed_cut().insert(CommittedCut {
         id: 0,
         character_id,
@@ -2442,7 +2340,7 @@ pub fn record_committed_cut(
             ctx.db.infection_episode().insert(InfectionEpisodeRow {
                 id: 0,
                 character_id,
-                disease_id: disease_key(disease_id).to_owned(),
+                disease_id: disease_id.stable_id().to_owned(),
                 contracted_at: at,
                 ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
                 phenotype_key_version: physiology::PHENOTYPE_KEY_VERSION,
@@ -2461,7 +2359,7 @@ pub fn record_standing_cut_exposure(
     severity: f32,
     surgery_check: f32,
     token: &str,
-    contracted_at: u64,
+    contracted_at: StrategicMinute,
 ) -> Result<(), String> {
     if severity <= 0.0 {
         return Ok(());
@@ -2483,7 +2381,7 @@ pub fn record_standing_cut_exposure(
             ctx.db.infection_episode().insert(InfectionEpisodeRow {
                 id: 0,
                 character_id,
-                disease_id: disease_key(disease_id).to_owned(),
+                disease_id: disease_id.stable_id().to_owned(),
                 contracted_at,
                 ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
                 phenotype_key_version: physiology::PHENOTYPE_KEY_VERSION,
@@ -2568,7 +2466,9 @@ pub(crate) fn seed_sick_character(ctx: &ReducerContext) -> Result<(), String> {
             .character_id()
             .find(id)
             .ok_or_else(|| format!("{name} is missing time data"))?;
-        character_time.minutes = character_time.minutes.max(FIXTURE_NOW);
+        character_time.minutes = character_time
+            .minutes
+            .max(StrategicMinute::new(FIXTURE_NOW));
         ctx.db
             .character_time()
             .character_id()
@@ -2660,8 +2560,8 @@ pub(crate) fn seed_sick_character(ctx: &ReducerContext) -> Result<(), String> {
         ctx.db.infection_episode().insert(InfectionEpisodeRow {
             id: 0,
             character_id: id,
-            disease_id: disease_key(disease_id).to_owned(),
-            contracted_at: FIXTURE_NOW - age,
+            disease_id: disease_id.stable_id().to_owned(),
+            contracted_at: StrategicMinute::new(FIXTURE_NOW).saturating_sub_minutes(age),
             ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
             phenotype_key_version: physiology::PHENOTYPE_KEY_VERSION,
         });
@@ -2712,51 +2612,14 @@ pub(crate) fn seed_sick_character(ctx: &ReducerContext) -> Result<(), String> {
                     id: 0,
                     low_id,
                     high_id,
-                    started_at,
-                    ended_at,
+                    started_at: StrategicMinute::new(started_at),
+                    ended_at: ended_at.map(StrategicMinute::new),
                     low_observer_band,
                     high_observer_band,
                 });
         }
     }
-    let key_version = physiology_key(ctx)?.version;
-    for (administered_at, stopped_at, dose) in [
-        (
-            FIXTURE_NOW - 6 * DAY,
-            Some(FIXTURE_NOW - 5 * DAY),
-            physiology::DoseMilliunits::try_new(750).unwrap(),
-        ),
-        (
-            FIXTURE_NOW - 4 * DAY,
-            Some(FIXTURE_NOW - 3 * DAY),
-            physiology::DoseMilliunits::STANDARD,
-        ),
-        (
-            FIXTURE_NOW - 2 * DAY,
-            None,
-            physiology::DoseMilliunits::try_new(1_250).unwrap(),
-        ),
-    ] {
-        let (sensitivity_bps, adverse_bps) =
-            private_variation(ctx, patient_h, administered_at, "oral_rehydration_draught")?;
-        ctx.db
-            .physiology_administration()
-            .insert(PhysiologyAdministration {
-                id: 0,
-                patient_id: patient_h,
-                preparation_id: "oral_rehydration_draught".into(),
-                profile_version: 1,
-                route: InterventionRoute::Oral,
-                dose_milliunits: dose.get(),
-                region: None,
-                administered_at,
-                stopped_at,
-                sensitivity_bps,
-                adverse_bps,
-                ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
-                phenotype_key_version: key_version,
-            });
-    }
+    fixture_administrations::seed(ctx, patient_h, StrategicMinute::new(FIXTURE_NOW), DAY)?;
     crate::filth::seed_demo(ctx, SICK_CHARACTER_ID, 9_999_999_999_999_996)?;
     Ok(())
 }
@@ -2796,7 +2659,7 @@ pub fn purchase_from_herbalist(
         .character_time()
         .character_id()
         .find(patient_id)
-        .map_or(0, |row| row.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let problem_effects = crate::local_problem::settlement_effects(ctx, &settlement_id, minute);
     let mut cost = 0u64;
     for (item_id, quantity) in item_ids.iter().zip(&quantities) {
@@ -2810,8 +2673,8 @@ pub fn purchase_from_herbalist(
             .find(item_id)
             .ok_or("Herbalist item not found")?;
         let permitted = match definition.kind {
-            crate::PersistedItemKind::Ingredient => true,
-            crate::PersistedItemKind::Medication => {
+            crate::CatalogItemKind::Ingredient => true,
+            crate::CatalogItemKind::Medication => {
                 physiology::intervention_profile(item_id, 1).is_some()
             }
             _ => false,
@@ -2821,7 +2684,7 @@ pub fn purchase_from_herbalist(
                 &economy,
                 adventuresim_core::settlement_economy::Storefront::Herbalist,
                 item_id,
-                crate::item::economy_catalog_kind(definition.kind),
+                definition.kind.economy_kind(),
             )
         {
             return Err("This herbalist does not stock that item".into());
@@ -2866,8 +2729,10 @@ mod herbalist_purchase_source_tests {
             .split("fn party_contact_episodes_through")
             .next()
             .unwrap();
-        assert!(plan.contains("settlement_outbreak"));
-        assert!(plan.contains("local_problem_authority"));
+        assert!(plan.contains("SettlementExposureSource::for_settlement"));
+        let sources = include_str!("disease/exposure_sources.rs");
+        assert!(sources.contains("settlement_outbreak"));
+        assert!(sources.contains("local_problem_authority"));
         assert!(plan.contains("blood_exposure_attempts_through"));
         assert!(plan.contains("resolve_acquisition_timeline"));
         let clip = source
@@ -2951,15 +2816,15 @@ mod fantastic_differential_tests {
     fn visible_sequence_score_is_independent_of_hidden_cause() {
         let visible = vec![
             VisibleHumourReading {
-                observed_at: 100,
+                observed_at: StrategicMinute::new(100),
                 mix: [0.12, 0.45, 0.18, 0.25],
             },
             VisibleHumourReading {
-                observed_at: 1_540,
+                observed_at: StrategicMinute::new(1_540),
                 mix: [0.10, 0.38, 0.16, 0.36],
             },
             VisibleHumourReading {
-                observed_at: 2_980,
+                observed_at: StrategicMinute::new(2_980),
                 mix: [0.08, 0.28, 0.14, 0.50],
             },
         ];
@@ -2972,22 +2837,22 @@ mod fantastic_differential_tests {
     #[test]
     fn one_or_too_short_visible_sequence_has_no_longitudinal_bonus() {
         let one = [VisibleHumourReading {
-            observed_at: 5_000,
+            observed_at: StrategicMinute::new(5_000),
             mix: expected_public_mix(DiseaseId::Mahrdruck, 4 * 1_440),
         }];
         assert_eq!(visible_sequence_fit(&one, DiseaseId::Mahrdruck), 0.0);
 
         let too_short = [
             VisibleHumourReading {
-                observed_at: 5_000,
+                observed_at: StrategicMinute::new(5_000),
                 mix: expected_public_mix(DiseaseId::Mahrdruck, 4 * 1_440),
             },
             VisibleHumourReading {
-                observed_at: 5_030,
+                observed_at: StrategicMinute::new(5_030),
                 mix: expected_public_mix(DiseaseId::Mahrdruck, 4 * 1_440 + 30),
             },
             VisibleHumourReading {
-                observed_at: 5_060,
+                observed_at: StrategicMinute::new(5_060),
                 mix: expected_public_mix(DiseaseId::Mahrdruck, 4 * 1_440 + 60),
             },
         ];
@@ -3017,22 +2882,13 @@ mod fantastic_differential_tests {
         let id = DiseaseId::Kobeldunst;
         let visible = [6 * 60, 21 * 60, 36 * 60]
             .map(|age| VisibleHumourReading {
-                observed_at: age,
+                observed_at: StrategicMinute::new(age),
                 mix: expected_public_mix(id, age),
             })
             .to_vec();
         let own = visible_sequence_fit(&visible, id);
         let ordinary = visible_sequence_fit(&visible, DiseaseId::Dysentery);
         assert!(own > ordinary, "{own} <= {ordinary}");
-    }
-
-    #[test]
-    fn canonical_disease_keys_round_trip_for_every_authored_disease() {
-        for definition in adventuresim_core::disease::STARTER_DISEASES {
-            let key = disease_key(definition.id);
-            assert_eq!(parse_id(key), Ok(definition.id), "{key}");
-        }
-        assert_eq!(disease_key(DiseaseId::ShroudFever), "shroud_fever");
     }
 
     #[test]

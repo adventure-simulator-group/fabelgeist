@@ -5,7 +5,8 @@ use crate::spacetimedb::{
     BackendDialogueTopicOption, BackendDialogueWitnessClaim, BackendSettlementResident,
     BackendSettlementResidentRelationship, BackendSocialChatReceipt, CharacterTime, CourtshipKind,
     FamiliarityBand, MoraleBand, SettlementCategory, SettlementResidentPresence, SettlementView,
-    SocialChatOutcome, SocialChatTargetKind, SpacetimeError, npc_age_band_id, npc_presentation_id,
+    SocialChatOutcome, SocialChatTargetKind, SpacetimeError, calendar_countdown_days,
+    calendar_minute, npc_age_band_id, npc_presentation_id,
 };
 use crate::{session::Session, spacetimedb::sql_string_literal};
 use adventuresim_core::{
@@ -13,40 +14,19 @@ use adventuresim_core::{
     dialogue_boundary::{PublicDialogueStartError, PublicDialogueStartOutcome},
     reducer_error::ReducerErrorCode,
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use axum::{
-    Json, Router,
+    Json,
     extract::{Path, State},
     http::StatusCode,
-    routing::{get, post},
 };
 use serde::{Deserialize, Serialize, Serializer};
 use serde_json::json;
 
-pub fn routes() -> Router<AppState> {
-    Router::new()
-        .route("/api/dialogue/start", post(start))
-        .route("/api/dialogue/{session_id}", get(view))
-        .route("/api/dialogue/topic", post(topic))
-        .route("/api/dialogue/answer", post(answer))
-        .route(
-            "/api/dialogue/accept-order-errantry",
-            post(accept_order_errantry),
-        )
-        .route("/api/dialogue/join", post(join))
-        .route("/api/dialogue/claim-response", post(witness_approach))
-        .route(
-            "/api/settlements/{settlement_id}/locations/{location_id}/npcs",
-            get(location_npcs),
-        )
-        .route(
-            "/api/settlements/{settlement_id}/locations/{location_id}/npcs/{resident_character_id}/social",
-            get(npc_social).post(chat_with_npc),
-        )
-        .route(
-            "/api/settlements/{settlement_id}/locations/{location_id}/npcs/{resident_character_id}/romance/{action}",
-            post(npc_romance_action),
-        )
-}
+mod claims;
+use claims::{ClaimView, claim_view, witness_approach};
+mod router;
+pub use router::routes;
 
 #[derive(Clone, Serialize)]
 struct DialogueParticipantView {
@@ -346,18 +326,6 @@ struct FragmentView {
     claim: Option<ClaimView>,
 }
 #[derive(Serialize)]
-struct ClaimView {
-    challenge_token: String,
-    charm_response: Option<String>,
-    command_response: Option<String>,
-    bluff_response: Option<String>,
-    assessment_direction: String,
-    assessment_strength: f32,
-    resolved: bool,
-    outcome: String,
-    affinity_delta: f32,
-}
-#[derive(Serialize)]
 struct TopicView {
     id: String,
     label: String,
@@ -418,18 +386,8 @@ fn npc_location_is_navigable(
     )
 }
 
-fn npc_presence_contains(start_minute: u16, end_minute: u16, minute: u64) -> bool {
-    let minute = minute % adventuresim_core::strategic_time::MINUTES_PER_DAY;
-    let start = u64::from(start_minute);
-    let end = u64::from(end_minute);
-    if start == end {
-        false
-    } else if start < end {
-        start <= minute && minute < end
-    } else {
-        minute >= start || minute < end
-    }
-}
+mod presence;
+use presence::npc_presence_contains;
 
 fn npc_matches_location_binding(
     npc: &BackendSettlementResident,
@@ -472,15 +430,15 @@ mod npc_navigation_tests {
         SocialChatOutcome, npc_location_is_navigable, npc_matches_location_binding,
         npc_presence_contains, npc_social_revision, romantic_rejection_message,
     };
-    use crate::spacetimedb::{NpcAgeBand, NpcPresentation, SettlementCategory};
+    use crate::spacetimedb::{AgeBand, SettlementCategory};
 
     fn npc(id: u64, organization_id: &str, conversation_id: &str) -> BackendSettlementResident {
         BackendSettlementResident {
             character_id: id,
             home_settlement_id: "viabundus-0".into(),
             name: "Greta Test".into(),
-            age_band: NpcAgeBand::Adult,
-            presentation: NpcPresentation::Woman,
+            age_band: AgeBand::Adult,
+            presentation: adventuresim_stdb_client::Presentation::Woman,
             height: "average".into(),
             build: "sturdy".into(),
             hair: "brown hair".into(),
@@ -489,7 +447,7 @@ mod npc_navigation_tests {
             visible_features: "work-worn hands".into(),
             clothing: "working clothes".into(),
             profession: "merchant".into(),
-            household: "market household".into(),
+            household_kind: "market household".into(),
             local_role: "market steward".into(),
             service_id: "merchants".into(),
             organization_id: organization_id.into(),
@@ -640,10 +598,26 @@ mod npc_navigation_tests {
 
     #[test]
     fn browser_presence_check_supports_wrapped_daily_windows() {
-        assert!(npc_presence_contains(1_200, 120, 1_380));
-        assert!(npc_presence_contains(1_200, 120, 60));
-        assert!(!npc_presence_contains(1_200, 120, 600));
-        assert!(!npc_presence_contains(480, 1_020, 1_020));
+        assert!(npc_presence_contains(
+            1_200,
+            120,
+            adventuresim_world_schema::calendar::StrategicMinute::new(1_380)
+        ));
+        assert!(npc_presence_contains(
+            1_200,
+            120,
+            adventuresim_world_schema::calendar::StrategicMinute::new(60)
+        ));
+        assert!(!npc_presence_contains(
+            1_200,
+            120,
+            adventuresim_world_schema::calendar::StrategicMinute::new(600)
+        ));
+        assert!(!npc_presence_contains(
+            480,
+            1_020,
+            adventuresim_world_schema::calendar::StrategicMinute::new(1_020)
+        ));
     }
 
     #[test]
@@ -771,6 +745,7 @@ async fn location_npcs(
     Path((settlement_id, location_id)): Path<(String, String)>,
     session: Session,
 ) -> Result<Json<Vec<NpcView>>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let character = state
         .db
@@ -839,8 +814,7 @@ async fn location_npcs(
         .await
         .ok()
         .flatten()
-        .map_or(720, |time| time.minutes)
-        % adventuresim_core::strategic_time::MINUTES_PER_DAY;
+        .map_or(StrategicMinute::new(720), |t| calendar_minute(&t.minutes));
     let mut views = presences.into_iter().filter(|presence| presence.settlement_id == settlement_id && presence.location_id == location_id && npc_presence_contains(presence.start_minute, presence.end_minute, minute)).filter_map(|presence| {
         let npc = npcs.iter().find(|npc| {
             npc.character_id == presence.character_id
@@ -848,7 +822,7 @@ async fn location_npcs(
                 && npc_matches_location_binding(npc, &settlement_id, &location_id, &settlement.economy)
         })?;
         let facial = if npc.facial_hair == "none visible" { String::new() } else { format!(", with {}", npc.facial_hair) };
-        Some(NpcView { id: npc.character_id.to_string(), name: npc.name.clone(), initials: npc.name.split_whitespace().filter_map(|part| part.chars().next()).take(2).collect(), description: format!("{} is a {} {} person with {} presentation, a {} build, {}{}, and a {} complexion. Visible details include {}. They wear {}. Occupation: {}. Household: {}. Local role: {}.", npc.name, npc.height, npc_age_band_id(npc.age_band), npc_presentation_id(npc.presentation), npc.build, npc.hair, facial, npc.complexion, npc.visible_features, npc.clothing, npc.profession, npc.household, npc.local_role), is_default: presence.is_default, service_id: npc.service_id.clone() })
+        Some(NpcView { id: npc.character_id.to_string(), name: npc.name.clone(), initials: npc.name.split_whitespace().filter_map(|part| part.chars().next()).take(2).collect(), description: format!("{} is a {} {} person with {} presentation, a {} build, {}{}, and a {} complexion. Visible details include {}. They wear {}. Occupation: {}. Household kind: {}. Local role: {}.", npc.name, npc.height, npc_age_band_id(npc.age_band), npc_presentation_id(npc.presentation), npc.build, npc.hair, facial, npc.complexion, npc.visible_features, npc.clothing, npc.profession, npc.household_kind, npc.local_role), is_default: presence.is_default, service_id: npc.service_id.clone() })
     }).collect::<Vec<_>>();
     views.sort_by_key(|view| (!view.is_default, view.name.clone()));
     Ok(Json(views))
@@ -943,8 +917,7 @@ async fn available_social_npc(
         .await
         .ok()
         .flatten()
-        .map_or(720, |time| time.minutes)
-        % adventuresim_core::strategic_time::MINUTES_PER_DAY;
+        .map_or(StrategicMinute::new(720), |t| calendar_minute(&t.minutes));
     let present = state
         .db
         .query_sats::<SettlementResidentPresence>(
@@ -993,7 +966,7 @@ async fn npc_social_view(
         ))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| calendar_minute(&t.minutes));
     let courting_this_npc = status
         .as_ref()
         .is_some_and(|status| status.courtship_partner_id == Some(npc.character_id));
@@ -1019,11 +992,7 @@ async fn npc_social_view(
             .as_ref()
             .is_some_and(|status| status.courtship_exposed);
     let wedding_countdown_days = active_commitment.as_ref().map(|commitment| {
-        commitment
-            .wedding_effective_minute
-            .unwrap_or(actor_minute)
-            .saturating_sub(actor_minute)
-            .div_ceil(adventuresim_core::strategic_time::MINUTES_PER_DAY)
+        calendar_countdown_days(actor_minute, commitment.wedding_effective_minute.as_ref())
     });
     let affinity = relationship
         .as_ref()
@@ -1187,6 +1156,7 @@ async fn npc_romance_action(
     )>,
     session: Session,
 ) -> Result<Json<NpcRomanceActionResult>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let resident_character_id = resident_character_id
         .parse::<u64>()
@@ -1268,6 +1238,7 @@ async fn npc_social(
     Path((settlement_id, location_id, resident_character_id)): Path<(String, String, String)>,
     session: Session,
 ) -> Result<Json<NpcSocialView>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let resident_character_id = resident_character_id
         .parse::<u64>()
@@ -1291,6 +1262,7 @@ async fn chat_with_npc(
     session: Session,
     Json(request): Json<NpcChatRequest>,
 ) -> Result<Json<NpcSocialView>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let resident_character_id = resident_character_id
         .parse::<u64>()
@@ -1356,30 +1328,6 @@ async fn chat_with_npc(
     Ok(Json(
         npc_social_view(&state, character_id, npc, Some(receipt.outcome)).await?,
     ))
-}
-
-fn claim_view(
-    event_sequence: u32,
-    claim_order: u32,
-    displayed_text: &str,
-    claims: &[BackendDialogueWitnessClaim],
-) -> Option<ClaimView> {
-    let claim = claims.iter().find(|claim| {
-        claim.event_sequence == event_sequence
-            && claim.claim_order == claim_order
-            && claim.displayed_text == displayed_text
-    })?;
-    Some(ClaimView {
-        challenge_token: claim.challenge_token.clone(),
-        charm_response: claim.charm_response.clone(),
-        command_response: claim.command_response.clone(),
-        bluff_response: claim.bluff_response.clone(),
-        assessment_direction: claim.assessment_direction.clone(),
-        assessment_strength: claim.assessment_strength.clamp(0.0, 1.0),
-        resolved: claim.resolved,
-        outcome: claim.outcome.clone(),
-        affinity_delta: claim.affinity_delta,
-    })
 }
 
 async fn build_view(
@@ -1841,44 +1789,6 @@ async fn join(
     ))
 }
 
-#[derive(Deserialize)]
-struct WitnessApproachRequest {
-    session_id: String,
-    challenge_token: String,
-    approach: String,
-    action_id: String,
-    expected_revision: u64,
-}
-
-async fn witness_approach(
-    State(state): State<AppState>,
-    session: Session,
-    Json(request): Json<WitnessApproachRequest>,
-) -> Result<Json<ConversationView>, StatusCode> {
-    let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
-    if !matches!(request.approach.as_str(), "charm" | "command" | "bluff") {
-        return Err(StatusCode::BAD_REQUEST);
-    }
-    state
-        .db
-        .call(
-            "approach_dialogue_witness",
-            &[
-                json!(character_id),
-                json!(&request.session_id),
-                json!(&request.challenge_token),
-                json!(request.approach),
-                json!(request.action_id),
-                json!(request.expected_revision),
-            ],
-        )
-        .await
-        .map_err(|_| StatusCode::CONFLICT)?;
-    Ok(Json(
-        build_view(&state, character_id, &request.session_id).await?,
-    ))
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1902,7 +1812,7 @@ mod tests {
         assert_eq!(view.display_name, "Marta");
     }
 
-    fn claim(text: &str, order: u32) -> BackendDialogueWitnessClaim {
+    pub(super) fn claim(text: &str, order: u32) -> BackendDialogueWitnessClaim {
         BackendDialogueWitnessClaim {
             observer_character_id: 7,
             session_id: "dialogue:7:test".into(),
@@ -1916,9 +1826,7 @@ mod tests {
             bluff_response: Some(format!("Bluff {order}")),
             assessment_direction: "likely_true".into(),
             assessment_strength: 0.5,
-            resolved: false,
-            outcome: String::new(),
-            affinity_delta: 0.0,
+            resolution: None,
         }
     }
 

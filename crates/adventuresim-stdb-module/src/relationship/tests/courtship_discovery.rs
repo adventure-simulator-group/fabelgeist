@@ -56,6 +56,7 @@ fn delayed_discovery_penalty_uses_the_observer_current_anchor() {
         .next()
         .unwrap();
     assert!(discovery.contains("attempted_minute,"));
-    assert!(discovery.contains("canonical_now(ctx, observer_id).unwrap_or(attempted_minute)"));
+    assert!(discovery.contains("canonical_now(ctx, observer_id)"));
+    assert!(discovery.contains("unwrap_or(attempted_minute)"));
     assert!(!discovery.contains("let anchor_minute = attempted_minute;"));
 }

@@ -15,8 +15,12 @@ mod cloud_bake_assets;
 mod clouds;
 mod config;
 mod demo_lifecycle;
-pub(crate) use demo_lifecycle::clear_demo_scene;
+#[cfg(any(target_family = "wasm", test))]
+pub(crate) mod generation;
+
+pub(crate) use demo_lifecycle::{clear_demo_scene, clear_scene_entities};
 pub(crate) use vista::streets::streaming::StreamCityTraffic;
+mod closure_meshes;
 mod doors;
 mod furniture;
 pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
@@ -31,9 +35,10 @@ mod materials;
 mod obstacles;
 mod procedural;
 pub(crate) mod procedural_texture_setup;
-mod recipe_mesh;
+pub(crate) mod recipe_mesh;
 mod sky;
 mod terrain;
+pub(crate) mod venues;
 mod vista;
 mod volumetric;
 mod weather;
@@ -44,8 +49,10 @@ use adventuresim_procedural_textures::LeafTextureSet;
 pub(crate) use adventuresim_procedural_textures::ProceduralTextureAssets;
 #[cfg(test)]
 use adventuresim_procedural_textures::generate_procedural_textures;
+pub(crate) use atmosphere::AtmosphereIblCache;
 use atmosphere::*;
 pub(crate) use buildings::BuildingRenderLevel;
+pub(crate) use buildings::city_gpu_ready;
 use buildings::*;
 use clouds::*;
 pub(crate) use doors::{DoorPresentationPlugin, GrabTargetOutline};
@@ -57,6 +64,7 @@ use obstacles::tree::*;
 use procedural::*;
 use procedural_texture_setup::setup_procedural_texture_assets;
 use sky::*;
+pub(crate) use terrain::PendingTerrainPresentation;
 use terrain::*;
 use vista::*;
 use volumetric::*;
@@ -79,7 +87,8 @@ fn mesh_triangle_count(mesh: &Mesh) -> usize {
 // This facade is compiled independently by several binaries, so each binary
 // uses only the subset of the stable presentation interface that it needs.
 pub(crate) use buildings::{
-    PendingCityBuildings, PresentedBuildingMesh, PresentedSign, TacticalBuildingMaterials,
+    PendingCityBuildings, PreparedBuildingGeometry, PresentedBuildingMesh, PresentedSign,
+    TacticalBuildingMaterials, TacticalBuildingMeshCache,
 };
 pub(crate) use cloud_bake_assets::PrebakedCloudEnvironment;
 #[cfg(test)]
@@ -144,7 +153,6 @@ use bevy::{
     },
     shader::ShaderRef,
 };
-pub(crate) use fabelgeist_determinism::splitmix64;
 use web_time::Instant;
 
 #[derive(Resource)]
@@ -205,9 +213,10 @@ impl Plugin for TacticalPresentationPlugin {
         // GPU-instanced grass renders through bevy_eidolon on native and wasm
         // (the fork's WebGPU draw path substitutes draw_indexed_indirect for
         // multi-draw-indirect on the browser backend).
-        app.add_plugins(ground_scatter::InstancedGrassPlugin)
-            .add_observer(ground_scatter::gardens::on_garden)
-            .add_observer(ground_scatter::gardens::on_vista);
+        app.add_plugins((
+            ground_scatter::InstancedGrassPlugin,
+            ground_scatter::gardens::GardenPresentationPlugin,
+        ));
         app.add_plugins(materials::TacticalMaterialsPlugin)
             .add_plugins(interior_lighting::InteriorLightingPlugin)
             // Tactical play uses one compact close-range cascade for whichever
@@ -242,6 +251,7 @@ impl Plugin for TacticalPresentationPlugin {
             .init_asset::<PreparedTreeImpostorAsset>()
             .init_asset_loader::<PreparedTreeImpostorLoader>()
             .init_resource::<ActiveVistaSurface>()
+            .init_resource::<vista::pending::PendingVista>()
             .init_resource::<TreeLodRenderOverride>()
             .init_resource::<TacticalTreeBenchmarkIsolation>()
             .init_resource::<ActiveTacticalScene>()
@@ -256,6 +266,7 @@ impl Plugin for TacticalPresentationPlugin {
                 (
                     (
                         present_pending_terrain,
+                        vista::pending::present_ready_vista,
                         update_terrain_detail_patch,
                         present_ground_scatter,
                     )

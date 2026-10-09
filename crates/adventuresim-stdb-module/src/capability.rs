@@ -1,7 +1,7 @@
-use adventuresim_core::autoresolve::CombatProjectileKind;
 use adventuresim_core::item_catalog::{EquipmentBodyPart, EquipmentChannel, EquipmentLocation};
 use adventuresim_core::physical_object::{CarriedInventoryScope, OperationalCustody};
 use adventuresim_core::prelude::*;
+use adventuresim_core::projectile::ProjectileKind;
 use spacetimedb::{ReducerContext, Table, reducer, table};
 
 use crate::character::{character_equipped_item as _, equipment_occupancy as _};
@@ -10,8 +10,8 @@ use crate::food::food_lot as _;
 use crate::item::item as _;
 use crate::repair::item_condition as _;
 use crate::{
-    CharacterAttributes, CharacterLimbs, CharacterSkills, CharacterStats, InventoryItem, Item,
-    PersistedItemKind, character_attributes, character_limbs, character_skills, character_stats,
+    CatalogItemKind, CharacterAttributes, CharacterLimbs, CharacterSkills, CharacterStats,
+    InventoryItem, Item, character_attributes, character_limbs, character_skills, character_stats,
     character_strategic_condition, inventory_item,
 };
 
@@ -294,7 +294,7 @@ impl StrategicEquipment {
         ];
         let weapon_index = hands.iter().position(|item| {
             item.as_ref()
-                .is_some_and(|item| item.kind == PersistedItemKind::Weapon)
+                .is_some_and(|item| item.kind == CatalogItemKind::Weapon)
         });
         let weapon = weapon_index.and_then(|index| hands[index].clone());
         let weapon_side = weapon_index.map(|index| {
@@ -306,7 +306,7 @@ impl StrategicEquipment {
         });
         let shield_index = hands.iter().position(|item| {
             item.as_ref()
-                .is_some_and(|item| item.kind == PersistedItemKind::Shield)
+                .is_some_and(|item| item.kind == CatalogItemKind::Shield)
         });
         let shield = shield_index.and_then(|index| hands[index].clone());
         let shield_inventory_id = shield_index.and_then(|index| hand_inventory_ids[index]);
@@ -314,20 +314,20 @@ impl StrategicEquipment {
         let melee_weapon = hands
             .iter()
             .flatten()
-            .find(|item| item.kind == PersistedItemKind::Weapon && item.melee)
+            .find(|item| item.kind == CatalogItemKind::Weapon && item.melee)
             .cloned();
         let melee_weapon_side = hands
             .iter()
             .position(|item| {
                 item.as_ref()
-                    .is_some_and(|item| item.kind == PersistedItemKind::Weapon && item.melee)
+                    .is_some_and(|item| item.kind == CatalogItemKind::Weapon && item.melee)
             })
             .map(hand_side);
         let melee_weapon_inventory_id = hands
             .iter()
             .position(|item| {
                 item.as_ref()
-                    .is_some_and(|item| item.kind == PersistedItemKind::Weapon && item.melee)
+                    .is_some_and(|item| item.kind == CatalogItemKind::Weapon && item.melee)
             })
             .and_then(|index| hand_inventory_ids[index]);
         let melee_weapon_geometry = melee_weapon
@@ -345,20 +345,20 @@ impl StrategicEquipment {
         let ranged_weapon = hands
             .iter()
             .flatten()
-            .find(|item| item.kind == PersistedItemKind::Weapon && item.ranged)
+            .find(|item| item.kind == CatalogItemKind::Weapon && item.ranged)
             .cloned();
         let ranged_weapon_side = hands
             .iter()
             .position(|item| {
                 item.as_ref()
-                    .is_some_and(|item| item.kind == PersistedItemKind::Weapon && item.ranged)
+                    .is_some_and(|item| item.kind == CatalogItemKind::Weapon && item.ranged)
             })
             .map(hand_side);
         let ranged_weapon_inventory_id = hands
             .iter()
             .position(|item| {
                 item.as_ref()
-                    .is_some_and(|item| item.kind == PersistedItemKind::Weapon && item.ranged)
+                    .is_some_and(|item| item.kind == CatalogItemKind::Weapon && item.ranged)
             })
             .and_then(|index| hand_inventory_ids[index]);
         let ammunition = ctx
@@ -460,7 +460,7 @@ impl StrategicEquipment {
         adventuresim_core::strategic_schedule::CombatTrainingProfile::from_equipped_hands(
             self.hands.iter().flatten().map(|item| EquippedCombatItem {
                 weapons: item.weapon_skills,
-                shield: item.kind == PersistedItemKind::Shield,
+                shield: item.kind == CatalogItemKind::Shield,
                 balance: item.balance,
             }),
         )
@@ -511,9 +511,9 @@ impl StrategicEquipment {
             ranged_weapon_id: self.ranged_weapon_inventory_id,
             ranged_projectile_kind: self.ranged_weapon.as_ref().map(|weapon| {
                 if weapon.id.contains("arquebus") {
-                    CombatProjectileKind::Ball
+                    ProjectileKind::Ball
                 } else {
-                    CombatProjectileKind::Arrowhead
+                    ProjectileKind::Arrowhead
                 }
             }),
             defense_item_id: self.shield_inventory_id.or(self.melee_weapon_inventory_id),

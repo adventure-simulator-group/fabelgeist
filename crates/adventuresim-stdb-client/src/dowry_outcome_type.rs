@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::dowry_outcome_kind_type::DowryOutcomeKind;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -14,7 +15,7 @@ pub struct DowryOutcome {
     pub recipient_id: u64,
     pub amount: u32,
     pub outcome: DowryOutcomeKind,
-    pub minute: u64,
+    pub minute: StrategicMinute,
 }
 
 impl __sdk::InModule for DowryOutcome {
@@ -30,7 +31,7 @@ pub struct DowryOutcomeCols {
     pub recipient_id: __sdk::__query_builder::Col<DowryOutcome, u64>,
     pub amount: __sdk::__query_builder::Col<DowryOutcome, u32>,
     pub outcome: __sdk::__query_builder::Col<DowryOutcome, DowryOutcomeKind>,
-    pub minute: __sdk::__query_builder::Col<DowryOutcome, u64>,
+    pub minute: __sdk::__query_builder::Col<DowryOutcome, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for DowryOutcome {

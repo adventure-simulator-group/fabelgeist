@@ -2,42 +2,6 @@ pub(super) fn parse_surgery_limb(slug: &str) -> Option<BodyRegion> {
     BodyRegion::parse_slug(slug)
 }
 
-#[derive(Default, Deserialize)]
-pub(super) struct ResidencePageQuery {
-    residence_notice: Option<String>,
-}
-
-#[derive(Default, Deserialize)]
-pub(super) struct ResidenceActionForm {
-    holding_id: Option<String>,
-}
-
-fn residence_notice(code: Option<&str>) -> Option<&'static str> {
-    match code {
-        Some("rented") => Some("The residence is now rented and ready to use."),
-        Some("bought") => Some("You bought the residence."),
-        Some("relinquished") => Some("You relinquished the residence."),
-        Some("designated") => Some("This residence is now your designated home."),
-        Some("recovered") => Some("The owned residence is active again."),
-        Some("funds") => Some("You do not have enough coin for that."),
-        Some("location") => Some("You must be in this settlement to do that."),
-        Some("overdue") => Some("Settle the overdue housing cost before doing that."),
-        Some("unavailable") => Some("That housing change is not available."),
-        _ => None,
-    }
-}
-
-fn relationship_date_label(minute: u64) -> String {
-    let day = minute / adventuresim_core::strategic_time::MINUTES_PER_DAY;
-    let year = 1544 + day / adventuresim_core::strategic_time::DAYS_PER_YEAR;
-    let day_of_year = day % adventuresim_core::strategic_time::DAYS_PER_YEAR + 1;
-    format!("year {year}, day {day_of_year}")
-}
-
-fn housing_error_code(_error: &str) -> &'static str {
-    "unavailable"
-}
-
 pub(super) async fn required_surgery_rows<T>(
     state: &AppState,
     sql: &str,
@@ -84,7 +48,7 @@ pub(super) async fn surgery(
         Some(patient) => patient,
         None => match state
             .db
-            .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(&crate::spacetimedb::character_by_id(patient_id))
+            .query_one_sats_into::<DbCharacter, CharacterView>(&db::character_by_id(patient_id))
             .await
         {
             Ok(Some(patient)) => patient,
@@ -138,7 +102,7 @@ pub(super) async fn surgery(
     };
     let item_definitions = match state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
         .await
         .map_err(|error| {
             tracing::error!(%error, data_kind = "item definitions", "failed to load surgery data");
@@ -323,7 +287,7 @@ pub(super) async fn perform_surgery(
     session: Session,
     Form(form): Form<SurgeryProcedureForm>,
 ) -> Redirect {
-    let destination = format!("/locations/{kind}/{id}/party/{patient_id}/surgery/{limb}");
+    let destination = paths::SURGERY.url([&kind, &id, &patient_id, &limb]);
     let Some(actor_id) = session.character_id_u64() else {
         return Redirect::to(&building.append_to(&state, &kind, &id, destination).await);
     };
@@ -338,12 +302,12 @@ pub(super) async fn perform_surgery(
                 json!(actor_id),
                 json!(patient_id),
                 json!(limb),
-                crate::spacetimedb::sats_unit_variant(form.procedure),
-                crate::spacetimedb::sats_option(form.projectile_id),
+                db::sats_unit_variant(form.procedure),
+                db::sats_option(form.projectile_id),
                 json!(form.use_soap),
                 json!(form.action_id),
-                crate::spacetimedb::sats_option(None::<String>),
-                crate::spacetimedb::sats_option(None::<u32>),
+                db::sats_option(None::<String>),
+                db::sats_option(None::<u32>),
             ],
         )
         .await
@@ -364,7 +328,7 @@ pub(super) async fn alchemy(
     Html(crate::templates::strategic_notice_page(
         "Alchemy is not yet modelled",
         "Physiology observes patients and administers existing preparations; it does not craft them. Herbalism issue #214 owns preparations, and chemistry issue #215 owns Alchemy.",
-        &format!("/locations/settlement/{id}"),
+        &paths::SETTLEMENT.url([&id]),
         "Return to the settlement",
         None,
     ).into_string())
@@ -401,7 +365,7 @@ pub(super) async fn submit_repair(
     session: Session,
     Form(form): Form<RepairItemForm>,
 ) -> Redirect {
-    if let Some(service) = RepairService::parse(&shop)
+    if let Some(service) = crate::location_urls::repair_service(&shop)
         && let Some((character, _)) = get_active_character(&state, session.character_id_u64()).await
         && let Err(error) = state
             .db
@@ -418,7 +382,7 @@ pub(super) async fn submit_repair(
     {
         tracing::warn!(%error, character_id = character.id, settlement_id = %id, shop = service.as_str(), "failed to submit item for repair");
     }
-    Redirect::to(&format!("/settlements/{id}/{shop}"))
+    Redirect::to(&paths::SETTLEMENT_PLACE.url([&id, &shop]))
 }
 
 pub(super) async fn submit_all_repairs(
@@ -426,7 +390,7 @@ pub(super) async fn submit_all_repairs(
     Path((id, shop)): Path<(String, String)>,
     session: Session,
 ) -> Redirect {
-    if let Some(service) = RepairService::parse(&shop)
+    if let Some(service) = crate::location_urls::repair_service(&shop)
         && let Some((character, _)) = get_active_character(&state, session.character_id_u64()).await
         && let Err(error) = state
             .db
@@ -438,7 +402,7 @@ pub(super) async fn submit_all_repairs(
     {
         tracing::warn!(%error, character_id = character.id, settlement_id = %id, shop = service.as_str(), "failed to submit repairable items");
     }
-    Redirect::to(&format!("/settlements/{id}/{shop}"))
+    Redirect::to(&paths::SETTLEMENT_PLACE.url([&id, &shop]))
 }
 
 pub(super) async fn retrieve_repair(
@@ -446,7 +410,7 @@ pub(super) async fn retrieve_repair(
     Path((id, shop, order_id)): Path<(String, String, u64)>,
     session: Session,
 ) -> Redirect {
-    if RepairService::parse(&shop).is_some()
+    if crate::location_urls::repair_service(&shop).is_some()
         && let Some((character, _)) = get_active_character(&state, session.character_id_u64()).await
         && let Err(error) = state
             .db
@@ -458,7 +422,7 @@ pub(super) async fn retrieve_repair(
     {
         tracing::warn!(%error, character_id = character.id, settlement_id = %id, order_id, "failed to retrieve repaired item");
     }
-    Redirect::to(&format!("/settlements/{id}/{shop}"))
+    Redirect::to(&paths::SETTLEMENT_PLACE.url([&id, &shop]))
 }
 
 #[derive(Deserialize)]
@@ -473,7 +437,7 @@ pub(super) async fn retrieve_repairs(
     session: Session,
     Form(form): Form<RetrieveRepairsForm>,
 ) -> Redirect {
-    if let Some(service) = RepairService::parse(&shop)
+    if let Some(service) = crate::location_urls::repair_service(&shop)
         && let Some((character, _)) = get_active_character(&state, session.character_id_u64()).await
         && let Err(error) = state
             .db
@@ -491,388 +455,9 @@ pub(super) async fn retrieve_repairs(
     {
         tracing::warn!(%error, character_id = character.id, settlement_id = %id, shop = service.as_str(), "failed to retrieve repaired items");
     }
-    Redirect::to(&format!("/settlements/{id}/{shop}"))
+    Redirect::to(&paths::SETTLEMENT_PLACE.url([&id, &shop]))
 }
 
-pub(super) async fn show_settlement(Path(id): Path<String>) -> Redirect {
-    Redirect::to(&format!("/locations/settlement/{id}"))
-}
-
-pub(super) async fn settlement_resident_place(
-    State(state): State<AppState>,
-    Path((id, place)): Path<(String, String)>,
-    Query(page_query): Query<ResidencePageQuery>,
-    session: Session,
-) -> Html<String> {
-    let organization_chapter =
-        adventuresim_core::organization::organization_chapter_at(&id, &place);
-    if !matches!(place.as_str(), "overview" | "residences" | "keep")
-        && organization_chapter.is_none()
-    {
-        return Html("<h1>Settlement place not found</h1>".into());
-    }
-    let settlement_query = settlement_by_id(&id);
-    let settlement = state
-        .db
-        .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(settlement_query.as_str())
-        .await
-        .ok()
-        .flatten();
-    let Some(settlement) = settlement else {
-        return Html("<h1>Settlement not found</h1>".into());
-    };
-    if let Some((organization, chapter)) = organization_chapter
-        && !adventuresim_core::organization::chapter_has_standalone_building(
-            organization,
-            chapter,
-            &settlement.economy,
-        )
-    {
-        return Html("<h1>Settlement place not found</h1>".into());
-    }
-    let active = get_active_character(&state, session.character_id_u64()).await;
-    let Some((character, _)) = active.as_ref() else {
-        return Html("<h1>Choose a character first</h1>".into());
-    };
-    if character.current_settlement_id.as_deref() != Some(id.as_str()) {
-        return Html("<h1>You are not in this settlement</h1>".into());
-    }
-    if place == "keep"
-        && !matches!(
-            settlement.category,
-            crate::spacetimedb::SettlementCategory::Town
-                | crate::spacetimedb::SettlementCategory::City
-                | crate::spacetimedb::SettlementCategory::Capital
-        )
-    {
-        return Html("<h1>This settlement has no keep</h1>".into());
-    }
-    let party_members = get_active_party_members(&state, Some(character)).await;
-    if place == "residences" {
-        let settlement_literal = sql_string_literal(&settlement.id);
-        let offers_sql = format!(
-            "SELECT * FROM settlement_residence_offer WHERE settlement_id = {settlement_literal}"
-        );
-        let residence_sql =
-            crate::spacetimedb::character_residence_status_by_character_id(character.id);
-        let relationship_sql =
-            crate::spacetimedb::character_relationship_status_by_character_id(character.id);
-        let owner_key = session.owner_key().unwrap_or_default();
-        let family_sql = format!(
-            "SELECT * FROM backend_family_children WHERE owner_key = {} AND observer_character_id = {}",
-            sql_string_literal(owner_key),
-            character.id,
-        );
-        let (offers, residences, relationship, children) = tokio::join!(
-            state.db.query_sats::<SettlementResidenceOffer>(&offers_sql),
-            state
-                .db
-                .query_sats::<BackendCharacterResidenceStatus>(&residence_sql),
-            state
-                .db
-                .query_one_sats::<BackendCharacterRelationshipStatus>(&relationship_sql),
-            state.db.query_sats::<BackendFamilyChild>(&family_sql),
-        );
-        let mut offers = offers.unwrap_or_default();
-        offers.sort_by_key(|offer| match offer.tier {
-            adventuresim_stdb_client::HousingTier::Cheap => 0,
-            adventuresim_stdb_client::HousingTier::Moderate => 1,
-            adventuresim_stdb_client::HousingTier::Fancy => 2,
-        });
-        let mut residences = residences.unwrap_or_default();
-        residences.retain(|holding| holding.character_id == character.id);
-        residences.sort_by(|left, right| {
-            (
-                !left.primary,
-                left.settlement_id != settlement.id,
-                left.holding_id.as_str(),
-            )
-                .cmp(&(
-                    !right.primary,
-                    right.settlement_id != settlement.id,
-                    right.holding_id.as_str(),
-                ))
-        });
-        let can_rest_at_home = residences
-            .iter()
-            .any(|home| home.active && home.occupied && home.settlement_id == settlement.id);
-        let relationship = relationship.ok().flatten();
-        let mut children = children.unwrap_or_default();
-        children.retain(|child| {
-            child.owner_key == owner_key && child.observer_character_id == character.id
-        });
-        children.sort_by_key(|child| child.child_id);
-        let related_ids = relationship
-            .iter()
-            .flat_map(|status| [status.spouse_id, status.courtship_partner_id])
-            .flatten()
-            .collect::<Vec<_>>();
-        let mut related_characters = Vec::new();
-        for related_id in related_ids {
-            if let Ok(Some(related)) = state
-                .db
-                .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(&crate::spacetimedb::character_by_id(related_id))
-                .await
-            {
-                related_characters.push(related);
-            }
-        }
-        let character_minute = state
-            .db
-            .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
-                character.id,
-            ))
-            .await
-            .ok()
-            .flatten()
-            .map_or(0, |time| time.minutes);
-        let wedding = relationship
-            .as_ref()
-            .and_then(|row| row.wedding_effective_minute)
-            .map(|effective_minute| WeddingPresentation {
-                days_remaining: effective_minute
-                    .saturating_sub(character_minute)
-                    .div_ceil(adventuresim_core::strategic_time::MINUTES_PER_DAY),
-                date_label: relationship_date_label(effective_minute),
-            });
-        let presentation = relationship.as_ref().map(|status| {
-            let name = |id: Option<u64>| {
-                id.and_then(|id| {
-                    related_characters
-                        .iter()
-                        .find(|character| character.id == id)
-                        .map(|character| character.name.clone())
-                })
-            };
-            RelationshipPresentation {
-                spouse_name: name(status.spouse_id),
-                courtship_partner_name: name(status.courtship_partner_id),
-                courtship_kind: status.courtship_kind,
-                courtship_exposed: status.courtship_exposed,
-                wedding,
-                pregnancy_due_days: status.pregnancy_due_minute.map(|due| {
-                    due.saturating_sub(character_minute)
-                        .div_ceil(adventuresim_core::strategic_time::MINUTES_PER_DAY)
-                }),
-                children: children
-                    .iter()
-                    .map(|child| ChildPresentation {
-                        name: child.child_name.clone(),
-                        stage: child.stage,
-                        focus: child.focus,
-                        maturity_basis_points: child.maturity_basis_points,
-                        adult_playable: child.adult_playable,
-                        alive: child.alive,
-                    })
-                    .collect(),
-            }
-        });
-        return Html(
-            settlement_residence_page(
-                &settlement,
-                character,
-                &party_members,
-                Some(&character.name),
-                &offers,
-                &residences,
-                presentation.as_ref(),
-                can_rest_at_home,
-                residence_notice(page_query.residence_notice.as_deref()),
-            )
-            .into_string(),
-        );
-    }
-    Html(
-        settlement_resident_location_page(
-            &settlement,
-            character,
-            &party_members,
-            &place,
-            Some(&character.name),
-        )
-        .into_string(),
-    )
-}
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-enum ResidenceTier {
-    Cheap,
-    Moderate,
-    Fancy,
-    Current,
-}
-
-impl ResidenceTier {
-    fn parse(value: &str) -> Option<Self> {
-        match value {
-            "cheap" => Some(Self::Cheap),
-            "moderate" => Some(Self::Moderate),
-            "fancy" => Some(Self::Fancy),
-            "current" => Some(Self::Current),
-            _ => None,
-        }
-    }
-
-    fn reducer_argument(self) -> serde_json::Value {
-        match self {
-            Self::Cheap => json!({ "cheap": [] }),
-            Self::Moderate => json!({ "moderate": [] }),
-            Self::Fancy => json!({ "fancy": [] }),
-            Self::Current => serde_json::Value::Null,
-        }
-    }
-}
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-enum ResidenceOperation {
-    Rent,
-    Buy,
-    Relinquish,
-    Designate,
-    Recover,
-}
-
-impl ResidenceOperation {
-    fn parse(value: &str) -> Option<Self> {
-        match value {
-            "rent" => Some(Self::Rent),
-            "buy" => Some(Self::Buy),
-            "relinquish" => Some(Self::Relinquish),
-            "designate" => Some(Self::Designate),
-            "recover" => Some(Self::Recover),
-            _ => None,
-        }
-    }
-
-    const fn reducer(self) -> &'static str {
-        match self {
-            Self::Rent => "rent_residence",
-            Self::Buy => "buy_residence",
-            Self::Relinquish => "relinquish_residence",
-            Self::Designate => "designate_residence",
-            Self::Recover => "recover_owned_residence",
-        }
-    }
-
-    const fn success_notice(self) -> &'static str {
-        match self {
-            Self::Rent => "rented",
-            Self::Buy => "bought",
-            Self::Relinquish => "relinquished",
-            Self::Designate => "designated",
-            Self::Recover => "recovered",
-        }
-    }
-}
-
-pub(super) async fn change_residence(
-    State(state): State<AppState>,
-    Path((id, action, tier)): Path<(String, String, String)>,
-    session: Session,
-    Form(form): Form<ResidenceActionForm>,
-) -> Redirect {
-    let fallback = format!("/settlements/{id}/places/residences");
-    let Some(character_id) = session.character_id_u64() else {
-        return Redirect::to("/characters");
-    };
-    let (Some(operation), Some(tier)) = (
-        ResidenceOperation::parse(&action),
-        ResidenceTier::parse(&tier),
-    ) else {
-        return Redirect::to(&format!("{fallback}?residence_notice=unavailable"));
-    };
-    let selected_holding = form
-        .holding_id
-        .filter(|holding_id| !holding_id.trim().is_empty());
-    let args = match operation {
-        ResidenceOperation::Rent | ResidenceOperation::Buy => {
-            vec![json!(character_id), json!(id), tier.reducer_argument()]
-        }
-        ResidenceOperation::Relinquish
-        | ResidenceOperation::Designate
-        | ResidenceOperation::Recover => {
-            let Some(holding_id) = selected_holding.filter(|_| tier == ResidenceTier::Current)
-            else {
-                return Redirect::to(&format!("{fallback}?residence_notice=unavailable"));
-            };
-            vec![json!(character_id), json!(holding_id)]
-        }
-    };
-    match state.db.call(operation.reducer(), &args).await {
-        Ok(()) => Redirect::to(&format!(
-            "{fallback}?residence_notice={}",
-            operation.success_notice()
-        )),
-        Err(error) => {
-            tracing::warn!(character_id, ?operation, ?tier, %error, "residence acquisition rejected");
-            Redirect::to(&format!(
-                "{fallback}?residence_notice={}",
-                housing_error_code(&error.to_string())
-            ))
-        }
-    }
-}
-
-#[cfg(test)]
-mod residence_route_tests {
-    use super::{ResidenceOperation, ResidenceTier};
-
-    #[test]
-    fn portfolio_reads_and_management_mutations_keep_explicit_holding_ids() {
-        let source = include_str!("medical.rs");
-        let residence_page = source
-            .split("if place == \"residences\"")
-            .nth(1)
-            .unwrap()
-            .split("pub(super) async fn change_residence")
-            .next()
-            .unwrap();
-        assert!(residence_page.contains("query_sats::<BackendCharacterResidenceStatus>"));
-        assert!(residence_page.contains("residences.retain"));
-        assert!(residence_page.contains("home.active && home.occupied"));
-        assert!(residence_page.contains("query_sats::<BackendFamilyChild>"));
-        assert!(residence_page.contains("WHERE owner_key = {} AND observer_character_id = {}"));
-        assert!(residence_page.contains(
-            "child.owner_key == owner_key && child.observer_character_id == character.id"
-        ));
-
-        let change = source
-            .split("pub(super) async fn change_residence")
-            .nth(1)
-            .unwrap()
-            .split("pub(super) async fn show_settlement_location")
-            .next()
-            .unwrap();
-        assert!(change.contains("Form(form): Form<ResidenceActionForm>"));
-        assert!(change.contains("let selected_holding = form"));
-        assert!(change.contains(".holding_id"));
-        assert!(change.contains("state.db.call(operation.reducer(), &args)"));
-        assert!(change.contains("selected_holding.filter(|_| tier == ResidenceTier::Current)"));
-    }
-
-    #[test]
-    fn residence_route_tags_map_to_fixed_typed_operations() {
-        assert_eq!(
-            ["rent", "buy", "relinquish", "designate", "recover"].map(|tag| {
-                let operation = ResidenceOperation::parse(tag).unwrap();
-                (operation.reducer(), operation.success_notice())
-            }),
-            [
-                ("rent_residence", "rented"),
-                ("buy_residence", "bought"),
-                ("relinquish_residence", "relinquished"),
-                ("designate_residence", "designated"),
-                ("recover_owned_residence", "recovered"),
-            ]
-        );
-        assert_eq!(ResidenceOperation::parse("remove"), None);
-        assert_eq!(
-            ResidenceTier::parse("current"),
-            Some(ResidenceTier::Current)
-        );
-        assert_eq!(ResidenceTier::parse("luxury"), None);
-    }
-}
 
 pub(super) async fn show_settlement_location(
     State(state): State<AppState>,
@@ -884,7 +469,7 @@ pub(super) async fn show_settlement_location(
     let settlement_query = settlement_by_id(&id);
     let settlement = state
         .db
-        .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(settlement_query.as_str())
+        .query_one_sats_into::<DbSettlement, SettlementView>(settlement_query.as_str())
         .await;
     let settlement = match settlement {
         Ok(Some(settlement)) => settlement,
@@ -894,20 +479,16 @@ pub(super) async fn show_settlement_location(
             return Html("<h1>Settlement data unavailable</h1>".to_string());
         }
     };
-    if let Err(error) = state
-        .db
-        .call("ensure_settlement_activity", &[json!(id.clone())])
-        .await
-    {
-        tracing::warn!(%error, settlement_id = %id, "failed to activate settlement activity");
-    }
+    super::entry::activate_settlement(&state, &id);
     let alias_sql =
         format!("SELECT * FROM settlement_alias WHERE settlement_id = {settlement_literal}");
     let description_sql =
         format!("SELECT * FROM settlement_description WHERE settlement_id = {settlement_literal}");
     let (aliases, descriptions, active_character) = tokio::join!(
         state.db.query_sats::<SettlementAlias>(&alias_sql),
-        state.db.query_sats::<SettlementDescription>(&description_sql),
+        state
+            .db
+            .query_sats::<SettlementDescription>(&description_sql),
         get_active_character(&state, session.character_id_u64()),
     );
     let party_members = get_active_party_members(

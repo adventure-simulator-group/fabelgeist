@@ -1,6 +1,6 @@
 //! Burgonet plates and an optional separate face defense.
-use adventuresim_armor_model::{BuffeCourses, BuffeDesign, BurgonetDesign};
 use bevy_egui::egui;
+use fabelgeist_armor::{BuffeCourses, BuffeDesign, BurgonetDesign};
 
 pub(super) fn burgonet(ui: &mut egui::Ui, design: &mut BurgonetDesign) -> bool {
     ui.label("Cheek fluting");
@@ -41,7 +41,7 @@ fn show(ui: &mut egui::Ui, buffe: &mut Option<BuffeDesign>) -> bool {
         let mut pierced = shape.breaths.is_some();
         let toggle = ui.checkbox(&mut pierced, "Pierced buffe breaths");
         if toggle.changed() {
-            shape.breaths = pierced.then(adventuresim_armor_model::VisorBreaths::buffe);
+            shape.breaths = pierced.then(fabelgeist_armor::VisorBreaths::buffe);
         }
         if let Some(breaths) = &mut shape.breaths {
             super::visor_breath_controls::show(ui, breaths, 50..=950);

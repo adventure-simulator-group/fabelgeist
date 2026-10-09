@@ -1,5 +1,5 @@
 // Standard Bevy PBR entry point with an additional diffuse daylight field.
-#import fabelgeist::interior_lighting::interior_diffuse
+#import fabelgeist::interior_lighting::apply_interior_lighting
 #import bevy_pbr::{
     pbr_types,
     pbr_functions::alpha_discard,
@@ -15,7 +15,7 @@
 #else
 #import bevy_pbr::{
     forward_io::{VertexOutput, FragmentOutput},
-    pbr_functions::{apply_pbr_lighting, main_pass_post_lighting_processing},
+    pbr_functions::{main_pass_post_lighting_processing},
     pbr_types::STANDARD_MATERIAL_FLAGS_UNLIT_BIT,
 }
 #endif
@@ -81,8 +81,7 @@ fn fragment(
     // in deferred mode the lit color and these effects will be calculated in the deferred lighting shader
     var out: FragmentOutput;
     if (pbr_input.material.flags & STANDARD_MATERIAL_FLAGS_UNLIT_BIT) == 0u {
-        out.color = apply_pbr_lighting(pbr_input);
-        out.color = vec4(out.color.rgb + interior_diffuse(pbr_input), out.color.a);
+        out.color = apply_interior_lighting(pbr_input);
     } else {
         out.color = pbr_input.material.base_color;
     }

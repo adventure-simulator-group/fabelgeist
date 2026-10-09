@@ -4,12 +4,17 @@ use adventuresim_building_generator::BuildingLodMaterial;
 
 pub(super) const CUT_HEIGHT_METRES: f32 = 1.25;
 
-pub(super) fn spawn(world: &mut World, palette: &RenderPalette, plan: &BuildingPlan, origin: Vec2) {
+pub(super) fn spawn(
+    world: &mut World,
+    palette: &RenderPalette,
+    plan: &BuildingPlan,
+    origin: Vec2,
+) -> Result<(), adventuresim_building_generator::GenerationError> {
     let mut bounds = sample_polygon::SampleBounds {
         min: Vec3::splat(f32::INFINITY),
         max: Vec3::splat(f32::NEG_INFINITY),
     };
-    for batch in adventuresim_building_generator::compile_building_detail(plan).meshes {
+    for batch in adventuresim_building_generator::compile_building_detail(plan)?.meshes {
         let material = match batch.material {
             BuildingLodMaterial::Wall(
                 adventuresim_building_generator::WallMaterialClass::TimberInfill,
@@ -52,7 +57,7 @@ pub(super) fn spawn(world: &mut World, palette: &RenderPalette, plan: &BuildingP
             EditorBuildingEntity,
         ));
     }
-    spawn_caps(world, palette, plan, origin);
+    spawn_caps(world, palette, plan, origin)?;
     world.insert_resource(bounds);
     world.spawn((
         Name::new("architectural section authority annotation"),
@@ -62,9 +67,16 @@ pub(super) fn spawn(world: &mut World, palette: &RenderPalette, plan: &BuildingP
         Node { position_type: PositionType::Absolute, left: px(24), bottom: px(24), ..default() },
         EditorBuildingEntity,
     ));
+
+    Ok(())
 }
 
-fn spawn_caps(world: &mut World, palette: &RenderPalette, plan: &BuildingPlan, origin: Vec2) {
+fn spawn_caps(
+    world: &mut World,
+    palette: &RenderPalette,
+    plan: &BuildingPlan,
+    origin: Vec2,
+) -> Result<(), adventuresim_building_generator::GenerationError> {
     use adventuresim_building_generator::ResolvedSolidShape;
     for solid in &plan.resolved_geometry.solids {
         if !matches!(
@@ -73,7 +85,7 @@ fn spawn_caps(world: &mut World, palette: &RenderPalette, plan: &BuildingPlan, o
         ) {
             continue;
         }
-        let detail = adventuresim_building_generator::compile_solid_detail(plan, solid);
+        let detail = adventuresim_building_generator::compile_solid_detail(plan, solid)?;
         let mut section = Vec::<Vec3>::new();
         for batch in &detail.meshes {
             for indices in batch.indices.as_chunks::<3>().0 {
@@ -125,6 +137,8 @@ fn spawn_caps(world: &mut World, palette: &RenderPalette, plan: &BuildingPlan, o
             EditorBuildingEntity,
         ));
     }
+
+    Ok(())
 }
 
 fn clip(triangle: [Vec3; 3]) -> Vec<Vec3> {

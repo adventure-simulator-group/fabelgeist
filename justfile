@@ -636,7 +636,17 @@ test-environment:
     @node --test crates/strategic-web/tests/environment.test.cjs
 
 test-schedule:
-    @node --test crates/strategic-web/tests/training-schedule.test.cjs
+    @node --test crates/strategic-web/tests/training-schedule.test.cjs crates/strategic-web/tests/schedule-preview.test.cjs
+
+# Execute the portable RNG contract on native and wasm32.
+test-determinism:
+    @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
+    @{{ python_bin }} scripts/check_deterministic_rng.py
+    @{{ python_bin }} scripts/test_determinism.py
+
+check-deterministic-rng:
+    @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
+    @{{ python_bin }} scripts/check_deterministic_rng.py
 
 # Test local workflow policy without leaving Python bytecode in the worktree.
 test-dev-stack:
@@ -699,7 +709,7 @@ plant-studio family="flowers":
 plant-capture preset="0" view="full" output="target/plant-captures/specimen" family="flowers" lod="high":
     @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --family {{ family }} --preset {{ preset }} --view {{ view }} --lod {{ lod }} --output {{ quote(output) }}
 
-# Build and serve the art demo, Texture Studio and Heraldry Studio on one local site. No database or game server.
+# Build and serve the art demo and Texture Studio on one local site. No database or game server.
 showcase port="8090":
     @{{ python_bin }} scripts/showcase.py --port {{ port }}
 
@@ -736,12 +746,16 @@ fmt-check:
     @cargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check
 
 lint: verify-db-client
+    @{{ python_bin }} -B -m unittest scripts.test_check_calendar_api
+    @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
+    @{{ python_bin }} scripts/check_deterministic_rng.py
+    @{{ python_bin }} scripts/check_calendar_api.py
     @cargo run --package fabelgeist-rust-quality -- check .
-    @cargo clippy --package adventuresim-tactical-client --lib --target wasm32-unknown-unknown -- -D warnings
+    @cargo clippy --package adventuresim-tactical-client --bin adventuresim-tactical-client --target wasm32-unknown-unknown -- -D warnings
     @cargo clippy --workspace --all-targets --all-features -- -D warnings
-    @cargo clippy --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
-    @cargo clippy --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
-    @cargo clippy --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
+    @cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
+    @cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
+    @cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
 
 clean:
     @cargo clean

@@ -4,22 +4,18 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
-use super::housing_tier_type::HousingTier;
-
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub(super) struct BuyResidenceArgs {
     pub character_id: u64,
-    pub settlement_id: String,
-    pub tier: HousingTier,
+    pub property_id: String,
 }
 
 impl From<BuyResidenceArgs> for super::Reducer {
     fn from(args: BuyResidenceArgs) -> Self {
         Self::BuyResidence {
             character_id: args.character_id,
-            settlement_id: args.settlement_id,
-            tier: args.tier,
+            property_id: args.property_id,
         }
     }
 }
@@ -39,13 +35,8 @@ pub trait buy_residence {
     /// The reducer will run asynchronously in the future,
     ///  and this method provides no way to listen for its completion status.
     /// /// Use [`buy_residence:buy_residence_then`] to run a callback after the reducer completes.
-    fn buy_residence(
-        &self,
-        character_id: u64,
-        settlement_id: String,
-        tier: HousingTier,
-    ) -> __sdk::Result<()> {
-        self.buy_residence_then(character_id, settlement_id, tier, |_, _| {})
+    fn buy_residence(&self, character_id: u64, property_id: String) -> __sdk::Result<()> {
+        self.buy_residence_then(character_id, property_id, |_, _| {})
     }
 
     /// Request that the remote module invoke the reducer `buy_residence` to run as soon as possible,
@@ -57,8 +48,7 @@ pub trait buy_residence {
     fn buy_residence_then(
         &self,
         character_id: u64,
-        settlement_id: String,
-        tier: HousingTier,
+        property_id: String,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,
@@ -72,8 +62,7 @@ impl buy_residence for super::RemoteReducers {
     fn buy_residence_then(
         &self,
         character_id: u64,
-        settlement_id: String,
-        tier: HousingTier,
+        property_id: String,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,
@@ -84,8 +73,7 @@ impl buy_residence for super::RemoteReducers {
         self.imp.invoke_reducer_with_callback(
             BuyResidenceArgs {
                 character_id,
-                settlement_id,
-                tier,
+                property_id,
             },
             callback,
         )

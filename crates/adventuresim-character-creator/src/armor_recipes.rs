@@ -1,37 +1,49 @@
 //! Catalog boundary for the authored armor recipes and anatomical fit regions.
 
-use adventuresim_armor_model::*;
-use anyhow::{Context, Result};
+use anyhow::Result;
+use fabelgeist_armor::*;
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeMap, sync::LazyLock};
 
-use crate::armor_frames::{FitRegion, Side, Wearer};
+use crate::armor_frames::{FitRegion, Side};
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum ParametricDesign {
     Helmet(HelmetDesign),
     Limb(LimbArmorDesign),
+    PuffAndSlash(PuffAndSlashDesign),
+    TrunkHose(TrunkHoseDesign),
     Garment(GarmentArmorDesign),
     WaistAssembly(WaistArmorDesign),
     Underlayer(crate::underlayer::UnderlayerDesign),
 }
 
 impl ParametricDesign {
-    pub fn generate(&self, frame: &PartFrame) -> Result<PartMesh> {
-        Ok(match self {
-            Self::Helmet(d) => generate_helmet(d, frame)?,
-            Self::Limb(d) => generate_limb_armor(d, frame)?,
-            Self::Garment(d) => generate_garment_armor(d, frame)?,
-            Self::WaistAssembly(d) => {
-                let fauld = generate_garment_armor(&d.fauld, frame)?;
-                let tassets =
-                    suspend_horizontal_tassets(&fauld, generate_garment_armor(&d.tassets, frame)?);
-                compose_waist(fauld, tassets)
-            }
-            Self::Underlayer(_) => {
-                anyhow::bail!("body-conforming garments require source body triangles")
-            }
-        })
+    pub fn validate(&self) -> Result<()> {
+        match self {
+            Self::Helmet(d) => d.validate().map_err(anyhow::Error::new),
+            Self::Limb(d) => d.validate().map_err(anyhow::Error::new),
+            Self::PuffAndSlash(d) => d.validate().map_err(anyhow::Error::new),
+            Self::TrunkHose(d) => d.validate().map_err(anyhow::Error::new),
+            Self::Garment(d) => d.validate().map_err(anyhow::Error::new),
+            Self::WaistAssembly(d) => d.validate().map_err(anyhow::Error::new),
+            Self::Underlayer(d) => d.validate(),
+        }
+    }
+
+    /// Whether both designs build the same construction, so one may replace the other.
+    pub fn same_family(&self, other: &Self) -> bool {
+        use std::mem::discriminant;
+        match (self, other) {
+            (Self::Helmet(a), Self::Helmet(b)) => discriminant(a) == discriminant(b),
+            (Self::Limb(a), Self::Limb(b)) => discriminant(a) == discriminant(b),
+            (Self::PuffAndSlash(a), Self::PuffAndSlash(b)) => a.kind == b.kind,
+            (Self::TrunkHose(_), Self::TrunkHose(_)) => true,
+            (Self::Garment(a), Self::Garment(b)) => a.kind == b.kind,
+            (Self::WaistAssembly(_), Self::WaistAssembly(_)) => true,
+            (Self::Underlayer(a), Self::Underlayer(b)) => a.kind == b.kind,
+            _ => false,
+        }
     }
 }
 
@@ -48,8 +60,25 @@ pub fn recipe(id: &str) -> Option<ParametricDesign> {
     CATALOG.get(id).cloned()
 }
 
+/// Items built by their own generator instead of an embedded catalog recipe.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum DedicatedGenerator {
+    Vambrace,
+    Breastplate,
+}
+
+impl DedicatedGenerator {
+    pub fn for_item(id: &str) -> Option<Self> {
+        match id {
+            "vambrace" => Some(Self::Vambrace),
+            "breastplate" | "cuirass" => Some(Self::Breastplate),
+            _ => None,
+        }
+    }
+}
+
 pub fn is_parametric(id: &str) -> bool {
-    matches!(id, "vambrace" | "breastplate" | "cuirass") || recipe(id).is_some()
+    DedicatedGenerator::for_item(id).is_some() || recipe(id).is_some()
 }
 
 pub fn fit_region(design: &ParametricDesign, placement: &str) -> Result<FitRegion> {
@@ -65,6 +94,11 @@ pub fn fit_region(design: &ParametricDesign, placement: &str) -> Result<FitRegio
             _ => F::Torso,
         },
         ParametricDesign::Helmet(_) => F::Head,
+        ParametricDesign::PuffAndSlash(d) => match d.kind {
+            PuffAndSlashKind::Sleeve => F::WholeArm(side()?),
+            PuffAndSlashKind::Hose => F::WholeLeg(side()?),
+        },
+        ParametricDesign::TrunkHose(_) => F::Hips,
         ParametricDesign::WaistAssembly(_) => F::Hips,
         ParametricDesign::Limb(d) => match d {
             LimbArmorDesign::Greave(_) => F::LowerLeg(side()?),
@@ -84,71 +118,6 @@ pub fn fit_region(design: &ParametricDesign, placement: &str) -> Result<FitRegio
             G::Gorget => F::Neck,
         },
     })
-}
-
-pub fn fitted_mesh(
-    design: &ParametricDesign,
-    placement: &str,
-    wearer: &Wearer<'_>,
-    layers: &[crate::armor_layer::ArmorLayerSurface<'_>],
-) -> Result<PartMesh> {
-    if let ParametricDesign::Underlayer(d) = design {
-        let pattern =
-            crate::underlayer::UnderlayerPattern::new(d, placement, wearer, wearer.faces)?;
-        return Ok(pattern.evaluate(d, wearer));
-    }
-    if let ParametricDesign::WaistAssembly(d) = design {
-        let fauld = crate::garment_fit::fitted_garment(&d.fauld, placement, wearer, layers)
-            .context("fitting waist assembly fauld")?;
-        let top = fauld
-            .positions
-            .iter()
-            .map(|p| p[1])
-            .fold(f32::INFINITY, f32::min)
-            - TASSET_SUSPENSION_GAP_M;
-        let tassets = crate::garment_fit::suspended_tassets(&d.tassets, wearer, top, layers)
-            .context("fitting suspended tassets")?;
-        let tassets = if matches!(d.tassets.plate_shape, GarmentPlateShape::WrappedTassets(_)) {
-            tassets
-        } else {
-            suspend_horizontal_tassets(&fauld, tassets)
-        };
-        let fauld = if matches!(d.tassets.plate_shape, GarmentPlateShape::WrappedTassets(_)) {
-            let mut supports = layers
-                .iter()
-                .map(|layer| crate::armor_layer::ArmorLayerSurface {
-                    relief: layer.relief,
-                    positions: layer.positions,
-                    faces: layer.faces,
-                })
-                .collect::<Vec<_>>();
-            supports.push(crate::armor_layer::ArmorLayerSurface {
-                relief: Millimeters(0),
-                positions: &tassets.positions,
-                faces: tassets.indices.as_chunks::<3>().0,
-            });
-            crate::garment_fit::fitted_garment(&d.fauld, placement, wearer, &supports)
-                .context("seating fauld over suspended tassets")?
-        } else {
-            fauld
-        };
-        return Ok(compose_waist(fauld, tassets));
-    }
-    if let ParametricDesign::Helmet(HelmetDesign::CloseHelmet(helmet)) = design {
-        return crate::close_helmet_fit::fit(helmet, wearer, layers);
-    }
-    if let ParametricDesign::Helmet(HelmetDesign::MailCoif(coif)) = design {
-        return crate::coif_fit::fit(coif, wearer);
-    }
-    if let ParametricDesign::Garment(garment) = design {
-        return crate::garment_fit::fitted_garment(garment, placement, wearer, layers);
-    }
-    if let ParametricDesign::Limb(limb) = design {
-        return crate::limb_fit::fitted_limb(limb, wearer, fit_region(design, placement)?, layers);
-    }
-    let frame = wearer.frame(fit_region(design, placement)?)?;
-    let mesh = design.generate(&frame)?;
-    Ok(mesh)
 }
 
 #[cfg(test)]
@@ -188,12 +157,16 @@ mod tests {
             ("padded_skirt", "Garment", "PaddedSkirt"),
             ("pauldron", "Limb", "Pauldron"),
             ("poleyn", "Limb", "Poleyn"),
+            ("puffed_hose", "PuffAndSlash", "Hose"),
+            ("puffed_sleeve", "PuffAndSlash", "Sleeve"),
             ("quilted_sleeve", "Garment", "QuiltedSleeve"),
             ("rerebrace", "Limb", "Rerebrace"),
             ("sabaton", "Limb", "Sabaton"),
             ("sallet", "Helmet", "Sallet"),
             ("spaulder", "Limb", "Spaulder"),
+            ("split_hose", "PuffAndSlash", "Hose"),
             ("tassets", "WaistAssembly", "Tassets"),
+            ("trunk_hose", "TrunkHose", "TrunkHose"),
             ("visored_sallet", "Helmet", "VisoredSallet"),
         ];
         let catalog = decode(CATALOG_SOURCE.as_bytes()).unwrap();
@@ -204,7 +177,9 @@ mod tests {
             if category == "WaistAssembly" {
                 assert_eq!(shape["fauld"]["kind"], "Fauld");
                 assert_eq!(shape["tassets"]["kind"], family);
-            } else if matches!(category, "Garment" | "Underlayer") {
+            } else if category == "TrunkHose" {
+                assert!(shape.is_object(), "{id} lost its {family} family");
+            } else if matches!(category, "Garment" | "Underlayer" | "PuffAndSlash") {
                 assert_eq!(shape["kind"], family, "{id}");
             } else {
                 assert!(shape.get(family).is_some(), "{id} lost its {family} family");

@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::cooking_method_type::CookingMethod;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -14,7 +15,7 @@ pub struct BackendFireplaceDish {
     pub fireplace_fixture_id: String,
     pub contributor_name: String,
     pub method: CookingMethod,
-    pub started_at_minute: u64,
+    pub started_at_minute: StrategicMinute,
     pub target_minutes: u32,
     pub display_name: String,
 }
@@ -32,7 +33,7 @@ pub struct BackendFireplaceDishCols {
     pub fireplace_fixture_id: __sdk::__query_builder::Col<BackendFireplaceDish, String>,
     pub contributor_name: __sdk::__query_builder::Col<BackendFireplaceDish, String>,
     pub method: __sdk::__query_builder::Col<BackendFireplaceDish, CookingMethod>,
-    pub started_at_minute: __sdk::__query_builder::Col<BackendFireplaceDish, u64>,
+    pub started_at_minute: __sdk::__query_builder::Col<BackendFireplaceDish, StrategicMinute>,
     pub target_minutes: __sdk::__query_builder::Col<BackendFireplaceDish, u32>,
     pub display_name: __sdk::__query_builder::Col<BackendFireplaceDish, String>,
 }

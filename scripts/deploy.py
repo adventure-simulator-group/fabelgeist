@@ -6,7 +6,7 @@
 
 Targets:
 
-  showcase  The art demo, Texture Studio and Heraldry Studio as plain files.
+  showcase  The art demo and Texture Studio as plain files.
             Built locally by scripts/showcase.py, uploaded with the asset tree
             the art demo reads, served by Caddy. Nothing else runs on the box.
             Works from Windows: only Python, ssh and scp are needed locally.

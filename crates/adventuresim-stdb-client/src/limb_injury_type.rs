@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::body_region_type::BodyRegion;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -23,7 +24,7 @@ pub struct LimbInjury {
     pub splint_inventory_item_id: Option<u64>,
     pub infection_exposure: f32,
     pub infection_checks: u32,
-    pub infection_origin_minute: Option<u64>,
+    pub infection_origin_minute: Option<StrategicMinute>,
 }
 
 impl __sdk::InModule for LimbInjury {
@@ -48,7 +49,7 @@ pub struct LimbInjuryCols {
     pub splint_inventory_item_id: __sdk::__query_builder::Col<LimbInjury, Option<u64>>,
     pub infection_exposure: __sdk::__query_builder::Col<LimbInjury, f32>,
     pub infection_checks: __sdk::__query_builder::Col<LimbInjury, u32>,
-    pub infection_origin_minute: __sdk::__query_builder::Col<LimbInjury, Option<u64>>,
+    pub infection_origin_minute: __sdk::__query_builder::Col<LimbInjury, Option<StrategicMinute>>,
 }
 
 impl __sdk::__query_builder::HasCols for LimbInjury {

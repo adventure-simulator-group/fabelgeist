@@ -42,8 +42,9 @@ mod party_pool;
 mod party_transfer;
 mod repairs;
 
+pub use adventuresim_core::settlement_economy::Storefront;
 pub use discard::party_discard_page;
-pub use merchant::{MerchantShop, live_merchant_shop_page, merchants_page};
+pub use merchant::{StorefrontPresentation, live_merchant_shop_page, merchants_page};
 pub use party_pool::party_pool_page;
 pub use party_transfer::party_inventory_page;
 

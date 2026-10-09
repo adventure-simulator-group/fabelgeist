@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::contract_status_type::ContractStatus;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -24,8 +25,8 @@ pub struct ContractAuthority {
     pub accepted_by: Option<String>,
     pub opposition_wording: String,
     pub opposition_count_wording: String,
-    pub accepted_at_minute: Option<u64>,
-    pub paid_at_minute: Option<u64>,
+    pub accepted_at_minute: Option<StrategicMinute>,
+    pub paid_at_minute: Option<StrategicMinute>,
 }
 
 impl __sdk::InModule for ContractAuthority {
@@ -51,8 +52,8 @@ pub struct ContractAuthorityCols {
     pub accepted_by: __sdk::__query_builder::Col<ContractAuthority, Option<String>>,
     pub opposition_wording: __sdk::__query_builder::Col<ContractAuthority, String>,
     pub opposition_count_wording: __sdk::__query_builder::Col<ContractAuthority, String>,
-    pub accepted_at_minute: __sdk::__query_builder::Col<ContractAuthority, Option<u64>>,
-    pub paid_at_minute: __sdk::__query_builder::Col<ContractAuthority, Option<u64>>,
+    pub accepted_at_minute: __sdk::__query_builder::Col<ContractAuthority, Option<StrategicMinute>>,
+    pub paid_at_minute: __sdk::__query_builder::Col<ContractAuthority, Option<StrategicMinute>>,
 }
 
 impl __sdk::__query_builder::HasCols for ContractAuthority {

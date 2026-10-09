@@ -1,6 +1,6 @@
 //! Shared deterministic surgery rules used by reducers and server rendering.
 
-use crate::strategic_time::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]

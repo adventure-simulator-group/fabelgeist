@@ -11,7 +11,7 @@ use bevy::{
 use bevy_eidolon::prelude::InstanceMaterialData;
 use serde::Serialize;
 
-use super::{VIEW_HEIGHT, VIEW_WIDTH, capture_state::SceneCaptureState};
+use super::{capture_resolution, capture_state::SceneCaptureState};
 use crate::presentation::ground_scatter::instanced_grass::GrassTriangleCount;
 use crate::presentation::{
     GroundScatterLayer, PresentedBuildingMesh, TacticalGameplayCamera, TerrainDetailPatch,
@@ -156,7 +156,7 @@ fn configure_wireframe_entities(commands: &mut Commands, meshes: &mut WireframeM
             Some((Color::srgb(0.08, 0.95, 1.0), 1.25))
         } else {
             vista.map(|lod| {
-                let color = match lod.0 {
+                let color = match lod.0.index() {
                     0 => Color::srgb(0.18, 1.0, 0.35),
                     1 => Color::srgb(1.0, 0.36, 0.82),
                     _ => Color::srgb(1.0, 0.25, 0.12),
@@ -253,7 +253,7 @@ fn terrain_wireframe_report(
             (
                 format!("vista LOD{}", lod.0),
                 vista_spacing.get(&lod.0).copied().unwrap_or_default(),
-                match lod.0 {
+                match lod.0.index() {
                     0 => "green",
                     1 => "magenta",
                     _ => "red",
@@ -276,7 +276,7 @@ fn terrain_wireframe_report(
         pipeline: "tactical_terrain_wireframe_v1",
         fixture: capture.fixture.clone(),
         screenshot: "terrain-wireframe.png",
-        resolution: [VIEW_WIDTH, VIEW_HEIGHT],
+        resolution: capture_resolution::physical_pixels(&capture.profile).to_array(),
         camera_translation: camera.1.translation.to_array(),
         camera_target: capture.ground_eye_target.to_array(),
         vertical_fov_degrees: 80.0,

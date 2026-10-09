@@ -3,16 +3,20 @@ use super::*;
 
 const SITE_HALF_WIDTH_METRES: f32 = CITY_RADIUS_X_METRES;
 const EXTENSION_START_METRES: f32 = 300.0;
-const EXTENSION_BLOCK_METRES: f32 = 75.0;
-const OLD_BLOCK_MIN_METRES: f32 = 70.0;
-const OLD_BLOCK_VARIATION_METRES: f32 = 55.0;
-const MARKET_LENGTH_METRES: f32 = 150.0;
+const EXTENSION_BLOCK_METRES: f32 = 96.0;
+const OLD_BLOCK_MIN_METRES: f32 = 96.0;
+const OLD_BLOCK_VARIATION_METRES: f32 = 48.0;
+const MARKET_LENGTH_METRES: f32 = 112.0;
 const JUNCTION_SPACING_METRES: f32 = 2.0;
-const STRIP_DEPTH_METRES: f32 = 96.0;
+const STRIP_DEPTH_METRES: f32 = 56.0;
 const OLD_SEAM_OFFSET_METRES: f32 = 18.0;
-const OLD_SEAM_PHASE: f32 = 1.7;
+const OLD_SEAM_PHASE: f32 = 0.45;
 
-pub(super) fn build(site: &CitySite, seed: u64, extent: DevelopmentExtent) -> StreetGraph {
+pub(super) fn build(
+    site: &CitySite,
+    seed: fabelgeist_determinism::Seed,
+    extent: DevelopmentExtent,
+) -> StreetGraph {
     let strip_count = extent.strip_count;
     let market_strip = extent.market_strip();
     let cuts = (0..strip_count)
@@ -137,7 +141,12 @@ fn point(site: &CitySite, seam: usize, x: f32, market_strip: usize) -> Vec2 {
     Vec2::new(x, old + (regular - old) * extension + site.route_height(x))
 }
 
-fn strip_cuts(site: &CitySite, seed: u64, strip: usize, market_strip: usize) -> Vec<f32> {
+fn strip_cuts(
+    site: &CitySite,
+    seed: fabelgeist_determinism::Seed,
+    strip: usize,
+    market_strip: usize,
+) -> Vec<f32> {
     let mut anchors = vec![
         -SITE_HALF_WIDTH_METRES,
         0.0,
@@ -160,13 +169,16 @@ fn strip_cuts(site: &CitySite, seed: u64, strip: usize, market_strip: usize) -> 
         if strip == market_strip && left == 0.0 && right == MARKET_LENGTH_METRES {
             continue;
         }
-        let sample =
-            mix64(seed ^ STREET_GEOMETRY_DOMAIN ^ strip as u64 ^ u64::from(left.to_bits()));
+        let sample = StreamId::new("city.street-span")
+            .seed(seed, &[strip as u64, u64::from(left.to_bits())]);
         let length = if left >= EXTENSION_START_METRES {
             EXTENSION_BLOCK_METRES
         } else {
             OLD_BLOCK_MIN_METRES
-                + (sample as u16 as f32 / u16::MAX as f32) * OLD_BLOCK_VARIATION_METRES
+                + StreamId::new("city.block-length")
+                    .rng(sample, &[])
+                    .inclusive_unit_f32()
+                    * OLD_BLOCK_VARIATION_METRES
         };
         let count = ((right - left) / length).round().max(1.0) as usize;
         for index in 1..count {
@@ -174,7 +186,11 @@ fn strip_cuts(site: &CitySite, seed: u64, strip: usize, market_strip: usize) -> 
             let irregular = if left >= EXTENSION_START_METRES {
                 0.0
             } else {
-                signed_sample(mix64(sample ^ index as u64)) * 0.18 / count as f32
+                StreamId::new("city.street-jitter")
+                    .rng(sample, &[index as u64])
+                    .range_f32(-1.0, 1.0)
+                    * 0.18
+                    / count as f32
             };
             let distance = (right - left) * (fraction + irregular);
             let distance = if left >= EXTENSION_START_METRES {

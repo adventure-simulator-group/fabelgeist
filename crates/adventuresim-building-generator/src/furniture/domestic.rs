@@ -11,8 +11,11 @@ mod tables;
 mod tests;
 mod washing;
 
-pub(super) fn assemble(builder: &mut Builder, key: FurnitureKey) {
-    let size = key.interior_spec().unwrap().size_metres;
+pub(super) fn assemble(
+    builder: &mut Builder,
+    key: FurnitureKey,
+) -> Result<(), super::FurnitureRecipeError> {
+    let size = key.interior_spec()?.size_metres.metres();
     match key.kind {
         FurnitureKind::DiningTable => tables::trestle(builder, size),
         FurnitureKind::Bench
@@ -31,8 +34,9 @@ pub(super) fn assemble(builder: &mut Builder, key: FurnitureKey) {
         FurnitureKind::Altar => tables::altar(builder, size),
         FurnitureKind::BathTub => washing::tub(builder, size),
         FurnitureKind::WashStand => washing::stand(builder, size),
-        _ => unreachable!("non-domestic furniture routed to domestic assembler"),
+        _ => return Err(super::FurnitureRecipeError::MissingRecipe { key }),
     }
+    Ok(())
 }
 
 /// Four standards remain inset within the envelope; their feet define real ground contacts.

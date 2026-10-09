@@ -4,14 +4,16 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct SettlementOutbreak {
     pub id: String,
     pub settlement_id: String,
     pub disease_id: String,
-    pub start_minute: u64,
-    pub end_minute: u64,
+    pub start_minute: StrategicMinute,
+    pub end_minute: StrategicMinute,
     pub intensity: f32,
 }
 
@@ -26,8 +28,8 @@ pub struct SettlementOutbreakCols {
     pub id: __sdk::__query_builder::Col<SettlementOutbreak, String>,
     pub settlement_id: __sdk::__query_builder::Col<SettlementOutbreak, String>,
     pub disease_id: __sdk::__query_builder::Col<SettlementOutbreak, String>,
-    pub start_minute: __sdk::__query_builder::Col<SettlementOutbreak, u64>,
-    pub end_minute: __sdk::__query_builder::Col<SettlementOutbreak, u64>,
+    pub start_minute: __sdk::__query_builder::Col<SettlementOutbreak, StrategicMinute>,
+    pub end_minute: __sdk::__query_builder::Col<SettlementOutbreak, StrategicMinute>,
     pub intensity: __sdk::__query_builder::Col<SettlementOutbreak, f32>,
 }
 

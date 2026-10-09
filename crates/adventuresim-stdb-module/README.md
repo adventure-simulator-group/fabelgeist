@@ -15,6 +15,8 @@ health, per-tick damage, or other live combat state. Those values exist only in
 the headless tactical server.
 
 The schema and reducers in `src/` are authoritative for this boundary.
+[Semantic authorities and retained projections](AUTHORITIES.md) records the
+owner, lifetime, refresh path, and invariant coverage of reviewed denormalization.
 
 ## Content and authority
 
@@ -30,7 +32,7 @@ player-identity-to-character ownership model.
 
 ## Tactical completion
 
-Mission requests bind a party, its expected living member count, a scene, a
+Mission requests bind a party, its captured living member IDs, a scene, a
 one-use tactical-server claim, and private strategic mission authority. The
 registered tactical child keeps live
 simulation state in memory and calls `end_tactical_server` with its terminal

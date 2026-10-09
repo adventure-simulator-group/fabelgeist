@@ -188,25 +188,18 @@ impl UrbanGroundSurfaces {
         streets: &[CityStreetPatch],
         yards: &[CityYardPatch],
         buildings: &[GeneratedBuilding],
-    ) -> Self {
+    ) -> Result<Self, adventuresim_building_generator::spatial_geometry::GeometryError> {
         let buildings = buildings
             .iter()
-            .map(|building| CityPlotBounds {
-                centre_metres: building.placement.centre_metres,
-                dimensions_metres: building.collision.bounds.plan_half_extents() * 2.0,
-                orientation: building.placement.orientation,
-            })
-            .collect::<Vec<_>>();
-        let lookup = OnceLock::new();
-        lookup
-            .set(UrbanGroundLookup::new(streets, yards, &buildings))
-            .expect("new urban ground lookup is empty");
-        Self {
+            .map(|building| CityPlotBounds::new(crate::scene_coordinates::ScenePlanPoint::try_from(building.placement.centre_metres.metres())?,adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(building.collision.bounds.plan_half_extents()?.metres() * 2.0)?,building.placement.orientation))
+            .collect::<Result<Vec<_>, adventuresim_building_generator::spatial_geometry::GeometryError>>()?;
+        let lookup = OnceLock::from(UrbanGroundLookup::new(streets, yards, &buildings));
+        Ok(Self {
             streets: streets.to_vec(),
             yards: yards.to_vec(),
             buildings,
             lookup,
-        }
+        })
     }
 
     pub fn surface_at(&self, position: Vec2) -> Option<GroundSurface> {
@@ -334,7 +327,7 @@ mod tests {
 
     #[test]
     fn subcell_garden_ownership_survives_transport_without_clearing_neighbouring_grass() {
-        let terrain = SceneTerrain::new(4, 4, 2.0, |_| 0.0);
+        let terrain = SceneTerrain::new(4, 4, 2.0, |_| 0.0).unwrap();
         let mut ground = SceneGround::uniform_for_terrain(
             &terrain,
             GroundSurface {

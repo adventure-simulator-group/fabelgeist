@@ -113,12 +113,12 @@ fn validate_destination(
     }
     Ok(())
 }
-fn official_minute(ctx: &ReducerContext) -> u64 {
+fn official_minute(ctx: &ReducerContext) -> StrategicMinute {
     ctx.db
         .world_clock()
         .id()
         .find(0)
-        .map_or(0, |clock| clock.official_minutes)
+        .map_or(StrategicMinute::ZERO, |clock| clock.official_minutes)
 }
 fn require_actor(ctx: &ReducerContext, actor_id: u64) -> Result<crate::Character, String> {
     require_strategic_gateway(ctx)?;
@@ -958,7 +958,7 @@ fn record_generated_bestiary_report(
     character_id: u64,
     generated: &adventuresim_core::quest_generation::GeneratedCase,
     witness: &adventuresim_core::quest_generation::WitnessBinding,
-    received_at: u64,
+    received_at: StrategicMinute,
 ) -> Result<(), String> {
     let id = inv::compound_id(&[
         "bestiary-report",

@@ -1,3 +1,4 @@
+import { installStrategicScene } from "./strategic-scene.js?v=generated-assets-1";
 const surface = document.querySelector("#strategic-render-surface");
 const canvas = surface?.querySelector("#game-canvas");
 let runtimePromise;
@@ -12,11 +13,12 @@ const command = (payload) => runtimePromise
   .catch((error) => console.error("strategic renderer command failed", error));
 
 const hide = () => {
+  const hadForge = Boolean(host);
   host?.removeAttribute("data-renderer-ready");
   host = undefined;
   currentForgeDesign = undefined;
   orbitingForge = false;
-  command({ type: "hide-strategic-scene" });
+  if (hadForge) command({ type: "hide-forge-preview" });
 };
 
 const mount = () => {
@@ -163,22 +165,33 @@ const forgeHostContains = (event) => {
 if (surface && canvas) {
   runtimePromise = import("/tactical/wasm/adventuresim-tactical-client.js")
     .then(async (runtime) => {
-      await runtime.default();
+      const response = await fetch("/tactical/wasm/adventuresim-tactical-client_bg.wasm");
+      if (!response.ok) throw new Error(`tactical runtime: HTTP ${response.status}`);
+      // The executable identifies generator source, dependencies and format.
+      const [generationModule, binaryDigest] = await Promise.all([
+        WebAssembly.compileStreaming(response.clone()),
+        response.arrayBuffer().then(bytes => crypto.subtle.digest("SHA-256", bytes)),
+      ]);
+      const generationRevision = Array.from(new Uint8Array(binaryDigest),
+        byte => byte.toString(16).padStart(2, "0")).join("");
+      await runtime.default({ module_or_path: generationModule });
       const [graphics, audio] = await Promise.all([
         fetch("/tactical/assets/config/tactical-graphics.yaml"),
         fetch("/tactical/assets/config/tactical-audio.yaml"),
       ]);
       if (!graphics.ok) throw new Error(`tactical graphics config: HTTP ${graphics.status}`);
       if (!audio.ok) throw new Error(`tactical audio config: HTTP ${audio.status}`);
-      runtime.wasm_boot(await graphics.text(), await audio.text());
-      return runtime;
+      const generationGraphicsConfig = await graphics.text();
+      runtime.wasm_boot(generationGraphicsConfig, await audio.text());
+      return { ...runtime, generationModule, generationRevision, generationGraphicsConfig };
     })
     .catch((error) => {
-      console.warn("persistent Bevy renderer unavailable; retaining HTML fallback", error);
+      console.error("persistent Bevy renderer unavailable", error);
       throw error;
     });
   runtimePromise.catch(() => hide());
   mount();
+  installStrategicScene(command, runtimePromise);
   document.addEventListener("strategic-page-mounted", mount);
   document.addEventListener("strategic-page-unmounting", hide);
   document.addEventListener("strategic-live-regions-refreshed", (event) => {
@@ -188,6 +201,7 @@ if (surface && canvas) {
   document.addEventListener("input", (event) => {
     const root = event.target.closest?.("[data-forge-customization]");
     if (!root || !event.target.matches("[data-forge-path]")) return;
+    document.dispatchEvent(new Event("strategic-forge-selected"));
     const design = forgeDesigns.get(root);
     const value = event.target.type === "range" ? Number(event.target.value) : event.target.value;
     setPath(design, JSON.parse(event.target.dataset.forgePath), value);
@@ -196,7 +210,10 @@ if (surface && canvas) {
   });
   document.addEventListener("change", (event) => {
     const root = event.target.closest?.("[data-forge-customization]");
-    if (root && event.target.matches("[data-forge-catalog]")) loadForgeChassis(root, event.target.value);
+    if (root && event.target.matches("[data-forge-catalog]")) {
+      document.dispatchEvent(new Event("strategic-forge-selected"));
+      loadForgeChassis(root, event.target.value);
+    }
   });
   document.addEventListener("pointerdown", (event) => {
     if (event.button !== 1 || !forgeHostContains(event)) return;
@@ -227,6 +244,7 @@ if (surface && canvas) {
     if (!link) return;
     event.preventDefault();
     document.body.setAttribute("data-tactical-active", "");
+    document.dispatchEvent(new Event("strategic-tactical-started"));
     command({
       type: "enter-tactical",
       server_addr: link.dataset.serverAddr,
@@ -238,5 +256,6 @@ if (surface && canvas) {
     document.body.removeAttribute("data-tactical-active");
     command({ type: "exit-tactical" });
     mount();
+    document.dispatchEvent(new Event("strategic-tactical-ended"));
   });
 }

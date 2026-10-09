@@ -52,6 +52,8 @@ enum CaptureProfile {
     InteriorReview,
     /// Facade, street, neighbourhood, and whole-settlement city review.
     CityReview,
+    /// Fixed geographic cameras and matched production building LODs.
+    TerrainGrounding,
     /// Outdoor furniture, market access and street surface review.
     FurnitureReview,
     /// Compact and broad interior furniture models rendered as catalog specimens.
@@ -142,6 +144,10 @@ struct Args {
     /// Capture only these named views (repeatable). Unknown or unavailable views fail closed.
     #[arg(long = "view")]
     views: Vec<String>,
+
+    /// Frozen world-space city cameras; required for terrain-grounding captures.
+    #[arg(long)]
+    city_cameras: Option<PathBuf>,
 }
 
 #[cfg(not(target_family = "wasm"))]
@@ -178,6 +184,7 @@ fn main() {
             CaptureProfile::LandformReview => tactical_scene_viewer::LANDFORM_REVIEW_PROFILE,
             CaptureProfile::InteriorReview => "interior-review",
             CaptureProfile::CityReview => "city-review",
+            CaptureProfile::TerrainGrounding => tactical_scene_viewer::fixed_city_cameras::PROFILE,
             CaptureProfile::FurnitureReview => "furniture-review",
             CaptureProfile::InteriorFurnitureCatalog => "interior-furniture-catalog",
             CaptureProfile::FurnishedRoomReview => "furnished-room-review",
@@ -194,6 +201,7 @@ fn main() {
             CaptureProfile::BeechLeafMotion => "beech-leaf-motion",
         },
         args.views,
+        args.city_cameras,
     );
 }
 

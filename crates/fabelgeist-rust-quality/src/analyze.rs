@@ -7,6 +7,7 @@ use std::{
 use walkdir::WalkDir;
 
 use crate::{
+    calendar_flow,
     config::{Baseline, Config, Debt, Exception, FindingBaseline},
     manifests,
     scan::{Finding, FunctionSize, LiteralOccurrence, path_matches, scan},
@@ -33,6 +34,7 @@ pub fn check_repository(
     let mut functions = Vec::new();
     let mut findings = Vec::new();
     let mut literals = Vec::new();
+    let mut calendar_diagnostics = Vec::new();
     let mut seen_items: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
 
     for entry in WalkDir::new(root.join("crates")) {
@@ -50,6 +52,7 @@ pub fn check_repository(
             .map_err(|error| format!("cannot read {relative}: {error}"))?;
         let syntax = syn::parse_file(&source)
             .map_err(|error| format!("cannot parse {relative}: {error}"))?;
+        calendar_diagnostics.extend(calendar_flow::check_file(&relative, &syntax));
         let result = scan(&relative, &source, &syntax, config);
         files.insert(relative.clone(), result.production_lines);
         functions.extend(result.functions);
@@ -60,6 +63,7 @@ pub fn check_repository(
 
     let grouped_findings = group_findings(&findings);
     let mut diagnostics = manifests::check(root)?;
+    diagnostics.extend(calendar_diagnostics);
     validate_scopes(config, &files, &seen_items, &mut diagnostics);
     validate_findings(config, baseline, &grouped_findings, &mut diagnostics);
     validate_debt(config, baseline, &files, &functions, &mut diagnostics);

@@ -7,6 +7,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 use super::case_site_id_type::CaseSiteId;
 use super::hostile_surrender_mode_type::HostileSurrenderMode;
 use super::hostile_surrender_outcome_type::HostileSurrenderOutcome;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -23,7 +24,7 @@ pub struct HostileSurrenderReceipt {
     pub player_accepted_offer: Option<bool>,
     pub outcome: HostileSurrenderOutcome,
     pub response: String,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for HostileSurrenderReceipt {
@@ -46,7 +47,7 @@ pub struct HostileSurrenderReceiptCols {
     pub player_accepted_offer: __sdk::__query_builder::Col<HostileSurrenderReceipt, Option<bool>>,
     pub outcome: __sdk::__query_builder::Col<HostileSurrenderReceipt, HostileSurrenderOutcome>,
     pub response: __sdk::__query_builder::Col<HostileSurrenderReceipt, String>,
-    pub occurred_at_minute: __sdk::__query_builder::Col<HostileSurrenderReceipt, u64>,
+    pub occurred_at_minute: __sdk::__query_builder::Col<HostileSurrenderReceipt, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for HostileSurrenderReceipt {

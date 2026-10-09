@@ -12,6 +12,7 @@ server = ["aeronet_replicon/server", "aeronet_websocket/server"]
 client = ["aeronet_replicon/client", "aeronet_websocket/client"]
 
 [dependencies]
+adventuresim-core.workspace = true
 adventuresim-tactical-core.workspace = true
 aeronet.workspace = true
 aeronet_replicon.workspace = true
@@ -26,4 +27,5 @@ serde_json.workspace = true
 workspace = true
 
 [dev-dependencies]
+fabelgeist-determinism.workspace = true
 adventuresim-building-generator.workspace = true

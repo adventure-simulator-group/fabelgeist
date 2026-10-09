@@ -1,21 +1,23 @@
 use super::*;
-use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
+use fabelgeist_determinism::Seed;
+use fabelgeist_determinism::StreamId;
 
-const FNV1A_OFFSET_BASIS: u64 = 0xcbf2_9ce4_8422_2325;
-const FNV1A_PRIME: u64 = 0x100_0000_01b3;
-
-pub(super) fn obstacle_seed(position: Vec3) -> u64 {
-    splitmix64(u64::from(position.x.to_bits()) << 32 ^ u64::from(position.z.to_bits()))
+pub(super) fn obstacle_seed(position: Vec3) -> Seed {
+    StreamId::new("visual.obstacle.position").seed(
+        0.into(),
+        &[
+            u64::from(position.x.to_bits()),
+            u64::from(position.z.to_bits()),
+        ],
+    )
 }
 
-pub(super) fn stable_text_seed(value: &str) -> u64 {
-    value.bytes().fold(FNV1A_OFFSET_BASIS, |hash, byte| {
-        (hash ^ u64::from(byte)).wrapping_mul(FNV1A_PRIME)
-    })
-}
-
-pub(super) fn unit_hash(value: u64) -> f32 {
-    inclusive_unit_f32(value)
+pub(super) fn stable_text_seed(value: &str) -> Seed {
+    fabelgeist_determinism::Seed::derive(
+        value.as_bytes(),
+        StreamId::new("visual.text-identity"),
+        &[],
+    )
 }
 
 pub(super) fn bps(value: u16) -> f32 {

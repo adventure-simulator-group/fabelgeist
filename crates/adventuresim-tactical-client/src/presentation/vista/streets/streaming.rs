@@ -1,7 +1,10 @@
 //! Bounded street-detail residency for a freely explored city showcase.
 use super::*;
 use std::collections::BTreeMap;
+use std::sync::{Arc, Mutex};
 use traffic::{TrafficMask, TrafficNetwork, TrafficTile};
+
+pub(super) type RetainedTrafficMasks = Arc<Mutex<BTreeMap<TrafficTile, TrafficMask>>>;
 
 const DETAIL_RADIUS_METRES: f32 = 110.0;
 const NETWORK_MARGIN_METRES: f32 = 96.0;
@@ -16,27 +19,31 @@ pub(crate) struct StreamedTrafficTile(pub(super) TrafficTile);
 pub(crate) struct CityTrafficResidency {
     streets: Vec<CityStreetPatch>,
     neutral: TrafficMask,
-    masks: BTreeMap<TrafficTile, TrafficMask>,
+    masks: RetainedTrafficMasks,
 }
 
 impl CityTrafficResidency {
-    pub(super) fn new(streets: Vec<CityStreetPatch>, neutral: TrafficMask) -> Self {
+    pub(super) fn new(
+        streets: Vec<CityStreetPatch>,
+        neutral: TrafficMask,
+        masks: RetainedTrafficMasks,
+    ) -> Self {
         Self {
             streets,
             neutral,
-            masks: BTreeMap::new(),
+            masks,
         }
     }
 }
 
 pub(crate) fn update(
-    residency: Option<ResMut<CityTrafficResidency>>,
+    residency: Option<Res<CityTrafficResidency>>,
     cameras: Query<&GlobalTransform, With<TacticalGameplayCamera>>,
     tiles: Query<(&StreamedTrafficTile, &MeshMaterial3d<CityGroundMaterial>)>,
     mut materials: ResMut<Assets<CityGroundMaterial>>,
     mut images: ResMut<Assets<Image>>,
 ) {
-    let Some(mut residency) = residency else {
+    let Some(residency) = residency else {
         return;
     };
     let Some(camera) = cameras.iter().next() else {
@@ -53,11 +60,12 @@ pub(crate) fn update(
         .collect::<Vec<_>>();
     wanted.sort();
     wanted.dedup();
-    residency.masks.retain(|tile, _| wanted.contains(tile));
+    let mut masks = residency.masks.lock().expect("city traffic masks");
+    masks.retain(|tile, _| wanted.contains(tile));
     // At most one tile per frame, with no whole-city wheel-stroke allocation.
     if let Some(tile) = wanted
         .into_iter()
-        .filter(|tile| !residency.masks.contains_key(tile))
+        .filter(|tile| !masks.contains_key(tile))
         .min_by(|a, b| {
             a.corners()[0]
                 .distance_squared(position.xz())
@@ -66,12 +74,10 @@ pub(crate) fn update(
     {
         let streets = nearby_streets(&residency.streets, tile);
         let network = TrafficNetwork::new(&streets);
-        residency
-            .masks
-            .insert(tile, TrafficMask::bake(&network, tile, &mut images));
+        masks.insert(tile, TrafficMask::bake(&network, tile, &mut images));
     }
     for (tile, handle) in &tiles {
-        let mask = residency.masks.get(&tile.0).unwrap_or(&residency.neutral);
+        let mask = masks.get(&tile.0).unwrap_or(&residency.neutral);
         if materials
             .get(&handle.0)
             .is_some_and(|material| material.extension.traffic_mask != mask.image)

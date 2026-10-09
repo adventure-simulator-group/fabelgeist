@@ -1,9 +1,11 @@
 //! Deterministic urban plots around a surveyed street graph and staggered old-quarter lanes.
 
+const RNG_CITY_PASSAGE_SIDE: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("city.passage-side");
 use std::collections::BTreeSet;
 
 use bevy::math::Vec2;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::StreamId;
 
 use crate::scene_input::BuildingOrientation;
 use adventuresim_world_schema::{
@@ -18,14 +20,19 @@ mod parishes;
 pub use parishes::{CITY_PARISH_PRECINCT_RADIUS_METRES, CityParish, ParishResidenceAllocation};
 mod compound;
 mod graph;
+pub mod grounding;
 pub use compiled::{
-    ChurchSitingIssue, CityCompileError, CitySceneLayout, CompiledCityLayout, CompoundIssue,
+    ChurchSitingIssue, CityBusinessSite, CityCompileError, CityGroundingError,
+    CityGroundingProjection, CityGroundingProjectionError, CityRecipePalette, CitySceneLayout,
+    CitySingleProperty, CitySupportError, CompiledCityLayout, CompoundGradingPolicy, CompoundIssue,
+    GardenClearanceError, GroundedCitySceneLayout, ProjectionBoundary, ProjectionOwnerContext,
+    SelectedCityGrounding, SinglePropertyGradingPolicy, StreetApronDimensions,
 };
 pub(crate) use compiled::{validate_scene_compound, validate_scene_gardens};
 pub use compound::{
-    CityAccessSegment, CityBoundary, CityBoundaryMaterial, CityBoundaryMember, CityBoundarySegment,
-    CityCompound, CityGate, CityPlotBounds, CityPropertyId, MAX_CITY_BUILDING_INSTANCES,
-    PropertySide,
+    BoundaryGeometryError, CityAccessSegment, CityBoundary, CityBoundaryMaterial,
+    CityBoundaryMember, CityBoundaryPose, CityBoundarySegment, CityCompound, CityGate,
+    CityPlotBounds, CityPropertyId, MAX_CITY_BUILDING_INSTANCES, PropertySide,
 };
 pub mod gardens;
 pub use gardens::{
@@ -34,10 +41,11 @@ pub use gardens::{
 mod houses;
 mod subdivision;
 use graph::{BlockId, CityBlock, StreetClass, StreetGraph};
+mod packing;
 mod plots;
 #[cfg(test)]
 use plots::lots_overlap;
-use plots::remove_overlapping_candidates;
+mod residences;
 mod services;
 mod site;
 pub use site::CitySite;
@@ -45,30 +53,26 @@ use site::DevelopmentExtent;
 mod surfaces;
 
 pub use houses::CityHouseClass;
+pub use packing::{CityPackingIssue, FrontageInterval};
 pub use surfaces::{
     CityStreetPatch, CityStreetSurface, CityYardPatch, CityYardSurface, MAX_CITY_STREET_PATCHES,
     MAX_CITY_YARD_PATCHES,
 };
 use surfaces::{city_street_patches, city_yard_patches};
 
-const NOMINAL_BLOCK_METRES: f32 = 72.0;
 const CITY_RADIUS_X_METRES: f32 = 1_300.0;
 const CITY_RADIUS_Y_METRES: f32 = 1_260.0;
-const ORDINARY_STREET_HALF_WIDTH_METRES: f32 = 3.5;
-const SECONDARY_STREET_HALF_WIDTH_METRES: f32 = 4.5;
-const PRIMARY_STREET_HALF_WIDTH_METRES: f32 = 6.0;
-const FRONTAGE_CORNER_CLEARANCE_METRES: f32 = 7.0;
+const ORDINARY_STREET_HALF_WIDTH_METRES: f32 = 2.0;
+const SECONDARY_STREET_HALF_WIDTH_METRES: f32 = 3.0;
+const PRIMARY_STREET_HALF_WIDTH_METRES: f32 = 4.0;
+const FRONTAGE_CORNER_CLEARANCE_METRES: f32 = 4.0;
 const PARTY_WALL_CLEARANCE_METRES: f32 = 0.12;
-const REAR_COURT_PRIORITY_PENALTY: u32 = 7;
 pub(crate) const SPATIAL_BUCKET_METRES: f32 = 32.0;
-const STREET_GEOMETRY_DOMAIN: u64 = 0x7374_7265_6574_6765;
-const HOUSE_CLASS_DOMAIN: u64 = 0x686f_7573_655f_636c;
-const PASSAGE_SIDE_DOMAIN: u64 = 0x7061_7373_6167_6573;
-const DEVELOPMENT_DOMAIN: u64 = 0x6465_7665_6c6f_706d;
 pub const MAX_CITY_LOTS: usize = 16_384;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct GeneratedCityLayout {
+    pub prosperity: adventuresim_world_schema::ProsperityTier,
     pub lots: Vec<CityBuildingLot>,
     pub streets: Vec<CityStreetPatch>,
     pub yards: Vec<CityYardPatch>,
@@ -76,6 +80,7 @@ pub struct GeneratedCityLayout {
     pub demand_shortfalls: Vec<DemandShortfall>,
     pub parishes: Vec<ParishProgramme>,
     pub unhoused_population: u32,
+    packing: Result<packing::CityPackingContext, CityCompileError>,
 }
 
 /// One rectangular building lot aligned to one locally straight street frontage.
@@ -102,7 +107,7 @@ struct CandidateLot {
 impl CitySite {
     pub fn generate(
         &self,
-        seed: u64,
+        seed: fabelgeist_determinism::Seed,
         resident_population: u32,
         economy: &SettlementEconomyProfile,
     ) -> GeneratedCityLayout {
@@ -130,6 +135,7 @@ impl CitySite {
         );
         if !demand.shortfalls.is_empty() {
             return GeneratedCityLayout {
+                prosperity: economy.prosperity_tier,
                 lots: Vec::new(),
                 streets: Vec::new(),
                 yards: Vec::new(),
@@ -137,6 +143,7 @@ impl CitySite {
                 demand_shortfalls: demand.shortfalls,
                 parishes: demand.parishes,
                 unhoused_population: resident_population,
+                packing: Ok(packing::CityPackingContext::default()),
             };
         }
 
@@ -147,43 +154,28 @@ impl CitySite {
             &candidates,
             &demand.buildings,
         );
-        let mut candidates =
-            remove_overlapping_candidates(service_lots.into_iter().chain(candidates).collect());
+        let mut candidates = residences::pack(seed, &graph.blocks, extent, service_lots);
+        let development_order = graph.development_order();
         candidates.sort_by_key(|candidate| {
-            let radial_band = (candidate.lot.centre_metres.length() / NOMINAL_BLOCK_METRES) as u32
-                + u32::from(candidate.rear_court) * REAR_COURT_PRIORITY_PENALTY;
             (
                 candidate.lot.service.is_none(),
-                radial_band,
-                candidate.block_key,
+                candidate.rear_court,
+                development_order[&candidate.block_key],
                 candidate.selection_key,
             )
         });
 
-        let target_population = resident_population;
-        let mut represented_population = 0_u32;
-        let mut selected = Vec::new();
-        for candidate in candidates.into_iter().take(MAX_CITY_LOTS) {
-            if candidate.lot.service.is_none() && represented_population >= target_population {
-                break;
-            }
-            let mut lot = candidate.lot;
-            lot.id = selected.len() as u64 + 1;
-            represented_population =
-                represented_population.saturating_add(if lot.service.is_none() {
-                    lot.house_class.resident_capacity()
-                } else {
-                    0
-                });
-            selected.push(CandidateLot { lot, ..candidate });
-        }
+        let roster = residences::SelectedRoster::from_candidates(candidates, resident_population);
+        let selected = roster.members;
         let developed_blocks = selected
             .iter()
             .map(|candidate| candidate.block_key)
             .collect::<BTreeSet<_>>();
+        let packing = packing::CityPackingContext::from_selected(&selected, &graph.blocks);
         let yards = city_yard_patches(&selected);
         let streets = city_street_patches(&graph, &developed_blocks);
         GeneratedCityLayout {
+            prosperity: economy.prosperity_tier,
             lots: selected
                 .into_iter()
                 .map(|candidate| candidate.lot)
@@ -193,7 +185,8 @@ impl CitySite {
             unplaced_services,
             demand_shortfalls: demand.shortfalls,
             parishes: demand.parishes,
-            unhoused_population: target_population.saturating_sub(represented_population),
+            unhoused_population: roster.unhoused_population,
+            packing,
         }
     }
 }
@@ -203,13 +196,15 @@ fn block_is_inside_city(block: CityBlock, extent: DevelopmentExtent) -> bool {
     (centre.x / CITY_RADIUS_X_METRES).powi(2) + (centre.y / extent.radius_y_metres).powi(2) <= 1.0
 }
 
-fn block_lots(seed: u64, block: CityBlock) -> Vec<CandidateLot> {
+fn block_lots(seed: fabelgeist_determinism::Seed, block: CityBlock) -> Vec<CandidateLot> {
     let mut lots = Vec::new();
     for edge_index in 0..4 {
         append_frontage(
             &mut lots,
             seed,
-            block.key().0 ^ (edge_index as u64).rotate_left(48),
+            StreamId::new("city.frontage-identity")
+                .seed(block.key().0.into(), &[edge_index as u64])
+                .to_u64(),
             block.key(),
             block.corners[edge_index],
             block.corners[(edge_index + 1) % 4],
@@ -222,7 +217,7 @@ fn block_lots(seed: u64, block: CityBlock) -> Vec<CandidateLot> {
 
 fn append_frontage(
     lots: &mut Vec<CandidateLot>,
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     run_key: u64,
     block_key: BlockId,
     start: Vec2,
@@ -236,7 +231,9 @@ fn append_frontage(
     let mut cursor = FRONTAGE_CORNER_CLEARANCE_METRES;
     let mut index = 0_u64;
     loop {
-        let lot_key = run_key ^ index.rotate_left(19);
+        let lot_key = StreamId::new("city.lot-identity")
+            .seed(run_key.into(), &[index])
+            .to_u64();
         let house_class = house_class(seed, lot_key, false);
         let compound_margin = if house_class == CityHouseClass::MerchantHouse {
             compound::COMPOUND_EDGE_MARGIN_METRES
@@ -268,9 +265,13 @@ fn append_frontage(
     }
 }
 
-fn passage_side(seed: u64, lot_key: u64, house_class: CityHouseClass) -> PropertySide {
+fn passage_side(
+    seed: fabelgeist_determinism::Seed,
+    lot_key: u64,
+    house_class: CityHouseClass,
+) -> PropertySide {
     if house_class == CityHouseClass::MerchantHouse
-        && mix64(seed ^ PASSAGE_SIDE_DOMAIN ^ lot_key).is_multiple_of(2)
+        && RNG_CITY_PASSAGE_SIDE.rng(seed, &[lot_key]).boolean()
     {
         PropertySide::Left
     } else {
@@ -279,7 +280,7 @@ fn passage_side(seed: u64, lot_key: u64, house_class: CityHouseClass) -> Propert
 }
 
 fn candidate(
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     lot_key: u64,
     block_key: BlockId,
     centre_metres: Vec2,
@@ -303,29 +304,31 @@ fn candidate(
         },
         block_key,
         rear_court,
-        selection_key: mix64(seed ^ DEVELOPMENT_DOMAIN ^ lot_key),
+        selection_key: StreamId::new("city.development-priority")
+            .rng(seed, &[lot_key])
+            .next_u64(),
     }
 }
 
-fn house_class(seed: u64, lot_key: u64, rear_court: bool) -> CityHouseClass {
-    let sample = mix64(seed ^ HOUSE_CLASS_DOMAIN ^ lot_key);
+fn house_class(
+    seed: fabelgeist_determinism::Seed,
+    lot_key: u64,
+    rear_court: bool,
+) -> CityHouseClass {
+    let mut random = StreamId::new("city.house-class").rng(seed, &[lot_key]);
     if rear_court {
-        return if sample.is_multiple_of(5) {
+        return if random.index(5) == 0 {
             CityHouseClass::CraftTownHouse
         } else {
             CityHouseClass::Cottage
         };
     }
-    match sample % 16 {
+    match random.index(16) {
         0..=4 => CityHouseClass::Cottage,
         5..=11 => CityHouseClass::CraftTownHouse,
         12..=13 => CityHouseClass::HallHouse,
         _ => CityHouseClass::MerchantHouse,
     }
-}
-
-fn signed_sample(sample: u64) -> f32 {
-    (sample as u32 as f32 / u32::MAX as f32) * 2.0 - 1.0
 }
 
 #[cfg(test)]

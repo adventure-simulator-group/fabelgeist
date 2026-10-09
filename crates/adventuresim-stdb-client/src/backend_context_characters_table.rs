@@ -3,9 +3,9 @@
 
 #![allow(unused, clippy::all)]
 use super::backend_context_character_type::BackendContextCharacter;
-use super::backend_contextual_decision_type::BackendContextualDecision;
 use super::character_context_kind_type::CharacterContextKind;
 use super::character_context_role_type::CharacterContextRole;
+use super::interaction_presentation_decision_type::InteractionPresentationDecision;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `backend_context_characters`.

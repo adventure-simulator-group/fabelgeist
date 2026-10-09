@@ -3,7 +3,9 @@ use super::*;
 #[test]
 fn principal_parish_retains_street_access_and_exact_recipe_across_city_partitions() {
     use adventuresim_building_generator::ServiceBuildingSize;
-    for (seed, population) in [(42, 900), (47_114, 30_000)] {
+    for (seed, population) in [(42, 900), (47_114, 30_000)]
+        .map(|(seed, population)| (fabelgeist_determinism::Seed::from_u64(seed), population))
+    {
         let city = CitySite::central_german_market_town().generate(
             seed,
             population,
@@ -23,7 +25,7 @@ fn principal_parish_retains_street_access_and_exact_recipe_across_city_partition
                 principal.program.service_size,
                 Some(ServiceBuildingSize::Large)
             );
-            let lot = lots.iter().find(|lot| lot.id == principal.id).unwrap();
+            let lot = lots.iter().find(|lot| lot.id == principal.id.0).unwrap();
             assert!(
                 principal
                     .orientation
@@ -39,7 +41,7 @@ fn principal_parish_retains_street_access_and_exact_recipe_across_city_partition
                 .into_iter()
                 .find(|building| building.id == principal.id)
                 .unwrap();
-            assert_eq!(distant.program(), principal.program);
+            assert_eq!(distant.occupied_program(), principal.program);
             assert_eq!(distant.orientation, principal.orientation);
         }
     }
@@ -47,11 +49,22 @@ fn principal_parish_retains_street_access_and_exact_recipe_across_city_partition
 
 #[test]
 fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
-    let city =
-        CitySite::central_german_market_town().generate(42, 900, &super::super::tests::economy());
+    let city = CitySite::central_german_market_town().generate(
+        (42).into(),
+        900,
+        &super::super::tests::economy(),
+    );
     let front_count = city.lots.len();
     let merchant_count = city.lots.iter().filter(|lot| lot.has_rear_range()).count();
-    let compiled = city.compile(42).unwrap();
+    let mut compiled = city.compile((42).into()).unwrap();
+    // Transport independent floor bindings; this test does not grade terrain.
+    for building in &mut compiled.buildings {
+        building.base_elevation_metres =
+            crate::city_layout::grounding::SupportElevation::from_metres(
+                (building.id.0 % 17) as f32 * 0.375 - 3.0,
+            )
+            .unwrap();
+    }
     assert!(merchant_count > 0);
     assert_eq!(compiled.compounds.len(), merchant_count);
     for hinge in [PropertySide::Left, PropertySide::Right] {
@@ -79,7 +92,7 @@ fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
             .unwrap();
         assert_eq!(rear.program.archetype, BuildingArchetype::StorageRange);
         assert_eq!(rear.program.usage, None);
-        let gate = compound.boundary.gate.door(compound.id);
+        let gate = compound.boundary.gate.door(compound.id).unwrap();
         assert!(gate.opening.0 > u64::from(u32::MAX));
     }
     let partition = compiled.clone().partition(None).unwrap();
@@ -92,9 +105,17 @@ fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
             .iter()
             .find(|b| b.id == distant.id)
             .unwrap();
-        assert_eq!(distant.program(), original.program);
+        assert_eq!(distant.occupied_program(), original.program);
+        assert_eq!(TacticalBuildingPlacement::from(distant), *original);
+        assert_eq!(distant.prosperity, compiled.prosperity);
     }
     let partition = compiled.clone().partition(Some(50.0)).unwrap();
+    for building in &partition.playable {
+        assert_eq!(
+            compiled.buildings.iter().find(|b| b.id == building.id),
+            Some(building)
+        );
+    }
     for compound in compiled.compounds {
         let front = partition
             .playable
@@ -123,11 +144,47 @@ fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
 }
 
 #[test]
+fn business_keys_survive_compilation_and_playable_partitioning() {
+    let city = CitySite::central_german_market_town().generate(
+        (42).into(),
+        6_500,
+        &super::super::tests::economy(),
+    );
+    let expected = city
+        .lots
+        .iter()
+        .filter_map(|lot| {
+            lot.service
+                .and_then(BuildingDemand::business_key)
+                .map(|key| (crate::scene_input::SceneBuildingId(lot.id), key))
+        })
+        .collect::<Vec<_>>();
+    let compiled = city.compile((42).into()).unwrap();
+    assert_eq!(
+        compiled
+            .businesses
+            .iter()
+            .map(|site| (site.building_id, site.key))
+            .collect::<Vec<_>>(),
+        expected
+    );
+    for extent in [None, Some(35.0), Some(90.0)] {
+        assert_eq!(
+            compiled.clone().partition(extent).unwrap().businesses,
+            compiled.businesses
+        );
+    }
+}
+
+#[test]
 fn gardens_are_owned_connected_and_preserve_accepted_plants_across_partition() {
     use crate::city_layout::gardens::GardenIssue;
-    let city =
-        CitySite::central_german_market_town().generate(42, 900, &super::super::tests::economy());
-    let compiled = city.compile(42).unwrap();
+    let city = CitySite::central_german_market_town().generate(
+        (42).into(),
+        900,
+        &super::super::tests::economy(),
+    );
+    let compiled = city.compile((42).into()).unwrap();
     assert!(
         !compiled.gardens.is_empty(),
         "fixture needs an accepted owned garden"
@@ -154,24 +211,52 @@ fn gardens_are_owned_connected_and_preserve_accepted_plants_across_partition() {
         assert_eq!(garden.validate_geometry(&compiled.streets), Ok(()));
         assert!(!garden.plants.is_empty());
         let mut escaped = garden.clone();
-        escaped.plants[0].centre_metres += Vec2::splat(100.0);
+        escaped.plants[0].centre_metres = escaped.plants[0]
+            .centre_metres
+            .translated(
+                crate::scene_coordinates::PlanDisplacement::try_from(Vec2::splat(100.0)).unwrap(),
+            )
+            .unwrap();
         assert_eq!(
             escaped.validate_geometry(&compiled.streets),
             Err(GardenIssue::PlantOutsidePlot)
         );
         let mut blocked = garden.clone();
-        blocked.beds[0].centre_metres =
-            (blocked.access[1].start_metres + blocked.access[1].end_metres) * 0.5;
+        blocked.beds[0]
+            .relocate(
+                crate::scene_coordinates::ScenePlanPoint::try_from(
+                    (blocked.access[1].start_metres() + blocked.access[1].end_metres()) * 0.5,
+                )
+                .unwrap(),
+            )
+            .unwrap();
         assert!(blocked.validate_geometry(&compiled.streets).is_err());
         let mut disconnected = garden.clone();
-        disconnected.access[2].start_metres += Vec2::splat(100.0);
-        disconnected.access[2].end_metres += Vec2::splat(100.0);
+        let route = &mut disconnected.access[2];
+        route
+            .update_endpoints(
+                crate::scene_coordinates::ScenePlanPoint::try_from(
+                    route.start_metres() + (Vec2::splat(100.0)),
+                )
+                .unwrap(),
+                route.end(),
+            )
+            .unwrap();
+        route
+            .update_endpoints(
+                route.start(),
+                crate::scene_coordinates::ScenePlanPoint::try_from(
+                    route.end_metres() + (Vec2::splat(100.0)),
+                )
+                .unwrap(),
+            )
+            .unwrap();
         assert_eq!(
             disconnected.validate_geometry(&compiled.streets),
             Err(GardenIssue::DisconnectedTendingLane)
         );
     }
-    for extent in [None, Some(96.0)] {
+    for extent in [None, Some(50.0)] {
         assert_eq!(
             compiled.clone().partition(extent).unwrap().gardens,
             compiled.gardens
@@ -182,8 +267,8 @@ fn gardens_are_owned_connected_and_preserve_accepted_plants_across_partition() {
 #[test]
 fn garden_crossing_playable_edge_promotes_its_owner_without_changing_plants() {
     let mut compiled = CitySite::central_german_market_town()
-        .generate(42, 900, &super::super::tests::economy())
-        .compile(42)
+        .generate((42).into(), 900, &super::super::tests::economy())
+        .compile((42).into())
         .unwrap();
     let (garden, extent) = compiled
         .gardens
@@ -194,6 +279,7 @@ fn garden_crossing_playable_edge_promotes_its_owner_without_changing_plants() {
                 .iter()
                 .find(|b| b.id == g.front_building_id)?
                 .centre_metres
+                .metres()
                 .abs()
                 .max_element();
             let inner = g

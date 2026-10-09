@@ -3,8 +3,12 @@
 //! Resources are intentionally year-round until a strategic season model is
 //! authoritative. Displayed market prices never participate in discovery.
 
+mod sampling;
+use fabelgeist_determinism::Seed;
+use sampling::ForageDraw;
+
+use adventuresim_world_schema::calendar::StrategicMinute;
 use serde::{Deserialize, Serialize};
-use sha2::{Digest, Sha256};
 
 use crate::{
     physical_object::CustodyCharacterId,
@@ -390,7 +394,7 @@ pub fn stealth_dc_millirank(environment: ForageEnvironment, minutes: u64) -> Opt
 /// categories, then over the locally available resources in each category.
 /// Terrain checks contribute at most +50% discovery and +50% yield.
 pub fn resolve(
-    seed: u64,
+    seed: Seed,
     environment: ForageEnvironment,
     source_ids: &[String],
     minutes: u64,
@@ -425,9 +429,9 @@ pub fn resolve(
     let skill_bonus_permille = 1_000 + u32::from(terrain_check_millirank.min(5_000)) / 10;
     let source_count = sources.len() as u64;
     let mut yields = Vec::new();
-    for (source_index, (_, resources)) in sources.into_iter().enumerate() {
+    for (source, resources) in sources {
         let resource_count = resources.len() as u64;
-        for (resource_index, target) in resources.into_iter().enumerate() {
+        for target in resources {
             let habitat = u64::from(habitat_share_permille(target, environment));
             let food_rate = if crate::food::definition(target.item_id).is_some() {
                 FOOD_DISCOVERY_RATE_PERMILLE
@@ -444,16 +448,19 @@ pub fn resolve(
                     * 1_000
                     * 1_000
                     * search_budget_divisor(source_count, resource_count));
-            let random_key = source_index as u64 * 256 + resource_index as u64;
             let guaranteed = expected_permille / 1_000;
             let remainder = expected_permille % 1_000;
-            let discovered =
-                guaranteed + u64::from(random_below(seed, random_key, 0, 1_000) < remainder);
+            let discovered = guaranteed
+                + u64::from(
+                    ForageDraw::FractionalYield.below(seed, source.id(), target.item_id, 1_000)
+                        < remainder,
+                );
             if discovered == 0 {
                 continue;
             }
             let range = u64::from(target.yield_max - target.yield_min + 1);
-            let base_yield = u64::from(target.yield_min) + random_below(seed, random_key, 1, range);
+            let base_yield = u64::from(target.yield_min)
+                + ForageDraw::BaseYield.below(seed, source.id(), target.item_id, range);
             let yield_bonus_permille = 1_000 + u64::from(terrain_check_millirank.min(5_000)) / 10;
             let quantity = discovered
                 .saturating_mul(base_yield)
@@ -478,29 +485,17 @@ pub fn resolve(
 /// This accepts a partial elapsed duration so interrupted illegal work can
 /// still be noticed without granting partial forage yields.
 pub fn resolve_stealth(
-    seed: u64,
+    seed: Seed,
     environment: ForageEnvironment,
     elapsed_minutes: u64,
     stealth_check_millirank: u16,
 ) -> (Option<u16>, Option<bool>) {
     let dc = stealth_dc_millirank(environment, elapsed_minutes);
     let succeeded = dc.map(|dc| {
-        let roll = random_below(seed, 0, 2, 1_001) as u16;
+        let roll = ForageDraw::Stealth.below(seed, "", "", 1_001) as u16;
         stealth_check_millirank.saturating_add(roll) >= dc
     });
     (dc, succeeded)
-}
-
-fn random_below(seed: u64, target: u64, stream: u64, upper: u64) -> u64 {
-    let digest = Sha256::digest(
-        [
-            seed.to_le_bytes().as_slice(),
-            target.to_le_bytes().as_slice(),
-            stream.to_le_bytes().as_slice(),
-        ]
-        .concat(),
-    );
-    u64::from_le_bytes(digest[..8].try_into().expect("eight digest bytes")) % upper.max(1)
 }
 
 /// Conserve actual elapsed search time over concrete Terrain leaf skills.
@@ -691,9 +686,9 @@ pub struct ForagePlanAuthority {
     pub coordinates: ActionCoordinates<ForagePlanTarget>,
     pub provenance: PlanProvenance,
     pub snapshot: AuthoritativeSnapshot,
-    pub current_minute: u64,
+    pub current_minute: StrategicMinute,
     pub duration: RequestedDuration,
-    pub terminal_minute: Option<u64>,
+    pub terminal_minute: Option<StrategicMinute>,
     pub exact_presence: bool,
     pub encounter_clear: bool,
     pub environment_current: bool,
@@ -845,10 +840,26 @@ mod tests {
 
     #[test]
     fn shared_budget_and_resolution_are_deterministic() {
-        let one = resolve(7, legal(), &["plants".into()], 8 * 60, 2_000, 0).unwrap();
-        let again = resolve(7, legal(), &["plants".into()], 8 * 60, 2_000, 0).unwrap();
+        let one = resolve(
+            fabelgeist_determinism::Seed::from_u64(7),
+            legal(),
+            &["plants".into()],
+            8 * 60,
+            2_000,
+            0,
+        )
+        .unwrap();
+        let again = resolve(
+            fabelgeist_determinism::Seed::from_u64(7),
+            legal(),
+            &["plants".into()],
+            8 * 60,
+            2_000,
+            0,
+        )
+        .unwrap();
         let split = resolve(
-            7,
+            fabelgeist_determinism::Seed::from_u64(7),
             legal(),
             &["plants".into(), "low_game".into()],
             8 * 60,
@@ -860,7 +871,7 @@ mod tests {
         assert_eq!(
             split,
             resolve(
-                7,
+                fabelgeist_determinism::Seed::from_u64(7),
                 legal(),
                 &["plants".into(), "low_game".into()],
                 8 * 60,
@@ -905,7 +916,7 @@ mod tests {
     #[test]
     fn target_order_cannot_change_resolution() {
         let first = resolve(
-            91,
+            fabelgeist_determinism::Seed::from_u64(91),
             legal(),
             &["low_game".into(), "plants".into()],
             8 * 60,
@@ -914,7 +925,7 @@ mod tests {
         )
         .unwrap();
         let reversed = resolve(
-            91,
+            fabelgeist_determinism::Seed::from_u64(91),
             legal(),
             &["plants".into(), "low_game".into()],
             8 * 60,
@@ -938,7 +949,12 @@ mod tests {
     fn interrupted_illegal_elapsed_time_still_resolves_exposure() {
         let mut environment = legal();
         environment.cultivated = true;
-        let (dc, noticed) = resolve_stealth(7, environment, 30, 0);
+        let (dc, noticed) = resolve_stealth(
+            fabelgeist_determinism::Seed::from_u64(7),
+            environment,
+            30,
+            0,
+        );
         assert_eq!(dc, Some(CULTIVATED_STEALTH_DC_MILLIRANK));
         assert_eq!(noticed, Some(false));
     }
@@ -986,6 +1002,7 @@ mod tests {
         };
         let calories = |check| {
             (0..256_u64)
+                .map(fabelgeist_determinism::Seed::from_u64)
                 .map(|seed| {
                     resolve(seed, forest, &["plants".into()], 8 * 60, check, 0)
                         .unwrap()
@@ -1033,7 +1050,17 @@ mod tests {
     #[test]
     fn unavailable_sources_are_rejected_and_harmful_beasts_need_no_license() {
         assert!(!source_available(ForageSource::Fish, legal()));
-        assert!(resolve(7, legal(), &["fish".into()], 60, 0, 0).is_err());
+        assert!(
+            resolve(
+                fabelgeist_determinism::Seed::from_u64(7),
+                legal(),
+                &["fish".into()],
+                60,
+                0,
+                0
+            )
+            .is_err()
+        );
         assert!(!ForageSource::HarmfulBeasts.requires_license());
         assert!(ForageSource::Plants.requires_license());
     }
@@ -1089,7 +1116,7 @@ mod tests {
                     revision: SnapshotRevision(0),
                     digest: SnapshotDigest([1; 32]),
                 },
-                current_minute: 100,
+                current_minute: StrategicMinute::new(100),
                 duration: RequestedDuration::try_new(60).unwrap(),
                 terminal_minute,
                 exact_presence: true,
@@ -1119,12 +1146,14 @@ mod tests {
             stealth_succeeded: Some(false),
         };
 
-        let PlanningOutcome::Ready(zero) = build(Some(100), None) else {
+        let PlanningOutcome::Ready(zero) = build(Some(StrategicMinute::new(100)), None) else {
             panic!("zero-time plan rejected")
         };
         assert_eq!(zero.effects().len(), 1);
 
-        let PlanningOutcome::Ready(partial) = build(Some(130), Some(result.clone())) else {
+        let PlanningOutcome::Ready(partial) =
+            build(Some(StrategicMinute::new(130)), Some(result.clone()))
+        else {
             panic!("partial plan rejected")
         };
         assert!(partial.effects().iter().any(|effect| matches!(
@@ -1202,7 +1231,7 @@ mod tests {
                 revision: SnapshotRevision(1),
                 digest: SnapshotDigest([3; 32]),
             },
-            current_minute: 0,
+            current_minute: StrategicMinute::ZERO,
             duration: RequestedDuration::try_new(60).unwrap(),
             terminal_minute: None,
             exact_presence: true,

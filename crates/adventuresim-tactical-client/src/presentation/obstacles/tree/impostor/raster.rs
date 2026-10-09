@@ -1,4 +1,3 @@
-#[cfg(test)]
 use super::OAK_TREE_BAKE_STYLE;
 use super::{TreeBakeCard, TreeBakeStyle};
 use crate::presentation::obstacles::tree::geometry::{
@@ -11,7 +10,9 @@ use bevy::{
     mesh::{Indices, VertexAttributeValues},
     prelude::{Mesh, Vec2, Vec3, Vec4},
 };
-use fabelgeist_determinism::splitmix64;
+#[cfg(test)]
+use fabelgeist_determinism::Seed;
+use fabelgeist_determinism::StreamId;
 
 #[derive(Clone, Copy, Debug)]
 pub(super) struct TreeAtlasRegion {
@@ -98,7 +99,7 @@ fn stratified_tree_bake_leaves(
     leaves: &[TreeLeaf],
     stride: usize,
 ) -> Vec<TreeLeaf> {
-    let included = leaves
+    let mut included = leaves
         .iter()
         .filter(|leaf| card.includes_leaf(leaf))
         .copied()
@@ -107,6 +108,7 @@ fn stratified_tree_bake_leaves(
         return included;
     }
 
+    included.sort_by_key(|leaf| (leaf.shoot_id, leaf.leaf_ordinal));
     let mut sampled = Vec::with_capacity(included.len().div_ceil(stride));
     let mut start = 0;
     while start < included.len() {
@@ -116,11 +118,10 @@ fn stratified_tree_bake_leaves(
             end += 1;
         }
         let shoot = &included[start..end];
-        let phase_hash = splitmix64(
-            u64::from(shoot_id) ^ u64::from(card.source_group).rotate_left(23) ^ 0x1eaf_5a6d,
-        );
+        let mut random = StreamId::new("visual.tree.impostor-shoot-sampling")
+            .rng(shoot_id.into(), &[u64::from(card.source_group)]);
         if shoot.len() >= stride {
-            let phase = phase_hash as usize % stride;
+            let phase = random.index(stride);
             let before = sampled.len();
             for ordinal in (phase..shoot.len()).step_by(stride) {
                 sampled.push(shoot[ordinal]);
@@ -132,8 +133,8 @@ fn stratified_tree_bake_leaves(
                 let wrapped = (phase + (sampled.len() - before) * stride) % shoot.len();
                 sampled.push(shoot[wrapped]);
             }
-        } else if phase_hash as usize % stride < shoot.len() {
-            sampled.push(shoot[(phase_hash.rotate_left(17) as usize) % shoot.len()]);
+        } else if random.index(stride) < shoot.len() {
+            sampled.push(shoot[random.index(shoot.len())]);
         }
         start = end;
     }
@@ -608,7 +609,7 @@ mod tests {
     }
 
     fn assert_lod1_runtime_transition_preserves_source_crown(
-        seed: u64,
+        seed: Seed,
         branches: &[TreeBranchSegment],
         leaves: &[TreeLeaf],
         style: TreeBakeStyle,
@@ -641,7 +642,7 @@ mod tests {
     }
 
     fn assert_oak_lod1_matches_high_detail_from_multiple_azimuths(
-        seed: u64,
+        seed: Seed,
         branches: &[TreeBranchSegment],
         leaves: &[TreeLeaf],
     ) {
@@ -699,7 +700,7 @@ mod tests {
             source_group: 3,
             minimum_branch_depth: 0,
         };
-        let leaves = (0..32_u16)
+        let leaves = (0..32_u64)
             .flat_map(|shoot_id| {
                 (0..16).map(move |ordinal| TreeLeaf {
                     petiole_start: Vec3::ZERO,
@@ -736,37 +737,74 @@ mod tests {
 
     #[test]
     fn oak_aggregate_recipe_preserves_source_crown_occupancy_and_bounds() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
-        let card = tree_bake_cards(42, &branches, &leaves, 4)[0];
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
+        let card = tree_bake_cards(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &branches,
+            &leaves,
+            4,
+        )[0];
         assert_aggregate_crown_continuity(card, &leaves, OAK_TREE_BAKE_STYLE);
     }
 
     #[test]
     fn beech_aggregate_recipe_preserves_source_crown_occupancy_and_bounds() {
-        let branches = procedural_woody_plant_skeleton(42, 0.7, COMMON_BEECH_PARAMETERS);
-        let leaves = procedural_woody_plant_leaves(42, &branches, 0.7, COMMON_BEECH_PARAMETERS);
-        let card = tree_bake_cards(42, &branches, &leaves, 4)[0];
+        let branches = procedural_woody_plant_skeleton(
+            fabelgeist_determinism::Seed::from_u64(42),
+            0.7,
+            COMMON_BEECH_PARAMETERS,
+        );
+        let leaves = procedural_woody_plant_leaves(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &branches,
+            0.7,
+            COMMON_BEECH_PARAMETERS,
+        );
+        let card = tree_bake_cards(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &branches,
+            &leaves,
+            4,
+        )[0];
         assert_aggregate_crown_continuity(card, &leaves, BEECH_TREE_BAKE_STYLE);
     }
 
     #[test]
     fn lod1_runtime_cards_preserve_oak_and_beech_source_crowns() {
-        let oak_branches = procedural_tree_skeleton(42, 0.0);
-        let oak_leaves = procedural_oak_leaves(42, &oak_branches, 0.0);
+        let oak_branches =
+            procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let oak_leaves = procedural_oak_leaves(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &oak_branches,
+            0.0,
+        );
         assert_lod1_runtime_transition_preserves_source_crown(
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
             &oak_branches,
             &oak_leaves,
             OAK_TREE_BAKE_STYLE,
         );
-        assert_oak_lod1_matches_high_detail_from_multiple_azimuths(42, &oak_branches, &oak_leaves);
+        assert_oak_lod1_matches_high_detail_from_multiple_azimuths(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &oak_branches,
+            &oak_leaves,
+        );
 
-        let beech_branches = procedural_woody_plant_skeleton(42, 0.7, COMMON_BEECH_PARAMETERS);
-        let beech_leaves =
-            procedural_woody_plant_leaves(42, &beech_branches, 0.7, COMMON_BEECH_PARAMETERS);
+        let beech_branches = procedural_woody_plant_skeleton(
+            fabelgeist_determinism::Seed::from_u64(42),
+            0.7,
+            COMMON_BEECH_PARAMETERS,
+        );
+        let beech_leaves = procedural_woody_plant_leaves(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &beech_branches,
+            0.7,
+            COMMON_BEECH_PARAMETERS,
+        );
         assert_lod1_runtime_transition_preserves_source_crown(
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
             &beech_branches,
             &beech_leaves,
             BEECH_TREE_BAKE_STYLE,
@@ -776,8 +814,10 @@ mod tests {
     #[test]
     fn sparse_fixture_oak_lod1_preserves_45_degree_upper_right_silhouette() {
         const SCENE_SEED: u64 = 47_104;
-        const FOCUSED_TREE_RECIPE_SEED: u64 = 15_240_619_980_244_641_867;
-        const VISTA_CACHE_RECIPE_SEED: u64 = 16_311_644_104_379_926_507;
+        const FOCUSED_TREE_RECIPE_SEED: fabelgeist_determinism::Seed =
+            fabelgeist_determinism::Seed::from_u64(15_240_619_980_244_641_867);
+        const VISTA_CACHE_RECIPE_SEED: fabelgeist_determinism::Seed =
+            fabelgeist_determinism::Seed::from_u64(16_311_644_104_379_926_507);
         const FIXTURE_COMPETITION: f32 = 0.281_75;
         // Seed 47104 deterministically places the reviewed playable tree at
         // (12.5, 37.5). Production hashes that placement, selects showcase
@@ -786,8 +826,9 @@ mod tests {
         // bakes and is not the tree framed by the forced-LOD views.
         let fixture_position = Vec3::new(12.5, 0.0, 37.5);
         let obstacle_seed = obstacle_seed(fixture_position);
-        let variant_index = (obstacle_seed & 3) as usize;
-        let variant_seed = splitmix64(0x6f61_6b00 ^ variant_index as u64);
+        let variant_index = (obstacle_seed.to_u64() & 3) as usize;
+        let variant_seed =
+            crate::presentation::obstacles::tree::specimen::oak_variant_seed(variant_index);
         assert_eq!(SCENE_SEED, 47_104);
         assert_eq!(variant_index, 1);
         assert_eq!(variant_seed, FOCUSED_TREE_RECIPE_SEED);
@@ -795,14 +836,20 @@ mod tests {
         let environment = SceneEnvironment {
             scene_digest: "4926dcc166599287c1966fd23ced047bd918de9f6b80ed1b8f9280159f094a6b".into(),
             generation_version: 8,
-            latitude_microdegrees: 53_500_000,
-            longitude_microdegrees: 10_000_000,
-            absolute_minute: 340_440,
-            lunar_phase_minute: 340_440,
-            absolute_elevation_metres: 42,
+            latitude_microdegrees:
+                adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000)
+                    .unwrap(),
+            longitude_microdegrees:
+                adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(10_000_000)
+                    .unwrap(),
+            absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(340_440),
+            lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(340_440),
+            absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(42).unwrap(),
             weather: WeatherSnapshot {
                 rules_version: adventuresim_tactical_core::prelude::WEATHER_RULES_VERSION,
-                interval_start_minute: 340_440,
+                interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(
+                    340_440,
+                ),
                 cell_latitude: 214,
                 cell_longitude: 40,
                 temperature_deci_c: 120,

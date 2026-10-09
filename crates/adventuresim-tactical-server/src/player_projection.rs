@@ -700,7 +700,12 @@ fn spawn_connected_player(
     };
 
     let player_collider = player_collider();
-    let spawn_position = Vec2::new(rand::random_range(-5.0..5.0), rand::random_range(-5.0..5.0));
+    let mut spawn_random = fabelgeist_determinism::StreamId::new("tactical.player-spawn")
+        .rng(player.character.id.into(), &[]);
+    let spawn_position = Vec2::new(
+        spawn_random.range_f32(-5.0, 5.0),
+        spawn_random.range_f32(-5.0, 5.0),
+    );
     let spawn_height = q_scene
         .iter()
         .next()
@@ -861,13 +866,13 @@ fn spawn_connected_player(
                 .collect(),
         });
         match item.item.kind {
-            PersistedItemKind::Simple
-            | PersistedItemKind::Container
-            | PersistedItemKind::Currency
-            | PersistedItemKind::Ingredient
-            | PersistedItemKind::Medication
-            | PersistedItemKind::Food => {}
-            PersistedItemKind::Weapon => {
+            CatalogItemKind::Simple
+            | CatalogItemKind::Container
+            | CatalogItemKind::Currency
+            | CatalogItemKind::Ingredient
+            | CatalogItemKind::Medication
+            | CatalogItemKind::Food => {}
+            CatalogItemKind::Weapon => {
                 let equipment = adventuresim_core::item_catalog::definition(&item.item.id)
                     .and_then(|definition| definition.equipment.as_ref())
                     .expect("validated tactical weapon has equipment metadata");
@@ -906,8 +911,8 @@ fn spawn_connected_player(
                     ranged: item.item.ranged,
                 });
             }
-            PersistedItemKind::Armor | PersistedItemKind::Clothing => {}
-            PersistedItemKind::Shield => {
+            CatalogItemKind::Armor | CatalogItemKind::Clothing => {}
+            CatalogItemKind::Shield => {
                 item_cmd.insert(ShieldItem {
                     block: item.item.block,
                 });

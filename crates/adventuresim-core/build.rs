@@ -3,6 +3,19 @@
     reason = "shared catalog types enable runtime-only derives outside the build script"
 )]
 
+// Compile authored checks against the same framework-neutral vocabulary used
+// by runtime mechanics, without pulling runtime calculation modules into build.
+#[path = "src/attribute/simple.rs"]
+mod attribute;
+#[path = "src/personality/virtue.rs"]
+mod personality;
+#[path = "src/strategic_presence/context.rs"]
+#[expect(
+    dead_code,
+    reason = "build-time catalog validation does not present live interaction affordances"
+)]
+mod strategic_presence;
+
 use sha2::{Digest, Sha256};
 use std::{
     env, fs,

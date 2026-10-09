@@ -6,7 +6,7 @@ use wgpu::util::DeviceExt;
 pub struct ComputePass;
 
 impl ComputePass {
-    pub fn execute(
+    pub fn dispatch(
         context: &WgpuContext,
         pipeline_def: ComputePipeline,
         parameters: PassParameters,
@@ -228,11 +228,11 @@ impl ComputePass {
                 })?;
 
                 if let PassParameter::Buffer(gpu_buf) = val {
-                    let binding_resource = if gpu_buf.size < gpu_buf.buffer.size() {
+                    let binding_resource = if u64::from(gpu_buf.size) < gpu_buf.buffer.size() {
                         wgpu::BindingResource::Buffer(wgpu::BufferBinding {
                             buffer: &gpu_buf.buffer,
                             offset: 0,
-                            size: Some(std::num::NonZeroU64::new(gpu_buf.size).unwrap()),
+                            size: Some(std::num::NonZeroU64::new(u64::from(gpu_buf.size)).unwrap()),
                         })
                     } else {
                         gpu_buf.buffer.as_entire_binding()
@@ -259,10 +259,10 @@ impl ComputePass {
                     )
                 })?;
 
-                let (view, actual_format, dim) =
-                    match val {
-                        PassParameter::Texture2d(tex) => {
-                            let view = if let Some(expected_fmt) = binding_info.format {
+                let (view, actual_format, dim) = match val {
+                    PassParameter::Texture2d(tex) => {
+                        let view =
+                            if let Some(expected_fmt) = binding_info.format {
                                 let view_format = wgpu::TextureFormat::from(tex.format);
                                 if view_format != expected_fmt {
                                     // Check for sRGB/Unorm alias
@@ -283,14 +283,15 @@ impl ComputePass {
                                 tex.view.clone()
                             };
 
-                            (
-                                view,
-                                tex.texture.as_ref().map(|t| t.format()),
-                                wgpu::TextureViewDimension::D2,
-                            )
-                        }
-                        PassParameter::Texture3d(tex) => {
-                            let view = if let Some(expected_fmt) = binding_info.format {
+                        (
+                            view,
+                            tex.texture.as_ref().map(|t| t.format()),
+                            wgpu::TextureViewDimension::D2,
+                        )
+                    }
+                    PassParameter::Texture3d(tex) => {
+                        let view =
+                            if let Some(expected_fmt) = binding_info.format {
                                 let view_format = wgpu::TextureFormat::from(tex.format);
                                 if view_format != expected_fmt {
                                     // Check for sRGB/Unorm alias
@@ -311,19 +312,52 @@ impl ComputePass {
                                 tex.view.clone()
                             };
 
-                            (
-                                view,
-                                tex.texture.as_ref().map(|t| t.format()),
-                                wgpu::TextureViewDimension::D3,
-                            )
-                        }
-                        _ => {
-                            return Err(anyhow!(
-                                "ComputePass: Parameter '{}' is not a Texture2d or Texture3d",
-                                name
-                            ));
-                        }
-                    };
+                        (
+                            view,
+                            tex.texture.as_ref().map(|t| t.format()),
+                            wgpu::TextureViewDimension::D3,
+                        )
+                    }
+                    PassParameter::TextureCube(tex) => {
+                        let view =
+                            if let Some(expected_fmt) = binding_info.format {
+                                let view_format = wgpu::TextureFormat::from(tex.format);
+                                if view_format != expected_fmt {
+                                    if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+                                        == expected_fmt
+                                    {
+                                        Some(tex.view_with_format(
+                                            context,
+                                            tex.format.srgb_counterpart(),
+                                        )?)
+                                    } else {
+                                        tex.view.clone()
+                                    }
+                                } else {
+                                    tex.view.clone()
+                                }
+                            } else {
+                                tex.view.clone()
+                            };
+
+                        (
+                            view,
+                            tex.texture.as_ref().map(|t| t.format()),
+                            wgpu::TextureViewDimension::Cube,
+                        )
+                    }
+                    PassParameter::TextureView(tex) => (
+                        tex.view.clone(),
+                        tex.texture.as_ref().map(|t| t.format()),
+                        tex.dimension,
+                    ),
+                    _ => {
+                        return Err(anyhow!(
+                            "ComputePass: Parameter '{}' is not a Texture2d, Texture3d, TextureCube, or TextureView",
+                            name
+                        ));
+                    }
+                };
 
                 if let Some(expected_format) = binding_info.format
                     && let Some(actual_fmt) = actual_format
@@ -337,7 +371,19 @@ impl ComputePass {
                         {
                             allowed = true;
                         }
-                    } else if let PassParameter::Texture3d(tex) = val
+                    } else if let PassParameter::Texture3d(tex) = val {
+                        if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+                            == expected_format
+                        {
+                            allowed = true;
+                        }
+                    } else if let PassParameter::TextureCube(tex) = val {
+                        if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+                            == expected_format
+                        {
+                            allowed = true;
+                        }
+                    } else if let PassParameter::TextureView(tex) = val
                         && wgpu::TextureFormat::from(tex.format.srgb_counterpart())
                             == expected_format
                     {

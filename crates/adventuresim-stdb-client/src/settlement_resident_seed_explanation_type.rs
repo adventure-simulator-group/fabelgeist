@@ -8,7 +8,6 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 #[sats(crate = __lib)]
 pub struct SettlementResidentSeedExplanation {
     pub character_id: u64,
-    pub seed: String,
     pub relations_json: String,
 }
 
@@ -21,7 +20,6 @@ impl __sdk::InModule for SettlementResidentSeedExplanation {
 /// Provides typed access to columns for query building.
 pub struct SettlementResidentSeedExplanationCols {
     pub character_id: __sdk::__query_builder::Col<SettlementResidentSeedExplanation, u64>,
-    pub seed: __sdk::__query_builder::Col<SettlementResidentSeedExplanation, String>,
     pub relations_json: __sdk::__query_builder::Col<SettlementResidentSeedExplanation, String>,
 }
 
@@ -30,7 +28,6 @@ impl __sdk::__query_builder::HasCols for SettlementResidentSeedExplanation {
     fn cols(table_name: &'static str) -> Self::Cols {
         SettlementResidentSeedExplanationCols {
             character_id: __sdk::__query_builder::Col::new(table_name, "character_id"),
-            seed: __sdk::__query_builder::Col::new(table_name, "seed"),
             relations_json: __sdk::__query_builder::Col::new(table_name, "relations_json"),
         }
     }

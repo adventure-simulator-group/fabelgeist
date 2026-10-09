@@ -1,7 +1,7 @@
 //! Authored roof proportions shared by the civilian fixture programmes.
 use super::*;
 impl RoofPiece {
-    pub(super) fn civilian(program: &BuildingProgram) -> Self {
+    pub(crate) fn civilian(program: &BuildingProgram) -> Self {
         let (kind, ridge_axis, eave_metres, gable_profile) = match program.archetype {
             BuildingArchetype::StorageRange => {
                 (RoofKind::Gable, RidgeAxis::Z, 0.35, GableProfile::Plain)

@@ -1,17 +1,22 @@
 mod occupancy;
+mod origin;
+include!("character/name_types.rs");
+include!("character/name_identity.rs");
+include!("character/name_reducers.rs");
+#[cfg(feature = "authority-tests")]
+mod authority_tests;
+mod tactical_assignment;
+use adventuresim_world_schema::calendar::StrategicMinute;
 use occupancy::{character_occupancy_id, conflicting_equipment_roots};
 
 use adventuresim_core::{
     attribute::PlayerAttributeValues,
+    equipment::LoadoutSlot,
     item_catalog::{EquipmentChannel, ParentRequirement},
     organization::OrganizationMembershipStatus,
-    starting_character::{
-        StartingAgeTier, StartingCharacterSpec, StartingInclination, StartingPersonalityTrait,
-        StartingPresentation, StartingSex, StartingSlot,
-    },
+    starting_character::{StartingAgeTier, StartingCharacterSpec, StartingPersonalityTrait},
 };
-use fabelgeist_determinism::splitmix64;
-use sha2::{Digest, Sha256};
+use fabelgeist_determinism::{Seed, StreamId};
 use spacetimedb::{
     Identity, ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view,
 };
@@ -51,8 +56,8 @@ use crate::{
     },
 };
 
-const NPC_LIFE_AGE_DOMAIN: u64 = 0x6c69_6665_2d61_6765;
-const NPC_SETTLEMENT_SELECTION_DOMAIN: u64 = 0x7365_7474_6c65_6d65;
+const NPC_LIFE_AGE_DOMAIN: StreamId = StreamId::new("npc.life-age");
+const NPC_SETTLEMENT_SELECTION_DOMAIN: StreamId = StreamId::new("character.start-settlement");
 
 /// General character info
 #[derive(Clone, Debug)]
@@ -61,17 +66,25 @@ pub struct Character {
     #[primary_key]
     pub id: u64,
     /// Private full-table scan seam used only by trusted projections.
+    /// Creation derives this index adapter from `id`; deletion removes both.
     #[index(btree)]
     pub scan_id: u64,
+    /// Persisted native-everyday projection; only the semantic name authority
+    /// initializes or refreshes durable names (see `assign_character_name_identity`).
     pub name: String,
+    /// Progression owns XP; award paths refresh the derived level with it.
     pub xp: u32,
     pub level: u32,
     pub current_settlement_id: Option<String>,
+    /// Membership mutations refresh this traversal pointer from party rows.
     pub party_id: Option<String>,
+    /// Sole tactical assignment authority; zero means unassigned. Enrollment
+    /// protects active servers, and leave/teardown clears this field.
     #[index(btree)]
     pub server: Identity,
-    pub in_server: bool,
     pub temporary: bool,
+    /// Bounded chronology projection initialized with birth facts and refreshed
+    /// by personal-clock lifecycle settlement. Resident age bands derive from it.
     #[default(25)]
     pub age_years: u16,
     /// Strategic life state. Death transitions are intentionally deferred to the
@@ -241,10 +254,6 @@ pub struct StartingCharacterClaim {
     pub character_id: u64,
     #[index(btree)]
     pub owner_key: String,
-    pub generator_version: u16,
-    pub seed: String,
-    pub age_tier: StartingAgeTier,
-    pub slot: u8,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -281,7 +290,7 @@ pub struct CharacterDeath {
     pub cause: DeathCause,
     pub source: DeathSource,
     pub source_id: Option<String>,
-    pub strategic_minute: u64,
+    pub strategic_minute: StrategicMinute,
 }
 
 /// Death authority is private because its timestamp may lie beyond another
@@ -330,7 +339,7 @@ pub fn transition_character_to_dead(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     transition_character_to_dead_at(
         ctx,
         character_id,
@@ -349,7 +358,7 @@ pub fn transition_character_to_dead_at(
     cause: DeathCause,
     source: DeathSource,
     source_id: Option<String>,
-    strategic_minute: u64,
+    strategic_minute: StrategicMinute,
 ) -> Result<CharacterDeath, String> {
     if let Some(death) = ctx.db.character_death().character_id().find(character_id) {
         crate::food::cleanup_fireplace_custody_for_death(ctx, character_id)?;
@@ -366,7 +375,7 @@ pub fn transition_character_to_dead_at(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     if strategic_minute > current_minute {
         return Err("Character death cannot be after their personal clock".into());
     }
@@ -791,17 +800,17 @@ fn refresh_equipment_dependents(ctx: &ReducerContext, character_id: u64) -> Resu
 /// Create a new random temporary character for the server.
 #[reducer]
 pub fn create_temporary_character(ctx: &ReducerContext, server: Identity) -> Result<(), String> {
-    use petname::Generator;
-
     let tactical_server = ctx.db.tactical_server_authority().identity().find(server);
     if ctx.sender() != server || tactical_server.is_none() {
         return Err("Only a registered tactical server can create its temporary characters".into());
     }
     let tactical_server = tactical_server.expect("checked tactical server");
 
-    let name = petname::Petnames::default()
-        .generate(&mut ctx.rng(), 1, " ")
-        .ok_or_else(|| "Can't generate a name for a temporary character".to_string())?;
+    let names = petname::Petnames::default();
+    let name_seed: Seed = ctx.random();
+    let name = names.nouns[fabelgeist_determinism::StreamId::new("character.temporary-name")
+        .rng(name_seed, &[])
+        .index(names.nouns.len())];
     let name = format!("bot-{name}");
 
     let mut id = ctx.random();
@@ -919,6 +928,7 @@ pub(crate) fn delete_temporary_character(
     if !character.temporary {
         return Err("Refusing to cascade-delete a persistent character".into());
     }
+    delete_character_name_data(ctx, CharacterId::new(character.id));
     delete_character_data(ctx, character, true)
 }
 
@@ -926,6 +936,7 @@ pub(crate) fn delete_character_for_world_import(
     ctx: &ReducerContext,
     character: Character,
 ) -> Result<(), String> {
+    delete_character_name_data(ctx, CharacterId::new(character.id));
     delete_character_data(ctx, character, false)
 }
 
@@ -1240,29 +1251,27 @@ fn delete_character_data(
 /// Create a new character with generated name and add initial items to it
 #[reducer]
 pub fn create_character(ctx: &ReducerContext, id: u64) -> Result<(), String> {
-    use petname::Generator;
-
-    let name = petname::Petnames::default()
-        .generate(&mut ctx.rng(), 2, " ")
-        .ok_or_else(|| format!("Can't generate a name for a character with id {id}"))?;
-
-    insert_new_character(ctx, name, id, false)
+    insert_new_character(ctx, "Pending generated name".into(), id, false)?;
+    assign_generated_historical_name_for_age(
+        ctx,
+        CharacterId::new(id),
+        NameStableSeed::new(id),
+        StrategicMinute::new(0),
+        None,
+    )
+    .map_err(|error| error.to_string())?;
+    Ok(())
 }
 
 /// Create a new character with name and add initial items to it
 fn named_character_id(name: &str, created_micros: i64) -> u64 {
-    let mut hasher = Sha256::new();
-    for value in [
-        b"adventuresim.named-character-id.v1".as_slice(),
+    fabelgeist_determinism::Seed::derive(
         name.as_bytes(),
-        created_micros.to_le_bytes().as_slice(),
-    ] {
-        hasher.update((value.len() as u64).to_le_bytes());
-        hasher.update(value);
-    }
-    let digest = hasher.finalize();
-    let value = u64::from_le_bytes(digest[..8].try_into().expect("SHA-256 prefix"));
-    value.max(1)
+        fabelgeist_determinism::StreamId::new("character.named-identity"),
+        &[&created_micros.to_le_bytes()],
+    )
+    .to_u64()
+    .max(1)
 }
 
 /// Create a new character with name and add initial items to it
@@ -1314,7 +1323,7 @@ pub fn create_starting_character(
         if claim.owner_key != owner_key {
             return Err("candidate was already claimed by a different browser owner".into());
         }
-        if existing.id == spec.id && existing.name == spec.name {
+        if existing.id == spec.id {
             crate::browser_session::grant_browser_character_internal(
                 ctx,
                 &owner_key,
@@ -1335,10 +1344,6 @@ pub fn create_starting_character(
             request_key: request_key.clone(),
             character_id: spec.id,
             owner_key: owner_key.clone(),
-            generator_version,
-            seed,
-            age_tier,
-            slot,
         });
     crate::browser_session::grant_browser_character_internal(
         ctx,
@@ -1350,8 +1355,8 @@ pub fn create_starting_character(
 }
 
 /// Idempotently grant the canonical fallback character to a new browser
-/// owner. The owner key namespaces identity only; John has the same authored
-/// build in every session and in tactical fixtures.
+/// owner. The owner key namespaces identity only; the versioned generated
+/// build remains stable in every session and in tactical fixtures.
 #[reducer]
 pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
@@ -1373,7 +1378,7 @@ pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> Resu
         if claim.owner_key != owner_key {
             return Err("default character belongs to a different browser owner".into());
         }
-        if existing.id == spec.id && existing.name == spec.name {
+        if existing.id == spec.id {
             crate::browser_session::grant_browser_character_internal(
                 ctx,
                 &owner_key,
@@ -1394,10 +1399,6 @@ pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> Resu
             request_key: request_key.clone(),
             character_id: spec.id,
             owner_key: owner_key.clone(),
-            generator_version: version,
-            seed: owner_key.clone(),
-            age_tier: StartingAgeTier::Adult,
-            slot: 0,
         });
     crate::browser_session::grant_browser_character_internal(
         ctx,
@@ -1515,9 +1516,9 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
         .character_time()
         .character_id()
         .find(DAMAGED_CHARACTER_ID)
+        .map(|time| time.minutes)
         .ok_or("Surgery demo primary surgeon is missing time")?
-        .minutes
-        .max(200);
+        .max(StrategicMinute::new(200));
     for (id, procedure_hours, lag) in [
         (DAMAGED_CHARACTER_ID, 20_000.0, 0),
         (9_000_001, 3_333.0, 100),
@@ -1539,7 +1540,7 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
             .character_id()
             .find(id)
             .ok_or("Surgery demo character is missing time")?;
-        time.minutes = fixture_now.saturating_sub(lag);
+        time.minutes = fixture_now.saturating_sub_minutes(lag);
         ctx.db.character_time().character_id().update(time);
         crate::capability::refresh_character_capability(ctx, id)?;
     }
@@ -1704,7 +1705,6 @@ pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> Result<(), 
         .id()
         .find(HERBALISM_DEMO_CHARACTER_ID)
         .ok_or_else(|| "Herbalism and foraging demo character is missing".to_string())?;
-    character.name = "Herbalism and Foraging Demo".into();
     let party_id = character
         .party_id
         .clone()
@@ -1902,9 +1902,10 @@ pub(crate) fn insert_new_character(
             mode,
             create_solo_party: true,
             materialize_generated_carry: true,
-            stable_seed: id,
+            stable_seed: fabelgeist_determinism::Seed::from_u64(id),
             initial_time_minute: None,
             field_actor: false,
+            npc_personality: None,
         },
         None,
         None,
@@ -1945,9 +1946,10 @@ pub(crate) struct CharacterCreationOptions<'a> {
     /// loadout. Bulk settlement residents defer this until they become active
     /// actors so world seeding does not eagerly objectify thousands of items.
     pub materialize_generated_carry: bool,
-    pub stable_seed: u64,
-    pub initial_time_minute: Option<u64>,
+    pub stable_seed: Seed,
+    pub initial_time_minute: Option<StrategicMinute>,
     pub field_actor: bool,
+    pub npc_personality: Option<&'a crate::personality::CharacterPersonality>,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -1961,10 +1963,10 @@ impl NpcLifeFacts {
     /// Produce the baseline life facts for a persistent NPC without consulting
     /// reducer RNG. Authored organization and literacy can be overlaid by the
     /// population importer before creation.
-    pub(crate) fn from_stable_seed(stable_seed: u64) -> Self {
-        let draw = splitmix64(stable_seed ^ NPC_LIFE_AGE_DOMAIN);
+    pub(crate) fn from_stable_seed(stable_seed: Seed) -> Self {
+        let draw = NPC_LIFE_AGE_DOMAIN.rng(stable_seed, &[]).index(43);
         Self {
-            age_years: 18 + (draw % 43) as u16,
+            age_years: 18 + draw as u16,
             organization_id: None,
             literacy: None,
         }
@@ -1982,7 +1984,7 @@ pub(crate) fn insert_new_npc_character(
     } else {
         CharacterCreationMode::PersistentNpc
     };
-    let life = NpcLifeFacts::from_stable_seed(id);
+    let life = NpcLifeFacts::from_stable_seed(fabelgeist_determinism::Seed::from_u64(id));
     insert_character_with_origin(
         ctx,
         name,
@@ -1992,9 +1994,10 @@ pub(crate) fn insert_new_npc_character(
             mode,
             create_solo_party: temporary,
             materialize_generated_carry: temporary,
-            stable_seed: id,
+            stable_seed: fabelgeist_determinism::Seed::from_u64(id),
             initial_time_minute: None,
             field_actor: false,
+            npc_personality: None,
         },
         None,
         Some(&life),
@@ -2003,15 +2006,20 @@ pub(crate) fn insert_new_npc_character(
 
 /// Create a persistent, full-component NPC at an explicit settlement. Unlike a
 /// player character or tactical temporary, the NPC begins outside any party.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "persistent NPC insertion keeps finalized life and personality facts explicit"
+)]
 pub(crate) fn insert_persistent_npc_character(
     ctx: &ReducerContext,
     name: String,
     id: u64,
     origin_settlement_id: &str,
-    stable_seed: u64,
-    initial_time_minute: Option<u64>,
+    stable_seed: Seed,
+    initial_time_minute: Option<StrategicMinute>,
+    life: &NpcLifeFacts,
+    personality: &crate::personality::CharacterPersonality,
 ) -> Result<(), String> {
-    let life = NpcLifeFacts::from_stable_seed(stable_seed);
     insert_character_with_origin(
         ctx,
         name,
@@ -2024,9 +2032,10 @@ pub(crate) fn insert_persistent_npc_character(
             stable_seed,
             initial_time_minute,
             field_actor: false,
+            npc_personality: Some(personality),
         },
         None,
-        Some(&life),
+        Some(life),
     )
 }
 
@@ -2036,8 +2045,8 @@ pub(crate) fn insert_persistent_field_character(
     ctx: &ReducerContext,
     name: String,
     id: u64,
-    stable_seed: u64,
-    initial_time_minute: Option<u64>,
+    stable_seed: Seed,
+    initial_time_minute: Option<StrategicMinute>,
 ) -> Result<(), String> {
     let life = NpcLifeFacts::from_stable_seed(stable_seed);
     insert_character_with_origin(
@@ -2052,6 +2061,7 @@ pub(crate) fn insert_persistent_field_character(
             stable_seed,
             initial_time_minute,
             field_actor: true,
+            npc_personality: None,
         },
         None,
         Some(&life),
@@ -2064,25 +2074,31 @@ pub(crate) fn insert_starting_character(
 ) -> Result<(), String> {
     insert_character_with_origin(
         ctx,
-        spec.name.clone(),
+        spec.native_everyday_name()
+            .map_err(|error| error.to_string())?
+            .into_string(),
         spec.id,
         CharacterCreationOptions {
             origin_settlement_id: None,
             mode: CharacterCreationMode::Player,
             create_solo_party: true,
             materialize_generated_carry: true,
-            stable_seed: spec.id,
+            stable_seed: fabelgeist_determinism::Seed::from_u64(spec.id),
             initial_time_minute: None,
             field_actor: false,
+            npc_personality: None,
         },
         Some(spec),
         None,
     )
 }
 
-fn initial_membership_minutes(now: u64, dues_interval_days: Option<u32>) -> (u64, u64) {
-    let paid_through = dues_interval_days.map_or(u64::MAX, |days| {
-        now.saturating_add(u64::from(days) * adventuresim_core::strategic_time::MINUTES_PER_DAY)
+fn initial_membership_minutes(
+    now: StrategicMinute,
+    dues_interval_days: Option<u32>,
+) -> (StrategicMinute, StrategicMinute) {
+    let paid_through = dues_interval_days.map_or(StrategicMinute::MAX, |days| {
+        now.saturating_add_days(u64::from(days))
     });
     (now, paid_through)
 }
@@ -2160,6 +2176,10 @@ pub(crate) fn insert_character_with_origin(
 ) -> Result<(), String> {
     log::info!("New character created: {name} (ID: {id})");
     let temporary = options.mode.temporary();
+    let initial_name_identity = starting.map_or_else(
+        || authored_name_identity(name.clone()),
+        |spec| spec.name_identity.clone(),
+    );
     let npc = options.mode.is_npc();
     let newborn = options.mode.newborn();
     let reserved = ctx.db.child_identity_reservation().character_id().find(id);
@@ -2170,56 +2190,7 @@ pub(crate) fn insert_character_with_origin(
         return Err("Newborn creation requires a reserved child identity".into());
     }
 
-    let settlements: Vec<Settlement> = ctx.db.settlement().iter().collect();
-    if settlements.is_empty() {
-        return Err("Cannot create a character before at least one settlement is loaded".into());
-    }
-    let mut settlements = settlements;
-    settlements.sort_by(|left, right| left.id.cmp(&right.id));
-    let selector = starting.map_or_else(
-        || {
-            if npc {
-                splitmix64(options.stable_seed ^ NPC_SETTLEMENT_SELECTION_DOMAIN)
-            } else {
-                ctx.random::<u64>()
-            }
-        },
-        |spec| spec.settlement_selector,
-    );
-    let start_settlement = if let Some(origin_settlement_id) = options.origin_settlement_id {
-        settlements
-            .iter()
-            .find(|settlement| settlement.id == origin_settlement_id)
-            .ok_or_else(|| format!("Unknown origin settlement {origin_settlement_id}"))?
-    } else if let Some(starting_organization) = starting.and_then(|spec| spec.organization.as_ref())
-    {
-        let organization =
-            adventuresim_core::organization::organization(&starting_organization.organization_id)
-                .ok_or("Starting organization is not in the catalog")?;
-        let eligible = settlements
-            .iter()
-            .filter(|settlement| {
-                organization.has_chapter(&settlement.id)
-                    && organization.recognition.includes(&settlement.id)
-            })
-            .collect::<Vec<_>>();
-        if eligible.is_empty() {
-            // Small development worlds do not load the researched Viabundus
-            // settlements referenced by the organization catalog. Keep the
-            // professional package intact and place the character
-            // deterministically in the loaded world; a complete world still
-            // prefers a recognized chapter settlement below.
-            log::warn!(
-                "No loaded settlement hosts starting organization {}; using a loaded settlement",
-                organization.id
-            );
-            &settlements[selector as usize % settlements.len()]
-        } else {
-            eligible[selector as usize % eligible.len()]
-        }
-    } else {
-        &settlements[selector as usize % settlements.len()]
-    };
+    let start_settlement = origin::choose_start_settlement(ctx, &options, starting)?;
 
     let character = ctx.db.character().insert(Character {
         id,
@@ -2230,7 +2201,6 @@ pub(crate) fn insert_character_with_origin(
         current_settlement_id: (!options.field_actor).then(|| start_settlement.id.clone()),
         party_id: None,
         server: Identity::ZERO,
-        in_server: false,
         temporary,
         age_years: starting.map_or_else(
             || npc_life.map_or(25, |facts| facts.age_years),
@@ -2239,15 +2209,11 @@ pub(crate) fn insert_character_with_origin(
         alive: true,
         party_treatment_decision: crate::world_actor::ContextualDecisionState::Allowed,
     });
-    let initial_minute = options.initial_time_minute.unwrap_or(0);
-    let birth_minute =
-        i128::from(initial_minute).saturating_sub(i128::from(character.age_years).saturating_mul(
-            i128::from(adventuresim_core::strategic_time::MINUTES_PER_YEAR),
-        ));
+    let initial_minute = options.initial_time_minute.unwrap_or(StrategicMinute::ZERO);
     crate::relationship::record_character_birth(
         ctx,
         character.id,
-        birth_minute.clamp(i128::from(i64::MIN), i128::from(i64::MAX)) as i64,
+        initial_minute.signed_birth_minute_for_age(character.age_years),
     );
     if !temporary && !newborn {
         let urban = matches!(
@@ -2314,7 +2280,7 @@ pub(crate) fn insert_character_with_origin(
             .and_then(adventuresim_core::organization::organization);
         adventuresim_core::life_simulation::simulate_life(
             adventuresim_core::life_simulation::LifeSimulationInput {
-                stable_seed: options.stable_seed ^ 0x6765_6e65_7269_6300,
+                stable_seed: options.stable_seed.xor_word(0x6765_6e65_7269_6300),
                 age_years: npc_life.map_or(25, |facts| facts.age_years),
                 attributes: &character_attributes,
                 organization,
@@ -2555,30 +2521,25 @@ pub(crate) fn insert_character_with_origin(
                 }
             }
         }
-        personality.sex = match starting.personality.sex {
-            StartingSex::Female => crate::personality::Sex::Female,
-            StartingSex::Male => crate::personality::Sex::Male,
-        };
-        personality.presentation = match starting.personality.presentation {
-            StartingPresentation::Man => crate::personality::Presentation::Man,
-            StartingPresentation::Ambiguous => crate::personality::Presentation::Ambiguous,
-            StartingPresentation::Woman => crate::personality::Presentation::Woman,
-        };
-        personality.inclination = match starting.personality.inclination {
-            StartingInclination::Men => crate::personality::Inclination::Men,
-            StartingInclination::Either => crate::personality::Inclination::Either,
-            StartingInclination::Women => crate::personality::Inclination::Women,
-            StartingInclination::Neither => crate::personality::Inclination::Neither,
-        };
+        personality.sex = starting.personality.sex;
+        personality.presentation = starting.personality.presentation;
+        personality.inclination = starting.personality.inclination;
         // Starting-character preview traits become score endpoints; the
         // gateway row is only their derived visible projection.
         crate::personality::initialize_personality_from_visible(ctx, personality);
     } else {
-        if npc {
+        if let Some(personality) = options.npc_personality {
+            crate::personality::initialize_personality_from_visible(ctx, personality.clone());
+        } else if npc {
             crate::personality::initialize_npc_personality(ctx, id, options.stable_seed);
         } else {
             crate::personality::initialize_personality(ctx, id, false);
         }
+    }
+
+    if !temporary {
+        assign_character_name_identity(ctx, CharacterId::new(character.id), initial_name_identity)
+            .map_err(|error| error.to_string())?;
     }
 
     // Newborns receive the full durable character component surface, but no
@@ -2607,12 +2568,12 @@ pub(crate) fn insert_character_with_origin(
         add_inventory_item(ctx, character.id, "bandage", 3);
         add_and_equip_basic_clothing(ctx, character.id)?;
         for (item, slot) in [
-            ("buckler", StartingSlot::LeftHand),
-            ("katzbalger", StartingSlot::RightHand),
-            ("arming_cap", StartingSlot::Head),
-            ("arming_doublet", StartingSlot::Chest),
-            ("padded_chausses", StartingSlot::LeftLeg),
-            ("padded_chausses", StartingSlot::RightLeg),
+            ("buckler", LoadoutSlot::LeftHand),
+            ("katzbalger", LoadoutSlot::RightHand),
+            ("arming_cap", LoadoutSlot::Head),
+            ("arming_doublet", LoadoutSlot::Chest),
+            ("padded_chausses", LoadoutSlot::LeftLeg),
+            ("padded_chausses", LoadoutSlot::RightLeg),
         ] {
             add_and_equip_starting_item(ctx, character.id, item, slot)?;
         }
@@ -2694,7 +2655,7 @@ pub(crate) fn validate_full_character_components(
     ctx: &ReducerContext,
     character_id: u64,
 ) -> Result<(), String> {
-    let mut missing = Vec::new();
+    let mut missing = missing_name_identity(ctx, CharacterId::new(character_id));
     if ctx.db.character().id().find(character_id).is_none() {
         missing.push("character");
     }
@@ -2957,7 +2918,7 @@ fn equip_equipment_internal(
                 definition.equipment_placements.len()
             )
         })?;
-    if definition.kind == crate::item::PersistedItemKind::Weapon {
+    if definition.kind == crate::item::CatalogItemKind::Weapon {
         match adventuresim_core::item_catalog::weapon_carry(&inventory.item_id) {
             Some(adventuresim_core::item_catalog::WeaponCarry::HandOnly)
                 if !hand_only_placement_is_held_root(placement) =>
@@ -3370,23 +3331,11 @@ fn select_sheath_compatible_parent_placement(
 fn starting_item_placement_index(
     ctx: &ReducerContext,
     item_id: &str,
-    slot: StartingSlot,
+    slot: LoadoutSlot,
 ) -> Result<u16, String> {
     use adventuresim_core::item_catalog::EquipmentLocation;
 
-    let location = match slot {
-        StartingSlot::LeftHand => EquipmentLocation::LeftHand,
-        StartingSlot::RightHand => EquipmentLocation::RightHand,
-        StartingSlot::LeftArm => EquipmentLocation::LeftArm,
-        StartingSlot::RightArm => EquipmentLocation::RightArm,
-        StartingSlot::LeftLeg => EquipmentLocation::LeftLeg,
-        StartingSlot::RightLeg => EquipmentLocation::RightLeg,
-        StartingSlot::LeftFoot => EquipmentLocation::LeftFoot,
-        StartingSlot::RightFoot => EquipmentLocation::RightFoot,
-        StartingSlot::Head => EquipmentLocation::Head,
-        StartingSlot::Chest => EquipmentLocation::Chest,
-        StartingSlot::Stomach => EquipmentLocation::Stomach,
-    };
+    let location = EquipmentLocation::from(slot);
     let definition = ctx
         .db
         .item()
@@ -3400,7 +3349,7 @@ fn starting_item_placement_index(
             placement.parents.is_empty()
                 && placement.occupancy.iter().any(|requirement| {
                     requirement.location == location
-                        && (!matches!(slot, StartingSlot::LeftHand | StartingSlot::RightHand)
+                        && (!matches!(slot, LoadoutSlot::LeftHand | LoadoutSlot::RightHand)
                             || requirement.channel == EquipmentChannel::Held)
                 })
         })
@@ -3412,7 +3361,7 @@ fn add_and_equip_starting_item(
     ctx: &ReducerContext,
     character_id: u64,
     item_id: &str,
-    slot: StartingSlot,
+    slot: LoadoutSlot,
 ) -> Result<(), String> {
     let id = add_inventory_item(ctx, character_id, item_id, 1)
         .ok_or_else(|| "Can't add item to inventory".to_string())?;
@@ -3436,10 +3385,10 @@ pub(crate) fn add_and_equip_basic_clothing(
     character_id: u64,
 ) -> Result<(), String> {
     for (item, slot) in [
-        ("linen_tunic", StartingSlot::Chest),
-        ("linen_breeches", StartingSlot::LeftLeg),
-        ("leather_boot", StartingSlot::LeftFoot),
-        ("leather_boot", StartingSlot::RightFoot),
+        ("linen_tunic", LoadoutSlot::Chest),
+        ("linen_breeches", LoadoutSlot::LeftLeg),
+        ("leather_boot", LoadoutSlot::LeftFoot),
+        ("leather_boot", LoadoutSlot::RightFoot),
     ] {
         add_and_equip_starting_item(ctx, character_id, item, slot)?;
     }
@@ -3453,7 +3402,7 @@ pub(crate) fn add_and_equip_basic_clothing(
 pub(crate) fn replace_development_loadout(
     ctx: &ReducerContext,
     character_id: u64,
-    loadout: &[(&str, StartingSlot)],
+    loadout: &[(&str, LoadoutSlot)],
 ) -> Result<(), String> {
     for inventory_item_id in equipped_wearable_ids(ctx, character_id) {
         unequip_wearable(ctx, inventory_item_id);
@@ -3498,6 +3447,7 @@ mod starting_character_boundary_tests {
     use adventuresim_core::item_catalog::{
         EquipmentChannel, EquipmentLocation, OccupancyRequirement, ParentRequirement,
     };
+    use adventuresim_world_schema::calendar::StrategicMinute;
 
     #[test]
     fn character_occupancy_id_identifies_each_item_requirement() {
@@ -3546,19 +3496,22 @@ mod starting_character_boundary_tests {
 
     #[test]
     fn membership_period_is_anchored_to_current_character_time() {
-        assert_eq!(initial_membership_minutes(9_000, None), (9_000, u64::MAX));
         assert_eq!(
-            initial_membership_minutes(9_000, Some(30)),
+            initial_membership_minutes(StrategicMinute::new(9_000), None),
+            (StrategicMinute::new(9_000), StrategicMinute::MAX)
+        );
+        assert_eq!(
+            initial_membership_minutes(StrategicMinute::new(9_000), Some(30)),
             (
-                9_000,
-                9_000 + 30 * adventuresim_core::strategic_time::MINUTES_PER_DAY
+                StrategicMinute::new(9_000),
+                StrategicMinute::new(9_000).saturating_add_days(30)
             )
         );
     }
 
     #[test]
     fn named_character_id_has_a_fixed_versioned_vector() {
-        assert_eq!(named_character_id("Ada", 123), 7_143_673_045_777_378_113);
+        assert_eq!(named_character_id("Ada", 123), 13_606_231_571_106_619_916);
         assert_ne!(
             named_character_id("Ada", 123),
             named_character_id("Ada", 124)
@@ -3620,9 +3573,9 @@ mod starting_character_boundary_tests {
 
     #[test]
     fn stable_npc_life_is_order_independent_and_adult_bounded() {
-        let first = NpcLifeFacts::from_stable_seed(31);
-        let _unrelated = NpcLifeFacts::from_stable_seed(99);
-        let repeated = NpcLifeFacts::from_stable_seed(31);
+        let first = NpcLifeFacts::from_stable_seed(fabelgeist_determinism::Seed::from_u64(31));
+        let _unrelated = NpcLifeFacts::from_stable_seed(fabelgeist_determinism::Seed::from_u64(99));
+        let repeated = NpcLifeFacts::from_stable_seed(fabelgeist_determinism::Seed::from_u64(31));
         assert_eq!(first, repeated);
         assert!((18..=60).contains(&first.age_years));
     }
@@ -3651,6 +3604,53 @@ mod starting_character_boundary_tests {
         assert!(persistent.contains("CharacterCreationMode::PersistentNpc"));
         assert!(persistent.contains("create_solo_party: false"));
         assert!(persistent.contains("initial_time_minute"));
+    }
+
+    #[test]
+    fn durable_names_have_private_semantic_authority_and_authored_renames() {
+        let source = crate::production_source(include_str!("character.rs"));
+        let names = crate::production_source(include_str!("character/name_identity.rs"));
+        assert!(names.contains("#[table(accessor = character_name_identity)]"));
+        assert!(!names.contains("#[table(accessor = character_name_identity, public)]"));
+
+        let insertion = source
+            .split("pub(crate) fn insert_character_with_origin")
+            .nth(1)
+            .unwrap()
+            .split("pub(crate) fn validate_full_character_components")
+            .next()
+            .unwrap();
+        assert!(insertion.contains("if !temporary"));
+        assert!(insertion.contains("assign_character_name_identity"));
+        assert!(insertion.contains("spec.name_identity.clone()"));
+
+        let generic = source
+            .split("pub fn create_character")
+            .nth(1)
+            .unwrap()
+            .split("fn named_character_id")
+            .next()
+            .unwrap();
+        assert!(generic.contains("assign_generated_historical_name"));
+
+        let rename = crate::production_source(include_str!("character/name_reducers.rs"));
+        assert!(rename.contains("assign_authored_character_name"));
+    }
+
+    #[test]
+    fn tactical_bot_labels_remain_synthetic_and_nonpersistent() {
+        let source = crate::production_source(include_str!("character.rs"));
+        let tactical = source
+            .split("pub fn create_temporary_character")
+            .nth(1)
+            .unwrap()
+            .split("fn scale_temporary_enemy")
+            .next()
+            .unwrap();
+        assert!(tactical.contains("petname::Petnames::default()"));
+        assert!(tactical.contains("format!(\"bot-{name}\")"));
+        assert!(!tactical.contains("assign_generated_historical_name"));
+        assert!(source.contains("if !temporary {\n        assign_character_name_identity"));
     }
 
     #[test]

@@ -3,6 +3,8 @@
 //! Bodies store bounded physical outcomes, never tactical replay, attacker
 //! identity, or a canonical cause-of-death answer.
 
+mod autopsy_context;
+mod draws;
 use adventuresim_core::{
     autopsy::{
         CorpseLocation, DecompositionBand, PostCombatBody, corpse_location, decomposition_band,
@@ -12,6 +14,9 @@ use adventuresim_core::{
     prelude::{BodyPart, Skill},
     strategic_place::CaseSiteId,
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
+use autopsy_context::autopsy_evidence_context;
+use fabelgeist_determinism::Seed;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::{
@@ -65,12 +70,14 @@ pub struct StrategicCorpse {
     #[index(btree)]
     pub discovering_party_id: String,
     pub subject_character_id: Option<u64>,
+    /// Discovery/death snapshot owned by corpse creation. Later personal
+    /// identity changes do not rewrite this historical label.
     pub display_name: String,
     pub creature_kind: String,
     pub settlement_id: String,
     pub case_site_id: Option<CaseSiteId>,
-    pub death_minute: u64,
-    pub discovered_minute: u64,
+    pub death_minute: StrategicMinute,
+    pub discovered_minute: StrategicMinute,
     pub buried: bool,
     pub exhumed: bool,
     pub burned: bool,
@@ -140,7 +147,7 @@ pub struct CorpsePermission {
     pub granted_by_resident_character_id: u64,
     pub kind: CorpsePermissionKind,
     pub scope: CorpsePermissionScope,
-    pub granted_minute: u64,
+    pub granted_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -156,7 +163,7 @@ pub struct CorpsePermissionAttempt {
     pub scope: CorpsePermissionScope,
     pub approach: String,
     pub granted: bool,
-    pub attempted_minute: u64,
+    pub attempted_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -171,7 +178,7 @@ pub struct AutopsyActionReceipt {
     pub action_kind: String,
     pub stage: String,
     pub finding: String,
-    pub performed_minute: u64,
+    pub performed_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -216,7 +223,7 @@ fn observer_party(ctx: &ReducerContext, actor_id: u64) -> Result<String, String>
     actor.party_id.ok_or("Character has no party".into())
 }
 
-fn now(ctx: &ReducerContext, actor_id: u64) -> Result<u64, String> {
+fn now(ctx: &ReducerContext, actor_id: u64) -> Result<StrategicMinute, String> {
     ctx.db
         .character_time()
         .character_id()
@@ -245,7 +252,7 @@ fn require_corpse_access(
     ctx: &ReducerContext,
     actor_id: u64,
     corpse_id: &str,
-) -> Result<(StrategicCorpse, String, u64), String> {
+) -> Result<(StrategicCorpse, String, StrategicMinute), String> {
     crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
     let party_id = observer_party(ctx, actor_id)?;
     let corpse = ctx
@@ -276,12 +283,8 @@ fn require_corpse_access(
     if corpse.burned {
         return Err("The corpse has been destroyed by fire".into());
     }
-    let location = corpse_location(
-        corpse.discovered_minute,
-        minute,
-        corpse.buried,
-        corpse.exhumed,
-    );
+    let now = minute;
+    let location = corpse_location(corpse.discovered_minute, now, corpse.buried, corpse.exhumed);
     let actor_site = crate::investigation::current_character_case_site_occupancy(ctx, actor_id)
         .map(|row| row.case_site_id);
     let together = match location {
@@ -413,12 +416,12 @@ fn realized_finding(
     corpse: &StrategicCorpse,
     discipline: &str,
     check: f32,
-    minute: u64,
+    minute: StrategicMinute,
     internal: bool,
 ) -> RealizedAutopsyFinding {
     use adventuresim_core::autopsy::{
-        AutopsyEvidenceContext, BodyInjury, PostCombatBody, SystemicPathologySnapshot,
-        bestiary_finding, physiology_finding, physiology_pathology_finding, surgery_finding,
+        BodyInjury, PostCombatBody, SystemicPathologySnapshot, bestiary_finding,
+        physiology_finding, physiology_pathology_finding, surgery_finding,
     };
     let injuries = ctx
         .db
@@ -463,17 +466,7 @@ fn realized_finding(
                 }
             })
         });
-    let location = corpse_location(
-        corpse.discovered_minute,
-        minute,
-        corpse.buried,
-        corpse.exhumed,
-    );
-    let context = AutopsyEvidenceContext {
-        decomposition: decomposition_band(corpse.death_minute, minute, corpse.handling_damage_bps),
-        at_scene: location == CorpseLocation::Scene,
-        opening_obscuration_bps: corpse.opening_obscuration_bps,
-    };
+    let context = autopsy_evidence_context(corpse, minute);
     let (finding, kind) = match discipline {
         "surgery" => (
             surgery_finding(&injuries, check, context, internal),
@@ -535,7 +528,7 @@ pub fn backend_corpses(ctx: &ViewContext) -> Vec<BackendCorpse> {
         return Vec::new();
     }
     let mut rows = Vec::new();
-    for actor_time in ctx.db.character_time().minutes().filter(0u64..) {
+    for actor_time in ctx.db.character_time().scan_id().filter(0u64..) {
         let Some(actor) = ctx
             .db
             .character()
@@ -767,8 +760,8 @@ fn persist_autopsy_demo_body(
     display_name: &str,
     creature_kind: &str,
     victim_id: u64,
-    death_minute: u64,
-    discovered_minute: u64,
+    death_minute: StrategicMinute,
+    discovered_minute: StrategicMinute,
     buried: bool,
     party_killed_enemy: bool,
     outcome: &BattleOutcome,
@@ -869,11 +862,11 @@ pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(
         .character_id()
         .find(actor_id)
         .ok_or("Autopsy demo character has no clock")?;
-    actor_time.minutes = actor_time.minutes.max(4_000);
-    let minute = actor_time.minutes;
+    let minute = actor_time.minutes.max(StrategicMinute::new(4_000));
+    actor_time.minutes = minute;
     ctx.db.character_time().character_id().update(actor_time);
 
-    let build_outcome = |victim_id: u64, victim_kind: &str, attacker_kind: &str, seed: u64| {
+    let build_outcome = |victim_id: u64, victim_kind: &str, attacker_kind: &str, seed: Seed| {
         let attacker = crate::strategic::autoresolve_enemy(
             victim_id.saturating_sub(100),
             attacker_kind,
@@ -901,19 +894,19 @@ pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(
         AUTOPSY_DEMO_RECENT_VICTIM_ID,
         "poacher",
         "bear",
-        0x4155_544f_5053_5901,
+        fabelgeist_determinism::Seed::from_u64(0x4155_544f_5053_5901),
     )?;
     let buried = build_outcome(
         AUTOPSY_DEMO_BURIED_VICTIM_ID,
         "smuggler",
         "bear",
-        0x4155_544f_5053_5902,
+        fabelgeist_determinism::Seed::from_u64(0x4155_544f_5053_5902),
     )?;
     let enemy = build_outcome(
         AUTOPSY_DEMO_ENEMY_ID,
         "kobold",
         "armed_retainer",
-        0x4155_544f_5053_5903,
+        fabelgeist_determinism::Seed::from_u64(0x4155_544f_5053_5903),
     )?;
     let recent_id = persist_autopsy_demo_body(
         ctx,
@@ -923,8 +916,8 @@ pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(
         "Elsbeth Bauer",
         "human",
         AUTOPSY_DEMO_RECENT_VICTIM_ID,
-        minute.saturating_sub(150),
-        minute.saturating_sub(120),
+        minute.saturating_sub_minutes(150),
+        minute.saturating_sub_minutes(120),
         false,
         false,
         &recent,
@@ -937,8 +930,8 @@ pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(
         "Konrad Weiss",
         "human",
         AUTOPSY_DEMO_BURIED_VICTIM_ID,
-        minute.saturating_sub(3_000),
-        minute.saturating_sub(1_500),
+        minute.saturating_sub_minutes(3_000),
+        minute.saturating_sub_minutes(1_500),
         true,
         false,
         &buried,
@@ -951,8 +944,8 @@ pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(
         "Fallen kobold",
         "kobold",
         AUTOPSY_DEMO_ENEMY_ID,
-        minute.saturating_sub(150),
-        minute.saturating_sub(120),
+        minute.saturating_sub_minutes(150),
+        minute.saturating_sub_minutes(120),
         false,
         true,
         &enemy,
@@ -1029,7 +1022,7 @@ pub(crate) fn persist_character_death_corpse(
     ctx: &ReducerContext,
     character_id: u64,
     source_id: &str,
-    death_minute: u64,
+    death_minute: StrategicMinute,
 ) -> Result<(), String> {
     let Some(subject) = ctx.db.character().id().find(character_id) else {
         return Err("Dead character not found".into());
@@ -1341,10 +1334,7 @@ pub fn open_corpse(
         CorpsePermissionScope::Examination,
     )?;
     let completed_minute = now(ctx, actor_id)?;
-    let entropy = (adventuresim_core::settlement_population::stable_hash(&format!(
-        "{}:{actor_id}:{}:opening:{}",
-        corpse.id, corpse.revision, receipt_id
-    )) % 10_001) as u16;
+    let entropy = draws::opening_quality(&corpse, actor_id, &receipt_id);
     let (quality, obscuration) = opening_quality_bps(surgery, entropy);
     corpse.opened = true;
     corpse.opening_quality_bps = quality;
@@ -1743,12 +1733,7 @@ pub(crate) fn grant_permission_from_dialogue(
         })
         .unwrap_or(0.0);
     let difficulty = permission_difficulty(kind, scope);
-    let entropy = adventuresim_core::settlement_population::stable_hash(&format!(
-        "corpse-permission:{attempt_id}"
-    ));
-    let roll = (entropy % (u64::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE) + 1))
-        as f32
-        / f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE);
+    let roll = draws::permission(&attempt_id);
     let professional_fit = matches!(
         npc.profession.as_str(),
         "cleric" | "physician" | "surgeon" | "local healer"
@@ -1899,7 +1884,7 @@ pub(crate) fn permission_topics_for_npc(
     else {
         return Vec::new();
     };
-    let minute = now(ctx, actor_id).unwrap_or(0);
+    let minute = now(ctx, actor_id).unwrap_or_default();
     ctx.db
         .strategic_corpse()
         .discovering_party_id()

@@ -777,7 +777,7 @@ def module_input_digest(
 
 
 def generated_bindings_digest(client_dir: Path = CLIENT_DIR) -> str:
-    files = sorted(path for path in client_dir.glob("*.rs") if path.name != "lib.rs")
+    files = sorted(client_dir.glob("*.rs"))
     return file_tree_digest(files, relative_to=client_dir)
 
 
@@ -1026,11 +1026,8 @@ def dev_bootstrap_token(root: Path = ROOT, state_root: Path | None = None) -> st
 
 def binding_differences(expected: Path, actual: Path) -> list[str]:
     expected_files = {p.name for p in expected.glob("*.rs")}
-    # lib.rs is the crate's handwritten facade; SpacetimeDB owns mod.rs and
-    # every other file in this directory.
-    expected_files.discard("lib.rs")
+    # The handwritten facade is outside src; every source file here is generated.
     actual_files = {p.name for p in actual.glob("*.rs")}
-    actual_files.discard("lib.rs")
     differences = sorted(expected_files ^ actual_files)
     for name in sorted(expected_files & actual_files):
         if expected.joinpath(name).read_bytes().replace(b"\r\n", b"\n") != actual.joinpath(name).read_bytes().replace(b"\r\n", b"\n"):
@@ -1075,9 +1072,9 @@ def verify_bindings(
         if result.returncode:
             write_console(result.stdout)
             return result.returncode
-        generated.joinpath("lib.rs").write_bytes(CLIENT_DIR.joinpath("lib.rs").read_bytes())
         temp_root.joinpath("Cargo.toml").write_text(
             '[package]\nname = "binding-freshness-check"\nversion = "0.0.0"\nedition = "2024"\n'
+            '[lib]\npath = "src/mod.rs"\n'
         )
         formatted = subprocess.run(
             ["cargo", "fmt", "--manifest-path", str(temp_root / "Cargo.toml")], text=True
@@ -1232,7 +1229,9 @@ def tactical_profile_cache_is_valid(
     )
 
 
-def reset_publish(capability: ResetCapability) -> int:
+def reset_publish(
+    capability: ResetCapability, *, build_options: str | None = None
+) -> int:
     if not capability.lock.held:
         raise ValueError("isolated reset requires the held profile lifecycle lock")
     values = profile_values(capability.profile, capability.base_port)
@@ -1246,6 +1245,8 @@ def reset_publish(capability: ResetCapability) -> int:
         "spacetime", "publish", "--delete-data=always", "--yes",
         "--server", capability.server, capability.database,
     ]
+    if build_options is not None:
+        command.append(f"--build-options={build_options}")
     result = run_checked(command, MODULE_DIR)
     write_console(result.stdout)
     if result.returncode:
@@ -2140,6 +2141,10 @@ def tactical_session_config(
 def tactical_combat_scale(mode: TacticalPlayMode) -> int:
     combat_modes = (
         TacticalPlayMode.ANIMATION, TacticalPlayMode.COMBAT, TacticalPlayMode.BROWSER,
+        # Diagnostic sessions use a passive enemy fixture, but still need a
+        # live enemy while the native client completes its initial presentation
+        # and submits the first input.
+        TacticalPlayMode.DIAGNOSTIC,
     )
     return 10_000 if mode in combat_modes else 0
 

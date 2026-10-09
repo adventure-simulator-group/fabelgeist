@@ -19,7 +19,9 @@ pub struct CaseAuthority {
 
 /// Immutable private replay authority for one generated case. The manifest and
 /// factor trace include canonical truth and must never be exposed by a public
-/// table or view.
+/// table or view. Indexed metadata is derived at materialization and remains
+/// immutable with the manifest; `validate_quest_generation_authority` checks
+/// their agreement before replay-sensitive consumption.
 #[derive(Clone, Debug)]
 #[table(accessor = quest_generation_authority)]
 pub struct QuestGenerationAuthority {
@@ -31,7 +33,7 @@ pub struct QuestGenerationAuthority {
     pub settlement_id: String,
     pub settlement_name: String,
     #[index(btree)]
-    pub seed: u64,
+    pub seed: Seed,
     pub catalog_revision: String,
     pub context_snapshot_json: String,
     pub context_commitment: String,
@@ -48,8 +50,8 @@ pub(crate) struct ValidatedQuestGenerationAuthority {
 const QUEST_GENERATION_CONTEXT_COMMITMENT_VERSION: u16 = 1;
 
 pub(crate) fn quest_generation_context_commitment(context_json: &str) -> Result<String, String> {
-    let value: serde_json::Value = serde_json::from_str(context_json)
-        .map_err(|_| "Quest generation context is invalid")?;
+    let value: serde_json::Value =
+        serde_json::from_str(context_json).map_err(|_| "Quest generation context is invalid")?;
     let canonical_json = serde_json::to_vec(&value)
         .map_err(|_| "Could not encode canonical quest generation context")?;
     let mut hasher = Sha256::new();
@@ -160,30 +162,24 @@ pub struct ContractAuthority {
     pub accepted_by: Option<String>,
     pub opposition_wording: String,
     pub opposition_count_wording: String,
-    pub accepted_at_minute: Option<u64>,
-    pub paid_at_minute: Option<u64>,
+    pub accepted_at_minute: Option<StrategicMinute>,
+    pub paid_at_minute: Option<StrategicMinute>,
 }
 
 impl ContractAuthority {
     /// Parse the flattened row before lifecycle-sensitive reducer logic uses it.
     pub fn parsed_state(
         &self,
-    ) -> Result<adventuresim_core::strategic_state::ContractState, String> {
-        use adventuresim_core::strategic_state::FlatContractStatus as Flat;
-        let status = match self.status {
-            ContractStatus::Offered => Flat::Offered,
-            ContractStatus::Accepted => Flat::Accepted,
-            ContractStatus::ReadyToReport => Flat::ReadyToReport,
-            ContractStatus::Paid => Flat::Paid,
-            ContractStatus::Withdrawn => Flat::Withdrawn,
-        };
+    ) -> Result<
+        adventuresim_core::strategic_state::ContractState,
+        adventuresim_core::strategic_state::StateParseError,
+    > {
         adventuresim_core::strategic_state::ContractState::parse(
-            status,
+            self.status,
             self.accepted_by.clone(),
             self.accepted_at_minute,
             self.paid_at_minute,
         )
-        .map_err(|error| error.to_string())
     }
 }
 
@@ -212,8 +208,8 @@ pub struct BackendContract {
     /// autoresolve will construct: authored profile, base difficulty, incident
     /// scale, equipment, training, and current enemy count.
     pub opposition_combat_power: u64,
-    pub accepted_at_minute: Option<u64>,
-    pub paid_at_minute: Option<u64>,
+    pub accepted_at_minute: Option<StrategicMinute>,
+    pub paid_at_minute: Option<StrategicMinute>,
     /// Conservative public one-way preflight distance: the greatest distance
     /// among this contract's possible case destinations. Site identity stays
     /// private until ordinary exact disclosure.
@@ -270,10 +266,7 @@ pub fn backend_contracts(ctx: &ViewContext) -> Vec<BackendContract> {
                 })
                 .try_fold((0u32, 0u64), |(count, total), group| {
                     let (group_count, power) = group?;
-                    Some((
-                        count.checked_add(group_count)?,
-                        total.checked_add(power)?,
-                    ))
+                    Some((count.checked_add(group_count)?, total.checked_add(power)?))
                 })?;
             Some(BackendContract {
                 id: row.id,
@@ -301,6 +294,8 @@ pub fn backend_contracts(ctx: &ViewContext) -> Vec<BackendContract> {
 }
 
 #[derive(Clone, Debug)]
+/// Terminal case result. Finale execution is owned by its immutable receipt,
+/// not a second mutable checkpoint on this outcome.
 #[table(accessor = case_outcome)]
 pub struct CaseOutcome {
     #[primary_key]
@@ -308,12 +303,13 @@ pub struct CaseOutcome {
     pub party_id: String,
     pub status: CaseStatus,
     pub winning_path_index: Option<u16>,
-    pub resolved_at_minute: u64,
+    pub resolved_at_minute: StrategicMinute,
     pub selected_finale_id: String,
-    pub finale_executed: bool,
 }
 
 #[derive(Clone, Debug)]
+/// The fact payload owns semantic content; indexed identity columns adapt its
+/// keys for storage. `ingest_case_outcome_fact` creates them together.
 #[table(accessor = case_outcome_fact)]
 pub struct CaseOutcomeFact {
     #[primary_key]
@@ -325,7 +321,6 @@ pub struct CaseOutcomeFact {
     #[unique]
     pub source_id: String,
     pub fact_json: String,
-    pub happened_at_minute: u64,
 }
 
 #[derive(Clone, Debug)]
@@ -351,6 +346,8 @@ pub enum ObjectiveContinuityKind {
 
 /// Private continuous-history guard. A deadline is satisfiable only when this
 /// row has remained unbroken from `started_at_minute` through the deadline.
+/// `completed` checkpoints the committed outcome fact; reaching the deadline
+/// alone cannot prove that ingestion and its effects have completed.
 #[derive(Clone, Debug)]
 #[table(accessor = objective_continuity_guard)]
 pub struct ObjectiveContinuityGuard {
@@ -364,9 +361,9 @@ pub struct ObjectiveContinuityGuard {
     pub site_id: String,
     pub subject_id: String,
     pub custody_version: Option<u32>,
-    pub started_at_minute: u64,
-    pub through_minute: u64,
-    pub broken_at_minute: Option<u64>,
+    pub started_at_minute: StrategicMinute,
+    pub through_minute: StrategicMinute,
+    pub broken_at_minute: Option<StrategicMinute>,
     pub completed: bool,
 }
 
@@ -385,6 +382,8 @@ pub struct CaseFinaleAuthority {
 }
 
 #[derive(Clone, Debug)]
+/// Immutable execution receipt, inserted with effects by `execute_case_finale`.
+/// Presence owns completed execution and exact retries reuse it without effects.
 #[table(accessor = case_finale_execution)]
 pub struct CaseFinaleExecution {
     #[primary_key]
@@ -393,7 +392,7 @@ pub struct CaseFinaleExecution {
     pub source_id: String,
     pub case_id: String,
     pub party_id: String,
-    pub executed_at_minute: u64,
+    pub executed_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
@@ -421,7 +420,7 @@ pub struct ContractIssuerInteractionReceipt {
     pub stage: ContractInteractionStage,
     pub issuer_resident_character_id: u64,
     pub interacting_character_id: u64,
-    pub interacted_at_minute: u64,
+    pub interacted_at_minute: StrategicMinute,
     pub dialogue_session_id: String,
     pub dialogue_action_id: String,
     pub dialogue_revision: u64,
@@ -479,7 +478,7 @@ pub struct StrategicIncident {
     pub case_site_id: CaseSiteId,
     #[unique]
     pub hostile_group_id: String,
-    pub created_at_minute: u64,
+    pub created_at_minute: StrategicMinute,
 }
 
 /// Private server entropy persisted for one activity interval. The public
@@ -492,7 +491,7 @@ pub struct ActivityIncidentEntropy {
     pub id: String,
     #[index(btree)]
     pub character_id: u64,
-    pub seed: u64,
+    pub seed: Seed,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, SpacetimeType)]
@@ -531,8 +530,8 @@ pub struct RecruitmentOffer {
     pub location_id: String,
     pub leader_id: u64,
     pub status: RecruitmentOfferStatus,
-    pub created_at_minute: u64,
-    pub expires_at_minute: u64,
+    pub created_at_minute: StrategicMinute,
+    pub expires_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -547,6 +546,7 @@ pub struct Party {
     pub current_settlement_id: Option<String>,
     pub current_case_site_id: Option<CaseSiteId>,
     pub active_contract_id: Option<String>,
+    /// Living membership projection maintained by party governance refresh.
     pub is_solo: bool,
     /// The fatigue level at which the first tiring party member makes camp.
     #[default(50u8)]
@@ -564,7 +564,7 @@ pub struct Party {
     pub journey_start_minute_of_day: u16,
     /// Canonical instant at which the current wilderness excursion began.
     /// Its calendar date and lunar phase remain fixed until settlement return.
-    pub wilderness_canonical_anchor_minute: Option<u64>,
+    pub wilderness_canonical_anchor_minute: Option<StrategicMinute>,
     /// Total subjective party time since the current wilderness excursion
     /// began. This survives individual legs, camps, redirects, and case sites.
     pub wilderness_elapsed_minutes: u64,
@@ -663,7 +663,7 @@ pub struct PartyJourney {
     /// Journey-local minute at the beginning of this leg, represented on the
     /// excursion's frozen canonical day. `completed_elapsed_minutes` remains
     /// the monotonic progress coordinate for this leg.
-    pub departure_minute: u64,
+    pub departure_minute: StrategicMinute,
     pub total_elapsed_minutes: u64,
     pub completed_elapsed_minutes: u64,
     pub walking_minutes_per_day: u16,
@@ -677,7 +677,7 @@ pub struct PartyJourney {
 pub struct PartyJourneyEncounterAuthority {
     #[primary_key]
     pub party_id: String,
-    pub seed: u64,
+    pub seed: Seed,
     pub next_roll: u64,
     pub narrative_rest_elapsed_minutes: u64,
 }
@@ -711,7 +711,7 @@ pub struct StrategicEncounter {
     pub roll_index: u64,
     pub journey_movement_minute: u64,
     pub journey_elapsed_minute: u64,
-    pub absolute_minute: u64,
+    pub absolute_minute: StrategicMinute,
     pub longitude_e7: i32,
     pub latitude_e7: i32,
     pub terrain: String,
@@ -814,8 +814,8 @@ pub struct JourneyRouteLeg {
 pub struct JourneyRoutePlan {
     pub package_digest: String,
     pub weather_rules_version: u16,
-    pub weather_interval_start: u64,
-    pub precipitation: JourneyPrecipitation,
+    pub weather_interval_start: StrategicMinute,
+    pub precipitation: Precipitation,
     pub intensity_bps: u16,
     pub ground_moisture_bps: u16,
     pub snow_cover_bps: u16,
@@ -824,13 +824,6 @@ pub struct JourneyRoutePlan {
     pub points: Vec<JourneyRoutePoint>,
     pub spans: Vec<JourneyTerrainSpan>,
     pub return_route: Option<JourneyRouteLeg>,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum JourneyPrecipitation {
-    Clear,
-    Rain,
-    Snow,
 }
 
 #[derive(Clone, Debug)]
@@ -842,8 +835,8 @@ pub struct PartyJourneyRoute {
     pub gateway_bucket: u8,
     pub package_digest: String,
     pub weather_rules_version: u16,
-    pub weather_interval_start: u64,
-    pub precipitation: JourneyPrecipitation,
+    pub weather_interval_start: StrategicMinute,
+    pub precipitation: Precipitation,
     pub intensity_bps: u16,
     pub ground_moisture_bps: u16,
     pub snow_cover_bps: u16,
@@ -1083,6 +1076,9 @@ pub fn set_inventory_quantity_target(
     Ok(())
 }
 
+/// Member contribution entitlement, owned by inventory-trade transactions.
+/// Deposits credit it; withdrawals and stake-funded purchases debit it. It is
+/// distinct from the current item or coin count in the pooled inventory.
 #[derive(Clone, Debug)]
 #[table(accessor = party_stake, public)]
 pub struct PartyStake {
@@ -1096,6 +1092,9 @@ pub struct PartyStake {
     pub value: u64,
 }
 
+/// Communal unallocated value, owned by inventory-trade transactions.
+/// Reward/reserve credits and final disband settlement maintain this ledger;
+/// it is distinct from member stakes and current physical currency stacks.
 #[derive(Clone, Debug)]
 #[table(accessor = party_inventory_state, public)]
 pub struct PartyInventoryState {
@@ -1122,7 +1121,7 @@ pub struct AutoresolveReport {
     pub battle_id: String,
     #[index(btree)]
     pub party_id: String,
-    pub seed: u64,
+    pub seed: Seed,
     pub victor: String,
     pub rounds: u32,
     pub summary: String,
@@ -1226,8 +1225,8 @@ pub struct MissionAuthority {
     pub scene_key: String,
     /// Immutable combat/loot snapshot captured when this mission binds.
     pub hostile_version: u16,
-    pub enemy_count: u32,
-    /// Immutable exact roster captured at bind time.
+    /// Immutable exact roster captured at bind time; it owns bound cardinality.
+    /// Live hostile-group escalation never changes this snapshot.
     pub enemy_character_ids: Vec<u64>,
     /// Immutable awareness snapshot. Contact removes the party's opening surprise.
     pub contacted_before_combat: bool,
@@ -1242,52 +1241,21 @@ impl MissionAuthority {
     /// Parse the flattened storage representation into its valid sum type.
     pub fn parsed_state(
         &self,
-    ) -> Result<adventuresim_core::strategic_state::MissionAttemptState, String> {
-        use adventuresim_core::strategic_state::{
-            FlatMissionState, FlatMissionStatus as Status, FlatResolution as Resolution,
-        };
-        adventuresim_core::strategic_state::MissionAttemptState::parse(FlatMissionState {
-            status: match self.status {
-                MissionAttemptStatus::Bound => Status::Bound,
-                MissionAttemptStatus::Committed => Status::Committed,
-                MissionAttemptStatus::Failed => Status::Failed,
-                MissionAttemptStatus::Cancelled => Status::Cancelled,
+    ) -> Result<
+        adventuresim_core::strategic_state::MissionAttemptState,
+        adventuresim_core::strategic_state::StateParseError,
+    > {
+        adventuresim_core::strategic_state::MissionAttemptState::parse(
+            adventuresim_core::strategic_state::FlatMissionState {
+                status: self.status,
+                case_site_id: self.case_site_id.clone(),
+                hostile_group_id: self.hostile_group_id.clone(),
+                resolution: self.committed_resolution,
+                subject_id: self.committed_capture_subject_id.clone(),
+                custody_version: self.committed_capture_custody_version,
             },
-            case_site_id: self.case_site_id.clone(),
-            hostile_group_id: self.hostile_group_id.clone(),
-            resolution: self
-                .committed_resolution
-                .map(|resolution| match resolution {
-                    HostileResolutionKind::Defeated => Resolution::Defeated,
-                    HostileResolutionKind::DrivenOff => Resolution::DrivenOff,
-                    HostileResolutionKind::Surrendered => Resolution::Surrendered,
-                    HostileResolutionKind::Captured => Resolution::Captured,
-                    HostileResolutionKind::CaptureTargetKilled => Resolution::CaptureTargetKilled,
-                }),
-            subject_id: self.committed_capture_subject_id.clone(),
-            custody_version: self.committed_capture_custody_version,
-        })
-        .map_err(|error| error.to_string())
+        )
     }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum MissionAttemptStatus {
-    Bound,
-    Committed,
-    Failed,
-    Cancelled,
-}
-
-#[derive(
-    Clone, Copy, Debug, PartialEq, Eq, SpacetimeType, serde::Serialize, serde::Deserialize,
-)]
-pub enum HostileResolutionKind {
-    Defeated,
-    DrivenOff,
-    Surrendered,
-    Captured,
-    CaptureTargetKilled,
 }
 
 /// Private observer-authorized approach authority. These rows are exact,
@@ -1423,7 +1391,6 @@ fn materialize_hostile_group(
                 crate::world_actor::CharacterContextKind::HostileGroup,
                 &existing.id,
                 existing.case_site_id.as_str(),
-                &existing.enemy_type,
                 existing.enemy_count,
             )?;
             Ok(existing)
@@ -1437,7 +1404,6 @@ fn materialize_hostile_group(
         crate::world_actor::CharacterContextKind::HostileGroup,
         &group.id,
         group.case_site_id.as_str(),
-        &group.enemy_type,
         group.enemy_count,
     )?;
     Ok(group)

@@ -4,6 +4,7 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
 use super::tactical_settlement_snapshot_type::TacticalSettlementSnapshot;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
@@ -17,9 +18,8 @@ pub struct TacticalServerRequest {
     pub longitude_e_7: i32,
     pub latitude_e_7: i32,
     pub settlement: Option<TacticalSettlementSnapshot>,
-    pub absolute_minute: u64,
-    pub lunar_phase_minute: u64,
-    pub expected_party_members: u32,
+    pub absolute_minute: StrategicMinute,
+    pub lunar_phase_minute: StrategicMinute,
     pub authorized_party_member_ids: Vec<u64>,
     pub required_enemy_kills: u32,
     pub enemy_difficulty: i32,
@@ -47,9 +47,8 @@ pub struct TacticalServerRequestCols {
     pub latitude_e_7: __sdk::__query_builder::Col<TacticalServerRequest, i32>,
     pub settlement:
         __sdk::__query_builder::Col<TacticalServerRequest, Option<TacticalSettlementSnapshot>>,
-    pub absolute_minute: __sdk::__query_builder::Col<TacticalServerRequest, u64>,
-    pub lunar_phase_minute: __sdk::__query_builder::Col<TacticalServerRequest, u64>,
-    pub expected_party_members: __sdk::__query_builder::Col<TacticalServerRequest, u32>,
+    pub absolute_minute: __sdk::__query_builder::Col<TacticalServerRequest, StrategicMinute>,
+    pub lunar_phase_minute: __sdk::__query_builder::Col<TacticalServerRequest, StrategicMinute>,
     pub authorized_party_member_ids: __sdk::__query_builder::Col<TacticalServerRequest, Vec<u64>>,
     pub required_enemy_kills: __sdk::__query_builder::Col<TacticalServerRequest, u32>,
     pub enemy_difficulty: __sdk::__query_builder::Col<TacticalServerRequest, i32>,
@@ -74,10 +73,6 @@ impl __sdk::__query_builder::HasCols for TacticalServerRequest {
             settlement: __sdk::__query_builder::Col::new(table_name, "settlement"),
             absolute_minute: __sdk::__query_builder::Col::new(table_name, "absolute_minute"),
             lunar_phase_minute: __sdk::__query_builder::Col::new(table_name, "lunar_phase_minute"),
-            expected_party_members: __sdk::__query_builder::Col::new(
-                table_name,
-                "expected_party_members",
-            ),
             authorized_party_member_ids: __sdk::__query_builder::Col::new(
                 table_name,
                 "authorized_party_member_ids",

@@ -119,7 +119,7 @@ fn contains(member: &SpiralMember, point: Vec3) -> bool {
 fn fortified_stairs_and_floor_holes_are_shared_by_detail_and_collision() {
     let plan = crate::generate(&crate::BuildingProgram::fixture(
         BuildingArchetype::WalledKeep,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap_or_else(|error| match error {
         crate::GenerationError::StructuralContract { issues, .. } => panic!(
@@ -129,8 +129,8 @@ fn fortified_stairs_and_floor_holes_are_shared_by_detail_and_collision() {
         ),
         other => panic!("{other}"),
     });
-    let collision = crate::compile_building_collision(&plan);
-    let detail = crate::compile_building_detail(&plan);
+    let collision = crate::compile_building_collision(&plan).unwrap();
+    let detail = crate::compile_building_detail(&plan).unwrap();
     for solid in plan.resolved_geometry.solids.iter().filter(|s| {
         matches!(
             s.role,
@@ -139,9 +139,12 @@ fn fortified_stairs_and_floor_holes_are_shared_by_detail_and_collision() {
     }) {
         assert!(collision.cuboids.iter().any(|c| c.source == solid.id));
         assert!(detail.meshes.iter().flat_map(|m| &m.vertices).any(|v| {
-            let local =
-                bevy::math::Quat::from_rotation_y(-solid.yaw_radians) * (v.position - solid.centre);
-            (local.abs() - solid.size * 0.5).abs().max_element() < 0.001
+            let local = bevy::math::Quat::from_rotation_y(-solid.yaw_radians.radians())
+                * (v.position - solid.centre.metres());
+            (local.abs() - solid.size.metres() * 0.5)
+                .abs()
+                .max_element()
+                < 0.001
         }));
     }
     for (index, stair) in plan.stairs.iter().enumerate() {
@@ -160,10 +163,11 @@ fn fortified_stairs_and_floor_holes_are_shared_by_detail_and_collision() {
             .resolved_geometry
             .solids
             .iter()
-            .filter(|s| s.role == SolidRole::InteriorFloor && s.centre.y > 1.0)
+            .filter(|s| s.role == SolidRole::InteriorFloor && s.centre.metres().y > 1.0)
         {
-            let separation = (Vec2::new(solid.centre.x, solid.centre.z) - *centre).abs()
-                - Vec2::new(solid.size.x, solid.size.z) * 0.5;
+            let separation =
+                (Vec2::new(solid.centre.metres().x, solid.centre.metres().z) - *centre).abs()
+                    - Vec2::new(solid.size.metres().x, solid.size.metres().z) * 0.5;
             assert!(
                 separation.max_element()
                     >= outer_radius_metres + flight::WELL_MARGIN_METRES - 0.001
@@ -178,16 +182,18 @@ fn auxiliary_castle_stairs_do_not_claim_unbuilt_occupied_floor_portals() {
         BuildingArchetype::CastleGatehouse,
         BuildingArchetype::CourtyardCastle,
     ] {
-        let plan = crate::generate(&crate::BuildingProgram::fixture(archetype, 59)).unwrap_or_else(
-            |error| match error {
-                crate::GenerationError::StructuralContract { issues, .. } => panic!(
-                    "{archetype:?}: {} issues; first {:?}",
-                    issues.len(),
-                    &issues[..issues.len().min(4)]
-                ),
-                other => panic!("{other}"),
-            },
-        );
+        let plan = crate::generate(&crate::BuildingProgram::fixture(
+            archetype,
+            fabelgeist_determinism::Seed::from_u64(59),
+        ))
+        .unwrap_or_else(|error| match error {
+            crate::GenerationError::StructuralContract { issues, .. } => panic!(
+                "{archetype:?}: {} issues; first {:?}",
+                issues.len(),
+                &issues[..issues.len().min(4)]
+            ),
+            other => panic!("{other}"),
+        });
         assert!(
             !plan
                 .resolved_geometry

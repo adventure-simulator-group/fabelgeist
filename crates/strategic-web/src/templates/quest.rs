@@ -80,12 +80,12 @@ pub fn quest_location_map_page(
         (map_destination_list_with_rest(
             nearby,
             selected_id,
-            &format!("/locations/case-site/{case_site_id}/map"),
+            &crate::location_urls::patterns::CASE_SITE.url([&case_site_id]),
             html! {
                 @if !resolved {
                 section class="rest-service-menu quest-rest-menu" aria-label="Destination rest" {
                     (party_rest_menu(
-                        &format!("/locations/case-site/{case_site_id}/map/rest"),
+                        &crate::location_urls::patterns::REST_AT_QUEST_LOCATION_MAP.url([&case_site_id]),
                         "quest-map-rest",
                         "Rest before battle",
                         "Rest party",
@@ -125,7 +125,7 @@ pub fn quest_location_map_page(
             party,
             can_configure_travel,
             None,
-            &format!("/locations/case-site/{case_site_id}/map"),
+            &crate::location_urls::patterns::CASE_SITE.url([&case_site_id]),
         ))
     };
     super::quest_location_layout_with_session(
@@ -207,7 +207,7 @@ fn quest_location_center(
             (party_portrait_overlay(
                 party_members,
                 active_character,
-                &format!("/locations/case-site/{case_site_id}"),
+                &crate::location_urls::patterns::CASE_SITE.url([&case_site_id]),
                 None,
             ))
             nav class="scene-interactable-strip physical-evidence-strip"
@@ -221,7 +221,7 @@ fn quest_location_center(
                     @for corpse in corpses {
                         @let corpse_label = if corpse.location == "interred" { "Buried body" } else { &corpse.display_name };
                         a class="scene-interactable scene-interactable--remains corpse-portrait"
-                            href=(format!("/locations/case-site/{case_site_id}/enemy?corpse={}&medical=physiology", corpse.corpse_id))
+                            href=(format!("{}?corpse={}&medical=physiology", crate::location_urls::patterns::QUEST_LOCATION_ENEMY.url([&case_site_id]), crate::location_urls::encode_component(&corpse.corpse_id.to_string())))
                             aria-label=(format!("Examine {corpse_label} with Physiology")) {
                             span class="scene-interactable-visual" aria-hidden="true" { "☠" }
                             span class="scene-interactable-label" { (corpse_label) }
@@ -230,8 +230,8 @@ fn quest_location_center(
                 }
                 @if let Some((corpse, _)) = selected_corpse {
                     div class="quest-combat-actions corpse-medical-actions" aria-label="Corpse medical windows" {
-                        a class="btn btn-secondary" href=(format!("/locations/case-site/{case_site_id}/enemy?corpse={}&medical=physiology", corpse.corpse_id)) { "Physiology" }
-                        a class="btn btn-secondary" href=(format!("/locations/case-site/{case_site_id}/enemy?corpse={}&medical=surgery", corpse.corpse_id)) { "Surgery" }
+                        a class="btn btn-secondary" href=(format!("{}?corpse={}&medical=physiology", crate::location_urls::patterns::QUEST_LOCATION_ENEMY.url([&case_site_id]), crate::location_urls::encode_component(&corpse.corpse_id.to_string()))) { "Physiology" }
+                        a class="btn btn-secondary" href=(format!("{}?corpse={}&medical=surgery", crate::location_urls::patterns::QUEST_LOCATION_ENEMY.url([&case_site_id]), crate::location_urls::encode_component(&corpse.corpse_id.to_string()))) { "Surgery" }
                     }
                 }
             }
@@ -289,7 +289,7 @@ fn quest_location_center(
                         }
                     }
                     form method="post"
-                        action=(format!("/locations/case-site/{case_site_id}/hostile/withdrawal")) {
+                        action=(crate::location_urls::patterns::NEGOTIATE_HOSTILE_WITHDRAWAL.url([&case_site_id])) {
                         input type="hidden" name="spokesman_id" value=(negotiation.spokesman.id);
                         input type="hidden" name="context_ref" value=(&negotiation.context_ref);
                         input type="hidden" name="expected_revision" value=(negotiation.expected_revision);
@@ -308,7 +308,7 @@ fn quest_location_center(
                     @if surrender.mode == crate::spacetimedb::HostileSurrenderMode::Offer {
                         p { "The hostile group offers to surrender as a whole." }
                         @for (accept, label) in [(true, "Accept surrender"), (false, "Refuse surrender")] {
-                            form method="post" action=(format!("/locations/case-site/{case_site_id}/hostile/surrender/offer")) {
+                            form method="post" action=(crate::location_urls::patterns::ANSWER_HOSTILE_SURRENDER_OFFER.url([&case_site_id])) {
                                 input type="hidden" name="spokesman_id" value=(surrender.spokesman.id);
                                 input type="hidden" name="context_ref" value=(&surrender.context_ref);
                                 input type="hidden" name="expected_revision" value=(surrender.expected_revision);
@@ -319,7 +319,7 @@ fn quest_location_center(
                         }
                     } @else {
                         p class="text-muted" { "Demand that the whole hostile group yield before combat." }
-                        form method="post" action=(format!("/locations/case-site/{case_site_id}/hostile/surrender/demand")) {
+                        form method="post" action=(crate::location_urls::patterns::DEMAND_HOSTILE_SURRENDER.url([&case_site_id])) {
                             input type="hidden" name="spokesman_id" value=(surrender.spokesman.id);
                             input type="hidden" name="context_ref" value=(&surrender.context_ref);
                             input type="hidden" name="expected_revision" value=(surrender.expected_revision);
@@ -335,7 +335,7 @@ fn quest_location_center(
         @if let Some((corpse, window)) = selected_corpse {
             (super::settlement::corpse_medical_dialog(
                 corpse,
-                &format!("/locations/case-site/{case_site_id}/enemy"),
+                &crate::location_urls::patterns::QUEST_LOCATION_ENEMY.url([&case_site_id]),
                 window,
             ))
         }
@@ -361,8 +361,8 @@ pub struct QuestCounterparty {
     pub contact_ref: String,
     pub revision: u32,
     pub membership_revision: u32,
-    pub contact_decision: crate::spacetimedb::BackendContextualDecision,
-    pub treatment_decision: crate::spacetimedb::BackendContextualDecision,
+    pub contact_decision: crate::spacetimedb::InteractionPresentationDecision,
+    pub treatment_decision: crate::spacetimedb::InteractionPresentationDecision,
     pub treatment_limb_slug: Option<String>,
 }
 
@@ -373,8 +373,8 @@ fn quest_counterparty_strip(case_site_id: &str, counterparties: &[QuestCounterpa
                 div class="scene-interactable scene-interactable--person counterparty-portrait" {
                     span class="scene-interactable-visual" aria-hidden="true" { "?" }
                     span class="scene-interactable-label" { (&counterparty.character.name) }
-                    @if counterparty.contact_decision == crate::spacetimedb::BackendContextualDecision::Request {
-                      form method="post" action=(format!("/locations/case-site/{case_site_id}/counterparty/contact")) {
+                    @if counterparty.contact_decision == crate::spacetimedb::InteractionPresentationDecision::Request {
+                      form method="post" action=(crate::location_urls::patterns::CONTACT_QUEST_COUNTERPARTY.url([&case_site_id])) {
                         input type="hidden" name="target_id" value=(counterparty.character.id);
                         input type="hidden" name="contact_ref" value=(&counterparty.contact_ref);
                         input type="hidden" name="expected_revision" value=(counterparty.revision);
@@ -383,25 +383,25 @@ fn quest_counterparty_strip(case_site_id: &str, counterparties: &[QuestCounterpa
                       }
                     } @else {
                       button type="button" class="btn btn-secondary btn-small" disabled {
-                        (if counterparty.contact_decision == crate::spacetimedb::BackendContextualDecision::Refused { "Refused" } else { "Unavailable" })
+                        (if counterparty.contact_decision == crate::spacetimedb::InteractionPresentationDecision::Refused { "Refused" } else { "Unavailable" })
                       }
                     }
                     @if counterparty.character.alive && counterparty.treatment_limb_slug.is_some() && matches!(counterparty.treatment_decision,
-                        crate::spacetimedb::BackendContextualDecision::Request
-                        | crate::spacetimedb::BackendContextualDecision::EmergencyTreatment) {
-                        form method="post" action=(format!("/locations/case-site/{case_site_id}/counterparty/bandage")) {
+                        crate::spacetimedb::InteractionPresentationDecision::Request
+                        | crate::spacetimedb::InteractionPresentationDecision::EmergencyTreatment) {
+                        form method="post" action=(crate::location_urls::patterns::BANDAGE_QUEST_COUNTERPARTY.url([&case_site_id])) {
                             input type="hidden" name="patient_id" value=(counterparty.character.id);
                             input type="hidden" name="limb_slug" value=(counterparty.treatment_limb_slug.as_deref().unwrap_or_default());
                             input type="hidden" name="action_id" value=(crate::templates::fresh_request_token("treatment"));
                             input type="hidden" name="context_ref" value=(&counterparty.contact_ref);
                             input type="hidden" name="expected_membership_revision" value=(counterparty.membership_revision);
                             button type="submit" class="btn btn-secondary btn-small" {
-                              (if counterparty.treatment_decision == crate::spacetimedb::BackendContextualDecision::EmergencyTreatment { "Emergency treatment" } else { "Request treatment" })
+                              (if counterparty.treatment_decision == crate::spacetimedb::InteractionPresentationDecision::EmergencyTreatment { "Emergency treatment" } else { "Request treatment" })
                             }
                         }
                     } @else {
                       button type="button" class="btn btn-secondary btn-small" disabled {
-                        (if counterparty.treatment_decision == crate::spacetimedb::BackendContextualDecision::Refused { "Refused" } else { "Unavailable" })
+                        (if counterparty.treatment_decision == crate::spacetimedb::InteractionPresentationDecision::Refused { "Refused" } else { "Unavailable" })
                       }
                     }
                 }
@@ -454,7 +454,7 @@ pub fn quest_location_enemy_page(
                 (sidebar_section("Location", html! { p { (&site.description) } }))
                 section class="rest-service-menu quest-rest-menu" aria-label="Destination rest" {
                     (party_rest_menu(
-                        &format!("/locations/case-site/{case_site_id}/rest"),
+                        &crate::location_urls::patterns::REST_AT_QUEST_LOCATION.url([&case_site_id]),
                         "quest-rest",
                         "Rest before battle",
                         "Rest party",
@@ -524,7 +524,7 @@ pub fn quest_location_enemy_page(
                         "Travel preferences",
                         travel_preferences_form(
                             party,
-                            &format!("/locations/case-site/{case_site_id}/map/travel-configuration"),
+                            &crate::location_urls::patterns::UPDATE_CASE_SITE_TRAVEL_CONFIGURATION.url([&case_site_id]),
                         ),
                     ))
                 }
@@ -598,8 +598,12 @@ mod tests {
             .next()
             .unwrap();
         let routes = include_str!("../routes/quests.rs");
-        assert!(template.contains("/counterparty/contact"));
-        assert!(template.contains("/counterparty/bandage"));
+        assert!(
+            template.contains("crate::location_urls::patterns::CONTACT_QUEST_COUNTERPARTY.url")
+        );
+        assert!(
+            template.contains("crate::location_urls::patterns::BANDAGE_QUEST_COUNTERPARTY.url")
+        );
         assert!(routes.contains("\"treat_limb\""));
         let projection = routes
             .split("let context_memberships: Vec<BackendContextCharacter>")
@@ -638,8 +642,9 @@ mod tests {
                 contact_ref: "claim-a".into(),
                 revision: 3,
                 membership_revision: 2,
-                contact_decision: crate::spacetimedb::BackendContextualDecision::Request,
-                treatment_decision: crate::spacetimedb::BackendContextualDecision::Unavailable,
+                contact_decision: crate::spacetimedb::InteractionPresentationDecision::Request,
+                treatment_decision:
+                    crate::spacetimedb::InteractionPresentationDecision::Unavailable,
                 treatment_limb_slug: None,
             },
             QuestCounterparty {
@@ -647,8 +652,8 @@ mod tests {
                 contact_ref: "claim-b".into(),
                 revision: 7,
                 membership_revision: 4,
-                contact_decision: crate::spacetimedb::BackendContextualDecision::Refused,
-                treatment_decision: crate::spacetimedb::BackendContextualDecision::Request,
+                contact_decision: crate::spacetimedb::InteractionPresentationDecision::Refused,
+                treatment_decision: crate::spacetimedb::InteractionPresentationDecision::Request,
                 treatment_limb_slug: Some("right-leg".into()),
             },
             QuestCounterparty {
@@ -656,9 +661,9 @@ mod tests {
                 contact_ref: "claim-c".into(),
                 revision: 9,
                 membership_revision: 6,
-                contact_decision: crate::spacetimedb::BackendContextualDecision::Unavailable,
+                contact_decision: crate::spacetimedb::InteractionPresentationDecision::Unavailable,
                 treatment_decision:
-                    crate::spacetimedb::BackendContextualDecision::EmergencyTreatment,
+                    crate::spacetimedb::InteractionPresentationDecision::EmergencyTreatment,
                 treatment_limb_slug: Some("chest".into()),
             },
         ];
@@ -707,7 +712,7 @@ mod tests {
         let report = AutoresolveReport {
             battle_id: "battle:quest-1".into(),
             party_id: "party-1".into(),
-            seed: 42,
+            seed: fabelgeist_determinism::Seed::from_u64(42).into(),
             victor: "players".into(),
             rounds: 3,
             summary: "3 rounds: 2 players against 3 enemies; players prevailed.".into(),
@@ -750,6 +755,7 @@ mod tests {
             allow_tactical_combat: false,
         };
         let site = BackendCaseSitePin {
+            raiding_allowed: false,
             owner_character_id: 7,
             case_id: "journal:case".into(),
             case_site_id: adventuresim_stdb_client::CaseSiteId {
@@ -842,7 +848,7 @@ mod tests {
         assert!(markup.contains("Inspect the camp"));
         assert!(markup.contains("/quests/site:known/autoresolve"));
         assert!(markup.contains("Hostile pre-combat conversation"));
-        assert!(markup.contains("/locations/case-site/site:known/hostile/withdrawal"));
+        assert!(markup.contains("/locations/case-site/site%3Aknown/hostile/withdrawal"));
         assert!(markup.contains("name=\"spokesman_id\" value=\"81\""));
         assert!(markup.contains("name=\"context_ref\" value=\"exact_case_context\""));
         assert!(markup.contains("name=\"expected_revision\" value=\"4\""));
@@ -862,6 +868,7 @@ mod tests {
             allow_tactical_combat: false,
         };
         let site = BackendCaseSitePin {
+            raiding_allowed: false,
             owner_character_id: 7,
             case_id: "journal:case".into(),
             case_site_id: adventuresim_stdb_client::CaseSiteId {
@@ -917,6 +924,7 @@ mod tests {
             allow_tactical_combat: false,
         };
         let site = BackendCaseSitePin {
+            raiding_allowed: false,
             owner_character_id: 7,
             case_id: "journal:case".into(),
             case_site_id: adventuresim_stdb_client::CaseSiteId {
@@ -973,6 +981,7 @@ mod tests {
             allow_tactical_combat: false,
         };
         let site = BackendCaseSitePin {
+            raiding_allowed: false,
             owner_character_id: 7,
             case_id: "journal:case".into(),
             case_site_id: adventuresim_stdb_client::CaseSiteId {
@@ -1000,8 +1009,7 @@ mod tests {
             causes: "hunger, thirst".into(),
             resource_blocked: true,
             withdrawal_destination: "Ironforge".into(),
-            withdrawal_href: "/locations/case-site/site:old-graveyard/map?destination=ironforge"
-                .into(),
+            withdrawal_href: "/locations/case-site/site:old-graveyard?destination=ironforge".into(),
         };
         let enemy = quest_location_center(
             &presentation,
@@ -1029,9 +1037,10 @@ mod tests {
         assert!(enemy.contains("costs time and carries normal travel risk"));
         assert!(enemy.contains("supplies and care become available after arrival"));
         assert!(enemy.contains("Open map and select Ironforge"));
-        assert!(enemy.contains(
-            "href=\"/locations/case-site/site:old-graveyard/map?destination=ironforge\""
-        ));
+        assert!(
+            enemy
+                .contains("href=\"/locations/case-site/site:old-graveyard?destination=ironforge\"")
+        );
         assert!(!enemy.contains("guaranteed"));
 
         let map = quest_location_center(

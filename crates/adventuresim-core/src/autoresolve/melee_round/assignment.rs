@@ -19,7 +19,7 @@ pub(in crate::autoresolve) fn melee_assignment(
         .filter(|combatant| {
             !combatant.is_defeated()
                 && combatant.can_attack_melee()
-                && preferred_attack_mode(combatant) == AttackMode::Melee
+                && preferred_attack_mode(combatant) == BattleAttackKind::Melee
         })
         .count()
         .saturating_sub(1);
@@ -47,7 +47,7 @@ pub(in crate::autoresolve) fn active_melee_indices(side: &[Combatant]) -> Vec<us
         .filter_map(|(index, combatant)| {
             (!combatant.is_defeated()
                 && combatant.can_attack_melee()
-                && preferred_attack_mode(combatant) == AttackMode::Melee)
+                && preferred_attack_mode(combatant) == BattleAttackKind::Melee)
                 .then_some(index)
         })
         .collect()

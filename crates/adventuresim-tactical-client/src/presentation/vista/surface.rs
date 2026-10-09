@@ -116,7 +116,7 @@ mod tests {
         let terrain =
             SceneTerrain::from_heightmap(3, 3, 2.0, vec![10.0; 9]).expect("playable terrain");
         let lod = VistaLod {
-            level: 0,
+            level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(0),
             spacing_metres: 2.0,
             width: 5,
             depth: 5,
@@ -147,3 +147,11 @@ mod tests {
         );
     }
 }
+
+#[derive(Component, Clone, Copy)]
+pub(crate) struct VistaTerrain(pub(crate) VistaLevelIndex);
+
+/// A terrain-surface chunk, excluding vista grass, rocks, and tree cards that
+/// also carry [`VistaTerrain`] for broad visibility isolation.
+#[derive(Component)]
+pub(crate) struct VistaTerrainMesh(pub(crate) VistaLevelIndex);

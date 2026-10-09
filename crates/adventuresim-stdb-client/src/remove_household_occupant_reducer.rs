@@ -7,7 +7,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub(super) struct RemoveHouseholdOccupantArgs {
-    pub owner_character_id: u64,
+    pub holder_character_id: u64,
     pub holding_id: String,
     pub occupant_id: u64,
 }
@@ -15,7 +15,7 @@ pub(super) struct RemoveHouseholdOccupantArgs {
 impl From<RemoveHouseholdOccupantArgs> for super::Reducer {
     fn from(args: RemoveHouseholdOccupantArgs) -> Self {
         Self::RemoveHouseholdOccupant {
-            owner_character_id: args.owner_character_id,
+            holder_character_id: args.holder_character_id,
             holding_id: args.holding_id,
             occupant_id: args.occupant_id,
         }
@@ -39,11 +39,11 @@ pub trait remove_household_occupant {
     /// /// Use [`remove_household_occupant:remove_household_occupant_then`] to run a callback after the reducer completes.
     fn remove_household_occupant(
         &self,
-        owner_character_id: u64,
+        holder_character_id: u64,
         holding_id: String,
         occupant_id: u64,
     ) -> __sdk::Result<()> {
-        self.remove_household_occupant_then(owner_character_id, holding_id, occupant_id, |_, _| {})
+        self.remove_household_occupant_then(holder_character_id, holding_id, occupant_id, |_, _| {})
     }
 
     /// Request that the remote module invoke the reducer `remove_household_occupant` to run as soon as possible,
@@ -54,7 +54,7 @@ pub trait remove_household_occupant {
     ///  and its status can be observed with the `callback`.
     fn remove_household_occupant_then(
         &self,
-        owner_character_id: u64,
+        holder_character_id: u64,
         holding_id: String,
         occupant_id: u64,
 
@@ -69,7 +69,7 @@ pub trait remove_household_occupant {
 impl remove_household_occupant for super::RemoteReducers {
     fn remove_household_occupant_then(
         &self,
-        owner_character_id: u64,
+        holder_character_id: u64,
         holding_id: String,
         occupant_id: u64,
 
@@ -81,7 +81,7 @@ impl remove_household_occupant for super::RemoteReducers {
     ) -> __sdk::Result<()> {
         self.imp.invoke_reducer_with_callback(
             RemoveHouseholdOccupantArgs {
-                owner_character_id,
+                holder_character_id,
                 holding_id,
                 occupant_id,
             },

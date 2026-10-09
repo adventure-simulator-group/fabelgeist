@@ -15,7 +15,8 @@ use bevy::{
     },
     shader::ShaderRef,
 };
-use fabelgeist_determinism::splitmix64;
+use fabelgeist_determinism::Seed;
+use fabelgeist_determinism::StreamId;
 
 use super::obstacles::tree::{
     BLACKTHORN_PARAMETERS, COMMON_HAWTHORN_PARAMETERS, COMMON_HAZEL_PARAMETERS,
@@ -27,7 +28,7 @@ use super::obstacles::tree::{
 };
 use super::{
     PresentedCelestialLighting, ProceduralTextureAssets, TacticalGraphicsSettings, bps,
-    stable_text_seed, unit_hash,
+    stable_text_seed,
 };
 
 // Ground-scatter orchestration and shared presentation contracts.
@@ -63,10 +64,10 @@ pub(in crate::presentation) use instanced_understory::{
 };
 
 pub(in crate::presentation) use grass::{
-    FAR_LOD_GAP_FILL_FRACTION, GrassCommunity, GrassCommunityProfile, GrassMeshLod, GrassSpecies,
-    NEAR_TO_FAR_SWARD_FADE_END_METRES, NEAR_TO_FAR_SWARD_FADE_START_METRES,
-    TERMINAL_SWARD_FADE_END_METRES, TERMINAL_SWARD_FADE_START_METRES, grass_community_at,
-    grass_lod_visibility,
+    FAR_LOD_GAP_FILL_FRACTION, GrassCommunity, GrassCommunityField, GrassCommunityProfile,
+    GrassMeshLod, GrassSpecies, NEAR_TO_FAR_SWARD_FADE_END_METRES,
+    NEAR_TO_FAR_SWARD_FADE_START_METRES, TERMINAL_SWARD_FADE_END_METRES,
+    TERMINAL_SWARD_FADE_START_METRES, grass_lod_visibility,
 };
 use litter::{
     DRY_LEAF_MESH_VARIANTS, TWIG_MESH_VARIANTS, dry_leaf_patch_mesh, forest_floor_leaf_material,
@@ -183,7 +184,7 @@ pub(super) fn spawn_ground_foliage(
     environment: &SceneEnvironment,
     shrub_bark_materials: &mut Assets<TacticalShrubBarkInstancedMaterial>,
     shrub_leaf_materials: &mut Assets<TacticalShrubLeafInstancedMaterial>,
-) {
+) -> adventuresim_building_generator::spatial_geometry::GeometryResult<()> {
     let canopy = bps(environment.canopy_bps);
     let wetland = bps(environment.wetland_bps);
     let cultivation = bps(environment.cultivation_bps);
@@ -203,30 +204,11 @@ pub(super) fn spawn_ground_foliage(
         understory_cache,
         procedural_assets,
     );
-    let dry_leaf_meshes = ground_foliage_cache
-        .dry_leaf_meshes
-        .get_or_insert_with(|| {
-            (0..DRY_LEAF_MESH_VARIANTS)
-                .map(|variant| meshes.add(dry_leaf_patch_mesh(variant)))
-                .collect::<Vec<_>>()
-        })
-        .clone();
-    let twig_meshes = ground_foliage_cache
-        .twig_meshes
-        .get_or_insert_with(|| {
-            (0..TWIG_MESH_VARIANTS)
-                .map(|variant| meshes.add(twig_patch_mesh(variant)))
-                .collect::<Vec<_>>()
-        })
-        .clone();
-    let woodland_plant_meshes = ground_foliage_cache
-        .woodland_plant_meshes
-        .get_or_insert_with(|| {
-            (0..litter::WOODLAND_PLANT_MESH_VARIANTS)
-                .map(|variant| meshes.add(litter::woodland_plant_patch_mesh(variant)))
-                .collect::<Vec<_>>()
-        })
-        .clone();
+    let litter::PatchMeshes {
+        dry_leaves: dry_leaf_meshes,
+        twigs: twig_meshes,
+        plants: woodland_plant_meshes,
+    } = litter::prepare_meshes(ground_foliage_cache, meshes)?;
     let dry_leaf_material = ground_foliage_cache
         .forest_floor_leaves
         .get_or_insert_with(|| leaf_materials.add(forest_floor_leaf_material(procedural_assets)))
@@ -239,7 +221,7 @@ pub(super) fn spawn_ground_foliage(
         .woodland_plant_material
         .get_or_insert_with(|| materials.add(foliage_material(0.035, false)))
         .clone();
-    let base_seed = stable_text_seed(&environment.scene_digest) ^ stable_text_seed(&scene_id.0);
+    let base_seed = scatter_seed(&environment.scene_digest, &scene_id.0);
     // Grass uses a macro patch whose internal blade spacing matches the old
     // one-metre patch. A roughly ten-times larger footprint therefore retains
     // density while cutting extraction, visibility, and instance entities by
@@ -293,6 +275,7 @@ pub(super) fn spawn_ground_foliage(
         ground,
         base_seed,
     );
+    Ok(())
 }
 
 fn understory_scatter_chance(canopy: f32, wetland: f32, cultivation: f32) -> f32 {
@@ -358,7 +341,7 @@ fn foliage_transform(
     terrain: &SceneTerrain,
     world_x: f32,
     world_z: f32,
-    hash: u64,
+    hash: Seed,
 ) -> Option<Transform> {
     let sample = Vec2::new(world_x, world_z);
     let height = terrain.height_at(sample)?;
@@ -367,8 +350,17 @@ fn foliage_transform(
         return None;
     }
     let terrain_rotation = Quat::from_rotation_arc(Vec3::Y, normal);
-    let yaw = Quat::from_rotation_y(unit_hash(hash) * core::f32::consts::TAU);
-    let scale = 0.72 + unit_hash(splitmix64(hash ^ 0x8c0a_3c95)) * 0.58;
+    let yaw = Quat::from_rotation_y(
+        StreamId::new("visual.understory.yaw")
+            .rng(hash, &[])
+            .inclusive_unit_f32()
+            * core::f32::consts::TAU,
+    );
+    let scale = 0.72
+        + StreamId::new("visual.understory.scale")
+            .rng(hash, &[])
+            .inclusive_unit_f32()
+            * 0.58;
     Some(
         Transform::from_xyz(world_x, height, world_z)
             .with_rotation(terrain_rotation * yaw)
@@ -394,7 +386,7 @@ pub(super) fn present_ground_scatter(
     procedural_assets: Res<ProceduralTextureAssets>,
     mut shrub_bark_materials: ResMut<Assets<TacticalShrubBarkInstancedMaterial>>,
     mut shrub_leaf_materials: ResMut<Assets<TacticalShrubLeafInstancedMaterial>>,
-) {
+) -> bevy::prelude::Result {
     for (entity, scene_id, terrain, ground, environment, fault_scarp) in &scenes {
         let started = web_time::Instant::now();
         tracing::info!("Generating tactical ground scatter");
@@ -418,13 +410,14 @@ pub(super) fn present_ground_scatter(
             environment,
             &mut shrub_bark_materials,
             &mut shrub_leaf_materials,
-        );
+        )?;
         tracing::info!(
             elapsed_ms = started.elapsed().as_millis(),
             "Generated tactical ground scatter"
         );
         commands.entity(entity).insert(GroundScatterPresented);
     }
+    Ok(())
 }
 
 #[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
@@ -485,6 +478,13 @@ impl Material for TacticalFoliageMaterial {
 }
 
 const FOLIAGE_SHADER: &str = "shaders/tactical_foliage.wgsl";
+
+fn scatter_seed(digest: &str, scene: &str) -> Seed {
+    StreamId::new("visual.ground-scatter.mod.scene").seed(
+        stable_text_seed(digest),
+        &[stable_text_seed(scene).to_u64()],
+    )
+}
 
 #[cfg(test)]
 mod tests;

@@ -4,6 +4,7 @@
 //! investigation/intervention was intentionally removed: unresolved hostile
 //! cases now escalate and spread through public awareness until players act.
 
+use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::table;
 
 #[derive(Clone, Debug)]
@@ -16,5 +17,5 @@ pub struct NpcAdventuringPartyAuthority {
     pub name: String,
     pub member_resident_character_ids_json: String,
     pub capability: u16,
-    pub available_at: u64,
+    pub available_at: StrategicMinute,
 }

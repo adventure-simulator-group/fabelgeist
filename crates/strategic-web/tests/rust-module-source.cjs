@@ -12,6 +12,9 @@ const path = require("node:path");
 function readRustModuleSource(facadePath) {
   const expand = (sourcePath) => {
     const directory = path.dirname(sourcePath);
+    const stem = path.basename(sourcePath, ".rs");
+    const moduleDirectory = ["mod", "lib", "main"].includes(stem)
+      ? directory : path.join(directory, stem);
     return fs.readFileSync(sourcePath, "utf8")
       .replace(
         /include!\("([^"]+)"\);?/g,
@@ -20,8 +23,8 @@ function readRustModuleSource(facadePath) {
       .replace(
         /(?:pub(?:\([^)]*\))?\s+)?mod\s+([a-zA-Z0-9_]+);/g,
         (declaration, moduleName) => {
-          const file = path.join(directory, `${moduleName}.rs`);
-          const nested = path.join(directory, moduleName, "mod.rs");
+          const file = path.join(moduleDirectory, `${moduleName}.rs`);
+          const nested = path.join(moduleDirectory, moduleName, "mod.rs");
           if (fs.existsSync(file)) return expand(file);
           if (fs.existsSync(nested)) return expand(nested);
           return declaration;

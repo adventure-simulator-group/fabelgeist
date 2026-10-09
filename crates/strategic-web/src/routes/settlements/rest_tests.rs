@@ -1,10 +1,11 @@
 #[cfg(test)]
 mod rest_form_tests {
-    use adventuresim_core::strategic_time::{
-        DAYS_PER_YEAR, MINUTES_PER_DAY, MINUTES_PER_YEAR, is_walking_time,
+    use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
+use adventuresim_core::strategic_time::{
+        is_walking_time,
         minutes_until_next_walking_start,
     };
-    use adventuresim_world_schema::SettlementActionService;
+    use adventuresim_world_schema::{SettlementActionService, calendar::{DAYS_PER_YEAR, MINUTES_PER_YEAR}};
     use serde_json::json;
 
     use super::{
@@ -14,9 +15,9 @@ mod rest_form_tests {
         settlement_rest_minutes, travel_rest_minutes,
     };
     use crate::spacetimedb::{
-        CharacterView, CharacterFilth, Personality, Conscience, Conviction, Drive,
-        FilthOrigin, FilthSubstance, Hygiene, InventoryItem, InventoryItemAmount, CatalogItemView,
-        Nerve, Outlook, PartyInventoryItem, PartyItemAmount, SelfRegard, Sociability,
+        CatalogItemView, CharacterFilth, CharacterView, Conscience, Conviction, Drive, FilthOrigin,
+        FilthSubstance, Hygiene, InventoryItem, InventoryItemAmount, Nerve, Outlook,
+        PartyInventoryItem, PartyItemAmount, Personality, SelfRegard, Sociability,
         StrategicEncounterStatus, Temperance,
     };
     use crate::templates::settlement::SoapRestPreview;
@@ -83,18 +84,21 @@ mod rest_form_tests {
     }
 
     fn personality(character_id: u64, temperance: Temperance) -> (u64, Personality) {
-        (character_id, Personality {
-            nerve: Nerve::Neutral,
-            drive: Drive::Neutral,
-            outlook: Outlook::Neutral,
-            sociability: Sociability::Neutral,
-            conscience: Conscience::Neutral,
-            self_regard: SelfRegard::Neutral,
-            conviction: Conviction::Neutral,
-            hygiene: Hygiene::Neutral,
-            temperance,
-            ..Personality::neutral()
-        })
+        (
+            character_id,
+            Personality {
+                nerve: Nerve::Neutral,
+                drive: Drive::Neutral,
+                outlook: Outlook::Neutral,
+                sociability: Sociability::Neutral,
+                conscience: Conscience::Neutral,
+                self_regard: SelfRegard::Neutral,
+                conviction: Conviction::Neutral,
+                hygiene: Hygiene::Neutral,
+                temperance,
+                ..Personality::neutral()
+            },
+        )
     }
 
     #[test]
@@ -106,7 +110,7 @@ mod rest_form_tests {
                 substance: FilthSubstance::Dirt,
                 origin: FilthOrigin::Unknown,
                 amount: 26,
-                deposited_at: 0,
+                deposited_at: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
             },
             CharacterFilth {
                 id: 2,
@@ -114,7 +118,7 @@ mod rest_form_tests {
                 substance: FilthSubstance::Blood,
                 origin: FilthOrigin::Foreign,
                 amount: 30,
-                deposited_at: 0,
+                deposited_at: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
             },
         ];
         let personal = [InventoryItem {
@@ -204,30 +208,36 @@ mod rest_form_tests {
             },
         ];
         let mut preview = SoapRestPreview::default();
-        calculate_rest_supply_availability(&mut preview, RestSupplySources {
-            members: &[member(1)],
-            personal: &supplies,
-            shared: &[],
-            personal_amounts: &amounts,
-            party_amounts: &[],
-            definitions: std::slice::from_ref(&alcohol),
-            personalities: &[personality(1, Temperance::Temperate)],
-            party_id: Some("party"),
-        });
+        calculate_rest_supply_availability(
+            &mut preview,
+            RestSupplySources {
+                members: &[member(1)],
+                personal: &supplies,
+                shared: &[],
+                personal_amounts: &amounts,
+                party_amounts: &[],
+                definitions: std::slice::from_ref(&alcohol),
+                personalities: &[personality(1, Temperance::Temperate)],
+                party_id: Some("party"),
+            },
+        );
         assert_eq!(preview.available_units, 25);
         assert!(preview.alcohol_available);
         assert!(!preview.alcohol_will_be_consumed);
 
-        calculate_rest_supply_availability(&mut preview, RestSupplySources {
-            members: &[member(1)],
-            personal: &supplies,
-            shared: &[],
-            personal_amounts: &amounts,
-            party_amounts: &[],
-            definitions: &[alcohol],
-            personalities: &[personality(1, Temperance::Neutral)],
-            party_id: Some("party"),
-        });
+        calculate_rest_supply_availability(
+            &mut preview,
+            RestSupplySources {
+                members: &[member(1)],
+                personal: &supplies,
+                shared: &[],
+                personal_amounts: &amounts,
+                party_amounts: &[],
+                definitions: &[alcohol],
+                personalities: &[personality(1, Temperance::Neutral)],
+                party_id: Some("party"),
+            },
+        );
         assert!(preview.alcohol_will_be_consumed);
     }
 
@@ -434,24 +444,31 @@ mod rest_form_tests {
     #[test]
     fn camp_wake_defaults_follow_the_absolute_daily_schedule() {
         assert_eq!(
-            minutes_until_next_walking_start(60, 8 * 60, true),
+            minutes_until_next_walking_start(
+adventuresim_world_schema::calendar::StrategicMinute::new(60), 8 * 60, true),
             Some(19 * 60)
         );
         assert_eq!(
-            minutes_until_next_walking_start(7 * 60, 8 * 60, false),
+            minutes_until_next_walking_start(
+adventuresim_world_schema::calendar::StrategicMinute::new(7 * 60), 8 * 60, false),
             Some(60)
         );
-        assert!(!is_walking_time(7 * 60, 8 * 60, false));
-        assert!(is_walking_time(9 * 60, 8 * 60, false));
+        assert!(!is_walking_time(
+adventuresim_world_schema::calendar::StrategicMinute::new(7 * 60), 8 * 60, false));
+        assert!(is_walking_time(
+adventuresim_world_schema::calendar::StrategicMinute::new(9 * 60), 8 * 60, false));
         assert_eq!(
-            minutes_until_next_walking_start(9 * 60, 8 * 60, false),
+            minutes_until_next_walking_start(
+adventuresim_world_schema::calendar::StrategicMinute::new(9 * 60), 8 * 60, false),
             Some(23 * 60)
         );
         assert_eq!(
-            minutes_until_next_walking_start(18 * 60, 8 * 60, true),
+            minutes_until_next_walking_start(
+adventuresim_world_schema::calendar::StrategicMinute::new(18 * 60), 8 * 60, true),
             Some(2 * 60)
         );
-        assert!(is_walking_time(21 * 60, 8 * 60, true));
+        assert!(is_walking_time(
+adventuresim_world_schema::calendar::StrategicMinute::new(21 * 60), 8 * 60, true));
     }
 
     #[test]

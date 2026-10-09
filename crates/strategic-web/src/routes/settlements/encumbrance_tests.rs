@@ -5,8 +5,8 @@ mod encumbrance_tests {
         personal_encumbrance,
     };
     use crate::spacetimedb::{
-        CharacterView, CharacterAttributes, CharacterCondition, CharacterLimbs, ContainerLiquid,
-        FoodLot, FoodPreparation, InventoryItem, InventoryObject, CatalogItemView,
+        CatalogItemView, CharacterAttributes, CharacterCondition, CharacterLimbs, CharacterView,
+        ContainerLiquid, FoodLot, FoodPreparation, InventoryItem, InventoryObject,
         PartyInventoryItem,
     };
     use adventuresim_stdb_client::{InventoryLocation, PersonalInventoryLocation};
@@ -203,7 +203,7 @@ mod encumbrance_tests {
             mass_kg: 25.0,
             nutrition_kcal: 10_000.0,
             total_value: 25.0,
-            created_at_minute: 1,
+            created_at_minute: adventuresim_stdb_client::StrategicMinute { minutes: 1 },
         }];
         let summary =
             personal_encumbrance(1, &inventory, &[item("cooked_meal", 0.0)], &lots, &rows());

@@ -33,8 +33,8 @@ pub(crate) use procedural::{
     ArmIkState, BoneRole, HandIkTarget, HandSide, HeldWeaponConstraint, HumanoidBone,
     HumanoidIkTargets, HumanoidRig, LegIkDiagnostics, LegIkState, LocomotionBodyResponseState,
     LocomotionHeightState, MhrBone, ProceduralAnimationClock, RaisedFootworkState,
-    authored_bind_global, locomotion_support_weights, measured_ankle_sole_offset_metres,
-    sole_contact_tolerance_metres,
+    authored_bind_global, cache_humanoid_rigs, locomotion_support_weights,
+    measured_ankle_sole_offset_metres, sole_contact_tolerance_metres,
 };
 const HUMANOID_UNARMED_PACK: &str = "humanoid_unarmed";
 const HUMANOID_2H_CLOSE_PACK: &str = "humanoid_2h_close";
@@ -75,7 +75,10 @@ fn animation_asset_path(path: &str) -> String {
 }
 
 mod presentation;
-pub(crate) use presentation::*;
+pub(crate) use presentation::{
+    plugin::{AnimatedActors, StrategicModel},
+    *,
+};
 
 /// Runtime switch for terrain height, slope, and pelvis conformity. This is on
 /// by default; debug builds expose F8 to compare against authored FK.
@@ -262,7 +265,7 @@ impl WeaponGrip {
 }
 
 #[derive(Resource, Default)]
-pub(super) struct AnimationRuntime {
+pub(crate) struct AnimationRuntime {
     requested_base: Option<Handle<Gltf>>,
     base_processed: bool,
     base_failed: bool,
@@ -281,6 +284,10 @@ pub(super) struct AnimationRuntime {
 }
 
 impl AnimationRuntime {
+    pub(crate) fn requested_base(&self) -> Option<&Handle<Gltf>> {
+        self.requested_base.as_ref()
+    }
+
     pub(super) fn motion_is_processed(&self, motion: &str) -> bool {
         self.processed_motions
             .iter()
@@ -425,7 +432,7 @@ fn evaluate_skeletons(
             Option<&mut AnimationPlayback>,
             Option<&pose_buffer::CharacterLocomotionStrides>,
         ),
-        With<Player>,
+        AnimatedActors,
     >,
     weapons: Query<(&WeaponItem, &ItemProperties)>,
     equip_slots: Query<&EquipSlot>,

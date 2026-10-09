@@ -20,6 +20,7 @@ use bevy::{
     prelude::*,
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
+use fabelgeist_determinism::Seed;
 use flate2::read::GzDecoder;
 #[cfg(test)]
 use flate2::{Compression, write::GzEncoder};
@@ -59,7 +60,7 @@ impl PreparedTreeImpostorAsset {
         &self,
         usage: PreparedTreeImpostorUsage,
         species: TreePresentationSpecies,
-        seed: u64,
+        seed: Seed,
         lod: u8,
     ) -> Option<TreeLodBake> {
         self.bakes
@@ -120,7 +121,7 @@ impl PreparedTreeImpostorAsset {
         }) {
             return false;
         }
-        let vista_seed = fabelgeist_determinism::splitmix64(0x6f61_6b00);
+        let vista_seed = crate::presentation::obstacles::tree::specimen::oak_variant_seed(0);
         [
             TreePresentationSpecies::EnglishOak,
             TreePresentationSpecies::CommonBeech,
@@ -171,7 +172,7 @@ pub(crate) fn prepare_art_demo_tree_impostor_asset(
             PreparedTreeLodBake::from_runtime(&bake, PreparedTreeImpostorUsage::Playable, species)
         })
         .collect::<Vec<_>>();
-    let vista_seed = fabelgeist_determinism::splitmix64(0x6f61_6b00);
+    let vista_seed = crate::presentation::obstacles::tree::specimen::oak_variant_seed(0);
     for vista_species in [
         TreePresentationSpecies::EnglishOak,
         TreePresentationSpecies::CommonBeech,
@@ -263,7 +264,7 @@ impl<'w> PreparedTreeImpostors<'w> {
 struct PreparedTreeLodBake {
     usage: PreparedTreeImpostorUsage,
     species: u8,
-    seed: u64,
+    seed: Seed,
     lod: u8,
     bake_version: u32,
     source_geometry_hash: u64,

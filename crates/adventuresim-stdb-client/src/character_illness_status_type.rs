@@ -4,13 +4,15 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct CharacterIllnessStatus {
     pub character_id: u64,
     pub symptomatic: bool,
     pub critical: bool,
-    pub updated_at_minute: u64,
+    pub updated_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for CharacterIllnessStatus {
@@ -24,7 +26,7 @@ pub struct CharacterIllnessStatusCols {
     pub character_id: __sdk::__query_builder::Col<CharacterIllnessStatus, u64>,
     pub symptomatic: __sdk::__query_builder::Col<CharacterIllnessStatus, bool>,
     pub critical: __sdk::__query_builder::Col<CharacterIllnessStatus, bool>,
-    pub updated_at_minute: __sdk::__query_builder::Col<CharacterIllnessStatus, u64>,
+    pub updated_at_minute: __sdk::__query_builder::Col<CharacterIllnessStatus, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for CharacterIllnessStatus {

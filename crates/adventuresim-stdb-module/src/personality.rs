@@ -1,13 +1,18 @@
 use crate::strategic::strategic_gateway_authority__view;
 pub use adventuresim_core::personality::{
-    Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, Outlook,
-    Presentation, SelfKnowledge, SelfRegard, Sex, Sociability, Temperance, Transparency,
+    ChivalricVirtue, Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve,
+    Outlook, Presentation, SelfKnowledge, SelfRegard, Sociability, Temperance, Transparency,
 };
-use fabelgeist_determinism::SplitMix64;
+use adventuresim_world_schema::Sex;
+use fabelgeist_determinism::DeterministicRng;
+use fabelgeist_determinism::Seed;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
 
-const PERSONALITY_GENERATION_DOMAIN: u64 = 0x7065_7273_6f6e_616c;
-const PERSONALITY_CHARACTER_ID_ROTATION: u32 = 29;
+mod generation;
+pub(crate) use generation::{
+    personality_from_stable_seed, personality_from_stable_seed_with_demographics,
+    random_personality,
+};
 
 /// Gateway-safe, derived visibility of strategic temperament. Behavioral
 /// fields are a cache projected from the private continuous score row; raw
@@ -63,21 +68,12 @@ pub enum MutablePersonalityAxis {
     SelfKnowledge,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum ChivalricVirtue {
-    Courage,
-    Mercy,
-    Faith,
-    Justice,
-    Courtesy,
-    Loyalty,
-    Prudence,
-    Honesty,
-}
-
 /// Sole durable authority for the thirteen mutable behavioral axes. Values
 /// are signed fixed point in `-10_000..=10_000`; zero is dispositionally
 /// neutral and the endpoints express the full authored trait potency.
+/// Continuous behavioral authority. Visible trait labels are lossy projections;
+/// axis/deed writes call `write_projection`, preserving hidden score progress.
+/// Demographic fields remain owned by CharacterPersonality.
 #[derive(Clone, Debug)]
 #[table(accessor = character_personality_scores)]
 pub struct CharacterPersonalityScores {
@@ -113,7 +109,7 @@ pub struct PersonalityDevelopmentEvent {
     pub resulting_score: i16,
     pub deed: String,
     pub virtue: ChivalricVirtue,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: adventuresim_world_schema::calendar::StrategicMinute,
 }
 
 impl CharacterPersonalityScores {
@@ -525,7 +521,7 @@ pub fn apply_personality_development(
     delta: i16,
     deed: &str,
     virtue: ChivalricVirtue,
-    occurred_at_minute: u64,
+    occurred_at_minute: adventuresim_world_schema::calendar::StrategicMinute,
 ) -> Result<(), String> {
     if let Some(existing) = ctx
         .db
@@ -599,156 +595,11 @@ pub fn conviction_strength_for_character(ctx: &ReducerContext, character_id: u64
         / f32::from(PERSONALITY_SCORE_LIMIT)
 }
 
-/// Generate a sparse profile with exactly two through four distinct axes.
-pub fn random_personality(
-    character_id: u64,
-    mut random: impl FnMut() -> u64,
-) -> CharacterPersonality {
-    let mut result = CharacterPersonality::neutral(character_id);
-    let mut axes = [0_u8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-    for index in (1..axes.len()).rev() {
-        axes.swap(index, random() as usize % (index + 1));
-    }
-    let count = 2 + random() as usize % 3;
-    for axis in axes.into_iter().take(count) {
-        match axis {
-            0 => {
-                result.nerve = if random().is_multiple_of(2) {
-                    Nerve::Brave
-                } else {
-                    Nerve::Fearful
-                }
-            }
-            1 => {
-                result.drive = if random().is_multiple_of(2) {
-                    Drive::Ambitious
-                } else {
-                    Drive::Content
-                }
-            }
-            2 => {
-                result.outlook = if random().is_multiple_of(2) {
-                    Outlook::Sanguine
-                } else {
-                    Outlook::Brooding
-                }
-            }
-            3 => {
-                result.sociability = if random().is_multiple_of(2) {
-                    Sociability::Gregarious
-                } else {
-                    Sociability::Solitary
-                }
-            }
-            4 => {
-                result.conscience = match random() % 3 {
-                    0 => Conscience::Compassionate,
-                    1 => Conscience::Callous,
-                    _ => Conscience::Cruel,
-                }
-            }
-            5 => {
-                result.self_regard = if random().is_multiple_of(2) {
-                    SelfRegard::Proud
-                } else {
-                    SelfRegard::Humble
-                }
-            }
-            6 => {
-                result.conviction = if random().is_multiple_of(2) {
-                    Conviction::Zealous
-                } else {
-                    Conviction::Irreverent
-                }
-            }
-            7 => {
-                result.hygiene = if random().is_multiple_of(2) {
-                    Hygiene::Slovenly
-                } else {
-                    Hygiene::Cleanly
-                }
-            }
-            8 => {
-                result.temperance = if random().is_multiple_of(2) {
-                    Temperance::Temperate
-                } else {
-                    Temperance::Drunkard
-                }
-            }
-            9 => {
-                result.mirth = if random().is_multiple_of(2) {
-                    Mirth::Merry
-                } else {
-                    Mirth::Grave
-                }
-            }
-            10 => {
-                result.courtship = if random().is_multiple_of(2) {
-                    Courtship::Amorous
-                } else {
-                    Courtship::Proper
-                }
-            }
-            11 => {
-                result.transparency = if random().is_multiple_of(2) {
-                    Transparency::Open
-                } else {
-                    Transparency::Guarded
-                }
-            }
-            _ => {
-                result.self_knowledge = if random().is_multiple_of(2) {
-                    SelfKnowledge::Introspective
-                } else {
-                    SelfKnowledge::SelfDeceiving
-                }
-            }
-        }
-    }
-    result.sex = if random().is_multiple_of(2) {
-        Sex::Female
-    } else {
-        Sex::Male
-    };
-    let presentation_roll = random() % 100;
-    result.presentation = match (result.sex, presentation_roll) {
-        (_, 0..=3) => Presentation::Ambiguous,
-        (Sex::Female, 4) => Presentation::Man,
-        (Sex::Male, 4) => Presentation::Woman,
-        (Sex::Female, _) => Presentation::Woman,
-        (Sex::Male, _) => Presentation::Man,
-    };
-    // Direction is generated from demographic sex rather than the public
-    // presentation signal. The signal is the only field attraction consumes.
-    result.inclination = match random() % 100 {
-        0 => Inclination::Neither,
-        1..=4 => Inclination::Either,
-        5..=9 => match result.sex {
-            Sex::Female => Inclination::Women,
-            Sex::Male => Inclination::Men,
-        },
-        _ => match result.sex {
-            Sex::Female => Inclination::Men,
-            Sex::Male => Inclination::Women,
-        },
-    };
-    result
-}
-
 /// Generate an NPC personality from an identity-stable seed.
 ///
 /// Reducer RNG is intentionally not involved. The same NPC therefore receives
 /// the same demographic axes and sparse traits regardless of bootstrap order,
 /// retries, or unrelated random draws in the surrounding transaction.
-pub fn personality_from_stable_seed(character_id: u64, stable_seed: u64) -> CharacterPersonality {
-    let mut random = SplitMix64::new(
-        stable_seed
-            ^ character_id.rotate_left(PERSONALITY_CHARACTER_ID_ROTATION)
-            ^ PERSONALITY_GENERATION_DOMAIN,
-    );
-    random_personality(character_id, || random.next_u64())
-}
-
 pub fn personality_or_neutral(ctx: &ReducerContext, character_id: u64) -> CharacterPersonality {
     ctx.db
         .character_personality()
@@ -757,7 +608,7 @@ pub fn personality_or_neutral(ctx: &ReducerContext, character_id: u64) -> Charac
         .unwrap_or_else(|| CharacterPersonality::neutral(character_id))
 }
 
-pub fn initialize_npc_personality(ctx: &ReducerContext, character_id: u64, stable_seed: u64) {
+pub fn initialize_npc_personality(ctx: &ReducerContext, character_id: u64, stable_seed: Seed) {
     if ctx
         .db
         .character_personality()
@@ -767,7 +618,10 @@ pub fn initialize_npc_personality(ctx: &ReducerContext, character_id: u64, stabl
     {
         initialize_personality_from_visible(
             ctx,
-            personality_from_stable_seed(character_id, stable_seed),
+            personality_from_stable_seed(
+                crate::character::CharacterId::new(character_id),
+                stable_seed,
+            ),
         );
     }
 }
@@ -781,11 +635,18 @@ pub fn initialize_personality(ctx: &ReducerContext, character_id: u64, npc: bool
         .is_none()
     {
         let row = if npc {
-            personality_from_stable_seed(character_id, character_id)
+            personality_from_stable_seed(
+                crate::character::CharacterId::new(character_id),
+                Seed::from_u64(character_id),
+            )
         } else {
             // Non-candidate characters remain behaviorally neutral, but the
             // always-assigned demographic axes must still have real values.
-            let generated = random_personality(character_id, || ctx.random());
+            let generated = random_personality(
+                crate::character::CharacterId::new(character_id),
+                &mut generation::PERSONALITY_GENERATION_DOMAIN
+                    .rng(ctx.random::<Seed>(), &[character_id]),
+            );
             let mut neutral = CharacterPersonality::neutral(character_id);
             neutral.sex = generated.sex;
             neutral.presentation = generated.presentation;
@@ -797,7 +658,10 @@ pub fn initialize_personality(ctx: &ReducerContext, character_id: u64, npc: bool
 }
 
 pub fn assign_random_personality(ctx: &ReducerContext, character_id: u64) {
-    let row = random_personality(character_id, || ctx.random());
+    let row = random_personality(
+        crate::character::CharacterId::new(character_id),
+        &mut generation::PERSONALITY_GENERATION_DOMAIN.rng(ctx.random::<Seed>(), &[character_id]),
+    );
     reset_personality_from_visible(ctx, row);
 }
 
@@ -1010,11 +874,10 @@ mod tests {
     #[test]
     fn generated_profiles_are_sparse_and_axes_are_mutually_exclusive() {
         for seed in 0..100_u64 {
-            let mut value = seed;
-            let personality = random_personality(seed, || {
-                value = value.wrapping_mul(6364136223846793005).wrapping_add(1);
-                value
-            });
+            let personality = personality_from_stable_seed(
+                crate::character::CharacterId::new(seed),
+                Seed::from_u64(seed),
+            );
             assert!((2..=4).contains(&personality.non_neutral_count()));
             let scores = CharacterPersonalityScores::from_visible(&personality);
             let projected = project_scores(&scores, &personality);
@@ -1027,9 +890,18 @@ mod tests {
 
     #[test]
     fn stable_npc_profiles_ignore_generation_order_and_ambient_randomness() {
-        let first = personality_from_stable_seed(77, 0xabc);
-        let _unrelated = personality_from_stable_seed(91, 0xdef);
-        let repeated = personality_from_stable_seed(77, 0xabc);
+        let first = personality_from_stable_seed(
+            crate::character::CharacterId::new(77),
+            fabelgeist_determinism::Seed::from_u64(0xabc),
+        );
+        let _unrelated = personality_from_stable_seed(
+            crate::character::CharacterId::new(91),
+            fabelgeist_determinism::Seed::from_u64(0xdef),
+        );
+        let repeated = personality_from_stable_seed(
+            crate::character::CharacterId::new(77),
+            fabelgeist_determinism::Seed::from_u64(0xabc),
+        );
         assert_eq!(first.character_id, repeated.character_id);
         assert_eq!(first.nerve, repeated.nerve);
         assert_eq!(first.drive, repeated.drive);
@@ -1048,6 +920,40 @@ mod tests {
         assert_eq!(first.presentation, repeated.presentation);
         assert_eq!(first.inclination, repeated.inclination);
         assert_eq!(first.non_neutral_count(), repeated.non_neutral_count());
+    }
+
+    #[test]
+    fn finalized_demographics_do_not_perturb_behavioral_personality_draws() {
+        let man = personality_from_stable_seed_with_demographics(
+            crate::character::CharacterId::new(77),
+            fabelgeist_determinism::Seed::from_u64(0xabc),
+            Sex::Male,
+            Presentation::Man,
+        );
+        let woman = personality_from_stable_seed_with_demographics(
+            crate::character::CharacterId::new(77),
+            fabelgeist_determinism::Seed::from_u64(0xabc),
+            Sex::Female,
+            Presentation::Woman,
+        );
+        assert_eq!(man.nerve, woman.nerve);
+        assert_eq!(man.drive, woman.drive);
+        assert_eq!(man.outlook, woman.outlook);
+        assert_eq!(man.sociability, woman.sociability);
+        assert_eq!(man.conscience, woman.conscience);
+        assert_eq!(man.self_regard, woman.self_regard);
+        assert_eq!(man.conviction, woman.conviction);
+        assert_eq!(man.hygiene, woman.hygiene);
+        assert_eq!(man.temperance, woman.temperance);
+        assert_eq!(man.mirth, woman.mirth);
+        assert_eq!(man.courtship, woman.courtship);
+        assert_eq!(man.transparency, woman.transparency);
+        assert_eq!(man.self_knowledge, woman.self_knowledge);
+        assert_eq!((man.sex, man.presentation), (Sex::Male, Presentation::Man));
+        assert_eq!(
+            (woman.sex, woman.presentation),
+            (Sex::Female, Presentation::Woman)
+        );
     }
 
     #[test]
@@ -1274,7 +1180,7 @@ mod tests {
             resulting_score: CHIVALRIC_DEED_DELTA,
             deed: "RallyAndEscortCourierThroughFord".into(),
             virtue: ChivalricVirtue::Courage,
-            occurred_at_minute: 60,
+            occurred_at_minute: adventuresim_world_schema::calendar::StrategicMinute::new(60),
         };
         assert!(development_replay_matches(
             &event,

@@ -7,6 +7,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 use super::case_site_id_type::CaseSiteId;
 use super::chivalric_virtue_type::ChivalricVirtue;
 use super::narrative_encounter_trigger_type::NarrativeEncounterTrigger;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -17,18 +18,17 @@ pub struct RoadChallengeAuthority {
     pub case_id: String,
     pub finale_case_site_id: Option<CaseSiteId>,
     pub finale_hostile_group_id: String,
-    pub journey_departure_minute: u64,
+    pub journey_departure_minute: StrategicMinute,
     pub camp_movement_minute: u64,
     pub available_at_elapsed_minute: u64,
     pub catalog_id: String,
     pub catalog_revision: u32,
     pub catalog_digest: String,
-    pub absolute_minute: u64,
+    pub absolute_minute: StrategicMinute,
     pub longitude_e_7: i32,
     pub latitude_e_7: i32,
     pub trigger: NarrativeEncounterTrigger,
     pub revision: u32,
-    pub open: bool,
     pub resolved_choice: Option<String>,
     pub resolved_deed: Option<String>,
     pub virtue_exemplified: Option<ChivalricVirtue>,
@@ -50,18 +50,18 @@ pub struct RoadChallengeAuthorityCols {
     pub finale_case_site_id:
         __sdk::__query_builder::Col<RoadChallengeAuthority, Option<CaseSiteId>>,
     pub finale_hostile_group_id: __sdk::__query_builder::Col<RoadChallengeAuthority, String>,
-    pub journey_departure_minute: __sdk::__query_builder::Col<RoadChallengeAuthority, u64>,
+    pub journey_departure_minute:
+        __sdk::__query_builder::Col<RoadChallengeAuthority, StrategicMinute>,
     pub camp_movement_minute: __sdk::__query_builder::Col<RoadChallengeAuthority, u64>,
     pub available_at_elapsed_minute: __sdk::__query_builder::Col<RoadChallengeAuthority, u64>,
     pub catalog_id: __sdk::__query_builder::Col<RoadChallengeAuthority, String>,
     pub catalog_revision: __sdk::__query_builder::Col<RoadChallengeAuthority, u32>,
     pub catalog_digest: __sdk::__query_builder::Col<RoadChallengeAuthority, String>,
-    pub absolute_minute: __sdk::__query_builder::Col<RoadChallengeAuthority, u64>,
+    pub absolute_minute: __sdk::__query_builder::Col<RoadChallengeAuthority, StrategicMinute>,
     pub longitude_e_7: __sdk::__query_builder::Col<RoadChallengeAuthority, i32>,
     pub latitude_e_7: __sdk::__query_builder::Col<RoadChallengeAuthority, i32>,
     pub trigger: __sdk::__query_builder::Col<RoadChallengeAuthority, NarrativeEncounterTrigger>,
     pub revision: __sdk::__query_builder::Col<RoadChallengeAuthority, u32>,
-    pub open: __sdk::__query_builder::Col<RoadChallengeAuthority, bool>,
     pub resolved_choice: __sdk::__query_builder::Col<RoadChallengeAuthority, Option<String>>,
     pub resolved_deed: __sdk::__query_builder::Col<RoadChallengeAuthority, Option<String>>,
     pub virtue_exemplified:
@@ -105,7 +105,6 @@ impl __sdk::__query_builder::HasCols for RoadChallengeAuthority {
             latitude_e_7: __sdk::__query_builder::Col::new(table_name, "latitude_e_7"),
             trigger: __sdk::__query_builder::Col::new(table_name, "trigger"),
             revision: __sdk::__query_builder::Col::new(table_name, "revision"),
-            open: __sdk::__query_builder::Col::new(table_name, "open"),
             resolved_choice: __sdk::__query_builder::Col::new(table_name, "resolved_choice"),
             resolved_deed: __sdk::__query_builder::Col::new(table_name, "resolved_deed"),
             virtue_exemplified: __sdk::__query_builder::Col::new(table_name, "virtue_exemplified"),

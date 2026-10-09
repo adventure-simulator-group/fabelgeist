@@ -1,5 +1,3 @@
-const QUEST_DECISION_LEADER_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-const QUEST_DECISION_CYCLE_STRIDE: u64 = 0xbf58_476d_1ce4_e5b9;
 
 pub(super) fn leader_is_actionable(
     party_id: &str,
@@ -15,7 +13,7 @@ pub(super) fn equipment_utility(profile: &AgentProfile, item: &Item) -> Option<f
     let preference = &profile.equipment;
     let armor = matches!(
         item.kind,
-        PersistedItemKind::Armor | PersistedItemKind::Clothing
+        CatalogItemKind::Armor | CatalogItemKind::Clothing
     );
     let compatible = match preference.style {
         EquipmentStyle::Unarmored => !armor && item.melee && item.weight <= 2.5,
@@ -262,9 +260,8 @@ fn run_core_loop_inner(
     let profiles = (0..config.population)
         .map(|id| generate_profile(config.seed, id))
         .collect::<Vec<_>>();
-    let base_id = 0x5349_4d00_0000_0000_u64 ^ config.seed.rotate_left(17);
     let character_ids = (0..config.population)
-        .map(|id| base_id ^ u64::from(id + 1))
+        .map(|id| fabelgeist_determinism::StreamId::new("simulation.character-identity").seed(config.seed, &[u64::from(id)]).to_u64())
         .collect::<Vec<_>>();
     let mut runner = LiveRunner {
         connection,
@@ -332,7 +329,7 @@ fn run_core_loop_inner(
         .claim_simulation_run_then(
             bootstrap_token.clone(),
             config.run_nonce.clone(),
-            config.seed,
+            config.seed.into(),
             cb,
         ));
     runner.call(result)?;
@@ -457,9 +454,9 @@ fn run_core_loop_inner(
                         .is_some_and(|item| {
                             matches!(
                                 item.kind,
-                                PersistedItemKind::Weapon
-                                    | PersistedItemKind::Armor
-                                    | PersistedItemKind::Shield
+                                CatalogItemKind::Weapon
+                                    | CatalogItemKind::Armor
+                                    | CatalogItemKind::Shield
                             )
                         })
             })
@@ -653,12 +650,12 @@ fn run_core_loop_inner(
                 .backend_character_times()
                 .iter()
                 .find(|row| row.character_id == *character_id)
-                .map(|row| (*character_id, row.minutes))
+                .map(|row| (*character_id, StrategicMinute::new(row.minutes.minutes)))
                 .ok_or("missing simulation-start character clock")
         })
         .collect::<Result<HashMap<_, _>, _>>()?;
     let duration_minutes =
-        u64::from(config.duration_days) * adventuresim_core::strategic_time::MINUTES_PER_DAY;
+        u64::from(config.duration_days) * adventuresim_world_schema::calendar::MINUTES_PER_DAY;
     for cycle in 0..config.cycles {
         let mut active = false;
         let mut held = false;
@@ -703,7 +700,7 @@ fn run_core_loop_inner(
                 *simulation_start_minutes
                     .get(&pre_recovery_leader)
                     .ok_or("missing simulation-start leader clock")?,
-                recovery_started_at,
+                StrategicMinute::new(recovery_started_at.minutes),
             ) < duration_minutes;
             if !recovery_started_in_budget {
                 continue;
@@ -760,7 +757,7 @@ fn run_core_loop_inner(
                 *simulation_start_minutes
                     .get(&leader)
                     .ok_or("missing simulation-start leader clock")?,
-                elapsed,
+                StrategicMinute::new(elapsed.minutes),
             );
             if elapsed >= duration_minutes
                 && !(recovery_outcome == ExpeditionRecoveryOutcome::Resumed
@@ -788,10 +785,8 @@ fn run_core_loop_inner(
             active = true;
             let profile = runner.profiles[leader_agent as usize].clone();
             let fixture_lane = fixture_quest_lane(quest_lane_plan.as_ref(), leader, party_id);
-            let mixed = config.seed
-                ^ u64::from(leader_agent).wrapping_mul(QUEST_DECISION_LEADER_STRIDE)
-                ^ u64::from(cycle).wrapping_mul(QUEST_DECISION_CYCLE_STRIDE);
-            let selector = (mixed >> 11) as f64 / ((1_u64 << 53) as f64);
+            let selector = fabelgeist_determinism::StreamId::new("simulation.quest-decision")
+                .rng(config.seed, &[u64::from(leader_agent), u64::from(cycle)]).unit_f64();
             let quest_propensity = profile.activity_vs_quest_propensity;
             let wants_quest = fixture_lane.is_some()
                 || (!profile.build.activity_only && selector < f64::from(quest_propensity));
@@ -1028,7 +1023,7 @@ fn run_core_loop_inner(
                 .reducers
                 .advance_simulation_world_time_then(
                     config.run_nonce.clone(),
-                    adventuresim_core::strategic_time::MINUTES_PER_DAY,
+                    adventuresim_world_schema::calendar::MINUTES_PER_DAY,
                     cb,
                 ));
             runner.call(result)?;
@@ -1205,7 +1200,7 @@ fn run_core_loop_inner(
                     *simulation_start_minutes
                         .get(&character.id)
                         .ok_or("missing simulation-start final character clock")?,
-                    elapsed_minutes,
+                    StrategicMinute::new(elapsed_minutes.minutes),
                 ),
                 personal_gold_coin,
                 party_treasury,

@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct OutbreakWaterSource {
@@ -11,7 +13,7 @@ pub struct OutbreakWaterSource {
     pub material_lot_id: u64,
     pub available_ml: u64,
     pub revision: u64,
-    pub disabled_at: Option<u64>,
+    pub disabled_at: Option<StrategicMinute>,
 }
 
 impl __sdk::InModule for OutbreakWaterSource {
@@ -26,7 +28,7 @@ pub struct OutbreakWaterSourceCols {
     pub material_lot_id: __sdk::__query_builder::Col<OutbreakWaterSource, u64>,
     pub available_ml: __sdk::__query_builder::Col<OutbreakWaterSource, u64>,
     pub revision: __sdk::__query_builder::Col<OutbreakWaterSource, u64>,
-    pub disabled_at: __sdk::__query_builder::Col<OutbreakWaterSource, Option<u64>>,
+    pub disabled_at: __sdk::__query_builder::Col<OutbreakWaterSource, Option<StrategicMinute>>,
 }
 
 impl __sdk::__query_builder::HasCols for OutbreakWaterSource {

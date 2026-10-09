@@ -1,11 +1,25 @@
-//! Preview uses the same embedded atlas and cutout policy as exported equipment.
+//! Catalog armor preview materials: the embedded mail atlas and cutout policy of
+//! exported equipment, and the scratched metal shared with plate armor.
 use super::*;
-use adventuresim_character_creator::{armor_recipes::ParametricDesign, underlayer_material};
+use adventuresim_character_creator::{
+    armor_metal, armor_recipes::ParametricDesign, item_catalog_schema::EquipmentMaterial,
+    underlayer_material,
+};
 use bevy::image::{CompressedImageFormats, ImageSampler, ImageType};
+use fabelgeist_armor::{engraving::Engraving, material::Metal};
 
 #[derive(Resource, Default)]
-pub(super) struct MailMaps {
-    maps: Option<MailImages>,
+pub(super) struct EquipmentMaps {
+    mail: Option<MailImages>,
+    /// Baked steels, kept while a worn article still uses them.
+    metals: Vec<BakedMetal>,
+}
+
+struct BakedMetal {
+    metal: Metal,
+    images: metal_preview::MetalImages,
+    /// Whether an article used it since the generation began.
+    used: bool,
 }
 
 struct MailImages {
@@ -14,14 +28,28 @@ struct MailImages {
     occlusion: Option<Handle<Image>>,
 }
 
-impl MailMaps {
+impl EquipmentMaps {
+    /// Forget the steels no article used during the last generation.
+    pub(super) fn begin_generation(&mut self) {
+        self.metals.retain(|baked| baked.used);
+        for baked in &mut self.metals {
+            baked.used = false;
+        }
+    }
+
+    /// The preview material of a catalog article; baking a steel reads its
+    /// engraving image.
     pub(super) fn material(
         &mut self,
         images: &mut Assets<Image>,
-        material: adventuresim_character_creator::item_catalog_schema::EquipmentMaterial,
+        material: EquipmentMaterial,
         design: Option<&ParametricDesign>,
-    ) -> StandardMaterial {
+        engraving: Option<&Engraving>,
+    ) -> Result<StandardMaterial, String> {
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
+        if let Some(metal) = armor_metal::metal(material, engraving) {
+            return self.metal(images, &metal, metallic);
+        }
         let mut result = StandardMaterial {
             base_color: Color::srgba(color[0], color[1], color[2], color[3]),
             metallic,
@@ -29,7 +57,7 @@ impl MailMaps {
             ..default()
         };
         if let Some(textures) = underlayer_material::textures(design) {
-            let maps = self.maps.get_or_insert_with(|| {
+            let maps = self.mail.get_or_insert_with(|| {
                 let mut load = |bytes, srgb| {
                     images.add(
                         Image::from_buffer(
@@ -44,9 +72,18 @@ impl MailMaps {
                     )
                 };
                 MailImages {
-                    color: load(textures.base_color_png, true),
-                    normal: load(textures.normal_png, false),
-                    occlusion: textures.occlusion_png.map(|bytes| load(bytes, false)),
+                    color: load(
+                        textures
+                            .base_color_png
+                            .as_deref()
+                            .expect("mail supplies a base-color texture"),
+                        true,
+                    ),
+                    normal: load(&textures.normal_png, false),
+                    occlusion: textures
+                        .occlusion_png
+                        .as_deref()
+                        .map(|bytes| load(bytes, false)),
                 }
             });
             result.base_color = Color::WHITE;
@@ -57,6 +94,29 @@ impl MailMaps {
                 result.alpha_mode = AlphaMode::Mask(0.5);
             }
         }
-        result
+        Ok(result)
+    }
+
+    /// The preview material of a scratched metal, baked once while used.
+    pub(super) fn metal(
+        &mut self,
+        images: &mut Assets<Image>,
+        metal: &Metal,
+        metallic: f32,
+    ) -> Result<StandardMaterial, String> {
+        let index = match self.metals.iter().position(|baked| baked.metal == *metal) {
+            Some(index) => index,
+            None => {
+                self.metals.push(BakedMetal {
+                    images: metal_preview::MetalImages::new(images, metal)?,
+                    metal: metal.clone(),
+                    used: false,
+                });
+                self.metals.len() - 1
+            }
+        };
+        let baked = &mut self.metals[index];
+        baked.used = true;
+        Ok(baked.images.material(&baked.metal, metallic))
     }
 }

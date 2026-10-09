@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct CharacterAffinity {
@@ -11,7 +13,7 @@ pub struct CharacterAffinity {
     pub subject_id: u64,
     pub actor_id: u64,
     pub anchor: f32,
-    pub anchor_minute: u64,
+    pub anchor_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for CharacterAffinity {
@@ -26,7 +28,7 @@ pub struct CharacterAffinityCols {
     pub subject_id: __sdk::__query_builder::Col<CharacterAffinity, u64>,
     pub actor_id: __sdk::__query_builder::Col<CharacterAffinity, u64>,
     pub anchor: __sdk::__query_builder::Col<CharacterAffinity, f32>,
-    pub anchor_minute: __sdk::__query_builder::Col<CharacterAffinity, u64>,
+    pub anchor_minute: __sdk::__query_builder::Col<CharacterAffinity, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for CharacterAffinity {

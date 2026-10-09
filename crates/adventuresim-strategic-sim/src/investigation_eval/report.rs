@@ -5,6 +5,8 @@ use super::{
     semantic_digest,
 };
 use adventuresim_core::quest_generation::{RouteClass, TemplateFamily};
+use adventuresim_world_schema::calendar::StrategicMinute;
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 use std::{
     collections::{BTreeMap, BTreeSet},
@@ -199,7 +201,7 @@ pub struct ReplayCase {
     pub version: u32,
     pub catalog_revision: String,
     pub generator_manifest_digest: String,
-    pub seed: u64,
+    pub seed: Seed,
     pub family: TemplateFamily,
     pub decisions: Vec<PolicyDecision>,
     pub expected: ReplayExpectations,
@@ -298,12 +300,8 @@ pub fn render_markdown_stories(report: &PublicEvaluationReport) -> String {
     output
 }
 
-fn story_time(game_minute: u64) -> (u64, u64, u64) {
-    (
-        game_minute / (24 * 60) + 1,
-        game_minute % (24 * 60) / 60,
-        game_minute % 60,
-    )
+fn story_time(game_minute: StrategicMinute) -> (u64, u64, u64) {
+    game_minute.day_hour_minute()
 }
 
 pub fn evaluate_cases(
@@ -1060,7 +1058,7 @@ fn mean(total: u64, cases: u32) -> f64 {
     }
 }
 
-pub fn golden_suite(seed: u64, cases_per_family: u32) -> Vec<EvalCaseConfig> {
+pub fn golden_suite(seed: Seed, cases_per_family: u32) -> Vec<EvalCaseConfig> {
     [
         TemplateFamily::RecurringDepredation,
         TemplateFamily::DisappearanceOrLoss,
@@ -1073,7 +1071,7 @@ pub fn golden_suite(seed: u64, cases_per_family: u32) -> Vec<EvalCaseConfig> {
             let suite_offset = (family_index as u64)
                 .wrapping_mul(u64::from(cases_per_family))
                 .wrapping_add(u64::from(offset));
-            EvalCaseConfig::fixture(seed.wrapping_add(suite_offset), family)
+            EvalCaseConfig::fixture(seed.wrapping_offset(suite_offset), family)
         })
     })
     .collect()
@@ -1093,7 +1091,7 @@ mod tests {
             Box::new(MockLlmPolicy) as Box<dyn QuestPolicy>,
         ] {
             let bundle = evaluate_cases(
-                &golden_suite(20, 2),
+                &golden_suite(fabelgeist_determinism::Seed::from_u64(20), 2),
                 policy.as_mut(),
                 &EvalLimits::default(),
             )
@@ -1125,7 +1123,10 @@ mod tests {
             Box::new(MockLlmPolicy) as Box<dyn QuestPolicy>,
         ] {
             let bundle = evaluate_cases(
-                &[EvalCaseConfig::fixture(0, TemplateFamily::Outbreak)],
+                &[EvalCaseConfig::fixture(
+                    fabelgeist_determinism::Seed::from_u64(0),
+                    TemplateFamily::Outbreak,
+                )],
                 policy.as_mut(),
                 &limits,
             )
@@ -1186,7 +1187,7 @@ mod tests {
     #[test]
     fn golden_suite_uses_distinct_public_case_ids_across_families() {
         let bundle = evaluate_cases(
-            &golden_suite(41, 2),
+            &golden_suite(fabelgeist_determinism::Seed::from_u64(41), 2),
             &mut ScriptedPolicy::default(),
             &EvalLimits::default(),
         )
@@ -1202,7 +1203,7 @@ mod tests {
 
     #[test]
     fn alternate_baselines_cover_two_route_classes() {
-        let configs = golden_suite(33, 4);
+        let configs = golden_suite(fabelgeist_determinism::Seed::from_u64(33), 4);
         let a = evaluate_cases(
             &configs,
             &mut ScriptedPolicy::default(),
@@ -1230,7 +1231,7 @@ mod tests {
     #[test]
     fn public_and_private_artifacts_have_one_way_digest_join() {
         let bundle = evaluate_cases(
-            &golden_suite(5, 1),
+            &golden_suite(fabelgeist_determinism::Seed::from_u64(5), 1),
             &mut ScriptedPolicy::default(),
             &EvalLimits::default(),
         )
@@ -1259,7 +1260,7 @@ mod tests {
     #[test]
     fn player_frames_use_run_local_handles_not_generator_ids() {
         let mut environment = InvestigationEnvironment::generate(EvalCaseConfig::fixture(
-            11,
+            fabelgeist_determinism::Seed::from_u64(11),
             TemplateFamily::DisappearanceOrLoss,
         ))
         .unwrap();
@@ -1306,7 +1307,7 @@ mod tests {
             initial_classification: PolicyClassification::default(),
             events: vec![super::super::PublicTraceEvent {
                 step: 0,
-                game_minute: 0,
+                game_minute: StrategicMinute::ZERO,
                 location: "the market".into(),
                 observation_provenance: "offline_projection/player_frame".into(),
                 pre_observation_digest: "pre".into(),
@@ -1345,7 +1346,7 @@ mod tests {
     fn preparation_metrics_use_the_typed_outcome_only() {
         let bundle = evaluate_cases(
             &[EvalCaseConfig::fixture(
-                41,
+                fabelgeist_determinism::Seed::from_u64(41),
                 TemplateFamily::RecurringDepredation,
             )],
             &mut ScriptedPolicy::default(),
@@ -1372,7 +1373,7 @@ mod tests {
     #[test]
     fn fingerprints_use_typed_choice_identity_not_display_labels() {
         let bundle = evaluate_cases(
-            &golden_suite(5, 1),
+            &golden_suite(fabelgeist_determinism::Seed::from_u64(5), 1),
             &mut ScriptedPolicy::default(),
             &EvalLimits::default(),
         )
@@ -1400,7 +1401,7 @@ mod tests {
     #[test]
     fn markdown_story_preserves_exact_dialogue_and_public_chronology() {
         let bundle = evaluate_cases(
-            &golden_suite(5, 1),
+            &golden_suite(fabelgeist_determinism::Seed::from_u64(5), 1),
             &mut ScriptedPolicy::default(),
             &EvalLimits::default(),
         )
@@ -1428,7 +1429,7 @@ mod tests {
             version: EVAL_FORMAT_VERSION,
             catalog_revision: "fixture".into(),
             generator_manifest_digest: "fixture".into(),
-            seed: 1,
+            seed: fabelgeist_determinism::Seed::from_u64(1),
             family: TemplateFamily::RecurringDepredation,
             decisions: vec![
                 PolicyDecision {
@@ -1458,7 +1459,7 @@ mod tests {
         };
         let bundle = evaluate_cases(
             &[EvalCaseConfig::fixture(
-                41,
+                fabelgeist_determinism::Seed::from_u64(41),
                 TemplateFamily::RecurringDepredation,
             )],
             &mut MockLlmPolicy,
@@ -1499,7 +1500,7 @@ mod tests {
     #[test]
     fn counterfactual_pairs_are_complete_and_order_invariant() {
         let bundle = evaluate_cases(
-            &golden_suite(71, 2),
+            &golden_suite(fabelgeist_determinism::Seed::from_u64(71), 2),
             &mut ScriptedPolicy::default(),
             &EvalLimits::default(),
         )
@@ -1534,9 +1535,13 @@ mod tests {
             ..EvalLimits::default()
         };
         assert!(
-            evaluate_cases(&golden_suite(5, 1), &mut ScriptedPolicy::default(), &limits)
-                .unwrap_err()
-                .contains("per-artifact")
+            evaluate_cases(
+                &golden_suite(fabelgeist_determinism::Seed::from_u64(5), 1),
+                &mut ScriptedPolicy::default(),
+                &limits
+            )
+            .unwrap_err()
+            .contains("per-artifact")
         );
 
         let limits = EvalLimits {
@@ -1546,16 +1551,20 @@ mod tests {
             ..EvalLimits::default()
         };
         assert!(
-            evaluate_cases(&golden_suite(5, 1), &mut ScriptedPolicy::default(), &limits)
-                .unwrap_err()
-                .contains("total output")
+            evaluate_cases(
+                &golden_suite(fabelgeist_determinism::Seed::from_u64(5), 1),
+                &mut ScriptedPolicy::default(),
+                &limits
+            )
+            .unwrap_err()
+            .contains("total output")
         );
     }
 
     #[test]
     fn privacy_canaries_fail_closed() {
         let bundle = evaluate_cases(
-            &golden_suite(5, 1),
+            &golden_suite(fabelgeist_determinism::Seed::from_u64(5), 1),
             &mut ScriptedPolicy::default(),
             &EvalLimits::default(),
         )
@@ -1587,7 +1596,7 @@ mod tests {
     #[test]
     fn public_policy_errors_are_typed_and_do_not_echo_provider_details() {
         let bundle = evaluate_cases(
-            &golden_suite(5, 1),
+            &golden_suite(fabelgeist_determinism::Seed::from_u64(5), 1),
             &mut SecretErrorPolicy,
             &EvalLimits::default(),
         )
@@ -1631,7 +1640,7 @@ mod tests {
     fn invalid_classifications_fail_before_publication() {
         assert!(
             evaluate_cases(
-                &golden_suite(5, 1),
+                &golden_suite(fabelgeist_determinism::Seed::from_u64(5), 1),
                 &mut InvalidClassificationPolicy,
                 &EvalLimits::default()
             )

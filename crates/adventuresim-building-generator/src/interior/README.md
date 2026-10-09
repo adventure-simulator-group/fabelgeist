@@ -11,6 +11,15 @@ furniture, a disconnected room, or an inaccessible stair is an error. An
 accepted placement must preserve access to every earlier placement and every
 room.
 
+Candidate groups reuse the static architecture checks of the accepted prefix.
+New objects are checked against floors, walls, other furniture, and usable
+faces; earlier objects are checked for access newly blocked by the group.
+Circulation is still recomputed before accepting a group. `validate_layout`
+checks every object from scratch, including edited or imported placements.
+Repeated standing-body sweeps can prepare `StandingClearance` once per floor
+elevation. It clips rotated obstacles at standing height and retains their
+expanded projections for subsequent continuous segment checks.
+
 | Room | Target budget and placement |
 | --- | --- |
 | Bedroom | One bed per 10 m², up to six; one chest per 18 m², up to three; perimeter positions |

@@ -1,16 +1,14 @@
 //! Pure physical-material identity, measurement, process, and conservation laws.
 //!
-//! This module has no persistence or transport surface. Reducers remain the
-//! authority for custody, capacity, recipes, mutations, and private truth.
+//! Reducers own custody, capacity, recipes, mutations, and private truth.
 
-use std::{fmt, num::NonZeroU64};
-
+use adventuresim_world_schema::calendar::StrategicMinute;
 use sha2::{Digest, Sha256};
+use std::{fmt, num::NonZeroU64};
 
 use crate::physical_object::{
     CustodyIdentityError, ObjectCustody, OperationalCustody, PhysicalObjectId,
 };
-
 pub trait DomainPreparation: Clone + fmt::Debug + Eq {}
 pub trait DomainMaterialProcess: Clone + fmt::Debug + Eq {}
 pub trait DomainMaterialComponent: Clone + fmt::Debug + Eq {}
@@ -624,52 +622,51 @@ pub struct PublicMaterialView<V: PublicMaterialPresentation> {
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct ProcessTiming {
-    started_minute: u64,
+    started_minute: StrategicMinute,
     target_minutes: NonZeroU64,
-    ready_minute: u64,
+    ready_minute: StrategicMinute,
 }
 
 impl ProcessTiming {
-    pub fn try_new(started_minute: u64, target_minutes: u64) -> Result<Self, MaterialError> {
-        let target_minutes = NonZeroU64::new(target_minutes).ok_or(MaterialError::ZeroDuration)?;
-        let ready_minute = started_minute
-            .checked_add(target_minutes.get())
-            .ok_or(MaterialError::ClockOverflow)?;
+    pub fn try_new(started_minute: StrategicMinute, duration: u64) -> Result<Self, MaterialError> {
+        let target_minutes = NonZeroU64::new(duration).ok_or(MaterialError::ZeroDuration)?;
         Ok(Self {
             started_minute,
             target_minutes,
-            ready_minute,
+            ready_minute: started_minute
+                .checked_add_minutes(duration)
+                .ok_or(MaterialError::ClockOverflow)?,
         })
     }
 
-    pub const fn ready_minute(self) -> u64 {
+    pub const fn ready_minute(self) -> StrategicMinute {
         self.ready_minute
     }
-    pub const fn started_minute(self) -> u64 {
+    pub const fn started_minute(self) -> StrategicMinute {
         self.started_minute
     }
     pub const fn target_minutes(self) -> u64 {
         self.target_minutes.get()
     }
 
-    pub fn cooking_status(self, current_minute: u64) -> CookingTimingStatus {
+    pub fn cooking_status(self, current_minute: StrategicMinute) -> CookingTimingStatus {
         match current_minute.cmp(&self.ready_minute) {
             std::cmp::Ordering::Less => CookingTimingStatus::Early {
-                elapsed_minutes: current_minute.saturating_sub(self.started_minute),
-                remaining_minutes: self.ready_minute - current_minute,
+                elapsed_minutes: current_minute.elapsed_since(self.started_minute),
+                remaining_minutes: self.ready_minute.elapsed_since(current_minute),
             },
             std::cmp::Ordering::Equal => CookingTimingStatus::Ready,
             std::cmp::Ordering::Greater => CookingTimingStatus::Late {
-                elapsed_minutes: current_minute - self.started_minute,
-                late_minutes: current_minute - self.ready_minute,
+                elapsed_minutes: current_minute.elapsed_since(self.started_minute),
+                late_minutes: current_minute.elapsed_since(self.ready_minute),
             },
         }
     }
 
     pub fn passive_status(
         self,
-        current_minute: u64,
-        materialized_at: Option<u64>,
+        current_minute: StrategicMinute,
+        materialized_at: Option<StrategicMinute>,
     ) -> Result<PassiveTimingStatus, MaterialError> {
         if let Some(materialized_at) = materialized_at {
             if materialized_at < self.ready_minute {
@@ -681,7 +678,7 @@ impl ProcessTiming {
             Ok(PassiveTimingStatus::ReadyToMaterialize)
         } else {
             Ok(PassiveTimingStatus::Maturing {
-                remaining_minutes: self.ready_minute - current_minute,
+                remaining_minutes: self.ready_minute.elapsed_since(current_minute),
             })
         }
     }
@@ -704,7 +701,7 @@ pub enum CookingTimingStatus {
 pub enum PassiveTimingStatus {
     Maturing { remaining_minutes: u64 },
     ReadyToMaterialize,
-    Materialized { materialized_at: u64 },
+    Materialized { materialized_at: StrategicMinute },
 }
 
 pub const MAX_ROUNDING_TOLERANCE_SUBUNITS: u64 = 1;
@@ -1623,34 +1620,37 @@ mod tests {
 
     #[test]
     fn cooking_and_passive_process_timing_preserve_boundary_semantics() {
-        let timing = ProcessTiming::try_new(100, 60).unwrap();
+        let timing = ProcessTiming::try_new(StrategicMinute::new(100), 60).unwrap();
         assert_eq!(
-            timing.cooking_status(159),
+            timing.cooking_status(StrategicMinute::new(159)),
             CookingTimingStatus::Early {
                 elapsed_minutes: 59,
                 remaining_minutes: 1,
             }
         );
-        assert_eq!(timing.cooking_status(160), CookingTimingStatus::Ready);
         assert_eq!(
-            timing.cooking_status(175),
+            timing.cooking_status(StrategicMinute::new(160)),
+            CookingTimingStatus::Ready
+        );
+        assert_eq!(
+            timing.cooking_status(StrategicMinute::new(175)),
             CookingTimingStatus::Late {
                 elapsed_minutes: 75,
                 late_minutes: 15,
             }
         );
         assert_eq!(
-            timing.passive_status(90, Some(170)),
+            timing.passive_status(StrategicMinute::new(90), Some(StrategicMinute::new(170))),
             Ok(PassiveTimingStatus::Materialized {
-                materialized_at: 170
+                materialized_at: StrategicMinute::new(170)
             })
         );
         assert_eq!(
-            timing.passive_status(170, Some(159)),
+            timing.passive_status(StrategicMinute::new(170), Some(StrategicMinute::new(159))),
             Err(MaterialError::MaterializedBeforeReady)
         );
         assert_eq!(
-            ProcessTiming::try_new(u64::MAX, 1),
+            ProcessTiming::try_new(StrategicMinute::new(u64::MAX), 1),
             Err(MaterialError::ClockOverflow)
         );
     }

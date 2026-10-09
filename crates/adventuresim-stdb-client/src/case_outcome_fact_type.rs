@@ -12,7 +12,6 @@ pub struct CaseOutcomeFact {
     pub party_id: String,
     pub source_id: String,
     pub fact_json: String,
-    pub happened_at_minute: u64,
 }
 
 impl __sdk::InModule for CaseOutcomeFact {
@@ -28,7 +27,6 @@ pub struct CaseOutcomeFactCols {
     pub party_id: __sdk::__query_builder::Col<CaseOutcomeFact, String>,
     pub source_id: __sdk::__query_builder::Col<CaseOutcomeFact, String>,
     pub fact_json: __sdk::__query_builder::Col<CaseOutcomeFact, String>,
-    pub happened_at_minute: __sdk::__query_builder::Col<CaseOutcomeFact, u64>,
 }
 
 impl __sdk::__query_builder::HasCols for CaseOutcomeFact {
@@ -40,7 +38,6 @@ impl __sdk::__query_builder::HasCols for CaseOutcomeFact {
             party_id: __sdk::__query_builder::Col::new(table_name, "party_id"),
             source_id: __sdk::__query_builder::Col::new(table_name, "source_id"),
             fact_json: __sdk::__query_builder::Col::new(table_name, "fact_json"),
-            happened_at_minute: __sdk::__query_builder::Col::new(table_name, "happened_at_minute"),
         }
     }
 }

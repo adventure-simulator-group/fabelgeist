@@ -5,6 +5,7 @@
 use super::character_death_type::CharacterDeath;
 use super::death_cause_type::DeathCause;
 use super::death_source_type::DeathSource;
+use super::strategic_minute_type::StrategicMinute;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `backend_character_deaths`.

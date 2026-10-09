@@ -1800,10 +1800,7 @@ pub fn schema_json(witness_candidates: &[qg::WitnessCandidate]) -> Value {
         .documents
         .iter()
         .flat_map(|document| &document.circumstances);
-    let descriptions = catalog
-        .documents
-        .iter()
-        .flat_map(|document| &document.descriptions);
+    let descriptions = catalog.descriptions();
     let options = |values: Vec<(String, String)>| {
         values
             .into_iter()
@@ -1910,7 +1907,7 @@ pub fn schema_json(witness_candidates: &[qg::WitnessCandidate]) -> Value {
                 "pattern_condition": {
                     "night_window":{"kind":"night_window"},
                     "road_route":{"kind":"road_route"},
-                    "victim_profile":{"kind":"victim_profile","cohort_id":"cohort:new","demographic":demographics.first().map(|item| item.id.clone()).unwrap_or_default(),"age_band":"adult","sex":"female","profession":""},
+                    "victim_profile":{"kind":"victim_profile","cohort_id":"cohort:new","demographic":demographics.first().map(|item| item.id.clone()).unwrap_or_default(),"age_band":"adult","sex":null,"profession":""},
                     "broad_survey":{"kind":"broad_survey"}
                 },
                 "action_consequence": {
@@ -1962,7 +1959,7 @@ mod tests {
 
     fn context() -> GenerationContext {
         GenerationContext {
-            seed: 7,
+            seed: fabelgeist_determinism::Seed::from_u64(7),
             observer_entropy_hi: 8,
             observer_entropy_lo: 9,
             settlement_id: "riverdale".into(),
@@ -1971,7 +1968,7 @@ mod tests {
                 settlement_id: "riverdale".into(),
             },
             ordinal: 0,
-            now_minute: 100,
+            now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(100),
             incident_weather: crate::weather::Precipitation::Clear,
             requested_family: Some(TemplateFamily::RecurringDepredation),
             witness_candidates: test_witnesses(),
@@ -2055,7 +2052,7 @@ mod tests {
     }
 
     fn generated_definition_with_custody() -> DeveloperQuestDefinition {
-        for seed in 0..256 {
+        for seed in (0..256).map(fabelgeist_determinism::Seed::from_u64) {
             let mut candidate = context();
             candidate.seed = seed;
             candidate.requested_family = Some(TemplateFamily::DisappearanceOrLoss);
@@ -2105,7 +2102,7 @@ mod tests {
         })
         .unwrap();
         let mut other = context();
-        other.seed = 77;
+        other.seed = fabelgeist_determinism::Seed::from_u64(77);
         other.observer_entropy_hi = 88;
         other.observer_entropy_lo = 99;
         other.ordinal = 1;

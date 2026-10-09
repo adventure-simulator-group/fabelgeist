@@ -178,7 +178,7 @@ pub(super) fn select_generated_case_site_plan<T>(
     movement_minutes: u64,
     action_minutes: u64,
     current_travel_at_night: bool,
-    starting_minute: u64,
+    starting_minute: StrategicMinute,
     mut evaluate: impl FnMut(u16, bool, u64) -> Option<T>,
 ) -> Option<T> {
     let windows =
@@ -391,7 +391,7 @@ pub(super) fn projected_investigation_wait_minutes(
 pub(super) fn current_contact_schedule_wait_minutes(
     action: &BackendInvestigationAction,
     presences: impl IntoIterator<Item = SettlementResidentPresence>,
-    actor_minute: u64,
+    actor_minute: StrategicMinute,
 ) -> Option<u32> {
     let contact_character_id = action.contact_character_id?;
     let presence = presences

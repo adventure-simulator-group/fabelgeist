@@ -574,16 +574,14 @@ fn npc_conversation_authority_matches(
     requested_location_id: &str,
     presence_start_minute: u16,
     presence_end_minute: u16,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> bool {
-    let minute = (minute % adventuresim_core::strategic_time::MINUTES_PER_DAY) as u16;
     npc_home_settlement_id == settlement_id
         && presence_resident_character_id == resident_character_id
         && presence_settlement_id == settlement_id
         && presence_location_id == requested_location_id
         && !requested_location_id.is_empty()
-        && presence_start_minute <= minute
-        && minute < presence_end_minute
+        && minute.contains_daily_window(presence_start_minute, presence_end_minute)
 }
 
 fn npc_conversation_party(
@@ -618,7 +616,7 @@ fn npc_conversation_party(
         .character_time()
         .character_id()
         .find(sender.id)
-        .map_or(720, |time| time.minutes);
+        .map_or(StrategicMinute::new(720), |time| time.minutes);
     if !npc_conversation_authority_matches(
         settlement_id,
         &npc.home_settlement_id,

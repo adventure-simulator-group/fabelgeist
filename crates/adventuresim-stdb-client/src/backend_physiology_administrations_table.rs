@@ -5,6 +5,7 @@
 use super::backend_physiology_administration_type::BackendPhysiologyAdministration;
 use super::body_region_type::BodyRegion;
 use super::intervention_route_type::InterventionRoute;
+use super::strategic_minute_type::StrategicMinute;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `backend_physiology_administrations`.

@@ -1,3 +1,4 @@
+const { readRustModuleSource } = require("./rust-module-source.cjs");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
@@ -9,7 +10,7 @@ const dialogue = fs.readFileSync(path.join(root, "static", "dialogue-client.js")
 const layoutCss = fs.readFileSync(path.join(root, "static", "css", "layout.css"), "utf8");
 const componentsCss = fs.readFileSync(path.join(root, "static", "css", "components.css"), "utf8");
 const strategicCss = fs.readFileSync(path.join(root, "static", "css", "strategic.css"), "utf8");
-const layout = fs.readFileSync(path.join(root, "src", "templates", "layout.rs"), "utf8");
+const layout = readRustModuleSource(path.join(root, "src", "templates", "layout.rs"));
 const settlement = fs.readFileSync(path.join(root, "src", "templates", "settlement", "social.rs"), "utf8");
 const rest = fs.readFileSync(path.join(root, "src", "templates", "settlement", "rest.rs"), "utf8");
 

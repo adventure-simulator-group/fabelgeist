@@ -20,7 +20,7 @@ pub(super) struct ActivityObservation {
     pub(super) water_days: f32,
     pub(super) visible_food_kcal: f32,
     pub(super) visible_water_ml: f32,
-    pub(super) elapsed_minutes: u64,
+    pub(super) elapsed_minutes: StrategicMinute,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -57,7 +57,7 @@ pub(super) struct ExpeditionMemberObservation {
     pub(super) party_tent_quantity: u32,
     pub(super) symptomatic: bool,
     pub(super) critical: bool,
-    pub(super) elapsed_minutes: u64,
+    pub(super) elapsed_minutes: StrategicMinute,
 }
 
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
@@ -230,11 +230,11 @@ pub(super) fn expedition_elapsed_delta(
         .iter()
         .map(|member| member.elapsed_minutes)
         .max()
-        .unwrap_or(0);
+        .unwrap_or(StrategicMinute::ZERO);
     let after_max = after
         .iter()
         .map(|member| member.elapsed_minutes)
         .max()
         .unwrap_or(before_max);
-    after_max.saturating_sub(before_max)
+    after_max.elapsed_since(before_max)
 }

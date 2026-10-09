@@ -9,7 +9,7 @@
   const MAX_REST_MINUTES = MAX_REST_DAYS * DAY_MINUTES;
 
   function normalizeMinute(value) {
-    return ((Math.round(Number(value)) % DAY_MINUTES) + DAY_MINUTES) % DAY_MINUTES;
+    return calendar.minuteOfDay(Math.round(Number(value)));
   }
 
   function minutesUntilWake(currentMinutes, targetMinute) {
@@ -17,20 +17,17 @@
   }
 
   function minutesUntilWakeWithMinimum(currentMinutes, targetMinute, minimumMinutes) {
-    const currentTod = normalizeMinute(currentMinutes);
-    let duration = (normalizeMinute(targetMinute) - currentTod + DAY_MINUTES) % DAY_MINUTES;
-    const minimum = Math.max(1, Math.round(Number(minimumMinutes) || 1));
-    if (duration < minimum) duration += Math.ceil((minimum - duration) / DAY_MINUTES) * DAY_MINUTES;
-    return duration;
+    return calendar.minutesUntilDailyTimeWithMinimum(
+      currentMinutes, targetMinute, minimumMinutes,
+    );
   }
 
   function targetForDuration(currentMinutes, durationMinutes) {
-    return normalizeMinute(Number(currentMinutes) + Number(durationMinutes));
+    return normalizeMinute(calendar.addMinutes(currentMinutes, durationMinutes));
   }
 
   function formatClock(minutes) {
-    const value = normalizeMinute(minutes);
-    return `${String(Math.floor(value / 60)).padStart(2, "0")}:${String(value % 60).padStart(2, "0")}`;
+    return calendar.formatClock(normalizeMinute(minutes));
   }
 
   function formatDuration(minutes) {

@@ -88,29 +88,12 @@ fn narrative_axis(
     }
 }
 
-fn narrative_virtue(
-    virtue: adventuresim_core::road_encounter_catalog::VirtueId,
-) -> crate::personality::ChivalricVirtue {
-    use crate::personality::ChivalricVirtue as Virtue;
-    use adventuresim_core::road_encounter_catalog::VirtueId as Id;
-    match virtue {
-        Id::Courage => Virtue::Courage,
-        Id::Mercy => Virtue::Mercy,
-        Id::Faith => Virtue::Faith,
-        Id::Justice => Virtue::Justice,
-        Id::Courtesy => Virtue::Courtesy,
-        Id::Loyalty => Virtue::Loyalty,
-        Id::Prudence => Virtue::Prudence,
-        Id::Honesty => Virtue::Honesty,
-    }
-}
-
 fn narrative_attribute_check(
     ctx: &ReducerContext,
     character_id: u64,
-    attribute: adventuresim_core::road_encounter_catalog::AttributeId,
+    attribute: adventuresim_core::attribute::SimpleAttribute,
 ) -> Result<f32, String> {
-    use adventuresim_core::road_encounter_catalog::AttributeId as Id;
+    use adventuresim_core::attribute::SimpleAttribute as Id;
     let values = ctx
         .db
         .character_attributes()
@@ -132,7 +115,7 @@ fn apply_narrative_effect(
     ctx: &ReducerContext,
     occurrence_id: &str,
     party_id: &str,
-    now: u64,
+    now: StrategicMinute,
     effect: &adventuresim_core::road_encounter_catalog::Effect,
 ) -> Result<(), String> {
     use adventuresim_core::road_encounter_catalog::Effect;
@@ -239,39 +222,6 @@ pub struct ErrantryAuthority {
     pub finale_defenses_json: String,
 }
 
-/// A chat-native, non-puzzle interruption that becomes available only after
-/// resting at its bound road camp. Ignoring it grants nothing but may carry a
-/// bounded travel delay; choosing another response may affect the finale.
-#[derive(Clone, Debug)]
-#[table(accessor = road_challenge_authority)]
-pub struct RoadChallengeAuthority {
-    #[primary_key]
-    pub id: String,
-    #[index(btree)]
-    pub gateway_bucket: u8,
-    #[index(btree)]
-    pub party_id: String,
-    pub case_id: String,
-    pub finale_case_site_id: Option<CaseSiteId>,
-    pub finale_hostile_group_id: String,
-    pub journey_departure_minute: u64,
-    pub camp_movement_minute: u64,
-    pub available_at_elapsed_minute: u64,
-    pub catalog_id: String,
-    pub catalog_revision: u32,
-    pub catalog_digest: String,
-    pub absolute_minute: u64,
-    pub longitude_e7: i32,
-    pub latitude_e7: i32,
-    pub trigger: NarrativeEncounterTrigger,
-    pub revision: u32,
-    pub open: bool,
-    pub resolved_choice: Option<String>,
-    pub resolved_deed: Option<String>,
-    pub virtue_exemplified: Option<crate::personality::ChivalricVirtue>,
-    pub result_transcript: Option<String>,
-}
-
 /// Private origin and optional quest overlay. It is intentionally absent from
 /// the public projection until a post-resolution reward addendum is emitted.
 #[derive(Clone, Debug)]
@@ -303,7 +253,7 @@ pub struct RoadChallengeResolutionReceipt {
     pub catalog_digest: String,
     pub result_transcript: String,
     pub effects_json: String,
-    pub resolved_at_minute: u64,
+    pub resolved_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -315,7 +265,7 @@ pub struct NarrativeEncounterInformation {
     pub occurrence_id: String,
     pub party_id: String,
     pub information_id: String,
-    pub learned_at_minute: u64,
+    pub learned_at_minute: StrategicMinute,
 }
 
 /// Private outcome contract for a catalog-authored transition into the normal
@@ -344,14 +294,14 @@ pub struct NarrativeCombatFollowupReceipt {
     pub result_transcript: String,
     pub applied_payload_json: String,
     pub virtue_exemplified: Option<crate::personality::ChivalricVirtue>,
-    pub resolved_at_minute: u64,
+    pub resolved_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
 pub struct BackendRoadChallenge {
     pub id: String,
     pub owner_character_id: u64,
-    pub absolute_minute: u64,
+    pub absolute_minute: StrategicMinute,
     pub presentation_json: String,
     pub revision: u32,
     pub open: bool,
@@ -384,32 +334,6 @@ struct MaterializedErrantry {
     contract_id: String,
 }
 
-/// Private deterministic challenge authority. `puzzle_json` contains the seed
-/// and canonical ordering and must never appear in a public table or view.
-#[derive(Clone, Debug)]
-#[table(accessor = challenge_authority)]
-pub struct ChallengeAuthority {
-    #[primary_key]
-    pub id: String,
-    #[index(btree)]
-    pub gateway_bucket: u8,
-    #[index(btree)]
-    pub case_id: String,
-    #[index(btree)]
-    pub party_id: String,
-    pub finale_case_site_id: CaseSiteId,
-    pub finale_hostile_group_id: String,
-    pub journey_departure_minute: u64,
-    pub camp_movement_minute: u64,
-    pub camp_elapsed_minute: u64,
-    pub errantry_frame_json: String,
-    pub puzzle_json: String,
-    pub presenter_catalog_id: ChallengePresenterCatalogId,
-    pub revision: u32,
-    pub open: bool,
-    pub solved_at_minute: Option<u64>,
-}
-
 /// Durable source/revision receipt. Wrong attempts are retained and retryable;
 /// a receipt is immutable and an exact reducer retry is idempotent.
 #[derive(Clone, Debug)]
@@ -426,7 +350,7 @@ pub struct ChallengeAttemptReceipt {
     pub submission_json: String,
     pub correct: bool,
     pub resulting_revision: u32,
-    pub attempted_at_minute: u64,
+    pub attempted_at_minute: StrategicMinute,
 }
 
 /// Trusted-gateway, observer-bound projection. Puzzle seed and canonical
@@ -500,6 +424,7 @@ pub fn backend_challenges(ctx: &ViewContext) -> Vec<BackendChallenge> {
                 .max_by_key(|receipt| receipt.submitted_revision);
             let tactical_insight = bound_tactical_insight(ctx, &challenge);
             Some(BackendChallenge {
+                open: challenge.is_open(),
                 id: challenge.id.clone(),
                 case_id: challenge.case_id,
                 party_id: challenge.party_id,
@@ -508,7 +433,6 @@ pub fn backend_challenges(ctx: &ViewContext) -> Vec<BackendChallenge> {
                 puzzle_projection_json: projection,
                 presenter_catalog_id: challenge.presenter_catalog_id,
                 revision: challenge.revision,
-                open: challenge.open,
                 solved: challenge.solved_at_minute.is_some(),
                 active,
                 last_attempt_correct: last_attempt.as_ref().map(|receipt| receipt.correct),
@@ -572,7 +496,7 @@ pub fn backend_road_challenges(ctx: &ViewContext) -> Vec<BackendRoadChallenge> {
                 .and_then(|id| definition.choices.iter().find(|choice| choice.id == id));
             let ordinary_treatment_complete = ctx.db.character_context_membership()
                 .context_id().filter(&challenge.id)
-                .find(|row| row.active && row.role == crate::world_actor::CharacterContextRole::Patient)
+                .find(|row| row.is_open() && row.role == crate::world_actor::CharacterContextRole::Patient)
                 .is_some_and(|patient| ctx.db.limb_injury().character_id().filter(patient.character_id)
                     .any(|injury| injury.cut_damage > 0.0 && injury.bandaged));
             let contact_revision = crate::world_actor::context_contact_revision_view(
@@ -595,7 +519,7 @@ pub fn backend_road_challenges(ctx: &ViewContext) -> Vec<BackendRoadChallenge> {
                         .character_context_membership()
                         .context_id()
                         .filter(&challenge.id)
-                        .find(|row| row.active && usize::from(row.ordinal) == ordinal)?;
+                        .find(|row| row.is_open() && usize::from(row.ordinal) == ordinal)?;
                     let character = ctx.db.character().id().find(membership.character_id)?;
                     let treatment_limb = adventuresim_core::physiology::BodyRegion::ALL.into_iter().find(|limb| {
                         ctx.db
@@ -605,20 +529,15 @@ pub fn backend_road_challenges(ctx: &ViewContext) -> Vec<BackendRoadChallenge> {
                             .find(|injury| injury.limb == *limb)
                             .is_some_and(|injury| injury.cut_damage > 0.0 && !injury.bandaged)
                     });
-                    let presentation_decision = |decision| match decision {
-                        crate::world_actor::ContextualDecisionState::Allowed => adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::Request,
-                        crate::world_actor::ContextualDecisionState::Refused => adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::Refused,
-                        crate::world_actor::ContextualDecisionState::Unavailable => adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::Unavailable,
-                    };
-                    let available = active && challenge.open && character.alive;
+                    let available = active && challenge.is_open() && character.alive;
                     Some(adventuresim_core::road_encounter_catalog::PresentationCastMember {
                         character_id: character.id,
                         name: character.name,
                         role: *role,
                         contact_decision: if available {
-                            presentation_decision(membership.contact_decision)
+                            membership.contact_decision.presentation()
                         } else {
-                            adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::Unavailable
+                            adventuresim_core::strategic_presence::InteractionPresentationDecision::Unavailable
                         },
                         treatment_decision: if available && treatment_limb.is_some() {
                             let incapacitated = ctx.db.character_strategic_condition()
@@ -637,12 +556,12 @@ pub fn backend_road_challenges(ctx: &ViewContext) -> Vec<BackendRoadChallenge> {
                                     injury.bandaged,
                                 )));
                             if membership.treatment_decision == crate::world_actor::ContextualDecisionState::Unavailable && emergency {
-                                adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::EmergencyTreatment
+                                adventuresim_core::strategic_presence::InteractionPresentationDecision::EmergencyTreatment
                             } else {
-                                presentation_decision(membership.treatment_decision)
+                                membership.treatment_decision.presentation()
                             }
                         } else {
-                            adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::Unavailable
+                            adventuresim_core::strategic_presence::InteractionPresentationDecision::Unavailable
                         },
                         contact_revision,
                         membership_revision: membership.revision,
@@ -653,7 +572,7 @@ pub fn backend_road_challenges(ctx: &ViewContext) -> Vec<BackendRoadChallenge> {
             let presentation = adventuresim_core::road_encounter_catalog::EncounterPresentation {
                 cast,
                 opening: definition.opening.iter().filter_map(line).collect(),
-                choices: if challenge.open { definition.choices.iter().map(|choice| adventuresim_core::road_encounter_catalog::PresentationChoice {
+                choices: if challenge.is_open() { definition.choices.iter().map(|choice| adventuresim_core::road_encounter_catalog::PresentationChoice {
                     id: choice.id.clone(), label: choice.label.clone(),
                     available: if matches!(
                         &choice.interaction,
@@ -675,7 +594,7 @@ pub fn backend_road_challenges(ctx: &ViewContext) -> Vec<BackendRoadChallenge> {
                 absolute_minute: challenge.absolute_minute,
                 presentation_json,
                 revision: challenge.revision,
-                open: challenge.open,
+                open: challenge.is_open(),
                 active,
                 result_transcript: challenge.result_transcript,
                 quest_reward_addendum: private.reward_addendum,
@@ -838,7 +757,7 @@ pub(crate) fn party_at_bound_road_challenge(
 
 fn narrative_encounter_occurrence_id(
     party_id: &str,
-    seed: u64,
+    seed: Seed,
     origin_slug: &str,
     journey: &PartyJourney,
     selection: &adventuresim_core::encounter::NarrativeSelection,
@@ -943,18 +862,12 @@ pub(crate) fn materialize_chance_narrative_encounter(
                 | NarrativeEncounterOrigin::DeveloperDemo => NarrativeEncounterTrigger::Rest,
             },
             revision: 0,
-            open: true,
             resolved_choice: None,
             resolved_deed: None,
             virtue_exemplified: None,
             result_transcript: None,
         });
-    crate::world_actor::materialize_road_encounter_cast(
-        ctx,
-        &id,
-        definition,
-        official_minute,
-    )?;
+    crate::world_actor::materialize_road_encounter_cast(ctx, &id, definition, official_minute)?;
     ctx.db
         .narrative_encounter_private_authority()
         .insert(NarrativeEncounterPrivateAuthority {
@@ -969,12 +882,14 @@ pub(crate) fn materialize_chance_narrative_encounter(
     Ok(())
 }
 
-fn narrative_combat_roll(seed: u64, occurrence_id: &str) -> u64 {
-    occurrence_id
-        .bytes()
-        .fold(seed ^ 0x6e61_7272_636f_6d62, |hash, byte| {
-            (hash ^ u64::from(byte)).wrapping_mul(0x1000_0000_01b3)
-        })
+fn narrative_combat_roll(seed: Seed, occurrence_id: &str) -> u64 {
+    fabelgeist_determinism::Seed::derive(
+        &seed.to_le_bytes(),
+        fabelgeist_determinism::StreamId::new("encounter.narrative-combat"),
+        &[occurrence_id.as_bytes()],
+    )
+    .rng()
+    .next_u64()
 }
 
 fn materialize_narrative_combat(
@@ -1098,9 +1013,6 @@ fn materialize_narrative_combat(
         ctx,
         &challenge.id,
         &encounter_id,
-        match archetype {
-            adventuresim_core::road_encounter_catalog::RoadCombatArchetype::Bandits => "bandit",
-        },
         u32::from(count),
     )?;
     if roster.len() != usize::from(count) {
@@ -1159,9 +1071,9 @@ pub(crate) fn resolve_narrative_combat_followup(
     }
     let recognized_virtue =
         adventuresim_core::road_encounter_catalog::exemplified_virtue(&payload.personality)
-            .map(narrative_virtue);
+            ;
     for development in &payload.personality {
-        let virtue = narrative_virtue(development.virtue);
+        let virtue = development.virtue;
         crate::personality::apply_personality_development(
             ctx,
             &format!(
@@ -1270,11 +1182,10 @@ pub(crate) fn bind_errantry_trials_to_current_camp(
         .party_id()
         .filter(&party_id.to_string())
         .filter(|challenge| {
-            challenge.open
-                && challenge.solved_at_minute.is_none()
+            challenge.is_open()
                 && challenge.case_id == contract.case_id
                 && challenge.finale_case_site_id == destination.id
-                && challenge.journey_departure_minute == 0
+                && challenge.journey_departure_minute == StrategicMinute::ZERO
         })
         .collect::<Vec<_>>();
     candidates.sort_by(|left, right| left.id.cmp(&right.id));
@@ -1311,10 +1222,10 @@ pub(crate) fn bind_errantry_trials_to_current_camp(
         .party_id()
         .filter(&party_id.to_string())
         .filter(|challenge| {
-            challenge.open
+            challenge.is_open()
                 && challenge.case_id == contract.case_id
                 && challenge.finale_case_site_id.as_ref() == Some(&destination.id)
-                && challenge.journey_departure_minute == 0
+                && challenge.journey_departure_minute == StrategicMinute::ZERO
         })
         .collect::<Vec<_>>();
     road_candidates.sort_by(|left, right| left.id.cmp(&right.id));
@@ -1326,7 +1237,7 @@ pub(crate) fn bind_errantry_trials_to_current_camp(
             .saturating_add(COURIER_REST_DELAY_MINUTES);
         challenge.absolute_minute = journey
             .departure_minute
-            .saturating_add(challenge.available_at_elapsed_minute);
+            .saturating_add_minutes(challenge.available_at_elapsed_minute);
         ctx.db.road_challenge_authority().id().update(challenge);
     }
     Ok(())
@@ -1474,7 +1385,7 @@ pub fn submit_puzzle_challenge(
             "The fey trial is available only at its bound camp, after pending encounters".into(),
         );
     }
-    if !challenge.open || challenge.solved_at_minute.is_some() {
+    if !challenge.is_open() {
         return Err("Challenge is closed".into());
     }
     if challenge.revision != expected_revision {
@@ -1528,7 +1439,6 @@ pub fn submit_puzzle_challenge(
         });
     challenge.revision = resulting_revision;
     if correct {
-        challenge.open = false;
         challenge.solved_at_minute = Some(now);
     }
     ctx.db.challenge_authority().id().update(challenge.clone());
@@ -1639,7 +1549,7 @@ pub fn resolve_errantry_road_challenge(
     if !party_at_bound_road_challenge(ctx, &party, &challenge) {
         return Err("Road challenge is not active at this camp".into());
     }
-    if !challenge.open || challenge.resolved_choice.is_some() {
+    if !challenge.is_open() {
         return Err("Road challenge is already closed".into());
     }
     if challenge.revision != expected_revision {
@@ -1771,9 +1681,9 @@ pub fn resolve_errantry_road_challenge(
     }
     let recognized_virtue =
         adventuresim_core::road_encounter_catalog::exemplified_virtue(&selected.personality)
-            .map(narrative_virtue);
+            ;
     for development in &selected.personality {
-        let virtue = narrative_virtue(development.virtue);
+        let virtue = development.virtue;
         crate::personality::apply_personality_development(
             ctx,
             &format!("road-challenge:{}:{}", challenge.id, development.axis as u8),
@@ -1826,7 +1736,6 @@ pub fn resolve_errantry_road_challenge(
             .occurrence_id()
             .update(overlay);
     }
-    challenge.open = false;
     challenge.resolved_choice = Some(choice.clone());
     challenge.resolved_deed = Some(selected.deed.clone());
     challenge.virtue_exemplified = recognized_virtue;
@@ -1870,8 +1779,7 @@ fn active_puzzle_demo(
         .party_id()
         .filter(&party_key)
         .filter(|challenge| {
-            challenge.open
-                && challenge.solved_at_minute.is_none()
+            challenge.is_open()
                 && ErrantryChallengeId::parse(&challenge.id).is_some_and(|identity| {
                     identity.puzzle_kind == puzzle_kind.slug()
                         && identity.namespace == ErrantryChallengeNamespace::Demo
@@ -1919,10 +1827,7 @@ impl<'a> ErrantryChallengeId<'a> {
         };
         let character_id = parts.next()?.parse().ok()?;
         let _ordinal = parts.next()?.parse::<u64>().ok()?;
-        if domain != "challenge"
-            || puzzle_kind.is_empty()
-            || parts.next().is_some()
-        {
+        if domain != "challenge" || puzzle_kind.is_empty() || parts.next().is_some() {
             return None;
         }
         Some(Self {
@@ -2034,14 +1939,15 @@ fn materialize_development_road_encounter(
     {
         return Err("Road encounter demo requires a reached journey camp".into());
     }
-    let catalog_hash = catalog_id
-        .bytes()
-        .fold(0xcbf2_9ce4_8422_2325_u64, |hash, byte| {
-            (hash ^ u64::from(byte)).wrapping_mul(0x1000_0000_01b3)
-        });
+    let catalog_hash = fabelgeist_determinism::Seed::derive(
+        catalog_id.as_bytes(),
+        fabelgeist_determinism::StreamId::new("encounter.demo-roll-index"),
+        &[],
+    )
+    .to_u64();
     let selection = adventuresim_core::encounter::NarrativeSelection {
         boundary_minute: journey.completed_elapsed_minutes,
-        roll_index: 0xd000_0000_0000_0000 ^ catalog_hash,
+        roll_index: catalog_hash,
         catalog_id: catalog_id.into(),
     };
     let seed = ctx
@@ -2239,7 +2145,7 @@ fn materialize_order_errantry(
         })
         .count() as u64;
     let suffix = errantry_suffix(character_id, ordinal, launch);
-    let seed = 0x4b4e_4947_4854_4c59 ^ character_id ^ ordinal.rotate_left(23);
+    let seed = fabelgeist_determinism::StreamId::new("errantry.road-encounter").seed(character_id.into(), &[ordinal]);
     let road_definition =
         adventuresim_core::road_encounter_catalog::select_quest_eligible(seed, ordinal)
             .ok_or("No quest-eligible road encounter is available")?;
@@ -2386,7 +2292,7 @@ fn materialize_order_errantry(
         party_id: party_id.clone(),
         finale_case_site_id: case_site_id.clone(),
         finale_hostile_group_id: hostile_group_id.clone(),
-        journey_departure_minute: 0,
+        journey_departure_minute: StrategicMinute::ZERO,
         camp_movement_minute: 0,
         camp_elapsed_minute: 0,
         errantry_frame_json: serde_json::to_string(&frame)
@@ -2395,7 +2301,6 @@ fn materialize_order_errantry(
             .map_err(|_| "Could not encode puzzle authority")?,
         presenter_catalog_id: ChallengePresenterCatalogId::LadyBeneathThornV1,
         revision: 0,
-        open: true,
         solved_at_minute: None,
     });
     ctx.db
@@ -2407,18 +2312,17 @@ fn materialize_order_errantry(
             case_id: case_id.clone(),
             finale_case_site_id: Some(case_site_id.clone()),
             finale_hostile_group_id: hostile_group_id.clone(),
-            journey_departure_minute: 0,
+            journey_departure_minute: StrategicMinute::ZERO,
             camp_movement_minute: 0,
             available_at_elapsed_minute: 0,
             catalog_id: road_definition.id.clone(),
             catalog_revision: road_definition.version,
             catalog_digest: adventuresim_core::road_encounter_catalog::digest().into(),
-            absolute_minute: 0,
+            absolute_minute: StrategicMinute::ZERO,
             longitude_e7: 0,
             latitude_e7: 0,
             trigger: NarrativeEncounterTrigger::Rest,
             revision: 0,
-            open: true,
             resolved_choice: None,
             resolved_deed: None,
             virtue_exemplified: None,
@@ -2596,7 +2500,7 @@ mod challenge_source_boundary_tests {
             submission_json: r#"{"kind":"ordered_sigils","answer":{"ordering":["Crown","Hart","Moon","Rose","Sword"]}}"#.into(),
             correct: true,
             resulting_revision: 1,
-            attempted_at_minute: 42,
+            attempted_at_minute: adventuresim_world_schema::calendar::StrategicMinute::new(42),
         };
         validate_challenge_retry(
             &receipt,
@@ -2641,7 +2545,7 @@ mod challenge_source_boundary_tests {
         let fresh_ordinal = loader.find("let ordinal =").unwrap();
         assert!(reuse < fresh_ordinal);
         assert!(loader.contains("return Ok(MaterializedErrantry"));
-        assert!(loader.contains("ordinal.rotate_left(23)"));
+        assert!(loader.contains("errantry.road-encounter"));
         let reuse_lookup = source
             .split("fn active_puzzle_demo")
             .nth(1)
@@ -2678,12 +2582,12 @@ mod challenge_source_boundary_tests {
     #[test]
     fn authored_combat_dispatch_is_generic_deterministic_and_single_pending() {
         assert_eq!(
-            narrative_combat_roll(7, "occurrence:a"),
-            narrative_combat_roll(7, "occurrence:a")
+            narrative_combat_roll(fabelgeist_determinism::Seed::from_u64(7), "occurrence:a"),
+            narrative_combat_roll(fabelgeist_determinism::Seed::from_u64(7), "occurrence:a")
         );
         assert_ne!(
-            narrative_combat_roll(7, "occurrence:a"),
-            narrative_combat_roll(7, "occurrence:b")
+            narrative_combat_roll(fabelgeist_determinism::Seed::from_u64(7), "occurrence:a"),
+            narrative_combat_roll(fabelgeist_determinism::Seed::from_u64(7), "occurrence:b")
         );
         let source = crate::production_source(include_str!("challenges.rs"));
         let dispatch = source
@@ -2831,7 +2735,7 @@ mod challenge_source_boundary_tests {
 
     #[test]
     fn courier_catalog_binds_distinct_material_and_personality_routes() {
-        use adventuresim_core::road_encounter_catalog::{Effect, Requirement, VirtueId};
+        use adventuresim_core::{personality::ChivalricVirtue, road_encounter_catalog::{Effect, Requirement}};
         let definition =
             adventuresim_core::road_encounter_catalog::encounter("wounded_order_courier_v1")
                 .unwrap();
@@ -2845,17 +2749,17 @@ mod challenge_source_boundary_tests {
         assert!(
             matches!(choice("aid").effects[0], Effect::GrantItem { ref item_id, .. } if item_id == adventuresim_core::item_references::CAPTURED_DISPATCH_ITEM_ID)
         );
-        assert_eq!(choice("aid").personality[0].virtue, VirtueId::Mercy);
+        assert_eq!(choice("aid").personality[0].virtue, ChivalricVirtue::Mercy);
         assert!(matches!(
             choice("rally").requirements[0],
             Requirement::Skill { .. }
         ));
-        assert_eq!(choice("rally").personality[0].virtue, VirtueId::Courage);
+        assert_eq!(choice("rally").personality[0].virtue, ChivalricVirtue::Courage);
         assert!(matches!(
             choice("consecrate").requirements[0],
             Requirement::Religion { .. }
         ));
-        assert_eq!(choice("consecrate").personality[0].virtue, VirtueId::Faith);
+        assert_eq!(choice("consecrate").personality[0].virtue, ChivalricVirtue::Faith);
         assert!(choice("rob").personality[0].delta < 0);
         assert!(choice("ignore").effects.is_empty() && choice("ignore").personality.is_empty());
     }

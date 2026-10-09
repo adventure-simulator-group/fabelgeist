@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct SocializingReceipt {
@@ -11,8 +13,8 @@ pub struct SocializingReceipt {
     pub actor_id: u64,
     pub target_id: u64,
     pub day: u64,
-    pub start_minute: u64,
-    pub end_minute: u64,
+    pub start_minute: StrategicMinute,
+    pub end_minute: StrategicMinute,
     pub minutes: u64,
 }
 
@@ -28,8 +30,8 @@ pub struct SocializingReceiptCols {
     pub actor_id: __sdk::__query_builder::Col<SocializingReceipt, u64>,
     pub target_id: __sdk::__query_builder::Col<SocializingReceipt, u64>,
     pub day: __sdk::__query_builder::Col<SocializingReceipt, u64>,
-    pub start_minute: __sdk::__query_builder::Col<SocializingReceipt, u64>,
-    pub end_minute: __sdk::__query_builder::Col<SocializingReceipt, u64>,
+    pub start_minute: __sdk::__query_builder::Col<SocializingReceipt, StrategicMinute>,
+    pub end_minute: __sdk::__query_builder::Col<SocializingReceipt, StrategicMinute>,
     pub minutes: __sdk::__query_builder::Col<SocializingReceipt, u64>,
 }
 

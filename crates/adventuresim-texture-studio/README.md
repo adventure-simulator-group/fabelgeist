@@ -10,7 +10,7 @@ server.
 ```text
 cargo run -p adventuresim-texture-studio --bin adventuresim-texture-studio
 rustup target add wasm32-unknown-unknown
-cargo install wasm-bindgen-cli --version 0.2.108 --locked
+cargo install wasm-bindgen-cli --version 0.2.126 --locked
 python scripts/build_texture_studio.py
 python -m http.server 8783 --directory target/texture-studio/site
 ```

@@ -1,6 +1,6 @@
 //! Breastplate silhouette presets and independent relief controls.
-use adventuresim_armor_model::{BreastplateDesign, BreastplateProfile};
 use bevy_egui::egui;
+use fabelgeist_armor::{BreastplateDesign, BreastplateProfile};
 
 pub(super) fn shape(ui: &mut egui::Ui, design: &mut BreastplateDesign) -> bool {
     let mut changed = false;

@@ -6,6 +6,7 @@ use super::recruitment_offer_id_type::RecruitmentOfferId;
 use super::recruitment_offer_status_type::RecruitmentOfferStatus;
 use super::recruitment_offer_type::RecruitmentOffer;
 use super::recruitment_source_id_type::RecruitmentSourceId;
+use super::strategic_minute_type::StrategicMinute;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `recruitment_offer`.

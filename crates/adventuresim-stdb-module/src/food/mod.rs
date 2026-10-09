@@ -3,8 +3,9 @@
 use adventuresim_core::{
     disease::{self, DiseaseId},
     durability::{DamageBins, effective_weapon_stat},
-    food::{self, CookingMethod, FoodPreparation, IngredientPreparationAction},
+    food::{self, CookingMethod, FoodPreparation},
     herbalism,
+    ingredient_preparation::IngredientPreparationAction,
     inventory_measurement::ConsumableFractionMicros,
     material::Microliters,
     physical_object::{
@@ -13,6 +14,7 @@ use adventuresim_core::{
     prelude::{PlayerSkills, Skill, apply_direct_training},
     strategic_place::{StrategicFixtureId, StrategicPlaceId},
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::{
@@ -45,6 +47,8 @@ include!("lot_inventory.rs");
 include!("fireplace_custody.rs");
 include!("cooking.rs");
 include!("consumption.rs");
+#[cfg(feature = "authority-tests")]
+mod authority_tests;
 
 #[cfg(test)]
 pub(crate) const FOOD_SOURCE: &str = concat!(

@@ -5,6 +5,11 @@
     reason = "runtime deserialization validates the complete schema without reading every field"
 )]
 
+#[path = "authoring_schema/policy.rs"]
+pub mod policy;
+pub use policy::{PromptMode, ResolutionPolicy};
+
+use adventuresim_world_schema::Sex;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
@@ -103,22 +108,6 @@ pub struct AuthoringPrompt {
     pub choices: Vec<AuthoringChoice>,
 }
 
-#[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
-#[serde(rename_all = "snake_case")]
-pub enum PromptMode {
-    YesNo,
-    Single,
-    Multi,
-}
-
-#[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
-#[serde(rename_all = "snake_case")]
-pub enum ResolutionPolicy {
-    FirstResponse,
-    Unanimous,
-    Majority,
-    AllRespondents,
-}
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct AuthoringChoice {
@@ -297,8 +286,10 @@ pub enum FactKey {
 
 impl FactKey {
     pub fn authoring_value_is_valid(&self, value: &FactValue) -> bool {
-        let _ = value;
-        true
+        match self {
+            Self::ParticipantSex { .. } => matches!(value, FactValue::Sex { .. }),
+            _ => !matches!(value, FactValue::Sex { .. }),
+        }
     }
 
     pub fn participant_roles(&self) -> impl Iterator<Item = &str> {
@@ -351,5 +342,6 @@ impl FactKey {
 pub enum FactValue {
     Bool(bool),
     Integer(i64),
+    Sex { sex: Sex },
     Text(String),
 }

@@ -12,8 +12,6 @@ pub struct PartyContextContactAuthority {
     pub context_id: String,
     pub location_id: String,
     pub revision: u32,
-    pub contacted: bool,
-    pub mutual_awareness: bool,
 }
 
 impl __sdk::InModule for PartyContextContactAuthority {
@@ -29,8 +27,6 @@ pub struct PartyContextContactAuthorityCols {
     pub context_id: __sdk::__query_builder::Col<PartyContextContactAuthority, String>,
     pub location_id: __sdk::__query_builder::Col<PartyContextContactAuthority, String>,
     pub revision: __sdk::__query_builder::Col<PartyContextContactAuthority, u32>,
-    pub contacted: __sdk::__query_builder::Col<PartyContextContactAuthority, bool>,
-    pub mutual_awareness: __sdk::__query_builder::Col<PartyContextContactAuthority, bool>,
 }
 
 impl __sdk::__query_builder::HasCols for PartyContextContactAuthority {
@@ -42,8 +38,6 @@ impl __sdk::__query_builder::HasCols for PartyContextContactAuthority {
             context_id: __sdk::__query_builder::Col::new(table_name, "context_id"),
             location_id: __sdk::__query_builder::Col::new(table_name, "location_id"),
             revision: __sdk::__query_builder::Col::new(table_name, "revision"),
-            contacted: __sdk::__query_builder::Col::new(table_name, "contacted"),
-            mutual_awareness: __sdk::__query_builder::Col::new(table_name, "mutual_awareness"),
         }
     }
 }

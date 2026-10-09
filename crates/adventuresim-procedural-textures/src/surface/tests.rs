@@ -2,9 +2,9 @@ use super::*;
 use crate::{BakedRecipe, MapChannel, PixelEncoding, TextureParameters, TextureRecipeId};
 
 #[test]
-fn default_oak_height_matches_the_pre_september_reference() {
-    // Independent samples from 12d529d4, before the September 1 graph rewrite.
-    let reference = include_bytes!("fixtures/august-height.f32");
+fn default_oak_height_matches_the_deterministic_reference() {
+    // Frozen field samples after the deterministic stream contract migration.
+    let reference = include_bytes!("fixtures/deterministic-height.f32");
     let params = TextureParameters::default();
     for (index, bytes) in reference.chunks_exact(4).enumerate() {
         let expected = f32::from_le_bytes(bytes.try_into().unwrap());
@@ -67,7 +67,7 @@ fn committed_oak_bake_matches_the_recipe_and_shader_channel_layout() {
 fn oak_controls_and_seed_change_the_rendered_height_and_still_tile() {
     let original = TextureParameters::default();
     let mut edited = original.clone();
-    edited.seed = 73;
+    edited.seed = fabelgeist_determinism::Seed::from_u64(73);
     edited.surface.columns = 12;
     edited.surface.rows = 8;
     edited.surface.valley_width_min *= 1.25;
@@ -84,4 +84,23 @@ fn oak_controls_and_seed_change_the_rendered_height_and_still_tile() {
         }
     }
     assert!(changed > 900);
+}
+
+#[test]
+#[ignore = "exports the height reference for an intentional recipe revision"]
+fn export_height_reference() {
+    let params = TextureParameters::default();
+    let bytes: Vec<_> = (0..64 * 64)
+        .flat_map(|index| {
+            oak_bark_height(
+                &params,
+                ((index % 64) as f32 + 0.5) / 64.0,
+                ((index / 64) as f32 + 0.5) / 64.0,
+            )
+            .to_le_bytes()
+        })
+        .collect();
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../target/rng-708/deterministic-height.f32");
+    std::fs::write(path, bytes).unwrap();
 }

@@ -1,3 +1,6 @@
+use adventuresim_world_schema::calendar::StrategicMinute;
+use fabelgeist_determinism::Seed;
+mod fixtures;
 use super::{
     ArgumentValue, Capability, CapabilityIdentity, ChoiceArguments, ChoiceId, ChoiceKind,
     DeveloperCaseAnalysis, DiscoveryView, EVAL_FORMAT_VERSION, EvaluationPartyView, JournalView,
@@ -13,17 +16,20 @@ use adventuresim_core::{
         WitnessCandidate, WitnessDemographic,
     },
 };
+use fixtures::generation_context;
+#[cfg(test)]
+use fixtures::witness_character_id;
 use std::collections::{BTreeMap, BTreeSet};
 
 #[derive(Clone, Debug)]
 pub struct EvalCaseConfig {
-    pub seed: u64,
+    pub seed: Seed,
     pub family: TemplateFamily,
     pub party: EvaluationPartyView,
 }
 
 impl EvalCaseConfig {
-    pub fn fixture(seed: u64, family: TemplateFamily) -> Self {
+    pub fn fixture(seed: Seed, family: TemplateFamily) -> Self {
         Self {
             seed,
             family,
@@ -58,7 +64,7 @@ pub struct InvestigationEnvironment {
     journal_location_indexes: BTreeMap<JournalLocationKey, usize>,
     prepared: BTreeSet<String>,
     /// Ordinary schedules are player-visible state, not a pipeline error.
-    witness_returns_at: BTreeMap<usize, u64>,
+    witness_returns_at: BTreeMap<usize, StrategicMinute>,
     trace: Vec<PublicTraceEvent>,
     completed_action_provenance: Vec<CompletedAction>,
     route: Option<RouteClass>,
@@ -108,7 +114,7 @@ impl InvestigationEnvironment {
             version: EVAL_FORMAT_VERSION,
             case_id: generated.public_case_id.clone(),
             step: 0,
-            game_minute: 0,
+            game_minute: StrategicMinute::ZERO,
             discovery: DiscoveryView {
                 problem_summary: "No local problem has been learned yet.".into(),
                 consequence_summary: String::new(),
@@ -120,8 +126,8 @@ impl InvestigationEnvironment {
             legal_choices: Vec::new(),
         };
         let mut witness_returns_at = BTreeMap::new();
-        if generated.generation_seed.is_multiple_of(2) {
-            witness_returns_at.insert(1, 90);
+        if generated.generation_seed.to_u64().is_multiple_of(2) {
+            witness_returns_at.insert(1, StrategicMinute::new(90));
         }
         let mut value = Self {
             generated,
@@ -307,7 +313,7 @@ impl InvestigationEnvironment {
                     .witness_returns_at
                     .get(&index)
                     .ok_or("witness has no scheduled return")?;
-                let wait = return_at.saturating_sub(self.frame.game_minute).max(15);
+                let wait = return_at.elapsed_since(self.frame.game_minute).max(15);
                 self.frame.game_minute = return_at;
                 self.refresh_witness_availability();
                 learned.push("The referred witness returns to their expected location.".into());
@@ -519,7 +525,7 @@ impl InvestigationEnvironment {
         self.frame.party.supplies = self.frame.party.supplies.saturating_sub(cost);
         self.frame.step += 1;
         if !waiting_for_witness {
-            self.frame.game_minute += u64::from(minutes);
+            self.advance_game_time(minutes);
         }
         self.refresh_choices();
         let post_observation_digest =
@@ -819,6 +825,13 @@ impl InvestigationEnvironment {
         }
     }
 
+    fn advance_game_time(&mut self, minutes: u32) {
+        self.frame.game_minute = self
+            .frame
+            .game_minute
+            .saturating_add_minutes(u64::from(minutes));
+    }
+
     fn witness_available(&self, index: usize) -> bool {
         self.witness_returns_at
             .get(&index)
@@ -836,7 +849,7 @@ impl InvestigationEnvironment {
                     .is_none_or(|return_at| game_minute >= *return_at)
             {
                 WitnessAvailability::Available
-            } else if game_minute == 0 {
+            } else if game_minute == StrategicMinute::ZERO {
                 WitnessAvailability::ScheduledElsewhere
             } else {
                 WitnessAvailability::AwaitingReturn
@@ -1056,85 +1069,6 @@ fn claim_handle(case: &GeneratedCase, proposition_id: &str) -> String {
     }
 }
 
-fn generation_context(seed: u64, family: TemplateFamily) -> qg::GenerationContext {
-    let circumstances = BTreeSet::from([
-        Circumstance::NightWindow,
-        Circumstance::SecretRiversideMeeting,
-        Circumstance::AdultVenue,
-        Circumstance::RoadJourney,
-        Circumstance::GraveDuty,
-        Circumstance::LivestockWatch,
-    ]);
-    let witness = |id: &str, display_name: &str, demographic, description: &str, location: &str| {
-        WitnessCandidate {
-            resident_character_id: witness_character_id(id),
-            display_name: display_name.into(),
-            demographic,
-            age_band: "adult".into(),
-            sex: "unspecified".into(),
-            profession: id.into(),
-            visible_description: description.into(),
-            expected_location: location.into(),
-            expected_location_label: location.into(),
-            presence_version: 1,
-            allowed_circumstances: circumstances.clone(),
-        }
-    };
-    qg::GenerationContext {
-        seed,
-        observer_entropy_hi: seed.rotate_left(17) ^ 0x188,
-        observer_entropy_lo: seed.rotate_right(9) ^ 0x5151,
-        settlement_id: "settlement:evaluator".into(),
-        settlement_name: "Greifenhagen".into(),
-        scope: adventuresim_core::local_problem::Scope::Settlement {
-            settlement_id: "settlement:evaluator".into(),
-        },
-        ordinal: (seed & u64::from(u16::MAX)) as u16,
-        now_minute: 100_000,
-        incident_weather: adventuresim_core::weather::Precipitation::Clear,
-        requested_family: Some(family),
-        witness_candidates: vec![
-            witness(
-                "watchman",
-                "Konrad",
-                WitnessDemographic::Guard,
-                "a tall watchman with cropped fair hair and a scarred chin",
-                "the gatehouse",
-            ),
-            witness(
-                "cooper",
-                "Marta",
-                WitnessDemographic::Laborer,
-                "a short cooper with dark curls and a blue apron",
-                "the riverside workshop",
-            ),
-            witness(
-                "merchant",
-                "Elsbeth",
-                WitnessDemographic::Merchant,
-                "an elderly merchant in a red wool cap",
-                "the market arcade",
-            ),
-        ],
-    }
-}
-
-fn witness_character_id(witness_key: &str) -> u64 {
-    #[derive(serde::Serialize)]
-    struct WitnessIdentity<'a> {
-        witness_key: &'a str,
-    }
-
-    let digest = semantic_digest(
-        SemanticDigestPurpose::WitnessIdentity,
-        &WitnessIdentity { witness_key },
-    )
-    .expect("witness identity is serializable");
-    let low_bits = u64::from_str_radix(&digest[..16], 16)
-        .expect("semantic digests start with sixteen hexadecimal digits");
-    low_bits | (1u64 << 63)
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1268,7 +1202,7 @@ mod tests {
     #[test]
     fn forged_choices_and_arguments_fail_closed() {
         let mut env = InvestigationEnvironment::generate(EvalCaseConfig::fixture(
-            7,
+            fabelgeist_determinism::Seed::from_u64(7),
             TemplateFamily::RecurringDepredation,
         ))
         .unwrap();
@@ -1296,7 +1230,7 @@ mod tests {
     #[test]
     fn private_truth_is_absent_from_player_serialization() {
         let env = InvestigationEnvironment::generate(EvalCaseConfig::fixture(
-            11,
+            fabelgeist_determinism::Seed::from_u64(11),
             TemplateFamily::DisappearanceOrLoss,
         ))
         .unwrap();
@@ -1312,7 +1246,7 @@ mod tests {
     #[test]
     fn tavern_referral_requires_visible_testimony_before_roots() {
         let mut env = InvestigationEnvironment::generate(EvalCaseConfig::fixture(
-            9,
+            fabelgeist_determinism::Seed::from_u64(9),
             TemplateFamily::RecurringDepredation,
         ))
         .unwrap();
@@ -1353,7 +1287,10 @@ mod tests {
 
     #[test]
     fn offline_projection_excludes_withheld_and_unreferred_testimony() {
-        let context = generation_context(19, TemplateFamily::RecurringDepredation);
+        let context = generation_context(
+            fabelgeist_determinism::Seed::from_u64(19),
+            TemplateFamily::RecurringDepredation,
+        );
         let mut generated = qg::generate(&context).unwrap();
         generated.witnesses[0].testimony.push(qg::TestimonyDraft {
             proposition_id: "withheld-canary-proposition".into(),
@@ -1385,7 +1322,11 @@ mod tests {
             .target_id = generated.witnesses[1].resident_character_id.to_string();
         let mut env = InvestigationEnvironment::from_generated(
             generated,
-            EvalCaseConfig::fixture(19, TemplateFamily::RecurringDepredation).party,
+            EvalCaseConfig::fixture(
+                fabelgeist_determinism::Seed::from_u64(19),
+                TemplateFamily::RecurringDepredation,
+            )
+            .party,
         )
         .unwrap();
         let tavern = env.frame().legal_choices[0].choice_id.clone();
@@ -1423,7 +1364,7 @@ mod tests {
     #[test]
     fn mixed_route_progress_cannot_offer_an_unrelated_finale() {
         let mut env = InvestigationEnvironment::generate(EvalCaseConfig::fixture(
-            17,
+            fabelgeist_determinism::Seed::from_u64(17),
             TemplateFamily::DisappearanceOrLoss,
         ))
         .unwrap();
@@ -1457,7 +1398,7 @@ mod tests {
     #[test]
     fn exact_outbreak_remediation_output_solves_the_generated_objective() {
         let mut env = InvestigationEnvironment::generate(EvalCaseConfig::fixture(
-            0,
+            fabelgeist_determinism::Seed::from_u64(0),
             TemplateFamily::Outbreak,
         ))
         .unwrap();

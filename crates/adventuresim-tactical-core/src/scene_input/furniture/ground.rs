@@ -23,27 +23,34 @@ impl<'a> PlacementGround<'a> {
             ground,
         }
     }
-    pub(super) fn height_at(&self, point: Vec2) -> Option<f32> {
-        self.terrain.height_at(point).or_else(|| {
-            vista_triangle_height(
-                self.input.vista.lods.first()?,
-                self.input.vista.lods.get(1),
-                self.terrain,
-                point,
-            )
-        })
+    pub(super) fn height_at(
+        &self,
+        point: crate::scene_coordinates::ScenePlanPoint,
+    ) -> Option<crate::city_layout::grounding::SupportElevation> {
+        let point = point.metres();
+        self.terrain
+            .height_at(point)
+            .or_else(|| {
+                vista_triangle_height(
+                    self.input.vista.lods.first()?,
+                    self.input.vista.lods.get(1),
+                    self.terrain,
+                    point,
+                )
+            })
+            .and_then(crate::city_layout::grounding::SupportElevation::from_metres)
     }
     pub(super) fn scope(&self, footprint: FurnitureFootprint) -> Option<PlacementScope> {
-        let playable = FurnitureFootprint {
-            centre_metres: Vec2::ZERO,
-            half_extents_metres: Vec2::new(self.terrain.width(), self.terrain.depth()) * 0.5,
-            orientation: BuildingOrientation::IDENTITY,
-        };
-        if footprint
-            .corners()
-            .into_iter()
-            .all(|p| playable.contains(p))
-        {
+        let playable = FurnitureFootprint::from_metres(
+            Vec2::ZERO,
+            Vec2::new(self.terrain.width(), self.terrain.depth()) * 0.5,
+            BuildingOrientation::IDENTITY,
+        )
+        .ok()?;
+        if footprint.corners().into_iter().all(|p| {
+            crate::scene_coordinates::ScenePlanPoint::try_from(p)
+                .is_ok_and(|point| playable.contains(point))
+        }) {
             Some(PlacementScope::Playable)
         } else if footprint.intersects(playable) {
             None
@@ -52,11 +59,10 @@ impl<'a> PlacementGround<'a> {
         }
     }
     pub(super) fn allows_activity(&self, point: Vec2) -> bool {
-        if self
-            .input
-            .landform
-            .is_some_and(|l| l.transition_collar().contains(point))
-        {
+        if self.input.landform.is_some_and(|l| {
+            crate::scene_coordinates::ScenePlanPoint::try_from(point)
+                .is_ok_and(|point| l.transition_collar().contains(point))
+        }) {
             return false;
         }
         if let Some(surface) = self.ground.ground_at(point) {

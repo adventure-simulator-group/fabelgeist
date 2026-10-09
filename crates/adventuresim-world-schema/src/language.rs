@@ -1,6 +1,8 @@
 //! Stable language types and deterministic playable-world inference.
 
-use fabelgeist_determinism::splitmix64;
+mod initialization;
+use fabelgeist_determinism::StreamId;
+pub use initialization::{initial_character_languages, initial_oral_languages};
 use serde::{Deserialize, Serialize};
 
 use crate::{
@@ -12,7 +14,7 @@ use crate::{
 pub const YIDDISH_LOCAL_GERMAN_FLUENCY: f32 = 0.8;
 pub const ORAL_FLUENCY_HOURS: f32 = 5_000.0;
 
-const YIDDISH_INCIDENCE_DOMAIN: u64 = 0x0059_4944_4449_5348;
+const YIDDISH_INCIDENCE_DOMAIN: StreamId = StreamId::new("character.yiddish-incidence");
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct LanguageDescriptor {
@@ -23,7 +25,8 @@ pub struct LanguageDescriptor {
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum OralLanguage {
     EastCentral,
     WestCentral,
@@ -133,7 +136,8 @@ impl OralLanguage {
 }
 
 #[derive(Clone, Copy, Debug, Default, Deserialize, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct OralLanguageHours {
     pub east_central: f32,
     pub west_central: f32,
@@ -331,7 +335,8 @@ pub fn party_oral_training_gains_capped(
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub enum WrittenLanguage {
     German,
     Low,
@@ -424,7 +429,8 @@ impl WrittenLanguage {
 }
 
 #[derive(Clone, Copy, Debug, Default, Deserialize, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct WrittenLanguageHours {
     pub german: f32,
     pub low: f32,
@@ -487,7 +493,8 @@ impl WrittenLanguageHours {
 }
 
 #[derive(Clone, Copy, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 pub struct SettlementLanguageProfile {
     pub east_central_bp: u16,
     pub west_central_bp: u16,
@@ -553,56 +560,6 @@ pub fn infer_settlement_language_profile(
         low_bp: low,
         yiddish_incidence_bp: 75,
     })
-}
-
-/// Initialize direct oral hours from the character's final settlement.
-/// Yiddish is an individual deterministic incidence, never a settlement-wide replacement.
-pub fn initial_oral_languages(
-    profile: SettlementLanguageProfile,
-    character_id: u64,
-    npc: bool,
-) -> OralLanguageHours {
-    let roll = (splitmix64(character_id) % u64::from(crate::BASIS_POINTS_PER_WHOLE)) as u16;
-    let german = if roll < profile.east_central_bp {
-        OralLanguage::EastCentral
-    } else if roll
-        < profile
-            .east_central_bp
-            .saturating_add(profile.west_central_bp)
-    {
-        OralLanguage::WestCentral
-    } else {
-        OralLanguage::Low
-    };
-    let yiddish = npc
-        && (splitmix64(character_id ^ YIDDISH_INCIDENCE_DOMAIN)
-            % u64::from(crate::BASIS_POINTS_PER_WHOLE))
-            < u64::from(profile.yiddish_incidence_bp);
-    let mut hours = OralLanguageHours::default();
-    *hours.direct_mut(german) = if yiddish {
-        ORAL_FLUENCY_HOURS
-            * (YIDDISH_LOCAL_GERMAN_FLUENCY - OralLanguage::Yiddish.correlation(german)).max(0.0)
-    } else {
-        ORAL_FLUENCY_HOURS
-    };
-    if yiddish {
-        hours.yiddish = ORAL_FLUENCY_HOURS;
-    }
-    hours
-}
-
-pub fn initial_character_languages(
-    profile: SettlementLanguageProfile,
-    character_id: u64,
-    npc: bool,
-) -> (OralLanguageHours, WrittenLanguageHours) {
-    let oral = initial_oral_languages(profile, character_id, npc);
-    // Literacy is social and institutional, never a universal consequence of
-    // speaking the local language. Noble-family roles and authored professional
-    // curricula are applied by character authority after relational roles are
-    // established.
-    let written = WrittenLanguageHours::default();
-    (oral, written)
 }
 
 #[cfg(test)]

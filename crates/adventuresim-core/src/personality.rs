@@ -1,6 +1,10 @@
 //! Canonical personality vocabulary shared by persistence and simulation.
 
+use adventuresim_world_schema::Sex;
 use serde::{Deserialize, Serialize};
+
+mod virtue;
+pub use virtue::ChivalricVirtue;
 
 macro_rules! personality_enum {
     ($name:ident { $($variant:ident),+ $(,)? }) => {
@@ -119,24 +123,6 @@ impl Presentation {
         }
     }
 }
-personality_enum!(Sex { Female, Male });
-
-impl Sex {
-    pub const fn stable_id(self) -> &'static str {
-        match self {
-            Self::Female => "female",
-            Self::Male => "male",
-        }
-    }
-
-    pub const fn stable_variant_id(self) -> &'static str {
-        match self {
-            Self::Female => "Female",
-            Self::Male => "Male",
-        }
-    }
-}
-
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Personality {

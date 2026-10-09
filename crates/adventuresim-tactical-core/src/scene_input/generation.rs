@@ -1,82 +1,55 @@
 use super::*;
 use bevy::math::Vec2;
+use fabelgeist_determinism::StreamId;
+mod geographic;
+mod grounding;
+mod support_obstacles;
+mod supported;
+pub use geographic::UngradedSceneTerrain;
+pub use supported::SupportedSceneTerrain;
 
 impl TacticalSceneInput {
     pub fn generate(&self) -> Result<GeneratedTacticalScene, SceneInputError> {
-        self.validate()?;
-        let (grid_width, grid_depth, grid_spacing, mut heights, mut environment) =
-            upsample_playable_grid(&self.playable);
-        let mut repairs = prepare_terrain(
+        let mut generated = self.generate_unfurnished(GeneratedBuildingRecipes::default())?;
+        generated
+            .furniture
+            .furnish_interiors(&generated.buildings)?;
+        Ok(generated)
+    }
+
+    /// Generate terrain and outdoor assets before independent interior jobs.
+    pub fn generate_unfurnished(
+        &self,
+        mut building_recipes: GeneratedBuildingRecipes,
+    ) -> Result<GeneratedTacticalScene, SceneInputError> {
+        let SupportedSceneTerrain {
+            terrain,
+            ground,
+            buildings,
+            obstacles,
+            repairs,
+        } = self.prepare_supported_terrain(&mut building_recipes)?;
+        let terrain_patch = crate::scene_fault::generate(self.landform, &terrain)?;
+        let furniture = furniture::generate(
             self,
-            grid_width,
-            grid_depth,
-            grid_spacing,
-            &mut heights,
-            &mut environment,
-        );
-        let mut buildings = buildings::prepare_buildings(&self.buildings)?;
-        buildings::validate_building_pads(&buildings)?;
-        compounds::validate_generated(&self.compounds, &buildings, &self.streets)?;
-        gardens::validate_generated(self, &buildings)?;
-        let garden_anchors = gardens::terrain_anchors(self)?;
-        let (building_pads, levelled_building_samples) = buildings::level_building_pads(
-            grid_width,
-            grid_depth,
-            grid_spacing,
-            &mut heights,
-            &mut buildings,
-            self,
-            &garden_anchors,
-        )?;
-        repairs.levelled_building_samples = levelled_building_samples;
-        let coarse_terrain =
-            SceneTerrain::from_heightmap(grid_width, grid_depth, grid_spacing, heights)
-                .ok_or_else(|| {
-                    SceneInputError::Validation("playable heightmap is invalid".into())
-                })?;
-        let mut obstacles = generated_obstacles(self);
-        remove_reserved_obstacles(self, &mut obstacles, &mut repairs);
-        remove_building_obstacles(
-            self,
-            &coarse_terrain,
-            &building_pads,
-            &mut obstacles,
-            &mut repairs,
-        );
-        let ground = build_scene_ground(
-            grid_width,
-            grid_depth,
-            grid_spacing,
-            &environment,
-            &coarse_terrain,
-            &obstacles,
-            self.playable.spacing_metres,
             &buildings,
-            &self.streets,
-            &self.yards,
-        )?;
-        let terrain = refine_authoritative_terrain(
-            self.seed,
-            &coarse_terrain,
+            &terrain,
             &ground,
             &obstacles,
-            self.playable.spacing_metres,
-            self.weather.ground_moisture_bps,
-            &building_pads,
+            &mut building_recipes,
         )?;
-        gardens::validate_surface(self, &terrain, &buildings)?;
-        let terrain_patch = crate::scene_fault::generate(self.landform, &terrain)?;
-        let mut furniture = furniture::generate(self, &buildings, &terrain, &ground, &obstacles)?;
-        furniture.furnish_interiors(&buildings)?;
+        let gardens = gardens::generate(&self.gardens, &buildings, &terrain)?;
+        let boundaries = compounds::generate(&self.compounds, &buildings, &terrain)?;
         Ok(GeneratedTacticalScene {
             digest: self.digest()?,
             terrain,
             ground,
             obstacles,
             terrain_patch,
-            boundaries: compounds::generate(&self.compounds, &buildings),
-            gardens: gardens::generate(&self.gardens, &buildings),
+            boundaries,
+            gardens,
             buildings,
+            building_recipes,
             furniture,
             repairs,
         })
@@ -90,17 +63,17 @@ fn prepare_terrain(
     spacing: f32,
     heights: &mut [f32],
     environment: &mut [EnvironmentalSample],
-) -> SceneRepairReport {
+) -> Result<SceneRepairReport, SceneInputError> {
     let upsampled_height_samples = heights
         .len()
         .saturating_sub(input.playable.heights_metres.len())
         as u32;
     let microrelief_adjusted_samples =
         add_authoritative_microrelief(input.seed, width, depth, spacing, heights, environment);
-    let mut repairs = repair_playable_terrain(width, depth, spacing, heights, environment);
+    let mut repairs = repair_playable_terrain(width, depth, spacing, heights, environment)?;
     repairs.upsampled_height_samples = upsampled_height_samples;
     repairs.microrelief_adjusted_samples = microrelief_adjusted_samples;
-    repairs
+    Ok(repairs)
 }
 
 fn generated_obstacles(input: &TacticalSceneInput) -> Vec<GeneratedObstacle> {
@@ -118,16 +91,20 @@ fn generated_obstacles(input: &TacticalSceneInput) -> Vec<GeneratedObstacle> {
                     f32::from(input.playable.depth - 1),
                 ) * 0.5)
                 * input.playable.spacing_metres;
-            if input
-                .landform
-                .is_some_and(|recipe| recipe.transition_collar().contains(point))
-            {
+            if input.landform.is_some_and(|recipe| {
+                crate::scene_coordinates::ScenePlanPoint::try_from(point)
+                    .is_ok_and(|point| recipe.transition_collar().contains(point))
+            }) {
                 return None;
             }
-            let coordinate = ((x as u64) << 32) ^ z as u64;
-            let tree_roll = splitmix64(input.seed ^ coordinate) % u64::from(BASIS_POINTS_PER_WHOLE);
-            let rock_seed = splitmix64(input.seed ^ coordinate ^ ROCK_PLACEMENT_DOMAIN);
-            let rock_roll = rock_seed % u64::from(BASIS_POINTS_PER_WHOLE);
+            let context = [u64::from(x), u64::from(z)];
+            let tree_roll = StreamId::new("scene.tree-placement")
+                .rng(input.seed, &context)
+                .index(usize::from(BASIS_POINTS_PER_WHOLE)) as u64;
+            let rock_seed = StreamId::new("scene.rock-placement").seed(input.seed, &context);
+            let rock_roll = StreamId::new("scene.rock-presence")
+                .rng(rock_seed, &[])
+                .index(usize::from(BASIS_POINTS_PER_WHOLE)) as u64;
             if tree_roll < u64::from(sample.canopy_bps) / 12 {
                 Some(GeneratedObstacle::Tree { x, z })
             } else if rock_roll < u64::from(sample.hilly_bps) / 20 && sample.water_bps < 5_000 {
@@ -213,7 +190,10 @@ mod landform_tests {
                     f32::from(input.playable.depth - 1),
                 ) * 0.5)
                 * input.playable.spacing_metres;
-            assert!(!collar.contains(point));
+            assert!(
+                !crate::scene_coordinates::ScenePlanPoint::try_from(point)
+                    .is_ok_and(|point| collar.contains(point))
+            );
         }
     }
 }

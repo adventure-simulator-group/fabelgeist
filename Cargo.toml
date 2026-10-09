@@ -8,7 +8,6 @@ members = [
   "crates/adventuresim-world-schema",
   "crates/adventuresim-world-import",
   "crates/adventuresim-terrain",
-  "crates/adventuresim-armor-model",
   "crates/adventuresim-weapon-model",
   "crates/adventuresim-weapon-model-browser",
   "crates/adventuresim-building-generator",
@@ -16,8 +15,6 @@ members = [
   "crates/adventuresim-procedural-textures",
   "crates/adventuresim-procedural-materials",
   "crates/adventuresim-texture-studio",
-  "crates/adventuresim-heraldry",
-  "crates/adventuresim-heraldry-studio",
   "crates/adventuresim-stdb-module",
   "crates/adventuresim-stdb-client",
   "crates/adventuresim-tactical-core",
@@ -33,10 +30,22 @@ members = [
   "crates/fabelgeist-timer",
   "crates/fabelgeist-fs",
   "crates/fabelgeist-gpu",
+  "crates/fabelgeist-color",
+  "crates/fabelgeist-mesh",
+  "crates/fabelgeist-shell",
   "crates/fabelgeist-fbx",
   "crates/fabelgeist-rust-quality",
+  "crates/fabelgeist-compute",
+  "crates/fabelgeist-bvh",
+  "crates/fabelgeist-xpbd",
+  "crates/fabelgeist-physics",
+  "crates/fabelgeist-cloth",
+  "crates/fabelgeist-garment-code",
+  "crates/fabelgeist-garment-fit",
+  "crates/fabelgeist-armor",
 ]
 exclude = [
+  "vendor/bevy_ahoy",
   "wiki",
   "utils",
   "crates/adventuresim-character-creator",
@@ -53,9 +62,9 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 license = "GPL-3.0"
 
 [workspace.dependencies]
+microlp = "=0.6.0"
 ab_glyph = "0.2.32"
 adventuresim-procedural-materials = { path = "crates/adventuresim-procedural-materials" }
-adventuresim-heraldry = { path = "crates/adventuresim-heraldry" }
 adventuresim-tactical-netcode = { version = "0.1.0", default-features = false }
 adventuresim-tactical-core = { version = "0.1.0" }
 adventuresim-stdb-client = { version = "0.1.0" }
@@ -64,7 +73,6 @@ adventuresim-puzzles = { version = "0.1.0", path = "crates/adventuresim-puzzles"
 adventuresim-dialogue = { version = "0.1.0", path = "crates/adventuresim-dialogue" }
 adventuresim-strategic-sim = { version = "0.1.0" }
 adventuresim-world-schema = { version = "0.1.0", path = "crates/adventuresim-world-schema" }
-adventuresim-armor-model = { version = "0.1.0", path = "crates/adventuresim-armor-model" }
 adventuresim-weapon-model = { version = "0.1.0", path = "crates/adventuresim-weapon-model" }
 adventuresim-building-generator = { version = "0.1.0", path = "crates/adventuresim-building-generator" }
 adventuresim-plant-generator = { version = "0.1.0", path = "crates/adventuresim-plant-generator" }
@@ -98,9 +106,10 @@ avian3d = { version = "0.7.0", default-features = false, features = [
   "default-collider",
   "xpbd_joints",
 ] }
-bevy_ahoy = { version = "0.2.0", default-features = false, features = [
+bevy_ahoy = { version = "=0.2.0", path = "vendor/bevy_ahoy", default-features = false, features = [
   "serialize",
 ] }
+bevy_math = "0.19.0"
 bevy_enhanced_input = { version = "0.26.0", default-features = false, features = [
   "reflect",
 ] }
@@ -114,6 +123,9 @@ bevy_mod_outline = { version = "0.13", default-features = false, features = [
 ] }
 bevy_eidolon = { version = "0.5" }
 bevy_panorbit_camera = { version = "0.35", features = ["bevy_egui"] }
+bytemuck = { version = "1", features = ["extern_crate_alloc"] }
+ciborium = "0.2"
+libm = { version = "=0.2.16", default-features = false, features = ["force-soft-floats"] }
 noiz = "0.5.0"
 serde = { version = "1", default-features = false, features = [
   "alloc",
@@ -132,7 +144,8 @@ async-compat = "0.2.5"
 cfg-if = "1.0"
 clap = { version = "4.5.60", features = ["derive", "env"] }
 tracing = "0.1.44"
-rand = "0.9"
+rand = "=0.9.5"
+rand_xoshiro = "=0.7.0"
 rayon = "1.12"
 getrandom = { version = "0.3", features = ["wasm_js"] }
 getrandom_02 = { version = "0.2", features = ["js"], package = "getrandom" }
@@ -154,10 +167,11 @@ shapefile = { version = "0.9.0", features = ["geo-types"] }
 zip = { version = "3.0.0", default-features = false, features = ["deflate"] }
 flate2 = "1.1"
 ron = "0.12"
-wasm-bindgen = "=0.2.108"
+wasm-bindgen = "=0.2.126"
 web-time = "1.1.0"
 spacetimedb = "=2.6.1"
 spacetimedb-sdk = "=2.6.1"
+spacetimedb-lib = { version = "=2.6.1", default-features = false }
 spacetimedb-sats = { version = "=2.6.1", features = ["serde"] }
 
 [workspace.lints.clippy]

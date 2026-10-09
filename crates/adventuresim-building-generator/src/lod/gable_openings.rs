@@ -1,7 +1,10 @@
 //! Aperture hosts and fixed closures remain real solids at both distance levels.
 use super::*;
 
-pub(super) fn append(lod: &mut BuildingLod, plan: &BuildingPlan) {
+pub(super) fn append(
+    lod: &mut BuildingLod,
+    plan: &BuildingPlan,
+) -> Result<(), crate::GenerationError> {
     let mut ids = std::collections::BTreeSet::new();
     for wall in plan
         .wall_assemblies
@@ -28,13 +31,14 @@ pub(super) fn append(lod: &mut BuildingLod, plan: &BuildingPlan) {
             }
         }
     }
-    for solid in plan
+    let compiler = crate::detail::SolidDetailCompiler::new(plan);
+    let _: () = for solid in plan
         .resolved_geometry
         .solids
         .iter()
         .filter(|solid| ids.contains(&solid.id))
     {
-        for mesh in crate::compile_solid_detail(plan, solid).meshes {
+        for mesh in compiler.compile(solid)?.meshes {
             let target = lod.mesh_mut(mesh.material);
             let offset = target.vertices.len() as u32;
             target.vertices.extend(mesh.vertices);
@@ -42,7 +46,8 @@ pub(super) fn append(lod: &mut BuildingLod, plan: &BuildingPlan) {
                 .indices
                 .extend(mesh.indices.into_iter().map(|index| index + offset));
         }
-    }
+    };
+    Ok(())
 }
 
 pub(super) fn owns_member(plan: &BuildingPlan, id: crate::TimberMemberId) -> bool {

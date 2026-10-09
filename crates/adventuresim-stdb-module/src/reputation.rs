@@ -6,10 +6,14 @@
 use adventuresim_core::reputation::{
     ReputationEdge, ReputationSettlement, apply_delta, contributions,
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, Table, table};
 
 use crate::{backend_case_battle_authority, battle_participant, settlement, travel_edge};
 
+/// Terminal local projection of authoritative action events. `record_event`
+/// updates event and affected aggregates in the reducer transaction; aggregates
+/// never act as new spreading sources. Character deletion removes both records.
 #[derive(Clone, Debug)]
 #[table(accessor = character_settlement_reputation, public)]
 pub struct CharacterSettlementReputation {
@@ -38,7 +42,7 @@ pub struct ReputationEvent {
     pub source_id: String,
     pub raw_fame: i32,
     pub raw_infamy: i32,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -52,9 +56,7 @@ pub struct DiscoveredOffense {
     pub settlement_id: String,
     pub kind: String,
     pub severity: u8,
-    /// Current implemented offenses are fine/arrest eligible, never capital.
-    pub execution_eligible: bool,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
     pub settled: bool,
 }
 
@@ -83,7 +85,7 @@ pub struct CaseReputationParticipant {
     #[index(btree)]
     pub character_id: u64,
     pub party_id: String,
-    pub captured_at_minute: u64,
+    pub captured_at_minute: StrategicMinute,
 }
 
 pub(crate) fn case_resolution_participant_ids(
@@ -121,7 +123,7 @@ pub(crate) fn snapshot_case_resolution_participant(
     canonical_case_id: &str,
     character_id: u64,
     party_id: &str,
-    minute: u64,
+    minute: StrategicMinute,
 ) {
     let snapshot_id = format!("{canonical_case_id}:{character_id}");
     if ctx
@@ -143,6 +145,8 @@ pub(crate) fn snapshot_case_resolution_participant(
     }
 }
 
+/// Record fine/arrest offenses. Capital punishment has no implemented policy;
+/// eligibility is not an independently authored per-offense fact.
 pub fn record_discovered_offense(
     ctx: &ReducerContext,
     id: String,
@@ -150,7 +154,7 @@ pub fn record_discovered_offense(
     settlement_id: &str,
     kind: &str,
     severity: u8,
-    occurred_at_minute: u64,
+    occurred_at_minute: StrategicMinute,
 ) {
     if ctx.db.discovered_offense().id().find(&id).is_none() {
         ctx.db.discovered_offense().insert(DiscoveredOffense {
@@ -159,7 +163,6 @@ pub fn record_discovered_offense(
             settlement_id: settlement_id.to_owned(),
             kind: kind.to_owned(),
             severity: severity.clamp(1, 5),
-            execution_eligible: false,
             occurred_at_minute,
             settled: false,
         });
@@ -261,7 +264,7 @@ pub fn record_event(
     source_id: &str,
     raw_fame: i32,
     raw_infamy: i32,
-    occurred_at_minute: u64,
+    occurred_at_minute: StrategicMinute,
 ) -> Result<bool, String> {
     if raw_fame < 0 || raw_infamy < 0 {
         return Err("Reputation event deltas must be nonnegative".into());

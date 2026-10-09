@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 // Owns the cohesive relationship, household, commitment, courtship, pregnancy,
 // lifecycle-failure, and socializing schema.
 /// Marks a normal full Character as being advanced by deterministic NPC policy
@@ -9,7 +10,7 @@ pub struct NpcPolicy {
     #[primary_key]
     pub character_id: u64,
     pub home_settlement_id: String,
-    pub policy_seed: u64,
+    pub policy_seed: Seed,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
@@ -30,7 +31,7 @@ pub fn enforce_temporal_scope(
     actor_id: u64,
     target_id: Option<u64>,
     scope: TemporalScope,
-) -> Result<u64, String> {
+) -> Result<StrategicMinute, String> {
     let actor_minute = canonical_now(ctx, actor_id)?;
     match scope {
         TemporalScope::ActorLocal | TemporalScope::PairwiseSoft | TemporalScope::Institutional => {
@@ -53,22 +54,6 @@ pub fn enforce_temporal_scope(
             crate::time::refresh_clock(ctx)
         }
     }
-}
-
-pub(crate) fn character_alive_at(ctx: &ReducerContext, character_id: u64, minute: u64) -> bool {
-    ctx.db.character().id().find(character_id).is_some()
-        && ctx
-            .db
-            .character_birth()
-            .character_id()
-            .find(character_id)
-            .is_none_or(|birth| i128::from(birth.birth_minute) <= i128::from(minute))
-        && ctx
-            .db
-            .character_death()
-            .character_id()
-            .find(character_id)
-            .is_none_or(|death| death.strategic_minute > minute)
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
@@ -102,7 +87,7 @@ pub struct CharacterKinship {
     #[index(btree)]
     pub related_id: u64,
     pub kind: KinshipKind,
-    pub established_minute: u64,
+    pub established_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -111,7 +96,7 @@ pub struct Household {
     #[primary_key]
     pub id: String,
     pub home_settlement_id: String,
-    pub created_minute: u64,
+    pub created_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -124,7 +109,7 @@ pub struct HouseholdMember {
     /// A character has one authoritative active household at a time.
     #[unique]
     pub character_id: u64,
-    pub joined_minute: u64,
+    pub joined_minute: StrategicMinute,
     pub role: HouseholdRole,
 }
 
@@ -153,39 +138,6 @@ pub enum CommitmentKind {
     Marriage,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum CommitmentStatus {
-    Reserved,
-    Fulfilled,
-    Cancelled,
-    Expired,
-    Ended,
-}
-
-impl CommitmentStatus {
-    const fn stable_id(self) -> &'static str {
-        match self {
-            Self::Reserved => "Reserved",
-            Self::Fulfilled => "Fulfilled",
-            Self::Cancelled => "Cancelled",
-            Self::Expired => "Expired",
-            Self::Ended => "Ended",
-        }
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum CommitmentTerminalReason {
-    WeddingCompleted,
-    ParticipantDead,
-    ParticipantUnderage,
-    CeremonyLocationUnavailable,
-    ResidenceUnavailable,
-    CancelledByParticipant,
-    ReservationExpired,
-    MarriageEnded,
-}
-
 /// One row owns the pair and one uniqueness row owns each participant.  This
 /// lets an atomic reducer reject a competing romantic claim before it writes
 /// any history.
@@ -201,42 +153,25 @@ pub struct ExclusiveCommitment {
     pub kind: CommitmentKind,
     pub status: CommitmentStatus,
     pub ceremony_settlement_id: String,
-    #[index(btree)]
-    pub effective_minute: u64,
-    pub created_minute: u64,
-    pub resolved_minute: Option<u64>,
+    pub effective_minute: StrategicMinute,
+    pub created_minute: StrategicMinute,
+    pub resolved_minute: Option<StrategicMinute>,
     pub terminal_reason: Option<CommitmentTerminalReason>,
 }
 
 impl ExclusiveCommitment {
-    fn parsed_state(&self) -> Result<adventuresim_core::strategic_state::CommitmentState, String> {
-        use adventuresim_core::strategic_state::{
-            FlatCommitmentReason as Reason, FlatCommitmentStatus as Flat,
-        };
+    fn parsed_state(
+        &self,
+    ) -> Result<
+        adventuresim_core::strategic_state::CommitmentState,
+        adventuresim_core::strategic_state::StateParseError,
+    > {
         adventuresim_core::strategic_state::CommitmentState::parse(
-            match self.status {
-                CommitmentStatus::Reserved => Flat::Reserved,
-                CommitmentStatus::Fulfilled => Flat::Fulfilled,
-                CommitmentStatus::Cancelled => Flat::Cancelled,
-                CommitmentStatus::Expired => Flat::Expired,
-                CommitmentStatus::Ended => Flat::Ended,
-            },
+            self.status,
             self.effective_minute,
             self.resolved_minute,
-            self.terminal_reason.map(|reason| match reason {
-                CommitmentTerminalReason::WeddingCompleted => Reason::WeddingCompleted,
-                CommitmentTerminalReason::ParticipantDead => Reason::ParticipantDead,
-                CommitmentTerminalReason::ParticipantUnderage => Reason::ParticipantUnderage,
-                CommitmentTerminalReason::ResidenceUnavailable => Reason::ResidenceUnavailable,
-                CommitmentTerminalReason::CeremonyLocationUnavailable => {
-                    Reason::CeremonyLocationUnavailable
-                }
-                CommitmentTerminalReason::CancelledByParticipant => Reason::CancelledByParticipant,
-                CommitmentTerminalReason::ReservationExpired => Reason::ReservationExpired,
-                CommitmentTerminalReason::MarriageEnded => Reason::MarriageEnded,
-            }),
+            self.terminal_reason,
         )
-        .map_err(|error| error.to_string())
     }
 }
 
@@ -257,14 +192,7 @@ pub struct CommitmentEvent {
     pub commitment_id: String,
     pub status: CommitmentStatus,
     pub reason: Option<CommitmentTerminalReason>,
-    pub minute: u64,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum MarriageStatus {
-    Active,
-    Widowed,
-    Ended,
+    pub minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -279,23 +207,19 @@ pub struct Marriage {
     pub commitment_id: String,
     pub household_id: String,
     pub ceremony_settlement_id: String,
-    pub married_minute: u64,
+    pub married_minute: StrategicMinute,
     pub status: MarriageStatus,
-    pub resolved_minute: Option<u64>,
+    pub resolved_minute: Option<StrategicMinute>,
 }
 
 impl Marriage {
-    fn parsed_state(&self) -> Result<adventuresim_core::strategic_state::MarriageState, String> {
-        use adventuresim_core::strategic_state::{FlatMarriageStatus as Flat, MarriageState};
-        MarriageState::parse(
-            match self.status {
-                MarriageStatus::Active => Flat::Active,
-                MarriageStatus::Widowed => Flat::Widowed,
-                MarriageStatus::Ended => Flat::Ended,
-            },
-            self.resolved_minute,
-        )
-        .map_err(|error| error.to_string())
+    fn parsed_state(
+        &self,
+    ) -> Result<
+        adventuresim_core::strategic_state::MarriageState,
+        adventuresim_core::strategic_state::StateParseError,
+    > {
+        adventuresim_core::strategic_state::MarriageState::parse(self.status, self.resolved_minute)
     }
 }
 
@@ -305,32 +229,6 @@ pub struct MarriageParticipant {
     #[primary_key]
     pub character_id: u64,
     pub marriage_id: String,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum CourtshipKind {
-    Formal,
-    Informal,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum CourtshipStatus {
-    Active,
-    Exposed,
-    Ended,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum CourtshipSecrecyReason {
-    FatherDisapproval,
-    FormalRouteUnavailable,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum CourtshipTerminalReason {
-    EngagementScheduled,
-    EndedByParticipant,
-    PartnerUnavailable,
 }
 
 #[derive(Clone, Debug)]
@@ -350,10 +248,10 @@ pub struct CourtshipRecord {
     pub approved_father_id: Option<u64>,
     pub planned_dowry_amount: u32,
     pub weaker_deception_baseline: f32,
-    pub started_minute: u64,
+    pub started_minute: StrategicMinute,
     /// First relationship-day whose observer checks have not been resolved.
     pub next_discovery_day: u64,
-    pub resolved_minute: Option<u64>,
+    pub resolved_minute: Option<StrategicMinute>,
     pub terminal_reason: Option<CourtshipTerminalReason>,
 }
 
@@ -365,36 +263,17 @@ impl CourtshipRecord {
             adventuresim_core::strategic_state::CourtshipRoute,
             adventuresim_core::strategic_state::CourtshipState,
         ),
-        String,
+        adventuresim_core::strategic_state::StateParseError,
     > {
-        use adventuresim_core::strategic_state::{
-            FlatCourtshipKind as Kind, FlatCourtshipSecrecyReason as Secrecy,
-            FlatCourtshipStatus as Status, FlatCourtshipTerminalReason as Terminal,
-        };
         adventuresim_core::strategic_state::parse_courtship(
-            match self.kind {
-                CourtshipKind::Formal => Kind::Formal,
-                CourtshipKind::Informal => Kind::Informal,
-            },
-            self.secrecy_reason.map(|reason| match reason {
-                CourtshipSecrecyReason::FatherDisapproval => Secrecy::FatherDisapproval,
-                CourtshipSecrecyReason::FormalRouteUnavailable => Secrecy::FormalRouteUnavailable,
-            }),
+            self.kind,
+            self.secrecy_reason,
             self.approved_father_id,
             self.planned_dowry_amount,
-            match self.status {
-                CourtshipStatus::Active => Status::Active,
-                CourtshipStatus::Exposed => Status::Exposed,
-                CourtshipStatus::Ended => Status::Ended,
-            },
+            self.status,
             self.resolved_minute,
-            self.terminal_reason.map(|reason| match reason {
-                CourtshipTerminalReason::EngagementScheduled => Terminal::EngagementScheduled,
-                CourtshipTerminalReason::EndedByParticipant => Terminal::EndedByParticipant,
-                CourtshipTerminalReason::PartnerUnavailable => Terminal::PartnerUnavailable,
-            }),
+            self.terminal_reason,
         )
-        .map_err(|error| error.to_string())
     }
 }
 
@@ -410,7 +289,7 @@ pub struct CourtshipDiscovery {
     #[index(btree)]
     pub observer_id: u64,
     pub day: u64,
-    pub attempted_minute: u64,
+    pub attempted_minute: StrategicMinute,
     pub succeeded: bool,
     pub observer_insight: f32,
     pub weaker_deception: f32,
@@ -430,13 +309,6 @@ pub struct CourtshipObserverBaseline {
     pub observer_insight: f32,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum PregnancyStatus {
-    Active,
-    Born,
-    Ended,
-}
-
 #[derive(Clone, Debug)]
 #[table(accessor = pregnancy)]
 pub struct Pregnancy {
@@ -447,33 +319,31 @@ pub struct Pregnancy {
     #[index(btree)]
     pub father_id: u64,
     pub ordinal: u64,
-    pub conceived_minute: u64,
-    #[index(btree)]
-    pub due_minute: u64,
+    pub conceived_minute: StrategicMinute,
+    pub due_minute: StrategicMinute,
     pub reserved_child_id: u64,
-    pub child_name_seed: u64,
-    pub child_female: bool,
-    pub child_home_seed: u64,
+    pub child_name_seed: adventuresim_core::courtship::ChildNameSeed,
+    pub child_sex: Sex,
+    pub child_home_seed: adventuresim_core::courtship::HouseholdPlacementSeed,
     pub birth_settlement_id: String,
     pub birth_residence_holding_id: Option<String>,
     pub status: PregnancyStatus,
     pub birth_character_id: Option<u64>,
-    pub resolved_minute: Option<u64>,
+    pub resolved_minute: Option<StrategicMinute>,
 }
 
 impl Pregnancy {
-    fn parsed_state(&self) -> Result<adventuresim_core::strategic_state::PregnancyState, String> {
-        use adventuresim_core::strategic_state::{FlatPregnancyStatus as Flat, PregnancyState};
-        PregnancyState::parse(
-            match self.status {
-                PregnancyStatus::Active => Flat::Active,
-                PregnancyStatus::Born => Flat::Born,
-                PregnancyStatus::Ended => Flat::Ended,
-            },
+    fn parsed_state(
+        &self,
+    ) -> Result<
+        adventuresim_core::strategic_state::PregnancyState,
+        adventuresim_core::strategic_state::StateParseError,
+    > {
+        adventuresim_core::strategic_state::PregnancyState::parse(
+            self.status,
             self.birth_character_id,
             self.resolved_minute,
         )
-        .map_err(|error| error.to_string())
     }
 }
 
@@ -493,7 +363,7 @@ pub struct ChildIdentityReservation {
     #[primary_key]
     pub character_id: u64,
     pub pregnancy_id: String,
-    pub reserved_minute: u64,
+    pub reserved_minute: StrategicMinute,
 }
 
 /// A realized, same-location Leisure span. Spouses write their own spans; a
@@ -505,8 +375,8 @@ pub struct SpouseLeisureSlice {
     pub id: String,
     #[index(btree)]
     pub character_id: u64,
-    pub start_minute: u64,
-    pub end_minute: u64,
+    pub start_minute: StrategicMinute,
+    pub end_minute: StrategicMinute,
     pub location_id: String,
 }
 
@@ -518,9 +388,11 @@ pub struct SpouseLeisureOverlap {
     pub first_slice_id: String,
     pub second_slice_id: String,
     pub joint_minutes: u64,
-    pub resolved_minute: u64,
+    pub resolved_minute: StrategicMinute,
 }
 
+/// Conserved conception checkpoint; the planner owns remainder and trial identity.
+/// Processed overlap receipts prevent counting the same interval twice.
 #[derive(Clone, Debug)]
 #[table(accessor = spouse_leisure_accrual)]
 pub struct SpouseLeisureAccrual {
@@ -530,7 +402,6 @@ pub struct SpouseLeisureAccrual {
     pub second_character_id: u64,
     pub conserved_joint_minutes: u8,
     pub next_trial_ordinal: u64,
-    pub total_joint_minutes: u64,
 }
 
 #[derive(Clone, Debug)]
@@ -540,7 +411,7 @@ pub struct ConceptionTrialReceipt {
     pub id: String,
     pub pair_id: String,
     pub ordinal: u64,
-    pub minute: u64,
+    pub minute: StrategicMinute,
     pub succeeded: bool,
 }
 
@@ -562,7 +433,7 @@ pub struct DowryOutcome {
     pub recipient_id: u64,
     pub amount: u32,
     pub outcome: DowryOutcomeKind,
-    pub minute: u64,
+    pub minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -572,7 +443,7 @@ pub struct DowryEscrow {
     pub commitment_id: String,
     pub father_id: u64,
     pub amount: u32,
-    pub reserved_minute: u64,
+    pub reserved_minute: StrategicMinute,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
@@ -600,8 +471,8 @@ pub struct LifecycleEventFailure {
     pub id: String,
     pub event_kind: LifecycleEventKind,
     pub event_id: String,
-    pub effective_minute: u64,
-    pub recorded_minute: u64,
+    pub effective_minute: StrategicMinute,
+    pub recorded_minute: StrategicMinute,
     pub error: String,
 }
 
@@ -619,7 +490,7 @@ pub struct SocializingReceipt {
     pub target_id: u64,
     #[index(btree)]
     pub day: u64,
-    pub start_minute: u64,
-    pub end_minute: u64,
+    pub start_minute: StrategicMinute,
+    pub end_minute: StrategicMinute,
     pub minutes: u64,
 }

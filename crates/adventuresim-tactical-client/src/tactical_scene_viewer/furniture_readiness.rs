@@ -12,7 +12,8 @@ const MAX_ASSET_WAIT_SECONDS: f64 = 120.0;
 
 pub(super) fn install(app: &mut App, profile: &str) {
     let requires_buildings = super::building_review::is_profile(profile)
-        || profile == super::interior_furniture_capture::ROOMS_PROFILE;
+        || profile == super::interior_furniture_capture::ROOMS_PROFILE
+        || profile == super::fixed_city_cameras::PROFILE;
     if requires_buildings {
         app.add_plugins(super::building_review::BuildingReviewPlugin);
     }
@@ -85,7 +86,7 @@ impl Observation<'_, '_> {
                 let Ok(instance) = self.furniture.get(parent.parent()) else {
                     return false;
                 };
-                if handle.0 != self.palette.get_for_building(instance.id.0, batch.material) {
+                if handle.0 != self.palette.for_building(instance.id.0).get(batch.material) {
                     return false;
                 }
                 self.materials.get(&handle.0).is_some_and(|material| {
@@ -142,5 +143,18 @@ fn observe(
             serde_json::to_vec_pretty(&evidence).unwrap(),
         )
         .expect("write production furniture evidence");
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn terrain_grounding_profile_installs_production_building_lod_review() {
+        let mut app = App::new();
+        app.insert_sub_app(bevy::render::RenderApp, bevy::app::SubApp::new());
+        install(&mut app, super::super::fixed_city_cameras::PROFILE);
+        assert!(app.is_plugin_added::<super::super::building_review::BuildingReviewPlugin>());
     }
 }

@@ -22,9 +22,11 @@ fn socializing_receipts_are_actor_day_target_cumulative_and_party_safe() {
         .split("pub fn apply_scheduled_socializing")
         .next()
         .unwrap();
-    assert!(target.contains("character_alive_at(ctx, candidate.id, effective_minute)"));
+    assert!(target.contains("character_alive_at(ctx, candidate.id,"));
+    assert!(target.contains("effective_minute: StrategicMinute"));
     assert!(target.contains("candidate_minute <= effective_minute"));
     assert!(target.contains("death.strategic_minute > effective_minute"));
+    assert!(target.contains("npc_is_present("));
     assert!(target.contains("npc_is_present(ctx, &presence, effective_minute)"));
     assert!(target.contains("select_daily_location_target"));
     assert!(!target.contains("canonical_now(ctx, actor_id)"));

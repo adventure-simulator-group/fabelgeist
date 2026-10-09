@@ -7,7 +7,7 @@ rendering:
     map_size: 1024
     filtering: gaussian
     cascades: 2
-    maximum_distance_m: 72.0
+    maximum_distance_m: 32.0
   bloom:
     enabled: true
   atmosphere:
@@ -56,7 +56,7 @@ grass:
       fade_out_m: [48.0, 60.0]
       ribbon_rows: [0.0, 0.45, 0.82]
       native_tufts_per_cell_side: 4
-      native_blades_per_tuft_side: 10
+      native_blades_per_tuft_side: 5
       root_stratum_side: 4
       width_compensation: null
       width_compensation_limit: 1.65
@@ -65,7 +65,7 @@ grass:
       fade_out_m: [60.0, 72.0]
       ribbon_rows: [0.0, 0.62]
       native_tufts_per_cell_side: 2
-      native_blades_per_tuft_side: 12
+      native_blades_per_tuft_side: 4
       root_stratum_side: 8
       width_compensation: 1.8
       width_compensation_limit: null

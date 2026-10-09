@@ -339,7 +339,9 @@ class WorkflowTests(unittest.TestCase):
         with mock.patch.object(dev_stack, "listener_process_snapshot", return_value=listener), \
              mock.patch.object(dev_stack, "identity_matches", return_value=True):
             self.assertEqual(dev_stack.reset_publish(capability), 0)
+            self.assertEqual(dev_stack.reset_publish(capability, build_options="--features authority-tests"), 0)
         command = run_checked.call_args.args[0]
+        self.assertIn("--build-options=--features authority-tests", command)
         self.assertIn("--delete-data=always", command)
         self.assertIn("--yes", command)
 
@@ -394,7 +396,8 @@ class WorkflowTests(unittest.TestCase):
             Path(left, "a.rs").write_text("fn a() {}\n")
             Path(right, "a.rs").write_text("fn b() {}\n")
             Path(right, "b.rs").write_text("")
-            self.assertEqual(dev_stack.binding_differences(Path(left), Path(right)), ["b.rs", "a.rs"])
+            Path(right, "lib.rs").write_text("")
+            self.assertEqual(dev_stack.binding_differences(Path(left), Path(right)), ["b.rs", "lib.rs", "a.rs"])
 
     def test_nonpositive_pid_rejected(self):
         self.assertIsNone(dev_stack.process_snapshot(0))
@@ -982,12 +985,12 @@ class WorkflowTests(unittest.TestCase):
             "required",
         )
 
-    def test_animation_lab_and_combat_keep_full_stats(self):
+    def test_interactive_tactical_modes_keep_full_enemy_stats(self):
         self.assertEqual(
             dev_stack.tactical_combat_scale(dev_stack.TacticalPlayMode.ANIMATION), 10_000
         )
         self.assertEqual(
-            dev_stack.tactical_combat_scale(dev_stack.TacticalPlayMode.DIAGNOSTIC), 0
+            dev_stack.tactical_combat_scale(dev_stack.TacticalPlayMode.DIAGNOSTIC), 10_000
         )
         self.assertEqual(
             dev_stack.tactical_combat_scale(dev_stack.TacticalPlayMode.NETWORKING), 0

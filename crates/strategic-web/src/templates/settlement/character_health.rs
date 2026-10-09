@@ -1,3 +1,6 @@
+use adventuresim_world_schema::calendar::StrategicMinute;
+mod notebook;
+mod segments;
 use adventuresim_core::surgery::SurgeryProcedure;
 use maud::{Markup, html};
 
@@ -53,6 +56,7 @@ fn surgery_supply(label: &str, icon: &str, quantity: u32) -> Markup {
             aria-label=(&description) tabindex="0" {
             (decorative_game_icon(icon))
             span class="surgery-item-overlay surgery-item-quantity" aria-hidden="true" { "x" (quantity) }
+            span class="surgery-supply-label" aria-hidden="true" { (label) }
         }
     }
 }
@@ -107,11 +111,11 @@ fn surgery_difficulty_meter(procedure_label: &str, dc: f32, effective_skill: f32
                 effective_skill.min(difficulty),
                 &meter_label,
                 SkillRankBarOptions {
-                    show_value: false,
                     extra_class: Some("surgery-difficulty-meter"),
                     aria_label: Some(&accessible_label),
                 },
             ))
+            span class="surgery-difficulty-reading" { "Skill " (format!("{:.1}", effective_skill.max(0.0))) " / Required " (format!("{difficulty:.1}")) }
             @if over_cap {
                 span class="surgery-difficulty-over-cap-marker" aria-hidden="true" { "+" }
             }
@@ -157,7 +161,7 @@ fn surgery_procedure_row(
             @if soap_applicable {
                 label class="surgery-soap-option" title="Consumes 0.04 of a soap unit; lowers contamination risk independently of other supplies" {
                     input type="checkbox" name="use_soap" value="true" disabled[!soap_available];
-                    " Use 0.04 soft soap"
+                    " Use 0.04 unit of soft soap"
                 }
             }
             @if icon == "bullet-visual" {
@@ -189,6 +193,7 @@ fn surgery_procedure_row(
                 }
             }
             @if let Some(reason) = disabled {
+                p class="surgery-unavailable-reason" { (reason) }
                 button type="submit" class="btn btn-block" disabled title=(reason) aria-label=(format!("{label}: {reason}")) { (label) }
             } @else {
                 button type="submit" class="btn btn-primary" { (label) }
@@ -281,7 +286,7 @@ pub fn surgery_dialog(
                     }
                     (surgery_procedure_row(
                         &action,
-                        "Open the body",
+                        "Open a deceased subject",
                         "scalpel",
                         SurgeryProcedure::OpenBody,
                         &[SurgeryItemRequirement::SurgeryKitReusable],
@@ -685,7 +690,9 @@ fn physiology_series_paths(
     if readings.is_empty() {
         return Vec::new();
     }
-    let first_minute = readings.first().map_or(0, |reading| reading.minute);
+    let first_minute = readings
+        .first()
+        .map_or(StrategicMinute::ZERO, |reading| reading.minute);
     let last_minute = readings
         .last()
         .map_or(first_minute, |reading| reading.minute);
@@ -711,9 +718,9 @@ fn physiology_series_paths(
     paths
 }
 
-fn physiology_relative_day_label(minute: u64, today: u64) -> String {
+fn physiology_relative_day_label(minute: StrategicMinute, today: StrategicMinute) -> String {
     let days_ago =
-        today.saturating_sub(minute) / adventuresim_core::strategic_time::MINUTES_PER_DAY;
+        today.elapsed_since(minute) / adventuresim_world_schema::calendar::MINUTES_PER_DAY;
     match days_ago {
         0 => "Today".to_owned(),
         1 => "1 day ago".to_owned(),
@@ -721,12 +728,16 @@ fn physiology_relative_day_label(minute: u64, today: u64) -> String {
     }
 }
 
-fn physiology_time_y(minute: u64, first_minute: u64, last_minute: u64) -> f32 {
-    let duration = last_minute.saturating_sub(first_minute);
+fn physiology_time_y(
+    minute: StrategicMinute,
+    first_minute: StrategicMinute,
+    last_minute: StrategicMinute,
+) -> f32 {
+    let duration = last_minute.elapsed_since(first_minute);
     if duration == 0 {
         50.0
     } else {
-        4.0 + minute.saturating_sub(first_minute).min(duration) as f32 * 92.0 / duration as f32
+        4.0 + minute.elapsed_since(first_minute).min(duration) as f32 * 92.0 / duration as f32
     }
 }
 
@@ -797,7 +808,7 @@ fn physiology_reading_snapshot(
     reading: &ChartReadingPresentation,
     region_index: usize,
     region_label: &str,
-    today: u64,
+    today: StrategicMinute,
 ) -> Markup {
     let values = reading.humour_deviations_bps[region_index];
     html! {
@@ -837,7 +848,7 @@ fn physiology_reading_aria_label(
     reading: &ChartReadingPresentation,
     region_index: usize,
     region_label: &str,
-    today: u64,
+    today: StrategicMinute,
 ) -> String {
     let values = reading.humour_deviations_bps[region_index];
     format!(
@@ -858,7 +869,7 @@ pub(super) fn physiology_dialog(
     patient_name: &str,
 ) -> Markup {
     html! {
-        dialog id=(dialog_id) class="physiology-dialog" data-physiology-dialog
+        dialog id=(dialog_id) class="physiology-dialog" data-physiology-dialog data-reading-count=(medical.readings.len())
             aria-labelledby="physiology-dialog-title" {
             div class="physiology-dialog-shell" {
                 header class="physiology-dialog-header" {
@@ -871,11 +882,11 @@ pub(super) fn physiology_dialog(
                 }
                 div class="physiology-dialog-body" {
                     @if medical.unavailable {
-                        p class="physiology-empty-state" { "Authorized Physiology chart unavailable." }
+                        p class="physiology-empty-state" { "The medical record is unavailable. Close the notebook and try again." }
                     } @else if medical.readings.is_empty() {
-                        p class="physiology-empty-state" { "No authorized shared-presence readings." }
+                        p class="physiology-empty-state" { "No observations have been recorded while you were together." }
                     } @else {
-                        @let first_minute = medical.readings.first().map_or(0, |reading| reading.minute);
+                        @let first_minute = medical.readings.first().map_or(StrategicMinute::ZERO, |reading| reading.minute);
                         @let last_minute = medical.readings.last().map_or(first_minute, |reading| reading.minute);
                         @let latest = medical.readings.last().expect("nonempty chart");
                         section class="physiology-trend-panel" aria-labelledby="physiology-trend-title" {
@@ -893,26 +904,12 @@ pub(super) fn physiology_dialog(
                                     ] {
                                         li class=(format!("physiology-tone-{tone}")) {
                                             i aria-hidden="true" {}
-                                            span class="sr-only" { (name) }
-                                            span aria-hidden="true" { (short) }
+                                            span { (short) " · " (name) }
                                         }
                                     }
                                 }
                             }
-                            div class="physiology-differential" {
-                                div {
-                                    strong { "Possible diseases" }
-                                    span { "Colour confidence improves with skill and observation." }
-                                }
-                                ul aria-label="Possible diseases ordered by estimated likelihood" {
-                                    @for (candidate_index, candidate) in latest.possible_diseases.iter().enumerate() {
-                                        @let tooltip_id = format!(
-                                            "{dialog_id}-disease-effects-{candidate_index}"
-                                        );
-                                        (physiology_likelihood(candidate, &tooltip_id))
-                                    }
-                                }
-                            }
+                            (notebook::overview(medical, dialog_id, latest))
                             ul class="physiology-trend-annotation-key" aria-label="Timeline annotations" {
                                 li { i class="physiology-baseline-key" aria-hidden="true" {} "Healthy baseline" }
                                 li { i class="physiology-event-key physiology-event-start" aria-hidden="true" {} "Medication start" }
@@ -933,7 +930,7 @@ pub(super) fn physiology_dialog(
                                         @let gap_start = gap.from.clamp(first_minute, last_minute);
                                         @let gap_end = gap.to.clamp(first_minute, last_minute);
                                         @if gap_end > gap_start {
-                                            @let gap_midpoint = gap_start + (gap_end - gap_start) / 2;
+                                            @let gap_midpoint = gap_start.midpoint(gap_end);
                                             @let gap_y = physiology_time_y(
                                                 gap_midpoint,
                                                 first_minute,
@@ -1216,6 +1213,7 @@ pub(super) fn party_attributes_rail(
                     }
                 }
             }
+            (crate::templates::interface_help::body_key())
             div class="party-attributes-list" aria-label="Character attributes" {
                 (attribute_group("Head", "head", head_health, medical, 6, surgery, injuries, projectiles, &[
                     ("Intelligence", "intelligence", attributes.intelligence),
@@ -1369,33 +1367,16 @@ fn regional_health_bar(
 ) -> Markup {
     let physical_health = physical_health.clamp(0.0, 1.0);
     let physical_damage = 1.0 - physical_health;
-    let limb = [
-        BodyRegion::LeftArm,
-        BodyRegion::RightArm,
-        BodyRegion::LeftLeg,
-        BodyRegion::RightLeg,
-        BodyRegion::Chest,
-        BodyRegion::Abdomen,
-        BodyRegion::Head,
-    ][region];
+    let limb = BodyRegion::ALL[region];
     let injury = injuries
         .iter()
         .find(|injury| crate::spacetimedb::core_body_region(injury.limb) == limb);
-    let cut = injury
-        .map_or(0.0, |row| row.cut_damage)
-        .min(physical_damage);
-    let frostbite = injury
-        .map_or(0.0, |row| row.frostbite_damage)
-        .min((physical_damage - cut).max(0.0));
-    let total_blunt = injury
-        .map_or(physical_damage - cut - frostbite, |row| {
-            row.bruise_damage.max(row.fracture_damage)
-        })
-        .min((physical_damage - cut - frostbite).max(0.0));
-    let fracture = injury
-        .map_or(0.0, |row| row.fracture_damage)
-        .min(total_blunt);
-    let blunt = (total_blunt - fracture).max(0.0);
+    let segments::PhysicalDamage {
+        cut,
+        frostbite,
+        fracture,
+        blunt,
+    } = segments::PhysicalDamage::new(physical_damage, injury);
     let bandaged = injury.is_some_and(|row| row.bandaged);
     let splinted = injury.is_some_and(|row| row.splint_inventory_item_id.is_some());
     let fracture_label = if splinted {
@@ -1420,32 +1401,7 @@ fn regional_health_bar(
     } else {
         physical_health
     };
-    let segments = if humour.is_some() {
-        vec![
-            (
-                adventuresim_core::physiology::Humour::Sanguine,
-                "attribute-health-sanguine",
-                values.sanguine.abs() * scale,
-            ),
-            (
-                adventuresim_core::physiology::Humour::Phlegmatic,
-                "attribute-health-phlegmatic",
-                values.phlegmatic.abs() * scale,
-            ),
-            (
-                adventuresim_core::physiology::Humour::Choleric,
-                "attribute-health-choleric",
-                values.choleric.abs() * scale,
-            ),
-            (
-                adventuresim_core::physiology::Humour::Melancholic,
-                "attribute-health-melancholic",
-                values.melancholic.abs() * scale,
-            ),
-        ]
-    } else {
-        Vec::new()
-    };
+    let segments = segments::assessed_humours(humour, scale);
     let reading = if humour.is_some() {
         format!(
             "{name}: {:.0}% sound, {:.0}% cut, {:.0}% frostbite, {:.0}% blunt, {:.0}% {fracture_label}, {:.0}% sanguine, {:.0}% phlegmatic, {:.0}% choleric, {:.0}% melancholic impairment",
@@ -1470,44 +1426,49 @@ fn regional_health_bar(
             other * 100.0,
         )
     };
-    html! {
-        div class="attribute-health-bar" role="meter"
-            aria-label=(reading)
-            aria-valuemin="0" aria-valuemax="100" aria-valuenow=(okay * 100.0) {
-            span class="attribute-health-current" title="Sound" style=(format!("width:{:.1}%", okay * 100.0)) {}
-            span class=(if bandaged { "attribute-health-cut bandaged-cut" } else { "attribute-health-cut" }) title=(if bandaged { "Bandaged cut damage" } else { "Cut damage" }) style=(format!("width:{:.1}%", cut * 100.0)) {}
-            span class="attribute-health-frostbite" title="Frostbite damage" style=(format!("width:{:.1}%", frostbite * 100.0)) {}
-            span class="attribute-health-blunt" title="Blunt damage" style=(format!("width:{:.1}%", blunt * 100.0)) {}
-            span class=(if splinted { "attribute-health-fracture splinted-fracture" } else { "attribute-health-fracture" })
-                title=(if splinted { "Splinted fracture" } else { "Fracture" })
-                style=(format!("width:{:.1}%", fracture * 100.0)) {}
-            @if humour.is_none() && other > 0.0 {
-                span class="attribute-health-other" title="Other impairment"
-                    style=(format!("width:{:.1}%", other * 100.0)) {}
-            }
-            @for (humour, class, amount) in segments {
-                @if amount > 0.0 {
-                    @let disclosure = adventuresim_core::physiology::humour_disclosure(humour);
-                    span class=(class)
-                        title=(&disclosure)
-                        data-strategic-tooltip=(&disclosure)
-                        tabindex="0"
-                        aria-label=(format!(
-                            "{}: {:.0}% of this region. {}",
-                            humour.public_name(),
-                            amount * 100.0,
-                            disclosure,
-                        ))
-                        style=(format!("width:{:.1}%", amount * 100.0)) {}
+    crate::templates::interface_help::regional_reading(
+        limb,
+        &reading,
+        okay,
+        html! {
+            span class="attribute-health-bar" role="meter"
+                aria-label=(&reading)
+                aria-valuemin="0" aria-valuemax="100" aria-valuenow=(okay * 100.0) {
+                span class="attribute-health-current" title="Sound" style=(format!("width:{:.1}%", okay * 100.0)) {}
+                span class=(if bandaged { "attribute-health-cut bandaged-cut" } else { "attribute-health-cut" }) title=(if bandaged { "Bandaged cut damage" } else { "Cut damage" }) style=(format!("width:{:.1}%", cut * 100.0)) {}
+                span class="attribute-health-frostbite" title="Frostbite damage" style=(format!("width:{:.1}%", frostbite * 100.0)) {}
+                span class="attribute-health-blunt" title="Blunt damage" style=(format!("width:{:.1}%", blunt * 100.0)) {}
+                span class=(if splinted { "attribute-health-fracture splinted-fracture" } else { "attribute-health-fracture" })
+                    title=(if splinted { "Splinted fracture" } else { "Fracture" })
+                    style=(format!("width:{:.1}%", fracture * 100.0)) {}
+                @if humour.is_none() && other > 0.0 {
+                    span class="attribute-health-other" title="Other impairment"
+                        style=(format!("width:{:.1}%", other * 100.0)) {}
+                }
+                @for (humour, class, amount) in segments {
+                    @if amount > 0.0 {
+                        @let disclosure = adventuresim_core::physiology::humour_disclosure(humour);
+                        span class=(class)
+                            title=(&disclosure)
+                            data-strategic-tooltip=(&disclosure)
+                            tabindex="0"
+                            aria-label=(format!(
+                                "{}: {:.0}% of this region. {}",
+                                humour.public_name(),
+                                amount * 100.0,
+                                disclosure,
+                            ))
+                            style=(format!("width:{:.1}%", amount * 100.0)) {}
+                    }
+                }
+                @for (projectile_index, projectile) in projectiles.iter().filter(|projectile| crate::spacetimedb::core_body_region(projectile.limb) == limb).enumerate() {
+                    span class=(match projectile.kind { ProjectileKind::Arrowhead => "surgery-projectile-icon projectile-arrowhead", ProjectileKind::Ball => "surgery-projectile-icon projectile-ball" })
+                        style=(format!("right:{:.2}rem", 0.2 + projectile_index as f32 * 0.75))
+                        title=(match projectile.kind { ProjectileKind::Arrowhead => "Retained arrowhead", ProjectileKind::Ball => "Retained ball" }) aria-hidden="true" {}
                 }
             }
-            @for (projectile_index, projectile) in projectiles.iter().filter(|projectile| crate::spacetimedb::core_body_region(projectile.limb) == limb).enumerate() {
-                span class=(match projectile.kind { ProjectileKind::Arrowhead => "surgery-projectile-icon projectile-arrowhead", ProjectileKind::Ball => "surgery-projectile-icon projectile-ball" })
-                    style=(format!("right:{:.2}rem", 0.2 + projectile_index as f32 * 0.75))
-                    title=(match projectile.kind { ProjectileKind::Arrowhead => "Retained arrowhead", ProjectileKind::Ball => "Retained ball" }) aria-hidden="true" {}
-            }
-        }
-    }
+        },
+    )
 }
 
 fn attribute_row(name: &str, icon: &str, value: f32, health: f32, show_label: bool) -> Markup {
@@ -1517,8 +1478,8 @@ fn attribute_row(name: &str, icon: &str, value: f32, health: f32, show_label: bo
     html! {
         div class=(if show_label { "party-attribute-row" } else { "party-attribute-row party-attribute-icon-only" }) {
             (stat_icon(name, "attributes", icon, show_label))
-            @if show_label { span class="party-attribute-name" { (name) } }
-            div class="attribute-rank-bar"
+            span class="party-attribute-name" { (name) }
+            div class="attribute-rank-bar" data-tooltip-pinnable aria-keyshortcuts="Enter Space"
                 data-strategic-tooltip=(format!("{name}: {effective_value:.1} out of 5"))
                 tabindex="0"
                 role="meter" aria-valuemin="0" aria-valuemax="5" aria-valuenow=(format!("{effective_value:.1}"))
@@ -1541,6 +1502,7 @@ pub(super) fn stat_icon(label: &str, category: &str, icon: &str, decorative: boo
             title=[(!decorative).then_some(label)]
             aria-hidden=[decorative.then_some("true")]
         {}
+        span class="stat-readable-label" aria-hidden="true" { (label) }
     }
 }
 
@@ -1648,7 +1610,7 @@ mod tests {
             substance: FilthSubstance::Blood,
             origin: FilthOrigin::Foreign,
             amount: 2,
-            deposited_at: 10,
+            deposited_at: adventuresim_stdb_client::StrategicMinute { minutes: 10 },
         };
         let serialized =
             serde_json::to_value(spacetimedb_sats::serde::SerdeWrapper::from_ref(&deposit))
@@ -1802,13 +1764,13 @@ mod tests {
     }
 
     #[test]
-    fn surgery_supplies_are_icon_counts_with_hover_labels() {
+    fn surgery_supplies_are_named_counts_with_hover_details() {
         let supply = surgery_supply("Bandages", "bandage-roll", 8).into_string();
         assert!(supply.contains("class=\"surgery-supply\""));
         assert!(supply.contains("data-strategic-tooltip=\"Bandages: 8 available\""));
         assert!(supply.contains("bandage-roll.svg"));
         assert!(supply.contains(">x8</span>"));
-        assert!(!supply.contains(">Bandages</span>"));
+        assert!(supply.contains(">Bandages</span>"));
     }
 
     #[test]
@@ -1938,7 +1900,7 @@ mod tests {
         };
         let markup =
             physiology_dialog(&presentation, "physiology-chart-dialog", "Patient").into_string();
-        assert!(markup.contains("No authorized shared-presence readings."));
+        assert!(markup.contains("No observations have been recorded while you were together."));
         assert!(markup.contains("data-physiology-dialog"));
         assert!(markup.contains("aria-labelledby=\"physiology-dialog-title\""));
         assert!(!markup.contains("Examine"));
@@ -1975,7 +1937,7 @@ mod tests {
                 route: adventuresim_core::physiology::InterventionRoute::Oral,
                 dose: adventuresim_core::physiology::DoseMilliunits::STANDARD,
                 region: None,
-                administered_at: 100,
+                administered_at: StrategicMinute::new(100),
                 stopped_at: None,
             }],
             ..Default::default()
@@ -1996,7 +1958,7 @@ mod tests {
         let presentation = crate::medical::MedicalPresentation {
             readings: vec![
                 crate::medical::ChartReadingPresentation {
-                    minute: 1_440,
+                    minute: StrategicMinute::new(1_440),
                     physiology_band: 2,
                     observation_minutes: 1_440,
                     humour_deviations_bps: [[-1_200, 2_300, 3_400, 4_500]; 7],
@@ -2010,7 +1972,7 @@ mod tests {
                     confidence_bps: 7_000,
                 },
                 crate::medical::ChartReadingPresentation {
-                    minute: 4_320,
+                    minute: StrategicMinute::new(4_320),
                     physiology_band: 2,
                     observation_minutes: 4_320,
                     humour_deviations_bps: [[-1_000, 2_100, 3_200, 4_300]; 7],
@@ -2025,8 +1987,8 @@ mod tests {
                 },
             ],
             gaps: vec![crate::medical::ChartGapPresentation {
-                from: 2_160,
-                to: 2_880,
+                from: StrategicMinute::new(2_160),
+                to: StrategicMinute::new(2_880),
             }],
             administrations: vec![crate::medical::AdministrationPresentation {
                 id: 1,
@@ -2036,8 +1998,8 @@ mod tests {
                 route: adventuresim_core::physiology::InterventionRoute::Oral,
                 dose: adventuresim_core::physiology::DoseMilliunits::STANDARD,
                 region: None,
-                administered_at: 1_800,
-                stopped_at: Some(3_600),
+                administered_at: StrategicMinute::new(1_800),
+                stopped_at: Some(StrategicMinute::new(3_600)),
             }],
             ..Default::default()
         };
@@ -2104,9 +2066,18 @@ mod tests {
 
     #[test]
     fn physiology_chart_formats_relative_days() {
-        assert_eq!(physiology_relative_day_label(0, 4_320), "3 days ago");
-        assert_eq!(physiology_relative_day_label(2_880, 4_320), "1 day ago");
-        assert_eq!(physiology_relative_day_label(4_320, 4_320), "Today");
+        assert_eq!(
+            physiology_relative_day_label(StrategicMinute::new(0), StrategicMinute::new(4_320)),
+            "3 days ago"
+        );
+        assert_eq!(
+            physiology_relative_day_label(StrategicMinute::new(2_880), StrategicMinute::new(4_320)),
+            "1 day ago"
+        );
+        assert_eq!(
+            physiology_relative_day_label(StrategicMinute::new(4_320), StrategicMinute::new(4_320)),
+            "Today"
+        );
     }
 
     #[test]
@@ -2152,7 +2123,7 @@ mod tests {
         assert!(markup.contains("aria-label=\"Open surgery menu for Head\""));
         assert!(markup.contains("aria-haspopup=\"dialog\" aria-expanded=\"false\""));
         assert!(markup.contains("data-strategic-tooltip=\"Intelligence: 2.2 out of 5\""));
-        assert!(markup.contains("class=\"attribute-rank-bar\" data-strategic-tooltip="));
+        assert!(markup.contains("class=\"attribute-rank-bar\" data-tooltip-pinnable"));
         assert!(!markup.contains("attribute-rank-value"));
     }
 

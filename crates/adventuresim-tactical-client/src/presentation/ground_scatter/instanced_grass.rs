@@ -13,31 +13,38 @@
 //! renderer: the fork's WebGPU draw path loops `draw_indexed_indirect` where
 //! the native backend issues `multi_draw_indexed_indirect`.
 
+mod streams;
+mod variation;
+use fabelgeist_determinism::Seed;
 use std::sync::Arc;
 
 use adventuresim_tactical_core::prelude::{SceneEnvironment, SceneGround, SceneTerrain};
 use bevy::{
     camera::{primitives::Aabb, visibility::NoFrustumCulling},
-    color::{Color, LinearRgba},
+    color::Color,
     light::NotShadowCaster,
     prelude::*,
 };
 use bevy_eidolon::{prelude::*, prepass::CullComputeCamera};
 
-use crate::presentation::{bps, splitmix64, stable_text_seed, unit_hash};
+use crate::presentation::{bps, stable_text_seed};
 
 use super::{
     GrassInteractor, GroundScatterLayer,
     grass::{
-        GrassCommunity, GrassCommunityProfile, GrassMeshLod, GrassSpecies, cell_allows_grass,
-        configured_tuft_footprint_metres, grass_community_at, grass_species, grass_tuft_mesh,
+        GrassCommunity, GrassCommunityField, GrassCommunityProfile, GrassMeshLod, GrassSpecies,
+        cell_allows_grass, configured_tuft_footprint_metres, grass_species, grass_tuft_mesh,
     },
     grass_pigment, grass_scatter_density,
 };
 
 use super::cover_mask::CoverageMask;
+mod batches;
+mod culling;
 mod diagnostics;
+pub(in crate::presentation) use batches::{PreparedTufts, spawn_tuft_batches};
 mod material;
+mod view_culling;
 pub(crate) use diagnostics::GrassTriangleCount;
 pub(in crate::presentation) use material::TacticalGrassInstancedMaterial;
 
@@ -49,7 +56,7 @@ impl Plugin for InstancedGrassPlugin {
             InstancedMaterialCorePlugin,
             GpuComputeCullCorePlugin,
             InstancedMaterialPlugin::<TacticalGrassInstancedMaterial>::default(),
-            GpuCullComputePlugin::<TacticalGrassInstancedMaterial>::default(),
+            view_culling::GrassCullingPlugin,
             InstancedMaterialPlugin::<super::TacticalShrubBarkInstancedMaterial>::default(),
             GpuCullComputePlugin::<super::TacticalShrubBarkInstancedMaterial>::default(),
             InstancedMaterialPlugin::<super::TacticalShrubLeafInstancedMaterial>::default(),
@@ -95,42 +102,17 @@ fn present_instanced_grass(
             bps(environment.weather.snow_cover_bps),
         ) * settings.config.grass.density_scale;
         let wind_scale = 0.16 + bps(environment.weather.wind_speed_bps) * 0.36;
-        let masked_ground = fault_scarp.map(|recipe| {
-            super::scene_mask::scatter_ground_without_patch(ground, recipe.transition_collar())
-        });
-        let ground = masked_ground.as_ref().unwrap_or(ground);
         let grass = &settings.config.grass;
-        let base_seed = stable_text_seed(&environment.scene_digest) ^ 0x6772_6173_735f_6c6f;
-        let placement = ScenePlacement {
-            terrain,
-            ground,
-            mask: CoverageMask::new(ground, stable_text_seed(&environment.scene_digest)),
-            profile: GrassCommunityProfile::from_environment(environment),
-            base_seed,
-        };
-        let mut batches = TierSpeciesBatches::default();
-        for lod in [GrassMeshLod::Near, GrassMeshLod::Far] {
-            scatter_cell_tufts(
-                &mut batches[lod.tier_index()],
-                &placement,
-                base_seed,
-                lod,
-                grass.placement.playable_patch_spacing_m,
-                grass,
-            );
-        }
-        // Reuse near placements so the near-edge crossfade does not move tufts.
-        for species in GrassSpecies::ALL {
-            batches[GrassMeshLod::NearEdge.tier_index()][species.index()] =
-                batches[GrassMeshLod::Near.tier_index()][species.index()].clone();
-        }
-        scatter_cell_tufts(
-            &mut batches[GrassMeshLod::Vista.tier_index()],
-            &placement,
-            base_seed ^ 0x7669_7374_615f_6c6f,
-            GrassMeshLod::Vista,
-            grass.placement.vista_patch_spacing_m,
-            grass,
+        let base_seed = stable_text_seed(&environment.scene_digest).xor_word(0x6772_6173_735f_6c6f);
+        #[cfg(target_family = "wasm")]
+        let prepared = crate::presentation::generation::landscape::grass(&environment.scene_digest);
+        #[cfg(not(target_family = "wasm"))]
+        let prepared: Option<
+            std::sync::Arc<crate::presentation::vista::grass::PreparedGrass>,
+        > = None;
+        let mut batches = prepared.map_or_else(
+            || prepare_scene_tufts(terrain, ground, environment, grass, fault_scarp),
+            |prepared| prepared.playable.to_batches(),
         );
         spawn_tuft_batches(
             GrassWorld {
@@ -156,6 +138,55 @@ fn present_instanced_grass(
         );
         commands.entity(entity).insert(InstancedGrassPresented);
     }
+}
+
+pub(in crate::presentation) fn prepare_scene_tufts(
+    terrain: &SceneTerrain,
+    ground: &SceneGround,
+    environment: &SceneEnvironment,
+    grass: &crate::presentation::config::GrassConfig,
+    fault_scarp: Option<&adventuresim_tactical_core::prelude::TerrainLandformRecipe>,
+) -> TierSpeciesBatches {
+    if !grass.enabled {
+        return Default::default();
+    }
+    let masked_ground = fault_scarp.map(|recipe| {
+        super::scene_mask::scatter_ground_without_patch(ground, recipe.transition_collar())
+    });
+    let ground = masked_ground.as_ref().unwrap_or(ground);
+    let base_seed = stable_text_seed(&environment.scene_digest).xor_word(0x6772_6173_735f_6c6f);
+    let mut placement = ScenePlacement {
+        terrain,
+        ground,
+        mask: CoverageMask::new(ground, stable_text_seed(&environment.scene_digest)),
+        profile: GrassCommunityProfile::from_environment(environment),
+        communities: GrassCommunityField::new(base_seed),
+    };
+    let mut batches = TierSpeciesBatches::default();
+    for lod in [GrassMeshLod::Near, GrassMeshLod::Far] {
+        scatter_cell_tufts(
+            &mut batches[lod.tier_index()],
+            &mut placement,
+            base_seed,
+            lod,
+            grass.placement.playable_patch_spacing_m,
+            grass,
+        );
+    }
+    // Reuse near placements so the near-edge crossfade does not move tufts.
+    for species in GrassSpecies::ALL {
+        batches[GrassMeshLod::NearEdge.tier_index()][species.index()] =
+            batches[GrassMeshLod::Near.tier_index()][species.index()].clone();
+    }
+    scatter_cell_tufts(
+        &mut batches[GrassMeshLod::Vista.tier_index()],
+        &mut placement,
+        base_seed.xor_word(0x7669_7374_615f_6c6f),
+        GrassMeshLod::Vista,
+        grass.placement.vista_patch_spacing_m,
+        grass,
+    );
+    batches
 }
 
 /// Every gameplay/viewer camera drives eidolon's per-instance compute cull.
@@ -335,7 +366,7 @@ pub(in crate::presentation) trait TuftPlacement {
     fn lattice_bounds(&self, cell_spacing: f32) -> (IVec2, IVec2);
 
     /// Whether this jittered lattice cell may carry tufts at all.
-    fn cell_allows(&self, cell_hash: u64, cell: IVec2, cell_spacing: f32, jitter: f32) -> bool;
+    fn cell_allows(&self, cell_hash: Seed, cell: IVec2, cell_spacing: f32, jitter: f32) -> bool;
 
     /// Ground-cover coverage at a tuft centre; 0 leaves the site bare.
     fn coverage(&self, centre: Vec2) -> u8;
@@ -344,7 +375,7 @@ pub(in crate::presentation) trait TuftPlacement {
     fn height(&self, centre: Vec2) -> Option<f32>;
 
     /// Which community - and so which species pool - claims this site.
-    fn community(&self, centre: Vec2) -> GrassCommunity;
+    fn community(&mut self, centre: Vec2) -> GrassCommunity;
 }
 
 /// The command buffer and asset stores a sward spawn writes through.
@@ -364,7 +395,7 @@ struct ScenePlacement<'a> {
     ground: &'a SceneGround,
     mask: CoverageMask,
     profile: GrassCommunityProfile,
-    base_seed: u64,
+    communities: GrassCommunityField,
 }
 
 impl TuftPlacement for ScenePlacement<'_> {
@@ -376,7 +407,7 @@ impl TuftPlacement for ScenePlacement<'_> {
         )
     }
 
-    fn cell_allows(&self, cell_hash: u64, cell: IVec2, cell_spacing: f32, jitter: f32) -> bool {
+    fn cell_allows(&self, cell_hash: Seed, cell: IVec2, cell_spacing: f32, jitter: f32) -> bool {
         cell_allows_grass(
             self.terrain,
             self.ground,
@@ -393,15 +424,18 @@ impl TuftPlacement for ScenePlacement<'_> {
     }
 
     fn height(&self, centre: Vec2) -> Option<f32> {
-        let height = self.terrain.height_at(centre)?;
-        self.terrain
-            .normal_at(centre)
-            .filter(|normal| normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y)
-            .map(|_| height)
+        let hit = self.terrain.surface_below(
+            adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
+                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                    bevy::math::Vec2::new(centre.x, centre.y),
+                )?,
+            ),
+        )?;
+        (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(hit.elevation.metres())
     }
 
-    fn community(&self, centre: Vec2) -> GrassCommunity {
-        grass_community_at(centre, self.base_seed, self.profile)
+    fn community(&mut self, centre: Vec2) -> GrassCommunity {
+        self.communities.at(centre, self.profile)
     }
 }
 
@@ -417,88 +451,12 @@ pub(in crate::presentation) struct TuftPigment {
     pub(in crate::presentation) wind_scale: f32,
 }
 
-/// Turns filled instance batches into one entity per (tier, species), each
-/// carrying `marker` on top of the shared instanced-draw components.
-pub(in crate::presentation) fn spawn_tuft_batches(
-    world: GrassWorld<'_, '_, '_>,
-    batches: &mut TierSpeciesBatches,
-    label: &str,
-    marker: impl Bundle + Clone,
-    base_seed: u64,
-    pigment: TuftPigment,
-    grass: &crate::presentation::config::GrassConfig,
-) {
-    let GrassWorld {
-        commands,
-        meshes,
-        materials,
-    } = world;
-    for lod in TIERS {
-        let material = materials.add(diagnostics::material(
-            lod,
-            grass,
-            pigment.density,
-            pigment.dryness,
-            pigment.wind_scale,
-        ));
-        for species in GrassSpecies::ALL {
-            let instances = std::mem::take(&mut batches[lod.tier_index()][species.index()]);
-            if instances.is_empty() {
-                continue;
-            }
-            let (mesh, triangle_count) = diagnostics::add_mesh(
-                meshes,
-                grass_tuft_mesh(
-                    pigment.color,
-                    lod,
-                    pigment.density,
-                    species,
-                    splitmix64(
-                        base_seed ^ ((species.index() as u64) << 8 | lod.tier_index() as u64),
-                    ),
-                    grass,
-                ),
-            );
-            let mut entity = commands.spawn((
-                Name::new(format!(
-                    "{label} {species:?} {lod:?} tufts ({})",
-                    instances.len()
-                )),
-                GroundScatterLayer::Grass,
-                triangle_count,
-                GpuCullCompute,
-                // Batches span the whole scene, so CPU frustum culling can
-                // only ever hide them wholesale - and worse, a culled frame
-                // drops the batch from `RenderMeshInstances`, which makes
-                // eidolon free and re-upload the retained instance buffers
-                // every time the camera pitch crosses the horizon. Culling
-                // belongs solely to the GPU compute pass.
-                NoFrustumCulling,
-                Mesh3d(mesh),
-                InstancedMeshMaterial(material.clone()),
-                fitted_batch_aabb(&instances, configured_tuft_footprint_metres(lod, grass)),
-                InstanceMaterialData {
-                    instances: Arc::new(instances),
-                    color: LinearRgba::WHITE,
-                    visibility_range: configured_tier_visibility_range(lod, grass),
-                },
-                Transform::default(),
-                Visibility::Inherited,
-            ));
-            entity.insert(marker.clone());
-            if !diagnostics::casts_shadows(lod, grass) {
-                entity.insert(NotShadowCaster);
-            }
-        }
-    }
-}
-
 /// Walks the jittered placement cells and fills per-species instance vectors
 /// with tuft placements.
 pub(in crate::presentation) fn scatter_cell_tufts(
     species_batches: &mut [Vec<InstanceData>; GrassSpecies::ALL.len()],
-    placement: &impl TuftPlacement,
-    base_seed: u64,
+    placement: &mut impl TuftPlacement,
+    base_seed: Seed,
     lod: GrassMeshLod,
     cell_spacing: f32,
     grass: &crate::presentation::config::GrassConfig,
@@ -514,8 +472,7 @@ pub(in crate::presentation) fn scatter_cell_tufts(
     let mut emitted = 0_u32;
     for z in minimum.y..=maximum.y {
         for x in minimum.x..=maximum.x {
-            let cell = ((x as u32 as u64) << 32) | z as u32 as u64;
-            let cell_hash = splitmix64(base_seed ^ cell);
+            let cell_hash = streams::CELL.seed(base_seed, &[x as u32 as u64, z as u32 as u64]);
             if !placement.cell_allows(
                 cell_hash,
                 IVec2::new(x, z),
@@ -528,13 +485,10 @@ pub(in crate::presentation) fn scatter_cell_tufts(
                 - Vec2::splat((side - 1) as f32 * 0.5 * footprint);
             for tuft_z in 0..side {
                 for tuft_x in 0..side {
-                    let tuft_hash =
-                        splitmix64(cell_hash ^ (((tuft_x as u64) << 17) | ((tuft_z as u64) << 3)));
-                    let jitter = Vec2::new(
-                        unit_hash(tuft_hash) - 0.5,
-                        unit_hash(splitmix64(tuft_hash)) - 0.5,
-                    ) * footprint
-                        * 0.35;
+                    let variation = variation::TuftVariation::new(
+                        streams::TUFT.seed(cell_hash, &[tuft_x as u64, tuft_z as u64]),
+                    );
+                    let jitter = variation.jitter * footprint * 0.35;
                     let centre =
                         cell_origin + Vec2::new(tuft_x as f32, tuft_z as f32) * footprint + jitter;
                     let coverage = placement.coverage(centre);
@@ -545,18 +499,15 @@ pub(in crate::presentation) fn scatter_cell_tufts(
                         continue;
                     };
                     let community = placement.community(centre);
-                    let species =
-                        grass_species(community, splitmix64(tuft_hash ^ 0x7475_6674_5f63_656c));
+                    let species = grass_species(community, variation.species);
                     let batch = &mut species_batches[species.index()];
                     batch.push(InstanceData {
                         position: Vec3::new(centre.x, height, centre.y),
                         scale: 1.0,
-                        rotation: unit_hash(splitmix64(tuft_hash ^ 0x796177))
-                            * core::f32::consts::TAU,
+                        rotation: variation.rotation,
                         index: batch.len() as u32,
                         batch_id: 0,
-                        seed: u32::from(coverage)
-                            | ((splitmix64(tuft_hash ^ 0x7365_6564) as u32) << 8),
+                        seed: u32::from(coverage) | (variation.shader_seed << 8),
                     });
                     emitted += 1;
                 }

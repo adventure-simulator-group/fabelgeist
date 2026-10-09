@@ -33,7 +33,7 @@ impl StreetClass {
     }
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub(super) struct CityBlock {
     pub(super) id: BlockId,
     pub(super) corners: [Vec2; 4],
@@ -69,6 +69,22 @@ pub(super) struct StreetGraph {
 }
 
 impl StreetGraph {
+    /// Complete nearby blocks before opening scattered residential frontages.
+    pub(super) fn development_order(&self) -> BTreeMap<BlockId, usize> {
+        let mut blocks = self.blocks.iter().collect::<Vec<_>>();
+        blocks.sort_by(|a, b| {
+            a.centre()
+                .length_squared()
+                .total_cmp(&b.centre().length_squared())
+                .then(a.id.cmp(&b.id))
+        });
+        blocks
+            .into_iter()
+            .enumerate()
+            .map(|(rank, block)| (block.id, rank))
+            .collect()
+    }
+
     pub(super) fn segment(
         &mut self,
         points: [Vec2; 2],
@@ -185,7 +201,7 @@ mod tests {
 
     #[test]
     fn old_quarter_has_shared_t_junctions_and_extension_has_regular_crossings() {
-        for seed in [42, 47, 101] {
+        for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let graph = CitySite::central_german_market_town()
                 .street_graph(seed, DevelopmentExtent::for_population(40_000));
             let mut degrees = vec![0; graph.nodes.len()];
@@ -251,7 +267,7 @@ mod tests {
             Vec2::new(1400.0, 100.0),
         ])
         .unwrap();
-        for seed in [42, 101] {
+        for seed in [42, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let city = site.generate(seed, 900, &super::super::tests::economy());
             assert_eq!(city.unhoused_population, 0);
             assert!(city.unplaced_services.is_empty());
@@ -276,7 +292,7 @@ mod tests {
             Vec2::new(1800.0, 200.0),
         ];
         let city = CitySite::from_trade_route(anchors).unwrap().generate(
-            42,
+            (42).into(),
             900,
             &super::super::tests::economy(),
         );

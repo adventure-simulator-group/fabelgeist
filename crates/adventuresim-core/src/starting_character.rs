@@ -1,15 +1,23 @@
 //! Pure, versioned generation for the first-character candidate roster.
 
-use adventuresim_world_schema::{BestiaryHours, ReligionHours};
+mod names;
+#[cfg(test)]
+mod personality_tests;
+mod professional;
+use adventuresim_world_schema::{
+    BestiaryHours, ReligionHours, Sex, person_names::PersonalNameIdentity,
+};
+pub use names::default_character_name;
 use serde::{Deserialize, Serialize};
 
+use crate::equipment::LoadoutSlot;
 use crate::organization::{Requirement, StartingProfession, catalog};
+use crate::personality::{Inclination, Presentation};
 use crate::skill::Skill;
 
-pub const GENERATOR_VERSION: u16 = 6;
+pub const GENERATOR_VERSION: u16 = 8;
 pub const YOUNG_ROSTER_SIZE: u8 = 5;
-pub const DEFAULT_CHARACTER_VERSION: u16 = 2;
-pub const DEFAULT_CHARACTER_NAME: &str = "John Fabelgeist";
+pub const DEFAULT_CHARACTER_VERSION: u16 = 3;
 pub const DEFAULT_CHARACTER_AGE_YEARS: u16 = 20;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -52,26 +60,11 @@ impl StartingAgeTier {
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-pub enum StartingSlot {
-    LeftHand,
-    RightHand,
-    LeftArm,
-    RightArm,
-    LeftLeg,
-    RightLeg,
-    LeftFoot,
-    RightFoot,
-    Head,
-    Chest,
-    Stomach,
-}
-
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct StartingItem {
     pub item_id: String,
     pub quantity: u32,
-    pub equipped: Option<StartingSlot>,
+    pub equipped: Option<LoadoutSlot>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -242,33 +235,12 @@ pub enum StartingPersonalityTrait {
     SelfDeceiving,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-pub enum StartingSex {
-    Female,
-    Male,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-pub enum StartingPresentation {
-    Man,
-    Ambiguous,
-    Woman,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-pub enum StartingInclination {
-    Men,
-    Either,
-    Women,
-    Neither,
-}
-
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct StartingPersonality {
     pub traits: Vec<StartingPersonalityTrait>,
-    pub sex: StartingSex,
-    pub presentation: StartingPresentation,
-    pub inclination: StartingInclination,
+    pub sex: Sex,
+    pub presentation: Presentation,
+    pub inclination: Inclination,
 }
 
 pub fn personality_description(personality: &StartingPersonality) -> String {
@@ -327,14 +299,14 @@ fn capitalize(value: &str) -> String {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct StartingCharacterSpec {
     pub id: u64,
-    pub name: String,
+    pub name_identity: PersonalNameIdentity,
     pub age_years: u16,
     pub background: String,
     pub personality: StartingPersonality,
     pub attributes: StartingAttributes,
     pub skills: StartingSkills,
     pub currency: u32,
-    pub settlement_selector: u64,
+    pub settlement_selector: fabelgeist_determinism::Seed,
     pub inventory: Vec<StartingItem>,
     pub age_tier: StartingAgeTier,
     pub profession: Option<StartingProfession>,
@@ -364,34 +336,30 @@ pub fn validate_request(
     Ok(())
 }
 
-fn tier_hash(domain: &str, seed: &str, age_tier: StartingAgeTier, slot: u8) -> u64 {
-    let mut value = hash(domain, seed, slot);
-    for byte in age_tier.as_str().bytes() {
-        value ^= u64::from(byte);
-        value = value.wrapping_mul(0x100000001b3);
-    }
-    value ^ (value >> 32)
+fn tier_random(
+    domain: &str,
+    seed: &str,
+    age_tier: StartingAgeTier,
+    slot: u8,
+) -> fabelgeist_determinism::DeterministicRng {
+    fabelgeist_determinism::Seed::derive(
+        seed.as_bytes(),
+        fabelgeist_determinism::StreamId::new("starting-character.tier"),
+        &[domain.as_bytes(), age_tier.as_str().as_bytes(), &[slot]],
+    )
+    .rng()
 }
 
-fn hash(domain: &str, seed: &str, slot: u8) -> u64 {
-    let mut value = 0xcbf29ce484222325_u64;
-    for byte in b"adventuresim.starting-character.v4"
-        .iter()
-        .chain(domain.as_bytes())
-        .chain(seed.as_bytes())
-        .chain([slot].iter())
-    {
-        value ^= u64::from(*byte);
-        value = value.wrapping_mul(0x100000001b3);
-    }
-    value ^ (value >> 32)
+fn random(domain: &str, seed: &str, slot: u8) -> fabelgeist_determinism::DeterministicRng {
+    fabelgeist_determinism::Seed::derive(
+        seed.as_bytes(),
+        fabelgeist_determinism::StreamId::new("starting-character.roster"),
+        &[domain.as_bytes(), &[slot]],
+    )
+    .rng()
 }
 
-fn choose<'a>(domain: &str, seed: &str, slot: u8, choices: &'a [&'a str]) -> &'a str {
-    choices[(hash(domain, seed, slot) % choices.len() as u64) as usize]
-}
-
-fn item(id: &str, quantity: u32, equipped: Option<StartingSlot>) -> StartingItem {
+fn item(id: &str, quantity: u32, equipped: Option<LoadoutSlot>) -> StartingItem {
     StartingItem {
         item_id: id.into(),
         quantity,
@@ -401,10 +369,10 @@ fn item(id: &str, quantity: u32, equipped: Option<StartingSlot>) -> StartingItem
 
 fn basic_clothing() -> Vec<StartingItem> {
     vec![
-        item("linen_tunic", 1, Some(StartingSlot::Chest)),
-        item("linen_breeches", 1, Some(StartingSlot::LeftLeg)),
-        item("leather_boot", 1, Some(StartingSlot::LeftFoot)),
-        item("leather_boot", 1, Some(StartingSlot::RightFoot)),
+        item("linen_tunic", 1, Some(LoadoutSlot::Chest)),
+        item("linen_breeches", 1, Some(LoadoutSlot::LeftLeg)),
+        item("leather_boot", 1, Some(LoadoutSlot::LeftFoot)),
+        item("leather_boot", 1, Some(LoadoutSlot::RightFoot)),
     ]
 }
 
@@ -414,12 +382,66 @@ fn basic_clothing() -> Vec<StartingItem> {
 /// `identity_seed` only namespaces the durable character ID. Every gameplay
 /// value is intentionally identical across callers.
 pub fn default_character(identity_seed: &str) -> StartingCharacterSpec {
+    let skills = default_character_skills();
+    let name_identity = names::default_identity();
+    StartingCharacterSpec {
+        id: (random("default-character-id", identity_seed, 0).next_u64() & 0x0fff_ffff_ffff_ffff)
+            | 0xd000_0000_0000_0000,
+        name_identity,
+        age_years: DEFAULT_CHARACTER_AGE_YEARS,
+        background: "Combat-trained adventurer".into(),
+        personality: StartingPersonality {
+            traits: Vec::new(),
+            sex: Sex::Male,
+            presentation: Presentation::Man,
+            inclination: Inclination::Women,
+        },
+        attributes: StartingAttributes {
+            endurance: 4.0,
+            immunity: 3.0,
+            gut: 3.0,
+            intelligence: 3.0,
+            instinct: 3.0,
+            eyesight: 3.0,
+            hearing: 3.0,
+            strength: 4.0,
+            agility: 4.0,
+        },
+        skills,
+        currency: 100,
+        settlement_selector: random("default-character-settlement", identity_seed, 0).next_seed(),
+        inventory: {
+            let mut inventory = basic_clothing();
+            inventory.extend([
+                item("longsword", 1, None),
+                item("rondel_dagger", 1, None),
+                item("morion", 1, Some(LoadoutSlot::Head)),
+                item("breastplate", 1, Some(LoadoutSlot::Chest)),
+                item("vambrace", 1, Some(LoadoutSlot::LeftArm)),
+                item("vambrace", 1, Some(LoadoutSlot::RightArm)),
+                item("torch", 1, None),
+                item("bandage", 3, None),
+                item("steel_stock", 1, None),
+                item("leather_stock", 1, None),
+                item("brass_stock", 1, None),
+                item("wood_stock", 1, None),
+            ]);
+            inventory
+        },
+        age_tier: StartingAgeTier::Adult,
+        profession: None,
+        organization: None,
+        religion_id: None,
+    }
+}
+
+fn default_character_skills() -> StartingSkills {
     let rank_hours = |skill: Skill, rank: f32| skill.hours_for_rank(rank);
     let age_training_scale = f32::from(DEFAULT_CHARACTER_AGE_YEARS.saturating_sub(6)) / 14.0;
     let general = |skill: Skill| rank_hours(skill, 1.25) * age_training_scale;
     let combat = |skill: Skill| rank_hours(skill, 3.5) * age_training_scale;
 
-    let skills = StartingSkills {
+    StartingSkills {
         written: adventuresim_world_schema::WrittenLanguageHours {
             german: 400.0 * age_training_scale,
             low: 160.0 * age_training_scale,
@@ -483,56 +505,6 @@ pub fn default_character(identity_seed: &str) -> StartingCharacterSpec {
         terrain_snow: general(Skill::TerrainSnow),
         tailoring: general(Skill::Tailoring),
         smithing: general(Skill::Smithing),
-    };
-
-    StartingCharacterSpec {
-        id: (hash("default-character-id", identity_seed, 0) & 0x0fff_ffff_ffff_ffff)
-            | 0xd000_0000_0000_0000,
-        name: DEFAULT_CHARACTER_NAME.into(),
-        age_years: DEFAULT_CHARACTER_AGE_YEARS,
-        background: "Combat-trained adventurer".into(),
-        personality: StartingPersonality {
-            traits: Vec::new(),
-            sex: StartingSex::Male,
-            presentation: StartingPresentation::Man,
-            inclination: StartingInclination::Women,
-        },
-        attributes: StartingAttributes {
-            endurance: 4.0,
-            immunity: 3.0,
-            gut: 3.0,
-            intelligence: 3.0,
-            instinct: 3.0,
-            eyesight: 3.0,
-            hearing: 3.0,
-            strength: 4.0,
-            agility: 4.0,
-        },
-        skills,
-        currency: 100,
-        settlement_selector: hash("default-character-settlement", identity_seed, 0),
-        inventory: {
-            let mut inventory = basic_clothing();
-            inventory.extend([
-                item("longsword", 1, None),
-                item("rondel_dagger", 1, None),
-                item("morion", 1, Some(StartingSlot::Head)),
-                item("breastplate", 1, Some(StartingSlot::Chest)),
-                item("vambrace", 1, Some(StartingSlot::LeftArm)),
-                item("vambrace", 1, Some(StartingSlot::RightArm)),
-                item("torch", 1, None),
-                item("bandage", 3, None),
-                item("steel_stock", 1, None),
-                item("leather_stock", 1, None),
-                item("brass_stock", 1, None),
-                item("wood_stock", 1, None),
-            ]);
-            inventory
-        },
-        age_tier: StartingAgeTier::Adult,
-        profession: None,
-        organization: None,
-        religion_id: None,
     }
 }
 
@@ -552,40 +524,11 @@ pub fn generate(
     slot: u8,
 ) -> Result<StartingCharacterSpec, &'static str> {
     validate_request(version, seed, age_tier, slot)?;
-    let sex = generated_sex(seed, age_tier, slot);
-    let first = choose(
-        "first-name",
-        seed,
-        slot,
-        match sex {
-            StartingSex::Female => &["Adela", "Beatrix", "Elsbeth", "Greta", "Lina", "Oda"],
-            StartingSex::Male => &[
-                "Anselm", "Conrad", "Florian", "Hugo", "Matthias", "Ruprecht",
-            ],
-        },
-    );
-    let byname = choose(
-        "byname",
-        seed,
-        slot,
-        &[
-            "Ashbrook",
-            "Blackwood",
-            "Dawnward",
-            "Falken",
-            "Greyfield",
-            "Hartmann",
-            "Ironmere",
-            "Rosen",
-            "Stoneford",
-            "Winter",
-        ],
-    );
     let (background, weapon, weapon_slot, armor, _primary, defense, currency_base) = match slot {
         0 => (
             "Militia runner",
             "katzbalger",
-            StartingSlot::RightHand,
+            LoadoutSlot::RightHand,
             "arming_doublet",
             "sword",
             "block",
@@ -594,7 +537,7 @@ pub fn generate(
         1 => (
             "Woodland hunter",
             "longbow",
-            StartingSlot::RightHand,
+            LoadoutSlot::RightHand,
             "quilted_sleeve",
             "bow",
             "dodge",
@@ -603,7 +546,7 @@ pub fn generate(
         2 => (
             "Caravan guard",
             "hunting_spear",
-            StartingSlot::RightHand,
+            LoadoutSlot::RightHand,
             "padded_chausses",
             "polearm",
             "dodge",
@@ -612,7 +555,7 @@ pub fn generate(
         3 => (
             "Town watch apprentice",
             "light_crossbow",
-            StartingSlot::RightHand,
+            LoadoutSlot::RightHand,
             "arming_cap",
             "crossbow",
             "block",
@@ -621,14 +564,14 @@ pub fn generate(
         _ => (
             "Camp follower turned scout",
             "bauernwehr",
-            StartingSlot::RightHand,
+            LoadoutSlot::RightHand,
             "padded_skirt",
             "knife",
             "dodge",
             105,
         ),
     };
-    let variation = |domain: &str| 2.0 + (hash(domain, seed, slot) % 17) as f32 / 10.0;
+    let variation = |domain: &str| 2.0 + (random(domain, seed, slot).index(17)) as f32 / 10.0;
     let mut inventory = basic_clothing();
     inventory.extend([
         item(weapon, 1, Some(weapon_slot)),
@@ -636,33 +579,33 @@ pub fn generate(
             armor,
             1,
             Some(match armor {
-                "arming_doublet" => StartingSlot::Chest,
-                "quilted_sleeve" => StartingSlot::LeftArm,
-                "padded_chausses" => StartingSlot::LeftLeg,
-                "arming_cap" => StartingSlot::Head,
-                _ => StartingSlot::Stomach,
+                "arming_doublet" => LoadoutSlot::Chest,
+                "quilted_sleeve" => LoadoutSlot::LeftArm,
+                "padded_chausses" => LoadoutSlot::LeftLeg,
+                "arming_cap" => LoadoutSlot::Head,
+                _ => LoadoutSlot::Stomach,
             }),
         ),
         item("torch", 1, None),
         item(
             "bandage",
-            2 + (hash("bandages", seed, slot) % 3) as u32,
+            2 + (random("bandages", seed, slot).index(3)) as u32,
             None,
         ),
     ]);
     if defense == "block" {
-        inventory.push(item("buckler", 1, Some(StartingSlot::LeftHand)));
+        inventory.push(item("buckler", 1, Some(LoadoutSlot::LeftHand)));
     }
     if matches!(weapon, "longbow" | "light_crossbow") {
         inventory.push(item(
             "arrow",
-            18 + (hash("arrows", seed, slot) % 13) as u32,
+            18 + (random("arrows", seed, slot).index(13)) as u32,
             None,
         ));
     }
     let mut spec = StartingCharacterSpec {
-        id: tier_hash("character-id", seed, age_tier, slot) | 0x8000_0000_0000_0000,
-        name: format!("{first} {byname}"),
+        id: tier_random("character-id", seed, age_tier, slot).next_u64() | 0x8000_0000_0000_0000,
+        name_identity: names::pending_identity(),
         age_years: age_tier.age_years(),
         background: background.into(),
         personality: generated_personality(seed, age_tier, slot),
@@ -678,8 +621,8 @@ pub fn generate(
             agility: variation("agility"),
         },
         skills: StartingSkills::default(),
-        currency: currency_base + (hash("currency", seed, slot) % 61) as u32,
-        settlement_selector: hash("settlement", seed, slot),
+        currency: currency_base + (random("currency", seed, slot).index(61)) as u32,
+        settlement_selector: random("settlement", seed, slot).next_seed(),
         inventory,
         age_tier,
         profession: None,
@@ -690,15 +633,15 @@ pub fn generate(
         apply_professional_start(&mut spec, seed, slot)?;
     }
     simulate_starting_life(&mut spec, seed, slot)?;
+    names::assign(
+        &mut spec,
+        tier_random("personal-name", seed, age_tier, slot).next_seed(),
+    );
     Ok(spec)
 }
 
-fn generated_sex(seed: &str, tier: StartingAgeTier, slot: u8) -> StartingSex {
-    if tier_hash("sex", seed, tier, slot).is_multiple_of(2) {
-        StartingSex::Female
-    } else {
-        StartingSex::Male
-    }
+fn generated_sex(seed: &str, tier: StartingAgeTier, slot: u8) -> Sex {
+    *tier_random("sex", seed, tier, slot).choose(Sex::VARIANTS)
 }
 
 fn personality_with_demographics(
@@ -708,23 +651,26 @@ fn personality_with_demographics(
     slot: u8,
 ) -> StartingPersonality {
     let sex = generated_sex(seed, tier, slot);
-    let presentation = match (sex, tier_hash("presentation", seed, tier, slot) % 100) {
-        (_, 0..=3) => StartingPresentation::Ambiguous,
-        (StartingSex::Female, 4) => StartingPresentation::Man,
-        (StartingSex::Male, 4) => StartingPresentation::Woman,
-        (StartingSex::Female, _) => StartingPresentation::Woman,
-        (StartingSex::Male, _) => StartingPresentation::Man,
+    let presentation = match (
+        sex,
+        tier_random("presentation", seed, tier, slot).index(100),
+    ) {
+        (_, 0..=3) => Presentation::Ambiguous,
+        (Sex::Female, 4) => Presentation::Man,
+        (Sex::Male, 4) => Presentation::Woman,
+        (Sex::Female, _) => Presentation::Woman,
+        (Sex::Male, _) => Presentation::Man,
     };
-    let inclination = match tier_hash("inclination", seed, tier, slot) % 100 {
-        0 => StartingInclination::Neither,
-        1..=4 => StartingInclination::Either,
+    let inclination = match tier_random("inclination", seed, tier, slot).index(100) {
+        0 => Inclination::Neither,
+        1..=4 => Inclination::Either,
         5..=9 => match sex {
-            StartingSex::Female => StartingInclination::Women,
-            StartingSex::Male => StartingInclination::Men,
+            Sex::Female => Inclination::Women,
+            Sex::Male => Inclination::Men,
         },
         _ => match sex {
-            StartingSex::Female => StartingInclination::Men,
-            StartingSex::Male => StartingInclination::Women,
+            Sex::Female => Inclination::Men,
+            Sex::Male => Inclination::Women,
         },
     };
     StartingPersonality {
@@ -827,15 +773,14 @@ fn generated_personality(seed: &str, tier: StartingAgeTier, slot: u8) -> Startin
     }
 
     let mut order = StartingPersonalityGenerationAxis::ALL.to_vec();
-    order.sort_by_key(|axis| tier_hash(axis.ordering_domain(), seed, tier, slot));
-    let count = 2 + (tier_hash("personality-count", seed, tier, slot) % 3) as usize;
+    order.sort_by_key(|axis| tier_random(axis.ordering_domain(), seed, tier, slot).next_u64());
+    let count = 2 + tier_random("personality-count", seed, tier, slot).index(3);
     let traits = order
         .into_iter()
         .take(count)
         .map(|axis| {
             let values = axis.values();
-            values
-                [(tier_hash(axis.value_domain(), seed, tier, slot) % values.len() as u64) as usize]
+            values[tier_random(axis.value_domain(), seed, tier, slot).index(values.len())]
         })
         .collect();
     personality_with_demographics(traits, seed, tier, slot)
@@ -949,7 +894,7 @@ fn starting_activity_profile(
         .filter(|&item| {
             matches!(
                 item.equipped,
-                Some(StartingSlot::LeftHand | StartingSlot::RightHand)
+                Some(LoadoutSlot::LeftHand | LoadoutSlot::RightHand)
             )
         })
         .map(|item| {
@@ -1018,7 +963,7 @@ fn simulate_starting_life(
         .and_then(adventuresim_world_schema::OfficialReligion::from_id);
     let result =
         crate::life_simulation::simulate_life(crate::life_simulation::LifeSimulationInput {
-            stable_seed: tier_hash("life-simulation", seed, spec.age_tier, slot),
+            stable_seed: tier_random("life-simulation", seed, spec.age_tier, slot).next_seed(),
             age_years: spec.age_years,
             attributes: &spec.attributes,
             organization,
@@ -1166,7 +1111,7 @@ fn professional_loadout(
         StartingProfession::Merchant => vec![
             held(
                 if adult { "bauernwehr" } else { "rapier" },
-                StartingSlot::RightHand,
+                LoadoutSlot::RightHand,
             ),
             armor(
                 if adult {
@@ -1175,27 +1120,27 @@ fn professional_loadout(
                     "arming_doublet"
                 },
                 if adult {
-                    StartingSlot::Stomach
+                    LoadoutSlot::Stomach
                 } else {
-                    StartingSlot::Chest
+                    LoadoutSlot::Chest
                 },
             ),
         ],
         StartingProfession::Weaponsmith => vec![
-            held("war_hammer", StartingSlot::RightHand),
+            held("war_hammer", LoadoutSlot::RightHand),
             armor(
                 if adult {
                     "arming_doublet"
                 } else {
                     "brigandine"
                 },
-                StartingSlot::Chest,
+                LoadoutSlot::Chest,
             ),
         ],
         StartingProfession::Armourer => vec![
             held(
                 if adult { "flanged_mace" } else { "war_hammer" },
-                StartingSlot::RightHand,
+                LoadoutSlot::RightHand,
             ),
             armor(
                 if adult {
@@ -1203,18 +1148,18 @@ fn professional_loadout(
                 } else {
                     "breastplate"
                 },
-                StartingSlot::Chest,
+                LoadoutSlot::Chest,
             ),
         ],
         StartingProfession::Tailor => vec![
             held(
                 if adult { "utility_knife" } else { "baselard" },
-                StartingSlot::RightHand,
+                LoadoutSlot::RightHand,
             ),
-            armor("arming_doublet", StartingSlot::Chest),
+            armor("arming_doublet", LoadoutSlot::Chest),
         ],
         StartingProfession::Herbalist => vec![
-            held("walking_staff", StartingSlot::RightHand),
+            held("walking_staff", LoadoutSlot::RightHand),
             armor(
                 if adult {
                     "padded_skirt"
@@ -1222,16 +1167,16 @@ fn professional_loadout(
                     "arming_doublet"
                 },
                 if adult {
-                    StartingSlot::Stomach
+                    LoadoutSlot::Stomach
                 } else {
-                    StartingSlot::Chest
+                    LoadoutSlot::Chest
                 },
             ),
         ],
         StartingProfession::Cook => vec![
             held(
                 if adult { "utility_knife" } else { "bauernwehr" },
-                StartingSlot::RightHand,
+                LoadoutSlot::RightHand,
             ),
             armor(
                 if adult {
@@ -1240,16 +1185,16 @@ fn professional_loadout(
                     "arming_doublet"
                 },
                 if adult {
-                    StartingSlot::Stomach
+                    LoadoutSlot::Stomach
                 } else {
-                    StartingSlot::Chest
+                    LoadoutSlot::Chest
                 },
             ),
         ],
         StartingProfession::LearnedReligiousPractitioner => vec![
             held(
                 if adult { "walking_staff" } else { "baselard" },
-                StartingSlot::RightHand,
+                LoadoutSlot::RightHand,
             ),
             armor(
                 if adult {
@@ -1258,9 +1203,9 @@ fn professional_loadout(
                     "arming_doublet"
                 },
                 if adult {
-                    StartingSlot::Head
+                    LoadoutSlot::Head
                 } else {
-                    StartingSlot::Chest
+                    LoadoutSlot::Chest
                 },
             ),
         ],
@@ -1271,7 +1216,7 @@ fn professional_loadout(
                 } else {
                     "heavy_crossbow"
                 },
-                StartingSlot::RightHand,
+                LoadoutSlot::RightHand,
             ),
             armor(
                 if adult {
@@ -1279,35 +1224,35 @@ fn professional_loadout(
                 } else {
                     "brigandine"
                 },
-                StartingSlot::Chest,
+                LoadoutSlot::Chest,
             ),
             item("arrow", if adult { 24 } else { 40 }, None),
             item("bauernwehr", 1, None),
         ],
         StartingProfession::Knight => {
             let mut kit = vec![
-                held("arming_sword", StartingSlot::RightHand),
+                held("arming_sword", LoadoutSlot::RightHand),
                 held(
                     if adult { "buckler" } else { "heater_shield" },
-                    StartingSlot::LeftHand,
+                    LoadoutSlot::LeftHand,
                 ),
                 armor(
                     if adult { "brigandine" } else { "breastplate" },
-                    StartingSlot::Chest,
+                    LoadoutSlot::Chest,
                 ),
                 armor(
                     if adult { "sallet" } else { "visored_sallet" },
-                    StartingSlot::Head,
+                    LoadoutSlot::Head,
                 ),
             ];
             if !adult {
-                kit.push(armor("vambrace", StartingSlot::LeftArm));
-                kit.push(armor("greave", StartingSlot::LeftLeg));
+                kit.push(armor("vambrace", LoadoutSlot::LeftArm));
+                kit.push(armor("greave", LoadoutSlot::LeftLeg));
             }
             kit
         }
         StartingProfession::Forester => vec![
-            held("longbow", StartingSlot::RightHand),
+            held("longbow", LoadoutSlot::RightHand),
             armor(
                 if adult {
                     "quilted_sleeve"
@@ -1315,9 +1260,9 @@ fn professional_loadout(
                     "arming_doublet"
                 },
                 if adult {
-                    StartingSlot::LeftArm
+                    LoadoutSlot::LeftArm
                 } else {
-                    StartingSlot::Chest
+                    LoadoutSlot::Chest
                 },
             ),
             item("arrow", if adult { 28 } else { 44 }, None),
@@ -1404,7 +1349,7 @@ fn professional_personality(
     };
     let mut traits = vec![
         first,
-        if tier_hash("professional-personality", seed, tier, slot).is_multiple_of(2) {
+        if tier_random("professional-personality", seed, tier, slot).boolean() {
             alternate_a
         } else {
             alternate_b
@@ -1435,21 +1380,7 @@ fn apply_professional_start(
     slot: u8,
 ) -> Result<(), &'static str> {
     let profession = StartingProfession::ALL[slot as usize];
-    let eligible = catalog()
-        .organizations
-        .iter()
-        .filter(|organization| {
-            organization
-                .starting_role
-                .as_ref()
-                .is_some_and(|role| role.profession == profession)
-        })
-        .collect::<Vec<_>>();
-    if eligible.is_empty() {
-        return Err("profession has no eligible starting organization");
-    }
-    let organization = eligible
-        [(tier_hash("organization", seed, spec.age_tier, slot) % eligible.len() as u64) as usize];
+    let organization = professional::select_organization(profession, seed, spec.age_tier, slot)?;
     let role = organization
         .starting_role
         .as_ref()
@@ -1480,12 +1411,13 @@ fn apply_professional_start(
         purse_base
     } else {
         purse_base * 2 + 160
-    } + (tier_hash("professional-purse", seed, spec.age_tier, slot)
-        % if adult { 61 } else { 141 }) as u32;
+    } + (tier_random("professional-purse", seed, spec.age_tier, slot)
+        .index(if adult { 61 } else { 141 })) as u32;
     spec.inventory = professional_loadout(profession, spec.age_tier);
     spec.personality = professional_personality(profession, spec.age_tier, seed, slot);
-    let base_attribute =
-        |domain: &str| 2.0 + (tier_hash(domain, seed, spec.age_tier, slot) % 13) as f32 / 10.0;
+    let base_attribute = |domain: &str| {
+        2.0 + (tier_random(domain, seed, spec.age_tier, slot).index(13)) as f32 / 10.0
+    };
     spec.attributes = StartingAttributes {
         endurance: base_attribute("professional-endurance"),
         immunity: base_attribute("professional-immunity"),
@@ -1542,7 +1474,7 @@ fn apply_professional_start(
         role_name: assigned_role.name.clone(),
     });
     spec.religion_id = religion_id;
-    spec.settlement_selector = tier_hash("settlement", seed, spec.age_tier, slot);
+    spec.settlement_selector = tier_random("settlement", seed, spec.age_tier, slot).next_seed();
     Ok(())
 }
 
@@ -1564,9 +1496,17 @@ mod tests {
     #[test]
     fn canonical_default_character_matches_the_shared_test_build() {
         let john = default_character("owner-a");
-        assert_eq!(john.name, "John Fabelgeist");
+        assert_eq!(
+            john.native_everyday_name().unwrap().into_string(),
+            default_character_name()
+        );
         assert_eq!(john.age_years, 20);
-        assert_eq!(john.personality.sex, StartingSex::Male);
+        assert_eq!(john.personality.sex, Sex::Male);
+        let shared_sex: Sex = john.personality.sex;
+        let encoded = serde_json::to_value(&john.personality).unwrap();
+        assert_eq!(encoded["sex"], "male");
+        let decoded: StartingPersonality = serde_json::from_value(encoded).unwrap();
+        assert_eq!(decoded.sex, shared_sex);
         assert!(john.personality.traits.is_empty());
         assert_eq!(john.attributes.strength, 4.0);
         assert_eq!(john.attributes.agility, 4.0);
@@ -1593,12 +1533,12 @@ mod tests {
         for (item_id, slot) in [
             ("longsword", None),
             ("rondel_dagger", None),
-            ("morion", Some(StartingSlot::Head)),
-            ("breastplate", Some(StartingSlot::Chest)),
-            ("vambrace", Some(StartingSlot::LeftArm)),
-            ("vambrace", Some(StartingSlot::RightArm)),
-            ("leather_boot", Some(StartingSlot::LeftFoot)),
-            ("leather_boot", Some(StartingSlot::RightFoot)),
+            ("morion", Some(LoadoutSlot::Head)),
+            ("breastplate", Some(LoadoutSlot::Chest)),
+            ("vambrace", Some(LoadoutSlot::LeftArm)),
+            ("vambrace", Some(LoadoutSlot::RightArm)),
+            ("leather_boot", Some(LoadoutSlot::LeftFoot)),
+            ("leather_boot", Some(LoadoutSlot::RightFoot)),
         ] {
             assert!(
                 john.inventory
@@ -1618,10 +1558,10 @@ mod tests {
         }
         for character in characters {
             for (item_id, slot) in [
-                ("linen_tunic", StartingSlot::Chest),
-                ("linen_breeches", StartingSlot::LeftLeg),
-                ("leather_boot", StartingSlot::LeftFoot),
-                ("leather_boot", StartingSlot::RightFoot),
+                ("linen_tunic", LoadoutSlot::Chest),
+                ("linen_breeches", LoadoutSlot::LeftLeg),
+                ("leather_boot", LoadoutSlot::LeftFoot),
+                ("leather_boot", LoadoutSlot::RightFoot),
             ] {
                 assert!(
                     character
@@ -1629,7 +1569,7 @@ mod tests {
                         .iter()
                         .any(|item| { item.item_id == item_id && item.equipped == Some(slot) }),
                     "{} is missing {item_id} in {slot:?}",
-                    character.name
+                    character.native_everyday_name().unwrap().into_string()
                 );
             }
         }
@@ -1638,7 +1578,7 @@ mod tests {
     #[test]
     fn fixture_is_stable() {
         let c = generate(GENERATOR_VERSION, SEED, StartingAgeTier::Young, 0).unwrap();
-        assert!(!c.name.is_empty());
+        assert!(!c.native_everyday_name().unwrap().into_string().is_empty());
         assert_eq!(c.age_years, 16);
         assert_eq!(c.age_tier, StartingAgeTier::Young);
     }
@@ -1651,7 +1591,7 @@ mod tests {
                 && c.currency >= 65
                 && c.inventory
                     .iter()
-                    .any(|i| i.equipped == Some(StartingSlot::RightHand))
+                    .any(|i| i.equipped == Some(LoadoutSlot::RightHand))
         }));
         let ids: std::collections::HashSet<_> = r.iter().map(|c| c.id).collect();
         assert_eq!(ids.len(), 5);
@@ -1786,12 +1726,12 @@ mod tests {
             let adult_right = adult
                 .inventory
                 .iter()
-                .find(|item| item.equipped == Some(StartingSlot::RightHand))
+                .find(|item| item.equipped == Some(LoadoutSlot::RightHand))
                 .map(|item| item.item_id.as_str());
             let old_right = old
                 .inventory
                 .iter()
-                .find(|item| item.equipped == Some(StartingSlot::RightHand))
+                .find(|item| item.equipped == Some(LoadoutSlot::RightHand))
                 .map(|item| item.item_id.as_str());
             let expected = match profession {
                 StartingProfession::Merchant => ("bauernwehr", "rapier"),
@@ -1860,10 +1800,12 @@ mod tests {
         let candidate = generate(GENERATOR_VERSION, SEED, StartingAgeTier::Adult, slot).unwrap();
         assert_eq!(candidate.attributes.intelligence, 5.0);
         let expected_instinct = 2.0
-            + (tier_hash("professional-instinct", SEED, StartingAgeTier::Adult, slot) % 13) as f32
+            + (tier_random("professional-instinct", SEED, StartingAgeTier::Adult, slot).index(13))
+                as f32
                 / 10.0;
         let expected_agility = 2.0
-            + (tier_hash("professional-agility", SEED, StartingAgeTier::Adult, slot) % 13) as f32
+            + (tier_random("professional-agility", SEED, StartingAgeTier::Adult, slot).index(13))
+                as f32
                 / 10.0;
         assert_eq!(candidate.attributes.instinct, expected_instinct);
         assert_eq!(candidate.attributes.agility, expected_agility);
@@ -1899,7 +1841,7 @@ mod tests {
                 for item in candidate.inventory.iter().filter(|item| {
                     matches!(
                         item.equipped,
-                        Some(StartingSlot::LeftHand | StartingSlot::RightHand)
+                        Some(LoadoutSlot::LeftHand | LoadoutSlot::RightHand)
                     )
                 }) {
                     let canonical =
@@ -1938,7 +1880,7 @@ mod tests {
                 assert!(
                     sheathable <= 1,
                     "{} has {sheathable} sheathable weapons",
-                    candidate.name
+                    candidate.native_everyday_name().unwrap().into_string()
                 );
             }
         }
@@ -1960,7 +1902,7 @@ mod tests {
             .iter()
             .find(|item| crate::item_catalog::is_sheathable_weapon(&item.item_id))
             .expect("knight sword");
-        assert_eq!(sword.equipped, Some(StartingSlot::RightHand));
+        assert_eq!(sword.equipped, Some(LoadoutSlot::RightHand));
     }
 
     #[test]
@@ -1978,13 +1920,12 @@ mod tests {
             )
             .unwrap();
             assert!((2..=4).contains(&c.personality.traits.len()));
-            ambiguous += usize::from(c.personality.presentation == StartingPresentation::Ambiguous);
-            either += usize::from(c.personality.inclination == StartingInclination::Either);
-            neither += usize::from(c.personality.inclination == StartingInclination::Neither);
+            ambiguous += usize::from(c.personality.presentation == Presentation::Ambiguous);
+            either += usize::from(c.personality.inclination == Inclination::Either);
+            neither += usize::from(c.personality.inclination == Inclination::Neither);
             same += usize::from(matches!(
                 (c.personality.sex, c.personality.inclination),
-                (StartingSex::Female, StartingInclination::Women)
-                    | (StartingSex::Male, StartingInclination::Men)
+                (Sex::Female, Inclination::Women) | (Sex::Male, Inclination::Men)
             ));
         }
         assert!((40..140).contains(&ambiguous));

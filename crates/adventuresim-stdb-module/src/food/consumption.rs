@@ -3,7 +3,7 @@ fn expose_to_dysentery(
     ctx: &ReducerContext,
     character_id: u64,
     lot_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     dose: f32,
     consumed_fraction_bps: u16,
 ) -> Result<(), String> {
@@ -37,7 +37,7 @@ pub(crate) fn expose_food_water_dysentery(
     character_id: u64,
     exposure_id: &str,
     carrier_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     dose: f32,
     contribution_digest: &str,
     consumed_fraction_bps: u16,
@@ -55,7 +55,12 @@ pub(crate) fn expose_food_water_dysentery(
     if disease::has_unresolved_disease(&episodes, DiseaseId::Dysentery, minute, immunity) {
         return Ok(());
     }
-    let prior = disease::acquired_immunity(&episodes, DiseaseId::Dysentery, minute, immunity);
+    let prior = disease::acquired_immunity(
+        &episodes,
+        DiseaseId::Dysentery,
+        minute,
+        immunity
+    );
     let seed = disease::outbreak_exposure_seed(character_id, exposure_id);
     let protected_dose = crate::disease::protected_point_exposure(
         ctx,
@@ -71,7 +76,7 @@ pub(crate) fn expose_food_water_dysentery(
         prior,
         protected_dose,
     ) {
-        let episode_id = seed.max(1);
+        let episode_id = seed.max(fabelgeist_determinism::Seed::from_u64(1));
         let place = crate::foraging::current_strategic_place(ctx, character_id)?;
         crate::world_event::commit_food_water_infection(
             ctx,
@@ -86,7 +91,7 @@ pub(crate) fn expose_food_water_dysentery(
             prior,
             consumed_fraction_bps,
             "dysentery",
-            episode_id,
+            episode_id.to_u64(),
             minute,
         )?;
     }
@@ -356,7 +361,7 @@ pub fn eat_food(
         .id()
         .find(character_id)
         .ok_or("Character not found")?;
-    if actor.in_server {
+    if actor.has_tactical_server_assignment() {
         return Err("Eating is unavailable during a tactical encounter".into());
     }
     consume_food_amount(ctx, character_id, inventory_item_id, f32::MAX, true)?;

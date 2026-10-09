@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::case_site_id_type::CaseSiteId;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -17,8 +18,8 @@ pub struct StrategicCorpse {
     pub creature_kind: String,
     pub settlement_id: String,
     pub case_site_id: Option<CaseSiteId>,
-    pub death_minute: u64,
-    pub discovered_minute: u64,
+    pub death_minute: StrategicMinute,
+    pub discovered_minute: StrategicMinute,
     pub buried: bool,
     pub exhumed: bool,
     pub burned: bool,
@@ -46,8 +47,8 @@ pub struct StrategicCorpseCols {
     pub creature_kind: __sdk::__query_builder::Col<StrategicCorpse, String>,
     pub settlement_id: __sdk::__query_builder::Col<StrategicCorpse, String>,
     pub case_site_id: __sdk::__query_builder::Col<StrategicCorpse, Option<CaseSiteId>>,
-    pub death_minute: __sdk::__query_builder::Col<StrategicCorpse, u64>,
-    pub discovered_minute: __sdk::__query_builder::Col<StrategicCorpse, u64>,
+    pub death_minute: __sdk::__query_builder::Col<StrategicCorpse, StrategicMinute>,
+    pub discovered_minute: __sdk::__query_builder::Col<StrategicCorpse, StrategicMinute>,
     pub buried: __sdk::__query_builder::Col<StrategicCorpse, bool>,
     pub exhumed: __sdk::__query_builder::Col<StrategicCorpse, bool>,
     pub burned: __sdk::__query_builder::Col<StrategicCorpse, bool>,

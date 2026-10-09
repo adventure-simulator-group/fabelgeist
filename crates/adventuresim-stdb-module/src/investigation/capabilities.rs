@@ -1,55 +1,10 @@
+
 #[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 pub(crate) enum InvestigationActionConsequence {
     None,
     RetrieveAsset { asset_id: String, version: u32 },
     RescueSubject { subject_id: String, version: u32 },
-}
-
-fn parse_action_kind(value: &str) -> Result<action::InvestigationActionKind, String> {
-    use action::InvestigationActionKind as K;
-    match value {
-        "inspect_site" => Ok(K::InspectSite),
-        "search_area" => Ok(K::SearchArea),
-        "follow_tracks" => Ok(K::FollowTracks),
-        "reacquire_tracks" => Ok(K::ReacquireTracks),
-        "locate_contact" => Ok(K::LocateContact),
-        "watch" => Ok(K::Watch),
-        "patrol" => Ok(K::Patrol),
-        "lay_ambush" => Ok(K::LayAmbush),
-        "approach_lead" => Ok(K::ApproachLead),
-        _ => Err("Unknown investigation action method".into()),
-    }
-}
-
-fn action_method(kind: action::InvestigationActionKind) -> &'static str {
-    use action::InvestigationActionKind as K;
-    match kind {
-        K::InspectSite => "inspect_site",
-        K::SearchArea => "search_area",
-        K::FollowTracks => "follow_tracks",
-        K::ReacquireTracks => "reacquire_tracks",
-        K::LocateContact => "locate_contact",
-        K::Watch => "watch",
-        K::Patrol => "patrol",
-        K::LayAmbush => "lay_ambush",
-        K::ApproachLead => "approach_lead",
-    }
-}
-
-fn parse_action_terrain(value: &str) -> Result<action::Terrain, String> {
-    use action::Terrain as T;
-    match value {
-        "road" => Ok(T::Road),
-        "settlement" => Ok(T::Settlement),
-        "plains" => Ok(T::Plains),
-        "forest" => Ok(T::Forest),
-        "hills" => Ok(T::Hills),
-        "marsh" => Ok(T::Marsh),
-        "ruins" => Ok(T::Ruins),
-        "underground" => Ok(T::Underground),
-        _ => Err("Unknown investigation terrain".into()),
-    }
 }
 
 /// Trusted generator seam. The opaque id is the only authority returned to a
@@ -99,7 +54,7 @@ pub(crate) fn issue_investigation_action_capability(
     target_kind: action::InvestigationTargetKind,
     target_id: String,
     target_terrain: action::Terrain,
-    seed: u64,
+    seed: Seed,
     uncertainty_bps: u16,
     safe_summary: String,
     known_prerequisites: String,
@@ -170,7 +125,7 @@ pub(crate) fn issue_investigation_action_capability(
             case_id,
             provenance_kind,
             generated_case_id,
-            method: action_method(kind).into(),
+            method: kind.stable_id().into(),
             version: 0,
             target_kind,
             target_id,
@@ -190,7 +145,7 @@ pub(crate) fn issue_investigation_action_capability(
     Ok(())
 }
 
-fn character_strategic_minute(ctx: &ReducerContext, character_id: u64) -> u64 {
+fn character_strategic_minute(ctx: &ReducerContext, character_id: u64) -> StrategicMinute {
     ctx.db
         .character_time()
         .character_id()
@@ -246,7 +201,7 @@ fn validate_action_route_graph_structure(
         {
             return Err("Investigation alternate route crosses authority boundaries".into());
         }
-        let Ok(kind) = parse_action_kind(&capability.method) else {
+        let Ok(kind) = capability.method.parse::<InvestigationActionKind>() else {
             return Err("Investigation route contains an unknown action method".into());
         };
         if matches!(
@@ -258,7 +213,10 @@ fn validate_action_route_graph_structure(
                 .iter()
                 .find(|candidate| candidate.id == capability.required_action_id)
                 .ok_or("Investigation physical tracking predecessor is missing")?;
-            let predecessor_kind = parse_action_kind(&predecessor.method)?;
+            let predecessor_kind = predecessor
+                .method
+                .parse::<InvestigationActionKind>()
+                .map_err(|error| error.to_string())?;
             if predecessor.owner_character_id != capability.owner_character_id
                 || predecessor.case_id != capability.case_id
                 || !action::tracking_route_edge_is_coherent(
@@ -287,7 +245,7 @@ fn validate_initial_action_frontier(
     }
     if active.len() == 1 {
         let entry = active[0];
-        if entry.method != "locate_contact"
+        if entry.method != InvestigationActionKind::LocateContact.stable_id()
             || entry.target_kind != action::InvestigationTargetKind::Contact
             || !entry.required_action_id.is_empty()
         {
@@ -299,12 +257,12 @@ fn validate_initial_action_frontier(
             .collect::<Vec<_>>();
         if successors.len() != 2
             || successors.iter().any(|candidate| candidate.active)
+            || !successors.iter().any(|candidate| {
+                candidate.method == InvestigationActionKind::ApproachLead.stable_id()
+            })
             || !successors
                 .iter()
-                .any(|candidate| candidate.method == "approach_lead")
-            || !successors
-                .iter()
-                .any(|candidate| candidate.method == "watch")
+                .any(|candidate| candidate.method == InvestigationActionKind::Watch.stable_id())
         {
             return Err(
                 "The referred contact must unlock inactive approach and watch routes".into(),
@@ -447,7 +405,10 @@ fn activate_action_successors(
                     .iter()
                     .find(|candidate| candidate.id == alternate_id)
                     .ok_or("Investigation recovery route no longer exists")?;
-                let kind = parse_action_kind(&alternate.method)?;
+                let kind = alternate
+                    .method
+                    .parse::<InvestigationActionKind>()
+                    .map_err(|error| error.to_string())?;
                 if capability_has_live_support_reducer(ctx, alternate, kind) {
                     activate.push(alternate_id);
                 }
@@ -478,7 +439,9 @@ fn activate_action_successors(
                     .any(|attempt| attempt.success)
         })
         .any(|candidate| {
-            parse_action_kind(&candidate.method)
+            candidate
+                .method
+                .parse::<InvestigationActionKind>()
                 .is_ok_and(|kind| capability_has_live_support_reducer(ctx, &candidate, kind))
         }))
 }
@@ -621,7 +584,7 @@ fn capability_has_live_pattern_support_reducer(
             .character_time()
             .character_id()
             .find(capability.owner_character_id)
-            .map_or(0, |time| time.minutes),
+            .map_or(StrategicMinute::ZERO, |time| time.minutes),
         ctx.db
             .investigation_evidence_knowledge()
             .owner_character_id()
@@ -669,7 +632,7 @@ fn validate_referred_contact_authority(
         .filter(owner_character_id)
         .filter(|capability| {
             capability.case_id == canonical_case_id
-                && capability.method == "locate_contact"
+                && capability.method == InvestigationActionKind::LocateContact.stable_id()
                 && capability.target_kind == action::InvestigationTargetKind::Contact
                 && capability.target_id == witness_resident_character_id.to_string()
         })
@@ -1012,7 +975,7 @@ fn issue_rumor_action_graph(
                 resident_character_id: target.resident_character_id,
                 demographic: target.demographic.as_str().to_owned(),
                 age_band: target.age_band.clone(),
-                sex: target.sex.clone(),
+                sex: target.sex,
                 profession: target.profession.clone(),
                 expected_settlement_id: target.expected_settlement_id.clone(),
                 expected_location: target.expected_location.clone(),
@@ -1093,7 +1056,7 @@ fn issue_rumor_action_graph(
                 generated.target_kind,
                 generated.target_id.clone(),
                 generated_action_terrain(&manifest, generated),
-                ctx.random::<u64>(),
+                ctx.random::<fabelgeist_determinism::Seed>(),
                 7_000,
                 generated.safe_summary.clone(),
                 known_prerequisites,
@@ -1199,7 +1162,7 @@ fn issue_rumor_action_graph(
     };
     let terrain = site
         .as_ref()
-        .and_then(|site| parse_action_terrain(&site.scene_key).ok())
+        .and_then(|site| site.scene_key.parse::<Terrain>().ok())
         .unwrap_or(action::Terrain::Settlement);
     let ids = |method: &str| inv::compound_id(&["investigate", lead_id, method]);
     let locate = ids("locate_contact");
@@ -1355,7 +1318,7 @@ fn issue_rumor_action_graph(
             kind_name,
             target,
             terrain,
-            ctx.random::<u64>(),
+            ctx.random::<fabelgeist_determinism::Seed>(),
             if matches!(
                 kind,
                 action::InvestigationActionKind::FollowTracks

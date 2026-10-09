@@ -1,5 +1,5 @@
 //! Give cultivated beds exclusive ground triangles inside their packed plot.
-use bevy::math::{Vec2, Vec3};
+use bevy::math::{DVec3, Vec2};
 use std::collections::{BTreeMap, BTreeSet};
 
 pub(super) const SPATIAL_CELL_METRES: f32 = 32.0;
@@ -52,7 +52,7 @@ pub(super) fn overlaps(a: [Vec2; 4], b: [Vec2; 4]) -> bool {
     amin.x < bmax.x && amax.x > bmin.x && amin.y < bmax.y && amax.y > bmin.y
 }
 
-pub(super) fn subtract(polygon: Vec<Vec3>, beds: &[[Vec2; 4]]) -> Vec<Vec<Vec3>> {
+pub(super) fn subtract(polygon: Vec<DVec3>, beds: &[[Vec2; 4]]) -> Vec<Vec<DVec3>> {
     let mut pieces = vec![polygon];
     for bed in beds {
         pieces = pieces
@@ -63,13 +63,14 @@ pub(super) fn subtract(polygon: Vec<Vec3>, beds: &[[Vec2; 4]]) -> Vec<Vec<Vec3>>
     pieces
 }
 
-fn outside(mut remaining: Vec<Vec3>, bed: [Vec2; 4]) -> Vec<Vec<Vec3>> {
+fn outside(mut remaining: Vec<DVec3>, bed: [Vec2; 4]) -> Vec<Vec<DVec3>> {
+    let bed = bed.map(Vec2::as_dvec2);
     let winding = (bed[1] - bed[0]).perp_dot(bed[3] - bed[0]).signum();
     let mut pieces = Vec::new();
     for side in 0..4 {
         let start = bed[side];
         let edge = bed[(side + 1) % 4] - start;
-        let distance = |p: Vec3| edge.perp_dot(Vec2::new(p.x, p.z) - start) * winding;
+        let distance = |p: DVec3| edge.perp_dot(bevy::math::DVec2::new(p.x, p.z) - start) * winding;
         let mut inside = Vec::new();
         let mut outside = Vec::new();
         for index in 0..remaining.len() {
@@ -139,7 +140,7 @@ mod tests {
 
     #[test]
     fn bed_removal_preserves_sloped_ground_and_exact_working_area() {
-        let point = |x, z| Vec3::new(x, x * 0.2 + z * 0.1, z);
+        let point = |x, z| DVec3::new(x, x * 0.2 + z * 0.1, z);
         let plot = vec![
             point(-3.0, -2.0),
             point(3.0, -2.0),

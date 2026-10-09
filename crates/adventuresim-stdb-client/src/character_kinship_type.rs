@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::kinship_kind_type::KinshipKind;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -13,7 +14,7 @@ pub struct CharacterKinship {
     pub subject_id: u64,
     pub related_id: u64,
     pub kind: KinshipKind,
-    pub established_minute: u64,
+    pub established_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for CharacterKinship {
@@ -28,7 +29,7 @@ pub struct CharacterKinshipCols {
     pub subject_id: __sdk::__query_builder::Col<CharacterKinship, u64>,
     pub related_id: __sdk::__query_builder::Col<CharacterKinship, u64>,
     pub kind: __sdk::__query_builder::Col<CharacterKinship, KinshipKind>,
-    pub established_minute: __sdk::__query_builder::Col<CharacterKinship, u64>,
+    pub established_minute: __sdk::__query_builder::Col<CharacterKinship, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for CharacterKinship {

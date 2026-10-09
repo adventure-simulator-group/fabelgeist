@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct ChallengeAttemptReceipt {
@@ -16,7 +18,7 @@ pub struct ChallengeAttemptReceipt {
     pub submission_json: String,
     pub correct: bool,
     pub resulting_revision: u32,
-    pub attempted_at_minute: u64,
+    pub attempted_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for ChallengeAttemptReceipt {
@@ -36,7 +38,7 @@ pub struct ChallengeAttemptReceiptCols {
     pub submission_json: __sdk::__query_builder::Col<ChallengeAttemptReceipt, String>,
     pub correct: __sdk::__query_builder::Col<ChallengeAttemptReceipt, bool>,
     pub resulting_revision: __sdk::__query_builder::Col<ChallengeAttemptReceipt, u32>,
-    pub attempted_at_minute: __sdk::__query_builder::Col<ChallengeAttemptReceipt, u64>,
+    pub attempted_at_minute: __sdk::__query_builder::Col<ChallengeAttemptReceipt, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for ChallengeAttemptReceipt {

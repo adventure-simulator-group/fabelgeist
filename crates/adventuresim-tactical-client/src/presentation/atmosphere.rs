@@ -243,6 +243,11 @@ pub(in crate::presentation) fn cache_initialized_atmosphere(
 }
 
 impl AtmosphereIblCache {
+    pub(crate) fn is_ready(&self, settings: &TacticalGraphicsSettings) -> bool {
+        !settings.config.rendering.atmosphere.enabled
+            || matches!(self.phase, AtmosphereIblPhase::Cached)
+    }
+
     fn complete_if_ready(
         &mut self,
         commands: &mut Commands,
@@ -525,7 +530,7 @@ mod tests {
             .get::<SceneEnvironment>()
             .unwrap()
             .clone();
-        environment.absolute_minute += 60;
+        environment.absolute_minute = environment.absolute_minute.saturating_add_minutes(60);
         app.world_mut()
             .entity_mut(scene)
             .insert(environment.clone());

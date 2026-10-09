@@ -139,7 +139,7 @@ impl LiveRunner {
                     .backend_character_times()
                     .iter()
                     .find(|row| row.character_id == character_id)
-                    .map_or(0, |row| row.minutes);
+                    .map_or(StrategicMinute::ZERO, |row| StrategicMinute::new(row.minutes.minutes));
                 let survival = self
                     .public_survival_observation(character_id)
                     .unwrap_or_default();
@@ -312,7 +312,7 @@ impl LiveRunner {
                     member_after.elapsed_minutes,
                     member_after
                         .elapsed_minutes
-                        .saturating_sub(member_before.elapsed_minutes),
+                        .elapsed_since(member_before.elapsed_minutes),
                     supplies_before.stored_food_kcal,
                     supplies_after.stored_food_kcal,
                     (supplies_before.stored_food_kcal - supplies_after.stored_food_kcal).max(0.0),

@@ -49,20 +49,26 @@ fn fixture() -> (
     .enumerate()
     .map(
         |(index, (usage, centre_metres))| TacticalBuildingPlacement {
-            id: index as u64 + 1,
+            base_elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,
+            id: (index as u64 + 1).into(),
             program: BuildingProgram::validated_settlement(
                 settlement_archetype(usage),
                 usage,
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 Some(ServiceBuildingSize::Small),
             )
             .unwrap(),
-            centre_metres,
+            centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(centre_metres)
+                .unwrap(),
             orientation: BuildingOrientation::IDENTITY,
         },
     )
     .collect();
-    let buildings = super::super::buildings::prepare_buildings(&input.buildings).unwrap();
+    let buildings = super::super::buildings::prepare_buildings(
+        &input.buildings,
+        &mut crate::scene_input::GeneratedBuildingRecipes::default(),
+    )
+    .unwrap();
     let terrain = SceneTerrain::from_heightmap(81, 81, 2.0, vec![0.0; 81 * 81]).unwrap();
     let ground = SceneGround::uniform_for_terrain(
         &terrain,
@@ -98,20 +104,28 @@ fn production_review_input_places_every_furniture_family() {
 
 #[test]
 fn ordered_candidate_identity_separates_swapped_fields_and_anchor_kinds() {
-    let id =
-        |anchor, slot| candidates::Candidate::new(42, slot, FurnitureGroupKind::Vendor, anchor).id;
+    let id = |anchor, slot| {
+        candidates::LocalCandidate::new(42.into(), slot, FurnitureGroupKind::Vendor, anchor)
+            .unwrap()
+            .place(
+                crate::scene_coordinates::ScenePlanPoint::ORIGIN,
+                BuildingOrientation::IDENTITY,
+            )
+            .unwrap()
+            .id
+    };
     assert_ne!(
-        id(FurnitureAnchor::Building { id: 1 }, 2),
-        id(FurnitureAnchor::Building { id: 2 }, 1)
+        id(FurnitureAnchor::Building { id: 1.into() }, 2),
+        id(FurnitureAnchor::Building { id: 2.into() }, 1)
     );
     assert_ne!(
         id(FurnitureAnchor::Market { patch_index: 1 }, 2),
-        id(FurnitureAnchor::Building { id: 1 }, 2)
+        id(FurnitureAnchor::Building { id: 1.into() }, 2)
     );
     let mut unique = std::collections::BTreeSet::new();
     for anchor in 0..64 {
         for slot in 0..48 {
-            assert!(unique.insert(id(FurnitureAnchor::Building { id: anchor }, slot)));
+            assert!(unique.insert(id(FurnitureAnchor::Building { id: anchor.into() }, slot)));
             assert!(unique.insert(id(
                 FurnitureAnchor::Market {
                     patch_index: anchor as u32
@@ -129,13 +143,52 @@ fn a_wet_gentle_grade_keeps_supported_examples_of_every_family() {
         "/../../assets/tactical-scenes/furniture-review.json"
     )))
     .unwrap();
-    input.seed += 1;
+    input.seed = input.seed.wrapping_offset(1);
     input.weather.ground_moisture_bps = 8500;
     let width = usize::from(input.playable.width);
     for (index, height) in input.playable.heights_metres.iter_mut().enumerate() {
         let x = index % width;
         *height += (x as f32 - (width - 1) as f32 * 0.5) * input.playable.spacing_metres * 0.004;
     }
+    // This authored catalogue has three known independent reservations. Rebind
+    // its changed source explicitly; runtime loading must reject stale support.
+    use crate::city_layout::{
+        CityPlotBounds, CityPropertyId, CitySceneLayout, CitySingleProperty, CompoundGradingPolicy,
+    };
+    let layout = CitySceneLayout {
+        playable: input.buildings.clone(),
+        streets: input.streets.clone(),
+        yards: input.yards.clone(),
+        parishes: input.parishes.clone(),
+        gardens: input.gardens.clone(),
+        compounds: input.compounds.clone(),
+        distant: input.distant_buildings.clone(),
+        single_properties: input
+            .buildings
+            .iter()
+            .map(|building| CitySingleProperty {
+                id: CityPropertyId(building.id.0),
+                building_id: building.id,
+                plot: CityPlotBounds::new(
+                    crate::scene_coordinates::ScenePlanPoint::try_from(
+                        building.centre_metres.metres(),
+                    )
+                    .unwrap(),
+                    adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                        Vec2::splat(35.0),
+                    )
+                    .unwrap(),
+                    building.orientation,
+                )
+                .unwrap(),
+            })
+            .collect(),
+        ..Default::default()
+    };
+    input.grounding = None;
+    let input = input
+        .ground_generated_city(&layout, CompoundGradingPolicy::bounded_settlement())
+        .unwrap();
     let scene = input.generate().unwrap();
     for kind in FurnitureKind::OUTDOOR {
         assert!(
@@ -152,8 +205,24 @@ fn a_wet_gentle_grade_keeps_supported_examples_of_every_family() {
 #[test]
 fn furniture_groups_are_deterministic_supported_and_leave_routes_clear() {
     let (input, buildings, terrain, ground) = fixture();
-    let first = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
-    let second = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
+    let first = generate(
+        &input,
+        &buildings,
+        &terrain,
+        &ground,
+        &[],
+        &mut Default::default(),
+    )
+    .unwrap();
+    let second = generate(
+        &input,
+        &buildings,
+        &terrain,
+        &ground,
+        &[],
+        &mut Default::default(),
+    )
+    .unwrap();
     assert_eq!(first, second);
     for kind in FurnitureKind::OUTDOOR {
         assert!(
@@ -195,13 +264,18 @@ fn furniture_groups_are_deterministic_supported_and_leave_routes_clear() {
         }
     }
     for instance in first.instances {
-        for support in &instance.scene.key.recipe().support_points_metres {
-            let point = Vec2::new(instance.position_metres.x, instance.position_metres.z)
-                + instance
-                    .orientation
-                    .local_to_world(Vec2::new(support.x, support.z));
+        for support in &instance.scene.key.recipe().unwrap().support_points_metres {
+            let point = Vec2::new(
+                instance.position_metres.metres().x,
+                instance.position_metres.metres().z,
+            ) + instance
+                .orientation
+                .local_to_world(Vec2::new(support.metres().x, support.metres().z));
             assert!(
-                (terrain.height_at(point).unwrap() - instance.position_metres.y - support.y).abs()
+                (terrain.height_at(point).unwrap()
+                    - instance.position_metres.metres().y
+                    - support.metres().y)
+                    .abs()
                     < 0.001
             );
         }
@@ -211,20 +285,36 @@ fn furniture_groups_are_deterministic_supported_and_leave_routes_clear() {
 #[test]
 fn inserted_street_obstruction_removes_every_conflicting_group() {
     let (mut input, buildings, terrain, ground) = fixture();
-    let original = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
+    let original = generate(
+        &input,
+        &buildings,
+        &terrain,
+        &ground,
+        &[],
+        &mut Default::default(),
+    )
+    .unwrap();
     let group = original
         .groups
         .iter()
         .find(|group| group.kind == FurnitureGroupKind::Vendor)
         .unwrap();
-    let centre = group.footprint.centre_metres;
+    let centre = group.footprint.centre().metres();
     input.streets.push(CityStreetPatch::Corridor {
         start_metres: centre - Vec2::X * 12.0,
         end_metres: centre + Vec2::X * 12.0,
         half_width_metres: 3.0,
         surface: CityStreetSurface::CompactedEarth,
     });
-    let changed = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
+    let changed = generate(
+        &input,
+        &buildings,
+        &terrain,
+        &ground,
+        &[],
+        &mut Default::default(),
+    )
+    .unwrap();
     assert!(
         !changed
             .groups
@@ -248,10 +338,17 @@ fn unsupported_or_submerged_candidates_are_rejected_without_moving_terrain() {
     let (input, buildings, mut terrain, ground) = fixture();
     assert!(terrain.rewrite_heights(|point, _| point.x * 0.3));
     assert!(
-        generate(&input, &buildings, &terrain, &ground, &[])
-            .unwrap()
-            .instances
-            .is_empty()
+        generate(
+            &input,
+            &buildings,
+            &terrain,
+            &ground,
+            &[],
+            &mut Default::default()
+        )
+        .unwrap()
+        .instances
+        .is_empty()
     );
     let (input, buildings, terrain, _) = fixture();
     let water = SceneGround::uniform_for_terrain(
@@ -262,24 +359,31 @@ fn unsupported_or_submerged_candidates_are_rejected_without_moving_terrain() {
         },
     );
     assert!(
-        generate(&input, &buildings, &terrain, &water, &[])
-            .unwrap()
-            .instances
-            .is_empty()
+        generate(
+            &input,
+            &buildings,
+            &terrain,
+            &water,
+            &[],
+            &mut Default::default()
+        )
+        .unwrap()
+        .instances
+        .is_empty()
     );
 }
 
 #[test]
 fn furniture_physics_blocks_real_members_and_keeps_stall_approach_open() {
     let barrel = FurnitureKey::natural(FurnitureKind::Barrel, FurnitureVariant::Compact);
-    let bounds = barrel.recipe().bounds;
-    let collider = furniture_collider(barrel);
+    let bounds = barrel.recipe().unwrap().bounds;
+    let collider = furniture_collider(barrel).unwrap();
     assert!(
         collider
             .cast_ray(
                 Vec3::ZERO,
                 Rotation::default(),
-                Vec3::new(0.0, bounds.max.y * 0.5, -4.0),
+                Vec3::new(0.0, bounds.max().metres().y * 0.5, -4.0),
                 Vec3::Z,
                 8.0,
                 false
@@ -287,9 +391,9 @@ fn furniture_physics_blocks_real_members_and_keeps_stall_approach_open() {
             .is_some()
     );
     let stall = FurnitureKey::natural(FurnitureKind::CanvasStall, FurnitureVariant::Compact);
-    let collider = furniture_collider(stall);
-    for member in &stall.recipe().colliders {
-        let ray = member.centre + Vec3::Y * 5.0;
+    let collider = furniture_collider(stall).unwrap();
+    for member in &stall.recipe().unwrap().colliders {
+        let ray = member.centre.metres() + Vec3::Y * 5.0;
         assert!(
             collider
                 .cast_ray(
@@ -303,13 +407,13 @@ fn furniture_physics_blocks_real_members_and_keeps_stall_approach_open() {
                 .is_some()
         );
     }
-    let recipe = stall.recipe();
+    let recipe = stall.recipe().unwrap();
     let clearance = recipe
         .clearances
         .first()
         .expect("stall access is explicitly reserved")
         .bounds;
-    let probe = clearance.centre();
+    let probe = clearance.centre().unwrap().metres();
     assert!(
         collider
             .cast_ray(
@@ -334,13 +438,29 @@ fn market_population_scales_with_area_without_obstructing_aisles() {
             .filter(|g| g.kind == FurnitureGroupKind::Vendor)
             .count()
     };
-    let small = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
+    let small = generate(
+        &input,
+        &buildings,
+        &terrain,
+        &ground,
+        &[],
+        &mut Default::default(),
+    )
+    .unwrap();
     if let CityStreetPatch::Market { corners_metres, .. } = &mut input.streets[0] {
         for p in corners_metres {
             *p *= 1.4;
         }
     }
-    let large = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
+    let large = generate(
+        &input,
+        &buildings,
+        &terrain,
+        &ground,
+        &[],
+        &mut Default::default(),
+    )
+    .unwrap();
     assert!(
         count(&small) > 24,
         "baseline market must exceed former fixed cap"

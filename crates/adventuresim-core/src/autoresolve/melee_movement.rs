@@ -1,19 +1,4 @@
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum MovementIntent {
-    Close,
-    Hold,
-    Retreat,
-}
-
-impl MovementIntent {
-    fn target_velocity(self, maximum_speed_metres_per_second: f32) -> f32 {
-        match self {
-            Self::Close => -maximum_speed_metres_per_second,
-            Self::Hold => 0.0,
-            Self::Retreat => maximum_speed_metres_per_second,
-        }
-    }
-}
+use super::MeleeMovementAction;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(super) struct AxisMotion {
@@ -38,7 +23,7 @@ pub(super) struct OpposedMovement {
 /// and while velocity is capped at guarded movement speed.
 fn integrate_axis(
     velocity_metres_per_second: f32,
-    intent: MovementIntent,
+    intent: MeleeMovementAction,
     maximum_speed_metres_per_second: f32,
     maximum_acceleration_metres_per_second_squared: f32,
     elapsed_seconds: f32,
@@ -90,10 +75,10 @@ pub(super) fn ground_drive_acceleration(
 pub(super) fn integrate_opposed_movement(
     distance_metres: f32,
     first_velocity_metres_per_second: f32,
-    first_intent: MovementIntent,
+    first_intent: MeleeMovementAction,
     first_maximum_speed_metres_per_second: f32,
     second_velocity_metres_per_second: f32,
-    second_intent: MovementIntent,
+    second_intent: MeleeMovementAction,
     second_maximum_speed_metres_per_second: f32,
     first_maximum_acceleration_metres_per_second_squared: f32,
     second_maximum_acceleration_metres_per_second_squared: f32,
@@ -154,9 +139,9 @@ mod tests {
     #[test]
     fn displacement_never_exceeds_speed_times_elapsed() {
         for intent in [
-            MovementIntent::Close,
-            MovementIntent::Hold,
-            MovementIntent::Retreat,
+            MeleeMovementAction::Close,
+            MeleeMovementAction::Hold,
+            MeleeMovementAction::Retreat,
         ] {
             let motion = integrate_axis(0.0, intent, SPEED, ACCELERATION, 0.25);
             assert!(motion.displacement_metres.abs() <= SPEED * 0.25 + 1.0e-6);
@@ -165,11 +150,11 @@ mod tests {
 
     #[test]
     fn acceleration_integration_is_substep_invariant() {
-        let whole = integrate_axis(0.0, MovementIntent::Close, SPEED, ACCELERATION, 0.2);
-        let first = integrate_axis(0.0, MovementIntent::Close, SPEED, ACCELERATION, 0.1);
+        let whole = integrate_axis(0.0, MeleeMovementAction::Close, SPEED, ACCELERATION, 0.2);
+        let first = integrate_axis(0.0, MeleeMovementAction::Close, SPEED, ACCELERATION, 0.1);
         let second = integrate_axis(
             first.velocity_after_metres_per_second,
-            MovementIntent::Close,
+            MeleeMovementAction::Close,
             SPEED,
             ACCELERATION,
             0.1,
@@ -195,7 +180,7 @@ mod tests {
 
     #[test]
     fn opposed_intent_cannot_reverse_velocity_instantaneously() {
-        let motion = integrate_axis(2.0, MovementIntent::Close, SPEED, 12.0, 0.01);
+        let motion = integrate_axis(2.0, MeleeMovementAction::Close, SPEED, 12.0, 0.01);
         assert!(motion.velocity_after_metres_per_second > 0.0);
         assert!(motion.displacement_metres > 0.0);
     }
@@ -205,10 +190,10 @@ mod tests {
         let mutual_close = integrate_opposed_movement(
             2.0,
             0.0,
-            MovementIntent::Close,
+            MeleeMovementAction::Close,
             SPEED,
             0.0,
-            MovementIntent::Close,
+            MeleeMovementAction::Close,
             SPEED,
             ACCELERATION,
             ACCELERATION,
@@ -219,10 +204,10 @@ mod tests {
         let chase = integrate_opposed_movement(
             2.0,
             0.0,
-            MovementIntent::Close,
+            MeleeMovementAction::Close,
             SPEED,
             0.0,
-            MovementIntent::Retreat,
+            MeleeMovementAction::Retreat,
             SPEED,
             ACCELERATION,
             ACCELERATION,
@@ -239,10 +224,10 @@ mod tests {
         let movement = integrate_opposed_movement(
             0.81,
             -SPEED,
-            MovementIntent::Close,
+            MeleeMovementAction::Close,
             SPEED,
             -SPEED,
-            MovementIntent::Close,
+            MeleeMovementAction::Close,
             SPEED,
             ACCELERATION,
             ACCELERATION,
@@ -262,10 +247,10 @@ mod tests {
         let whole = integrate_opposed_movement(
             1.0,
             -SPEED,
-            MovementIntent::Close,
+            MeleeMovementAction::Close,
             SPEED,
             -SPEED,
-            MovementIntent::Close,
+            MeleeMovementAction::Close,
             SPEED,
             ACCELERATION,
             ACCELERATION,
@@ -276,10 +261,10 @@ mod tests {
         let first = integrate_opposed_movement(
             1.0,
             -SPEED,
-            MovementIntent::Close,
+            MeleeMovementAction::Close,
             SPEED,
             -SPEED,
-            MovementIntent::Close,
+            MeleeMovementAction::Close,
             SPEED,
             ACCELERATION,
             ACCELERATION,
@@ -290,10 +275,10 @@ mod tests {
         let second = integrate_opposed_movement(
             first.distance_after_metres,
             first.first.velocity_after_metres_per_second,
-            MovementIntent::Close,
+            MeleeMovementAction::Close,
             SPEED,
             first.second.velocity_after_metres_per_second,
-            MovementIntent::Close,
+            MeleeMovementAction::Close,
             SPEED,
             ACCELERATION,
             ACCELERATION,

@@ -227,7 +227,7 @@ fn add_fireplace_ingredients_at(
 ) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
     let actor = crate::character::require_living_character(ctx, character_id)?;
-    if actor.in_server {
+    if actor.has_tactical_server_assignment() {
         return Err("Cooking is unavailable during a tactical encounter".into());
     }
     validate_fireplace_fixture(ctx, &actor, &fireplace_fixture_id)?;
@@ -617,7 +617,7 @@ pub fn retrieve_fireplace_dish(
 ) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
     let actor = crate::character::require_living_character(ctx, character_id)?;
-    if actor.in_server {
+    if actor.has_tactical_server_assignment() {
         return Err("Cooking is unavailable during a tactical encounter".into());
     }
     validate_fireplace_fixture(ctx, &actor, &fireplace_fixture_id)?;
@@ -655,7 +655,7 @@ pub fn retrieve_fireplace_dish(
         return Err("Dish selector conflicts with its fireplace container".into());
     }
     let minute = current_minute(ctx, character_id);
-    let elapsed = minute.saturating_sub(dish.started_at_minute);
+    let elapsed = minute.elapsed_since(dish.started_at_minute);
     let doneness = food::method_doneness_outcome(dish.method, elapsed, dish.target_minutes);
     let quality = dish
         .ready_quality

@@ -2,17 +2,17 @@
 fn lifecycle_queue_has_explicit_cross_kind_order() {
     let mut events = [
         DueLifecycleEvent::Birth {
-            effective_minute: 20,
+            effective_minute: StrategicMinute::new(20),
             id: "birth-b".into(),
             mother_id: 2,
         },
         DueLifecycleEvent::Wedding {
-            effective_minute: 20,
+            effective_minute: StrategicMinute::new(20),
             id: "wedding-z".into(),
             participant_id: 3,
         },
         DueLifecycleEvent::Wedding {
-            effective_minute: 10,
+            effective_minute: StrategicMinute::new(10),
             id: "wedding-a".into(),
             participant_id: 1,
         },
@@ -21,9 +21,9 @@ fn lifecycle_queue_has_explicit_cross_kind_order() {
     assert!(matches!(
         events[0],
         DueLifecycleEvent::Wedding {
-            effective_minute: 10,
+            effective_minute,
             ..
-        }
+        } if effective_minute == StrategicMinute::new(10)
     ));
     assert!(matches!(events[1], DueLifecycleEvent::Wedding { .. }));
     assert!(matches!(events[2], DueLifecycleEvent::Birth { .. }));
@@ -39,8 +39,8 @@ fn global_lifecycle_selection_is_stable_non_starving_and_poison_tolerant() {
         .split("fn socializing_id")
         .next()
         .unwrap();
-    assert!(queue.contains(".effective_minute()"));
-    assert!(queue.contains(".due_minute()"));
+    assert!(queue.contains("row.effective_minute <= now"));
+    assert!(queue.contains("row.due_minute <= now"));
     assert!(queue.contains("due.sort_by"));
     assert!(queue.contains("due.retain(|event| event.processable(ctx))"));
     assert!(queue.contains("due.truncate(limit)"));
@@ -69,7 +69,7 @@ fn birth_and_discovery_wait_for_authoritative_personal_frontiers() {
         .split("fn personality_disposition")
         .next()
         .unwrap();
-    assert!(discovery.contains("first_frontier / MINUTES_PER_DAY < day"));
+    assert!(discovery.contains("first_frontier.day_index() < day"));
     assert!(discovery.contains("canonical_now(ctx, baseline.observer_id)?"));
     assert!(discovery.contains("courtship_observer_baseline()"));
     assert!(!discovery.contains("no-observation"));

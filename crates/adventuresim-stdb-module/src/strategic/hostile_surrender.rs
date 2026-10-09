@@ -28,7 +28,7 @@ pub struct HostileSurrenderReceipt {
     pub player_accepted_offer: Option<bool>,
     pub outcome: HostileSurrenderOutcome,
     pub response: String,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -49,10 +49,7 @@ fn surrender_awareness_for_case(ctx: &ReducerContext, case: &CaseAuthority) -> u
         .map_or(0, |problem| problem.public_awareness_bps)
 }
 
-fn surrender_awareness_for_group_view(
-    ctx: &ViewContext,
-    group: &HostileGroupAuthority,
-) -> u16 {
+fn surrender_awareness_for_group_view(ctx: &ViewContext, group: &HostileGroupAuthority) -> u16 {
     ctx.db
         .case_site_authority()
         .id_key()
@@ -63,11 +60,7 @@ fn surrender_awareness_for_group_view(
         .map_or(0, |problem| problem.public_awareness_bps)
 }
 
-fn surrender_offer_elected(
-    language: f32,
-    morale: u8,
-    awareness_bps: u16,
-) -> bool {
+fn surrender_offer_elected(language: f32, morale: u8, awareness_bps: u16) -> bool {
     adventuresim_core::strategic_action::assess_hostile_surrender(
         0.0,
         language,
@@ -134,7 +127,8 @@ pub fn backend_hostile_surrenders(ctx: &ViewContext) -> Vec<BackendHostileSurren
         let Some(spokesman) = exact_spokesman_for_view(ctx, &group, minute) else {
             continue;
         };
-        let language = view_shared_language_coefficient(ctx, party.leader_id, spokesman.character_id);
+        let language =
+            view_shared_language_coefficient(ctx, party.leader_id, spokesman.character_id);
         if language <= 0.0 {
             continue;
         }
@@ -175,12 +169,18 @@ struct SurrenderRequest {
     player_accepted_offer: Option<bool>,
 }
 
-fn resolve_hostile_surrender(ctx: &ReducerContext, request: SurrenderRequest) -> Result<(), String> {
+fn resolve_hostile_surrender(
+    ctx: &ReducerContext,
+    request: SurrenderRequest,
+) -> Result<(), String> {
     require_strategic_character_authority(ctx, request.actor_id)?;
     if request.action_id.is_empty() || request.action_id.len() > 160 {
         return Err("Hostile surrender action ID is invalid".into());
     }
-    let receipt_id = format!("hostile-surrender:{}:{}", request.actor_id, request.action_id);
+    let receipt_id = format!(
+        "hostile-surrender:{}:{}",
+        request.actor_id, request.action_id
+    );
     if let Some(existing) = ctx.db.hostile_surrender_receipt().id().find(&receipt_id) {
         return if existing.actor_id == request.actor_id
             && existing.case_site_id.as_str() == request.case_site_id
@@ -211,11 +211,8 @@ fn resolve_hostile_surrender(ctx: &ReducerContext, request: SurrenderRequest) ->
         .find(&site.case_id)
         .ok_or("Surrender case authority is unavailable")?;
     let profile = parse_threat(&group.enemy_type)?.profile();
-    let language = crate::character::shared_language_coefficient(
-        ctx,
-        request.actor_id,
-        request.spokesman_id,
-    );
+    let language =
+        crate::character::shared_language_coefficient(ctx, request.actor_id, request.spokesman_id);
     let affinity = crate::social::current_affinity(ctx, request.spokesman_id, request.actor_id);
     let social_ability = crate::condition::mental_check(
         ctx,
@@ -289,12 +286,7 @@ fn resolve_hostile_surrender(ctx: &ReducerContext, request: SurrenderRequest) ->
                 .into(),
         )
     } else {
-        crate::social::put_affinity(
-            ctx,
-            request.spokesman_id,
-            request.actor_id,
-            affinity - 1.0,
-        );
+        crate::social::put_affinity(ctx, request.spokesman_id, request.actor_id, affinity - 1.0);
         (
             HostileSurrenderOutcome::Refused,
             "The hostile spokesman refuses your surrender demand. The group remains active and every approach remains available."
@@ -308,21 +300,23 @@ fn resolve_hostile_surrender(ctx: &ReducerContext, request: SurrenderRequest) ->
         .find(request.actor_id)
         .ok_or("Surrender actor has no personal time")?
         .minutes;
-    ctx.db.hostile_surrender_receipt().insert(HostileSurrenderReceipt {
-        id: receipt_id,
-        actor_id: request.actor_id,
-        party_id: party.id,
-        case_site_id: group.case_site_id,
-        hostile_group_id: group.id,
-        spokesman_id: request.spokesman_id,
-        context_ref: request.context_ref,
-        expected_revision: request.expected_revision,
-        mode: request.mode,
-        player_accepted_offer: request.player_accepted_offer,
-        outcome,
-        response,
-        occurred_at_minute,
-    });
+    ctx.db
+        .hostile_surrender_receipt()
+        .insert(HostileSurrenderReceipt {
+            id: receipt_id,
+            actor_id: request.actor_id,
+            party_id: party.id,
+            case_site_id: group.case_site_id,
+            hostile_group_id: group.id,
+            spokesman_id: request.spokesman_id,
+            context_ref: request.context_ref,
+            expected_revision: request.expected_revision,
+            mode: request.mode,
+            player_accepted_offer: request.player_accepted_offer,
+            outcome,
+            response,
+            occurred_at_minute,
+        });
     Ok(())
 }
 
@@ -406,7 +400,13 @@ mod hostile_surrender_source_tests {
             .split("HostileSurrenderOutcome::Declined")
             .next()
             .expect("player-declined offer branch");
-        assert!(!declined.rsplit("} else if").next().unwrap().contains("put_affinity"));
+        assert!(
+            !declined
+                .rsplit("} else if")
+                .next()
+                .unwrap()
+                .contains("put_affinity")
+        );
         assert!(source.contains("every available approach remain unchanged"));
         assert!(source.contains("put_affinity"));
         assert!(!source.contains("BattleResult"));

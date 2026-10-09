@@ -3,11 +3,20 @@
 //! Content declares presentation and closed, typed intentions. Strategic reducers
 //! remain the sole authority for checks and state mutation.
 
+use crate::{
+    attribute::SimpleAttribute,
+    personality::ChivalricVirtue,
+    strategic_presence::{
+        CharacterContextRole, ContextualDecisionState, InteractionPresentationDecision,
+    },
+};
+#[cfg(runtime_catalog)]
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeSet, sync::OnceLock};
 
 #[cfg(runtime_catalog)]
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::StreamId;
 
 #[cfg(runtime_catalog)]
 include!(concat!(env!("OUT_DIR"), "/road_encounter_catalog.rs"));
@@ -16,11 +25,6 @@ pub const CATALOG_REVISION: u32 = 3;
 pub const MAX_WEIGHT: u16 = 10_000;
 pub const MAX_CHOICES: usize = 8;
 pub const MAX_TEXT_BYTES: usize = 2_048;
-
-#[cfg(runtime_catalog)]
-const QUEST_ENCOUNTER_SELECTION_DOMAIN: u64 = 0x726f_6164_7175_6573;
-#[cfg(runtime_catalog)]
-const QUEST_ENCOUNTER_DRAW_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
@@ -74,9 +78,9 @@ pub struct Speaker {
 #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
 pub enum SpeakerBacking {
     Character {
-        role: CharacterCastRole,
-        contact_decision: AuthoredInteractionDecision,
-        treatment_decision: AuthoredInteractionDecision,
+        role: CharacterContextRole,
+        contact_decision: ContextualDecisionState,
+        treatment_decision: ContextualDecisionState,
     },
     NarrativeOnly {
         reason: String,
@@ -85,22 +89,6 @@ pub enum SpeakerBacking {
         issue: String,
         reason: String,
     },
-}
-
-#[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq)]
-#[serde(rename_all = "snake_case")]
-pub enum AuthoredInteractionDecision {
-    Allowed,
-    Refused,
-    Unavailable,
-}
-
-#[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq)]
-#[serde(rename_all = "snake_case")]
-pub enum CharacterCastRole {
-    Counterparty,
-    Patient,
-    Bystander,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq)]
@@ -250,7 +238,7 @@ impl CombatOutcomeSet {
     }
 }
 
-pub fn exemplified_virtue(developments: &[PersonalityDevelopment]) -> Option<VirtueId> {
+pub fn exemplified_virtue(developments: &[PersonalityDevelopment]) -> Option<ChivalricVirtue> {
     developments
         .iter()
         .find(|development| development.delta > 0)
@@ -277,21 +265,12 @@ pub struct EncounterPresentation {
 pub struct PresentationCastMember {
     pub character_id: u64,
     pub name: String,
-    pub role: CharacterCastRole,
+    pub role: CharacterContextRole,
     pub contact_decision: InteractionPresentationDecision,
     pub treatment_decision: InteractionPresentationDecision,
     pub contact_revision: u32,
     pub membership_revision: u32,
     pub treatment_limb_slug: Option<String>,
-}
-
-#[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq)]
-#[serde(rename_all = "snake_case")]
-pub enum InteractionPresentationDecision {
-    Request,
-    Refused,
-    Unavailable,
-    EmergencyTreatment,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -341,7 +320,7 @@ pub enum Check {
         difficulty_milli: u16,
     },
     Attribute {
-        attribute: AttributeId,
+        attribute: SimpleAttribute,
         difficulty_milli: u16,
     },
 }
@@ -360,7 +339,7 @@ pub enum Effect {
 pub struct PersonalityDevelopment {
     pub axis: PersonalityAxisId,
     pub delta: i16,
-    pub virtue: VirtueId,
+    pub virtue: ChivalricVirtue,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq, PartialOrd, Ord)]
@@ -386,17 +365,6 @@ pub enum ReligionId {
 }
 #[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq, PartialOrd, Ord)]
 #[serde(rename_all = "snake_case")]
-pub enum AttributeId {
-    Endurance,
-    Immunity,
-    Gut,
-    Intelligence,
-    Instinct,
-    Eyesight,
-    Hearing,
-}
-#[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq, PartialOrd, Ord)]
-#[serde(rename_all = "snake_case")]
 pub enum PersonalityAxisId {
     Nerve,
     Drive,
@@ -406,18 +374,6 @@ pub enum PersonalityAxisId {
     Conviction,
     Courtship,
     Transparency,
-}
-#[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq, PartialOrd, Ord)]
-#[serde(rename_all = "snake_case")]
-pub enum VirtueId {
-    Courage,
-    Mercy,
-    Faith,
-    Justice,
-    Courtesy,
-    Loyalty,
-    Prudence,
-    Honesty,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -542,9 +498,9 @@ pub fn validate_definitions(definitions: &[EncounterDefinition]) -> Result<(), S
                             matches!(
                                 &speaker.backing,
                                 SpeakerBacking::Character {
-                                    role: CharacterCastRole::Patient,
-                                    treatment_decision: AuthoredInteractionDecision::Allowed
-                                        | AuthoredInteractionDecision::Unavailable,
+                                    role: CharacterContextRole::Patient,
+                                    treatment_decision: ContextualDecisionState::Allowed
+                                        | ContextualDecisionState::Unavailable,
                                     ..
                                 }
                             )
@@ -1052,28 +1008,26 @@ pub fn encounter(id: &str) -> Option<&'static EncounterDefinition> {
 }
 
 #[cfg(runtime_catalog)]
-pub fn select_quest_eligible(seed: u64, draw: u64) -> Option<&'static EncounterDefinition> {
-    let eligible = definitions()
+pub fn select_quest_eligible(seed: Seed, draw: u64) -> Option<&'static EncounterDefinition> {
+    let mut eligible: Vec<_> = definitions()
         .iter()
-        .filter(|definition| !definition.quest_reward_eligibility.is_empty())
-        .collect::<Vec<_>>();
-    let total = eligible
-        .iter()
-        .map(|definition| u64::from(definition.weight))
-        .sum::<u64>();
-    if total == 0 {
+        .filter(|definition| {
+            !definition.quest_reward_eligibility.is_empty() && definition.weight > 0
+        })
+        .collect();
+    eligible.sort_by_key(|definition| definition.id.as_str());
+    if eligible.is_empty() {
         return None;
     }
-    let mut roll = mix64(
-        seed ^ draw.wrapping_mul(QUEST_ENCOUNTER_DRAW_STRIDE) ^ QUEST_ENCOUNTER_SELECTION_DOMAIN,
-    ) % total;
-    for definition in eligible {
-        if roll < u64::from(definition.weight) {
-            return Some(definition);
-        }
-        roll -= u64::from(definition.weight);
-    }
-    None
+    let weights: Vec<_> = eligible
+        .iter()
+        .map(|definition| u64::from(definition.weight))
+        .collect();
+    let selected = StreamId::new("encounter.quest-selection")
+        .rng(seed, &[draw])
+        .weighted_index(&weights)
+        .expect("validated bounded encounter catalog weights");
+    Some(eligible[selected])
 }
 #[cfg(runtime_catalog)]
 pub fn digest() -> &'static str {
@@ -1171,10 +1125,10 @@ mod tests {
             assert!(definition.cast.iter().any(|speaker| matches!(
                 &speaker.backing,
                 SpeakerBacking::Character {
-                    role: CharacterCastRole::Patient,
+                    role: CharacterContextRole::Patient,
                     contact_decision: _,
-                    treatment_decision: AuthoredInteractionDecision::Allowed
-                        | AuthoredInteractionDecision::Unavailable,
+                    treatment_decision: ContextualDecisionState::Allowed
+                        | ContextualDecisionState::Unavailable,
                 }
             )));
         }
@@ -1184,9 +1138,9 @@ mod tests {
     fn validator_rejects_unsupported_character_and_scripted_backing() {
         let mut supernatural = encounter("enchanted_fog_lost_forester_v1").unwrap().clone();
         supernatural.cast[0].backing = SpeakerBacking::Character {
-            role: CharacterCastRole::Counterparty,
-            contact_decision: AuthoredInteractionDecision::Allowed,
-            treatment_decision: AuthoredInteractionDecision::Unavailable,
+            role: CharacterContextRole::Counterparty,
+            contact_decision: ContextualDecisionState::Allowed,
+            treatment_decision: ContextualDecisionState::Unavailable,
         };
         assert!(
             validate_definitions(&[supernatural])
@@ -1275,8 +1229,8 @@ mod tests {
 
     #[test]
     fn quest_selection_is_deterministic_weighted_and_eligible() {
-        let first = select_quest_eligible(42, 7).unwrap();
-        let second = select_quest_eligible(42, 7).unwrap();
+        let first = select_quest_eligible(fabelgeist_determinism::Seed::from_u64(42), 7).unwrap();
+        let second = select_quest_eligible(fabelgeist_determinism::Seed::from_u64(42), 7).unwrap();
         assert_eq!(first.id, second.id);
         assert!(!first.quest_reward_eligibility.is_empty());
     }
@@ -1293,7 +1247,7 @@ mod tests {
             .push(PersonalityDevelopment {
                 axis: PersonalityAxisId::Nerve,
                 delta: 1,
-                virtue: VirtueId::Courage,
+                virtue: ChivalricVirtue::Courage,
             });
         assert!(
             validate_definitions(&[dirty])
@@ -1481,7 +1435,10 @@ mod tests {
         );
         assert!(outcomes.victory.effects.iter().any(|effect| matches!(effect,
             Effect::Information { information_id } if information_id == "unlawful_bridge_keeper_fighting_method")));
-        assert_eq!(outcomes.victory.personality[0].virtue, VirtueId::Courage);
+        assert_eq!(
+            outcomes.victory.personality[0].virtue,
+            ChivalricVirtue::Courage
+        );
         assert_eq!(
             outcomes.victory.quest_reward_tags,
             &["bridge_keeper_fighting_method"]
@@ -1492,7 +1449,7 @@ mod tests {
         assert_eq!(exemplified_virtue(&outcomes.surrender.personality), None);
         assert_eq!(
             exemplified_virtue(&outcomes.victory.personality),
-            Some(VirtueId::Courage)
+            Some(ChivalricVirtue::Courage)
         );
         assert_ne!(outcomes.escape.result, outcomes.surrender.result);
         assert!(matches!(
@@ -1627,10 +1584,10 @@ mod tests {
                 .any(|effect| matches!(effect, Effect::Currency { amount: 16, .. }))
         );
         for (route, virtue) in [
-            ("render_service", VirtueId::Courtesy),
-            ("bargain_as_equals", VirtueId::Justice),
-            ("order_household", VirtueId::Prudence),
-            ("rebuke_pride", VirtueId::Faith),
+            ("render_service", ChivalricVirtue::Courtesy),
+            ("bargain_as_equals", ChivalricVirtue::Justice),
+            ("order_household", ChivalricVirtue::Prudence),
+            ("rebuke_pride", ChivalricVirtue::Faith),
         ] {
             assert_eq!(exemplified_virtue(&choice(route).personality), Some(virtue));
         }
@@ -1801,7 +1758,7 @@ mod tests {
         assert!(matches!(
             choice("row_in_lieu").checks[0],
             Check::Attribute {
-                attribute: AttributeId::Endurance,
+                attribute: SimpleAttribute::Endurance,
                 difficulty_milli: 1200
             }
         ));
@@ -1849,11 +1806,11 @@ mod tests {
         );
 
         for (route, virtue) in [
-            ("pay_tribute", VirtueId::Prudence),
-            ("barter_provisions", VirtueId::Courtesy),
-            ("row_in_lieu", VirtueId::Courage),
-            ("expose_altered_tally", VirtueId::Justice),
-            ("organize_repair", VirtueId::Prudence),
+            ("pay_tribute", ChivalricVirtue::Prudence),
+            ("barter_provisions", ChivalricVirtue::Courtesy),
+            ("row_in_lieu", ChivalricVirtue::Courage),
+            ("expose_altered_tally", ChivalricVirtue::Justice),
+            ("organize_repair", ChivalricVirtue::Prudence),
         ] {
             assert_eq!(exemplified_virtue(&choice(route).personality), Some(virtue));
         }

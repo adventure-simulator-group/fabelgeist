@@ -1,6 +1,6 @@
 //! Separate circular armpit plates and their full-circle radial flutes.
-use adventuresim_armor_model::{BesagewDesign, PlateFluting, RadialFluting};
 use bevy_egui::egui;
+use fabelgeist_armor::{BesagewDesign, PlateFluting, RadialFluting};
 
 pub(super) fn show(ui: &mut egui::Ui, besagew: &mut Option<BesagewDesign>) -> bool {
     let original = besagew.clone();

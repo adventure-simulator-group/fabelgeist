@@ -40,7 +40,7 @@ mod tests {
     use super::super::*;
 
     #[test]
-    fn museum_fixtures_select_distinct_constructions_and_require_morphs() {
+    fn museum_fixtures_select_distinct_constructions_without_equipment_morphs() {
         for (name, helmet, shoulder, waist, excluded) in [
             ("museum-henry", "burgonet", "pauldron", "tassets", "greave"),
             (
@@ -61,13 +61,7 @@ mod tests {
             }
             assert_eq!(items.len(), fixture.item_ids().count());
             let required = fixture.visual_requirements();
-            assert_eq!(
-                required.morph_targets,
-                Some(
-                    adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
-                        + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len()
-                )
-            );
+            assert_eq!(required.morph_targets, Some(0));
             // Helmet-only component names must not block other fixture items.
             assert!(required.names.is_empty());
         }

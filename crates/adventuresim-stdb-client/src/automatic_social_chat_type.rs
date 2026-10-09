@@ -10,7 +10,6 @@ pub struct AutomaticSocialChat {
     pub id: String,
     pub actor_id: u64,
     pub target_id: u64,
-    pub enabled: bool,
 }
 
 impl __sdk::InModule for AutomaticSocialChat {
@@ -24,7 +23,6 @@ pub struct AutomaticSocialChatCols {
     pub id: __sdk::__query_builder::Col<AutomaticSocialChat, String>,
     pub actor_id: __sdk::__query_builder::Col<AutomaticSocialChat, u64>,
     pub target_id: __sdk::__query_builder::Col<AutomaticSocialChat, u64>,
-    pub enabled: __sdk::__query_builder::Col<AutomaticSocialChat, bool>,
 }
 
 impl __sdk::__query_builder::HasCols for AutomaticSocialChat {
@@ -34,7 +32,6 @@ impl __sdk::__query_builder::HasCols for AutomaticSocialChat {
             id: __sdk::__query_builder::Col::new(table_name, "id"),
             actor_id: __sdk::__query_builder::Col::new(table_name, "actor_id"),
             target_id: __sdk::__query_builder::Col::new(table_name, "target_id"),
-            enabled: __sdk::__query_builder::Col::new(table_name, "enabled"),
         }
     }
 }

@@ -4,13 +4,15 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct DowryEscrow {
     pub commitment_id: String,
     pub father_id: u64,
     pub amount: u32,
-    pub reserved_minute: u64,
+    pub reserved_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for DowryEscrow {
@@ -24,7 +26,7 @@ pub struct DowryEscrowCols {
     pub commitment_id: __sdk::__query_builder::Col<DowryEscrow, String>,
     pub father_id: __sdk::__query_builder::Col<DowryEscrow, u64>,
     pub amount: __sdk::__query_builder::Col<DowryEscrow, u32>,
-    pub reserved_minute: __sdk::__query_builder::Col<DowryEscrow, u64>,
+    pub reserved_minute: __sdk::__query_builder::Col<DowryEscrow, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for DowryEscrow {

@@ -3,8 +3,7 @@ use std::sync::Arc;
 use crate::data::gpu::texture::TextureFormat;
 use anyhow::Result;
 
-use crate::globals::WgpuContext;
-use fabelgeist_math::Vec3;
+use crate::{data::vector::Vec3, globals::WgpuContext};
 
 #[derive(Clone, Debug)]
 pub struct Texture3d {
@@ -42,7 +41,6 @@ impl Default for Texture3d {
         }
     }
 }
-
 impl Texture3d {
     pub fn new(context: &WgpuContext, size: Vec3, format: TextureFormat) -> Result<Texture3d> {
         let _wgpu_format: wgpu::TextureFormat = format.into();
@@ -128,7 +126,6 @@ impl Texture3d {
     pub fn size(&self) -> Vec3 {
         Vec3::new(self.size.0 as f32, self.size.1 as f32, self.size.2 as f32)
     }
-
     pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
         let (width, height, depth) = self.size;
         let texture = self
@@ -178,9 +175,8 @@ impl Texture3d {
 
         context.queue.submit(Some(encoder.finish()));
 
-        let (tx, rx) = futures_channel::oneshot::channel();
-        #[cfg(not(target_arch = "wasm32"))]
-        let mut rx = rx;
+        #[allow(unused_mut)]
+        let (tx, mut rx) = futures_channel::oneshot::channel();
         {
             let slice = staging_buffer.slice(..);
             slice.map_async(wgpu::MapMode::Read, move |res| {
@@ -213,7 +209,7 @@ impl Texture3d {
             .map_err(|_| anyhow::anyhow!("GPU Mapping error"))?;
 
         let slice = staging_buffer.slice(..);
-        let data = slice.get_mapped_range()?;
+        let data = slice.get_mapped_range();
 
         let mut result =
             Vec::with_capacity((width * height * depth) as usize * pixel_size as usize);
@@ -235,7 +231,6 @@ impl Texture3d {
 
         Ok(bytemuck::cast_slice::<u8, T>(&result).to_vec())
     }
-
     pub fn write<T: bytemuck::NoUninit>(&self, context: &WgpuContext, data: &[T]) -> Result<()> {
         let (width, height, depth) = self.size;
         let texture = self
@@ -267,7 +262,6 @@ impl Texture3d {
 
         Ok(())
     }
-
     pub fn view_with_format(
         &self,
         _context: &WgpuContext,

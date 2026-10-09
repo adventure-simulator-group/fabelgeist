@@ -1,3 +1,5 @@
+const RNG_VISUAL_BUILDING_APPEARANCE: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("visual.building.appearance");
 use adventuresim_building_generator::{
     BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingLodMaterial, RoofMaterial, WallMaterialClass,
 };
@@ -13,15 +15,14 @@ use adventuresim_procedural_textures::{
 };
 use bevy::math::{Affine2, Vec2};
 use bevy::render::render_resource::Face;
-use fabelgeist_determinism::splitmix64;
+use fabelgeist_determinism::StreamId;
 
 use super::super::*;
 
 mod furniture;
+mod palette;
 mod workplace;
 use workplace::WorkplaceMaterials;
-
-const APPEARANCE_DOMAIN: u64 = 0x6275_696c_645f_636f;
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 enum BuildingAppearance {
@@ -36,6 +37,25 @@ enum BuildingAppearance {
 }
 
 impl BuildingAppearance {
+    fn for_distant_building(
+        prosperity: adventuresim_world_schema::ProsperityTier,
+        variant: adventuresim_tactical_core::scene_input::DistantBuildingVariant,
+    ) -> Self {
+        use adventuresim_tactical_core::scene_input::DistantBuildingVariant::*;
+        use adventuresim_world_schema::ProsperityTier::*;
+        match (prosperity, variant) {
+            (Subsistence | Modest, Plain) => Self::NaturalOak,
+            (Subsistence | Modest, Weathered) => Self::WeatheredOak,
+            (Subsistence | Modest, Decorated) => Self::WeatheredGray,
+            (Comfortable, Plain) => Self::NaturalOak,
+            (Comfortable, Weathered) => Self::OxideRed,
+            (Comfortable, Decorated) => Self::RenderedCream,
+            (Prosperous | Wealthy, Plain) => Self::RedBrownBrick,
+            (Prosperous | Wealthy, Weathered) => Self::RenderedOchre,
+            (Prosperous | Wealthy, Decorated) => Self::Ochre,
+        }
+    }
+
     const ALL: [Self; 8] = [
         Self::NaturalOak,
         Self::WeatheredOak,
@@ -48,7 +68,10 @@ impl BuildingAppearance {
     ];
 
     fn for_building(building_id: u64) -> Self {
-        match splitmix64(building_id ^ APPEARANCE_DOMAIN) % 100 {
+        match RNG_VISUAL_BUILDING_APPEARANCE
+            .rng(building_id.into(), &[])
+            .index(100)
+        {
             0..=22 => Self::NaturalOak,
             23..=34 => Self::WeatheredOak,
             35..=49 => Self::OxideRed,
@@ -181,59 +204,23 @@ pub(crate) struct TacticalBuildingMaterials {
 }
 
 impl TacticalBuildingMaterials {
-    pub(crate) fn get_for_building(
+    pub(super) fn for_distant_building(
         &self,
-        building_id: u64,
-        material: BuildingLodMaterial,
-    ) -> Handle<StandardMaterial> {
+        prosperity: adventuresim_world_schema::ProsperityTier,
+        variant: adventuresim_tactical_core::scene_input::DistantBuildingVariant,
+    ) -> palette::BuildingPalette<'_> {
+        let appearance = BuildingAppearance::for_distant_building(prosperity, variant);
+        palette::BuildingPalette {
+            assets: self,
+            appearance: &self.appearances[appearance as usize],
+        }
+    }
+
+    pub(crate) fn for_building(&self, building_id: u64) -> palette::BuildingPalette<'_> {
         let appearance = BuildingAppearance::for_building(building_id);
-        let palette = &self.appearances[appearance as usize];
-        match material {
-            BuildingLodMaterial::Wall(WallMaterialClass::TimberInfill) => palette.infill.clone(),
-            BuildingLodMaterial::Wall(WallMaterialClass::CivilianMasonry)
-                if palette.finish == FacadeFinish::FullyRendered =>
-            {
-                palette.infill.clone()
-            }
-            BuildingLodMaterial::Wall(WallMaterialClass::CivilianMasonry) => self.brick.clone(),
-            BuildingLodMaterial::Wall(WallMaterialClass::RubbleMasonry) => self.rubble.clone(),
-            BuildingLodMaterial::Wall(
-                WallMaterialClass::InternalTimber | WallMaterialClass::InternalMasonry,
-            ) => self.interior_plaster.clone(),
-            BuildingLodMaterial::Wall(_) | BuildingLodMaterial::CrownMasonry => self.stone.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::ClayTile) => palette.tile.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::Slate) => self.slate.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::Lead) => self.lead.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::TimberShingle) => self.timber_roof.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::TimberInfill) => palette.timber.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::MasonryInfill) => self.stone.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::RubbleInfill) => self.rubble.clone(),
-            BuildingLodMaterial::Timber => palette.timber.clone(),
-            BuildingLodMaterial::InteriorTimber => self.interior_timber.clone(),
-            BuildingLodMaterial::DressedStone => self.stone.clone(),
-            BuildingLodMaterial::Iron => self.iron.clone(),
-            BuildingLodMaterial::CarvedSandstone => self.workplace.carved_sandstone.clone(),
-            BuildingLodMaterial::LeadAlloy => self.workplace.lead_alloy.clone(),
-            BuildingLodMaterial::Bronze => self.workplace.bronze.clone(),
-            BuildingLodMaterial::CandleWax => self.workplace.candle_wax.clone(),
-            BuildingLodMaterial::Earthenware => self.workplace.earthenware.clone(),
-            BuildingLodMaterial::GlazedTile => self.workplace.glazed_tile.clone(),
-            BuildingLodMaterial::Millstone => self.workplace.millstone.clone(),
-            BuildingLodMaterial::FurnitureWood(surface) => {
-                self.furniture_wood[surface as usize].clone()
-            }
-            BuildingLodMaterial::TimberEndGrain => self.workplace.timber_end_grain.clone(),
-            BuildingLodMaterial::Grain => self.workplace.grain.clone(),
-            BuildingLodMaterial::DyedCloth => self.workplace.dyed_cloth.clone(),
-            BuildingLodMaterial::UndyedCloth => self.workplace.undyed_cloth.clone(),
-            BuildingLodMaterial::Hide => self.workplace.hide.clone(),
-            BuildingLodMaterial::ProcessLiquid => self.workplace.process_liquid.clone(),
-            BuildingLodMaterial::HempRope => self.workplace.hemp_rope.clone(),
-            BuildingLodMaterial::InteriorPlaster => self.interior_plaster.clone(),
-            BuildingLodMaterial::Floor => self.floor.clone(),
-            BuildingLodMaterial::Glass => self.glass.clone(),
-            BuildingLodMaterial::FacadeDetails => self.details.clone(),
-            BuildingLodMaterial::CrownMask => self.crown_mask.clone(),
+        palette::BuildingPalette {
+            assets: self,
+            appearance: &self.appearances[appearance as usize],
         }
     }
 }
@@ -421,6 +408,34 @@ fn palette_surface_material(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn distant_finishes_follow_settlement_prosperity() {
+        use adventuresim_tactical_core::scene_input::DistantBuildingVariant::*;
+        use adventuresim_world_schema::ProsperityTier::*;
+        for variant in [Plain, Weathered, Decorated] {
+            for tier in [Subsistence, Modest] {
+                let appearance = BuildingAppearance::for_distant_building(tier, variant);
+                assert!(matches!(
+                    appearance,
+                    BuildingAppearance::NaturalOak
+                        | BuildingAppearance::WeatheredOak
+                        | BuildingAppearance::WeatheredGray
+                ));
+                assert_eq!(appearance.spec().finish, FacadeFinish::PlasterInfill);
+            }
+        }
+        assert_eq!(
+            BuildingAppearance::for_distant_building(Wealthy, Plain)
+                .spec()
+                .finish,
+            FacadeFinish::BrickInfill
+        );
+        assert_eq!(
+            BuildingAppearance::for_distant_building(Comfortable, Decorated),
+            BuildingAppearance::RenderedCream
+        );
+    }
 
     #[test]
     fn standard_glass_uses_nominal_scalar_thickness_not_packed_red() {

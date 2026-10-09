@@ -1,6 +1,11 @@
 use serde::{Deserialize, Serialize};
 use std::fmt;
 
+mod enemy_roster;
+mod roster;
+pub use enemy_roster::{EnemyRosterError, MissionEnemyRoster};
+pub use roster::{TacticalPartyRoster, TacticalRosterError};
+
 /// Hard limits for authenticated tactical terminal consequence receipts.
 pub const MAX_TACTICAL_RECEIPT_PARTICIPANTS: usize = 16;
 pub const MAX_TACTICAL_INJURIES_PER_PARTICIPANT: usize = 64;

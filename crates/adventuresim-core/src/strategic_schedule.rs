@@ -5,140 +5,17 @@ use crate::equipment::WeaponSkillDistribution;
 use crate::organization::{OrganizationDefinition, TrainingTarget};
 use crate::personality::Transparency;
 use crate::skill::{Skill, apply_direct_training};
-use crate::{
-    activity::*,
-    strategic_time::{MINUTES_PER_DAY, training_hours_increment},
-};
+use crate::{activity::*, strategic_time::training_hours_increment};
 use adventuresim_world_schema::{
     BASIS_POINTS_PER_WHOLE, BestiaryHours, OfficialReligion, ReligionHours,
+    calendar::{MINUTES_PER_DAY, StrategicMinute},
 };
 
-/// A parsed organization allocation: zero minutes cannot carry a stale
-/// organization and positive minutes cannot omit the organization that grants
-/// the activity.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub enum OrganizationAllocation {
-    None,
-    Scheduled {
-        minutes: ActivityMinutes,
-        organization_id: String,
-    },
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct ActivityMinutes(u16);
-
-impl ActivityMinutes {
-    pub fn get(self) -> u16 {
-        self.0
-    }
-}
-
-impl TryFrom<u16> for ActivityMinutes {
-    type Error = ScheduleParseError;
-
-    fn try_from(minutes: u16) -> Result<Self, Self::Error> {
-        minutes
-            .is_multiple_of(15)
-            .then_some(Self(minutes))
-            .ok_or(ScheduleParseError::NotQuarterHour)
-    }
-}
-
-impl OrganizationAllocation {
-    pub fn parse(
-        minutes: u16,
-        organization_id: Option<String>,
-    ) -> Result<Self, ScheduleParseError> {
-        match (minutes, organization_id) {
-            (0, None) => Ok(Self::None),
-            (0, Some(_)) => Err(ScheduleParseError::OrganizationWithoutMinutes),
-            (_, Some(organization_id)) => {
-                let organization_id = organization_id.trim();
-                if organization_id.is_empty() {
-                    return Err(ScheduleParseError::EmptyOrganization);
-                }
-                Ok(Self::Scheduled {
-                    minutes: ActivityMinutes::try_from(minutes)?,
-                    organization_id: organization_id.to_owned(),
-                })
-            }
-            (_, None) => Err(ScheduleParseError::MinutesWithoutOrganization),
-        }
-    }
-
-    pub fn minutes(&self) -> u16 {
-        match self {
-            Self::None => 0,
-            Self::Scheduled { minutes, .. } => minutes.get(),
-        }
-    }
-
-    pub fn organization_id(&self) -> Option<String> {
-        match self {
-            Self::None => None,
-            Self::Scheduled {
-                organization_id, ..
-            } => Some(organization_id.clone()),
-        }
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum ScheduleParseError {
-    ExceedsDay,
-    NotQuarterHour,
-    OrganizationWithoutMinutes,
-    MinutesWithoutOrganization,
-    EmptyOrganization,
-}
-
-impl std::fmt::Display for ScheduleParseError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(match self {
-            Self::ExceedsDay => "The downtime plan must fit within 24 hours",
-            Self::NotQuarterHour => "Schedule allocations must use 15-minute increments",
-            Self::OrganizationWithoutMinutes => {
-                "An organization cannot be selected without scheduled minutes"
-            }
-            Self::MinutesWithoutOrganization => {
-                "Scheduled organization activity requires an organization"
-            }
-            Self::EmptyOrganization => "Scheduled organization ID cannot be blank",
-        })
-    }
-}
-impl std::error::Error for ScheduleParseError {}
-
-/// Validates the cross-field invariants of a daily allocation at the reducer
-/// boundary. Organization policy/membership remains an authoritative DB check.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub struct DailySchedulePlan {
-    pub activities: [ActivityMinutes; 10],
-    pub apprenticeship: OrganizationAllocation,
-    pub practice: OrganizationAllocation,
-}
-
-pub fn validate_daily_allocation(
-    minutes: [u16; 10],
-    apprenticeship: (u16, Option<String>),
-    practice: (u16, Option<String>),
-) -> Result<DailySchedulePlan, ScheduleParseError> {
-    if minutes.into_iter().map(u64::from).sum::<u64>() > MINUTES_PER_DAY {
-        return Err(ScheduleParseError::ExceedsDay);
-    }
-    let activities = minutes
-        .map(ActivityMinutes::try_from)
-        .into_iter()
-        .collect::<Result<Vec<_>, _>>()?
-        .try_into()
-        .map_err(|_| ScheduleParseError::ExceedsDay)?;
-    Ok(DailySchedulePlan {
-        activities,
-        apprenticeship: OrganizationAllocation::parse(apprenticeship.0, apprenticeship.1)?,
-        practice: OrganizationAllocation::parse(practice.0, practice.1)?,
-    })
-}
+mod allocation;
+pub use allocation::{
+    ActivityMinutes, DailySchedule, DailySchedulePlan, OrganizationAllocation, ScheduleParseError,
+    ValidatedSchedule, validate_daily_allocation,
+};
 
 /// Stable order used by reports and schedule arrays.
 pub const SKILL_COUNT: usize = 32;
@@ -243,72 +120,25 @@ impl SkillHours {
     }
 }
 
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct DailySchedule {
-    /// Quiet study from a personally carried book or an on-site bookstore.
-    pub reading_minutes: u16,
-    /// Structured combat practice, including weapon drills, will, and balance.
-    pub combat_training_minutes: u16,
-    /// Social recreation which trains Charm at the activity rate.
-    pub carousing_minutes: u16,
-    /// Deliberate conversation with one selected relationship target. Its
-    /// relationship resolution is strategic-module state, but it consumes
-    /// discretionary time and therefore cannot also be restorative Leisure.
-    pub socializing_minutes: u16,
-    /// Supervised work in an unlocked profession.
-    pub apprenticeship_minutes: u16,
-    /// Independent paid professional work, available at Journeyman rank.
-    pub profession_practice_minutes: u16,
-    pub labor: u16,
-    pub prayer: u16,
-    pub thievery: u16,
-    pub raiding: u16,
-}
-
-impl DailySchedule {
-    pub fn allocated_minutes(&self) -> u64 {
-        [
-            self.labor,
-            self.prayer,
-            self.thievery,
-            self.raiding,
-            self.combat_training_minutes,
-            self.carousing_minutes,
-            self.socializing_minutes,
-            self.apprenticeship_minutes,
-            self.profession_practice_minutes,
-            self.reading_minutes,
-        ]
-        .into_iter()
-        .map(u64::from)
-        .sum()
-    }
-}
-
 /// Deterministically projects the unallocated share of a repeating daily
 /// schedule onto an absolute interval. Cumulative integer arithmetic makes
 /// adjacent chunks telescope exactly without persisting a fractional remainder.
 pub fn restorative_leisure_minutes(
     schedule: DailySchedule,
-    interval_start_minute: u64,
+    interval_start_minute: StrategicMinute,
     elapsed_minutes: u64,
 ) -> u64 {
     let leisure = MINUTES_PER_DAY.saturating_sub(schedule.allocated_minutes());
-    let cumulative = |minute: u64| {
-        minute
-            .saturating_mul(leisure)
-            .checked_div(MINUTES_PER_DAY)
-            .unwrap_or(0)
-    };
-    cumulative(interval_start_minute.saturating_add(elapsed_minutes))
-        .saturating_sub(cumulative(interval_start_minute))
+    interval_start_minute
+        .saturating_add_minutes(elapsed_minutes)
+        .cumulative_daily_share_minutes(leisure)
+        .saturating_sub(interval_start_minute.cumulative_daily_share_minutes(leisure))
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct RestorativeLeisureSpan {
-    pub start_minute: u64,
-    pub end_minute: u64,
+    pub start_minute: StrategicMinute,
+    pub end_minute: StrategicMinute,
 }
 
 /// Enumerate the canonical realized Leisure portions of an absolute interval.
@@ -320,33 +150,33 @@ pub struct RestorativeLeisureSpan {
 /// describe the same spans instead of each claiming its checkpoint's prefix.
 pub fn restorative_leisure_spans(
     schedule: DailySchedule,
-    interval_start_minute: u64,
+    interval_start_minute: StrategicMinute,
     elapsed_minutes: u64,
 ) -> Vec<RestorativeLeisureSpan> {
-    let interval_end = interval_start_minute.saturating_add(elapsed_minutes);
+    let interval_end = interval_start_minute.saturating_add_minutes(elapsed_minutes);
     let allocated = schedule.allocated_minutes().min(MINUTES_PER_DAY);
     if interval_end <= interval_start_minute || allocated == MINUTES_PER_DAY {
         return Vec::new();
     }
     let mut spans = Vec::new();
-    let mut day = interval_start_minute / MINUTES_PER_DAY;
+    let mut day_start = interval_start_minute.day_start();
     loop {
-        let day_start = day.saturating_mul(MINUTES_PER_DAY);
         if day_start >= interval_end {
             break;
         }
-        let start = interval_start_minute.max(day_start.saturating_add(allocated));
-        let end = interval_end.min(day_start.saturating_add(MINUTES_PER_DAY));
+        let start = interval_start_minute.max(day_start.saturating_add_minutes(allocated));
+        let next_day = day_start.saturating_add_days(1);
+        let end = interval_end.min(next_day);
         if end > start {
             spans.push(RestorativeLeisureSpan {
                 start_minute: start,
                 end_minute: end,
             });
         }
-        if day == u64::MAX / MINUTES_PER_DAY {
+        if next_day <= day_start {
             break;
         }
-        day += 1;
+        day_start = next_day;
     }
     spans
 }
@@ -374,8 +204,8 @@ pub fn settlement_leisure_outcome(
     if elapsed_minutes == 0 {
         return LeisureOutcome::default();
     }
-    let days = elapsed_minutes as f32 / crate::strategic_time::MINUTES_PER_DAY as f32;
-    let leisure_hours_per_day = (crate::strategic_time::MINUTES_PER_DAY
+    let days = elapsed_minutes as f32 / adventuresim_world_schema::calendar::MINUTES_PER_DAY as f32;
+    let leisure_hours_per_day = (adventuresim_world_schema::calendar::MINUTES_PER_DAY
         .saturating_sub(schedule.allocated_minutes())) as f32
         / 60.0;
     let labor_hours = days * f32::from(schedule.labor) / 60.0;
@@ -402,7 +232,8 @@ pub fn settlement_leisure_outcome(
         // fatigue reaches zero. Both that crossing and the daily quality are
         // rates, making the earned total independent of interval partitioning.
         morale: qualifying_days * daily_morale_quality,
-        morale_earning_minutes: qualifying_days * crate::strategic_time::MINUTES_PER_DAY as f32,
+        morale_earning_minutes: qualifying_days
+            * adventuresim_world_schema::calendar::MINUTES_PER_DAY as f32,
         leisure_hours: days * leisure_hours_per_day,
     }
 }
@@ -819,7 +650,7 @@ pub fn settlement_activity_outcome(
     elapsed_minutes: u64,
     inputs: ActivityOutcomeInputs,
 ) -> ActivityOutcome {
-    let days = elapsed_minutes as f32 / crate::strategic_time::MINUTES_PER_DAY as f32;
+    let days = elapsed_minutes as f32 / adventuresim_world_schema::calendar::MINUTES_PER_DAY as f32;
     let hours = |minutes: u16| days * f32::from(minutes) / 60.0;
     let labor_hours = hours(schedule.labor);
     let thievery_hours = hours(schedule.thievery);
@@ -897,7 +728,7 @@ mod tests {
     }
     use crate::body::BodyPart;
     use crate::prelude::{LimbAttribute, SimpleAttribute};
-    use crate::strategic_time::MINUTES_PER_DAY;
+    use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 
     struct NeutralAttributes;
     impl PlayerAttributes for NeutralAttributes {
@@ -1060,20 +891,53 @@ mod tests {
     #[test]
     fn restorative_leisure_is_proportional_and_chunk_invariant() {
         let none = DailySchedule::default();
-        assert_eq!(restorative_leisure_minutes(none, 0, 1_440), 1_440);
+        assert_eq!(
+            restorative_leisure_minutes(
+                none,
+                adventuresim_world_schema::calendar::StrategicMinute::new(0),
+                1_440
+            ),
+            1_440
+        );
         let full = DailySchedule {
             labor: 1_440,
             ..Default::default()
         };
-        assert_eq!(restorative_leisure_minutes(full, 0, 1_440), 0);
+        assert_eq!(
+            restorative_leisure_minutes(
+                full,
+                adventuresim_world_schema::calendar::StrategicMinute::new(0),
+                1_440
+            ),
+            0
+        );
         let half = DailySchedule {
             labor: 720,
             ..Default::default()
         };
-        assert_eq!(restorative_leisure_minutes(half, 0, 1_440), 720);
-        let bulk = restorative_leisure_minutes(half, 17, 1_000);
-        let first = restorative_leisure_minutes(half, 17, 333);
-        let second = restorative_leisure_minutes(half, 350, 667);
+        assert_eq!(
+            restorative_leisure_minutes(
+                half,
+                adventuresim_world_schema::calendar::StrategicMinute::new(0),
+                1_440
+            ),
+            720
+        );
+        let bulk = restorative_leisure_minutes(
+            half,
+            adventuresim_world_schema::calendar::StrategicMinute::new(17),
+            1_000,
+        );
+        let first = restorative_leisure_minutes(
+            half,
+            adventuresim_world_schema::calendar::StrategicMinute::new(17),
+            333,
+        );
+        let second = restorative_leisure_minutes(
+            half,
+            adventuresim_world_schema::calendar::StrategicMinute::new(350),
+            667,
+        );
         assert_eq!(bulk, first + second);
     }
 
@@ -1083,18 +947,30 @@ mod tests {
             labor: 8 * 60,
             ..Default::default()
         };
-        let whole = restorative_leisure_spans(schedule, 0, 2 * MINUTES_PER_DAY);
-        let mut mixed = restorative_leisure_spans(schedule, 0, 700);
-        mixed.extend(restorative_leisure_spans(schedule, 700, 1_113));
+        let whole = restorative_leisure_spans(
+            schedule,
+            adventuresim_world_schema::calendar::StrategicMinute::new(0),
+            2 * MINUTES_PER_DAY,
+        );
+        let mut mixed = restorative_leisure_spans(
+            schedule,
+            adventuresim_world_schema::calendar::StrategicMinute::new(0),
+            700,
+        );
         mixed.extend(restorative_leisure_spans(
             schedule,
-            1_813,
+            adventuresim_world_schema::calendar::StrategicMinute::new(700),
+            1_113,
+        ));
+        mixed.extend(restorative_leisure_spans(
+            schedule,
+            adventuresim_world_schema::calendar::StrategicMinute::new(1_813),
             2 * MINUTES_PER_DAY - 1_813,
         ));
         let minutes = |spans: &[RestorativeLeisureSpan]| {
             spans
                 .iter()
-                .map(|span| span.end_minute - span.start_minute)
+                .map(|span| span.end_minute.elapsed_since(span.start_minute))
                 .sum::<u64>()
         };
         assert_eq!(minutes(&whole), 2 * (MINUTES_PER_DAY - 8 * 60));
@@ -1103,12 +979,12 @@ mod tests {
             whole,
             vec![
                 RestorativeLeisureSpan {
-                    start_minute: 480,
-                    end_minute: 1_440,
+                    start_minute: StrategicMinute::new(480),
+                    end_minute: StrategicMinute::new(1_440),
                 },
                 RestorativeLeisureSpan {
-                    start_minute: 1_920,
-                    end_minute: 2_880,
+                    start_minute: StrategicMinute::new(1_920),
+                    end_minute: StrategicMinute::new(2_880),
                 },
             ]
         );

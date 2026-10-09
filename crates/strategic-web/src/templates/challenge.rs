@@ -1,7 +1,7 @@
 use adventuresim_core::errantry::{
     FeyPresenterCatalogId, FeySpeechPart, fey_clue_text, fey_puzzle_speech,
 };
-use adventuresim_puzzles::{PuzzleProjection, PuzzleSubmission, Sigil, WitnessPath};
+use adventuresim_puzzles::{PuzzleProjection, PuzzleSubmission};
 use maud::{Markup, html};
 
 use super::journal_layout;
@@ -69,7 +69,7 @@ pub fn puzzle_page(
                                         p { strong { "Preparation: " } (preparation) }
                                     }
                                 }
-                                a class="btn btn-primary" href="/camp" { "Return to camp" }
+                                a class="btn btn-primary" href=(crate::location_urls::patterns::CAMP.pattern()) { "Return to camp" }
                             } @else {
                                 @if last_attempt_correct == Some(false) {
                                     @for line in fey_puzzle_speech(catalog, kind, FeySpeechPart::Wrong) {
@@ -237,7 +237,7 @@ fn puzzle_answer_fields(projection: &PuzzleProjection) -> Markup {
                             select name=(format!("sigil_{position}")) required {
                                 option value="" { "Choose a sigil" }
                                 @for sigil in puzzle.sigils {
-                                    option value=(sigil.label()) { (sigil.label()) }
+                                    option value=(sigil.stable_id()) { (sigil.label()) }
                                 }
                             }
                         }
@@ -253,7 +253,7 @@ fn puzzle_answer_fields(projection: &PuzzleProjection) -> Markup {
                     select name="safe_path" required {
                         option value="" { "Choose a path" }
                         @for path in puzzle.paths {
-                            option value=(path.label()) { (path.label()) }
+                            option value=(path.stable_id()) { (path.label()) }
                         }
                     }
                 }
@@ -267,7 +267,7 @@ fn puzzle_answer_fields(projection: &PuzzleProjection) -> Markup {
                     select name="rune_result" required {
                         option value="" { "Choose a sigil" }
                         @for sigil in puzzle.sigils {
-                            option value=(sigil.label()) { (sigil.label()) }
+                            option value=(sigil.stable_id()) { (sigil.label()) }
                         }
                     }
                 }
@@ -330,45 +330,15 @@ fn ordinal(position: usize) -> &'static str {
     }
 }
 
-pub fn parse_form_sigils(values: [&str; 5]) -> Result<[Sigil; 5], &'static str> {
-    Ok([
-        parse_sigil(values[0])?,
-        parse_sigil(values[1])?,
-        parse_sigil(values[2])?,
-        parse_sigil(values[3])?,
-        parse_sigil(values[4])?,
-    ])
-}
-
-pub fn parse_sigil(value: &str) -> Result<Sigil, &'static str> {
-    match value {
-        "Crown" => Ok(Sigil::Crown),
-        "Hart" => Ok(Sigil::Hart),
-        "Moon" => Ok(Sigil::Moon),
-        "Rose" => Ok(Sigil::Rose),
-        "Sword" => Ok(Sigil::Sword),
-        _ => Err("Choose one of the named sigils"),
-    }
-}
-
-pub fn parse_witness_path(value: &str) -> Result<WitnessPath, &'static str> {
-    match value {
-        "Ash path" => Ok(WitnessPath::Ash),
-        "Moon path" => Ok(WitnessPath::Moon),
-        "Thorn path" => Ok(WitnessPath::Thorn),
-        _ => Err("Choose one of the named paths"),
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
-    use adventuresim_puzzles::PuzzleAuthority;
+    use adventuresim_puzzles::{PuzzleAuthority, Sigil};
 
     #[test]
     fn every_puzzle_is_a_no_js_shared_chat_visual_without_private_truth() {
         for kind in adventuresim_puzzles::PuzzleKind::ALL {
-            let puzzle = PuzzleAuthority::generate(kind, 4);
+            let puzzle = PuzzleAuthority::generate(kind, fabelgeist_determinism::Seed::from_u64(4));
             let markup = puzzle_page(
                 "challenge:test",
                 "case:test",
@@ -397,8 +367,10 @@ mod tests {
 
     #[test]
     fn submitted_answer_remains_in_the_solved_chat_until_the_player_leaves() {
-        let puzzle =
-            PuzzleAuthority::generate(adventuresim_puzzles::PuzzleKind::RuneTransformation, 4);
+        let puzzle = PuzzleAuthority::generate(
+            adventuresim_puzzles::PuzzleKind::RuneTransformation,
+            fabelgeist_determinism::Seed::from_u64(4),
+        );
         let submission = PuzzleSubmission::RuneTransformation {
             result: Sigil::Sword,
         };
@@ -431,8 +403,10 @@ mod tests {
 
     #[test]
     fn rune_prompt_requires_three_inferred_gate_laws_in_route_order() {
-        let puzzle =
-            PuzzleAuthority::generate(adventuresim_puzzles::PuzzleKind::RuneTransformation, 19);
+        let puzzle = PuzzleAuthority::generate(
+            adventuresim_puzzles::PuzzleKind::RuneTransformation,
+            fabelgeist_determinism::Seed::from_u64(19),
+        );
         let markup = puzzle_page(
             "challenge:test",
             "case:test",
@@ -459,7 +433,10 @@ mod tests {
 
     #[test]
     fn new_puzzle_families_are_fully_chat_native() {
-        let grid = PuzzleAuthority::generate(adventuresim_puzzles::PuzzleKind::LogicGrid, 41);
+        let grid = PuzzleAuthority::generate(
+            adventuresim_puzzles::PuzzleKind::LogicGrid,
+            fabelgeist_determinism::Seed::from_u64(41),
+        );
         let grid_markup = puzzle_page(
             "challenge:grid",
             "case:test",
@@ -478,8 +455,10 @@ mod tests {
         assert!(grid_markup.contains("grid_token_0"));
         assert!(grid_markup.contains("grid_road_0"));
 
-        let allocation =
-            PuzzleAuthority::generate(adventuresim_puzzles::PuzzleKind::ResourceAllocation, 42);
+        let allocation = PuzzleAuthority::generate(
+            adventuresim_puzzles::PuzzleKind::ResourceAllocation,
+            fabelgeist_determinism::Seed::from_u64(42),
+        );
         let allocation_markup = puzzle_page(
             "challenge:allocation",
             "case:test",

@@ -74,7 +74,9 @@ impl GpuResource {
         data: &[T],
     ) -> anyhow::Result<()> {
         match self {
-            GpuResource::Buffer(b) => b.write(context, data),
+            GpuResource::Buffer(b) => {
+                b.write(context, crate::prelude::BufferUpload::from_elements(data))
+            }
             GpuResource::Texture2d(t) => t.write(context, data),
             GpuResource::Texture3d(t) => t.write(context, data),
         }

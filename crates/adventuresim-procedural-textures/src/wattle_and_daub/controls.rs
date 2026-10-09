@@ -5,9 +5,9 @@ crate::parameters::parameter_block! {
     pub struct Parameters {
         aggregate_roughness: f32 = 0.010;
         application: crate::stamps::Parameters = crate::stamps::Parameters { cells: [6, 7], radius: [0.83, 0.43], density: 0.8, depth: 0.30, angle: 0.35, angle_variation: 1.4, roundness: 0.75, edge_width: 0.55, ..Default::default() };
-        aggregate: CapsuleLayer = CapsuleLayer {cells:96,salt:0x7361,enabled_threshold:0.82,half_length_range:(0.0,0.020),radius:0.130};
-        fibre: CapsuleLayer = CapsuleLayer {cells:38,salt:0x19d7,enabled_threshold:0.965,half_length_range:(0.12,0.32),radius:0.028};
-        shrink_crack: CapsuleLayer = CapsuleLayer {cells:7,salt:0x52b9,enabled_threshold:0.90,half_length_range:(0.040,0.105),radius:0.0035};
+        aggregate: CapsuleLayer = CapsuleLayer {cells:96,enabled_threshold:0.82,half_length_range:(0.0,0.020),radius:0.130};
+        fibre: CapsuleLayer = CapsuleLayer {cells:38,enabled_threshold:0.965,half_length_range:(0.12,0.32),radius:0.028};
+        shrink_crack: CapsuleLayer = CapsuleLayer {cells:7,enabled_threshold:0.90,half_length_range:(0.040,0.105),radius:0.0035};
         generate_wattle_and_daub_textures_ao_1: f32 = 0.16;
         generate_wattle_and_daub_textures_ao_2: f32 = 0.05;
         sample_daub_warp: f32 = 0.028;

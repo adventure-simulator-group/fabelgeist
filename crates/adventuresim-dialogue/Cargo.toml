@@ -6,6 +6,7 @@ license.workspace = true
 build = "build.rs"
 
 [dependencies]
+adventuresim-world-schema.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 
@@ -13,6 +14,7 @@ serde_json.workspace = true
 sha2.workspace = true
 
 [build-dependencies]
+adventuresim-world-schema.workspace = true
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 sha2.workspace = true

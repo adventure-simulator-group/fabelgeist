@@ -2,12 +2,12 @@ use adventuresim_world_schema::{
     DroughtProfile, EdgeEndpoint, ElevationMeters, ForestCover, LandUseProfile,
     PotentialVegetation, SettlementAliasImport, SettlementDescriptionImport, SettlementHydrology,
     SoilPrediction, SoilProfile, SourceProvenance, SpatialGridSpec, TravelEdgeImport,
-    TravelEdgeKind, TreeSpeciesProfile, WorldBuildReport, WorldNodeImport,
+    TravelEdgeKind, TreeSpeciesProfile, WorldBuildReport, WorldNodeImport, calendar::CalendarYear,
 };
 
 #[derive(Debug)]
 pub(crate) struct WorldDraft<S> {
-    pub(crate) year: i32,
+    pub(crate) year: CalendarYear,
     pub(crate) spatial_grid: SpatialGridSpec,
     pub(crate) sources: Vec<SourceProvenance>,
     pub(crate) road_types: Vec<TravelEdgeKind>,
@@ -180,7 +180,7 @@ delegate_settlement_access!(HydrologySettlementDraft, drought);
 /// construction to the final source-dependent stage.
 #[derive(Debug)]
 pub(crate) struct HydrologyWorldDraft {
-    pub(crate) year: i32,
+    pub(crate) year: CalendarYear,
     pub(crate) spatial_grid: SpatialGridSpec,
     pub(crate) sources: Vec<SourceProvenance>,
     pub(crate) road_types: Vec<TravelEdgeKind>,
@@ -203,7 +203,7 @@ delegate_settlement_access!(FinalizedSoilSettlementDraft, hydrologic);
 /// historical environmental synthesis has consumed the complete evidence chain.
 #[derive(Debug)]
 pub(crate) struct FinalizedSoilWorldDraft {
-    pub(crate) year: i32,
+    pub(crate) year: CalendarYear,
     pub(crate) spatial_grid: SpatialGridSpec,
     pub(crate) sources: Vec<SourceProvenance>,
     pub(crate) road_types: Vec<TravelEdgeKind>,

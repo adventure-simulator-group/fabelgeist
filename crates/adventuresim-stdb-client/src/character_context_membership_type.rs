@@ -7,6 +7,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 use super::character_context_kind_type::CharacterContextKind;
 use super::character_context_role_type::CharacterContextRole;
 use super::contextual_decision_state_type::ContextualDecisionState;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -18,9 +19,8 @@ pub struct CharacterContextMembership {
     pub context_kind: CharacterContextKind,
     pub role: CharacterContextRole,
     pub ordinal: u16,
-    pub active: bool,
-    pub entered_at: u64,
-    pub left_at: Option<u64>,
+    pub entered_at: StrategicMinute,
+    pub left_at: Option<StrategicMinute>,
     pub revision: u32,
     pub contact_decision: ContextualDecisionState,
     pub treatment_decision: ContextualDecisionState,
@@ -41,9 +41,8 @@ pub struct CharacterContextMembershipCols {
     pub context_kind: __sdk::__query_builder::Col<CharacterContextMembership, CharacterContextKind>,
     pub role: __sdk::__query_builder::Col<CharacterContextMembership, CharacterContextRole>,
     pub ordinal: __sdk::__query_builder::Col<CharacterContextMembership, u16>,
-    pub active: __sdk::__query_builder::Col<CharacterContextMembership, bool>,
-    pub entered_at: __sdk::__query_builder::Col<CharacterContextMembership, u64>,
-    pub left_at: __sdk::__query_builder::Col<CharacterContextMembership, Option<u64>>,
+    pub entered_at: __sdk::__query_builder::Col<CharacterContextMembership, StrategicMinute>,
+    pub left_at: __sdk::__query_builder::Col<CharacterContextMembership, Option<StrategicMinute>>,
     pub revision: __sdk::__query_builder::Col<CharacterContextMembership, u32>,
     pub contact_decision:
         __sdk::__query_builder::Col<CharacterContextMembership, ContextualDecisionState>,
@@ -62,7 +61,6 @@ impl __sdk::__query_builder::HasCols for CharacterContextMembership {
             context_kind: __sdk::__query_builder::Col::new(table_name, "context_kind"),
             role: __sdk::__query_builder::Col::new(table_name, "role"),
             ordinal: __sdk::__query_builder::Col::new(table_name, "ordinal"),
-            active: __sdk::__query_builder::Col::new(table_name, "active"),
             entered_at: __sdk::__query_builder::Col::new(table_name, "entered_at"),
             left_at: __sdk::__query_builder::Col::new(table_name, "left_at"),
             revision: __sdk::__query_builder::Col::new(table_name, "revision"),

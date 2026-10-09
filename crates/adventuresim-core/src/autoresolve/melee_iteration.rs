@@ -5,6 +5,7 @@ use crate::{
     item_catalog_schema::ItemKind,
     starting_character::{StartingAttributes, StartingCharacterSpec, StartingSkills},
 };
+use adventuresim_world_schema::{Culture, person_names::PersonalNameIdentity};
 
 mod evidence;
 
@@ -13,7 +14,7 @@ pub use evidence::*;
 #[derive(Clone, Debug)]
 pub struct MeleeIterationBuild {
     pub key: &'static str,
-    pub name: &'static str,
+    pub name: String,
     pub description: &'static str,
     pub equipment_description: &'static str,
     pub weapon_id: &'static str,
@@ -24,9 +25,13 @@ pub struct MeleeIterationBuild {
 
 pub fn melee_iteration_roster() -> Result<(MeleeIterationBuild, Vec<MeleeIterationBuild>), String> {
     let john_spec = crate::starting_character::default_character("melee-iteration");
+    let john_name = john_spec
+        .native_everyday_name()
+        .map_err(|error| error.to_string())?
+        .into_string();
     let john = build_from_spec(
         "john",
-        "John Fabelgeist",
+        &john_name,
         "Combat-trained adventurer; strong and agile, with broadly advanced melee training.",
         "Longsword, morion, breastplate, paired steel vambraces, ordinary clothing and boots.",
         &john_spec,
@@ -140,14 +145,14 @@ fn purpose_build(
     };
     let spec = StartingCharacterSpec {
         id: stable_id(key),
-        name: name.into(),
+        name_identity: PersonalNameIdentity::authored(name, Culture::German),
         age_years: 28,
         background: description.into(),
         personality: crate::starting_character::default_character(key).personality,
         attributes,
         skills,
         currency: 0,
-        settlement_selector: 0,
+        settlement_selector: fabelgeist_determinism::Seed::from_u64(0),
         inventory: Vec::new(),
         age_tier: crate::starting_character::StartingAgeTier::Adult,
         profession: None,
@@ -178,7 +183,7 @@ fn stable_id(value: &str) -> u64 {
 )]
 fn build_from_spec(
     key: &'static str,
-    name: &'static str,
+    name: &str,
     description: &'static str,
     equipment_description: &'static str,
     spec: &StartingCharacterSpec,
@@ -210,7 +215,7 @@ fn build_from_spec(
     combatant.equipment = authored_equipment(weapon_id, armor_ids, shield_id)?;
     Ok(MeleeIterationBuild {
         key,
-        name,
+        name: name.to_owned(),
         description,
         equipment_description,
         weapon_id,
@@ -609,6 +614,7 @@ mod tests {
         for opponent in opponents {
             let outcomes = || {
                 (1..=32)
+                    .map(fabelgeist_determinism::Seed::from_u64)
                     .map(|seed| {
                         let outcome = resolve_battle(
                             vec![john.combatant.clone()],
@@ -644,23 +650,25 @@ mod tests {
             } else {
                 opponent.combatant.id
             };
-            let landed = (1..=64).any(|seed| {
-                resolve_battle(
-                    vec![john.combatant.clone()],
-                    vec![opponent.combatant.clone()],
-                    seed,
-                    BattleOpening::Normal,
-                )
-                .log
-                .iter()
-                .any(|entry| {
-                    entry.attacker_id == shorter_id
-                        && matches!(
-                            entry.outcome,
-                            BattleAttackOutcome::HitHealth | BattleAttackOutcome::HitArmor
-                        )
-                })
-            });
+            let landed = (1..=64)
+                .map(fabelgeist_determinism::Seed::from_u64)
+                .any(|seed| {
+                    resolve_battle(
+                        vec![john.combatant.clone()],
+                        vec![opponent.combatant.clone()],
+                        seed,
+                        BattleOpening::Normal,
+                    )
+                    .log
+                    .iter()
+                    .any(|entry| {
+                        entry.attacker_id == shorter_id
+                            && matches!(
+                                entry.outcome,
+                                BattleAttackOutcome::HitHealth | BattleAttackOutcome::HitArmor
+                            )
+                    })
+                });
             assert!(landed, "{} shorter-reach side never landed", opponent.name);
         }
     }
@@ -675,7 +683,7 @@ mod tests {
         let outcome = resolve_battle(
             vec![john.combatant],
             vec![hammer_brute.combatant.clone()],
-            1,
+            fabelgeist_determinism::Seed::from_u64(1),
             BattleOpening::Normal,
         );
         let scheduled_contacts = outcome
@@ -707,7 +715,7 @@ mod tests {
         let outcome = resolve_battle(
             vec![john.combatant],
             vec![veteran.combatant.clone()],
-            1,
+            fabelgeist_determinism::Seed::from_u64(1),
             BattleOpening::Normal,
         );
         for movement in outcome

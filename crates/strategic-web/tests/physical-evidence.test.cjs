@@ -15,8 +15,11 @@ test("physical evidence uses circular counterparty portraits and italic narratio
 });
 
 test("inspection sends only opaque evidence and topic choices", () => {
+  assert.match(source, /\/api\/locations\/case-site\/\$\{window\.strategicLocationUrls\.encode\(caseSiteId\)\}\/evidence/);
+  assert.doesNotMatch(source, /\/api\/evidence\/inspect/);
   assert.match(source, /evidence_id: topic\.dataset\.evidenceId/);
   assert.match(source, /topic_id: topic\.dataset\.evidenceTopic/);
+  assert.doesNotMatch(source, /case_site_id:\s*caseSiteId/);
   assert.doesNotMatch(source, /difficulty_milli|difficulty_bps|canonical/);
 });
 

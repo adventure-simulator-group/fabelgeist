@@ -10,6 +10,44 @@ fn road(start: Vec2, end: Vec2, half_width: f32) -> CityStreetPatch {
 }
 
 #[test]
+fn indexed_clearance_preserves_road_and_market_coverage_at_tile_boundaries() {
+    let streets = [
+        road(Vec2::new(-70.0, -65.0), Vec2::new(90.0, 70.0), 4.0),
+        CityStreetPatch::Market {
+            corners_metres: [
+                Vec2::new(60.0, -4.0),
+                Vec2::new(70.0, -4.0),
+                Vec2::new(70.0, 8.0),
+                Vec2::new(60.0, 8.0),
+            ],
+            surface: CityStreetSurface::Fieldstone,
+        },
+    ];
+    let network = TrafficNetwork::new(&streets);
+    for y in -140..160 {
+        for x in -150..190 {
+            let point = Vec2::new(x as f32, y as f32) * 0.5;
+            let brute = network
+                .roads
+                .iter()
+                .map(|road| road.clearance(point))
+                .chain(
+                    network
+                        .markets
+                        .iter()
+                        .map(|corners| quad_clearance(*corners, point)),
+                )
+                .fold(f32::NEG_INFINITY, f32::max);
+            let indexed = network.clearance(point);
+            assert_eq!(indexed >= 0.0, brute >= 0.0, "coverage at {point}");
+            if brute >= 0.0 {
+                assert_eq!(indexed, brute, "interior clearance at {point}");
+            }
+        }
+    }
+}
+
+#[test]
 fn interior_crossings_produce_curved_wheels_inside_the_visible_street_union() {
     let streets = [
         road(Vec2::new(-24.0, 0.0), Vec2::new(24.0, 0.0), 4.0),

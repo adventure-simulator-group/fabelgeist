@@ -1,6 +1,11 @@
+const RNG_QUEST_FAMILY: fabelgeist_determinism::StreamId = fabelgeist_determinism::StreamId::new("quest.family");
+
+
 pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, GenerationError> {
+    let canonical = canonical_context(context)?;
+    let context = &canonical;
     if context.requested_family == Some(TemplateFamily::Outbreak)
-        || (context.requested_family.is_none() && context.seed.is_multiple_of(7))
+        || (context.requested_family.is_none() && RNG_QUEST_FAMILY.rng(context.seed, &[]).index(7) == 0)
     {
         return generate_outbreak(context);
     }
@@ -33,42 +38,42 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
         _ => 50,
     };
     let (reliability, reliability_bridge) = choose(
-        context.seed.rotate_left(5),
+        context.seed,
         "module.reliability",
         "relation.reliability.context",
         &reliability_candidates(demographic, circumstance, cause),
         &mut trace,
     )?;
     let (secondary_site_kind, secondary_site_bridge) = choose(
-        context.seed.rotate_left(11),
+        context.seed,
         "module.secondary_site",
         "relation.site.cause",
         &secondary_site_candidates(cause, site),
         &mut trace,
     )?;
     let (secondary_circumstance, secondary_circumstance_bridge) = choose(
-        context.seed.rotate_left(13),
+        context.seed,
         "module.secondary_circumstance",
         "relation.circumstance.npc_fact",
         &secondary_circumstance_candidates(secondary, circumstance),
         &mut trace,
     )?;
     let (evidence_kind, evidence_bridge) = choose(
-        context.seed.rotate_left(17),
+        context.seed,
         "module.evidence",
         "relation.evidence.cause_site",
         &evidence_candidates(cause, site),
         &mut trace,
     )?;
     let (account_style, account_bridge) = choose(
-        context.seed.rotate_left(23),
+        context.seed,
         "module.account",
         "relation.account.reliability_circumstance",
         &account_style_candidates(reliability, circumstance),
         &mut trace,
     )?;
     let (route_variant, route_bridge) = choose(
-        context.seed.rotate_left(31),
+        context.seed,
         "module.route",
         "relation.route.family",
         &route_variant_candidates(family),
@@ -77,17 +82,10 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
     let mut victim_target_candidates = (0..context.witness_candidates.len())
         .filter(|index| *index != primary_witness && *index != secondary_witness)
         .collect::<Vec<_>>();
-    victim_target_candidates.sort_by_key(|index| {
-        hash(
-            context.seed.rotate_left(41),
-            &format!(
-                "victim-target:{}",
-                context.witness_candidates[*index].resident_character_id
-            ),
-        )
-    });
+    fabelgeist_determinism::StreamId::new("quest.victim-target")
+        .rng(context.seed, &[]).shuffle(&mut victim_target_candidates);
     let (attack_pattern, pattern_bridge) = choose(
-        context.seed.rotate_left(37),
+        context.seed,
         "module.attack_pattern",
         "relation.pattern.family",
         &attack_pattern_candidates(family, !victim_target_candidates.is_empty()),
@@ -102,7 +100,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
             resident_character_id: candidate.resident_character_id,
             demographic: candidate.demographic,
             age_band: candidate.age_band.clone(),
-            sex: candidate.sex.clone(),
+            sex: candidate.sex,
             profession: candidate.profession.clone(),
             expected_settlement_id: context.settlement_id.clone(),
             expected_location: candidate.expected_location.clone(),
@@ -215,11 +213,8 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
     // cannot change any part of the initial dialogue projection.
     let uncorroborated_pattern_claim =
         "There may be a pattern, yet I cannot tell which details matter.".to_owned();
-    let has_private_pattern_detail = hash(
-        context.observer_entropy_hi ^ context.observer_entropy_lo.rotate_left(17),
-        "testimony-concern:private-pattern-detail",
-    )
-    .is_multiple_of(2);
+    let has_private_pattern_detail = fabelgeist_determinism::StreamId::new("quest.private-pattern-detail")
+        .rng(context.observer_entropy_hi.into(), &[context.observer_entropy_lo]).boolean();
     let evidence_site_label = if family == TemplateFamily::RecurringDepredation {
         "the latest incident site"
     } else {
@@ -749,7 +744,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
     .flatten()
     {
         if !bridges.iter().any(|b: &CausalBridge| b.id.0 == key) {
-            bridges.push(bridge(key, &prefix, family, context.now_minute));
+            bridges.push(bridge(key, &prefix, family));
         }
     }
     for item in &bridges {
@@ -795,7 +790,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
             attack_pattern.stable_variant_id(),
             consequence(cause, template).symptom.stable_variant_id()
         ),
-        occurred_at: context.now_minute.saturating_sub(180),
+        occurred_at: context.now_minute.saturating_sub_minutes(180),
     }]
     .into_iter()
     .chain(bridges.iter().map(|b| CanonicalEvent {
@@ -804,7 +799,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
         subject: "causal bridge".into(),
         predicate: "explains".into(),
         object: b.explanation.clone(),
-        occurred_at: context.now_minute.saturating_sub(120),
+        occurred_at: context.now_minute.saturating_sub_minutes(120),
     }))
     .collect();
     if trace.len() > MAX_FACTOR_TRACE_RECORDS
@@ -881,7 +876,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
         DiseaseId::ShroudFever,
         DiseaseId::Bilwisschuss,
         DiseaseId::Kobeldunst,
-    ][context.seed as usize % 6];
+    ][fabelgeist_determinism::StreamId::new("quest.outbreak-disease").rng(context.seed, &[]).index(6)];
     let transmission_route = crate::disease::definition(disease).primary_community_vector;
     let carrier = ThreatId::Alp;
     let (site_kind, source, remediation, responsible_npc, carrier_threat) = match disease {
@@ -899,7 +894,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
             }),
             None,
         ),
-        DiseaseId::Influenza if (context.seed / 5).is_multiple_of(2) => (
+        DiseaseId::Influenza if (context.seed.to_u64() / 5).is_multiple_of(2) => (
             SiteKind::OccupiedHouse,
             OutbreakSource::Sanitation {
                 practice: OutbreakSanitationPractice::UnwashedSharedBedding,
@@ -1277,35 +1272,35 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
                 .saturating_add(definition.rise_minutes)
                 .saturating_add(definition.peak_minutes)
                 .saturating_add(definition.recovery_minutes);
-            let exposed_at = context.now_minute.saturating_sub(course_duration);
+            let exposed_at = context.now_minute.saturating_sub_minutes(course_duration);
             let episode_id = crate::disease::outbreak_exposure_seed(
                 resident_character_id,
                 &format!("{}:{patient_ref}", problem_id),
             );
             let episode = crate::disease::InfectionEpisode {
-                id: episode_id,
+                id: episode_id.to_u64(),
                 character_id: resident_character_id,
                 disease_id: disease,
                 contracted_at: exposed_at,
                 ruleset_version: crate::physiology::PHYSIOLOGY_RULESET_VERSION,
                 phenotype_key_version: crate::physiology::PHENOTYPE_KEY_VERSION,
             };
-            let became_symptomatic_at = exposed_at.saturating_add(definition.incubation_minutes);
+            let became_symptomatic_at = exposed_at.saturating_add_minutes(definition.incubation_minutes);
             let immunity = f32::from(immunity_milli) / 1_000.0;
             let terminal = crate::disease::first_combined_terminal(
                 &[episode],
                 exposed_at,
                 exposed_at
-                    .saturating_add(definition.incubation_minutes)
-                    .saturating_add(definition.rise_minutes)
-                    .saturating_add(definition.peak_minutes)
-                    .saturating_add(definition.recovery_minutes),
+                    .saturating_add_minutes(definition.incubation_minutes)
+                    .saturating_add_minutes(definition.rise_minutes)
+                    .saturating_add_minutes(definition.peak_minutes)
+                    .saturating_add_minutes(definition.recovery_minutes),
                 immunity,
             );
             let (died_at, death_kind) = if carrier_death {
                 let attack_at = context
                     .now_minute
-                    .saturating_sub(crate::strategic_time::MINUTES_PER_DAY)
+                    .saturating_sub_days(1)
                     .max(became_symptomatic_at);
                 let attack_precedes_terminal =
                     terminal.is_none_or(|(terminal_at, _)| attack_at < terminal_at);
@@ -1328,7 +1323,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
             OutbreakExposure {
                 patient_ref,
                 patient_character_id: resident_character_id,
-                episode_id,
+                episode_id: episode_id.to_u64(),
                 exposed_at,
                 became_symptomatic_at,
                 died_at,
@@ -1393,7 +1388,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
             object: "the same few days".into(),
             occurred_at: context
                 .now_minute
-                .saturating_sub(3 * crate::strategic_time::MINUTES_PER_DAY),
+                .saturating_sub_days(3),
         }],
         consequence: ConsequenceProfile {
             symptom: Symptom::SickLocals,

@@ -4,6 +4,22 @@
 //! familiarity. Presentation code must use the closed topic/action catalogue;
 //! free-form morale labels are never parsed into actions.
 
+mod action_kind;
+mod affinity;
+pub use affinity::{
+    AFFINITY_HALF_LIFE_MINUTES, AFFINITY_MAX, AFFINITY_MIN, affinity_gain, realized_affinity_delta,
+    settle_affinity,
+};
+mod claim_resolution;
+pub use action_kind::{ParseSocialActionKindError, SocialActionKind};
+mod witness;
+pub use claim_resolution::{WitnessClaimOutcome, WitnessClaimResolution};
+pub use witness::{
+    ClaimAssessment, ClaimAssessmentDirection, ClaimChallengeApproach, ClaimChallengeInput,
+    ClaimChallengeOutcome, ParseClaimChallengeApproachError, assess_testimony_claim,
+    resolve_claim_challenge,
+};
+
 use std::collections::HashSet;
 
 use adventuresim_world_schema::OfficialReligion;
@@ -12,9 +28,6 @@ use crate::personality::{
     Courtship, Inclination, Mirth, Presentation, SelfKnowledge, Transparency,
 };
 
-pub const AFFINITY_MIN: f32 = -100.0;
-pub const AFFINITY_MAX: f32 = 100.0;
-pub const AFFINITY_HALF_LIFE_MINUTES: u64 = 30 * 24 * 60;
 pub const SOCIAL_COOLDOWN_MINUTES: u64 = 24 * 60;
 pub const SOCIAL_RESPONSE_MINUTES: u64 = 5;
 pub const DISCOVERY_TRAINING_HOURS: f32 = 0.25;
@@ -551,145 +564,6 @@ pub fn canonical_cooldown_id(
     format!("{actor_id}:{target_id}:{}:{action_kind}", topic.stable_id())
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub enum SocialActionKind {
-    Reflect,
-    Listen,
-    Commiserate,
-    Pray,
-    Reassure,
-    LightenMood,
-    Rally,
-    Reframe,
-    Flirt,
-}
-
-impl SocialActionKind {
-    pub const fn reducer_value(self) -> &'static str {
-        match self {
-            Self::Reflect => "reflect",
-            Self::Listen => "listen",
-            Self::Commiserate => "commiserate",
-            Self::Pray => "pray",
-            Self::Reassure => "reassure",
-            Self::LightenMood => "lighten_mood",
-            Self::Rally => "command",
-            Self::Reframe => "deception",
-            Self::Flirt => "flirt",
-        }
-    }
-
-    pub const fn skill_name(self, shares_concern: bool) -> &'static str {
-        match self {
-            Self::Reflect => "Insight",
-            Self::Listen => "Insight",
-            Self::Commiserate if shares_concern => "Insight",
-            Self::Commiserate => "Deception",
-            Self::Pray => "Religion",
-            Self::Reassure => "Physiology",
-            Self::LightenMood => "Charm",
-            Self::Rally => "Command",
-            Self::Reframe => "Deception",
-            Self::Flirt => "Charm",
-        }
-    }
-
-    pub const fn available_for(self, topic: SocialTopic) -> bool {
-        match self {
-            Self::Reflect | Self::Listen | Self::Commiserate => true,
-            Self::Pray => !matches!(topic, SocialTopic::Filth),
-            Self::Reassure => matches!(
-                topic,
-                SocialTopic::Injury | SocialTopic::Fatigue | SocialTopic::Hunger
-            ),
-            Self::LightenMood => !matches!(topic, SocialTopic::Faith),
-            Self::Rally => matches!(
-                topic,
-                SocialTopic::Defeat | SocialTopic::Fatigue | SocialTopic::Faith
-            ),
-            Self::Reframe => matches!(
-                topic,
-                SocialTopic::Defeat | SocialTopic::Injury | SocialTopic::Faith
-            ),
-            Self::Flirt => matches!(topic, SocialTopic::Defeat | SocialTopic::Injury),
-        }
-    }
-
-    pub const fn description(self, topic: SocialTopic, shares_concern: bool) -> &'static str {
-        match (self, topic, shares_concern) {
-            (Self::Reflect, _, _) => "Reflect on why this affects you",
-            (Self::Listen, SocialTopic::Defeat, _) => "Ask how they feel about the defeat",
-            (Self::Listen, SocialTopic::Injury, _) => "Ask how the injury is affecting them",
-            (Self::Listen, SocialTopic::Fatigue, _) => "Ask how exhaustion is wearing on them",
-            (Self::Listen, SocialTopic::Hunger, _) => "Ask how hunger is affecting them",
-            (Self::Listen, SocialTopic::Faith, _) => "Ask what is troubling their conscience",
-            (Self::Listen, SocialTopic::Filth, _) => "Ask why the grime is bothering them",
-            (Self::Commiserate, SocialTopic::Defeat, true) => "Commiserate about the defeat",
-            (Self::Commiserate, SocialTopic::Injury, true) => "Commiserate about being injured",
-            (Self::Commiserate, SocialTopic::Fatigue, true) => "Commiserate about the exhaustion",
-            (Self::Commiserate, SocialTopic::Hunger, true) => "Commiserate about going hungry",
-            (Self::Commiserate, SocialTopic::Faith, true) => "Commiserate about the moral setback",
-            (Self::Commiserate, SocialTopic::Filth, true) => "Commiserate about being filthy",
-            (Self::Commiserate, SocialTopic::Defeat, false) => "Feign sympathy about the defeat",
-            (Self::Commiserate, SocialTopic::Injury, false) => "Feign sympathy about the injury",
-            (Self::Commiserate, SocialTopic::Fatigue, false) => {
-                "Feign sympathy about the exhaustion"
-            }
-            (Self::Commiserate, SocialTopic::Hunger, false) => "Feign sympathy about going hungry",
-            (Self::Commiserate, SocialTopic::Faith, false) => {
-                "Feign sympathy about the moral setback"
-            }
-            (Self::Commiserate, SocialTopic::Filth, false) => "Feign sympathy about being filthy",
-            (Self::Pray, _, _) => "Offer a prayer in their tradition",
-            (Self::Reassure, SocialTopic::Injury, _) => {
-                "Sit with them and speak calmly about what can be plainly observed"
-            }
-            (Self::Reassure, SocialTopic::Fatigue, _) => {
-                "Attend to their weariness and acknowledge what they are feeling"
-            }
-            (Self::Reassure, SocialTopic::Hunger, _) => {
-                "Stay with them and acknowledge the bodily distress of hunger"
-            }
-            (Self::LightenMood, SocialTopic::Defeat, _) => "Joke about bouncing back from defeat",
-            (Self::LightenMood, SocialTopic::Injury, _) => "Joke to distract them from the pain",
-            (Self::LightenMood, SocialTopic::Fatigue, _) => "Joke to help keep them awake",
-            (Self::LightenMood, SocialTopic::Hunger, _) => "Joke about the empty provisions",
-            (Self::LightenMood, SocialTopic::Filth, _) => "Joke about the mess they are in",
-            (Self::Rally, SocialTopic::Defeat, _) => "Rally them after the defeat",
-            (Self::Rally, SocialTopic::Fatigue, _) => "Urge them to keep going despite exhaustion",
-            (Self::Rally, SocialTopic::Faith, _) => "Call on them to stand by their convictions",
-            (Self::Reframe, SocialTopic::Defeat, _) => "Cast the defeat as a lesson",
-            (Self::Reframe, SocialTopic::Injury, _) => {
-                "Claim the injury is less serious than it looks"
-            }
-            (Self::Reframe, SocialTopic::Faith, _) => {
-                "Offer a reassuring interpretation of the moral setback"
-            }
-            (Self::Flirt, SocialTopic::Defeat, _) => {
-                "Tell them they remain impressive despite the defeat"
-            }
-            (Self::Flirt, SocialTopic::Injury, _) => "Tell them the scar makes them look striking",
-            // Callers must check `available_for`; this keeps malformed clients
-            // from eliciting invented topic-specific copy.
-            _ => "This approach does not fit the concern",
-        }
-    }
-
-    pub const fn risk(self) -> f32 {
-        match self {
-            Self::Reflect => 0.05,
-            Self::Listen => 0.05,
-            Self::Commiserate => 0.2,
-            Self::Pray => 0.45,
-            Self::Reassure => 0.12,
-            Self::LightenMood => 0.45,
-            Self::Rally => 0.55,
-            Self::Reframe => 0.65,
-            Self::Flirt => 0.85,
-        }
-    }
-}
-
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct BedsideReassuranceApproach {
     pub counsel: &'static str,
@@ -1042,25 +916,6 @@ pub fn resolve_casual_chat(input: CasualChatInput) -> CasualChatOutcome {
     }
 }
 
-pub fn settle_affinity(anchor: f32, elapsed_minutes: u64) -> f32 {
-    if !anchor.is_finite() {
-        return 0.0;
-    }
-    let factor = 0.5_f32.powf(elapsed_minutes as f32 / AFFINITY_HALF_LIFE_MINUTES as f32);
-    let value = anchor.clamp(AFFINITY_MIN, AFFINITY_MAX) * factor;
-    if value.abs() < 0.000_1 { 0.0 } else { value }
-}
-
-/// A realized morale improvement grants less affinity near the positive cap.
-pub fn affinity_gain(current: f32, realized_morale_gain: f32) -> f32 {
-    if !realized_morale_gain.is_finite() || realized_morale_gain <= 0.0 {
-        return 0.0;
-    }
-    let headroom =
-        (AFFINITY_MAX - current.clamp(AFFINITY_MIN, AFFINITY_MAX)) / (AFFINITY_MAX - AFFINITY_MIN);
-    (realized_morale_gain * 0.8 * headroom).max(0.0)
-}
-
 pub fn canonical_pair(left: u64, right: u64) -> Option<(u64, u64)> {
     (left != right).then(|| (left.min(right), left.max(right)))
 }
@@ -1185,170 +1040,6 @@ pub fn diagnosed_axis(
     (belief, confidence)
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum ClaimAssessmentDirection {
-    Unknown,
-    LikelyFalse,
-    LikelyTrue,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub struct ClaimAssessment {
-    pub direction: ClaimAssessmentDirection,
-    /// Bounded presentation strength. This is a noisy demeanor perception, not
-    /// confidence in factual accuracy.
-    pub strength: f32,
-}
-
-/// Produce a fallible observer perception for one atomic claim.
-///
-/// Noise deliberately dominates weak checks, so any demeanor can produce any
-/// colored direction. Better Insight strengthens a non-ambiguous private
-/// demeanor signal without ever making it certain.
-pub fn assess_testimony_claim(
-    demeanor_truth_signal: f32,
-    insight_check: f32,
-    roll: f32,
-) -> ClaimAssessment {
-    let insight = insight_check.clamp(0.0, 5.0);
-    let noise = (roll.clamp(0.0, 1.0) * 2.0 - 1.0) * 0.75;
-    let signal = demeanor_truth_signal.clamp(-1.0, 1.0) * (0.1 + insight * 0.06) + noise;
-    let absolute = signal.abs();
-    let direction = if absolute < 0.18 {
-        ClaimAssessmentDirection::Unknown
-    } else if signal < 0.0 {
-        ClaimAssessmentDirection::LikelyFalse
-    } else {
-        ClaimAssessmentDirection::LikelyTrue
-    };
-    ClaimAssessment {
-        direction,
-        strength: ((absolute - 0.18).max(0.0) / 0.82).clamp(0.0, 1.0),
-    }
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum ClaimChallengeApproach {
-    Charm,
-    Command,
-    Bluff,
-}
-
-impl ClaimChallengeApproach {
-    pub const fn skill_name(self) -> &'static str {
-        match self {
-            Self::Charm => "Charm",
-            Self::Command => "Command",
-            Self::Bluff => "Deception",
-        }
-    }
-
-    const fn social_action(self) -> SocialActionKind {
-        match self {
-            Self::Charm => SocialActionKind::LightenMood,
-            Self::Command => SocialActionKind::Rally,
-            Self::Bluff => SocialActionKind::Reframe,
-        }
-    }
-
-    pub const fn leverage(self) -> f32 {
-        match self {
-            Self::Charm => 0.0,
-            Self::Command => 0.45,
-            Self::Bluff => 0.9,
-        }
-    }
-
-    pub const fn failure_affinity_loss(self) -> f32 {
-        match self {
-            Self::Charm => -0.8,
-            Self::Command => -1.4,
-            Self::Bluff => -2.5,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Copy)]
-pub struct ClaimChallengeInput {
-    pub approach: ClaimChallengeApproach,
-    pub claim_is_factually_accurate: bool,
-    pub skill_check: f32,
-    pub affinity: f32,
-    pub familiarity_hours: f32,
-    /// Current settled NPC morale in the ordinary -100..=100 strategic range.
-    /// It contributes at most +/-0.12 chance before the common clamp.
-    pub current_morale: f32,
-    pub target_transparency: Transparency,
-    pub target_mirth: Mirth,
-    pub roll: f32,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub struct ClaimChallengeOutcome {
-    pub succeeded: bool,
-    pub morale_delta: f32,
-    pub affinity_delta: f32,
-}
-
-/// Resolve a response to one atomic claim. Truthful claims always use the same
-/// safe failed-challenge result as an insufficient check against an untrue
-/// claim, so callers cannot infer why a response failed.
-pub fn resolve_claim_challenge(input: ClaimChallengeInput) -> ClaimChallengeOutcome {
-    let personality_fit = match (
-        input.approach,
-        input.target_transparency,
-        input.target_mirth,
-    ) {
-        (ClaimChallengeApproach::Charm, _, Mirth::Merry) => 0.45,
-        (ClaimChallengeApproach::Charm, _, Mirth::Grave) => -0.45,
-        (ClaimChallengeApproach::Command, Transparency::Open, _) => -0.3,
-        (ClaimChallengeApproach::Command, Transparency::Guarded, _) => 0.25,
-        (ClaimChallengeApproach::Bluff, Transparency::Open, _) => 0.25,
-        (ClaimChallengeApproach::Bluff, Transparency::Guarded, _) => -0.35,
-        _ => 0.0,
-    };
-    let sensitivity = match input.target_transparency {
-        Transparency::Open => 0.2,
-        Transparency::Neutral => 0.5,
-        Transparency::Guarded => 0.85,
-    };
-    let morale_fit = input.current_morale.clamp(-100.0, 100.0) / 100.0 * 1.5;
-    let outcome = resolve_social_attempt(SocialAttempt {
-        action: input.approach.social_action(),
-        topic: SocialTopic::Defeat,
-        skill_check: input.skill_check + personality_fit + morale_fit + input.approach.leverage(),
-        affinity: input.affinity,
-        familiarity_hours: input.familiarity_hours,
-        diagnosis_correct: None,
-        sensitivity,
-        roll: input.roll,
-    });
-    let succeeded = !input.claim_is_factually_accurate && outcome.succeeded;
-    let affinity_delta = if succeeded {
-        if input.approach == ClaimChallengeApproach::Command {
-            -0.4
-        } else {
-            0.0
-        }
-    } else {
-        input.approach.failure_affinity_loss()
-    };
-    ClaimChallengeOutcome {
-        succeeded,
-        morale_delta: if succeeded {
-            outcome.morale_delta
-        } else {
-            outcome.morale_delta.min(0.0)
-        },
-        affinity_delta,
-    }
-}
-
-pub fn realized_affinity_delta(current: f32, requested_delta: f32) -> f32 {
-    (current + requested_delta).clamp(AFFINITY_MIN, AFFINITY_MAX)
-        - current.clamp(AFFINITY_MIN, AFFINITY_MAX)
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1420,17 +1111,6 @@ mod tests {
             })
             .positive
         );
-    }
-
-    #[test]
-    fn decay_is_partition_independent_and_never_crosses_neutral() {
-        for start in [-80.0, 80.0] {
-            let once = settle_affinity(start, 40_000);
-            let split = settle_affinity(settle_affinity(start, 10_000), 30_000);
-            assert!((once - split).abs() < 0.0001);
-            assert_eq!(once.signum(), start.signum());
-            assert!(once.abs() < start.abs());
-        }
     }
 
     #[test]
@@ -1516,19 +1196,6 @@ mod tests {
         });
         assert!(outcome.succeeded);
         assert!(outcome.affinity_delta < 0.0);
-    }
-
-    #[test]
-    fn realized_affinity_delta_reports_clamping() {
-        assert!((realized_affinity_delta(-99.5, -2.5) + 0.5).abs() < 0.0001);
-        assert_eq!(realized_affinity_delta(0.0, 0.0), 0.0);
-    }
-
-    #[test]
-    fn positive_gain_requires_realized_improvement_and_diminishes() {
-        assert_eq!(affinity_gain(0.0, 0.0), 0.0);
-        assert_eq!(affinity_gain(0.0, -1.0), 0.0);
-        assert!(affinity_gain(0.0, 5.0) > affinity_gain(90.0, 5.0));
     }
 
     #[test]
@@ -1969,8 +1636,11 @@ mod tests {
         ] {
             assert!(SocialActionKind::Commiserate.available_for(topic));
         }
-        assert_eq!(SocialActionKind::Commiserate.skill_name(true), "Insight");
-        assert_eq!(SocialActionKind::Commiserate.skill_name(false), "Deception");
+        assert_eq!(SocialActionKind::Commiserate.skill(true).label(), "Insight");
+        assert_eq!(
+            SocialActionKind::Commiserate.skill(false).label(),
+            "Deception"
+        );
         assert!(!SocialActionKind::Flirt.available_for(SocialTopic::Hunger));
         assert!(!SocialActionKind::Rally.available_for(SocialTopic::Filth));
         assert!(!SocialActionKind::LightenMood.available_for(SocialTopic::Faith));

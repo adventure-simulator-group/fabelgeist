@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::chivalric_virtue_type::ChivalricVirtue;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -17,7 +18,7 @@ pub struct NarrativeCombatFollowupReceipt {
     pub result_transcript: String,
     pub applied_payload_json: String,
     pub virtue_exemplified: Option<ChivalricVirtue>,
-    pub resolved_at_minute: u64,
+    pub resolved_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for NarrativeCombatFollowupReceipt {
@@ -37,7 +38,8 @@ pub struct NarrativeCombatFollowupReceiptCols {
     pub applied_payload_json: __sdk::__query_builder::Col<NarrativeCombatFollowupReceipt, String>,
     pub virtue_exemplified:
         __sdk::__query_builder::Col<NarrativeCombatFollowupReceipt, Option<ChivalricVirtue>>,
-    pub resolved_at_minute: __sdk::__query_builder::Col<NarrativeCombatFollowupReceipt, u64>,
+    pub resolved_at_minute:
+        __sdk::__query_builder::Col<NarrativeCombatFollowupReceipt, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for NarrativeCombatFollowupReceipt {

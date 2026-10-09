@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::contract_status_type::ContractStatus;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -25,8 +26,8 @@ pub struct BackendContract {
     pub opposition_count_wording: String,
     pub opposition_count: u32,
     pub opposition_combat_power: u64,
-    pub accepted_at_minute: Option<u64>,
-    pub paid_at_minute: Option<u64>,
+    pub accepted_at_minute: Option<StrategicMinute>,
+    pub paid_at_minute: Option<StrategicMinute>,
     pub distance_m: u64,
 }
 
@@ -54,8 +55,8 @@ pub struct BackendContractCols {
     pub opposition_count_wording: __sdk::__query_builder::Col<BackendContract, String>,
     pub opposition_count: __sdk::__query_builder::Col<BackendContract, u32>,
     pub opposition_combat_power: __sdk::__query_builder::Col<BackendContract, u64>,
-    pub accepted_at_minute: __sdk::__query_builder::Col<BackendContract, Option<u64>>,
-    pub paid_at_minute: __sdk::__query_builder::Col<BackendContract, Option<u64>>,
+    pub accepted_at_minute: __sdk::__query_builder::Col<BackendContract, Option<StrategicMinute>>,
+    pub paid_at_minute: __sdk::__query_builder::Col<BackendContract, Option<StrategicMinute>>,
     pub distance_m: __sdk::__query_builder::Col<BackendContract, u64>,
 }
 

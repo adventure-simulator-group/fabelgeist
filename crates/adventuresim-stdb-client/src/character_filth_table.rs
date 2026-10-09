@@ -5,6 +5,7 @@
 use super::character_filth_type::CharacterFilth;
 use super::filth_origin_type::FilthOrigin;
 use super::filth_substance_type::FilthSubstance;
+use super::strategic_minute_type::StrategicMinute;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `character_filth`.

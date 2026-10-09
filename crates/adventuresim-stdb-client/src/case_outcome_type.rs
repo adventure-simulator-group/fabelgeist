@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::case_status_type::CaseStatus;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -13,9 +14,8 @@ pub struct CaseOutcome {
     pub party_id: String,
     pub status: CaseStatus,
     pub winning_path_index: Option<u16>,
-    pub resolved_at_minute: u64,
+    pub resolved_at_minute: StrategicMinute,
     pub selected_finale_id: String,
-    pub finale_executed: bool,
 }
 
 impl __sdk::InModule for CaseOutcome {
@@ -30,9 +30,8 @@ pub struct CaseOutcomeCols {
     pub party_id: __sdk::__query_builder::Col<CaseOutcome, String>,
     pub status: __sdk::__query_builder::Col<CaseOutcome, CaseStatus>,
     pub winning_path_index: __sdk::__query_builder::Col<CaseOutcome, Option<u16>>,
-    pub resolved_at_minute: __sdk::__query_builder::Col<CaseOutcome, u64>,
+    pub resolved_at_minute: __sdk::__query_builder::Col<CaseOutcome, StrategicMinute>,
     pub selected_finale_id: __sdk::__query_builder::Col<CaseOutcome, String>,
-    pub finale_executed: __sdk::__query_builder::Col<CaseOutcome, bool>,
 }
 
 impl __sdk::__query_builder::HasCols for CaseOutcome {
@@ -45,7 +44,6 @@ impl __sdk::__query_builder::HasCols for CaseOutcome {
             winning_path_index: __sdk::__query_builder::Col::new(table_name, "winning_path_index"),
             resolved_at_minute: __sdk::__query_builder::Col::new(table_name, "resolved_at_minute"),
             selected_finale_id: __sdk::__query_builder::Col::new(table_name, "selected_finale_id"),
-            finale_executed: __sdk::__query_builder::Col::new(table_name, "finale_executed"),
         }
     }
 }

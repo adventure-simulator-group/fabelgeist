@@ -29,15 +29,20 @@ bounds. Beds, lanes, other plants and all resolved building projections remain
 clear of the complete accepted specimen. Clients use the supplied pose without
 sampling a new position, changing scale or discarding an accepted plant.
 
-The whole garden plot participates in playable-property partitioning and
-terrain grading. Touching property pads share one terrace. A property extending
-onto vista terrain requires a coplanar supporting vista surface. Its terrace
-and the playable-edge intervals sampled by vista stitching use that elevation.
-Unsupported non-level vista footprints, including LOD morphs, fail generation.
-Final validation checks the same stitched triangles used by presentation.
-Distant
-plants use their owner's validated base elevation; playable plants use the
-core-generated pad elevation.
+The whole garden plot participates in playable-property partitioning. Its
+horizontal reservation retains the building, beds, lanes and plant membership.
+It does not prescribe a level garden surface or merge touching properties into
+one terrace. Building support owns the actual bearing outline and bounded
+external doorway approaches; garden soil elsewhere retains the geographic
+terrain, including the existing vista stitching and relief.
+
+`SceneGarden::project` binds every plant ID to an explicit elevation on the
+complete physical soil surface. Playable and distant gardens use this same
+projection. Distant presentation waits for terrain with the exact scene digest.
+A missing soil sample rejects the complete plant projection, without replacing
+it by a house floor or dropping the plant. The generated root poses remain
+independent of representation changes. Root support alone does not establish
+usable access, safe working-lane grades or complete movement clearance.
 
 Cultivated bed triangles replace the packed-yard triangles beneath them.
 Terrain grading does not change the substrate or ground-cover ownership of

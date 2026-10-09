@@ -1,0 +1,80 @@
+/* Quiet normal states; optional names and keys stay beside the same controls. */
+.stats-label-control {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  min-height: 2rem;
+  margin-bottom: .4rem;
+  font: .8rem/1.4 var(--font-ui);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.stats-label-control input { accent-color: var(--accent-light); }
+.stats-key { display: none; }
+[data-stat-labels-visible] .stats-key { display: block; }
+.party-attribute-row { min-height: 1.55rem; }
+.party-attribute-row.party-attribute-icon-only {
+  grid-template-columns: 1.25rem minmax(0, 1fr);
+}
+.party-attribute-icon-only .party-attribute-name,
+.party-attribute-row:has(.stat-icon-eyesight, .stat-icon-hearing) .party-attribute-name { display: none; }
+[data-stat-labels-visible] .party-attribute-row {
+  grid-template-columns: 1.25rem minmax(3rem, 1fr) minmax(2rem, 1.5fr);
+}
+[data-stat-labels-visible] .party-attribute-row .party-attribute-name { display: inline; }
+.party-skills-table .party-skill-name-column { width: 6.5rem; }
+.party-skill-name .stat-readable-label, .skill-row-label {
+  font: .8rem/1.3 var(--font-ui);
+  color: var(--text-secondary);
+  margin-left: .35rem;
+}
+/* Abstract concepts retain names even in compact mode. */
+.party-skill-name:has(.stat-icon-will, .stat-icon-social, .stat-icon-physiology, .stat-icon-caduceus) .stat-readable-label,
+[data-stat-labels-visible] .party-skill-name .stat-readable-label { display: inline; }
+[data-stat-labels-visible] .party-skill-name > .sr-only {
+  position: static; width: auto; height: auto; margin: 0;
+  overflow: visible; clip: auto; white-space: normal;
+  font: .8rem/1.3 var(--font-ui);
+}
+[data-stat-labels-visible] .party-skills-table .party-skill-name-column { width: 8rem; }
+.character-summary-icons { gap: .5rem .8rem; }
+.character-summary-icon {
+  width: auto; height: auto; min-height: 2rem;
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .15rem .25rem; background: transparent; border-color: transparent;
+}
+.character-summary-icon .character-summary-icon-mask,
+.character-summary-icon .character-summary-monogram { width: 1.35rem; height: 1.35rem; flex: 0 0 1.35rem; order: -1; }
+.summary-readable-label { font: .8rem/1.3 var(--font-ui); font-variant-numeric: tabular-nums; }
+.summary-readable-label { display: none; }
+[data-stat-labels-visible] .summary-readable-label { display: inline; }
+.attribute-group { display: flex; flex-direction: column; align-items: stretch; }
+.attribute-group-heading { display: none; }
+[data-stat-labels-visible] .attribute-group-heading,
+.attribute-group:has(.region-reading[open]) .attribute-group-heading { display: flex; justify-content: space-between; }
+.attribute-group > .region-reading { margin: 0; min-width: 0; order: -1; }
+.region-reading > summary {
+  display: grid; grid-template-columns: 1.25rem minmax(0, 1fr) 1rem;
+  align-items: center; gap: .4rem; min-height: 2rem;
+  padding: .35rem 0; list-style: none;
+}
+.region-reading > summary::-webkit-details-marker { display: none; }
+.region-body-icon, .region-body-icon .game-icon { width: 1.25rem; height: 1.25rem; display: block; color: var(--text-secondary); }
+.region-body-icon[data-body-region="right-arm"],
+.region-body-icon[data-body-region="right-leg"] { transform: scaleX(-1); }
+.region-health-symbol { color: var(--text-secondary); text-align: center; font: bold 1.25rem/1 var(--font-ui); }
+.region-reading .attribute-health-bar { width: 100%; height: .75rem; min-width: 0; }
+.region-health-label { display: none; }
+.region-reading[open] .region-health-label { display: inline; }
+.region-reading[open] p { margin: .25rem 0 .5rem; }
+[data-stat-labels-visible] .region-health-label { display: inline; }
+:is(.region-reading, .stats-key) .attribute-health-cut:not(.bandaged-cut) { background-image: repeating-linear-gradient(120deg, transparent 0 3px, #301414 3px 4px); }
+:is(.region-reading, .stats-key) .attribute-health-fracture:not(.splinted-fracture) { background-image: repeating-linear-gradient(90deg, transparent 0 3px, #241f1a 3px 4px); }
+:is(.region-reading, .stats-key) .attribute-health-blunt { background-image: radial-gradient(#403447 1px, transparent 1px); background-size: 4px 4px; }
+
+.attribute-group:not(.limb-attribute-column) .attribute-rank-bar { grid-column: 3; }
+
+.rank-scale-key { display: flex; gap: .4rem; margin-block: .5rem; }
+.rank-color-swatch { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; color: #111; background: var(--rank-color); font: bold .875rem var(--font-ui); border-radius: .15rem; }
+
+[data-tooltip-pinnable] { cursor: pointer; }

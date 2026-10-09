@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct InvestigationActionOutcome {
@@ -13,8 +15,8 @@ pub struct InvestigationActionOutcome {
     pub capability_id: String,
     pub attempt_id: String,
     pub safe_wording: String,
-    pub recorded_at: u64,
-    pub official_recorded_at: u64,
+    pub recorded_at: StrategicMinute,
+    pub official_recorded_at: StrategicMinute,
 }
 
 impl __sdk::InModule for InvestigationActionOutcome {
@@ -31,8 +33,9 @@ pub struct InvestigationActionOutcomeCols {
     pub capability_id: __sdk::__query_builder::Col<InvestigationActionOutcome, String>,
     pub attempt_id: __sdk::__query_builder::Col<InvestigationActionOutcome, String>,
     pub safe_wording: __sdk::__query_builder::Col<InvestigationActionOutcome, String>,
-    pub recorded_at: __sdk::__query_builder::Col<InvestigationActionOutcome, u64>,
-    pub official_recorded_at: __sdk::__query_builder::Col<InvestigationActionOutcome, u64>,
+    pub recorded_at: __sdk::__query_builder::Col<InvestigationActionOutcome, StrategicMinute>,
+    pub official_recorded_at:
+        __sdk::__query_builder::Col<InvestigationActionOutcome, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for InvestigationActionOutcome {

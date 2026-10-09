@@ -2,7 +2,7 @@
 
 For body-equipment generation, fitting, previews, or export changes in this
 crate, read and follow the shared
-[body-equipment modeling and review guide](../adventuresim-armor-model/AGENTS.md).
+[body-equipment modeling and review guide](../fabelgeist-armor/AGENTS.md).
 It defines the independent review roles, body-visible evidence, exploration
 loop, and scoped production validation. Keep that workflow in one place rather
 than duplicating it here.

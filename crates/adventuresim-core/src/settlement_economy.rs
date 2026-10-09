@@ -16,6 +16,21 @@ pub enum Storefront {
     Books,
 }
 
+impl Storefront {
+    /// Stable service identifier shared by routes and storefront policy.
+    pub const fn service_id(self) -> &'static str {
+        match self {
+            Self::General => "merchants",
+            Self::Weapons => "weapons",
+            Self::Armor => "armor",
+            Self::Clothing => "clothing",
+            Self::Herbalist => "herbalist",
+            Self::Inn => "inn",
+            Self::Books => "books",
+        }
+    }
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct SettlementResidentTab {
     pub location_id: &'static str,

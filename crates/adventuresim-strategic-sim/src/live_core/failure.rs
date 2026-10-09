@@ -371,7 +371,7 @@ impl LiveRunner {
         Some((leader.id, agent))
     }
 
-    pub(super) fn public_party_elapsed_max(&self, party_id: &str) -> u64 {
+    pub(super) fn public_party_elapsed_max(&self, party_id: &str) -> StrategicMinute {
         let member_ids = self
             .connection
             .db
@@ -385,9 +385,9 @@ impl LiveRunner {
             .backend_character_times()
             .iter()
             .filter(|row| member_ids.contains(&row.character_id))
-            .map(|row| row.minutes)
+            .map(|row| StrategicMinute::new(row.minutes.minutes))
             .max()
-            .unwrap_or(0)
+            .unwrap_or_default()
     }
 
     pub(super) fn observe_deaths(&mut self) {
@@ -422,7 +422,7 @@ impl LiveRunner {
                     .map_or_else(|| "none".to_owned(), bounded_event_field);
                 let strategic_minute = death.as_ref().map_or_else(
                     || "unavailable".to_owned(),
-                    |row| row.strategic_minute.to_string(),
+                    |row| row.strategic_minute.minutes.to_string(),
                 );
                 let survival = self.public_survival_observation(character_id);
                 let condition = self

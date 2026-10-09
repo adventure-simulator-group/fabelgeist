@@ -1,5 +1,8 @@
 // Owns the cohesive food-lot, contamination, preparation-receipt, and fireplace schema.
 /// Public, inspectable description of one non-fungible inventory batch.
+/// Cooking/harvesting captures ingredient provenance and material totals;
+/// consumption and preparation owners conserve/update the remaining material.
+/// Current catalog recipes cannot reconstruct an already cooked batch.
 #[derive(Clone, Debug)]
 #[table(accessor = food_lot, public)]
 pub struct FoodLot {
@@ -25,7 +28,7 @@ pub struct FoodLot {
     pub mass_kg: f32,
     pub nutrition_kcal: f32,
     pub total_value: f32,
-    pub created_at_minute: u64,
+    pub created_at_minute: StrategicMinute,
 }
 
 /// Hidden microbial state. The browser can inspect provenance, never pathogen load.
@@ -36,7 +39,7 @@ pub struct FoodContamination {
     pub food_lot_id: u64,
     pub concentration_anchor: f32,
     pub growth_per_hour: f32,
-    pub anchor_minute: u64,
+    pub anchor_minute: StrategicMinute,
 }
 
 /// Private source-material provenance carried through cooking into consumption.
@@ -103,6 +106,10 @@ pub struct FireplaceStation {
     pub instrument_return_custody: Option<crate::PersistedOperationalCustody>,
 }
 
+/// Immutable cooking input snapshot pinned when ingredients enter the fireplace.
+/// Retrieval derives readiness and resulting food from elapsed personal time,
+/// consumes this row, and transfers the captured provenance into the new lot.
+/// Later catalog, contributor-name, or inventory changes cannot rewrite the dish.
 #[derive(Clone, Debug)]
 #[table(accessor = fireplace_dish)]
 pub struct FireplaceDish {
@@ -117,7 +124,7 @@ pub struct FireplaceDish {
     pub contributor_name: String,
     pub method: CookingMethod,
     pub cooking_check: f32,
-    pub started_at_minute: u64,
+    pub started_at_minute: StrategicMinute,
     pub target_minutes: u32,
     pub display_name: String,
     pub ingredient_item_ids: Vec<String>,

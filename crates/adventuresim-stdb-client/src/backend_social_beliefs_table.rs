@@ -4,6 +4,7 @@
 #![allow(unused, clippy::all)]
 use super::personality_axis_type::PersonalityAxis;
 use super::social_belief_type::SocialBelief;
+use super::strategic_minute_type::StrategicMinute;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `backend_social_beliefs`.

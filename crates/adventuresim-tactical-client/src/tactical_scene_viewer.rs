@@ -21,17 +21,20 @@ use bevy::{
     pbr::{AtmosphereSettings, wireframe::WireframePlugin},
     prelude::*,
     render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
-    window::{ExitCondition, PresentMode, WindowResolution},
+    window::{ExitCondition, PresentMode},
     winit::WinitPlugin,
 };
 use serde::Serialize;
 
+mod benchmark_progress;
 mod building_review;
 mod buildings;
 mod camera_obstruction;
+mod capture_resolution;
 mod capture_state;
 mod capture_visibility;
 mod city_capture;
+pub(crate) mod fixed_city_cameras;
 mod furniture_capture;
 mod furniture_overlay;
 mod furniture_readiness;
@@ -44,6 +47,7 @@ mod terrain_setup;
 mod triangle_census;
 mod view_camera;
 mod view_specs;
+mod vista_validation;
 use buildings::spawn_tactical_buildings;
 #[cfg(test)]
 use capture_state::lighting_samples_stable;
@@ -89,15 +93,13 @@ use crate::presentation::{
     oak_review_terminal_specimen, spawn_understory_review_specimens, terrain_heightmap_image,
 };
 
-const VIEW_WIDTH: u32 = 1280;
-const VIEW_HEIGHT: u32 = 720;
 const PERFORMANCE_VIEW_WIDTH: u32 = 2560;
 const PERFORMANCE_VIEW_HEIGHT: u32 = 1440;
 const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 43;
+const CAPTURE_PROFILE_VERSION: u16 = 48;
 const PLANT_REVIEW_PROFILE: &str = "plant-review";
 const FUNGUS_REVIEW_PROFILE: &str = "fungus-review";
 const PLANT_LOD_REVIEW_PROFILE: &str = "plant-lod-review";
@@ -106,7 +108,7 @@ const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
 pub(crate) const LANDFORM_REVIEW_PROFILE: &str = "landform-review";
-const CAMERA_VERSION: u16 = 30;
+const CAMERA_VERSION: u16 = 31;
 const CAPTURE_CLOCK_PHASE_SECONDS: f32 = 2.0;
 const PLASTER_GRAZING_REVIEW_LUMENS: f32 = 50_000.0;
 
@@ -652,34 +654,6 @@ struct ScenePerformanceDiagnostics<'w> {
     cloud_animation: Res<'w, TacticalCloudAnimationStatus>,
 }
 
-impl ScenePerformanceBenchmarkState {
-    fn new(sample_frames: u32) -> Self {
-        let selected_mode = std::env::var("TACTICAL_BENCH_ONLY_MODE")
-            .ok()
-            .map(|requested| {
-                SCENE_PERFORMANCE_MODES
-                    .iter()
-                    .position(|mode| mode.name == requested)
-                    .unwrap_or_else(|| panic!("unknown benchmark mode {requested:?}"))
-            });
-        let mode = selected_mode.unwrap_or(0);
-        Self {
-            sample_frames,
-            mode,
-            configured_mode: None,
-            warmup_remaining: SCENE_PERFORMANCE_WARMUP_FRAMES * 2,
-            samples_ms: Vec::with_capacity(sample_frames as usize),
-            render_diagnostic_samples: BTreeMap::new(),
-            playable_tree_count: None,
-            playable_leaf_entities: None,
-            vista_tree_entities: None,
-            scene_entity_counts: None,
-            results: Vec::with_capacity(SCENE_PERFORMANCE_MODES.len()),
-            stop_after_mode: selected_mode.unwrap_or(SCENE_PERFORMANCE_MODES.len() - 1),
-        }
-    }
-}
-
 #[derive(Serialize)]
 struct ScenePerformanceBenchmarkResult {
     #[serde(skip)]
@@ -790,6 +764,7 @@ pub(crate) fn run(
     tree_review_azimuth_degrees: f32,
     profile: &'static str,
     requested_views: Vec<String>,
+    city_cameras: Option<PathBuf>,
 ) {
     let repository_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let (fixture, input_path) = match (fixture, scene_input) {
@@ -810,25 +785,32 @@ pub(crate) fn run(
         }
         _ => unreachable!("argument parser enforces one scene input"),
     };
+    let camera_contract = fixed_city_cameras::Contract::load(city_cameras, profile);
     let input = TacticalSceneInput::load(&input_path)
         .unwrap_or_else(|error| panic!("failed to load {}: {error}", input_path.display()));
-    let generated = input
-        .generate()
+    let generated = camera_contract
+        .generate(&input)
         .unwrap_or_else(|error| panic!("failed to generate tactical scene: {error}"));
     let mut environment = input.environment_snapshot(generated.digest.clone());
     if let Some(canopy_bps) = canopy_bps {
         environment.canopy_bps = canopy_bps;
     }
     if let Some(absolute_minute) = absolute_minute {
-        environment.absolute_minute = absolute_minute;
+        environment.absolute_minute =
+            adventuresim_world_schema::calendar::StrategicMinute::new(absolute_minute);
     }
     let output = output.map_or_else(
         || default_output(&repository_root, &fixture, &generated.digest),
         absolute_from_current,
     );
     prepare_fresh_output(&output);
-    fs::copy(&input_path, output.join("input.json"))
+    fs::copy(&input_path, output.join("source-input.json"))
         .unwrap_or_else(|error| panic!("failed to copy capture input: {error}"));
+    fs::write(
+        output.join("input.json"),
+        serde_json::to_vec_pretty(&input).unwrap(),
+    )
+    .expect("retain exact capture projection");
     println!("CAPTURE_OUTPUT={}", output.display());
     let wireframe_output = output.clone();
 
@@ -870,8 +852,7 @@ pub(crate) fn run(
         .set(WindowPlugin {
             primary_window: (!scene_performance_benchmarking).then(|| Window {
                 visible: false,
-                resolution: WindowResolution::new(VIEW_WIDTH, VIEW_HEIGHT)
-                    .with_scale_factor_override(1.0),
+                resolution: capture_resolution::window_resolution(profile),
                 present_mode: PresentMode::AutoNoVsync,
                 resizable: false,
                 decorations: false,
@@ -904,6 +885,8 @@ pub(crate) fn run(
     .add_plugins(capture_presentation_plugin())
     .insert_resource(ClearColor(Color::srgb_u8(158, 181, 195)))
     .insert_resource(SceneSetup(Some(setup)));
+    app.insert_resource(camera_contract);
+    app.add_systems(PostStartup, capture_resolution::apply.after(setup_scene));
     furniture_readiness::install(&mut app, profile);
     if terrain_wireframe {
         app.add_plugins(WireframePlugin::default())
@@ -924,13 +907,17 @@ pub(crate) fn run(
             PostStartup,
             (
                 setup_scene,
+                fixed_city_cameras::apply,
                 redirect_performance_camera_offscreen,
                 freeze_capture_clock,
             )
                 .chain(),
         );
     } else {
-        app.add_systems(PostStartup, (setup_scene, freeze_capture_clock).chain());
+        app.add_systems(
+            PostStartup,
+            (setup_scene, fixed_city_cameras::apply, freeze_capture_clock).chain(),
+        );
     }
     if scene_performance_benchmarking && scene_performance_render_diagnostics {
         app.add_plugins(bevy::render::diagnostic::RenderDiagnosticsPlugin);
@@ -944,7 +931,10 @@ pub(crate) fn run(
     } else if tree_lighting_benchmarking {
         app.add_systems(Last, benchmark_tree_lighting);
     } else if scene_performance_benchmarking {
-        app.add_systems(Last, benchmark_scene_performance);
+        app.add_systems(
+            Last,
+            (benchmark_scene_performance, benchmark_progress::report),
+        );
     } else {
         app.add_systems(
             Last,
@@ -1118,6 +1108,7 @@ fn selected_capture_views(
         LANDFORM_REVIEW_PROFILE => LANDFORM_REVIEW_VIEWS.as_slice(),
         INTERIOR_REVIEW_PROFILE => INTERIOR_REVIEW_VIEWS.as_slice(),
         CITY_REVIEW_PROFILE => CITY_REVIEW_VIEWS.as_slice(),
+        fixed_city_cameras::PROFILE => fixed_city_cameras::VIEWS.as_slice(),
         furniture_capture::PROFILE => view_specs::FURNITURE_REVIEW_VIEWS.as_slice(),
         interior_furniture_capture::PROFILE => interior_furniture_capture::VIEWS.as_slice(),
         interior_furniture_capture::ROOMS_PROFILE => {
@@ -1542,7 +1533,11 @@ mod capture_lighting_tests {
 
     #[test]
     fn named_moonlit_minute_has_risen_illuminated_moon_and_dark_sky() {
-        let sky = capture_celestial(359_940, 53_500_000, 10_000_000);
+        let sky = capture_celestial(
+            adventuresim_world_schema::calendar::StrategicMinute::new(359_940),
+            53_500_000,
+            10_000_000,
+        );
         assert!(sky.sun_altitude_degrees < -12.0);
         assert!(sky.moon_altitude_degrees > 20.0);
         assert!(sky.lunar_illumination > 0.9);
@@ -1724,7 +1719,7 @@ fn setup_scene(
     mut images: ResMut<Assets<Image>>,
     procedural_assets: Res<ProceduralTextureAssets>,
     mut understory_cache: ResMut<WoodyUnderstoryPresentationCache>,
-) {
+) -> Result {
     let setup = setup.0.take().expect("scene setup runs exactly once");
     let SceneSetupData {
         input,
@@ -1753,7 +1748,9 @@ fn setup_scene(
         gardens,
         repairs,
         terrain_patch,
+        building_recipes: _,
     } = generated;
+    let distant_buildings = buildings::distant_placements(&input, &buildings);
     let terrain_summary = TerrainSummary::new(&input, &terrain);
     let (
         vista_diameter_metres,
@@ -1766,12 +1763,12 @@ fn setup_scene(
     let city_half_extent_metres = input
         .buildings
         .iter()
-        .map(|building| building.centre_metres.abs().max_element())
+        .map(|building| building.centre_metres.metres().abs().max_element())
         .chain(
             input
                 .distant_buildings
                 .iter()
-                .map(|building| building.centre_metres.abs().max_element()),
+                .map(|building| building.centre_metres.metres().abs().max_element()),
         )
         .fold(0.0, f32::max);
     let mut expected_trees = 0;
@@ -1788,32 +1785,34 @@ fn setup_scene(
         &terrain,
         &profile,
         &output,
-    );
-    let building_interior_cameras = interior_furniture_capture::setup_rooms(
+    )?;
+    let building_interior_cameras = match interior_furniture_capture::setup_rooms(
         &mut commands,
         &buildings,
         &furniture,
         &profile,
         &output,
-    )
-    .unwrap_or_else(|| interior_capture::capture_cameras(&buildings, &profile));
-    let city_exterior_cameras = building_review::setup(
+    )? {
+        Some(cameras) => cameras,
+        None => interior_capture::capture_cameras(&buildings, &profile)?,
+    };
+    let city_exterior_cameras = match building_review::setup(
         &mut commands,
         &buildings,
         boundaries.len(),
         &input_path,
         &output,
         &profile,
-    )
-    .unwrap_or_else(|| {
-        city_capture::capture_cameras(
+    )? {
+        Some(cameras) => cameras,
+        None => city_capture::capture_cameras(
             &buildings,
-            &input.distant_buildings,
+            &distant_buildings,
             &input.streets,
             &terrain,
             &profile,
-        )
-    });
+        )?,
+    };
     let city_exterior_cameras = furniture_capture::setup(
         &mut commands,
         &furniture,
@@ -1822,17 +1821,14 @@ fn setup_scene(
         &output,
         &mut meshes,
         &mut materials,
-    )
+    )?
     .unwrap_or(city_exterior_cameras);
     let city_exterior_cameras = catalog_cameras.unwrap_or(city_exterior_cameras);
-    furniture_capture::spawn(&mut commands, &furniture);
-    spawn_tactical_buildings(&mut commands, buildings);
-    buildings::spawn_boundaries(&mut commands, boundaries);
+    furniture_capture::spawn(&mut commands, &furniture)?;
+    spawn_tactical_buildings(&mut commands, buildings)?;
+    buildings::spawn_boundaries(&mut commands, boundaries)?;
     for garden in gardens {
-        commands.spawn((
-            garden.scene,
-            Transform::from_xyz(0.0, garden.elevation_metres, 0.0),
-        ));
+        commands.spawn((garden, Transform::default()));
     }
     commands.spawn((
         Name::new("Neutral plaster grazing review light"),
@@ -1900,7 +1896,8 @@ fn setup_scene(
         obstacle_count += 1;
         let yaw = match kind {
             SceneObstacle::Rock(recipe) => {
-                (recipe.seed >> 40) as f32 / ((1_u32 << 24) - 1) as f32 * core::f32::consts::TAU
+                (recipe.seed.to_u64() >> 40) as f32 / ((1_u32 << 24) - 1) as f32
+                    * core::f32::consts::TAU
             }
             SceneObstacle::Tree => 0.0,
         };
@@ -2141,14 +2138,16 @@ fn setup_scene(
         ground,
         terrain,
         terrain_patch.as_ref(),
-    );
+    )?;
     commands.trigger(SceneVistaBundle {
+        properties: input.properties.clone(),
         scene_digest: digest.clone(),
         playable_half_extent_metres: Vec2::new(
             terrain_summary.width_metres * 0.5,
             terrain_summary.depth_metres * 0.5,
         ),
-        distant_buildings: input.distant_buildings.clone(),
+        distant_buildings,
+        establishments: input.establishments.clone(),
         streets: input.streets.clone(),
         yards: input.yards.clone(),
         parishes: input.parishes.clone(),
@@ -2165,8 +2164,8 @@ fn setup_scene(
         digest,
         seed: input.seed,
         absolute_minute,
-        latitude_microdegrees,
-        longitude_microdegrees,
+        latitude_microdegrees: latitude_microdegrees.get(),
+        longitude_microdegrees: longitude_microdegrees.get(),
         canopy_bps,
         generation_version: input.generation_version,
         scene_source: input.source,
@@ -2176,7 +2175,7 @@ fn setup_scene(
         expected_trees,
         expected_rocks,
         expects_grass,
-        vista_lods_supplied: input.vista.lods.len(),
+        vista_contract: vista_validation::VistaCaptureContract::from_source(&input.vista),
         vista_diameter_metres,
         vista_minimum_metres,
         vista_peak_metres,
@@ -2224,6 +2223,7 @@ fn setup_scene(
     if let Some(sample_frames) = scene_performance_benchmark_frames {
         commands.insert_resource(ScenePerformanceBenchmarkState::new(sample_frames));
     }
+    Ok(())
 }
 
 fn vista_metrics(input: &TacticalSceneInput) -> (f32, f32, f32, Vec3, Vec3) {
@@ -2334,7 +2334,7 @@ fn benchmark_leaf_representations(
     let report = LeafBenchmarkReport {
         pipeline: "tactical_scene_leaf_benchmark_v1",
         fixture: capture.fixture.clone(),
-        resolution: [VIEW_WIDTH, VIEW_HEIGHT],
+        resolution: capture_resolution::physical_pixels(&capture.profile).to_array(),
         tree_count: capture.expected_trees,
         warmup_frames_per_mode: LEAF_BENCHMARK_WARMUP_FRAMES,
         sample_frames_per_mode: state.sample_frames,
@@ -2437,7 +2437,7 @@ fn benchmark_tree_lighting(
     let report = TreeLightingBenchmarkReport {
         pipeline: "tactical_scene_tree_lighting_benchmark_v1",
         fixture: capture.fixture.clone(),
-        resolution: [VIEW_WIDTH, VIEW_HEIGHT],
+        resolution: capture_resolution::physical_pixels(&capture.profile).to_array(),
         tree_count: capture.expected_trees,
         warmup_frames_per_mode: TREE_LIGHTING_BENCHMARK_WARMUP_FRAMES,
         sample_frames_per_mode: state.sample_frames,
@@ -3309,7 +3309,7 @@ fn capture_views(
     terrain_materials: Query<(), With<TerrainMaterialPresentation>>,
     meshes: Res<Assets<Mesh>>,
     mut scene_visibility: ParamSet<(
-        Query<(&VistaTerrain, Has<Collider>)>,
+        vista_validation::VistaQuery<'_, '_>,
         Query<&mut Visibility, (With<VistaTerrain>, Without<CaptureOverlay>)>,
         ResMut<Assets<TacticalTreeLeafCardMaterial>>,
         Query<
@@ -4309,7 +4309,7 @@ fn build_manifest(
     foliage: &Query<&GroundScatterLayer>,
     terrain_materials: &Query<(), With<TerrainMaterialPresentation>>,
     meshes: &Assets<Mesh>,
-    vistas: &Query<(&VistaTerrain, Has<Collider>)>,
+    vistas: &vista_validation::VistaQuery<'_, '_>,
     weather_particle_count: usize,
     presentation_features: PresentationFeatures,
 ) -> PendingSceneCaptureManifest {
@@ -4423,14 +4423,9 @@ fn build_manifest(
                 .collect(),
         })
         .collect();
-    let mut presented_lods = BTreeSet::new();
-    let mut vista_colliders = 0;
-    let mut presented_chunks = 0;
-    for (vista, collidable) in vistas {
-        presented_lods.insert(vista.0);
-        presented_chunks += 1;
-        vista_colliders += usize::from(collidable);
-    }
+    let vista_observation = state
+        .vista_contract
+        .observe(vistas, presentation_features.requested.max_vista_lods);
     let obstacle_summary = ObstacleSummary {
         generated_trees: state.expected_trees,
         generated_rocks: state.expected_rocks,
@@ -4443,14 +4438,14 @@ fn build_manifest(
         tree_lods_presented: tree_lods_presented.clone(),
     };
     let vista_summary = VistaSummary {
-        supplied_lods: state.vista_lods_supplied,
-        presented_lods: presented_lods.into_iter().collect(),
-        presented_chunks,
+        supplied_lods: state.vista_contract.supplied_lods(),
+        presented_lods: vista_observation.presented_lods.clone(),
+        presented_chunks: vista_observation.chunks,
         diameter_metres: state.vista_diameter_metres,
         minimum_height_metres: state.vista_minimum_metres,
         peak_height_metres: state.vista_peak_metres,
         relief_metres: state.vista_relief_metres,
-        collider_count: vista_colliders,
+        collider_count: vista_observation.colliders,
     };
     let expects_precipitation =
         state.weather.precipitation != Precipitation::Clear && state.weather.intensity_bps > 0;
@@ -4615,9 +4610,8 @@ fn build_manifest(
         understory_present_when_expected: !expects_understory || understory_clumps > 0,
         loose_stone_scatter_present_when_expected: state.fixture != "steep-open-hillside"
             || loose_stone_patches > 0,
-        vista_has_three_lods: vista_summary.presented_lods.len() >= 3,
-        vista_reaches_fifty_kilometres: vista_summary.diameter_metres >= 50_000.0,
-        vista_has_no_colliders: vista_colliders == 0,
+        vista_matches_declared_rings: vista_observation.matches_source,
+        vista_has_no_colliders: vista_observation.colliders == 0,
         precipitation_particles_present_when_expected: !expects_precipitation
             || weather_particle_count > 0,
         fixture_feature_expectation_met,
@@ -4631,7 +4625,7 @@ fn build_manifest(
         source_input: state.input_path.display().to_string(),
         scene_digest: state.digest.clone(),
         seed: state.seed,
-        absolute_minute: state.absolute_minute,
+        absolute_minute: state.absolute_minute.get(),
         canopy_bps: state.canopy_bps,
         generation_version: state.generation_version,
         scene_source: state.scene_source.clone(),
@@ -4640,7 +4634,7 @@ fn build_manifest(
         camera_version: CAMERA_VERSION,
         requested_views: state.requested_views.clone(),
         settle_frames: state.settle_frames,
-        resolution: [VIEW_WIDTH, VIEW_HEIGHT],
+        resolution: capture_resolution::physical_pixels(&state.profile).to_array(),
         review_azimuth_degrees: state.tree_review_azimuth_degrees,
         capture_clock_strategy: "Bevy virtual clock advanced to a fixed phase after startup, then paused through settling and GPU readback",
         capture_clock_phase_seconds: CAPTURE_CLOCK_PHASE_SECONDS,
@@ -4687,7 +4681,7 @@ fn capture_revision() -> String {
 }
 
 fn capture_celestial(
-    absolute_minute: u64,
+    absolute_minute: adventuresim_world_schema::calendar::StrategicMinute,
     latitude_microdegrees: i32,
     longitude_microdegrees: i32,
 ) -> CelestialProvenance {

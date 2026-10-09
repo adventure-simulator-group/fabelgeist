@@ -107,12 +107,10 @@ test("social replaces the ordinary chat dock while surgery remains an overlay", 
   assert.match(surgeryDialog, /preserve_building/);
 });
 
-test("portrait tray keeps unrelated actions but drops the cooking launcher", () => {
-  const start = template.indexOf("pub(crate) fn party_portrait_overlay");
-  const end = template.indexOf("pub(crate) fn settlement_chat_area", start);
-  const portrait = template.slice(start, end);
-  assert.doesNotMatch(portrait, /party-cooking-action/);
-  assert.match(portrait, /party-alchemy-action/);
-  assert.match(portrait, /party-member-remove/);
-  assert.match(portrait, /\/inventory/);
+test("portrait navigation separates view tabs from party membership actions", () => {
+  const portrait = fs.readFileSync(path.join(__dirname, '../src/templates/settlement/chrome/portraits.rs'), 'utf8');
+  const navigation = portrait.slice(0, portrait.indexOf('pub(crate) fn profile_membership'));
+  assert.doesNotMatch(navigation, /party-cooking-action|party-alchemy-action|\/remove/);
+  for (const view of ['profile', 'conversation', 'inventory']) assert.ok(navigation.includes(`data-portrait-tab="${view}"`));
+  assert.match(portrait, /Leave party/);
 });

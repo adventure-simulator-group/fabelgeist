@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::case_site_id_type::CaseSiteId;
 use super::challenge_presenter_catalog_id_type::ChallengePresenterCatalogId;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -16,15 +17,14 @@ pub struct ChallengeAuthority {
     pub party_id: String,
     pub finale_case_site_id: CaseSiteId,
     pub finale_hostile_group_id: String,
-    pub journey_departure_minute: u64,
+    pub journey_departure_minute: StrategicMinute,
     pub camp_movement_minute: u64,
     pub camp_elapsed_minute: u64,
     pub errantry_frame_json: String,
     pub puzzle_json: String,
     pub presenter_catalog_id: ChallengePresenterCatalogId,
     pub revision: u32,
-    pub open: bool,
-    pub solved_at_minute: Option<u64>,
+    pub solved_at_minute: Option<StrategicMinute>,
 }
 
 impl __sdk::InModule for ChallengeAuthority {
@@ -41,7 +41,7 @@ pub struct ChallengeAuthorityCols {
     pub party_id: __sdk::__query_builder::Col<ChallengeAuthority, String>,
     pub finale_case_site_id: __sdk::__query_builder::Col<ChallengeAuthority, CaseSiteId>,
     pub finale_hostile_group_id: __sdk::__query_builder::Col<ChallengeAuthority, String>,
-    pub journey_departure_minute: __sdk::__query_builder::Col<ChallengeAuthority, u64>,
+    pub journey_departure_minute: __sdk::__query_builder::Col<ChallengeAuthority, StrategicMinute>,
     pub camp_movement_minute: __sdk::__query_builder::Col<ChallengeAuthority, u64>,
     pub camp_elapsed_minute: __sdk::__query_builder::Col<ChallengeAuthority, u64>,
     pub errantry_frame_json: __sdk::__query_builder::Col<ChallengeAuthority, String>,
@@ -49,8 +49,7 @@ pub struct ChallengeAuthorityCols {
     pub presenter_catalog_id:
         __sdk::__query_builder::Col<ChallengeAuthority, ChallengePresenterCatalogId>,
     pub revision: __sdk::__query_builder::Col<ChallengeAuthority, u32>,
-    pub open: __sdk::__query_builder::Col<ChallengeAuthority, bool>,
-    pub solved_at_minute: __sdk::__query_builder::Col<ChallengeAuthority, Option<u64>>,
+    pub solved_at_minute: __sdk::__query_builder::Col<ChallengeAuthority, Option<StrategicMinute>>,
 }
 
 impl __sdk::__query_builder::HasCols for ChallengeAuthority {
@@ -91,7 +90,6 @@ impl __sdk::__query_builder::HasCols for ChallengeAuthority {
                 "presenter_catalog_id",
             ),
             revision: __sdk::__query_builder::Col::new(table_name, "revision"),
-            open: __sdk::__query_builder::Col::new(table_name, "open"),
             solved_at_minute: __sdk::__query_builder::Col::new(table_name, "solved_at_minute"),
         }
     }

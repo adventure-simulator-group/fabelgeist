@@ -1,8 +1,8 @@
 //! Versioned scene document shared by production dispatch and capture tools.
 use super::*;
 
-pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 22;
-pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 50;
+pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 29;
+pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 72;
 pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -10,14 +10,15 @@ pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 pub struct TacticalSceneInput {
     pub schema_version: u16,
     pub generation_version: u16,
-    pub seed: u64,
+    pub seed: fabelgeist_determinism::Seed,
     pub scene_key: String,
     pub source: SceneSource,
-    pub latitude_microdegrees: i32,
-    pub longitude_microdegrees: i32,
-    pub absolute_minute: u64,
-    pub lunar_phase_minute: u64,
-    pub absolute_elevation_metres: i16,
+    pub latitude_microdegrees: adventuresim_world_schema::coordinates::LatitudeMicrodegrees,
+    pub longitude_microdegrees: adventuresim_world_schema::coordinates::LongitudeMicrodegrees,
+    pub absolute_minute: StrategicMinute,
+    pub lunar_phase_minute: StrategicMinute,
+    #[serde(with = "super::absolute_elevation_wire")]
+    pub absolute_elevation_metres: adventuresim_world_schema::ElevationMeters,
     pub playable: TerrainSampleGrid,
     pub landform: Option<TerrainLandformRecipe>,
     pub streets: Vec<CityStreetPatch>,
@@ -27,6 +28,11 @@ pub struct TacticalSceneInput {
     pub gardens: Vec<crate::city_layout::CityGarden>,
     pub buildings: Vec<TacticalBuildingPlacement>,
     pub distant_buildings: Vec<DistantBuildingPlacement>,
+    pub establishments: Vec<SceneEstablishment>,
+    /// Accepted bounded support, required whenever the scene contains buildings.
+    /// Empty geographic scenes have no property surfaces.
+    pub grounding: Option<crate::city_layout::CityGroundingProjection>,
+    pub properties: Option<adventuresim_core::settlement_property::GeneratedHomeCatalog>,
     pub vista: VistaSample,
     pub weather: WeatherSnapshot,
 }
@@ -55,5 +61,43 @@ mod tests {
             count += 1;
         }
         assert!(count > 0, "the shipped catalog must contain scene inputs");
+    }
+
+    #[test]
+    fn establishment_shop_name_must_name_its_operator() {
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../assets/tactical-scenes/massive-city.json");
+        let mut input = TacticalSceneInput::load(&path).unwrap();
+        let establishment = input
+            .establishments
+            .first_mut()
+            .expect("shop-sign fixture establishment");
+        establishment
+            .shop_name
+            .as_mut()
+            .expect("signed fixture establishment")
+            .proprietor = "Fabricated Proprietor’s".into();
+
+        assert!(input.validate().is_err());
+    }
+
+    #[test]
+    fn recaptured_operator_names_require_fresh_branding() {
+        use adventuresim_building_generator::signs::ShopName;
+        use adventuresim_world_schema::person_names::RenderedPersonalName;
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../assets/tactical-scenes/massive-city.json");
+        let original = TacticalSceneInput::load(&path).unwrap();
+        let mut next = original.clone();
+        let establishment = next.establishments.first_mut().unwrap();
+        establishment.operator_name = RenderedPersonalName::new("New Operator").unwrap();
+        assert!(next.validate().is_err());
+        let establishment = next.establishments.first_mut().unwrap();
+        establishment.shop_name = ShopName::for_operator(
+            &establishment.operator_name,
+            establishment.business_id.key.usage,
+        );
+        assert!(next.validate().is_ok());
+        assert!(original.validate().is_ok());
     }
 }

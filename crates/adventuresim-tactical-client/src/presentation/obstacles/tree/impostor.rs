@@ -1,8 +1,11 @@
+mod orientation;
+use fabelgeist_determinism::Seed;
+use fabelgeist_determinism::StreamId;
+use orientation::{crown_group_right, lod1_macro_cluster_axis, subcluster_phase};
 mod card_mesh;
 mod raster;
 
 use card_mesh::*;
-use fabelgeist_determinism::splitmix64;
 use raster::*;
 
 use super::super::super::*;
@@ -22,7 +25,7 @@ pub(in crate::presentation) const TREE_LEAF_HANDOFF_END: f32 = 2.5;
 
 #[derive(Component, Clone, Debug)]
 pub(crate) struct TreeImpostorProvenance {
-    pub seed: u64,
+    pub seed: Seed,
     pub lod: u8,
     pub bake_version: u32,
     pub source_geometry_hash: u64,
@@ -118,7 +121,7 @@ pub(in crate::presentation) const BEECH_TREE_BAKE_STYLE: TreeBakeStyle = TreeBak
 };
 
 pub(in crate::presentation) fn validate_tree_bake_provenance(provenance: &TreeImpostorProvenance) {
-    debug_assert!(provenance.seed.count_ones() > 0);
+    debug_assert!(provenance.seed != Seed::from_u64(0));
     debug_assert!((1..=4).contains(&provenance.lod));
     debug_assert_eq!(provenance.bake_version, TREE_IMPOSTOR_BAKE_VERSION);
     debug_assert_ne!(provenance.source_geometry_hash, 0);
@@ -183,7 +186,7 @@ impl TreeBakeCard {
 }
 
 pub(in crate::presentation) fn bake_tree_lod(
-    seed: u64,
+    seed: Seed,
     branches: &[TreeBranchSegment],
     leaves: &[TreeLeaf],
     lod: u8,
@@ -192,7 +195,7 @@ pub(in crate::presentation) fn bake_tree_lod(
 }
 
 pub(in crate::presentation) fn bake_tree_lod_with_style(
-    seed: u64,
+    seed: Seed,
     branches: &[TreeBranchSegment],
     leaves: &[TreeLeaf],
     lod: u8,
@@ -441,7 +444,7 @@ fn tree_tile_alpha_stats(
 
 #[cfg(test)]
 pub(in crate::presentation) fn tree_bake_cards(
-    seed: u64,
+    seed: Seed,
     branches: &[TreeBranchSegment],
     leaves: &[TreeLeaf],
     lod: u8,
@@ -450,7 +453,7 @@ pub(in crate::presentation) fn tree_bake_cards(
 }
 
 fn tree_bake_cards_with_style(
-    seed: u64,
+    seed: Seed,
     branches: &[TreeBranchSegment],
     leaves: &[TreeLeaf],
     lod: u8,
@@ -494,8 +497,7 @@ fn tree_bake_cards_with_style(
                     let subcluster_key = u16::from(primary_group)
                         * LOD1_MACRO_SUBCLUSTERS_PER_PRIMARY as u16
                         + subcluster as u16;
-                    let phase = unit_hash(splitmix64(seed ^ u64::from(subcluster_key)))
-                        * core::f32::consts::FRAC_PI_2;
+                    let phase = subcluster_phase(seed, subcluster_key);
                     for facing in 0..LOD1_CARD_FACINGS_PER_SUBCLUSTER {
                         let source_group = u16::from(primary_group)
                             * LOD1_MACRO_CARDS_PER_PRIMARY as u16
@@ -623,52 +625,6 @@ fn lod1_macro_cluster_ranges(branches: &[TreeBranchSegment], primary_group: u8) 
         .collect()
 }
 
-fn lod1_macro_cluster_axis(
-    branches: &[TreeBranchSegment],
-    primary_group: u8,
-    secondary_group_range: (u16, u16),
-) -> Vec3 {
-    let (first, last) = secondary_group_range;
-    let axis = branches
-        .iter()
-        .filter(|branch| {
-            branch.depth == 2
-                && branch.primary_group == primary_group
-                && (first..=last).contains(&branch.secondary_group)
-        })
-        .map(|branch| {
-            let direction = branch.end - branch.start;
-            direction.normalize_or_zero() * direction.length()
-        })
-        .sum::<Vec3>();
-    if axis.length_squared() > 0.01 {
-        axis.normalize()
-    } else {
-        crown_group_right(branches, primary_group)
-    }
-}
-
-fn crown_group_right(branches: &[TreeBranchSegment], group: u8) -> Vec3 {
-    branches
-        .iter()
-        .filter(|branch| branch.depth == 1 && branch.primary_group == group)
-        .max_by(|left, right| {
-            left.end
-                .xz()
-                .length_squared()
-                .total_cmp(&right.end.xz().length_squared())
-        })
-        .map(|branch| {
-            let horizontal = branch.end.xz().normalize_or_zero();
-            if horizontal.length_squared() > 0.25 {
-                Vec3::new(horizontal.x, 0.0, horizontal.y)
-            } else {
-                Vec3::X
-            }
-        })
-        .unwrap_or(Vec3::X)
-}
-
 #[expect(
     clippy::too_many_arguments,
     reason = "this domain boundary names each independent input explicitly"
@@ -778,7 +734,7 @@ pub(in crate::presentation) fn tree_source_geometry_hash(
             leaf.center.z,
             leaf.length,
             leaf.width,
-            f32::from(leaf.shoot_id),
+            leaf.shoot_id as f32,
         ] {
             hash ^= u64::from(value.to_bits());
             hash = hash.wrapping_mul(0x100_0000_01b3);
@@ -788,13 +744,20 @@ pub(in crate::presentation) fn tree_source_geometry_hash(
 }
 
 pub(in crate::presentation) fn tree_impostor_material(
-    seed: u64,
+    seed: Seed,
     lod: u8,
     baked_color: Handle<Image>,
 ) -> TacticalTreeImpostorMaterial {
     TacticalTreeImpostorMaterial {
         baked_color,
-        parameters: Vec4::new(lod as f32, unit_hash(seed), 0.08 + lod as f32 * 0.018, 1.0),
+        parameters: Vec4::new(
+            lod as f32,
+            StreamId::new("visual.obstacles.tree.impostor.material-variation")
+                .rng(seed, &[])
+                .inclusive_unit_f32(),
+            0.08 + lod as f32 * 0.018,
+            1.0,
+        ),
         lighting: Vec3::new(0.35, 0.86, 0.25).normalize().extend(1.0),
         ambient: Vec4::new(1.0, 1.0, 1.0, 0.28),
     }
@@ -939,9 +902,15 @@ mod tests {
 
     #[test]
     fn whole_tree_atlas_selection_matches_baked_view_normals() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
-        let cards = tree_bake_cards(42, &branches, &leaves, 4);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
+        let cards = tree_bake_cards(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &branches,
+            &leaves,
+            4,
+        );
 
         for step in 0..8 {
             let angle = step as f32 * core::f32::consts::TAU / 8.0;
@@ -957,10 +926,21 @@ mod tests {
 
     #[test]
     fn whole_tree_runtime_quad_stays_bounded_and_bake_is_deterministic() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
-        let first = bake_tree_lod(42, &branches, &leaves, 4);
-        let second = bake_tree_lod(42, &branches, &leaves, 4);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
+        let first = bake_tree_lod(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &branches,
+            &leaves,
+            4,
+        );
+        let second = bake_tree_lod(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &branches,
+            &leaves,
+            4,
+        );
 
         assert_eq!(first.mesh.count_vertices(), 4);
         assert_eq!(first.provenance.records.len(), 8);
@@ -969,7 +949,12 @@ mod tests {
         assert!((WHOLE_TREE_RUNTIME_WIDTH_SCALE - 1.0).abs() < f32::EPSILON);
         assert!((WHOLE_TREE_BAKE_EXPOSURE - 0.91).abs() < f32::EPSILON);
         assert_eq!(
-            tree_impostor_material(42, 4, Handle::default()).alpha_mode(),
+            tree_impostor_material(
+                fabelgeist_determinism::Seed::from_u64(42),
+                4,
+                Handle::default()
+            )
+            .alpha_mode(),
             AlphaMode::AlphaToCoverage
         );
         assert!(
@@ -998,10 +983,18 @@ mod tests {
 
     #[test]
     fn complete_runtime_tree_bake_suite_preserves_every_lod() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
         let bakes = (1..=4)
-            .map(|lod| bake_tree_lod(42, &branches, &leaves, lod))
+            .map(|lod| {
+                bake_tree_lod(
+                    fabelgeist_determinism::Seed::from_u64(42),
+                    &branches,
+                    &leaves,
+                    lod,
+                )
+            })
             .collect::<Vec<_>>();
         assert_eq!(bakes.len(), 4);
         assert!(bakes.iter().all(|bake| !bake.provenance.records.is_empty()));
@@ -1010,10 +1003,18 @@ mod tests {
 
     #[test]
     fn reduced_impostor_tiles_pin_dimensions_and_residency_budget() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
         let bakes = (1..=4)
-            .map(|lod| bake_tree_lod(42, &branches, &leaves, lod))
+            .map(|lod| {
+                bake_tree_lod(
+                    fabelgeist_determinism::Seed::from_u64(42),
+                    &branches,
+                    &leaves,
+                    lod,
+                )
+            })
             .collect::<Vec<_>>();
 
         assert_eq!(TREE_IMPOSTOR_TILE_SIZES, [64, 112, 160, 256]);
@@ -1039,12 +1040,19 @@ mod tests {
 
     #[test]
     fn tree_lods_collapse_one_botanical_order_at_a_time() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
         let expected_cards = [28, 14, 14, 8];
         for (index, expected) in expected_cards.into_iter().enumerate() {
             assert_eq!(
-                tree_bake_cards(42, &branches, &leaves, index as u8 + 1).len(),
+                tree_bake_cards(
+                    fabelgeist_determinism::Seed::from_u64(42),
+                    &branches,
+                    &leaves,
+                    index as u8 + 1
+                )
+                .len(),
                 expected
             );
         }
@@ -1057,10 +1065,21 @@ mod tests {
 
     #[test]
     fn lod1_macro_cluster_cards_are_bounded_vertex_light_and_deterministic() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
-        let first = bake_tree_lod(42, &branches, &leaves, 1);
-        let second = bake_tree_lod(42, &branches, &leaves, 1);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
+        let first = bake_tree_lod(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &branches,
+            &leaves,
+            1,
+        );
+        let second = bake_tree_lod(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &branches,
+            &leaves,
+            1,
+        );
 
         assert_eq!(first.provenance.records.len(), 28);
         assert_eq!(first.mesh.count_vertices(), 112);
@@ -1083,10 +1102,21 @@ mod tests {
 
     #[test]
     fn adjacent_aggregate_lods_keep_primary_crown_planes_aligned() {
-        let branches = procedural_tree_skeleton(42, 0.0);
-        let leaves = procedural_oak_leaves(42, &branches, 0.0);
-        let small_branches = tree_bake_cards(42, &branches, &leaves, 2);
-        let crown_branches = tree_bake_cards(42, &branches, &leaves, 3);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
+        let leaves =
+            procedural_oak_leaves(fabelgeist_determinism::Seed::from_u64(42), &branches, 0.0);
+        let small_branches = tree_bake_cards(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &branches,
+            &leaves,
+            2,
+        );
+        let crown_branches = tree_bake_cards(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &branches,
+            &leaves,
+            3,
+        );
 
         for group in 0..TREE_PRIMARY_GROUP_COUNT {
             let lower = small_branches

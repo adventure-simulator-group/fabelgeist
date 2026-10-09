@@ -45,7 +45,7 @@ impl AutoRigger {
                 for &v in vertices {
                     let d2 = (v - current_pos).length_sq();
                     if d2 < radius_sq {
-                        centroid = centroid + v;
+                        centroid += v;
                         count += 1;
                     }
                 }

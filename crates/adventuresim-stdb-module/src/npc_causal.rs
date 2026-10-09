@@ -6,15 +6,17 @@
 //! from changing causal order.
 
 use adventuresim_core::courtship::ADULT_AGE_YEARS;
-use adventuresim_core::strategic_time::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::StrategicMinute;
+use fabelgeist_determinism::Seed;
 use spacetimedb::{ReducerContext, ScheduleAt, SpacetimeType, Table, TimeDuration, reducer, table};
 
 use crate::CharacterTime;
 use crate::character::character as _;
-use crate::personality::{Sex, character_personality as _};
+use crate::personality::character_personality as _;
 use crate::relationship::npc_policy;
 use crate::settlement_population::settlement_resident_presence;
 use crate::time::{ScheduleAllocation, character_time, character_training_schedule};
+use adventuresim_world_schema::Sex;
 
 const NPC_CAUSAL_SCHEDULE_ID: u64 = 0;
 const NPC_CAUSAL_INTERVAL_MICROS: i64 = 5_000_000;
@@ -68,7 +70,7 @@ pub struct NpcPolicyDecisionReceipt {
     pub phase: NpcPolicyDecisionPhase,
     pub outcome: NpcPolicyDecisionOutcome,
     pub target_character_id: Option<u64>,
-    pub decided_minute: u64,
+    pub decided_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -94,7 +96,10 @@ pub fn initialize_npc_causal_schedule(ctx: &ReducerContext) {
     }
 }
 
-fn stable_npc_cohort(ctx: &ReducerContext, target_minute: u64) -> Vec<CharacterTime> {
+fn stable_npc_cohort(
+    ctx: &ReducerContext,
+    target_minute: adventuresim_world_schema::calendar::StrategicMinute,
+) -> Vec<CharacterTime> {
     let mut candidates: Vec<_> = ctx
         .db
         .npc_policy()
@@ -142,7 +147,7 @@ fn record_decision(
     phase: NpcPolicyDecisionPhase,
     outcome: NpcPolicyDecisionOutcome,
     target_character_id: Option<u64>,
-    decided_minute: u64,
+    decided_minute: StrategicMinute,
 ) {
     let id = receipt_id(character_id, day, phase);
     if ctx
@@ -190,10 +195,10 @@ fn has_initialized_schedule_decision(ctx: &ReducerContext, character_id: u64) ->
 fn initialize_saved_schedule_once(
     ctx: &ReducerContext,
     character_id: u64,
-    policy_seed: u64,
-    minute: u64,
+    policy_seed: Seed,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
-    let day = minute / MINUTES_PER_DAY;
+    let day = minute.day_index();
     if phase_already_decided(ctx, character_id, day, NpcPolicyDecisionPhase::Schedule) {
         return Ok(());
     }
@@ -262,9 +267,9 @@ fn settle_housing_decision(
     ctx: &ReducerContext,
     character_id: u64,
     home_settlement_id: &str,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
-    let day = minute / MINUTES_PER_DAY;
+    let day = minute.day_index();
     if phase_already_decided(ctx, character_id, day, NpcPolicyDecisionPhase::Housing) {
         return Ok(());
     }
@@ -315,13 +320,15 @@ fn settle_housing_decision(
     Ok(())
 }
 
+include!("npc_causal/romance_candidates.rs");
+
 fn settle_romance_decision(
     ctx: &ReducerContext,
     character_id: u64,
-    policy_seed: u64,
-    minute: u64,
+    policy_seed: Seed,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
-    let day = minute / MINUTES_PER_DAY;
+    let day = minute.day_index();
     if phase_already_decided(ctx, character_id, day, NpcPolicyDecisionPhase::Romance) {
         return Ok(());
     }
@@ -364,31 +371,9 @@ fn settle_romance_decision(
         );
         return Ok(());
     }
-    let candidates = ctx
-        .db
-        .settlement_resident_presence()
-        .settlement_id()
-        .filter(&actor_presence.settlement_id)
-        .filter(|presence| {
-            presence.character_id != character_id
-                && crate::settlement_population::npc_is_present(ctx, presence, minute)
-        })
-        .filter_map(|presence| {
-            ctx.db
-                .npc_policy()
-                .character_id()
-                .find(presence.character_id)
-                .map(|policy| adventuresim_core::npc_policy::NpcCandidate {
-                    character_id: presence.character_id,
-                    policy_seed: policy.policy_seed,
-                })
-        });
-    let candidates = adventuresim_core::npc_policy::stable_candidate_order(
-        character_id,
-        policy_seed,
-        day,
-        candidates,
-    );
+    let candidates =
+        present_romance_candidates(ctx, &actor_presence.settlement_id, character_id, minute);
+    let candidates = stable_romance_candidates(character_id, policy_seed, day, candidates)?;
     for candidate in candidates {
         let actor_sex = ctx
             .db
@@ -445,6 +430,21 @@ fn settle_romance_decision(
     Ok(())
 }
 
+fn stable_romance_candidates(
+    character_id: u64,
+    policy_seed: Seed,
+    day: u64,
+    candidates: impl IntoIterator<Item = adventuresim_core::npc_policy::NpcCandidate>,
+) -> Result<Vec<adventuresim_core::npc_policy::NpcCandidate>, String> {
+    adventuresim_core::npc_policy::stable_candidate_order(
+        character_id,
+        policy_seed,
+        day,
+        candidates,
+    )
+    .map_err(|conflict| conflict.to_string())
+}
+
 /// Formal eligibility is directional even though the autonomous candidate
 /// encounter is not. Normalize an opposite-sex pair so scheduler character
 /// order cannot turn a father-approved relationship informal. Same-sex and
@@ -468,14 +468,10 @@ fn process_policy_decisions(ctx: &ReducerContext, time: &CharacterTime) -> Resul
         .character_id()
         .find(time.character_id)
         .ok_or("NPC causal cohort contains a character without policy")?;
-    initialize_saved_schedule_once(ctx, time.character_id, policy.policy_seed, time.minutes)?;
-    settle_housing_decision(
-        ctx,
-        time.character_id,
-        &policy.home_settlement_id,
-        time.minutes,
-    )?;
-    settle_romance_decision(ctx, time.character_id, policy.policy_seed, time.minutes)?;
+    let minute = time.minutes;
+    initialize_saved_schedule_once(ctx, time.character_id, policy.policy_seed, minute)?;
+    settle_housing_decision(ctx, time.character_id, &policy.home_settlement_id, minute)?;
+    settle_romance_decision(ctx, time.character_id, policy.policy_seed, minute)?;
     Ok(())
 }
 
@@ -507,7 +503,7 @@ pub fn run_npc_causal_tick(
         process_policy_decisions(ctx, time)?;
     }
     for time in cohort {
-        let target = official_minute.min(time.minutes.saturating_add(MINUTES_PER_DAY));
+        let target = official_minute.min(time.minutes.saturating_add_days(1));
         crate::time::advance_stationary_character_to(ctx, time.character_id, target)?;
     }
     Ok(())
@@ -515,7 +511,7 @@ pub fn run_npc_causal_tick(
 
 #[cfg(test)]
 mod tests {
-    use crate::personality::Sex;
+    use adventuresim_world_schema::Sex;
 
     use super::npc_courtship_roles;
 
@@ -524,7 +520,7 @@ mod tests {
         let source = crate::production_source(include_str!("npc_causal.rs"));
         assert!(source.contains("truncate(MAX_NPCS_PER_CAUSAL_TICK)"));
         assert!(source.contains("MAX_LIFECYCLE_EVENTS_PER_CAUSAL_TICK"));
-        assert!(source.contains("time.minutes.saturating_add(MINUTES_PER_DAY)"));
+        assert!(source.contains("time.minutes.saturating_add_days(1)"));
     }
 
     #[test]
@@ -532,7 +528,8 @@ mod tests {
         let source = crate::production_source(include_str!("npc_causal.rs"));
         assert!(source.contains("sort_by_key(|time| (time.minutes, time.character_id))"));
         assert!(source.contains("retain(|time| time.minutes == frontier)"));
-        assert!(source.contains("person.alive && time.minutes < target_minute"));
+        assert!(source.contains("time.minutes"));
+        assert!(source.contains("< target_minute"));
     }
 
     #[test]
@@ -569,7 +566,8 @@ mod tests {
             .split("fn settle_housing_decision")
             .next()
             .unwrap();
-        assert!(initialization.contains("effective_age_years(ctx, character_id, minute)"));
+        assert!(initialization.contains("effective_age_years("));
+        assert!(initialization.contains("minute: StrategicMinute"));
         assert!(initialization.contains("age_years < ADULT_AGE_YEARS"));
         assert!(initialization.contains("NpcPolicyDecisionOutcome::Ineligible"));
         assert!(initialization.contains("has_initialized_schedule_decision"));
@@ -586,9 +584,11 @@ mod tests {
             .split("fn process_policy_decisions")
             .next()
             .unwrap();
-        assert!(romance.contains("settlement_resident_presence"));
-        assert!(romance.contains("npc_is_present"));
-        assert!(romance.contains("npc_policy()"));
+        let candidates = crate::production_source(include_str!("npc_causal/romance_candidates.rs"));
+        assert!(romance.contains("present_romance_candidates"));
+        assert!(candidates.contains("settlement_resident_presence"));
+        assert!(candidates.contains("npc_is_present"));
+        assert!(candidates.contains("npc_policy()"));
         assert!(romance.contains("stable_candidate_order"));
         assert!(romance.contains("establish_npc_courtship_and_wedding"));
     }

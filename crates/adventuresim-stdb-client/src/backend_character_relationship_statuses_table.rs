@@ -4,6 +4,7 @@
 #![allow(unused, clippy::all)]
 use super::backend_character_relationship_status_type::BackendCharacterRelationshipStatus;
 use super::courtship_kind_type::CourtshipKind;
+use super::strategic_minute_type::StrategicMinute;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `backend_character_relationship_statuses`.

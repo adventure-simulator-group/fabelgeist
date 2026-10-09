@@ -38,7 +38,7 @@ pub use chrome::{
     ChildPresentation, RelationshipPresentation, WeddingPresentation, settlement_overview_page,
     settlement_residence_page, settlement_resident_location_page,
 };
-pub use context::{LocationKind, LocationView};
+pub use context::LocationView;
 pub use cooking::fireplace_page;
 pub use religion::religion_page;
 pub(crate) use rest::{RestServiceKind, party_rest_menu, rest_default_minutes, rest_service_menu};
@@ -46,8 +46,8 @@ pub use rest::{RestSummary, SoapRestPreview, rest_result_page};
 pub(crate) use social::settlement_chat_area_with_info;
 pub use social::{SocialFeedback, SocialPresentation, party_social_dialog};
 pub use trade::{
-    MerchantShop, live_merchant_shop_page, merchants_page, party_discard_page,
-    party_inventory_page, party_pool_page,
+    Storefront, StorefrontPresentation, live_merchant_shop_page, merchants_page,
+    party_discard_page, party_inventory_page, party_pool_page,
 };
 pub(in crate::templates) use trade::{
     inventory_footer_controls, item_name_with_food_lot, item_name_with_quality, transfer_glyph,
@@ -102,13 +102,13 @@ pub(super) mod test_support {
             description: "A camp beside the road.".to_string(),
             summary: Some("Reported exact location".to_string()),
             travel_action: "/quests/quest-location/travel".to_string(),
-            track_action: Some("/case-sites/quest-location/track".to_string()),
+            track_action: Some("/locations/case-site/quest-location/track".to_string()),
             tracked: false,
             distance_m: 1_000,
             journey_minutes: 48,
             camp_stop_minutes: Vec::new(),
             camp_forecasts: Vec::new(),
-            departure_minute: 0,
+            departure_minute: adventuresim_world_schema::calendar::StrategicMinute::ZERO,
             itinerary_total_elapsed_minutes: 96,
             itinerary_segments: Vec::new(),
             round_trip_destination: true,
@@ -123,3 +123,6 @@ pub(super) mod test_support {
         }
     }
 }
+
+#[cfg(test)]
+mod interface_fixtures;

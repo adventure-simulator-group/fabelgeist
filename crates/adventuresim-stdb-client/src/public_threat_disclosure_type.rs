@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::case_site_id_type::CaseSiteId;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -17,7 +18,7 @@ pub struct PublicThreatDisclosure {
     pub approximate_count: String,
     pub source_kind: String,
     pub source_resident_character_id: u64,
-    pub learned_at: u64,
+    pub learned_at: StrategicMinute,
 }
 
 impl __sdk::InModule for PublicThreatDisclosure {
@@ -36,7 +37,7 @@ pub struct PublicThreatDisclosureCols {
     pub approximate_count: __sdk::__query_builder::Col<PublicThreatDisclosure, String>,
     pub source_kind: __sdk::__query_builder::Col<PublicThreatDisclosure, String>,
     pub source_resident_character_id: __sdk::__query_builder::Col<PublicThreatDisclosure, u64>,
-    pub learned_at: __sdk::__query_builder::Col<PublicThreatDisclosure, u64>,
+    pub learned_at: __sdk::__query_builder::Col<PublicThreatDisclosure, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for PublicThreatDisclosure {

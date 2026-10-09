@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct WaterOutputLot {
@@ -14,7 +16,7 @@ pub struct WaterOutputLot {
     pub contaminant_load_microunits: u64,
     pub concentration_anchor: f32,
     pub growth_per_hour: f32,
-    pub anchor_minute: u64,
+    pub anchor_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for WaterOutputLot {
@@ -32,7 +34,7 @@ pub struct WaterOutputLotCols {
     pub contaminant_load_microunits: __sdk::__query_builder::Col<WaterOutputLot, u64>,
     pub concentration_anchor: __sdk::__query_builder::Col<WaterOutputLot, f32>,
     pub growth_per_hour: __sdk::__query_builder::Col<WaterOutputLot, f32>,
-    pub anchor_minute: __sdk::__query_builder::Col<WaterOutputLot, u64>,
+    pub anchor_minute: __sdk::__query_builder::Col<WaterOutputLot, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for WaterOutputLot {

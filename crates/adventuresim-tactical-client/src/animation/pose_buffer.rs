@@ -15,11 +15,11 @@ use std::{
 use bevy::{
     animation::{AnimationTargetId, animated_field},
     asset::{AssetEvent, AssetId},
-    camera::primitives::{Frustum, Sphere},
+    camera::visibility::RenderLayers,
 };
 
 use super::*;
-use crate::presentation::TacticalGameplayCamera;
+mod visibility;
 
 mod inertialization;
 mod physics_pose;
@@ -304,7 +304,7 @@ impl PosePlanKey {
 }
 
 #[derive(Component)]
-pub(super) struct PoseBufferRig {
+pub(crate) struct PoseBufferRig {
     definition: Arc<RigDefinition>,
     entities: Vec<Option<Entity>>,
     previous: Vec<LocalPose>,
@@ -395,7 +395,7 @@ pub(super) fn update_pose_buffers(
     procedural_clock: Res<ProceduralAnimationClock>,
     catalog: Res<AnimationPackCatalog>,
     clips: Res<Assets<AnimationClip>>,
-    cameras: Query<(&GlobalTransform, &Frustum), With<TacticalGameplayCamera>>,
+    cameras: visibility::AnimationViews,
     terrain: Query<&SceneTerrain>,
     terrain_ik_enabled: Res<TerrainIkEnabled>,
     owners: Query<(
@@ -404,6 +404,7 @@ pub(super) fn update_pose_buffers(
         &AnimationPlayback,
         &GlobalTransform,
         Option<&mut PoseBufferRig>,
+        Option<&RenderLayers>,
     )>,
     rig_scenes: Query<(&AnimationRigScene, &Transform)>,
     targets: Query<(
@@ -420,10 +421,9 @@ pub(super) fn update_pose_buffers(
     mut metrics: ResMut<PoseBufferMetrics>,
 ) {
     let _spike = crate::animation::diagnostics::SpikeGuard::new("update_pose_buffers");
-    let camera = cameras.iter().next();
     metrics.culled_character_count = 0;
 
-    for (owner, skeleton, playback, owner_transform, rig) in owners {
+    for (owner, skeleton, playback, owner_transform, rig, layers) in owners {
         let family = catalog
             .packs
             .get(&skeleton.animation_pack)
@@ -466,14 +466,10 @@ pub(super) fn update_pose_buffers(
             continue;
         }
 
-        if pose_cull::cull_pose_rig(
-            &mut rig,
-            owner,
-            owner_transform.translation(),
-            camera,
-            &mut commands,
-            &mut metrics,
-        ) {
+        let position = owner_transform.translation();
+        // Initialize retained models before culling so first selection has a pose.
+        let culled = rig.active && visibility::outside_views(position, layers, &cameras);
+        if pose_cull::cull_pose_rig(&mut rig, owner, culled, &mut commands, &mut metrics) {
             continue;
         }
 
@@ -2330,7 +2326,7 @@ mod tests {
             .map(|joint| joint.bind)
             .collect::<Vec<_>>();
         let mut next = previous.clone();
-        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.5);
+        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.5).unwrap();
         conform_upcoming_pose_to_terrain(
             &definition,
             &mut next,
@@ -2456,7 +2452,7 @@ mod tests {
             .collect::<Vec<_>>();
         let before =
             local_pose_global(&definition, &next, 3, &mut vec![None; next.len()]).translation;
-        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0);
+        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0).unwrap();
 
         conform_upcoming_pose_to_terrain(
             &definition,
@@ -2498,7 +2494,7 @@ mod tests {
                 joint("r_foot", Some(5), Vec3::new(0.0, -1.003, 0.0)),
             ],
         };
-        let terrain = SceneTerrain::new(4, 4, 1.0, |_| 0.0);
+        let terrain = SceneTerrain::new(4, 4, 1.0, |_| 0.0).unwrap();
         let paths = [
             Vec2::new(-0.12, 0.0),
             Vec2::new(0.12, 0.0),
@@ -2586,7 +2582,7 @@ mod tests {
             .iter()
             .map(|joint| joint.bind)
             .collect::<Vec<_>>();
-        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0);
+        let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0).unwrap();
         let mut plants = [None; 2];
         let mut first = authored.clone();
         conform_upcoming_pose_to_terrain(

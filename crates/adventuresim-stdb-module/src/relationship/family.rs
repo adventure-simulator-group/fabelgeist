@@ -8,7 +8,7 @@ fn ensure_kinship(
     subject_id: u64,
     related_id: u64,
     kind: KinshipKind,
-    minute: u64,
+    minute: StrategicMinute,
 ) {
     let id = kinship_id(subject_id, related_id, kind);
     if ctx.db.character_kinship().id().find(&id).is_none() {
@@ -32,7 +32,7 @@ fn join_household(
     ctx: &ReducerContext,
     household_id: &str,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     role: HouseholdRole,
 ) {
     if ctx
@@ -69,19 +69,38 @@ pub fn record_character_birth(ctx: &ReducerContext, character_id: u64, birth_min
     }
 }
 
-pub fn effective_age_years(ctx: &ReducerContext, character_id: u64, minute: u64) -> Option<u16> {
-    let character = ctx.db.character().id().find(character_id)?;
-    let Some(birth) = ctx.db.character_birth().character_id().find(character_id) else {
-        return Some(character.age_years);
+pub fn set_seeded_character_birth_from_age(
+    ctx: &ReducerContext,
+    character_id: u64,
+    age_years: u16,
+) {
+    let row = CharacterBirth {
+        character_id,
+        birth_minute: StrategicMinute::ZERO.signed_birth_minute_for_age(age_years),
     };
-    let elapsed = i128::from(minute).saturating_sub(i128::from(birth.birth_minute));
-    Some((elapsed.max(0) as u128 / u128::from(MINUTES_PER_YEAR)).min(u128::from(u16::MAX)) as u16)
+    if ctx
+        .db
+        .character_birth()
+        .character_id()
+        .find(character_id)
+        .is_some()
+    {
+        ctx.db.character_birth().character_id().update(row);
+    } else {
+        ctx.db.character_birth().insert(row);
+    }
+}
+
+pub fn effective_age_years(ctx: &ReducerContext, character_id: u64, minute: StrategicMinute) -> Option<u16> {
+    ctx.db.character().id().find(character_id)?;
+    let birth = ctx.db.character_birth().character_id().find(character_id)?;
+    Some(minute.age_years_since_signed_birth(birth.birth_minute))
 }
 
 /// Refresh the cached display age from the authoritative birth coordinate.
 /// Calling this at every lifecycle boundary naturally promotes dependents at
 /// their yearly boundary without granting newborn starter equipment.
-pub fn settle_character_age(ctx: &ReducerContext, character_id: u64, minute: u64) {
+pub fn settle_character_age(ctx: &ReducerContext, character_id: u64, minute: StrategicMinute) {
     let Some(mut character) = ctx.db.character().id().find(character_id) else {
         return;
     };
@@ -95,112 +114,98 @@ pub fn settle_character_age(ctx: &ReducerContext, character_id: u64, minute: u64
 }
 
 /// Turn the deterministic resident roster into coherent authoritative family
-/// units. Each complete cohort is father, mother, adult daughter, adult son;
-/// incomplete tails still receive one household and unique roles, but no
-/// fabricated identities or kinship edges.
+/// units. Demographics are finalized by settlement population planning before
+/// character creation; this pass only records roles and relationships.
+#[derive(Debug, PartialEq, Eq)]
+struct SeededHouseholdPlan {
+    household_id: String,
+    family_key: String,
+    members: Vec<(u64, HouseholdRole)>,
+    kinships: Vec<(u64, u64, KinshipKind)>,
+}
+
+fn seeded_household_plan(
+    settlement_id: &str,
+    family: &[u64],
+) -> Result<Option<SeededHouseholdPlan>, String> {
+    let Some(first_character_id) = family.first() else {
+        return Ok(None);
+    };
+    let roles = [
+        HouseholdRole::Head,
+        HouseholdRole::Spouse,
+        HouseholdRole::AdultChild,
+        HouseholdRole::AdultChild,
+    ];
+    if family.len() > roles.len() {
+        return Err("Seeded household exceeds the supported family shape".into());
+    }
+    let members = family.iter().copied().zip(roles).collect();
+    let kinships = if family.len() == roles.len() {
+        let mut edges = Vec::with_capacity(10);
+        for child in [family[2], family[3]] {
+            for parent in [family[0], family[1]] {
+                edges.push((child, parent, KinshipKind::Parent));
+                edges.push((parent, child, KinshipKind::Child));
+            }
+        }
+        edges.push((family[2], family[3], KinshipKind::Sibling));
+        edges.push((family[3], family[2], KinshipKind::Sibling));
+        edges
+    } else {
+        Vec::new()
+    };
+    Ok(Some(SeededHouseholdPlan {
+        household_id: format!("household:seeded:{settlement_id}:{first_character_id}"),
+        family_key: format!("seeded:{settlement_id}:{first_character_id}"),
+        members,
+        kinships,
+    }))
+}
+
 pub fn ensure_seeded_family_households(
     ctx: &ReducerContext,
     settlement_id: &str,
+    household_groups: &[Vec<u64>],
 ) -> Result<(), String> {
-    let mut residents: Vec<_> = ctx
-        .db
-        .npc_policy()
-        .iter()
-        .filter(|policy| policy.home_settlement_id == settlement_id)
-        .map(|policy| policy.character_id)
-        .collect();
-    residents.sort_unstable();
-    for (cohort, family) in residents.chunks(4).enumerate() {
-        let household_id = format!("household:seeded:{settlement_id}:{cohort}");
-        if ctx.db.household().id().find(&household_id).is_none() {
+    for family in household_groups {
+        let Some(plan) = seeded_household_plan(settlement_id, family)? else {
+            continue;
+        };
+        if ctx.db.household().id().find(&plan.household_id).is_none() {
             ctx.db.household().insert(Household {
-                id: household_id.clone(),
+                id: plan.household_id.clone(),
                 home_settlement_id: settlement_id.to_owned(),
-                created_minute: 0,
+                created_minute: StrategicMinute::ZERO,
             });
         }
-        let roles = [
-            HouseholdRole::Head,
-            HouseholdRole::Spouse,
-            HouseholdRole::AdultChild,
-            HouseholdRole::AdultChild,
-        ];
-        for (index, character_id) in family.iter().copied().enumerate() {
-            join_household(ctx, &household_id, character_id, 0, roles[index]);
+        for &(character_id, role) in &plan.members {
+            join_household(ctx, &plan.household_id, character_id, StrategicMinute::ZERO, role);
         }
-        let family_key = format!("seeded:{settlement_id}:{cohort}");
-        let noble = family.iter().copied().any(|character_id| {
-            crate::social_roles::character_has_profession(ctx, character_id, "noble")
+        let noble = plan.members.iter().any(|(character_id, _)| {
+            crate::social_roles::character_has_profession(ctx, *character_id, "noble")
                 .unwrap_or(false)
         });
-        for character_id in family.iter().copied() {
+        for &(character_id, _) in &plan.members {
             crate::social_roles::ensure_character_family_role(
                 ctx,
                 character_id,
-                &family_key,
+                &plan.family_key,
                 noble,
             )?;
         }
-        if family.len() < 4 {
-            continue;
+        for &(subject_id, related_id, kind) in &plan.kinships {
+            ensure_kinship(ctx, subject_id, related_id, kind, StrategicMinute::ZERO);
         }
-        let assigned = [
-            (family[0], Sex::Male, Presentation::Man, 52u16),
-            (family[1], Sex::Female, Presentation::Woman, 48u16),
-            (family[2], Sex::Female, Presentation::Woman, 24u16),
-            (family[3], Sex::Male, Presentation::Man, 21u16),
-        ];
-        for (character_id, sex, presentation, age) in assigned {
-            let mut character = ctx
-                .db
-                .character()
-                .id()
-                .find(character_id)
-                .ok_or("Seeded family member is missing its Character")?;
-            character.age_years = age;
-            ctx.db.character().id().update(character);
-            let mut personality = ctx
-                .db
-                .character_personality()
-                .character_id()
-                .find(character_id)
-                .ok_or("Seeded family member is missing personality")?;
-            personality.sex = sex;
-            personality.presentation = presentation;
-            ctx.db
-                .character_personality()
-                .character_id()
-                .update(personality);
-            let birth = CharacterBirth {
-                character_id,
-                birth_minute: -(i64::from(age)
-                    * i64::try_from(MINUTES_PER_YEAR).unwrap_or(i64::MAX)),
-            };
-            if ctx
-                .db
-                .character_birth()
-                .character_id()
-                .find(character_id)
-                .is_some()
-            {
-                ctx.db.character_birth().character_id().update(birth);
-            } else {
-                ctx.db.character_birth().insert(birth);
-            }
-        }
-        for child in [family[2], family[3]] {
-            for parent in [family[0], family[1]] {
-                ensure_kinship(ctx, child, parent, KinshipKind::Parent, 0);
-                ensure_kinship(ctx, parent, child, KinshipKind::Child, 0);
-            }
-        }
-        ensure_kinship(ctx, family[2], family[3], KinshipKind::Sibling, 0);
-        ensure_kinship(ctx, family[3], family[2], KinshipKind::Sibling, 0);
     }
     Ok(())
 }
 
-fn father_of_at(ctx: &ReducerContext, child_id: u64, minute: u64) -> Result<Option<u64>, String> {
+fn father_of_at(
+    ctx: &ReducerContext,
+    child_id: u64,
+    minute: StrategicMinute,
+) -> Result<Option<u64>, String> {
     let father = ctx.db.character_kinship().iter().find_map(|edge| {
         (edge.subject_id == child_id
             && edge.kind == KinshipKind::Parent
@@ -227,7 +232,7 @@ fn father_of_at(ctx: &ReducerContext, child_id: u64, minute: u64) -> Result<Opti
 fn relationship_conflicts_at(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     permitted_courtship_id: Option<&str>,
 ) -> bool {
     let courtship_conflict = ctx.db.courtship().iter().any(|row| {

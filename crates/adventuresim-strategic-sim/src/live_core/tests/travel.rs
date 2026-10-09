@@ -159,7 +159,7 @@ fn all_nonterminal_encounters_follow_authoritative_public_post_state() {
 
 #[test]
 fn narrative_encounter_policy_uses_safe_meaningful_choices_and_keeps_ignore_fallback() {
-    let mut profile = generate_profile(42, 0);
+    let mut profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
     profile.personality = adventuresim_core::personality::Personality::neutral();
     let presentation = adventuresim_core::road_encounter_catalog::EncounterPresentation {
         cast: Vec::new(),
@@ -341,8 +341,8 @@ fn terminal_member_transitions_reclassify_short_and_zero_rest() {
     assert_eq!(
         public_terminal_rest_elapsed(
             &companion_death,
-            &[(10, 1_000), (20, 1_000)],
-            &[(10, 1_360), (20, 1_360)],
+            &[(10, StrategicMinute::new(1_000)), (20, StrategicMinute::new(1_000))],
+            &[(10, StrategicMinute::new(1_360)), (20, StrategicMinute::new(1_360))],
         ),
         Some(360)
     );

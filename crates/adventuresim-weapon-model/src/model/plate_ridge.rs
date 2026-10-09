@@ -1,24 +1,12 @@
 //! Piecewise rational ridge fields shared by contoured blanks.
-use super::contoured_plate::PlateField;
+use super::contoured_plate::{PlateBand, PlateCell, PlateField};
 use super::*;
 
 pub(super) struct RidgeField<'a> {
     pub length: f64,
     pub stations: &'a [PlateThicknessStation],
 }
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-pub(super) enum PlateBand {
-    Flat,
-    LeftSlope,
-    RightSlope,
-    LeftOuterSlope,
-    RightOuterSlope,
-    LeftEdge,
-    RightEdge,
-}
-
 impl PlateField for RidgeField<'_> {
-    type Cell = (usize, PlateBand);
     fn cuts(&self) -> Vec<PlanarCut> {
         let mut cuts = Vec::new();
         for station in self.stations {
@@ -56,7 +44,7 @@ impl PlateField for RidgeField<'_> {
         cuts
     }
 
-    fn cell(&self, [x, y]: PlanarPoint) -> (usize, PlateBand) {
+    fn cell(&self, [x, y]: PlanarPoint) -> PlateCell {
         let t = (y / self.length).clamp(0.0, 1.0);
         let index = self
             .stations
@@ -66,7 +54,7 @@ impl PlateField for RidgeField<'_> {
         let a = &self.stations[index];
         let b = &self.stations[index + 1];
         if a.edge == a.ridge && b.edge == b.ridge {
-            return (index, PlateBand::Flat);
+            return PlateCell::ridge(index, PlateBand::Flat);
         }
         let u = (t - a.at.get()) / (b.at.get() - a.at.get());
         let half =
@@ -92,7 +80,7 @@ impl PlateField for RidgeField<'_> {
         } else {
             PlateBand::RightEdge
         };
-        (index, band)
+        PlateCell::ridge(index, band)
     }
 
     fn thickness(&self, x: f64, y: f64) -> f64 {

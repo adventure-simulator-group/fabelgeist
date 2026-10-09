@@ -1,5 +1,12 @@
-const MISSION_CANDIDATE_ENTROPY_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
 
+
+#[path = "mission_bootstrap/standalone.rs"]
+mod standalone;
+use standalone::{
+    StandaloneMissionFamily, standalone_case_id, standalone_case_site_northward_offset,
+};
+#[path = "mission_bootstrap/streams.rs"]
+mod streams;
 #[reducer]
 pub fn report_contract(
     ctx: &ReducerContext,
@@ -30,7 +37,7 @@ pub fn report_contract(
         .id()
         .find(&contract_id)
         .ok_or("Quest not found")?;
-    quest.parsed_state()?;
+    quest.parsed_state().map_err(|error| error.to_string())?;
     if quest.status != ContractStatus::ReadyToReport
         || quest.accepted_by.as_ref() != Some(&party_id)
     {
@@ -203,10 +210,8 @@ pub fn autoresolve_mission(
             )
         })
         .collect::<Result<Vec<_>, String>>()?;
-    let enemy_ids = mission.enemy_character_ids.clone();
-    if enemy_ids.len() != mission.enemy_count as usize {
-        return Err("Mission hostile roster no longer matches its bound snapshot".into());
-    }
+    let enemy_ids = mission.enemy_roster(ctx)
+        .map_err(|error| error.to_string())?.into_enemy_ids();
     let enemies = enemy_ids
         .into_iter()
         .map(|enemy_id| {
@@ -284,7 +289,7 @@ pub fn cancel_mission_request(
         .id()
         .find(&mission_id)
         .ok_or("Mission authority not found")?;
-    mission.parsed_state()?;
+    mission.parsed_state().map_err(|error| error.to_string())?;
     if mission.party_id != party_id {
         return Err("Mission request belongs to another party".into());
     }
@@ -313,7 +318,7 @@ pub fn cancel_mission_request(
         .mission_id()
         .delete(&mission_id);
     mission.status = MissionAttemptStatus::Cancelled;
-    mission.parsed_state()?;
+    mission.parsed_state().map_err(|error| error.to_string())?;
     ctx.db.mission_authority().id().update(mission);
     Ok(())
 }
@@ -346,7 +351,7 @@ pub fn bootstrap_development_world(
 /// Reject a dev-bootstrap call whose token does not match the compiled
 /// capability. Shared by every split bootstrap reducer so the granular seed
 /// path is gated exactly like [`bootstrap_development_world`].
-fn require_dev_bootstrap_token(bootstrap_token: &str) -> Result<(), String> {
+pub(crate) fn require_dev_bootstrap_token(bootstrap_token: &str) -> Result<(), String> {
     if !adventuresim_core::simulation_security::simulation_bootstrap_authorized(
         COMPILED_DEV_BOOTSTRAP_TOKEN,
         bootstrap_token,
@@ -486,18 +491,18 @@ pub fn dev_bootstrap_gallery_validate(
 /// disposable, so this may replace the seeded character's equipped roots
 /// without affecting strategic state or player data.
 fn configure_diagnostic_player(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    use adventuresim_core::starting_character::StartingSlot;
+    use adventuresim_core::equipment::LoadoutSlot;
 
-    const LONGSWORD_LOADOUT: &[(&str, StartingSlot)] = &[
-        ("linen_tunic", StartingSlot::Chest),
-        ("linen_breeches", StartingSlot::LeftLeg),
-        ("leather_boot", StartingSlot::LeftFoot),
-        ("leather_boot", StartingSlot::RightFoot),
-        ("morion", StartingSlot::Head),
-        ("breastplate", StartingSlot::Chest),
-        ("vambrace", StartingSlot::LeftArm),
-        ("vambrace", StartingSlot::RightArm),
-        ("longsword", StartingSlot::RightHand),
+    const LONGSWORD_LOADOUT: &[(&str, LoadoutSlot)] = &[
+        ("linen_tunic", LoadoutSlot::Chest),
+        ("linen_breeches", LoadoutSlot::LeftLeg),
+        ("leather_boot", LoadoutSlot::LeftFoot),
+        ("leather_boot", LoadoutSlot::RightFoot),
+        ("morion", LoadoutSlot::Head),
+        ("breastplate", LoadoutSlot::Chest),
+        ("vambrace", LoadoutSlot::LeftArm),
+        ("vambrace", LoadoutSlot::RightArm),
+        ("longsword", LoadoutSlot::RightHand),
     ];
 
     crate::character::replace_development_loadout(ctx, character_id, LONGSWORD_LOADOUT)
@@ -537,7 +542,7 @@ pub fn seed_standalone_tactical_mission(
         return Ok(());
     }
     adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_string)?;
-    let standalone_mission_family = standalone_mission_family(&mission_id)?;
+    let standalone_mission_family = StandaloneMissionFamily::from_mission_id(&mission_id)?;
 
     if !ctx
         .db
@@ -577,9 +582,12 @@ pub fn seed_standalone_tactical_mission(
         existing
     } else {
         let coordinates_are_geographic = settlement.source_node_id.is_some();
+        let distance_m = standalone_mission_family.case_site_distance_m();
+        let northward_offset =
+            standalone_case_site_northward_offset(distance_m, coordinates_are_geographic);
         let coordinate = encode_position_e7(
             settlement.coord_x,
-            settlement.coord_y,
+            settlement.coord_y + northward_offset,
             coordinates_are_geographic,
         )
         .ok_or("Standalone tactical site is not a valid WGS84 coordinate")?;
@@ -594,7 +602,7 @@ pub fn seed_standalone_tactical_mission(
             longitude_e7: coordinate.longitude_e7,
             latitude_e7: coordinate.latitude_e7,
             coordinates_are_geographic,
-            distance_m: 0,
+            distance_m,
         })
     };
     let hostile_group_id = format!("hostile-group:standalone:{mission_id}");
@@ -642,7 +650,6 @@ pub fn seed_standalone_tactical_mission(
         crate::world_actor::CharacterContextKind::HostileGroup,
         &group.id,
         group.case_site_id.as_str(),
-        &group.enemy_type,
         group.enemy_count,
     )?;
     configure_tactical_enemy_fixture(ctx, &hostile_group_id, &enemy_fixture)?;
@@ -722,35 +729,10 @@ pub fn seed_standalone_tactical_mission(
     let mission = if let Some(existing) = ctx.db.mission_authority().id().find(&mission_id) {
         existing
     } else {
-        let enemy_combat_scale_bps = group.combat_scale_bps;
-        let normalized_combat_power = group.normalized_combat_power;
-        ctx.db.mission_authority().insert(MissionAuthority {
-            id: mission_id.clone(),
-            party_id: party_id.clone(),
-            case_site_id: Some(case_site.id.clone()),
-            hostile_group_id: Some(hostile_group_id.clone()),
-            observer_character_id: character_id,
-            case_id: case_id.clone(),
-            outcome_entropy: ctx.random(),
-            status: MissionAttemptStatus::Bound,
-            committed_resolution: None,
-            committed_capture_subject_id: None,
-            committed_capture_custody_version: None,
-            scene_key: scene_key.clone(),
-            hostile_version: group.escalation_incident_ordinal,
-            enemy_count: group.enemy_count,
-            enemy_character_ids: crate::world_actor::context_character_ids(ctx, &hostile_group_id),
-            contacted_before_combat: crate::world_actor::party_contacted_context(
-                ctx,
-                &party_id,
-                &hostile_group_id,
-            ),
-            enemy_difficulty: group.base_difficulty,
-            enemy_combat_scale_bps,
-            normalized_combat_power,
-            drop_item_id: group.drop_item_id.clone(),
-            drop_quantity: group.drop_quantity,
-        })
+        let snapshot = MissionAuthority::capture(ctx, &mission_id, &party_id,
+            character_id, &case_site, &group, &scene_key)
+            .map_err(|error| error.to_string())?;
+        ctx.db.mission_authority().insert(snapshot)
     };
     if mission.hostile_group_id.as_deref() != Some(&hostile_group_id) {
         return Err("Standalone mission resolved to an unexpected hostile group".into());
@@ -770,7 +752,7 @@ pub fn seed_standalone_tactical_mission(
                 mission_id: mission_id.clone(),
                 capability_id,
                 case_id,
-                case_site_id: case_site.id,
+                case_site_id: case_site.id.clone(),
                 hostile_group_id,
                 path_index: 0,
                 objective_id,
@@ -780,13 +762,12 @@ pub fn seed_standalone_tactical_mission(
                 capture_custody_version: None,
             });
     }
-    let (authorized_party_member_ids, expected_party_members) =
-        crate::tactical::tactical_party_roster(ctx, &party_id)?;
-    let settlement = crate::tactical::tactical_settlement_snapshot(
-        ctx,
-        &case_site.origin_settlement_id,
-        &case_site.scene_key,
-    );
+    let enemy_roster = mission.enemy_roster(ctx).map_err(|error| error.to_string())?;
+    let authorized_party_member_ids = crate::tactical::tactical_party_roster(ctx, &party_id)
+        .map_err(|error| error.to_string())?
+        .into_member_ids();
+    let settlement = crate::tactical::tactical_settlement_snapshot(ctx, &case_site)?;
+    let environment_minutes = party_wilderness_environment_minutes(&party);
     ctx.db
         .tactical_server_request_authority()
         .insert(crate::tactical::TacticalServerRequest {
@@ -798,20 +779,19 @@ pub fn seed_standalone_tactical_mission(
             longitude_e7: case_site.longitude_e7,
             latitude_e7: case_site.latitude_e7,
             settlement,
-            absolute_minute: party_wilderness_environment_minutes(&party)
-                .map_or(adventuresim_core::strategic_time::WORLD_START_MINUTE, |value| value.0),
-            lunar_phase_minute: party_wilderness_environment_minutes(&party)
-                .map_or(adventuresim_core::strategic_time::WORLD_START_MINUTE, |value| value.1),
-            expected_party_members,
+            absolute_minute: environment_minutes
+                .map_or(adventuresim_world_schema::calendar::WORLD_START_MINUTE, |value| value.0),
+            lunar_phase_minute: environment_minutes
+                .map_or(adventuresim_world_schema::calendar::WORLD_START_MINUTE, |value| value.1),
             authorized_party_member_ids,
-            required_enemy_kills,
+            required_enemy_kills: enemy_roster.enemy_count().get(),
             enemy_difficulty: mission.enemy_difficulty,
             enemy_combat_scale_bps: mission.enemy_combat_scale_bps,
             countermeasure_multiplier_bps: u32::from(
                 adventuresim_world_schema::BASIS_POINTS_PER_WHOLE,
             ),
             normalized_combat_power: mission.normalized_combat_power,
-            enemy_character_ids: mission.enemy_character_ids.clone(),
+            enemy_character_ids: enemy_roster.into_enemy_ids(),
             party_has_surprise: !mission.contacted_before_combat,
         });
     ctx.db
@@ -821,45 +801,6 @@ pub fn seed_standalone_tactical_mission(
             claim_hash: Sha256::digest(tactical_claim.as_bytes()).to_vec(),
         });
     Ok(())
-}
-
-#[derive(Clone, Copy, Eq, PartialEq)]
-enum StandaloneMissionFamily {
-    Animation,
-    Diagnostic,
-    General,
-}
-
-const ANIMATION_MISSION_COORDINATE_PREFIX: &str = "animation-";
-const DIAGNOSTIC_MISSION_COORDINATE_PREFIX: &str = "diagnostic-";
-
-fn standalone_mission_family(mission_id: &str) -> Result<StandaloneMissionFamily, String> {
-    let (domain, coordinate) = mission_id
-        .split_once(':')
-        .ok_or("Standalone mission ID has no domain")?;
-    if domain != "mission" || coordinate.is_empty() {
-        return Err("Standalone mission ID has an invalid domain coordinate".into());
-    }
-    if let Some(animation_coordinate) = coordinate.strip_prefix(ANIMATION_MISSION_COORDINATE_PREFIX)
-    {
-        if animation_coordinate.is_empty() {
-            return Err("Animation mission ID has no coordinate".into());
-        }
-        Ok(StandaloneMissionFamily::Animation)
-    } else if let Some(diagnostic_coordinate) =
-        coordinate.strip_prefix(DIAGNOSTIC_MISSION_COORDINATE_PREFIX)
-    {
-        if diagnostic_coordinate.is_empty() {
-            return Err("Diagnostic mission ID has no coordinate".into());
-        }
-        Ok(StandaloneMissionFamily::Diagnostic)
-    } else {
-        Ok(StandaloneMissionFamily::General)
-    }
-}
-
-fn standalone_case_id(mission_id: &str) -> String {
-    format!("case:standalone:{mission_id}")
 }
 
 fn retire_interrupted_standalone_requests(
@@ -1161,8 +1102,9 @@ pub fn ensure_settlement_activity(
 
 fn settlement_activity_target(settlement_id: &str) -> usize {
     MIN_QUESTS_PER_SETTLEMENT
-        + settlement_id.bytes().map(usize::from).sum::<usize>()
-            % (MAX_QUESTS_PER_SETTLEMENT - MIN_QUESTS_PER_SETTLEMENT + 1)
+        + fabelgeist_determinism::Seed::derive(settlement_id.as_bytes(),
+            streams::QUEST_COUNT, &[]).rng()
+            .index(MAX_QUESTS_PER_SETTLEMENT - MIN_QUESTS_PER_SETTLEMENT + 1)
 }
 
 fn settlement_activity_stage_error(
@@ -1292,7 +1234,7 @@ fn ensure_settlement_activity_batched(
 }
 
 fn ensure_npc_recruiting_parties(ctx: &ReducerContext, settlement_id: &str) -> Result<(), String> {
-    let target = 1 + settlement_id.bytes().map(usize::from).sum::<usize>() % 2;
+    let target = 1 + fabelgeist_determinism::Seed::derive(settlement_id.as_bytes(), streams::RECRUITING_PARTY_COUNT, &[]).rng().index(2);
     let now = crate::time::refresh_clock(ctx)?;
     for mut offer in ctx.db.recruitment_offer().iter().collect::<Vec<_>>() {
         if offer.status == RecruitmentOfferStatus::Open && now >= offer.expires_at_minute {
@@ -1377,23 +1319,12 @@ fn ensure_npc_recruiting_parties(ctx: &ReducerContext, settlement_id: &str) -> R
             .ok_or("NPC party disappeared after leader assignment")?;
         party.name = format!("{}'s company", leader_name);
         party.current_settlement_id = Some(settlement_id.to_string());
-        party.physiology_target = 3.0 + (ctx.random::<u64>() % 3) as f32;
-        party.command_target = 3.0 + (ctx.random::<u64>() % 3) as f32;
-        party.religion_target = 3.0 + (ctx.random::<u64>() % 3) as f32;
+        party.physiology_target = 3.0 + streams::PHYSIOLOGY.rng(leader_id.into(), &[]).index(3) as f32;
+        party.command_target = 3.0 + streams::COMMAND.rng(leader_id.into(), &[]).index(3) as f32;
+        party.religion_target = 3.0 + streams::RELIGION.rng(leader_id.into(), &[]).index(3) as f32;
         ctx.db.party_authority().id().update(party);
 
-        let mut requirements = RoleRequirements::default();
-        if ctx.random::<u64>().is_multiple_of(2) {
-            requirements.melee = true;
-        } else {
-            requirements.ranged = true;
-        }
-        requirements.athletics = (ctx.random::<u64>() % 4) as u8;
-        requirements.endurance = (ctx.random::<u64>() % 4) as u8;
-        let armor = ctx.random::<u64>() % 3;
-        requirements.quarter_armor = armor == 1;
-        requirements.half_armor = armor == 2;
-        requirements.weapon_precision = (ctx.random::<u64>() % 4) as f32 * 0.5;
+        let requirements = streams::recruiting_role(fabelgeist_determinism::Seed::from_u64(leader_id));
         ctx.db
             .party_recruitment_role()
             .insert(PartyRecruitmentRole {
@@ -1421,15 +1352,14 @@ fn ensure_npc_recruiting_parties(ctx: &ReducerContext, settlement_id: &str) -> R
             leader_id,
             status: RecruitmentOfferStatus::Open,
             created_at_minute: now,
-            expires_at_minute: now
-                .saturating_add(7 * adventuresim_core::strategic_time::MINUTES_PER_DAY),
+            expires_at_minute: renewed_recruitment_offer_expiry(now),
         });
     }
     Ok(())
 }
 
-fn renewed_recruitment_offer_expiry(now: u64) -> u64 {
-    now.saturating_add(7 * adventuresim_core::strategic_time::MINUTES_PER_DAY)
+fn renewed_recruitment_offer_expiry(now: StrategicMinute) -> StrategicMinute {
+    now.saturating_add_days(7)
 }
 
 fn generated_witness_visible_description(
@@ -1492,7 +1422,7 @@ fn generated_witness_candidates(
                 circumstances.insert(Circumstance::SecretRiversideMeeting);
             }
             let age_band = npc.age_band.stable_id().to_owned();
-            let sex = npc.sex.stable_id().to_owned();
+            let sex = Some(npc.sex);
             let presence_version = generated_npc_presence_version(&npc, &presence);
             Some(WitnessCandidate {
                 resident_character_id: npc.character_id,
@@ -1592,7 +1522,7 @@ pub(crate) fn generated_npc_demographic(
     npc: &crate::settlement_population::ResolvedSettlementResident,
 ) -> adventuresim_core::quest_generation::WitnessDemographic {
     let age_band = npc.age_band.stable_id();
-    let sex = npc.sex.stable_id();
+    let sex = Some(npc.sex);
     let authored = adventuresim_core::quest_catalog::catalog()
         .witness_demographic_for(age_band, sex, &npc.profession, &npc.local_role)
         .expect("validated demographic catalog has one fallback");
@@ -1662,7 +1592,7 @@ fn generate_quest_for_settlement(ctx: &ReducerContext, settlement_id: &str) -> R
             let validated = validate_quest_generation_authority(&row)?;
             Ok::<_, String>(count + u16::from(validated.context.settlement_id == settlement_id))
         })?;
-    let seed = ctx.random::<u64>();
+    let seed = ctx.random::<Seed>();
     let observer_entropy_hi = ctx.random::<u64>();
     let observer_entropy_lo = ctx.random::<u64>();
     let now_minute = crate::time::refresh_clock(ctx)?;
@@ -1673,7 +1603,7 @@ fn generate_quest_for_settlement(ctx: &ReducerContext, settlement_id: &str) -> R
     .ok_or("Settlement has invalid WGS84 coordinates")?;
     let incident_weather = adventuresim_core::weather::weather_at(
         adventuresim_core::weather::WORLD_WEATHER_SEED,
-        now_minute.saturating_sub(180),
+now_minute.saturating_sub_minutes(180),
         weather_coordinate.latitude().get(),
         weather_coordinate.longitude().get(),
         0,
@@ -1710,7 +1640,7 @@ fn materialize_preferred_generated_fixture(
     ctx: &ReducerContext,
     character_id: u64,
     family: adventuresim_core::quest_generation::TemplateFamily,
-    seed_salt: u64,
+    seed_salt: Seed,
 ) -> Result<String, String> {
     use adventuresim_core::quest_generation as qg;
 
@@ -1726,18 +1656,18 @@ fn materialize_preferred_generated_fixture(
         .find(&settlement_id)
         .ok_or("Current settlement not found")?;
 
-    let now_minute = crate::time::refresh_clock(ctx)?.max(4_000);
-    let entropy = character_id ^ seed_salt;
+    let now_minute = crate::time::refresh_clock(ctx)?.max(StrategicMinute::new(4_000));
+    let entropy = streams::FIXTURE.seed(character_id.into(), &[seed_salt.to_u64()]);
     let initial_context = qg::GenerationContext {
-        seed: preferred_fixture_seed(entropy, family),
-        observer_entropy_hi: entropy.rotate_left(23),
-        observer_entropy_lo: entropy.rotate_right(17),
+        seed: entropy,
+        observer_entropy_hi: streams::OBSERVER_HIGH.seed(entropy, &[]).to_u64(),
+        observer_entropy_lo: streams::OBSERVER_LOW.seed(entropy, &[]).to_u64(),
         settlement_id: settlement_id.clone(),
         settlement_name: settlement.name.clone(),
         scope: adventuresim_core::local_problem::Scope::Settlement {
             settlement_id: settlement_id.clone(),
         },
-        ordinal: (seed_salt as u16).max(1),
+        ordinal: (seed_salt.to_u64() as u16).max(1),
         now_minute,
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: Some(family),
@@ -1746,14 +1676,9 @@ fn materialize_preferred_generated_fixture(
     let (context, generated) = (0..64_u64)
         .find_map(|offset| {
             let mut candidate = initial_context.clone();
-            candidate.seed = candidate.seed.wrapping_add(offset);
+            candidate.seed = streams::FIXTURE_ATTEMPT.seed(entropy, &[offset]);
             let generated = qg::generate(&candidate).ok()?;
-            let suitable = family != qg::TemplateFamily::RecurringDepredation
-                || generated.hostile_groups.iter().any(|(_, _, threat, _)| {
-                    *threat == adventuresim_core::bestiary::ThreatId::Bandit
-                        || *threat == adventuresim_core::bestiary::ThreatId::Smuggler
-                });
-            suitable.then_some((candidate, generated))
+            preferred_fixture_is_suitable(family, &generated).then_some((candidate, generated))
         })
         .ok_or("Development quest fixture exhausted negotiable generated threats")?;
     let witness = generated
@@ -1810,26 +1735,32 @@ fn materialize_preferred_generated_fixture(
     Ok(generated.problem_id)
 }
 
-fn preferred_fixture_seed(
-    entropy: u64,
-    family: adventuresim_core::quest_generation::TemplateFamily,
-) -> u64 {
-    let seed = entropy.rotate_left(11);
-    if family == adventuresim_core::quest_generation::TemplateFamily::Outbreak {
-        seed - seed % 6
-    } else {
-        seed
-    }
+fn ordinary_generated_site_distance_m(seed: Seed, site_id: &str) -> u64 {
+    4_000 + fabelgeist_determinism::Seed::derive(&seed.to_le_bytes(),
+        streams::SITE_DISTANCE,
+        &[site_id.as_bytes()]).rng().index(17_000) as u64
 }
 
-fn ordinary_generated_site_distance_m(seed: u64, index: usize) -> u64 {
-    4_000 + (seed.rotate_left(index as u32) % 17_000)
+fn preferred_fixture_is_suitable(
+    family: adventuresim_core::quest_generation::TemplateFamily,
+    generated: &adventuresim_core::quest_generation::GeneratedCase,
+) -> bool {
+    use adventuresim_core::{bestiary::ThreatId, quest_generation::TemplateFamily};
+    let outbreak_matches = family != TemplateFamily::Outbreak
+        || generated.outbreak.as_ref().is_some_and(|outbreak| {
+            outbreak.disease == adventuresim_core::disease::DiseaseId::Dysentery
+        });
+    let threat_matches = family != TemplateFamily::RecurringDepredation
+        || generated.hostile_groups.iter().any(|(_, _, threat, _)| {
+            matches!(*threat, ThreatId::Bandit | ThreatId::Smuggler)
+        });
+    outbreak_matches && threat_matches
 }
 
 fn materialize_simulation_acceptance_outbreak(
     ctx: &ReducerContext,
     character_id: u64,
-    policy_seed: u64,
+    policy_seed: Seed,
 ) -> Result<String, String> {
     use adventuresim_core::quest_generation as qg;
 
@@ -1846,15 +1777,15 @@ fn materialize_simulation_acceptance_outbreak(
         .id()
         .find(&settlement_id)
         .ok_or("Quest acceptance outbreak settlement not found")?;
-    let now_minute = crate::time::refresh_clock(ctx)?.max(4_000);
-    let entropy = character_id ^ policy_seed ^ 0x4143_4345_5054_414e;
+    let now_minute = crate::time::refresh_clock(ctx)?.max(StrategicMinute::new(4_000));
+    let entropy = streams::ACCEPTANCE.seed(character_id.into(), &[policy_seed.to_u64()]);
     for candidate in 0..MAX_CANDIDATES {
         let candidate_entropy =
-            entropy ^ u64::from(candidate).wrapping_mul(MISSION_CANDIDATE_ENTROPY_STRIDE);
+            streams::ACCEPTANCE_CANDIDATE.seed(entropy, &[u64::from(candidate)]);
         let context = qg::GenerationContext {
-            seed: candidate_entropy.rotate_left(11),
-            observer_entropy_hi: candidate_entropy.rotate_left(23),
-            observer_entropy_lo: candidate_entropy.rotate_right(17),
+            seed: candidate_entropy,
+            observer_entropy_hi: streams::OBSERVER_HIGH.seed(candidate_entropy, &[]).to_u64(),
+            observer_entropy_lo: streams::OBSERVER_LOW.seed(candidate_entropy, &[]).to_u64(),
             settlement_id: settlement_id.clone(),
             settlement_name: settlement.name.clone(),
             scope: adventuresim_core::local_problem::Scope::Settlement {
@@ -1869,8 +1800,8 @@ fn materialize_simulation_acceptance_outbreak(
         let generated = qg::generate(&context)
             .map_err(|error| format!("Acceptance outbreak generation failed: {error:?}"))?;
         if generated.sites.is_empty()
-            || generated.sites.iter().enumerate().any(|(index, _)| {
-                ordinary_generated_site_distance_m(context.seed, index)
+            || generated.sites.iter().any(|site| {
+                ordinary_generated_site_distance_m(context.seed, &site.id.0)
                     > MAX_REQUIRED_ROUTE_DISTANCE_M
             })
         {
@@ -1960,7 +1891,7 @@ fn seed_outbreak_demo(ctx: &ReducerContext, character_id: u64) -> Result<String,
         ctx,
         character_id,
         adventuresim_core::quest_generation::TemplateFamily::Outbreak,
-        0x4f55_5442_5245_414b,
+        fabelgeist_determinism::Seed::from_u64(0x4f55_5442_5245_414b),
     )
 }
 
@@ -2037,7 +1968,7 @@ fn ensure_simulation_quest_provisioning_environment(
         .character_time()
         .character_id()
         .find(leader_id)
-        .map_or(720, |time| time.minutes);
+        .map_or(StrategicMinute::new(720), |time| time.minutes);
     let provider_id = default_merchant_provider(ctx, &settlement_id, "merchants", "market")
         .map_err(|error| error.to_string())?
         .get();
@@ -2055,7 +1986,7 @@ fn ensure_simulation_quest_provisioning_environment(
 
 pub(crate) fn seed_simulation_quest_fixture_inner(
     ctx: &ReducerContext,
-    policy_seed: u64,
+    policy_seed: Seed,
     direct_leader_id: u64,
     generated_leader_id: u64,
 ) -> Result<SimulationQuestFixtureSeed, String> {
@@ -2089,7 +2020,7 @@ pub(crate) fn seed_simulation_quest_fixture_inner(
         .character_time()
         .character_id()
         .find(direct_leader_id)
-        .map_or(720, |time| time.minutes);
+        .map_or(StrategicMinute::new(720), |time| time.minutes);
     let has_keep = matches!(
         settlement.category,
         SettlementCategory::Town | SettlementCategory::City | SettlementCategory::Capital
@@ -2310,11 +2241,10 @@ fn materialize_generated_quest(
         encode_position_e7(settlement.coord_x, settlement.coord_y, geographic)
             .ok_or("Generated investigation center is not a valid WGS84 coordinate")?;
     let mut site_rows = BTreeMap::new();
-    for (index, site) in generated.sites.iter().enumerate() {
+    for site in &generated.sites {
         let distance_m = fixture_site_distance_m
-            .unwrap_or_else(|| ordinary_generated_site_distance_m(seed, index));
-        let angle_seed = seed.rotate_left((index as u32).saturating_mul(11));
-        let angle = (angle_seed as f64 / u64::MAX as f64) * std::f64::consts::TAU;
+            .unwrap_or_else(|| ordinary_generated_site_distance_m(seed, &site.id.0));
+        let angle = streams::site_bearing(seed, &site.id.0);
         let distance_km = distance_m as f64 / 1_000.0;
         let (offset_x, offset_y) = if geographic {
             let latitude_scale = 111.0;
@@ -2554,7 +2484,7 @@ pub fn spawn_developer_quest(
     .ok_or("Settlement has invalid WGS84 coordinates")?;
     let incident_weather = adventuresim_core::weather::weather_at(
         adventuresim_core::weather::WORLD_WEATHER_SEED,
-        now_minute.saturating_sub(180),
+now_minute.saturating_sub_minutes(180),
         weather_coordinate.latitude().get(),
         weather_coordinate.longitude().get(),
         0,
@@ -2607,48 +2537,6 @@ mod developer_quest_source_tests {
     use super::*;
 
     #[test]
-    fn standalone_mission_family_uses_an_exact_mission_tag() {
-        assert!(
-            standalone_mission_family("mission:animation-demo").unwrap()
-                == StandaloneMissionFamily::Animation
-        );
-        assert!(
-            standalone_mission_family("mission:ordinary").unwrap()
-                == StandaloneMissionFamily::General
-        );
-        assert!(
-            standalone_mission_family("mission:diagnostic-demo").unwrap()
-                == StandaloneMissionFamily::Diagnostic
-        );
-        for invalid in [
-            "mission:",
-            "mission:animation-",
-            "mission:diagnostic-",
-            "case:animation-demo",
-            "animation-demo",
-        ] {
-            assert!(standalone_mission_family(invalid).is_err());
-        }
-    }
-
-    #[test]
-    fn outbreak_demo_seed_selects_the_waterborne_fixture() {
-        let entropy = 9_999_999_999_999_959u64 ^ 0x4f55_5442_5245_414b;
-        let seed = preferred_fixture_seed(
-            entropy,
-            adventuresim_core::quest_generation::TemplateFamily::Outbreak,
-        );
-        assert_eq!(seed % 6, 0);
-        assert_eq!(
-            preferred_fixture_seed(
-                entropy,
-                adventuresim_core::quest_generation::TemplateFamily::RecurringDepredation,
-            ),
-            entropy.rotate_left(11)
-        );
-    }
-
-    #[test]
     fn only_the_recurring_threat_gallery_fixture_gets_the_nearby_site_override() {
         use adventuresim_core::quest_generation::TemplateFamily;
         assert_eq!(
@@ -2659,7 +2547,7 @@ mod developer_quest_source_tests {
             preferred_fixture_site_distance_m(TemplateFamily::Outbreak),
             None
         );
-        assert!(ordinary_generated_site_distance_m(0, 0) >= 4_000);
+        assert!(ordinary_generated_site_distance_m(fabelgeist_determinism::Seed::from_u64(0), "site:fixture") >= 4_000);
     }
 
     #[test]
@@ -2847,9 +2735,11 @@ mod developer_quest_source_tests {
 
     #[test]
     fn developer_witness_projection_matches_core_for_every_presentation() {
-        use crate::personality::{Presentation, Sex};
+        use crate::personality::Presentation;
+        use adventuresim_core::settlement_population::AgeBand;
+        use adventuresim_world_schema::Sex;
         use crate::settlement_population::{
-            NpcAgeBand, ResolvedSettlementResident, SettlementResidentPresence,
+            ResolvedSettlementResident, SettlementResidentPresence,
             SettlementResidentProfile,
         };
         use adventuresim_core::quest_generation::{
@@ -2884,14 +2774,14 @@ mod developer_quest_source_tests {
                     visible_features: "a scar".into(),
                     clothing: "a wool coat".into(),
                     profession: "laborer".into(),
-                    household: "market household".into(),
+                    household_kind: "market household".into(),
                     local_role: "resident".into(),
                     service_id: String::new(),
                     organization_id: String::new(),
                     conversation_id: "local-resident".into(),
                 },
                 name: "Visible Witness".into(),
-                age_band: NpcAgeBand::Adult,
+                age_band: AgeBand::Adult,
                 sex: Sex::Female,
                 presentation,
             };
@@ -2917,7 +2807,7 @@ mod developer_quest_source_tests {
             .unwrap();
             let authoritative = developer_npc_witness_candidate(&npc, &presence).unwrap();
             assert_eq!(authoritative, direct);
-            assert!(authoritative.sex.is_empty());
+            assert!(authoritative.sex.is_none());
         }
     }
 

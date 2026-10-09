@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::case_site_id_type::CaseSiteId;
 use super::journey_endpoint_type::JourneyEndpoint;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -22,7 +23,7 @@ pub struct Party {
     pub walking_minutes_per_day: u16,
     pub travel_at_night: bool,
     pub journey_start_minute_of_day: u16,
-    pub wilderness_canonical_anchor_minute: Option<u64>,
+    pub wilderness_canonical_anchor_minute: Option<StrategicMinute>,
     pub wilderness_elapsed_minutes: u64,
     pub camp_destination: Option<JourneyEndpoint>,
     pub camp_remaining_minutes: u64,
@@ -51,7 +52,8 @@ pub struct PartyCols {
     pub walking_minutes_per_day: __sdk::__query_builder::Col<Party, u16>,
     pub travel_at_night: __sdk::__query_builder::Col<Party, bool>,
     pub journey_start_minute_of_day: __sdk::__query_builder::Col<Party, u16>,
-    pub wilderness_canonical_anchor_minute: __sdk::__query_builder::Col<Party, Option<u64>>,
+    pub wilderness_canonical_anchor_minute:
+        __sdk::__query_builder::Col<Party, Option<StrategicMinute>>,
     pub wilderness_elapsed_minutes: __sdk::__query_builder::Col<Party, u64>,
     pub camp_destination: __sdk::__query_builder::Col<Party, Option<JourneyEndpoint>>,
     pub camp_remaining_minutes: __sdk::__query_builder::Col<Party, u64>,

@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::corpse_permission_scope_type::CorpsePermissionScope;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -16,7 +17,7 @@ pub struct CorpsePermissionAttempt {
     pub scope: CorpsePermissionScope,
     pub approach: String,
     pub granted: bool,
-    pub attempted_minute: u64,
+    pub attempted_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for CorpsePermissionAttempt {
@@ -34,7 +35,7 @@ pub struct CorpsePermissionAttemptCols {
     pub scope: __sdk::__query_builder::Col<CorpsePermissionAttempt, CorpsePermissionScope>,
     pub approach: __sdk::__query_builder::Col<CorpsePermissionAttempt, String>,
     pub granted: __sdk::__query_builder::Col<CorpsePermissionAttempt, bool>,
-    pub attempted_minute: __sdk::__query_builder::Col<CorpsePermissionAttempt, u64>,
+    pub attempted_minute: __sdk::__query_builder::Col<CorpsePermissionAttempt, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for CorpsePermissionAttempt {

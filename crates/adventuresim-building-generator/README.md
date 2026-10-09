@@ -4,14 +4,195 @@ This crate converts high-level building programmes into deterministic semantic
 data and audited geometry. The tactical city adapter consumes its recipes and
 collision meshes; the standalone viewer provides architectural inspection.
 
+## Building geometry contracts
+
+The shared `spatial_geometry` owner distinguishes metre positions,
+displacements, elevations, dimensions and bounds. `Position<Architectural>` uses
+building-local X/Y/Z axes; architectural Y=0 is the finished ground-floor datum.
+A buried slab or footing does not move that datum. Signed finite points,
+elevations and displacements are admitted, including zero displacement.
+`CuboidDimensions` permits finite nonnegative extents and degenerate contact
+specimens. `LeafDimensions` requires three positive extents; `PlanDimensions`
+and `PositiveLength` require positive measurements. Ordered `SpatialBounds`
+permits zero extents. `ClearanceVolume` requires a positive volume, as workplace
+passages need physical standing space.
+
+Construction and decoding enforce the same rules. Normalized plan/spatial
+directions retain Bevy's direction invariant and remain distinct from metre
+displacements. Finite radians retain their represented value without wrapping;
+rigid quaternions must already be finite and normalized. Validated reflected
+geometry is opaque, so reflective field assignment cannot bypass admission.
+Native vector and scalar getters are explicit arithmetic, serialization, mesh
+and framework ports. Point translation, bounds centre/extent and conversion
+arithmetic are fallible when finite inputs overflow. Construction errors retain
+the geometry role and the relevant solid, node, opening or passage identity.
+
+`CuboidCorners` owns eight sign-coded corners and twelve undirected edges in any
+declared frame. Bit 0 selects X, bit 1 selects Y and bit 2 selects Z. Every edge
+changes one bit; degenerate dimensions may collapse geometric corners without
+changing this topology. Collision retains its original f32 rotation products,
+corner calculation and edge interpolation. `GroundContact` classifies those
+computed corners against exact architectural Y=0 as `Empty`, `Point`, `Segment`
+or `Area`. It uses no proximity epsilon. Hull construction sorts
+lexicographically, treats signed zeros as equal, removes exact duplicates and
+uses f64 orientation differences of the represented f32 points. Collinear
+contacts remain segments; an occupied-floor footprint requires an area hull of
+every contact dimensionality across the whole building.
+
+Ground-contact exclusion and contact bounds use computed corners. Placement and
+query envelopes retain their separately rounded half-extent arithmetic; they
+cannot exclude datum contact. A rotated church bearing can have an AABB minimum
+above zero while its computed bottom corners equal zero. Heating reuses the same
+topology with its original Euler YXZ calculation and its own measured
+bearing-area, clipping and interface-depth rules. These tolerances are not used
+for ground-contact classification.
+
+`DoorSpec<Architectural>` describes a building-local leaf. Tactical core's
+`scene_coordinates` owns `ArchitecturalFloorDatum`, `CollisionCentreDatum`,
+`GateDatum` and the conversion into `SceneDoorPose`. A city gate leaf uses scene
+X/Z and Y relative to its gate support datum; it therefore has a distinct
+`DoorSpec<GateRelative>` pose. Both conversions preserve opening/source IDs,
+hinge offsets, positive leaf dimensions, orientation and signed sweep. Boundary
+walls carry ground-relative poses and gate posts carry gate-relative poses;
+metadata never infers a datum from an unframed vector. The generator has no
+dependency on tactical core. The scene-contract inventory in issue #767 consumes
+these final core owners.
+
+Floor stations, widths and spans carry distinct checked metre roles. Room
+reservations, occupied-storey diagnostics and interior placements/waypoints use
+`RoomIndex` and `StoreyIndex`; narrowing into packed ordinals is checked.
+Authoring programmes retain their ability to describe unsupported arrangements
+until the programme validator rejects them. Catalogue literals, integer cell and
+corner topology, seed arithmetic and native mesh/binary layouts remain at their
+explicit owning boundaries. Private recipe set-out kernels perform their
+original native arithmetic and admit the results through shared geometry owners
+before storing solids, bearings, passage clearances or furnishings.
+
+Admitted native and serialized representations retain their existing layouts,
+including packed room/storey ordinals and workplace silhouette booleans.
+Malformed geometry is rejected without compatibility decoding. The sweep-radius
+reduction checks each corner before taking a maximum: otherwise f32 maximum
+could discard a NaN caused by overflow and manufacture a finite radius. Roof
+bounds also admit every vertex before taking component minima/maxima, which
+could otherwise discard a NaN. Roof faces need at least three vertices before
+plane reconstruction. These admission corrections preserve admitted arithmetic
+and report the affected opening or roof face with the construction cause.
+
+The resolved contracts use bespoke types; editable source catalogues keep their
+authoring representation until generation admits them. Wall-source room and
+storey ordinals remain packed `u16` values at that source boundary.
+Reservations, room connections, heating and interiors carry the admitted ordinal
+owners. Private set-out kernels retain authored catalogue literals and local
+native component arithmetic. Their output passes checked construction before it
+becomes a stored solid, support interface, passage or furnishing pose. Mesh
+vertices, Bevy transforms and physics shapes retain the layouts required by
+their native adapters. Collection indexes, cardinalities and corner bit masks
+remain ordinary integers; the wider seed inventory belongs to #767.
+
+## Connected helper and window contracts
+
+`SignedLength` admits finite signed metres, including negative insets and zero
+set-out. `Area` admits finite nonnegative square metres, including empty
+overlap. Both live in `spatial_geometry`, share construction/decoding admission,
+and have opaque reflection. Audit corner gaps and bonding measurements return
+named records with architectural points, measured contact planes and checked
+measurements. A tolerated gap can put the measured lower plane above the upper
+plane; it is not an ordered physical bounds interval. Bond containment orders
+these planes componentwise for its bounds comparison. Ordinary
+containment and overlap predicates return `bool`. Artillery route assessments
+retain endpoint identities and distinguish missing bindings, invalid geometry
+and the obstructing source; bell-swing assessments retain the bell and blocker.
+The existing audit codes remain the presentation contract.
+
+Heating selection admits its room/storey indexes, architectural centre,
+kitchen direction and signed elevations before roof selection. A candidate has
+no roof identity until a named roof selection supplies one. `HearthLocal` uses
+Z into the kitchen and Y above its floor. Its X axis is `(-axis.y, axis.x)` in
+architectural X/Z, where `axis` is the kitchen direction's plan vector. Local
+displacements convert explicitly into architectural bounds. Missing
+required room/storey bindings fail with those identities. Folded sheet sections
+carry signed inner/outer depths, architectural elevations and admitted wall
+normals. The clipping, station, contact and weather-lap kernels retain their
+original arithmetic and tolerances. Candidate clearance carries a named policy
+for replacing or retaining the host wall. Floor penetration depth has one
+construction owner; audits keep their independent acceptance margins.
+
+Interior rectangle centres remain `ArchitecturalPlanPoint` values and their
+half extents remain `PlanExtents` through placement, navigation and clearance.
+Signed expansion rejects reversed extents and permits zero extents. Furniture
+set-out uses `FurnitureLocal` displacements and `Radians` before explicit
+architectural rotation. Required empty rooms report room and storey identity.
+Height clipping and axis containment keep native arithmetic inside their
+bounded kernels; their inputs and outputs retain the declared frame. Rectangle
+and elevation-interval construction accepts checked leaves. Room bounds and
+entrance records own their associated construction paths.
+`InteriorPlacement::floor_height` returns the highest physical floor top covering
+its centre within the planner's floor-elevation tolerance of the nominal storey
+elevation. If no floor qualifies, `MissingFloor` retains its room and storey
+identity. Scene adapters use that elevation to place the furniture.
+
+Equipment dispatch and connected recipes carry `PlanDimensions`; component
+catalogues name displacement and dimension leaves. Literal measurements are
+admitted where the authored component is constructed. Native station loops,
+trigonometry, material mesh arrays and dimensionless recipe multipliers stay
+inside set-out or mesh kernels. Source envelope authoring remains separate from
+these equipment records and is still covered by the wider generator audit.
+Connected wet-trade vessels and crate stacks receive architectural points or
+positions; craft framing and drying-wall helpers receive checked dimensions,
+heights and directions. Authored hide sizes select their dimensionless
+silhouette multiplier inside the set-out kernel.
+
+`WindowSpec<F>` carries framed positions/directions, `LeafDimensions` and
+`Radians`. Bars retain architectural positions, `CuboidDimensions` and angles.
+`compile_operable_windows` and `compile_window_bars` are fallible. An eligible
+operable opening without a closure reports `WindowError` with its opening
+identity and declared closure source IDs; ordinary ineligible openings are
+excluded. Bar geometry errors use the collision source identity, whose existing
+encoding includes the opening and bar ordinal. Fixed glazing uses
+`compile_window_leaf(CuboidDimensions, ...)`, while operable consumers require
+positive leaf dimensions, including thin positive geometry.
+
+`WindowBarPresence` distinguishes absent and present fixed bars across the leaf
+handoff and serializes directly as the named `bars` enum. Native decoding
+records retain metre vectors and radian scalars until admission can attach the
+opening and source identities to any geometry failure. Primitive leaf admission
+constructors accept those native representations; composite sheet sections
+accept checked lengths and elevations.
+
+Generation, collision, spatial geometry, interior layout and window operations
+reuse result aliases from their error owners. Mixed-error helpers preserve the
+individual error types, including geometry errors inside nested collections.
+Authored appliance courses use named checked bounds, and independent weathering
+audit margins remain distinct from construction folds.
+
+Issue [#765](https://github.com/adventure-simulator-group/fabelgeist/issues/765)
+tracks this ownership split: generator construction and admission belong to
+[#766](https://github.com/adventure-simulator-group/fabelgeist/issues/766), core
+scene conversions to
+[#767](https://github.com/adventure-simulator-group/fabelgeist/issues/767), and
+runtime adapters/controller state to
+[#770](https://github.com/adventure-simulator-group/fabelgeist/issues/770).
+[#784](https://github.com/adventure-simulator-group/fabelgeist/pull/784) supplied
+the stored geometry owners; the connected helpers and window handoff are the
+sequenced [#794](https://github.com/adventure-simulator-group/fabelgeist/issues/794)
+follow-up. This does not complete the wider slice audits or renderer acceptance.
+
 ## Geometry compilation
 
-Generation retains the complete structural audit. Spatial indexes only prune
+Runtime generation performs input and construction checks. Exhaustive
+structural audits run explicitly in tests and authoring tools; editor documents
+must pass them before acceptance. Within those audits, spatial indexes prune
 impossible contact candidates; the existing overlap and clearance predicates
 remain authoritative. Candidate results preserve source order so first-match
 selection, issue ordering, and generated structural identities stay stable.
 Wall-corner and roof-weathering passes cache solid membership and bounds for
 their fixed input geometry.
+
+Attic-window candidate searches resolve timber member solids once per gable
+and query a conservative bounds index before applying the exact oriented
+contact test. Candidate order and the permitted tie/head contacts remain
+unchanged. The index is rebuilt for each gable so earlier inserted apertures
+are included in subsequent searches.
 
 Render meshes use indexed vertices with shared position, normal, and texture
 coordinates where the tangent basis also agrees. Consumers must follow the
@@ -41,7 +222,10 @@ Detail, Facade and Shell retain the same bay and fixed glass. Static collision
 includes this bay and glazing; general roof-enclosure collision remains outside
 this change. There is no attic room or operable-window access contract.
 Changing pitch on an aperture-bearing roof returns `TopologyEvent` before any
-mutation; unchanged-pitch requests are no-ops.
+mutation; unchanged-pitch requests are no-ops. Other supported pitch edits
+reconstruct the roof and resolved geometry before committing either. A
+construction error retains its roof identity and cause and leaves the entire
+plan unchanged.
 
 The `gable-review` fixture covers both house programmes at seeds 42, 47 and
 101. Its production capture profile includes matched Detail, Facade and Shell
@@ -56,6 +240,15 @@ python scripts/capture_gable_review.py --skip-build --settle-frames 24 --output 
 Review camera offsets for `main_gable` targets use the aperture's tangent,
 vertical and outward axes, so a negative third component inspects its interior.
 Native capture windows remain hidden and update continuously in the background.
+
+Heating reservations classify an occupied `StoreyIndex` into an architectural
+role: the ground storey supports the masonry bay, the first upper storey houses
+the kitchen and Stube, and later occupied storeys reserve storage above the bay.
+Absent storeys and programmes without the applicable heating recipe have no
+reservation. Rear anchors use positive whole-cell offsets from the footprint's
+rear edge; these are distinct from the finer construction-grid lengths. Recipe
+records name their room and offset, while doorway recipes retain explicit room
+roles and the selected heating-door set-out.
 
 Cottage and hall-house fixtures select a grounded domestic heating programme.
 A cooking hearth and rear-fed tiled stove stand on one masonry plinth, on
@@ -93,9 +286,18 @@ clear the pier and flue; mineral cover slabs close each floor perimeter, with
 inner masonry ledges and outer bearing on the retained deck. A flue crossing
 another occupied floor has a widened masonry shoulder below that junction.
 
+Heated town and merchant houses reserve a complete rear kitchen/Stube bay,
+with storage below the masonry pier and above the kitchen where the flue
+crosses another occupied floor. Inter-room doors remain beside that bay. The
+adjacent pantry reserves a full shared rear boundary, placing its kitchen door
+behind the hearth rather than at the end of a narrow cell notch.
+Reserving isolated cells does not establish a continuous clear support route.
 Heated upper floors use full joist bays within the existing maximum pitch,
-with deterministic set-out variants. Placement checks the complete timber
-sections and retains finished joists, girders and roof members. Deck pieces
+with a fixed 0.08-metre set-out that aligns the masonry clearance with the
+unchanged roof frame. This is an authored construction dimension. Seeded
+set-out variation must not put a joist into the required bearing clearance.
+Placement checks the complete timber sections and retains finished joists,
+girders and roof members. Deck pieces
 receive measured contacts to their actual joists after cutting. Unbuildable
 room, floor or roof arrangements return `InvalidDomesticHeating`; they do not
 silently lose structural members. `SOURCES.md` distinguishes historical evidence
@@ -106,7 +308,8 @@ python scripts/capture_heating_review.py --skip-build --settle-frames 24 --outpu
 ```
 
 The `heating-review` fixture covers both building families at seeds 42, 47 and
-101, plus the deep-hearth hall at seed `u64::MAX`.
+101, the deep-hearth hall at seed `u64::MAX`, TownHouse building 8 at seed
+11, and merchant-house building 9 at seed 0 with upper heating.
 Cameras follow the resolved hearth, stove and roof junction. Matched distance
 views check representation continuity; interiors retain production lighting
 and the complete building geometry.
@@ -127,7 +330,7 @@ pitch is an authored fixture dimension.
 In playable buildings, an operable leaf has one replicated entity through both
 Detail and Facade when its exact exterior host supports that representation.
 Every window material batch follows the same policy. Unsupported host types
-keep their existing Detail-only dynamic leaves. Prepared city buildings retain
+keep their existing Detail-only dynamic leaves. Generated city buildings retain
 authored closure states; they do not contain tactical opening state.
 
 Stove surfaces have continuous metric ceramic courses with narrow recessed
@@ -144,11 +347,11 @@ shutters and glazed casements, barred windows, doors and stove courses. Opening
 camera offsets follow the selected opening's tangent, vertical and outward axes.
 The diagnostic poses use production leaf meshes and hinge transforms.
 
-Prepared recipe identities include the render compilation version as well as
-the programme. Increment that version when compiled meshes change without a
-programme schema change. Refresh the shipped city
-assets after geometry changes with
-`cargo run -p adventuresim-tactical-client --example prepare-art-demo-buildings`.
+The client compiles building geometry and LODs from programmes during initial
+loading. Compiled building assets are not shipped. Repeated material textures
+may be served and shared. The tactical client's resident city renderer packs
+generated meshes into GPU buffers and selects visible LODs with compute passes;
+see the [shared renderer guide](../strategic-web/UNIFIED_RENDERER.md).
 
 ## Current boundary
 
@@ -167,13 +370,14 @@ roof pitch. `generate` produces:
 - eight distinct defensive crowns, continuous wall walks, tower-top decks,
   detached curtain walls, square bell towers, and corbelled corner bartizans.
 
-`generate` is also the public validity boundary. An `Ok(BuildingPlan)` has
-passed the complete semantic and geometric audit; a recipe that cannot produce
-an audit-clean building returns a typed `GenerationError::StructuralContract`
-containing the audit findings. Internal unchecked construction exists only so
-the generator's mutation tests can prove that this boundary rejects corrupted
-plans. The fixture seed matrix continuously exercises all archetypes at zero,
-adjacent, ordinary proof, large, and wrapping-boundary seeds.
+`generate` rejects unsupported inputs and construction failures without running
+the exhaustive semantic and geometric audit during gameplay. Tests and
+inspection tools call `audit_plan` explicitly. `generate_document` and
+`edit_document` audit authoring results before accepting them, returning
+`GenerationError::StructuralContract` with the findings on failure. The fixture
+seed matrix generates and audits all archetypes at zero, adjacent, ordinary
+proof, large, and wrapping-boundary seeds. Mutation tests verify that the
+authoring audit rejects corrupted plans.
 
 The grid is topological rather than voxel geometry. Floors, wall openings,
 roofs, towers, stairs, and battlements are derived structures. Circular towers
@@ -288,8 +492,8 @@ the script runner share the same player-build edit reducer.
 grid snapping and cardinal-axis rule as the Construct-mode drag tool.
 
 `BuildingDocument` is versioned JSON containing a `BuildingProgram` plus an
-ordered edit log. Each UI command regenerates the complete plan and runs the
-same audit as `generate`; an invalid command reports an error and leaves the
+ordered edit log. Each UI command regenerates the complete plan and runs
+`audit_plan`; an invalid command reports an error and leaves the
 current document and scene unchanged. Undo and redo operate on document
 snapshots. Save and load never serialize resolved meshes, which remain derived
 evidence rather than a parallel editing authority.
@@ -918,9 +1122,10 @@ turning every business into a landmark.
 ## Shop signs
 
 The `signs` module derives sign attachment sites from public ground-floor
-entrances. Public-facing trades receive stable establishment brands from the
-shared German name catalog and placed-lot identity, independently of cached
-building recipes. A brand does not create or imply an NPC ownership relation.
+entrances. The tactical scene supplies each establishment's resident operator
+and its already resolved brand. Person-named brands use that operator's current
+full name; the building client never invents a proprietor or fallback brand.
+Operator identity and display name remain distinct scene facts.
 
 Signs use a wall board or a double-sided projecting board with metal supports.
 Panels stay above pedestrian headroom and are rejected when they overlap the
@@ -1030,9 +1235,11 @@ a shared construction assembly and are not implied by passage handedness.
 
 Properties crossing the playable boundary keep both buildings in the playable
 scene. Entirely distant properties retain their walls and closed gate in the
-vista. Connected terrain pads share an elevation, including adjacent properties
-whose grading margins overlap. Nearby gates use the authoritative server door
-controller and collision; distant gates are presentation geometry.
+vista. Each property's support remains independently owned and bounded, and
+member buildings retain their bound floor elevations. Compilation rejects
+overlapping support rather than merging neighboring terraces. Nearby gates use
+the authoritative server door controller and collision; distant gates are
+presentation geometry.
 
 The authored city site expands north and south above 40,000 residents while
 retaining its surveyed east/west road anchors. Planning allocation is capped at

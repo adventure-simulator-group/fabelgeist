@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::sex_type::Sex;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct InvestigationPatternTargetAuthority {
@@ -12,7 +14,7 @@ pub struct InvestigationPatternTargetAuthority {
     pub resident_character_id: u64,
     pub demographic: String,
     pub age_band: String,
-    pub sex: String,
+    pub sex: Option<Sex>,
     pub profession: String,
     pub expected_settlement_id: String,
     pub expected_location: String,
@@ -33,7 +35,7 @@ pub struct InvestigationPatternTargetAuthorityCols {
         __sdk::__query_builder::Col<InvestigationPatternTargetAuthority, u64>,
     pub demographic: __sdk::__query_builder::Col<InvestigationPatternTargetAuthority, String>,
     pub age_band: __sdk::__query_builder::Col<InvestigationPatternTargetAuthority, String>,
-    pub sex: __sdk::__query_builder::Col<InvestigationPatternTargetAuthority, String>,
+    pub sex: __sdk::__query_builder::Col<InvestigationPatternTargetAuthority, Option<Sex>>,
     pub profession: __sdk::__query_builder::Col<InvestigationPatternTargetAuthority, String>,
     pub expected_settlement_id:
         __sdk::__query_builder::Col<InvestigationPatternTargetAuthority, String>,

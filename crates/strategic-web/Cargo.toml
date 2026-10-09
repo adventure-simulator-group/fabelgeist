@@ -9,11 +9,14 @@ name = "strategic-web"
 path = "src/main.rs"
 
 [dependencies]
+fabelgeist-determinism = { path = "../fabelgeist-determinism" }
 adventuresim-core.workspace = true
 adventuresim-dialogue.workspace = true
 adventuresim-puzzles.workspace = true
 adventuresim-stdb-client.workspace = true
 adventuresim-world-schema.workspace = true
+adventuresim-tactical-core.workspace = true
+adventuresim-tactical-server-dispatcher = { path = "../adventuresim-tactical-server-dispatcher" }
 adventuresim-weapon-model.workspace = true
 adventuresim-terrain = { path = "../adventuresim-terrain" }
 anyhow = "1"
@@ -39,6 +42,7 @@ clap = { workspace = true }
 thiserror = { workspace = true }
 
 [dev-dependencies]
+axum = { version = "0.8", features = ["ws"] }
 serde_urlencoded = "0.7"
 
 [lints]

@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::filth_origin_type::FilthOrigin;
 use super::filth_substance_type::FilthSubstance;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -15,7 +16,7 @@ pub struct CharacterFilth {
     pub substance: FilthSubstance,
     pub origin: FilthOrigin,
     pub amount: u16,
-    pub deposited_at: u64,
+    pub deposited_at: StrategicMinute,
 }
 
 impl __sdk::InModule for CharacterFilth {
@@ -31,7 +32,7 @@ pub struct CharacterFilthCols {
     pub substance: __sdk::__query_builder::Col<CharacterFilth, FilthSubstance>,
     pub origin: __sdk::__query_builder::Col<CharacterFilth, FilthOrigin>,
     pub amount: __sdk::__query_builder::Col<CharacterFilth, u16>,
-    pub deposited_at: __sdk::__query_builder::Col<CharacterFilth, u64>,
+    pub deposited_at: __sdk::__query_builder::Col<CharacterFilth, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for CharacterFilth {

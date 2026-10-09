@@ -1047,9 +1047,14 @@ mod tests {
             include_str!("../../adventuresim-stdb-module/src/social_roles.rs").replace('\r', "");
         let character =
             include_str!("../../adventuresim-stdb-module/src/character.rs").replace('\r', "");
-        let population =
-            include_str!("../../adventuresim-stdb-module/src/settlement_population.rs")
-                .replace('\r', "");
+        let population = format!(
+            "{}{}",
+            include_str!("../../adventuresim-stdb-module/src/settlement_population.rs"),
+            include_str!(
+                "../../adventuresim-stdb-module/src/settlement_population/resident_persistence.rs"
+            )
+        )
+        .replace('\r', "");
         let dialogue =
             include_str!("../../adventuresim-stdb-module/src/strategic/dialogue_provenance.rs")
                 .replace('\r', "");

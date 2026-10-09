@@ -1,6 +1,9 @@
 //! Conforming surfaces of a single forged blank, including its closed apex.
 use super::*;
 
+mod cell;
+pub(super) use cell::{PlateBand, PlateCell};
+
 const PLATE_CHORD: f64 = 0.008;
 const PLATE_CURVE_DEVIATION: f64 = 0.00015;
 const PLATE_SURFACE_EDGE: f64 = 0.012;
@@ -30,9 +33,8 @@ pub(super) fn construct(p: &ContouredPlateParameters, detail: Detail) -> Result<
 }
 
 pub(super) trait PlateField {
-    type Cell: Ord;
     fn cuts(&self) -> Vec<PlanarCut>;
-    fn cell(&self, point: PlanarPoint) -> Self::Cell;
+    fn cell(&self, point: PlanarPoint) -> PlateCell;
     fn thickness(&self, x: f64, y: f64) -> f64;
 }
 

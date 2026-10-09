@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct WaterMaterialLot {
@@ -13,7 +15,7 @@ pub struct WaterMaterialLot {
     pub liquid_item_id: String,
     pub concentration_anchor: f32,
     pub growth_per_hour: f32,
-    pub anchor_minute: u64,
+    pub anchor_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for WaterMaterialLot {
@@ -30,7 +32,7 @@ pub struct WaterMaterialLotCols {
     pub liquid_item_id: __sdk::__query_builder::Col<WaterMaterialLot, String>,
     pub concentration_anchor: __sdk::__query_builder::Col<WaterMaterialLot, f32>,
     pub growth_per_hour: __sdk::__query_builder::Col<WaterMaterialLot, f32>,
-    pub anchor_minute: __sdk::__query_builder::Col<WaterMaterialLot, u64>,
+    pub anchor_minute: __sdk::__query_builder::Col<WaterMaterialLot, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for WaterMaterialLot {

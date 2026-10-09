@@ -5,6 +5,7 @@
 //! them here would make the material repeat structural members within a pane.
 
 use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
+use fabelgeist_determinism::StreamId;
 
 use super::{GlassTextureSet, image_rg_mipped, image_rgba_mipped};
 
@@ -115,7 +116,7 @@ fn sample_glass(params: &crate::TextureParameters, u: f32, v: f32) -> GlassSampl
             params,
             bevy::math::Vec2::new(u, v),
             bevy::math::IVec2::from_array(params.window_glass.draw_cells),
-            0xb517,
+            params.field_seed(StreamId::new("texture.window-glass.broad"), &[]),
         ) - 0.5)
             * params.window_glass.draw_strength;
     let draw_striation = localized_striation(params, u, v);

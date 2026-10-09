@@ -1,6 +1,6 @@
 //! Horizontal visor folds, independently selectable from decorative fluting.
-use adventuresim_armor_model::VisorBellows;
 use bevy_egui::egui;
+use fabelgeist_armor::VisorBellows;
 
 pub(super) fn show(ui: &mut egui::Ui, bellows: &mut Option<VisorBellows>) -> bool {
     let original = *bellows;

@@ -487,18 +487,6 @@ pub(crate) fn normalize_and_elect_party_leader(
     Ok(())
 }
 
-#[reducer]
-pub fn update_character(ctx: &ReducerContext, id: u64, name: String) -> Result<(), String> {
-    crate::character::require_living_character(ctx, id)?;
-    let Some(mut character) = ctx.db.character().id().find(id) else {
-        return Err("Character not found".into());
-    };
-
-    character.name = name;
-    ctx.db.character().id().update(character);
-    Ok(())
-}
-
 pub(crate) fn create_solo_party_for_character(
     ctx: &ReducerContext,
     character_id: u64,
@@ -1153,7 +1141,7 @@ fn recruitment_offer_binding_fields_are_live(
 fn recruitment_offer_bindings_are_live(
     ctx: &ReducerContext,
     offer: &RecruitmentOffer,
-    now: u64,
+    now: StrategicMinute,
 ) -> bool {
     let Some(party) = ctx
         .db
@@ -1217,7 +1205,8 @@ fn require_open_recruitment_offer(
     if offer.status != RecruitmentOfferStatus::Open {
         return Err("This recruitment offer is no longer open".into());
     }
-    let bindings_are_live = recruitment_offer_bindings_are_live(ctx, &offer, now);
+    let bindings_are_live =
+        recruitment_offer_bindings_are_live(ctx, &offer, now);
     let refreshed = refreshed_recruitment_offer_status(
         offer.status,
         now,
@@ -1243,8 +1232,8 @@ fn require_open_recruitment_offer(
 
 fn refreshed_recruitment_offer_status(
     current: RecruitmentOfferStatus,
-    now: u64,
-    expires_at: u64,
+    now: StrategicMinute,
+    expires_at: StrategicMinute,
     bindings_are_live: bool,
 ) -> RecruitmentOfferStatus {
     if current != RecruitmentOfferStatus::Open {

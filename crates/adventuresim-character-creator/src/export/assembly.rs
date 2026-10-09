@@ -110,15 +110,18 @@ mod tests {
         let normals = [[0.0, 0.0, 1.0]; 4];
         let texcoords = [[0.0, 0.0], [0.2, 0.3], [0.4, 0.6], [0.8, 0.9]];
         let maps = SurfaceTextures {
-            base_color_png: include_bytes!(
-                "../../../../assets_src/equipment/materials/mail-base-color.png"
+            base_color_png: Some(
+                include_bytes!("../../../../assets_src/equipment/materials/mail-base-color.png")
+                    .to_vec(),
             ),
             normal_png: include_bytes!(
                 "../../../../assets_src/equipment/materials/mail-normal.png"
+            )
+            .to_vec(),
+            occlusion_png: Some(
+                include_bytes!("../../../../assets_src/equipment/materials/mail-occlusion.png")
+                    .to_vec(),
             ),
-            occlusion_png: Some(include_bytes!(
-                "../../../../assets_src/equipment/materials/mail-occlusion.png"
-            )),
             cutout: true,
         };
         let joints = [[0; 8]; 4];
@@ -144,14 +147,15 @@ mod tests {
                 normal_deltas: &[[0.0; 3]; 4],
             })
             .collect::<Vec<_>>();
-        let hinge = adventuresim_armor_model::ArmorHinge {
+        let hinge = fabelgeist_armor::ArmorHinge {
             origin: [0.1, 1.7, 0.0],
             axis: [1.0, 0.0, 0.0],
         };
         let faces = [[1, 2, 3]];
         let shells = ["skull", "bevor", "visor"].map(|name| RiggedShell {
+            surface: None,
             plate_edges: &[[1, 2], [0, 1]],
-            textures: Some(maps),
+            textures: Some(maps.clone()),
             texcoords: Some(&texcoords),
             name,
             hinge: (name != "skull").then_some(hinge),
@@ -192,9 +196,9 @@ mod tests {
         assert_eq!(parsed.images().count(), 9);
         for (image, expected) in parsed.images().zip(
             [
-                maps.base_color_png,
-                maps.normal_png,
-                maps.occlusion_png.unwrap(),
+                maps.base_color_png.as_deref().unwrap(),
+                maps.normal_png.as_slice(),
+                maps.occlusion_png.as_deref().unwrap(),
             ]
             .repeat(3),
         ) {
@@ -244,9 +248,9 @@ mod tests {
             assert_ne!(color.texture().index(), occlusion.texture().index());
             assert_ne!(normal.texture().index(), occlusion.texture().index());
             for (texture, expected) in [
-                (color.texture(), maps.base_color_png),
-                (normal.texture(), maps.normal_png),
-                (occlusion.texture(), maps.occlusion_png.unwrap()),
+                (color.texture(), maps.base_color_png.as_deref().unwrap()),
+                (normal.texture(), maps.normal_png.as_slice()),
+                (occlusion.texture(), maps.occlusion_png.as_deref().unwrap()),
             ] {
                 let gltf::image::Source::View { view, .. } = texture.source().source() else {
                     panic!("material channels must use their embedded images");

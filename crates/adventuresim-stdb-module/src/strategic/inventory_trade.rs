@@ -95,7 +95,7 @@ pub fn transfer_party_item(
         .item()
         .id()
         .find(&source_item.item_id)
-        .is_some_and(|row| row.kind == crate::PersistedItemKind::Food)
+        .is_some_and(|row| row.kind == crate::CatalogItemKind::Food)
         || adventuresim_core::food::definition(&source_item.item_id).is_some();
     if food {
         if source_item.quantity == quantity {
@@ -284,7 +284,7 @@ fn item_is_medication(ctx: &ReducerContext, item_id: &str) -> bool {
         .item()
         .id()
         .find(item_id.to_owned())
-        .is_some_and(|definition| definition.kind == crate::PersistedItemKind::Medication)
+        .is_some_and(|definition| definition.kind == crate::CatalogItemKind::Medication)
 }
 
 #[cfg(test)]
@@ -293,7 +293,7 @@ mod durable_custody_tests {
     fn clothing_uses_repairable_capability_for_every_custody_path() {
         let clothing = crate::Item {
             id: "linen_tunic".into(),
-            kind: crate::PersistedItemKind::Clothing,
+            kind: crate::CatalogItemKind::Clothing,
             repairable: true,
             ..crate::Item::default()
         };
@@ -443,7 +443,7 @@ mod medication_custody_tests {
             .nth(1)
             .and_then(|tail| tail.split("pub(crate) fn add_inventory_item_checked").next())
             .unwrap();
-        assert!(stable_object_policy.contains("definition.kind == PersistedItemKind::Medication"));
+        assert!(stable_object_policy.contains("definition.kind == CatalogItemKind::Medication"));
 
         let withdrawal = source
             .rsplit("pub fn withdraw_party_inventory_item")
@@ -501,7 +501,7 @@ pub(crate) fn add_to_party_inventory_checked(
             .id()
             .find(party_id.to_string())
             .and_then(|party| ctx.db.character_time().character_id().find(party.leader_id))
-            .map_or(0, |time| time.minutes);
+            .map_or(StrategicMinute::ZERO, |time| time.minutes);
         for _ in 0..quantity {
             let row = ctx.db.party_inventory_item().insert(PartyInventoryItem {
                 id: 0,
@@ -717,25 +717,22 @@ fn mission_candidate_is_current(
         }))
 }
 
-fn mission_outcome_draw(mission: &MissionAuthority, candidates: &[MissionOutcomeCandidate]) -> u64 {
-    let mut candidates = candidates.to_vec();
+fn mission_outcome_draw(mission: &MissionAuthority, outcomes: &[MissionOutcomeCandidate]) -> Seed {
+    let mut candidates = outcomes.to_vec();
     candidates.sort_by(|left, right| left.id.cmp(&right.id));
-    let mut hasher = Sha256::new();
-    hasher.update(b"adventuresim:strategic-mission-outcome:v1\0");
-    hasher.update(mission.party_id.as_bytes());
-    hasher.update(mission.outcome_entropy.to_le_bytes());
+    let mut fields = vec![mission.outcome_entropy.to_le_bytes().to_vec()];
     for candidate in &candidates {
-        hasher.update([0]);
-        hasher.update(candidate.id.as_bytes());
-        hasher.update([0]);
-        hasher.update(candidate.capability_id.as_bytes());
-        hasher.update(candidate.weight.to_le_bytes());
-        hasher.update([candidate.resolution as u8]);
+        fields.push(candidate.id.as_bytes().to_vec());
+        fields.push(candidate.capability_id.as_bytes().to_vec());
+        fields.push(candidate.weight.to_le_bytes().to_vec());
+        fields.push(vec![candidate.resolution as u8]);
     }
-    let digest = hasher.finalize();
-    let mut bytes = [0u8; 8];
-    bytes.copy_from_slice(&digest[..8]);
-    u64::from_le_bytes(bytes)
+    let fields = fields.iter().map(Vec::as_slice).collect::<Vec<_>>();
+    fabelgeist_determinism::Seed::derive(
+        mission.party_id.as_bytes(),
+        fabelgeist_determinism::StreamId::new("mission.outcome-candidates"),
+        &fields,
+    )
 }
 
 #[expect(
@@ -766,21 +763,15 @@ fn sample_mission_candidate(
     mut candidates: Vec<MissionOutcomeCandidate>,
 ) -> Option<MissionOutcomeCandidate> {
     candidates.sort_by(|left, right| left.id.cmp(&right.id));
-    let total_weight = candidates.iter().fold(0u64, |total, candidate| {
-        total.saturating_add(u64::from(candidate.weight))
-    });
-    if total_weight == 0 {
-        return None;
-    }
-    let mut draw = mission_outcome_draw(mission, &candidates) % total_weight;
-    for candidate in candidates {
-        let weight = u64::from(candidate.weight);
-        if draw < weight {
-            return Some(candidate);
-        }
-        draw -= weight;
-    }
-    None
+    let weights = candidates
+        .iter()
+        .map(|candidate| u64::from(candidate.weight))
+        .collect::<Vec<_>>();
+    let index = fabelgeist_determinism::StreamId::new("mission.outcome-selection")
+        .rng(mission_outcome_draw(mission, &candidates), &[])
+        .weighted_index(&weights)
+        .ok()?;
+    Some(candidates.remove(index))
 }
 
 /// Commit the strategic meaning of an authenticated successful combat
@@ -795,7 +786,7 @@ pub(crate) fn complete_bound_mission_success(
         .id()
         .find(mission_id.to_string())
         .ok_or("Mission authority not found")?;
-    mission.parsed_state()?;
+    mission.parsed_state().map_err(|error| error.to_string())?;
     if mission.status == MissionAttemptStatus::Committed {
         return Ok(false);
     }
@@ -815,7 +806,7 @@ pub(crate) fn complete_bound_mission_success(
     }
     let Some(selected) = sample_mission_candidate(&mission, candidates) else {
         mission.status = MissionAttemptStatus::Failed;
-        mission.parsed_state()?;
+        mission.parsed_state().map_err(|error| error.to_string())?;
         ctx.db.mission_authority().id().update(mission);
         return Ok(false);
     };
@@ -857,7 +848,7 @@ pub(crate) fn complete_bound_mission_success(
     mission.committed_resolution = Some(selected.resolution);
     mission.committed_capture_subject_id = selected.capture_subject_id;
     mission.committed_capture_custody_version = selected.capture_custody_version;
-    mission.parsed_state()?;
+    mission.parsed_state().map_err(|error| error.to_string())?;
     ctx.db.mission_authority().id().update(mission);
     Ok(committed)
 }
@@ -918,11 +909,11 @@ pub(crate) fn fail_bound_mission_attempt(
     let Some(mut mission) = ctx.db.mission_authority().id().find(mission_id.to_string()) else {
         return Ok(());
     };
-    mission.parsed_state()?;
+    mission.parsed_state().map_err(|error| error.to_string())?;
     match mission.status {
         MissionAttemptStatus::Bound => {
             mission.status = MissionAttemptStatus::Failed;
-            mission.parsed_state()?;
+            mission.parsed_state().map_err(|error| error.to_string())?;
             ctx.db.mission_authority().id().update(mission);
             Ok(())
         }
@@ -1377,10 +1368,10 @@ fn commit_hostile_battle_resolution(
                 .saturating_add(quantity);
         }
     }
-    if include_random_gold && ctx.random::<u64>().is_multiple_of(2) {
+    let loot_seed = include_random_gold.then(|| ctx.random::<fabelgeist_determinism::Seed>());
+    if let Some(loot_seed) = loot_seed {
         let maximum_gold = difficulty.max(1) as u32 * 10;
-        let gold = 1 + (ctx.random::<u64>() % u64::from(maximum_gold)) as u32;
-        if gold > 0
+        if let Some(gold) = inventory_trade_streams::gold(loot_seed, maximum_gold)
             && let Some(group) = &group
             && let Some(site) = ctx
                 .db
@@ -2404,12 +2395,12 @@ fn validate_personal_storefront_purchase(
         .ok_or("Merchant item not found")?;
     if matches!(
         item.kind,
-        crate::PersistedItemKind::Currency | crate::PersistedItemKind::Medication
+        crate::CatalogItemKind::Currency | crate::CatalogItemKind::Medication
     ) || !adventuresim_core::settlement_economy::storefront_stocks(
         &settlement.economy,
         storefront,
         item_id,
-        crate::item::economy_catalog_kind(item.kind),
+        item.kind.economy_kind(),
     ) || (storefront == adventuresim_core::settlement_economy::Storefront::Books
         && adventuresim_core::item_catalog::definition(item_id)
             .and_then(|definition| definition.capabilities.book.as_ref())
@@ -2439,7 +2430,7 @@ fn validate_personal_storefront_purchase(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |time| time.minutes);
     if !crate::settlement_population::npc_is_present(ctx, &presence, minute) {
         return Err(adventuresim_core::reducer_error::coded_reducer_error(
             adventuresim_core::reducer_error::ReducerErrorCode::MerchantProviderUnavailable,
@@ -2602,7 +2593,7 @@ fn finalize_storefront_trade_impl(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |time| time.minutes);
     if provider.home_settlement_id != settlement_id
         || provider.service_id != service_id
         || provider_presence.settlement_id != settlement_id
@@ -2663,13 +2654,13 @@ fn finalize_storefront_trade_impl(
         };
         if matches!(
             item.kind,
-            crate::PersistedItemKind::Currency | crate::PersistedItemKind::Medication
+            crate::CatalogItemKind::Currency | crate::CatalogItemKind::Medication
         ) || *quantity == 0
         {
             return Err("Invalid merchant purchase".into());
         }
         crate::item::inventory_food_definition(Some(item.kind), item_id)?;
-        let catalog_kind = crate::item::economy_catalog_kind(item.kind);
+        let catalog_kind = item.kind.economy_kind();
         if !adventuresim_core::settlement_economy::storefront_stocks(
             &settlement_economy,
             storefront,
@@ -2745,7 +2736,7 @@ fn finalize_storefront_trade_impl(
             || *quantity == 0
             || matches!(
                 item.kind,
-                crate::PersistedItemKind::Currency | crate::PersistedItemKind::Medication
+                crate::CatalogItemKind::Currency | crate::CatalogItemKind::Medication
             )
         {
             return Err("Invalid merchant sale".into());
@@ -2927,10 +2918,10 @@ fn finalize_storefront_trade_impl(
         let durable = ctx.db.item().id().find(item_id).is_some_and(|definition| {
             matches!(
                 definition.kind,
-                crate::PersistedItemKind::Weapon
-                    | crate::PersistedItemKind::Armor
-                    | crate::PersistedItemKind::Shield
-                    | crate::PersistedItemKind::Clothing
+                crate::CatalogItemKind::Weapon
+                    | crate::CatalogItemKind::Armor
+                    | crate::CatalogItemKind::Shield
+                    | crate::CatalogItemKind::Clothing
             )
         });
         let food = ctx
@@ -2938,7 +2929,7 @@ fn finalize_storefront_trade_impl(
             .item()
             .id()
             .find(item_id)
-            .is_some_and(|definition| definition.kind == crate::PersistedItemKind::Food)
+            .is_some_and(|definition| definition.kind == crate::CatalogItemKind::Food)
             || adventuresim_core::food::definition(item_id).is_some();
         if !durable
             && !food

@@ -10,7 +10,7 @@ fn effective_schedule_redistributes_location_activities_without_mutating_saved_p
     let settlement = effective_location_schedule(
         &saved,
         ActivityLocation::Settlement { has_inn: false },
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     );
     assert_eq!(settlement.carousing_minutes, 0);
     assert_eq!(settlement.raiding_minutes, 0);
@@ -19,18 +19,18 @@ fn effective_schedule_redistributes_location_activities_without_mutating_saved_p
     assert_eq!(settlement.allocated_minutes(), saved.allocated_minutes());
     let saved_recovery = adventuresim_core::strategic_schedule::restorative_leisure_minutes(
         core_schedule(&saved),
-        0,
+adventuresim_world_schema::calendar::StrategicMinute::new(0),
         MINUTES_PER_DAY,
     );
     let effective_recovery = adventuresim_core::strategic_schedule::restorative_leisure_minutes(
         core_schedule(&settlement),
-        0,
+adventuresim_world_schema::calendar::StrategicMinute::new(0),
         MINUTES_PER_DAY,
     );
     assert_eq!(effective_recovery, saved_recovery);
 
     let outdoors =
-        effective_location_schedule(&saved, ActivityLocation::NamedOutdoorLocation, 42);
+        effective_location_schedule(&saved, ActivityLocation::NamedOutdoorLocation, fabelgeist_determinism::Seed::from_u64(42));
     assert_eq!(outdoors.carousing_minutes, 0);
     assert_eq!(outdoors.thievery_minutes, 0);
     assert!(outdoors.raiding_minutes >= 120);
@@ -51,7 +51,7 @@ fn effective_schedule_uses_leisure_when_every_planned_activity_is_unavailable() 
     let effective = effective_location_schedule(
         &saved,
         ActivityLocation::Settlement { has_inn: false },
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     );
     assert_eq!(effective.allocated_minutes(), 0);
     assert_eq!(saved.allocated_minutes(), 180);
@@ -133,7 +133,7 @@ fn organization_interval_samples_eligibility_before_advancing_and_settles_after_
     );
     assert!(immediate.contains("require_character_no_unresolved_encounter"));
     assert!(immediate.contains("IncidentStatus::Pending"));
-    assert!(source.contains("site.distance_m > 0"));
+    assert!(source.contains("ActivityLocation::case_site(site.distance_m, is_incident_site)"));
     assert!(source.contains(".strategic_incident()"));
     assert!(source.contains(".id_key()"));
     assert!(source.contains(".find(site.case_id.clone())"));

@@ -22,11 +22,11 @@ fn timber_member_audit_polygon(
             point.y - wall.base_elevation_metres,
         )
     };
-    let start = project(member.start);
-    let end = project(member.end);
+    let start = project(member.start.metres());
+    let end = project(member.end.metres());
     let axis = (end - start).normalize_or_zero();
     let normal = Vec2::new(-axis.y, axis.x);
-    let half = (member.section_metres.max_element() * 0.5
+    let half = (member.section_metres.metres().max_element() * 0.5
         - crate::TIMBER_INFILL_EDGE_UNDERLAP_METRES)
         .max(0.0);
     timber_audit_polygon([
@@ -66,7 +66,9 @@ fn timber_panel_audit_polygon(
         .iter()
         .flat_map(|vertex| [*vertex - depth_offset, *vertex + depth_offset])
         .fold(Vec3::splat(f32::NEG_INFINITY), Vec3::max);
-    if solid.centre.distance((min + max) * 0.5) > 0.002 || solid.size.distance(max - min) > 0.002 {
+    if solid.centre.metres().distance((min + max) * 0.5) > 0.002
+        || solid.size.metres().distance(max - min) > 0.002
+    {
         return None;
     }
     Some(timber_audit_polygon(vertices.map(|vertex| {

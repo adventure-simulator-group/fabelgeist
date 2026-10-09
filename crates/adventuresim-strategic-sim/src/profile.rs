@@ -1,18 +1,19 @@
-use crate::rng::sub_seed;
 use adventuresim_core::{
     attribute::PlayerAttributeValues,
     personality::{
         Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, Outlook,
-        Personality, Presentation, SelfKnowledge, SelfRegard, Sex, Sociability, Temperance,
+        Personality, Presentation, SelfKnowledge, SelfRegard, Sociability, Temperance,
         Transparency,
     },
     strategic_schedule::{DailySchedule, SkillHours},
 };
-use adventuresim_world_schema::{BestiaryHours, ReligionHours};
-use fabelgeist_determinism::SplitMix64;
+use adventuresim_world_schema::{BestiaryHours, ReligionHours, Sex};
+use fabelgeist_determinism::DeterministicRng;
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
-const PROFILE_DOMAIN: u64 = 0x5052_4f46_494c_4501;
+const PROFILE_DOMAIN: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("strategic.agent-profile");
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -65,7 +66,7 @@ pub struct EquipmentPreferences {
 #[serde(deny_unknown_fields)]
 pub struct AgentProfile {
     pub agent_id: u32,
-    pub profile_seed: u64,
+    pub profile_seed: Seed,
     pub attributes: PlayerAttributeValues,
     pub personality: Personality,
     pub build: AgentBuild,
@@ -81,20 +82,20 @@ pub struct AgentProfile {
     pub spending_propensity: f32,
 }
 
-fn bounded(base: f32, spread: f32, rng: &mut SplitMix64) -> f32 {
+fn bounded(base: f32, spread: f32, rng: &mut DeterministicRng) -> f32 {
     (base + rng.range_f32(-spread, spread)).clamp(0.5, 5.0)
 }
 
-pub fn generate_profile(seed: u64, agent_id: u32) -> AgentProfile {
-    let profile_seed = sub_seed(seed, PROFILE_DOMAIN, u64::from(agent_id));
-    let mut rng = SplitMix64::new(profile_seed);
+fn generated_attributes(profile_seed: Seed) -> PlayerAttributeValues {
+    let mut rng =
+        fabelgeist_determinism::StreamId::new("strategic.agent-attributes").rng(profile_seed, &[]);
     // Shared latent factors create plausible correlations while limb-specific noise
     // prevents profiles from being merely scalar copies of one another.
     let physique = rng.range_f32(1.3, 4.4);
     let coordination = rng.range_f32(1.2, 4.5);
     let cognition = rng.range_f32(1.0, 4.6);
     let resilience = rng.range_f32(1.0, 4.6);
-    let attributes = PlayerAttributeValues {
+    PlayerAttributeValues {
         endurance: bounded((physique + resilience) * 0.5, 0.35, &mut rng),
         immunity: bounded(resilience, 0.45, &mut rng),
         gut: bounded(resilience, 0.5, &mut rng),
@@ -110,8 +111,18 @@ pub fn generate_profile(seed: u64, agent_id: u32) -> AgentProfile {
         right_arm_agility: bounded(coordination, 0.35, &mut rng),
         left_leg_agility: bounded(coordination, 0.35, &mut rng),
         right_leg_agility: bounded(coordination, 0.35, &mut rng),
-    };
-    let personality = generated_personality(&mut rng);
+    }
+}
+
+pub fn generate_profile(seed: Seed, agent_id: u32) -> AgentProfile {
+    let profile_seed = PROFILE_DOMAIN.seed(seed, &[u64::from(agent_id)]);
+    let attributes = generated_attributes(profile_seed);
+    let personality = generated_personality(
+        &mut fabelgeist_determinism::StreamId::new("strategic.agent-personality")
+            .rng(profile_seed, &[]),
+    );
+    let mut rng =
+        fabelgeist_determinism::StreamId::new("strategic.agent-preferences").rng(profile_seed, &[]);
     let build = derive_build(&personality, &attributes);
     let preferred_activity = if personality.conviction == Conviction::Zealous {
         ActivityPreference::Prayer
@@ -121,7 +132,7 @@ pub fn generate_profile(seed: u64, agent_id: u32) -> AgentProfile {
     ) {
         ActivityPreference::Thievery
     } else {
-        match rng.next_u64() % 3 {
+        match rng.index(3) {
             0 => ActivityPreference::Labor,
             1 => ActivityPreference::Prayer,
             _ => ActivityPreference::Thievery,
@@ -134,7 +145,7 @@ pub fn generate_profile(seed: u64, agent_id: u32) -> AgentProfile {
         BuildRole::Civilian => EquipmentStyle::Unarmored,
     };
     let schedule = generated_schedule(&mut rng, preferred_activity, build.role);
-    let initial = |rng: &mut SplitMix64| rng.range_f32(200.0, 2_000.0);
+    let initial = |rng: &mut DeterministicRng| rng.range_f32(200.0, 2_000.0);
     let mut initial_skills = SkillHours {
         polearm: initial(&mut rng),
         axe: initial(&mut rng),
@@ -240,20 +251,20 @@ pub fn generate_profile(seed: u64, agent_id: u32) -> AgentProfile {
             price_weight: rng.unit_f32(),
             reach_weight: rng.unit_f32(),
         },
-        provision_days_target: 1 + (rng.next_u64() % 31) as u16,
-        cash_reserve_target: (rng.next_u64() % 501) as u32,
+        provision_days_target: 1 + (rng.index(31)) as u16,
+        cash_reserve_target: (rng.index(501)) as u32,
         spending_propensity: rng.unit_f32(),
     }
 }
 
 fn generated_schedule(
-    rng: &mut SplitMix64,
+    rng: &mut DeterministicRng,
     preferred: ActivityPreference,
     role: BuildRole,
 ) -> DailySchedule {
     // Ten-minute units make profiles readable and keep allocation exact.
-    let activity_minutes = 240 + (rng.next_u64() % 49) as u16 * 10;
-    let training_minutes = 120 + (rng.next_u64() % 37) as u16 * 10;
+    let activity_minutes = 240 + (rng.index(49)) as u16 * 10;
+    let training_minutes = 120 + (rng.index(37)) as u16 * 10;
     let mut s = DailySchedule::default();
     match preferred {
         ActivityPreference::Labor => s.labor = activity_minutes,
@@ -274,101 +285,99 @@ fn generated_schedule(
     s
 }
 
-fn generated_personality(rng: &mut SplitMix64) -> Personality {
+fn generated_personality(rng: &mut DeterministicRng) -> Personality {
     let mut p = Personality::neutral();
     let mut axes = [0_u8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-    for index in (1..axes.len()).rev() {
-        axes.swap(index, rng.next_u64() as usize % (index + 1));
-    }
-    let count = 2 + rng.next_u64() as usize % 3;
+    rng.shuffle(&mut axes);
+    let count = 2 + rng.index(3);
     for axis in axes.into_iter().take(count) {
         match axis {
             0 => {
-                p.nerve = if rng.next_u64().is_multiple_of(2) {
+                p.nerve = if rng.boolean() {
                     Nerve::Brave
                 } else {
                     Nerve::Fearful
                 }
             }
             1 => {
-                p.drive = if rng.next_u64().is_multiple_of(2) {
+                p.drive = if rng.boolean() {
                     Drive::Ambitious
                 } else {
                     Drive::Content
                 }
             }
             2 => {
-                p.outlook = if rng.next_u64().is_multiple_of(2) {
+                p.outlook = if rng.boolean() {
                     Outlook::Sanguine
                 } else {
                     Outlook::Brooding
                 }
             }
             3 => {
-                p.sociability = if rng.next_u64().is_multiple_of(2) {
+                p.sociability = if rng.boolean() {
                     Sociability::Gregarious
                 } else {
                     Sociability::Solitary
                 }
             }
             4 => {
-                p.conscience = match rng.next_u64() % 3 {
+                p.conscience = match rng.index(3) {
                     0 => Conscience::Compassionate,
                     1 => Conscience::Callous,
                     _ => Conscience::Cruel,
                 }
             }
             5 => {
-                p.self_regard = if rng.next_u64().is_multiple_of(2) {
+                p.self_regard = if rng.boolean() {
                     SelfRegard::Proud
                 } else {
                     SelfRegard::Humble
                 }
             }
             6 => {
-                p.conviction = if rng.next_u64().is_multiple_of(2) {
+                p.conviction = if rng.boolean() {
                     Conviction::Zealous
                 } else {
                     Conviction::Irreverent
                 }
             }
             7 => {
-                p.hygiene = if rng.next_u64().is_multiple_of(2) {
+                p.hygiene = if rng.boolean() {
                     Hygiene::Slovenly
                 } else {
                     Hygiene::Cleanly
                 }
             }
             8 => {
-                p.temperance = if rng.next_u64().is_multiple_of(2) {
+                p.temperance = if rng.boolean() {
                     Temperance::Temperate
                 } else {
                     Temperance::Drunkard
                 }
             }
             9 => {
-                p.mirth = if rng.next_u64().is_multiple_of(2) {
+                p.mirth = if rng.boolean() {
                     Mirth::Merry
                 } else {
                     Mirth::Grave
                 }
             }
             10 => {
-                p.courtship = if rng.next_u64().is_multiple_of(2) {
+                p.courtship = if rng.boolean() {
                     Courtship::Amorous
                 } else {
                     Courtship::Proper
                 }
             }
             11 => {
-                p.transparency = if rng.next_u64().is_multiple_of(2) {
+                p.transparency = if rng.boolean() {
                     Transparency::Open
                 } else {
                     Transparency::Guarded
                 }
             }
             _ => {
-                p.self_knowledge = if rng.next_u64().is_multiple_of(2) {
+                p.self_knowledge = if rng.boolean() {
                     SelfKnowledge::Introspective
                 } else {
                     SelfKnowledge::SelfDeceiving
@@ -376,19 +385,15 @@ fn generated_personality(rng: &mut SplitMix64) -> Personality {
             }
         }
     }
-    p.sex = if rng.next_u64().is_multiple_of(2) {
-        Sex::Female
-    } else {
-        Sex::Male
-    };
-    p.presentation = match (p.sex, rng.next_u64() % 100) {
+    p.sex = *rng.choose(Sex::VARIANTS);
+    p.presentation = match (p.sex, rng.index(100)) {
         (_, 0..=3) => Presentation::Ambiguous,
         (Sex::Female, 4) => Presentation::Man,
         (Sex::Male, 4) => Presentation::Woman,
         (Sex::Female, _) => Presentation::Woman,
         (Sex::Male, _) => Presentation::Man,
     };
-    p.inclination = match rng.next_u64() % 100 {
+    p.inclination = match rng.index(100) {
         0 => Inclination::Neither,
         1..=4 => Inclination::Either,
         5..=9 => {
@@ -457,7 +462,7 @@ pub fn derive_build(p: &Personality, a: &PlayerAttributeValues) -> AgentBuild {
 /// A matched pair preserves the generated profile and circumstances, changing
 /// only the named activity preference and its schedule allocation.
 pub fn matched_activity_pair(
-    seed: u64,
+    seed: Seed,
     agent_id: u32,
     left: ActivityPreference,
     right: ActivityPreference,
@@ -543,8 +548,8 @@ mod tests {
     #[test]
     fn generated_personality_is_reproducible_and_sparse() {
         for id in 0..100 {
-            let a = generate_profile(42, id);
-            let b = generate_profile(42, id);
+            let a = generate_profile(fabelgeist_determinism::Seed::from_u64(42), id);
+            let b = generate_profile(fabelgeist_determinism::Seed::from_u64(42), id);
             assert_eq!(a, b);
             assert!((2..=4).contains(&a.personality.non_neutral_count()));
         }
@@ -552,7 +557,7 @@ mod tests {
 
     #[test]
     fn profile_attributes_keep_the_direct_core_wire_shape() {
-        let profile = generate_profile(42, 0);
+        let profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
         let encoded = serde_json::to_value(&profile).unwrap();
         let attributes = encoded["attributes"].as_object().unwrap();
         assert_eq!(attributes.len(), 15);
@@ -705,7 +710,11 @@ mod tests {
 
     #[test]
     fn generated_fixture_party_is_safe_across_broad_autoresolve_entropy() {
-        let adult_fixture = include_str!("../../adventuresim-stdb-module/src/character.rs");
+        let adult_fixture = concat!(
+            include_str!("../../adventuresim-stdb-module/src/character.rs"),
+            include_str!("../../adventuresim-stdb-module/src/character/origin.rs"),
+            include_str!("../../adventuresim-core/src/starting_character.rs")
+        );
         for item_id in [
             "buckler",
             "katzbalger",
@@ -718,7 +727,7 @@ mod tests {
             assert!(adult_fixture.contains(&format!("\"{item_id}\"")));
         }
         let profiles = (0..4)
-            .map(|agent_id| generate_profile(42, agent_id))
+            .map(|agent_id| generate_profile(fabelgeist_determinism::Seed::from_u64(42), agent_id))
             .collect::<Vec<_>>();
         let groups = crate::live_core::balanced_party_groups(&profiles, 2);
         assert_eq!(groups.len(), 2);
@@ -759,7 +768,7 @@ mod tests {
             Some(true)
         );
 
-        for seed in 0..256 {
+        for seed in (0..256).map(fabelgeist_determinism::Seed::from_u64) {
             let outcome = resolve_battle(
                 allies.clone(),
                 vec![enemy.clone()],

@@ -13,22 +13,22 @@ const headers = (contentType) => ({
 });
 
 test("mutation action uses only an explicit submitter formaction override", () => {
-  const form = { action: "https://game.example/settlements/ironforge/rest/inn" };
+  const form = { action: "https://game.example/locations/settlement/ironforge/places/inn/rest" };
   const firefoxDefault = {
-    formAction: "https://game.example/settlements/ironforge/inn",
+    formAction: "https://game.example/locations/settlement/ironforge/places/inn",
     hasAttribute: () => false,
   };
   assert.equal(mutationFormAction(form, firefoxDefault), form.action);
   assert.equal(mutationFormAction(form, null), form.action);
 
   const explicit = {
-    formAction: "https://game.example/settlements/ironforge/rest/temple",
+    formAction: "https://game.example/locations/settlement/ironforge/places/church/rest",
     hasAttribute: (name) => name === "formaction",
   };
   assert.equal(mutationFormAction(form, explicit), explicit.formAction);
 
   const explicitEmpty = {
-    formAction: "https://game.example/settlements/ironforge/inn",
+    formAction: "https://game.example/locations/settlement/ironforge/places/inn",
     hasAttribute: (name) => name === "formaction",
   };
   assert.equal(mutationFormAction(form, explicitEmpty), explicitEmpty.formAction);
@@ -62,7 +62,7 @@ test("extracts only the dedicated bounded strategic notice message", () => {
 test("accepts marked HTML only from the current origin", async () => {
   let reads = 0;
   const response = {
-    url: "https://game.example/settlements/willowmere/inn",
+    url: "https://game.example/locations/settlement/willowmere/places/inn",
     headers: headers("text/html; charset=utf-8"),
     text: async () => { reads += 1; return "<safe notice>"; },
   };

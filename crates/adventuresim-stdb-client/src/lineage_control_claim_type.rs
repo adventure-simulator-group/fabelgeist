@@ -4,13 +4,15 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct LineageControlClaim {
     pub child_id: u64,
     pub owner_key: String,
     pub source_parent_id: u64,
-    pub established_minute: u64,
+    pub established_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for LineageControlClaim {
@@ -24,7 +26,7 @@ pub struct LineageControlClaimCols {
     pub child_id: __sdk::__query_builder::Col<LineageControlClaim, u64>,
     pub owner_key: __sdk::__query_builder::Col<LineageControlClaim, String>,
     pub source_parent_id: __sdk::__query_builder::Col<LineageControlClaim, u64>,
-    pub established_minute: __sdk::__query_builder::Col<LineageControlClaim, u64>,
+    pub established_minute: __sdk::__query_builder::Col<LineageControlClaim, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for LineageControlClaim {

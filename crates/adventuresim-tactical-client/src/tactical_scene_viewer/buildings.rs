@@ -1,37 +1,60 @@
-use adventuresim_building_generator::BuildingCollision;
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
 
-pub(super) fn spawn_boundaries(commands: &mut Commands, boundaries: Vec<GeneratedBoundary>) {
-    for boundary in boundaries {
-        let door = boundary
-            .scene
-            .boundary
-            .gate
-            .door(boundary.scene.property_id);
-        let elevation = Vec3::Y * boundary.elevation_metres;
-        let centre = door.closed_centre + elevation;
-        commands.spawn((
-            SceneDoor {
-                building_id: boundary.scene.front_building_id,
-                opening_id: door.opening.0,
-                size_metres: door.size_metres,
-                doorway_centre_metres: centre,
-                tangent: Vec3::new(door.tangent.x, 0.0, door.tangent.y),
-                outward: Vec3::new(door.outward.x, 0.0, door.outward.y),
-            },
-            Transform::from_translation(centre)
-                .with_rotation(Quat::from_rotation_y(door.closed_yaw_radians)),
-            super::building_review::ReviewLeafPose::boundary_gate(door, elevation),
-        ));
-        commands.spawn((boundary.scene, Transform::from_translation(elevation)));
-    }
+/// Select each physical building once across playable and distant presentation.
+pub(super) fn distant_placements(
+    input: &TacticalSceneInput,
+    buildings: &[GeneratedBuilding],
+) -> Vec<DistantBuildingPlacement> {
+    let playable: std::collections::BTreeSet<_> =
+        buildings.iter().map(|b| b.placement.id).collect();
+    input
+        .distant_buildings
+        .iter()
+        .filter(|b| !playable.contains(&b.id))
+        .copied()
+        .collect()
 }
 
-pub(super) fn spawn_tactical_buildings(commands: &mut Commands, buildings: Vec<GeneratedBuilding>) {
+pub(super) fn spawn_boundaries(
+    commands: &mut Commands,
+    boundaries: Vec<GeneratedBoundary>,
+) -> Result {
+    for boundary in boundaries {
+        let elevation = boundary.elevation_metres();
+        let scene = boundary.into_scene();
+        let door = scene.boundary().gate.door(scene.property_id())?;
+        let pose = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
+            elevation.metres(),
+        )?
+        .door(door)?;
+        let door = pose.leaf();
+        let elevation = Vec3::Y * elevation.metres();
+        let centre = door.closed_centre.metres();
+        commands.spawn((
+            SceneDoor {
+                building_id: scene.front_building_id(),
+                opening_id: door.opening,
+                size_metres: door.size_metres,
+                doorway_centre_metres: door.closed_centre,
+                tangent: door.tangent.spatial(),
+                outward: door.outward.spatial(),
+            },
+            Transform::from_translation(centre).with_rotation(pose.native_rotation()),
+            super::building_review::ReviewLeafPose::from_scene(pose),
+        ));
+        commands.spawn((scene, Transform::from_translation(elevation)));
+    }
+    Ok(())
+}
+
+pub(super) fn spawn_tactical_buildings(
+    commands: &mut Commands,
+    buildings: Vec<GeneratedBuilding>,
+) -> Result {
     for building in buildings {
-        super::building_review::spawn_openings(commands, &building);
-        let transform = building_transform(&building);
+        super::building_review::spawn_openings(commands, &building)?;
+        let transform = building.transform()?;
         let entity = commands.spawn_empty().id();
         commands.queue(move |world: &mut World| {
             super::building_review::insert_authored_sign(world, entity, building.placement.id);
@@ -45,40 +68,11 @@ pub(super) fn spawn_tactical_buildings(commands: &mut Commands, buildings: Vec<G
             },
             RigidBody::Static,
             CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
-            tactical_building_collider(&building.collision),
+            adventuresim_tactical_core::scene_input::compile_tactical_building_collider(
+                &building.collision,
+            )?,
             transform,
         ));
     }
-}
-
-fn tactical_building_collider(collision: &BuildingCollision) -> Collider {
-    let local_origin = collision.bounds.centre();
-    Collider::compound(
-        collision
-            .cuboids
-            .iter()
-            .map(|cuboid| {
-                let rotation = Quat::from_rotation_y(cuboid.yaw_radians)
-                    * Quat::from_rotation_x(cuboid.crossfall_radians)
-                    * Quat::from_rotation_z(cuboid.longfall_radians);
-                (
-                    cuboid.centre - local_origin,
-                    rotation,
-                    Collider::cuboid(cuboid.size.x, cuboid.size.y, cuboid.size.z),
-                )
-            })
-            .collect(),
-    )
-}
-
-pub(super) fn building_transform(building: &GeneratedBuilding) -> Transform {
-    let origin = building.collision.bounds.centre();
-    Transform::from_xyz(
-        building.placement.centre_metres.x,
-        building.pad_elevation_metres + origin.y - building.collision.bounds.min.y,
-        building.placement.centre_metres.y,
-    )
-    .with_rotation(Quat::from_rotation_y(
-        building.placement.orientation.yaw_radians(),
-    ))
+    Ok(())
 }

@@ -763,7 +763,7 @@ impl LiveRunner {
                 let utility = equipment_utility(&profile, candidate)?;
                 let armor = matches!(
                     candidate.kind,
-                    PersistedItemKind::Armor | PersistedItemKind::Clothing
+                    CatalogItemKind::Armor | CatalogItemKind::Clothing
                 );
                 let current = equipped_definitions
                     .iter()
@@ -774,7 +774,7 @@ impl LiveRunner {
                             armor
                                 && matches!(
                                     item.kind,
-                                    PersistedItemKind::Armor | PersistedItemKind::Clothing
+                                    CatalogItemKind::Armor | CatalogItemKind::Clothing
                                 )
                                 && item.slot == candidate.slot
                         }

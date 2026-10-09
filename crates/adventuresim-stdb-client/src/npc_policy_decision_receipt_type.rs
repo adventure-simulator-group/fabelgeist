@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::npc_policy_decision_outcome_type::NpcPolicyDecisionOutcome;
 use super::npc_policy_decision_phase_type::NpcPolicyDecisionPhase;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -16,7 +17,7 @@ pub struct NpcPolicyDecisionReceipt {
     pub phase: NpcPolicyDecisionPhase,
     pub outcome: NpcPolicyDecisionOutcome,
     pub target_character_id: Option<u64>,
-    pub decided_minute: u64,
+    pub decided_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for NpcPolicyDecisionReceipt {
@@ -33,7 +34,7 @@ pub struct NpcPolicyDecisionReceiptCols {
     pub phase: __sdk::__query_builder::Col<NpcPolicyDecisionReceipt, NpcPolicyDecisionPhase>,
     pub outcome: __sdk::__query_builder::Col<NpcPolicyDecisionReceipt, NpcPolicyDecisionOutcome>,
     pub target_character_id: __sdk::__query_builder::Col<NpcPolicyDecisionReceipt, Option<u64>>,
-    pub decided_minute: __sdk::__query_builder::Col<NpcPolicyDecisionReceipt, u64>,
+    pub decided_minute: __sdk::__query_builder::Col<NpcPolicyDecisionReceipt, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for NpcPolicyDecisionReceipt {

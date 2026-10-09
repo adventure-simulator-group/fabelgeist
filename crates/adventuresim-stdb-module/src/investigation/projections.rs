@@ -1,3 +1,6 @@
+#[path = "projections/site_context.rs"]
+mod site_context;
+pub use site_context::{BackendCaseSitePin, BackendCharacterCaseSiteLocation};
 /// Sanitized journal row. It contains no hidden threat, sincerity, coordinates
 /// below exact knowledge, private NPC identifiers, hidden likelihoods, or
 /// bridges. Authored observer-learned Bestiary support is explicitly safe.
@@ -13,7 +16,7 @@ pub struct BackendInvestigationJournalEntry {
     pub contradiction_group: String,
     pub corrected_by: String,
     pub supersedes: String,
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -36,7 +39,7 @@ pub struct BackendInvestigationLead {
     pub current_learned_location: String,
     pub contradiction_group: String,
     pub corrected_by: String,
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -69,7 +72,7 @@ pub struct BackendInvestigationActionOutcome {
     pub outcome_id: String,
     pub action_id: String,
     pub wording: String,
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -80,10 +83,10 @@ pub struct BackendInvestigationCaseSummary {
     /// Later leads and journal headlines never replace it.
     pub subject: String,
     pub status: String,
-    pub latest_update_at: u64,
+    pub latest_update_at: StrategicMinute,
 }
 
-fn journal_case_resolution(ctx: &ViewContext, public_case_id: &str) -> (String, u64) {
+fn journal_case_resolution(ctx: &ViewContext, public_case_id: &str) -> (String, StrategicMinute) {
     let mut canonical_matches: Vec<_> = ctx
         .db
         .quest_generation_authority()
@@ -101,10 +104,18 @@ fn journal_case_resolution(ctx: &ViewContext, public_case_id: &str) -> (String, 
     let canonical_case_id = match canonical_matches.as_slice() {
         [canonical] => canonical.clone(),
         [] => public_case_id.to_owned(),
-        _ => return (crate::strategic::CaseStatus::Open.stable_id().into(), 0),
+        _ => {
+            return (
+                crate::strategic::CaseStatus::Open.stable_id().into(),
+                StrategicMinute::ZERO,
+            );
+        }
     };
     let Some(case) = ctx.db.case_authority().id().find(canonical_case_id.clone()) else {
-        return (crate::strategic::CaseStatus::Open.stable_id().into(), 0);
+        return (
+            crate::strategic::CaseStatus::Open.stable_id().into(),
+            StrategicMinute::ZERO,
+        );
     };
     let status = case.resolution_status.stable_id();
     let resolved_at = ctx
@@ -112,7 +123,7 @@ fn journal_case_resolution(ctx: &ViewContext, public_case_id: &str) -> (String, 
         .case_outcome()
         .case_id()
         .find(canonical_case_id)
-        .map_or(0, |outcome| outcome.resolved_at_minute);
+        .map_or(StrategicMinute::ZERO, |outcome| outcome.resolved_at_minute);
     (status.into(), resolved_at)
 }
 
@@ -123,7 +134,8 @@ pub fn backend_investigation_cases(ctx: &ViewContext) -> Vec<BackendInvestigatio
     }
     let journal = backend_investigation_journal(ctx);
     let leads = backend_investigation_leads(ctx);
-    let mut cases: BTreeMap<(u64, String), (u64, String, u64)> = BTreeMap::new();
+    let mut cases: BTreeMap<(u64, String), (StrategicMinute, String, StrategicMinute)> =
+        BTreeMap::new();
     for (owner_character_id, case_id, summary, recorded_at) in journal.into_iter().map(|row| {
         (
             row.owner_character_id,
@@ -133,9 +145,9 @@ pub fn backend_investigation_cases(ctx: &ViewContext) -> Vec<BackendInvestigatio
         )
     }) {
         let case = cases.entry((owner_character_id, case_id)).or_insert((
-            u64::MAX,
+            StrategicMinute::MAX,
             "Unlabelled problem".into(),
-            0,
+            StrategicMinute::ZERO,
         ));
         case.2 = case.2.max(recorded_at);
         if recorded_at < case.0 {
@@ -170,42 +182,6 @@ pub fn backend_investigation_cases(ctx: &ViewContext) -> Vec<BackendInvestigatio
 /// named observer. The strategic web must additionally filter by session
 /// owner before rendering it.
 #[derive(Clone, Debug, SpacetimeType)]
-pub struct BackendCaseSitePin {
-    pub owner_character_id: u64,
-    pub case_id: String,
-    pub case_site_id: CaseSiteId,
-    pub origin_settlement_id: String,
-    pub name: String,
-    pub description: String,
-    pub scene_key: String,
-    pub longitude_e7: i32,
-    pub latitude_e7: i32,
-    pub coordinates_are_geographic: bool,
-    pub distance_m: u64,
-    pub knowledge_stage: DestinationKnowledgeStage,
-    pub tracked: bool,
-    /// Observer-safe problem wording from a fully validated generated manifest,
-    /// or the ordinary site name for a manual case.
-    pub display_title: String,
-    /// Generated presentation is deliberately independent of contract state.
-    pub generated_case: bool,
-    /// Observer-safe completion state for the generated case.
-    pub case_resolved: bool,
-    /// This reveals only that combat is currently a permitted onsite action.
-    pub combat_available: bool,
-    /// Present only with `combat_available`; aggregate observer-safe strength
-    /// of the exact generated hostile group, never hostile identity.
-    pub opposition_count: Option<u32>,
-    pub opposition_combat_power: Option<u64>,
-}
-
-#[derive(Clone, Debug, SpacetimeType)]
-pub struct BackendCharacterCaseSiteLocation {
-    pub character_id: u64,
-    pub case_site_id: CaseSiteId,
-}
-
-#[derive(Clone, Debug, SpacetimeType)]
 pub struct BackendPhysicalEvidence {
     pub owner_character_id: u64,
     pub evidence_id: String,
@@ -228,7 +204,7 @@ pub struct BackendPhysicalEvidenceInspection {
     pub stat_label: String,
     pub passed: bool,
     pub narration: String,
-    pub attempted_at: u64,
+    pub attempted_at: StrategicMinute,
 }
 
 fn is_gateway(ctx: &ViewContext) -> bool {
@@ -477,7 +453,7 @@ pub fn backend_investigation_actions(ctx: &ViewContext) -> Vec<BackendInvestigat
         .filter(0u64..)
         .filter(|capability| capability.active)
         .filter_map(|capability| {
-            let kind = parse_action_kind(&capability.method).ok()?;
+            let kind = capability.method.parse::<InvestigationActionKind>().ok()?;
             if capability_has_successful_attempt_view(ctx, &capability.id)
                 || !capability_has_live_support_view(ctx, &capability, kind)
             {
@@ -726,7 +702,7 @@ fn generated_pattern_authority(
     let (expected_known_prerequisites, expected_safe_result) =
         generated_capability_safe_text(&manifest, generated);
     let expected_terrain = generated_action_terrain(&manifest, generated);
-    if capability.method != action_method(generated.kind)
+    if capability.method != generated.kind.stable_id()
         || capability.target_kind != generated.target_kind
         || capability.target_id != generated.target_id
         || capability.target_terrain != expected_terrain.stable_id()
@@ -976,7 +952,7 @@ fn observer_pattern_route_has_live_corroborated_clue(
     owner_character_id: u64,
     case_id: &str,
     evidence_id: &str,
-    observer_personal_minute: u64,
+    observer_personal_minute: StrategicMinute,
     knowledge: impl IntoIterator<Item = InvestigationEvidenceKnowledge>,
 ) -> bool {
     let mut numeric_ids = BTreeMap::new();
@@ -1047,7 +1023,7 @@ fn capability_has_live_pattern_support_view(
             .character_time()
             .character_id()
             .find(capability.owner_character_id)
-            .map_or(0, |time| time.minutes),
+            .map_or(StrategicMinute::ZERO, |time| time.minutes),
         ctx.db
             .investigation_evidence_knowledge()
             .owner_character_id()
@@ -1084,7 +1060,7 @@ fn tracking_capability_chain_is_coherent(
         let Some(predecessor) = capability_by_id(&capability.required_action_id) else {
             return false;
         };
-        let Ok(predecessor_kind) = parse_action_kind(&predecessor.method) else {
+        let Ok(predecessor_kind) = predecessor.method.parse::<InvestigationActionKind>() else {
             return false;
         };
         if predecessor.owner_character_id != capability.owner_character_id
@@ -1346,7 +1322,7 @@ fn projected_target_changed_availability() -> ProjectedActionAvailability {
 
 fn public_contact_schedule_wait_minutes(
     presence: &crate::SettlementResidentPresence,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<u32> {
     if crate::settlement_population::npc_presence_remaining_minutes(presence, minute).is_some() {
         return Some(0);
@@ -1365,7 +1341,7 @@ fn public_contact_schedule_wait_minutes(
 fn projected_contact_schedule_wait_minutes(
     ctx: &ViewContext,
     presence: &crate::SettlementResidentPresence,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<u32> {
     if crate::settlement_population::npc_presence_remaining_minutes_at_view(ctx, presence, minute)
         .is_some()
@@ -1395,7 +1371,7 @@ fn referred_contact_target_matches(
             resident_character_id: expected.resident_character_id,
             demographic: expected.demographic,
             age_band: expected.age_band.clone(),
-            sex: expected.sex.clone(),
+            sex: expected.sex,
             profession: expected.profession.clone(),
             expected_settlement_id: expected_settlement_id.into(),
             expected_location: expected.expected_location.clone(),
@@ -1435,7 +1411,7 @@ fn referred_contact_is_current_view(
     else {
         return false;
     };
-    let Some(current) = (if expected.sex.is_empty() {
+    let Some(current) = (if expected.sex.is_none() {
         crate::strategic::developer_npc_witness_candidate(&npc, presence)
     } else {
         Some(adventuresim_core::quest_generation::WitnessCandidate {
@@ -1443,7 +1419,7 @@ fn referred_contact_is_current_view(
             display_name: npc.name.clone(),
             demographic: crate::strategic::generated_npc_demographic(&npc),
             age_band: npc.age_band.stable_id().to_owned(),
-            sex: npc.sex.stable_id().to_owned(),
+            sex: Some(npc.sex),
             profession: npc.profession.clone(),
             visible_description: String::new(),
             expected_location: presence.location_id.clone(),
@@ -1467,7 +1443,7 @@ fn projected_contact_presence_availability(
     capability: &InvestigationActionCapability,
     kind: action::InvestigationActionKind,
     settlement_id: Option<&str>,
-    started_at: Option<u64>,
+    started_at: Option<StrategicMinute>,
 ) -> Option<ProjectedActionAvailability> {
     if kind != action::InvestigationActionKind::LocateContact
         || capability.target_kind != action::InvestigationTargetKind::Contact
@@ -1511,20 +1487,20 @@ fn projected_contact_presence_availability(
     }
 }
 
-fn night_window_wait_minutes(minute: u64) -> u32 {
+fn night_window_wait_minutes(minute: StrategicMinute) -> u32 {
     u32::from(
         adventuresim_core::strategic_time::StrategicMinuteOfDay::from_absolute(minute)
             .minutes_until_night(),
     )
 }
 
-fn projected_party_activity_minute(ctx: &ViewContext, party_id: &str) -> Option<u64> {
+fn projected_party_activity_minute(ctx: &ViewContext, party_id: &str) -> Option<StrategicMinute> {
     let official_minute = ctx
         .db
         .world_clock()
         .id()
         .find(0)
-        .map_or(0, |clock| clock.official_minutes);
+        .map_or(StrategicMinute::ZERO, |clock| clock.official_minutes);
     let living_party_minute = ctx
         .db
         .party_member()
@@ -1546,7 +1522,7 @@ fn projected_party_activity_minute(ctx: &ViewContext, party_id: &str) -> Option<
 fn projected_night_window_wait_minutes(
     ctx: &ViewContext,
     capability: &InvestigationActionCapability,
-    started_at: u64,
+    started_at: StrategicMinute,
 ) -> u32 {
     let output = ctx
         .db
@@ -1602,6 +1578,7 @@ fn victim_cohort_is_current_view(
     let Some(started_at) = projected_party_activity_minute(ctx, party_id) else {
         return false;
     };
+    let at = started_at;
     let Some(target) = ctx
         .db
         .investigation_pattern_target_authority()
@@ -1674,14 +1651,14 @@ fn victim_cohort_is_current_view(
         resident_character_id: target.resident_character_id,
         demographic,
         age_band: target.age_band.clone(),
-        sex: target.sex.clone(),
+        sex: target.sex,
         profession: target.profession.clone(),
         expected_settlement_id: target.expected_settlement_id.clone(),
         expected_location: target.expected_location.clone(),
         expected_location_label: String::new(),
         presence_version: target.presence_version,
     };
-    let Some(current) = (if target.sex.is_empty() {
+    let Some(current) = (if target.sex.is_none() {
         crate::strategic::developer_npc_witness_candidate(&npc, &presence)
     } else {
         Some(adventuresim_core::quest_generation::WitnessCandidate {
@@ -1689,7 +1666,7 @@ fn victim_cohort_is_current_view(
             display_name: npc.name.clone(),
             demographic: crate::strategic::generated_npc_demographic(&npc),
             age_band: npc.age_band.stable_id().to_owned(),
-            sex: npc.sex.stable_id().to_owned(),
+            sex: Some(npc.sex),
             profession: npc.profession.clone(),
             visible_description: String::new(),
             expected_location: presence.location_id.clone(),
@@ -1704,10 +1681,8 @@ fn victim_cohort_is_current_view(
         &expected,
         &current,
         &presence.settlement_id,
-    ) && crate::settlement_population::npc_presence_remaining_minutes_at_view(
-        ctx, &presence, started_at,
-    )
-    .is_some()
+    ) && crate::settlement_population::npc_presence_remaining_minutes_at_view(ctx, &presence, at)
+        .is_some()
 }
 
 fn action_unavailable_reason_view(

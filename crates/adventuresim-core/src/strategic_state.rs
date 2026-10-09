@@ -6,23 +6,32 @@
 
 use std::fmt;
 
-use crate::strategic_place::CaseSiteId;
+use adventuresim_world_schema::calendar::StrategicMinute;
+
+pub mod vocabulary;
+
+use crate::{case::ContractStatus, strategic_place::CaseSiteId};
+use vocabulary::{
+    CommitmentStatus, CommitmentTerminalReason, CourtshipKind, CourtshipSecrecyReason,
+    CourtshipStatus, CourtshipTerminalReason, HostileResolutionKind, MarriageStatus,
+    MissionAttemptStatus, PregnancyStatus,
+};
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum ContractState {
     Offered,
     Accepted {
         party_id: String,
-        accepted_at: u64,
+        accepted_at: StrategicMinute,
     },
     ReadyToReport {
         party_id: String,
-        accepted_at: u64,
+        accepted_at: StrategicMinute,
     },
     Paid {
         party_id: String,
-        accepted_at: u64,
-        paid_at: u64,
+        accepted_at: StrategicMinute,
+        paid_at: StrategicMinute,
     },
     Withdrawn {
         prior_acceptance: Option<ContractAcceptance>,
@@ -32,40 +41,31 @@ pub enum ContractState {
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ContractAcceptance {
     pub party_id: String,
-    pub accepted_at: u64,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum FlatContractStatus {
-    Offered,
-    Accepted,
-    ReadyToReport,
-    Paid,
-    Withdrawn,
+    pub accepted_at: StrategicMinute,
 }
 
 impl ContractState {
     pub fn parse(
-        status: FlatContractStatus,
+        status: ContractStatus,
         party_id: Option<String>,
-        accepted_at: Option<u64>,
-        paid_at: Option<u64>,
+        accepted_at: Option<StrategicMinute>,
+        paid_at: Option<StrategicMinute>,
     ) -> Result<Self, StateParseError> {
         match (status, party_id, accepted_at, paid_at) {
-            (FlatContractStatus::Offered, None, None, None) => Ok(Self::Offered),
-            (FlatContractStatus::Accepted, Some(party_id), Some(accepted_at), None) => {
+            (ContractStatus::Offered, None, None, None) => Ok(Self::Offered),
+            (ContractStatus::Accepted, Some(party_id), Some(accepted_at), None) => {
                 Ok(Self::Accepted {
                     party_id,
                     accepted_at,
                 })
             }
-            (FlatContractStatus::ReadyToReport, Some(party_id), Some(accepted_at), None) => {
+            (ContractStatus::ReadyToReport, Some(party_id), Some(accepted_at), None) => {
                 Ok(Self::ReadyToReport {
                     party_id,
                     accepted_at,
                 })
             }
-            (FlatContractStatus::Paid, Some(party_id), Some(accepted_at), Some(paid_at))
+            (ContractStatus::Paid, Some(party_id), Some(accepted_at), Some(paid_at))
                 if paid_at >= accepted_at =>
             {
                 Ok(Self::Paid {
@@ -74,10 +74,10 @@ impl ContractState {
                     paid_at,
                 })
             }
-            (FlatContractStatus::Withdrawn, None, None, None) => Ok(Self::Withdrawn {
+            (ContractStatus::Withdrawn, None, None, None) => Ok(Self::Withdrawn {
                 prior_acceptance: None,
             }),
-            (FlatContractStatus::Withdrawn, Some(party_id), Some(accepted_at), None) => {
+            (ContractStatus::Withdrawn, Some(party_id), Some(accepted_at), None) => {
                 Ok(Self::Withdrawn {
                     prior_acceptance: Some(ContractAcceptance {
                         party_id,
@@ -138,28 +138,12 @@ pub enum MissionAttemptState {
     Cancelled,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum FlatMissionStatus {
-    Bound,
-    Committed,
-    Failed,
-    Cancelled,
-}
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum FlatResolution {
-    Defeated,
-    DrivenOff,
-    Surrendered,
-    Captured,
-    CaptureTargetKilled,
-}
-
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct FlatMissionState {
-    pub status: FlatMissionStatus,
+    pub status: MissionAttemptStatus,
     pub case_site_id: Option<CaseSiteId>,
     pub hostile_group_id: Option<String>,
-    pub resolution: Option<FlatResolution>,
+    pub resolution: Option<HostileResolutionKind>,
     pub subject_id: Option<String>,
     pub custody_version: Option<u32>,
 }
@@ -187,28 +171,37 @@ impl MissionAttemptState {
             }
         };
         match (status, resolution, subject_id, custody_version) {
-            (FlatMissionStatus::Bound, None, None, None) => Ok(Self::Bound { binding }),
-            (FlatMissionStatus::Committed, Some(FlatResolution::Defeated), None, None) => {
-                Ok(Self::Committed {
-                    binding,
-                    resolution: HostileResolution::Defeated,
-                })
-            }
-            (FlatMissionStatus::Committed, Some(FlatResolution::DrivenOff), None, None) => {
-                Ok(Self::Committed {
-                    binding,
-                    resolution: HostileResolution::DrivenOff,
-                })
-            }
-            (FlatMissionStatus::Committed, Some(FlatResolution::Surrendered), None, None) => {
-                Ok(Self::Committed {
-                    binding,
-                    resolution: HostileResolution::Surrendered,
-                })
-            }
+            (MissionAttemptStatus::Bound, None, None, None) => Ok(Self::Bound { binding }),
             (
-                FlatMissionStatus::Committed,
-                Some(FlatResolution::Captured),
+                MissionAttemptStatus::Committed,
+                Some(HostileResolutionKind::Defeated),
+                None,
+                None,
+            ) => Ok(Self::Committed {
+                binding,
+                resolution: HostileResolution::Defeated,
+            }),
+            (
+                MissionAttemptStatus::Committed,
+                Some(HostileResolutionKind::DrivenOff),
+                None,
+                None,
+            ) => Ok(Self::Committed {
+                binding,
+                resolution: HostileResolution::DrivenOff,
+            }),
+            (
+                MissionAttemptStatus::Committed,
+                Some(HostileResolutionKind::Surrendered),
+                None,
+                None,
+            ) => Ok(Self::Committed {
+                binding,
+                resolution: HostileResolution::Surrendered,
+            }),
+            (
+                MissionAttemptStatus::Committed,
+                Some(HostileResolutionKind::Captured),
                 Some(subject_id),
                 Some(version),
             ) => Ok(Self::Committed {
@@ -219,16 +212,16 @@ impl MissionAttemptState {
                 },
             }),
             (
-                FlatMissionStatus::Committed,
-                Some(FlatResolution::CaptureTargetKilled),
+                MissionAttemptStatus::Committed,
+                Some(HostileResolutionKind::CaptureTargetKilled),
                 Some(subject_id),
                 None,
             ) => Ok(Self::Committed {
                 binding,
                 resolution: HostileResolution::CaptureTargetKilled { subject_id },
             }),
-            (FlatMissionStatus::Failed, None, None, None) => Ok(Self::Failed),
-            (FlatMissionStatus::Cancelled, None, None, None) => Ok(Self::Cancelled),
+            (MissionAttemptStatus::Failed, None, None, None) => Ok(Self::Failed),
+            (MissionAttemptStatus::Cancelled, None, None, None) => Ok(Self::Cancelled),
             _ => Err(StateParseError(
                 "mission status and resolution fields disagree",
             )),
@@ -246,115 +239,68 @@ impl fmt::Display for StateParseError {
 impl std::error::Error for StateParseError {}
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum FlatCommitmentStatus {
-    Reserved,
-    Fulfilled,
-    Cancelled,
-    Expired,
-    Ended,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum FlatCommitmentReason {
-    WeddingCompleted,
-    ParticipantDead,
-    ParticipantUnderage,
-    ResidenceUnavailable,
-    CeremonyLocationUnavailable,
-    CancelledByParticipant,
-    ReservationExpired,
-    MarriageEnded,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum CommitmentState {
     Reserved {
-        effective_minute: u64,
+        effective_minute: StrategicMinute,
     },
     Fulfilled {
-        resolved_minute: u64,
+        resolved_minute: StrategicMinute,
     },
     Cancelled {
-        resolved_minute: u64,
-        reason: FlatCommitmentReason,
+        resolved_minute: StrategicMinute,
+        reason: CommitmentTerminalReason,
     },
     Expired {
-        resolved_minute: u64,
+        resolved_minute: StrategicMinute,
     },
     Ended {
-        resolved_minute: u64,
+        resolved_minute: StrategicMinute,
     },
 }
 
 impl CommitmentState {
     pub fn parse(
-        status: FlatCommitmentStatus,
-        effective_minute: u64,
-        resolved_minute: Option<u64>,
-        reason: Option<FlatCommitmentReason>,
+        status: CommitmentStatus,
+        effective_minute: StrategicMinute,
+        resolved_minute: Option<StrategicMinute>,
+        reason: Option<CommitmentTerminalReason>,
     ) -> Result<Self, StateParseError> {
         match (status, resolved_minute, reason) {
-            (FlatCommitmentStatus::Reserved, None, None) => Ok(Self::Reserved { effective_minute }),
+            (CommitmentStatus::Reserved, None, None) => Ok(Self::Reserved { effective_minute }),
             (
-                FlatCommitmentStatus::Fulfilled,
+                CommitmentStatus::Fulfilled,
                 Some(resolved_minute),
-                Some(FlatCommitmentReason::WeddingCompleted),
+                Some(CommitmentTerminalReason::WeddingCompleted),
             ) => Ok(Self::Fulfilled { resolved_minute }),
             (
-                FlatCommitmentStatus::Cancelled,
+                CommitmentStatus::Cancelled,
                 Some(resolved_minute),
                 Some(
-                    reason @ (FlatCommitmentReason::ParticipantDead
-                    | FlatCommitmentReason::ParticipantUnderage
-                    | FlatCommitmentReason::ResidenceUnavailable
-                    | FlatCommitmentReason::CeremonyLocationUnavailable
-                    | FlatCommitmentReason::CancelledByParticipant),
+                    reason @ (CommitmentTerminalReason::ParticipantDead
+                    | CommitmentTerminalReason::ParticipantUnderage
+                    | CommitmentTerminalReason::ResidenceUnavailable
+                    | CommitmentTerminalReason::CeremonyLocationUnavailable
+                    | CommitmentTerminalReason::CancelledByParticipant),
                 ),
             ) => Ok(Self::Cancelled {
                 resolved_minute,
                 reason,
             }),
             (
-                FlatCommitmentStatus::Expired,
+                CommitmentStatus::Expired,
                 Some(resolved_minute),
-                Some(FlatCommitmentReason::ReservationExpired),
+                Some(CommitmentTerminalReason::ReservationExpired),
             ) => Ok(Self::Expired { resolved_minute }),
             (
-                FlatCommitmentStatus::Ended,
+                CommitmentStatus::Ended,
                 Some(resolved_minute),
-                Some(FlatCommitmentReason::MarriageEnded),
+                Some(CommitmentTerminalReason::MarriageEnded),
             ) => Ok(Self::Ended { resolved_minute }),
             _ => Err(StateParseError(
                 "commitment status and terminal fields disagree",
             )),
         }
     }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum FlatCourtshipKind {
-    Formal,
-    Informal,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum FlatCourtshipStatus {
-    Active,
-    Exposed,
-    Ended,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum FlatCourtshipSecrecyReason {
-    FatherDisapproval,
-    FormalRouteUnavailable,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum FlatCourtshipTerminalReason {
-    EngagementScheduled,
-    EndedByParticipant,
-    PartnerUnavailable,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -364,7 +310,7 @@ pub enum CourtshipRoute {
         planned_dowry: u32,
     },
     Informal {
-        secrecy_reason: FlatCourtshipSecrecyReason,
+        secrecy_reason: CourtshipSecrecyReason,
     },
 }
 
@@ -373,39 +319,37 @@ pub enum CourtshipState {
     Active,
     Exposed,
     Ended {
-        resolved_minute: u64,
-        reason: FlatCourtshipTerminalReason,
+        resolved_minute: StrategicMinute,
+        reason: CourtshipTerminalReason,
     },
 }
 
 pub fn parse_courtship(
-    kind: FlatCourtshipKind,
-    secrecy_reason: Option<FlatCourtshipSecrecyReason>,
+    kind: CourtshipKind,
+    secrecy_reason: Option<CourtshipSecrecyReason>,
     approved_father_id: Option<u64>,
     planned_dowry: u32,
-    status: FlatCourtshipStatus,
-    resolved_minute: Option<u64>,
-    terminal_reason: Option<FlatCourtshipTerminalReason>,
+    status: CourtshipStatus,
+    resolved_minute: Option<StrategicMinute>,
+    terminal_reason: Option<CourtshipTerminalReason>,
 ) -> Result<(CourtshipRoute, CourtshipState), StateParseError> {
     let route = match (kind, secrecy_reason, approved_father_id) {
-        (FlatCourtshipKind::Formal, None, Some(approved_father_id)) => CourtshipRoute::Formal {
+        (CourtshipKind::Formal, None, Some(approved_father_id)) => CourtshipRoute::Formal {
             approved_father_id,
             planned_dowry,
         },
-        (FlatCourtshipKind::Informal, Some(secrecy_reason), None) if planned_dowry == 0 => {
+        (CourtshipKind::Informal, Some(secrecy_reason), None) if planned_dowry == 0 => {
             CourtshipRoute::Informal { secrecy_reason }
         }
         _ => return Err(StateParseError("courtship kind and route fields disagree")),
     };
     let state = match (status, resolved_minute, terminal_reason) {
-        (FlatCourtshipStatus::Active, None, None) => CourtshipState::Active,
-        (FlatCourtshipStatus::Exposed, None, None) => CourtshipState::Exposed,
-        (FlatCourtshipStatus::Ended, Some(resolved_minute), Some(reason)) => {
-            CourtshipState::Ended {
-                resolved_minute,
-                reason,
-            }
-        }
+        (CourtshipStatus::Active, None, None) => CourtshipState::Active,
+        (CourtshipStatus::Exposed, None, None) => CourtshipState::Exposed,
+        (CourtshipStatus::Ended, Some(resolved_minute), Some(reason)) => CourtshipState::Ended {
+            resolved_minute,
+            reason,
+        },
         _ => {
             return Err(StateParseError(
                 "courtship status and terminal fields disagree",
@@ -416,32 +360,23 @@ pub fn parse_courtship(
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum FlatMarriageStatus {
-    Active,
-    Widowed,
-    Ended,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum MarriageState {
     Active,
-    Widowed { resolved_minute: u64 },
-    Ended { resolved_minute: u64 },
+    Widowed { resolved_minute: StrategicMinute },
+    Ended { resolved_minute: StrategicMinute },
 }
 
 impl MarriageState {
     pub fn parse(
-        status: FlatMarriageStatus,
-        resolved_minute: Option<u64>,
+        status: MarriageStatus,
+        resolved_minute: Option<StrategicMinute>,
     ) -> Result<Self, StateParseError> {
         match (status, resolved_minute) {
-            (FlatMarriageStatus::Active, None) => Ok(Self::Active),
-            (FlatMarriageStatus::Widowed, Some(resolved_minute)) => {
+            (MarriageStatus::Active, None) => Ok(Self::Active),
+            (MarriageStatus::Widowed, Some(resolved_minute)) => {
                 Ok(Self::Widowed { resolved_minute })
             }
-            (FlatMarriageStatus::Ended, Some(resolved_minute)) => {
-                Ok(Self::Ended { resolved_minute })
-            }
+            (MarriageStatus::Ended, Some(resolved_minute)) => Ok(Self::Ended { resolved_minute }),
             _ => Err(StateParseError(
                 "marriage status and terminal minute disagree",
             )),
@@ -450,32 +385,30 @@ impl MarriageState {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum FlatPregnancyStatus {
-    Active,
-    Born,
-    Ended,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PregnancyState {
     Active,
-    Born { child_id: u64, resolved_minute: u64 },
-    Ended { resolved_minute: u64 },
+    Born {
+        child_id: u64,
+        resolved_minute: StrategicMinute,
+    },
+    Ended {
+        resolved_minute: StrategicMinute,
+    },
 }
 
 impl PregnancyState {
     pub fn parse(
-        status: FlatPregnancyStatus,
+        status: PregnancyStatus,
         child_id: Option<u64>,
-        resolved_minute: Option<u64>,
+        resolved_minute: Option<StrategicMinute>,
     ) -> Result<Self, StateParseError> {
         match (status, child_id, resolved_minute) {
-            (FlatPregnancyStatus::Active, None, None) => Ok(Self::Active),
-            (FlatPregnancyStatus::Born, Some(child_id), Some(resolved_minute)) => Ok(Self::Born {
+            (PregnancyStatus::Active, None, None) => Ok(Self::Active),
+            (PregnancyStatus::Born, Some(child_id), Some(resolved_minute)) => Ok(Self::Born {
                 child_id,
                 resolved_minute,
             }),
-            (FlatPregnancyStatus::Ended, None, Some(resolved_minute)) => {
+            (PregnancyStatus::Ended, None, Some(resolved_minute)) => {
                 Ok(Self::Ended { resolved_minute })
             }
             _ => Err(StateParseError(
@@ -488,18 +421,61 @@ impl PregnancyState {
 #[cfg(test)]
 mod tests {
     use super::*;
+
     #[test]
-    fn contract_rejects_partial_acceptance_and_backwards_payment() {
+    fn shared_serialized_statuses_obey_the_same_lifecycle_contract() {
+        let status: ContractStatus = serde_json::from_str("\"Paid\"").unwrap();
         assert!(
-            ContractState::parse(FlatContractStatus::Accepted, Some("p".into()), None, None)
-                .is_err()
+            ContractState::parse(
+                status,
+                Some("party".into()),
+                Some(StrategicMinute::new(10)),
+                Some(StrategicMinute::new(11))
+            )
+            .is_ok()
         );
         assert!(
             ContractState::parse(
-                FlatContractStatus::Paid,
+                status,
+                Some("party".into()),
+                Some(StrategicMinute::new(10)),
+                None
+            )
+            .is_err()
+        );
+        let status: MissionAttemptStatus = serde_json::from_str("\"Committed\"").unwrap();
+        let resolution: HostileResolutionKind = serde_json::from_str("\"Captured\"").unwrap();
+        let mut flat = FlatMissionState {
+            status,
+            case_site_id: None,
+            hostile_group_id: None,
+            resolution: Some(resolution),
+            subject_id: Some("subject".into()),
+            custody_version: Some(3),
+        };
+        assert!(MissionAttemptState::parse(flat.clone()).is_ok());
+        flat.custody_version = None;
+        assert!(MissionAttemptState::parse(flat).is_err());
+        assert_eq!(
+            serde_json::to_string(&CourtshipKind::Informal).unwrap(),
+            "\"Informal\""
+        );
+        assert_eq!(
+            serde_json::to_string(&CommitmentTerminalReason::WeddingCompleted).unwrap(),
+            "\"WeddingCompleted\""
+        );
+    }
+    #[test]
+    fn contract_rejects_partial_acceptance_and_backwards_payment() {
+        assert!(
+            ContractState::parse(ContractStatus::Accepted, Some("p".into()), None, None).is_err()
+        );
+        assert!(
+            ContractState::parse(
+                ContractStatus::Paid,
                 Some("p".into()),
-                Some(10),
-                Some(9)
+                Some(StrategicMinute::new(10)),
+                Some(StrategicMinute::new(9))
             )
             .is_err()
         );
@@ -508,7 +484,7 @@ mod tests {
     fn mission_requires_complete_binding_and_capture_payload() {
         assert!(
             MissionAttemptState::parse(FlatMissionState {
-                status: FlatMissionStatus::Bound,
+                status: MissionAttemptStatus::Bound,
                 case_site_id: Some(CaseSiteId::from("s".to_owned())),
                 hostile_group_id: None,
                 resolution: None,
@@ -519,10 +495,10 @@ mod tests {
         );
         assert!(
             MissionAttemptState::parse(FlatMissionState {
-                status: FlatMissionStatus::Committed,
+                status: MissionAttemptStatus::Committed,
                 case_site_id: Some(CaseSiteId::from("s".to_owned())),
                 hostile_group_id: Some("h".into()),
-                resolution: Some(FlatResolution::Captured),
+                resolution: Some(HostileResolutionKind::Captured),
                 subject_id: Some("target".into()),
                 custody_version: None
             })
@@ -530,10 +506,10 @@ mod tests {
         );
         assert!(
             MissionAttemptState::parse(FlatMissionState {
-                status: FlatMissionStatus::Committed,
+                status: MissionAttemptStatus::Committed,
                 case_site_id: Some(CaseSiteId::from("s".to_owned())),
                 hostile_group_id: Some("h".into()),
-                resolution: Some(FlatResolution::Captured),
+                resolution: Some(HostileResolutionKind::Captured),
                 subject_id: Some("target".into()),
                 custody_version: Some(0)
             })
@@ -543,23 +519,29 @@ mod tests {
     #[test]
     fn commitment_terminal_fields_are_all_or_nothing() {
         assert!(
-            CommitmentState::parse(FlatCommitmentStatus::Reserved, 10, Some(11), None).is_err()
+            CommitmentState::parse(
+                CommitmentStatus::Reserved,
+                StrategicMinute::new(10),
+                Some(StrategicMinute::new(11)),
+                None,
+            )
+            .is_err()
         );
         assert!(
             CommitmentState::parse(
-                FlatCommitmentStatus::Cancelled,
-                10,
-                Some(11),
-                Some(FlatCommitmentReason::CancelledByParticipant)
+                CommitmentStatus::Cancelled,
+                StrategicMinute::new(10),
+                Some(StrategicMinute::new(11)),
+                Some(CommitmentTerminalReason::CancelledByParticipant)
             )
             .is_ok()
         );
         assert!(
             CommitmentState::parse(
-                FlatCommitmentStatus::Fulfilled,
-                10,
-                Some(11),
-                Some(FlatCommitmentReason::ParticipantDead)
+                CommitmentStatus::Fulfilled,
+                StrategicMinute::new(10),
+                Some(StrategicMinute::new(11)),
+                Some(CommitmentTerminalReason::ParticipantDead)
             )
             .is_err()
         );
@@ -569,18 +551,23 @@ mod tests {
     fn relationship_states_reject_partial_routes_and_outcomes() {
         assert!(
             parse_courtship(
-                FlatCourtshipKind::Formal,
+                CourtshipKind::Formal,
                 None,
                 None,
                 10,
-                FlatCourtshipStatus::Active,
+                CourtshipStatus::Active,
                 None,
                 None
             )
             .is_err()
         );
-        assert!(MarriageState::parse(FlatMarriageStatus::Active, Some(1)).is_err());
-        assert!(PregnancyState::parse(FlatPregnancyStatus::Born, None, Some(10)).is_err());
-        assert!(PregnancyState::parse(FlatPregnancyStatus::Active, None, None).is_ok());
+        assert!(
+            MarriageState::parse(MarriageStatus::Active, Some(StrategicMinute::new(1))).is_err()
+        );
+        assert!(
+            PregnancyState::parse(PregnancyStatus::Born, None, Some(StrategicMinute::new(10)),)
+                .is_err()
+        );
+        assert!(PregnancyState::parse(PregnancyStatus::Active, None, None).is_ok());
     }
 }

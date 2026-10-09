@@ -70,6 +70,33 @@
   Iconify and update both the collection's `ATTRIBUTION.md` and the repository's
   `THIRD_PARTY_NOTICES.md`.
 
+## Contributor-facing writing
+
+- Write issues, pull requests, and durable documentation for a contributor who
+  has not read the implementation conversation. Lead with the concrete problem
+  and intended or resulting behavior; include enough context to understand the
+  scope without following another link.
+- Explain unfamiliar domain terms and abbreviations when first used. Prefer
+  concrete code or gameplay examples over internal shorthand or process labels.
+- Prefer "bespoke type" to "domain type" for purpose-specific types.
+- Describe the final change, material decisions, validation, and known limits.
+  Keep agent run history, goal status, local recovery notes, and abandoned
+  approaches in ignored reports unless they explain a relevant tradeoff.
+- Treat related issues and conversation snapshots as supplemental evidence.
+  Readers must be able to understand and review the proposal from its own text.
+
+## Pull request context
+
+- Unless the user says otherwise, every pull request must include an
+  `Implementation context` section that links a reviewed Codex shared
+  conversation snapshot when one is available.
+- The section must also give a concise summary of the material decisions and
+  validation evidence. The PR body remains the authoritative summary of scope
+  and verification.
+- Treat every shared conversation as public publication. Before sharing, remove
+  credentials, tokens, private URLs, personal data, and nonessential local
+  paths. Codex's automatic secret masking is not sufficient review on its own.
+
 ## Rust style and maintainability
 
 - Before editing Rust source or Cargo manifests, also follow

@@ -12,7 +12,6 @@ pub struct SpouseLeisureAccrual {
     pub second_character_id: u64,
     pub conserved_joint_minutes: u8,
     pub next_trial_ordinal: u64,
-    pub total_joint_minutes: u64,
 }
 
 impl __sdk::InModule for SpouseLeisureAccrual {
@@ -28,7 +27,6 @@ pub struct SpouseLeisureAccrualCols {
     pub second_character_id: __sdk::__query_builder::Col<SpouseLeisureAccrual, u64>,
     pub conserved_joint_minutes: __sdk::__query_builder::Col<SpouseLeisureAccrual, u8>,
     pub next_trial_ordinal: __sdk::__query_builder::Col<SpouseLeisureAccrual, u64>,
-    pub total_joint_minutes: __sdk::__query_builder::Col<SpouseLeisureAccrual, u64>,
 }
 
 impl __sdk::__query_builder::HasCols for SpouseLeisureAccrual {
@@ -46,10 +44,6 @@ impl __sdk::__query_builder::HasCols for SpouseLeisureAccrual {
                 "conserved_joint_minutes",
             ),
             next_trial_ordinal: __sdk::__query_builder::Col::new(table_name, "next_trial_ordinal"),
-            total_joint_minutes: __sdk::__query_builder::Col::new(
-                table_name,
-                "total_joint_minutes",
-            ),
         }
     }
 }

@@ -883,13 +883,18 @@ mod tests {
     fn empty_world(schema_version: u32, inference_rules_version: u32) -> CompiledWorld {
         let spatial_grid = SpatialGridSpec::default();
         let sources = Vec::new();
-        let manifest_digest = crate::manifest::digest(1544, spatial_grid, &sources).unwrap();
+        let manifest_digest = crate::manifest::digest(
+            adventuresim_world_schema::calendar::CalendarYear::new(1544).unwrap(),
+            spatial_grid,
+            &sources,
+        )
+        .unwrap();
         CompiledWorld {
             metadata: WorldMetadata {
                 schema_version,
                 inference_rules_version,
                 spatial_grid,
-                world_year: 1544,
+                world_year: adventuresim_world_schema::calendar::WORLD_START_YEAR,
                 manifest_digest,
                 sources,
                 road_types: Vec::new(),

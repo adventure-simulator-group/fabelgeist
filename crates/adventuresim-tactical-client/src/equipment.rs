@@ -15,9 +15,8 @@ use adventuresim_weapon_model::{
     generate_holder_icon, generate_icon,
 };
 use bevy::{
-    asset::{LoadState, RenderAssetUsages},
+    asset::RenderAssetUsages,
     camera::visibility::NoFrustumCulling,
-    gltf::{Gltf, GltfAssetLabel, GltfMesh, GltfNode, GltfSkin},
     mesh::{
         Indices, PrimitiveTopology,
         skinning::{SkinnedMesh, SkinnedMeshInverseBindposes},
@@ -32,13 +31,19 @@ use serde::Deserialize;
 mod grab_world;
 mod icons;
 use icons::*;
-mod model_loading;
-mod morphs;
-use model_loading::resolve_procedural_equipment_models;
+pub(crate) mod runtime_equipment;
+#[cfg(test)]
+use runtime_equipment::RuntimeEquipmentPresentation;
+use runtime_equipment::generate_runtime_equipment_models;
+pub(crate) use runtime_equipment::{RuntimeEquipmentBodyCache, RuntimeEquipmentWarmup};
+mod placeholder_update;
+mod placeholder_visual;
+use placeholder_update::update_item_placeholders;
+
 mod render_binding;
 mod skin;
 mod slot_selection;
-mod visuals;
+pub(crate) mod visuals;
 pub(crate) use render_binding::ProceduralEquipmentPart;
 use skin::sync_procedural_equipment_skins;
 pub(crate) use visuals::EquipmentVisualPlugin;
@@ -58,7 +63,6 @@ const PICKUP_RANGE_M: f32 = 2.0;
 const INVALID_FLASH_SECS: f32 = 0.18;
 const TACTICAL_WEAPON_ICON_SIZE: u16 = 64;
 const TACTICAL_WEAPON_ICON_SUPERSAMPLING: u8 = 4;
-const EQUIPMENT_SOCKET_NODE_PREFIX: &str = "equipment_socket_";
 const EQUIPMENT_ICON_SLUGS: [&str; 56] = [
     "ancient-sword",
     "arm-bandage",
@@ -273,21 +277,13 @@ fn procedural_equipment_asset_path(file: &str) -> String {
 }
 
 #[derive(Component)]
-struct ProceduralEquipmentPresentation {
-    asset_path: String,
-}
-
-#[derive(Component)]
-struct ProceduralEquipmentRequest(Handle<Gltf>);
-
-#[derive(Component)]
 pub(crate) struct ProceduralEquipmentResolved;
 
 #[derive(Component)]
 pub(crate) struct ProceduralEquipmentFailed;
 
 #[derive(Component)]
-struct ItemFallback(Entity);
+struct ItemFallback;
 
 #[derive(Component, Default)]
 struct EquipmentAttachmentSockets(BTreeMap<String, Transform>);
@@ -1116,15 +1112,9 @@ fn spawn_item_placeholders(
             // root hidden avoids a one-frame flash at the world origin.
             Visibility::Hidden,
         ));
-        if let Some(file) = properties.and_then(|properties| {
-            procedural_equipment_file(
-                &properties.id,
-                topology.and_then(|topology| topology.placement_id.as_deref()),
-            )
-        }) {
-            root_commands.insert(ProceduralEquipmentPresentation {
-                asset_path: procedural_equipment_asset_path(file),
-            });
+        if let Some(presentation) = runtime_equipment::presentation(item, properties, topology) {
+            root_commands.insert(presentation);
+            continue;
         }
         let root = root_commands.id();
         let (generated, part_name) = if let Some(holder) =
@@ -1151,61 +1141,17 @@ fn spawn_item_placeholders(
             )
         };
         if let Some(generated) = generated {
-            commands.entity(root).with_children(|parent| {
-                for part in generated.parts {
-                    parent.spawn((
-                        Name::new(part_name),
-                        Mesh3d(part.mesh),
-                        MeshMaterial3d(part.material),
-                        Transform::from_translation(-generated.grip),
-                        GrabTargetOutline(item),
-                        OutlineVolume {
-                            visible: false,
-                            colour: Color::WHITE,
-                            width: 4.0,
-                        },
-                        OutlineMode::FloodFlat,
-                    ));
-                }
-            });
+            placeholder_visual::spawn_generated(&mut commands, root, item, generated, part_name);
         } else {
-            commands.entity(root).with_child((
-                Name::new("Tactical item fallback"),
-                ItemFallback(item),
-                Mesh3d(meshes.add(Cuboid::new(
-                    physical.dimensions_m.x,
-                    physical.dimensions_m.y,
-                    physical.dimensions_m.z,
-                ))),
-                MeshMaterial3d(materials.add(StandardMaterial {
-                    base_color: Color::srgb(0.48, 0.34, 0.18),
-                    perceptual_roughness: 0.8,
-                    ..default()
-                })),
-                // The root is the authored grip. Box centre is offset from it;
-                // local +Y remains the weapon-tip direction.
-                Transform::from_translation(-physical.anchor_offset_m),
-                GrabTargetOutline(item),
-                OutlineVolume {
-                    visible: false,
-                    colour: Color::WHITE,
-                    width: 4.0,
-                },
-                OutlineMode::FloodFlat,
-            ));
+            placeholder_visual::spawn_fallback(
+                &mut commands,
+                root,
+                item,
+                physical,
+                &mut meshes,
+                &mut materials,
+            );
         }
-    }
-}
-
-fn request_procedural_equipment_models(
-    mut commands: Commands,
-    asset_server: Res<AssetServer>,
-    pending: Query<(Entity, &ProceduralEquipmentPresentation), Without<ProceduralEquipmentRequest>>,
-) {
-    for (entity, presentation) in &pending {
-        commands.entity(entity).insert(ProceduralEquipmentRequest(
-            asset_server.load(&presentation.asset_path),
-        ));
     }
 }
 
@@ -1271,116 +1217,6 @@ fn equipment_bind_correction(
         })
         .unwrap_or(Quat::IDENTITY);
     Some(bind_space_attachment_correction(bind, desired_rotation))
-}
-
-#[expect(
-    clippy::type_complexity,
-    reason = "the Bevy queries describe equipment ownership, topology, rig bindings, and placeholder state exactly"
-)]
-fn update_item_placeholders(
-    mut commands: Commands,
-    items: Query<
-        (
-            &Transform,
-            Option<&ItemOf>,
-            Option<&EquipSlot>,
-            &EquipmentTopology,
-            Has<TacticalSceneItem>,
-        ),
-        Without<ItemPlaceholder>,
-    >,
-    topologies: Query<
-        (&EquipmentTopology, Option<&EquipmentAttachmentSockets>),
-        Without<ItemPlaceholder>,
-    >,
-    rigs: Query<&HumanoidRig, With<Player>>,
-    bind_nodes: Query<(&AuthoredBindTransform, Option<&ChildOf>)>,
-    mut placeholders: Query<(
-        Entity,
-        &ItemPlaceholder,
-        &mut Transform,
-        &mut Visibility,
-        Option<&ChildOf>,
-        Has<ProceduralEquipmentResolved>,
-    )>,
-) {
-    for (entity, placeholder, mut transform, mut visibility, parent, procedural) in
-        &mut placeholders
-    {
-        let Ok((item_transform, owner, slot, topology, scene)) = items.get(placeholder.0) else {
-            commands.entity(entity).despawn();
-            continue;
-        };
-        if scene {
-            if parent.is_some() {
-                commands.entity(entity).remove::<ChildOf>();
-            }
-            *transform = *item_transform;
-            *visibility = Visibility::Inherited;
-            commands.entity(entity).remove::<HeldWeaponConstraint>();
-        } else if procedural {
-            let rig_scene = resolve_character_location(topology, &topologies)
-                .and(owner)
-                .and_then(|owner| rigs.get(owner.0).ok())
-                .and_then(HumanoidRig::rig_scene);
-            if let Some(rig_scene) = rig_scene {
-                if parent.is_none_or(|parent| parent.parent() != rig_scene) {
-                    commands.entity(entity).insert(ChildOf(rig_scene));
-                }
-                *transform = Transform::IDENTITY;
-                *visibility = Visibility::Inherited;
-            } else {
-                *visibility = Visibility::Hidden;
-            }
-            commands.entity(entity).remove::<HeldWeaponConstraint>();
-        } else if let (Some(owner), Some(primary_hand)) = (owner, holding_side(slot)) {
-            if parent.is_some() {
-                commands.entity(entity).remove::<ChildOf>();
-            }
-            let constraint = rigs.get(owner.0).ok().and_then(|rig| {
-                let role = match primary_hand {
-                    HandSide::Left => BoneRole::WeaponLeft,
-                    HandSide::Right => BoneRole::WeaponRight,
-                };
-                rig.get(&role)?;
-                Some(HeldWeaponConstraint {
-                    owner: owner.0,
-                    primary_hand,
-                    secondary_grip_local: None,
-                })
-            });
-            if let Some(constraint) = constraint {
-                *visibility = Visibility::Inherited;
-                commands.entity(entity).insert(constraint);
-            } else {
-                *visibility = Visibility::Hidden;
-                commands.entity(entity).remove::<HeldWeaponConstraint>();
-            }
-        } else if let Some((bone, correction)) = owner.and_then(|owner| {
-            let rig = rigs.get(owner.0).ok()?;
-            let role = equipment_location_bone(resolve_character_location(topology, &topologies)?);
-            let bone = rig.get(&role).copied()?;
-            let correction =
-                if let Some(socket) = resolve_equipment_attachment_socket(topology, &topologies) {
-                    // Generated attachment sockets are authored pelvis-local, so
-                    // they can be consumed directly as children of the pelvis.
-                    socket
-                } else {
-                    equipment_bind_correction(role, rig, &bind_nodes)?
-                };
-            Some((bone, correction))
-        }) {
-            if parent.is_none_or(|parent| parent.parent() != bone) {
-                commands.entity(entity).insert(ChildOf(bone));
-            }
-            *transform = correction;
-            *visibility = Visibility::Inherited;
-            commands.entity(entity).remove::<HeldWeaponConstraint>();
-        } else {
-            *visibility = Visibility::Hidden;
-            commands.entity(entity).remove::<HeldWeaponConstraint>();
-        }
-    }
 }
 
 fn resolve_character_location(
@@ -1531,10 +1367,6 @@ mod tests {
         let asset_root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../assets");
         for placements in PROCEDURAL_EQUIPMENT_ASSETS.values() {
             for file in placements.values() {
-                assert!(
-                    asset_root.join("equipment/procedural").join(file).is_file(),
-                    "manifest asset {file} should exist"
-                );
                 let portrait = format!("icons/{}.png", file.strip_suffix(".glb").unwrap());
                 assert!(
                     asset_root
@@ -1559,6 +1391,7 @@ mod tests {
                 item,
                 inverse_bindposes: Handle::default(),
                 joint_names: vec!["root".into(), "c_spine0".into()],
+                rigid_center: Vec3::ZERO,
             })
             .id();
 
@@ -1578,7 +1411,7 @@ mod tests {
     }
 
     #[test]
-    fn armor_starts_with_fallback_while_requesting_its_procedural_model() {
+    fn generated_armor_starts_with_runtime_presentation() {
         let mut world = World::new();
         world.insert_resource(Assets::<Mesh>::default());
         world.insert_resource(Assets::<StandardMaterial>::default());
@@ -1600,22 +1433,48 @@ mod tests {
         world.run_system_once(spawn_item_placeholders).unwrap();
 
         let presentation = world
-            .query::<(&ItemPlaceholder, &ProceduralEquipmentPresentation)>()
+            .query::<(&ItemPlaceholder, &RuntimeEquipmentPresentation)>()
             .iter(&world)
             .find(|(placeholder, _)| placeholder.0 == item)
             .map(|(_, presentation)| presentation)
             .unwrap();
-        assert!(
-            presentation
-                .asset_path
-                .ends_with("equipment/procedural/arming_doublet--worn.glb")
-        );
-        assert!(
-            world
-                .query::<&ItemFallback>()
-                .iter(&world)
-                .any(|fallback| fallback.0 == item)
-        );
+        assert_eq!(presentation.item, item);
+        assert_eq!(presentation.item_id, "arming_doublet");
+        assert_eq!(presentation.placement_id, "worn");
+        assert!(world.query::<&ItemFallback>().iter(&world).next().is_none());
+    }
+
+    #[test]
+    fn generated_clothing_starts_with_runtime_presentation() {
+        let mut world = World::new();
+        world.insert_resource(Assets::<Mesh>::default());
+        world.insert_resource(Assets::<StandardMaterial>::default());
+        world.init_resource::<WeaponMeshCache>();
+        let item = world
+            .spawn((
+                valid_physical(),
+                EquipmentTopology {
+                    placement_id: Some("worn".into()),
+                    ..default()
+                },
+                ItemProperties {
+                    weight: 0.5,
+                    id: "linen_tunic".into(),
+                },
+            ))
+            .id();
+
+        world.run_system_once(spawn_item_placeholders).unwrap();
+
+        let presentation = world
+            .query::<(&ItemPlaceholder, &RuntimeEquipmentPresentation)>()
+            .iter(&world)
+            .find(|(placeholder, _)| placeholder.0 == item)
+            .map(|(_, presentation)| presentation)
+            .unwrap();
+        assert_eq!(presentation.item, item);
+        assert_eq!(presentation.item_id, "linen_tunic");
+        assert_eq!(presentation.placement_id, "worn");
     }
 
     #[test]

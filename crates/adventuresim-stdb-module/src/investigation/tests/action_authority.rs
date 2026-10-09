@@ -23,7 +23,7 @@ fn action_graph_covers_all_methods_and_enforces_authoritative_boundaries() {
     assert!(source.contains("require_party_ready(ctx, party_id)?"));
     assert!(source.contains("require_no_unresolved_encounter(ctx, party_id)?"));
     assert!(source.contains("synchronize_party_activity_time"));
-    assert!(source.contains("started_at % adventuresim_core::strategic_time::MINUTES_PER_DAY"));
+    assert!(source.contains("started_at.minute_of_day()"));
     assert!(source.contains("validate_pickup_custody"));
     assert!(source.contains("current.holder_kind != CustodyHolderKind::Site"));
     assert!(source.contains("resolution.risk_triggered"));
@@ -149,7 +149,7 @@ fn generated_graph_issues_owner_scoped_initial_site_knowledge() {
     };
 
     let manifest = generate(&GenerationContext {
-        seed: 7,
+        seed: fabelgeist_determinism::Seed::from_u64(7),
         observer_entropy_hi: 11,
         observer_entropy_lo: 13,
         settlement_id: "lubeck".into(),
@@ -158,7 +158,7 @@ fn generated_graph_issues_owner_scoped_initial_site_knowledge() {
             settlement_id: "lubeck".into(),
         },
         ordinal: 0,
-        now_minute: 50_000,
+        now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: Some(TemplateFamily::Outbreak),
         witness_candidates: test_witnesses(),
@@ -247,7 +247,7 @@ fn generated_pattern_actions_require_the_exact_earned_clue() {
         .expect("typed corroborated-clue authority");
     assert!(clue_authority.contains("proposition.case_id.as_str() == case_id"));
     assert!(clue_authority.contains("proposition.evidence_id.as_str() == evidence_id"));
-    assert!(validator.contains("started_at % adventuresim_core::strategic_time::MINUTES_PER_DAY"));
+    assert!(validator.contains("started_at.minute_of_day()"));
     assert!(validator.contains(
         "capability.target_kind != action::InvestigationTargetKind::Route"
     ));
@@ -256,7 +256,7 @@ fn generated_pattern_actions_require_the_exact_earned_clue() {
     assert!(validator.contains("pattern_target_matches"));
     assert!(validator.contains("generated_npc_presence_version"));
     assert!(validator.contains("developer_npc_witness_candidate"));
-    assert!(validator.contains("target.sex.is_empty()"));
+    assert!(validator.contains("target.sex.is_none()"));
     assert!(validator.contains("npc_is_present"));
     assert!(validator.contains("capability.target_id != *cohort_id"));
     assert!(
@@ -299,48 +299,48 @@ fn pattern_route_support_requires_exact_observer_clue_knowledge() {
         case_id: "case".into(),
         evidence_id: "pattern-clue".into(),
         source_id: "search-attempt".into(),
-        learned_at: 50_000,
+        learned_at: StrategicMinute::new(50_000),
     };
     assert!(observer_pattern_route_has_live_corroborated_clue(
         7,
         "case",
         "pattern-clue",
-        50_000,
+        StrategicMinute::new(50_000),
         [learned.clone()],
     ));
     assert!(!observer_pattern_route_has_live_corroborated_clue(
         7,
         "case",
         "pattern-clue",
-        49_999,
+        StrategicMinute::new(49_999),
         [learned.clone()],
     ));
     assert!(!observer_pattern_route_has_live_corroborated_clue(
         7,
         "case",
         "pattern-clue",
-        50_000,
+        StrategicMinute::new(50_000),
         Vec::<InvestigationEvidenceKnowledge>::new(),
     ));
     assert!(!observer_pattern_route_has_live_corroborated_clue(
         8,
         "case",
         "pattern-clue",
-        50_000,
+        StrategicMinute::new(50_000),
         [learned.clone()],
     ));
     assert!(!observer_pattern_route_has_live_corroborated_clue(
         7,
         "other-case",
         "pattern-clue",
-        50_000,
+        StrategicMinute::new(50_000),
         [learned.clone()],
     ));
     assert!(!observer_pattern_route_has_live_corroborated_clue(
         7,
         "case",
         "other-clue",
-        50_000,
+        StrategicMinute::new(50_000),
         [learned],
     ));
 
@@ -402,7 +402,7 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
         },
     };
     let context = GenerationContext {
-        seed: 7,
+        seed: fabelgeist_determinism::Seed::from_u64(7),
         observer_entropy_hi: 11,
         observer_entropy_lo: 13,
         settlement_id: "lubeck".into(),
@@ -411,7 +411,7 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
             settlement_id: "lubeck".into(),
         },
         ordinal: 0,
-        now_minute: 50_000,
+        now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: Some(TemplateFamily::RecurringDepredation),
         witness_candidates: test_witnesses(),
@@ -435,7 +435,7 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
         case_id: manifest.public_case_id.clone(),
         provenance_kind: InvestigationProvenanceKind::Generated,
         generated_case_id: manifest.canonical_case_id.clone(),
-        method: action_method(generated.kind).into(),
+        method: generated.kind.stable_id().into(),
         version: 0,
         target_kind: generated.target_kind,
         target_id: generated.target_id.clone(),
@@ -456,8 +456,8 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
                 .unwrap_or(action::Terrain::Settlement)
         )
         .to_ascii_lowercase(),
-        seed: 1,
-        evidence_age_origin_minute: 0,
+        seed: fabelgeist_determinism::Seed::from_u64(1),
+        evidence_age_origin_minute: StrategicMinute::ZERO,
         uncertainty_bps: 0,
         safe_summary: generated.safe_summary.clone(),
         known_prerequisites,
@@ -718,7 +718,7 @@ fn capability_randomness_is_private_persisted_and_attempt_domain_separated() {
         .nth(1)
         .and_then(|tail| tail.split("let area_id =").next())
         .expect("generated capability issuer");
-    assert!(generated_issuer.contains("ctx.random::<u64>()"));
+    assert!(generated_issuer.contains("ctx.random::<fabelgeist_determinism::Seed>()"));
     let performer = source
         .split("pub(crate) fn perform_investigation_action_authorized")
         .nth(1)
@@ -794,7 +794,7 @@ fn exact_generated_testimony_requires_matching_private_site_authority() {
         quest_generation::{GenerationContext, SiteId, TemplateFamily, generate, test_witnesses},
     };
     let generated = generate(&GenerationContext {
-        seed: 7,
+        seed: fabelgeist_determinism::Seed::from_u64(7),
         observer_entropy_hi: 11,
         observer_entropy_lo: 13,
         settlement_id: "lubeck".into(),
@@ -803,7 +803,7 @@ fn exact_generated_testimony_requires_matching_private_site_authority() {
             settlement_id: "lubeck".into(),
         },
         ordinal: 0,
-        now_minute: 50_000,
+        now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: Some(TemplateFamily::RecurringDepredation),
         witness_candidates: test_witnesses(),

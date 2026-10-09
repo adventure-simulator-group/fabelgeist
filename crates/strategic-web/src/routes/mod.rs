@@ -1,7 +1,10 @@
 //! Route handlers
+mod coordinates;
+use coordinates::{wgs84_e7, wgs84_latitude_longitude_degrees};
 
 pub mod challenges;
 pub mod characters;
+mod clock;
 mod data;
 pub mod developer_quests;
 pub mod dialogue;
@@ -15,12 +18,24 @@ pub mod missions;
 pub mod parties;
 mod party_actions;
 pub mod quests;
+mod scene_assets;
+mod scene_equipment;
+mod settlement_properties;
+mod vicinity;
+use clock::current_time;
 pub mod settlements;
 pub(crate) mod travel;
 mod weapon_icons;
-
-use adventuresim_core::strategic_time::MINUTES_PER_DAY;
-use adventuresim_world_schema::coordinates::{Wgs84CoordinateE7, Wgs84CoordinateMicrodegrees};
+use crate::live::LiveState;
+use crate::session::{Session, SessionCodec};
+use crate::spacetimedb::{
+    BackendCaseSitePin, BackendCharacterCaseSiteLocation, CaseSiteId, CharacterAttributes,
+    CharacterLimbs, CharacterSkills, CharacterStrategicCondition, CharacterTime, CharacterView,
+    PartyActionRequestView, PartyJourney, PartyJourneyRouteView, PartyMember, PartyView,
+    SettlementView, SpacetimeClient, sql_string_literal,
+};
+use adventuresim_world_schema::calendar::StrategicMinute;
+use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use axum::{
     Router,
     extract::{Request, State},
@@ -31,17 +46,6 @@ use axum::{
 };
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-use std::time::{SystemTime, UNIX_EPOCH};
-
-use crate::live::LiveState;
-use crate::session::{Session, SessionCodec};
-use crate::spacetimedb::sql_string_literal;
-use crate::spacetimedb::{
-    BackendCaseSitePin, BackendCharacterCaseSiteLocation, CaseSiteId, CharacterAttributes,
-    CharacterLimbs, CharacterSkills, CharacterStrategicCondition, CharacterTime, CharacterView,
-    PartyActionRequestView, PartyJourney, PartyJourneyRouteView, PartyMember, PartyView,
-    SettlementView, SpacetimeClient, WorldClock,
-};
 
 /// Application state shared across routes
 #[derive(Clone)]
@@ -51,21 +55,6 @@ pub struct AppState {
     pub strategic_map: Option<std::sync::Arc<crate::strategic_map::StrategicMap>>,
     pub terrain: Option<std::sync::Arc<travel::TerrainPlanner>>,
     pub session_codec: std::sync::Arc<SessionCodec>,
-}
-
-fn wgs84_latitude_longitude_degrees(
-    latitude_e7: i32,
-    longitude_e7: i32,
-) -> Result<(f64, f64), &'static str> {
-    Wgs84CoordinateE7::new(latitude_e7, longitude_e7)
-        .map(Wgs84CoordinateE7::latitude_longitude_degrees)
-        .ok_or("persisted coordinate is outside WGS84 bounds")
-}
-
-fn wgs84_e7(latitude: f64, longitude: f64) -> Result<(i32, i32), &'static str> {
-    let coordinate = Wgs84CoordinateE7::from_longitude_latitude_degrees(longitude, latitude)
-        .ok_or("route coordinate is outside WGS84 bounds")?;
-    Ok((coordinate.latitude().get(), coordinate.longitude().get()))
 }
 
 pub(crate) use party_actions::PartyAction;
@@ -172,9 +161,9 @@ mod return_url_tests {
     fn return_urls_are_local_paths_with_optional_query_and_fragment() {
         assert_eq!(
             local_return_url(
-                "/locations/settlement/riverdale/map?destination=quest-1&target_surplus=1.5#plan"
+                "/locations/settlement/riverdale?destination=quest-1&target_surplus=1.5#plan"
             ),
-            Some("/locations/settlement/riverdale/map?destination=quest-1&target_surplus=1.5#plan")
+            Some("/locations/settlement/riverdale?destination=quest-1&target_surplus=1.5#plan")
         );
         assert_eq!(local_return_url("https://example.com/steal"), None);
         assert_eq!(local_return_url("//example.com/steal"), None);
@@ -493,7 +482,7 @@ fn terrain_mental_check(training_rank: f32, intelligence: f32, head_health: f32)
 async fn authoritative_party_departure_minute(
     state: &AppState,
     actor: &CharacterView,
-) -> Result<u64, String> {
+) -> Result<StrategicMinute, String> {
     let member_ids = if let Some(party_id) = actor.party_id.as_deref() {
         state
             .db
@@ -509,7 +498,7 @@ async fn authoritative_party_departure_minute(
     } else {
         vec![actor.id]
     };
-    let mut departure = 0;
+    let mut departure = StrategicMinute::ZERO;
     for id in member_ids {
         let living = data::character_as_observed(state, id, actor.id)
             .await
@@ -526,7 +515,7 @@ async fn authoritative_party_departure_minute(
             .await
             .map_err(|error| error.to_string())?
         {
-            departure = departure.max(time.minutes);
+            departure = departure.max(StrategicMinute::new(time.minutes.minutes));
         }
     }
     Ok(departure)
@@ -761,13 +750,13 @@ fn terrain_route_json(
     };
     let precipitation = match weather.precipitation {
         adventuresim_core::weather::Precipitation::Clear => {
-            adventuresim_stdb_client::JourneyPrecipitation::Clear
+            adventuresim_stdb_client::Precipitation::Clear
         }
         adventuresim_core::weather::Precipitation::Rain => {
-            adventuresim_stdb_client::JourneyPrecipitation::Rain
+            adventuresim_stdb_client::Precipitation::Rain
         }
         adventuresim_core::weather::Precipitation::Snow => {
-            adventuresim_stdb_client::JourneyPrecipitation::Snow
+            adventuresim_stdb_client::Precipitation::Snow
         }
     };
     let precipitation = serde_json::to_value(spacetimedb_sats::serde::SerdeWrapper::from_ref(
@@ -822,7 +811,7 @@ mod terrain_route_payload_tests {
             None,
             adventuresim_core::weather::weather_at(
                 adventuresim_core::weather::WORLD_WEATHER_SEED,
-                0,
+                adventuresim_world_schema::calendar::StrategicMinute::new(0),
                 53_000_000,
                 10_000_000,
                 0,
@@ -866,7 +855,9 @@ mod readiness_tests {
             walking_minutes_per_day: 480,
             travel_at_night: false,
             journey_start_minute_of_day: 0,
-            wilderness_canonical_anchor_minute: case_site_id.is_some().then_some(0),
+            wilderness_canonical_anchor_minute: case_site_id
+                .is_some()
+                .then_some(adventuresim_world_schema::calendar::StrategicMinute::ZERO),
             wilderness_elapsed_minutes: 0,
             camp_destination: None,
             camp_remaining_minutes: 0,
@@ -974,6 +965,8 @@ pub fn build_router(state: AppState) -> Router {
                 .merge(quests::routes())
                 .merge(missions::routes())
                 .merge(weapon_icons::routes())
+                .merge(scene_equipment::routes())
+                .merge(scene_assets::routes())
                 .merge(crate::live::routes())
                 .route("/time", get(current_time))
                 .layer(middleware::from_fn(require_same_origin_mutation))
@@ -983,103 +976,6 @@ pub fn build_router(state: AppState) -> Router {
                 )),
         )
         .with_state(state)
-}
-
-#[derive(Serialize)]
-struct CurrentTime {
-    character_minutes: u64,
-    official_minutes: u64,
-}
-
-async fn current_time(State(state): State<AppState>, session: Session) -> Response {
-    let Some(character_id) = session.character_id_u64() else {
-        return Json(CurrentTime {
-            character_minutes: 0,
-            official_minutes: 0,
-        })
-        .into_response();
-    };
-    let character_time_sql = crate::spacetimedb::character_time_by_character_id(character_id);
-    let world_clock_sql = crate::spacetimedb::world_clock_singleton();
-    let (character_time, world_clock) = tokio::join!(
-        state.db.query_sats::<CharacterTime>(&character_time_sql),
-        state.db.query_sats::<WorldClock>(&world_clock_sql),
-    );
-    let _character_time = match character_time {
-        Ok(value) => value,
-        Err(error) => {
-            tracing::error!(%error, "failed to load character time");
-            return (
-                axum::http::StatusCode::SERVICE_UNAVAILABLE,
-                "Strategic time is unavailable",
-            )
-                .into_response();
-        }
-    };
-    let world_clock = match world_clock {
-        Ok(value) => value,
-        Err(error) => {
-            tracing::error!(%error, "failed to load world clock");
-            return (
-                axum::http::StatusCode::SERVICE_UNAVAILABLE,
-                "Strategic time is unavailable",
-            )
-                .into_response();
-        }
-    };
-    let official_minutes = world_clock.first().map_or(0, |clock| {
-        let now_micros = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .unwrap_or_default()
-            .as_micros();
-        adventuresim_core::strategic_time::official_minutes(
-            clock.epoch_micros,
-            i64::try_from(now_micros).unwrap_or(i64::MAX),
-        )
-    });
-    let active_character = state
-        .db
-        .query_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-            &crate::spacetimedb::character_by_id(character_id),
-        )
-        .await
-        .unwrap_or_default()
-        .into_iter()
-        .next();
-    let display_minutes = if let Some(character) = active_character.as_ref() {
-        if character.current_settlement_id.is_some() {
-            official_minutes
-        } else if let Some(party_id) = character.party_id.as_deref() {
-            state
-                .db
-                .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(
-                    &crate::spacetimedb::party_by_id(party_id),
-                )
-                .await
-                .unwrap_or_default()
-                .into_iter()
-                .next()
-                .and_then(|party| {
-                    party.wilderness_canonical_anchor_minute.map(|anchor| {
-                        let frozen_day = anchor / MINUTES_PER_DAY * MINUTES_PER_DAY;
-                        let minute_of_day = (u64::from(party.journey_start_minute_of_day)
-                            + party.wilderness_elapsed_minutes)
-                            % MINUTES_PER_DAY;
-                        frozen_day + minute_of_day
-                    })
-                })
-                .unwrap_or(official_minutes)
-        } else {
-            official_minutes
-        }
-    } else {
-        official_minutes
-    };
-    Json(CurrentTime {
-        character_minutes: display_minutes,
-        official_minutes,
-    })
-    .into_response()
 }
 
 /// Strategic screens have no anonymous mode. Character creation and selection
@@ -1192,7 +1088,7 @@ mod onboarding_route_tests {
     ) -> Request {
         let mut builder = Request::builder()
             .method(Method::POST)
-            .uri("/settlements/lubeck/residences/rent/cheap");
+            .uri("/locations/settlement/lubeck/places/residences/rent/cheap");
         if let Some(origin) = origin {
             builder = builder.header(header::ORIGIN, origin);
         }

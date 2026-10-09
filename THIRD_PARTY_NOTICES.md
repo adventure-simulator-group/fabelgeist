@@ -1,5 +1,27 @@
 # Third-party notices
 
+## bevy_ahoy character controller
+
+`vendor/bevy_ahoy/` retains Jan Hohenheim's bevy_ahoy 0.2.0 source under
+MIT OR Apache-2.0. Both licenses accompany the source. The local corrections
+change the speculative stair-support query using the existing contact skin and
+compute platform point motion without artificial drift on static terrain.
+They preserve character travel limits and authored movement parameters.
+
+See [source provenance and patch contract](vendor/bevy_ahoy/UPSTREAM.md).
+
+## microlp bounded city packing solver
+
+The shared city compiler uses the pinned `microlp` 0.6.0 Cargo dependency for
+continuous linear feasibility within one existing street block. The dependency
+is by Alexey Zatelepin and Specy, under Apache-2.0; it is not vendored or modified.
+Physical geometry and access validation remain Fabelgeist contracts.
+
+- Source: <https://github.com/Specy/microlp/>
+- Published version: <https://crates.io/crates/microlp/0.6.0>
+- Source revision: `22f625e4112967946e9dcd2bc87378424b2d265e`
+- License: <https://github.com/Specy/microlp/blob/22f625e4112967946e9dcd2bc87378424b2d265e/LICENSE>
+
 ## Art demo museum photographs
 
 `assets/art-demo/references/` contains CC0 photographs from the Metropolitan
@@ -8,45 +30,16 @@ Museum of Art. Each image's museum and object record are recorded in
 See [museum photograph attribution](assets/art-demo/ATTRIBUTION.md) for the
 object list and source licensing policies.
 
-## Heraldic lion artwork
+## Heraldic source artwork
 
-`crates/adventuresim-heraldry/references/German_Lion_1530.svg` is *Lion Rampant
-Or (16th century German)* by Tom Lemmens (Tom-L, 2013), after Rinaldum (2009),
-licensed under Creative Commons Attribution-ShareAlike 3.0 Unported. It is a
-modern redraw based on BSB Cod.icon. 391, southern Germany, c. 1530. The
-vendored SVG is unmodified. Fabelgeist contributors adapt anatomy, tinctures,
-painted tones, line widths, tails and heraldic composition. Adapted
-lion artwork remains under CC BY-SA 3.0; this does not relicense the software.
+`assets/heraldry/` retains unmodified Wikimedia Commons SVGs of a German lion
+and two Wernigerode-style eagles. The lion is by Tom Lemmens (Tom-L), after
+Rinaldum; the eagles are by Tom Lemmens (Tom-L) and Heralder. All are used under
+[Creative Commons Attribution-ShareAlike 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/).
 
-- Source and contributor history:
-  <https://commons.wikimedia.org/wiki/File:Lion_Rampant_Or_(16th_century_German).svg>
-- Rinaldum's original:
-  <https://commons.wikimedia.org/wiki/File:H%C3%A9raldique_meuble_lion_rampant_02.svg>
-- License: <https://creativecommons.org/licenses/by-sa/3.0/>
-- [Asset details, construction and modifications](crates/adventuresim-heraldry/references/ATTRIBUTION.md)
-- SHA-256:
-  `206a2186210fd5957c6dd9749dd6d0ffedcb82ebff7eb5eee126d26b5a2ca672`
-
-## Heraldic eagle artwork
-
-`crates/adventuresim-heraldry/references/eagles/` includes *Arms of the King of
-the Romans (c.1433-1486)* and *Arms of the Holy Roman Emperor
-(c.1433-c.1450)* by Tom Lemmens (Tom-L) and Heralder, under
-[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The originals
-are retained unchanged. Adapted artwork remains under that license.
-
-- [Single eagle source](https://commons.wikimedia.org/wiki/File:Arms_of_the_King_of_the_Romans_(c.1433-1486).svg)
-- [Double eagle source](https://commons.wikimedia.org/wiki/File:Arms_of_the_Holy_Roman_Emperor_(c.1433-c.1450).svg)
-- [Historical provenance, hashes and construction](crates/adventuresim-heraldry/references/EAGLES.md)
-- [Single eagle credit and modifications](crates/adventuresim-heraldry/references/eagles/single.credit.txt)
-- [Double eagle credit and modifications](crates/adventuresim-heraldry/references/eagles/double.credit.txt)
-
-Fabelgeist contributors remove the source shields, identify tongue paths,
-recolor, separate painted tones, alter line widths and asymmetry, reflect,
-compose and render the artwork on physical materials. The double eagle is
-based on the Wernigerode armorial, c. 1475–1500; its modern halos differ from
-the manuscript's head crowns. The single is a modern adaptation in that style.
-Credits and license notices accompany derived exports.
+[Source artwork attribution](assets/heraldry/ATTRIBUTION.md) records each title,
+source page, creator, historical model, limitations and file hash. No pigment
+datasets or paint-model adaptations accompany these original drawings.
 
 ## Bevy PBR shader
 
@@ -158,7 +151,8 @@ Iconify metadata does not preserve per-glyph authorship or CC0 status.
 
 Vendored icon names:
 
-acrobatic, ancient-sword, anvil, arm, arm-bandage, armor-cuisses, armor-vest,
+acrobatic, anatomical-head, ancient-sword, anvil, arm, arm-bandage, armor-cuisses,
+armor-vest,
 awareness, bandage-roll, barbute, bed, beer-stein, belt-armor, biceps,
 bleeding-eye, bleeding-wound, bo, bordered-shield, bow-arrow, bowie-knife,
 bracer, brain, bread, breastplate, broad-dagger, broadsword, brodie-helmet,
@@ -170,7 +164,8 @@ gothic-cross, greaves, halberd, hammer-nails, hammer-sickle, heart-beats,
 heart-minus, heavy-helm, helmet, help, holy-symbol, hood, house, human-ear,
 inner-self, juggler, knapsack, layered-armor, leg, light-helm, lockpicks,
 mailed-fist, mail-shirt, meal, medical-pack, metal-skirt, mounted-knight,
-musket, night-sleep, open-book, open-chest, person, piercing-sword, plain-arrow,
+muscular-torso, musket, night-sleep, open-book, open-chest, person,
+piercing-sword, plain-arrow,
 plain-dagger, pocket-bow, prayer, pteruges, relic-blade, rifle, roman-shield,
 rose, round-shield, running-ninja, saber-slash, samara-mosque, scales, scalpel,
 shield, shield-echoes, shirt, shop, skirt, sleeveless-jacket, spear-hook,
@@ -180,7 +175,8 @@ torch, treasure-map, trousers, two-handed-sword, visored-helm, warhammer,
 water-bottle, water-drop, waterskin, weight, wingfoot, wood-axe, wood-club.
 
 The files in `crates/strategic-web/static/icons/game/` were converted from
-Iconify JSON bodies into standalone SVGs without altering the artwork. CSS
+Iconify JSON bodies into standalone SVGs. The anatomical-head variant removes the targeting
+reticle from Game Icons headshot; other artwork is unchanged. CSS
 masks supply colour at runtime.
 
 ## Font Awesome Free
@@ -222,6 +218,19 @@ classification derived from HYDE 3.5 c9 historical cropland-area data. See the
 HYDE source contract in `scripts/world_source_init.py`,
 `MAP_DATA_LICENSE.md`, and the generated source release metadata for provenance
 and applicable terms.
+
+## Strategic web fonts
+
+The strategic website loads Cinzel by Natanael Gama, EB Garamond by the
+EB Garamond project authors, and UnifrakturCook through Google Fonts. These
+fonts are distributed under the SIL Open Font License 1.1. Font files are
+served by Google Fonts rather than bundled with the strategic website.
+
+Source, copyright, and license notices:
+
+- [Cinzel](https://github.com/google/fonts/tree/main/ofl/cinzel)
+- [EB Garamond](https://github.com/google/fonts/tree/main/ofl/ebgaramond)
+- [UnifrakturCook](https://github.com/google/fonts/tree/main/ofl/unifrakturcook)
 
 ## Shop sign fonts
 

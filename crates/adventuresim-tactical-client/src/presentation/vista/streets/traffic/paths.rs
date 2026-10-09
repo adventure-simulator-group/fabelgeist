@@ -21,6 +21,7 @@ pub(in super::super) struct TrafficNetwork {
     pub(super) strokes: Vec<WheelStroke>,
     pub(super) tiles: BTreeMap<TrafficTile, Vec<usize>>,
     road_tiles: BTreeMap<TrafficTile, Vec<usize>>,
+    market_tiles: BTreeMap<TrafficTile, Vec<usize>>,
 }
 
 #[derive(Clone, Copy)]
@@ -58,11 +59,7 @@ impl TrafficNetwork {
                     roads
                         .entry((node_key(start_metres), node_key(end_metres)))
                         .and_modify(|road| road.half_width = road.half_width.max(half_width_metres))
-                        .or_insert(Road {
-                            start: start_metres,
-                            end: end_metres,
-                            half_width: half_width_metres,
-                        });
+                        .or_insert_with(|| Road::new(start_metres, end_metres, half_width_metres));
                 }
                 CityStreetPatch::Market { corners_metres, .. } => markets.push(corners_metres),
             }
@@ -73,6 +70,7 @@ impl TrafficNetwork {
             strokes: Vec::new(),
             tiles: BTreeMap::new(),
             road_tiles: BTreeMap::new(),
+            market_tiles: BTreeMap::new(),
         };
         for (index, road) in network.roads.iter().enumerate() {
             let padding = Vec2::splat(road.half_width);
@@ -81,6 +79,15 @@ impl TrafficNetwork {
                 road.start.max(road.end) + padding,
             ) {
                 network.road_tiles.entry(tile).or_default().push(index);
+            }
+        }
+        for (index, corners) in network.markets.iter().enumerate() {
+            let (min, max) = super::super::partition::bounds(*corners);
+            for tile in TrafficTile::covering(
+                min - Vec2::splat(GEOMETRY_EPSILON),
+                max + Vec2::splat(GEOMETRY_EPSILON),
+            ) {
+                network.market_tiles.entry(tile).or_default().push(index);
             }
         }
         for index in 0..network.roads.len() {
@@ -288,9 +295,11 @@ impl TrafficNetwork {
             .flatten()
             .map(|&index| self.roads[index].clearance(point))
             .chain(
-                self.markets
-                    .iter()
-                    .map(|&corners| quad_clearance(corners, point)),
+                self.market_tiles
+                    .get(&TrafficTile::at(point))
+                    .into_iter()
+                    .flatten()
+                    .map(|&index| quad_clearance(self.markets[index], point)),
             )
             .fold(f32::NEG_INFINITY, f32::max)
     }

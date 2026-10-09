@@ -1,5 +1,6 @@
 //! Pure food-lot, spoilage, meal, and cooking rules.
 
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
 pub const MAX_MEAL_FULLNESS_KCAL: f32 = 3_000.0;
@@ -191,13 +192,6 @@ pub enum FoodPreparation {
     Baked,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
-pub enum IngredientPreparationAction {
-    Cut,
-    Grind,
-}
-
 /// Flavor potency in mass-equivalent kilograms. A value of 0.1 means enough
 /// of that flavor to season 0.1 kg of food at the shared objective target.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Serialize, Deserialize)]
@@ -316,15 +310,10 @@ pub fn definition(id: &str) -> Option<&'static FoodDefinition> {
     FOOD_CATALOG.iter().find(|food| food.id == id)
 }
 
-const INITIAL_CONTAMINATION_SEED_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-const INITIAL_CONTAMINATION_DOMAIN: u64 = 0xd1b5_4a32_d192_ed03;
-
-pub fn deterministic_initial_contamination(seed: u64) -> f32 {
-    let mixed = seed
-        .wrapping_mul(INITIAL_CONTAMINATION_SEED_STRIDE)
-        .rotate_left(27)
-        ^ INITIAL_CONTAMINATION_DOMAIN;
-    let unit = (mixed >> 11) as f64 / ((1_u64 << 53) as f64);
+pub fn deterministic_initial_contamination(seed: Seed) -> f32 {
+    let unit = fabelgeist_determinism::StreamId::new("food.initial-contamination")
+        .rng(seed, &[])
+        .unit_f64();
     let log_min = (MIN_INITIAL_CONTAMINATION as f64).ln();
     let log_max = (MAX_INITIAL_CONTAMINATION as f64).ln();
     (log_min + unit * (log_max - log_min)).exp() as f32
@@ -570,7 +559,7 @@ mod tests {
     use super::*;
     #[test]
     fn starting_load_is_deterministic_log_bounded() {
-        for seed in 0..10_000 {
+        for seed in (0..10_000).map(fabelgeist_determinism::Seed::from_u64) {
             let x = deterministic_initial_contamination(seed);
             assert!((MIN_INITIAL_CONTAMINATION..=MAX_INITIAL_CONTAMINATION).contains(&x));
             assert_eq!(x, deterministic_initial_contamination(seed));

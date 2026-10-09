@@ -2,7 +2,7 @@
 //!
 //! Capacities are gameplay catchments, not historical attendance or occupancy.
 use crate::SettlementEconomyProfile;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::{Seed, StreamId};
 
 mod catalog;
 mod parish;
@@ -13,8 +13,39 @@ pub use parish::{
 };
 use serde::{Deserialize, Serialize};
 
-const CAPACITY_DOMAIN: u64 = 0x6361_7061_6369_7479;
+const CAPACITY_DOMAIN: StreamId = StreamId::new("settlement.building-capacity");
 pub const MAX_SERVICE_BUILDINGS: usize = 4_096;
+
+/// Settlement-local coordinate of one economic service establishment.
+///
+/// This value is safe inside a settlement generation pass. Persisted and
+/// transported state must use [`BusinessId`], which supplies the settlement
+/// scope explicitly.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Serialize, Deserialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+pub struct BusinessKey {
+    pub usage: BuildingUse,
+    pub ordinal: u32,
+}
+
+/// Globally scoped identity of one generated economic service establishment.
+#[derive(Clone, Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Serialize, Deserialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+pub struct BusinessId {
+    pub settlement_id: String,
+    pub key: BusinessKey,
+}
+
+impl BusinessId {
+    pub fn new(settlement_id: impl Into<String>, key: BusinessKey) -> Self {
+        Self {
+            settlement_id: settlement_id.into(),
+            key,
+        }
+    }
+}
 
 /// Approximate people served, distinct from residents housed.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
@@ -35,9 +66,15 @@ impl CapacityRange {
         }
     }
 
-    fn sample(self, seed: u64) -> ServiceCapacity {
+    fn sample(self, seed: Seed) -> ServiceCapacity {
         let width = u64::from(self.maximum.0) - u64::from(self.minimum.0) + 1;
-        ServiceCapacity(self.minimum.0 + (mix64(seed) % width) as u32)
+        ServiceCapacity(
+            self.minimum.0
+                + seed
+                    .rng()
+                    .below(std::num::NonZeroU64::new(width).expect("nonempty capacity range"))
+                    as u32,
+        )
     }
 }
 
@@ -83,6 +120,13 @@ pub enum BuildingDemand {
 }
 
 impl BuildingDemand {
+    pub const fn business_key(self) -> Option<BusinessKey> {
+        match self {
+            Self::Service { usage, ordinal, .. } => Some(BusinessKey { usage, ordinal }),
+            Self::Civic(_) | Self::Parish { .. } => None,
+        }
+    }
+
     pub const fn usage(self) -> BuildingUse {
         match self {
             Self::Service { usage, .. } => usage,
@@ -119,7 +163,7 @@ pub struct SettlementBuildingDemand {
 }
 
 impl SettlementBuildingDemand {
-    pub fn new(seed: u64, population: u32, economy: &SettlementEconomyProfile) -> Self {
+    pub fn new(seed: Seed, population: u32, economy: &SettlementEconomyProfile) -> Self {
         Self::with_parish_policy(
             seed,
             population,
@@ -129,7 +173,7 @@ impl SettlementBuildingDemand {
     }
 
     pub fn with_parish_policy(
-        seed: u64,
+        seed: Seed,
         population: u32,
         economy: &SettlementEconomyProfile,
         policy: AuthoredParishPolicy,
@@ -170,9 +214,8 @@ impl SettlementBuildingDemand {
                     });
                     break;
                 }
-                let capacity = range.sample(
-                    seed ^ CAPACITY_DOMAIN ^ (usage as u64).rotate_left(23) ^ u64::from(ordinal),
-                );
+                let capacity =
+                    range.sample(CAPACITY_DOMAIN.seed(seed, &[usage as u64, u64::from(ordinal)]));
                 plan.buildings.push(BuildingDemand::Service {
                     usage,
                     ordinal,

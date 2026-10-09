@@ -17,7 +17,7 @@ html {
 body {
   min-height: 100vh;
   line-height: 1.6;
-  font-family: var(--font-body), serif;
+  font-family: var(--font-body);
   font-size: var(--font-size-base);
   color: var(--text-primary);
   background: var(--bg-primary);
@@ -25,17 +25,10 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display), serif;
+  font-family: var(--font-heading);
   line-height: 1.2;
   font-weight: 700;
   color: var(--text-primary);
-}
-
-/* Dense headings keep blackletter character without the deliberately ornate
-   display face used for stable landmarks and major page titles. */
-h3, h4, h5, h6,
-button, input, select, textarea {
-  font-family: var(--font-heading), serif;
 }
 
 h1 { font-size: var(--font-size-3xl); }
@@ -67,6 +60,21 @@ button, input, select, textarea {
   border: none;
   background: none;
 }
+
+/* Assign roles after the form reset so font: inherit cannot erase them. */
+button, label, th, dt, nav a, [role="tab"] {
+  font-family: var(--font-heading);
+}
+
+input, select, textarea, p, blockquote, [role="tooltip"] {
+  font-family: var(--font-body);
+}
+
+input:is([type="button"], [type="submit"], [type="reset"]) {
+  font-family: var(--font-heading);
+}
+
+code, pre, kbd, samp { font-family: var(--font-mono); }
 
 button { cursor: pointer; }
 

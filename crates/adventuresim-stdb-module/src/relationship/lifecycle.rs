@@ -2,12 +2,12 @@
 #[derive(Clone, Debug, PartialEq, Eq)]
 enum DueLifecycleEvent {
     Wedding {
-        effective_minute: u64,
+        effective_minute: StrategicMinute,
         id: String,
         participant_id: u64,
     },
     Birth {
-        effective_minute: u64,
+        effective_minute: StrategicMinute,
         id: String,
         mother_id: u64,
     },
@@ -16,7 +16,7 @@ enum DueLifecycleEvent {
 impl DueLifecycleEvent {
     /// Weddings precede births at the same minute. This precedence is part of
     /// the persistence contract, not an accident of table traversal order.
-    fn stable_key(&self) -> (u64, u8, &str) {
+    fn stable_key(&self) -> (StrategicMinute, u8, &str) {
         match self {
             Self::Wedding {
                 effective_minute,
@@ -65,7 +65,8 @@ impl DueLifecycleEvent {
                 effective_minute,
                 mother_id,
                 ..
-            } => canonical_now(ctx, *mother_id).is_ok_and(|frontier| frontier >= *effective_minute),
+            } => canonical_now(ctx, *mother_id)
+                .is_ok_and(|frontier| frontier >= *effective_minute),
         }
     }
 }
@@ -74,8 +75,8 @@ fn record_lifecycle_failure(
     ctx: &ReducerContext,
     event_kind: LifecycleEventKind,
     event_id: &str,
-    effective_minute: u64,
-    recorded_minute: u64,
+    effective_minute: StrategicMinute,
+    recorded_minute: StrategicMinute,
     error: String,
 ) {
     let id = format!(
@@ -96,7 +97,11 @@ fn record_lifecycle_failure(
     }
 }
 
-fn quarantine_invalid_birth(ctx: &ReducerContext, pregnancy_id: &str, effective_minute: u64) {
+fn quarantine_invalid_birth(
+    ctx: &ReducerContext,
+    pregnancy_id: &str,
+    effective_minute: StrategicMinute,
+) {
     let Some(mut pregnancy) = ctx.db.pregnancy().id().find(pregnancy_id.to_owned()) else {
         return;
     };

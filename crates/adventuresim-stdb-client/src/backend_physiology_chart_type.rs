@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::backend_physiology_differential_type::BackendPhysiologyDifferential;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -12,7 +13,7 @@ pub struct BackendPhysiologyChart {
     pub id: String,
     pub observer_id: u64,
     pub patient_id: u64,
-    pub observed_at: u64,
+    pub observed_at: StrategicMinute,
     pub physiology_band: u8,
     pub observation_minutes: u64,
     pub sanguine_bps: Vec<i16>,
@@ -22,8 +23,8 @@ pub struct BackendPhysiologyChart {
     pub possible_diseases: Vec<BackendPhysiologyDifferential>,
     pub known_interventions: Vec<String>,
     pub confidence_bps: u16,
-    pub gap_from: Option<u64>,
-    pub gap_to: Option<u64>,
+    pub gap_from: Option<StrategicMinute>,
+    pub gap_to: Option<StrategicMinute>,
 }
 
 impl __sdk::InModule for BackendPhysiologyChart {
@@ -37,7 +38,7 @@ pub struct BackendPhysiologyChartCols {
     pub id: __sdk::__query_builder::Col<BackendPhysiologyChart, String>,
     pub observer_id: __sdk::__query_builder::Col<BackendPhysiologyChart, u64>,
     pub patient_id: __sdk::__query_builder::Col<BackendPhysiologyChart, u64>,
-    pub observed_at: __sdk::__query_builder::Col<BackendPhysiologyChart, u64>,
+    pub observed_at: __sdk::__query_builder::Col<BackendPhysiologyChart, StrategicMinute>,
     pub physiology_band: __sdk::__query_builder::Col<BackendPhysiologyChart, u8>,
     pub observation_minutes: __sdk::__query_builder::Col<BackendPhysiologyChart, u64>,
     pub sanguine_bps: __sdk::__query_builder::Col<BackendPhysiologyChart, Vec<i16>>,
@@ -48,8 +49,8 @@ pub struct BackendPhysiologyChartCols {
         __sdk::__query_builder::Col<BackendPhysiologyChart, Vec<BackendPhysiologyDifferential>>,
     pub known_interventions: __sdk::__query_builder::Col<BackendPhysiologyChart, Vec<String>>,
     pub confidence_bps: __sdk::__query_builder::Col<BackendPhysiologyChart, u16>,
-    pub gap_from: __sdk::__query_builder::Col<BackendPhysiologyChart, Option<u64>>,
-    pub gap_to: __sdk::__query_builder::Col<BackendPhysiologyChart, Option<u64>>,
+    pub gap_from: __sdk::__query_builder::Col<BackendPhysiologyChart, Option<StrategicMinute>>,
+    pub gap_to: __sdk::__query_builder::Col<BackendPhysiologyChart, Option<StrategicMinute>>,
 }
 
 impl __sdk::__query_builder::HasCols for BackendPhysiologyChart {

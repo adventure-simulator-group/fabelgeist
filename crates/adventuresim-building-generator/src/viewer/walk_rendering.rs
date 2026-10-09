@@ -1,4 +1,10 @@
-fn spawn_stair(world: &mut World, palette: &RenderPalette, stair: Stair, origin: Vec2, storey_height: f32) {
+fn spawn_stair(
+    world: &mut World,
+    palette: &RenderPalette,
+    stair: Stair,
+    origin: Vec2,
+    storey_height: f32,
+) {
     match stair {
         Stair::Straight {
             start,
@@ -58,17 +64,25 @@ fn spawn_stair(world: &mut World, palette: &RenderPalette, stair: Stair, origin:
             }
         }
         Stair::Spiral { .. } => {
-            let flight = adventuresim_building_generator::spiral_stairs::compile_flight(stair, storey_height)
-                .expect("spiral descriptor compiles a flight");
+            let flight = adventuresim_building_generator::spiral_stairs::compile_flight(
+                stair,
+                storey_height,
+            )
+            .expect("spiral descriptor compiles a flight");
             for member in flight.members {
                 let name = match member.role {
                     SolidRole::StairNewel => "spiral stair newel",
                     SolidRole::Landing => "spiral stair landing",
                     _ => "spiral stair tread",
                 };
-                spawn_box(world, &palette.stair, member.size,
+                spawn_box(
+                    world,
+                    &palette.stair,
+                    member.size,
                     member.centre + Vec3::new(origin.x, 0.0, origin.y),
-                    Quat::from_rotation_y(member.yaw_radians), name);
+                    Quat::from_rotation_y(member.yaw_radians),
+                    name,
+                );
             }
         }
     }

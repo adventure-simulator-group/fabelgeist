@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::household_role_type::HouseholdRole;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -12,7 +13,7 @@ pub struct HouseholdMember {
     pub id: String,
     pub household_id: String,
     pub character_id: u64,
-    pub joined_minute: u64,
+    pub joined_minute: StrategicMinute,
     pub role: HouseholdRole,
 }
 
@@ -27,7 +28,7 @@ pub struct HouseholdMemberCols {
     pub id: __sdk::__query_builder::Col<HouseholdMember, String>,
     pub household_id: __sdk::__query_builder::Col<HouseholdMember, String>,
     pub character_id: __sdk::__query_builder::Col<HouseholdMember, u64>,
-    pub joined_minute: __sdk::__query_builder::Col<HouseholdMember, u64>,
+    pub joined_minute: __sdk::__query_builder::Col<HouseholdMember, StrategicMinute>,
     pub role: __sdk::__query_builder::Col<HouseholdMember, HouseholdRole>,
 }
 

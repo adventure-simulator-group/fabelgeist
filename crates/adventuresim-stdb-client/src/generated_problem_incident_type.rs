@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct GeneratedProblemIncident {
@@ -11,7 +13,7 @@ pub struct GeneratedProblemIncident {
     pub case_id: String,
     pub problem_id: String,
     pub ordinal: u16,
-    pub occurred_at: u64,
+    pub occurred_at: StrategicMinute,
     pub event_id: String,
     pub proposition_id: String,
     pub witness_resident_character_id: u64,
@@ -36,7 +38,7 @@ pub struct GeneratedProblemIncidentCols {
     pub case_id: __sdk::__query_builder::Col<GeneratedProblemIncident, String>,
     pub problem_id: __sdk::__query_builder::Col<GeneratedProblemIncident, String>,
     pub ordinal: __sdk::__query_builder::Col<GeneratedProblemIncident, u16>,
-    pub occurred_at: __sdk::__query_builder::Col<GeneratedProblemIncident, u64>,
+    pub occurred_at: __sdk::__query_builder::Col<GeneratedProblemIncident, StrategicMinute>,
     pub event_id: __sdk::__query_builder::Col<GeneratedProblemIncident, String>,
     pub proposition_id: __sdk::__query_builder::Col<GeneratedProblemIncident, String>,
     pub witness_resident_character_id: __sdk::__query_builder::Col<GeneratedProblemIncident, u64>,

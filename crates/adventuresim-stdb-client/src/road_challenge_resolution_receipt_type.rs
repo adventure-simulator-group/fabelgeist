@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::chivalric_virtue_type::ChivalricVirtue;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -21,7 +22,7 @@ pub struct RoadChallengeResolutionReceipt {
     pub catalog_digest: String,
     pub result_transcript: String,
     pub effects_json: String,
-    pub resolved_at_minute: u64,
+    pub resolved_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for RoadChallengeResolutionReceipt {
@@ -45,7 +46,8 @@ pub struct RoadChallengeResolutionReceiptCols {
     pub catalog_digest: __sdk::__query_builder::Col<RoadChallengeResolutionReceipt, String>,
     pub result_transcript: __sdk::__query_builder::Col<RoadChallengeResolutionReceipt, String>,
     pub effects_json: __sdk::__query_builder::Col<RoadChallengeResolutionReceipt, String>,
-    pub resolved_at_minute: __sdk::__query_builder::Col<RoadChallengeResolutionReceipt, u64>,
+    pub resolved_at_minute:
+        __sdk::__query_builder::Col<RoadChallengeResolutionReceipt, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for RoadChallengeResolutionReceipt {

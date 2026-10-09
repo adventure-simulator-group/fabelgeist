@@ -8,12 +8,16 @@ use crate::autoresolve::{
     BattleLogEntry, BattleOpening, BattleOutcome, Combatant, CombatantOutcome, resolve_battle,
 };
 use crate::prelude::BodyPart;
-use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, calendar::StrategicMinute};
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
 pub const SCENE_MINUTES: u64 = 90;
 pub const LOCAL_CUSTODY_MINUTES: u64 = 24 * 60;
 pub const MAX_BODY_INJURIES: usize = 32;
+
+const DEATH_REQUIRED_ATTEMPT: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("autopsy.death-required-attempt");
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum CorpseLocation {
@@ -63,8 +67,8 @@ pub struct SystemicPathologySnapshot {
 }
 
 pub fn corpse_location(
-    discovered_minute: u64,
-    now_minute: u64,
+    discovered_minute: StrategicMinute,
+    now_minute: StrategicMinute,
     buried: bool,
     exhumed: bool,
 ) -> CorpseLocation {
@@ -74,7 +78,7 @@ pub fn corpse_location(
     if buried {
         return CorpseLocation::Interred;
     }
-    match now_minute.saturating_sub(discovered_minute) {
+    match now_minute.elapsed_since(discovered_minute) {
         0..SCENE_MINUTES => CorpseLocation::Scene,
         SCENE_MINUTES..LOCAL_CUSTODY_MINUTES => CorpseLocation::LocalCustody,
         _ => CorpseLocation::Interred,
@@ -82,12 +86,12 @@ pub fn corpse_location(
 }
 
 pub fn decomposition_band(
-    death_minute: u64,
-    now_minute: u64,
+    death_minute: StrategicMinute,
+    now_minute: StrategicMinute,
     handling_damage_bps: u16,
 ) -> DecompositionBand {
     let effective_age = now_minute
-        .saturating_sub(death_minute)
+        .elapsed_since(death_minute)
         .saturating_add(u64::from(handling_damage_bps) * 2);
     match effective_age {
         0..720 => DecompositionBand::Fresh,
@@ -142,11 +146,11 @@ pub fn resolve_death_required_incident(
     allies: &[Combatant],
     enemies: &[Combatant],
     victim_enemy_id: u64,
-    base_seed: u64,
+    base_seed: Seed,
     max_attempts: u16,
 ) -> Option<BattleOutcome> {
     (0..max_attempts).find_map(|attempt| {
-        let seed = base_seed.wrapping_add(u64::from(attempt));
+        let seed = DEATH_REQUIRED_ATTEMPT.seed(base_seed, &[u64::from(attempt)]);
         let outcome = resolve_battle(
             allies.to_vec(),
             enemies.to_vec(),
@@ -391,31 +395,63 @@ pub fn bestiary_finding(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::autoresolve::{CombatBody, CombatProjectileKind};
+    use crate::{autoresolve::CombatBody, projectile::ProjectileKind};
 
     #[test]
     fn custody_is_dynamic_from_discovery_while_decomposition_uses_death() {
         assert_eq!(
-            corpse_location(100, 150, false, false),
+            corpse_location(
+                adventuresim_world_schema::calendar::StrategicMinute::new(100),
+                adventuresim_world_schema::calendar::StrategicMinute::new(150),
+                false,
+                false
+            ),
             CorpseLocation::Scene
         );
         assert_eq!(
-            corpse_location(100, 300, false, false),
+            corpse_location(
+                adventuresim_world_schema::calendar::StrategicMinute::new(100),
+                adventuresim_world_schema::calendar::StrategicMinute::new(300),
+                false,
+                false
+            ),
             CorpseLocation::LocalCustody
         );
         assert_eq!(
-            corpse_location(100, 2_000, false, false),
+            corpse_location(
+                adventuresim_world_schema::calendar::StrategicMinute::new(100),
+                adventuresim_world_schema::calendar::StrategicMinute::new(2_000),
+                false,
+                false
+            ),
             CorpseLocation::Interred
         );
         assert_eq!(
-            corpse_location(100, 150, true, false),
+            corpse_location(
+                adventuresim_world_schema::calendar::StrategicMinute::new(100),
+                adventuresim_world_schema::calendar::StrategicMinute::new(150),
+                true,
+                false
+            ),
             CorpseLocation::Interred
         );
         assert_eq!(
-            corpse_location(100, 2_000, true, true),
+            corpse_location(
+                adventuresim_world_schema::calendar::StrategicMinute::new(100),
+                adventuresim_world_schema::calendar::StrategicMinute::new(2_000),
+                true,
+                true
+            ),
             CorpseLocation::Exhumed
         );
-        assert_eq!(decomposition_band(0, 1_000, 0), DecompositionBand::Early);
+        assert_eq!(
+            decomposition_band(
+                adventuresim_world_schema::calendar::StrategicMinute::new(0),
+                adventuresim_world_schema::calendar::StrategicMinute::new(1_000),
+                0
+            ),
+            DecompositionBand::Early
+        );
     }
 
     #[test]
@@ -455,7 +491,7 @@ mod tests {
             health_damage: 0.3,
             cut_damage: 0.2,
             blunt_damage: 0.1,
-            projectile_kind: Some(CombatProjectileKind::Arrowhead),
+            projectile_kind: Some(ProjectileKind::Arrowhead),
             contact_stress: 42.0,
             armor_impact: None,
             melee_telemetry: None,

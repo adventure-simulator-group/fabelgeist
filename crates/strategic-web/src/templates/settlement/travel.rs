@@ -5,6 +5,7 @@ use adventuresim_core::{
     errantry::{FeyPresenterCatalogId, FeySpeechPart, fey_speech},
     strategic_time::{ItinerarySegment, ItinerarySegmentKind},
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use maud::{Markup, html};
 
 use super::{
@@ -15,11 +16,12 @@ use super::{
     rest::{SoapRestPreview, party_rest_menu},
     social::settlement_chat_area,
 };
+use crate::location_urls::patterns as paths;
 use crate::routes::travel::{TravelDestination, TravelProvisionForecast};
 use crate::spacetimedb::{
     BackendContract, BackendRoadChallenge, ChallengePresenterCatalogId, CharacterView,
-    JourneyEndpointExt, JourneyPrecipitation, JourneyTerrainKind, PartyJourney,
-    PartyJourneyRouteView, PartyView, SettlementView, StrategicEncounter, StrategicEncounterStatus,
+    JourneyEndpointExt, JourneyTerrainKind, PartyJourney, PartyJourneyRouteView, PartyView,
+    Precipitation, SettlementView, StrategicEncounter, StrategicEncounterStatus, calendar_minute,
 };
 use crate::templates::{
     camp_location_layout_with_session, decorative_game_icon, empty_state, game_icon,
@@ -50,9 +52,8 @@ pub fn settlement_map_page(
     logged_in_as: Option<&str>,
 ) -> Markup {
     let selected = selected_id.and_then(|id| destinations.iter().find(|entry| entry.id == id));
-    let selected_settlement =
-        selected_id.and_then(|id| settlements.iter().find(|entry| entry.id == id));
-    let base_path = format!("/locations/settlement/{}/map", settlement.id);
+    let selected_town = selected_id.and_then(|id| settlements.iter().find(|entry| entry.id == id));
+    let base_path = crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]);
     let connected_ids = destinations
         .iter()
         .filter(|destination| !destination.round_trip_destination)
@@ -106,8 +107,8 @@ pub fn settlement_map_page(
         }
         (map_destination_detail(
             selected,
-            selected_settlement,
-            selected_settlement.is_some_and(|destination| destination.id == settlement.id),
+            selected_town,
+            selected_town.is_some_and(|destination| destination.id == settlement.id),
             can_travel,
             provisioning_path,
             provision_forecast,
@@ -191,7 +192,7 @@ fn map_destination_list_with_context(
                         }
                         @for destination in destinations {
                             @let destination_tooltip = quest_destination_tooltip(destination);
-                            a href=(format!("{}?destination={}", base_path, destination.id))
+                            a href=(crate::location_urls::with_query(base_path, "destination", &destination.id))
                                 class=(if selected_id == Some(destination.id.as_str()) { "list-item travel-destination-row active" } else { "list-item travel-destination-row" })
                                 title=[destination_tooltip.as_deref()]
                                 data-travel-name=(&destination.name)
@@ -277,9 +278,9 @@ pub(crate) fn travel_preferences_form(party: &PartyView, action: &str) -> Markup
                 }
             }
             div class="travel-period-control" {
-                label for="journey-start-time" { "Journey begins at" }
-                input id="journey-start-time" type="time" name="journey_start_time"
-                    value=(departure_time) step="900" required
+                label for="journey-start-time" { "Departure (24-hour HH:MM)" }
+                input id="journey-start-time" type="text" name="journey_start_time"
+                    value=(departure_time) pattern="([01][0-9]|2[0-3]):[0-5][0-9]" maxlength="5" size="5" required
                     readonly[party.wilderness_canonical_anchor_minute.is_some()];
             }
         }
@@ -401,7 +402,7 @@ pub(crate) fn map_destination_detail(
                             " Your party is already here."
                         } @else {
                             strong { "No direct route." }
-                            " Travel is only available to settlements connected to the current location."
+                            " Choose a connected destination from the destination list."
                         }
                     }
                 }))
@@ -440,9 +441,7 @@ pub(crate) fn travel_planner_bar(
         None,
         None,
         provision_forecast,
-        selected
-            .map(|destination| destination.departure_minute)
-            .unwrap_or(0),
+        selected.map_or(StrategicMinute::ZERO, |d| d.departure_minute),
         selected
             .map(|destination| destination.itinerary_total_elapsed_minutes)
             .unwrap_or(selected_minutes),
@@ -477,7 +476,7 @@ pub(crate) fn travel_planner_bar_for(
     journey: Option<&PartyJourney>,
     journey_route: Option<&PartyJourneyRouteView>,
     provision_forecast: Option<&TravelProvisionForecast>,
-    preview_departure_minute: u64,
+    preview_departure_minute: StrategicMinute,
     preview_elapsed_minutes: u64,
     preview_segments: &str,
     terrain_spans: &str,
@@ -538,7 +537,7 @@ pub(crate) fn travel_planner_bar_for(
             data-journey-total-movement-minutes=(journey_total_movement_minutes)
             data-journey-turnaround-minutes=(journey_turnaround_minutes)
             data-journey-completed-movement-minutes=(journey_completed_movement_minutes)
-            data-departure-minute=(journey.map_or(preview_departure_minute, |item| item.departure_minute))
+            data-departure-minute=(journey.map_or(preview_departure_minute.get(), |item| item.departure_minute.minutes))
             data-total-elapsed-minutes=(journey.map_or(preview_elapsed_minutes, |item| item.total_elapsed_minutes))
             data-completed-elapsed-minutes=(journey.map_or(0, |item| item.completed_elapsed_minutes))
             data-itinerary-segments=(preview_segments)
@@ -817,9 +816,8 @@ fn camp_fire_is_lit(journey: Option<&PartyJourney>) -> bool {
     )
 }
 
-/// The transient strategic location between planned travel legs.
-fn camp_forage_href(has_active_character: bool) -> Option<&'static str> {
-    has_active_character.then_some("/camp?forage=true")
+fn camp_forage_href(has_active_character: bool) -> Option<String> {
+    has_active_character.then(|| format!("{}?forage=true", paths::CAMP.pattern()))
 }
 
 #[expect(
@@ -865,7 +863,7 @@ pub fn camp_page(
                 (sidebar_section("Destinations", html! {
                     nav class="location-destination-list camp-destination-list" aria-label="Available camp destinations" {
                         @for destination in camp_destinations {
-                            form action=(format!("/camp/destination/{}", destination.id)) method="post" {
+                            form action=(crate::location_urls::patterns::CHANGE_CAMP_DESTINATION.url([&destination.id])) method="post" {
                                 button type="submit" class="list-item travel-destination-row camp-destination-row"
                                     disabled[destination.current] {
                                     strong { (&destination.name) }
@@ -883,7 +881,7 @@ pub fn camp_page(
             @if encounter.is_none_or(|encounter| encounter.status != StrategicEncounterStatus::AwaitingChoice) {
                 section class="rest-service-menu camp-rest-menu" aria-label="Camp rest" {
                     (party_rest_menu(
-                        "/camp/rest",
+                        paths::REST_AT_CAMP.pattern(),
                         "camp-rest",
                         "Rest at camp",
                         "Rest party",
@@ -895,10 +893,10 @@ pub fn camp_page(
             }
         }
         main class="center-content settlement-main settlement-overview" {
-            (party_portrait_overlay(party_members, active_character, "/camp", None))
+            (party_portrait_overlay(party_members, active_character, paths::CAMP.pattern(), None))
             @if active_character.is_some() {
                 nav class="scene-interactable-strip camp-interactable-strip" aria-label="Camp interactions" {
-                    a class="scene-interactable scene-interactable--fixture fireplace-portrait" href="/camp/fireplace"
+                    a class="scene-interactable scene-interactable--fixture fireplace-portrait" href=(paths::CAMP_FIREPLACE_PAGE.pattern())
                         aria-label="Cook at fireplace" title="Cook at fireplace" {
                         span class="scene-interactable-visual fireplace-portrait-image" aria-hidden="true" {
                             (decorative_game_icon("campfire"))
@@ -964,12 +962,12 @@ pub fn camp_page(
                     (format_journey_time(party.wilderness_elapsed_minutes)) " elapsed since setting out"
                 }
                 div class="travel-planner-vertical" {
-                    (travel_planner_bar_for(destination_name, "", false, party.camp_remaining_minutes, "", "", party.camp_fatigue_percent, journey, terrain_route, provision_forecast, journey.map_or(0, |item| item.departure_minute), journey.map_or(party.camp_remaining_minutes, |item| item.total_elapsed_minutes), &journey.map_or_else(String::new, format_persisted_itinerary), &format_persisted_terrain_spans(terrain_route)))
+                    (travel_planner_bar_for(destination_name, "", false, party.camp_remaining_minutes, "", "", party.camp_fatigue_percent, journey, terrain_route, provision_forecast, journey.map_or(StrategicMinute::ZERO, |item| calendar_minute(&item.departure_minute)), journey.map_or(party.camp_remaining_minutes, |item| item.total_elapsed_minutes), &journey.map_or_else(String::new, format_persisted_itinerary), &format_persisted_terrain_spans(terrain_route)))
                 }
                 (camp_continue_control(continue_block_reason))
                 p class="travel-action-status" data-travel-action-status role="alert" hidden {}
             }
-            (sidebar_section("Travel preferences", travel_preferences_form(party, "/camp/travel-configuration")))
+            (sidebar_section("Travel preferences", travel_preferences_form(party, paths::UPDATE_CAMP_TRAVEL_CONFIGURATION.pattern())))
         }
         @if let Some(dialog) = foraging_dialog {
             (dialog)
@@ -987,7 +985,7 @@ pub fn camp_page(
 
 fn camp_continue_control(block_reason: Option<&str>) -> Markup {
     html! {
-        form action="/camp/continue" method="post" {
+        form action=(paths::CONTINUE_CAMP_TRAVEL.pattern()) method="post" {
             button type="submit" class="btn btn-primary btn-small btn-block"
                 disabled[block_reason.is_some()]
                 title=(block_reason.unwrap_or("Continue travel")) {
@@ -1014,8 +1012,8 @@ fn generic_road_encounter(challenge: &BackendRoadChallenge) -> Markup {
                   div class="scene-interactable scene-interactable--person counterparty-portrait" data-character-id=(character.character_id) {
                     span class="scene-interactable-visual" aria-hidden="true" { "?" }
                     span class="scene-interactable-label" { (&character.name) }
-                    @if character.contact_decision == adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::Request {
-                      form action="/camp/counterparty/contact" method="post" {
+                    @if character.contact_decision == adventuresim_core::strategic_presence::InteractionPresentationDecision::Request {
+                      form action=(paths::CONTACT_CAMP_COUNTERPARTY.pattern()) method="post" {
                         input type="hidden" name="target_id" value=(character.character_id);
                         input type="hidden" name="contact_ref" value=(&challenge.id);
                         input type="hidden" name="expected_revision" value=(character.contact_revision);
@@ -1025,28 +1023,28 @@ fn generic_road_encounter(challenge: &BackendRoadChallenge) -> Markup {
                     } @else {
                       button type="button" class="btn btn-secondary btn-small" disabled {
                         (match character.contact_decision {
-                            adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::Refused => "Refused",
+                            adventuresim_core::strategic_presence::InteractionPresentationDecision::Refused => "Refused",
                             _ => "Unavailable",
                         })
                       }
                     }
                     @if character.treatment_limb_slug.is_some() && matches!(character.treatment_decision,
-                        adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::Request
-                        | adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::EmergencyTreatment) {
-                      form action="/camp/counterparty/bandage" method="post" {
+                        adventuresim_core::strategic_presence::InteractionPresentationDecision::Request
+                        | adventuresim_core::strategic_presence::InteractionPresentationDecision::EmergencyTreatment) {
+                      form action=(paths::BANDAGE_CAMP_COUNTERPARTY.pattern()) method="post" {
                         input type="hidden" name="patient_id" value=(character.character_id);
                         input type="hidden" name="limb_slug" value=(character.treatment_limb_slug.as_deref().unwrap_or_default());
                         input type="hidden" name="action_id" value=(crate::templates::fresh_request_token("treatment"));
                         input type="hidden" name="context_ref" value=(&challenge.id);
                         input type="hidden" name="expected_membership_revision" value=(character.membership_revision);
                         button type="submit" class="btn btn-secondary btn-small" {
-                          (if character.treatment_decision == adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::EmergencyTreatment { "Emergency treatment" } else { "Request treatment" })
+                          (if character.treatment_decision == adventuresim_core::strategic_presence::InteractionPresentationDecision::EmergencyTreatment { "Emergency treatment" } else { "Request treatment" })
                         }
                       }
                     } @else {
                       button type="button" class="btn btn-secondary btn-small" disabled {
                         (match character.treatment_decision {
-                            adventuresim_core::road_encounter_catalog::InteractionPresentationDecision::Refused => "Refused",
+                            adventuresim_core::strategic_presence::InteractionPresentationDecision::Refused => "Refused",
                             _ => "Unavailable",
                         })
                       }
@@ -1065,7 +1063,7 @@ fn generic_road_encounter(challenge: &BackendRoadChallenge) -> Markup {
                     @if challenge.open {
                         div class="dialogue-actions" {
                             @for choice in &presentation.choices {
-                                form action="/camp/errantry-road-challenge" method="post" {
+                                form action=(paths::RESOLVE_ERRANTRY_ROAD_CHALLENGE.pattern()) method="post" {
                                     input type="hidden" name="challenge_id" value=(&challenge.id);
                                     input type="hidden" name="expected_revision" value=(challenge.revision);
                                     input type="hidden" name="choice" value=(&choice.id);
@@ -1123,7 +1121,7 @@ fn strategic_encounter_panel(
                         div class="scene-interactable scene-interactable--person counterparty-portrait" {
                             span class="scene-interactable-visual" aria-hidden="true" { "?" }
                             span class="scene-interactable-label" { (&character.name) }
-                            form action="/camp/counterparty/contact" method="post" {
+                            form action=(paths::CONTACT_CAMP_COUNTERPARTY.pattern()) method="post" {
                                 input type="hidden" name="target_id" value=(character.id);
                                 input type="hidden" name="contact_ref" value=(&encounter.encounter_id);
                                 input type="hidden" name="expected_revision" value=(encounter.revision);
@@ -1152,7 +1150,7 @@ fn strategic_encounter_panel(
             }
             div class="encounter-actions" {
                 @for choice in &encounter.available_choices {
-                    form action="/camp/encounter" method="post" {
+                    form action=(paths::RESOLVE_CAMP_ENCOUNTER.pattern()) method="post" {
                         input type="hidden" name="encounter_id" value=(&encounter.encounter_id);
                         input type="hidden" name="choice" value=(choice);
                         input type="hidden" name="expected_revision" value=(encounter.revision);
@@ -1176,9 +1174,9 @@ fn strategic_encounter_panel(
 
 fn journey_weather_status(route: &PartyJourneyRouteView) -> Markup {
     let (weather, icon) = match route.precipitation {
-        JourneyPrecipitation::Clear => ("Clear", "sun"),
-        JourneyPrecipitation::Rain => ("Rain", "water-drop"),
-        JourneyPrecipitation::Snow => ("Snow", "water-drop"),
+        Precipitation::Clear => ("Clear", "sun"),
+        Precipitation::Rain => ("Rain", "water-drop"),
+        Precipitation::Snow => ("Snow", "water-drop"),
     };
     let ground = if route.snow_cover_bps >= 6_000 {
         "deep snow"
@@ -1243,7 +1241,10 @@ mod tests {
 
     #[test]
     fn camp_foraging_affordance_is_discoverable_and_returns_to_camp() {
-        assert_eq!(camp_forage_href(true), Some("/camp?forage=true"));
+        assert_eq!(
+            camp_forage_href(true).as_deref(),
+            Some("/locations/camp?forage=true")
+        );
         assert_eq!(camp_forage_href(false), None);
     }
 
@@ -1254,8 +1255,8 @@ mod tests {
             gateway_bucket: 0,
             package_digest: "a".repeat(64),
             weather_rules_version: 1,
-            weather_interval_start: 0,
-            precipitation: JourneyPrecipitation::Rain,
+            weather_interval_start: adventuresim_world_schema::calendar::StrategicMinute::ZERO,
+            precipitation: Precipitation::Rain,
             intensity_bps: 8_000,
             ground_moisture_bps: 8_000,
             snow_cover_bps: 0,
@@ -1283,7 +1284,7 @@ mod tests {
             roll_index: 3,
             journey_movement_minute: 540,
             journey_elapsed_minute: 700,
-            absolute_minute: 1_700,
+            absolute_minute: adventuresim_stdb_client::StrategicMinute { minutes: 1_700 },
             longitude_e_7: 1,
             latitude_e_7: 2,
             terrain: "road".into(),
@@ -1324,8 +1325,8 @@ mod tests {
     fn reported_exact_destination_is_neutral_and_keeps_round_trip_planning() {
         let destination = quest_destination();
 
-        let markup = map_destination_list(&[destination], None, "/locations/settlement/test/map")
-            .into_string();
+        let markup =
+            map_destination_list(&[destination], None, "/locations/settlement/test").into_string();
 
         assert!(markup.contains("data-travel-round-trip=\"true\""));
         assert!(markup.contains("Reported exact location"));
@@ -1336,11 +1337,24 @@ mod tests {
     }
 
     #[test]
+    fn destination_links_encode_ids_without_losing_map_context() {
+        let mut destination = quest_destination();
+        destination.id = "site:forest/北 &?#".into();
+        let markup = map_destination_list(
+            &[destination],
+            None,
+            "/locations/settlement/town?view=travel#details",
+        )
+        .into_string();
+        assert!(markup.contains("href=\"/locations/settlement/town?view=travel&amp;destination=site%3Aforest%2F%E5%8C%97%20%26%3F%23#details\""));
+    }
+
+    #[test]
     fn current_settlement_has_no_conventional_quest_marker() {
         let markup = map_destination_list_with_context(
             &[],
             None,
-            "/locations/settlement/market/map",
+            "/locations/settlement/market",
             Some(MapCurrentLocation { name: "Market" }),
             None,
             None,
@@ -1359,7 +1373,7 @@ mod tests {
         let markup = map_destination_list_with_context(
             &[],
             None,
-            "/locations/settlement/issuer/map",
+            "/locations/settlement/issuer",
             Some(MapCurrentLocation { name: "Issuer" }),
             Some(MapAbandonableQuest {
                 id: "active",
@@ -1380,7 +1394,7 @@ mod tests {
         let markup = map_destination_list_with_rest(
             &[],
             None,
-            "/locations/case-site/active/map",
+            "/locations/case-site/active",
             html! { section class="rest-service-menu" { "Rest party" } },
         )
         .into_string();
@@ -1409,7 +1423,7 @@ mod tests {
         .into_string();
 
         assert!(markup.contains("Begin journey"));
-        assert!(markup.contains("action=\"/case-sites/quest-location/track\""));
+        assert!(markup.contains("action=\"/locations/case-site/quest-location/track\""));
         assert!(markup.contains("Track site"));
         assert!(!markup.contains("<p>A camp beside the road.</p>"));
         assert!(markup.contains("Reported exact location"));
@@ -1427,12 +1441,12 @@ mod tests {
             Some(&destination),
             false,
             true,
-            Some("/settlements/viabundus-1/merchants"),
+            Some("/locations/settlement/viabundus-1/places/market"),
             None,
             None,
             false,
             None,
-            "/locations/settlement/viabundus-1/map",
+            "/locations/settlement/viabundus-1",
         )
         .into_string();
 
@@ -1457,22 +1471,22 @@ mod tests {
         destination.id = "viabundus-2".into();
         destination.name = "Connected town".into();
         destination.round_trip_destination = false;
-        destination.travel_action = "/settlements/viabundus-2/travel".into();
+        destination.travel_action = "/locations/settlement/viabundus-2/travel".into();
         let markup = map_destination_detail(
             Some(&destination),
             None,
             false,
             true,
-            Some("/settlements/viabundus-1/merchants"),
+            Some("/locations/settlement/viabundus-1/places/market"),
             None,
             None,
             false,
             None,
-            "/locations/settlement/viabundus-1/map",
+            "/locations/settlement/viabundus-1",
         )
         .into_string();
 
-        assert!(markup.contains("action=\"/settlements/viabundus-2/travel\""));
+        assert!(markup.contains("action=\"/locations/settlement/viabundus-2/travel\""));
         assert!(markup.contains("data-travel-submit"));
         assert!(markup.contains("Begin journey"));
         assert!(!markup.contains("No direct route"));
@@ -1523,7 +1537,7 @@ mod tests {
             actual_camp_intervals: Vec::new(),
             forecast_camp_intervals: Vec::new(),
             fatigue_percent: 50,
-            departure_minute: 10_000,
+            departure_minute: adventuresim_stdb_client::StrategicMinute { minutes: 10_000 },
             total_elapsed_minutes: 2_040,
             completed_elapsed_minutes: 780,
             walking_minutes_per_day: 480,

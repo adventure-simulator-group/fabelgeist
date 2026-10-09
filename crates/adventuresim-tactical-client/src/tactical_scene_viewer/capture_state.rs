@@ -1,6 +1,8 @@
+use fabelgeist_determinism::Seed;
 use std::{collections::BTreeSet, path::PathBuf};
 
 use adventuresim_tactical_core::prelude::{SceneSource, WeatherSnapshot};
+use adventuresim_world_schema::calendar::StrategicMinute;
 use bevy::prelude::{Entity, Resource, Vec3};
 
 use super::{
@@ -66,8 +68,8 @@ pub(super) struct SceneCaptureState {
     pub(super) input_path: PathBuf,
     pub(super) output: PathBuf,
     pub(super) digest: String,
-    pub(super) seed: u64,
-    pub(super) absolute_minute: u64,
+    pub(super) seed: Seed,
+    pub(super) absolute_minute: StrategicMinute,
     pub(super) latitude_microdegrees: i32,
     pub(super) longitude_microdegrees: i32,
     pub(super) canopy_bps: u16,
@@ -79,7 +81,7 @@ pub(super) struct SceneCaptureState {
     pub(super) expected_trees: usize,
     pub(super) expected_rocks: usize,
     pub(super) expects_grass: bool,
-    pub(super) vista_lods_supplied: usize,
+    pub(super) vista_contract: super::vista_validation::VistaCaptureContract,
     pub(super) vista_diameter_metres: f32,
     pub(super) vista_minimum_metres: f32,
     pub(super) vista_peak_metres: f32,

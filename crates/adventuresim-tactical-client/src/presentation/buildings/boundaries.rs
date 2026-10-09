@@ -1,7 +1,22 @@
+//! Shared accepted enclosure cells retain material and spatial batching.
 use super::*;
 use adventuresim_tactical_core::prelude::{CityBoundaryMaterial, SceneBoundary};
+mod batching;
+mod projection;
+use batching::BoundaryBatches;
+use projection::{PendingDistantBoundaries, on_vista, project_pending};
 
-pub(super) fn on_boundary(
+pub(super) struct BoundaryPresentationPlugin;
+impl Plugin for BoundaryPresentationPlugin {
+    fn build(&self, app: &mut App) {
+        app.init_resource::<PendingDistantBoundaries>()
+            .add_observer(on_boundary)
+            .add_observer(on_vista)
+            .add_systems(Update, project_pending);
+    }
+}
+
+fn on_boundary(
     event: On<Add, SceneBoundary>,
     mut commands: Commands,
     boundaries: Query<&SceneBoundary>,
@@ -9,74 +24,43 @@ pub(super) fn on_boundary(
     materials: Res<TacticalBuildingMaterials>,
 ) -> Result {
     let boundary = boundaries.get(event.entity)?;
+    let mut batches = BoundaryBatches::default();
+    fixed(&mut batches, boundary, 0.0, &materials);
     commands
         .entity(event.entity)
         .insert(Visibility::default())
         .with_children(|parent| {
-            fixed(parent, boundary, &mut meshes, &materials);
+            for batch in batches.finish() {
+                parent.spawn((
+                    Mesh3d(meshes.add(batch.mesh)),
+                    MeshMaterial3d(batch.material),
+                    Transform::from_translation(batch.origin),
+                ));
+            }
         });
     Ok(())
 }
 
-pub(super) fn on_vista(
-    bundle: On<SceneVistaBundle>,
-    mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    materials: Res<TacticalBuildingMaterials>,
-) {
-    for compound in &bundle.compounds {
-        let Some(front) = bundle
-            .distant_buildings
-            .iter()
-            .find(|b| b.id == compound.front_building_id)
-        else {
-            continue;
-        };
-        let boundary = SceneBoundary {
-            property_id: compound.id,
-            front_building_id: front.id,
-            boundary: compound.boundary.clone(),
-        };
-        commands
-            .spawn((
-                DistantCityBuildingPresentation,
-                Visibility::default(),
-                Transform::from_xyz(0.0, front.base_elevation_metres, 0.0),
-            ))
-            .with_children(|parent| {
-                fixed(parent, &boundary, &mut meshes, &materials);
-                let door = compound.boundary.gate.door(compound.id);
-                parent.spawn((
-                    Mesh3d(meshes.add(super::super::recipe_mesh::metric_cuboid(door.size_metres))),
-                    MeshMaterial3d(
-                        materials.get_for_building(front.id, BuildingLodMaterial::Timber),
-                    ),
-                    Transform::from_translation(door.closed_centre)
-                        .with_rotation(Quat::from_rotation_y(door.closed_yaw_radians)),
-                ));
-            });
-    }
-}
-
 fn fixed(
-    parent: &mut ChildSpawnerCommands,
+    batches: &mut BoundaryBatches,
     boundary: &SceneBoundary,
-    meshes: &mut Assets<Mesh>,
+    elevation: f32,
     materials: &TacticalBuildingMaterials,
 ) {
-    for member in boundary.boundary.fixed_members() {
-        let material = match member.material {
+    for cell in boundary.fixed_support().cells() {
+        let material = match cell.material() {
             CityBoundaryMaterial::Masonry => BuildingLodMaterial::Wall(
                 adventuresim_building_generator::WallMaterialClass::RubbleMasonry,
             ),
             CityBoundaryMaterial::Timber => BuildingLodMaterial::Timber,
             CityBoundaryMaterial::Iron => BuildingLodMaterial::Iron,
         };
-        parent.spawn((
-            Mesh3d(meshes.add(super::super::recipe_mesh::metric_cuboid(member.size_metres))),
-            MeshMaterial3d(materials.get_for_building(boundary.front_building_id, material)),
-            Transform::from_translation(member.centre_metres)
-                .with_rotation(Quat::from_rotation_y(member.yaw_radians)),
-        ));
+        batches.insert(
+            cell,
+            elevation,
+            materials
+                .for_building(boundary.front_building_id().0)
+                .get(material),
+        );
     }
 }

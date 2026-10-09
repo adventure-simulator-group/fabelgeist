@@ -9,10 +9,10 @@ fn consolidate_roof_outlet_stations(
     walls: &[crate::WallAssembly],
     _openings: &[crate::OpeningAssembly],
     geometry: &mut ResolvedGeometry,
-) {
+) -> Result<(), crate::GenerationError> {
     geometry.roof_drainage_outlets.clear();
     let assembly_read = assemblies.to_vec();
-    for assembly in &assembly_read {
+    let _: () = for assembly in &assembly_read {
         let cross_facade_wall = assembly.parent.and_then(|parent_id| {
             assembly_read
                 .iter()
@@ -142,52 +142,7 @@ fn consolidate_roof_outlet_stations(
                 // face directly below; it does not run an unframed diagonal
                 // collector through the dormer enclosure.
                 let desired_plan = Vec2::new(desired.x, desired.z);
-                let face_contains_recipient = |face: &RoofFace, target_plan: Vec2| {
-                    let outline = face
-                        .polygon
-                        .iter()
-                        .map(|point| Vec2::new(point.x, point.z))
-                        .collect::<Vec<_>>();
-                    plan_point_in_polygon(target_plan, &outline)
-                        && !face.cutouts.iter().any(|cutout| {
-                            let cutout = cutout
-                                .iter()
-                                .map(|point| Vec2::new(point.x, point.z))
-                                .collect::<Vec<_>>();
-                            plan_point_in_polygon(target_plan, &cutout)
-                        })
-                };
-                let ordinary_offsets = [
-                    Vec2::ZERO,
-                    Vec2::X * 0.25,
-                    -Vec2::X * 0.25,
-                    Vec2::Y * 0.25,
-                    -Vec2::Y * 0.25,
-                    Vec2::X * 0.50,
-                    -Vec2::X * 0.50,
-                    Vec2::Y * 0.50,
-                    -Vec2::Y * 0.50,
-                    Vec2::X * 0.75,
-                    -Vec2::X * 0.75,
-                    Vec2::Y * 0.75,
-                    -Vec2::Y * 0.75,
-                ];
-                let tower_offsets = [
-                    Vec2::ZERO,
-                    Vec2::X * 0.50,
-                    -Vec2::X * 0.50,
-                    Vec2::Y * 0.50,
-                    -Vec2::Y * 0.50,
-                    Vec2::X * 0.75,
-                    -Vec2::X * 0.75,
-                    Vec2::Y * 0.75,
-                    -Vec2::Y * 0.75,
-                ];
-                let offsets: &[Vec2] = if assembly.kind == RoofKind::Pavilion {
-                    &tower_offsets
-                } else {
-                    &ordinary_offsets
-                };
+                let offsets = roof_weather::recipient_offsets(assembly.kind);
                 let source_low = chunk
                     .iter()
                     .map(|index| geometry.roof_drainage_networks[*index].channel_low.y)
@@ -200,7 +155,7 @@ fn consolidate_roof_outlet_stations(
                         parent
                             .faces
                             .iter()
-                            .filter(move |face| face_contains_recipient(face, target))
+                            .filter(move |face| roof_weather::contains(face, target))
                             .filter(move |face| {
                                 let recipient_y = roof_plane_height(face.plane, target);
                                 resolved_solids.iter().all(|solid| {
@@ -214,14 +169,21 @@ fn consolidate_roof_outlet_stations(
                                     {
                                         return true;
                                     }
-                                    let cosine = solid.yaw_radians.cos().abs();
-                                    let sine = solid.yaw_radians.sin().abs();
+                                    let cosine = solid.yaw_radians.radians().cos().abs();
+                                    let sine = solid.yaw_radians.radians().sin().abs();
                                     let half = Vec3::new(
-                                        (solid.size.x * cosine + solid.size.z * sine) * 0.5,
-                                        solid.size.y * 0.5,
-                                        (solid.size.x * sine + solid.size.z * cosine) * 0.5,
+                                        (solid.size.metres().x * cosine
+                                            + solid.size.metres().z * sine)
+                                            * 0.5,
+                                        solid.size.metres().y * 0.5,
+                                        (solid.size.metres().x * sine
+                                            + solid.size.metres().z * cosine)
+                                            * 0.5,
                                     );
-                                    let bounds = (solid.centre - half, solid.centre + half);
+                                    let bounds = (
+                                        solid.centre.metres() - half,
+                                        solid.centre.metres() + half,
+                                    );
                                     if solid.role == SolidRole::RoofFlashing
                                         && solid.owner == parent.owner
                                         && bounds.1.y <= recipient_y + 0.86
@@ -233,9 +195,10 @@ fn consolidate_roof_outlet_stations(
                                             outer_radius_metres,
                                             ..
                                         } => {
-                                            target
-                                                .distance(Vec2::new(solid.centre.x, solid.centre.z))
-                                                <= outer_radius_metres + 0.08
+                                            target.distance(Vec2::new(
+                                                solid.centre.metres().x,
+                                                solid.centre.metres().z,
+                                            )) <= outer_radius_metres + 0.08
                                         }
                                         _ => {
                                             target.x >= bounds.0.x - 0.08
@@ -277,7 +240,7 @@ fn consolidate_roof_outlet_stations(
                     })
                     .find_map(|target_plan| {
                         parent.faces.iter().find_map(|face| {
-                            if !face_contains_recipient(face, target_plan) {
+                            if !roof_weather::contains(face, target_plan) {
                                 return None;
                             }
                             let recipient_y = roof_plane_height(face.plane, target_plan);
@@ -355,10 +318,10 @@ fn consolidate_roof_outlet_stations(
                                     )
                                 })
                                 .all(|void| {
-                                    face.x < void.bounds.min.x - 0.10
-                                        || face.x > void.bounds.max.x + 0.10
-                                        || face.y < void.bounds.min.z - 0.10
-                                        || face.y > void.bounds.max.z + 0.10
+                                    face.x < void.bounds.min().metres().x - 0.10
+                                        || face.x > void.bounds.max().metres().x + 0.10
+                                        || face.y < void.bounds.min().metres().z - 0.10
+                                        || face.y > void.bounds.max().metres().z + 0.10
                                 })
                         })
                         .min_by(|left, right| left.2.total_cmp(&right.2))
@@ -432,67 +395,76 @@ fn consolidate_roof_outlet_stations(
                                             )
                                         })
                                         .all(|void| {
-                                            face.x < void.bounds.min.x - 0.18
-                                                || face.x > void.bounds.max.x + 0.18
-                                                || face.y < void.bounds.min.z - 0.18
-                                                || face.y > void.bounds.max.z + 0.18
+                                            face.x < void.bounds.min().metres().x - 0.18
+                                                || face.x > void.bounds.max().metres().x + 0.18
+                                                || face.y < void.bounds.min().metres().z - 0.18
+                                                || face.y > void.bounds.max().metres().z + 0.18
                                         });
                                     let collector_start = Vec2::new(
                                         drainage_networks[chunk[0]].channel_low.x,
                                         drainage_networks[chunk[0]].channel_low.z,
                                     );
-                                    let collector_clear =
-                                        (1..10).all(|sample| {
-                                            let point =
-                                                collector_start.lerp(face, sample as f32 / 10.0);
-                                            resolved_solids.iter().all(|solid| {
-                                                if ((!is_timber_child
-                                                    && solid.role != SolidRole::WallHost)
-                                                    || (is_timber_child
-                                                        && !matches!(
-                                                            solid.role,
-                                                            SolidRole::WallHost
-                                                                | SolidRole::OpeningJamb
-                                                                | SolidRole::OpeningSill
-                                                                | SolidRole::OpeningHead
-                                                                | SolidRole::OpeningSpandrel
-                                                                | SolidRole::OpeningClosure
-                                                        )))
-                                                    || wall.host_solids.contains(&solid.id)
-                                                    || (is_timber_child
-                                                        && solid.centre.y + solid.size.y * 0.5
-                                                            < drainage_networks[chunk[0]]
-                                                                .channel_low
-                                                                .y
-                                                                - 0.15)
-                                                {
-                                                    return true;
+                                    let collector_clear = (1..10).all(|sample| {
+                                        let point =
+                                            collector_start.lerp(face, sample as f32 / 10.0);
+                                        resolved_solids.iter().all(|solid| {
+                                            if ((!is_timber_child
+                                                && solid.role != SolidRole::WallHost)
+                                                || (is_timber_child
+                                                    && !matches!(
+                                                        solid.role,
+                                                        SolidRole::WallHost
+                                                            | SolidRole::OpeningJamb
+                                                            | SolidRole::OpeningSill
+                                                            | SolidRole::OpeningHead
+                                                            | SolidRole::OpeningSpandrel
+                                                            | SolidRole::OpeningClosure
+                                                    )))
+                                                || wall.host_solids.contains(&solid.id)
+                                                || (is_timber_child
+                                                    && solid.centre.metres().y
+                                                        + solid.size.metres().y * 0.5
+                                                        < drainage_networks[chunk[0]].channel_low.y
+                                                            - 0.15)
+                                            {
+                                                return true;
+                                            }
+                                            match solid.shape {
+                                                crate::ResolvedSolidShape::RoundTowerShell {
+                                                    outer_radius_metres,
+                                                    ..
+                                                } => {
+                                                    point.distance(Vec2::new(
+                                                        solid.centre.metres().x,
+                                                        solid.centre.metres().z,
+                                                    )) > outer_radius_metres + 0.06
                                                 }
-                                                match solid.shape {
-                                            crate::ResolvedSolidShape::RoundTowerShell {
-                                                outer_radius_metres,
-                                                ..
-                                            } => {
-                                                point.distance(Vec2::new(
-                                                    solid.centre.x,
-                                                    solid.centre.z,
-                                                )) > outer_radius_metres + 0.06
+                                                _ => {
+                                                    let half = solid.size.metres() * 0.5;
+                                                    let margin =
+                                                        if solid.role == SolidRole::WallHost {
+                                                            0.06
+                                                        } else {
+                                                            0.30
+                                                        };
+                                                    point.x
+                                                        < solid.centre.metres().x - half.x - margin
+                                                        || point.x
+                                                            > solid.centre.metres().x
+                                                                + half.x
+                                                                + margin
+                                                        || point.y
+                                                            < solid.centre.metres().z
+                                                                - half.z
+                                                                - margin
+                                                        || point.y
+                                                            > solid.centre.metres().z
+                                                                + half.z
+                                                                + margin
+                                                }
                                             }
-                                            _ => {
-                                                let half = solid.size * 0.5;
-                                                let margin = if solid.role == SolidRole::WallHost {
-                                                    0.06
-                                                } else {
-                                                    0.30
-                                                };
-                                                point.x < solid.centre.x - half.x - margin
-                                                    || point.x > solid.centre.x + half.x + margin
-                                                    || point.y < solid.centre.z - half.z - margin
-                                                    || point.y > solid.centre.z + half.z + margin
-                                            }
-                                        }
-                                            })
-                                        });
+                                        })
+                                    });
                                     (opening_clear && collector_clear).then_some((
                                         wall,
                                         face,
@@ -662,23 +634,26 @@ fn consolidate_roof_outlet_stations(
                                 if solid.role == SolidRole::RoofFace {
                                     return true;
                                 }
-                                let cosine = solid.yaw_radians.cos().abs();
-                                let sine = solid.yaw_radians.sin().abs();
+                                let cosine = solid.yaw_radians.radians().cos().abs();
+                                let sine = solid.yaw_radians.radians().sin().abs();
                                 let half = Vec3::new(
-                                    (solid.size.x * cosine + solid.size.z * sine) * 0.5,
-                                    solid.size.y * 0.5,
-                                    (solid.size.x * sine + solid.size.z * cosine) * 0.5,
+                                    (solid.size.metres().x * cosine + solid.size.metres().z * sine)
+                                        * 0.5,
+                                    solid.size.metres().y * 0.5,
+                                    (solid.size.metres().x * sine + solid.size.metres().z * cosine)
+                                        * 0.5,
                                 );
-                                let min = solid.centre - half;
-                                let max = solid.centre + half;
+                                let min = solid.centre.metres() - half;
+                                let max = solid.centre.metres() + half;
                                 let plan_hit = match solid.shape {
                                     crate::ResolvedSolidShape::RoundTowerShell {
                                         outer_radius_metres,
                                         ..
                                     } => {
-                                        candidate
-                                            .distance(Vec2::new(solid.centre.x, solid.centre.z))
-                                            <= outer_radius_metres + 0.08
+                                        candidate.distance(Vec2::new(
+                                            solid.centre.metres().x,
+                                            solid.centre.metres().z,
+                                        )) <= outer_radius_metres + 0.08
                                     }
                                     _ => {
                                         candidate.x >= min.x - 0.08
@@ -740,19 +715,23 @@ fn consolidate_roof_outlet_stations(
                                         ) {
                                             return true;
                                         }
-                                        let cosine = solid.yaw_radians.cos().abs();
-                                        let sine = solid.yaw_radians.sin().abs();
+                                        let cosine = solid.yaw_radians.radians().cos().abs();
+                                        let sine = solid.yaw_radians.radians().sin().abs();
                                         let half = Vec3::new(
-                                            (solid.size.x * cosine + solid.size.z * sine) * 0.5,
-                                            solid.size.y * 0.5,
-                                            (solid.size.x * sine + solid.size.z * cosine) * 0.5,
+                                            (solid.size.metres().x * cosine
+                                                + solid.size.metres().z * sine)
+                                                * 0.5,
+                                            solid.size.metres().y * 0.5,
+                                            (solid.size.metres().x * sine
+                                                + solid.size.metres().z * cosine)
+                                                * 0.5,
                                         );
-                                        point.x < solid.centre.x - half.x - 0.06
-                                            || point.x > solid.centre.x + half.x + 0.06
-                                            || point.y < solid.centre.z - half.z - 0.06
-                                            || point.y > solid.centre.z + half.z + 0.06
-                                            || height < solid.centre.y - half.y - 0.04
-                                            || height > solid.centre.y + half.y + 0.04
+                                        point.x < solid.centre.metres().x - half.x - 0.06
+                                            || point.x > solid.centre.metres().x + half.x + 0.06
+                                            || point.y < solid.centre.metres().z - half.z - 0.06
+                                            || point.y > solid.centre.metres().z + half.z + 0.06
+                                            || height < solid.centre.metres().y - half.y - 0.04
+                                            || height > solid.centre.metres().y + half.y + 0.04
                                     })
                                 });
                             let clears_stairs = stairs.iter().all(|stair| match *stair {
@@ -789,13 +768,13 @@ fn consolidate_roof_outlet_stations(
                                     matches!(
                                         void.role,
                                         VoidRole::WallOpening | VoidRole::AccessPortal
-                                    ) && void.bounds.min.y < 1.08
+                                    ) && void.bounds.min().metres().y < 1.08
                                 })
                                 .all(|void| {
-                                    candidate.x < void.bounds.min.x - 0.30
-                                        || candidate.x > void.bounds.max.x + 0.30
-                                        || candidate.y < void.bounds.min.z - 0.30
-                                        || candidate.y > void.bounds.max.z + 0.30
+                                    candidate.x < void.bounds.min().metres().x - 0.30
+                                        || candidate.x > void.bounds.max().metres().x + 0.30
+                                        || candidate.y < void.bounds.min().metres().z - 0.30
+                                        || candidate.y > void.bounds.max().metres().z + 0.30
                                 });
                             clears_solids
                                 && collector_clears_solids
@@ -834,10 +813,10 @@ fn consolidate_roof_outlet_stations(
             geometry.voids.push(ResolvedVoid {
                 id: shared_outlet,
                 owner: assembly.owner,
-                bounds: ResolvedBounds {
-                    min: outlet - Vec3::splat(0.045),
-                    max: outlet + Vec3::splat(0.045),
-                },
+                bounds: SpatialBounds::<Architectural>::from_metres(
+                    outlet - Vec3::splat(0.045),
+                    outlet + Vec3::splat(0.045),
+                )?,
                 role: VoidRole::Drain,
                 shape: crate::ResolvedVoidShape::Box,
                 subtracts_from: assembly.owner,
@@ -850,27 +829,31 @@ fn consolidate_roof_outlet_stations(
                     .expect("selected roof drain host");
                 let height = (outlet.y - discharge.y - 0.14).max(0.09);
                 let centre = Vec3::new(outlet.x, discharge.y + height * 0.5 + 0.07, outlet.z);
-                geometry.solids.push(ResolvedSolid {
-                    id: spout,
-                    owner: assembly.owner,
-                    centre,
-                    size: Vec3::new(0.09, height, 0.09),
-                    yaw_radians: 0.0,
-                    crossfall_radians: 0.0,
-                    longfall_radians: 0.0,
-                    role: SolidRole::RoofGutter,
-                    shape: crate::ResolvedSolidShape::Cuboid,
-                    supported_by: vec![host.support_node],
-                });
-                geometry.support_interfaces.push(SupportInterface {
-                    id: ResolvedItemId((0x9_u64 << 60) | (spout.0 & 0x0FFF_FFFF_FFFF_FFFF)),
-                    owner: assembly.owner,
-                    node: host.support_node,
-                    bounds: ResolvedBounds {
-                        min: centre - Vec3::splat(0.04),
-                        max: centre + Vec3::splat(0.04),
-                    },
-                });
+                geometry.solids.push(ResolvedSolid::new(
+                    CollisionCuboid::<Architectural>::from_metres(
+                        spout,
+                        centre,
+                        Vec3::new(0.09, height, 0.09),
+                        0.0,
+                        0.0,
+                        0.0,
+                    )?,
+                    assembly.owner,
+                    SolidRole::RoofGutter,
+                    crate::ResolvedSolidShape::Cuboid,
+                    vec![host.support_node],
+                ));
+                geometry
+                    .support_interfaces
+                    .push(crate::SupportInterface::new(
+                        ResolvedItemId((0x9_u64 << 60) | (spout.0 & 0x0FFF_FFFF_FFFF_FFFF)),
+                        assembly.owner,
+                        host.support_node,
+                        SpatialBounds::<Architectural>::from_metres(
+                            centre - Vec3::splat(0.04),
+                            centre + Vec3::splat(0.04),
+                        )?,
+                    ));
             }
 
             let mut member_networks = Vec::new();
@@ -922,35 +905,39 @@ fn consolidate_roof_outlet_stations(
                         .expect("drainage face");
                     let compact_child_collector = assembly.parent.is_some()
                         && matches!(assembly.kind, RoofKind::Gable | RoofKind::Shed);
-                    geometry.solids.push(ResolvedSolid {
-                        id: collector,
-                        owner: assembly.owner,
-                        centre: (start + collector_end) * 0.5,
-                        size: Vec3::new(
-                            plan_length,
-                            if compact_child_collector {
-                                0.018
-                            } else {
-                                0.035
-                            },
-                            if compact_child_collector { 0.070 } else { 0.12 },
-                        ),
-                        yaw_radians: delta.z.atan2(delta.x),
-                        crossfall_radians: 0.0,
-                        longfall_radians: delta.y.atan2(plan_length),
-                        role: SolidRole::RoofGutter,
-                        shape: crate::ResolvedSolidShape::Cuboid,
-                        supported_by: face.support_nodes.clone(),
-                    });
-                    geometry.support_interfaces.push(SupportInterface {
-                        id: ResolvedItemId((0x9_u64 << 60) | (collector.0 & 0x0FFF_FFFF_FFFF_FFFF)),
-                        owner: assembly.owner,
-                        node: face.support_nodes[0],
-                        bounds: ResolvedBounds {
-                            min: start - Vec3::splat(0.035),
-                            max: start + Vec3::splat(0.035),
-                        },
-                    });
+                    geometry.solids.push(ResolvedSolid::new(
+                        CollisionCuboid::<Architectural>::from_metres(
+                            collector,
+                            (start + collector_end) * 0.5,
+                            Vec3::new(
+                                plan_length,
+                                if compact_child_collector {
+                                    0.018
+                                } else {
+                                    0.035
+                                },
+                                if compact_child_collector { 0.070 } else { 0.12 },
+                            ),
+                            delta.z.atan2(delta.x),
+                            0.0,
+                            delta.y.atan2(plan_length),
+                        )?,
+                        assembly.owner,
+                        SolidRole::RoofGutter,
+                        crate::ResolvedSolidShape::Cuboid,
+                        face.support_nodes.clone(),
+                    ));
+                    geometry
+                        .support_interfaces
+                        .push(crate::SupportInterface::new(
+                            ResolvedItemId((0x9_u64 << 60) | (collector.0 & 0x0FFF_FFFF_FFFF_FFFF)),
+                            assembly.owner,
+                            face.support_nodes[0],
+                            SpatialBounds::<Architectural>::from_metres(
+                                start - Vec3::splat(0.035),
+                                start + Vec3::splat(0.035),
+                            )?,
+                        ));
                     collectors.push(collector);
                 }
                 let network = &mut geometry.roof_drainage_networks[index];
@@ -986,10 +973,10 @@ fn consolidate_roof_outlet_stations(
                     }
                 }
             }
-            let recipient_bounds = ResolvedBounds {
-                min: discharge - Vec3::new(0.30, 0.03, 0.30),
-                max: discharge + Vec3::new(0.30, 0.03, 0.30),
-            };
+            let recipient_bounds = SpatialBounds::<Architectural>::from_metres(
+                discharge - Vec3::new(0.30, 0.03, 0.30),
+                discharge + Vec3::new(0.30, 0.03, 0.30),
+            )?;
             geometry.surfaces.push(ResolvedSurface {
                 id: recipient_surface,
                 owner: assembly.owner,
@@ -1013,5 +1000,6 @@ fn consolidate_roof_outlet_stations(
                     discharge,
                 });
         }
-    }
+    };
+    Ok(())
 }

@@ -1,3 +1,4 @@
+
 fn timber_proof_specs() -> Vec<(String, BuildingArchetype, ViewerView)> {
     let mut specs = Vec::new();
     for archetype in TIMBER_ARCHETYPES {
@@ -75,7 +76,7 @@ fn timber_proof_specs() -> Vec<(String, BuildingArchetype, ViewerView)> {
 struct TimberSuiteManifest {
     fixture: String,
     view: String,
-    seed: u64,
+    seed: Seed,
     resolver_schema_version: u16,
     source_revision: String,
     source_dirty_fingerprint: String,
@@ -369,7 +370,7 @@ fn validate_timber_suite_records(
         let expected_view = timber_proof_suffix(*view).expect("timber proof suffix");
         if manifest.fixture != archetype.slug()
             || manifest.view != expected_view
-            || manifest.seed != 47
+            || manifest.seed != fabelgeist_determinism::Seed::from_u64(47)
             || manifest.resolver_schema_version != 2
             || manifest.plan_audit_issue_count != 0
             || !manifest.validation_passed

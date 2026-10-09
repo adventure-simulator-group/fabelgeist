@@ -1,3 +1,4 @@
+
 const CHURCH_PROOF_SLUGS: [&str; 30] = [
     "church-whole-west",
     "church-whole-east",
@@ -35,7 +36,7 @@ const CHURCH_PROOF_SLUGS: [&str; 30] = [
 struct ChurchSuiteManifest {
     fixture: String,
     view: String,
-    seed: u64,
+    seed: Seed,
     resolver_schema_version: u16,
     source_revision: String,
     source_dirty_fingerprint: String,
@@ -105,7 +106,7 @@ fn validate_church_suite_records(records: &[(&str, ChurchSuiteManifest)]) -> Res
         if *expected != slug
             || manifest.fixture != "cathedral"
             || manifest.view != slug
-            || manifest.seed != 47
+            || manifest.seed != fabelgeist_determinism::Seed::from_u64(47)
             || manifest.resolver_schema_version != 2
             || !manifest.validation_passed
             || manifest.plan_audit_issue_count != 0

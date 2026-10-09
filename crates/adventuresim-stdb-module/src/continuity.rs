@@ -5,12 +5,14 @@
 //! this module are scoped to the browser's selected observer and that
 //! observer's personal frontier.
 
-use adventuresim_core::{
-    courtship::ADULT_AGE_YEARS,
-    prelude::Skill,
-    skill::apply_direct_training,
-    strategic_time::{MINUTES_PER_DAY, MINUTES_PER_YEAR},
-};
+mod curriculum;
+use adventuresim_core::{courtship::ADULT_AGE_YEARS, prelude::Skill, skill::apply_direct_training};
+use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::StrategicMinute;
+#[cfg(test)]
+use curriculum::focus_training;
+use curriculum::{curriculum_real_hours, deterministic_child_focus};
+use fabelgeist_determinism::Seed;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
 
 use crate::{
@@ -62,15 +64,6 @@ pub fn child_stage(age_years: u16) -> ChildStage {
     }
 }
 
-fn deterministic_child_focus(seed: u64) -> ChildActivityFocus {
-    match seed % 4 {
-        0 => ChildActivityFocus::Play,
-        1 => ChildActivityFocus::Study,
-        2 => ChildActivityFocus::HouseholdHelp,
-        _ => ChildActivityFocus::SocialLearning,
-    }
-}
-
 /// One row exists only for naturally born characters. `trained_through_minute`
 /// is a durable exactly-once cursor; the focus is frozen at birth.
 #[derive(Clone, Debug)]
@@ -79,7 +72,7 @@ pub struct ChildDevelopment {
     #[primary_key]
     pub character_id: u64,
     pub focus: ChildActivityFocus,
-    pub trained_through_minute: u64,
+    pub trained_through_minute: StrategicMinute,
     /// Effective hours actually contributed by the two frozen curriculum
     /// tracks. These are audit/baseline values, not replacements for skill
     /// totals that may also grow through other systems.
@@ -97,7 +90,7 @@ pub struct LineageControlClaim {
     #[index(btree)]
     pub owner_key: String,
     pub source_parent_id: u64,
-    pub established_minute: u64,
+    pub established_minute: StrategicMinute,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
@@ -131,9 +124,9 @@ pub struct EstateDisposition {
     #[index(btree)]
     pub chosen_heir_id: u64,
     pub heir_kind: EstateHeirKind,
-    pub effective_minute: u64,
+    pub effective_minute: StrategicMinute,
     pub status: EstateDispositionStatus,
-    pub settled_minute: Option<u64>,
+    pub settled_minute: Option<StrategicMinute>,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -157,7 +150,7 @@ pub struct BackendEstateDisposition {
     pub chosen_heir_id: Option<u64>,
     pub heir_kind: EstateHeirKind,
     pub status: EstateDispositionStatus,
-    pub effective_minute: u64,
+    pub effective_minute: StrategicMinute,
 }
 
 pub(crate) fn initialize_child_continuity(
@@ -165,8 +158,8 @@ pub(crate) fn initialize_child_continuity(
     child_id: u64,
     mother_id: u64,
     father_id: u64,
-    birth_minute: u64,
-    policy_seed: u64,
+    birth_minute: StrategicMinute,
+    policy_seed: Seed,
 ) {
     if ctx
         .db
@@ -223,52 +216,6 @@ fn direct_skill_hours_mut(skills: &mut crate::CharacterSkills, skill: Skill) -> 
     })
 }
 
-fn focus_training(focus: ChildActivityFocus, adolescent: bool) -> [(Skill, f32); 2] {
-    let daily_hours = if adolescent { 3.0 } else { 2.0 };
-    match focus {
-        ChildActivityFocus::Play => [
-            (Skill::Balance, daily_hours * 0.55),
-            (Skill::Dodge, daily_hours * 0.45),
-        ],
-        ChildActivityFocus::Study => [
-            (Skill::Insight, daily_hours * 0.6),
-            (Skill::Physiology, daily_hours * 0.4),
-        ],
-        ChildActivityFocus::HouseholdHelp => [
-            (Skill::Cooking, daily_hours * 0.6),
-            (Skill::Tailoring, daily_hours * 0.4),
-        ],
-        ChildActivityFocus::SocialLearning => [
-            (Skill::Charm, daily_hours * 0.55),
-            (Skill::Insight, daily_hours * 0.45),
-        ],
-    }
-}
-
-fn curriculum_real_hours(
-    focus: ChildActivityFocus,
-    track: usize,
-    birth_minute: u64,
-    start_minute: u64,
-    end_minute: u64,
-) -> (Skill, f32) {
-    let six = birth_minute.saturating_add(6 * MINUTES_PER_YEAR);
-    let twelve = birth_minute.saturating_add(12 * MINUTES_PER_YEAR);
-    let sixteen = birth_minute.saturating_add(u64::from(ADULT_AGE_YEARS) * MINUTES_PER_YEAR);
-    let middle_minutes = end_minute
-        .min(twelve)
-        .saturating_sub(start_minute.max(six).min(end_minute.min(twelve)));
-    let adolescent_minutes = end_minute
-        .min(sixteen)
-        .saturating_sub(start_minute.max(twelve).min(end_minute.min(sixteen)));
-    let middle = focus_training(focus, false)[track];
-    let adolescent = focus_training(focus, true)[track];
-    debug_assert_eq!(middle.0, adolescent.0);
-    let hours = middle_minutes as f32 / MINUTES_PER_DAY as f32 * middle.1
-        + adolescent_minutes as f32 / MINUTES_PER_DAY as f32 * adolescent.1;
-    (middle.0, hours)
-}
-
 /// Advance only the safe childhood curriculum. The durable cursor means each
 /// interval is evaluated once with the attributes that existed for that
 /// interval. Curriculum gains are added to, rather than substituted for,
@@ -276,7 +223,7 @@ fn curriculum_real_hours(
 fn settle_child_training(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     let Some(mut development) = ctx.db.child_development().character_id().find(character_id) else {
         return Ok(());
@@ -290,7 +237,8 @@ fn settle_child_training(
     let Ok(birth_minute) = u64::try_from(birth.birth_minute) else {
         return Err("Natural child birth minute cannot be negative".into());
     };
-    let sixteen = birth_minute.saturating_add(u64::from(ADULT_AGE_YEARS) * MINUTES_PER_YEAR);
+    let birth_minute = StrategicMinute::new(birth_minute);
+    let sixteen = birth_minute.saturating_add_years(ADULT_AGE_YEARS);
     let end = minute.min(sixteen);
     let cursor = development
         .trained_through_minute
@@ -345,7 +293,7 @@ fn promote_household_role(ctx: &ReducerContext, character_id: u64) {
 fn promote_adult_descendant(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     if effective_age_years(ctx, character_id, minute).unwrap_or(0) < ADULT_AGE_YEARS {
         return Ok(());
@@ -374,7 +322,7 @@ fn promote_adult_descendant(
 pub(crate) fn settle_continuity_for_character(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     settle_child_training(ctx, character_id, minute)?;
     promote_adult_descendant(ctx, character_id, minute)?;
@@ -382,7 +330,11 @@ pub(crate) fn settle_continuity_for_character(
     Ok(())
 }
 
-fn eldest_living_child_at(ctx: &ReducerContext, parent_id: u64, minute: u64) -> Option<u64> {
+fn eldest_living_child_at(
+    ctx: &ReducerContext,
+    parent_id: u64,
+    minute: StrategicMinute,
+) -> Option<u64> {
     let mut children = ctx
         .db
         .character_kinship()
@@ -395,7 +347,7 @@ fn eldest_living_child_at(ctx: &ReducerContext, parent_id: u64, minute: u64) -> 
                 .character_birth()
                 .character_id()
                 .find(edge.related_id)?;
-            (i128::from(birth.birth_minute) <= i128::from(minute)
+            (minute.is_at_or_after_signed_birth(birth.birth_minute)
                 && character_alive_at(ctx, edge.related_id, minute))
             .then_some((birth.birth_minute, edge.related_id))
         })
@@ -404,7 +356,11 @@ fn eldest_living_child_at(ctx: &ReducerContext, parent_id: u64, minute: u64) -> 
     children.first().map(|(_, id)| *id)
 }
 
-fn living_spouse_at(ctx: &ReducerContext, character_id: u64, minute: u64) -> Option<u64> {
+fn living_spouse_at(
+    ctx: &ReducerContext,
+    character_id: u64,
+    minute: StrategicMinute,
+) -> Option<u64> {
     ctx.db
         .marriage()
         .iter()
@@ -426,7 +382,7 @@ fn living_spouse_at(ctx: &ReducerContext, character_id: u64, minute: u64) -> Opt
 pub(crate) fn record_estate_disposition_for_death(
     ctx: &ReducerContext,
     decedent_id: u64,
-    death_minute: u64,
+    death_minute: StrategicMinute,
 ) -> Result<(), String> {
     if ctx
         .db
@@ -537,7 +493,7 @@ fn transfer_personal_estate(
 enum EstateRouteState {
     Living,
     Dead {
-        death_minute: u64,
+        death_minute: StrategicMinute,
         status: Option<EstateDispositionStatus>,
         chosen_heir_id: u64,
     },
@@ -555,7 +511,7 @@ enum EstateRouteOutcome {
 /// reaches the effective date it will transfer everything then present.
 fn route_materialized_inheritance(
     initial_heir_id: u64,
-    initial_effective_minute: u64,
+    initial_effective_minute: StrategicMinute,
     mut state_for: impl FnMut(u64) -> EstateRouteState,
 ) -> Result<EstateRouteOutcome, String> {
     let mut current = initial_heir_id;
@@ -595,7 +551,7 @@ fn route_materialized_inheritance(
 fn materialized_inheritance_route(
     ctx: &ReducerContext,
     heir_id: u64,
-    effective_minute: u64,
+    effective_minute: StrategicMinute,
 ) -> Result<EstateRouteOutcome, String> {
     route_materialized_inheritance(heir_id, effective_minute, |character_id| {
         let Some(death) = ctx.db.character_death().character_id().find(character_id) else {
@@ -613,7 +569,7 @@ fn materialized_inheritance_route(
 pub(crate) fn settle_pending_inheritances_for_heir(
     ctx: &ReducerContext,
     heir_id: u64,
-    heir_frontier: u64,
+    heir_frontier: StrategicMinute,
 ) -> Result<(), String> {
     let heir_death_minute = ctx
         .db
@@ -713,7 +669,7 @@ pub fn backend_family_children(ctx: &ViewContext) -> Vec<BackendFamilyChild> {
                 .character_birth()
                 .character_id()
                 .find(edge.related_id)
-                .filter(|birth| i128::from(birth.birth_minute) <= i128::from(observer_minute))
+                .filter(|birth| observer_minute.is_at_or_after_signed_birth(birth.birth_minute))
             else {
                 continue;
             };
@@ -724,28 +680,13 @@ pub fn backend_family_children(ctx: &ViewContext) -> Vec<BackendFamilyChild> {
                 continue;
             };
             let age = effective_age_years_for_view(birth.birth_minute, observer_minute);
-            let elapsed = i128::from(observer_minute)
-                .saturating_sub(i128::from(birth.birth_minute))
-                .max(0) as u128;
-            let maturity = elapsed
-                .saturating_mul(u128::from(
-                    adventuresim_world_schema::BASIS_POINTS_PER_WHOLE,
-                ))
-                .checked_div(u128::from(ADULT_AGE_YEARS) * u128::from(MINUTES_PER_YEAR))
-                .unwrap_or(0)
-                .min(u128::from(
-                    adventuresim_world_schema::BASIS_POINTS_PER_WHOLE,
-                )) as u16;
-            let adult_playable = age >= ADULT_AGE_YEARS
-                && ctx
-                    .db
-                    .browser_character_grant()
-                    .character_id()
-                    .find(child.id)
-                    .is_some_and(|grant| {
-                        grant.owner_key == observer_grant.owner_key
-                            && grant.origin == BrowserCharacterGrantOrigin::AdultDescendant
-                    });
+            let maturity = observer_minute.scaled_progress_toward_signed_birth_age(
+                birth.birth_minute,
+                ADULT_AGE_YEARS,
+                adventuresim_world_schema::BASIS_POINTS_PER_WHOLE,
+            );
+            let adult_playable =
+                child_playable_for_owner(ctx, child.id, &observer_grant.owner_key, age);
             rows.push(BackendFamilyChild {
                 owner_key: observer_grant.owner_key.clone(),
                 observer_character_id: selection.character_id,
@@ -769,12 +710,28 @@ pub fn backend_family_children(ctx: &ViewContext) -> Vec<BackendFamilyChild> {
     rows
 }
 
-fn effective_age_years_for_view(birth_minute: i64, minute: u64) -> u16 {
-    let elapsed = i128::from(minute).saturating_sub(i128::from(birth_minute));
-    (elapsed.max(0) as u128 / u128::from(MINUTES_PER_YEAR)).min(u128::from(u16::MAX)) as u16
+fn child_playable_for_owner(ctx: &ViewContext, child_id: u64, owner_key: &str, age: u16) -> bool {
+    age >= ADULT_AGE_YEARS
+        && ctx
+            .db
+            .browser_character_grant()
+            .character_id()
+            .find(child_id)
+            .is_some_and(|grant| {
+                grant.owner_key == owner_key
+                    && grant.origin == BrowserCharacterGrantOrigin::AdultDescendant
+            })
 }
 
-fn character_alive_at_for_view(ctx: &ViewContext, character_id: u64, minute: u64) -> bool {
+fn effective_age_years_for_view(birth_minute: i64, minute: StrategicMinute) -> u16 {
+    minute.age_years_since_signed_birth(birth_minute)
+}
+
+fn character_alive_at_for_view(
+    ctx: &ViewContext,
+    character_id: u64,
+    minute: StrategicMinute,
+) -> bool {
     ctx.db.character().id().find(character_id).is_some()
         && ctx
             .db
@@ -888,10 +845,10 @@ mod tests {
 
     #[test]
     fn curriculum_intervals_are_stage_split_and_chunk_invariant() {
-        let birth = 1_000;
-        let six = birth + 6 * MINUTES_PER_YEAR;
-        let twelve = birth + 12 * MINUTES_PER_YEAR;
-        let sixteen = birth + 16 * MINUTES_PER_YEAR;
+        let birth = StrategicMinute::new(1_000);
+        let six = birth.saturating_add_years(6);
+        let twelve = birth.saturating_add_years(12);
+        let sixteen = birth.saturating_add_years(16);
         for track in 0..2 {
             let (_, whole) =
                 curriculum_real_hours(ChildActivityFocus::Study, track, birth, birth, sixteen);
@@ -908,14 +865,14 @@ mod tests {
 
     #[test]
     fn materialized_estates_cascade_through_three_generations() {
-        let routed = route_materialized_inheritance(2, 100, |id| match id {
+        let routed = route_materialized_inheritance(2, StrategicMinute::new(100), |id| match id {
             2 => EstateRouteState::Dead {
-                death_minute: 200,
+                death_minute: StrategicMinute::new(200),
                 status: Some(EstateDispositionStatus::Transferred),
                 chosen_heir_id: 3,
             },
             3 => EstateRouteState::Dead {
-                death_minute: 300,
+                death_minute: StrategicMinute::new(300),
                 status: Some(EstateDispositionStatus::Transferred),
                 chosen_heir_id: 4,
             },
@@ -926,14 +883,14 @@ mod tests {
 
     #[test]
     fn out_of_order_assets_stop_at_a_pending_later_estate() {
-        let routed = route_materialized_inheritance(2, 100, |id| match id {
+        let routed = route_materialized_inheritance(2, StrategicMinute::new(100), |id| match id {
             2 => EstateRouteState::Dead {
-                death_minute: 200,
+                death_minute: StrategicMinute::new(200),
                 status: Some(EstateDispositionStatus::Transferred),
                 chosen_heir_id: 3,
             },
             3 => EstateRouteState::Dead {
-                death_minute: 300,
+                death_minute: StrategicMinute::new(300),
                 status: Some(EstateDispositionStatus::Pending),
                 chosen_heir_id: 4,
             },

@@ -1,11 +1,12 @@
-use fabelgeist_determinism::SplitMix64;
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
 use crate::shuffle;
 
-const RESOURCE_ALLOCATION_GENERATION_DOMAIN: u64 = 0x7265_736f_7572_6365;
+const RESOURCE_ALLOCATION_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("puzzle.resource_allocation");
 
-pub const RESOURCE_ALLOCATION_RULES_VERSION: u16 = 1;
+pub const RESOURCE_ALLOCATION_RULES_VERSION: u16 = 2;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub enum JourneyHazard {
@@ -164,7 +165,7 @@ impl From<ProvisionId> for ProvisionProfile {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct ResourceAllocationPuzzle {
     pub rules_version: u16,
-    pub seed: u64,
+    pub seed: Seed,
     pub spec: ResourceAllocationSpec,
     pub provisions: Vec<ProvisionId>,
     pub hazards: Vec<JourneyHazard>,
@@ -180,17 +181,17 @@ pub struct ResourceAllocationProjection {
 }
 
 impl ResourceAllocationPuzzle {
-    pub fn generate(seed: u64) -> Self {
+    pub fn generate(seed: Seed) -> Self {
         Self::generate_with_spec(seed, ResourceAllocationSpec::default())
             .expect("standard resource-allocation specification is valid")
     }
 
     pub fn generate_with_spec(
-        seed: u64,
+        seed: Seed,
         spec: ResourceAllocationSpec,
     ) -> Result<Self, &'static str> {
         let spec = spec.validate()?;
-        let mut rng = SplitMix64::new(seed ^ RESOURCE_ALLOCATION_GENERATION_DOMAIN);
+        let mut rng = RESOURCE_ALLOCATION_GENERATION_DOMAIN.rng(seed, &[]);
         for _ in 0..512 {
             let mut provisions = ProvisionId::ALL.to_vec();
             let mut hazards = JourneyHazard::ALL.to_vec();
@@ -362,7 +363,7 @@ mod tests {
 
     #[test]
     fn generated_allocations_have_one_auditable_optimum() {
-        for seed in 0..1_000 {
+        for seed in (0..1_000).map(fabelgeist_determinism::Seed::from_u64) {
             let puzzle = ResourceAllocationPuzzle::generate(seed);
             puzzle.validate().unwrap();
             let projection = serde_json::to_string(&puzzle.projection()).unwrap();

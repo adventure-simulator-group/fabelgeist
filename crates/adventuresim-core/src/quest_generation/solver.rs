@@ -58,16 +58,16 @@ fn solve_variables(
     for family_index in family_indices {
         let family = families[family_index].value;
         let causes = cause_candidates(family);
-        for cause_index in weighted_order(context.seed.rotate_left(3), "cause", &causes)? {
+        for cause_index in weighted_order(context.seed, "cause", &causes)? {
             let cause = causes[cause_index].value;
             let sites = site_candidates(cause);
-            for site_index in weighted_order(context.seed.rotate_left(7), "site", &sites)? {
+            for site_index in weighted_order(context.seed, "site", &sites)? {
                 let site = sites[site_index].value;
                 for &primary_index in &witnesses {
                     let witness = &context.witness_candidates[primary_index];
                     let circumstances = circumstance_candidates(witness.demographic);
                     for circumstance_index in weighted_order(
-                        context.seed.rotate_left(19),
+                        context.seed,
                         "circumstance",
                         &circumstances,
                     )? {
@@ -99,7 +99,7 @@ fn solve_variables(
                         }
                         let descriptions = description_candidates(cause);
                         let Some(description_index) = weighted_order(
-                            context.seed.rotate_left(29),
+                            context.seed,
                             "description",
                             &descriptions,
                         )?
@@ -408,9 +408,7 @@ fn circumstance_candidates(demo: WitnessDemographic) -> Vec<Candidate<Circumstan
 
 fn description_candidates(cause: CanonicalCause) -> Vec<Candidate<ReportDescription>> {
     crate::quest_catalog::catalog()
-        .documents
-        .iter()
-        .flat_map(|document| &document.descriptions)
+        .descriptions()
         .map(|authored| {
             let report =
                 ReportDescription::try_new(&authored.id).expect("validated open description ID");
@@ -470,9 +468,7 @@ fn description_candidates(cause: CanonicalCause) -> Vec<Candidate<ReportDescript
 
 fn report_id(v: ReportDescription) -> &'static str {
     crate::quest_catalog::catalog()
-        .documents
-        .iter()
-        .flat_map(|document| &document.descriptions)
+        .descriptions()
         .find(|item| item.id == v.as_str())
         .expect("generated description exists")
         .id
@@ -529,7 +525,7 @@ fn report_catalog_id(report: ReportDescription) -> &'static str {
     report_id(report)
 }
 
-fn bridge(id: &str, prefix: &str, family: TemplateFamily, _now: u64) -> CausalBridge {
+fn bridge(id: &str, prefix: &str, family: TemplateFamily) -> CausalBridge {
     let catalog_id = id.trim_start_matches("bridge.");
     let authored = crate::quest_catalog::catalog()
         .bridge(catalog_id)
@@ -594,15 +590,9 @@ fn consequence(
 
 fn deterministic_witness_order(context: &GenerationContext) -> Vec<usize> {
     let mut indices = (0..context.witness_candidates.len()).collect::<Vec<_>>();
-    indices.sort_by_key(|index| {
-        hash(
-            context.seed,
-            &format!(
-                "witness:{}",
-                context.witness_candidates[*index].resident_character_id
-            ),
-        )
-    });
+    indices.sort_by_key(|index| context.witness_candidates[*index].resident_character_id);
+    fabelgeist_determinism::StreamId::new("quest.witness-order")
+        .rng(context.seed, &[]).shuffle(&mut indices);
     indices
 }
 
@@ -638,7 +628,7 @@ fn build_actions(
                 cohort_id: target.cohort_id.clone(),
                 demographic: target.demographic,
                 age_band: target.age_band.clone(),
-                sex: target.sex.clone(),
+                sex: target.sex,
                 profession: target.profession.clone(),
             }
         }

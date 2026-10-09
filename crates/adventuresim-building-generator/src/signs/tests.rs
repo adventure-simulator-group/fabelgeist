@@ -1,25 +1,26 @@
 use super::*;
 use crate::{BuildingProgram, generate, settlement_archetype};
 
+fn name(value: &str) -> RenderedPersonalName {
+    RenderedPersonalName::new(value).unwrap()
+}
+
 #[test]
-fn brands_are_stable_per_lot_and_only_public_shops_receive_them() {
-    let first = ShopName::for_establishment(EstablishmentId(15), BuildingUse::Inn).unwrap();
-    assert_eq!(first.text(), "Ursula Klein’s Tavern");
+fn brands_use_the_operator_and_only_public_shops_receive_them() {
+    let first = ShopName::for_operator(&name("Marta Hartmann"), BuildingUse::Inn).unwrap();
+    assert_eq!(first.text(), "Marta Hartmann’s Tavern");
     assert_eq!(
         first,
-        ShopName::for_establishment(EstablishmentId(15), BuildingUse::Inn).unwrap()
+        ShopName::for_operator(&name("Marta Hartmann"), BuildingUse::Inn).unwrap()
     );
-    assert_ne!(
-        first,
-        ShopName::for_establishment(EstablishmentId(16), BuildingUse::Inn).unwrap()
-    );
+    assert!(RenderedPersonalName::new("   ").is_err());
     for usage in [
         BuildingUse::Dwelling,
         BuildingUse::Barn,
         BuildingUse::Cathedral,
         BuildingUse::MarketHall,
     ] {
-        assert!(ShopSign::for_establishment(EstablishmentId(15), usage).is_none());
+        assert!(ShopName::for_operator(&name("Marta Hartmann"), usage).is_none());
     }
 }
 
@@ -32,9 +33,13 @@ fn storefront_sites_clear_entrances_and_keep_both_mounts_above_pedestrians() {
         BuildingUse::Bakehouse,
         BuildingUse::Stable,
     ] {
-        let program =
-            BuildingProgram::validated_settlement(settlement_archetype(usage), usage, 42, None)
-                .unwrap();
+        let program = BuildingProgram::validated_settlement(
+            settlement_archetype(usage),
+            usage,
+            fabelgeist_determinism::Seed::from_u64(42),
+            None,
+        )
+        .unwrap();
         let plan = generate(&program).unwrap();
         let site =
             SignSite::for_plan(&plan).unwrap_or_else(|| panic!("{usage:?} has no sign site"));
@@ -52,7 +57,7 @@ fn storefront_sites_clear_entrances_and_keep_both_mounts_above_pedestrians() {
             .find(|solid| solid.id == site.mounting.support)
             .unwrap();
         let mut partial = site.mounting;
-        partial.contact.y = support.centre.y + super::site::solid_extent(support).y;
+        partial.contact.y = support.centre.metres().y + super::site::solid_extent(support).y;
         assert!(
             !partial.is_supported(&plan, site.outward),
             "a plate half hanging off its support must fail"

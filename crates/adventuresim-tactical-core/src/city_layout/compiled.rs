@@ -2,23 +2,55 @@
 use super::*;
 use crate::scene_input::{DistantBuildingPlacement, TacticalBuildingPlacement};
 use adventuresim_building_generator::BuildingArchetype;
+use adventuresim_world_schema::settlement_buildings::BusinessKey;
+use fabelgeist_determinism::Seed;
 
+mod assembly;
 mod church;
 mod gardens;
-mod terrain;
+pub use gardens::GardenClearanceError;
+mod grounded;
+mod homes;
+mod packing;
+mod single_support;
+pub use grounded::{
+    CityGroundingError, CityGroundingProjection, CityGroundingProjectionError,
+    GroundedCitySceneLayout, ProjectionBoundary, ProjectionOwnerContext, SelectedCityGrounding,
+};
+mod support;
 pub(crate) use gardens::validate_scene_gardens;
+pub use single_support::{CitySingleProperty, SinglePropertyGradingPolicy};
+pub use support::{CitySupportError, CompoundGradingPolicy, StreetApronDimensions};
 mod property;
 pub use church::ChurchSitingIssue;
 mod recipes;
-use recipes::RecipePalette;
+pub use recipes::CityRecipePalette;
 #[cfg(test)]
 mod tests;
 
-#[derive(Clone, Debug, PartialEq, Eq, thiserror::Error)]
+/// Accepted city-property compilation preserves its shared error classification.
+pub type CityCompileResult<T> = std::result::Result<T, CityCompileError>;
+
+#[derive(Clone, Debug, PartialEq, thiserror::Error)]
 pub enum CityCompileError {
+    #[error(transparent)]
+    BoundaryGeometry(#[from] crate::city_layout::BoundaryGeometryError),
+    #[error(transparent)]
+    Geometry(#[from] adventuresim_building_generator::spatial_geometry::GeometryError),
+    #[error(transparent)]
+    Collision(#[from] adventuresim_building_generator::CollisionError),
+    #[error(transparent)]
+    Door(#[from] adventuresim_building_generator::DoorError),
+    #[error(transparent)]
+    Construction(#[from] adventuresim_building_generator::GenerationError),
+    #[error("property {property:?} cannot be packed: {issue:?}")]
+    Packing {
+        property: CityPropertyId,
+        issue: CityPackingIssue,
+    },
     #[error("church {building} is not buildable: {issue:?}")]
     Church {
-        building: u64,
+        building: crate::scene_input::SceneBuildingId,
         issue: ChurchSitingIssue,
     },
     #[error("parish {parish:?} lacks its precinct or resident catchment")]
@@ -32,7 +64,7 @@ pub enum CityCompileError {
     #[error("{archetype:?} recipe from seed {seed} failed: {source}")]
     Recipe {
         archetype: BuildingArchetype,
-        seed: u64,
+        seed: Seed,
         source: adventuresim_building_generator::GenerationError,
     },
     #[error("property {property:?} is not buildable: {issue:?}")]
@@ -47,7 +79,9 @@ pub enum CompoundIssue {
     MissingCourtDoor,
     MissingRangeDoor,
     GeometryOutsidePlot,
-    AccessBlocked { building: u64 },
+    AccessBlocked {
+        building: crate::scene_input::SceneBuildingId,
+    },
     GateBlocksOpenPassage,
     GateSweepBlocked,
     StreetDisconnected,
@@ -55,12 +89,24 @@ pub enum CompoundIssue {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct CompiledCityLayout {
+    pub prosperity: adventuresim_world_schema::ProsperityTier,
     pub parishes: Vec<CityParish>,
     pub buildings: Vec<TacticalBuildingPlacement>,
     pub compounds: Vec<CityCompound>,
+    pub single_properties: Vec<CitySingleProperty>,
     pub streets: Vec<CityStreetPatch>,
     pub yards: Vec<CityYardPatch>,
     pub gardens: Vec<CityGarden>,
+    pub businesses: Vec<CityBusinessSite>,
+    /// Transient memo of the accepted physical recipes, retained for grounding.
+    pub support_recipes: CityRecipePalette,
+}
+
+/// The physical building selected for one settlement-local business key.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct CityBusinessSite {
+    pub building_id: crate::scene_input::SceneBuildingId,
+    pub key: BusinessKey,
 }
 
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -69,77 +115,28 @@ pub struct CitySceneLayout {
     pub playable: Vec<TacticalBuildingPlacement>,
     pub distant: Vec<DistantBuildingPlacement>,
     pub compounds: Vec<CityCompound>,
+    pub single_properties: Vec<CitySingleProperty>,
     pub streets: Vec<CityStreetPatch>,
     pub yards: Vec<CityYardPatch>,
     pub gardens: Vec<CityGarden>,
+    pub businesses: Vec<CityBusinessSite>,
+    /// Transient memo of the accepted physical recipes, retained for grounding.
+    pub support_recipes: CityRecipePalette,
 }
 
 impl GeneratedCityLayout {
-    /// Packing reserves complete properties cheaply. This stage validates actual
-    /// generated envelopes and access before exposing any placement to a consumer.
-    pub fn compile(self, seed: u64) -> Result<CompiledCityLayout, CityCompileError> {
-        if self.unhoused_population > 0
-            || !self.unplaced_services.is_empty()
-            || !self.demand_shortfalls.is_empty()
-        {
-            return Err(CityCompileError::Capacity {
-                residents: self.unhoused_population,
-                services: self.unplaced_services.len() + self.demand_shortfalls.len(),
-            });
-        }
-        let mut palette = RecipePalette::default();
-        let parishes = self.parish_layout()?;
-        let mut clearance_cache = property::ClearanceCache::default();
-        let mut buildings = Vec::new();
-        let mut compounds = Vec::new();
-        let mut gardens = Vec::new();
-        let mut envelopes = Vec::new();
-        for lot in self.lots {
-            let recipe = palette.front(seed, lot)?;
-            let front = recipe.place(lot.id, lot.centre_metres, lot.orientation);
-            if recipe.program.church_program.is_some() {
-                church::validate(lot, &front, &recipe, &self.streets)?;
-            }
-            envelopes.push((front.id, gardens::envelope(&front, &recipe)));
-            if let Some(garden) = gardens::compile(seed, lot, &front, &recipe, &self.streets) {
-                gardens.push(garden);
-            }
-            if lot.has_rear_range() {
-                let range = palette.range()?;
-                let (rear, compound) = property::compile(
-                    lot,
-                    &front,
-                    &recipe,
-                    &range,
-                    &self.streets,
-                    &mut clearance_cache,
-                )?;
-                envelopes.push((rear.id, gardens::envelope(&rear, &range)));
-                buildings.push(rear);
-                compounds.push(compound);
-            }
-            buildings.push(front);
-        }
-        gardens.retain(|garden| {
-            envelopes
-                .iter()
-                .all(|(_, envelope)| garden.clears_building(*envelope))
-        });
-        let mut yards = self.yards;
-        yards.extend(gardens.iter().flat_map(|garden| {
-            garden.beds.iter().map(|bed| CityYardPatch {
-                corners_metres: bed.corners(),
-                surface: CityYardSurface::KitchenGarden,
-            })
-        }));
-        Ok(CompiledCityLayout {
-            gardens,
-            parishes,
-            buildings,
-            compounds,
-            streets: self.streets,
-            yards,
-        })
+    /// Compile the selected roster, then solve its measured physical packing.
+    pub fn compile(
+        mut self,
+        seed: fabelgeist_determinism::Seed,
+    ) -> CityCompileResult<CompiledCityLayout> {
+        let context = std::mem::replace(
+            &mut self.packing,
+            Ok(super::packing::CityPackingContext::default()),
+        )?;
+        let mut compiled = self.compile_properties(seed)?;
+        compiled.finalize_packing(&context)?;
+        Ok(compiled)
     }
 }
 
@@ -149,9 +146,9 @@ pub(crate) fn validate_scene_compound(
     front: &crate::scene_input::GeneratedBuilding,
     rear: &crate::scene_input::GeneratedBuilding,
     streets: &[CityStreetPatch],
-) -> Result<(), CityCompileError> {
-    let front_recipe = recipes::Recipe::from_generated(front);
-    let rear_recipe = recipes::Recipe::from_generated(rear);
+) -> CityCompileResult<()> {
+    let front_recipe = recipes::Recipe::from_generated(front)?;
+    let rear_recipe = recipes::Recipe::from_generated(rear)?;
     if !front_recipe.fits(&front.placement, compound.plot)
         || !rear_recipe.fits(&rear.placement, compound.plot)
     {
@@ -184,17 +181,24 @@ impl CompiledCityLayout {
     pub fn partition(
         self,
         playable_half_extent_metres: Option<f32>,
-    ) -> Result<CitySceneLayout, CityCompileError> {
+    ) -> CityCompileResult<CitySceneLayout> {
+        let playable_region = playable_half_extent_metres
+            .map(|extent| {
+                let dimensions =
+                    adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                        Vec2::splat(extent * 2.0),
+                    )?;
+                CityPlotBounds::new(
+                    crate::scene_coordinates::ScenePlanPoint::ORIGIN,
+                    dimensions,
+                    BuildingOrientation::IDENTITY,
+                )
+            })
+            .transpose()?;
         let mut playable_members = BTreeSet::new();
         let mut compound_members = BTreeSet::new();
         for compound in &self.compounds {
-            let playable = playable_half_extent_metres.is_some_and(|extent| {
-                compound.plot.intersects(CityPlotBounds {
-                    centre_metres: Vec2::ZERO,
-                    dimensions_metres: Vec2::splat(extent * 2.0),
-                    orientation: BuildingOrientation::IDENTITY,
-                })
-            });
+            let playable = playable_region.is_some_and(|region| compound.plot.intersects(region));
             compound_members.extend([compound.front_building_id, compound.rear_building_id]);
             if playable {
                 playable_members.extend([compound.front_building_id, compound.rear_building_id]);
@@ -202,33 +206,32 @@ impl CompiledCityLayout {
         }
         for garden in &self.gardens {
             compound_members.insert(garden.front_building_id);
-            if playable_half_extent_metres.is_some_and(|extent| {
-                garden.plot.intersects(CityPlotBounds {
-                    centre_metres: Vec2::ZERO,
-                    dimensions_metres: Vec2::splat(extent * 2.0),
-                    orientation: BuildingOrientation::IDENTITY,
-                })
-            }) {
+            if playable_region.is_some_and(|region| garden.plot.intersects(region)) {
                 playable_members.insert(garden.front_building_id);
             }
         }
         let mut result = CitySceneLayout {
             parishes: self.parishes,
             compounds: self.compounds,
+            single_properties: self.single_properties,
             gardens: self.gardens,
             streets: self.streets,
             yards: self.yards,
+            businesses: self.businesses,
+            support_recipes: self.support_recipes,
             ..Default::default()
         };
         for building in self.buildings {
             if playable_members.contains(&building.id)
                 || (!compound_members.contains(&building.id)
-                    && playable_half_extent_metres
-                        .is_some_and(|extent| building.centre_metres.abs().max_element() <= extent))
+                    && playable_half_extent_metres.is_some_and(|extent| {
+                        building.centre_metres.metres().abs().max_element() <= extent
+                    }))
             {
                 result.playable.push(building);
             } else {
                 result.distant.push(DistantBuildingPlacement {
+                    prosperity: self.prosperity,
                     id: building.id,
                     archetype: building.program.archetype,
                     usage: building.program.usage,
@@ -236,7 +239,7 @@ impl CompiledCityLayout {
                     seed: building.program.seed,
                     centre_metres: building.centre_metres,
                     orientation: building.orientation,
-                    base_elevation_metres: 0.0,
+                    base_elevation_metres: building.base_elevation_metres,
                 });
             }
         }

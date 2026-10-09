@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct InvestigationBeliefRevision {
@@ -16,7 +18,7 @@ pub struct InvestigationBeliefRevision {
     pub provenance_kind: String,
     pub provenance_label: String,
     pub supersedes: String,
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
 }
 
 impl __sdk::InModule for InvestigationBeliefRevision {
@@ -36,7 +38,7 @@ pub struct InvestigationBeliefRevisionCols {
     pub provenance_kind: __sdk::__query_builder::Col<InvestigationBeliefRevision, String>,
     pub provenance_label: __sdk::__query_builder::Col<InvestigationBeliefRevision, String>,
     pub supersedes: __sdk::__query_builder::Col<InvestigationBeliefRevision, String>,
-    pub recorded_at: __sdk::__query_builder::Col<InvestigationBeliefRevision, u64>,
+    pub recorded_at: __sdk::__query_builder::Col<InvestigationBeliefRevision, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for InvestigationBeliefRevision {

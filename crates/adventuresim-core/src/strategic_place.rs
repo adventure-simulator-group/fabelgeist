@@ -1,17 +1,13 @@
 //! Canonical strategic place and fixture identities.
 //!
-//! These values name referents only. Constructing a settlement, venue, or
-//! fixture identity does not establish that it exists, is visible, or is
-//! reachable by an actor. Authoritative consumers must still validate those
-//! facts at the actor's personal-time frontier.
+//! These values name referents. Reducers validate existence, visibility, and
+//! reachability at each actor's personal-time frontier.
 
+use adventuresim_world_schema::{SettlementActionService, calendar::StrategicMinute};
 use serde::{Deserialize, Deserializer, Serialize, Serializer, de};
 use std::{fmt, str::FromStr};
 
-use adventuresim_world_schema::SettlementActionService;
-
 use crate::settlement_economy::Storefront;
-
 const FORMAT_VERSION: &str = "v1";
 pub const MAX_STRATEGIC_ID_COMPONENT_BYTES: usize = 256;
 pub const MAX_STRATEGIC_PLACE_ID_BYTES: usize = 4_096;
@@ -237,7 +233,7 @@ pub enum StrategicPlaceId {
     },
     JourneyCamp {
         party_id: StrategicIdentityComponent,
-        departure_minute: u64,
+        departure_minute: StrategicMinute,
         movement_minute: u64,
     },
 }
@@ -289,7 +285,7 @@ impl StrategicPlaceId {
 
     pub fn journey_camp(
         party_id: impl Into<String>,
-        departure_minute: u64,
+        departure_minute: StrategicMinute,
         movement_minute: u64,
     ) -> Result<Self, PlaceIdentityError> {
         Ok(Self::JourneyCamp {
@@ -547,7 +543,7 @@ impl FromStr for StrategicPlaceId {
             ["place", _, "case-site", site_id] => Self::case_site(decode(site_id)?),
             ["place", _, "journey-camp", party_id, departure, movement] => Self::journey_camp(
                 decode(party_id)?,
-                parse_canonical_u64(departure)?,
+                StrategicMinute::new(parse_canonical_u64(departure)?),
                 parse_canonical_u64(movement)?,
             ),
             ["place", _, _, ..] => Err(PlaceIdentityError::UnknownPlaceKind),
@@ -788,7 +784,12 @@ mod tests {
         let residence =
             StrategicPlaceId::residence("lubeck", "residence-holding:41:lubeck:cheap:0").unwrap();
         let site = StrategicPlaceId::case_site("case:outbreak:site:source").unwrap();
-        let camp = StrategicPlaceId::journey_camp("party-7", 14_400, 480).unwrap();
+        let camp = StrategicPlaceId::journey_camp(
+            "party-7",
+            adventuresim_world_schema::calendar::StrategicMinute::new(14_400),
+            480,
+        )
+        .unwrap();
 
         assert_ne!(settlement, public_square);
         assert_ne!(settlement, service);
@@ -864,7 +865,12 @@ mod tests {
         assert_eq!(source.place(), &site);
         round_trip_fixture(source);
 
-        let camp = StrategicPlaceId::journey_camp("party-7", 14_400, 480).unwrap();
+        let camp = StrategicPlaceId::journey_camp(
+            "party-7",
+            adventuresim_world_schema::calendar::StrategicMinute::new(14_400),
+            480,
+        )
+        .unwrap();
         let fireplace = StrategicFixtureId::fireplace(camp.clone()).unwrap();
         assert_eq!(fireplace.place(), &camp);
         round_trip_fixture(fireplace);
@@ -880,9 +886,24 @@ mod tests {
 
     #[test]
     fn camp_fireplaces_are_exact_across_journeys_and_reached_stops() {
-        let first = StrategicPlaceId::journey_camp("party-7", 14_400, 480).unwrap();
-        let later_stop = StrategicPlaceId::journey_camp("party-7", 14_400, 960).unwrap();
-        let later_journey = StrategicPlaceId::journey_camp("party-7", 20_000, 480).unwrap();
+        let first = StrategicPlaceId::journey_camp(
+            "party-7",
+            adventuresim_world_schema::calendar::StrategicMinute::new(14_400),
+            480,
+        )
+        .unwrap();
+        let later_stop = StrategicPlaceId::journey_camp(
+            "party-7",
+            adventuresim_world_schema::calendar::StrategicMinute::new(14_400),
+            960,
+        )
+        .unwrap();
+        let later_journey = StrategicPlaceId::journey_camp(
+            "party-7",
+            adventuresim_world_schema::calendar::StrategicMinute::new(20_000),
+            480,
+        )
+        .unwrap();
 
         let first_fireplace = StrategicFixtureId::fireplace(first.clone()).unwrap();
         assert_ne!(

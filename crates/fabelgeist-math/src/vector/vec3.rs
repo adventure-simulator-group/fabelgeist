@@ -17,7 +17,6 @@ pub struct Vec3 {
     pub y: f32,
     pub z: f32,
 }
-
 impl Vec3 {
     pub fn new(x: f32, y: f32, z: f32) -> Vec3 {
         Self { x, y, z }
@@ -148,5 +147,117 @@ impl std::ops::Sub for Vec3 {
 impl std::fmt::Display for Vec3 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "({}, {}, {})", self.x, self.y, self.z)
+    }
+}
+
+// Component-wise helpers and the assigning operators. Kept out of the
+// `#[process]` block above deliberately: only one impl block per type may
+// carry that attribute, and these are plumbing rather than graph nodes.
+impl Vec3 {
+    /// Component-wise minimum.
+    pub fn min(self, other: Self) -> Self {
+        Self::new(
+            self.x.min(other.x),
+            self.y.min(other.y),
+            self.z.min(other.z),
+        )
+    }
+
+    /// Component-wise maximum.
+    pub fn max(self, other: Self) -> Self {
+        Self::new(
+            self.x.max(other.x),
+            self.y.max(other.y),
+            self.z.max(other.z),
+        )
+    }
+
+    pub fn abs(self) -> Self {
+        Self::new(self.x.abs(), self.y.abs(), self.z.abs())
+    }
+
+    pub fn min_component(self) -> f32 {
+        self.x.min(self.y).min(self.z)
+    }
+
+    pub fn max_component(self) -> f32 {
+        self.x.max(self.y).max(self.z)
+    }
+
+    /// Index of the largest component: 0, 1 or 2.
+    pub fn max_axis(self) -> usize {
+        if self.x >= self.y && self.x >= self.z {
+            0
+        } else if self.y >= self.z {
+            1
+        } else {
+            2
+        }
+    }
+
+    pub fn axis(self, index: usize) -> f32 {
+        match index {
+            0 => self.x,
+            1 => self.y,
+            _ => self.z,
+        }
+    }
+
+    pub fn set_axis(&mut self, index: usize, value: f32) {
+        match index {
+            0 => self.x = value,
+            1 => self.y = value,
+            _ => self.z = value,
+        }
+    }
+
+    pub fn is_finite(self) -> bool {
+        self.x.is_finite() && self.y.is_finite() && self.z.is_finite()
+    }
+
+    pub fn to_array(self) -> [f32; 3] {
+        [self.x, self.y, self.z]
+    }
+
+    pub fn from_array(values: [f32; 3]) -> Self {
+        Self::new(values[0], values[1], values[2])
+    }
+
+    pub fn splat(value: f32) -> Self {
+        Self::new(value, value, value)
+    }
+}
+
+impl std::ops::Div<f32> for Vec3 {
+    type Output = Self;
+    fn div(self, scalar: f32) -> Self {
+        Self::new(self.x / scalar, self.y / scalar, self.z / scalar)
+    }
+}
+
+impl std::ops::AddAssign for Vec3 {
+    fn add_assign(&mut self, other: Self) {
+        *self = *self + other;
+    }
+}
+
+impl std::ops::SubAssign for Vec3 {
+    fn sub_assign(&mut self, other: Self) {
+        *self = *self - other;
+    }
+}
+
+impl std::ops::MulAssign<f32> for Vec3 {
+    fn mul_assign(&mut self, scalar: f32) {
+        *self = *self * scalar;
+    }
+}
+
+impl std::ops::Div for Vec3 {
+    type Output = Self;
+
+    /// Component-wise division, preserving IEEE infinity for zero divisors.
+    fn div(self, other: Self) -> Self {
+        Self::new(self.x / other.x, self.y / other.y, self.z / other.z)
     }
 }

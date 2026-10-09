@@ -2,6 +2,11 @@
 pub(crate) struct SqlQuery(String);
 
 impl SqlQuery {
+    /// Select the immutable road topology at the native SQL boundary.
+    pub(crate) fn travel_edges() -> Self {
+        Self::new("SELECT * FROM travel_edge".to_owned())
+    }
+
     fn new(query: String) -> Self {
         Self(query)
     }
@@ -102,6 +107,15 @@ string_key_query!(
     case_site_pin_by_case_site_id,
     "SELECT * FROM backend_case_site_pins WHERE case_site_id = "
 );
+pub(crate) fn case_site_pin_by_case_site_id_and_owner(
+    case_site_id: &str,
+    owner_character_id: u64,
+) -> SqlQuery {
+    SqlQuery::new(format!(
+        "SELECT * FROM backend_case_site_pins WHERE case_site_id = {} AND owner_character_id = {owner_character_id}",
+        sql_string_literal(case_site_id)
+    ))
+}
 string_key_query!(
     tactical_server_by_mission_id,
     "SELECT * FROM tactical_server WHERE mission_id = "
@@ -215,7 +229,6 @@ u64_key_query!(
 pub(crate) fn world_clock_singleton() -> SqlQuery {
     SqlQuery::new("SELECT * FROM world_clock WHERE id = 0".to_string())
 }
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -298,6 +311,10 @@ mod tests {
             (
                 case_site_pin_by_case_site_id("site'oath"),
                 "SELECT * FROM backend_case_site_pins WHERE case_site_id = 'site''oath'",
+            ),
+            (
+                case_site_pin_by_case_site_id_and_owner("site'oath", 17),
+                "SELECT * FROM backend_case_site_pins WHERE case_site_id = 'site''oath' AND owner_character_id = 17",
             ),
         ];
 

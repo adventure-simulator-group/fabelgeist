@@ -1,6 +1,6 @@
 //! Controls for long wrapping tassets and their detachable lower section.
-use adventuresim_armor_model::WrappedTassetDesign;
 use bevy_egui::egui;
+use fabelgeist_armor::WrappedTassetDesign;
 
 pub(super) fn show(ui: &mut egui::Ui, shape: &mut WrappedTassetDesign, count: u8) -> bool {
     let original = *shape;

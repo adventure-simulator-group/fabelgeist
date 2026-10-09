@@ -28,19 +28,30 @@ fn resolved_wall_vertical_span(
 }
 
 fn wall_endpoint(wall: crate::WallSegment, sign: f32) -> Vec2 {
-    let tangent = if wall.is_horizontal() { Vec2::X } else { Vec2::Y };
+    let tangent = if wall.is_horizontal() {
+        Vec2::X
+    } else {
+        Vec2::Y
+    };
     wall.centre() + tangent * sign * CELL_SIZE_METRES * 0.5
 }
 
 fn wall_contains_plan_point(wall: crate::WallSegment, point: Vec2) -> bool {
-    let tangent = if wall.is_horizontal() { Vec2::X } else { Vec2::Y };
+    let tangent = if wall.is_horizontal() {
+        Vec2::X
+    } else {
+        Vec2::Y
+    };
     let delta = point - wall.centre();
     delta.dot(direction_vector(wall.direction)).abs() <= 0.001
         && delta.dot(tangent).abs() <= CELL_SIZE_METRES * 0.5 + 0.001
 }
 
 fn wall_has_opening(storey: &StoreyPlan, wall_index: usize) -> bool {
-    storey.openings.iter().any(|opening| opening.wall == wall_index)
+    storey
+        .openings
+        .iter()
+        .any(|opening| opening.wall == wall_index)
 }
 
 fn partition_endpoint_has_structural_connector(
@@ -55,11 +66,7 @@ fn partition_endpoint_has_structural_connector(
     })
 }
 
-fn has_collinear_partition_beyond(
-    storey: &StoreyPlan,
-    wall_index: usize,
-    endpoint: Vec2,
-) -> bool {
+fn has_collinear_partition_beyond(storey: &StoreyPlan, wall_index: usize, endpoint: Vec2) -> bool {
     let wall = storey.walls[wall_index];
     storey.walls.iter().enumerate().any(|(other_index, other)| {
         other_index != wall_index
@@ -71,11 +78,7 @@ fn has_collinear_partition_beyond(
     })
 }
 
-fn partition_endpoint_is_post_candidate(
-    storey: &StoreyPlan,
-    wall_index: usize,
-    sign: f32,
-) -> bool {
+fn partition_endpoint_is_post_candidate(storey: &StoreyPlan, wall_index: usize, sign: f32) -> bool {
     let endpoint = wall_endpoint(storey.walls[wall_index], sign);
     !partition_endpoint_has_structural_connector(storey, wall_index, endpoint)
         && (sign < 0.0 || !has_collinear_partition_beyond(storey, wall_index, endpoint))
@@ -149,7 +152,11 @@ fn internal_partition_run(
     height: f32,
     thickness: f32,
 ) -> InternalPartitionRun {
-    let tangent = if wall.is_horizontal() { Vec2::X } else { Vec2::Y };
+    let tangent = if wall.is_horizontal() {
+        Vec2::X
+    } else {
+        Vec2::Y
+    };
     let negative = partition_endpoint_trim(
         storey,
         wall_index,
@@ -179,7 +186,10 @@ fn partition_aligned_size(wall: crate::WallSegment, length: f32, height: f32, de
     }
 }
 
-#[expect(clippy::too_many_arguments, reason = "resolved partition solid identity")]
+#[expect(
+    clippy::too_many_arguments,
+    reason = "resolved partition solid identity"
+)]
 fn push_partition_solid(
     geometry: &mut ResolvedGeometry,
     host_solids: &mut Vec<ResolvedItemId>,
@@ -189,7 +199,7 @@ fn push_partition_solid(
     centre: Vec3,
     size: Vec3,
     role: SolidRole,
-) {
+) -> Result<(), crate::GenerationError> {
     host_solids.push(wall_solid(
         geometry,
         owner,
@@ -199,7 +209,9 @@ fn push_partition_solid(
         role,
         crate::ResolvedSolidShape::Cuboid,
         wall_node,
-    ));
+    )?);
+
+    Ok(())
 }
 
 fn append_partition_field(
@@ -210,11 +222,11 @@ fn append_partition_field(
     host_solids: &mut Vec<ResolvedItemId>,
     owner: GeometryOwnerId,
     wall_node: StructuralNodeId,
-) {
-    let lower_top = INTERNAL_PARTITION_RAIL_ELEVATION_METRES
-        - INTERNAL_PARTITION_RAIL_HEIGHT_METRES * 0.5;
-    let upper_bottom = INTERNAL_PARTITION_RAIL_ELEVATION_METRES
-        + INTERNAL_PARTITION_RAIL_HEIGHT_METRES * 0.5;
+) -> Result<(), crate::GenerationError> {
+    let lower_top =
+        INTERNAL_PARTITION_RAIL_ELEVATION_METRES - INTERNAL_PARTITION_RAIL_HEIGHT_METRES * 0.5;
+    let upper_bottom =
+        INTERNAL_PARTITION_RAIL_ELEVATION_METRES + INTERNAL_PARTITION_RAIL_HEIGHT_METRES * 0.5;
     let upper_top = run.height - INTERNAL_PARTITION_PLATE_HEIGHT_METRES;
     for (slot, bottom, top) in [
         (0_u64, INTERNAL_PARTITION_SILL_HEIGHT_METRES, lower_top),
@@ -230,12 +242,27 @@ fn append_partition_field(
             Vec3::new(run.centre.x, run.base + bottom + height * 0.5, run.centre.y),
             partition_aligned_size(wall, run.length, height, run.infill_depth),
             SolidRole::FrameInfill,
-        );
+        )?;
     }
-    for (slot, elevation, height, role) in [
-        (2_u64, INTERNAL_PARTITION_SILL_HEIGHT_METRES * 0.5, INTERNAL_PARTITION_SILL_HEIGHT_METRES, SolidRole::FrameSill),
-        (3, run.height - INTERNAL_PARTITION_PLATE_HEIGHT_METRES * 0.5, INTERNAL_PARTITION_PLATE_HEIGHT_METRES, SolidRole::FramePlate),
-        (4, INTERNAL_PARTITION_RAIL_ELEVATION_METRES, INTERNAL_PARTITION_RAIL_HEIGHT_METRES, SolidRole::FrameRail),
+    let _: () = for (slot, elevation, height, role) in [
+        (
+            2_u64,
+            INTERNAL_PARTITION_SILL_HEIGHT_METRES * 0.5,
+            INTERNAL_PARTITION_SILL_HEIGHT_METRES,
+            SolidRole::FrameSill,
+        ),
+        (
+            3,
+            run.height - INTERNAL_PARTITION_PLATE_HEIGHT_METRES * 0.5,
+            INTERNAL_PARTITION_PLATE_HEIGHT_METRES,
+            SolidRole::FramePlate,
+        ),
+        (
+            4,
+            INTERNAL_PARTITION_RAIL_ELEVATION_METRES,
+            INTERNAL_PARTITION_RAIL_HEIGHT_METRES,
+            SolidRole::FrameRail,
+        ),
     ] {
         push_partition_solid(
             geometry,
@@ -246,11 +273,15 @@ fn append_partition_field(
             Vec3::new(run.centre.x, run.base + elevation, run.centre.y),
             partition_aligned_size(wall, run.length, height, thickness),
             role,
-        );
-    }
+        )?;
+    };
+    Ok(())
 }
 
-#[expect(clippy::too_many_arguments, reason = "resolved partition post identity")]
+#[expect(
+    clippy::too_many_arguments,
+    reason = "resolved partition post identity"
+)]
 fn append_partition_posts(
     storey: &StoreyPlan,
     wall_index: usize,
@@ -261,8 +292,8 @@ fn append_partition_posts(
     host_solids: &mut Vec<ResolvedItemId>,
     owner: GeometryOwnerId,
     wall_node: StructuralNodeId,
-) {
-    for (slot, sign) in [(5_u64, -1.0_f32), (6, 1.0)] {
+) -> Result<(), crate::GenerationError> {
+    let _: () = for (slot, sign) in [(5_u64, -1.0_f32), (6, 1.0)] {
         let endpoint = wall_endpoint(wall, sign);
         if partition_endpoint_is_post_candidate(storey, wall_index, sign)
             && partition_post_owner(storey, endpoint) == Some(wall_index)
@@ -277,12 +308,16 @@ fn append_partition_posts(
                 Vec3::new(endpoint.x, run.base + run.height * 0.5, endpoint.y),
                 Vec3::new(width, run.height, width),
                 SolidRole::FramePost,
-            );
+            )?;
         }
-    }
+    };
+    Ok(())
 }
 
-#[expect(clippy::too_many_arguments, reason = "authoritative partition assembly inputs")]
+#[expect(
+    clippy::too_many_arguments,
+    reason = "authoritative partition assembly inputs"
+)]
 fn append_internal_timber_partition(
     program: &BuildingProgram,
     storey: &StoreyPlan,
@@ -296,14 +331,32 @@ fn append_internal_timber_partition(
     height: f32,
     thickness: f32,
     host_solids: &mut Vec<ResolvedItemId>,
-) {
+) -> Result<(), crate::GenerationError> {
     let run = internal_partition_run(
         program, storey, wall_index, wall, origin, base, height, thickness,
     );
-    append_partition_field(wall, run, thickness, geometry, host_solids, owner, wall_node);
+    append_partition_field(
+        wall,
+        run,
+        thickness,
+        geometry,
+        host_solids,
+        owner,
+        wall_node,
+    )?;
     append_partition_posts(
-        storey, wall_index, wall, run, thickness, geometry, host_solids, owner, wall_node,
-    );
+        storey,
+        wall_index,
+        wall,
+        run,
+        thickness,
+        geometry,
+        host_solids,
+        owner,
+        wall_node,
+    )?;
+
+    Ok(())
 }
 
 #[expect(clippy::too_many_arguments, reason = "closed wall assembly inputs")]
@@ -324,13 +377,23 @@ fn append_closed_wall_assembly(
     thickness: f32,
     length: f32,
     host_solids: &mut Vec<ResolvedItemId>,
-) {
+) -> Result<(), crate::GenerationError> {
     if material == crate::WallMaterialClass::InternalTimber {
         append_internal_timber_partition(
-            program, storey, wall_index, wall, geometry, owner, wall_node, origin, base, height,
-            thickness, host_solids,
-        );
-        return;
+            program,
+            storey,
+            wall_index,
+            wall,
+            geometry,
+            owner,
+            wall_node,
+            origin,
+            base,
+            height,
+            thickness,
+            host_solids,
+        )?;
+        return Ok(());
     }
     for (slot, side) in [(0_u64, -1.0_f32), (1, 1.0)] {
         let centre = origin + tangent * side * length * 0.25;
@@ -343,16 +406,15 @@ fn append_closed_wall_assembly(
             Vec3::new(centre.x, base + height * 0.5, centre.y),
             partition_aligned_size(wall, length * 0.5, height, thickness),
             SolidRole::WallHost,
-        );
+        )?;
     }
     if material != crate::WallMaterialClass::ButtressedChurchMasonry || !wall.exterior() {
-        return;
+        return Ok(());
     }
     let buttress_depth = 0.78;
-    for (slot, side) in [(80_u64, -1.0_f32), (81, 1.0)] {
-        let plan = origin
-            + tangent * side * 0.12
-            + outward * (thickness * 0.5 + buttress_depth * 0.5);
+    let _: () = for (slot, side) in [(80_u64, -1.0_f32), (81, 1.0)] {
+        let plan =
+            origin + tangent * side * 0.12 + outward * (thickness * 0.5 + buttress_depth * 0.5);
         push_partition_solid(
             geometry,
             host_solids,
@@ -362,6 +424,7 @@ fn append_closed_wall_assembly(
             Vec3::new(plan.x, base + height * 0.44, plan.y),
             partition_aligned_size(wall, 0.24, height * 0.88, buttress_depth),
             SolidRole::WallButtress,
-        );
-    }
+        )?;
+    };
+    Ok(())
 }

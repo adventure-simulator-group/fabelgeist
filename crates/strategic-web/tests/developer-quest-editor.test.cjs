@@ -1,3 +1,4 @@
+const { readRustModuleSource } = require("./rust-module-source.cjs");
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -5,7 +6,7 @@ const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
 const script = fs.readFileSync(path.join(root, "static", "developer-quest-editor.js"), "utf8");
-const layout = fs.readFileSync(path.join(root, "src", "templates", "layout.rs"), "utf8");
+const layout = readRustModuleSource(path.join(root, "src", "templates", "layout.rs"));
 const route = fs.readFileSync(path.join(root, "src", "routes", "developer_quests.rs"), "utf8");
 const {
   replaceAtPath,
@@ -99,7 +100,7 @@ test("track authoring defaults preserve typed segment authority", () => {
 test("NPC selection atomically hydrates locked witness and pattern bindings", () => {
   const binding = {
     resident_character_id: "npc:two", display_name: "Else", demographic: "merchant",
-    age_band: "adult", sex: "female", profession: "merchant",
+    age_band: "adult", sex: null, profession: "merchant",
     visible_description: "tall", expected_location: "market",
     expected_location_label: "Market", presence_version: 42,
     allowed_circumstances: ["road"],
@@ -122,6 +123,9 @@ test("NPC selection atomically hydrates locked witness and pattern bindings", ()
   assert.equal(pattern.expected_settlement_id, "riverdale");
   assert.equal(pattern.presence_version, 42);
   assert.equal(pattern.resident_character_id, "npc:two");
+  assert.equal(pattern.sex, null);
+  assert.match(script, /pattern_targets:\s*\{[^\n]*sex:\s*null/);
+  assert.match(script, /binding\.sex \?\? "undisclosed sex"/);
 });
 
 test("open YAML content IDs are supplied by schema rather than JavaScript", () => {

@@ -4,7 +4,7 @@
 //! whenever a new request appears. The spawned server will then call
 //! create_tactical_server_for_request to register itself.
 
-mod settlement_economy_adapter;
+use adventuresim_tactical_server_dispatcher::settlement_economy_adapter;
 
 use std::collections::HashSet;
 use std::net::{IpAddr, SocketAddr};
@@ -19,7 +19,9 @@ use adventuresim_stdb_client::{
     tactical_server_requestQueryTableAccess,
 };
 use adventuresim_tactical_server_dispatcher::scene_input;
-use adventuresim_tactical_server_dispatcher::settlement_buildings::SettlementSceneProfile;
+use adventuresim_tactical_server_dispatcher::settlement_buildings::{
+    SettlementBusinessOperatorProfile, SettlementSceneProfile,
+};
 use adventuresim_terrain::{TerrainPack, TerrainPurpose};
 use clap::Parser;
 use sha2::{Digest, Sha256};
@@ -157,9 +159,9 @@ fn main() {
             let claim_hash = Sha256::digest(claim.as_bytes()).to_vec();
             let mission_id = request.mission_id.clone();
             let scene_key = request.scene_key.clone();
-            let expected_party_members = request.expected_party_members.to_string();
-            let required_enemy_kills = request.required_enemy_kills.to_string();
-            let enemy_combat_scale_bps = request.enemy_combat_scale_bps.to_string();
+            let Some(launch) = launch_arguments(request) else {
+                return;
+            };
             let scene_input =
                 match materialize_requested_scene(&terrain_clone, &scene_input_dir, request) {
                     Ok(path) => path.to_string_lossy().into_owned(),
@@ -192,11 +194,11 @@ fn main() {
                                 "--scene-input",
                                 &scene_input,
                                 "--expected-party-members",
-                                &expected_party_members,
+                                &launch.expected_party_members,
                                 "--required-enemy-kills",
-                                &required_enemy_kills,
+                                &launch.required_enemy_kills,
                                 "--enemy-combat-scale-bps",
-                                &enemy_combat_scale_bps,
+                                &launch.enemy_combat_scale_bps,
                                 "--addr",
                                 &SocketAddr::new(host, port).to_string(),
                                 "--spacetimedb-url",
@@ -254,23 +256,78 @@ fn materialize_requested_scene(
     let profile = request
         .settlement
         .as_ref()
-        .map(|settlement| SettlementSceneProfile {
-            id: settlement.id.clone(),
-            population_level: settlement.population_level,
-            population_estimate: settlement.population_estimate,
-            economy: settlement_economy_adapter::economy_profile(&settlement.economy),
-        });
+        .map(|settlement| -> Result<SettlementSceneProfile, String> {
+            Ok(SettlementSceneProfile {
+                id: settlement.id.clone(),
+                population_level: settlement.population_level,
+                population_estimate: settlement.population_estimate,
+                economy: settlement_economy_adapter::economy_profile(&settlement.economy),
+                operators: settlement
+                    .operators
+                    .iter()
+                    .map(|operator| {
+                        let operator_name =
+                            adventuresim_world_schema::person_names::RenderedPersonalName::try_from(
+                                operator.operator_name.clone(),
+                            )
+                            .map_err(|error| format!("invalid operator name: {error}"))?;
+                        Ok(SettlementBusinessOperatorProfile {
+                            business_id:
+                                adventuresim_world_schema::settlement_buildings::BusinessId::new(
+                                    &operator.business_id.settlement_id,
+                                    adventuresim_world_schema::settlement_buildings::BusinessKey {
+                                        usage: settlement_economy_adapter::building_use(
+                                            &operator.business_id.key.usage,
+                                        ),
+                                        ordinal: operator.business_id.key.ordinal,
+                                    },
+                                ),
+                            operator_character_id: adventuresim_tactical_core::player::CharacterId(
+                                operator.operator_character_id,
+                            ),
+                            operator_name,
+                        })
+                    })
+                    .collect::<Result<Vec<_>, String>>()?,
+            })
+        })
+        .transpose()?;
     let input = scene_input::build_imported_scene(
         terrain,
         &request.mission_id,
         &request.scene_key,
         request.latitude_e_7,
         request.longitude_e_7,
-        request.absolute_minute,
-        request.lunar_phase_minute,
+        adventuresim_world_schema::calendar::StrategicMinute::new(request.absolute_minute.minutes),
+        adventuresim_world_schema::calendar::StrategicMinute::new(
+            request.lunar_phase_minute.minutes,
+        ),
         profile.as_ref(),
     )?;
     scene_input::materialize_scene_input(directory, &request.mission_id, &input)
+}
+
+/// Scalar CLI arguments are projections of this captured request.
+struct TacticalLaunchArguments {
+    expected_party_members: String,
+    required_enemy_kills: String,
+    enemy_combat_scale_bps: String,
+}
+
+fn launch_arguments(request: &TacticalServerRequest) -> Option<TacticalLaunchArguments> {
+    match adventuresim_core::mission::TacticalPartyRoster::try_from(
+        request.authorized_party_member_ids.clone(),
+    ) {
+        Ok(roster) => Some(TacticalLaunchArguments {
+            expected_party_members: roster.expected_members().to_string(),
+            required_enemy_kills: request.required_enemy_kills.to_string(),
+            enemy_combat_scale_bps: request.enemy_combat_scale_bps.to_string(),
+        }),
+        Err(error) => {
+            error!(mission_id = %request.mission_id, %error, "Invalid tactical party roster");
+            None
+        }
+    }
 }
 
 #[cfg(test)]

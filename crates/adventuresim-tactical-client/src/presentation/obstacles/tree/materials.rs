@@ -356,7 +356,7 @@ mod tests {
             &adventuresim_procedural_textures::TextureParameters::default(),
             &mut app.world_mut().resource_mut::<Assets<Image>>(),
         );
-        let terrain = SceneTerrain::new(2, 2, 1.0, |point| point.x * 0.1 + point.y * 0.2);
+        let terrain = SceneTerrain::new(2, 2, 1.0, |point| point.x * 0.1 + point.y * 0.2).unwrap();
         let heightmap = Handle::<Image>::default();
         let terrain_height_range = Vec2::new(-0.075, 0.705);
         let bark = oak_bark_material(&assets, heightmap.clone(), terrain_height_range, &terrain);

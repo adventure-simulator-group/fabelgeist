@@ -1,5 +1,6 @@
 //! Home route handlers
 
+use crate::location_urls::patterns as paths;
 use axum::{
     Router,
     extract::State,
@@ -21,13 +22,13 @@ fn character_location_path(
     case_site_id: Option<&str>,
 ) -> Option<String> {
     settlement_id
-        .map(|id| format!("/locations/settlement/{id}"))
-        .or_else(|| case_site_id.map(|id| format!("/locations/case-site/{id}")))
+        .map(|id| paths::SETTLEMENT.url([&id]))
+        .or_else(|| case_site_id.map(|id| paths::CASE_SITE.url([&id])))
 }
 
 fn home_path(character: &crate::spacetimedb::CharacterView, party_is_camping: bool) -> String {
     if party_is_camping {
-        "/camp".into()
+        paths::CAMP.pattern().into()
     } else if let Some(path) = character_location_path(
         character.current_settlement_id.as_deref(),
         character.current_case_site_id.as_deref(),
@@ -163,7 +164,7 @@ mod tests {
     fn page_model_prefers_camp_over_location_and_falls_back_to_picker() {
         let mut character = character();
         character.current_settlement_id = Some("lubeck".into());
-        assert_eq!(home_path(&character, true), "/camp");
+        assert_eq!(home_path(&character, true), "/locations/camp");
         assert_eq!(home_path(&character, false), "/locations/settlement/lubeck");
         character.current_settlement_id = None;
         assert_eq!(home_path(&character, false), "/characters");
@@ -173,7 +174,7 @@ mod tests {
     fn selected_character_at_generated_case_site_routes_after_camp_arrival() {
         assert_eq!(
             character_location_path(None, Some("case-site:generated:old-graveyard")),
-            Some("/locations/case-site/case-site:generated:old-graveyard".into())
+            Some("/locations/case-site/case-site%3Agenerated%3Aold-graveyard".into())
         );
         assert_eq!(
             character_location_path(Some("lubeck"), Some("case-site:generated:site")),

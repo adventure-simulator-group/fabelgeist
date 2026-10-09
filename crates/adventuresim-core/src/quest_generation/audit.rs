@@ -1,17 +1,18 @@
 pub fn audit(seeds: u64) -> BTreeMap<TemplateFamily, u64> {
     let mut out = BTreeMap::new();
-    for seed in 0..seeds {
+    for word in 0..seeds {
+        let seed = fabelgeist_determinism::Seed::from_u64(word);
         let context = GenerationContext {
             seed,
-            observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
-            observer_entropy_lo: seed.rotate_left(23) ^ 0x7175_6573_742d_7631,
+            observer_entropy_hi: word ^ 0x6f62_7365_7276_6572,
+            observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high").seed(seed, &[]).to_u64(),
             settlement_id: "audit".into(),
             settlement_name: "Audit".into(),
             scope: Scope::Settlement {
                 settlement_id: "audit".into(),
             },
             ordinal: 0,
-            now_minute: 1_000,
+            now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(1_000),
             incident_weather: crate::weather::Precipitation::Clear,
             requested_family: None,
             witness_candidates: test_witnesses(),
@@ -30,7 +31,7 @@ pub fn test_witnesses() -> Vec<WitnessCandidate> {
             display_name: "Anna Weber".into(),
             demographic: WitnessDemographic::Child,
             age_band: "child".into(),
-            sex: "female".into(),
+            sex: Some(adventuresim_world_schema::Sex::Female),
             profession: "apprentice".into(),
             visible_description: "a short, fair-haired apprentice".into(),
             expected_location: "residences".into(),
@@ -46,7 +47,7 @@ pub fn test_witnesses() -> Vec<WitnessCandidate> {
             display_name: "Berthold Fischer".into(),
             demographic: WitnessDemographic::Guard,
             age_band: "adult".into(),
-            sex: "male".into(),
+            sex: Some(adventuresim_world_schema::Sex::Male),
             profession: "guard".into(),
             visible_description: "a tall guard with dark hair".into(),
             expected_location: "keep".into(),
@@ -62,7 +63,7 @@ pub fn test_witnesses() -> Vec<WitnessCandidate> {
             display_name: "Clara Hoffmann".into(),
             demographic: WitnessDemographic::Merchant,
             age_band: "elder".into(),
-            sex: "female".into(),
+            sex: Some(adventuresim_world_schema::Sex::Female),
             profession: "merchant".into(),
             visible_description: "a broad merchant with grey hair".into(),
             expected_location: "market".into(),

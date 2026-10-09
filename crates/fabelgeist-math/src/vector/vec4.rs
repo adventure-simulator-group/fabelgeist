@@ -18,7 +18,6 @@ pub struct Vec4 {
     pub z: f32,
     pub w: f32,
 }
-
 impl Vec4 {
     pub fn new(x: f32, y: f32, z: f32, w: f32) -> Vec4 {
         Self { x, y, z, w }
@@ -160,5 +159,52 @@ impl From<Vec4> for wgpu::Color {
 impl std::fmt::Display for Vec4 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "({}, {}, {}, {})", self.x, self.y, self.z, self.w)
+    }
+}
+
+impl std::ops::Add for Vec4 {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        Self::new(
+            self.x + other.x,
+            self.y + other.y,
+            self.z + other.z,
+            self.w + other.w,
+        )
+    }
+}
+
+impl std::ops::Sub for Vec4 {
+    type Output = Self;
+
+    fn sub(self, other: Self) -> Self {
+        Self::new(
+            self.x - other.x,
+            self.y - other.y,
+            self.z - other.z,
+            self.w - other.w,
+        )
+    }
+}
+
+impl std::ops::Mul<f32> for Vec4 {
+    type Output = Self;
+
+    fn mul(self, scalar: f32) -> Self {
+        Self::new(
+            self.x * scalar,
+            self.y * scalar,
+            self.z * scalar,
+            self.w * scalar,
+        )
+    }
+}
+
+impl std::ops::Neg for Vec4 {
+    type Output = Self;
+
+    fn neg(self) -> Self {
+        Self::new(-self.x, -self.y, -self.z, -self.w)
     }
 }

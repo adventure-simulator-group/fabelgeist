@@ -2,7 +2,7 @@
 pub fn settle_due_weddings(
     ctx: &ReducerContext,
     participant_id: u64,
-    _participant_frontier: u64,
+    _participant_frontier: StrategicMinute,
 ) -> Result<(), String> {
     let now = crate::time::refresh_clock(ctx)?;
     let due: Vec<_> = ctx
@@ -83,9 +83,9 @@ pub fn settle_due_weddings(
             )?;
             continue;
         }
-        if effective_age_years(ctx, first.id, effective_minute).unwrap_or(first.age_years)
+        if effective_age_years(ctx, first.id, effective_minute).unwrap_or(0)
             < ADULT_AGE_YEARS
-            || effective_age_years(ctx, second.id, effective_minute).unwrap_or(second.age_years)
+            || effective_age_years(ctx, second.id, effective_minute).unwrap_or(0)
                 < ADULT_AGE_YEARS
         {
             transition_commitment_terminal(
@@ -105,7 +105,7 @@ pub fn settle_due_weddings(
             .residence_holding()
             .iter()
             .filter(|holding| {
-                [first.id, second.id].contains(&holding.owner_character_id)
+                [first.id, second.id].contains(&holding.holder_character_id)
                     && holding.settlement_id == commitment.ceremony_settlement_id
                     && holding.acquired_minute <= effective_minute
                     && holding
@@ -215,7 +215,7 @@ pub fn settle_due_weddings(
                 commitment.effective_minute,
                 role,
             );
-            crate::residence::move_residence_occupant_effective(
+            crate::residence::move_residence_occupant_at(
                 ctx,
                 &residence_holding_id,
                 character_id,
@@ -298,7 +298,7 @@ pub fn settle_due_weddings(
 /// the batch.
 pub fn settle_due_weddings_global(
     ctx: &ReducerContext,
-    now: u64,
+    now: StrategicMinute,
     limit: usize,
 ) -> Result<usize, String> {
     let mut due: Vec<_> = ctx
@@ -326,7 +326,7 @@ fn resolve_marriage(
     ctx: &ReducerContext,
     mut marriage: Marriage,
     status: MarriageStatus,
-    minute: u64,
+    minute: StrategicMinute,
 ) {
     if marriage.status != MarriageStatus::Active {
         return;
@@ -346,7 +346,11 @@ fn resolve_marriage(
         {
             leave_household(ctx, character_id);
         }
-        crate::residence::remove_nonowned_occupancy_effective(ctx, character_id, minute);
+        crate::residence::remove_nonowned_occupancy_effective(
+            ctx,
+            character_id,
+            minute,
+        );
     }
     for (subject_id, related_id) in [
         (marriage.first_character_id, marriage.second_character_id),
@@ -405,7 +409,7 @@ pub fn end_marriage(
         .id()
         .find(&marriage_id)
         .ok_or("Marriage not found")?;
-    marriage.parsed_state()?;
+    marriage.parsed_state().map_err(|error| error.to_string())?;
     if actor_id != marriage.first_character_id && actor_id != marriage.second_character_id {
         return Err("Only a spouse can end this marriage".into());
     }
@@ -434,7 +438,7 @@ pub fn end_marriage(
 pub fn settle_marriage_lifecycle_for_character(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) {
     let Some(participant) = ctx
         .db

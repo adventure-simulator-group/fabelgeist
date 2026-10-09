@@ -1,9 +1,9 @@
 //! Helmet controls distinguish bowls, integrated faces and attached plates.
 use super::number;
-use adventuresim_armor_model::{
+use bevy_egui::egui;
+use fabelgeist_armor::{
     CloseHelmetDesign, HelmetCrown, HelmetDesign as H, HelmetFit, SalletDesign,
 };
-use bevy_egui::egui;
 
 pub(super) fn show(ui: &mut egui::Ui, design: &mut H) -> bool {
     let mut changed = false;

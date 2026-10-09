@@ -92,14 +92,14 @@ fn actor_action_terrain(ctx: &ReducerContext, actor: &crate::Character) -> actio
     }
     character_case_site_id(ctx, actor.id)
         .and_then(|id| ctx.db.case_site_authority().id_key().find(&id))
-        .and_then(|site| parse_action_terrain(&site.scene_key).ok())
+        .and_then(|site| site.scene_key.parse::<Terrain>().ok())
         .unwrap_or(action::Terrain::Road)
 }
 
 fn actor_action_weather(
     ctx: &ReducerContext,
     actor: &crate::Character,
-    started_at: u64,
+    started_at: StrategicMinute,
 ) -> action::WeatherAuthority {
     let coordinates = actor
         .current_settlement_id
@@ -165,28 +165,11 @@ fn persist_action_result_lead(
     attempt_id: &str,
     resolution: &action::Resolution,
 ) -> Result<(), String> {
-    let public_case_id = generated_authority_reducer(ctx, capability)
-        .map_err(|()| "Generated action authority is invalid")?
-        .map(|(manifest, _)| {
-            serde_json::from_str::<adventuresim_core::quest_generation::GeneratedCase>(&manifest)
-                .map(|generated| generated.public_case_id)
-                .map_err(|_| "Validated generated manifest became invalid")
-        })
-        .transpose()?
-        .unwrap_or_else(|| capability.case_id.clone());
-    let kind = parse_action_kind(&capability.method)?;
-    let generated_outputs = ctx
-        .db
-        .investigation_generated_action_output()
-        .capability_id()
-        .find(&capability.id)
-        .map(|row| {
-            serde_json::from_str::<Vec<adventuresim_core::quest_generation::GeneratedActionOutput>>(
-                &row.outputs_json,
-            )
-            .map_err(|_| "Generated action output authority is invalid")
-        })
-        .transpose()?;
+    let result_provenance::ActionResultProvenance {
+        public_case_id,
+        kind,
+        generated_outputs,
+    } = result_provenance::ActionResultProvenance::from_capability(ctx, capability)?;
     let typed_destination = generated_outputs.as_ref().and_then(|outputs| {
         outputs.iter().find_map(|output| match output {
             adventuresim_core::quest_generation::GeneratedActionOutput::Destination {
@@ -343,7 +326,10 @@ fn validate_tracking_action_origin(
         ctx,
         actor,
         &predecessor,
-        parse_action_kind(&predecessor.method)?,
+        predecessor
+            .method
+            .parse::<InvestigationActionKind>()
+            .map_err(|error| error.to_string())?,
     )
 }
 
@@ -475,7 +461,7 @@ fn validate_generated_pattern_condition(
     ctx: &ReducerContext,
     capability: &InvestigationActionCapability,
     kind: action::InvestigationActionKind,
-    started_at: u64,
+    started_at: StrategicMinute,
 ) -> Result<(), String> {
     let output = ctx
         .db
@@ -519,8 +505,7 @@ fn validate_generated_pattern_condition(
     use adventuresim_core::quest_generation::GeneratedPatternCondition as C;
     match &condition {
         C::NightWindow
-            if started_at % adventuresim_core::strategic_time::MINUTES_PER_DAY >= 360
-                && started_at % adventuresim_core::strategic_time::MINUTES_PER_DAY < 1_200 =>
+            if started_at.minute_of_day() >= 360 && started_at.minute_of_day() < 1_200 =>
         {
             Err(adventuresim_core::reducer_error::coded_reducer_error(
                 adventuresim_core::reducer_error::ReducerErrorCode::InvestigationNightWindow,
@@ -592,14 +577,14 @@ fn validate_generated_pattern_condition(
                 resident_character_id: target.resident_character_id,
                 demographic: *demographic,
                 age_band: target.age_band.clone(),
-                sex: target.sex.clone(),
+                sex: target.sex,
                 profession: target.profession.clone(),
                 expected_settlement_id: target.expected_settlement_id.clone(),
                 expected_location: target.expected_location.clone(),
                 expected_location_label: String::new(),
                 presence_version: target.presence_version,
             };
-            let current = if target.sex.is_empty() {
+            let current = if target.sex.is_none() {
                 crate::strategic::developer_npc_witness_candidate(&npc, &presence)
                     .ok_or_else(|| {
                         adventuresim_core::reducer_error::coded_reducer_error(
@@ -613,7 +598,7 @@ fn validate_generated_pattern_condition(
                     display_name: npc.name.clone(),
                     demographic: crate::strategic::generated_npc_demographic(&npc),
                     age_band: npc.age_band.stable_id().to_owned(),
-                    sex: npc.sex.stable_id().to_owned(),
+                    sex: Some(npc.sex),
                     profession: npc.profession.clone(),
                     visible_description: String::new(),
                     expected_location: presence.location_id.clone(),
@@ -886,7 +871,7 @@ fn reissue_stale_custody_capability(
     capability.consequence_json = serde_json::to_string(&refreshed)
         .map_err(|_| "Refreshed investigation consequence is invalid")?;
     capability.version = capability.version.saturating_add(1);
-    capability.seed = ctx.random::<u64>();
+    capability.seed = ctx.random::<Seed>();
     ctx.db
         .investigation_action_capability()
         .id()
@@ -1226,7 +1211,10 @@ fn capability_progress_depends_on_exact_lead(
         && capability.target_kind == action::InvestigationTargetKind::Site
         && capability.target_id == lead.exact_location_id
         && lead.destination_stage.is_exact()
-        && parse_action_kind(&capability.method).is_ok_and(generated_progress_kind)
+        && capability
+            .method
+            .parse::<InvestigationActionKind>()
+            .is_ok_and(generated_progress_kind)
 }
 
 fn dependent_capability_ids_for_exact_lead(
@@ -1274,7 +1262,7 @@ fn correction_requires_progress_reset(has_live_replacement_support: bool) -> boo
 fn reset_capability_progress_if_unsupported(
     capability: &mut InvestigationActionCapability,
     has_live_replacement_support: bool,
-    replacement_seed: impl FnOnce() -> u64,
+    replacement_seed: impl FnOnce() -> Seed,
 ) -> bool {
     if !correction_requires_progress_reset(has_live_replacement_support) {
         return false;
@@ -1302,7 +1290,7 @@ fn reset_unsupported_capability_progress(
         if !reset_capability_progress_if_unsupported(
             &mut capability,
             has_live_replacement_support,
-            || ctx.random::<u64>(),
+            || ctx.random::<Seed>(),
         ) {
             continue;
         }
@@ -1326,7 +1314,7 @@ fn site_bound_investigation_plan(
     rights_question: &action::InvestigationRightsQuestion,
     capability: &InvestigationActionCapability,
     attempt_id: &str,
-    started_at: u64,
+    started_at: StrategicMinute,
     members: &[u64],
     resolution: action::Resolution,
     resolution_input: action::ResolutionInput,
@@ -1387,14 +1375,14 @@ fn site_bound_investigation_plan(
     frame(capability.target_terrain.as_bytes());
     frame(&capability.version.to_le_bytes());
     frame(&capability.seed.to_le_bytes());
-    frame(&capability.evidence_age_origin_minute.to_le_bytes());
+    frame(&capability.evidence_age_origin_minute.get().to_le_bytes());
     frame(&capability.uncertainty_bps.to_le_bytes());
     frame(capability.required_action_id.as_bytes());
     frame(capability.alternate_route_action_id.as_bytes());
     frame(&[u8::from(capability.active)]);
     frame(&actor_id.to_le_bytes());
     frame(&party_leader_id.to_le_bytes());
-    frame(&started_at.to_le_bytes());
+    frame(&started_at.get().to_le_bytes());
     frame(&requested.to_le_bytes());
     frame(&safe.to_le_bytes());
     frame(
@@ -1430,7 +1418,6 @@ fn site_bound_investigation_plan(
     binding_hasher.update(input_digest);
     binding_hasher.update(attempt_id.as_bytes());
     let authority_binding: [u8; 32] = binding_hasher.finalize().into();
-
     if !matches!(
         rights_question.jurisdiction(),
         adventuresim_core::rights::RightsJurisdiction::Place(bound) if bound == &place
@@ -1439,9 +1426,8 @@ fn site_bound_investigation_plan(
     {
         return Err("Investigation rights question is inconsistent".into());
     }
-
     let interruption = (safe < requested).then_some(ScheduledInterruption {
-        at_minute: started_at.saturating_add(safe),
+        at_minute: started_at.saturating_add_minutes(safe),
         cause: action::InvestigationPlanInterruption::ParticipantBoundary,
     });
     let member_ids = members
@@ -1539,7 +1525,7 @@ pub(crate) fn perform_investigation_action_authorized(
         .filter(|capability| {
             capability.owner_character_id == actor_id
                 && capability.target_kind == action::InvestigationTargetKind::Site
-                && capability.method == "inspect_site"
+                && capability.method == InvestigationActionKind::InspectSite.stable_id()
         })
         .and_then(|capability| exact_action_case_site_for_observer(ctx, capability))
         .map(|matched| matched.site.id.to_place());
@@ -1577,9 +1563,10 @@ pub(crate) fn perform_investigation_action_authorized(
     if reissue_stale_custody_capability(ctx, &mut capability, &party_id)? {
         return Ok(());
     }
-    let kind = parse_action_kind(&method)?;
-    let target_terrain = parse_action_terrain(&capability.target_terrain)?;
-    validate_action_route_graph(ctx, actor_id, &capability.case_id)?;
+    let route_admission::ValidatedActionRoute {
+        kind,
+        target_terrain,
+    } = route_admission::ValidatedActionRoute::from_capability(ctx, &capability)?;
     let members = validate_live_action_prerequisites(ctx, &actor, &party_id, &capability, kind)?;
     let Some(started_at) = synchronize_party_activity_time(ctx, &members, party.leader_id)? else {
         return Ok(());
@@ -1595,14 +1582,12 @@ pub(crate) fn perform_investigation_action_authorized(
         kind,
         terrain: actor_action_terrain(ctx, &actor),
         target_terrain,
-        time_of_day: if started_at % adventuresim_core::strategic_time::MINUTES_PER_DAY < 360
-            || started_at % adventuresim_core::strategic_time::MINUTES_PER_DAY >= 1_200
-        {
-            action::TimeOfDay::Night
-        } else {
+        time_of_day: if (360..1_200).contains(&started_at.minute_of_day()) {
             action::TimeOfDay::Day
+        } else {
+            action::TimeOfDay::Night
         },
-        evidence_age_minutes: started_at.saturating_sub(capability.evidence_age_origin_minute),
+        evidence_age_minutes: started_at.elapsed_since(capability.evidence_age_origin_minute),
         current_uncertainty_bps: capability.uncertainty_bps,
         skills: route_skills,
         weather: actor_action_weather(ctx, &actor, started_at),
@@ -1751,7 +1736,7 @@ pub(crate) fn perform_investigation_action_authorized(
                 started_at,
                 completed_at,
                 duration_minutes: completed_at
-                    .saturating_sub(started_at)
+                    .elapsed_since(started_at)
                     .min(u64::from(u32::MAX)) as u32,
                 success: false,
                 resulting_uncertainty_bps: capability.uncertainty_bps,
@@ -1760,7 +1745,7 @@ pub(crate) fn perform_investigation_action_authorized(
                 )?,
             });
         capability.version = capability.version.saturating_add(1);
-        capability.seed = ctx.random::<u64>();
+        capability.seed = ctx.random::<Seed>();
         ctx.db
             .investigation_action_capability()
             .id()
@@ -1809,7 +1794,7 @@ pub(crate) fn perform_investigation_action_authorized(
     let outcome_case_id = capability.case_id.clone();
     let safe_result_on_success = capability.safe_result_on_success.clone();
     capability.version = capability.version.saturating_add(1);
-    capability.seed = ctx.random::<u64>();
+    capability.seed = ctx.random::<Seed>();
     capability.uncertainty_bps = resolution.resulting_uncertainty_bps;
     capability.active = !resolution.success;
     ctx.db

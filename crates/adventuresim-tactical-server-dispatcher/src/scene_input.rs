@@ -3,19 +3,25 @@ use std::{
     path::{Path, PathBuf},
 };
 
+use adventuresim_building_generator::signs::ShopName;
 use adventuresim_core::weather::{WORLD_WEATHER_SEED, weather_at};
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_terrain::{Cell, Surface, TerrainPack};
 use adventuresim_world_schema::{
-    BASIS_POINTS_PER_WHOLE, TerrainFeature, coordinates::Wgs84CoordinateE7,
+    BASIS_POINTS_PER_WHOLE, ElevationMeters, TerrainFeature, coordinates::Wgs84CoordinateE7,
 };
 use bevy::math::Vec2;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::{Seed, StreamId};
 use sha2::{Digest, Sha256};
+use std::collections::BTreeMap;
 
 use crate::settlement_buildings::{SettlementSceneProfile, place_settlement_buildings};
 
+mod establishments;
 mod geological_landforms;
+use establishments::bind_establishments;
+mod terrain_capture;
+pub use terrain_capture::{ImportedTerrainCapture, SourceElevationSample, TerrainCaptureError};
 
 const PLAYABLE_SIDE: u16 = 101;
 const PLAYABLE_SPACING_METRES: f32 = 1.0;
@@ -39,7 +45,7 @@ const SCARP_DEFAULT_COLLAR_CM: u16 = 400;
 
 #[derive(Clone, Copy)]
 struct VistaLodSpec {
-    level: u8,
+    level: adventuresim_tactical_core::scene_input::VistaLevelIndex,
     spacing_metres: f32,
     side: u16,
 }
@@ -47,7 +53,7 @@ struct VistaLodSpec {
 impl VistaLodSpec {
     const fn new(level: u8, spacing_metres: f32, side: u16) -> Self {
         Self {
-            level,
+            level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(level),
             spacing_metres,
             side,
         }
@@ -80,9 +86,9 @@ struct GridSampleRequest {
     center: Wgs84CoordinateE7,
     dimensions: GridDimensions,
     spacing_metres: f32,
-    center_elevation_metres: f32,
+    center_elevation_metres: ElevationMeters,
     elevation_sampling: ElevationSampling,
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -92,8 +98,8 @@ pub fn build_imported_scene(
     scene_key: &str,
     latitude_e7: i32,
     longitude_e7: i32,
-    absolute_minute: u64,
-    lunar_phase_minute: u64,
+    absolute_minute: adventuresim_world_schema::calendar::StrategicMinute,
+    lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute,
     settlement: Option<&SettlementSceneProfile>,
 ) -> Result<TacticalSceneInput, String> {
     let coordinates = Wgs84CoordinateE7::new(latitude_e7, longitude_e7)
@@ -105,21 +111,31 @@ pub fn build_imported_scene(
         )
         .map_err(|error| error.to_string())?
         .ok_or("mission coordinate is outside the final terrain pack")?;
-    let seed = deterministic_seed(mission_id);
+    // A settlement is the same physical place before and after enrollment in
+    // a tactical instance. Mission identity must not change its terrain assets.
+    let seed = deterministic_seed(settlement.map_or(mission_id, |site| site.id.as_str()));
     let playable = sample_grid(
         pack,
         GridSampleRequest {
             center: coordinates,
             dimensions: GridDimensions::square(PLAYABLE_SIDE),
             spacing_metres: PLAYABLE_SPACING_METRES,
-            center_elevation_metres: f32::from(center.elevation_m),
+            center_elevation_metres: ElevationMeters::new(center.elevation_m)
+                .ok_or("source elevation is outside supported bounds")?,
             elevation_sampling: ElevationSampling::AddLocalDetail,
             seed,
         },
     )?;
-    let mut vista = sample_city_vista(pack, coordinates, f32::from(center.elevation_m), seed)?;
+    let vista = sample_city_vista(
+        pack,
+        coordinates,
+        ElevationMeters::new(center.elevation_m)
+            .ok_or("source elevation is outside supported bounds")?,
+        seed,
+    )?;
     // sample_grid has already subtracted the absolute centre elevation.
-    let building_layout = settlement_building_layout(settlement, &mut vista)?;
+    let building_layout = settlement_building_layout(settlement)?;
+    let establishments = bind_establishments(settlement, &building_layout)?;
     let landform = nearest_fault_scarp(pack.terrain_features(), coordinates, seed).or_else(|| {
         settlement
             .is_none()
@@ -129,25 +145,32 @@ pub fn build_imported_scene(
             .flatten()
     });
     let input = TacticalSceneInput {
+        grounding: None,
+        properties: settlement_properties(settlement, &building_layout)?,
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
         seed,
         scene_key: scene_key.into(),
-        source: SceneSource::ImportedPackage(pack.digest().into()),
-        latitude_microdegrees: coordinates.latitude().to_microdegrees().get(),
-        longitude_microdegrees: coordinates.longitude().to_microdegrees().get(),
+        source: SceneSource::ImportedPackage(
+            adventuresim_tactical_core::scene_input::SourcePackageDigest::from_hex(pack.digest())
+                .map_err(|cause| cause.to_string())?,
+        ),
+        latitude_microdegrees: coordinates.latitude().to_microdegrees(),
+        longitude_microdegrees: coordinates.longitude().to_microdegrees(),
         absolute_minute,
         lunar_phase_minute,
-        absolute_elevation_metres: center.elevation_m,
+        absolute_elevation_metres: ElevationMeters::new(center.elevation_m)
+            .ok_or("terrain origin elevation is outside world bounds")?,
         playable,
         landform,
-        streets: building_layout.streets,
-        yards: building_layout.yards,
-        parishes: building_layout.parishes,
-        compounds: building_layout.compounds,
-        gardens: building_layout.gardens,
-        buildings: building_layout.playable,
-        distant_buildings: building_layout.distant,
+        streets: building_layout.streets.clone(),
+        yards: building_layout.yards.clone(),
+        parishes: building_layout.parishes.clone(),
+        compounds: building_layout.compounds.clone(),
+        gardens: building_layout.gardens.clone(),
+        buildings: building_layout.playable.clone(),
+        distant_buildings: building_layout.distant.clone(),
+        establishments,
         vista,
         weather: weather_at(
             WORLD_WEATHER_SEED,
@@ -157,28 +180,29 @@ pub fn build_imported_scene(
             center.elevation_m,
         ),
     };
-    input.validate().map_err(|error| error.to_string())?;
-    Ok(input)
+    input
+        .ground_generated_city(
+            &building_layout,
+            adventuresim_tactical_core::city_layout::CompoundGradingPolicy::bounded_settlement(),
+        )
+        .map_err(|error| error.to_string())
 }
 
 fn settlement_building_layout(
     settlement: Option<&SettlementSceneProfile>,
-    vista: &mut VistaSample,
 ) -> Result<adventuresim_tactical_core::city_layout::CitySceneLayout, String> {
     let playable_half_extent_metres = f32::from(PLAYABLE_SIDE - 1) * PLAYABLE_SPACING_METRES * 0.5;
-    let layout = settlement
+    settlement
         .map(|profile| place_settlement_buildings(profile, playable_half_extent_metres))
         .transpose()
-        .map_err(|error| error.to_string())?
-        .unwrap_or_default();
-    layout.level_vista(vista, 0.0);
-    Ok(layout)
+        .map_err(|error| error.to_string())
+        .map(Option::unwrap_or_default)
 }
 
 fn nearest_fault_scarp(
     terrain_features: &[TerrainFeature],
     center: Wgs84CoordinateE7,
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
 ) -> Option<TerrainLandformRecipe> {
     let latitude = center.latitude().degrees();
     let longitude = center.longitude().degrees();
@@ -235,21 +259,24 @@ fn nearest_fault_scarp(
         seed,
         tangent_permyriad,
     )?;
-    Some(TerrainLandformRecipe {
-        kind: TerrainLandformKind::FaultScarp,
-        surface,
-        seed,
-        // The closest point is the canonical mapped trace projected into the
-        // scene's east/north frame. LOD changes sampling resolution only; the
-        // feature's position and physical dimensions remain canonical.
-        origin_cm,
-        tangent_permyriad,
-        relief_cm: SCARP_DEFAULT_THROW_CM,
-        half_length_cm: SCARP_DEFAULT_HALF_LENGTH_CM,
-        half_width_cm: SCARP_DEFAULT_HALF_WIDTH_CM,
-        collar_cm: SCARP_DEFAULT_COLLAR_CM,
-        lod,
-    })
+    TerrainLandformRecipe::from_quantized(
+        adventuresim_tactical_core::volumetric_terrain::QuantizedLandformRecipe {
+            kind: TerrainLandformKind::FaultScarp,
+            surface,
+            seed,
+            // The closest point is the canonical mapped trace projected into the
+            // scene's east/north frame. LOD changes sampling resolution only; the
+            // feature's position and physical dimensions remain canonical.
+            origin_cm,
+            tangent_permyriad,
+            relief_cm: SCARP_DEFAULT_THROW_CM,
+            half_length_cm: SCARP_DEFAULT_HALF_LENGTH_CM,
+            half_width_cm: SCARP_DEFAULT_HALF_WIDTH_CM,
+            collar_cm: SCARP_DEFAULT_COLLAR_CM,
+            lod,
+        },
+    )
+    .ok()
 }
 
 fn scarp_lod(
@@ -318,7 +345,10 @@ fn sample_grid(
         for x in 0..width {
             let east = (f64::from(x) - center_x) * f64::from(request.spacing_metres);
             let north = (f64::from(z) - center_z) * f64::from(request.spacing_metres);
-            let (sample_latitude, sample_longitude) = offset_coordinate(
+            let GeographicSampleCoordinate {
+                latitude_degrees: sample_latitude,
+                longitude_degrees: sample_longitude,
+            } = offset_coordinate(
                 request.center.latitude().degrees(),
                 request.center.longitude().degrees(),
                 east,
@@ -341,7 +371,10 @@ fn sample_grid(
                     (0.0, radius),
                     (radius, radius),
                 ] {
-                    let (lat, lon) = offset_coordinate(
+                    let GeographicSampleCoordinate {
+                        latitude_degrees: lat,
+                        longitude_degrees: lon,
+                    } = offset_coordinate(
                         sample_latitude,
                         sample_longitude,
                         sample_east,
@@ -360,7 +393,7 @@ fn sample_grid(
                     * HILLY_DETAIL_AMPLITUDE_METRES;
                 elevation += detail;
             }
-            heights.push(elevation - request.center_elevation_metres);
+            heights.push(elevation - f32::from(request.center_elevation_metres.get()));
             environment.push(environment_sample(cell));
         }
     }
@@ -404,28 +437,43 @@ fn environment_sample(cell: Cell) -> EnvironmentalSample {
     }
 }
 
-fn offset_coordinate(latitude: f64, longitude: f64, east: f64, north: f64) -> (f64, f64) {
+/// Native TerrainPack projection port: continuous WGS84 degrees and scene
+/// east/north metres. Quantizing these intermediate values would move samples.
+struct GeographicSampleCoordinate {
+    latitude_degrees: f64,
+    longitude_degrees: f64,
+}
+fn offset_coordinate(
+    latitude: f64,
+    longitude: f64,
+    east: f64,
+    north: f64,
+) -> GeographicSampleCoordinate {
     let latitude_delta = north / METRES_PER_LATITUDE_DEGREE;
     let longitude_scale = latitude.to_radians().cos().abs().max(MIN_LONGITUDE_SCALE);
     let longitude_delta = east / (METRES_PER_LATITUDE_DEGREE * longitude_scale);
-    (latitude + latitude_delta, longitude + longitude_delta)
+    GeographicSampleCoordinate {
+        latitude_degrees: latitude + latitude_delta,
+        longitude_degrees: longitude + longitude_delta,
+    }
 }
 
-fn deterministic_seed(mission_id: &str) -> u64 {
-    let digest = Sha256::digest(mission_id.as_bytes());
-    u64::from_le_bytes(digest[..8].try_into().expect("SHA-256 prefix"))
+fn deterministic_seed(mission_id: &str) -> Seed {
+    Seed::derive(mission_id.as_bytes(), StreamId::new("scene.mission"), &[])
 }
 
-fn deterministic_detail(seed: u64, x: u16, z: u16) -> f32 {
-    let value = mix64(seed ^ (u64::from(x) << 32) ^ u64::from(z));
-    (value % RANDOM_DETAIL_BUCKETS) as f32 / RANDOM_DETAIL_SCALE as f32 - 1.0
+fn deterministic_detail(seed: fabelgeist_determinism::Seed, x: u16, z: u16) -> f32 {
+    let value = StreamId::new("scene.hilly-detail")
+        .rng(seed, &[u64::from(x), u64::from(z)])
+        .below(std::num::NonZeroU64::new(RANDOM_DETAIL_BUCKETS).expect("detail range is positive"));
+    value as f32 / RANDOM_DETAIL_SCALE as f32 - 1.0
 }
 
 fn sample_city_vista(
     pack: &TerrainPack,
     coordinates: Wgs84CoordinateE7,
-    elevation_metres: f32,
-    seed: u64,
+    elevation_metres: ElevationMeters,
+    seed: fabelgeist_determinism::Seed,
 ) -> Result<VistaSample, String> {
     Ok(VistaSample {
         // The near regional ring needs enough spatial frequency to preserve
@@ -442,7 +490,7 @@ fn sample_city_vista(
                         spacing_metres: spec.spacing_metres,
                         center_elevation_metres: elevation_metres,
                         elevation_sampling: ElevationSampling::PreservePeaks,
-                        seed: seed ^ u64::from(spec.level),
+                        seed: Seed::from_u64(seed.to_u64() ^ u64::from(spec.level.index())),
                     },
                 )?;
                 Ok(VistaLod {
@@ -460,9 +508,29 @@ fn sample_city_vista(
     })
 }
 
+fn settlement_properties(
+    settlement: Option<&SettlementSceneProfile>,
+    building_layout: &adventuresim_tactical_core::city_layout::CitySceneLayout,
+) -> Result<Option<adventuresim_core::settlement_property::GeneratedHomeCatalog>, String> {
+    settlement
+        .map(|profile| {
+            building_layout
+                .generated_homes(
+                    &profile.id,
+                    adventuresim_core::reputation::effective_population(
+                        profile.population_level,
+                        profile.population_estimate,
+                    ),
+                )
+                .map_err(|error| error.to_string())
+        })
+        .transpose()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::settlement_buildings::SettlementBusinessOperatorProfile;
     use adventuresim_world_schema::{
         GeologicUnitId, MappedFault, MappedGeologicWindow, SedimentaryRock, SurfaceLithology,
         TravelGeometryPoint,
@@ -472,10 +540,49 @@ mod tests {
     use adventuresim_terrain::{CHUNK_SIDE, Entry, Manifest, TerrainPurpose};
     use flate2::{Compression, write::DeflateEncoder};
 
+    fn add_fixture_operators(settlement: &mut SettlementSceneProfile) {
+        let seed =
+            adventuresim_core::settlement_population::settlement_building_seed(&settlement.id);
+        settlement.operators =
+            adventuresim_world_schema::settlement_buildings::SettlementBuildingDemand::new(
+                seed,
+                adventuresim_core::reputation::effective_population(
+                    settlement.population_level,
+                    settlement.population_estimate,
+                ),
+                &settlement.economy,
+            )
+            .buildings
+            .into_iter()
+            .filter_map(|demand| demand.business_key())
+            .enumerate()
+            .map(|(index, key)| SettlementBusinessOperatorProfile {
+                business_id: adventuresim_world_schema::settlement_buildings::BusinessId::new(
+                    &settlement.id,
+                    key,
+                ),
+                operator_character_id: adventuresim_tactical_core::player::CharacterId(
+                    index as u64 + 1,
+                ),
+                operator_name:
+                    adventuresim_world_schema::person_names::RenderedPersonalName::try_from(
+                        format!("Operator {index}"),
+                    )
+                    .unwrap(),
+            })
+            .collect();
+    }
+
     #[test]
     fn geographic_offsets_are_stable_and_axis_aligned() {
-        let (north_lat, north_lon) = offset_coordinate(53.5, 10.0, 0.0, 1_000.0);
-        let (east_lat, east_lon) = offset_coordinate(53.5, 10.0, 1_000.0, 0.0);
+        let GeographicSampleCoordinate {
+            latitude_degrees: north_lat,
+            longitude_degrees: north_lon,
+        } = offset_coordinate(53.5, 10.0, 0.0, 1_000.0);
+        let GeographicSampleCoordinate {
+            latitude_degrees: east_lat,
+            longitude_degrees: east_lon,
+        } = offset_coordinate(53.5, 10.0, 1_000.0, 0.0);
         assert!(north_lat > 53.5 && (north_lon - 10.0).abs() < 1e-12);
         assert!(east_lon > 10.0 && (east_lat - 53.5).abs() < 1e-12);
     }
@@ -500,6 +607,44 @@ mod tests {
     }
 
     #[test]
+    fn establishment_binding_is_complete_scoped_and_operator_named() {
+        let mut settlement = SettlementSceneProfile {
+            id: "binding-city".into(),
+            population_level: 1,
+            population_estimate: 900,
+            economy: adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder(),
+            operators: Vec::new(),
+        };
+        add_fixture_operators(&mut settlement);
+        let layout = place_settlement_buildings(&settlement, 50.0).unwrap();
+        let establishments = bind_establishments(Some(&settlement), &layout).unwrap();
+        assert_eq!(establishments.len(), layout.businesses.len());
+        assert!(establishments.iter().all(|establishment| {
+            establishment.business_id.settlement_id == settlement.id
+                && establishment
+                    .operator_name
+                    .as_str()
+                    .starts_with("Operator ")
+                && establishment.shop_name.as_ref().is_none_or(|name| {
+                    name.text()
+                        .starts_with(establishment.operator_name.as_str())
+                })
+        }));
+
+        let mut missing = settlement.clone();
+        missing.operators.pop();
+        assert!(bind_establishments(Some(&missing), &layout).is_err());
+
+        let mut duplicate = settlement.clone();
+        duplicate.operators.push(duplicate.operators[0].clone());
+        assert!(bind_establishments(Some(&duplicate), &layout).is_err());
+
+        let mut cross_settlement = settlement;
+        cross_settlement.operators[0].business_id.settlement_id = "elsewhere".into();
+        assert!(bind_establishments(Some(&cross_settlement), &layout).is_err());
+    }
+
+    #[test]
     fn imported_scene_samples_a_known_final_pack_coordinate() {
         let (pack, directory) = constant_final_pack();
         let input = build_imported_scene(
@@ -508,13 +653,13 @@ mod tests {
             "known-coordinate",
             505_000_000,
             105_000_000,
-            123_456,
-            123_456,
+            adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
+            adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
             None,
         )
         .expect("known coordinate should produce a tactical scene");
 
-        assert_eq!(input.absolute_elevation_metres, 321);
+        assert_eq!(input.absolute_elevation_metres.get(), 321);
         assert_eq!(input.playable.heights_metres.len(), 101 * 101);
         assert_eq!(input.playable.environment.len(), 101 * 101);
         assert_eq!(input.vista.lods.len(), 3);
@@ -525,13 +670,16 @@ mod tests {
         let landform = input
             .landform
             .expect("terrain-pack feature should produce a scarp");
-        assert!((1_050..=1_180).contains(&landform.origin_cm[1]));
+        assert!((1_050..=1_180).contains(&landform.origin_cm()[1]));
+        // Detail is added to the absolute f32 elevation before removing the
+        // scene datum. Include one rounding interval at that elevation.
+        let rounding_metres = f32::from(input.absolute_elevation_metres.get()) * f32::EPSILON;
         assert!(
             input
                 .playable
                 .heights_metres
                 .iter()
-                .all(|height| height.abs() <= 0.45)
+                .all(|height| height.abs() <= HILLY_DETAIL_AMPLITUDE_METRES + rounding_metres)
         );
         let center = input.playable.environment[50 * 101 + 50];
         assert_eq!(center.surface, TacticalSurface::DeepWoods);
@@ -542,7 +690,13 @@ mod tests {
         );
         assert_eq!(
             input.weather,
-            weather_at(WORLD_WEATHER_SEED, 123_456, 50_500_000, 10_500_000, 321)
+            weather_at(
+                WORLD_WEATHER_SEED,
+                adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
+                50_500_000,
+                10_500_000,
+                321
+            )
         );
 
         drop(pack);
@@ -552,35 +706,59 @@ mod tests {
     #[test]
     fn imported_settlement_keeps_distant_properties_on_the_relative_datum() {
         let (pack, directory) = constant_final_pack();
-        let settlement = SettlementSceneProfile {
+        let mut settlement = SettlementSceneProfile {
             id: "relative-city".into(),
             population_level: 1,
             population_estimate: 900,
             economy: adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder(),
+            operators: Vec::new(),
         };
+        add_fixture_operators(&mut settlement);
         let input = build_imported_scene(
             &pack,
             "mission:relative-city",
             "city",
             505_000_000,
             105_000_000,
-            123_456,
-            123_456,
+            adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
+            adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
             Some(&settlement),
         )
         .unwrap();
-        assert_eq!(input.absolute_elevation_metres, 321);
+        let next_mission = build_imported_scene(
+            &pack,
+            "mission:another-city-visit",
+            "city",
+            505_000_000,
+            105_000_000,
+            adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
+            adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
+            Some(&settlement),
+        )
+        .unwrap();
+        assert_eq!(
+            input, next_mission,
+            "preparation and tactical enrollment share scene geometry"
+        );
+        assert_eq!(input.absolute_elevation_metres.get(), 321);
         assert!(!input.distant_buildings.is_empty());
         assert!(!input.compounds.is_empty());
         assert!(
             input
                 .distant_buildings
                 .iter()
-                .all(|building| building.base_elevation_metres == 0.0)
+                .all(|building| building.base_elevation_metres.metres().is_finite())
         );
-        let lod = &input.vista.lods[0];
-        let middle = usize::from(lod.width) * usize::from(lod.depth) / 2;
-        assert!(lod.heights_metres[middle].abs() < 0.01);
+        input
+            .validate()
+            .expect("complete relative-datum property support");
+        assert!(input.grounding.is_some());
+        assert!(
+            input
+                .distant_buildings
+                .iter()
+                .any(|building| { building.base_elevation_metres.metres().abs() > f32::EPSILON })
+        );
         drop(pack);
         fs::remove_dir_all(directory).expect("remove isolated terrain fixture");
     }
@@ -602,17 +780,17 @@ mod tests {
             }),
             mapped_sandstone_window(10.0, 52.0),
         ];
-        let recipe = nearest_fault_scarp(&faults, center, 42).unwrap();
-        assert!(recipe.tangent_permyriad[0] > 9_900);
-        assert!(recipe.tangent_permyriad[1].abs() < 100);
-        assert_eq!(recipe.origin_cm[0], 0);
-        assert!((1_050..=1_180).contains(&recipe.origin_cm[1]));
-        assert_eq!(recipe.relief_cm, 800);
-        assert_eq!(recipe.half_length_cm, SCARP_DEFAULT_HALF_LENGTH_CM);
-        assert_eq!(recipe.half_width_cm, SCARP_DEFAULT_HALF_WIDTH_CM);
-        assert_eq!(recipe.lod, TerrainLandformLod::Detail);
-        assert_eq!(recipe.surface.source, TerrainSurfaceSource::Mapped);
-        assert_eq!(recipe.surface.preset(), TerrainSurfacePreset::Sandstone);
+        let recipe = nearest_fault_scarp(&faults, center, 42.into()).unwrap();
+        assert!(recipe.tangent_permyriad()[0] > 9_900);
+        assert!(recipe.tangent_permyriad()[1].abs() < 100);
+        assert_eq!(recipe.origin_cm()[0], 0);
+        assert!((1_050..=1_180).contains(&recipe.origin_cm()[1]));
+        assert_eq!(recipe.relief_cm(), 800);
+        assert_eq!(recipe.half_length_cm(), SCARP_DEFAULT_HALF_LENGTH_CM);
+        assert_eq!(recipe.half_width_cm(), SCARP_DEFAULT_HALF_WIDTH_CM);
+        assert_eq!(recipe.lod(), TerrainLandformLod::Detail);
+        assert_eq!(recipe.surface().source(), TerrainSurfaceSource::Mapped);
+        assert_eq!(recipe.surface().preset(), TerrainSurfacePreset::Sandstone);
     }
 
     #[test]
@@ -634,12 +812,12 @@ mod tests {
             mapped_sandstone_window(10.0, 52.0),
         ];
 
-        let recipe = nearest_fault_scarp(&faults, center, 42).unwrap();
+        let recipe = nearest_fault_scarp(&faults, center, 42.into()).unwrap();
 
-        assert!((5_950..=6_050).contains(&recipe.origin_cm[1]));
-        assert_eq!(recipe.half_length_cm, SCARP_DEFAULT_HALF_LENGTH_CM);
-        assert_eq!(recipe.half_width_cm, SCARP_DEFAULT_HALF_WIDTH_CM);
-        assert_eq!(recipe.lod, TerrainLandformLod::Fringe);
+        assert!((5_950..=6_050).contains(&recipe.origin_cm()[1]));
+        assert_eq!(recipe.half_length_cm(), SCARP_DEFAULT_HALF_LENGTH_CM);
+        assert_eq!(recipe.half_width_cm(), SCARP_DEFAULT_HALF_WIDTH_CM);
+        assert_eq!(recipe.lod(), TerrainLandformLod::Fringe);
     }
 
     fn mapped_sandstone_window(longitude: f64, latitude: f64) -> TerrainFeature {

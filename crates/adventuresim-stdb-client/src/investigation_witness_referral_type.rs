@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct InvestigationWitnessReferral {
@@ -21,7 +23,7 @@ pub struct InvestigationWitnessReferral {
     pub source_testimony_index: u32,
     pub source_proposition_id: String,
     pub catalog_revision: String,
-    pub granted_at: u64,
+    pub granted_at: StrategicMinute,
 }
 
 impl __sdk::InModule for InvestigationWitnessReferral {
@@ -48,7 +50,7 @@ pub struct InvestigationWitnessReferralCols {
     pub source_testimony_index: __sdk::__query_builder::Col<InvestigationWitnessReferral, u32>,
     pub source_proposition_id: __sdk::__query_builder::Col<InvestigationWitnessReferral, String>,
     pub catalog_revision: __sdk::__query_builder::Col<InvestigationWitnessReferral, String>,
-    pub granted_at: __sdk::__query_builder::Col<InvestigationWitnessReferral, u64>,
+    pub granted_at: __sdk::__query_builder::Col<InvestigationWitnessReferral, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for InvestigationWitnessReferral {

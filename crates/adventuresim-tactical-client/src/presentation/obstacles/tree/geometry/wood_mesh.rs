@@ -1,5 +1,3 @@
-#[cfg(test)]
-use crate::presentation::unit_hash;
 use adventuresim_tactical_core::prelude::TREE_TRUNK_HEIGHT_METRES;
 use bevy::{
     asset::RenderAssetUsages,
@@ -7,15 +5,12 @@ use bevy::{
     mesh::{Indices, PrimitiveTopology},
     prelude::Mesh,
 };
+#[cfg(test)]
+use fabelgeist_determinism::StreamId;
 
 #[cfg(test)]
 use super::{BarkRecipe, ENGLISH_OAK_BARK};
 use super::{TreeBranchSegment, branch_frame, transport_branch_frame};
-
-#[cfg(test)]
-const BRANCH_HASH_INDEX_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-#[cfg(test)]
-const BRANCH_HASH_MULTIPLIER: u64 = 0xbf58_476d_1ce4_e5b9;
 
 /// Geometry budgets for live woody branch sweeps.
 ///
@@ -603,18 +598,29 @@ fn capsule_distance(point: Vec3, segment: &TreeBranchSegment) -> f32 {
 
 #[cfg(test)]
 fn bark_phase_from_branches(branches: &[TreeBranchSegment]) -> f32 {
-    let stride = (branches.len() / 64).max(1);
-    let mut hash = 0x6a09_e667_f3bc_c909_u64;
-    for (index, branch) in branches.iter().step_by(stride).enumerate() {
-        let bits = u64::from(branch.end.x.to_bits())
-            ^ u64::from(branch.end.y.to_bits()).rotate_left(17)
-            ^ u64::from(branch.end.z.to_bits()).rotate_left(33)
-            ^ (index as u64).wrapping_mul(BRANCH_HASH_INDEX_STRIDE);
-        hash ^= bits;
-        hash = hash.wrapping_mul(BRANCH_HASH_MULTIPLIER);
-        hash ^= hash >> 29;
-    }
-    unit_hash(hash) * core::f32::consts::TAU
+    let mut geometry: Vec<_> = branches
+        .iter()
+        .map(|branch| {
+            [
+                branch.start.x.to_bits(),
+                branch.start.y.to_bits(),
+                branch.start.z.to_bits(),
+                branch.end.x.to_bits(),
+                branch.end.y.to_bits(),
+                branch.end.z.to_bits(),
+            ]
+        })
+        .collect();
+    geometry.sort_unstable();
+    let bytes: Vec<u8> = geometry
+        .into_iter()
+        .flatten()
+        .flat_map(u32::to_le_bytes)
+        .collect();
+    fabelgeist_determinism::Seed::derive(&bytes, StreamId::new("visual.tree.bark-phase"), &[])
+        .rng()
+        .inclusive_unit_f32()
+        * core::f32::consts::TAU
 }
 
 #[cfg(test)]
@@ -935,7 +941,7 @@ mod tests {
 
     #[test]
     fn aggregate_wood_quality_tiers_reduce_representative_geometry_without_invalid_surface_data() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let full_lod1 =
             procedural_woody_crown_mesh(&branches, 2, WoodyBranchMeshQuality::FullDetail);
         let aggregate_lod1 =
@@ -1037,7 +1043,7 @@ mod tests {
 
     #[test]
     fn trunk_mesh_carries_metric_root_height_without_an_authored_dirt_uv() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let mesh = procedural_tree_branch_mesh(&branches, 0);
         let positions = mesh
             .attribute(Mesh::ATTRIBUTE_POSITION)
@@ -1059,7 +1065,7 @@ mod tests {
 
     #[test]
     fn mid_distance_trunk_reduces_the_upright_bole_with_valid_deterministic_geometry() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let full = procedural_tree_branch_mesh(&branches, 0);
         let mid = procedural_woody_mid_trunk_mesh(&branches);
         let repeated = procedural_woody_mid_trunk_mesh(&branches);
@@ -1133,7 +1139,7 @@ mod tests {
 
     #[test]
     fn explicit_trunk_and_roots_have_bounded_finite_surface_data() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let field = RootFlareField::from_branches(&branches, 0, ENGLISH_OAK_BARK)
             .expect("oak has a root flare");
         assert!(field.maximum.x - field.minimum.x < 4.0);
@@ -1183,10 +1189,14 @@ mod tests {
 
     #[test]
     fn smooth_beech_base_uses_a_finer_quieter_union_than_oak() {
-        let oak = procedural_tree_skeleton(42, 0.0);
+        let oak = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let oak_field =
             RootFlareField::from_branches(&oak, 0, ENGLISH_OAK_BARK).expect("oak has a root flare");
-        let beech = procedural_woody_plant_skeleton(42, 0.65, COMMON_BEECH_PARAMETERS);
+        let beech = procedural_woody_plant_skeleton(
+            fabelgeist_determinism::Seed::from_u64(42),
+            0.65,
+            COMMON_BEECH_PARAMETERS,
+        );
         let beech_field = RootFlareField::from_branches(&beech, 0, COMMON_BEECH_BARK)
             .expect("beech has a root flare");
 
@@ -1197,7 +1207,7 @@ mod tests {
 
     #[test]
     fn root_flare_is_basal_and_overlaps_the_swept_upper_trunk() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let field = RootFlareField::from_branches(&branches, 0, ENGLISH_OAK_BARK)
             .expect("oak has a root flare");
         assert!(
@@ -1223,21 +1233,30 @@ mod tests {
 
     #[test]
     fn bark_phase_is_deterministic_seeded_and_bounded() {
-        let phase = bark_phase_from_branches(&procedural_tree_skeleton(42, 0.0));
+        let phase = bark_phase_from_branches(&procedural_tree_skeleton(
+            fabelgeist_determinism::Seed::from_u64(42),
+            0.0,
+        ));
         assert_eq!(
             phase,
-            bark_phase_from_branches(&procedural_tree_skeleton(42, 0.0))
+            bark_phase_from_branches(&procedural_tree_skeleton(
+                fabelgeist_determinism::Seed::from_u64(42),
+                0.0
+            ))
         );
         assert_ne!(
             phase,
-            bark_phase_from_branches(&procedural_tree_skeleton(43, 0.0))
+            bark_phase_from_branches(&procedural_tree_skeleton(
+                fabelgeist_determinism::Seed::from_u64(43),
+                0.0
+            ))
         );
         assert!((0.0..=core::f32::consts::TAU).contains(&phase));
     }
 
     #[test]
     fn bark_relief_is_periodic_and_blends_at_root_influence_boundaries() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let bark_phase = bark_phase_from_branches(&branches);
         let field = RootFlareField::from_branches(&branches, 0, ENGLISH_OAK_BARK)
             .expect("oak has a root flare");
@@ -1317,7 +1336,7 @@ mod tests {
 
     #[test]
     fn root_profile_lobes_follow_generated_root_directions_and_fade_upward() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let field = RootFlareField::from_branches(&branches, 0, ENGLISH_OAK_BARK)
             .expect("oak has a root flare");
         let base = field

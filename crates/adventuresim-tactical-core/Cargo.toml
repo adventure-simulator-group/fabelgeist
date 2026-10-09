@@ -25,11 +25,17 @@ bevy_enhanced_input.workspace = true
 avian3d.workspace = true
 bevy_ahoy.workspace = true
 strum = { version = "0.28", features = ["derive"] }
+bytemuck.workspace = true
+libm.workspace = true
+microlp.workspace = true
 noiz.workspace = true
 rayon.workspace = true
+smallvec = "1.15.2"
 
 [lints]
 workspace = true
 
 [dev-dependencies]
+ciborium.workspace = true
+bevy_math.workspace = true
 postcard.workspace = true

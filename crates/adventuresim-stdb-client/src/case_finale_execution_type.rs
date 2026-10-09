@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct CaseFinaleExecution {
@@ -11,7 +13,7 @@ pub struct CaseFinaleExecution {
     pub source_id: String,
     pub case_id: String,
     pub party_id: String,
-    pub executed_at_minute: u64,
+    pub executed_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for CaseFinaleExecution {
@@ -26,7 +28,7 @@ pub struct CaseFinaleExecutionCols {
     pub source_id: __sdk::__query_builder::Col<CaseFinaleExecution, String>,
     pub case_id: __sdk::__query_builder::Col<CaseFinaleExecution, String>,
     pub party_id: __sdk::__query_builder::Col<CaseFinaleExecution, String>,
-    pub executed_at_minute: __sdk::__query_builder::Col<CaseFinaleExecution, u64>,
+    pub executed_at_minute: __sdk::__query_builder::Col<CaseFinaleExecution, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for CaseFinaleExecution {

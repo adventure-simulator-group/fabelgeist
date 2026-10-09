@@ -18,7 +18,7 @@ pub fn settle_secret_courtship_discovery_for_pair(
     }
     let first_frontier = canonical_now(ctx, first)?;
     let second_frontier = canonical_now(ctx, second)?;
-    if first_frontier / MINUTES_PER_DAY < day || second_frontier / MINUTES_PER_DAY < day {
+    if first_frontier.day_index() < day || second_frontier.day_index() < day {
         return Ok(false);
     }
     let mut observers: Vec<_> = ctx
@@ -28,9 +28,8 @@ pub fn settle_secret_courtship_discovery_for_pair(
         .filter(&courtship_id)
         .collect();
     observers.sort_by_key(|baseline| baseline.observer_id);
-    let attempted_minute = day
-        .saturating_mul(MINUTES_PER_DAY)
-        .max(courtship.started_minute);
+    let attempted_minute =
+        StrategicMinute::day_start_for_index(day).max(courtship.started_minute);
     for baseline in &observers {
         // Death is an effective-dated end to observer eligibility. A dead
         // observer neither rolls nor prevents the remaining living cohort
@@ -38,7 +37,7 @@ pub fn settle_secret_courtship_discovery_for_pair(
         if !character_alive_at(ctx, baseline.observer_id, attempted_minute) {
             continue;
         }
-        if canonical_now(ctx, baseline.observer_id)? / MINUTES_PER_DAY < day {
+        if canonical_now(ctx, baseline.observer_id)?.day_index() < day {
             return Ok(false);
         }
     }
@@ -53,10 +52,8 @@ pub fn settle_secret_courtship_discovery_for_pair(
         }
         let insight = baseline.observer_insight;
         let deception = courtship.weaker_deception_baseline;
-        let entropy = ((first ^ second ^ observer_id ^ day.rotate_left(19))
-            % u64::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE))
-            as f32
-            / f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE);
+        let entropy = fabelgeist_determinism::StreamId::new("courtship.discovery")
+            .rng(first.into(), &[second, observer_id, day]).unit_f32();
         let discovery_chance = ((insight - deception) * 0.08 + 0.15).clamp(0.02, 0.85);
         let succeeded = entropy < discovery_chance;
         ctx.db.courtship_discovery().insert(CourtshipDiscovery {
@@ -80,7 +77,8 @@ pub fn settle_secret_courtship_discovery_for_pair(
             // frontier. Anchor the penalty at that same frontier so a delayed
             // settlement cannot decay the value once before subtraction and
             // then a second time from a backdated anchor.
-            let anchor_minute = canonical_now(ctx, observer_id).unwrap_or(attempted_minute);
+            let anchor_minute = canonical_now(ctx, observer_id)
+                .unwrap_or(attempted_minute);
             for participant_id in [first, second] {
                 let affinity_id = format!("{observer_id}:{participant_id}");
                 let row = CharacterAffinity {
@@ -117,9 +115,9 @@ pub fn settle_secret_courtship_discovery_for_pair(
 pub fn settle_secret_courtship_discovery_for_character(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
-    let current_day = minute / MINUTES_PER_DAY;
+    let current_day = minute.day_index();
     let mut courtship_ids: Vec<_> = ctx
         .db
         .courtship()

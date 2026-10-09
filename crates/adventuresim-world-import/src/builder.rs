@@ -2,7 +2,7 @@ use std::path::Path;
 
 use adventuresim_world_schema::{
     CompiledWorld, PLAYABLE_BOUNDS, SettlementAliasImport, SettlementDescriptionImport,
-    SpatialGridSpec, WorldBuildReport,
+    SpatialGridSpec, WorldBuildReport, calendar::CalendarYear,
 };
 
 use crate::{
@@ -17,7 +17,7 @@ use crate::{
 
 #[derive(Clone, Copy, Debug)]
 pub struct WorldBuilder {
-    year: i32,
+    year: CalendarYear,
     spatial_grid: SpatialGridSpec,
     bounds: Option<[f64; 4]>,
 }
@@ -48,7 +48,7 @@ pub struct ViabundusEnrichment {
 }
 
 impl WorldBuilder {
-    pub fn new(year: i32) -> Self {
+    pub fn new(year: CalendarYear) -> Self {
         Self {
             year,
             spatial_grid: SpatialGridSpec::default(),

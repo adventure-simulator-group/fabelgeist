@@ -1,3 +1,4 @@
+mod streams;
 use adventuresim_tactical_core::prelude::{
     GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneTerrain,
 };
@@ -5,9 +6,7 @@ use bevy::{
     camera::visibility::VisibilityRange,
     prelude::{Commands, Mesh3d, MeshMaterial3d, Name, Vec2},
 };
-use fabelgeist_determinism::splitmix64;
-
-use crate::presentation::unit_hash;
+use fabelgeist_determinism::Seed;
 
 use super::{
     GroundScatterLayer, TreeLeafRepresentation, WoodyUnderstoryPresentationCache, foliage_transform,
@@ -28,7 +27,7 @@ pub(super) struct UnderstoryHabitat {
     pub(super) moisture: f32,
 }
 
-pub(super) fn select_species(hash: u64, habitat: UnderstoryHabitat) -> UnderstorySpecies {
+pub(super) fn select_species(hash: Seed, habitat: UnderstoryHabitat) -> UnderstorySpecies {
     // This temporary habitat model intentionally uses only scene data already
     // available to the client. Hazel favors shaded, mesic woodland; blackthorn
     // favors brighter, drier scrub; hawthorn gains weight at open/cultivated
@@ -41,32 +40,39 @@ pub(super) fn select_species(hash: u64, habitat: UnderstoryHabitat) -> Understor
         * (1.0 - habitat.wetland * 0.55);
     let hawthorn =
         (0.24 + open * 0.48 + habitat.cultivation * 0.88) * (1.0 - habitat.wetland * 0.38);
-    let total = hazel + blackthorn + hawthorn;
-    let roll = unit_hash(splitmix64(hash ^ 0x5a8d_311c_42e7)) * total;
-    if roll < hazel {
-        UnderstorySpecies::CommonHazel
-    } else if roll < hazel + blackthorn {
-        UnderstorySpecies::Blackthorn
-    } else {
-        UnderstorySpecies::CommonHawthorn
-    }
+    let weights = [hazel, blackthorn, hawthorn].map(|weight| {
+        (weight * f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE)).round() as u64
+    });
+    let index = streams::SPECIES
+        .rng(hash, &[])
+        .weighted_index(&weights)
+        .expect("habitat base weights are positive and bounded");
+    [
+        UnderstorySpecies::CommonHazel,
+        UnderstorySpecies::Blackthorn,
+        UnderstorySpecies::CommonHawthorn,
+    ][index]
 }
 
-fn community_hash(base_seed: u64, x: i32, z: i32) -> u64 {
+fn community_hash(base_seed: Seed, x: i32, z: i32) -> Seed {
     // Four-by-four lattice communities produce roughly 13-metre thickets.
     // Species identity varies between communities, while each specimen keeps
     // its independent placement/rotation hash within the selected thicket.
     let community_x = x.div_euclid(4);
     let community_z = z.div_euclid(4);
-    let cell = ((community_x as u32 as u64) << 32) | community_z as u32 as u64;
-    splitmix64(base_seed ^ cell ^ 0xc011_00d5_7a1d)
+    streams::COMMUNITY.seed(
+        base_seed,
+        &[community_x as u32 as u64, community_z as u32 as u64],
+    )
 }
 
-fn community_density_multiplier(hash: u64) -> f32 {
+fn community_density_multiplier(hash: Seed) -> f32 {
     // Concentrate the same approximate population into legible thickets.
     // Dense cores, loose margins, and mostly open cells keep shrubs from
     // reading as evenly-spaced miniature trees across the whole landscape.
-    let structure = unit_hash(splitmix64(hash ^ 0x7a11_c1ed_5eed));
+    let structure = streams::COMMUNITY_STRUCTURE
+        .rng(hash, &[])
+        .inclusive_unit_f32();
     if structure < 0.25 {
         2.5
     } else if structure < 0.60 {
@@ -99,7 +105,7 @@ pub(super) struct ShrubPlacement {
     pub(super) species: UnderstorySpecies,
     pub(super) world_x: f32,
     pub(super) world_z: f32,
-    pub(super) hash: u64,
+    pub(super) hash: Seed,
 }
 
 /// Deterministic shrub placement walk shared by both renderers, so the
@@ -107,7 +113,7 @@ pub(super) struct ShrubPlacement {
 pub(super) fn placements(
     terrain: &SceneTerrain,
     ground: &SceneGround,
-    base_seed: u64,
+    base_seed: Seed,
     chance: f32,
     habitat: UnderstoryHabitat,
 ) -> Vec<ShrubPlacement> {
@@ -119,15 +125,14 @@ pub(super) fn placements(
     let mut sites = Vec::new();
     for z in 0..count_z {
         for x in 0..count_x {
-            let cell = ((x as u32 as u64) << 32) | z as u32 as u64;
-            let hash = splitmix64(base_seed ^ cell ^ 0xa04f_63d2_719b_e850);
+            let hash = streams::SPECIMEN.seed(base_seed, &[x as u32 as u64, z as u32 as u64]);
             let community = community_hash(base_seed, x, z);
             let local_chance = (chance * community_density_multiplier(community)).min(0.82);
-            if unit_hash(hash) >= local_chance {
+            if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() >= local_chance {
                 continue;
             }
-            let jitter_x = unit_hash(splitmix64(hash ^ 0x39bd_7f21)) - 0.5;
-            let jitter_z = unit_hash(splitmix64(hash ^ 0xe651_34aa)) - 0.5;
+            let jitter_x = streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5;
+            let jitter_z = streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5;
             let world_x = -half_x + (x as f32 + 0.5 + jitter_x * 0.72) * spacing;
             let world_z = -half_z + (z as f32 + 0.5 + jitter_z * 0.72) * spacing;
             let species = select_species(community, habitat);
@@ -160,7 +165,7 @@ mod tests {
 
     #[test]
     fn understory_species_form_coherent_four_by_four_communities() {
-        let seed = 42;
+        let seed = fabelgeist_determinism::Seed::from_u64(42);
         let habitat = UnderstoryHabitat {
             canopy: 0.45,
             wetland: 0.08,
@@ -185,7 +190,8 @@ mod tests {
         let mut open = 0;
         let mut mean = 0.0;
         for cell in 0..4_096_u64 {
-            let multiplier = community_density_multiplier(splitmix64(cell));
+            let multiplier =
+                community_density_multiplier(streams::TEST_COMMUNITY.seed(cell.into(), &[]));
             dense += usize::from(multiplier > 2.0);
             open += usize::from(multiplier < 0.2);
             mean += multiplier;
@@ -200,7 +206,10 @@ mod tests {
     fn habitat_weights_shift_species_composition_without_excluding_any_preset() {
         let count = |habitat, species| {
             (0..4_096_u64)
-                .filter(|seed| select_species(splitmix64(*seed), habitat) == species)
+                .filter(|seed| {
+                    select_species(streams::TEST_SPECIES.seed((*seed).into(), &[]), habitat)
+                        == species
+                })
                 .count()
         };
         let shaded = UnderstoryHabitat {
@@ -287,8 +296,17 @@ mod tests {
             BLACKTHORN_PARAMETERS,
             COMMON_HAWTHORN_PARAMETERS,
         ] {
-            let branches = procedural_woody_plant_skeleton(42, 0.0, parameters);
-            let leaves = procedural_woody_plant_leaves(42, &branches, 0.0, parameters);
+            let branches = procedural_woody_plant_skeleton(
+                fabelgeist_determinism::Seed::from_u64(42),
+                0.0,
+                parameters,
+            );
+            let leaves = procedural_woody_plant_leaves(
+                fabelgeist_determinism::Seed::from_u64(42),
+                &branches,
+                0.0,
+                parameters,
+            );
             let full = procedural_oak_leaf_card_mesh(&leaves);
             let sparse = procedural_woody_sparse_leaf_card_mesh(&leaves);
             budgets.push((
@@ -313,8 +331,17 @@ mod tests {
 
     #[test]
     fn minimal_shrub_cards_are_deterministic_when_source_order_changes() {
-        let branches = procedural_woody_plant_skeleton(42, 0.0, COMMON_HAZEL_PARAMETERS);
-        let leaves = procedural_woody_plant_leaves(42, &branches, 0.0, COMMON_HAZEL_PARAMETERS);
+        let branches = procedural_woody_plant_skeleton(
+            fabelgeist_determinism::Seed::from_u64(42),
+            0.0,
+            COMMON_HAZEL_PARAMETERS,
+        );
+        let leaves = procedural_woody_plant_leaves(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &branches,
+            0.0,
+            COMMON_HAZEL_PARAMETERS,
+        );
         let first = procedural_woody_sparse_leaf_card_mesh(&leaves);
         let mut reordered = leaves;
         reordered.reverse();

@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 use crate::{
     character::{
         character, character__view, character_attributes, character_limbs, character_skills,
@@ -27,6 +28,7 @@ use adventuresim_core::investigation as inv;
 use adventuresim_core::investigation_action as action;
 use adventuresim_core::skill::{PlayerSkills, Skill};
 use adventuresim_core::strategic_place::CaseSiteId;
+use adventuresim_world_schema::Sex;
 use inv::{DestinationKnowledgeStage, InvestigationProvenanceKind};
 use serde::{Deserialize, Serialize};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
@@ -58,7 +60,7 @@ pub struct InvestigationEventAuthority {
     #[index(btree)]
     pub case_id: String,
     pub canonical_propositions_json: String,
-    pub occurred_at: u64,
+    pub occurred_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -96,7 +98,7 @@ pub struct InvestigationClaim {
     pub confidence_bps: u16,
     pub disclosure_stage: String,
     pub transmission_stage: String,
-    pub received_at: u64,
+    pub received_at: StrategicMinute,
     pub public_case_id: String,
     pub safe_source_label: String,
     pub conflict_group: String,
@@ -134,7 +136,7 @@ pub struct InvestigationEvidenceKnowledge {
     pub case_id: String,
     pub evidence_id: String,
     pub source_id: String,
-    pub learned_at: u64,
+    pub learned_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -153,7 +155,7 @@ pub struct PhysicalEvidenceInspectionAttempt {
     /// Observer-safe successes only. Hidden lore thresholds and failed checks
     /// are never persisted into the projected payload.
     pub bestiary_results_json: String,
-    pub attempted_at: u64,
+    pub attempted_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -186,7 +188,7 @@ pub struct InvestigationBestiaryReportReceipt {
     pub public_case_id: String,
     pub description_id: String,
     pub source_label: String,
-    pub received_at: u64,
+    pub received_at: StrategicMinute,
 }
 
 /// A diagnostic clue exists only after the owning observer passes its private
@@ -202,7 +204,7 @@ pub struct InvestigationBestiaryDiagnosticReceipt {
     pub public_case_id: String,
     pub diagnostic_kind: String,
     pub interpretation: String,
-    pub learned_at: u64,
+    pub learned_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -217,7 +219,7 @@ pub struct InvestigationBestiaryDeduction {
     pub threat_id: String,
     pub support_band: String,
     pub provenance_json: String,
-    pub updated_at: u64,
+    pub updated_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -227,7 +229,7 @@ pub struct BackendBestiaryDeduction {
     pub monster_kind: String,
     pub support_band: String,
     pub provenance_json: String,
-    pub updated_at: u64,
+    pub updated_at: StrategicMinute,
 }
 
 fn parse_bestiary_lore_results(payload: &str) -> Result<Vec<PersistedBestiaryLoreResult>, String> {
@@ -356,7 +358,7 @@ fn rebuild_bestiary_deductions(
     ctx: &ReducerContext,
     owner_character_id: u64,
     public_case_id: &str,
-    now: u64,
+    now: StrategicMinute,
 ) -> Result<(), String> {
     let reports = ctx
         .db
@@ -835,7 +837,7 @@ pub struct InvestigationBeliefRevision {
     pub provenance_kind: String,
     pub provenance_label: String,
     pub supersedes: String,
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -863,7 +865,7 @@ pub struct InvestigationLead {
     pub current_learned_location: String,
     pub contradiction_group: String,
     pub corrected_by: String,
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
 }
 
 /// Private physical authority for a strategic investigation site. Coordinates
@@ -873,6 +875,8 @@ pub struct InvestigationLead {
 #[table(accessor = case_site_authority)]
 pub struct CaseSiteAuthority {
     #[primary_key]
+    /// Primitive index adapter, derived from `id` by site materialization.
+    /// Claims validate equality before consuming the site.
     pub id_key: String,
     pub id: CaseSiteId,
     #[index(btree)]
@@ -922,13 +926,15 @@ pub struct InvestigationActionCapability {
     /// manual semantics when their generation authority is damaged or absent.
     pub provenance_kind: InvestigationProvenanceKind,
     pub generated_case_id: String,
+    /// Canonical action key captured by issuance and parsed at admission.
     pub method: String,
     pub version: u32,
     pub target_kind: action::InvestigationTargetKind,
     pub target_id: String,
+    /// Captured environment key; generated bindings pin it to the manifest.
     pub target_terrain: String,
-    pub seed: u64,
-    pub evidence_age_origin_minute: u64,
+    pub seed: Seed,
+    pub evidence_age_origin_minute: StrategicMinute,
     pub uncertainty_bps: u16,
     pub safe_summary: String,
     pub known_prerequisites: String,
@@ -961,7 +967,7 @@ pub struct InvestigationPatternTargetAuthority {
     pub resident_character_id: u64,
     pub demographic: String,
     pub age_band: String,
-    pub sex: String,
+    pub sex: Option<Sex>,
     pub profession: String,
     pub expected_settlement_id: String,
     pub expected_location: String,
@@ -977,9 +983,10 @@ pub struct InvestigationActionAttempt {
     pub capability_id: String,
     pub owner_character_id: u64,
     pub expected_version: u32,
+    /// Immutable admitted request key retained for exact attempt retries.
     pub method: String,
-    pub started_at: u64,
-    pub completed_at: u64,
+    pub started_at: StrategicMinute,
+    pub completed_at: StrategicMinute,
     pub duration_minutes: u32,
     pub success: bool,
     pub resulting_uncertainty_bps: u16,
@@ -1000,9 +1007,9 @@ pub struct InvestigationActionOutcome {
     pub attempt_id: String,
     pub safe_wording: String,
     /// Observer chronology used by owner-facing investigation projections.
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
     /// Authoritative world chronology used only by server-side fairness rules.
-    pub official_recorded_at: u64,
+    pub official_recorded_at: StrategicMinute,
 }
 
 /// Private per-party presentation choice. Tracking does not accept a contract,
@@ -1014,7 +1021,7 @@ pub struct PartyCaseSiteTracking {
     pub party_id: String,
     pub observer_character_id: u64,
     pub case_site_id: CaseSiteId,
-    pub tracked_at: u64,
+    pub tracked_at: StrategicMinute,
 }
 
 /// Private physical occupancy. Public character rows deliberately contain no
@@ -1029,8 +1036,8 @@ pub struct CharacterCaseSiteOccupancy {
     #[index(btree)]
     pub gateway_bucket: u8,
     pub case_site_id: CaseSiteId,
-    pub entered_at: u64,
-    pub left_at: Option<u64>,
+    pub entered_at: StrategicMinute,
+    pub left_at: Option<StrategicMinute>,
 }
 
 pub(crate) fn current_character_case_site_occupancy(
@@ -1050,16 +1057,14 @@ pub(crate) fn current_character_case_site_occupancy(
 pub(crate) fn character_case_site_occupancy_at(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<CharacterCaseSiteOccupancy> {
     let mut rows = ctx
         .db
         .character_case_site_occupancy()
         .character_id()
         .filter(character_id)
-        .filter(|row| {
-            row.entered_at <= minute && row.left_at.is_none_or(|left_at| left_at > minute)
-        });
+        .filter(|row| row.entered_at <= minute && row.left_at.is_none_or(|left_at| left_at > minute));
     let row = rows.next()?;
     rows.next().is_none().then_some(row)
 }
@@ -1114,7 +1119,7 @@ pub(crate) fn set_character_case_site(
             .character_context_membership()
             .location_id()
             .filter(&previous_site.to_owned())
-            .filter(|membership| membership.active)
+            .filter(|membership| membership.is_open())
         {
             crate::social::close_physiology_presence_between(
                 ctx,
@@ -1159,7 +1164,7 @@ pub struct InvestigationSharingReceipt {
     pub recipient_id: u64,
     pub source_record_id: String,
     pub payload_fingerprint: String,
-    pub shared_at: u64,
+    pub shared_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -1170,7 +1175,7 @@ pub struct InvestigationActionReceipt {
     pub actor_id: u64,
     pub action_kind: String,
     pub canonical_payload: String,
-    pub applied_at: u64,
+    pub applied_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -1203,7 +1208,7 @@ pub struct InvestigationReceivedTestimony {
     pub claim_id: String,
     pub witness_ref: String,
     pub source_receipt_id: String,
-    pub received_at: u64,
+    pub received_at: StrategicMinute,
 }
 
 /// Private observer knowledge that one exact generated witness has been
@@ -1228,7 +1233,7 @@ pub struct InvestigationWitnessReferral {
     pub source_testimony_index: u32,
     pub source_proposition_id: String,
     pub catalog_revision: String,
-    pub granted_at: u64,
+    pub granted_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -1276,7 +1281,7 @@ pub struct InvestigationJournalNotice {
     pub source_id: String,
     pub summary: String,
     pub source_label: String,
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
 }
 
 pub(crate) fn record_journal_notice(
@@ -1286,7 +1291,7 @@ pub(crate) fn record_journal_notice(
     source_id: &str,
     summary: &str,
     source_label: &str,
-    recorded_at: u64,
+    recorded_at: StrategicMinute,
 ) -> Result<(), String> {
     if public_case_id.is_empty()
         || source_id.is_empty()
@@ -1334,7 +1339,7 @@ pub(crate) fn upsert_public_threat_journal_notice(
     public_case_id: &str,
     summary: &str,
     source_label: &str,
-    recorded_at: u64,
+    recorded_at: StrategicMinute,
 ) -> Result<(), String> {
     if public_case_id.is_empty()
         || summary.is_empty()
@@ -1380,7 +1385,7 @@ fn record_physical_evidence_journal_notice(
     source_id: &str,
     summary: &str,
     source_label: &str,
-    recorded_at: u64,
+    recorded_at: StrategicMinute,
 ) -> Result<(), String> {
     record_journal_notice(
         ctx,

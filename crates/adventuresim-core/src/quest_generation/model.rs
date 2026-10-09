@@ -9,7 +9,7 @@ use crate::{
     investigation_action::{InvestigationActionKind, InvestigationTargetKind, Terrain},
     local_problem::{Effects, Scope, Symptom},
 };
-use adventuresim_world_schema::BestiaryCategory;
+use adventuresim_world_schema::{BestiaryCategory, Sex, calendar::StrategicMinute};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, BTreeSet};
@@ -304,7 +304,7 @@ impl Weight {
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct GenerationContext {
-    pub seed: u64,
+    pub seed: fabelgeist_determinism::Seed,
     /// Independently sampled, private entropy used only to mint observer-facing IDs.
     pub observer_entropy_hi: u64,
     pub observer_entropy_lo: u64,
@@ -312,7 +312,7 @@ pub struct GenerationContext {
     pub settlement_name: String,
     pub scope: Scope,
     pub ordinal: u16,
-    pub now_minute: u64,
+    pub now_minute: StrategicMinute,
     /// Private incident-time precipitation snapshot committed with generation.
     pub incident_weather: crate::weather::Precipitation,
     pub requested_family: Option<TemplateFamily>,
@@ -325,7 +325,7 @@ pub struct WitnessCandidate {
     pub display_name: String,
     pub demographic: WitnessDemographic,
     pub age_band: String,
-    pub sex: String,
+    pub sex: Option<Sex>,
     pub profession: String,
     pub visible_description: String,
     pub expected_location: String,
@@ -378,7 +378,7 @@ pub fn visible_witness_presence_version(input: &VisibleWitnessCandidateInput<'_>
 
 /// Build the exact witness candidate available to the developer quest UI.
 ///
-/// The empty sex selector is intentional. The current catalog has no
+/// The absent sex selector is intentional. The current catalog has no
 /// sex-specific demographic rules, and future rules must fall back rather than
 /// turn visible presentation into private sex.
 pub fn visible_witness_candidate(
@@ -387,7 +387,7 @@ pub fn visible_witness_candidate(
     let age_band = input.age_band.to_ascii_lowercase();
     let authored = crate::quest_catalog::catalog().witness_demographic_for(
         &age_band,
-        "",
+        None,
         input.profession,
         input.local_role,
     )?;
@@ -411,7 +411,7 @@ pub fn visible_witness_candidate(
         display_name: input.display_name.into(),
         demographic,
         age_band,
-        sex: String::new(),
+        sex: None,
         profession: input.profession.into(),
         visible_description: format!(
             "{}, {}, with {}, wearing {}",
@@ -450,7 +450,7 @@ pub struct GeneratedPatternTarget {
     pub resident_character_id: u64,
     pub demographic: WitnessDemographic,
     pub age_band: String,
-    pub sex: String,
+    pub sex: Option<Sex>,
     pub profession: String,
     pub expected_settlement_id: String,
     pub expected_location: String,
@@ -513,7 +513,7 @@ pub struct CanonicalEvent {
     pub subject: String,
     pub predicate: String,
     pub object: String,
-    pub occurred_at: u64,
+    pub occurred_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -629,9 +629,9 @@ pub struct OutbreakExposure {
     /// Explicit authoritative kinship only. `None` means clergy/civic custody;
     /// generation must never infer family from witness adjacency.
     pub episode_id: u64,
-    pub exposed_at: u64,
-    pub became_symptomatic_at: u64,
-    pub died_at: Option<u64>,
+    pub exposed_at: StrategicMinute,
+    pub became_symptomatic_at: StrategicMinute,
+    pub died_at: Option<StrategicMinute>,
     pub death_kind: Option<OutbreakPatientDeathKind>,
 }
 
@@ -1102,7 +1102,7 @@ pub enum GeneratedPatternCondition {
         cohort_id: String,
         demographic: WitnessDemographic,
         age_band: String,
-        sex: String,
+        sex: Option<Sex>,
         profession: String,
     },
     BroadSurvey,
@@ -1144,7 +1144,7 @@ pub struct GeneratedDialogueProducer {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct GeneratedCase {
     pub catalog_revision: String,
-    pub generation_seed: u64,
+    pub generation_seed: fabelgeist_determinism::Seed,
     pub template_id: String,
     pub configured_routes: Vec<String>,
     pub configured_objectives: Vec<String>,
@@ -1183,6 +1183,7 @@ pub enum GenerationError {
         diagnostics: Vec<FactorTrace>,
     },
     CandidateLimit,
+    Sampling(fabelgeist_determinism::SamplingError),
     InvalidManifest(Vec<String>),
 }
 
@@ -1196,10 +1197,9 @@ struct Candidate<T> {
     factors: Vec<&'static str>,
 }
 
-fn hash(seed: u64, domain: &str) -> u64 {
-    domain.bytes().fold(seed ^ 0xcbf29ce484222325, |h, b| {
-        (h ^ u64::from(b)).wrapping_mul(0x100000001b3)
-    })
+fn hash(seed: fabelgeist_determinism::Seed, domain: &str) -> u64 {
+    fabelgeist_determinism::Seed::derive(&seed.to_le_bytes(),
+        fabelgeist_determinism::StreamId::new("quest.identity"), &[domain.as_bytes()]).to_u64()
 }
 
 fn scoped_id(scope: &str, kind: &str, name: &str) -> String {

@@ -4,13 +4,15 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct InfectionEpisodeRow {
     pub id: u64,
     pub character_id: u64,
     pub disease_id: String,
-    pub contracted_at: u64,
+    pub contracted_at: StrategicMinute,
     pub ruleset_version: u16,
     pub phenotype_key_version: u16,
 }
@@ -26,7 +28,7 @@ pub struct InfectionEpisodeRowCols {
     pub id: __sdk::__query_builder::Col<InfectionEpisodeRow, u64>,
     pub character_id: __sdk::__query_builder::Col<InfectionEpisodeRow, u64>,
     pub disease_id: __sdk::__query_builder::Col<InfectionEpisodeRow, String>,
-    pub contracted_at: __sdk::__query_builder::Col<InfectionEpisodeRow, u64>,
+    pub contracted_at: __sdk::__query_builder::Col<InfectionEpisodeRow, StrategicMinute>,
     pub ruleset_version: __sdk::__query_builder::Col<InfectionEpisodeRow, u16>,
     pub phenotype_key_version: __sdk::__query_builder::Col<InfectionEpisodeRow, u16>,
 }

@@ -179,20 +179,22 @@ pub(super) fn public_stock_category(
 }
 
 pub(super) fn public_economy_catalog_kind(
-    kind: PersistedItemKind,
+    kind: CatalogItemKind,
 ) -> adventuresim_core::settlement_economy::CatalogKind {
-    use adventuresim_core::settlement_economy::CatalogKind as Catalog;
-    match kind {
-        PersistedItemKind::Simple | PersistedItemKind::Container => Catalog::Simple,
-        PersistedItemKind::Weapon => Catalog::Weapon,
-        PersistedItemKind::Armor => Catalog::Armor,
-        PersistedItemKind::Shield => Catalog::Shield,
-        PersistedItemKind::Clothing => Catalog::Clothing,
-        PersistedItemKind::Currency => Catalog::Currency,
-        PersistedItemKind::Ingredient => Catalog::Ingredient,
-        PersistedItemKind::Medication => Catalog::Medication,
-        PersistedItemKind::Food => Catalog::Food,
-    }
+    use adventuresim_core::item_classification::CatalogItemKind as Domain;
+    let kind = match kind {
+        CatalogItemKind::Simple => Domain::Simple,
+        CatalogItemKind::Container => Domain::Container,
+        CatalogItemKind::Weapon => Domain::Weapon,
+        CatalogItemKind::Armor => Domain::Armor,
+        CatalogItemKind::Shield => Domain::Shield,
+        CatalogItemKind::Clothing => Domain::Clothing,
+        CatalogItemKind::Currency => Domain::Currency,
+        CatalogItemKind::Ingredient => Domain::Ingredient,
+        CatalogItemKind::Medication => Domain::Medication,
+        CatalogItemKind::Food => Domain::Food,
+    };
+    kind.economy_kind()
 }
 
 pub(super) fn public_storefront_available(
@@ -228,7 +230,7 @@ pub(super) fn storefront_offer_unchanged(
 
 pub(super) fn visible_unique_default_provider(
     providers: &[(u64, u16, u16, bool, bool)],
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<u64> {
     let [(provider, start_minute, end_minute, context_suppressed, health_suppressed)] = providers
     else {
@@ -352,7 +354,7 @@ pub(super) fn format_activity_detail(
         signed_float_delta(after.visible_water_ml, before.visible_water_ml),
         before.elapsed_minutes,
         after.elapsed_minutes,
-        signed_delta(after.elapsed_minutes, before.elapsed_minutes),
+        signed_delta(after.elapsed_minutes.get(), before.elapsed_minutes.get()),
     )
 }
 

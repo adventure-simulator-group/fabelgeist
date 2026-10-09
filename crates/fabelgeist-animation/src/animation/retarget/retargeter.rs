@@ -514,10 +514,10 @@ impl<'a> Retargeter<'a> {
         let vertical = up * displacement.dot(up);
         let mut extracted = Vec3::new(0.0, 0.0, 0.0);
         if channels.horizontal {
-            extracted = extracted + (displacement - vertical);
+            extracted += displacement - vertical;
         }
         if channels.vertical {
-            extracted = extracted + vertical;
+            extracted += vertical;
         }
         let yaw = if channels.yaw {
             current
