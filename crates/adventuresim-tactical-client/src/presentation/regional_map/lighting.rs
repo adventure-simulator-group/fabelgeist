@@ -58,7 +58,7 @@ pub(super) fn sync(
                 map_light,
                 map_transform,
                 ChildOf(root),
-                RenderLayers::layer(crate::strategic_scene::protocol::REGIONAL_MAP_LAYER),
+                RenderLayers::layer(crate::presentation::ownership::REGIONAL_MAP_LAYER),
             ));
         }
     }

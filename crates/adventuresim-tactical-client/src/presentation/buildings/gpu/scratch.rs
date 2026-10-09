@@ -32,12 +32,17 @@ pub(super) struct Batch {
 
 #[derive(Resource, Default)]
 pub(super) struct Scratch {
+    pub owners: PresentationOwners<CityScratch>,
+}
+
+#[derive(Default)]
+pub(super) struct CityScratch {
     pub batches: Vec<Batch>,
     source: Option<AssetId<ShaderBuffer>>,
     pub slots: usize,
 }
 
-impl Scratch {
+impl CityScratch {
     pub fn prepare(
         &mut self,
         scene: &CityGpuScene,
@@ -71,10 +76,13 @@ impl Scratch {
                 return false;
             };
             let size = u64::from(batch.capacity) * slots as u64 * size_of::<UVec2>() as u64;
-            assert!(
-                size <= device.limits().max_storage_buffer_binding_size,
-                "city visibility scratch exceeds device binding capacity"
-            );
+            if size > device.limits().max_storage_buffer_binding_size {
+                warn!(
+                    size,
+                    "City visibility scratch exceeds device binding capacity"
+                );
+                return false;
+            }
             let visible = device.create_buffer(&BufferDescriptor {
                 label: Some("city camera-group visibility"),
                 size,

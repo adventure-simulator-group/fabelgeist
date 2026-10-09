@@ -206,7 +206,7 @@ fn setup(mut commands: Commands) {
         },
         Projection::Orthographic(OrthographicProjection::default_3d()),
         bevy::camera::visibility::RenderLayers::layer(
-            crate::strategic_scene::protocol::REGIONAL_MAP_LAYER,
+            crate::presentation::ownership::REGIONAL_MAP_LAYER,
         ),
         bevy::camera::Exposure::SUNLIGHT,
         Msaa::Off,

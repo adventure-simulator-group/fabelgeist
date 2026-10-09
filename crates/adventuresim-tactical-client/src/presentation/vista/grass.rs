@@ -200,7 +200,7 @@ pub(super) fn spawn_near_vista_scatter(
     let grass_seed = streams::GRASS.seed(scene_seed, &[]);
     #[cfg(target_family = "wasm")]
     let prepared = match crate::presentation::generation::landscape::grass(
-        crate::presentation::generation::GenerationOwner::Scene,
+        crate::presentation::ownership::PresentationOwner::Scene,
         &environment.scene_digest,
     ) {
         Ok(prepared) => prepared,

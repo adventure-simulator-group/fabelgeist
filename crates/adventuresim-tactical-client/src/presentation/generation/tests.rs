@@ -7,7 +7,7 @@ static TEST_PRODUCTS: Mutex<()> = Mutex::new(());
 fn landscape_workers_preserve_grass_and_residency_is_configuration_specific() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     let input_json = include_str!("../../../../../assets/tactical-scenes/sparse-woodland.json");
     let input: TacticalSceneInput = serde_json::from_str(input_json).unwrap();
     let graphics = include_str!("../../../../../assets/config/tactical-graphics.yaml");
@@ -34,15 +34,15 @@ fn landscape_workers_preserve_grass_and_residency_is_configuration_specific() {
     let mut other_document = input.clone();
     other_document.seed = other_document.seed.wrapping_offset(1);
     assert!(matches!(
-        activate(ticket, GenerationOwner::Scene, &other_document),
+        activate(ticket, PresentationOwner::Scene, &other_document),
         Err(PreparationError::PreparationInputMismatch)
     ));
     assert!(matches!(
-        activate(ticket, GenerationOwner::RegionalMap, &input),
+        activate(ticket, PresentationOwner::RegionalMap, &input),
         Err(PreparationError::PreparationOwner)
     ));
-    activate(ticket, GenerationOwner::Scene, &input).unwrap();
-    let grass = landscape::grass(GenerationOwner::Scene, &digest)
+    activate(ticket, PresentationOwner::Scene, &input).unwrap();
+    let grass = landscape::grass(PresentationOwner::Scene, &digest)
         .unwrap()
         .unwrap();
     let expected_scene = input.generate().unwrap();
@@ -63,7 +63,7 @@ fn landscape_workers_preserve_grass_and_residency_is_configuration_specific() {
             );
         }
     }
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     assert!(
         landscape::jobs(ticket, input_json, graphics)
             .unwrap()
@@ -76,14 +76,14 @@ fn landscape_workers_preserve_grass_and_residency_is_configuration_specific() {
         2
     );
     assert!(
-        landscape::grass(GenerationOwner::Scene, &digest)
+        landscape::grass(PresentationOwner::Scene, &digest)
             .unwrap()
             .is_some(),
         "Preparing different quality must retain the installed scene until activation"
     );
     clear_residency().unwrap();
     assert!(
-        landscape::ground(GenerationOwner::Scene, &digest)
+        landscape::ground(PresentationOwner::Scene, &digest)
             .unwrap()
             .is_none()
     );
@@ -93,7 +93,7 @@ fn landscape_workers_preserve_grass_and_residency_is_configuration_specific() {
 fn massive_city_workers_prepare_only_shared_exteriors() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     let input = include_str!("../../../../../assets/tactical-scenes/massive-city.json");
     let requests = jobs(ticket, input).unwrap();
     assert!(
@@ -112,7 +112,7 @@ fn massive_city_workers_prepare_only_shared_exteriors() {
 fn worker_products_round_trip_geometry_and_reject_wrong_inputs() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     let program = BuildingProgram::fixture(
         BuildingArchetype::FachwerkCottage,
         fabelgeist_determinism::Seed::from_u64(u64::MAX),
@@ -143,7 +143,7 @@ fn worker_products_round_trip_geometry_and_reject_wrong_inputs() {
 fn scene_transport_preserves_static_assets_and_full_width_seed() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
@@ -176,7 +176,7 @@ fn scene_transport_preserves_static_assets_and_full_width_seed() {
 fn retained_facades_skip_disk_jobs_and_clearing_geometry_releases_residency() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     let input = include_str!("../../../../../assets/tactical-scenes/massive-city.json");
     let requests = jobs(ticket, input).unwrap();
     for request in requests.iter().skip(1) {
@@ -218,7 +218,7 @@ fn retained_facades_skip_disk_jobs_and_clearing_geometry_releases_residency() {
         jobs(ticket, input),
         Err(PreparationError::StalePreparation)
     ));
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     assert_eq!(jobs(ticket, input).unwrap(), requests);
 }
 
@@ -226,7 +226,7 @@ fn retained_facades_skip_disk_jobs_and_clearing_geometry_releases_residency() {
 fn venue_worker_preserves_meshes_tangents_and_interior_layout() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     let program = BuildingProgram::fixture(
         BuildingArchetype::FachwerkCottage,
         fabelgeist_determinism::Seed::from_u64(47),
@@ -276,7 +276,7 @@ fn venue_worker_preserves_meshes_tangents_and_interior_layout() {
 fn parallel_building_products_preserve_the_complete_tactical_scene() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
@@ -323,15 +323,15 @@ fn parallel_building_products_preserve_the_complete_tactical_scene() {
             .is_empty()
     );
     finish(ticket, &input).unwrap();
-    activate(ticket, GenerationOwner::Scene, &input).unwrap();
-    let replacement = begin(GenerationOwner::Scene).unwrap();
-    let preview = begin(GenerationOwner::RegionalMap).unwrap();
+    activate(ticket, PresentationOwner::Scene, &input).unwrap();
+    let replacement = begin(PresentationOwner::Scene).unwrap();
+    let preview = begin(PresentationOwner::RegionalMap).unwrap();
     assert!(matches!(
         staged_products(ticket),
         Err(PreparationError::StalePreparation)
     ));
     let geometry =
-        take_venue_geometry(GenerationOwner::Scene, &input.buildings[0].program).unwrap();
+        take_venue_geometry(PresentationOwner::Scene, &input.buildings[0].program).unwrap();
     assert!(
         !geometry.detail.is_empty(),
         "Both preparations retain the installed actor's pending geometry"
@@ -339,7 +339,7 @@ fn parallel_building_products_preserve_the_complete_tactical_scene() {
     cancel(preview).unwrap();
     cancel(replacement).unwrap();
     assert_eq!(
-        active_products(GenerationOwner::Scene)
+        active_products(PresentationOwner::Scene)
             .unwrap()
             .scene_for_installation(&input)
             .unwrap()
@@ -353,7 +353,7 @@ fn parallel_building_products_preserve_the_complete_tactical_scene() {
 fn independent_city_generation_benchmark() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     let input = include_str!("../../../../../assets/tactical-scenes/massive-city.json");
     let started = std::time::Instant::now();
     let mut requests = venue_jobs(ticket, input, r#"{"places":[],"people":[]}"#).unwrap();
@@ -447,7 +447,7 @@ fn grounded_test_building(
 fn owned_terrain_survives_scene_and_landscape_worker_transport() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     let source = include_str!("../../../../../assets/tactical-scenes/compound-review.json");
     let input: TacticalSceneInput = serde_json::from_str(source).unwrap();
     for job in venue_jobs(ticket, source, r#"{"places":[],"people":[]}"#).unwrap() {
@@ -511,7 +511,7 @@ fn owned_terrain_survives_scene_and_landscape_worker_transport() {
 fn retained_scene_products_skip_decode_and_never_retain_installed_mutations() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
@@ -526,9 +526,9 @@ fn retained_scene_products_skip_decode_and_never_retain_installed_mutations() {
         .unwrap();
     }
     finish(ticket, &input).unwrap();
-    activate(ticket, GenerationOwner::Scene, &input).unwrap();
+    activate(ticket, PresentationOwner::Scene, &input).unwrap();
     let previous = ticket;
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     assert!(matches!(
         jobs(previous, &request),
         Err(PreparationError::StalePreparation)
@@ -550,7 +550,7 @@ fn retained_scene_products_skip_decode_and_never_retain_installed_mutations() {
         })
     ));
     clear_residency().unwrap();
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     assert_eq!(jobs(ticket, &request).unwrap().len(), 1);
 }
 
@@ -558,7 +558,7 @@ fn retained_scene_products_skip_decode_and_never_retain_installed_mutations() {
 fn immutable_scene_retention_evicts_the_least_recent_input_within_its_bound() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/sparse-woodland.json"
     ))
@@ -594,7 +594,7 @@ fn immutable_scene_retention_evicts_the_least_recent_input_within_its_bound() {
 fn a_changed_grounding_binding_cannot_reuse_a_resident_scene_with_the_same_programme() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     let original: TacticalSceneInput = serde_json::from_str(include_str!(
         "../../../../../assets/tactical-scenes/massive-city.json"
     ))
