@@ -97,6 +97,11 @@ fn pipeline_status(cache: Res<PipelineCache>) {
     WAITING_PIPELINES.store(cache.waiting_pipelines().count(), Ordering::Relaxed);
 }
 
+/// Shared render-device telemetry, independent of actor installation readiness.
+pub(crate) fn waiting_pipelines() -> usize {
+    WAITING_PIPELINES.load(Ordering::Relaxed)
+}
+
 pub(crate) fn json() -> String {
     STATUS
         .get_or_init(|| Mutex::new("{\"ready\":false}".into()))

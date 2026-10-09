@@ -18,7 +18,7 @@ use super::geometry::{
     COMMON_HAZEL_PARAMETERS, ENGLISH_OAK_PARAMETERS,
 };
 use crate::presentation::{
-    LeafTextureSet, ProceduralTextureAssets, color_vec4, terrain::TACTICAL_DIRT_SRGB,
+    LeafTextureSet, ProceduralTextureAssets, color_vec4, ground_palette::TACTICAL_DIRT_SRGB,
 };
 #[cfg(test)]
 use adventuresim_procedural_textures::generate_procedural_textures;

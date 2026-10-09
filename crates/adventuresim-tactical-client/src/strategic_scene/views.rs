@@ -10,7 +10,7 @@ use bevy::{camera::visibility::RenderLayers, prelude::*};
 pub(super) struct ViewCameras(Vec<Entity>);
 
 #[derive(Component)]
-pub(super) struct StrategicCamera;
+pub(crate) struct StrategicCamera;
 
 const HEAD_HEIGHT_METRES: f32 = 1.65;
 const PORTRAIT_DISTANCE_METRES: f32 = 0.30;
@@ -230,7 +230,11 @@ pub(super) fn sync_environment(
         ),
         With<crate::presentation::TacticalGameplayCamera>,
     >,
-    targets: Query<(Entity, Ref<StrategicCamera>)>,
+    targets: Query<(
+        Entity,
+        Ref<StrategicCamera>,
+        Option<&crate::presentation::RegionalMapCamera>,
+    )>,
 ) {
     let Ok((exposure, tone, fog, msaa, shadows, environment, atmosphere)) = source.single() else {
         return;
@@ -242,19 +246,26 @@ pub(super) fn sync_environment(
         || shadows.is_changed()
         || environment.as_ref().is_some_and(|value| value.is_changed())
         || atmosphere.as_ref().is_some_and(|value| value.is_changed());
-    for (entity, marker) in &targets {
+    for (entity, marker, map) in &targets {
         // A reused snapshot camera reinserts its marker and camera defaults.
         // Restore the final settings before extraction, just as for a new view.
         if !changed && !marker.is_changed() {
             continue;
         }
         let mut target = commands.entity(entity);
-        target.insert((*exposure, *tone, (*fog).clone(), *msaa, *shadows));
+        target.insert((*exposure, *tone, *msaa, *shadows));
+        // Continental views must not inherit the street camera's fog reach or
+        // atmosphere depth reconstruction. Lighting and asset residency are shared.
+        if map.is_some() {
+            target.remove::<(bevy::pbr::DistanceFog, bevy::pbr::AtmosphereSettings)>();
+        } else {
+            target.insert((*fog).clone());
+            if let Some(atmosphere) = &atmosphere {
+                target.insert((**atmosphere).clone());
+            }
+        }
         if let Some(environment) = &environment {
             target.insert((**environment).clone());
-        }
-        if let Some(atmosphere) = &atmosphere {
-            target.insert((**atmosphere).clone());
         }
     }
 }

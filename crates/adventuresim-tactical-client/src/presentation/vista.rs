@@ -1,6 +1,7 @@
 mod details;
 pub(in crate::presentation) mod grass;
 mod natural;
+pub(in crate::presentation) mod regional;
 use details::*;
 use fabelgeist_determinism::Seed;
 mod pigment;
@@ -323,7 +324,10 @@ impl MaterialExtension for TacticalVistaExtension {
 pub(in crate::presentation) type TacticalVistaMaterial =
     ExtendedMaterial<StandardMaterial, TacticalVistaExtension>;
 
-fn vista_material(weather: WeatherSnapshot, grass_color: Color) -> TacticalVistaMaterial {
+pub(super) fn vista_material(
+    weather: WeatherSnapshot,
+    grass_color: Color,
+) -> TacticalVistaMaterial {
     TacticalVistaMaterial {
         base: StandardMaterial {
             base_color: Color::WHITE,
@@ -367,6 +371,59 @@ mod tests {
         assert!(shader.contains("color = mix(color, sward_target, sward)"));
         assert!(!shader.contains("sward_color = color *"));
         assert!(shader.contains("let molded_rock = vec3<f32>(0.31, 0.30, 0.275)"));
+        use adventuresim_tactical_core::regional_terrain::*;
+        use adventuresim_tactical_core::scene_input::SourcePackageDigest;
+        use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
+        let vertex = RegionalTerrainVertex {
+            elevation: adventuresim_world_schema::ElevationMeters::new(321).unwrap(),
+            environment: EnvironmentalSample {
+                cultivation_bps: 8_000,
+                ..default()
+            },
+        };
+        let request = RegionalTerrainRequest {
+            origin: Wgs84CoordinateMicrodegrees::from_longitude_latitude_degrees(10.5, 50.5)
+                .unwrap(),
+            scale: RegionalTerrainScale::Neighborhood,
+        };
+        let mut vertices = vec![Some(vertex); REGIONAL_TERRAIN_VERTICES];
+        vertices[0] = None;
+        let terrain = RegionalTerrain::new(
+            request,
+            SourcePackageDigest::from_hex(&"a".repeat(64)).unwrap(),
+            vertices,
+        )
+        .unwrap();
+        let mesh = regional::regional_mesh(&terrain, clear_vista_weather()).unwrap();
+        let positions = mesh
+            .attribute(Mesh::ATTRIBUTE_POSITION)
+            .unwrap()
+            .as_float3()
+            .unwrap();
+        let indices = mesh.indices().unwrap().iter().collect::<Vec<_>>();
+        assert!(!indices.contains(&0), "source holes have no triangles");
+        assert_eq!(
+            indices.len(),
+            ((REGIONAL_TERRAIN_SIDE - 1).pow(2) * 2 - 1) * 3
+        );
+        assert!(positions[1][0] > positions[0][0], "east points right");
+        assert!(
+            positions[REGIONAL_TERRAIN_SIDE][2] < positions[0][2],
+            "north points up"
+        );
+        for triangle in indices.as_chunks::<3>().0 {
+            let [a, b, c] = [triangle[0], triangle[1], triangle[2]]
+                .map(|index| Vec3::from_array(positions[index]));
+            assert_eq!(a.y, 321.0, "absolute elevation is preserved");
+            assert!((b - a).cross(c - a).y > 0.0, "upward-facing ground");
+        }
+        let empty = RegionalTerrain::new(
+            request,
+            terrain.source().clone(),
+            vec![None; REGIONAL_TERRAIN_VERTICES],
+        )
+        .unwrap();
+        assert!(regional::regional_mesh(&empty, clear_vista_weather()).is_none());
     }
 
     #[test]
