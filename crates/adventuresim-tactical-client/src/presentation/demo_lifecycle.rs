@@ -83,7 +83,21 @@ mod tests {
         cache.recipes.get_or_generate(&program).unwrap();
         assert!(!cache.recipes.is_empty());
         world.insert_resource(cache);
+        let actor_city = world
+            .spawn((
+                buildings::DistantCityBuildingPresentation,
+                ownership::PresentationOwner::Scene,
+            ))
+            .id();
+        let map_city = world
+            .spawn((
+                buildings::DistantCityBuildingPresentation,
+                ownership::PresentationOwner::RegionalMap,
+            ))
+            .id();
         clear_scene_entities(&mut world);
+        assert!(world.get_entity(actor_city).is_err());
+        assert!(world.get_entity(map_city).is_ok());
         assert!(
             world
                 .resource::<buildings::TacticalBuildingMeshCache>()

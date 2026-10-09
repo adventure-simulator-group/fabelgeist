@@ -218,7 +218,7 @@ fn retained_facades_skip_disk_jobs_and_clearing_geometry_releases_residency() {
         jobs(ticket, input),
         Err(PreparationError::StalePreparation)
     ));
-    let ticket = begin(GenerationOwner::Scene).unwrap();
+    let ticket = begin(PresentationOwner::Scene).unwrap();
     assert_eq!(jobs(ticket, input).unwrap(), requests);
 }
 

@@ -195,6 +195,7 @@ impl CityBuildingAssets<'_> {
         let mut entity = commands.spawn((
             Name::new(format!("Distant city building {}", placement.id)),
             DistantCityBuildingPresentation,
+            crate::presentation::ownership::PresentationOwner::Scene,
             Visibility::default(),
             transform,
         ));
