@@ -525,10 +525,14 @@ mod tests {
         assert!(north_lat > 53.5 && (north_lon - 10.0).abs() < 1e-12);
         assert!(east_lon > 10.0 && (east_lat - 53.5).abs() < 1e-12);
         let target = Wgs84CoordinateE7::from_longitude_latitude_degrees(10.01, 53.51).unwrap();
-        let offset = origin.offset_to(target);
+        let offset = origin.offset_to(target.into());
         let recovered = origin.at_offset(offset.east_metres, offset.north_metres);
         assert!((recovered.latitude_degrees - target.latitude().degrees()).abs() < 1e-12);
         assert!((recovered.longitude_degrees - target.longitude().degrees()).abs() < 1e-12);
+        let precise = origin.at_offset(0.01, -0.02);
+        let offset = origin.offset_to(precise);
+        assert!((offset.east_metres - 0.01).abs() < 1e-8);
+        assert!((offset.north_metres + 0.02).abs() < 1e-8);
     }
 
     #[test]
