@@ -33,6 +33,7 @@ struct Status<'a> {
     yaw: Option<adventuresim_building_generator::spatial_geometry::Radians>,
     requested: Option<RegionalTerrainRequest>,
     presented: Option<RegionalTerrainRequest>,
+    connection_meshes: usize,
     waiting_pipelines: usize,
     error: Option<Failure>,
     markers: Vec<markers::ProjectedMarker<'a>>,
@@ -48,6 +49,7 @@ enum Failure {
     Origin,
     OverlayRevision,
     RouteCapacity,
+    ConnectionCapacity,
     Geometry,
 }
 
@@ -107,6 +109,10 @@ pub(super) fn publish(
         .presented_route
         .as_ref()
         .is_some_and(|route| route.capacity_exceeded());
+    let connection_capacity_exceeded = state
+        .presented_connections
+        .as_ref()
+        .is_some_and(|connections| connections.capacity_exceeded());
     if visible
         && matched
         && viewport_matches(&state, &cameras)
@@ -123,7 +129,9 @@ pub(super) fn publish(
     }
     let pose = state.pose.as_ref();
     let status = Status {
-        ready: state.settled_frames >= SETTLED_RENDER_FRAMES && !route_capacity_exceeded,
+        ready: state.settled_frames >= SETTLED_RENDER_FRAMES
+            && !route_capacity_exceeded
+            && !connection_capacity_exceeded,
         presentation_ready: state.settled_frames >= SETTLED_RENDER_FRAMES,
         overlay_revision: state.overlay_revision,
         rect: pose.and_then(|pose| pose.rect),
@@ -141,12 +149,17 @@ pub(super) fn publish(
             .as_ref()
             .filter(|_| matched)
             .map(|surface| surface.request),
+        connection_meshes: state
+            .presented_connections
+            .as_ref()
+            .map_or(0, |connections| connections.mesh_count()),
         waiting_pipelines: waiting,
         error: state
             .failure
             .as_ref()
             .map(Failure::from)
-            .or(route_capacity_exceeded.then_some(Failure::RouteCapacity)),
+            .or(route_capacity_exceeded.then_some(Failure::RouteCapacity))
+            .or(connection_capacity_exceeded.then_some(Failure::ConnectionCapacity)),
         markers: markers::project(&state, &cameras),
     };
     match serde_json::to_string(&status) {

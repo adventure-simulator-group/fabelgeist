@@ -1,5 +1,5 @@
 //! A retained, bounded selected-route mesh beside the geographic terrain.
-use super::{MapState, RegionalMapRoot, route_geometry};
+use super::{MapState, RegionalMapRoot, path_geometry};
 use adventuresim_tactical_core::{
     regional_map::{MapRoute, MapRouteKind},
     regional_terrain::RegionalTerrainRequest,
@@ -95,8 +95,7 @@ pub(super) fn present(
         .filter(|overlay| overlay.source() == &pose.source)
         .and_then(|overlay| overlay.route());
     let terrain = state
-        .terrain
-        .as_ref()
+        .terrain()
         .filter(|terrain| terrain.source() == &pose.source)
         .filter(|terrain| {
             state
@@ -125,7 +124,11 @@ pub(super) fn present(
     let Ok(root) = roots.single() else {
         return;
     };
-    let coverage = match route_geometry::mesh(terrain, route, width_metres) {
+    let coverage = match path_geometry::mesh(
+        terrain,
+        path_geometry::GeographicLine::Route(route),
+        width_metres,
+    ) {
         Ok(Some(mesh)) => RouteCoverage::Drawn(RouteAssets::install(
             root,
             mesh,

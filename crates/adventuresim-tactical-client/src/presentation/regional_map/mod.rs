@@ -2,7 +2,9 @@
 //! This owns no strategic authority, collision or replicated tactical state.
 use super::RegionalMapCamera;
 use adventuresim_tactical_core::regional_map::{MapOverlay, MapSpan};
-use adventuresim_tactical_core::regional_terrain::RegionalTerrain;
+use adventuresim_tactical_core::{
+    regional_environment::RegionalEnvironment, regional_terrain::RegionalTerrain,
+};
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use adventuresim_world_schema::source_package::SourcePackageDigest;
 use bevy::prelude::*;
@@ -10,11 +12,12 @@ use camera::MapPose;
 use protocol::{MapCommand, MapOverlayRevision, MapProtocolError};
 
 mod camera;
+mod connections;
 mod geographic_surface;
 mod lighting;
 mod markers;
+mod path_geometry;
 pub(crate) mod protocol;
-mod route_geometry;
 mod routes;
 pub(crate) mod status;
 mod surface;
@@ -27,7 +30,8 @@ struct RegionalMapRoot;
 #[derive(Resource, Default)]
 struct MapState {
     pose: Option<MapPose>,
-    terrain: Option<Box<RegionalTerrain>>,
+    environment: Option<Box<RegionalEnvironment>>,
+    presented_connections: Option<connections::PresentedConnections>,
     presented: Option<surface::PresentedSurface>,
     overlay: Option<MapOverlay>,
     overlay_revision: Option<MapOverlayRevision>,
@@ -42,7 +46,10 @@ impl Plugin for RegionalMapPlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<MapState>()
             .add_systems(Startup, setup)
-            .add_systems(Update, (surface::present, routes::present).chain())
+            .add_systems(
+                Update,
+                (surface::present, connections::present, routes::present).chain(),
+            )
             .add_systems(Update, lighting::sync)
             .add_systems(
                 PostUpdate,
@@ -104,13 +111,13 @@ impl MapCommand {
                 }
                 Ok(())
             }
-            Self::InstallTerrain { terrain } => {
+            Self::InstallEnvironment { environment } => {
                 if state
                     .pose
                     .as_ref()
-                    .is_some_and(|pose| pose.source == *terrain.source())
+                    .is_some_and(|pose| pose.source == *environment.terrain().source())
                 {
-                    state.terrain = Some(terrain);
+                    state.environment = Some(environment);
                 }
                 Ok(())
             }
@@ -135,6 +142,12 @@ impl MapCommand {
 }
 
 impl MapState {
+    fn terrain(&self) -> Option<&RegionalTerrain> {
+        self.environment
+            .as_ref()
+            .map(|environment| environment.terrain())
+    }
+
     fn open(
         &mut self,
         source: SourcePackageDigest,
@@ -149,7 +162,7 @@ impl MapState {
             pose.rect = Some(rect);
         } else {
             self.pose = Some(MapPose::new(source, origin, span, rect));
-            self.terrain = None;
+            self.environment = None;
             self.overlay = None;
             self.overlay_revision = None;
         }

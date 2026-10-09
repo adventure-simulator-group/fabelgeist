@@ -23,7 +23,7 @@ pub(super) fn project<'a>(
 ) -> Vec<ProjectedMarker<'a>> {
     let (Some(pose), Some(terrain), Some(surface), Some(overlay)) = (
         &state.pose,
-        &state.terrain,
+        state.terrain(),
         &state.presented,
         &state.overlay,
     ) else {

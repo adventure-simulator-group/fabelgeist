@@ -53,11 +53,11 @@ async function serve() {
   const carry = realRenderer ? JSON.parse(fs.readFileSync(path.join(reviewRoot, "fixtures/carry.json"), "utf8")) : null;
   const server = http.createServer((request, response) => {
     const url = new URL(request.url, "http://localhost"); requests.push(url.pathname);
-    if(url.pathname.startsWith("/api/map/terrain/")) {
+    if(url.pathname.startsWith("/api/map/environment/")) {
       response.setHeader("Content-Type","application/json");
-      response.end(JSON.stringify({source:mapInput.overlay.source,request:{
+      response.end(JSON.stringify({terrain:{source:mapInput.overlay.source,request:{
         origin:{latitude:Number(url.searchParams.get("latitude")),longitude:Number(url.searchParams.get("longitude"))},
-        scale:url.searchParams.get("scale")},vertices:Array(65*65).fill(null)}));return;
+        scale:url.searchParams.get("scale")},vertices:Array(65*65).fill(null)},connections:[]}));return;
     }
     if (url.pathname === "/api/scene-assets") {
       response.setHeader("Content-Type", "application/json");
@@ -106,7 +106,7 @@ async function serve() {
     if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client.js") {
       response.setHeader("Content-Type", "text/javascript");
       const street = {height: 30, width: services.length * 20, bays: services.map((id, index) => ({id, width: index % 2 ? 18 : 24}))};
-      response.end(`export default async function(){}; export function wasm_begin_generation(){} export function wasm_generation_jobs(){return "[]";} export function wasm_venue_jobs(){return "[]";} export function wasm_landscape_jobs(){return "[]";} export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})} export function wasm_regional_map_status(){const commands=(window.commands||[]).filter(c=>c.type==="regional-map").map(c=>c.command);const open=commands.filter(c=>c.type==="open").at(-1);const overlay=commands.filter(c=>c.type==="install-overlay").at(-1);return JSON.stringify({source:open?.source,home:open?.origin,rect:commands.filter(c=>c.type==="open"||c.type==="resize").at(-1)?.rect,requested:open?{origin:open.origin,scale:"region"}:null,presented:commands.filter(c=>c.type==="install-terrain").at(-1)?.terrain.request,overlay_revision:overlay?.revision,presentation_ready:true,ready:true,covered:false,markers:[]});}`); return;
+      response.end(`export default async function(){}; export function wasm_begin_generation(){} export function wasm_generation_jobs(){return "[]";} export function wasm_venue_jobs(){return "[]";} export function wasm_landscape_jobs(){return "[]";} export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})} export function wasm_regional_map_status(){const commands=(window.commands||[]).filter(c=>c.type==="regional-map").map(c=>c.command);const open=commands.filter(c=>c.type==="open").at(-1);const overlay=commands.filter(c=>c.type==="install-overlay").at(-1);return JSON.stringify({source:open?.source,home:open?.origin,rect:commands.filter(c=>c.type==="open"||c.type==="resize").at(-1)?.rect,requested:open?{origin:open.origin,scale:"region"}:null,presented:commands.filter(c=>c.type==="install-environment").at(-1)?.terrain.request,overlay_revision:overlay?.revision,presentation_ready:true,ready:true,covered:false,markers:[]});}`); return;
     }
     if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client_bg.wasm") {
       response.setHeader("Content-Type", "application/wasm");

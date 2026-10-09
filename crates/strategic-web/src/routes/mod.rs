@@ -2,6 +2,7 @@
 mod coordinates;
 use coordinates::{wgs84_e7, wgs84_latitude_longitude_degrees};
 
+mod app_state;
 pub mod challenges;
 pub mod characters;
 mod clock;
@@ -14,7 +15,9 @@ pub mod home;
 mod inventory_forms;
 pub mod investigation;
 pub mod local_chat;
-mod map_terrain;
+mod map_environment;
+pub use app_state::AppState;
+pub(crate) use map_environment::roads::RegionalRoadSource;
 pub mod missions;
 pub mod parties;
 mod party_actions;
@@ -27,13 +30,12 @@ use clock::current_time;
 pub mod settlements;
 pub(crate) mod travel;
 mod weapon_icons;
-use crate::live::LiveState;
-use crate::session::{Session, SessionCodec};
+use crate::session::Session;
 use crate::spacetimedb::{
     BackendCaseSitePin, BackendCharacterCaseSiteLocation, CaseSiteId, CharacterAttributes,
     CharacterLimbs, CharacterSkills, CharacterStrategicCondition, CharacterTime, CharacterView,
     PartyActionRequestView, PartyJourney, PartyJourneyRouteView, PartyMember, PartyView,
-    SettlementView, SpacetimeClient, sql_string_literal,
+    SettlementView, sql_string_literal,
 };
 use adventuresim_world_schema::calendar::StrategicMinute;
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
@@ -47,15 +49,6 @@ use axum::{
 };
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-
-/// Application state shared across routes
-#[derive(Clone)]
-pub struct AppState {
-    pub db: SpacetimeClient,
-    pub live: LiveState,
-    pub terrain: Option<std::sync::Arc<travel::TerrainPlanner>>,
-    pub session_codec: std::sync::Arc<SessionCodec>,
-}
 
 pub(crate) use party_actions::PartyAction;
 
@@ -963,7 +956,7 @@ pub fn build_router(state: AppState) -> Router {
                 .merge(weapon_icons::routes())
                 .merge(scene_equipment::routes())
                 .merge(scene_assets::routes())
-                .merge(map_terrain::routes())
+                .merge(map_environment::routes())
                 .merge(crate::live::routes())
                 .route("/time", get(current_time))
                 .layer(middleware::from_fn(require_same_origin_mutation))
