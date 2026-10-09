@@ -13,6 +13,8 @@ mod staging;
 pub(crate) mod status;
 mod street;
 mod views;
+#[cfg(target_family = "wasm")]
+pub(crate) use views::StrategicCamera;
 mod visibility;
 mod world;
 
@@ -140,7 +142,7 @@ fn retain_people(
             }
             continue;
         }
-        let layer = protocol::COMPOSITOR_LAYER + 1 + scene.next_person_layer;
+        let layer = protocol::FIRST_PERSON_LAYER + scene.next_person_layer;
         scene.next_person_layer += 1;
         let entity = commands
             .spawn((

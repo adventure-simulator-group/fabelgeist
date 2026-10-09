@@ -1,0 +1,169 @@
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const http = require("node:http");
+const path = require("node:path");
+const test = require("node:test");
+const { chromium } = require("playwright");
+
+const root = path.resolve(__dirname, "../../..");
+const wasm = process.env.REGIONAL_MAP_WASM_DIR;
+const output = path.resolve(root, process.env.REGIONAL_MAP_REVIEW_DIR || "target/regional-map-browser");
+const assetRoots = [path.join(root, "assets"),
+  process.env.REGIONAL_MAP_ASSET_DIR || path.join(root, "crates/adventuresim-stdb-module/static/assets")];
+// These authored motion sources are currently absent from the repository. This
+// fixture has no actors and verifies map readiness independently of equipment.
+// It does not substitute another motion; every other missing asset still fails.
+const unusedMissingMotions = new Set(["airborne_center", "airborne_travel", "quickstep_back", "quickstep_left"]
+  .map(name => `/tactical/assets/animations/biped/unarmed/${name}.glb`));
+
+test("regional terrain reuses one real renderer across camera changes and hiding", {
+  skip: !wasm && "Set REGIONAL_MAP_WASM_DIR to the freshly built Wasm bindings",
+  timeout: 240_000,
+}, async () => {
+  fs.mkdirSync(output, { recursive: true });
+  fs.writeFileSync(path.join(output, "console.log"), "");
+  const missing = [], errors = [];
+  const checkpoint = stage => fs.writeFileSync(path.join(output,"stage.json"), JSON.stringify({stage,time:Date.now()}));
+  const server = http.createServer((request, response) => {
+    const url = new URL(request.url, "http://localhost");
+    const relative = decodeURIComponent(url.pathname);
+    let roots, suffix;
+    if (relative.startsWith("/tactical/wasm/")) {
+      roots = [path.resolve(root, wasm)]; suffix = relative.slice(15);
+    } else if (relative.startsWith("/tactical/assets/")) {
+      roots = assetRoots; suffix = relative.slice(17);
+    } else if (relative.startsWith("/static/")) {
+      roots = [path.join(root, "crates/strategic-web/static")]; suffix = relative.slice(8);
+    } else if (relative === "/input.json") {
+      roots = [root]; suffix = "assets/tactical-scenes/sparse-woodland.json";
+    }
+    if (roots) {
+      const file = roots.map(directory => path.resolve(directory, suffix))
+        .find((candidate, index) => candidate.startsWith(path.resolve(roots[index]) + path.sep)
+          && fs.existsSync(candidate) && fs.statSync(candidate).isFile());
+      if (!file) { missing.push(relative); response.writeHead(404); response.end(); return; }
+      response.setHeader("Content-Type", {
+        ".js": "text/javascript", ".wasm": "application/wasm", ".json": "application/json",
+      }[path.extname(file)] || "application/octet-stream");
+      fs.createReadStream(file).pipe(response); return;
+    }
+    response.setHeader("Content-Type", "text/html");
+    response.end(`<!doctype html><html><body style="margin:0;background:#201815">
+      <div style="width:100vw;height:100vh"><canvas id="game-canvas"></canvas></div>
+      <script type="module">
+        import init, * as runtime from "/tactical/wasm/adventuresim-tactical-client.js";
+        import {prepareGeneratedScene} from "/static/strategic-generation.js";
+        try {
+          const module = await WebAssembly.compileStreaming(fetch("/tactical/wasm/adventuresim-tactical-client_bg.wasm"));
+          await init({module_or_path:module});
+          const [graphics, audio, input] = await Promise.all([
+            fetch("/tactical/assets/config/tactical-graphics.yaml").then(r=>r.text()),
+            fetch("/tactical/assets/config/tactical-audio.yaml").then(r=>r.text()),
+            fetch("/input.json").then(r=>r.text())]);
+          runtime.wasm_boot(graphics, audio);
+          await prepareGeneratedScene({...runtime, generationModule:module,
+            generationRevision:"regional-map-browser", generationGraphicsConfig:graphics}, input, {places:[],people:[]});
+          runtime.wasm_command(JSON.stringify({type:"prepare-strategic-scene", location:"fixture", input_json:input}));
+          runtime.wasm_command(JSON.stringify({type:"sync-strategic-view", view:{
+            revision:1,location:"fixture",places:[],people:[],active_place:null,selected:null,
+            street:null,stage:null,forge:null,portraits:[]}}));
+          window.runtime=runtime;
+        } catch(error) { console.error(error); window.bootFailure=String(error); }
+      </script></body></html>`);
+  });
+  await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
+  const browser = await chromium.launch({ headless: true,
+    channel: process.platform === "win32" ? "msedge" : undefined,
+    args: ["--enable-unsafe-webgpu"] });
+  let page;
+  try {
+    page = await browser.newPage({viewport: {width: 1000, height: 700}});
+    await page.addInitScript({path: path.join(__dirname, "webgpu-probe.js")});
+    page.on("pageerror", error => errors.push({text:error.message}));
+    page.on("console", message => {
+      if (message.type() === "error") errors.push({text:message.text().slice(0,4000),url:message.location().url});
+      fs.appendFileSync(path.join(output, "console.log"), message.text().slice(0, 4000) + "\n");
+    });
+    await page.goto(`http://127.0.0.1:${server.address().port}`);
+    checkpoint("booting");
+    await page.waitForFunction(() => window.runtime || window.bootFailure, null, {timeout: 180_000});
+    assert.equal(await page.evaluate(() => window.bootFailure), undefined);
+    checkpoint("runtime-prepared");
+    const initial = await page.evaluate(() => {
+      const source = "a".repeat(64), origin = {latitude: 50_500_000, longitude: 10_500_000};
+      const rect = {x:80,y:60,width:840,height:560,full_width:840,full_height:560,offset_x:0,offset_y:0};
+      window.mapCommand = command => runtime.wasm_command(JSON.stringify({type:"regional-map",command}));
+      window.mapStatus = () => JSON.parse(runtime.wasm_regional_map_status());
+      window.mapOpen = {type:"open",source,origin,span:1200,rect};
+      const vertices = Array.from({length:65*65}, (_, index) => {
+        const x=index%65, y=Math.floor(index/65);
+        if(x<4 && y<4) return null;
+        return {elevation:{meters:Math.round(300+60*Math.sin(x/8)*Math.cos(y/9))},environment:{
+          canopy_bps:0,wetland_bps:0,cultivation_bps:x>32?8000:0,water_bps:0,hilly_bps:6000,
+          crossing_bps:0,surface:"open"}};
+      });
+      window.mapTerrain = {source,request:{origin,scale:"neighborhood"},vertices};
+      mapCommand(mapOpen); mapCommand({type:"install-terrain",terrain:mapTerrain});
+      return mapOpen;
+    });
+    await page.waitForFunction(() => mapStatus().ready, null, {timeout: 90_000});
+    checkpoint("map-ready");
+    await page.screenshot({path:path.join(output,"terrain.png")});
+    const capture = await page.evaluate(() => renderProbe.capture("gpu", 3));
+    checkpoint("terrain-captured");
+    assert.deepEqual(capture.failures, []);
+    assert(capture.frames.some(frame => frame.passes.some(pass => pass.draws?.some(draw => draw.triangles > 0))),
+      "The real WebGPU renderer must draw admitted terrain");
+    const changed = await page.evaluate(async () => {
+      mapCommand({type:"rotate",angle:0.7}); mapCommand({type:"pan",delta:[80,40]});
+      mapCommand({type:"zoom",ratio:0.5});
+      await new Promise(requestAnimationFrame); await new Promise(requestAnimationFrame);
+      return mapStatus();
+    });
+    assert.equal(changed.span, initial.span * 0.5);
+    assert(Math.abs(changed.yaw - 0.7) < 0.00001);
+    assert.notDeepEqual(changed.origin, initial.origin);
+    await page.screenshot({path:path.join(output,"rotated.png")});
+    checkpoint("rotated");
+    await page.evaluate(async () => {
+      mapCommand({type:"hide"}); await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+    });
+    assert.equal(await page.evaluate(() => mapStatus().visible), false);
+    const warm = await page.evaluate(async () => {
+      const started = performance.now(); mapCommand(mapOpen);
+      while (!mapStatus().ready) await new Promise(requestAnimationFrame);
+      return {milliseconds:performance.now()-started,status:mapStatus(),canvases:document.querySelectorAll("canvas").length};
+    });
+    assert.equal(warm.canvases, 1);
+    checkpoint("warm-reopened");
+    assert.deepEqual(warm.status.origin, changed.origin, "Reopening retains the geographic pose");
+    assert.equal(warm.status.span, changed.span);
+    assert.deepEqual(warm.status.presented, {origin:initial.origin,scale:"neighborhood"});
+    const rejected = await page.evaluate(() => {
+      const invalid = [{...mapOpen,span:0}, {...mapOpen,rect:{...mapOpen.rect,full_height:0}},
+        {type:"zoom",ratio:100}, {type:"install-terrain",terrain:{...mapTerrain,vertices:[]}}];
+      return invalid.map(command => {try { mapCommand(command); return false; } catch {return true;}});
+    });
+    assert.deepEqual(rejected, [true,true,true,true]);
+    await page.evaluate(() => mapCommand({type:"install-terrain",terrain:{
+      ...mapTerrain,request:{...mapTerrain.request,origin:{latitude:50_501_000,longitude:10_500_000}},
+      vertices:Array(65*65).fill(null)}}));
+    await page.waitForFunction(() => mapStatus().ready && !mapStatus().covered, null, {timeout: 10_000});
+    await page.screenshot({path:path.join(output,"uncovered.png")});
+    fs.writeFileSync(path.join(output,"result.json"), JSON.stringify({warm,changed,capture,missing,errors}, null, 2));
+    assert.deepEqual(missing.filter(url => !unusedMissingMotions.has(url)), []);
+    assert.deepEqual(errors.filter(error => {
+      try { return !unusedMissingMotions.has(new URL(error.url).pathname); } catch { return true; }
+    }), []);
+    checkpoint("complete");
+  } catch (error) {
+    const state = page && await page.evaluate(() => ({
+      scene:window.runtime && JSON.parse(runtime.wasm_strategic_status()),
+      map:window.runtime && JSON.parse(runtime.wasm_regional_map_status()),
+      bootFailure:window.bootFailure,
+    })).catch(() => ({}));
+    fs.writeFileSync(path.join(output,"failure.json"), JSON.stringify({error:String(error),state,missing,errors},null,2));
+    throw error;
+  } finally { await browser.close(); server.close(); }
+});

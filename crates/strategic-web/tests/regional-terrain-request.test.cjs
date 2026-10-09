@@ -29,6 +29,10 @@ test("warm reopening reuses the installed terrain without fetching or reinstalli
   assert.equal(fetches, 1); assert.equal(installed.length, 1);
   assert.equal(terrain.state.phase, "prepared");
   assert.ok(states.every(Object.isFrozen));
+  const publications = states.length;
+  for (let frame = 0; frame < 20; frame++) await terrain.request(request());
+  assert.equal(states.length, publications);
+  assert.equal(fetches, 1); assert.equal(installed.length, 1);
 });
 
 test("identical in-flight requests share ownership and wait for the existing runtime", async () => {

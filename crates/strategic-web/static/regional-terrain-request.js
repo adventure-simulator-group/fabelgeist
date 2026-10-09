@@ -83,6 +83,13 @@ export function createRegionalTerrainRequests({ runtimePromise, install, changed
     request(input, { retry = false } = {}) {
       const request = admitRequest(input);
       const key = keyFor(request);
+      if (resident?.key === key) {
+        current?.controller.abort(); current = undefined;
+        if (state.phase !== "prepared" || keyFor(state.request) !== key) {
+          publish({ phase: "prepared", request });
+        }
+        return Promise.resolve({ status: "reused", request });
+      }
       if (current?.key === key) return current.promise;
       if (!retry && state.phase === "failed" && keyFor(state.request) === key) {
         return Promise.resolve({ status: "failed", request, cause: state.cause });

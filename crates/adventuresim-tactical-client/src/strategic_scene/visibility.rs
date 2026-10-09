@@ -30,10 +30,13 @@ fn wait_for_installation(
     mut previous_scene: Local<Option<Entity>>,
     mut cameras: Query<
         &mut VisibleEntities,
-        Or<(
-            With<StrategicCamera>,
-            With<crate::presentation::TacticalGameplayCamera>,
-        )>,
+        (
+            Without<crate::presentation::RegionalMapCamera>,
+            Or<(
+                With<StrategicCamera>,
+                With<crate::presentation::TacticalGameplayCamera>,
+            )>,
+        ),
     >,
 ) {
     let root = scene.as_ref().and_then(|scene| scene.root);
@@ -98,7 +101,9 @@ mod tests {
             app.world_mut()
                 .spawn(crate::presentation::TacticalGameplayCamera)
                 .id(),
-            app.world_mut().spawn_empty().id(),
+            app.world_mut()
+                .spawn((StrategicCamera, crate::presentation::RegionalMapCamera))
+                .id(),
         ];
         let populate = |app: &mut App| {
             for camera in cameras {

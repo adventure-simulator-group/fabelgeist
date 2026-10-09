@@ -67,7 +67,9 @@ geographic product.
 `createRegionalTerrainRequests` retains at most four recent windows in the
 strategic document. A request uses the exact source digest, named scale and
 checked origin as its identity. This cache expires with the document; it does
-not persist across sampler deployments. An already-installed window can reopen
+not persist after a page reload. A sampler deployment must invalidate open
+documents or add a sampling revision before reusing their cached windows.
+An already-installed window can reopen
 without another HTTP request or renderer installation.
 
 Each controller owns one in-flight request. Replacing the camera window or
