@@ -211,7 +211,7 @@ impl CityBuildingAssets<'_> {
             .push(
                 entity.id(),
                 &transform,
-                gpu::BuildingAppearance::Distant(*placement),
+                gpu::PlacementAppearance::Distant(*placement),
                 &compiled,
             );
         entity.with_children(|parent| {

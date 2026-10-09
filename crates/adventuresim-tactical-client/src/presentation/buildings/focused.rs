@@ -37,12 +37,12 @@ pub(in crate::presentation) fn queue_focused_city(
         Ok(())
     };
     for placement in &city.input().buildings {
-        append(placement, gpu::BuildingAppearance::Primary(placement.id))?;
+        append(placement, gpu::PlacementAppearance::Primary(placement.id))?;
     }
     for placement in &city.input().distant_buildings {
         append(
             &(*placement).into(),
-            gpu::BuildingAppearance::Distant(*placement),
+            gpu::PlacementAppearance::Distant(*placement),
         )?;
     }
     // Publish only the complete queue. A failed facade leaves the current GPU

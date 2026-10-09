@@ -5,7 +5,7 @@ use bevy::{
     render::{batching::NoAutomaticBatching, render_resource::ShaderType},
 };
 pub(in crate::presentation::buildings) use input::{
-    BuildingAppearance, PendingGpuBuildings, PendingGpuCities,
+    PendingGpuBuildings, PendingGpuCities, PlacementAppearance,
 };
 use packing::pack;
 pub(super) use ranges::DrawRange;
