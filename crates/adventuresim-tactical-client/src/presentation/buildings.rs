@@ -9,9 +9,11 @@ use std::sync::Arc;
 use super::ownership::PresentationOwner;
 use super::recipe_mesh::recipe_mesh;
 use super::*;
+pub(in crate::presentation) use focused::queue_focused_city;
 pub(in crate::presentation) use gpu::CityFrame;
 
 mod boundaries;
+mod focused;
 mod gpu;
 mod kit;
 mod materials;
@@ -161,6 +163,7 @@ fn on_scene_building_added(
         })
     });
     let compiled = cached_building_levels(
+        PresentationOwner::Scene,
         &mut cache,
         &building.program,
         BuildingDetail::Dynamic,
@@ -221,6 +224,7 @@ fn on_scene_vista_buildings(
 }
 
 fn cached_building_levels(
+    owner: PresentationOwner,
     cache: &mut TacticalBuildingMeshCache,
     program: &BuildingProgram,
     detail: BuildingDetail,
@@ -237,10 +241,7 @@ fn cached_building_levels(
 
     #[cfg(target_family = "wasm")]
     if detail == BuildingDetail::Facade {
-        let prepared = super::generation::take_facade(
-            crate::presentation::ownership::PresentationOwner::Scene,
-            program,
-        )?;
+        let prepared = super::generation::take_facade(owner, program)?;
         return kit::install_facade(cache, prepared, meshes);
     }
 
@@ -257,10 +258,7 @@ fn cached_building_levels(
     let plan = &geometry.plan;
     #[cfg(target_family = "wasm")]
     if detail == BuildingDetail::Dynamic && prepared.is_some() {
-        let meshes_ready = super::generation::take_venue_geometry(
-            crate::presentation::ownership::PresentationOwner::Scene,
-            program,
-        )?;
+        let meshes_ready = super::generation::take_venue_geometry(owner, program)?;
         return self::prepared::install(cache, program, meshes_ready, geometry, meshes);
     }
     let collision = &geometry.collision;
@@ -439,6 +437,7 @@ mod tests {
         let mut meshes = Assets::default();
         let mut cache = TacticalBuildingMeshCache::default();
         let local = cached_building_levels(
+            PresentationOwner::Scene,
             &mut cache,
             &program,
             BuildingDetail::Dynamic,
@@ -448,6 +447,7 @@ mod tests {
         .unwrap();
         cache.levels.clear();
         let remote = cached_building_levels(
+            PresentationOwner::Scene,
             &mut cache,
             &program,
             BuildingDetail::Dynamic,
@@ -487,6 +487,7 @@ mod tests {
             }
         }
         let facade = cached_building_levels(
+            PresentationOwner::Scene,
             &mut cache,
             &program,
             BuildingDetail::Facade,
@@ -516,6 +517,7 @@ mod tests {
         let mut cache = TacticalBuildingMeshCache::default();
         cache.recipes.get_or_generate(&program).unwrap();
         let first = cached_building_levels(
+            PresentationOwner::Scene,
             &mut cache,
             &program,
             BuildingDetail::Facade,
@@ -529,6 +531,7 @@ mod tests {
         );
         let resident_count = meshes.len();
         let second = cached_building_levels(
+            PresentationOwner::Scene,
             &mut cache,
             &program,
             BuildingDetail::Facade,

@@ -184,8 +184,14 @@ impl CityBuildingAssets<'_> {
         detail: BuildingDetail,
     ) -> Result<bool> {
         let program = placement.occupied_program();
-        let compiled =
-            cached_building_levels(&mut self.cache, &program, detail, &mut self.meshes, None)?;
+        let compiled = cached_building_levels(
+            PresentationOwner::Scene,
+            &mut self.cache,
+            &program,
+            detail,
+            &mut self.meshes,
+            None,
+        )?;
         let transform = Transform::from_xyz(
             placement.centre_metres.metres().x,
             placement.base_elevation_metres.metres() + compiled.local_origin.metres().y,
@@ -202,7 +208,12 @@ impl CityBuildingAssets<'_> {
         self.gpu
             .owners
             .get_mut(crate::presentation::ownership::PresentationOwner::Scene)
-            .push(entity.id(), &transform, *placement, &compiled);
+            .push(
+                entity.id(),
+                &transform,
+                gpu::BuildingAppearance::Distant(*placement),
+                &compiled,
+            );
         entity.with_children(|parent| {
             let sign = establishment.and_then(|establishment| {
                 establishment.shop_name.clone().and_then(|name| {
