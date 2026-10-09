@@ -214,6 +214,11 @@ fn retained_facades_skip_disk_jobs_and_clearing_geometry_releases_residency() {
         "valid new floor/source bindings invalidate the scene without regenerating resident facades"
     );
     clear_residency().unwrap();
+    assert!(matches!(
+        jobs(ticket, input),
+        Err(PreparationError::StalePreparation)
+    ));
+    let ticket = begin(GenerationOwner::Scene).unwrap();
     assert_eq!(jobs(ticket, input).unwrap(), requests);
 }
 
