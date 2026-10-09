@@ -6,36 +6,36 @@ use std::{
 
 use adventuresim_world_import::hyde_crop_cells;
 use adventuresim_world_schema::calendar::WORLD_START_YEAR;
+use adventuresim_world_schema::coordinates::Wgs84BoundsE7;
+use adventuresim_world_schema::regional_connection::RegionalConnectionKind;
 use adventuresim_world_schema::{CompiledWorld, PLAYABLE_BOUNDS, TravelEdgeProvenance};
-use clap::Parser;
-use raster::{ElevationLayer, ForestLayer, MapRasterLayers};
+use clap::{Parser, ValueEnum};
+use road_history::active;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
+use simplification::{WATER_RING_TOLERANCE_DEGREES, simplify};
 
-#[path = "build-strategic-map/raster.rs"]
-mod raster;
+#[path = "build-strategic-map/distance_index.rs"]
+mod distance_index;
 #[path = "build-strategic-map/road_history.rs"]
 mod road_history;
-use road_history::active;
+#[path = "build-strategic-map/simplification.rs"]
+mod simplification;
 #[path = "build-strategic-map/terrain_features.rs"]
 mod terrain_features;
-#[path = "build-strategic-map/tiles.rs"]
-mod tiles;
 
-const PACKAGE_SCHEMA: u32 = 5;
-const RENDERER_REVISION: u32 = 10;
-const VIABUNDUS_DOI: &str = "https://doi.org/10.5281/zenodo.16611998";
 const RECORD_URL: &str = "https://zenodo.org/api/records/16611998";
 const BOUNDS: [f64; 4] = PLAYABLE_BOUNDS;
 const MAX_SOURCE_FILES: usize = 64;
 const DATA_LICENSE_FILENAME: &str = "STRATEGIC_MAP_DATA_LICENSE.md";
 const DATA_LICENSE: &str = include_str!("../../../../MAP_DATA_LICENSE.md");
+const COMPILER_STACK_BYTES: usize = 64 * 1024 * 1024;
 
 #[derive(Parser)]
-#[command(about = "Build the bounded AVIF strategic-map package from initialized world data")]
+#[command(about = "Build canonical regional roads and native terrain from initialized world data")]
 struct Args {
-    #[arg(long, help = "build only the documented-road base terrain contract")]
-    base_only: bool,
+    #[arg(long, value_enum, default_value = "final")]
+    purpose: BuildPurpose,
     #[arg(long, default_value = "viabundus")]
     viabundus_dir: PathBuf,
     #[arg(long, default_value = "target/world-data-sources/raw/elevation")]
@@ -48,13 +48,10 @@ struct Args {
     hyde_dir: PathBuf,
     #[arg(long, default_value = "target/world-1544.json")]
     compiled_world: PathBuf,
-    #[arg(long, default_value = "target/strategic-map/strategic-map-v1.json")]
+    #[arg(long, default_value = "target/strategic-map/regional-roads-v1.json")]
     output: PathBuf,
-    #[arg(
-        long,
-        default_value = "target/strategic-map/strategic-map-tiles-v1.pack"
-    )]
-    tiles_output: PathBuf,
+    #[arg(long, default_value = "target/strategic-map/regional-roads-v1.pack")]
+    roads_pack_output: PathBuf,
     #[arg(long, default_value = "target/strategic-map/terrain-routing-v3.json")]
     terrain_output: PathBuf,
     #[arg(long, default_value = "target/strategic-map/terrain-routing-v3.pack")]
@@ -90,29 +87,20 @@ struct SourceFile {
 #[derive(Clone, Debug, PartialEq, Serialize)]
 struct Point([f64; 2]);
 
-#[derive(Clone, Debug, PartialEq, Serialize)]
-struct Line {
-    kind: String,
-    importance: u8,
-    points: Vec<Point>,
+#[derive(Clone, Debug, PartialEq)]
+struct Package {
+    bounds: Wgs84BoundsE7,
+    /// Full active Viabundus and inferred geometry shared by routing and
+    /// presentation. Coordinates remain native longitude/latitude degrees
+    /// until the source compiler or checked road package admits them.
+    routing_roads: Vec<SourceRoad>,
+    water: Vec<WaterPolygon>,
 }
 
-#[derive(Clone, Debug, PartialEq, Serialize)]
-struct Package {
-    schema: u32,
-    year: i32,
-    bounds: [f64; 4],
-    source: Source,
-    roads: Vec<Line>,
-    /// Full active Viabundus geometry used only by the offline routing pack.
-    /// Presentation filtering and simplification must never affect it.
-    routing_roads: Vec<Vec<Point>>,
-    water: Vec<WaterPolygon>,
-    wetlands: Vec<WaterPolygon>,
-    cultivated: Vec<WaterPolygon>,
-    elevation: ElevationLayer,
-    forest: ForestLayer,
-    tiles: TilePyramid,
+#[derive(Clone, Debug, PartialEq)]
+struct SourceRoad {
+    kind: RegionalConnectionKind,
+    points: Vec<Point>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize)]
@@ -125,109 +113,42 @@ struct CultivatedLand {
     source_sha256: String,
 }
 
-#[derive(Serialize)]
-struct DeploymentPackage<'a> {
-    schema: u32,
-    renderer_revision: u32,
-    year: i32,
-    bounds: [f64; 4],
-    source: &'a Source,
-    elevation: DeploymentLayer<'a>,
-    forest: DeploymentForestLayer<'a>,
-    cultivation: DeploymentCultivation,
-    tiles: &'a TilePyramid,
-    terrain_package_sha256: String,
-    inferred_road_geometry_sha256: String,
-    wetland_source_sha256: String,
-    package_sha256: String,
+#[derive(Clone, Copy, Eq, PartialEq, ValueEnum)]
+enum BuildPurpose {
+    DocumentedBase,
+    Final,
+    Roads,
 }
-
-#[derive(Serialize)]
-struct DeploymentLayer<'a> {
-    source: &'a raster::LayerSource,
-}
-
-#[derive(Serialize)]
-struct DeploymentForestLayer<'a> {
-    source: &'a raster::LayerSource,
-    coverage_tiles: usize,
-}
-
-#[derive(Serialize)]
-struct DeploymentCultivation {
-    grid_crs: &'static str,
-    grid_resolution_m: u16,
-    rules_version: u16,
-    source_sha256: String,
-    square_count: usize,
-}
-
-#[derive(Clone, Debug, PartialEq, Serialize)]
-struct TilePyramid {
-    format: &'static str,
-    tile_size: u32,
-    gutter: u8,
-    max_zoom: u8,
-    content_sha256: String,
-    entries: Vec<TileEntry>,
-}
-
-#[derive(Clone, Debug, PartialEq, Serialize)]
-struct TileEntry {
-    theme: &'static str,
-    zoom: u8,
-    x: u16,
-    y: u16,
-    offset: u64,
-    length: u32,
-}
-
-#[derive(Clone, Debug, PartialEq, Serialize)]
-struct Source {
-    name: &'static str,
-    version: String,
-    url: &'static str,
-    license: &'static str,
-    files_sha256: BTreeMap<String, String>,
-    verification_status: &'static str,
-}
-
-const RENDER_STACK_BYTES: usize = 64 * 1024 * 1024;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
     let render = std::thread::Builder::new()
-        .name("strategic-map-renderer".into())
-        .stack_size(RENDER_STACK_BYTES)
+        .name("regional-map-builder".into())
+        .stack_size(COMPILER_STACK_BYTES)
         .spawn(move || run(args).map_err(|error| error.to_string()))?;
     match render.join() {
         Ok(Ok(())) => Ok(()),
         Ok(Err(message)) => Err(std::io::Error::other(message).into()),
-        Err(_) => Err(std::io::Error::other("strategic map renderer panicked").into()),
+        Err(_) => Err(std::io::Error::other("regional map compiler panicked").into()),
     }
 }
 
 fn run(args: Args) -> Result<(), Box<dyn std::error::Error>> {
-    let layers = raster::load(&args.elevation_dir, &args.forest_cover_dir, BOUNDS)?;
-    let mut package = build(&args.viabundus_dir, layers)?;
+    if args.purpose == BuildPurpose::Roads {
+        return compile_roads(&args);
+    }
+    let mut package = build(
+        &args.viabundus_dir,
+        Wgs84BoundsE7::from_longitude_latitude_degrees(BOUNDS).ok_or("invalid playable bounds")?,
+    )?;
     let wetland =
         adventuresim_world_import::wetland_spatial_data(&args.potential_vegetation_dir, BOUNDS)?;
-    package.wetlands = wetland
-        .presentation_polygons
-        .iter()
-        .map(|rings| WaterPolygon {
-            rings: rings
-                .iter()
-                .map(|ring| ring.iter().copied().map(Point).collect())
-                .collect(),
-        })
-        .collect();
     let base_features = terrain_features::build(
         &package,
         wetland.polygons.clone(),
         wetland.source_sha256.clone(),
     );
-    if args.base_only {
+    if args.purpose == BuildPurpose::DocumentedBase {
         let terrain = adventuresim_terrain::builder::build(
             &args.elevation_dir,
             &args.forest_cover_dir,
@@ -274,16 +195,12 @@ fn run(args: Args) -> Result<(), Box<dyn std::error::Error>> {
         return Err("compiled world was inferred against a different base terrain digest".into());
     }
     append_inferred_roads(&mut package, &world);
-    package.roads.sort_by(|a, b| {
-        a.kind
-            .cmp(&b.kind)
-            .then_with(|| a.importance.cmp(&b.importance))
-            .then_with(|| point_order(&a.points, &b.points))
-    });
-    package.routing_roads.sort_by(|a, b| point_order(a, b));
+    package
+        .routing_roads
+        .sort_by(|a, b| point_order(&a.points, &b.points));
     let cultivated = cultivated_land(&args.hyde_dir, &base, &package, &world)?;
     let terrain_features = terrain_features::finalize(
-        &mut package,
+        &package,
         wetland.polygons,
         wetland.source_sha256,
         cultivated,
@@ -309,46 +226,24 @@ fn run(args: Args) -> Result<(), Box<dyn std::error::Error>> {
     }
     let native_terrain =
         adventuresim_terrain::TerrainPack::load(&args.terrain_output, &args.terrain_pack_output)?;
-    let (tile_manifest, tile_bytes) = tiles::build(
-        &package,
-        Some(&native_terrain),
-        tiles::TileConfig::default(),
+    let roads = adventuresim_terrain::road_pack::RoadPack::write(
+        &args.output,
+        &args.roads_pack_output,
+        &native_terrain,
+        &package.native_road_lines(),
     )?;
-    package.tiles = tile_manifest;
-    let mut deployment = deployment_package(
-        &package,
-        &terrain.package_sha256,
-        &world.report.inferred_road_geometry_sha256,
-        &terrain.wetland_source_sha256,
-        &terrain.cultivation_source_sha256,
-    );
-    deployment.package_sha256 = package_digest(&deployment)?;
-    let mut bytes = serde_json::to_vec(&deployment)?;
-    bytes.push(b'\n');
-    if let Some(parent) = args.output.parent() {
-        fs::create_dir_all(parent)?;
-    }
-    fs::write(&args.output, bytes)?;
-    if let Some(parent) = args.tiles_output.parent() {
-        fs::create_dir_all(parent)?;
-    }
-    fs::write(&args.tiles_output, tile_bytes)?;
     write_data_license(&[
         &args.output,
-        &args.tiles_output,
+        &args.roads_pack_output,
         &args.terrain_output,
         &args.terrain_pack_output,
     ])?;
     println!(
-        "Wrote {} roads, {} water polygons, {} elevation cells, {} contours, {} forest regions, and {} AVIF tiles to {} and {}",
-        package.roads.len(),
-        package.water.len(),
-        package.elevation.cells.len(),
-        package.elevation.contours.len(),
-        package.forest.regions.len(),
-        package.tiles.entries.len(),
+        "Wrote {} canonical roads with {} source points to {} and {}",
+        roads.roads,
+        roads.points,
         args.output.display(),
-        args.tiles_output.display()
+        args.roads_pack_output.display()
     );
     println!(
         "Wrote {} native 30 m terrain chunks to {} and {} (digest {})",
@@ -356,6 +251,33 @@ fn run(args: Args) -> Result<(), Box<dyn std::error::Error>> {
         args.terrain_output.display(),
         args.terrain_pack_output.display(),
         terrain.package_sha256
+    );
+    Ok(())
+}
+
+fn compile_roads(args: &Args) -> Result<(), Box<dyn std::error::Error>> {
+    let world: CompiledWorld = serde_json::from_slice(&fs::read(&args.compiled_world)?)?;
+    adventuresim_world_import::validate_world(&world)?;
+    let terrain =
+        adventuresim_terrain::TerrainPack::load(&args.terrain_output, &args.terrain_pack_output)?;
+    let bounds = Wgs84BoundsE7::from_longitude_latitude_degrees(terrain.bounds())
+        .ok_or("invalid terrain source bounds")?;
+    let mut package = build(&args.viabundus_dir, bounds)?;
+    append_inferred_roads(&mut package, &world);
+    package
+        .routing_roads
+        .sort_by(|left, right| point_order(&left.points, &right.points));
+    let geometry = package.native_road_lines();
+    let roads = adventuresim_terrain::road_pack::RoadPack::write(
+        &args.output,
+        &args.roads_pack_output,
+        &terrain,
+        &geometry,
+    )?;
+    write_data_license(&[&args.output, &args.roads_pack_output])?;
+    println!(
+        "Wrote {} canonical roads with {} source points",
+        roads.roads, roads.points
     );
     Ok(())
 }
@@ -395,10 +317,8 @@ fn append_inferred_geometry(
             .iter()
             .map(|point| Point([point.longitude(), point.latitude()]))
             .collect::<Vec<_>>();
-        package.routing_roads.push(points.clone());
-        package.roads.push(Line {
-            kind: "inferred".into(),
-            importance: 4,
+        package.routing_roads.push(SourceRoad {
+            kind: RegionalConnectionKind::InferredWalkingLink,
             points,
         });
     }
@@ -468,27 +388,19 @@ fn cultivated_land(
             })
         })
         .collect::<Result<Vec<_>, _>>()?;
-    let project_segments =
-        |lines: &[Vec<Point>]| -> Result<Vec<MetricSegment>, Box<dyn std::error::Error>> {
-            lines
-                .iter()
-                .flat_map(|line| line.windows(2))
-                .map(|pair| {
-                    Ok(MetricSegment {
-                        from: metric_point(projection.project(pair[0].0[1], pair[0].0[0])?),
-                        to: metric_point(projection.project(pair[1].0[1], pair[1].0[0])?),
-                    })
-                })
-                .collect()
-        };
     let settlement_index = SegmentDistanceIndex::new(settlement_segments)?;
-    let road_index = SegmentDistanceIndex::new(project_segments(&package.routing_roads)?)?;
+    let road_lines = package
+        .routing_roads
+        .iter()
+        .map(|line| line.points.as_slice())
+        .collect::<Vec<_>>();
+    let road_index = distance_index::build(&projection, &road_lines)?;
     let water_lines = package
         .water
         .iter()
-        .flat_map(|polygon| polygon.rings.iter().cloned())
+        .flat_map(|polygon| polygon.rings.iter().map(Vec::as_slice))
         .collect::<Vec<_>>();
-    let water_index = SegmentDistanceIndex::new(project_segments(&water_lines)?)?;
+    let water_index = distance_index::build(&projection, &water_lines)?;
     let mut candidates = Vec::new();
     for row in min_row..=max_row {
         for column in min_column..=max_column {
@@ -645,8 +557,7 @@ fn write_data_license(outputs: &[&Path]) -> std::io::Result<()> {
     Ok(())
 }
 
-fn build(root: &Path, layers: MapRasterLayers) -> Result<Package, Box<dyn std::error::Error>> {
-    let layers = clip_raster_layers(layers, BOUNDS);
+fn build(root: &Path, bounds: Wgs84BoundsE7) -> Result<Package, Box<dyn std::error::Error>> {
     let manifest: SourceManifest =
         serde_json::from_slice(&fs::read(root.join(".viabundus-source.json"))?)?;
     if manifest.version != "2" || manifest.record_url != RECORD_URL {
@@ -675,7 +586,6 @@ fn build(root: &Path, layers: MapRasterLayers) -> Result<Package, Box<dyn std::e
         }
     }
     let required = ["edges.csv", "water-1500.csv"];
-    let mut identities = BTreeMap::new();
     for name in required {
         let entry = manifest
             .files
@@ -690,10 +600,8 @@ fn build(root: &Path, layers: MapRasterLayers) -> Result<Package, Box<dyn std::e
         if actual != entry.sha256 {
             return Err(format!("{name} does not match its initialized SHA-256").into());
         }
-        identities.insert(name.to_string(), actual);
     }
 
-    let mut roads = Vec::new();
     let mut routing_roads = Vec::new();
     let mut reader = csv::Reader::from_path(root.join("edges.csv"))?;
     for row in reader.deserialize::<BTreeMap<String, String>>() {
@@ -701,41 +609,18 @@ fn build(root: &Path, layers: MapRasterLayers) -> Result<Package, Box<dyn std::e
         if !active(&row, WORLD_START_YEAR) {
             continue;
         }
-        let zoom = row
-            .get("zoomlevel")
-            .and_then(|v| v.parse::<u8>().ok())
-            .unwrap_or(99);
+        let kind = row
+            .get("type")
+            .ok_or("regional connection has no classification")?
+            .parse::<RegionalConnectionKind>()?;
         let Some(wkt) = row.get("wkt") else { continue };
-        for points in clip_polyline(&coordinates(wkt), BOUNDS) {
+        for points in clip_polyline(&coordinates(wkt), bounds.longitude_latitude_degrees()) {
             if points.len() >= 2 {
-                routing_roads.push(points.clone());
+                routing_roads.push(SourceRoad { kind, points });
             }
-            if zoom > 4 {
-                continue;
-            }
-            let points = simplify(&points, 0.001);
-            if points.len() < 2 {
-                continue;
-            }
-            roads.push(Line {
-                kind: if row.get("type").is_some_and(|v| v == "ferry") {
-                    "ferry"
-                } else {
-                    "land"
-                }
-                .into(),
-                importance: zoom,
-                points,
-            });
         }
     }
-    roads.sort_by(|a, b| {
-        a.kind
-            .cmp(&b.kind)
-            .then_with(|| a.importance.cmp(&b.importance))
-            .then_with(|| point_order(&a.points, &b.points))
-    });
-    routing_roads.sort_by(|a, b| point_order(a, b));
+    routing_roads.sort_by(|a, b| point_order(&a.points, &b.points));
 
     let mut water = Vec::new();
     let mut reader = csv::Reader::from_path(root.join("water-1500.csv"))?;
@@ -745,7 +630,12 @@ fn build(root: &Path, layers: MapRasterLayers) -> Result<Package, Box<dyn std::e
         for polygon in wkt_polygons(wkt) {
             let rings: Vec<_> = polygon
                 .into_iter()
-                .map(|ring| simplify(&clip_polygon(&ring, BOUNDS), 0.002))
+                .map(|ring| {
+                    simplify(
+                        &clip_polygon(&ring, bounds.longitude_latitude_degrees()),
+                        WATER_RING_TOLERANCE_DEGREES,
+                    )
+                })
                 .filter(|ring| ring.len() >= 4)
                 .collect();
             if !rings.is_empty() {
@@ -755,132 +645,13 @@ fn build(root: &Path, layers: MapRasterLayers) -> Result<Package, Box<dyn std::e
     }
     water.sort_by(|a, b| point_order(&a.rings[0], &b.rings[0]));
 
-    let source = Source {
-        name: "Viabundus Pre-modern Street Map 2",
-        version: manifest.version,
-        url: VIABUNDUS_DOI,
-        license: "CC-BY-SA-4.0",
-        files_sha256: identities,
-        verification_status: "verified",
-    };
     let package = Package {
-        schema: PACKAGE_SCHEMA,
-        year: WORLD_START_YEAR.get(),
-        bounds: BOUNDS,
-        source,
-        roads,
+        bounds,
         routing_roads,
         water,
-        wetlands: Vec::new(),
-        cultivated: Vec::new(),
-        elevation: layers.elevation,
-        forest: layers.forest,
-        tiles: TilePyramid {
-            format: "avif",
-            tile_size: 0,
-            gutter: 0,
-            max_zoom: 0,
-            content_sha256: String::new(),
-            entries: Vec::new(),
-        },
     };
     validate_geometry(&package)?;
     Ok(package)
-}
-
-fn clip_raster_layers(mut layers: MapRasterLayers, bounds: [f64; 4]) -> MapRasterLayers {
-    layers.elevation.cells = layers
-        .elevation
-        .cells
-        .into_iter()
-        .filter_map(|mut cell| {
-            cell.bounds = bounds_intersection(cell.bounds, bounds)?;
-            Some(cell)
-        })
-        .collect();
-    layers.elevation.contours = layers
-        .elevation
-        .contours
-        .into_iter()
-        .flat_map(|contour| {
-            let points = contour.points.into_iter().map(Point).collect::<Vec<_>>();
-            clip_polyline(&points, bounds)
-                .into_iter()
-                .map(move |points| raster::ElevationContour {
-                    elevation_m: contour.elevation_m,
-                    points: points.into_iter().map(|point| point.0).collect(),
-                })
-        })
-        .collect();
-    layers.forest.coverage = layers
-        .forest
-        .coverage
-        .into_iter()
-        .filter_map(|coverage| bounds_intersection(coverage, bounds))
-        .collect();
-    layers.forest.regions = layers
-        .forest
-        .regions
-        .into_iter()
-        .filter_map(|mut region| {
-            region.bounds = bounds_intersection(region.bounds, bounds)?;
-            Some(region)
-        })
-        .collect();
-    layers
-}
-
-fn bounds_intersection(value: [f64; 4], bounds: [f64; 4]) -> Option<[f64; 4]> {
-    let clipped = [
-        value[0].max(bounds[0]),
-        value[1].max(bounds[1]),
-        value[2].min(bounds[2]),
-        value[3].min(bounds[3]),
-    ];
-    (clipped[0] < clipped[2] && clipped[1] < clipped[3]).then_some(clipped)
-}
-
-fn deployment_package<'a>(
-    package: &'a Package,
-    terrain_package_sha256: &str,
-    inferred_geometry_sha256: &str,
-    wetland_source_sha256: &str,
-    cultivation_source_sha256: &str,
-) -> DeploymentPackage<'a> {
-    DeploymentPackage {
-        schema: PACKAGE_SCHEMA,
-        renderer_revision: RENDERER_REVISION,
-        year: package.year,
-        bounds: package.bounds,
-        source: &package.source,
-        elevation: DeploymentLayer {
-            source: &package.elevation.source,
-        },
-        forest: DeploymentForestLayer {
-            source: &package.forest.source,
-            coverage_tiles: package.forest.coverage.len(),
-        },
-        cultivation: DeploymentCultivation {
-            grid_crs: "EPSG:3035",
-            grid_resolution_m: 1_000,
-            rules_version: adventuresim_world_import::cultivation::CULTIVATION_RULES_VERSION,
-            source_sha256: cultivation_source_sha256.into(),
-            square_count: package.cultivated.len(),
-        },
-        tiles: &package.tiles,
-        terrain_package_sha256: terrain_package_sha256.into(),
-        inferred_road_geometry_sha256: inferred_geometry_sha256.into(),
-        wetland_source_sha256: wetland_source_sha256.into(),
-        package_sha256: "0".repeat(64),
-    }
-}
-
-fn package_digest(package: &DeploymentPackage<'_>) -> Result<String, serde_json::Error> {
-    debug_assert_eq!(package.package_sha256, "0".repeat(64));
-    Ok(format!(
-        "{:x}",
-        Sha256::digest(serde_json::to_vec(package)?)
-    ))
 }
 
 fn coordinates(wkt: &str) -> Vec<Point> {
@@ -1052,16 +823,17 @@ fn polygon_intersection(start: &Point, end: &Point, edge: usize, bounds: [f64; 4
 }
 
 fn validate_geometry(package: &Package) -> Result<(), Box<dyn std::error::Error>> {
+    let bounds = package.bounds.longitude_latitude_degrees();
     let valid = |point: &Point| {
         point.0[0].is_finite()
             && point.0[1].is_finite()
-            && point.0[0] >= package.bounds[0]
-            && point.0[0] <= package.bounds[2]
-            && point.0[1] >= package.bounds[1]
-            && point.0[1] <= package.bounds[3]
+            && point.0[0] >= bounds[0]
+            && point.0[0] <= bounds[2]
+            && point.0[1] >= bounds[1]
+            && point.0[1] <= bounds[3]
     };
     if package
-        .roads
+        .routing_roads
         .iter()
         .any(|line| line.points.len() < 2 || line.points.iter().any(|point| !valid(point)))
         || package.water.iter().any(|polygon| {
@@ -1071,83 +843,10 @@ fn validate_geometry(package: &Package) -> Result<(), Box<dyn std::error::Error>
                     .iter()
                     .any(|ring| ring.len() < 4 || ring.iter().any(|point| !valid(point)))
         })
-        || package.elevation.cells.iter().any(|cell| {
-            !valid_bounds(cell.bounds, package.bounds)
-                || ![50, 100, 250, 500, 1_000, 1_500, 2_000].contains(&cell.band_m)
-        })
-        || package.elevation.contours.iter().any(|line| {
-            line.points.len() != 2
-                || ![50, 100, 250, 500, 1_000, 1_500, 2_000].contains(&line.elevation_m)
-                || line.points.iter().any(|point| !valid(&Point(*point)))
-        })
-        || package
-            .forest
-            .coverage
-            .iter()
-            .any(|bounds| !valid_bounds(*bounds, package.bounds))
-        || package.forest.regions.iter().any(|region| {
-            !valid_bounds(region.bounds, package.bounds)
-                || !(1..=100).contains(&region.density)
-                || !matches!(region.kind.as_str(), "broadleaf" | "conifer" | "mixed")
-        })
     {
         return Err("strategic map geometry is non-finite or outside package bounds".into());
     }
     Ok(())
-}
-
-fn valid_bounds(
-    [west, south, east, north]: [f64; 4],
-    [map_west, map_south, map_east, map_north]: [f64; 4],
-) -> bool {
-    [west, south, east, north].into_iter().all(f64::is_finite)
-        && west >= map_west
-        && east <= map_east
-        && south >= map_south
-        && north <= map_north
-        && west < east
-        && south < north
-}
-
-fn simplify(points: &[Point], tolerance: f64) -> Vec<Point> {
-    if points.len() <= 2 {
-        return points.to_vec();
-    }
-    let mut kept = vec![false; points.len()];
-    kept[0] = true;
-    kept[points.len() - 1] = true;
-    let mut stack = vec![(0, points.len() - 1)];
-    while let Some((start, end)) = stack.pop() {
-        let mut best = (0.0, 0);
-        for index in start + 1..end {
-            let distance = segment_distance(&points[index], &points[start], &points[end]);
-            if distance > best.0 {
-                best = (distance, index);
-            }
-        }
-        if best.0 > tolerance {
-            kept[best.1] = true;
-            stack.push((start, best.1));
-            stack.push((best.1, end));
-        }
-    }
-    points
-        .iter()
-        .zip(kept)
-        .filter_map(|(point, keep)| keep.then_some(point.clone()))
-        .collect()
-}
-
-fn segment_distance(point: &Point, start: &Point, end: &Point) -> f64 {
-    let [x, y] = point.0;
-    let [x1, y1] = start.0;
-    let [x2, y2] = end.0;
-    let length = (x2 - x1).powi(2) + (y2 - y1).powi(2);
-    if length == 0.0 {
-        return ((x - x1).powi(2) + (y - y1).powi(2)).sqrt();
-    }
-    let t = (((x - x1) * (x2 - x1) + (y - y1) * (y2 - y1)) / length).clamp(0.0, 1.0);
-    ((x - (x1 + t * (x2 - x1))).powi(2) + (y - (y1 + t * (y2 - y1))).powi(2)).sqrt()
 }
 
 fn point_order(left: &[Point], right: &[Point]) -> std::cmp::Ordering {
@@ -1185,7 +884,7 @@ mod tests {
             NEXT_FIXTURE.fetch_add(1, Ordering::Relaxed)
         ));
         fs::create_dir_all(&root).unwrap();
-        let edges = b"id,section,type,certainty,zoomlevel,fromyear,toyear,descriptionid,length,fromnode,tonode,wkt,slopemultiplier\n1,A,land,1,2,1500,,x,100,1,2,\"LINESTRING(9 51,10 51.2,11 51.3)\",1\n2,B,land,1,6,1500,,x,100,2,3,\"LINESTRING(10 51.3,10.123456 51.345678,10.5 51.5)\",1\n";
+        let edges = b"id,section,type,certainty,zoomlevel,fromyear,toyear,descriptionid,length,fromnode,tonode,wkt,slopemultiplier\n1,A,land,1,2,1500,,x,100,1,2,\"LINESTRING(9 51,10 51.2,11 51.3)\",1\n2,B,river,1,6,1500,,x,100,2,3,\"LINESTRING(10 51.3,10.123456 51.345678,10.5 51.5)\",1\n";
         let water = b"WKT\n\"MULTIPOLYGON (((9 51,10 51,10 52,9 51)))\"\n";
         fs::write(root.join("edges.csv"), edges).unwrap();
         fs::write(root.join("water-1500.csv"), water).unwrap();
@@ -1201,48 +900,6 @@ mod tests {
         root
     }
 
-    fn layers() -> MapRasterLayers {
-        let layer_source = || raster::LayerSource {
-            name: "Fixture".into(),
-            version: "1".into(),
-            url: "https://example.invalid/source".into(),
-            license: "test-only".into(),
-            file_count: 1,
-            files_sha256: BTreeMap::new(),
-            verification_status: "fixture".into(),
-        };
-        MapRasterLayers {
-            elevation: ElevationLayer {
-                source: layer_source(),
-                cells: vec![raster::ElevationCell {
-                    bounds: [9.0, 51.0, 9.25, 51.25],
-                    band_m: 100,
-                }],
-                contours: vec![raster::ElevationContour {
-                    elevation_m: 100,
-                    points: vec![[9.0, 51.0], [9.25, 51.25]],
-                }],
-            },
-            forest: ForestLayer {
-                source: layer_source(),
-                coverage: vec![[9.0, 51.0, 10.0, 52.0]],
-                regions: vec![raster::ForestRegion {
-                    bounds: [9.0, 51.0, 9.05, 51.05],
-                    density: 2,
-                    kind: "mixed".into(),
-                }],
-            },
-        }
-    }
-    #[test]
-    fn simplification_is_deterministic_and_keeps_endpoints() {
-        let points = vec![Point([0.0, 0.0]), Point([0.5, 0.01]), Point([1.0, 0.0])];
-        assert_eq!(
-            simplify(&points, 0.02),
-            vec![Point([0.0, 0.0]), Point([1.0, 0.0])]
-        );
-        assert_eq!(simplify(&points, 0.001), points);
-    }
     #[test]
     fn year_filter_uses_half_open_intervals() {
         let row = BTreeMap::from([
@@ -1269,47 +926,124 @@ mod tests {
     #[test]
     fn fixture_build_is_deterministic_and_rejects_changed_source_bytes() {
         let root = fixture();
-        let first = build(&root, layers()).unwrap();
-        let second = build(&root, layers()).unwrap();
+        let first = build(
+            &root,
+            Wgs84BoundsE7::from_longitude_latitude_degrees(BOUNDS).unwrap(),
+        )
+        .unwrap();
+        let second = build(
+            &root,
+            Wgs84BoundsE7::from_longitude_latitude_degrees(BOUNDS).unwrap(),
+        )
+        .unwrap();
         assert_eq!(first, second);
-        let config = tiles::TileConfig {
-            tile_size: 64,
-            max_zoom: 0,
-        };
-        let (first_manifest, first_tiles) = tiles::build(&first, None, config).unwrap();
-        let (second_manifest, second_tiles) = tiles::build(&second, None, config).unwrap();
-        assert_eq!(first_manifest, second_manifest);
-        assert_eq!(first_tiles, second_tiles);
-        assert!(first_tiles.windows(8).any(|bytes| bytes == b"ftypavif"));
-        assert_eq!(first_manifest.entries.len(), 247);
-        assert_eq!(first_manifest.gutter, 4);
-        assert_eq!(first.roads.len(), 1);
         assert_eq!(first.routing_roads.len(), 2);
-        assert_eq!(first.routing_roads[1][1], Point([10.123456, 51.345678]));
+        assert_eq!(
+            first.routing_roads[1].points[1],
+            Point([10.123456, 51.345678])
+        );
         assert_eq!(first.water.len(), 1);
         assert_eq!(first.water[0].rings.len(), 1);
 
-        let mut rendered = first.clone();
-        rendered.tiles = first_manifest;
-        let mut deployment = deployment_package(
-            &rendered,
-            &"0".repeat(64),
-            &"1".repeat(64),
-            &"2".repeat(64),
-            &"3".repeat(64),
-        );
-        deployment.package_sha256 = package_digest(&deployment).unwrap();
-        let value = serde_json::to_value(&deployment).unwrap();
-        assert_eq!(value["schema"], PACKAGE_SCHEMA);
-        assert_eq!(value["renderer_revision"], RENDERER_REVISION);
-        for geometry in ["roads", "water", "cells", "contours", "regions"] {
-            assert!(value.get(geometry).is_none());
-        }
-        assert!(value["elevation"].get("cells").is_none());
-        assert!(value["forest"].get("regions").is_none());
+        let features = terrain_features::build(&first, Vec::new(), "0".repeat(64));
+        let terrain = terrain_fixture(&root, &features.roads);
+        let manifest_path = root.join(adventuresim_terrain::road_pack::ROAD_MANIFEST_NAME);
+        let pack_path = root.join(adventuresim_terrain::road_pack::ROAD_PACK_NAME);
+        let manifest = adventuresim_terrain::road_pack::RoadPack::write(
+            &manifest_path,
+            &pack_path,
+            &terrain,
+            &first.native_road_lines(),
+        )
+        .unwrap();
+        let first_bytes = fs::read(&pack_path).unwrap();
+        adventuresim_terrain::road_pack::RoadPack::write(
+            &manifest_path,
+            &pack_path,
+            &terrain,
+            &first.native_road_lines(),
+        )
+        .unwrap();
+        assert_eq!(first_bytes, fs::read(&pack_path).unwrap());
+        assert_eq!(manifest.roads, 2);
+        assert_eq!(manifest.points, 6);
+        let roads =
+            adventuresim_terrain::road_pack::RoadPack::load(&manifest_path, &pack_path, &terrain)
+                .unwrap();
+        let window = Wgs84BoundsE7::new(
+            adventuresim_world_schema::coordinates::Wgs84CoordinateE7::from_longitude_latitude_degrees(10.1, 51.34).unwrap(),
+            adventuresim_world_schema::coordinates::Wgs84CoordinateE7::from_longitude_latitude_degrees(10.2, 51.35).unwrap(),
+        ).unwrap();
+        let selected = roads.intersecting(window).collect::<Vec<_>>();
+        assert_eq!(selected.len(), 1);
+        assert_eq!(selected[0].kind(), RegionalConnectionKind::River);
+        assert_eq!(selected[0].points()[1].longitude().degrees(), 10.123456);
+        assert_eq!(selected[0].points()[1].latitude().degrees(), 51.345678);
+        let mut tampered = first_bytes;
+        tampered[4] ^= 1;
+        fs::write(&pack_path, tampered).unwrap();
+        assert!(matches!(
+            adventuresim_terrain::road_pack::RoadPack::load(&manifest_path, &pack_path, &terrain,),
+            Err(adventuresim_terrain::road_pack::RoadPackError::ContentDigest)
+        ));
+
         fs::write(root.join("edges.csv"), b"changed").unwrap();
-        assert!(build(&root, layers()).is_err());
+        assert!(
+            build(
+                &root,
+                Wgs84BoundsE7::from_longitude_latitude_degrees(BOUNDS).unwrap()
+            )
+            .is_err()
+        );
         fs::remove_dir_all(root).unwrap();
+    }
+
+    fn terrain_fixture(root: &Path, roads: &[Vec<[f64; 2]>]) -> adventuresim_terrain::TerrainPack {
+        use adventuresim_terrain::{Entry, Manifest, SCHEMA, TerrainPurpose};
+        let bytes = [0_u8];
+        let mut manifest = Manifest {
+            schema: SCHEMA,
+            purpose: TerrainPurpose::Final,
+            bounds: BOUNDS,
+            source_resolution_m: 30,
+            content_sha256: format!("{:x}", Sha256::digest(bytes)),
+            road_geometry_sha256: format!(
+                "{:x}",
+                Sha256::digest(serde_json::to_vec(roads).unwrap())
+            ),
+            wetland_source_sha256: "0".repeat(64),
+            wetland_cells: 0,
+            cultivation_grid_crs: "EPSG:3035".into(),
+            cultivation_grid_resolution_m: 1_000,
+            cultivation_rules_version: 1,
+            cultivation_source_sha256: "0".repeat(64),
+            cultivated_square_count: 0,
+            cultivated_native_cells: 0,
+            terrain_features: Vec::new(),
+            entries: vec![Entry {
+                south: 51,
+                west: 9,
+                tile_width: 3_600,
+                tile_height: 3_600,
+                chunk_x: 0,
+                chunk_y: 0,
+                width: 1,
+                height: 1,
+                offset: 0,
+                length: 1,
+                decoded_sha256: "0".repeat(64),
+            }],
+            package_sha256: "0".repeat(64),
+        };
+        manifest.package_sha256 = format!(
+            "{:x}",
+            Sha256::digest(serde_json::to_vec(&manifest).unwrap())
+        );
+        let manifest_path = root.join("fixture-terrain.json");
+        let pack_path = root.join("fixture-terrain.pack");
+        fs::write(&manifest_path, serde_json::to_vec(&manifest).unwrap()).unwrap();
+        fs::write(&pack_path, bytes).unwrap();
+        adventuresim_terrain::TerrainPack::load(&manifest_path, &pack_path).unwrap()
     }
 
     #[test]
@@ -1318,8 +1052,8 @@ mod tests {
         let map_dir = root.join("map");
         let terrain_dir = root.join("terrain");
         write_data_license(&[
-            &map_dir.join("strategic-map-v1.json"),
-            &map_dir.join("strategic-map-tiles-v1.pack"),
+            &map_dir.join("regional-roads-v1.json"),
+            &map_dir.join("regional-roads-v1.pack"),
             &terrain_dir.join("terrain-routing-v1.json"),
             &terrain_dir.join("terrain-routing-v1.pack"),
         ])
@@ -1336,22 +1070,28 @@ mod tests {
     }
 
     #[test]
-    fn inferred_geometry_is_identical_in_visible_and_routing_inputs() {
+    fn inferred_geometry_is_identical_in_road_package_and_routing_inputs() {
         let root = fixture();
-        let mut package = build(&root, layers()).unwrap();
+        let mut package = build(
+            &root,
+            Wgs84BoundsE7::from_longitude_latitude_degrees(BOUNDS).unwrap(),
+        )
+        .unwrap();
         let geometry = [
             adventuresim_world_schema::TravelGeometryPoint::new(9.2, 51.2).unwrap(),
             adventuresim_world_schema::TravelGeometryPoint::new(9.3, 51.25).unwrap(),
         ];
         append_inferred_geometry(&mut package, &[&geometry]);
-        let visible = &package.roads.last().unwrap().points;
         let routing = package.routing_roads.last().unwrap();
-        assert_eq!(visible, routing);
-        assert_eq!(package.roads.last().unwrap().kind, "inferred");
+        assert_eq!(routing.kind, RegionalConnectionKind::InferredWalkingLink);
         let features = terrain_features::build(&package, Vec::new(), "0".repeat(64));
         assert_eq!(
             features.roads.last().unwrap(),
-            &routing.iter().map(|point| point.0).collect::<Vec<_>>()
+            &routing
+                .points
+                .iter()
+                .map(|point| point.0)
+                .collect::<Vec<_>>()
         );
         fs::remove_dir_all(root).unwrap();
     }
@@ -1417,7 +1157,13 @@ mod tests {
                 }
             }
             fs::write(&path, serde_json::to_vec(&value).unwrap()).unwrap();
-            assert!(build(&root, layers()).is_err());
+            assert!(
+                build(
+                    &root,
+                    Wgs84BoundsE7::from_longitude_latitude_degrees(BOUNDS).unwrap()
+                )
+                .is_err()
+            );
             fs::remove_dir_all(root).unwrap();
         }
     }

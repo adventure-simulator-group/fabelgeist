@@ -1,5 +1,8 @@
 //! Strong coordinate units shared across strategic and tactical systems.
 
+pub use bounds::Wgs84BoundsE7;
+
+mod bounds;
 pub mod terrain_projection;
 
 const E7_UNITS_PER_COORDINATE_UNIT: i32 = 10_000_000;
@@ -140,6 +143,13 @@ pub struct Wgs84CoordinateE7 {
 }
 
 impl Wgs84CoordinateE7 {
+    pub const fn from_components(latitude: LatitudeE7, longitude: LongitudeE7) -> Self {
+        Self {
+            latitude,
+            longitude,
+        }
+    }
+
     pub const fn new(latitude_e7: i32, longitude_e7: i32) -> Option<Self> {
         let Some(latitude) = LatitudeE7::new(latitude_e7) else {
             return None;

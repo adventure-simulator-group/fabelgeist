@@ -274,15 +274,19 @@ replace-world-data archive descriptor descriptor_sha256:
 
 # Build the immutable documented-road terrain pack used only for inference.
 build-base-terrain:
-    @cargo run --package adventuresim-world-import --features strategic-map-renderer --bin build-strategic-map -- --base-only
+    @cargo run --package adventuresim-world-import --features regional-map-builder --bin build-strategic-map -- --purpose documented-base
 
 # Compile all initialized sources into the 1544 strategic world artifact.
 compile-world: build-base-terrain
     @cargo run --package adventuresim-world-import --bin adventuresim-world-import --
 
-# Derive the bounded metadata package and offline Paper AVIF tile bundle.
+# Derive final native terrain and the canonical regional vector road package.
 build-strategic-map: compile-world
-    @cargo run --package adventuresim-world-import --features strategic-map-renderer --bin build-strategic-map --
+    @cargo run --package adventuresim-world-import --features regional-map-builder --bin build-strategic-map --
+
+# Rebuild vector roads against an existing final terrain and compiled world.
+build-regional-roads:
+    @cargo run --package adventuresim-world-import --features regional-map-builder --bin build-strategic-map -- --purpose roads
 
 # Destructively recreate the selected local database with the current module,
 # then download and load the pinned compiled world runtime.
