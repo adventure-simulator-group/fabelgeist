@@ -16,6 +16,7 @@ mod inventory_armor;
 mod marching_tetrahedra;
 pub mod physics;
 pub mod player;
+pub mod regional_city;
 pub mod regional_environment;
 pub mod regional_map;
 pub mod regional_terrain;

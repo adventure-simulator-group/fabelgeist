@@ -728,6 +728,33 @@ mod tests {
             input, next_mission,
             "preparation and tactical enrollment share scene geometry"
         );
+        let city = adventuresim_tactical_core::regional_city::RegionalCityInput::from_scene(
+            adventuresim_world_schema::source_package::SourcePackageDigest::from_hex(pack.digest())
+                .unwrap(),
+            adventuresim_core::strategic_place::StrategicPlaceId::Settlement {
+                settlement_id:
+                    adventuresim_core::strategic_place::StrategicIdentityComponent::try_new(
+                        settlement.id.clone(),
+                    )
+                    .unwrap(),
+            },
+            Wgs84CoordinateE7::new(505_000_000, 105_000_000).unwrap(),
+            input.clone(),
+        )
+        .unwrap();
+        let document = serde_json::to_string(&city).unwrap();
+        let decoded: adventuresim_tactical_core::regional_city::RegionalCityInput =
+            serde_json::from_str(&document).unwrap();
+        assert_eq!(decoded.input(), &next_mission);
+        let mut mismatched_source = serde_json::to_value(&city).unwrap();
+        mismatched_source["source"] = serde_json::Value::String("0".repeat(64));
+        assert!(
+            serde_json::from_value::<adventuresim_tactical_core::regional_city::RegionalCityInput>(
+                mismatched_source,
+            )
+            .is_err(),
+            "a preview cannot admit another terrain package"
+        );
         assert_eq!(input.absolute_elevation_metres.get(), 321);
         assert!(!input.distant_buildings.is_empty());
         assert!(!input.compounds.is_empty());
