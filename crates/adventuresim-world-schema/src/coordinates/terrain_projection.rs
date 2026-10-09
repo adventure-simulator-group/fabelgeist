@@ -51,7 +51,7 @@ impl NativeTerrainCoordinate {
 
     /// Inverse local projection at this sampler origin. This does not choose a
     /// new origin or round a geographic position during mesh/camera arithmetic.
-    pub fn offset_to(self, target: Wgs84CoordinateE7) -> NativeTerrainOffset {
+    pub fn offset_to(self, target: Self) -> NativeTerrainOffset {
         let longitude_scale = self
             .latitude_degrees
             .to_radians()
@@ -59,9 +59,9 @@ impl NativeTerrainCoordinate {
             .abs()
             .max(MIN_LONGITUDE_SCALE);
         NativeTerrainOffset {
-            east_metres: (target.longitude().degrees() - self.longitude_degrees)
+            east_metres: (target.longitude_degrees - self.longitude_degrees)
                 * (METRES_PER_LATITUDE_DEGREE * longitude_scale),
-            north_metres: (target.latitude().degrees() - self.latitude_degrees)
+            north_metres: (target.latitude_degrees - self.latitude_degrees)
                 * METRES_PER_LATITUDE_DEGREE,
         }
     }
