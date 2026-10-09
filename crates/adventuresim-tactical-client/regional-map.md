@@ -72,6 +72,18 @@ scale, so pan and rotation reuse geometry while zoom or resize may replace it.
 GPU geometry is bounded to 262,144 route vertices. Excess complexity publishes
 `route-capacity` and does not retry geometry every frame.
 
+The camera retains a continuous geographic position. Microdegrees are derived
+only for terrain requests and status, so tiny street-scale drags accumulate
+without rounding away each movement. Pan distances use the displayed terrain
+window's east/north frame, and camera focus height uses its exact covered
+triangle plane. Only the camera datum can remain at the window datum over a
+source hole; no ground geometry or pin is supplied there.
+
+Terrain-window selection includes the tilted viewport's rotated ground
+footprint and a margin for snapped window centres. `frame-route` fits the
+admitted selected route using the current viewport aspect and yaw, preserving
+rotation and applying space around the route. An absent route has no effect.
+
 This renderer boundary does not yet replace the strategic map interface. Road
 data and focused city refinement are subsequent consumers of its camera and
 geographic frame. City refinement must reuse canonical placement and grading

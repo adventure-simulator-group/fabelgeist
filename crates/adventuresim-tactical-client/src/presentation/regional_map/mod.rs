@@ -1,8 +1,12 @@
 //! Geographic presentation retained alongside city and tactical scenes.
 //! This owns no strategic authority, collision or replicated tactical state.
 use super::RegionalMapCamera;
-use adventuresim_tactical_core::regional_map::MapOverlay;
 use adventuresim_tactical_core::regional_terrain::RegionalTerrain;
+use adventuresim_tactical_core::{
+    regional_map::{MapOverlay, MapSpan},
+    scene_input::SourcePackageDigest,
+};
+use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use bevy::prelude::*;
 use camera::MapPose;
 use protocol::{MapCommand, MapProtocolError};
@@ -61,16 +65,7 @@ impl MapCommand {
                 span,
                 rect,
             } => {
-                if let Some(pose) = state.pose.as_mut()
-                    && pose.source == source
-                    && pose.home == origin
-                {
-                    pose.rect = Some(rect);
-                } else {
-                    state.pose = Some(MapPose::new(source, origin, span, rect));
-                    state.terrain = None;
-                    state.overlay = None;
-                }
+                state.open(source, origin, span, rect);
                 Ok(())
             }
             Self::Resize { rect } => {
@@ -79,7 +74,7 @@ impl MapCommand {
                 }
                 Ok(())
             }
-            Self::Pan { delta } => state.pose.as_mut().map_or(Ok(()), |pose| pose.pan(delta)),
+            Self::Pan { delta } => state.pan(delta),
             Self::Zoom { ratio } => state.pose.as_mut().map_or(Ok(()), |pose| {
                 if pose.rect.is_some() {
                     pose.zoom(ratio)
@@ -100,6 +95,7 @@ impl MapCommand {
                 }
                 Ok(())
             }
+            Self::FrameRoute => state.frame_route(),
             Self::Hide => {
                 if let Some(pose) = state.pose.as_mut() {
                     pose.rect = None;
@@ -128,6 +124,49 @@ impl MapCommand {
             }
         };
         state.failure = result.err();
+    }
+}
+
+impl MapState {
+    fn open(
+        &mut self,
+        source: SourcePackageDigest,
+        origin: Wgs84CoordinateMicrodegrees,
+        span: MapSpan,
+        rect: protocol::CanvasRect,
+    ) {
+        if let Some(pose) = self.pose.as_mut()
+            && pose.source == source
+            && pose.home == origin
+        {
+            pose.rect = Some(rect);
+        } else {
+            self.pose = Some(MapPose::new(source, origin, span, rect));
+            self.terrain = None;
+            self.overlay = None;
+        }
+    }
+
+    fn pan(&mut self, delta: protocol::MapPointerDisplacement) -> camera::Result<()> {
+        let Some(pose) = self.pose.as_mut() else {
+            return Ok(());
+        };
+        let frame = self
+            .presented
+            .as_ref()
+            .filter(|surface| surface.source == pose.source)
+            .map_or(pose.home, |surface| surface.request.origin);
+        pose.pan(delta, frame)
+    }
+
+    fn frame_route(&mut self) -> camera::Result<()> {
+        match (
+            self.pose.as_mut(),
+            self.overlay.as_ref().and_then(MapOverlay::route),
+        ) {
+            (Some(pose), Some(route)) => pose.frame_route(route),
+            _ => Ok(()),
+        }
     }
 }
 

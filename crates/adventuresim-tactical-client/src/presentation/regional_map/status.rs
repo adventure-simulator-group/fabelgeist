@@ -116,7 +116,7 @@ pub(super) fn publish(
         environment_ready,
         source: pose.map(|pose| &pose.source),
         home: pose.map(|pose| pose.home),
-        origin: pose.map(|pose| pose.origin),
+        origin: pose.and_then(|pose| pose.geographic_origin().ok()),
         span: pose.map(|pose| pose.span),
         yaw: pose.map(|pose| pose.yaw),
         requested,
