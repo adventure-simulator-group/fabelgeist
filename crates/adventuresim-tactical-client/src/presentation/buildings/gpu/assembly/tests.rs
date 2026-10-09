@@ -214,7 +214,9 @@ fn queued_buildings_share_geometry_without_per_part_render_entities() {
     if let Some(path) = std::env::var_os("REGIONAL_MAP_CITY_INPUT") {
         let city: adventuresim_tactical_core::regional_city::RegionalCityInput =
             serde_json::from_str(&std::fs::read_to_string(path).unwrap()).unwrap();
-        let origin = city.origin().to_microdegrees();
+        let origin = adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees::from_e7(
+            city.origin(),
+        );
         let owner = PresentationOwner::RegionalMap;
         let scene = world.resource::<CityGpuScenes>().owners.get(owner);
         let buildings = scene.buildings.id();
@@ -241,6 +243,19 @@ fn queued_buildings_share_geometry_without_per_part_render_entities() {
         assert_eq!(scene.batches[0].vertices.id(), geometry);
         assert_eq!(scene.frame_buffer.id(), frame_buffer);
         assert!(shifted_frame.world_from_city().transform_point3(local).x < world_point.x);
+        let northern = adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees::new(
+            origin.latitude().get() + 1000,
+            origin.longitude().get(),
+        )
+        .unwrap();
+        let northern_frame = CityFrame::from_geographic_city(&city, northern);
+        let authored = Vec3::new(500.0, 2.0, 3.0);
+        let source = adventuresim_world_schema::coordinates::terrain_projection::NativeTerrainCoordinate::from(city.origin());
+        let expected = adventuresim_world_schema::coordinates::terrain_projection::NativeTerrainCoordinate::from(northern.to_e7())
+            .offset_to(source.at_offset(f64::from(authored.x), f64::from(authored.z)));
+        let projected = northern_frame.world_from_city().transform_point3(authored);
+        assert!((f64::from(projected.x) - expected.east_metres).abs() < 0.001);
+        assert!((f64::from(projected.z) + expected.north_metres).abs() < 0.001);
         assert_eq!(
             world
                 .resource::<CityGpuScenes>()

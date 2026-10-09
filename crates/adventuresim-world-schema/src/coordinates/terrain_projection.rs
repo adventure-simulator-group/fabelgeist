@@ -22,6 +22,14 @@ pub struct NativeTerrainOffset {
     pub north_metres: f64,
 }
 
+/// Affine numerical port between two local terrain sampler frames. North
+/// metres share one scale; east metres follow each origin's longitude scale.
+#[derive(Clone, Copy, Debug)]
+pub struct NativeTerrainFrame {
+    pub origin: NativeTerrainOffset,
+    pub east_scale: f64,
+}
+
 impl From<Wgs84CoordinateE7> for NativeTerrainCoordinate {
     fn from(origin: Wgs84CoordinateE7) -> Self {
         Self {
@@ -32,16 +40,20 @@ impl From<Wgs84CoordinateE7> for NativeTerrainCoordinate {
 }
 
 impl NativeTerrainCoordinate {
+    /// Transform coordinates authored at `source` into this sampler's frame,
+    /// without an intermediate geographic rounding or a second projection.
+    pub fn frame_from(self, source: Self) -> NativeTerrainFrame {
+        NativeTerrainFrame {
+            origin: self.offset_to(source),
+            east_scale: self.longitude_scale() / source.longitude_scale(),
+        }
+    }
+
     /// Terrain sampling kernel: signed east/north metres become continuous
     /// degrees. The operation order matches imported tactical terrain capture.
     pub fn at_offset(self, east_metres: f64, north_metres: f64) -> Self {
         let latitude_delta = north_metres / METRES_PER_LATITUDE_DEGREE;
-        let longitude_scale = self
-            .latitude_degrees
-            .to_radians()
-            .cos()
-            .abs()
-            .max(MIN_LONGITUDE_SCALE);
+        let longitude_scale = self.longitude_scale();
         let longitude_delta = east_metres / (METRES_PER_LATITUDE_DEGREE * longitude_scale);
         Self {
             latitude_degrees: self.latitude_degrees + latitude_delta,
@@ -52,17 +64,20 @@ impl NativeTerrainCoordinate {
     /// Inverse local projection at this sampler origin. This does not choose a
     /// new origin or round a geographic position during mesh/camera arithmetic.
     pub fn offset_to(self, target: Self) -> NativeTerrainOffset {
-        let longitude_scale = self
-            .latitude_degrees
-            .to_radians()
-            .cos()
-            .abs()
-            .max(MIN_LONGITUDE_SCALE);
+        let longitude_scale = self.longitude_scale();
         NativeTerrainOffset {
             east_metres: (target.longitude_degrees - self.longitude_degrees)
                 * (METRES_PER_LATITUDE_DEGREE * longitude_scale),
             north_metres: (target.latitude_degrees - self.latitude_degrees)
                 * METRES_PER_LATITUDE_DEGREE,
         }
+    }
+
+    fn longitude_scale(self) -> f64 {
+        self.latitude_degrees
+            .to_radians()
+            .cos()
+            .abs()
+            .max(MIN_LONGITUDE_SCALE)
     }
 }

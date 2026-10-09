@@ -18,7 +18,7 @@ struct DrawRange { geometry: vec4<u32>, instances: vec4<u32> }
 
 @group(2) @binding(4) var<storage, read> indices: array<u32>;
 @group(2) @binding(5) var<storage, read> owners: array<u32>;
-struct CityFrame { world_from_city: mat4x4<f32>, handedness: vec4<f32> }
+struct CityFrame { world_from_city: mat4x4<f32>, normal_from_city: mat4x4<f32>, handedness: vec4<f32> }
 @group(2) @binding(6) var<storage, read> city_frame: CityFrame;
 
 struct CityVertex {
@@ -62,11 +62,12 @@ fn vertex(@builtin(vertex_index) index: u32, @builtin(instance_index) instance: 
         out.visibility = 1.0 - smoothstep(bitcast<f32>(object.levels.z), bitcast<f32>(object.levels.w), distance(world_centre, view.world_position.xyz));
     }
 #endif
+    let normal_transform = city_frame.normal_from_city * transform;
     transform = city_frame.world_from_city * transform;
     out.handedness = city_frame.handedness.x;
     out.world_position = transform * vec4(p.xyz, 1.0);
     out.position = view.clip_from_world * out.world_position;
-    out.normal = normalize((transform * vec4(n.xyz, 0.0)).xyz);
+    out.normal = normalize((normal_transform * vec4(n.xyz, 0.0)).xyz);
     out.tangent = vec4(normalize((transform * vec4(t.xyz, 0.0)).xyz), t.w * out.handedness);
     out.uv = (vec2(p.w, n.w) + uv_offset) * surface.uv_scale_offset.xy + surface.uv_scale_offset.zw;
     return out;
