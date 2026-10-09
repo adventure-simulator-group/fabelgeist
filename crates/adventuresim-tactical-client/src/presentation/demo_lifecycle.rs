@@ -4,6 +4,7 @@ use super::*;
 
 pub(crate) fn clear_demo_scene(world: &mut World) {
     clear_scene_entities(world);
+    buildings::reset_gpu(world, ownership::PresentationOwner::RegionalMap);
     world.insert_resource(buildings::TacticalBuildingMeshCache::default());
     #[cfg(target_family = "wasm")]
     if let Err(error) = generation::clear_residency() {
@@ -18,7 +19,7 @@ pub(crate) fn clear_scene_entities(world: &mut World) {
     if let Some(mut cache) = world.get_resource_mut::<buildings::TacticalBuildingMeshCache>() {
         cache.recipes.clear();
     }
-    buildings::reset_gpu(world);
+    buildings::reset_gpu(world, ownership::PresentationOwner::Scene);
     world.remove_resource::<StreamCityTraffic>();
     world.remove_resource::<PendingCityBuildings>();
     world.remove_resource::<vista::streets::streaming::CityTrafficResidency>();
@@ -54,6 +55,11 @@ pub(crate) fn clear_scene_entities(world: &mut World) {
             .iter(world),
     );
     for entity in entities {
+        if world.get::<ownership::PresentationOwner>(entity)
+            == Some(&ownership::PresentationOwner::RegionalMap)
+        {
+            continue;
+        }
         if let Ok(entity) = world.get_entity_mut(entity) {
             entity.despawn();
         }

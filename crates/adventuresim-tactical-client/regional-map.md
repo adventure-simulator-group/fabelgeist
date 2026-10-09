@@ -10,7 +10,9 @@ terrain source digest, a checked WGS84 origin in microdegrees, the vertical view
 span in metres and the shared physical-pixel canvas rectangle. `pan` carries a
 two-component physical-pixel displacement. `zoom` carries a positive bounded
 ratio, and `rotate` carries a checked angle in radians. `resize`, `reset`,
-`hide` and `install-terrain` complete the presentation protocol. The terrain
+`hide` and `install-environment` complete the camera and environment protocol.
+The environment product carries terrain and canonical regional connections;
+the terrain
 product retains the fixed lattice and checked source contract described in
 [regional terrain capture](../strategic-web/regional-terrain.md).
 
@@ -42,6 +44,16 @@ and home origin resumes that pose. Replacing actor scenery does not remove map
 entities. Replacing map terrain releases the previous mesh and material, keeping
 GPU residency bounded to one surface. The actor installation gate does not
 blank the map while a city loads.
+
+Static city geometry uses separate `scene` and `regional-map` presentation
+owners. Each retains one city buffer set, pending instances, readiness,
+level-of-detail history and camera-group visibility scratch. The owners share
+material pipelines and compiled building prototypes. Their phase anchors use
+separate render layers, so actor views do not draw the focused map city.
+Replacing a city's buffers releases that owner's previous phase anchors.
+Resetting actor scenery leaves the map owner's assets resident; a complete
+presentation reset releases both. The regional owner is prepared for focused
+city installation, but no map city document is requested or installed yet.
 
 `wasm_regional_map_status` publishes camera pose, the requested and installed
 windows, coverage, typed failure classification and readiness. Readiness settles

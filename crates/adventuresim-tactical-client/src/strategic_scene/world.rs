@@ -40,7 +40,7 @@ impl SceneDocument {
         #[cfg(target_family = "wasm")]
         let generated = crate::presentation::generation::activate(
             self.preparation,
-            crate::presentation::generation::GenerationOwner::Scene,
+            crate::presentation::ownership::PresentationOwner::Scene,
             input,
         );
         #[cfg(not(target_family = "wasm"))]

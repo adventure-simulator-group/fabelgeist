@@ -124,9 +124,7 @@ pub(super) fn present(
                             MeshMaterial3d(material.clone()),
                             Transform::default(),
                             ChildOf(root),
-                            RenderLayers::layer(
-                                crate::strategic_scene::protocol::REGIONAL_MAP_LAYER,
-                            ),
+                            RenderLayers::layer(crate::presentation::ownership::REGIONAL_MAP_LAYER),
                         ))
                         .id();
                     ConnectionAssets {

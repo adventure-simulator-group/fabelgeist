@@ -28,7 +28,7 @@ fn components_share_geometry_and_pose_but_follow_their_buildings_lod() {
             });
         }
     }
-    let packed = pack(&world, input::Group::from_parts(parts.iter().cloned()));
+    let packed = pack(&world, input::Group::from_parts(parts.iter().cloned())).unwrap();
     let owners: Vec<_> = packed
         .buildings
         .iter()
@@ -67,7 +67,8 @@ fn queued_buildings_share_geometry_without_per_part_render_entities() {
     world.init_resource::<Assets<StandardMaterial>>();
     world.init_resource::<Assets<material::CityMaterial>>();
     world.init_resource::<Assets<ShaderBuffer>>();
-    world.init_resource::<PendingGpuBuildings>();
+    world.init_resource::<PendingGpuCities>();
+    world.init_resource::<CityGpuScenes>();
     let mut mesh = Mesh::from(Cuboid::new(2.0, 3.0, 4.0));
     // Repeated indexed triangles span 66 draw clusters, including a partial
     // final cluster, without adding unique geometry.
@@ -87,7 +88,9 @@ fn queued_buildings_share_geometry_without_per_part_render_entities() {
         let root = world.spawn_empty().id();
         for level in [1, 2 | FACADE_OVERLAY_FLAG] {
             world
-                .resource_mut::<PendingGpuBuildings>()
+                .resource_mut::<PendingGpuCities>()
+                .owners
+                .get_mut(PresentationOwner::Scene)
                 .parts
                 .push(Part {
                     entity: None,
@@ -103,11 +106,56 @@ fn queued_buildings_share_geometry_without_per_part_render_entities() {
         }
     }
     assert_eq!(world.query::<&Mesh3d>().iter(&world).count(), 0);
-    let packed = pack(&world, world.resource::<PendingGpuBuildings>().groups(None));
+    let packed = pack(
+        &world,
+        world
+            .resource::<PendingGpuCities>()
+            .owners
+            .get(PresentationOwner::Scene)
+            .groups(None)
+            .unwrap(),
+    )
+    .unwrap();
     assert_eq!(packed.buildings[1].bounds.x, 20.0);
     assert_eq!(packed.buildings[0].levels.x, 6);
+    let map_parts = world
+        .resource::<PendingGpuCities>()
+        .owners
+        .get(PresentationOwner::Scene)
+        .parts
+        .clone();
+    world
+        .resource_mut::<PendingGpuCities>()
+        .owners
+        .get_mut(PresentationOwner::RegionalMap)
+        .parts = map_parts;
     assemble(&mut world);
-    let scene = world.resource::<CityGpuScene>();
+    assert_eq!(
+        world
+            .resource::<CityGpuScenes>()
+            .owners
+            .get(PresentationOwner::RegionalMap)
+            .count,
+        2
+    );
+    assert_ne!(
+        world
+            .resource::<CityGpuScenes>()
+            .owners
+            .get(PresentationOwner::RegionalMap)
+            .buildings
+            .id(),
+        world
+            .resource::<CityGpuScenes>()
+            .owners
+            .get(PresentationOwner::Scene)
+            .buildings
+            .id()
+    );
+    let scene = world
+        .resource::<CityGpuScenes>()
+        .owners
+        .get(PresentationOwner::Scene);
     assert_eq!(scene.count, 2);
     assert_eq!(scene.batches.len(), 1);
     assert_eq!(scene.batches[0].ranges, 2);
@@ -152,7 +200,14 @@ fn queued_buildings_share_geometry_without_per_part_render_entities() {
         24 * 3 * size_of::<Vec4>(),
         "one canonical cube, even across two buildings and two LODs"
     );
-    assert!(world.resource::<PendingGpuBuildings>().parts.is_empty());
+    assert!(
+        world
+            .resource::<PendingGpuCities>()
+            .owners
+            .get(PresentationOwner::Scene)
+            .parts
+            .is_empty()
+    );
     let batches = world.query::<&Mesh3d>().iter(&world).count();
     assemble(&mut world);
     assert_eq!(world.query::<&Mesh3d>().iter(&world).count(), batches);
@@ -162,7 +217,11 @@ fn queued_buildings_share_geometry_without_per_part_render_entities() {
 fn replacing_city_discards_unpublished_instances() {
     let mut world = World::new();
     let root = world.spawn_empty().id();
-    world.insert_resource(PendingGpuBuildings {
+    world.init_resource::<PendingGpuCities>();
+    *world
+        .resource_mut::<PendingGpuCities>()
+        .owners
+        .get_mut(PresentationOwner::Scene) = PendingGpuBuildings {
         parts: vec![Part {
             entity: None,
             root,
@@ -175,10 +234,44 @@ fn replacing_city_discards_unpublished_instances() {
             fade: None,
         }],
         ..Default::default()
-    });
-    super::super::reset(&mut world);
-    assert!(world.resource::<PendingGpuBuildings>().parts.is_empty());
-    assert_eq!(world.resource::<CityGpuScene>().count, 0);
+    };
+    world.init_resource::<CityGpuScenes>();
+    world
+        .resource_mut::<CityGpuScenes>()
+        .owners
+        .get_mut(PresentationOwner::RegionalMap)
+        .count = 7;
+    let map_anchor = world
+        .spawn((CityBatchAnchor, PresentationOwner::RegionalMap))
+        .id();
+    super::super::reset(&mut world, PresentationOwner::Scene);
+    assert_eq!(
+        world
+            .resource::<CityGpuScenes>()
+            .owners
+            .get(PresentationOwner::RegionalMap)
+            .count,
+        7
+    );
+    assert!(world.get_entity(map_anchor).is_ok());
+    assert!(
+        world
+            .resource::<PendingGpuCities>()
+            .owners
+            .get(PresentationOwner::Scene)
+            .parts
+            .is_empty()
+    );
+    assert_eq!(
+        world
+            .resource::<CityGpuScenes>()
+            .owners
+            .get(PresentationOwner::Scene)
+            .count,
+        0
+    );
+    super::super::reset(&mut world, PresentationOwner::RegionalMap);
+    assert!(world.get_entity(map_anchor).is_err());
 }
 
 #[test]
@@ -233,7 +326,7 @@ fn only_static_outdoor_props_enter_shared_gpu_geometry() {
         parts.iter().map(|part| part.root).collect::<Vec<_>>(),
         roots[..2]
     );
-    let packed = pack(&world, input::Group::from_parts(parts.iter().cloned()));
+    let packed = pack(&world, input::Group::from_parts(parts.iter().cloned())).unwrap();
     assert_eq!(packed.buildings.len(), 2);
     assert_eq!(packed.geometry.pages[0].vertices.len(), 24 * 3);
     assert_eq!(packed.geometry.pages[0].indices.len(), 36);

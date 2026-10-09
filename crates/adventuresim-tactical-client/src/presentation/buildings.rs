@@ -23,11 +23,14 @@ pub(in crate::presentation) use signs::BuildingPresentationPlugin;
 pub(crate) use signs::PresentedSign;
 pub(crate) use streaming::PendingCityBuildings;
 
-pub(crate) fn city_gpu_ready() -> bool {
-    gpu::is_ready()
+pub(crate) fn city_gpu_ready(owner: crate::presentation::ownership::PresentationOwner) -> bool {
+    gpu::is_ready(owner)
 }
-pub(super) fn reset_gpu(world: &mut World) {
-    gpu::reset(world);
+pub(super) fn reset_gpu(
+    world: &mut World,
+    owner: crate::presentation::ownership::PresentationOwner,
+) {
+    gpu::reset(world, owner);
 }
 
 pub(super) const DETAIL_LOD_END_START_METRES: f32 = 55.0;
@@ -231,7 +234,7 @@ fn cached_building_levels(
     #[cfg(target_family = "wasm")]
     if detail == BuildingDetail::Facade {
         let prepared = super::generation::take_facade(
-            crate::presentation::generation::GenerationOwner::Scene,
+            crate::presentation::ownership::PresentationOwner::Scene,
             program,
         )?;
         return kit::install_facade(cache, prepared, meshes);
@@ -251,7 +254,7 @@ fn cached_building_levels(
     #[cfg(target_family = "wasm")]
     if detail == BuildingDetail::Dynamic && prepared.is_some() {
         let meshes_ready = super::generation::take_venue_geometry(
-            crate::presentation::generation::GenerationOwner::Scene,
+            crate::presentation::ownership::PresentationOwner::Scene,
             program,
         )?;
         return self::prepared::install(cache, program, meshes_ready, geometry, meshes);

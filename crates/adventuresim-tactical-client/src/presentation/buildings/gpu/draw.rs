@@ -83,7 +83,7 @@ fn replace_draws(
 struct DrawCity;
 impl<P: PhaseItem> RenderCommand<P> for DrawCity {
     type Param = (
-        SRes<CityGpuScene>,
+        SRes<CityGpuScenes>,
         SRes<compute::CityViews>,
         SRes<scratch::Scratch>,
         SRes<RenderMaterialInstances>,
@@ -95,26 +95,32 @@ impl<P: PhaseItem> RenderCommand<P> for DrawCity {
         item: &P,
         (entity, _): QueryItem<'w, '_, Self::ViewQuery>,
         _: Option<()>,
-        (scene, views, scratch, materials): SystemParamItem<'w, '_, Self::Param>,
+        (scenes, views, scratch, materials): SystemParamItem<'w, '_, Self::Param>,
         pass: &mut TrackedRenderPass<'w>,
     ) -> RenderCommandResult {
-        let (scene, views, scratch, materials) = (
-            scene.into_inner(),
+        let (scenes, views, scratch, materials) = (
+            scenes.into_inner(),
             views.into_inner(),
             scratch.into_inner(),
             materials.into_inner(),
         );
-        let Some(slot) = views.slots.get(&entity) else {
-            return RenderCommandResult::Skip;
-        };
         let Some(instance) = materials.instances.get(&item.main_entity()) else {
             return RenderCommandResult::Skip;
         };
-        let Some(batch) = scene
-            .batches
-            .iter()
-            .position(|batch| batch.material.id().untyped() == instance.asset_id)
-        else {
+        let Some((owner, batch)) = PresentationOwner::ALL.into_iter().find_map(|owner| {
+            scenes
+                .owners
+                .get(owner)
+                .batches
+                .iter()
+                .position(|batch| batch.material.id().untyped() == instance.asset_id)
+                .map(|batch| (owner, batch))
+        }) else {
+            return RenderCommandResult::Skip;
+        };
+        let views = views.owners.get(owner);
+        let scratch = scratch.owners.get(owner);
+        let Some(slot) = views.slots.get(&entity) else {
             return RenderCommandResult::Skip;
         };
         let Some(batch) = scratch.batches.get(batch) else {
