@@ -9,28 +9,38 @@ use crate::skeleton::Skeleton;
 use anyhow::{Result, bail};
 use indexmap::IndexMap;
 
-use super::profile::{RetargetProfile, RetargetSettings, RigProfile, RootSource};
+use super::profile::{JointRequirement, RetargetProfile, RetargetSettings, RigProfile, RootSource};
 use super::semantic::{HumanoidChain, HumanoidJoint};
-
-/// Loose name matching: `mixamorig:LeftUpLeg`, `mixamorig1:LeftUpLeg`,
-/// `Left_Up_Leg` and `leftupleg` all reduce to the same key.
-///
-/// Namespaces are stripped because exporters add and rename them freely;
-/// separators and case are dropped because rig authors are inconsistent about
-/// both. Nothing else is normalized — this must not make distinct joints
-/// collide.
-fn normalize(name: &str) -> String {
-    let name = name.rsplit([':', '|']).next().unwrap_or(name);
-    name.chars()
-        .filter(|character| character.is_ascii_alphanumeric())
-        .map(|character| character.to_ascii_lowercase())
-        .collect()
-}
 
 /// A skeleton's joint names indexed for repeated lookups.
 struct JointIndex {
     exact: IndexMap<String, usize>,
     normalized: IndexMap<String, usize>,
+}
+
+/// A profile bound to a concrete skeleton.
+#[derive(Clone, Debug, PartialEq)]
+pub struct ResolvedRig {
+    pub profile: String,
+    /// Skeleton joint index per humanoid role that resolved.
+    pub joints: IndexMap<HumanoidJoint, usize>,
+    /// Skeleton joint indices per chain, root-most first.
+    pub chains: IndexMap<HumanoidChain, Vec<usize>>,
+    /// The joint carrying locomotion, if the rig has one.
+    pub root: Option<usize>,
+    /// Optional roles the profile named but the skeleton does not have.
+    pub missing: Vec<HumanoidJoint>,
+    /// Skeleton joints no role or chain claims. Harmless; listed for tooling.
+    pub unmapped: Vec<usize>,
+}
+
+/// Both rigs bound to their skeletons, plus the policy joining them.
+#[derive(Clone, Debug, PartialEq)]
+pub struct ResolvedProfile {
+    pub name: String,
+    pub source: ResolvedRig,
+    pub target: ResolvedRig,
+    pub settings: RetargetSettings,
 }
 
 impl JointIndex {
@@ -50,22 +60,6 @@ impl JointIndex {
             .or_else(|| self.normalized.get(&normalize(name)))
             .copied()
     }
-}
-
-/// A profile bound to a concrete skeleton.
-#[derive(Clone, Debug, PartialEq)]
-pub struct ResolvedRig {
-    pub profile: String,
-    /// Skeleton joint index per humanoid role that resolved.
-    pub joints: IndexMap<HumanoidJoint, usize>,
-    /// Skeleton joint indices per chain, root-most first.
-    pub chains: IndexMap<HumanoidChain, Vec<usize>>,
-    /// The joint carrying locomotion, if the rig has one.
-    pub root: Option<usize>,
-    /// Optional roles the profile named but the skeleton does not have.
-    pub missing: Vec<HumanoidJoint>,
-    /// Skeleton joints no role or chain claims. Harmless; listed for tooling.
-    pub unmapped: Vec<usize>,
 }
 
 impl ResolvedRig {
@@ -103,7 +97,9 @@ impl RigProfile {
                 Some(joint) => {
                     joints.insert(*role, joint);
                 }
-                None if binding.required => missing_required.push(*role),
+                None if binding.required == JointRequirement::Required => {
+                    missing_required.push(*role)
+                }
                 None => missing.push(*role),
             }
         }
@@ -182,15 +178,6 @@ impl RigProfile {
         let index = JointIndex::new(skeleton);
         self.markers.iter().all(|name| index.find(name).is_some())
     }
-}
-
-/// Both rigs bound to their skeletons, plus the policy joining them.
-#[derive(Clone, Debug, PartialEq)]
-pub struct ResolvedProfile {
-    pub name: String,
-    pub source: ResolvedRig,
-    pub target: ResolvedRig,
-    pub settings: RetargetSettings,
 }
 
 impl RetargetProfile {
@@ -321,6 +308,21 @@ impl ResolvedProfile {
         }
         report
     }
+}
+
+/// Loose name matching: `mixamorig:LeftUpLeg`, `mixamorig1:LeftUpLeg`,
+/// `Left_Up_Leg` and `leftupleg` all reduce to the same key.
+///
+/// Namespaces are stripped because exporters add and rename them freely;
+/// separators and case are dropped because rig authors are inconsistent about
+/// both. Nothing else is normalized — this must not make distinct joints
+/// collide.
+fn normalize(name: &str) -> String {
+    let name = name.rsplit([':', '|']).next().unwrap_or(name);
+    name.chars()
+        .filter(|character| character.is_ascii_alphanumeric())
+        .map(|character| character.to_ascii_lowercase())
+        .collect()
 }
 
 #[cfg(test)]
