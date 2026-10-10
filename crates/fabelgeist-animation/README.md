@@ -29,3 +29,8 @@ roles and cannot accept a clip name directly.
 
 [Joint requirements](joint-requirements.md) describes required and optional
 retarget bindings, public construction, and their Boolean JSON representation.
+
+## Retarget strictness
+
+[Retarget strictness](retarget-strictness.md) describes permissive and strict
+transfer policies, required-joint precedence, and the Boolean JSON boundary.

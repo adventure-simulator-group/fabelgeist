@@ -9,7 +9,9 @@ use crate::skeleton::Skeleton;
 use anyhow::{Result, bail};
 use indexmap::IndexMap;
 
-use super::profile::{JointRequirement, RetargetProfile, RetargetSettings, RigProfile, RootSource};
+use super::profile::{
+    JointRequirement, RetargetProfile, RetargetSettings, RetargetStrictness, RigProfile, RootSource,
+};
 use super::semantic::{HumanoidChain, HumanoidJoint};
 
 /// A skeleton's joint names indexed for repeated lookups.
@@ -189,7 +191,7 @@ impl RetargetProfile {
         let source = self.source.resolve(source_skeleton)?;
         let target = self.target.resolve(target_skeleton)?;
 
-        if self.settings.strict {
+        if self.settings.strict == RetargetStrictness::Strict {
             let orphaned: Vec<String> = source
                 .joints
                 .keys()

@@ -13,8 +13,10 @@ use serde::{Deserialize, Serialize};
 use super::semantic::{HumanoidChain, HumanoidJoint};
 
 pub use requirement::JointRequirement;
+pub use strictness::RetargetStrictness;
 
 mod requirement;
+mod strictness;
 
 /// Which of a rig's joints plays a humanoid role.
 ///
@@ -109,10 +111,10 @@ pub struct RetargetSettings {
     /// The up axis of engine space, used to split locomotion.
     #[serde(default)]
     pub up: Axis,
-    /// Whether a source joint whose role the target rig lacks is an error.
-    /// Off by default: extra source bones are normal and ignoring them is safe.
+    /// Whether resolved source roles absent from the target reject transfer.
+    /// Permissive by default: extra source bones are normally ignored.
     #[serde(default)]
-    pub strict: bool,
+    pub strict: RetargetStrictness,
 }
 
 /// A complete recipe: which rig the animation came from, which rig it is going
@@ -386,7 +388,7 @@ impl Default for RetargetSettings {
             scale: ScalePolicy::default(),
             root_motion: RootMotionPolicy::default(),
             up: Axis::default(),
-            strict: false,
+            strict: RetargetStrictness::Permissive,
         }
     }
 }
