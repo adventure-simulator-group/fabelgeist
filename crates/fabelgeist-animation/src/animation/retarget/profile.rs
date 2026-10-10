@@ -12,6 +12,10 @@ use serde::{Deserialize, Serialize};
 
 use super::semantic::{HumanoidChain, HumanoidJoint};
 
+pub use requirement::JointRequirement;
+
+mod requirement;
+
 /// Which of a rig's joints plays a humanoid role.
 ///
 /// Several names may be listed: rigs vary between exports (`mixamorig:Hips`
@@ -22,7 +26,7 @@ pub struct JointBinding {
     pub names: Vec<String>,
     /// Retargeting fails if a required joint is absent from the skeleton.
     #[serde(default)]
-    pub required: bool,
+    pub required: JointRequirement,
     /// Extra rotation applied on top of the rest-pose difference the
     /// retargeter derives, for rigs whose rest pose is not a usable reference.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -47,44 +51,6 @@ pub struct JointBinding {
     pub hinge: Option<fabelgeist_math::vector::Vec3>,
 }
 
-impl JointBinding {
-    pub fn new(name: impl Into<String>) -> Self {
-        Self {
-            names: vec![name.into()],
-            required: false,
-            correction: None,
-            translation: None,
-            hinge: None,
-        }
-    }
-
-    pub fn required(mut self) -> Self {
-        self.required = true;
-        self
-    }
-
-    pub fn with_alias(mut self, name: impl Into<String>) -> Self {
-        self.names.push(name.into());
-        self
-    }
-
-    pub fn with_correction(mut self, correction: Vec4) -> Self {
-        self.correction = Some(correction);
-        self
-    }
-
-    pub fn with_translation(mut self, policy: TranslationPolicy) -> Self {
-        self.translation = Some(policy);
-        self
-    }
-
-    /// Declares the axis this joint bends about, in its own frame.
-    pub fn with_hinge(mut self, hinge: fabelgeist_math::vector::Vec3) -> Self {
-        self.hinge = Some(hinge);
-        self
-    }
-}
-
 /// A rig's own joints for one humanoid chain, root-most first.
 ///
 /// Declaring a chain lets a rig expose more joints than the vocabulary names —
@@ -95,16 +61,69 @@ pub struct ChainBinding {
     pub joints: Vec<String>,
 }
 
-impl ChainBinding {
-    pub fn new<I, S>(joints: I) -> Self
-    where
-        I: IntoIterator<Item = S>,
-        S: Into<String>,
-    {
-        Self {
-            joints: joints.into_iter().map(Into::into).collect(),
-        }
-    }
+/// How one rig names the humanoid body.
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
+pub struct RigProfile {
+    pub name: String,
+    pub joints: IndexMap<HumanoidJoint, JointBinding>,
+    #[serde(default, skip_serializing_if = "IndexMap::is_empty")]
+    pub chains: IndexMap<HumanoidChain, ChainBinding>,
+    #[serde(default)]
+    pub root: RootSource,
+    /// The posture this rig's motion is measured against.
+    pub reference: ReferencePose,
+    /// Rotation taking this rig's space to engine space, for assets an
+    /// importer could not normalize. Identity for anything well-behaved.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub basis: Option<Vec4>,
+    /// Joint names whose presence identifies this rig, for optional detection.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub markers: Vec<String>,
+}
+
+/// Which components of locomotion to separate from the pose.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub struct RootMotionChannels {
+    /// Displacement across the ground plane.
+    pub horizontal: bool,
+    /// Displacement along the up axis. Usually left in the pose so crouches
+    /// and steps survive.
+    pub vertical: bool,
+    /// Turning around the up axis.
+    pub yaw: bool,
+}
+
+/// Policy that is about the transfer itself rather than about either rig.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct RetargetSettings {
+    /// Applies to every joint without its own binding-level override.
+    #[serde(default)]
+    pub translation: TranslationPolicy,
+    /// Per-role overrides, which beat both the default and the binding.
+    #[serde(default, skip_serializing_if = "IndexMap::is_empty")]
+    pub joint_translation: IndexMap<HumanoidJoint, TranslationPolicy>,
+    #[serde(default)]
+    pub scale: ScalePolicy,
+    #[serde(default)]
+    pub root_motion: RootMotionPolicy,
+    /// The up axis of engine space, used to split locomotion.
+    #[serde(default)]
+    pub up: Axis,
+    /// Whether a source joint whose role the target rig lacks is an error.
+    /// Off by default: extra source bones are normal and ignoring them is safe.
+    #[serde(default)]
+    pub strict: bool,
+}
+
+/// A complete recipe: which rig the animation came from, which rig it is going
+/// to, and how to treat what does not line up.
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
+pub struct RetargetProfile {
+    pub name: String,
+    pub source: RigProfile,
+    pub target: RigProfile,
+    #[serde(default)]
+    pub settings: RetargetSettings,
 }
 
 /// Where a rig keeps locomotion.
@@ -141,24 +160,120 @@ pub enum ReferencePose {
     Pose(IndexMap<HumanoidJoint, Vec4>),
 }
 
-/// How one rig names the humanoid body.
-#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
-pub struct RigProfile {
-    pub name: String,
-    pub joints: IndexMap<HumanoidJoint, JointBinding>,
-    #[serde(default, skip_serializing_if = "IndexMap::is_empty")]
-    pub chains: IndexMap<HumanoidChain, ChainBinding>,
-    #[serde(default)]
-    pub root: RootSource,
-    /// The posture this rig's motion is measured against.
-    pub reference: ReferencePose,
-    /// Rotation taking this rig's space to engine space, for assets an
-    /// importer could not normalize. Identity for anything well-behaved.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub basis: Option<Vec4>,
-    /// Joint names whose presence identifies this rig, for optional detection.
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub markers: Vec<String>,
+/// What to do with a joint's translation channel.
+///
+/// Rotations transfer between bodies of any proportion; translations do not.
+/// Copying every translation track is how retargeted animation ends up with
+/// dislocated limbs, so translation is opt-in per joint or per class.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub enum TranslationPolicy {
+    /// Keep the target's rest translation. The default for limbs.
+    Ignore,
+    /// Take the source translation as-is, in engine units.
+    Copy,
+    /// Take the source translation scaled by the rig size ratio.
+    Scaled,
+    /// Scaled translation on the locomotion joint only.
+    RootOnly,
+    /// Scaled translation on the pelvis only. The usual choice.
+    #[default]
+    PelvisOnly,
+}
+
+/// The body measurement used to compare two rigs' sizes.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub enum ScaleMeasure {
+    /// Rest distance from pelvis to head. Robust and available on any humanoid.
+    #[default]
+    PelvisToHead,
+    /// Rest distance from pelvis down to the foot.
+    LegLength,
+    /// Vertical extent of the whole rest skeleton, the last resort.
+    SkeletonHeight,
+}
+
+/// How to reconcile two rigs' unit scales and sizes.
+///
+/// Derived from the rest poses rather than from the source file's scene scale,
+/// which is unreliable across exporters and says nothing about body size.
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ScalePolicy {
+    /// Treat both rigs as already sharing units and size.
+    None,
+    /// A ratio supplied by the profile, target units per source unit.
+    Fixed(f32),
+    /// Measure both rest poses and divide.
+    Auto(ScaleMeasure),
+}
+
+/// What becomes of the source rig's locomotion.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub enum RootMotionPolicy {
+    /// Leave locomotion in the pose, as pelvis translation.
+    Keep,
+    /// Move it into the clip's root motion track.
+    Extract(RootMotionChannels),
+    /// Remove it entirely, producing an in-place clip.
+    Strip(RootMotionChannels),
+}
+
+/// A world axis.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub enum Axis {
+    X,
+    #[default]
+    Y,
+    Z,
+}
+
+impl JointBinding {
+    pub fn new(name: impl Into<String>) -> Self {
+        Self {
+            names: vec![name.into()],
+            required: JointRequirement::Optional,
+            correction: None,
+            translation: None,
+            hinge: None,
+        }
+    }
+
+    pub fn required(mut self) -> Self {
+        self.required = JointRequirement::Required;
+        self
+    }
+
+    pub fn with_alias(mut self, name: impl Into<String>) -> Self {
+        self.names.push(name.into());
+        self
+    }
+
+    pub fn with_correction(mut self, correction: Vec4) -> Self {
+        self.correction = Some(correction);
+        self
+    }
+
+    pub fn with_translation(mut self, policy: TranslationPolicy) -> Self {
+        self.translation = Some(policy);
+        self
+    }
+
+    /// Declares the axis this joint bends about, in its own frame.
+    pub fn with_hinge(mut self, hinge: fabelgeist_math::vector::Vec3) -> Self {
+        self.hinge = Some(hinge);
+        self
+    }
+}
+
+impl ChainBinding {
+    pub fn new<I, S>(joints: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        Self {
+            joints: joints.into_iter().map(Into::into).collect(),
+        }
+    }
 }
 
 impl RigProfile {
@@ -216,68 +331,10 @@ impl RigProfile {
     }
 }
 
-/// What to do with a joint's translation channel.
-///
-/// Rotations transfer between bodies of any proportion; translations do not.
-/// Copying every translation track is how retargeted animation ends up with
-/// dislocated limbs, so translation is opt-in per joint or per class.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
-pub enum TranslationPolicy {
-    /// Keep the target's rest translation. The default for limbs.
-    Ignore,
-    /// Take the source translation as-is, in engine units.
-    Copy,
-    /// Take the source translation scaled by the rig size ratio.
-    Scaled,
-    /// Scaled translation on the locomotion joint only.
-    RootOnly,
-    /// Scaled translation on the pelvis only. The usual choice.
-    #[default]
-    PelvisOnly,
-}
-
-/// The body measurement used to compare two rigs' sizes.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
-pub enum ScaleMeasure {
-    /// Rest distance from pelvis to head. Robust and available on any humanoid.
-    #[default]
-    PelvisToHead,
-    /// Rest distance from pelvis down to the foot.
-    LegLength,
-    /// Vertical extent of the whole rest skeleton, the last resort.
-    SkeletonHeight,
-}
-
-/// How to reconcile two rigs' unit scales and sizes.
-///
-/// Derived from the rest poses rather than from the source file's scene scale,
-/// which is unreliable across exporters and says nothing about body size.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-pub enum ScalePolicy {
-    /// Treat both rigs as already sharing units and size.
-    None,
-    /// A ratio supplied by the profile, target units per source unit.
-    Fixed(f32),
-    /// Measure both rest poses and divide.
-    Auto(ScaleMeasure),
-}
-
 impl Default for ScalePolicy {
     fn default() -> Self {
         ScalePolicy::Auto(ScaleMeasure::PelvisToHead)
     }
-}
-
-/// Which components of locomotion to separate from the pose.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-pub struct RootMotionChannels {
-    /// Displacement across the ground plane.
-    pub horizontal: bool,
-    /// Displacement along the up axis. Usually left in the pose so crouches
-    /// and steps survive.
-    pub vertical: bool,
-    /// Turning around the up axis.
-    pub yaw: bool,
 }
 
 impl Default for RootMotionChannels {
@@ -288,17 +345,6 @@ impl Default for RootMotionChannels {
             yaw: true,
         }
     }
-}
-
-/// What becomes of the source rig's locomotion.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-pub enum RootMotionPolicy {
-    /// Leave locomotion in the pose, as pelvis translation.
-    Keep,
-    /// Move it into the clip's root motion track.
-    Extract(RootMotionChannels),
-    /// Remove it entirely, producing an in-place clip.
-    Strip(RootMotionChannels),
 }
 
 impl Default for RootMotionPolicy {
@@ -322,15 +368,6 @@ impl RootMotionPolicy {
     }
 }
 
-/// A world axis.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
-pub enum Axis {
-    X,
-    #[default]
-    Y,
-    Z,
-}
-
 impl Axis {
     pub fn vector(self) -> fabelgeist_math::vector::Vec3 {
         match self {
@@ -339,28 +376,6 @@ impl Axis {
             Axis::Z => fabelgeist_math::vector::Vec3::new(0.0, 0.0, 1.0),
         }
     }
-}
-
-/// Policy that is about the transfer itself rather than about either rig.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct RetargetSettings {
-    /// Applies to every joint without its own binding-level override.
-    #[serde(default)]
-    pub translation: TranslationPolicy,
-    /// Per-role overrides, which beat both the default and the binding.
-    #[serde(default, skip_serializing_if = "IndexMap::is_empty")]
-    pub joint_translation: IndexMap<HumanoidJoint, TranslationPolicy>,
-    #[serde(default)]
-    pub scale: ScalePolicy,
-    #[serde(default)]
-    pub root_motion: RootMotionPolicy,
-    /// The up axis of engine space, used to split locomotion.
-    #[serde(default)]
-    pub up: Axis,
-    /// Whether a source joint whose role the target rig lacks is an error.
-    /// Off by default: extra source bones are normal and ignoring them is safe.
-    #[serde(default)]
-    pub strict: bool,
 }
 
 impl Default for RetargetSettings {
@@ -400,17 +415,6 @@ impl RetargetSettings {
         self.root_motion = policy;
         self
     }
-}
-
-/// A complete recipe: which rig the animation came from, which rig it is going
-/// to, and how to treat what does not line up.
-#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
-pub struct RetargetProfile {
-    pub name: String,
-    pub source: RigProfile,
-    pub target: RigProfile,
-    #[serde(default)]
-    pub settings: RetargetSettings,
 }
 
 impl RetargetProfile {

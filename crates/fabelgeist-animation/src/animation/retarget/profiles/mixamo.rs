@@ -5,15 +5,129 @@
 //! strings. Supporting another rig means writing a sibling of this file, not
 //! touching the algorithm.
 
-use crate::animation::retarget::profile::{ChainBinding, ReferencePose, RigProfile, RootSource};
+use crate::animation::retarget::profile::{
+    ChainBinding, JointRequirement, ReferencePose, RigProfile, RootSource,
+};
 use crate::animation::retarget::semantic::{HumanoidChain, HumanoidJoint};
 use crate::skeleton::mixamo::MixamoRig;
 
-/// Mixamo prefixes every joint; exports occasionally use `mixamorig1:` and
-/// some pipelines strip the namespace entirely. The resolver normalizes
-/// namespaces away, so binding the canonical name covers all three.
-fn joint(name: &str) -> String {
-    format!("mixamorig:{name}")
+const JOINT_MAPPINGS: [JointMapping; 22] = [
+    JointMapping {
+        role: HumanoidJoint::Pelvis,
+        source_name: "Hips",
+        requirement: JointRequirement::Required,
+    },
+    JointMapping {
+        role: HumanoidJoint::SpineLower,
+        source_name: "Spine",
+        requirement: JointRequirement::Required,
+    },
+    JointMapping {
+        role: HumanoidJoint::SpineMid,
+        source_name: "Spine1",
+        requirement: JointRequirement::Optional,
+    },
+    JointMapping {
+        role: HumanoidJoint::Chest,
+        source_name: "Spine2",
+        requirement: JointRequirement::Optional,
+    },
+    JointMapping {
+        role: HumanoidJoint::Neck,
+        source_name: "Neck",
+        requirement: JointRequirement::Optional,
+    },
+    JointMapping {
+        role: HumanoidJoint::Head,
+        source_name: "Head",
+        requirement: JointRequirement::Optional,
+    },
+    JointMapping {
+        role: HumanoidJoint::ClavicleLeft,
+        source_name: "LeftShoulder",
+        requirement: JointRequirement::Optional,
+    },
+    JointMapping {
+        role: HumanoidJoint::UpperArmLeft,
+        source_name: "LeftArm",
+        requirement: JointRequirement::Required,
+    },
+    JointMapping {
+        role: HumanoidJoint::LowerArmLeft,
+        source_name: "LeftForeArm",
+        requirement: JointRequirement::Required,
+    },
+    JointMapping {
+        role: HumanoidJoint::HandLeft,
+        source_name: "LeftHand",
+        requirement: JointRequirement::Optional,
+    },
+    JointMapping {
+        role: HumanoidJoint::ClavicleRight,
+        source_name: "RightShoulder",
+        requirement: JointRequirement::Optional,
+    },
+    JointMapping {
+        role: HumanoidJoint::UpperArmRight,
+        source_name: "RightArm",
+        requirement: JointRequirement::Required,
+    },
+    JointMapping {
+        role: HumanoidJoint::LowerArmRight,
+        source_name: "RightForeArm",
+        requirement: JointRequirement::Required,
+    },
+    JointMapping {
+        role: HumanoidJoint::HandRight,
+        source_name: "RightHand",
+        requirement: JointRequirement::Optional,
+    },
+    JointMapping {
+        role: HumanoidJoint::UpperLegLeft,
+        source_name: "LeftUpLeg",
+        requirement: JointRequirement::Required,
+    },
+    JointMapping {
+        role: HumanoidJoint::LowerLegLeft,
+        source_name: "LeftLeg",
+        requirement: JointRequirement::Required,
+    },
+    JointMapping {
+        role: HumanoidJoint::FootLeft,
+        source_name: "LeftFoot",
+        requirement: JointRequirement::Required,
+    },
+    JointMapping {
+        role: HumanoidJoint::ToeLeft,
+        source_name: "LeftToeBase",
+        requirement: JointRequirement::Optional,
+    },
+    JointMapping {
+        role: HumanoidJoint::UpperLegRight,
+        source_name: "RightUpLeg",
+        requirement: JointRequirement::Required,
+    },
+    JointMapping {
+        role: HumanoidJoint::LowerLegRight,
+        source_name: "RightLeg",
+        requirement: JointRequirement::Required,
+    },
+    JointMapping {
+        role: HumanoidJoint::FootRight,
+        source_name: "RightFoot",
+        requirement: JointRequirement::Required,
+    },
+    JointMapping {
+        role: HumanoidJoint::ToeRight,
+        source_name: "RightToeBase",
+        requirement: JointRequirement::Optional,
+    },
+];
+
+struct JointMapping {
+    role: HumanoidJoint,
+    source_name: &'static str,
+    requirement: JointRequirement,
 }
 
 impl MixamoRig {
@@ -23,8 +137,6 @@ impl MixamoRig {
     /// which is exactly the sort of per-rig convention a profile exists to
     /// record.
     pub fn profile() -> RigProfile {
-        use HumanoidJoint::*;
-
         // Mixamo binds in a T-pose, so straightening is very nearly a no-op —
         // but saying so is what lets a target rig that binds differently
         // measure its motion against the same posture.
@@ -33,34 +145,14 @@ impl MixamoRig {
             .with_reference(ReferencePose::TPose)
             .with_markers([joint("Hips"), joint("Spine"), joint("LeftUpLeg")]);
 
-        for (role, name, required) in [
-            (Pelvis, "Hips", true),
-            (SpineLower, "Spine", true),
-            (SpineMid, "Spine1", false),
-            (Chest, "Spine2", false),
-            (Neck, "Neck", false),
-            (Head, "Head", false),
-            (ClavicleLeft, "LeftShoulder", false),
-            (UpperArmLeft, "LeftArm", true),
-            (LowerArmLeft, "LeftForeArm", true),
-            (HandLeft, "LeftHand", false),
-            (ClavicleRight, "RightShoulder", false),
-            (UpperArmRight, "RightArm", true),
-            (LowerArmRight, "RightForeArm", true),
-            (HandRight, "RightHand", false),
-            (UpperLegLeft, "LeftUpLeg", true),
-            (LowerLegLeft, "LeftLeg", true),
-            (FootLeft, "LeftFoot", true),
-            (ToeLeft, "LeftToeBase", false),
-            (UpperLegRight, "RightUpLeg", true),
-            (LowerLegRight, "RightLeg", true),
-            (FootRight, "RightFoot", true),
-            (ToeRight, "RightToeBase", false),
-        ] {
-            profile = if required {
-                profile.with_required(role, joint(name))
-            } else {
-                profile.with(role, joint(name))
+        for mapping in JOINT_MAPPINGS {
+            profile = match mapping.requirement {
+                JointRequirement::Required => {
+                    profile.with_required(mapping.role, joint(mapping.source_name))
+                }
+                JointRequirement::Optional => {
+                    profile.with(mapping.role, joint(mapping.source_name))
+                }
             };
         }
 
@@ -84,6 +176,13 @@ impl MixamoRig {
             ChainBinding::new([joint("Spine"), joint("Spine1"), joint("Spine2")]),
         )
     }
+}
+
+/// Mixamo prefixes every joint; exports occasionally use `mixamorig1:` and
+/// some pipelines strip the namespace entirely. The resolver normalizes
+/// namespaces away, so binding the canonical name covers all three.
+fn joint(name: &str) -> String {
+    format!("mixamorig:{name}")
 }
 
 /// The three humanoid segments of one finger.
