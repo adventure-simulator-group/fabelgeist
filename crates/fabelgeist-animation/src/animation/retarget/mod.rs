@@ -27,8 +27,8 @@
 
 pub use profile::{
     Axis, ChainBinding, JointBinding, JointRequirement, RetargetProfile, RetargetSettings,
-    RigProfile, RootMotionChannels, RootMotionPolicy, RootSource, ScaleMeasure, ScalePolicy,
-    TranslationPolicy,
+    RetargetStrictness, RigProfile, RootMotionChannels, RootMotionPolicy, RootSource, ScaleMeasure,
+    ScalePolicy, TranslationPolicy,
 };
 pub use profiles::detect;
 pub use resolve::{ResolvedProfile, ResolvedRig};

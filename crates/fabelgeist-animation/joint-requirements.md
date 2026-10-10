@@ -40,6 +40,8 @@ required roles are reported in profile insertion order.
 
 Mixamo's profile carries the same twelve required body bindings, ten optional
 body bindings and thirty optional finger bindings. Inferred pelvis bindings
-remain required. `RetargetSettings.strict` is a separate Boolean policy: after
-both rigs resolve, it rejects source roles absent from the target rig. It does
-not determine whether a named skeleton joint is required.
+remain required. `RetargetSettings.strict` carries the separate
+[retarget strictness policy](retarget-strictness.md). Its named `Strict` variant
+rejects resolved source roles absent from the target after both rigs resolve.
+The serialized `strict` field remains Boolean. This policy does not determine
+whether a named skeleton joint is required.

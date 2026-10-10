@@ -1,7 +1,8 @@
 //! Public construction, Boolean JSON ports and rig-resolution behavior.
 
 use fabelgeist_animation::animation::retarget::{
-    HumanoidJoint, JointBinding, JointRequirement, RetargetProfile, RetargetSettings, RigProfile,
+    HumanoidJoint, JointBinding, JointRequirement, RetargetProfile, RetargetSettings,
+    RetargetStrictness, RigProfile,
 };
 use fabelgeist_animation::skeleton::mixamo::MixamoRig;
 use fabelgeist_animation::{Joint, Skeleton};
@@ -226,7 +227,7 @@ fn named_joint_requirements_resolve_before_distinct_strictness_policy() {
     let source = RigProfile::new("source-good").with_required(HumanoidJoint::Pelvis, "hips");
     let target = RigProfile::new("target-missing").with_required(HumanoidJoint::Head, "head");
     let settings = RetargetSettings {
-        strict: true,
+        strict: RetargetStrictness::Strict,
         ..Default::default()
     };
     let profile = RetargetProfile::new(source.clone(), target).with_settings(settings.clone());
