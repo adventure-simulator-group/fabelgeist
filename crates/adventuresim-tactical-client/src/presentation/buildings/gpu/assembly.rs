@@ -170,6 +170,7 @@ fn upload(
     world: &mut World,
     owner: PresentationOwner,
     packed: PackedCity,
+    frame: CityFrame,
 ) -> AssemblyResult<CityGpuScene> {
     let PackedCity {
         geometry,
@@ -185,7 +186,6 @@ fn upload(
         return Err(AssemblyError::MissingMaterial);
     }
     let count = buildings.len() as u32;
-    let frame = world.resource::<CityGpuScenes>().owners.get(owner).frame;
     let frame_buffer = world
         .resource_mut::<Assets<ShaderBuffer>>()
         .add(ShaderBuffer::from(frame));
@@ -269,11 +269,13 @@ fn assemble_owner(world: &mut World, owner: PresentationOwner) {
     if owner == PresentationOwner::Scene {
         pending.parts.extend(props::parts(world));
     }
-    READY.get(owner).store(false, Ordering::Relaxed);
+    let frame = pending
+        .frame
+        .unwrap_or(world.resource::<CityGpuScenes>().owners.get(owner).frame);
     let scene = pending
         .groups(world.get_resource())
         .and_then(|groups| pack(world, groups))
-        .and_then(|packed| upload(world, owner, packed));
+        .and_then(|packed| upload(world, owner, packed, frame));
     let scene = match scene {
         Ok(scene) => scene,
         Err(error) => {
@@ -281,6 +283,7 @@ fn assemble_owner(world: &mut World, owner: PresentationOwner) {
             return;
         }
     };
+    READY.get(owner).store(false, Ordering::Relaxed);
     let prop_roots: std::collections::HashSet<_> = pending
         .parts
         .iter()

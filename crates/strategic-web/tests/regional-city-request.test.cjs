@@ -39,7 +39,36 @@ test("panning cancels obsolete city preparation before publishing the latest opa
   assert.equal((await latest).status, "prepared");
   assert.deepEqual(prepared, [oldDocument, latestDocument]);
   assert.deepEqual(cancelled, ["old-ticket"]);
-  assert.deepEqual(installed, [{ document: latestDocument, preparation: "latest-ticket" }]);
+  assert.equal(installed.length, 1);
+  assert.equal(installed[0].document, latestDocument);
+  assert.equal(installed[0].preparation, "latest-ticket");
+  assert.equal(installed[0].signal.aborted, false);
+});
+
+test("native installation acknowledgement controls residency and failed installs retry explicitly", async () => {
+  const acknowledgement = deferred(), cancelled = [];
+  let installs = 0, fetches = 0;
+  const cities = createRegionalCityRequests({
+    runtimePromise: Promise.resolve({ wasm_cancel_generation: ticket => cancelled.push(ticket) }),
+    fetchCity: async () => { fetches++; return response("canonical city"); },
+    prepareCity: async () => "ticket",
+    install: async () => {
+      if (++installs === 1) {
+        await acknowledgement.promise;
+        throw Error("Native city assembly failed");
+      }
+    },
+  });
+  const first = cities.request(request("city")); await turn();
+  assert.equal(cities.state.phase, "loading", "sending a command does not establish residency");
+  acknowledgement.resolve();
+  assert.equal((await first).status, "failed");
+  assert.deepEqual(cancelled, ["ticket"]);
+  assert.equal((await cities.request(request("city"))).status, "failed");
+  assert.equal(fetches, 1);
+  assert.equal((await cities.retry()).status, "prepared");
+  assert.equal((await cities.request(request("city"))).status, "reused");
+  assert.equal(installs, 2);
 });
 
 test("failed city refinement retries explicitly and warm return cancels remote fetching", async () => {

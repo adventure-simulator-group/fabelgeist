@@ -12,6 +12,7 @@ pub(in crate::presentation::buildings) struct PendingGpuCities {
 pub(in crate::presentation::buildings) struct PendingGpuBuildings {
     pub(super) parts: Vec<Part>,
     pub(super) buildings: Vec<Placement>,
+    pub(super) frame: Option<CityFrame>,
 }
 
 pub(super) struct Placement {
@@ -30,6 +31,13 @@ impl PendingGpuBuildings {
     pub(in crate::presentation::buildings) fn clear(&mut self) {
         self.parts.clear();
         self.buildings.clear();
+        self.frame = None;
+    }
+
+    /// Replacement frames belong to the unpublished queue. Updating the active
+    /// frame before assembly would relocate the previous city's geometry.
+    pub(in crate::presentation::buildings) fn set_frame(&mut self, frame: CityFrame) {
+        self.frame = Some(frame);
     }
 
     pub(in crate::presentation::buildings) fn push(
