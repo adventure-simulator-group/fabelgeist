@@ -34,7 +34,7 @@ pub use profiles::detect;
 pub use report::RetargetReport;
 pub use resolve::{ResolvedProfile, ResolvedRig};
 pub use retargeter::{Retargeter, retarget};
-pub use semantic::{HumanoidChain, HumanoidJoint};
+pub use semantic::{HumanoidChain, HumanoidJoint, HumanoidRoleName, UnknownHumanoidJoint};
 
 pub mod profile;
 pub mod profiles;
