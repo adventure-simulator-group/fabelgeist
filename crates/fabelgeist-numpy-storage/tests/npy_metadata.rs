@@ -25,7 +25,10 @@ fn decoded_queries_keep_scalar_rank_count_and_storage_width_distinct() {
     assert_eq!(scalar.dtype(), Dtype::F32);
     assert_eq!(scalar.dtype().storage_width(), NpyElementWidth::Word32);
     assert_eq!(scalar.bytes(), &1.5f32.to_le_bytes());
-    assert_eq!(scalar.to_f32(), [1.5]);
+    assert_eq!(
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(&scalar)),
+        [1.5]
+    );
     assert_eq!(format!("{:?}", scalar.shape()), "[]");
     let path = std::env::temp_dir().join(format!("npy-layout-{}.npy", std::process::id()));
     std::fs::write(&path, encoded("<f4", "", &1.5f32.to_le_bytes())).unwrap();
@@ -112,7 +115,10 @@ fn header_priority_and_trailing_payload_policy_remain_observable() {
     );
     let array = NpyArray::from_bytes(&encoded("|u1", "2,", &[0, 255, 19])).unwrap();
     assert_eq!(array.bytes(), &[0, 255]);
-    assert_eq!(array.to_bool(), [false, true]);
+    assert_eq!(
+        Vec::<bool>::from(fabelgeist_numpy_storage::NpyByteStates::from(&array)),
+        [false, true]
+    );
 }
 
 #[test]
@@ -126,16 +132,18 @@ fn stored_values_keep_float_bits_integer_casts_and_byte_boolean_semantics() {
     assert_eq!(array.shape().dimensions(), [NpyDimension::from(2); 2]);
     assert_eq!(array.element_count(), NpyElementCount::from(4));
     assert_eq!(
-        array
-            .to_f32()
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(&array))
             .iter()
             .map(|v| v.to_bits())
             .collect::<Vec<_>>(),
         words.map(f32::to_bits)
     );
-    assert_eq!(array.to_i64(), [0, 0, i64::MAX, 0]);
     assert_eq!(
-        array.to_bool(),
+        Vec::<i64>::from(fabelgeist_numpy_storage::NpyIntegerValues::from(&array)),
+        [0, 0, i64::MAX, 0]
+    );
+    assert_eq!(
+        Vec::<bool>::from(fabelgeist_numpy_storage::NpyByteStates::from(&array)),
         payload.iter().map(|v| *v != 0).collect::<Vec<_>>()
     );
 }

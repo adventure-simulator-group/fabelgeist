@@ -76,7 +76,13 @@ fn every_saturation_combination_replaces_only_requested_fields_in_order() {
         let npz = Npz::from_bytes(bytes).unwrap();
         assert_eq!(npz.uncompressed_size("values"), Some(expected));
         assert_eq!(npz.uncompressed_size("values.npy"), Some(expected));
-        assert_eq!(npz.array("values").unwrap().to_f32().len(), 4);
+        assert_eq!(
+            Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+                &npz.array("values").unwrap()
+            ))
+            .len(),
+            4
+        );
     }
 }
 
@@ -143,17 +149,22 @@ fn inherited_numpy_storage_and_first_duplicate_selection_remain_intact() {
     ));
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
-        npz.array("values")
-            .unwrap()
-            .to_f32()
-            .iter()
-            .map(|v| v.to_bits())
-            .collect::<Vec<_>>(),
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+            &npz.array("values").unwrap()
+        ))
+        .iter()
+        .map(|v| v.to_bits())
+        .collect::<Vec<_>>(),
         [0x3f800000, 0x80000000, 0x7fc01234, 0x40200000]
     );
     let bytes = include_bytes!("fixtures/member-count/duplicate-count-2.zip");
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
-    assert_eq!(npz.array("values").unwrap().to_f32()[0], 1.0);
+    assert_eq!(
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+            &npz.array("values").unwrap()
+        ))[0],
+        1.0
+    );
     assert_eq!(
         npz.uncompressed_size("values"),
         Some(DeclaredUncompressedByteLength::from_bytes(96))

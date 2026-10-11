@@ -185,15 +185,20 @@ fn assert_member_storage_and_values(archive: &ZipArchive, npz: &Npz) {
         [fabelgeist_numpy_storage::NpyDimension::from(4)]
     );
     assert_eq!(
-        npz.array("values")
-            .unwrap()
-            .to_f32()
-            .iter()
-            .map(|v| v.to_bits())
-            .collect::<Vec<_>>(),
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+            &npz.array("values").unwrap()
+        ))
+        .iter()
+        .map(|v| v.to_bits())
+        .collect::<Vec<_>>(),
         [0x3f800000, 0x80000000, 0x7fc01234, 0x40200000]
     );
-    assert_eq!(npz.array("second").unwrap().to_f32(), [5.0, 6.0, 7.0, 8.0]);
+    assert_eq!(
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+            &npz.array("second").unwrap()
+        )),
+        [5.0, 6.0, 7.0, 8.0]
+    );
 }
 
 #[test]
@@ -232,7 +237,12 @@ fn duplicate_and_disagreeing_headers_keep_member_semantics() {
         Cow::Borrowed(_)
     ));
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
-    assert_eq!(npz.array("values").unwrap().to_f32()[0], 1.0);
+    assert_eq!(
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+            &npz.array("values").unwrap()
+        ))[0],
+        1.0
+    );
     for label in [
         "stored-central-deflate-local",
         "deflate-central-stored-local",
@@ -249,7 +259,13 @@ fn duplicate_and_disagreeing_headers_keep_member_semantics() {
             label == "deflate-central-stored-local"
         );
         let npz = Npz::from_bytes(fixture(label).to_vec()).unwrap();
-        assert_eq!(npz.array("values").unwrap().to_f32()[0], 1.0, "{label}");
+        assert_eq!(
+            Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+                &npz.array("values").unwrap()
+            ))[0],
+            1.0,
+            "{label}"
+        );
     }
 }
 

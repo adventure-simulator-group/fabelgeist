@@ -166,12 +166,22 @@ mod tests {
             weights.shape().dimensions(),
             [crate::NpyDimension::from(2); 2]
         );
-        assert_eq!(weights.to_f32(), [1.0, 2.0, 3.0, 4.0]);
-        assert_eq!(npz.array("indices").unwrap().to_i64(), [7, 9]);
+        assert_eq!(
+            Vec::<f32>::from(crate::NpyFloatValues::from(&weights)),
+            [1.0, 2.0, 3.0, 4.0]
+        );
+        assert_eq!(
+            Vec::<i64>::from(crate::NpyIntegerValues::from(
+                &npz.array("indices").unwrap()
+            )),
+            [7, 9]
+        );
 
         let memory_npz = Npz::from_bytes(archive).unwrap();
         assert_eq!(
-            memory_npz.array("weights").unwrap().to_f32(),
+            Vec::<f32>::from(crate::NpyFloatValues::from(
+                &memory_npz.array("weights").unwrap()
+            )),
             [1.0, 2.0, 3.0, 4.0]
         );
 
