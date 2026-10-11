@@ -18,6 +18,7 @@ pub(super) struct PresentedRoute {
     /// Bevy mesh adapter width, in metres at the current physical-pixel scale.
     width_metres: f32,
     coverage: RouteCoverage,
+    city: Option<Entity>,
 }
 
 struct RouteAssets {
@@ -118,6 +119,7 @@ pub(super) fn present(
             && presented.window == terrain.request()
             && presented.route == *route
             && presented.width_metres == width_metres
+            && presented.city == state.city_surface().map(|city| city.root)
     }) {
         return;
     }
@@ -128,6 +130,7 @@ pub(super) fn present(
         terrain,
         path_geometry::GeographicLine::Route(route),
         width_metres,
+        state.city_surface(),
     ) {
         Ok(Some(mesh)) => RouteCoverage::Drawn(RouteAssets::install(
             root,
@@ -143,12 +146,14 @@ pub(super) fn present(
     let source = pose.source.clone();
     let window = terrain.request();
     let route = route.clone();
+    let city = state.city_surface().map(|city| city.root);
     let old = state.presented_route.replace(PresentedRoute {
         source,
         window,
         route,
         width_metres,
         coverage,
+        city,
     });
     remove(old, &mut commands, &mut meshes, &mut materials);
     state.settled_frames = 0;

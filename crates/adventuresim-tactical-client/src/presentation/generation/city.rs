@@ -9,6 +9,7 @@ use adventuresim_tactical_core::{prelude::SceneTerrain, regional_city::RegionalC
 pub(in crate::presentation) struct PreparedCityProduct {
     pub document: RegionalCityInput,
     pub terrain: SceneTerrain,
+    pub surface_ground: adventuresim_tactical_core::prelude::SceneGround,
     pub ground: Arc<PreparedCityGround>,
     graphics: String,
 }
@@ -32,6 +33,7 @@ impl PreparedCityProduct {
         Ok(Self {
             document,
             terrain: supported.terrain,
+            surface_ground: supported.ground,
             ground: Arc::new(ground),
             graphics,
         })

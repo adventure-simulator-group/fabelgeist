@@ -1,5 +1,7 @@
 import {createRegionalEnvironmentRequests} from "./regional-environment-request.js";
 import {installMapGestures} from "./regional-map-gestures.js";
+import {createRegionalCityRequests} from "./regional-city-request.js";
+import {installRegionalCity} from "./regional-city-installation.js";
 
 // Canvas offsets enter Bevy as f32; tolerate only its subpixel wire rounding.
 const VIEWPORT_OFFSET_TOLERANCE=1/1024;
@@ -10,7 +12,7 @@ const sameViewport=(presented,requested)=>presented
 // One document owner for geographic HTTP products and semantic camera intent.
 // The existing strategic scene bridge owns the canvas and compositor mask.
 export function createRegionalMapView({runtimePromise,changed,metrics}) {
-  let runtime,host,input,scope,requests,disposeGestures,lastRect,lastSelection;
+  let runtime,host,input,scope,requests,cities,disposeGestures,lastRect,lastSelection;
   let error,runtimeError,openedAt,retryListener,revision=0,payload,installedWindow;
   const send=command=>runtime.wasm_command(JSON.stringify({type:"regional-map",command}));
   const fail=cause=>{
@@ -23,7 +25,7 @@ export function createRegionalMapView({runtimePromise,changed,metrics}) {
   runtimePromise.then(value=>{runtime=value;changed();}).catch(cause=>{runtimeError=cause;fail(cause);});
   function suspend() {
     if(!disposeGestures)return;
-    requests?.cancel();disposeGestures();disposeGestures=undefined;
+    requests?.cancel();cities?.cancel();disposeGestures();disposeGestures=undefined;
     send({type:"hide"});lastRect=undefined;
     hideMarkers();
     document.body.removeAttribute("data-regional-map-ready");
@@ -44,9 +46,13 @@ export function createRegionalMapView({runtimePromise,changed,metrics}) {
         install:environment=>send({type:"install-environment",environment}),
         changed:state=>{if(state.phase==="prepared")installedWindow=state.request;
           if(state.phase==="failed")console.error("regional environment unavailable",state.cause);changed();}});
+      cities=createRegionalCityRequests({runtimePromise,
+        install:installation=>installRegionalCity(runtime,installation),changed});
     }
     retryListener=new AbortController();
-    host.querySelector('[data-map-action="retry"]')?.addEventListener("click",()=>requests.retry(),
+    host.querySelector('[data-map-action="retry"]')?.addEventListener("click",()=>{
+      requests.retry();cities.retry();
+    },
       {signal:retryListener.signal});
   }
   function hideMarkers() {
@@ -81,17 +87,20 @@ export function createRegionalMapView({runtimePromise,changed,metrics}) {
   function updateStatus(state,acknowledged) {
     const prepared=requests.state.phase==="prepared";
     const failed=requests.state.phase==="failed";
+    const cityFocused=state.city_requested && cities.state.request?.place===state.city_requested;
+    const cityFailed=cityFocused && cities.state.phase==="failed";
     const ready=!error && !failed && prepared && acknowledged && state.ready;
     document.body.toggleAttribute("data-regional-map-ready",ready);
     const status=host.querySelector("[data-map-status]");
     const message=error || failed ? "Map unavailable" : !prepared ? "Loading map…"
       : !acknowledged ? "Loading map…" : state.error==="connection-capacity" ? "Connections unavailable"
       : state.error==="route-capacity" ? "Route unavailable" : state.error ? "Map unavailable"
-      : !state.covered ? "Terrain unavailable here" : "";
+      : !state.covered ? "Terrain unavailable here" : cityFailed ? "City detail unavailable"
+      : cityFocused && cities.state.phase==="loading" ? "Loading city detail…" : "";
     if(status.textContent!==message)status.textContent=message;
     if(status.hidden===Boolean(message))status.hidden=!message;
     const retry=host.querySelector('[data-map-action="retry"]');
-    if(retry && retry.hidden===failed)retry.hidden=!failed;
+    if(retry && retry.hidden===(failed || cityFailed))retry.hidden=!(failed || cityFailed);
     metrics.mapState=state;
     if(ready && openedAt!==undefined) {
       (metrics.maps ||= []).push({path:location.pathname,milliseconds:performance.now()-openedAt});
@@ -126,6 +135,8 @@ export function createRegionalMapView({runtimePromise,changed,metrics}) {
           && state.home?.latitude===input.origin.latitude && state.home?.longitude===input.origin.longitude;
         if(matched && state.requested) {
           requests.request({source:input.overlay.source,...state.requested});
+          if(state.city_requested)cities.request({source:input.overlay.source,place:state.city_requested});
+          else if(cities.state.phase==="loading")cities.cancel();
           const acknowledged=terrainPresented(state) && sameViewport(state.rect,rect)
             && state.overlay_revision===revision && state.presentation_ready;
           if(acknowledged)updateMarkers(state);else hideMarkers();

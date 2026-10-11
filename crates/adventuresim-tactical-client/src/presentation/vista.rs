@@ -1,4 +1,6 @@
 mod details;
+#[cfg(any(target_family = "wasm", test))]
+pub(in crate::presentation) mod focused;
 pub(in crate::presentation) mod grass;
 mod natural;
 pub(in crate::presentation) mod regional;
