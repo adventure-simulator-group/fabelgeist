@@ -18,8 +18,13 @@ println!("{}", resolved.report(&skeleton, &skeleton));
 # Ok::<(), anyhow::Error>(())
 ```
 
-The source-to-target retargeting recipe above reports which roles are shared,
-missing or unmapped. An inferred profile remains ordinary editable,
+The source-to-target retargeting recipe above returns a `RetargetReport`. Its
+text shows mapped roles, missing counterparts and declared optional roles that
+could not resolve. Unmapped skeleton joint indices remain available separately
+in `ResolvedRig::unmapped`; they are not listed in the rendered report. See
+[Retarget reports](retarget-reports.md) for the output contract.
+
+An inferred profile remains ordinary editable,
 serializable profile data. It has the `inferred` rig-profile label, a TPose
 reference and the skeleton's exact joint spelling in every selected binding.
 An inferred pelvis binding is required; unrecognized roles remain absent.

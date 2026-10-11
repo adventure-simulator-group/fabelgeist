@@ -297,11 +297,11 @@ fn stored_spellings_reports_and_real_clip_samples_survive_loose_resolution() {
         .resolve(&source, &target)
         .expect("loose source/target resolve");
     let report = "profile: source -> target\nsource rig: source (1 joints)\ntarget rig: target (1 joints)\n\nPelvis:\n  source = ns:HIP-S\n  target = H_iPs\n";
-    assert_eq!(resolved.report(&source, &target), report);
+    assert_eq!(resolved.report(&source, &target).to_string(), report);
     let retargeter =
         Retargeter::new(&source, &target, &decoded).expect("public retarget construction");
     assert_eq!(
-        retargeter.report(),
+        retargeter.report().to_string(),
         format!("{report}\nscale: 1.0000 target units per source unit\n")
     );
     let mut clip = Animation::new(AnimationClipName::from("walk"));

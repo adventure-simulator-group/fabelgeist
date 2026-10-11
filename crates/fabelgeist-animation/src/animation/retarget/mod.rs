@@ -31,12 +31,14 @@ pub use profile::{
     RootMotionPolicy, RootSource, ScaleMeasure, ScalePolicy, TranslationPolicy,
 };
 pub use profiles::detect;
+pub use report::RetargetReport;
 pub use resolve::{ResolvedProfile, ResolvedRig};
 pub use retargeter::{Retargeter, retarget};
 pub use semantic::{HumanoidChain, HumanoidJoint};
 
 pub mod profile;
 pub mod profiles;
+pub mod report;
 pub mod resolve;
 pub mod retargeter;
 pub mod semantic;

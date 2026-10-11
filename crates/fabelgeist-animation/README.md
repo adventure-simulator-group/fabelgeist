@@ -56,3 +56,8 @@ the resulting profile and reports, and the limits of heuristic matching.
 
 [Retarget joint lookup](retarget-matching.md) describes exact and loose joint
 lookup, collision and alias precedence, and how profiles resolve against a rig.
+
+## Retarget reports
+
+[Retarget reports](retarget-reports.md) describes the typed mapping diagnostics
+returned by resolution and retargeting, their text output and ownership limits.
