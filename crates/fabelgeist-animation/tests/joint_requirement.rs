@@ -2,7 +2,7 @@
 
 use fabelgeist_animation::animation::retarget::{
     HumanoidJoint, JointBinding, JointRequirement, RetargetProfile, RetargetSettings,
-    RetargetStrictness, RigProfile,
+    RetargetStrictness, RigProfile, RigProfileName,
 };
 use fabelgeist_animation::skeleton::mixamo::MixamoRig;
 use fabelgeist_animation::{Joint, Skeleton};
@@ -62,14 +62,17 @@ struct LookupCase {
 fn optional_and_required_bindings_control_missing_joint_admission() {
     let empty = skeleton(&[]);
     let mut binding = JointBinding::new("head");
-    let optional = RigProfile::new("optional").with_joint(HumanoidJoint::Head, binding.clone());
+    let optional = RigProfile::new(RigProfileName::from("optional"))
+        .with_joint(HumanoidJoint::Head, binding.clone());
     let resolved = optional.resolve(&empty).unwrap();
     assert_eq!(resolved.missing, [HumanoidJoint::Head]);
     assert!(resolved.joints.is_empty());
 
     binding.required = JointRequirement::Required;
-    let required = RigProfile::new("required").with_joint(HumanoidJoint::Head, binding.clone());
-    let constructed = RigProfile::new("required").with_required(HumanoidJoint::Head, "head");
+    let required = RigProfile::new(RigProfileName::from("required"))
+        .with_joint(HumanoidJoint::Head, binding.clone());
+    let constructed = RigProfile::new(RigProfileName::from("required"))
+        .with_required(HumanoidJoint::Head, "head");
     assert_eq!(required, constructed);
     assert_eq!(required.clone(), required);
     assert_eq!(
@@ -79,7 +82,7 @@ fn optional_and_required_bindings_control_missing_joint_admission() {
 
     binding.required = JointRequirement::Optional;
     assert_eq!(
-        RigProfile::new("optional").with_joint(HumanoidJoint::Head, binding),
+        RigProfile::new(RigProfileName::from("optional")).with_joint(HumanoidJoint::Head, binding),
         optional,
     );
 }
@@ -96,7 +99,7 @@ fn boolean_json_defaults_and_round_trips_keep_binding_roles() {
         assert_eq!(serialized, r#"{"names":["hips"],"required":false}"#);
         let decoded: JointBinding = serde_json::from_str(&serialized).unwrap();
         assert_eq!(decoded, binding);
-        let resolved = RigProfile::new("optional-json")
+        let resolved = RigProfile::new(RigProfileName::from("optional-json"))
             .with_joint(HumanoidJoint::Pelvis, decoded)
             .resolve(&skeleton(&[]))
             .unwrap();
@@ -111,7 +114,7 @@ fn boolean_json_defaults_and_round_trips_keep_binding_roles() {
     let decoded: JointBinding = serde_json::from_str(&serialized).unwrap();
     assert_eq!(decoded, binding);
     assert!(
-        RigProfile::new("required-json")
+        RigProfile::new(RigProfileName::from("required-json"))
             .with_joint(HumanoidJoint::Pelvis, decoded)
             .resolve(&skeleton(&[]))
             .is_err()
@@ -133,7 +136,7 @@ fn invalid_boolean_json_retains_diagnostics_and_field_precedence() {
 
 #[test]
 fn required_joint_diagnostics_follow_profile_insertion_order() {
-    let profile = RigProfile::new("ordered")
+    let profile = RigProfile::new(RigProfileName::from("ordered"))
         .with_joint(
             HumanoidJoint::Head,
             JointBinding::new("head").required().with_alias("Head2"),
@@ -172,7 +175,7 @@ fn matching_keeps_exact_name_alias_and_duplicate_priority() {
     ] {
         let mut binding = JointBinding::new("").required();
         binding.names = case.aliases.iter().map(|name| (*name).to_owned()).collect();
-        let resolved = RigProfile::new("lookup")
+        let resolved = RigProfile::new(RigProfileName::from("lookup"))
             .with_joint(HumanoidJoint::Pelvis, binding)
             .resolve(&skeleton(case.skeleton_names))
             .unwrap();
@@ -224,8 +227,10 @@ fn built_in_and_inferred_profiles_require_their_pelvis() {
 
 #[test]
 fn named_joint_requirements_resolve_before_distinct_strictness_policy() {
-    let source = RigProfile::new("source-good").with_required(HumanoidJoint::Pelvis, "hips");
-    let target = RigProfile::new("target-missing").with_required(HumanoidJoint::Head, "head");
+    let source = RigProfile::new(RigProfileName::from("source-good"))
+        .with_required(HumanoidJoint::Pelvis, "hips");
+    let target = RigProfile::new(RigProfileName::from("target-missing"))
+        .with_required(HumanoidJoint::Head, "head");
     let settings = RetargetSettings {
         strict: RetargetStrictness::Strict,
         ..Default::default()
@@ -238,8 +243,11 @@ fn named_joint_requirements_resolve_before_distinct_strictness_policy() {
             .to_string(),
         "rig profile \"target-missing\" requires joints the skeleton does not have: Head (expected head)",
     );
-    let strict = RetargetProfile::new(source.clone(), RigProfile::new("target-empty"))
-        .with_settings(settings);
+    let strict = RetargetProfile::new(
+        source.clone(),
+        RigProfile::new(RigProfileName::from("target-empty")),
+    )
+    .with_settings(settings);
     assert_eq!(
         strict
             .resolve(&skeleton(&["hips"]), &skeleton(&[]))
@@ -247,7 +255,10 @@ fn named_joint_requirements_resolve_before_distinct_strictness_policy() {
             .to_string(),
         "strict retargeting: the target rig has no joint for Pelvis",
     );
-    let permissive = RetargetProfile::new(source, RigProfile::new("target-empty"));
+    let permissive = RetargetProfile::new(
+        source,
+        RigProfile::new(RigProfileName::from("target-empty")),
+    );
     assert!(
         permissive
             .resolve(&skeleton(&["hips"]), &skeleton(&[]))

@@ -2,8 +2,8 @@
 
 use fabelgeist_animation::animation::retarget::{
     ChainBinding, HumanoidChain, HumanoidJoint, JointBinding, RetargetProfile, RetargetSettings,
-    RetargetStrictness, Retargeter, RigProfile, RootMotionPolicy, RootSource, ScalePolicy,
-    TranslationPolicy,
+    RetargetStrictness, Retargeter, RigProfile, RigProfileName, RootMotionPolicy, RootSource,
+    ScalePolicy, TranslationPolicy,
 };
 use fabelgeist_animation::animation::{Animation, AnimationClipName, Curve, JointTrack};
 use fabelgeist_animation::{Joint, Skeleton};
@@ -117,10 +117,10 @@ fn invalid_boolean_payloads_keep_native_diagnostics_and_field_order() {
 #[test]
 fn required_rig_errors_precede_strict_role_omissions() {
     let settings = strict_settings();
-    let missing_source =
-        RigProfile::new("source-missing").with_required(HumanoidJoint::Pelvis, "hips");
-    let missing_target =
-        RigProfile::new("target-missing").with_required(HumanoidJoint::Head, "head");
+    let missing_source = RigProfile::new(RigProfileName::from("source-missing"))
+        .with_required(HumanoidJoint::Pelvis, "hips");
+    let missing_target = RigProfile::new(RigProfileName::from("target-missing"))
+        .with_required(HumanoidJoint::Head, "head");
     let profile = RetargetProfile::new(missing_source.clone(), missing_target.clone())
         .with_settings(settings.clone());
     assert_eq!(
@@ -142,13 +142,16 @@ fn required_rig_errors_precede_strict_role_omissions() {
 
 #[test]
 fn resolved_source_roles_control_strictness_and_order() {
-    let ordered = RigProfile::new("ordered")
+    let ordered = RigProfile::new(RigProfileName::from("ordered"))
         .with(HumanoidJoint::Head, "head")
         .with_required(HumanoidJoint::Pelvis, "hips")
         .with(HumanoidJoint::HandLeft, "hand");
     let source_skeleton = skeleton(&["hips", "head", "hand"]);
-    let strict = RetargetProfile::new(ordered.clone(), RigProfile::new("empty"))
-        .with_settings(strict_settings());
+    let strict = RetargetProfile::new(
+        ordered.clone(),
+        RigProfile::new(RigProfileName::from("empty")),
+    )
+    .with_settings(strict_settings());
     assert_eq!(
         strict
             .resolve(&source_skeleton, &skeleton(&[]))
@@ -156,7 +159,10 @@ fn resolved_source_roles_control_strictness_and_order() {
             .to_string(),
         "strict retargeting: the target rig has no joint for Head, Pelvis, HandLeft"
     );
-    let permissive = RetargetProfile::new(ordered.clone(), RigProfile::new("empty"));
+    let permissive = RetargetProfile::new(
+        ordered.clone(),
+        RigProfile::new(RigProfileName::from("empty")),
+    );
     assert!(
         permissive
             .resolve(&source_skeleton, &skeleton(&[]))
@@ -164,7 +170,7 @@ fn resolved_source_roles_control_strictness_and_order() {
             .shared_roles()
             .is_empty()
     );
-    let complete_target = RigProfile::new("target")
+    let complete_target = RigProfile::new(RigProfileName::from("target"))
         .with(HumanoidJoint::HandLeft, "hand")
         .with(HumanoidJoint::Head, "head")
         .with_required(HumanoidJoint::Pelvis, "pelvis");
@@ -192,7 +198,7 @@ fn resolved_source_roles_control_strictness_and_order() {
 
 #[test]
 fn strict_transfer_keeps_matching_chain_filtering_and_missing_root_allowance() {
-    let source = RigProfile::new("source")
+    let source = RigProfile::new(RigProfileName::from("source"))
         .with_joint(
             HumanoidJoint::Pelvis,
             JointBinding::new("absent").required().with_alias("hips"),
@@ -290,11 +296,11 @@ fn strict_settings() -> RetargetSettings {
 }
 
 fn source() -> RigProfile {
-    RigProfile::new("source").with_required(HumanoidJoint::Pelvis, "hips")
+    RigProfile::new(RigProfileName::from("source")).with_required(HumanoidJoint::Pelvis, "hips")
 }
 
 fn target() -> RigProfile {
-    RigProfile::new("target").with_required(HumanoidJoint::Pelvis, "pelvis")
+    RigProfile::new(RigProfileName::from("target")).with_required(HumanoidJoint::Pelvis, "pelvis")
 }
 
 fn skeleton(names: &[&str]) -> Skeleton {

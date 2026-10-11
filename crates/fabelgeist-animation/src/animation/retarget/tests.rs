@@ -170,7 +170,7 @@ fn humanoid(prefix: &str, size: f32, arm: Vec3) -> Skeleton {
 fn humanoid_profile(prefix: &str) -> RigProfile {
     use HumanoidJoint::*;
     let name = |part: &str| format!("{prefix}{part}");
-    RigProfile::new(format!("test:{prefix}"))
+    RigProfile::new(RigProfileName::from(format!("test:{prefix}")))
         .with_required(Pelvis, name("hips"))
         .with(SpineLower, name("spine"))
         .with(Chest, name("chest"))
@@ -710,7 +710,7 @@ fn a_longer_target_chain_receives_the_whole_source_bend() {
         ),
     ]);
 
-    let source_profile = RigProfile::new("short spine")
+    let source_profile = RigProfile::new(RigProfileName::from("short spine"))
         .with_required(HumanoidJoint::Pelvis, "s:hips")
         .with(HumanoidJoint::SpineLower, "s:spine")
         .with(HumanoidJoint::Chest, "s:chest")
@@ -719,7 +719,7 @@ fn a_longer_target_chain_receives_the_whole_source_bend() {
             HumanoidChain::Spine,
             ChainBinding::new(["s:spine", "s:chest"]),
         );
-    let target_profile = RigProfile::new("long spine")
+    let target_profile = RigProfile::new(RigProfileName::from("long spine"))
         .with_required(HumanoidJoint::Pelvis, "t:pelvis")
         .with(HumanoidJoint::SpineLower, "t:spine0")
         .with(HumanoidJoint::SpineMid, "t:spine1")
@@ -803,13 +803,13 @@ fn a_shorter_target_chain_still_receives_the_full_bend() {
     ]);
 
     let profile = RetargetProfile::new(
-        RigProfile::new("four")
+        RigProfile::new(RigProfileName::from("four"))
             .with_required(HumanoidJoint::Pelvis, "s:hips")
             .with_chain(
                 HumanoidChain::Spine,
                 ChainBinding::new(["s:spine0", "s:spine1", "s:spine2"]),
             ),
-        RigProfile::new("two")
+        RigProfile::new(RigProfileName::from("two"))
             .with_required(HumanoidJoint::Pelvis, "t:hips")
             .with_chain(
                 HumanoidChain::Spine,

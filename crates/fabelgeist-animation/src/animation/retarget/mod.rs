@@ -13,7 +13,7 @@
 //! # fn example(source: &Skeleton, clip: &Animation, target: &Skeleton) -> anyhow::Result<()> {
 //! let profile = retarget::RetargetProfile::new(
 //!     fabelgeist_animation::skeleton::mixamo::MixamoRig::profile(),
-//!     retarget::RigProfile::new("my rig"),
+//!     retarget::RigProfile::new(retarget::RigProfileName::from("my rig")),
 //! );
 //! let retargeted = retarget::retarget(source, clip, target, &profile)?;
 //! # let _ = retargeted;
@@ -27,8 +27,8 @@
 
 pub use profile::{
     Axis, ChainBinding, JointBinding, JointRequirement, RetargetProfile, RetargetSettings,
-    RetargetStrictness, RigProfile, RootMotionChannels, RootMotionPolicy, RootSource, ScaleMeasure,
-    ScalePolicy, TranslationPolicy,
+    RetargetStrictness, RigProfile, RigProfileName, RootMotionChannels, RootMotionPolicy,
+    RootSource, ScaleMeasure, ScalePolicy, TranslationPolicy,
 };
 pub use profiles::detect;
 pub use resolve::{ResolvedProfile, ResolvedRig};

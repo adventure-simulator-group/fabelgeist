@@ -1,8 +1,8 @@
 //! Public clip identity, serialization, and retargeting regressions.
 
 use fabelgeist_animation::animation::retarget::{
-    HumanoidJoint, RetargetProfile, RetargetSettings, Retargeter, RigProfile, RootMotionPolicy,
-    ScalePolicy, TranslationPolicy,
+    HumanoidJoint, RetargetProfile, RetargetSettings, Retargeter, RigProfile, RigProfileName,
+    RootMotionPolicy, ScalePolicy, TranslationPolicy,
 };
 use fabelgeist_animation::animation::{Animation, AnimationClipName, Curve, JointTrack};
 use fabelgeist_animation::{Joint, Skeleton};
@@ -73,7 +73,8 @@ fn retargeting_keeps_clip_identity_and_sampled_motion() {
         Transform::identity(),
         Some(0),
     )]);
-    let rig = RigProfile::new("one-pelvis").with_required(HumanoidJoint::Pelvis, "hips");
+    let rig = RigProfile::new(RigProfileName::from("one-pelvis"))
+        .with_required(HumanoidJoint::Pelvis, "hips");
     let profile = RetargetProfile::new(rig.clone(), rig).with_settings(
         RetargetSettings::default()
             .with_scale(ScalePolicy::None)

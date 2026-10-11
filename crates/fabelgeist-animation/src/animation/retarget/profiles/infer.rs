@@ -10,7 +10,7 @@
 //! serialize it, ship it. Nothing downstream can tell it was inferred.
 //!
 //! Inference is deliberately conservative. It claims a joint only on a keyword
-//! it recognizes, it never marks anything required, and roles it cannot place
+//! it recognizes. An inferred pelvis binding is required; roles it cannot place
 //! are simply left out — an unmapped joint keeps its rest pose, which is a
 //! visible but harmless result, where a *wrongly* mapped one is neither.
 
@@ -18,70 +18,6 @@ use crate::skeleton::Skeleton;
 
 use super::super::profile::{ChainBinding, ReferencePose, RigProfile, RootSource};
 use super::super::semantic::{HumanoidChain, HumanoidJoint};
-
-/// Which half of the body a joint's name claims.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum Side {
-    Left,
-    Right,
-    Center,
-}
-
-/// Splits a joint name into the side it names and the rest of the name,
-/// lowercased with separators removed.
-///
-/// Rigs mark sides in every way anyone has thought of: `LeftArm`, `l_uparm`,
-/// `arm.L`, `LHipJoint`, `lFemur`.
-fn split_side(name: &str) -> (Side, String) {
-    let bare = name.rsplit([':', '|']).next().unwrap_or(name);
-    let lower = bare.to_ascii_lowercase();
-
-    let strip = |side: Side, rest: String| (side, simplify(&rest));
-
-    for (word, side) in [("left", Side::Left), ("right", Side::Right)] {
-        if let Some(position) = lower.find(word) {
-            let mut rest = lower.clone();
-            rest.replace_range(position..position + word.len(), "");
-            return strip(side, rest);
-        }
-    }
-
-    let separators = ['_', '-', '.', ' '];
-    for (prefix, side) in [("l", Side::Left), ("r", Side::Right)] {
-        for separator in separators {
-            let marker = format!("{prefix}{separator}");
-            if lower.starts_with(&marker) {
-                return strip(side, lower[marker.len()..].to_string());
-            }
-            let marker = format!("{separator}{prefix}");
-            if lower.ends_with(&marker) {
-                return strip(side, lower[..lower.len() - marker.len()].to_string());
-            }
-        }
-    }
-
-    // `LHipJoint`, `lFemur`: a lone side letter before a capitalized word.
-    let mut characters = bare.chars();
-    if let (Some(first), Some(second)) = (characters.next(), characters.next())
-        && second.is_ascii_uppercase()
-    {
-        match first {
-            'l' | 'L' => return strip(Side::Left, bare[1..].to_string()),
-            'r' | 'R' => return strip(Side::Right, bare[1..].to_string()),
-            _ => {}
-        }
-    }
-
-    (Side::Center, simplify(bare))
-}
-
-/// Lowercase, alphanumerics only — the form keywords are matched against.
-fn simplify(name: &str) -> String {
-    name.chars()
-        .filter(|character| character.is_ascii_alphanumeric())
-        .map(|character| character.to_ascii_lowercase())
-        .collect()
-}
 
 /// Keywords per role, most specific first. A joint matching a longer keyword
 /// beats one matching a shorter one, which is what keeps `LeftUpLeg` from
@@ -169,43 +105,20 @@ const FINGERS: &[(&str, [HumanoidJoint; 3])] = &[
     ),
 ];
 
-/// The right-hand counterpart of a left-hand role.
-fn mirrored(role: HumanoidJoint) -> HumanoidJoint {
-    use HumanoidJoint::*;
-    match role {
-        ClavicleLeft => ClavicleRight,
-        UpperArmLeft => UpperArmRight,
-        LowerArmLeft => LowerArmRight,
-        HandLeft => HandRight,
-        UpperLegLeft => UpperLegRight,
-        LowerLegLeft => LowerLegRight,
-        FootLeft => FootRight,
-        ToeLeft => ToeRight,
-        ThumbProximalLeft => ThumbProximalRight,
-        ThumbIntermediateLeft => ThumbIntermediateRight,
-        ThumbDistalLeft => ThumbDistalRight,
-        IndexProximalLeft => IndexProximalRight,
-        IndexIntermediateLeft => IndexIntermediateRight,
-        IndexDistalLeft => IndexDistalRight,
-        MiddleProximalLeft => MiddleProximalRight,
-        MiddleIntermediateLeft => MiddleIntermediateRight,
-        MiddleDistalLeft => MiddleDistalRight,
-        RingProximalLeft => RingProximalRight,
-        RingIntermediateLeft => RingIntermediateRight,
-        RingDistalLeft => RingDistalRight,
-        LittleProximalLeft => LittleProximalRight,
-        LittleIntermediateLeft => LittleIntermediateRight,
-        LittleDistalLeft => LittleDistalRight,
-        other => other,
-    }
-}
-
 /// A joint as inference sees it.
 struct Candidate {
     index: usize,
     side: Side,
     simple: String,
     claimed: bool,
+}
+
+/// Which half of the body a joint's name claims.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Side {
+    Left,
+    Right,
+    Center,
 }
 
 impl RigProfile {
@@ -235,7 +148,7 @@ impl RigProfile {
         // not a reference at all — it only lines up with the target rig by
         // luck. Straightening from the rig's own geometry makes it definite,
         // and costs nothing on a rig that was already T-posed.
-        let mut profile = RigProfile::new("inferred").with_reference(ReferencePose::TPose);
+        let mut profile = RigProfile::new("inferred".into()).with_reference(ReferencePose::TPose);
         let name_of = |index: usize| skeleton.joints[index].name.clone();
 
         // The spine first: it is a run of joints in hierarchy order, and
@@ -337,6 +250,93 @@ impl RigProfile {
             *binding = binding.clone().required();
         }
         profile
+    }
+}
+
+/// Splits a joint name into the side it names and the rest of the name,
+/// lowercased with separators removed.
+///
+/// Rigs mark sides in every way anyone has thought of: `LeftArm`, `l_uparm`,
+/// `arm.L`, `LHipJoint`, `lFemur`.
+fn split_side(name: &str) -> (Side, String) {
+    let bare = name.rsplit([':', '|']).next().unwrap_or(name);
+    let lower = bare.to_ascii_lowercase();
+
+    let strip = |side: Side, rest: String| (side, simplify(&rest));
+
+    for (word, side) in [("left", Side::Left), ("right", Side::Right)] {
+        if let Some(position) = lower.find(word) {
+            let mut rest = lower.clone();
+            rest.replace_range(position..position + word.len(), "");
+            return strip(side, rest);
+        }
+    }
+
+    let separators = ['_', '-', '.', ' '];
+    for (prefix, side) in [("l", Side::Left), ("r", Side::Right)] {
+        for separator in separators {
+            let marker = format!("{prefix}{separator}");
+            if lower.starts_with(&marker) {
+                return strip(side, lower[marker.len()..].to_string());
+            }
+            let marker = format!("{separator}{prefix}");
+            if lower.ends_with(&marker) {
+                return strip(side, lower[..lower.len() - marker.len()].to_string());
+            }
+        }
+    }
+
+    // `LHipJoint`, `lFemur`: a lone side letter before a capitalized word.
+    let mut characters = bare.chars();
+    if let (Some(first), Some(second)) = (characters.next(), characters.next())
+        && second.is_ascii_uppercase()
+    {
+        match first {
+            'l' | 'L' => return strip(Side::Left, bare[1..].to_string()),
+            'r' | 'R' => return strip(Side::Right, bare[1..].to_string()),
+            _ => {}
+        }
+    }
+
+    (Side::Center, simplify(bare))
+}
+
+/// Lowercase, alphanumerics only — the form keywords are matched against.
+fn simplify(name: &str) -> String {
+    name.chars()
+        .filter(|character| character.is_ascii_alphanumeric())
+        .map(|character| character.to_ascii_lowercase())
+        .collect()
+}
+
+/// The right-hand counterpart of a left-hand role.
+fn mirrored(role: HumanoidJoint) -> HumanoidJoint {
+    use HumanoidJoint::*;
+    match role {
+        ClavicleLeft => ClavicleRight,
+        UpperArmLeft => UpperArmRight,
+        LowerArmLeft => LowerArmRight,
+        HandLeft => HandRight,
+        UpperLegLeft => UpperLegRight,
+        LowerLegLeft => LowerLegRight,
+        FootLeft => FootRight,
+        ToeLeft => ToeRight,
+        ThumbProximalLeft => ThumbProximalRight,
+        ThumbIntermediateLeft => ThumbIntermediateRight,
+        ThumbDistalLeft => ThumbDistalRight,
+        IndexProximalLeft => IndexProximalRight,
+        IndexIntermediateLeft => IndexIntermediateRight,
+        IndexDistalLeft => IndexDistalRight,
+        MiddleProximalLeft => MiddleProximalRight,
+        MiddleIntermediateLeft => MiddleIntermediateRight,
+        MiddleDistalLeft => MiddleDistalRight,
+        RingProximalLeft => RingProximalRight,
+        RingIntermediateLeft => RingIntermediateRight,
+        RingDistalLeft => RingDistalRight,
+        LittleProximalLeft => LittleProximalRight,
+        LittleIntermediateLeft => LittleIntermediateRight,
+        LittleDistalLeft => LittleDistalRight,
+        other => other,
     }
 }
 

@@ -1,6 +1,6 @@
 //! Turning names into joint indices.
 //!
-//! This is the only place in the retargeting system that looks at strings.
+//! Joint-name lookup lives here.
 //! Once a profile has been resolved against a skeleton, everything downstream
 //! addresses joints by index, which is what makes the retargeter itself
 //! indifferent to where an animation came from.
@@ -10,7 +10,8 @@ use anyhow::{Result, bail};
 use indexmap::IndexMap;
 
 use super::profile::{
-    JointRequirement, RetargetProfile, RetargetSettings, RetargetStrictness, RigProfile, RootSource,
+    JointRequirement, RetargetProfile, RetargetSettings, RetargetStrictness, RigProfile,
+    RigProfileName, RootSource,
 };
 use super::semantic::{HumanoidChain, HumanoidJoint};
 
@@ -23,7 +24,7 @@ struct JointIndex {
 /// A profile bound to a concrete skeleton.
 #[derive(Clone, Debug, PartialEq)]
 pub struct ResolvedRig {
-    pub profile: String,
+    pub profile: RigProfileName,
     /// Skeleton joint index per humanoid role that resolved.
     pub joints: IndexMap<HumanoidJoint, usize>,
     /// Skeleton joint indices per chain, root-most first.

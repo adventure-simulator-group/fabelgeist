@@ -34,3 +34,9 @@ retarget bindings, public construction, and their Boolean JSON representation.
 
 [Retarget strictness](retarget-strictness.md) describes permissive and strict
 transfer policies, required-joint precedence, and the Boolean JSON boundary.
+
+## Rig-profile labels
+
+[Rig-profile labels](rig-profile-names.md) describes the typed labels retained
+through profile construction and resolution, their string JSON representation,
+and their separate role from clip and joint names.

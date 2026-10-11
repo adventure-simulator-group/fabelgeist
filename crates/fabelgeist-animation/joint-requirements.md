@@ -12,12 +12,12 @@ The type belongs to `animation::retarget::profile` and is re-exported from
 
 ```rust
 use fabelgeist_animation::animation::retarget::{
-    HumanoidJoint, JointBinding, JointRequirement, RigProfile,
+    HumanoidJoint, JointBinding, JointRequirement, RigProfile, RigProfileName,
 };
 
 let mut pelvis = JointBinding::new("hips").with_alias("pelvis");
 pelvis.required = JointRequirement::Required;
-let profile = RigProfile::new("my rig")
+let profile = RigProfile::new(RigProfileName::from("my rig"))
     .with_joint(HumanoidJoint::Pelvis, pelvis)
     .with(HumanoidJoint::Head, "head");
 ```
