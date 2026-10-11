@@ -10,8 +10,8 @@ use anyhow::{Result, bail};
 use indexmap::IndexMap;
 
 use super::profile::{
-    JointRequirement, RetargetProfile, RetargetSettings, RetargetStrictness, RigProfile,
-    RigProfileName, RootSource,
+    JointRequirement, RetargetProfile, RetargetProfileName, RetargetSettings, RetargetStrictness,
+    RigProfile, RigProfileName, RootSource,
 };
 use super::semantic::{HumanoidChain, HumanoidJoint};
 
@@ -40,7 +40,7 @@ pub struct ResolvedRig {
 /// Both rigs bound to their skeletons, plus the policy joining them.
 #[derive(Clone, Debug, PartialEq)]
 pub struct ResolvedProfile {
-    pub name: String,
+    pub name: RetargetProfileName,
     pub source: ResolvedRig,
     pub target: ResolvedRig,
     pub settings: RetargetSettings,

@@ -1,9 +1,9 @@
 //! Public profile labels, string JSON, diagnostics and retained motion.
 
 use fabelgeist_animation::animation::retarget::{
-    HumanoidJoint, JointRequirement, RetargetProfile, RetargetSettings, RetargetStrictness,
-    Retargeter, RigProfile, RigProfileName, RootMotionPolicy, ScalePolicy, TranslationPolicy,
-    profiles,
+    HumanoidJoint, JointRequirement, RetargetProfile, RetargetProfileName, RetargetSettings,
+    RetargetStrictness, Retargeter, RigProfile, RigProfileName, RootMotionPolicy, ScalePolicy,
+    TranslationPolicy, profiles,
 };
 use fabelgeist_animation::animation::{Animation, AnimationClipName, Curve, JointTrack};
 use fabelgeist_animation::skeleton::mixamo::MixamoRig;
@@ -245,7 +245,10 @@ fn reports_display_labels_while_retargeted_clip_and_float_words_stay_equal() {
         let transfer =
             RetargetProfile::new(rig(label.clone(), "hips"), rig(label.clone(), "pelvis"))
                 .with_settings(settings.clone());
-        assert_eq!(transfer.name, format!("{spelling} -> {spelling}"));
+        assert_eq!(
+            transfer.name,
+            RetargetProfileName::from(format!("{spelling} -> {spelling}"))
+        );
         let retargeter = Retargeter::new(&source, &target, &transfer).unwrap();
         assert_eq!(retargeter.resolved().source.profile, label);
         assert_eq!(retargeter.resolved().target.profile, label);
