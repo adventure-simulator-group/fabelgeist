@@ -16,6 +16,36 @@ use anyhow::{Context, Result, bail};
 use flate2::read::DeflateDecoder;
 use memmap2::Mmap;
 
+use member_count::ArchiveMemberCount;
+
+mod member_count;
+
+const END_OF_CENTRAL_DIRECTORY: u32 = 0x0605_4b50;
+const CENTRAL_FILE_HEADER: u32 = 0x0201_4b50;
+const LOCAL_FILE_HEADER: u32 = 0x0403_4b50;
+const ZIP64_END_OF_CENTRAL_DIRECTORY: u32 = 0x0606_4b50;
+const ZIP64_LOCATOR: u32 = 0x0706_4b50;
+
+/// Selected directory metadata; native byte addressing remains separate debt.
+struct CentralDirectory {
+    member_count: ArchiveMemberCount,
+    native_byte_offset: u64,
+}
+
+pub(crate) struct Entry {
+    pub name: String,
+    compression: u16,
+    compressed_size: u64,
+    uncompressed_size: u64,
+    local_header_offset: u64,
+}
+
+/// A memory-mapped zip archive.
+pub struct ZipArchive {
+    data: ArchiveData,
+    entries: Vec<Entry>,
+}
+
 enum ArchiveData {
     Mapped(Mmap),
     Owned(Vec<u8>),
@@ -38,92 +68,39 @@ impl std::ops::Deref for ArchiveData {
     }
 }
 
-const END_OF_CENTRAL_DIRECTORY: u32 = 0x0605_4b50;
-const CENTRAL_FILE_HEADER: u32 = 0x0201_4b50;
-const LOCAL_FILE_HEADER: u32 = 0x0403_4b50;
-const ZIP64_END_OF_CENTRAL_DIRECTORY: u32 = 0x0606_4b50;
-const ZIP64_LOCATOR: u32 = 0x0706_4b50;
-
-pub(crate) struct Entry {
-    pub name: String,
-    compression: u16,
-    compressed_size: u64,
-    uncompressed_size: u64,
-    local_header_offset: u64,
-}
-
-/// A memory-mapped zip archive.
-pub struct ZipArchive {
-    data: ArchiveData,
-    entries: Vec<Entry>,
-}
-
-fn u16_at(data: &[u8], offset: usize) -> u16 {
-    u16::from_le_bytes(data[offset..offset + 2].try_into().unwrap())
-}
-
-fn u32_at(data: &[u8], offset: usize) -> u32 {
-    u32::from_le_bytes(data[offset..offset + 4].try_into().unwrap())
-}
-
-fn u64_at(data: &[u8], offset: usize) -> u64 {
-    u64::from_le_bytes(data[offset..offset + 8].try_into().unwrap())
-}
-
-/// Replaces saturated 32-bit sizes/offsets with their zip64 values.
-fn apply_zip64_extra(extra: &[u8], entry: &mut Entry) {
-    let mut offset = 0;
-    while offset + 4 <= extra.len() {
-        let id = u16_at(extra, offset);
-        let size = u16_at(extra, offset + 2) as usize;
-        let body = offset + 4;
-        if body + size > extra.len() {
-            return;
+impl CentralDirectory {
+    /// Locates the central directory, following the zip64 locator when present.
+    fn locate(data: &[u8]) -> Result<Self> {
+        // The end-of-central-directory record is within 64 KiB of the file end.
+        let earliest = data.len().saturating_sub(66_000);
+        let mut eocd = None;
+        for offset in (earliest..data.len().saturating_sub(21)).rev() {
+            if u32_at(data, offset) == END_OF_CENTRAL_DIRECTORY {
+                eocd = Some(offset);
+                break;
+            }
         }
-        if id == 0x0001 {
-            let mut cursor = body;
-            for slot in [
-                &mut entry.uncompressed_size,
-                &mut entry.compressed_size,
-                &mut entry.local_header_offset,
-            ] {
-                if *slot == u32::MAX as u64 && cursor + 8 <= body + size {
-                    *slot = u64_at(extra, cursor);
-                    cursor += 8;
+        let eocd = eocd.context("not a zip archive: no end-of-central-directory record")?;
+        let mut count = ArchiveMemberCount::from(u16_at(data, eocd + 10));
+        let mut offset = u32_at(data, eocd + 16) as u64;
+
+        if (count.is_saturated_ordinary() || offset == u32::MAX as u64) && eocd >= 20 {
+            let locator = eocd - 20;
+            if u32_at(data, locator) == ZIP64_LOCATOR {
+                let record = u64_at(data, locator + 8) as usize;
+                if record + 56 <= data.len()
+                    && u32_at(data, record) == ZIP64_END_OF_CENTRAL_DIRECTORY
+                {
+                    count = ArchiveMemberCount::from(u64_at(data, record + 32));
+                    offset = u64_at(data, record + 48);
                 }
             }
-            return;
         }
-        offset = body + size;
+        Ok(Self {
+            member_count: count,
+            native_byte_offset: offset,
+        })
     }
-}
-
-/// Locates the central directory, following the zip64 locator when present.
-fn find_central_directory(data: &[u8]) -> Result<(u64, u64)> {
-    // The end-of-central-directory record is within 64 KiB of the file end.
-    let earliest = data.len().saturating_sub(66_000);
-    let mut eocd = None;
-    for offset in (earliest..data.len().saturating_sub(21)).rev() {
-        if u32_at(data, offset) == END_OF_CENTRAL_DIRECTORY {
-            eocd = Some(offset);
-            break;
-        }
-    }
-    let eocd = eocd.context("not a zip archive: no end-of-central-directory record")?;
-    let mut count = u16_at(data, eocd + 10) as u64;
-    let mut offset = u32_at(data, eocd + 16) as u64;
-
-    if (count == u16::MAX as u64 || offset == u32::MAX as u64) && eocd >= 20 {
-        let locator = eocd - 20;
-        if u32_at(data, locator) == ZIP64_LOCATOR {
-            let record = u64_at(data, locator + 8) as usize;
-            if record + 56 <= data.len() && u32_at(data, record) == ZIP64_END_OF_CENTRAL_DIRECTORY {
-                count = u64_at(data, record + 32);
-                offset = u64_at(data, record + 48);
-            }
-        }
-    }
-    Ok((count, offset))
 }
 
 impl ZipArchive {
@@ -143,9 +120,12 @@ impl ZipArchive {
     }
 
     fn from_data(data: ArchiveData) -> Result<Self> {
-        let (count, mut offset) = find_central_directory(data.as_ref())?;
-        let mut entries = Vec::with_capacity(count.min(4096) as usize);
-        for _ in 0..count {
+        let CentralDirectory {
+            member_count,
+            native_byte_offset: mut offset,
+        } = CentralDirectory::locate(data.as_ref())?;
+        let mut entries = Vec::with_capacity(member_count.initial_capacity());
+        for _ in member_count.native_iteration_range() {
             let base = offset as usize;
             if base + 46 > data.len() || u32_at(&data, base) != CENTRAL_FILE_HEADER {
                 break;
@@ -228,5 +208,45 @@ impl ZipArchive {
             }
             other => bail!("unsupported zip compression method {other}"),
         }
+    }
+}
+
+fn u16_at(data: &[u8], offset: usize) -> u16 {
+    u16::from_le_bytes(data[offset..offset + 2].try_into().unwrap())
+}
+
+fn u32_at(data: &[u8], offset: usize) -> u32 {
+    u32::from_le_bytes(data[offset..offset + 4].try_into().unwrap())
+}
+
+fn u64_at(data: &[u8], offset: usize) -> u64 {
+    u64::from_le_bytes(data[offset..offset + 8].try_into().unwrap())
+}
+
+/// Replaces saturated 32-bit sizes/offsets with their zip64 values.
+fn apply_zip64_extra(extra: &[u8], entry: &mut Entry) {
+    let mut offset = 0;
+    while offset + 4 <= extra.len() {
+        let id = u16_at(extra, offset);
+        let size = u16_at(extra, offset + 2) as usize;
+        let body = offset + 4;
+        if body + size > extra.len() {
+            return;
+        }
+        if id == 0x0001 {
+            let mut cursor = body;
+            for slot in [
+                &mut entry.uncompressed_size,
+                &mut entry.compressed_size,
+                &mut entry.local_header_offset,
+            ] {
+                if *slot == u32::MAX as u64 && cursor + 8 <= body + size {
+                    *slot = u64_at(extra, cursor);
+                    cursor += 8;
+                }
+            }
+            return;
+        }
+        offset = body + size;
     }
 }
