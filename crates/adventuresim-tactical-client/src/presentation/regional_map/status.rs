@@ -37,6 +37,7 @@ struct Status<'a> {
     waiting_pipelines: usize,
     error: Option<Failure>,
     markers: Vec<markers::ProjectedMarker<'a>>,
+    city_requested: Option<&'a adventuresim_core::strategic_place::StrategicPlaceId>,
 }
 
 #[derive(Serialize)]
@@ -161,6 +162,7 @@ pub(super) fn publish(
             .or(route_capacity_exceeded.then_some(Failure::RouteCapacity))
             .or(connection_capacity_exceeded.then_some(Failure::ConnectionCapacity)),
         markers: markers::project(&state, &cameras),
+        city_requested: state.requested_city(),
     };
     match serde_json::to_string(&status) {
         Ok(json) => match STATUS.get_or_init(|| Mutex::new(String::new())).lock() {

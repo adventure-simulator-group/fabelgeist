@@ -20,7 +20,10 @@ pub(in crate::presentation) fn queue_focused_city(
     let (mut cache, mut meshes, mut cities) = state.get_mut(world);
     let owner = PresentationOwner::RegionalMap;
     let mut queued = gpu::PendingGpuBuildings::default();
-    queued.set_frame(gpu::CityFrame::from_geographic_city(city, window_origin));
+    queued.set_publication(
+        root,
+        gpu::CityFrame::from_geographic_city(city, window_origin),
+    );
     let mut append = |placement: &TacticalBuildingPlacement, appearance| -> Result {
         let compiled = cached_building_levels(
             owner,
@@ -30,12 +33,17 @@ pub(in crate::presentation) fn queue_focused_city(
             &mut meshes,
             None,
         )?;
-        let transform = Transform::from_xyz(
+        let rotation = Quat::from_rotation_y(placement.orientation.yaw_radians());
+        let centre = Vec3::new(
             placement.centre_metres.metres().x,
-            placement.base_elevation_metres.metres() + compiled.local_origin.metres().y,
+            placement.base_elevation_metres.metres(),
             placement.centre_metres.metres().y,
-        )
-        .with_rotation(Quat::from_rotation_y(placement.orientation.yaw_radians()));
+        );
+        // Facade vertices are rebased around their compiled origin. Restore
+        // all three components after rotation, preserving asymmetric recipes.
+        let transform =
+            Transform::from_translation(centre + rotation * compiled.local_origin.metres())
+                .with_rotation(rotation);
         queued.push(root, &transform, appearance, &compiled);
         Ok(())
     };

@@ -13,6 +13,7 @@ use protocol::{MapCommand, MapOverlayRevision, MapProtocolError};
 
 mod camera;
 mod connections;
+mod focus;
 mod geographic_surface;
 mod lighting;
 mod markers;
