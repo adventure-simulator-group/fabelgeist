@@ -13,9 +13,11 @@ use serde::{Deserialize, Serialize};
 use super::semantic::{HumanoidChain, HumanoidJoint};
 
 pub use requirement::JointRequirement;
+pub use rig_name::RigProfileName;
 pub use strictness::RetargetStrictness;
 
 mod requirement;
+mod rig_name;
 mod strictness;
 
 /// Which of a rig's joints plays a humanoid role.
@@ -66,7 +68,8 @@ pub struct ChainBinding {
 /// How one rig names the humanoid body.
 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 pub struct RigProfile {
-    pub name: String,
+    /// The profile label, independent of skeleton joint names.
+    pub name: RigProfileName,
     pub joints: IndexMap<HumanoidJoint, JointBinding>,
     #[serde(default, skip_serializing_if = "IndexMap::is_empty")]
     pub chains: IndexMap<HumanoidChain, ChainBinding>,
@@ -279,9 +282,9 @@ impl ChainBinding {
 }
 
 impl RigProfile {
-    pub fn new(name: impl Into<String>) -> Self {
+    pub fn new(name: RigProfileName) -> Self {
         Self {
-            name: name.into(),
+            name,
             ..Default::default()
         }
     }

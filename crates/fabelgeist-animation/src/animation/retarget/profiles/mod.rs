@@ -29,6 +29,7 @@ pub fn detect(skeleton: &Skeleton) -> Option<RigProfile> {
 
 #[cfg(test)]
 mod tests {
+    use super::super::profile::RigProfileName;
     use super::*;
     use crate::skeleton::Joint;
     use fabelgeist_math::matrix::Mat4;
@@ -36,7 +37,7 @@ mod tests {
     #[test]
     fn a_known_rig_is_detected() {
         let detected = detect(&MixamoRig::skeleton()).expect("the Mixamo rig should be detected");
-        assert_eq!(detected.name, "Mixamo");
+        assert_eq!(detected.name, RigProfileName::from("Mixamo"));
     }
 
     #[test]

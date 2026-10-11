@@ -6,7 +6,7 @@
 //! touching the algorithm.
 
 use crate::animation::retarget::profile::{
-    ChainBinding, JointRequirement, ReferencePose, RigProfile, RootSource,
+    ChainBinding, JointRequirement, ReferencePose, RigProfile, RigProfileName, RootSource,
 };
 use crate::animation::retarget::semantic::{HumanoidChain, HumanoidJoint};
 use crate::skeleton::mixamo::MixamoRig;
@@ -140,7 +140,7 @@ impl MixamoRig {
         // Mixamo binds in a T-pose, so straightening is very nearly a no-op —
         // but saying so is what lets a target rig that binds differently
         // measure its motion against the same posture.
-        let mut profile = RigProfile::new("Mixamo")
+        let mut profile = RigProfile::new(RigProfileName::from("Mixamo"))
             .with_root(RootSource::Pelvis)
             .with_reference(ReferencePose::TPose)
             .with_markers([joint("Hips"), joint("Spine"), joint("LeftUpLeg")]);
