@@ -90,7 +90,7 @@ impl MaterialExtension for TacticalTerrainExtension {
 pub(in crate::presentation) type TacticalTerrainMaterial =
     ExtendedMaterial<StandardMaterial, TacticalTerrainExtension>;
 
-pub(super) fn enable_cliff_surface(
+pub(in crate::presentation) fn enable_cliff_surface(
     material: &mut TacticalTerrainMaterial,
     recipe: TerrainSurfaceRecipe,
 ) {

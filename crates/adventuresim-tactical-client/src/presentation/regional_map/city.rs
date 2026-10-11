@@ -161,11 +161,11 @@ impl InstalledCity {
         if let Some(mut transform) = world.get_mut::<Transform>(self.root) {
             *transform = Transform::from_matrix(frame.world_from_city());
         }
-        if let Some(mut material) = world
-            .resource_mut::<Assets<TacticalTerrainMaterial>>()
-            .get_mut(&self.ground.terrain_material)
-        {
-            material.extension.set_geographic_frame(frame);
+        let mut terrain_materials = world.resource_mut::<Assets<TacticalTerrainMaterial>>();
+        for handle in &self.ground.terrain_materials {
+            if let Some(mut material) = terrain_materials.get_mut(handle) {
+                material.extension.set_geographic_frame(frame);
+            }
         }
         let mut materials = world.resource_mut::<Assets<CityGroundMaterial>>();
         for handle in &self.ground.paving_materials {

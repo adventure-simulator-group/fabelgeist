@@ -92,7 +92,7 @@ pub(super) fn spawn_base_and_fault(
                 .expect("fault patch has a required surface recipe")
                 .surface(),
         );
-        fault_material.base.depth_bias = 1.0;
+        fault_material.base.depth_bias = LANDFORM_PATCH_DEPTH_BIAS;
         materials.add(fault_material)
     });
     let material = materials.add(material);
@@ -125,7 +125,10 @@ pub(super) fn spawn_base_and_fault(
     }
 }
 
-fn terrain_patch_mesh(patch: SceneTerrainPatch, terrain: &SceneTerrain) -> Mesh {
+pub(in crate::presentation) fn terrain_patch_mesh(
+    patch: SceneTerrainPatch,
+    terrain: &SceneTerrain,
+) -> Mesh {
     let uvs = patch
         .positions()
         .iter()

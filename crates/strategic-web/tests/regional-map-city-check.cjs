@@ -1,6 +1,7 @@
 const assert=require("node:assert/strict");
 const fs=require("node:fs");
 const path=require("node:path");
+const {PNG}=require("playwright-core/lib/utilsBundle");
 
 // Native capture supplies both the complete city and its matching terrain.
 // Only fixture metadata is inspected here; the city response preserves the
@@ -49,6 +50,26 @@ module.exports=async function checkCity(page,output,cityFile,environmentFile) {
   const cold=await page.evaluate(()=>mapStatus());
   checkpoint("installed");
   assert.equal(cold.city_requested,metadata.place);
+  assert.equal(cold.markers.length,2,"Both admitted pins have complete city ground support");
+  // Browser screenshots capture the presented WebGPU texture. Copying its
+  // canvas into a 2D context after presentation reads a cleared drawing buffer.
+  // Hide only foreground labels during capture so they cannot mask a hole.
+  const ground=PNG.sync.read(await page.screenshot({
+    path:path.join(output,"map-city-ground.png"),
+    style:"[data-map-foreground],.strategic-map-markers{visibility:hidden!important}",
+  }));
+  const pixelRatio=await page.evaluate(()=>devicePixelRatio);
+  const groundPixels=cold.markers.map(marker=>{
+    const offset=(Math.round(marker.y*pixelRatio)*ground.width
+      +Math.round(marker.x*pixelRatio))*4;
+    return {place:marker.place,rgba:[...ground.data.subarray(offset,offset+4)]};
+  });
+  for(const pixel of groundPixels) {
+    assert.equal(pixel.rgba[3],255,"Admitted pin ground is rendered opaque");
+    // The map camera's authored clear color is sRGB (0.13, 0.16, 0.19).
+    assert.notDeepEqual(pixel.rgba,[33,41,48,255],
+      "The canonical landform renders ground beneath each admitted pin");
+  }
   assert.equal(cityRequests.length,1,"Only the focused settlement is fetched");
   const capture=await page.evaluate(()=>renderProbe.capture("gpu",3));
   assert.deepEqual(capture.failures,[]);
@@ -79,6 +100,9 @@ module.exports=async function checkCity(page,output,cityFile,environmentFile) {
   await page.keyboard.press("ArrowRight");
   await page.waitForFunction(origin=>mapStatus().origin.longitude!==origin.longitude
     && mapStatus().ready && mapStatus().city_visible,beforePan.origin);
+  await page.evaluate(()=>mapCommand({type:"zoom",ratio:40/mapStatus().span}));
+  await page.waitForFunction(()=>mapStatus().span===40 && mapStatus().ready
+    && mapStatus().city_visible);
   await page.screenshot({path:path.join(output,"map-city-streets.png")});
   const detail=await page.evaluate(()=>mapStatus());
   checkpoint("street-controls");
@@ -113,5 +137,5 @@ module.exports=async function checkCity(page,output,cityFile,environmentFile) {
     "Replacing actor scenery leaves the focused map city installed");
   assert.equal(cityRequests.length,1);
   checkpoint("actor-replaced");
-  return {cold,detail,warm,replacedActor,cityRequests,terrainRequests};
+  return {cold,groundPixels,detail,warm,replacedActor,cityRequests,terrainRequests};
 };
