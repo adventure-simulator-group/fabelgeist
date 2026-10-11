@@ -30,8 +30,10 @@ fn prepared_owned_paving_respects_selected_rings_and_matches_native_coverage() {
     let input = TacticalSceneInput::load(&path).unwrap();
     let generated = input.generate_unfurnished(Default::default()).unwrap();
     let terrain = &generated.terrain;
+    let landform = PreparedTerrainLandform::from(generated.terrain_patch.clone());
     let full =
-        PreparedCityGround::from_scene(&input, terrain, &[], input.vista.lods.len()).unwrap();
+        PreparedCityGround::from_scene(&input, terrain, &landform, &[], input.vista.lods.len())
+            .unwrap();
     let (full_points, _) = full.inspect_geometry();
     assert!(
         full_points.iter().any(|p| p.x < -1182.0),
@@ -51,6 +53,9 @@ fn prepared_owned_paving_respects_selected_rings_and_matches_native_coverage() {
             &crate::presentation::terrain::urban_playable_mesh(terrain, input.landform.as_ref()),
             Vec3::ZERO,
         );
+        if let PreparedTerrainLandform::Patch(patch) = &landform {
+            native.add_patch(patch);
+        }
         for (index, lod) in lods.iter().copied().enumerate() {
             for mesh in crate::presentation::vista::vista_lod_meshes_with_morph(
                 lod,
@@ -74,7 +79,8 @@ fn prepared_owned_paving_respects_selected_rings_and_matches_native_coverage() {
                 * lod.spacing_metres
                 * 0.5;
         }
-        let prepared = PreparedCityGround::from_scene(&input, terrain, &[], maximum_lods).unwrap();
+        let prepared =
+            PreparedCityGround::from_scene(&input, terrain, &landform, &[], maximum_lods).unwrap();
         let (points, areas) = prepared.inspect_geometry();
         assert!(!points.is_empty());
         assert!(
@@ -91,5 +97,58 @@ fn prepared_owned_paving_respects_selected_rings_and_matches_native_coverage() {
                 "selected {maximum_lods}: prepared area {actual} vs native area {expected}"
             );
         }
+    }
+}
+
+#[test]
+fn streets_and_yards_cross_the_displayed_landform_without_lower_heightfield_paving() {
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../assets/tactical-scenes/fault-scarp-cliff.json");
+    let mut input = TacticalSceneInput::load(&path).unwrap();
+    input.streets = vec![CityStreetPatch::Corridor {
+        start_metres: Vec2::new(-5.0, 0.0),
+        end_metres: Vec2::new(5.0, 0.0),
+        half_width_metres: 2.0,
+        surface: CityStreetSurface::Fieldstone,
+    }];
+    input.yards = vec![CityYardPatch {
+        corners_metres: [
+            Vec2::new(-3.0, 6.0),
+            Vec2::new(-3.0, 10.0),
+            Vec2::new(3.0, 10.0),
+            Vec2::new(3.0, 6.0),
+        ],
+        surface: CityYardSurface::PackedEarth,
+    }];
+    let generated = input.generate_unfurnished(Default::default()).unwrap();
+    let patch = generated.terrain_patch.as_ref().unwrap();
+    let mut support = GroundSupport::default();
+    support.add_patch(patch);
+    let prepared = PreparedCityGround::from_scene(
+        &input,
+        &generated.terrain,
+        &PreparedTerrainLandform::from(Some(patch.clone())),
+        &[],
+        input.vista.lods.len(),
+    )
+    .unwrap();
+    let (points, areas) = prepared.inspect_geometry();
+    assert!(
+        (areas[CityGroundKind::FieldstoneStreet.index()] - 40.0).abs() < 0.01,
+        "the complete ten-by-four-metre street must cross the fault patch"
+    );
+    assert!(
+        (areas[CityGroundKind::PackedYard.index()] - 24.0).abs() < 0.01,
+        "the complete six-by-four-metre yard must retain patch support"
+    );
+    for point in points {
+        let plan =
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(point.xz())
+                .unwrap();
+        let ground = support.position(plan).unwrap();
+        assert!(
+            (0.0..0.02).contains(&(point.y - ground.y)),
+            "paving must sit just above the displayed patch, not a lower heightfield"
+        );
     }
 }

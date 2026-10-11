@@ -9,17 +9,10 @@ use adventuresim_tactical_core::{prelude::SceneTerrain, regional_city::RegionalC
 pub(in crate::presentation) struct PreparedCityProduct {
     pub document: RegionalCityInput,
     pub terrain: SceneTerrain,
-    pub landform: PreparedCityLandform,
+    pub landform: PreparedTerrainLandform,
     pub surface_ground: adventuresim_tactical_core::prelude::SceneGround,
     pub ground: Arc<PreparedCityGround>,
     graphics: String,
-}
-
-/// Required worker field: old products cannot omit an implicit terrain patch.
-#[derive(Serialize, Deserialize)]
-pub(in crate::presentation) enum PreparedCityLandform {
-    Natural,
-    Patch(adventuresim_tactical_core::prelude::SceneTerrainPatch),
 }
 
 impl PreparedCityProduct {
@@ -47,17 +40,18 @@ impl PreparedCityProduct {
                     adventuresim_tactical_core::scene_input::SceneValidationError::Terrain(cause),
                 )
             })?;
+        let landform = PreparedTerrainLandform::from(terrain_patch);
         let ground = PreparedCityGround::from_scene(
             document.input(),
             &supported.terrain,
+            &landform,
             &[],
             config.rendering.vista.maximum_lods,
         )?;
         Ok(Self {
             document,
             terrain: supported.terrain,
-            landform: terrain_patch
-                .map_or(PreparedCityLandform::Natural, PreparedCityLandform::Patch),
+            landform,
             surface_ground: supported.ground,
             ground: Arc::new(ground),
             graphics,
