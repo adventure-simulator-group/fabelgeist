@@ -5,12 +5,17 @@ pub use metadata::{
     NpyRank, NpyShape,
 };
 
+pub use values::{
+    NpyByteState, NpyByteStates, NpyFloatValue, NpyFloatValues, NpyIntegerValue, NpyIntegerValues,
+};
+
 use std::path::Path;
 
 use anyhow::{Context, Result, bail};
 use burn::tensor::{Device, Int, Tensor, TensorData};
 
 mod metadata;
+mod values;
 
 /// One admitted array with immutable shape, element type, and payload metadata.
 ///
@@ -81,62 +86,16 @@ impl NpyArray {
         &self.bytes
     }
 
-    /// Values converted to `f32`, whatever the stored element type.
-    pub fn to_f32(&self) -> Vec<f32> {
-        match self.dtype {
-            Dtype::F32 => self.map_chunks(NpyElementWidth::Word32, |b| {
-                f32::from_le_bytes(std::array::from_fn(|index| b[index]))
-            }),
-            Dtype::F64 => self.map_chunks(NpyElementWidth::Word64, |b| {
-                f64::from_le_bytes(std::array::from_fn(|index| b[index])) as f32
-            }),
-            Dtype::I32 => self.map_chunks(NpyElementWidth::Word32, |b| {
-                i32::from_le_bytes(std::array::from_fn(|index| b[index])) as f32
-            }),
-            Dtype::I64 => self.map_chunks(NpyElementWidth::Word64, |b| {
-                i64::from_le_bytes(std::array::from_fn(|index| b[index])) as f32
-            }),
-            Dtype::U8 | Dtype::Bool => self.bytes.iter().map(|b| *b as f32).collect(),
-        }
-    }
-
-    /// Values converted to `i64`, whatever the stored element type.
-    pub fn to_i64(&self) -> Vec<i64> {
-        match self.dtype {
-            Dtype::F32 => self.map_chunks(NpyElementWidth::Word32, |b| {
-                f32::from_le_bytes(std::array::from_fn(|index| b[index])) as i64
-            }),
-            Dtype::F64 => self.map_chunks(NpyElementWidth::Word64, |b| {
-                f64::from_le_bytes(std::array::from_fn(|index| b[index])) as i64
-            }),
-            Dtype::I32 => self.map_chunks(NpyElementWidth::Word32, |b| {
-                i32::from_le_bytes(std::array::from_fn(|index| b[index])) as i64
-            }),
-            Dtype::I64 => self.map_chunks(NpyElementWidth::Word64, |b| {
-                i64::from_le_bytes(std::array::from_fn(|index| b[index]))
-            }),
-            Dtype::U8 | Dtype::Bool => self.bytes.iter().map(|b| *b as i64).collect(),
-        }
-    }
-
-    pub fn to_bool(&self) -> Vec<bool> {
-        self.bytes.iter().map(|b| *b != 0).collect()
-    }
-
-    fn map_chunks<T>(&self, width: NpyElementWidth, convert: impl Fn(&[u8]) -> T) -> Vec<T> {
-        self.bytes
-            .chunks_exact(width.native_width())
-            .map(convert)
-            .collect()
-    }
-
     /// Uploads the array to a device as a float tensor.
     pub fn to_tensor<const D: usize>(
         &self,
         device: &Device,
     ) -> std::result::Result<Tensor<D>, NpyLayoutError> {
         Ok(Tensor::from_data(
-            TensorData::new(self.to_f32(), self.shape.tensor_layout::<D>()?.dimensions),
+            TensorData::new(
+                Vec::<f32>::from(NpyFloatValues::from(self)),
+                self.shape.tensor_layout::<D>()?.dimensions,
+            ),
             device,
         ))
     }
@@ -147,7 +106,10 @@ impl NpyArray {
         device: &Device,
     ) -> std::result::Result<Tensor<D, Int>, NpyLayoutError> {
         Ok(Tensor::from_data(
-            TensorData::new(self.to_i64(), self.shape.tensor_layout::<D>()?.dimensions),
+            TensorData::new(
+                Vec::<i64>::from(NpyIntegerValues::from(self)),
+                self.shape.tensor_layout::<D>()?.dimensions,
+            ),
             device,
         ))
     }
@@ -256,7 +218,10 @@ pub(crate) mod tests {
         let array = NpyArray::from_bytes(&encode("<f4", "3,", &payload)).unwrap();
         assert_eq!(array.shape().dimensions(), [NpyDimension::from(3)]);
         assert_eq!(array.dtype(), Dtype::F32);
-        assert_eq!(array.to_f32(), [1.0, -2.5, 3.25]);
+        assert_eq!(
+            Vec::<f32>::from(crate::NpyFloatValues::from(&array)),
+            [1.0, -2.5, 3.25]
+        );
     }
 
     #[test]
@@ -270,14 +235,23 @@ pub(crate) mod tests {
             array.shape().dimensions(),
             [NpyDimension::from(2), NpyDimension::from(2)]
         );
-        assert_eq!(array.to_i64(), [1, 2, 3, 4]);
-        assert_eq!(array.to_f32(), [1.0, 2.0, 3.0, 4.0]);
+        assert_eq!(
+            Vec::<i64>::from(crate::NpyIntegerValues::from(&array)),
+            [1, 2, 3, 4]
+        );
+        assert_eq!(
+            Vec::<f32>::from(crate::NpyFloatValues::from(&array)),
+            [1.0, 2.0, 3.0, 4.0]
+        );
     }
 
     #[test]
     fn parses_a_bool_array() {
         let array = NpyArray::from_bytes(&encode("|b1", "4,", &[1, 0, 1, 1])).unwrap();
-        assert_eq!(array.to_bool(), [true, false, true, true]);
+        assert_eq!(
+            Vec::<bool>::from(crate::NpyByteStates::from(&array)),
+            [true, false, true, true]
+        );
     }
 
     #[test]

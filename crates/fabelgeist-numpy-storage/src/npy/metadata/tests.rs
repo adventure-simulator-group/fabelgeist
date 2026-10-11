@@ -72,13 +72,13 @@ fn array_admission_retains_checked_shape_and_payload_consistency() {
     assert_eq!(array.element_count(), NpyElementCount::from(1));
     assert_eq!(array.dtype(), Dtype::F32);
     assert_eq!(array.dtype().storage_width(), NpyElementWidth::Word32);
-    assert_eq!(array.to_f32(), [1.5]);
+    assert_eq!(Vec::<f32>::from(crate::NpyFloatValues::from(&array)), [1.5]);
     assert_eq!(array.bytes(), &1.5f32.to_le_bytes());
     let dimensions = format!("{}, {}, 0", usize::MAX, usize::MAX);
     let empty = NpyArray::from_bytes(&encode("<f8", &dimensions, &[])).unwrap();
     assert_eq!(empty.occupancy(), NpyOccupancy::Empty);
     assert_eq!(empty.shape().rank(), NpyRank::from(3));
-    assert!(empty.to_f32().is_empty());
+    assert!(Vec::<f32>::from(crate::NpyFloatValues::from(&empty)).is_empty());
     assert!(empty.bytes().is_empty());
 
     let dimensions = format!("{}, 2", usize::MAX);
@@ -145,8 +145,16 @@ fn every_stored_width_retains_element_cardinality_and_casts() {
     for (encoding, payload, floats, integers) in cases {
         let array = NpyArray::from_bytes(&encode(encoding, "2,", &payload)).unwrap();
         assert_eq!(array.element_count(), NpyElementCount::from(2));
-        assert_eq!(array.to_f32(), floats, "{encoding}");
-        assert_eq!(array.to_i64(), integers, "{encoding}");
+        assert_eq!(
+            Vec::<f32>::from(crate::NpyFloatValues::from(&array)),
+            floats,
+            "{encoding}"
+        );
+        assert_eq!(
+            Vec::<i64>::from(crate::NpyIntegerValues::from(&array)),
+            integers,
+            "{encoding}"
+        );
         assert_eq!(array.bytes(), payload);
     }
 }

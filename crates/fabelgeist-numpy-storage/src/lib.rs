@@ -1,7 +1,7 @@
 //! NumPy array storage for Burn.
 //!
 //! Reads `.npy` files and `.npz` archives (stored or deflated, zip64 included)
-//! and hands the contents back either as plain vectors or as Burn tensors.
+//! and retains decoded values in bespoke collections until Burn tensor adapters.
 //! Pure Rust: no NumPy, no C zlib.
 //!
 //! ```no_run
@@ -17,7 +17,8 @@
 //! ```
 
 pub use npy::{
-    Dtype, NpyArray, NpyDimension, NpyElementCount, NpyElementWidth, NpyLayoutError, NpyOccupancy,
+    Dtype, NpyArray, NpyByteState, NpyByteStates, NpyDimension, NpyElementCount, NpyElementWidth,
+    NpyFloatValue, NpyFloatValues, NpyIntegerValue, NpyIntegerValues, NpyLayoutError, NpyOccupancy,
     NpyPayloadLength, NpyRank, NpyShape,
 };
 pub use npz::Npz;
