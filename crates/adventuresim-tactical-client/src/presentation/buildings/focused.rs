@@ -3,12 +3,14 @@ use super::*;
 use adventuresim_tactical_core::{
     regional_city::RegionalCityInput, scene_input::TacticalBuildingPlacement,
 };
+use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use bevy::ecs::system::SystemState;
 
 pub(in crate::presentation) fn queue_focused_city(
     world: &mut World,
     city: &RegionalCityInput,
     root: Entity,
+    window_origin: Wgs84CoordinateMicrodegrees,
 ) -> Result {
     let mut state = SystemState::<(
         ResMut<TacticalBuildingMeshCache>,
@@ -18,6 +20,7 @@ pub(in crate::presentation) fn queue_focused_city(
     let (mut cache, mut meshes, mut cities) = state.get_mut(world);
     let owner = PresentationOwner::RegionalMap;
     let mut queued = gpu::PendingGpuBuildings::default();
+    queued.set_frame(gpu::CityFrame::from_geographic_city(city, window_origin));
     let mut append = |placement: &TacticalBuildingPlacement, appearance| -> Result {
         let compiled = cached_building_levels(
             owner,

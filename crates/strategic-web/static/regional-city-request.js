@@ -37,7 +37,10 @@ export function createRegionalCityRequests({ runtimePromise, install, changed = 
       finally { if (preparing === ownedPreparation) preparing = undefined; }
       try {
         signal.throwIfAborted();
-        install({ document, preparation });
+        // Native installation may fail after accepting the command. Residency
+        // requires its acknowledgement, not merely successful command sending.
+        await install({ document, preparation, signal });
+        signal.throwIfAborted();
       } catch (cause) {
         runtime.wasm_cancel_generation(preparation);
         throw cause;
