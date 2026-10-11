@@ -51,3 +51,8 @@ string representation.
 
 [Rig inference](rig-inference.md) describes how joint spellings are recognized,
 the resulting profile and reports, and the limits of heuristic matching.
+
+## Retarget joint lookup
+
+[Retarget joint lookup](retarget-matching.md) describes exact and loose joint
+lookup, collision and alias precedence, and how profiles resolve against a rig.
