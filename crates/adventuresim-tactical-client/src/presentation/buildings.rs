@@ -11,6 +11,7 @@ use super::recipe_mesh::recipe_mesh;
 use super::*;
 pub(in crate::presentation) use focused::queue_focused_city;
 pub(in crate::presentation) use gpu::CityFrame;
+pub(in crate::presentation) use gpu::set_visible as set_city_visible;
 pub(in crate::presentation) use gpu::{CityAssemblyFailure, CityAssemblyPublished};
 
 mod boundaries;

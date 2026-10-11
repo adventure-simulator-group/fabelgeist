@@ -17,7 +17,7 @@ pub(in crate::presentation) fn queue_focused_city(
         ResMut<Assets<Mesh>>,
         ResMut<gpu::PendingGpuCities>,
     )>::new(world);
-    let (mut cache, mut meshes, mut cities) = state.get_mut(world);
+    let (mut cache, mut meshes, mut cities) = state.get_mut(world)?;
     let owner = PresentationOwner::RegionalMap;
     let mut queued = gpu::PendingGpuBuildings::default();
     queued.set_publication(

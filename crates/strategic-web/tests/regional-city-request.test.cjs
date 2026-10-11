@@ -13,6 +13,45 @@ const turn = () => new Promise(resolve => setImmediate(resolve));
 const deferred = () => { let resolve; const promise = new Promise(yes => { resolve = yes; });
   return { promise, resolve }; };
 
+const installationSource = fs.readFileSync(path.join(__dirname,
+  "../static/regional-city-installation.js"), "utf8").replace("export async function", "async function");
+const installRegionalCity = Function("requestAnimationFrame", "performance",
+  `${installationSource}\nreturn installRegionalCity;`)(callback => setImmediate(callback),
+  { now: () => 0 });
+
+test("native city acknowledgement matches the exact ticket and preserves physical integer text", async () => {
+  const preparation = JSON.stringify({ owner: "regional-map", sequence: 7 });
+  const document = '{"seed":18446744073709551615}';
+  const statuses = [
+    { preparation: { owner: "scene", sequence: 7 }, phase: "ready" },
+    { preparation: { owner: "regional-map", sequence: 6 }, phase: "failed", error: "assembly" },
+    { preparation: JSON.parse(preparation), phase: "preparing" },
+    { preparation: JSON.parse(preparation), phase: "ready" },
+  ];
+  let polls = 0, command;
+  await installRegionalCity({
+    wasm_command: value => { command = JSON.parse(value); },
+    wasm_regional_map_status: () => JSON.stringify({ city_installation: statuses[polls++] }),
+  }, { document, preparation, signal: new AbortController().signal });
+  assert.equal(polls, 4, "another owner or candidate cannot acknowledge this installation");
+  assert.equal(command.command.document_json, document);
+  assert.deepEqual(command.command.preparation, JSON.parse(preparation));
+});
+
+test("native city failure and cancelled acknowledgement reject without publishing residency", async () => {
+  const ticket = { owner: "regional-map", sequence: 8 }, controller = new AbortController();
+  const input = { document: "opaque document", preparation: JSON.stringify(ticket), signal: controller.signal };
+  const runtime = { wasm_command() {}, wasm_regional_map_status: () => JSON.stringify({
+    city_installation: { preparation: ticket, phase: "failed", error: "ground" },
+  }) };
+  await assert.rejects(installRegionalCity(runtime, input), /City detail unavailable \(ground\)/);
+  let commands = 0;
+  controller.abort();
+  await assert.rejects(installRegionalCity({ ...runtime, wasm_command() { commands++; } }, input),
+    { name: "AbortError" });
+  assert.equal(commands, 0);
+});
+
 test("panning cancels obsolete city preparation before publishing the latest opaque document", async () => {
   const blocked = deferred(), prepared = [], installed = [], cancelled = [], signals = [];
   const oldDocument = '{"seed":18446744073709551615,"city":"old"}';

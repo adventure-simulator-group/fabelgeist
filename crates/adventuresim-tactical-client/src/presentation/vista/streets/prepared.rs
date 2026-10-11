@@ -251,7 +251,10 @@ mod tests {
                     map.attribute(attribute).unwrap().get_bytes()
                 );
             }
-            let actor = actor.indices().unwrap().iter().collect::<Vec<_>>();
+            let actor = actor.indices().map_or_else(
+                || (0..actor.count_vertices()).collect::<Vec<_>>(),
+                |indices| indices.iter().collect::<Vec<_>>(),
+            );
             let map = map.indices().unwrap().iter().collect::<Vec<_>>();
             for (actor, map) in actor.as_chunks::<3>().0.iter().zip(map.as_chunks::<3>().0) {
                 assert_eq!([actor[0], actor[2], actor[1]], *map);

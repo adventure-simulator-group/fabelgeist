@@ -100,7 +100,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
             street:actorPlaces.length?{x:0,y:0,width:innerWidth*devicePixelRatio,height:innerHeight*devicePixelRatio,
               full_width:innerWidth*devicePixelRatio,full_height:innerHeight*devicePixelRatio,offset_x:0,offset_y:0}:null,
             stage:null,forge:null,portraits:[]}}));
-          window.runtime=runtime;
+          window.runtime=preparationRuntime;
         } catch(error) { console.error(error); window.bootFailure=String(error); }
       </script></body></html>`);
   });
@@ -323,7 +323,9 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     await page.screenshot({path:path.join(output,"uncovered.png")});
     const interfaceResult = await require("./regional-map-interface-check.cjs")(page,output);
     const realSource=await require("./regional-map-real-source-check.cjs")(page,output,process.env.REGIONAL_MAP_ENVIRONMENT_DIR);
-    fs.writeFileSync(path.join(output,"result.json"), JSON.stringify({warm,changed,capacity,connectionCapacity,cameraControls,interfaceResult,realSource,capture,actorCapture,missing,errors}, null, 2));
+    const city=await require("./regional-map-city-check.cjs")(page,output,cityInput,
+      process.env.REGIONAL_MAP_CITY_ENVIRONMENT_INPUT);
+    fs.writeFileSync(path.join(output,"result.json"), JSON.stringify({warm,changed,capacity,connectionCapacity,cameraControls,interfaceResult,realSource,city,capture,actorCapture,missing,errors}, null, 2));
     assert.deepEqual(missing.filter(url => !unusedMissingMotions.has(url)), []);
     assert.deepEqual(errors.filter(error => {
       try { return !unusedMissingMotions.has(new URL(error.url).pathname); } catch { return true; }

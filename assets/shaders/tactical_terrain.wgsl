@@ -32,6 +32,7 @@ struct TacticalTerrainMaterial {
     cliff_surface: vec4<f32>,
     cliff_structure_a: vec4<f32>,
     cliff_structure_b: vec4<f32>,
+    source_from_world: mat4x4<f32>,
 }
 
 @group(#{MATERIAL_BIND_GROUP}) @binding(100)
@@ -152,6 +153,7 @@ fn height_perturbed_normal(
 fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> FragmentOutput {
     var pbr_input = pbr_input_from_standard_material(in, is_front);
     let position = in.world_position.xyz;
+    let material_position = (terrain.source_from_world * in.world_position).xyz;
     let normal = normalize(in.world_normal);
 
     // The camera-local mesh contains signed residual height. Remove the
@@ -168,6 +170,13 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     // bright environment-light floor wash out centimetre-scale facets.
     let readable_detail_normal = normalize(vec3<f32>(normal.x * 1.45, normal.y, normal.z * 1.45));
     let base_normal = select(readable_detail_normal, normal, terrain.detail_patch.x > 0.5);
+    // This frame is axis-aligned: convert world normals back to the source
+    // frame for triplanar selection without reflecting the lighting normal.
+    let source_normal = normalize(vec3<f32>(
+        base_normal.x / terrain.source_from_world[0].x,
+        base_normal.y,
+        base_normal.z / terrain.source_from_world[2].z,
+    ));
     pbr_input.N = base_normal;
     let wetland = terrain.cover.y;
     let cultivation = terrain.cover.z;
@@ -184,16 +193,16 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     // mapping is sufficient for walkable soil; its influence fades on steep
     // faces where planar projection would stretch.
     let soil_warp = vec2<f32>(
-        sin(position.z * 0.29 + position.x * 0.11),
-        sin(position.x * 0.23 - position.z * 0.17),
+        sin(material_position.z * 0.29 + material_position.x * 0.11),
+        sin(material_position.x * 0.23 - material_position.z * 0.17),
     ) * 0.035;
-    let soil_uv = position.xz * terrain.soil_detail.x + soil_warp;
+    let soil_uv = material_position.xz * terrain.soil_detail.x + soil_warp;
     let soil_sample = decode_surface_height_ao(textureSample(soil_height_ao, soil_height_ao_sampler, soil_uv));
     let litter_warp = vec2<f32>(
-        sin(position.z * 0.17 - position.x * 0.07),
-        sin(position.x * 0.13 + position.z * 0.09),
+        sin(material_position.z * 0.17 - material_position.x * 0.07),
+        sin(material_position.x * 0.13 + material_position.z * 0.09),
     ) * 0.021;
-    let litter_uv = position.xz * terrain.litter_detail.x + litter_warp;
+    let litter_uv = material_position.xz * terrain.litter_detail.x + litter_warp;
     // R is also a true parallax height field. One bounded relief lookup shifts
     // the shared normal/surface samples at grazing angles, while an overhead
     // view remains exactly on the unshifted world-XZ projection.
@@ -202,7 +211,8 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
         litter_surface_sampler,
         litter_uv,
     );
-    let view_to_camera = normalize(view.lod_view_world_position.xyz - position);
+    let source_camera = (terrain.source_from_world * vec4<f32>(view.lod_view_world_position.xyz, 1.0)).xyz;
+    let view_to_camera = normalize(source_camera - material_position);
     let parallax_direction = view_to_camera.xz / max(abs(view_to_camera.y), 0.24);
     let parallax_height_metres = (litter_base_sample.r - 0.48) * terrain.litter_detail.y;
     let parallax_offset = clamp(
@@ -256,7 +266,8 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     let litter_normal_y = sqrt(max(0.0, 1.0 - dot(litter_normal_xz, litter_normal_xz)));
     let litter_mapped_normal = normalize(
         base_normal * litter_normal_y
-        + vec3<f32>(litter_normal_xz.x, 0.0, litter_normal_xz.y)
+        + vec3<f32>(litter_normal_xz.x / terrain.source_from_world[0].x,
+            0.0, litter_normal_xz.y / terrain.source_from_world[2].z)
     );
     let litter_relief = litter_region * litter_sample.a * litter_distance_fade;
     pbr_input.N = normalize(mix(
@@ -286,13 +297,13 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     let cliff_side = smoothstep(0.16, 0.58, 1.0 - abs(normal.y));
     let cliff_underside = 1.0 - smoothstep(-0.62, -0.12, normal.y);
     let cliff_response = terrain.cliff_palette_a.w * max(cliff_side, cliff_underside);
-    let cliff_weights = cliff_triplanar_weights(base_normal);
-    let cliff_uvs = cliff_axis_uvs(position);
+    let cliff_weights = cliff_triplanar_weights(source_normal);
+    let cliff_uvs = cliff_axis_uvs(material_position);
     let cliff_height_sample = cliff_triplanar_height(cliff_uvs, cliff_weights);
     let cliff_arm_sample = cliff_triplanar_arm(cliff_uvs, cliff_weights);
     let cliff_height_metres = (cliff_height_sample - 0.5) * terrain.cliff_surface.y;
     let cliff_normal = height_perturbed_normal(position, base_normal, cliff_height_metres, 1.0);
-    let cliff_selector = geological_palette_selector(position);
+    let cliff_selector = geological_palette_selector(material_position);
     let cliff_color = mix(terrain.cliff_palette_a.rgb, terrain.cliff_palette_b.rgb, cliff_selector);
     color = mix(color, cliff_color, cliff_response);
     pbr_input.N = normalize(mix(pbr_input.N, cliff_normal, cliff_response));
@@ -340,7 +351,7 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     // Retain low-amplitude world-space variation without hard-selecting one
     // flat terminal color. Continuous optical coverage avoids a visible ring
     // as geometry hands the sward to the terrain.
-    let sward_cell = floor(position.xz * 2.0);
+    let sward_cell = floor(material_position.xz * 2.0);
     let sward_dither = fract(sin(dot(sward_cell, vec2<f32>(12.9898, 78.233))) * 43758.5453);
     let sward_target = sward_color * mix(0.92, 1.08, sward_dither);
     color = mix(color, sward_target, sward_amount);
@@ -350,8 +361,8 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     // material map to the vista's aggregate sward with discrete world-space
     // coverage instead of exposing a brown rectangular patch.
     let outside_distance = max(
-        abs(position.x) - terrain.playable_bounds.x,
-        abs(position.z) - terrain.playable_bounds.y,
+        abs(material_position.x) - terrain.playable_bounds.x,
+        abs(material_position.z) - terrain.playable_bounds.y,
     );
     let outside_sward = smoothstep(0.0, terrain.playable_bounds.z, outside_distance);
     color = mix(color, sward_target, outside_sward);

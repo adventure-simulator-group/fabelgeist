@@ -29,9 +29,11 @@ building pads, compounds and distant property grounding. Exterior facade jobs
 cover primary and distant placements. City preparation requests no occupied
 interiors, furniture, landscape scatter or actors; actor jobs accept actor
 tickets only. Each map product set retains one city, with immutable terrain and
-ground batches shared across installed and staged residency. Installation checks
+ground samples and batches shared across installed and staged residency.
+Installation checks
 the complete source, settlement, origin and scene document before activation.
-The worker API prepares products; the map controller does not request them yet.
+The map controller requests only the closest known settlement at street scale
+and awaits the native installation acknowledgement before claiming residency.
 
 Dependencies use the shared `ProgramFurnitureSite` record from tactical core.
 Scene transfer carries exact occupied placements and requires the matching

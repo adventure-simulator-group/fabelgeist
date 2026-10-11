@@ -40,6 +40,8 @@ pub(in crate::presentation) struct TacticalTerrainExtension {
     pub(super) cliff_structure_a: Vec4,
     #[uniform(100)]
     pub(super) cliff_structure_b: Vec4,
+    #[uniform(100)]
+    pub(super) source_from_world: Mat4,
     #[texture(101)]
     #[sampler(102)]
     pub(super) ground_map: Handle<Image>,
@@ -61,6 +63,18 @@ pub(in crate::presentation) struct TacticalTerrainExtension {
     // Rock height and ARM share filtering and addressing; reuse binding 112.
     #[texture(113)]
     pub(super) cliff_arm: Handle<Image>,
+}
+
+impl TacticalTerrainExtension {
+    /// Native shader adapter: material coordinates retain canonical city metres
+    /// while the map window moves. Static map ground has no camera detail cutout.
+    pub(in crate::presentation) fn set_geographic_frame(
+        &mut self,
+        frame: super::super::buildings::CityFrame,
+    ) {
+        self.source_from_world = frame.world_from_city().inverse();
+        self.detail_patch.x = 0.0;
+    }
 }
 
 impl MaterialExtension for TacticalTerrainExtension {

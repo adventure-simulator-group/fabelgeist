@@ -1,13 +1,13 @@
 //! Preserve authored normals when the geographic frame reflects local north.
 use bevy::{
-    mesh::{MeshWindingInvertError, VertexAttributeValues},
+    mesh::{Indices, MeshWindingInvertError, VertexAttributeValues},
     prelude::*,
 };
 
 #[derive(Debug, thiserror::Error)]
 pub(in crate::presentation) enum GeographicGroundError {
-    #[error("canonical city ground must carry triangle indices")]
-    MissingIndices,
+    #[error("canonical city ground exceeds the mesh index range")]
+    IndexCapacity,
     #[error(transparent)]
     Winding(#[from] MeshWindingInvertError),
 }
@@ -17,7 +17,12 @@ pub(in crate::presentation) enum GeographicGroundError {
 /// Source normals remain authored normals, transformed by the root as usual.
 pub(in crate::presentation) fn reflected(mut mesh: Mesh) -> Result<Mesh, GeographicGroundError> {
     if mesh.indices().is_none() {
-        return Err(GeographicGroundError::MissingIndices);
+        // Paving stores consecutive triangle vertices. Give that authored
+        // topology indices so reflection can reverse winding without moving
+        // vertices or changing any of their material attributes.
+        let count = u32::try_from(mesh.count_vertices())
+            .map_err(|_| GeographicGroundError::IndexCapacity)?;
+        mesh.insert_indices(Indices::U32((0..count).collect()));
     }
     mesh.invert_winding()?;
     if let Some(VertexAttributeValues::Float32x4(tangents)) =
