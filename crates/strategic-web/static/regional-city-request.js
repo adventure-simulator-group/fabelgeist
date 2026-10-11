@@ -39,6 +39,9 @@ export function createRegionalCityRequests({ runtimePromise, install, changed = 
         signal.throwIfAborted();
         // Native installation may fail after accepting the command. Residency
         // requires its acknowledgement, not merely successful command sending.
+        // Once replacement is queued, the previous city may be displaced even
+        // if this request is cancelled before that acknowledgement arrives.
+        resident = undefined;
         await install({ document, preparation, signal });
         signal.throwIfAborted();
       } catch (cause) {

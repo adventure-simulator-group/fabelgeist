@@ -68,7 +68,13 @@ fn prepared_owned_ground_keeps_full_physical_support_across_graded_boundaries() 
     .unwrap();
     let mut assets = Assets::<Mesh>::default();
     let mut checked = 0;
-    for (_, kind, handle, _) in prepared.meshes(&mut assets) {
+    for (_, kind, handle, _) in prepared
+        .meshes(
+            crate::presentation::ownership::PresentationOwner::Scene,
+            &mut assets,
+        )
+        .unwrap()
+    {
         let mesh = assets.get(handle).unwrap();
         let positions = mesh
             .attribute(Mesh::ATTRIBUTE_POSITION)
