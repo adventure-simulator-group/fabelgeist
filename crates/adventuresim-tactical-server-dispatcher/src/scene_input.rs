@@ -749,6 +749,10 @@ mod tests {
         if let Some(output) = std::env::var_os("REGIONAL_CITY_FIXTURE_OUTPUT") {
             fs::write(output, &document).expect("write isolated regional-city fixture");
         }
+        if let Some(output) = std::env::var_os("REGIONAL_SCENE_FIXTURE_OUTPUT") {
+            fs::write(output, serde_json::to_string(&input).unwrap())
+                .expect("write isolated actor-scene fixture");
+        }
         let mut mismatched_source = serde_json::to_value(&city).unwrap();
         mismatched_source["source"] = serde_json::Value::String("0".repeat(64));
         assert!(

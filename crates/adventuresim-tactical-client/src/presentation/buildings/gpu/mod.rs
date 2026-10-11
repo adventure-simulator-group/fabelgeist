@@ -8,12 +8,14 @@ use bevy::{
         storage::ShaderBuffer,
     },
 };
+pub(in crate::presentation) use frame::CityFrame;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 mod assembly;
 mod compute;
 mod draw;
+mod frame;
 mod geometry;
 mod material;
 mod scratch;
@@ -44,6 +46,8 @@ struct CityGpuScenes {
 
 #[derive(Clone, Default)]
 struct CityGpuScene {
+    pub frame: CityFrame,
+    pub frame_buffer: Handle<ShaderBuffer>,
     pub buildings: Handle<ShaderBuffer>,
     pub selection: Handle<ShaderBuffer>,
     pub count: u32,
