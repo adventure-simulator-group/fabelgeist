@@ -20,13 +20,17 @@ replace the previous city, independently of actor preparation or replacement.
 Status exposes `city_requested`, `city_installation` and `city_visible`.
 
 Canonical playable ground and all configured vista rings use the same producer
-as actor scenery. Streets and yards reuse the worker's terrain-clipped batches.
+as actor scenery. The worker also retains the implicit geological patch that
+owns any landform cutout; its displayed triangles participate in ground queries.
+Streets and yards reuse the worker's terrain-clipped batches.
 Geographic uploads reverse triangle indices without changing actor mesh
 handles. The city root and GPU frame carry local east/up/north metres into the
 window's east/up/south frame, including absolute source elevation. Reanchoring
 updates the root, one GPU frame buffer and material-coordinate uniforms without
 regenerating terrain or buildings. Soil, stone and wear patterns stay fixed in
 canonical city coordinates.
+Terrain uses the same standard sky-environment lighting as paving and building
+materials; the sky authority intentionally provides no flat ambient-light floor.
 
 The renderer retains the actual displayed ground triangles for camera focus,
 pins, selected routes and source connections. Paving and route ribbons clip to
@@ -55,3 +59,9 @@ placement, grading or actor traffic. Moving immutable ground mesh construction
 into the existing worker product and adding staged uploads are available
 performance iterations. Neither requires generating all cities on map opening
 or creating another renderer.
+
+The fault-scarp fixture retains pronounced facet contrast in its current
+materials. Geometry, transformed normals and ground coverage are verified;
+material tuning remains a presentation follow-up. The shared paving producer
+also needs the retained landform's walkable faces to continue streets through
+its cutout.

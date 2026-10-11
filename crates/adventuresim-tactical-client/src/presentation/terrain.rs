@@ -19,16 +19,18 @@ mod urban;
 mod volumetric;
 pub(in crate::presentation) use urban::{UrbanGroundCoveragePlugin, urban_playable_mesh};
 
-use cliff_surface::enable_cliff_surface;
+pub(in crate::presentation) use cliff_surface::enable_cliff_surface;
 pub(in crate::presentation) use cliff_surface::{
     TacticalTerrainExtension, TacticalTerrainMaterial,
 };
+pub(in crate::presentation) use volumetric::terrain_patch_mesh;
 
 const DETAIL_PATCH_RADIUS_METRES: f32 = 12.0;
 const DETAIL_PATCH_MORPH_START_METRES: f32 = 8.0;
 pub(crate) const DETAIL_PATCH_SPACING_METRES: f32 = 0.5;
 const DETAIL_PATCH_SNAP_METRES: f32 = 1.0;
 const DETAIL_PATCH_DEPTH_BIAS: f32 = 2.0;
+pub(in crate::presentation) const LANDFORM_PATCH_DEPTH_BIAS: f32 = 1.0;
 const DETAIL_PATCH_BASE_CUTOUT_RADIUS_METRES: f32 = 10.0;
 #[cfg(test)]
 const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
