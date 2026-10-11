@@ -96,3 +96,23 @@ test("failed city refinement retries explicitly and warm return cancels remote f
   assert.throws(() => cities.request({ ...request("resident"), place: "place:v1:case-site:aa" }),
     /Invalid focused settlement request/);
 });
+
+test("cancelling a queued native replacement cannot claim the displaced city remains resident", async () => {
+  const blocked = deferred();
+  let fetches = 0, installs = 0;
+  const cities = createRegionalCityRequests({
+    runtimePromise: Promise.resolve({ wasm_cancel_generation() {} }),
+    fetchCity: async () => { fetches++; return response("canonical city"); },
+    prepareCity: async () => "ticket",
+    install: async () => { if (++installs === 2) await blocked.promise; },
+  });
+  await cities.request(request("home"));
+  const replacement = cities.request(request("remote")); await turn();
+  cities.cancel();
+  assert.equal(cities.state.phase, "idle");
+  assert.equal((await cities.request(request("home"))).status, "prepared");
+  blocked.resolve();
+  assert.equal((await replacement).status, "superseded");
+  assert.equal(fetches, 3, "the displaced city requires a confirmed installation");
+  assert.equal((await cities.request(request("home"))).status, "reused");
+});

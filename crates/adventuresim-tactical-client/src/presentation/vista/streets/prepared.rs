@@ -1,15 +1,20 @@
 //! Pure street clipping and retained upload-ready city-ground batches.
 use super::*;
+use crate::presentation::{
+    ownership::{PresentationOwner, PresentationOwners},
+    vista::geographic_ground,
+};
 use adventuresim_tactical_core::scene_input::SceneInputResult;
 use std::sync::OnceLock;
 
 type InstalledGround = Vec<(traffic::TrafficTile, CityGroundKind, Handle<Mesh>, usize)>;
+type GroundUpload = Result<InstalledGround, geographic_ground::GeographicGroundError>;
 
 #[derive(serde::Serialize, serde::Deserialize)]
 pub(in crate::presentation) struct PreparedCityGround {
     batches: Vec<(traffic::TrafficTile, CityGroundKind, mesh::SurfaceVertices)>,
     #[serde(skip)]
-    installed: OnceLock<InstalledGround>,
+    installed: PresentationOwners<OnceLock<GroundUpload>>,
     #[serde(skip)]
     pub(super) traffic: streaming::RetainedTrafficMasks,
 }
@@ -56,7 +61,7 @@ impl PreparedCityGround {
                         .map(move |(tile, vertices)| (tile, kind, vertices))
                 })
                 .collect(),
-            installed: OnceLock::new(),
+            installed: Default::default(),
             traffic: Default::default(),
         }
     }
@@ -121,17 +126,27 @@ impl PreparedCityGround {
         Ok(Self::new(&input.streets, &input.yards, groups, &support))
     }
 
-    pub(super) fn meshes(&self, meshes: &mut Assets<Mesh>) -> &InstalledGround {
-        self.installed.get_or_init(|| {
-            self.batches
-                .iter()
-                .map(|(tile, kind, vertices)| {
-                    let mesh = vertices.clone().build();
-                    let triangles = mesh_triangle_count(&mesh);
-                    (*tile, *kind, meshes.add(mesh), triangles)
-                })
-                .collect()
-        })
+    pub(super) fn meshes(
+        &self,
+        owner: PresentationOwner,
+        meshes: &mut Assets<Mesh>,
+    ) -> Result<&InstalledGround, &geographic_ground::GeographicGroundError> {
+        self.installed
+            .get(owner)
+            .get_or_init(|| {
+                self.batches
+                    .iter()
+                    .map(|(tile, kind, vertices)| {
+                        let mut mesh = vertices.clone().build();
+                        if owner == PresentationOwner::RegionalMap {
+                            mesh = geographic_ground::reflected(mesh)?;
+                        }
+                        let triangles = mesh_triangle_count(&mesh);
+                        Ok((*tile, *kind, meshes.add(mesh), triangles))
+                    })
+                    .collect()
+            })
+            .as_ref()
     }
 }
 
@@ -164,8 +179,12 @@ mod tests {
         ciborium::into_writer(&prepared, &mut bytes).unwrap();
         let restored: PreparedCityGround = ciborium::from_reader(bytes.as_slice()).unwrap();
         let mut assets = Assets::<Mesh>::default();
-        let original = prepared.meshes(&mut assets);
-        let decoded = restored.meshes(&mut assets);
+        let original = prepared
+            .meshes(PresentationOwner::Scene, &mut assets)
+            .unwrap();
+        let decoded = restored
+            .meshes(PresentationOwner::Scene, &mut assets)
+            .unwrap();
         assert!(!original.is_empty());
         assert_eq!(original.len(), decoded.len());
         for (a, b) in original.iter().zip(decoded) {
@@ -188,13 +207,53 @@ mod tests {
         let count = assets.len();
         assert_eq!(
             restored
-                .meshes(&mut assets)
+                .meshes(PresentationOwner::Scene, &mut assets)
+                .unwrap()
                 .iter()
                 .map(|b| b.2.clone())
                 .collect::<Vec<_>>(),
             handles
         );
         assert_eq!(assets.len(), count, "return creates no new ground meshes");
+        let map = restored
+            .meshes(PresentationOwner::RegionalMap, &mut assets)
+            .unwrap();
+        let map_handles = map.iter().map(|batch| batch.2.clone()).collect::<Vec<_>>();
+        for (actor, map) in handles.iter().zip(&map_handles) {
+            assert_ne!(
+                actor.id(),
+                map.id(),
+                "owners have independent winding uploads"
+            );
+            let actor = assets.get(actor).unwrap();
+            let map = assets.get(map).unwrap();
+            for attribute in [Mesh::ATTRIBUTE_POSITION, Mesh::ATTRIBUTE_NORMAL] {
+                assert_eq!(
+                    actor.attribute(attribute).unwrap().get_bytes(),
+                    map.attribute(attribute).unwrap().get_bytes()
+                );
+            }
+            let actor = actor.indices().unwrap().iter().collect::<Vec<_>>();
+            let map = map.indices().unwrap().iter().collect::<Vec<_>>();
+            for (actor, map) in actor.as_chunks::<3>().0.iter().zip(map.as_chunks::<3>().0) {
+                assert_eq!([actor[0], actor[2], actor[1]], *map);
+            }
+        }
+        let count = assets.len();
+        assert_eq!(
+            restored
+                .meshes(PresentationOwner::RegionalMap, &mut assets)
+                .unwrap()
+                .iter()
+                .map(|batch| batch.2.clone())
+                .collect::<Vec<_>>(),
+            map_handles
+        );
+        assert_eq!(
+            assets.len(),
+            count,
+            "warm map return reuses its own uploads"
+        );
     }
 }
 

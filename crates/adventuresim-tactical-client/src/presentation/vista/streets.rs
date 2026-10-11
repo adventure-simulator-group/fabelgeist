@@ -83,7 +83,17 @@ impl CityGroundAssets<'_> {
             .then(|| traffic::TrafficMask::neutral(images));
         let mut masks = std::collections::BTreeMap::new();
         let mut triangle_count = 0;
-        for (tile, kind, mesh, triangles) in prepared.meshes(meshes) {
+        let uploaded = match prepared.meshes(
+            crate::presentation::ownership::PresentationOwner::Scene,
+            meshes,
+        ) {
+            Ok(uploaded) => uploaded,
+            Err(error) => {
+                warn!(%error, "Could not upload canonical city ground");
+                return;
+            }
+        };
+        for (tile, kind, mesh, triangles) in uploaded {
             let mask = masks.entry(*tile).or_insert_with(|| match &network {
                 Some(network) => traffic::TrafficMask::bake(network, *tile, images),
                 None => neutral.as_ref().expect("streaming neutral mask").clone(),

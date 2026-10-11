@@ -5,7 +5,7 @@ impl PreparedCityGround {
         let mut assets = Assets::<Mesh>::default();
         let mut points = Vec::new();
         let mut areas = [0.0; 5];
-        for (_, kind, handle, _) in self.meshes(&mut assets) {
+        for (_, kind, handle, _) in self.meshes(PresentationOwner::Scene, &mut assets).unwrap() {
             let positions = assets
                 .get(handle)
                 .unwrap()
