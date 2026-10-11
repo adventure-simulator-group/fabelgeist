@@ -14,11 +14,14 @@ use super::profile::{
     RigProfile, RigProfileName, RootSource,
 };
 use super::semantic::{HumanoidChain, HumanoidJoint};
+use match_key::RetargetMatchKey;
+
+mod match_key;
 
 /// A skeleton's joint names indexed for repeated lookups.
 struct JointIndex {
     exact: IndexMap<String, usize>,
-    normalized: IndexMap<String, usize>,
+    normalized: IndexMap<RetargetMatchKey, usize>,
 }
 
 /// A profile bound to a concrete skeleton.
@@ -52,7 +55,9 @@ impl JointIndex {
         let mut normalized = IndexMap::new();
         for (index, joint) in skeleton.joints.iter().enumerate() {
             exact.entry(joint.name.clone()).or_insert(index);
-            normalized.entry(normalize(&joint.name)).or_insert(index);
+            normalized
+                .entry(RetargetMatchKey::from_joint_spelling(&joint.name))
+                .or_insert(index);
         }
         Self { exact, normalized }
     }
@@ -60,7 +65,10 @@ impl JointIndex {
     fn find(&self, name: &str) -> Option<usize> {
         self.exact
             .get(name)
-            .or_else(|| self.normalized.get(&normalize(name)))
+            .or_else(|| {
+                self.normalized
+                    .get(&RetargetMatchKey::from_joint_spelling(name))
+            })
             .copied()
     }
 }
@@ -310,33 +318,5 @@ impl ResolvedProfile {
             report.push_str(&format!("target rig is missing: {}\n", missing.join(", ")));
         }
         report
-    }
-}
-
-/// Loose name matching: `mixamorig:LeftUpLeg`, `mixamorig1:LeftUpLeg`,
-/// `Left_Up_Leg` and `leftupleg` all reduce to the same key.
-///
-/// Namespaces are stripped because exporters add and rename them freely;
-/// separators and case are dropped because rig authors are inconsistent about
-/// both. Nothing else is normalized — this must not make distinct joints
-/// collide.
-fn normalize(name: &str) -> String {
-    let name = name.rsplit([':', '|']).next().unwrap_or(name);
-    name.chars()
-        .filter(|character| character.is_ascii_alphanumeric())
-        .map(|character| character.to_ascii_lowercase())
-        .collect()
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn namespaces_and_separators_do_not_defeat_lookup() {
-        assert_eq!(normalize("mixamorig:LeftUpLeg"), "leftupleg");
-        assert_eq!(normalize("mixamorig1:Left_Up_Leg"), "leftupleg");
-        assert_eq!(normalize("Armature|LeftUpLeg"), "leftupleg");
-        assert_ne!(normalize("l_upleg"), normalize("r_upleg"));
     }
 }
