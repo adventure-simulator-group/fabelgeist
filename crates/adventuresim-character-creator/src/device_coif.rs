@@ -200,7 +200,7 @@ impl DeviceWearer<'_> {
 fn kernels(gpu: &ArmorGpu) -> Result<[Arc<Kernel>; 5]> {
     let compile = |entry: &str| {
         gpu.cache()
-            .get(gpu.context(), &source(entry))
+            .get(gpu.context(), &source(entry).into())
             .map_err(device_error)
     };
     Ok([

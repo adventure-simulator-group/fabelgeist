@@ -208,7 +208,7 @@ impl GpuMesh {
                     out_pos[f32_idx+2u]  = displaced_p.z;
                 }
             "#;
-            let shader = ComputeShader::new(context, shader_code.to_string()).unwrap();
+            let shader = ComputeShader::new(context, shader_code.into()).unwrap();
             ComputePipeline::new(context, shader).unwrap()
         });
 

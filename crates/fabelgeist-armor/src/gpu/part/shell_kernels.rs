@@ -22,15 +22,15 @@ impl ShellKernels {
         Ok(Self {
             winding: gpu
                 .cache()
-                .get(gpu.context(), &winding_source())
+                .get(gpu.context(), &winding_source().into())
                 .map_err(device_error)?,
             walls: gpu
                 .cache()
-                .get(gpu.context(), &walls_source())
+                .get(gpu.context(), &walls_source().into())
                 .map_err(device_error)?,
             assemble: gpu
                 .cache()
-                .get(gpu.context(), &assemble_source())
+                .get(gpu.context(), &assemble_source().into())
                 .map_err(device_error)?,
         })
     }

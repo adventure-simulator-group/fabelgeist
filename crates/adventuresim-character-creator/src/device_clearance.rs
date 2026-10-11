@@ -142,7 +142,7 @@ impl DeviceWearer<'_> {
         let kernel = self
             .gpu
             .cache()
-            .get(self.gpu.context(), &support_source())
+            .get(self.gpu.context(), &support_source().into())
             .map_err(device_error)?;
         batch
             .dispatch_items(&kernel, &parameters, self.body.vertex_count)
@@ -201,7 +201,7 @@ impl DeviceWearer<'_> {
         parameters.insert("status", status.clone());
         let compile = |entry: &str| {
             gpu.cache()
-                .get(gpu.context(), &fit_source(entry))
+                .get(gpu.context(), &fit_source(entry).into())
                 .map_err(device_error)
         };
         batch

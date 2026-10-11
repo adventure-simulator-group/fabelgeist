@@ -1,14 +1,15 @@
 use fabelgeist_gpu::prelude::BufferUse;
-pub mod max;
-pub mod min;
 
 pub use max::Max;
 pub use min::Min;
 
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::ResourceDescriptor;
+use fabelgeist_gpu::data::gpu::shader::{ShaderSource, parse_naga};
 use std::collections::HashMap;
 use std::sync::{Arc, RwLock};
+pub mod max;
+pub mod min;
 
 #[derive(Clone, Debug)]
 pub struct ReduceDefinition {
@@ -21,6 +22,8 @@ pub struct ReduceScratchpad {
     pub a: Option<fabelgeist_gpu::data::gpu::Buffer>,
     pub b: Option<fabelgeist_gpu::data::gpu::Buffer>,
 }
+
+pub struct Reduce;
 
 impl Default for ReduceDefinition {
     fn default() -> Self {
@@ -157,10 +160,8 @@ fn main(
             input_binding, output_binding, ty_str, self.code, prologue, input_len_calc, fetch_logic
         );
 
-        let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code,
-            wgpu::naga::ShaderStage::Compute,
-        )?;
+        let shader_source = ShaderSource::from(full_code);
+        let module = parse_naga(&shader_source, wgpu::naga::ShaderStage::Compute)?;
 
         let mut element_size = ty.element_size();
 
@@ -180,7 +181,7 @@ fn main(
             element_size = layouter[base].size as u64;
         }
 
-        let shader = ComputeShader::new(context, full_code)?;
+        let shader = ComputeShader::new(context, shader_source)?;
         let pipeline = ComputePipeline::new(context, shader)?;
 
         let mut cache = self.cache.write().unwrap();
@@ -188,8 +189,6 @@ fn main(
         Ok((pipeline, element_size))
     }
 }
-
-pub struct Reduce;
 
 impl Reduce {
     pub fn execute(

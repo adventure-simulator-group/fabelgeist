@@ -38,7 +38,7 @@ impl MatMulDefinition {
                 output[global_id.x] = input_a[global_id.x];
             }
         ";
-        let shader = ComputeShader::new(context, shader_code.to_string())?;
+        let shader = ComputeShader::new(context, shader_code.into())?;
         let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
 
         let mut cache = self.cache.write().unwrap();

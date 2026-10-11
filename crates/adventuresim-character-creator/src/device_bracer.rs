@@ -168,7 +168,7 @@ fn record_support(
     parameters.insert("status", status.clone());
     let kernel = gpu
         .cache()
-        .get(gpu.context(), &support_source())
+        .get(gpu.context(), &support_source().into())
         .map_err(device_error)?;
     batch
         .dispatch_items(&kernel, &parameters, body.vertex_count)

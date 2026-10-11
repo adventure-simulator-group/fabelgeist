@@ -110,7 +110,7 @@ impl DeviceWearer<'_> {
         ] {
             let kernel = gpu
                 .cache()
-                .get(gpu.context(), &source(entry))
+                .get(gpu.context(), &source(entry).into())
                 .map_err(device_error)?;
             batch
                 .dispatch_items(&kernel, &parameters, items)

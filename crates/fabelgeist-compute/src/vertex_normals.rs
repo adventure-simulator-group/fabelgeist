@@ -288,9 +288,9 @@ impl VertexNormalKernels {
         weighting: NormalWeighting,
     ) -> Result<Self> {
         Ok(Self {
-            corners: cache.get(context, &corners_code(weighting))?,
-            ranges: cache.get(context, &ranges_code())?,
-            gather: cache.get(context, &gather_code())?,
+            corners: cache.get(context, &corners_code(weighting).into())?,
+            ranges: cache.get(context, &ranges_code().into())?,
+            gather: cache.get(context, &gather_code().into())?,
             sort: RadixSort::with_cache(context, cache)?,
         })
     }

@@ -57,7 +57,7 @@ pub(crate) fn record_section_fit(
     parameters.insert("radii", gpu.scratch(4, "unused fairing radii")?);
     let kernel = gpu
         .cache()
-        .get(gpu.context(), &fit_source(FIT))
+        .get(gpu.context(), &fit_source(FIT).into())
         .map_err(device_error)?;
     batch
         .dispatch_items(&kernel, &parameters, count)
@@ -98,7 +98,7 @@ pub(crate) fn record_ankle_fairing(
     );
     let kernel = gpu
         .cache()
-        .get(gpu.context(), &fit_source(FAIR))
+        .get(gpu.context(), &fit_source(FAIR).into())
         .map_err(device_error)?;
     batch
         .dispatch(&kernel, &parameters, [1, 1, 1])

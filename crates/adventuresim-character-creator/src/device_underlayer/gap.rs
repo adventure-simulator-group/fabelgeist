@@ -40,7 +40,7 @@ impl Workspace<'_> {
         let gpu = self.gpu;
         let kernel = |source: String| {
             gpu.cache()
-                .get(gpu.context(), &source)
+                .get(gpu.context(), &source.as_str().into())
                 .map_err(device_error)
         };
         let pairs = self.face_count * CELLS_PER_FACE;

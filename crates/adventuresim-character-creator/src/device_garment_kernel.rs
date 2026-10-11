@@ -199,7 +199,7 @@ pub(crate) fn dispatch(
     };
     let kernel = gpu
         .cache()
-        .get(gpu.context(), &source)
+        .get(gpu.context(), &source.as_str().into())
         .map_err(device_error)?;
     match grid {
         Grid::Items(count) => batch.dispatch_items(&kernel, &parameters, count),
