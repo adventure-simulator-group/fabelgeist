@@ -104,6 +104,35 @@ module.exports=async function checkCity(page,output,cityFile,environmentFile) {
   await page.waitForFunction(()=>mapStatus().span===40 && mapStatus().ready
     && mapStatus().city_visible);
   await page.screenshot({path:path.join(output,"map-city-streets.png")});
+  let nightGround=null;
+  // This native dusk capture has a below-horizon sun (also verified by the
+  // native lighting workflow). Tilted paving must not catch its raw intensity
+  // and cover the view with white facets at nighttime exposure.
+  if(metadata.input.absolute_minute===123456
+    && metadata.input.latitude_microdegrees===50500000
+    && metadata.input.longitude_microdegrees===10500000) {
+    const image=PNG.sync.read(await page.screenshot({
+      path:path.join(output,"map-city-streets-ground.png"),
+      style:"[data-map-foreground],.strategic-map-markers{visibility:hidden!important}",
+    }));
+    const bounds=await page.locator("[data-regional-map]").boundingBox();
+    assert(bounds,"The street-scale map has a presented rectangle");
+    const left=Math.max(0,Math.ceil(bounds.x*pixelRatio));
+    const top=Math.max(0,Math.ceil(bounds.y*pixelRatio));
+    const right=Math.min(image.width,Math.floor((bounds.x+bounds.width)*pixelRatio));
+    const bottom=Math.min(image.height,Math.floor((bounds.y+bounds.height)*pixelRatio));
+    const brightChannelThreshold=180,maximumBrightFraction=0.03;
+    let brightPixels=0;
+    for(let y=top;y<bottom;y++)for(let x=left;x<right;x++) {
+      const offset=(y*image.width+x)*4;
+      if(Math.min(...image.data.subarray(offset,offset+3))>=brightChannelThreshold)brightPixels++;
+    }
+    const pixels=(right-left)*(bottom-top);
+    assert(pixels>0);
+    nightGround={brightPixels,pixels,brightFraction:brightPixels/pixels};
+    assert(nightGround.brightFraction<maximumBrightFraction,
+      "The dusk ground must not show bright facets from a sun below the horizon");
+  }
   const detail=await page.evaluate(()=>mapStatus());
   checkpoint("street-controls");
   assert.equal(detail.city_installation.preparation.sequence,cold.city_installation.preparation.sequence);
@@ -137,5 +166,5 @@ module.exports=async function checkCity(page,output,cityFile,environmentFile) {
     "Replacing actor scenery leaves the focused map city installed");
   assert.equal(cityRequests.length,1);
   checkpoint("actor-replaced");
-  return {cold,groundPixels,detail,warm,replacedActor,cityRequests,terrainRequests};
+  return {cold,groundPixels,nightGround,detail,warm,replacedActor,cityRequests,terrainRequests};
 };

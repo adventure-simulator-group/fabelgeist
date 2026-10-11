@@ -5,6 +5,11 @@ use serde::{Deserialize, Serialize};
 
 pub(crate) const REGIONAL_MAP_LAYER: usize = 3;
 
+/// Retained geographic presentation owns its own visibility and light proxies.
+#[cfg(any(target_family = "wasm", test))]
+#[derive(Component)]
+pub(in crate::presentation) struct RegionalMapRoot;
+
 /// Fixed owner slots bound residency to one actor scene and one map city.
 #[derive(Clone, Default)]
 pub(crate) struct PresentationOwners<T> {
