@@ -2,6 +2,7 @@
 use super::*;
 use crate::presentation::{
     ownership::{PresentationOwner, PresentationOwners},
+    terrain::PreparedTerrainLandform,
     vista::geographic_ground,
 };
 use adventuresim_tactical_core::scene_input::SceneInputResult;
@@ -69,6 +70,7 @@ impl PreparedCityGround {
     pub(in crate::presentation) fn from_scene(
         input: &TacticalSceneInput,
         terrain: &SceneTerrain,
+        landform: &PreparedTerrainLandform,
         groups: &[FurnitureGroup],
         maximum_lods: usize,
     ) -> SceneInputResult<Self> {
@@ -95,7 +97,16 @@ impl PreparedCityGround {
                 input.landform.map(|recipe| recipe.transition_collar()),
             );
         } else {
-            support.add_mesh(&terrain.mesh(), Vec3::ZERO);
+            support.add_mesh(
+                &crate::presentation::terrain::urban_playable_mesh(
+                    terrain,
+                    input.landform.as_ref(),
+                ),
+                Vec3::ZERO,
+            );
+        }
+        if let PreparedTerrainLandform::Patch(patch) = landform {
+            support.add_patch(patch);
         }
         for (index, lod) in lods
             .iter()

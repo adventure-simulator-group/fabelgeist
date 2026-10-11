@@ -52,8 +52,8 @@ fn focused_city_workers_keep_canonical_support_without_actor_preparation() {
         .unwrap()
         .terrain_patch;
     match (&installed.landform, &expected_landform) {
-        (PreparedCityLandform::Natural, None) => {}
-        (PreparedCityLandform::Patch(actual), Some(expected)) => assert_eq!(actual, expected),
+        (PreparedTerrainLandform::Natural, None) => {}
+        (PreparedTerrainLandform::Patch(actual), Some(expected)) => assert_eq!(actual, expected),
         _ => panic!("city worker must retain the canonical landform patch"),
     }
     assert_eq!(installed.document, document);
