@@ -4,7 +4,7 @@ use adventuresim_character_creator::proportions::{joint_bases, model_parameters}
 use adventuresim_core::character_proportions::{BodyProportion, CharacterProportions};
 use burn::tensor::{Device, Tensor, TensorData};
 use fabelgeist_mhr::{
-    Mhr, MhrConfig,
+    Mhr, MhrConfig, ModelParameterName,
     math::{Transform, rotate_vector},
 };
 
@@ -17,7 +17,8 @@ fn evaluate(
     let mut parameters = model_parameters(model, proportions).unwrap();
     if bent {
         for name in ["l_elbow_bend", "r_elbow_bend", "l_knee_bend", "r_knee_bend"] {
-            parameters[model.parameter_transform.parameter_index(name).unwrap()] = 0.4;
+            let name = ModelParameterName::from(name);
+            parameters[model.parameter_transform.parameter_index(&name).unwrap()] = 0.4;
         }
     }
     let output = model
