@@ -4,13 +4,13 @@ NumPy `.npy` and `.npz` reading for Burn, in pure Rust — no NumPy, no C zlib.
 
 ```rust
 use burn::tensor::Device;
-use fabelgeist_numpy_storage::Npz;
+use fabelgeist_numpy_storage::{Npz, NpzArrayName};
 
 let archive = Npz::open("weights.npz")?;
 for name in archive.keys() {
-    println!("{name}: {:?}", archive.array(name)?.shape());
+    println!("{name}: {:?}", archive.array(&name)?.shape());
 }
-let weights = archive.array("layer0")?.to_tensor::<2>(&Device::default())?;
+let weights = archive.array(&NpzArrayName::new("layer0"))?.to_tensor::<2>(&Device::default())?;
 ```
 
 - Archives are memory-mapped; members may be stored or deflated, and zip64 is
@@ -135,3 +135,22 @@ only at native indexing and tensor-buffer assignment. Sparse transposition,
 duplicate replacement, narrowing before bounds checks and diagnostic order are
 unchanged. Native tensor upload may use a backend's integer representation, such
 as i32, separately from the decoded i64 storage number.
+
+## Archive filenames and array keys
+
+`ArchiveMemberName` retains an exact parsed archive filename. Serialized names
+use lossy UTF-8 decoding: two invalid byte spellings can identify the same
+parsed text. Case, separators, empty text, NUL and path-like spelling remain
+unchanged; the name validates neither a filesystem path nor membership.
+
+`NpzArrayName` carries a NumPy array query. A member matches its full filename
+or
+that filename with one trailing `.npy` removed. The first directory match wins,
+even if a later member is an exact filename match. `keys` returns typed keys in
+member order, removing one suffix without changing the stored filename.
+
+`ZipArchive::bytes` and size queries take `ArchiveMemberName`; `Npz::array` and
+its size query take `NpzArrayName`. Both `contains` methods return the shared
+`ArchiveMemberPresence::Present` or `Absent` state. Text and Boolean conversions
+are explicit presentation and native-boundary adapters. The distinct types
+prevent an array key from silently becoming an exact archive lookup.

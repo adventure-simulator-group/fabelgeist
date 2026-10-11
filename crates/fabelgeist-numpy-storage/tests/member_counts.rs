@@ -1,6 +1,6 @@
 use std::borrow::Cow;
 
-use fabelgeist_numpy_storage::{Npz, ZipArchive};
+use fabelgeist_numpy_storage::{ArchiveMemberName, Npz, NpzArrayName, ZipArchive};
 
 struct DirectoryCase {
     label: &'static str,
@@ -215,14 +215,17 @@ fn declared_counts_preserve_public_directories_and_numpy_keys() {
     for case in cases {
         let archive = ZipArchive::from_bytes(case.bytes.to_vec()).unwrap();
         assert_eq!(
-            archive.names().collect::<Vec<_>>(),
+            archive
+                .names()
+                .map(|name| name.to_string())
+                .collect::<Vec<_>>(),
             case.names,
             "{}",
             case.label
         );
         let npz = Npz::from_bytes(case.bytes.to_vec()).unwrap();
         assert_eq!(
-            npz.names().collect::<Vec<_>>(),
+            npz.names().map(|name| name.to_string()).collect::<Vec<_>>(),
             case.names,
             "{}",
             case.label
@@ -233,7 +236,7 @@ fn declared_counts_preserve_public_directories_and_numpy_keys() {
             .map(|name| name.strip_suffix(".npy").unwrap())
             .collect();
         assert_eq!(
-            npz.keys().collect::<Vec<_>>(),
+            npz.keys().map(|name| name.to_string()).collect::<Vec<_>>(),
             expected_keys,
             "{}",
             case.label
@@ -242,23 +245,33 @@ fn declared_counts_preserve_public_directories_and_numpy_keys() {
 }
 
 fn assert_member_values_and_storage(archive: &ZipArchive, npz: &Npz) {
-    let first = archive.bytes("values.npy").unwrap();
+    let first = archive
+        .bytes(&ArchiveMemberName::from("values.npy"))
+        .unwrap();
     assert!(matches!(&first, Cow::Borrowed(_)));
     assert_eq!(
         first.as_ptr(),
-        archive.bytes("values.npy").unwrap().as_ptr()
+        archive
+            .bytes(&ArchiveMemberName::from("values.npy"))
+            .unwrap()
+            .as_ptr()
     );
     assert!(matches!(
-        archive.bytes("second.npy").unwrap(),
+        archive
+            .bytes(&ArchiveMemberName::from("second.npy"))
+            .unwrap(),
         Cow::Owned(_)
     ));
     assert_eq!(
-        npz.array("values").unwrap().shape().dimensions(),
+        npz.array(&NpzArrayName::new("values"))
+            .unwrap()
+            .shape()
+            .dimensions(),
         [fabelgeist_numpy_storage::NpyDimension::from(4)]
     );
     assert_eq!(
         Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
-            &npz.array("values").unwrap()
+            &npz.array(&NpzArrayName::new("values")).unwrap()
         ))
         .iter()
         .map(|v| v.to_bits())
@@ -267,7 +280,7 @@ fn assert_member_values_and_storage(archive: &ZipArchive, npz: &Npz) {
     );
     assert_eq!(
         Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
-            &npz.array("second").unwrap()
+            &npz.array(&NpzArrayName::new("second")).unwrap()
         )),
         [5.0, 6.0, 7.0, 8.0]
     );
@@ -279,12 +292,18 @@ fn huge_selected_count_keeps_owned_mapped_storage_values_and_errors() {
     let archive = ZipArchive::from_bytes(bytes.to_vec()).unwrap();
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
-        archive.names().collect::<Vec<_>>(),
+        archive
+            .names()
+            .map(|name| name.to_string())
+            .collect::<Vec<_>>(),
         ["values.npy", "second.npy"]
     );
     assert_member_values_and_storage(&archive, &npz);
     assert_eq!(
-        archive.bytes("missing").unwrap_err().to_string(),
+        archive
+            .bytes(&ArchiveMemberName::from("missing"))
+            .unwrap_err()
+            .to_string(),
         "archive has no member \"missing\""
     );
     let path = std::env::temp_dir().join(format!(
@@ -304,12 +323,18 @@ fn huge_selected_count_keeps_owned_mapped_storage_values_and_errors() {
     let bytes = include_bytes!("fixtures/member-count/ordinary-1-local-mismatch.zip");
     let archive = ZipArchive::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
-        archive.bytes("values.npy").unwrap_err().to_string(),
+        archive
+            .bytes(&ArchiveMemberName::from("values.npy"))
+            .unwrap_err()
+            .to_string(),
         "corrupt zip entry values.npy"
     );
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
-        npz.array("values").err().unwrap().to_string(),
+        npz.array(&NpzArrayName::new("values"))
+            .err()
+            .unwrap()
+            .to_string(),
         "corrupt zip entry values.npy"
     );
 }
@@ -324,17 +349,22 @@ fn capacity_cap_does_not_limit_real_members_or_change_duplicate_selection() {
     let bytes = include_bytes!("fixtures/member-count/duplicate-count-2.zip");
     let archive = ZipArchive::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
-        archive.names().collect::<Vec<_>>(),
+        archive
+            .names()
+            .map(|name| name.to_string())
+            .collect::<Vec<_>>(),
         ["values.npy", "values.npy"]
     );
     assert!(matches!(
-        archive.bytes("values.npy").unwrap(),
+        archive
+            .bytes(&ArchiveMemberName::from("values.npy"))
+            .unwrap(),
         Cow::Borrowed(_)
     ));
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
         Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
-            &npz.array("values").unwrap()
+            &npz.array(&NpzArrayName::new("values")).unwrap()
         ))[0],
         1.0
     );

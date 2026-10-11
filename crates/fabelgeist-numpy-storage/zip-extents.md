@@ -22,10 +22,10 @@ a member has decoded to that length: a stored or deflated member may decode
 successfully even when the declaration disagrees.
 
 ```rust
-use fabelgeist_numpy_storage::{DeclaredUncompressedByteLength, Npz};
+use fabelgeist_numpy_storage::{DeclaredUncompressedByteLength, Npz, NpzArrayName};
 
 fn declared_size(archive: &Npz) -> Option<DeclaredUncompressedByteLength> {
-    archive.uncompressed_size("weights")
+    archive.uncompressed_size(&NpzArrayName::new("weights"))
 }
 ```
 

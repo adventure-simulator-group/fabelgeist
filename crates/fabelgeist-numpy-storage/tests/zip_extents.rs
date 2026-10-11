@@ -2,7 +2,8 @@ use std::borrow::Cow;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 
 use fabelgeist_numpy_storage::{
-    ArchiveByteOffset, CompressedByteLength, DeclaredUncompressedByteLength, Npz, ZipArchive,
+    ArchiveByteOffset, ArchiveMemberName, CompressedByteLength, DeclaredUncompressedByteLength,
+    Npz, NpzArrayName, ZipArchive,
 };
 
 struct WireCase {
@@ -68,17 +69,28 @@ fn every_saturation_combination_replaces_only_requested_fields_in_order() {
         let archive = ZipArchive::from_bytes(bytes.clone()).unwrap();
         let expected =
             DeclaredUncompressedByteLength::from_bytes(if mask & 1 != 0 { 3 } else { 96 });
-        assert_eq!(archive.uncompressed_size("values.npy"), Some(expected));
+        assert_eq!(
+            archive.uncompressed_size(&ArchiveMemberName::from("values.npy")),
+            Some(expected)
+        );
         assert!(matches!(
-            archive.bytes("values.npy").unwrap(),
+            archive
+                .bytes(&ArchiveMemberName::from("values.npy"))
+                .unwrap(),
             Cow::Borrowed(_)
         ));
         let npz = Npz::from_bytes(bytes).unwrap();
-        assert_eq!(npz.uncompressed_size("values"), Some(expected));
-        assert_eq!(npz.uncompressed_size("values.npy"), Some(expected));
+        assert_eq!(
+            npz.uncompressed_size(&NpzArrayName::new("values")),
+            Some(expected)
+        );
+        assert_eq!(
+            npz.uncompressed_size(&NpzArrayName::new("values.npy")),
+            Some(expected)
+        );
         assert_eq!(
             Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
-                &npz.array("values").unwrap()
+                &npz.array(&NpzArrayName::new("values")).unwrap()
             ))
             .len(),
             4
@@ -95,17 +107,21 @@ fn partial_zip64_fields_retain_unreplaced_saturation_and_first_extra() {
     case.extra = extra(&[17]);
     let archive = ZipArchive::from_bytes(zip(case)).unwrap();
     assert_eq!(
-        archive.uncompressed_size("values.npy"),
+        archive.uncompressed_size(&ArchiveMemberName::from("values.npy")),
         Some(DeclaredUncompressedByteLength::from_bytes(17))
     );
-    assert!(archive.bytes("values.npy").is_err());
+    assert!(
+        archive
+            .bytes(&ArchiveMemberName::from("values.npy"))
+            .is_err()
+    );
     let mut case = wire();
     case.declared = u32::MAX;
     case.extra = extra(&[17]);
     case.extra.extend_from_slice(&extra(&[23]));
     let archive = ZipArchive::from_bytes(zip(case)).unwrap();
     assert_eq!(
-        archive.uncompressed_size("values.npy"),
+        archive.uncompressed_size(&ArchiveMemberName::from("values.npy")),
         Some(DeclaredUncompressedByteLength::from_bytes(17))
     );
     let mut case = wire();
@@ -113,7 +129,7 @@ fn partial_zip64_fields_retain_unreplaced_saturation_and_first_extra() {
     case.extra = vec![1, 0, 7, 0, 1, 2, 3, 4, 5, 6, 7];
     let archive = ZipArchive::from_bytes(zip(case)).unwrap();
     assert_eq!(
-        archive.uncompressed_size("values.npy"),
+        archive.uncompressed_size(&ArchiveMemberName::from("values.npy")),
         Some(DeclaredUncompressedByteLength::from_bytes(u64::from(
             u32::MAX
         )))
@@ -127,11 +143,23 @@ fn declared_full_width_zero_and_mismatch_do_not_measure_payloads() {
         case.declared = u32::MAX;
         case.extra = extra(&[value]);
         let archive = ZipArchive::from_bytes(zip(case)).unwrap();
-        let size = archive.uncompressed_size("values.npy").unwrap();
+        let size = archive
+            .uncompressed_size(&ArchiveMemberName::from("values.npy"))
+            .unwrap();
         assert_eq!(size, DeclaredUncompressedByteLength::from_bytes(value));
         assert_eq!(size.bytes(), value);
-        assert_eq!(archive.bytes("values.npy").unwrap().len(), 96);
-        assert!(archive.uncompressed_size("missing").is_none());
+        assert_eq!(
+            archive
+                .bytes(&ArchiveMemberName::from("values.npy"))
+                .unwrap()
+                .len(),
+            96
+        );
+        assert!(
+            archive
+                .uncompressed_size(&ArchiveMemberName::from("missing"))
+                .is_none()
+        );
     }
 }
 
@@ -140,17 +168,21 @@ fn inherited_numpy_storage_and_first_duplicate_selection_remain_intact() {
     let bytes = include_bytes!("fixtures/member-count/ordinary-2.zip");
     let archive = ZipArchive::from_bytes(bytes.to_vec()).unwrap();
     assert!(matches!(
-        archive.bytes("values.npy").unwrap(),
+        archive
+            .bytes(&ArchiveMemberName::from("values.npy"))
+            .unwrap(),
         Cow::Borrowed(_)
     ));
     assert!(matches!(
-        archive.bytes("second.npy").unwrap(),
+        archive
+            .bytes(&ArchiveMemberName::from("second.npy"))
+            .unwrap(),
         Cow::Owned(_)
     ));
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
         Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
-            &npz.array("values").unwrap()
+            &npz.array(&NpzArrayName::new("values")).unwrap()
         ))
         .iter()
         .map(|v| v.to_bits())
@@ -161,12 +193,12 @@ fn inherited_numpy_storage_and_first_duplicate_selection_remain_intact() {
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
         Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
-            &npz.array("values").unwrap()
+            &npz.array(&NpzArrayName::new("values")).unwrap()
         ))[0],
         1.0
     );
     assert_eq!(
-        npz.uncompressed_size("values"),
+        npz.uncompressed_size(&NpzArrayName::new("values")),
         Some(DeclaredUncompressedByteLength::from_bytes(96))
     );
 }
@@ -201,12 +233,20 @@ fn inherited_offset_cast_and_error_panic_policy_remain_observable() {
     case.extra = extra(&[1 << 32]);
     let archive = ZipArchive::from_bytes(zip(case)).unwrap();
     assert_eq!(
-        archive.bytes("values.npy").unwrap_err().to_string(),
+        archive
+            .bytes(&ArchiveMemberName::from("values.npy"))
+            .unwrap_err()
+            .to_string(),
         "corrupt zip entry values.npy"
     );
     let mut case = wire();
     case.offset = u32::MAX;
     case.extra = extra(&[u64::MAX]);
     let archive = ZipArchive::from_bytes(zip(case)).unwrap();
-    assert!(catch_unwind(AssertUnwindSafe(|| archive.bytes("values.npy"))).is_err());
+    assert!(
+        catch_unwind(AssertUnwindSafe(
+            || archive.bytes(&ArchiveMemberName::from("values.npy"))
+        ))
+        .is_err()
+    );
 }
