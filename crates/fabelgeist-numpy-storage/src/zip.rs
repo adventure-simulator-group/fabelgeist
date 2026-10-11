@@ -20,16 +20,12 @@ pub use extent::{ArchiveByteOffset, CompressedByteLength, DeclaredUncompressedBy
 
 use compression::ZipCompression;
 use member_count::ArchiveMemberCount;
+use record_kind::ZipRecordKind;
 
 mod compression;
 mod extent;
 mod member_count;
-
-const END_OF_CENTRAL_DIRECTORY: u32 = 0x0605_4b50;
-const CENTRAL_FILE_HEADER: u32 = 0x0201_4b50;
-const LOCAL_FILE_HEADER: u32 = 0x0403_4b50;
-const ZIP64_END_OF_CENTRAL_DIRECTORY: u32 = 0x0606_4b50;
-const ZIP64_LOCATOR: u32 = 0x0706_4b50;
+mod record_kind;
 
 /// Selected directory metadata with distinct count and archive-byte addressing.
 struct CentralDirectory {
@@ -80,7 +76,7 @@ impl CentralDirectory {
         let earliest = data.len().saturating_sub(66_000);
         let mut eocd = None;
         for offset in (earliest..data.len().saturating_sub(21)).rev() {
-            if u32_at(data, offset) == END_OF_CENTRAL_DIRECTORY {
+            if ZipRecordKind::read_at(data, offset) == ZipRecordKind::EndDirectory {
                 eocd = Some(offset);
                 break;
             }
@@ -91,11 +87,11 @@ impl CentralDirectory {
 
         if (count.is_saturated_ordinary() || offset.is_saturated_ordinary()) && eocd >= 20 {
             let locator = eocd - 20;
-            if u32_at(data, locator) == ZIP64_LOCATOR {
+            if ZipRecordKind::read_at(data, locator) == ZipRecordKind::Zip64Locator {
                 let record = ArchiveByteOffset::from_archive_start(u64_at(data, locator + 8))
                     .native_byte_index();
                 if record + 56 <= data.len()
-                    && u32_at(data, record) == ZIP64_END_OF_CENTRAL_DIRECTORY
+                    && ZipRecordKind::read_at(data, record) == ZipRecordKind::Zip64End
                 {
                     count = ArchiveMemberCount::from(u64_at(data, record + 32));
                     offset = ArchiveByteOffset::from_archive_start(u64_at(data, record + 48));
@@ -166,7 +162,9 @@ impl ZipArchive {
         let mut entries = Vec::with_capacity(member_count.initial_capacity());
         for _ in member_count.native_iteration_range() {
             let base = offset.native_byte_index();
-            if base + 46 > data.len() || u32_at(&data, base) != CENTRAL_FILE_HEADER {
+            if base + 46 > data.len()
+                || ZipRecordKind::read_at(&data, base) != ZipRecordKind::CentralMember
+            {
                 break;
             }
             let name_len = u16_at(&data, base + 28) as usize;
@@ -229,7 +227,9 @@ impl ZipArchive {
 
     pub(crate) fn entry_bytes(&self, entry: &Entry) -> Result<Cow<'_, [u8]>> {
         let base = entry.local_header_offset.native_byte_index();
-        if base + 30 > self.data.len() || u32_at(&self.data, base) != LOCAL_FILE_HEADER {
+        if base + 30 > self.data.len()
+            || ZipRecordKind::read_at(&self.data, base) != ZipRecordKind::LocalMember
+        {
             bail!("corrupt zip entry {}", entry.name);
         }
         // The local header repeats the name and may carry a different extra field.
