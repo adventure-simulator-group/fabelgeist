@@ -7,10 +7,10 @@
 //! ```no_run
 //! # fn main() -> anyhow::Result<()> {
 //! use burn::tensor::Device;
-//! use fabelgeist_numpy_storage::Npz;
+//! use fabelgeist_numpy_storage::{Npz, NpzArrayName};
 //!
 //! let archive = Npz::open("weights.npz")?;
-//! let weights = archive.array("layer0")?.to_tensor::<2>(&Device::default())?;
+//! let weights = archive.array(&NpzArrayName::new("layer0"))?.to_tensor::<2>(&Device::default())?;
 //! # let _ = weights;
 //! # Ok(())
 //! # }
@@ -21,9 +21,10 @@ pub use npy::{
     NpyFloatValue, NpyFloatValues, NpyIntegerValue, NpyIntegerValues, NpyLayoutError, NpyOccupancy,
     NpyPayloadLength, NpyRank, NpyShape,
 };
-pub use npz::Npz;
+pub use npz::{Npz, NpzArrayName};
 pub use zip::{
-    ArchiveByteOffset, CompressedByteLength, DeclaredUncompressedByteLength, ZipArchive,
+    ArchiveByteOffset, ArchiveMemberName, ArchiveMemberPresence, CompressedByteLength,
+    DeclaredUncompressedByteLength, ZipArchive,
 };
 
 pub mod npy;

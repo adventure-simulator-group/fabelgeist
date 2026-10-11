@@ -15,32 +15,32 @@ pub struct CompressedByteLength(u64);
 /// Both ZIP and NPZ size queries return this bespoke type.
 ///
 /// ```
-/// use fabelgeist_numpy_storage::{DeclaredUncompressedByteLength, ZipArchive};
+/// use fabelgeist_numpy_storage::{ArchiveMemberName, DeclaredUncompressedByteLength, ZipArchive};
 /// fn declared(archive: &ZipArchive) -> Option<DeclaredUncompressedByteLength> {
-///     archive.uncompressed_size("weights.npy")
+///     archive.uncompressed_size(&ArchiveMemberName::from("weights.npy"))
 /// }
 /// ```
 ///
 /// Raw integer size returns are deliberately rejected:
 ///
 /// ```compile_fail
-/// use fabelgeist_numpy_storage::ZipArchive;
+/// use fabelgeist_numpy_storage::{ArchiveMemberName, ZipArchive};
 /// fn declared(archive: &ZipArchive) -> Option<u64> {
-///     archive.uncompressed_size("weights.npy")
+///     archive.uncompressed_size(&ArchiveMemberName::from("weights.npy"))
 /// }
 /// ```
 ///
 /// Compressed lengths cannot stand in for decoded declarations:
 ///
 /// ```compile_fail
-/// use fabelgeist_numpy_storage::{CompressedByteLength, DeclaredUncompressedByteLength};
+/// use fabelgeist_numpy_storage::{ArchiveMemberName, CompressedByteLength, DeclaredUncompressedByteLength};
 /// let decoded: DeclaredUncompressedByteLength = CompressedByteLength::from_bytes(3);
 /// ```
 ///
 /// Archive positions are a separate quantity:
 ///
 /// ```compile_fail
-/// use fabelgeist_numpy_storage::{ArchiveByteOffset, DeclaredUncompressedByteLength};
+/// use fabelgeist_numpy_storage::{ArchiveMemberName, ArchiveByteOffset, DeclaredUncompressedByteLength};
 /// let decoded: DeclaredUncompressedByteLength = ArchiveByteOffset::from_archive_start(3);
 /// ```
 #[derive(Clone, Copy, PartialEq, Eq)]

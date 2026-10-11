@@ -1,3 +1,4 @@
+use fabelgeist_numpy_storage::ArchiveMemberName;
 use fabelgeist_numpy_storage::ZipArchive;
 use flate2::{Compression, write::DeflateEncoder};
 use std::{borrow::Cow, io::Write};
@@ -54,13 +55,13 @@ fn archive(method: u16, local_method: u16, raw: &[u8], declared: u32) -> Vec<u8>
 fn snapshot(zip: &ZipArchive) -> String {
     let mut out = format!(
         "names={:?};contains={};size={:?};missing={:?};",
-        zip.names().collect::<Vec<_>>(),
-        zip.contains("entry"),
-        zip.uncompressed_size("entry"),
-        zip.uncompressed_size("missing")
+        zip.names().map(|name| name.to_string()).collect::<Vec<_>>(),
+        bool::from(zip.contains(&ArchiveMemberName::from("entry"))),
+        zip.uncompressed_size(&ArchiveMemberName::from("entry")),
+        zip.uncompressed_size(&ArchiveMemberName::from("missing"))
     );
     for key in ["entry", "missing"] {
-        let result = match zip.bytes(key) {
+        let result = match zip.bytes(&ArchiveMemberName::from(key)) {
             Ok(Cow::Borrowed(data)) => format!("borrowed:{data:?}"),
             Ok(Cow::Owned(data)) => format!("owned:{data:?}"),
             Err(error) => format!("error:{error:#}"),

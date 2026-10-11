@@ -8,7 +8,9 @@ use std::path::Path;
 
 use anyhow::{Context, Result, bail};
 use burn::tensor::{Device, Tensor, TensorData, activation};
-use fabelgeist_numpy_storage::{NpyDimension, NpyFloatValues, NpyIntegerValues, Npz};
+use fabelgeist_numpy_storage::{
+    ArchiveMemberPresence, NpyDimension, NpyFloatValues, NpyIntegerValues, Npz, NpzArrayName,
+};
 
 /// The first two joints do not define a local pose, so they carry no feature.
 pub const SKIPPED_JOINTS: usize = 2;
@@ -18,9 +20,9 @@ const HIDDEN_PER_JOINT: usize = 24;
 const FEATURES_PER_JOINT: usize = 6;
 
 /// Names of the arrays MHR stores the network in.
-const BASIS_ARRAY: &str = "corrective_blendshapes";
-const SPARSE_INDICES_ARRAY: &str = "0.sparse_indices";
-const SPARSE_WEIGHT_ARRAY: &str = "0.sparse_weight";
+const BASIS_ARRAY: NpzArrayName<'static> = NpzArrayName::new("corrective_blendshapes");
+const SPARSE_INDICES_ARRAY: NpzArrayName<'static> = NpzArrayName::new("0.sparse_indices");
+const SPARSE_WEIGHT_ARRAY: NpzArrayName<'static> = NpzArrayName::new("0.sparse_weight");
 
 pub struct PoseCorrectives {
     /// Sparse activation layer, densified and transposed: `[posed * 6, hidden]`.
@@ -73,11 +75,11 @@ impl PoseCorrectives {
         num_vertices: usize,
         device: &Device,
     ) -> Result<Option<Self>> {
-        if !archive.contains(BASIS_ARRAY) {
+        if archive.contains(&BASIS_ARRAY) == ArchiveMemberPresence::Absent {
             return Ok(None);
         }
         let basis = archive
-            .array(BASIS_ARRAY)
+            .array(&BASIS_ARRAY)
             .context("reading the corrective basis")?;
         let (components, basis_vertices) = match basis.shape().dimensions() {
             &[components, vertices, coordinates] if coordinates == NpyDimension::from(3) => {
@@ -102,12 +104,12 @@ impl PoseCorrectives {
 
         let indices = NpyIntegerValues::from(
             &activation
-                .array(SPARSE_INDICES_ARRAY)
+                .array(&SPARSE_INDICES_ARRAY)
                 .context("reading the sparse activation indices")?,
         );
         let values = NpyFloatValues::from(
             &activation
-                .array(SPARSE_WEIGHT_ARRAY)
+                .array(&SPARSE_WEIGHT_ARRAY)
                 .context("reading the sparse activation weights")?,
         );
         if indices.values().len() != 2 * values.values().len() {
