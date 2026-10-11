@@ -69,7 +69,7 @@ impl DeviceWearer<'_> {
         parameters.insert("support", support.clone());
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &support_source())
+            .get(gpu.context(), &support_source().into())
             .map_err(device_error)?;
         batch
             .dispatch_items(&kernel, &parameters, self.body.vertex_count)
@@ -93,7 +93,7 @@ impl DeviceWearer<'_> {
         parameters.insert("points", points.clone());
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &points_source())
+            .get(gpu.context(), &points_source().into())
             .map_err(device_error)?;
         batch
             .dispatch_items(&kernel, &parameters, self.body.vertex_count)
@@ -138,7 +138,7 @@ pub(crate) fn record_axial_bounds(
     parameters.insert("bounds", bounds.clone());
     let kernel = gpu
         .cache()
-        .get(gpu.context(), &bounds_source())
+        .get(gpu.context(), &bounds_source().into())
         .map_err(device_error)?;
     batch
         .dispatch_items(&kernel, &parameters, count)
@@ -176,7 +176,7 @@ pub(crate) fn record_sections(
     for entry in [NEAREST, SLICE, ENCLOSE] {
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &sections_source(entry))
+            .get(gpu.context(), &sections_source(entry).into())
             .map_err(device_error)?;
         batch
             .dispatch_items(&kernel, &parameters, count)

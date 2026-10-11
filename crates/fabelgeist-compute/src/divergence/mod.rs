@@ -125,7 +125,7 @@ impl DivergenceDefinition {
             full_code.push_str("}\n");
         }
 
-        let shader = ComputeShader::new(context, full_code)?;
+        let shader = ComputeShader::new(context, full_code.into())?;
         ComputePipeline::new(context, shader)
     }
 

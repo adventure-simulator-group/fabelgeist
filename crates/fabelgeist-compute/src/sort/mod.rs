@@ -258,9 +258,9 @@ impl RadixSort {
 
     pub fn with_cache(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
         Ok(Self {
-            histogram: cache.get(context, &histogram_code())?,
-            scan: cache.get(context, &scan_code())?,
-            scatter: cache.get(context, &scatter_code())?,
+            histogram: cache.get(context, &histogram_code().into())?,
+            scan: cache.get(context, &scan_code().into())?,
+            scatter: cache.get(context, &scatter_code().into())?,
         })
     }
 

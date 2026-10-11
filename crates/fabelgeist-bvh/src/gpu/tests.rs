@@ -355,7 +355,7 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
 "#,
         super::shaders::MORTON
     );
-    let kernel = Kernel::new(&context, code)?;
+    let kernel = Kernel::new(&context, code.into())?;
 
     let mut random = Random::new(97);
     let points: Vec<[f32; 4]> = (0..500)

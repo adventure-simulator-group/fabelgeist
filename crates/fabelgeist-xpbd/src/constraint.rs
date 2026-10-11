@@ -105,7 +105,7 @@ impl ConstraintSet {
         Ok(Self {
             name: name.into(),
             kernel,
-            clear: cache.get(context, wgsl::CLEAR_LAMBDAS)?,
+            clear: cache.get(context, &wgsl::CLEAR_LAMBDAS.into())?,
             particles: particle_buffer,
             lambdas,
             attachments: Vec::new(),
@@ -133,7 +133,7 @@ impl ConstraintSet {
             ));
         }
         let flat: Vec<u32> = edges.iter().flat_map(|e| e.iter().copied()).collect();
-        let kernel = cache.get(context, &wgsl::constraint_kernel(wgsl::DISTANCE))?;
+        let kernel = cache.get(context, &wgsl::constraint_kernel(wgsl::DISTANCE).into())?;
         let mut set = Self::new(context, name, kernel, cache, &flat, 2, compliance)?;
         let reordered = set.reorder(rest_lengths);
         set.attach(context, "rest_lengths", &reordered)?;
@@ -159,7 +159,7 @@ impl ConstraintSet {
             ));
         }
         let flat: Vec<u32> = edges.iter().flat_map(|e| e.iter().copied()).collect();
-        let kernel = cache.get(context, &wgsl::constraint_kernel(wgsl::SPRING))?;
+        let kernel = cache.get(context, &wgsl::constraint_kernel(wgsl::SPRING).into())?;
         let mut set = Self::new(context, name, kernel, cache, &flat, 2, compliance)?;
         let reordered_rest = set.reorder(rest_lengths);
         set.attach(context, "rest_lengths", &reordered_rest)?;

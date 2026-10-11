@@ -8,7 +8,7 @@ use fabelgeist_gpu::data::gpu::parameters::{PassParameter, PassParameters};
 use fabelgeist_gpu::data::matrix::Mat4;
 use fabelgeist_gpu::data::vector::Vec4;
 use fabelgeist_gpu::globals::WgpuContext;
-use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::{BufferUpload, ShaderSource};
 
 /// A 4x4 rigid transform, by rows.
 pub type Matrix4 = [[f32; 4]; 4];
@@ -94,8 +94,8 @@ struct Kernels {
 
 impl Kernels {
     fn new(context: &WgpuContext) -> Result<Self> {
-        let with_rays = |source: &str| format!("{COMMON}\n{source}");
-        let compile = |name: &str, code: String| {
+        let with_rays = |source: &str| ShaderSource::from(format!("{COMMON}\n{source}"));
+        let compile = |name: &str, code: ShaderSource<'static>| {
             Kernel::new(context, code)
                 .map_err(|error| anyhow!("compiling the {name} kernel: {error:#}"))
         };

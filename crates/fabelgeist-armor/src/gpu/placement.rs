@@ -136,6 +136,6 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         hinge_words = HINGE_WORDS,
     );
     gpu.cache()
-        .get(gpu.context(), &source)
+        .get(gpu.context(), &source.as_str().into())
         .map_err(device_error)
 }

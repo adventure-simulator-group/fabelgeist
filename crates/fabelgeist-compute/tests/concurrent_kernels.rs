@@ -36,7 +36,13 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 #[test]
 fn every_thread_sees_its_own_uniforms() -> Result<()> {
     let context = pollster::block_on(WgpuContext::new())?;
-    let kernel = KernelCache::new().get(&context, FILL)?;
+    let cache = KernelCache::new();
+    let kernel = cache.get(&context, &FILL.into())?;
+    let owned_source = ShaderSource::from(FILL.to_owned());
+    assert!(std::sync::Arc::ptr_eq(
+        &kernel,
+        &cache.get(&context, &owned_source)?
+    ));
     let threads = 32u32;
     let barrier = std::sync::Barrier::new(threads as usize);
     let wrong = std::sync::atomic::AtomicUsize::new(0);
@@ -91,7 +97,7 @@ fn every_thread_sees_its_own_uniforms() -> Result<()> {
 #[test]
 fn a_long_open_batch_keeps_its_uniforms() -> Result<()> {
     let context = pollster::block_on(WgpuContext::new())?;
-    let kernel = KernelCache::new().get(&context, FILL)?;
+    let kernel = KernelCache::new().get(&context, &FILL.into())?;
     let input = Buffer::from_upload(
         &context,
         BufferUpload::from_elements(&[1u32]),

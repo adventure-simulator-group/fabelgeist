@@ -39,7 +39,7 @@ impl DeviceWearer<'_> {
         let points = gpu.scratch(count as u64 * 16, "boot layer slices")?;
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &source())
+            .get(gpu.context(), &source().into())
             .map_err(device_error)?;
         let mut first = 0;
         for (index, garment) in garments.iter().enumerate() {

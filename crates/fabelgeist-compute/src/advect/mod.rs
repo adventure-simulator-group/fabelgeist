@@ -185,7 +185,7 @@ fn sample_bilinear(tex: texture_2d<f32>, pos: vec2<f32>) -> vec4<f32> {{
             full_code.push_str("}\n");
         }
 
-        let shader = ComputeShader::new(context, full_code)?;
+        let shader = ComputeShader::new(context, full_code.into())?;
         ComputePipeline::new(context, shader)
     }
 
