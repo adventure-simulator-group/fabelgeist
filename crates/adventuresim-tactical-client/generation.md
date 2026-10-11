@@ -30,8 +30,13 @@ cover primary and distant placements. City preparation requests no occupied
 interiors, furniture, landscape scatter or actors; actor jobs accept actor
 tickets only. Each map product set retains one city, with immutable terrain and
 ground samples and batches shared across installed and staged residency.
-Installation checks
-the complete source, settlement, origin and scene document before activation.
+Actor and city ground workers carry a required natural-or-patch landform
+product. Street and yard clipping includes the retained patch's walkable faces
+and excludes the lower ordinary surface inside its cutout. Actor dependencies
+reuse their scene's patch; focused cities reuse their own worker patch, without
+an additional generation pass or renderer-mesh construction for clipping.
+Installation checks the complete source, settlement, origin and scene document
+before activation.
 The map controller requests only the closest known settlement at street scale
 and awaits the native installation acknowledgement before claiming residency.
 
@@ -61,10 +66,11 @@ than a machine-readable contract. Optional
 [browser persistence](../strategic-web/generation-cache.md) failures remain
 separate from preparation readiness.
 
-Serialized job addresses and CBOR (Concise Binary Object Representation) product
-bytes retain their existing format. JavaScript carries the exact Rust-produced
-address without parsing full-width seeds. Changing a preparation error or
-readiness state does not invalidate generated geometry or its persisted keys.
+JavaScript carries exact Rust-produced job addresses without parsing full-width
+seeds. CBOR (Concise Binary Object Representation) products carry the complete
+geometry contract. The compiled WebAssembly binary's SHA-256 digest owns the
+generation-cache revision, so a changed producer or transport receives a fresh
+cache namespace when the binary changes.
 
 Run the existing generation behavior checks with:
 

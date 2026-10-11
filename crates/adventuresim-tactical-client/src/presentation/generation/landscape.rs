@@ -14,6 +14,7 @@ pub(super) struct LandscapeIdentity {
 #[derive(Serialize, Deserialize)]
 pub(super) struct GroundDependencies {
     pub terrain: SceneTerrain,
+    pub landform: PreparedTerrainLandform,
     pub groups: Vec<FurnitureGroup>,
 }
 
@@ -37,6 +38,7 @@ impl GroundProduct {
             ground: Arc::new(PreparedCityGround::from_scene(
                 input,
                 &dependencies.terrain,
+                &dependencies.landform,
                 &dependencies.groups,
                 config.rendering.vista.maximum_lods,
             )?),

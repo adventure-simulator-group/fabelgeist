@@ -1,4 +1,3 @@
-mod ground_map;
 use super::*;
 use adventuresim_procedural_textures::{
     FOREST_LITTER_HEIGHT_RANGE_METRES, FOREST_LITTER_TILE_METRES, FOREST_SOIL_HEIGHT_RANGE_METRES,
@@ -6,24 +5,25 @@ use adventuresim_procedural_textures::{
 };
 #[cfg(test)]
 use adventuresim_tactical_core::terrain_streams as streams;
+pub(in crate::presentation) use cliff_surface::{
+    TacticalTerrainExtension, TacticalTerrainMaterial, enable_cliff_surface,
+};
 use fabelgeist_determinism::Seed;
 pub(super) use ground_map::grass_cover_mask_pixels;
 use ground_map::ground_map_image;
 #[cfg(test)]
 use ground_map::{ground_mask_noise, ground_surface_pixel, organic_ground_pixels};
+pub(in crate::presentation) use landform_product::PreparedTerrainLandform;
+pub(in crate::presentation) use material::terrain_material;
+pub(in crate::presentation) use urban::{UrbanGroundCoveragePlugin, urban_playable_mesh};
+pub(in crate::presentation) use volumetric::terrain_patch_mesh;
 
 mod cliff_surface;
+mod ground_map;
+mod landform_product;
 mod material;
-pub(in crate::presentation) use material::terrain_material;
 mod urban;
 mod volumetric;
-pub(in crate::presentation) use urban::{UrbanGroundCoveragePlugin, urban_playable_mesh};
-
-pub(in crate::presentation) use cliff_surface::enable_cliff_surface;
-pub(in crate::presentation) use cliff_surface::{
-    TacticalTerrainExtension, TacticalTerrainMaterial,
-};
-pub(in crate::presentation) use volumetric::terrain_patch_mesh;
 
 const DETAIL_PATCH_RADIUS_METRES: f32 = 12.0;
 const DETAIL_PATCH_MORPH_START_METRES: f32 = 8.0;

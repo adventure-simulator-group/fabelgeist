@@ -62,6 +62,9 @@ fn prepared_owned_ground_keeps_full_physical_support_across_graded_boundaries() 
     let prepared = PreparedCityGround::from_scene(
         &input,
         terrain,
+        &crate::presentation::terrain::PreparedTerrainLandform::from(
+            generated.terrain_patch.clone(),
+        ),
         &generated.furniture.groups,
         input.vista.lods.len(),
     )

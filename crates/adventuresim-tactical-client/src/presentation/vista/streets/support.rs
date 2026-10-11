@@ -1,7 +1,7 @@
 //! Street clipping against the actual terrain triangles, including vista seams.
 
 use super::*;
-use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+use adventuresim_tactical_core::{prelude::SceneTerrainPatch, scene_coordinates::ScenePlanPoint};
 use bevy::mesh::VertexAttributeValues;
 mod index;
 
@@ -14,6 +14,17 @@ pub(in crate::presentation) struct GroundSupport {
 }
 
 impl GroundSupport {
+    /// Admitted patch buffers use the same canonical east/up/north metres as
+    /// ordinary terrain. Retain their walkable faces without renderer meshes.
+    pub(in crate::presentation::vista) fn add_patch(&mut self, patch: &SceneTerrainPatch) {
+        self.add_triangles(
+            patch.indices().as_chunks::<3>().0.iter().map(|indices| {
+                indices.map(|index| Vec3::from_array(patch.positions()[index as usize]))
+            }),
+            Vec3::ZERO,
+        );
+    }
+
     /// Highest point on the presented city ground, in canonical east/up/north
     /// metres. Missing coverage never substitutes a heightfield or nearest face.
     pub(in crate::presentation) fn position(&self, point: ScenePlanPoint) -> Option<Vec3> {

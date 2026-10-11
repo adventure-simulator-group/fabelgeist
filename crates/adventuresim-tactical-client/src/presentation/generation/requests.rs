@@ -67,6 +67,7 @@ pub(super) fn dependencies(
             )?;
             data.ground = Some(landscape::GroundDependencies {
                 terrain: scene.terrain.clone(),
+                landform: scene.terrain_patch.clone().into(),
                 groups: scene.furniture.groups.clone(),
             });
         }

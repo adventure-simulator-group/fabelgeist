@@ -1,8 +1,7 @@
 //! Admit complete source ground, including the implicit landform cutout owner.
 use super::*;
-use crate::presentation::{
-    generation::PreparedCityLandform,
-    terrain::{terrain_patch_mesh, urban_playable_mesh},
+use crate::presentation::terrain::{
+    PreparedTerrainLandform, terrain_patch_mesh, urban_playable_mesh,
 };
 
 pub(super) struct GroundMeshes {
@@ -45,8 +44,8 @@ impl GroundMeshes {
             origin: Vec3::ZERO,
         };
         let landform = match &product.landform {
-            PreparedCityLandform::Natural => None,
-            PreparedCityLandform::Patch(patch) => Some(LandformChunk {
+            PreparedTerrainLandform::Natural => None,
+            PreparedTerrainLandform::Patch(patch) => Some(LandformChunk {
                 chunk: GroundChunk {
                     mesh: terrain_patch_mesh(patch.clone(), &product.terrain),
                     origin: Vec3::ZERO,
