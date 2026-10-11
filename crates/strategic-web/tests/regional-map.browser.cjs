@@ -132,14 +132,26 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     checkpoint("runtime-prepared");
     if (process.env.REGIONAL_MAP_ACTOR_INPUT) {
       await page.waitForFunction(() => JSON.parse(runtime.wasm_strategic_status()).ready, null, {timeout:120_000});
-      actorCapture=await page.evaluate(()=>renderProbe.capture("gpu",3));
+      // The street is normally a retained snapshot by the time it is ready.
+      // Change its physical size while recording to exercise a real recapture.
+      actorCapture=await page.evaluate(()=>{
+        const capture=renderProbe.capture("gpu",12);
+        const width=innerWidth*devicePixelRatio-2, height=innerHeight*devicePixelRatio;
+        runtime.wasm_command(JSON.stringify({type:"sync-strategic-view",view:{
+          revision:2,location:"fixture",places:preparationFixture.actorPlaces,people:[],
+          active_place:null,selected:null,street:{x:0,y:0,width,height,
+            full_width:width,full_height:height,offset_x:0,offset_y:0},
+          stage:null,forge:null,portraits:[]}}));
+        return capture;
+      });
+      fs.writeFileSync(path.join(output,"actor-capture.json"),JSON.stringify(actorCapture,null,2));
       assert.deepEqual(actorCapture.failures,[]);
       assert(actorCapture.frames.some(frame=>frame.passes.some(pass=>pass.draws?.some(draw=>
         draw.pipeline?.label==="gpu_city" && draw.triangles>0 && draw.indirect))),
       "The full actor city must draw through the production city shader and geographic frame binding");
       await page.screenshot({path:path.join(output,"actor-city.png")});
       await page.evaluate(()=>runtime.wasm_command(JSON.stringify({type:"sync-strategic-view",view:{
-        revision:2,location:"fixture",places:preparationFixture.actorPlaces,people:[],active_place:null,selected:null,
+        revision:3,location:"fixture",places:preparationFixture.actorPlaces,people:[],active_place:null,selected:null,
         street:null,stage:null,forge:null,portraits:[]}})));
       checkpoint("actor-city-drawn");
     }
