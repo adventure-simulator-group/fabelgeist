@@ -18,8 +18,10 @@ use memmap2::Mmap;
 
 pub use extent::{ArchiveByteOffset, CompressedByteLength, DeclaredUncompressedByteLength};
 
+use compression::ZipCompression;
 use member_count::ArchiveMemberCount;
 
+mod compression;
 mod extent;
 mod member_count;
 
@@ -37,7 +39,7 @@ struct CentralDirectory {
 
 pub(crate) struct Entry {
     pub name: String,
-    compression: u16,
+    compression: ZipCompression,
     compressed_size: CompressedByteLength,
     uncompressed_size: DeclaredUncompressedByteLength,
     local_header_offset: ArchiveByteOffset,
@@ -172,7 +174,7 @@ impl ZipArchive {
             let comment_len = u16_at(&data, base + 32) as usize;
             let mut entry = Entry {
                 name: String::from_utf8_lossy(&data[base + 46..base + 46 + name_len]).into_owned(),
-                compression: u16_at(&data, base + 10),
+                compression: ZipCompression::from(u16_at(&data, base + 10)),
                 compressed_size: CompressedByteLength::from_bytes(u64::from(u32_at(
                     &data,
                     base + 20,
@@ -241,8 +243,8 @@ impl ZipArchive {
         let raw = &self.data[start..end];
 
         match entry.compression {
-            0 => Ok(Cow::Borrowed(raw)),
-            8 => {
+            ZipCompression::Stored => Ok(Cow::Borrowed(raw)),
+            ZipCompression::Deflated => {
                 let mut out =
                     Vec::with_capacity(entry.uncompressed_size.native_allocation_capacity());
                 DeflateDecoder::new(raw)
@@ -250,7 +252,7 @@ impl ZipArchive {
                     .with_context(|| format!("inflating zip entry {}", entry.name))?;
                 Ok(Cow::Owned(out))
             }
-            other => bail!("unsupported zip compression method {other}"),
+            ZipCompression::Unsupported(code) => bail!("unsupported zip compression method {code}"),
         }
     }
 }
