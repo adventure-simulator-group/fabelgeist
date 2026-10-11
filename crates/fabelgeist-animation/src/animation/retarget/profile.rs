@@ -13,10 +13,12 @@ use serde::{Deserialize, Serialize};
 use super::semantic::{HumanoidChain, HumanoidJoint};
 
 pub use requirement::JointRequirement;
+pub use retarget_name::RetargetProfileName;
 pub use rig_name::RigProfileName;
 pub use strictness::RetargetStrictness;
 
 mod requirement;
+mod retarget_name;
 mod rig_name;
 mod strictness;
 
@@ -124,7 +126,8 @@ pub struct RetargetSettings {
 /// to, and how to treat what does not line up.
 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 pub struct RetargetProfile {
-    pub name: String,
+    /// The transfer recipe label, independent of either rig profile label.
+    pub name: RetargetProfileName,
     pub source: RigProfile,
     pub target: RigProfile,
     #[serde(default)]
@@ -425,7 +428,7 @@ impl RetargetSettings {
 impl RetargetProfile {
     pub fn new(source: RigProfile, target: RigProfile) -> Self {
         Self {
-            name: format!("{} -> {}", source.name, target.name),
+            name: RetargetProfileName::from_rig_labels(&source.name, &target.name),
             source,
             target,
             settings: RetargetSettings::default(),

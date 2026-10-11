@@ -26,9 +26,9 @@
 //! profile. It does not mean touching anything in this module.
 
 pub use profile::{
-    Axis, ChainBinding, JointBinding, JointRequirement, RetargetProfile, RetargetSettings,
-    RetargetStrictness, RigProfile, RigProfileName, RootMotionChannels, RootMotionPolicy,
-    RootSource, ScaleMeasure, ScalePolicy, TranslationPolicy,
+    Axis, ChainBinding, JointBinding, JointRequirement, RetargetProfile, RetargetProfileName,
+    RetargetSettings, RetargetStrictness, RigProfile, RigProfileName, RootMotionChannels,
+    RootMotionPolicy, RootSource, ScaleMeasure, ScalePolicy, TranslationPolicy,
 };
 pub use profiles::detect;
 pub use resolve::{ResolvedProfile, ResolvedRig};

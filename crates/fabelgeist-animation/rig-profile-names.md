@@ -33,8 +33,10 @@ Builtin Mixamo profiles return the `Mixamo` label, and inferred profiles return
 resolution, and retargeted motion do not depend on the label's spelling.
 Required-joint diagnostics quote it; mapping reports display it unchanged.
 
-`RetargetProfile.name` and `ResolvedProfile.name` describe a transfer recipe.
-Their separate label meaning retains the existing `source -> target` text.
+`RetargetProfileName` labels a source-to-target retargeting recipe, stored in
+`RetargetProfile.name` and `ResolvedProfile.name`. Its separate meaning and
+`source -> target` spelling are described in
+[Retarget-profile labels](retarget-profile-names.md).
 AnimationClipName identifies a clip, while skeleton joint names select joints;
 neither can be passed as a rig-profile label directly.
 

@@ -40,3 +40,9 @@ transfer policies, required-joint precedence, and the Boolean JSON boundary.
 [Rig-profile labels](rig-profile-names.md) describes the typed labels retained
 through profile construction and resolution, their string JSON representation,
 and their separate role from clip and joint names.
+
+## Retarget-profile labels
+
+[Retarget-profile labels](retarget-profile-names.md) describes labels for
+source-to-target retargeting recipes, their typed construction and retained
+string representation.
