@@ -64,7 +64,7 @@ Both playable and distant scene placements carry `base_elevation_metres`, the
 scene elevation of architectural Y=0. Promotion copies the exact programme,
 identity, horizontal placement, orientation and floor datum. Generated buildings
 read that placement instead of retaining a second, mutable pad elevation. Scene
-schema 29 and generation version 72 require floor datums and accepted property
+schema 29 and generation version 73 require floor datums and accepted property
 support directly; previous formats are rejected. A changed floor invalidates the
 scene product while equal programmes retain the same façade recipe keys.
 
@@ -268,8 +268,13 @@ thresholds can select support below an explicit vertical ceiling. Refinement and
 sample rewrites are rejected after installation. The server, capture viewer and
 art viewer install the resulting colliders on independent static bodies attached
 to the transient scene. A restored scene regenerates those bodies from immutable
-geometry. Scene schema version 29 and terrain generation version 72 invalidate
+geometry. Scene schema version 29 and terrain generation version 73 invalidate
 older generated products.
+
+Authoritative terrain uses the workspace's software transcendental functions for
+angles and surface relief. Native and WebAssembly producers must reproduce every
+source triangle bit before accepted property support can be reconstructed. A
+numerically close surface does not satisfy the exact source binding.
 
 `GroundedCitySceneLayout::support_projection` encodes complete accepted plans
 without expanded foundation cells. Source and placement digests bind the plans
