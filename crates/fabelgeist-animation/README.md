@@ -46,3 +46,8 @@ and their separate role from clip and joint names.
 [Retarget-profile labels](retarget-profile-names.md) describes labels for
 source-to-target retargeting recipes, their typed construction and retained
 string representation.
+
+## Rig inference
+
+[Rig inference](rig-inference.md) describes how joint spellings are recognized,
+the resulting profile and reports, and the limits of heuristic matching.

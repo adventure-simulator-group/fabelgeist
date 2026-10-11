@@ -16,109 +16,185 @@
 
 use crate::skeleton::Skeleton;
 
+use name::{InferenceKeyword, InferenceStem, InferredName, Side};
+
 use super::super::profile::{ChainBinding, ReferencePose, RigProfile, RootSource};
 use super::super::semantic::{HumanoidChain, HumanoidJoint};
+
+mod name;
 
 /// Keywords per role, most specific first. A joint matching a longer keyword
 /// beats one matching a shorter one, which is what keeps `LeftUpLeg` from
 /// being taken for a lower leg.
-const BODY: &[(HumanoidJoint, &[&str])] = &[
-    (HumanoidJoint::Pelvis, &["hips", "pelvis", "hip"]),
-    (HumanoidJoint::Neck, &["neck"]),
-    (HumanoidJoint::Head, &["head"]),
-    (
-        HumanoidJoint::ClavicleLeft,
-        &["clavicle", "shoulder", "collar"],
-    ),
-    (
-        HumanoidJoint::UpperArmLeft,
-        &["upperarm", "uparm", "humerus", "shldr", "arm"],
-    ),
-    (
-        HumanoidJoint::LowerArmLeft,
-        &["forearm", "lowerarm", "lowarm", "elbow", "ulna"],
-    ),
-    (HumanoidJoint::HandLeft, &["hand", "wrist"]),
-    (
-        HumanoidJoint::UpperLegLeft,
-        &["upperleg", "upleg", "thigh", "femur", "hip"],
-    ),
-    (
-        HumanoidJoint::LowerLegLeft,
-        &["lowerleg", "lowleg", "shin", "calf", "knee", "tibia", "leg"],
-    ),
-    (HumanoidJoint::FootLeft, &["foot", "ankle"]),
-    (HumanoidJoint::ToeLeft, &["toebase", "toe", "ball"]),
+const BODY: &[BodyHints] = &[
+    BodyHints {
+        role: HumanoidJoint::Pelvis,
+        keywords: &[
+            InferenceKeyword::Hips,
+            InferenceKeyword::Pelvis,
+            InferenceKeyword::Hip,
+        ],
+    },
+    BodyHints {
+        role: HumanoidJoint::Neck,
+        keywords: &[InferenceKeyword::Neck],
+    },
+    BodyHints {
+        role: HumanoidJoint::Head,
+        keywords: &[InferenceKeyword::Head],
+    },
+    BodyHints {
+        role: HumanoidJoint::ClavicleLeft,
+        keywords: &[
+            InferenceKeyword::Clavicle,
+            InferenceKeyword::Shoulder,
+            InferenceKeyword::Collar,
+        ],
+    },
+    BodyHints {
+        role: HumanoidJoint::UpperArmLeft,
+        keywords: &[
+            InferenceKeyword::UpperArm,
+            InferenceKeyword::UpArm,
+            InferenceKeyword::Humerus,
+            InferenceKeyword::Shldr,
+            InferenceKeyword::Arm,
+        ],
+    },
+    BodyHints {
+        role: HumanoidJoint::LowerArmLeft,
+        keywords: &[
+            InferenceKeyword::Forearm,
+            InferenceKeyword::LowerArm,
+            InferenceKeyword::LowArm,
+            InferenceKeyword::Elbow,
+            InferenceKeyword::Ulna,
+        ],
+    },
+    BodyHints {
+        role: HumanoidJoint::HandLeft,
+        keywords: &[InferenceKeyword::Hand, InferenceKeyword::Wrist],
+    },
+    BodyHints {
+        role: HumanoidJoint::UpperLegLeft,
+        keywords: &[
+            InferenceKeyword::UpperLeg,
+            InferenceKeyword::UpLeg,
+            InferenceKeyword::Thigh,
+            InferenceKeyword::Femur,
+            InferenceKeyword::Hip,
+        ],
+    },
+    BodyHints {
+        role: HumanoidJoint::LowerLegLeft,
+        keywords: &[
+            InferenceKeyword::LowerLeg,
+            InferenceKeyword::LowLeg,
+            InferenceKeyword::Shin,
+            InferenceKeyword::Calf,
+            InferenceKeyword::Knee,
+            InferenceKeyword::Tibia,
+            InferenceKeyword::Leg,
+        ],
+    },
+    BodyHints {
+        role: HumanoidJoint::FootLeft,
+        keywords: &[InferenceKeyword::Foot, InferenceKeyword::Ankle],
+    },
+    BodyHints {
+        role: HumanoidJoint::ToeLeft,
+        keywords: &[
+            InferenceKeyword::ToeBase,
+            InferenceKeyword::Toe,
+            InferenceKeyword::Ball,
+        ],
+    },
 ];
 
 /// The spine, which is a run rather than a set of named slots.
-const SPINE: &[&str] = &["spine", "chest", "torso", "abdomen", "waist"];
+const SPINE: &[InferenceKeyword] = &[
+    InferenceKeyword::Spine,
+    InferenceKeyword::Chest,
+    InferenceKeyword::Torso,
+    InferenceKeyword::Abdomen,
+    InferenceKeyword::Waist,
+];
 
-const FINGERS: &[(&str, [HumanoidJoint; 3])] = &[
-    (
-        "thumb",
-        [
+const FINGERS: &[FingerHints] = &[
+    FingerHints {
+        keyword: InferenceKeyword::Thumb,
+        roles: [
             HumanoidJoint::ThumbProximalLeft,
             HumanoidJoint::ThumbIntermediateLeft,
             HumanoidJoint::ThumbDistalLeft,
         ],
-    ),
-    (
-        "index",
-        [
+    },
+    FingerHints {
+        keyword: InferenceKeyword::Index,
+        roles: [
             HumanoidJoint::IndexProximalLeft,
             HumanoidJoint::IndexIntermediateLeft,
             HumanoidJoint::IndexDistalLeft,
         ],
-    ),
-    (
-        "middle",
-        [
+    },
+    FingerHints {
+        keyword: InferenceKeyword::Middle,
+        roles: [
             HumanoidJoint::MiddleProximalLeft,
             HumanoidJoint::MiddleIntermediateLeft,
             HumanoidJoint::MiddleDistalLeft,
         ],
-    ),
-    (
-        "ring",
-        [
+    },
+    FingerHints {
+        keyword: InferenceKeyword::Ring,
+        roles: [
             HumanoidJoint::RingProximalLeft,
             HumanoidJoint::RingIntermediateLeft,
             HumanoidJoint::RingDistalLeft,
         ],
-    ),
-    (
-        "pinky",
-        [
+    },
+    FingerHints {
+        keyword: InferenceKeyword::Pinky,
+        roles: [
             HumanoidJoint::LittleProximalLeft,
             HumanoidJoint::LittleIntermediateLeft,
             HumanoidJoint::LittleDistalLeft,
         ],
-    ),
-    (
-        "little",
-        [
+    },
+    FingerHints {
+        keyword: InferenceKeyword::Little,
+        roles: [
             HumanoidJoint::LittleProximalLeft,
             HumanoidJoint::LittleIntermediateLeft,
             HumanoidJoint::LittleDistalLeft,
         ],
-    ),
+    },
 ];
+
+/// An authored role and the hints that may recognize it.
+struct BodyHints {
+    role: HumanoidJoint,
+    keywords: &'static [InferenceKeyword],
+}
+
+/// A finger hint and its proximal-to-distal roles.
+struct FingerHints {
+    keyword: InferenceKeyword,
+    roles: [HumanoidJoint; 3],
+}
 
 /// A joint as inference sees it.
 struct Candidate {
     index: usize,
     side: Side,
-    simple: String,
+    stem: InferenceStem,
     claimed: bool,
 }
 
-/// Which half of the body a joint's name claims.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum Side {
-    Left,
-    Right,
-    Center,
+/// The specificity and skeleton position of a recognized candidate.
+struct BestMatch {
+    keyword_length: usize,
+    index: usize,
 }
 
 impl RigProfile {
@@ -133,11 +209,11 @@ impl RigProfile {
             .iter()
             .enumerate()
             .map(|(index, joint)| {
-                let (side, simple) = split_side(&joint.name);
+                let InferredName { side, stem } = InferredName::from_joint_name(&joint.name);
                 Candidate {
                     index,
                     side,
-                    simple,
+                    stem,
                     claimed: false,
                 }
             })
@@ -157,7 +233,7 @@ impl RigProfile {
             .iter()
             .filter(|candidate| {
                 candidate.side == Side::Center
-                    && SPINE.iter().any(|word| candidate.simple.starts_with(word))
+                    && SPINE.iter().any(|word| candidate.stem.starts_with(*word))
             })
             .map(|candidate| candidate.index)
             .collect();
@@ -183,11 +259,11 @@ impl RigProfile {
             );
         }
 
-        for (role, keywords) in BODY {
+        for hints in BODY {
             for side in [Side::Center, Side::Left, Side::Right] {
-                let role = match (side, role) {
-                    (Side::Right, role) => mirrored(*role),
-                    (_, role) => *role,
+                let role = match (side, hints.role) {
+                    (Side::Right, role) => mirrored(role),
+                    (_, role) => role,
                 };
                 // Centre roles only apply to roles that have no side.
                 let wanted = match role {
@@ -199,28 +275,28 @@ impl RigProfile {
                 if wanted != side || profile.binding(role).is_some() {
                     continue;
                 }
-                if let Some(index) = best_match(&candidates, side, keywords) {
+                if let Some(index) = best_match(&candidates, side, hints.keywords) {
                     candidates[index].claimed = true;
                     profile = profile.with(role, name_of(index));
                 }
             }
         }
 
-        for (word, roles) in FINGERS {
+        for hints in FINGERS {
             for side in [Side::Left, Side::Right] {
                 let segments: Vec<usize> = candidates
                     .iter()
                     .filter(|candidate| {
                         !candidate.claimed
                             && candidate.side == side
-                            && candidate.simple.contains(word)
+                            && candidate.stem.contains(hints.keyword)
                     })
                     .map(|candidate| candidate.index)
                     .collect();
                 for (segment, index) in segments.iter().take(3).enumerate() {
                     let role = match side {
-                        Side::Right => mirrored(roles[segment]),
-                        _ => roles[segment],
+                        Side::Right => mirrored(hints.roles[segment]),
+                        _ => hints.roles[segment],
                     };
                     if profile.binding(role).is_none() {
                         candidates[*index].claimed = true;
@@ -236,7 +312,7 @@ impl RigProfile {
             .iter()
             .find(|candidate| {
                 candidate.side == Side::Center
-                    && matches!(candidate.simple.as_str(), "root" | "reference" | "armature")
+                    && candidate.stem.is_root_hint()
                     && skeleton.joints[candidate.index].parent_index.is_none()
             })
             .map(|candidate| name_of(candidate.index));
@@ -251,62 +327,6 @@ impl RigProfile {
         }
         profile
     }
-}
-
-/// Splits a joint name into the side it names and the rest of the name,
-/// lowercased with separators removed.
-///
-/// Rigs mark sides in every way anyone has thought of: `LeftArm`, `l_uparm`,
-/// `arm.L`, `LHipJoint`, `lFemur`.
-fn split_side(name: &str) -> (Side, String) {
-    let bare = name.rsplit([':', '|']).next().unwrap_or(name);
-    let lower = bare.to_ascii_lowercase();
-
-    let strip = |side: Side, rest: String| (side, simplify(&rest));
-
-    for (word, side) in [("left", Side::Left), ("right", Side::Right)] {
-        if let Some(position) = lower.find(word) {
-            let mut rest = lower.clone();
-            rest.replace_range(position..position + word.len(), "");
-            return strip(side, rest);
-        }
-    }
-
-    let separators = ['_', '-', '.', ' '];
-    for (prefix, side) in [("l", Side::Left), ("r", Side::Right)] {
-        for separator in separators {
-            let marker = format!("{prefix}{separator}");
-            if lower.starts_with(&marker) {
-                return strip(side, lower[marker.len()..].to_string());
-            }
-            let marker = format!("{separator}{prefix}");
-            if lower.ends_with(&marker) {
-                return strip(side, lower[..lower.len() - marker.len()].to_string());
-            }
-        }
-    }
-
-    // `LHipJoint`, `lFemur`: a lone side letter before a capitalized word.
-    let mut characters = bare.chars();
-    if let (Some(first), Some(second)) = (characters.next(), characters.next())
-        && second.is_ascii_uppercase()
-    {
-        match first {
-            'l' | 'L' => return strip(Side::Left, bare[1..].to_string()),
-            'r' | 'R' => return strip(Side::Right, bare[1..].to_string()),
-            _ => {}
-        }
-    }
-
-    (Side::Center, simplify(bare))
-}
-
-/// Lowercase, alphanumerics only — the form keywords are matched against.
-fn simplify(name: &str) -> String {
-    name.chars()
-        .filter(|character| character.is_ascii_alphanumeric())
-        .map(|character| character.to_ascii_lowercase())
-        .collect()
 }
 
 /// The right-hand counterpart of a left-hand role.
@@ -344,25 +364,35 @@ fn mirrored(role: HumanoidJoint) -> HumanoidJoint {
 ///
 /// Ties go to the joint nearer the start of the skeleton, which is nearer the
 /// root in every importer the engine has.
-fn best_match(candidates: &[Candidate], side: Side, keywords: &[&str]) -> Option<usize> {
-    let mut best: Option<(usize, usize)> = None;
+fn best_match(
+    candidates: &[Candidate],
+    side: Side,
+    keywords: &[InferenceKeyword],
+) -> Option<usize> {
+    let mut best: Option<BestMatch> = None;
     for candidate in candidates {
         if candidate.claimed || candidate.side != side {
             continue;
         }
         let Some(length) = keywords
             .iter()
-            .filter(|keyword| candidate.simple.contains(**keyword))
-            .map(|keyword| keyword.len())
+            .filter(|keyword| candidate.stem.contains(**keyword))
+            .map(|keyword| keyword.length())
             .max()
         else {
             continue;
         };
-        if best.is_none_or(|(best_length, _)| length > best_length) {
-            best = Some((length, candidate.index));
+        if best
+            .as_ref()
+            .is_none_or(|matched| length > matched.keyword_length)
+        {
+            best = Some(BestMatch {
+                keyword_length: length,
+                index: candidate.index,
+            });
         }
     }
-    best.map(|(_, index)| index)
+    best.map(|matched| matched.index)
 }
 
 #[cfg(test)]
@@ -388,22 +418,6 @@ mod tests {
                 })
                 .collect(),
         )
-    }
-
-    #[test]
-    fn sides_are_read_however_a_rig_spells_them() {
-        assert_eq!(split_side("LeftUpLeg"), (Side::Left, "upleg".into()));
-        assert_eq!(
-            split_side("mixamorig:RightArm"),
-            (Side::Right, "arm".into())
-        );
-        assert_eq!(split_side("l_uparm"), (Side::Left, "uparm".into()));
-        assert_eq!(split_side("upperarm.R"), (Side::Right, "upperarm".into()));
-        assert_eq!(split_side("LHipJoint"), (Side::Left, "hipjoint".into()));
-        assert_eq!(split_side("lFemur"), (Side::Left, "femur".into()));
-        // Words that merely start with l or r are not sides.
-        assert_eq!(split_side("LowerLeg"), (Side::Center, "lowerleg".into()));
-        assert_eq!(split_side("Hips"), (Side::Center, "hips".into()));
     }
 
     #[test]
