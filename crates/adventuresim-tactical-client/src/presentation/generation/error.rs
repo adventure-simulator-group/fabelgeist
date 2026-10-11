@@ -10,6 +10,7 @@ pub(crate) type PreparationResult<T> = std::result::Result<T, PreparationError>;
 /// Asset roles shared by dependency, residency and installation failures.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum ProductKind {
+    RegionalCity,
     Scene,
     Facade,
     Venue,

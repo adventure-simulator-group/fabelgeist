@@ -44,7 +44,9 @@ impl TacticalSceneInput {
         Ok(self)
     }
 
-    pub(in crate::scene_input) fn physical_placements(&self) -> Vec<TacticalBuildingPlacement> {
+    /// Complete canonical placements, including compact distant buildings.
+    /// Exterior consumers use the same physical records as support binding.
+    pub fn physical_placements(&self) -> Vec<TacticalBuildingPlacement> {
         self.buildings
             .iter()
             .cloned()

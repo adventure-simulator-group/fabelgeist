@@ -64,7 +64,8 @@ fn prepared_owned_ground_keeps_full_physical_support_across_graded_boundaries() 
         terrain,
         &generated.furniture.groups,
         input.vista.lods.len(),
-    );
+    )
+    .unwrap();
     let mut assets = Assets::<Mesh>::default();
     let mut checked = 0;
     for (_, kind, handle, _) in prepared.meshes(&mut assets) {
