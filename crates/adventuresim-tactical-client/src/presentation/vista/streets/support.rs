@@ -1,18 +1,48 @@
 //! Street clipping against the actual terrain triangles, including vista seams.
 
 use super::*;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::mesh::VertexAttributeValues;
 mod index;
 
 const CLIP_EPSILON: f32 = 0.00001;
 
 #[derive(Clone, Default)]
-pub(in crate::presentation::vista) struct GroundSupport {
+pub(in crate::presentation) struct GroundSupport {
     triangles: Vec<[Vec3; 3]>,
     index: std::sync::OnceLock<index::TriangleIndex>,
 }
 
 impl GroundSupport {
+    /// Highest point on the presented city ground, in canonical east/up/north
+    /// metres. Missing coverage never substitutes a heightfield or nearest face.
+    pub(in crate::presentation) fn position(&self, point: ScenePlanPoint) -> Option<Vec3> {
+        let point = point.metres();
+        let index = self
+            .index
+            .get_or_init(|| index::TriangleIndex::new(&self.triangles));
+        let mut highest: Option<Vec3> = None;
+        index.query(point, point, |index| {
+            let triangle = self.triangles[index].map(Vec3::as_dvec3);
+            let query = point.as_dvec2();
+            let [a, b, c] = triangle;
+            // Upward-facing source triangles are clockwise in the east/north
+            // plan. Classify edges in double precision, as paving clipping does.
+            if [(a, b), (b, c), (c, a)].into_iter().any(|(start, end)| {
+                (end.xz() - start.xz()).perp_dot(query - start.xz()) > f64::from(CLIP_EPSILON)
+            }) {
+                return;
+            }
+            let normal = (b - a).cross(c - a);
+            let height = a.y - (normal.x * (query.x - a.x) + normal.z * (query.y - a.z)) / normal.y;
+            let position = Vec3::new(point.x, height as f32, point.y);
+            if highest.is_none_or(|current| position.y > current.y) {
+                highest = Some(position);
+            }
+        });
+        highest
+    }
+
     pub(in crate::presentation::vista) fn add_mesh(&mut self, mesh: &Mesh, origin: Vec3) {
         let Some(positions) = mesh
             .attribute(Mesh::ATTRIBUTE_POSITION)
@@ -53,7 +83,11 @@ impl GroundSupport {
         self.index.take();
     }
 
-    pub(super) fn clip(&self, corners: [Vec2; 4], mut emit: impl FnMut([bevy::math::DVec3; 3])) {
+    pub(in crate::presentation) fn clip(
+        &self,
+        corners: [Vec2; 4],
+        mut emit: impl FnMut([bevy::math::DVec3; 3]),
+    ) {
         let minimum = corners
             .into_iter()
             .fold(Vec2::splat(f32::INFINITY), Vec2::min);

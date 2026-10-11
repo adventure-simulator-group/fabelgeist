@@ -168,6 +168,24 @@ mod tests {
             &crate::presentation::terrain::urban_playable_mesh(&terrain, None),
             Vec3::ZERO,
         );
+        let query = adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+            Vec2::new(-4.0, 0.0),
+        )
+        .unwrap();
+        assert_eq!(
+            support.position(query).unwrap().y,
+            terrain.height_at(query.metres()).unwrap()
+        );
+        assert!(
+            support
+                .position(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::splat(1000.0)
+                    )
+                    .unwrap()
+                )
+                .is_none()
+        );
         let street = CityStreetPatch::Corridor {
             start_metres: Vec2::new(-6.0, 0.0),
             end_metres: Vec2::new(6.0, 0.0),

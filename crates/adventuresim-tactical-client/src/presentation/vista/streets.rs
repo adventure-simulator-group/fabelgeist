@@ -10,7 +10,7 @@ pub(in crate::presentation) mod prepared;
 pub(crate) mod streaming;
 mod support;
 mod traffic;
-pub(in crate::presentation::vista) use support::GroundSupport;
+pub(in crate::presentation) use support::GroundSupport;
 
 use material::CityGroundKind;
 pub(crate) use material::CityGroundMaterial;
