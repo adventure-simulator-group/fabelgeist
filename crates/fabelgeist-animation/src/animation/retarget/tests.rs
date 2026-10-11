@@ -890,10 +890,10 @@ fn the_report_names_both_sides_of_every_mapping() {
         .expect("profile resolves")
         .report();
 
-    assert!(report.contains("Pelvis:"), "{report}");
-    assert!(report.contains("source = a:hips"), "{report}");
-    assert!(report.contains("target = b:hips"), "{report}");
-    assert!(report.contains("end effectors"), "{report}");
+    assert!(report.to_string().contains("Pelvis:"), "{report}");
+    assert!(report.to_string().contains("source = a:hips"), "{report}");
+    assert!(report.to_string().contains("target = b:hips"), "{report}");
+    assert!(report.to_string().contains("end effectors"), "{report}");
 }
 
 #[test]

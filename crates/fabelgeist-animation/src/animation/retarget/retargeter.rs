@@ -35,8 +35,8 @@ use super::profile::{
     Axis, ReferencePose, RetargetProfile, RetargetSettings, RigProfile, ScaleMeasure, ScalePolicy,
     TranslationPolicy,
 };
-use super::resolve::{ResolvedProfile, ResolvedRig};
 use super::semantic::{HumanoidChain, HumanoidJoint};
+use super::{ResolvedProfile, ResolvedRig, RetargetReport};
 
 /// Where one target joint takes its motion from.
 #[derive(Clone, Debug, PartialEq)]
@@ -230,11 +230,11 @@ impl<'a> Retargeter<'a> {
     }
 
     /// The mapping as text, for inspecting a rig that misbehaves.
-    pub fn report(&self) -> String {
+    pub fn report(&self) -> RetargetReport {
         let mut report = self
             .resolved
             .report(self.source_skeleton, self.target_skeleton);
-        report.push_str(&format!(
+        report.append(format_args!(
             "\nscale: {:.4} target units per source unit\n",
             self.scale
         ));
@@ -244,7 +244,7 @@ impl<'a> Retargeter<'a> {
                 .iter()
                 .map(|(role, index)| format!("{role}={}", self.target_skeleton.joints[*index].name))
                 .collect();
-            report.push_str(&format!("end effectors: {}\n", names.join(", ")));
+            report.append(format_args!("end effectors: {}\n", names.join(", ")));
         }
         report
     }

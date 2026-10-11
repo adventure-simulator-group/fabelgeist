@@ -184,6 +184,7 @@ fn generated_labels_snapshot_rigs_and_keep_default_distinction() {
     assert!(
         resolved
             .report(&empty, &empty)
+            .to_string()
             .starts_with(&format!("profile: {label}\n"))
     );
 }
@@ -303,17 +304,21 @@ fn complete_reports_and_clip_float_words_ignore_authored_recipe_labels() {
         let profile = recipe(RetargetProfileName::from(spelling)).with_settings(settings.clone());
         let retargeter = Retargeter::new(&source, &target, &profile).unwrap();
         assert_eq!(
-            retargeter.report(),
+            retargeter.report().to_string(),
             format!(
                 "profile: {spelling}\n{}",
-                control_report.split_once('\n').unwrap().1
+                control_report.to_string().split_once('\n').unwrap().1
             )
         );
         assert_eq!(
-            retargeter.resolved().report(&source, &target),
+            retargeter.resolved().report(&source, &target).to_string(),
             format!(
                 "profile: {spelling}\n{}",
-                control_mapping_report.split_once('\n').unwrap().1
+                control_mapping_report
+                    .to_string()
+                    .split_once('\n')
+                    .unwrap()
+                    .1
             )
         );
         assert_eq!(retargeter.resolved().name, profile.name);

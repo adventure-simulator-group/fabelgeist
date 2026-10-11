@@ -255,11 +255,12 @@ fn reports_display_labels_while_retargeted_clip_and_float_words_stay_equal() {
         let prefix = format!(
             "profile: {spelling} -> {spelling}\nsource rig: {spelling} (1 joints)\ntarget rig: {spelling} (1 joints)\n\n"
         );
-        assert!(retargeter.report().starts_with(&prefix));
+        assert!(retargeter.report().to_string().starts_with(&prefix));
         assert!(
             retargeter
                 .resolved()
                 .report(&source, &target)
+                .to_string()
                 .starts_with(&prefix)
         );
         let output = retargeter.clip(&clip);

@@ -325,7 +325,7 @@ fn public_report_and_real_clip_keep_their_words() {
     let resolved = profile.resolve(&rig, &rig).expect("self transfer resolves");
     let retargeter = Retargeter::new(&rig, &rig, &profile).expect("public transfer");
     assert_eq!(
-        retargeter.report(),
+        retargeter.report().to_string(),
         format!(
             "{}\nscale: 1.0000 target units per source unit\n",
             resolved.report(&rig, &rig)
