@@ -816,7 +816,7 @@ mod tests {
             shader.contains("let sward_coverage = mix(near_to_far_sward, 1.0, terminal_sward)")
         );
         assert!(shader.contains("color = mix(color, sward_target, sward_amount)"));
-        assert!(shader.contains("abs(position.x) - terrain.playable_bounds.x"));
+        assert!(shader.contains("abs(material_position.x) - terrain.playable_bounds.x"));
         assert!(shader.contains("color = mix(color, sward_target, outside_sward)"));
         assert!(shader.contains("terrain.detail_patch.x > 0.5"));
         assert!(shader.contains("discard"));

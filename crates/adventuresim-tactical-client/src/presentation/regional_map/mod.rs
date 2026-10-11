@@ -1,6 +1,7 @@
 //! Geographic presentation retained alongside city and tactical scenes.
 //! This owns no strategic authority, collision or replicated tactical state.
-use super::RegionalMapCamera;
+use super::{RegionalMapCamera, regional_lighting};
+use crate::presentation::ownership::RegionalMapRoot;
 use adventuresim_tactical_core::regional_map::{MapOverlay, MapSpan};
 use adventuresim_tactical_core::{
     regional_environment::RegionalEnvironment, regional_terrain::RegionalTerrain,
@@ -16,7 +17,6 @@ mod city;
 mod connections;
 mod focus;
 mod geographic_surface;
-mod lighting;
 mod markers;
 mod path_geometry;
 pub(crate) mod protocol;
@@ -25,9 +25,6 @@ pub(crate) mod status;
 mod surface;
 
 const MAP_CAMERA_ORDER: isize = 64;
-
-#[derive(Component)]
-struct RegionalMapRoot;
 
 #[derive(Resource, Default)]
 struct MapState {
@@ -59,7 +56,7 @@ impl Plugin for RegionalMapPlugin {
                 )
                     .chain(),
             )
-            .add_systems(Update, lighting::sync)
+            .add_systems(Update, regional_lighting::sync)
             .add_systems(
                 PostUpdate,
                 surface::sync_camera
