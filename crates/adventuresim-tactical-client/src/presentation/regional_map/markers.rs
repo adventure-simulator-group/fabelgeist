@@ -1,5 +1,5 @@
 //! Spatial marker projection belongs to the camera; HTML retains link semantics.
-use super::{MapState, RegionalMapCamera, geographic_surface};
+use super::{MapState, RegionalMapCamera};
 use adventuresim_core::strategic_place::StrategicPlaceId;
 use adventuresim_tactical_core::regional_map::{MapMarkerEmphasis, MapMarkerRank};
 use bevy::prelude::*;
@@ -62,7 +62,7 @@ pub(super) fn project<'a>(
             if !visible {
                 return None;
             }
-            let point = geographic_surface::position(terrain, marker.origin)?;
+            let point = state.ground_position(marker.origin.to_e7().into())?;
             let screen = camera.world_to_viewport(transform, point).ok()?;
             viewport.contains(screen).then_some(ProjectedMarker {
                 place: &marker.place,

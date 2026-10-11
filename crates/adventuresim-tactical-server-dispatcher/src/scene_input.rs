@@ -753,6 +753,33 @@ mod tests {
             fs::write(output, serde_json::to_string(&input).unwrap())
                 .expect("write isolated actor-scene fixture");
         }
+        if let Some(output) = std::env::var_os("REGIONAL_CITY_ENVIRONMENT_FIXTURE_OUTPUT") {
+            let origin =
+                adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees::from_e7(
+                    city.origin(),
+                );
+            let environments = [
+                adventuresim_tactical_core::regional_terrain::RegionalTerrainScale::Neighborhood,
+                adventuresim_tactical_core::regional_terrain::RegionalTerrainScale::District,
+            ]
+            .map(|scale| {
+                let terrain = crate::regional_terrain::capture(
+                    &pack,
+                    adventuresim_tactical_core::regional_terrain::RegionalTerrainRequest {
+                        origin,
+                        scale,
+                    },
+                )
+                .unwrap();
+                adventuresim_tactical_core::regional_environment::RegionalEnvironment::new(
+                    terrain,
+                    Vec::new(),
+                )
+                .unwrap()
+            });
+            fs::write(output, serde_json::to_string(&environments).unwrap())
+                .expect("write matching regional-city environment fixtures");
+        }
         let mut mismatched_source = serde_json::to_value(&city).unwrap();
         mismatched_source["source"] = serde_json::Value::String("0".repeat(64));
         assert!(

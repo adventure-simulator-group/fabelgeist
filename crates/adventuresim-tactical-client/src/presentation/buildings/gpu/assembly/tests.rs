@@ -128,7 +128,7 @@ fn queued_buildings_share_geometry_without_per_part_render_entities() {
         .resource_mut::<PendingGpuCities>()
         .owners
         .get_mut(PresentationOwner::RegionalMap)
-        .parts = map_parts;
+        .parts = map_parts.clone();
     assemble(&mut world);
     assert_eq!(
         world
@@ -264,6 +264,60 @@ fn queued_buildings_share_geometry_without_per_part_render_entities() {
                 .frame,
             CityFrame::default(),
             "map reanchoring does not move actor scenery"
+        );
+        READY.get(owner).store(true, Ordering::Relaxed);
+        {
+            let mut pending = world.resource_mut::<PendingGpuCities>();
+            let candidate = pending.owners.get_mut(owner);
+            candidate.parts = map_parts.clone();
+            candidate.parts[0].mesh = Handle::default();
+            candidate.set_publication(map_parts[0].root, northern_frame);
+        }
+        assert_eq!(
+            world.resource::<CityGpuScenes>().owners.get(owner).frame,
+            shifted_frame
+        );
+        assemble_owner(&mut world, owner);
+        assert!(
+            world
+                .get::<CityAssemblyFailure>(map_parts[0].root)
+                .is_some()
+        );
+        assert!(
+            world
+                .get::<CityAssemblyPublished>(map_parts[0].root)
+                .is_none()
+        );
+        let retained = world.resource::<CityGpuScenes>().owners.get(owner);
+        assert_eq!(retained.frame, shifted_frame);
+        assert_eq!(retained.buildings.id(), buildings);
+        assert!(
+            READY.get(owner).load(Ordering::Relaxed),
+            "failed replacement preserves readiness"
+        );
+        {
+            let mut pending = world.resource_mut::<PendingGpuCities>();
+            let candidate = pending.owners.get_mut(owner);
+            candidate.set_publication(map_parts[0].root, northern_frame);
+            candidate.parts = map_parts.clone();
+        }
+        assemble_owner(&mut world, owner);
+        assert!(
+            world
+                .get::<CityAssemblyPublished>(map_parts[0].root)
+                .is_some()
+        );
+        assert!(
+            world
+                .get::<CityAssemblyFailure>(map_parts[0].root)
+                .is_none()
+        );
+        let replaced = world.resource::<CityGpuScenes>().owners.get(owner);
+        assert_eq!(replaced.frame, northern_frame);
+        assert_ne!(replaced.buildings.id(), buildings);
+        assert!(
+            !READY.get(owner).load(Ordering::Relaxed),
+            "new buffers await render readiness"
         );
     }
 }

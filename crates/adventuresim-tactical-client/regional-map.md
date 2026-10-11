@@ -3,14 +3,18 @@
 The browser runtime retains a geographic camera and one terrain surface beside
 its actor and tactical scenes. It uses the same Bevy application, WebGPU device,
 canvas, mesh store, environment material and lighting assets. Opening the map
-does not prepare settlement generation jobs or create a worker runtime.
+at regional distances does not prepare settlement generation jobs or create a
+worker runtime. Street-scale views prepare one observer-known settlement through
+the existing worker pool.
 
 Browser commands use `regional-map` with a nested command. `open` supplies the
 terrain source digest, a checked WGS84 origin in microdegrees, the vertical view
 span in metres and the shared physical-pixel canvas rectangle. `pan` carries a
 two-component physical-pixel displacement. `zoom` carries a positive bounded
 ratio, and `rotate` carries a checked angle in radians. `resize`, `reset`,
-`hide` and `install-environment` complete the camera and environment protocol.
+`hide`, `install-environment` and `install-city` complete the camera and
+environment protocol. City installation carries the opaque canonical document
+text and its checked regional-map preparation ticket.
 The environment product carries terrain and canonical regional connections;
 the terrain
 product retains the fixed lattice and checked source contract described in
@@ -52,16 +56,17 @@ material pipelines and compiled building prototypes. Their phase anchors use
 separate render layers, so actor views do not draw the focused map city.
 Replacing a city's buffers releases that owner's previous phase anchors.
 Resetting actor scenery leaves the map owner's assets resident; a complete
-presentation reset releases both. The regional owner is prepared for focused
-city installation, but no map city document is requested or installed yet.
+presentation reset releases both. Focused cities install complete canonical
+ground and every primary and distant exterior placement without actor scene
+observers. See [focused city installation](focused-city.md).
 
 `wasm_regional_map_status` publishes camera pose, the requested and installed
 windows, coverage, typed failure classification and readiness. Readiness settles
 after four frames with the shared environment ready and no waiting render
 pipelines; an explicitly empty surface can settle with `covered: false`. The
-pipeline count currently belongs to the
-shared device, so unrelated compilation can delay this initial readiness gate.
-It does not cause additional settlement preparation on warm reopening.
+pipeline count belongs to the shared device, so unrelated compilation can delay
+initial readiness. An already-settled map remains visible while new detail
+pipelines compile. Changing the window, overlay or viewport restarts its gate.
 
 `install-overlay` admits a source-matched, bounded collection of canonical
 settlement and case-site identities, checked coordinates and one selected route.
@@ -110,9 +115,9 @@ admitted selected route using the current viewport aspect and yaw, preserving
 rotation and applying space around the route. An absent route has no effect.
 
 The strategic map interface uses this renderer through its existing fullscreen
-canvas and compositor. Road data and focused city refinement extend its camera and
-geographic frame. City refinement must reuse canonical placement and grading
-rather than placing city geometry directly on the ungraded lattice.
+canvas and compositor. Road data and focused city refinement share its camera and
+geographic frame. City refinement retains canonical placement and grading,
+including the displayed ground used by pins, camera focus and route ribbons.
 
 GPU city placements remain in their canonical east/up/north frame. A retained
 144-byte frame buffer carries a focused city into the current terrain window's
@@ -122,8 +127,9 @@ Culling uses the inverse frame for camera positions and the matching frame for
 clip and far-plane transforms. Shading corrects reflected face winding and
 tangent handedness, with the inverse transpose for normals and the shared
 latitude-dependent scale for east-west projection. Actor scenery uses the
-identity frame. The map controller
-does not install focused cities yet.
+identity frame. City ground meshes reverse their indices at the geographic
+upload boundary; actor mesh handles retain their original winding. Ground
+material coordinates remain anchored to the city while its window changes.
 
 ## Real browser verification
 
@@ -139,8 +145,8 @@ The test serves an isolated local fixture without a database. It prepares the
 existing woodland environment and a complete imported-settlement capture. Set
 `REGIONAL_MAP_CITY_INPUT` to the JSON emitted by the dispatcher's canonical
 settlement check, as described in [generation](generation.md). The city worker
-check verifies exterior-only preparation alongside the actor owner; this slice
-does not install the city on the map. The test exercises Bevy on WebGPU,
+check verifies exterior-only preparation alongside the actor owner. The test
+exercises Bevy on WebGPU,
 including terrain drawing, pan, zoom, rotation, hiding, retained reopening and
 invalid command rejection. Optional `REGIONAL_MAP_ASSET_DIR` supplies synchronized
 browser assets; `REGIONAL_MAP_REVIEW_DIR` selects the ignored screenshot and
@@ -151,6 +157,12 @@ also emit its unchanged actor scene document. Passing that file as
 `REGIONAL_MAP_ACTOR_INPUT` prepares a full city instead of woodland, so the real
 browser check also exercises city vertex pulling and shading while the map uses
 its independent terrain view. Both documents remain opaque text in JavaScript.
+
+Set `REGIONAL_CITY_ENVIRONMENT_FIXTURE_OUTPUT` during that same native capture to
+emit matching neighborhood and district environment products. Pass the file as
+`REGIONAL_MAP_CITY_ENVIRONMENT_INPUT` to exercise actual map-city installation,
+street-scale controls, retained reopening and actor-scene replacement. The
+fixture serves the original city document bytes without rewriting its input.
 
 The fixture has no actors. Four unauthored movement clips currently remain
 unavailable in the repository; the check records those missing URLs while

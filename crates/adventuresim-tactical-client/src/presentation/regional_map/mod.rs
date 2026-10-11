@@ -12,7 +12,9 @@ use camera::MapPose;
 use protocol::{MapCommand, MapOverlayRevision, MapProtocolError};
 
 mod camera;
+mod city;
 mod connections;
+mod focus;
 mod geographic_surface;
 mod lighting;
 mod markers;
@@ -38,6 +40,7 @@ struct MapState {
     presented_route: Option<routes::PresentedRoute>,
     failure: Option<MapProtocolError>,
     settled_frames: usize,
+    city: city::CityResidency,
 }
 
 pub(crate) struct RegionalMapPlugin;
@@ -48,7 +51,13 @@ impl Plugin for RegionalMapPlugin {
             .add_systems(Startup, setup)
             .add_systems(
                 Update,
-                (surface::present, connections::present, routes::present).chain(),
+                (
+                    surface::present,
+                    city::sync,
+                    connections::present,
+                    routes::present,
+                )
+                    .chain(),
             )
             .add_systems(Update, lighting::sync)
             .add_systems(
@@ -63,8 +72,18 @@ impl Plugin for RegionalMapPlugin {
 
 impl MapCommand {
     pub(crate) fn apply(self, world: &mut World) {
+        let command = match self {
+            Self::InstallCity {
+                document_json,
+                preparation,
+            } => {
+                city::install(world, &document_json, preparation);
+                return;
+            }
+            command => command,
+        };
         let mut state = world.resource_mut::<MapState>();
-        let result = match self {
+        let result = match command {
             Self::Open {
                 source,
                 origin,
@@ -111,6 +130,7 @@ impl MapCommand {
                 }
                 Ok(())
             }
+            Self::InstallCity { .. } => return,
             Self::InstallEnvironment { environment } => {
                 if state
                     .pose

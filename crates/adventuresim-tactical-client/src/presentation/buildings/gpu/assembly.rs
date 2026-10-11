@@ -4,7 +4,9 @@ use bevy::{
     camera::{primitives::Aabb, visibility::NoFrustumCulling},
     render::{batching::NoAutomaticBatching, render_resource::ShaderType},
 };
-pub(in crate::presentation::buildings) use input::{PendingGpuBuildings, PendingGpuCities};
+pub(in crate::presentation::buildings) use input::{
+    PendingGpuBuildings, PendingGpuCities, PlacementAppearance,
+};
 use packing::pack;
 pub(super) use ranges::DrawRange;
 use std::collections::HashMap;
@@ -54,7 +56,7 @@ struct PackedCity {
 type ComponentTransforms = HashMap<([u32; 16], [u32; 2]), u32>;
 
 #[derive(Debug, thiserror::Error)]
-enum AssemblyError {
+pub(in crate::presentation) enum AssemblyError {
     #[error("City building materials are not resident")]
     MissingMaterials,
     #[error("A city source material is not resident")]
@@ -64,6 +66,13 @@ enum AssemblyError {
     #[error("City component storage capacity is exceeded")]
     ComponentCapacity,
 }
+
+/// Acknowledges the exact candidate root; another resident city is insufficient.
+#[derive(Component)]
+pub(in crate::presentation) struct CityAssemblyPublished;
+
+#[derive(Component, Debug)]
+pub(in crate::presentation) struct CityAssemblyFailure(pub AssemblyError);
 
 /// Pack once after generation and deferred material updates have completed.
 pub(super) fn assemble(world: &mut World) {
@@ -168,6 +177,7 @@ fn upload(
     world: &mut World,
     owner: PresentationOwner,
     packed: PackedCity,
+    frame: CityFrame,
 ) -> AssemblyResult<CityGpuScene> {
     let PackedCity {
         geometry,
@@ -183,7 +193,6 @@ fn upload(
         return Err(AssemblyError::MissingMaterial);
     }
     let count = buildings.len() as u32;
-    let frame = world.resource::<CityGpuScenes>().owners.get(owner).frame;
     let frame_buffer = world
         .resource_mut::<Assets<ShaderBuffer>>()
         .add(ShaderBuffer::from(frame));
@@ -259,26 +268,62 @@ fn assemble_owner(world: &mut World, owner: PresentationOwner) {
             .owners
             .get_mut(owner),
     );
+    if pending
+        .publication
+        .as_ref()
+        .is_some_and(|publication| world.get_entity(publication.root).is_err())
+    {
+        return;
+    }
     // Only publish alongside a completed city; interactive furniture is never
     // consumed by this static scenery path.
     if pending.is_empty() {
+        if let Some(publication) = pending.publication {
+            super::reset(world, owner);
+            world
+                .resource_mut::<CityGpuScenes>()
+                .owners
+                .get_mut(owner)
+                .frame = publication.frame;
+            world
+                .entity_mut(publication.root)
+                .insert(CityAssemblyPublished)
+                .remove::<CityAssemblyFailure>();
+            READY.get(owner).store(true, Ordering::Relaxed);
+        }
         return;
     }
     if owner == PresentationOwner::Scene {
         pending.parts.extend(props::parts(world));
     }
-    READY.get(owner).store(false, Ordering::Relaxed);
+    let frame = pending
+        .publication
+        .as_ref()
+        .map(|publication| publication.frame)
+        .unwrap_or(world.resource::<CityGpuScenes>().owners.get(owner).frame);
     let scene = pending
         .groups(world.get_resource())
         .and_then(|groups| pack(world, groups))
-        .and_then(|packed| upload(world, owner, packed));
+        .and_then(|packed| upload(world, owner, packed, frame));
     let scene = match scene {
         Ok(scene) => scene,
         Err(error) => {
             warn!(?owner, %error, "Could not assemble GPU city");
+            if let Some(publication) = &pending.publication {
+                world
+                    .entity_mut(publication.root)
+                    .insert(CityAssemblyFailure(error));
+            }
             return;
         }
     };
+    if let Some(publication) = &pending.publication {
+        world
+            .entity_mut(publication.root)
+            .insert(CityAssemblyPublished)
+            .remove::<CityAssemblyFailure>();
+    }
+    READY.get(owner).store(false, Ordering::Relaxed);
     let prop_roots: std::collections::HashSet<_> = pending
         .parts
         .iter()
