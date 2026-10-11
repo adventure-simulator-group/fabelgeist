@@ -9,7 +9,7 @@ use std::path::Path;
 use anyhow::{Context, Result};
 
 use crate::npy::{self, NpyArray};
-use crate::zip::ZipArchive;
+use crate::zip::{DeclaredUncompressedByteLength, ZipArchive};
 
 /// A memory-mapped `.npz` archive.
 pub struct Npz {
@@ -45,8 +45,8 @@ impl Npz {
         self.archive.find(|member| matches(member, name)).is_some()
     }
 
-    /// Size of a member once decoded, without decoding it.
-    pub fn uncompressed_size(&self, name: &str) -> Option<u64> {
+    /// Declared decoded byte length, without decoding or verifying the payload.
+    pub fn uncompressed_size(&self, name: &str) -> Option<DeclaredUncompressedByteLength> {
         self.archive
             .find(|member| matches(member, name))
             .and_then(|entry| self.archive.uncompressed_size(&entry.name))
