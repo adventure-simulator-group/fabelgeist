@@ -41,6 +41,13 @@ camera inherits the existing exposure, tone mapping and environment-map handles,
 while omitting
 street-distance fog and perspective atmosphere settings. The initial regional
 surface has no tactical shadow maps.
+The source sun supplies top-of-atmosphere intensity, whose actor shader normally
+applies planetary horizon occlusion. Since map views omit that atmospheric pass,
+their sunlight proxy turns off below the shared local horizon. This prevents
+tilted facets from catching an underground sun at nighttime exposure. Above the
+horizon it retains the source intensity and weather; atmospheric attenuation and
+the partially visible solar disk remain lighting refinements. The moon and
+indirect sky lighting retain their existing authority.
 
 Hiding the view or entering tactical play deactivates its camera and root while
 preserving its pose, CPU product and GPU asset handles. Reopening the same source

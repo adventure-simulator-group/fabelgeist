@@ -63,6 +63,7 @@ into the existing worker product and adding staged uploads are available
 performance iterations. Neither requires generating all cities on map opening
 or creating another renderer.
 
-The fault-scarp fixture retains pronounced facet contrast in its current
-materials. Geometry, transformed normals and ground coverage are verified;
-material tuning remains a presentation follow-up.
+Map sunlight obeys the shared local horizon even though its view omits the
+actor's atmospheric pass. This prevents sloping terrain and paving from catching
+an underground sun at nighttime exposure. Atmospheric attenuation above the
+horizon and the partly visible solar disk remain lighting refinements.
