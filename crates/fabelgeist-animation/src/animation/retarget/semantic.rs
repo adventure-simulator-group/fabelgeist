@@ -8,6 +8,12 @@
 
 use serde::{Deserialize, Serialize};
 
+pub use name::HumanoidRoleName;
+pub use unknown_joint::UnknownHumanoidJoint;
+
+mod name;
+mod unknown_joint;
+
 macro_rules! humanoid_joints {
     ($($variant:ident => $name:literal),* $(,)?) => {
         /// A role in a humanoid body.
@@ -20,16 +26,22 @@ macro_rules! humanoid_joints {
             /// Every role, in a stable order.
             pub const ALL: &'static [HumanoidJoint] = &[$(HumanoidJoint::$variant),*];
 
-            pub fn as_str(self) -> &'static str {
+            /// The canonical spelling of this anatomical role.
+            pub const fn name(self) -> HumanoidRoleName {
                 match self {
-                    $(HumanoidJoint::$variant => $name),*
+                    $(HumanoidJoint::$variant => HumanoidRoleName::from_static($name)),*
                 }
             }
+        }
 
-            pub fn from_name(name: &str) -> Option<Self> {
-                match name {
-                    $($name => Some(HumanoidJoint::$variant),)*
-                    _ => None,
+        impl TryFrom<HumanoidRoleName> for HumanoidJoint {
+            type Error = UnknownHumanoidJoint;
+
+            fn try_from(name: HumanoidRoleName) -> Result<Self, Self::Error> {
+                // Exact catalogue classification is this family's text boundary.
+                match name.0.as_ref() {
+                    $($name => Ok(HumanoidJoint::$variant),)*
+                    _ => Err(UnknownHumanoidJoint::from_rejected_name(name)),
                 }
             }
         }
@@ -100,15 +112,16 @@ humanoid_joints! {
 
 impl std::fmt::Display for HumanoidJoint {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        formatter.write_str(self.as_str())
+        // Role Display writes its spelling without applying outer text padding.
+        write!(formatter, "{}", self.name())
     }
 }
 
 impl std::str::FromStr for HumanoidJoint {
-    type Err = String;
+    type Err = UnknownHumanoidJoint;
 
     fn from_str(name: &str) -> Result<Self, Self::Err> {
-        Self::from_name(name).ok_or_else(|| format!("unknown humanoid joint {name:?}"))
+        Self::try_from(HumanoidRoleName::from(name))
     }
 }
 
@@ -394,7 +407,7 @@ mod tests {
     #[test]
     fn joint_names_round_trip() {
         for joint in HumanoidJoint::ALL {
-            assert_eq!(HumanoidJoint::from_name(joint.as_str()), Some(*joint));
+            assert_eq!(HumanoidJoint::try_from(joint.name()), Ok(*joint));
         }
     }
 

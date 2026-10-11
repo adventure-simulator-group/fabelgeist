@@ -61,3 +61,6 @@ lookup, collision and alias precedence, and how profiles resolve against a rig.
 
 [Retarget reports](retarget-reports.md) describes the typed mapping diagnostics
 returned by resolution and retargeting, their text output and ownership limits.
+
+[Humanoid role spellings](humanoid-joint-names.md) describes typed anatomical
+role names, exact classification and structured parse errors.
