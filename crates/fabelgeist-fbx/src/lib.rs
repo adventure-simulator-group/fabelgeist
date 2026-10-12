@@ -17,6 +17,7 @@ use std::collections::HashMap;
 use std::io::Read;
 
 use anyhow::{Context, Result, anyhow, bail};
+use array_encoding::FbxArrayEncodingCode;
 use binary_layout::{
     BINARY_MAGIC_PREFIX, FILE_HEADER_BYTES, FILE_VERSION_OFFSET, FbxVersion, HeaderFormat,
 };
@@ -26,6 +27,7 @@ pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
 
 pub mod animation;
 
+mod array_encoding;
 mod binary_layout;
 
 /// One node record of the FBX tree.
@@ -420,11 +422,11 @@ pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
 fn decode_array<T: Copy>(
     raw: &[u8],
     count: usize,
-    encoding: u32,
+    encoding: FbxArrayEncodingCode,
     parse: impl Fn(&[u8]) -> T,
     width: usize,
 ) -> Result<Vec<T>> {
-    let bytes = if encoding == 0 {
+    let bytes = if encoding.is_uncompressed() {
         raw.to_vec()
     } else {
         let mut out = Vec::with_capacity(count * width);
@@ -457,7 +459,9 @@ fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
             b'L' => Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
             b'f' | b'd' | b'l' | b'i' | b'b' => {
                 let count = reader.u32()? as usize;
-                let encoding = reader.u32()?;
+                // FBX array metadata stores encoding as a little-endian u32.
+                // Admit that wire word before passing it to array decoding.
+                let encoding = FbxArrayEncodingCode::from(reader.u32()?);
                 let compressed_len = reader.u32()? as usize;
                 let raw = reader.take(compressed_len)?;
                 match kind {
@@ -559,5 +563,7 @@ fn qualified_name(raw: &[u8]) -> String {
     };
     String::from_utf8_lossy(name).into_owned()
 }
+#[cfg(test)]
+mod array_encoding_tests;
 #[cfg(test)]
 mod binary_layout_tests;
