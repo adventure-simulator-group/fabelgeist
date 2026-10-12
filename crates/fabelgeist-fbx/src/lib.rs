@@ -18,6 +18,7 @@ use std::io::Read;
 
 use anyhow::{Context, Result, anyhow, bail};
 use array_encoding::FbxArrayEncodingCode;
+use array_layout::{FbxArrayCount, FbxArrayKind};
 use binary_layout::{
     BINARY_MAGIC_PREFIX, FILE_HEADER_BYTES, FILE_VERSION_OFFSET, FbxVersion, HeaderFormat,
 };
@@ -30,6 +31,7 @@ pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
 pub mod animation;
 
 mod array_encoding;
+mod array_layout;
 mod binary_layout;
 mod property_count;
 mod property_tag;
@@ -425,27 +427,30 @@ pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
 
 fn decode_array<T: Copy>(
     raw: &[u8],
-    count: usize,
+    count: FbxArrayCount,
     encoding: FbxArrayEncodingCode,
     parse: impl Fn(&[u8]) -> T,
-    width: usize,
+    kind: FbxArrayKind,
 ) -> Result<Vec<T>> {
     let bytes = if encoding.is_uncompressed() {
         raw.to_vec()
     } else {
-        let mut out = Vec::with_capacity(count * width);
+        let mut out = Vec::with_capacity(count.native_byte_len(kind));
         ZlibDecoder::new(raw)
             .read_to_end(&mut out)
             .context("inflating FBX array property")?;
         out
     };
-    if bytes.len() < count * width {
+    if bytes.len() < count.native_byte_len(kind) {
         bail!(
-            "FBX array property is short: {} bytes for {count} x {width}",
-            bytes.len()
+            "FBX array property is short: {} bytes for {} x {}",
+            bytes.len(),
+            count.native_len(),
+            kind.native_width()
         );
     }
-    Ok((0..count)
+    let width = kind.native_width();
+    Ok((0..count.native_len())
         .map(|i| parse(&bytes[i * width..(i + 1) * width]))
         .collect())
 }
@@ -476,7 +481,7 @@ fn read_props(reader: &mut Reader<'_>, count: FbxPropertyCount) -> Result<Vec<Pr
             | FbxPropertyTag::ARRAY_INTEGER64
             | FbxPropertyTag::ARRAY_INTEGER32
             | FbxPropertyTag::ARRAY_BOOLEAN => {
-                let count = reader.u32()? as usize;
+                let count = FbxArrayCount::from(reader.u32()?);
                 // FBX array metadata stores encoding as a little-endian u32.
                 // Admit that wire word before passing it to array decoding.
                 let encoding = FbxArrayEncodingCode::from(reader.u32()?);
@@ -488,30 +493,36 @@ fn read_props(reader: &mut Reader<'_>, count: FbxPropertyCount) -> Result<Vec<Pr
                         count,
                         encoding,
                         |b| f32::from_le_bytes(b.try_into().unwrap()),
-                        4,
+                        FbxArrayKind::Float32,
                     )?),
                     FbxPropertyTag::ARRAY_FLOAT64 => Prop::ArrF64(decode_array(
                         raw,
                         count,
                         encoding,
                         |b| f64::from_le_bytes(b.try_into().unwrap()),
-                        8,
+                        FbxArrayKind::Float64,
                     )?),
                     FbxPropertyTag::ARRAY_INTEGER32 => Prop::ArrI32(decode_array(
                         raw,
                         count,
                         encoding,
                         |b| i32::from_le_bytes(b.try_into().unwrap()),
-                        4,
+                        FbxArrayKind::Integer32,
                     )?),
                     FbxPropertyTag::ARRAY_INTEGER64 => Prop::ArrI64(decode_array(
                         raw,
                         count,
                         encoding,
                         |b| i64::from_le_bytes(b.try_into().unwrap()),
-                        8,
+                        FbxArrayKind::Integer64,
                     )?),
-                    _ => Prop::ArrBool(decode_array(raw, count, encoding, |b| b[0], 1)?),
+                    _ => Prop::ArrBool(decode_array(
+                        raw,
+                        count,
+                        encoding,
+                        |b| b[0],
+                        FbxArrayKind::Boolean,
+                    )?),
                 }
             }
             FbxPropertyTag::STRING => {
@@ -586,6 +597,8 @@ fn qualified_name(raw: &[u8]) -> String {
 }
 #[cfg(test)]
 mod array_encoding_tests;
+#[cfg(test)]
+mod array_layout_tests;
 #[cfg(test)]
 mod binary_layout_tests;
 #[cfg(test)]
