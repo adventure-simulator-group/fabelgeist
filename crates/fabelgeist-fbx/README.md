@@ -38,7 +38,7 @@ value uses the existing Zlib decompression path, including values other than 1.
 This preserves the current decode policy rather than asserting which codes the
 wider format supports. Decoder errors, empty counts, extra decoded bytes and the
 original float bit patterns and Boolean byte values remain unchanged. Counts,
-widths, tags, offsets and structured decode errors remain separate migration
+widths, offsets and structured decode errors remain separate migration
 responsibilities.
 
 A regression fixture records 95 observations from the unchanged main public
@@ -57,13 +57,35 @@ retains its existing zero/raw and every-nonzero/Zlib policy.
 
 [Blender FBX reader, read_array_params](https://github.com/blender/blender-addons/blob/main/io_scene_fbx/parse_fbx.py)
 
+## Property tags
+
+The binary FBX model-file reader admits each one-byte property tag into a
+bespoke FbxPropertyTag before dispatch. The same owner names all thirteen
+supported tag codes and distinguishes scalar numbers and Booleans, numeric and
+Boolean arrays, strings, and raw byte payloads. Tag identity remains typed
+through both property selection and array selection.
+
+Tag admission is open. Unknown native bytes reach the existing dispatch
+rejection and retain the same character diagnostic. The type does not admit
+decoded payloads or change scalar widths, array decoding, Boolean truth rules,
+string encoding, read ordering or parser errors. Version/header layouts, array
+encoding, counts, offsets and structured errors remain separate migration
+responsibilities.
+
+A regression fixture records 284 observations from the unchanged main public
+parser. Independently encoded properties cover all 256 native tag bytes, all
+thirteen known payload representations, missing and short payloads, and mixed
+forward/reverse property sequences. Comparisons retain exact floating-point bit
+patterns, invalid string bytes and the distinct string/raw property variants.
+
 ## Remaining decoding audit
 
-Header-layout ownership does not complete the parser's other responsibilities.
+These bespoke types do not complete the parser's other responsibilities.
 `read_node` still carries native offsets and property counts; `read_props` and
-`decode_array` still carry property tags, array counts and scalar widths. Scalar
+`decode_array` still carry array counts and scalar widths. Scalar
 conversions still contain guaranteed-length `unwrap`
 calls. Those values and the parser's errors need their own complete
-producer/consumer migrations. They are explicitly outside this header-layout
-change; no stricter framing, encoding, version, allocation or error policy is
+producer/consumer migrations. They are explicitly outside these header,
+array-encoding and property-tag
+changes; no stricter framing, encoding, version, allocation or error policy is
 introduced here.
