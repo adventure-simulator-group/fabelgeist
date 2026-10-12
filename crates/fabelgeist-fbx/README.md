@@ -37,8 +37,9 @@ The encoding code is open. Zero selects an uncompressed payload; every nonzero
 value uses the existing Zlib decompression path, including values other than 1.
 This preserves the current decode policy rather than asserting which codes the
 wider format supports. Decoder errors, empty counts, extra decoded bytes and the
-original float bit patterns and Boolean byte values remain unchanged. Counts,
-widths, offsets and structured decode errors remain separate migration
+original float bit patterns and Boolean byte values remain unchanged. Declared
+array counts and element layouts use their own owners. Payload byte
+lengths, offsets and structured decode errors remain separate migration
 responsibilities.
 
 A regression fixture records 95 observations from the unchanged main public
@@ -68,9 +69,9 @@ through both property selection and array selection.
 Tag admission is open. Unknown native bytes reach the existing dispatch
 rejection and retain the same character diagnostic. The type does not admit
 decoded payloads or change scalar widths, array decoding, Boolean truth rules,
-string encoding, read ordering or parser errors. Version/header layouts, array
-encoding, array counts, offsets and structured errors remain separate migration
-responsibilities.
+string encoding, read ordering or parser errors. Existing version/header,
+encoding and element-layout owners remain distinct.
+Offsets and structured errors remain separate migration responsibilities.
 
 A regression fixture records 284 observations from the unchanged main public
 parser. Independently encoded properties cover all 256 native tag bytes, all
@@ -90,9 +91,10 @@ Count admission remains open, including zero. No allocator limit or
 malformed-file resource validation is introduced. The host-sized conversion
 retains the original behavior for wide header words on a 32-bit host. A null
 record still reads its name before returning without allocating its declared
-properties. Array counts, offsets, byte lengths and structured errors remain
-separate
-migration responsibilities; existing header, encoding and tag owners are
+properties. Array layouts use their own owners. Offsets, byte lengths and
+structured errors
+remain separate migration responsibilities; existing header, encoding and tag
+owners are
 retained.
 
 A regression fixture records 74 observations from the unchanged main public
@@ -102,15 +104,44 @@ and null records with extreme count words and truncated names. Extreme non-null
 allocation requests are deliberately not executed; no safety guarantee for them
 is claimed.
 
+## Array cardinality and layout
+
+The binary FBX model-file reader admits each encoded array element count into
+FbxArrayCount and passes it through the shared decoder. FbxArrayKind names the
+five supported element layouts: 32-bit and 64-bit floats, 32-bit and 64-bit
+integers, and Boolean bytes. The count stays distinct from byte lengths, and
+numeric strides no longer cross the decoder interface.
+
+Explicit native adapters project the count and layout at allocation,
+length-check, iteration, slice and diagnostic ports. Raw data is still copied
+before its decoded-length check. Compressed data still reserves capacity before
+inflation. Host-sized multiplication, overflow and allocator behavior are
+retained; no resource limit or checked framing admission is added. All encoded
+counts, including zero, remain admitted. Boolean arrays retain every byte value,
+and extra decoded bytes remain ignored.
+
+A regression fixture records 282 observations from the unchanged main public
+parser. Independent native records cover both header layouts, all five element
+layouts, zero/one/two/three declarations, raw and nonzero compression codes,
+short and extra payloads, corrupt compressed input, exact float bits and Boolean
+bytes. Large raw declarations fit even 32-bit native multiplication; extreme
+compressed capacities are not executed. No 32-bit runtime or allocator-safety
+verdict is claimed.
+
+Existing version/header, property-count, property-tag and compression owners
+remain distinct. Payload byte lengths, node offsets, scalar widths and
+structured errors remain separate migration responsibilities.
+
 ## Remaining decoding audit
 
 These bespoke types do not complete the parser's other responsibilities.
 `read_node` still carries native offsets and property-byte lengths; `read_props`
-and
-`decode_array` still carry array counts and scalar widths. Scalar
+still carries payload byte lengths. Native array count/layout
+projections remain explicit buffer adapters. Scalar copy widths remain native.
+Scalar
 conversions still contain guaranteed-length `unwrap`
 calls. Those values and the parser's errors need their own complete
 producer/consumer migrations. They are explicitly outside these header,
-array-encoding, property-tag and property-count
+array-encoding, property-tag, property-count and array-layout
 changes; no stricter framing, encoding, version, allocation or error policy is
 introduced here.
