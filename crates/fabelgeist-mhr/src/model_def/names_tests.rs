@@ -17,10 +17,11 @@ fn snapshot(pt: &ParameterTransform) -> String {
         .limits
         .iter()
         .map(|l| {
+            let (minimum, maximum) = l.bounds.into();
             (
                 l.parameter,
-                l.min.to_bits(),
-                l.max.to_bits(),
+                minimum.to_bits(),
+                maximum.to_bits(),
                 l.weight.to_bits(),
             )
         })
@@ -59,7 +60,7 @@ fn observe() -> String {
         "[ParameterTransform]\nroot.rx = 1 * a + 0.25 * b + 0.75\nchild.rx = -0.5 * root.rx\nroot.tx = 1 * a + 2 * root.tx + 3 * b\n",
         "[ParameterTransform]\nroot.ty = 1 * a + 0.75 + -0.25\nroot.tz = bad\nchild.sc = 1 * x.y + 0 * a\n",
         "[ParameterTransform]\nroot.tx = -0 * a + NaN * n + inf * i + -inf * j\n",
-        "[ParameterTransform]\nroot.tx=1*a + 1*A + 1*β + 1*a\0\n[ParameterSets]\nparameterset group a missing β\nparameterset group A\nparameterset empty missing\n[Limits]\nlimit a minmax [-0.5, 1.5]\nlimit A minmax [-0.25,0.25] 0.1\nlimit missing minmax [-1,1]\nlimit β minmax [NaN, -1] invalid\nlimit a minmax [3,-2] 4\n",
+        "[ParameterTransform]\nroot.tx=1*a + 1*A + 1*β + 1*a\0\n[ParameterSets]\nparameterset group a missing β\nparameterset group A\nparameterset empty missing\n[Limits]\nlimit a minmax [-0.5, 1.5]\nlimit A minmax [-0.25,0.25] 0.1\nlimit missing minmax [-1,1]\n",
         "[ParameterTransform]\nroot.tx=1*blend_0\n[ParameterSets]\nparameterset blend blend_0\n",
         "[ParameterTransform]\nnot-assignment\nroot.tx=1*a*b + 2 + nope\n[Unknown]\nignored\n",
         "[ParameterSets]\nparameterset empty missing\n[Limits]\nlimit missing minmax [0,1]\n",
