@@ -196,6 +196,7 @@ fn bark_material(
                 1.0,
                 0.82,
             ),
+            // y is the shader's reserved zero loop bound.
             soil_optics: Vec4::new(0.35, 0.0, 0.0, 0.0),
             terrain_heightmap,
             soil_height_ao: assets.forest_soil.height_ao.clone(),
@@ -483,8 +484,8 @@ mod tests {
         assert!(shader.contains("textureSampleGrad"));
         assert!(!shader.contains("textureSampleLevel"));
         assert!(shader.contains("fn directional_horizon_visibility"));
-        assert!(shader.contains("layer <= 16"));
-        assert!(shader.contains("horizon_step <= 3"));
+        assert!(shader.contains("16 + i32(bark.soil_optics.y)"));
+        assert!(shader.contains("3 + i32(bark.soil_optics.y)"));
         assert!(shader.contains("let bark_roughness = clamp"));
         assert!(shader.contains("bark.soil_surface.w"));
         assert!(shader.contains("vec3<f32>(bark.soil_optics.x)"));
