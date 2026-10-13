@@ -65,6 +65,7 @@ impl GroundFixture {
         let mut app = App::new();
         app.init_resource::<ActiveVistaSurface>()
             .add_systems(Update, update_coverage);
+        let coverage = GroundCoverage::new(&terrain, &environment, &ActiveVistaSurface::default());
         let scene = app.world_mut().spawn((terrain.clone(), environment)).id();
         if let Some(recipe) = landform {
             app.world_mut().entity_mut(scene).insert(recipe);
@@ -84,7 +85,7 @@ impl GroundFixture {
                 material,
                 landform.as_ref(),
                 None,
-                landform.map(|recipe| recipe.transition_collar()),
+                coverage,
             );
         }
         queue.apply(app.world_mut());
@@ -137,8 +138,20 @@ fn grounded_catalogues_without_streets_never_cover_foundations_with_sampled_deta
         assert_eq!(detail.count_vertices(), 0);
         assert_eq!(super::super::mesh_triangle_count(&detail), 0);
         let mut fixture = GroundFixture::new(terrain, None);
+        let base_handle = fixture
+            .app
+            .world()
+            .get::<Mesh3d>(fixture.base)
+            .unwrap()
+            .0
+            .clone();
         for _ in 0..2 {
             fixture.app.update();
+            assert_eq!(
+                fixture.app.world().get::<Mesh3d>(fixture.base).unwrap().0,
+                base_handle,
+                "initial canonical coverage must reuse the source mesh"
+            );
             assert_eq!(
                 *fixture
                     .app
