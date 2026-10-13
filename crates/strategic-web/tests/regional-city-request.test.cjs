@@ -19,7 +19,7 @@ const installRegionalCity = Function("requestAnimationFrame", "performance",
   `${installationSource}\nreturn installRegionalCity;`)(callback => setImmediate(callback),
   { now: () => 0 });
 
-test("native city acknowledgement matches the exact ticket and preserves physical integer text", async () => {
+test("native city admission waits for presented terrain and acknowledges the exact ticket", async () => {
   const preparation = JSON.stringify({ owner: "regional-map", sequence: 7 });
   const document = '{"seed":18446744073709551615}';
   const statuses = [
@@ -28,11 +28,22 @@ test("native city acknowledgement matches the exact ticket and preserves physica
     { preparation: JSON.parse(preparation), phase: "preparing" },
     { preparation: JSON.parse(preparation), phase: "ready" },
   ];
-  let polls = 0, command;
+  let polls = 0, terrainPolls = 0, command;
+  const window = { scale: "district", origin: { latitude: 50500000, longitude: 10500000 } };
+  const readyTerrain = { source: request("city").source, city_requested: request("city").place,
+    environment_ready: true, requested: window, presented: window };
   await installRegionalCity({
-    wasm_command: value => { command = JSON.parse(value); },
-    wasm_regional_map_status: () => JSON.stringify({ city_installation: statuses[polls++] }),
-  }, { document, preparation, signal: new AbortController().signal });
+    wasm_command: value => { assert.equal(terrainPolls, 3); command = JSON.parse(value); },
+    wasm_regional_map_status: () => {
+      if (!command) {
+        const state = ++terrainPolls === 1 ? { ...readyTerrain, presented: null }
+          : terrainPolls === 2 ? { ...readyTerrain, presented: { ...window, scale: "neighborhood" } }
+          : readyTerrain;
+        return JSON.stringify(state);
+      }
+      return JSON.stringify({ city_installation: statuses[polls++] });
+    },
+  }, { request: request("city"), document, preparation, signal: new AbortController().signal });
   assert.equal(polls, 4, "another owner or candidate cannot acknowledge this installation");
   assert.equal(command.command.document_json, document);
   assert.deepEqual(command.command.preparation, JSON.parse(preparation));
@@ -40,8 +51,11 @@ test("native city acknowledgement matches the exact ticket and preserves physica
 
 test("native city failure and cancelled acknowledgement reject without publishing residency", async () => {
   const ticket = { owner: "regional-map", sequence: 8 }, controller = new AbortController();
-  const input = { document: "opaque document", preparation: JSON.stringify(ticket), signal: controller.signal };
+  const input = { request: request("city"), document: "opaque document", preparation: JSON.stringify(ticket), signal: controller.signal };
   const runtime = { wasm_command() {}, wasm_regional_map_status: () => JSON.stringify({
+    source: input.request.source, city_requested: input.request.place, environment_ready: true,
+    requested: { scale: "district", origin: { latitude: 0, longitude: 0 } },
+    presented: { scale: "district", origin: { latitude: 0, longitude: 0 } },
     city_installation: { preparation: ticket, phase: "failed", error: "ground" },
   }) };
   await assert.rejects(installRegionalCity(runtime, input), /City detail unavailable \(ground\)/);
