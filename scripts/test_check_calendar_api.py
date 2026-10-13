@@ -12,6 +12,10 @@ from scripts import check_calendar_api
 
 class CalendarApiGuardTests(unittest.TestCase):
     def test_partial_day_durations_are_not_whole_day_advances(self):
+        self.assertEqual(self.check_fixture(
+            "// Partial daylight duration \u2190 noon\n"
+            "let noon = now.saturating_add_minutes(MINUTES_PER_DAY / 2);"
+        ), (0, ""))
         for operation in ("saturating_add_minutes", "checked_add_minutes", "saturating_sub_minutes"):
             for prefix in ("", "adventuresim_world_schema::calendar::"):
                 with self.subTest(operation=operation, prefix=prefix):
@@ -32,8 +36,8 @@ class CalendarApiGuardTests(unittest.TestCase):
             script = root / "crates/strategic-web/static/travel-planner.js"
             module.parent.mkdir(parents=True)
             script.parent.mkdir(parents=True)
-            module.write_text(rust)
-            script.write_text(browser)
+            module.write_text(rust, encoding="utf-8")
+            script.write_text(browser, encoding="utf-8")
             with (
                 patch.object(check_calendar_api, "ROOT", root),
                 patch.object(check_calendar_api, "REQUIRED_SHARED_FIELDS", {}),
