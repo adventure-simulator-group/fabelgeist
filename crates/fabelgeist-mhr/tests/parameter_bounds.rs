@@ -2,6 +2,7 @@
 
 use fabelgeist_mhr::model_def::{
     ParameterBounds, ParameterBoundsAdmissionError, ParameterBoundsError, ParameterLimit,
+    SolverLimitWeight,
 };
 use fabelgeist_mhr::{ModelParameterName, ParameterTransform, Skeleton, parse_model_definition};
 
@@ -96,7 +97,7 @@ fn parser_keeps_unsupported_unknown_and_malformed_limit_behavior() {
         &model_definition(
             "limit missing minmax [NaN,1]\n\
              limit bend linear [3,-2]\n\
-             limit bend minmax [bad,0,1] invalid\n\
+             limit bend minmax [bad,0,1] 1.0\n\
              limit bend minmax [0,bad]\n\
              limit bend minmax [0,1,2]\n\
              limit bend minmax\n\
@@ -111,7 +112,7 @@ fn parser_keeps_unsupported_unknown_and_malformed_limit_behavior() {
         pt.limits[0].bounds,
         ParameterBounds::try_from((0.0, 1.0)).unwrap()
     );
-    assert_eq!(pt.limits[0].weight, 1.0);
+    assert_eq!(f32::from(pt.limits[0].weight), 1.0);
 }
 
 #[test]
@@ -140,7 +141,7 @@ fn clamp_keeps_inclusive_equal_infinite_and_signed_zero_behavior() {
             limits: vec![ParameterLimit {
                 parameter: 0,
                 bounds: ParameterBounds::try_from(endpoints).unwrap(),
-                weight: 0.0,
+                weight: SolverLimitWeight::from(0.0),
             }],
             ..Default::default()
         };
@@ -163,7 +164,7 @@ fn limits_apply_in_file_order_without_solver_weight_or_missing_slot_effects() {
     )
     .unwrap();
     assert_eq!(pt.limits.len(), 2);
-    assert!(pt.limits[1].weight.is_nan());
+    assert!(f32::from(pt.limits[1].weight).is_nan());
     let mut values = [3.0, -0.0];
     pt.apply_limits(&mut values);
     assert_eq!(values[0].to_bits(), 0.0_f32.to_bits());
