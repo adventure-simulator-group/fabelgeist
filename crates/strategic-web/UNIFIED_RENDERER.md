@@ -31,6 +31,20 @@ its requested identity. Entity installation, render assets, and GPU upload
 remain in the persistent application.
 
 Readiness requires all generation jobs, installation, and existing asset gates.
+Once geometry, posed models, textures and final sky lighting are installed,
+requested views prepare render pipelines while equipment fitting continues.
+The bounded capture cameras render during that preparation, but advance their
+settled-frame counters only after equipment and all render pipelines are ready.
+Requested street and actor captures overlap their shader work within the
+existing camera limit. A city replacement ignores the prior city's readiness
+for one frame, until the installation gate publishes the destination's state.
+Completed snapshots remain retained across later pipeline work.
+The full settlement roster still determines venue layouts and resident positions.
+Only characters shown by the requested stage or portraits install a new rig and
+wardrobe. Visited characters retain their entities and fitted equipment while
+they remain in that roster. Map and forge pages do not load a character merely
+because their navigation state contains a selected character ID. Diagnostics
+report roster, required, loaded and posed character counts separately.
 A failed worker or invalid product fails loading explicitly. Warm venue and
 portrait switches use retained assets and do not schedule generation jobs.
 `window.strategicGenerationMetrics` reports worker count, product bytes, summed
@@ -275,9 +289,11 @@ Return trips can reuse completed captures when the location and complete scene
 digest, including its environment, match. The inactive-city cache holds at most
 two cities and 64 MiB of image pixels; unfinished captures are discarded.
 Scrolling repositions retained images without rebuilding geometry.
-When the layout supplies a portrait size, cold readiness includes portraits for
-residents of unvisited venues at those dimensions. A pool of at most four snapshot
-camera entities captures these images and stays inactive between captures.
+Readiness includes the portraits requested by the visible layout. An unvisited
+resident's portrait is captured on its first request, using its actual dimensions;
+completed images remain available for return visits. A pool of at most four
+snapshot camera entities captures these images and stays inactive between
+captures.
 New and reused capture cameras receive the tactical environment before camera
 preparation and render extraction, avoiding an initial frame with default
 rendering settings and its unnecessary pipeline specializations.

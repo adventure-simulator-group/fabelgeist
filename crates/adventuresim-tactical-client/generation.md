@@ -72,6 +72,14 @@ geometry contract. The compiled WebAssembly binary's SHA-256 digest owns the
 generation-cache revision, so a changed producer or transport receives a fresh
 cache namespace when the binary changes.
 
+Playable trees retain their active scene and two previous scene presentations.
+Matching plant seeds, species, canopy competition, and stable site conditions
+share source arrays, meshes, and canopy atlases across terrain changes. Each
+scene binds bark to its own terrain heightmap and dimensions. Tree positions and
+streaming masks belong to the destination entities. Asset counts include reused
+representations; generation time includes only work performed in that scene.
+Additional retained atlas bytes exclude assets already held by the active scene.
+
 Run the existing generation behavior checks with:
 
 ```sh

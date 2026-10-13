@@ -141,6 +141,12 @@ fn retain_people(
             }
             continue;
         }
+        // A selected ID alone has no visible camera on map or forge pages.
+        // Keep visited actors, but only install a new rig and wardrobe when
+        // a requested stage or portrait can actually show it.
+        if !view.requires_person(person.id) {
+            continue;
+        }
         let layer = protocol::FIRST_PERSON_LAYER + scene.next_person_layer;
         scene.next_person_layer += 1;
         let entity = commands

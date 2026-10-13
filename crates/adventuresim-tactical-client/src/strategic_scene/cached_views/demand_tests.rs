@@ -2,11 +2,11 @@ use super::*;
 use crate::strategic_scene::{
     RetainedPerson,
     protocol::{Person, PersonPresentation, PlaceId, PortraitView},
-    status::SceneAssetsReady,
+    status::{SceneAssetsReady, SceneInstallationReady},
 };
 
 #[test]
-fn unseen_portraits_finish_before_readiness_and_reuse_their_image_on_first_visit() {
+fn requested_portraits_capture_on_first_visit_and_reuse_their_completed_images() {
     let rect = CanvasRect {
         x: 20,
         y: 40,
@@ -54,27 +54,32 @@ fn unseen_portraits_finish_before_readiness_and_reuse_their_image_on_first_visit
         }],
     };
     let mut app = App::new();
-    super::super::install(&mut app);
+    super::install(&mut app);
     app.init_resource::<Assets<Image>>()
         .insert_resource(scene)
         .insert_resource(view)
         .insert_resource(SceneAssetsReady(true))
+        .insert_resource(SceneInstallationReady(true))
         .add_systems(
             Update,
             |mut commands: Commands,
              mut cache: CacheWorld,
              view: Res<StrategicView>,
              scene: Res<RetainedScene>| {
-                let visible = specs(&view, &scene)
-                    .into_iter()
-                    .filter(|spec| {
-                        spec.cache
-                            == Some(ViewKey::Portrait {
-                                person: view.portraits[0].id,
-                                slot: 0,
-                            })
-                    })
-                    .collect::<Vec<_>>();
+                let portrait = &view.portraits[0];
+                let person = &scene.people[&portrait.id];
+                let mut spec = super::super::views::person_view(
+                    portrait.rect,
+                    person.anchor,
+                    person.facing,
+                    true,
+                    super::super::views::focused_layers(&scene, Some(portrait.id)),
+                );
+                spec.cache = Some(ViewKey::Portrait {
+                    person: portrait.id,
+                    slot: 0,
+                });
+                let visible = [spec];
                 cache.sync(
                     &mut commands,
                     &visible,
@@ -85,17 +90,17 @@ fn unseen_portraits_finish_before_readiness_and_reuse_their_image_on_first_visit
             },
         );
     app.update();
-    assert_eq!(app.world().resource::<CachedViews>().frames.len(), 5);
+    assert_eq!(app.world().resource::<CachedViews>().frames.len(), 1);
     assert!(!app.world().resource::<CachedViews>().is_ready());
     let key = ViewKey::Portrait {
-        person: PortraitId(2),
+        person: PortraitId(1),
         slot: 0,
     };
     let frame = &app.world().resource::<CachedViews>().frames[&key];
     let (image, sprite) = (frame.image.clone(), frame.sprite);
     assert_eq!(
         app.world().get::<Visibility>(sprite),
-        Some(&Visibility::Hidden)
+        Some(&Visibility::Inherited)
     );
     for _ in 0..32 {
         app.update();
@@ -122,6 +127,26 @@ fn unseen_portraits_finish_before_readiness_and_reuse_their_image_on_first_visit
     app.world_mut().resource_mut::<StrategicView>().portraits[0] = PortraitView {
         id: PortraitId(2),
         rect: CanvasRect { x: 400, ..rect },
+    };
+    app.update();
+    let new_key = ViewKey::Portrait {
+        person: PortraitId(2),
+        slot: 0,
+    };
+    let cache = app.world().resource::<CachedViews>();
+    assert_eq!(cache.frames.len(), 2);
+    assert!(cache.frames[&new_key].remaining > 0);
+    assert!(!cache.is_ready());
+    for _ in 0..32 {
+        app.update();
+        if app.world().resource::<CachedViews>().is_ready() {
+            break;
+        }
+    }
+    assert!(app.world().resource::<CachedViews>().is_ready());
+    app.world_mut().resource_mut::<StrategicView>().portraits[0] = PortraitView {
+        id: PortraitId(1),
+        rect,
     };
     app.update();
     let frame = &app.world().resource::<CachedViews>().frames[&key];
