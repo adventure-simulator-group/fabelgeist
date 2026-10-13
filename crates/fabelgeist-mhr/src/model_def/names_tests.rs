@@ -22,7 +22,7 @@ fn snapshot(pt: &ParameterTransform) -> String {
                 l.parameter,
                 minimum.to_bits(),
                 maximum.to_bits(),
-                l.weight.to_bits(),
+                f32::from(l.weight).to_bits(),
             )
         })
         .collect::<Vec<_>>();

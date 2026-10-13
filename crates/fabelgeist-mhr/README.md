@@ -160,6 +160,19 @@ API that requires native endpoints; keep the interval intact when comparing
 contracts. The character creator compares it with an admitted interval from the
 shared `BodyProportion` limits before producing its translation basis.
 
+## Solver-limit weights
+
+`model_def::SolverLimitWeight` keeps the solver-enforcement role in
+`ParameterLimit.weight`. Native construction preserves every `f32` bit pattern;
+clamping still uses only the checked bounds. Omitted weights default to `1.0`.
+Present malformed model-text weights produce a structured error with the
+existing `ModelParameterName`, rejected token, source line and native float
+parse cause, after bounds admission.
+
+Keep the bespoke weight through model metadata and convert with
+`f32::from(weight)` only at native numerical or presentation boundaries. See the
+[solver-weight contract](solver-weights.md) for admission and diagnostic details.
+
 ## Task integration
 
 `Mhr` implements `burn_tasks::BodyModelTask`, the workspace's task trait for

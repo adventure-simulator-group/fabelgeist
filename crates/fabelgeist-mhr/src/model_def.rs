@@ -10,10 +10,12 @@ use crate::character::{PARAMETERS_PER_JOINT, Skeleton};
 pub use bounds::{ParameterBounds, ParameterBoundsAdmissionError, ParameterBoundsError};
 pub use name::ModelParameterName;
 pub use set_name::ParameterSetName;
+pub use solver_weight::{SolverLimitWeight, SolverLimitWeightAdmissionError};
 
 mod bounds;
 mod name;
 mod set_name;
+mod solver_weight;
 
 /// `tx, ty, tz, rx, ry, rz, sc` — the seven channels of a momentum joint.
 pub const JOINT_PARAMETER_NAMES: [&str; PARAMETERS_PER_JOINT] =
@@ -29,7 +31,7 @@ pub struct ParameterLimit {
     pub bounds: ParameterBounds,
     /// How strongly a solver should enforce the bound; 1.0 unless the file says
     /// otherwise. Clamping ignores it.
-    pub weight: f32,
+    pub weight: SolverLimitWeight,
 }
 
 /// The linear map from model parameters to joint parameters.
@@ -301,10 +303,7 @@ fn parse_parameter_sets(lines: &[String], transform: &mut ParameterTransform) {
     }
 }
 
-fn parse_limits(
-    lines: &[String],
-    transform: &mut ParameterTransform,
-) -> std::result::Result<(), ParameterBoundsAdmissionError> {
+fn parse_limits(lines: &[String], transform: &mut ParameterTransform) -> Result<()> {
     for line in lines {
         let tokens = tokenize(line, " \t");
         // `limit <parameter> minmax [min, max]`; momentum's other limit kinds
@@ -327,9 +326,14 @@ fn parse_limits(
         if bounds.len() == 2 {
             transform.limits.push(ParameterLimit {
                 parameter,
-                bounds: ParameterBounds::try_from((bounds[0], bounds[1]))
-                    .map_err(|cause| ParameterBoundsAdmissionError::new(name, line, cause))?,
-                weight: line[close + 1..].trim().parse().unwrap_or(1.0),
+                bounds: ParameterBounds::try_from((bounds[0], bounds[1])).map_err(|cause| {
+                    ParameterBoundsAdmissionError::new(name.clone(), line, cause)
+                })?,
+                weight: SolverLimitWeight::parse_model_token(
+                    line[close + 1..].trim(),
+                    line,
+                    &name,
+                )?,
             });
         }
     }
@@ -415,9 +419,9 @@ mod tests {
             [true, false]
         );
         assert_eq!(pt.limits.len(), 2);
-        assert_eq!(pt.limits[0].weight, 1.0);
+        assert_eq!(f32::from(pt.limits[0].weight), 1.0);
         // The trailing token is a solver weight, not a third bound.
-        assert_eq!(pt.limits[1].weight, 0.1);
+        assert_eq!(f32::from(pt.limits[1].weight), 0.1);
 
         let mut parameters = [0.0, 3.0];
         pt.apply_limits(&mut parameters);
