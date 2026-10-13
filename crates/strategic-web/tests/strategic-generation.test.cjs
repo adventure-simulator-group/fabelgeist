@@ -137,7 +137,7 @@ test("closing during cache resolution prevents any worker creation or delivery",
 test("a preparation failure prevents a pending cache hit from installing later", async () => {
   const { createGenerationPool } = await pool;
   const source = fs.readFileSync(path.join(__dirname, "../static/strategic-generation.js"), "utf8")
-    .replace(/^import .*;\r?\n/gm, "").replace("export async function", "async function");
+    .replace(/^import .*;\r?\n/gm, "").replaceAll("export async function", "async function");
   const mock = workers(true), received = [];
   let finishLookup, closed = false;
   const jobs = ['{"Building":{"seed":18446744073709551615}}',
@@ -169,8 +169,8 @@ test("a preparation failure prevents a pending cache hit from installing later",
 test("cached product rejection regenerates corruption and preserves preparation failures", async () => {
   const { createGenerationPool } = await pool;
   const source = fs.readFileSync(path.join(__dirname, "../static/strategic-generation.js"), "utf8")
-    .replace(/^import .*;\r?\n/gm, "").replace("export async function", "async function");
-  for (const code of ["generation/product-decode", "generation/product-mismatch",
+    .replace(/^import .*;\r?\n/gm, "").replaceAll("export async function", "async function");
+  for (const owner of ["scene", "regional-map"]) for (const code of ["generation/product-decode", "generation/product-mismatch",
     "generation/scene-bindings-mismatch", "generation/residency-poisoned",
     "generation/not-prepared", "generation/scene-input", "generation/stale-preparation",
     "generation/preparation-owner", "generation/preparation-input", "unexpected-host-failure"]) {
@@ -185,23 +185,26 @@ test("cached product rejection regenerates corruption and preserves preparation 
       put(address) { assert.equal(address, job); persisted++; return { status: "accepted", disposition: "inserted" }; },
       close() { closed++; return Promise.resolve({ status: "flushed" }); } };
     const prepare = new Function("createGenerationPool", "openGeneratedCache", "window",
-      `${source}\nreturn prepareGeneratedScene;`)(
+      `${source}\nreturn {scene:prepareGeneratedScene,city:prepareRegionalCity};`)(
       module => createGenerationPool(module, { hardwareConcurrency: 2, createWorker: mock.createWorker }),
       async () => cache, state);
     const runtime = { generationModule: {}, generationRevision: "fixture",
-      wasm_begin_generation() { return JSON.stringify({owner:"scene",sequence:1}); }, wasm_finish_generation() {}, wasm_cancel_generation() {}, wasm_generation_jobs: () => JSON.stringify([job]),
+      wasm_begin_generation(admitted) { assert.equal(JSON.parse(admitted),owner); return JSON.stringify({owner,sequence:1}); }, wasm_finish_generation() {}, wasm_cancel_generation() {}, wasm_generation_jobs: () => JSON.stringify([job]),
+      wasm_regional_city_jobs(ticket, document) { assert.equal(document,"opaque city"); return JSON.stringify([job]); },
+      wasm_finish_regional_city(ticket, document) { assert.equal(document,"opaque city"); },
       wasm_venue_jobs: () => "[]", wasm_landscape_jobs: () => "[]",
       wasm_generation_dependencies: () => new Uint8Array(),
       wasm_receive_job(preparation, address, bytes) {
         if (bytes[0] === 9) throw rejection;
         installed.push(address);
       } };
-    const running = prepare(runtime, "opaque scene", []);
+    const running = owner === "scene" ? prepare.scene(runtime, "opaque scene", [])
+      : prepare.city(runtime, "opaque city");
     if (corrupt) {
       await running;
       assert.deepEqual(installed, [job]);
-      assert.equal(state.strategicGenerationMetrics.scene.cacheHits, 0);
-      assert.equal(state.strategicGenerationMetrics.scene.cacheMisses, 1);
+      assert.equal(state.strategicGenerationMetrics[owner].cacheHits, 0);
+      assert.equal(state.strategicGenerationMetrics[owner].cacheMisses, 1);
     } else {
       await assert.rejects(running, error => error === rejection);
       assert.deepEqual(installed, []);
@@ -216,8 +219,8 @@ test("cached product rejection regenerates corruption and preserves preparation 
 test("destination cancellation prevents installation during cache open, lookup and worker generation", async () => {
   const { createGenerationPool } = await pool;
   const source = fs.readFileSync(path.join(__dirname, "../static/strategic-generation.js"), "utf8")
-    .replace(/^import .*;\r?\n/gm, "").replace("export async function", "async function");
-  for (const stage of ["open", "lookup", "worker"]) {
+    .replace(/^import .*;\r?\n/gm, "").replaceAll("export async function", "async function");
+  for (const owner of ["scene", "regional-map"]) for (const stage of ["open", "lookup", "worker"]) {
     const controller = new AbortController();
     let finishOpen, finishLookup, lateReply, closed = 0, terminated = 0, installed = 0;
     const job = '{"Building":{"seed":18446744073709551615}}';
@@ -234,16 +237,19 @@ test("destination cancellation prevents installation during cache open, lookup a
         kind: "generated", dispatch: message.dispatch, bytes: new Uint8Array([1]), milliseconds: 1 } }); }
     }, terminate() { terminated++; } };
     const prepare = Function("createGenerationPool", "openGeneratedCache", "window",
-      `${source}\nreturn prepareGeneratedScene;`)(
+      `${source}\nreturn {scene:prepareGeneratedScene,city:prepareRegionalCity};`)(
       module => createGenerationPool(module, { hardwareConcurrency: 2, createWorker: () => worker }),
       () => stage === "open" ? new Promise(resolve => { finishOpen = resolve; }) : Promise.resolve(cache), {});
     const runtime = { generationModule: {}, generationRevision: "fixture",
-      wasm_begin_generation() { return JSON.stringify({owner:"scene",sequence:1}); }, wasm_finish_generation() {}, wasm_cancel_generation() {}, wasm_generation_jobs: () => JSON.stringify([job]),
+      wasm_begin_generation(admitted) { assert.equal(JSON.parse(admitted),owner); return JSON.stringify({owner,sequence:1}); }, wasm_finish_generation() {}, wasm_cancel_generation() {}, wasm_generation_jobs: () => JSON.stringify([job]),
+      wasm_regional_city_jobs(ticket, document) { assert.equal(document,"opaque city"); return JSON.stringify([job]); },
+      wasm_finish_regional_city() { throw Error("Cancelled city finished"); },
       wasm_venue_jobs: () => "[]", wasm_landscape_jobs: () => "[]",
       wasm_generation_dependencies: () => new Uint8Array(),
       wasm_receive_job(preparation) { installed++; },
     };
-    const running = prepare(runtime, "opaque scene", [], { signal: controller.signal });
+    const running = owner === "scene" ? prepare.scene(runtime, "opaque scene", [], { signal: controller.signal })
+      : prepare.city(runtime, "opaque city", { signal: controller.signal });
     const rejected = assert.rejects(running, error => error.name === "AbortError" || error.code === "cancelled");
     await new Promise(resolve => setImmediate(resolve));
     controller.abort();

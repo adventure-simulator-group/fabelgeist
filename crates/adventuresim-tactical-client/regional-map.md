@@ -125,7 +125,11 @@ node --test crates/strategic-web/tests/regional-map.browser.cjs
 ```
 
 The test serves an isolated local fixture without a database. It prepares the
-existing woodland environment and exercises the actual Bevy renderer on WebGPU,
+existing woodland environment and a complete imported-settlement capture. Set
+`REGIONAL_MAP_CITY_INPUT` to the JSON emitted by the dispatcher's canonical
+settlement check, as described in [generation](generation.md). The city worker
+check verifies exterior-only preparation alongside the actor owner; this slice
+does not install the city on the map. The test exercises Bevy on WebGPU,
 including terrain drawing, pan, zoom, rotation, hiding, retained reopening and
 invalid command rejection. Optional `REGIONAL_MAP_ASSET_DIR` supplies synchronized
 browser assets; `REGIONAL_MAP_REVIEW_DIR` selects the ignored screenshot and

@@ -6,6 +6,9 @@ pub(super) fn generate(job_json: &str, dependencies: &[u8]) -> PreparationResult
     let dependencies: Dependencies =
         ciborium::from_reader(dependencies).map_err(PreparationError::DependenciesDecode)?;
     let product = match job {
+        GenerationJob::RegionalCity { input, graphics } => GenerationProduct::RegionalCity(
+            Box::new(city::PreparedCityProduct::generate(*input, graphics)?),
+        ),
         GenerationJob::Grass { input, graphics } => {
             GenerationProduct::Grass(Box::new(landscape::GrassProduct::generate(
                 &input,
@@ -59,9 +62,17 @@ pub(super) fn receive(
 ) -> PreparationResult<()> {
     let mut products = staged_products(ticket)?;
     let job: GenerationJob = serde_json::from_str(job_json)?;
+    job.require_owner(ticket)?;
     let product: GenerationProduct =
         ciborium::from_reader(bytes).map_err(PreparationError::ProductDecode)?;
     match (job, product) {
+        (
+            GenerationJob::RegionalCity { input, graphics },
+            GenerationProduct::RegionalCity(city),
+        ) if city.matches(&input, &graphics) => {
+            ticket.require_owner(PresentationOwner::RegionalMap)?;
+            products.regional_city = Some(Arc::new(*city));
+        }
         (GenerationJob::Grass { input, graphics }, GenerationProduct::Grass(grass))
             if input.digest()? == grass.digest && graphics == grass.graphics =>
         {

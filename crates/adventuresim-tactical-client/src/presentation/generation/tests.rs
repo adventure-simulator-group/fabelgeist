@@ -4,6 +4,81 @@ use fabelgeist_determinism::Seed;
 static TEST_PRODUCTS: Mutex<()> = Mutex::new(());
 
 #[test]
+#[ignore = "requires REGIONAL_MAP_CITY_INPUT from the imported-settlement producer"]
+fn focused_city_workers_keep_canonical_support_without_actor_preparation() {
+    use adventuresim_tactical_core::regional_city::RegionalCityInput;
+
+    let _guard = TEST_PRODUCTS.lock().unwrap();
+    clear_residency().unwrap();
+    let document_json = std::fs::read_to_string(
+        std::env::var_os("REGIONAL_MAP_CITY_INPUT").expect("canonical city fixture path"),
+    )
+    .unwrap();
+    let document: RegionalCityInput = serde_json::from_str(&document_json).unwrap();
+    let graphics = include_str!("../../../../../assets/config/tactical-graphics.yaml");
+    let actor = begin(PresentationOwner::Scene).unwrap();
+    assert!(matches!(
+        city::jobs(actor, &document_json, graphics),
+        Err(PreparationError::PreparationOwner)
+    ));
+    let preview = begin(PresentationOwner::RegionalMap).unwrap();
+    assert!(matches!(
+        jobs(preview, &document_json),
+        Err(PreparationError::PreparationOwner)
+    ));
+    let requests = city::jobs(preview, &document_json, graphics).unwrap();
+    assert!(requests.iter().any(|job| matches!(
+        serde_json::from_str::<GenerationJob>(job).unwrap(),
+        GenerationJob::RegionalCity { .. }
+    )));
+    for job in requests {
+        assert!(matches!(
+            serde_json::from_str::<GenerationJob>(&job).unwrap(),
+            GenerationJob::RegionalCity { .. } | GenerationJob::Building(_)
+        ));
+        let bytes = generate(&job, &dependencies(preview, &job).unwrap()).unwrap();
+        receive(preview, &job, &bytes).unwrap();
+    }
+    ownership::finish_city(preview, &document).unwrap();
+    let installed = activate_city(preview, &document).unwrap();
+    let expected = document
+        .input()
+        .prepare_supported_terrain(&mut Default::default())
+        .unwrap();
+    assert_eq!(installed.terrain, expected.terrain);
+    assert_eq!(installed.document, document);
+    assert!(document.input().physical_placements().len() > document.input().buildings.len());
+    {
+        let active = active_products(PresentationOwner::RegionalMap).unwrap();
+        assert!(active.scenes.is_empty());
+        assert!(active.venues.is_empty());
+        assert!(active.grass.is_empty());
+    }
+    // Actor cancellation cannot discard the installed city's graded support.
+    cancel(actor).unwrap();
+    let replacement = begin(PresentationOwner::RegionalMap).unwrap();
+    assert!(
+        city::jobs(replacement, &document_json, graphics)
+            .unwrap()
+            .iter()
+            .all(|job| matches!(
+                serde_json::from_str::<GenerationJob>(job).unwrap(),
+                GenerationJob::Building(_)
+            ))
+    );
+    cancel(replacement).unwrap();
+    let active = active_products(PresentationOwner::RegionalMap).unwrap();
+    let retained = active.regional_city.as_ref().unwrap();
+    assert!(Arc::ptr_eq(&installed, retained));
+    assert!(Arc::ptr_eq(&installed.ground, &retained.ground));
+    drop(active);
+    assert!(matches!(
+        receive(preview, "invalid old job", &[]),
+        Err(PreparationError::StalePreparation)
+    ));
+}
+
+#[test]
 fn landscape_workers_preserve_grass_and_residency_is_configuration_specific() {
     let _guard = TEST_PRODUCTS.lock().unwrap();
     clear_residency().unwrap();
@@ -34,14 +109,14 @@ fn landscape_workers_preserve_grass_and_residency_is_configuration_specific() {
     let mut other_document = input.clone();
     other_document.seed = other_document.seed.wrapping_offset(1);
     assert!(matches!(
-        activate(ticket, PresentationOwner::Scene, &other_document),
+        activate(ticket, &other_document),
         Err(PreparationError::PreparationInputMismatch)
     ));
     assert!(matches!(
-        activate(ticket, PresentationOwner::RegionalMap, &input),
+        finish(begin(PresentationOwner::RegionalMap).unwrap(), &input),
         Err(PreparationError::PreparationOwner)
     ));
-    activate(ticket, PresentationOwner::Scene, &input).unwrap();
+    activate(ticket, &input).unwrap();
     let grass = landscape::grass(PresentationOwner::Scene, &digest)
         .unwrap()
         .unwrap();
@@ -323,7 +398,7 @@ fn parallel_building_products_preserve_the_complete_tactical_scene() {
             .is_empty()
     );
     finish(ticket, &input).unwrap();
-    activate(ticket, PresentationOwner::Scene, &input).unwrap();
+    activate(ticket, &input).unwrap();
     let replacement = begin(PresentationOwner::Scene).unwrap();
     let preview = begin(PresentationOwner::RegionalMap).unwrap();
     assert!(matches!(
@@ -526,7 +601,7 @@ fn retained_scene_products_skip_decode_and_never_retain_installed_mutations() {
         .unwrap();
     }
     finish(ticket, &input).unwrap();
-    activate(ticket, PresentationOwner::Scene, &input).unwrap();
+    activate(ticket, &input).unwrap();
     let previous = ticket;
     let ticket = begin(PresentationOwner::Scene).unwrap();
     assert!(matches!(

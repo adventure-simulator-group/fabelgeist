@@ -30,7 +30,8 @@ fn prepared_owned_paving_respects_selected_rings_and_matches_native_coverage() {
     let input = TacticalSceneInput::load(&path).unwrap();
     let generated = input.generate_unfurnished(Default::default()).unwrap();
     let terrain = &generated.terrain;
-    let full = PreparedCityGround::from_scene(&input, terrain, &[], input.vista.lods.len());
+    let full =
+        PreparedCityGround::from_scene(&input, terrain, &[], input.vista.lods.len()).unwrap();
     let (full_points, _) = full.inspect_geometry();
     assert!(
         full_points.iter().any(|p| p.x < -1182.0),
@@ -73,7 +74,7 @@ fn prepared_owned_paving_respects_selected_rings_and_matches_native_coverage() {
                 * lod.spacing_metres
                 * 0.5;
         }
-        let prepared = PreparedCityGround::from_scene(&input, terrain, &[], maximum_lods);
+        let prepared = PreparedCityGround::from_scene(&input, terrain, &[], maximum_lods).unwrap();
         let (points, areas) = prepared.inspect_geometry();
         assert!(!points.is_empty());
         assert!(

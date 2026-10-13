@@ -746,6 +746,9 @@ mod tests {
         let decoded: adventuresim_tactical_core::regional_city::RegionalCityInput =
             serde_json::from_str(&document).unwrap();
         assert_eq!(decoded.input(), &next_mission);
+        if let Some(output) = std::env::var_os("REGIONAL_CITY_FIXTURE_OUTPUT") {
+            fs::write(output, &document).expect("write isolated regional-city fixture");
+        }
         let mut mismatched_source = serde_json::to_value(&city).unwrap();
         mismatched_source["source"] = serde_json::Value::String("0".repeat(64));
         assert!(
