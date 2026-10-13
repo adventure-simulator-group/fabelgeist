@@ -26,46 +26,20 @@ use super::part::{Extrusion, GridShape, PartBuild, SHELL_WORDS, ShellSpec};
 use super::{ArmorGpu, device_error};
 use crate::{BoundaryNormals, GenerateError, PlateFluting};
 
-mod chart_wgsl;
-
 use chart_wgsl::source;
 pub(crate) use chart_wgsl::{AUTHORED_ORIGIN, FLUTING};
+
+mod chart_wgsl;
 
 /// Columns across an unfluted chart.
 pub(crate) const AROUND: usize = 40;
 /// Latitude rings closing a capped chart's tip, the tip vertex excluded.
 const TIP_RINGS: usize = 8;
 
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum ChartBoundary {
-    Open,
-    Cyclic,
-    /// Closed by a rounded tip whose length follows the fitted frame:
-    /// `per_half_height` of its half height, plus `fixed`.
-    CappedByFrame {
-        per_half_height: f32,
-        fixed: f32,
-    },
-    /// The last row welded to one apex vertex.
-    Apex,
-    /// Closed around, with the last row welded to one apex vertex: a disc.
-    CyclicApex,
-}
-
 /// Boundary codes the chart kernel reads.
 const BOUNDARY_ROWS_ONLY: u32 = 0;
 const BOUNDARY_CAPPED: u32 = 2;
 const BOUNDARY_APEX: u32 = 3;
-
-impl ChartBoundary {
-    fn code(self) -> u32 {
-        match self {
-            Self::Open | Self::Cyclic => BOUNDARY_ROWS_ONLY,
-            Self::CappedByFrame { .. } => BOUNDARY_CAPPED,
-            Self::Apex | Self::CyclicApex => BOUNDARY_APEX,
-        }
-    }
-}
 
 /// One plate chart, as the host describes it.
 #[derive(Clone, Debug)]
@@ -88,6 +62,52 @@ pub(crate) struct PlateChart {
     pub frame: usize,
     /// Columns across the chart when it is not fluted.
     pub around: usize,
+}
+
+/// What the host computed about a chart's vertices.
+#[derive(Clone, Debug)]
+pub(crate) struct ChartSlots {
+    columns: Vec<f32>,
+    grid: u32,
+    total: u32,
+}
+
+/// A shape's chart kernel.
+#[derive(Clone, Debug)]
+pub(crate) struct ChartKernel(Arc<Kernel>);
+
+/// Everything a chart dispatch reads besides the chart itself.
+pub(crate) struct ChartInputs<'a> {
+    pub design: &'a Buffer,
+    /// The part's frames, each a buffer starting with a frame's fifteen
+    /// floats; a chart reads the one its `frame` names.
+    pub frames: &'a [&'a Buffer],
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub(crate) enum ChartBoundary {
+    Open,
+    Cyclic,
+    /// Closed by a rounded tip whose length follows the fitted frame:
+    /// `per_half_height` of its half height, plus `fixed`.
+    CappedByFrame {
+        per_half_height: f32,
+        fixed: f32,
+    },
+    /// The last row welded to one apex vertex.
+    Apex,
+    /// Closed around, with the last row welded to one apex vertex: a disc.
+    CyclicApex,
+}
+
+impl ChartBoundary {
+    fn code(self) -> u32 {
+        match self {
+            Self::Open | Self::Cyclic => BOUNDARY_ROWS_ONLY,
+            Self::CappedByFrame { .. } => BOUNDARY_CAPPED,
+            Self::Apex | Self::CyclicApex => BOUNDARY_APEX,
+        }
+    }
 }
 
 impl PlateChart {
@@ -215,12 +235,16 @@ impl PlateChart {
     }
 }
 
-/// What the host computed about a chart's vertices.
-#[derive(Clone, Debug)]
-pub(crate) struct ChartSlots {
-    columns: Vec<f32>,
-    grid: u32,
-    total: u32,
+impl ChartKernel {
+    /// Compile the chart template around a shape's `chart_point` and
+    /// `chart_offset`.
+    pub(crate) fn new(gpu: &ArmorGpu, shape: &str) -> Result<Self, GenerateError> {
+        Ok(Self(
+            gpu.cache()
+                .get(gpu.context(), &source(shape))
+                .map_err(device_error)?,
+        ))
+    }
 }
 
 /// The flute pattern as eight floats: count, width, depth, spread, lower
@@ -238,30 +262,6 @@ pub(crate) fn flute_words(fluting: Option<&PlateFluting>) -> [f32; 8] {
             f.fade.unit(),
         ]
     })
-}
-
-/// A shape's chart kernel.
-#[derive(Clone, Debug)]
-pub(crate) struct ChartKernel(Arc<Kernel>);
-
-impl ChartKernel {
-    /// Compile the chart template around a shape's `chart_point` and
-    /// `chart_offset`.
-    pub(crate) fn new(gpu: &ArmorGpu, shape: &str) -> Result<Self, GenerateError> {
-        Ok(Self(
-            gpu.cache()
-                .get(gpu.context(), &source(shape).into())
-                .map_err(device_error)?,
-        ))
-    }
-}
-
-/// Everything a chart dispatch reads besides the chart itself.
-pub(crate) struct ChartInputs<'a> {
-    pub design: &'a Buffer,
-    /// The part's frames, each a buffer starting with a frame's fifteen
-    /// floats; a chart reads the one its `frame` names.
-    pub frames: &'a [&'a Buffer],
 }
 
 /// Record the evaluation of one chart into its shell's carriers.

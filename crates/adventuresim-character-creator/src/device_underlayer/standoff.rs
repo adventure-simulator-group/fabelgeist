@@ -9,6 +9,7 @@
 use anyhow::Result;
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::wgsl;
@@ -23,6 +24,27 @@ pub const PRISM_MARGIN: f32 = 0.25;
 /// Halving sweeps over the triangles before the room is accepted.
 pub const COMPRESSION_PASSES: u32 = 32;
 
+pub(super) const BINDINGS: &str = r#"
+@group(0) @binding(0) var<storage, read> positions: array<f32>;
+@group(0) @binding(1) var<storage, read> directions: array<f32>;
+@group(0) @binding(2) var<storage, read> triangles: array<u32>;
+@group(0) @binding(3) var<storage, read> incidence: array<u32>;
+struct Params {
+    vertices: u32,
+    faces: u32,
+    pad0: u32,
+    pad1: u32,
+};
+
+fn point(v: u32) -> vec3<f32> {
+    return vec3<f32>(positions[v * 3u], positions[v * 3u + 1u], positions[v * 3u + 2u]);
+}
+
+fn direction(v: u32) -> vec3<f32> {
+    return vec3<f32>(directions[v * 3u], directions[v * 3u + 1u], directions[v * 3u + 2u]);
+}
+"#;
+
 impl Workspace<'_> {
     /// Record the room of a realization along `directions` and lower
     /// `compression` to it: gap, converging edges, then the prism sweeps.
@@ -35,9 +57,9 @@ impl Workspace<'_> {
     ) -> Result<()> {
         self.record_gap(batch, positions, directions)?;
         let gpu = self.gpu;
-        let kernel = |source: String| {
+        let kernel = |source: ShaderSource<'static>| {
             gpu.cache()
-                .get(gpu.context(), &source.as_str().into())
+                .get(gpu.context(), &source)
                 .map_err(device_error)
         };
         let mut parameters = PassParameters::new();
@@ -72,29 +94,8 @@ impl Workspace<'_> {
     }
 }
 
-pub(super) const BINDINGS: &str = r#"
-@group(0) @binding(0) var<storage, read> positions: array<f32>;
-@group(0) @binding(1) var<storage, read> directions: array<f32>;
-@group(0) @binding(2) var<storage, read> triangles: array<u32>;
-@group(0) @binding(3) var<storage, read> incidence: array<u32>;
-struct Params {
-    vertices: u32,
-    faces: u32,
-    pad0: u32,
-    pad1: u32,
-};
-
-fn point(v: u32) -> vec3<f32> {
-    return vec3<f32>(positions[v * 3u], positions[v * 3u + 1u], positions[v * 3u + 2u]);
-}
-
-fn direction(v: u32) -> vec3<f32> {
-    return vec3<f32>(directions[v * 3u], directions[v * 3u + 1u], directions[v * 3u + 2u]);
-}
-"#;
-
-fn convergence_source() -> String {
-    format!(
+fn convergence_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 {bindings}
 @group(0) @binding(4) var<storage, read_write> rooms: array<f32>;
@@ -133,11 +134,11 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         vector = wgsl::VECTOR,
         fraction = wgsl::constant("FOCAL_DISTANCE_FRACTION", FOCAL_DISTANCE_FRACTION),
         epsilon = f32::EPSILON,
-    )
+    ))
 }
 
-fn lower_source() -> String {
-    format!(
+fn lower_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> rooms: array<f32>;
 @group(0) @binding(1) var<storage, read_write> compression: array<f32>;
@@ -160,5 +161,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 }}
 "#,
         envelope = wgsl::constant("LAYER_STACK_ENVELOPE_M", LAYER_STACK_ENVELOPE_M),
-    )
+    ))
 }

@@ -4,14 +4,6 @@ use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use std::collections::HashMap;
 use std::sync::{Arc, RwLock};
 
-#[derive(Clone, Debug, PartialEq, Eq, Hash)]
-pub struct AdvectSignature {
-    pub velocity_type: ResourceBaseType,
-    pub quantity_type: ResourceBaseType,
-    pub output_type: ResourceBaseType,
-    pub dimension: u32, // 2 or 3
-}
-
 type AdvectPipelineCache = HashMap<
     (
         ResourceDescriptor,
@@ -22,11 +14,21 @@ type AdvectPipelineCache = HashMap<
     Arc<ComputePipeline>,
 >;
 
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+pub struct AdvectSignature {
+    pub velocity_type: ResourceBaseType,
+    pub quantity_type: ResourceBaseType,
+    pub output_type: ResourceBaseType,
+    pub dimension: u32, // 2 or 3
+}
+
 #[derive(Clone, Debug)]
 pub struct AdvectDefinition {
     pub mode: u32,
     pub cache: Arc<RwLock<AdvectPipelineCache>>,
 }
+
+pub struct Advect;
 
 impl AdvectDefinition {
     pub fn new(mode: u32) -> Self {
@@ -185,8 +187,8 @@ fn sample_bilinear(tex: texture_2d<f32>, pos: vec2<f32>) -> vec4<f32> {{
             full_code.push_str("}\n");
         }
 
-        let shader = ComputeShader::new(context, full_code.into())?;
-        ComputePipeline::new(context, shader)
+        let source = ShaderSource::from(full_code);
+        ComputePipeline::new(context, ComputeShader::new(context, source)?)
     }
 
     pub fn get_or_create_pipeline(
@@ -217,8 +219,6 @@ fn sample_bilinear(tex: texture_2d<f32>, pos: vec2<f32>) -> vec4<f32> {{
         Ok(arc_p)
     }
 }
-
-pub struct Advect;
 
 impl Advect {
     pub fn execute(

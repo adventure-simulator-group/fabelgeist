@@ -100,6 +100,45 @@ jobs:
           cargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests
       - name: Test resolved Bevy guard
         run: cargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard
+      - name: Test existing shader parser and documentation
+        id: shader_cpu
+        timeout-minutes: 20
+        run: |
+          set -euo pipefail
+          export SHADER_EVIDENCE="$RUNNER_TEMP/shader-source-evidence"
+          mkdir "$SHADER_EVIDENCE"
+          git rev-parse HEAD > "$SHADER_EVIDENCE/head.txt"
+          rustc -Vv > "$SHADER_EVIDENCE/toolchain.txt"
+          sha256sum crates/fabelgeist-gpu/src/data/gpu/shader/language/fixtures/parser.txt > "$SHADER_EVIDENCE/parser-fixture.sha256"
+          cargo test --locked --package fabelgeist-gpu --lib data::gpu::shader::language::tests::classification_and_native_parser_results_match_main -- --exact 2>&1 | tee "$SHADER_EVIDENCE/parser.log"
+          cargo test --locked --package fabelgeist-gpu --all-features --doc 2>&1 | tee "$SHADER_EVIDENCE/docs.log"
+      - name: Preserve shader parser evidence
+        if: always() && steps.shader_cpu.outcome != 'skipped'
+        uses: actions/upload-artifact@v7
+        with:
+          name: shader-source-evidence
+          path: ${{ runner.temp }}/shader-source-evidence
+          if-no-files-found: error
+      - name: Compile existing generated shader consumers
+        timeout-minutes: 30
+        run: cargo test --locked --package fabelgeist-compute --all-features --no-run
+      - name: Measure current Rust length baseline
+        id: rust_length_baseline
+        timeout-minutes: 10
+        run: |
+          set -euo pipefail
+          export RUST_LENGTH_EVIDENCE="$RUNNER_TEMP/rust-length-baseline-evidence"
+          mkdir "$RUST_LENGTH_EVIDENCE"
+          git rev-parse HEAD > "$RUST_LENGTH_EVIDENCE/head.txt"
+          cp rust-quality-baseline.toml "$RUST_LENGTH_EVIDENCE/checked-in-baseline.toml"
+          cargo run --locked --package fabelgeist-rust-quality -- baseline . > "$RUST_LENGTH_EVIDENCE/measured-baseline.toml" 2> "$RUST_LENGTH_EVIDENCE/command.log"
+      - name: Preserve Rust length baseline evidence
+        if: always() && steps.rust_length_baseline.outcome != 'skipped'
+        uses: actions/upload-artifact@v7
+        with:
+          name: rust-length-baseline-evidence
+          path: ${{ runner.temp }}/rust-length-baseline-evidence
+          if-no-files-found: error
       - name: Check semantic values and Rust growth
         run: |
           cargo test --package fabelgeist-rust-quality

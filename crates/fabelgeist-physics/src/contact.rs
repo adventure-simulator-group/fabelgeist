@@ -42,11 +42,17 @@ pub struct Collisions {
     pub enabled: bool,
 }
 
+/// Run several hooks in order, so that collisions and, say, a self-collision
+/// pass can both sit in the same substep.
+pub struct HookChain<'a> {
+    pub hooks: Vec<&'a mut dyn SubstepHook>,
+}
+
 impl Collisions {
     pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
         Ok(Self {
-            analytic_kernel: cache.get(context, &wgsl::analytic_source().into())?,
-            mesh_kernel: cache.get(context, &MeshCollider::kernel_source().into())?,
+            analytic_kernel: cache.get(context, &wgsl::analytic_source())?,
+            mesh_kernel: cache.get(context, &MeshCollider::kernel_source())?,
             colliders: Vec::new(),
             collider_buffer: Buffer::new(
                 context,
@@ -229,12 +235,6 @@ impl SubstepHook for Collisions {
     ) -> Result<()> {
         Collisions::record(self, batch, particles)
     }
-}
-
-/// Run several hooks in order, so that collisions and, say, a self-collision
-/// pass can both sit in the same substep.
-pub struct HookChain<'a> {
-    pub hooks: Vec<&'a mut dyn SubstepHook>,
 }
 
 impl<'a> HookChain<'a> {

@@ -3,151 +3,9 @@
 //! blended from its two nearest stations.
 
 use fabelgeist_armor::gpu::wgsl;
+use fabelgeist_gpu::prelude::ShaderSource;
 
 use super::{SECTION_WORDS, STATION_CAPACITY, STATIONS};
-
-pub(super) fn support_source() -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> positions: array<f32>;
-@group(0) @binding(1) var<storage, read> joint_indices: array<u32>;
-@group(0) @binding(2) var<storage, read> joint_weights: array<f32>;
-@group(0) @binding(3) var<storage, read> primary: array<u32>;
-@group(0) @binding(4) var<storage, read> extra: array<u32>;
-@group(0) @binding(5) var<storage, read> frames: array<f32>;
-@group(0) @binding(6) var<storage, read_write> support: array<u32>;
-struct Params {{
-    count: u32,
-    filtered: u32,
-    pad1: u32,
-    pad2: u32,
-}};
-@group(0) @binding(7) var<uniform> params: Params;
-{math}
-{frame}
-{positions}
-{support_threshold}
-
-fn weight(vertex: u32, owned: u32) -> f32 {{
-    var sum = 0.0;
-    for (var k = 0u; k < 8u; k = k + 1u) {{
-        let joint = joint_indices[vertex * 8u + k];
-        var owns = primary[joint];
-        if (owned == 1u) {{
-            owns = extra[joint];
-        }}
-        if (owns != 0u) {{
-            sum = sum + joint_weights[vertex * 8u + k];
-        }}
-    }}
-    return sum;
-}}
-
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
-    let i = id.x;
-    if (i >= params.count) {{
-        return;
-    }}
-    var lists = 0u;
-    if (weight(i, 0u) >= SKIN_SUPPORT_THRESHOLD) {{
-        lists = lists | 1u;
-    }}
-    if (weight(i, 1u) >= SKIN_SUPPORT_THRESHOLD) {{
-        // Foot skin joins a greave's ankle only below the calf's depth.
-        let fit = frame_at(0u);
-        if (params.filtered == 0u || frame_local(fit, positions_at(i)).z <= fit.half_extents.z) {{
-            lists = lists | 2u;
-        }}
-    }}
-    support[i] = lists;
-}}
-"#,
-        math = wgsl::MATH,
-        frame = wgsl::FRAME,
-        positions = wgsl::read_points("positions"),
-        support_threshold = crate::armor_frames::skin_support_wgsl(),
-    )
-}
-
-pub(super) fn fit_source(entry: &str) -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> positions: array<f32>;
-@group(0) @binding(1) var<storage, read> support: array<u32>;
-@group(0) @binding(2) var<storage, read> frames: array<f32>;
-@group(0) @binding(3) var<storage, read_write> sections: array<f32>;
-@group(0) @binding(4) var<storage, read_write> samples: array<f32>;
-@group(0) @binding(5) var<storage, read_write> carriers: array<f32>;
-@group(0) @binding(6) var<storage, read_write> status: array<atomic<u32>>;
-struct Params {{
-    count: u32,
-    carriers_count: u32,
-    cuff: u32,
-    style: u32,
-    hand: u32,
-    pad0: u32,
-    pad1: u32,
-    pad2: u32,
-    half_width: f32,
-    gap: f32,
-    pad3: f32,
-    pad4: f32,
-    style0: f32,
-    style1: f32,
-    style2: f32,
-    style3: f32,
-    style4: f32,
-    style5: f32,
-    style6: f32,
-    style7: f32,
-}};
-@group(0) @binding(7) var<uniform> params: Params;
-{math}
-{frame}
-{status_code}
-{positions}
-{carriers}
-
-const STATIONS: u32 = {stations}u;
-const CAPACITY: u32 = {capacity}u;
-const SECTION_WORDS: u32 = {section_words}u;
-const MINIMUM_SAMPLES: u32 = 16u;
-const MINIMUM_RADIUS_M: f32 = 0.012;
-
-fn host_dot(a: vec3<f32>, b: vec3<f32>) -> f32 {{
-    return (a.x * b.x + a.y * b.y) + a.z * b.z;
-}}
-
-fn local(f: Frame, p: vec3<f32>) -> vec3<f32> {{
-    let d = p - f.origin;
-    return vec3<f32>(host_dot(d, f.x), host_dot(d, f.y), host_dot(d, f.z));
-}}
-
-fn axial_span() -> vec2<f32> {{
-    if (params.style == 0u) {{
-        // A greave reaches below the ankle by its extension.
-        return vec2<f32>(-1.0 - params.style5 / frame_at(0u).half_extents.y, 1.0);
-    }}
-    return vec2<f32>(params.style1, params.style2);
-}}
-
-fn cross2(a: vec2<f32>, b: vec2<f32>) -> f32 {{
-    return a.x * b.y - a.y * b.x;
-}}
-
-{entry}
-"#,
-        math = wgsl::MATH,
-        frame = wgsl::FRAME,
-        status_code = wgsl::STATUS,
-        positions = wgsl::read_points("positions"),
-        carriers = wgsl::points("carriers"),
-        stations = STATIONS,
-        capacity = STATION_CAPACITY,
-        section_words = SECTION_WORDS,
-    )
-}
 
 /// One invocation per station: gather, sort, hull, then the section's radii.
 pub(super) const SECTIONS: &str = r#"
@@ -442,3 +300,146 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     carriers_set(i, frame_point(fit, p));
 }
 "#;
+
+pub(super) fn support_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> positions: array<f32>;
+@group(0) @binding(1) var<storage, read> joint_indices: array<u32>;
+@group(0) @binding(2) var<storage, read> joint_weights: array<f32>;
+@group(0) @binding(3) var<storage, read> primary: array<u32>;
+@group(0) @binding(4) var<storage, read> extra: array<u32>;
+@group(0) @binding(5) var<storage, read> frames: array<f32>;
+@group(0) @binding(6) var<storage, read_write> support: array<u32>;
+struct Params {{
+    count: u32,
+    filtered: u32,
+    pad1: u32,
+    pad2: u32,
+}};
+@group(0) @binding(7) var<uniform> params: Params;
+{math}
+{frame}
+{positions}
+{support_threshold}
+
+fn weight(vertex: u32, owned: u32) -> f32 {{
+    var sum = 0.0;
+    for (var k = 0u; k < 8u; k = k + 1u) {{
+        let joint = joint_indices[vertex * 8u + k];
+        var owns = primary[joint];
+        if (owned == 1u) {{
+            owns = extra[joint];
+        }}
+        if (owns != 0u) {{
+            sum = sum + joint_weights[vertex * 8u + k];
+        }}
+    }}
+    return sum;
+}}
+
+@compute @workgroup_size(256)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
+    let i = id.x;
+    if (i >= params.count) {{
+        return;
+    }}
+    var lists = 0u;
+    if (weight(i, 0u) >= SKIN_SUPPORT_THRESHOLD) {{
+        lists = lists | 1u;
+    }}
+    if (weight(i, 1u) >= SKIN_SUPPORT_THRESHOLD) {{
+        // Foot skin joins a greave's ankle only below the calf's depth.
+        let fit = frame_at(0u);
+        if (params.filtered == 0u || frame_local(fit, positions_at(i)).z <= fit.half_extents.z) {{
+            lists = lists | 2u;
+        }}
+    }}
+    support[i] = lists;
+}}
+"#,
+        math = wgsl::MATH,
+        frame = wgsl::FRAME,
+        positions = wgsl::read_points("positions"),
+        support_threshold = crate::armor_frames::skin_support_wgsl(),
+    ))
+}
+
+pub(super) fn fit_source(entry: &str) -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> positions: array<f32>;
+@group(0) @binding(1) var<storage, read> support: array<u32>;
+@group(0) @binding(2) var<storage, read> frames: array<f32>;
+@group(0) @binding(3) var<storage, read_write> sections: array<f32>;
+@group(0) @binding(4) var<storage, read_write> samples: array<f32>;
+@group(0) @binding(5) var<storage, read_write> carriers: array<f32>;
+@group(0) @binding(6) var<storage, read_write> status: array<atomic<u32>>;
+struct Params {{
+    count: u32,
+    carriers_count: u32,
+    cuff: u32,
+    style: u32,
+    hand: u32,
+    pad0: u32,
+    pad1: u32,
+    pad2: u32,
+    half_width: f32,
+    gap: f32,
+    pad3: f32,
+    pad4: f32,
+    style0: f32,
+    style1: f32,
+    style2: f32,
+    style3: f32,
+    style4: f32,
+    style5: f32,
+    style6: f32,
+    style7: f32,
+}};
+@group(0) @binding(7) var<uniform> params: Params;
+{math}
+{frame}
+{status_code}
+{positions}
+{carriers}
+
+const STATIONS: u32 = {stations}u;
+const CAPACITY: u32 = {capacity}u;
+const SECTION_WORDS: u32 = {section_words}u;
+const MINIMUM_SAMPLES: u32 = 16u;
+const MINIMUM_RADIUS_M: f32 = 0.012;
+
+fn host_dot(a: vec3<f32>, b: vec3<f32>) -> f32 {{
+    return (a.x * b.x + a.y * b.y) + a.z * b.z;
+}}
+
+fn local(f: Frame, p: vec3<f32>) -> vec3<f32> {{
+    let d = p - f.origin;
+    return vec3<f32>(host_dot(d, f.x), host_dot(d, f.y), host_dot(d, f.z));
+}}
+
+fn axial_span() -> vec2<f32> {{
+    if (params.style == 0u) {{
+        // A greave reaches below the ankle by its extension.
+        return vec2<f32>(-1.0 - params.style5 / frame_at(0u).half_extents.y, 1.0);
+    }}
+    return vec2<f32>(params.style1, params.style2);
+}}
+
+fn cross2(a: vec2<f32>, b: vec2<f32>) -> f32 {{
+    return a.x * b.y - a.y * b.x;
+}}
+
+{entry}
+"#,
+        math = wgsl::MATH,
+        frame = wgsl::FRAME,
+        status_code = wgsl::STATUS,
+        positions = wgsl::read_points("positions"),
+        carriers = wgsl::points("carriers"),
+        stations = STATIONS,
+        capacity = STATION_CAPACITY,
+        section_words = SECTION_WORDS,
+    ))
+}

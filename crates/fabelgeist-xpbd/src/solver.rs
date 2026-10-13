@@ -46,19 +46,11 @@ pub struct SolverSettings {
     pub max_speed: f32,
 }
 
-impl Default for SolverSettings {
-    fn default() -> Self {
-        Self {
-            substeps: 10,
-            iterations: 1,
-            // Metres per second squared, and the rest of the stack is in
-            // metres, so a garment in centimetres has to be scaled on the way
-            // in.
-            gravity: Vec3::new(0.0, -9.81, 0.0),
-            damping: 0.1,
-            max_speed: 20.0,
-        }
-    }
+/// The predict/finalize pair, and the loop that drives them.
+pub struct Solver {
+    predict: Arc<Kernel>,
+    finalize: Arc<Kernel>,
+    pub settings: SolverSettings,
 }
 
 /// Anything that wants to run between the prediction and the constraint solve
@@ -81,6 +73,21 @@ pub trait SubstepHook {
         _substep: f32,
     ) -> Result<()> {
         Ok(())
+    }
+}
+
+impl Default for SolverSettings {
+    fn default() -> Self {
+        Self {
+            substeps: 10,
+            iterations: 1,
+            // Metres per second squared, and the rest of the stack is in
+            // metres, so a garment in centimetres has to be scaled on the way
+            // in.
+            gravity: Vec3::new(0.0, -9.81, 0.0),
+            damping: 0.1,
+            max_speed: 20.0,
+        }
     }
 }
 
@@ -109,13 +116,6 @@ where
     }
 }
 
-/// The predict/finalize pair, and the loop that drives them.
-pub struct Solver {
-    predict: Arc<Kernel>,
-    finalize: Arc<Kernel>,
-    pub settings: SolverSettings,
-}
-
 impl Solver {
     pub fn new(context: &WgpuContext, settings: SolverSettings) -> Result<Self> {
         Self::with_cache(context, &KernelCache::new(), settings)
@@ -127,8 +127,8 @@ impl Solver {
         settings: SolverSettings,
     ) -> Result<Self> {
         Ok(Self {
-            predict: cache.get(context, &wgsl::PREDICT.into())?,
-            finalize: cache.get(context, &wgsl::FINALIZE.into())?,
+            predict: cache.get(context, &wgsl::PREDICT)?,
+            finalize: cache.get(context, &wgsl::FINALIZE)?,
             settings,
         })
     }

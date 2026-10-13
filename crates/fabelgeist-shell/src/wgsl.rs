@@ -1,5 +1,7 @@
 //! The cloth-specific kernels: bending, and cloth against itself.
 
+use fabelgeist_gpu::prelude::ShaderSource;
+
 /// Quadratic (isometric) bending.
 ///
 /// The obvious constraint on a hinge is its dihedral angle, and it is the
@@ -94,7 +96,8 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
 // for the cost of a sort.
 
 /// Which cell each particle is in, hashed into a fixed table.
-pub const HASH: &str = r#"
+pub const HASH: ShaderSource<'static> = ShaderSource::borrowed(
+    r#"
 @group(0) @binding(0) var<storage, read> positions: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read_write> cells: array<u32>;
 @group(0) @binding(2) var<storage, read_write> indices: array<u32>;
@@ -132,14 +135,16 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
     );
     indices[index] = index;
 }
-"#;
+"#,
+);
 
 /// Where each bucket begins in the sorted list.
 ///
 /// After the sort the particles are grouped by bucket, so a bucket is a
 /// contiguous range and only its start has to be recorded -- the next
 /// non-empty bucket's start is this one's end.
-pub const CELL_RANGES: &str = r#"
+pub const CELL_RANGES: ShaderSource<'static> = ShaderSource::borrowed(
+    r#"
 @group(0) @binding(0) var<storage, read> cells: array<u32>;
 @group(0) @binding(1) var<storage, read_write> starts: array<u32>;
 
@@ -167,10 +172,12 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
         starts[params.table_size] = params.count;
     }
 }
-"#;
+"#,
+);
 
 /// Clear the bucket table to "empty".
-pub const CLEAR_RANGES: &str = r#"
+pub const CLEAR_RANGES: ShaderSource<'static> = ShaderSource::borrowed(
+    r#"
 @group(0) @binding(0) var<storage, read_write> starts: array<u32>;
 
 struct ClearParams {
@@ -191,7 +198,8 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
     // list is empty whatever comes after it.
     starts[index] = params.count;
 }
-"#;
+"#,
+);
 
 /// Push apart any two particles closer than the fabric's own thickness.
 ///
@@ -201,7 +209,8 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
 /// workgroups, and letting them all read-modify-write one position would lose
 /// most of the corrections. Accumulating and then applying costs one extra
 /// pass and is exact.
-pub const SELF_COLLIDE: &str = r#"
+pub const SELF_COLLIDE: ShaderSource<'static> = ShaderSource::borrowed(
+    r#"
 @group(0) @binding(0) var<storage, read> positions: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read> cells: array<u32>;
 @group(0) @binding(2) var<storage, read> sorted: array<u32>;
@@ -322,10 +331,12 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
     }
     }
 }
-"#;
+"#,
+);
 
 /// Apply the accumulated corrections and reset the accumulator.
-pub const APPLY_CORRECTIONS: &str = r#"
+pub const APPLY_CORRECTIONS: ShaderSource<'static> = ShaderSource::borrowed(
+    r#"
 @group(0) @binding(0) var<storage, read_write> positions: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read_write> corrections: array<atomic<i32>>;
 
@@ -358,4 +369,5 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
     let entry = positions[index];
     positions[index] = vec4<f32>(entry.xyz + delta, entry.w);
 }
-"#;
+"#,
+);

@@ -11,14 +11,6 @@
 //! device shares it; [`MetalGpu::open`] opens one of its own.
 
 use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
-mod bake;
-mod finish;
-mod ornament;
-mod textures;
-mod wgsl;
-
-#[cfg(test)]
-mod tests;
 
 use std::sync::Arc;
 
@@ -28,6 +20,11 @@ use fabelgeist_gpu::prelude::{
 };
 
 use crate::material::{Metal, MetalTextures};
+mod bake;
+mod finish;
+mod ornament;
+mod textures;
+mod wgsl;
 
 /// The metal kernels, compiled for one device.
 pub struct MetalGpu {
@@ -56,12 +53,12 @@ impl MetalGpu {
         let kernel =
             |source: ShaderSource<'static>| cache.get(context, &source).map_err(device_error);
         Ok(Self {
-            scratches: kernel(textures::scratches_source().into())?,
-            engraving: kernel(textures::engraving_source().into())?,
-            cut_slopes: kernel(textures::cut_slopes_source().into())?,
-            finish: kernel(finish::finish_source().into())?,
-            ornament: kernel(ornament::ornament_source().into())?,
-            bake: kernel(textures::bake_source().into())?,
+            scratches: kernel(textures::scratches_source())?,
+            engraving: kernel(textures::engraving_source())?,
+            cut_slopes: kernel(textures::cut_slopes_source())?,
+            finish: kernel(finish::finish_source())?,
+            ornament: kernel(ornament::ornament_source())?,
+            bake: kernel(textures::bake_source())?,
             context: context.clone(),
         })
     }
@@ -127,3 +124,6 @@ impl MetalGpu {
 fn device_error(error: impl std::fmt::Display) -> String {
     format!("armor metal device: {error}")
 }
+
+#[cfg(test)]
+mod tests;

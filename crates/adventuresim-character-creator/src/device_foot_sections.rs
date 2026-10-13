@@ -11,6 +11,7 @@ use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::{KernelBatch, host_float};
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::armor_frames::FitRegion;
@@ -25,15 +26,72 @@ const SECTION_WORDS: usize = 6;
 const ORDERED_POSITIVE_INFINITY: u32 = 0xff80_0000;
 const ORDERED_NEGATIVE_INFINITY: u32 = 0x007f_ffff;
 
-/// A float as its ordered unsigned encoding, as `wgsl::ORDERED_FLOAT` has it.
-fn ordered(value: f32) -> u32 {
-    let bits = value.to_bits();
-    if bits & 0x8000_0000 != 0 {
-        !bits
-    } else {
-        bits | 0x8000_0000
+const SUPPORT: &str = r#"
+@group(0) @binding(0) var<storage, read> joint_indices: array<u32>;
+@group(0) @binding(1) var<storage, read> joint_weights: array<f32>;
+@group(0) @binding(2) var<storage, read> masks: array<u32>;
+@group(0) @binding(3) var<storage, read_write> support: array<u32>;
+struct Params {
+    count: u32,
+    regions: u32,
+    pad1: u32,
+    pad2: u32,
+    zero: u32,
+    pad3: f32,
+    pad4: f32,
+    pad5: f32,
+};
+@group(0) @binding(4) var<uniform> params: Params;
+
+@compute @workgroup_size(256)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    let i = id.x;
+    if (i >= params.count) {
+        return;
     }
+    var supported = 0u;
+    for (var region = 0u; region < params.regions; region = region + 1u) {
+        var weight = 0.0;
+        for (var k = 0u; k < 8u; k = k + 1u) {
+            if ((masks[joint_indices[i * 8u + k]] & (1u << region)) != 0u) {
+                weight = host_add(weight, joint_weights[i * 8u + k]);
+            }
+        }
+        if (weight >= SKIN_SUPPORT_THRESHOLD) {
+            supported = 1u;
+        }
+    }
+    support[i] = supported;
 }
+"#;
+
+/// The distance from each section's height to its nearest point.
+const NEAREST: &str = r#"
+atomicMin(&sections[at], ordered_from_float(abs(p.y - sample_height(section, low(), high()))));
+"#;
+
+/// The bounds of the points within a window of that distance.
+const SLICE: &str = r#"
+if (in_slice(section, p.y)) {
+    atomicMin(&sections[at + 1u], ordered_from_float(p.x));
+    atomicMin(&sections[at + 2u], ordered_from_float(p.z));
+    atomicMax(&sections[at + 3u], ordered_from_float(p.x));
+    atomicMax(&sections[at + 4u], ordered_from_float(p.z));
+}
+"#;
+
+/// The scale at which the bounds' superellipse encloses them.
+const ENCLOSE: &str = r#"
+if (in_slice(section, p.y)) {
+    let lo = vec2<f32>(word(section, 1u), word(section, 2u));
+    let hi = vec2<f32>(word(section, 3u), word(section, 4u));
+    let center = (lo + hi) * 0.5;
+    let radius = max((hi - lo) * 0.5, vec2<f32>(MINIMUM_RADIAL_EXTENT_M));
+    let exponent = foot_exponent(sample_height(section, low(), high()), frame_at(0u).half_extents.y);
+    let scale = superellipse(vec2<f32>(p.x, p.z) - center, radius, exponent);
+    atomicMax(&sections[at + 5u], ordered_from_float(scale));
+}
+"#;
 
 impl DeviceWearer<'_> {
     /// Record which body vertices support any of `regions`: nonzero where a
@@ -69,7 +127,7 @@ impl DeviceWearer<'_> {
         parameters.insert("support", support.clone());
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &support_source().into())
+            .get(gpu.context(), &support_source())
             .map_err(device_error)?;
         batch
             .dispatch_items(&kernel, &parameters, self.body.vertex_count)
@@ -93,22 +151,13 @@ impl DeviceWearer<'_> {
         parameters.insert("points", points.clone());
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &points_source().into())
+            .get(gpu.context(), &points_source())
             .map_err(device_error)?;
         batch
             .dispatch_items(&kernel, &parameters, self.body.vertex_count)
             .map_err(device_error)?;
         Ok(points)
     }
-}
-
-fn counted(count: u32) -> PassParameters {
-    let mut parameters = PassParameters::new();
-    parameters.insert("count", count);
-    for pad in ["pad0", "pad1", "pad2"] {
-        parameters.insert(pad, 0u32);
-    }
-    parameters
 }
 
 /// A fresh pair of ordered-float axial bounds, lowest then highest.
@@ -138,7 +187,7 @@ pub(crate) fn record_axial_bounds(
     parameters.insert("bounds", bounds.clone());
     let kernel = gpu
         .cache()
-        .get(gpu.context(), &bounds_source().into())
+        .get(gpu.context(), &bounds_source())
         .map_err(device_error)?;
     batch
         .dispatch_items(&kernel, &parameters, count)
@@ -176,7 +225,7 @@ pub(crate) fn record_sections(
     for entry in [NEAREST, SLICE, ENCLOSE] {
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &sections_source(entry).into())
+            .get(gpu.context(), &sections_source(entry))
             .map_err(device_error)?;
         batch
             .dispatch_items(&kernel, &parameters, count)
@@ -233,59 +282,39 @@ fn superellipse(delta: vec2<f32>, radius: vec2<f32>, exponent: f32) -> f32 {{
     )
 }
 
+/// A float as its ordered unsigned encoding, as `wgsl::ORDERED_FLOAT` has it.
+fn ordered(value: f32) -> u32 {
+    let bits = value.to_bits();
+    if bits & 0x8000_0000 != 0 {
+        !bits
+    } else {
+        bits | 0x8000_0000
+    }
+}
+
+fn counted(count: u32) -> PassParameters {
+    let mut parameters = PassParameters::new();
+    parameters.insert("count", count);
+    for pad in ["pad0", "pad1", "pad2"] {
+        parameters.insert(pad, 0u32);
+    }
+    parameters
+}
+
 /// Support weights summed in joint-slot order with exact device arithmetic
 /// (`fabelgeist_compute::host_float`): a vertex at the threshold falls on
 /// the same side whatever the device's fused operations.
-fn support_source() -> String {
-    format!(
+fn support_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         "{}{}{}{SUPPORT}",
         host_float::PARAMS_ZERO_HOOK,
         host_float::wgsl(),
         crate::armor_frames::skin_support_wgsl(),
-    )
+    ))
 }
 
-const SUPPORT: &str = r#"
-@group(0) @binding(0) var<storage, read> joint_indices: array<u32>;
-@group(0) @binding(1) var<storage, read> joint_weights: array<f32>;
-@group(0) @binding(2) var<storage, read> masks: array<u32>;
-@group(0) @binding(3) var<storage, read_write> support: array<u32>;
-struct Params {
-    count: u32,
-    regions: u32,
-    pad1: u32,
-    pad2: u32,
-    zero: u32,
-    pad3: f32,
-    pad4: f32,
-    pad5: f32,
-};
-@group(0) @binding(4) var<uniform> params: Params;
-
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {
-    let i = id.x;
-    if (i >= params.count) {
-        return;
-    }
-    var supported = 0u;
-    for (var region = 0u; region < params.regions; region = region + 1u) {
-        var weight = 0.0;
-        for (var k = 0u; k < 8u; k = k + 1u) {
-            if ((masks[joint_indices[i * 8u + k]] & (1u << region)) != 0u) {
-                weight = host_add(weight, joint_weights[i * 8u + k]);
-            }
-        }
-        if (weight >= SKIN_SUPPORT_THRESHOLD) {
-            supported = 1u;
-        }
-    }
-    support[i] = supported;
-}
-"#;
-
-fn points_source() -> String {
-    format!(
+fn points_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read> positions: array<f32>;
@@ -309,11 +338,11 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         counted = wgsl::COUNTED,
         common = common(),
         positions = wgsl::read_points("positions"),
-    )
+    ))
 }
 
-fn bounds_source() -> String {
-    format!(
+fn bounds_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read> positions: array<f32>;
@@ -341,11 +370,11 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 "#,
         common = common(),
         positions = wgsl::read_points("positions"),
-    )
+    ))
 }
 
-fn sections_source(entry: &str) -> String {
-    format!(
+fn sections_source(entry: &str) -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read> bounds: array<u32>;
@@ -382,33 +411,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 "#,
         counted = wgsl::COUNTED,
         common = common(),
-    )
+    ))
 }
-
-/// The distance from each section's height to its nearest point.
-const NEAREST: &str = r#"
-atomicMin(&sections[at], ordered_from_float(abs(p.y - sample_height(section, low(), high()))));
-"#;
-
-/// The bounds of the points within a window of that distance.
-const SLICE: &str = r#"
-if (in_slice(section, p.y)) {
-    atomicMin(&sections[at + 1u], ordered_from_float(p.x));
-    atomicMin(&sections[at + 2u], ordered_from_float(p.z));
-    atomicMax(&sections[at + 3u], ordered_from_float(p.x));
-    atomicMax(&sections[at + 4u], ordered_from_float(p.z));
-}
-"#;
-
-/// The scale at which the bounds' superellipse encloses them.
-const ENCLOSE: &str = r#"
-if (in_slice(section, p.y)) {
-    let lo = vec2<f32>(word(section, 1u), word(section, 2u));
-    let hi = vec2<f32>(word(section, 3u), word(section, 4u));
-    let center = (lo + hi) * 0.5;
-    let radius = max((hi - lo) * 0.5, vec2<f32>(MINIMUM_RADIAL_EXTENT_M));
-    let exponent = foot_exponent(sample_height(section, low(), high()), frame_at(0u).half_extents.y);
-    let scale = superellipse(vec2<f32>(p.x, p.z) - center, radius, exponent);
-    atomicMax(&sections[at + 5u], ordered_from_float(scale));
-}
-"#;

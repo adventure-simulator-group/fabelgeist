@@ -31,6 +31,9 @@ const RING_CAPACITY: u32 = 2048;
 /// Set when a ring crosses fewer than three skin edges.
 pub const STATUS_EMPTY_CONTOUR: u32 = 16;
 
+/// A mesh's positions and normals, read back.
+type MeshSurface = (Vec<[f32; 3]>, Vec<[f32; 3]>);
+
 /// One realization of the body the bracer is displaced from.
 pub struct BracerBody<'a> {
     pub positions: &'a Buffer,
@@ -53,8 +56,26 @@ struct Layout {
     triangle_count: u32,
 }
 
-/// A mesh's positions and normals, read back.
-type MeshSurface = (Vec<[f32; 3]>, Vec<[f32; 3]>);
+/// A bracer recorded on the device, with a mesh per body realization.
+pub struct DeviceBracer {
+    design: BracerDesign,
+    layout: Layout,
+    texcoords: Buffer,
+    joint_indices: Buffer,
+    joint_weights: Buffer,
+    base: BracerMesh,
+    morphs: Vec<BracerMesh>,
+}
+
+/// What the bracer is fitted to: the selected forearm skin of the wearer.
+pub struct ForearmSkin<'a> {
+    pub surface: &'a DeviceSurface,
+    /// Each body vertex's clamped elbow-to-wrist coordinate.
+    pub axial: &'a Buffer,
+    /// The anatomical coordinates the surface's atlas indices name.
+    pub atlas: &'a Buffer,
+    pub body: &'a GpuBody,
+}
 
 impl Layout {
     fn sample_count(&self) -> u32 {
@@ -146,75 +167,6 @@ impl Layout {
             )
             .map_err(device_error)
     }
-}
-
-/// A bracer recorded on the device, with a mesh per body realization.
-pub struct DeviceBracer {
-    design: BracerDesign,
-    layout: Layout,
-    texcoords: Buffer,
-    joint_indices: Buffer,
-    joint_weights: Buffer,
-    base: BracerMesh,
-    morphs: Vec<BracerMesh>,
-}
-
-/// The design as the kernels read it; see `bracer_wgsl::DESIGN`.
-fn design_words(design: &BracerDesign) -> Vec<f32> {
-    let (start, end) = design.axial_interval();
-    let flute = design.fluting.as_ref().map_or([0.0; 8], |f| {
-        [
-            f32::from(f.count.0),
-            f.width.unit(),
-            f.depth.metres(),
-            f.spread.unit(),
-            f.lower_spread.unit(),
-            f.start.unit(),
-            f.end.unit(),
-            f.fade.unit(),
-        ]
-    });
-    let mut words = vec![
-        design.clearance.metres(),
-        design.wall_thickness.metres(),
-        design.elbow_flare.metres(),
-        design.wrist_flare.metres(),
-        design.center_ridge.metres(),
-        start,
-        end,
-        f32::from(u8::from(design.fluting.is_some())),
-    ];
-    words.extend(flute);
-    words.extend(design.columns());
-    words
-}
-
-fn kernel(gpu: &ArmorGpu, entry: &str, binds_status: bool) -> Result<Arc<Kernel>, GenerateError> {
-    gpu.cache()
-        .get(
-            gpu.context(),
-            &bracer_wgsl::source(entry, binds_status).into(),
-        )
-        .map_err(device_error)
-}
-
-fn counted(count: u32, around: u32, faces_at: u32) -> PassParameters {
-    let mut parameters = PassParameters::new();
-    parameters.insert("count", count);
-    parameters.insert("around", around);
-    parameters.insert("faces_at", faces_at);
-    parameters.insert("record_body_normals", 0u32);
-    parameters
-}
-
-/// What the bracer is fitted to: the selected forearm skin of the wearer.
-pub struct ForearmSkin<'a> {
-    pub surface: &'a DeviceSurface,
-    /// Each body vertex's clamped elbow-to-wrist coordinate.
-    pub axial: &'a Buffer,
-    /// The anatomical coordinates the surface's atlas indices name.
-    pub atlas: &'a Buffer,
-    pub body: &'a GpuBody,
 }
 
 impl Layout {
@@ -481,4 +433,49 @@ pub(crate) fn deltas(base: &[[f32; 3]], target: &[[f32; 3]]) -> Vec<[f32; 3]> {
         .zip(target)
         .map(|(a, b)| std::array::from_fn(|i| b[i] - a[i]))
         .collect()
+}
+
+/// The design as the kernels read it; see `bracer_wgsl::DESIGN`.
+fn design_words(design: &BracerDesign) -> Vec<f32> {
+    let (start, end) = design.axial_interval();
+    let flute = design.fluting.as_ref().map_or([0.0; 8], |f| {
+        [
+            f32::from(f.count.0),
+            f.width.unit(),
+            f.depth.metres(),
+            f.spread.unit(),
+            f.lower_spread.unit(),
+            f.start.unit(),
+            f.end.unit(),
+            f.fade.unit(),
+        ]
+    });
+    let mut words = vec![
+        design.clearance.metres(),
+        design.wall_thickness.metres(),
+        design.elbow_flare.metres(),
+        design.wrist_flare.metres(),
+        design.center_ridge.metres(),
+        start,
+        end,
+        f32::from(u8::from(design.fluting.is_some())),
+    ];
+    words.extend(flute);
+    words.extend(design.columns());
+    words
+}
+
+fn kernel(gpu: &ArmorGpu, entry: &str, binds_status: bool) -> Result<Arc<Kernel>, GenerateError> {
+    gpu.cache()
+        .get(gpu.context(), &bracer_wgsl::source(entry, binds_status))
+        .map_err(device_error)
+}
+
+fn counted(count: u32, around: u32, faces_at: u32) -> PassParameters {
+    let mut parameters = PassParameters::new();
+    parameters.insert("count", count);
+    parameters.insert("around", around);
+    parameters.insert("faces_at", faces_at);
+    parameters.insert("record_body_normals", 0u32);
+    parameters
 }

@@ -1,6 +1,7 @@
 //! A wearer's body on the device, and what armor takes from it.
 
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::ShaderSource;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch, PointTargets, QueryHits};
@@ -40,6 +41,24 @@ pub struct GpuBody {
     pub joint_count: u32,
 }
 
+/// Skin and surface coordinates carried from the nearest body vertex.
+#[derive(Clone, Debug)]
+pub struct Correspondence {
+    hits: QueryHits,
+    pub texcoords: Buffer,
+    pub joint_indices: Buffer,
+    pub joint_weights: Buffer,
+    count: u32,
+}
+
+/// Correspondence read back to the host.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct Skin {
+    pub texcoords: Vec<[f32; 2]>,
+    pub joint_indices: Vec<[u32; 8]>,
+    pub joint_weights: Vec<[f32; 8]>,
+}
+
 impl GpuBody {
     pub fn new(gpu: &ArmorGpu, surface: BodySurface) -> Result<Self, GenerateError> {
         let vertices = surface.positions.len();
@@ -69,24 +88,6 @@ impl GpuBody {
             joint_count: surface.joints.len() as u32,
         })
     }
-}
-
-/// Skin and surface coordinates carried from the nearest body vertex.
-#[derive(Clone, Debug)]
-pub struct Correspondence {
-    hits: QueryHits,
-    pub texcoords: Buffer,
-    pub joint_indices: Buffer,
-    pub joint_weights: Buffer,
-    count: u32,
-}
-
-/// Correspondence read back to the host.
-#[derive(Clone, Debug, Default, PartialEq)]
-pub struct Skin {
-    pub texcoords: Vec<[f32; 2]>,
-    pub joint_indices: Vec<[u32; 8]>,
-    pub joint_weights: Vec<[f32; 8]>,
 }
 
 impl Skin {
@@ -181,7 +182,7 @@ impl Correspondence {
 }
 
 fn gather_kernel(gpu: &ArmorGpu) -> Result<Arc<Kernel>, GenerateError> {
-    let source = format!(
+    let source = ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> nearest: array<u32>;
 @group(0) @binding(1) var<storage, read> body_texcoords: array<f32>;
@@ -209,8 +210,8 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 }}
 "#,
         counted = wgsl::COUNTED,
-    );
+    ));
     gpu.cache()
-        .get(gpu.context(), &source.as_str().into())
+        .get(gpu.context(), &source)
         .map_err(device_error)
 }

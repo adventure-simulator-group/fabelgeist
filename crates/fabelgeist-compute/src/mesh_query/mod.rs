@@ -13,10 +13,10 @@
 //! target set can be narrowed to a list of candidate indices.
 
 use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
-mod wgsl;
 
 use crate::prelude::*;
 use std::sync::Arc;
+mod wgsl;
 
 /// Points searched by [`MeshQuery::record_nearest_points`].
 #[derive(Clone, Copy, Debug)]
@@ -40,13 +40,6 @@ pub struct TriangleTargets<'a> {
     pub candidates: Option<&'a Buffer>,
     /// Triangles searched: the candidate count when there are candidates.
     pub count: u32,
-}
-
-/// Which crossing of a ray a query keeps.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum Crossing {
-    First,
-    Last,
 }
 
 /// Rays cast by [`MeshQuery::record_ray_triangles`].
@@ -85,6 +78,23 @@ pub struct Hit {
     pub target: Option<u32>,
     pub weights: [f32; 3],
     pub distance: f32,
+}
+
+/// The compiled query kernels.
+#[derive(Clone, Debug)]
+pub struct MeshQuery {
+    nearest_points: Arc<Kernel>,
+    closest_triangles: Arc<Kernel>,
+    ray_triangles: Arc<Kernel>,
+    /// Bound in place of a candidate list when a search covers every target.
+    all_targets: Buffer,
+}
+
+/// Which crossing of a ray a query keeps.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Crossing {
+    First,
+    Last,
 }
 
 impl QueryHits {
@@ -131,16 +141,6 @@ impl QueryHits {
     }
 }
 
-/// The compiled query kernels.
-#[derive(Clone, Debug)]
-pub struct MeshQuery {
-    nearest_points: Arc<Kernel>,
-    closest_triangles: Arc<Kernel>,
-    ray_triangles: Arc<Kernel>,
-    /// Bound in place of a candidate list when a search covers every target.
-    all_targets: Buffer,
-}
-
 impl MeshQuery {
     pub fn new(context: &WgpuContext) -> Result<Self> {
         Self::with_cache(context, &KernelCache::new())
@@ -148,9 +148,9 @@ impl MeshQuery {
 
     pub fn with_cache(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
         Ok(Self {
-            nearest_points: cache.get(context, &wgsl::nearest_points().into())?,
-            closest_triangles: cache.get(context, &wgsl::closest_triangles().into())?,
-            ray_triangles: cache.get(context, &wgsl::ray_triangles().into())?,
+            nearest_points: cache.get(context, &wgsl::nearest_points())?,
+            closest_triangles: cache.get(context, &wgsl::closest_triangles())?,
+            ray_triangles: cache.get(context, &wgsl::ray_triangles())?,
             all_targets: Buffer::from_upload(
                 context,
                 BufferUpload::from_elements(&[0u32]),

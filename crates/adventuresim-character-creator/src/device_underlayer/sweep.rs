@@ -14,6 +14,7 @@
 use anyhow::Result;
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::standoff::{BINDINGS, COMPRESSION_PASSES, PRISM_MARGIN};
@@ -29,6 +30,48 @@ const SETTLE_WORKGROUP: u32 = 256;
 /// nothing to halve.
 pub(super) const WORKLIST_HEADER: u32 = 2;
 
+/// The workgroup's shared worklist: reading its words alike, and gathering raised flags.
+const WORKLIST: &str = r#"
+var<workgroup> raised: atomic<u32>;
+var<workgroup> published: u32;
+var<private> lane: u32;
+
+// A worklist word, read alike by every invocation.
+fn shared_word(index: u32) -> u32 {
+    storageBarrier();
+    workgroupBarrier();
+    if (lane == 0u) {
+        published = atomicLoad(&worklist[index]);
+    }
+    return workgroupUniformLoad(&published);
+}
+
+// Whether any invocation raised the flag since the last call; clears it.
+fn any_raised() -> bool {
+    storageBarrier();
+    workgroupBarrier();
+    if (lane == 0u) {
+        published = atomicLoad(&raised);
+        atomicStore(&raised, 0u);
+    }
+    return workgroupUniformLoad(&published) != 0u;
+}
+
+fn candidate(slot: u32) -> u32 {
+    return atomicLoad(&worklist[MARKS + params.faces + slot]);
+}
+
+fn enlist_neighbours(f: u32) {
+    for (var corner = 0u; corner < 3u; corner = corner + 1u) {
+        let v = triangles[f * 3u + corner];
+        for (var entry = incidence[v]; entry < incidence[v + 1u]; entry = entry + 1u) {
+            enlist(incidence[entry]);
+        }
+    }
+}
+
+"#;
+
 impl Workspace<'_> {
     /// Record the prism sweeps over the room in the first half of `rooms`,
     /// ending with coincident vertices sharing their least room.
@@ -40,9 +83,9 @@ impl Workspace<'_> {
         links: &Buffer,
     ) -> Result<()> {
         let gpu = self.gpu;
-        let kernel = |source: String| {
+        let kernel = |source: ShaderSource<'static>| {
             gpu.cache()
-                .get(gpu.context(), &source.as_str().into())
+                .get(gpu.context(), &source)
                 .map_err(device_error)
         };
         let synchronize = kernel(synchronize_source())?;
@@ -201,8 +244,8 @@ fn enlist(f: u32) {{
     )
 }
 
-fn synchronize_source() -> String {
-    format!(
+fn synchronize_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 {common}
 
@@ -226,11 +269,11 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 }}
 "#,
         common = common(),
-    )
+    ))
 }
 
-fn restart_source() -> String {
-    format!(
+fn restart_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 {common}
 
@@ -244,11 +287,11 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 }}
 "#,
         common = common(),
-    )
+    ))
 }
 
-fn test_source() -> String {
-    format!(
+fn test_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 {common}
 
@@ -264,53 +307,11 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 }}
 "#,
         common = common(),
-    )
+    ))
 }
 
-/// The workgroup's shared worklist: reading its words alike, and gathering raised flags.
-const WORKLIST: &str = r#"
-var<workgroup> raised: atomic<u32>;
-var<workgroup> published: u32;
-var<private> lane: u32;
-
-// A worklist word, read alike by every invocation.
-fn shared_word(index: u32) -> u32 {
-    storageBarrier();
-    workgroupBarrier();
-    if (lane == 0u) {
-        published = atomicLoad(&worklist[index]);
-    }
-    return workgroupUniformLoad(&published);
-}
-
-// Whether any invocation raised the flag since the last call; clears it.
-fn any_raised() -> bool {
-    storageBarrier();
-    workgroupBarrier();
-    if (lane == 0u) {
-        published = atomicLoad(&raised);
-        atomicStore(&raised, 0u);
-    }
-    return workgroupUniformLoad(&published) != 0u;
-}
-
-fn candidate(slot: u32) -> u32 {
-    return atomicLoad(&worklist[MARKS + params.faces + slot]);
-}
-
-fn enlist_neighbours(f: u32) {
-    for (var corner = 0u; corner < 3u; corner = corner + 1u) {
-        let v = triangles[f * 3u + corner];
-        for (var entry = incidence[v]; entry < incidence[v + 1u]; entry = entry + 1u) {
-            enlist(incidence[entry]);
-        }
-    }
-}
-
-"#;
-
-fn settle_source() -> String {
-    format!(
+fn settle_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 {common}
 const SWEEP_ITERATIONS: u32 = {iterations}u;
@@ -387,5 +388,5 @@ fn main(@builtin(local_invocation_id) local_id: vec3<u32>) {{
         common = common(),
         iterations = SWEEP_ITERATIONS,
         workgroup = SETTLE_WORKGROUP,
-    )
+    ))
 }

@@ -6,6 +6,7 @@
 //! neck is a matter of skin weights alone, so the host lists it once.
 
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::ShaderSource;
 use std::sync::Arc;
 
 use anyhow::Result;
@@ -26,101 +27,6 @@ const BANDS: usize = 8;
 const BAND_WORDS: usize = 8;
 const ORDERED_POSITIVE_INFINITY: u32 = 0xff80_0000;
 const ORDERED_NEGATIVE_INFINITY: u32 = 0x007f_ffff;
-
-impl DeviceWearer<'_> {
-    /// Record a close helmet fitted to this wearer, short of thickening.
-    pub fn record_fitted_close_helmet(
-        &self,
-        batch: &mut KernelBatch,
-        design: &CloseHelmetDesign,
-    ) -> Result<DeviceRecording> {
-        let frame = self.record_head_frame(batch)?;
-        let fit = self.record_close_helmet_profile(batch, design, &frame)?;
-        let part = record_close_helmet(self.gpu, batch, design, &fit, &frame.frame)?;
-        Ok(DeviceRecording {
-            part,
-            frames: vec![(frame, FitRegion::Head)],
-            checks: Vec::new(),
-        })
-    }
-
-    /// The skin that sizes a helmet reaching down the neck: the head's and
-    /// the neck's, each vertex once, in order.
-    pub(crate) fn head_and_neck_support(&self, lower: FitRegion) -> Result<Vec<u32>> {
-        let mut support = self.host.support_indices(FitRegion::Head)?;
-        support.extend(self.host.support_indices(lower)?);
-        support.sort_unstable();
-        support.dedup();
-        Ok(support.into_iter().map(|i| i as u32).collect())
-    }
-
-    /// Record the helmet's profile, measured on the head and neck skin, into
-    /// a new fit buffer: the helmet's own frame, then its profile.
-    /// Unsupported sections fail the head frame.
-    fn record_close_helmet_profile(
-        &self,
-        batch: &mut KernelBatch,
-        design: &CloseHelmetDesign,
-        frame: &DeviceFrame,
-    ) -> Result<Buffer> {
-        let gpu = self.gpu;
-        let support = self.head_and_neck_support(FitRegion::Neck)?;
-        let wall = design.fit.wall_thickness.metres();
-        let fit = gpu.scratch(
-            ((FIT_PROFILE_WORD + CLOSE_HELMET_PROFILE_WORDS) * 4) as u64,
-            "close helmet fit",
-        )?;
-        let mut bands = Vec::with_capacity(BANDS * BAND_WORDS);
-        for _ in 0..BANDS {
-            bands.extend([ORDERED_POSITIVE_INFINITY; 3]);
-            bands.extend([ORDERED_NEGATIVE_INFINITY; 3]);
-            bands.extend([0, 0]);
-        }
-        let mut parameters = PassParameters::new();
-        parameters.insert("count", support.len() as u32);
-        for pad in ["pad0", "pad1", "pad2"] {
-            parameters.insert(pad, 0u32);
-        }
-        parameters.insert("positions", self.body.positions.clone());
-        parameters.insert(
-            "support",
-            gpu.upload(BufferUpload::from_elements(&support))?,
-        );
-        parameters.insert("frame", frame.frame.clone());
-        parameters.insert(
-            "design",
-            gpu.upload(BufferUpload::from_elements(&[
-                design.neck_length.metres(),
-                design.back_edge_lift.metres(),
-                design.fit.clearance.metres() + wall,
-                design.face_clearance.metres() + wall,
-                wall,
-                design.temple_clearance.metres(),
-                0.0,
-            ]))?,
-        );
-        parameters.insert("bands", gpu.upload(BufferUpload::from_elements(&bands))?);
-        parameters.insert("fit", fit.clone());
-        parameters.insert("status", frame.status.clone());
-        let [measure, profile] = kernels(gpu)?;
-        batch
-            .dispatch_items(&measure, &parameters, support.len() as u32)
-            .map_err(device_error)?;
-        batch
-            .dispatch(&profile, &parameters, [1, 1, 1])
-            .map_err(device_error)?;
-        Ok(fit)
-    }
-}
-
-fn kernels(gpu: &ArmorGpu) -> Result<[Arc<Kernel>; 2]> {
-    let compile = |entry: &str| {
-        gpu.cache()
-            .get(gpu.context(), &source(entry).into())
-            .map_err(device_error)
-    };
-    Ok([compile(MEASURE)?, compile(PROFILE)?])
-}
 
 /// The head-frame height span of each measured band.
 const BAND_SPAN: &str = r#"
@@ -177,84 +83,6 @@ fn band_span(band: u32) -> vec2<f32> {
 }
 
 "#;
-
-fn source(entry: &str) -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> positions: array<f32>;
-@group(0) @binding(1) var<storage, read> support: array<u32>;
-@group(0) @binding(2) var<storage, read> frame: array<f32>;
-@group(0) @binding(3) var<storage, read> design: array<f32>;
-@group(0) @binding(4) var<storage, read_write> bands: array<atomic<u32>>;
-@group(0) @binding(5) var<storage, read_write> fit: array<f32>;
-@group(0) @binding(6) var<storage, read_write> status: array<atomic<u32>>;
-{math}
-{counted}
-@group(0) @binding(7) var<uniform> params: Params;
-{ordered}
-{zero_hook}{host_float}
-{positions}
-
-const NECK_LENGTH: u32 = 0u;
-const BACK_EDGE_LIFT: u32 = 1u;
-const GAP: u32 = 2u;
-const FACE_GAP: u32 = 3u;
-const WALL: u32 = 4u;
-const TEMPLE_CLEARANCE: u32 = 5u;
-const ZERO: u32 = 6u;
-
-const NO_ENVELOPE: u32 = 2u;
-const INVALID: u32 = 4u;
-
-const SKULL: u32 = 0u;
-const HEAD_WIDTH: u32 = 1u;
-const JAW: u32 = 2u;
-const FACE: u32 = 3u;
-const SUBMENTAL: u32 = 4u;
-const NECK: u32 = 5u;
-const NAPE: u32 = 6u;
-const THROAT: u32 = 7u;
-const BANDS: u32 = {bands}u;
-const BAND_WORDS: u32 = {band_words}u;
-const MINIMUM_SECTION_SAMPLES: u32 = 4u;
-
-const SECTION_HALF_BAND_M: f32 = 0.006;
-const JAW_WIDTH_LOWER_M: f32 = 0.000;
-const JAW_WIDTH_UPPER_M: f32 = 0.020;
-const JAW_FACE_HEIGHT_M: f32 = 0.018;
-const SUBMENTAL_NECK_FRACTION: f32 = 0.35;
-const NECK_HEM_HEAD_RATIO: f32 = 1.20;
-const CHIN_HEAD_RATIO: f32 = 1.03;
-const BROW_HEIGHT: f32 = 0.09;
-const PROFILE: u32 = {profile}u;
-
-fn fail(bit: u32) {{
-    atomicOr(&status[0], bit);
-}}
-
-fn axis(i: u32) -> vec3<f32> {{
-    return vec3<f32>(frame[3u + i * 3u], frame[4u + i * 3u], frame[5u + i * 3u]);
-}}
-
-fn half_height() -> f32 {{
-    return frame[13];
-}}
-
-{band_span}
-{entry}
-"#,
-        band_span = BAND_SPAN,
-        math = wgsl::MATH,
-        counted = wgsl::COUNTED,
-        ordered = wgsl::ORDERED_FLOAT,
-        zero_hook = host_float::zero_hook("bitcast<u32>(design[ZERO])"),
-        host_float = host_float::wgsl(),
-        positions = wgsl::read_points("positions"),
-        bands = BANDS,
-        band_words = BAND_WORDS,
-        profile = FIT_PROFILE_WORD,
-    )
-}
 
 /// Each supported sample, in the head frame, widens every band it lies in.
 const MEASURE: &str = r#"
@@ -354,3 +182,176 @@ fn main() {
     }
 }
 "#;
+
+impl DeviceWearer<'_> {
+    /// Record a close helmet fitted to this wearer, short of thickening.
+    pub fn record_fitted_close_helmet(
+        &self,
+        batch: &mut KernelBatch,
+        design: &CloseHelmetDesign,
+    ) -> Result<DeviceRecording> {
+        let frame = self.record_head_frame(batch)?;
+        let fit = self.record_close_helmet_profile(batch, design, &frame)?;
+        let part = record_close_helmet(self.gpu, batch, design, &fit, &frame.frame)?;
+        Ok(DeviceRecording {
+            part,
+            frames: vec![(frame, FitRegion::Head)],
+            checks: Vec::new(),
+        })
+    }
+
+    /// The skin that sizes a helmet reaching down the neck: the head's and
+    /// the neck's, each vertex once, in order.
+    pub(crate) fn head_and_neck_support(&self, lower: FitRegion) -> Result<Vec<u32>> {
+        let mut support = self.host.support_indices(FitRegion::Head)?;
+        support.extend(self.host.support_indices(lower)?);
+        support.sort_unstable();
+        support.dedup();
+        Ok(support.into_iter().map(|i| i as u32).collect())
+    }
+
+    /// Record the helmet's profile, measured on the head and neck skin, into
+    /// a new fit buffer: the helmet's own frame, then its profile.
+    /// Unsupported sections fail the head frame.
+    fn record_close_helmet_profile(
+        &self,
+        batch: &mut KernelBatch,
+        design: &CloseHelmetDesign,
+        frame: &DeviceFrame,
+    ) -> Result<Buffer> {
+        let gpu = self.gpu;
+        let support = self.head_and_neck_support(FitRegion::Neck)?;
+        let wall = design.fit.wall_thickness.metres();
+        let fit = gpu.scratch(
+            ((FIT_PROFILE_WORD + CLOSE_HELMET_PROFILE_WORDS) * 4) as u64,
+            "close helmet fit",
+        )?;
+        let mut bands = Vec::with_capacity(BANDS * BAND_WORDS);
+        for _ in 0..BANDS {
+            bands.extend([ORDERED_POSITIVE_INFINITY; 3]);
+            bands.extend([ORDERED_NEGATIVE_INFINITY; 3]);
+            bands.extend([0, 0]);
+        }
+        let mut parameters = PassParameters::new();
+        parameters.insert("count", support.len() as u32);
+        for pad in ["pad0", "pad1", "pad2"] {
+            parameters.insert(pad, 0u32);
+        }
+        parameters.insert("positions", self.body.positions.clone());
+        parameters.insert(
+            "support",
+            gpu.upload(BufferUpload::from_elements(&support))?,
+        );
+        parameters.insert("frame", frame.frame.clone());
+        parameters.insert(
+            "design",
+            gpu.upload(BufferUpload::from_elements(&[
+                design.neck_length.metres(),
+                design.back_edge_lift.metres(),
+                design.fit.clearance.metres() + wall,
+                design.face_clearance.metres() + wall,
+                wall,
+                design.temple_clearance.metres(),
+                0.0,
+            ]))?,
+        );
+        parameters.insert("bands", gpu.upload(BufferUpload::from_elements(&bands))?);
+        parameters.insert("fit", fit.clone());
+        parameters.insert("status", frame.status.clone());
+        let [measure, profile] = kernels(gpu)?;
+        batch
+            .dispatch_items(&measure, &parameters, support.len() as u32)
+            .map_err(device_error)?;
+        batch
+            .dispatch(&profile, &parameters, [1, 1, 1])
+            .map_err(device_error)?;
+        Ok(fit)
+    }
+}
+
+fn kernels(gpu: &ArmorGpu) -> Result<[Arc<Kernel>; 2]> {
+    let compile = |entry: &str| {
+        gpu.cache()
+            .get(gpu.context(), &source(entry))
+            .map_err(device_error)
+    };
+    Ok([compile(MEASURE)?, compile(PROFILE)?])
+}
+
+fn source(entry: &str) -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> positions: array<f32>;
+@group(0) @binding(1) var<storage, read> support: array<u32>;
+@group(0) @binding(2) var<storage, read> frame: array<f32>;
+@group(0) @binding(3) var<storage, read> design: array<f32>;
+@group(0) @binding(4) var<storage, read_write> bands: array<atomic<u32>>;
+@group(0) @binding(5) var<storage, read_write> fit: array<f32>;
+@group(0) @binding(6) var<storage, read_write> status: array<atomic<u32>>;
+{math}
+{counted}
+@group(0) @binding(7) var<uniform> params: Params;
+{ordered}
+{zero_hook}{host_float}
+{positions}
+
+const NECK_LENGTH: u32 = 0u;
+const BACK_EDGE_LIFT: u32 = 1u;
+const GAP: u32 = 2u;
+const FACE_GAP: u32 = 3u;
+const WALL: u32 = 4u;
+const TEMPLE_CLEARANCE: u32 = 5u;
+const ZERO: u32 = 6u;
+
+const NO_ENVELOPE: u32 = 2u;
+const INVALID: u32 = 4u;
+
+const SKULL: u32 = 0u;
+const HEAD_WIDTH: u32 = 1u;
+const JAW: u32 = 2u;
+const FACE: u32 = 3u;
+const SUBMENTAL: u32 = 4u;
+const NECK: u32 = 5u;
+const NAPE: u32 = 6u;
+const THROAT: u32 = 7u;
+const BANDS: u32 = {bands}u;
+const BAND_WORDS: u32 = {band_words}u;
+const MINIMUM_SECTION_SAMPLES: u32 = 4u;
+
+const SECTION_HALF_BAND_M: f32 = 0.006;
+const JAW_WIDTH_LOWER_M: f32 = 0.000;
+const JAW_WIDTH_UPPER_M: f32 = 0.020;
+const JAW_FACE_HEIGHT_M: f32 = 0.018;
+const SUBMENTAL_NECK_FRACTION: f32 = 0.35;
+const NECK_HEM_HEAD_RATIO: f32 = 1.20;
+const CHIN_HEAD_RATIO: f32 = 1.03;
+const BROW_HEIGHT: f32 = 0.09;
+const PROFILE: u32 = {profile}u;
+
+fn fail(bit: u32) {{
+    atomicOr(&status[0], bit);
+}}
+
+fn axis(i: u32) -> vec3<f32> {{
+    return vec3<f32>(frame[3u + i * 3u], frame[4u + i * 3u], frame[5u + i * 3u]);
+}}
+
+fn half_height() -> f32 {{
+    return frame[13];
+}}
+
+{band_span}
+{entry}
+"#,
+        band_span = BAND_SPAN,
+        math = wgsl::MATH,
+        counted = wgsl::COUNTED,
+        ordered = wgsl::ORDERED_FLOAT,
+        zero_hook = host_float::zero_hook("bitcast<u32>(design[ZERO])"),
+        host_float = host_float::wgsl(),
+        positions = wgsl::read_points("positions"),
+        bands = BANDS,
+        band_words = BAND_WORDS,
+        profile = FIT_PROFILE_WORD,
+    ))
+}

@@ -17,6 +17,7 @@
 //! the kernel runs once per pass, so a later pass can read what an earlier one
 //! wrote through `local_carrier(index)`.
 
+use fabelgeist_gpu::prelude::ShaderSource;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch};
@@ -25,6 +26,67 @@ use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 use super::part::{Extrusion, HINGE_WORDS, PartBuild, SHELL_MIRRORED, SHELL_WORDS, ShellSpec};
 use super::{ArmorGpu, device_error, wgsl};
 use crate::{BoundaryNormals, GenerateError};
+
+/// A shape whose extrusion origin is the one its host description gives,
+/// and whose vertices are all evaluated in the first pass.
+pub const AUTHORED: &str = r#"
+fn shell_origin() -> vec3<f32> {
+    return vec3<f32>(params.origin_x, params.origin_y, params.origin_z);
+}
+
+fn shell_pass(index: u32, coord: vec4<f32>) -> u32 {
+    return 0u;
+}
+
+fn shell_hinge() -> array<vec3<f32>, 2> {
+    return array<vec3<f32>, 2>(vec3<f32>(0.0), vec3<f32>(0.0, 1.0, 0.0));
+}
+"#;
+
+/// The vertex a shape computes, in its local frame.
+const VERTEX: &str = r#"
+struct ShellVertex {
+    point: vec3<f32>,
+    height: f32,
+};
+"#;
+
+/// The coordinate kernel's bindings and parameters.
+const BINDINGS: &str = r#"
+@group(0) @binding(0) var<storage, read> coords: array<vec4<f32>>;
+@group(0) @binding(1) var<storage, read> design: array<f32>;
+@group(0) @binding(2) var<storage, read> frames: array<f32>;
+@group(0) @binding(3) var<storage, read_write> carriers: array<f32>;
+@group(0) @binding(4) var<storage, read_write> heights: array<f32>;
+@group(0) @binding(5) var<storage, read_write> shells: array<f32>;
+@group(0) @binding(7) var<storage, read_write> hinges: array<f32>;
+struct Params {
+    first: u32,
+    shell: u32,
+    total: u32,
+    stage: u32,
+    mirrored: u32,
+    hinge: u32,
+    pad1: u32,
+    pad2: u32,
+    value0: f32,
+    value1: f32,
+    value2: f32,
+    value3: f32,
+    origin_x: f32,
+    origin_y: f32,
+    origin_z: f32,
+    pad3: f32,
+    axis_x: f32,
+    axis_y: f32,
+    axis_z: f32,
+    pad4: f32,
+};
+@group(0) @binding(6) var<uniform> params: Params;
+"#;
+
+/// A shell's hinge slot when it carries no hinge.
+const NO_HINGE: u32 = u32::MAX;
 
 /// One shell whose vertices the host lists with their coordinates.
 #[derive(Clone, Debug)]
@@ -45,6 +107,10 @@ pub struct CoordShell {
     /// Where this shell's `shell_hinge()` is written, if it carries one.
     pub hinge: Option<super::part::HingeSlot>,
 }
+
+/// A shape's coordinate-shell kernel.
+#[derive(Clone, Debug)]
+pub struct CoordKernel(Arc<Kernel>);
 
 /// How a coordinate shell is thickened; origins and axes are local and may
 /// be overridden by the shape's `shell_origin()`.
@@ -80,37 +146,17 @@ impl CoordShell {
     }
 }
 
-/// A shape's coordinate-shell kernel.
-#[derive(Clone, Debug)]
-pub struct CoordKernel(Arc<Kernel>);
-
 impl CoordKernel {
     /// Compile the coordinate template around a shape's WGSL, which defines
     /// `shell_vertex`, `shell_pass` and `shell_origin`.
     pub fn new(gpu: &ArmorGpu, shape: &str) -> Result<Self, GenerateError> {
         Ok(Self(
             gpu.cache()
-                .get(gpu.context(), &source(shape).into())
+                .get(gpu.context(), &source(shape))
                 .map_err(device_error)?,
         ))
     }
 }
-
-/// A shape whose extrusion origin is the one its host description gives,
-/// and whose vertices are all evaluated in the first pass.
-pub const AUTHORED: &str = r#"
-fn shell_origin() -> vec3<f32> {
-    return vec3<f32>(params.origin_x, params.origin_y, params.origin_z);
-}
-
-fn shell_pass(index: u32, coord: vec4<f32>) -> u32 {
-    return 0u;
-}
-
-fn shell_hinge() -> array<vec3<f32>, 2> {
-    return array<vec3<f32>, 2>(vec3<f32>(0.0), vec3<f32>(0.0, 1.0, 0.0));
-}
-"#;
 
 /// Record every pass of one coordinate shell into its carriers.
 #[expect(
@@ -175,53 +221,8 @@ pub(crate) fn record(
     Ok(())
 }
 
-/// The vertex a shape computes, in its local frame.
-const VERTEX: &str = r#"
-struct ShellVertex {
-    point: vec3<f32>,
-    height: f32,
-};
-"#;
-
-/// The coordinate kernel's bindings and parameters.
-const BINDINGS: &str = r#"
-@group(0) @binding(0) var<storage, read> coords: array<vec4<f32>>;
-@group(0) @binding(1) var<storage, read> design: array<f32>;
-@group(0) @binding(2) var<storage, read> frames: array<f32>;
-@group(0) @binding(3) var<storage, read_write> carriers: array<f32>;
-@group(0) @binding(4) var<storage, read_write> heights: array<f32>;
-@group(0) @binding(5) var<storage, read_write> shells: array<f32>;
-@group(0) @binding(7) var<storage, read_write> hinges: array<f32>;
-struct Params {
-    first: u32,
-    shell: u32,
-    total: u32,
-    stage: u32,
-    mirrored: u32,
-    hinge: u32,
-    pad1: u32,
-    pad2: u32,
-    value0: f32,
-    value1: f32,
-    value2: f32,
-    value3: f32,
-    origin_x: f32,
-    origin_y: f32,
-    origin_z: f32,
-    pad3: f32,
-    axis_x: f32,
-    axis_y: f32,
-    axis_z: f32,
-    pad4: f32,
-};
-@group(0) @binding(6) var<uniform> params: Params;
-"#;
-
-/// A shell's hinge slot when it carries no hinge.
-const NO_HINGE: u32 = u32::MAX;
-
-fn source(shape: &str) -> String {
-    format!(
+fn source(shape: &str) -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 {BINDINGS}{math}
 {frame}
@@ -300,5 +301,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         mirrored_word = SHELL_MIRRORED,
         no_hinge = NO_HINGE,
         hinge_words = HINGE_WORDS,
-    )
+    ))
 }

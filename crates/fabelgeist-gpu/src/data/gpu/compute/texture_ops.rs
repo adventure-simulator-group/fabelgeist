@@ -13,6 +13,8 @@ pub struct TextureBinaryOpDefinition {
     pub cache: Arc<RwLock<TexturePipelineCache>>,
 }
 
+pub struct TextureBinaryOp;
+
 impl PartialEq for TextureBinaryOpDefinition {
     fn eq(&self, other: &Self) -> bool {
         self.op_code == other.op_code
@@ -92,7 +94,9 @@ impl TextureBinaryOpDefinition {
         }
         full_code.push_str("}\n");
 
-        let shader = ComputeShader::new(context, full_code.into())?;
+        let full_code = ShaderSource::from(full_code);
+
+        let shader = ComputeShader::new(context, full_code)?;
         ComputePipeline::new(context, shader)
     }
 
@@ -119,8 +123,6 @@ impl TextureBinaryOpDefinition {
         Ok(arc_p)
     }
 }
-
-pub struct TextureBinaryOp;
 
 impl TextureBinaryOp {
     pub fn execute(

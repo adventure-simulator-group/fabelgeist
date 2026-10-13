@@ -24,15 +24,6 @@ pub struct MeshSurface {
     pub friction: f32,
 }
 
-impl Default for MeshSurface {
-    fn default() -> Self {
-        Self {
-            thickness: 0.006,
-            friction: 0.3,
-        }
-    }
-}
-
 pub struct MeshCollider {
     /// xyz = vertex position. `vec4` because that is what the kernels index.
     pub positions: Buffer,
@@ -47,6 +38,15 @@ pub struct MeshCollider {
     triangle_bounds: std::sync::Arc<Kernel>,
     vertex_count: u32,
     triangle_count: u32,
+}
+
+impl Default for MeshSurface {
+    fn default() -> Self {
+        Self {
+            thickness: 0.006,
+            friction: 0.3,
+        }
+    }
 }
 
 impl MeshCollider {
@@ -98,7 +98,7 @@ impl MeshCollider {
             )?,
             bvh: GpuBvh::new(context, bvh_kernels, triangle_count)?,
             surface,
-            triangle_bounds: cache.get(context, &wgsl::TRIANGLE_BOUNDS.into())?,
+            triangle_bounds: cache.get(context, &wgsl::TRIANGLE_BOUNDS)?,
             vertex_count: positions.len() as u32,
             triangle_count,
         };
@@ -181,7 +181,7 @@ impl MeshCollider {
     }
 
     /// The WGSL for the resolve kernel, with this mesh's traversal pasted in.
-    pub(crate) fn kernel_source() -> String {
+    pub(crate) fn kernel_source() -> ShaderSource<'static> {
         let config = TraversalConfig {
             callback: "bvh_hit".into(),
             ..Default::default()

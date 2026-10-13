@@ -4,122 +4,10 @@
 use anyhow::Result;
 use fabelgeist_armor::ArmorGpu;
 use fabelgeist_armor::gpu::{device_error, wgsl};
+use fabelgeist_gpu::prelude::ShaderSource;
 
 pub(super) const ORDERED_POSITIVE_INFINITY: u32 = 0xff80_0000;
 pub(super) const ORDERED_NEGATIVE_INFINITY: u32 = 0x007f_ffff;
-
-/// The four frame passes, in order: extremes, orient, bounds, finish.
-pub(super) fn kernels(gpu: &ArmorGpu) -> Result<[std::sync::Arc<fabelgeist_compute::Kernel>; 4]> {
-    let compile = |entry: &str| {
-        gpu.cache()
-            .get(gpu.context(), &source(entry).into())
-            .map_err(device_error)
-    };
-    Ok([
-        compile(EXTREMES)?,
-        compile(ORIENT)?,
-        compile(BOUNDS)?,
-        compile(FINISH)?,
-    ])
-}
-
-fn source(entry: &str) -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> positions: array<f32>;
-@group(0) @binding(1) var<storage, read> joint_indices: array<u32>;
-@group(0) @binding(2) var<storage, read> joint_weights: array<f32>;
-@group(0) @binding(3) var<storage, read> joints: array<f32>;
-@group(0) @binding(4) var<storage, read> owned: array<u32>;
-@group(0) @binding(5) var<storage, read_write> reductions: array<atomic<u32>>;
-@group(0) @binding(6) var<storage, read_write> frame: array<f32>;
-@group(0) @binding(7) var<storage, read_write> status: array<atomic<u32>>;
-struct Params {{
-    count: u32,
-    rule: u32,
-    joint0: u32,
-    joint1: u32,
-    joint2: u32,
-    joint3: u32,
-    joint4: u32,
-    joint5: u32,
-    side: f32,
-    pad0: f32,
-}};
-@group(0) @binding(8) var<uniform> params: Params;
-{ordered}
-{positions}
-
-const RULE_LIMB: u32 = 0u;
-const RULE_SHOULDER: u32 = 1u;
-const RULE_FOOT: u32 = 2u;
-const RULE_HAND: u32 = 3u;
-const RULE_HEAD: u32 = 4u;
-const RULE_ELBOW: u32 = 5u;
-const RULE_THUMB: u32 = 6u;
-const RULE_KNEE: u32 = 7u;
-
-{frame_constants}
-const MINIMUM_THUMB_RADIUS_M: f32 = 0.008;
-const ELBOW_JOINT_BAND_M: f32 = 0.045;
-const COP_HEIGHT_TO_WIDTH: f32 = 0.85;
-
-fn joint(index: u32) -> vec3<f32> {{
-    return vec3<f32>(joints[index * 8u], joints[index * 8u + 1u], joints[index * 8u + 2u]);
-}}
-
-fn fail(bit: u32) {{
-    atomicOr(&status[0], bit);
-}}
-
-fn host_dot(a: vec3<f32>, b: vec3<f32>) -> f32 {{
-    return (a.x * b.x + a.y * b.y) + a.z * b.z;
-}}
-
-fn normalized(a: vec3<f32>) -> vec3<f32> {{
-    let l = sqrt(host_dot(a, a));
-    if (!(l > 1e-6)) {{
-        fail(COINCIDENT);
-        return vec3<f32>(0.0, 1.0, 0.0);
-    }}
-    return a / l;
-}}
-
-fn owned_weight(vertex: u32) -> f32 {{
-    var weight = 0.0;
-    for (var k = 0u; k < 8u; k = k + 1u) {{
-        if (owned[joint_indices[vertex * 8u + k]] != 0u) {{
-            weight = weight + joint_weights[vertex * 8u + k];
-        }}
-    }}
-    return weight;
-}}
-
-fn origin() -> vec3<f32> {{ return vec3<f32>(frame[0], frame[1], frame[2]); }}
-fn axis(i: u32) -> vec3<f32> {{
-    return vec3<f32>(frame[3u + i * 3u], frame[4u + i * 3u], frame[5u + i * 3u]);
-}}
-fn half_extent(i: u32) -> f32 {{ return frame[12u + i]; }}
-fn set_vector(at: u32, v: vec3<f32>) {{
-    frame[at] = v.x;
-    frame[at + 1u] = v.y;
-    frame[at + 2u] = v.z;
-}}
-fn local(p: vec3<f32>) -> vec3<f32> {{
-    let d = p - origin();
-    return vec3<f32>(host_dot(d, axis(0u)), host_dot(d, axis(1u)), host_dot(d, axis(2u)));
-}}
-fn point(l: vec3<f32>) -> vec3<f32> {{
-    return origin() + (axis(0u) * l.x + axis(1u) * l.y) + axis(2u) * l.z;
-}}
-
-{entry}
-"#,
-        ordered = wgsl::ORDERED_FLOAT,
-        positions = wgsl::read_points("positions"),
-        frame_constants = super::frame_constants(),
-    )
-}
 
 /// The body's top, and each side's floor, for the head and feet.
 const EXTREMES: &str = r#"
@@ -339,3 +227,116 @@ fn main() {
     }
 }
 "#;
+
+/// The four frame passes, in order: extremes, orient, bounds, finish.
+pub(super) fn kernels(gpu: &ArmorGpu) -> Result<[std::sync::Arc<fabelgeist_compute::Kernel>; 4]> {
+    let compile = |entry: &str| {
+        gpu.cache()
+            .get(gpu.context(), &source(entry))
+            .map_err(device_error)
+    };
+    Ok([
+        compile(EXTREMES)?,
+        compile(ORIENT)?,
+        compile(BOUNDS)?,
+        compile(FINISH)?,
+    ])
+}
+
+fn source(entry: &str) -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> positions: array<f32>;
+@group(0) @binding(1) var<storage, read> joint_indices: array<u32>;
+@group(0) @binding(2) var<storage, read> joint_weights: array<f32>;
+@group(0) @binding(3) var<storage, read> joints: array<f32>;
+@group(0) @binding(4) var<storage, read> owned: array<u32>;
+@group(0) @binding(5) var<storage, read_write> reductions: array<atomic<u32>>;
+@group(0) @binding(6) var<storage, read_write> frame: array<f32>;
+@group(0) @binding(7) var<storage, read_write> status: array<atomic<u32>>;
+struct Params {{
+    count: u32,
+    rule: u32,
+    joint0: u32,
+    joint1: u32,
+    joint2: u32,
+    joint3: u32,
+    joint4: u32,
+    joint5: u32,
+    side: f32,
+    pad0: f32,
+}};
+@group(0) @binding(8) var<uniform> params: Params;
+{ordered}
+{positions}
+
+const RULE_LIMB: u32 = 0u;
+const RULE_SHOULDER: u32 = 1u;
+const RULE_FOOT: u32 = 2u;
+const RULE_HAND: u32 = 3u;
+const RULE_HEAD: u32 = 4u;
+const RULE_ELBOW: u32 = 5u;
+const RULE_THUMB: u32 = 6u;
+const RULE_KNEE: u32 = 7u;
+
+{frame_constants}
+const MINIMUM_THUMB_RADIUS_M: f32 = 0.008;
+const ELBOW_JOINT_BAND_M: f32 = 0.045;
+const COP_HEIGHT_TO_WIDTH: f32 = 0.85;
+
+fn joint(index: u32) -> vec3<f32> {{
+    return vec3<f32>(joints[index * 8u], joints[index * 8u + 1u], joints[index * 8u + 2u]);
+}}
+
+fn fail(bit: u32) {{
+    atomicOr(&status[0], bit);
+}}
+
+fn host_dot(a: vec3<f32>, b: vec3<f32>) -> f32 {{
+    return (a.x * b.x + a.y * b.y) + a.z * b.z;
+}}
+
+fn normalized(a: vec3<f32>) -> vec3<f32> {{
+    let l = sqrt(host_dot(a, a));
+    if (!(l > 1e-6)) {{
+        fail(COINCIDENT);
+        return vec3<f32>(0.0, 1.0, 0.0);
+    }}
+    return a / l;
+}}
+
+fn owned_weight(vertex: u32) -> f32 {{
+    var weight = 0.0;
+    for (var k = 0u; k < 8u; k = k + 1u) {{
+        if (owned[joint_indices[vertex * 8u + k]] != 0u) {{
+            weight = weight + joint_weights[vertex * 8u + k];
+        }}
+    }}
+    return weight;
+}}
+
+fn origin() -> vec3<f32> {{ return vec3<f32>(frame[0], frame[1], frame[2]); }}
+fn axis(i: u32) -> vec3<f32> {{
+    return vec3<f32>(frame[3u + i * 3u], frame[4u + i * 3u], frame[5u + i * 3u]);
+}}
+fn half_extent(i: u32) -> f32 {{ return frame[12u + i]; }}
+fn set_vector(at: u32, v: vec3<f32>) {{
+    frame[at] = v.x;
+    frame[at + 1u] = v.y;
+    frame[at + 2u] = v.z;
+}}
+fn local(p: vec3<f32>) -> vec3<f32> {{
+    let d = p - origin();
+    return vec3<f32>(host_dot(d, axis(0u)), host_dot(d, axis(1u)), host_dot(d, axis(2u)));
+}}
+fn point(l: vec3<f32>) -> vec3<f32> {{
+    return origin() + (axis(0u) * l.x + axis(1u) * l.y) + axis(2u) * l.z;
+}}
+
+{entry}
+"#,
+        ordered = wgsl::ORDERED_FLOAT,
+        positions = wgsl::read_points("positions"),
+        frame_constants = super::frame_constants(),
+    ))
+}

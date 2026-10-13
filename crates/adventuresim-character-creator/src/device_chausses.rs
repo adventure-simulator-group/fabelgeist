@@ -13,6 +13,7 @@ use fabelgeist_armor::{
     DevicePart, GarmentArmorDesign, GarmentArmorKind, gpu::record_garment_tube,
 };
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::armor_frames::{FitRegion, Side};
@@ -20,116 +21,6 @@ use crate::device_frames::{DeviceFrame, DeviceWearer};
 
 /// Room between a fitted garment's section and its wall.
 const GARMENT_FIT_MARGIN_M: f32 = 0.006;
-
-impl DeviceWearer<'_> {
-    /// Record `kind` of chausses on the `side` leg, fitted and thickened, in
-    /// the whole-leg `frame` with its skin `support`.
-    pub(crate) fn record_fitted_chausses(
-        &self,
-        batch: &mut KernelBatch,
-        kind: GarmentArmorKind,
-        side: Side,
-        frame: &DeviceFrame,
-        support: &Buffer,
-    ) -> Result<DevicePart> {
-        let gpu = self.gpu;
-        let design = GarmentArmorDesign::new(kind);
-        let mut part = record_garment_tube(gpu, batch, &design, &frame.frame)?;
-        let prefix = side.prefix();
-        let anchor = |name: &str| -> Result<u32> {
-            let name = format!("{prefix}_{name}");
-            self.host
-                .joint_names
-                .iter()
-                .position(|n| *n == name)
-                .map(|i| i as u32)
-                .with_context(|| format!("missing garment landmark {name}"))
-        };
-        let mut parameters = PassParameters::new();
-        parameters.insert("count", self.body.vertex_count);
-        parameters.insert("carriers_count", part.carrier_count());
-        parameters.insert("hip", anchor("upleg")?);
-        parameters.insert("knee", anchor("lowleg")?);
-        parameters.insert("ankle", anchor("foot")?);
-        parameters.insert(
-            "quilted",
-            u32::from(kind == GarmentArmorKind::PaddedChausses),
-        );
-        parameters.insert("pad0", 0u32);
-        parameters.insert("pad1", 0u32);
-        parameters.insert(
-            "gap",
-            design.clearance.metres() + design.wall_thickness.metres() + GARMENT_FIT_MARGIN_M,
-        );
-        parameters.insert("pad2", 0.0f32);
-        parameters.insert("pad3", 0.0f32);
-        parameters.insert("pad4", 0.0f32);
-        parameters.insert("frames", frame.frame.clone());
-        parameters.insert("positions", self.body.positions.clone());
-        parameters.insert("joints", self.body.joints.clone());
-        parameters.insert("support", support.clone());
-        parameters.insert("carriers", part.carriers().clone());
-        let kernel = gpu
-            .cache()
-            .get(gpu.context(), &cage_source().into())
-            .map_err(device_error)?;
-        batch
-            .dispatch_items(&kernel, &parameters, part.carrier_count())
-            .map_err(device_error)?;
-        part.record_shells(gpu, batch)?;
-        Ok(part)
-    }
-
-    /// The whole-leg frame and skin both chausses are fitted in.
-    pub(crate) fn record_leg_cage(
-        &self,
-        batch: &mut KernelBatch,
-        side: Side,
-    ) -> Result<(DeviceFrame, Buffer)> {
-        let region = FitRegion::WholeLeg(side);
-        Ok((
-            self.record_frame(batch, region)?,
-            self.record_any_region_support(batch, &[region])?,
-        ))
-    }
-}
-
-fn cage_source() -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> frames: array<f32>;
-@group(0) @binding(1) var<storage, read> positions: array<f32>;
-@group(0) @binding(2) var<storage, read> joints: array<f32>;
-@group(0) @binding(3) var<storage, read> support: array<u32>;
-@group(0) @binding(4) var<storage, read_write> carriers: array<f32>;
-struct Params {{
-    count: u32,
-    carriers_count: u32,
-    hip: u32,
-    knee: u32,
-    ankle: u32,
-    quilted: u32,
-    pad0: u32,
-    pad1: u32,
-    gap: f32,
-    pad2: f32,
-    pad3: f32,
-    pad4: f32,
-}};
-@group(0) @binding(5) var<uniform> params: Params;
-{math}
-{frame}
-{positions}
-{carriers}
-{cage}
-"#,
-        math = wgsl::MATH,
-        frame = wgsl::FRAME,
-        positions = wgsl::read_points("positions"),
-        carriers = wgsl::points("carriers"),
-        cage = CAGE,
-    )
-}
 
 const CAGE: &str = r#"
 const SECTION_HALF_WIDTH_M: f32 = 0.018;
@@ -312,3 +203,113 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     carriers_set(i, station.center + (across * offset_x + front * offset_z));
 }
 "#;
+
+impl DeviceWearer<'_> {
+    /// Record `kind` of chausses on the `side` leg, fitted and thickened, in
+    /// the whole-leg `frame` with its skin `support`.
+    pub(crate) fn record_fitted_chausses(
+        &self,
+        batch: &mut KernelBatch,
+        kind: GarmentArmorKind,
+        side: Side,
+        frame: &DeviceFrame,
+        support: &Buffer,
+    ) -> Result<DevicePart> {
+        let gpu = self.gpu;
+        let design = GarmentArmorDesign::new(kind);
+        let mut part = record_garment_tube(gpu, batch, &design, &frame.frame)?;
+        let prefix = side.prefix();
+        let anchor = |name: &str| -> Result<u32> {
+            let name = format!("{prefix}_{name}");
+            self.host
+                .joint_names
+                .iter()
+                .position(|n| *n == name)
+                .map(|i| i as u32)
+                .with_context(|| format!("missing garment landmark {name}"))
+        };
+        let mut parameters = PassParameters::new();
+        parameters.insert("count", self.body.vertex_count);
+        parameters.insert("carriers_count", part.carrier_count());
+        parameters.insert("hip", anchor("upleg")?);
+        parameters.insert("knee", anchor("lowleg")?);
+        parameters.insert("ankle", anchor("foot")?);
+        parameters.insert(
+            "quilted",
+            u32::from(kind == GarmentArmorKind::PaddedChausses),
+        );
+        parameters.insert("pad0", 0u32);
+        parameters.insert("pad1", 0u32);
+        parameters.insert(
+            "gap",
+            design.clearance.metres() + design.wall_thickness.metres() + GARMENT_FIT_MARGIN_M,
+        );
+        parameters.insert("pad2", 0.0f32);
+        parameters.insert("pad3", 0.0f32);
+        parameters.insert("pad4", 0.0f32);
+        parameters.insert("frames", frame.frame.clone());
+        parameters.insert("positions", self.body.positions.clone());
+        parameters.insert("joints", self.body.joints.clone());
+        parameters.insert("support", support.clone());
+        parameters.insert("carriers", part.carriers().clone());
+        let kernel = gpu
+            .cache()
+            .get(gpu.context(), &cage_source())
+            .map_err(device_error)?;
+        batch
+            .dispatch_items(&kernel, &parameters, part.carrier_count())
+            .map_err(device_error)?;
+        part.record_shells(gpu, batch)?;
+        Ok(part)
+    }
+
+    /// The whole-leg frame and skin both chausses are fitted in.
+    pub(crate) fn record_leg_cage(
+        &self,
+        batch: &mut KernelBatch,
+        side: Side,
+    ) -> Result<(DeviceFrame, Buffer)> {
+        let region = FitRegion::WholeLeg(side);
+        Ok((
+            self.record_frame(batch, region)?,
+            self.record_any_region_support(batch, &[region])?,
+        ))
+    }
+}
+
+fn cage_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> frames: array<f32>;
+@group(0) @binding(1) var<storage, read> positions: array<f32>;
+@group(0) @binding(2) var<storage, read> joints: array<f32>;
+@group(0) @binding(3) var<storage, read> support: array<u32>;
+@group(0) @binding(4) var<storage, read_write> carriers: array<f32>;
+struct Params {{
+    count: u32,
+    carriers_count: u32,
+    hip: u32,
+    knee: u32,
+    ankle: u32,
+    quilted: u32,
+    pad0: u32,
+    pad1: u32,
+    gap: f32,
+    pad2: f32,
+    pad3: f32,
+    pad4: f32,
+}};
+@group(0) @binding(5) var<uniform> params: Params;
+{math}
+{frame}
+{positions}
+{carriers}
+{cage}
+"#,
+        math = wgsl::MATH,
+        frame = wgsl::FRAME,
+        positions = wgsl::read_points("positions"),
+        carriers = wgsl::points("carriers"),
+        cage = CAGE,
+    ))
+}

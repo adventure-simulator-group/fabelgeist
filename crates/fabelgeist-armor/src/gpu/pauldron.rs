@@ -9,6 +9,7 @@ use crate::{
 };
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 pub const CARRIER_COLUMNS: u32 = 96;
@@ -20,46 +21,33 @@ const LAME_ROWS: usize = 8;
 const MAIN_ROWS: usize = 32;
 const NECK_OVERLAP: f32 = 0.02;
 
+const FORM: &str = r#"
+@group(0) @binding(0) var<storage, read> frames: array<f32>;
+@group(0) @binding(1) var<storage, read> design: array<f32>;
+@group(0) @binding(2) var<storage, read_write> arena: array<f32>;
+@group(0) @binding(3) var<storage, read_write> status: array<atomic<u32>>;
+var<private> fit: Frame;
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    let i = id.x;
+    if (i >= (CARRIER_COLUMNS + 1u) * (CARRIER_ROWS + 1u)) { return; }
+    fit = frame_at(0u);
+    if (length(fit.y.xz) < 0.01) { fail(STATUS_INVALID_SURFACE); return; }
+    if (i < 15u) { arena[i] = frames[i]; }
+    let u = f32(i % (CARRIER_COLUMNS + 1u)) / f32(CARRIER_COLUMNS);
+    let v = f32(i / (CARRIER_COLUMNS + 1u)) / f32(CARRIER_ROWS);
+    let p = saddle_point(u, v);
+    for (var k = 0u; k < 3u; k += 1u) {
+        arena[FORMED_START + i * 3u + k] = p[k];
+        arena[FITTED_START + i * 3u + k] = p[k];
+    }
+}
+"#;
+
 pub struct DevicePauldronCarrier {
     /// Frame header, then formed and fitted points in that frame's local axes.
     pub frame_points: Buffer,
     pub status: Buffer,
-}
-
-pub fn carrier_constants() -> String {
-    format!(
-        "const CARRIER_COLUMNS: u32 = {CARRIER_COLUMNS}u;\nconst CARRIER_ROWS: u32 = {CARRIER_ROWS}u;\nconst FORMED_START: u32 = {FORMED_START}u;\nconst FITTED_START: u32 = {FITTED_START}u;\n"
-    )
-}
-
-fn design_words(d: &PauldronDesign) -> Vec<f32> {
-    let o = &d.outline;
-    vec![
-        d.gauge.thickness.metres(),
-        d.gauge.clearance.metres(),
-        d.arm_allowance.metres(),
-        d.front_reach.metres(),
-        d.rear_reach.metres(),
-        d.front_drop.metres(),
-        d.rear_drop.metres(),
-        d.neck_reach.metres(),
-        d.crown_height.unit(),
-        d.arm_length.metres(),
-        f32::from(d.lower_lames),
-        d.fluting.map_or(0.0, |f| f.depth.metres()),
-        o.front_return.radians(),
-        o.rear_return.radians(),
-        o.front_extension.metres(),
-        o.rear_extension.metres(),
-        o.wing_start.radians(),
-        o.corner_rounding.unit(),
-        o.front_wing_position.unit(),
-        o.rear_wing_position.unit(),
-        o.front_wing_rounding.unit(),
-        o.rear_wing_rounding.unit(),
-        o.upper_span.unit(),
-        o.arm_wrap.radians(),
-    ]
 }
 
 impl DevicePauldronCarrier {
@@ -77,7 +65,7 @@ impl DevicePauldronCarrier {
             )?,
             status: gpu.scratch(4, "shoulder status")?,
         };
-        let source = format!(
+        let source = ShaderSource::from(format!(
             "{}\n{}\n{}\n{}\n{}\n{}",
             wgsl::MATH,
             wgsl::FRAME,
@@ -85,10 +73,10 @@ impl DevicePauldronCarrier {
             carrier_constants(),
             include_str!("pauldron_shape.wgsl"),
             FORM
-        );
+        ));
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &source.as_str().into())
+            .get(gpu.context(), &source)
             .map_err(device_error)?;
         let mut params = PassParameters::new();
         params.insert("frames", frame.clone());
@@ -197,6 +185,42 @@ impl DevicePauldronCarrier {
     }
 }
 
+pub fn carrier_constants() -> String {
+    format!(
+        "const CARRIER_COLUMNS: u32 = {CARRIER_COLUMNS}u;\nconst CARRIER_ROWS: u32 = {CARRIER_ROWS}u;\nconst FORMED_START: u32 = {FORMED_START}u;\nconst FITTED_START: u32 = {FITTED_START}u;\n"
+    )
+}
+
+fn design_words(d: &PauldronDesign) -> Vec<f32> {
+    let o = &d.outline;
+    vec![
+        d.gauge.thickness.metres(),
+        d.gauge.clearance.metres(),
+        d.arm_allowance.metres(),
+        d.front_reach.metres(),
+        d.rear_reach.metres(),
+        d.front_drop.metres(),
+        d.rear_drop.metres(),
+        d.neck_reach.metres(),
+        d.crown_height.unit(),
+        d.arm_length.metres(),
+        f32::from(d.lower_lames),
+        d.fluting.map_or(0.0, |f| f.depth.metres()),
+        o.front_return.radians(),
+        o.rear_return.radians(),
+        o.front_extension.metres(),
+        o.rear_extension.metres(),
+        o.wing_start.radians(),
+        o.corner_rounding.unit(),
+        o.front_wing_position.unit(),
+        o.rear_wing_position.unit(),
+        o.front_wing_rounding.unit(),
+        o.rear_wing_rounding.unit(),
+        o.upper_span.unit(),
+        o.arm_wrap.radians(),
+    ]
+}
+
 fn chart(
     d: &PauldronDesign,
     rows: usize,
@@ -219,26 +243,3 @@ fn chart(
         frame: 0,
     }
 }
-
-const FORM: &str = r#"
-@group(0) @binding(0) var<storage, read> frames: array<f32>;
-@group(0) @binding(1) var<storage, read> design: array<f32>;
-@group(0) @binding(2) var<storage, read_write> arena: array<f32>;
-@group(0) @binding(3) var<storage, read_write> status: array<atomic<u32>>;
-var<private> fit: Frame;
-@compute @workgroup_size(64)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {
-    let i = id.x;
-    if (i >= (CARRIER_COLUMNS + 1u) * (CARRIER_ROWS + 1u)) { return; }
-    fit = frame_at(0u);
-    if (length(fit.y.xz) < 0.01) { fail(STATUS_INVALID_SURFACE); return; }
-    if (i < 15u) { arena[i] = frames[i]; }
-    let u = f32(i % (CARRIER_COLUMNS + 1u)) / f32(CARRIER_COLUMNS);
-    let v = f32(i / (CARRIER_COLUMNS + 1u)) / f32(CARRIER_ROWS);
-    let p = saddle_point(u, v);
-    for (var k = 0u; k < 3u; k += 1u) {
-        arena[FORMED_START + i * 3u + k] = p[k];
-        arena[FITTED_START + i * 3u + k] = p[k];
-    }
-}
-"#;

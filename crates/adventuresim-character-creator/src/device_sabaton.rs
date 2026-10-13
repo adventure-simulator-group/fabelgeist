@@ -19,6 +19,7 @@ use fabelgeist_armor::{DevicePart, FootArmorDesign, GenerateError};
 use fabelgeist_compute::{KernelBatch, host_float};
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::PassParameters;
+use fabelgeist_gpu::prelude::ShaderSource;
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
@@ -35,211 +36,6 @@ const TRIMMABLE_FOOT_SHARE: f32 = 0.70;
 
 const ORDERED_POSITIVE_INFINITY: u32 = 0xff80_0000;
 const ORDERED_NEGATIVE_INFINITY: u32 = 0x007f_ffff;
-
-impl DeviceWearer<'_> {
-    /// Record the sabaton fit of `part`'s carriers in the foot `frame`; the
-    /// returned check fails with [`GenerateError::SabatonTrimExceedsFoot`]
-    /// when the ankle cutaway consumes the foot.
-    pub(crate) fn record_sabaton_fit(
-        &self,
-        batch: &mut KernelBatch,
-        design: &FootArmorDesign,
-        region: FitRegion,
-        frame: &DeviceFrame,
-        part: &DevicePart,
-    ) -> Result<DeviceCheck> {
-        let gpu = self.gpu;
-        let support = self.record_any_region_support(batch, &[region])?;
-        let mut profile = vec![ORDERED_NEGATIVE_INFINITY];
-        for _ in 0..STATIONS {
-            profile.extend([
-                ORDERED_POSITIVE_INFINITY,
-                ORDERED_POSITIVE_INFINITY,
-                ORDERED_NEGATIVE_INFINITY,
-                ORDERED_NEGATIVE_INFINITY,
-            ]);
-        }
-        let mut shell_of = vec![0u32; part.carrier_count() as usize];
-        for shell in 0..part.shell_count() {
-            for carrier in part.shell_carriers(shell) {
-                shell_of[carrier as usize] = shell as u32;
-            }
-        }
-        let status = gpu.scratch(4, "sabaton status")?;
-        let cutaway = design.ankle_cutaway.metres();
-        let mut parameters = PassParameters::new();
-        parameters.insert("count", self.body.vertex_count);
-        parameters.insert("carriers_count", part.carrier_count());
-        parameters.insert("toe_shell", u32::from(design.lame_count));
-        parameters.insert("pad0", 0u32);
-        parameters.insert(host_float::ZERO_FIELD, 0u32);
-        for pad in ["pad1", "pad2", "pad3"] {
-            parameters.insert(pad, 0.0f32);
-        }
-        let gauge = design.gauge.thickness.metres();
-        for (name, value) in [
-            ("cutaway", cutaway),
-            ("trim_limit", cutaway / TRIMMABLE_FOOT_SHARE),
-            ("toe_extension", design.toe_extension.metres()),
-            ("toe_width", design.toe_width.unit()),
-            ("toe_roundness", design.toe_roundness.unit()),
-            ("instep_height", design.instep_height.unit()),
-            ("clearance", design.gauge.clearance.metres()),
-            ("gauge", gauge),
-        ] {
-            parameters.insert(name, value);
-        }
-        parameters.insert("frames", frame.frame.clone());
-        parameters.insert("positions", self.body.positions.clone());
-        parameters.insert("support", support);
-        parameters.insert(
-            "profile",
-            gpu.upload(BufferUpload::from_elements(&profile))?,
-        );
-        parameters.insert(
-            "shell_of",
-            gpu.upload(BufferUpload::from_elements(&shell_of))?,
-        );
-        parameters.insert("carriers", part.carriers().clone());
-        parameters.insert("status", status.clone());
-        for (entry, items) in [
-            (FRONT, self.body.vertex_count),
-            (NEAREST, self.body.vertex_count),
-            (SLICE, self.body.vertex_count),
-            (FIT, part.carrier_count()),
-        ] {
-            let kernel = gpu
-                .cache()
-                .get(gpu.context(), &source(entry).into())
-                .map_err(device_error)?;
-            batch
-                .dispatch_items(&kernel, &parameters, items)
-                .map_err(device_error)?;
-        }
-        let frame = frame.clone();
-        Ok(DeviceCheck::Device(Box::new(move |gpu| {
-            let status = status.clone();
-            let frame = frame.clone();
-            Box::pin(async move {
-                if gpu.read_async::<u32>(&status).await?[0] & TRIM_EXCEEDS_FOOT == 0 {
-                    return Ok(());
-                }
-                let length = frame.read_async(gpu).await?.half_extents[2];
-                Err(GenerateError::SabatonTrimExceedsFoot {
-                    cutaway_m: cutaway,
-                    available_span_m: length * TRIMMABLE_FOOT_SHARE,
-                }
-                .into())
-            })
-        })))
-    }
-}
-
-fn source(entry: &str) -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> frames: array<f32>;
-@group(0) @binding(1) var<storage, read> positions: array<f32>;
-@group(0) @binding(2) var<storage, read> support: array<u32>;
-@group(0) @binding(3) var<storage, read_write> profile: array<atomic<u32>>;
-@group(0) @binding(4) var<storage, read> shell_of: array<u32>;
-@group(0) @binding(5) var<storage, read_write> carriers: array<f32>;
-@group(0) @binding(6) var<storage, read_write> status: array<atomic<u32>>;
-struct Params {{
-    count: u32,
-    carriers_count: u32,
-    toe_shell: u32,
-    pad0: u32,
-    zero: u32,
-    pad1: f32,
-    pad2: f32,
-    pad3: f32,
-    cutaway: f32,
-    trim_limit: f32,
-    toe_extension: f32,
-    toe_width: f32,
-    toe_roundness: f32,
-    instep_height: f32,
-    clearance: f32,
-    gauge: f32,
-}};
-@group(0) @binding(7) var<uniform> params: Params;
-{math}
-{frame}
-{ordered}
-{zero_hook}{host_float}
-{positions}
-{carriers}
-
-const STATIONS: u32 = {stations}u;
-const WORDS: u32 = {words}u;
-const SLICE_WINDOW_M: f32 = 0.008;
-const TOE_SETBACK_M: f32 = 0.004;
-const FIT_MARGIN_M: f32 = 0.002;
-// Below this an authored section has collapsed to the toe's nose.
-const COLLAPSED_SECTION_M: f32 = 1e-6;
-const TRIM_EXCEEDS_FOOT: u32 = {trim}u;
-
-// `p` in the frame: each axis dotted with the offset from the origin.
-fn local(f: Frame, p: vec3<f32>) -> vec3<f32> {{
-    let d = host_sub3(p, f.origin);
-    return vec3<f32>(host_dot(d, f.x), host_dot(d, f.y), host_dot(d, f.z));
-}}
-
-// A local point placed along the frame's axes, as `PartFrame::point` places it.
-fn placed(f: Frame, l: vec3<f32>) -> vec3<f32> {{
-    var p: vec3<f32>;
-    for (var c = 0u; c < 3u; c = c + 1u) {{
-        p[c] = host_add(
-            f.origin[c],
-            host_add(host_add(host_mul(f.x[c], l.x), host_mul(f.y[c], l.y)), host_mul(f.z[c], l.z)),
-        );
-    }}
-    return p;
-}}
-
-fn word(at: u32) -> f32 {{
-    return float_from_ordered(atomicLoad(&profile[at]));
-}}
-
-fn foot_front() -> f32 {{
-    return word(0u);
-}}
-
-fn profile_start() -> f32 {{
-    return host_add(host_mul(-frame_at(0u).half_extents.z, 0.05), params.cutaway);
-}}
-
-fn profile_end() -> f32 {{
-    return host_sub(foot_front(), TOE_SETBACK_M);
-}}
-
-fn station_z(station: u32) -> f32 {{
-    let start = profile_start();
-    return host_add(
-        start,
-        host_div(host_mul(host_sub(profile_end(), start), f32(station)), f32(STATIONS - 1u)),
-    );
-}}
-
-fn station_at(station: u32) -> u32 {{
-    return 1u + station * WORDS;
-}}
-
-{entry}
-"#,
-        math = wgsl::MATH,
-        frame = wgsl::FRAME,
-        ordered = wgsl::ORDERED_FLOAT,
-        zero_hook = host_float::PARAMS_ZERO_HOOK,
-        host_float = host_float::wgsl(),
-        positions = wgsl::read_points("positions"),
-        carriers = wgsl::points("carriers"),
-        stations = STATIONS,
-        words = STATION_WORDS,
-        trim = TRIM_EXCEEDS_FOOT,
-    )
-}
 
 /// The foot's front, and whether its length leaves room for the cutaway.
 const FRONT: &str = r#"
@@ -456,3 +252,208 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     carriers_set(i, placed(fit, p));
 }
 "#;
+
+impl DeviceWearer<'_> {
+    /// Record the sabaton fit of `part`'s carriers in the foot `frame`; the
+    /// returned check fails with [`GenerateError::SabatonTrimExceedsFoot`]
+    /// when the ankle cutaway consumes the foot.
+    pub(crate) fn record_sabaton_fit(
+        &self,
+        batch: &mut KernelBatch,
+        design: &FootArmorDesign,
+        region: FitRegion,
+        frame: &DeviceFrame,
+        part: &DevicePart,
+    ) -> Result<DeviceCheck> {
+        let gpu = self.gpu;
+        let support = self.record_any_region_support(batch, &[region])?;
+        let mut profile = vec![ORDERED_NEGATIVE_INFINITY];
+        for _ in 0..STATIONS {
+            profile.extend([
+                ORDERED_POSITIVE_INFINITY,
+                ORDERED_POSITIVE_INFINITY,
+                ORDERED_NEGATIVE_INFINITY,
+                ORDERED_NEGATIVE_INFINITY,
+            ]);
+        }
+        let mut shell_of = vec![0u32; part.carrier_count() as usize];
+        for shell in 0..part.shell_count() {
+            for carrier in part.shell_carriers(shell) {
+                shell_of[carrier as usize] = shell as u32;
+            }
+        }
+        let status = gpu.scratch(4, "sabaton status")?;
+        let cutaway = design.ankle_cutaway.metres();
+        let mut parameters = PassParameters::new();
+        parameters.insert("count", self.body.vertex_count);
+        parameters.insert("carriers_count", part.carrier_count());
+        parameters.insert("toe_shell", u32::from(design.lame_count));
+        parameters.insert("pad0", 0u32);
+        parameters.insert(host_float::ZERO_FIELD, 0u32);
+        for pad in ["pad1", "pad2", "pad3"] {
+            parameters.insert(pad, 0.0f32);
+        }
+        let gauge = design.gauge.thickness.metres();
+        for (name, value) in [
+            ("cutaway", cutaway),
+            ("trim_limit", cutaway / TRIMMABLE_FOOT_SHARE),
+            ("toe_extension", design.toe_extension.metres()),
+            ("toe_width", design.toe_width.unit()),
+            ("toe_roundness", design.toe_roundness.unit()),
+            ("instep_height", design.instep_height.unit()),
+            ("clearance", design.gauge.clearance.metres()),
+            ("gauge", gauge),
+        ] {
+            parameters.insert(name, value);
+        }
+        parameters.insert("frames", frame.frame.clone());
+        parameters.insert("positions", self.body.positions.clone());
+        parameters.insert("support", support);
+        parameters.insert(
+            "profile",
+            gpu.upload(BufferUpload::from_elements(&profile))?,
+        );
+        parameters.insert(
+            "shell_of",
+            gpu.upload(BufferUpload::from_elements(&shell_of))?,
+        );
+        parameters.insert("carriers", part.carriers().clone());
+        parameters.insert("status", status.clone());
+        for (entry, items) in [
+            (FRONT, self.body.vertex_count),
+            (NEAREST, self.body.vertex_count),
+            (SLICE, self.body.vertex_count),
+            (FIT, part.carrier_count()),
+        ] {
+            let kernel = gpu
+                .cache()
+                .get(gpu.context(), &source(entry))
+                .map_err(device_error)?;
+            batch
+                .dispatch_items(&kernel, &parameters, items)
+                .map_err(device_error)?;
+        }
+        let frame = frame.clone();
+        Ok(DeviceCheck::Device(Box::new(move |gpu| {
+            let status = status.clone();
+            let frame = frame.clone();
+            Box::pin(async move {
+                if gpu.read_async::<u32>(&status).await?[0] & TRIM_EXCEEDS_FOOT == 0 {
+                    return Ok(());
+                }
+                let length = frame.read_async(gpu).await?.half_extents[2];
+                Err(GenerateError::SabatonTrimExceedsFoot {
+                    cutaway_m: cutaway,
+                    available_span_m: length * TRIMMABLE_FOOT_SHARE,
+                }
+                .into())
+            })
+        })))
+    }
+}
+
+fn source(entry: &str) -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> frames: array<f32>;
+@group(0) @binding(1) var<storage, read> positions: array<f32>;
+@group(0) @binding(2) var<storage, read> support: array<u32>;
+@group(0) @binding(3) var<storage, read_write> profile: array<atomic<u32>>;
+@group(0) @binding(4) var<storage, read> shell_of: array<u32>;
+@group(0) @binding(5) var<storage, read_write> carriers: array<f32>;
+@group(0) @binding(6) var<storage, read_write> status: array<atomic<u32>>;
+struct Params {{
+    count: u32,
+    carriers_count: u32,
+    toe_shell: u32,
+    pad0: u32,
+    zero: u32,
+    pad1: f32,
+    pad2: f32,
+    pad3: f32,
+    cutaway: f32,
+    trim_limit: f32,
+    toe_extension: f32,
+    toe_width: f32,
+    toe_roundness: f32,
+    instep_height: f32,
+    clearance: f32,
+    gauge: f32,
+}};
+@group(0) @binding(7) var<uniform> params: Params;
+{math}
+{frame}
+{ordered}
+{zero_hook}{host_float}
+{positions}
+{carriers}
+
+const STATIONS: u32 = {stations}u;
+const WORDS: u32 = {words}u;
+const SLICE_WINDOW_M: f32 = 0.008;
+const TOE_SETBACK_M: f32 = 0.004;
+const FIT_MARGIN_M: f32 = 0.002;
+// Below this an authored section has collapsed to the toe's nose.
+const COLLAPSED_SECTION_M: f32 = 1e-6;
+const TRIM_EXCEEDS_FOOT: u32 = {trim}u;
+
+// `p` in the frame: each axis dotted with the offset from the origin.
+fn local(f: Frame, p: vec3<f32>) -> vec3<f32> {{
+    let d = host_sub3(p, f.origin);
+    return vec3<f32>(host_dot(d, f.x), host_dot(d, f.y), host_dot(d, f.z));
+}}
+
+// A local point placed along the frame's axes, as `PartFrame::point` places it.
+fn placed(f: Frame, l: vec3<f32>) -> vec3<f32> {{
+    var p: vec3<f32>;
+    for (var c = 0u; c < 3u; c = c + 1u) {{
+        p[c] = host_add(
+            f.origin[c],
+            host_add(host_add(host_mul(f.x[c], l.x), host_mul(f.y[c], l.y)), host_mul(f.z[c], l.z)),
+        );
+    }}
+    return p;
+}}
+
+fn word(at: u32) -> f32 {{
+    return float_from_ordered(atomicLoad(&profile[at]));
+}}
+
+fn foot_front() -> f32 {{
+    return word(0u);
+}}
+
+fn profile_start() -> f32 {{
+    return host_add(host_mul(-frame_at(0u).half_extents.z, 0.05), params.cutaway);
+}}
+
+fn profile_end() -> f32 {{
+    return host_sub(foot_front(), TOE_SETBACK_M);
+}}
+
+fn station_z(station: u32) -> f32 {{
+    let start = profile_start();
+    return host_add(
+        start,
+        host_div(host_mul(host_sub(profile_end(), start), f32(station)), f32(STATIONS - 1u)),
+    );
+}}
+
+fn station_at(station: u32) -> u32 {{
+    return 1u + station * WORDS;
+}}
+
+{entry}
+"#,
+        math = wgsl::MATH,
+        frame = wgsl::FRAME,
+        ordered = wgsl::ORDERED_FLOAT,
+        zero_hook = host_float::PARAMS_ZERO_HOOK,
+        host_float = host_float::wgsl(),
+        positions = wgsl::read_points("positions"),
+        carriers = wgsl::points("carriers"),
+        stations = STATIONS,
+        words = STATION_WORDS,
+        trim = TRIM_EXCEEDS_FOOT,
+    ))
+}

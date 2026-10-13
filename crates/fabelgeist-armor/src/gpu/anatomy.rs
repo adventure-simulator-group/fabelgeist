@@ -14,6 +14,7 @@
 //! prefix sum. Everything that follows reads counts from the device.
 
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::ShaderSource;
 use std::collections::HashMap;
 use std::sync::Arc;
 
@@ -33,175 +34,6 @@ pub const STATUS_DEGENERATE: u32 = 2;
 
 /// Set when a selection keeps no face at all.
 pub const STATUS_EMPTY_SELECTION: u32 = 8;
-
-/// Which (body vertex, atlas coordinate) pair every face corner uses.
-#[derive(Clone, Debug)]
-pub struct SeamTopology {
-    corner_pairs: Vec<u32>,
-    /// Body vertex and atlas coordinate of each pair.
-    pairs: Vec<[u32; 2]>,
-    face_count: u32,
-}
-
-impl SeamTopology {
-    /// Pair every face corner with its atlas corner.
-    pub fn new(faces: &[[u32; 3]], atlas_faces: &[[u32; 3]]) -> Result<Self, GenerateError> {
-        if faces.len() != atlas_faces.len() || faces.is_empty() {
-            return Err(GenerateError::InvalidSurface);
-        }
-        let mut ids = HashMap::<(u32, u32), u32>::new();
-        let mut pairs = Vec::new();
-        let mut corner_pairs = Vec::with_capacity(faces.len() * 3);
-        for (face, atlas) in faces.iter().zip(atlas_faces) {
-            for corner in 0..3 {
-                let key = (face[corner], atlas[corner]);
-                let id = *ids.entry(key).or_insert_with(|| {
-                    pairs.push([key.0, key.1]);
-                    (pairs.len() - 1) as u32
-                });
-                corner_pairs.push(id);
-            }
-        }
-        Ok(Self {
-            corner_pairs,
-            pairs,
-            face_count: faces.len() as u32,
-        })
-    }
-
-    pub fn face_count(&self) -> u32 {
-        self.face_count
-    }
-
-    pub fn pair_count(&self) -> u32 {
-        self.pairs.len() as u32
-    }
-}
-
-/// A [`SeamTopology`] uploaded for selection.
-#[derive(Clone, Debug)]
-pub struct DeviceSeams {
-    corner_pairs: Buffer,
-    pairs: Buffer,
-    face_count: u32,
-    pair_count: u32,
-}
-
-impl DeviceSeams {
-    pub fn new(gpu: &ArmorGpu, topology: &SeamTopology) -> Result<Self, GenerateError> {
-        Ok(Self {
-            corner_pairs: gpu.upload(BufferUpload::from_elements(&topology.corner_pairs))?,
-            pairs: gpu.upload(BufferUpload::from_elements(&topology.pairs))?,
-            face_count: topology.face_count,
-            pair_count: topology.pair_count(),
-        })
-    }
-}
-
-/// A selected surface on the device, laid out in one `u32` buffer: the
-/// [`SURFACE_HEADER`], then each surface vertex's body vertex and atlas
-/// coordinate, then each selected face as three surface vertices.
-#[derive(Clone, Debug)]
-pub struct DeviceSurface {
-    pub words: Buffer,
-    pub vertex_capacity: u32,
-    pub face_capacity: u32,
-}
-
-impl DeviceSurface {
-    /// Word offset of the first face.
-    pub fn faces_at(&self) -> u32 {
-        SURFACE_HEADER + 2 * self.vertex_capacity
-    }
-
-    /// Record the selection of the faces of `body_faces` with at least two
-    /// corners whose `support` word is nonzero. An empty selection raises
-    /// [`STATUS_EMPTY_SELECTION`] in `status`.
-    pub fn record(
-        gpu: &ArmorGpu,
-        batch: &mut KernelBatch,
-        seams: &DeviceSeams,
-        body_faces: &Buffer,
-        support: &Buffer,
-        status: &Buffer,
-    ) -> Result<Self, GenerateError> {
-        let surface = Self {
-            words: gpu.scratch(
-                (SURFACE_HEADER + 2 * seams.pair_count + 3 * seams.face_count) as u64 * 4,
-                "anatomical surface",
-            )?,
-            vertex_capacity: seams.pair_count,
-            face_capacity: seams.face_count,
-        };
-        // Each face's selection, then each pair's surface vertex.
-        let selection = gpu.scratch(
-            (seams.face_count + seams.pair_count) as u64 * 4,
-            "selected faces and their vertices",
-        )?;
-        let first = gpu.scratch(seams.pair_count as u64 * 4, "first pair corners")?;
-        let mut parameters = PassParameters::new();
-        parameters.insert("count", seams.face_count);
-        parameters.insert("faces_at", surface.faces_at());
-        parameters.insert("pad1", 0u32);
-        parameters.insert("pad2", 0u32);
-        parameters.insert("body_faces", body_faces.clone());
-        parameters.insert("support", support.clone());
-        parameters.insert("corner_pairs", seams.corner_pairs.clone());
-        parameters.insert("pairs", seams.pairs.clone());
-        parameters.insert("selected", selection);
-        parameters.insert("first", first);
-        parameters.insert("surface", surface.words.clone());
-        parameters.insert("status", status.clone());
-        let kernel = |entry: &str| -> Result<Arc<Kernel>, GenerateError> {
-            gpu.cache()
-                .get(gpu.context(), &source(entry).into())
-                .map_err(device_error)
-        };
-        batch
-            .dispatch_items(&*kernel(MARK)?, &parameters, seams.face_count)
-            .map_err(device_error)?;
-        batch
-            .dispatch(&*kernel(COMPACT)?, &parameters, [1, 1, 1])
-            .map_err(device_error)?;
-        batch
-            .dispatch_items(&*kernel(FACES)?, &parameters, seams.face_count)
-            .map_err(device_error)?;
-        Ok(surface)
-    }
-}
-
-fn source(entry: &str) -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> body_faces: array<u32>;
-@group(0) @binding(1) var<storage, read> support: array<u32>;
-@group(0) @binding(2) var<storage, read> corner_pairs: array<u32>;
-@group(0) @binding(3) var<storage, read> pairs: array<u32>;
-@group(0) @binding(4) var<storage, read_write> selected: array<u32>;
-@group(0) @binding(5) var<storage, read_write> first: array<atomic<u32>>;
-@group(0) @binding(6) var<storage, read_write> surface: array<u32>;
-@group(0) @binding(7) var<storage, read_write> status: array<atomic<u32>>;
-struct Params {{
-    count: u32,
-    faces_at: u32,
-    pad1: u32,
-    pad2: u32,
-}};
-@group(0) @binding(8) var<uniform> params: Params;
-{status_code}
-const HEADER: u32 = {header}u;
-const EMPTY_SELECTION: u32 = {empty}u;
-// A corner claims its pair by the complement of its index, so that the
-// largest claim, from a zeroed buffer, is the first corner.
-const UNCLAIMED: u32 = 0xffffffffu;
-
-{entry}
-"#,
-        status_code = wgsl::STATUS,
-        header = SURFACE_HEADER,
-        empty = STATUS_EMPTY_SELECTION,
-    )
-}
 
 /// Select each face, and claim its pairs for its corners.
 const MARK: &str = r#"
@@ -312,3 +144,172 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     }
 }
 "#;
+
+/// Which (body vertex, atlas coordinate) pair every face corner uses.
+#[derive(Clone, Debug)]
+pub struct SeamTopology {
+    corner_pairs: Vec<u32>,
+    /// Body vertex and atlas coordinate of each pair.
+    pairs: Vec<[u32; 2]>,
+    face_count: u32,
+}
+
+/// A [`SeamTopology`] uploaded for selection.
+#[derive(Clone, Debug)]
+pub struct DeviceSeams {
+    corner_pairs: Buffer,
+    pairs: Buffer,
+    face_count: u32,
+    pair_count: u32,
+}
+
+/// A selected surface on the device, laid out in one `u32` buffer: the
+/// [`SURFACE_HEADER`], then each surface vertex's body vertex and atlas
+/// coordinate, then each selected face as three surface vertices.
+#[derive(Clone, Debug)]
+pub struct DeviceSurface {
+    pub words: Buffer,
+    pub vertex_capacity: u32,
+    pub face_capacity: u32,
+}
+
+impl SeamTopology {
+    /// Pair every face corner with its atlas corner.
+    pub fn new(faces: &[[u32; 3]], atlas_faces: &[[u32; 3]]) -> Result<Self, GenerateError> {
+        if faces.len() != atlas_faces.len() || faces.is_empty() {
+            return Err(GenerateError::InvalidSurface);
+        }
+        let mut ids = HashMap::<(u32, u32), u32>::new();
+        let mut pairs = Vec::new();
+        let mut corner_pairs = Vec::with_capacity(faces.len() * 3);
+        for (face, atlas) in faces.iter().zip(atlas_faces) {
+            for corner in 0..3 {
+                let key = (face[corner], atlas[corner]);
+                let id = *ids.entry(key).or_insert_with(|| {
+                    pairs.push([key.0, key.1]);
+                    (pairs.len() - 1) as u32
+                });
+                corner_pairs.push(id);
+            }
+        }
+        Ok(Self {
+            corner_pairs,
+            pairs,
+            face_count: faces.len() as u32,
+        })
+    }
+
+    pub fn face_count(&self) -> u32 {
+        self.face_count
+    }
+
+    pub fn pair_count(&self) -> u32 {
+        self.pairs.len() as u32
+    }
+}
+
+impl DeviceSeams {
+    pub fn new(gpu: &ArmorGpu, topology: &SeamTopology) -> Result<Self, GenerateError> {
+        Ok(Self {
+            corner_pairs: gpu.upload(BufferUpload::from_elements(&topology.corner_pairs))?,
+            pairs: gpu.upload(BufferUpload::from_elements(&topology.pairs))?,
+            face_count: topology.face_count,
+            pair_count: topology.pair_count(),
+        })
+    }
+}
+
+impl DeviceSurface {
+    /// Word offset of the first face.
+    pub fn faces_at(&self) -> u32 {
+        SURFACE_HEADER + 2 * self.vertex_capacity
+    }
+
+    /// Record the selection of the faces of `body_faces` with at least two
+    /// corners whose `support` word is nonzero. An empty selection raises
+    /// [`STATUS_EMPTY_SELECTION`] in `status`.
+    pub fn record(
+        gpu: &ArmorGpu,
+        batch: &mut KernelBatch,
+        seams: &DeviceSeams,
+        body_faces: &Buffer,
+        support: &Buffer,
+        status: &Buffer,
+    ) -> Result<Self, GenerateError> {
+        let surface = Self {
+            words: gpu.scratch(
+                (SURFACE_HEADER + 2 * seams.pair_count + 3 * seams.face_count) as u64 * 4,
+                "anatomical surface",
+            )?,
+            vertex_capacity: seams.pair_count,
+            face_capacity: seams.face_count,
+        };
+        // Each face's selection, then each pair's surface vertex.
+        let selection = gpu.scratch(
+            (seams.face_count + seams.pair_count) as u64 * 4,
+            "selected faces and their vertices",
+        )?;
+        let first = gpu.scratch(seams.pair_count as u64 * 4, "first pair corners")?;
+        let mut parameters = PassParameters::new();
+        parameters.insert("count", seams.face_count);
+        parameters.insert("faces_at", surface.faces_at());
+        parameters.insert("pad1", 0u32);
+        parameters.insert("pad2", 0u32);
+        parameters.insert("body_faces", body_faces.clone());
+        parameters.insert("support", support.clone());
+        parameters.insert("corner_pairs", seams.corner_pairs.clone());
+        parameters.insert("pairs", seams.pairs.clone());
+        parameters.insert("selected", selection);
+        parameters.insert("first", first);
+        parameters.insert("surface", surface.words.clone());
+        parameters.insert("status", status.clone());
+        let kernel = |entry: &str| -> Result<Arc<Kernel>, GenerateError> {
+            gpu.cache()
+                .get(gpu.context(), &source(entry))
+                .map_err(device_error)
+        };
+        batch
+            .dispatch_items(&*kernel(MARK)?, &parameters, seams.face_count)
+            .map_err(device_error)?;
+        batch
+            .dispatch(&*kernel(COMPACT)?, &parameters, [1, 1, 1])
+            .map_err(device_error)?;
+        batch
+            .dispatch_items(&*kernel(FACES)?, &parameters, seams.face_count)
+            .map_err(device_error)?;
+        Ok(surface)
+    }
+}
+
+fn source(entry: &str) -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> body_faces: array<u32>;
+@group(0) @binding(1) var<storage, read> support: array<u32>;
+@group(0) @binding(2) var<storage, read> corner_pairs: array<u32>;
+@group(0) @binding(3) var<storage, read> pairs: array<u32>;
+@group(0) @binding(4) var<storage, read_write> selected: array<u32>;
+@group(0) @binding(5) var<storage, read_write> first: array<atomic<u32>>;
+@group(0) @binding(6) var<storage, read_write> surface: array<u32>;
+@group(0) @binding(7) var<storage, read_write> status: array<atomic<u32>>;
+struct Params {{
+    count: u32,
+    faces_at: u32,
+    pad1: u32,
+    pad2: u32,
+}};
+@group(0) @binding(8) var<uniform> params: Params;
+{status_code}
+const HEADER: u32 = {header}u;
+const EMPTY_SELECTION: u32 = {empty}u;
+// A corner claims its pair by the complement of its index, so that the
+// largest claim, from a zeroed buffer, is the first corner.
+const UNCLAIMED: u32 = 0xffffffffu;
+
+{entry}
+"#,
+        status_code = wgsl::STATUS,
+        header = SURFACE_HEADER,
+        empty = STATUS_EMPTY_SELECTION,
+    ))
+}

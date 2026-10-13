@@ -10,6 +10,7 @@
 use anyhow::Result;
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::standoff::LAYER_STACK_ENVELOPE_M;
@@ -28,6 +29,50 @@ pub(super) const CELLS_PER_FACE: u32 = 8;
 /// Key bits of a bucket, including the key of an unused slot.
 const BUCKET_BITS: u32 = BUCKETS.trailing_zeros() + 1;
 
+/// One invocation per vertex: the room along its offset direction before a facing surface.
+const QUERY_GAPS: &str = r#"
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    ray_vertex = id.x;
+    if (ray_vertex >= params.count) {
+        return;
+    }
+    origin = point(ray_vertex);
+    direction = vec3<f32>(
+        directions[ray_vertex * 3u],
+        directions[ray_vertex * 3u + 1u],
+        directions[ray_vertex * 3u + 2u],
+    );
+    let end = vec3<f32>(
+        origin.x + direction.x * REACH,
+        origin.y + direction.y * REACH,
+        origin.z + direction.z * REACH,
+    );
+    ray_low = cell(min(origin, end));
+    ray_high = cell(max(origin, end));
+    room = LAYER_STACK_ENVELOPE_M;
+    let span = vec3<u32>(ray_high - ray_low + vec3<i32>(1));
+    if (span.x * span.y * span.z > RAY_CELLS) {
+        fail(STATUS_LONG_RAY);
+    } else {
+        for (var x = 0u; x < span.x; x = x + 1u) {
+            for (var y = 0u; y < span.y; y = y + 1u) {
+                for (var z = 0u; z < span.z; z = z + 1u) {
+                    let b = bucket(ray_low + vec3<i32>(vec3<u32>(x, y, z)));
+                    for (var s = ranges[b * 2u]; s < ranges[b * 2u + 1u]; s = s + 1u) {
+                        consider(values[s]);
+                    }
+                }
+            }
+        }
+    }
+    for (var k = 0u; k < overflow[0]; k = k + 1u) {
+        consider(overflow[1u + k]);
+    }
+    rooms[ray_vertex] = room;
+}
+"#;
+
 impl Workspace<'_> {
     /// Record the gap limit of every vertex of a realization into the first
     /// half of `rooms`, starting from the full layer stack.
@@ -38,9 +83,9 @@ impl Workspace<'_> {
         directions: &Buffer,
     ) -> Result<()> {
         let gpu = self.gpu;
-        let kernel = |source: String| {
+        let kernel = |source: ShaderSource<'static>| {
             gpu.cache()
-                .get(gpu.context(), &source.as_str().into())
+                .get(gpu.context(), &source)
                 .map_err(device_error)
         };
         let pairs = self.face_count * CELLS_PER_FACE;
@@ -135,8 +180,8 @@ fn face_high(f: u32) -> vec3<i32> {{
     )
 }
 
-fn cells_source() -> String {
-    format!(
+fn cells_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> positions: array<f32>;
 @group(0) @binding(1) var<storage, read> faces: array<u32>;
@@ -184,11 +229,11 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 "#,
         cells = cells(),
         per_face = CELLS_PER_FACE,
-    )
+    ))
 }
 
-fn ranges_source() -> String {
-    format!(
+fn ranges_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> keys: array<u32>;
 @group(0) @binding(1) var<storage, read_write> ranges: array<u32>;
@@ -221,55 +266,11 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 }}
 "#,
         buckets = BUCKETS,
-    )
+    ))
 }
 
-/// One invocation per vertex: the room along its offset direction before a facing surface.
-const QUERY_GAPS: &str = r#"
-@compute @workgroup_size(64)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {
-    ray_vertex = id.x;
-    if (ray_vertex >= params.count) {
-        return;
-    }
-    origin = point(ray_vertex);
-    direction = vec3<f32>(
-        directions[ray_vertex * 3u],
-        directions[ray_vertex * 3u + 1u],
-        directions[ray_vertex * 3u + 2u],
-    );
-    let end = vec3<f32>(
-        origin.x + direction.x * REACH,
-        origin.y + direction.y * REACH,
-        origin.z + direction.z * REACH,
-    );
-    ray_low = cell(min(origin, end));
-    ray_high = cell(max(origin, end));
-    room = LAYER_STACK_ENVELOPE_M;
-    let span = vec3<u32>(ray_high - ray_low + vec3<i32>(1));
-    if (span.x * span.y * span.z > RAY_CELLS) {
-        fail(STATUS_LONG_RAY);
-    } else {
-        for (var x = 0u; x < span.x; x = x + 1u) {
-            for (var y = 0u; y < span.y; y = y + 1u) {
-                for (var z = 0u; z < span.z; z = z + 1u) {
-                    let b = bucket(ray_low + vec3<i32>(vec3<u32>(x, y, z)));
-                    for (var s = ranges[b * 2u]; s < ranges[b * 2u + 1u]; s = s + 1u) {
-                        consider(values[s]);
-                    }
-                }
-            }
-        }
-    }
-    for (var k = 0u; k < overflow[0]; k = k + 1u) {
-        consider(overflow[1u + k]);
-    }
-    rooms[ray_vertex] = room;
-}
-"#;
-
-fn query_source() -> String {
-    format!(
+fn query_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> positions: array<f32>;
 @group(0) @binding(1) var<storage, read> directions: array<f32>;
@@ -344,5 +345,5 @@ fn consider(f: u32) {{
         cells = cells(),
         roundoff = wgsl::constant("RAY_ROUNDOFF_M", RAY_ROUNDOFF_M),
         allocation = wgsl::constant("GAP_ALLOCATION", GAP_ALLOCATION),
-    )
+    ))
 }

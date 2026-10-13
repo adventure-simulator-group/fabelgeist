@@ -1,5 +1,5 @@
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
-pub mod tables;
 
 use crate::Scan;
 use crate::gather::Gather;
@@ -11,6 +11,7 @@ use fabelgeist_gpu::globals::WgpuContext;
 use fabelgeist_gpu::data::PassParameter;
 use fabelgeist_gpu::data::gpu::parameters::PassParameters;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
+pub mod tables;
 
 #[derive(Clone, Debug)]
 pub struct MarchingCubesDefinition {
@@ -23,6 +24,8 @@ pub struct MarchingCubesDefinition {
     pub tri_count_table_buffer: Buffer,
     pub deinterleave_pipeline: fabelgeist_gpu::data::gpu::ComputePipeline,
 }
+
+pub struct MarchingCubes;
 
 impl PartialEq for MarchingCubesDefinition {
     fn eq(&self, other: &Self) -> bool {
@@ -275,8 +278,9 @@ fn map(val: u32) -> u32 {
                 out_normals[pos_idx + 2u] = v.normal.z;
             }
         "#;
+        let deinterleave_wgsl = ShaderSource::from(deinterleave_wgsl);
         let deinterleave_shader =
-            fabelgeist_gpu::data::gpu::ComputeShader::new(context, deinterleave_wgsl.into())?;
+            fabelgeist_gpu::data::gpu::ComputeShader::new(context, deinterleave_wgsl)?;
         let deinterleave_pipeline =
             fabelgeist_gpu::data::gpu::ComputePipeline::new(context, deinterleave_shader)?;
 
@@ -292,8 +296,6 @@ fn map(val: u32) -> u32 {
         })
     }
 }
-
-pub struct MarchingCubes;
 
 #[expect(
     clippy::too_many_arguments,

@@ -27,21 +27,6 @@ use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 use crate::bracer::ForearmMorphSample;
 use crate::device_torso_wgsl::{FRAME, HALF_WIDTH, RANK, SUPPORT, WIDTHS, torso_source};
 
-/// The wearer's body, as the breastplate is fitted to it.
-pub struct TorsoSurfaceInput<'a> {
-    pub domain: &'a str,
-    pub positions: &'a [[f32; 3]],
-    pub normals: &'a [[f32; 3]],
-    pub faces: &'a [[u32; 3]],
-    pub texcoords: &'a [[f32; 2]],
-    pub texcoord_faces: &'a [[u32; 3]],
-    pub joint_indices: &'a [[u32; 8]],
-    pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [String],
-    pub global_joint_states: &'a [[f32; 8]],
-    pub morphs: &'a [ForearmMorphSample],
-}
-
 /// Floats of the torso frame: origin at the lower spine, the vertical axis
 /// and its extent to the neck, the lateral and anterior axes, and the front
 /// half width.
@@ -81,6 +66,29 @@ const SUPPORT_JOINTS: [&str; 12] = [
     "l_upleg",
     "r_upleg",
 ];
+
+/// The wearer's body, as the breastplate is fitted to it.
+pub struct TorsoSurfaceInput<'a> {
+    pub domain: &'a str,
+    pub positions: &'a [[f32; 3]],
+    pub normals: &'a [[f32; 3]],
+    pub faces: &'a [[u32; 3]],
+    pub texcoords: &'a [[f32; 2]],
+    pub texcoord_faces: &'a [[u32; 3]],
+    pub joint_indices: &'a [[u32; 8]],
+    pub joint_weights: &'a [[f32; 8]],
+    pub joint_names: &'a [String],
+    pub global_joint_states: &'a [[f32; 8]],
+    pub morphs: &'a [ForearmMorphSample],
+}
+
+/// Where the torso's measurement goes.
+struct TorsoOutputs<'a> {
+    rig: &'a Buffer,
+    semantic: &'a Buffer,
+    support: &'a Buffer,
+    status: &'a Buffer,
+}
 
 impl TorsoSurfaceInput<'_> {
     fn check(&self) -> Result<()> {
@@ -244,14 +252,6 @@ fn torso_failure(bits: u32) -> Result<()> {
     Ok(())
 }
 
-/// Where the torso's measurement goes.
-struct TorsoOutputs<'a> {
-    rig: &'a Buffer,
-    semantic: &'a Buffer,
-    support: &'a Buffer,
-    status: &'a Buffer,
-}
-
 /// Record the torso frame, its half width, and each body vertex's
 /// semantic coordinates and support.
 fn record_torso(
@@ -298,7 +298,7 @@ fn record_torso(
         let source = torso_source(entry);
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &source.as_str().into())
+            .get(gpu.context(), &source)
             .map_err(device_error)?;
         let mut bound = parameters.clone();
         for (name, buffer) in buffers {

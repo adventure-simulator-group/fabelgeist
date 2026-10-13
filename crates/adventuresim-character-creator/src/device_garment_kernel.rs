@@ -8,6 +8,7 @@
 use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::device_frames::DeviceWearer;
@@ -59,6 +60,12 @@ fn rem_tau(x: f32) -> f32 {
 }
 "#;
 
+const PADS: [&str; 4] = ["pad0", "pad1", "pad2", "pad3"];
+/// The buffer a garment's fit is bound as; kernels read their frame from it.
+const FIT_BUFFER: &str = "fit";
+/// Buffers of packed points, which get `<name>_at` accessors.
+const POINT_BUFFERS: [&str; 5] = ["positions", "normals", "carriers", "points", "extra"];
+
 /// A storage buffer a garment kernel binds, by name.
 pub(crate) struct Bound<'a> {
     pub name: &'static str,
@@ -74,6 +81,22 @@ pub(crate) enum Access {
     Write,
     WriteU32,
     Atomic,
+}
+
+/// A uniform word a garment kernel reads as `params.<name>`.
+#[derive(Clone, Copy)]
+pub(crate) enum Word {
+    U(&'static str, u32),
+    F(&'static str, f32),
+}
+
+/// How many invocations a garment kernel runs.
+#[derive(Clone, Copy)]
+pub(crate) enum Grid {
+    /// One per item, in workgroups of 64.
+    Items(u32),
+    /// One single-invocation workgroup per item.
+    Singles(u32),
 }
 
 impl Access {
@@ -115,22 +138,6 @@ pub(crate) fn atomic<'a>(name: &'static str, buffer: &'a Buffer) -> Bound<'a> {
         kind: Access::Atomic,
         buffer,
     }
-}
-
-/// A uniform word a garment kernel reads as `params.<name>`.
-#[derive(Clone, Copy)]
-pub(crate) enum Word {
-    U(&'static str, u32),
-    F(&'static str, f32),
-}
-
-/// How many invocations a garment kernel runs.
-#[derive(Clone, Copy)]
-pub(crate) enum Grid {
-    /// One per item, in workgroups of 64.
-    Items(u32),
-    /// One single-invocation workgroup per item.
-    Singles(u32),
 }
 
 /// Compile and record one garment kernel: its bindings and uniform block
@@ -191,15 +198,15 @@ pub(crate) fn dispatch(
     }
     source.push_str(body);
     // A kernel without a fit still shares the frame helpers.
-    let source = if buffers.iter().any(|b| b.name == FIT_BUFFER) {
+    let source = ShaderSource::from(if buffers.iter().any(|b| b.name == FIT_BUFFER) {
         source.replace("FRAME_SOURCE[", "fit[")
     } else {
         format!("var<private> no_fit: array<f32, 16>;\n{source}")
             .replace("FRAME_SOURCE[", "no_fit[")
-    };
+    });
     let kernel = gpu
         .cache()
-        .get(gpu.context(), &source.as_str().into())
+        .get(gpu.context(), &source)
         .map_err(device_error)?;
     match grid {
         Grid::Items(count) => batch.dispatch_items(&kernel, &parameters, count),
@@ -208,9 +215,3 @@ pub(crate) fn dispatch(
     .map_err(device_error)?;
     Ok(())
 }
-
-const PADS: [&str; 4] = ["pad0", "pad1", "pad2", "pad3"];
-/// The buffer a garment's fit is bound as; kernels read their frame from it.
-const FIT_BUFFER: &str = "fit";
-/// Buffers of packed points, which get `<name>_at` accessors.
-const POINT_BUFFERS: [&str; 5] = ["positions", "normals", "carriers", "points", "extra"];

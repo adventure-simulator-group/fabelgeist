@@ -35,7 +35,10 @@ The generic buffer layer does not silently pad every input.
 `ShaderSource` carries complete shader text through parsing, compute-shader
 creation and kernel caching. Admit borrowed text or an owned `String` with
 `ShaderSource::from`; retained shader code and cache keys own their text.
-Borrowed cache lookups do not allocate a copy of the source.
+Completed generators return `ShaderSource` and completed-source callbacks take
+it directly. Static complete programs use `ShaderSource::borrowed`, which is
+also usable in constants. Borrowed cache lookups do not allocate a copy of the
+source.
 
 ```rust
 use fabelgeist_gpu::prelude::{ComputeShader, ShaderSource, WgpuContext};
@@ -53,6 +56,9 @@ occurrence selects GLSL, including comments; other text selects WGSL.
 Classification does not validate syntax. Display retains the lowercase
 `wgsl` and `glsl` labels.
 
-Generated shader assembly and external parser or device APIs use native text
-at their admission boundaries. Parser diagnostics and structured shader errors
-remain unchanged.
+Definitions, preambles and entry-point snippets remain text during assembly:
+they are not complete programs. Admit the finished `String` once, moving it
+into `ShaderSource`, then pass or borrow that source through application APIs.
+Extract native text only for external parsers, device descriptors or explicit
+text inspection. Parser diagnostics and structured shader errors remain
+unchanged.

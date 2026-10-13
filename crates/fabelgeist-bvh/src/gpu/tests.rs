@@ -1,3 +1,4 @@
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 use fabelgeist_math::Vec3;
 
@@ -341,7 +342,7 @@ async fn rejects_more_primitives_than_it_was_built_for() -> Result<()> {
 #[tokio::test]
 async fn wgsl_morton_matches_the_host() -> Result<()> {
     let context = WgpuContext::new().await?;
-    let code = format!(
+    let code = ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> input: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read_write> output: array<u32>;
@@ -354,8 +355,8 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
 }}
 "#,
         super::shaders::MORTON
-    );
-    let kernel = Kernel::new(&context, code.into())?;
+    ));
+    let kernel = Kernel::new(&context, code)?;
 
     let mut random = Random::new(97);
     let points: Vec<[f32; 4]> = (0..500)

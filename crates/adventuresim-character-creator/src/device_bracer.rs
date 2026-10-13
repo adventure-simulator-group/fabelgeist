@@ -16,6 +16,7 @@ use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_armor::{ArmorGpu, BracerDesign, GeneratedArmor};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::bracer::{ForearmSide, ForearmSurfaceInput};
@@ -168,7 +169,7 @@ fn record_support(
     parameters.insert("status", status.clone());
     let kernel = gpu
         .cache()
-        .get(gpu.context(), &support_source().into())
+        .get(gpu.context(), &support_source())
         .map_err(device_error)?;
     batch
         .dispatch_items(&kernel, &parameters, body.vertex_count)
@@ -176,8 +177,8 @@ fn record_support(
     Ok(())
 }
 
-fn support_source() -> String {
-    format!(
+fn support_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> positions: array<f32>;
 @group(0) @binding(1) var<storage, read> joints: array<f32>;
@@ -241,5 +242,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         threshold = FOREARM_WEIGHT_THRESHOLD,
         margin = AXIAL_SUPPORT_MARGIN,
         coincident = STATUS_COINCIDENT_LANDMARKS,
-    )
+    ))
 }

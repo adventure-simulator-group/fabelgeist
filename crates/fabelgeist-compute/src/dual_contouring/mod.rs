@@ -1,6 +1,10 @@
 use crate::{GatherDefinition, MapDefinition, ScanDefinition, StreamDefinition};
 use anyhow::Result;
+pub use execution::DualContouring;
 use fabelgeist_gpu::globals::WgpuContext;
+use fabelgeist_gpu::prelude::ShaderSource;
+
+mod execution;
 
 #[derive(Clone, Debug)]
 pub struct DualContouringDefinition {
@@ -523,8 +527,9 @@ fn map(val: u32) -> u32 {
                 out_normals[pos_idx + 2u] = v.normal.z;
             }
         "#;
+        let deinterleave_wgsl = ShaderSource::from(deinterleave_wgsl);
         let deinterleave_shader =
-            fabelgeist_gpu::data::gpu::ComputeShader::new(context, deinterleave_wgsl.into())?;
+            fabelgeist_gpu::data::gpu::ComputeShader::new(context, deinterleave_wgsl)?;
         let deinterleave_pipeline =
             fabelgeist_gpu::data::gpu::ComputePipeline::new(context, deinterleave_shader)?;
 
@@ -539,6 +544,3 @@ fn map(val: u32) -> u32 {
         })
     }
 }
-
-mod execution;
-pub use execution::DualContouring;

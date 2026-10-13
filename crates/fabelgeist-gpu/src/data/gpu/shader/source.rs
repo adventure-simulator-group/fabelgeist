@@ -10,6 +10,11 @@ const GLSL_VERSION_MARKER: &str = "#version";
 pub struct ShaderSource<'a>(Cow<'a, str>);
 
 impl<'a> ShaderSource<'a> {
+    /// Admit borrowed complete text, including static shader constants.
+    pub const fn borrowed(text: &'a str) -> Self {
+        Self(Cow::Borrowed(text))
+    }
+
     /// Select GLSL for any case-sensitive `#version`, including in comments.
     pub fn language(&self) -> ShaderLanguage {
         if self.as_str().contains(GLSL_VERSION_MARKER) {
@@ -32,7 +37,7 @@ impl<'a> ShaderSource<'a> {
 
 impl<'a> From<&'a str> for ShaderSource<'a> {
     fn from(text: &'a str) -> Self {
-        Self(Cow::Borrowed(text))
+        Self::borrowed(text)
     }
 }
 

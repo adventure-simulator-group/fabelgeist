@@ -8,6 +8,7 @@
 use super::anatomy::SURFACE_HEADER;
 use super::bracer::{ALONG, STATUS_EMPTY_CONTOUR};
 use super::wgsl;
+use fabelgeist_gpu::prelude::ShaderSource;
 
 /// Floats of the measured axis: axis and weld distance, then the two
 /// directions angles around it are measured in, each padded to four.
@@ -22,50 +23,6 @@ pub(crate) const POINT_WORDS: u32 = 9;
 /// eight flute words.
 const DESIGN_COLUMNS: u32 = 16;
 
-/// Everything the kernels share besides their bindings.
-fn prelude() -> String {
-    format!(
-        r#"
-{math}
-const HEADER: u32 = {header}u;
-const ALONG: u32 = {along}u;
-const SAMPLE_WORDS: u32 = {sample_words}u;
-const POINT_WORDS: u32 = {point_words}u;
-const DESIGN_COLUMNS: u32 = {design_columns}u;
-const EMPTY_CONTOUR: u32 = {empty_contour}u;
-
-fn host_dot(a: vec3<f32>, b: vec3<f32>) -> f32 {{
-    return (a.x * b.x + a.y * b.y) + a.z * b.z;
-}}
-
-fn host_cross(a: vec3<f32>, b: vec3<f32>) -> vec3<f32> {{
-    return vec3<f32>(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x);
-}}
-
-// The unit vector along `v`, in xyz; w is one when `v` was longer than `minimum`.
-fn unit_above(v: vec3<f32>, minimum: f32) -> vec4<f32> {{
-    let magnitude = sqrt(host_dot(v, v));
-    if (magnitude > minimum) {{
-        return vec4<f32>(v * (1.0 / magnitude), 1.0);
-    }}
-    return vec4<f32>(v, 0.0);
-}}
-
-fn pow6(x: f32) -> f32 {{
-    let s = x * x;
-    return s * (s * s);
-}}
-"#,
-        math = wgsl::MATH,
-        header = SURFACE_HEADER,
-        along = ALONG,
-        sample_words = SAMPLE_WORDS,
-        point_words = POINT_WORDS,
-        design_columns = DESIGN_COLUMNS,
-        empty_contour = STATUS_EMPTY_CONTOUR,
-    )
-}
-
 const PARAMS: &str = r#"
 struct Params {
     count: u32,
@@ -74,13 +31,6 @@ struct Params {
     record_body_normals: u32,
 };
 "#;
-
-/// A kernel's full source: its bindings and entry after the prelude. A
-/// kernel that binds `status` also gets `fail`.
-pub(crate) fn source(entry: &str, binds_status: bool) -> String {
-    let status = if binds_status { wgsl::STATUS } else { "" };
-    format!("{PARAMS}\n{}\n{entry}\n{status}", prelude())
-}
 
 /// The design's relief and flute fan, from its words.
 pub(crate) const DESIGN: &str = r#"
@@ -182,34 +132,6 @@ fn main() {
     }
 }
 "#;
-
-/// One invocation per bracer vertex: its sample displaced off the bound
-/// body realization, outer wall first.
-pub(crate) fn displace() -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> body_positions: array<f32>;
-@group(0) @binding(1) var<storage, read> body_normals_in: array<f32>;
-@group(0) @binding(2) var<storage, read> surface: array<u32>;
-@group(0) @binding(3) var<storage, read> design: array<f32>;
-@group(0) @binding(4) var<storage, read> samples: array<u32>;
-@group(0) @binding(5) var<storage, read_write> positions: array<f32>;
-@group(0) @binding(6) var<storage, read_write> body_normals: array<f32>;
-@group(0) @binding(7) var<storage, read_write> status: array<atomic<u32>>;
-@group(0) @binding(8) var<uniform> params: Params;
-{fluting}
-{design}
-{positions}
-{body_normals}
-{body}
-"#,
-        fluting = super::chart::FLUTING,
-        design = DESIGN,
-        positions = wgsl::points("positions"),
-        body_normals = wgsl::points("body_normals"),
-        body = DISPLACE_BODY,
-    )
-}
 
 const DISPLACE_BODY: &str = r#"
 fn body_point(i: u32) -> vec3<f32> {
@@ -424,3 +346,82 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     }
 }
 "#;
+
+/// A kernel's full source: its bindings and entry after the prelude. A
+/// kernel that binds `status` also gets `fail`.
+pub(crate) fn source(entry: &str, binds_status: bool) -> ShaderSource<'static> {
+    let status = if binds_status { wgsl::STATUS } else { "" };
+    ShaderSource::from(format!("{PARAMS}\n{}\n{entry}\n{status}", prelude()))
+}
+
+/// One invocation per bracer vertex: its sample displaced off the bound
+/// body realization, outer wall first.
+pub(crate) fn displace() -> String {
+    format!(
+        r#"
+@group(0) @binding(0) var<storage, read> body_positions: array<f32>;
+@group(0) @binding(1) var<storage, read> body_normals_in: array<f32>;
+@group(0) @binding(2) var<storage, read> surface: array<u32>;
+@group(0) @binding(3) var<storage, read> design: array<f32>;
+@group(0) @binding(4) var<storage, read> samples: array<u32>;
+@group(0) @binding(5) var<storage, read_write> positions: array<f32>;
+@group(0) @binding(6) var<storage, read_write> body_normals: array<f32>;
+@group(0) @binding(7) var<storage, read_write> status: array<atomic<u32>>;
+@group(0) @binding(8) var<uniform> params: Params;
+{fluting}
+{design}
+{positions}
+{body_normals}
+{body}
+"#,
+        fluting = super::chart::FLUTING,
+        design = DESIGN,
+        positions = wgsl::points("positions"),
+        body_normals = wgsl::points("body_normals"),
+        body = DISPLACE_BODY,
+    )
+}
+
+/// Everything the kernels share besides their bindings.
+fn prelude() -> String {
+    format!(
+        r#"
+{math}
+const HEADER: u32 = {header}u;
+const ALONG: u32 = {along}u;
+const SAMPLE_WORDS: u32 = {sample_words}u;
+const POINT_WORDS: u32 = {point_words}u;
+const DESIGN_COLUMNS: u32 = {design_columns}u;
+const EMPTY_CONTOUR: u32 = {empty_contour}u;
+
+fn host_dot(a: vec3<f32>, b: vec3<f32>) -> f32 {{
+    return (a.x * b.x + a.y * b.y) + a.z * b.z;
+}}
+
+fn host_cross(a: vec3<f32>, b: vec3<f32>) -> vec3<f32> {{
+    return vec3<f32>(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x);
+}}
+
+// The unit vector along `v`, in xyz; w is one when `v` was longer than `minimum`.
+fn unit_above(v: vec3<f32>, minimum: f32) -> vec4<f32> {{
+    let magnitude = sqrt(host_dot(v, v));
+    if (magnitude > minimum) {{
+        return vec4<f32>(v * (1.0 / magnitude), 1.0);
+    }}
+    return vec4<f32>(v, 0.0);
+}}
+
+fn pow6(x: f32) -> f32 {{
+    let s = x * x;
+    return s * (s * s);
+}}
+"#,
+        math = wgsl::MATH,
+        header = SURFACE_HEADER,
+        along = ALONG,
+        sample_words = SAMPLE_WORDS,
+        point_words = POINT_WORDS,
+        design_columns = DESIGN_COLUMNS,
+        empty_contour = STATUS_EMPTY_CONTOUR,
+    )
+}

@@ -8,7 +8,8 @@ use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 /// Writes its uniform into every output slot, after a busy loop over an
 /// uploaded input that keeps each submission in flight long enough for the
 /// other threads' dispatches to overlap it.
-const FILL: &str = r#"
+const FILL: ShaderSource<'static> = ShaderSource::borrowed(
+    r#"
 @group(0) @binding(0) var<storage, read_write> output: array<u32>;
 @group(0) @binding(1) var<uniform> params: Params;
 @group(0) @binding(2) var<storage, read> input: array<u32>;
@@ -29,7 +30,8 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
         output[id.x] = params.value + sum * 0u;
     }
 }
-"#;
+"#,
+);
 
 /// Every thread's first dispatches land in ring slots nothing has written
 /// yet. Their uniforms must survive the device initialising those slots.
@@ -37,8 +39,8 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 fn every_thread_sees_its_own_uniforms() -> Result<()> {
     let context = pollster::block_on(WgpuContext::new())?;
     let cache = KernelCache::new();
-    let kernel = cache.get(&context, &FILL.into())?;
-    let owned_source = ShaderSource::from(FILL.to_owned());
+    let kernel = cache.get(&context, &FILL)?;
+    let owned_source = ShaderSource::from(FILL.as_str().to_owned());
     assert!(std::sync::Arc::ptr_eq(
         &kernel,
         &cache.get(&context, &owned_source)?
@@ -97,7 +99,7 @@ fn every_thread_sees_its_own_uniforms() -> Result<()> {
 #[test]
 fn a_long_open_batch_keeps_its_uniforms() -> Result<()> {
     let context = pollster::block_on(WgpuContext::new())?;
-    let kernel = KernelCache::new().get(&context, &FILL.into())?;
+    let kernel = KernelCache::new().get(&context, &FILL)?;
     let input = Buffer::from_upload(
         &context,
         BufferUpload::from_elements(&[1u32]),

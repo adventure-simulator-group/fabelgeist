@@ -11,6 +11,7 @@ use anyhow::Result;
 use fabelgeist_armor::DevicePart;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::device_foot_sections::PROFILE_SAMPLES;
@@ -39,7 +40,7 @@ impl DeviceWearer<'_> {
         let points = gpu.scratch(count as u64 * 16, "boot layer slices")?;
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &source().into())
+            .get(gpu.context(), &source())
             .map_err(device_error)?;
         let mut first = 0;
         for (index, garment) in garments.iter().enumerate() {
@@ -63,8 +64,8 @@ impl DeviceWearer<'_> {
     }
 }
 
-fn source() -> String {
-    format!(
+fn source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read> bounds: array<u32>;
@@ -130,5 +131,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         ordered = wgsl::ORDERED_FLOAT,
         positions = wgsl::read_points("positions"),
         samples = PROFILE_SAMPLES,
-    )
+    ))
 }

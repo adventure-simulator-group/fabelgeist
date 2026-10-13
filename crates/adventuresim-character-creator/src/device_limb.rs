@@ -6,6 +6,7 @@ use fabelgeist_armor::{DevicePart, LimbArmorDesign, record_limb_armor};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::PassParameters;
+use fabelgeist_gpu::prelude::ShaderSource;
 
 use crate::armor_frames::{FitRegion, Side};
 use crate::device_clearance::ClearanceFit;
@@ -16,6 +17,50 @@ use crate::device_piece::DeviceRecording;
 /// Linear identity blends need a little extra room at the torso-facing armpit
 /// edge. Distal trimming creates that space without widening the arm cylinder.
 const REREBRACE_AXILLARY_MORPH_TRIM_M: f32 = 0.030;
+
+/// Each shell's axial extent in the frame.
+const TRIM_BOUNDS: &str = r#"
+@compute @workgroup_size(256)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    let i = id.x;
+    if (i >= params.count) {
+        return;
+    }
+    let y = host_local(frame_at(0u), carriers_at(i)).y;
+    let shell = shell_of[i];
+    atomicMin(&bounds[shell * 2u], ordered_from_float(y));
+    atomicMax(&bounds[shell * 2u + 1u], ordered_from_float(y));
+}
+"#;
+
+/// Cut the upper boundary and interpolate toward it: a high-power axial
+/// displacement could reverse rows and fold the sheet back.
+const TRIM: &str = r#"
+const MINIMUM_REMAINING_SPAN: f32 = 0.30;
+
+@compute @workgroup_size(256)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    let i = id.x;
+    if (i >= params.count) {
+        return;
+    }
+    let fit = frame_at(0u);
+    let shell = shell_of[i];
+    let low = float_from_ordered(atomicLoad(&bounds[shell * 2u]));
+    let high = float_from_ordered(atomicLoad(&bounds[shell * 2u + 1u]));
+    let maximum_trim = (high - low) * (1.0 - MINIMUM_REMAINING_SPAN);
+    var p = host_local(fit, carriers_at(i));
+    let radial = fit.x.x * p.x + fit.z.x * p.z;
+    let inward = clamp(-params.outward * radial / max(sqrt(p.x * p.x + p.z * p.z), 1e-6), 0.0, 1.0);
+    let proximal = clamp((p.y - low) / (high - low), 0.0, 1.0);
+    let trim = min(
+        fit.half_extents.y * params.depth * inward * inward + params.reserve * inward,
+        maximum_trim,
+    );
+    p.y = p.y - trim * proximal;
+    carriers_set(i, frame_point(fit, p));
+}
+"#;
 
 impl DeviceWearer<'_> {
     /// Record a limb design's charts and fit, short of thickening.
@@ -116,7 +161,7 @@ impl DeviceWearer<'_> {
         for entry in [TRIM_BOUNDS, TRIM] {
             let kernel = gpu
                 .cache()
-                .get(gpu.context(), &trim_source(entry).into())
+                .get(gpu.context(), &trim_source(entry))
                 .map_err(device_error)?;
             batch
                 .dispatch_items(&kernel, &parameters, part.carrier_count())
@@ -126,8 +171,8 @@ impl DeviceWearer<'_> {
     }
 }
 
-fn trim_source(entry: &str) -> String {
-    format!(
+fn trim_source(entry: &str) -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read> shell_of: array<u32>;
@@ -164,49 +209,5 @@ fn host_local(f: Frame, p: vec3<f32>) -> vec3<f32> {{
         frame = wgsl::FRAME,
         ordered = wgsl::ORDERED_FLOAT,
         carriers = wgsl::points("carriers"),
-    )
+    ))
 }
-
-/// Each shell's axial extent in the frame.
-const TRIM_BOUNDS: &str = r#"
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {
-    let i = id.x;
-    if (i >= params.count) {
-        return;
-    }
-    let y = host_local(frame_at(0u), carriers_at(i)).y;
-    let shell = shell_of[i];
-    atomicMin(&bounds[shell * 2u], ordered_from_float(y));
-    atomicMax(&bounds[shell * 2u + 1u], ordered_from_float(y));
-}
-"#;
-
-/// Cut the upper boundary and interpolate toward it: a high-power axial
-/// displacement could reverse rows and fold the sheet back.
-const TRIM: &str = r#"
-const MINIMUM_REMAINING_SPAN: f32 = 0.30;
-
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {
-    let i = id.x;
-    if (i >= params.count) {
-        return;
-    }
-    let fit = frame_at(0u);
-    let shell = shell_of[i];
-    let low = float_from_ordered(atomicLoad(&bounds[shell * 2u]));
-    let high = float_from_ordered(atomicLoad(&bounds[shell * 2u + 1u]));
-    let maximum_trim = (high - low) * (1.0 - MINIMUM_REMAINING_SPAN);
-    var p = host_local(fit, carriers_at(i));
-    let radial = fit.x.x * p.x + fit.z.x * p.z;
-    let inward = clamp(-params.outward * radial / max(sqrt(p.x * p.x + p.z * p.z), 1e-6), 0.0, 1.0);
-    let proximal = clamp((p.y - low) / (high - low), 0.0, 1.0);
-    let trim = min(
-        fit.half_extents.y * params.depth * inward * inward + params.reserve * inward,
-        maximum_trim,
-    );
-    p.y = p.y - trim * proximal;
-    carriers_set(i, frame_point(fit, p));
-}
-"#;

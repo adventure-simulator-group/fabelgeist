@@ -11,6 +11,7 @@
 use anyhow::Result;
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::wgsl;
@@ -24,114 +25,6 @@ pub const PROJECTION_PASSES: u32 = 32;
 /// Floats per face constraint: the unit face normal, then whether the face
 /// has one.
 const CONSTRAINT_WORDS: u32 = 4;
-
-impl Workspace<'_> {
-    /// Record the unit face normals of a realization as constraint set
-    /// `set`.
-    pub(super) fn record_constraints(
-        &self,
-        batch: &mut KernelBatch,
-        positions: &Buffer,
-        set: u32,
-    ) -> Result<()> {
-        let gpu = self.gpu;
-        let mut parameters = PassParameters::new();
-        parameters.insert("count", self.face_count);
-        parameters.insert("first", set * self.face_count * CONSTRAINT_WORDS);
-        parameters.insert("pad0", 0u32);
-        parameters.insert("pad1", 0u32);
-        parameters.insert("positions", positions.clone());
-        parameters.insert("faces", self.faces.clone());
-        parameters.insert("constraints", self.constraints.clone());
-        let kernel = gpu
-            .cache()
-            .get(gpu.context(), &constraint_source().into())
-            .map_err(device_error)?;
-        batch
-            .dispatch_items(&kernel, &parameters, self.face_count)
-            .map_err(device_error)?;
-        Ok(())
-    }
-
-    /// Record the constrained offset directions of a realization whose own
-    /// face normals are constraint set 0, followed by `sets - 1` sets of
-    /// other realizations.
-    pub(super) fn record_directions(
-        &self,
-        batch: &mut KernelBatch,
-        normals: &Buffer,
-        links: &Buffer,
-        sets: u32,
-        directions: &Buffer,
-    ) -> Result<()> {
-        let gpu = self.gpu;
-        let mut parameters = PassParameters::new();
-        parameters.insert("count", self.vertex_count);
-        parameters.insert("faces", self.face_count);
-        parameters.insert("sets", sets);
-        parameters.insert("pad0", 0u32);
-        parameters.insert("normals", normals.clone());
-        parameters.insert("incidence", self.incidence.clone());
-        parameters.insert("links", links.clone());
-        parameters.insert("constraints", self.constraints.clone());
-        parameters.insert("directions", directions.clone());
-        parameters.insert("status", self.status.clone());
-        let kernel = gpu
-            .cache()
-            .get(gpu.context(), &projection_source().into())
-            .map_err(device_error)?;
-        batch
-            .dispatch_items(&kernel, &parameters, self.vertex_count)
-            .map_err(device_error)?;
-        Ok(())
-    }
-}
-
-fn constraint_source() -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> positions: array<f32>;
-@group(0) @binding(1) var<storage, read> faces: array<u32>;
-@group(0) @binding(2) var<storage, read_write> constraints: array<f32>;
-struct Params {{
-    count: u32,
-    first: u32,
-    pad0: u32,
-    pad1: u32,
-}};
-@group(0) @binding(3) var<uniform> params: Params;
-{vector}
-
-fn point(v: u32) -> vec3<f32> {{
-    return vec3<f32>(positions[v * 3u], positions[v * 3u + 1u], positions[v * 3u + 2u]);
-}}
-
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
-    let f = id.x;
-    if (f >= params.count) {{
-        return;
-    }}
-    let a = point(faces[f * 3u]);
-    let u = point(faces[f * 3u + 1u]) - a;
-    let v = point(faces[f * 3u + 2u]) - a;
-    let n = vec3<f32>(u.y * v.z - u.z * v.y, u.z * v.x - u.x * v.z, u.x * v.y - u.y * v.x);
-    let length = sqrt(dot3(n, n));
-    let slot = params.first + f * {words}u;
-    if (length > 0.0) {{
-        constraints[slot] = n.x / length;
-        constraints[slot + 1u] = n.y / length;
-        constraints[slot + 2u] = n.z / length;
-        constraints[slot + 3u] = 1.0;
-    }} else {{
-        constraints[slot + 3u] = 0.0;
-    }}
-}}
-"#,
-        vector = wgsl::VECTOR,
-        words = CONSTRAINT_WORDS,
-    )
-}
 
 /// One invocation per weld group: its offset direction pushed outside every face constraint.
 const PROJECT_GROUPS: &str = r#"
@@ -196,8 +89,116 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 }
 "#;
 
-fn projection_source() -> String {
-    format!(
+impl Workspace<'_> {
+    /// Record the unit face normals of a realization as constraint set
+    /// `set`.
+    pub(super) fn record_constraints(
+        &self,
+        batch: &mut KernelBatch,
+        positions: &Buffer,
+        set: u32,
+    ) -> Result<()> {
+        let gpu = self.gpu;
+        let mut parameters = PassParameters::new();
+        parameters.insert("count", self.face_count);
+        parameters.insert("first", set * self.face_count * CONSTRAINT_WORDS);
+        parameters.insert("pad0", 0u32);
+        parameters.insert("pad1", 0u32);
+        parameters.insert("positions", positions.clone());
+        parameters.insert("faces", self.faces.clone());
+        parameters.insert("constraints", self.constraints.clone());
+        let kernel = gpu
+            .cache()
+            .get(gpu.context(), &constraint_source())
+            .map_err(device_error)?;
+        batch
+            .dispatch_items(&kernel, &parameters, self.face_count)
+            .map_err(device_error)?;
+        Ok(())
+    }
+
+    /// Record the constrained offset directions of a realization whose own
+    /// face normals are constraint set 0, followed by `sets - 1` sets of
+    /// other realizations.
+    pub(super) fn record_directions(
+        &self,
+        batch: &mut KernelBatch,
+        normals: &Buffer,
+        links: &Buffer,
+        sets: u32,
+        directions: &Buffer,
+    ) -> Result<()> {
+        let gpu = self.gpu;
+        let mut parameters = PassParameters::new();
+        parameters.insert("count", self.vertex_count);
+        parameters.insert("faces", self.face_count);
+        parameters.insert("sets", sets);
+        parameters.insert("pad0", 0u32);
+        parameters.insert("normals", normals.clone());
+        parameters.insert("incidence", self.incidence.clone());
+        parameters.insert("links", links.clone());
+        parameters.insert("constraints", self.constraints.clone());
+        parameters.insert("directions", directions.clone());
+        parameters.insert("status", self.status.clone());
+        let kernel = gpu
+            .cache()
+            .get(gpu.context(), &projection_source())
+            .map_err(device_error)?;
+        batch
+            .dispatch_items(&kernel, &parameters, self.vertex_count)
+            .map_err(device_error)?;
+        Ok(())
+    }
+}
+
+fn constraint_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> positions: array<f32>;
+@group(0) @binding(1) var<storage, read> faces: array<u32>;
+@group(0) @binding(2) var<storage, read_write> constraints: array<f32>;
+struct Params {{
+    count: u32,
+    first: u32,
+    pad0: u32,
+    pad1: u32,
+}};
+@group(0) @binding(3) var<uniform> params: Params;
+{vector}
+
+fn point(v: u32) -> vec3<f32> {{
+    return vec3<f32>(positions[v * 3u], positions[v * 3u + 1u], positions[v * 3u + 2u]);
+}}
+
+@compute @workgroup_size(256)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
+    let f = id.x;
+    if (f >= params.count) {{
+        return;
+    }}
+    let a = point(faces[f * 3u]);
+    let u = point(faces[f * 3u + 1u]) - a;
+    let v = point(faces[f * 3u + 2u]) - a;
+    let n = vec3<f32>(u.y * v.z - u.z * v.y, u.z * v.x - u.x * v.z, u.x * v.y - u.y * v.x);
+    let length = sqrt(dot3(n, n));
+    let slot = params.first + f * {words}u;
+    if (length > 0.0) {{
+        constraints[slot] = n.x / length;
+        constraints[slot + 1u] = n.y / length;
+        constraints[slot + 2u] = n.z / length;
+        constraints[slot + 3u] = 1.0;
+    }} else {{
+        constraints[slot + 3u] = 0.0;
+    }}
+}}
+"#,
+        vector = wgsl::VECTOR,
+        words = CONSTRAINT_WORDS,
+    ))
+}
+
+fn projection_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> normals: array<f32>;
 @group(0) @binding(1) var<storage, read> incidence: array<u32>;
@@ -249,5 +250,5 @@ fn project(realization: u32, face: u32) {{
         margin = wgsl::constant("OUTWARD_MARGIN", OUTWARD_MARGIN),
         passes = PROJECTION_PASSES,
         words = CONSTRAINT_WORDS,
-    )
+    ))
 }

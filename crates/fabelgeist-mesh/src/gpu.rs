@@ -7,6 +7,7 @@ use fabelgeist_gpu::data::{
     vector::{Vec2, Vec3},
 };
 use fabelgeist_gpu::globals::WgpuContext;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 use indexmap::IndexMap;
 #[derive(Debug, Clone, PartialEq)]
@@ -208,7 +209,8 @@ impl GpuMesh {
                     out_pos[f32_idx+2u]  = displaced_p.z;
                 }
             "#;
-            let shader = ComputeShader::new(context, shader_code.into()).unwrap();
+            let shader_code = ShaderSource::from(shader_code);
+            let shader = ComputeShader::new(context, shader_code).unwrap();
             ComputePipeline::new(context, shader).unwrap()
         });
 
