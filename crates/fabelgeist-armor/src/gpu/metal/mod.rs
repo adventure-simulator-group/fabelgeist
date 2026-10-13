@@ -11,21 +11,20 @@
 //! device shares it; [`MetalGpu::open`] opens one of its own.
 
 use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
+
+use std::sync::Arc;
+
+use fabelgeist_compute::{Kernel, KernelBatch, KernelCache};
+use fabelgeist_gpu::prelude::{
+    Buffer, BufferDefinition, PassParameters, ShaderSource, WgpuContext,
+};
+
+use crate::material::{Metal, MetalTextures};
 mod bake;
 mod finish;
 mod ornament;
 mod textures;
 mod wgsl;
-
-#[cfg(test)]
-mod tests;
-
-use std::sync::Arc;
-
-use fabelgeist_compute::{Kernel, KernelBatch, KernelCache};
-use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, PassParameters, WgpuContext};
-
-use crate::material::{Metal, MetalTextures};
 
 /// The metal kernels, compiled for one device.
 pub struct MetalGpu {
@@ -51,7 +50,8 @@ impl MetalGpu {
     /// scopes, which must not interleave with another thread's, so no bake
     /// compiles anything later.
     pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self, String> {
-        let kernel = |source: String| cache.get(context, &source).map_err(device_error);
+        let kernel =
+            |source: ShaderSource<'static>| cache.get(context, &source).map_err(device_error);
         Ok(Self {
             scratches: kernel(textures::scratches_source())?,
             engraving: kernel(textures::engraving_source())?,
@@ -124,3 +124,6 @@ impl MetalGpu {
 fn device_error(error: impl std::fmt::Display) -> String {
     format!("armor metal device: {error}")
 }
+
+#[cfg(test)]
+mod tests;

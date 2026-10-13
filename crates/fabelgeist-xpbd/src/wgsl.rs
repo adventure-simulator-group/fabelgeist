@@ -1,9 +1,11 @@
-﻿//! The WGSL every solver kernel shares.
+//! The WGSL every solver kernel shares.
 //!
 //! A constraint kernel is mostly its own geometry -- what `C` is and what its
 //! gradient is. Everything around that is the same for all of them, so it
 //! lives here as source to paste in: the particle bindings, the compliance
 //! arithmetic, and the position write-back.
+
+use fabelgeist_gpu::prelude::ShaderSource;
 
 /// Particle storage. Positions carry the inverse mass in `w`, so a constraint
 /// solve reads one buffer rather than two.
@@ -89,7 +91,8 @@ struct SolveParams {
 /// position change at the end of the substep -- which is what makes every
 /// positional correction, including a collision response, show up in the
 /// velocity for free.
-pub const PREDICT: &str = r#"
+pub const PREDICT: ShaderSource<'static> = ShaderSource::borrowed(
+    r#"
 @group(0) @binding(0) var<storage, read_write> positions: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read_write> previous: array<vec4<f32>>;
 @group(0) @binding(2) var<storage, read_write> velocities: array<vec4<f32>>;
@@ -136,10 +139,12 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
     velocities[index] = vec4<f32>(velocity, 0.0);
     positions[index] = vec4<f32>(current.xyz + velocity * params.substep, inverse_mass);
 }
-"#;
+"#,
+);
 
 /// Read velocity back out of the substep's total position change.
-pub const FINALIZE: &str = r#"
+pub const FINALIZE: ShaderSource<'static> = ShaderSource::borrowed(
+    r#"
 @group(0) @binding(0) var<storage, read> positions: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read> previous: array<vec4<f32>>;
 @group(0) @binding(2) var<storage, read_write> velocities: array<vec4<f32>>;
@@ -165,7 +170,8 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
     let delta = positions[index].xyz - previous[index].xyz;
     velocities[index] = vec4<f32>(delta / params.substep, 0.0);
 }
-"#;
+"#,
+);
 
 /// Distance constraints: the workhorse. Cloth stretch, seams and tethers are
 /// all this kernel with different rest lengths and compliances.
@@ -271,7 +277,8 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
 /// Zero the multipliers. XPBD accumulates `lambda` across the iterations of
 /// one substep and resets it at the start of the next -- that reset is what
 /// makes the compliance behave like a real stiffness rather than drifting.
-pub const CLEAR_LAMBDAS: &str = r#"
+pub const CLEAR_LAMBDAS: ShaderSource<'static> = ShaderSource::borrowed(
+    r#"
 @group(0) @binding(0) var<storage, read_write> lambdas: array<f32>;
 
 struct ClearParams {
@@ -290,12 +297,13 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
     }
     lambdas[index] = 0.0;
 }
-"#;
+"#,
+);
 
 /// Assemble a constraint kernel: the shared preamble, then the body.
 ///
 /// The body declares its own bindings from 1 upwards -- binding 0 is always
 /// the particle buffer -- and its own `main`.
-pub fn constraint_kernel(body: &str) -> String {
-    format!("{PARTICLES}\n{SOLVE}\n{PARAMS}\n{body}")
+pub fn constraint_kernel(body: &str) -> ShaderSource<'static> {
+    ShaderSource::from(format!("{PARTICLES}\n{SOLVE}\n{PARAMS}\n{body}"))
 }

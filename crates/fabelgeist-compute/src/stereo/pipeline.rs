@@ -9,6 +9,7 @@ use fabelgeist_gpu::data::matrix::Mat4;
 use fabelgeist_gpu::data::vector::Vec4;
 use fabelgeist_gpu::globals::WgpuContext;
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::ShaderSource;
 
 /// A 4x4 rigid transform, by rows.
 pub type Matrix4 = [[f32; 4]; 4];
@@ -34,16 +35,6 @@ pub struct TriangulationSettings {
     pub min_disparity: f32,
 }
 
-impl Default for TriangulationSettings {
-    fn default() -> Self {
-        Self {
-            max_disparity: 192,
-            max_range: 1000.0,
-            min_disparity: 0.05,
-        }
-    }
-}
-
 /// How the temporal filter trusts its history.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct TemporalSettings {
@@ -56,55 +47,10 @@ pub struct TemporalSettings {
     pub max_age: f32,
 }
 
-impl Default for TemporalSettings {
-    fn default() -> Self {
-        Self {
-            tolerance: 1.5,
-            decay: 0.85,
-            max_age: 8.0,
-        }
-    }
-}
-
-/// A stage of the pipeline, in the order they run.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub enum Stage {
-    Depth,
-    Temporal,
-    Unrectify,
-}
-
-impl Stage {
-    pub const ALL: [Self; 3] = [Self::Depth, Self::Temporal, Self::Unrectify];
-
-    pub fn label(self) -> &'static str {
-        match self {
-            Self::Depth => "triangulate",
-            Self::Temporal => "temporal",
-            Self::Unrectify => "unrectify",
-        }
-    }
-}
-
 struct Kernels {
     depth: Kernel,
     temporal: Kernel,
     unrectify: Kernel,
-}
-
-impl Kernels {
-    fn new(context: &WgpuContext) -> Result<Self> {
-        let with_rays = |source: &str| format!("{COMMON}\n{source}");
-        let compile = |name: &str, code: String| {
-            Kernel::new(context, code)
-                .map_err(|error| anyhow!("compiling the {name} kernel: {error:#}"))
-        };
-        Ok(Self {
-            depth: compile("depth", with_rays(include_str!("depth.wgsl")))?,
-            temporal: compile("temporal", with_rays(include_str!("temporal.wgsl")))?,
-            unrectify: compile("unrectify", with_rays(include_str!("unrectify.wgsl")))?,
-        })
-    }
 }
 
 /// Depth resampled onto each eye's own picture.
@@ -140,50 +86,59 @@ pub struct StereoDepth {
     frames: u64,
 }
 
-fn storage(context: &WgpuContext, label: &str, bytes: u64) -> Result<Buffer> {
-    Buffer::new(
-        context,
-        (bytes.max(4)).into(),
-        BufferDefinition::storage().with_label((label).into()),
-    )
+/// A stage of the pipeline, in the order they run.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum Stage {
+    Depth,
+    Temporal,
+    Unrectify,
 }
 
-fn mat4_rows(rows: &Matrix4) -> Mat4 {
-    let mut columns = [[0.0; 4]; 4];
-    for (r, row) in rows.iter().enumerate() {
-        for (c, value) in row.iter().enumerate() {
-            columns[c][r] = *value;
+impl Default for TriangulationSettings {
+    fn default() -> Self {
+        Self {
+            max_disparity: 192,
+            max_range: 1000.0,
+            min_disparity: 0.05,
         }
     }
-    Mat4 { columns }
 }
 
-fn mat4_rotation(m: &Matrix3) -> Mat4 {
-    let mut rows = STILL;
-    for r in 0..3 {
-        for c in 0..3 {
-            rows[r][c] = m[r][c];
+impl Default for TemporalSettings {
+    fn default() -> Self {
+        Self {
+            tolerance: 1.5,
+            decay: 0.85,
+            max_age: 8.0,
         }
     }
-    mat4_rows(&rows)
 }
 
-/// The inverse of a rigid transform.
-pub fn invert_rigid(m: &Matrix4) -> Matrix4 {
-    let mut out = STILL;
-    for r in 0..3 {
-        for c in 0..3 {
-            out[r][c] = m[c][r];
+impl Stage {
+    pub const ALL: [Self; 3] = [Self::Depth, Self::Temporal, Self::Unrectify];
+
+    pub fn label(self) -> &'static str {
+        match self {
+            Self::Depth => "triangulate",
+            Self::Temporal => "temporal",
+            Self::Unrectify => "unrectify",
         }
     }
-    for row in &mut out[..3] {
-        row[3] = -(0..3).map(|c| row[c] * m[c][3]).sum::<f32>();
-    }
-    out
 }
 
-fn vec4(v: [f32; 4]) -> PassParameter {
-    PassParameter::Vec4(Vec4::new(v[0], v[1], v[2], v[3]))
+impl Kernels {
+    fn new(context: &WgpuContext) -> Result<Self> {
+        let with_rays = |source: &str| ShaderSource::from(format!("{COMMON}\n{source}"));
+        let compile = |name: &str, code: ShaderSource<'static>| {
+            Kernel::new(context, code)
+                .map_err(|error| anyhow!("compiling the {name} kernel: {error:#}"))
+        };
+        Ok(Self {
+            depth: compile("depth", with_rays(include_str!("depth.wgsl")))?,
+            temporal: compile("temporal", with_rays(include_str!("temporal.wgsl")))?,
+            unrectify: compile("unrectify", with_rays(include_str!("unrectify.wgsl")))?,
+        })
+    }
 }
 
 impl StereoDepth {
@@ -577,4 +532,50 @@ impl StereoDepth {
     pub fn view_distance(&self, eye: usize) -> Option<&Buffer> {
         self.views.as_ref().map(|views| &views.distance[eye.min(1)])
     }
+}
+
+/// The inverse of a rigid transform.
+pub fn invert_rigid(m: &Matrix4) -> Matrix4 {
+    let mut out = STILL;
+    for r in 0..3 {
+        for c in 0..3 {
+            out[r][c] = m[c][r];
+        }
+    }
+    for row in &mut out[..3] {
+        row[3] = -(0..3).map(|c| row[c] * m[c][3]).sum::<f32>();
+    }
+    out
+}
+
+fn storage(context: &WgpuContext, label: &str, bytes: u64) -> Result<Buffer> {
+    Buffer::new(
+        context,
+        (bytes.max(4)).into(),
+        BufferDefinition::storage().with_label((label).into()),
+    )
+}
+
+fn mat4_rows(rows: &Matrix4) -> Mat4 {
+    let mut columns = [[0.0; 4]; 4];
+    for (r, row) in rows.iter().enumerate() {
+        for (c, value) in row.iter().enumerate() {
+            columns[c][r] = *value;
+        }
+    }
+    Mat4 { columns }
+}
+
+fn mat4_rotation(m: &Matrix3) -> Mat4 {
+    let mut rows = STILL;
+    for r in 0..3 {
+        for c in 0..3 {
+            rows[r][c] = m[r][c];
+        }
+    }
+    mat4_rows(&rows)
+}
+
+fn vec4(v: [f32; 4]) -> PassParameter {
+    PassParameter::Vec4(Vec4::new(v[0], v[1], v[2], v[3]))
 }

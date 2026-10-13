@@ -56,14 +56,13 @@ impl Kernel {
     /// Compile WGSL into a kernel. The source is ordinary WGSL with explicit
     /// `@group(0) @binding(n)` declarations; the binding *names* are what a
     /// dispatch matches its parameters against.
-    pub fn new(context: &WgpuContext, code: impl Into<String>) -> Result<Self> {
+    pub fn new(context: &WgpuContext, code: ShaderSource<'_>) -> Result<Self> {
         // Shader and pipeline creation read back validation error scopes,
         // which interleave badly when two threads compile at once.
         static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
         let _compiling = COMPILING
             .lock()
             .unwrap_or_else(|poisoned| poisoned.into_inner());
-        let code = code.into();
 
         let module =
             fabelgeist_gpu::data::gpu::shader::parse_naga(&code, wgpu::naga::ShaderStage::Compute)?;
@@ -90,7 +89,7 @@ impl Kernel {
             .as_ref()
             .zip(pipeline.reflection.as_ref())
             .and_then(|(module, reflection)| {
-                fast::FastPath::new(context, &code, module, &entry_point, reflection)
+                fast::FastPath::new(context, module, &entry_point, reflection)
             });
 
         Ok(Self {
@@ -138,7 +137,7 @@ impl Kernel {
 /// than once per call is the difference between a stutter and a steady frame.
 #[derive(Clone, Debug, Default)]
 pub struct KernelCache {
-    kernels: Arc<RwLock<HashMap<String, Arc<Kernel>>>>,
+    kernels: Arc<RwLock<HashMap<ShaderSource<'static>, Arc<Kernel>>>>,
 }
 
 impl KernelCache {
@@ -146,20 +145,23 @@ impl KernelCache {
         Self::default()
     }
 
-    pub fn get(&self, context: &WgpuContext, code: &str) -> Result<Arc<Kernel>> {
-        if let Some(kernel) = self.kernels.read().unwrap().get(code) {
+    pub fn get(&self, context: &WgpuContext, code: &ShaderSource<'_>) -> Result<Arc<Kernel>> {
+        if let Some(kernel) = self.kernels.read().unwrap().get(code.as_str()) {
             return Ok(kernel.clone());
         }
 
         // Compiled outside the write lock: a shader compile is slow, and
         // holding the lock across it would serialise every other kernel's
         // first use behind this one.
-        let kernel = Arc::new(Kernel::new(context, code)?);
+        let kernel = Arc::new(Kernel::new(context, code.clone())?);
 
         let mut kernels = self.kernels.write().unwrap();
         // A racing caller may have inserted the same source in the meantime;
         // keep theirs, so that every holder of this source shares one pipeline.
-        Ok(kernels.entry(code.to_string()).or_insert(kernel).clone())
+        Ok(kernels
+            .entry(code.clone().into_owned())
+            .or_insert(kernel)
+            .clone())
     }
 
     pub fn len(&self) -> usize {
@@ -328,7 +330,8 @@ mod context_tests {
 fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     if (id.x < arrayLength(&values)) { values[id.x] = values[id.x] * 2.0; }
 }
-"#,
+"#
+            .into(),
         )?;
         assert_eq!(kernel.workgroup_size, [64, 1, 1]);
         Ok(())

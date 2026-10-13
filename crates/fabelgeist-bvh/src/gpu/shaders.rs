@@ -21,6 +21,8 @@
 //! * `primitive_bounds: array<vec4<f32>>` -- two entries per primitive, lower
 //!   then upper.
 
+use fabelgeist_gpu::prelude::ShaderSource;
+
 /// Encode/decode between `f32` and a `u32` that compares the same way, so that
 /// `atomicMin`/`atomicMax` can reduce floats. WGSL has no atomic float.
 ///
@@ -70,9 +72,52 @@ struct Params {
 };
 "#;
 
+/// How a generated traversal names the buffers it reads and the function it
+/// calls back into.
+///
+/// The defaults match what [`super::GpuBvh::parameters`] binds, so a kernel
+/// that takes the BVH as-is only needs to set `callback`.
+#[derive(Clone, Debug)]
+pub struct TraversalConfig {
+    /// Name of the `fn (primitive: u32)` the traversal calls per hit. It must
+    /// be declared before the generated source.
+    pub callback: String,
+    pub nodes: String,
+    pub right_children: String,
+    pub indices: String,
+    /// Prefix on the generated function names, so that one kernel can
+    /// traverse two different hierarchies.
+    pub prefix: String,
+    /// Traversal stack depth. A Morton hierarchy over duplicate-heavy input
+    /// can get deep, so this is generous by default.
+    pub stack_size: u32,
+}
+
+impl Default for TraversalConfig {
+    fn default() -> Self {
+        Self {
+            callback: "bvh_hit".into(),
+            nodes: "bvh_nodes".into(),
+            right_children: "bvh_right_children".into(),
+            indices: "bvh_indices".into(),
+            prefix: "bvh".into(),
+            stack_size: 64,
+        }
+    }
+}
+
+impl TraversalConfig {
+    pub fn with_callback(callback: impl Into<String>) -> Self {
+        Self {
+            callback: callback.into(),
+            ..Default::default()
+        }
+    }
+}
+
 /// Reduce every primitive's box into the six words of the scene bounds.
-pub fn bounds_source() -> String {
-    format!(
+pub fn bounds_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> primitive_bounds: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read_write> scene_bounds: array<atomic<u32>>;
@@ -97,12 +142,12 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     atomicMax(&scene_bounds[5], ordered_from_float(upper.z));
 }}
 "#
-    )
+    ))
 }
 
 /// A Morton code per primitive, from its centroid's position in the scene box.
-pub fn codes_source() -> String {
-    format!(
+pub fn codes_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> primitive_bounds: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read> scene_bounds: array<u32>;
@@ -145,7 +190,7 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     indices[index] = index;
 }}
 "#
-    )
+    ))
 }
 
 /// Karras's hierarchy: `count - 1` internal nodes, each deriving its own range
@@ -153,8 +198,8 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
 ///
 /// Internal nodes are `0 .. count-1`; leaves are `count-1 .. 2*count-1`, with
 /// leaf `i` holding sorted primitive `i`.
-pub fn hierarchy_source() -> String {
-    format!(
+pub fn hierarchy_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> codes: array<u32>;
 @group(0) @binding(1) var<storage, read_write> nodes: array<vec4<f32>>;
@@ -244,12 +289,12 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     parents[right] = i;
 }}
 "#
-    )
+    ))
 }
 
 /// Reset every node's bounds to the empty box, ready for the push-up.
-pub fn clear_bounds_source() -> String {
-    format!(
+pub fn clear_bounds_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read_write> node_bounds: array<atomic<u32>>;
 {PARAMS}
@@ -274,7 +319,7 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     atomicStore(&node_bounds[index * 6u + 5u], empty_high);
 }}
 "#
-    )
+    ))
 }
 
 /// Bottom-up refit, done by having each leaf push its own box into every
@@ -289,8 +334,8 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
 /// order they arrive in -- so it is correct by construction. The cost is
 /// `leaves x depth` atomic operations, which for the tens of thousands of
 /// primitives here is nothing next to a shader launch.
-pub fn refit_source() -> String {
-    format!(
+pub fn refit_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> primitive_bounds: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read> indices: array<u32>;
@@ -339,13 +384,13 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     }}
 }}
 "#
-    )
+    ))
 }
 
 /// Copy the atomically-reduced bounds into the node array, leaving the child
 /// and count lanes alone.
-pub fn gather_bounds_source() -> String {
-    format!(
+pub fn gather_bounds_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> node_bounds: array<u32>;
 @group(0) @binding(1) var<storage, read_write> nodes: array<vec4<f32>>;
@@ -384,50 +429,7 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     }}
 }}
 "#
-    )
-}
-
-/// How a generated traversal names the buffers it reads and the function it
-/// calls back into.
-///
-/// The defaults match what [`super::GpuBvh::parameters`] binds, so a kernel
-/// that takes the BVH as-is only needs to set `callback`.
-#[derive(Clone, Debug)]
-pub struct TraversalConfig {
-    /// Name of the `fn (primitive: u32)` the traversal calls per hit. It must
-    /// be declared before the generated source.
-    pub callback: String,
-    pub nodes: String,
-    pub right_children: String,
-    pub indices: String,
-    /// Prefix on the generated function names, so that one kernel can
-    /// traverse two different hierarchies.
-    pub prefix: String,
-    /// Traversal stack depth. A Morton hierarchy over duplicate-heavy input
-    /// can get deep, so this is generous by default.
-    pub stack_size: u32,
-}
-
-impl Default for TraversalConfig {
-    fn default() -> Self {
-        Self {
-            callback: "bvh_hit".into(),
-            nodes: "bvh_nodes".into(),
-            right_children: "bvh_right_children".into(),
-            indices: "bvh_indices".into(),
-            prefix: "bvh".into(),
-            stack_size: 64,
-        }
-    }
-}
-
-impl TraversalConfig {
-    pub fn with_callback(callback: impl Into<String>) -> Self {
-        Self {
-            callback: callback.into(),
-            ..Default::default()
-        }
-    }
+    ))
 }
 
 /// WGSL for walking the hierarchy from inside another kernel.

@@ -15,14 +15,13 @@
 //! geometry as the mesh deforms, so a full [`GpuBvh::record_build`] is still
 //! worth doing periodically.
 
-pub mod shaders;
-
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 
 pub use shaders::{TraversalConfig, traversal_source};
 
 use crate::morton;
+pub mod shaders;
 
 /// Bytes per node: two `vec4<f32>`.
 const NODE_BYTES: u64 = 32;
@@ -39,24 +38,6 @@ pub struct BvhKernels {
     refit: std::sync::Arc<Kernel>,
     gather_bounds: std::sync::Arc<Kernel>,
     sort: RadixSort,
-}
-
-impl BvhKernels {
-    pub fn new(context: &WgpuContext) -> Result<Self> {
-        Self::with_cache(context, &KernelCache::new())
-    }
-
-    pub fn with_cache(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
-        Ok(Self {
-            bounds: cache.get(context, &shaders::bounds_source())?,
-            codes: cache.get(context, &shaders::codes_source())?,
-            hierarchy: cache.get(context, &shaders::hierarchy_source())?,
-            clear_bounds: cache.get(context, &shaders::clear_bounds_source())?,
-            refit: cache.get(context, &shaders::refit_source())?,
-            gather_bounds: cache.get(context, &shaders::gather_bounds_source())?,
-            sort: RadixSort::with_cache(context, cache)?,
-        })
-    }
 }
 
 /// A hierarchy over `count` primitives, and every buffer the build needs.
@@ -84,6 +65,34 @@ pub struct GpuBvh {
 
     capacity: u32,
     count: u32,
+}
+
+/// A node read back to the host, for tests and debugging.
+#[derive(Clone, Copy, Debug)]
+pub struct HostNode {
+    pub bounds: crate::Aabb,
+    /// Left child for an internal node; slot in `indices` for a leaf.
+    pub left_or_first: u32,
+    /// Zero for an internal node, one for a leaf.
+    pub count: u32,
+}
+
+impl BvhKernels {
+    pub fn new(context: &WgpuContext) -> Result<Self> {
+        Self::with_cache(context, &KernelCache::new())
+    }
+
+    pub fn with_cache(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
+        Ok(Self {
+            bounds: cache.get(context, &shaders::bounds_source())?,
+            codes: cache.get(context, &shaders::codes_source())?,
+            hierarchy: cache.get(context, &shaders::hierarchy_source())?,
+            clear_bounds: cache.get(context, &shaders::clear_bounds_source())?,
+            refit: cache.get(context, &shaders::refit_source())?,
+            gather_bounds: cache.get(context, &shaders::gather_bounds_source())?,
+            sort: RadixSort::with_cache(context, cache)?,
+        })
+    }
 }
 
 impl GpuBvh {
@@ -343,16 +352,6 @@ impl GpuBvh {
         let all: Vec<u32> = self.right_children.read(context).await?;
         Ok(all[..self.count.saturating_sub(1) as usize].to_vec())
     }
-}
-
-/// A node read back to the host, for tests and debugging.
-#[derive(Clone, Copy, Debug)]
-pub struct HostNode {
-    pub bounds: crate::Aabb,
-    /// Left child for an internal node; slot in `indices` for a leaf.
-    pub left_or_first: u32,
-    /// Zero for an internal node, one for a leaf.
-    pub count: u32,
 }
 
 impl HostNode {

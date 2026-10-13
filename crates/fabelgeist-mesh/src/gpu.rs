@@ -7,6 +7,7 @@ use fabelgeist_gpu::data::{
     vector::{Vec2, Vec3},
 };
 use fabelgeist_gpu::globals::WgpuContext;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 use indexmap::IndexMap;
 #[derive(Debug, Clone, PartialEq)]
@@ -152,7 +153,7 @@ impl GpuMesh {
         )?;
 
         let pipeline = DISPLACEMENT_PIPELINE.get_or_init(|| {
-            let shader_code = r#"
+            let source: ShaderSource<'static> = r#"
                 struct Params {
                     projection:     mat4x4<f32>,
                     inv_projection: mat4x4<f32>,
@@ -207,9 +208,9 @@ impl GpuMesh {
                     out_pos[f32_idx+1u]  = displaced_p.y;
                     out_pos[f32_idx+2u]  = displaced_p.z;
                 }
-            "#;
-            let shader = ComputeShader::new(context, shader_code.to_string()).unwrap();
-            ComputePipeline::new(context, shader).unwrap()
+            "#
+            .into();
+            ComputePipeline::new(context, ComputeShader::new(context, source).unwrap()).unwrap()
         });
 
         let buf = |core: Buffer| PassParameter::from(core);

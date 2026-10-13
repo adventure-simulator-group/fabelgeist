@@ -9,6 +9,8 @@ pub struct ScanDefinition {
     pub cache: Arc<RwLock<Option<(ComputePipeline, ComputePipeline, String)>>>,
 }
 
+pub struct Scan;
+
 impl Default for ScanDefinition {
     fn default() -> Self {
         Self {
@@ -51,7 +53,7 @@ impl ScanDefinition {
         let block_size = 256;
 
         // Pass 1: Local Scan & Block Sums
-        let scan_blocks_code = format!(
+        let scan_blocks_code = ShaderSource::from(format!(
             r#"@group(0) @binding(0) var<storage, read> input: array<{ty}>;
 @group(0) @binding(1) var<storage, read_write> output: array<{ty}>;
 @group(0) @binding(2) var<storage, read_write> aux: array<{ty}>;
@@ -105,10 +107,10 @@ fn main(
             ty = ty,
             code = self.code,
             block_size = block_size
-        );
+        ));
 
         // Pass 3: Add Block Sums to Output
-        let add_aux_code = format!(
+        let add_aux_code = ShaderSource::from(format!(
             r#"@group(0) @binding(0) var<storage, read_write> output: array<{ty}>;
 @group(0) @binding(1) var<storage, read> aux: array<{ty}>;
 
@@ -129,7 +131,7 @@ fn main(
             ty = ty,
             code = self.code,
             block_size = block_size
-        );
+        ));
 
         let scan_blocks_shader = ComputeShader::new(context, scan_blocks_code)?;
         let add_aux_shader = ComputeShader::new(context, add_aux_code)?;
@@ -143,8 +145,6 @@ fn main(
         Ok(res)
     }
 }
-
-pub struct Scan;
 
 impl Scan {
     pub fn execute(

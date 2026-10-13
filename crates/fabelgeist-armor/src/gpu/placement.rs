@@ -10,6 +10,7 @@
 //! every step with exact device arithmetic ([`host_float`]), before the final
 //! normals are taken.
 
+use fabelgeist_gpu::prelude::ShaderSource;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
@@ -60,7 +61,7 @@ pub(crate) fn record(
 }
 
 fn kernel(gpu: &ArmorGpu) -> Result<Arc<Kernel>, GenerateError> {
-    let source = format!(
+    let source = ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> frames: array<f32>;
 @group(0) @binding(1) var<storage, read_write> positions: array<f32>;
@@ -134,7 +135,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         status_code = wgsl::STATUS,
         positions = wgsl::points("positions"),
         hinge_words = HINGE_WORDS,
-    );
+    ));
     gpu.cache()
         .get(gpu.context(), &source)
         .map_err(device_error)

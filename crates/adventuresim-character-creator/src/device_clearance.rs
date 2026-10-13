@@ -15,9 +15,9 @@ use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::{DeviceFrame, DeviceWearer};
+use wgsl::{FIT, SECTIONS, fit_source, support_source};
 
 mod wgsl;
-use wgsl::{FIT, SECTIONS, fit_source, support_source};
 
 const STATIONS: u32 = 13;
 const STATION_HALF_WIDTH_M: f32 = 0.024;
@@ -28,6 +28,18 @@ const FIT_MARGIN_M: f32 = 0.004;
 const STATION_CAPACITY: u32 = 8192;
 /// Floats per measured section: centre, then 64 radii.
 const SECTION_WORDS: u32 = 66;
+
+/// A clearance fit recorded against a part's carriers.
+pub struct ClearanceFit<'a> {
+    pub region: FitRegion,
+    pub clearance: f32,
+    pub thickness: f32,
+    pub style: PlateFit<'a>,
+    /// Carriers to fit: the first `count` of the arena. The first `cuff` of
+    /// them take the mitten's extra cuff room.
+    pub count: u32,
+    pub cuff: u32,
+}
 
 /// The anatomical fit and style allowance of a plate, separate from any
 /// embossed relief.
@@ -40,68 +52,6 @@ pub enum PlateFit<'a> {
         cuff_length: f32,
         cuff_clearance: Millimeters,
     },
-}
-
-/// Style codes and floats the fit kernel reads.
-fn style_words(style: PlateFit<'_>) -> (u32, [f32; 8]) {
-    match style {
-        PlateFit::Greave(d) => (0, greave_words(d)),
-        PlateFit::Cuisse(d) => (1, [d.knee_taper.unit(), -1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
-        PlateFit::Rerebrace(d) => (
-            2,
-            [
-                d.distal_taper.unit(),
-                -1.0,
-                1.0,
-                d.section_depth.unit(),
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-            ],
-        ),
-        PlateFit::Mitten {
-            cuff_length,
-            cuff_clearance,
-        } => (
-            3,
-            [
-                cuff_clearance.metres(),
-                -1.0,
-                0.94 + 2.0 * cuff_length,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-            ],
-        ),
-    }
-}
-
-fn greave_words(d: &GreaveDesign) -> [f32; 8] {
-    [
-        d.calf_height.unit(),
-        -1.0,
-        1.0,
-        d.ankle_taper.unit(),
-        d.knee_taper.unit(),
-        d.ankle_extension.metres(),
-        0.0,
-        0.0,
-    ]
-}
-
-/// A clearance fit recorded against a part's carriers.
-pub struct ClearanceFit<'a> {
-    pub region: FitRegion,
-    pub clearance: f32,
-    pub thickness: f32,
-    pub style: PlateFit<'a>,
-    /// Carriers to fit: the first `count` of the arena. The first `cuff` of
-    /// them take the mitten's extra cuff room.
-    pub count: u32,
-    pub cuff: u32,
 }
 
 impl DeviceWearer<'_> {
@@ -212,4 +162,54 @@ impl DeviceWearer<'_> {
             .map_err(device_error)?;
         Ok(())
     }
+}
+
+/// Style codes and floats the fit kernel reads.
+fn style_words(style: PlateFit<'_>) -> (u32, [f32; 8]) {
+    match style {
+        PlateFit::Greave(d) => (0, greave_words(d)),
+        PlateFit::Cuisse(d) => (1, [d.knee_taper.unit(), -1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
+        PlateFit::Rerebrace(d) => (
+            2,
+            [
+                d.distal_taper.unit(),
+                -1.0,
+                1.0,
+                d.section_depth.unit(),
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+            ],
+        ),
+        PlateFit::Mitten {
+            cuff_length,
+            cuff_clearance,
+        } => (
+            3,
+            [
+                cuff_clearance.metres(),
+                -1.0,
+                0.94 + 2.0 * cuff_length,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+            ],
+        ),
+    }
+}
+
+fn greave_words(d: &GreaveDesign) -> [f32; 8] {
+    [
+        d.calf_height.unit(),
+        -1.0,
+        1.0,
+        d.ankle_taper.unit(),
+        d.knee_taper.unit(),
+        d.ankle_extension.metres(),
+        0.0,
+        0.0,
+    ]
 }

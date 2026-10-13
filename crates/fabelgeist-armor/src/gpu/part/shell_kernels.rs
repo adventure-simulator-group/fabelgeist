@@ -2,6 +2,7 @@
 //! reflected shells, offsetting the relief and inner walls along each
 //! shell's extrusion, and assembling the final vertices from the walls.
 
+use fabelgeist_gpu::prelude::ShaderSource;
 use std::sync::Arc;
 
 use fabelgeist_compute::Kernel;
@@ -10,62 +11,6 @@ use super::super::shell_plan::INNER_BIT;
 use super::super::{ArmorGpu, device_error, wgsl};
 use super::{Extrusion, SHELL_MIRRORED, SHELL_WORDS};
 use crate::GenerateError;
-
-pub(super) struct ShellKernels {
-    pub winding: Arc<Kernel>,
-    pub walls: Arc<Kernel>,
-    pub assemble: Arc<Kernel>,
-}
-
-impl ShellKernels {
-    pub(super) fn get(gpu: &ArmorGpu) -> Result<Self, GenerateError> {
-        Ok(Self {
-            winding: gpu
-                .cache()
-                .get(gpu.context(), &winding_source())
-                .map_err(device_error)?,
-            walls: gpu
-                .cache()
-                .get(gpu.context(), &walls_source())
-                .map_err(device_error)?,
-            assemble: gpu
-                .cache()
-                .get(gpu.context(), &assemble_source())
-                .map_err(device_error)?,
-        })
-    }
-}
-
-/// Triangles of reflected shells turn over, so that they face outward again.
-fn winding_source() -> String {
-    let counted = wgsl::COUNTED;
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> authored: array<u32>;
-@group(0) @binding(1) var<storage, read> triangle_shells: array<u32>;
-@group(0) @binding(2) var<storage, read> shells: array<f32>;
-@group(0) @binding(3) var<storage, read_write> wound: array<u32>;
-{counted}
-@group(0) @binding(4) var<uniform> params: Params;
-
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
-    let t = id.x;
-    if (t >= params.count) {{
-        return;
-    }}
-    let flag = shells[triangle_shells[t] * {SHELL_WORDS}u + {SHELL_MIRRORED}u];
-    let mirrored = bitcast<u32>(flag) != 0u;
-    let a = authored[t * 3u];
-    let b = authored[t * 3u + 1u];
-    let c = authored[t * 3u + 2u];
-    wound[t * 3u] = a;
-    wound[t * 3u + 1u] = select(b, c, mirrored);
-    wound[t * 3u + 2u] = select(c, b, mirrored);
-}}
-"#
-    )
-}
 
 /// How far a point moves per unit of thickness, by the shell's extrusion kind.
 const EXTRUSION_OFFSET: &str = r#"
@@ -120,9 +65,65 @@ fn extrusion_offset(
 
 "#;
 
+pub(super) struct ShellKernels {
+    pub winding: Arc<Kernel>,
+    pub walls: Arc<Kernel>,
+    pub assemble: Arc<Kernel>,
+}
+
+impl ShellKernels {
+    pub(super) fn get(gpu: &ArmorGpu) -> Result<Self, GenerateError> {
+        Ok(Self {
+            winding: gpu
+                .cache()
+                .get(gpu.context(), &winding_source())
+                .map_err(device_error)?,
+            walls: gpu
+                .cache()
+                .get(gpu.context(), &walls_source())
+                .map_err(device_error)?,
+            assemble: gpu
+                .cache()
+                .get(gpu.context(), &assemble_source())
+                .map_err(device_error)?,
+        })
+    }
+}
+
+/// Triangles of reflected shells turn over, so that they face outward again.
+fn winding_source() -> ShaderSource<'static> {
+    let counted = wgsl::COUNTED;
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> authored: array<u32>;
+@group(0) @binding(1) var<storage, read> triangle_shells: array<u32>;
+@group(0) @binding(2) var<storage, read> shells: array<f32>;
+@group(0) @binding(3) var<storage, read_write> wound: array<u32>;
+{counted}
+@group(0) @binding(4) var<uniform> params: Params;
+
+@compute @workgroup_size(256)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
+    let t = id.x;
+    if (t >= params.count) {{
+        return;
+    }}
+    let flag = shells[triangle_shells[t] * {SHELL_WORDS}u + {SHELL_MIRRORED}u];
+    let mirrored = bitcast<u32>(flag) != 0u;
+    let a = authored[t * 3u];
+    let b = authored[t * 3u + 1u];
+    let c = authored[t * 3u + 2u];
+    wound[t * 3u] = a;
+    wound[t * 3u + 1u] = select(b, c, mirrored);
+    wound[t * 3u + 2u] = select(c, b, mirrored);
+}}
+"#
+    ))
+}
+
 /// Relief along the extrusion, then the inner wall a gauge further in.
-fn walls_source() -> String {
-    format!(
+fn walls_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> carriers: array<f32>;
 @group(0) @binding(1) var<storage, read> heights: array<f32>;
@@ -180,12 +181,12 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         capped_axis = Extrusion::CappedAxis.code(),
         along = Extrusion::Along.code(),
         radial = Extrusion::Radial.code(),
-    )
+    ))
 }
 
 /// Every final vertex is a copy of an outer or inner wall vertex.
-fn assemble_source() -> String {
-    format!(
+fn assemble_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> sources: array<u32>;
 @group(0) @binding(1) var<storage, read> walls: array<f32>;
@@ -219,5 +220,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         walls = wgsl::read_points("walls"),
         positions = wgsl::points("positions"),
         inner_bit = INNER_BIT,
-    )
+    ))
 }

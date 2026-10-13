@@ -5,6 +5,8 @@
 //! position moved here becomes a velocity change for free when the substep
 //! finalises, which is why there is no impulse arithmetic anywhere.
 
+use fabelgeist_gpu::prelude::ShaderSource;
+
 /// Signed distance to each analytic shape, and the outward direction. Mirrors
 /// `Collider::signed_distance` on the host.
 pub const SHAPES: &str = r#"
@@ -139,13 +141,46 @@ fn collision_response(
 }
 "#;
 
+/// Triangle bounds for the mesh BVH, expanded by the collision shell so that a
+/// query for a point in the shell does not have to expand its own box.
+pub const TRIANGLE_BOUNDS: ShaderSource<'static> = ShaderSource::borrowed(
+    r#"
+@group(0) @binding(0) var<storage, read> mesh_positions: array<vec4<f32>>;
+@group(0) @binding(1) var<storage, read> mesh_triangles: array<u32>;
+@group(0) @binding(2) var<storage, read_write> primitive_bounds: array<vec4<f32>>;
+
+struct Params {
+    count: u32,
+    margin: f32,
+    pad0: u32,
+    pad1: u32,
+};
+@group(0) @binding(3) var<uniform> params: Params;
+
+@compute @workgroup_size(256)
+fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
+    let index = global_id.x;
+    if (index >= params.count) {
+        return;
+    }
+    let a = mesh_positions[mesh_triangles[index * 3u]].xyz;
+    let b = mesh_positions[mesh_triangles[index * 3u + 1u]].xyz;
+    let c = mesh_positions[mesh_triangles[index * 3u + 2u]].xyz;
+
+    let margin = vec3<f32>(params.margin);
+    primitive_bounds[index * 2u] = vec4<f32>(min(a, min(b, c)) - margin, 0.0);
+    primitive_bounds[index * 2u + 1u] = vec4<f32>(max(a, max(b, c)) + margin, 0.0);
+}
+"#,
+);
+
 /// Resolve every particle against every analytic collider.
 ///
 /// One thread per particle, looping over the colliders. There is no broad
 /// phase because there is nothing to gain from one: the list is a handful of
 /// shapes, and reading it is cheaper than culling it.
-pub fn analytic_source() -> String {
-    format!(
+pub fn analytic_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read_write> positions: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read> previous: array<vec4<f32>>;
@@ -193,7 +228,7 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     positions[index] = vec4<f32>(position, entry.w);
 }}
 "#
-    )
+    ))
 }
 
 /// Resolve every particle against a triangle mesh, through the mesh's own BVH.
@@ -202,8 +237,8 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
 /// which calls back into `bvh_hit` for every candidate triangle. WGSL has no
 /// closures, so the callback keeps its result in module-scope `var`s -- the
 /// kernel is one particle per thread, so there is nothing to share them with.
-pub fn mesh_source(traversal: &str) -> String {
-    format!(
+pub fn mesh_source(traversal: &str) -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read_write> positions: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read> previous: array<vec4<f32>>;
@@ -378,36 +413,5 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     positions[index] = vec4<f32>(position + correction, entry.w);
 }}
 "#
-    )
+    ))
 }
-
-/// Triangle bounds for the mesh BVH, expanded by the collision shell so that a
-/// query for a point in the shell does not have to expand its own box.
-pub const TRIANGLE_BOUNDS: &str = r#"
-@group(0) @binding(0) var<storage, read> mesh_positions: array<vec4<f32>>;
-@group(0) @binding(1) var<storage, read> mesh_triangles: array<u32>;
-@group(0) @binding(2) var<storage, read_write> primitive_bounds: array<vec4<f32>>;
-
-struct Params {
-    count: u32,
-    margin: f32,
-    pad0: u32,
-    pad1: u32,
-};
-@group(0) @binding(3) var<uniform> params: Params;
-
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
-    let index = global_id.x;
-    if (index >= params.count) {
-        return;
-    }
-    let a = mesh_positions[mesh_triangles[index * 3u]].xyz;
-    let b = mesh_positions[mesh_triangles[index * 3u + 1u]].xyz;
-    let c = mesh_positions[mesh_triangles[index * 3u + 2u]].xyz;
-
-    let margin = vec3<f32>(params.margin);
-    primitive_bounds[index * 2u] = vec4<f32>(min(a, min(b, c)) - margin, 0.0);
-    primitive_bounds[index * 2u + 1u] = vec4<f32>(max(a, max(b, c)) + margin, 0.0);
-}
-"#;

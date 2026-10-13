@@ -18,194 +18,12 @@ use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::BufferUse;
 use std::sync::Arc;
 
-/// How a triangle's normal counts toward the normal of each of its vertices.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum NormalWeighting {
-    /// By triangle area: the unnormalised face normal is summed.
-    Area,
-    /// By the corner's angle: the unit face normal times the corner angle.
-    /// Independent of how finely the surface around a crease is split.
-    Angle,
-}
-
 /// Set in [`VertexNormals::status`] when a triangle has no usable normal.
 pub const DEGENERATE_TRIANGLE: u32 = 1;
 /// Set when a vertex's summed normal vanishes, or it belongs to no triangle.
 pub const VANISHED_NORMAL: u32 = 2;
 
 const WORKGROUP: u32 = 256;
-
-fn corners_code(weighting: NormalWeighting) -> String {
-    let contribution = match weighting {
-        NormalWeighting::Area => {
-            r#"
-    // Weighting must not change whether a face has a usable direction.
-    // Validate with the same normalization check as angle weighting, while
-    // retaining the unnormalized face for its area contribution.
-    _ = unit(face);
-    for (var corner = 0u; corner < 3u; corner = corner + 1u) {
-        write_corner(triangle, corner, face);
-    }
-"#
-        }
-        NormalWeighting::Angle => {
-            r#"
-    let unit_face = unit(face);
-    for (var corner = 0u; corner < 3u; corner = corner + 1u) {
-        let here = points[corner];
-        let a = unit(points[(corner + 1u) % 3u] - here);
-        let b = unit(points[(corner + 2u) % 3u] - here);
-        let angle = acos(clamp(dot(a, b), -1.0, 1.0));
-        write_corner(triangle, corner, unit_face * angle);
-    }
-"#
-        }
-    };
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> positions: array<f32>;
-@group(0) @binding(1) var<storage, read> triangles: array<u32>;
-@group(0) @binding(2) var<storage, read_write> contributions: array<f32>;
-@group(0) @binding(3) var<storage, read_write> keys: array<u32>;
-@group(0) @binding(4) var<storage, read_write> corners: array<u32>;
-@group(0) @binding(5) var<storage, read_write> status: array<atomic<u32>>;
-struct Params {{
-    count: u32,
-    pad0: u32,
-    pad1: u32,
-    pad2: u32,
-}};
-@group(0) @binding(6) var<uniform> params: Params;
-
-fn load_point(index: u32) -> vec3<f32> {{
-    return vec3<f32>(positions[index * 3u], positions[index * 3u + 1u], positions[index * 3u + 2u]);
-}}
-
-fn unit(v: vec3<f32>) -> vec3<f32> {{
-    let length = sqrt((v.x * v.x + v.y * v.y) + v.z * v.z);
-    if (!(length > 1e-12) || length > 3.4e38) {{
-        atomicOr(&status[0], 1u);
-        return vec3<f32>(0.0);
-    }}
-    return v / length;
-}}
-
-fn write_corner(triangle: u32, corner: u32, contribution: vec3<f32>) {{
-    let slot = triangle * 3u + corner;
-    contributions[slot * 3u] = contribution.x;
-    contributions[slot * 3u + 1u] = contribution.y;
-    contributions[slot * 3u + 2u] = contribution.z;
-    keys[slot] = triangles[slot];
-    corners[slot] = slot;
-}}
-
-@compute @workgroup_size({WORKGROUP}u)
-fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
-    let triangle = global_id.x;
-    if (triangle >= params.count) {{
-        return;
-    }}
-    let points = array<vec3<f32>, 3>(
-        load_point(triangles[triangle * 3u]),
-        load_point(triangles[triangle * 3u + 1u]),
-        load_point(triangles[triangle * 3u + 2u]),
-    );
-    let face = cross(points[1] - points[0], points[2] - points[0]);
-    {contribution}
-}}
-"#
-    )
-}
-
-fn ranges_code() -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> keys: array<u32>;
-@group(0) @binding(1) var<storage, read_write> starts: array<u32>;
-@group(0) @binding(2) var<storage, read_write> ends: array<u32>;
-struct Params {{
-    count: u32,
-    pad0: u32,
-    pad1: u32,
-    pad2: u32,
-}};
-@group(0) @binding(3) var<uniform> params: Params;
-
-// Each run of equal keys marks its own first and one-past-last slot.
-@compute @workgroup_size({WORKGROUP}u)
-fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
-    let slot = global_id.x;
-    if (slot >= params.count) {{
-        return;
-    }}
-    let key = keys[slot];
-    if (slot == 0u || keys[slot - 1u] != key) {{
-        starts[key] = slot;
-    }}
-    if (slot + 1u == params.count || keys[slot + 1u] != key) {{
-        ends[key] = slot + 1u;
-    }}
-}}
-"#
-    )
-}
-
-fn gather_code() -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> contributions: array<f32>;
-@group(0) @binding(1) var<storage, read> corners: array<u32>;
-@group(0) @binding(2) var<storage, read> starts: array<u32>;
-@group(0) @binding(3) var<storage, read> ends: array<u32>;
-@group(0) @binding(4) var<storage, read_write> normals: array<f32>;
-@group(0) @binding(5) var<storage, read_write> status: array<atomic<u32>>;
-struct Params {{
-    count: u32,
-    pad0: u32,
-    pad1: u32,
-    pad2: u32,
-}};
-@group(0) @binding(6) var<uniform> params: Params;
-
-@compute @workgroup_size({WORKGROUP}u)
-fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
-    let vertex = global_id.x;
-    if (vertex >= params.count) {{
-        return;
-    }}
-    var sum = vec3<f32>(0.0);
-    for (var slot = starts[vertex]; slot < ends[vertex]; slot = slot + 1u) {{
-        let corner = corners[slot];
-        sum = sum + vec3<f32>(
-            contributions[corner * 3u],
-            contributions[corner * 3u + 1u],
-            contributions[corner * 3u + 2u],
-        );
-    }}
-    let magnitude = sqrt((sum.x * sum.x + sum.y * sum.y) + sum.z * sum.z);
-    var normal = vec3<f32>(0.0);
-    if (magnitude > 1e-12 && magnitude <= 3.4e38) {{
-        normal = sum / magnitude;
-    }} else {{
-        atomicOr(&status[0], 2u);
-    }}
-    normals[vertex * 3u] = normal.x;
-    normals[vertex * 3u + 1u] = normal.y;
-    normals[vertex * 3u + 2u] = normal.z;
-}}
-"#
-    )
-}
-
-/// Parameters for a pass over `count` items; the pads fill out the uniform.
-fn counted(count: u32) -> PassParameters {
-    let mut parameters = PassParameters::new();
-    parameters.insert("count", count);
-    for pad in ["pad0", "pad1", "pad2"] {
-        parameters.insert(pad, 0u32);
-    }
-    parameters
-}
 
 /// Buffers for the normals of meshes up to a vertex and triangle capacity.
 #[derive(Clone, Debug)]
@@ -223,6 +41,25 @@ pub struct VertexNormals {
     sort: SortScratch,
     vertex_capacity: u32,
     triangle_capacity: u32,
+}
+
+/// The compiled passes, for one weighting.
+#[derive(Clone, Debug)]
+pub struct VertexNormalKernels {
+    corners: Arc<Kernel>,
+    ranges: Arc<Kernel>,
+    gather: Arc<Kernel>,
+    sort: RadixSort,
+}
+
+/// How a triangle's normal counts toward the normal of each of its vertices.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum NormalWeighting {
+    /// By triangle area: the unnormalised face normal is summed.
+    Area,
+    /// By the corner's angle: the unit face normal times the corner angle.
+    /// Independent of how finely the surface around a crease is split.
+    Angle,
 }
 
 impl VertexNormals {
@@ -266,15 +103,6 @@ impl VertexNormals {
             status[0],
         ))
     }
-}
-
-/// The compiled passes, for one weighting.
-#[derive(Clone, Debug)]
-pub struct VertexNormalKernels {
-    corners: Arc<Kernel>,
-    ranges: Arc<Kernel>,
-    gather: Arc<Kernel>,
-    sort: RadixSort,
 }
 
 impl VertexNormalKernels {
@@ -353,6 +181,178 @@ impl VertexNormalKernels {
         batch.dispatch_items(&self.gather, &gather, vertex_count)?;
         Ok(())
     }
+}
+
+fn corners_code(weighting: NormalWeighting) -> ShaderSource<'static> {
+    let contribution = match weighting {
+        NormalWeighting::Area => {
+            r#"
+    // Weighting must not change whether a face has a usable direction.
+    // Validate with the same normalization check as angle weighting, while
+    // retaining the unnormalized face for its area contribution.
+    _ = unit(face);
+    for (var corner = 0u; corner < 3u; corner = corner + 1u) {
+        write_corner(triangle, corner, face);
+    }
+"#
+        }
+        NormalWeighting::Angle => {
+            r#"
+    let unit_face = unit(face);
+    for (var corner = 0u; corner < 3u; corner = corner + 1u) {
+        let here = points[corner];
+        let a = unit(points[(corner + 1u) % 3u] - here);
+        let b = unit(points[(corner + 2u) % 3u] - here);
+        let angle = acos(clamp(dot(a, b), -1.0, 1.0));
+        write_corner(triangle, corner, unit_face * angle);
+    }
+"#
+        }
+    };
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> positions: array<f32>;
+@group(0) @binding(1) var<storage, read> triangles: array<u32>;
+@group(0) @binding(2) var<storage, read_write> contributions: array<f32>;
+@group(0) @binding(3) var<storage, read_write> keys: array<u32>;
+@group(0) @binding(4) var<storage, read_write> corners: array<u32>;
+@group(0) @binding(5) var<storage, read_write> status: array<atomic<u32>>;
+struct Params {{
+    count: u32,
+    pad0: u32,
+    pad1: u32,
+    pad2: u32,
+}};
+@group(0) @binding(6) var<uniform> params: Params;
+
+fn load_point(index: u32) -> vec3<f32> {{
+    return vec3<f32>(positions[index * 3u], positions[index * 3u + 1u], positions[index * 3u + 2u]);
+}}
+
+fn unit(v: vec3<f32>) -> vec3<f32> {{
+    let length = sqrt((v.x * v.x + v.y * v.y) + v.z * v.z);
+    if (!(length > 1e-12) || length > 3.4e38) {{
+        atomicOr(&status[0], 1u);
+        return vec3<f32>(0.0);
+    }}
+    return v / length;
+}}
+
+fn write_corner(triangle: u32, corner: u32, contribution: vec3<f32>) {{
+    let slot = triangle * 3u + corner;
+    contributions[slot * 3u] = contribution.x;
+    contributions[slot * 3u + 1u] = contribution.y;
+    contributions[slot * 3u + 2u] = contribution.z;
+    keys[slot] = triangles[slot];
+    corners[slot] = slot;
+}}
+
+@compute @workgroup_size({WORKGROUP}u)
+fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
+    let triangle = global_id.x;
+    if (triangle >= params.count) {{
+        return;
+    }}
+    let points = array<vec3<f32>, 3>(
+        load_point(triangles[triangle * 3u]),
+        load_point(triangles[triangle * 3u + 1u]),
+        load_point(triangles[triangle * 3u + 2u]),
+    );
+    let face = cross(points[1] - points[0], points[2] - points[0]);
+    {contribution}
+}}
+"#
+    ))
+}
+
+fn ranges_code() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> keys: array<u32>;
+@group(0) @binding(1) var<storage, read_write> starts: array<u32>;
+@group(0) @binding(2) var<storage, read_write> ends: array<u32>;
+struct Params {{
+    count: u32,
+    pad0: u32,
+    pad1: u32,
+    pad2: u32,
+}};
+@group(0) @binding(3) var<uniform> params: Params;
+
+// Each run of equal keys marks its own first and one-past-last slot.
+@compute @workgroup_size({WORKGROUP}u)
+fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
+    let slot = global_id.x;
+    if (slot >= params.count) {{
+        return;
+    }}
+    let key = keys[slot];
+    if (slot == 0u || keys[slot - 1u] != key) {{
+        starts[key] = slot;
+    }}
+    if (slot + 1u == params.count || keys[slot + 1u] != key) {{
+        ends[key] = slot + 1u;
+    }}
+}}
+"#
+    ))
+}
+
+fn gather_code() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> contributions: array<f32>;
+@group(0) @binding(1) var<storage, read> corners: array<u32>;
+@group(0) @binding(2) var<storage, read> starts: array<u32>;
+@group(0) @binding(3) var<storage, read> ends: array<u32>;
+@group(0) @binding(4) var<storage, read_write> normals: array<f32>;
+@group(0) @binding(5) var<storage, read_write> status: array<atomic<u32>>;
+struct Params {{
+    count: u32,
+    pad0: u32,
+    pad1: u32,
+    pad2: u32,
+}};
+@group(0) @binding(6) var<uniform> params: Params;
+
+@compute @workgroup_size({WORKGROUP}u)
+fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
+    let vertex = global_id.x;
+    if (vertex >= params.count) {{
+        return;
+    }}
+    var sum = vec3<f32>(0.0);
+    for (var slot = starts[vertex]; slot < ends[vertex]; slot = slot + 1u) {{
+        let corner = corners[slot];
+        sum = sum + vec3<f32>(
+            contributions[corner * 3u],
+            contributions[corner * 3u + 1u],
+            contributions[corner * 3u + 2u],
+        );
+    }}
+    let magnitude = sqrt((sum.x * sum.x + sum.y * sum.y) + sum.z * sum.z);
+    var normal = vec3<f32>(0.0);
+    if (magnitude > 1e-12 && magnitude <= 3.4e38) {{
+        normal = sum / magnitude;
+    }} else {{
+        atomicOr(&status[0], 2u);
+    }}
+    normals[vertex * 3u] = normal.x;
+    normals[vertex * 3u + 1u] = normal.y;
+    normals[vertex * 3u + 2u] = normal.z;
+}}
+"#
+    ))
+}
+
+/// Parameters for a pass over `count` items; the pads fill out the uniform.
+fn counted(count: u32) -> PassParameters {
+    let mut parameters = PassParameters::new();
+    parameters.insert("count", count);
+    for pad in ["pad0", "pad1", "pad2"] {
+        parameters.insert(pad, 0u32);
+    }
+    parameters
 }
 
 #[cfg(test)]

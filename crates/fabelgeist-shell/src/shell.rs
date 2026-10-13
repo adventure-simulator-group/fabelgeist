@@ -27,16 +27,6 @@ pub struct HostContactSchedule {
     pub outer_layer_passes: u32,
 }
 
-impl Default for HostContactSchedule {
-    fn default() -> Self {
-        Self {
-            interval_substeps: 1,
-            iterations: 4,
-            outer_layer_passes: 4,
-        }
-    }
-}
-
 /// A simulable thin surface, shared by cloth and metal.
 pub struct Shell {
     pub outer_layer: Option<crate::outer_layer::OuterLayer>,
@@ -56,6 +46,27 @@ pub struct Shell {
     /// Kept so the surface can be reset to its initial layout.
     initial_positions: Vec<Vec3>,
     inverse_masses: Vec<crate::ParticleInverseMass>,
+}
+
+/// Body collision then self-collision, in that order.
+///
+/// Body first: the body is not going to move out of the way, so resolving the
+/// cloth against it first means the self-collision pass is working with
+/// positions that are already outside the body rather than pushing layers into
+/// it.
+struct ShellHook<'a> {
+    collisions: &'a mut Collisions,
+    self_collision: &'a mut SelfCollision,
+}
+
+impl Default for HostContactSchedule {
+    fn default() -> Self {
+        Self {
+            interval_substeps: 1,
+            iterations: 4,
+            outer_layer_passes: 4,
+        }
+    }
 }
 
 impl Shell {
@@ -365,17 +376,6 @@ impl Shell {
             .iter()
             .all(|p| p.is_finite()))
     }
-}
-
-/// Body collision then self-collision, in that order.
-///
-/// Body first: the body is not going to move out of the way, so resolving the
-/// cloth against it first means the self-collision pass is working with
-/// positions that are already outside the body rather than pushing layers into
-/// it.
-struct ShellHook<'a> {
-    collisions: &'a mut Collisions,
-    self_collision: &'a mut SelfCollision,
 }
 
 impl SubstepHook for ShellHook<'_> {

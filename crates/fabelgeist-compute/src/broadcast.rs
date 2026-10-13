@@ -8,6 +8,8 @@ pub struct BroadcastDefinition {
     pub cache: Arc<RwLock<Option<ComputePipeline>>>,
 }
 
+pub struct Broadcast;
+
 impl PartialEq for BroadcastDefinition {
     fn eq(&self, _other: &Self) -> bool {
         true
@@ -37,7 +39,8 @@ impl BroadcastDefinition {
                 output[global_id.x] = input[global_id.x];
             }
         ";
-        let shader = ComputeShader::new(context, shader_code.to_string())?;
+        let shader_code = ShaderSource::from(shader_code);
+        let shader = ComputeShader::new(context, shader_code)?;
         let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
 
         let mut cache = self.cache.write().unwrap();
@@ -45,8 +48,6 @@ impl BroadcastDefinition {
         Ok(pipeline)
     }
 }
-
-pub struct Broadcast;
 
 impl Broadcast {
     pub fn execute(

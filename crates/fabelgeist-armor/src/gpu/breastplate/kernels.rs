@@ -5,6 +5,7 @@
 //! `unit` normalization, and -- for a kernel that binds the plate's design
 //! and wearer -- the authored shape and local torso support.
 
+use fabelgeist_gpu::prelude::ShaderSource;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
@@ -20,6 +21,9 @@ use super::topology::{SKIRT_SAMPLES, U_SAMPLES, V_SAMPLES};
 use crate::GenerateError;
 use crate::gpu::anatomy::SURFACE_HEADER;
 use crate::gpu::{ArmorGpu, device_error, wgsl};
+
+/// A kernel's buffers of points, and whether it writes each.
+pub(super) type Points<'a> = &'a [(&'a str, bool)];
 
 /// The pass parameters every breastplate kernel takes.
 #[derive(Clone, Copy, Default)]
@@ -57,8 +61,30 @@ impl Params {
     }
 }
 
-/// A kernel's buffers of points, and whether it writes each.
-pub(super) type Points<'a> = &'a [(&'a str, bool)];
+/// Record one dispatch of a breastplate kernel over `items` invocations,
+/// or `items` workgroups of a single-invocation kernel.
+pub(super) fn dispatch(
+    gpu: &ArmorGpu,
+    batch: &mut KernelBatch,
+    entry: &str,
+    points: Points,
+    params: Params,
+    buffers: &[(&str, &Buffer)],
+    items: u32,
+) -> Result<(), GenerateError> {
+    let mut parameters = params.parameters();
+    for (name, buffer) in buffers {
+        parameters.insert(*name, (*buffer).clone());
+    }
+    let kernel = kernel(gpu, entry, points)?;
+    if kernel.workgroup_size[0] == 1 {
+        batch.dispatch(&kernel, &parameters, [items, 1, 1])
+    } else {
+        batch.dispatch_items(&kernel, &parameters, items)
+    }
+    .map_err(device_error)?;
+    Ok(())
+}
 
 /// Compile a breastplate kernel: its entry after the shared prelude, with
 /// the shape when it binds `plate` and `fail` when it binds `status`.
@@ -76,7 +102,7 @@ fn kernel(gpu: &ArmorGpu, entry: &str, points: Points) -> Result<Arc<Kernel>, Ge
             }
         })
         .collect::<String>();
-    let source = format!(
+    let source = ShaderSource::from(format!(
         r#"
 struct Params {{
     count: u32,
@@ -134,33 +160,8 @@ const MAX_FIT_CORRECTION: f32 = 0.060;
         shape_code = if shape { shape_wgsl::SHAPE } else { "" },
         fit_common = if shape { fit_wgsl::FIT_COMMON } else { "" },
         fit_neighbors = fit_wgsl::NEIGHBORS,
-    );
+    ));
     gpu.cache()
         .get(gpu.context(), &source)
         .map_err(device_error)
-}
-
-/// Record one dispatch of a breastplate kernel over `items` invocations,
-/// or `items` workgroups of a single-invocation kernel.
-pub(super) fn dispatch(
-    gpu: &ArmorGpu,
-    batch: &mut KernelBatch,
-    entry: &str,
-    points: Points,
-    params: Params,
-    buffers: &[(&str, &Buffer)],
-    items: u32,
-) -> Result<(), GenerateError> {
-    let mut parameters = params.parameters();
-    for (name, buffer) in buffers {
-        parameters.insert(*name, (*buffer).clone());
-    }
-    let kernel = kernel(gpu, entry, points)?;
-    if kernel.workgroup_size[0] == 1 {
-        batch.dispatch(&kernel, &parameters, [items, 1, 1])
-    } else {
-        batch.dispatch_items(&kernel, &parameters, items)
-    }
-    .map_err(device_error)?;
-    Ok(())
 }

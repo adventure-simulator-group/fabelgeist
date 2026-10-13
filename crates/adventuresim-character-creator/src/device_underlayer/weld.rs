@@ -9,6 +9,7 @@
 use anyhow::Result;
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::wgsl;
@@ -77,8 +78,8 @@ impl Workspace<'_> {
     }
 }
 
-fn hash_source() -> String {
-    format!(
+fn hash_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> positions: array<f32>;
 @group(0) @binding(1) var<storage, read_write> keys: array<u32>;
@@ -120,11 +121,11 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 }}
 "#,
         precision = wgsl::constant("WELD_PRECISION", WELD_PRECISION),
-    )
+    ))
 }
 
-fn link_source() -> String {
-    format!(
+fn link_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> keys: array<u32>;
 @group(0) @binding(1) var<storage, read> values: array<u32>;
@@ -191,5 +192,5 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
         status = wgsl::status(),
         groups = wgsl::GROUPS,
         run = RUN_CAPACITY,
-    )
+    ))
 }

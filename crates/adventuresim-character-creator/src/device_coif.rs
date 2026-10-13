@@ -8,6 +8,7 @@
 //! reductions is one invocation.
 
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::ShaderSource;
 use std::f32::consts::{PI, TAU};
 use std::sync::Arc;
 
@@ -33,288 +34,6 @@ const QUERIES: usize = 2 * COIF_DRAPE_SECTIONS * 2;
 const QUERY_START: usize = 28;
 const ORDERED_ZERO: u32 = 0x8000_0000;
 const ORDERED_NEGATIVE_INFINITY: u32 = 0x007f_ffff;
-
-/// A worn coif as one open surface, for cloth rather than a rigid shell.
-#[derive(Clone, Debug, PartialEq)]
-pub struct CoifCarrier {
-    /// Head-frame positions: x across, y up, z forward. Vertex 0 is the crown.
-    pub positions: Vec<[f32; 3]>,
-    /// Outward-wound triangles.
-    pub indices: Vec<u32>,
-}
-
-impl CoifCarrier {
-    /// The surface a recorded coif's shell thickens, in the coif's own
-    /// frame, once its batch has run.
-    pub fn read(gpu: &ArmorGpu, part: &DevicePart) -> Result<Self> {
-        ensure!(
-            gpu.read::<u32>(part.status())?[0] == 0,
-            "the coif's carrier is not a surface"
-        );
-        let carriers = part.shell_carriers(0);
-        let flat: Vec<[f32; 3]> = gpu.read(part.carriers())?;
-        let positions = flat[carriers.start as usize..carriers.end as usize].to_vec();
-        Ok(Self {
-            positions,
-            indices: part.shell_carrier_triangles(0).to_vec(),
-        })
-    }
-}
-
-/// The coif fitted to `wearer` as one open cloth surface, with the head
-/// frame that places it.
-pub fn fitted_coif_carrier(
-    gpu: &ArmorGpu,
-    wearer: &Wearer<'_>,
-    design: &CoifDesign,
-) -> Result<(PartFrame, CoifCarrier)> {
-    let body = wearer.upload(gpu)?;
-    let device = DeviceWearer {
-        gpu,
-        body: &body,
-        host: wearer,
-    };
-    let mut batch = gpu.batch("coif carrier");
-    let recording = device.record_fitted_coif(&mut batch, design)?;
-    batch.submit();
-    let (frame, region) = &recording.frames[0];
-    frame.check(gpu, *region)?;
-    Ok((frame.read(gpu)?, CoifCarrier::read(gpu, &recording.part)?))
-}
-
-impl DeviceWearer<'_> {
-    /// Record a mail coif fitted to this wearer, short of thickening.
-    pub fn record_fitted_coif(
-        &self,
-        batch: &mut KernelBatch,
-        design: &CoifDesign,
-    ) -> Result<DeviceRecording> {
-        let frame = self.record_head_frame(batch)?;
-        let fit = self.record_coif_drape(batch, design, &frame)?;
-        let part = record_coif(self.gpu, batch, design, &fit, &frame.frame)?;
-        Ok(DeviceRecording {
-            part,
-            frames: vec![(frame, FitRegion::Head)],
-            checks: Vec::new(),
-        })
-    }
-
-    /// Record the coif's drape into a new fit buffer: the coif's own frame,
-    /// then its drape measured on the torso and neck skin. Unsupported sections fail the head frame.
-    fn record_coif_drape(
-        &self,
-        batch: &mut KernelBatch,
-        design: &CoifDesign,
-        frame: &DeviceFrame,
-    ) -> Result<Buffer> {
-        let gpu = self.gpu;
-        let host = self.host;
-        let joint = |name: &str| -> Result<u32> {
-            host.joint_names
-                .iter()
-                .position(|n| n == name)
-                .map(|i| i as u32)
-                .with_context(|| format!("missing coif neck landmark {name}"))
-        };
-        let mut support = host.support_indices(FitRegion::Torso)?;
-        support.extend(host.support_indices(FitRegion::Neck)?);
-        support.sort_unstable();
-        support.dedup();
-        let mut owned = vec![false; host.positions.len()];
-        for vertex in support {
-            owned[vertex] = true;
-        }
-        let support = host
-            .faces
-            .iter()
-            .filter(|face| face.iter().any(|&vertex| owned[vertex as usize]))
-            .flatten()
-            .copied()
-            .collect::<Vec<_>>();
-        let fit = gpu.scratch(
-            ((FIT_PROFILE_WORD + COIF_DRAPE_WORDS) * 4) as u64,
-            "coif fit",
-        )?;
-        let mut work = vec![0u32; QUERY_START + 2 * QUERIES];
-        work[4] = ORDERED_ZERO;
-        for reduction in [6, 8] {
-            work[reduction] = ORDERED_NEGATIVE_INFINITY;
-        }
-        for query in 0..QUERIES {
-            work[QUERY_START + 2 * query] = ORDERED_NEGATIVE_INFINITY;
-        }
-        // The flaps' attachment edges: the neck columns either side of the
-        // centre lines they hang from.
-        let flap_half_angle = FLAP_EDGE_COLUMNS / AROUND * TAU;
-        let design_words = [
-            design.neck_coverage.unit(),
-            design.fit.clearance.metres() + design.fit.wall_thickness.metres() + DRAPE_EASE_M,
-            design.front_flap_length.metres(),
-            design.back_flap_length.metres(),
-            design.flap_width.unit(),
-            flap_half_angle.cos(),
-            (PI - flap_half_angle).cos(),
-            flap_half_angle.sin(),
-            0.0,
-        ];
-        let mut parameters = PassParameters::new();
-        parameters.insert("count", (support.len() / 3) as u32);
-        parameters.insert("neck", joint("c_neck")?);
-        parameters.insert("jaw", joint("c_jaw_null")?);
-        parameters.insert("head", joint("c_head")?);
-        parameters.insert("positions", self.body.positions.clone());
-        parameters.insert(
-            "support",
-            gpu.upload(BufferUpload::from_elements(&support))?,
-        );
-        parameters.insert("joints", self.body.joints.clone());
-        parameters.insert("frame", frame.frame.clone());
-        parameters.insert(
-            "design",
-            gpu.upload(BufferUpload::from_elements(&design_words))?,
-        );
-        parameters.insert("work", gpu.upload(BufferUpload::from_elements(&work))?);
-        parameters.insert("fit", fit.clone());
-        parameters.insert("status", frame.status.clone());
-        let [landmarks, neck, boundary, sections, drape] = kernels(gpu)?;
-        let samples = (support.len() / 3) as u32;
-        batch
-            .dispatch(&landmarks, &parameters, [1, 1, 1])
-            .map_err(device_error)?;
-        batch
-            .dispatch_items(&neck, &parameters, samples)
-            .map_err(device_error)?;
-        batch
-            .dispatch(&boundary, &parameters, [1, 1, 1])
-            .map_err(device_error)?;
-        batch
-            .dispatch_items(&sections, &parameters, samples)
-            .map_err(device_error)?;
-        batch
-            .dispatch(&drape, &parameters, [1, 1, 1])
-            .map_err(device_error)?;
-        Ok(fit)
-    }
-}
-
-fn kernels(gpu: &ArmorGpu) -> Result<[Arc<Kernel>; 5]> {
-    let compile = |entry: &str| {
-        gpu.cache()
-            .get(gpu.context(), &source(entry))
-            .map_err(device_error)
-    };
-    Ok([
-        compile(LANDMARKS)?,
-        compile(NECK)?,
-        compile(BOUNDARY)?,
-        compile(SECTIONS)?,
-        compile(DRAPE)?,
-    ])
-}
-
-fn source(entry: &str) -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> positions: array<f32>;
-@group(0) @binding(1) var<storage, read> support: array<u32>;
-@group(0) @binding(2) var<storage, read> joints: array<f32>;
-@group(0) @binding(3) var<storage, read> frame: array<f32>;
-@group(0) @binding(4) var<storage, read> design: array<f32>;
-@group(0) @binding(5) var<storage, read_write> work: array<atomic<u32>>;
-@group(0) @binding(6) var<storage, read_write> fit: array<f32>;
-@group(0) @binding(7) var<storage, read_write> status: array<atomic<u32>>;
-struct Params {{
-    count: u32,
-    neck: u32,
-    jaw: u32,
-    head: u32,
-}};
-@group(0) @binding(8) var<uniform> params: Params;
-{ordered}
-{zero_hook}{host_float}
-{positions}
-
-const NECK_COVERAGE: u32 = 0u;
-const GAP: u32 = 1u;
-const FRONT_FLAP_LENGTH: u32 = 2u;
-const BACK_FLAP_LENGTH: u32 = 3u;
-const FLAP_WIDTH: u32 = 4u;
-const FRONT_EDGE_COSINE: u32 = 5u;
-const BACK_EDGE_COSINE: u32 = 6u;
-const EDGE_SINE: u32 = 7u;
-const ZERO: u32 = 8u;
-
-const NO_ENVELOPE: u32 = 2u;
-const INVALID: u32 = 4u;
-
-const TRANSVERSE_BAND_HALF_WIDTH_M: f32 = 0.030;
-const SIDE_NECK_BASE_RISE: f32 = 0.38;
-const BACK_NECK_BASE_RISE: f32 = 0.24;
-const SECTIONS: u32 = {sections}u;
-
-// Work words.
-const FRONT_HEIGHT: u32 = 0u;
-const SIDE_HEIGHT: u32 = 1u;
-const BACK_HEIGHT: u32 = 2u;
-const CENTER_DEPTH: u32 = 3u;
-const NECK_WIDTH: u32 = 4u;
-const FRONT_DEPTH: u32 = 6u;
-const BACK_DEPTH: u32 = 8u;
-const BOUNDARY: u32 = 10u;
-const SECTION_HEIGHTS: u32 = 17u;
-const FLAP_HALF_WIDTH: u32 = 27u;
-const QUERY_START: u32 = {queries}u;
-
-// The drape in the fit buffer: the neck boundary, then each flap's sections.
-const DRAPE: u32 = {drape}u;
-
-fn fail(bit: u32) {{
-    atomicOr(&status[0], bit);
-}}
-
-fn load(at: u32) -> f32 {{
-    return bitcast<f32>(atomicLoad(&work[at]));
-}}
-
-fn store(at: u32, value: f32) {{
-    atomicStore(&work[at], bitcast<u32>(value));
-}}
-
-fn reduced(at: u32) -> f32 {{
-    return float_from_ordered(atomicLoad(&work[at]));
-}}
-
-// A point in the head frame.
-fn local(p: vec3<f32>) -> vec3<f32> {{
-    let d = host_sub3(p, vec3<f32>(frame[0], frame[1], frame[2]));
-    return vec3<f32>(
-        host_dot(vec3<f32>(frame[3], frame[4], frame[5]), d),
-        host_dot(vec3<f32>(frame[6], frame[7], frame[8]), d),
-        host_dot(vec3<f32>(frame[9], frame[10], frame[11]), d),
-    );
-}}
-
-fn joint(index: u32) -> vec3<f32> {{
-    return vec3<f32>(joints[index * 8u], joints[index * 8u + 1u], joints[index * 8u + 2u]);
-}}
-
-fn count_at(at: u32) {{
-    atomicAdd(&work[at + 1u], 1u);
-}}
-
-{section_source}
-{entry}
-"#,
-        ordered = wgsl::ORDERED_FLOAT,
-        zero_hook = host_float::zero_hook("bitcast<u32>(design[ZERO])"),
-        host_float = host_float::wgsl(),
-        positions = wgsl::read_points("positions"),
-        section_source = include_str!("device_coif_sections.wgsl"),
-        sections = COIF_DRAPE_SECTIONS,
-        queries = QUERY_START,
-        drape = FIT_PROFILE_WORD,
-    )
-}
 
 /// One invocation: the neck boundary's heights from the rig.
 const LANDMARKS: &str = r#"
@@ -483,3 +202,285 @@ fn main() {
     }
 }
 "#;
+
+/// A worn coif as one open surface, for cloth rather than a rigid shell.
+#[derive(Clone, Debug, PartialEq)]
+pub struct CoifCarrier {
+    /// Head-frame positions: x across, y up, z forward. Vertex 0 is the crown.
+    pub positions: Vec<[f32; 3]>,
+    /// Outward-wound triangles.
+    pub indices: Vec<u32>,
+}
+
+impl CoifCarrier {
+    /// The surface a recorded coif's shell thickens, in the coif's own
+    /// frame, once its batch has run.
+    pub fn read(gpu: &ArmorGpu, part: &DevicePart) -> Result<Self> {
+        ensure!(
+            gpu.read::<u32>(part.status())?[0] == 0,
+            "the coif's carrier is not a surface"
+        );
+        let carriers = part.shell_carriers(0);
+        let flat: Vec<[f32; 3]> = gpu.read(part.carriers())?;
+        let positions = flat[carriers.start as usize..carriers.end as usize].to_vec();
+        Ok(Self {
+            positions,
+            indices: part.shell_carrier_triangles(0).to_vec(),
+        })
+    }
+}
+
+impl DeviceWearer<'_> {
+    /// Record a mail coif fitted to this wearer, short of thickening.
+    pub fn record_fitted_coif(
+        &self,
+        batch: &mut KernelBatch,
+        design: &CoifDesign,
+    ) -> Result<DeviceRecording> {
+        let frame = self.record_head_frame(batch)?;
+        let fit = self.record_coif_drape(batch, design, &frame)?;
+        let part = record_coif(self.gpu, batch, design, &fit, &frame.frame)?;
+        Ok(DeviceRecording {
+            part,
+            frames: vec![(frame, FitRegion::Head)],
+            checks: Vec::new(),
+        })
+    }
+
+    /// Record the coif's drape into a new fit buffer: the coif's own frame,
+    /// then its drape measured on the torso and neck skin. Unsupported sections fail the head frame.
+    fn record_coif_drape(
+        &self,
+        batch: &mut KernelBatch,
+        design: &CoifDesign,
+        frame: &DeviceFrame,
+    ) -> Result<Buffer> {
+        let gpu = self.gpu;
+        let host = self.host;
+        let joint = |name: &str| -> Result<u32> {
+            host.joint_names
+                .iter()
+                .position(|n| n == name)
+                .map(|i| i as u32)
+                .with_context(|| format!("missing coif neck landmark {name}"))
+        };
+        let mut support = host.support_indices(FitRegion::Torso)?;
+        support.extend(host.support_indices(FitRegion::Neck)?);
+        support.sort_unstable();
+        support.dedup();
+        let mut owned = vec![false; host.positions.len()];
+        for vertex in support {
+            owned[vertex] = true;
+        }
+        let support = host
+            .faces
+            .iter()
+            .filter(|face| face.iter().any(|&vertex| owned[vertex as usize]))
+            .flatten()
+            .copied()
+            .collect::<Vec<_>>();
+        let fit = gpu.scratch(
+            ((FIT_PROFILE_WORD + COIF_DRAPE_WORDS) * 4) as u64,
+            "coif fit",
+        )?;
+        let mut work = vec![0u32; QUERY_START + 2 * QUERIES];
+        work[4] = ORDERED_ZERO;
+        for reduction in [6, 8] {
+            work[reduction] = ORDERED_NEGATIVE_INFINITY;
+        }
+        for query in 0..QUERIES {
+            work[QUERY_START + 2 * query] = ORDERED_NEGATIVE_INFINITY;
+        }
+        // The flaps' attachment edges: the neck columns either side of the
+        // centre lines they hang from.
+        let flap_half_angle = FLAP_EDGE_COLUMNS / AROUND * TAU;
+        let design_words = [
+            design.neck_coverage.unit(),
+            design.fit.clearance.metres() + design.fit.wall_thickness.metres() + DRAPE_EASE_M,
+            design.front_flap_length.metres(),
+            design.back_flap_length.metres(),
+            design.flap_width.unit(),
+            flap_half_angle.cos(),
+            (PI - flap_half_angle).cos(),
+            flap_half_angle.sin(),
+            0.0,
+        ];
+        let mut parameters = PassParameters::new();
+        parameters.insert("count", (support.len() / 3) as u32);
+        parameters.insert("neck", joint("c_neck")?);
+        parameters.insert("jaw", joint("c_jaw_null")?);
+        parameters.insert("head", joint("c_head")?);
+        parameters.insert("positions", self.body.positions.clone());
+        parameters.insert(
+            "support",
+            gpu.upload(BufferUpload::from_elements(&support))?,
+        );
+        parameters.insert("joints", self.body.joints.clone());
+        parameters.insert("frame", frame.frame.clone());
+        parameters.insert(
+            "design",
+            gpu.upload(BufferUpload::from_elements(&design_words))?,
+        );
+        parameters.insert("work", gpu.upload(BufferUpload::from_elements(&work))?);
+        parameters.insert("fit", fit.clone());
+        parameters.insert("status", frame.status.clone());
+        let [landmarks, neck, boundary, sections, drape] = kernels(gpu)?;
+        let samples = (support.len() / 3) as u32;
+        batch
+            .dispatch(&landmarks, &parameters, [1, 1, 1])
+            .map_err(device_error)?;
+        batch
+            .dispatch_items(&neck, &parameters, samples)
+            .map_err(device_error)?;
+        batch
+            .dispatch(&boundary, &parameters, [1, 1, 1])
+            .map_err(device_error)?;
+        batch
+            .dispatch_items(&sections, &parameters, samples)
+            .map_err(device_error)?;
+        batch
+            .dispatch(&drape, &parameters, [1, 1, 1])
+            .map_err(device_error)?;
+        Ok(fit)
+    }
+}
+
+/// The coif fitted to `wearer` as one open cloth surface, with the head
+/// frame that places it.
+pub fn fitted_coif_carrier(
+    gpu: &ArmorGpu,
+    wearer: &Wearer<'_>,
+    design: &CoifDesign,
+) -> Result<(PartFrame, CoifCarrier)> {
+    let body = wearer.upload(gpu)?;
+    let device = DeviceWearer {
+        gpu,
+        body: &body,
+        host: wearer,
+    };
+    let mut batch = gpu.batch("coif carrier");
+    let recording = device.record_fitted_coif(&mut batch, design)?;
+    batch.submit();
+    let (frame, region) = &recording.frames[0];
+    frame.check(gpu, *region)?;
+    Ok((frame.read(gpu)?, CoifCarrier::read(gpu, &recording.part)?))
+}
+
+fn kernels(gpu: &ArmorGpu) -> Result<[Arc<Kernel>; 5]> {
+    let compile = |entry: &str| {
+        gpu.cache()
+            .get(gpu.context(), &source(entry))
+            .map_err(device_error)
+    };
+    Ok([
+        compile(LANDMARKS)?,
+        compile(NECK)?,
+        compile(BOUNDARY)?,
+        compile(SECTIONS)?,
+        compile(DRAPE)?,
+    ])
+}
+
+fn source(entry: &str) -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> positions: array<f32>;
+@group(0) @binding(1) var<storage, read> support: array<u32>;
+@group(0) @binding(2) var<storage, read> joints: array<f32>;
+@group(0) @binding(3) var<storage, read> frame: array<f32>;
+@group(0) @binding(4) var<storage, read> design: array<f32>;
+@group(0) @binding(5) var<storage, read_write> work: array<atomic<u32>>;
+@group(0) @binding(6) var<storage, read_write> fit: array<f32>;
+@group(0) @binding(7) var<storage, read_write> status: array<atomic<u32>>;
+struct Params {{
+    count: u32,
+    neck: u32,
+    jaw: u32,
+    head: u32,
+}};
+@group(0) @binding(8) var<uniform> params: Params;
+{ordered}
+{zero_hook}{host_float}
+{positions}
+
+const NECK_COVERAGE: u32 = 0u;
+const GAP: u32 = 1u;
+const FRONT_FLAP_LENGTH: u32 = 2u;
+const BACK_FLAP_LENGTH: u32 = 3u;
+const FLAP_WIDTH: u32 = 4u;
+const FRONT_EDGE_COSINE: u32 = 5u;
+const BACK_EDGE_COSINE: u32 = 6u;
+const EDGE_SINE: u32 = 7u;
+const ZERO: u32 = 8u;
+
+const NO_ENVELOPE: u32 = 2u;
+const INVALID: u32 = 4u;
+
+const TRANSVERSE_BAND_HALF_WIDTH_M: f32 = 0.030;
+const SIDE_NECK_BASE_RISE: f32 = 0.38;
+const BACK_NECK_BASE_RISE: f32 = 0.24;
+const SECTIONS: u32 = {sections}u;
+
+// Work words.
+const FRONT_HEIGHT: u32 = 0u;
+const SIDE_HEIGHT: u32 = 1u;
+const BACK_HEIGHT: u32 = 2u;
+const CENTER_DEPTH: u32 = 3u;
+const NECK_WIDTH: u32 = 4u;
+const FRONT_DEPTH: u32 = 6u;
+const BACK_DEPTH: u32 = 8u;
+const BOUNDARY: u32 = 10u;
+const SECTION_HEIGHTS: u32 = 17u;
+const FLAP_HALF_WIDTH: u32 = 27u;
+const QUERY_START: u32 = {queries}u;
+
+// The drape in the fit buffer: the neck boundary, then each flap's sections.
+const DRAPE: u32 = {drape}u;
+
+fn fail(bit: u32) {{
+    atomicOr(&status[0], bit);
+}}
+
+fn load(at: u32) -> f32 {{
+    return bitcast<f32>(atomicLoad(&work[at]));
+}}
+
+fn store(at: u32, value: f32) {{
+    atomicStore(&work[at], bitcast<u32>(value));
+}}
+
+fn reduced(at: u32) -> f32 {{
+    return float_from_ordered(atomicLoad(&work[at]));
+}}
+
+// A point in the head frame.
+fn local(p: vec3<f32>) -> vec3<f32> {{
+    let d = host_sub3(p, vec3<f32>(frame[0], frame[1], frame[2]));
+    return vec3<f32>(
+        host_dot(vec3<f32>(frame[3], frame[4], frame[5]), d),
+        host_dot(vec3<f32>(frame[6], frame[7], frame[8]), d),
+        host_dot(vec3<f32>(frame[9], frame[10], frame[11]), d),
+    );
+}}
+
+fn joint(index: u32) -> vec3<f32> {{
+    return vec3<f32>(joints[index * 8u], joints[index * 8u + 1u], joints[index * 8u + 2u]);
+}}
+
+fn count_at(at: u32) {{
+    atomicAdd(&work[at + 1u], 1u);
+}}
+
+{section_source}
+{entry}
+"#,
+        ordered = wgsl::ORDERED_FLOAT,
+        zero_hook = host_float::zero_hook("bitcast<u32>(design[ZERO])"),
+        host_float = host_float::wgsl(),
+        positions = wgsl::read_points("positions"),
+        section_source = include_str!("device_coif_sections.wgsl"),
+        sections = COIF_DRAPE_SECTIONS,
+        queries = QUERY_START,
+        drape = FIT_PROFILE_WORD,
+    ))
+}

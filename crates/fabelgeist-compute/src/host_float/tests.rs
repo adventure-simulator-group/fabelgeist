@@ -50,7 +50,7 @@ async fn run(inputs: &[[f32; 4]], expressions: &[&str]) -> Result<Vec<f32>> {
             )
         })
         .collect();
-    let source = format!(
+    let source = ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> inputs: array<vec4<f32>>;
 @group(0) @binding(1) var<storage, read_write> outputs: array<f32>;
@@ -71,7 +71,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
 {stores}}}
 "#,
         library = wgsl(),
-    );
+    ));
     let kernel = Kernel::new(&context, source)?;
     let definition = BufferDefinition::storage().with_usage(BufferUse::CopySource);
     let outputs = Buffer::from_upload(
@@ -261,11 +261,11 @@ async fn transcendentals_are_correctly_rounded() -> Result<()> {
 #[tokio::test]
 async fn the_zero_hook_is_required() -> Result<()> {
     let context = WgpuContext::new().await?;
-    let source = format!(
+    let source = ShaderSource::from(format!(
         "{}\n@group(0) @binding(0) var<storage, read_write> values: array<f32>;\n\
          @compute @workgroup_size(1)\nfn main() {{ values[0] = host_add(values[0], 1.0); }}\n",
         wgsl()
-    );
+    ));
     assert!(Kernel::new(&context, source).is_err());
     Ok(())
 }

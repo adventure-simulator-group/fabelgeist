@@ -105,7 +105,7 @@ impl ConstraintSet {
         Ok(Self {
             name: name.into(),
             kernel,
-            clear: cache.get(context, wgsl::CLEAR_LAMBDAS)?,
+            clear: cache.get(context, &wgsl::CLEAR_LAMBDAS)?,
             particles: particle_buffer,
             lambdas,
             attachments: Vec::new(),

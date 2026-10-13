@@ -9,82 +9,7 @@
 //! Every intermediate is fenced (see [`fabelgeist_compute::host_float`]).
 
 use super::wgsl;
-
-pub(super) fn ornament_source() -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read_write> recess: array<f32>;
-
-struct Params {{
-    size: u32,
-    motif: u32,
-    repeats: u32,
-    strands: u32,
-    tiles: f32,
-    sin_rotation: f32,
-    cos_rotation: f32,
-    line: f32,
-    first: f32,
-    second: f32,
-    fillets: u32,
-    zero: u32,
-}};
-@group(0) @binding(1) var<uniform> params: Params;
-
-{math}
-
-{shapes}
-
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
-    let index = id.x;
-    let n = params.size;
-    if (index >= n * n) {{
-        return;
-    }}
-    let size = f32(n);
-    let px = host_sub(host_div(f32(index % n) + 0.5, size), 0.5);
-    let py = host_sub(host_div(f32(index / n) + 0.5, size), 0.5);
-    let s = params.sin_rotation;
-    let c = params.cos_rotation;
-    let qx = host_add(host_mul(c, px), host_mul(s, py));
-    let qy = host_add(host_mul(-s, px), host_mul(c, py));
-    // Where the texel falls in its cell, as the image resampling finds it.
-    let x = fraction(host_add(host_mul(qx, params.tiles), 0.5));
-    let y = fraction(host_add(host_mul(qy, params.tiles), 0.5));
-    let soft = host_div(params.tiles, size);
-    let line = params.line;
-    let half = host_mul(line, 0.5);
-    // Fillets hug the cell's long sides; the motif keeps to the room between.
-    var cut = 0.0;
-    var margin = half;
-    if (params.fillets != 0u) {{
-        let low = stroke(abs(host_sub(y, line)), half, soft);
-        let high = stroke(abs(host_sub(y, host_sub(1.0, line))), half, soft);
-        cut = max(low, high);
-        margin = host_mul(line, 2.5);
-    }}
-    let room = max(host_sub(host_sub(0.5, margin), half), 0.0);
-    var motif = 0.0;
-    switch params.motif {{
-        case MOTIF_WAVE: {{
-            motif = stroke(wave(x, y, host_mul(params.first, room), 0.0), half, soft);
-        }}
-        case MOTIF_ZIGZAG: {{ motif = zigzag(x, y, room, half, soft); }}
-        case MOTIF_GUILLOCHE: {{ motif = guilloche(x, y, room, half, soft); }}
-        case MOTIF_ROPE: {{ motif = rope(x, y, room, half, soft); }}
-        case MOTIF_BEADS: {{ motif = beads(x, y, room, half, soft); }}
-        case MOTIF_VINE: {{ motif = vine(x, y, room, half, soft); }}
-        default: {{}}
-    }}
-    cut = max(cut, motif);
-    recess[index] = cut;
-}}
-"#,
-        math = wgsl::math(),
-        shapes = SHAPES,
-    )
-}
+use fabelgeist_gpu::prelude::ShaderSource;
 
 /// The motif codes, the strokes and fills they are drawn with, and each
 /// motif's coverage.
@@ -196,3 +121,79 @@ fn vine(x: f32, y: f32, room: f32, half: f32, soft: f32) -> f32 {
     return max(stem, fill(host_mul(reach, min(across, up)), soft));
 }
 "#;
+
+pub(super) fn ornament_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read_write> recess: array<f32>;
+
+struct Params {{
+    size: u32,
+    motif: u32,
+    repeats: u32,
+    strands: u32,
+    tiles: f32,
+    sin_rotation: f32,
+    cos_rotation: f32,
+    line: f32,
+    first: f32,
+    second: f32,
+    fillets: u32,
+    zero: u32,
+}};
+@group(0) @binding(1) var<uniform> params: Params;
+
+{math}
+
+{shapes}
+
+@compute @workgroup_size(256)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
+    let index = id.x;
+    let n = params.size;
+    if (index >= n * n) {{
+        return;
+    }}
+    let size = f32(n);
+    let px = host_sub(host_div(f32(index % n) + 0.5, size), 0.5);
+    let py = host_sub(host_div(f32(index / n) + 0.5, size), 0.5);
+    let s = params.sin_rotation;
+    let c = params.cos_rotation;
+    let qx = host_add(host_mul(c, px), host_mul(s, py));
+    let qy = host_add(host_mul(-s, px), host_mul(c, py));
+    // Where the texel falls in its cell, as the image resampling finds it.
+    let x = fraction(host_add(host_mul(qx, params.tiles), 0.5));
+    let y = fraction(host_add(host_mul(qy, params.tiles), 0.5));
+    let soft = host_div(params.tiles, size);
+    let line = params.line;
+    let half = host_mul(line, 0.5);
+    // Fillets hug the cell's long sides; the motif keeps to the room between.
+    var cut = 0.0;
+    var margin = half;
+    if (params.fillets != 0u) {{
+        let low = stroke(abs(host_sub(y, line)), half, soft);
+        let high = stroke(abs(host_sub(y, host_sub(1.0, line))), half, soft);
+        cut = max(low, high);
+        margin = host_mul(line, 2.5);
+    }}
+    let room = max(host_sub(host_sub(0.5, margin), half), 0.0);
+    var motif = 0.0;
+    switch params.motif {{
+        case MOTIF_WAVE: {{
+            motif = stroke(wave(x, y, host_mul(params.first, room), 0.0), half, soft);
+        }}
+        case MOTIF_ZIGZAG: {{ motif = zigzag(x, y, room, half, soft); }}
+        case MOTIF_GUILLOCHE: {{ motif = guilloche(x, y, room, half, soft); }}
+        case MOTIF_ROPE: {{ motif = rope(x, y, room, half, soft); }}
+        case MOTIF_BEADS: {{ motif = beads(x, y, room, half, soft); }}
+        case MOTIF_VINE: {{ motif = vine(x, y, room, half, soft); }}
+        default: {{}}
+    }}
+    cut = max(cut, motif);
+    recess[index] = cut;
+}}
+"#,
+        math = wgsl::math(),
+        shapes = SHAPES,
+    ))
+}

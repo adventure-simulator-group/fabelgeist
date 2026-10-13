@@ -13,6 +13,8 @@ pub struct DivergenceDefinition {
     pub cache: Arc<RwLock<DivergencePipelineCache>>,
 }
 
+pub struct Divergence;
+
 impl DivergenceDefinition {
     pub fn new(boundary_mode: u32) -> Self {
         Self {
@@ -125,6 +127,8 @@ impl DivergenceDefinition {
             full_code.push_str("}\n");
         }
 
+        let full_code = ShaderSource::from(full_code);
+
         let shader = ComputeShader::new(context, full_code)?;
         ComputePipeline::new(context, shader)
     }
@@ -151,8 +155,6 @@ impl DivergenceDefinition {
         Ok(arc_p)
     }
 }
-
-pub struct Divergence;
 
 impl Divergence {
     pub fn execute(

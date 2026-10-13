@@ -9,6 +9,8 @@
 //! and only a strictly better candidate replaces the incumbent, so a query
 //! gets the same answer as a host loop taking the first minimum.
 
+use fabelgeist_gpu::prelude::ShaderSource;
+
 /// Workgroup size, and targets per tile.
 pub(super) const TILE: u32 = 256;
 
@@ -48,9 +50,25 @@ struct Params {
 };
 "#;
 
+const TRIANGLES: &str = r#"
+struct Triangle {
+    a: vec3<f32>,
+    b: vec3<f32>,
+    c: vec3<f32>,
+};
+
+fn load_triangle(id: u32) -> Triangle {
+    return Triangle(
+        load_point(triangles[id * 3u]),
+        load_point(triangles[id * 3u + 1u]),
+        load_point(triangles[id * 3u + 2u]),
+    );
+}
+"#;
+
 /// Nearest point of a point set, per query.
-pub(super) fn nearest_points() -> String {
-    format!(
+pub(super) fn nearest_points() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> queries: array<f32>;
 @group(0) @binding(1) var<storage, read> positions: array<f32>;
@@ -105,28 +123,12 @@ fn main(
     }}
 }}
 "#
-    )
+    ))
 }
-
-const TRIANGLES: &str = r#"
-struct Triangle {
-    a: vec3<f32>,
-    b: vec3<f32>,
-    c: vec3<f32>,
-};
-
-fn load_triangle(id: u32) -> Triangle {
-    return Triangle(
-        load_point(triangles[id * 3u]),
-        load_point(triangles[id * 3u + 1u]),
-        load_point(triangles[id * 3u + 2u]),
-    );
-}
-"#;
 
 /// Closest point on a triangle set, per query, with barycentric weights.
-pub(super) fn closest_triangles() -> String {
-    format!(
+pub(super) fn closest_triangles() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> queries: array<f32>;
 @group(0) @binding(1) var<storage, read> positions: array<f32>;
@@ -236,15 +238,15 @@ fn main(
     }}
 }}
 "#
-    )
+    ))
 }
 
 /// First or last crossing of a ray with a triangle set.
 ///
 /// `mode` 0 keeps the nearest crossing, 1 the farthest; both only within
 /// `[minimum, maximum]` along the ray, in units of the direction's length.
-pub(super) fn ray_triangles() -> String {
-    format!(
+pub(super) fn ray_triangles() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> queries: array<f32>;
 @group(0) @binding(1) var<storage, read> directions: array<f32>;
@@ -351,5 +353,5 @@ fn main(
     }}
 }}
 "#
-    )
+    ))
 }

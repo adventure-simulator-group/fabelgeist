@@ -6,57 +6,9 @@
 
 use fabelgeist_armor::gpu::wgsl;
 use fabelgeist_compute::host_float;
+use fabelgeist_gpu::prelude::ShaderSource;
 
 use crate::device_torso::{STATUS_COINCIDENT_LANDMARKS, STATUS_DEGENERATE_WIDTH, STATUS_NO_WIDTH};
-
-/// A torso kernel's full source.
-pub(crate) fn torso_source(entry: &str) -> String {
-    format!(
-        r#"
-struct Params {{
-    count: u32,
-    joint0: u32,
-    joint1: u32,
-    joint2: u32,
-    joint3: u32,
-    joint4: u32,
-    joint5: u32,
-    joint6: u32,
-    joint7: u32,
-    joint8: u32,
-    pad0: u32,
-    pad1: u32,
-    pad2: u32,
-    pad3: u32,
-    pad4: u32,
-    pad5: u32,
-}};
-const COINCIDENT_LANDMARKS: u32 = {coincident}u;
-const NO_WIDTH: u32 = {no_width}u;
-const DEGENERATE_WIDTH: u32 = {degenerate_width}u;
-
-{zero_hook}{host_float}
-
-// The unit vector along `a`: w is one when `a` is long enough to normalize.
-fn unit(a: vec3<f32>) -> vec4<f32> {{
-    let magnitude = host_length(a);
-    if (magnitude > 1e-8) {{
-        return vec4<f32>(host_scale3(a, host_div(1.0, magnitude)), 1.0);
-    }}
-    return vec4<f32>(a, 0.0);
-}}
-{entry}
-"#,
-        coincident = STATUS_COINCIDENT_LANDMARKS,
-        no_width = STATUS_NO_WIDTH,
-        degenerate_width = STATUS_DEGENERATE_WIDTH,
-        zero_hook = host_float::zero_hook("params.pad0"),
-        host_float = host_float::wgsl(),
-        entry = entry
-            .replace("{status}", wgsl::STATUS)
-            .replace("{readers}", FRAME_READERS),
-    )
-}
 
 /// What the per-vertex torso kernels read of the frame.
 const FRAME_READERS: &str = r#"
@@ -256,3 +208,52 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     support[v] = select(0u, 1u, supported);
 }
 "#;
+
+/// A torso kernel's full source.
+pub(crate) fn torso_source(entry: &str) -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+struct Params {{
+    count: u32,
+    joint0: u32,
+    joint1: u32,
+    joint2: u32,
+    joint3: u32,
+    joint4: u32,
+    joint5: u32,
+    joint6: u32,
+    joint7: u32,
+    joint8: u32,
+    pad0: u32,
+    pad1: u32,
+    pad2: u32,
+    pad3: u32,
+    pad4: u32,
+    pad5: u32,
+}};
+const COINCIDENT_LANDMARKS: u32 = {coincident}u;
+const NO_WIDTH: u32 = {no_width}u;
+const DEGENERATE_WIDTH: u32 = {degenerate_width}u;
+
+{zero_hook}{host_float}
+
+// The unit vector along `a`: w is one when `a` is long enough to normalize.
+fn unit(a: vec3<f32>) -> vec4<f32> {{
+    let magnitude = host_length(a);
+    if (magnitude > 1e-8) {{
+        return vec4<f32>(host_scale3(a, host_div(1.0, magnitude)), 1.0);
+    }}
+    return vec4<f32>(a, 0.0);
+}}
+{entry}
+"#,
+        coincident = STATUS_COINCIDENT_LANDMARKS,
+        no_width = STATUS_NO_WIDTH,
+        degenerate_width = STATUS_DEGENERATE_WIDTH,
+        zero_hook = host_float::zero_hook("params.pad0"),
+        host_float = host_float::wgsl(),
+        entry = entry
+            .replace("{status}", wgsl::STATUS)
+            .replace("{readers}", FRAME_READERS),
+    ))
+}

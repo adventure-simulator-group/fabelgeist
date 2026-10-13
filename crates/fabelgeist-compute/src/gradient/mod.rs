@@ -20,6 +20,8 @@ pub struct GradientDefinition {
     pub cache: Arc<RwLock<GradientPipelineCache>>,
 }
 
+pub struct Gradient;
+
 impl GradientDefinition {
     pub fn new(boundary_mode: u32) -> Self {
         Self {
@@ -140,6 +142,8 @@ impl GradientDefinition {
             full_code.push_str("}\n");
         }
 
+        let full_code = ShaderSource::from(full_code);
+
         let shader = ComputeShader::new(context, full_code)?;
         ComputePipeline::new(context, shader)
     }
@@ -172,8 +176,6 @@ impl GradientDefinition {
         Ok(arc_p)
     }
 }
-
-pub struct Gradient;
 
 impl Gradient {
     pub fn execute(

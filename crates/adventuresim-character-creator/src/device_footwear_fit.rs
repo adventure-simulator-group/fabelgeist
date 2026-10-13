@@ -6,167 +6,10 @@ use anyhow::Result;
 use fabelgeist_armor::ArmorGpu;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use crate::device_foot_sections::common;
-
-/// How a fit moves carriers onto the sections.
-#[derive(Clone, Copy)]
-pub(crate) enum SectionFit<'a> {
-    /// Onto the anatomical envelope, from inside it.
-    Envelope,
-    /// Out over garment layers, fading in above the lowest garment hem;
-    /// `hems` holds each garment's axial bounds.
-    Layer { hems: &'a Buffer },
-}
-
-/// Record the fit of the first `count` carriers onto `sections`, measured
-/// between the first pair of `bounds` with a footwear gauge's `clearance`.
-#[allow(clippy::too_many_arguments)]
-pub(crate) fn record_section_fit(
-    gpu: &ArmorGpu,
-    batch: &mut KernelBatch,
-    frame: &Buffer,
-    bounds: &Buffer,
-    sections: &Buffer,
-    clearance: f32,
-    fit: SectionFit,
-    carriers: &Buffer,
-    count: u32,
-) -> Result<()> {
-    // The kernel's `ENVELOPE` mode, or the layer fit.
-    let (mode, hems) = match fit {
-        SectionFit::Envelope => (0u32, bounds.clone()),
-        SectionFit::Layer { hems } => (1, hems.clone()),
-    };
-    let mut parameters = PassParameters::new();
-    parameters.insert("count", count);
-    parameters.insert("mode", mode);
-    parameters.insert("pad1", 0u32);
-    parameters.insert("pad2", 0u32);
-    parameters.insert("clearance", clearance);
-    parameters.insert("pad3", 0.0f32);
-    parameters.insert("pad4", 0.0f32);
-    parameters.insert("pad5", 0.0f32);
-    parameters.insert("frames", frame.clone());
-    parameters.insert("bounds", bounds.clone());
-    parameters.insert("sections", sections.clone());
-    parameters.insert("hems", hems);
-    parameters.insert("carriers", carriers.clone());
-    // Only the fairing keeps radii; the binding still needs a buffer.
-    parameters.insert("radii", gpu.scratch(4, "unused fairing radii")?);
-    let kernel = gpu
-        .cache()
-        .get(gpu.context(), &fit_source(FIT))
-        .map_err(device_error)?;
-    batch
-        .dispatch_items(&kernel, &parameters, count)
-        .map_err(device_error)?;
-    Ok(())
-}
-
-/// Record the relaxation of a boot's ankle valleys outward, along its
-/// authored meridians, about the top section's centre.
-#[allow(clippy::too_many_arguments)]
-pub(crate) fn record_ankle_fairing(
-    gpu: &ArmorGpu,
-    batch: &mut KernelBatch,
-    frame: &Buffer,
-    sections: &Buffer,
-    clearance: f32,
-    hems: &Buffer,
-    carriers: &Buffer,
-    count: u32,
-) -> Result<()> {
-    let mut parameters = PassParameters::new();
-    parameters.insert("count", count);
-    parameters.insert("mode", 0u32);
-    parameters.insert("pad1", 0u32);
-    parameters.insert("pad2", 0u32);
-    parameters.insert("clearance", clearance);
-    parameters.insert("pad3", 0.0f32);
-    parameters.insert("pad4", 0.0f32);
-    parameters.insert("pad5", 0.0f32);
-    parameters.insert("frames", frame.clone());
-    parameters.insert("bounds", hems.clone());
-    parameters.insert("sections", sections.clone());
-    parameters.insert("hems", hems.clone());
-    parameters.insert("carriers", carriers.clone());
-    parameters.insert(
-        "radii",
-        gpu.scratch(count as u64 * 8, "ankle fairing radii")?,
-    );
-    let kernel = gpu
-        .cache()
-        .get(gpu.context(), &fit_source(FAIR))
-        .map_err(device_error)?;
-    batch
-        .dispatch(&kernel, &parameters, [1, 1, 1])
-        .map_err(device_error)?;
-    Ok(())
-}
-
-fn fit_source(entry: &str) -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> frames: array<f32>;
-@group(0) @binding(1) var<storage, read> bounds: array<u32>;
-@group(0) @binding(2) var<storage, read> sections: array<u32>;
-@group(0) @binding(3) var<storage, read> hems: array<u32>;
-@group(0) @binding(4) var<storage, read_write> carriers: array<f32>;
-@group(0) @binding(5) var<storage, read_write> radii: array<f32>;
-struct Params {{
-    count: u32,
-    mode: u32,
-    pad1: u32,
-    pad2: u32,
-    clearance: f32,
-    pad3: f32,
-    pad4: f32,
-    pad5: f32,
-}};
-@group(0) @binding(6) var<uniform> params: Params;
-{common}
-{carriers}
-
-const ENVELOPE: u32 = 0u;
-const BOOT_HEM_TRANSITION_M: f32 = 0.04;
-const ANKLE_FAIRING_BELOW_HEM_M: f32 = 0.05;
-const ANKLE_FAIRING_ABOVE_HEM_M: f32 = 0.08;
-const ANKLE_FAIRING_PASSES: u32 = 64u;
-const RING_PLANE_TOLERANCE_M: f32 = 0.000001;
-const EPSILON: f32 = 1.1920929e-7;
-
-fn word(section: u32, slot: u32) -> f32 {{
-    return float_from_ordered(sections[section * WORDS + slot]);
-}}
-
-// A measured section: centre, then enclosing radii with the gauge's room.
-fn measured(section: u32) -> vec4<f32> {{
-    let lo = vec2<f32>(word(section, 1u), word(section, 2u));
-    let hi = vec2<f32>(word(section, 3u), word(section, 4u));
-    let radius = max((hi - lo) * 0.5, vec2<f32>(MINIMUM_RADIAL_EXTENT_M));
-    return vec4<f32>((lo + hi) * 0.5, radius * word(section, 5u) + params.clearance);
-}}
-
-// A section smoothed with its neighbours, clamped at the ends.
-fn smoothed(section: u32) -> vec4<f32> {{
-    let a = measured(max(section, 1u) - 1u);
-    let b = measured(section);
-    let c = measured(min(section + 1u, SAMPLES - 1u));
-    return (a + 2.0 * b + c) * 0.25;
-}}
-
-fn lowest_hem() -> f32 {{
-    return min(float_from_ordered(hems[0]), float_from_ordered(hems[2]));
-}}
-
-{entry}
-"#,
-        common = common(),
-        carriers = wgsl::points("carriers"),
-    )
-}
 
 /// One invocation per carrier: the envelope fit or the layer fit.
 const FIT: &str = r#"
@@ -283,3 +126,161 @@ fn main(@builtin(local_invocation_index) lane: u32) {
     }
 }
 "#;
+
+/// How a fit moves carriers onto the sections.
+#[derive(Clone, Copy)]
+pub(crate) enum SectionFit<'a> {
+    /// Onto the anatomical envelope, from inside it.
+    Envelope,
+    /// Out over garment layers, fading in above the lowest garment hem;
+    /// `hems` holds each garment's axial bounds.
+    Layer { hems: &'a Buffer },
+}
+
+/// Record the fit of the first `count` carriers onto `sections`, measured
+/// between the first pair of `bounds` with a footwear gauge's `clearance`.
+#[allow(clippy::too_many_arguments)]
+pub(crate) fn record_section_fit(
+    gpu: &ArmorGpu,
+    batch: &mut KernelBatch,
+    frame: &Buffer,
+    bounds: &Buffer,
+    sections: &Buffer,
+    clearance: f32,
+    fit: SectionFit,
+    carriers: &Buffer,
+    count: u32,
+) -> Result<()> {
+    // The kernel's `ENVELOPE` mode, or the layer fit.
+    let (mode, hems) = match fit {
+        SectionFit::Envelope => (0u32, bounds.clone()),
+        SectionFit::Layer { hems } => (1, hems.clone()),
+    };
+    let mut parameters = PassParameters::new();
+    parameters.insert("count", count);
+    parameters.insert("mode", mode);
+    parameters.insert("pad1", 0u32);
+    parameters.insert("pad2", 0u32);
+    parameters.insert("clearance", clearance);
+    parameters.insert("pad3", 0.0f32);
+    parameters.insert("pad4", 0.0f32);
+    parameters.insert("pad5", 0.0f32);
+    parameters.insert("frames", frame.clone());
+    parameters.insert("bounds", bounds.clone());
+    parameters.insert("sections", sections.clone());
+    parameters.insert("hems", hems);
+    parameters.insert("carriers", carriers.clone());
+    // Only the fairing keeps radii; the binding still needs a buffer.
+    parameters.insert("radii", gpu.scratch(4, "unused fairing radii")?);
+    let kernel = gpu
+        .cache()
+        .get(gpu.context(), &fit_source(FIT))
+        .map_err(device_error)?;
+    batch
+        .dispatch_items(&kernel, &parameters, count)
+        .map_err(device_error)?;
+    Ok(())
+}
+
+/// Record the relaxation of a boot's ankle valleys outward, along its
+/// authored meridians, about the top section's centre.
+#[allow(clippy::too_many_arguments)]
+pub(crate) fn record_ankle_fairing(
+    gpu: &ArmorGpu,
+    batch: &mut KernelBatch,
+    frame: &Buffer,
+    sections: &Buffer,
+    clearance: f32,
+    hems: &Buffer,
+    carriers: &Buffer,
+    count: u32,
+) -> Result<()> {
+    let mut parameters = PassParameters::new();
+    parameters.insert("count", count);
+    parameters.insert("mode", 0u32);
+    parameters.insert("pad1", 0u32);
+    parameters.insert("pad2", 0u32);
+    parameters.insert("clearance", clearance);
+    parameters.insert("pad3", 0.0f32);
+    parameters.insert("pad4", 0.0f32);
+    parameters.insert("pad5", 0.0f32);
+    parameters.insert("frames", frame.clone());
+    parameters.insert("bounds", hems.clone());
+    parameters.insert("sections", sections.clone());
+    parameters.insert("hems", hems.clone());
+    parameters.insert("carriers", carriers.clone());
+    parameters.insert(
+        "radii",
+        gpu.scratch(count as u64 * 8, "ankle fairing radii")?,
+    );
+    let kernel = gpu
+        .cache()
+        .get(gpu.context(), &fit_source(FAIR))
+        .map_err(device_error)?;
+    batch
+        .dispatch(&kernel, &parameters, [1, 1, 1])
+        .map_err(device_error)?;
+    Ok(())
+}
+
+fn fit_source(entry: &str) -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> frames: array<f32>;
+@group(0) @binding(1) var<storage, read> bounds: array<u32>;
+@group(0) @binding(2) var<storage, read> sections: array<u32>;
+@group(0) @binding(3) var<storage, read> hems: array<u32>;
+@group(0) @binding(4) var<storage, read_write> carriers: array<f32>;
+@group(0) @binding(5) var<storage, read_write> radii: array<f32>;
+struct Params {{
+    count: u32,
+    mode: u32,
+    pad1: u32,
+    pad2: u32,
+    clearance: f32,
+    pad3: f32,
+    pad4: f32,
+    pad5: f32,
+}};
+@group(0) @binding(6) var<uniform> params: Params;
+{common}
+{carriers}
+
+const ENVELOPE: u32 = 0u;
+const BOOT_HEM_TRANSITION_M: f32 = 0.04;
+const ANKLE_FAIRING_BELOW_HEM_M: f32 = 0.05;
+const ANKLE_FAIRING_ABOVE_HEM_M: f32 = 0.08;
+const ANKLE_FAIRING_PASSES: u32 = 64u;
+const RING_PLANE_TOLERANCE_M: f32 = 0.000001;
+const EPSILON: f32 = 1.1920929e-7;
+
+fn word(section: u32, slot: u32) -> f32 {{
+    return float_from_ordered(sections[section * WORDS + slot]);
+}}
+
+// A measured section: centre, then enclosing radii with the gauge's room.
+fn measured(section: u32) -> vec4<f32> {{
+    let lo = vec2<f32>(word(section, 1u), word(section, 2u));
+    let hi = vec2<f32>(word(section, 3u), word(section, 4u));
+    let radius = max((hi - lo) * 0.5, vec2<f32>(MINIMUM_RADIAL_EXTENT_M));
+    return vec4<f32>((lo + hi) * 0.5, radius * word(section, 5u) + params.clearance);
+}}
+
+// A section smoothed with its neighbours, clamped at the ends.
+fn smoothed(section: u32) -> vec4<f32> {{
+    let a = measured(max(section, 1u) - 1u);
+    let b = measured(section);
+    let c = measured(min(section + 1u, SAMPLES - 1u));
+    return (a + 2.0 * b + c) * 0.25;
+}}
+
+fn lowest_hem() -> f32 {{
+    return min(float_from_ordered(hems[0]), float_from_ordered(hems[2]));
+}}
+
+{entry}
+"#,
+        common = common(),
+        carriers = wgsl::points("carriers"),
+    ))
+}

@@ -1,6 +1,7 @@
 //! Long thigh plates cut from a measured upright anatomical carrier.
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::chart::{ChartBoundary, ChartKernel, PlateChart};
@@ -19,6 +20,22 @@ pub const RADII: u32 = 64;
 pub const MEASURED_WORDS: u32 = 2 + RADII;
 pub const LAYER_STATIONS: u32 = 17;
 pub const COURSE_ROWS: u32 = 8;
+
+const BOUNDARIES: &str = r#"
+@group(0) @binding(0) var<storage, read_write> frames: array<f32>;
+@group(0) @binding(1) var<storage, read> design: array<f32>;
+@group(0) @binding(2) var<storage, read_write> status: array<atomic<u32>>;
+struct Params { value0: f32, value1: f32, value2: f32, value3: f32 };
+@group(0) @binding(3) var<uniform> params: Params;
+fn invalid_chart_point() -> vec3<f32> { atomicOr(&status[0],1u);return vec3<f32>(0.0); }
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    let row=id.x;
+    if (row>COURSE_ROWS) { return; }
+    let axial=mix(params.value1,params.value2,f32(row)/f32(COURSE_ROWS));
+    frames[u32(frames[45u])+u32(params.value3)*(COURSE_ROWS+1u)+row]=inner_angle(axial);
+}
+"#;
 
 pub fn layout() -> String {
     format!(
@@ -103,14 +120,14 @@ fn record_boundaries(
     fits: [&Buffer; 2],
     statuses: [&Buffer; 2],
 ) -> Result<(), GenerateError> {
-    let source = format!(
+    let source = ShaderSource::from(format!(
         "{}\n{}\n{}\n{}\n{}",
         wgsl::MATH,
         layout(),
         include_str!("wrapped_tasset_carrier.wgsl"),
         include_str!("wrapped_tasset_shape.wgsl"),
         BOUNDARIES
-    );
+    ));
     let kernel = gpu
         .cache()
         .get(gpu.context(), &source)
@@ -136,19 +153,3 @@ fn record_boundaries(
     }
     Ok(())
 }
-
-const BOUNDARIES: &str = r#"
-@group(0) @binding(0) var<storage, read_write> frames: array<f32>;
-@group(0) @binding(1) var<storage, read> design: array<f32>;
-@group(0) @binding(2) var<storage, read_write> status: array<atomic<u32>>;
-struct Params { value0: f32, value1: f32, value2: f32, value3: f32 };
-@group(0) @binding(3) var<uniform> params: Params;
-fn invalid_chart_point() -> vec3<f32> { atomicOr(&status[0],1u);return vec3<f32>(0.0); }
-@compute @workgroup_size(64)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {
-    let row=id.x;
-    if (row>COURSE_ROWS) { return; }
-    let axial=mix(params.value1,params.value2,f32(row)/f32(COURSE_ROWS));
-    frames[u32(frames[45u])+u32(params.value3)*(COURSE_ROWS+1u)+row]=inner_angle(axial);
-}
-"#;

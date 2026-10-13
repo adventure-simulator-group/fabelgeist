@@ -4,6 +4,7 @@
 use anyhow::Result;
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::ShaderSource;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::plan::POINT_WORDS;
@@ -15,88 +16,6 @@ pub(super) const INFLUENCES: usize = 8;
 /// Floats per shell vertex in the skin kernel's output: the surface
 /// coordinate, then the influence weights.
 pub(super) const SKIN_FLOATS: usize = 2 + INFLUENCES;
-
-/// The offsets of the shell's outer and inner layers, before compression.
-#[derive(Clone, Copy, Debug)]
-pub(super) struct LayerOffsets {
-    pub outer: f32,
-    pub inner: f32,
-}
-
-impl Workspace<'_> {
-    /// Record the shell of a realization into `shell`: each layer point
-    /// interpolated from its source triangle's offset corners.
-    pub(super) fn record_layers(
-        &self,
-        batch: &mut KernelBatch,
-        positions: &Buffer,
-        directions: &Buffer,
-        offsets: LayerOffsets,
-        shell: &Buffer,
-    ) -> Result<()> {
-        let gpu = self.gpu;
-        let mut parameters = PassParameters::new();
-        parameters.insert("count", self.plan.vertex_count());
-        parameters.insert("points", self.plan.point_count);
-        parameters.insert("outer", offsets.outer);
-        parameters.insert("inner", offsets.inner);
-        parameters.insert("table", self.table.clone());
-        parameters.insert("sources", self.sources.clone());
-        parameters.insert("positions", positions.clone());
-        parameters.insert("directions", directions.clone());
-        parameters.insert("compression", self.compression.clone());
-        parameters.insert("shell", shell.clone());
-        let kernel = gpu
-            .cache()
-            .get(gpu.context(), &layers_source())
-            .map_err(device_error)?;
-        batch
-            .dispatch_items(&kernel, &parameters, self.plan.vertex_count())
-            .map_err(device_error)?;
-        Ok(())
-    }
-
-    /// Record every shell vertex's surface coordinate and skin: its source
-    /// triangle's, blended by the point's weights and cut to the strongest
-    /// influences.
-    pub(super) fn record_skin(
-        &self,
-        batch: &mut KernelBatch,
-        skin: &SkinSources,
-        joints: &Buffer,
-        floats: &Buffer,
-    ) -> Result<()> {
-        let gpu = self.gpu;
-        let mut parameters = PassParameters::new();
-        parameters.insert("count", self.plan.vertex_count());
-        parameters.insert("points", self.plan.point_count);
-        parameters.insert("pad0", 0u32);
-        parameters.insert("pad1", 0u32);
-        parameters.insert("table", self.table.clone());
-        parameters.insert("sources", self.sources.clone());
-        parameters.insert("texcoords", skin.texcoords.clone());
-        parameters.insert("joint_indices", skin.joint_indices.clone());
-        parameters.insert("joint_weights", skin.joint_weights.clone());
-        parameters.insert("joints", joints.clone());
-        parameters.insert("floats", floats.clone());
-        parameters.insert("status", self.status.clone());
-        let kernel = gpu
-            .cache()
-            .get(gpu.context(), &skin_source())
-            .map_err(device_error)?;
-        batch
-            .dispatch_items(&kernel, &parameters, self.plan.vertex_count())
-            .map_err(device_error)?;
-        Ok(())
-    }
-}
-
-/// The body's surface coordinates and skin, on the device.
-pub(super) struct SkinSources {
-    pub texcoords: Buffer,
-    pub joint_indices: Buffer,
-    pub joint_weights: Buffer,
-}
 
 const POINTS: &str = r#"
 fn corner_vertex(point: u32, corner: u32) -> u32 {
@@ -111,53 +30,6 @@ fn corner_weight(point: u32, corner: u32) -> f32 {
     return bitcast<f32>(table[point * POINT_WORDS + 6u + corner]);
 }
 "#;
-
-fn layers_source() -> String {
-    format!(
-        r#"
-@group(0) @binding(0) var<storage, read> table: array<u32>;
-@group(0) @binding(1) var<storage, read> sources: array<u32>;
-@group(0) @binding(2) var<storage, read> positions: array<f32>;
-@group(0) @binding(3) var<storage, read> directions: array<f32>;
-@group(0) @binding(4) var<storage, read> compression: array<f32>;
-@group(0) @binding(5) var<storage, read_write> shell: array<f32>;
-struct Params {{
-    count: u32,
-    points: u32,
-    outer: f32,
-    inner: f32,
-}};
-@group(0) @binding(6) var<uniform> params: Params;
-const POINT_WORDS: u32 = {words}u;
-{points}
-
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
-    let k = id.x;
-    if (k >= params.count) {{
-        return;
-    }}
-    let layer_point = sources[k];
-    let point = layer_point % params.points;
-    let offset = select(params.outer, params.inner, layer_point >= params.points);
-    var sum = vec3<f32>(0.0);
-    for (var corner = 0u; corner < 3u; corner = corner + 1u) {{
-        let v = corner_vertex(point, corner);
-        let body = vec3<f32>(positions[v * 3u], positions[v * 3u + 1u], positions[v * 3u + 2u]);
-        let along = vec3<f32>(directions[v * 3u], directions[v * 3u + 1u], directions[v * 3u + 2u]);
-        // Cut vertices lie on the already offset source triangle.
-        let offset_corner = body + along * (offset * compression[v]);
-        sum = sum + offset_corner * corner_weight(point, corner);
-    }}
-    shell[k * 3u] = sum.x;
-    shell[k * 3u + 1u] = sum.y;
-    shell[k * 3u + 2u] = sum.z;
-}}
-"#,
-        words = POINT_WORDS,
-        points = POINTS,
-    )
-}
 
 /// One invocation per shell vertex: its surface coordinate and strongest skin influences.
 const SKIN_POINTS: &str = r#"
@@ -236,8 +108,137 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 }
 "#;
 
-fn skin_source() -> String {
-    format!(
+/// The offsets of the shell's outer and inner layers, before compression.
+#[derive(Clone, Copy, Debug)]
+pub(super) struct LayerOffsets {
+    pub outer: f32,
+    pub inner: f32,
+}
+
+/// The body's surface coordinates and skin, on the device.
+pub(super) struct SkinSources {
+    pub texcoords: Buffer,
+    pub joint_indices: Buffer,
+    pub joint_weights: Buffer,
+}
+
+impl Workspace<'_> {
+    /// Record the shell of a realization into `shell`: each layer point
+    /// interpolated from its source triangle's offset corners.
+    pub(super) fn record_layers(
+        &self,
+        batch: &mut KernelBatch,
+        positions: &Buffer,
+        directions: &Buffer,
+        offsets: LayerOffsets,
+        shell: &Buffer,
+    ) -> Result<()> {
+        let gpu = self.gpu;
+        let mut parameters = PassParameters::new();
+        parameters.insert("count", self.plan.vertex_count());
+        parameters.insert("points", self.plan.point_count);
+        parameters.insert("outer", offsets.outer);
+        parameters.insert("inner", offsets.inner);
+        parameters.insert("table", self.table.clone());
+        parameters.insert("sources", self.sources.clone());
+        parameters.insert("positions", positions.clone());
+        parameters.insert("directions", directions.clone());
+        parameters.insert("compression", self.compression.clone());
+        parameters.insert("shell", shell.clone());
+        let kernel = gpu
+            .cache()
+            .get(gpu.context(), &layers_source())
+            .map_err(device_error)?;
+        batch
+            .dispatch_items(&kernel, &parameters, self.plan.vertex_count())
+            .map_err(device_error)?;
+        Ok(())
+    }
+
+    /// Record every shell vertex's surface coordinate and skin: its source
+    /// triangle's, blended by the point's weights and cut to the strongest
+    /// influences.
+    pub(super) fn record_skin(
+        &self,
+        batch: &mut KernelBatch,
+        skin: &SkinSources,
+        joints: &Buffer,
+        floats: &Buffer,
+    ) -> Result<()> {
+        let gpu = self.gpu;
+        let mut parameters = PassParameters::new();
+        parameters.insert("count", self.plan.vertex_count());
+        parameters.insert("points", self.plan.point_count);
+        parameters.insert("pad0", 0u32);
+        parameters.insert("pad1", 0u32);
+        parameters.insert("table", self.table.clone());
+        parameters.insert("sources", self.sources.clone());
+        parameters.insert("texcoords", skin.texcoords.clone());
+        parameters.insert("joint_indices", skin.joint_indices.clone());
+        parameters.insert("joint_weights", skin.joint_weights.clone());
+        parameters.insert("joints", joints.clone());
+        parameters.insert("floats", floats.clone());
+        parameters.insert("status", self.status.clone());
+        let kernel = gpu
+            .cache()
+            .get(gpu.context(), &skin_source())
+            .map_err(device_error)?;
+        batch
+            .dispatch_items(&kernel, &parameters, self.plan.vertex_count())
+            .map_err(device_error)?;
+        Ok(())
+    }
+}
+
+fn layers_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
+        r#"
+@group(0) @binding(0) var<storage, read> table: array<u32>;
+@group(0) @binding(1) var<storage, read> sources: array<u32>;
+@group(0) @binding(2) var<storage, read> positions: array<f32>;
+@group(0) @binding(3) var<storage, read> directions: array<f32>;
+@group(0) @binding(4) var<storage, read> compression: array<f32>;
+@group(0) @binding(5) var<storage, read_write> shell: array<f32>;
+struct Params {{
+    count: u32,
+    points: u32,
+    outer: f32,
+    inner: f32,
+}};
+@group(0) @binding(6) var<uniform> params: Params;
+const POINT_WORDS: u32 = {words}u;
+{points}
+
+@compute @workgroup_size(256)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
+    let k = id.x;
+    if (k >= params.count) {{
+        return;
+    }}
+    let layer_point = sources[k];
+    let point = layer_point % params.points;
+    let offset = select(params.outer, params.inner, layer_point >= params.points);
+    var sum = vec3<f32>(0.0);
+    for (var corner = 0u; corner < 3u; corner = corner + 1u) {{
+        let v = corner_vertex(point, corner);
+        let body = vec3<f32>(positions[v * 3u], positions[v * 3u + 1u], positions[v * 3u + 2u]);
+        let along = vec3<f32>(directions[v * 3u], directions[v * 3u + 1u], directions[v * 3u + 2u]);
+        // Cut vertices lie on the already offset source triangle.
+        let offset_corner = body + along * (offset * compression[v]);
+        sum = sum + offset_corner * corner_weight(point, corner);
+    }}
+    shell[k * 3u] = sum.x;
+    shell[k * 3u + 1u] = sum.y;
+    shell[k * 3u + 2u] = sum.z;
+}}
+"#,
+        words = POINT_WORDS,
+        points = POINTS,
+    ))
+}
+
+fn skin_source() -> ShaderSource<'static> {
+    ShaderSource::from(format!(
         r#"
 @group(0) @binding(0) var<storage, read> table: array<u32>;
 @group(0) @binding(1) var<storage, read> sources: array<u32>;
@@ -270,5 +271,5 @@ const GATHERED: u32 = 3u * INFLUENCES;
         skin_floats = SKIN_FLOATS,
         status = wgsl::status(),
         points = POINTS,
-    )
+    ))
 }
