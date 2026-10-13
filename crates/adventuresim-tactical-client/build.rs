@@ -89,7 +89,6 @@ impl EncodedPackageVersion {
 
 impl From<String> for CargoPackageRole {
     fn from(name: String) -> Self {
-        // Serde's String input preserves Cargo's string-only wire diagnostics.
         match name.as_str() {
             "bevy" => Self::Bevy,
             _ => Self::Other,
