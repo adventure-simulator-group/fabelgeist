@@ -32,26 +32,6 @@ const DETAIL_PATCH_BASE_CUTOUT_RADIUS_METRES: f32 = 10.0;
 const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
 #[cfg(test)]
 const DETAIL_RELIEF_MAXIMUM_METRES: f32 = 0.105;
-pub(in crate::presentation) const TACTICAL_DIRT_SRGB: [u8; 3] = [101, 82, 49];
-
-pub(super) fn scene_ground_color(environment: &SceneEnvironment) -> Color {
-    let mut rgb = if environment.water_bps >= 5_000 {
-        [52.0, 83.0, 98.0]
-    } else if environment.wetland_bps >= 4_000 {
-        [70.0, 62.0, 43.0]
-    } else if environment.cultivation_bps >= 4_000 {
-        [116.0, 91.0, 49.0]
-    } else {
-        TACTICAL_DIRT_SRGB.map(f32::from)
-    };
-    let snow = bps(environment.weather.snow_cover_bps);
-    let wet = bps(environment.weather.ground_moisture_bps);
-    for channel in &mut rgb {
-        *channel *= 1.0 - wet * 0.22;
-        *channel = *channel * (1.0 - snow) + 220.0 * snow;
-    }
-    Color::srgb(rgb[0] / 255.0, rgb[1] / 255.0, rgb[2] / 255.0)
-}
 
 pub(crate) fn terrain_heightmap_image(terrain: &SceneTerrain) -> Image {
     let width = terrain.grid_width() as u32;

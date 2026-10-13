@@ -91,6 +91,9 @@ mod tests {
         let mut world = World::new();
         world.insert_resource(PendingCityBuildings::new(&[], &[]));
         let camera = world.spawn(TacticalGameplayCamera).id();
+        let map_camera = world.spawn(RegionalMapCamera).id();
+        let map_root = world.spawn((Transform::default(), Visibility::Hidden)).id();
+        let map_mesh = world.spawn((Mesh3d::default(), ChildOf(map_root))).id();
         let oak = world.spawn(SceneObstacle::Tree).id();
         let leaf = world.spawn(ChildOf(oak)).id();
         let grass = world.spawn(GroundScatterLayer::Grass).id();
@@ -101,7 +104,11 @@ mod tests {
             assert!(world.get_entity(removed).is_err());
         }
         assert!(world.get_entity(camera).is_ok());
+        for retained in [map_camera, map_root, map_mesh] {
+            assert!(world.get_entity(retained).is_ok());
+        }
         clear_demo_scene(&mut world);
         assert!(world.get_entity(camera).is_ok());
+        assert!(world.get_entity(map_mesh).is_ok());
     }
 }

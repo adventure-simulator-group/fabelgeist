@@ -1,13 +1,16 @@
 # Fabelgeist tactical client
 
+[Immutable scene preparation](generation.md) describes shared worker products,
+readiness, residency and typed preparation failures.
+
+[Regional environment presentation](regional-map.md) describes the retained
+geographic camera, terrain surface and browser command boundary.
+
 The atmosphere extraction backport is required by the selected Bevy 0.19 engine.
 The build script reads the resolved version from the workspace lockfile and
 requires removing that backport and its guard when the project selects Bevy 0.20
 or later. Releasing a new upstream engine does not change the selected engine or
 make an otherwise unchanged build fail. This check does not access the network.
-
-[Immutable scene preparation](generation.md) describes shared worker products,
-readiness, residency and typed preparation failures.
 
 ## Runtime equipment fitting
 

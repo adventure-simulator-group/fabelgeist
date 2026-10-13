@@ -26,7 +26,11 @@ mod furniture;
 pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
 mod building_closures;
 mod environment;
+mod ground_palette;
 pub(crate) mod ground_scatter;
+#[cfg(target_family = "wasm")]
+pub(crate) mod regional_map;
+use ground_palette::{TACTICAL_DIRT_SRGB, scene_ground_color};
 pub(crate) use ground_scatter::gardens::ManagedGardenPlant;
 pub(crate) mod interior_lighting;
 mod materials;
@@ -95,7 +99,7 @@ pub(crate) use clouds::{
     TacticalCloudAnimationStatus, TacticalCloudBenchmarkIsolation, TacticalCloudCaptureOverride,
     TacticalCloudCaptureProfile, TacticalCloudLayer, TacticalCloudOffscreenCamera,
 };
-pub(crate) use environment::{TacticalCameraSetup, TacticalGameplayCamera};
+pub(crate) use environment::{RegionalMapCamera, TacticalCameraSetup, TacticalGameplayCamera};
 pub(crate) use ground_scatter::{
     GrassInteractor, GroundLitterCaptureAnchors, GroundLitterCapturePair, GroundLitterDiagnostics,
     GroundScatterLayer, LooseStonePebblePatch, PlantCaptureAnchors, PlantLodInstance,
