@@ -13,19 +13,17 @@ const metadata = JSON.parse(city);
 const environments = JSON.parse(fs.readFileSync(environmentFile, 'utf8'));
 const places = ['public-square', 'residences', 'keep', 'merchants', 'weapons', 'armor', 'clothing', 'herbalist', 'books', 'inn', 'religion'];
 const actor = fs.readFileSync(process.env.STRATEGIC_INIT_ACTOR, 'utf8');
+const secondCity = fs.readFileSync(process.env.STRATEGIC_INIT_SECOND_CITY, 'utf8');
+const secondMetadata = JSON.parse(secondCity);
+const secondActor = fs.readFileSync(process.env.STRATEGIC_INIT_SECOND_ACTOR, 'utf8');
+assert.equal(secondMetadata.source, metadata.source, 'Both captures must use the terrain source');
+assert.notEqual(secondMetadata.place, metadata.place, 'The second capture must name another settlement');
 const identities = ['a', 'b', 'a'];
 function cityFor(id) {
-  if (id === 'a') return city;
-  return city.replace(metadata.place, 'place:v1:settlement:62656e63682d62')
-    .replace(/("settlement_id"\s*:\s*)"([^"]+)"/g, (_, prefix, owner) => {
-      assert.equal(owner, metadata.input.properties.settlement_id);
-      return prefix + '"bench-b"';
-    })
-    .replace(/("seed"\s*:\s*)(\d+)/, (_, prefix, seed) => prefix + BigInt.asUintN(64, BigInt(seed) + 1n))
-    .replace(/("scene_key"\s*:\s*)"[^"]+"/, '$1"benchmark-b"');
+  return id === 'a' ? city : secondCity;
 }
 function markup(id) {
-  const place = id === 'a' ? metadata.place : 'place:v1:settlement:62656e63682d62';
+  const place = id === 'a' ? metadata.place : secondMetadata.place;
   const input = { origin: environments[0].terrain.request.origin, span: 1200, selected: null,
     overlay: {source: metadata.source, markers: [{place,origin:environments[0].terrain.request.origin,rank:'town',emphasis:'current'}],route:null} };
   return `<!doctype html><html><head><title>Initialization benchmark</title>
@@ -63,7 +61,7 @@ async function run() {
     if (url.pathname==='/api/scene-assets') {
       const id=url.searchParams.get('settlement');
       response.setHeader('Content-Type','application/json');
-      response.end(id==='b'?actor.replace(/("seed"\s*:\s*)(\d+)/,(_,prefix,seed)=>prefix+BigInt.asUintN(64,BigInt(seed)+1n)).replace(/("scene_key"\s*:\s*)"[^"]+"/,'$1"benchmark-b"'):actor);return;
+      response.end(id==='b'?secondActor:actor);return;
     }
     if(url.pathname.startsWith('/api/locations/')){response.setHeader('Content-Type','application/json');response.end('[]');return;}
     let file;
@@ -112,7 +110,7 @@ async function run() {
       await Promise.race([fatal, page.waitForFunction(expected=>window.initFailure||(document.querySelector('#strategic-page')?.dataset.path===expected&&document.body.hasAttribute('data-regional-map-ready')),destination,{timeout:300000})]);
       assert.equal(await page.evaluate(()=>window.initFailure),undefined,'City request must remain valid');
       const terrainMilliseconds=performance.now()-started;
-      await Promise.race([fatal, page.waitForFunction(expected=>window.initFailure||(window.strategicRendererMetrics?.mapState?.city_requested===expected&&window.strategicRendererMetrics?.mapState?.city_installation?.phase==='ready'&&window.strategicRendererMetrics?.mapState?.city_visible),id==='a'?metadata.place:'place:v1:settlement:62656e63682d62',{timeout:300000})]);
+      await Promise.race([fatal, page.waitForFunction(expected=>window.initFailure||(window.strategicRendererMetrics?.mapState?.city_requested===expected&&window.strategicRendererMetrics?.mapState?.city_installation?.phase==='ready'&&window.strategicRendererMetrics?.mapState?.city_visible),id==='a'?metadata.place:secondMetadata.place,{timeout:300000})]);
       assert.equal(await page.evaluate(()=>window.initFailure),undefined,'City request must finish successfully');
       results.push({id,kind:index===0?'cold':index===1?'warm-new':'warm-return',milliseconds:performance.now()-started,terrainMilliseconds,
         ...await page.evaluate(()=>({generation:window.strategicGenerationMetrics,metrics:window.strategicRendererMetrics,trace:window.initTrace}))});
