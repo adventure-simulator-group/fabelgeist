@@ -1,4 +1,12 @@
-# Binary FBX header layout
+# Binary FBX reader
+
+FBX is a format for 3D model files. This crate reads its binary node and
+property tree. The decoder returns a bespoke `FbxDecodeError` through
+`fabelgeist_fbx::Result<T>`; see [binary decoding errors](binary-errors.md) for
+classifications, typed context and native causes. Scene queries built from
+already decoded roots remain infallible.
+
+## Header layout
 
 The binary FBX reader admits the four-byte file version into `FbxVersion` before
 selecting node-header layout. Version 7500 changes the end offset, property
@@ -39,8 +47,7 @@ This preserves the current decode policy rather than asserting which codes the
 wider format supports. Decoder errors, empty counts, extra decoded bytes and the
 original float bit patterns and Boolean byte values remain unchanged. Declared
 array counts and element layouts use their own owners. Payload byte
-lengths, offsets and structured decode errors remain separate migration
-responsibilities.
+lengths and offsets remain separate migration responsibilities.
 
 A regression fixture records 95 observations from the unchanged main public
 parser. Independently encoded wire properties cover all five array kinds with
@@ -71,7 +78,7 @@ rejection and retain the same character diagnostic. The type does not admit
 decoded payloads or change scalar widths, array decoding, Boolean truth rules,
 string encoding, read ordering or parser errors. Existing version/header,
 encoding and element-layout owners remain distinct.
-Offsets and structured errors remain separate migration responsibilities.
+Offsets remain a separate migration responsibility.
 
 A regression fixture records 284 observations from the unchanged main public
 parser. Independently encoded properties cover all 256 native tag bytes, all
@@ -91,11 +98,9 @@ Count admission remains open, including zero. No allocator limit or
 malformed-file resource validation is introduced. The host-sized conversion
 retains the original behavior for wide header words on a 32-bit host. A null
 record still reads its name before returning without allocating its declared
-properties. Array layouts use their own owners. Offsets, byte lengths and
-structured errors
-remain separate migration responsibilities; existing header, encoding and tag
-owners are
-retained.
+properties. Array layouts use their own owners. Offsets and byte lengths remain
+separate migration responsibilities; existing header, encoding and tag owners
+are retained.
 
 A regression fixture records 74 observations from the unchanged main public
 parser. Independent native wire records cover narrow and wide headers, counts
@@ -129,19 +134,19 @@ compressed capacities are not executed. No 32-bit runtime or allocator-safety
 verdict is claimed.
 
 Existing version/header, property-count, property-tag and compression owners
-remain distinct. Payload byte lengths, node offsets, scalar widths and
-structured errors remain separate migration responsibilities.
+remain distinct. Payload byte lengths and node offsets remain separate
+migration responsibilities. Scalar widths meet native fixed-array copies.
 
 ## Remaining decoding audit
 
-These bespoke types do not complete the parser's other responsibilities.
-`read_node` still carries native offsets and property-byte lengths; `read_props`
-still carries payload byte lengths. Native array count/layout
-projections remain explicit buffer adapters. Scalar copy widths remain native.
-Scalar
-conversions still contain guaranteed-length `unwrap`
-calls. Those values and the parser's errors need their own complete
-producer/consumer migrations. They are explicitly outside these header,
-array-encoding, property-tag, property-count and array-layout
-changes; no stricter framing, encoding, version, allocation or error policy is
-introduced here.
+Binary rejection classification is owned by `FbxDecodeError`. The decoder
+retains native offsets and property-byte lengths while reading nodes, and
+native payload byte lengths while reading properties. Array count/layout
+projections remain explicit allocation and buffer adapters. Scalar copies use
+fixed-size arrays after the checked reader or decoded-length guard establishes
+the exact slice size.
+
+This does not complete framing, extent or resource admission. Native node-end
+arithmetic, integer casts, allocation requests and declared offsets retain
+their existing behavior. No stricter encoding or version policy is introduced;
+malformed offsets or excessive declarations can still panic or exhaust memory.

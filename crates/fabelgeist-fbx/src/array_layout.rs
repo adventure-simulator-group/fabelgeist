@@ -3,11 +3,11 @@
 /// An unsigned encoded element count, distinct from a payload byte length.
 /// All wire declarations, including zero, remain admitted.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) struct FbxArrayCount(u32);
+pub struct FbxArrayCount(u32);
 
 /// The element layouts supported by binary FBX array properties.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum FbxArrayKind {
+pub enum FbxArrayKind {
     Float32,
     Float64,
     Integer32,
