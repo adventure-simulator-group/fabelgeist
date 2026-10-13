@@ -114,6 +114,17 @@ canvas and compositor. Road data and focused city refinement extend its camera a
 geographic frame. City refinement must reuse canonical placement and grading
 rather than placing city geometry directly on the ungraded lattice.
 
+GPU city placements remain in their canonical east/up/north frame. A retained
+144-byte frame buffer carries a focused city into the current terrain window's
+east/up/south coordinates, including its absolute source elevation. Window
+changes update that buffer without repacking placement or geometry buffers.
+Culling uses the inverse frame for camera positions and the matching frame for
+clip and far-plane transforms. Shading corrects reflected face winding and
+tangent handedness, with the inverse transpose for normals and the shared
+latitude-dependent scale for east-west projection. Actor scenery uses the
+identity frame. The map controller
+does not install focused cities yet.
+
 ## Real browser verification
 
 Build the gameplay Wasm client, then run the matching `wasm-bindgen` CLI with
@@ -134,6 +145,12 @@ including terrain drawing, pan, zoom, rotation, hiding, retained reopening and
 invalid command rejection. Optional `REGIONAL_MAP_ASSET_DIR` supplies synchronized
 browser assets; `REGIONAL_MAP_REVIEW_DIR` selects the ignored screenshot and
 telemetry directory. Without Wasm bindings this check skips explicitly.
+
+Set `REGIONAL_SCENE_FIXTURE_OUTPUT` while capturing the dispatcher fixture to
+also emit its unchanged actor scene document. Passing that file as
+`REGIONAL_MAP_ACTOR_INPUT` prepares a full city instead of woodland, so the real
+browser check also exercises city vertex pulling and shading while the map uses
+its independent terrain view. Both documents remain opaque text in JavaScript.
 
 The fixture has no actors. Four unauthored movement clips currently remain
 unavailable in the repository; the check records those missing URLs while

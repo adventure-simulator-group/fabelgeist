@@ -8,6 +8,7 @@ const { chromium } = require("playwright");
 const root = path.resolve(__dirname, "../../..");
 const wasm = process.env.REGIONAL_MAP_WASM_DIR;
 const cityInput = process.env.REGIONAL_MAP_CITY_INPUT;
+const actorInput = process.env.REGIONAL_MAP_ACTOR_INPUT;
 const density = Number(process.env.REGIONAL_MAP_BROWSER_DENSITY || 1);
 assert([1,2].includes(density), "The renderer fixture supports real 1× and 2× display density");
 const output = path.resolve(root, process.env.REGIONAL_MAP_REVIEW_DIR || "target/regional-map-browser");
@@ -27,6 +28,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
   fs.mkdirSync(output, { recursive: true });
   fs.writeFileSync(path.join(output, "console.log"), "");
   const missing = [], errors = [];
+  let actorCapture;
   const checkpoint = stage => fs.writeFileSync(path.join(output,"stage.json"), JSON.stringify({stage,time:Date.now()}));
   const server = http.createServer((request, response) => {
     const url = new URL(request.url, "http://localhost");
@@ -39,7 +41,8 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     } else if (relative.startsWith("/static/")) {
       roots = [path.join(root, "crates/strategic-web/static")]; suffix = relative.slice(8);
     } else if (relative === "/input.json") {
-      roots = [root]; suffix = "assets/tactical-scenes/sparse-woodland.json";
+      const file = path.resolve(root, actorInput || "assets/tactical-scenes/sparse-woodland.json");
+      roots = [path.dirname(file)]; suffix = path.basename(file);
     } else if (relative === "/city.json") {
       roots = [path.dirname(path.resolve(root, cityInput))];
       suffix = path.basename(cityInput);
@@ -72,13 +75,14 @@ test("regional terrain reuses one real renderer across camera changes and hiding
           const preparationRuntime={...runtime,generationModule:module,
             generationRevision:"regional-map-browser",generationGraphicsConfig:graphics};
           const cityJobRoles=[];
+          const actorPlaces=${process.env.REGIONAL_MAP_ACTOR_INPUT ? '[{id:"fixture-residence",kind:"residence"}]' : '[]'};
           preparationRuntime.wasm_regional_city_jobs=(...args)=>{
             const result=runtime.wasm_regional_city_jobs(...args);
             cityJobRoles.push(...JSON.parse(result).map(job=>Object.keys(JSON.parse(job))[0]));
             return result;
           };
           const [preparation,preview]=await Promise.all([
-            prepareGeneratedScene(preparationRuntime,input,{places:[],people:[]}),
+            prepareGeneratedScene(preparationRuntime,input,{places:actorPlaces,people:[]}),
             prepareRegionalCity(preparationRuntime,city),
           ]);
           if(JSON.parse(preparation).sequence===JSON.parse(preview).sequence)
@@ -88,12 +92,14 @@ test("regional terrain reuses one real renderer across camera changes and hiding
           runtime.wasm_cancel_generation(preview);
           try {runtime.wasm_generation_jobs(preparation,input);throw new Error("Completed preparation accepted more worker jobs");}
           catch(error){if(error.name!=="generation/stale-preparation")throw error;}
-          window.preparationFixture={scene:JSON.parse(preparation),preview:JSON.parse(preview),cityJobRoles};
+          window.preparationFixture={scene:JSON.parse(preparation),preview:JSON.parse(preview),cityJobRoles,actorPlaces};
           runtime.wasm_command(JSON.stringify({type:"prepare-strategic-scene", location:"fixture", input_json:input,
             preparation:JSON.parse(preparation)}));
           runtime.wasm_command(JSON.stringify({type:"sync-strategic-view", view:{
-            revision:1,location:"fixture",places:[],people:[],active_place:null,selected:null,
-            street:null,stage:null,forge:null,portraits:[]}}));
+            revision:1,location:"fixture",places:actorPlaces,people:[],active_place:null,selected:null,
+            street:actorPlaces.length?{x:0,y:0,width:innerWidth*devicePixelRatio,height:innerHeight*devicePixelRatio,
+              full_width:innerWidth*devicePixelRatio,full_height:innerHeight*devicePixelRatio,offset_x:0,offset_y:0}:null,
+            stage:null,forge:null,portraits:[]}}));
           window.runtime=runtime;
         } catch(error) { console.error(error); window.bootFailure=String(error); }
       </script></body></html>`);
@@ -124,6 +130,31 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     assert(cityRoles.every(role=>["RegionalCity","Building"].includes(role)),
       "Focused city preparation does not generate actor interiors or scatter");
     checkpoint("runtime-prepared");
+    if (process.env.REGIONAL_MAP_ACTOR_INPUT) {
+      await page.waitForFunction(() => JSON.parse(runtime.wasm_strategic_status()).ready, null, {timeout:120_000});
+      // The street is normally a retained snapshot by the time it is ready.
+      // Change its physical size while recording to exercise a real recapture.
+      actorCapture=await page.evaluate(()=>{
+        const capture=renderProbe.capture("gpu",12);
+        const width=innerWidth*devicePixelRatio-2, height=innerHeight*devicePixelRatio;
+        runtime.wasm_command(JSON.stringify({type:"sync-strategic-view",view:{
+          revision:2,location:"fixture",places:preparationFixture.actorPlaces,people:[],
+          active_place:null,selected:null,street:{x:0,y:0,width,height,
+            full_width:width,full_height:height,offset_x:0,offset_y:0},
+          stage:null,forge:null,portraits:[]}}));
+        return capture;
+      });
+      fs.writeFileSync(path.join(output,"actor-capture.json"),JSON.stringify(actorCapture,null,2));
+      assert.deepEqual(actorCapture.failures,[]);
+      assert(actorCapture.frames.some(frame=>frame.passes.some(pass=>pass.draws?.some(draw=>
+        draw.pipeline?.label==="gpu_city" && draw.triangles>0 && draw.indirect))),
+      "The full actor city must draw through the production city shader and geographic frame binding");
+      await page.screenshot({path:path.join(output,"actor-city.png")});
+      await page.evaluate(()=>runtime.wasm_command(JSON.stringify({type:"sync-strategic-view",view:{
+        revision:3,location:"fixture",places:preparationFixture.actorPlaces,people:[],active_place:null,selected:null,
+        street:null,stage:null,forge:null,portraits:[]}})));
+      checkpoint("actor-city-drawn");
+    }
     const initial = await page.evaluate(() => {
       const source = "a".repeat(64), origin = {latitude: 50_500_000, longitude: 10_500_000};
       const rect = Object.fromEntries(Object.entries({x:80,y:60,width:840,height:560,
@@ -292,7 +323,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     await page.screenshot({path:path.join(output,"uncovered.png")});
     const interfaceResult = await require("./regional-map-interface-check.cjs")(page,output);
     const realSource=await require("./regional-map-real-source-check.cjs")(page,output,process.env.REGIONAL_MAP_ENVIRONMENT_DIR);
-    fs.writeFileSync(path.join(output,"result.json"), JSON.stringify({warm,changed,capacity,connectionCapacity,cameraControls,interfaceResult,realSource,capture,missing,errors}, null, 2));
+    fs.writeFileSync(path.join(output,"result.json"), JSON.stringify({warm,changed,capacity,connectionCapacity,cameraControls,interfaceResult,realSource,capture,actorCapture,missing,errors}, null, 2));
     assert.deepEqual(missing.filter(url => !unusedMissingMotions.has(url)), []);
     assert.deepEqual(errors.filter(error => {
       try { return !unusedMissingMotions.has(new URL(error.url).pathname); } catch { return true; }

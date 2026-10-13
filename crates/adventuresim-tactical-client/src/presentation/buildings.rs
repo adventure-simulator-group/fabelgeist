@@ -9,6 +9,7 @@ use std::sync::Arc;
 use super::ownership::PresentationOwner;
 use super::recipe_mesh::recipe_mesh;
 use super::*;
+pub(in crate::presentation) use gpu::CityFrame;
 
 mod boundaries;
 mod gpu;
