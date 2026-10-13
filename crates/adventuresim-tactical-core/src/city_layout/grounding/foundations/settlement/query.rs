@@ -3,6 +3,7 @@ use super::*;
 use bevy::prelude::Reflect;
 use serde::Deserialize;
 use smallvec::SmallVec;
+pub(super) mod prepared;
 mod transport;
 
 /// A structural leaf capacity bounds triangle work without prescribing a
@@ -206,19 +207,23 @@ impl SupportQueryIndex {
         node
     }
 
-    pub fn triangles_at(
+    pub fn triangles_at<'a>(
         &self,
-        surface: &BoundedSettlementTerrain,
+        surface: &'a BoundedSettlementTerrain,
         point: Vec2,
         tolerance: f32,
-    ) -> impl Iterator<Item = GroundTriangle> {
-        let mut candidates =
-            SmallVec::<[(SupportTriangleRef, GroundTriangle); SUPPORT_QUERY_LEAF_TRIANGLES]>::new();
+    ) -> impl Iterator<Item = &'a GroundTriangle> {
+        let mut candidates = SmallVec::<
+            [(SupportTriangleRef, &GroundTriangle); SUPPORT_QUERY_LEAF_TRIANGLES],
+        >::new();
         let mut owners = SmallVec::<[usize; 2]>::new();
+        let prepared = surface
+            .prepared
+            .get_or_init(|| prepared::PreparedSupportTriangles::from_surface(surface));
         let rounding_tolerance = GroundTriangle::represented_point_tolerance(point);
         if !self.0.is_empty() {
             self.visit_candidates(0, point, tolerance, &mut |reference| {
-                let Some(triangle) = GroundTriangle::new(reference.points(surface)) else {
+                let Some(triangle) = prepared.triangle(reference) else {
                     return;
                 };
                 let eligible = match reference {
@@ -253,7 +258,7 @@ impl SupportQueryIndex {
                     }
                 };
                 if eligible {
-                    candidates.push((reference, triangle));
+                    candidates.push((reference, triangle.geometry()));
                 }
             });
         }

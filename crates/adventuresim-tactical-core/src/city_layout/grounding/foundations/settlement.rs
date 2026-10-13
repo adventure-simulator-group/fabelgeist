@@ -1,6 +1,8 @@
 //! Compose disjoint owned support against one unchanged geographic surface.
 use super::*;
+use query::prepared::PreparedSupportTriangles;
 use std::collections::BTreeSet;
+use std::sync::{Arc, OnceLock};
 mod query;
 use query::SupportQueryIndex;
 
@@ -10,7 +12,7 @@ mod tests;
 /// A settlement surface owns each foundation once and clips source triangles
 /// once. Keeping every property's uncut source collider would put natural
 /// terrain back through the neighbouring property's graded floors.
-#[derive(Clone, Debug, PartialEq, Serialize, serde::Deserialize, bevy::prelude::Reflect)]
+#[derive(Clone, Debug, Serialize, serde::Deserialize, bevy::prelude::Reflect)]
 #[reflect(opaque)]
 #[serde(try_from = "SettlementWire")]
 pub struct BoundedSettlementTerrain {
@@ -19,6 +21,8 @@ pub struct BoundedSettlementTerrain {
     pub(super) natural_triangles: Vec<[Vec3; 3]>,
     contact_tolerance_metres: f32,
     query: SupportQueryIndex,
+    #[serde(skip)]
+    prepared: Arc<OnceLock<PreparedSupportTriangles>>,
 }
 
 #[derive(serde::Deserialize)]
@@ -38,9 +42,20 @@ impl TryFrom<SettlementWire> for BoundedSettlementTerrain {
             natural_triangles: wire.natural_triangles,
             contact_tolerance_metres: wire.contact_tolerance_metres,
             query: wire.query,
+            prepared: Arc::default(),
         };
         surface.validate_geometry()?;
         Ok(surface)
+    }
+}
+
+impl PartialEq for BoundedSettlementTerrain {
+    fn eq(&self, other: &Self) -> bool {
+        // Query cache population is not part of the authoritative surface.
+        self.foundations == other.foundations
+            && self.natural_triangles == other.natural_triangles
+            && self.contact_tolerance_metres == other.contact_tolerance_metres
+            && self.query == other.query
     }
 }
 
@@ -98,6 +113,7 @@ impl BoundedSettlementTerrain {
             natural_triangles: natural.into_iter().map(|t| t.map(|p| p.metres())).collect(),
             contact_tolerance_metres: contact_tolerance.metres(),
             query: SupportQueryIndex::default(),
+            prepared: Arc::default(),
         };
         surface.validate_source_geometry()?;
         surface.query = SupportQueryIndex::compile(&surface);
@@ -180,6 +196,7 @@ impl BoundedSettlementTerrain {
             natural_triangles,
             contact_tolerance_metres: tolerance,
             query: SupportQueryIndex::default(),
+            prepared: Arc::default(),
         };
         surface.validate_source_geometry()?;
         surface.query = SupportQueryIndex::compile(&surface);

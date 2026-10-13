@@ -41,6 +41,13 @@ contact geometry without a query bearing or solid collider. The existing query
 area threshold still governs bearings. Property collider failures retain the
 property and members; cell failures also identify the offending cell.
 
+The first physical support query prepares canonical triangle vertices and edge
+lengths once. Terrain clones share this immutable derived cache. Encoded products
+retain only their source faces and validated query index; decoding does not
+prepare unused query geometry. Cache population does not affect surface
+equality. Queries preserve face traversal order, unnormalized half-plane
+arithmetic, represented-point ownership, and degenerate-face rejection.
+
 An enclosure binds its exact property, ordered front/rear members, descriptor
 geometry and gate elevation. Decoding rejects a different front role, descriptor
 member list or gate datum before rendering or collision. Garden root admission
