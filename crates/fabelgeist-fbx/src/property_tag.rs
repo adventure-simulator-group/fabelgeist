@@ -3,7 +3,7 @@
 /// An open property tag carried through scalar and array dispatch.
 /// Unknown values are retained until the reader's existing rejection point.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) struct FbxPropertyTag(u8);
+pub struct FbxPropertyTag(u8);
 
 impl From<u8> for FbxPropertyTag {
     fn from(tag: u8) -> Self {
