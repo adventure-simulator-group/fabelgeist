@@ -17,6 +17,13 @@ scene-local east/north offsets into continuous source coordinates without
 rounding intermediate values. Origins use the existing checked WGS84 coordinate
 pair, serialized with checked `latitude` and `longitude` components.
 
+Source capture and renderer positioning share the world-schema
+`coordinates::terrain_projection` numerical port. Checked geographic origins
+enter once; intermediate samples retain continuous degrees. Peak sampling also
+uses that port at its continuous sample position, preserving its operation order
+without quantizing neighboring probes. The inverse projection places geographic
+targets in the same local east/north frame as the captured lattice.
+
 | Scale | Vertex spacing | Window side |
 | --- | ---: | ---: |
 | `neighborhood` | 30 m | 1,920 m |
