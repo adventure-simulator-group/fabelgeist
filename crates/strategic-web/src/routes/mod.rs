@@ -14,6 +14,7 @@ pub mod home;
 mod inventory_forms;
 pub mod investigation;
 pub mod local_chat;
+mod map_terrain;
 pub mod missions;
 pub mod parties;
 mod party_actions;
@@ -967,6 +968,7 @@ pub fn build_router(state: AppState) -> Router {
                 .merge(weapon_icons::routes())
                 .merge(scene_equipment::routes())
                 .merge(scene_assets::routes())
+                .merge(map_terrain::routes())
                 .merge(crate::live::routes())
                 .route("/time", get(current_time))
                 .layer(middleware::from_fn(require_same_origin_mutation))

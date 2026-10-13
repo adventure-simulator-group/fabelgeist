@@ -15,6 +15,9 @@ dispatch identity, transferable products and cancellation.
 [Scene document requests](scene-requests.md) describes destination cancellation,
 preparation ownership and reuse in the persistent renderer.
 
+[Regional terrain capture](regional-terrain.md) describes bounded geographic
+windows, source coverage and the read-only environment data endpoint.
+
 ```
 ┌─────────────────┐     HTTP     ┌──────────────────┐
 │  Browser        │◄────────────►│  strategic-web   │
