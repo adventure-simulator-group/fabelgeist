@@ -66,7 +66,8 @@ fn host_div(a_: f32, b_: f32) -> f32 {
     if (!(abs(q) <= HOST_FLOAT_MAX) || q == 0.0) {
         return q;
     }
-    for (var k = 0u; k < HOST_FLOAT_WALK; k = k + 1u) {
+    // Retain the exact walk without expanding its body at every call site.
+    for (var k = 0u; k < HOST_FLOAT_WALK + host_zero(); k = k + 1u) {
         // a - q b, exact once q is within a unit of a / b.
         let r = fma(-q, b, a);
         if (r == 0.0) {
@@ -113,7 +114,7 @@ const HOST_SQRT_UNSCALE: f32 = 0x1p-32f;
 // The nearest root of a positive x at least 2^-64.
 fn host_sqrt_walked(x: f32) -> f32 {
     var s = host_fence(sqrt(x));
-    for (var k = 0u; k < HOST_FLOAT_WALK; k = k + 1u) {
+    for (var k = 0u; k < HOST_FLOAT_WALK + host_zero(); k = k + 1u) {
         let r = fma(-s, s, x);
         let above = host_next_float(s, true);
         let below = host_next_float(s, false);

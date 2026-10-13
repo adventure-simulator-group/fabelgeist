@@ -258,7 +258,7 @@ pub(super) fn update_readiness(
     mut capture: ResMut<ArmorCapture>,
     armor: Query<(Entity, &ItemProperties), With<CapturedArmor>>,
     visuals: EquipmentVisualStatus,
-    warmup: Res<crate::equipment::RuntimeEquipmentWarmup>,
+    equipment: Res<crate::equipment::RuntimeEquipmentBodyCache>,
     mut exit: MessageWriter<AppExit>,
 ) {
     let Some(harness) = capture.harness else {
@@ -308,9 +308,9 @@ pub(super) fn update_readiness(
         )
         .expect("write armor readiness");
     }
-    // Initial pipeline preparation is not unresolved equipment. Its synchronous
-    // driver work can span many rendered frames; start the fit budget afterward.
-    if !capture.ready && !warmup.is_preparing() {
+    // A requested fit includes first-use device compilation. Count unresolved
+    // presentation frames after that asynchronous task completes.
+    if !capture.ready && !equipment.is_preparing() {
         capture.waited += 1;
         if capture.waited >= CAPTURE_LOAD_FRAME_LIMIT {
             capture.fail("Timed out waiting for every armor mesh, material, morph, and wearer skin to resolve", &mut exit);

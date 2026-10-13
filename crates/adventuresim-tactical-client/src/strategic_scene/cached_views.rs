@@ -15,8 +15,9 @@ use bevy::{
 use std::collections::HashMap;
 
 #[cfg(test)]
+mod demand_tests;
+#[cfg(test)]
 mod environment_tests;
-mod preload;
 mod travel;
 
 // A newly active view needs visibility, material specialization and render-world
@@ -174,28 +175,6 @@ impl CacheWorld<'_> {
             let frame = self.retained.frames.get_mut(key).expect("created snapshot");
             frame.show(commands, spec, window);
         }
-        if let Some(view) = view {
-            for spec in preload::specs(view, scene) {
-                let key = spec.cache.clone().expect("portrait preload");
-                let signature = Signature::new(&spec, Some(view));
-                if self
-                    .retained
-                    .frames
-                    .get(&key)
-                    .is_none_or(|frame| frame.signature != signature)
-                {
-                    if let Some(previous) = self.retained.frames.remove(&key) {
-                        if let Some(camera) = previous.camera {
-                            deactivate(commands, camera);
-                            self.retained.free_cameras.push(camera);
-                        }
-                        commands.entity(previous.sprite).despawn();
-                    }
-                    let frame = self.create(commands, &spec, signature);
-                    self.retained.frames.insert(key, frame);
-                }
-            }
-        }
         let active = view.is_some();
         // Replacing Camera would erase its computed render-target metadata.
         // Bevy only recomputes that metadata on target/projection changes.
@@ -310,14 +289,21 @@ fn settle(
     mut commands: Commands,
     mut cached: ResMut<CachedViews>,
     ready: Res<super::status::SceneAssetsReady>,
+    installed: Res<super::status::SceneInstallationReady>,
+    mut previous_scene: Local<Option<Entity>>,
     mut cameras: Query<
         (&mut Camera, &bevy::camera::visibility::VisibleEntities),
         With<SnapshotCamera>,
     >,
 ) {
     // Inactive Camera entities still consume Bevy's limited distance-visibility
-    // slots. Reuse a bounded pair for captures, retaining completed images.
+    // slots. Reuse a bounded set for captures, retaining completed images.
     let cached = &mut *cached;
+    // Installation status is published in Last. On city replacement it still
+    // belongs to the prior root until that publication; defer warming one frame.
+    let scene_changed = *previous_scene != cached.scene;
+    *previous_scene = cached.scene;
+    let may_prepare = installed.0 && !scene_changed;
     let mut active = 0;
     for frame in cached.frames.values_mut() {
         if frame.remaining == 0 {
@@ -337,10 +323,10 @@ fn settle(
             frame.remaining = CAPTURE_SETTLED_FRAMES;
         }
         if let Ok((mut camera, visible)) = cameras.get_mut(camera) {
-            // Do not redraw every snapshot throughout city generation. The live
-            // view warms shared assets; snapshot pipelines settle when first used.
-            camera.is_active = ready.0;
-            if camera.is_active {
+            // Final geometry and lighting can warm these exact view pipelines
+            // while equipment fits. Only complete assets advance the capture.
+            camera.is_active = may_prepare;
+            if camera.is_active && ready.0 {
                 if frame.remaining == 1 {
                     info!(
                         meshes = visible.len(std::any::TypeId::of::<Mesh3d>()),
@@ -351,7 +337,7 @@ fn settle(
             }
         }
     }
-    if ready.0 {
+    if may_prepare {
         for frame in cached
             .frames
             .values_mut()
@@ -473,8 +459,24 @@ mod tests {
         }
         app.insert_resource(cached)
             .insert_resource(super::super::status::SceneAssetsReady(false))
+            .insert_resource(super::super::status::SceneInstallationReady(false))
             .add_systems(Update, settle);
         app.update();
+        assert!(!app.world().get::<Camera>(entities[1]).unwrap().is_active);
+        app.world_mut()
+            .resource_mut::<super::super::status::SceneInstallationReady>()
+            .0 = true;
+        app.update();
+        assert!(app.world().get::<Camera>(entities[1]).unwrap().is_active);
+        assert_eq!(
+            app.world().resource::<CachedViews>().frames[&ViewKey::Portrait {
+                person: PortraitId(2),
+                slot: 0,
+            }]
+                .remaining,
+            CAPTURE_SETTLED_FRAMES,
+            "incomplete assets never finalize an image"
+        );
         app.world_mut()
             .resource_mut::<super::super::status::SceneAssetsReady>()
             .0 = true;
@@ -482,6 +484,17 @@ mod tests {
         assert!(!app.world().get::<Camera>(entities[0]).unwrap().is_active);
         assert!(app.world().get::<Camera>(entities[1]).unwrap().is_active);
         assert!(!app.world().resource::<CachedViews>().is_ready());
+        app.world_mut().resource_mut::<CachedViews>().scene = Some(Entity::PLACEHOLDER);
+        app.update();
+        assert!(
+            !app.world().get::<Camera>(entities[1]).unwrap().is_active,
+            "a replacement cannot warm using the prior city's installation status"
+        );
+        app.world_mut()
+            .resource_mut::<super::super::status::SceneInstallationReady>()
+            .0 = false;
+        app.update();
+        assert!(!app.world().get::<Camera>(entities[1]).unwrap().is_active);
     }
 
     #[test]
