@@ -149,15 +149,7 @@ fn view_specs(view: Option<&StrategicView>, scene: &RetainedScene) -> Vec<ViewSp
             });
         }
         if let Some(rect) = view.stage {
-            let subject = view.selected.or_else(|| {
-                view.people
-                    .iter()
-                    .find(|person| {
-                        Some(&person.place) == view.active_place.as_ref()
-                            && person.presentation == super::protocol::PersonPresentation::Scene
-                    })
-                    .map(|person| person.id)
-            });
+            let subject = view.stage_subject();
             let anchor = subject
                 .and_then(|id| scene.people.get(&id).map(|person| person.anchor))
                 .or_else(|| {

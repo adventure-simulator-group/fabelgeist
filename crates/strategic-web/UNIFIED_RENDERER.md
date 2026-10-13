@@ -39,6 +39,12 @@ Requested street and actor captures overlap their shader work within the
 existing camera limit. A city replacement ignores the prior city's readiness
 for one frame, until the installation gate publishes the destination's state.
 Completed snapshots remain retained across later pipeline work.
+The full settlement roster still determines venue layouts and resident positions.
+Only characters shown by the requested stage or portraits install a new rig and
+wardrobe. Visited characters retain their entities and fitted equipment while
+they remain in that roster. Map and forge pages do not load a character merely
+because their navigation state contains a selected character ID. Diagnostics
+report roster, required, loaded and posed character counts separately.
 A failed worker or invalid product fails loading explicitly. Warm venue and
 portrait switches use retained assets and do not schedule generation jobs.
 `window.strategicGenerationMetrics` reports worker count, product bytes, summed

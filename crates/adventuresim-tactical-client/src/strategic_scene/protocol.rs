@@ -89,6 +89,25 @@ pub(crate) struct StrategicView {
     pub portraits: Vec<PortraitView>,
 }
 
+impl StrategicView {
+    pub(super) fn stage_subject(&self) -> Option<PortraitId> {
+        self.selected.or_else(|| {
+            self.people
+                .iter()
+                .find(|person| {
+                    Some(&person.place) == self.active_place.as_ref()
+                        && person.presentation == PersonPresentation::Scene
+                })
+                .map(|person| person.id)
+        })
+    }
+
+    pub(super) fn requires_person(&self, id: PortraitId) -> bool {
+        self.portraits.iter().any(|portrait| portrait.id == id)
+            || (self.stage.is_some() && self.stage_subject().is_none_or(|subject| subject == id))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
