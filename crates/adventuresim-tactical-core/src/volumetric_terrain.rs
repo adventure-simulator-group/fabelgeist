@@ -15,7 +15,7 @@ use fabelgeist_determinism::StreamId;
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 
-use crate::marching_tetrahedra::{FieldSample, marching_tetrahedra};
+use crate::marching_tetrahedra::marching_height_surface;
 use crate::{scene::SceneTerrain, terrain_transition::TerrainTransitionCollar};
 use resistance::{ScarpResistance, ScarpResistanceGrid};
 
@@ -131,13 +131,10 @@ pub fn terrain_landform_patch(
             terrain_height_extended_to_edge(terrain, point) + surface.offset_at(point)
         })
         .collect::<Vec<_>>();
-    let field = |sample: FieldSample| {
-        sample.position.y - surface_heights[sample.coordinate[2] * side + sample.coordinate[0]]
-    };
-    marching_tetrahedra(
+    marching_height_surface(
         dimensions,
         sample_position,
-        field,
+        &surface_heights,
         recipe.transition_collar(),
     )
 }

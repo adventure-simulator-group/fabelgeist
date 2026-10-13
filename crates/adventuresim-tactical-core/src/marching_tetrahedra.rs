@@ -5,6 +5,9 @@ use rayon::prelude::*;
 
 use crate::{terrain_transition::TerrainTransitionCollar, volumetric_terrain::SceneTerrainPatch};
 
+mod height_surface;
+pub(crate) use height_surface::marching_height_surface;
+
 // Fields are in metres. Snap sub-millimetre roundoff to the shared lattice
 // endpoint instead of producing several almost-coincident edge vertices.
 const FIELD_ZERO_TOLERANCE_METRES: f32 = 0.00001;
@@ -28,17 +31,16 @@ const TETS: [[usize; 4]; 6] = [
     [0, 5, 1, 7],
 ];
 
-/// A sampled native metre position and its ordinal in the admitted lattice.
-/// The coordinate preserves exact addressability without reversing float math.
-pub(crate) struct FieldSample {
-    pub position: Vec3,
-    pub coordinate: [usize; 3],
+#[derive(Clone, Copy)]
+struct LatticeSample {
+    position: Vec3,
+    value: f32,
 }
 
 pub(crate) fn marching_tetrahedra(
     dimensions: [usize; 3],
     position_at: impl Fn([usize; 3]) -> Vec3 + Sync,
-    field: impl Fn(FieldSample) -> f32 + Sync,
+    field: impl Fn(Vec3) -> f32 + Sync,
     transition_collar: TerrainTransitionCollar,
 ) -> crate::volumetric_terrain::TerrainRecipeResult<SceneTerrainPatch> {
     let (positions, values) = sample_field(dimensions, &position_at, &field)?;
@@ -49,7 +51,7 @@ pub(crate) fn marching_tetrahedra(
 fn sample_field(
     dimensions: [usize; 3],
     position_at: &(impl Fn([usize; 3]) -> Vec3 + Sync),
-    field: &(impl Fn(FieldSample) -> f32 + Sync),
+    field: &(impl Fn(Vec3) -> f32 + Sync),
 ) -> crate::volumetric_terrain::TerrainRecipeResult<(Vec<Vec3>, Vec<f32>)> {
     let count = dimensions[0]
         .checked_mul(dimensions[1])
@@ -65,15 +67,8 @@ fn sample_field(
                 yz / dimensions[1],
             ];
             let position = position_at(coordinate);
-            let value = field(FieldSample {
-                position,
-                coordinate,
-            });
-            let value = if value.abs() <= FIELD_ZERO_TOLERANCE_METRES {
-                0.0
-            } else {
-                value
-            };
+            let value = field(position);
+            let value = snap_field_zero(value);
             (position.is_finite() && value.is_finite())
                 .then_some((position, value))
                 .ok_or(crate::volumetric_terrain::TerrainRecipeError::NonFiniteField)
@@ -91,6 +86,10 @@ fn extract_surface(
     let mut mesh_positions = Vec::new();
     let mut indices = Vec::new();
     let mut edge_vertices = HashMap::new();
+    let sample_at = |index| LatticeSample {
+        position: positions[index],
+        value: values[index],
+    };
     for z in 0..dimensions[2] - 1 {
         for y in 0..dimensions[1] - 1 {
             for x in 0..dimensions[0] - 1 {
@@ -107,8 +106,7 @@ fn extract_surface(
                 for tet in TETS {
                     emit_tetrahedron(
                         tet.map(|corner| cube[corner]),
-                        positions,
-                        values,
+                        &sample_at,
                         &mut edge_vertices,
                         &mut mesh_positions,
                         &mut indices,
@@ -122,8 +120,7 @@ fn extract_surface(
 
 fn emit_tetrahedron(
     vertices: [usize; 4],
-    positions: &[Vec3],
-    values: &[f32],
+    sample_at: &impl Fn(usize) -> LatticeSample,
     edge_vertices: &mut HashMap<(usize, usize), u32>,
     mesh_positions: &mut Vec<Vec3>,
     indices: &mut Vec<u32>,
@@ -133,7 +130,7 @@ fn emit_tetrahedron(
     let mut inside_count = 0;
     let mut outside_count = 0;
     for index in vertices {
-        if values[index] <= 0.0 {
+        if sample_at(index).value <= 0.0 {
             inside[inside_count] = index;
             inside_count += 1;
         } else {
@@ -144,7 +141,7 @@ fn emit_tetrahedron(
     let inside = &inside[..inside_count];
     let outside = &outside[..outside_count];
     let first_triangle = indices.len();
-    let mut vertex = |a, b| vertex_on_edge(a, b, positions, values, edge_vertices, mesh_positions);
+    let mut vertex = |a, b| vertex_on_edge(a, b, sample_at, edge_vertices, mesh_positions);
     match (inside.len(), outside.len()) {
         (1, 3) => {
             for &b in outside {
@@ -173,7 +170,7 @@ fn emit_tetrahedron(
         // must face from the solid sample toward the empty sample. A gradient
         // of the original nonlinear field at a triangle centre can face the
         // other way at a cusp, breaking winding across shared edges.
-        let outward = positions[empty].as_dvec3() - positions[solid].as_dvec3();
+        let outward = sample_at(empty).position.as_dvec3() - sample_at(solid).position.as_dvec3();
         for triangle in indices[first_triangle..].as_chunks_mut::<3>().0 {
             let [a, b, c] = [triangle[0], triangle[1], triangle[2]]
                 .map(|index| mesh_positions[index as usize].as_dvec3());
@@ -188,16 +185,17 @@ fn emit_tetrahedron(
 fn vertex_on_edge(
     a: usize,
     b: usize,
-    positions: &[Vec3],
-    values: &[f32],
+    sample_at: &impl Fn(usize) -> LatticeSample,
     edge_vertices: &mut HashMap<(usize, usize), u32>,
     mesh_positions: &mut Vec<Vec3>,
 ) -> crate::volumetric_terrain::TerrainRecipeResult<u32> {
     // Several tetrahedra can reach the same zero-valued lattice vertex along
     // different edges. Give that endpoint one identity to preserve topology.
-    let key = if values[a] == 0.0 {
+    let start = sample_at(a);
+    let end = sample_at(b);
+    let key = if start.value == 0.0 {
         (a, a)
-    } else if values[b] == 0.0 {
+    } else if end.value == 0.0 {
         (b, b)
     } else if a < b {
         (a, b)
@@ -207,18 +205,26 @@ fn vertex_on_edge(
     if let Some(&index) = edge_vertices.get(&key) {
         return Ok(index);
     }
-    let denominator = values[a] - values[b];
+    let denominator = start.value - end.value;
     let fraction = if denominator.abs() < 1e-7 {
         0.5
     } else {
-        values[a] / denominator
+        start.value / denominator
     }
     .clamp(0.0, 1.0);
     let index = u32::try_from(mesh_positions.len())
         .map_err(|_| crate::volumetric_terrain::TerrainRecipeError::VertexCountOverflow)?;
-    mesh_positions.push(positions[a].lerp(positions[b], fraction));
+    mesh_positions.push(start.position.lerp(end.position, fraction));
     edge_vertices.insert(key, index);
     Ok(index)
+}
+
+fn snap_field_zero(value: f32) -> f32 {
+    if value.abs() <= FIELD_ZERO_TOLERANCE_METRES {
+        0.0
+    } else {
+        value
+    }
 }
 
 fn build_surface(
