@@ -62,3 +62,8 @@ unsupported code for the original decimal diagnostic. `ZipCompressionCode`
 derives decimal display without changing that message.
 
 [PKWARE ZIP format specification, section 4.4.5](https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT)
+
+## ZIP record kinds
+
+The reader retains named record kinds after native signature decoding. See the
+[record-kind contract](record-kinds.md) for interpretation and framing limits.
