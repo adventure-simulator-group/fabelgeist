@@ -230,7 +230,10 @@ fn cached_building_levels(
 
     #[cfg(target_family = "wasm")]
     if detail == BuildingDetail::Facade {
-        let prepared = super::generation::take_facade(program)?;
+        let prepared = super::generation::take_facade(
+            crate::presentation::generation::GenerationOwner::Scene,
+            program,
+        )?;
         return kit::install_facade(cache, prepared, meshes);
     }
 
@@ -247,7 +250,10 @@ fn cached_building_levels(
     let plan = &geometry.plan;
     #[cfg(target_family = "wasm")]
     if detail == BuildingDetail::Dynamic && prepared.is_some() {
-        let meshes_ready = super::generation::take_venue_geometry(program)?;
+        let meshes_ready = super::generation::take_venue_geometry(
+            crate::presentation::generation::GenerationOwner::Scene,
+            program,
+        )?;
         return self::prepared::install(cache, program, meshes_ready, geometry, meshes);
     }
     let collision = &geometry.collision;

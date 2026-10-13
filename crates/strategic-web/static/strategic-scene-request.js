@@ -30,10 +30,16 @@ export function createSceneRequests({ runtimePromise, install, changed,
       }
       const owned = prepareScene(runtime, input, venues, { signal });
       preparing = owned;
-      try { await owned; }
+      let preparation;
+      try { preparation = await owned; }
       finally { if (preparing === owned) preparing = undefined; }
-      signal.throwIfAborted();
-      install({ location, input });
+      try {
+        signal.throwIfAborted();
+        install({ location, input, preparation });
+      } catch (cause) {
+        runtime.wasm_cancel_generation(preparation);
+        throw cause;
+      }
       residentLocation = location;
       publish({ phase: "prepared", location });
       return { status: "prepared", location };

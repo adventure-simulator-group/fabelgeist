@@ -239,13 +239,13 @@ test("local products survive reload and invalidate on input, revision, or corrup
       const run = async () => {
         const received = [];
         const runtime = { generationRevision: "preparation-contracts", generationModule: {},
-          wasm_begin_generation() {}, wasm_generation_jobs: () => JSON.stringify(jobs),
+          wasm_begin_generation() { return JSON.stringify({owner:"scene",sequence:1}); }, wasm_finish_generation() {}, wasm_cancel_generation() {}, wasm_generation_jobs: () => JSON.stringify(jobs),
           wasm_venue_jobs: () => "[]", wasm_landscape_jobs: () => "[]",
           wasm_generation_dependencies: () => new Uint8Array(),
-          wasm_receive_job(job, bytes) { received.push({ job, bytes: Array.from(bytes) }); } };
+          wasm_receive_job(preparation, job, bytes) { received.push({ job, bytes: Array.from(bytes) }); } };
         await prepareGeneratedScene(runtime, "opaque-scene-input", []);
-        const metrics = window.strategicGenerationMetrics;
-        const flush = await window.strategicGenerationCacheSettled;
+        const metrics = window.strategicGenerationMetrics?.scene;
+        const flush = await window.strategicGenerationCacheSettled?.scene;
         return { received, workers: metrics.workers, hits: metrics.cacheHits, misses: metrics.cacheMisses,
           accepted: metrics.cacheWritesAccepted, replaced: metrics.cacheWritesReplaced,
           rejections: metrics.cacheWriteRejections, written: flush.writtenProducts };

@@ -57,7 +57,7 @@ exports.attach = async (page, output) => {
     async stop(name) {
       const { profile } = await cdp.send("Profiler.stop");
       const trace = await page.evaluate(() => { window.startupProfile.active = false; return ({ ...window.startupProfile,
-        now: performance.now(), generation: window.strategicGenerationMetrics,
+        now: performance.now(), generation: window.strategicGenerationMetrics?.scene,
         metrics: window.strategicRendererMetrics }); });
       fs.writeFileSync(path.join(output, `${name}.cpuprofile`), JSON.stringify(profile));
       fs.writeFileSync(path.join(output, `${name}-trace.json`), JSON.stringify(trace));
@@ -105,16 +105,16 @@ const transforms = {
   "strategic-scene-request.js": [
     ['const owned = prepareScene(runtime, input, venues, { signal });',
       'window.startupProfile.mark("scene-response"); const owned = prepareScene(runtime, input, venues, { signal });'],
-    ['install({ location, input });',
-      'window.startupProfile.mark("generation-ready"); install({ location, input });'],
+    ['install({ location, input, preparation });',
+      'window.startupProfile.mark("generation-ready"); install({ location, input, preparation });'],
   ],
   "strategic-generation.js": [
-    ['\n    pool.close();',
-      '\n    if (window.stopStartupWorkers) await window.stopStartupWorkers(); pool.close();'],
+    ['\n    pool?.close();',
+      '\n    if (window.stopStartupWorkers) await window.stopStartupWorkers(); pool?.close();'],
     ['const started = performance.now();',
       'const started = performance.now(); window.startupProfile.mark("generation-start");'],
-    ['runtime.wasm_receive_job(job, bytes);',
-      'runtime.wasm_receive_job(job, bytes); window.startupProfile.mark("receive", {start: receiveStarted, duration: performance.now() - receiveStarted, bytes: bytes.byteLength});'],
+    ['runtime.wasm_receive_job(preparation, job, bytes);',
+      'runtime.wasm_receive_job(preparation, job, bytes); window.startupProfile.mark("receive", {start: receiveStarted, duration: performance.now() - receiveStarted, bytes: bytes.byteLength});'],
     ['metrics.workerMilliseconds += workerMilliseconds;',
       'metrics.workerMilliseconds += workerMilliseconds; { const parsed = JSON.parse(job); window.startupProfile.mark("worker-job", {type: parsed.Scene ? "scene" : parsed.Ground ? "ground" : parsed.Grass ? "grass" : parsed.Venue ? "venue" : "building", archetype: (parsed.Building || parsed.Venue)?.archetype, milliseconds: workerMilliseconds, bytes: bytes.byteLength}); }'],
   ],
