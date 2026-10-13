@@ -1,4 +1,5 @@
-use anyhow::anyhow;
+mod parse_error;
+pub use parse_error::{ShaderParseError, ShaderParseResult};
 
 #[derive(Debug, Clone)]
 pub struct UniformMember {
@@ -47,10 +48,19 @@ pub fn detect_from_code(code: &str) -> String {
     "wgsl".to_string()
 }
 
+/// Parse native shader source; validation and device compilation are separate.
+///
+/// The owning result needs explicit conversion at a mixed-error boundary.
+///
+/// ```compile_fail
+/// use fabelgeist_gpu::data::gpu::shader::parse_naga;
+/// let _: anyhow::Result<wgpu::naga::Module> =
+///     parse_naga("", wgpu::naga::ShaderStage::Compute);
+/// ```
 pub fn parse_naga(
     code: &str,
     stage: wgpu::naga::ShaderStage,
-) -> anyhow::Result<wgpu::naga::Module> {
+) -> ShaderParseResult<wgpu::naga::Module> {
     let lang = detect_from_code(code);
 
     if lang == "glsl" {
@@ -63,11 +73,9 @@ pub fn parse_naga(
                 },
                 code,
             )
-            .map_err(|e| anyhow!("GLSL Parse Error: {:?}", e))
+            .map_err(ShaderParseError::from_glsl)
     } else {
-        wgpu::naga::front::wgsl::parse_str(code).map_err(|e| {
-            let message = e.emit_to_string(code);
-            anyhow!("WGSL Parse Error: {}", message)
-        })
+        wgpu::naga::front::wgsl::parse_str(code)
+            .map_err(|cause| ShaderParseError::from_wgsl(cause, code))
     }
 }
