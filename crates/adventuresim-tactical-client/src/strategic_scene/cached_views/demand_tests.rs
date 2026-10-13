@@ -2,7 +2,7 @@ use super::*;
 use crate::strategic_scene::{
     RetainedPerson,
     protocol::{Person, PersonPresentation, PlaceId, PortraitView},
-    status::SceneAssetsReady,
+    status::{SceneAssetsReady, SceneInstallationReady},
 };
 
 #[test]
@@ -59,6 +59,7 @@ fn requested_portraits_capture_on_first_visit_and_reuse_their_completed_images()
         .insert_resource(scene)
         .insert_resource(view)
         .insert_resource(SceneAssetsReady(true))
+        .insert_resource(SceneInstallationReady(true))
         .add_systems(
             Update,
             |mut commands: Commands,

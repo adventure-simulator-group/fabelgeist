@@ -19,7 +19,8 @@ const SETTLED_RENDER_FRAMES: usize = 4;
 #[derive(Resource, Default)]
 pub(super) struct SceneAssetsReady(pub bool);
 
-/// CPU installation and final lighting, independent of mesh pipeline preparation.
+/// Geometry, posed models and final lighting can prepare render pipelines while
+/// equipment fitting continues. Final asset readiness still includes equipment.
 #[derive(Resource, Default)]
 pub(super) struct SceneInstallationReady(pub bool);
 
@@ -156,7 +157,6 @@ pub(super) fn update_status(
             && view.people.iter().all(|p| scene.people.contains_key(&p.id))
     }) && loaded == scene.people.len()
         && posed == loaded
-        && equipment_ready
         && textures_ready
         && city.as_ref().is_none_or(|city| city.finished())
         && terrain.is_empty()
@@ -165,6 +165,7 @@ pub(super) fn update_status(
         && scene.error.is_none();
     installed_ready.0 = installed;
     let complete = installed
+        && equipment_ready
         && waiting == 0
         && city.as_ref().is_none_or(|city| {
             city.total == 0 || crate::presentation::city_gpu_ready(PresentationOwner::Scene)

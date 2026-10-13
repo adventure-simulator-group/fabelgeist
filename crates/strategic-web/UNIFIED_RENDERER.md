@@ -31,6 +31,14 @@ its requested identity. Entity installation, render assets, and GPU upload
 remain in the persistent application.
 
 Readiness requires all generation jobs, installation, and existing asset gates.
+Once geometry, posed models, textures and final sky lighting are installed,
+requested views prepare render pipelines while equipment fitting continues.
+The bounded capture cameras render during that preparation, but advance their
+settled-frame counters only after equipment and all render pipelines are ready.
+Requested street and actor captures overlap their shader work within the
+existing camera limit. A city replacement ignores the prior city's readiness
+for one frame, until the installation gate publishes the destination's state.
+Completed snapshots remain retained across later pipeline work.
 A failed worker or invalid product fails loading explicitly. Warm venue and
 portrait switches use retained assets and do not schedule generation jobs.
 `window.strategicGenerationMetrics` reports worker count, product bytes, summed
