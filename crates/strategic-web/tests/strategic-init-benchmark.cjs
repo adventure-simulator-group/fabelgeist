@@ -17,7 +17,7 @@ const identities = ['a', 'b', 'a'];
 function cityFor(id) {
   if (id === 'a') return city;
   return city.replace(metadata.place, 'place:v1:settlement:62656e63682d62')
-    .replace(/("settlement_id"\s*:\s*)"([^"]+)"/, (_, prefix, owner) => {
+    .replace(/("settlement_id"\s*:\s*)"([^"]+)"/g, (_, prefix, owner) => {
       assert.equal(owner, metadata.input.properties.settlement_id);
       return prefix + '"bench-b"';
     })

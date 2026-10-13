@@ -60,7 +60,7 @@ pub(crate) fn patch(
                 origin.y + index[2] as f32 * spacing - radius,
             )
         },
-        |point| field(terrain, recipe, point),
+        |sample| field(terrain, recipe, sample.position),
         recipe.transition_collar(),
     )
 }

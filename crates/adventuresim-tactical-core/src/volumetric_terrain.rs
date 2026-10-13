@@ -15,7 +15,7 @@ use fabelgeist_determinism::StreamId;
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 
-use crate::marching_tetrahedra::marching_tetrahedra;
+use crate::marching_tetrahedra::{FieldSample, marching_tetrahedra};
 use crate::{scene::SceneTerrain, terrain_transition::TerrainTransitionCollar};
 use resistance::{ScarpResistance, ScarpResistanceGrid};
 
@@ -121,10 +121,18 @@ pub fn terrain_landform_patch(
             origin.y + index[2] as f32 * spacing - radius,
         )
     };
-    let field = |position: Vec3| {
-        position.y
-            - (terrain_height_extended_to_edge(terrain, position.xz())
-                + surface.offset_at(position.xz()))
+    // A fault is a displaced height surface. Every vertical sample in a
+    // column shares the exact same terrain lookup and displacement. Reuse the
+    // producer's coordinate expression so ownership-edge rounding is unchanged.
+    let surface_heights = (0..side * side)
+        .into_par_iter()
+        .map(|index| {
+            let point = sample_position([index % side, 0, index / side]).xz();
+            terrain_height_extended_to_edge(terrain, point) + surface.offset_at(point)
+        })
+        .collect::<Vec<_>>();
+    let field = |sample: FieldSample| {
+        sample.position.y - surface_heights[sample.coordinate[2] * side + sample.coordinate[0]]
     };
     marching_tetrahedra(
         dimensions,

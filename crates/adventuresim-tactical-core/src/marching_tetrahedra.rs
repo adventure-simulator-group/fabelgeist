@@ -28,10 +28,17 @@ const TETS: [[usize; 4]; 6] = [
     [0, 5, 1, 7],
 ];
 
+/// A sampled native metre position and its ordinal in the admitted lattice.
+/// The coordinate preserves exact addressability without reversing float math.
+pub(crate) struct FieldSample {
+    pub position: Vec3,
+    pub coordinate: [usize; 3],
+}
+
 pub(crate) fn marching_tetrahedra(
     dimensions: [usize; 3],
     position_at: impl Fn([usize; 3]) -> Vec3 + Sync,
-    field: impl Fn(Vec3) -> f32 + Sync,
+    field: impl Fn(FieldSample) -> f32 + Sync,
     transition_collar: TerrainTransitionCollar,
 ) -> crate::volumetric_terrain::TerrainRecipeResult<SceneTerrainPatch> {
     let (positions, values) = sample_field(dimensions, &position_at, &field)?;
@@ -42,7 +49,7 @@ pub(crate) fn marching_tetrahedra(
 fn sample_field(
     dimensions: [usize; 3],
     position_at: &(impl Fn([usize; 3]) -> Vec3 + Sync),
-    field: &(impl Fn(Vec3) -> f32 + Sync),
+    field: &(impl Fn(FieldSample) -> f32 + Sync),
 ) -> crate::volumetric_terrain::TerrainRecipeResult<(Vec<Vec3>, Vec<f32>)> {
     let count = dimensions[0]
         .checked_mul(dimensions[1])
@@ -52,12 +59,16 @@ fn sample_field(
         .into_par_iter()
         .map(|index| {
             let yz = index / dimensions[0];
-            let position = position_at([
+            let coordinate = [
                 index % dimensions[0],
                 yz % dimensions[1],
                 yz / dimensions[1],
-            ]);
-            let value = field(position);
+            ];
+            let position = position_at(coordinate);
+            let value = field(FieldSample {
+                position,
+                coordinate,
+            });
             let value = if value.abs() <= FIELD_ZERO_TOLERANCE_METRES {
                 0.0
             } else {
@@ -85,6 +96,14 @@ fn extract_surface(
             for x in 0..dimensions[0] - 1 {
                 let cube =
                     CUBE.map(|offset| sample_id(x + offset[0], y + offset[1], z + offset[2]));
+                // Uniform cells contribute no surface. Keep the same <= zero
+                // classification, including snapped lattice endpoints, and
+                // preserve the visitation order of every mixed cell.
+                // Trimming reference: https://vtk.org/doc/nightly/html/classvtkFlyingEdges3D.html
+                let solid = values[cube[0]] <= 0.0;
+                if cube.iter().all(|&index| (values[index] <= 0.0) == solid) {
+                    continue;
+                }
                 for tet in TETS {
                     emit_tetrahedron(
                         tet.map(|corner| cube[corner]),
@@ -109,29 +128,35 @@ fn emit_tetrahedron(
     mesh_positions: &mut Vec<Vec3>,
     indices: &mut Vec<u32>,
 ) -> crate::volumetric_terrain::TerrainRecipeResult<()> {
-    let inside = vertices
-        .iter()
-        .copied()
-        .filter(|&index| values[index] <= 0.0)
-        .collect::<Vec<_>>();
-    let outside = vertices
-        .iter()
-        .copied()
-        .filter(|&index| values[index] > 0.0)
-        .collect::<Vec<_>>();
+    let mut inside = [0; 4];
+    let mut outside = [0; 4];
+    let mut inside_count = 0;
+    let mut outside_count = 0;
+    for index in vertices {
+        if values[index] <= 0.0 {
+            inside[inside_count] = index;
+            inside_count += 1;
+        } else {
+            outside[outside_count] = index;
+            outside_count += 1;
+        }
+    }
+    let inside = &inside[..inside_count];
+    let outside = &outside[..outside_count];
     let first_triangle = indices.len();
     let mut vertex = |a, b| vertex_on_edge(a, b, positions, values, edge_vertices, mesh_positions);
     match (inside.len(), outside.len()) {
         (1, 3) => {
-            for &b in &outside {
+            for &b in outside {
                 indices.push(vertex(inside[0], b)?);
             }
         }
         (3, 1) => {
-            let triangle = inside
-                .iter()
-                .map(|&a| vertex(a, outside[0]))
-                .collect::<Result<Vec<_>, _>>()?;
+            let triangle = [
+                vertex(inside[0], outside[0])?,
+                vertex(inside[1], outside[0])?,
+                vertex(inside[2], outside[0])?,
+            ];
             indices.extend([triangle[0], triangle[2], triangle[1]]);
         }
         (2, 2) => {
