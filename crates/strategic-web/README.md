@@ -9,6 +9,9 @@ SSR, HATEOAS-style web UI for the Fabelgeist strategic layer.
 [Generated product persistence](generation-cache.md) describes deferred cache
 writes, buffer ownership, resource budgets and preparation diagnostics.
 
+[Generated product workers](generation-workers.md) describes preparation phases,
+dispatch identity, transferable products and cancellation.
+
 ```
 ┌─────────────────┐     HTTP     ┌──────────────────┐
 │  Browser        │◄────────────►│  strategic-web   │

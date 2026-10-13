@@ -7,9 +7,25 @@ const { chromium } = require("playwright");
 
 test("local products survive reload and invalidate on input, revision, or corruption", async () => {
   const server = http.createServer((request, response) => {
+    if (request.url === "/tactical/wasm/adventuresim-tactical-client.js") {
+      response.setHeader("Content-Type", "text/javascript");
+      response.end(`export default async function init({ module_or_path }) {
+        if (!(module_or_path instanceof WebAssembly.Module)) throw new Error("Expected compiled Wasm");
+      }
+      export function wasm_generate_job(job, dependencies) {
+        if (job === "failure-fixture") {
+          const error = new Error("fixture product mismatch");
+          error.name = "generation/product-mismatch"; throw error;
+        }
+        const address = new TextEncoder().encode(job);
+        const bytes = new Uint8Array(address.length + dependencies.length);
+        bytes.set(address); bytes.set(dependencies, address.length); return bytes;
+      }`);
+      return;
+    }
     if (["/cache.js", "/strategic-generation-write-queue.js",
       "/strategic-generation.js", "/strategic-generation-cache.js",
-      "/strategic-generation-pool.js"].includes(request.url)) {
+      "/strategic-generation-pool.js", "/strategic-generation-worker.js"].includes(request.url)) {
       response.setHeader("Content-Type", "text/javascript");
       response.end(fs.readFileSync(path.join(__dirname, "../static/",
         request.url === "/cache.js" ? "strategic-generation-cache.js" : path.basename(request.url))));
@@ -128,6 +144,40 @@ test("local products survive reload and invalidate on input, revision, or corrup
       repeatedClose: true, late: { status: "rejected", reason: "closed" }, retainedLateBytes: 1,
       flush: { status: "flushed", writtenProducts: 1, failures: [] }, bytes: [4, 5, 6] });
     assert.deepEqual(pageErrors, []);
+    assert.deepEqual(await page.evaluate(async () => {
+      const { createGenerationPool } = await import("/strategic-generation-pool.js");
+      const module = await WebAssembly.compile(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0]));
+      const generation = createGenerationPool(module, { hardwareConcurrency: 3 });
+      const jobs = ['{"Building":{"seed":18446744073709551615}}',
+        '{"Scene":{"seed":18446744073709551614}}'];
+      const buffers = [], deliveries = [];
+      const options = { dependencies() {
+        const bytes = new Uint8Array([0, 128, 255]); buffers.push(bytes); return bytes;
+      } };
+      const receive = ({ job, bytes }) => {
+        const text = new TextEncoder().encode(job);
+        deliveries.push({ job, address: new TextDecoder().decode(bytes.subarray(0, text.length)),
+          dependency: Array.from(bytes.subarray(text.length)) });
+      };
+      try {
+        const first = await generation.run(jobs, receive, options);
+        const reused = await generation.run([jobs[0]], receive, options);
+        let failure;
+        try { await generation.run(["failure-fixture"], receive, options); }
+        catch (error) { failure = { code: error.code, message: error.message }; }
+        return { first, reused, detached: buffers.every(bytes => bytes.byteLength === 0),
+          deliveries: deliveries.sort((a, b) => a.job.localeCompare(b.job)), failure };
+      } finally { generation.close(); }
+    }), (() => {
+      const first = '{"Building":{"seed":18446744073709551615}}';
+      const second = '{"Scene":{"seed":18446744073709551614}}';
+      const delivery = job => ({ job, address: job, dependency: [0, 128, 255] });
+      return { first: { status: "completed", createdWorkers: 2 },
+        reused: { status: "completed", createdWorkers: 0 }, detached: true,
+        deliveries: [delivery(first), delivery(first), delivery(second)],
+        failure: { code: "generation/product-mismatch", message: "fixture product mismatch" } };
+    })());
+    assert.deepEqual(pageErrors, []);
     assert.equal(await page.evaluate(async () => {
       const { openGeneratedCache } = await import("/cache.js");
       const seed = await openGeneratedCache("recover-read-timeout");
@@ -179,8 +229,10 @@ test("local products survive reload and invalidate on input, revision, or corrup
       window.Worker = class {
         constructor() { createdWorkers++; }
         postMessage(message) {
-          queueMicrotask(() => this.onmessage({ data: message.module ? { ready: true }
-            : { bytes: new Uint8Array([message.job === jobs[0] ? 4 : 7]), milliseconds: 1 } }));
+          queueMicrotask(() => this.onmessage({ data: message.kind === "initialize"
+            ? { kind: "ready", dispatch: message.dispatch }
+            : { kind: "generated", dispatch: message.dispatch,
+              bytes: new Uint8Array([message.job === jobs[0] ? 4 : 7]), milliseconds: 1 } }));
         }
         terminate() {}
       };
