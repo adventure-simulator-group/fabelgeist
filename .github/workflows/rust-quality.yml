@@ -281,6 +281,171 @@ jobs:
           name: mhr-solver-weight-evidence
           path: ${{ runner.temp }}/mhr-solver-weight-evidence
           if-no-files-found: error
+      - name: Test existing NumPy storage package
+        id: numpy_cpu
+        timeout-minutes: 60
+        run: |
+          set -euo pipefail
+          export NPY_DECODE_EVIDENCE="$RUNNER_TEMP/npy-decoder-evidence"
+          mkdir "$NPY_DECODE_EVIDENCE"
+          export VK_DRIVER_FILES="$(dpkg -L mesa-vulkan-drivers | grep '/lvp_icd.*\.json$')"
+          test -f "$VK_DRIVER_FILES"
+          dpkg-query -W libvulkan1 mesa-vulkan-drivers > "$NPY_DECODE_EVIDENCE/vulkan-runtime.txt"
+          printf 'VK_DRIVER_FILES=%s\n' "$VK_DRIVER_FILES" >> "$NPY_DECODE_EVIDENCE/vulkan-runtime.txt"
+          git rev-parse HEAD > "$NPY_DECODE_EVIDENCE/head.txt"
+          rustc -Vv > "$NPY_DECODE_EVIDENCE/toolchain.txt"
+          host=$(sed -n 's/^host: //p' "$NPY_DECODE_EVIDENCE/toolchain.txt")
+          cat > "$NPY_DECODE_EVIDENCE/commands.json" <<CMD_JSON
+          {
+            "graph_argv": [
+              "cargo",
+              "metadata",
+              "--locked",
+              "--manifest-path",
+              "crates/fabelgeist-numpy-storage/Cargo.toml",
+              "--all-features",
+              "--filter-platform",
+              "$host",
+              "--format-version",
+              "1"
+            ],
+            "build_argv": [
+              "cargo",
+              "test",
+              "--locked",
+              "--manifest-path",
+              "crates/fabelgeist-numpy-storage/Cargo.toml",
+              "--all-features",
+              "--no-run",
+              "--message-format=json"
+            ],
+            "planned_runtime_argv": [
+              "cargo",
+              "test",
+              "--locked",
+              "--manifest-path",
+              "crates/fabelgeist-numpy-storage/Cargo.toml",
+              "--all-features",
+              "-vv"
+            ]
+          }
+          CMD_JSON
+          cargo metadata --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-features --filter-platform "$host" --format-version 1 > "$NPY_DECODE_EVIDENCE/graph.json"
+          cargo test --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-features --no-run --message-format=json > "$NPY_DECODE_EVIDENCE/artifacts.jsonl" 2> "$NPY_DECODE_EVIDENCE/compiler.log"
+          python3 - <<'PY_BIND'
+          import hashlib, json, os, pathlib, shlex, subprocess
+
+          evidence = pathlib.Path(os.environ["NPY_DECODE_EVIDENCE"])
+          graph = json.loads((evidence / "graph.json").read_text())
+          packages = {package["id"]: package for package in graph["packages"]}
+          expected_manifest = pathlib.Path.cwd() / "crates/fabelgeist-numpy-storage/Cargo.toml"
+          selected_packages = [package for package in packages.values()
+                               if pathlib.Path(package["manifest_path"]).resolve() == expected_manifest]
+          if len(selected_packages) != 1:
+              raise RuntimeError("Expected one selected NumPy storage package")
+          numpy_package = selected_packages[0]
+          workspace = pathlib.Path(numpy_package["manifest_path"]).resolve().parent.parent.parent
+          if workspace != pathlib.Path.cwd().resolve():
+              raise RuntimeError("NumPy package does not identify the checked-out repository")
+          expected_targets = {(target["name"], tuple(target["kind"]))
+                              for target in numpy_package["targets"]
+                              if target.get("test") and any(kind in {"lib", "test"}
+                                                            for kind in target["kind"])}
+          if not expected_targets:
+              raise RuntimeError("No existing NumPy test targets in selected graph")
+          records = {}
+          depfiles = set()
+          selected_executables = {}
+
+          def bind(path):
+              path = path.resolve(strict=True)
+              if path not in records:
+                  digest = hashlib.sha256()
+                  with path.open("rb") as source:
+                      while chunk := source.read(1024 * 1024):
+                          digest.update(chunk)
+                  records[path] = {"path": str(path), "bytes": path.stat().st_size,
+                                   "sha256": digest.hexdigest()}
+
+          for name in ["head.txt", "toolchain.txt", "graph.json", "artifacts.jsonl",
+                       "compiler.log", "vulkan-runtime.txt", "commands.json"]:
+              bind(evidence / name)
+          for path in [workspace / "Cargo.toml", workspace / "Cargo.lock",
+                       expected_manifest, expected_manifest.parent / "Cargo.lock",
+                       workspace / ".github/workflows/rust-quality.yml",
+                       pathlib.Path(os.environ["VK_DRIVER_FILES"]),
+                       pathlib.Path("/usr/lib/x86_64-linux-gnu/libvulkan_lvp.so"),
+                       pathlib.Path("/usr/lib/x86_64-linux-gnu/libvulkan.so.1")]:
+              bind(path)
+          for filename in subprocess.check_output(
+                  ["git", "ls-files", "crates/fabelgeist-numpy-storage"]).decode().splitlines():
+              bind(workspace / filename)
+          for line in (evidence / "artifacts.jsonl").read_text().splitlines():
+              message = json.loads(line)
+              if message.get("reason") != "compiler-artifact":
+                  continue
+              if "custom-build" in message["target"]["kind"]:
+                  continue
+              if message["package_id"] not in packages:
+                  raise RuntimeError("Compiled package absent from captured graph")
+              bind(pathlib.Path(message["manifest_path"]))
+              bind(pathlib.Path(message["target"]["src_path"]))
+              if (message["package_id"] == numpy_package["id"] and message["profile"]["test"]
+                      and message.get("executable")):
+                  key = (message["target"]["name"], tuple(message["target"]["kind"]))
+                  executable = pathlib.Path(message["executable"]).resolve(strict=True)
+                  if key in selected_executables and selected_executables[key] != executable:
+                      raise RuntimeError("Multiple executables for one selected NumPy test target")
+                  bind(executable)
+                  selected_executables[key] = executable
+              selected = set()
+              for filename in message["filenames"]:
+                  path = pathlib.Path(filename)
+                  bind(path)
+                  stem = path.stem if path.suffix in {".rlib", ".rmeta", ".so"} else path.name
+                  if path.suffix in {".rlib", ".rmeta", ".so"} and stem.startswith("lib"):
+                      stem = stem[3:]
+                  candidate = path.with_name(stem + ".d")
+                  if candidate.is_file():
+                      selected.add(candidate)
+              if not selected:
+                  raise RuntimeError("No selected depfile for " + message["target"]["name"])
+              for depfile in selected:
+                  if depfile in depfiles:
+                      continue
+                  depfiles.add(depfile)
+                  bind(depfile)
+                  prerequisites = depfile.read_text().replace("\\\n", " ").split(": ", 1)[1].splitlines()[0]
+                  for filename in shlex.split(prerequisites):
+                      path = pathlib.Path(filename)
+                      if not path.is_absolute():
+                          path = workspace / path
+                          if not path.is_file():
+                              path = pathlib.Path(message["manifest_path"]).parent / filename
+                      bind(path)
+          if not depfiles:
+              raise RuntimeError("No test/compiler depfiles selected")
+          if set(selected_executables) != expected_targets:
+              raise RuntimeError("Selected NumPy executable targets do not match the captured graph")
+          if subprocess.check_output(["git", "rev-parse", "HEAD"]).decode() != (evidence / "head.txt").read_text():
+              raise RuntimeError("HEAD changed before NumPy runtime")
+          binding = {"inputs_and_artifacts": list(records.values()),
+                     "selected_depfiles": [str(p) for p in sorted(depfiles)],
+                     "bound_before_runtime": True, "selected_NumPy_package": numpy_package["id"],
+                     "selected_test_executables": [
+                         {"target_name": key[0], "target_kind": list(key[1]), "path": str(path)}
+                         for key, path in sorted(selected_executables.items())]}
+          (evidence / "binding-before-runtime.json").write_text(json.dumps(binding, indent=2) + "\n")
+          print("NumPy binding closed before runtime: " + str(len(records)) + " records")
+          PY_BIND
+          cargo test --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-features -vv 2>&1 | tee "$NPY_DECODE_EVIDENCE/full.log"
+      - name: Preserve NumPy hosted validation evidence
+        if: always() && steps.numpy_cpu.outcome != 'skipped'
+        uses: actions/upload-artifact@v7
+        with:
+          name: npy-decoder-evidence
+          path: ${{ runner.temp }}/npy-decoder-evidence
+          if-no-files-found: error
       - name: Measure current Rust length baseline
         id: rust_length_baseline
         timeout-minutes: 10

@@ -1,5 +1,7 @@
 //! `.npy` array decoding.
 
+pub use error::{DecodeResult, NpyDecodeError, NpyHeaderField, NpyReadError, ReadResult};
+
 pub use metadata::{
     NpyDimension, NpyElementCount, NpyElementWidth, NpyLayoutError, NpyOccupancy, NpyPayloadLength,
     NpyRank, NpyShape,
@@ -11,9 +13,9 @@ pub use values::{
 
 use std::path::Path;
 
-use anyhow::{Context, Result, bail};
 use burn::tensor::{Device, Int, Tensor, TensorData};
 
+mod error;
 mod metadata;
 mod values;
 
@@ -46,7 +48,7 @@ pub enum Dtype {
 }
 
 impl Dtype {
-    fn parse(descr: &str) -> Result<Self> {
+    fn parse(descr: &str) -> DecodeResult<Self> {
         Ok(match descr.trim_matches(['\'', '"']) {
             "<f4" | "=f4" | "f4" => Dtype::F32,
             "<f8" | "=f8" | "f8" => Dtype::F64,
@@ -54,7 +56,11 @@ impl Dtype {
             "<i8" | "=i8" | "i8" => Dtype::I64,
             "|u1" | "u1" => Dtype::U8,
             "|b1" | "b1" => Dtype::Bool,
-            other => bail!("unsupported NumPy dtype {other:?}"),
+            other => {
+                return Err(NpyDecodeError::Dtype {
+                    native_descr: other.to_owned(),
+                });
+            }
         })
     }
 
@@ -117,30 +123,34 @@ impl NpyArray {
 
 impl NpyArray {
     /// Parses a `.npy` buffer: header dictionary first, then the element payload.
-    pub fn from_bytes(bytes: &[u8]) -> Result<Self> {
+    pub fn from_bytes(bytes: &[u8]) -> DecodeResult<Self> {
         const MAGIC: &[u8] = b"\x93NUMPY";
         if bytes.len() < 10 || &bytes[..6] != MAGIC {
-            bail!("not a .npy array");
+            return Err(NpyDecodeError::Magic);
         }
         let (header_len, header_start) = if bytes[6] == 1 {
             (u16::from_le_bytes([bytes[8], bytes[9]]) as usize, 10)
         } else {
+            if bytes.len() < 12 {
+                return Err(NpyDecodeError::TruncatedHeader);
+            }
             (
                 u32::from_le_bytes([bytes[8], bytes[9], bytes[10], bytes[11]]) as usize,
                 12,
             )
         };
         if header_start + header_len > bytes.len() {
-            bail!("truncated .npy header");
+            return Err(NpyDecodeError::TruncatedHeader);
         }
         let header = std::str::from_utf8(&bytes[header_start..header_start + header_len])
-            .context("non-UTF-8 .npy header")?;
+            .map_err(|source| NpyDecodeError::HeaderEncoding { source })?;
 
         let dtype = Dtype::parse(
-            header_value(header, "'descr'").context("missing 'descr' in .npy header")?,
+            header_value(header, "'descr'")
+                .ok_or(NpyDecodeError::MissingField(NpyHeaderField::Dtype))?,
         )?;
         if header_value(header, "'fortran_order'").is_some_and(|v| v.starts_with("True")) {
-            bail!("Fortran-ordered .npy arrays are not supported");
+            return Err(NpyDecodeError::FortranOrder);
         }
 
         let shape_text = header
@@ -148,7 +158,7 @@ impl NpyArray {
             .and_then(|(_, rest)| rest.split_once('('))
             .and_then(|(_, rest)| rest.split_once(')'))
             .map(|(inside, _)| inside)
-            .context("missing 'shape' in .npy header")?;
+            .ok_or(NpyDecodeError::MissingField(NpyHeaderField::Shape))?;
         let dimensions: Vec<NpyDimension> = shape_text
             .split(',')
             .map(str::trim)
@@ -157,9 +167,12 @@ impl NpyArray {
                 token
                     .parse::<usize>()
                     .map(NpyDimension::from)
-                    .context("bad .npy shape")
+                    .map_err(|source| NpyDecodeError::ShapeDimension {
+                        native_token: token.to_owned(),
+                        source,
+                    })
             })
-            .collect::<Result<_>>()?;
+            .collect::<DecodeResult<_>>()?;
 
         let shape = NpyShape::try_from(dimensions)?;
         let length = shape.element_count().payload_length(dtype)?;
@@ -174,10 +187,16 @@ impl NpyArray {
     }
 
     /// Reads a standalone `.npy` file.
-    pub fn read(path: impl AsRef<Path>) -> Result<Self> {
+    pub fn read(path: impl AsRef<Path>) -> ReadResult<Self> {
         let path = path.as_ref();
-        let bytes = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
-        Self::from_bytes(&bytes).with_context(|| format!("parsing {}", path.display()))
+        let bytes = std::fs::read(path).map_err(|source| NpyReadError::Read {
+            native_path: path.to_path_buf(),
+            source,
+        })?;
+        Self::from_bytes(&bytes).map_err(|source| NpyReadError::Decode {
+            native_path: path.to_path_buf(),
+            source,
+        })
     }
 }
 
