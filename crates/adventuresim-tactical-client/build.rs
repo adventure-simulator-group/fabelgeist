@@ -1,7 +1,7 @@
 //! Retire the atmosphere backport when the selected engine contains its fix.
 //! This check uses the resolved workspace dependency, without network access.
 use semver::Version;
-use serde::{Deserialize, Deserializer};
+use serde::Deserialize;
 use std::{env, error::Error, fs, io, path::PathBuf};
 
 const NATIVE_ATMOSPHERE_FIX_VERSION: Version = Version::new(0, 20, 0);
@@ -24,6 +24,8 @@ struct LockfilePackage {
 struct EncodedPackageVersion(String);
 
 /// The only package identity relevant to the atmosphere backport guard.
+#[derive(Deserialize)]
+#[serde(from = "String")]
 enum CargoPackageName {
     Bevy,
     Other,
@@ -57,17 +59,13 @@ impl EncodedPackageVersion {
     }
 }
 
-impl<'de> Deserialize<'de> for CargoPackageName {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        // Classify Cargo's name text once, at the Serde decoding boundary.
-        let name = String::deserialize(deserializer)?;
-        Ok(match name.as_str() {
+impl From<String> for CargoPackageName {
+    fn from(name: String) -> Self {
+        // Serde's String input preserves Cargo's string-only wire diagnostics.
+        match name.as_str() {
             "bevy" => Self::Bevy,
             _ => Self::Other,
-        })
+        }
     }
 }
 
