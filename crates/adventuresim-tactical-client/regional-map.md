@@ -57,6 +57,19 @@ The producer must already have admitted the observer's knowledge; the renderer
 does not discover locations. Duplicate places, non-map place kinds, mismatched
 marker ranks and unbounded routes are rejected at decoding.
 
+Each overlay command includes a positive document-local `revision`, bounded to
+JavaScript's exact integer range. The renderer ignores revisions at or below
+the last installed overlay and echoes the admitted revision in status. A new
+source or home resets that ownership. `presentation_ready` acknowledges four
+settled frames for the current overlay independently of route capacity, while
+`ready` also requires that the route fit its geometry budget. The browser must
+match the source, home and revision before exposing pins or its canvas window.
+It also matches the presented window against its last admitted HTTP product;
+enqueueing an installation command does not acknowledge GPU presentation.
+Status also echoes the physical canvas rectangle. Resizing restarts readiness,
+and readiness requires that Bevy's applied viewport match that rectangle. This
+excludes the intermediate viewport resize while changing display density.
+
 The status includes covered marker positions in absolute logical canvas pixels,
 projected by Bevy's actual cropped camera. HTML owns the corresponding links,
 accessible names and tooltips. Small settlements disappear at wider view spans;
@@ -84,8 +97,8 @@ footprint and a margin for snapped window centres. `frame-route` fits the
 admitted selected route using the current viewport aspect and yaw, preserving
 rotation and applying space around the route. An absent route has no effect.
 
-This renderer boundary does not yet replace the strategic map interface. Road
-data and focused city refinement are subsequent consumers of its camera and
+The strategic map interface uses this renderer through its existing fullscreen
+canvas and compositor. Road data and focused city refinement extend its camera and
 geographic frame. City refinement must reuse canonical placement and grading
 rather than placing city geometry directly on the ungraded lattice.
 

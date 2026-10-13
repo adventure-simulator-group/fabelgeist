@@ -144,7 +144,6 @@ impl Harness {
         let state = AppState {
             db: crate::spacetimedb::SpacetimeClient::new(&address, "test").unwrap(),
             live: crate::live::LiveState::connect(&address, "test", None).unwrap(),
-            strategic_map: None,
             terrain: None,
             session_codec: codec,
         };

@@ -3,290 +3,164 @@ const fs = require("node:fs");
 const path = require("node:path");
 const test = require("node:test");
 const vm = require("node:vm");
-const { parseHTML } = require("linkedom");
+const {parseHTML} = require("linkedom");
 
-const source = fs.readFileSync(path.join(__dirname, "..", "static", "strategic-map.js"), "utf8");
-const mapCss = fs.readFileSync(path.join(__dirname, "..", "static", "css", "strategic.css"), "utf8");
+const read = name => fs.readFileSync(path.join(__dirname,"../static",name),"utf8");
+const turn = () => new Promise(resolve=>setImmediate(resolve));
+const deferred = () => {let resolve;const promise=new Promise(yes=>resolve=yes);return {promise,resolve};};
+const origin = {latitude:50_500_000,longitude:10_500_000};
+const source = "a".repeat(64);
+const input = (home=origin,selected=null) => ({origin:home,span:60000,selected,
+  overlay:{source,markers:[],route:selected?{kind:"estimate",points:[home,{...home,latitude:home.latitude+100}]}:null}});
+const rectangle = {x:10,y:20,width:600,height:400,full_width:600,full_height:400,offset_x:0,offset_y:0};
 
-const load = ({ ResizeObserver, matchMedia } = {}) => {
-  const { document } = parseHTML(`<main></main>`);
-  const context = { document, localStorage: null, ResizeObserver, matchMedia };
-  context.globalThis = context;
-  vm.runInNewContext(source, context);
-  return { document, helpers: context.StrategicMap };
-};
-
-test("camera expands to the rendered element aspect ratio without cropping its fitted area", () => {
-  const { helpers } = load();
-  assert.deepEqual(
-    Array.from(helpers.viewForElement([100, 200, 300, 200], 300, 600)),
-    [100, 0, 300, 600],
-  );
-  assert.deepEqual(
-    Array.from(helpers.viewForElement([100, 200, 300, 200], 900, 300)),
-    [-50, 200, 600, 200],
-  );
-});
-
-test("element resize preserves camera center and world scale while updating loaded tiles", () => {
-  let resizeMap;
-  class TestResizeObserver {
-    constructor(callback) { resizeMap = callback; }
-    observe() {}
-  }
-  const { document, helpers } = load({ ResizeObserver: TestResizeObserver });
-  document.body.innerHTML = `<section data-strategic-map data-map-theme="paper" data-map-tile-size="128" data-map-tile-gutter="0" data-map-max-tile-zoom="0" data-map-tile-version="digest" data-map-tile-root="/map/tiles/"><svg data-map-svg viewBox="100 200 300 200"><g data-map-tile-layer></g></svg></section>`;
-  const map = document.querySelector("section");
-  const svg = map.querySelector("svg");
-  let rect = { width: 300, height: 600 };
-  svg.getBoundingClientRect = () => rect;
-  helpers.initializeMap(map);
-  assert.equal(svg.getAttribute("viewBox"), "100.00 0.00 300.00 600.00");
-  assert.equal(map.querySelectorAll("[data-map-tile-layer] image").length, 20);
-
-  rect = { width: 600, height: 300 };
-  resizeMap();
-  assert.equal(svg.getAttribute("viewBox"), "-50.00 150.00 600.00 300.00");
-  assert.equal(map.querySelectorAll("[data-map-tile-layer] image").length, 15);
-});
-
-test("zoom preserves focus and clamps readable bounds", () => {
-  const { helpers } = load();
-  assert.deepEqual(Array.from(helpers.zoomedView([100, 100, 400, 200], .5)), [200, 150, 200, 100]);
-  assert.deepEqual(Array.from(helpers.zoomedView([0, 0, 80, 160 / 3], .5)), [20, 40 / 3, 40, 80 / 3]);
-  assert.deepEqual(Array.from(helpers.zoomedView([0, 0, 10, 20 / 3], .5)), [0, 0, 10, 20 / 3]);
-  assert.deepEqual(Array.from(helpers.zoomedView([0, 0, 20, 50], .1)), [5, 12.5, 10, 25]);
-  assert.deepEqual(Array.from(helpers.zoomedView([5, 12.5, 10, 25], .5)), [5, 12.5, 10, 25]);
-});
-
-test("keyboard pan and reset change only the SVG viewBox", () => {
-  const { document, helpers } = load();
-  document.body.innerHTML = `<section data-strategic-map><svg data-map-svg viewBox="100 100 400 200"></svg></section>`;
-  const map = document.querySelector("section");
-  helpers.initializeMap(map, null);
-  const svg = map.querySelector("svg");
-  const keydown = new document.defaultView.Event("keydown", { bubbles: true, cancelable: true });
-  Object.defineProperty(keydown, "key", { value: "ArrowRight" });
-  svg.dispatchEvent(keydown);
-  assert.equal(svg.getAttribute("viewBox"), "132.00 100.00 400.00 200.00");
-  const reset = new document.defaultView.Event("keydown", { bubbles: true, cancelable: true });
-  Object.defineProperty(reset, "key", { value: "Home" });
-  svg.dispatchEvent(reset);
-  assert.equal(svg.getAttribute("viewBox"), "100.00 100.00 400.00 200.00");
-});
-
-test("visible controls zoom and reset through the shared camera", () => {
-  const { document, helpers } = load();
-  document.body.innerHTML = `<section data-strategic-map>
-    <button data-map-action="zoom-in"></button><button data-map-action="zoom-out"></button><button data-map-action="reset"></button>
-    <svg data-map-svg viewBox="100 100 400 200"></svg>
-  </section>`;
-  const map = document.querySelector("section");
-  helpers.initializeMap(map);
-  const svg = map.querySelector("svg");
-  const zoomIn = map.querySelector('[data-map-action="zoom-in"]');
-  zoomIn.focus();
-  zoomIn.click();
-  assert.equal(svg.getAttribute("viewBox"), "140.00 120.00 320.00 160.00");
-  if (document.activeElement) assert.equal(document.activeElement, zoomIn);
-  map.querySelector('[data-map-action="zoom-out"]').click();
-  assert.equal(svg.getAttribute("viewBox"), "100.00 100.00 400.00 200.00");
-  map.querySelector('[data-map-action="zoom-in"]').click();
-  map.querySelector('[data-map-action="reset"]').click();
-  assert.equal(svg.getAttribute("viewBox"), "100.00 100.00 400.00 200.00");
-  assert.doesNotMatch(source, /svg\.focus/);
-});
-
-test("hit targets stay compact for fine pointers and resolve to 48 screen pixels for coarse pointers", () => {
-  const fine = load();
-  assert.equal(fine.helpers.hitTargetRadius(1200, false), 13);
-  assert.equal(fine.helpers.hitTargetRadius(390, false), 13);
-  assert.equal(fine.helpers.hitTargetRadius(390, true), 24);
-  assert.equal(fine.helpers.hitTargetRadius(780, true), 12);
-
-  const coarse = load({ matchMedia: () => ({ matches: true }) });
-  coarse.document.body.innerHTML = `<svg><circle class="map-settlement-hit-area" r="13"></circle><circle class="map-settlement-hit-area map-settlement-hit-overlay" r="13"></circle><circle class="map-quest-hit-area" r="13"></circle></svg>`;
-  const svg = coarse.document.querySelector("svg");
-  coarse.helpers.scaleHitTargets(svg, 780);
-  assert.deepEqual(
-    [...svg.querySelectorAll("circle")].map((target) => target.getAttribute("r")),
-    ["12.000", "12.000", "12.000"],
-  );
-});
-
-test("pin symbols retain their screen size while zooming and resetting", () => {
-  const { document, helpers } = load();
-  document.body.innerHTML = `<section data-strategic-map><svg data-map-svg viewBox="100 100 195 130"><g data-map-pin-symbol></g></svg></section>`;
-  const map = document.querySelector("section");
-  helpers.initializeMap(map, null);
-  const svg = map.querySelector("svg");
-  const symbol = map.querySelector("[data-map-pin-symbol]");
-  assert.equal(symbol.getAttribute("transform"), "scale(0.50000)");
-  const zoom = new document.defaultView.Event("keydown", { bubbles: true, cancelable: true });
-  Object.defineProperty(zoom, "key", { value: "+" });
-  svg.dispatchEvent(zoom);
-  assert.equal(symbol.getAttribute("transform"), "scale(0.40000)");
-  const reset = new document.defaultView.Event("keydown", { bubbles: true, cancelable: true });
-  Object.defineProperty(reset, "key", { value: "Home" });
-  svg.dispatchEvent(reset);
-  assert.equal(symbol.getAttribute("transform"), "scale(0.50000)");
-});
-
-test("two-pointer pinch remains available independently of visible controls", () => {
-  const { document, helpers } = load();
-  document.body.innerHTML = `<section data-strategic-map><svg data-map-svg viewBox="100 100 400 200"></svg></section>`;
-  const map = document.querySelector("section");
-  const svg = map.querySelector("svg");
-  svg.getBoundingClientRect = () => ({ left: 0, top: 0, width: 800, height: 400 });
-  helpers.initializeMap(map, null);
-  const pointer = (type, pointerId, clientX, clientY) => {
-    const event = new document.defaultView.Event(type, { bubbles: true, cancelable: true });
-    Object.defineProperties(event, {
-      pointerId: { value: pointerId }, clientX: { value: clientX }, clientY: { value: clientY },
-    });
-    svg.dispatchEvent(event);
+async function fixture({fetchTerrain,runtimePromise}={}) {
+  const {document} = parseHTML("<html><body><main></main></body></html>");
+  const commands=[],errors=[],metrics={},requests=[];
+  let state={source,home:origin,requested:{origin,scale:"district"},ready:true,
+    rect:rectangle,
+    presented:{origin,scale:"district"},
+    covered:true,presentation_ready:true,overlay_revision:0,markers:[]};
+  const runtime={wasm_command(json){commands.push(JSON.parse(json).command);},
+    wasm_regional_map_status(){return JSON.stringify(state);}};
+  const context={document,window:{strategicFetch:async(url,options)=>{
+    requests.push({url,options});
+    if(fetchTerrain)return fetchTerrain(url,options);
+    const query=new URL(url,"https://fixture.invalid").searchParams;
+    return {ok:true,json:async()=>({source,request:{origin:{
+      latitude:Number(query.get("latitude")),longitude:Number(query.get("longitude"))},
+      scale:query.get("scale")},vertices:Array(65*65).fill(null)})};
+  }},AbortController,URLSearchParams,performance,location:{pathname:"/map"},
+    console:{error:(...args)=>errors.push(args)},
+    installMapGestures(){return ()=>{};}};
+  vm.createContext(context);
+  vm.runInContext(read("regional-terrain-request.js").replaceAll("export ",""),context);
+  vm.runInContext(read("regional-map-view.js").replace(/^import .*;\r?\n/gm,"").replaceAll("export ","")+
+    "\nglobalThis.createView=createRegionalMapView;",context);
+  const view=context.createView({runtimePromise:runtimePromise||Promise.resolve(runtime),changed(){},metrics});
+  const page=document.querySelector("main");
+  const mount=value=>{
+    page.innerHTML='<section data-regional-map><script data-regional-map-input type="application/json"></script>'+
+      '<div data-map-window></div><a data-map-place="current" href="?destination=current" hidden>Current</a>'+
+      '<p data-map-status></p><button data-map-action="retry" hidden>Retry</button></section>';
+    const host=page.querySelector("section");
+    host.querySelector("script").textContent=JSON.stringify(value);
+    host.getBoundingClientRect=()=>({left:10,top:20});
+    host.querySelector("[data-map-window]").getBoundingClientRect=()=>({left:10,right:610});
+    host.querySelector("a").getBoundingClientRect=()=>({left:50,top:50,right:90,bottom:70});
+    return host;
   };
+  const sync=(rect=rectangle)=>view.sync(page,()=>rect);
+  const acknowledge=()=>{state.overlay_revision=commands.filter(c=>c.type==="install-overlay").at(-1).revision;};
+  mount(input());await turn();
+  return {view,page,document,commands,errors,metrics,requests,runtime,mount,sync,acknowledge,
+    get state(){return state;},set state(value){state=value;}};
+}
 
-  pointer("pointerdown", 1, 200, 200);
-  pointer("pointerdown", 2, 600, 200);
-  pointer("pointermove", 2, 700, 200);
-
-  assert.equal(svg.getAttribute("viewBox"), "120.00 120.00 320.00 160.00");
-  assert.equal(map.querySelectorAll("button").length, 0);
+test("the current overlay must settle before terrain, pins and readiness are exposed",async()=>{
+  const f=await fixture();
+  assert.equal(f.sync(),null);await turn();
+  assert.equal(f.requests.length,1);
+  assert.equal(f.sync(),null,"Matching source and home cannot acknowledge an old overlay");
+  assert.equal(f.document.body.hasAttribute("data-regional-map-ready"),false);
+  f.acknowledge();f.state.presentation_ready=false;
+  assert.equal(f.sync(),null);
+  f.state.presentation_ready=true;f.state.presented={origin,scale:"neighborhood"};
+  assert.equal(f.sync(),null,"Queued installation is insufficient until the renderer presents that product");
+  f.state.presented=f.state.requested;
+  f.state.presentation_ready=true;f.state.markers=[{place:"current",x:80,y:60}];
+  assert(f.sync());
+  assert.equal(f.page.querySelector("a").hidden,false);
+  assert.equal(f.document.body.hasAttribute("data-regional-map-ready"),true);
+  assert.equal(f.metrics.maps.length,1);
+  f.sync();assert.equal(f.metrics.maps.length,1);
 });
 
-test("label priority reveals progressively smaller settlements while zooming", () => {
-  const { helpers } = load();
-  assert.equal(helpers.labelPriorityThreshold(800), 80);
-  assert.equal(helpers.labelPriorityThreshold(390), 60);
-  assert.equal(helpers.labelPriorityThreshold(90), 40);
-  assert.equal(helpers.labelPriorityThreshold(50), 20);
+test("warm remount retains the installed window and frames a selection only once",async()=>{
+  const f=await fixture();f.mount(input(origin,"selected"));f.sync();await turn();f.acknowledge();f.sync();
+  f.view.hide();f.mount(input(origin,"selected"));f.sync();await turn();f.acknowledge();f.sync();
+  assert.equal(f.requests.length,1);
+  assert.equal(f.commands.filter(c=>c.type==="install-terrain").length,1);
+  assert.equal(f.commands.filter(c=>c.type==="frame-route").length,1);
+  f.mount(input(origin,"second"));f.sync();await turn();
+  assert.equal(f.commands.filter(c=>c.type==="frame-route").length,2);
 });
 
-test("settlement pins reveal progressively smaller population levels while zooming", () => {
-  const { document, helpers } = load();
-  document.body.innerHTML = `<svg>
-    <a data-map-settlement data-map-population-level="1" data-map-pin-essential="false"></a>
-    <a data-map-settlement data-map-population-level="3" data-map-pin-essential="false"></a>
-    <a data-map-settlement data-map-population-level="5" data-map-pin-essential="false"></a>
-    <a data-map-settlement data-map-population-level="1" data-map-pin-essential="true"></a>
-    <a data-map-settlement-hit data-map-population-level="1" data-map-pin-essential="false"></a>
-  </svg>`;
-  const svg = document.querySelector("svg");
-
-  assert.equal(helpers.populationLevelThreshold(1200), 5);
-  helpers.layoutSettlementPins(svg, 1200);
-  assert.deepEqual(
-    [...svg.querySelectorAll("a")].map((pin) => pin.getAttribute("display")),
-    ["none", "none", "inline", "inline", "none"],
-  );
-
-  helpers.layoutSettlementPins(svg, 150);
-  assert.deepEqual(
-    [...svg.querySelectorAll("a")].map((pin) => pin.getAttribute("display")),
-    ["inline", "inline", "inline", "inline", "inline"],
-  );
+test("viewport changes stay masked until the resized camera is acknowledged and settled",async()=>{
+  const f=await fixture();f.sync();await turn();f.acknowledge();assert(f.sync());
+  const dense={...rectangle,x:20,y:40,width:1200,height:800,full_width:1200,full_height:800};
+  assert.equal(f.sync(dense),null);
+  assert.equal(f.document.body.hasAttribute("data-regional-map-ready"),false);
+  f.state.rect=dense;f.state.presentation_ready=false;
+  assert.equal(f.sync(dense),null);
+  f.state.presentation_ready=true;assert(f.sync(dense));
+  assert.equal(f.requests.length,1,"Changing pixel density reuses geographic terrain");
 });
 
-test("environment filtering composites the tile layer instead of exposing per-image rectangles", () => {
-  assert.match(mapCss, /\.map-tile-layer \{[^}]*filter:/);
-  assert.doesNotMatch(mapCss, /\.map-tile-layer image \{[^}]*filter:/);
+test("same-host knowledge updates conceal old pins until the replacement overlay settles",async()=>{
+  const f=await fixture();f.sync();await turn();f.acknowledge();
+  f.state.markers=[{place:"current",x:80,y:60}];f.sync();
+  f.page.querySelector("script").textContent=JSON.stringify(input(origin,"changed"));
+  assert.equal(f.sync(),null);
+  assert.equal(f.page.querySelector("a").hidden,true);
+  assert.equal(f.document.body.hasAttribute("data-regional-map-ready"),false);
+  f.acknowledge();assert(f.sync());
+  assert.equal(f.requests.length,1);
 });
 
-test("label layout keeps important names and moves collisions to the alternate side", () => {
-  const { document, helpers } = load();
-  document.body.innerHTML = `<svg viewBox="0 0 100 66.67">
-    <g data-map-label data-map-x="50" data-map-y="30" data-map-label-priority="100" data-map-label-width="70" data-map-label-essential="true"><text>Current</text></g>
-    <g data-map-label data-map-x="51" data-map-y="30" data-map-label-priority="60" data-map-label-width="70" data-map-label-essential="false"><text>Town</text></g>
-    <g data-map-label data-map-x="80" data-map-y="50" data-map-label-priority="50" data-map-label-width="70" data-map-label-essential="false"><text>Village</text></g>
-  </svg>`;
-  const svg = document.querySelector("svg");
-  svg.getBoundingClientRect = () => ({ width: 600, height: 400 });
-  helpers.layoutLabels(svg, [0, 0, 100, 66.67]);
-  const labels = svg.querySelectorAll("[data-map-label]");
-  assert.equal(labels[0].getAttribute("display"), "inline");
-  assert.equal(labels[1].getAttribute("display"), "inline");
-  assert.equal(labels[1].querySelector("text").getAttribute("text-anchor"), "end");
-  assert.equal(labels[2].getAttribute("display"), "inline");
+test("a new home owns a fresh terrain request even when its window matches the previous one",async()=>{
+  const f=await fixture();f.sync();await turn();f.acknowledge();f.sync();
+  const next={...origin,latitude:origin.latitude+10};
+  f.mount(input(next));f.state.home=next;f.sync();await turn();f.acknowledge();f.sync();
+  assert.equal(f.requests.length,2);
+  assert.equal(f.commands.filter(c=>c.type==="install-terrain").length,2);
 });
 
-test("hidden settlement pins do not reserve label collision space", () => {
-  const { document, helpers } = load();
-  document.body.innerHTML = `<svg viewBox="0 0 100 66.67">
-    <a data-map-settlement display="none"><g data-map-label data-map-x="50" data-map-y="30" data-map-label-priority="100" data-map-label-width="70" data-map-label-essential="false"><text>Hidden</text></g></a>
-    <a data-map-settlement display="inline"><g data-map-label data-map-x="50" data-map-y="30" data-map-label-priority="80" data-map-label-width="70" data-map-label-essential="false"><text>Visible</text></g></a>
-  </svg>`;
-  const svg = document.querySelector("svg");
-  svg.getBoundingClientRect = () => ({ width: 600, height: 400 });
-  helpers.layoutLabels(svg, [0, 0, 100, 66.67]);
-  const labels = svg.querySelectorAll("[data-map-label]");
-  assert.equal(labels[0].getAttribute("display"), "none");
-  assert.equal(labels[1].getAttribute("display"), "inline");
+test("hiding cancels an obsolete HTTP response before it can install terrain",async()=>{
+  const pending=deferred();
+  const f=await fixture({fetchTerrain:()=>pending.promise});
+  f.sync();await turn();f.acknowledge();
+  assert.equal(f.sync(),null,"A settled old surface cannot expose a fresh owner before its terrain arrives");
+  f.view.hide();
+  assert.equal(f.requests[0].options.signal.aborted,true);
+  pending.resolve({ok:true,json:async()=>({source,request:f.state.requested,vertices:Array(65*65).fill(null)})});
+  await turn();
+  assert.equal(f.commands.some(c=>c.type==="install-terrain"),false);
 });
 
-test("collision helper treats padded touching labels as overlapping", () => {
-  const { helpers } = load();
-  assert.equal(helpers.boxesOverlap(
-    { left: 0, right: 20, top: 0, bottom: 10 },
-    { left: 22, right: 42, top: 0, bottom: 10 },
-  ), true);
-  assert.equal(helpers.boxesOverlap(
-    { left: 0, right: 20, top: 0, bottom: 10 },
-    { left: 24, right: 44, top: 0, bottom: 10 },
-  ), false);
+test("a clipped map suspends once and reopens without refetching resident terrain",async()=>{
+  const f=await fixture();f.sync();await turn();f.acknowledge();f.sync();
+  f.sync(null);f.sync(null);
+  assert.equal(f.commands.filter(c=>c.type==="hide").length,1);
+  assert.equal(f.document.body.hasAttribute("data-regional-map-ready"),false);
+  f.sync();await turn();f.acknowledge();assert(f.sync());
+  assert.equal(f.requests.length,1);
 });
 
-test("pin links remain ordinary destination URLs", () => {
-  const { document, helpers } = load();
-  document.body.innerHTML = `<section data-strategic-map><svg data-map-svg viewBox="0 0 400 200"><a data-map-pin href="/locations/settlement/a?destination=b"><circle/></a></svg></section>`;
-  helpers.initializeMap(document.querySelector("section"), null);
-  assert.equal(document.querySelector("[data-map-pin]").getAttribute("href"), "/locations/settlement/a?destination=b");
+test("busy terrain waits for an explicit retry instead of sending a request every frame",async()=>{
+  let fetches=0;
+  const f=await fixture({fetchTerrain:async()=>++fetches===1?{ok:false,status:503}:
+    {ok:true,json:async()=>({source,request:{origin,scale:"district"},vertices:Array(65*65).fill(null)})}});
+  f.sync();await turn();f.acknowledge();f.sync();f.sync();
+  assert.equal(fetches,1);
+  assert.equal(f.page.querySelector("[data-map-status]").textContent,"Map unavailable");
+  assert.equal(f.page.querySelector("button").hidden,false);
+  f.page.querySelector("button").click();await turn();f.sync();
+  assert.equal(fetches,2);
+  assert.equal(f.document.body.hasAttribute("data-regional-map-ready"),true);
 });
 
-test("tile zoom follows display density and respects the generated ceiling", () => {
-  const { helpers } = load();
-  assert.equal(helpers.tileZoom(400, 800, 1, 6), 1);
-  assert.equal(helpers.tileZoom(90, 1200, 1, 6), 4);
-  assert.equal(helpers.tileZoom(10, 1200, 1, 6), 6);
+test("a route capacity failure preserves settled terrain and reports its local failure",async()=>{
+  const f=await fixture();f.sync();await turn();f.acknowledge();
+  f.state.ready=false;f.state.error="route-capacity";
+  assert(f.sync(),"Settled terrain remains a compositor window");
+  assert.equal(f.page.querySelector("[data-map-status]").textContent,"Route unavailable");
+  assert.equal(f.document.body.hasAttribute("data-regional-map-ready"),false);
 });
 
-test("visible tile range loads exact intersections and clamps to the world", () => {
-  const { helpers } = load();
-  const range = helpers.visibleTileRange([0, 0, 90, 60], 512, 4);
-  assert.equal(range.span, 32);
-  assert.deepEqual(
-    [range.minX, range.maxX, range.minY, range.maxY],
-    [0, 2, 0, 1],
-  );
-});
-
-test("missing deepest tiles deterministically crop their complete parent tile", () => {
-  const { document, helpers } = load();
-  assert.deepEqual(
-    { ...helpers.parentTileFallback(7, 75, 61, 512, 4) },
-    { zoom: 6, x: 37, y: 30, left: 295.9375, top: 239.9375, size: 8.125 },
-  );
-  document.body.innerHTML = `<section data-strategic-map data-map-theme="paper" data-map-tile-size="512" data-map-tile-gutter="4" data-map-max-tile-zoom="7" data-map-tile-version="digest" data-map-tile-root="/map/tiles/"><svg data-map-svg viewBox="300 244 5 3.33"><g data-map-tile-layer></g></svg></section>`;
-  const map = document.querySelector("section");
-  const svg = map.querySelector("[data-map-svg]");
-  svg.getBoundingClientRect = () => ({ width: 1200, height: 800 });
-  helpers.initializeMap(map);
-  const image = map.querySelector("[data-map-tile-layer] image");
-  const missingHref = image.getAttribute("href");
-  image.dispatchEvent(new document.defaultView.Event("error"));
-  assert.notEqual(image.getAttribute("href"), missingHref);
-  assert.match(image.getAttribute("href"), /^\/map\/tiles\/paper\/6\//);
-  assert.equal(image.closest("svg").getAttribute("overflow"), "hidden");
-});
-
-test("paper tiles render independently of the dynamic pin layer", () => {
-  const { document, helpers } = load();
-  document.body.innerHTML = `<section data-strategic-map data-map-theme="paper" data-map-tile-size="512" data-map-tile-gutter="4" data-map-max-tile-zoom="6" data-map-tile-version="abc123" data-map-tile-root="/map/tiles/"><svg data-map-svg viewBox="590 390 10 6.67"><g data-map-tile-layer></g><g data-map-pin-symbol></g></svg></section>`;
-  const map = document.querySelector("section");
-  const svg = map.querySelector("svg");
-  svg.getBoundingClientRect = () => ({ width: 1200, height: 800 });
-  helpers.initializeMap(map, null);
-  assert.match(map.querySelector("[data-map-tile-layer] image").getAttribute("href"), /^\/map\/tiles\/paper\/6\//);
-  assert.equal(map.querySelector("[data-map-tile-layer] image").getAttribute("width"), "8.125");
-  assert.equal(map.querySelectorAll("[data-map-pin-symbol]").length, 1);
+test("a pending renderer cannot start requests or expose stale links",async()=>{
+  const pending=deferred();const f=await fixture({runtimePromise:pending.promise});
+  assert.equal(f.sync(),null);assert.equal(f.requests.length,0);
+  pending.resolve(f.runtime);await turn();f.sync();await turn();
+  assert.equal(f.requests.length,1);
 });

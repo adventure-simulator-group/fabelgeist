@@ -53,7 +53,6 @@ use serde_json::json;
 pub struct AppState {
     pub db: SpacetimeClient,
     pub live: LiveState,
-    pub strategic_map: Option<std::sync::Arc<crate::strategic_map::StrategicMap>>,
     pub terrain: Option<std::sync::Arc<travel::TerrainPlanner>>,
     pub session_codec: std::sync::Arc<SessionCodec>,
 }
@@ -945,10 +944,6 @@ pub fn build_router(state: AppState) -> Router {
         .route(
             crate::strategic_map::DATA_LICENSE_PATH,
             get(crate::strategic_map::data_license),
-        )
-        .route(
-            "/map/tiles/{theme}/{zoom}/{x}/{tile}",
-            get(crate::strategic_map::world_tile),
         )
         .merge(characters::routes().layer(middleware::from_fn(require_same_origin_mutation)))
         .merge(home::routes())

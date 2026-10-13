@@ -18,7 +18,7 @@ const unusedMissingMotions = new Set(["airborne_center", "airborne_travel", "qui
 
 test("regional terrain reuses one real renderer across camera changes and hiding", {
   skip: !wasm && "Set REGIONAL_MAP_WASM_DIR to the freshly built Wasm bindings",
-  timeout: 240_000,
+  timeout: 360_000,
 }, async () => {
   fs.mkdirSync(output, { recursive: true });
   fs.writeFileSync(path.join(output, "console.log"), "");
@@ -43,7 +43,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
           && fs.existsSync(candidate) && fs.statSync(candidate).isFile());
       if (!file) { missing.push(relative); response.writeHead(404); response.end(); return; }
       response.setHeader("Content-Type", {
-        ".js": "text/javascript", ".wasm": "application/wasm", ".json": "application/json",
+        ".js": "text/javascript", ".css": "text/css", ".wasm": "application/wasm", ".json": "application/json",
       }[path.extname(file)] || "application/octet-stream");
       fs.createReadStream(file).pipe(response); return;
     }
@@ -78,6 +78,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
   let page;
   try {
     page = await browser.newPage({viewport: {width: 1000, height: 700}});
+    page.setDefaultTimeout(90_000);
     await page.addInitScript({path: path.join(__dirname, "webgpu-probe.js")});
     page.on("pageerror", error => errors.push({text:error.message}));
     page.on("console", message => {
@@ -92,6 +93,7 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     const initial = await page.evaluate(() => {
       const source = "a".repeat(64), origin = {latitude: 50_500_000, longitude: 10_500_000};
       const rect = {x:80,y:60,width:840,height:560,full_width:840,full_height:560,offset_x:0,offset_y:0};
+      window.overlayRevision = 0;
       window.mapCommand = command => runtime.wasm_command(JSON.stringify({type:"regional-map",command}));
       window.mapStatus = () => JSON.parse(runtime.wasm_regional_map_status());
       window.mapOpen = {type:"open",source,origin,span:1200,rect};
@@ -113,11 +115,19 @@ test("regional terrain reuses one real renderer across camera changes and hiding
         {latitude:50_504_000,longitude:10_506_000},
       ]}};
       mapCommand(mapOpen); mapCommand({type:"install-terrain",terrain:mapTerrain});
-      mapCommand({type:"install-overlay",overlay:mapOverlay});
+      mapCommand({type:"install-overlay",revision:++window.overlayRevision,overlay:mapOverlay});
       return mapOpen;
     });
     await page.waitForFunction(() => mapStatus().ready, null, {timeout: 90_000});
     checkpoint("map-ready");
+    const acknowledgement = await page.evaluate(async () => {
+      const revision = mapStatus().overlay_revision;
+      mapCommand({type:"install-overlay",revision,overlay:{...mapOverlay,markers:[],route:null}});
+      for(let frame=0;frame<5;frame++)await new Promise(requestAnimationFrame);
+      return mapStatus();
+    });
+    assert.equal(acknowledgement.overlay_revision,1);
+    assert.equal(acknowledgement.markers.length,2,"An obsolete overlay cannot remove current pins");
     const projected = await page.evaluate(() => mapStatus().markers);
     assert.equal(projected.length,2,"Covered markers project; source holes and distant pins stay hidden");
     const homeMarker = projected.find(marker => marker.place === "place:v1:settlement:66697874757265");
@@ -164,17 +174,19 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     const rejected = await page.evaluate(() => {
       const invalid = [{...mapOpen,span:0}, {...mapOpen,rect:{...mapOpen.rect,full_height:0}},
         {type:"zoom",ratio:100}, {type:"install-terrain",terrain:{...mapTerrain,vertices:[]}},
-        {type:"install-overlay",overlay:{...mapOverlay,markers:[mapOverlay.markers[0],mapOverlay.markers[0]]}},
-        {type:"install-overlay",overlay:{...mapOverlay,markers:[{...mapOverlay.markers[0],rank:"case-site"}]}},
-        {type:"install-overlay",overlay:{...mapOverlay,route:{kind:"computed",points:[]}}},
-        {type:"install-overlay",overlay:{...mapOverlay,markers:mapOverlay.markers.map((marker,index)=>
+        {type:"install-overlay",revision:0,overlay:mapOverlay},
+        {type:"install-overlay",revision:2**53,overlay:mapOverlay},
+        {type:"install-overlay",revision:++window.overlayRevision,overlay:{...mapOverlay,markers:[mapOverlay.markers[0],mapOverlay.markers[0]]}},
+        {type:"install-overlay",revision:++window.overlayRevision,overlay:{...mapOverlay,markers:[{...mapOverlay.markers[0],rank:"case-site"}]}},
+        {type:"install-overlay",revision:++window.overlayRevision,overlay:{...mapOverlay,route:{kind:"computed",points:[]}}},
+        {type:"install-overlay",revision:++window.overlayRevision,overlay:{...mapOverlay,markers:mapOverlay.markers.map((marker,index)=>
           index===3?{...marker,emphasis:"current"}:marker)}},
-        {type:"install-overlay",overlay:{...mapOverlay,markers:mapOverlay.markers.map((marker,index)=>
+        {type:"install-overlay",revision:++window.overlayRevision,overlay:{...mapOverlay,markers:mapOverlay.markers.map((marker,index)=>
           index===3?{...marker,emphasis:"selected"}:marker)}}];
       return invalid.map(command => {try { mapCommand(command); return false; } catch {return true;}});
     });
-    assert.deepEqual(rejected, [true,true,true,true,true,true,true,true,true]);
-    await page.evaluate(() => mapCommand({type:"install-overlay",overlay:{...mapOverlay,route:{
+    assert.deepEqual(rejected, Array(11).fill(true));
+    await page.evaluate(() => mapCommand({type:"install-overlay",revision:++window.overlayRevision,overlay:{...mapOverlay,route:{
       kind:"computed",points:Array.from({length:600},(_,index)=>index%2
         ? {latitude:50_508_000,longitude:10_512_000}
         : {latitude:50_492_000,longitude:10_488_000})}}}));
@@ -183,14 +195,14 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     const capacity = await page.evaluate(() => mapStatus());
     assert.equal(capacity.error,"route-capacity"); assert.equal(capacity.ready,false);
     assert.equal(capacity.covered,true,"A route capacity failure leaves terrain available");
-    await page.evaluate(() => mapCommand({type:"install-overlay",overlay:mapOverlay}));
+    await page.evaluate(() => mapCommand({type:"install-overlay",revision:++window.overlayRevision,overlay:mapOverlay}));
     await page.waitForFunction(() => mapStatus().ready && !mapStatus().error, null, {timeout:10_000});
     const cameraControls = await page.evaluate(async () => {
       const settle = async () => { await new Promise(requestAnimationFrame); await new Promise(requestAnimationFrame); };
       const endpoints = [mapOverlay.route.points[0],mapOverlay.route.points[2]].map((origin,index)=>({
         place:index ? "place:v1:settlement:656e64" : "place:v1:settlement:7374617274",
         origin,rank:"town",emphasis:"connected"}));
-      mapCommand({type:"install-overlay",overlay:{...mapOverlay,markers:[...mapOverlay.markers,...endpoints]}});
+      mapCommand({type:"install-overlay",revision:++window.overlayRevision,overlay:{...mapOverlay,markers:[...mapOverlay.markers,...endpoints]}});
       mapCommand({type:"frame-route"}); await settle();
       const framed = mapStatus();
       mapCommand({type:"reset"});
@@ -226,7 +238,8 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     await page.waitForFunction(() => mapStatus().ready && !mapStatus().covered, null, {timeout: 10_000});
     assert.deepEqual(await page.evaluate(() => mapStatus().markers), []);
     await page.screenshot({path:path.join(output,"uncovered.png")});
-    fs.writeFileSync(path.join(output,"result.json"), JSON.stringify({warm,changed,capacity,cameraControls,capture,missing,errors}, null, 2));
+    const interfaceResult = await require("./regional-map-interface-check.cjs")(page,output);
+    fs.writeFileSync(path.join(output,"result.json"), JSON.stringify({warm,changed,capacity,cameraControls,interfaceResult,capture,missing,errors}, null, 2));
     assert.deepEqual(missing.filter(url => !unusedMissingMotions.has(url)), []);
     assert.deepEqual(errors.filter(error => {
       try { return !unusedMissingMotions.has(new URL(error.url).pathname); } catch { return true; }
@@ -236,6 +249,8 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     const state = page && await page.evaluate(() => ({
       scene:window.runtime && JSON.parse(runtime.wasm_strategic_status()),
       map:window.runtime && JSON.parse(runtime.wasm_regional_map_status()),
+      interface:window.mapBridgeInstalled && {rect:window.mapRect(),metrics:window.strategicRendererMetrics,
+        status:document.querySelector("[data-map-status]")?.textContent},
       bootFailure:window.bootFailure,
     })).catch(() => ({}));
     fs.writeFileSync(path.join(output,"failure.json"), JSON.stringify({error:String(error),state,missing,errors},null,2));
