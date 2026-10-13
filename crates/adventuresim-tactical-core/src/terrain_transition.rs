@@ -35,6 +35,8 @@ pub struct TerrainTransitionCollar {
     seed: fabelgeist_determinism::Seed,
     wander_metres: f32,
     width_variation_bps: u16,
+    #[serde(skip)]
+    noise_seeds: CollarNoiseSeeds,
 }
 
 #[derive(Deserialize)]
@@ -47,6 +49,24 @@ struct CollarWire {
     seed: fabelgeist_determinism::Seed,
     wander_metres: f32,
     width_variation_bps: u16,
+}
+
+/// Immutable root streams shared by every sample of an admitted collar.
+#[derive(Clone, Copy, Debug, PartialEq)]
+struct CollarNoiseSeeds {
+    broad: fabelgeist_determinism::Seed,
+    fine: fabelgeist_determinism::Seed,
+    width: fabelgeist_determinism::Seed,
+}
+
+impl CollarNoiseSeeds {
+    fn new(seed: fabelgeist_determinism::Seed) -> Self {
+        Self {
+            broad: StreamId::new("terrain.transition.rupture-broad").seed(seed, &[]),
+            fine: StreamId::new("terrain.transition.rupture-fine").seed(seed, &[]),
+            width: StreamId::new("terrain.transition.width").seed(seed, &[]),
+        }
+    }
 }
 impl TryFrom<CollarWire> for TerrainTransitionCollar {
     type Error = crate::volumetric_terrain::TerrainRecipeError;
@@ -62,6 +82,7 @@ impl TryFrom<CollarWire> for TerrainTransitionCollar {
             seed: wire.seed,
             wander_metres: wire.wander_metres,
             width_variation_bps: wire.width_variation_bps,
+            noise_seeds: CollarNoiseSeeds::new(wire.seed),
         };
         if adventuresim_building_generator::spatial_geometry::PlanDirection::<
             crate::scene_coordinates::Scene,
@@ -88,6 +109,7 @@ impl TerrainTransitionCollar {
             seed: parameters.seed,
             wander_metres: parameters.wander.metres(),
             width_variation_bps: parameters.width_variation.basis_points(),
+            noise_seeds: CollarNoiseSeeds::new(parameters.seed),
         };
         admitted.valid().then_some(admitted)
     }
@@ -108,15 +130,20 @@ impl TerrainTransitionCollar {
     }
 
     pub fn cuts_out(self, point: ScenePlanPoint) -> bool {
-        self.radial_coordinate(point.metres()).0 < 1.0
+        let point = point.metres();
+        !self.outside_length(point) && self.radial_coordinate(point).0 < 1.0
     }
 
     pub fn contains(self, point: ScenePlanPoint) -> bool {
-        self.radial_coordinate(point.metres()).0 <= 1.0
+        let point = point.metres();
+        !self.outside_length(point) && self.radial_coordinate(point).0 <= 1.0
     }
 
     /// Native scene-metre raster field kernel; callers admit the raster bounds.
     pub(crate) fn blend_weight(self, point: Vec2) -> f32 {
+        if self.outside_length(point) {
+            return 0.0;
+        }
         let (radial, minimum_extent) = self.radial_coordinate(point);
         let inner = 1.0 - self.width_metres / minimum_extent;
         smoothstep01((1.0 - radial) / (1.0 - inner))
@@ -128,25 +155,15 @@ impl TerrainTransitionCollar {
         let relative = point - self.origin;
         let along = relative.dot(self.tangent);
         let clamped = along.clamp(-self.half_length_metres, self.half_length_metres);
-        let wander = smooth_value_noise(
-            StreamId::new("terrain.transition.rupture-broad").seed(self.seed, &[]),
-            clamped / 5.5,
-        ) * 0.72
-            + smooth_value_noise(
-                StreamId::new("terrain.transition.rupture-fine").seed(self.seed, &[]),
-                clamped / 1.8,
-            ) * 0.28;
+        let wander = smooth_value_noise(self.noise_seeds.broad, clamped / 5.5) * 0.72
+            + smooth_value_noise(self.noise_seeds.fine, clamped / 1.8) * 0.28;
         Vec2::new(along, relative.dot(normal) - wander * self.wander_metres)
     }
 
     fn radial_coordinate(self, point: Vec2) -> (f32, f32) {
         let local = self.local_coordinates(point);
         let variation = f32::from(self.width_variation_bps) / BASIS_POINTS_PER_WHOLE as f32;
-        let width_noise = smooth_value_noise(
-            StreamId::new("terrain.transition.width").seed(self.seed, &[]),
-            local.x / 4.2,
-        ) * 0.5
-            + 0.5;
+        let width_noise = smooth_value_noise(self.noise_seeds.width, local.x / 4.2) * 0.5 + 0.5;
         let local_half_width = self.half_width_metres * (1.0 - variation + width_noise * variation);
         let radial = Vec2::new(
             local.x / self.half_length_metres,
@@ -154,6 +171,13 @@ impl TerrainTransitionCollar {
         )
         .length();
         (radial, self.half_length_metres.min(local_half_width))
+    }
+
+    fn outside_length(self, point: Vec2) -> bool {
+        // Wander changes only the transverse axis and width. The original
+        // longitudinal component already guarantees radial distance above one.
+        // Keep boundary points on the exact radial path for inclusive queries.
+        (point - self.origin).dot(self.tangent).abs() > self.half_length_metres
     }
 }
 

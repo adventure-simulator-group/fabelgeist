@@ -39,6 +39,8 @@ struct TacticalTreeBarkExtension {
     deposition: vec4<f32>,
     terrain_surface: vec4<f32>,
     soil_response: vec4<f32>,
+    // y is always zero: keep short sampling loops runtime-bound without
+    // changing their sample counts or expanding the complete PBR shader.
     soil_optics: vec4<f32>,
 }
 
@@ -278,26 +280,23 @@ fn parallax_branch_coordinates(
     var previous_coordinates = coordinates;
     var travelled = 0.0;
     var previous_gap = 1.0;
-    var marching = true;
-    for (var layer = 0; layer <= 16; layer += 1) {
+    let last_layer = 16 + i32(bark.soil_optics.y);
+    for (var layer = 0; layer <= last_layer; layer += 1) {
         let height = decode_surface_height_ao(textureSampleGrad(
             bark_height_ao, bark_height_ao_sampler, bark.uv_offset.xy + coordinates,
             coordinate_dx, coordinate_dy,
         )).r;
         let gap = 1.0 - height - travelled;
-        if marching {
-            if gap <= 0.0 {
-                let fraction = clamp(previous_gap / max(previous_gap - gap, 0.000001), 0.0, 1.0);
-                coordinates = mix(previous_coordinates, coordinates, fraction);
-                travelled -= (1.0 - fraction) * layer_depth;
-                marching = false;
-            } else {
-                previous_coordinates = coordinates;
-                previous_gap = gap;
-                coordinates -= ray_step;
-                travelled += layer_depth;
-            }
+        if gap <= 0.0 {
+            let fraction = clamp(previous_gap / max(previous_gap - gap, 0.000001), 0.0, 1.0);
+            coordinates = mix(previous_coordinates, coordinates, fraction);
+            travelled -= (1.0 - fraction) * layer_depth;
+            break;
         }
+        previous_coordinates = coordinates;
+        previous_gap = gap;
+        coordinates -= ray_step;
+        travelled += layer_depth;
     }
     return vec3<f32>(coordinates, travelled * fade);
 }
@@ -324,7 +323,8 @@ fn directional_horizon_visibility(
     let lateral_direction = tangent_light.xy / lateral_length;
     let light_slope = tangent_light.z / lateral_length;
     var blockage = 0.0;
-    for (var horizon_step = 1; horizon_step <= 3; horizon_step += 1) {
+    let horizon_samples = 3 + i32(bark.soil_optics.y);
+    for (var horizon_step = 1; horizon_step <= horizon_samples; horizon_step += 1) {
         let step_metres = f32(horizon_step) * 0.012;
         let coordinates = branch_coordinates
             + lateral_direction * step_metres * bark.relief.x;

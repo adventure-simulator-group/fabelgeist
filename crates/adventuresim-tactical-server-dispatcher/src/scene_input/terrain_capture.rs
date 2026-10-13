@@ -1,6 +1,7 @@
 //! Reproducible geographic input stages for offline support diagnostics.
 use super::*;
 use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+use adventuresim_terrain::Cell;
 use adventuresim_world_schema::ElevationMeters;
 
 #[derive(Debug, thiserror::Error)]
@@ -8,7 +9,7 @@ pub enum TerrainCaptureError {
     #[error(transparent)]
     Geometry(#[from] adventuresim_building_generator::spatial_geometry::GeometryError),
     #[error(transparent)]
-    Source(#[from] adventuresim_tactical_core::scene_input::SceneValidationError),
+    Source(#[from] adventuresim_world_schema::source_package::SourcePackageDigestError),
     #[error(transparent)]
     Terrain(#[from] adventuresim_terrain::Error),
     #[error("source terrain is absent at scene point {point:?}")]
@@ -56,7 +57,7 @@ impl serde::Serialize for SourceElevationSample {
 }
 
 pub struct ImportedTerrainCapture {
-    pub source_digest: adventuresim_tactical_core::scene_input::SourcePackageDigest,
+    pub source_digest: adventuresim_world_schema::source_package::SourcePackageDigest,
     pub absolute_elevation: ElevationMeters,
     pub source_transects: Vec<SourceElevationSample>,
     pub ungraded_vista: VistaSample,
@@ -69,18 +70,14 @@ impl ImportedTerrainCapture {
         coordinates: Wgs84CoordinateE7,
         points: impl IntoIterator<Item = ScenePlanPoint>,
     ) -> Result<Vec<SourceElevationSample>, TerrainCaptureError> {
+        let origin = NativeTerrainCoordinate::from(coordinates);
         points
             .into_iter()
             .map(|point| {
-                let GeographicSampleCoordinate {
+                let NativeTerrainCoordinate {
                     latitude_degrees: lat,
                     longitude_degrees: lon,
-                } = offset_coordinate(
-                    coordinates.latitude().degrees(),
-                    coordinates.longitude().degrees(),
-                    f64::from(point.metres().x),
-                    f64::from(point.metres().y),
-                );
+                } = origin.at_offset(f64::from(point.metres().x), f64::from(point.metres().y));
                 let cell = pack
                     .cell(lat, lon)?
                     .ok_or(TerrainCaptureError::OutsideSource { point })?;
@@ -98,6 +95,7 @@ impl ImportedTerrainCapture {
     ) -> Result<Self, TerrainCaptureError> {
         const TRANSECT_HALF_LENGTH_METRES: i32 = 3_000;
         const TRANSECT_SPACING_METRES: usize = 25;
+        let origin = NativeTerrainCoordinate::from(coordinates);
         let latitude = coordinates.latitude().degrees();
         let longitude = coordinates.longitude().degrees();
         let centre = pack
@@ -111,15 +109,10 @@ impl ImportedTerrainCapture {
                 .step_by(TRANSECT_SPACING_METRES)
             {
                 let point = ScenePlanPoint::try_from(axis * distance as f32)?;
-                let GeographicSampleCoordinate {
+                let NativeTerrainCoordinate {
                     latitude_degrees: lat,
                     longitude_degrees: lon,
-                } = offset_coordinate(
-                    latitude,
-                    longitude,
-                    f64::from(point.metres().x),
-                    f64::from(point.metres().y),
-                );
+                } = origin.at_offset(f64::from(point.metres().x), f64::from(point.metres().y));
                 let cell = pack
                     .cell(lat, lon)?
                     .ok_or(TerrainCaptureError::OutsideSource { point })?;
@@ -127,9 +120,10 @@ impl ImportedTerrainCapture {
             }
         }
         Ok(Self {
-            source_digest: adventuresim_tactical_core::scene_input::SourcePackageDigest::from_hex(
-                pack.digest(),
-            )?,
+            source_digest:
+                adventuresim_world_schema::source_package::SourcePackageDigest::from_hex(
+                    pack.digest(),
+                )?,
             absolute_elevation: SourceElevationSample::from_cell(ScenePlanPoint::ORIGIN, centre)?
                 .absolute_elevation,
             source_transects,
