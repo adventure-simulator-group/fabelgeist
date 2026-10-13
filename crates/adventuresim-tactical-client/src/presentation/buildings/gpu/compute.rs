@@ -1,6 +1,6 @@
 use super::*;
 use bevy::{
-    camera::primitives::Frustum,
+    camera::{primitives::Frustum, visibility::RenderLayers},
     core_pipeline::schedule::{Core3d, Core3dSystems, RootNonCameraView},
     pbr::{
         EARLY_SHADOW_PASS, ShadowView, ViewLightEntities, per_view_shadow_pass, shared_shadow_pass,
@@ -58,32 +58,31 @@ struct CityView {
     root: Has<RootNonCameraView>,
     shadow: Has<ShadowView>,
     frustum: Option<&'static Frustum>,
-}
-
-fn camera_groups(views: &Query<CityView, Without<Camera2d>>) -> Vec<(Entity, Vec<Entity>)> {
-    views
-        .iter()
-        .filter(|view| view.camera || view.root)
-        .map(|view| {
-            let mut group = vec![view.entity];
-            if let Some(cascades) = view.cascades {
-                group.extend(cascades.lights.iter().copied());
-            }
-            group.retain(|entity| views.get(*entity).is_ok());
-            (view.entity, group)
-        })
-        .collect()
+    layers: Option<&'static RenderLayers>,
 }
 
 #[derive(Resource, Default)]
 pub(super) struct CityViews {
+    pub owners: PresentationOwners<OwnerViews>,
+}
+
+#[derive(Default)]
+pub(super) struct OwnerViews {
     pub slots: HashMap<Entity, u32>,
     uniforms: DynamicUniformBuffer<ViewParameters>,
     dispatches: HashMap<Entity, Vec<Dispatch>>,
     retained_slots: HashMap<RetainedViewEntity, u32>,
 }
 
-impl CityViews {
+struct GpuResources<'a> {
+    pipelines: &'a Pipelines,
+    cache: &'a PipelineCache,
+    buffers: &'a RenderAssets<GpuShaderBuffer>,
+    device: &'a RenderDevice,
+    queue: &'a RenderQueue,
+}
+
+impl OwnerViews {
     fn prepare_views(
         &mut self,
         scene: &CityGpuScene,
@@ -95,22 +94,28 @@ impl CityViews {
             .flat_map(|(_, group)| group.iter())
             .filter_map(|entity| views.get(*entity).ok().map(|v| v.view.retained_view_entity))
             .collect();
-        assert!(
-            active.len() <= MAX_CITY_VIEWS,
-            "city LOD history capacity exceeded"
-        );
+        if active.len() > MAX_CITY_VIEWS {
+            warn!("City level-of-detail history capacity exceeded");
+            return Vec::new();
+        }
         self.retained_slots.retain(|key, _| active.contains(key));
         let mut offsets = Vec::new();
         for (root, group) in groups {
+            let Ok(root_view) = views.get(*root) else {
+                continue;
+            };
             for (draw_slot, entity) in group.iter().enumerate() {
-                let item = views.get(*entity).expect("active city view");
+                let Ok(item) = views.get(*entity) else {
+                    continue;
+                };
                 let view = item.view;
                 let previous = self.retained_slots.get(&view.retained_view_entity).copied();
-                let history_slot = previous.unwrap_or_else(|| {
+                let Some(history_slot) = previous.or_else(|| {
                     (0..MAX_CITY_VIEWS as u32)
                         .find(|slot| !self.retained_slots.values().any(|used| used == slot))
-                        .expect("bounded city LOD history")
-                });
+                }) else {
+                    continue;
+                };
                 self.retained_slots
                     .insert(view.retained_view_entity, history_slot);
                 self.slots.insert(*entity, draw_slot as u32);
@@ -120,9 +125,7 @@ impl CityViews {
                 for batch in scene.batches.iter() {
                     let offset = self.uniforms.push(&ViewParameters {
                         clip_from_world: clip,
-                        camera: views
-                            .get(*root)
-                            .expect("camera group root")
+                        camera: root_view
                             .view
                             .world_from_view
                             .translation()
@@ -143,12 +146,7 @@ impl CityViews {
                         // the facade's individual beams and window fittings.
                         // Test view role explicitly: orthographic cameras are
                         // not shadow views.
-                        policy: UVec4::new(
-                            u32::from(item.shadow),
-                            u32::from(views.get(*root).expect("camera group root").root),
-                            0,
-                            0,
-                        ),
+                        policy: UVec4::new(u32::from(item.shadow), u32::from(root_view.root), 0, 0),
                         // Perspective matrices have an infinite far plane.
                         // Bevy's camera frustum retains the configured finite
                         // distance; shadow caster extrusion must remain separate.
@@ -164,6 +162,88 @@ impl CityViews {
             }
         }
         offsets
+    }
+}
+
+impl GpuResources<'_> {
+    fn prepare_owner(
+        &self,
+        owner: PresentationOwner,
+        scene: &CityGpuScene,
+        views: &Query<CityView, Without<Camera2d>>,
+        prepared: &mut OwnerViews,
+        scratch: &mut scratch::CityScratch,
+    ) {
+        prepared.slots.clear();
+        prepared.dispatches.clear();
+        prepared.uniforms.clear();
+        if scene.count == 0 {
+            *scratch = Default::default();
+            prepared.retained_slots.clear();
+            return;
+        }
+        let groups = camera_groups(views, owner);
+        if groups.is_empty() {
+            return;
+        }
+        let slots = groups
+            .iter()
+            .map(|(_, group)| group.len())
+            .max()
+            .unwrap_or(1);
+        if !scratch.prepare(
+            scene,
+            slots,
+            self.buffers,
+            self.device,
+            self.queue,
+            self.cache,
+        ) {
+            return;
+        }
+        let (Some(buildings), Some(selection)) = (
+            self.buffers.get(&scene.buildings),
+            self.buffers.get(&scene.selection),
+        ) else {
+            return;
+        };
+        let offsets = prepared.prepare_views(scene, &groups, views);
+        prepared.uniforms.write_buffer(self.device, self.queue);
+        let Some(uniform) = prepared.uniforms.binding() else {
+            return;
+        };
+        let layout = self.cache.get_bind_group_layout(&self.pipelines.layout);
+        let mut bindings = Vec::new();
+        for (batch, scratch) in scene.batches.iter().zip(&scratch.batches) {
+            let (Some(source), Some(owners)) = (
+                self.buffers.get(&batch.source),
+                self.buffers.get(&batch.owners),
+            ) else {
+                return;
+            };
+            bindings.push(self.device.create_bind_group(
+                "city GPU buffers",
+                &layout,
+                &BindGroupEntries::sequential((
+                    uniform.clone(),
+                    buildings.buffer.as_entire_binding(),
+                    selection.buffer.as_entire_binding(),
+                    source.buffer.as_entire_binding(),
+                    scratch.visible.as_entire_binding(),
+                    scratch.indirect.as_entire_binding(),
+                    owners.buffer.as_entire_binding(),
+                )),
+            ));
+        }
+        for (index, (root, offset, slot)) in offsets.into_iter().enumerate() {
+            let batch = index % bindings.len();
+            prepared.dispatches.entry(root).or_default().push(Dispatch {
+                binding: bindings[batch].clone(),
+                view_offset: offset,
+                ranges: scene.batches[batch].ranges,
+                slot,
+            });
+        }
     }
 }
 
@@ -221,7 +301,7 @@ fn initialize(mut commands: Commands, cache: Res<PipelineCache>, server: Res<Ass
     reason = "GPU preparation joins resident assets, active views and device resources"
 )]
 fn prepare(
-    scene: Res<CityGpuScene>,
+    scenes: Res<CityGpuScenes>,
     pipelines: Res<Pipelines>,
     cache: Res<PipelineCache>,
     buffers: Res<RenderAssets<GpuShaderBuffer>>,
@@ -231,57 +311,21 @@ fn prepare(
     mut prepared: ResMut<CityViews>,
     mut scratch: ResMut<scratch::Scratch>,
 ) {
-    prepared.slots.clear();
-    prepared.dispatches.clear();
-    prepared.uniforms.clear();
-    let groups = camera_groups(&views);
-    let slots = groups
-        .iter()
-        .map(|(_, group)| group.len())
-        .max()
-        .unwrap_or(1);
-    if !scratch.prepare(&scene, slots, &buffers, &device, &queue, &cache) {
-        return;
-    }
-    let (Some(buildings), Some(selection)) =
-        (buffers.get(&scene.buildings), buffers.get(&scene.selection))
-    else {
-        return;
+    let resources = GpuResources {
+        pipelines: &pipelines,
+        cache: &cache,
+        buffers: &buffers,
+        device: &device,
+        queue: &queue,
     };
-    let offsets = prepared.prepare_views(&scene, &groups, &views);
-    prepared.uniforms.write_buffer(&device, &queue);
-    let Some(uniform) = prepared.uniforms.binding() else {
-        return;
-    };
-    let layout = cache.get_bind_group_layout(&pipelines.layout);
-    let mut bindings = Vec::new();
-    for (batch, scratch) in scene.batches.iter().zip(&scratch.batches) {
-        let (Some(source), Some(owners)) = (buffers.get(&batch.source), buffers.get(&batch.owners))
-        else {
-            return;
-        };
-        bindings.push(device.create_bind_group(
-            "city GPU buffers",
-            &layout,
-            &BindGroupEntries::sequential((
-                uniform.clone(),
-                buildings.buffer.as_entire_binding(),
-                selection.buffer.as_entire_binding(),
-                source.buffer.as_entire_binding(),
-                scratch.visible.as_entire_binding(),
-                scratch.indirect.as_entire_binding(),
-                owners.buffer.as_entire_binding(),
-            )),
-        ));
-    }
-    for (index, (root, offset, slot)) in offsets.into_iter().enumerate() {
-        let batch = index % bindings.len();
-        prepared.dispatches.entry(root).or_default().push(Dispatch {
-            binding: bindings[batch].clone(),
-            view_offset: offset,
-            ranges: scene.batches[batch].ranges,
-            slot,
-        });
+    for owner in PresentationOwner::ALL {
+        resources.prepare_owner(
+            owner,
+            scenes.owners.get(owner),
+            &views,
+            prepared.owners.get_mut(owner),
+            scratch.owners.get_mut(owner),
+        );
     }
 }
 
@@ -289,61 +333,92 @@ fn cull(
     mut context: RenderContext,
     pipelines: Res<Pipelines>,
     cache: Res<PipelineCache>,
-    scene: Res<CityGpuScene>,
+    scenes: Res<CityGpuScenes>,
     views: Res<CityViews>,
     current: ViewQuery<Entity>,
     scratch: Res<scratch::Scratch>,
 ) {
-    let Some(dispatches) = views.dispatches.get(&current.into_inner()) else {
-        return;
-    };
-    if dispatches.is_empty() {
-        return;
-    }
     let (Some(select), Some(compact)) = (
         cache.get_compute_pipeline(pipelines.select),
         cache.get_compute_pipeline(pipelines.compact),
     ) else {
         return;
     };
-    // Camera groups execute sequentially. Clear only counters here, in GPU
-    // command order; queue writes would reset all groups before any draws run.
-    for (index, dispatch) in dispatches.iter().enumerate() {
-        let batch = &scratch.batches[index % scene.batches.len()];
-        context.command_encoder().clear_buffer(
-            &batch.indirect,
-            u64::from(dispatch.slot) * 16 + 4,
-            Some(4),
-        );
-    }
-    {
+    let entity = current.into_inner();
+    for owner in PresentationOwner::ALL {
+        let scene = scenes.owners.get(owner);
+        let views = views.owners.get(owner);
+        let scratch = scratch.owners.get(owner);
+        let Some(dispatches) = views.dispatches.get(&entity) else {
+            continue;
+        };
+        if dispatches.is_empty() {
+            continue;
+        }
+        // Camera groups execute sequentially. Clear only counters here, in GPU
+        // command order; queue writes would reset all groups before any draws run.
+        for (index, dispatch) in dispatches.iter().enumerate() {
+            let batch = &scratch.batches[index % scene.batches.len()];
+            context.command_encoder().clear_buffer(
+                &batch.indirect,
+                u64::from(dispatch.slot) * 16 + 4,
+                Some(4),
+            );
+        }
+        {
+            let mut pass = context
+                .command_encoder()
+                .begin_compute_pass(&ComputePassDescriptor {
+                    label: Some("city_building_lod"),
+                    timestamp_writes: None,
+                });
+            pass.set_pipeline(select);
+            for dispatch in dispatches.iter().step_by(scene.batches.len()) {
+                pass.set_bind_group(0, &dispatch.binding, &[dispatch.view_offset]);
+                pass.dispatch_workgroups(scene.count.div_ceil(COMPUTE_WORKGROUP_SIZE), 1, 1);
+            }
+        }
         let mut pass = context
             .command_encoder()
             .begin_compute_pass(&ComputePassDescriptor {
-                label: Some("city_building_lod"),
+                label: Some("city_visible_clusters"),
                 timestamp_writes: None,
             });
-        pass.set_pipeline(select);
-        for dispatch in dispatches.iter().step_by(scene.batches.len()) {
+        pass.set_pipeline(compact);
+        for dispatch in dispatches {
             pass.set_bind_group(0, &dispatch.binding, &[dispatch.view_offset]);
-            pass.dispatch_workgroups(scene.count.div_ceil(COMPUTE_WORKGROUP_SIZE), 1, 1);
+            let workgroups = dispatch.ranges.div_ceil(COMPUTE_WORKGROUP_SIZE);
+            pass.dispatch_workgroups(
+                workgroups.min(WORKGROUPS_PER_ROW),
+                workgroups.div_ceil(WORKGROUPS_PER_ROW),
+                1,
+            );
         }
+        READY.get(owner).store(true, Ordering::Relaxed);
     }
-    let mut pass = context
-        .command_encoder()
-        .begin_compute_pass(&ComputePassDescriptor {
-            label: Some("city_visible_clusters"),
-            timestamp_writes: None,
-        });
-    pass.set_pipeline(compact);
-    for dispatch in dispatches {
-        pass.set_bind_group(0, &dispatch.binding, &[dispatch.view_offset]);
-        let workgroups = dispatch.ranges.div_ceil(COMPUTE_WORKGROUP_SIZE);
-        pass.dispatch_workgroups(
-            workgroups.min(WORKGROUPS_PER_ROW),
-            workgroups.div_ceil(WORKGROUPS_PER_ROW),
-            1,
-        );
-    }
-    READY.store(true, Ordering::Relaxed);
+}
+
+fn camera_groups(
+    views: &Query<CityView, Without<Camera2d>>,
+    owner: PresentationOwner,
+) -> Vec<(Entity, Vec<Entity>)> {
+    views
+        .iter()
+        .filter(|view| {
+            (view.camera || view.root)
+                && view
+                    .layers
+                    .cloned()
+                    .unwrap_or_default()
+                    .intersects(&owner.render_layers())
+        })
+        .map(|view| {
+            let mut group = vec![view.entity];
+            if let Some(cascades) = view.cascades {
+                group.extend(cascades.lights.iter().copied());
+            }
+            group.retain(|entity| views.get(*entity).is_ok());
+            (view.entity, group)
+        })
+        .collect()
 }

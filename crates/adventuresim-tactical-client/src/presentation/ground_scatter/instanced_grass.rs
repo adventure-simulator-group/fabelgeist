@@ -106,7 +106,7 @@ fn present_instanced_grass(
         let base_seed = stable_text_seed(&environment.scene_digest).xor_word(0x6772_6173_735f_6c6f);
         #[cfg(target_family = "wasm")]
         let prepared = match crate::presentation::generation::landscape::grass(
-            crate::presentation::generation::GenerationOwner::Scene,
+            crate::presentation::ownership::PresentationOwner::Scene,
             &environment.scene_digest,
         ) {
             Ok(prepared) => prepared,

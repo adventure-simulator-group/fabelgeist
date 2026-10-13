@@ -62,7 +62,7 @@ impl CityGroundAssets<'_> {
         };
         #[cfg(target_family = "wasm")]
         let prepared = match crate::presentation::generation::landscape::ground(
-            crate::presentation::generation::GenerationOwner::Scene,
+            crate::presentation::ownership::PresentationOwner::Scene,
             &environment.scene_digest,
         ) {
             Ok(prepared) => prepared.unwrap_or_else(build_ground),

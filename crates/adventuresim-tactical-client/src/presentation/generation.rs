@@ -7,12 +7,13 @@ use std::sync::Arc;
 #[cfg(test)]
 use std::sync::Mutex;
 
+use crate::presentation::ownership::{PresentationOwner, PresentationOwners};
 use adventuresim_tactical_core::geometry_transport::binary as packed;
 pub(super) use building::PreparedFacade;
 use error::{PreparationError, PreparationResult, ProductKind};
 pub(super) use installation::{release_unused_facades, take_facade, take_venue_geometry};
+pub(crate) use ownership::PreparationTicket;
 pub(crate) use ownership::activate;
-pub(crate) use ownership::{GenerationOwner, PreparationTicket};
 use ownership::{active_products, begin, cancel, finish, staged_products};
 pub(super) use ownership::{clear_residency, retain_facade};
 use requests::{dependencies, jobs, venue_jobs};

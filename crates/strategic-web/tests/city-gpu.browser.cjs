@@ -27,26 +27,36 @@ test('city compute selects LOD per view, rejects hidden buildings and compacts m
         device.queue.writeBuffer(buffer, 0, data); return buffer;
       };
       const identity = [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1];
-      const data = new ArrayBuffer(3 * 96), floats = new Float32Array(data), words = new Uint32Array(data);
+      const data = new ArrayBuffer(3 * 112), floats = new Float32Array(data), words = new Uint32Array(data);
       for (let i=0; i<3; i++) {
-        floats.set(identity, i*24); floats.set([i===1 ? 10 : 0, 0, i===2 ? 2 : 0.5, 0.2], i*24+16);
-        words[i*24+20] = 6; // Both facade and shell exist.
+        floats.set(identity, i*28); floats.set([i===1 ? 10 : 0, 0, i===2 ? 2 : 0.5, 0.2], i*28+16);
+        words[i*28+20] = 6; // Both facade and shell exist.
       }
       const buildings = create(data);
       const selection = create(new Uint32Array(15).fill(0xffffffff));
       // A range spanning more than one workgroup's emission loop, partial tail,
       // hidden ranges, and two scratch slots exercise reservation boundaries.
-      const jobData = new Uint32Array(67*4);
-      jobData.set([0,10,12483,1, 0,20,198,2, 1,30,3,1, 1,40,3,2, 2,50,384,1, 2,60,3,2]);
-      jobData.set([0,100,3,258],66*4); // A real range in the second dispatch row.
+      // Geometry identifies a shared owner-list span; instance words retain
+      // the placement count, cluster count and vertices per cluster.
+      const jobData = new Uint32Array(67*8);
+      jobData.set([
+        0,10,12483,1, 1,66,192,0,
+        0,20,198,2, 1,2,192,0,
+        1,30,3,1, 1,1,192,0,
+        1,40,3,2, 1,1,192,0,
+        2,50,384,1, 1,2,192,0,
+        2,60,3,2, 1,1,192,0,
+      ]);
+      jobData.set([0,100,3,258, 1,1,192,0],66*8); // A real range in the second dispatch row.
       const jobs = create(jobData);
+      const owners = create(new Uint32Array([0,1,2]));
       const capacity = 74;
       const output = create(new Uint32Array(2 * capacity * 2).fill(0xffffffff));
       const indirect = create(new Uint32Array([192,0,0,0, 192,0,0,capacity]), GPUBufferUsage.INDIRECT | GPUBufferUsage.VERTEX);
       const layout = device.createBindGroupLayout({entries: [
         {binding:0,visibility:GPUShaderStage.COMPUTE,buffer:{type:'uniform'}},
-        ...[1,2,3,4,5].map(binding => ({binding,visibility:GPUShaderStage.COMPUTE,
-          buffer:{type: binding===1 || binding===3 ? 'read-only-storage' : 'storage'}})),
+        ...[1,2,3,4,5,6].map(binding => ({binding,visibility:GPUShaderStage.COMPUTE,
+          buffer:{type: [1,3,6].includes(binding) ? 'read-only-storage' : 'storage'}})),
       ]});
       const module = device.createShaderModule({code:shader});
       const pipelineLayout = device.createPipelineLayout({bindGroupLayouts:[layout]});
@@ -67,7 +77,7 @@ test('city compute selects LOD per view, rejects hidden buildings and compacts m
         u.set([3,capacity,slot,scratch],24); // LOD history persists independently of scratch reuse.
         u[28] = iteration === 4 ? 1 : 0; // Shadow role is distinct from orthographic projection.
         const uniform = create(params,GPUBufferUsage.UNIFORM);
-        const binding = device.createBindGroup({layout,entries:[uniform,buildings,selection,jobs,output,indirect]
+        const binding = device.createBindGroup({layout,entries:[uniform,buildings,selection,jobs,output,indirect,owners]
           .map((buffer,binding)=>({binding,resource:{buffer}}))});
         if (iteration !== 3) encoder.clearBuffer(indirect,scratch*16+4,4);
         for(const pipeline of iteration===3 ? [select] : [select,compact]) {
@@ -96,7 +106,7 @@ test('city compute selects LOD per view, rejects hidden buildings and compacts m
       const arrays = await Promise.all(reads.map(async buffer => {
         await buffer.mapAsync(GPUMapMode.READ); return [...new Uint32Array(buffer.getMappedRange())];
       }));
-      const prop = new ArrayBuffer(96), propFloats=new Float32Array(prop), propWords=new Uint32Array(prop);
+      const prop = new ArrayBuffer(112), propFloats=new Float32Array(prop), propWords=new Uint32Array(prop);
       propFloats.set(identity);propFloats.set([0,0,0.5,0.2],16);
       propWords.set([4,1],20);propFloats.set([2,10],22);
       const props=create(prop), propSelection=create(new Uint32Array(1));
@@ -105,7 +115,7 @@ test('city compute selects LOD per view, rejects hidden buildings and compacts m
         const params=new ArrayBuffer(144), f=new Float32Array(params), u=new Uint32Array(params);
         f.set(identity);f.set([distance,0,0,1],16);f.set([256,48,180,0],20);u.set([1,capacity,0,0],24);u[28]=shadow;u[29]=shadow===2 ? 1 : 0;
         const uniform=create(params,GPUBufferUsage.UNIFORM);
-        const binding=device.createBindGroup({layout,entries:[uniform,props,propSelection,jobs,output,indirect]
+        const binding=device.createBindGroup({layout,entries:[uniform,props,propSelection,jobs,output,indirect,owners]
           .map((buffer,binding)=>({binding,resource:{buffer}}))});
         const command=device.createCommandEncoder(), pass=command.beginComputePass();
         pass.setPipeline(select);pass.setBindGroup(0,binding);pass.dispatchWorkgroups(1);pass.end();
@@ -121,7 +131,7 @@ test('city compute selects LOD per view, rejects hidden buildings and compacts m
         f.set(identity);f.set([0,0,0,1],16);f.set([256,48,180,0],20);u.set([1,capacity,0,0],24);
         f.set([0,0,-1,far],32);
         const uniform=create(params,GPUBufferUsage.UNIFORM);
-        const binding=device.createBindGroup({layout,entries:[uniform,props,propSelection,jobs,output,indirect]
+        const binding=device.createBindGroup({layout,entries:[uniform,props,propSelection,jobs,output,indirect,owners]
           .map((buffer,binding)=>({binding,resource:{buffer}}))});
         const command=device.createCommandEncoder(), pass=command.beginComputePass();
         pass.setPipeline(select);pass.setBindGroup(0,binding);pass.dispatchWorkgroups(1);pass.end();
@@ -143,9 +153,9 @@ test('city compute selects LOD per view, rejects hidden buildings and compacts m
     assert.deepEqual(args2.slice(0,4),[192,66,0,0]);
     const pairs = (words,start,count) => Array.from({length:count},(_,i)=>words.slice((start+i)*2,(start+i)*2+2))
       .sort((a,b)=>a[0]-b[0] || a[1]-b[1]);
-    const largeRange = Array.from({length:66},(_,i)=>[0,i*192]);
+    const largeRange = Array.from({length:66},(_,i)=>[0,i]);
     assert.deepEqual(pairs(visible0,0,66),largeRange);
-    assert.deepEqual(pairs(visible1,74,3),[[1,0],[1,192],[66,0]],
+    assert.deepEqual(pairs(visible1,74,3),[[1,0],[1,1],[66,0]],
       'camera shell includes facade overlays');
     assert.deepEqual(pairs(visible2,0,66),largeRange);
     assert.deepEqual(visible1.slice(0,136),visible0.slice(0,136),
@@ -153,7 +163,7 @@ test('city compute selects LOD per view, rejects hidden buildings and compacts m
     assert.deepEqual(visible2.slice(148),visible1.slice(148),
       'reusing slot zero preserves slot one');
     assert.deepEqual(shadowArgs.slice(4),[192,3,0,74]);
-    assert.deepEqual(pairs(shadowVisible,74,3),[[1,0],[1,192],[5,0]],
+    assert.deepEqual(pairs(shadowVisible,74,3),[[1,0],[1,1],[5,2]],
       'shadow shells retain off-camera casters and omit facade overlays');
     assert.deepEqual(orthoArgs.slice(0,4),[192,66,0,0]);
     assert.deepEqual(pairs(orthoVisible,0,66),largeRange,

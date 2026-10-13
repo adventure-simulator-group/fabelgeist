@@ -4,6 +4,11 @@ use crate::presentation::buildings::{CompiledBuildingLevels, TacticalBuildingMat
 use adventuresim_building_generator::BuildingLodMaterial;
 
 #[derive(Default, Resource)]
+pub(in crate::presentation::buildings) struct PendingGpuCities {
+    pub(in crate::presentation::buildings) owners: PresentationOwners<PendingGpuBuildings>,
+}
+
+#[derive(Default)]
 pub(in crate::presentation::buildings) struct PendingGpuBuildings {
     pub(super) parts: Vec<Part>,
     pub(super) buildings: Vec<Placement>,
@@ -20,7 +25,6 @@ impl PendingGpuBuildings {
     pub(in crate::presentation::buildings) fn clear(&mut self) {
         self.parts.clear();
         self.buildings.clear();
-        READY.store(false, Ordering::Relaxed);
     }
 
     pub(in crate::presentation::buildings) fn push(
@@ -42,16 +46,18 @@ impl PendingGpuBuildings {
         self.parts.is_empty() && self.buildings.is_empty()
     }
 
-    pub(super) fn groups(&self, materials: Option<&TacticalBuildingMaterials>) -> Vec<Group> {
+    pub(super) fn groups(
+        &self,
+        materials: Option<&TacticalBuildingMaterials>,
+    ) -> AssemblyResult<Vec<Group>> {
         let mut groups = Group::from_parts(self.parts.iter().cloned());
         let mut prototypes = HashMap::new();
         for placement in &self.buildings {
-            let palette = materials
-                .expect("city building materials")
-                .for_distant_building(
-                    placement.appearance.prosperity,
-                    placement.appearance.exterior_variant(),
-                );
+            let materials = materials.ok_or(AssemblyError::MissingMaterials)?;
+            let palette = materials.for_distant_building(
+                placement.appearance.prosperity,
+                placement.appearance.exterior_variant(),
+            );
             // The palette's infill is unique to each appearance. Geometry and
             // appearance are independent; placements share both before packing.
             let key = (
@@ -95,7 +101,7 @@ impl PendingGpuBuildings {
             });
             groups[index].placements.push(placement.transform);
         }
-        groups
+        Ok(groups)
     }
 }
 
