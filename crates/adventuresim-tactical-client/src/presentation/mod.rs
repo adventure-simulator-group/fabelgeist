@@ -250,6 +250,7 @@ impl Plugin for TacticalPresentationPlugin {
             .init_resource::<WoodyUnderstoryPresentationCache>()
             .init_resource::<GroundFoliagePresentationCache>()
             .init_resource::<TreePresentationCache>()
+            .init_resource::<obstacles::tree::RetainedTreePresentations>()
             .init_resource::<TreeAssetResidencyDiagnostics>()
             .init_resource::<VistaTreePresentationCache>()
             .init_resource::<PreparedTreeImpostorAssets>()

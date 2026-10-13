@@ -43,6 +43,10 @@ windows, source coverage and the read-only environment data endpoint.
 
 ## Running Locally
 
+The browser renderer requires WebGPU and WebAssembly SIMD. Deterministic
+generation uses BLAKE3's SIMD implementation with the same hash output as its
+scalar implementation.
+
 ### Prerequisites
 
 1. SpacetimeDB CLI/server 2.6.1 running locally with `adventuresim-stdb-module`
