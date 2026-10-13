@@ -115,14 +115,14 @@ async function serve() {
     let file;
     if (url.pathname.startsWith("/static/")) file = path.join(root, "crates/strategic-web/static", url.pathname.slice(8));
     if (process.env.STRATEGIC_STATIC_DIR && url.pathname.startsWith("/static/")) {
-      const saved = path.join(root, process.env.STRATEGIC_STATIC_DIR, url.pathname.slice(8));
+      const saved = path.resolve(root, process.env.STRATEGIC_STATIC_DIR, url.pathname.slice(8));
       if (fs.existsSync(saved)) file = saved;
     }
     if (url.pathname.startsWith("/tactical/")) file = path.join(root, "crates/adventuresim-stdb-module/static", url.pathname.slice(10));
     if (url.pathname.startsWith("/tactical/assets/config/"))
       file = path.join(root, "assets/config", path.basename(url.pathname));
     if (process.env.STRATEGIC_WASM_DIR && url.pathname.startsWith("/tactical/wasm/"))
-      file = path.join(root, process.env.STRATEGIC_WASM_DIR, path.basename(url.pathname));
+      file = path.resolve(root, process.env.STRATEGIC_WASM_DIR, path.basename(url.pathname));
     if (file) {
       const type = { ".js": "text/javascript", ".css": "text/css", ".wasm": "application/wasm", ".json": "application/json" }[path.extname(file)] || "application/octet-stream";
       response.setHeader("Content-Type", type); response.setHeader("Cache-Control", "public, max-age=3600");

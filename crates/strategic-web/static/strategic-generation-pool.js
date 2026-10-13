@@ -5,7 +5,7 @@ const JOB_TIMEOUT_MS = 180_000;
 /**
  * @typedef {{status: "generate", job: string} | {status: "reused"}} GenerationDecision
  * @typedef {{job: string, bytes: Uint8Array, workerMilliseconds: number}} GeneratedDelivery
- * @typedef {{status: "completed", createdWorkers: number}} GenerationPhaseResult
+ * @typedef {{status: "completed", createdWorkers: number, initializationMilliseconds: number}} GenerationPhaseResult
  */
 
 export class GenerationPoolError extends Error {
@@ -87,7 +87,7 @@ export function createGenerationPool(module, options = {}) {
       "Scene generation pool is not available");
     if (!Array.isArray(jobs)) throw new GenerationPoolError("invalid-jobs", "Generation requires a job list");
     phase = "running";
-    let cursor = 0, failed = false, created = 0;
+    let cursor = 0, failed = false, created = 0, initializationMilliseconds = 0;
     try {
       await Promise.all(Array.from({ length: Math.min(jobs.length, concurrency) }, async (_, index) => {
         let worker = workers[index];
@@ -114,7 +114,9 @@ export function createGenerationPool(module, options = {}) {
             try { worker = createWorker(); }
             catch (cause) { throw new GenerationPoolError("worker-start-failed", "Scene generation worker could not start", cause); }
             workers[index] = worker; created++;
+            const initializeStarted = performance.now();
             await exchange(worker, { kind: "initialize", module });
+            initializationMilliseconds += performance.now() - initializeStarted;
           }
           if (phase === "closed") throw new GenerationPoolError("cancelled", "Scene generation cancelled");
           if (failed) break;
@@ -134,7 +136,7 @@ export function createGenerationPool(module, options = {}) {
     } finally {
       if (phase !== "closed") phase = "idle";
     }
-    return { status: "completed", createdWorkers: created };
+    return { status: "completed", createdWorkers: created, initializationMilliseconds };
   }
   function close() {
     phase = "closed";
