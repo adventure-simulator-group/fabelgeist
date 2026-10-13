@@ -1,7 +1,5 @@
 //! One geographic surface, sharing the existing environment material and assets.
-use super::{
-    MapState, RegionalMapCamera, RegionalMapRoot, camera::MAP_PITCH_RADIANS, geographic_surface,
-};
+use super::{MapState, RegionalMapCamera, RegionalMapRoot, camera::MAP_PITCH_RADIANS};
 use crate::presentation::{
     ActiveTacticalScene, SceneEnvironment,
     ground_scatter::grass_terminal_pigment,
@@ -202,7 +200,7 @@ pub(super) fn sync_camera(
     let elevation = state
         .terrain()
         .filter(|terrain| terrain.request() == surface.request)
-        .and_then(|terrain| geographic_surface::position_at_offset(terrain, offset))
+        .and_then(|_| state.ground_position(pose.origin))
         .map_or(f32::from(datum.get()), |point| point.y);
     let target = Vec3::new(
         offset.east_metres as f32,

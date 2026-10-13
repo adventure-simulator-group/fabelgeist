@@ -9,8 +9,17 @@ use adventuresim_tactical_core::{prelude::SceneTerrain, regional_city::RegionalC
 pub(in crate::presentation) struct PreparedCityProduct {
     pub document: RegionalCityInput,
     pub terrain: SceneTerrain,
+    pub landform: PreparedCityLandform,
+    pub surface_ground: adventuresim_tactical_core::prelude::SceneGround,
     pub ground: Arc<PreparedCityGround>,
     graphics: String,
+}
+
+/// Required worker field: old products cannot omit an implicit terrain patch.
+#[derive(Serialize, Deserialize)]
+pub(in crate::presentation) enum PreparedCityLandform {
+    Natural,
+    Patch(adventuresim_tactical_core::prelude::SceneTerrainPatch),
 }
 
 impl PreparedCityProduct {
@@ -23,6 +32,21 @@ impl PreparedCityProduct {
         let supported = document
             .input()
             .prepare_supported_terrain(&mut Default::default())?;
+        let terrain_patch = document
+            .input()
+            .landform
+            .map(|recipe| {
+                adventuresim_tactical_core::prelude::terrain_landform_patch(
+                    &supported.terrain,
+                    recipe,
+                )
+            })
+            .transpose()
+            .map_err(|cause| {
+                adventuresim_tactical_core::scene_input::SceneInputError::from(
+                    adventuresim_tactical_core::scene_input::SceneValidationError::Terrain(cause),
+                )
+            })?;
         let ground = PreparedCityGround::from_scene(
             document.input(),
             &supported.terrain,
@@ -32,6 +56,9 @@ impl PreparedCityProduct {
         Ok(Self {
             document,
             terrain: supported.terrain,
+            landform: terrain_patch
+                .map_or(PreparedCityLandform::Natural, PreparedCityLandform::Patch),
+            surface_ground: supported.ground,
             ground: Arc::new(ground),
             graphics,
         })

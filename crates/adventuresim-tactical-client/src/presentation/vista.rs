@@ -1,4 +1,6 @@
 mod details;
+#[cfg(any(target_family = "wasm", test))]
+pub(in crate::presentation) mod focused;
 pub(in crate::presentation) mod grass;
 mod natural;
 pub(in crate::presentation) mod regional;
@@ -8,6 +10,7 @@ mod pigment;
 use pigment::{VistaVertexColors, vista_sward_coverage};
 #[cfg(test)]
 use pigment::{presented_color, stitch_vista_color_to_playable_edge, vista_sample_color};
+pub(super) mod geographic_ground;
 mod ground;
 use ground::{tree_root_height, vista_lod_meshes_with_morph, vista_scatter_transform};
 pub(super) mod owned;

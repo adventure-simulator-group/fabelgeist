@@ -10,6 +10,7 @@ use std::sync::Mutex;
 use crate::presentation::ownership::{PresentationOwner, PresentationOwners};
 use adventuresim_tactical_core::geometry_transport::binary as packed;
 pub(super) use building::PreparedFacade;
+pub(in crate::presentation) use city::{PreparedCityLandform, PreparedCityProduct};
 use error::{PreparationError, PreparationResult, ProductKind};
 pub(super) use installation::{release_unused_facades, take_facade, take_venue_geometry};
 pub(crate) use ownership::PreparationTicket;

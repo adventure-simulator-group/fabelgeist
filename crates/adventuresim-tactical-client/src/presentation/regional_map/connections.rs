@@ -27,6 +27,7 @@ pub(super) struct PresentedConnections {
     window: RegionalTerrainRequest,
     width_metres: f32,
     coverage: ConnectionCoverage,
+    city: Option<Entity>,
 }
 
 struct ConnectionAssets {
@@ -99,6 +100,7 @@ pub(super) fn present(
             presented.source == pose.source
                 && presented.window == environment.terrain().request()
                 && presented.width_metres == width_metres
+                && presented.city == state.city_surface().map(|city| city.root)
         })
     {
         return;
@@ -106,7 +108,7 @@ pub(super) fn present(
     let Ok(root) = roots.single() else {
         return;
     };
-    let coverage = match geometry(environment, width_metres) {
+    let coverage = match geometry(environment, width_metres, state.city_surface()) {
         Ok(geometry) => ConnectionCoverage::Drawn(
             geometry
                 .into_iter()
@@ -142,6 +144,7 @@ pub(super) fn present(
         window: environment.terrain().request(),
         width_metres,
         coverage,
+        city: state.city_surface().map(|city| city.root),
     };
     let old = state.presented_connections.replace(presented);
     remove(old, &mut commands, &mut meshes, &mut materials);
@@ -151,6 +154,7 @@ pub(super) fn present(
 fn geometry(
     environment: &RegionalEnvironment,
     width_metres: f32,
+    city: Option<super::city::CitySurface<'_>>,
 ) -> Result<Vec<ClassifiedMesh>, super::path_geometry::PathGeometryError> {
     let mut geometry = Vec::new();
     let mut vertices = 0;
@@ -165,6 +169,7 @@ fn geometry(
                 environment.terrain(),
                 GeographicLine::Connection(line),
                 width_metres,
+                city,
             )?;
         }
         vertices += builder.vertex_count();

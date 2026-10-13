@@ -49,6 +49,10 @@ pub(crate) enum MapCommand {
     Reset,
     FrameRoute,
     Hide,
+    InstallCity {
+        document_json: String,
+        preparation: crate::presentation::generation::PreparationTicket,
+    },
     InstallEnvironment {
         environment: Box<RegionalEnvironment>,
     },

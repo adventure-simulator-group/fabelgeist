@@ -37,6 +37,9 @@ struct Status<'a> {
     waiting_pipelines: usize,
     error: Option<Failure>,
     markers: Vec<markers::ProjectedMarker<'a>>,
+    city_requested: Option<&'a adventuresim_core::strategic_place::StrategicPlaceId>,
+    city_installation: Option<super::city::InstallationStatus>,
+    city_visible: bool,
 }
 
 #[derive(Serialize)]
@@ -117,7 +120,7 @@ pub(super) fn publish(
         && matched
         && viewport_matches(&state, &cameras)
         && environment_ready
-        && waiting == 0
+        && (waiting == 0 || state.settled_frames >= SETTLED_RENDER_FRAMES)
         && state.failure.is_none()
     {
         state.settled_frames = state
@@ -161,6 +164,9 @@ pub(super) fn publish(
             .or(route_capacity_exceeded.then_some(Failure::RouteCapacity))
             .or(connection_capacity_exceeded.then_some(Failure::ConnectionCapacity)),
         markers: markers::project(&state, &cameras),
+        city_requested: state.requested_city(),
+        city_installation: state.city.status,
+        city_visible: state.city.visible,
     };
     match serde_json::to_string(&status) {
         Ok(json) => match STATUS.get_or_init(|| Mutex::new(String::new())).lock() {

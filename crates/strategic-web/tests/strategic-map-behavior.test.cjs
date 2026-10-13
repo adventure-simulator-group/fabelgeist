@@ -32,9 +32,13 @@ async function fixture({fetchEnvironment,runtimePromise}={}) {
       scale:query.get("scale")},vertices:Array(65*65).fill(null)},connections:[]})};
   }},AbortController,URLSearchParams,performance,location:{pathname:"/map"},
     console:{error:(...args)=>errors.push(args)},
-    installMapGestures(){return ()=>{};}};
+    installMapGestures(){return ()=>{};},
+    prepareRegionalCity(){throw new Error("Unexpected city preparation in regional-scale fixture");}};
   vm.createContext(context);
   vm.runInContext(read("regional-environment-request.js").replaceAll("export ",""),context);
+  vm.runInContext(read("regional-city-request.js").replace(/^import .*;\r?\n/gm,"")
+    .replaceAll("export ",""),context);
+  vm.runInContext(read("regional-city-installation.js").replaceAll("export ",""),context);
   vm.runInContext(read("regional-map-view.js").replace(/^import .*;\r?\n/gm,"").replaceAll("export ","")+
     "\nglobalThis.createView=createRegionalMapView;",context);
   const view=context.createView({runtimePromise:runtimePromise||Promise.resolve(runtime),changed(){},metrics});

@@ -18,6 +18,8 @@ use bevy::{
     prelude::*,
 };
 
+mod city;
+
 const ROUTE_SURFACE_CLEARANCE_METRES: f32 = 0.35;
 const CONNECTION_SURFACE_CLEARANCE_METRES: f32 = 0.2;
 const ESTIMATE_DASH_CELLS: f64 = 0.5;
@@ -79,7 +81,11 @@ impl PathMeshBuilder {
         terrain: &RegionalTerrain,
         line: GeographicLine<'_>,
         width_metres: f32,
+        city: Option<super::city::CitySurface<'_>>,
     ) -> Result<()> {
+        if let Some(city) = city {
+            return self.add_city(terrain, line, width_metres, city);
+        }
         let origin = NativeTerrainCoordinate::from(terrain.request().origin.to_e7());
         let spacing = f64::from(terrain.request().scale.spacing_metres());
         let half = (REGIONAL_TERRAIN_SIDE - 1) as f64 * 0.5;
@@ -173,9 +179,10 @@ pub(super) fn mesh(
     terrain: &RegionalTerrain,
     line: GeographicLine<'_>,
     width_metres: f32,
+    city: Option<super::city::CitySurface<'_>>,
 ) -> Result<Option<Mesh>> {
     let mut builder = PathMeshBuilder::default();
-    builder.add(terrain, line, width_metres)?;
+    builder.add(terrain, line, width_metres, city)?;
     Ok(builder.finish())
 }
 

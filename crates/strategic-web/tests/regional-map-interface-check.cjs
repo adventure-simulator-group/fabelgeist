@@ -142,10 +142,13 @@ module.exports=async function checkInterface(page,output) {
   await page.screenshot({path:path.join(output,"interface-scrolled.png")});
   const scrolled=await page.evaluate(()=>mapRect());
   await page.locator(".settlement-map-main").evaluate(element=>element.scrollTop=0);
-  await page.waitForFunction(()=>mapRect().offset_y<5);
+  await page.waitForFunction(()=>mapRect().offset_y<5
+    && document.body.hasAttribute("data-regional-map-ready") && mapStatus().ready
+    && Object.entries(mapRect()).every(([key,value])=>Math.abs(mapStatus().rect[key]-value)<0.01));
   // A map link remains ordinary navigation; keyboard activation never pans.
   const visibleLink=page.locator("[data-map-place]:not([hidden])").first();
   await visibleLink.focus();await page.keyboard.press("Enter");
+  await page.waitForURL(/#destination-/);
   assert.match(page.url(),/#destination-/);
   assert.equal(await page.locator("canvas").count(),1);
   // Launch the browser at the requested physical density. CDP density overrides

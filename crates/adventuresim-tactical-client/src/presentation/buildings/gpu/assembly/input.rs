@@ -12,26 +12,48 @@ pub(in crate::presentation::buildings) struct PendingGpuCities {
 pub(in crate::presentation::buildings) struct PendingGpuBuildings {
     pub(super) parts: Vec<Part>,
     pub(super) buildings: Vec<Placement>,
+    pub(super) publication: Option<CityPublication>,
+}
+
+pub(super) struct CityPublication {
+    pub(super) root: Entity,
+    pub(super) frame: CityFrame,
 }
 
 pub(super) struct Placement {
     root: Entity,
     transform: Mat4,
-    appearance: adventuresim_tactical_core::scene_input::DistantBuildingPlacement,
+    appearance: PlacementAppearance,
     compiled: Arc<CompiledBuildingLevels>,
+}
+
+pub(in crate::presentation::buildings) enum PlacementAppearance {
+    Primary(adventuresim_tactical_core::scene_input::SceneBuildingId),
+    Distant(adventuresim_tactical_core::scene_input::DistantBuildingPlacement),
 }
 
 impl PendingGpuBuildings {
     pub(in crate::presentation::buildings) fn clear(&mut self) {
         self.parts.clear();
         self.buildings.clear();
+        self.publication = None;
+    }
+
+    /// Replacement frames belong to the unpublished queue. Updating the active
+    /// frame before assembly would relocate the previous city's geometry.
+    pub(in crate::presentation::buildings) fn set_publication(
+        &mut self,
+        root: Entity,
+        frame: CityFrame,
+    ) {
+        self.publication = Some(CityPublication { root, frame });
     }
 
     pub(in crate::presentation::buildings) fn push(
         &mut self,
         root: Entity,
         transform: &Transform,
-        appearance: adventuresim_tactical_core::scene_input::DistantBuildingPlacement,
+        appearance: PlacementAppearance,
         compiled: &Arc<CompiledBuildingLevels>,
     ) {
         self.buildings.push(Placement {
@@ -54,10 +76,11 @@ impl PendingGpuBuildings {
         let mut prototypes = HashMap::new();
         for placement in &self.buildings {
             let materials = materials.ok_or(AssemblyError::MissingMaterials)?;
-            let palette = materials.for_distant_building(
-                placement.appearance.prosperity,
-                placement.appearance.exterior_variant(),
-            );
+            let palette = match &placement.appearance {
+                PlacementAppearance::Primary(id) => materials.for_building(id.0),
+                PlacementAppearance::Distant(placement) => materials
+                    .for_distant_building(placement.prosperity, placement.exterior_variant()),
+            };
             // The palette's infill is unique to each appearance. Geometry and
             // appearance are independent; placements share both before packing.
             let key = (

@@ -1,6 +1,7 @@
 //! Client-generated static city geometry, selected and compacted on the GPU.
 use crate::presentation::ownership::{PresentationOwner, PresentationOwners};
-pub(super) use assembly::{PendingGpuBuildings, PendingGpuCities};
+pub(in crate::presentation) use assembly::{CityAssemblyFailure, CityAssemblyPublished};
+pub(super) use assembly::{PendingGpuBuildings, PendingGpuCities, PlacementAppearance};
 use bevy::{
     prelude::*,
     render::{
@@ -77,6 +78,25 @@ impl Plugin for CityGpuPlugin {
 
 pub(super) fn is_ready(owner: PresentationOwner) -> bool {
     READY.get(owner).load(Ordering::Relaxed)
+}
+
+/// Ground coverage controls map anchors independently of the actor owner.
+pub(in crate::presentation) fn set_visible(
+    world: &mut World,
+    owner: PresentationOwner,
+    visible: bool,
+) {
+    let mut anchors =
+        world.query_filtered::<(&PresentationOwner, &mut Visibility), With<CityBatchAnchor>>();
+    for (candidate, mut visibility) in anchors.iter_mut(world) {
+        if *candidate == owner {
+            *visibility = if visible {
+                Visibility::Inherited
+            } else {
+                Visibility::Hidden
+            };
+        }
+    }
 }
 
 /// Drop one city's buffers and phase anchors; the other owner remains resident.
