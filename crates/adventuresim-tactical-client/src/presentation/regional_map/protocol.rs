@@ -40,6 +40,7 @@ pub(crate) enum MapCommand {
         angle: Radians,
     },
     Reset,
+    FrameRoute,
     Hide,
     InstallTerrain {
         terrain: Box<RegionalTerrain>,

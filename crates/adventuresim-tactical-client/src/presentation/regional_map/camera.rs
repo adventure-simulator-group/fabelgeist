@@ -1,9 +1,9 @@
 //! Retained geographic camera pose. Native view X is east, Y is elevation and
 //! Z is south; the source sampler retains its canonical east/north convention.
 use super::protocol::{CanvasRect, MapPointerDisplacement, MapProtocolError};
-use adventuresim_building_generator::spatial_geometry::Radians;
+use adventuresim_building_generator::spatial_geometry::{PositiveLength, Radians};
 use adventuresim_tactical_core::{
-    regional_map::{MapSpan, MapZoomRatio},
+    regional_map::{MAX_MAP_SPAN_METRES, MIN_MAP_SPAN_METRES, MapRoute, MapSpan, MapZoomRatio},
     regional_terrain::{REGIONAL_TERRAIN_SIDE, RegionalTerrainRequest, RegionalTerrainScale},
     scene_input::SourcePackageDigest,
 };
@@ -11,17 +11,18 @@ use adventuresim_world_schema::coordinates::{
     LatitudeMicrodegrees, LongitudeMicrodegrees, Wgs84CoordinateMicrodegrees,
     terrain_projection::NativeTerrainCoordinate,
 };
-use bevy::prelude::*;
+use bevy::{math::DVec2, prelude::*};
 
 pub(super) const MAP_PITCH_RADIANS: f32 = std::f32::consts::PI / 3.0;
 const WINDOW_COVERAGE_MARGIN: f64 = 2.0;
 const WINDOW_CENTER_STEP_CELLS: usize = (REGIONAL_TERRAIN_SIDE - 1) / 4;
+const ROUTE_FRAMING_MARGIN: f64 = 1.25;
 pub(super) type Result<T> = std::result::Result<T, MapProtocolError>;
 
 pub(super) struct MapPose {
     pub source: SourcePackageDigest,
     pub home: Wgs84CoordinateMicrodegrees,
-    pub origin: Wgs84CoordinateMicrodegrees,
+    pub origin: NativeTerrainCoordinate,
     pub span: MapSpan,
     pub yaw: Radians,
     pub rect: Option<CanvasRect>,
@@ -38,7 +39,7 @@ impl MapPose {
         Self {
             source,
             home,
-            origin: home,
+            origin: home.to_e7().into(),
             span,
             yaw: Radians::ZERO,
             rect: Some(rect),
@@ -47,7 +48,7 @@ impl MapPose {
     }
 
     pub fn reset(&mut self) {
-        self.origin = self.home;
+        self.origin = self.home.to_e7().into();
         self.span = self.home_span;
         self.yaw = Radians::ZERO;
     }
@@ -64,7 +65,11 @@ impl MapPose {
         Ok(())
     }
 
-    pub fn pan(&mut self, delta: MapPointerDisplacement) -> Result<()> {
+    pub fn pan(
+        &mut self,
+        delta: MapPointerDisplacement,
+        frame: Wgs84CoordinateMicrodegrees,
+    ) -> Result<()> {
         let Some(rect) = self.rect else {
             return Ok(());
         };
@@ -77,8 +82,47 @@ impl MapPose {
         let yaw = f64::from(self.yaw.radians());
         let east = horizontal * yaw.cos() - vertical * yaw.sin();
         let north = horizontal * yaw.sin() + vertical * yaw.cos();
-        let point = NativeTerrainCoordinate::from(self.origin.to_e7()).at_offset(east, north);
-        self.origin = geographic_origin(point)?;
+        let frame = NativeTerrainCoordinate::from(frame.to_e7());
+        let current = frame.offset_to(self.origin);
+        let point = frame.at_offset(current.east_metres + east, current.north_metres + north);
+        self.origin = bounded_origin(point)?;
+        Ok(())
+    }
+
+    pub fn geographic_origin(&self) -> Result<Wgs84CoordinateMicrodegrees> {
+        geographic_origin(self.origin)
+    }
+
+    pub fn frame_route(&mut self, route: &MapRoute) -> Result<()> {
+        let Some(rect) = self.rect else {
+            return Ok(());
+        };
+        let frame = NativeTerrainCoordinate::from(self.home.to_e7());
+        let yaw = f64::from(self.yaw.radians());
+        let right = DVec2::new(yaw.cos(), yaw.sin());
+        let forward = DVec2::new(-yaw.sin(), yaw.cos());
+        let mut minimum = DVec2::splat(f64::INFINITY);
+        let mut maximum = DVec2::splat(f64::NEG_INFINITY);
+        // Native fitting port: route points become rotated east/north metres.
+        for point in route.points() {
+            let offset = frame.offset_to(point.to_e7().into());
+            let native = DVec2::new(offset.east_metres, offset.north_metres);
+            let camera = DVec2::new(native.dot(right), native.dot(forward));
+            minimum = minimum.min(camera);
+            maximum = maximum.max(camera);
+        }
+        let centre = (minimum + maximum) * 0.5;
+        let native = right * centre.x + forward * centre.y;
+        let extent = maximum - minimum;
+        let aspect = f64::from(rect.full_width) / f64::from(rect.full_height);
+        let span = (extent.x / aspect).max(extent.y * f64::from(MAP_PITCH_RADIANS.sin()))
+            * ROUTE_FRAMING_MARGIN;
+        let span = MapSpan::try_from(PositiveLength::from_metres(span.clamp(
+            f64::from(MIN_MAP_SPAN_METRES),
+            f64::from(MAX_MAP_SPAN_METRES),
+        ) as f32)?)?;
+        self.origin = bounded_origin(frame.at_offset(native.x, native.y))?;
+        self.span = span;
         Ok(())
     }
 
@@ -87,7 +131,12 @@ impl MapPose {
             return Ok(None);
         };
         let aspect = f64::from(rect.full_width.max(1)) / f64::from(rect.full_height.max(1));
-        let needed = f64::from(self.span.metres()) * aspect.max(1.0) * WINDOW_COVERAGE_MARGIN;
+        let width = f64::from(self.span.metres()) * aspect;
+        let height = f64::from(self.span.metres()) / f64::from(MAP_PITCH_RADIANS.sin());
+        let yaw = f64::from(self.yaw.radians());
+        let east_extent = width * yaw.cos().abs() + height * yaw.sin().abs();
+        let north_extent = width * yaw.sin().abs() + height * yaw.cos().abs();
+        let needed = east_extent.max(north_extent) * WINDOW_COVERAGE_MARGIN;
         let scale = [
             RegionalTerrainScale::Neighborhood,
             RegionalTerrainScale::District,
@@ -101,7 +150,7 @@ impl MapPose {
         })
         .unwrap_or(RegionalTerrainScale::Continent);
         let home = NativeTerrainCoordinate::from(self.home.to_e7());
-        let offset = home.offset_to(self.origin.to_e7());
+        let offset = home.offset_to(self.origin);
         let step = f64::from(scale.spacing_metres()) * WINDOW_CENTER_STEP_CELLS as f64;
         let point = home.at_offset(
             (offset.east_metres / step).round() * step,
@@ -115,15 +164,26 @@ impl MapPose {
 }
 
 fn geographic_origin(point: NativeTerrainCoordinate) -> Result<Wgs84CoordinateMicrodegrees> {
+    let point = bounded_origin(point)?;
     Wgs84CoordinateMicrodegrees::from_longitude_latitude_degrees(
-        point.longitude_degrees.clamp(
+        point.longitude_degrees,
+        point.latitude_degrees,
+    )
+    .ok_or(MapProtocolError::Origin)
+}
+
+fn bounded_origin(point: NativeTerrainCoordinate) -> Result<NativeTerrainCoordinate> {
+    if !point.longitude_degrees.is_finite() || !point.latitude_degrees.is_finite() {
+        return Err(MapProtocolError::Origin);
+    }
+    Ok(NativeTerrainCoordinate {
+        longitude_degrees: point.longitude_degrees.clamp(
             LongitudeMicrodegrees::MIN.degrees(),
             LongitudeMicrodegrees::MAX.degrees(),
         ),
-        point.latitude_degrees.clamp(
+        latitude_degrees: point.latitude_degrees.clamp(
             LatitudeMicrodegrees::MIN.degrees(),
             LatitudeMicrodegrees::MAX.degrees(),
         ),
-    )
-    .ok_or(MapProtocolError::Origin)
+    })
 }

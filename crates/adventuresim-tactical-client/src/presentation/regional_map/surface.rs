@@ -1,14 +1,14 @@
 //! One geographic surface, sharing the existing environment material and assets.
-use super::{MapState, RegionalMapCamera, RegionalMapRoot, camera::MAP_PITCH_RADIANS};
+use super::{
+    MapState, RegionalMapCamera, RegionalMapRoot, camera::MAP_PITCH_RADIANS, geographic_surface,
+};
 use crate::presentation::{
     ActiveTacticalScene, SceneEnvironment,
     ground_scatter::grass_terminal_pigment,
     vista::{TacticalVistaMaterial, regional::regional_mesh, vista_material},
 };
 use adventuresim_core::weather::WeatherSnapshot;
-use adventuresim_tactical_core::regional_terrain::{
-    REGIONAL_TERRAIN_SIDE, RegionalTerrain, RegionalTerrainRequest,
-};
+use adventuresim_tactical_core::regional_terrain::{RegionalTerrain, RegionalTerrainRequest};
 use adventuresim_tactical_core::scene_input::SourcePackageDigest;
 use adventuresim_world_schema::{
     ElevationMeters, coordinates::terrain_projection::NativeTerrainCoordinate,
@@ -195,19 +195,19 @@ pub(super) fn sync_camera(
     else {
         return;
     };
-    let offset = NativeTerrainCoordinate::from(surface.request.origin.to_e7())
-        .offset_to(pose.origin.to_e7());
-    // Only the camera datum uses the nearest sample. Emitted ground triangles
-    // retain their original absolute elevations, including coverage holes.
+    let offset =
+        NativeTerrainCoordinate::from(surface.request.origin.to_e7()).offset_to(pose.origin);
+    // Only the camera may retain the window datum over a coverage hole. Covered
+    // focus positions use the same interpolated source plane as pins and routes.
     let elevation = state
         .terrain
         .as_ref()
         .filter(|terrain| terrain.request() == surface.request)
-        .and_then(|terrain| focus_elevation(terrain, offset.east_metres, offset.north_metres))
-        .unwrap_or(datum);
+        .and_then(|terrain| geographic_surface::position_at_offset(terrain, offset))
+        .map_or(f32::from(datum.get()), |point| point.y);
     let target = Vec3::new(
         offset.east_metres as f32,
-        f32::from(elevation.get()),
+        elevation,
         -offset.north_metres as f32,
     );
     let elevation_range = f32::from(maximum.get()) - f32::from(minimum.get());
@@ -231,28 +231,4 @@ pub(super) fn sync_camera(
     for mut root in &mut roots {
         *root = Visibility::Inherited;
     }
-}
-
-fn focus_elevation(
-    terrain: &RegionalTerrain,
-    east_metres: f64,
-    north_metres: f64,
-) -> Option<ElevationMeters> {
-    let spacing = f64::from(terrain.request().scale.spacing_metres());
-    let centre = (REGIONAL_TERRAIN_SIDE - 1) as f64 * 0.5;
-    let column = (east_metres / spacing + centre).round();
-    let row = (north_metres / spacing + centre).round();
-    if column < 0.0
-        || row < 0.0
-        || column >= REGIONAL_TERRAIN_SIDE as f64
-        || row >= REGIONAL_TERRAIN_SIDE as f64
-    {
-        return None;
-    }
-    terrain
-        .vertices()
-        .get(row as usize * REGIONAL_TERRAIN_SIDE + column as usize)
-        .copied()
-        .flatten()
-        .map(|vertex| vertex.elevation)
 }

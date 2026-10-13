@@ -37,7 +37,7 @@ pub(super) fn mesh(
     let mut positions = Vec::new();
     let mut indices = Vec::new();
     for points in route.points().windows(2) {
-        let native = [points[0], points[1]].map(|point| origin.offset_to(point.to_e7()));
+        let native = [points[0], points[1]].map(|point| origin.offset_to(point.to_e7().into()));
         let grid = native.map(|offset| {
             DVec2::new(
                 offset.east_metres / spacing + half,

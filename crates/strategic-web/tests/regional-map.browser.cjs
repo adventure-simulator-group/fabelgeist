@@ -185,13 +185,48 @@ test("regional terrain reuses one real renderer across camera changes and hiding
     assert.equal(capacity.covered,true,"A route capacity failure leaves terrain available");
     await page.evaluate(() => mapCommand({type:"install-overlay",overlay:mapOverlay}));
     await page.waitForFunction(() => mapStatus().ready && !mapStatus().error, null, {timeout:10_000});
+    const cameraControls = await page.evaluate(async () => {
+      const settle = async () => { await new Promise(requestAnimationFrame); await new Promise(requestAnimationFrame); };
+      const endpoints = [mapOverlay.route.points[0],mapOverlay.route.points[2]].map((origin,index)=>({
+        place:index ? "place:v1:settlement:656e64" : "place:v1:settlement:7374617274",
+        origin,rank:"town",emphasis:"connected"}));
+      mapCommand({type:"install-overlay",overlay:{...mapOverlay,markers:[...mapOverlay.markers,...endpoints]}});
+      mapCommand({type:"frame-route"}); await settle();
+      const framed = mapStatus();
+      mapCommand({type:"reset"});
+      mapCommand({type:"resize",rect:{...mapOpen.rect,width:560,full_width:560}});
+      mapCommand({type:"zoom",ratio:800/1200}); await settle();
+      const square = mapStatus();
+      mapCommand({type:"rotate",angle:Math.PI/4}); await settle();
+      const rotatedSquare = mapStatus();
+      mapCommand({type:"resize",rect:mapOpen.rect}); mapCommand({type:"reset"});
+      mapCommand({type:"zoom",ratio:0.05}); mapCommand({type:"zoom",ratio:0.5}); await settle();
+      const before = mapStatus();
+      for(let index=0;index<20;index++) mapCommand({type:"pan",delta:[0.01,0]});
+      await settle(); const after = mapStatus();
+      return {framed,square,rotatedSquare,before,after};
+    });
+    const {framed,square,rotatedSquare,before,after} = cameraControls;
+    for(const place of ["place:v1:settlement:7374617274","place:v1:settlement:656e64"]) {
+      const marker = framed.markers.find(marker=>marker.place===place);
+      assert(marker,"Framing a rotated route keeps both covered endpoints in view");
+      assert(marker.x>90 && marker.x<910 && marker.y>70 && marker.y<610);
+    }
+    assert.equal(square.requested.scale,"neighborhood");
+    assert.equal(rotatedSquare.requested.scale,"district","Rotated ground footprint selects sufficient terrain");
+    assert.equal(after.span,40);
+    assert.deepEqual(after.origin,before.origin,"Tiny drags stay below the rounded geographic wire resolution");
+    const home = state=>state.markers.find(marker=>marker.place==="place:v1:settlement:66697874757265");
+    assert(Math.abs(home(after).x-home(before).x-0.2)<0.02,
+      "Repeated sub-centimetre drags accumulate in the continuous camera pose");
+    checkpoint("camera-controls");
     await page.evaluate(() => mapCommand({type:"install-terrain",terrain:{
       ...mapTerrain,request:{...mapTerrain.request,origin:{latitude:50_501_000,longitude:10_500_000}},
       vertices:Array(65*65).fill(null)}}));
     await page.waitForFunction(() => mapStatus().ready && !mapStatus().covered, null, {timeout: 10_000});
     assert.deepEqual(await page.evaluate(() => mapStatus().markers), []);
     await page.screenshot({path:path.join(output,"uncovered.png")});
-    fs.writeFileSync(path.join(output,"result.json"), JSON.stringify({warm,changed,capacity,capture,missing,errors}, null, 2));
+    fs.writeFileSync(path.join(output,"result.json"), JSON.stringify({warm,changed,capacity,cameraControls,capture,missing,errors}, null, 2));
     assert.deepEqual(missing.filter(url => !unusedMissingMotions.has(url)), []);
     assert.deepEqual(errors.filter(error => {
       try { return !unusedMissingMotions.has(new URL(error.url).pathname); } catch { return true; }

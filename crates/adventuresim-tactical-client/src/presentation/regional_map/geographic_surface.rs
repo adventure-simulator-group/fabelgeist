@@ -18,8 +18,8 @@ pub(super) fn position(
     terrain: &RegionalTerrain,
     origin: Wgs84CoordinateMicrodegrees,
 ) -> Option<Vec3> {
-    let offset =
-        NativeTerrainCoordinate::from(terrain.request().origin.to_e7()).offset_to(origin.to_e7());
+    let offset = NativeTerrainCoordinate::from(terrain.request().origin.to_e7())
+        .offset_to(origin.to_e7().into());
     position_at_offset(terrain, offset)
 }
 
