@@ -3,7 +3,7 @@
 mod buildings;
 mod cached_views;
 mod equipment;
-mod equipment_readiness;
+pub(crate) mod equipment_readiness;
 mod instances;
 mod lighting_diagnostics;
 pub(crate) mod protocol;

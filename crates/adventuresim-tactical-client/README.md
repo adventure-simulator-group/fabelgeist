@@ -27,13 +27,11 @@ Offline exporters retain their reusable morph-equipped asset workflow.
 Compute and rendering dependencies must use the same `wgpu` release: linking
 two releases into the browser client duplicates their vendored WebGPU bindings.
 
-Initial loading exercises every authored armor placement on the canonical body,
-plus layered shoulders and alternate cuirass and tasset constructions. These
-temporary meshes are discarded; the device and compiled compute kernels stay
-alive across city travel. Strategic scene readiness waits for this preparation,
-even when the initial city has no equipped NPCs. Preparation failures surface as
-loading errors. Newly encountered wearers still receive their own fitted meshes;
-initial preparation does not cache canonical fits as substitutes for them.
+Strategic loading fits the equipment actually requested by the scene. The device
+and compiled compute kernels stay alive across city travel; loading does not fit
+and discard the entire authored catalog first. Strategic scene readiness waits
+for its requested fits, and preparation failures surface as loading errors.
+Newly encountered wearers receive their own fitted meshes.
 
 Fits are cached by item design, anatomical placement, and evaluated body shape.
 The last 128 variants remain available across travel; live entities retain their

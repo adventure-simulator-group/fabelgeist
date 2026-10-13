@@ -87,6 +87,13 @@ entities are still installed again. Changing the graphics configuration requires
 new landscape products. This retention is separate from the disk cache and the
 bounded snapshot cache.
 
+Equipment fitting prepares the requested items rather than constructing and
+discarding every catalog armor variant during startup. Each requested item
+remains unready until its generated geometry, material, and wearer binding are
+complete. First use compiles that recipe's device kernels; later wearers and
+destinations reuse the kernel and fitted-geometry caches. An empty equipment
+set does not wait for unrelated armor recipes.
+
 Installation also reuses deterministic intermediate values within the document.
 A building chooses its material palette once per assembly traversal and shares
 it across modular components. Ground-mask rasterization computes each noise
