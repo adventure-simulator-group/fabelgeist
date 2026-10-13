@@ -27,6 +27,8 @@ $env:STRATEGIC_INIT_WASM = "$PWD/crates/adventuresim-stdb-module/static/wasm"
 $env:STRATEGIC_INIT_ASSETS = "$PWD/crates/adventuresim-stdb-module/static/assets"
 $env:STRATEGIC_INIT_CITY = "$PWD/target/map-capture/canonical-city.json"
 $env:STRATEGIC_INIT_ACTOR = "$PWD/target/map-capture/canonical-actor.json"
+$env:STRATEGIC_INIT_SECOND_CITY = "$PWD/target/map-capture/second-city.json"
+$env:STRATEGIC_INIT_SECOND_ACTOR = "$PWD/target/map-capture/second-actor.json"
 $env:STRATEGIC_INIT_ENVIRONMENT = "$PWD/target/map-capture/canonical-environments.json"
 $env:STRATEGIC_INIT_OUTPUT = "$PWD/target/strategic-init-benchmark"
 node crates/strategic-web/tests/strategic-init-benchmark.cjs
@@ -37,10 +39,12 @@ city origins use ten-millionths of a degree; browser map positions and terrain
 requests use microdegrees. The benchmark preserves physical seeds as opaque
 document text when producing a second destination.
 
-The benchmark records A → B → A. B changes scene identity and terrain seed while
-retaining the captured building programs. This isolates destination replacement
-and reusable geometry. It does not establish performance for new building
-programs or new residents. Use distinct canonical captures for those cases.
+The benchmark records A → B → A using two complete admitted settlement captures
+from the same terrain source. Supply canonical property identities and catalog
+seeds for both settlements; changing just their owner strings makes an invalid
+fixture. If B retains A's building programs or residents, its result isolates
+destination replacement and reusable geometry. It does not establish performance
+for new building programs or new residents.
 
 `results.json` records terrain readiness and complete focused-city readiness
 separately. The latter requires the requested city, its native installation

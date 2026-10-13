@@ -276,7 +276,12 @@ fn mapped_point(reference: vec3<f32>) -> vec3<f32> {
     );
 }
 
-fn neckline_y(rear: bool, u: f32) -> f32 {
+struct Neckline {
+    knots: array<f32, 10>,
+    attachment: f32,
+};
+
+fn neckline(rear: bool) -> Neckline {
     var neck_y = FRONT_NECK_Y;
     var attach_y: f32 = 1.390;
     if (rear) {
@@ -293,12 +298,22 @@ fn neckline_y(rear: bool, u: f32) -> f32 {
         REFERENCE_RIG_NECK_HEIGHT,
         host_mul(host_sub(REFERENCE_RIG_NECK_HEIGHT, attach_y), arm_opening_depth())
     );
+    return Neckline(neck, attach);
+}
+
+fn neckline_y(rear: bool, u: f32) -> f32 {
+    let profile = neckline(rear);
     let a = abs(u);
+    // cos(f32(PI) / 2) is about -4.37e-8. Subtracting it from one
+    // rounds to exactly one, so this endpoint is the attachment height.
+    if (a == 1.0) {
+        return profile.attachment;
+    }
     if (a <= 0.5) {
-        return cubic(a, NECK_U, neck, 3u, true);
+        return cubic(a, NECK_U, profile.knots, 3u, true);
     }
     let s = host_sub(1.0, host_cos(host_mul(host_sub(a, 0.5), PI)));
-    return host_add(host_mul(neck[2], host_sub(1.0, s)), host_mul(attach, s));
+    return host_add(host_mul(profile.knots[2], host_sub(1.0, s)), host_mul(profile.attachment, s));
 }
 
 fn arm_opening_column(rear: bool, y: f32) -> f32 {
@@ -320,13 +335,11 @@ fn top_neck_scale(reference_y: f32, bottom: f32, top: f32) -> f32 {
 fn sample_y(rear: bool, u: f32, t: f32) -> f32 {
     if (t >= 1.0) { return neckline_y(rear, u); }
     let bottom = bottom_height(rear);
-    let columns = array<f32, 4>(0.0, 0.25, 0.5, 1.0);
-    var heights: array<f32, 4>;
-    // One inlined neckline evaluation, with the same samples and max order.
-    for (var k = 0u; k < opaque(4u); k = k + 1u) {
-        heights[k] = neckline_y(rear, columns[k]);
-    }
-    let ceiling = max(max(heights[0], heights[1]), max(heights[2], heights[3]));
+    let profile = neckline(rear);
+    // At 0, 0.25 and 0.5 the spline is exactly its three knots; at 1
+    // it is the attachment. Retain the original nested maximum order.
+    let ceiling = max(max(profile.knots[0], profile.knots[1]),
+        max(profile.knots[2], profile.attachment));
     let section = host_mul(t, host_div(f32(V_SAMPLES - 1u), f32(V_SAMPLES - 2u)));
     return host_add(bottom, host_mul(section, host_sub(ceiling, bottom)));
 }
