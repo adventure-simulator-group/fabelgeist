@@ -28,8 +28,10 @@ test("bounded workers serve dependent phases without restarting their runtimes",
   const { createGenerationPool } = await pool;
   const generation = createGenerationPool({}, { createWorker: mock.createWorker, hardwareConcurrency: 32 });
   const receive = ({ job, bytes }) => { assert.equal(bytes[0], Number(job)); results.push(Number(job)); };
-  assert.deepEqual(await generation.run([1, 2, 3, 4, 5, 6].map(String), receive),
-    { status: "completed", createdWorkers: 4 });
+  const { initializationMilliseconds, ...completion } =
+    await generation.run([1, 2, 3, 4, 5, 6].map(String), receive);
+  assert.deepEqual(completion, { status: "completed", createdWorkers: 4 });
+  assert(Number.isFinite(initializationMilliseconds) && initializationMilliseconds >= 0);
   assert.equal((await generation.run(["7"], receive)).createdWorkers, 0);
   assert.equal((await generation.run(["8", "9"], receive)).createdWorkers, 0);
   assert.deepEqual(results.sort((a, b) => a - b), [1, 2, 3, 4, 5, 6, 7, 8, 9]);

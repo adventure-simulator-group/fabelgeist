@@ -102,6 +102,8 @@ export function createRegionalMapView({runtimePromise,changed,metrics}) {
     const retry=host.querySelector('[data-map-action="retry"]');
     if(retry && retry.hidden===(failed || cityFailed))retry.hidden=!(failed || cityFailed);
     metrics.mapState=state;
+    metrics.cityRequest={phase:cities.state.phase,request:cities.state.request,
+      error:cities.state.cause?{name:cities.state.cause.name,message:cities.state.cause.message}:null};
     if(ready && openedAt!==undefined) {
       (metrics.maps ||= []).push({path:location.pathname,milliseconds:performance.now()-openedAt});
       if(metrics.maps.length>100)metrics.maps.shift();

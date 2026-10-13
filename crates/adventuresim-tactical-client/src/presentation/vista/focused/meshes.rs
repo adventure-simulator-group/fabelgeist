@@ -38,6 +38,7 @@ impl GroundMeshes {
         environment: &SceneEnvironment,
         maximum_lods: usize,
     ) -> std::result::Result<Self, GroundPreparationError> {
+        let started = web_time::Instant::now();
         let input = product.document.input();
         let fine = GroundChunk {
             mesh: urban_playable_mesh(&product.terrain, input.landform.as_ref()),
@@ -57,6 +58,7 @@ impl GroundMeshes {
             }),
         };
         let vista = VistaChunks::new(product, environment, maximum_lods);
+        let geometry_time = started.elapsed();
         let mut support = streets::GroundSupport::default();
         for chunk in std::iter::once(&fine)
             .chain(landform.iter().map(|landform| &landform.chunk))
@@ -64,6 +66,12 @@ impl GroundMeshes {
         {
             support.add_mesh(&chunk.mesh, chunk.origin);
         }
+        info!(
+            geometry_ms = geometry_time.as_millis(),
+            support_ms = (started.elapsed() - geometry_time).as_millis(),
+            vista_chunks = vista.chunks.len(),
+            "Focused city ground preparation"
+        );
         // Finish all fallible reflection before publishing renderer entities.
         Ok(Self {
             fine: fine.reflected()?,

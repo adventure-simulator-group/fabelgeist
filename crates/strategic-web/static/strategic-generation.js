@@ -9,21 +9,21 @@ const invalidCachedProductCodes = new Set([
 ]);
 
 export async function prepareGeneratedScene(runtime, input, venues, { signal } = {}) {
-  return prepareProducts(runtime, "scene", signal, async (preparation, run) => {
+  return prepareProducts(runtime, "scene", signal, async (preparation, run, discover) => {
     // The strings remain opaque; JSON parsing here only classifies job roles.
-    const jobs = JSON.parse(runtime.wasm_generation_jobs(preparation, input));
-    const venueJobs = JSON.parse(runtime.wasm_venue_jobs(preparation, input, JSON.stringify(venues)));
+    const jobs = discover(() => runtime.wasm_generation_jobs(preparation, input));
+    const venueJobs = discover(() => runtime.wasm_venue_jobs(preparation, input, JSON.stringify(venues)));
     const scenes = jobs.filter(job => Object.hasOwn(JSON.parse(job), "Scene"));
     // Terrain consumes occupied plans and compact frontage records.
     await run([...venueJobs, ...jobs.filter(job => !scenes.includes(job))]);
     await run(scenes);
-    await run(JSON.parse(runtime.wasm_landscape_jobs(preparation, input, runtime.generationGraphicsConfig)));
+    await run(discover(() => runtime.wasm_landscape_jobs(preparation, input, runtime.generationGraphicsConfig)));
   }, preparation => runtime.wasm_finish_generation(preparation, input));
 }
 
 export async function prepareRegionalCity(runtime, document, { signal } = {}) {
-  return prepareProducts(runtime, "regional-map", signal, async (preparation, run) => {
-    const jobs = JSON.parse(runtime.wasm_regional_city_jobs(
+  return prepareProducts(runtime, "regional-map", signal, async (preparation, run, discover) => {
+    const jobs = discover(() => runtime.wasm_regional_city_jobs(
       preparation, document, runtime.generationGraphicsConfig,
     ));
     // Supported terrain and facade programmes are independent. Neither phase
@@ -43,8 +43,15 @@ async function prepareProducts(runtime, owner, signal, prepare, finish) {
     const metrics = { jobs: 0, workers: 0, bytes: 0, workerMilliseconds: 0,
       receiveMilliseconds: 0, dependencyMilliseconds: 0, dependencyBytes: 0,
       milliseconds: 0, cacheHits: 0, cacheMisses: 0, cacheLookupMilliseconds: 0,
+      jobDiscoveryMilliseconds: 0, finishMilliseconds: 0, workerInitializationMilliseconds: 0,
       cacheWritesAccepted: 0, cacheWritesReplaced: 0, cacheWriteRejections: {} };
     (window.strategicGenerationMetrics ||= {})[owner] = metrics;
+    const discover = action => {
+      const started = performance.now();
+      const jobs = JSON.parse(action());
+      metrics.jobDiscoveryMilliseconds += performance.now() - started;
+      return jobs;
+    };
     const receive = (job, bytes) => {
       metrics.bytes += bytes.byteLength;
       const receiveStarted = performance.now();
@@ -95,11 +102,14 @@ async function prepareProducts(runtime, owner, signal, prepare, finish) {
         return { status: "generate", job };
       } });
       metrics.workers += result.createdWorkers;
+      metrics.workerInitializationMilliseconds += result.initializationMilliseconds;
     };
-    await prepare(preparation, run);
-    metrics.milliseconds = performance.now() - started;
+    await prepare(preparation, run, discover);
     signal?.throwIfAborted();
+    const finishStarted = performance.now();
     finish(preparation);
+    metrics.finishMilliseconds = performance.now() - finishStarted;
+    metrics.milliseconds = performance.now() - started;
     completed = true;
     return preparation;
   } finally {
