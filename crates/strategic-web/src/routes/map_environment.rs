@@ -1,8 +1,8 @@
-//! Read-only regional terrain windows for the persistent environment renderer.
+//! Read-only regional environment windows for the persistent environment renderer.
 use super::AppState;
-use adventuresim_tactical_core::regional_terrain::{
-    RegionalTerrain, RegionalTerrainRequest, RegionalTerrainScale,
-};
+use adventuresim_tactical_core::regional_environment::RegionalEnvironment;
+
+use adventuresim_tactical_core::regional_terrain::{RegionalTerrainRequest, RegionalTerrainScale};
 use adventuresim_tactical_server_dispatcher::regional_terrain::capture;
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use adventuresim_world_schema::source_package::SourcePackageDigest;
@@ -15,7 +15,10 @@ use axum::{
 use serde::Deserialize;
 use std::sync::{Arc, OnceLock};
 
-const TERRAIN_WINDOW_PATH: &str = "/api/map/terrain/{source}";
+mod connection_window;
+pub(crate) mod roads;
+
+const ENVIRONMENT_WINDOW_PATH: &str = "/api/map/environment/{source}";
 const TERRAIN_CAPTURE_CONCURRENCY: usize = 2;
 static CAPTURES: OnceLock<Arc<tokio::sync::Semaphore>> = OnceLock::new();
 
@@ -29,17 +32,17 @@ struct TerrainWindowQuery {
 }
 
 pub(super) fn routes() -> Router<AppState> {
-    Router::new().route(TERRAIN_WINDOW_PATH, get(terrain_window))
+    Router::new().route(ENVIRONMENT_WINDOW_PATH, get(environment_window))
 }
 
-async fn terrain_window(
+async fn environment_window(
     State(state): State<AppState>,
     Path(source): Path<SourcePackageDigest>,
     Query(query): Query<TerrainWindowQuery>,
 ) -> Result<
     (
         [(axum::http::HeaderName, &'static str); 1],
-        Json<RegionalTerrain>,
+        Json<RegionalEnvironment>,
     ),
     StatusCode,
 > {
@@ -65,9 +68,15 @@ async fn terrain_window(
         origin,
         scale: query.scale,
     };
-    let window = tokio::task::spawn_blocking(move || {
+    let roads = state.regional_roads.clone();
+    let window = tokio::task::spawn_blocking(move || -> anyhow::Result<RegionalEnvironment> {
         let _permit = permit;
-        capture(&pack, request)
+        let roads = roads.load(&pack)?;
+        let connections = connection_window::capture(&roads, request)?;
+        Ok(RegionalEnvironment::new(
+            capture(&pack, request)?,
+            connections,
+        )?)
     })
     .await
     .map_err(unavailable)?
@@ -79,6 +88,6 @@ async fn terrain_window(
 }
 
 fn unavailable(cause: impl std::fmt::Display) -> StatusCode {
-    tracing::error!(%cause, "regional terrain capture failed");
+    tracing::error!(%cause, "regional environment capture failed");
     StatusCode::SERVICE_UNAVAILABLE
 }

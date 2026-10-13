@@ -99,7 +99,7 @@ fn render(presentation: &MapPresentation, json: &str, name: &str, path: &str) ->
                         aria-label=(control.label) data-strategic-tooltip=(control.label) { span aria-hidden="true" { (control.glyph) } }
                 }
                 button type="button" class="strategic-map-control" data-map-action="retry" hidden
-                    aria-label="Retry terrain" data-strategic-tooltip="Retry terrain" { span aria-hidden="true" { "↻" } }
+                    aria-label="Retry map" data-strategic-tooltip="Retry map" { span aria-hidden="true" { "↻" } }
             }
             div class="strategic-map-markers" {
                 @for link in &presentation.links {
@@ -120,6 +120,17 @@ fn render(presentation: &MapPresentation, json: &str, name: &str, path: &str) ->
                 }
             }
             p class="strategic-map-status" role="status" data-map-status data-map-foreground { "Loading map…" }
+            details class="strategic-map-key" data-map-foreground {
+                summary { "Map key" }
+                ul {
+                    li { span class="map-key-road" aria-hidden="true" {} "Road" }
+                    li { span class="map-key-water" aria-hidden="true" {} "Shipping route or ferry" }
+                    li { span class="map-key-winter" aria-hidden="true" {} "Winter route" }
+                    li { span class="map-key-inferred" aria-hidden="true" {} "Inferred walking link" }
+                    li { span class="map-key-selected" aria-hidden="true" {} "Computed route" }
+                    li { span class="map-key-estimated" aria-hidden="true" {} "Estimated route" }
+                }
+            }
             a class="strategic-map-license-link" data-map-foreground href=(DATA_LICENSE_PATH) rel="license" { "Map data licence" }
         }
     }

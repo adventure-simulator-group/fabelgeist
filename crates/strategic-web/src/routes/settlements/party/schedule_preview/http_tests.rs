@@ -145,6 +145,9 @@ impl Harness {
             db: crate::spacetimedb::SpacetimeClient::new(&address, "test").unwrap(),
             live: crate::live::LiveState::connect(&address, "test", None).unwrap(),
             terrain: None,
+            regional_roads: std::sync::Arc::new(crate::routes::RegionalRoadSource::new(
+                std::path::PathBuf::new(),
+            )),
             session_codec: codec,
         };
         let app = Router::new()

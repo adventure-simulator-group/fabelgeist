@@ -1,4 +1,4 @@
-import {createRegionalTerrainRequests} from "./regional-terrain-request.js";
+import {createRegionalEnvironmentRequests} from "./regional-environment-request.js";
 import {installMapGestures} from "./regional-map-gestures.js";
 
 // Canvas offsets enter Bevy as f32; tolerate only its subpixel wire rounding.
@@ -40,10 +40,10 @@ export function createRegionalMapView({runtimePromise,changed,metrics}) {
     const nextScope=JSON.stringify([input.overlay.source,input.origin]);
     if (nextScope!==scope) {
       scope=nextScope;lastSelection=undefined;installedWindow=undefined;
-      requests=createRegionalTerrainRequests({runtimePromise,
-        install:terrain=>send({type:"install-terrain",terrain}),
+      requests=createRegionalEnvironmentRequests({runtimePromise,
+        install:environment=>send({type:"install-environment",environment}),
         changed:state=>{if(state.phase==="prepared")installedWindow=state.request;
-          if(state.phase==="failed")console.error("regional terrain unavailable",state.cause);changed();}});
+          if(state.phase==="failed")console.error("regional environment unavailable",state.cause);changed();}});
     }
     retryListener=new AbortController();
     host.querySelector('[data-map-action="retry"]')?.addEventListener("click",()=>requests.retry(),
@@ -84,8 +84,9 @@ export function createRegionalMapView({runtimePromise,changed,metrics}) {
     const ready=!error && !failed && prepared && acknowledged && state.ready;
     document.body.toggleAttribute("data-regional-map-ready",ready);
     const status=host.querySelector("[data-map-status]");
-    const message=error || failed ? "Map unavailable" : !prepared ? "Loading terrain…"
-      : !acknowledged ? "Loading map…" : state.error ? "Route unavailable"
+    const message=error || failed ? "Map unavailable" : !prepared ? "Loading map…"
+      : !acknowledged ? "Loading map…" : state.error==="connection-capacity" ? "Connections unavailable"
+      : state.error==="route-capacity" ? "Route unavailable" : state.error ? "Map unavailable"
       : !state.covered ? "Terrain unavailable here" : "";
     if(status.textContent!==message)status.textContent=message;
     if(status.hidden===Boolean(message))status.hidden=!message;
