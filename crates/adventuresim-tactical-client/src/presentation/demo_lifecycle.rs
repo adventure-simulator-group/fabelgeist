@@ -6,7 +6,9 @@ pub(crate) fn clear_demo_scene(world: &mut World) {
     clear_scene_entities(world);
     world.insert_resource(buildings::TacticalBuildingMeshCache::default());
     #[cfg(target_family = "wasm")]
-    generation::clear_residency();
+    if let Err(error) = generation::clear_residency() {
+        warn!(%error, "Could not clear generated product residency");
+    }
     world.insert_resource(obstacles::tree::TreePresentationCache::default());
     world.insert_resource(obstacles::tree::VistaTreePresentationCache::default());
 }

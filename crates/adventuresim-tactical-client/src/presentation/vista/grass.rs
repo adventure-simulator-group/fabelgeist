@@ -199,7 +199,14 @@ pub(super) fn spawn_near_vista_scatter(
     };
     let grass_seed = streams::GRASS.seed(scene_seed, &[]);
     #[cfg(target_family = "wasm")]
-    let prepared = crate::presentation::generation::landscape::grass(&environment.scene_digest);
+    let prepared =
+        match crate::presentation::generation::landscape::grass(&environment.scene_digest) {
+            Ok(prepared) => prepared,
+            Err(error) => {
+                warn!(%error, "Could not access prepared grass");
+                return;
+            }
+        };
     #[cfg(not(target_family = "wasm"))]
     let prepared: Option<std::sync::Arc<PreparedGrass>> = None;
     let mut batches = prepared.map_or_else(

@@ -166,6 +166,52 @@ test("a preparation failure prevents a pending cache hit from installing later",
   assert.ok(mock.instances.every(worker => worker.terminated));
 });
 
+test("cached product rejection regenerates corruption and preserves preparation failures", async () => {
+  const { createGenerationPool } = await pool;
+  const source = fs.readFileSync(path.join(__dirname, "../static/strategic-generation.js"), "utf8")
+    .replace(/^import .*;\r?\n/gm, "").replace("export async function", "async function");
+  for (const code of ["generation/product-decode", "generation/product-mismatch",
+    "generation/scene-bindings-mismatch", "generation/residency-poisoned",
+    "generation/not-prepared", "generation/scene-input", "unexpected-host-failure"]) {
+    const corrupt = ["generation/product-decode", "generation/product-mismatch",
+      "generation/scene-bindings-mismatch"].includes(code);
+    const rejection = new Error("fixture rejection"); rejection.name = code;
+    const mock = workers(), state = {}, installed = [];
+    const job = '{"Building":{"seed":18446744073709551615}}';
+    let removed = 0, persisted = 0, closed = 0;
+    const cache = { get: () => new Uint8Array([9]),
+      remove(address) { assert.equal(address, job); removed++; },
+      put(address) { assert.equal(address, job); persisted++; return { status: "accepted", disposition: "inserted" }; },
+      close() { closed++; return Promise.resolve({ status: "flushed" }); } };
+    const prepare = new Function("createGenerationPool", "openGeneratedCache", "window",
+      `${source}\nreturn prepareGeneratedScene;`)(
+      module => createGenerationPool(module, { hardwareConcurrency: 2, createWorker: mock.createWorker }),
+      async () => cache, state);
+    const runtime = { generationModule: {}, generationRevision: "fixture",
+      wasm_begin_generation() {}, wasm_generation_jobs: () => JSON.stringify([job]),
+      wasm_venue_jobs: () => "[]", wasm_landscape_jobs: () => "[]",
+      wasm_generation_dependencies: () => new Uint8Array(),
+      wasm_receive_job(address, bytes) {
+        if (bytes[0] === 9) throw rejection;
+        installed.push(address);
+      } };
+    const running = prepare(runtime, "opaque scene", []);
+    if (corrupt) {
+      await running;
+      assert.deepEqual(installed, [job]);
+      assert.equal(state.strategicGenerationMetrics.cacheHits, 0);
+      assert.equal(state.strategicGenerationMetrics.cacheMisses, 1);
+    } else {
+      await assert.rejects(running, error => error === rejection);
+      assert.deepEqual(installed, []);
+    }
+    assert.equal(removed, corrupt ? 1 : 0);
+    assert.equal(persisted, corrupt ? 1 : 0);
+    assert.equal(mock.instances.length, corrupt ? 1 : 0);
+    assert.equal(closed, 1);
+  }
+});
+
 test("a stale dispatch cannot satisfy a later job on the same worker", async () => {
   const { createGenerationPool } = await pool;
   let previousDispatch;
