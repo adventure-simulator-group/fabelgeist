@@ -1,7 +1,9 @@
 //! Strategic display time projected from the authoritative clocks.
 use super::*;
+use crate::session::Session;
 use crate::spacetimedb::WorldClock;
 use adventuresim_core::strategic_time::official_minute;
+use axum::response::{IntoResponse, Response};
 use std::time::{SystemTime, UNIX_EPOCH};
 #[derive(Serialize)]
 struct CurrentTime {

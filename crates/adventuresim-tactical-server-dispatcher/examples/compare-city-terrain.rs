@@ -45,7 +45,7 @@ struct Request {
 #[derive(Deserialize)]
 struct TerrainStages {
     input_digest: String,
-    source_digest: adventuresim_tactical_core::scene_input::SourcePackageDigest,
+    source_digest: adventuresim_world_schema::source_package::SourcePackageDigest,
     ungraded_vista: adventuresim_tactical_core::scene_input::VistaSample,
 }
 

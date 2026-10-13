@@ -11,6 +11,7 @@ use std::collections::HashMap;
 pub(super) struct GroundPresentation<'a> {
     surface: &'a BoundedSettlementTerrain,
     foundations: Vec<VisibleFoundation<'a>>,
+    regions: Option<PresentationRegions>,
 }
 
 impl<'a> GroundPresentation<'a> {
@@ -23,6 +24,7 @@ impl<'a> GroundPresentation<'a> {
         surface: &'a BoundedSettlementTerrain,
         rectangles: &[[Vec2; 2]],
     ) -> Self {
+        let regions = PresentationRegions::new(rectangles);
         let foundations = surface.foundations().iter().filter(|foundation| {
             let (low, high) = foundation
                 .positions()
@@ -32,11 +34,11 @@ impl<'a> GroundPresentation<'a> {
                     (Vec2::splat(f32::INFINITY), Vec2::splat(f32::NEG_INFINITY)),
                     |(low, high), point| (low.min(point.xz()), high.max(point.xz())),
                 );
-            rectangles
-                .iter()
-                .any(|[minimum, maximum]| !low.cmpge(*maximum).any() && !high.cmplt(*minimum).any())
+            regions.overlaps_bounds(low, high)
         });
-        Self::from_foundations(surface, foundations)
+        let mut presentation = Self::from_foundations(surface, foundations);
+        presentation.regions = Some(regions);
+        presentation
     }
 
     fn from_foundations(
@@ -45,6 +47,7 @@ impl<'a> GroundPresentation<'a> {
     ) -> Self {
         Self {
             surface,
+            regions: None,
             foundations: foundations
                 .map(|mesh| VisibleFoundation {
                     mesh,
@@ -61,12 +64,13 @@ impl<'a> GroundPresentation<'a> {
         // Match collision ownership using the original face centroid, before
         // reversing winding or clipping faces into presentation rectangles.
         let retained = move |triangle: &[Vec3; 3]| {
-            !transition_collar.is_some_and(|collar| {
-                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
-                    (triangle.iter().copied().sum::<Vec3>() / 3.0).xz(),
-                )
-                .is_ok_and(|point| collar.cuts_out(point))
-            })
+            self.overlaps_regions(triangle)
+                && !transition_collar.is_some_and(|collar| {
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        (triangle.iter().copied().sum::<Vec3>() / 3.0).xz(),
+                    )
+                    .is_ok_and(|point| collar.cuts_out(point))
+                })
         };
         self.surface
             .natural_triangles()
@@ -79,21 +83,63 @@ impl<'a> GroundPresentation<'a> {
                     .flat_map(|f| f.mesh.cut_faces().iter().copied())
                     .filter(move |triangle| retained(triangle)),
             )
-            .chain(self.foundations.iter().flat_map(|visible| {
-                let foundation = visible.mesh;
-                let hidden = &visible.internal_sides;
-                foundation.solid_triangles().iter().enumerate().filter_map(
-                    move |(face, indices)| {
-                        // Canonical cells have one top, one bottom and three
-                        // consecutive side pairs. Keep buried bottoms too;
-                        // visibility never substitutes for support validation.
-                        let cell_face = face % 8;
-                        let visible =
-                            cell_face < 2 || hidden[face / 8] & (1 << ((cell_face - 2) / 2)) == 0;
-                        visible.then(|| indices.map(|i| foundation.positions()[i as usize]))
-                    },
-                )
-            }))
+            .chain(
+                self.foundations
+                    .iter()
+                    .flat_map(|visible| {
+                        let foundation = visible.mesh;
+                        let hidden = &visible.internal_sides;
+                        foundation.solid_triangles().iter().enumerate().filter_map(
+                            move |(face, indices)| {
+                                // Canonical cells have one top, one bottom and three
+                                // consecutive side pairs. Keep buried bottoms too;
+                                // visibility never substitutes for support validation.
+                                let cell_face = face % 8;
+                                let visible = cell_face < 2
+                                    || hidden[face / 8] & (1 << ((cell_face - 2) / 2)) == 0;
+                                visible.then(|| indices.map(|i| foundation.positions()[i as usize]))
+                            },
+                        )
+                    })
+                    .filter(move |triangle| self.overlaps_regions(triangle)),
+            )
+    }
+
+    fn overlaps_regions(&self, triangle: &[Vec3; 3]) -> bool {
+        self.regions.as_ref().is_none_or(|regions| {
+            let (low, high) = triangle.iter().fold(
+                (Vec2::splat(f32::INFINITY), Vec2::splat(f32::NEG_INFINITY)),
+                |(low, high), point| (low.min(point.xz()), high.max(point.xz())),
+            );
+            regions.overlaps_bounds(low, high)
+        })
+    }
+}
+
+/// The clipper's same half-open exclusion keeps crossing and vertical faces.
+/// Union rejection avoids scanning every rectangle for distant terrain faces.
+struct PresentationRegions {
+    bounds: [Vec2; 2],
+    rectangles: Vec<[Vec2; 2]>,
+}
+
+impl PresentationRegions {
+    fn new(rectangles: &[[Vec2; 2]]) -> Self {
+        let bounds = rectangles.iter().fold(
+            [Vec2::splat(f32::INFINITY), Vec2::splat(f32::NEG_INFINITY)],
+            |[low, high], [minimum, maximum]| [low.min(*minimum), high.max(*maximum)],
+        );
+        Self {
+            bounds,
+            rectangles: rectangles.to_vec(),
+        }
+    }
+
+    fn overlaps_bounds(&self, low: Vec2, high: Vec2) -> bool {
+        let overlaps = |[minimum, maximum]: &[Vec2; 2]| {
+            !low.cmpge(*maximum).any() && !high.cmplt(*minimum).any()
+        };
+        overlaps(&self.bounds) && self.rectangles.iter().any(overlaps)
     }
 }
 

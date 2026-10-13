@@ -37,8 +37,14 @@ use bevy::{
 use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
+pub(crate) use diagnostics::TreeAssetResidencyDiagnostics;
+pub(in crate::presentation) use residency::RetainedTreePresentations;
+
 #[cfg(test)]
 use super::TREE_PRIMARY_GROUP_COUNT;
+
+mod diagnostics;
+mod residency;
 
 #[derive(Component)]
 pub(in crate::presentation) struct PendingTreePresentation;
@@ -68,52 +74,8 @@ impl TreePresentationCache {
     ) -> Option<&[super::TreeBranchSegment]> {
         self.variants
             .get(&cache_key)
-            .map(|cached| cached.branches.as_slice())
+            .map(|cached| cached.branches.as_ref())
     }
-}
-
-/// Live accounting for procedurally generated playable-tree render assets.
-///
-/// Unlike `Assets` totals, these counters separate the representations that
-/// the tree streamer requested. The scene benchmark records this resource so
-/// a faster frame cannot hide an accidental increase in resident geometry.
-#[derive(Resource, Debug, Clone, Default, serde::Serialize)]
-pub(crate) struct TreeAssetResidencyDiagnostics {
-    pub(crate) variants: usize,
-    pub(crate) source_branches: usize,
-    pub(crate) source_leaves: usize,
-    /// Full-detail trunk and root vertices retained for near views.
-    pub(crate) detailed_trunk_vertices: usize,
-    /// Low-poly upright-bole vertices retained for the mid-distance handoff.
-    pub(crate) mid_trunk_vertices: usize,
-    pub(crate) detailed_branch_vertices: usize,
-    pub(crate) cambered_leaf_vertices: usize,
-    /// Source detailed leaves considered when building streamed flat-card
-    /// clusters. This makes deterministic card thinning auditable.
-    pub(crate) leaf_card_source_leaves: usize,
-    /// Flat cards retained from `leaf_card_source_leaves` after deterministic
-    /// per-shoot thinning.
-    pub(crate) leaf_card_retained_leaves: usize,
-    pub(crate) leaf_card_vertices: usize,
-    pub(crate) bud_vertices: usize,
-    pub(crate) aggregate_branch_vertices: usize,
-    /// Aggregate live-wood geometry in LOD1/LOD2 order. This keeps the two
-    /// deliberately different tube budgets attributable in benchmark output.
-    pub(crate) aggregate_branch_vertices_by_lod: [usize; 2],
-    pub(crate) aggregate_branch_triangles_by_lod: [usize; 2],
-    /// LOD1 is the near aggregate canopy. Tracking it separately makes the
-    /// macro-cluster card reduction visible in the scene benchmark rather than
-    /// burying it in the combined impostor total.
-    pub(crate) lod1_impostor_cards: usize,
-    pub(crate) lod1_impostor_vertices: usize,
-    pub(crate) impostor_vertices: usize,
-    /// Uncompressed RGBA8 atlas bytes by aggregate LOD, in LOD1..LOD4 order.
-    /// The total remains for existing report consumers, while this split makes
-    /// tile-resolution regressions attributable to an individual LOD.
-    pub(crate) impostor_texture_bytes_by_lod: [usize; 4],
-    pub(crate) impostor_texture_bytes: usize,
-    pub(crate) generated_lod_mask: u8,
-    pub(crate) generation_milliseconds: u128,
 }
 
 #[derive(Resource, Default)]
@@ -128,12 +90,13 @@ pub(in crate::presentation) struct CachedVistaTreePresentation {
     pub(in crate::presentation) provenance: TreeImpostorProvenance,
 }
 
+#[derive(Clone)]
 struct CachedTreePresentation {
     variant_seed: Seed,
     species: TreePresentationSpecies,
     species_name: &'static str,
-    branches: Vec<super::TreeBranchSegment>,
-    leaves: Vec<super::TreeLeaf>,
+    branches: std::sync::Arc<[super::TreeBranchSegment]>,
+    leaves: std::sync::Arc<[super::TreeLeaf]>,
     trunk_mesh: Option<Handle<Mesh>>,
     mid_trunk_mesh: Option<Handle<Mesh>>,
     cluster_layout: Option<Vec<(u8, Vec3, f32)>>,
@@ -144,8 +107,10 @@ struct CachedTreePresentation {
     aggregate_bark_material: Handle<TacticalTreeAggregateBarkMaterial>,
     leaf_material: Handle<TacticalTreeLeafCardMaterial>,
     bud_material: Handle<StandardMaterial>,
+    resident_assets: TreeAssetResidencyDiagnostics,
 }
 
+#[derive(Clone)]
 struct CachedTreeClusterPresentation {
     primary_group: u8,
     center: Vec3,
@@ -156,6 +121,7 @@ struct CachedTreeClusterPresentation {
     bud_mesh: Option<Handle<Mesh>>,
 }
 
+#[derive(Clone)]
 struct CachedTreeCardPresentation {
     mesh: Handle<Mesh>,
     material: Handle<TacticalTreeImpostorMaterial>,
@@ -574,9 +540,39 @@ fn ensure_detailed_tree_assets_resident(
 
 #[expect(
     clippy::too_many_arguments,
-    reason = "tree residency updates independently borrowed mesh, material, image, and diagnostics stores"
+    reason = "tree streaming updates independently borrowed asset stores and accounting"
 )]
 fn ensure_tree_assets_resident(
+    cached: &mut CachedTreePresentation,
+    mask: u8,
+    selected_leaf: Option<TreeLeafRepresentation>,
+    prepared: Option<&PreparedTreeImpostorAsset>,
+    meshes: &mut Assets<Mesh>,
+    tree_materials: &mut Assets<TacticalTreeImpostorMaterial>,
+    images: &mut Assets<Image>,
+    diagnostics: &mut TreeAssetResidencyDiagnostics,
+) {
+    let mut added = TreeAssetResidencyDiagnostics::default();
+    generate_tree_assets_resident(
+        cached,
+        mask,
+        selected_leaf,
+        prepared,
+        meshes,
+        tree_materials,
+        images,
+        &mut added,
+    );
+    cached.resident_assets.add_resident_assets(&added);
+    diagnostics.add_resident_assets(&added);
+    diagnostics.generation_milliseconds += added.generation_milliseconds;
+}
+
+#[expect(
+    clippy::too_many_arguments,
+    reason = "tree residency updates independently borrowed mesh, material, image, and diagnostics stores"
+)]
+fn generate_tree_assets_resident(
     cached: &mut CachedTreePresentation,
     mask: u8,
     selected_leaf: Option<TreeLeafRepresentation>,
@@ -652,7 +648,8 @@ fn ensure_tree_assets_resident(
             species = cached.species_name,
             requested_mask = mask,
             elapsed_ms = elapsed,
-            resident_mask = diagnostics.generated_lod_mask,
+            resident_mask =
+                cached.resident_assets.generated_lod_mask | diagnostics.generated_lod_mask,
             "Generated demand-driven tactical tree assets"
         );
     }
@@ -828,6 +825,7 @@ pub(in crate::presentation) fn present_pending_trees(
     mut leaf_card_materials: ResMut<Assets<TacticalTreeLeafCardMaterial>>,
     mut images: ResMut<Assets<Image>>,
     mut tree_cache: ResMut<TreePresentationCache>,
+    mut retained: ResMut<RetainedTreePresentations>,
     mut residency: ResMut<TreeAssetResidencyDiagnostics>,
     procedural_assets: Res<ProceduralTextureAssets>,
 ) {
@@ -840,18 +838,13 @@ pub(in crate::presentation) fn present_pending_trees(
     let Some(terrain) = active.entity.and_then(|entity| terrains.get(entity).ok()) else {
         return;
     };
-    if tree_cache.terrain_scene_digest.as_deref() != Some(&environment.scene_digest) {
-        tree_cache.variants.clear();
-        tree_cache.oak_bark_material = None;
-        tree_cache.beech_bark_material = None;
-        tree_cache.oak_aggregate_bark_material = None;
-        tree_cache.beech_aggregate_bark_material = None;
-        let (heightmap, height_range) =
-            crate::presentation::terrain::terrain_contact_heightmap_image(terrain);
-        tree_cache.terrain_heightmap = Some(images.add(heightmap));
-        tree_cache.terrain_height_range = height_range;
-        tree_cache.terrain_scene_digest = Some(environment.scene_digest.clone());
-    }
+    retained.activate(
+        environment,
+        terrain,
+        &mut tree_cache,
+        &mut residency,
+        &mut images,
+    );
     let terrain_heightmap = tree_cache
         .terrain_heightmap
         .clone()
@@ -869,6 +862,20 @@ pub(in crate::presentation) fn present_pending_trees(
             variant_seed,
             &[competition_key, site_key, species.cache_salt()],
         );
+        if !tree_cache.variants.contains_key(&cache_key)
+            && let Some(mut cached) = retained.variant(cache_key)
+        {
+            // Plant geometry is site-local; bind only bark to destination terrain.
+            cached.bark_material = tree_cache.bark_for_terrain(
+                species,
+                &procedural_assets,
+                terrain_heightmap.clone(),
+                terrain,
+                &mut bark_materials,
+            );
+            residency.add_resident_assets(&cached.resident_assets);
+            tree_cache.variants.insert(cache_key, cached);
+        }
         if !tree_cache.variants.contains_key(&cache_key) {
             let (branches, leaves) = playable_tree_source(
                 species,
@@ -883,32 +890,13 @@ pub(in crate::presentation) fn present_pending_trees(
                 leaves = leaves.len(),
                 "Generated playable tactical tree source geometry"
             );
-            let bark_material = match species {
-                TreePresentationSpecies::EnglishOak => {
-                    tree_cache.oak_bark_material.clone().unwrap_or_else(|| {
-                        let material = bark_materials.add(oak_bark_material(
-                            &procedural_assets,
-                            terrain_heightmap.clone(),
-                            tree_cache.terrain_height_range,
-                            terrain,
-                        ));
-                        tree_cache.oak_bark_material = Some(material.clone());
-                        material
-                    })
-                }
-                TreePresentationSpecies::CommonBeech => {
-                    tree_cache.beech_bark_material.clone().unwrap_or_else(|| {
-                        let material = bark_materials.add(beech_bark_material(
-                            &procedural_assets,
-                            terrain_heightmap.clone(),
-                            tree_cache.terrain_height_range,
-                            terrain,
-                        ));
-                        tree_cache.beech_bark_material = Some(material.clone());
-                        material
-                    })
-                }
-            };
+            let bark_material = tree_cache.bark_for_terrain(
+                species,
+                &procedural_assets,
+                terrain_heightmap.clone(),
+                terrain,
+                &mut bark_materials,
+            );
             let aggregate_bark_material = match species {
                 TreePresentationSpecies::EnglishOak => tree_cache
                     .oak_aggregate_bark_material
@@ -940,12 +928,12 @@ pub(in crate::presentation) fn present_pending_trees(
                 perceptual_roughness: 0.92,
                 ..default()
             });
-            let cached = CachedTreePresentation {
+            let mut cached = CachedTreePresentation {
                 variant_seed,
                 species,
                 species_name: species.name(),
-                branches,
-                leaves,
+                branches: branches.into(),
+                leaves: leaves.into(),
                 trunk_mesh: None,
                 mid_trunk_mesh: None,
                 cluster_layout: None,
@@ -956,10 +944,12 @@ pub(in crate::presentation) fn present_pending_trees(
                 aggregate_bark_material,
                 leaf_material,
                 bud_material,
+                resident_assets: TreeAssetResidencyDiagnostics::default(),
             };
-            residency.variants += 1;
-            residency.source_branches += cached.branches.len();
-            residency.source_leaves += cached.leaves.len();
+            cached.resident_assets.variants = 1;
+            cached.resident_assets.source_branches = cached.branches.len();
+            cached.resident_assets.source_leaves = cached.leaves.len();
+            residency.add_resident_assets(&cached.resident_assets);
             tree_cache.variants.insert(cache_key, cached);
         }
         spawn_cached_tree(&mut commands, entity, cache_key, species.name());
@@ -969,6 +959,7 @@ pub(in crate::presentation) fn present_pending_trees(
         );
         commands.entity(entity).remove::<PendingTreePresentation>();
     }
+    retained.update_diagnostics(&tree_cache, &mut residency);
 }
 
 #[cfg(test)]
@@ -1131,8 +1122,8 @@ mod tests {
             variant_seed,
             species: TreePresentationSpecies::EnglishOak,
             species_name: TreePresentationSpecies::EnglishOak.name(),
-            branches,
-            leaves,
+            branches: branches.into(),
+            leaves: leaves.into(),
             trunk_mesh: None,
             mid_trunk_mesh: None,
             cluster_layout: None,
@@ -1143,6 +1134,7 @@ mod tests {
             aggregate_bark_material: Handle::default(),
             leaf_material: Handle::default(),
             bud_material: Handle::default(),
+            resident_assets: TreeAssetResidencyDiagnostics::default(),
         };
         let mut meshes = Assets::<Mesh>::default();
         let mut materials = Assets::<TacticalTreeImpostorMaterial>::default();
@@ -1184,8 +1176,8 @@ mod tests {
             variant_seed,
             species: TreePresentationSpecies::EnglishOak,
             species_name: TreePresentationSpecies::EnglishOak.name(),
-            branches,
-            leaves,
+            branches: branches.into(),
+            leaves: leaves.into(),
             trunk_mesh: None,
             mid_trunk_mesh: None,
             cluster_layout: None,
@@ -1196,6 +1188,7 @@ mod tests {
             aggregate_bark_material: Handle::default(),
             leaf_material: Handle::default(),
             bud_material: Handle::default(),
+            resident_assets: TreeAssetResidencyDiagnostics::default(),
         };
         let mut meshes = Assets::<Mesh>::default();
         let mut materials = Assets::<TacticalTreeImpostorMaterial>::default();
