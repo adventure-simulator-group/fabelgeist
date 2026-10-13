@@ -1,4 +1,4 @@
-//! Retain complete terrain-bound tree assets across ordinary scene replacement.
+//! Retain terrain bindings and share matching plant assets across scenes.
 use super::*;
 use std::collections::VecDeque;
 
@@ -13,6 +13,44 @@ pub(in crate::presentation) struct RetainedTreePresentations {
 struct RetainedScene {
     cache: TreePresentationCache,
     diagnostics: TreeAssetResidencyDiagnostics,
+}
+
+impl TreePresentationCache {
+    pub(super) fn bark_for_terrain(
+        &mut self,
+        species: TreePresentationSpecies,
+        procedural_assets: &ProceduralTextureAssets,
+        terrain_heightmap: Handle<Image>,
+        terrain: &SceneTerrain,
+        bark_materials: &mut Assets<TacticalTreeBarkMaterial>,
+    ) -> Handle<TacticalTreeBarkMaterial> {
+        match species {
+            TreePresentationSpecies::EnglishOak => {
+                self.oak_bark_material.clone().unwrap_or_else(|| {
+                    let material = bark_materials.add(oak_bark_material(
+                        procedural_assets,
+                        terrain_heightmap.clone(),
+                        self.terrain_height_range,
+                        terrain,
+                    ));
+                    self.oak_bark_material = Some(material.clone());
+                    material
+                })
+            }
+            TreePresentationSpecies::CommonBeech => {
+                self.beech_bark_material.clone().unwrap_or_else(|| {
+                    let material = bark_materials.add(beech_bark_material(
+                        procedural_assets,
+                        terrain_heightmap.clone(),
+                        self.terrain_height_range,
+                        terrain,
+                    ));
+                    self.beech_bark_material = Some(material.clone());
+                    material
+                })
+            }
+        }
+    }
 }
 
 impl RetainedTreePresentations {
@@ -53,12 +91,52 @@ impl RetainedTreePresentations {
             cache.terrain_height_range = height_range;
             cache.terrain_scene_digest = Some(environment.scene_digest.clone());
         }
-        diagnostics.retained_scenes = self.scenes.len();
-        diagnostics.retained_variants = self.scenes.iter().map(|s| s.diagnostics.variants).sum();
-        diagnostics.retained_impostor_texture_bytes = self
-            .scenes
+        self.update_diagnostics(cache, diagnostics);
+    }
+
+    pub(super) fn variant(&self, key: Seed) -> Option<CachedTreePresentation> {
+        self.scenes
             .iter()
-            .map(|s| s.diagnostics.impostor_texture_bytes)
-            .sum();
+            .rev()
+            .find_map(|scene| scene.cache.variants.get(&key).cloned())
+    }
+
+    pub(super) fn update_diagnostics(
+        &self,
+        active: &TreePresentationCache,
+        diagnostics: &mut TreeAssetResidencyDiagnostics,
+    ) {
+        diagnostics.retained_scenes = self.scenes.len();
+        let mut variants = active
+            .variants
+            .keys()
+            .copied()
+            .collect::<std::collections::HashSet<_>>();
+        let mut atlases = active
+            .variants
+            .values()
+            .flat_map(|variant| {
+                variant
+                    .lod_cards
+                    .iter()
+                    .flatten()
+                    .map(|card| card.material.id())
+            })
+            .collect::<std::collections::HashSet<_>>();
+        diagnostics.retained_variants = 0;
+        diagnostics.retained_impostor_texture_bytes = 0;
+        for scene in &self.scenes {
+            for (key, variant) in &scene.cache.variants {
+                diagnostics.retained_variants += usize::from(variants.insert(*key));
+                for card in variant.lod_cards.iter().flatten() {
+                    if atlases.insert(card.material.id()) {
+                        diagnostics.retained_impostor_texture_bytes += card.provenance.atlas_width
+                            as usize
+                            * card.provenance.atlas_height as usize
+                            * 4;
+                    }
+                }
+            }
+        }
     }
 }
