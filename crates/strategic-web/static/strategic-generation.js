@@ -5,7 +5,6 @@ import { openGeneratedCache } from "./strategic-generation-cache.js";
 // eviction and regeneration; unavailable residency or dependencies fail readiness.
 const invalidCachedProductCodes = new Set([
   "generation/product-decode", "generation/product-mismatch",
-  "generation/scene-bindings-mismatch",
 ]);
 
 export async function prepareGeneratedScene(runtime, input, venues, { signal } = {}) {
@@ -13,11 +12,7 @@ export async function prepareGeneratedScene(runtime, input, venues, { signal } =
     // The strings remain opaque; JSON parsing here only classifies job roles.
     const jobs = discover(() => runtime.wasm_generation_jobs(preparation, input));
     const venueJobs = discover(() => runtime.wasm_venue_jobs(preparation, input, JSON.stringify(venues)));
-    const scenes = jobs.filter(job => Object.hasOwn(JSON.parse(job), "Scene"));
-    // Terrain consumes occupied plans and compact frontage records.
-    await run([...venueJobs, ...jobs.filter(job => !scenes.includes(job))]);
-    await run(scenes);
-    await run(discover(() => runtime.wasm_landscape_jobs(preparation, input, runtime.generationGraphicsConfig)));
+    await run([...venueJobs, ...jobs]);
   }, preparation => runtime.wasm_finish_generation(preparation, input));
 }
 

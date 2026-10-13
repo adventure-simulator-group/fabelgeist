@@ -3,6 +3,8 @@
 //! The fields are local to one mesh preparation and its exact weather snapshot.
 use super::*;
 
+pub(super) const PLAYABLE_COLOR_TRANSITION_CELLS: f32 = 4.0;
+
 pub(super) struct VistaVertexColors<'a> {
     own: SampleColors<'a>,
     coarser: Option<SampleColors<'a>>,
@@ -52,7 +54,7 @@ impl<'a> VistaVertexColors<'a> {
                     stitch_vista_color_to_playable_edge(
                         local,
                         playable_half_extent,
-                        lod.spacing_metres * 4.0,
+                        lod.spacing_metres * PLAYABLE_COLOR_TRANSITION_CELLS,
                         vista_color,
                         playable,
                     )

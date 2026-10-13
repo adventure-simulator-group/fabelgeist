@@ -18,17 +18,24 @@ workers from the same pool. They terminate after the complete preparation, or
 immediately on failure.
 
 Occupied building plans, interiors, detail meshes, LODs, and tangents are
-independent jobs alongside the distinct background exterior prototypes. Terrain
-generation then consumes their prepared plans and compact doorway/footprint
-records. Workers return locally generated CBOR products through transferable
-buffers while the renderer loads textures. Occupied mesh vertex and index arrays
-use packed byte strings, avoiding scalar-by-scalar decoding on the main thread.
-After terrain preparation, independent landscape jobs clip street and yard
-meshes and scatter playable and vista grass. Their inputs include the graphics
-configuration; packed geometry and instance attributes preserve native results.
-Rust parses the original scene JSON and verifies each returned product against
-its requested identity. Entity installation, render assets, and GPU upload
-remain in the persistent application.
+independent jobs alongside the distinct background exterior prototypes. Workers
+return locally generated CBOR products through transferable buffers while the
+renderer loads textures. Occupied mesh vertex and index arrays use packed byte
+strings, avoiding scalar-by-scalar decoding on the main thread. Rust validates
+the original scene JSON and every returned product identity.
+
+Strategic preparation assembles the occupied buildings and their prepared
+interiors directly from resident recipes. It does not generate tactical support,
+fault meshes, city-wide paving, or vegetation products. Each completed ticket
+owns its exact selected building placements and input digest. Preparing or
+cancelling a destination leaves the displayed scene's assets available until
+that destination is activated. A new destination with resident building recipes
+starts no generation workers.
+
+Focused map cities still prepare canonical graded terrain, fault geometry, and
+paving. Tactical entry receives its physical scene from the transient Bevy
+server and uses the full tactical presentation. Entity installation, render
+assets, and GPU upload remain in the persistent application.
 
 Readiness requires all generation jobs, installation, and existing asset gates.
 Once geometry, posed models, textures and final sky lighting are installed,
@@ -94,12 +101,10 @@ hits, misses, summed lookup duration, decoding, worker time, and complete
 preparation time. Concurrent lookup and worker durations are not additive elapsed
 time. Worker count includes instances started in all preparation phases.
 
-The document retains landscape products for the three most recently prepared
-scene/configuration pairs. Returning to one reuses street and yard mesh handles,
-nearby traffic-mask images, and grass placements. Grass instance buffers and
-entities are still installed again. Changing the graphics configuration requires
-new landscape products. This retention is separate from the disk cache and the
-bounded snapshot cache.
+The displayed strategic scene and one pending replacement retain their own
+building bindings. They share immutable occupied recipes and the renderer's
+mesh cache; each activation builds a sampled scenery backdrop from the supplied
+heightfields. This residency is separate from the disk and snapshot caches.
 
 Equipment fitting prepares the requested items rather than constructing and
 discarding every catalog armor variant during startup. Each requested item
@@ -117,14 +122,16 @@ Neither changes the generated appearance or requires stored render products.
 Interior furnishing retains navigation obstruction counts while trying candidate
 groups. Accepted furniture remains in the graph; rejecting a group removes only
 its contributions. The same reachability and access-path checks still decide
-placement in both the scene worker and promoted strategic venues.
+placement in occupied recipes and promoted strategic venues.
 
-Grass derives one seed for each spatially identified tuft and draws its jitter,
-species, rotation, and shader variation from fixed slots in that tuft's stream.
+Tactical grass derives one seed for each spatially identified tuft and draws its
+jitter, species, rotation, and shader variation from fixed slots in that tuft's
+stream.
 This avoids repeatedly hashing the same identity for individual visual fields.
 Tuft density, representation, coverage, and fade distances remain unchanged.
-Street and yard meshes query a bounds hierarchy over the presented terrain
-triangles before clipping, preserving terrain seams and exact surface heights.
+Tactical and focused-map street and yard meshes query a bounds hierarchy over
+the presented terrain triangles before clipping, preserving terrain seams and
+exact surface heights.
 Street traffic clearance uses cached road directions and a spatial index for
 market bounds, avoiding repeated normalization and unrelated market scans.
 
@@ -136,16 +143,26 @@ The browser passes its original JSON text to Rust, preserving all 64-bit seeds
 and building IDs. Settlement geometry has a stable location seed across
 missions.
 
-The client uses the tactical scene generator and presentation observers for
-terrain, landforms, streets, yards, buildings, doors, windows, furnishings,
-gardens, vegetation, weather, sky, and lighting. Service buildings retain their
+Strategic views share the tactical building, door, window, furnishing, character,
+equipment, weather, sky, and lighting renderers. Service buildings retain their
 full dimensions, plans, doors, windows, and interiors. The client arranges these
-instances side by side on a clear frontage at the edge of the retained city.
-Interior furniture and conversation positions move with their buildings. This
-presentation placement does not change the tactical server's scene document.
-One perspective camera views the entire frontage, with the remaining city
-behind it. HTML names and accessible route links occupy the corresponding street
-bays; horizontal scrolling crops the same camera projection.
+instances side by side on a clear frontage. Interior furniture and conversation
+positions move with their buildings. This presentation placement does not change
+the tactical server's scene document. One perspective camera views the entire
+frontage, with the remaining city behind it. HTML names and accessible route
+links occupy the corresponding street bays; horizontal scrolling crops the same
+camera projection.
+
+The strategic backdrop uses the supplied playable and vista height samples with
+the existing terrain palette and ring transitions. Outdoor characters stand on
+that sampled surface; interior positions retain building-local floor and
+clearance calculations. Fine fault faces, graded paving, vegetation, gardens,
+boundaries, and outdoor furniture are omitted from this scenic representation.
+The complete city skyline, building interiors, weather particles, sky, and
+lighting remain. The sampled backdrop is a separate presentation component and
+never becomes canonical tactical terrain or ground support. Focused map cities
+retain canonical graded terrain, fault geometry, and paving; tactical play
+retains full scenery.
 
 Business operators resolve to the scene's establishments. Required distant
 buildings receive full detail and furnished interiors on the shared frontage
@@ -173,11 +190,6 @@ can use brick infill and decorative finishes. Geometry and finish select the
 same variant, keeping the prototype pool bounded. Landmarks retain their
 frontage direction. Each model may shrink uniformly to fit its reserved plot,
 but never expands the plot or changes the city's placement.
-Outdoor furniture also uses the prototype's scaled footprint and doors; its
-occupation still selects the kind of street activity. Preparing this scenery
-does not reconstruct the original occupied buildings.
-The strategic street reserves its camera approach before placing background
-tree stands, so changes to scene identity cannot put foliage in front of tabs.
 
 The occupied recipe remains available for buildings promoted to the strategic
 street or playable tactical area. Those buildings retain their original plans,

@@ -36,18 +36,6 @@ pub fn wasm_cancel_generation(ticket_json: &str) -> Result<(), JsValue> {
 }
 
 #[wasm_bindgen]
-pub fn wasm_landscape_jobs(
-    ticket_json: &str,
-    input_json: &str,
-    graphics: &str,
-) -> Result<String, JsValue> {
-    encode(
-        &super::landscape::jobs(decode(ticket_json)?, input_json, graphics)
-            .map_err(JsValue::from)?,
-    )
-}
-
-#[wasm_bindgen]
 pub fn wasm_generation_jobs(ticket_json: &str, input_json: &str) -> Result<String, JsValue> {
     encode(&super::jobs(decode(ticket_json)?, input_json).map_err(JsValue::from)?)
 }

@@ -9,40 +9,6 @@ pub(super) fn generate(job_json: &str, dependencies: &[u8]) -> PreparationResult
         GenerationJob::RegionalCity { input, graphics } => GenerationProduct::RegionalCity(
             Box::new(city::PreparedCityProduct::generate(*input, graphics)?),
         ),
-        GenerationJob::Grass { input, graphics } => {
-            GenerationProduct::Grass(Box::new(landscape::GrassProduct::generate(
-                &input,
-                graphics,
-                dependencies
-                    .grass
-                    .ok_or(PreparationError::MissingDependencies {
-                        product: ProductKind::Grass,
-                    })?,
-            )?))
-        }
-
-        GenerationJob::Ground { input, graphics } => {
-            GenerationProduct::Ground(Box::new(landscape::GroundProduct::generate(
-                &input,
-                graphics,
-                dependencies
-                    .ground
-                    .ok_or(PreparationError::MissingDependencies {
-                        product: ProductKind::Ground,
-                    })?,
-            )?))
-        }
-        GenerationJob::Scene(input) => {
-            let mut recipes =
-                adventuresim_tactical_core::scene_input::GeneratedBuildingRecipes::default();
-            recipes.sites = dependencies.sites;
-            for recipe in dependencies.playable {
-                recipes.insert(recipe);
-            }
-            GenerationProduct::Scene(Box::new(scene::SceneProduct::from_generated(
-                input.generate_unfurnished(recipes)?,
-            )))
-        }
         GenerationJob::Building(program) => {
             GenerationProduct::Building(Box::new(PreparedFacade::generate(*program)?))
         }
@@ -72,26 +38,6 @@ pub(super) fn receive(
         ) if city.matches(&input, &graphics) => {
             ticket.require_owner(PresentationOwner::RegionalMap)?;
             products.regional_city = Some(Arc::new(*city));
-        }
-        (GenerationJob::Grass { input, graphics }, GenerationProduct::Grass(grass))
-            if input.digest()? == grass.digest && graphics == grass.graphics =>
-        {
-            products.grass.push(*grass);
-            if products.grass.len() > RETAINED_SCENE_PRODUCTS {
-                products.grass.remove(0);
-            }
-        }
-
-        (GenerationJob::Ground { input, graphics }, GenerationProduct::Ground(ground))
-            if input.digest()? == ground.digest && graphics == ground.graphics =>
-        {
-            products.retain_ground(*ground);
-        }
-        (GenerationJob::Scene(input), GenerationProduct::Scene(scene))
-            if input.digest()? == scene.digest() =>
-        {
-            let scene = scene.restore(&input, &products)?;
-            products.retain_scene(scene);
         }
         (GenerationJob::Building(program), GenerationProduct::Building(facade))
             if *program == facade.program =>

@@ -15,8 +15,6 @@ pub(crate) enum ProductKind {
     Facade,
     Venue,
     VenueGeometry,
-    Grass,
-    Ground,
 }
 
 #[derive(Debug, Error)]
@@ -55,8 +53,6 @@ pub(crate) enum PreparationError {
     GraphicsConfiguration { message: String },
     #[error("{product:?} was not prepared before use")]
     NotPrepared { product: ProductKind },
-    #[error("generation job is missing its {product:?} dependencies")]
-    MissingDependencies { product: ProductKind },
     #[error("generation product does not match its requested input")]
     ProductMismatch,
     #[error("scene transfer changed its exact occupied building bindings")]
@@ -88,7 +84,6 @@ impl PreparationError {
             Self::Interior(_) => "generation/interior",
             Self::GraphicsConfiguration { .. } => "generation/graphics-configuration",
             Self::NotPrepared { .. } => "generation/not-prepared",
-            Self::MissingDependencies { .. } => "generation/missing-dependencies",
             Self::ProductMismatch => "generation/product-mismatch",
             Self::SceneBindingsMismatch => "generation/scene-bindings-mismatch",
             Self::MissingDistantPlacement { .. } => "generation/missing-distant-placement",

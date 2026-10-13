@@ -45,47 +45,9 @@ pub(super) fn dependencies(
     let products = staged_products(ticket)?;
     let mut data = Dependencies::default();
     match job {
-        GenerationJob::Grass { input, .. } => {
-            let digest = input.digest()?;
-            let scene = products.scenes.iter().find(|s| s.digest == digest).ok_or(
-                PreparationError::NotPrepared {
-                    product: ProductKind::Scene,
-                },
-            )?;
-            data.grass = Some(landscape::GrassDependencies {
-                terrain: scene.terrain.clone(),
-                ground: scene.ground.clone(),
-            });
-        }
-
-        GenerationJob::Ground { input, .. } => {
-            let digest = input.digest()?;
-            let scene = products.scenes.iter().find(|s| s.digest == digest).ok_or(
-                PreparationError::NotPrepared {
-                    product: ProductKind::Scene,
-                },
-            )?;
-            data.ground = Some(landscape::GroundDependencies {
-                terrain: scene.terrain.clone(),
-                landform: scene.terrain_patch.clone().into(),
-                groups: scene.furniture.groups.clone(),
-            });
-        }
-        GenerationJob::Scene(input) => {
-            data.sites = products.sites.clone();
-            for building in input.buildings {
-                if let Some(venue) = products
-                    .venues
-                    .iter()
-                    .find(|v| v.recipe.program == building.program)
-                {
-                    data.playable.push(venue.recipe.clone());
-                }
-            }
-        }
         GenerationJob::Venue(program) => {
             data.recipe = products
-                .scenes
+                .scene
                 .iter()
                 .flat_map(|s| &s.buildings)
                 .find(|b| b.placement.program == *program)
@@ -109,8 +71,7 @@ pub(super) fn jobs(ticket: PreparationTicket, input_json: &str) -> PreparationRe
     let input: TacticalSceneInput = serde_json::from_str(input_json)?;
     input.validate()?;
     let mut programs = Vec::new();
-    let mut products = staged_products(ticket)?;
-    let readiness = products.scene_readiness(&input)?;
+    let products = staged_products(ticket)?;
     let resident = products.resident_facades().to_vec();
     drop(products);
     for placement in &input.distant_buildings {
@@ -119,14 +80,9 @@ pub(super) fn jobs(ticket: PreparationTicket, input_json: &str) -> PreparationRe
             programs.push(program);
         }
     }
-    (readiness == SceneReadiness::Missing)
-        .then(|| GenerationJob::Scene(Box::new(input)))
+    programs
         .into_iter()
-        .chain(
-            programs
-                .into_iter()
-                .map(|program| GenerationJob::Building(Box::new(program))),
-        )
+        .map(|program| GenerationJob::Building(Box::new(program)))
         .map(|job| serde_json::to_string(&job).map_err(PreparationError::from))
         .collect()
 }

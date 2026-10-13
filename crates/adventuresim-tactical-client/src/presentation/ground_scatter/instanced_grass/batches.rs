@@ -2,30 +2,6 @@
 use super::*;
 use fabelgeist_determinism::Seed;
 
-#[derive(serde::Serialize, serde::Deserialize)]
-struct PackedTufts(
-    #[serde(with = "adventuresim_tactical_core::geometry_transport::binary")] Vec<InstanceData>,
-);
-
-#[derive(serde::Serialize, serde::Deserialize)]
-pub(in crate::presentation) struct PreparedTufts(
-    [[PackedTufts; GrassSpecies::ALL.len()]; TIERS.len()],
-);
-
-impl From<TierSpeciesBatches> for PreparedTufts {
-    fn from(batches: TierSpeciesBatches) -> Self {
-        Self(batches.map(|tier| tier.map(PackedTufts)))
-    }
-}
-
-impl PreparedTufts {
-    pub(in crate::presentation) fn to_batches(&self) -> TierSpeciesBatches {
-        self.0
-            .each_ref()
-            .map(|tier| tier.each_ref().map(|batch| batch.0.clone()))
-    }
-}
-
 /// Turns filled instance batches into one entity per (tier, species), each
 /// carrying `marker` on top of the shared instanced-draw components.
 pub(in crate::presentation) fn spawn_tuft_batches(

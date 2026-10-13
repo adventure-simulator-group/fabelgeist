@@ -739,7 +739,14 @@ fn terrain_smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {
     t * t * (3.0 - 2.0 * t)
 }
 
-pub(super) fn on_environment_added(event: On<Add, SceneEnvironment>, mut commands: Commands) {
+pub(super) fn on_environment_added(
+    event: On<Add, SceneEnvironment>,
+    mut commands: Commands,
+    scenes: Query<(), With<SceneId>>,
+) {
+    if scenes.get(event.entity).is_err() {
+        return;
+    }
     commands
         .entity(event.entity)
         .insert(PendingTerrainPresentation);
@@ -888,6 +895,7 @@ mod tests {
     fn terrain_presentation_remains_pending_until_terrain_arrives() {
         let mut app = App::new();
         app.add_observer(on_game_scene_added);
+        app.add_observer(on_environment_added);
         let scene = app.world_mut().spawn(SceneId("add-order".into())).id();
         app.update();
         assert!(
@@ -903,6 +911,16 @@ mod tests {
         assert!(
             app.world()
                 .entity(scene)
+                .contains::<PendingTerrainPresentation>()
+        );
+        let backdrop = app
+            .world_mut()
+            .spawn(SceneEnvironmentFixture::TemperateHills.snapshot("strategic-backdrop"))
+            .id();
+        app.update();
+        assert!(
+            !app.world()
+                .entity(backdrop)
                 .contains::<PendingTerrainPresentation>()
         );
     }

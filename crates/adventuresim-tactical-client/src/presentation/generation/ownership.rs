@@ -1,6 +1,6 @@
 //! Separate mutable preparations from installed assets and other scene owners.
 use super::{
-    GeneratedTacticalScene, PreparationError, PreparationResult, PreparedProducts,
+    PreparationError, PreparationResult, PreparedProducts, PreparedStrategicScene,
     PresentationOwner, PresentationOwners, TacticalSceneInput,
 };
 use adventuresim_building_generator::BuildingProgram;
@@ -104,7 +104,7 @@ impl OwnerResidency {
         let prepared = match &input {
             PreparationInputIdentity::Scene(digest) => self
                 .staged
-                .scenes
+                .scene
                 .iter()
                 .any(|scene| scene.digest == *digest),
             PreparationInputIdentity::RegionalCity(document) => self
@@ -177,9 +177,18 @@ pub(super) fn finish(
     input: &TacticalSceneInput,
 ) -> PreparationResult<()> {
     ticket.require_owner(PresentationOwner::Scene)?;
-    let input = PreparationInputIdentity::from_input(input)?;
+    let input_document = input;
+    let input = PreparationInputIdentity::from_input(input_document)?;
     let mut residency = residency()?;
-    residency.owner_mut(ticket.owner).finish(ticket, input)
+    let slot = residency.owner_mut(ticket.owner);
+    if slot.preparing != Some(ticket) {
+        return Err(PreparationError::StalePreparation);
+    }
+    slot.staged.scene = Some(std::sync::Arc::new(PreparedStrategicScene::from_products(
+        input_document,
+        &slot.staged,
+    )?));
+    slot.finish(ticket, input)
 }
 
 pub(super) fn finish_city(
@@ -215,7 +224,7 @@ pub(super) fn cancel(ticket: PreparationTicket) -> PreparationResult<()> {
 pub(crate) fn activate(
     ticket: PreparationTicket,
     input: &TacticalSceneInput,
-) -> PreparationResult<GeneratedTacticalScene> {
+) -> PreparationResult<PreparedStrategicScene> {
     ticket.require_owner(PresentationOwner::Scene)?;
     let mut residency = residency()?;
     let slot = residency.owner_mut(PresentationOwner::Scene);
