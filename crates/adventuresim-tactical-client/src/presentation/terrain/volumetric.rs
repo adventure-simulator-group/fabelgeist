@@ -80,7 +80,7 @@ pub(super) fn spawn_base_and_fault(
     material: TacticalTerrainMaterial,
     landform: Option<&TerrainLandformRecipe>,
     prepared: Option<&SceneTerrainPatch>,
-    transition_collar: Option<TerrainTransitionCollar>,
+    coverage: urban::GroundCoverage,
 ) {
     // Local scene producers supply the exact patch already generated off-thread.
     // Replicated tactical scenes deliver terrain and a recipe, without a mesh.
@@ -89,19 +89,13 @@ pub(super) fn spawn_base_and_fault(
         .or_else(|| landform.and_then(|recipe| terrain_landform_patch(terrain, *recipe).ok()));
     let mut fault_material = material.clone();
     let material = materials.add(material);
-    let playable_mesh = if terrain.property_surface().is_some() {
-        super::urban::urban_playable_mesh(terrain, landform)
-    } else {
-        transition_collar.map_or_else(
-            || terrain.coarse_mesh(),
-            |collar| terrain.coarse_mesh_with_transition(collar),
-        )
-    };
+    let playable_mesh = coverage.mesh(terrain, landform);
     let triangle_count = mesh_triangle_count(&playable_mesh);
     commands.spawn((
         Name::new(format!("{} terrain mesh", id.0)),
         ScenePresentationOf(entity),
         TerrainMaterialPresentation,
+        coverage,
         TerrainTriangleCount(triangle_count),
         Mesh3d(meshes.add(playable_mesh)),
         MeshMaterial3d(material),
@@ -247,7 +241,7 @@ mod tests {
                 material,
                 Some(&recipe),
                 Some(&terrain_landform_patch(&terrain, recipe).unwrap()),
-                Some(recipe.transition_collar()),
+                urban::GroundCoverage::new(&terrain, &environment, &ActiveVistaSurface::default()),
             );
         }
         queue.apply(&mut world);

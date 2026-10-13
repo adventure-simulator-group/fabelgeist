@@ -207,7 +207,7 @@ pub(in crate::presentation) fn present_pending_terrain(
                 material,
                 landform,
                 prepared,
-                transition_collar,
+                urban::GroundCoverage::new(terrain, environment, &vista),
             );
             let centre = Vec2::ZERO;
             let detail_mesh =
