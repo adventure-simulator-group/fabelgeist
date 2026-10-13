@@ -8,9 +8,17 @@ fn goslar_road_rut_preserves_the_cross_runtime_source_vertex() {
     let mut ground = SceneGround::uniform_for_terrain(&terrain, GroundSurface::default());
     ground.urban = crate::scene::UrbanGroundSurfaces::new(
         &[CityStreetPatch::Corridor {
-            start_metres: Vec2::new(-100.0, -39.0),
-            end_metres: Vec2::new(100.0, -39.0),
-            half_width_metres: 4.875,
+            start_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(
+                -100.0, -39.0,
+            ))
+            .unwrap(),
+            end_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(100.0, -39.0))
+                .unwrap(),
+            half_width_metres:
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    4.875,
+                )
+                .unwrap(),
             surface: crate::city_layout::CityStreetSurface::Fieldstone,
         }],
         &[],

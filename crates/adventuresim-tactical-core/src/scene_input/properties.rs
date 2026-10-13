@@ -109,12 +109,12 @@ mod tests {
                     building_id: building.id.0,
                     tier: class.housing_tier(),
                     resident_capacity: class.resident_capacity(),
-                    market_reserve: market.reserve(class.housing_tier()),
+                    supply_role: market.reserve(class.housing_tier()),
                     east_metres: building.centre_metres.metres().x,
                     north_metres: building.centre_metres.metres().y,
                     yaw_radians: 0.0,
-                    width_metres: class.frontage_width_metres(),
-                    depth_metres: class.depth_metres(),
+                    width_metres: class.footprint().unwrap().metres().x,
+                    depth_metres: class.footprint().unwrap().metres().y,
                 }
             })
             .collect();
@@ -124,7 +124,7 @@ mod tests {
                 seed: adventuresim_core::settlement_population::settlement_building_seed(
                     settlement,
                 ),
-                population: 1,
+                population: adventuresim_core::settlement_property::ResidentCount::new(1),
                 homes,
             },
         );

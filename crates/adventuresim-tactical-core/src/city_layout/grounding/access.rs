@@ -19,6 +19,9 @@ pub(in crate::city_layout) fn access_regions(
         else {
             continue;
         };
+        let start_metres = start_metres.metres();
+        let end_metres = end_metres.metres();
+        let half_width_metres = half_width_metres.metres();
         let tangent = (end_metres - start_metres).normalize();
         let normal = Vec2::new(-tangent.y, tangent.x);
         let side = (edge - start_metres).dot(normal).signum();

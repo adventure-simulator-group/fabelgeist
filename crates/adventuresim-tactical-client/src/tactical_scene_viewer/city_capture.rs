@@ -11,6 +11,185 @@ const STREET_CONTEXT_OFFSET_METRES: f32 = 8.0;
 const FACADE_STREET_SEARCH_METRES: f32 = 40.0;
 const NEIGHBOURHOOD_RADIUS_METRES: f32 = 75.0;
 
+#[derive(Clone, Copy)]
+struct StreetPosition {
+    start: Vec2,
+    end: Vec2,
+    fraction: f32,
+}
+
+struct PlacementBounds {
+    centre: Vec2,
+    half_extents: Vec2,
+    orientation: BuildingOrientation,
+}
+
+#[derive(Clone, Copy)]
+struct Bounds2 {
+    min: Vec2,
+    max: Vec2,
+}
+
+impl StreetPosition {
+    fn point(self) -> Vec2 {
+        self.start.lerp(self.end, self.fraction)
+    }
+
+    fn shifted(self, metres: f32) -> Self {
+        Self {
+            fraction: (self.fraction + metres / self.start.distance(self.end)).clamp(0.05, 0.95),
+            ..self
+        }
+    }
+
+    fn nearest(
+        streets: &[CityStreetPatch],
+        target: Vec2,
+        outward: Vec2,
+        clear: &impl Fn(Vec2) -> bool,
+    ) -> Option<Self> {
+        streets
+            .iter()
+            .filter_map(|street| {
+                let CityStreetPatch::Corridor {
+                    start_metres,
+                    end_metres,
+                    ..
+                } = *street
+                else {
+                    return None;
+                };
+                let start_metres = start_metres.metres();
+                let end_metres = end_metres.metres();
+                let displacement = end_metres - start_metres;
+                Some(Self {
+                    start: start_metres,
+                    end: end_metres,
+                    fraction: ((target - start_metres).dot(displacement)
+                        / displacement.length_squared())
+                    .clamp(0.05, 0.95),
+                })
+            })
+            .flat_map(|street| {
+                [
+                    street,
+                    street.shifted(-STREET_CONTEXT_OFFSET_METRES),
+                    street.shifted(STREET_CONTEXT_OFFSET_METRES),
+                ]
+            })
+            .filter(|street| {
+                let offset = street.point() - target;
+                offset.dot(outward) > STREET_CAMERA_CLEARANCE_METRES
+                    && offset.length_squared() < FACADE_STREET_SEARCH_METRES.powi(2)
+                    && clear(street.point())
+            })
+            .min_by(|a, b| {
+                a.point()
+                    .distance_squared(target)
+                    .total_cmp(&b.point().distance_squared(target))
+            })
+    }
+}
+
+impl PlacementBounds {
+    fn collect(
+        buildings: &[GeneratedBuilding],
+        distant: &[DistantBuildingPlacement],
+    ) -> Result<Vec<Self>> {
+        let mut bounds = buildings
+            .iter()
+            .map(|building| {
+                Ok(Self {
+                    centre: building.placement.centre_metres.metres(),
+                    half_extents: building.collision.bounds.plan_half_extents()?.metres(),
+                    orientation: building.placement.orientation,
+                })
+            })
+            .collect::<Result<Vec<_>>>()?;
+        bounds.extend(distant.iter().map(|building| Self {
+            centre: building.centre_metres.metres(),
+            half_extents: building.occupied_program().plot_dimensions_metres() * 0.5,
+            orientation: building.orientation,
+        }));
+        Ok(bounds)
+    }
+
+    fn contains(&self, point: Vec2) -> bool {
+        self.orientation
+            .world_to_local(point - self.centre)
+            .abs()
+            .cmple(self.half_extents + Vec2::splat(STREET_CAMERA_CLEARANCE_METRES))
+            .all()
+    }
+}
+
+impl Bounds2 {
+    fn from_points(points: impl Iterator<Item = Vec2>) -> Self {
+        let bounds = points.fold(None::<Self>, |bounds, point| {
+            Some(match bounds {
+                None => Self {
+                    min: point,
+                    max: point,
+                },
+                Some(bounds) => Self {
+                    min: bounds.min.min(point),
+                    max: bounds.max.max(point),
+                },
+            })
+        });
+        bounds.expect("city-review fixture lacks building placements")
+    }
+
+    fn centre(self) -> Vec3 {
+        let centre = (self.min + self.max) * 0.5;
+        Vec3::new(centre.x, 4.0, centre.y)
+    }
+
+    fn radius(self) -> f32 {
+        ((self.max - self.min).max_element() * 0.5).max(20.0)
+    }
+
+    fn oblique_camera(self, distance_scale: f32, height_scale: f32) -> BuildingReviewCamera {
+        let target = self.centre();
+        let radius = self.radius();
+        BuildingReviewCamera {
+            position: target + Vec3::new(radius * distance_scale, radius * height_scale, radius),
+            target,
+            plaster_raking_light: None,
+        }
+    }
+
+    fn edge_camera(self) -> BuildingReviewCamera {
+        let target = self.centre();
+        let radius = self.radius();
+        BuildingReviewCamera {
+            position: target + Vec3::new(radius * 1.45, radius * 0.18, radius * 0.35),
+            target,
+            plaster_raking_light: None,
+        }
+    }
+
+    fn aerial_camera(self) -> BuildingReviewCamera {
+        let target = self.centre();
+        let radius = self.radius();
+        BuildingReviewCamera {
+            position: target + Vec3::new(0.0, radius * 1.7, radius * 0.18),
+            target,
+            plaster_raking_light: None,
+        }
+    }
+
+    fn horizon_camera(self) -> BuildingReviewCamera {
+        let target = self.centre();
+        let radius = self.radius();
+        BuildingReviewCamera {
+            position: target + Vec3::new(0.0, radius * 0.12, radius * 2.35),
+            target,
+            plaster_raking_light: None,
+        }
+    }
+}
+
 pub(super) fn capture_cameras(
     buildings: &[GeneratedBuilding],
     distant_buildings: &[DistantBuildingPlacement],
@@ -108,183 +287,6 @@ pub(super) fn capture_cameras(
     ])
 }
 
-#[derive(Clone, Copy)]
-struct StreetPosition {
-    start: Vec2,
-    end: Vec2,
-    fraction: f32,
-}
-
-impl StreetPosition {
-    fn point(self) -> Vec2 {
-        self.start.lerp(self.end, self.fraction)
-    }
-
-    fn shifted(self, metres: f32) -> Self {
-        Self {
-            fraction: (self.fraction + metres / self.start.distance(self.end)).clamp(0.05, 0.95),
-            ..self
-        }
-    }
-
-    fn nearest(
-        streets: &[CityStreetPatch],
-        target: Vec2,
-        outward: Vec2,
-        clear: &impl Fn(Vec2) -> bool,
-    ) -> Option<Self> {
-        streets
-            .iter()
-            .filter_map(|street| {
-                let CityStreetPatch::Corridor {
-                    start_metres,
-                    end_metres,
-                    ..
-                } = *street
-                else {
-                    return None;
-                };
-                let displacement = end_metres - start_metres;
-                Some(Self {
-                    start: start_metres,
-                    end: end_metres,
-                    fraction: ((target - start_metres).dot(displacement)
-                        / displacement.length_squared())
-                    .clamp(0.05, 0.95),
-                })
-            })
-            .flat_map(|street| {
-                [
-                    street,
-                    street.shifted(-STREET_CONTEXT_OFFSET_METRES),
-                    street.shifted(STREET_CONTEXT_OFFSET_METRES),
-                ]
-            })
-            .filter(|street| {
-                let offset = street.point() - target;
-                offset.dot(outward) > STREET_CAMERA_CLEARANCE_METRES
-                    && offset.length_squared() < FACADE_STREET_SEARCH_METRES.powi(2)
-                    && clear(street.point())
-            })
-            .min_by(|a, b| {
-                a.point()
-                    .distance_squared(target)
-                    .total_cmp(&b.point().distance_squared(target))
-            })
-    }
-}
-
-struct PlacementBounds {
-    centre: Vec2,
-    half_extents: Vec2,
-    orientation: BuildingOrientation,
-}
-
-impl PlacementBounds {
-    fn collect(
-        buildings: &[GeneratedBuilding],
-        distant: &[DistantBuildingPlacement],
-    ) -> Result<Vec<Self>> {
-        let mut bounds = buildings
-            .iter()
-            .map(|building| {
-                Ok(Self {
-                    centre: building.placement.centre_metres.metres(),
-                    half_extents: building.collision.bounds.plan_half_extents()?.metres(),
-                    orientation: building.placement.orientation,
-                })
-            })
-            .collect::<Result<Vec<_>>>()?;
-        bounds.extend(distant.iter().map(|building| Self {
-            centre: building.centre_metres.metres(),
-            half_extents: building.occupied_program().plot_dimensions_metres() * 0.5,
-            orientation: building.orientation,
-        }));
-        Ok(bounds)
-    }
-
-    fn contains(&self, point: Vec2) -> bool {
-        self.orientation
-            .world_to_local(point - self.centre)
-            .abs()
-            .cmple(self.half_extents + Vec2::splat(STREET_CAMERA_CLEARANCE_METRES))
-            .all()
-    }
-}
-
-#[derive(Clone, Copy)]
-struct Bounds2 {
-    min: Vec2,
-    max: Vec2,
-}
-
-impl Bounds2 {
-    fn from_points(points: impl Iterator<Item = Vec2>) -> Self {
-        let bounds = points.fold(None::<Self>, |bounds, point| {
-            Some(match bounds {
-                None => Self {
-                    min: point,
-                    max: point,
-                },
-                Some(bounds) => Self {
-                    min: bounds.min.min(point),
-                    max: bounds.max.max(point),
-                },
-            })
-        });
-        bounds.expect("city-review fixture lacks building placements")
-    }
-
-    fn centre(self) -> Vec3 {
-        let centre = (self.min + self.max) * 0.5;
-        Vec3::new(centre.x, 4.0, centre.y)
-    }
-
-    fn radius(self) -> f32 {
-        ((self.max - self.min).max_element() * 0.5).max(20.0)
-    }
-
-    fn oblique_camera(self, distance_scale: f32, height_scale: f32) -> BuildingReviewCamera {
-        let target = self.centre();
-        let radius = self.radius();
-        BuildingReviewCamera {
-            position: target + Vec3::new(radius * distance_scale, radius * height_scale, radius),
-            target,
-            plaster_raking_light: None,
-        }
-    }
-
-    fn edge_camera(self) -> BuildingReviewCamera {
-        let target = self.centre();
-        let radius = self.radius();
-        BuildingReviewCamera {
-            position: target + Vec3::new(radius * 1.45, radius * 0.18, radius * 0.35),
-            target,
-            plaster_raking_light: None,
-        }
-    }
-
-    fn aerial_camera(self) -> BuildingReviewCamera {
-        let target = self.centre();
-        let radius = self.radius();
-        BuildingReviewCamera {
-            position: target + Vec3::new(0.0, radius * 1.7, radius * 0.18),
-            target,
-            plaster_raking_light: None,
-        }
-    }
-
-    fn horizon_camera(self) -> BuildingReviewCamera {
-        let target = self.centre();
-        let radius = self.radius();
-        BuildingReviewCamera {
-            position: target + Vec3::new(0.0, radius * 0.12, radius * 2.35),
-            target,
-            plaster_raking_light: None,
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -321,9 +323,17 @@ mod tests {
 
     fn corridor(orientation: BuildingOrientation) -> CityStreetPatch {
         CityStreetPatch::Corridor {
-            start_metres: orientation.local_to_world(Vec2::new(-60.0, 0.0)),
-            end_metres: orientation.local_to_world(Vec2::new(60.0, 0.0)),
-            half_width_metres: 3.0,
+            start_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                orientation.local_to_world(Vec2::new(-60.0, 0.0)),
+            )
+            .unwrap(),
+            end_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                orientation.local_to_world(Vec2::new(60.0, 0.0)),
+            )
+            .unwrap(),
+            half_width_metres:
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(3.0)
+                    .unwrap(),
             surface: CityStreetSurface::Fieldstone,
         }
     }

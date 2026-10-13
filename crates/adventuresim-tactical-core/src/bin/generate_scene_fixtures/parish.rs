@@ -18,10 +18,6 @@ pub(super) fn fixture() -> Fixture {
     }
 }
 
-fn open_yard(_: f32, _: f32) -> EnvironmentalSample {
-    sample(TacticalSurface::Open, 0, 0, 0, 0)
-}
-
 pub(super) fn buildings() -> Result<
     Vec<TacticalBuildingPlacement>,
     adventuresim_building_generator::spatial_geometry::GeometryError,
@@ -54,21 +50,26 @@ pub(super) fn buildings() -> Result<
                         adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
                             Vec2::new((column as f32 - 1.0) * 60.0, 45.0 - row as f32 * 90.0),
                         )?,
-                    orientation: BuildingOrientation::from_radians(-std::f32::consts::PI).unwrap(),
+                    orientation: BuildingOrientation::from_radians(-std::f32::consts::PI).ok_or(adventuresim_building_generator::spatial_geometry::GeometryError::InvalidProjection)?,
                 })
             })
         })
         .collect()
 }
 
-pub(super) fn yards() -> Vec<CityYardPatch> {
-    vec![CityYardPatch {
-        corners_metres: [
+pub(super) fn yards()
+-> adventuresim_building_generator::spatial_geometry::GeometryResult<Vec<CityYardPatch>> {
+    Ok(vec![CityYardPatch {
+        corners_metres: scene_corners([
             Vec2::new(-120.0, -120.0),
             Vec2::new(120.0, -120.0),
             Vec2::new(120.0, 120.0),
             Vec2::new(-120.0, 120.0),
-        ],
+        ])?,
         surface: CityYardSurface::PackedEarth,
-    }]
+    }])
+}
+
+fn open_yard(_: f32, _: f32) -> EnvironmentalSample {
+    sample(TacticalSurface::Open, 0, 0, 0, 0)
 }

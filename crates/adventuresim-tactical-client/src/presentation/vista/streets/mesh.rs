@@ -56,6 +56,9 @@ impl CitySurfaceMeshBuilder {
                 half_width_metres,
                 ..
             } => {
+                let start_metres = start_metres.metres();
+                let end_metres = end_metres.metres();
+                let half_width_metres = half_width_metres.metres();
                 let tangent = (end_metres - start_metres).normalize();
                 let normal = Vec2::new(-tangent.y, tangent.x) * half_width_metres;
                 SurfacePatch {
@@ -69,12 +72,16 @@ impl CitySurfaceMeshBuilder {
                     kind: PatchKind::Corridor,
                 }
             }
-            CityStreetPatch::Market { corners_metres, .. } => SurfacePatch {
-                corners: corners_metres,
-                // The plaza owns crossing wear above the streets beneath it.
-                lift_metres: lift_metres + MARKET_PRIORITY_LIFT_METRES,
-                kind: PatchKind::Market,
-            },
+            CityStreetPatch::Market { corners_metres, .. } => {
+                let corners_metres = corners_metres
+                    .map(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::metres);
+                SurfacePatch {
+                    corners: corners_metres,
+                    // The plaza owns crossing wear above the streets beneath it.
+                    lift_metres: lift_metres + MARKET_PRIORITY_LIFT_METRES,
+                    kind: PatchKind::Market,
+                }
+            }
         };
         self.append(patch, &[], support, groups);
     }
@@ -87,17 +94,27 @@ impl CitySurfaceMeshBuilder {
         groups: &partition::SpatialIndex<'_, FurnitureGroup>,
     ) {
         let exclusions = beds
-            .candidates(yard.corners_metres)
+            .candidates(
+                yard.corners_metres
+                    .map(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::metres),
+            )
             .into_iter()
             .copied()
             .filter(|bed| {
                 yard.surface == CityYardSurface::PackedEarth
-                    && partition::overlaps(yard.corners_metres, *bed)
+                    && partition::overlaps(
+                        yard.corners_metres.map(
+                            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::metres,
+                        ),
+                        *bed,
+                    )
             })
             .collect::<Vec<_>>();
         self.append(
             SurfacePatch {
-                corners: yard.corners_metres,
+                corners: yard
+                    .corners_metres
+                    .map(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::metres),
                 lift_metres: YARD_SURFACE_LIFT_METRES,
                 kind: PatchKind::Yard,
             },
@@ -218,9 +235,21 @@ mod tests {
         let groups = empty_groups();
         builder.append_street(
             CityStreetPatch::Corridor {
-                start_metres: Vec2::ZERO,
-                end_metres: Vec2::new(0.5, 0.01),
-                half_width_metres: 3.5,
+                start_metres:
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::ZERO,
+                    )
+                    .unwrap(),
+                end_metres:
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(0.5, 0.01),
+                    )
+                    .unwrap(),
+                half_width_metres:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        3.5,
+                    )
+                    .unwrap(),
                 surface: CityStreetSurface::Fieldstone,
             },
             &support,
@@ -269,7 +298,12 @@ mod tests {
             let mut builder = CitySurfaceMeshBuilder::default();
             builder.append_street(
                 CityStreetPatch::Market {
-                    corners_metres: corners,
+                    corners_metres: corners.map(|point| {
+                        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                            point,
+                        )
+                        .unwrap()
+                    }),
                     surface: CityStreetSurface::Fieldstone,
                 },
                 &support,
@@ -308,9 +342,21 @@ mod tests {
         let groups = empty_groups();
         builder.append_street(
             CityStreetPatch::Corridor {
-                start_metres: Vec2::new(-12.0, 0.0),
-                end_metres: Vec2::new(12.0, 0.0),
-                half_width_metres: 2.0,
+                start_metres:
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(-12.0, 0.0),
+                    )
+                    .unwrap(),
+                end_metres:
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(12.0, 0.0),
+                    )
+                    .unwrap(),
+                half_width_metres:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        2.0,
+                    )
+                    .unwrap(),
                 surface: CityStreetSurface::Fieldstone,
             },
             &support,

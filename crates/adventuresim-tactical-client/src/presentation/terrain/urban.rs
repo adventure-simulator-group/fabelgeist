@@ -8,6 +8,20 @@ use super::*;
 
 pub(in crate::presentation) struct UrbanGroundCoveragePlugin;
 
+#[derive(Component)]
+struct GroundCoverage {
+    revision: u64,
+    topology: GroundTopology,
+}
+
+/// Accepted owned surfaces retain vertical steps and multiple support levels;
+/// streets also require canonical fine terrain beneath their clipped geometry.
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub(super) enum GroundTopology {
+    Canonical,
+    Sampled,
+}
+
 impl Plugin for UrbanGroundCoveragePlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(
@@ -17,14 +31,6 @@ impl Plugin for UrbanGroundCoveragePlugin {
                 .after(update_terrain_detail_patch),
         );
     }
-}
-
-/// Accepted owned surfaces retain vertical steps and multiple support levels;
-/// streets also require canonical fine terrain beneath their clipped geometry.
-#[derive(Clone, Copy, PartialEq, Eq)]
-pub(super) enum GroundTopology {
-    Canonical,
-    Sampled,
 }
 
 impl GroundTopology {
@@ -39,12 +45,6 @@ impl GroundTopology {
             Self::Sampled
         }
     }
-}
-
-#[derive(Component)]
-struct GroundCoverage {
-    revision: u64,
-    topology: GroundTopology,
 }
 
 pub(in crate::presentation) fn urban_playable_mesh(
@@ -239,9 +239,21 @@ mod tests {
             compounds: Vec::new(),
             gardens: Vec::new(),
             streets: vec![CityStreetPatch::Corridor {
-                start_metres: Vec2::new(-3.0, 0.0),
-                end_metres: Vec2::new(3.0, 0.0),
-                half_width_metres: 1.0,
+                start_metres:
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(-3.0, 0.0),
+                    )
+                    .unwrap(),
+                end_metres:
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(3.0, 0.0),
+                    )
+                    .unwrap(),
+                half_width_metres:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        1.0,
+                    )
+                    .unwrap(),
                 surface: CityStreetSurface::Fieldstone,
             }],
         };

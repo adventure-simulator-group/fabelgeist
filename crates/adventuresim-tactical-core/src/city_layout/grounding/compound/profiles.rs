@@ -85,41 +85,6 @@ pub(super) fn court(
     })
 }
 
-fn court_sequence(
-    property: &CityCompound,
-    points: Vec<Option<ProfilePoint>>,
-) -> Result<SupportProfile, SupportDiagnostic> {
-    SupportProfile::stepped(
-        points
-            .into_iter()
-            .collect::<Option<Vec<_>>>()
-            .ok_or_else(|| {
-                SupportDiagnostic::new(
-                    property,
-                    SupportConstraint::Reservation,
-                    SupportBoundary::CourtLanding,
-                    property.court.centre_metres(),
-                    1.0,
-                    0.0,
-                )
-            })?,
-    )
-    .map_err(|error| {
-        SupportDiagnostic::new(
-            property,
-            SupportConstraint::Reservation,
-            SupportBoundary::CourtLanding,
-            property.plot.centre_metres()
-                + property
-                    .plot
-                    .orientation()
-                    .local_to_world(Vec2::Y * error.coordinate().metres()),
-            1.0,
-            0.0,
-        )
-    })
-}
-
 pub(super) fn passage(
     property: &CityCompound,
     levels: CompoundSupportLevels,
@@ -129,7 +94,8 @@ pub(super) fn passage(
     let delta = route.end_metres() - route.start_metres();
     let length = delta.length();
     let direction = delta / length;
-    let gate = (property.boundary.gate.centre_metres - route.start_metres()).dot(direction);
+    let gate =
+        (property.boundary.gate.centre_metres.metres() - route.start_metres()).dot(direction);
     let door = property
         .boundary
         .gate
@@ -168,4 +134,39 @@ pub(super) fn passage(
         SupportBoundary::GateLanding,
         |distance| route.start_metres() + direction * distance.metres(),
     )
+}
+
+fn court_sequence(
+    property: &CityCompound,
+    points: Vec<Option<ProfilePoint>>,
+) -> Result<SupportProfile, SupportDiagnostic> {
+    SupportProfile::stepped(
+        points
+            .into_iter()
+            .collect::<Option<Vec<_>>>()
+            .ok_or_else(|| {
+                SupportDiagnostic::new(
+                    property,
+                    SupportConstraint::Reservation,
+                    SupportBoundary::CourtLanding,
+                    property.court.centre_metres(),
+                    1.0,
+                    0.0,
+                )
+            })?,
+    )
+    .map_err(|error| {
+        SupportDiagnostic::new(
+            property,
+            SupportConstraint::Reservation,
+            SupportBoundary::CourtLanding,
+            property.plot.centre_metres()
+                + property
+                    .plot
+                    .orientation()
+                    .local_to_world(Vec2::Y * error.coordinate().metres()),
+            1.0,
+            0.0,
+        )
+    })
 }

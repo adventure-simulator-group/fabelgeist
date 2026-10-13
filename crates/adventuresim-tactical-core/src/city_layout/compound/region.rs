@@ -142,10 +142,6 @@ impl CityPlotBounds {
 impl TryFrom<CityBuildingLot> for CityPlotBounds {
     type Error = GeometryError;
     fn try_from(lot: CityBuildingLot) -> Result<Self, GeometryError> {
-        Self::new(
-            ScenePlanPoint::try_from(lot.centre_metres)?,
-            PlanDimensions::from_metres(lot.footprint_metres)?,
-            lot.orientation,
-        )
+        Self::new(lot.centre_metres, lot.footprint_metres, lot.orientation)
     }
 }

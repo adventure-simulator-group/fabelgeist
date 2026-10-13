@@ -33,12 +33,13 @@ fn fixture() -> (
         environment: vec![EnvironmentalSample::default(); 81 * 81],
     };
     input.streets = vec![CityStreetPatch::Market {
-        corners_metres: [
+        corners_metres: ([
             Vec2::splat(-25.0),
             Vec2::new(25.0, -25.0),
             Vec2::splat(25.0),
             Vec2::new(-25.0, 25.0),
-        ],
+        ])
+        .map(|point| crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap()),
         surface: CityStreetSurface::Fieldstone,
     }];
     input.buildings = [
@@ -301,9 +302,13 @@ fn inserted_street_obstruction_removes_every_conflicting_group() {
         .unwrap();
     let centre = group.footprint.centre().metres();
     input.streets.push(CityStreetPatch::Corridor {
-        start_metres: centre - Vec2::X * 12.0,
-        end_metres: centre + Vec2::X * 12.0,
-        half_width_metres: 3.0,
+        start_metres: crate::scene_coordinates::ScenePlanPoint::try_from(centre - Vec2::X * 12.0)
+            .unwrap(),
+        end_metres: crate::scene_coordinates::ScenePlanPoint::try_from(centre + Vec2::X * 12.0)
+            .unwrap(),
+        half_width_metres:
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(3.0)
+                .unwrap(),
         surface: CityStreetSurface::CompactedEarth,
     });
     let changed = generate(
@@ -449,7 +454,7 @@ fn market_population_scales_with_area_without_obstructing_aisles() {
     .unwrap();
     if let CityStreetPatch::Market { corners_metres, .. } = &mut input.streets[0] {
         for p in corners_metres {
-            *p *= 1.4;
+            *p = crate::scene_coordinates::ScenePlanPoint::try_from(p.metres() * 1.4).unwrap();
         }
     }
     let large = generate(

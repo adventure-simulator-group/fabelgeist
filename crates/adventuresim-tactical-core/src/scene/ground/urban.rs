@@ -11,6 +11,27 @@ use std::{collections::BTreeMap, sync::OnceLock};
 #[derive(Default, Debug, Clone)]
 struct SpatialBuckets(BTreeMap<(i32, i32), Vec<usize>>);
 
+/// Exact urban-surface queries accelerated by a coarse spatial lookup.
+#[derive(Default, Debug, Clone)]
+pub struct UrbanGroundLookup {
+    streets: Vec<CityStreetPatch>,
+    yards: Vec<CityYardPatch>,
+    buildings: Vec<CityPlotBounds>,
+    street_buckets: SpatialBuckets,
+    yard_buckets: SpatialBuckets,
+    building_buckets: SpatialBuckets,
+}
+
+#[derive(Default, Serialize, Deserialize, Debug, Reflect, Clone)]
+pub struct UrbanGroundSurfaces {
+    streets: Vec<CityStreetPatch>,
+    yards: Vec<CityYardPatch>,
+    buildings: Vec<CityPlotBounds>,
+    #[serde(skip)]
+    #[reflect(ignore)]
+    lookup: OnceLock<UrbanGroundLookup>,
+}
+
 impl SpatialBuckets {
     fn new(bounds: impl IntoIterator<Item = (Vec2, Vec2)>) -> Self {
         let mut buckets = BTreeMap::<(i32, i32), Vec<usize>>::new();
@@ -42,17 +63,6 @@ impl SpatialBuckets {
     }
 }
 
-/// Exact urban-surface queries accelerated by a coarse spatial lookup.
-#[derive(Default, Debug, Clone)]
-pub struct UrbanGroundLookup {
-    streets: Vec<CityStreetPatch>,
-    yards: Vec<CityYardPatch>,
-    buildings: Vec<CityPlotBounds>,
-    street_buckets: SpatialBuckets,
-    yard_buckets: SpatialBuckets,
-    building_buckets: SpatialBuckets,
-}
-
 impl UrbanGroundLookup {
     pub fn new(
         streets: &[CityStreetPatch],
@@ -64,9 +74,12 @@ impl UrbanGroundLookup {
             yards: yards.to_vec(),
             buildings: buildings.to_vec(),
             street_buckets: SpatialBuckets::new(streets.iter().map(street_bounds)),
-            yard_buckets: SpatialBuckets::new(
-                yards.iter().map(|yard| corners_bounds(yard.corners_metres)),
-            ),
+            yard_buckets: SpatialBuckets::new(yards.iter().map(|yard| {
+                corners_bounds(
+                    yard.corners_metres
+                        .map(crate::scene_coordinates::ScenePlanPoint::metres),
+                )
+            })),
             building_buckets: SpatialBuckets::new(
                 buildings
                     .iter()
@@ -138,10 +151,15 @@ impl UrbanGroundLookup {
                     half_width_metres,
                     ..
                 } => {
+                    let start_metres = start_metres.metres();
+                    let end_metres = end_metres.metres();
+                    let half_width_metres = half_width_metres.metres();
                     segment_distance(centre, start_metres, end_metres)
                         <= radius_metres + half_width_metres
                 }
                 CityStreetPatch::Market { corners_metres, .. } => {
+                    let corners_metres =
+                        corners_metres.map(crate::scene_coordinates::ScenePlanPoint::metres);
                     self.streets[index].contains(centre)
                         || touches_edges(centre, radius_metres, corners_metres)
                 }
@@ -152,7 +170,12 @@ impl UrbanGroundLookup {
                 .any(|index| {
                     let yard = self.yards[index];
                     yard.contains(centre)
-                        || touches_edges(centre, radius_metres, yard.corners_metres)
+                        || touches_edges(
+                            centre,
+                            radius_metres,
+                            yard.corners_metres
+                                .map(crate::scene_coordinates::ScenePlanPoint::metres),
+                        )
                 })
             || self
                 .building_buckets
@@ -163,16 +186,6 @@ impl UrbanGroundLookup {
                         || touches_edges(centre, radius_metres, bounds.corners())
                 })
     }
-}
-
-#[derive(Default, Serialize, Deserialize, Debug, Reflect, Clone)]
-pub struct UrbanGroundSurfaces {
-    streets: Vec<CityStreetPatch>,
-    yards: Vec<CityYardPatch>,
-    buildings: Vec<CityPlotBounds>,
-    #[serde(skip)]
-    #[reflect(ignore)]
-    lookup: OnceLock<UrbanGroundLookup>,
 }
 
 impl PartialEq for UrbanGroundSurfaces {
@@ -220,12 +233,13 @@ impl UrbanGroundSurfaces {
     pub(super) fn garden_test() -> Self {
         Self {
             yards: vec![CityYardPatch {
-                corners_metres: [
+                corners_metres: ([
                     Vec2::new(0.3, 0.3),
                     Vec2::new(1.7, 0.3),
                     Vec2::new(1.7, 1.7),
                     Vec2::new(0.3, 1.7),
-                ],
+                ])
+                .map(|point| crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap()),
                 surface: crate::city_layout::CityYardSurface::KitchenGarden,
             }],
             ..Default::default()
@@ -240,11 +254,20 @@ fn street_bounds(street: &CityStreetPatch) -> (Vec2, Vec2) {
             end_metres,
             half_width_metres,
             ..
-        } => (
-            start_metres.min(end_metres) - Vec2::splat(half_width_metres),
-            start_metres.max(end_metres) + Vec2::splat(half_width_metres),
-        ),
-        CityStreetPatch::Market { corners_metres, .. } => corners_bounds(corners_metres),
+        } => {
+            let start_metres = start_metres.metres();
+            let end_metres = end_metres.metres();
+            let half_width_metres = half_width_metres.metres();
+            (
+                start_metres.min(end_metres) - Vec2::splat(half_width_metres),
+                start_metres.max(end_metres) + Vec2::splat(half_width_metres),
+            )
+        }
+        CityStreetPatch::Market { corners_metres, .. } => {
+            let corners_metres =
+                corners_metres.map(crate::scene_coordinates::ScenePlanPoint::metres);
+            corners_bounds(corners_metres)
+        }
     }
 }
 
@@ -273,25 +296,46 @@ mod tests {
     fn spatial_lookup_matches_exact_urban_ownership_across_bucket_boundaries() {
         let streets = [
             CityStreetPatch::Corridor {
-                start_metres: Vec2::new(-45.0, 17.0),
-                end_metres: Vec2::new(48.0, 17.0),
-                half_width_metres: 3.0,
+                start_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(
+                    -45.0, 17.0,
+                ))
+                .unwrap(),
+                end_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(
+                    48.0, 17.0,
+                ))
+                .unwrap(),
+                half_width_metres:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        3.0,
+                    )
+                    .unwrap(),
                 surface: CityStreetSurface::CompactedEarth,
             },
             CityStreetPatch::Corridor {
-                start_metres: Vec2::new(1.0, -12.0),
-                end_metres: Vec2::new(1.0, 42.0),
-                half_width_metres: 2.0,
+                start_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(
+                    1.0, -12.0,
+                ))
+                .unwrap(),
+                end_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(
+                    1.0, 42.0,
+                ))
+                .unwrap(),
+                half_width_metres:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        2.0,
+                    )
+                    .unwrap(),
                 surface: CityStreetSurface::Fieldstone,
             },
         ];
         let yards = [CityYardPatch {
-            corners_metres: [
+            corners_metres: ([
                 Vec2::new(31.0, -8.0),
                 Vec2::new(39.0, -5.0),
                 Vec2::new(36.0, 4.0),
                 Vec2::new(28.0, 1.0),
-            ],
+            ])
+            .map(|point| crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap()),
             surface: crate::city_layout::CityYardSurface::PackedEarth,
         }];
         let lookup = UrbanGroundLookup::new(&streets, &yards, &[]);

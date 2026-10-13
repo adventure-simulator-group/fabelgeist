@@ -2,7 +2,7 @@
 use super::*;
 
 impl CompiledCityLayout {
-    pub(super) fn seat_single_bearings(&mut self) -> Result<(), CityCompileError> {
+    pub(super) fn seat_single_bearings(&mut self) -> CityCompileResult<()> {
         for property in &self.single_properties {
             let building = self
                 .buildings
@@ -77,7 +77,7 @@ impl CompiledCityLayout {
         self.reconnect_garden_lanes()
     }
 
-    fn reconnect_garden_lanes(&mut self) -> Result<(), CityCompileError> {
+    fn reconnect_garden_lanes(&mut self) -> CityCompileResult<()> {
         for garden in &mut self.gardens {
             let building = self
                 .buildings
@@ -117,30 +117,19 @@ impl CompiledCityLayout {
             } else {
                 (min - clearance - lane).min(0.0)
             };
-            let delta = garden.plot.orientation().local_to_world(Vec2::X * offset);
-            garden.access[0] = garden.access[0].translated(
-                crate::scene_coordinates::PlanDisplacement::try_from(delta)?,
-                crate::scene_coordinates::PlanDisplacement::try_from(delta)?,
+            let delta = crate::scene_coordinates::PlanDisplacement::try_from(
+                garden.plot.orientation().local_to_world(Vec2::X * offset),
             )?;
+            garden.access[0] = garden.access[0].translated(delta, delta)?;
             for route in &mut garden.access[1..] {
                 if route.start_metres().distance(junction)
                     <= CityAccessSegment::JOIN_TOLERANCE_METRES
                 {
-                    *route = route.with_endpoints(
-                        route.start().translated(
-                            crate::scene_coordinates::PlanDisplacement::try_from(delta)?,
-                        )?,
-                        route.end(),
-                    )?;
+                    *route = route.with_endpoints(route.start().translated(delta)?, route.end())?;
                 }
                 if route.end_metres().distance(junction) <= CityAccessSegment::JOIN_TOLERANCE_METRES
                 {
-                    *route = route.with_endpoints(
-                        route.start(),
-                        route.end().translated(
-                            crate::scene_coordinates::PlanDisplacement::try_from(delta)?,
-                        )?,
-                    )?;
+                    *route = route.with_endpoints(route.start(), route.end().translated(delta)?)?;
                 }
             }
             garden

@@ -2,8 +2,6 @@
 use super::*;
 use adventuresim_world_schema::settlement_buildings::{ParishBuildingRole, ParishPopulation};
 use serde::{Deserialize, Serialize};
-#[cfg(test)]
-mod tests;
 
 pub const CITY_PARISH_PRECINCT_RADIUS_METRES: f32 = 90.0;
 
@@ -23,7 +21,7 @@ pub struct CityParish {
 }
 
 impl GeneratedCityLayout {
-    pub fn parish_layout(&self) -> Result<Vec<CityParish>, CityCompileError> {
+    pub fn parish_layout(&self) -> CityCompileResult<Vec<CityParish>> {
         let lots = &self.lots;
         let programmes = &self.parishes;
         let mut parishes = Vec::new();
@@ -48,9 +46,10 @@ impl GeneratedCityLayout {
                     population: ParishPopulation(0),
                     ..programme
                 },
-                church_building_id: church.id.into(),
-                rectory_building_id: rectory.id.into(),
-                school_building_id: member(ParishBuildingRole::TownSchool).map(|lot| lot.id.into()),
+                church_building_id: church.front_building_id(),
+                rectory_building_id: rectory.front_building_id(),
+                school_building_id: member(ParishBuildingRole::TownSchool)
+                    .map(|lot| lot.front_building_id()),
                 residences: Vec::new(),
             });
         }
@@ -65,28 +64,35 @@ impl GeneratedCityLayout {
             let target = remaining.div_ceil((successors + 1) as u32);
             houses.sort_by(|a, b| {
                 b.centre_metres
-                    .distance_squared(centres[index])
-                    .total_cmp(&a.centre_metres.distance_squared(centres[index]))
+                    .metres()
+                    .distance_squared(centres[index].metres())
+                    .total_cmp(
+                        &a.centre_metres
+                            .metres()
+                            .distance_squared(centres[index].metres()),
+                    )
                     .then_with(|| b.id.cmp(&a.id))
             });
             while parish.programme.population.0 < target && houses.len() > successors {
-                let lot = houses.pop().expect("available house count was checked");
+                let lot = houses.pop().ok_or(CityCompileError::Parish {
+                    parish: parish.programme.id,
+                })?;
                 // Every selected dwelling represents occupied housing. Reserve
                 // at least one resident for each house still awaiting assignment.
                 let residents = remaining
                     .saturating_sub(houses.len() as u32)
-                    .min(lot.house_class.resident_capacity());
+                    .min(lot.house_class.resident_capacity().get());
                 remaining -= residents;
                 parish.programme.population.0 += residents;
                 parish.residences.push(ParishResidenceAllocation {
-                    building_id: lot.id.into(),
+                    building_id: lot.front_building_id(),
                     residents: ParishPopulation(residents),
                 });
             }
         }
         if remaining > 0 {
             return Err(CityCompileError::Capacity {
-                residents: remaining,
+                residents: ResidentCount::new(remaining),
                 services: 0,
             });
         }
@@ -101,3 +107,5 @@ impl GeneratedCityLayout {
         Ok(parishes)
     }
 }
+#[cfg(test)]
+mod tests;

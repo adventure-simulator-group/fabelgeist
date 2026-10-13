@@ -2,9 +2,17 @@ use super::*;
 
 fn road(start: Vec2, end: Vec2, half_width: f32) -> CityStreetPatch {
     CityStreetPatch::Corridor {
-        start_metres: start,
-        end_metres: end,
-        half_width_metres: half_width,
+        start_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+            start,
+        )
+        .unwrap(),
+        end_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(end)
+            .unwrap(),
+        half_width_metres:
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                half_width,
+            )
+            .unwrap(),
         surface: CityStreetSurface::Fieldstone,
     }
 }
@@ -14,12 +22,16 @@ fn indexed_clearance_preserves_road_and_market_coverage_at_tile_boundaries() {
     let streets = [
         road(Vec2::new(-70.0, -65.0), Vec2::new(90.0, 70.0), 4.0),
         CityStreetPatch::Market {
-            corners_metres: [
+            corners_metres: ([
                 Vec2::new(60.0, -4.0),
                 Vec2::new(70.0, -4.0),
                 Vec2::new(70.0, 8.0),
                 Vec2::new(60.0, 8.0),
-            ],
+            ])
+            .map(|point| {
+                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(point)
+                    .unwrap()
+            }),
             surface: CityStreetSurface::Fieldstone,
         },
     ];
@@ -111,7 +123,12 @@ fn masks_are_order_independent_and_share_identical_filter_gutters() {
                 end_metres,
                 half_width_metres,
                 ..
-            } => road(end_metres, start_metres, half_width_metres),
+            } => {
+                let start_metres = start_metres.metres();
+                let end_metres = end_metres.metres();
+                let half_width_metres = half_width_metres.metres();
+                road(end_metres, start_metres, half_width_metres)
+            }
             _ => unreachable!(),
         })
         .collect::<Vec<_>>();

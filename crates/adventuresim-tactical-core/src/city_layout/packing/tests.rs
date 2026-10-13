@@ -1,6 +1,38 @@
 use super::*;
 use intervals::PackingClearance;
 
+pub(super) fn record_garden_failure(
+    original: &[gardens::CityGarden],
+    translated: &CompiledCityLayout,
+    translations: &BTreeMap<CityPropertyId, PlanDisplacement>,
+    validation: &CityCompileResult<()>,
+) {
+    let Err(CityCompileError::Packing {
+        property,
+        issue: CityPackingIssue::Garden { .. },
+    }) = validation
+    else {
+        return;
+    };
+    let Some(path) = std::env::var_os("FABELGEIST_SUPPORT_DIAGNOSTIC_DIR") else {
+        return;
+    };
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../..")
+        .join(path);
+    std::fs::create_dir_all(&path).unwrap();
+    std::fs::write(
+        path.join(format!("packing-garden-{}.json", property.0)),
+        serde_json::to_vec_pretty(&serde_json::json!({
+            "original":original.iter().find(|g|g.owner==*property),
+            "translated":translated.gardens.iter().find(|g|g.owner==*property),
+            "translation":translations[property].metres(), "error":format!("{validation:?}"),
+        }))
+        .unwrap(),
+    )
+    .unwrap();
+}
+
 fn bounds(centre: Vec2, dimensions: Vec2, yaw: f32) -> CityPlotBounds {
     CityPlotBounds::new(
         crate::scene_coordinates::ScenePlanPoint::try_from(centre).unwrap(),
@@ -25,12 +57,9 @@ fn rotated_translation_intervals_reject_real_overlap_and_retain_the_clear_slot()
         PackingClearance::BuildingBody,
         DVec2::ZERO,
     )
+    .unwrap()
     .unwrap();
-    let available = FrontageInterval {
-        minimum_metres: -1.0,
-        maximum_metres: 0.0,
-    }
-    .without(forbidden);
+    let available = FrontageInterval::new(-1.0, 0.0).unwrap().without(forbidden);
     let correction = available
         .iter()
         .map(FrontageInterval::nearest_origin)
@@ -69,11 +98,9 @@ fn empty_corners_of_combined_roof_and_ground_bounds_do_not_claim_occupancy() {
     assert!(
         first
             .forbidden_displacements(&second, Dir2::X, DVec2::ZERO)
+            .unwrap()
             .iter()
-            .all(|range| !range.intersects(FrontageInterval {
-                minimum_metres: -0.001,
-                maximum_metres: 0.001
-            }))
+            .all(|range| !range.intersects(FrontageInterval::new(-0.001, 0.001).unwrap()))
     );
 }
 
@@ -124,38 +151,6 @@ fn translated_rotated_child_edges_remain_contained_but_real_excess_is_rejected()
     }
 }
 
-pub(super) fn record_garden_failure(
-    original: &[gardens::CityGarden],
-    translated: &CompiledCityLayout,
-    translations: &BTreeMap<CityPropertyId, Vec2>,
-    validation: &Result<(), CityCompileError>,
-) {
-    let Err(CityCompileError::Packing {
-        property,
-        issue: CityPackingIssue::Garden { .. },
-    }) = validation
-    else {
-        return;
-    };
-    let Some(path) = std::env::var_os("FABELGEIST_SUPPORT_DIAGNOSTIC_DIR") else {
-        return;
-    };
-    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("../..")
-        .join(path);
-    std::fs::create_dir_all(&path).unwrap();
-    std::fs::write(
-        path.join(format!("packing-garden-{}.json", property.0)),
-        serde_json::to_vec_pretty(&serde_json::json!({
-            "original":original.iter().find(|g|g.owner==*property),
-            "translated":translated.gardens.iter().find(|g|g.owner==*property),
-            "translation":translations[property], "error":format!("{validation:?}"),
-        }))
-        .unwrap(),
-    )
-    .unwrap();
-}
-
 #[test]
 fn measured_roof_projection_cannot_block_garden_working_or_planting_space() {
     use context::ParcelGeometry;
@@ -196,13 +191,14 @@ fn measured_roof_projection_cannot_block_garden_working_or_planting_space() {
     };
     let extreme = plant
         .world_hull()
+        .unwrap()
         .into_iter()
-        .max_by(|a, b| a.x.total_cmp(&b.x))
+        .max_by(|a, b| a.metres().x.total_cmp(&b.metres().x))
         .unwrap();
     for centre in [
         Vec2::new(1.0, 2.0),
         Vec2::new(-1.0, 3.0),
-        extreme + Vec2::new(0.02, 0.0),
+        extreme.metres() + Vec2::new(0.02, 0.0),
     ] {
         let body = bounds(centre, Vec2::splat(0.01), 0.0);
         assert!(!garden.clears_building(body));
@@ -212,7 +208,7 @@ fn measured_roof_projection_cannot_block_garden_working_or_planting_space() {
             bearings: Vec::new(),
             garden: None,
         };
-        let blocked = |a: &ParcelGeometry, b: &ParcelGeometry| !a.clears(b);
+        let blocked = |a: &ParcelGeometry, b: &ParcelGeometry| !a.clears(b).unwrap();
         assert!(
             blocked(&first, &other),
             "the solver must protect the accepted garden"
@@ -273,7 +269,12 @@ fn property_translation_keeps_garden_street_hook_and_member_offsets() {
         };
         let original = garden.clone();
         let delta = tangent * 1.2 - tangent.perp() * 2.0;
-        garden.translate(delta, tangent).unwrap();
+        garden
+            .translate(
+                PlanDisplacement::try_from(delta).unwrap(),
+                Dir2::new(tangent).unwrap(),
+            )
+            .unwrap();
         assert_eq!(garden.owner, original.owner);
         assert_eq!(garden.front_building_id, original.front_building_id);
         assert_eq!(

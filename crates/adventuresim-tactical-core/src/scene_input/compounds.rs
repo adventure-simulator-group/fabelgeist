@@ -1,8 +1,6 @@
 use super::*;
 use crate::city_layout::{CityBoundary, CityCompound, CityPropertyId, MAX_CITY_LOTS};
 use std::collections::{BTreeMap, BTreeSet};
-#[cfg(test)]
-mod tests;
 
 const MAX_PROPERTY_EXTENT_METRES: f32 = 100.0;
 const MAX_PROPERTY_ACCESS_SEGMENTS: usize = 16;
@@ -36,6 +34,11 @@ struct SceneBoundaryWire {
     boundary: CityBoundary,
     fixed_support: crate::city_layout::grounding::BoundarySupportMesh,
 }
+#[derive(Deserialize)]
+struct GeneratedBoundaryWire {
+    scene: SceneBoundary,
+    elevation_metres: crate::city_layout::grounding::SupportElevation,
+}
 impl TryFrom<SceneBoundaryWire> for SceneBoundary {
     type Error = crate::city_layout::grounding::enclosure::BoundaryAdmissionError;
     fn try_from(wire: SceneBoundaryWire) -> Result<Self, Self::Error> {
@@ -66,11 +69,6 @@ impl SceneBoundary {
         &self.fixed_support
     }
 }
-#[derive(Deserialize)]
-struct GeneratedBoundaryWire {
-    scene: SceneBoundary,
-    elevation_metres: crate::city_layout::grounding::SupportElevation,
-}
 impl TryFrom<GeneratedBoundaryWire> for GeneratedBoundary {
     type Error = crate::city_layout::grounding::enclosure::BoundaryAdmissionError;
     fn try_from(wire: GeneratedBoundaryWire) -> Result<Self, Self::Error> {
@@ -97,6 +95,42 @@ impl GeneratedBoundary {
     }
     pub fn into_scene(self) -> SceneBoundary {
         self.scene
+    }
+}
+
+impl GeneratedBoundary {
+    /// Project the complete enclosure atomically from its exact accepted owner.
+    /// No member floor, neighbouring support or sampled-terrain fallback exists.
+    pub fn project(
+        compound: &CityCompound,
+        terrain: &SceneTerrain,
+    ) -> Result<Self, SceneInputError> {
+        use crate::city_layout::grounding::enclosure::{
+            BoundarySupportConstraint, BoundarySupportElement,
+        };
+        use crate::city_layout::grounding::{BoundarySupportError, BoundarySupportMesh};
+        let foundation = terrain.property_foundation(compound.id).ok_or_else(|| {
+            BoundarySupportError::new(
+                compound,
+                BoundarySupportElement::Owner,
+                BoundarySupportConstraint::OwnerBinding,
+                compound.plot.centre_metres(),
+                1.0,
+                0.0,
+            )
+        })?;
+        let policy = crate::city_layout::CompoundGradingPolicy::bounded_settlement();
+        let projection =
+            BoundarySupportMesh::project(compound, foundation, policy.limits, policy.embedment)?;
+        Ok(Self {
+            scene: SceneBoundary {
+                property_id: compound.id,
+                front_building_id: compound.front_building_id,
+                boundary: compound.boundary.clone(),
+                fixed_support: projection.mesh,
+            },
+            elevation_metres: projection.gate_elevation,
+        })
     }
 }
 pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError> {
@@ -157,100 +191,6 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
     Ok(())
 }
 
-fn validate_geometry(compound: &CityCompound) -> Result<(), SceneInputError> {
-    let bounded = |v: f32| v.is_finite() && v > 0.0 && v <= MAX_PROPERTY_EXTENT_METRES;
-    if !compound.plot.is_valid()
-        || !compound.court.is_valid()
-        || compound.plot.dimensions_metres().max_element() > MAX_PROPERTY_EXTENT_METRES
-        || compound
-            .court
-            .corners()
-            .iter()
-            .any(|p| !compound.plot.contains(*p))
-        || compound.access.is_empty()
-        || compound.access.len() > MAX_PROPERTY_ACCESS_SEGMENTS
-        || compound.boundary.walls.len() > MAX_PROPERTY_WALL_SEGMENTS
-    {
-        return invalid(SceneValidationError::CompoundPlot {
-            owner: super::validation_error::SceneOwnerContext::compound(compound),
-        });
-    }
-    for route in &compound.access {
-        if !route.start_metres().is_finite()
-            || !route.end_metres().is_finite()
-            || !bounded(route.half_width_metres())
-            || route.half_width_metres() > MAX_ACCESS_HALF_WIDTH_METRES
-            || route.start_metres().distance(route.end_metres()) > MAX_PROPERTY_EXTENT_METRES
-            || !compound.plot.contains(route.end_metres())
-        {
-            return invalid(SceneValidationError::CompoundAccess {
-                owner: super::validation_error::SceneOwnerContext::compound(compound),
-            });
-        }
-    }
-    for wall in &compound.boundary.walls {
-        if !wall.start_metres.is_finite()
-            || !wall.end_metres.is_finite()
-            || !bounded(wall.start_metres.distance(wall.end_metres))
-            || !bounded(wall.height_metres)
-            || !bounded(wall.thickness_metres)
-            || !compound.plot.contains(wall.start_metres)
-            || !compound.plot.contains(wall.end_metres)
-        {
-            return invalid(SceneValidationError::CompoundWall {
-                owner: super::validation_error::SceneOwnerContext::compound(compound),
-            });
-        }
-    }
-    let gate = compound.boundary.gate;
-    if !gate.orientation.is_valid()
-        || !compound.plot.contains(gate.centre_metres)
-        || !bounded(gate.width_metres)
-        || !bounded(gate.height_metres)
-    {
-        return invalid(SceneValidationError::CompoundGate {
-            owner: super::validation_error::SceneOwnerContext::compound(compound),
-        });
-    }
-    Ok(())
-}
-
-impl GeneratedBoundary {
-    /// Project the complete enclosure atomically from its exact accepted owner.
-    /// No member floor, neighbouring support or sampled-terrain fallback exists.
-    pub fn project(
-        compound: &CityCompound,
-        terrain: &SceneTerrain,
-    ) -> Result<Self, SceneInputError> {
-        use crate::city_layout::grounding::enclosure::{
-            BoundarySupportConstraint, BoundarySupportElement,
-        };
-        use crate::city_layout::grounding::{BoundarySupportError, BoundarySupportMesh};
-        let foundation = terrain.property_foundation(compound.id).ok_or_else(|| {
-            BoundarySupportError::new(
-                compound,
-                BoundarySupportElement::Owner,
-                BoundarySupportConstraint::OwnerBinding,
-                compound.plot.centre_metres(),
-                1.0,
-                0.0,
-            )
-        })?;
-        let policy = crate::city_layout::CompoundGradingPolicy::bounded_settlement();
-        let projection =
-            BoundarySupportMesh::project(compound, foundation, policy.limits, policy.embedment)?;
-        Ok(Self {
-            scene: SceneBoundary {
-                property_id: compound.id,
-                front_building_id: compound.front_building_id,
-                boundary: compound.boundary.clone(),
-                fixed_support: projection.mesh,
-            },
-            elevation_metres: projection.gate_elevation,
-        })
-    }
-}
-
 pub(super) fn generate(
     compounds: &[CityCompound],
     buildings: &[GeneratedBuilding],
@@ -292,3 +232,67 @@ pub(super) fn validate_generated(
     }
     Ok(())
 }
+
+fn validate_geometry(compound: &CityCompound) -> Result<(), SceneInputError> {
+    let bounded = |v: f32| v.is_finite() && v > 0.0 && v <= MAX_PROPERTY_EXTENT_METRES;
+    if !compound.plot.is_valid()
+        || !compound.court.is_valid()
+        || compound.plot.dimensions_metres().max_element() > MAX_PROPERTY_EXTENT_METRES
+        || compound
+            .court
+            .corners()
+            .iter()
+            .any(|p| !compound.plot.contains(*p))
+        || compound.access.is_empty()
+        || compound.access.len() > MAX_PROPERTY_ACCESS_SEGMENTS
+        || compound.boundary.walls.len() > MAX_PROPERTY_WALL_SEGMENTS
+    {
+        return invalid(SceneValidationError::CompoundPlot {
+            owner: super::validation_error::SceneOwnerContext::compound(compound),
+        });
+    }
+    for route in &compound.access {
+        if !route.start_metres().is_finite()
+            || !route.end_metres().is_finite()
+            || !bounded(route.half_width_metres())
+            || route.half_width_metres() > MAX_ACCESS_HALF_WIDTH_METRES
+            || route.start_metres().distance(route.end_metres()) > MAX_PROPERTY_EXTENT_METRES
+            || !compound.plot.contains(route.end_metres())
+        {
+            return invalid(SceneValidationError::CompoundAccess {
+                owner: super::validation_error::SceneOwnerContext::compound(compound),
+            });
+        }
+    }
+    for wall in &compound.boundary.walls {
+        if !wall.start_metres.metres().is_finite()
+            || !wall.end_metres.metres().is_finite()
+            || !bounded(
+                wall.start_metres
+                    .metres()
+                    .distance(wall.end_metres.metres()),
+            )
+            || !bounded(wall.height_metres.metres())
+            || !bounded(wall.thickness_metres.metres())
+            || !compound.plot.contains(wall.start_metres.metres())
+            || !compound.plot.contains(wall.end_metres.metres())
+        {
+            return invalid(SceneValidationError::CompoundWall {
+                owner: super::validation_error::SceneOwnerContext::compound(compound),
+            });
+        }
+    }
+    let gate = compound.boundary.gate;
+    if !gate.orientation.is_valid()
+        || !compound.plot.contains(gate.centre_metres.metres())
+        || !bounded(gate.width_metres.metres())
+        || !bounded(gate.height_metres.metres())
+    {
+        return invalid(SceneValidationError::CompoundGate {
+            owner: super::validation_error::SceneOwnerContext::compound(compound),
+        });
+    }
+    Ok(())
+}
+#[cfg(test)]
+mod tests;

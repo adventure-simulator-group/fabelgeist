@@ -105,18 +105,27 @@ fn nearby_streets(streets: &[CityStreetPatch], tile: TrafficTile) -> Vec<CityStr
                     end_metres,
                     half_width_metres,
                     ..
-                } => (
-                    start_metres.min(end_metres) - Vec2::splat(half_width_metres),
-                    start_metres.max(end_metres) + Vec2::splat(half_width_metres),
-                ),
-                CityStreetPatch::Market { corners_metres, .. } => (
-                    corners_metres
-                        .into_iter()
-                        .fold(Vec2::splat(f32::INFINITY), Vec2::min),
-                    corners_metres
-                        .into_iter()
-                        .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max),
-                ),
+                } => {
+                    let start_metres = start_metres.metres();
+                    let end_metres = end_metres.metres();
+                    let half_width_metres = half_width_metres.metres();
+                    (
+                        start_metres.min(end_metres) - Vec2::splat(half_width_metres),
+                        start_metres.max(end_metres) + Vec2::splat(half_width_metres),
+                    )
+                }
+                CityStreetPatch::Market { corners_metres, .. } => {
+                    let corners_metres = corners_metres
+                        .map(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::metres);
+                    (
+                        corners_metres
+                            .into_iter()
+                            .fold(Vec2::splat(f32::INFINITY), Vec2::min),
+                        corners_metres
+                            .into_iter()
+                            .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max),
+                    )
+                }
             };
             min.cmple(maximum).all() && max.cmpge(minimum).all()
         })

@@ -2,15 +2,12 @@
 use super::*;
 
 type YardKey = [(u32, u32); 4];
-fn yard_key(corners: [Vec2; 4]) -> YardKey {
-    corners.map(|point| (point.x.to_bits(), point.y.to_bits()))
-}
 
 pub(super) fn apply(
     layout: &mut CompiledCityLayout,
     context: &CityPackingContext,
-    translations: &BTreeMap<CityPropertyId, Vec2>,
-) -> Result<BTreeMap<crate::scene_input::SceneBuildingId, Vec2>, CityCompileError> {
+    translations: &BTreeMap<CityPropertyId, PlanDisplacement>,
+) -> CityCompileResult<BTreeMap<crate::scene_input::SceneBuildingId, PlanDisplacement>> {
     let mut members: BTreeMap<_, _> = context
         .frontages
         .keys()
@@ -20,12 +17,12 @@ pub(super) fn apply(
         .frontages
         .iter()
         .map(|(&owner, frontage)| {
-            (
-                yard_key(plots::corners(plots::reservation(frontage.lot))),
+            Ok((
+                yard_key(plots::corners(plots::reservation(frontage.lot)?)),
                 owner,
-            )
+            ))
         })
-        .collect();
+        .collect::<CityCompileResult<_>>()?;
     for compound in &layout.compounds {
         members.insert(compound.rear_building_id, compound.id);
     }
@@ -42,48 +39,43 @@ pub(super) fn apply(
         .map(|(member, owner)| (member, translations[&owner]))
         .collect();
     for building in &mut layout.buildings {
-        building.centre_metres = building.centre_metres.translated(
-            crate::scene_coordinates::PlanDisplacement::try_from(
-                building_translations[&building.id],
-            )?,
-        )?;
+        building.centre_metres = building
+            .centre_metres
+            .translated(building_translations[&building.id])?;
     }
     for property in &mut layout.single_properties {
-        property.plot =
-            property
-                .plot
-                .translated(crate::scene_coordinates::PlanDisplacement::try_from(
-                    translations[&property.id],
-                )?)?;
+        property.plot = property.plot.translated(translations[&property.id])?;
     }
     for compound in &mut layout.compounds {
         let delta = translations[&compound.id];
-        compound.plot = compound
-            .plot
-            .translated(crate::scene_coordinates::PlanDisplacement::try_from(delta)?)?;
-        compound.court = compound
-            .court
-            .translated(crate::scene_coordinates::PlanDisplacement::try_from(delta)?)?;
-        compound.boundary.gate.centre_metres += delta;
+        compound.plot = compound.plot.translated(delta)?;
+        compound.court = compound.court.translated(delta)?;
+        compound.boundary.gate.centre_metres =
+            compound.boundary.gate.centre_metres.translated(delta)?;
         for wall in &mut compound.boundary.walls {
-            wall.start_metres += delta;
-            wall.end_metres += delta;
+            wall.start_metres = wall.start_metres.translated(delta)?;
+            wall.end_metres = wall.end_metres.translated(delta)?;
         }
         compound::translate_property_access(
             &mut compound.access,
             delta,
-            *context.frontages[&compound.id].tangent(),
+            context.frontages[&compound.id].tangent(),
         )?;
     }
     for garden in &mut layout.gardens {
         garden.translate(
             translations[&garden.owner],
-            *context.frontages[&garden.owner].tangent(),
+            context.frontages[&garden.owner].tangent(),
         )?;
     }
     for yard in &mut layout.yards {
-        if let Some(owner) = yards.get(&yard_key(yard.corners_metres)) {
-            yard.corners_metres = yard.corners_metres.map(|point| point + translations[owner]);
+        if let Some(owner) = yards.get(&yard_key(
+            yard.corners_metres
+                .map(crate::scene_coordinates::ScenePlanPoint::metres),
+        )) {
+            for point in &mut yard.corners_metres {
+                *point = point.translated(translations[owner])?;
+            }
         }
     }
     Ok(building_translations)
@@ -92,8 +84,8 @@ pub(super) fn apply(
 pub(super) fn validate_gardens(
     layout: &CompiledCityLayout,
     envelopes: &[MeasuredBuildingEnvelope],
-    building_translations: &BTreeMap<crate::scene_input::SceneBuildingId, Vec2>,
-) -> Result<(), CityCompileError> {
+    building_translations: &BTreeMap<crate::scene_input::SceneBuildingId, PlanDisplacement>,
+) -> CityCompileResult<()> {
     for garden in &layout.gardens {
         garden
             .validate_geometry(&layout.streets)
@@ -108,10 +100,7 @@ pub(super) fn validate_gardens(
         } in envelopes
         {
             let (building, envelope) = (*building, *envelope);
-            let moved =
-                (envelope).relocated(crate::scene_coordinates::ScenePlanPoint::try_from(
-                    envelope.centre_metres() + building_translations[&building],
-                )?)?;
+            let moved = envelope.translated(building_translations[&building])?;
             if !garden.clears_building(moved) {
                 return Err(CityCompileError::Packing {
                     property: garden.owner,
@@ -122,9 +111,9 @@ pub(super) fn validate_gardens(
     }
     for (index, first) in envelopes.iter().enumerate() {
         let moved = |envelope: &MeasuredBuildingEnvelope| {
-            (envelope.body).relocated(crate::scene_coordinates::ScenePlanPoint::try_from(
-                envelope.body.centre_metres() + building_translations[&envelope.building],
-            )?)
+            envelope
+                .body
+                .translated(building_translations[&envelope.building])
         };
         for second in &envelopes[index + 1..] {
             if moved(first)?.intersects(moved(second)?) {
@@ -153,4 +142,7 @@ pub(super) fn validate_gardens(
         }
     }
     Ok(())
+}
+fn yard_key(corners: [Vec2; 4]) -> YardKey {
+    corners.map(|point| (point.x.to_bits(), point.y.to_bits()))
 }

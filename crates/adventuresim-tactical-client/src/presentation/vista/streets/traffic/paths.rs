@@ -31,14 +31,14 @@ struct Arm {
     half_width: f32,
 }
 
-enum AxleTracks {
-    Front,
-    Both,
-}
-
 struct Junction {
     point: Vec2,
     arms: Vec<Arm>,
+}
+
+enum AxleTracks {
+    Front,
+    Both,
 }
 
 impl TrafficNetwork {
@@ -48,11 +48,14 @@ impl TrafficNetwork {
         for street in streets {
             match *street {
                 CityStreetPatch::Corridor {
-                    mut start_metres,
-                    mut end_metres,
+                    start_metres,
+                    end_metres,
                     half_width_metres,
                     ..
                 } => {
+                    let mut start_metres = start_metres.metres();
+                    let mut end_metres = end_metres.metres();
+                    let half_width_metres = half_width_metres.metres();
                     if node_key(end_metres) < node_key(start_metres) {
                         std::mem::swap(&mut start_metres, &mut end_metres);
                     }
@@ -61,7 +64,11 @@ impl TrafficNetwork {
                         .and_modify(|road| road.half_width = road.half_width.max(half_width_metres))
                         .or_insert_with(|| Road::new(start_metres, end_metres, half_width_metres));
                 }
-                CityStreetPatch::Market { corners_metres, .. } => markets.push(corners_metres),
+                CityStreetPatch::Market { corners_metres, .. } => {
+                    let corners_metres = corners_metres
+                        .map(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::metres);
+                    markets.push(corners_metres)
+                }
             }
         }
         let mut network = Self {

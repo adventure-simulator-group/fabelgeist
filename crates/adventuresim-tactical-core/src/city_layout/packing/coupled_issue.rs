@@ -16,12 +16,12 @@ pub enum CoupledPackingIssue {
     InvalidModel,
     NumericalFailure,
     SearchBudget {
-        explored: usize,
-        maximum: usize,
+        explored: ExploredSearchNodes,
+        maximum: SearchBudget,
     },
     OutsideDomain {
         property: CityPropertyId,
-        displacement_metres: f64,
+        displacement_metres: FrontageDisplacement,
         permitted: FrontageInterval,
     },
     Overlap {

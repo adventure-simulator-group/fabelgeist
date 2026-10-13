@@ -1,6 +1,21 @@
 //! A rejected property identifies the exact attempted support strategy.
 use super::*;
 
+/// Rejection identifies the immutable property, members and precise shortfall.
+#[derive(Clone, Debug, PartialEq, Serialize)]
+pub struct SupportDiagnostic {
+    pub entrance: Option<adventuresim_building_generator::BuildingEntranceId>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub construction_failure: Option<Box<SupportConstructionError>>,
+    pub property_id: CityPropertyId,
+    pub member_building_ids: Vec<crate::scene_input::SceneBuildingId>,
+    pub constraint: SupportConstraint,
+    pub boundary: SupportBoundary,
+    pub location_metres: SupportDiagnosticLocation,
+    pub violation: SupportViolation,
+    pub attempted_treatment: Box<SupportGradingAttempt>,
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum SupportGradingAttempt {
@@ -60,21 +75,6 @@ pub enum SupportBound {
     Exact,
 }
 
-/// Rejection identifies the immutable property, members and precise shortfall.
-#[derive(Clone, Debug, PartialEq, Serialize)]
-pub struct SupportDiagnostic {
-    pub entrance: Option<adventuresim_building_generator::BuildingEntranceId>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub construction_failure: Option<Box<SupportConstructionError>>,
-    pub property_id: CityPropertyId,
-    pub member_building_ids: Vec<crate::scene_input::SceneBuildingId>,
-    pub constraint: SupportConstraint,
-    pub boundary: SupportBoundary,
-    pub location_metres: SupportDiagnosticLocation,
-    pub violation: SupportViolation,
-    pub attempted_treatment: Box<SupportGradingAttempt>,
-}
-
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum SupportDiagnosticUnit {
@@ -99,22 +99,6 @@ impl SupportDiagnostic {
         diagnostic.construction_failure = Some(Box::new(SupportConstructionError::Floor(cause)));
         diagnostic
     }
-    pub(in crate::city_layout) fn gate_position(
-        property: &CityCompound,
-        cause: adventuresim_building_generator::spatial_geometry::GeometryError,
-    ) -> Self {
-        let mut diagnostic = Self::new(
-            property,
-            SupportConstraint::GateBinding,
-            SupportBoundary::GateLanding,
-            property.boundary.gate.centre_metres,
-            1.0,
-            0.0,
-        );
-        diagnostic.construction_failure =
-            Some(Box::new(SupportConstructionError::FramedGeometry(cause)));
-        diagnostic
-    }
     pub(super) fn boundary_construction(
         property: &CityCompound,
         cause: crate::city_layout::BoundaryGeometryError,
@@ -123,7 +107,7 @@ impl SupportDiagnostic {
             property,
             SupportConstraint::GateBinding,
             SupportBoundary::GateLanding,
-            property.boundary.gate.centre_metres,
+            property.boundary.gate.centre_metres.metres(),
             1.0,
             0.0,
         );
@@ -138,7 +122,7 @@ impl SupportDiagnostic {
             property,
             SupportConstraint::GateBinding,
             SupportBoundary::GateLanding,
-            property.boundary.gate.centre_metres,
+            property.boundary.gate.centre_metres.metres(),
             1.0,
             0.0,
         );

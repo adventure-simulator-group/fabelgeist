@@ -7,8 +7,6 @@ use bevy::math::Vec3;
 use fabelgeist_determinism::Seed;
 use std::{collections::BTreeMap, sync::Arc};
 mod catalogue;
-#[cfg(test)]
-mod tests;
 
 const RECIPE_SELECTION_DOMAIN: StreamId = StreamId::new("city.building-recipe");
 const CURATED_RECIPE_SEEDS: [Seed; 3] =
@@ -36,8 +34,9 @@ pub(super) struct Recipe {
     pub program: BuildingProgram,
     pub collision: BuildingCollision,
     /// Complete detailed envelope, relative to the collision-centred placement.
-    pub render_min: Vec2,
-    pub render_max: Vec2,
+    pub render_bounds: adventuresim_building_generator::spatial_geometry::SpatialBounds<
+        crate::scene_coordinates::CollisionRelative,
+    >,
     pub doors: Vec<DoorSpec<adventuresim_building_generator::spatial_geometry::Architectural>>,
     pub ground_entrances: Vec<adventuresim_building_generator::BuildingEntrance>,
 }
@@ -47,9 +46,9 @@ impl CityRecipePalette {
         &mut self,
         seed: fabelgeist_determinism::Seed,
         lot: CityBuildingLot,
-    ) -> Result<Arc<Recipe>, CityCompileError> {
+    ) -> CityCompileResult<Arc<Recipe>> {
         let choice = RECIPE_SELECTION_DOMAIN
-            .rng(seed, &[lot.id])
+            .rng(seed, &[lot.id.0])
             .index(CURATED_RECIPE_SEEDS.len());
         let archetype = lot.archetype();
         let usage = lot.building_use().unwrap_or(BuildingUse::Dwelling);
@@ -61,7 +60,7 @@ impl CityRecipePalette {
         )
     }
 
-    pub(super) fn range(&mut self) -> Result<Arc<Recipe>, CityCompileError> {
+    pub(super) fn range(&mut self) -> CityCompileResult<Arc<Recipe>> {
         self.get(
             BuildingArchetype::StorageRange,
             None,
@@ -76,7 +75,7 @@ impl CityRecipePalette {
         usage: Option<BuildingUse>,
         size: Option<ServiceBuildingSize>,
         seed: Seed,
-    ) -> Result<Arc<Recipe>, CityCompileError> {
+    ) -> CityCompileResult<Arc<Recipe>> {
         let key = RecipeKey {
             archetype_slug: archetype.slug(),
             usage,
@@ -112,7 +111,7 @@ impl CityRecipePalette {
     pub(super) fn for_program(
         &mut self,
         program: &BuildingProgram,
-    ) -> Result<Arc<Recipe>, CityCompileError> {
+    ) -> CityCompileResult<Arc<Recipe>> {
         if let Some(recipe) = self
             .occupied
             .iter()
@@ -127,7 +126,18 @@ impl CityRecipePalette {
 }
 
 impl Recipe {
-    fn compile(program: &BuildingProgram) -> Result<Arc<Self>, CityCompileError> {
+    /// Native horizontal projection in the collision-relative frame. Its zero
+    /// vertical extent is a projection plane, never a building or floor height.
+    pub fn render_min_metres(&self) -> Vec2 {
+        let point = self.render_bounds.min().metres();
+        Vec2::new(point.x, point.z)
+    }
+    pub fn render_max_metres(&self) -> Vec2 {
+        let point = self.render_bounds.max().metres();
+        Vec2::new(point.x, point.z)
+    }
+
+    fn compile(program: &BuildingProgram) -> CityCompileResult<Arc<Self>> {
         let archetype = program.archetype;
         let seed = program.seed;
         let plan = generate(program).map_err(|source| CityCompileError::Recipe {
@@ -166,8 +176,11 @@ impl Recipe {
         let recipe = Arc::new(Self {
             program: program.clone(),
             collision,
-            render_min,
-            render_max,
+            render_bounds:
+                adventuresim_building_generator::spatial_geometry::SpatialBounds::from_metres(
+                    Vec3::new(render_min.x, 0.0, render_min.y),
+                    Vec3::new(render_max.x, 0.0, render_max.y),
+                )?,
             doors: compile_operable_doors(&plan).map_err(|e| fail(e.into()))?,
             ground_entrances: adventuresim_building_generator::compile_ground_entrances(&plan)
                 .map_err(|e| fail(e.into()))?,
@@ -191,8 +204,11 @@ impl Recipe {
         Ok(Self {
             program: building.placement.program.clone(),
             collision: building.collision.clone(),
-            render_min,
-            render_max,
+            render_bounds:
+                adventuresim_building_generator::spatial_geometry::SpatialBounds::from_metres(
+                    Vec3::new(render_min.x, 0.0, render_min.y),
+                    Vec3::new(render_max.x, 0.0, render_max.y),
+                )?,
             doors: compile_operable_doors(&building.plan)?,
             ground_entrances: adventuresim_building_generator::compile_ground_entrances(
                 &building.plan,
@@ -203,9 +219,9 @@ impl Recipe {
     pub fn place(
         &self,
         id: crate::scene_input::SceneBuildingId,
-        centre_metres: Vec2,
+        centre_metres: crate::scene_coordinates::ScenePlanPoint,
         orientation: BuildingOrientation,
-    ) -> Result<TacticalBuildingPlacement, CityCompileError> {
+    ) -> CityCompileResult<TacticalBuildingPlacement> {
         // Lots use a street-facing -Y frame. The basilica's west portal is -X;
         // compose its physical frame once for every scene representation.
         let orientation = match self.program.frontage_direction() {
@@ -221,7 +237,7 @@ impl Recipe {
             base_elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,
             id,
             program: self.program.clone(),
-            centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(centre_metres)?,
+            centre_metres,
             orientation,
         })
     }
@@ -230,7 +246,7 @@ impl Recipe {
         &self,
         placement: &TacticalBuildingPlacement,
         outward: adventuresim_building_generator::Direction,
-    ) -> Result<Option<crate::scene_coordinates::ScenePlanPoint>, CityCompileError> {
+    ) -> CityCompileResult<Option<crate::scene_coordinates::ScenePlanPoint>> {
         let mut doors = self
             .doors
             .iter()
@@ -263,10 +279,10 @@ impl Recipe {
 
     pub fn fits(&self, placement: &TacticalBuildingPlacement, bounds: CityPlotBounds) -> bool {
         [
-            self.render_min,
-            Vec2::new(self.render_max.x, self.render_min.y),
-            self.render_max,
-            Vec2::new(self.render_min.x, self.render_max.y),
+            self.render_min_metres(),
+            Vec2::new(self.render_max_metres().x, self.render_min_metres().y),
+            self.render_max_metres(),
+            Vec2::new(self.render_min_metres().x, self.render_max_metres().y),
         ]
         .into_iter()
         .all(|p| {
@@ -276,3 +292,5 @@ impl Recipe {
         })
     }
 }
+#[cfg(test)]
+mod tests;

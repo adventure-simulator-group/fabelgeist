@@ -4,28 +4,10 @@ use crate::city_layout::grounding::*;
 use bevy::math::Vec3Swizzles;
 mod policy;
 mod street;
-#[cfg(test)]
-mod tests;
 
 /// Positive finite width and run of a declared front street apron.
 #[derive(Clone, Copy, Debug)]
 pub struct StreetApronDimensions(Vec2);
-
-impl StreetApronDimensions {
-    pub const fn new(
-        width: adventuresim_building_generator::spatial_geometry::PositiveLength,
-        run: adventuresim_building_generator::spatial_geometry::PositiveLength,
-    ) -> Self {
-        Self(Vec2::new(width.metres(), run.metres()))
-    }
-    pub fn dimensions_metres(self) -> Vec2 {
-        self.0
-    }
-
-    pub fn from_metres(dimensions: Vec2) -> Option<Self> {
-        (dimensions.is_finite() && dimensions.cmpgt(Vec2::ZERO).all()).then_some(Self(dimensions))
-    }
-}
 
 #[derive(Clone, Copy, Debug)]
 pub struct CompoundGradingPolicy {
@@ -86,6 +68,22 @@ pub enum CitySupportError {
     },
     #[error("bounded support rejected: {0:?}")]
     Support(SupportDiagnostic),
+}
+
+impl StreetApronDimensions {
+    pub const fn new(
+        width: adventuresim_building_generator::spatial_geometry::PositiveLength,
+        run: adventuresim_building_generator::spatial_geometry::PositiveLength,
+    ) -> Self {
+        Self(Vec2::new(width.metres(), run.metres()))
+    }
+    pub fn dimensions_metres(self) -> Vec2 {
+        self.0
+    }
+
+    pub fn from_metres(dimensions: Vec2) -> Option<Self> {
+        (dimensions.is_finite() && dimensions.cmpgt(Vec2::ZERO).all()).then_some(Self(dimensions))
+    }
 }
 
 impl CitySceneLayout {
@@ -188,11 +186,7 @@ fn plan_property(
         recipes,
         geographic,
     )?;
-    let gate =
-        crate::scene_coordinates::ScenePlanPoint::try_from(property.boundary.gate.centre_metres)
-            .map_err(|cause| {
-                CitySupportError::Support(SupportDiagnostic::gate_position(property, cause))
-            })?;
+    let gate = property.boundary.gate.centre_metres;
     let mut routes = property
         .access
         .iter()
@@ -205,7 +199,7 @@ fn plan_property(
                 property: property.id,
                 members: [front.building_id, rear.building_id],
                 location: SupportDiagnosticLocation::from_attempt_metres(
-                    property.boundary.gate.centre_metres,
+                    property.boundary.gate.centre_metres.metres(),
                 ),
             })?;
     street::select(
@@ -289,3 +283,5 @@ fn sample(
             point,
         })
 }
+#[cfg(test)]
+mod tests;

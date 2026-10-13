@@ -54,22 +54,7 @@ pub(super) fn failed_property(
         .streets
         .iter()
         .map(|street| {
-            let distance = match *street {
-                CityStreetPatch::Corridor {
-                    start_metres,
-                    end_metres,
-                    ..
-                } => {
-                    let delta = end_metres - start_metres;
-                    let t = ((point - start_metres).dot(delta) / delta.length_squared())
-                        .clamp(0.0, 1.0);
-                    point.distance(start_metres + delta * t)
-                }
-                CityStreetPatch::Market { corners_metres, .. } => corners_metres
-                    .into_iter()
-                    .map(|p| point.distance(p))
-                    .fold(f32::INFINITY, f32::min),
-            };
+            let distance = street_distance(*street, point);
             (distance, street)
         })
         .collect();
@@ -98,4 +83,29 @@ pub(super) fn failed_property(
     Ok(
         json!({"rejection":diagnostic,"single_property":property,"bearing":bearing,"entrances":entries,"nearest_streets":nearest,"exact_contact_maximum_outside_m":maximum,"exact_ground_contacts":contacts}),
     )
+}
+
+/// Native distance kernel used only to order the diagnostic's nearby streets.
+fn street_distance(street: CityStreetPatch, point: Vec2) -> f32 {
+    match street {
+        CityStreetPatch::Corridor {
+            start_metres,
+            end_metres,
+            ..
+        } => {
+            let start_metres = start_metres.metres();
+            let end_metres = end_metres.metres();
+            let delta = end_metres - start_metres;
+            let t = ((point - start_metres).dot(delta) / delta.length_squared()).clamp(0.0, 1.0);
+            point.distance(start_metres + delta * t)
+        }
+        CityStreetPatch::Market { corners_metres, .. } => {
+            let corners_metres = corners_metres
+                .map(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::metres);
+            corners_metres
+                .into_iter()
+                .map(|p| point.distance(p))
+                .fold(f32::INFINITY, f32::min)
+        }
+    }
 }

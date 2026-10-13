@@ -1,27 +1,35 @@
 //! Measured physical packing preserves the selected roster and its programmes.
 use super::*;
+use crate::scene_coordinates::{PlanDisplacement, ScenePlanPoint, ScenePlanPolygon};
 use bevy::math::DVec2;
+use bevy::math::Dir2;
+pub use budget::{ExploredSearchNodes, SearchBudget};
+pub(super) use context::CityPackingContext;
+pub use coordinates::FrontageDisplacement;
+pub use coupled_issue::CoupledPackingIssue;
+pub use intervals::{FrontageInterval, FrontageIntervalError};
 use std::collections::BTreeMap;
+mod budget;
 mod context;
 mod coordinates;
-use crate::scene_coordinates::{PlanDisplacement, ScenePlanPoint, ScenePlanPolygon};
-use bevy::math::Dir2;
-use coordinates::FrontageDisplacement;
 mod coupled_issue;
-pub use coupled_issue::CoupledPackingIssue;
 mod intervals;
 mod projection;
 mod solver;
-#[cfg(test)]
-mod tests;
-pub(super) use context::CityPackingContext;
-pub use intervals::FrontageInterval;
+
+/// Elevated projections constrain building pairs; floor contacts constrain land.
+#[derive(Clone, Debug)]
+pub(in crate::city_layout) struct MeasuredBuildingEnvelope {
+    pub building: crate::scene_input::SceneBuildingId,
+    pub body: CityPlotBounds,
+    pub bearing_outline: ScenePlanPolygon,
+}
 
 #[derive(Clone, Debug, PartialEq, serde::Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum CityPackingIssue {
     CoupledSearch {
-        block: u64,
+        block: BlockId,
         members: Vec<CityPropertyId>,
         issue: CoupledPackingIssue,
     },
@@ -47,13 +55,13 @@ pub enum CityPackingIssue {
         second: crate::scene_input::SceneBuildingId,
     },
     SearchBudget {
-        block: u64,
-        explored: usize,
-        maximum: usize,
+        block: BlockId,
+        explored: ExploredSearchNodes,
+        maximum: SearchBudget,
         members: Vec<CityPropertyId>,
     },
     NoFreeFrontage {
-        block: u64,
+        block: BlockId,
         envelope: CityPlotBounds,
         available_displacement_metres: Option<FrontageInterval>,
         blocking_properties: Vec<CityPropertyId>,
@@ -73,7 +81,7 @@ impl CompiledCityLayout {
         &mut self,
         context: &CityPackingContext,
         envelopes: &[MeasuredBuildingEnvelope],
-    ) -> Result<(), CityCompileError> {
+    ) -> CityCompileResult<()> {
         let envelope_map: BTreeMap<_, _> = envelopes
             .iter()
             .map(|envelope| (envelope.building, envelope.clone()))
@@ -89,11 +97,5 @@ impl CompiledCityLayout {
         Ok(())
     }
 }
-
-/// Elevated projections constrain building pairs; floor contacts constrain land.
-#[derive(Clone, Debug)]
-pub(in crate::city_layout) struct MeasuredBuildingEnvelope {
-    pub building: crate::scene_input::SceneBuildingId,
-    pub body: CityPlotBounds,
-    pub bearing_outline: ScenePlanPolygon,
-}
+#[cfg(test)]
+mod tests;

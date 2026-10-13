@@ -33,7 +33,9 @@ fn compound_loaded_scene_rejects_broken_membership_and_authority() {
     });
     assert!(split.validate().is_err());
     let mut malformed = input;
-    malformed.compounds[0].boundary.gate.width_metres = f32::NAN;
+    malformed.compounds[0].boundary.gate.width_metres =
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(101.0)
+            .unwrap();
     assert!(malformed.validate().is_err());
 }
 
@@ -160,7 +162,12 @@ fn adjacent_compounds_keep_separate_support_owners_after_terrain_refinement() {
             .unwrap(),
         )
         .unwrap();
-    neighbour.boundary.gate.centre_metres += offset;
+    neighbour.boundary.gate.centre_metres = neighbour
+        .boundary
+        .gate
+        .centre_metres
+        .translated(crate::scene_coordinates::PlanDisplacement::try_from(offset).unwrap())
+        .unwrap();
     for route in &mut neighbour.access {
         route
             .update_endpoints(
@@ -178,8 +185,14 @@ fn adjacent_compounds_keep_separate_support_owners_after_terrain_refinement() {
             .unwrap();
     }
     for wall in &mut neighbour.boundary.walls {
-        wall.start_metres += offset;
-        wall.end_metres += offset;
+        wall.start_metres = wall
+            .start_metres
+            .translated(crate::scene_coordinates::PlanDisplacement::try_from(offset).unwrap())
+            .unwrap();
+        wall.end_metres = wall
+            .end_metres
+            .translated(crate::scene_coordinates::PlanDisplacement::try_from(offset).unwrap())
+            .unwrap();
     }
     let neighbours = input
         .buildings

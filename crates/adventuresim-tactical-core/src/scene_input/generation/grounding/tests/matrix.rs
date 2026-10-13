@@ -32,7 +32,12 @@ fn production_required_sizes_preserve_all_homes_services_bindings_and_soil_roots
             draft.longitude_microdegrees.get(),
             draft.absolute_elevation_metres.get(),
         );
-        let homes = layout.generated_homes(&identity, population).unwrap();
+        let homes = layout
+            .generated_homes(
+                &identity,
+                adventuresim_core::settlement_property::ResidentCount::new(population),
+            )
+            .unwrap();
         let original = draft.clone();
         let accepted = draft
             .ground_generated_city(&layout, CompoundGradingPolicy::bounded_settlement())
@@ -49,7 +54,12 @@ fn production_required_sizes_preserve_all_homes_services_bindings_and_soil_roots
             ..layout
         };
         assert_eq!(
-            final_layout.generated_homes(&identity, population).unwrap(),
+            final_layout
+                .generated_homes(
+                    &identity,
+                    adventuresim_core::settlement_property::ResidentCount::new(population)
+                )
+                .unwrap(),
             homes
         );
         for (before, after) in original
@@ -61,6 +71,39 @@ fn production_required_sizes_preserve_all_homes_services_bindings_and_soil_roots
             assert_eq!(before.program, after.program);
             assert_eq!(before.centre_metres, after.centre_metres);
             assert_eq!(before.orientation, after.orientation);
+        }
+        let home_json = serde_json::to_vec(&homes).unwrap();
+        let decoded_homes: adventuresim_core::settlement_property::GeneratedHomeCatalog =
+            serde_json::from_slice(&home_json).unwrap();
+        assert_eq!(decoded_homes, homes);
+        decoded_homes
+            .validate(
+                &identity,
+                adventuresim_core::settlement_property::ResidentCount::new(population),
+            )
+            .unwrap();
+        let households = decoded_homes.allocate(&[]).unwrap();
+        assert_eq!(
+            households
+                .iter()
+                .map(|home| u64::from(home.residents.get()))
+                .sum::<u64>(),
+            u64::from(population)
+        );
+        let mut bound_scene = accepted.clone();
+        bound_scene.properties = Some(decoded_homes);
+        bound_scene.validate().unwrap();
+        let bound_scene: TacticalSceneInput =
+            serde_json::from_slice(&serde_json::to_vec(&bound_scene).unwrap()).unwrap();
+        bound_scene.validate().unwrap();
+        assert_eq!(bound_scene.properties.as_ref().unwrap(), &homes);
+        if let Ok(directory) = std::env::var("FABELGEIST_SUPPORT_HOME_OUTPUT") {
+            std::fs::create_dir_all(&directory).unwrap();
+            std::fs::write(
+                std::path::Path::new(&directory).join(format!("{identity}.json")),
+                &home_json,
+            )
+            .unwrap();
         }
         let encoded = serde_json::to_vec(&accepted).unwrap();
         assert!(encoded.len() as u64 <= MAX_SCENE_INPUT_BYTES);

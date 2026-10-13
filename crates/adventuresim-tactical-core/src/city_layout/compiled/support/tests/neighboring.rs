@@ -11,7 +11,13 @@ fn population_6500_seed_42_neighboring_members_keep_exact_support_without_empty_
     // Reservations and member transforms come from the general geometry-aware
     // packing calculation, rather than obsolete pre-packing rectangles.
     let compiled = CitySite::central_german_market_town()
-        .generate((42).into(), 6500, &crate::city_layout::tests::economy())
+        .unwrap()
+        .generate(
+            (42).into(),
+            adventuresim_core::settlement_property::ResidentCount::new(6500),
+            &crate::city_layout::tests::economy(),
+        )
+        .unwrap()
         .compile((42).into())
         .unwrap();
     let mut layout = compiled.partition(None).unwrap();

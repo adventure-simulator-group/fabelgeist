@@ -33,15 +33,8 @@ pub(super) fn rooms_fixture() -> Fixture {
     }
 }
 
-fn open_yard(_: f32, _: f32) -> EnvironmentalSample {
-    sample(TacticalSurface::Open, 0, 0, 0, 0)
-}
-
 /// Stable IDs identify each building in both cutaway captures and layout proofs.
-pub(super) fn buildings() -> Result<
-    Vec<TacticalBuildingPlacement>,
-    adventuresim_building_generator::spatial_geometry::GeometryError,
-> {
+pub(super) fn buildings() -> Result<Vec<TacticalBuildingPlacement>, Box<dyn std::error::Error>> {
     [
         BuildingUse::Dwelling,
         BuildingUse::Inn,
@@ -69,8 +62,7 @@ pub(super) fn buildings() -> Result<
                 usage,
                 fabelgeist_determinism::Seed::from_u64(42),
                 Some(ServiceBuildingSize::Medium),
-            )
-            .expect("curated interior review settlement recipe must validate"),
+            )?,
             centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
                 match usage {
                     BuildingUse::Castle => Vec2::new(0.0, 90.0),
@@ -91,14 +83,19 @@ pub(super) fn buildings() -> Result<
 }
 
 /// The catalog pairs and occupied household/trade samples share this flat yard.
-pub(super) fn yards() -> Vec<CityYardPatch> {
-    vec![CityYardPatch {
-        corners_metres: [
+pub(super) fn yards()
+-> adventuresim_building_generator::spatial_geometry::GeometryResult<Vec<CityYardPatch>> {
+    Ok(vec![CityYardPatch {
+        corners_metres: scene_corners([
             Vec2::new(-120.0, -120.0),
             Vec2::new(220.0, -120.0),
             Vec2::new(220.0, 120.0),
             Vec2::new(-120.0, 120.0),
-        ],
+        ])?,
         surface: CityYardSurface::PackedEarth,
-    }]
+    }])
+}
+
+fn open_yard(_: f32, _: f32) -> EnvironmentalSample {
+    sample(TacticalSurface::Open, 0, 0, 0, 0)
 }

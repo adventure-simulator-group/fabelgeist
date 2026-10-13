@@ -24,7 +24,10 @@ impl PreparedCityGround {
         let beds = yards
             .iter()
             .filter(|yard| yard.surface == CityYardSurface::KitchenGarden)
-            .map(|yard| yard.corners_metres)
+            .map(|yard| {
+                yard.corners_metres
+                    .map(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::metres)
+            })
             .collect::<Vec<_>>();
         let bed_index = partition::SpatialIndex::new(&beds, |bed| partition::bounds(*bed));
         let group_index = partition::SpatialIndex::new(groups, |group| {
@@ -153,9 +156,17 @@ mod tests {
             Vec3::ZERO,
         );
         let street = CityStreetPatch::Corridor {
-            start_metres: Vec2::new(-6.0, 0.0),
-            end_metres: Vec2::new(6.0, 0.0),
-            half_width_metres: 2.0,
+            start_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                Vec2::new(-6.0, 0.0),
+            )
+            .unwrap(),
+            end_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                Vec2::new(6.0, 0.0),
+            )
+            .unwrap(),
+            half_width_metres:
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(2.0)
+                    .unwrap(),
             surface: CityStreetSurface::Fieldstone,
         };
         let prepared = PreparedCityGround::new(&[street], &[], &[], &support);

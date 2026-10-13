@@ -2,55 +2,33 @@
 use super::*;
 use std::collections::{BTreeMap, VecDeque};
 
-#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
-pub(super) struct BlockId(pub u64);
+#[derive(
+    Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, serde::Serialize, serde::Deserialize,
+)]
+#[serde(transparent)]
+pub struct BlockId(pub u64);
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
 pub(super) struct StreetNodeId(usize);
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
 pub(super) struct StreetEdgeId(usize);
 
-#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
-pub(super) enum StreetClass {
-    Lane,
-    Secondary,
-    TradeRoute,
-}
-
-impl StreetClass {
-    pub(super) fn half_width(self) -> f32 {
-        match self {
-            Self::Lane => ORDINARY_STREET_HALF_WIDTH_METRES,
-            Self::Secondary => SECONDARY_STREET_HALF_WIDTH_METRES,
-            Self::TradeRoute => PRIMARY_STREET_HALF_WIDTH_METRES,
-        }
-    }
-    fn surface(self) -> CityStreetSurface {
-        match self {
-            Self::Lane => CityStreetSurface::CompactedEarth,
-            Self::Secondary => CityStreetSurface::Gravel,
-            Self::TradeRoute => CityStreetSurface::Fieldstone,
-        }
-    }
-}
-
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(super) struct CityBlock {
     pub(super) id: BlockId,
-    pub(super) corners: [Vec2; 4],
+    pub(super) corners: [ScenePlanPoint; 4],
     pub(super) streets: [StreetClass; 4],
-    pub(super) market: bool,
+    pub(super) use_role: BlockUse,
 }
 
-impl CityBlock {
-    pub(super) fn centre(self) -> Vec2 {
-        self.corners.into_iter().sum::<Vec2>() * 0.25
-    }
-    pub(super) fn key(self) -> BlockId {
-        self.id
-    }
-    pub(super) fn is_market(self) -> bool {
-        self.market
-    }
+struct SelectedFrontages {
+    edges: BTreeSet<StreetEdgeId>,
+    market: CityBlock,
+}
+
+#[derive(Clone, Copy)]
+struct StreetConnection {
+    node: StreetNodeId,
+    edge: StreetEdgeId,
 }
 
 struct StreetEdge {
@@ -61,11 +39,59 @@ struct StreetEdge {
 #[derive(Default)]
 pub(super) struct StreetGraph {
     pub(super) blocks: Vec<CityBlock>,
-    nodes: Vec<Vec2>,
+    nodes: Vec<ScenePlanPoint>,
     edges: Vec<StreetEdge>,
     node_lookup: BTreeMap<(u32, u32), StreetNodeId>,
     edge_lookup: BTreeMap<[StreetNodeId; 2], StreetEdgeId>,
     boundaries: BTreeMap<BlockId, Vec<StreetEdgeId>>,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(super) enum BlockUse {
+    StreetFrontage,
+    Market,
+}
+
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
+pub(super) enum StreetClass {
+    Lane,
+    Secondary,
+    TradeRoute,
+}
+
+impl StreetClass {
+    pub(super) fn half_width(
+        self,
+    ) -> GeometryResult<adventuresim_building_generator::spatial_geometry::PositiveLength> {
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(match self {
+            Self::Lane => ORDINARY_STREET_HALF_WIDTH_METRES,
+            Self::Secondary => SECONDARY_STREET_HALF_WIDTH_METRES,
+            Self::TradeRoute => PRIMARY_STREET_HALF_WIDTH_METRES,
+        })
+    }
+    fn surface(self) -> CityStreetSurface {
+        match self {
+            Self::Lane => CityStreetSurface::CompactedEarth,
+            Self::Secondary => CityStreetSurface::Gravel,
+            Self::TradeRoute => CityStreetSurface::Fieldstone,
+        }
+    }
+}
+
+impl CityBlock {
+    /// Native scene-plane coordinates for subdivision and half-plane kernels.
+    pub(super) fn corners_metres(self) -> [Vec2; 4] {
+        self.corners.map(ScenePlanPoint::metres)
+    }
+    pub(super) fn centre(self) -> Vec2 {
+        self.corners_metres().into_iter().sum::<Vec2>() * 0.25
+    }
+    pub(super) fn key(self) -> BlockId {
+        self.id
+    }
+    pub(super) fn is_market(self) -> bool {
+        self.use_role == BlockUse::Market
+    }
 }
 
 impl StreetGraph {
@@ -87,12 +113,13 @@ impl StreetGraph {
 
     pub(super) fn segment(
         &mut self,
-        points: [Vec2; 2],
+        points: [ScenePlanPoint; 2],
         class: StreetClass,
         block: Option<BlockId>,
     ) {
         let mut nodes = points.map(|point| {
-            let key = (point.x.to_bits(), point.y.to_bits());
+            let native = point.metres();
+            let key = (native.x.to_bits(), native.y.to_bits());
             *self.node_lookup.entry(key).or_insert_with(|| {
                 let id = StreetNodeId(self.nodes.len());
                 self.nodes.push(point);
@@ -111,10 +138,48 @@ impl StreetGraph {
         }
     }
 
-    pub(super) fn developed_streets(&self, developed: &BTreeSet<BlockId>) -> Vec<CityStreetPatch> {
+    pub(super) fn developed_streets(
+        &self,
+        developed: &BTreeSet<BlockId>,
+    ) -> CityCompileResult<Vec<CityStreetPatch>> {
         if developed.is_empty() {
-            return Vec::new();
+            return Ok(Vec::new());
         }
+        let SelectedFrontages {
+            edges: selected,
+            market,
+        } = self.selected_frontages(developed)?;
+        let mut patches = selected
+            .into_iter()
+            .map(|id| {
+                let edge = &self.edges[id.0];
+                Ok::<_, GeometryError>(CityStreetPatch::Corridor {
+                    start_metres: self.nodes[edge.nodes[0].0],
+                    end_metres: self.nodes[edge.nodes[1].0],
+                    half_width_metres: edge.class.half_width()?,
+                    surface: edge.class.surface(),
+                })
+            })
+            .collect::<GeometryResult<Vec<_>>>()?;
+        patches.push(CityStreetPatch::Market {
+            corners_metres: market.corners,
+            surface: CityStreetSurface::Fieldstone,
+        });
+        if patches.len() > MAX_CITY_STREET_PATCHES {
+            return Err(CityCompileError::Planning(
+                CityPlanningIssue::StreetPatchLimit {
+                    required: patches.len(),
+                    maximum: MAX_CITY_STREET_PATCHES,
+                },
+            ));
+        }
+        Ok(patches)
+    }
+
+    fn selected_frontages(
+        &self,
+        developed: &BTreeSet<BlockId>,
+    ) -> CityCompileResult<SelectedFrontages> {
         let mut selected = self
             .edges
             .iter()
@@ -126,13 +191,23 @@ impl StreetGraph {
         for block in developed {
             selected.extend(&self.boundaries[block]);
         }
-        let market = self.blocks.iter().find(|block| block.market).unwrap();
+        let market = self
+            .blocks
+            .iter()
+            .find(|block| block.is_market())
+            .ok_or(CityCompileError::Planning(CityPlanningIssue::MissingMarket))?;
         selected.extend(&self.boundaries[&market.id]);
         let mut adjacency = vec![Vec::new(); self.nodes.len()];
         for (index, edge) in self.edges.iter().enumerate() {
             let [a, b] = edge.nodes;
-            adjacency[a.0].push((b, StreetEdgeId(index)));
-            adjacency[b.0].push((a, StreetEdgeId(index)));
+            adjacency[a.0].push(StreetConnection {
+                node: b,
+                edge: StreetEdgeId(index),
+            });
+            adjacency[b.0].push(StreetConnection {
+                node: a,
+                edge: StreetEdgeId(index),
+            });
         }
         let mut parents = vec![None; self.nodes.len()];
         let mut reached = vec![false; self.nodes.len()];
@@ -149,49 +224,35 @@ impl StreetGraph {
             }
         }
         while let Some(node) = queue.pop_front() {
-            for &(next, edge) in &adjacency[node.0] {
+            for &StreetConnection { node: next, edge } in &adjacency[node.0] {
                 if !reached[next.0] {
                     reached[next.0] = true;
-                    parents[next.0] = Some((node, edge));
+                    parents[next.0] = Some(StreetConnection { node, edge });
                     queue.push_back(next);
                 }
             }
         }
         for edge in selected.clone() {
             for mut node in self.edges[edge.0].nodes {
-                assert!(
-                    reached[node.0],
-                    "developed frontage is disconnected from the trade route"
-                );
-                while let Some((parent, connecting)) = parents[node.0] {
+                if !reached[node.0] {
+                    return Err(CityCompileError::Planning(
+                        CityPlanningIssue::DisconnectedFrontage,
+                    ));
+                }
+                while let Some(StreetConnection {
+                    node: parent,
+                    edge: connecting,
+                }) = parents[node.0]
+                {
                     selected.insert(connecting);
                     node = parent;
                 }
             }
         }
-        let mut patches = selected
-            .into_iter()
-            .map(|id| {
-                let edge = &self.edges[id.0];
-                CityStreetPatch::Corridor {
-                    start_metres: self.nodes[edge.nodes[0].0],
-                    end_metres: self.nodes[edge.nodes[1].0],
-                    half_width_metres: edge.class.half_width(),
-                    surface: edge.class.surface(),
-                }
-            })
-            .collect::<Vec<_>>();
-        patches.push(CityStreetPatch::Market {
-            corners_metres: self
-                .blocks
-                .iter()
-                .find(|block| block.market)
-                .unwrap()
-                .corners,
-            surface: CityStreetSurface::Fieldstone,
-        });
-        assert!(patches.len() <= MAX_CITY_STREET_PATCHES);
-        patches
+        Ok(SelectedFrontages {
+            edges: selected,
+            market: *market,
+        })
     }
 }
 
@@ -203,7 +264,12 @@ mod tests {
     fn old_quarter_has_shared_t_junctions_and_extension_has_regular_crossings() {
         for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let graph = CitySite::central_german_market_town()
-                .street_graph(seed, DevelopmentExtent::for_population(40_000));
+                .unwrap()
+                .street_graph(
+                    seed,
+                    DevelopmentExtent::for_population(ResidentCount::new(40_000)).unwrap(),
+                )
+                .unwrap();
             let mut degrees = vec![0; graph.nodes.len()];
             for edge in &graph.edges {
                 assert_ne!(edge.nodes[0], edge.nodes[1]);
@@ -215,7 +281,9 @@ mod tests {
                 .nodes
                 .iter()
                 .zip(&degrees)
-                .filter(|(point, degree)| point.x < 0.0 && point.x > -1000.0 && **degree == 3)
+                .filter(|(point, degree)| {
+                    point.metres().x < 0.0 && point.metres().x > -1000.0 && **degree == 3
+                })
                 .count();
             assert!(
                 old_t > 50,
@@ -226,30 +294,39 @@ mod tests {
                     .nodes
                     .iter()
                     .zip(&degrees)
-                    .filter(|(p, _)| p.x > 450.0 && p.x < 1000.0 && p.y.abs() < 700.0)
+                    .filter(|(p, _)| p.metres().x > 450.0
+                        && p.metres().x < 1000.0
+                        && p.metres().y.abs() < 700.0)
                     .all(|(_, degree)| *degree == 4)
             );
-            assert_eq!(graph.blocks.iter().filter(|block| block.market).count(), 1);
+            assert_eq!(
+                graph
+                    .blocks
+                    .iter()
+                    .filter(|block| block.is_market())
+                    .count(),
+                1
+            );
             for block in &graph.blocks {
                 for side in 0..4 {
-                    let a = block.corners[side];
-                    let b = block.corners[(side + 1) % 4];
-                    let c = block.corners[(side + 2) % 4];
+                    let a = block.corners_metres()[side];
+                    let b = block.corners_metres()[(side + 1) % 4];
+                    let c = block.corners_metres()[(side + 2) % 4];
                     assert!((b - a).perp_dot(c - b) > 0.0, "inverted or concave block");
                 }
             }
             for edge in &graph.edges {
-                let [a, b] = edge.nodes.map(|id| graph.nodes[id.0]);
+                let [a, b] = edge.nodes.map(|id| graph.nodes[id.0].metres());
                 let delta = b - a;
                 for (index, point) in graph.nodes.iter().enumerate() {
                     if edge.nodes.contains(&StreetNodeId(index)) {
                         continue;
                     }
-                    let progress = (*point - a).dot(delta) / delta.length_squared();
+                    let progress = (point.metres() - a).dot(delta) / delta.length_squared();
                     assert!(
                         progress <= 0.001
                             || progress >= 0.999
-                            || point.distance(a + delta * progress) > 0.01,
+                            || point.metres().distance(a + delta * progress) > 0.01,
                         "junction terminates inside an unsplit street edge"
                     );
                 }
@@ -259,17 +336,26 @@ mod tests {
 
     #[test]
     fn surveyed_anchor_inside_market_range_and_near_approaches_remains_valid() {
-        let site = CitySite::from_trade_route([
-            Vec2::new(-1400.0, -120.0),
-            Vec2::new(-450.0, -80.0),
-            Vec2::new(75.0, 0.0),
-            Vec2::new(450.0, 50.0),
-            Vec2::new(1400.0, 100.0),
-        ])
+        let site = CitySite::from_trade_route(
+            [
+                Vec2::new(-1400.0, -120.0),
+                Vec2::new(-450.0, -80.0),
+                Vec2::new(75.0, 0.0),
+                Vec2::new(450.0, 50.0),
+                Vec2::new(1400.0, 100.0),
+            ]
+            .map(|point| ScenePlanPoint::try_from(point).unwrap()),
+        )
         .unwrap();
         for seed in [42, 101].map(fabelgeist_determinism::Seed::from_u64) {
-            let city = site.generate(seed, 900, &super::super::tests::economy());
-            assert_eq!(city.unhoused_population, 0);
+            let city = site
+                .generate(
+                    seed,
+                    adventuresim_core::settlement_property::ResidentCount::new(900),
+                    &super::super::tests::economy(),
+                )
+                .unwrap();
+            assert_eq!(city.unhoused_population, ResidentCount::ZERO);
             assert!(city.unplaced_services.is_empty());
             assert!(city.streets.iter().all(|street| street.is_valid()));
             assert_eq!(
@@ -291,11 +377,16 @@ mod tests {
             Vec2::new(1500.0, -150.0),
             Vec2::new(1800.0, 200.0),
         ];
-        let city = CitySite::from_trade_route(anchors).unwrap().generate(
+        let city = CitySite::from_trade_route(
+            anchors.map(|point| ScenePlanPoint::try_from(point).unwrap()),
+        )
+        .unwrap()
+        .generate(
             (42).into(),
-            900,
+            adventuresim_core::settlement_property::ResidentCount::new(900),
             &super::super::tests::economy(),
-        );
+        )
+        .unwrap();
         assert!(city.streets.iter().all(|patch| patch.is_valid()));
         let endpoints = city
             .streets
@@ -305,7 +396,11 @@ mod tests {
                     start_metres,
                     end_metres,
                     ..
-                } => Some([*start_metres, *end_metres]),
+                } => {
+                    let start_metres = start_metres.metres();
+                    let end_metres = end_metres.metres();
+                    Some([start_metres, end_metres])
+                }
                 _ => None,
             })
             .flatten()

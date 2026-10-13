@@ -5,17 +5,20 @@ pub(super) fn validate(
     domains: &[PlacementDomain],
     positions: &FrontageDisplacements,
 ) -> Result<(), CoupledPackingIssue> {
+    if positions.iter().count() != domains.len() {
+        return Err(CoupledPackingIssue::InvalidModel);
+    }
     let mut geometry = Vec::with_capacity(domains.len());
     for (domain, coordinate) in domains.iter().zip(positions.iter()) {
         let frontage_displacement = coordinate.metres();
         let allowed = domain.allowed;
         if !frontage_displacement.is_finite()
-            || frontage_displacement < allowed.minimum_metres
-            || frontage_displacement > allowed.maximum_metres
+            || frontage_displacement < allowed.minimum_metres()
+            || frontage_displacement > allowed.maximum_metres()
         {
             return Err(CoupledPackingIssue::OutsideDomain {
                 property: domain.owner,
-                displacement_metres: frontage_displacement,
+                displacement_metres: coordinate,
                 permitted: allowed,
             });
         }
@@ -36,7 +39,10 @@ pub(super) fn validate(
     }
     for first in 0..geometry.len() {
         for second in first + 1..geometry.len() {
-            if !geometry[first].clears(&geometry[second]) {
+            if !geometry[first]
+                .clears(&geometry[second])
+                .map_err(|_| CoupledPackingIssue::NumericalFailure)?
+            {
                 return Err(CoupledPackingIssue::Overlap {
                     first: domains[first].owner,
                     second: domains[second].owner,

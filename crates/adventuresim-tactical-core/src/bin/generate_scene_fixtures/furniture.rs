@@ -18,14 +18,7 @@ pub(super) fn fixture() -> Fixture {
     }
 }
 
-fn open_yard(_: f32, _: f32) -> EnvironmentalSample {
-    sample(TacticalSurface::Open, 0, 0, 0, 0)
-}
-
-pub(super) fn buildings() -> Result<
-    Vec<TacticalBuildingPlacement>,
-    adventuresim_building_generator::spatial_geometry::GeometryError,
-> {
+pub(super) fn buildings() -> Result<Vec<TacticalBuildingPlacement>, Box<dyn std::error::Error>> {
     [
         (
             BuildingUse::Inn,
@@ -55,20 +48,22 @@ pub(super) fn buildings() -> Result<
                 usage,
                 fabelgeist_determinism::Seed::from_u64(42),
                 Some(ServiceBuildingSize::Medium),
-            )
-            .expect("curated furniture review service must validate"),
+            )?,
             centre_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
                 centre_metres,
             )?,
-            orientation: BuildingOrientation::from_radians(yaw).unwrap(),
+            orientation: BuildingOrientation::from_radians(yaw).ok_or(
+                adventuresim_building_generator::spatial_geometry::GeometryError::InvalidProjection,
+            )?,
         })
     })
     .collect()
 }
 
-pub(super) fn streets() -> Vec<CityStreetPatch> {
+pub(super) fn streets()
+-> adventuresim_building_generator::spatial_geometry::GeometryResult<Vec<CityStreetPatch>> {
     let mut streets = vec![CityStreetPatch::Market {
-        corners_metres: corners(Vec2::splat(-25.0), Vec2::splat(25.0)),
+        corners_metres: scene_corners(corners(Vec2::splat(-25.0), Vec2::splat(25.0)))?,
         surface: CityStreetSurface::Fieldstone,
     }];
     for (start_metres, end_metres, surface) in [
@@ -94,27 +89,36 @@ pub(super) fn streets() -> Vec<CityStreetPatch> {
         ),
     ] {
         streets.push(CityStreetPatch::Corridor {
-            start_metres,
-            end_metres,
-            half_width_metres: 3.5,
+            start_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(start_metres)?,
+            end_metres: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(end_metres)?,
+            half_width_metres:
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(3.5)
+                    ?,
             surface,
         });
     }
-    streets
+    Ok(streets)
 }
 
-pub(super) fn yards() -> Vec<CityYardPatch> {
+pub(super) fn yards()
+-> adventuresim_building_generator::spatial_geometry::GeometryResult<Vec<CityYardPatch>> {
     [
         (Vec2::new(34.0, -20.0), Vec2::new(72.0, 20.0)),
         (Vec2::new(-73.0, -46.0), Vec2::new(-36.0, -5.0)),
         (Vec2::new(-20.0, 39.0), Vec2::new(20.0, 80.0)),
     ]
     .into_iter()
-    .map(|(min, max)| CityYardPatch {
-        corners_metres: corners(min, max),
-        surface: CityYardSurface::PackedEarth,
+    .map(|(min, max)| {
+        Ok(CityYardPatch {
+            corners_metres: scene_corners(corners(min, max))?,
+            surface: CityYardSurface::PackedEarth,
+        })
     })
     .collect()
+}
+
+fn open_yard(_: f32, _: f32) -> EnvironmentalSample {
+    sample(TacticalSurface::Open, 0, 0, 0, 0)
 }
 
 fn corners(min: Vec2, max: Vec2) -> [Vec2; 4] {

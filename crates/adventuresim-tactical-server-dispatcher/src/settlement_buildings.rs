@@ -32,8 +32,14 @@ pub fn place_settlement_buildings(
     playable_half_extent_metres: f32,
 ) -> Result<CitySceneLayout, CityCompileError> {
     let seed = adventuresim_core::settlement_population::settlement_building_seed(&settlement.id);
-    CitySite::central_german_market_town()
-        .generate(seed, settlement.effective_population(), &settlement.economy)
+    CitySite::central_german_market_town()?
+        .generate(
+            seed,
+            adventuresim_core::settlement_property::ResidentCount::new(
+                settlement.effective_population(),
+            ),
+            &settlement.economy,
+        )?
         .compile(seed)?
         .partition(Some(playable_half_extent_metres))
 }

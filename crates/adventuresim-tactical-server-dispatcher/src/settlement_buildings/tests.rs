@@ -93,11 +93,13 @@ fn missing_estimate_uses_the_shared_population_level_fallback() {
     let population = settlement.effective_population();
     let buildings = place_settlement_buildings(&settlement, 50.0).unwrap();
     let expected = CitySite::central_german_market_town()
+        .unwrap()
         .generate(
             adventuresim_core::settlement_population::settlement_building_seed(&settlement.id),
-            population,
+            adventuresim_core::settlement_property::ResidentCount::new(population),
             &settlement.economy,
         )
+        .unwrap()
         .lots
         .len();
     assert_eq!(
@@ -191,13 +193,15 @@ fn large_city_uses_valid_deterministic_recipes_and_preserves_all_plots() {
     assert_eq!(
         buildings.playable.len() + buildings.distant.len(),
         CitySite::central_german_market_town()
+            .unwrap()
             .generate(
                 adventuresim_core::settlement_population::settlement_building_seed(
                     "massive-city-3229",
                 ),
-                100_000,
+                adventuresim_core::settlement_property::ResidentCount::new(100_000),
                 &economy(100_000)
             )
+            .unwrap()
             .lots
             .len()
             + buildings.compounds.len()
@@ -227,10 +231,7 @@ fn city_house_class_dimensions_match_generated_programmes() {
                 f32::from(width_cells) * adventuresim_building_generator::CELL_SIZE_METRES,
                 f32::from(depth_cells) * adventuresim_building_generator::CELL_SIZE_METRES,
             ),
-            bevy::math::Vec2::new(
-                house_class.frontage_width_metres(),
-                house_class.depth_metres(),
-            )
+            house_class.footprint().unwrap().metres()
         );
     }
 }

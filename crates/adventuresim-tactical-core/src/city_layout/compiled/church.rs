@@ -19,7 +19,7 @@ pub(super) fn validate(
     streets: &[CityStreetPatch],
 ) -> Result<()> {
     let error = |issue| CityCompileError::Church {
-        building: lot.id.into(),
+        building: lot.front_building_id(),
         issue,
     };
     let plot = CityPlotBounds::try_from(lot)?;
@@ -30,12 +30,14 @@ pub(super) fn validate(
         .door_point(placement, adventuresim_building_generator::Direction::West)?
         .ok_or(error(ChurchSitingIssue::MissingWestPortal))?
         .metres();
-    let local_door = lot.orientation.world_to_local(door - lot.centre_metres);
+    let local_door = lot
+        .orientation
+        .world_to_local(door - lot.centre_metres.metres());
     let apron = services::SERVICE_EDGE_CLEARANCE_METRES - ORDINARY_STREET_HALF_WIDTH_METRES;
-    let street = lot.centre_metres
+    let street = lot.centre_metres.metres()
         + lot.orientation.local_to_world(Vec2::new(
             local_door.x,
-            -lot.footprint_metres.y * 0.5 - apron,
+            -lot.footprint_metres.metres().y * 0.5 - apron,
         ));
     if !plot.contains(door) || !streets.iter().any(|patch| patch.contains(street)) {
         return Err(error(ChurchSitingIssue::StreetDisconnected));
@@ -71,11 +73,14 @@ mod tests {
 
     #[test]
     fn principal_frontage_rotates_with_its_plot_and_rejects_blocked_access() {
-        let city = CitySite::central_german_market_town().generate(
-            (42).into(),
-            6500,
-            &super::super::super::tests::economy(),
-        );
+        let city = CitySite::central_german_market_town()
+            .unwrap()
+            .generate(
+                (42).into(),
+                adventuresim_core::settlement_property::ResidentCount::new(6500),
+                &super::super::super::tests::economy(),
+            )
+            .unwrap();
         let mut lot = *city
             .lots
             .iter()
@@ -87,43 +92,53 @@ mod tests {
         let recipe = CityRecipePalette::default()
             .front((42).into(), lot)
             .unwrap();
-        lot.centre_metres = Vec2::ZERO;
+        lot.centre_metres = ScenePlanPoint::ORIGIN;
         for yaw in [0.0, core::f32::consts::FRAC_PI_2, 0.37] {
             lot.orientation = BuildingOrientation::from_radians(yaw).unwrap();
-            let street_y = -lot.footprint_metres.y * 0.5 - services::SERVICE_EDGE_CLEARANCE_METRES;
+            let street_y =
+                -lot.footprint_metres.metres().y * 0.5 - services::SERVICE_EDGE_CLEARANCE_METRES;
             let street = CityStreetPatch::Corridor {
-                start_metres: lot.orientation.local_to_world(Vec2::new(-20.0, street_y)),
-                end_metres: lot.orientation.local_to_world(Vec2::new(20.0, street_y)),
-                half_width_metres: ORDINARY_STREET_HALF_WIDTH_METRES,
+                start_metres: crate::scene_coordinates::ScenePlanPoint::try_from(
+                    lot.orientation.local_to_world(Vec2::new(-20.0, street_y)),
+                )
+                .unwrap(),
+                end_metres: crate::scene_coordinates::ScenePlanPoint::try_from(
+                    lot.orientation.local_to_world(Vec2::new(20.0, street_y)),
+                )
+                .unwrap(),
+                half_width_metres:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        ORDINARY_STREET_HALF_WIDTH_METRES,
+                    )
+                    .unwrap(),
                 surface: CityStreetSurface::Fieldstone,
             };
             let placement = recipe
-                .place(lot.id.into(), lot.centre_metres, lot.orientation)
+                .place(lot.front_building_id(), lot.centre_metres, lot.orientation)
                 .unwrap();
             validate(lot, &placement, &recipe, &[street]).unwrap();
             assert_eq!(
                 validate(lot, &placement, &recipe, &[]),
                 Err(CityCompileError::Church {
-                    building: lot.id.into(),
+                    building: lot.front_building_id(),
                     issue: ChurchSitingIssue::StreetDisconnected,
                 })
             );
             let smaller = CityBuildingLot {
-                footprint_metres: Vec2::splat(10.0),
+                footprint_metres: PlanDimensions::from_metres(Vec2::splat(10.0)).unwrap(),
                 ..lot
             };
             assert_eq!(
                 validate(smaller, &placement, &recipe, &[street]),
                 Err(CityCompileError::Church {
-                    building: lot.id.into(),
+                    building: lot.front_building_id(),
                     issue: ChurchSitingIssue::GeometryOutsidePlot,
                 })
             );
             let mut blocked = Recipe {
                 program: recipe.program.clone(),
                 collision: recipe.collision.clone(),
-                render_min: recipe.render_min,
-                render_max: recipe.render_max,
+                render_bounds: recipe.render_bounds,
                 doors: recipe.doors.clone(),
                 ground_entrances: recipe.ground_entrances.clone(),
             };
@@ -136,7 +151,7 @@ mod tests {
             assert_eq!(
                 validate(lot, &placement, &blocked, &[street]),
                 Err(CityCompileError::Church {
-                    building: lot.id.into(),
+                    building: lot.front_building_id(),
                     issue: ChurchSitingIssue::ApproachBlocked,
                 })
             );

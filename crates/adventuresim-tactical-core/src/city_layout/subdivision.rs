@@ -16,7 +16,7 @@ pub(super) fn build(
     site: &CitySite,
     seed: fabelgeist_determinism::Seed,
     extent: DevelopmentExtent,
-) -> StreetGraph {
+) -> CityCompileResult<StreetGraph> {
     let strip_count = extent.strip_count;
     let market_strip = extent.market_strip();
     let cuts = (0..strip_count)
@@ -40,10 +40,10 @@ pub(super) fn build(
             let block = CityBlock {
                 id: BlockId(((strip as u64) << 32) | index as u64),
                 corners: [
-                    point(site, strip, left, market_strip),
-                    point(site, strip, right, market_strip),
-                    point(site, strip + 1, right, market_strip),
-                    point(site, strip + 1, left, market_strip),
+                    point(site, strip, left, market_strip)?,
+                    point(site, strip, right, market_strip)?,
+                    point(site, strip + 1, right, market_strip)?,
+                    point(site, strip + 1, left, market_strip)?,
                 ],
                 streets: [
                     seam_class(strip, market_strip),
@@ -51,7 +51,7 @@ pub(super) fn build(
                     seam_class(strip + 1, market_strip),
                     StreetClass::Lane,
                 ],
-                market: false,
+                use_role: graph::BlockUse::StreetFrontage,
             };
             for seam in [strip, strip + 1] {
                 let boundary = seams[seam]
@@ -62,8 +62,8 @@ pub(super) fn build(
                 for ends in boundary.windows(2) {
                     graph.segment(
                         [
-                            point(site, seam, ends[0], market_strip),
-                            point(site, seam, ends[1], market_strip),
+                            point(site, seam, ends[0], market_strip)?,
+                            point(site, seam, ends[1], market_strip)?,
                         ],
                         seam_class(seam, market_strip),
                         Some(block.id),
@@ -73,41 +73,48 @@ pub(super) fn build(
             for x in [left, right] {
                 graph.segment(
                     [
-                        point(site, strip, x, market_strip),
-                        point(site, strip + 1, x, market_strip),
+                        point(site, strip, x, market_strip)?,
+                        point(site, strip + 1, x, market_strip)?,
                     ],
                     StreetClass::Lane,
                     Some(block.id),
                 );
             }
+            ScenePlanPoint::try_from(block.centre())?;
             graph.blocks.push(block);
         }
     }
-    connect_market_and_approaches(&mut graph, site, market_strip);
-    graph
+    connect_market_and_approaches(&mut graph, site, market_strip)?;
+    Ok(graph)
 }
 
-fn connect_market_and_approaches(graph: &mut StreetGraph, site: &CitySite, market_strip: usize) {
+fn connect_market_and_approaches(
+    graph: &mut StreetGraph,
+    site: &CitySite,
+    market_strip: usize,
+) -> CityCompileResult<()> {
     let market = graph
         .blocks
         .iter_mut()
         .filter(|block| block.streets[0] == StreetClass::TradeRoute)
-        .filter(|block| block.corners[0].distance(block.corners[1]) >= OLD_BLOCK_MIN_METRES)
+        .filter(|block| {
+            block.corners_metres()[0].distance(block.corners_metres()[1]) >= OLD_BLOCK_MIN_METRES
+        })
         .min_by(|a, b| {
             a.centre()
                 .length_squared()
                 .total_cmp(&b.centre().length_squared())
         })
-        .expect("the surveyed spine has a full-width market site");
-    market.market = true;
+        .ok_or(CityCompileError::Planning(CityPlanningIssue::MissingMarket))?;
+    market.use_role = graph::BlockUse::Market;
     for side in [-1.0, 1.0] {
         let mut approach = site
             .alignment
             .iter()
             .copied()
-            .filter(|anchor| anchor.x * side > SITE_HALF_WIDTH_METRES)
+            .filter(|anchor| anchor.metres().x * side > SITE_HALF_WIDTH_METRES)
             .collect::<Vec<_>>();
-        approach.sort_by(|a, b| (a.x * side).total_cmp(&(b.x * side)));
+        approach.sort_by(|a, b| (a.metres().x * side).total_cmp(&(b.metres().x * side)));
         approach.insert(
             0,
             point(
@@ -115,12 +122,13 @@ fn connect_market_and_approaches(graph: &mut StreetGraph, site: &CitySite, marke
                 market_strip,
                 side * SITE_HALF_WIDTH_METRES,
                 market_strip,
-            ),
+            )?,
         );
         for segment in approach.windows(2) {
             graph.segment([segment[0], segment[1]], StreetClass::TradeRoute, None);
         }
     }
+    Ok(())
 }
 
 fn seam_class(seam: usize, market_strip: usize) -> StreetClass {
@@ -131,14 +139,22 @@ fn seam_class(seam: usize, market_strip: usize) -> StreetClass {
     }
 }
 
-fn point(site: &CitySite, seam: usize, x: f32, market_strip: usize) -> Vec2 {
+fn point(
+    site: &CitySite,
+    seam: usize,
+    x: f32,
+    market_strip: usize,
+) -> GeometryResult<ScenePlanPoint> {
     let offset = seam as i32 - market_strip as i32;
     let regular = offset as f32 * STRIP_DEPTH_METRES;
     // Unequal old strips retain deep working plots; the eastern extension has
     // shared, regular seams. Transition occurs only between authored breakpoints.
     let old = regular + (offset as f32 * OLD_SEAM_PHASE).sin() * OLD_SEAM_OFFSET_METRES;
     let extension = (x / EXTENSION_START_METRES).clamp(0.0, 1.0);
-    Vec2::new(x, old + (regular - old) * extension + site.route_height(x))
+    ScenePlanPoint::try_from(Vec2::new(
+        x,
+        old + (regular - old) * extension + site.route_height(x),
+    ))
 }
 
 fn strip_cuts(
@@ -157,7 +173,7 @@ fn strip_cuts(
     anchors.extend(
         site.alignment
             .iter()
-            .map(|p| p.x)
+            .map(|p| p.metres().x)
             .filter(|x| x.abs() < SITE_HALF_WIDTH_METRES),
     );
     anchors.sort_by(f32::total_cmp);

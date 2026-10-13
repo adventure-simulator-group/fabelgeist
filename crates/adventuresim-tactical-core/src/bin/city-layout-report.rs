@@ -29,9 +29,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let industries = InferredIndustryProfile::new(vec![IndustryEvidence::Fallback(
         FallbackIndustry::CroplandGrain,
     )])
-    .unwrap();
+    .ok_or("invalid layout-report industry fixture")?;
     let economy = infer_settlement_economy(level, population, 3, level >= 3, &industries)?;
-    let city = CitySite::central_german_market_town().generate(seed, population, &economy);
+    let city = CitySite::central_german_market_town()?.generate(
+        seed,
+        adventuresim_core::settlement_property::ResidentCount::new(population),
+        &economy,
+    )?;
     let (parishes, parish_error) = match city.parish_layout() {
         Ok(parishes) => (parishes, None),
         Err(error) => (Vec::new(), Some(error.to_string())),
@@ -44,8 +48,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             "label": lot.building_use().map(|usage| usage.definition().label).unwrap_or("Dwelling"),
             "archetype": lot.archetype(),
             "programme": lot.service,
-            "residents": if lot.service.is_none() { lot.house_class.resident_capacity() } else { 0 },
-            "centre": lot.centre_metres.to_array(),
+            "residents": if lot.service.is_none() { lot.house_class.resident_capacity().get() } else { 0 },
+            "centre": lot.centre_metres.metres().to_array(),
             "dimensions": dimensions.to_array(),
             "yaw_radians": lot.orientation.yaw_radians(),
         })

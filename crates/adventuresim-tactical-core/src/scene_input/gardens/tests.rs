@@ -229,7 +229,9 @@ fn move_first_property(mut input: TacticalSceneInput, offset: Vec2) -> TacticalS
     }
     for yard in &mut input.yards {
         for point in &mut yard.corners_metres {
-            *point += offset;
+            *point = point
+                .translated(crate::scene_coordinates::PlanDisplacement::try_from(offset).unwrap())
+                .unwrap();
         }
     }
     for street in &mut input.streets {
@@ -239,8 +241,12 @@ fn move_first_property(mut input: TacticalSceneInput, offset: Vec2) -> TacticalS
             ..
         } = street
         {
-            *start_metres += offset;
-            *end_metres += offset;
+            *start_metres = start_metres
+                .translated(crate::scene_coordinates::PlanDisplacement::try_from(offset).unwrap())
+                .unwrap();
+            *end_metres = end_metres
+                .translated(crate::scene_coordinates::PlanDisplacement::try_from(offset).unwrap())
+                .unwrap();
         }
     }
     input

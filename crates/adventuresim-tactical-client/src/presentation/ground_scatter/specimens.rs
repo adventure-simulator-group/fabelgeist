@@ -15,10 +15,17 @@ pub(super) fn ensure_understory_presentations(
     // One deterministic specimen is shared by every scattered shrub. Instance
     // transforms still vary placement, rotation, and scale without generating
     // unique botanical geometry per occurrence.
+    let envelope = match GardenSpecimen::CommonHazel.envelope() {
+        Ok(envelope) => envelope,
+        Err(issue) => {
+            bevy::log::error!("cannot initialize measured shrub specimens: {issue}");
+            return;
+        }
+    };
     let species = [
         (
             &mut cache.hazel,
-            GardenSpecimen::CommonHazel.envelope().seed,
+            envelope.seed,
             COMMON_HAZEL_PARAMETERS,
             Color::srgb_u8(118, 104, 78),
             hazel_leaf_material(procedural_assets),
@@ -70,7 +77,7 @@ mod tests {
     use super::*;
     #[test]
     fn managed_hazel_matches_shared_envelope() {
-        let envelope = GardenSpecimen::CommonHazel.envelope();
+        let envelope = GardenSpecimen::CommonHazel.envelope().unwrap();
         let seed = envelope.seed;
         let branches = procedural_woody_plant_skeleton(seed, 0.0, COMMON_HAZEL_PARAMETERS);
         let leaves = procedural_woody_plant_leaves(seed, &branches, 0.0, COMMON_HAZEL_PARAMETERS);

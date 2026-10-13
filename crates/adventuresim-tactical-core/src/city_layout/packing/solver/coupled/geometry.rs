@@ -4,7 +4,7 @@ use super::*;
 #[derive(Clone, Copy)]
 pub(super) enum Envelope<'a> {
     Rectangle(CityPlotBounds),
-    Polygon(&'a [Vec2]),
+    Polygon(&'a [ScenePlanPoint]),
     Ground(&'a ParcelGeometry),
 }
 
@@ -19,7 +19,11 @@ impl Envelope<'_> {
                 .iter()
                 .zip(points.iter().cycle().skip(1))
                 .take(points.len())
-                .map(|(a, b)| (b.as_dvec2() - a.as_dvec2()).perp().normalize())
+                .map(|(a, b)| {
+                    (b.metres().as_dvec2() - a.metres().as_dvec2())
+                        .perp()
+                        .normalize()
+                })
                 .collect(),
         }
     }
@@ -35,7 +39,7 @@ impl Envelope<'_> {
             }
             Self::Polygon(points) => points
                 .iter()
-                .map(|point| axis.dot(point.as_dvec2()))
+                .map(|point| axis.dot(point.metres().as_dvec2()))
                 .fold((f64::INFINITY, f64::NEG_INFINITY), |(low, high), value| {
                     (low.min(value), high.max(value))
                 }),

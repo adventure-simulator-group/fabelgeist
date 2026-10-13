@@ -17,8 +17,14 @@ fn curate(mut input: TacticalSceneInput) -> Result<TacticalSceneInput, String> {
         .ok_or("city industry must be valid")?,
     )
     .map_err(|error| format!("city economy: {error:?}"))?;
-    let city =
-        CitySite::central_german_market_town().generate(CITY_SEED, RESIDENT_POPULATION, &economy);
+    let city = CitySite::central_german_market_town()
+        .map_err(|error| error.to_string())?
+        .generate(
+            CITY_SEED,
+            adventuresim_core::settlement_property::ResidentCount::new(RESIDENT_POPULATION),
+            &economy,
+        )
+        .map_err(|error| error.to_string())?;
     let layout = city
         .compile(CITY_SEED)
         .and_then(|city| city.partition(None))

@@ -35,10 +35,30 @@ their existing leaf-wind clearance. They use the same route transformation as
 the published garden. Private ground and elevated projections remain separate:
 a roof may overhang empty ground, but cannot block an accepted garden.
 
+Planning carries property identities, checked scene points, scene displacements
+and positive plan dimensions from lot production through compilation. Reserved
+land remains distinct from measured building envelopes. Street and yard patches,
+wall endpoints and gate dimensions use the same geometry owners; native clipping,
+mesh and controller adapters extract metres only at their numerical boundary.
+Invalid construction returns a planning or compilation error before a placement
+is published. Fixed four-edge indexes remain topology ordinals, while graph,
+property and physical-building identities have separate owners.
+
+Frontage intervals admit ordered infinite bounds for intermediate half-plane and
+linear constraints. NaN and reversed bounds are rejected; an empty feasible
+intersection differs from invalid arithmetic. Selected frontage displacements
+and scene translations must be finite. Contact and overlap endpoint semantics
+remain those of the existing geometric solver.
+
 The cheap authored candidates precede a deterministic continuous linear solve
 within one block. Stable row-order candidates and separating-plane branches
-share a 100,000-state operational cap; each row candidate receives at most 128
-linear solves. The pinned Apache-2.0 `microlp` 0.6.0 dependency has no native
+share a 100,000-state operational cap. Authored allocation is capped at 5,000
+states; each row candidate receives at most 128 linear solves. Counted work
+includes row attempts and LP nodes. The initial coupled phase receives half the
+remaining allocation; a reclaimed-setback phase receives the unspent remainder.
+A verified solution takes precedence over rejected candidates. Completed
+infeasibility, exhausted allocations, invalid models and numerical failures
+retain distinct diagnostics. The pinned Apache-2.0 `microlp` 0.6.0 dependency has no native
 solver requirement. An independent check of the rounded world geometry remains
 authoritative. An exhausted search or numerical failure is an unresolved
 placement, not proof of physical infeasibility. It reports the exact block and
@@ -825,3 +845,15 @@ Mesh assembly returns property-specific support diagnostics for index-capacity,
 invalid profile-coordinate and degenerate doorway-triangle failures. Scene
 producers propagate these rejections. Mesh construction does not publish an
 accepted surface after a rejected assembly.
+
+## Residence planning contracts
+
+`ResidentCount`, positive `HomeCapacity` and `HomeSupplyRole` belong to the
+shared residence owner. The selected roster and generated-home catalogue carry
+those contracts into named household requests and first-fit allocation. Market
+reserves retain their tier quotas, service buildings provide no housing, and a
+merchant property's rear member adds neither residents nor service capacity.
+Physical building membership, persistent property ownership and current household
+occupancy remain separate authorities. Catalogue metre fields, building identity
+words and the `market_reserve` Boolean are explicit serialization adapters;
+strategic persistence extracts counts at its schema boundary.

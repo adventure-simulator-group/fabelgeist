@@ -46,7 +46,7 @@ fn goslar_1238_enclosure_follows_all_terraces_and_anchors_the_gate_above_the_fro
     let source = fixture.source();
     let plan = fixture.selected_plan(&source);
     assert!(gate.metres() - plan.member_support()[0].elevation.metres() > 2.3);
-    let post_head = gate.metres() + fixture.property.boundary.gate.height_metres + 0.15;
+    let post_head = gate.metres() + fixture.property.boundary.gate.height_metres.metres() + 0.15;
     let mut post_soil = Vec::new();
     let collider = mesh.collider().unwrap().into_solid().unwrap();
     for cell in &mesh.cells {
@@ -116,6 +116,7 @@ fn enclosure_projection_rejects_missing_wall_bearings_with_exact_property_and_me
                 .boundary
                 .gate
                 .centre_metres
+                .metres()
                 .distance(foundation.positions[*i as usize].xz())
                 < 2.0
         })

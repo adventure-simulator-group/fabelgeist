@@ -9,9 +9,7 @@ pub(super) fn street_gate_level(
     levels: CompoundSupportLevels,
     limits: SupportLimits,
 ) -> Result<SupportElevation, SupportDiagnostic> {
-    let gate =
-        crate::scene_coordinates::ScenePlanPoint::try_from(property.boundary.gate.centre_metres)
-            .map_err(|cause| SupportDiagnostic::gate_position(property, cause))?;
+    let gate = property.boundary.gate.centre_metres;
     let mut routes = property
         .access
         .iter()
@@ -24,13 +22,13 @@ pub(super) fn street_gate_level(
                 property,
                 SupportConstraint::GateBinding,
                 SupportBoundary::GateLanding,
-                property.boundary.gate.centre_metres,
+                property.boundary.gate.centre_metres.metres(),
                 1.0,
                 0.0,
             )
         })?;
     let delta = route.end_metres() - route.start_metres();
-    let station = (property.boundary.gate.centre_metres - route.start_metres())
+    let station = (property.boundary.gate.centre_metres.metres() - route.start_metres())
         .dot(delta.normalize_or_zero());
     let run = station - route.half_width_metres() * 2.0;
     let reach = run * limits.maximum_grade.ratio() - limits.contact_tolerance_metres.metres();
@@ -60,9 +58,7 @@ pub(super) fn compile(
         SupportDiagnostic::new(property, constraint, boundary, location, 1.0, 0.0)
     };
     validate_inputs(property, levels)?;
-    let gate =
-        crate::scene_coordinates::ScenePlanPoint::try_from(property.boundary.gate.centre_metres)
-            .map_err(|cause| SupportDiagnostic::gate_position(property, cause))?;
+    let gate = property.boundary.gate.centre_metres;
     let route_to = |member: MemberSupport| {
         let mut routes = property
             .access
@@ -88,7 +84,7 @@ pub(super) fn compile(
         .ok_or(binding(
             SupportConstraint::GateBinding,
             SupportBoundary::GateLanding,
-            property.boundary.gate.centre_metres,
+            property.boundary.gate.centre_metres.metres(),
         ))?;
     for route in [front_route, rear_route, &passage] {
         let delta = property

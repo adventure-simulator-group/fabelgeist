@@ -1,16 +1,9 @@
 //! Typed solver selections, separate from LP coefficients and table ordinals.
 use super::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, serde::Serialize)]
+#[serde(transparent)]
 pub(super) struct PackingDomainIndex(usize);
-impl PackingDomainIndex {
-    pub(super) fn new(index: usize) -> Self {
-        Self(index)
-    }
-    pub(super) fn index(self) -> usize {
-        self.0
-    }
-}
 
 #[derive(Clone, Copy)]
 pub(super) struct FrontageSelection {
@@ -28,18 +21,19 @@ pub(super) struct DomainChoices {
     pub(super) intervals: Vec<FrontageInterval>,
 }
 
-#[derive(Clone, Copy)]
-pub(super) struct ExploredSearchNodes(usize);
-impl ExploredSearchNodes {
-    pub(super) fn new(count: usize) -> Self {
-        Self(count)
+pub(super) struct FrontageDisplacements(Vec<FrontageDisplacement>);
+pub(super) struct CountedSearchOutcome {
+    pub(super) outcome: Result<FrontageDisplacements, CoupledPackingIssue>,
+    pub(super) explored_nodes: ExploredSearchNodes,
+}
+impl PackingDomainIndex {
+    pub(super) fn new(index: usize) -> Self {
+        Self(index)
     }
-    pub(super) fn count(self) -> usize {
+    pub(super) fn index(self) -> usize {
         self.0
     }
 }
-
-pub(super) struct FrontageDisplacements(Vec<FrontageDisplacement>);
 impl FrontageDisplacements {
     pub(super) fn from_solver(coordinates: Vec<f64>) -> Result<Self, CoupledPackingIssue> {
         coordinates
@@ -62,10 +56,6 @@ impl FrontageDisplacements {
             })
             .collect()
     }
-}
-pub(super) struct CountedSearchOutcome {
-    pub(super) outcome: Result<FrontageDisplacements, CoupledPackingIssue>,
-    pub(super) explored_nodes: ExploredSearchNodes,
 }
 
 #[cfg(test)]

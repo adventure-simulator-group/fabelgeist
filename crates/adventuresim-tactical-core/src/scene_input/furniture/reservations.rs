@@ -6,6 +6,39 @@ pub(super) const DOOR_SHOULDER_METRES: f32 = 0.5;
 pub(super) const MARKET_AISLE_HALF_WIDTH_METRES: f32 = 2.0;
 const EDGE_ROAD_MIN_ALIGNMENT: f32 = 0.95;
 
+impl FurnitureFootprint {
+    pub(super) fn accepted_approach(
+        region: crate::city_layout::CityPlotBounds,
+    ) -> Result<Self, crate::scene_input::SceneInputError> {
+        Ok(Self::from_metres(
+            region.centre_metres(),
+            region.dimensions_metres() * 0.5 + Vec2::splat(DOOR_SHOULDER_METRES),
+            region.orientation(),
+        )?)
+    }
+
+    fn gate_sweep(
+        compound: &crate::city_layout::CityCompound,
+    ) -> Result<Self, crate::scene_input::SceneInputError> {
+        let gate = compound.boundary.gate.door(compound.id)?;
+        let hinge = Vec2::new(gate.hinge_centre.metres().x, gate.hinge_centre.metres().z);
+        // Reserve the inward quarter of the hinge's enclosing square for the
+        // complete leaf sweep, independently of its current dynamic state.
+        Ok(Self::from_metres(
+            hinge
+                + compound
+                    .boundary
+                    .gate
+                    .orientation
+                    .local_to_world(Vec2::new(-compound.boundary.gate.hinge.sign(), 1.0))
+                    * gate.size_metres.metres().x
+                    * 0.5,
+            Vec2::splat(gate.size_metres.metres().x * 0.5 + gate.size_metres.metres().z),
+            compound.boundary.gate.orientation,
+        )?)
+    }
+}
+
 /// Adjacent streets can be wider than the market's pedestrian perimeter aisle.
 /// Start vendor rows behind their full reserved width, including angled caps.
 pub(super) fn market_edge_clearance(
@@ -27,6 +60,9 @@ pub(super) fn market_edge_clearance(
         else {
             continue;
         };
+        let start_metres = start_metres.metres();
+        let end_metres = end_metres.metres();
+        let half_width_metres = half_width_metres.metres();
         if (end_metres - start_metres)
             .normalize_or_zero()
             .dot(tangent)
@@ -82,12 +118,16 @@ pub(super) fn routes(
                 half_width_metres,
                 ..
             } => {
+                let start_metres = start_metres.metres();
+                let end_metres = end_metres.metres();
+                let half_width_metres = half_width_metres.metres();
                 routes.push(route(start_metres, end_metres, half_width_metres)?);
             }
             CityStreetPatch::Market {
                 corners_metres: corners,
                 ..
             } => {
+                let corners = corners.map(crate::scene_coordinates::ScenePlanPoint::metres);
                 // Preserve both crossings and a perimeter circuit before any
                 // stalls are proposed in the remaining quadrants.
                 for edge in 0..4 {
@@ -197,39 +237,6 @@ pub(super) fn obstacles(
         )?);
     }
     Ok(footprints)
-}
-
-impl FurnitureFootprint {
-    pub(super) fn accepted_approach(
-        region: crate::city_layout::CityPlotBounds,
-    ) -> Result<Self, crate::scene_input::SceneInputError> {
-        Ok(Self::from_metres(
-            region.centre_metres(),
-            region.dimensions_metres() * 0.5 + Vec2::splat(DOOR_SHOULDER_METRES),
-            region.orientation(),
-        )?)
-    }
-
-    fn gate_sweep(
-        compound: &crate::city_layout::CityCompound,
-    ) -> Result<Self, crate::scene_input::SceneInputError> {
-        let gate = compound.boundary.gate.door(compound.id)?;
-        let hinge = Vec2::new(gate.hinge_centre.metres().x, gate.hinge_centre.metres().z);
-        // Reserve the inward quarter of the hinge's enclosing square for the
-        // complete leaf sweep, independently of its current dynamic state.
-        Ok(Self::from_metres(
-            hinge
-                + compound
-                    .boundary
-                    .gate
-                    .orientation
-                    .local_to_world(Vec2::new(-compound.boundary.gate.hinge.sign(), 1.0))
-                    * gate.size_metres.metres().x
-                    * 0.5,
-            Vec2::splat(gate.size_metres.metres().x * 0.5 + gate.size_metres.metres().z),
-            compound.boundary.gate.orientation,
-        )?)
-    }
 }
 
 #[cfg(test)]

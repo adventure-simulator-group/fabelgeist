@@ -3,11 +3,14 @@ use super::*;
 
 pub(in crate::city_layout) struct SelectedRoster {
     pub members: Vec<CandidateLot>,
-    pub unhoused_population: u32,
+    pub unhoused_population: ResidentCount,
 }
 impl SelectedRoster {
-    pub fn from_candidates(candidates: Vec<CandidateLot>, target_population: u32) -> Self {
-        let mut represented_population = 0_u32;
+    pub fn from_candidates(
+        candidates: Vec<CandidateLot>,
+        target_population: ResidentCount,
+    ) -> Self {
+        let mut represented_population = ResidentCount::ZERO;
         let mut market = adventuresim_core::settlement_property::HousingMarketReserve::default();
         let mut selected = Vec::new();
         for candidate in candidates.into_iter().take(MAX_CITY_LOTS) {
@@ -18,14 +21,14 @@ impl SelectedRoster {
                 break;
             }
             let mut lot = candidate.lot;
-            lot.id = selected.len() as u64 + 1;
-            represented_population = represented_population.saturating_add(
-                if lot.service.is_none() && !market.reserve(lot.house_class.housing_tier()) {
-                    lot.house_class.resident_capacity()
-                } else {
-                    0
-                },
-            );
+            lot.id = CityPropertyId(selected.len() as u64 + 1);
+            if lot.service.is_none()
+                && market.reserve(lot.house_class.housing_tier())
+                    == HomeSupplyRole::PopulationHousing
+            {
+                represented_population = represented_population
+                    .saturating_add_capacity(lot.house_class.resident_capacity());
+            }
             selected.push(CandidateLot { lot, ..candidate });
         }
         Self {

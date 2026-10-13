@@ -13,11 +13,13 @@ fn city_input() -> (TacticalSceneInput, CitySceneLayout) {
 
 fn city_input_for(seed: Seed, population: u32) -> (TacticalSceneInput, CitySceneLayout) {
     let layout = CitySite::central_german_market_town()
+        .unwrap()
         .generate(
             seed,
-            population,
+            adventuresim_core::settlement_property::ResidentCount::new(population),
             &SettlementEconomyProfile::stage_placeholder(),
         )
+        .unwrap()
         .compile(seed)
         .unwrap()
         .partition(Some(50.0))
