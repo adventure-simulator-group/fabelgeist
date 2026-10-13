@@ -17,8 +17,10 @@ use serde::{Deserialize, Serialize};
 
 use crate::marching_tetrahedra::marching_tetrahedra;
 use crate::{scene::SceneTerrain, terrain_transition::TerrainTransitionCollar};
+use resistance::{ScarpResistance, ScarpResistanceGrid};
 
 mod recipe;
+mod resistance;
 mod surface_recipe;
 pub use recipe::{
     QuantizedLandformRecipe, TerrainLandformKind, TerrainLandformLod, TerrainLandformRecipe,
@@ -138,8 +140,6 @@ const SCARP_RESISTANT_FACE_GRADE_RANGE: f32 = 2.6;
 const SCARP_MAXIMUM_TRANSFER_FRACTION: f32 = 0.20;
 const SCARP_RUPTURE_WANDER_METRES: f32 = 1.25;
 const SCARP_WIDTH_VARIATION_BPS: u16 = 1_200;
-const SCARP_FREE_FACE_HALF_WIDTH_METRES: f32 = 0.55;
-const SCARP_GULLY_COUNT: usize = 4;
 
 struct SimulatedScarpSurface {
     minimum: Vec2,
@@ -263,6 +263,7 @@ fn erode_surface(
     spacing: f32,
     minimum: Vec2,
 ) {
+    let resistances = ScarpResistanceGrid::new(masks, recipe, collar, side, spacing, minimum);
     let mut horizontal_transfers = vec![0.0; offsets.len()];
     let mut vertical_transfers = vec![0.0; offsets.len()];
     for _ in 0..SCARP_EROSION_STEPS {
@@ -273,24 +274,15 @@ fn erode_surface(
             .for_each(|(source, (horizontal, vertical))| {
                 let x = source % side;
                 let z = source / side;
-                let source_point = minimum + Vec2::new(x as f32, z as f32) * spacing;
-                let transfer_to = |nx: usize, nz: usize| {
-                    if nx >= side || nz >= side {
+                let cell = resistances.cell(source);
+                let transfer_to = |nx: usize, nz: usize, resistance: Option<ScarpResistance>| {
+                    let Some(resistance) = resistance else {
                         return 0.0;
-                    }
+                    };
                     let target = nz * side + nx;
-                    if masks[source] <= 0.0 || masks[target] <= 0.0 {
-                        return 0.0;
-                    }
                     let difference = (base_heights[source] + offsets[source])
                         - (base_heights[target] + offsets[target]);
-                    let target_point = minimum + Vec2::new(nx as f32, nz as f32) * spacing;
-                    let resistance = scarp_resistance(
-                        recipe.seed,
-                        collar,
-                        (source_point + target_point) * 0.5,
-                        f32::from(recipe.half_length_cm) / 100.0,
-                    );
+                    let resistance = resistance.coefficient();
                     let threshold = spacing
                         * (SCARP_COLLUVIAL_GRADE + resistance * SCARP_RESISTANT_FACE_GRADE_RANGE);
                     let excess = difference.abs() - threshold;
@@ -301,8 +293,8 @@ fn erode_surface(
                         excess * SCARP_MAXIMUM_TRANSFER_FRACTION * (1.0 - resistance * 0.55);
                     transfer * difference.signum()
                 };
-                *horizontal = transfer_to(x + 1, z);
-                *vertical = transfer_to(x, z + 1);
+                *horizontal = transfer_to(x + 1, z, cell.x_neighbor);
+                *vertical = transfer_to(x, z + 1, cell.z_neighbor);
             });
         offsets
             .par_iter_mut()
@@ -346,45 +338,6 @@ fn smooth_value_noise(seed: fabelgeist_determinism::Seed, coordinate: f32) -> f3
             - 1.0
     };
     sample(0).lerp(sample(1), fraction)
-}
-
-fn scarp_resistance(
-    seed: fabelgeist_determinism::Seed,
-    collar: TerrainTransitionCollar,
-    point: Vec2,
-    half_length: f32,
-) -> f32 {
-    let local = collar.local_coordinates(point);
-    // Resistant material is biased slightly into the uplifted block.  The
-    // hanging-wall side therefore relaxes to a broader colluvial toe while a
-    // narrower bedrock free face survives below the rounded crest.
-    let free_face_distance = (local.y + 0.35).abs();
-    let free_face = smoothstep01(
-        (SCARP_FREE_FACE_HALF_WIDTH_METRES - free_face_distance)
-            / SCARP_FREE_FACE_HALF_WIDTH_METRES,
-    );
-    let coherent_material = (smooth_value_noise(
-        StreamId::new("terrain.volume.resistance").seed(seed, &[]),
-        local.x / 6.5 + local.y / 8.0,
-    ) * 0.5
-        + 0.5)
-        * 0.18;
-    let drainage = scarp_gully_strength(seed, local.x, half_length)
-        * smoothstep01((SCARP_FREE_FACE_HALF_WIDTH_METRES * 2.4 - local.y.abs()) / 3.0);
-    (0.08 + free_face * 0.78 + coherent_material - drainage * 0.58).clamp(0.0, 1.0)
-}
-
-fn scarp_gully_strength(seed: fabelgeist_determinism::Seed, along: f32, half_length: f32) -> f32 {
-    (0..SCARP_GULLY_COUNT)
-        .map(|index| {
-            let mut random = StreamId::new("terrain.gully").rng(seed, &[index as u64]);
-            let interval = (index as f32 + 0.5) / SCARP_GULLY_COUNT as f32;
-            let jitter = (random.inclusive_unit_f32() - 0.5) * 0.16;
-            let centre = (interval + jitter) * half_length * 1.8 - half_length * 0.9;
-            let width = 1.4 + random.inclusive_unit_f32() * 1.3;
-            smoothstep01((width - (along - centre).abs()) / width)
-        })
-        .fold(0.0, f32::max)
 }
 
 fn smoothstep01(value: f32) -> f32 {
