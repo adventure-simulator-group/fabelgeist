@@ -9,7 +9,7 @@ pub enum TerrainCaptureError {
     #[error(transparent)]
     Geometry(#[from] adventuresim_building_generator::spatial_geometry::GeometryError),
     #[error(transparent)]
-    Source(#[from] adventuresim_tactical_core::scene_input::SceneValidationError),
+    Source(#[from] adventuresim_world_schema::source_package::SourcePackageDigestError),
     #[error(transparent)]
     Terrain(#[from] adventuresim_terrain::Error),
     #[error("source terrain is absent at scene point {point:?}")]
@@ -57,7 +57,7 @@ impl serde::Serialize for SourceElevationSample {
 }
 
 pub struct ImportedTerrainCapture {
-    pub source_digest: adventuresim_tactical_core::scene_input::SourcePackageDigest,
+    pub source_digest: adventuresim_world_schema::source_package::SourcePackageDigest,
     pub absolute_elevation: ElevationMeters,
     pub source_transects: Vec<SourceElevationSample>,
     pub ungraded_vista: VistaSample,
@@ -120,9 +120,10 @@ impl ImportedTerrainCapture {
             }
         }
         Ok(Self {
-            source_digest: adventuresim_tactical_core::scene_input::SourcePackageDigest::from_hex(
-                pack.digest(),
-            )?,
+            source_digest:
+                adventuresim_world_schema::source_package::SourcePackageDigest::from_hex(
+                    pack.digest(),
+                )?,
             absolute_elevation: SourceElevationSample::from_cell(ScenePlanPoint::ORIGIN, centre)?
                 .absolute_elevation,
             source_transects,
