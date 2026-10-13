@@ -29,3 +29,19 @@ explicit. Storage includes copy-source and copy-destination capability.
 Empty uploads fail allocation. Armor consumers explicitly call
 `with_empty_word` when an empty logical input still requires a scalar binding.
 The generic buffer layer does not silently pad every input.
+
+## Shader entry points
+
+`ShaderEntryPoint` keeps an exact entry-point label distinct from shader source
+and resource binding names. Convert authored labels or Naga parser output at
+admission, then carry the bespoke type through kernel selection, compute
+reflection and pipeline-cache lookup. Convert it to `&str` only at the native
+WebGPU descriptor boundary.
+
+Compute pipeline and kernel construction select the first declared compute
+entry, even when a vertex entry precedes it or the compute entry is not named
+`main`. `ReflectionData::compute_entry_point` records that selected label.
+Selecting another cached pipeline requires an explicit `ShaderEntryPoint`.
+Admission does not prove identifier syntax or membership in a shader module;
+existing shader parsing and native validation still decide those questions.
+The cache continues to hash the exact label without shader source in its key.

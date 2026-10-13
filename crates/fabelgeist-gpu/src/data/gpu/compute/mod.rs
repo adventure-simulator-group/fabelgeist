@@ -207,11 +207,3 @@ impl ResourceDescriptor {
         code
     }
 }
-
-pub fn build_compute_pipeline(
-    context: &crate::globals::WgpuContext,
-    shader: &pipeline::ComputeShader,
-    _entry_point: &str,
-) -> anyhow::Result<pipeline::ComputePipeline> {
-    pipeline::ComputePipeline::new(context, shader.clone())
-}

@@ -1,3 +1,6 @@
+mod entry_point;
+pub use entry_point::ShaderEntryPoint;
+
 use anyhow::anyhow;
 
 #[derive(Debug, Clone)]
@@ -36,8 +39,7 @@ pub struct BindGroupReflection {
 #[derive(Debug, Clone)]
 pub struct ReflectionData {
     pub bind_groups: Vec<BindGroupReflection>,
-    pub fragment_entry_point: String,
-    pub vertex_entry_point: String,
+    pub compute_entry_point: ShaderEntryPoint,
 }
 
 pub fn detect_from_code(code: &str) -> String {
