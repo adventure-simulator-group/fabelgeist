@@ -180,7 +180,10 @@ fn assert_member_storage_and_values(archive: &ZipArchive, npz: &Npz) {
         Cow::Owned(_)
     ));
     assert_eq!(npz.keys().collect::<Vec<_>>(), ["values", "second"]);
-    assert_eq!(npz.array("values").unwrap().shape, [4]);
+    assert_eq!(
+        npz.array("values").unwrap().shape().dimensions(),
+        [fabelgeist_numpy_storage::NpyDimension::from(4)]
+    );
     assert_eq!(
         npz.array("values")
             .unwrap()

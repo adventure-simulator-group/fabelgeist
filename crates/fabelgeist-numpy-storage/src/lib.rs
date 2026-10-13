@@ -16,14 +16,14 @@
 //! # }
 //! ```
 
-pub use npy::{Dtype, NpyArray};
+pub use npy::{
+    Dtype, NpyArray, NpyDimension, NpyElementCount, NpyElementWidth, NpyLayoutError, NpyOccupancy,
+    NpyPayloadLength, NpyRank, NpyShape,
+};
 pub use npz::Npz;
 pub use zip::{
     ArchiveByteOffset, CompressedByteLength, DeclaredUncompressedByteLength, ZipArchive,
 };
-
-/// Reads a standalone `.npy` file.
-pub use npy::read as read_npy;
 
 pub mod npy;
 pub mod npz;
