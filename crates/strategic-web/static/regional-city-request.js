@@ -42,7 +42,7 @@ export function createRegionalCityRequests({ runtimePromise, install, changed = 
         // Once replacement is queued, the previous city may be displaced even
         // if this request is cancelled before that acknowledgement arrives.
         resident = undefined;
-        await install({ document, preparation, signal });
+        await install({ request, document, preparation, signal });
         signal.throwIfAborted();
       } catch (cause) {
         runtime.wasm_cancel_generation(preparation);

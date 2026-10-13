@@ -139,6 +139,9 @@ fn prepare(
     if let Some(landform) = input.landform {
         terrain.insert(landform);
     }
+    if let Some(patch) = generated.terrain_patch {
+        terrain.insert(patch);
+    }
     commands.insert_resource(crate::presentation::StreamCityTraffic);
     let recipes = std::mem::take(&mut generated.building_recipes);
     commands.queue(move |world: &mut World| {

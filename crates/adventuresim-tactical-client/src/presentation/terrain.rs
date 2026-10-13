@@ -155,7 +155,7 @@ pub(in crate::presentation) fn present_pending_terrain(
     mut startup: Option<ResMut<crate::presentation::ClientStartupTiming>>,
 ) {
     let mut prepared_first_terrain = false;
-    for (entity, id, terrain, environment, ground, landform) in &query {
+    for (entity, id, terrain, environment, ground, landform, prepared) in &query {
         let transition_collar = landform.map(|recipe| recipe.transition_collar());
         let presented = if let (
             Some((_, handle)),
@@ -206,12 +206,12 @@ pub(in crate::presentation) fn present_pending_terrain(
                 terrain,
                 material,
                 landform,
+                prepared,
                 transition_collar,
             );
             let centre = Vec2::ZERO;
             let detail_mesh =
                 terrain_detail_patch_mesh(terrain, environment, &vista, centre, transition_collar);
-            let detail_triangle_count = mesh_triangle_count(&detail_mesh);
             commands.spawn((
                 Name::new(format!("{} camera-local terrain detail patch", id.0)),
                 ScenePresentationOf(entity),
@@ -219,7 +219,7 @@ pub(in crate::presentation) fn present_pending_terrain(
                     centre,
                     vista_revision: vista.revision(),
                 },
-                TerrainTriangleCount(detail_triangle_count),
+                TerrainTriangleCount(mesh_triangle_count(&detail_mesh)),
                 NotShadowCaster,
                 Mesh3d(meshes.add(detail_mesh)),
                 MeshMaterial3d(detail_material),
@@ -301,6 +301,20 @@ fn terrain_detail_patch_mesh(
     centre: Vec2,
     transition_collar: Option<TerrainTransitionCollar>,
 ) -> Mesh {
+    // Canonical urban geometry owns the entire playable surface. Coverage hides
+    // this moving patch, so preserve its refresh slot without sampling a mesh.
+    if urban::GroundTopology::for_scene(terrain, environment, vista)
+        == urban::GroundTopology::Canonical
+    {
+        return Mesh::new(
+            PrimitiveTopology::TriangleList,
+            RenderAssetUsages::MAIN_WORLD | RenderAssetUsages::RENDER_WORLD,
+        )
+        .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, Vec::<[f32; 3]>::new())
+        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, Vec::<[f32; 3]>::new())
+        .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, Vec::<[f32; 2]>::new())
+        .with_inserted_indices(Indices::U32(Vec::new()));
+    }
     let diameter_steps =
         (DETAIL_PATCH_RADIUS_METRES * 2.0 / DETAIL_PATCH_SPACING_METRES).round() as usize;
     let width = diameter_steps + 1;
