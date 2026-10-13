@@ -171,7 +171,7 @@ fn record_support(
         .get(gpu.context(), &support_source())
         .map_err(device_error)?;
     batch
-        .dispatch_items(&kernel, &parameters, body.vertex_count)
+        .dispatch_items(&kernel, &parameters, (body.vertex_count).into())
         .map_err(device_error)?;
     Ok(())
 }

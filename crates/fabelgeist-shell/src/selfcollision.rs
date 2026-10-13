@@ -203,7 +203,7 @@ impl SelfCollision {
         hash_parameters.insert("table_size", self.table_size);
         hash_parameters.insert("inverse_spacing", inverse_spacing);
         hash_parameters.insert("pad", 0u32);
-        batch.dispatch_items(&self.hash, &hash_parameters, count)?;
+        batch.dispatch_items(&self.hash, &hash_parameters, (count).into())?;
 
         // Sorting the indices by bucket is what makes a bucket contiguous.
         self.sort.record(
@@ -221,7 +221,11 @@ impl SelfCollision {
         clear_parameters.insert("count", count);
         clear_parameters.insert("pad0", 0u32);
         clear_parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.clear_ranges, &clear_parameters, self.table_size + 1)?;
+        batch.dispatch_items(
+            &self.clear_ranges,
+            &clear_parameters,
+            (self.table_size + 1).into(),
+        )?;
 
         let mut range_parameters = PassParameters::new();
         range_parameters.insert("cells", self.cells.clone());
@@ -230,7 +234,7 @@ impl SelfCollision {
         range_parameters.insert("table_size", self.table_size);
         range_parameters.insert("pad0", 0u32);
         range_parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.cell_ranges, &range_parameters, count)?;
+        batch.dispatch_items(&self.cell_ranges, &range_parameters, (count).into())?;
 
         self.record_collide(batch, particles, inverse_spacing)
     }
@@ -255,7 +259,7 @@ impl SelfCollision {
         collide_parameters.insert("table_size", self.table_size);
         collide_parameters.insert("inverse_spacing", inverse_spacing);
         collide_parameters.insert("radius", self.radius);
-        batch.dispatch_items(&self.collide, &collide_parameters, count)?;
+        batch.dispatch_items(&self.collide, &collide_parameters, (count).into())?;
 
         let mut apply_parameters = PassParameters::new();
         apply_parameters.insert("positions", particles.positions.clone());
@@ -264,7 +268,7 @@ impl SelfCollision {
         apply_parameters.insert("pad0", 0u32);
         apply_parameters.insert("pad1", 0u32);
         apply_parameters.insert("pad2", 0u32);
-        batch.dispatch_items(&self.apply, &apply_parameters, count)?;
+        batch.dispatch_items(&self.apply, &apply_parameters, (count).into())?;
 
         Ok(())
     }

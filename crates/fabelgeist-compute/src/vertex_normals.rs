@@ -325,7 +325,7 @@ impl VertexNormalKernels {
         corners.insert("keys", output.keys.clone());
         corners.insert("corners", output.corners.clone());
         corners.insert("status", output.status.clone());
-        batch.dispatch_items(&self.corners, &corners, triangle_count)?;
+        batch.dispatch_items(&self.corners, &corners, (triangle_count).into())?;
 
         let bits = u32::BITS - vertex_count.saturating_sub(1).leading_zeros();
         self.sort.record(
@@ -341,7 +341,7 @@ impl VertexNormalKernels {
         ranges.insert("keys", output.keys.clone());
         ranges.insert("starts", output.starts.clone());
         ranges.insert("ends", output.ends.clone());
-        batch.dispatch_items(&self.ranges, &ranges, corner_count)?;
+        batch.dispatch_items(&self.ranges, &ranges, (corner_count).into())?;
 
         let mut gather = counted(vertex_count);
         gather.insert("contributions", output.contributions.clone());
@@ -350,7 +350,7 @@ impl VertexNormalKernels {
         gather.insert("ends", output.ends.clone());
         gather.insert("normals", output.normals.clone());
         gather.insert("status", output.status.clone());
-        batch.dispatch_items(&self.gather, &gather, vertex_count)?;
+        batch.dispatch_items(&self.gather, &gather, (vertex_count).into())?;
         Ok(())
     }
 }

@@ -205,7 +205,7 @@ impl DeviceBreastplate {
                 ("base", &shell.positions),
                 ("positions", &positions),
             ],
-            count,
+            (count).into(),
         )?;
         let positions = match &self.articulation {
             Some(articulation) => articulation.record_morph(gpu, batch, &self.shell, &positions)?,

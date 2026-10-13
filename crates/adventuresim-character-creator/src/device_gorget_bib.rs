@@ -33,7 +33,7 @@ impl DeviceWearer<'_> {
             &format!("{}{ENVELOPE}", layout()),
             &[write("fit", fit)],
             &[],
-            Grid::Items(BIB_ROWS * BIB_COLUMNS),
+            Grid::Items((BIB_ROWS * BIB_COLUMNS).into()),
         )
     }
 
@@ -73,7 +73,7 @@ impl DeviceWearer<'_> {
                 Word::U("layer_faces", layer_faces),
                 Word::F("padding", padding),
             ],
-            Grid::Items(BIB_ROWS * BIB_COLUMNS),
+            Grid::Items((BIB_ROWS * BIB_COLUMNS).into()),
         )
     }
 }
@@ -257,7 +257,7 @@ mod tests {
                     ),
                     &[read("fit", &fit), write("points", &output)],
                     &[],
-                    Grid::Singles(1),
+                    Grid::Singles([1, 1, 1].into()),
                 )
                 .unwrap();
                 batch.submit();

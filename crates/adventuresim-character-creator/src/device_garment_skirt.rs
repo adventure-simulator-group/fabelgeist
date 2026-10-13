@@ -81,7 +81,7 @@ impl DeviceWearer<'_> {
                     write("fit", &fit),
                 ],
                 &[],
-                Grid::Singles(1),
+                Grid::Singles([1, 1, 1].into()),
             )?;
         }
         let flexible = matches!(design.kind, Kind::MailSkirt | Kind::PaddedSkirt);
@@ -110,7 +110,7 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[Word::U("left", left_count), Word::U("right", right_count)],
-            Grid::Singles(STATIONS),
+            Grid::Singles([STATIONS, 1, 1].into()),
         )?;
         dispatch(
             self,
@@ -118,7 +118,7 @@ impl DeviceWearer<'_> {
             &format!("{}{DRAPE_FINISH}", layout()),
             &[write("fit", &fit)],
             &[],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )?;
         let part = if design.kind == Kind::Fauld {
             record_fauld(gpu, batch, design, &fit)?
@@ -231,7 +231,7 @@ impl DeviceWearer<'_> {
                     write("carriers", part.carriers()),
                 ],
                 &words,
-                Grid::Items(part.carrier_count()),
+                Grid::Items((part.carrier_count()).into()),
             )?;
         }
         Ok(())

@@ -23,7 +23,9 @@ mod tests;
 use std::sync::Arc;
 
 use fabelgeist_compute::{Kernel, KernelBatch, KernelCache};
-use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, PassParameters, WgpuContext};
+use fabelgeist_gpu::prelude::{
+    Buffer, BufferDefinition, InvocationCount, PassParameters, WgpuContext,
+};
 
 use crate::material::{Metal, MetalTextures};
 
@@ -111,7 +113,7 @@ impl MetalGpu {
         batch: &mut KernelBatch,
         kernel: &Kernel,
         parameters: &PassParameters,
-        items: u32,
+        items: InvocationCount,
     ) -> Result<(), String> {
         batch
             .dispatch_items(kernel, parameters, items)

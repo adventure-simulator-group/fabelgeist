@@ -48,7 +48,7 @@ impl Workspace<'_> {
             .get(gpu.context(), &constraint_source())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, self.face_count)
+            .dispatch_items(&kernel, &parameters, (self.face_count).into())
             .map_err(device_error)?;
         Ok(())
     }
@@ -81,7 +81,7 @@ impl Workspace<'_> {
             .get(gpu.context(), &projection_source())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, self.vertex_count)
+            .dispatch_items(&kernel, &parameters, (self.vertex_count).into())
             .map_err(device_error)?;
         Ok(())
     }

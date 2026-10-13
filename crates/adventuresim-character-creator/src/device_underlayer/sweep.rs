@@ -66,16 +66,16 @@ impl Workspace<'_> {
         let vertices = self.vertex_count;
         for _ in 0..COMPRESSION_PASSES {
             batch
-                .dispatch_items(&synchronize, &parameters, vertices)
-                .and_then(|b| b.dispatch_items(&restart, &parameters, vertices))
-                .and_then(|b| b.dispatch_items(&test, &parameters, self.face_count))
-                .and_then(|b| b.dispatch(&settle, &parameters, [1, 1, 1]))
+                .dispatch_items(&synchronize, &parameters, (vertices).into())
+                .and_then(|b| b.dispatch_items(&restart, &parameters, (vertices).into()))
+                .and_then(|b| b.dispatch_items(&test, &parameters, (self.face_count).into()))
+                .and_then(|b| b.dispatch(&settle, &parameters, [1, 1, 1].into()))
                 .map_err(device_error)?;
         }
         parameters.insert("gated", 0u32);
         batch
-            .dispatch_items(&synchronize, &parameters, vertices)
-            .and_then(|b| b.dispatch_items(&restart, &parameters, vertices))
+            .dispatch_items(&synchronize, &parameters, (vertices).into())
+            .and_then(|b| b.dispatch_items(&restart, &parameters, (vertices).into()))
             .map_err(device_error)?;
         Ok(())
     }

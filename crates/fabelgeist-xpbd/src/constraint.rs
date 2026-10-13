@@ -270,7 +270,11 @@ impl ConstraintSet {
         parameters.insert("pad0", 0u32);
         parameters.insert("pad1", 0u32);
         parameters.insert("pad2", 0u32);
-        batch.dispatch_items(&self.clear, &parameters, self.constraint_count() as u32)?;
+        batch.dispatch_items(
+            &self.clear,
+            &parameters,
+            (self.constraint_count() as u32).into(),
+        )?;
         Ok(())
     }
 
@@ -303,7 +307,7 @@ impl ConstraintSet {
             parameters.insert("compliance", self.compliance);
             parameters.insert("substep", substep);
 
-            batch.dispatch_items(&self.kernel, &parameters, count)?;
+            batch.dispatch_items(&self.kernel, &parameters, (count).into())?;
         }
         Ok(())
     }

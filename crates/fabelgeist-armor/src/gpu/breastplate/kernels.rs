@@ -149,18 +149,15 @@ pub(super) fn dispatch(
     points: Points,
     params: Params,
     buffers: &[(&str, &Buffer)],
-    items: u32,
+    items: fabelgeist_gpu::prelude::InvocationCount,
 ) -> Result<(), GenerateError> {
     let mut parameters = params.parameters();
     for (name, buffer) in buffers {
         parameters.insert(*name, (*buffer).clone());
     }
     let kernel = kernel(gpu, entry, points)?;
-    if kernel.workgroup_size[0] == 1 {
-        batch.dispatch(&kernel, &parameters, [items, 1, 1])
-    } else {
-        batch.dispatch_items(&kernel, &parameters, items)
-    }
-    .map_err(device_error)?;
+    batch
+        .dispatch_items(&kernel, &parameters, items)
+        .map_err(device_error)?;
     Ok(())
 }

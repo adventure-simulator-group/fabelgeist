@@ -32,7 +32,7 @@ impl DeviceWearer<'_> {
                 write("fit", fit),
             ],
             &[],
-            Grid::Items(DEPTH_SIDE * DEPTH_SIDE),
+            Grid::Items((DEPTH_SIDE * DEPTH_SIDE).into()),
         )?;
         dispatch(
             self,
@@ -40,7 +40,7 @@ impl DeviceWearer<'_> {
             &format!("{}{TASSET_FIT}", layout()),
             &[read("fit", fit), write("carriers", part.carriers())],
             &[Word::U("count", part.carrier_count())],
-            Grid::Items(part.carrier_count()),
+            Grid::Items((part.carrier_count()).into()),
         )
     }
 }

@@ -55,7 +55,7 @@ impl DeviceWearer<'_> {
             parameters.insert("indices", garment.indices().clone());
             parameters.insert("points", points.clone());
             batch
-                .dispatch_items(&kernel, &parameters, slots(garment))
+                .dispatch_items(&kernel, &parameters, (slots(garment)).into())
                 .map_err(device_error)?;
             first += slots(garment);
         }

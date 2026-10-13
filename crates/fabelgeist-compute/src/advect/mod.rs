@@ -314,9 +314,7 @@ impl Advect {
             context,
             pipeline.as_ref().clone(),
             parameters,
-            wg_x,
-            wg_y,
-            wg_z,
+            [wg_x, wg_y, wg_z].into(),
         )?;
 
         Ok(())

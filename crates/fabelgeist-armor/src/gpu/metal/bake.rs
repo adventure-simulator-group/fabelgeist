@@ -78,7 +78,7 @@ pub(super) fn bake(
     bake.insert("metal_roughness", metal_roughness.clone());
     bake.insert("depth", depth.clone());
     bake.insert("finish", finish);
-    gpu.dispatch(&mut batch, &gpu.bake, &bake, texels)?;
+    gpu.dispatch(&mut batch, &gpu.bake, &bake, texels.into())?;
     batch.submit();
     let bytes = |buffer: &Buffer| -> Result<Vec<u8>, String> {
         let words: Vec<u32> = gpu.read(buffer)?;
@@ -117,7 +117,7 @@ fn record_finish(
     parameters.insert("smudge", metal.smudge);
     parameters.insert("pad1", 0.0f32);
     parameters.insert("finish", finish.clone());
-    gpu.dispatch(batch, &gpu.finish, &parameters, size * size)
+    gpu.dispatch(batch, &gpu.finish, &parameters, (size * size).into())
 }
 
 /// Stamp the metal's scratches into `height`.
@@ -152,11 +152,12 @@ fn record_scratches(
         .dispatch(
             &gpu.scratches,
             &stamp,
-            [
+            ([
                 (most_steps + 1).div_ceil(STAMP_GROUP),
                 metal.scratch_density,
                 1,
-            ],
+            ])
+            .into(),
         )
         .map(|_| ())
         .map_err(super::device_error)
@@ -187,7 +188,7 @@ fn record_ornament(
     draw.insert("fillets", u32::from(ornament.fillets));
     draw.insert(host_float::ZERO_FIELD, 0u32);
     draw.insert("recess", recess.clone());
-    gpu.dispatch(batch, &gpu.ornament, &draw, size * size)
+    gpu.dispatch(batch, &gpu.ornament, &draw, (size * size).into())
 }
 
 /// Resample the engraving's image onto the tile.
@@ -229,7 +230,7 @@ fn record_image(
     sample.insert("image", pixels);
     sample.insert("recess", recess.clone());
     sample.insert("slopes", slopes.clone());
-    gpu.dispatch(batch, &gpu.engraving, &sample, texels)
+    gpu.dispatch(batch, &gpu.engraving, &sample, texels.into())
 }
 
 /// The slopes of a height map's cut; returns its parallax depth.
@@ -257,6 +258,6 @@ fn record_cut_slopes(
     }
     cut.insert("recess", recess.clone());
     cut.insert("slopes", slopes.clone());
-    gpu.dispatch(batch, &gpu.cut_slopes, &cut, texels)?;
+    gpu.dispatch(batch, &gpu.cut_slopes, &cut, texels.into())?;
     Ok(Some(depth * Metal::TILES_PER_METRE))
 }

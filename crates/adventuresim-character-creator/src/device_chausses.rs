@@ -74,7 +74,7 @@ impl DeviceWearer<'_> {
             .get(gpu.context(), &cage_source())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, part.carrier_count())
+            .dispatch_items(&kernel, &parameters, (part.carrier_count()).into())
             .map_err(device_error)?;
         part.record_shells(gpu, batch)?;
         Ok(part)

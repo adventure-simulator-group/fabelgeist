@@ -15,7 +15,11 @@
 //! hundreds of submits per frame is a lost frame. [`KernelBatch`] records into
 //! a single encoder and submits once.
 
+mod dispatch_count;
+mod workgroup;
+pub use workgroup::WorkgroupDeclarationError;
 mod fast;
+pub use dispatch_count::RecordedDispatchCount;
 
 use crate::prelude::*;
 use std::collections::HashMap;
@@ -24,9 +28,16 @@ use std::sync::{Arc, RwLock};
 /// A compiled compute kernel: the pipeline plus the workgroup size declared in
 /// its own source, so that a dispatch can be sized in *items* rather than in
 /// workgroups.
+///
+/// ```compile_fail
+/// use fabelgeist_compute::kernel::Kernel;
+/// fn change_declaration(kernel: &mut Kernel) {
+///     kernel.workgroup_size = [0, 1, 1];
+/// }
+/// ```
 pub struct Kernel {
     pub pipeline: ComputePipeline,
-    pub workgroup_size: [u32; 3],
+    workgroup_size: WorkgroupShape,
     pub entry_point: String,
     /// The cached dispatch path, when this kernel's shape allows one.
     ///
@@ -72,14 +83,11 @@ impl Kernel {
             .iter()
             .find(|ep| ep.stage == wgpu::naga::ShaderStage::Compute)
             .ok_or_else(|| anyhow!("Kernel: no compute entry point"))?;
-        let workgroup_size = entry.workgroup_size;
+        let native_workgroup_size = entry.workgroup_size;
         let entry_point = entry.name.clone();
 
-        if workgroup_size.contains(&0) {
-            return Err(anyhow!(
-                "Kernel `{entry_point}`: workgroup size {workgroup_size:?} has a zero dimension"
-            ));
-        }
+        let workgroup_size = WorkgroupShape::try_from(native_workgroup_size)
+            .map_err(|source| WorkgroupDeclarationError::at_entry_point(&entry_point, source))?;
 
         let shader = ComputeShader::new(context, code.clone())?;
         let pipeline = ComputePipeline::new(context, shader)?;
@@ -107,8 +115,13 @@ impl Kernel {
     }
 
     /// Workgroup count that covers `items` invocations along x.
-    pub fn groups_for(&self, items: u32) -> [u32; 3] {
-        [items.div_ceil(self.workgroup_size[0]), 1, 1]
+    pub fn groups_for(&self, items: InvocationCount) -> WorkgroupGrid {
+        self.workgroup_size.covering_x(items)
+    }
+
+    /// The nonzero shape admitted from this kernel's native declaration.
+    pub fn workgroup_shape(&self) -> WorkgroupShape {
+        self.workgroup_size
     }
 
     /// Run this kernel on its own -- one encoder, one submit. Convenient for a
@@ -117,16 +130,9 @@ impl Kernel {
         &self,
         context: &WgpuContext,
         parameters: PassParameters,
-        groups: [u32; 3],
+        groups: WorkgroupGrid,
     ) -> Result<()> {
-        ComputePass::dispatch(
-            context,
-            self.pipeline.clone(),
-            parameters,
-            groups[0],
-            groups[1],
-            groups[2],
-        )
+        ComputePass::dispatch(context, self.pipeline.clone(), parameters, groups)
     }
 }
 
@@ -180,7 +186,7 @@ impl KernelCache {
 pub struct KernelBatch<'a> {
     context: &'a WgpuContext,
     encoder: wgpu::CommandEncoder,
-    dispatches: usize,
+    dispatches: RecordedDispatchCount,
     uniforms: fast::UniformArena,
 }
 
@@ -196,7 +202,7 @@ impl<'a> KernelBatch<'a> {
         Self {
             context,
             encoder,
-            dispatches: 0,
+            dispatches: RecordedDispatchCount::default(),
             uniforms: fast::UniformArena::default(),
         }
     }
@@ -206,11 +212,11 @@ impl<'a> KernelBatch<'a> {
         &mut self,
         kernel: &Kernel,
         parameters: &PassParameters,
-        groups: [u32; 3],
+        groups: WorkgroupGrid,
     ) -> Result<&mut Self> {
         // A zero-sized grid is a no-op, not an error: an empty constraint
         // colour or an empty contact list is a perfectly ordinary frame.
-        if groups.contains(&0) {
+        if matches!(groups.occupancy(), DispatchOccupancy::Empty) {
             return Ok(self);
         }
 
@@ -228,20 +234,18 @@ impl<'a> KernelBatch<'a> {
                     Some(offset) => pass.set_bind_group(0, &prepared.bind_group, &[offset]),
                     None => pass.set_bind_group(0, &prepared.bind_group, &[]),
                 }
-                pass.dispatch_workgroups(groups[0], groups[1], groups[2]);
+                groups.record(&mut pass);
             }
             None => ComputePass::record(
                 self.context,
                 &kernel.pipeline,
                 parameters,
                 &mut self.encoder,
-                groups[0],
-                groups[1],
-                groups[2],
+                groups,
             )?,
         }
 
-        self.dispatches += 1;
+        self.dispatches.record();
         Ok(self)
     }
 
@@ -250,7 +254,7 @@ impl<'a> KernelBatch<'a> {
         &mut self,
         kernel: &Kernel,
         parameters: &PassParameters,
-        items: u32,
+        items: InvocationCount,
     ) -> Result<&mut Self> {
         self.dispatch(kernel, parameters, kernel.groups_for(items))
     }
@@ -280,7 +284,7 @@ impl<'a> KernelBatch<'a> {
         &mut self.encoder
     }
 
-    pub fn dispatch_count(&self) -> usize {
+    pub fn dispatch_count(&self) -> RecordedDispatchCount {
         self.dispatches
     }
 
@@ -330,7 +334,13 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 }
 "#,
         )?;
-        assert_eq!(kernel.workgroup_size, [64, 1, 1]);
+        assert_eq!(
+            kernel.workgroup_shape(),
+            WorkgroupShape::try_from([64, 1, 1]).unwrap()
+        );
         Ok(())
     }
 }
+
+#[cfg(test)]
+mod dispatch_tests;

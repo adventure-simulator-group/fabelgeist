@@ -145,7 +145,7 @@ impl DeviceWearer<'_> {
             .get(self.gpu.context(), &support_source())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, self.body.vertex_count)
+            .dispatch_items(&kernel, &parameters, (self.body.vertex_count).into())
             .map_err(device_error)?;
         Ok(())
     }
@@ -205,10 +205,10 @@ impl DeviceWearer<'_> {
                 .map_err(device_error)
         };
         batch
-            .dispatch(&*compile(SECTIONS)?, &parameters, [STATIONS, 1, 1])
+            .dispatch(&*compile(SECTIONS)?, &parameters, [STATIONS, 1, 1].into())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&*compile(FIT)?, &parameters, fit.count)
+            .dispatch_items(&*compile(FIT)?, &parameters, (fit.count).into())
             .map_err(device_error)?;
         Ok(())
     }

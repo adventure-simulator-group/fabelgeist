@@ -72,7 +72,7 @@ impl DeviceWearer<'_> {
             .get(gpu.context(), &support_source())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, self.body.vertex_count)
+            .dispatch_items(&kernel, &parameters, (self.body.vertex_count).into())
             .map_err(device_error)?;
         Ok(support)
     }
@@ -96,7 +96,7 @@ impl DeviceWearer<'_> {
             .get(gpu.context(), &points_source())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, self.body.vertex_count)
+            .dispatch_items(&kernel, &parameters, (self.body.vertex_count).into())
             .map_err(device_error)?;
         Ok(points)
     }
@@ -141,7 +141,7 @@ pub(crate) fn record_axial_bounds(
         .get(gpu.context(), &bounds_source())
         .map_err(device_error)?;
     batch
-        .dispatch_items(&kernel, &parameters, count)
+        .dispatch_items(&kernel, &parameters, (count).into())
         .map_err(device_error)?;
     Ok(())
 }
@@ -179,7 +179,7 @@ pub(crate) fn record_sections(
             .get(gpu.context(), &sections_source(entry))
             .map_err(device_error)?;
         batch
-            .dispatch_items(&kernel, &parameters, count)
+            .dispatch_items(&kernel, &parameters, (count).into())
             .map_err(device_error)?;
     }
     Ok(sections)

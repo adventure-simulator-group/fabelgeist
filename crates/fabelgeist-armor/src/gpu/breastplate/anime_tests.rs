@@ -113,7 +113,7 @@ fn deep_laps_keep_noncollapsed_rows_and_distinct_metal_surfaces_at_the_hem() {
                 ("status", &status),
                 ("columns", &columns),
             ],
-            2,
+            (2).into(),
         )
         .unwrap();
         if valid {
@@ -137,7 +137,7 @@ fn deep_laps_keep_noncollapsed_rows_and_distinct_metal_surfaces_at_the_hem() {
                     ("positions", &positions),
                     ("links", &links),
                 ],
-                count,
+                (count).into(),
             )
             .unwrap();
         }

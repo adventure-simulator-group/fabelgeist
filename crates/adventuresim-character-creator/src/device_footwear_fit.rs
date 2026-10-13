@@ -60,7 +60,7 @@ pub(crate) fn record_section_fit(
         .get(gpu.context(), &fit_source(FIT))
         .map_err(device_error)?;
     batch
-        .dispatch_items(&kernel, &parameters, count)
+        .dispatch_items(&kernel, &parameters, (count).into())
         .map_err(device_error)?;
     Ok(())
 }
@@ -101,7 +101,7 @@ pub(crate) fn record_ankle_fairing(
         .get(gpu.context(), &fit_source(FAIR))
         .map_err(device_error)?;
     batch
-        .dispatch(&kernel, &parameters, [1, 1, 1])
+        .dispatch(&kernel, &parameters, [1, 1, 1].into())
         .map_err(device_error)?;
     Ok(())
 }

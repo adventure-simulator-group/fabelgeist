@@ -256,7 +256,7 @@ impl Solver {
         parameters.insert("damping", self.settings.damping);
         parameters.insert("count", particles.count());
         parameters.insert("max_speed", self.settings.max_speed);
-        batch.dispatch_items(&self.predict, &parameters, particles.count())?;
+        batch.dispatch_items(&self.predict, &parameters, (particles.count()).into())?;
         Ok(())
     }
 
@@ -274,7 +274,7 @@ impl Solver {
         parameters.insert("count", particles.count());
         parameters.insert("pad0", 0u32);
         parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.finalize, &parameters, particles.count())?;
+        batch.dispatch_items(&self.finalize, &parameters, (particles.count()).into())?;
         Ok(())
     }
 }

@@ -73,7 +73,10 @@ impl Transpose {
         };
 
         fabelgeist_gpu::data::gpu::ComputePass::dispatch(
-            context, pipeline, parameters, wg_x, 1, 1,
+            context,
+            pipeline,
+            parameters,
+            [wg_x, 1, 1].into(),
         )?;
 
         Ok(())

@@ -325,16 +325,16 @@ impl RadixSort {
 
             let mut histogram_parameters = parameters.clone();
             histogram_parameters.insert("keys", source_keys.clone());
-            batch.dispatch(&self.histogram, &histogram_parameters, [tiles, 1, 1])?;
+            batch.dispatch(&self.histogram, &histogram_parameters, [tiles, 1, 1].into())?;
 
-            batch.dispatch(&self.scan, &parameters, [1, 1, 1])?;
+            batch.dispatch(&self.scan, &parameters, [1, 1, 1].into())?;
 
             let mut scatter_parameters = parameters;
             scatter_parameters.insert("keys_in", source_keys.clone());
             scatter_parameters.insert("values_in", source_values.clone());
             scatter_parameters.insert("keys_out", target_keys.clone());
             scatter_parameters.insert("values_out", target_values.clone());
-            batch.dispatch(&self.scatter, &scatter_parameters, [tiles, 1, 1])?;
+            batch.dispatch(&self.scatter, &scatter_parameters, [tiles, 1, 1].into())?;
 
             std::mem::swap(&mut source_keys, &mut target_keys);
             std::mem::swap(&mut source_values, &mut target_values);

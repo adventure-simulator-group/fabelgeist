@@ -8,7 +8,7 @@
 use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_gpu::prelude::{Buffer, InvocationCount, PassParameters, WorkgroupGrid};
 
 use crate::device_frames::DeviceWearer;
 
@@ -124,13 +124,13 @@ pub(crate) enum Word {
     F(&'static str, f32),
 }
 
-/// How many invocations a garment kernel runs.
+/// The invocation coverage or explicit workgroup grid for a garment kernel.
 #[derive(Clone, Copy)]
 pub(crate) enum Grid {
     /// One per item, in workgroups of 64.
-    Items(u32),
-    /// One single-invocation workgroup per item.
-    Singles(u32),
+    Items(InvocationCount),
+    /// A grid of single-invocation workgroups.
+    Singles(WorkgroupGrid),
 }
 
 /// Compile and record one garment kernel: its bindings and uniform block
@@ -203,7 +203,7 @@ pub(crate) fn dispatch(
         .map_err(device_error)?;
     match grid {
         Grid::Items(count) => batch.dispatch_items(&kernel, &parameters, count),
-        Grid::Singles(count) => batch.dispatch(&kernel, &parameters, [count, 1, 1]),
+        Grid::Singles(groups) => batch.dispatch(&kernel, &parameters, groups),
     }
     .map_err(device_error)?;
     Ok(())

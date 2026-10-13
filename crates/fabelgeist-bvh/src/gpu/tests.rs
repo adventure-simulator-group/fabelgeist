@@ -378,7 +378,11 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
     let mut parameters = PassParameters::new();
     parameters.insert("input", input);
     parameters.insert("output", output.clone());
-    kernel.run(&context, parameters, kernel.groups_for(points.len() as u32))?;
+    kernel.run(
+        &context,
+        parameters,
+        kernel.groups_for((points.len() as u32).into()),
+    )?;
 
     let from_gpu: Vec<u32> = output.read(&context).await?;
     for (point, &gpu_code) in points.iter().zip(&from_gpu) {

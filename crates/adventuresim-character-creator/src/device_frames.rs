@@ -223,16 +223,16 @@ impl DeviceWearer<'_> {
         let kernels = kernels(gpu)?;
         let vertices = self.body.vertex_count;
         batch
-            .dispatch_items(&kernels[0], &parameters, vertices)
+            .dispatch_items(&kernels[0], &parameters, (vertices).into())
             .map_err(device_error)?;
         batch
-            .dispatch(&kernels[1], &parameters, [1, 1, 1])
+            .dispatch(&kernels[1], &parameters, [1, 1, 1].into())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&kernels[2], &parameters, vertices)
+            .dispatch_items(&kernels[2], &parameters, (vertices).into())
             .map_err(device_error)?;
         batch
-            .dispatch(&kernels[3], &parameters, [1, 1, 1])
+            .dispatch(&kernels[3], &parameters, [1, 1, 1].into())
             .map_err(device_error)?;
         Ok(frame)
     }

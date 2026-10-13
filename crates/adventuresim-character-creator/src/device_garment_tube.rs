@@ -97,7 +97,7 @@ impl DeviceWearer<'_> {
                 write("fit", fit),
             ],
             &[Word::U("count", indices.len() as u32)],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )
     }
 
@@ -144,7 +144,7 @@ impl DeviceWearer<'_> {
                 Word::U("anchor1", anchors[1]),
                 Word::U("anchor2", anchors[2]),
             ],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )?;
         let mut frames = vec![(frame, region)];
         let attachment = if arm {
@@ -191,7 +191,7 @@ impl DeviceWearer<'_> {
                 Word::U("reserved", u32::from(design.kind == Kind::QuiltedSleeve)),
                 Word::F("gap", gap),
             ],
-            Grid::Items(part.carrier_count()),
+            Grid::Items((part.carrier_count()).into()),
         )?;
         Ok(DeviceRecording {
             part,

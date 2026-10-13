@@ -80,7 +80,7 @@ impl DeviceWearer<'_> {
                 write("reserve", &reserve),
             ],
             &words,
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )?;
         dispatch(
             self,
@@ -94,7 +94,7 @@ impl DeviceWearer<'_> {
                 write("delta", &delta),
             ],
             &words,
-            Grid::Items(CARRIER_COUNT),
+            Grid::Items((CARRIER_COUNT).into()),
         )?;
         self.record_shoulder_smoothing(batch, &carrier, delta, next, &shared, &words)?;
         let part = carrier.record_plates(gpu, batch, design)?;
@@ -107,7 +107,7 @@ impl DeviceWearer<'_> {
                 atomic("status", part.status()),
             ],
             &[],
-            Grid::Singles(1),
+            Grid::Singles([1, 1, 1].into()),
         )?;
         Ok(DeviceRecording {
             part,
@@ -135,7 +135,7 @@ impl DeviceWearer<'_> {
                     write("next", &next),
                 ],
                 words,
-                Grid::Items(CARRIER_COUNT),
+                Grid::Items((CARRIER_COUNT).into()),
             )?;
             std::mem::swap(&mut delta, &mut next);
         }
@@ -145,7 +145,7 @@ impl DeviceWearer<'_> {
             &format!("{shared}{APPLY}"),
             &[write("fit", &carrier.frame_points), read("delta", &delta)],
             words,
-            Grid::Items(CARRIER_COUNT),
+            Grid::Items((CARRIER_COUNT).into()),
         )?;
         Ok(())
     }

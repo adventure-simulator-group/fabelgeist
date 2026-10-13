@@ -44,7 +44,7 @@ impl Workspace<'_> {
             .get(gpu.context(), &hash_source())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&hash, &parameters, count)
+            .dispatch_items(&hash, &parameters, (count).into())
             .map_err(device_error)?;
         self.sort
             .record(
@@ -71,7 +71,7 @@ impl Workspace<'_> {
             .get(gpu.context(), &link_source())
             .map_err(device_error)?;
         batch
-            .dispatch_items(&link, &parameters, count)
+            .dispatch_items(&link, &parameters, (count).into())
             .map_err(device_error)?;
         Ok(())
     }

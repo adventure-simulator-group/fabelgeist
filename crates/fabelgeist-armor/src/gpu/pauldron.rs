@@ -99,7 +99,7 @@ impl DevicePauldronCarrier {
             gpu.upload(BufferUpload::from_elements(&design_words(design)))?,
         );
         batch
-            .dispatch_items(&kernel, &params, CARRIER_COUNT)
+            .dispatch_items(&kernel, &params, (CARRIER_COUNT).into())
             .map_err(device_error)?;
         Ok(carrier)
     }
