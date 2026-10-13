@@ -92,7 +92,9 @@ expected and available payload lengths, or expected/actual ranks and the native
 rank
 conversion cause. Constructing a tensor with the wrong rank returns this
 concrete error.
-Existing file, header, and archive error paths are separate migration work.
+Serialized array admission returns `NpyDecodeError`; standalone file reads
+return `NpyReadError`. Their ordinary and alternate diagnostics preserve the
+native cause and path context. Archive errors remain separate migration work.
 
 Native representations stay at explicit adapters: header dimension admission,
 little-endian word decoding, payload slicing, the immutable `bytes` encoding
@@ -154,3 +156,15 @@ its size query take `NpzArrayName`. Both `contains` methods return the shared
 `ArchiveMemberPresence::Present` or `Absent` state. Text and Boolean conversions
 are explicit presentation and native-boundary adapters. The distinct types
 prevent an array key from silently becoming an exact archive lookup.
+
+## Array decoding and file-read errors
+
+`NpyArray::from_bytes` returns `DecodeResult<NpyArray>`;
+`NpyArray::read` returns `ReadResult<NpyArray>`. Header rejections carry
+`NpyDecodeError`, while file access or decoding failures retain the native path
+in `NpyReadError`. A decoder layout rejection carries the existing
+`NpyLayoutError` in `NpyDecodeError::Layout`; tensor rank errors still return
+`NpyLayoutError` directly.
+
+See the [error contract](npy-errors.md) for the native diagnostic boundaries,
+read order, short-header guard and remaining format limits.
