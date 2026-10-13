@@ -107,6 +107,11 @@ jobs:
           set -euo pipefail
           export MHR_WEIGHT_EVIDENCE="$RUNNER_TEMP/mhr-solver-weight-evidence"
           mkdir "$MHR_WEIGHT_EVIDENCE"
+          sudo apt-get install --no-install-recommends -y libvulkan1 mesa-vulkan-drivers
+          export VK_DRIVER_FILES="$(dpkg -L mesa-vulkan-drivers | grep '/lvp_icd.*\.json$')"
+          test -f "$VK_DRIVER_FILES"
+          dpkg-query -W libvulkan1 mesa-vulkan-drivers > "$MHR_WEIGHT_EVIDENCE/vulkan-runtime.txt"
+          printf 'VK_DRIVER_FILES=%s\n' "$VK_DRIVER_FILES" >> "$MHR_WEIGHT_EVIDENCE/vulkan-runtime.txt"
           git rev-parse HEAD > "$MHR_WEIGHT_EVIDENCE/head.txt"
           rustc -Vv > "$MHR_WEIGHT_EVIDENCE/toolchain.txt"
           host=$(sed -n 's/^host: //p' "$MHR_WEIGHT_EVIDENCE/toolchain.txt")
@@ -126,9 +131,12 @@ jobs:
                       while chunk := source.read(1024 * 1024):
                           digest.update(chunk)
                   records[path] = {"path": str(path), "bytes": path.stat().st_size, "sha256": digest.hexdigest()}
-          for name in ["head.txt", "toolchain.txt", "graph.json", "artifacts.jsonl", "compiler.log"]:
+          for name in ["head.txt", "toolchain.txt", "graph.json", "artifacts.jsonl", "compiler.log", "vulkan-runtime.txt"]:
               bind(evidence / name)
           bind(workspace / "crates/fabelgeist-mhr/Cargo.lock")
+          bind(pathlib.Path(os.environ["VK_DRIVER_FILES"]))
+          bind(pathlib.Path("/usr/lib/x86_64-linux-gnu/libvulkan_lvp.so"))
+          bind(pathlib.Path("/usr/lib/x86_64-linux-gnu/libvulkan.so.1"))
           for line in (evidence / "artifacts.jsonl").read_text().splitlines():
               message = json.loads(line)
               if message.get("reason") != "compiler-artifact":
