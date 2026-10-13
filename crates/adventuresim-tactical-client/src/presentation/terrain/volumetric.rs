@@ -10,6 +10,7 @@ pub(super) type PendingScenes<'w, 's> = Query<
         &'static SceneEnvironment,
         Option<&'static SceneGround>,
         Option<&'static TerrainLandformRecipe>,
+        Option<&'static SceneTerrainPatch>,
     ),
     With<PendingTerrainPresentation>,
 >;
@@ -78,23 +79,15 @@ pub(super) fn spawn_base_and_fault(
     terrain: &SceneTerrain,
     material: TacticalTerrainMaterial,
     landform: Option<&TerrainLandformRecipe>,
+    prepared: Option<&SceneTerrainPatch>,
     transition_collar: Option<TerrainTransitionCollar>,
 ) {
-    let fault_patch = landform.and_then(|recipe| terrain_landform_patch(terrain, *recipe).ok());
-    let fault_material = fault_patch.as_ref().map(|_| {
-        let mut fault_material = material.clone();
-        // The patch owns its zero-offset rim, so it uses refined-terrain
-        // presentation instead of the coarse heightfield discard path.
-        fault_material.extension.detail_patch.x = 0.0;
-        enable_cliff_surface(
-            &mut fault_material,
-            landform
-                .expect("fault patch has a required surface recipe")
-                .surface(),
-        );
-        fault_material.base.depth_bias = LANDFORM_PATCH_DEPTH_BIAS;
-        materials.add(fault_material)
-    });
+    // Local scene producers supply the exact patch already generated off-thread.
+    // Replicated tactical scenes deliver terrain and a recipe, without a mesh.
+    let fault_patch = prepared
+        .cloned()
+        .or_else(|| landform.and_then(|recipe| terrain_landform_patch(terrain, *recipe).ok()));
+    let mut fault_material = material.clone();
     let material = materials.add(material);
     let playable_mesh = if terrain.property_surface().is_some() {
         super::urban::urban_playable_mesh(terrain, landform)
@@ -113,14 +106,21 @@ pub(super) fn spawn_base_and_fault(
         Mesh3d(meshes.add(playable_mesh)),
         MeshMaterial3d(material),
     ));
-    if let Some(patch) = fault_patch {
+    if let Some(patch) = fault_patch
+        && let Some(recipe) = landform
+    {
+        // The patch owns its zero-offset rim, so it uses refined-terrain
+        // presentation instead of the coarse heightfield discard path.
+        fault_material.extension.detail_patch.x = 0.0;
+        enable_cliff_surface(&mut fault_material, recipe.surface());
+        fault_material.base.depth_bias = LANDFORM_PATCH_DEPTH_BIAS;
         let triangle_count = patch.triangle_count();
         commands.spawn((
             Name::new(format!("{} fault scarp mesh", id.0)),
             ScenePresentationOf(entity),
             TerrainTriangleCount(triangle_count),
             Mesh3d(meshes.add(terrain_patch_mesh(patch, terrain))),
-            MeshMaterial3d(fault_material.expect("fault patch has a material")),
+            MeshMaterial3d(materials.add(fault_material)),
         ));
     }
 }
@@ -246,6 +246,7 @@ mod tests {
                 &terrain,
                 material,
                 Some(&recipe),
+                Some(&terrain_landform_patch(&terrain, recipe).unwrap()),
                 Some(recipe.transition_collar()),
             );
         }

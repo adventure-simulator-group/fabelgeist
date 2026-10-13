@@ -83,6 +83,7 @@ impl GroundFixture {
                 &terrain,
                 material,
                 landform.as_ref(),
+                None,
                 landform.map(|recipe| recipe.transition_collar()),
             );
         }
@@ -125,6 +126,16 @@ fn grounded_catalogues_without_streets_never_cover_foundations_with_sampled_deta
     for name in ["facade-review", "heating-review"] {
         let terrain = catalogue_terrain(name);
         assert!(terrain.property_surface().is_some());
+        let environment = SceneEnvironmentFixture::TemperateHills.snapshot("owned-no-streets");
+        let detail = super::super::terrain_detail_patch_mesh(
+            &terrain,
+            &environment,
+            &ActiveVistaSurface::default(),
+            Vec2::ZERO,
+            None,
+        );
+        assert_eq!(detail.count_vertices(), 0);
+        assert_eq!(super::super::mesh_triangle_count(&detail), 0);
         let mut fixture = GroundFixture::new(terrain, None);
         for _ in 0..2 {
             fixture.app.update();
