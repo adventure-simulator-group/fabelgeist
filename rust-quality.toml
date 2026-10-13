@@ -10,7 +10,7 @@ excluded_paths = [
 [[scopes]]
 kind = "boundary_adapter"
 path = "crates/adventuresim-tactical-client/build.rs"
-item = "ResolvedPackage::deserialize"
+item = "CargoPackageName::deserialize"
 reason = "Classifies Cargo lockfile package names into typed engine selections at the Serde decoding boundary."
 
 [[scopes]]

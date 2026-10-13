@@ -8,21 +8,24 @@ const NATIVE_ATMOSPHERE_FIX_VERSION: Version = Version::new(0, 20, 0);
 
 #[derive(Deserialize)]
 struct ResolvedDependencies {
-    package: Vec<ResolvedPackage>,
+    package: Vec<LockfilePackage>,
 }
 
-/// Cargo's wire text is confined to lockfile decoding.
+/// Cargo's decoded record keeps package identity and encoded version distinct.
 #[derive(Deserialize)]
 struct LockfilePackage {
-    name: String,
-    version: String,
+    name: CargoPackageName,
+    version: EncodedPackageVersion,
 }
 
-/// Only the engine's identity and semantic version matter to this guard.
-enum ResolvedPackage {
-    Bevy {
-        version: Result<Version, semver::Error>,
-    },
+/// Unparsed Cargo version text; irrelevant packages need no version admission.
+#[derive(Deserialize)]
+#[serde(transparent)]
+struct EncodedPackageVersion(String);
+
+/// The only package identity relevant to the atmosphere backport guard.
+enum CargoPackageName {
+    Bevy,
     Other,
 }
 
@@ -31,9 +34,9 @@ impl ResolvedDependencies {
         let mut engines = self
             .package
             .into_iter()
-            .filter_map(|package| match package {
-                ResolvedPackage::Bevy { version } => Some(version),
-                ResolvedPackage::Other => None,
+            .filter_map(|package| match package.name {
+                CargoPackageName::Bevy => Some(package.version),
+                CargoPackageName::Other => None,
             });
         let version = engines.next().ok_or_else(|| {
             io::Error::other("the atmosphere backport requires one resolved Bevy version")
@@ -44,21 +47,25 @@ impl ResolvedDependencies {
             )
             .into());
         }
-        Ok(version?)
+        Ok(version.admit()?)
     }
 }
 
-impl<'de> Deserialize<'de> for ResolvedPackage {
+impl EncodedPackageVersion {
+    fn admit(self) -> Result<Version, semver::Error> {
+        Version::parse(&self.0)
+    }
+}
+
+impl<'de> Deserialize<'de> for CargoPackageName {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: Deserializer<'de>,
     {
-        let package = LockfilePackage::deserialize(deserializer)?;
-        Ok(match package.name.as_str() {
-            // Preserve duplicate-engine precedence over invalid-version errors.
-            "bevy" => Self::Bevy {
-                version: Version::parse(&package.version),
-            },
+        // Classify Cargo's name text once, at the Serde decoding boundary.
+        let name = String::deserialize(deserializer)?;
+        Ok(match name.as_str() {
+            "bevy" => Self::Bevy,
             _ => Self::Other,
         })
     }
