@@ -22,11 +22,13 @@ mod materials;
 #[cfg(any(target_family = "wasm", test))]
 mod prepared;
 pub(in crate::presentation) mod signs;
+mod strategic;
 mod streaming;
 pub(crate) use materials::TacticalBuildingMaterials;
 pub(in crate::presentation) use materials::setup_tactical_building_materials;
 pub(in crate::presentation) use signs::BuildingPresentationPlugin;
 pub(crate) use signs::PresentedSign;
+pub(crate) use strategic::queue_strategic_city;
 pub(crate) use streaming::PendingCityBuildings;
 
 pub(crate) fn city_gpu_ready(owner: crate::presentation::ownership::PresentationOwner) -> bool {

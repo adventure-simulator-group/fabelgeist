@@ -5,55 +5,15 @@ impl PreparedProducts {
     pub(super) fn generated_scene(
         &self,
         input: &TacticalSceneInput,
-    ) -> PreparationResult<GeneratedTacticalScene> {
-        let mut scene = self.scene_for_installation(input)?;
-        for placement in &self.placements {
-            if !scene
-                .buildings
-                .iter()
-                .any(|b| b.placement.id == placement.id)
-            {
-                let venue = self
-                    .venues
-                    .iter()
-                    .find(|v| v.recipe.program == placement.program)
-                    .ok_or(PreparationError::NotPrepared {
-                        product: ProductKind::Venue,
-                    })?;
-                let distant = input
-                    .distant_buildings
-                    .iter()
-                    .find(|b| b.id == placement.id)
-                    .ok_or(PreparationError::MissingDistantPlacement {
-                        building: placement.id,
-                    })?;
-                if *placement != (*distant).into() {
-                    return Err(PreparationError::PromotedPlacementMismatch {
-                        building: placement.id,
-                    });
-                }
-                scene
-                    .buildings
-                    .push(adventuresim_tactical_core::scene_input::GeneratedBuilding {
-                        placement: placement.clone(),
-                        plan: venue.recipe.plan.clone(),
-                        collision: venue.recipe.collision.clone(),
-                    });
-            }
-        }
-        for building in &scene.buildings {
-            let venue = self
-                .venues
-                .iter()
-                .find(|v| v.recipe.program == building.placement.program)
-                .ok_or(PreparationError::NotPrepared {
-                    product: ProductKind::Venue,
-                })?;
-            scene
-                .furniture
-                .install_interior(building, venue.interior.clone())?;
-        }
-        Ok(scene)
+    ) -> PreparationResult<PreparedStrategicScene> {
+        let digest = input.digest()?;
+        self.scene
+            .as_ref()
+            .filter(|scene| scene.digest == digest)
+            .map(|scene| (**scene).clone())
+            .ok_or(PreparationError::NotPrepared {
+                product: ProductKind::Scene,
+            })
     }
 }
 

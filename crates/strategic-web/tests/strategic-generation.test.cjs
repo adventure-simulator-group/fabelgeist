@@ -156,7 +156,7 @@ test("a preparation failure prevents a pending cache hit from installing later",
     async () => cache, {});
   const runtime = { generationModule: {}, generationRevision: "fixture",
     wasm_begin_generation() { return JSON.stringify({owner:"scene",sequence:1}); }, wasm_finish_generation() {}, wasm_cancel_generation() {}, wasm_generation_jobs: () => JSON.stringify(jobs),
-    wasm_venue_jobs: () => "[]", wasm_landscape_jobs: () => "[]",
+    wasm_venue_jobs: () => "[]",
     wasm_generation_dependencies: () => new Uint8Array(),
     wasm_receive_job(preparation, job) { received.push(job); },
   };
@@ -176,8 +176,7 @@ test("cached product rejection regenerates corruption and preserves preparation 
     "generation/scene-bindings-mismatch", "generation/residency-poisoned",
     "generation/not-prepared", "generation/scene-input", "generation/stale-preparation",
     "generation/preparation-owner", "generation/preparation-input", "unexpected-host-failure"]) {
-    const corrupt = ["generation/product-decode", "generation/product-mismatch",
-      "generation/scene-bindings-mismatch"].includes(code);
+    const corrupt = ["generation/product-decode", "generation/product-mismatch"].includes(code);
     const rejection = new Error("fixture rejection"); rejection.name = code;
     const mock = workers(), state = {}, installed = [];
     const job = '{"Building":{"seed":18446744073709551615}}';
@@ -194,7 +193,7 @@ test("cached product rejection regenerates corruption and preserves preparation 
       wasm_begin_generation(admitted) { assert.equal(JSON.parse(admitted),owner); return JSON.stringify({owner,sequence:1}); }, wasm_finish_generation() {}, wasm_cancel_generation() {}, wasm_generation_jobs: () => JSON.stringify([job]),
       wasm_regional_city_jobs(ticket, document) { assert.equal(document,"opaque city"); return JSON.stringify([job]); },
       wasm_finish_regional_city(ticket, document) { assert.equal(document,"opaque city"); },
-      wasm_venue_jobs: () => "[]", wasm_landscape_jobs: () => "[]",
+      wasm_venue_jobs: () => "[]",
       wasm_generation_dependencies: () => new Uint8Array(),
       wasm_receive_job(preparation, address, bytes) {
         if (bytes[0] === 9) throw rejection;
@@ -246,7 +245,7 @@ test("destination cancellation prevents installation during cache open, lookup a
       wasm_begin_generation(admitted) { assert.equal(JSON.parse(admitted),owner); return JSON.stringify({owner,sequence:1}); }, wasm_finish_generation() {}, wasm_cancel_generation() {}, wasm_generation_jobs: () => JSON.stringify([job]),
       wasm_regional_city_jobs(ticket, document) { assert.equal(document,"opaque city"); return JSON.stringify([job]); },
       wasm_finish_regional_city() { throw Error("Cancelled city finished"); },
-      wasm_venue_jobs: () => "[]", wasm_landscape_jobs: () => "[]",
+      wasm_venue_jobs: () => "[]",
       wasm_generation_dependencies: () => new Uint8Array(),
       wasm_receive_job(preparation) { installed++; },
     };

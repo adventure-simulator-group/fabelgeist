@@ -1,4 +1,6 @@
 mod details;
+mod strategic;
+pub(crate) use strategic::{StrategicBackdrop, spawn_strategic_backdrop};
 #[cfg(any(target_family = "wasm", test))]
 pub(in crate::presentation) mod focused;
 pub(in crate::presentation) mod grass;
@@ -427,6 +429,147 @@ mod tests {
         )
         .unwrap();
         assert!(regional::regional_mesh(&empty, clear_vista_weather()).is_none());
+        assert_strategic_backdrop_samples_rendered_rings();
+    }
+
+    fn assert_strategic_backdrop_samples_rendered_rings() {
+        let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
+            "../../../../assets/tactical-scenes/flat-dry-grassland.json"
+        ))
+        .unwrap();
+        input.playable.width = 5;
+        input.playable.depth = 5;
+        input.playable.spacing_metres = 1.0;
+        input.playable.heights_metres = (0..25).map(|i| (i % 5 * (i / 5)) as f32 * 0.1).collect();
+        input.playable.environment = vec![
+            EnvironmentalSample {
+                surface: TacticalSurface::Water,
+                water_bps: 10_000,
+                ..default()
+            };
+            25
+        ];
+        input.vista.lods = [3.0, 9.0, 27.0]
+            .into_iter()
+            .enumerate()
+            .map(|(level, spacing)| VistaLod {
+                level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(level as u8),
+                spacing_metres: spacing,
+                width: 7,
+                depth: 7,
+                origin_east_metres: 0.0,
+                origin_north_metres: 0.0,
+                heights_metres: (0..49)
+                    .map(|i| {
+                        ((i % 7) as f32 - 3.0) * ((i / 7) as f32 - 3.0) * (level + 1) as f32 * 0.35
+                    })
+                    .collect(),
+                environment: vec![
+                    EnvironmentalSample {
+                        surface: TacticalSurface::Open,
+                        cultivation_bps: 4_000,
+                        ..default()
+                    };
+                    49
+                ],
+            })
+            .collect();
+        for maximum_lods in [1, 2] {
+            let backdrop = StrategicBackdrop::new(&input, maximum_lods).unwrap();
+            let mut environment = input.environment_snapshot("sampled-backdrop".into());
+            environment.weather.ground_moisture_bps = 7_500;
+            environment.weather.snow_cover_bps = 6_500;
+            let mut app = App::new();
+            app.init_resource::<Assets<Mesh>>()
+                .init_resource::<Assets<TacticalVistaMaterial>>();
+            let root = app.world_mut().spawn_empty().id();
+            let retained = backdrop.clone();
+            let weather = environment.weather;
+            app.add_systems(Update, move |mut commands: Commands| {
+                spawn_strategic_backdrop(
+                    &mut commands,
+                    retained.clone(),
+                    environment.clone(),
+                    root,
+                );
+            });
+            app.update();
+            let meshes = app.world().resource::<Assets<Mesh>>();
+            for (_, mesh) in meshes.iter() {
+                assert!(mesh.attribute(Mesh::ATTRIBUTE_UV_0).is_none());
+                let positions = mesh
+                    .attribute(Mesh::ATTRIBUTE_POSITION)
+                    .unwrap()
+                    .as_float3()
+                    .unwrap();
+                let bevy::mesh::VertexAttributeValues::Float32x4(colors) =
+                    mesh.attribute(Mesh::ATTRIBUTE_COLOR).unwrap()
+                else {
+                    panic!("ground pigment is required")
+                };
+                let water = pigment::vista_sample_color(input.playable.environment[0], weather);
+                for (position, color) in positions.iter().zip(colors) {
+                    if (position[0].abs() == 2.0 && position[2].abs() <= 2.0)
+                        || (position[2].abs() == 2.0 && position[0].abs() <= 2.0)
+                    {
+                        assert!(
+                            (Vec4::from_array(*color) - water).abs().max_element() < 0.000001,
+                            "shared foreground/ring edge must preserve water pigment and coverage"
+                        );
+                    }
+                }
+                for triangle in mesh
+                    .indices()
+                    .unwrap()
+                    .iter()
+                    .collect::<Vec<_>>()
+                    .as_chunks::<3>()
+                    .0
+                {
+                    let [a, b, c] = triangle.map(|index| Vec3::from_array(positions[index]));
+                    let centre = (a + b + c) / 3.0;
+                    assert!(
+                        (backdrop.height_at(centre.xz()).unwrap() - centre.y).abs() < 0.0001,
+                        "outdoor position differs from rendered triangle: {centre:?}"
+                    );
+                }
+                if positions
+                    .iter()
+                    .any(|point| point[0].abs() > 9.0 || point[2].abs() > 9.0)
+                {
+                    let bevy::mesh::VertexAttributeValues::Float32x4(colors) =
+                        mesh.attribute(Mesh::ATTRIBUTE_COLOR).unwrap()
+                    else {
+                        panic!("color coverage is required")
+                    };
+                    let expected =
+                        VistaVertexColors::new(&input.vista.lods[1], None, None, weather);
+                    for (position, color) in positions.iter().zip(colors) {
+                        assert_eq!(
+                            *color,
+                            expected
+                                .at(Vec2::new(position[0], position[2]), Vec2::splat(9.0))
+                                .unwrap(),
+                            "outer ring must keep regional pigment rather than foreground water"
+                        );
+                    }
+                }
+            }
+            assert!(
+                backdrop.height_at(Vec2::new(60.0, 0.0)).is_none(),
+                "unrendered rings cannot seat actors"
+            );
+            let mut sources = app
+                .world_mut()
+                .query_filtered::<Entity, With<StrategicBackdrop>>();
+            let source = sources.single(app.world()).unwrap();
+            assert!(!app.world().entity(source).contains::<SceneTerrain>());
+            assert!(!app.world().entity(source).contains::<SceneId>());
+            let mut rendered = app
+                .world_mut()
+                .query_filtered::<Has<NotShadowCaster>, With<Mesh3d>>();
+            assert!(rendered.iter(app.world()).all(|excluded| excluded));
+        }
     }
 
     #[test]

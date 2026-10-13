@@ -12,16 +12,6 @@ pub(in crate::presentation) struct ActiveVistaSurface {
     lods: Vec<VistaLod>,
     urban: bool,
     ground_support: streets::GroundSupport,
-    support_source: GroundSupportSource,
-}
-
-/// Worker paving has already been seated against the canonical surface.
-#[derive(Clone, Copy, Default, PartialEq, Eq)]
-enum GroundSupportSource {
-    #[default]
-    Presentation,
-    #[cfg(target_family = "wasm")]
-    Prepared,
 }
 
 impl ActiveVistaSurface {
@@ -32,19 +22,6 @@ impl ActiveVistaSurface {
         self.lods = bundle.lods.iter().take(2).cloned().collect();
         self.urban = !bundle.streets.is_empty() || !bundle.yards.is_empty();
         self.ground_support = default();
-        #[cfg(target_family = "wasm")]
-        {
-            self.support_source = if crate::presentation::generation::landscape::ground(
-                crate::presentation::ownership::PresentationOwner::Scene,
-                &bundle.scene_digest,
-            )
-            .is_ok_and(|ground| ground.is_some())
-            {
-                GroundSupportSource::Prepared
-            } else {
-                GroundSupportSource::Presentation
-            };
-        }
     }
 
     pub(in crate::presentation) fn is_urban_scene(&self, digest: &str) -> bool {
@@ -60,7 +37,7 @@ impl ActiveVistaSurface {
         terrain: &SceneTerrain,
         landform: Option<&TerrainLandformRecipe>,
     ) {
-        if self.urban && self.support_source == GroundSupportSource::Presentation {
+        if self.urban {
             self.ground_support.add_mesh(
                 &super::super::terrain::urban_playable_mesh(terrain, landform),
                 Vec3::ZERO,
@@ -82,7 +59,7 @@ impl ActiveVistaSurface {
             0.0,
             lod.origin_north_metres as f32,
         );
-        if self.urban && self.support_source == GroundSupportSource::Presentation {
+        if self.urban {
             self.ground_support.add_mesh(&mesh, origin);
         }
         let triangle_count = mesh_triangle_count(&mesh);
@@ -155,7 +132,6 @@ mod tests {
             lods: vec![lod],
             urban: false,
             ground_support: default(),
-            support_source: GroundSupportSource::Presentation,
         };
         assert_eq!(
             retained.presented_height_at("boundary", &terrain, Vec2::new(2.0, 0.0)),

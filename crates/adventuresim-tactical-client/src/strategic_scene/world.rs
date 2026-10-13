@@ -2,7 +2,6 @@
 //! These entities carry asset descriptors only; authority arrives through replication.
 use super::{RetainedScene, SceneRoot, buildings, protocol::StrategicView};
 use adventuresim_tactical_core::prelude::*;
-use adventuresim_tactical_netcode::prelude::SceneVistaBundle;
 use bevy::prelude::*;
 
 #[derive(Resource)]
@@ -35,12 +34,12 @@ impl SceneDocument {
         }
     }
 
-    fn generated_scene(&self) -> Result<GeneratedTacticalScene, String> {
+    fn generated_scene(&self) -> Result<crate::presentation::PreparedStrategicScene, String> {
         let input = self.input.as_ref().map_err(Clone::clone)?;
         #[cfg(target_family = "wasm")]
         let generated = crate::presentation::generation::activate(self.preparation, input);
         #[cfg(not(target_family = "wasm"))]
-        let generated = input.generate();
+        let generated = crate::presentation::PreparedStrategicScene::generate(input);
         generated.map_err(|error| error.to_string())
     }
 }
@@ -52,6 +51,7 @@ pub(super) fn retain_scene(
     mut scene: ResMut<RetainedScene>,
     materials: Option<Res<crate::presentation::TacticalBuildingMaterials>>,
     textures: Res<adventuresim_procedural_textures::ProceduralTextureResidency>,
+    settings: Res<crate::presentation::TacticalGraphicsSettings>,
 ) {
     let (Some(view), Some(document), Some(_)) = (requested, document, materials) else {
         return;
@@ -86,7 +86,14 @@ pub(super) fn retain_scene(
         };
         match &document.input {
             Ok(input) => {
-                if let Err(error) = prepare(&mut commands, input, &view, &mut scene, generated) {
+                if let Err(error) = prepare(
+                    &mut commands,
+                    input,
+                    &view,
+                    &mut scene,
+                    generated,
+                    settings.config.rendering.vista.maximum_lods,
+                ) {
                     scene.error = Some(error);
                 }
             }
@@ -113,9 +120,13 @@ fn prepare(
     input: &TacticalSceneInput,
     view: &StrategicView,
     retained: &mut RetainedScene,
-    mut generated: GeneratedTacticalScene,
+    mut generated: crate::presentation::PreparedStrategicScene,
+    maximum_lods: usize,
 ) -> Result<(), String> {
-    retained.venues = buildings::prepare_venues(input, view, &mut generated, &mut retained.street)?;
+    let backdrop = crate::presentation::StrategicBackdrop::new(input, maximum_lods)
+        .map_err(|error| error.to_string())?;
+    retained.venues =
+        buildings::prepare_venues(input, view, &mut generated, &mut retained.street, &backdrop)?;
     retained.digest = generated.digest.clone();
     let root = commands
         .spawn((SceneRoot, Transform::default(), Visibility::Inherited))
@@ -124,54 +135,19 @@ fn prepare(
     if let Some(street) = &retained.street {
         street.spawn_ground(commands, root);
     }
-    let half_extent = Vec2::new(generated.terrain.width(), generated.terrain.depth()) * 0.5;
-    super::instances::spawn_obstacles(commands, input, &generated, root);
-    super::instances::spawn_props(commands, &mut generated, root)
-        .map_err(|error| error.to_string())?;
-    let mut terrain = commands.spawn((
-        SceneId(input.scene_key.clone()),
+    super::instances::spawn_props(commands, &mut generated, root);
+    crate::presentation::spawn_strategic_backdrop(
+        commands,
+        backdrop,
         input.environment_snapshot(generated.digest.clone()),
-        generated.ground,
-        generated.terrain,
-        Transform::default(),
-        ChildOf(root),
-    ));
-    if let Some(landform) = input.landform {
-        terrain.insert(landform);
-    }
-    if let Some(patch) = generated.terrain_patch {
-        terrain.insert(patch);
-    }
-    commands.insert_resource(crate::presentation::StreamCityTraffic);
+        root,
+    );
+    crate::presentation::queue_strategic_city(commands, input, &generated.buildings);
     let recipes = std::mem::take(&mut generated.building_recipes);
     commands.queue(move |world: &mut World| {
         world
             .resource_mut::<crate::presentation::TacticalBuildingMeshCache>()
             .recipes = recipes;
-    });
-    let mut lods = input.vista.lods.clone();
-    if let Some(street) = &retained.street {
-        street.clear_foreground_canopy(&mut lods);
-    }
-    commands.trigger(SceneVistaBundle {
-        properties: input.properties.clone(),
-        scene_digest: generated.digest,
-        playable_half_extent_metres: half_extent,
-        distant_buildings: input
-            .distant_buildings
-            .iter()
-            .filter(|b| !generated.buildings.iter().any(|p| p.placement.id == b.id))
-            .copied()
-            .collect(),
-        establishments: input.establishments.clone(),
-        streets: input.streets.clone(),
-        yards: input.yards.clone(),
-        parishes: input.parishes.clone(),
-        compounds: input.compounds.clone(),
-        gardens: input.gardens.clone(),
-        furniture_groups: generated.furniture.groups,
-        distant_furniture: generated.furniture.distant_instances,
-        lods,
     });
     retained.pending = generated.buildings.into();
     retained.next_place = view.places.len();
