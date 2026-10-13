@@ -203,6 +203,11 @@ proportions and identity morphs. Strategic models have no `Player`, tactical
 controller or replicated state. This presentation does not change either
 strategic authority or the transient tactical server's authority.
 
+Strategic scenes request the base rig, weapon grips and relaxed-idle motions.
+Entering tactical play requests the remaining authored combat and locomotion
+motions. These assets remain cached in the persistent application across later
+mode changes. Native clients request the complete catalog at startup.
+
 HTML reports visible physical-pixel rectangles and stable domain identities
 through `sync-strategic-view`. Character IDs cross JavaScript as decimal
 strings, preserving the complete `u64` range. Additional Bevy cameras render
