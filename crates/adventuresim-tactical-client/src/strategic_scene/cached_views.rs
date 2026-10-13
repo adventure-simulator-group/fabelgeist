@@ -15,8 +15,9 @@ use bevy::{
 use std::collections::HashMap;
 
 #[cfg(test)]
+mod demand_tests;
+#[cfg(test)]
 mod environment_tests;
-mod preload;
 mod travel;
 
 // A newly active view needs visibility, material specialization and render-world
@@ -173,28 +174,6 @@ impl CacheWorld<'_> {
             }
             let frame = self.retained.frames.get_mut(key).expect("created snapshot");
             frame.show(commands, spec, window);
-        }
-        if let Some(view) = view {
-            for spec in preload::specs(view, scene) {
-                let key = spec.cache.clone().expect("portrait preload");
-                let signature = Signature::new(&spec, Some(view));
-                if self
-                    .retained
-                    .frames
-                    .get(&key)
-                    .is_none_or(|frame| frame.signature != signature)
-                {
-                    if let Some(previous) = self.retained.frames.remove(&key) {
-                        if let Some(camera) = previous.camera {
-                            deactivate(commands, camera);
-                            self.retained.free_cameras.push(camera);
-                        }
-                        commands.entity(previous.sprite).despawn();
-                    }
-                    let frame = self.create(commands, &spec, signature);
-                    self.retained.frames.insert(key, frame);
-                }
-            }
         }
         let active = view.is_some();
         // Replacing Camera would erase its computed render-target metadata.

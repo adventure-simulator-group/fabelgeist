@@ -275,9 +275,11 @@ Return trips can reuse completed captures when the location and complete scene
 digest, including its environment, match. The inactive-city cache holds at most
 two cities and 64 MiB of image pixels; unfinished captures are discarded.
 Scrolling repositions retained images without rebuilding geometry.
-When the layout supplies a portrait size, cold readiness includes portraits for
-residents of unvisited venues at those dimensions. A pool of at most four snapshot
-camera entities captures these images and stays inactive between captures.
+Readiness includes the portraits requested by the visible layout. An unvisited
+resident's portrait is captured on its first request, using its actual dimensions;
+completed images remain available for return visits. A pool of at most four
+snapshot camera entities captures these images and stays inactive between
+captures.
 New and reused capture cameras receive the tactical environment before camera
 preparation and render extraction, avoiding an initial frame with default
 rendering settings and its unnecessary pipeline specializations.
