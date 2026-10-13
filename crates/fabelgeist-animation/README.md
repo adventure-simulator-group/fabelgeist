@@ -24,3 +24,8 @@ Cloning and retargeting retain the typed name. Keep it as `AnimationClipName`
 through clip storage and transfer; use serialization or formatting where a
 native representation is needed. Joint tracks and joint queries are separate
 roles and cannot accept a clip name directly.
+
+## Joint requirements
+
+[Joint requirements](joint-requirements.md) describes required and optional
+retarget bindings, public construction, and their Boolean JSON representation.

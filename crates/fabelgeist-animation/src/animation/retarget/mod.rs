@@ -25,20 +25,21 @@
 //! [`Animation`](crate::animation::Animation) and writing a
 //! profile. It does not mean touching anything in this module.
 
-pub mod profile;
-pub mod profiles;
-pub mod resolve;
-pub mod retargeter;
-pub mod semantic;
-
 pub use profile::{
-    Axis, ChainBinding, JointBinding, RetargetProfile, RetargetSettings, RigProfile,
-    RootMotionChannels, RootMotionPolicy, RootSource, ScaleMeasure, ScalePolicy, TranslationPolicy,
+    Axis, ChainBinding, JointBinding, JointRequirement, RetargetProfile, RetargetSettings,
+    RigProfile, RootMotionChannels, RootMotionPolicy, RootSource, ScaleMeasure, ScalePolicy,
+    TranslationPolicy,
 };
 pub use profiles::detect;
 pub use resolve::{ResolvedProfile, ResolvedRig};
 pub use retargeter::{Retargeter, retarget};
 pub use semantic::{HumanoidChain, HumanoidJoint};
+
+pub mod profile;
+pub mod profiles;
+pub mod resolve;
+pub mod retargeter;
+pub mod semantic;
 
 #[cfg(test)]
 mod tests;
