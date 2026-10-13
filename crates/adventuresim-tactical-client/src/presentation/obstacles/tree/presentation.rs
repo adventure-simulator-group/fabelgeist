@@ -37,6 +37,9 @@ use bevy::{
 use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
+mod residency;
+pub(in crate::presentation) use residency::RetainedTreePresentations;
+
 #[cfg(test)]
 use super::TREE_PRIMARY_GROUP_COUNT;
 
@@ -72,13 +75,17 @@ impl TreePresentationCache {
     }
 }
 
-/// Live accounting for procedurally generated playable-tree render assets.
+/// Active-scene accounting for procedurally generated playable-tree assets.
 ///
 /// Unlike `Assets` totals, these counters separate the representations that
 /// the tree streamer requested. The scene benchmark records this resource so
-/// a faster frame cannot hide an accidental increase in resident geometry.
+/// a faster frame cannot hide an accidental increase in active geometry.
+/// Previous scenes retain additional assets, reported in separate counters.
 #[derive(Resource, Debug, Clone, Default, serde::Serialize)]
 pub(crate) struct TreeAssetResidencyDiagnostics {
+    pub(crate) retained_scenes: usize,
+    pub(crate) retained_variants: usize,
+    pub(crate) retained_impostor_texture_bytes: usize,
     pub(crate) variants: usize,
     pub(crate) source_branches: usize,
     pub(crate) source_leaves: usize,
@@ -113,6 +120,7 @@ pub(crate) struct TreeAssetResidencyDiagnostics {
     pub(crate) impostor_texture_bytes_by_lod: [usize; 4],
     pub(crate) impostor_texture_bytes: usize,
     pub(crate) generated_lod_mask: u8,
+    /// Cumulative generation work for this scene, including before restoration.
     pub(crate) generation_milliseconds: u128,
 }
 
@@ -828,6 +836,7 @@ pub(in crate::presentation) fn present_pending_trees(
     mut leaf_card_materials: ResMut<Assets<TacticalTreeLeafCardMaterial>>,
     mut images: ResMut<Assets<Image>>,
     mut tree_cache: ResMut<TreePresentationCache>,
+    mut retained: ResMut<RetainedTreePresentations>,
     mut residency: ResMut<TreeAssetResidencyDiagnostics>,
     procedural_assets: Res<ProceduralTextureAssets>,
 ) {
@@ -840,18 +849,13 @@ pub(in crate::presentation) fn present_pending_trees(
     let Some(terrain) = active.entity.and_then(|entity| terrains.get(entity).ok()) else {
         return;
     };
-    if tree_cache.terrain_scene_digest.as_deref() != Some(&environment.scene_digest) {
-        tree_cache.variants.clear();
-        tree_cache.oak_bark_material = None;
-        tree_cache.beech_bark_material = None;
-        tree_cache.oak_aggregate_bark_material = None;
-        tree_cache.beech_aggregate_bark_material = None;
-        let (heightmap, height_range) =
-            crate::presentation::terrain::terrain_contact_heightmap_image(terrain);
-        tree_cache.terrain_heightmap = Some(images.add(heightmap));
-        tree_cache.terrain_height_range = height_range;
-        tree_cache.terrain_scene_digest = Some(environment.scene_digest.clone());
-    }
+    retained.activate(
+        environment,
+        terrain,
+        &mut tree_cache,
+        &mut residency,
+        &mut images,
+    );
     let terrain_heightmap = tree_cache
         .terrain_heightmap
         .clone()

@@ -11,6 +11,8 @@ pub(crate) fn clear_demo_scene(world: &mut World) {
         warn!(%error, "Could not clear generated product residency");
     }
     world.insert_resource(obstacles::tree::TreePresentationCache::default());
+    world.insert_resource(obstacles::tree::RetainedTreePresentations::default());
+    world.insert_resource(TreeAssetResidencyDiagnostics::default());
     world.insert_resource(obstacles::tree::VistaTreePresentationCache::default());
 }
 
