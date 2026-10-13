@@ -111,7 +111,7 @@ jobs:
           rustc -Vv > "$MHR_WEIGHT_EVIDENCE/toolchain.txt"
           host=$(sed -n 's/^host: //p' "$MHR_WEIGHT_EVIDENCE/toolchain.txt")
           cargo metadata --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-features --filter-platform "$host" --format-version 1 > "$MHR_WEIGHT_EVIDENCE/graph.json"
-          cargo test --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-features --no-run --message-format=json -vv > "$MHR_WEIGHT_EVIDENCE/artifacts.jsonl" 2> "$MHR_WEIGHT_EVIDENCE/compiler.log"
+          cargo test --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-features --no-run --message-format=json > "$MHR_WEIGHT_EVIDENCE/artifacts.jsonl" 2> "$MHR_WEIGHT_EVIDENCE/compiler.log"
           python3 - <<'PY_BIND'
           import hashlib, json, os, pathlib, shlex, subprocess
           evidence = pathlib.Path(os.environ["MHR_WEIGHT_EVIDENCE"])
