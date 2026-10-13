@@ -23,6 +23,9 @@ Canonical playable ground and all configured vista rings use the same producer
 as actor scenery. The worker also retains the implicit geological patch that
 owns any landform cutout; its displayed triangles participate in ground queries.
 Streets and yards reuse the worker's terrain-clipped batches.
+Their shared clipping producer includes walkable landform faces after removing
+the ordinary terrain inside the cutout. Actor workers carry the already-generated
+patch into paving preparation; neither view generates a second patch for roads.
 Geographic uploads reverse triangle indices without changing actor mesh
 handles. The city root and GPU frame carry local east/up/north metres into the
 window's east/up/south frame, including absolute source elevation. Reanchoring
@@ -62,6 +65,4 @@ or creating another renderer.
 
 The fault-scarp fixture retains pronounced facet contrast in its current
 materials. Geometry, transformed normals and ground coverage are verified;
-material tuning remains a presentation follow-up. The shared paving producer
-also needs the retained landform's walkable faces to continue streets through
-its cutout.
+material tuning remains a presentation follow-up.
