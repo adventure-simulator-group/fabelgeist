@@ -47,7 +47,7 @@ impl Venue {
         let target = transform.translation;
         let eye = Vec3::new(
             target.x,
-            building.placement.base_elevation_metres + 1.7,
+            building.placement.base_elevation_metres.metres() + 1.7,
             target.z,
         ) + outward * distance;
         Ok(Self {
@@ -130,7 +130,10 @@ fn select_buildings(
 ) -> Result<
     (
         Vec<GeneratedBuilding>,
-        std::collections::HashMap<super::protocol::PlaceId, u64>,
+        std::collections::HashMap<
+            super::protocol::PlaceId,
+            adventuresim_tactical_core::scene_input::SceneBuildingId,
+        >,
     ),
     String,
 > {
@@ -235,6 +238,9 @@ mod tests {
             field.daylight_at(local + Vec3::Y) > 0.0,
             "selected room must receive actual daylight: {local:?}"
         );
-        assert!((venue.approach.y - building.placement.base_elevation_metres - 1.7).abs() < 0.01);
+        assert!(
+            (venue.approach.y - building.placement.base_elevation_metres.metres() - 1.7).abs()
+                < 0.01
+        );
     }
 }

@@ -113,7 +113,7 @@ fn record_boundaries(
     );
     let kernel = gpu
         .cache()
-        .get(gpu.context(), &source)
+        .get(gpu.context(), &source.as_str().into())
         .map_err(device_error)?;
     let design = gpu.upload(BufferUpload::from_elements(words))?;
     for (side, sign) in [1.0_f32, -1.0].into_iter().enumerate() {

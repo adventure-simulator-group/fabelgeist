@@ -6,10 +6,11 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 license = "GPL-3.0"
 
 [dependencies]
-anyhow = "1"
+derive_more = { version = "2.1.1", default-features = false, features = ["display", "from", "into"] }
 # Pure-Rust inflate (miniz_oxide) for deflated FBX array properties; no C
 # toolchain is pulled in.
 flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+thiserror = "2.0.20"
 
 [lints]
 workspace = true

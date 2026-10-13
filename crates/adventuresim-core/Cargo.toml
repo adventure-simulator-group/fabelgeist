@@ -8,7 +8,7 @@ build = "build.rs"
 
 [features]
 default = []
-spacetimedb = ["dep:spacetimedb", "adventuresim-world-schema/spacetimedb"]
+spacetimedb = ["dep:spacetimedb", "adventuresim-world-schema/spacetimedb", "fabelgeist-determinism/spacetimedb"]
 
 [dependencies]
 thiserror.workspace = true

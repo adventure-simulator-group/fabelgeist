@@ -1,3 +1,4 @@
+
 const RNG_BUILDING_WINDOW_PLACEMENT: fabelgeist_determinism::StreamId =
     fabelgeist_determinism::StreamId::new("building.window-placement");
 fn derive_walls(
@@ -45,7 +46,7 @@ fn derive_openings(
     walls: &[crate::WallSegment],
     requirements: &[RoomRequirement],
     archetype: BuildingArchetype,
-    seed: u64,
+    seed: Seed,
     level: StoreyIndex,
     straight_stair_core: Option<&StraightStairCore>,
 ) -> Result<Vec<Opening>, GenerationError> {

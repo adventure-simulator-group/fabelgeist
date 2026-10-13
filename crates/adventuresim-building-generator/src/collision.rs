@@ -351,7 +351,11 @@ mod tests {
 
     #[test]
     fn collision_comes_from_wall_hosts_and_preserves_door_voids() {
-        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(
+            BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ))
+        .unwrap();
         let collision = compile_building_collision(&plan).unwrap();
         assert!(!collision.cuboids.is_empty());
         let door = plan
@@ -385,7 +389,7 @@ mod tests {
     fn timber_floors_and_stair_treads_receive_collision() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let frame = plan.timber_frame.as_ref().expect("merchant house frame");
@@ -421,6 +425,7 @@ mod tests {
     #[test]
     fn barred_windows_add_permanent_collision_bars() {
         let (plan, bars) = (0..64)
+            .map(fabelgeist_determinism::Seed::from_u64)
             .find_map(|seed| {
                 let plan = generate(&BuildingProgram::fixture(
                     BuildingArchetype::FachwerkMerchantHouse,

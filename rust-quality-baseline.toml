@@ -595,10 +595,6 @@ path = "crates/adventuresim-tactical-client/src/presentation/sky/mod.rs"
 ceiling = 539
 
 [[files]]
-path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-ceiling = 593
-
-[[files]]
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
 ceiling = 676
 
@@ -716,7 +712,7 @@ ceiling = 711
 
 [[files]]
 path = "crates/fabelgeist-compute/src/stencil.rs"
-ceiling = 924
+ceiling = 923
 
 [[files]]
 path = "crates/fabelgeist-compute/src/stereo/rig.rs"
@@ -796,15 +792,11 @@ ceiling = 696
 
 [[files]]
 path = "crates/strategic-web/src/routes/settlements/service_quests.rs"
-ceiling = 622
-
-[[files]]
-path = "crates/strategic-web/src/routes/travel.rs"
-ceiling = 525
+ceiling = 573
 
 [[files]]
 path = "crates/strategic-web/src/spacetimedb/types.rs"
-ceiling = 1781
+ceiling = 1738
 
 [[files]]
 path = "crates/strategic-web/src/strategic_map.rs"
@@ -1587,11 +1579,6 @@ ceiling = 393
 path = "crates/adventuresim-stdb-module/src/outbreak.rs"
 item = "materialize_patient_corpse"
 ceiling = 127
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/personality.rs"
-item = "random_personality"
-ceiling = 126
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/relationship/commitments.rs"
@@ -2404,11 +2391,6 @@ item = "pebble_patch_mesh"
 ceiling = 128
 
 [[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs"
-item = "spawn_ground_foliage"
-ceiling = 114
-
-[[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs"
 item = "procedural_beech_skeleton"
 ceiling = 158
@@ -2726,12 +2708,12 @@ ceiling = 442
 [[functions]]
 path = "crates/fabelgeist-compute/src/gather/mod.rs"
 item = "GatherDefinition::build_pipeline"
-ceiling = 174
+ceiling = 172
 
 [[functions]]
 path = "crates/fabelgeist-compute/src/map/mod.rs"
 item = "MapDefinition::build_pipeline"
-ceiling = 233
+ceiling = 231
 
 [[functions]]
 path = "crates/fabelgeist-compute/src/marching_cubes/mod.rs"
@@ -2766,7 +2748,7 @@ ceiling = 131
 [[functions]]
 path = "crates/fabelgeist-compute/src/reduce/mod.rs"
 item = "ReduceDefinition::get_or_create_pipeline"
-ceiling = 120
+ceiling = 118
 
 [[functions]]
 path = "crates/fabelgeist-compute/src/scan.rs"
@@ -2776,7 +2758,7 @@ ceiling = 135
 [[functions]]
 path = "crates/fabelgeist-compute/src/scatter.rs"
 item = "ScatterDefinition::build_pipeline"
-ceiling = 160
+ceiling = 158
 
 [[functions]]
 path = "crates/fabelgeist-compute/src/simplex_noise.rs"
@@ -2786,7 +2768,7 @@ ceiling = 129
 [[functions]]
 path = "crates/fabelgeist-compute/src/stencil.rs"
 item = "StencilDefinition::build_pipeline"
-ceiling = 579
+ceiling = 577
 
 [[functions]]
 path = "crates/fabelgeist-compute/src/stencil.rs"
@@ -2801,7 +2783,7 @@ ceiling = 132
 [[functions]]
 path = "crates/fabelgeist-compute/src/stream/mod.rs"
 item = "StreamDefinition::build_pipeline"
-ceiling = 125
+ceiling = 123
 
 [[functions]]
 path = "crates/fabelgeist-garment-code/src/curve/svg_parse.rs"
@@ -3006,7 +2988,7 @@ ceiling = 203
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/overview.rs"
 item = "settlement_map"
-ceiling = 266
+ceiling = 250
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/party/containers.rs"
@@ -3071,7 +3053,7 @@ ceiling = 112
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/service_quests.rs"
 item = "service_quest_offers"
-ceiling = 244
+ceiling = 212
 
 [[functions]]
 path = "crates/strategic-web/src/routes/weapon_icons.rs"
@@ -3211,7 +3193,7 @@ ceiling = 417
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/merchant.rs"
 item = "live_merchant_shop_page"
-ceiling = 232
+ceiling = 224
 
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/party_pool.rs"
@@ -13896,13 +13878,6 @@ occurrences = 1
 rule = "semantic-family:e7-coordinates"
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
 item = "<module>"
-fingerprint = "10000000"
-occurrences = 1
-
-[[findings]]
-rule = "semantic-family:e7-coordinates"
-path = "crates/adventuresim-tactical-core/src/scene_input/environment.rs"
-item = "SceneEnvironmentFixture::snapshot"
 fingerprint = "10000000"
 occurrences = 1
 

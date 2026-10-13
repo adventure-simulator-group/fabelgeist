@@ -414,7 +414,7 @@ mod tests {
     fn prepared_geometry_and_replicated_recipes_produce_the_same_meshes() {
         let program = BuildingProgram::fixture(
             adventuresim_building_generator::BuildingArchetype::TownHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         );
         let plan = generate(&program).unwrap();
         let collision = compile_building_collision(&plan).unwrap();
@@ -497,7 +497,7 @@ mod tests {
     fn city_consumes_prepared_recipes_and_reuses_resident_meshes() {
         let program = BuildingProgram::fixture(
             adventuresim_building_generator::BuildingArchetype::TownHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         );
         let mut meshes = Assets::default();
         let mut cache = TacticalBuildingMeshCache::default();

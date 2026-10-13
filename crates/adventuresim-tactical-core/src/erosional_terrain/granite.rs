@@ -15,7 +15,12 @@ const JOINT_HEIGHT_VARIATION_FRACTION: f32 = 0.12;
 const FRAGMENT_HEIGHT_METRES: f32 = 0.7;
 const FRAGMENT_RELIEF_FRACTION: f32 = 0.2;
 
-pub(super) fn front(along: f32, depth_fraction: f32, relief: f32, seed: u64) -> f32 {
+pub(super) fn front(
+    along: f32,
+    depth_fraction: f32,
+    relief: f32,
+    seed: fabelgeist_determinism::Seed,
+) -> f32 {
     let phase = StreamId::new("terrain.granite.phase")
         .rng(seed, &[])
         .inclusive_unit_f32()

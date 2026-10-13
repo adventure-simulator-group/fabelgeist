@@ -1,17 +1,17 @@
 #[test]
 fn deterministic_and_counterfactual() {
-    let a = generate(&context(41, TemplateFamily::DisappearanceOrLoss)).unwrap();
+    let a = generate(&context(fabelgeist_determinism::Seed::from_u64(41), TemplateFamily::DisappearanceOrLoss)).unwrap();
     assert_eq!(
         a,
-        generate(&context(41, TemplateFamily::DisappearanceOrLoss)).unwrap()
+        generate(&context(fabelgeist_determinism::Seed::from_u64(41), TemplateFamily::DisappearanceOrLoss)).unwrap()
     );
-    let b = generate(&context(42, TemplateFamily::DisappearanceOrLoss)).unwrap();
+    let b = generate(&context(fabelgeist_determinism::Seed::from_u64(42), TemplateFamily::DisappearanceOrLoss)).unwrap();
     assert_eq!(a.consequence.symptom, b.consequence.symptom);
     assert_ne!((a.cause, a.sites[0].kind), (b.cause, b.sites[0].kind));
 }
 #[test]
 fn descriptions_are_ambiguous() {
-    for seed in 0..256 {
+    for seed in (0..256).map(fabelgeist_determinism::Seed::from_u64) {
         let generated = generate(&context(seed, TemplateFamily::RecurringDepredation)).unwrap();
         assert!(
             crate::bestiary::ambiguous_description_cardinality(generated.witnesses[0].description)
@@ -26,7 +26,7 @@ fn evidence_descriptions_do_not_expose_internal_variant_names() {
         TemplateFamily::RecurringDepredation,
         TemplateFamily::DisappearanceOrLoss,
     ] {
-        for seed in 0..256 {
+        for seed in (0..256).map(fabelgeist_determinism::Seed::from_u64) {
             let generated = generate(&context(seed, family)).unwrap();
             for evidence in generated.evidence {
                 assert!(
@@ -77,7 +77,7 @@ fn follow_up_incidents_reuse_conditional_evidence_likelihoods() {
 fn hard_zero_and_rare_rules_are_auditable() {
     let mut trace = Vec::new();
     let _ = choose(
-        1,
+        fabelgeist_determinism::Seed::from_u64(1),
         "module.site",
         "relation.site.cause",
         &site_candidates(CanonicalCause::Hostile(ThreatId::Skeleton)),
@@ -112,7 +112,7 @@ fn child_adult_venue_is_rare_but_bridged() {
 
 #[test]
 fn truthful_spoken_location_matches_its_bound_site() {
-    for seed in 0..128 {
+    for seed in (0..128).map(fabelgeist_determinism::Seed::from_u64) {
         let generated = generate(&context(seed, TemplateFamily::RecurringDepredation)).unwrap();
         let statement = &generated.witnesses[0].testimony[0];
         if statement.reliability != Reliability::Truthful {
@@ -135,7 +135,7 @@ fn truthful_spoken_location_matches_its_bound_site() {
 
 #[test]
 fn selected_yaml_bridge_materializes_complete_reachable_authority() {
-    let generated = (0..4_096)
+    let generated = (0..4_096).map(fabelgeist_determinism::Seed::from_u64)
         .find_map(|seed| {
             let generated = generate(&context(seed, TemplateFamily::DisappearanceOrLoss)).ok()?;
             (!generated.bridges.is_empty()).then_some(generated)
@@ -200,7 +200,7 @@ fn graph_keeps_both_routes_reachable_from_authored_entries() {
         TemplateFamily::RecurringDepredation,
         TemplateFamily::DisappearanceOrLoss,
     ] {
-        let case = generate(&context(7, family)).unwrap();
+        let case = generate(&context(fabelgeist_determinism::Seed::from_u64(7), family)).unwrap();
         validate(&case).unwrap();
         let routes = case
             .actions
@@ -236,7 +236,7 @@ fn graph_keeps_both_routes_reachable_from_authored_entries() {
 }
 #[test]
 fn disappearance_truth_selects_only_compatible_targets_and_producers() {
-    for seed in 0..256 {
+    for seed in (0..256).map(fabelgeist_determinism::Seed::from_u64) {
         let generated = generate(&context(seed, TemplateFamily::DisappearanceOrLoss)).unwrap();
         assert_ne!(generated.cause, CanonicalCause::VoluntaryDisappearance);
         validate(&generated).unwrap();
@@ -363,7 +363,7 @@ fn marginal_sweep_is_bounded_and_has_both_templates() {
 }
 #[test]
 fn public_identity_is_opaque_and_generated_cases_have_no_contract() {
-    let case = generate(&context(88, TemplateFamily::RecurringDepredation)).unwrap();
+    let case = generate(&context(fabelgeist_determinism::Seed::from_u64(88), TemplateFamily::RecurringDepredation)).unwrap();
     assert_ne!(case.canonical_case_id, case.public_case_id);
     let public = serde_json::json!({
         "case_id": case.public_case_id,
@@ -381,7 +381,7 @@ fn public_identity_is_opaque_and_generated_cases_have_no_contract() {
 
 #[test]
 fn public_ids_use_private_entropy_and_do_not_collide_across_cases() {
-    let mut first = context(91, TemplateFamily::RecurringDepredation);
+    let mut first = context(fabelgeist_determinism::Seed::from_u64(91), TemplateFamily::RecurringDepredation);
     first.observer_entropy_hi = 0x4341_4e4f_4e49_4341;
     first.observer_entropy_lo = 0x4c2d_5345_4e54_494e;
     let mut second = first.clone();
@@ -428,7 +428,7 @@ fn every_route_reveals_then_requires_occupied_site_resolution() {
         TemplateFamily::RecurringDepredation,
         TemplateFamily::DisappearanceOrLoss,
     ] {
-        let case = generate(&context(7, family)).unwrap();
+        let case = generate(&context(fabelgeist_determinism::Seed::from_u64(7), family)).unwrap();
         for route in case
             .actions
             .iter()
@@ -549,7 +549,7 @@ fn modular_marginals_vary_without_cause_site_fingerprints() {
     let mut route_kinds = BTreeSet::new();
     let mut patterns = BTreeSet::new();
     let mut fingerprints: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
-    for seed in 0..512 {
+    for seed in (0..512).map(fabelgeist_determinism::Seed::from_u64) {
         let case = generate(&context(seed, TemplateFamily::RecurringDepredation)).unwrap();
         reliabilities.insert(case.witnesses[0].testimony[0].reliability);
         secondary_sites.insert(case.sites[2].kind);

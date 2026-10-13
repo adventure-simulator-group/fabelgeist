@@ -87,17 +87,17 @@ pub(super) fn project_pending(
     for boundary in boundaries {
         fixed(
             &mut batches,
-            &boundary.scene,
-            boundary.elevation_metres,
+            boundary.scene(),
+            boundary.elevation_metres().metres(),
             &materials,
         );
         let door = boundary
-            .scene
-            .boundary
+            .scene()
+            .boundary()
             .gate
-            .door(boundary.scene.property_id)?;
+            .door(boundary.scene().property_id())?;
         let pose = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
-            boundary.elevation_metres,
+            boundary.elevation_metres().metres(),
         )?
         .door(door)?;
         let door = pose.leaf();
@@ -115,7 +115,7 @@ pub(super) fn project_pending(
                     ))),
                     MeshMaterial3d(
                         materials
-                            .for_building(boundary.scene.front_building_id)
+                            .for_building(boundary.scene().front_building_id().0)
                             .get(BuildingLodMaterial::Timber),
                     ),
                     Transform::from_translation(door.closed_centre.metres())

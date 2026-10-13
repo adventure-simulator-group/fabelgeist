@@ -45,7 +45,7 @@ impl Workspace<'_> {
         parameters.insert("constraints", self.constraints.clone());
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &constraint_source())
+            .get(gpu.context(), &constraint_source().into())
             .map_err(device_error)?;
         batch
             .dispatch_items(&kernel, &parameters, self.face_count)
@@ -78,7 +78,7 @@ impl Workspace<'_> {
         parameters.insert("status", self.status.clone());
         let kernel = gpu
             .cache()
-            .get(gpu.context(), &projection_source())
+            .get(gpu.context(), &projection_source().into())
             .map_err(device_error)?;
         batch
             .dispatch_items(&kernel, &parameters, self.vertex_count)

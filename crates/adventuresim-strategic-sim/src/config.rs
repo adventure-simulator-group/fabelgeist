@@ -1,5 +1,6 @@
 use crate::FORMAT_VERSION;
 use adventuresim_world_schema::calendar::DAYS_PER_YEAR;
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
 pub const MAX_POPULATION: u32 = 10_000;
@@ -16,7 +17,7 @@ pub const MAX_SNAPSHOTS: u32 = 100_000;
 #[serde(deny_unknown_fields)]
 pub struct SimulationConfig {
     pub version: u32,
-    pub seed: u64,
+    pub seed: Seed,
     pub population: u32,
     pub days: u32,
     pub max_decisions: u64,
@@ -30,7 +31,7 @@ impl Default for SimulationConfig {
     fn default() -> Self {
         Self {
             version: FORMAT_VERSION,
-            seed: 1,
+            seed: fabelgeist_determinism::Seed::from_u64(1),
             population: 100,
             days: DEFAULT_SIMULATION_DAYS,
             max_decisions: 1_000_000,

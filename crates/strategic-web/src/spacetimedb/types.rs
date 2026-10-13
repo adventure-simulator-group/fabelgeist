@@ -96,213 +96,6 @@ pub struct AlgebraicTypeRef {
     pub some: String,
 }
 
-#[derive(Debug, Deserialize)]
-#[serde(untagged)]
-pub enum AlgebraicType {
-    Value(Value),
-}
-
-pub(crate) const fn npc_age_band_id(value: AgeBand) -> &'static str {
-    use adventuresim_core::settlement_population::AgeBand as DomainAgeBand;
-    match value {
-        AgeBand::Child => DomainAgeBand::Child,
-        AgeBand::Adolescent => DomainAgeBand::Adolescent,
-        AgeBand::Adult => DomainAgeBand::Adult,
-        AgeBand::Elder => DomainAgeBand::Elder,
-    }
-    .stable_id()
-}
-
-fn sats_to_serde<T, U>(value: &T) -> serde_json::Result<U>
-where
-    T: SatsSerialize + ?Sized,
-    U: DeserializeOwned,
-{
-    serde_json::from_value(normalize_sats_serde_value(serde_json::to_value(
-        SerdeWrapper::from_ref(value),
-    )?))
-}
-
-fn normalize_sats_serde_value(value: Value) -> Value {
-    match value {
-        Value::Array(values) => {
-            Value::Array(values.into_iter().map(normalize_sats_serde_value).collect())
-        }
-        Value::Object(object) if object.len() == 1 => {
-            let (name, payload) = object.into_iter().next().expect("one field");
-            if name.eq_ignore_ascii_case("none") && payload.as_array().is_some_and(Vec::is_empty) {
-                return Value::Null;
-            }
-            if name.eq_ignore_ascii_case("some") {
-                return normalize_sats_serde_value(payload);
-            }
-            if payload.as_array().is_some_and(Vec::is_empty) {
-                return Value::String(name);
-            }
-            Value::Object(
-                [(name, normalize_sats_serde_value(payload))]
-                    .into_iter()
-                    .collect(),
-            )
-        }
-        Value::Object(object) => Value::Object(
-            object
-                .into_iter()
-                .map(|(name, value)| (name, normalize_sats_serde_value(value)))
-                .collect(),
-        ),
-        value => value,
-    }
-}
-
-fn core_official_religion(
-    value: sats::OfficialReligion,
-) -> adventuresim_world_schema::OfficialReligion {
-    match value {
-        sats::OfficialReligion::RomanCatholic => {
-            adventuresim_world_schema::OfficialReligion::RomanCatholic
-        }
-        sats::OfficialReligion::Lutheran => adventuresim_world_schema::OfficialReligion::Lutheran,
-        sats::OfficialReligion::Reformed => adventuresim_world_schema::OfficialReligion::Reformed,
-        sats::OfficialReligion::Anglican => adventuresim_world_schema::OfficialReligion::Anglican,
-        sats::OfficialReligion::EasternOrthodox => {
-            adventuresim_world_schema::OfficialReligion::EasternOrthodox
-        }
-        sats::OfficialReligion::Islamic => adventuresim_world_schema::OfficialReligion::Islamic,
-        sats::OfficialReligion::Judaism => adventuresim_world_schema::OfficialReligion::Judaism,
-    }
-}
-
-fn core_western_christian_arrangement(
-    value: sats::WesternChristianArrangement,
-) -> adventuresim_world_schema::WesternChristianArrangement {
-    match value {
-        sats::WesternChristianArrangement::CatholicLutheran(church) => {
-            adventuresim_world_schema::WesternChristianArrangement::CatholicLutheran {
-                church: match church {
-                    sats::CatholicLutheranChurch::RomanCatholic => {
-                        adventuresim_world_schema::CatholicLutheranChurch::RomanCatholic
-                    }
-                    sats::CatholicLutheranChurch::Lutheran => {
-                        adventuresim_world_schema::CatholicLutheranChurch::Lutheran
-                    }
-                },
-            }
-        }
-        sats::WesternChristianArrangement::CatholicReformed(church) => {
-            adventuresim_world_schema::WesternChristianArrangement::CatholicReformed {
-                church: match church {
-                    sats::CatholicReformedChurch::RomanCatholic => {
-                        adventuresim_world_schema::CatholicReformedChurch::RomanCatholic
-                    }
-                    sats::CatholicReformedChurch::Reformed => {
-                        adventuresim_world_schema::CatholicReformedChurch::Reformed
-                    }
-                },
-            }
-        }
-        sats::WesternChristianArrangement::LutheranReformed(church) => {
-            adventuresim_world_schema::WesternChristianArrangement::LutheranReformed {
-                church: match church {
-                    sats::LutheranReformedChurch::Lutheran => {
-                        adventuresim_world_schema::LutheranReformedChurch::Lutheran
-                    }
-                    sats::LutheranReformedChurch::Reformed => {
-                        adventuresim_world_schema::LutheranReformedChurch::Reformed
-                    }
-                },
-            }
-        }
-    }
-}
-
-fn core_settlement_religious_status(
-    value: sats::SettlementReligiousStatus,
-) -> adventuresim_world_schema::SettlementReligiousStatus {
-    match value {
-        sats::SettlementReligiousStatus::Established(religion) => {
-            adventuresim_world_schema::SettlementReligiousStatus::Established {
-                religion: core_official_religion(religion),
-            }
-        }
-        sats::SettlementReligiousStatus::Parity(arrangement) => {
-            adventuresim_world_schema::SettlementReligiousStatus::Parity {
-                arrangement: core_western_christian_arrangement(arrangement),
-            }
-        }
-        sats::SettlementReligiousStatus::MultiConfessional(arrangement) => {
-            adventuresim_world_schema::SettlementReligiousStatus::MultiConfessional {
-                arrangement: core_western_christian_arrangement(arrangement),
-            }
-        }
-        sats::SettlementReligiousStatus::LocallyDetermined(church) => {
-            adventuresim_world_schema::SettlementReligiousStatus::LocallyDetermined {
-                church: core_official_religion(church),
-            }
-        }
-    }
-}
-
-fn sql_unit_variant_name<E: serde::de::Error>(value: Value) -> Result<String, E> {
-    match value {
-        Value::String(name) => Ok(name),
-        Value::Object(variant) if variant.len() == 1 => {
-            Ok(variant.into_iter().next().expect("one variant").0)
-        }
-        _ => Err(E::custom("expected a unit enum variant")),
-    }
-}
-
-fn serialize_settlement_category<S>(
-    value: &SettlementCategory,
-    serializer: S,
-) -> Result<S::Ok, S::Error>
-where
-    S: serde::Serializer,
-{
-    serializer.serialize_str(match value {
-        SettlementCategory::Unknown => "Unknown",
-        SettlementCategory::Hamlet => "Hamlet",
-        SettlementCategory::Village => "Village",
-        SettlementCategory::Town => "Town",
-        SettlementCategory::City => "City",
-        SettlementCategory::Capital => "Capital",
-    })
-}
-
-fn deserialize_settlement_category<'de, D>(deserializer: D) -> Result<SettlementCategory, D::Error>
-where
-    D: serde::Deserializer<'de>,
-{
-    match sql_unit_variant_name::<D::Error>(Value::deserialize(deserializer)?)?.as_str() {
-        "Unknown" => Ok(SettlementCategory::Unknown),
-        "Hamlet" => Ok(SettlementCategory::Hamlet),
-        "Village" => Ok(SettlementCategory::Village),
-        "Town" => Ok(SettlementCategory::Town),
-        "City" => Ok(SettlementCategory::City),
-        "Capital" => Ok(SettlementCategory::Capital),
-        _ => Err(serde::de::Error::custom("unknown settlement category")),
-    }
-}
-
-fn deserialize_equipment_channel<'de, D>(deserializer: D) -> Result<EquipmentChannel, D::Error>
-where
-    D: serde::Deserializer<'de>,
-{
-    match sql_unit_variant_name::<D::Error>(Value::deserialize(deserializer)?)?.as_str() {
-        "Held" => Ok(EquipmentChannel::Held),
-        "BaseClothing" => Ok(EquipmentChannel::BaseClothing),
-        "Padding" => Ok(EquipmentChannel::Padding),
-        "FlexibleArmor" => Ok(EquipmentChannel::FlexibleArmor),
-        "RigidArmor" => Ok(EquipmentChannel::RigidArmor),
-        "Outerwear" => Ok(EquipmentChannel::Outerwear),
-        "Accessory" => Ok(EquipmentChannel::Accessory),
-        "Mount" => Ok(EquipmentChannel::Mount),
-        "Containment" => Ok(EquipmentChannel::Containment),
-        _ => Err(serde::de::Error::custom("unknown equipment channel")),
-    }
-}
-
 #[derive(Clone, Debug, Serialize)]
 pub struct BestiaryEnemyLoreView {
     pub id: String,
@@ -310,39 +103,6 @@ pub struct BestiaryEnemyLoreView {
     pub is_primary: bool,
     pub strengths: Vec<String>,
     pub weaknesses: Vec<String>,
-}
-
-pub fn bestiary_enemy_lore(
-    category: adventuresim_world_schema::BestiaryCategory,
-) -> Vec<BestiaryEnemyLoreView> {
-    adventuresim_core::bestiary::profiles_for_category(category)
-        .into_iter()
-        .map(|categorized| {
-            let profile = categorized.profile;
-            let lore = adventuresim_core::bestiary::implemented_combat_lore(profile);
-            BestiaryEnemyLoreView {
-                id: profile.id.as_str().into(),
-                name: profile.display_name.into(),
-                is_primary: categorized.is_primary,
-                strengths: lore.strengths,
-                weaknesses: lore.weaknesses,
-            }
-        })
-        .collect()
-}
-
-pub trait BestiaryDeductionExt {
-    fn provenance(&self) -> Vec<String>;
-}
-
-impl BestiaryDeductionExt for BackendBestiaryDeduction {
-    fn provenance(&self) -> Vec<String> {
-        serde_json::from_str::<Vec<String>>(&self.provenance_json)
-            .unwrap_or_default()
-            .into_iter()
-            .filter(|item| !item.trim().is_empty() && item.len() <= 1_024)
-            .collect()
-    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -360,39 +120,6 @@ pub struct CharacterView {
     pub temporary: bool,
     pub social_notification_count: usize,
     pub automatic_social_chat_enabled: bool,
-}
-
-impl From<sats::Character> for CharacterView {
-    fn from(row: sats::Character) -> Self {
-        let sats::Character {
-            id,
-            scan_id: _,
-            name,
-            xp,
-            level,
-            current_settlement_id,
-            party_id,
-            server: _,
-            temporary,
-            age_years,
-            alive,
-            party_treatment_decision: _,
-        } = row;
-        Self {
-            id,
-            name,
-            xp,
-            level,
-            current_settlement_id,
-            current_case_site_id: None,
-            party_id,
-            age_years,
-            alive,
-            temporary,
-            social_notification_count: 0,
-            automatic_social_chat_enabled: false,
-        }
-    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -419,103 +146,6 @@ pub struct SettlementView {
     pub source_node_id: Option<u64>,
 }
 
-impl TryFrom<sats::Settlement> for SettlementView {
-    type Error = serde_json::Error;
-
-    fn try_from(row: sats::Settlement) -> Result<Self, Self::Error> {
-        let sats::Settlement {
-            id,
-            name,
-            coord_x,
-            coord_y,
-            population_level,
-            population_estimate,
-            category,
-            elevation: _,
-            land_use: _,
-            forest_cover: _,
-            potential_vegetation: _,
-            historical_vegetation: _,
-            tree_species: _,
-            soil: _,
-            geology: _,
-            religious_status,
-            languages,
-            drought: _,
-            hydrology: _,
-            industries,
-            economy,
-            scene_key,
-            religion_id,
-            currency_id,
-            source_node_id,
-            sources: _,
-        } = row;
-        Ok(Self {
-            id,
-            name,
-            longitude: coord_x,
-            latitude: coord_y,
-            population_level,
-            population_estimate,
-            category,
-            languages: sats_to_serde(&languages)?,
-            industries: sats_to_serde(&industries)?,
-            economy: sats_to_serde(&economy)?,
-            religious_status: core_settlement_religious_status(religious_status),
-            scene_key,
-            religion_id,
-            currency_id,
-            source_node_id,
-        })
-    }
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct TravelEdgeView {
-    pub id: u64,
-    pub from_node_id: u64,
-    pub to_node_id: u64,
-    pub route: adventuresim_world_schema::TravelRoute,
-    pub length_m: u32,
-    pub slope_multiplier: f32,
-    pub terrain: adventuresim_world_schema::RouteTerrain,
-    pub certainty: u8,
-    pub section: String,
-}
-
-impl TryFrom<sats::TravelEdge> for TravelEdgeView {
-    type Error = serde_json::Error;
-
-    fn try_from(row: sats::TravelEdge) -> Result<Self, Self::Error> {
-        let sats::TravelEdge {
-            id,
-            from_node_id,
-            to_node_id,
-            route,
-            provenance: _,
-            toll_at: _,
-            length_m,
-            slope_multiplier,
-            terrain,
-            certainty,
-            section,
-            sources: _,
-        } = row;
-        Ok(Self {
-            id,
-            from_node_id,
-            to_node_id,
-            route: sats_to_serde(&route)?,
-            length_m,
-            slope_multiplier,
-            terrain: sats_to_serde(&terrain)?,
-            certainty,
-            section,
-        })
-    }
-}
 #[derive(Debug, Clone, PartialEq)]
 pub struct CaseBattleView {
     pub gateway_bucket: u8,
@@ -525,31 +155,6 @@ pub struct CaseBattleView {
     pub battle_id: String,
     pub mission_id: String,
     pub case_site_id: CaseSiteId,
-}
-
-impl TryFrom<sats::BackendCaseBattle> for CaseBattleView {
-    type Error = adventuresim_core::strategic_place::PlaceIdentityError;
-
-    fn try_from(row: sats::BackendCaseBattle) -> Result<Self, Self::Error> {
-        let sats::BackendCaseBattle {
-            gateway_bucket,
-            owner_character_id,
-            public_case_id,
-            party_id,
-            battle_id,
-            mission_id,
-            case_site_id,
-        } = row;
-        Ok(Self {
-            gateway_bucket,
-            owner_character_id,
-            public_case_id,
-            party_id,
-            battle_id,
-            mission_id,
-            case_site_id: CaseSiteId::try_new(case_site_id.value)?,
-        })
-    }
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -576,59 +181,6 @@ pub struct PartyView {
     pub religion_target: f32,
 }
 
-impl TryFrom<sats::Party> for PartyView {
-    type Error = adventuresim_core::strategic_place::PlaceIdentityError;
-
-    fn try_from(row: sats::Party) -> Result<Self, Self::Error> {
-        let sats::Party {
-            id,
-            gateway_bucket,
-            name,
-            leader_id,
-            current_settlement_id,
-            current_case_site_id,
-            active_contract_id,
-            is_solo,
-            camp_fatigue_percent,
-            walking_minutes_per_day,
-            travel_at_night,
-            journey_start_minute_of_day,
-            wilderness_canonical_anchor_minute,
-            wilderness_elapsed_minutes,
-            camp_destination,
-            camp_remaining_minutes,
-            physiology_target,
-            command_target,
-            religion_target,
-        } = row;
-        Ok(Self {
-            id,
-            gateway_bucket,
-            name,
-            leader_id,
-            current_settlement_id,
-            current_case_site_id: current_case_site_id
-                .map(|site| CaseSiteId::try_new(site.value))
-                .transpose()?,
-            active_contract_id,
-            is_solo,
-            camp_fatigue_percent,
-            walking_minutes_per_day,
-            travel_at_night,
-            journey_start_minute_of_day,
-            wilderness_canonical_anchor_minute: wilderness_canonical_anchor_minute.map(|minute| {
-                adventuresim_world_schema::calendar::StrategicMinute::new(minute.minutes)
-            }),
-            wilderness_elapsed_minutes,
-            camp_destination,
-            camp_remaining_minutes,
-            physiology_target,
-            command_target,
-            religion_target,
-        })
-    }
-}
-
 #[derive(Debug, Clone, Serialize, PartialEq)]
 pub struct PartyActionRequestView {
     pub id: u64,
@@ -638,29 +190,6 @@ pub struct PartyActionRequestView {
     pub action_kind: String,
     pub summary: String,
     pub payload: String,
-}
-
-impl From<sats::PartyActionRequest> for PartyActionRequestView {
-    fn from(row: sats::PartyActionRequest) -> Self {
-        let sats::PartyActionRequest {
-            id,
-            gateway_bucket,
-            party_id,
-            requester_id,
-            action_kind,
-            summary,
-            payload,
-        } = row;
-        Self {
-            id,
-            gateway_bucket,
-            party_id,
-            requester_id,
-            action_kind,
-            summary,
-            payload,
-        }
-    }
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -681,43 +210,6 @@ pub struct PartyJourneyRouteView {
     pub return_route: Option<JourneyRouteLeg>,
 }
 
-impl From<sats::PartyJourneyRoute> for PartyJourneyRouteView {
-    fn from(row: sats::PartyJourneyRoute) -> Self {
-        let sats::PartyJourneyRoute {
-            party_id,
-            gateway_bucket,
-            package_digest,
-            weather_rules_version,
-            weather_interval_start,
-            precipitation,
-            intensity_bps,
-            ground_moisture_bps,
-            snow_cover_bps,
-            distance_m,
-            minutes,
-            points,
-            spans,
-            return_route,
-        } = row;
-        Self {
-            party_id,
-            gateway_bucket,
-            package_digest,
-            weather_rules_version,
-            weather_interval_start: StrategicMinute::new(weather_interval_start.minutes),
-            precipitation,
-            intensity_bps,
-            ground_moisture_bps,
-            snow_cover_bps,
-            distance_m,
-            minutes,
-            points,
-            spans,
-            return_route,
-        }
-    }
-}
-
 #[derive(Debug, Clone)]
 pub struct EquippedItemView {
     pub inventory_item_id: u64,
@@ -733,22 +225,6 @@ pub struct EquippedItemView {
     pub item_name: String,
 }
 
-impl From<sats::CharacterEquippedItem> for EquippedItemView {
-    fn from(row: sats::CharacterEquippedItem) -> Self {
-        let sats::CharacterEquippedItem {
-            inventory_item_id,
-            character_id,
-            placement_id,
-        } = row;
-        Self {
-            inventory_item_id,
-            character_id,
-            placement_id,
-            item_name: String::new(),
-        }
-    }
-}
-
 #[derive(Debug, Clone, PartialEq)]
 pub struct RecruitmentRoleView {
     pub id: u64,
@@ -758,48 +234,6 @@ pub struct RecruitmentRoleView {
     pub requirements: RoleRequirements,
     pub quantity: u32,
     pub autoresolve_combat_power: u64,
-}
-
-impl From<sats::PartyRecruitmentRole> for RecruitmentRoleView {
-    fn from(row: sats::PartyRecruitmentRole) -> Self {
-        let sats::PartyRecruitmentRole {
-            id,
-            party_id,
-            purpose,
-            name,
-            requirements,
-            quantity,
-        } = row;
-        Self {
-            id,
-            party_id,
-            purpose,
-            name,
-            requirements: role_requirements(&requirements),
-            quantity,
-            autoresolve_combat_power: 0,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Default)]
-pub enum MissionStatus {
-    #[default]
-    Ready,
-    Pending,
-    Failed,
-    Ended,
-}
-
-impl MissionStatus {
-    pub const fn label(self) -> &'static str {
-        match self {
-            Self::Ready => "Ready",
-            Self::Pending => "Pending",
-            Self::Failed => "Failed",
-            Self::Ended => "Ended",
-        }
-    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -816,60 +250,6 @@ pub struct MissionServerView {
     pub character_id: Option<u64>,
 }
 
-impl MissionServerView {
-    pub fn pending(
-        mission_id: String,
-        gateway_bucket: u8,
-        scene_key: String,
-        party_id: String,
-    ) -> Self {
-        Self {
-            identity: None,
-            gateway_bucket,
-            mission_id,
-            scene_key,
-            party_id,
-            status: MissionStatus::Pending,
-            addr: String::new(),
-            cert_digest: String::new(),
-            character_id: None,
-        }
-    }
-}
-
-impl From<sats::TacticalServer> for MissionServerView {
-    fn from(row: sats::TacticalServer) -> Self {
-        let sats::TacticalServer {
-            identity,
-            gateway_bucket,
-            mission_id,
-            scene_key,
-            party_id,
-            addr,
-            cert_digest,
-            authorized_party_member_ids: _,
-            required_enemy_kills: _,
-            enemy_difficulty: _,
-            enemy_combat_scale_bps: _,
-            countermeasure_multiplier_bps: _,
-            normalized_combat_power: _,
-            enemy_character_ids: _,
-            party_has_surprise: _,
-        } = row;
-        Self {
-            identity: Some(identity.to_string()),
-            gateway_bucket,
-            mission_id,
-            scene_key,
-            party_id,
-            status: MissionStatus::Ready,
-            addr,
-            cert_digest,
-            character_id: None,
-        }
-    }
-}
-
 #[derive(Debug, Clone, PartialEq)]
 pub struct MissionServerRequestView {
     pub mission_id: String,
@@ -880,28 +260,6 @@ pub struct MissionServerRequestView {
     pub required_enemy_kills: u32,
 }
 
-impl From<sats::TacticalServerRequest> for MissionServerRequestView {
-    fn from(row: sats::TacticalServerRequest) -> Self {
-        let sats::TacticalServerRequest {
-            mission_id,
-            gateway_bucket,
-            scene_key,
-            party_id,
-            requested_by,
-            required_enemy_kills,
-            ..
-        } = row;
-        Self {
-            mission_id,
-            gateway_bucket,
-            scene_key,
-            party_id,
-            requested_by,
-            required_enemy_kills,
-        }
-    }
-}
-
 #[derive(Debug, Clone)]
 pub struct CharacterEquipmentGraph {
     pub _character_id: u64,
@@ -909,12 +267,6 @@ pub struct CharacterEquipmentGraph {
     pub equipment_nodes: Vec<EquippedItemView>,
     pub equipment_occupancies: Vec<EquipmentOccupancy>,
     pub attachment_targets: Vec<EquipmentAttachmentTarget>,
-}
-
-impl CharacterEquipmentGraph {
-    pub fn contains(&self, inventory_item_id: u64) -> bool {
-        self.worn_item_ids.contains(&inventory_item_id)
-    }
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -1045,6 +397,425 @@ pub struct CatalogItemView {
         )
     )]
     pub handling_sensitivity: f32,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+pub enum AlgebraicType {
+    Value(Value),
+}
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Default)]
+pub enum MissionStatus {
+    #[default]
+    Ready,
+    Pending,
+    Failed,
+    Ended,
+}
+
+pub trait BestiaryDeductionExt {
+    fn provenance(&self) -> Vec<String>;
+}
+
+pub trait JourneyEndpointExt {
+    fn settlement_id(&self) -> Option<&str>;
+    fn case_site_id(&self) -> Option<&str>;
+    fn name(&self) -> &str;
+}
+
+pub trait ItemConditionExt {
+    fn bins(&self) -> [f32; 5];
+    fn total(&self) -> f32;
+    fn repairable(&self, skill: u8) -> f32;
+    fn residual(&self, skill: u8) -> f32;
+}
+
+pub trait ReligionHoursExt {
+    fn direct(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32;
+    fn effective(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32;
+    fn total_direct(&self) -> f32;
+}
+
+pub trait OralLanguageHoursExt {
+    fn direct(&self, language: adventuresim_world_schema::OralLanguage) -> f32;
+    fn effective(&self, language: adventuresim_world_schema::OralLanguage) -> f32;
+}
+
+pub trait WrittenLanguageHoursExt {
+    fn direct(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32;
+    fn effective(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32;
+}
+
+pub trait BestiaryHoursExt {
+    fn direct(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32;
+    fn effective(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32;
+    fn aggregate_effective(&self) -> f32;
+    fn total_direct(&self) -> f32;
+}
+
+impl BestiaryDeductionExt for BackendBestiaryDeduction {
+    fn provenance(&self) -> Vec<String> {
+        serde_json::from_str::<Vec<String>>(&self.provenance_json)
+            .unwrap_or_default()
+            .into_iter()
+            .filter(|item| !item.trim().is_empty() && item.len() <= 1_024)
+            .collect()
+    }
+}
+
+impl From<sats::Character> for CharacterView {
+    fn from(row: sats::Character) -> Self {
+        let sats::Character {
+            id,
+            scan_id: _,
+            name,
+            xp,
+            level,
+            current_settlement_id,
+            party_id,
+            server: _,
+            temporary,
+            age_years,
+            alive,
+            party_treatment_decision: _,
+        } = row;
+        Self {
+            id,
+            name,
+            xp,
+            level,
+            current_settlement_id,
+            current_case_site_id: None,
+            party_id,
+            age_years,
+            alive,
+            temporary,
+            social_notification_count: 0,
+            automatic_social_chat_enabled: false,
+        }
+    }
+}
+
+impl TryFrom<sats::Settlement> for SettlementView {
+    type Error = serde_json::Error;
+
+    fn try_from(row: sats::Settlement) -> Result<Self, Self::Error> {
+        let sats::Settlement {
+            id,
+            name,
+            coord_x,
+            coord_y,
+            population_level,
+            population_estimate,
+            category,
+            elevation: _,
+            land_use: _,
+            forest_cover: _,
+            potential_vegetation: _,
+            historical_vegetation: _,
+            tree_species: _,
+            soil: _,
+            geology: _,
+            religious_status,
+            languages,
+            drought: _,
+            hydrology: _,
+            industries,
+            economy,
+            scene_key,
+            religion_id,
+            currency_id,
+            source_node_id,
+            sources: _,
+        } = row;
+        Ok(Self {
+            id,
+            name,
+            longitude: coord_x,
+            latitude: coord_y,
+            population_level,
+            population_estimate,
+            category,
+            languages: sats_to_serde(&languages)?,
+            industries: sats_to_serde(&industries)?,
+            economy: sats_to_serde(&economy)?,
+            religious_status: core_settlement_religious_status(religious_status),
+            scene_key,
+            religion_id,
+            currency_id,
+            source_node_id,
+        })
+    }
+}
+
+impl TryFrom<sats::BackendCaseBattle> for CaseBattleView {
+    type Error = adventuresim_core::strategic_place::PlaceIdentityError;
+
+    fn try_from(row: sats::BackendCaseBattle) -> Result<Self, Self::Error> {
+        let sats::BackendCaseBattle {
+            gateway_bucket,
+            owner_character_id,
+            public_case_id,
+            party_id,
+            battle_id,
+            mission_id,
+            case_site_id,
+        } = row;
+        Ok(Self {
+            gateway_bucket,
+            owner_character_id,
+            public_case_id,
+            party_id,
+            battle_id,
+            mission_id,
+            case_site_id: CaseSiteId::try_new(case_site_id.value)?,
+        })
+    }
+}
+
+impl TryFrom<sats::Party> for PartyView {
+    type Error = adventuresim_core::strategic_place::PlaceIdentityError;
+
+    fn try_from(row: sats::Party) -> Result<Self, Self::Error> {
+        let sats::Party {
+            id,
+            gateway_bucket,
+            name,
+            leader_id,
+            current_settlement_id,
+            current_case_site_id,
+            active_contract_id,
+            is_solo,
+            camp_fatigue_percent,
+            walking_minutes_per_day,
+            travel_at_night,
+            journey_start_minute_of_day,
+            wilderness_canonical_anchor_minute,
+            wilderness_elapsed_minutes,
+            camp_destination,
+            camp_remaining_minutes,
+            physiology_target,
+            command_target,
+            religion_target,
+        } = row;
+        Ok(Self {
+            id,
+            gateway_bucket,
+            name,
+            leader_id,
+            current_settlement_id,
+            current_case_site_id: current_case_site_id
+                .map(|site| CaseSiteId::try_new(site.value))
+                .transpose()?,
+            active_contract_id,
+            is_solo,
+            camp_fatigue_percent,
+            walking_minutes_per_day,
+            travel_at_night,
+            journey_start_minute_of_day,
+            wilderness_canonical_anchor_minute: wilderness_canonical_anchor_minute.map(|minute| {
+                adventuresim_world_schema::calendar::StrategicMinute::new(minute.minutes)
+            }),
+            wilderness_elapsed_minutes,
+            camp_destination,
+            camp_remaining_minutes,
+            physiology_target,
+            command_target,
+            religion_target,
+        })
+    }
+}
+
+impl From<sats::PartyActionRequest> for PartyActionRequestView {
+    fn from(row: sats::PartyActionRequest) -> Self {
+        let sats::PartyActionRequest {
+            id,
+            gateway_bucket,
+            party_id,
+            requester_id,
+            action_kind,
+            summary,
+            payload,
+        } = row;
+        Self {
+            id,
+            gateway_bucket,
+            party_id,
+            requester_id,
+            action_kind,
+            summary,
+            payload,
+        }
+    }
+}
+
+impl From<sats::PartyJourneyRoute> for PartyJourneyRouteView {
+    fn from(row: sats::PartyJourneyRoute) -> Self {
+        let sats::PartyJourneyRoute {
+            party_id,
+            gateway_bucket,
+            package_digest,
+            weather_rules_version,
+            weather_interval_start,
+            precipitation,
+            intensity_bps,
+            ground_moisture_bps,
+            snow_cover_bps,
+            distance_m,
+            minutes,
+            points,
+            spans,
+            return_route,
+        } = row;
+        Self {
+            party_id,
+            gateway_bucket,
+            package_digest,
+            weather_rules_version,
+            weather_interval_start: StrategicMinute::new(weather_interval_start.minutes),
+            precipitation,
+            intensity_bps,
+            ground_moisture_bps,
+            snow_cover_bps,
+            distance_m,
+            minutes,
+            points,
+            spans,
+            return_route,
+        }
+    }
+}
+
+impl From<sats::CharacterEquippedItem> for EquippedItemView {
+    fn from(row: sats::CharacterEquippedItem) -> Self {
+        let sats::CharacterEquippedItem {
+            inventory_item_id,
+            character_id,
+            placement_id,
+        } = row;
+        Self {
+            inventory_item_id,
+            character_id,
+            placement_id,
+            item_name: String::new(),
+        }
+    }
+}
+
+impl From<sats::PartyRecruitmentRole> for RecruitmentRoleView {
+    fn from(row: sats::PartyRecruitmentRole) -> Self {
+        let sats::PartyRecruitmentRole {
+            id,
+            party_id,
+            purpose,
+            name,
+            requirements,
+            quantity,
+        } = row;
+        Self {
+            id,
+            party_id,
+            purpose,
+            name,
+            requirements: role_requirements(&requirements),
+            quantity,
+            autoresolve_combat_power: 0,
+        }
+    }
+}
+
+impl MissionStatus {
+    pub const fn label(self) -> &'static str {
+        match self {
+            Self::Ready => "Ready",
+            Self::Pending => "Pending",
+            Self::Failed => "Failed",
+            Self::Ended => "Ended",
+        }
+    }
+}
+
+impl MissionServerView {
+    pub fn pending(
+        mission_id: String,
+        gateway_bucket: u8,
+        scene_key: String,
+        party_id: String,
+    ) -> Self {
+        Self {
+            identity: None,
+            gateway_bucket,
+            mission_id,
+            scene_key,
+            party_id,
+            status: MissionStatus::Pending,
+            addr: String::new(),
+            cert_digest: String::new(),
+            character_id: None,
+        }
+    }
+}
+
+impl From<sats::TacticalServer> for MissionServerView {
+    fn from(row: sats::TacticalServer) -> Self {
+        let sats::TacticalServer {
+            identity,
+            gateway_bucket,
+            mission_id,
+            scene_key,
+            party_id,
+            addr,
+            cert_digest,
+            authorized_party_member_ids: _,
+            required_enemy_kills: _,
+            enemy_difficulty: _,
+            enemy_combat_scale_bps: _,
+            countermeasure_multiplier_bps: _,
+            normalized_combat_power: _,
+            enemy_character_ids: _,
+            party_has_surprise: _,
+        } = row;
+        Self {
+            identity: Some(identity.to_string()),
+            gateway_bucket,
+            mission_id,
+            scene_key,
+            party_id,
+            status: MissionStatus::Ready,
+            addr,
+            cert_digest,
+            character_id: None,
+        }
+    }
+}
+
+impl From<sats::TacticalServerRequest> for MissionServerRequestView {
+    fn from(row: sats::TacticalServerRequest) -> Self {
+        let sats::TacticalServerRequest {
+            mission_id,
+            gateway_bucket,
+            scene_key,
+            party_id,
+            requested_by,
+            required_enemy_kills,
+            ..
+        } = row;
+        Self {
+            mission_id,
+            gateway_bucket,
+            scene_key,
+            party_id,
+            requested_by,
+            required_enemy_kills,
+        }
+    }
+}
+
+impl CharacterEquipmentGraph {
+    pub fn contains(&self, inventory_item_id: u64) -> bool {
+        self.worn_item_ids.contains(&inventory_item_id)
+    }
 }
 
 impl From<sats::Item> for CatalogItemView {
@@ -1253,22 +1024,131 @@ impl Default for CatalogItemView {
     }
 }
 
-fn core_slot(value: sats::Slot) -> Slot {
-    match value {
-        sats::Slot::None => Slot::None,
-        sats::Slot::LeftHolding => Slot::LeftHolding,
-        sats::Slot::RightHolding => Slot::RightHolding,
-        sats::Slot::LeftArm => Slot::LeftArm,
-        sats::Slot::RightArm => Slot::RightArm,
-        sats::Slot::LeftLeg => Slot::LeftLeg,
-        sats::Slot::RightLeg => Slot::RightLeg,
-        sats::Slot::Chest => Slot::Chest,
-        sats::Slot::Stomach => Slot::Stomach,
-        sats::Slot::Head => Slot::Head,
-        sats::Slot::AnyHolding => Slot::AnyHolding,
-        sats::Slot::AnyArm => Slot::AnyArm,
-        sats::Slot::AnyLeg => Slot::AnyLeg,
+impl JourneyEndpointExt for JourneyEndpoint {
+    fn settlement_id(&self) -> Option<&str> {
+        match self {
+            Self::Settlement(endpoint) => Some(&endpoint.id),
+            _ => None,
+        }
     }
+
+    fn case_site_id(&self) -> Option<&str> {
+        match self {
+            Self::CaseSite(endpoint) => Some(&endpoint.id.value),
+            _ => None,
+        }
+    }
+
+    fn name(&self) -> &str {
+        match self {
+            Self::Settlement(endpoint) => &endpoint.name,
+            Self::CaseSite(endpoint) => &endpoint.name,
+            Self::Camp(_) => "Camp",
+        }
+    }
+}
+
+impl ReligionHoursExt for sats::ReligionHours {
+    fn direct(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32 {
+        core_religion_hours(self).direct(religion)
+    }
+
+    fn effective(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32 {
+        core_religion_hours(self).effective(religion)
+    }
+
+    fn total_direct(&self) -> f32 {
+        core_religion_hours(self).total_direct()
+    }
+}
+
+impl OralLanguageHoursExt for sats::OralLanguageHours {
+    fn direct(&self, language: adventuresim_world_schema::OralLanguage) -> f32 {
+        core_oral_language_hours(self).direct(language)
+    }
+
+    fn effective(&self, language: adventuresim_world_schema::OralLanguage) -> f32 {
+        core_oral_language_hours(self).effective(language)
+    }
+}
+
+impl WrittenLanguageHoursExt for sats::WrittenLanguageHours {
+    fn direct(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32 {
+        core_written_language_hours(self).direct(language)
+    }
+
+    fn effective(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32 {
+        core_written_language_hours(self).effective(language)
+    }
+}
+
+impl BestiaryHoursExt for sats::BestiaryHours {
+    fn direct(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32 {
+        core_bestiary_hours(self).direct(category)
+    }
+
+    fn effective(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32 {
+        core_bestiary_hours(self).effective(category)
+    }
+
+    fn aggregate_effective(&self) -> f32 {
+        core_bestiary_hours(self).aggregate_effective()
+    }
+
+    fn total_direct(&self) -> f32 {
+        core_bestiary_hours(self).total_direct()
+    }
+}
+
+impl ItemConditionExt for ItemCondition {
+    fn bins(&self) -> [f32; 5] {
+        [
+            self.tier_1,
+            self.tier_2,
+            self.tier_3,
+            self.tier_4,
+            self.tier_5,
+        ]
+    }
+    fn total(&self) -> f32 {
+        self.bins().iter().sum::<f32>().clamp(0.0, 1.0)
+    }
+    fn repairable(&self, skill: u8) -> f32 {
+        self.bins().iter().take(skill.min(5) as usize).sum()
+    }
+    fn residual(&self, skill: u8) -> f32 {
+        self.bins().iter().skip(skill.min(5) as usize).sum()
+    }
+}
+
+pub(crate) const fn npc_age_band_id(value: AgeBand) -> &'static str {
+    use adventuresim_core::settlement_population::AgeBand as DomainAgeBand;
+    match value {
+        AgeBand::Child => DomainAgeBand::Child,
+        AgeBand::Adolescent => DomainAgeBand::Adolescent,
+        AgeBand::Adult => DomainAgeBand::Adult,
+        AgeBand::Elder => DomainAgeBand::Elder,
+    }
+    .stable_id()
+}
+
+pub fn bestiary_enemy_lore(
+    category: adventuresim_world_schema::BestiaryCategory,
+) -> Vec<BestiaryEnemyLoreView> {
+    adventuresim_core::bestiary::profiles_for_category(category)
+        .into_iter()
+        .map(|categorized| {
+            let profile = categorized.profile;
+            let lore = adventuresim_core::bestiary::implemented_combat_lore(profile);
+            BestiaryEnemyLoreView {
+                id: profile.id.as_str().into(),
+                name: profile.display_name.into(),
+                is_primary: categorized.is_primary,
+                strengths: lore.strengths,
+                weaknesses: lore.weaknesses,
+            }
+        })
+        .collect()
 }
 
 pub fn core_equipment_location(value: sats::EquipmentLocation) -> EquipmentLocation {
@@ -1416,93 +1296,6 @@ pub fn core_equipment_channel(value: sats::EquipmentChannel) -> EquipmentChannel
     }
 }
 
-fn core_equipment_body_part(value: sats::EquipmentBodyPart) -> EquipmentBodyPart {
-    match value {
-        sats::EquipmentBodyPart::LeftArm => EquipmentBodyPart::LeftArm,
-        sats::EquipmentBodyPart::RightArm => EquipmentBodyPart::RightArm,
-        sats::EquipmentBodyPart::LeftLeg => EquipmentBodyPart::LeftLeg,
-        sats::EquipmentBodyPart::RightLeg => EquipmentBodyPart::RightLeg,
-        sats::EquipmentBodyPart::Chest => EquipmentBodyPart::Chest,
-        sats::EquipmentBodyPart::Stomach => EquipmentBodyPart::Stomach,
-        sats::EquipmentBodyPart::Head => EquipmentBodyPart::Head,
-    }
-}
-
-fn core_melee_style(value: sats::MeleeAttackStyle) -> MeleeAttackStyle {
-    match value {
-        sats::MeleeAttackStyle::Swing => MeleeAttackStyle::Swing,
-        sats::MeleeAttackStyle::Stab => MeleeAttackStyle::Stab,
-    }
-}
-
-fn core_weapon_skills(value: sats::WeaponSkillDistribution) -> WeaponSkillDistribution {
-    let sats::WeaponSkillDistribution {
-        polearm,
-        axe,
-        bludgeon,
-        sword,
-        knife,
-        bow,
-        crossbow,
-        firearm,
-        throw,
-    } = value;
-    WeaponSkillDistribution {
-        polearm,
-        axe,
-        bludgeon,
-        sword,
-        knife,
-        bow,
-        crossbow,
-        firearm,
-        throw,
-    }
-}
-
-pub trait JourneyEndpointExt {
-    fn settlement_id(&self) -> Option<&str>;
-    fn case_site_id(&self) -> Option<&str>;
-    fn name(&self) -> &str;
-}
-
-impl JourneyEndpointExt for JourneyEndpoint {
-    fn settlement_id(&self) -> Option<&str> {
-        match self {
-            Self::Settlement(endpoint) => Some(&endpoint.id),
-            _ => None,
-        }
-    }
-
-    fn case_site_id(&self) -> Option<&str> {
-        match self {
-            Self::CaseSite(endpoint) => Some(&endpoint.id.value),
-            _ => None,
-        }
-    }
-
-    fn name(&self) -> &str {
-        match self {
-            Self::Settlement(endpoint) => &endpoint.name,
-            Self::CaseSite(endpoint) => &endpoint.name,
-            Self::Camp(_) => "Camp",
-        }
-    }
-}
-
-pub trait ItemConditionExt {
-    fn bins(&self) -> [f32; 5];
-    fn total(&self) -> f32;
-    fn repairable(&self, skill: u8) -> f32;
-    fn residual(&self, skill: u8) -> f32;
-}
-
-pub trait ReligionHoursExt {
-    fn direct(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32;
-    fn effective(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32;
-    fn total_direct(&self) -> f32;
-}
-
 #[cfg(test)]
 pub(crate) fn generated_character_skills_fixture() -> sats::CharacterSkills {
     sats::CharacterSkills {
@@ -1583,87 +1376,6 @@ pub(crate) fn generated_character_skills_fixture() -> sats::CharacterSkills {
     }
 }
 
-impl ReligionHoursExt for sats::ReligionHours {
-    fn direct(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32 {
-        core_religion_hours(self).direct(religion)
-    }
-
-    fn effective(&self, religion: adventuresim_world_schema::OfficialReligion) -> f32 {
-        core_religion_hours(self).effective(religion)
-    }
-
-    fn total_direct(&self) -> f32 {
-        core_religion_hours(self).total_direct()
-    }
-}
-
-pub trait OralLanguageHoursExt {
-    fn direct(&self, language: adventuresim_world_schema::OralLanguage) -> f32;
-    fn effective(&self, language: adventuresim_world_schema::OralLanguage) -> f32;
-}
-
-impl OralLanguageHoursExt for sats::OralLanguageHours {
-    fn direct(&self, language: adventuresim_world_schema::OralLanguage) -> f32 {
-        core_oral_language_hours(self).direct(language)
-    }
-
-    fn effective(&self, language: adventuresim_world_schema::OralLanguage) -> f32 {
-        core_oral_language_hours(self).effective(language)
-    }
-}
-
-pub trait WrittenLanguageHoursExt {
-    fn direct(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32;
-    fn effective(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32;
-}
-
-impl WrittenLanguageHoursExt for sats::WrittenLanguageHours {
-    fn direct(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32 {
-        core_written_language_hours(self).direct(language)
-    }
-
-    fn effective(&self, language: adventuresim_world_schema::WrittenLanguage) -> f32 {
-        core_written_language_hours(self).effective(language)
-    }
-}
-
-pub trait BestiaryHoursExt {
-    fn direct(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32;
-    fn effective(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32;
-    fn aggregate_effective(&self) -> f32;
-    fn total_direct(&self) -> f32;
-}
-
-impl BestiaryHoursExt for sats::BestiaryHours {
-    fn direct(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32 {
-        core_bestiary_hours(self).direct(category)
-    }
-
-    fn effective(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32 {
-        core_bestiary_hours(self).effective(category)
-    }
-
-    fn aggregate_effective(&self) -> f32 {
-        core_bestiary_hours(self).aggregate_effective()
-    }
-
-    fn total_direct(&self) -> f32 {
-        core_bestiary_hours(self).total_direct()
-    }
-}
-
-fn core_religion_hours(value: &sats::ReligionHours) -> adventuresim_world_schema::ReligionHours {
-    adventuresim_world_schema::ReligionHours {
-        roman_catholic: value.roman_catholic,
-        lutheran: value.lutheran,
-        reformed: value.reformed,
-        anglican: value.anglican,
-        eastern_orthodox: value.eastern_orthodox,
-        islamic: value.islamic,
-        judaism: value.judaism,
-    }
-}
-
 pub fn religion_hours_from_core(
     value: &adventuresim_world_schema::ReligionHours,
 ) -> sats::ReligionHours {
@@ -1739,20 +1451,6 @@ pub fn empty_oral_language_hours() -> sats::OralLanguageHours {
     }
 }
 
-fn core_written_language_hours(
-    value: &sats::WrittenLanguageHours,
-) -> adventuresim_world_schema::WrittenLanguageHours {
-    adventuresim_world_schema::WrittenLanguageHours {
-        german: value.german,
-        low: value.low,
-        latin: value.latin,
-        hebrew: value.hebrew,
-        yiddish: value.yiddish,
-        elven: value.elven,
-        dwarfish: value.dwarfish,
-    }
-}
-
 pub fn empty_written_language_hours() -> sats::WrittenLanguageHours {
     sats::WrittenLanguageHours {
         german: 0.0,
@@ -1762,24 +1460,6 @@ pub fn empty_written_language_hours() -> sats::WrittenLanguageHours {
         yiddish: 0.0,
         elven: 0.0,
         dwarfish: 0.0,
-    }
-}
-
-fn core_bestiary_hours(value: &sats::BestiaryHours) -> adventuresim_world_schema::BestiaryHours {
-    adventuresim_world_schema::BestiaryHours {
-        beast: value.beast,
-        undead: value.undead,
-        human: value.human,
-        werekin: value.werekin,
-        elf: value.elf,
-        dwarf: value.dwarf,
-        fey: value.fey,
-        spirit: value.spirit,
-        greenskin: value.greenskin,
-        insectoid: value.insectoid,
-        draconid: value.draconid,
-        construct: value.construct,
-        wildmen: value.wildmen,
     }
 }
 
@@ -1800,27 +1480,6 @@ pub fn bestiary_hours_from_core(
         draconid: value.draconid,
         construct: value.construct,
         wildmen: value.wildmen,
-    }
-}
-
-impl ItemConditionExt for ItemCondition {
-    fn bins(&self) -> [f32; 5] {
-        [
-            self.tier_1,
-            self.tier_2,
-            self.tier_3,
-            self.tier_4,
-            self.tier_5,
-        ]
-    }
-    fn total(&self) -> f32 {
-        self.bins().iter().sum::<f32>().clamp(0.0, 1.0)
-    }
-    fn repairable(&self, skill: u8) -> f32 {
-        self.bins().iter().take(skill.min(5) as usize).sum()
-    }
-    fn residual(&self, skill: u8) -> f32 {
-        self.bins().iter().skip(skill.min(5) as usize).sum()
     }
 }
 
@@ -1965,9 +1624,351 @@ pub fn role_requirements(row: &sats::RoleRequirements) -> RoleRequirements {
     }
 }
 
+fn sats_to_serde<T, U>(value: &T) -> serde_json::Result<U>
+where
+    T: SatsSerialize + ?Sized,
+    U: DeserializeOwned,
+{
+    serde_json::from_value(normalize_sats_serde_value(serde_json::to_value(
+        SerdeWrapper::from_ref(value),
+    )?))
+}
+
+fn normalize_sats_serde_value(value: Value) -> Value {
+    match value {
+        Value::Array(values) => {
+            Value::Array(values.into_iter().map(normalize_sats_serde_value).collect())
+        }
+        Value::Object(object) if object.len() == 1 => {
+            let (name, payload) = object.into_iter().next().expect("one field");
+            if name.eq_ignore_ascii_case("none") && payload.as_array().is_some_and(Vec::is_empty) {
+                return Value::Null;
+            }
+            if name.eq_ignore_ascii_case("some") {
+                return normalize_sats_serde_value(payload);
+            }
+            if payload.as_array().is_some_and(Vec::is_empty) {
+                return Value::String(name);
+            }
+            Value::Object(
+                [(name, normalize_sats_serde_value(payload))]
+                    .into_iter()
+                    .collect(),
+            )
+        }
+        Value::Object(object) => Value::Object(
+            object
+                .into_iter()
+                .map(|(name, value)| (name, normalize_sats_serde_value(value)))
+                .collect(),
+        ),
+        value => value,
+    }
+}
+
+fn core_official_religion(
+    value: sats::OfficialReligion,
+) -> adventuresim_world_schema::OfficialReligion {
+    match value {
+        sats::OfficialReligion::RomanCatholic => {
+            adventuresim_world_schema::OfficialReligion::RomanCatholic
+        }
+        sats::OfficialReligion::Lutheran => adventuresim_world_schema::OfficialReligion::Lutheran,
+        sats::OfficialReligion::Reformed => adventuresim_world_schema::OfficialReligion::Reformed,
+        sats::OfficialReligion::Anglican => adventuresim_world_schema::OfficialReligion::Anglican,
+        sats::OfficialReligion::EasternOrthodox => {
+            adventuresim_world_schema::OfficialReligion::EasternOrthodox
+        }
+        sats::OfficialReligion::Islamic => adventuresim_world_schema::OfficialReligion::Islamic,
+        sats::OfficialReligion::Judaism => adventuresim_world_schema::OfficialReligion::Judaism,
+    }
+}
+
+fn core_western_christian_arrangement(
+    value: sats::WesternChristianArrangement,
+) -> adventuresim_world_schema::WesternChristianArrangement {
+    match value {
+        sats::WesternChristianArrangement::CatholicLutheran(church) => {
+            adventuresim_world_schema::WesternChristianArrangement::CatholicLutheran {
+                church: match church {
+                    sats::CatholicLutheranChurch::RomanCatholic => {
+                        adventuresim_world_schema::CatholicLutheranChurch::RomanCatholic
+                    }
+                    sats::CatholicLutheranChurch::Lutheran => {
+                        adventuresim_world_schema::CatholicLutheranChurch::Lutheran
+                    }
+                },
+            }
+        }
+        sats::WesternChristianArrangement::CatholicReformed(church) => {
+            adventuresim_world_schema::WesternChristianArrangement::CatholicReformed {
+                church: match church {
+                    sats::CatholicReformedChurch::RomanCatholic => {
+                        adventuresim_world_schema::CatholicReformedChurch::RomanCatholic
+                    }
+                    sats::CatholicReformedChurch::Reformed => {
+                        adventuresim_world_schema::CatholicReformedChurch::Reformed
+                    }
+                },
+            }
+        }
+        sats::WesternChristianArrangement::LutheranReformed(church) => {
+            adventuresim_world_schema::WesternChristianArrangement::LutheranReformed {
+                church: match church {
+                    sats::LutheranReformedChurch::Lutheran => {
+                        adventuresim_world_schema::LutheranReformedChurch::Lutheran
+                    }
+                    sats::LutheranReformedChurch::Reformed => {
+                        adventuresim_world_schema::LutheranReformedChurch::Reformed
+                    }
+                },
+            }
+        }
+    }
+}
+
+fn core_settlement_religious_status(
+    value: sats::SettlementReligiousStatus,
+) -> adventuresim_world_schema::SettlementReligiousStatus {
+    match value {
+        sats::SettlementReligiousStatus::Established(religion) => {
+            adventuresim_world_schema::SettlementReligiousStatus::Established {
+                religion: core_official_religion(religion),
+            }
+        }
+        sats::SettlementReligiousStatus::Parity(arrangement) => {
+            adventuresim_world_schema::SettlementReligiousStatus::Parity {
+                arrangement: core_western_christian_arrangement(arrangement),
+            }
+        }
+        sats::SettlementReligiousStatus::MultiConfessional(arrangement) => {
+            adventuresim_world_schema::SettlementReligiousStatus::MultiConfessional {
+                arrangement: core_western_christian_arrangement(arrangement),
+            }
+        }
+        sats::SettlementReligiousStatus::LocallyDetermined(church) => {
+            adventuresim_world_schema::SettlementReligiousStatus::LocallyDetermined {
+                church: core_official_religion(church),
+            }
+        }
+    }
+}
+
+fn sql_unit_variant_name<E: serde::de::Error>(value: Value) -> Result<String, E> {
+    match value {
+        Value::String(name) => Ok(name),
+        Value::Object(variant) if variant.len() == 1 => {
+            Ok(variant.into_iter().next().expect("one variant").0)
+        }
+        _ => Err(E::custom("expected a unit enum variant")),
+    }
+}
+
+fn serialize_settlement_category<S>(
+    value: &SettlementCategory,
+    serializer: S,
+) -> Result<S::Ok, S::Error>
+where
+    S: serde::Serializer,
+{
+    serializer.serialize_str(match value {
+        SettlementCategory::Unknown => "Unknown",
+        SettlementCategory::Hamlet => "Hamlet",
+        SettlementCategory::Village => "Village",
+        SettlementCategory::Town => "Town",
+        SettlementCategory::City => "City",
+        SettlementCategory::Capital => "Capital",
+    })
+}
+
+fn deserialize_settlement_category<'de, D>(deserializer: D) -> Result<SettlementCategory, D::Error>
+where
+    D: serde::Deserializer<'de>,
+{
+    match sql_unit_variant_name::<D::Error>(Value::deserialize(deserializer)?)?.as_str() {
+        "Unknown" => Ok(SettlementCategory::Unknown),
+        "Hamlet" => Ok(SettlementCategory::Hamlet),
+        "Village" => Ok(SettlementCategory::Village),
+        "Town" => Ok(SettlementCategory::Town),
+        "City" => Ok(SettlementCategory::City),
+        "Capital" => Ok(SettlementCategory::Capital),
+        _ => Err(serde::de::Error::custom("unknown settlement category")),
+    }
+}
+
+fn deserialize_equipment_channel<'de, D>(deserializer: D) -> Result<EquipmentChannel, D::Error>
+where
+    D: serde::Deserializer<'de>,
+{
+    match sql_unit_variant_name::<D::Error>(Value::deserialize(deserializer)?)?.as_str() {
+        "Held" => Ok(EquipmentChannel::Held),
+        "BaseClothing" => Ok(EquipmentChannel::BaseClothing),
+        "Padding" => Ok(EquipmentChannel::Padding),
+        "FlexibleArmor" => Ok(EquipmentChannel::FlexibleArmor),
+        "RigidArmor" => Ok(EquipmentChannel::RigidArmor),
+        "Outerwear" => Ok(EquipmentChannel::Outerwear),
+        "Accessory" => Ok(EquipmentChannel::Accessory),
+        "Mount" => Ok(EquipmentChannel::Mount),
+        "Containment" => Ok(EquipmentChannel::Containment),
+        _ => Err(serde::de::Error::custom("unknown equipment channel")),
+    }
+}
+
+fn core_slot(value: sats::Slot) -> Slot {
+    match value {
+        sats::Slot::None => Slot::None,
+        sats::Slot::LeftHolding => Slot::LeftHolding,
+        sats::Slot::RightHolding => Slot::RightHolding,
+        sats::Slot::LeftArm => Slot::LeftArm,
+        sats::Slot::RightArm => Slot::RightArm,
+        sats::Slot::LeftLeg => Slot::LeftLeg,
+        sats::Slot::RightLeg => Slot::RightLeg,
+        sats::Slot::Chest => Slot::Chest,
+        sats::Slot::Stomach => Slot::Stomach,
+        sats::Slot::Head => Slot::Head,
+        sats::Slot::AnyHolding => Slot::AnyHolding,
+        sats::Slot::AnyArm => Slot::AnyArm,
+        sats::Slot::AnyLeg => Slot::AnyLeg,
+    }
+}
+
+fn core_equipment_body_part(value: sats::EquipmentBodyPart) -> EquipmentBodyPart {
+    match value {
+        sats::EquipmentBodyPart::LeftArm => EquipmentBodyPart::LeftArm,
+        sats::EquipmentBodyPart::RightArm => EquipmentBodyPart::RightArm,
+        sats::EquipmentBodyPart::LeftLeg => EquipmentBodyPart::LeftLeg,
+        sats::EquipmentBodyPart::RightLeg => EquipmentBodyPart::RightLeg,
+        sats::EquipmentBodyPart::Chest => EquipmentBodyPart::Chest,
+        sats::EquipmentBodyPart::Stomach => EquipmentBodyPart::Stomach,
+        sats::EquipmentBodyPart::Head => EquipmentBodyPart::Head,
+    }
+}
+
+fn core_melee_style(value: sats::MeleeAttackStyle) -> MeleeAttackStyle {
+    match value {
+        sats::MeleeAttackStyle::Swing => MeleeAttackStyle::Swing,
+        sats::MeleeAttackStyle::Stab => MeleeAttackStyle::Stab,
+    }
+}
+
+fn core_weapon_skills(value: sats::WeaponSkillDistribution) -> WeaponSkillDistribution {
+    let sats::WeaponSkillDistribution {
+        polearm,
+        axe,
+        bludgeon,
+        sword,
+        knife,
+        bow,
+        crossbow,
+        firearm,
+        throw,
+    } = value;
+    WeaponSkillDistribution {
+        polearm,
+        axe,
+        bludgeon,
+        sword,
+        knife,
+        bow,
+        crossbow,
+        firearm,
+        throw,
+    }
+}
+
+fn core_religion_hours(value: &sats::ReligionHours) -> adventuresim_world_schema::ReligionHours {
+    adventuresim_world_schema::ReligionHours {
+        roman_catholic: value.roman_catholic,
+        lutheran: value.lutheran,
+        reformed: value.reformed,
+        anglican: value.anglican,
+        eastern_orthodox: value.eastern_orthodox,
+        islamic: value.islamic,
+        judaism: value.judaism,
+    }
+}
+
+fn core_written_language_hours(
+    value: &sats::WrittenLanguageHours,
+) -> adventuresim_world_schema::WrittenLanguageHours {
+    adventuresim_world_schema::WrittenLanguageHours {
+        german: value.german,
+        low: value.low,
+        latin: value.latin,
+        hebrew: value.hebrew,
+        yiddish: value.yiddish,
+        elven: value.elven,
+        dwarfish: value.dwarfish,
+    }
+}
+
+fn core_bestiary_hours(value: &sats::BestiaryHours) -> adventuresim_world_schema::BestiaryHours {
+    adventuresim_world_schema::BestiaryHours {
+        beast: value.beast,
+        undead: value.undead,
+        human: value.human,
+        werekin: value.werekin,
+        elf: value.elf,
+        dwarf: value.dwarf,
+        fey: value.fey,
+        spirit: value.spirit,
+        greenskin: value.greenskin,
+        insectoid: value.insectoid,
+        draconid: value.draconid,
+        construct: value.construct,
+        wildmen: value.wildmen,
+    }
+}
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    // Native row-projection fixture; production routing uses generated rows.
+    #[derive(Debug, Clone, Serialize, Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct TravelEdgeView {
+        id: u64,
+        from_node_id: u64,
+        to_node_id: u64,
+        route: adventuresim_world_schema::TravelRoute,
+        length_m: u32,
+        slope_multiplier: f32,
+        terrain: adventuresim_world_schema::RouteTerrain,
+        certainty: u8,
+        section: String,
+    }
+
+    impl TryFrom<sats::TravelEdge> for TravelEdgeView {
+        type Error = serde_json::Error;
+
+        fn try_from(row: sats::TravelEdge) -> Result<Self, Self::Error> {
+            let sats::TravelEdge {
+                id,
+                from_node_id,
+                to_node_id,
+                route,
+                provenance: _,
+                toll_at: _,
+                length_m,
+                slope_multiplier,
+                terrain,
+                certainty,
+                section,
+                sources: _,
+            } = row;
+            Ok(Self {
+                id,
+                from_node_id,
+                to_node_id,
+                route: sats_to_serde(&route)?,
+                length_m,
+                slope_multiplier,
+                terrain: sats_to_serde(&terrain)?,
+                certainty,
+                section,
+            })
+        }
+    }
 
     fn generated_role_requirements() -> sats::RoleRequirements {
         sats::RoleRequirements {

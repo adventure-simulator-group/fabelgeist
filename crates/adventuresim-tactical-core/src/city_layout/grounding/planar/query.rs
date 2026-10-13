@@ -11,19 +11,31 @@ pub(in crate::city_layout::grounding) struct PlanarBounds {
 }
 
 impl PlanarBounds {
+    pub fn from_triangle(points: [crate::scene_coordinates::ScenePlanPoint; 3]) -> Self {
+        let [first, second, third] = points.map(|point| point.metres().as_dvec2());
+        Self {
+            minimum: first.min(second).min(third),
+            maximum: first.max(second).max(third),
+        }
+    }
     pub fn from_points(points: impl IntoIterator<Item = DVec2>) -> Option<Self> {
         let mut points = points.into_iter();
         let first = points.next()?;
-        Some(points.fold(
+        if !first.is_finite() {
+            return None;
+        }
+        points.try_fold(
             Self {
                 minimum: first,
                 maximum: first,
             },
-            |bounds, p| Self {
-                minimum: bounds.minimum.min(p),
-                maximum: bounds.maximum.max(p),
+            |bounds, point| {
+                point.is_finite().then_some(Self {
+                    minimum: bounds.minimum.min(point),
+                    maximum: bounds.maximum.max(point),
+                })
             },
-        ))
+        )
     }
 
     pub fn expanded(self, distance: f64) -> Self {
@@ -40,7 +52,7 @@ impl PlanarBounds {
         }
     }
 
-    fn intersects(self, other: Self) -> bool {
+    pub fn intersects(self, other: Self) -> bool {
         !self.minimum.cmpgt(other.maximum).any() && !self.maximum.cmplt(other.minimum).any()
     }
 }
@@ -80,11 +92,13 @@ impl PlanarQueryIndex {
     }
 
     fn append(&mut self, regions: &mut [usize]) -> usize {
-        let bounds = regions
+        // The root is guarded as nonempty; both recursive partitions follow
+        // the leaf-capacity check and split strictly inside the slice.
+        let bounds = regions[1..]
             .iter()
-            .map(|i| self.bounds[*i])
-            .reduce(PlanarBounds::union)
-            .expect("query nodes contain at least one region");
+            .fold(self.bounds[regions[0]], |bounds, index| {
+                bounds.union(self.bounds[*index])
+            });
         let node = self.nodes.len();
         self.nodes.push(QueryNode {
             bounds,

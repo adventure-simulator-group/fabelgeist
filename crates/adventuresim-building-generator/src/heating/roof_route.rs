@@ -156,7 +156,10 @@ mod tests {
     use super::*;
     #[test]
     fn a_flue_under_a_shed_uses_its_covering_and_requires_the_parent_cut() {
-        let mut programme = crate::BuildingProgram::fixture(crate::BuildingArchetype::HallHouse, 2);
+        let mut programme = crate::BuildingProgram::fixture(
+            crate::BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(2),
+        );
         programme.domestic_heating = None;
         let mut plan = crate::generate(&programme).unwrap();
         let placement = super::super::placement::find(&plan)

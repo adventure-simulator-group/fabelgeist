@@ -10,7 +10,7 @@ fn timber_trades_keep_visible_supported_stock_outside_the_handling_lane() {
             ServiceBuildingSize::Medium,
             ServiceBuildingSize::Large,
         ] {
-            for seed in [0, 42, 101] {
+            for seed in [0, 42, 101].map(fabelgeist_determinism::Seed::from_u64) {
                 let program =
                     BuildingProgram::settlement(settlement_archetype(usage), Some(usage), seed)
                         .with_service_size(size);
@@ -83,7 +83,11 @@ fn timber_trades_keep_visible_supported_stock_outside_the_handling_lane() {
 fn armorers_reserve_the_shared_forge_without_losing_their_shop_identity() {
     let usage = BuildingUse::Armorer;
     assert_eq!(settlement_archetype(usage), BuildingArchetype::Workplace);
-    let program = BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42);
+    let program = BuildingProgram::settlement(
+        settlement_archetype(usage),
+        Some(usage),
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     assert_eq!(program.usage, Some(usage));
     let plan = generate(&program).unwrap();
     let work = plan.workplace.unwrap();

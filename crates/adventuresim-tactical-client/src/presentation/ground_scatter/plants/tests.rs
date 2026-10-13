@@ -13,8 +13,8 @@ fn autumn_woodland_fixture_contains_ground_fruiting_fungi() {
     let scene = input.generate().unwrap();
     let environment = input.environment_snapshot(scene.digest.clone());
     let seed = stable_text_seed("fungi-woodland")
-        ^ stable_text_seed(&environment.scene_digest)
-        ^ PLANT_SEED;
+        .xor_word(stable_text_seed(&environment.scene_digest).to_u64())
+        .xor_word(PLANT_SEED.to_u64());
     let sites = placements(&scene.terrain, &scene.ground, &environment, seed);
     assert!(!sites.is_empty());
     for species in adventuresim_plant_generator::fungus::FungusSpecies::ALL {
@@ -52,7 +52,12 @@ fn seasonal_catalog_shares_population_budget_and_preserves_spring_flowers() {
     environment.weather.ground_moisture_bps = 7000;
     environment.absolute_minute =
         adventuresim_world_schema::calendar::StrategicMinute::day_start_for_index(110);
-    let spring = placements(&terrain, &ground, &environment, 42);
+    let spring = placements(
+        &terrain,
+        &ground,
+        &environment,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     assert_eq!(spring.len(), MAX_SPECIMENS);
     assert!(
         spring
@@ -61,7 +66,12 @@ fn seasonal_catalog_shares_population_budget_and_preserves_spring_flowers() {
     );
     environment.absolute_minute =
         adventuresim_world_schema::calendar::StrategicMinute::day_start_for_index(270);
-    let autumn = placements(&terrain, &ground, &environment, 42);
+    let autumn = placements(
+        &terrain,
+        &ground,
+        &environment,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     assert_eq!(autumn.len(), MAX_SPECIMENS);
     assert!(
         autumn
@@ -88,7 +98,12 @@ fn spring_woodland_fixture_has_suitable_flower_openings() {
     .unwrap();
     let scene = input.generate().unwrap();
     let environment = input.environment_snapshot(scene.digest.clone());
-    let sites = placements(&scene.terrain, &scene.ground, &environment, 42);
+    let sites = placements(
+        &scene.terrain,
+        &scene.ground,
+        &environment,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     let litter = scene
         .ground
         .samples()
@@ -125,10 +140,23 @@ fn placement_is_repeatable_bounded_grounded_and_excludes_roads_water_and_winter(
         adventuresim_world_schema::calendar::StrategicMinute::day_start_for_index(180);
     environment.weather.ground_moisture_bps = 5000;
     let ground = make_ground(GroundSubstrate::Soil);
-    let sites = placements(&terrain, &ground, &environment, 42);
+    let sites = placements(
+        &terrain,
+        &ground,
+        &environment,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     assert!(!sites.is_empty());
     assert!(sites.len() <= MAX_SPECIMENS);
-    assert_eq!(sites, placements(&terrain, &ground, &environment, 42));
+    assert_eq!(
+        sites,
+        placements(
+            &terrain,
+            &ground,
+            &environment,
+            fabelgeist_determinism::Seed::from_u64(42)
+        )
+    );
     assert!(
         sites
             .iter()
@@ -152,7 +180,13 @@ fn placement_is_repeatable_bounded_grounded_and_excludes_roads_water_and_winter(
     )
     .unwrap();
     assert!(
-        placements(&terrain, &dense_sward, &environment, 42).is_empty(),
+        placements(
+            &terrain,
+            &dense_sward,
+            &environment,
+            fabelgeist_determinism::Seed::from_u64(42)
+        )
+        .is_empty(),
         "dense tall grass has no low-herb openings"
     );
     for substrate in [
@@ -160,11 +194,27 @@ fn placement_is_repeatable_bounded_grounded_and_excludes_roads_water_and_winter(
         GroundSubstrate::Road,
         GroundSubstrate::Stone,
     ] {
-        assert!(placements(&terrain, &make_ground(substrate), &environment, 42).is_empty());
+        assert!(
+            placements(
+                &terrain,
+                &make_ground(substrate),
+                &environment,
+                fabelgeist_determinism::Seed::from_u64(42)
+            )
+            .is_empty()
+        );
     }
     environment.absolute_minute =
         adventuresim_world_schema::calendar::StrategicMinute::day_start_for_index(10);
-    assert!(placements(&terrain, &ground, &environment, 42).is_empty());
+    assert!(
+        placements(
+            &terrain,
+            &ground,
+            &environment,
+            fabelgeist_determinism::Seed::from_u64(42)
+        )
+        .is_empty()
+    );
 }
 
 #[test]

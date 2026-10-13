@@ -36,7 +36,7 @@ mod tests {
     #[test]
     fn every_curated_plan_passes_the_structural_audit() {
         for archetype in crate::BuildingArchetype::ALL {
-            let plan = crate::generate(&crate::BuildingProgram::fixture(archetype, 47)).unwrap();
+            let plan = crate::generate(&crate::BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(47))).unwrap();
             assert!(
                 audit_plan(&plan).unwrap().is_empty(),
                 "{archetype:?}: {:?}",
@@ -48,7 +48,7 @@ mod tests {
     #[test]
     fn timber_roof_members_stay_within_the_authoritative_roof_envelope() {
         let mut failures = Vec::new();
-        for seed in [42, 47, 101] {
+        for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             for archetype in crate::BuildingArchetype::ALL {
                 let plan =
                     crate::generate(&crate::BuildingProgram::fixture(archetype, seed)).unwrap();
@@ -83,7 +83,7 @@ mod tests {
         let mut oversized_child_gutters = Vec::new();
         let mut undeclared_cross_authority = Vec::new();
         let mut full_audit_failures = Vec::new();
-        for seed in [42, 47, 101] {
+        for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             for archetype in crate::BuildingArchetype::ALL {
                 let plan =
                     crate::generate(&crate::BuildingProgram::fixture(archetype, seed)).unwrap();
@@ -207,7 +207,7 @@ mod tests {
 
         let mut mutation = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::RenaissanceTownHall,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let child = mutation
@@ -245,7 +245,7 @@ mod tests {
 
         let mut thick_flashing = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::RenaissanceTownHall,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let flashing_id = thick_flashing.roof_assemblies[0].children[0].flashing_ids[0];
@@ -275,7 +275,7 @@ mod tests {
 
         let mut child_downspout = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::RenaissanceTownHall,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let child_owner = child_downspout
@@ -308,7 +308,7 @@ mod tests {
 
         let mut projecting_curb = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::RenaissanceTownHall,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let trimmer_id = projecting_curb
@@ -350,7 +350,7 @@ mod tests {
 
         let mut large_child_gutter = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::RenaissanceTownHall,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let child_owner = large_child_gutter
@@ -394,7 +394,7 @@ mod tests {
 
         let mut projecting_child_outlet = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let child_owner = projecting_child_outlet
@@ -433,7 +433,7 @@ mod tests {
 
         let mut free_rear_gable = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::RenaissanceTownHall,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let gabled_child = free_rear_gable.roof_assemblies[0]
@@ -463,7 +463,7 @@ mod tests {
 
         let mut unlisted_pair = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::TownHouse,
-            47,
+            fabelgeist_determinism::Seed::from_u64(47),
         ))
         .unwrap();
         let rail_solid = unlisted_pair
@@ -503,7 +503,7 @@ mod tests {
         let fixture = || {
             crate::generate(&crate::BuildingProgram::fixture(
                 crate::BuildingArchetype::ArtilleryRondelCastle,
-                47,
+                fabelgeist_determinism::Seed::from_u64(47),
             ))
             .unwrap()
         };
@@ -886,7 +886,7 @@ mod tests {
 
         let denied = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::ArtilleryRondelCastle,
-            702,
+            fabelgeist_determinism::Seed::from_u64(702),
         ))
         .unwrap();
         assert!(
@@ -914,7 +914,7 @@ mod tests {
         );
         let mut contaminated = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::WalledKeep,
-            47,
+            fabelgeist_determinism::Seed::from_u64(47),
         ))
         .unwrap();
         contaminated.castle_phase = Some(crate::CastleConstructionPhase::ArtilleryRetrofit1544);
@@ -926,7 +926,7 @@ mod tests {
         let fixture = || {
             crate::generate(&crate::BuildingProgram::fixture(
                 crate::BuildingArchetype::Cathedral,
-                47,
+                fabelgeist_determinism::Seed::from_u64(47),
             ))
             .unwrap()
         };
@@ -1665,7 +1665,7 @@ mod tests {
         let fixture = || {
             crate::generate(&crate::BuildingProgram::fixture(
                 crate::BuildingArchetype::FachwerkMerchantHouse,
-                47,
+                fabelgeist_determinism::Seed::from_u64(47),
             ))
             .unwrap()
         };
@@ -1715,7 +1715,7 @@ mod tests {
 
         let mut reversed_shed = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::Cathedral,
-            47,
+            fabelgeist_determinism::Seed::from_u64(47),
         ))
         .unwrap();
         let shed = reversed_shed
@@ -1737,7 +1737,7 @@ mod tests {
 
         let mut tower_overlap = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::Cathedral,
-            47,
+            fabelgeist_determinism::Seed::from_u64(47),
         ))
         .unwrap();
         let tower_child = tower_overlap.roof_assemblies[0]
@@ -1783,7 +1783,7 @@ mod tests {
 
         let mut relabelled_full_hip = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::HallHouse,
-            47,
+            fabelgeist_determinism::Seed::from_u64(47),
         ))
         .unwrap();
         let half_hip = relabelled_full_hip
@@ -1885,7 +1885,7 @@ mod tests {
             crate::BuildingArchetype::ALL
                 .into_iter()
                 .map(|archetype| {
-                    crate::generate(&crate::BuildingProgram::fixture(archetype, 47)).unwrap()
+                    crate::generate(&crate::BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(47))).unwrap()
                 })
                 .find(|plan| {
                     plan.resolved_geometry
@@ -1998,7 +1998,7 @@ mod tests {
         assert!(has(&spout_through_stair, "invalid_roof_drainage_network"));
 
         let mut round_program =
-            crate::BuildingProgram::fixture(crate::BuildingArchetype::TownHouse, 47);
+            crate::BuildingProgram::fixture(crate::BuildingArchetype::TownHouse, fabelgeist_determinism::Seed::from_u64(47));
         round_program.roof_demonstrator = Some(crate::RoofKind::Conical);
         let mut per_facet_round_spouts = crate::generate(&round_program).unwrap();
         let round_owner = per_facet_round_spouts
@@ -2030,7 +2030,7 @@ mod tests {
             crate::BuildingArchetype::ALL
                 .into_iter()
                 .map(|archetype| {
-                    crate::generate(&crate::BuildingProgram::fixture(archetype, 47)).unwrap()
+                    crate::generate(&crate::BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(47))).unwrap()
                 })
                 .find(|plan| {
                     plan.resolved_geometry
@@ -2123,7 +2123,7 @@ mod tests {
 
         let mut off_parent_face = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::Cathedral,
-            47,
+            fabelgeist_determinism::Seed::from_u64(47),
         ))
         .unwrap();
         let station = off_parent_face
@@ -2140,7 +2140,7 @@ mod tests {
         let edge_treatment_fixture = || {
             crate::generate(&crate::BuildingProgram::fixture(
                 crate::BuildingArchetype::Cathedral,
-                47,
+                fabelgeist_determinism::Seed::from_u64(47),
             ))
             .unwrap()
         };
@@ -2228,7 +2228,7 @@ mod tests {
         let abutment_fixture = || {
             crate::generate(&crate::BuildingProgram::fixture(
                 crate::BuildingArchetype::Cathedral,
-                47,
+                fabelgeist_determinism::Seed::from_u64(47),
             ))
             .unwrap()
         };
@@ -2324,7 +2324,7 @@ mod tests {
     #[test]
     fn wall_opening_audit_rejects_authority_profile_support_and_operability_drift() {
         let fixture =
-            |archetype| crate::generate(&crate::BuildingProgram::fixture(archetype, 47)).unwrap();
+            |archetype| crate::generate(&crate::BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(47))).unwrap();
         let has = |plan: &crate::BuildingPlan, code: &str| {
             audit_plan(plan)
                 .unwrap()
@@ -2739,10 +2739,10 @@ mod tests {
                 .iter()
                 .any(|issue| issue.code == code)
         };
-        let plan = fixture(149);
-        let breteche_plan = fixture(201);
-        let deployed_plan = fixture(202);
-        let bartizan_plan = fixture(203);
+        let plan = fixture(fabelgeist_determinism::Seed::from_u64(149));
+        let breteche_plan = fixture(fabelgeist_determinism::Seed::from_u64(201));
+        let deployed_plan = fixture(fabelgeist_determinism::Seed::from_u64(202));
+        let bartizan_plan = fixture(fabelgeist_determinism::Seed::from_u64(203));
         assert!(
             audit_plan(&plan).unwrap().is_empty(),
             "{:?}",
@@ -2817,12 +2817,12 @@ mod tests {
             })
             .unwrap();
 
-        let mut witness_only_host = fixture(149);
+        let mut witness_only_host = fixture(fabelgeist_determinism::Seed::from_u64(149));
         witness_only_host.projected_defenses[operational_index].host_owner =
             witness_only_host.projected_defenses[operational_index].owner;
         assert!(has(&witness_only_host, "unresolved_projected_defense_host"));
 
-        let mut intact_host_portal = fixture(149);
+        let mut intact_host_portal = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let host_portal = intact_host_portal.projected_defenses[operational_index]
             .host_portal_void
             .unwrap();
@@ -2835,7 +2835,7 @@ mod tests {
             "unresolved_projected_defense_host"
         ));
 
-        let mut shifted_host_walk = fixture(149);
+        let mut shifted_host_walk = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let host_walk = shifted_host_walk.projected_defenses[operational_index].host_walk_solid;
         {
             let mut native_geometry = shifted_host_walk
@@ -2857,7 +2857,7 @@ mod tests {
         };
         assert!(has(&shifted_host_walk, "inaccessible_projected_defense"));
 
-        let mut untrimmed_host_run = fixture(149);
+        let mut untrimmed_host_run = fixture(fabelgeist_determinism::Seed::from_u64(149));
         if let ProjectedDefensePath::Linear { start, end, .. } =
             &mut untrimmed_host_run.projected_defenses[operational_index].path
         {
@@ -2870,7 +2870,7 @@ mod tests {
             "unresolved_projected_defense_host"
         ));
 
-        let mut blocked_tower_chord = fixture(149);
+        let mut blocked_tower_chord = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let tower_index = blocked_tower_chord
             .towers
             .iter()
@@ -2883,7 +2883,7 @@ mod tests {
             .bearing_depth = crate::GridLength::new(1).unwrap();
         assert!(has(&blocked_tower_chord, "blocked_projected_defense_ray"));
 
-        let mut missing_return_chord = fixture(202);
+        let mut missing_return_chord = fixture(fabelgeist_determinism::Seed::from_u64(202));
         missing_return_chord.towers[0].secondary_chord_interface = None;
         assert!(has(&missing_return_chord, "invalid_round_wall_authority"));
 
@@ -2892,7 +2892,7 @@ mod tests {
             .iter()
             .position(|defense| defense.deployment == ProjectedDefenseDeployment::SocketsOnly)
             .unwrap();
-        let mut filled_socket = fixture(149);
+        let mut filled_socket = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let socket = filled_socket.projected_defenses[sockets_index].beam_socket_voids[0];
         filled_socket
             .resolved_geometry
@@ -2900,7 +2900,7 @@ mod tests {
             .retain(|void| void.id != socket);
         assert!(has(&filled_socket, "invalid_hoarding_beam_sockets"));
 
-        let mut shifted_joist = fixture(202);
+        let mut shifted_joist = fixture(fabelgeist_determinism::Seed::from_u64(202));
         let (_, joist) = shifted_joist.projected_defenses[deployed_hoarding_index].socket_joists[0];
         {
             let mut native_geometry = shifted_joist
@@ -2922,7 +2922,7 @@ mod tests {
         };
         assert!(has(&shifted_joist, "invalid_hoarding_beam_sockets"));
 
-        let mut sealed = fixture(149);
+        let mut sealed = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let throat = sealed.projected_defenses[operational_index].throat_voids[0];
         sealed
             .resolved_geometry
@@ -2930,7 +2930,7 @@ mod tests {
             .retain(|void| void.id != throat);
         assert!(has(&sealed, "sealed_projected_defense_throat"));
 
-        let mut no_ray = fixture(149);
+        let mut no_ray = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let owner = no_ray.projected_defenses[operational_index].owner;
         no_ray
             .resolved_geometry
@@ -2938,7 +2938,7 @@ mod tests {
             .retain(|ray| ray.owner != owner);
         assert!(has(&no_ray, "sealed_projected_defense_throat"));
 
-        let mut below_floor_ray = fixture(149);
+        let mut below_floor_ray = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let owner = below_floor_ray.projected_defenses[operational_index].owner;
         below_floor_ray
             .resolved_geometry
@@ -2950,7 +2950,7 @@ mod tests {
             .y = below_floor_ray.projected_defenses[operational_index].floor_elevation_metres - 0.2;
         assert!(has(&below_floor_ray, "blocked_projected_defense_ray"));
 
-        let mut missing_far_range = fixture(149);
+        let mut missing_far_range = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let owner = missing_far_range.projected_defenses[operational_index].owner;
         let aperture = missing_far_range
             .resolved_geometry
@@ -2972,7 +2972,7 @@ mod tests {
             "inoperable_projected_defense_station"
         ));
 
-        let mut inward = fixture(149);
+        let mut inward = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let owner = inward.projected_defenses[operational_index].owner;
         let ray = inward
             .resolved_geometry
@@ -2983,7 +2983,7 @@ mod tests {
         ray.target.z = ray.origin.z + 2.0;
         assert!(has(&inward, "blocked_projected_defense_ray"));
 
-        let mut reversed_assembly = fixture(149);
+        let mut reversed_assembly = fixture(fabelgeist_determinism::Seed::from_u64(149));
         if let ProjectedDefensePath::Linear { outward, .. } =
             &mut reversed_assembly.projected_defenses[operational_index].path
         {
@@ -2991,7 +2991,7 @@ mod tests {
         }
         assert!(has(&reversed_assembly, "inward_projected_defense"));
 
-        let mut blocked = fixture(149);
+        let mut blocked = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let owner = blocked.projected_defenses[operational_index].owner;
         let ray = *blocked
             .resolved_geometry
@@ -3010,7 +3010,7 @@ mod tests {
         blocker.size = CuboidDimensions::from_metres(Vec3::splat(0.45)).unwrap();
         assert!(has(&blocked, "blocked_projected_defense_ray"));
 
-        let mut no_support = fixture(149);
+        let mut no_support = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let support = no_support.projected_defenses[operational_index].support_nodes[0];
         no_support
             .resolved_geometry
@@ -3022,7 +3022,7 @@ mod tests {
             .clear();
         assert!(has(&no_support, "unsupported_projected_defense"));
 
-        let mut inadequate_bearing = fixture(149);
+        let mut inadequate_bearing = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let support = inadequate_bearing.projected_defenses[operational_index].support_nodes[0];
         let bearing = inadequate_bearing
             .resolved_geometry
@@ -3039,20 +3039,20 @@ mod tests {
         };
         assert!(has(&inadequate_bearing, "unsupported_projected_defense"));
 
-        let mut no_portal = fixture(149);
+        let mut no_portal = fixture(fabelgeist_determinism::Seed::from_u64(149));
         no_portal.projected_defenses[operational_index].access_portal = None;
         assert!(has(&no_portal, "inaccessible_projected_defense"));
-        let mut no_landing = fixture(149);
+        let mut no_landing = fixture(fabelgeist_determinism::Seed::from_u64(149));
         no_landing.projected_defenses[operational_index].access_landing = None;
         assert!(has(&no_landing, "inaccessible_projected_defense"));
-        let mut narrow = fixture(149);
+        let mut narrow = fixture(fabelgeist_determinism::Seed::from_u64(149));
         narrow.projected_defenses[operational_index].clear_width_metres = 0.7;
         assert!(has(&narrow, "insufficient_projected_defense_clearance"));
-        let mut low = fixture(149);
+        let mut low = fixture(fabelgeist_determinism::Seed::from_u64(149));
         low.projected_defenses[operational_index].clear_height_metres = 1.7;
         assert!(has(&low, "insufficient_projected_defense_clearance"));
 
-        let mut gallery_overlap = fixture(149);
+        let mut gallery_overlap = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let throat = gallery_overlap.projected_defenses[operational_index].throat_voids[0];
         let bounds = gallery_overlap
             .resolved_geometry
@@ -3078,7 +3078,7 @@ mod tests {
         .unwrap();
         assert!(has(&gallery_overlap, "unresolved_void_subtraction"));
 
-        let mut closed_bartizan = fixture(203);
+        let mut closed_bartizan = fixture(fabelgeist_determinism::Seed::from_u64(203));
         let centre = match closed_bartizan.projected_defenses[bartizan_index].path {
             ProjectedDefensePath::Round { centre, .. } => centre,
             ProjectedDefensePath::Linear { .. } => unreachable!(),
@@ -3099,7 +3099,7 @@ mod tests {
         floor.size = CuboidDimensions::from_metres(Vec3::splat(0.5)).unwrap();
         assert!(has(&closed_bartizan, "closed_bartizan"));
 
-        let mut dangling_frame = fixture(202);
+        let mut dangling_frame = fixture(fabelgeist_determinism::Seed::from_u64(202));
         let owner = dangling_frame.projected_defenses[deployed_hoarding_index].owner;
         dangling_frame
             .resolved_geometry
@@ -3110,10 +3110,10 @@ mod tests {
             .supported_by = vec![crate::StructuralNodeId(u64::MAX)];
         assert!(has(&dangling_frame, "dangling_hoarding_frame"));
 
-        let mut no_drain = fixture(149);
+        let mut no_drain = fixture(fabelgeist_determinism::Seed::from_u64(149));
         no_drain.projected_defenses[operational_index].drain_route = None;
         assert!(has(&no_drain, "projected_defense_roof_drain_failure"));
-        let mut flat_gallery = fixture(149);
+        let mut flat_gallery = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let floor = flat_gallery.projected_defenses[operational_index].floor_solids[0];
         let floor = flat_gallery
             .resolved_geometry
@@ -3124,7 +3124,7 @@ mod tests {
         floor.crossfall_radians = Radians::new(0.0).unwrap();
         floor.longfall_radians = Radians::new(0.0).unwrap();
         assert!(has(&flat_gallery, "projected_defense_roof_drain_failure"));
-        let mut raised_channel = fixture(149);
+        let mut raised_channel = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let catchment = raised_channel.projected_defenses[operational_index].drainage_catchments[0];
         let channel = raised_channel
             .resolved_geometry
@@ -3152,7 +3152,7 @@ mod tests {
                 .centre = Position::from_metres(native_geometry).unwrap();
         };
         assert!(has(&raised_channel, "projected_defense_roof_drain_failure"));
-        let mut reversed_channel = fixture(149);
+        let mut reversed_channel = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let catchment =
             reversed_channel.projected_defenses[operational_index].drainage_catchments[0];
         let channel = reversed_channel
@@ -3184,7 +3184,7 @@ mod tests {
             &reversed_channel,
             "projected_defense_roof_drain_failure"
         ));
-        let mut throat_drain = fixture(149);
+        let mut throat_drain = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let drain = throat_drain.projected_defenses[operational_index]
             .drain_route
             .unwrap();
@@ -3197,14 +3197,14 @@ mod tests {
             .unwrap()
             .outlet_void = throat;
         assert!(has(&throat_drain, "projected_defense_roof_drain_failure"));
-        let mut no_roof = fixture(202);
+        let mut no_roof = fixture(fabelgeist_determinism::Seed::from_u64(202));
         let owner = no_roof.projected_defenses[deployed_hoarding_index].owner;
         no_roof
             .resolved_geometry
             .solids
             .retain(|solid| !(solid.owner == owner && solid.role == SolidRole::DefenseRoof));
         assert!(has(&no_roof, "projected_defense_roof_drain_failure"));
-        let mut flat_roof = fixture(202);
+        let mut flat_roof = fixture(fabelgeist_determinism::Seed::from_u64(202));
         let owner = flat_roof.projected_defenses[deployed_hoarding_index].owner;
         let roof = flat_roof
             .resolved_geometry
@@ -3215,19 +3215,19 @@ mod tests {
         roof.crossfall_radians = Radians::new(0.0).unwrap();
         roof.longfall_radians = Radians::new(0.0).unwrap();
         assert!(has(&flat_roof, "projected_defense_roof_drain_failure"));
-        let mut phase_mismatch = fixture(202);
+        let mut phase_mismatch = fixture(fabelgeist_determinism::Seed::from_u64(202));
         phase_mismatch.projected_defenses[deployed_hoarding_index].material =
             ProjectedDefenseMaterial::Masonry;
         assert!(has(
             &phase_mismatch,
             "projected_defense_phase_material_mismatch"
         ));
-        let mut no_aperture = fixture(203);
+        let mut no_aperture = fixture(fabelgeist_determinism::Seed::from_u64(203));
         no_aperture.projected_defenses[bartizan_index]
             .firing_apertures
             .clear();
         assert!(has(&no_aperture, "closed_bartizan"));
-        let mut wrong_target = fixture(201);
+        let mut wrong_target = fixture(fabelgeist_determinism::Seed::from_u64(201));
         let index = wrong_target
             .projected_defenses
             .iter()
@@ -3240,7 +3240,7 @@ mod tests {
             "projected_defense_tactical_target_mismatch"
         ));
 
-        let mut duplicate_host_screen = fixture(149);
+        let mut duplicate_host_screen = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let defense = &mut duplicate_host_screen.projected_defenses[operational_index];
         let mut duplicate = duplicate_host_screen
             .resolved_geometry
@@ -3260,7 +3260,7 @@ mod tests {
             "unresolved_projected_defense_host"
         ));
 
-        let mut overheight_host = fixture(149);
+        let mut overheight_host = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let host = overheight_host.projected_defenses[operational_index].host_wall_solids[0];
         let host = overheight_host
             .resolved_geometry
@@ -3280,7 +3280,7 @@ mod tests {
         };
         assert!(has(&overheight_host, "unresolved_projected_defense_host"));
 
-        let mut roof_intrusion = fixture(202);
+        let mut roof_intrusion = fixture(fabelgeist_determinism::Seed::from_u64(202));
         let host_id =
             roof_intrusion.projected_defenses[deployed_hoarding_index].host_wall_solids[0];
         let host = roof_intrusion
@@ -3301,7 +3301,7 @@ mod tests {
         roof.size = host.size;
         assert!(has(&roof_intrusion, "unresolved_projected_defense_host"));
 
-        let mut one_face_bartizan = fixture(203);
+        let mut one_face_bartizan = fixture(fabelgeist_determinism::Seed::from_u64(203));
         one_face_bartizan.projected_defenses[bartizan_index].host_topology =
             crate::ProjectedDefenseHostTopology::LinearFace;
         one_face_bartizan.projected_defenses[bartizan_index]
@@ -3309,7 +3309,7 @@ mod tests {
             .clear();
         assert!(has(&one_face_bartizan, "unresolved_projected_defense_host"));
 
-        let mut disconnected_roof = fixture(202);
+        let mut disconnected_roof = fixture(fabelgeist_determinism::Seed::from_u64(202));
         let catchment =
             disconnected_roof.projected_defenses[deployed_hoarding_index].weather_catchments[0];
         disconnected_roof
@@ -3321,7 +3321,7 @@ mod tests {
             "projected_defense_roof_drain_failure"
         ));
 
-        let mut trapped_host_edge = fixture(202);
+        let mut trapped_host_edge = fixture(fabelgeist_determinism::Seed::from_u64(202));
         let owner = trapped_host_edge.projected_defenses[deployed_hoarding_index].owner;
         trapped_host_edge
             .resolved_geometry
@@ -3332,7 +3332,7 @@ mod tests {
             "projected_defense_roof_drain_failure"
         ));
 
-        let mut missing_coping = fixture(149);
+        let mut missing_coping = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let owner = missing_coping.projected_defenses[operational_index].owner;
         missing_coping
             .resolved_geometry
@@ -3340,7 +3340,7 @@ mod tests {
             .retain(|solid| !(solid.owner == owner && solid.role == SolidRole::Coping));
         assert!(has(&missing_coping, "projected_defense_roof_drain_failure"));
 
-        let mut inward_drip = fixture(149);
+        let mut inward_drip = fixture(fabelgeist_determinism::Seed::from_u64(149));
         let owner = inward_drip.projected_defenses[operational_index].owner;
         {
             let mut native_geometry = inward_drip
@@ -3362,12 +3362,12 @@ mod tests {
         };
         assert!(has(&inward_drip, "projected_defense_roof_drain_failure"));
 
-        let breteche_index = fixture(201)
+        let breteche_index = fixture(fabelgeist_determinism::Seed::from_u64(201))
             .projected_defenses
             .iter()
             .position(|defense| defense.kind == ProjectedDefenseKind::Breteche)
             .unwrap();
-        let mut raised_breteche_roof = fixture(201);
+        let mut raised_breteche_roof = fixture(fabelgeist_determinism::Seed::from_u64(201));
         let owner = raised_breteche_roof.projected_defenses[breteche_index].owner;
         {
             let mut native_geometry = raised_breteche_roof
@@ -3392,7 +3392,7 @@ mod tests {
             "unsupported_projected_defense_roof"
         ));
 
-        let mut removed_breteche_post = fixture(201);
+        let mut removed_breteche_post = fixture(fabelgeist_determinism::Seed::from_u64(201));
         let post = removed_breteche_post.projected_defenses[breteche_index]
             .roof_support_solids
             .iter()
@@ -3414,7 +3414,7 @@ mod tests {
             "unsupported_projected_defense_roof"
         ));
 
-        let mut shortened_breteche_post = fixture(201);
+        let mut shortened_breteche_post = fixture(fabelgeist_determinism::Seed::from_u64(201));
         let post = shortened_breteche_post.projected_defenses[breteche_index]
             .roof_support_solids
             .iter()
@@ -3450,7 +3450,7 @@ mod tests {
             "unsupported_projected_defense_roof"
         ));
 
-        let mut shifted_breteche_post = fixture(201);
+        let mut shifted_breteche_post = fixture(fabelgeist_determinism::Seed::from_u64(201));
         let post = shifted_breteche_post.projected_defenses[breteche_index]
             .roof_support_solids
             .iter()
@@ -3491,7 +3491,7 @@ mod tests {
     fn audit_rejects_a_disconnected_or_vertically_broken_fighting_circuit() {
         let mut disconnected = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::CourtyardCastle,
-            51,
+            fabelgeist_determinism::Seed::from_u64(51),
         ))
         .unwrap();
         disconnected.defensive_junctions.clear();
@@ -3506,7 +3506,7 @@ mod tests {
         // reachability pass would incorrectly accept this as one circuit.
         let mut separately_accessible = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::CourtyardCastle,
-            56,
+            fabelgeist_determinism::Seed::from_u64(56),
         ))
         .unwrap();
         separately_accessible.wall_walks = separately_accessible
@@ -3540,7 +3540,7 @@ mod tests {
 
         let mut broken = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::CourtyardCastle,
-            52,
+            fabelgeist_determinism::Seed::from_u64(52),
         ))
         .unwrap();
         let junction = broken.defensive_junctions.first_mut().unwrap();
@@ -3565,7 +3565,7 @@ mod tests {
 
         let mut cramped = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::CourtyardCastle,
-            54,
+            fabelgeist_determinism::Seed::from_u64(54),
         ))
         .unwrap();
         cramped.defensive_junctions[0].width_metres = 0.7;
@@ -3582,7 +3582,7 @@ mod tests {
     fn audit_rejects_a_roof_intruding_into_the_wall_walk() {
         let mut plan = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::CourtyardCastle,
-            53,
+            fabelgeist_determinism::Seed::from_u64(53),
         ))
         .unwrap();
         plan.roofs[0].centre.y = 0.4;
@@ -3598,7 +3598,7 @@ mod tests {
     fn audit_requires_physical_portals_behind_tower_graph_edges() {
         let mut plan = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::CourtyardCastle,
-            57,
+            fabelgeist_determinism::Seed::from_u64(57),
         ))
         .unwrap();
         let portal_index = plan
@@ -3616,7 +3616,7 @@ mod tests {
 
         let mut no_entrance = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::CourtyardCastle,
-            58,
+            fabelgeist_determinism::Seed::from_u64(58),
         ))
         .unwrap();
         no_entrance.tower_portals.retain(|portal| {
@@ -3635,7 +3635,7 @@ mod tests {
         let fixture = || {
             crate::generate(&crate::BuildingProgram::fixture(
                 crate::BuildingArchetype::WalledKeep,
-                55,
+                fabelgeist_determinism::Seed::from_u64(55),
             ))
             .unwrap()
         };
@@ -3818,7 +3818,7 @@ mod tests {
 
         let mut thin_courtyard = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::CourtyardCastle,
-            59,
+            fabelgeist_determinism::Seed::from_u64(59),
         ))
         .unwrap();
         thin_courtyard.towers[0].wall_thickness_metres = 0.35;
@@ -3835,7 +3835,7 @@ mod tests {
         let fixture = || {
             crate::generate(&crate::BuildingProgram::fixture(
                 crate::BuildingArchetype::WalledKeep,
-                67,
+                fabelgeist_determinism::Seed::from_u64(67),
             ))
             .unwrap()
         };
@@ -3988,7 +3988,7 @@ mod tests {
         let fixture = || {
             crate::generate(&crate::BuildingProgram::fixture(
                 crate::BuildingArchetype::WalledKeep,
-                71,
+                fabelgeist_determinism::Seed::from_u64(71),
             ))
             .unwrap()
         };
@@ -4171,7 +4171,7 @@ mod tests {
         let fixture = || {
             crate::generate(&crate::BuildingProgram::fixture(
                 crate::BuildingArchetype::CourtyardCastle,
-                91,
+                fabelgeist_determinism::Seed::from_u64(91),
             ))
             .unwrap()
         };
@@ -4247,7 +4247,7 @@ mod tests {
         assert!(has(&bad_round_crenel, "invalid_round_crenel_interval"));
         let mut overgrown_splice = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::WalledKeep,
-            91,
+            fabelgeist_determinism::Seed::from_u64(91),
         ))
         .unwrap();
         let (straight_owner, splice_position) = overgrown_splice
@@ -4295,7 +4295,7 @@ mod tests {
         assert!(has(&overgrown_splice, "unresolved_tower_crown_splice"));
         let mut duplicate_corner = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::WalledKeep,
-            91,
+            fabelgeist_determinism::Seed::from_u64(91),
         ))
         .unwrap();
         let corner = duplicate_corner
@@ -4583,7 +4583,7 @@ mod tests {
 
         let cardinal = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::WalledKeep,
-            91,
+            fabelgeist_determinism::Seed::from_u64(91),
         ))
         .unwrap();
         let mut seen = std::collections::HashSet::new();
@@ -4840,7 +4840,7 @@ mod tests {
     #[test]
     fn timber_frame_audit_rejects_program_joint_opening_jetty_and_roof_drift() {
         let fixture =
-            |archetype| crate::generate(&crate::BuildingProgram::fixture(archetype, 47)).unwrap();
+            |archetype| crate::generate(&crate::BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(47))).unwrap();
         let has = |plan: &crate::BuildingPlan, code: &str| {
             audit_plan(plan)
                 .unwrap()

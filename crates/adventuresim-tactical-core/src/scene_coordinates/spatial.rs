@@ -254,3 +254,9 @@ impl SceneDoorPose {
         self.native_rotation.quaternion()
     }
 }
+
+/// Building-local X/Z measured from the collision centre, before placement.
+/// This datum differs from the architectural floor origin.
+#[derive(Clone, Copy, Debug, PartialEq, Reflect)]
+pub enum CollisionRelative {}
+impl GeometryFrame for CollisionRelative {}

@@ -72,6 +72,74 @@ impl TriangleQueryBounds {
 pub(super) struct SupportQueryIndex(Vec<QueryNode>);
 
 impl SupportQueryIndex {
+    pub(super) fn validate(
+        &self,
+        surface: &BoundedSettlementTerrain,
+    ) -> Result<(), SupportGeometryIssue> {
+        let mut visited = vec![false; self.0.len()];
+        let mut references = std::collections::BTreeSet::new();
+        let mut pending = Vec::new();
+        if !self.0.is_empty() {
+            pending.push(0);
+        }
+        while let Some(index) = pending.pop() {
+            let node = self.0.get(index).ok_or(SupportGeometryIssue::Query)?;
+            if visited[index]
+                || !node.minimum.is_finite()
+                || !node.maximum.is_finite()
+                || node.minimum.cmpgt(node.maximum).any()
+            {
+                return Err(SupportGeometryIssue::Query);
+            }
+            visited[index] = true;
+            match &node.children {
+                QueryChildren::Branch { left, right } => {
+                    for child in [*left, *right] {
+                        let child_node = self.0.get(child).ok_or(SupportGeometryIssue::Query)?;
+                        if child_node.minimum.cmplt(node.minimum).any()
+                            || child_node.maximum.cmpgt(node.maximum).any()
+                        {
+                            return Err(SupportGeometryIssue::Query);
+                        }
+                        pending.push(child);
+                    }
+                }
+                QueryChildren::Leaf(triangles) => {
+                    for reference in triangles {
+                        let exists = match reference {
+                            SupportTriangleRef::Natural(i) => *i < surface.natural_triangles.len(),
+                            SupportTriangleRef::Foundation { owner, triangle } => surface
+                                .foundations
+                                .get(*owner)
+                                .is_some_and(|f| *triangle < f.support_triangles.len()),
+                        };
+                        if !exists || !references.insert(*reference) {
+                            return Err(SupportGeometryIssue::Query);
+                        }
+                        let bounds = TriangleQueryBounds::from_reference(*reference, surface);
+                        if bounds.minimum.cmplt(node.minimum).any()
+                            || bounds.maximum.cmpgt(node.maximum).any()
+                        {
+                            return Err(SupportGeometryIssue::Query);
+                        }
+                    }
+                }
+            }
+        }
+        if visited.iter().any(|v| !v)
+            || references.len()
+                != surface.natural_triangles.len()
+                    + surface
+                        .foundations
+                        .iter()
+                        .map(|f| f.support_triangles.len())
+                        .sum::<usize>()
+        {
+            return Err(SupportGeometryIssue::Query);
+        }
+        Ok(())
+    }
+
     pub fn compile(surface: &BoundedSettlementTerrain) -> Self {
         let mut triangles: Vec<_> = (0..surface.natural_triangles.len())
             .map(SupportTriangleRef::Natural)

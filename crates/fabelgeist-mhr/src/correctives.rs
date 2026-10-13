@@ -8,7 +8,9 @@ use std::path::Path;
 
 use anyhow::{Context, Result, bail};
 use burn::tensor::{Device, Tensor, TensorData, activation};
-use fabelgeist_numpy_storage::Npz;
+use fabelgeist_numpy_storage::{
+    ArchiveMemberPresence, NpyDimension, NpyFloatValues, NpyIntegerValues, Npz, NpzArrayName,
+};
 
 /// The first two joints do not define a local pose, so they carry no feature.
 pub const SKIPPED_JOINTS: usize = 2;
@@ -18,9 +20,9 @@ const HIDDEN_PER_JOINT: usize = 24;
 const FEATURES_PER_JOINT: usize = 6;
 
 /// Names of the arrays MHR stores the network in.
-const BASIS_ARRAY: &str = "corrective_blendshapes";
-const SPARSE_INDICES_ARRAY: &str = "0.sparse_indices";
-const SPARSE_WEIGHT_ARRAY: &str = "0.sparse_weight";
+const BASIS_ARRAY: NpzArrayName<'static> = NpzArrayName::new("corrective_blendshapes");
+const SPARSE_INDICES_ARRAY: NpzArrayName<'static> = NpzArrayName::new("0.sparse_indices");
+const SPARSE_WEIGHT_ARRAY: NpzArrayName<'static> = NpzArrayName::new("0.sparse_weight");
 
 pub struct PoseCorrectives {
     /// Sparse activation layer, densified and transposed: `[posed * 6, hidden]`.
@@ -73,20 +75,22 @@ impl PoseCorrectives {
         num_vertices: usize,
         device: &Device,
     ) -> Result<Option<Self>> {
-        if !archive.contains(BASIS_ARRAY) {
+        if archive.contains(&BASIS_ARRAY) == ArchiveMemberPresence::Absent {
             return Ok(None);
         }
         let basis = archive
-            .array(BASIS_ARRAY)
+            .array(&BASIS_ARRAY)
             .context("reading the corrective basis")?;
-        let (components, basis_vertices) = match basis.shape[..] {
-            [components, vertices, 3] => (components, vertices),
+        let (components, basis_vertices) = match basis.shape().dimensions() {
+            &[components, vertices, coordinates] if coordinates == NpyDimension::from(3) => {
+                (components, vertices)
+            }
             _ => bail!(
                 "{BASIS_ARRAY} has shape {:?}, expected [components, vertices, 3]",
-                basis.shape
+                basis.shape()
             ),
         };
-        if basis_vertices != num_vertices {
+        if basis_vertices != NpyDimension::from(num_vertices) {
             bail!(
                 "corrective basis covers {basis_vertices} vertices but the mesh has {num_vertices}"
             );
@@ -94,23 +98,25 @@ impl PoseCorrectives {
 
         let posed_joints = num_joints - SKIPPED_JOINTS;
         let hidden = posed_joints * HIDDEN_PER_JOINT;
-        if components != hidden {
+        if components != NpyDimension::from(hidden) {
             bail!("corrective basis has {components} components, expected {hidden}");
         }
 
-        let indices = activation
-            .array(SPARSE_INDICES_ARRAY)
-            .context("reading the sparse activation indices")?
-            .to_i64();
-        let values = activation
-            .array(SPARSE_WEIGHT_ARRAY)
-            .context("reading the sparse activation weights")?
-            .to_f32();
-        if indices.len() != 2 * values.len() {
+        let indices = NpyIntegerValues::from(
+            &activation
+                .array(&SPARSE_INDICES_ARRAY)
+                .context("reading the sparse activation indices")?,
+        );
+        let values = NpyFloatValues::from(
+            &activation
+                .array(&SPARSE_WEIGHT_ARRAY)
+                .context("reading the sparse activation weights")?,
+        );
+        if indices.values().len() != 2 * values.values().len() {
             bail!(
                 "sparse activation has {} indices for {} weights",
-                indices.len(),
-                values.len()
+                indices.values().len(),
+                values.values().len()
             );
         }
 
@@ -118,19 +124,22 @@ impl PoseCorrectives {
         // layer is 4% dense, so a dense matmul beats a sparse gather on GPU.
         let inputs = posed_joints * FEATURES_PER_JOINT;
         let mut dense = vec![0.0f32; inputs * hidden];
-        for (slot, value) in values.iter().enumerate() {
-            let row = indices[slot] as usize;
-            let column = indices[values.len() + slot] as usize;
+        for (slot, value) in values.values().iter().enumerate() {
+            let row = i64::from(indices.values()[slot]) as usize;
+            let column = i64::from(indices.values()[values.values().len() + slot]) as usize;
             if row >= hidden || column >= inputs {
                 bail!("sparse activation index ({row}, {column}) is out of bounds");
             }
-            dense[column * hidden + row] = *value;
+            dense[column * hidden + row] = f32::from(*value);
         }
 
         Ok(Some(Self {
             activation: Tensor::from_data(TensorData::new(dense, [inputs, hidden]), device),
             basis: Tensor::from_data(
-                TensorData::new(basis.to_f32(), [components, num_vertices * 3]),
+                TensorData::new(
+                    Vec::<f32>::from(NpyFloatValues::from(&basis)),
+                    [usize::from(components), num_vertices * 3],
+                ),
                 device,
             ),
             posed_joints,
@@ -186,3 +195,6 @@ fn axis_sin_cos(euler: &Tensor<3>, axis: usize) -> (Tensor<3>, Tensor<3>) {
     let angle = euler.clone().narrow(2, axis, 1);
     (angle.clone().sin(), angle.cos())
 }
+
+#[cfg(all(test, not(target_arch = "wasm32")))]
+mod value_tests;

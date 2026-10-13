@@ -13,7 +13,7 @@ mod tests;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InteriorBuildingLayout {
-    pub building_id: u64,
+    pub building_id: crate::scene_input::SceneBuildingId,
     pub layout: InteriorLayout,
 }
 
@@ -53,12 +53,12 @@ fn instance(
     placement: &InteriorPlacement,
 ) -> Result<GeneratedFurniture> {
     let origin = building.collision.bounds.centre()?.metres();
-    let position = building.placement.centre_metres
+    let position = building.placement.centre_metres.metres()
         + building
             .placement
             .orientation
             .local_to_world(placement.centre_metres.metres() - Vec2::new(origin.x, origin.z));
-    let height = building.placement.base_elevation_metres
+    let height = building.placement.base_elevation_metres.metres()
         + placement
             .floor_height(&building.plan)
             .map_err(|cause| super::super::SceneInputError::Interior {
@@ -71,7 +71,7 @@ fn instance(
             id: FurnitureInstanceId(
                 INTERIOR_INSTANCE_DOMAIN
                     .seed(
-                        building.placement.id,
+                        building.placement.id.0.into(),
                         &[
                             u64::from(placement.room_id.serialized_ordinal()),
                             placement.storey.index() as u64,
@@ -86,16 +86,13 @@ fn instance(
             key: placement.key,
             location: FurnitureLocation::Interior {
                 building_id: building.placement.id,
-                room_id: placement.room_id.serialized_ordinal(),
-                storey: placement.storey.serialized_ordinal().map_err(|cause| {
-                    super::super::SceneInputError::Interior {
-                        building_id: building.placement.id,
-                        cause: cause.into(),
-                    }
-                })?,
+                room_id: placement.room_id,
+                storey: placement.storey,
             },
         },
-        position_metres: Vec3::new(position.x, height, position.y),
+        position_metres: adventuresim_building_generator::spatial_geometry::Position::from_metres(
+            Vec3::new(position.x, height, position.y),
+        )?,
         orientation: BuildingOrientation::from_radians(
             building.placement.orientation.yaw_radians() + placement.yaw_radians().radians(),
         )

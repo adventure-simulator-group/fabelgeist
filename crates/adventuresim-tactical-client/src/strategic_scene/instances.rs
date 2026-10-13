@@ -23,7 +23,8 @@ pub(super) fn spawn_obstacles(
                 z,
                 SceneObstacle::Rock(recipe),
                 recipe.collision_radius_metres(),
-                (recipe.seed >> 40) as f32 / ((1_u32 << 24) - 1) as f32 * std::f32::consts::TAU,
+                (recipe.seed.to_u64() >> 40) as f32 / ((1_u32 << 24) - 1) as f32
+                    * std::f32::consts::TAU,
             ),
         };
         let position = Vec2::new(f32::from(x), f32::from(z)) * input.playable.spacing_metres
@@ -65,9 +66,7 @@ pub(super) fn spawn_building(
         let centre = door.closed_centre.metres();
         commands.spawn((
             SceneDoor {
-                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
-                    building.placement.id,
-                ),
+                building_id: building.placement.id,
                 opening_id: door.opening,
                 size_metres: door.size_metres,
                 doorway_centre_metres: door.closed_centre,
@@ -84,9 +83,7 @@ pub(super) fn spawn_building(
         let centre = window.closed_centre.metres();
         commands.spawn((
             SceneWindow {
-                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
-                    building.placement.id,
-                ),
+                building_id: building.placement.id,
                 opening_id: window.opening,
                 leaf: window.leaf,
                 bars: window.bars,
@@ -110,9 +107,7 @@ pub(super) fn spawn_building(
             },
         ),
         SceneBuilding {
-            id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
-                building.placement.id,
-            ),
+            id: building.placement.id,
             program: building.placement.program,
             orientation: building.placement.orientation,
         },
@@ -126,23 +121,19 @@ pub(super) fn spawn_props(
     root: Entity,
 ) -> Result {
     for boundary in generated.boundaries.drain(..) {
-        let door = boundary
-            .scene
-            .boundary
-            .gate
-            .door(boundary.scene.property_id)?;
+        let elevation = boundary.elevation_metres();
+        let scene = boundary.into_scene();
+        let door = scene.boundary().gate.door(scene.property_id())?;
         let pose = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
-            boundary.elevation_metres,
+            elevation.metres(),
         )?
         .door(door)?;
         let door = pose.leaf();
-        let elevation = Vec3::Y * boundary.elevation_metres;
+        let elevation = Vec3::Y * elevation.metres();
         let centre = door.closed_centre.metres();
         commands.spawn((
             SceneDoor {
-                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
-                    boundary.scene.front_building_id,
-                ),
+                building_id: scene.front_building_id(),
                 opening_id: door.opening,
                 size_metres: door.size_metres,
                 doorway_centre_metres: door.closed_centre,
@@ -152,11 +143,7 @@ pub(super) fn spawn_props(
             Transform::from_translation(centre).with_rotation(pose.native_rotation()),
             ChildOf(root),
         ));
-        commands.spawn((
-            boundary.scene,
-            Transform::from_translation(elevation),
-            ChildOf(root),
-        ));
+        commands.spawn((scene, Transform::from_translation(elevation), ChildOf(root)));
     }
     for garden in generated.gardens.drain(..) {
         commands.spawn((garden, Transform::default(), ChildOf(root)));
@@ -164,7 +151,7 @@ pub(super) fn spawn_props(
     for furniture in &generated.furniture.instances {
         commands.spawn((
             furniture.scene,
-            Transform::from_translation(furniture.position_metres)
+            Transform::from_translation(furniture.position_metres.metres())
                 .with_rotation(Quat::from_rotation_y(furniture.orientation.yaw_radians())),
             ChildOf(root),
         ));

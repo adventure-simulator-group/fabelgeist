@@ -8,7 +8,7 @@ mod field;
 use field::correlated_field;
 mod streams;
 use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, coordinates::LatitudeMicrodegrees};
-use fabelgeist_determinism::StreamId;
+use fabelgeist_determinism::{Seed, StreamId};
 use serde::{Deserialize, Serialize};
 
 use adventuresim_world_schema::calendar::{DAYS_PER_YEAR, StrategicMinute};
@@ -16,7 +16,7 @@ use adventuresim_world_schema::calendar::{DAYS_PER_YEAR, StrategicMinute};
 pub const WEATHER_RULES_VERSION: u16 = 4;
 /// One domain seed shared by every authoritative and player-visible weather
 /// query in the Fabelgeist world.
-pub const WORLD_WEATHER_SEED: u64 = 0x4144_5645_4e54_5552;
+pub const WORLD_WEATHER_SEED: Seed = Seed::from_u64(0x4144_5645_4e54_5552);
 pub const WEATHER_INTERVAL_MINUTES: u64 = 360;
 pub const WEATHER_CELL_MICRODEGREES: i32 = 250_000;
 const HISTORY_INTERVALS: u64 = 16;
@@ -176,7 +176,7 @@ impl WeatherSnapshot {
 /// sea level. `world_seed` and the rules version domain-separate worlds and
 /// later algorithms without storing per-cell simulation rows.
 pub fn weather_at(
-    world_seed: u64,
+    world_seed: Seed,
     absolute_minute: StrategicMinute,
     latitude_microdegrees: i32,
     longitude_microdegrees: i32,
@@ -261,7 +261,7 @@ struct IntervalWeather {
 }
 
 fn interval_weather(
-    world_seed: u64,
+    world_seed: Seed,
     interval: u64,
     cell_latitude: i32,
     cell_longitude: i32,
@@ -599,7 +599,7 @@ fn weather_interval_start(interval: u64) -> StrategicMinute {
 }
 
 fn temperature_deci_c(
-    world_seed: u64,
+    world_seed: Seed,
     interval: u64,
     cell_latitude: i32,
     cell_longitude: i32,
@@ -677,7 +677,7 @@ mod tests {
     #[test]
     fn replay_is_stable_within_an_interval_and_cells_are_coarse() {
         let a = weather_at(
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
             adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
             53_551_000,
             9_993_000,
@@ -686,7 +686,7 @@ mod tests {
         assert_eq!(
             a,
             weather_at(
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
                 53_551_000,
                 9_993_000,
@@ -696,7 +696,7 @@ mod tests {
         assert_eq!(
             a,
             weather_at(
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
                 adventuresim_world_schema::calendar::StrategicMinute::new(123_457),
                 53_599_999,
                 9_999_999,
@@ -711,13 +711,19 @@ mod tests {
     #[test]
     fn epoch_start_samples_interval_zero_once() {
         let snapshot = weather_at(
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
             adventuresim_world_schema::calendar::StrategicMinute::new(0),
             53_000_000,
             10_000_000,
             0,
         );
-        let sample = interval_weather(42, 0, snapshot.cell_latitude, snapshot.cell_longitude, 0);
+        let sample = interval_weather(
+            fabelgeist_determinism::Seed::from_u64(42),
+            0,
+            snapshot.cell_latitude,
+            snapshot.cell_longitude,
+            0,
+        );
         let (moisture, snow) = advance_ground(0, 0, sample, sample.temperature_deci_c);
         assert_eq!(snapshot.ground_moisture_bps, moisture.min(10_000) as u16);
         assert_eq!(snapshot.snow_cover_bps, snow.min(10_000) as u16);
@@ -728,17 +734,51 @@ mod tests {
         let winter_interval = 30 * 4;
         let summer_interval = 180 * 4;
         assert!(
-            temperature_deci_c(7, winter_interval, 212, 40, 0)
-                < temperature_deci_c(7, summer_interval, 212, 40, 0)
+            temperature_deci_c(
+                fabelgeist_determinism::Seed::from_u64(7),
+                winter_interval,
+                212,
+                40,
+                0
+            ) < temperature_deci_c(
+                fabelgeist_determinism::Seed::from_u64(7),
+                summer_interval,
+                212,
+                40,
+                0
+            )
         );
         assert!(
-            temperature_deci_c(7, summer_interval, 212, 40, 2_000)
-                < temperature_deci_c(7, summer_interval, 212, 40, 0)
+            temperature_deci_c(
+                fabelgeist_determinism::Seed::from_u64(7),
+                summer_interval,
+                212,
+                40,
+                2_000
+            ) < temperature_deci_c(
+                fabelgeist_determinism::Seed::from_u64(7),
+                summer_interval,
+                212,
+                40,
+                0
+            )
         );
         let mut found = false;
         for interval in 0..DAYS_PER_YEAR * (MINUTES_PER_DAY / WEATHER_INTERVAL_MINUTES) {
-            let low = interval_weather(7, interval, 212, 40, 0);
-            let high = interval_weather(7, interval, 212, 40, 2_000);
+            let low = interval_weather(
+                fabelgeist_determinism::Seed::from_u64(7),
+                interval,
+                212,
+                40,
+                0,
+            );
+            let high = interval_weather(
+                fabelgeist_determinism::Seed::from_u64(7),
+                interval,
+                212,
+                40,
+                2_000,
+            );
             if low.precipitation == Precipitation::Rain && high.precipitation == Precipitation::Snow
             {
                 found = true;
@@ -754,14 +794,22 @@ mod tests {
             / WEATHER_INTERVAL_MINUTES;
         let day = interval * WEATHER_INTERVAL_MINUTES / MINUTES_PER_DAY % DAYS_PER_YEAR;
         assert_eq!(day, 231);
-        assert!(temperature_deci_c(7, interval, 214, 40, 0) > 100);
+        assert!(
+            temperature_deci_c(
+                fabelgeist_determinism::Seed::from_u64(7),
+                interval,
+                214,
+                40,
+                0
+            ) > 100
+        );
     }
 
     #[test]
     fn moisture_and_snow_are_bounded_and_have_memory() {
         for minute in (0..MINUTES_PER_YEAR).step_by(360) {
             let sample = weather_at(
-                19,
+                fabelgeist_determinism::Seed::from_u64(19),
                 adventuresim_world_schema::calendar::StrategicMinute::new(minute),
                 53_500_000,
                 10_000_000,
@@ -775,9 +823,27 @@ mod tests {
     #[test]
     fn synoptic_fields_are_spatially_and_temporally_coherent() {
         let interval = 500;
-        let center = interval_weather(19, interval, 214, 40, 80);
-        let neighbor = interval_weather(19, interval, 214, 41, 80);
-        let next = interval_weather(19, interval + 1, 214, 40, 80);
+        let center = interval_weather(
+            fabelgeist_determinism::Seed::from_u64(19),
+            interval,
+            214,
+            40,
+            80,
+        );
+        let neighbor = interval_weather(
+            fabelgeist_determinism::Seed::from_u64(19),
+            interval,
+            214,
+            41,
+            80,
+        );
+        let next = interval_weather(
+            fabelgeist_determinism::Seed::from_u64(19),
+            interval + 1,
+            214,
+            40,
+            80,
+        );
         assert!(
             center
                 .atmosphere
@@ -798,7 +864,13 @@ mod tests {
     fn precipitation_is_backed_by_lift_and_a_precipitating_cloud() {
         let mut found = 0;
         for interval in 0..4_000 {
-            let sample = interval_weather(23, interval, 214, 40, 20);
+            let sample = interval_weather(
+                fabelgeist_determinism::Seed::from_u64(23),
+                interval,
+                214,
+                40,
+                20,
+            );
             if sample.precipitation == Precipitation::Clear {
                 continue;
             }
@@ -824,7 +896,13 @@ mod tests {
         let mut middle = false;
         let mut high = false;
         for interval in 0..2_000 {
-            let sample = interval_weather(29, interval, 214, 40, 20);
+            let sample = interval_weather(
+                fabelgeist_determinism::Seed::from_u64(29),
+                interval,
+                214,
+                40,
+                20,
+            );
             low |= sample.atmosphere.low_cloud.is_some();
             middle |= sample.atmosphere.middle_cloud.is_some();
             high |= sample.atmosphere.high_cloud.is_some();

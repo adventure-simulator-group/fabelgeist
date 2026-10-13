@@ -159,23 +159,27 @@ fn owned_landform_presentation_omits_natural_cutout_and_retains_exact_bearings()
     use adventuresim_world_schema::{SedimentaryRock, SurfaceLithology};
     let terrain = catalogue_terrain("facade-review");
     let original = serde_json::to_vec(&terrain).unwrap();
-    let recipe = TerrainLandformRecipe {
-        kind: TerrainLandformKind::FaultScarp,
-        surface: TerrainSurfaceRecipe::new(
-            SurfaceLithology::Sedimentary(SedimentaryRock::Sandstone),
-            TerrainSurfaceSource::AuthoredFixture,
-            17,
-            [10_000, 0],
-        ),
-        seed: 17,
-        origin_cm: [0, 0],
-        tangent_permyriad: [10_000, 0],
-        relief_cm: 600,
-        half_length_cm: 1_200,
-        half_width_cm: 1_000,
-        collar_cm: 250,
-        lod: TerrainLandformLod::Detail,
-    };
+    let recipe = TerrainLandformRecipe::from_quantized(
+        adventuresim_tactical_core::volumetric_terrain::QuantizedLandformRecipe {
+            kind: TerrainLandformKind::FaultScarp,
+            surface: TerrainSurfaceRecipe::new(
+                SurfaceLithology::Sedimentary(SedimentaryRock::Sandstone),
+                TerrainSurfaceSource::AuthoredFixture,
+                17.into(),
+                [10_000, 0],
+            )
+            .unwrap(),
+            seed: 17.into(),
+            origin_cm: [0, 0],
+            tangent_permyriad: [10_000, 0],
+            relief_cm: 600,
+            half_length_cm: 1_200,
+            half_width_cm: 1_000,
+            collar_cm: 250,
+            lod: TerrainLandformLod::Detail,
+        },
+    )
+    .unwrap();
     let collar = recipe.transition_collar();
     let half = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
     let in_playable = |triangle: &&[Vec3; 3]| {
@@ -185,10 +189,15 @@ fn owned_landform_presentation_omits_natural_cutout_and_retains_exact_bearings()
     };
     let source = terrain.property_surface().unwrap();
     let removed: BTreeSet<_> = source
-        .natural_triangles
+        .natural_triangles()
         .iter()
         .filter(in_playable)
-        .filter(|triangle| collar.cuts_out((triangle.iter().copied().sum::<Vec3>() / 3.0).xz()))
+        .filter(|triangle| {
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                (triangle.iter().copied().sum::<Vec3>() / 3.0).xz(),
+            )
+            .is_ok_and(|point| collar.cuts_out(point))
+        })
         .map(|[a, b, c]| triangle_bits([*a, *c, *b]))
         .collect();
     assert!(
@@ -196,13 +205,13 @@ fn owned_landform_presentation_omits_natural_cutout_and_retains_exact_bearings()
         "fixture must exercise natural triangles inside the cutout"
     );
     let bearings: BTreeSet<_> = source
-        .foundations
+        .foundations()
         .iter()
         .flat_map(|foundation| {
             foundation
-                .support_triangles
+                .support_triangles()
                 .iter()
-                .map(|indices| indices.map(|index| foundation.positions[index as usize]))
+                .map(|indices| indices.map(|index| foundation.positions()[index as usize]))
         })
         .filter(|triangle| in_playable(&triangle))
         .map(triangle_bits)

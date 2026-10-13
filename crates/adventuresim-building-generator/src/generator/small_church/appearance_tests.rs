@@ -6,7 +6,7 @@ fn pointed_window_crowns_remain_open_in_detail_and_collision() {
         let plan = crate::generate(&BuildingProgram::settlement(
             BuildingArchetype::ParishChurch,
             Some(usage),
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let collision = crate::compile_building_collision(&plan).unwrap();
@@ -99,7 +99,7 @@ fn detail_covers(detail: &crate::BuildingDetail, tangent: Vec3, point: Vec3) -> 
 fn pointed_and_segmental_panels_follow_the_authored_spring_and_crown() {
     let plan = crate::generate(&BuildingProgram::fixture(
         BuildingArchetype::ParishChurch,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap();
     let source = &plan.opening_assemblies[0];
@@ -173,7 +173,11 @@ fn pointed_and_segmental_panels_follow_the_authored_spring_and_crown() {
 fn lower_chancel_verge_abuts_the_nave_and_gables_keep_wall_material() {
     for size in [ServiceBuildingSize::Small, ServiceBuildingSize::Medium] {
         let plan = crate::generate(
-            &BuildingProgram::fixture(BuildingArchetype::ParishChurch, 42).with_service_size(size),
+            &BuildingProgram::fixture(
+                BuildingArchetype::ParishChurch,
+                fabelgeist_determinism::Seed::from_u64(42),
+            )
+            .with_service_size(size),
         )
         .unwrap();
         let church = plan.small_church.as_ref().unwrap();

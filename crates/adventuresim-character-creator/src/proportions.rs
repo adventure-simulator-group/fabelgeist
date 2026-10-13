@@ -4,17 +4,20 @@ use adventuresim_core::character_proportions::{
     BODY_PROPORTION_COUNT, BodyProportion, CharacterProportions, JointProportionBasis,
 };
 use anyhow::{Context, Result, ensure};
-use fabelgeist_mhr::{Mhr, character::PARAMETERS_PER_JOINT};
+use fabelgeist_mhr::{
+    Mhr, ModelParameterName, character::PARAMETERS_PER_JOINT, model_def::ParameterBounds,
+};
 
 const CENTIMETRES_PER_METRE: f32 = 100.0;
 
 pub fn model_parameters(model: &Mhr, proportions: CharacterProportions) -> Result<Vec<f32>> {
     let mut parameters = vec![0.0; model.num_model_parameters()];
     for proportion in BodyProportion::ALL {
+        let name = ModelParameterName::from(proportion.mhr_parameter());
         let column = model
             .parameter_transform
-            .parameter_index(proportion.mhr_parameter())
-            .with_context(|| format!("MHR is missing {}", proportion.mhr_parameter()))?;
+            .parameter_index(&name)
+            .with_context(|| format!("MHR is missing {name}"))?;
         parameters[column] = proportions.get(proportion);
     }
     Ok(parameters)
@@ -33,18 +36,16 @@ pub fn joint_bases(
         model.num_joints()
     ];
     for proportion in BodyProportion::ALL {
+        let name = ModelParameterName::from(proportion.mhr_parameter());
         let column = transform
-            .parameter_index(proportion.mhr_parameter())
-            .with_context(|| format!("MHR is missing {}", proportion.mhr_parameter()))?;
+            .parameter_index(&name)
+            .with_context(|| format!("MHR is missing {name}"))?;
         let limits = transform
             .limits
             .iter()
             .find(|limit| limit.parameter == column)
             .context("MHR body proportion has no limits")?;
-        ensure!(
-            limits.min == -proportion.limit() && limits.max == proportion.limit(),
-            "MHR body proportion limits differ from the shared contract"
-        );
+        ensure_shared_proportion_bounds(limits.bounds, proportion)?;
         for (joint, basis) in bases.iter_mut().enumerate() {
             for axis in 0..3 {
                 basis.translation_metres[proportion.index()][axis] = transform
@@ -56,9 +57,25 @@ pub fn joint_bases(
                     .row(joint * PARAMETERS_PER_JOINT + channel)[column]
                     == 0.0),
                 "skeletal translation basis cannot encode rotation or scale for {}",
-                proportion.mhr_parameter()
+                name
             );
         }
     }
     Ok(bases)
 }
+
+fn ensure_shared_proportion_bounds(
+    bounds: ParameterBounds,
+    proportion: BodyProportion,
+) -> Result<()> {
+    let shared = ParameterBounds::try_from((-proportion.limit(), proportion.limit()))
+        .context("shared body proportion bounds are invalid")?;
+    ensure!(
+        bounds == shared,
+        "MHR body proportion limits differ from the shared contract"
+    );
+    Ok(())
+}
+
+#[cfg(test)]
+mod tests;

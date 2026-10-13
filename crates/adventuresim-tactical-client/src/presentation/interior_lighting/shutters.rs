@@ -86,7 +86,7 @@ mod tests {
     fn opening_and_closing_a_shutter_adds_and_removes_only_its_daylight() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkCottage,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let mut field = InteriorField::from_plan(&plan, Vec3::ZERO);

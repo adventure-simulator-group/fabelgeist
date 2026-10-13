@@ -90,7 +90,7 @@ pub(super) fn spawn_base_and_fault(
             &mut fault_material,
             landform
                 .expect("fault patch has a required surface recipe")
-                .surface,
+                .surface(),
         );
         fault_material.base.depth_bias = 1.0;
         materials.add(fault_material)
@@ -127,7 +127,7 @@ pub(super) fn spawn_base_and_fault(
 
 fn terrain_patch_mesh(patch: SceneTerrainPatch, terrain: &SceneTerrain) -> Mesh {
     let uvs = patch
-        .positions
+        .positions()
         .iter()
         .map(|position| {
             [
@@ -140,10 +140,11 @@ fn terrain_patch_mesh(patch: SceneTerrainPatch, terrain: &SceneTerrain) -> Mesh 
         PrimitiveTopology::TriangleList,
         RenderAssetUsages::MAIN_WORLD | RenderAssetUsages::RENDER_WORLD,
     );
-    mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, patch.positions);
-    mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, patch.normals);
+    let buffers = patch.into_mesh_buffers();
+    mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, buffers.positions);
+    mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, buffers.normals);
     mesh.insert_attribute(Mesh::ATTRIBUTE_UV_0, uvs);
-    mesh.insert_indices(Indices::U32(patch.indices));
+    mesh.insert_indices(Indices::U32(buffers.indices));
     mesh
 }
 
@@ -169,7 +170,12 @@ pub(super) fn append_detail_cell(
             .sum::<Vec2>()
             / 3.0;
         if triangle_centre.distance(centre) <= DETAIL_PATCH_RADIUS_METRES
-            && !collar.is_some_and(|collar| collar.cuts_out(triangle_centre))
+            && !collar.is_some_and(|collar| {
+                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                    triangle_centre,
+                )
+                .is_ok_and(|point| collar.cuts_out(point))
+            })
         {
             indices.extend_from_slice(&triangle);
         }
@@ -184,24 +190,28 @@ mod tests {
 
     #[test]
     fn implicit_patch_keeps_one_draw_and_only_its_material_enables_cliff_surface() {
-        let terrain = SceneTerrain::new(40, 40, 1.0, |_| 0.0);
-        let recipe = TerrainLandformRecipe {
-            kind: TerrainLandformKind::FaultScarp,
-            surface: TerrainSurfaceRecipe::new(
-                SurfaceLithology::Sedimentary(SedimentaryRock::Sandstone),
-                TerrainSurfaceSource::AuthoredFixture,
-                17,
-                [10_000, 0],
-            ),
-            seed: 17,
-            origin_cm: [0, 0],
-            tangent_permyriad: [10_000, 0],
-            relief_cm: 600,
-            half_length_cm: 1_200,
-            half_width_cm: 1_000,
-            collar_cm: 250,
-            lod: TerrainLandformLod::Detail,
-        };
+        let terrain = SceneTerrain::new(40, 40, 1.0, |_| 0.0).unwrap();
+        let recipe = TerrainLandformRecipe::from_quantized(
+            adventuresim_tactical_core::volumetric_terrain::QuantizedLandformRecipe {
+                kind: TerrainLandformKind::FaultScarp,
+                surface: TerrainSurfaceRecipe::new(
+                    SurfaceLithology::Sedimentary(SedimentaryRock::Sandstone),
+                    TerrainSurfaceSource::AuthoredFixture,
+                    17.into(),
+                    [10_000, 0],
+                )
+                .unwrap(),
+                seed: 17.into(),
+                origin_cm: [0, 0],
+                tangent_permyriad: [10_000, 0],
+                relief_cm: 600,
+                half_length_cm: 1_200,
+                half_width_cm: 1_000,
+                collar_cm: 250,
+                lod: TerrainLandformLod::Detail,
+            },
+        )
+        .unwrap();
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("one-cliff-draw");
         let graphics = TacticalGraphicsSettings::default();
         let mut images = Assets::<Image>::default();

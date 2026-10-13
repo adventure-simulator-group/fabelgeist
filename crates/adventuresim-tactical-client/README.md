@@ -1,5 +1,11 @@
 # Fabelgeist tactical client
 
+The atmosphere extraction backport is required by the selected Bevy 0.19 engine.
+The build script reads the resolved version from the workspace lockfile and
+requires removing that backport and its guard when the project selects Bevy 0.20
+or later. Releasing a new upstream engine does not change the selected engine or
+make an otherwise unchanged build fail. This check does not access the network.
+
 ## Runtime equipment fitting
 
 Armor and clothing are generated locally from each wearer's evaluated, unposed

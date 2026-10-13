@@ -7,11 +7,11 @@ pub(super) fn spawn(
     ground: SceneGround,
     terrain: SceneTerrain,
     terrain_patch: Option<&SceneTerrainPatch>,
-) {
+) -> Result {
     let colliders = terrain_patch.map_or_else(
         || terrain.colliders(),
         |patch| patch.colliders_with_terrain(&terrain),
-    );
+    )?;
     let mut terrain_entity = commands.spawn((
         Name::new("Captured tactical terrain"),
         SceneId(input.scene_key.clone()),
@@ -33,4 +33,5 @@ pub(super) fn spawn(
             ));
         }
     });
+    Ok(())
 }

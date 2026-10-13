@@ -2,8 +2,9 @@ use super::*;
 use crate::{
     BuildingLodLevel, compile_building_collision, compile_building_detail, compile_building_lod,
 };
+use fabelgeist_determinism::Seed;
 
-fn fixture(archetype: BuildingArchetype, seed: u64) -> BuildingPlan {
+fn fixture(archetype: BuildingArchetype, seed: Seed) -> BuildingPlan {
     crate::generate(&BuildingProgram::fixture(archetype, seed)).unwrap()
 }
 
@@ -19,7 +20,7 @@ fn eligible_gables_have_supported_apertures() {
         BuildingArchetype::TownHouse,
         BuildingArchetype::FachwerkMerchantHouse,
     ] {
-        for seed in [42, 47, 101] {
+        for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let plan = fixture(archetype, seed);
             assert_eq!(openings(&plan).count(), 2);
             for opening in openings(&plan) {
@@ -38,7 +39,10 @@ fn eligible_gables_have_supported_apertures() {
 
 #[test]
 fn aperture_pitch_edits_are_atomic_and_unchanged_pitch_is_a_noop() {
-    let mut plan = fixture(BuildingArchetype::FachwerkMerchantHouse, 42);
+    let mut plan = fixture(
+        BuildingArchetype::FachwerkMerchantHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     let crate::WallSourceId::RoofGable { roof, .. } = openings(&plan).next().unwrap().host_source
     else {
         unreachable!()
@@ -94,7 +98,7 @@ fn detail_facade_shell_and_collision_share_clear_aperture_and_fixed_glass() {
         BuildingArchetype::TownHouse,
         BuildingArchetype::FachwerkMerchantHouse,
     ] {
-        let plan = fixture(archetype, 42);
+        let plan = fixture(archetype, fabelgeist_determinism::Seed::from_u64(42));
         let closure_ids = openings(&plan)
             .flat_map(|o| o.closure_solids.iter().copied())
             .collect::<BTreeSet<_>>();
@@ -204,7 +208,10 @@ fn detail_facade_shell_and_collision_share_clear_aperture_and_fixed_glass() {
 
 #[test]
 fn residual_enclosures_are_closed_and_gable_audit_rejects_mutations() {
-    let plan = fixture(BuildingArchetype::TownHouse, 42);
+    let plan = fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     for roof in &plan.roof_assemblies {
         for face in &roof.enclosure_faces {
             let triangles = crate::tessellate_roof_enclosure(face, &plan.wall_assemblies);
@@ -299,7 +306,10 @@ fn residual_enclosures_are_closed_and_gable_audit_rejects_mutations() {
 #[test]
 fn both_ridge_axes_preserve_original_members_and_omit_blocked_bays() {
     use bevy::math::Quat;
-    let plan = fixture(BuildingArchetype::TownHouse, 42);
+    let plan = fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     for angle in [0.0, std::f32::consts::FRAC_PI_2] {
         let rotation = Quat::from_rotation_y(angle);
         let mut original = plan
@@ -405,7 +415,10 @@ fn both_ridge_axes_preserve_original_members_and_omit_blocked_bays() {
         );
         let (mut walls, mut apertures, mut bays) = (Vec::new(), Vec::new(), Vec::new());
         resolve(
-            &BuildingProgram::fixture(BuildingArchetype::TownHouse, 42),
+            &BuildingProgram::fixture(
+                BuildingArchetype::TownHouse,
+                fabelgeist_determinism::Seed::from_u64(42),
+            ),
             &mut builder,
             &mut roofs,
             &mut walls,

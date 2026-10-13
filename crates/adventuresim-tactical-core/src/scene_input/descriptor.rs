@@ -1,8 +1,8 @@
 //! Versioned scene document shared by production dispatch and capture tools.
 use super::*;
 
-pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 27;
-pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 71;
+pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 29;
+pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 72;
 pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -10,14 +10,15 @@ pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 pub struct TacticalSceneInput {
     pub schema_version: u16,
     pub generation_version: u16,
-    pub seed: u64,
+    pub seed: fabelgeist_determinism::Seed,
     pub scene_key: String,
     pub source: SceneSource,
-    pub latitude_microdegrees: i32,
-    pub longitude_microdegrees: i32,
+    pub latitude_microdegrees: adventuresim_world_schema::coordinates::LatitudeMicrodegrees,
+    pub longitude_microdegrees: adventuresim_world_schema::coordinates::LongitudeMicrodegrees,
     pub absolute_minute: StrategicMinute,
     pub lunar_phase_minute: StrategicMinute,
-    pub absolute_elevation_metres: i16,
+    #[serde(with = "super::absolute_elevation_wire")]
+    pub absolute_elevation_metres: adventuresim_world_schema::ElevationMeters,
     pub playable: TerrainSampleGrid,
     pub landform: Option<TerrainLandformRecipe>,
     pub streets: Vec<CityStreetPatch>,

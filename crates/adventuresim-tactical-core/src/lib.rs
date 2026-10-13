@@ -119,7 +119,9 @@ pub mod prelude {
         TacticalBuildingPlacement, TacticalSceneInput, TacticalSurface, TerrainSampleGrid,
         VistaLod, VistaSample,
     };
-    pub use crate::terrain_transition::TerrainTransitionCollar;
+    pub use crate::terrain_transition::{
+        CollarWidthVariation, RuptureWander, TerrainCollarParameters, TerrainTransitionCollar,
+    };
     pub use crate::volumetric_terrain::{
         SceneTerrainPatch, TerrainGeologicStructure, TerrainLandformKind, TerrainLandformLod,
         TerrainLandformRecipe, TerrainSurfaceParameters, TerrainSurfacePreset,

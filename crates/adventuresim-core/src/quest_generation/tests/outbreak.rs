@@ -1,4 +1,5 @@
-fn outbreak(seed: u64) -> GeneratedCase {
+
+fn outbreak(seed: Seed) -> GeneratedCase {
     generate(&context(seed, TemplateFamily::Outbreak)).expect("valid outbreak")
 }
 
@@ -6,7 +7,7 @@ fn outbreak(seed: u64) -> GeneratedCase {
 fn outbreak_catalog_covers_sources_and_all_initial_diseases() {
     use crate::disease::DiseaseId;
 
-    let cases = (0..128).map(outbreak).collect::<Vec<_>>();
+    let cases = (0..128).map(Seed::from_u64).map(outbreak).collect::<Vec<_>>();
     let diseases = cases
         .iter()
         .map(|case| case.outbreak.as_ref().unwrap().disease)
@@ -57,8 +58,8 @@ fn outbreak_catalog_covers_sources_and_all_initial_diseases() {
 
 #[test]
 fn different_hidden_causes_can_have_the_same_early_presentation() {
-    let sanitation = outbreak(0);
-    let elemental = outbreak(2);
+    let sanitation = outbreak(fabelgeist_determinism::Seed::from_u64(0));
+    let elemental = outbreak(fabelgeist_determinism::Seed::from_u64(2));
     assert_ne!(sanitation.outbreak, elemental.outbreak);
     assert_eq!(
         sanitation.consequence.public_summary,
@@ -86,7 +87,7 @@ fn different_hidden_causes_can_have_the_same_early_presentation() {
 
 #[test]
 fn every_outbreak_has_two_complete_routes() {
-    for seed in 0..64 {
+    for seed in (0..64).map(fabelgeist_determinism::Seed::from_u64) {
         let case = outbreak(seed);
         let routes = case
             .actions
@@ -101,7 +102,7 @@ fn every_outbreak_has_two_complete_routes() {
 
 #[test]
 fn outbreak_needs_physical_evidence_but_not_fabricated_tracks() {
-    let case = outbreak(0);
+    let case = outbreak(fabelgeist_determinism::Seed::from_u64(0));
     assert!(case.track_trails.is_empty());
     assert!(case.track_segments.is_empty());
     assert!(validate(&case).is_ok());
@@ -129,7 +130,7 @@ fn outbreak_needs_physical_evidence_but_not_fabricated_tracks() {
 
 #[test]
 fn outbreak_validator_rejects_incoherent_private_truth_and_routes() {
-    let mut chronology = outbreak(0);
+    let mut chronology = outbreak(fabelgeist_determinism::Seed::from_u64(0));
     chronology.outbreak.as_mut().unwrap().exposure_chronology[0].exposed_at =
         chronology.outbreak.as_ref().unwrap().exposure_chronology[0]
             .became_symptomatic_at
@@ -141,7 +142,7 @@ fn outbreak_validator_rejects_incoherent_private_truth_and_routes() {
             .any(|error| error.contains("chronology"))
     );
 
-    let mut incompatible = outbreak(0);
+    let mut incompatible = outbreak(fabelgeist_determinism::Seed::from_u64(0));
     incompatible.outbreak.as_mut().unwrap().transmission_route =
         crate::disease::TransmissionVector::Environmental;
     assert!(
@@ -151,7 +152,7 @@ fn outbreak_validator_rejects_incoherent_private_truth_and_routes() {
             .any(|error| error.contains("transmission route"))
     );
 
-    let mut one_route = outbreak(0);
+    let mut one_route = outbreak(fabelgeist_determinism::Seed::from_u64(0));
     one_route
         .actions
         .retain(|action| action.route == RouteClass::PhysicalTrail);
@@ -163,7 +164,7 @@ fn outbreak_validator_rejects_incoherent_private_truth_and_routes() {
             .any(|error| error.contains("independent physical"))
     );
 
-    let mut wrong_remediation = outbreak(0);
+    let mut wrong_remediation = outbreak(fabelgeist_determinism::Seed::from_u64(0));
     wrong_remediation.outbreak.as_mut().unwrap().remediation = OutbreakRemediation::Behavior {
         action: OutbreakBehaviorAction::IsolatePatients,
     };
@@ -177,7 +178,7 @@ fn outbreak_validator_rejects_incoherent_private_truth_and_routes() {
 
 #[test]
 fn patient_courses_and_bindings_are_exact_and_carriers_have_no_direct_fix() {
-    for seed in 0..20 {
+    for seed in (0..20).map(fabelgeist_determinism::Seed::from_u64) {
         let case = outbreak(seed);
         let truth = case.outbreak.as_ref().unwrap();
         let refs = truth
@@ -252,7 +253,7 @@ fn patient_courses_and_bindings_are_exact_and_carriers_have_no_direct_fix() {
 fn only_the_exact_source_remediation_fact_satisfies_the_case() {
     use crate::case::{CaseId, EvaluationState, OutcomeFact, OutcomeFactId, OutcomeFactKind};
 
-    let case = outbreak(0);
+    let case = outbreak(fabelgeist_determinism::Seed::from_u64(0));
     let case_id = CaseId::new(case.canonical_case_id.clone()).unwrap();
     let remediation_id = match &case.objectives.alternatives[0].objectives[0].requirement {
         ObjectiveRequirement::RemediateSource { remediation_id } => remediation_id.clone(),

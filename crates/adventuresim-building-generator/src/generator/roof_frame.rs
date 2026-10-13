@@ -13,7 +13,10 @@ mod tests {
     fn shallow_wide_gables_preserve_continuous_members_at_nearby_joints() {
         for width in [8, 10, 12] {
             for pitch in [15.0, 30.0, 37.0, 55.0, 75.0] {
-                let mut program = BuildingProgram::fixture(BuildingArchetype::StorageRange, 42);
+                let mut program = BuildingProgram::fixture(
+                    BuildingArchetype::StorageRange,
+                    fabelgeist_determinism::Seed::from_u64(42),
+                );
                 program.footprint = Footprint::Rectangle { width, depth: 4 };
                 program.roof_pitch_degrees = pitch;
                 let plan = crate::generate(&program)

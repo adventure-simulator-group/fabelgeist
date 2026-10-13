@@ -319,11 +319,15 @@ mod tests {
         SceneEnvironment {
             scene_digest: "fixture".into(),
             generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-            latitude_microdegrees: 53_500_000,
-            longitude_microdegrees: 10_000_000,
+            latitude_microdegrees:
+                adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000)
+                    .unwrap(),
+            longitude_microdegrees:
+                adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(10_000_000)
+                    .unwrap(),
             absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(12 * 60),
             lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(12 * 60),
-            absolute_elevation_metres: 20,
+            absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(20).unwrap(),
             weather: WeatherSnapshot {
                 rules_version: WEATHER_RULES_VERSION,
                 interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(0),

@@ -59,19 +59,34 @@ fn scene_transfer_rejects_missing_recipes_changed_bindings_and_embedded_recipe_c
             .is_err()
     );
     let mut changed = input.clone();
-    changed.buildings[0].base_elevation_metres += 1.0;
+    let [changed_building, ..] = changed.buildings.as_mut_slice() else {
+        panic!("fixture has a building");
+    };
+    changed_building.base_elevation_metres =
+        adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(
+            changed_building.base_elevation_metres.metres() + 1.0,
+        )
+        .unwrap();
     assert!(product().restore(&changed, &products).is_err());
     let mut wrong_program = product();
-    wrong_program.placements[0].program.seed =
-        wrong_program.placements[0].program.seed.wrapping_add(1);
+    let [placement, ..] = wrong_program.placements.as_mut_slice() else {
+        panic!("fixture has a placement");
+    };
+    placement.program.seed = placement.program.seed.wrapping_offset(1);
     assert!(wrong_program.restore(&input, &products).is_err());
+    let [generated_building, ..] = scene.buildings.as_slice() else {
+        panic!("fixture has a generated building");
+    };
     let mut duplicate_geometry = product();
     duplicate_geometry
         .scene
         .buildings
-        .push(scene.buildings[0].clone());
+        .push(generated_building.clone());
     assert!(duplicate_geometry.restore(&input, &products).is_err());
-    let wanted = &input.buildings[0].program;
+    let [input_building, ..] = input.buildings.as_slice() else {
+        panic!("fixture has an input building");
+    };
+    let wanted = &input_building.program;
     products
         .venues
         .retain(|venue| venue.recipe.program != *wanted);

@@ -1,7 +1,19 @@
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
+use fabelgeist_gpu::data::gpu::shader::{ShaderSource, parse_naga};
 use std::collections::HashMap;
 use std::sync::{Arc, RwLock};
+
+use fabelgeist_gpu::data::gpu::ResourceDescriptor;
+
+type MapPipelineCache = HashMap<
+    (
+        Option<ResourceDescriptor>,
+        ResourceDescriptor,
+        Vec<(String, ResourceDescriptor)>,
+    ),
+    Arc<(ComputePipeline, u64, u64)>,
+>;
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct MapSignature {
@@ -15,22 +27,13 @@ pub struct MapSignature {
     pub param_names: Vec<String>,
 }
 
-use fabelgeist_gpu::data::gpu::ResourceDescriptor;
-
-type MapPipelineCache = HashMap<
-    (
-        Option<ResourceDescriptor>,
-        ResourceDescriptor,
-        Vec<(String, ResourceDescriptor)>,
-    ),
-    Arc<(ComputePipeline, u64, u64)>,
->;
-
 #[derive(Clone, Debug)]
 pub struct MapDefinition {
     pub code: String,
     pub cache: Arc<RwLock<MapPipelineCache>>,
 }
+
+pub struct Map;
 
 impl Default for MapDefinition {
     fn default() -> Self {
@@ -369,10 +372,8 @@ impl MapDefinition {
         full_code.push_str("}\n");
 
         // 3. Parse with naga to get struct sizes for validation
-        let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
-            &full_code,
-            wgpu::naga::ShaderStage::Compute,
-        )?;
+        let shader_source = ShaderSource::from(full_code);
+        let module = parse_naga(&shader_source, wgpu::naga::ShaderStage::Compute)?;
 
         let mut input_size = 0;
         let mut output_size = 0;
@@ -405,7 +406,7 @@ impl MapDefinition {
             output_size = calculate_size("output", &module);
         }
 
-        let shader = ComputeShader::new(context, full_code)?;
+        let shader = ComputeShader::new(context, shader_source)?;
         let pipeline = ComputePipeline::new(context, shader)?;
 
         Ok((pipeline, input_size, output_size))
@@ -445,8 +446,6 @@ impl MapDefinition {
         Ok(arc_info)
     }
 }
-
-pub struct Map;
 
 impl Map {
     pub fn execute(

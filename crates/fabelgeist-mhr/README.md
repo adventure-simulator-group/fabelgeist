@@ -30,6 +30,59 @@ Vertices per level of detail: 73 639 (LOD 0), 18 439, 10 661, 4 899, 2 461,
 971, 595 (LOD 6). The 127 joints, the parameter layout and the 117 blend shapes
 are the same at every LOD.
 
+## Model-parameter names
+
+`ModelParameterName` identifies a column in a `ParameterTransform`. Parsed names
+and generated blend-shape names retain their exact text and introduction order.
+`parameter_index` takes this bespoke type and returns the first matching column;
+names need not be unique. Construction accepts text without normalization,
+grammar validation or a membership guarantee. Generated `blend_0` names can
+repeat when columns are appended more than once.
+
+Admit text once when parsing the model format or binding an external asset key,
+then retain the name through lookup and diagnostics. For example, the character
+creator constructs a name from its pinned body-proportion key at the MHR binding
+boundary. Native text adapters are for serialization and presentation, rather
+than forwarding a typed name through another string-based lookup API.
+
+```rust
+use fabelgeist_mhr::{ModelParameterName, ParameterTransform};
+
+let name = ModelParameterName::from("scale_hip_width");
+let transform = ParameterTransform::default();
+assert_eq!(transform.parameter_index(&name), None);
+```
+
+`ParameterTransform::append_blend_shape_parameters` owns extension of the
+ordered names and matrix columns. Parameter counts, matrix coordinates, numeric
+values, parameter-set keys and parser errors are separate concepts from name
+identity.
+This API change preserves their current behavior.
+
+## Parameter-set names
+
+`ParameterSetName` identifies one named subset from a Momentum Human Rig (MHR)
+`.model` file's `[ParameterSets]` section. The parser admits the exact token
+once and retains this bespoke type as the key in
+`ParameterTransform::parameter_sets`. Queries supply the same key type. Names
+are case-sensitive and unnormalized; construction accepts open text without
+asserting membership or file grammar. Repeated keys replace the previous
+membership mask. Unknown parameter names are omitted, and an empty set remains
+valid. Appending blend-shape columns retains the keys and extends each mask with
+`false`.
+
+```rust
+use fabelgeist_mhr::{ParameterSetName, ParameterTransform};
+
+let name = ParameterSetName::from("rigid");
+let transform = ParameterTransform::default();
+assert_eq!(transform.parameter_sets.get(&name), None);
+```
+
+Text adapters serve native serialization and presentation. Parameter-column
+names, membership masks, counts, numerical values and parser errors are separate
+concepts; this key contract preserves their current behavior.
+
 ## Assets
 
 Download `assets.zip` from the
@@ -83,6 +136,42 @@ the FBX — which the model itself never uses, and which disagree with the
 geometry at about a quarter of the vertices — encodes each one in a local
 surface frame at rest, and rebuilds that frame from the generated vertices, so
 authored shading survives identity, expression, skinning and correctives.
+
+## Parameter bounds
+
+`model_def::ParameterBounds` is the bespoke type for an inclusive `minmax`
+interval. Its endpoints are private; `ParameterBounds::try_from((minimum,
+maximum))` rejects NaN (not a number) and reversed endpoints. Equal endpoints
+and infinities are admitted, and their floating-point bits, including signed
+zero, are preserved. `ParameterLimit` carries this checked interval in its
+`bounds` field.
+
+The model-definition parser returns an error for invalid `minmax` endpoints on a
+known parameter. The existing `anyhow::Error` boundary retains a
+`ParameterBoundsAdmissionError` with the existing `ModelParameterName` and
+source line, and its `ParameterBoundsError` source classifies the invalid
+endpoints. Unknown parameters and unsupported limit kinds keep their existing
+skip behavior. Solver weights remain separate and do not affect clamping.
+
+`ParameterTransform::apply_limits` uses intervals in file order and preserves
+the standard `f32::clamp` behavior for parameter values. Convert an interval
+with `let (minimum, maximum) = bounds.into();` only at a numeric or presentation
+API that requires native endpoints; keep the interval intact when comparing
+contracts. The character creator compares it with an admitted interval from the
+shared `BodyProportion` limits before producing its translation basis.
+
+## Solver-limit weights
+
+`model_def::SolverLimitWeight` keeps the solver-enforcement role in
+`ParameterLimit.weight`. Native construction preserves every `f32` bit pattern;
+clamping still uses only the checked bounds. Omitted weights default to `1.0`.
+Present malformed model-text weights produce a structured error with the
+existing `ModelParameterName`, rejected token, source line and native float
+parse cause, after bounds admission.
+
+Keep the bespoke weight through model metadata and convert with
+`f32::from(weight)` only at native numerical or presentation boundaries. See the
+[solver-weight contract](solver-weights.md) for admission and diagnostic details.
 
 ## Task integration
 

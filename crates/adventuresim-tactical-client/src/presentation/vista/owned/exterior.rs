@@ -16,18 +16,18 @@ pub(super) struct GroundPresentation<'a> {
 impl<'a> GroundPresentation<'a> {
     #[cfg(test)]
     pub(super) fn new(surface: &'a BoundedSettlementTerrain) -> Self {
-        Self::from_foundations(surface, surface.foundations.iter())
+        Self::from_foundations(surface, surface.foundations().iter())
     }
 
     pub(super) fn in_rectangles(
         surface: &'a BoundedSettlementTerrain,
         rectangles: &[[Vec2; 2]],
     ) -> Self {
-        let foundations = surface.foundations.iter().filter(|foundation| {
+        let foundations = surface.foundations().iter().filter(|foundation| {
             let (low, high) = foundation
-                .positions
+                .positions()
                 .iter()
-                .chain(foundation.cut_faces.iter().flatten())
+                .chain(foundation.cut_faces().iter().flatten())
                 .fold(
                     (Vec2::splat(f32::INFINITY), Vec2::splat(f32::NEG_INFINITY)),
                     |(low, high), point| (low.min(point.xz()), high.max(point.xz())),
@@ -62,36 +62,37 @@ impl<'a> GroundPresentation<'a> {
         // reversing winding or clipping faces into presentation rectangles.
         let retained = move |triangle: &[Vec3; 3]| {
             !transition_collar.is_some_and(|collar| {
-                collar.cuts_out((triangle.iter().copied().sum::<Vec3>() / 3.0).xz())
+                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                    (triangle.iter().copied().sum::<Vec3>() / 3.0).xz(),
+                )
+                .is_ok_and(|point| collar.cuts_out(point))
             })
         };
         self.surface
-            .natural_triangles
+            .natural_triangles()
             .iter()
             .filter(move |triangle| retained(triangle))
             .map(|[a, b, c]| [*a, *c, *b])
             .chain(
                 self.foundations
                     .iter()
-                    .flat_map(|f| f.mesh.cut_faces.iter().copied())
+                    .flat_map(|f| f.mesh.cut_faces().iter().copied())
                     .filter(move |triangle| retained(triangle)),
             )
             .chain(self.foundations.iter().flat_map(|visible| {
                 let foundation = visible.mesh;
                 let hidden = &visible.internal_sides;
-                foundation
-                    .solid_triangles
-                    .iter()
-                    .enumerate()
-                    .filter_map(move |(face, indices)| {
+                foundation.solid_triangles().iter().enumerate().filter_map(
+                    move |(face, indices)| {
                         // Canonical cells have one top, one bottom and three
                         // consecutive side pairs. Keep buried bottoms too;
                         // visibility never substitutes for support validation.
                         let cell_face = face % 8;
                         let visible =
                             cell_face < 2 || hidden[face / 8] & (1 << ((cell_face - 2) / 2)) == 0;
-                        visible.then(|| indices.map(|i| foundation.positions[i as usize]))
-                    })
+                        visible.then(|| indices.map(|i| foundation.positions()[i as usize]))
+                    },
+                )
             }))
     }
 }
@@ -124,7 +125,7 @@ impl SideOccurrence {
 }
 
 fn internal_sides(foundation: &PropertyFoundationMesh) -> Vec<u8> {
-    let cells = foundation.positions.as_chunks::<6>().0;
+    let cells = foundation.positions().as_chunks::<6>().0;
     let mut hidden = vec![0; cells.len()];
     let mut occurrences = HashMap::new();
     for (cell, points) in cells.iter().enumerate() {

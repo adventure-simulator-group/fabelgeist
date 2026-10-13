@@ -184,7 +184,8 @@ impl Wgs84CoordinateE7 {
 }
 
 /// A validated WGS84 latitude stored in millionths of a degree.
-#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde::Serialize)]
+#[serde(transparent)]
 pub struct LatitudeMicrodegrees(i32);
 
 impl LatitudeMicrodegrees {
@@ -222,7 +223,8 @@ impl LatitudeMicrodegrees {
 }
 
 /// A validated WGS84 longitude stored in millionths of a degree.
-#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde::Serialize)]
+#[serde(transparent)]
 pub struct LongitudeMicrodegrees(i32);
 
 impl LongitudeMicrodegrees {
@@ -311,6 +313,21 @@ impl Wgs84CoordinateMicrodegrees {
 
     pub fn longitude_latitude_degrees(self) -> (f64, f64) {
         (self.longitude.degrees(), self.latitude.degrees())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for LatitudeMicrodegrees {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+        Self::new(<i32 as serde::Deserialize>::deserialize(d)?)
+            .ok_or_else(|| serde::de::Error::custom("LatitudeMicrodegrees is outside WGS84 bounds"))
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for LongitudeMicrodegrees {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+        Self::new(<i32 as serde::Deserialize>::deserialize(d)?).ok_or_else(|| {
+            serde::de::Error::custom("LongitudeMicrodegrees is outside WGS84 bounds")
+        })
     }
 }
 

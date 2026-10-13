@@ -40,7 +40,7 @@ fn point_on_member(point: Vec3, member: &TimberFrameMember) -> bool {
 fn high_knee_braces_require_exact_contact_with_the_post_and_tie() {
     let plan = crate::generate(&crate::BuildingProgram::fixture(
         crate::BuildingArchetype::HallHouse,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap();
     let frame = plan.timber_frame.as_ref().unwrap();

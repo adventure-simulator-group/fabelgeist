@@ -1,8 +1,9 @@
 use super::*;
+use fabelgeist_determinism::Seed;
 
 impl BuildingProgram {
     /// A courtyard accessory with storage at ground level and no dwelling capacity.
-    pub(super) fn storage_range(seed: u64) -> Self {
+    pub(super) fn storage_range(seed: Seed) -> Self {
         Self {
             archetype: BuildingArchetype::StorageRange,
             usage: None,

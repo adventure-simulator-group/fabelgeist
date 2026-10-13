@@ -154,7 +154,7 @@ mod tests {
     fn bell_mouth_is_open_in_geometry_and_collision_with_a_separate_clapper() {
         let plan = crate::generate(&crate::BuildingProgram::fixture(
             crate::BuildingArchetype::ParishChurch,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let bell = plan
