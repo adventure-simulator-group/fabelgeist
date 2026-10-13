@@ -1,5 +1,5 @@
 use super::*;
-use crate::strategic_scene::equipment_readiness::EquipmentReadiness;
+use crate::equipment::readiness::EquipmentReadiness;
 use bevy::ecs::system::RunSystemOnce;
 
 #[test]

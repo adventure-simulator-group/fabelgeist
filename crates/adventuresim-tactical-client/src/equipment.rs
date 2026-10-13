@@ -30,6 +30,8 @@ use serde::Deserialize;
 
 mod grab_world;
 mod icons;
+#[cfg(any(target_family = "wasm", test))]
+pub(crate) mod readiness;
 use icons::*;
 pub(crate) mod runtime_equipment;
 pub(crate) use runtime_equipment::RuntimeEquipmentBodyCache;

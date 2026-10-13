@@ -122,7 +122,7 @@ pub(super) fn update_status(
     poses: Query<&crate::animation::pose_buffer::PoseBufferRig, With<SceneModel>>,
     textures: Res<ProceduralTextureResidency>,
     failure: Res<SceneAssetFailure>,
-    equipment: super::equipment_readiness::EquipmentReadiness,
+    equipment: crate::equipment::readiness::EquipmentReadiness,
     items: Query<Entity, With<super::equipment::SceneEquipment>>,
     mut settled: Local<usize>,
     (mut assets_ready, mut installed_ready): (

@@ -112,7 +112,8 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     if (!rear) {
         let phase = clamp(host_div(host_sub(reference_height(point), FRONT_HEIGHTS[0]),
             host_sub(FRONT_NECK_Y[0], FRONT_HEIGHTS[0])), 0.0, 1.0);
-        relief = max(host_mul(host_mul(front_profile_depth(phase, state.x, state.y), z_scale()), state.y), 0.0);
+        let lifted = host_pow(max(state.y, 0.0), host_div(2.0, fullness()));
+        relief = max(host_mul(host_mul(front_profile_depth(phase, state.x, lifted), z_scale()), state.y), 0.0);
     }
     let row = i / params.width;
     if (row >= V_SAMPLES) {
