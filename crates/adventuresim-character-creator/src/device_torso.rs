@@ -302,7 +302,7 @@ fn record_torso(
             .map_err(device_error)?;
         let mut bound = parameters.clone();
         for (name, buffer) in buffers {
-            if source.contains(&format!("> {name}:")) {
+            if source.as_str().contains(&format!("> {name}:")) {
                 bound.insert(name, buffer.clone());
             }
         }
