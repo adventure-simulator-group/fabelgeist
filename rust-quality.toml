@@ -10,7 +10,7 @@ excluded_paths = [
 [[scopes]]
 kind = "boundary_adapter"
 path = "crates/adventuresim-tactical-client/build.rs"
-item = "CargoPackageName::from"
+item = "CargoPackageRole::from"
 reason = "Classifies Cargo lockfile package names in the derived Serde String conversion without admitting non-string values."
 
 [[scopes]]

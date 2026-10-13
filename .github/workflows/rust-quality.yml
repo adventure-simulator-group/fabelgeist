@@ -98,6 +98,8 @@ jobs:
         run: |
           cargo test --package adventuresim-world-schema --all-features
           cargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests
+      - name: Test resolved Bevy guard
+        run: cargo test --locked --package adventuresim-tactical-client --test bevy_version_guard
       - name: Check semantic values and Rust growth
         run: |
           cargo test --package fabelgeist-rust-quality

@@ -85,6 +85,7 @@ workspace = true
 serde.workspace = true
 semver = "1"
 toml = "0.9"
+thiserror.workspace = true
 
 [lib]
 name = "adventuresim_tactical_client"
@@ -117,7 +118,13 @@ path = "src/tactical_sky_viewer_main.rs"
 doc = false
 required-features = ["debug"]
 
+[[test]]
+name = "bevy_version_guard"
+path = "build.rs"
+
 [dev-dependencies]
+semver = "1"
+toml = "0.9"
 fabelgeist-bvh = { path = "../fabelgeist-bvh", default-features = false }
 fabelgeist-math = { path = "../fabelgeist-math", default-features = false }
 gltf = { version = "1.4", default-features = false, features = ["utils", "names"] }
