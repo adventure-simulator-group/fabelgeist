@@ -15,7 +15,8 @@ let weights = archive.array("layer0")?.to_tensor::<2>(&Device::default())?;
 
 - Archives are memory-mapped; members may be stored or deflated, and zip64 is
   handled (NumPy switches to it past 2 GB).
-- `uncompressed_size` reports a member's decoded size without decoding it.
+- `uncompressed_size` returns a bespoke `DeclaredUncompressedByteLength` from
+  archive metadata. It does not decode or verify the member's actual length.
 - Element types: `f4`, `f8`, `i4`, `i8`, `u1`, `b1`.
   Values are widened on
   access with `to_f32`, `to_i64` or `to_bool`, or uploaded straight to a device
@@ -29,3 +30,9 @@ Used by `fabelgeist-mhr` for the MHR pose-corrective tensors.
 
 The reader retains the declared member count through selection and iteration.
 See the [count contract](member-count.md) for native ports and format limits.
+
+## ZIP byte quantities
+
+Compressed lengths, declared decoded lengths and archive-origin byte positions
+have distinct bespoke types. See the [extent contract](zip-extents.md) for the
+public size API and unchanged native addressing/allocation policy.

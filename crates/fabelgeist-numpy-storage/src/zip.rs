@@ -16,8 +16,11 @@ use anyhow::{Context, Result, bail};
 use flate2::read::DeflateDecoder;
 use memmap2::Mmap;
 
+pub use extent::{ArchiveByteOffset, CompressedByteLength, DeclaredUncompressedByteLength};
+
 use member_count::ArchiveMemberCount;
 
+mod extent;
 mod member_count;
 
 const END_OF_CENTRAL_DIRECTORY: u32 = 0x0605_4b50;
@@ -26,18 +29,18 @@ const LOCAL_FILE_HEADER: u32 = 0x0403_4b50;
 const ZIP64_END_OF_CENTRAL_DIRECTORY: u32 = 0x0606_4b50;
 const ZIP64_LOCATOR: u32 = 0x0706_4b50;
 
-/// Selected directory metadata; native byte addressing remains separate debt.
+/// Selected directory metadata with distinct count and archive-byte addressing.
 struct CentralDirectory {
     member_count: ArchiveMemberCount,
-    native_byte_offset: u64,
+    byte_offset: ArchiveByteOffset,
 }
 
 pub(crate) struct Entry {
     pub name: String,
     compression: u16,
-    compressed_size: u64,
-    uncompressed_size: u64,
-    local_header_offset: u64,
+    compressed_size: CompressedByteLength,
+    uncompressed_size: DeclaredUncompressedByteLength,
+    local_header_offset: ArchiveByteOffset,
 }
 
 /// A memory-mapped zip archive.
@@ -82,24 +85,58 @@ impl CentralDirectory {
         }
         let eocd = eocd.context("not a zip archive: no end-of-central-directory record")?;
         let mut count = ArchiveMemberCount::from(u16_at(data, eocd + 10));
-        let mut offset = u32_at(data, eocd + 16) as u64;
+        let mut offset = ArchiveByteOffset::from_archive_start(u64::from(u32_at(data, eocd + 16)));
 
-        if (count.is_saturated_ordinary() || offset == u32::MAX as u64) && eocd >= 20 {
+        if (count.is_saturated_ordinary() || offset.is_saturated_ordinary()) && eocd >= 20 {
             let locator = eocd - 20;
             if u32_at(data, locator) == ZIP64_LOCATOR {
-                let record = u64_at(data, locator + 8) as usize;
+                let record = ArchiveByteOffset::from_archive_start(u64_at(data, locator + 8))
+                    .native_byte_index();
                 if record + 56 <= data.len()
                     && u32_at(data, record) == ZIP64_END_OF_CENTRAL_DIRECTORY
                 {
                     count = ArchiveMemberCount::from(u64_at(data, record + 32));
-                    offset = u64_at(data, record + 48);
+                    offset = ArchiveByteOffset::from_archive_start(u64_at(data, record + 48));
                 }
             }
         }
         Ok(Self {
             member_count: count,
-            native_byte_offset: offset,
+            byte_offset: offset,
         })
+    }
+}
+
+impl Entry {
+    /// Replaces saturated fields in uncompressed/compressed/local-offset order.
+    fn apply_zip64_extra(&mut self, extra: &[u8]) {
+        let mut offset = 0;
+        while offset + 4 <= extra.len() {
+            let id = u16_at(extra, offset);
+            let size = u16_at(extra, offset + 2) as usize;
+            let body = offset + 4;
+            if body + size > extra.len() {
+                return;
+            }
+            if id == 0x0001 {
+                let mut cursor = body;
+                if self.uncompressed_size.is_saturated_ordinary() && cursor + 8 <= body + size {
+                    self.uncompressed_size =
+                        DeclaredUncompressedByteLength::from_bytes(u64_at(extra, cursor));
+                    cursor += 8;
+                }
+                if self.compressed_size.is_saturated_ordinary() && cursor + 8 <= body + size {
+                    self.compressed_size = CompressedByteLength::from_bytes(u64_at(extra, cursor));
+                    cursor += 8;
+                }
+                if self.local_header_offset.is_saturated_ordinary() && cursor + 8 <= body + size {
+                    self.local_header_offset =
+                        ArchiveByteOffset::from_archive_start(u64_at(extra, cursor));
+                }
+                return;
+            }
+            offset = body + size;
+        }
     }
 }
 
@@ -122,11 +159,11 @@ impl ZipArchive {
     fn from_data(data: ArchiveData) -> Result<Self> {
         let CentralDirectory {
             member_count,
-            native_byte_offset: mut offset,
+            byte_offset: mut offset,
         } = CentralDirectory::locate(data.as_ref())?;
         let mut entries = Vec::with_capacity(member_count.initial_capacity());
         for _ in member_count.native_iteration_range() {
-            let base = offset as usize;
+            let base = offset.native_byte_index();
             if base + 46 > data.len() || u32_at(&data, base) != CENTRAL_FILE_HEADER {
                 break;
             }
@@ -136,16 +173,22 @@ impl ZipArchive {
             let mut entry = Entry {
                 name: String::from_utf8_lossy(&data[base + 46..base + 46 + name_len]).into_owned(),
                 compression: u16_at(&data, base + 10),
-                compressed_size: u32_at(&data, base + 20) as u64,
-                uncompressed_size: u32_at(&data, base + 24) as u64,
-                local_header_offset: u32_at(&data, base + 42) as u64,
+                compressed_size: CompressedByteLength::from_bytes(u64::from(u32_at(
+                    &data,
+                    base + 20,
+                ))),
+                uncompressed_size: DeclaredUncompressedByteLength::from_bytes(u64::from(u32_at(
+                    &data,
+                    base + 24,
+                ))),
+                local_header_offset: ArchiveByteOffset::from_archive_start(u64::from(u32_at(
+                    &data,
+                    base + 42,
+                ))),
             };
-            apply_zip64_extra(
-                &data[base + 46 + name_len..base + 46 + name_len + extra_len],
-                &mut entry,
-            );
+            entry.apply_zip64_extra(&data[base + 46 + name_len..base + 46 + name_len + extra_len]);
             entries.push(entry);
-            offset += (46 + name_len + extra_len + comment_len) as u64;
+            offset.advance_native_bytes(46 + name_len + extra_len + comment_len);
         }
 
         Ok(Self { data, entries })
@@ -160,8 +203,8 @@ impl ZipArchive {
         self.entries.iter().any(|entry| entry.name == name)
     }
 
-    /// Size of a member once decoded, without decoding it.
-    pub fn uncompressed_size(&self, name: &str) -> Option<u64> {
+    /// Declared decoded byte length, without decoding or verifying the payload.
+    pub fn uncompressed_size(&self, name: &str) -> Option<DeclaredUncompressedByteLength> {
         self.entries
             .iter()
             .find(|entry| entry.name == name)
@@ -183,7 +226,7 @@ impl ZipArchive {
     }
 
     pub(crate) fn entry_bytes(&self, entry: &Entry) -> Result<Cow<'_, [u8]>> {
-        let base = entry.local_header_offset as usize;
+        let base = entry.local_header_offset.native_byte_index();
         if base + 30 > self.data.len() || u32_at(&self.data, base) != LOCAL_FILE_HEADER {
             bail!("corrupt zip entry {}", entry.name);
         }
@@ -191,7 +234,7 @@ impl ZipArchive {
         let name_len = u16_at(&self.data, base + 26) as usize;
         let extra_len = u16_at(&self.data, base + 28) as usize;
         let start = base + 30 + name_len + extra_len;
-        let end = start + entry.compressed_size as usize;
+        let end = start + entry.compressed_size.native_slice_length();
         if end > self.data.len() {
             bail!("zip entry {} runs past the end of the archive", entry.name);
         }
@@ -200,7 +243,8 @@ impl ZipArchive {
         match entry.compression {
             0 => Ok(Cow::Borrowed(raw)),
             8 => {
-                let mut out = Vec::with_capacity(entry.uncompressed_size as usize);
+                let mut out =
+                    Vec::with_capacity(entry.uncompressed_size.native_allocation_capacity());
                 DeflateDecoder::new(raw)
                     .read_to_end(&mut out)
                     .with_context(|| format!("inflating zip entry {}", entry.name))?;
@@ -221,32 +265,4 @@ fn u32_at(data: &[u8], offset: usize) -> u32 {
 
 fn u64_at(data: &[u8], offset: usize) -> u64 {
     u64::from_le_bytes(data[offset..offset + 8].try_into().unwrap())
-}
-
-/// Replaces saturated 32-bit sizes/offsets with their zip64 values.
-fn apply_zip64_extra(extra: &[u8], entry: &mut Entry) {
-    let mut offset = 0;
-    while offset + 4 <= extra.len() {
-        let id = u16_at(extra, offset);
-        let size = u16_at(extra, offset + 2) as usize;
-        let body = offset + 4;
-        if body + size > extra.len() {
-            return;
-        }
-        if id == 0x0001 {
-            let mut cursor = body;
-            for slot in [
-                &mut entry.uncompressed_size,
-                &mut entry.compressed_size,
-                &mut entry.local_header_offset,
-            ] {
-                if *slot == u32::MAX as u64 && cursor + 8 <= body + size {
-                    *slot = u64_at(extra, cursor);
-                    cursor += 8;
-                }
-            }
-            return;
-        }
-        offset = body + size;
-    }
 }

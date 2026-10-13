@@ -3,8 +3,8 @@
 The ZIP reader retains the selected directory cardinality as a private bespoke
 `ArchiveMemberCount`. Native ordinary `u16` and ZIP64 `u64` fields admit every
 value without a new resource limit. A private named `CentralDirectory` record
-carries that count alongside the existing native byte offset; storage
-addressing remains a separate responsibility.
+carries that count alongside an archive-origin `ArchiveByteOffset`. The
+[extent contract](zip-extents.md) owns byte lengths and native addressing.
 
 The ordinary count's saturation value still requests ZIP64 substitution. An
 offset saturation can also select ZIP64 fields, even when the ordinary count
@@ -35,8 +35,8 @@ Stored members borrow and deflated members decode into owned bytes as before.
 ## Remaining format responsibilities
 
 Record signatures, member names, compression, flags and checksums are separate
-from cardinality. Native byte positions, widths, lengths, spans, casts and
-whole-record framing also retain their existing contracts. A malformed central
+from cardinality. The [extent contract](zip-extents.md) describes byte quantities and their native
+ports. Whole-record framing retains its existing contract. A malformed central
 name length can still panic when a nonzero count reaches that member. This
 change does not add a framing validation or error policy.
 
