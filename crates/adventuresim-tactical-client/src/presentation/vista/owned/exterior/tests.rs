@@ -54,6 +54,38 @@ fn surface(foundations: Vec<PropertyFoundationMesh>) -> BoundedSettlementTerrain
     .unwrap()
 }
 
+fn clipped_triangles(
+    presentation: &GroundPresentation<'_>,
+    regions: &[[Vec2; 2]],
+    collar: Option<TerrainTransitionCollar>,
+) -> Vec<[[u32; 3]; 3]> {
+    presentation
+        .triangles(collar)
+        .flat_map(|triangle| {
+            regions.iter().flat_map(move |[minimum, maximum]| {
+                super::super::clip::PreparedTriangle::new(triangle).in_rectangle(*minimum, *maximum)
+            })
+        })
+        .map(|triangle| triangle.map(|p| p.to_array().map(f32::to_bits)))
+        .collect()
+}
+
+fn collar() -> TerrainTransitionCollar {
+    use adventuresim_building_generator::spatial_geometry::{PlanDirection, PositiveLength};
+    use adventuresim_tactical_core::{prelude::*, scene_coordinates::ScenePlanPoint};
+    TerrainTransitionCollar::irregular_ellipse(TerrainCollarParameters {
+        origin: ScenePlanPoint::try_from(Vec2::ZERO).unwrap(),
+        tangent: PlanDirection::from_vector(Vec2::X).unwrap(),
+        half_length: PositiveLength::from_metres(1.0).unwrap(),
+        half_width: PositiveLength::from_metres(1.0).unwrap(),
+        width: PositiveLength::from_metres(0.1).unwrap(),
+        seed: 0.into(),
+        wander: RuptureWander::from_metres(0.0).unwrap(),
+        width_variation: CollarWidthVariation::from_basis_points(0).unwrap(),
+    })
+    .unwrap()
+}
+
 #[test]
 fn region_selection_preserves_crossing_cut_faces_and_complete_boundary_cells() {
     let cells = adjacent_cells();
@@ -63,35 +95,74 @@ fn region_selection_preserves_crossing_cut_faces_and_complete_boundary_cells() {
     let cut_owner = foundation_with_cuts(
         43,
         &distant_cells,
-        vec![[
-            Vec3::new(-2.0, -1.0, 0.25),
-            Vec3::new(2.0, -1.0, 0.25),
-            Vec3::new(2.0, 1.0, 0.25),
-        ]],
+        vec![
+            [
+                Vec3::new(-2.0, -1.0, 0.25),
+                Vec3::new(2.0, -1.0, 0.25),
+                Vec3::new(2.0, 1.0, 0.25),
+            ],
+            [
+                Vec3::new(-0.5, -1.0, -0.5),
+                Vec3::new(-0.5, 1.0, -0.5),
+                Vec3::new(-0.5, 1.0, 0.5),
+            ],
+            [
+                Vec3::new(0.5, -1.0, -0.5),
+                Vec3::new(0.5, 1.0, -0.5),
+                Vec3::new(0.5, 1.0, 0.5),
+            ],
+        ],
     );
-    let surface = surface(vec![near, unrelated, cut_owner]);
+    use adventuresim_building_generator::spatial_geometry::{Position, PositiveLength};
+    let surface = BoundedSettlementTerrain::from_foundations(
+        vec![near, unrelated, cut_owner],
+        vec![
+            [
+                Vec3::new(-2.0, 0.0, -2.0),
+                Vec3::new(2.0, 0.0, -2.0),
+                Vec3::new(-2.0, 0.0, 2.0),
+            ]
+            .map(|p| Position::from_metres(p).unwrap()),
+        ],
+        PositiveLength::from_metres(0.001).unwrap(),
+    )
+    .unwrap();
     let original = serde_json::to_vec(&surface).unwrap();
     let regions = [[Vec2::new(-0.5, -0.5), Vec2::new(0.5, 0.5)]];
     let complete = GroundPresentation::new(&surface);
     let selected = GroundPresentation::in_rectangles(&surface, &regions);
-    let clipped = |presentation: &GroundPresentation<'_>| {
-        presentation
-            .triangles(None)
-            .flat_map(|triangle| {
-                super::super::clip::PreparedTriangle::new(triangle)
-                    .in_rectangle(regions[0][0], regions[0][1])
-            })
-            .map(|triangle| triangle.map(|p| p.to_array().map(f32::to_bits)))
-            .collect::<Vec<_>>()
-    };
-    assert_eq!(clipped(&selected), clipped(&complete));
-    assert!(!clipped(&selected).is_empty());
+    assert_eq!(
+        clipped_triangles(&selected, &regions, None),
+        clipped_triangles(&complete, &regions, None)
+    );
+    assert!(!clipped_triangles(&selected, &regions, None).is_empty());
     assert_eq!(selected.foundations.len(), 2);
     assert_eq!(
         selected.foundations[1].mesh.property_id(),
         CityPropertyId(43)
     );
     assert_eq!(serde_json::to_vec(&surface).unwrap(), original);
+    assert_ne!(
+        clipped_triangles(&complete, &regions, None),
+        clipped_triangles(&complete, &regions, Some(collar())),
+        "the collar fixture removes a face that contributes to the rendered region"
+    );
+    for regions in [
+        regions.to_vec(),
+        vec![
+            [Vec2::new(-1.0, -1.0), Vec2::new(-0.5, 1.0)],
+            [Vec2::new(0.5, -1.0), Vec2::new(1.0, 1.0)],
+        ],
+        Vec::new(),
+    ] {
+        for collar in [None, Some(collar())] {
+            let selected = GroundPresentation::in_rectangles(&surface, &regions);
+            assert_eq!(
+                clipped_triangles(&selected, &regions, collar),
+                clipped_triangles(&complete, &regions, collar)
+            );
+        }
+    }
 }
 
 #[test]

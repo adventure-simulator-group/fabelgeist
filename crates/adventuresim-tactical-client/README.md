@@ -1,5 +1,11 @@
 # Fabelgeist tactical client
 
+[Immutable scene preparation](generation.md) describes shared worker products,
+readiness, residency and typed preparation failures.
+
+[Regional environment presentation](regional-map.md) describes the retained
+geographic camera, terrain surface and browser command boundary.
+
 The atmosphere extraction backport is required by the selected Bevy 0.19 engine.
 The build script reads the resolved version from the workspace lockfile and
 requires removing that backport and its guard when the project selects Bevy 0.20
@@ -21,13 +27,11 @@ Offline exporters retain their reusable morph-equipped asset workflow.
 Compute and rendering dependencies must use the same `wgpu` release: linking
 two releases into the browser client duplicates their vendored WebGPU bindings.
 
-Initial loading exercises every authored armor placement on the canonical body,
-plus layered shoulders and alternate cuirass and tasset constructions. These
-temporary meshes are discarded; the device and compiled compute kernels stay
-alive across city travel. Strategic scene readiness waits for this preparation,
-even when the initial city has no equipped NPCs. Preparation failures surface as
-loading errors. Newly encountered wearers still receive their own fitted meshes;
-initial preparation does not cache canonical fits as substitutes for them.
+Strategic loading fits the equipment actually requested by the scene. The device
+and compiled compute kernels stay alive across city travel; loading does not fit
+and discard the entire authored catalog first. Strategic scene readiness waits
+for its requested fits, and preparation failures surface as loading errors.
+Newly encountered wearers receive their own fitted meshes.
 
 Fits are cached by item design, anatomical placement, and evaluated body shape.
 The last 128 variants remain available across travel; live entities retain their
