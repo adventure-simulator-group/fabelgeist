@@ -130,15 +130,20 @@ impl TerrainTransitionCollar {
     }
 
     pub fn cuts_out(self, point: ScenePlanPoint) -> bool {
-        self.radial_coordinate(point.metres()).0 < 1.0
+        let point = point.metres();
+        !self.outside_length(point) && self.radial_coordinate(point).0 < 1.0
     }
 
     pub fn contains(self, point: ScenePlanPoint) -> bool {
-        self.radial_coordinate(point.metres()).0 <= 1.0
+        let point = point.metres();
+        !self.outside_length(point) && self.radial_coordinate(point).0 <= 1.0
     }
 
     /// Native scene-metre raster field kernel; callers admit the raster bounds.
     pub(crate) fn blend_weight(self, point: Vec2) -> f32 {
+        if self.outside_length(point) {
+            return 0.0;
+        }
         let (radial, minimum_extent) = self.radial_coordinate(point);
         let inner = 1.0 - self.width_metres / minimum_extent;
         smoothstep01((1.0 - radial) / (1.0 - inner))
@@ -166,6 +171,13 @@ impl TerrainTransitionCollar {
         )
         .length();
         (radial, self.half_length_metres.min(local_half_width))
+    }
+
+    fn outside_length(self, point: Vec2) -> bool {
+        // Wander changes only the transverse axis and width. The original
+        // longitudinal component already guarantees radial distance above one.
+        // Keep boundary points on the exact radial path for inclusive queries.
+        (point - self.origin).dot(self.tangent).abs() > self.half_length_metres
     }
 }
 
