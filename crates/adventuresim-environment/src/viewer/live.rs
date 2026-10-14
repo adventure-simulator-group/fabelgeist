@@ -13,7 +13,7 @@ use fabelgeist_botany::viewer::sim::{Command, Simulation};
 
 use crate::frame_times::FrameTimes;
 use crate::menu::Menu;
-use crate::stage::{self, Lighting, Sun};
+use crate::stage::{self, Lighting, Orbit, Sun};
 use crate::stats::Stats;
 use crate::tools::Tool;
 use crate::world::{Request, World};
@@ -66,9 +66,17 @@ pub fn install(app: &mut App, scene: Scene) {
         frame_times: FrameTimes::new(),
         requests: Vec::new(),
     })
+    .add_systems(Startup, (spawn_camera, stage::sun))
     .add_systems(Update, (receive, apply).chain())
     .add_systems(EguiPrimaryContextPass, interface);
     pointer::install(app);
+}
+
+/// An orbiting camera, turned by the mouse.
+fn spawn_camera(mut commands: Commands) {
+    let mut orbit = PanOrbitCamera::default();
+    stage::first_orbit().apply(&mut orbit);
+    commands.spawn((stage::camera(), orbit));
 }
 
 /// Draw the simulation's latest snapshot, framing a new scene.
@@ -84,8 +92,9 @@ fn receive(
     viewer.bounds = snapshot.bounds;
     if snapshot.scene_generation != viewer.framed {
         viewer.framed = snapshot.scene_generation;
+        let orbit = Orbit::framing(snapshot.bounds);
         for mut camera in &mut cameras {
-            stage::frame(&mut camera, snapshot.bounds);
+            orbit.apply(&mut camera);
         }
     }
     viewer.stats.record(&snapshot);
@@ -107,6 +116,8 @@ fn apply(
         tube_sides: viewer.profile.tube_sides,
         tube_spans: viewer.profile.tube_spans,
         leaf_blades: viewer.profile.leaf_blades,
+        full_pixels: viewer.profile.full_pixels,
+        middle_pixels: viewer.profile.middle_pixels,
         leaves: viewer.leaves,
     };
     detail.set_if_neq(wanted);

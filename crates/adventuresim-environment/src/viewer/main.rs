@@ -17,7 +17,8 @@
 //! the tool down, or opens the menu; F3 shows the figures.
 //!
 //! With `--snapshot out.png` it grows the scene for `--years` first, without
-//! the simulation thread, shows it, and saves the window once. `--closeup`
+//! the simulation thread, and renders it once headless, without a window;
+//! `--frames 300` first times that many frames of it. `--closeup`
 //! frames the tallest plant instead of the whole scene, looking at `--aim`
 //! of its height; `--solo conifer` grows one plant of a species alone.
 
@@ -85,6 +86,15 @@ struct Options {
     /// Grow one plant of this species alone.
     #[arg(long, value_enum)]
     solo: Option<SoloSpecies>,
+    /// Time this many frames of the snapshot before saving it.
+    #[arg(long)]
+    frames: Option<u32>,
+    /// Turn the camera once round the scene while timing.
+    #[arg(long)]
+    orbit: bool,
+    /// Hand the forest the snapshot again every this many timed frames.
+    #[arg(long)]
+    refeed: Option<u32>,
 }
 
 fn main() -> anyhow::Result<()> {
@@ -93,6 +103,26 @@ fn main() -> anyhow::Result<()> {
         Some(name) => scene_named(name)?,
         None => Scene::MixedForest,
     };
+    if let Some(path) = &options.snapshot {
+        let profile = Profile::named(&options.profile)
+            .ok_or_else(|| anyhow!("unknown profile `{}`", options.profile))?;
+        return snapshot::run(snapshot::Request {
+            path: path.clone(),
+            scene,
+            ecosystem: options.solo.map(SoloSpecies::ecosystem),
+            years: options.years,
+            profile: profile_controls::drawable(profile),
+            framing: Framing {
+                closeup: options.closeup,
+                aim: options.aim,
+                yaw: options.yaw,
+                zoom: options.zoom,
+            },
+            frames: options.frames,
+            orbit: options.orbit,
+            refeed: options.refeed,
+        });
+    }
     let [width, height] = WINDOW_SIZE;
     let mut app = App::new();
     app.insert_resource(ClearColor(stage::SKY))
@@ -104,31 +134,8 @@ fn main() -> anyhow::Result<()> {
             }),
             ..default()
         }))
-        .add_plugins((EguiPlugin::default(), PanOrbitCameraPlugin, ForestPlugin))
-        .add_systems(Startup, stage::setup);
-    match &options.snapshot {
-        Some(path) => {
-            let profile = Profile::named(&options.profile)
-                .ok_or_else(|| anyhow!("unknown profile `{}`", options.profile))?;
-            let framing = Framing {
-                closeup: options.closeup,
-                aim: options.aim,
-                yaw: options.yaw,
-                zoom: options.zoom,
-            };
-            let ecosystem = options.solo.map(SoloSpecies::ecosystem);
-            snapshot::install(
-                &mut app,
-                path.clone(),
-                scene,
-                options.years,
-                profile_controls::drawable(profile),
-                &framing,
-                ecosystem,
-            )?;
-        }
-        None => live::install(&mut app, scene),
-    }
+        .add_plugins((EguiPlugin::default(), PanOrbitCameraPlugin, ForestPlugin));
+    live::install(&mut app, scene);
     app.run();
     Ok(())
 }

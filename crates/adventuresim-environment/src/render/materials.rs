@@ -3,7 +3,6 @@
 //! Both read their instances from storage buffers by the index each
 //! instance carries; a new snapshot replaces the buffers.
 
-use bevy::asset::RenderAssetUsages;
 use bevy::mesh::MeshVertexBufferLayoutRef;
 use bevy::prelude::*;
 use bevy::render::render_resource::{
@@ -12,8 +11,10 @@ use bevy::render::render_resource::{
 use bevy::render::storage::ShaderBuffer;
 use bevy::shader::ShaderRef;
 use bevy_eidolon::prelude::*;
-use fabelgeist_botany::viewer::sim::{Foliage, Snapshot, SpeciesInfo};
+use fabelgeist_botany::viewer::sim::{Foliage, SpeciesInfo};
 
+use super::levels::{Level, Shape};
+use super::records::{ForestBuffers, PendingWrites, Records};
 use super::{ForestDetail, shapes};
 
 const BRANCH_SHADER: &str = "embedded://adventuresim_environment/render/shaders/branch.wgsl";
@@ -94,7 +95,7 @@ impl InstancedMaterial for LeafMaterial {
 /// foliage kind in the leaf colour's fourth component.
 #[repr(C)]
 #[derive(Clone, Copy, bytemuck::Pod, bytemuck::Zeroable)]
-struct SpeciesRecord {
+pub(super) struct SpeciesRecord {
     bark: [f32; 4],
     leaf: [f32; 4],
 }
@@ -120,15 +121,23 @@ pub(super) struct ForestStores<'w> {
     branch_materials: ResMut<'w, Assets<BranchMaterial>>,
     leaf_materials: ResMut<'w, Assets<LeafMaterial>>,
     buffers: ResMut<'w, Assets<ShaderBuffer>>,
+    writes: ResMut<'w, PendingWrites>,
 }
 
-/// The forest's meshes and materials, shared by every chunk.
-#[derive(Resource)]
-pub(super) struct ForestMaterials {
+/// One level of detail's meshes and materials.
+pub(super) struct LevelAssets {
     pub(super) branch_mesh: Handle<Mesh>,
     pub(super) leaf_mesh: Handle<Mesh>,
     pub(super) branches: Handle<BranchMaterial>,
     pub(super) leaves: Handle<LeafMaterial>,
+}
+
+/// The forest's meshes and materials at every level of detail, shared by
+/// every chunk, and the storage buffers they all read.
+#[derive(Resource)]
+pub(super) struct ForestMaterials {
+    levels: [LevelAssets; 3],
+    buffers: ForestBuffers,
 }
 
 pub(super) fn setup(
@@ -139,28 +148,33 @@ pub(super) fn setup(
     mut leaf_materials: ResMut<Assets<LeafMaterial>>,
     mut buffers: ResMut<Assets<ShaderBuffer>>,
 ) {
-    let mut empty = || buffers.add(storage::<SpeciesRecord>(&[]));
-    let species = empty();
-    let branches = branch_materials.add(BranchMaterial {
-        lod: branch_lod(&detail),
-        branches: empty(),
-        species: species.clone(),
-        plants: empty(),
-    });
-    let leaves = leaf_materials.add(LeafMaterial {
-        lod: leaf_lod(&detail),
-        leaves: empty(),
-        species,
+    let stored = ForestBuffers::new(&mut buffers);
+    let levels = Level::ALL.map(|level| {
+        let shape = level.shape(&detail);
+        LevelAssets {
+            branch_mesh: meshes.add(shapes::branch_grid(shape.sides, shape.spans)),
+            leaf_mesh: meshes.add(shapes::leaf_blades(shape.blades)),
+            branches: branch_materials.add(BranchMaterial {
+                lod: branch_lod(&shape),
+                branches: stored.branches(),
+                species: stored.species(),
+                plants: stored.plants(),
+            }),
+            leaves: leaf_materials.add(LeafMaterial {
+                lod: leaf_lod(&shape),
+                leaves: stored.leaves(),
+                species: stored.species(),
+            }),
+        }
     });
     commands.insert_resource(ForestMaterials {
-        branch_mesh: meshes.add(shapes::branch_grid(detail.tube_sides, detail.tube_spans)),
-        leaf_mesh: meshes.add(shapes::leaf_blades(detail.leaf_blades)),
-        branches,
-        leaves,
+        levels,
+        buffers: stored,
     });
 }
 
-/// Rebuild the base meshes when the detail changes.
+/// Rebuild the full level's meshes when the detail changes; the coarser
+/// levels are fixed.
 pub(super) fn follow_detail(
     detail: Res<ForestDetail>,
     forest: Option<Res<ForestMaterials>>,
@@ -174,55 +188,57 @@ pub(super) fn follow_detail(
     if !detail.is_changed() || detail.is_added() {
         return;
     }
+    let full = forest.level(Level::Full);
+    let shape = Level::Full.shape(&detail);
     let _ = meshes.insert(
-        &forest.branch_mesh,
-        shapes::branch_grid(detail.tube_sides, detail.tube_spans),
+        &full.branch_mesh,
+        shapes::branch_grid(shape.sides, shape.spans),
     );
-    let _ = meshes.insert(&forest.leaf_mesh, shapes::leaf_blades(detail.leaf_blades));
-    if let Some(mut material) = branch_materials.get_mut(&forest.branches) {
-        material.lod = branch_lod(&detail);
+    let _ = meshes.insert(&full.leaf_mesh, shapes::leaf_blades(shape.blades));
+    if let Some(mut material) = branch_materials.get_mut(&full.branches) {
+        material.lod = branch_lod(&shape);
     }
-    if let Some(mut material) = leaf_materials.get_mut(&forest.leaves) {
-        material.lod = leaf_lod(&detail);
+    if let Some(mut material) = leaf_materials.get_mut(&full.leaves) {
+        material.lod = leaf_lod(&shape);
     }
 }
 
 impl ForestMaterials {
-    /// Hand a snapshot's instances, plants and species to the materials.
-    pub(super) fn store(&self, snapshot: &Snapshot, stores: &mut ForestStores) {
+    pub(super) fn level(&self, level: Level) -> &LevelAssets {
+        &self.levels[level.index()]
+    }
+
+    /// Write a snapshot's records into the storage buffers, binding any
+    /// buffer that had to be replaced.
+    pub(super) fn store(&mut self, records: Records, stores: &mut ForestStores) {
         let ForestStores {
             branch_materials,
             leaf_materials,
             buffers,
+            writes,
         } = stores;
-        let species: Vec<SpeciesRecord> =
-            snapshot.species.iter().map(SpeciesRecord::from).collect();
-        let species = buffers.add(storage(&species));
-        if let Some(mut material) = branch_materials.get_mut(&self.branches) {
-            material.branches = buffers.add(storage(&snapshot.branches));
-            material.plants = buffers.add(storage(&snapshot.plant_bounds));
-            material.species = species.clone();
+        if !self.buffers.write(records, buffers, writes) {
+            return;
         }
-        if let Some(mut material) = leaf_materials.get_mut(&self.leaves) {
-            material.leaves = buffers.add(storage(&snapshot.leaves));
-            material.species = species;
+        let bound = &self.buffers;
+        for level in &self.levels {
+            if let Some(mut material) = branch_materials.get_mut(&level.branches) {
+                material.branches = bound.branches();
+                material.plants = bound.plants();
+                material.species = bound.species();
+            }
+            if let Some(mut material) = leaf_materials.get_mut(&level.leaves) {
+                material.leaves = bound.leaves();
+                material.species = bound.species();
+            }
         }
     }
 }
 
-fn branch_lod(detail: &ForestDetail) -> UVec4 {
-    UVec4::new(detail.tube_sides.max(3), detail.tube_spans.max(1), 0, 0)
+fn branch_lod(shape: &Shape) -> UVec4 {
+    UVec4::new(shape.sides, shape.spans, 0, 0)
 }
 
-fn leaf_lod(detail: &ForestDetail) -> UVec4 {
-    UVec4::new(detail.leaf_blades.max(1), 0, 0, 0)
-}
-
-/// A storage buffer of `records`; never empty, which a binding may not be.
-fn storage<T: bytemuck::Pod>(records: &[T]) -> ShaderBuffer {
-    let mut bytes = bytemuck::cast_slice(records).to_vec();
-    if bytes.is_empty() {
-        bytes.resize(std::mem::size_of::<T>().max(16), 0);
-    }
-    ShaderBuffer::new(&bytes, RenderAssetUsages::RENDER_WORLD)
+fn leaf_lod(shape: &Shape) -> UVec4 {
+    UVec4::new(shape.blades, 0, 0, 0)
 }

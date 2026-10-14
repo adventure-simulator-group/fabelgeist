@@ -1,6 +1,7 @@
 //! Botany's ecosystems drawn in Bevy.
 //!
-//! The simulation hands over snapshots ([`Snapshot`]): every branch segment
+//! The simulation hands over snapshots
+//! ([`Snapshot`](fabelgeist_botany::viewer::sim::Snapshot)): every branch segment
 //! and leaf cluster as an instance record, the terrain and the buildings as
 //! meshes. [`ForestPlugin`] draws them: the instances through `bevy_eidolon`
 //! (GPU instancing and GPU culling, as the game's grass and shrubs), each
@@ -12,50 +13,47 @@
 //! [`ForestDetail`].
 
 mod chunks;
+mod feed;
 mod ground;
+mod levels;
 mod materials;
+mod records;
 mod shapes;
 
 use bevy::asset::embedded_asset;
 use bevy::prelude::*;
 use bevy::shader::load_shader_library;
 use bevy_eidolon::{prelude::*, prepass::CullComputeCamera};
-use fabelgeist_botany::viewer::sim::Snapshot;
 
+pub use feed::ForestFeed;
 pub use ground::GroundPart;
 pub use materials::{BranchMaterial, LeafMaterial};
 
-/// The snapshot to draw next, if a new one arrived.
-#[derive(Resource, Default)]
-pub struct ForestFeed {
-    pending: Option<Snapshot>,
-}
-
-impl ForestFeed {
-    /// Draw `snapshot` from the next frame on.
-    pub fn show(&mut self, snapshot: Snapshot) {
-        self.pending = Some(snapshot);
-    }
-}
-
 /// How finely the forest is built, and whether its foliage is drawn.
-#[derive(Resource, Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Resource, Clone, Copy, Debug, PartialEq)]
 pub struct ForestDetail {
-    /// Around each branch tube, and along each segment.
+    /// Around each branch tube, and along each segment, in full detail.
     pub tube_sides: u32,
     pub tube_spans: u32,
-    /// Blades a leaf cluster.
+    /// Blades a leaf cluster, in full detail.
     pub leaf_blades: u32,
+    /// A plant whose radius spans at least this many pixels on screen is
+    /// drawn in full detail, at least `middle_pixels` in middle detail,
+    /// and smaller in the coarsest.
+    pub full_pixels: f32,
+    pub middle_pixels: f32,
     pub leaves: bool,
 }
 
 impl Default for ForestDetail {
-    /// The detail close plants are drawn at unless asked otherwise.
+    /// The detail plants are drawn at unless asked otherwise.
     fn default() -> Self {
         Self {
             tube_sides: 10,
             tube_spans: 6,
             leaf_blades: 10,
+            full_pixels: 220.0,
+            middle_pixels: 40.0,
             leaves: true,
         }
     }
@@ -75,6 +73,7 @@ impl Plugin for ForestPlugin {
         if !app.is_plugin_added::<GpuComputeCullCorePlugin>() {
             app.add_plugins(GpuComputeCullCorePlugin);
         }
+        records::install(app);
         app.add_plugins((
             InstancedMaterialPlugin::<BranchMaterial>::default(),
             GpuCullComputePlugin::<BranchMaterial>::default(),
@@ -82,14 +81,18 @@ impl Plugin for ForestPlugin {
             GpuCullComputePlugin::<LeafMaterial>::default(),
         ))
         .init_resource::<ForestFeed>()
+        .init_resource::<levels::LevelView>()
         .init_resource::<ForestDetail>()
         .add_systems(Startup, materials::setup)
         .add_systems(
             Update,
             (
                 cull_from_cameras,
+                levels::follow_camera,
                 materials::follow_detail,
-                draw_snapshot,
+                feed::draw,
+                feed::prepare,
+                levels::pick,
                 show_leaves,
             )
                 .chain(),
@@ -105,24 +108,6 @@ fn cull_from_cameras(
     for camera in &cameras {
         commands.entity(camera).insert(CullComputeCamera);
     }
-}
-
-/// Take a fed snapshot: its instances into the materials' storage, its
-/// chunks as entities, and its terrain and buildings when it brings them.
-fn draw_snapshot(
-    mut commands: Commands,
-    mut feed: ResMut<ForestFeed>,
-    forest: Res<materials::ForestMaterials>,
-    mut stores: materials::ForestStores,
-    mut ground: ground::GroundAssets,
-    mut shown: chunks::Shown,
-) {
-    let Some(snapshot) = feed.pending.take() else {
-        return;
-    };
-    forest.store(&snapshot, &mut stores);
-    chunks::show(&mut commands, &forest, &snapshot, &mut shown);
-    ground.show(&mut commands, &snapshot);
 }
 
 fn show_leaves(
