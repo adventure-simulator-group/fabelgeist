@@ -77,5 +77,6 @@ impl MeshNeighborhood {
             BufferUpload::from_elements(&buffer_data),
             BufferDefinition::storage().with_label(("Vertex Neighbors").into()),
         )
+        .map_err(anyhow::Error::from)
     }
 }

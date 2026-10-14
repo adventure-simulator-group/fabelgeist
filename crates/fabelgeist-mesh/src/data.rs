@@ -1,6 +1,6 @@
 use crate::{FrontFace, GpuMesh, PrimitiveTopology};
 use anyhow::{Result, ensure};
-use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
+use fabelgeist_gpu::prelude::{BufferCreationResult, BufferUpload, BufferUse};
 use fabelgeist_gpu::{
     data::gpu::buffer::{Buffer, BufferDefinition},
     globals::WgpuContext,
@@ -12,7 +12,7 @@ fn upload<T: bytemuck::NoUninit>(
     context: &WgpuContext,
     data: &[T],
     definition: BufferDefinition,
-) -> Result<Buffer> {
+) -> BufferCreationResult<Buffer> {
     if data.is_empty() {
         let mut buffer = Buffer::new(context, (16u64).into(), definition)?;
         buffer.size = 0u64.into();

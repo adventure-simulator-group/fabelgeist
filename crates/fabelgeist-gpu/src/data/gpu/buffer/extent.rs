@@ -8,6 +8,13 @@ pub struct BufferByteLength(u64);
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct BufferByteOffset(u64);
 
+impl BufferByteLength {
+    /// Zero remains valid for logical metadata and empty host uploads.
+    pub const fn is_empty(self) -> bool {
+        self.0 == 0
+    }
+}
+
 impl BufferByteOffset {
     pub const START: Self = Self(0);
 
