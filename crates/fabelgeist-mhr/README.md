@@ -46,6 +46,9 @@ corrective_blendshapes_lod{0..6}.npz    corrective basis for that LOD
 
 `mhr_model.pt` is not used; it is the reference TorchScript build.
 
+[Native asset-directory selection](asset-directory.md) documents lookup order
+and the missing-definition error.
+
 ## Usage
 
 ```rust
