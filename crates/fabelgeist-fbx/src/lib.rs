@@ -21,6 +21,11 @@ use flate2::read::ZlibDecoder;
 
 pub mod animation;
 
+mod property_tag;
+use property_tag::FbxPropertyTag;
+#[cfg(test)]
+mod property_tag_tests;
+
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
 
 /// A typed FBX property value.
@@ -246,42 +251,56 @@ fn decode_array<T: Copy>(
 fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
     let mut props = Vec::with_capacity(count);
     for _ in 0..count {
-        let kind = reader.u8()?;
+        let kind = FbxPropertyTag::from(reader.u8()?);
         let prop = match kind {
-            b'Y' => Prop::I16(i16::from_le_bytes(reader.take(2)?.try_into().unwrap())),
-            b'C' => Prop::Bool(reader.u8()? != 0),
-            b'I' => Prop::I32(i32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
-            b'F' => Prop::F32(f32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
-            b'D' => Prop::F64(f64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
-            b'L' => Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
-            b'f' | b'd' | b'l' | b'i' | b'b' => {
+            FbxPropertyTag::INTEGER16 => {
+                Prop::I16(i16::from_le_bytes(reader.take(2)?.try_into().unwrap()))
+            }
+            FbxPropertyTag::BOOLEAN => Prop::Bool(reader.u8()? != 0),
+            FbxPropertyTag::INTEGER32 => {
+                Prop::I32(i32::from_le_bytes(reader.take(4)?.try_into().unwrap()))
+            }
+            FbxPropertyTag::FLOAT32 => {
+                Prop::F32(f32::from_le_bytes(reader.take(4)?.try_into().unwrap()))
+            }
+            FbxPropertyTag::FLOAT64 => {
+                Prop::F64(f64::from_le_bytes(reader.take(8)?.try_into().unwrap()))
+            }
+            FbxPropertyTag::INTEGER64 => {
+                Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap()))
+            }
+            FbxPropertyTag::ARRAY_FLOAT32
+            | FbxPropertyTag::ARRAY_FLOAT64
+            | FbxPropertyTag::ARRAY_INTEGER64
+            | FbxPropertyTag::ARRAY_INTEGER32
+            | FbxPropertyTag::ARRAY_BOOLEAN => {
                 let count = reader.u32()? as usize;
                 let encoding = reader.u32()?;
                 let compressed_len = reader.u32()? as usize;
                 let raw = reader.take(compressed_len)?;
                 match kind {
-                    b'f' => Prop::ArrF32(decode_array(
+                    FbxPropertyTag::ARRAY_FLOAT32 => Prop::ArrF32(decode_array(
                         raw,
                         count,
                         encoding,
                         |b| f32::from_le_bytes(b.try_into().unwrap()),
                         4,
                     )?),
-                    b'd' => Prop::ArrF64(decode_array(
+                    FbxPropertyTag::ARRAY_FLOAT64 => Prop::ArrF64(decode_array(
                         raw,
                         count,
                         encoding,
                         |b| f64::from_le_bytes(b.try_into().unwrap()),
                         8,
                     )?),
-                    b'i' => Prop::ArrI32(decode_array(
+                    FbxPropertyTag::ARRAY_INTEGER32 => Prop::ArrI32(decode_array(
                         raw,
                         count,
                         encoding,
                         |b| i32::from_le_bytes(b.try_into().unwrap()),
                         4,
                     )?),
-                    b'l' => Prop::ArrI64(decode_array(
+                    FbxPropertyTag::ARRAY_INTEGER64 => Prop::ArrI64(decode_array(
                         raw,
                         count,
                         encoding,
@@ -291,15 +310,18 @@ fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
                     _ => Prop::ArrBool(decode_array(raw, count, encoding, |b| b[0], 1)?),
                 }
             }
-            b'S' => {
+            FbxPropertyTag::STRING => {
                 let len = reader.u32()? as usize;
                 Prop::Str(reader.take(len)?.to_vec())
             }
-            b'R' => {
+            FbxPropertyTag::RAW_BYTES => {
                 let len = reader.u32()? as usize;
                 Prop::Raw(reader.take(len)?.to_vec())
             }
-            other => bail!("unknown FBX property type {:?}", other as char),
+            other => bail!(
+                "unknown FBX property type {:?}",
+                other.diagnostic_character()
+            ),
         };
         props.push(prop);
     }
