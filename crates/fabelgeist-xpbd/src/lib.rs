@@ -27,8 +27,13 @@ pub mod particles;
 pub mod solver;
 pub mod wgsl;
 
-pub use coloring::{Coloring, color, color_fixed};
-pub use constraint::ConstraintSet;
+pub use coloring::{ColorCount, ColorRange, Coloring, ConstraintColor, ConstraintSlot};
+pub mod incidence;
+pub use constraint::{ConstraintCount, ConstraintIndex, ConstraintOccupancy, ConstraintSet};
+pub use incidence::{
+    ConstraintArity, ConstraintEdges, ConstraintIncidence, ConstraintLayoutError,
+    ConstraintParticleCount, ParticleIndex,
+};
 pub use particles::{
     ParticlePositionRecord, ParticlePositions, ParticleVelocities, ParticleVelocityRecord,
     Particles,

@@ -12,9 +12,12 @@ use anyhow::anyhow;
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 
-use crate::coloring::{self, Coloring};
+use crate::coloring::{ColorCount, Coloring};
+use crate::{ConstraintArity, ConstraintEdges, ConstraintIncidence};
+mod address;
 use crate::particles::Particles;
 use crate::wgsl;
+pub use address::{ConstraintCount, ConstraintIndex, ConstraintOccupancy};
 
 /// Extra per-constraint buffers a kernel wants, bound by name.
 ///
@@ -38,7 +41,7 @@ pub struct ConstraintSet {
     pub attachments: Attachments,
 
     coloring: Coloring,
-    arity: usize,
+    arity: ConstraintArity,
     /// The XPBD compliance: the inverse of stiffness, in metres per newton.
     /// Zero is infinitely stiff.
     pub compliance: f32,
@@ -50,7 +53,7 @@ impl ConstraintSet {
     /// Build from constraints in any order; they are coloured and reordered
     /// here.
     ///
-    /// `particles` is flat, `arity` indices per constraint. Every attachment
+    /// `incidence` contains complete particle-address records. Every attachment
     /// must have one value per constraint, in the same original order, and is
     /// permuted to match.
     pub fn new(
@@ -58,45 +61,16 @@ impl ConstraintSet {
         name: impl Into<String>,
         kernel: Arc<Kernel>,
         cache: &KernelCache,
-        particles: &[u32],
-        arity: usize,
+        incidence: &ConstraintIncidence,
         compliance: f32,
     ) -> Result<Self> {
-        if arity == 0 {
-            return Err(anyhow!("ConstraintSet: arity must be at least one"));
-        }
-        if !particles.len().is_multiple_of(arity) {
-            return Err(anyhow!(
-                "ConstraintSet: {} indices is not a whole number of arity-{arity} constraints",
-                particles.len()
-            ));
-        }
-
-        let coloring = coloring::color_fixed(particles, arity);
+        let coloring = Coloring::for_incidence(incidence);
         let count = coloring.constraint_count();
-
-        // Reorder the particle indices into colour order, so a colour is a
-        // contiguous dispatch.
-        let mut ordered = Vec::with_capacity(particles.len());
-        for &constraint in &coloring.order {
-            let start = constraint as usize * arity;
-            ordered.extend_from_slice(&particles[start..start + arity]);
-        }
-
+        let particle_buffer = incidence.upload_ordered(context, &coloring)?;
         let storage = BufferDefinition::storage();
-        // An empty set still gets one native slot; no dispatch visits it.
-        let particle_buffer = Buffer::from_upload(
-            context,
-            BufferUpload::from_elements(if ordered.is_empty() {
-                &[0u32]
-            } else {
-                &ordered[..]
-            }),
-            storage.clone().with_label("constraint particles".into()),
-        )?;
         let lambdas = Buffer::new(
             context,
-            ((count.max(1) as u64) * 4).into(),
+            count.lambda_bytes(),
             storage
                 .with_usage(BufferUse::CopySource)
                 .with_label(("constraint lambdas").into()),
@@ -110,7 +84,7 @@ impl ConstraintSet {
             lambdas,
             attachments: Vec::new(),
             coloring,
-            arity,
+            arity: incidence.arity(),
             compliance,
             enabled: true,
         })
@@ -121,20 +95,20 @@ impl ConstraintSet {
         context: &WgpuContext,
         cache: &KernelCache,
         name: impl Into<String>,
-        edges: &[[u32; 2]],
+        edges: &ConstraintEdges,
         rest_lengths: &[f32],
         compliance: f32,
     ) -> Result<Self> {
-        if edges.len() != rest_lengths.len() {
+        if edges.count() != ConstraintCount::from(rest_lengths.len()) {
             return Err(anyhow!(
                 "ConstraintSet::distance: {} edges but {} rest lengths",
-                edges.len(),
+                edges.count(),
                 rest_lengths.len()
             ));
         }
-        let flat: Vec<u32> = edges.iter().flat_map(|e| e.iter().copied()).collect();
+        let incidence = edges.incidence();
         let kernel = cache.get(context, &wgsl::constraint_kernel(wgsl::DISTANCE))?;
-        let mut set = Self::new(context, name, kernel, cache, &flat, 2, compliance)?;
+        let mut set = Self::new(context, name, kernel, cache, &incidence, compliance)?;
         let reordered = set.reorder(rest_lengths);
         set.attach(context, "rest_lengths", &reordered)?;
         Ok(set)
@@ -145,22 +119,24 @@ impl ConstraintSet {
         context: &WgpuContext,
         cache: &KernelCache,
         name: impl Into<String>,
-        edges: &[[u32; 2]],
+        edges: &ConstraintEdges,
         rest_lengths: &[f32],
         spring_params: &[[f32; 4]],
         compliance: f32,
     ) -> Result<Self> {
-        if edges.len() != rest_lengths.len() || edges.len() != spring_params.len() {
+        if edges.count() != ConstraintCount::from(rest_lengths.len())
+            || edges.count() != ConstraintCount::from(spring_params.len())
+        {
             return Err(anyhow!(
                 "ConstraintSet::spring: {} edges, {} rest lengths, {} spring params",
-                edges.len(),
+                edges.count(),
                 rest_lengths.len(),
                 spring_params.len()
             ));
         }
-        let flat: Vec<u32> = edges.iter().flat_map(|e| e.iter().copied()).collect();
+        let incidence = edges.incidence();
         let kernel = cache.get(context, &wgsl::constraint_kernel(wgsl::SPRING))?;
-        let mut set = Self::new(context, name, kernel, cache, &flat, 2, compliance)?;
+        let mut set = Self::new(context, name, kernel, cache, &incidence, compliance)?;
         let reordered_rest = set.reorder(rest_lengths);
         set.attach(context, "rest_lengths", &reordered_rest)?;
         let reordered_params = set.reorder(spring_params);
@@ -176,9 +152,9 @@ impl ConstraintSet {
     /// right and is completely wrong.
     pub fn reorder<T: Copy>(&self, values: &[T]) -> Vec<T> {
         self.coloring
-            .order
+            .order()
             .iter()
-            .map(|&index| values[index as usize])
+            .map(|&index| values[usize::from(index)])
             .collect()
     }
 
@@ -191,7 +167,7 @@ impl ConstraintSet {
         values: &[T],
     ) -> Result<()> {
         let name = name.into();
-        if values.len() != self.constraint_count() {
+        if ConstraintCount::from(values.len()) != self.constraint_count() {
             return Err(anyhow!(
                 "ConstraintSet `{}`: attachment `{name}` has {} values for {} constraints",
                 self.name,
@@ -223,7 +199,9 @@ impl ConstraintSet {
     ) -> Result<()> {
         let name = name.into();
         let count = self.constraint_count();
-        if count > 0 && !values.len().is_multiple_of(count) {
+        if count.occupancy() == ConstraintOccupancy::Populated
+            && !values.len().is_multiple_of(usize::from(count))
+        {
             return Err(anyhow!(
                 "ConstraintSet `{}`: attachment `{name}` has {} values, which is not a whole number per constraint ({count})",
                 self.name,
@@ -241,15 +219,15 @@ impl ConstraintSet {
         Ok(())
     }
 
-    pub fn constraint_count(&self) -> usize {
+    pub fn constraint_count(&self) -> ConstraintCount {
         self.coloring.constraint_count()
     }
 
-    pub fn color_count(&self) -> usize {
+    pub fn color_count(&self) -> ColorCount {
         self.coloring.color_count()
     }
 
-    pub fn arity(&self) -> usize {
+    pub fn arity(&self) -> ConstraintArity {
         self.arity
     }
 
@@ -261,16 +239,20 @@ impl ConstraintSet {
     /// compliance only means a real stiffness if `lambda` starts each substep
     /// at zero.
     pub fn record_clear(&self, batch: &mut KernelBatch) -> Result<()> {
-        if !self.enabled || self.constraint_count() == 0 {
+        if !self.enabled || self.constraint_count().occupancy() == ConstraintOccupancy::Empty {
             return Ok(());
         }
         let mut parameters = PassParameters::new();
         parameters.insert("lambdas", self.lambdas.clone());
-        parameters.insert("count", self.constraint_count() as u32);
+        parameters.insert("count", self.constraint_count().uniform());
         parameters.insert("pad0", 0u32);
         parameters.insert("pad1", 0u32);
         parameters.insert("pad2", 0u32);
-        batch.dispatch_items(&self.clear, &parameters, self.constraint_count() as u32)?;
+        batch.dispatch_items(
+            &self.clear,
+            &parameters,
+            self.constraint_count().dispatch_items(),
+        )?;
         Ok(())
     }
 
@@ -281,13 +263,12 @@ impl ConstraintSet {
         particles: &Particles,
         substep: f32,
     ) -> Result<()> {
-        if !self.enabled || self.constraint_count() == 0 {
+        if !self.enabled || self.constraint_count().occupancy() == ConstraintOccupancy::Empty {
             return Ok(());
         }
 
-        for color in 0..self.color_count() {
-            let (first, count) = self.coloring.color(color);
-            if count == 0 {
+        for range in self.coloring.colors() {
+            if range.count().occupancy() == ConstraintOccupancy::Empty {
                 continue;
             }
 
@@ -298,13 +279,15 @@ impl ConstraintSet {
             for (name, buffer) in &self.attachments {
                 parameters.insert(name.clone(), buffer.clone());
             }
-            parameters.insert("first", first);
-            parameters.insert("count", count);
+            range.bind(&mut parameters);
             parameters.insert("compliance", self.compliance);
             parameters.insert("substep", substep);
 
-            batch.dispatch_items(&self.kernel, &parameters, count)?;
+            batch.dispatch_items(&self.kernel, &parameters, range.dispatch_items())?;
         }
         Ok(())
     }
 }
+
+#[cfg(test)]
+mod tests;

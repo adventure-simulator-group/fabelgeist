@@ -6,7 +6,10 @@ use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
 use fabelgeist_physics::Collisions;
-use fabelgeist_xpbd::{ConstraintSet, Particles, Solver, SolverSettings, SubstepHook};
+use fabelgeist_xpbd::{
+    ConstraintEdges, ConstraintIncidence, ConstraintSet, Particles, Solver, SolverSettings,
+    SubstepHook,
+};
 
 use crate::ShellMaterial;
 use crate::ShellMesh;
@@ -78,7 +81,7 @@ impl Shell {
             context,
             cache,
             "stretch",
-            &mesh.edges,
+            &ConstraintEdges::from(mesh.edges.as_slice()),
             &mesh.rest_lengths,
             material.stretch_compliance,
         )?;
@@ -92,16 +95,14 @@ impl Shell {
             context,
             cache,
             "seams",
-            &mesh.seams,
+            &ConstraintEdges::from(mesh.seams.as_slice()),
             &seam_rest,
             material.seam_compliance,
         )?;
 
-        let bend_particles: Vec<u32> = mesh
-            .bends
-            .iter()
-            .flat_map(|bend| bend.particles())
-            .collect();
+        let bend_particles: Vec<[u32; 4]> =
+            mesh.bends.iter().map(|bend| bend.particles()).collect();
+        let bend_incidence = ConstraintIncidence::from_native_records(&bend_particles)?;
         let bend_kernel = cache.get(
             context,
             &fabelgeist_xpbd::wgsl::constraint_kernel(wgsl::BEND),
@@ -111,8 +112,7 @@ impl Shell {
             "bending",
             bend_kernel,
             cache,
-            &bend_particles,
-            4,
+            &bend_incidence,
             material.bend_compliance,
         )?;
         // The weights are per constraint and the set is stored in colour
