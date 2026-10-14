@@ -21,6 +21,11 @@ use flate2::read::ZlibDecoder;
 
 pub mod animation;
 
+mod array_layout;
+use array_layout::{FbxArrayCount, FbxArrayKind};
+#[cfg(test)]
+mod array_layout_tests;
+
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
 
 /// A typed FBX property value.
@@ -218,27 +223,30 @@ impl<'a> Reader<'a> {
 
 fn decode_array<T: Copy>(
     raw: &[u8],
-    count: usize,
+    count: FbxArrayCount,
     encoding: u32,
     parse: impl Fn(&[u8]) -> T,
-    width: usize,
+    kind: FbxArrayKind,
 ) -> Result<Vec<T>> {
     let bytes = if encoding == 0 {
         raw.to_vec()
     } else {
-        let mut out = Vec::with_capacity(count * width);
+        let mut out = Vec::with_capacity(count.native_byte_len(kind));
         ZlibDecoder::new(raw)
             .read_to_end(&mut out)
             .context("inflating FBX array property")?;
         out
     };
-    if bytes.len() < count * width {
+    if bytes.len() < count.native_byte_len(kind) {
         bail!(
-            "FBX array property is short: {} bytes for {count} x {width}",
-            bytes.len()
+            "FBX array property is short: {} bytes for {} x {}",
+            bytes.len(),
+            count.native_len(),
+            kind.native_width()
         );
     }
-    Ok((0..count)
+    let width = kind.native_width();
+    Ok((0..count.native_len())
         .map(|i| parse(&bytes[i * width..(i + 1) * width]))
         .collect())
 }
@@ -255,7 +263,7 @@ fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
             b'D' => Prop::F64(f64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
             b'L' => Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
             b'f' | b'd' | b'l' | b'i' | b'b' => {
-                let count = reader.u32()? as usize;
+                let count = FbxArrayCount::from(reader.u32()?);
                 let encoding = reader.u32()?;
                 let compressed_len = reader.u32()? as usize;
                 let raw = reader.take(compressed_len)?;
@@ -265,30 +273,36 @@ fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
                         count,
                         encoding,
                         |b| f32::from_le_bytes(b.try_into().unwrap()),
-                        4,
+                        FbxArrayKind::Float32,
                     )?),
                     b'd' => Prop::ArrF64(decode_array(
                         raw,
                         count,
                         encoding,
                         |b| f64::from_le_bytes(b.try_into().unwrap()),
-                        8,
+                        FbxArrayKind::Float64,
                     )?),
                     b'i' => Prop::ArrI32(decode_array(
                         raw,
                         count,
                         encoding,
                         |b| i32::from_le_bytes(b.try_into().unwrap()),
-                        4,
+                        FbxArrayKind::Integer32,
                     )?),
                     b'l' => Prop::ArrI64(decode_array(
                         raw,
                         count,
                         encoding,
                         |b| i64::from_le_bytes(b.try_into().unwrap()),
-                        8,
+                        FbxArrayKind::Integer64,
                     )?),
-                    _ => Prop::ArrBool(decode_array(raw, count, encoding, |b| b[0], 1)?),
+                    _ => Prop::ArrBool(decode_array(
+                        raw,
+                        count,
+                        encoding,
+                        |b| b[0],
+                        FbxArrayKind::Boolean,
+                    )?),
                 }
             }
             b'S' => {
