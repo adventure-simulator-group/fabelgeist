@@ -22,6 +22,7 @@ use bevy::shader::load_shader_library;
 use bevy_eidolon::{prelude::*, prepass::CullComputeCamera};
 use fabelgeist_botany::viewer::sim::Snapshot;
 
+pub use ground::GroundPart;
 pub use materials::{BranchMaterial, LeafMaterial};
 
 /// The snapshot to draw next, if a new one arrived.

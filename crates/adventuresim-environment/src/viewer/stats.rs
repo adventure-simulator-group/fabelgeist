@@ -1,30 +1,26 @@
-//! What the panel shows of the simulation, from its last snapshot.
+//! What the HUD shows of the simulation, from its last snapshot.
 
 use std::collections::VecDeque;
 
-use bevy_egui::egui::{self, Color32, Pos2, Sense, Shape, Stroke, Ui, Vec2};
-use fabelgeist_botany::Biome;
+use bevy_egui::egui::{Pos2, Rect, Sense, Shape, Stroke, Ui, Vec2};
 use fabelgeist_botany::viewer::sim::{Snapshot, SpeciesInfo};
+
+use crate::theme;
 
 /// Population samples the sparkline keeps.
 const HISTORY: usize = 240;
-/// The sparkline's height, logical pixels.
-const SPARKLINE_HEIGHT: f32 = 28.0;
-/// A species swatch's side, logical pixels.
-const SWATCH: f32 = 12.0;
 /// The sparkline's stroke width, logical pixels.
-const SPARKLINE_STROKE: f32 = 1.5;
+const SPARKLINE_STROKE: f32 = 2.0;
 
 #[derive(Default)]
 pub struct Stats {
     pub time: f32,
-    plants: usize,
-    modules: usize,
-    step_ms: f32,
-    branches: usize,
-    leaves: usize,
+    pub plants: usize,
+    pub modules: usize,
+    pub step_ms: f32,
+    pub branches: usize,
+    pub leaves: usize,
     species: Vec<SpeciesInfo>,
-    pub biome: Option<Biome>,
     /// Plants alive, one sample a simulated step.
     history: VecDeque<f32>,
 }
@@ -44,7 +40,6 @@ impl Stats {
         self.branches = snapshot.branches.len();
         self.leaves = snapshot.leaves.len();
         self.species = snapshot.species.clone();
-        self.biome = Some(snapshot.biome);
     }
 
     /// The species growing, the climbers after the plants.
@@ -57,39 +52,17 @@ impl Stats {
         self.history.clear();
     }
 
-    pub fn show(&self, ui: &mut Ui, frames_per_second: f32) {
-        ui.strong(format!("Year {:.0}", self.time));
-        ui.weak(format!("{} plants, {} modules", self.plants, self.modules));
-        ui.weak(format!(
-            "{} segments, {} leaf clusters",
-            self.branches, self.leaves
-        ));
-        ui.weak(format!(
-            "step {:.1} ms, {frames_per_second:.0} fps",
-            self.step_ms
-        ));
+    /// The population over time, in a `size` box.
+    pub fn sparkline(&self, ui: &mut Ui, size: Vec2) {
+        let (rect, _) = ui.allocate_exact_size(size, Sense::hover());
         if self.history.len() > 1 {
-            sparkline(ui, &self.history);
-        }
-        for species in &self.species {
-            ui.horizontal(|ui| {
-                let (rect, _) = ui.allocate_exact_size(Vec2::splat(SWATCH), Sense::hover());
-                let [r, g, b] = species.leaf;
-                ui.painter().circle_filled(
-                    rect.center(),
-                    SWATCH * 0.5,
-                    Color32::from(egui::Rgba::from_rgb(r, g, b)),
-                );
-                ui.label(format!("{}  {}", species.name, species.plants));
-            });
+            sparkline(ui, rect, &self.history);
         }
     }
 }
 
-/// The population over time, scaled to fill its row.
-fn sparkline(ui: &mut Ui, values: &VecDeque<f32>) {
-    let size = Vec2::new(ui.available_width(), SPARKLINE_HEIGHT);
-    let (rect, _) = ui.allocate_exact_size(size, Sense::hover());
+/// `values`, scaled to fill `rect`.
+fn sparkline(ui: &Ui, rect: Rect, values: &VecDeque<f32>) {
     let (low, high) = values
         .iter()
         .fold((f32::INFINITY, f32::NEG_INFINITY), |(low, high), &value| {
@@ -107,6 +80,6 @@ fn sparkline(ui: &mut Ui, values: &VecDeque<f32>) {
             )
         })
         .collect();
-    let stroke = Stroke::new(SPARKLINE_STROKE, ui.visuals().selection.bg_fill);
+    let stroke = Stroke::new(SPARKLINE_STROKE, theme::ACCENT);
     ui.painter().add(Shape::line(points, stroke));
 }

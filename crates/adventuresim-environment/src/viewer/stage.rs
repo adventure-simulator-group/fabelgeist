@@ -4,8 +4,6 @@ use bevy::light::CascadeShadowConfigBuilder;
 use bevy::prelude::*;
 use bevy_panorbit_camera::PanOrbitCamera;
 
-use crate::scene_controls::Lighting;
-
 /// The clear sky behind the scene, sRGB.
 pub const SKY: Color = Color::srgb(0.62, 0.74, 0.88);
 /// The sky's light from every direction, as Bevy's ambient brightness at its
@@ -30,6 +28,27 @@ const AIM: f32 = 0.3;
 /// The sun.
 #[derive(Component)]
 pub struct Sun;
+
+/// Where the sun stands, and whether it casts shadows.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Lighting {
+    /// Around the vertical, radians.
+    pub sun_azimuth: f32,
+    /// Above the horizon, radians.
+    pub sun_elevation: f32,
+    pub shadows: bool,
+}
+
+impl Default for Lighting {
+    /// The sun a scene starts with.
+    fn default() -> Self {
+        Self {
+            sun_azimuth: 0.9,
+            sun_elevation: 0.75,
+            shadows: true,
+        }
+    }
+}
 
 pub fn setup(mut commands: Commands) {
     let mut camera = PanOrbitCamera::default();

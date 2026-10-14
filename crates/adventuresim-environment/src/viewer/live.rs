@@ -1,5 +1,7 @@
 //! The live viewer: the simulation growing on its own thread, its snapshots
-//! drawn as they arrive, and the panel steering it.
+//! drawn as they arrive, and a game's HUD over them -- the year and the
+//! population, the time controls, a hotbar of tools, and a menu for the
+//! rest.
 
 use adventuresim_environment::render::{ForestDetail, ForestFeed};
 use bevy::prelude::*;
@@ -10,66 +12,63 @@ use fabelgeist_botany::viewer::profile::Profile;
 use fabelgeist_botany::viewer::sim::{Command, Simulation};
 
 use crate::frame_times::FrameTimes;
-use crate::profile_controls;
-use crate::scene_controls::{Request, START_SPEED, SceneControls};
-use crate::sowing::Sowing;
-use crate::stage::{self, Sun};
+use crate::menu::Menu;
+use crate::stage::{self, Lighting, Sun};
 use crate::stats::Stats;
+use crate::tools::Tool;
+use crate::world::{Request, World};
+use crate::{hotbar, hud, menu, pointer, profile_controls, theme};
 
-/// The panel's width, logical pixels.
-const PANEL_WIDTH: f32 = 320.0;
-/// A gap cut in the canopy, as a share of the scene's width, and at least
-/// this many metres across.
-const GAP_SHARE: f32 = 0.12;
+/// A gap cleared in the canopy, as a share of the scene's width, and at
+/// least this many metres across.
+const GAP_SHARE: f32 = 0.08;
 const GAP_MINIMUM: f32 = 4.0;
-/// A press that moves the pointer less than this is a click, not an orbit,
-/// logical pixels.
-const CLICK_SLACK: f32 = 5.0;
-
-#[derive(Clone, Copy, PartialEq, Eq)]
-enum Tab {
-    Scene,
-    Profile,
-}
 
 #[derive(Resource)]
 pub struct Viewer {
-    simulation: Simulation,
+    pub simulation: Simulation,
     /// The scene generation the camera was last framed for.
     framed: u64,
     /// The last snapshot's bounds: lower and upper corner.
     bounds: [[f32; 3]; 2],
-    stats: Stats,
-    controls: SceneControls,
-    profile: Profile,
-    tab: Tab,
-    sowing: Sowing,
-    frame_times: FrameTimes,
-    requests: Vec<Request>,
-    /// Where the left button went down, if it is down.
-    press: Option<Vec2>,
+    pub stats: Stats,
+    pub world: World,
+    pub lighting: Lighting,
+    /// Whether the foliage is drawn.
+    pub leaves: bool,
+    pub profile: Profile,
+    pub tool: Tool,
+    pub menu: Menu,
+    /// Whether the figures for developers show.
+    pub debug: bool,
+    pub frame_times: FrameTimes,
+    pub requests: Vec<Request>,
 }
 
 /// Run the live viewer on `scene`.
 pub fn install(app: &mut App, scene: Scene) {
     let profile = profile_controls::drawable(Profile::default());
     let simulation = Simulation::start(scene, profile);
-    simulation.send(Command::Speed(START_SPEED));
+    let world = World::new(scene);
+    simulation.send(Command::Speed(world.pace.years_per_second()));
     app.insert_resource(Viewer {
         simulation,
         framed: 0,
         bounds: [[0.0; 3]; 2],
         stats: Stats::default(),
-        controls: SceneControls::new(scene),
+        world,
+        lighting: Lighting::default(),
+        leaves: true,
         profile,
-        tab: Tab::Scene,
-        sowing: Sowing::default(),
+        tool: Tool::Look,
+        menu: Menu::default(),
+        debug: false,
         frame_times: FrameTimes::new(),
         requests: Vec::new(),
-        press: None,
     })
-    .add_systems(Update, (receive, shortcuts, sow, apply).chain())
-    .add_systems(EguiPrimaryContextPass, panel);
+    .add_systems(Update, (receive, apply).chain())
+    .add_systems(EguiPrimaryContextPass, interface);
+    pointer::install(app);
 }
 
 /// Draw the simulation's latest snapshot, framing a new scene.
@@ -93,91 +92,25 @@ fn receive(
     feed.show(snapshot);
 }
 
-fn shortcuts(
-    keys: Res<ButtonInput<KeyCode>>,
-    mut contexts: EguiContexts,
-    mut viewer: ResMut<Viewer>,
-) {
-    let typing = contexts
-        .ctx_mut()
-        .is_ok_and(|ctx| ctx.egui_wants_keyboard_input());
-    if typing {
-        return;
-    }
-    if keys.just_pressed(KeyCode::Space) {
-        let play = viewer.controls.toggle_play();
-        viewer.requests.push(Request::Send(play));
-    }
-    if keys.just_pressed(KeyCode::KeyG) {
-        viewer.requests.push(Request::CutGap);
-    }
-    if keys.just_pressed(KeyCode::KeyR) {
-        let scene = viewer.controls.scene;
-        viewer.requests.push(Request::Reset(scene));
-    }
-    if keys.just_pressed(KeyCode::KeyS) {
-        viewer.sowing.toggle();
-    }
-}
-
-/// With sowing on, a click on the scene throws a seed from the eye through
-/// the clicked pixel; a drag still orbits.
-fn sow(
-    buttons: Res<ButtonInput<MouseButton>>,
-    windows: Query<&Window>,
-    cameras: Query<(&Camera, &GlobalTransform)>,
-    mut contexts: EguiContexts,
-    mut viewer: ResMut<Viewer>,
-) {
-    let cursor = windows.iter().find_map(Window::cursor_position);
-    let over_panel = contexts
-        .ctx_mut()
-        .is_ok_and(|ctx| ctx.egui_wants_pointer_input() || ctx.is_pointer_over_egui());
-    if buttons.just_pressed(MouseButton::Left) {
-        viewer.press = cursor.filter(|_| !over_panel);
-    }
-    if !buttons.just_released(MouseButton::Left) {
-        return;
-    }
-    let (Some(pressed), Some(released)) = (viewer.press.take(), cursor) else {
-        return;
-    };
-    if !viewer.sowing.active() || pressed.distance(released) > CLICK_SLACK {
-        return;
-    }
-    let ray = cameras
-        .iter()
-        .find_map(|(camera, transform)| camera.viewport_to_world(transform, released).ok());
-    if let Some(ray) = ray {
-        let seed = viewer.sowing.throw(ray);
-        viewer.simulation.send(seed);
-    }
-}
-
-/// Carry out what the panel and the keys asked for, and keep the forest's
-/// detail and the sun in step with the panel.
+/// Carry out what the interface asked for, and keep the forest's detail and
+/// the sun in step with the settings.
 fn apply(
     mut viewer: ResMut<Viewer>,
     mut detail: ResMut<ForestDetail>,
-    cameras: Query<&PanOrbitCamera>,
     mut sun: Query<(&mut Transform, &mut DirectionalLight), With<Sun>>,
 ) {
-    let focus = cameras
-        .iter()
-        .next()
-        .map_or(Vec3::ZERO, |camera| camera.focus);
     let requests = std::mem::take(&mut viewer.requests);
     for request in requests {
-        viewer.handle(request, focus);
+        viewer.handle(request);
     }
     let wanted = ForestDetail {
         tube_sides: viewer.profile.tube_sides,
         tube_spans: viewer.profile.tube_spans,
         leaf_blades: viewer.profile.leaf_blades,
-        leaves: viewer.controls.leaves,
+        leaves: viewer.leaves,
     };
     detail.set_if_neq(wanted);
-    let lighting = viewer.controls.lighting;
+    let lighting = viewer.lighting;
     for (mut transform, mut light) in &mut sun {
         transform.set_if_neq(stage::sun_transform(lighting));
         if light.shadow_maps_enabled != lighting.shadows {
@@ -186,71 +119,84 @@ fn apply(
     }
 }
 
-impl Viewer {
-    fn handle(&mut self, request: Request, focus: Vec3) {
-        match request {
-            Request::Send(command) => self.simulation.send(command),
-            Request::Reset(scene) => {
-                self.controls.adopt_climate(scene);
-                self.stats.forget_history();
-                self.sowing.forget_species();
-                self.simulation.send(Command::Reset(scene));
-                self.simulation.send(Command::Play(self.controls.playing));
-                for command in self.controls.life() {
-                    self.simulation.send(command);
-                }
-            }
-            Request::CutGap => {
-                let [low, high] = self.bounds;
-                let size = (high[0] - low[0]).max(high[2] - low[2]);
-                self.simulation.send(Command::Gap {
-                    x: focus.x,
-                    z: focus.z,
-                    radius: (size * GAP_SHARE).max(GAP_MINIMUM),
-                });
-            }
+/// The HUD, the hotbar, the menu when it is open, and the keys.
+fn interface(
+    mut contexts: EguiContexts,
+    mut viewer: ResMut<Viewer>,
+    mut styled: Local<bool>,
+    mut exit: MessageWriter<AppExit>,
+) {
+    let Ok(ctx) = contexts.ctx_mut() else {
+        return;
+    };
+    if !*styled {
+        theme::apply(ctx);
+        *styled = true;
+    }
+    let viewer = &mut *viewer;
+    let menu_was_open = viewer.menu.open;
+    if menu_was_open && menu::show(ctx, viewer) {
+        exit.write(AppExit::Success);
+    }
+    hud::show(ctx, viewer);
+    hotbar::show(ctx, viewer);
+    if !menu_was_open {
+        keys(ctx, viewer);
+    }
+}
+
+/// Space plays and pauses, the digits pick a plant to sow, G clears, Esc
+/// puts the tool down or opens the menu, F3 shows the figures.
+fn keys(ctx: &egui::Context, viewer: &mut Viewer) {
+    if ctx.egui_wants_keyboard_input() {
+        return;
+    }
+    let pressed = |key| ctx.input(|input| input.key_pressed(key));
+    if pressed(egui::Key::Space) {
+        let play = viewer.world.toggle_play();
+        viewer.requests.push(Request::Send(play));
+    }
+    if pressed(egui::Key::G) {
+        viewer.tool = Tool::Clear;
+    }
+    if pressed(egui::Key::F3) {
+        viewer.debug = !viewer.debug;
+    }
+    if pressed(egui::Key::Escape) {
+        if viewer.tool == Tool::Look {
+            viewer.menu.open = true;
+        } else {
+            viewer.tool = Tool::Look;
+        }
+    }
+    let species = viewer.stats.species().len();
+    for (index, key) in hotbar::SPECIES_KEYS.into_iter().enumerate() {
+        if index < species && pressed(key) {
+            viewer.tool = Tool::Sow(index);
         }
     }
 }
 
-#[expect(
-    deprecated,
-    reason = "egui's replacement requires a parent Ui, but this is the top-level panel"
-)]
-fn panel(mut contexts: EguiContexts, mut viewer: ResMut<Viewer>) {
-    let Ok(ctx) = contexts.ctx_mut() else {
-        return;
-    };
-    let viewer = &mut *viewer;
-    egui::SidePanel::right("controls")
-        .exact_width(PANEL_WIDTH)
-        .resizable(false)
-        .show(ctx, |ui| {
-            ui.heading("Synthetic Silviculture");
-            ui.weak("Makowski et al. 2019, live");
-            ui.horizontal(|ui| {
-                ui.selectable_value(&mut viewer.tab, Tab::Scene, "Scene");
-                ui.selectable_value(&mut viewer.tab, Tab::Profile, "Profile");
-            });
-            ui.separator();
-            egui::ScrollArea::vertical().show(ui, |ui| match viewer.tab {
-                Tab::Scene => {
-                    viewer.sowing.show(ui, viewer.stats.species());
-                    viewer.controls.show(ui, &mut viewer.requests);
-                    ui.separator();
-                    viewer.stats.show(ui, viewer.frame_times.rate());
-                    ui.separator();
-                    ui.weak("Drag orbit, right-drag pan, wheel zoom");
-                    ui.weak("Space play/pause, G gap, R reset, S sow");
+impl Viewer {
+    fn handle(&mut self, request: Request) {
+        match request {
+            Request::Send(command) => self.simulation.send(command),
+            Request::Load(scene) => {
+                self.world.adopt_climate(scene);
+                self.stats.forget_history();
+                self.tool = Tool::Look;
+                self.simulation.send(Command::Reset(scene));
+                for command in self.world.start() {
+                    self.simulation.send(command);
                 }
-                Tab::Profile => {
-                    if profile_controls::show(ui, &mut viewer.profile) {
-                        let profile = profile_controls::drawable(viewer.profile);
-                        viewer
-                            .requests
-                            .push(Request::Send(Command::Profile(profile)));
-                    }
-                }
-            });
-        });
+            }
+        }
+    }
+
+    /// The radius of a gap cleared by hand, metres.
+    pub fn gap_radius(&self) -> f32 {
+        let [low, high] = self.bounds;
+        let size = (high[0] - low[0]).max(high[2] - low[2]);
+        (size * GAP_SHARE).max(GAP_MINIMUM)
+    }
 }

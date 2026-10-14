@@ -26,26 +26,38 @@ and does not grow fillets where branches meet or lay litter on the ground.
 ## Environment viewer
 
 The `environment-viewer` binary watches a scene grow. Botany's simulation
-thread and snapshots come from the `fabelgeist_botany::viewer`
-module; the Bevy app, its forest renderer and its egui panel live here,
-outside the botany crate.
+thread and snapshots come from the `fabelgeist_botany::viewer` module; the
+Bevy app, its forest renderer and its egui interface live here, outside the
+botany crate.
 
 ```powershell
 cargo run --release -p adventuresim-environment --features viewer --bin environment-viewer
 ```
 
-Drag to orbit, right-drag to pan and use the wheel to zoom. Space plays and
-pauses, G cuts a gap in the canopy where the camera looks, and R resets the
-scene. The **Scene** tab chooses the scene, speed, climate and lighting, and
-whether plants spread seed and whether they die; the **Profile** tab sets how
-the simulation steps and how finely tubes and blades are built.
+The interface is a game's HUD over the full window. The top-left card shows
+the scene, the year and the population with its curve. The top-right buttons
+pause (Space) or play at 5, 20 or 80 simulated years a second, or as fast as
+the simulation goes, and open the menu. Drag to orbit, right-drag to pan and
+use the wheel to zoom.
 
-**Sowing** plants by hand: pick a species (the climbers follow the plants),
-switch **Sow** on (or press S), and click the view. The seed is thrown from
-the eye through the clicked pixel and takes root where it lands, on open
-ground or at the foot of the wall it hits. *Castle, unplanted* is bare
-ground around the castle and village, its species and climbers ready to
-sow.
+The hotbar along the bottom holds the tool in hand:
+
+- **Look** (Esc) leaves the world alone; the mouse only moves the camera.
+- One slot for each species growing, the climbers after the plants, picked
+  with 1 to 9. A click then sows that species: the seed is thrown from the
+  eye through the clicked pixel and takes root where it lands, on open
+  ground or at the foot of the wall it hits. A ring in the species' colour
+  marks the ground under the pointer.
+- **Clear** (G) takes every plant out of the red ring under the pointer.
+
+A drag still turns the camera with any tool. Esc with **Look** in hand opens
+the menu, as does the menu button. **Scenes** starts any scene afresh;
+*Castle, unplanted* is bare ground round the castle and village, its species
+and climbers ready to sow. **World** sets the climate and whether plants
+spread seed, die and shade the plants under them, with the simulation's step
+under **Simulation**. **Display** moves the sun, switches shadows and foliage,
+and sets how finely branches and leaves are built. F3 shows frame rate,
+simulation step time and instance counts.
 
 `--snapshot <png>` grows a scene for `--years` without the simulation thread,
 shows it, and saves the window once:
