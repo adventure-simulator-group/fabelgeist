@@ -125,7 +125,7 @@ impl Shell {
         let self_collision = SelfCollision::new(
             context,
             cache,
-            mesh.positions.len() as u32,
+            particles.count(),
             &mesh.adjacency(),
             material.particle_radius(),
         )?;
@@ -134,7 +134,7 @@ impl Shell {
             outer_layer: None,
             host_contacts: HostContactSchedule::default(),
             surface_contacts: crate::surface_contact::SurfaceContacts::new(
-                mesh.positions.len(),
+                mesh.positions.len().into(),
                 mesh.triangles.clone(),
             )
             .with_seams(&mesh.seams),
@@ -160,7 +160,7 @@ impl Shell {
             .set_static_surface(positions, faces, clearance);
     }
 
-    pub fn particle_count(&self) -> u32 {
+    pub fn particle_count(&self) -> fabelgeist_xpbd::ParticleCount {
         self.particles.count()
     }
 

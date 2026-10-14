@@ -12,7 +12,11 @@ use std::sync::Arc;
 use anyhow::anyhow;
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
-use fabelgeist_xpbd::{Particles, SubstepHook};
+use fabelgeist_xpbd::{
+    ParticleCapacity, ParticleCount, ParticleInputCount, Particles, SubstepHook,
+};
+mod hash_layout;
+use hash_layout::CollisionTableSize;
 
 use crate::wgsl;
 
@@ -34,8 +38,8 @@ pub struct SelfCollision {
     neighbours: Buffer,
     scratch: SortScratch,
 
-    table_size: u32,
-    capacity: u32,
+    table_size: CollisionTableSize,
+    capacity: ParticleCapacity,
     /// Particles closer than twice this are pushed apart. Half the fabric
     /// thickness, so two layers rest one thickness apart.
     pub radius: f32,
@@ -55,22 +59,20 @@ impl SelfCollision {
     pub fn new(
         context: &WgpuContext,
         cache: &KernelCache,
-        particle_count: u32,
+        particle_count: ParticleCount,
         adjacency: &[Vec<u32>],
         radius: f32,
     ) -> Result<Self> {
-        if adjacency.len() as u32 != particle_count {
+        if ParticleInputCount::from(adjacency.len()).gpu_count() != particle_count {
             return Err(anyhow!(
                 "SelfCollision: {particle_count} particles but {} adjacency lists",
                 adjacency.len()
             ));
         }
-        let capacity = particle_count.max(1);
-        // Roughly two buckets per particle keeps the occupancy low enough that
-        // a bucket is a handful of entries, and the memory is trivial.
-        let table_size = (capacity * 2).next_power_of_two().max(64);
+        let capacity = ParticleCapacity::from(particle_count);
+        let table_size = CollisionTableSize::for_capacity(capacity);
 
-        let mut starts_data = Vec::with_capacity(capacity as usize + 1);
+        let mut starts_data = Vec::with_capacity(usize::from(capacity) + 1);
         let mut flat = Vec::new();
         for list in adjacency {
             starts_data.push(flat.len() as u32);
@@ -94,26 +96,26 @@ impl SelfCollision {
 
             cells: Buffer::new(
                 context,
-                (capacity as u64 * 4).into(),
+                capacity.index_bytes(),
                 storage.clone().with_label(("self-collision cells").into()),
             )?,
             indices: Buffer::new(
                 context,
-                (capacity as u64 * 4).into(),
+                capacity.index_bytes(),
                 storage
                     .clone()
                     .with_label(("self-collision indices").into()),
             )?,
             starts: Buffer::new(
                 context,
-                ((table_size as u64 + 1) * 4).into(),
+                table_size.starts_bytes(),
                 storage
                     .clone()
                     .with_label(("self-collision buckets").into()),
             )?,
             corrections: Buffer::new(
                 context,
-                (capacity as u64 * 16).into(),
+                (u64::from(u32::from(capacity)) * std::mem::size_of::<[f32; 4]>() as u64).into(),
                 storage
                     .clone()
                     .with_label(("self-collision corrections").into()),
@@ -130,7 +132,7 @@ impl SelfCollision {
                 BufferUpload::from_elements(&flat),
                 storage.with_label(("self-collision adjacency").into()),
             )?,
-            scratch: SortScratch::new(context, capacity)?,
+            scratch: SortScratch::new(context, u32::from(capacity))?,
 
             table_size,
             capacity,
@@ -142,8 +144,8 @@ impl SelfCollision {
     }
 
     /// Build the adjacency the constructor wants from a mesh's edges.
-    pub fn adjacency(particle_count: usize, edges: &[[u32; 2]]) -> Vec<Vec<u32>> {
-        let mut adjacency = vec![Vec::new(); particle_count];
+    pub fn adjacency(particle_count: ParticleInputCount, edges: &[[u32; 2]]) -> Vec<Vec<u32>> {
+        let mut adjacency = vec![Vec::new(); usize::from(particle_count)];
         for &[a, b] in edges {
             adjacency[a as usize].push(b);
             adjacency[b as usize].push(a);
@@ -173,10 +175,10 @@ impl SelfCollision {
             return Ok(());
         }
         let count = particles.count();
-        if count < 2 {
+        if count < ParticleCount::from(2) {
             return Ok(());
         }
-        if count > self.capacity {
+        if !self.capacity.contains(count) {
             return Err(anyhow!(
                 "SelfCollision: built for {} particles, given {count}",
                 self.capacity
@@ -203,7 +205,7 @@ impl SelfCollision {
         hash_parameters.insert("table_size", self.table_size);
         hash_parameters.insert("inverse_spacing", inverse_spacing);
         hash_parameters.insert("pad", 0u32);
-        batch.dispatch_items(&self.hash, &hash_parameters, count)?;
+        batch.dispatch_items(&self.hash, &hash_parameters, u32::from(count))?;
 
         // Sorting the indices by bucket is what makes a bucket contiguous.
         self.sort.record(
@@ -211,7 +213,7 @@ impl SelfCollision {
             &self.cells,
             &self.indices,
             &mut self.scratch,
-            count,
+            u32::from(count),
             32,
         )?;
 
@@ -221,7 +223,11 @@ impl SelfCollision {
         clear_parameters.insert("count", count);
         clear_parameters.insert("pad0", 0u32);
         clear_parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.clear_ranges, &clear_parameters, self.table_size + 1)?;
+        batch.dispatch_items(
+            &self.clear_ranges,
+            &clear_parameters,
+            u32::from(self.table_size) + 1,
+        )?;
 
         let mut range_parameters = PassParameters::new();
         range_parameters.insert("cells", self.cells.clone());
@@ -230,7 +236,7 @@ impl SelfCollision {
         range_parameters.insert("table_size", self.table_size);
         range_parameters.insert("pad0", 0u32);
         range_parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.cell_ranges, &range_parameters, count)?;
+        batch.dispatch_items(&self.cell_ranges, &range_parameters, u32::from(count))?;
 
         self.record_collide(batch, particles, inverse_spacing)
     }
@@ -255,7 +261,7 @@ impl SelfCollision {
         collide_parameters.insert("table_size", self.table_size);
         collide_parameters.insert("inverse_spacing", inverse_spacing);
         collide_parameters.insert("radius", self.radius);
-        batch.dispatch_items(&self.collide, &collide_parameters, count)?;
+        batch.dispatch_items(&self.collide, &collide_parameters, u32::from(count))?;
 
         let mut apply_parameters = PassParameters::new();
         apply_parameters.insert("positions", particles.positions.clone());
@@ -264,7 +270,7 @@ impl SelfCollision {
         apply_parameters.insert("pad0", 0u32);
         apply_parameters.insert("pad1", 0u32);
         apply_parameters.insert("pad2", 0u32);
-        batch.dispatch_items(&self.apply, &apply_parameters, count)?;
+        batch.dispatch_items(&self.apply, &apply_parameters, u32::from(count))?;
 
         Ok(())
     }
@@ -281,3 +287,6 @@ impl SubstepHook for SelfCollision {
         SelfCollision::record(self, batch, particles, true)
     }
 }
+
+#[cfg(test)]
+mod tests;

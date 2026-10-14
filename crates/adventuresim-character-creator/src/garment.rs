@@ -550,7 +550,7 @@ mod tests {
         let mut points = start.clone();
         let masses = vec![fabelgeist_shell::ParticleInverseMass::UNIT_MASS; start.len()];
         let contacts = fabelgeist_cloth::surface_contact::SurfaceContacts::new(
-            start.len(),
+            start.len().into(),
             build.mesh.triangles.clone(),
         )
         .with_seams(&build.mesh.seams);

@@ -30,8 +30,8 @@ pub mod wgsl;
 pub use coloring::{Coloring, color, color_fixed};
 pub use constraint::ConstraintSet;
 pub use particles::{
-    ParticlePositionRecord, ParticlePositions, ParticleVelocities, ParticleVelocityRecord,
-    Particles,
+    ParticleCapacity, ParticleCount, ParticleInputCount, ParticlePositionRecord, ParticlePositions,
+    ParticleVelocities, ParticleVelocityRecord, Particles,
 };
 pub use solver::{Solver, SolverSettings, SubstepHook};
 

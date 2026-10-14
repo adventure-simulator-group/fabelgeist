@@ -134,6 +134,6 @@ impl ShellMesh {
     pub fn adjacency(&self) -> Vec<Vec<u32>> {
         let mut edges = self.edges.clone();
         edges.extend_from_slice(&self.seams);
-        SelfCollision::adjacency(self.positions.len(), &edges)
+        SelfCollision::adjacency(self.positions.len().into(), &edges)
     }
 }
