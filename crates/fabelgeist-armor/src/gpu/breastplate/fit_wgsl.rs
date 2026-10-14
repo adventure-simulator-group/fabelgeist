@@ -1,7 +1,7 @@
 //! Local radial torso support, independent of global shape controls.
 
-/// Per-carrier-point lateral/depth section center and validity.
-pub(crate) const CENTER_WORDS: u32 = 4;
+/// Per-carrier-point section validity and neckline height.
+pub(crate) const SECTION_WORDS: u32 = 2;
 
 /// Main rows run waist to neck; appended skirt rows run waist to hem.
 /// Neighborhoods use physical hem-to-neck order, never storage adjacency.
@@ -23,7 +23,7 @@ fn reference_height(point: vec3<f32>) -> f32 {
     );
 }
 
-fn radial(point: vec3<f32>, center: vec3<f32>) -> vec4<f32> {
+fn radial(point: vec3<f32>) -> vec4<f32> {
     let p = local(point);
     let delta = vec3<f32>(host_sub(p.x, lateral_origin()), 0.0, host_sub(p.z, coronal_origin()));
     let radius = host_length(delta);
@@ -39,7 +39,7 @@ fn radial(point: vec3<f32>, center: vec3<f32>) -> vec4<f32> {
 pub(crate) const MEASURE: &str = r#"
 @group(0) @binding(0) var<storage, read> plate: array<f32>;
 @group(0) @binding(1) var<storage, read> positions: array<f32>;
-@group(0) @binding(2) var<storage, read> centers: array<f32>;
+@group(0) @binding(2) var<storage, read> sections: array<f32>;
 @group(0) @binding(3) var<storage, read> torso_faces: array<u32>;
 @group(0) @binding(4) var<storage, read> body_local: array<f32>;
 @group(0) @binding(5) var<storage, read_write> support_radii: array<f32>;
@@ -96,14 +96,13 @@ fn body_radius(origin: vec3<f32>, direction: vec3<f32>) -> f32 {
 fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     let i = id.x + params.extra;
     if (id.x >= params.count) { return; }
-    let center = vec3<f32>(centers[i * CENTER_WORDS], centers[i * CENTER_WORDS + 1u], centers[i * CENTER_WORDS + 2u]);
     let point = positions_at(i);
-    let state = radial(point, center);
+    let state = radial(point);
     // An unsupported ray retains the authored section as its required radius.
     // It participates in the same envelope as occupied rays: leaving it
     // unchanged after contracting its neighbours would introduce a sharp fold.
     support_radii[i] = state.z;
-    if (center.z == 0.0 || state.z == 0.0) { return; }
+    if (sections[i * SECTION_WORDS] == 0.0 || state.z == 0.0) { return; }
     let rear = params.rear != 0u;
     if ((rear && state.y >= 0.0) || (!rear && state.y <= 0.0)) { return; }
     let extent = body_radius(vec3<f32>(lateral_origin(), local(point).y, coronal_origin()), vec3<f32>(state.x, 0.0, state.y));
@@ -122,7 +121,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
         relief = host_add(relief, skirt_radial_relief(rear, u, t, state.xy));
     }
     let support = host_add(host_add(extent, max(plate_clearance(rear), FIT_SURFACE_MARGIN)), relief);
-    if (point.y <= centers[i * CENTER_WORDS + 3u] &&
+    if (point.y <= sections[i * SECTION_WORDS + 1u] &&
         host_sub(support, state.z) > host_mul(MAX_FIT_CORRECTION, z_scale())) { fail(STATUS_INVALID_SURFACE); }
     support_radii[i] = support;
 }
@@ -156,7 +155,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
 pub(crate) const APPLY: &str = r#"
 @group(0) @binding(0) var<storage, read> plate: array<f32>;
 @group(0) @binding(1) var<storage, read_write> positions: array<f32>;
-@group(0) @binding(2) var<storage, read> centers: array<f32>;
+@group(0) @binding(2) var<storage, read> sections: array<f32>;
 @group(0) @binding(3) var<storage, read> envelope: array<f32>;
 @group(0) @binding(4) var<storage, read> support_radii: array<f32>;
 @group(0) @binding(5) var<storage, read_write> status: array<atomic<u32>>;
@@ -166,9 +165,8 @@ pub(crate) const APPLY: &str = r#"
 fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     let i = id.x;
     if (i >= params.count || support_radii[i] == 0.0) { return; }
-    let center = vec3<f32>(centers[i * CENTER_WORDS], centers[i * CENTER_WORDS + 1u], centers[i * CENTER_WORDS + 2u]);
     let point = positions_at(i);
-    let state = radial(point, center);
+    let state = radial(point);
     let row = i / params.width; let column = i % params.width;
     let rows = params.count / params.width;
     var sum = 0.0;
@@ -182,7 +180,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     var radius = host_div(sum, 9.0);
     if (params.radial_fit == 1u) { radius = max(radius, state.z); }
     let correction = host_sub(radius, state.z);
-    if (point.y <= centers[i * CENTER_WORDS + 3u] &&
+    if (point.y <= sections[i * SECTION_WORDS + 1u] &&
         correction > host_mul(MAX_FIT_CORRECTION, z_scale())) { fail(STATUS_INVALID_SURFACE); }
     positions_set(i, world(host_add3(local(point), host_scale3(vec3<f32>(state.x, 0.0, state.y), correction))));
 }
@@ -228,7 +226,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     let i = id.x + params.extra;
     // This neckline sample is discarded by the independent arm trim.
     if (arm_distances[i] > 0.0) { return; }
-    if (support_radii[i] > radial(positions_at(i), vec3<f32>(0.0)).z + 0.00001) {
+    if (support_radii[i] > radial(positions_at(i)).z + 0.00001) {
         fail(STATUS_INVALID_SURFACE);
     }
 }
