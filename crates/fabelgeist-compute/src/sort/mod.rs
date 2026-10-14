@@ -24,7 +24,13 @@
 //! are an optional wgpu feature and this is nowhere near the bottleneck for
 //! the tens of thousands of elements a cloth solve sorts.
 
+mod quantities;
+
 use crate::prelude::*;
+pub use quantities::{
+    ScratchGrowth, SortDigit, SortDigits, SortItemCount, SortKeyWidth, SortPassCount,
+};
+use quantities::{SortCopyBack, SortWork};
 use std::sync::Arc;
 
 /// Elements per tile, and threads per workgroup. One element per thread.
@@ -201,45 +207,49 @@ pub struct SortScratch {
     pub keys: Buffer,
     pub values: Buffer,
     pub histogram: Buffer,
-    capacity: u32,
+    capacity: SortItemCount,
 }
 
 impl SortScratch {
-    pub fn new(context: &WgpuContext, capacity: u32) -> Result<Self> {
-        let capacity = capacity.max(1);
-        let tiles = capacity.div_ceil(TILE);
+    pub fn new(context: &WgpuContext, capacity: SortItemCount) -> Result<Self> {
+        let capacity = capacity.with_sentinel();
+        let tiles = capacity.tiles();
         let storage = BufferDefinition::storage();
         Ok(Self {
             keys: Buffer::new(
                 context,
-                ((capacity as u64) * 4).into(),
+                capacity.word_bytes(),
                 storage.clone().with_label(("sort keys").into()),
             )?,
             values: Buffer::new(
                 context,
-                ((capacity as u64) * 4).into(),
+                capacity.word_bytes(),
                 storage.clone().with_label(("sort values").into()),
             )?,
             histogram: Buffer::new(
                 context,
-                ((RADIX as u64) * (tiles as u64) * 4).into(),
+                tiles.histogram_bytes(),
                 storage.with_label(("sort histogram").into()),
             )?,
             capacity,
         })
     }
 
-    pub fn capacity(&self) -> u32 {
+    pub fn capacity(&self) -> SortItemCount {
         self.capacity
     }
 
-    /// Reallocate if `capacity` no longer fits. Returns whether it grew.
-    pub fn ensure(&mut self, context: &WgpuContext, capacity: u32) -> Result<bool> {
+    /// Reallocate if `capacity` no longer fits. Returns the resulting growth state.
+    pub fn ensure(
+        &mut self,
+        context: &WgpuContext,
+        capacity: SortItemCount,
+    ) -> Result<ScratchGrowth> {
         if capacity <= self.capacity {
-            return Ok(false);
+            return Ok(ScratchGrowth::Unchanged);
         }
         *self = Self::new(context, capacity)?;
-        Ok(true)
+        Ok(ScratchGrowth::Grown)
     }
 }
 
@@ -264,11 +274,6 @@ impl RadixSort {
         })
     }
 
-    /// Number of passes a key of `bits` significant bits needs.
-    pub fn passes_for(bits: u32) -> u32 {
-        bits.clamp(1, 32).div_ceil(BITS_PER_PASS)
-    }
-
     /// Record a sort of `keys`/`values` in place, ascending by key.
     ///
     /// `bits` is how many low bits of the key actually vary -- 30 for a Morton
@@ -284,10 +289,10 @@ impl RadixSort {
         keys: &Buffer,
         values: &Buffer,
         scratch: &mut SortScratch,
-        count: u32,
-        bits: u32,
+        count: SortItemCount,
+        bits: SortKeyWidth,
     ) -> Result<()> {
-        if count <= 1 {
+        if count.work() == SortWork::NoOp {
             return Ok(());
         }
         if scratch.capacity < count {
@@ -296,8 +301,8 @@ impl RadixSort {
                 scratch.capacity
             ));
         }
-        let needed = (count as u64) * 4;
-        if u64::from(keys.size) < needed || u64::from(values.size) < needed {
+        let needed = count.word_bytes();
+        if keys.size < needed || values.size < needed {
             return Err(anyhow!(
                 "RadixSort: {count} elements need {needed} bytes; keys hold {}, values hold {}",
                 u64::from(keys.size),
@@ -305,27 +310,29 @@ impl RadixSort {
             ));
         }
 
-        let tiles = count.div_ceil(TILE);
-        let passes = Self::passes_for(bits);
+        let tiles = count.tiles();
+        let passes = bits.pass_count();
 
         let mut source_keys = keys.clone();
         let mut source_values = values.clone();
         let mut target_keys = scratch.keys.clone();
         let mut target_values = scratch.values.clone();
 
-        for pass in 0..passes {
-            let shift = pass * BITS_PER_PASS;
-
+        for digit in bits.digits() {
             let mut parameters = PassParameters::new();
-            parameters.insert("count", count);
-            parameters.insert("shift", shift);
-            parameters.insert("tiles", tiles);
+            count.bind(&mut parameters);
+            digit.bind(&mut parameters);
+            tiles.bind(&mut parameters);
             parameters.insert("pad", 0u32);
             parameters.insert("histogram", scratch.histogram.clone());
 
             let mut histogram_parameters = parameters.clone();
             histogram_parameters.insert("keys", source_keys.clone());
-            batch.dispatch(&self.histogram, &histogram_parameters, [tiles, 1, 1])?;
+            batch.dispatch(
+                &self.histogram,
+                &histogram_parameters,
+                <[u32; 3]>::from(tiles),
+            )?;
 
             batch.dispatch(&self.scan, &parameters, [1, 1, 1])?;
 
@@ -334,15 +341,15 @@ impl RadixSort {
             scatter_parameters.insert("values_in", source_values.clone());
             scatter_parameters.insert("keys_out", target_keys.clone());
             scatter_parameters.insert("values_out", target_values.clone());
-            batch.dispatch(&self.scatter, &scatter_parameters, [tiles, 1, 1])?;
+            batch.dispatch(&self.scatter, &scatter_parameters, <[u32; 3]>::from(tiles))?;
 
             std::mem::swap(&mut source_keys, &mut target_keys);
             std::mem::swap(&mut source_values, &mut target_values);
         }
 
-        if passes % 2 == 1 {
-            batch.copy_buffer(&source_keys, keys, needed)?;
-            batch.copy_buffer(&source_values, values, needed)?;
+        if passes.copy_back() == SortCopyBack::Required {
+            batch.copy_buffer(&source_keys, keys, u64::from(needed))?;
+            batch.copy_buffer(&source_values, values, u64::from(needed))?;
         }
 
         Ok(())
@@ -356,8 +363,8 @@ impl RadixSort {
         keys: &Buffer,
         values: &Buffer,
         scratch: &mut SortScratch,
-        count: u32,
-        bits: u32,
+        count: SortItemCount,
+        bits: SortKeyWidth,
     ) -> Result<()> {
         let mut batch = KernelBatch::labelled(context, "RadixSort");
         self.record(&mut batch, keys, values, scratch, count, bits)?;
@@ -368,3 +375,6 @@ impl RadixSort {
 
 #[cfg(test)]
 mod tests;
+
+#[cfg(test)]
+mod contract_tests;

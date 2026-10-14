@@ -33,15 +33,15 @@ async fn sorted(keys: &[u32], bits: u32) -> Result<(Vec<u32>, Vec<u32>)> {
     )?;
     let value_buffer =
         Buffer::from_upload(&context, BufferUpload::from_elements(&values), definition)?;
-    let mut scratch = SortScratch::new(&context, count)?;
+    let mut scratch = SortScratch::new(&context, count.into())?;
 
     sort.run(
         &context,
         &key_buffer,
         &value_buffer,
         &mut scratch,
-        count,
-        bits,
+        count.into(),
+        bits.into(),
     )?;
 
     Ok((
@@ -145,9 +145,16 @@ async fn accepts_degenerate_counts() -> Result<()> {
         BufferUpload::from_elements(&[0u32; 4]),
         definition,
     )?;
-    let mut scratch = SortScratch::new(&context, 4)?;
+    let mut scratch = SortScratch::new(&context, 4.into())?;
     let mut batch = KernelBatch::new(&context);
-    sort.record(&mut batch, &buffer, &buffer, &mut scratch, 0, 32)?;
+    sort.record(
+        &mut batch,
+        &buffer,
+        &buffer,
+        &mut scratch,
+        0.into(),
+        32.into(),
+    )?;
     assert_eq!(
         batch.dispatch_count(),
         0,
@@ -169,7 +176,7 @@ async fn rejects_a_scratch_that_is_too_small() -> Result<()> {
     )?;
     let value_buffer =
         Buffer::from_upload(&context, BufferUpload::from_elements(&data), definition)?;
-    let mut scratch = SortScratch::new(&context, 100)?;
+    let mut scratch = SortScratch::new(&context, 100.into())?;
 
     let mut batch = KernelBatch::new(&context);
     let result = sort.record(
@@ -177,8 +184,8 @@ async fn rejects_a_scratch_that_is_too_small() -> Result<()> {
         &key_buffer,
         &value_buffer,
         &mut scratch,
-        1000,
-        32,
+        1000.into(),
+        32.into(),
     );
     assert!(
         result.is_err(),
@@ -189,10 +196,10 @@ async fn rejects_a_scratch_that_is_too_small() -> Result<()> {
 
 #[test]
 fn pass_count_rounds_up_to_whole_digits() {
-    assert_eq!(RadixSort::passes_for(1), 1);
-    assert_eq!(RadixSort::passes_for(8), 1);
-    assert_eq!(RadixSort::passes_for(9), 2);
-    assert_eq!(RadixSort::passes_for(16), 2);
-    assert_eq!(RadixSort::passes_for(30), 4);
-    assert_eq!(RadixSort::passes_for(32), 4);
+    assert_eq!(SortKeyWidth::from(1).digits().count(), 1);
+    assert_eq!(SortKeyWidth::from(8).digits().count(), 1);
+    assert_eq!(SortKeyWidth::from(9).digits().count(), 2);
+    assert_eq!(SortKeyWidth::from(16).digits().count(), 2);
+    assert_eq!(SortKeyWidth::from(30).digits().count(), 4);
+    assert_eq!(SortKeyWidth::from(32).digits().count(), 4);
 }
