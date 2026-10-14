@@ -7,7 +7,7 @@ exports.run = async (page, output, ready, profiler) => {
   const results = [];
   await page.evaluate(() => window.strategicGenerationCacheSettled?.scene);
   for (const settlement of ["travel-destination", ...(process.env.STRATEGIC_TRAVEL_SECOND_INPUT ? ["travel-second"] : []), "scene-review"]) {
-    const destination = `/locations/settlement/${settlement}/places/inn`;
+    const destination = `/locations/settlement/${settlement}/places/${process.env.STRATEGIC_TRAVEL_PLACE || "inn"}`;
     await profiler?.start();
     const started = performance.now();
     await page.evaluate(href => {
@@ -45,7 +45,8 @@ exports.run = async (page, output, ready, profiler) => {
       ...await page.evaluate(() => { window.travelReadiness.active = false; return ({ generation: window.strategicGenerationMetrics?.scene,
         readiness: window.travelReadiness.states,
         navigation: window.strategicRendererMetrics.navigations.at(-1),
-        state: window.strategicRendererMetrics.state }); }) });
+        state: window.strategicRendererMetrics.state,
+        map: window.strategicRendererMetrics.mapState }); }) });
     fs.writeFileSync(path.join(output, "travel.json"), JSON.stringify(results, null, 2));
     await page.screenshot({ path: path.join(output, `travel-${settlement}.png`) });
     await page.evaluate(() => window.strategicGenerationCacheSettled?.scene);
