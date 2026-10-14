@@ -114,16 +114,13 @@ fn draw_snapshot(
     forest: Res<materials::ForestMaterials>,
     mut stores: materials::ForestStores,
     mut ground: ground::GroundAssets,
-    old: Query<Entity, With<chunks::ForestChunk>>,
+    mut shown: chunks::Shown,
 ) {
     let Some(snapshot) = feed.pending.take() else {
         return;
     };
     forest.store(&snapshot, &mut stores);
-    for entity in &old {
-        commands.entity(entity).despawn();
-    }
-    chunks::spawn(&mut commands, &forest, &snapshot);
+    chunks::show(&mut commands, &forest, &snapshot, &mut shown);
     ground.show(&mut commands, &snapshot);
 }
 
@@ -132,7 +129,7 @@ fn show_leaves(
     mut chunks: Query<(&chunks::ForestChunk, &mut Visibility)>,
 ) {
     for (chunk, mut visibility) in &mut chunks {
-        let wanted = if chunk.foliage && !detail.leaves {
+        let wanted = if chunk.foliage() && !detail.leaves {
             Visibility::Hidden
         } else {
             Visibility::Inherited

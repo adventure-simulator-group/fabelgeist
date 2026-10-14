@@ -21,10 +21,31 @@ const FAR: f32 = 100_000.0;
 /// palm frond is four long.
 const CLUSTER_REACH: f32 = 4.0;
 
-/// One chunk's draw, of branches or of foliage.
+/// One chunk's draw, of branches or of foliage. A chunk lives as long as
+/// its cell holds instances: a new snapshot replaces its instances in place,
+/// since the instancer skips a draw on the frame its entity appears.
 #[derive(Component)]
 pub(super) struct ForestChunk {
-    pub(super) foliage: bool,
+    key: ChunkKey,
+}
+
+impl ForestChunk {
+    pub(super) fn foliage(&self) -> bool {
+        self.key.foliage
+    }
+}
+
+/// A chunk's cell of ground, and whether it holds foliage or branches.
+#[derive(Clone, Copy, PartialEq, Eq, Hash)]
+struct ChunkKey {
+    cell: IVec2,
+    foliage: bool,
+}
+
+/// A chunk's instances and the box around them.
+struct Gathered {
+    instances: Vec<InstanceData>,
+    aabb: Aabb,
 }
 
 /// An instance's bounding sphere and its index in the snapshot.
@@ -54,53 +75,77 @@ impl Placed {
     }
 }
 
-/// Spawn a snapshot's branch and foliage chunks.
-pub(super) fn spawn(commands: &mut Commands, forest: &ForestMaterials, snapshot: &Snapshot) {
+/// The chunks drawn now.
+pub(super) type Shown<'w, 's> = Query<
+    'w,
+    's,
+    (
+        Entity,
+        &'static ForestChunk,
+        &'static mut InstanceMaterialData,
+        &'static mut Aabb,
+    ),
+>;
+
+/// Show a snapshot's branch and foliage chunks: refill the chunks still
+/// holding instances, drop the emptied ones and spawn the new ones.
+pub(super) fn show(
+    commands: &mut Commands,
+    forest: &ForestMaterials,
+    snapshot: &Snapshot,
+    shown: &mut Shown,
+) {
     let branches = snapshot
         .branches
         .iter()
         .enumerate()
         .map(|(index, branch)| Placed::branch(index, branch));
-    for (instances, aabb) in gather(branches) {
-        commands.spawn((
-            chunk(instances, aabb, false),
-            Mesh3d(forest.branch_mesh.clone()),
-            InstancedMeshMaterial(forest.branches.clone()),
-        ));
-    }
     let leaves = snapshot
         .leaves
         .iter()
         .enumerate()
         .map(|(index, leaf)| Placed::leaf(index, leaf));
-    for (instances, aabb) in gather(leaves) {
-        commands.spawn((
-            chunk(instances, aabb, true),
-            Mesh3d(forest.leaf_mesh.clone()),
-            InstancedMeshMaterial(forest.leaves.clone()),
+    let mut chunks = gather(branches, false);
+    chunks.extend(gather(leaves, true));
+    for (entity, chunk, mut data, mut aabb) in shown.iter_mut() {
+        let Some(gathered) = chunks.remove(&chunk.key) else {
+            commands.entity(entity).despawn();
+            continue;
+        };
+        data.instances = Arc::new(gathered.instances);
+        *aabb = gathered.aabb;
+    }
+    for (key, gathered) in chunks {
+        let mut chunk = commands.spawn((
+            ForestChunk { key },
+            InstanceMaterialData {
+                instances: Arc::new(gathered.instances),
+                color: LinearRgba::WHITE,
+                visibility_range: Vec4::new(0.0, 0.0, FAR, FAR),
+            },
+            gathered.aabb,
+            // Culling belongs to the GPU: CPU frustum culling would free the
+            // retained instance buffers.
+            NoFrustumCulling,
+            Transform::default(),
+            Visibility::Inherited,
         ));
+        if key.foliage {
+            chunk.insert((
+                Mesh3d(forest.leaf_mesh.clone()),
+                InstancedMeshMaterial(forest.leaves.clone()),
+            ));
+        } else {
+            chunk.insert((
+                Mesh3d(forest.branch_mesh.clone()),
+                InstancedMeshMaterial(forest.branches.clone()),
+            ));
+        }
     }
 }
 
-fn chunk(instances: Vec<InstanceData>, aabb: Aabb, foliage: bool) -> impl Bundle {
-    (
-        ForestChunk { foliage },
-        InstanceMaterialData {
-            instances: Arc::new(instances),
-            color: LinearRgba::WHITE,
-            visibility_range: Vec4::new(0.0, 0.0, FAR, FAR),
-        },
-        aabb,
-        // Culling belongs to the GPU: CPU frustum culling would free the
-        // retained instance buffers.
-        NoFrustumCulling,
-        Transform::default(),
-        Visibility::Inherited,
-    )
-}
-
 /// The instances by chunk, each chunk with the box around them.
-fn gather(placed: impl Iterator<Item = Placed>) -> Vec<(Vec<InstanceData>, Aabb)> {
+fn gather(placed: impl Iterator<Item = Placed>, foliage: bool) -> HashMap<ChunkKey, Gathered> {
     let mut chunks: HashMap<IVec2, (Vec<InstanceData>, Vec3, Vec3)> = HashMap::new();
     for item in placed {
         let cell = (item.center.xz() / CHUNK).floor().as_ivec2();
@@ -118,7 +163,10 @@ fn gather(placed: impl Iterator<Item = Placed>) -> Vec<(Vec<InstanceData>, Aabb)
         });
     }
     chunks
-        .into_values()
-        .map(|(instances, low, high)| (instances, Aabb::from_min_max(low, high)))
+        .into_iter()
+        .map(|(cell, (instances, low, high))| {
+            let aabb = Aabb::from_min_max(low, high);
+            (ChunkKey { cell, foliage }, Gathered { instances, aabb })
+        })
         .collect()
 }
