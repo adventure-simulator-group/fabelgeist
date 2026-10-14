@@ -7,10 +7,10 @@
 //! ```no_run
 //! # fn main() -> anyhow::Result<()> {
 //! use burn::tensor::Device;
-//! use fabelgeist_numpy_storage::Npz;
+//! use fabelgeist_numpy_storage::{Npz, NpzArrayName};
 //!
 //! let archive = Npz::open("weights.npz")?;
-//! let weights = archive.array("layer0")?.to_tensor::<2>(&Device::default())?;
+//! let weights = archive.array(&NpzArrayName::new("layer0"))?.to_tensor::<2>(&Device::default())?;
 //! # let _ = weights;
 //! # Ok(())
 //! # }
@@ -21,8 +21,8 @@ pub mod npz;
 pub mod zip;
 
 pub use npy::{Dtype, NpyArray};
-pub use npz::Npz;
-pub use zip::ZipArchive;
+pub use npz::{Npz, NpzArrayName};
+pub use zip::{ArchiveMemberName, ArchiveMemberPresence, ZipArchive};
 
 /// Reads a standalone `.npy` file.
 pub use npy::read as read_npy;
