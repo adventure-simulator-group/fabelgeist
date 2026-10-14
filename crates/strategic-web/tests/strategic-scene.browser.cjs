@@ -5,6 +5,7 @@ const http = require("node:http");
 const test = require("node:test");
 const { chromium } = require("playwright");
 const startupFixtures = require("./startup-fixtures.cjs");
+const { withDeadline } = require("./startup-deadline.cjs");
 
 const root = path.resolve(__dirname, "../../..");
 const reviewRoot = path.resolve(root, process.env.STRATEGIC_SCENE_REVIEW_DIR || "target/strategic-scene-review");
@@ -16,13 +17,13 @@ const services = ["public-square", "residences", "keep", "merchants", "weapons",
 const town = "/locations/settlement/scene-review";
 const personId = (place, offset = 0, settlement = "scene-review") => String(
   100 + services.indexOf(place) * peoplePerPlace + offset
-  + (settlement === "travel-destination" ? 10_000 : settlement === "travel-second" ? 20_000 : 0));
+  + (settlement === "travel-destination" ? 10_000 : 0));
 const styles = ["base", "reset", "layout", "components", "strategic", "architecture", "utilities", "workspace", "portraits", "chat-dock", "readability", "strategic-scene"];
 const mapInput={origin:{latitude:50_500_000,longitude:10_500_000},span:60000,selected:null,
   overlay:{source:"a".repeat(64),markers:[],route:null}};
 const mapFixture='<section id="map-fixture" class="strategic-map" data-regional-map tabindex="0" role="region" aria-label="Fixture map">'+
   '<script type="application/json" data-regional-map-input>'+JSON.stringify(mapInput)+'</script>'+
-  '<div class="strategic-map-window" data-map-window></div><p data-map-status data-map-foreground>Loading map…</p>'+
+  '<div class="strategic-map-window" data-map-window></div><p data-map-status data-map-foreground>Loading mapÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¦</p>'+
   '<button data-map-action="retry" data-map-foreground hidden>Retry terrain</button></section>';
 
 function fixture(url) {
@@ -69,11 +70,7 @@ async function serve() {
       if (process.env.STRATEGIC_STARTUP_FIXTURE_DIR) {
         response.end(startupFixtures.load(destination).actor); return;
       }
-      let input = fs.readFileSync(path.resolve(root, sceneFixture), "utf8");
-      const distinct = destination === "travel-destination" ? process.env.STRATEGIC_TRAVEL_SCENE_INPUT
-        : destination === "travel-second" ? process.env.STRATEGIC_TRAVEL_SECOND_INPUT : null;
-      if (distinct) input = fs.readFileSync(path.resolve(root, distinct), "utf8");
-      response.end(input); return;
+      response.end(fs.readFileSync(path.resolve(root, sceneFixture), "utf8")); return;
     }
     if (url.pathname === "/api/scene-equipment") {
       response.setHeader("Content-Type", "application/json");
@@ -106,7 +103,7 @@ async function serve() {
     if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client.js") {
       response.setHeader("Content-Type", "text/javascript");
       const street = {height: 30, width: services.length * 20, bays: services.map((id, index) => ({id, width: index % 2 ? 18 : 24}))};
-      response.end(`export default async function(){}; export function wasm_begin_generation(){return JSON.stringify({owner:"scene",sequence:1});} export function wasm_finish_generation(){} export function wasm_cancel_generation(){} export function wasm_generation_jobs(){return "[]";} export function wasm_venue_jobs(){return "[]";} export function wasm_landscape_jobs(){return "[]";} export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})} export function wasm_regional_map_status(){const commands=(window.commands||[]).filter(c=>c.type==="regional-map").map(c=>c.command);const open=commands.filter(c=>c.type==="open").at(-1);const overlay=commands.filter(c=>c.type==="install-overlay").at(-1);return JSON.stringify({source:open?.source,home:open?.origin,rect:commands.filter(c=>c.type==="open"||c.type==="resize").at(-1)?.rect,requested:open?{origin:open.origin,scale:"region"}:null,presented:commands.filter(c=>c.type==="install-environment").at(-1)?.environment.terrain.request,overlay_revision:overlay?.revision,presentation_ready:true,ready:true,covered:false,markers:[]});}`); return;
+      response.end(`export default async function(){}; export function wasm_begin_generation(){return JSON.stringify({owner:"scene",sequence:1});} export function wasm_finish_generation(){} export function wasm_cancel_generation(){} export function wasm_generation_jobs(){return "[]";} export function wasm_venue_jobs(){return "[]";} export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})} export function wasm_regional_map_status(){const commands=(window.commands||[]).filter(c=>c.type==="regional-map").map(c=>c.command);const open=commands.filter(c=>c.type==="open").at(-1);const overlay=commands.filter(c=>c.type==="install-overlay").at(-1);return JSON.stringify({source:open?.source,home:open?.origin,rect:commands.filter(c=>c.type==="open"||c.type==="resize").at(-1)?.rect,requested:open?{origin:open.origin,scale:"region"}:null,presented:commands.filter(c=>c.type==="install-environment").at(-1)?.environment.terrain.request,overlay_revision:overlay?.revision,presentation_ready:true,ready:true,covered:false,markers:[]});}`); return;
     }
     if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client_bg.wasm") {
       response.setHeader("Content-Type", "application/wasm");
@@ -153,24 +150,41 @@ async function serve() {
   return { server, requests, missing, origin: `http://127.0.0.1:${server.address().port}` };
 }
 
-test("one canvas retains street, portraits and character views across warm navigation", { timeout: realRenderer ? 1_800_000 : 60_000 }, async () => {
+test("one canvas retains street, portraits and character views across warm navigation", { timeout: realRenderer ? 1_860_000 : 120_000 }, async () => {
   if (process.env.STRATEGIC_TRAVEL_BENCHMARK === "1")
     assert(process.env.STRATEGIC_STARTUP_FIXTURE_DIR, "Travel acceptance requires canonical distinct settlement captures");
   const { server, requests, missing, origin } = await serve();
-  const browser = await chromium.launch({ headless: true,
-    channel: process.env.STRATEGIC_BROWSER_CHANNEL || (process.platform === "win32" ? "msedge" : undefined),
-    args: realRenderer ? ["--enable-gpu", "--enable-unsafe-webgpu",
-      ...(process.env.STRATEGIC_BROWSER_BACKEND ? [`--use-webgpu-adapter=${process.env.STRATEGIC_BROWSER_BACKEND}`] : [])] : [] });
+  let browserServer, browser;
   const errors = [], samples = [];
   const warnings = [];
   const output = path.join(reviewRoot, peoplePerPlace > 2 ? "stress" : ""); fs.mkdirSync(output, { recursive: true });
   fs.writeFileSync(path.join(output, "equipment-diagnostics.log"), "");
-  let telemetry, initialLoad, startup, page;
+  const diagnostic = Boolean(process.env.STRATEGIC_STARTUP_PROFILE === "1"
+    || process.env.STRATEGIC_GPU_PROFILE === "1" || process.env.STRATEGIC_STARTUP_GPU_TRACE
+    || process.env.STRATEGIC_GRAPHICS_CONFIG);
+  fs.writeFileSync(path.join(output, "run-mode.json"), JSON.stringify({
+    mode: !realRenderer ? "mock bridge" : diagnostic ? "diagnostic" : "unprofiled client timing",
+    browserChannel: process.env.STRATEGIC_BROWSER_CHANNEL || (process.platform === "win32" ? "msedge" : "chromium"),
+    backend: process.env.STRATEGIC_BROWSER_BACKEND || "default",
+    graphicsOverride: Boolean(process.env.STRATEGIC_GRAPHICS_CONFIG),
+    gpuTrace: Boolean(process.env.STRATEGIC_STARTUP_GPU_TRACE),
+    canonicalDestinations: Boolean(process.env.STRATEGIC_STARTUP_FIXTURE_DIR),
+  }, null, 2));
+  let telemetry, initialLoad, startup, page, lastCheckpoint, checkpointAt, coldStarted;
+  let telemetryBusy = false;
   let rejectFatal;
   const fatal = new Promise((_, reject) => { rejectFatal = reject; });
   fatal.catch(() => {});
   try {
-    page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+    await withDeadline((async () => {
+    const ready = await withDeadline((async () => {
+    browserServer = await chromium.launchServer({ headless: true,
+      channel: process.env.STRATEGIC_BROWSER_CHANNEL || (process.platform === "win32" ? "msedge" : undefined),
+      args: realRenderer ? ["--enable-gpu", "--enable-unsafe-webgpu",
+      ...(process.env.STRATEGIC_BROWSER_BACKEND ? [`--use-webgpu-adapter=${process.env.STRATEGIC_BROWSER_BACKEND}`] : [])] : ["--disable-gpu"] });
+    browser = await withDeadline(chromium.connect(browserServer.wsEndpoint()), "benchmark browser connection", 30_000);
+    page = await withDeadline(browser.newPage({ viewport: { width: 1440, height: 1000 } }), "benchmark page creation", 30_000);
+    page.setDefaultTimeout(realRenderer ? 300_000 : 15_000);
     if (realRenderer) await page.addInitScript(() => {
       window.startupAdapterRequests = [];
       if (!navigator.gpu) return;
@@ -225,30 +239,52 @@ test("one canvas retains street, portraits and character views across warm navig
     startup = process.env.STRATEGIC_STARTUP_PROFILE === "1"
       ? await require("./strategic-startup-profile.cjs").attach(page, output) : null;
     await startup?.start();
+    coldStarted = performance.now();
     await page.goto(`${origin}${town}/places/${process.env.STRATEGIC_PROFILE_PLACE || 'inn'}`);
-    await page.evaluate(() => { window.originalCanvas = document.querySelector("#game-canvas"); });
+    await withDeadline(page.evaluate(() => { window.originalCanvas = document.querySelector("#game-canvas"); }), "canvas identity snapshot", 5_000);
     telemetry = setInterval(async () => {
-      const state = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics, generation: window.strategicGenerationMetrics?.scene, probe: window.renderProbe?.status?.(), gpu: window.startupGpuTrace,
-        status: document.querySelector('#strategic-scene-status')?.textContent })).catch(error => ({ error: error.message }));
-      fs.writeFileSync(path.join(output, "live-state.json"), JSON.stringify(state, null, 2));
+      if (telemetryBusy) return;
+      telemetryBusy = true;
+      try {
+        const state = await withDeadline(page.evaluate(() => ({
+          adapterRequests: window.startupAdapterRequests, metrics: window.strategicRendererMetrics,
+          generation: window.strategicGenerationMetrics?.scene, probe: window.renderProbe?.status?.(),
+          gpu: window.startupGpuTrace, status: document.querySelector('#strategic-scene-status')?.textContent,
+        })), "readiness checkpoint", 2_000);
+        lastCheckpoint = state; checkpointAt = performance.now();
+        fs.writeFileSync(path.join(output, "live-state.json"), JSON.stringify(state, null, 2));
+        telemetryBusy = false;
+      } catch (error) {
+        fs.writeFileSync(path.join(output, "checkpoint-error.json"), JSON.stringify({
+          error: String(error), elapsedMilliseconds: performance.now() - coldStarted,
+          lastCheckpointAgeMilliseconds: checkpointAt === undefined ? null : performance.now() - checkpointAt,
+        }, null, 2));
+        clearInterval(telemetry);
+      }
     }, 5000);
-    const ready = () => Promise.race([fatal, process.env.STRATEGIC_TRAVEL_PLACE === "map"
-      ? startupFixtures.ready(page) : page.waitForFunction(() => document.body.hasAttribute("data-strategic-scene-ready"), null, { timeout: realRenderer ? 300_000 : 15_000 })]);
+    const ready = () => withDeadline(Promise.race([fatal, process.env.STRATEGIC_TRAVEL_PLACE === "map"
+      ? startupFixtures.ready(page) : page.waitForFunction(() => document.body.hasAttribute("data-strategic-scene-ready"), null, { timeout: realRenderer ? 300_000 : 15_000 })]), "presentation readiness", realRenderer ? 300_000 : 15_000);
     await ready();
-    fs.writeFileSync(path.join(output, "cold.json"), JSON.stringify(await page.evaluate(() => ({
+    const hostMilliseconds = performance.now() - coldStarted;
+    fs.writeFileSync(path.join(output, "cold.json"), JSON.stringify({ hostMilliseconds, readyObserved: true }));
+    const cold = await withDeadline(page.evaluate(() => ({
       milliseconds: performance.now(), metrics: window.strategicRendererMetrics,
       generation: window.strategicGenerationMetrics,
-    })), null, 2));
+    })), "cold readiness snapshot", 5_000);
+    fs.writeFileSync(path.join(output, "cold.json"), JSON.stringify({ hostMilliseconds, ...cold }, null, 2));
     await startup?.stop("cold-startup");
     // Report the application's adapter without warming a separate GPU request.
     if (realRenderer) {
-      const adapter = await page.evaluate(() =>
-        window.startupAdapterRequests.find(request => request.adapter)?.adapter);
+      const adapter = await withDeadline(page.evaluate(() =>
+        window.startupAdapterRequests.find(request => request.adapter)?.adapter), "adapter snapshot", 5_000);
       fs.writeFileSync(path.join(output, "adapter.json"), JSON.stringify(adapter, null, 2));
       assert(adapter, "The benchmark requires an actual WebGPU adapter");
       assert(!adapter.isFallbackAdapter, "Software adapters cannot establish hardware timing acceptance");
       fs.writeFileSync(path.join(output, "adapter.json"), JSON.stringify({...adapter, browser: browser.version(), backend: process.env.STRATEGIC_BROWSER_BACKEND || "default", captured: new Date().toISOString()}, null, 2));
     }
+
+    return ready;
+    })(), "cold initialization", realRenderer ? 300_000 : 60_000);
 
     if (process.env.STRATEGIC_TRAVEL_BENCHMARK === "1") {
       await require("./strategic-travel-benchmark.cjs").run(page, output, ready, startup);
@@ -289,7 +325,7 @@ test("one canvas retains street, portraits and character views across warm navig
       await startup?.start();
       await page.reload(); await ready();
       await startup?.stop("reload-startup");
-      await page.evaluate(() => { window.originalCanvas = document.querySelector("#game-canvas"); });
+      await withDeadline(page.evaluate(() => { window.originalCanvas = document.querySelector("#game-canvas"); }), "canvas identity snapshot", 5_000);
     }
     const generationAtReady = await page.evaluate(() => window.strategicGenerationMetrics?.scene);
     assert.equal(await page.locator("canvas").count(), 1, "all views share one DOM canvas");
@@ -489,8 +525,11 @@ test("one canvas retains street, portraits and character views across warm navig
       await page.screenshot({path: path.join(output, "production-narrow.png"), fullPage: true});
     }
     assert.deepEqual(errors, []);
+    })(), "benchmark case", realRenderer ? 1_800_000 : 90_000);
   } catch (error) {
-    const failure = { error: String(error), missing, errors };
+    const failure = { error: String(error), missing, errors,
+      elapsedMilliseconds: coldStarted === undefined ? null : performance.now() - coldStarted,
+      lastCheckpoint, lastCheckpointAgeMilliseconds: checkpointAt === undefined ? null : performance.now() - checkpointAt };
     fs.writeFileSync(path.join(output, "failure.json"), JSON.stringify(failure, null, 2));
     let snapshotDeadline;
     const state = await Promise.race([
@@ -502,5 +541,11 @@ test("one canvas retains street, portraits and character views across warm navig
     fs.writeFileSync(path.join(output, "failure.json"), JSON.stringify({ ...failure, state }, null, 2));
     await startup?.stop("failed-startup").catch(() => {});
     throw error;
-  } finally { clearInterval(telemetry); await browser.close(); server.close(); }
+  } finally {
+    clearInterval(telemetry);
+    await withDeadline(browser?.close(), "browser connection close", 5_000).catch(() => {});
+    // launchServer owns this exact process tree, including a stuck GPU child.
+    await withDeadline(browserServer?.kill(), "benchmark browser termination", 5_000).catch(() => {});
+    server.close();
+  }
 });
