@@ -13,6 +13,7 @@ fabelgeist-math = { "default-features" = false, "path" = "../fabelgeist-math" }
 anyhow = { "version" = "1.0" }
 
 [dev-dependencies]
+bytemuck = "1.16"
 fabelgeist-xpbd = { "path" = "../fabelgeist-xpbd" }
 fabelgeist-physics = { "path" = "../fabelgeist-physics" }
 tokio = { "version" = "1", "features" = ["full"] }

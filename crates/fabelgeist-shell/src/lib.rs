@@ -1,5 +1,6 @@
 //! Shared thin-shell mechanics on XPBD: stretch, bending, attachments and contact.
 //! Cloth adds garment construction; metal adds sheet material parameters.
+mod bending;
 mod ccd;
 mod mesh;
 pub mod outer_layer;
@@ -8,6 +9,9 @@ mod shell;
 pub mod surface_contact;
 pub mod topology;
 pub mod wgsl;
+pub use bending::{
+    BendGeometryError, BendPoints, BendRecord, BendRecordValidity, BendRestMeasure, BendWeights,
+};
 pub use fabelgeist_physics::Collisions;
 pub use fabelgeist_xpbd::{Solver, SolverSettings};
 pub use mesh::ShellMesh;

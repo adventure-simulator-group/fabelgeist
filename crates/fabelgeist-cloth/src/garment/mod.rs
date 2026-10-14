@@ -148,11 +148,10 @@ pub struct GarmentMesh {
     /// Stretch constraints, with the rest length each was built at.
     pub edges: Vec<[u32; 2]>,
     pub rest_lengths: Vec<f32>,
-    /// Bending constraints, and eight floats each: the four affine weights,
-    /// the rest value, and three of padding so the kernel can index by a
-    /// power of two.
+    /// Bending constraints and complete native records: four affine weights,
+    /// the rest measure, and three zero padding words.
     pub bends: Vec<BendQuad>,
-    pub bend_weights: Vec<[f32; 8]>,
+    pub bend_weights: Vec<fabelgeist_shell::BendRecord>,
     /// Seam constraints: particle pairs to be pulled together.
     pub seams: Vec<[u32; 2]>,
     /// Per-particle mass, from the area it carries and the fabric density.
@@ -311,18 +310,12 @@ pub fn build(
             mesh.positions[i2 as usize],
             mesh.positions[i3 as usize],
         ];
-        let Some(weights) = topology::bending_weights(points) else {
+        let points = fabelgeist_shell::BendPoints::from(points);
+        let Ok(weights) = fabelgeist_shell::BendWeights::for_points(points) else {
             continue;
         };
-        let rest = points
-            .iter()
-            .zip(&weights)
-            .fold(Vec3::default(), |acc, (p, &k)| acc + *p * k)
-            .length();
         mesh.bends.push(bend);
-        mesh.bend_weights.push([
-            weights[0], weights[1], weights[2], weights[3], rest, 0.0, 0.0, 0.0,
-        ]);
+        mesh.bend_weights.push(weights.observed_rest(points));
     }
 
     for (index, seam) in seams.iter().enumerate() {
@@ -395,7 +388,9 @@ fn add_seam_bends(mesh: &mut GarmentMesh) {
             Vec3::new(x0 * length / l0, y0, 0.0),
             Vec3::new(x1 * length / l1, -y1, 0.0),
         ];
-        let Some(w) = topology::bending_weights(points) else {
+        let Ok(weights) =
+            fabelgeist_shell::BendWeights::for_points(fabelgeist_shell::BendPoints::from(points))
+        else {
             continue;
         };
         let bend = BendQuad {
@@ -407,8 +402,7 @@ fn add_seam_bends(mesh: &mut GarmentMesh) {
             continue;
         }
         mesh.bends.push(bend);
-        mesh.bend_weights
-            .push([w[0], w[1], w[2], w[3], 0.0, 0.0, 0.0, 0.0]);
+        mesh.bend_weights.push(weights.flat_rest());
     }
 }
 
