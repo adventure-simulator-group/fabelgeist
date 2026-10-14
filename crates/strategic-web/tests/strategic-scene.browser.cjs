@@ -4,6 +4,7 @@ const path = require("node:path");
 const http = require("node:http");
 const test = require("node:test");
 const { chromium } = require("playwright");
+const startupFixtures = require("./startup-fixtures.cjs");
 
 const root = path.resolve(__dirname, "../../..");
 const reviewRoot = path.resolve(root, process.env.STRATEGIC_SCENE_REVIEW_DIR || "target/strategic-scene-review");
@@ -13,7 +14,9 @@ const peoplePerPlace = Number(process.env.STRATEGIC_SCENE_PEOPLE_PER_PLACE || 2)
 const residents = Array.from({length: peoplePerPlace}, (_, index) => index);
 const services = ["public-square", "residences", "keep", "merchants", "weapons", "armor", "clothing", "herbalist", "books", "inn", "religion"];
 const town = "/locations/settlement/scene-review";
-const personId = (place, offset = 0) => String(100 + services.indexOf(place) * peoplePerPlace + offset);
+const personId = (place, offset = 0, settlement = "scene-review") => String(
+  100 + services.indexOf(place) * peoplePerPlace + offset
+  + (settlement === "travel-destination" ? 10_000 : settlement === "travel-second" ? 20_000 : 0));
 const styles = ["base", "reset", "layout", "components", "strategic", "architecture", "utilities", "workspace", "portraits", "chat-dock", "readability", "strategic-scene"];
 const mapInput={origin:{latitude:50_500_000,longitude:10_500_000},span:60000,selected:null,
   overlay:{source:"a".repeat(64),markers:[],route:null}};
@@ -33,14 +36,14 @@ function fixture(url) {
     <script type="module" src="/static/strategic-renderer.js"></script></body></html>`;
   const selected = url.pathname.split("/places/")[1] || "map";
   const nav = ["map", ...services].map(id => `<a href="${id === "map" ? town : `${town}/places/${id}`}" class="nav-tab ${selected === id ? "active" : ""}" data-building-id="${id}" data-service-id="${id}" aria-label="${id}"><span class="service-tab-label">${id}</span></a>`).join("");
-  const portraits = residents.map(offset => `<button data-person="${personId(selected, offset)}" aria-label="Talk to resident ${offset}" class="party-portrait-select"><span class="party-portrait-initial"><span data-bevy-character="${personId(selected, offset)}"></span></span><span>Resident ${offset}</span></button>`).join("");
+  const portraits = residents.map(offset => `<button data-person="${personId(selected, offset, settlement)}" aria-label="Talk to resident ${offset}" class="party-portrait-select"><span class="party-portrait-initial"><span data-bevy-character="${personId(selected, offset, settlement)}"></span></span><span>Resident ${offset}</span></button>`).join("");
   return `<!doctype html><html><head>${styles.map(style => `<link rel="stylesheet" href="/static/css/${style}.css">`).join("")}<title>Scene review</title></head><body>
     <div id="strategic-render-surface"><canvas id="game-canvas"></canvas></div>
     <!-- strategic-page-start --><div id="strategic-page" class="app" data-strategic-workspace data-script-profile="strategic" data-page-title="Scene review" data-path="${url.pathname}">
     <header class="top-bar settlement-top-bar" data-environment="settlement"><nav class="settlement-services" data-settlement-id="${settlement}">${nav}</nav></header>
     <div class="main-grid"><aside class="left-sidebar">Character details</aside>
     <main class="center-content settlement-main ${selected === "map" ? "settlement-map-main" : ""}">
-    ${selected === "map" ? mapFixture : `<div class="party-portrait-overlay">${portraits}</div><section class="visual-stage npc-description-stage"><h2>${selected}</h2><p>Resident's description</p></section>`}
+    ${selected === "map" ? (process.env.STRATEGIC_STARTUP_FIXTURE_DIR ? startupFixtures.markup(settlement) : mapFixture) : `<div class="party-portrait-overlay">${portraits}</div><section class="visual-stage npc-description-stage"><h2>${selected}</h2><p>Resident's description</p></section>`}
     </main><aside class="right-sidebar">Available actions</aside></div>
     <aside data-chat-dock><section class="settlement-chat">Conversation</section></aside></div><!-- strategic-page-end -->
     <script>document.addEventListener('click',event=>{const target=event.target.closest('[data-person]');if(target)document.dispatchEvent(new CustomEvent('strategic-character-selected',{detail:{id:target.dataset.person}}));});</script>
@@ -53,6 +56,7 @@ async function serve() {
   const carry = realRenderer ? JSON.parse(fs.readFileSync(path.join(reviewRoot, "fixtures/carry.json"), "utf8")) : null;
   const server = http.createServer((request, response) => {
     const url = new URL(request.url, "http://localhost"); requests.push(url.pathname);
+    if (startupFixtures.respond(url, response)) return;
     if(url.pathname.startsWith("/api/map/environment/")) {
       response.setHeader("Content-Type","application/json");
       response.end(JSON.stringify({terrain:{source:mapInput.overlay.source,request:{
@@ -61,18 +65,14 @@ async function serve() {
     }
     if (url.pathname === "/api/scene-assets") {
       response.setHeader("Content-Type", "application/json");
-      let input = fs.readFileSync(path.resolve(root, sceneFixture), "utf8");
       const destination = url.searchParams.get("settlement");
+      if (process.env.STRATEGIC_STARTUP_FIXTURE_DIR) {
+        response.end(startupFixtures.load(destination).actor); return;
+      }
+      let input = fs.readFileSync(path.resolve(root, sceneFixture), "utf8");
       const distinct = destination === "travel-destination" ? process.env.STRATEGIC_TRAVEL_SCENE_INPUT
         : destination === "travel-second" ? process.env.STRATEGIC_TRAVEL_SECOND_INPUT : null;
       if (distinct) input = fs.readFileSync(path.resolve(root, distinct), "utf8");
-      else if (destination === "travel-destination") {
-        // A distinct terrain/scene with validated occupied building layouts.
-        // Preserve full-width seeds; do not parse this document through JS numbers.
-        input = input.replace(/("seed"\s*:\s*)(\d+)/,
-          (_, prefix, seed) => prefix + BigInt.asUintN(64, BigInt(seed) + 1n))
-          .replace(/("scene_key"\s*:\s*)"[^"]+"/, '$1"travel-destination"');
-      }
       response.end(input); return;
     }
     if (url.pathname === "/api/scene-equipment") {
@@ -101,7 +101,7 @@ async function serve() {
     if (url.pathname.startsWith("/api/locations/")) {
       const place = url.pathname.split("/places/")[1]?.split("/")[0];
       response.setHeader("Content-Type", "application/json");
-      response.end(JSON.stringify(residents.map(offset => ({ id: personId(place, offset), name: `Resident ${offset}` })))); return;
+      response.end(JSON.stringify(residents.map(offset => ({ id: personId(place, offset, url.pathname.split("/settlement/")[1]?.split("/")[0]), name: `Resident ${offset}` })))); return;
     }
     if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client.js") {
       response.setHeader("Content-Type", "text/javascript");
@@ -119,8 +119,17 @@ async function serve() {
       if (fs.existsSync(saved)) file = saved;
     }
     if (url.pathname.startsWith("/tactical/")) file = path.join(root, "crates/adventuresim-stdb-module/static", url.pathname.slice(10));
+    if (url.pathname.startsWith("/tactical/assets/") && process.env.STRATEGIC_ASSET_DIR) {
+      const suffix = url.pathname.slice(17);
+      const roots = [path.join(root, "assets"), ...fs.readdirSync(path.join(root, "crates"))
+        .map(crate => path.join(root, "crates", crate, "assets")), process.env.STRATEGIC_ASSET_DIR];
+      file = roots.map(directory => path.resolve(directory, suffix)).find(candidate => fs.existsSync(candidate))
+        || path.join(root, "assets", suffix);
+    }
     if (url.pathname.startsWith("/tactical/assets/config/"))
       file = path.join(root, "assets/config", path.basename(url.pathname));
+    if (process.env.STRATEGIC_GRAPHICS_CONFIG && url.pathname === "/tactical/assets/config/tactical-graphics.yaml")
+      file = process.env.STRATEGIC_GRAPHICS_CONFIG;
     if (process.env.STRATEGIC_WASM_DIR && url.pathname.startsWith("/tactical/wasm/"))
       file = path.resolve(root, process.env.STRATEGIC_WASM_DIR, path.basename(url.pathname));
     if (file) {
@@ -145,20 +154,48 @@ async function serve() {
 }
 
 test("one canvas retains street, portraits and character views across warm navigation", { timeout: realRenderer ? 1_800_000 : 60_000 }, async () => {
+  if (process.env.STRATEGIC_TRAVEL_BENCHMARK === "1")
+    assert(process.env.STRATEGIC_STARTUP_FIXTURE_DIR, "Travel acceptance requires canonical distinct settlement captures");
   const { server, requests, missing, origin } = await serve();
   const browser = await chromium.launch({ headless: true,
-    channel: process.platform === "win32" ? "msedge" : undefined,
-    args: realRenderer ? ["--enable-unsafe-webgpu"] : [] });
+    channel: process.env.STRATEGIC_BROWSER_CHANNEL || (process.platform === "win32" ? "msedge" : undefined),
+    args: realRenderer ? ["--enable-gpu", "--enable-unsafe-webgpu",
+      ...(process.env.STRATEGIC_BROWSER_BACKEND ? [`--use-webgpu-adapter=${process.env.STRATEGIC_BROWSER_BACKEND}`] : [])] : [] });
   const errors = [], samples = [];
   const warnings = [];
   const output = path.join(reviewRoot, peoplePerPlace > 2 ? "stress" : ""); fs.mkdirSync(output, { recursive: true });
   fs.writeFileSync(path.join(output, "equipment-diagnostics.log"), "");
-  let telemetry, initialLoad;
+  let telemetry, initialLoad, startup, page;
   let rejectFatal;
   const fatal = new Promise((_, reject) => { rejectFatal = reject; });
   fatal.catch(() => {});
   try {
-    const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+    page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+    if (realRenderer) await page.addInitScript(() => {
+      window.startupAdapterRequests = [];
+      if (!navigator.gpu) return;
+      const requestAdapter = navigator.gpu.requestAdapter.bind(navigator.gpu);
+      navigator.gpu.requestAdapter = async options => {
+        const started = performance.now();
+        const record = { options };
+        try {
+          const adapter = await requestAdapter(options);
+          record.adapter = adapter ? { vendor: adapter.info.vendor,
+            architecture: adapter.info.architecture,
+            description: adapter.info.description,
+            isFallbackAdapter: adapter.info.isFallbackAdapter } : null;
+          return adapter;
+        } catch (error) {
+          record.error = { name: error.name, message: error.message };
+          throw error;
+        } finally {
+          record.milliseconds = performance.now() - started;
+          window.startupAdapterRequests.push(record);
+        }
+      };
+    });
+    if (process.env.STRATEGIC_STARTUP_GPU_TRACE)
+      await page.addInitScript({path: process.env.STRATEGIC_STARTUP_GPU_TRACE});
     if (process.env.STRATEGIC_GPU_PROFILE === '1')
       await page.addInitScript({path: path.join(__dirname, 'webgpu-probe.js')});
     const recordError = text => {
@@ -175,6 +212,7 @@ test("one canvas retains street, portraits and character views across warm navig
       if (message.type() === "warning") {
         warnings.push(message.text().slice(0, 500));
         fs.writeFileSync(path.join(output, "warnings.json"), JSON.stringify(warnings.slice(-20), null, 2));
+        if (/DXGI_ERROR_DEVICE_HUNG|device lost|compile failed|Invalid ComputePipeline|Invalid CommandBuffer/i.test(message.text())) rejectFatal(new Error(message.text()));
       }
     });
     await page.addInitScript(() => {
@@ -184,32 +222,38 @@ test("one canvas retains street, portraits and character views across warm navig
         if (window.rendererFrames.length > 300) window.rendererFrames.shift(); requestAnimationFrame(frame); }
       requestAnimationFrame(frame);
     });
-    if (realRenderer) {
-      await page.goto(`${origin}/renderer-capabilities`);
-      const adapter = await page.evaluate(async () => {
-        const adapter = await navigator.gpu?.requestAdapter();
-        return adapter ? { vendor: adapter.info.vendor, architecture: adapter.info.architecture, description: adapter.info.description } : null;
-      });
-      fs.writeFileSync(path.join(output, "adapter.json"), JSON.stringify(adapter, null, 2));
-      assert(adapter, "The benchmark requires an actual WebGPU adapter");
-      fs.writeFileSync(path.join(output, "adapter.json"), JSON.stringify({...adapter, browser: browser.version(), captured: new Date().toISOString()}, null, 2));
-    }
-    const startup = process.env.STRATEGIC_STARTUP_PROFILE === "1"
+    startup = process.env.STRATEGIC_STARTUP_PROFILE === "1"
       ? await require("./strategic-startup-profile.cjs").attach(page, output) : null;
     await startup?.start();
     await page.goto(`${origin}${town}/places/${process.env.STRATEGIC_PROFILE_PLACE || 'inn'}`);
     await page.evaluate(() => { window.originalCanvas = document.querySelector("#game-canvas"); });
     telemetry = setInterval(async () => {
-      const state = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics, generation: window.strategicGenerationMetrics?.scene, probe: window.renderProbe?.status?.(),
+      const state = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics, generation: window.strategicGenerationMetrics?.scene, probe: window.renderProbe?.status?.(), gpu: window.startupGpuTrace,
         status: document.querySelector('#strategic-scene-status')?.textContent })).catch(error => ({ error: error.message }));
       fs.writeFileSync(path.join(output, "live-state.json"), JSON.stringify(state, null, 2));
     }, 5000);
-    const ready = () => Promise.race([fatal, page.waitForFunction(() => document.body.hasAttribute("data-strategic-scene-ready"), null, { timeout: realRenderer ? 1_500_000 : 15_000 })]);
+    const ready = () => Promise.race([fatal, process.env.STRATEGIC_TRAVEL_PLACE === "map"
+      ? startupFixtures.ready(page) : page.waitForFunction(() => document.body.hasAttribute("data-strategic-scene-ready"), null, { timeout: realRenderer ? 300_000 : 15_000 })]);
     await ready();
+    fs.writeFileSync(path.join(output, "cold.json"), JSON.stringify(await page.evaluate(() => ({
+      milliseconds: performance.now(), metrics: window.strategicRendererMetrics,
+      generation: window.strategicGenerationMetrics,
+    })), null, 2));
     await startup?.stop("cold-startup");
+    // Report the application's adapter without warming a separate GPU request.
+    if (realRenderer) {
+      const adapter = await page.evaluate(() =>
+        window.startupAdapterRequests.find(request => request.adapter)?.adapter);
+      fs.writeFileSync(path.join(output, "adapter.json"), JSON.stringify(adapter, null, 2));
+      assert(adapter, "The benchmark requires an actual WebGPU adapter");
+      assert(!adapter.isFallbackAdapter, "Software adapters cannot establish hardware timing acceptance");
+      fs.writeFileSync(path.join(output, "adapter.json"), JSON.stringify({...adapter, browser: browser.version(), backend: process.env.STRATEGIC_BROWSER_BACKEND || "default", captured: new Date().toISOString()}, null, 2));
+    }
+
     if (process.env.STRATEGIC_TRAVEL_BENCHMARK === "1") {
       await require("./strategic-travel-benchmark.cjs").run(page, output, ready, startup);
       assert.deepEqual(errors, []);
+      assert.deepEqual(missing, [], "Complete initialization requires every requested asset");
       return;
     }
     if (process.env.STRATEGIC_RELOAD_BENCHMARK === "1") {
@@ -445,5 +489,18 @@ test("one canvas retains street, portraits and character views across warm navig
       await page.screenshot({path: path.join(output, "production-narrow.png"), fullPage: true});
     }
     assert.deepEqual(errors, []);
+  } catch (error) {
+    const failure = { error: String(error), missing, errors };
+    fs.writeFileSync(path.join(output, "failure.json"), JSON.stringify(failure, null, 2));
+    let snapshotDeadline;
+    const state = await Promise.race([
+      page?.evaluate(() => ({ adapterRequests: window.startupAdapterRequests,
+        gpu: window.startupGpuTrace, metrics: window.strategicRendererMetrics, generation: window.strategicGenerationMetrics })).catch(() => undefined),
+      new Promise(resolve => { snapshotDeadline = setTimeout(resolve, 5_000); }),
+    ]);
+    clearTimeout(snapshotDeadline);
+    fs.writeFileSync(path.join(output, "failure.json"), JSON.stringify({ ...failure, state }, null, 2));
+    await startup?.stop("failed-startup").catch(() => {});
+    throw error;
   } finally { clearInterval(telemetry); await browser.close(); server.close(); }
 });

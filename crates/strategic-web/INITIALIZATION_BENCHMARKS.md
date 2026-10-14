@@ -1,72 +1,86 @@
 # Strategic client initialization benchmarks
 
-Initialization starts with a browser navigation or an in-document destination
+Initialization starts with browser navigation or an in-document destination
 change and ends when the requested presentation is usable. Server startup and
-fixture generation happen before timing starts. A cold run uses a fresh browser
-context. A warm run retains the document, canvas, WebAssembly module, graphics
-device, and asset caches while replacing its destination.
+native fixture generation happen before timing starts. Cold means the first
+connection of a game client, with an empty browser context. Warm means travel
+in that running client, including its first visit to a settlement. It retains
+one document, canvas, WebAssembly instance, graphics device, and shared assets.
 
-The targets are 30 seconds cold and 3 seconds warm. A return to previously
-prepared content is a separate measurement from an unseen destination.
+The targets are 30 seconds cold and 3 seconds warm. The first visit to a new
+settlement has the warm target. Returning to a cached city is a separate
+measurement and cannot establish that target.
 
-## Settlement scenes
+## Canonical destinations
 
-Use the real-renderer travel workflow in [UNIFIED_RENDERER.md](UNIFIED_RENDERER.md)
-to record cold scene readiness and warm settlement changes. The fixture loads
-the production bridge and renderer with captured inputs and local HTTP
-responses. It measures client initialization; it does not establish production
-network or database response times.
-
-## Geographic maps
-
-After building the release browser client, provide matching canonical city,
-actor, and environment captures to the map benchmark:
+Export both destinations through the native dispatcher. They have different
+settlement identities, geographic origins, building programs, and operator
+identities. Each export contains the actor input, focused city input, and
+matching neighborhood and district environments. Serve the original JSON text
+to preserve full-width physical seeds.
 
 ```powershell
-$env:STRATEGIC_INIT_WASM = "$PWD/crates/adventuresim-stdb-module/static/wasm"
-$env:STRATEGIC_INIT_ASSETS = "$PWD/crates/adventuresim-stdb-module/static/assets"
-$env:STRATEGIC_INIT_CITY = "$PWD/target/map-capture/canonical-city.json"
-$env:STRATEGIC_INIT_ACTOR = "$PWD/target/map-capture/canonical-actor.json"
-$env:STRATEGIC_INIT_SECOND_CITY = "$PWD/target/map-capture/second-city.json"
-$env:STRATEGIC_INIT_SECOND_ACTOR = "$PWD/target/map-capture/second-actor.json"
-$env:STRATEGIC_INIT_ENVIRONMENT = "$PWD/target/map-capture/canonical-environments.json"
-$env:STRATEGIC_INIT_OUTPUT = "$PWD/target/strategic-init-benchmark"
+$env:STRATEGIC_STARTUP_FIXTURE_DIR = "$PWD/target/startup-fixtures"
+cargo test -p adventuresim-tactical-server-dispatcher `
+  export_distinct_startup_destinations -- --ignored --nocapture
+```
+
+Population defaults to 900; `STRATEGIC_STARTUP_FIXTURE_POPULATION` selects a
+larger representative workload. Record population, building counts, input
+hashes, source revision, browser, hardware, and executable hashes with each
+measurement. Fixtures use isolated synthetic terrain and local HTTP responses;
+these runs do not establish production network or database latency.
+
+## Client workloads
+
+Build the release browser client and synchronize assets. Export the equipment
+fixture into the review directory before the populated browser test:
+
+```powershell
+$env:STRATEGIC_SCENE_REVIEW_DIR = "$PWD/target/startup-review"
+$env:STRATEGIC_SCENE_FIXTURE_DIR = "$env:STRATEGIC_SCENE_REVIEW_DIR/fixtures"
+cargo test -p adventuresim-tactical-client --bin adventuresim-tactical-client `
+  procedural_carry_recipes_survive_the_browser_appearance_boundary
+$env:STRATEGIC_WASM_DIR = "$PWD/crates/adventuresim-stdb-module/static/wasm"
+$env:STRATEGIC_ASSET_DIR = "$PWD/crates/adventuresim-stdb-module/static/assets"
+$env:STRATEGIC_RENDER_BENCHMARK = '1'
+$env:STRATEGIC_TRAVEL_BENCHMARK = '1'
+node --test crates/strategic-web/tests/strategic-scene.browser.cjs
+```
+
+The settlement workload opens an inn with a 22-person roster and two visible
+portraits. Travel replaces the native settlement input and resident IDs. Shared
+architectural families, body templates, and already used equipment kernels may
+be reused; the complete destination is unprepared before the first arrival.
+
+Run the focused-map workload with the same environment:
+
+```powershell
 node crates/strategic-web/tests/strategic-init-benchmark.cjs
 ```
 
-The city and environment documents must share a source and location. Native
-city origins use ten-millionths of a degree; browser map positions and terrain
-requests use microdegrees. The benchmark preserves physical seeds as opaque
-document text when producing a second destination.
+Its finish condition simultaneously requires current actor readiness, the
+requested geographic window, drawn terrain coverage, environment readiness,
+settled presentation, completed city preparation, acknowledged city installation,
+and visible city detail. A terrain-only ready flag is insufficient. Both
+workloads record cold A, unseen B, and return A while retaining the original
+canvas. `cold.json` and `travel.json` contain timings and readiness metrics.
 
-The benchmark records A → B → A using two complete admitted settlement captures
-from the same terrain source. Supply canonical property identities and catalog
-seeds for both settlements; changing just their owner strings makes an invalid
-fixture. If B retains A's building programs or residents, its result isolates
-destination replacement and reusable geometry. It does not establish performance
-for new building programs or new residents.
-
-`results.json` records terrain readiness and complete focused-city readiness
-separately. The latter requires the requested city, its native installation
-acknowledgement, and visible city detail. The usual map-ready attribute can
-precede city detail and is insufficient on its own. The benchmark also records
-generation metrics, native state transitions, requests, errors, missing assets,
-and screenshots, and verifies that navigation retains one canvas.
-
-The map fixture has no residents. It nevertheless exercises the production
-bridge's actor-scene loading behavior. Its timings are separate from the scene
-fixture's populated settlement timings.
+Hardware selection is enabled in headless Chromium. The actual application's
+adapter request is recorded without a preliminary GPU probe, and fallback
+software adapters fail acceptance. `STRATEGIC_BROWSER_CHANNEL` selects an
+installed channel; record it and use the same channel for comparisons.
 
 ## Attribution
 
 Generation metrics report discovery, dependency transfer, worker generation,
-worker initialization, product receipt, and final admission. Worker durations
-and cache lookups can overlap; their sums are not elapsed loading time. Native
-logs separately report focused ground geometry, support indexing, and ground
-surface texture preparation.
+worker initialization, product receipt, and final admission. Overlapping worker
+and cache durations cannot be added to obtain elapsed loading time. Native
+logs report focused ground geometry, support indexing, and ground surface
+texture preparation.
 
-Use the existing optional startup profiler for CPU and graphics attribution.
-Profiled runs add overhead. Compare latency with separate unprofiled runs, using
-the same inputs, release build settings, browser, hardware, and display size.
-Retain input and executable hashes with results under an ignored `target/`
-directory. Do not commit measurements or profiler transcripts as documentation.
+Use `STRATEGIC_STARTUP_PROFILE=1` for separate diagnostic runs. Profiling changes
+execution cost; acceptance uses repeated unprofiled runs on an idle host.
+Keep timings, screenshots, profiles, input hashes, and failure evidence in
+ignored output directories. Missing assets and GPU failures prevent full
+acceptance; a recorded timeout is not a completed initialization time.

@@ -476,6 +476,8 @@ mod tests {
     use adventuresim_terrain::{CHUNK_SIDE, Entry, Manifest, TerrainPurpose};
     use flate2::{Compression, write::DeflateEncoder};
 
+    mod startup_fixtures;
+
     fn add_fixture_operators(settlement: &mut SettlementSceneProfile) {
         let seed =
             adventuresim_core::settlement_population::settlement_building_seed(&settlement.id);
