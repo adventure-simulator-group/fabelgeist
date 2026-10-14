@@ -296,12 +296,13 @@ impl RadixSort {
                 scratch.capacity
             ));
         }
-        let needed = (count as u64) * 4;
-        if u64::from(keys.size) < needed || u64::from(values.size) < needed {
+        // Keys and payloads are native u32 arrays, with four bytes per element.
+        let required_bytes = BufferByteLength::from((count as u64) * 4);
+        if keys.size < required_bytes || values.size < required_bytes {
             return Err(anyhow!(
-                "RadixSort: {count} elements need {needed} bytes; keys hold {}, values hold {}",
-                u64::from(keys.size),
-                u64::from(values.size)
+                "RadixSort: {count} elements need {required_bytes} bytes; keys hold {}, values hold {}",
+                keys.size,
+                values.size
             ));
         }
 
@@ -341,8 +342,8 @@ impl RadixSort {
         }
 
         if passes % 2 == 1 {
-            batch.copy_buffer(&source_keys, keys, needed)?;
-            batch.copy_buffer(&source_values, values, needed)?;
+            batch.copy_buffer(&source_keys, keys, required_bytes)?;
+            batch.copy_buffer(&source_values, values, required_bytes)?;
         }
 
         Ok(())
