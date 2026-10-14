@@ -7,6 +7,9 @@ use anyhow::{Result, bail};
 
 use crate::character::{PARAMETERS_PER_JOINT, Skeleton};
 
+mod bounds;
+pub use bounds::{ParameterBounds, ParameterBoundsAdmissionError, ParameterBoundsError};
+
 /// `tx, ty, tz, rx, ry, rz, sc` — the seven channels of a momentum joint.
 pub const JOINT_PARAMETER_NAMES: [&str; PARAMETERS_PER_JOINT] =
     ["tx", "ty", "tz", "rx", "ry", "rz", "sc"];
@@ -15,8 +18,7 @@ pub const JOINT_PARAMETER_NAMES: [&str; PARAMETERS_PER_JOINT] =
 #[derive(Debug, Clone, Copy)]
 pub struct ParameterLimit {
     pub parameter: usize,
-    pub min: f32,
-    pub max: f32,
+    pub bounds: ParameterBounds,
     /// How strongly a solver should enforce the bound; 1.0 unless the file says
     /// otherwise. Clamping ignores it.
     pub weight: f32,
@@ -59,7 +61,9 @@ impl ParameterTransform {
     pub fn apply_limits(&self, parameters: &mut [f32]) {
         for limit in &self.limits {
             if let Some(value) = parameters.get_mut(limit.parameter) {
-                *value = value.clamp(limit.min, limit.max);
+                // The standard numeric API consumes native endpoints.
+                let (minimum, maximum) = limit.bounds.into();
+                *value = value.clamp(minimum, maximum);
             }
         }
     }
@@ -241,7 +245,10 @@ fn parse_parameter_sets(lines: &[String], transform: &mut ParameterTransform) {
     }
 }
 
-fn parse_limits(lines: &[String], transform: &mut ParameterTransform) {
+fn parse_limits(
+    lines: &[String],
+    transform: &mut ParameterTransform,
+) -> std::result::Result<(), ParameterBoundsAdmissionError> {
     for line in lines {
         let tokens = tokenize(line, " \t");
         // `limit <parameter> minmax [min, max]`; momentum's other limit kinds
@@ -263,12 +270,13 @@ fn parse_limits(lines: &[String], transform: &mut ParameterTransform) {
         if bounds.len() == 2 {
             transform.limits.push(ParameterLimit {
                 parameter,
-                min: bounds[0],
-                max: bounds[1],
+                bounds: ParameterBounds::try_from((bounds[0], bounds[1]))
+                    .map_err(|cause| ParameterBoundsAdmissionError::new(tokens[1], line, cause))?,
                 weight: line[close + 1..].trim().parse().unwrap_or(1.0),
             });
         }
     }
+    Ok(())
 }
 
 /// Parses a `.model` file against a skeleton, producing the parameter transform.
@@ -293,7 +301,7 @@ pub fn parse_model_definition(text: &str, skeleton: &Skeleton) -> Result<Paramet
         parse_parameter_sets(lines, &mut transform);
     }
     if let Some(lines) = sections.get("Limits") {
-        parse_limits(lines, &mut transform);
+        parse_limits(lines, &mut transform)?;
     }
 
     Ok(transform)
