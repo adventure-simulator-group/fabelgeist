@@ -9,8 +9,8 @@
 //! Morton code takes four as well (`bits` rounds up to a whole digit). Each
 //! pass is three dispatches:
 //!
-//! 1. **histogram** -- one workgroup per tile counts its 256 digits into
-//!    shared memory and writes the counts to `histogram[digit][tile]`.
+//! 1. **histogram** -- one workgroup shares a tile of digits; each lane counts
+//!    one digit and writes its count to `histogram[digit][tile]`.
 //! 2. **scan** -- a single workgroup turns those counts into the global offset
 //!    each `(digit, tile)` pair writes at. One workgroup can do it because the
 //!    array is only `256 x tiles`, and laying it out digit-major means thread
@@ -49,7 +49,7 @@ struct Params {{
 }};
 @group(0) @binding(2) var<uniform> params: Params;
 
-var<workgroup> local_histogram: array<atomic<u32>, {RADIX}u>;
+var<workgroup> tile_digits: array<u32, {TILE}u>;
 
 @compute @workgroup_size({TILE}u)
 fn main(
@@ -57,20 +57,22 @@ fn main(
     @builtin(local_invocation_id) local_id: vec3<u32>,
     @builtin(workgroup_id) group_id: vec3<u32>,
 ) {{
-    atomicStore(&local_histogram[local_id.x], 0u);
-    workgroupBarrier();
-
-    let index = global_id.x;
-    if (index < params.count) {{
-        let digit = (keys[index] >> params.shift) & {mask}u;
-        atomicAdd(&local_histogram[digit], 1u);
+    // Shared atomic initialization lowers to InterlockedExchange in HLSL,
+    // which FXC rejects as a read of uninitialized workgroup storage. Publish
+    // plain digits instead; each bucket has one writer and an exact count.
+    var digit = {RADIX}u;
+    if (global_id.x < params.count) {{
+        digit = (keys[global_id.x] >> params.shift) & {mask}u;
     }}
+    tile_digits[local_id.x] = digit;
     workgroupBarrier();
 
-    // Digit-major: every tile's count for one digit is contiguous, which is
-    // what lets the scan pass hand one whole row to one thread.
-    histogram[local_id.x * params.tiles + group_id.x] =
-        atomicLoad(&local_histogram[local_id.x]);
+    var count = 0u;
+    for (var index = 0u; index < {TILE}u; index += 1u) {{
+        if (tile_digits[index] == local_id.x) {{ count += 1u; }}
+    }}
+    // Out-of-range lanes hold RADIX, outside every valid bucket.
+    histogram[local_id.x * params.tiles + group_id.x] = count;
 }}
 "#,
         mask = RADIX - 1
