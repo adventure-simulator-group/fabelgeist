@@ -12,9 +12,9 @@ const TERRAIN_ROUGHNESS: f32 = 0.95;
 /// Stone, plaster, tiles and timber are rough too, a little less.
 const STRUCTURE_ROUGHNESS: f32 = 0.85;
 
-/// The terrain or a scene's buildings.
+/// The terrain or a scene's buildings: what a pointer can rest on.
 #[derive(Component)]
-pub(super) struct GroundPart;
+pub struct GroundPart;
 
 #[derive(SystemParam)]
 pub(super) struct GroundAssets<'w, 's> {

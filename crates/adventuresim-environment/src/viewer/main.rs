@@ -6,14 +6,15 @@
 //!
 //! The simulation runs on its own thread; each snapshot it hands over is
 //! drawn by the environment crate's forest renderer (GPU-instanced branches
-//! and leaves), and the panel on the right steers it: the scene on one tab,
-//! and on the other how the simulation steps and how finely the forest is
-//! built.
+//! and leaves), under a game's HUD: the year and the population, the time
+//! controls, a hotbar of tools and a menu (Esc) for the scene, the climate
+//! and the display.
 //!
-//! Drag to orbit, right-drag to pan, wheel to zoom. Space plays and pauses,
-//! G cuts a gap in the canopy where the camera is looking, R resets the
-//! scene. With sowing on (S), a click sows the species picked in the panel
-//! where the cursor points: on the ground, or at the foot of a wall.
+//! Drag to orbit, right-drag to pan, wheel to zoom. Space plays and pauses.
+//! The digits pick a plant from the hotbar, and a click then sows it where
+//! the pointer rests: on the ground, or at the foot of a wall. G picks
+//! Clear, which takes the plants out of the ring under the pointer. Esc puts
+//! the tool down, or opens the menu; F3 shows the figures.
 //!
 //! With `--snapshot out.png` it grows the scene for `--years` first, without
 //! the simulation thread, shows it, and saves the window once. `--closeup`
@@ -21,13 +22,20 @@
 //! of its height; `--solo conifer` grows one plant of a species alone.
 
 mod frame_times;
+mod hotbar;
+mod hud;
+mod icons;
 mod live;
+mod menu;
+mod pointer;
 mod profile_controls;
-mod scene_controls;
 mod snapshot;
-mod sowing;
 mod stage;
 mod stats;
+mod theme;
+mod tools;
+mod widgets;
+mod world;
 
 use std::path::PathBuf;
 
