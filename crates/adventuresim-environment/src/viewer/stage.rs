@@ -50,13 +50,11 @@ impl Default for Lighting {
     }
 }
 
-pub fn setup(mut commands: Commands) {
-    let mut camera = PanOrbitCamera::default();
-    frame(&mut camera, FIRST_FRAMING);
-    commands.spawn((
+/// The camera's view: the sky's haze and light. The live viewer orbits it
+/// with the mouse; a snapshot places it once.
+pub fn camera() -> impl Bundle {
+    (
         Camera3d::default(),
-        Transform::default(),
-        camera,
         DistanceFog {
             color: SKY,
             falloff: FogFalloff::from_visibility(HAZE_DISTANCE),
@@ -67,7 +65,15 @@ pub fn setup(mut commands: Commands) {
             brightness: SKY_BRIGHTNESS,
             ..default()
         },
-    ));
+    )
+}
+
+/// The orbit a camera that opens before the first snapshot takes.
+pub fn first_orbit() -> Orbit {
+    Orbit::framing(FIRST_FRAMING)
+}
+
+pub fn sun(mut commands: Commands) {
     commands.spawn((
         Sun,
         DirectionalLight {
@@ -97,30 +103,53 @@ pub fn sun_transform(lighting: Lighting) -> Transform {
     Transform::default().looking_to(-towards_sun, Vec3::Y)
 }
 
-/// Frame the box from `bounds[0]` to `bounds[1]`:
-/// from above and to one side, with room for the plants to grow.
-pub fn frame(camera: &mut PanOrbitCamera, bounds: [[f32; 3]; 2]) {
-    let [low, high] = bounds.map(Vec3::from_array);
-    let width = (high.x - low.x).max(high.z - low.z);
-    let high = Vec3::new(high.x, high.y.max(low.y + width * GROWTH_ROOM), high.z);
-    let center = (low + high) * 0.5;
-    let extent = high.distance(low).max(4.0);
-    aim(
-        camera,
-        Vec3::new(center.x, low.y + (high.y - low.y) * AIM, center.z),
-        extent,
-    );
-    camera.target_yaw = FRAMING_YAW;
-    camera.target_pitch = FRAMING_PITCH;
-    camera.yaw = Some(FRAMING_YAW);
-    camera.pitch = Some(FRAMING_PITCH);
+/// Where an orbiting camera stands: around a focus, at a distance.
+#[derive(Clone, Copy, Debug)]
+pub struct Orbit {
+    pub focus: Vec3,
+    /// Around the vertical, and above the horizon, radians.
+    pub yaw: f32,
+    pub pitch: f32,
+    /// From the focus, metres.
+    pub radius: f32,
 }
 
-/// Look at `focus` from `distance` away, keeping the angle.
-pub fn aim(camera: &mut PanOrbitCamera, focus: Vec3, distance: f32) {
-    camera.focus = focus;
-    camera.target_focus = focus;
-    camera.radius = Some(distance);
-    camera.target_radius = distance;
-    camera.force_update = true;
+impl Orbit {
+    /// Frame the box from `bounds[0]` to `bounds[1]`:
+    /// from above and to one side, with room for the plants to grow.
+    pub fn framing(bounds: [[f32; 3]; 2]) -> Self {
+        let [low, high] = bounds.map(Vec3::from_array);
+        let width = (high.x - low.x).max(high.z - low.z);
+        let high = Vec3::new(high.x, high.y.max(low.y + width * GROWTH_ROOM), high.z);
+        let center = (low + high) * 0.5;
+        Self {
+            focus: Vec3::new(center.x, low.y + (high.y - low.y) * AIM, center.z),
+            yaw: FRAMING_YAW,
+            pitch: FRAMING_PITCH,
+            radius: high.distance(low).max(4.0),
+        }
+    }
+
+    /// The camera's transform, as `bevy_panorbit_camera` places it.
+    pub fn transform(&self) -> Transform {
+        let rotation = Quat::from_rotation_y(self.yaw) * Quat::from_rotation_x(-self.pitch);
+        Transform {
+            translation: self.focus + rotation * Vec3::new(0.0, 0.0, self.radius),
+            rotation,
+            ..default()
+        }
+    }
+
+    /// Move `camera` here at once.
+    pub fn apply(&self, camera: &mut PanOrbitCamera) {
+        camera.focus = self.focus;
+        camera.target_focus = self.focus;
+        camera.radius = Some(self.radius);
+        camera.target_radius = self.radius;
+        camera.yaw = Some(self.yaw);
+        camera.target_yaw = self.yaw;
+        camera.pitch = Some(self.pitch);
+        camera.target_pitch = self.pitch;
+        camera.force_update = true;
+    }
 }

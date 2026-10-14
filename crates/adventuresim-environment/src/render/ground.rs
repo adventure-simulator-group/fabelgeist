@@ -5,12 +5,29 @@ use bevy::asset::RenderAssetUsages;
 use bevy::ecs::system::SystemParam;
 use bevy::mesh::{Indices, PrimitiveTopology};
 use bevy::prelude::*;
-use fabelgeist_botany::viewer::sim::Snapshot;
+use std::sync::Arc;
+
+use fabelgeist_botany::viewer::sim::{Snapshot, StructureGeometry, TerrainGeometry};
 
 /// Soil and grass are matte.
 const TERRAIN_ROUGHNESS: f32 = 0.95;
 /// Stone, plaster, tiles and timber are rough too, a little less.
 const STRUCTURE_ROUGHNESS: f32 = 0.85;
+
+/// The terrain and buildings a snapshot brings: only a scene's first.
+pub(super) struct Ground {
+    terrain: Option<Arc<TerrainGeometry>>,
+    structures: Option<Arc<StructureGeometry>>,
+}
+
+impl Ground {
+    pub(super) fn new(snapshot: &Snapshot) -> Self {
+        Self {
+            terrain: snapshot.terrain.clone(),
+            structures: snapshot.structures.clone(),
+        }
+    }
+}
 
 /// The terrain or a scene's buildings: what a pointer can rest on.
 #[derive(Component)]
@@ -24,9 +41,9 @@ pub(super) struct GroundAssets<'w, 's> {
 }
 
 impl GroundAssets<'_, '_> {
-    /// Replace the ground when `snapshot` starts a scene.
-    pub(super) fn show(&mut self, commands: &mut Commands, snapshot: &Snapshot) {
-        let Some(terrain) = &snapshot.terrain else {
+    /// Replace the ground when a snapshot brings it, starting a scene.
+    pub(super) fn show(&mut self, commands: &mut Commands, ground: &Ground) {
+        let Some(terrain) = &ground.terrain else {
             return;
         };
         for entity in &self.shown {
@@ -43,7 +60,7 @@ impl GroundAssets<'_, '_> {
             },
             TERRAIN_ROUGHNESS,
         );
-        let Some(structures) = &snapshot.structures else {
+        let Some(structures) = &ground.structures else {
             return;
         };
         if structures.indices.is_empty() {

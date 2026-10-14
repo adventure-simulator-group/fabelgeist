@@ -15,13 +15,27 @@ axis, or the cluster's blades (broadleaf spirals, conifer needle sprays, palm
 fronds). Bark and blades are lit by Bevy's PBR
 lights; blade outlines become multisample coverage. The terrain and the
 buildings are ordinary meshes coloured by their vertices. An application feeds
-snapshots through `ForestFeed` and sets tube and blade detail in
-`ForestDetail`.
+snapshots through `ForestFeed` and sets the detail in `ForestDetail`.
+
+Each chunk is drawn at one of three levels of detail, picked each
+frame from how large its largest plant appears on screen: in full detail
+(10-sided tubes, 10 blades a cluster) when that plant's radius spans at least
+220 pixels, in middle detail (6 sides, 6 blades) down to 40 pixels, and
+coarsest (4 sides, 2 blades) below. A cell's plants are split into chunks by
+size, so shrubs follow their own level, and a chunk keeps its level until its
+plants are 15% past the threshold, since changing it uploads the chunk again.
+
+A snapshot is made ready on a background task (its records copied to bytes,
+its instances sorted into chunks), then drawn in one frame. The records are
+written on the render thread into storage buffers that persist from snapshot
+to snapshot; only the bytes in use are
+written, and only when they changed, as do the chunks' instances, so a paused
+simulation, which keeps handing over the same snapshot, costs nothing to draw.
 
 The Bevy forest does not yet cast shadows
 (`bevy_eidolon` draws no shadow pass; the trees receive the terrain's and the
-buildings'), draws every plant at one level of detail without grove proxies,
-and does not grow fillets where branches meet or lay litter on the ground.
+buildings'), stands no proxies in for far groves, and does not grow fillets
+where branches meet or lay litter on the ground.
 
 ## Environment viewer
 
@@ -59,8 +73,8 @@ under **Simulation**. **Display** moves the sun, switches shadows and foliage,
 and sets how finely branches and leaves are built. F3 shows frame rate,
 simulation step time and instance counts.
 
-`--snapshot <png>` grows a scene for `--years` without the simulation thread,
-shows it, and saves the window once:
+`--snapshot <png>` grows a scene for `--years` without the simulation thread
+and renders it once headless, without a window, at 1600 by 1000 pixels:
 
 ```powershell
 cargo run --release -p adventuresim-environment --features viewer --bin environment-viewer -- --snapshot target/boreal.png --scene boreal --years 120
@@ -68,3 +82,14 @@ cargo run --release -p adventuresim-environment --features viewer --bin environm
 
 `--closeup` frames the tallest plant, `--solo conifer` grows one plant of a
 species alone, and `--profile fast` renders with the cheaper preset.
+
+`--frames 300` times that many frames before the capture, waiting for the GPU
+after each, and prints the time a frame takes and each render pass's GPU time.
+`--orbit` turns the camera once round the scene meanwhile, which changes
+chunks' levels of detail as a player looking round does, and `--refeed 5`
+hands the forest the snapshot again every fifth frame, as the simulation hands
+it new ones:
+
+```powershell
+cargo run --release -p adventuresim-environment --features viewer --bin environment-viewer -- --snapshot target/castle.png --scene castle --years 120 --frames 300 --orbit --refeed 5
+```
