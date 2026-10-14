@@ -8,6 +8,7 @@ use fabelgeist_armor::{
     gpu::{frame_words, record_fauld, record_garment_tube, record_tassets},
 };
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_gpu::prelude::Buffer;
 
 /// Every garment built from its part frame alone. Torso garments and the
@@ -199,7 +200,7 @@ fn tasset_carriers(design: &GarmentArmorDesign, fit: &PartFrame) -> Vec<Vec<[f32
     let frame = gpu()
         .upload(BufferUpload::from_elements(&frame_words(fit)))
         .unwrap();
-    let mut batch = gpu().batch("tasset carriers");
+    let mut batch = gpu().batch(KernelBatchLabel::from("tasset carriers"));
     let mut part = record_tassets(gpu(), &mut batch, design, &frame).unwrap();
     part.record_shells(gpu(), &mut batch).unwrap();
     batch.submit();

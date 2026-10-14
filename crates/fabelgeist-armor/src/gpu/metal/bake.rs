@@ -1,5 +1,6 @@
 //! Running a metal bake through the device.
 
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_compute::{KernelBatch, host_float};
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
@@ -42,7 +43,7 @@ pub(super) fn bake(
     let metal_roughness = gpu.scratch(texels.into(), "metal roughness")?;
     let depth = gpu.scratch(texels.into(), "metal depth")?;
     let finish = gpu.scratch(u64::from(texels) * u64::from(FINISH_WORDS), "metal finish")?;
-    let mut batch = gpu.batch("metal textures");
+    let mut batch = gpu.batch(KernelBatchLabel::from("metal textures"));
     record_scratches(gpu, &mut batch, metal, size, &height)?;
     record_finish(gpu, &mut batch, metal, size, &finish)?;
     let depth_uv = match engraving {

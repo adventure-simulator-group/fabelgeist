@@ -7,6 +7,7 @@
 //! finds the body's depth at every flap section. Each step between the two
 //! reductions is one invocation.
 
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_gpu::prelude::BufferUpload;
 use std::f32::consts::{PI, TAU};
 use std::sync::Arc;
@@ -74,7 +75,7 @@ pub fn fitted_coif_carrier(
         body: &body,
         host: wearer,
     };
-    let mut batch = gpu.batch("coif carrier");
+    let mut batch = gpu.batch(KernelBatchLabel::from("coif carrier"));
     let recording = device.record_fitted_coif(&mut batch, design)?;
     batch.submit();
     let (frame, region) = &recording.frames[0];

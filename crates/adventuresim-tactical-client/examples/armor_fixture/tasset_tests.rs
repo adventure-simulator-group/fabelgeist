@@ -117,7 +117,7 @@ fn wrapped_tassets_reject_nonpositive_final_section_radii() -> Result<()> {
             gpu.upload(BufferUpload::from_elements(&[0_u32]))?,
             gpu.upload(BufferUpload::from_elements(&[0_u32]))?,
         ];
-        let mut batch = gpu.batch("invalid final tasset section regression");
+        let mut batch = gpu.batch("invalid final tasset section regression".into());
         let mut part = wrapped_tassets::record_wrapped_tassets(
             gpu,
             &mut batch,

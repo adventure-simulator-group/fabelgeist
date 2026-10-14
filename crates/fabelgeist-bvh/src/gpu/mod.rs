@@ -17,6 +17,7 @@
 
 pub mod shaders;
 
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 
@@ -307,7 +308,7 @@ impl GpuBvh {
         primitive_bounds: &Buffer,
         count: u32,
     ) -> Result<()> {
-        let mut batch = KernelBatch::labelled(context, "GpuBvh build");
+        let mut batch = KernelBatch::labelled(context, KernelBatchLabel::from("GpuBvh build"));
         self.record_build(&mut batch, primitive_bounds, count)?;
         batch.submit();
         Ok(())

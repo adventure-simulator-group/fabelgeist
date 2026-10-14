@@ -10,6 +10,7 @@
 //! to what it selected. Which faces count as torso for fitting depends only
 //! on the rig's skin weights, so the host lists them.
 
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_gpu::prelude::BufferUpload;
 use std::collections::BTreeSet;
 
@@ -176,7 +177,7 @@ pub async fn generate_breastplate_on_device_async(
     let atlas_faces = gpu.upload(BufferUpload::from_elements(input.texcoord_faces))?;
     let status = gpu.scratch(4, "breastplate status")?;
 
-    let mut batch = gpu.batch("breastplate");
+    let mut batch = gpu.batch(KernelBatchLabel::from("breastplate"));
     let rig = gpu.scratch(TORSO_RIG_WORDS as u64 * 4, "torso rig")?;
     let semantic = gpu.scratch(vertex_count as u64 * 8, "torso coordinates")?;
     let support = gpu.scratch(vertex_count as u64 * 4, "front torso support")?;
@@ -213,7 +214,7 @@ pub async fn generate_breastplate_on_device_async(
     .await?;
     for morph in input.morphs {
         let positions = gpu.upload(BufferUpload::from_elements(&morph.positions))?;
-        let mut batch = gpu.batch("breastplate morph");
+        let mut batch = gpu.batch(KernelBatchLabel::from("breastplate morph"));
         breastplate.record_morph(gpu, &mut batch, &positions)?;
         batch.submit();
     }

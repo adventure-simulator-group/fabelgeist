@@ -10,6 +10,7 @@
 //! [`WgpuContext`], so an application that already generates armor on a
 //! device shares it; [`MetalGpu::open`] opens one of its own.
 
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
 mod bake;
 mod finish;
@@ -75,7 +76,7 @@ impl MetalGpu {
         bake::textures(self, metal, size)
     }
 
-    fn batch(&self, label: &str) -> KernelBatch<'_> {
+    fn batch(&self, label: KernelBatchLabel<'_>) -> KernelBatch<'_> {
         KernelBatch::labelled(&self.context, label)
     }
 

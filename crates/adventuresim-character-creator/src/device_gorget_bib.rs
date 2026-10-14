@@ -167,6 +167,7 @@ mod tests {
     use crate::armor_frames::Wearer;
     use crate::device_gorget_cage::*;
     use fabelgeist_armor::ArmorGpu;
+    use fabelgeist_compute::KernelBatchLabel;
 
     #[test]
     fn bib_seats_on_lower_equipment_in_the_canonical_wearer_frame() {
@@ -244,7 +245,7 @@ mod tests {
                 let output = gpu
                     .scratch(36 * 12, "seated collar and bib samples")
                     .unwrap();
-                let mut batch = gpu.batch("gorget lower support test");
+                let mut batch = gpu.batch(KernelBatchLabel::from("gorget lower support test"));
                 wearer
                     .record_bib_fit(&mut batch, &fit, &samples, 0.004, layers)
                     .unwrap();

@@ -16,6 +16,7 @@
 //! 4. **finalize** -- read velocity back out of the total position change, so
 //!    that every correction made in 2 and 3 shows up in the velocity for free.
 
+use fabelgeist_compute::KernelBatchLabel;
 use std::sync::Arc;
 
 use fabelgeist_compute::prelude::*;
@@ -211,7 +212,7 @@ impl Solver {
         let substep = delta / self.settings.substeps as f32;
 
         for _ in 0..self.settings.substeps {
-            let mut batch = KernelBatch::labelled(context, "xpbd substep");
+            let mut batch = KernelBatch::labelled(context, KernelBatchLabel::from("xpbd substep"));
             self.record_substep(&mut batch, particles, constraints, hook, substep)?;
             batch.submit();
         }
@@ -227,7 +228,7 @@ impl Solver {
         hook: &mut impl SubstepHook,
         delta: f32,
     ) -> Result<()> {
-        let mut batch = KernelBatch::labelled(context, "xpbd step");
+        let mut batch = KernelBatch::labelled(context, KernelBatchLabel::from("xpbd step"));
         self.record_step(&mut batch, particles, constraints, hook, delta)?;
         batch.submit();
         Ok(())
