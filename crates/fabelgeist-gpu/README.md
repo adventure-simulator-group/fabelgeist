@@ -29,3 +29,7 @@ explicit. Storage includes copy-source and copy-destination capability.
 Empty uploads fail allocation. Armor consumers explicitly call
 `with_empty_word` when an empty logical input still requires a scalar binding.
 The generic buffer layer does not silently pad every input.
+
+`Buffer::read` returns a concrete `BufferReadResult`, preserving native mapping
+and callback causes. See [buffer readback](buffer-reads.md) for admission,
+cleanup, byte boundaries and mixed-provider error conversion.
