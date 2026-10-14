@@ -8,7 +8,7 @@ use std::path::Path;
 
 use anyhow::{Context, Result, bail};
 use burn::tensor::{Device, Tensor, TensorData, activation};
-use fabelgeist_numpy_storage::Npz;
+use fabelgeist_numpy_storage::{NpyFloatValues, NpyIntegerValues, Npz};
 
 /// The first two joints do not define a local pose, so they carry no feature.
 pub const SKIPPED_JOINTS: usize = 2;
@@ -98,19 +98,21 @@ impl PoseCorrectives {
             bail!("corrective basis has {components} components, expected {hidden}");
         }
 
-        let indices = activation
-            .array(SPARSE_INDICES_ARRAY)
-            .context("reading the sparse activation indices")?
-            .to_i64();
-        let values = activation
-            .array(SPARSE_WEIGHT_ARRAY)
-            .context("reading the sparse activation weights")?
-            .to_f32();
-        if indices.len() != 2 * values.len() {
+        let indices = NpyIntegerValues::from(
+            &activation
+                .array(SPARSE_INDICES_ARRAY)
+                .context("reading the sparse activation indices")?,
+        );
+        let values = NpyFloatValues::from(
+            &activation
+                .array(SPARSE_WEIGHT_ARRAY)
+                .context("reading the sparse activation weights")?,
+        );
+        if indices.values().len() != 2 * values.values().len() {
             bail!(
                 "sparse activation has {} indices for {} weights",
-                indices.len(),
-                values.len()
+                indices.values().len(),
+                values.values().len()
             );
         }
 
@@ -118,19 +120,22 @@ impl PoseCorrectives {
         // layer is 4% dense, so a dense matmul beats a sparse gather on GPU.
         let inputs = posed_joints * FEATURES_PER_JOINT;
         let mut dense = vec![0.0f32; inputs * hidden];
-        for (slot, value) in values.iter().enumerate() {
-            let row = indices[slot] as usize;
-            let column = indices[values.len() + slot] as usize;
+        for (slot, value) in values.values().iter().enumerate() {
+            let row = i64::from(indices.values()[slot]) as usize;
+            let column = i64::from(indices.values()[values.values().len() + slot]) as usize;
             if row >= hidden || column >= inputs {
                 bail!("sparse activation index ({row}, {column}) is out of bounds");
             }
-            dense[column * hidden + row] = *value;
+            dense[column * hidden + row] = f32::from(*value);
         }
 
         Ok(Some(Self {
             activation: Tensor::from_data(TensorData::new(dense, [inputs, hidden]), device),
             basis: Tensor::from_data(
-                TensorData::new(basis.to_f32(), [components, num_vertices * 3]),
+                TensorData::new(
+                    Vec::<f32>::from(NpyFloatValues::from(&basis)),
+                    [components, num_vertices * 3],
+                ),
                 device,
             ),
             posed_joints,
@@ -186,3 +191,6 @@ fn axis_sin_cos(euler: &Tensor<3>, axis: usize) -> (Tensor<3>, Tensor<3>) {
     let angle = euler.clone().narrow(2, axis, 1);
     (angle.clone().sin(), angle.cos())
 }
+
+#[cfg(all(test, not(target_arch = "wasm32")))]
+mod value_tests;
