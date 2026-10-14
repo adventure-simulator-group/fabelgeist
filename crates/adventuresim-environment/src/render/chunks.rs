@@ -125,8 +125,12 @@ pub(super) fn show(
             },
             gathered.aabb,
             // Culling belongs to the GPU: CPU frustum culling would free the
-            // retained instance buffers.
+            // retained instance buffers. Without the opt-in, eidolon still
+            // runs its cull pass over the page and appends every instance a
+            // second time past the chunk's range, over its neighbours', in a
+            // different order each frame: the forest flickers.
             NoFrustumCulling,
+            GpuCullCompute,
             Transform::default(),
             Visibility::Inherited,
         ));
