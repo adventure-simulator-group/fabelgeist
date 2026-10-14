@@ -84,3 +84,12 @@ execution cost; acceptance uses repeated unprofiled runs on an idle host.
 Keep timings, screenshots, profiles, input hashes, and failure evidence in
 ignored output directories. Missing assets and GPU failures prevent full
 acceptance; a recorded timeout is not a completed initialization time.
+
+Diagnostic page snapshots and profiler RPCs have independent deadlines. Each
+arrival has a five-minute investigation deadline, separate from the 30-second
+and 3-second acceptance targets. Failure reports retain the last successful
+checkpoint with its age. A timeout never establishes a completed startup time.
+Browser traces use a browser-level connection and are saved before attempting
+renderer-thread snapshots; incomplete traces are marked explicitly. The harness
+owns and terminates its browser process tree, including a stalled GPU child.
+The mock bridge test disables the GPU and cannot establish rendering acceptance.

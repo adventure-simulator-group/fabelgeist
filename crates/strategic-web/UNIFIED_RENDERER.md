@@ -482,8 +482,9 @@ warm building and portrait changes, browser frame intervals and additional
 asset requests. Missing assets fail
 the test and remain in the recorded results; they are not suppressed.
 
-The WebGPU run uses Edge on Windows, matching the other GPU tests. It checks
-adapter availability before starting. The fixture serves production renderer
+The WebGPU run uses Edge on Windows by default; `STRATEGIC_BROWSER_CHANNEL`
+selects another installed channel. It records the application's actual adapter
+request without first warming a separate GPU request. The fixture serves production renderer
 code and assets with isolated HTML and resident data; it does not access a
 database. Results, screenshots, adapter identity and bounded diagnostics go
 under `target/strategic-scene-review/`. Cold startup and warm navigation are
@@ -500,20 +501,20 @@ When a production inventory fixture is present, `location-replacement.json`
 also records the cost and requests for replacing the retained settlement.
 
 Set `STRATEGIC_TRAVEL_BENCHMARK=1` with `STRATEGIC_RENDER_BENCHMARK=1` to
-measure A → B → A without reloading the document or recreating the renderer.
-The destination varies terrain seed and scene identity while retaining validated
-building layouts. This isolates scene replacement and cross-city asset reuse;
-it does not measure a completely different set of occupied building programs.
-`travel.json` records elapsed arrival time and generation metrics separately.
-The usual missing-asset assertion still applies after results are recorded.
+measure A -> unseen B -> return A without recreating the document or renderer.
+Export canonical distinct settlement fixtures through the dispatcher, as
+specified in [Initialization benchmarks](INITIALIZATION_BENCHMARKS.md), and set
+`STRATEGIC_STARTUP_FIXTURE_DIR` to that directory. Both origins, identities,
+occupied building programs, and resident identities differ. Serve the native
+JSON unchanged so full-width physical seeds retain their exact values.
 
-To measure new occupied layouts, generate validated fixtures with the ignored
-`distinct_city_inputs_validate_occupied_layouts` tactical-client test, setting
-`STRATEGIC_TRAVEL_FIXTURE_DIR` to an absolute output directory. Set
-`STRATEGIC_TRAVEL_SCENE_INPUT` and `STRATEGIC_TRAVEL_SECOND_INPUT` to its two JSON
-files. This measures A → B → C → A with different occupied programs at both
-destinations. Preserve the exact files for before/after comparisons; the test
-uses fixed authored seeds rather than searching for easier layouts at runtime.
+Cold means the game's first connection, with a 30-second target. Warm includes
+first travel to a previously unvisited settlement, with a 3-second target.
+Returning to cached A is reported separately. The focused-map workload also
+waits for current actor readiness, matching geography, prepared and installed
+city detail, drawn coverage, and settled environment presentation.
+`cold.json` and `travel.json` record timings and generation metrics. Missing
+assets, software adapters, or GPU errors prevent complete acceptance.
 
 Preparing a destination before arrival requires a server-authorized scene input.
 The current scene endpoint only serves the character's current settlement, so

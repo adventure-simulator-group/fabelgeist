@@ -6,6 +6,7 @@ const directory = process.env.STRATEGIC_STARTUP_FIXTURE_DIR;
 const fixtures = new Map();
 exports.load = settlement => {
   if (!directory) return null;
+  assert(["scene-review", "travel-destination"].includes(settlement), "The settlement has an explicit canonical capture");
   const name = settlement === "travel-destination" ? "b" : "a";
   if (!fixtures.has(name)) {
     // Only metadata is parsed. Preserve the original scene/city text and seeds.
@@ -53,11 +54,11 @@ exports.markup = settlement => {
     <div class="strategic-map-window" data-map-window aria-hidden="true"></div>
     <div class="strategic-map-controls" data-map-foreground>
       <button data-map-action="zoom-in" aria-label="Zoom in">+</button>
-      <button data-map-action="zoom-out" aria-label="Zoom out">−</button>
-      <button data-map-action="reset" aria-label="Reset view">⌂</button>
-      <button data-map-action="retry" aria-label="Retry map" hidden>↻</button>
+      <button data-map-action="zoom-out" aria-label="Zoom out">âˆ’</button>
+      <button data-map-action="reset" aria-label="Reset view">âŒ‚</button>
+      <button data-map-action="retry" aria-label="Retry map" hidden>â†»</button>
     </div><div class="strategic-map-markers"><a data-map-place="${metadata.place}" data-map-foreground hidden href="#">Settlement</a></div>
-    <p data-map-status data-map-foreground role="status">Loading map…</p></section>`;
+    <p data-map-status data-map-foreground role="status">Loading mapâ€¦</p></section>`;
 };
 
 exports.ready = async page => {

@@ -2,6 +2,7 @@
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
+const { withDeadline } = require("./startup-deadline.cjs");
 
 function instrument(source, replacements) {
   for (const [from, to, all] of replacements) {
@@ -41,7 +42,8 @@ exports.attach = async (page, output) => {
   await cdp.send("Profiler.enable");
   await cdp.send("Profiler.setSamplingInterval", { interval: 1000 });
   const browserTrace = process.env.STRATEGIC_STARTUP_BROWSER_TRACE === "1"
-    ? require("./startup-browser-trace.cjs").attach(cdp, output) : null;
+    ? require("./startup-browser-trace.cjs").attach(
+      await page.context().browser().newBrowserCDPSession(), output) : null;
   if (process.env.STRATEGIC_STARTUP_WORKERS === "1")
     await require("./startup-worker-profile.cjs").attach(page, cdp, output);
   return {
@@ -55,13 +57,26 @@ exports.attach = async (page, output) => {
       await browserTrace?.start(); await cdp.send("Profiler.start");
     },
     async stop(name) {
-      const { profile } = await cdp.send("Profiler.stop");
-      const trace = await page.evaluate(() => { window.startupProfile.active = false; return ({ ...window.startupProfile,
-        now: performance.now(), generation: window.strategicGenerationMetrics?.scene,
-        metrics: window.strategicRendererMetrics }); });
-      fs.writeFileSync(path.join(output, `${name}.cpuprofile`), JSON.stringify(profile));
-      fs.writeFileSync(path.join(output, `${name}-trace.json`), JSON.stringify(trace));
+      // GPU-service tracing must survive a blocked renderer thread.
       await browserTrace?.stop(name);
+      const results = await Promise.allSettled([
+        withDeadline(cdp.send("Profiler.stop"), "renderer profiler stop", 5_000),
+        withDeadline(page.evaluate(() => {
+          window.startupProfile.active = false;
+          return { ...window.startupProfile, now: performance.now(),
+            generation: window.strategicGenerationMetrics?.scene,
+            metrics: window.strategicRendererMetrics };
+        }), "renderer trace snapshot", 5_000),
+      ]);
+      const failures = [];
+      for (const [index, result] of results.entries()) {
+        if (result.status === "fulfilled") {
+          const filename = index === 0 ? `${name}.cpuprofile` : `${name}-trace.json`;
+          const value = index === 0 ? result.value.profile : result.value;
+          fs.writeFileSync(path.join(output, filename), JSON.stringify(value));
+        } else failures.push(String(result.reason));
+      }
+      if (failures.length) fs.writeFileSync(path.join(output, `${name}-profile-errors.json`), JSON.stringify(failures));
     },
     async beginNavigation() {
       await page.evaluate(() => {
