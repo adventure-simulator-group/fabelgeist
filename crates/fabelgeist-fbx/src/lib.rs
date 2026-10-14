@@ -20,6 +20,9 @@ use anyhow::{Context, Result, anyhow, bail};
 use flate2::read::ZlibDecoder;
 
 pub mod animation;
+mod property_name;
+
+pub use property_name::FbxPropertyName;
 
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
 
@@ -130,20 +133,21 @@ impl Node {
 
     /// Look up an entry of this node's `Properties70` block by name.
     ///
-    /// Mirrors OpenFBX `resolveProperty`: a `P` record whose first property is
-    /// the requested name; values start at index 4.
-    pub fn property70(&self, name: &str) -> Option<&Node> {
+    /// In the first matching block, selects the first child whose first property
+    /// is a string or raw-byte key equal to `name`. The child record name is not
+    /// checked. Numeric value readers start at property index 4.
+    pub fn property70(&self, name: FbxPropertyName<'_>) -> Option<&Node> {
         let props = self.child("Properties70")?;
         props.children.iter().find(|p| {
             p.props
                 .first()
-                .and_then(|v| v.as_str())
-                .is_some_and(|v| v == name.as_bytes())
+                .and_then(FbxPropertyName::from_property)
+                .is_some_and(|key| key == name)
         })
     }
 
     /// A three-component `Properties70` value such as `Lcl Translation`.
-    pub fn property70_vec3(&self, name: &str, default: [f64; 3]) -> [f64; 3] {
+    pub fn property70_vec3(&self, name: FbxPropertyName<'_>, default: [f64; 3]) -> [f64; 3] {
         let Some(p) = self.property70(name) else {
             return default;
         };
@@ -158,7 +162,7 @@ impl Node {
     }
 
     /// A scalar integer `Properties70` value such as `RotationOrder`.
-    pub fn property70_i64(&self, name: &str, default: i64) -> i64 {
+    pub fn property70_i64(&self, name: FbxPropertyName<'_>, default: i64) -> i64 {
         self.property70(name)
             .and_then(|p| p.props.get(4))
             .and_then(Prop::as_i64)
