@@ -403,10 +403,10 @@ pub fn dev_bootstrap_settlement_activity(
     let Some(settlement_id) = ids.get(index as usize) else {
         return Ok(());
     };
-    // One settlement's full activity is well under the per-reducer budget, so a
-    // single call materializes all of its quests (`quest_batch == 0` = no cap);
-    // this avoids re-running the idempotent population/incident work per quest.
-    ensure_settlement_activity_batched(ctx, settlement_id, 0)?;
+    // Keep each transaction below SpacetimeDB's per-reducer compute budget.
+    // The development seed driver repeats this idempotent reducer until the
+    // settlement's deterministic quest target is reached.
+    ensure_settlement_activity_batched(ctx, settlement_id, 1)?;
     crate::repair::ensure_settlement_smith(ctx, settlement_id);
     Ok(())
 }
