@@ -9,7 +9,7 @@ pub mod surface_contact;
 pub mod topology;
 pub mod wgsl;
 pub use fabelgeist_physics::Collisions;
-pub use fabelgeist_xpbd::{Solver, SolverSettings};
+pub use fabelgeist_xpbd::{Solver, SolverSettings, SubstepCount};
 pub use mesh::ShellMesh;
 pub use selfcollision::SelfCollision;
 pub use shell::{HostContactSchedule, Shell};

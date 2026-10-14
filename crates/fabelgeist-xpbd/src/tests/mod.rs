@@ -38,9 +38,9 @@ impl Reference {
         settings: &SolverSettings,
         delta: f32,
     ) {
-        let substep = delta / settings.substeps as f32;
+        let substep = delta / u32::from(settings.substeps) as f32;
 
-        for _ in 0..settings.substeps {
+        for _ in 0..u32::from(settings.substeps) {
             for index in 0..self.positions.len() {
                 self.previous[index] = self.positions[index];
                 if self.inverse_masses[index].mobility() == ParticleMobility::Prescribed {
@@ -201,7 +201,7 @@ fn assert_close(gpu: &[Vec3], host: &[Vec3], tolerance: f32) {
 async fn matches_the_host_solver_on_a_chain() -> Result<()> {
     let (positions, inverse_masses, edges, rest_lengths) = chain(40, 0.05);
     let settings = SolverSettings {
-        substeps: 8,
+        substeps: 8.into(),
         ..Default::default()
     };
     let (gpu, host) = run(
@@ -227,7 +227,7 @@ async fn matches_the_host_solver_on_a_chain() -> Result<()> {
 async fn matches_the_host_solver_with_compliance() -> Result<()> {
     let (positions, inverse_masses, edges, rest_lengths) = chain(24, 0.08);
     let settings = SolverSettings {
-        substeps: 12,
+        substeps: 12.into(),
         ..Default::default()
     };
     let (gpu, host) = run(
@@ -256,7 +256,7 @@ async fn matches_the_host_solver_with_compliance() -> Result<()> {
 async fn matches_the_host_solver_across_repeated_sweeps() -> Result<()> {
     let (positions, inverse_masses, edges, rest_lengths) = chain(24, 0.08);
     let settings = SolverSettings {
-        substeps: 6,
+        substeps: 6.into(),
         iterations: 4,
         ..Default::default()
     };
@@ -310,7 +310,7 @@ async fn free_fall_matches_the_analytic_drop() -> Result<()> {
     let particles =
         Particles::from_positions(&context, &positions, &vec![1.0.into(); positions.len()])?;
     let settings = SolverSettings {
-        substeps: 20,
+        substeps: 20.into(),
         damping: 0.0,
         ..Default::default()
     };
@@ -363,7 +363,7 @@ async fn a_stiff_chain_holds_its_length() -> Result<()> {
         &context,
         &cache,
         SolverSettings {
-            substeps: 20,
+            substeps: 20.into(),
             damping: 2.0,
             ..Default::default()
         },
@@ -416,7 +416,7 @@ async fn compliance_orders_the_stretch() -> Result<()> {
             &context,
             &cache,
             SolverSettings {
-                substeps: 20,
+                substeps: 20.into(),
                 damping: 3.0,
                 ..Default::default()
             },
@@ -498,7 +498,7 @@ async fn a_colored_grid_solves_without_racing() -> Result<()> {
         &context,
         &cache,
         SolverSettings {
-            substeps: 15,
+            substeps: 15.into(),
             damping: 2.0,
             ..Default::default()
         },
@@ -579,7 +579,7 @@ async fn the_substep_hook_runs_every_substep() -> Result<()> {
     let cache = KernelCache::new();
     let particles = Particles::from_positions(&context, &[Vec3::default()], &[1.0.into()])?;
     let settings = SolverSettings {
-        substeps: 7,
+        substeps: 7.into(),
         ..Default::default()
     };
     let solver = Solver::with_cache(&context, &cache, settings)?;

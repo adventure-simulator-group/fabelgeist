@@ -2,6 +2,9 @@
 //! checkpoints that let a changed stage re-run without repeating earlier ones.
 use super::*;
 use anyhow::ensure;
+use fabelgeist_shell::SubstepCount;
+
+mod substep_serde;
 use std::ops::RangeInclusive;
 
 /// Downward acceleration of a garment settling on the wearer, m/s².
@@ -13,7 +16,8 @@ const SEWING_DAMPING_PER_SECOND: f32 = 8.0;
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
 pub struct StageSettings {
     pub steps: u32,
-    pub substeps: u32,
+    #[serde(with = "substep_serde")]
+    pub substeps: SubstepCount,
     /// Constraint sweeps within each substep.
     pub iterations: u32,
     /// Downward acceleration, m/s².
@@ -24,7 +28,8 @@ pub struct StageSettings {
     pub self_collision: bool,
     /// GPU substeps swept by one host contact projection. Zero leaves contact
     /// to the GPU body collider and self-collision kernels.
-    pub host_contact_interval: u32,
+    #[serde(with = "substep_serde")]
+    pub host_contact_interval: SubstepCount,
     /// Projection sweeps in one host contact solve.
     pub host_contact_iterations: u32,
     /// Also sweep cloth against the wearer's triangles on the host. The GPU
@@ -34,7 +39,8 @@ pub struct StageSettings {
 
 impl StageSettings {
     pub const STEPS: RangeInclusive<u32> = 0..=600;
-    pub const SUBSTEPS: RangeInclusive<u32> = 1..=32;
+    pub const SUBSTEPS: RangeInclusive<SubstepCount> =
+        SubstepCount::from_native(1)..=SubstepCount::from_native(32);
     pub const ITERATIONS: RangeInclusive<u32> = 1..=8;
     pub const GRAVITY: RangeInclusive<f32> = 0.0..=30.0;
     pub const DAMPING: RangeInclusive<f32> = 0.0..=20.0;
@@ -342,7 +348,8 @@ mod tests {
     fn stage_settings_reject_contacts_spaced_beyond_one_step() {
         let mut settings = DrapeSettings::for_fabric(Fabric::CHAINMAIL);
         assert!(settings.validate().is_ok());
-        settings.settling.host_contact_interval = settings.settling.substeps + 1;
+        settings.settling.host_contact_interval =
+            SubstepCount::from(u32::from(settings.settling.substeps) + 1);
         assert!(settings.validate().is_err());
     }
 }

@@ -92,14 +92,14 @@ pub(super) fn simulate_outfit(
     delta: f32,
     simulation: &SimulationSettings,
 ) {
-    let count = simulation.substeps.max(1);
-    let step = delta.min(1.0 / 30.0) / count as f32;
+    let count = simulation.substeps.at_least_one();
+    let step = delta.min(1.0 / 30.0) / u32::from(count) as f32;
     let mut settings = simulation.clone();
-    settings.substeps = 1;
+    settings.substeps = SubstepCount::from(1);
     let contacts = OutfitContacts::new(cloth, body, &settings);
-    for substep in 0..count {
-        let t0 = substep as f32 / count as f32;
-        let t1 = (substep + 1) as f32 / count as f32;
+    for substep in 0..u32::from(count) {
+        let t0 = substep as f32 / u32::from(count) as f32;
+        let t1 = (substep + 1) as f32 / u32::from(count) as f32;
         let body_surface = body.as_ref().map(|(start, end, faces)| {
             let current: Vec<_> = start.iter().zip(end).map(|(a, b)| a.lerp(*b, t1)).collect();
             let bvh = fabelgeist_bvh::TriangleBvh::new(
@@ -134,14 +134,14 @@ pub(super) fn simulate(
     dt: f32,
     settings: &SimulationSettings,
 ) {
-    let substeps = settings.substeps.max(1);
-    let step = dt / substeps as f32;
+    let substeps = settings.substeps.at_least_one();
+    let step = dt / u32::from(substeps) as f32;
     let follow = match skin.form {
         GarmentForm::Legged => 0.22,
         GarmentForm::Skirted => 0.075,
         GarmentForm::Upper | GarmentForm::Fitted => 0.14,
     };
-    for _ in 0..substeps {
+    for _ in 0..u32::from(substeps) {
         for v in 0..skin.current.len() {
             let position = skin.current[v];
             let velocity = (position - skin.previous[v]) * (1.0 - settings.damping);

@@ -33,7 +33,16 @@ pub(super) fn show(ui: &mut egui::Ui, selection: &mut GarmentSelection) {
 
 fn stage(ui: &mut egui::Ui, settings: &mut StageSettings) {
     ui.add(egui::Slider::new(&mut settings.steps, StageSettings::STEPS).text("Steps"));
-    ui.add(egui::Slider::new(&mut settings.substeps, StageSettings::SUBSTEPS).text("Substeps"));
+    // Egui edits a native scalar; settings retain the admitted cardinality.
+    let mut substeps = u32::from(settings.substeps);
+    ui.add(
+        egui::Slider::new(
+            &mut substeps,
+            u32::from(*StageSettings::SUBSTEPS.start())..=u32::from(*StageSettings::SUBSTEPS.end()),
+        )
+        .text("Substeps"),
+    );
+    settings.substeps = substeps.into();
     ui.add(
         egui::Slider::new(&mut settings.iterations, StageSettings::ITERATIONS)
             .text("Constraint iterations"),
@@ -45,12 +54,14 @@ fn stage(ui: &mut egui::Ui, settings: &mut StageSettings) {
     );
     ui.checkbox(&mut settings.self_collision, "Self-collision");
     settings.host_contact_interval = settings.host_contact_interval.min(settings.substeps);
+    let mut interval = u32::from(settings.host_contact_interval);
     ui.add(
-        egui::Slider::new(&mut settings.host_contact_interval, 0..=settings.substeps)
+        egui::Slider::new(&mut interval, 0..=u32::from(settings.substeps))
             .text("Swept contacts every N substeps (0 = off)"),
     )
     .on_hover_text("Swept contacts run on the GPU. Fewer passes are faster.");
-    ui.add_enabled_ui(settings.host_contact_interval > 0, |ui| {
+    settings.host_contact_interval = interval.into();
+    ui.add_enabled_ui(!settings.host_contact_interval.is_empty(), |ui| {
         ui.add(
             egui::Slider::new(
                 &mut settings.host_contact_iterations,
@@ -63,4 +74,23 @@ fn stage(ui: &mut egui::Ui, settings: &mut StageSettings) {
             "Swept contacts against the body",
         );
     });
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn substep_stage_widgets_keep_scalar_ranges_and_contact_interval_clamping() {
+        let context = egui::Context::default();
+        for native in [0u32, 1, 32, 33] {
+            let mut settings =
+                DrapeSettings::for_fabric(fabelgeist_cloth::Fabric::default()).sewing;
+            settings.substeps = native.into();
+            settings.host_contact_interval = u32::MAX.into();
+            let _ = context.run_ui(Default::default(), |ui| stage(ui, &mut settings));
+            assert_eq!(u32::from(settings.substeps), native.clamp(1, 32));
+            assert_eq!(settings.host_contact_interval, settings.substeps);
+        }
+    }
 }
