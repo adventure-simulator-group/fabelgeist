@@ -8,8 +8,12 @@ pub mod ornament;
 pub mod pattern;
 mod skin;
 mod skirt;
+mod skirt_structure;
 pub use skirt::{
     DressBodice, SKIRT_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS, SkirtDesign, SkirtProfile,
+};
+pub use skirt_structure::{
+    PleatStyle, SkirtHoops, SkirtPleats, SkirtRepeatCount, SkirtStays, SkirtSupport,
 };
 mod tiling;
 pub use construction::{Construction, ConstructionError, Lacing, Plate, Tiling};
@@ -89,7 +93,7 @@ pub use error::{GenerateError, PlateShellFailure};
 
 pub const SCHEMA_VERSION: u16 = 1;
 /// Identifies mesh-generation behavior in review and equipment manifests.
-pub const GENERATOR_VERSION: u16 = 22;
+pub const GENERATOR_VERSION: u16 = 23;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {

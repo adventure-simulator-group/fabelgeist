@@ -77,11 +77,18 @@ pub fn record_skirt(
             passes: 1,
             hinge: None,
         },
-        kernel,
+        kernel.clone(),
     )?;
     recipe.component(ArmorComponentRole::OuterFabric, None);
+    super::skirt_structure::append(&mut recipe, &kernel, design)?;
     let mut words = design.profile.shader_words().to_vec();
     words.push(design.fitted_fraction.unit());
     words.push(first_row as f32);
+    words.extend(
+        design
+            .pleats
+            .as_ref()
+            .map_or([0.0; 4], |pleats| pleats.shader_words()),
+    );
     recipe.record(gpu, batch, &words, &[fit])
 }
