@@ -92,6 +92,18 @@ impl SkinSource<'_> {
         let axis = span / span.length();
         let half_span = half_span.max(MINIMUM_HIP_HALF_SPAN_M);
         let mut skin = self.transfer(positions)?;
+        let knee_center = (self.landmark(&RigJointName::L_LOWLEG)?
+            + self.landmark(&RigJointName::R_LOWLEG)?)
+            * 0.5;
+        let thigh_height = center.y - knee_center.y;
+        ensure!(thigh_height > 0.0, "skirt knees must be below its hips");
+        // Spread ownership over the cloth's own width. A hip-width transition
+        // on a wide hem creates a narrow strip of extreme animation shear.
+        let cloth_half_span = positions
+            .iter()
+            .map(|&p| (vector(p) - center).dot(axis).abs())
+            .fold(half_span, f32::max);
+        let pelvis = u32::try_from(RigJointName::ROOT.require_in(self.names)?)?;
         let left_joint = u32::try_from(RigJointName::L_UPLEG.require_in(self.names)?)?;
         let right_joint = u32::try_from(RigJointName::R_UPLEG.require_in(self.names)?)?;
         for (vertex, &position) in positions.iter().enumerate() {
@@ -100,19 +112,22 @@ impl SkinSource<'_> {
             if position.y >= center.y + half_span {
                 continue;
             }
-            let horizontal = smooth((lateral + half_span) / (2.0 * half_span));
-            // Complete the transition above the leg fork. Retaining any
-            // nearest-leg contribution below the hips splits the center.
-            let vertical = smooth((center.y + half_span - position.y) / half_span);
+            let horizontal = smooth((lateral + cloth_half_span) / (2.0 * cloth_half_span));
+            // The waist is suspended from the pelvis. Introduce leg motion
+            // gradually over the thigh rather than folding it into a narrow
+            // band above the hip. No nearest-leg skin remains below the hips.
+            let surface = smooth((position.y - center.y) / half_span);
+            let legs = smooth((center.y - position.y) / thigh_height);
             let mut influences = BTreeMap::new();
             accumulate(
                 &mut influences,
                 skin.indices[vertex],
                 skin.weights[vertex],
-                1.0 - vertical,
+                surface,
             );
-            *influences.entry(left_joint).or_default() += vertical * (1.0 - horizontal);
-            *influences.entry(right_joint).or_default() += vertical * horizontal;
+            *influences.entry(pelvis).or_default() += (1.0 - surface) * (1.0 - legs);
+            *influences.entry(left_joint).or_default() += legs * (1.0 - horizontal);
+            *influences.entry(right_joint).or_default() += legs * horizontal;
             let row = normalized(influences)?;
             skin.indices[vertex] = row.indices;
             skin.weights[vertex] = row.weights;
