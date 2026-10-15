@@ -9,15 +9,14 @@
 //! the shoulder. Arming caps, mail coifs and textiles keep the body's flexible
 //! skin.
 
+use crate::armor_frames::Side;
+use crate::armor_recipes::ParametricDesign;
 use anyhow::{Context, Result};
 use fabelgeist_armor::{
     ArmorComponentRole, GarmentArmorKind, GeneratedArmor, HelmetDesign, LimbArmorDesign,
 };
 use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal, RigJointPart};
 use std::ops::Range;
-
-use crate::armor_frames::Side;
-use crate::armor_recipes::ParametricDesign;
 
 /// Give `design`'s rigid plates their single anatomical owner. `joints` are
 /// the wearer's global joint states, one per name.
@@ -50,7 +49,7 @@ pub fn attach(
         ParametricDesign::Helmet(_) => {
             // Every helmet plate, visors and bevors included, is rigid.
             let head = joint_index(joint_names, &RigJointName::C_HEAD)?;
-            fill(armor, 0..armor.positions.len(), head);
+            fill(armor, 0..armor.positions.len(), head)?;
             return Ok(());
         }
         ParametricDesign::Limb(limb) => match limb {
@@ -99,12 +98,12 @@ pub fn attach(
     if !besagews.is_empty() {
         let chest = joint_index(joint_names, &RigJointName::C_SPINE3)?;
         for vertices in besagews {
-            fill(armor, vertices, chest);
+            fill(armor, vertices, chest)?;
         }
     }
     // A piece without components is one plate.
     if armor.components.is_empty() {
-        fill(armor, 0..armor.positions.len(), anchor);
+        fill(armor, 0..armor.positions.len(), anchor)?;
         return Ok(());
     }
     let plates = armor
@@ -114,8 +113,17 @@ pub fn attach(
         .map(|component| component.vertices.clone())
         .collect::<Vec<_>>();
     for vertices in plates {
-        fill(armor, vertices, anchor);
+        fill(armor, vertices, anchor)?;
     }
+    Ok(())
+}
+
+/// The cuirass follows the chest as one rigid assembly. Separate horizontal
+/// courses retain their constructed overlaps. Independent course motion needs
+/// armor pivots and lap constraints; body-spine joints are not those pivots.
+pub(crate) fn breastplate(joint_names: &[RigJointName], armor: &mut GeneratedArmor) -> Result<()> {
+    let chest = joint_index(joint_names, &RigJointName::C_SPINE3)?;
+    fill(armor, 0..armor.positions.len(), chest)?;
     Ok(())
 }
 
@@ -150,7 +158,7 @@ fn waist(
             pelvis
         };
         for vertex in sheet {
-            fill(armor, vertex..vertex + 1, anchor);
+            fill(armor, vertex..vertex + 1, anchor)?;
         }
     }
     Ok(())
@@ -192,17 +200,11 @@ fn joint_index(
     name.require_in(joint_names)
 }
 
-fn fill(armor: &mut GeneratedArmor, vertices: Range<usize>, joint: RigJointOrdinal) {
-    armor.joint_indices[vertices.clone()].fill([usize::from(joint) as u32; 8]);
+/// Encode into GeneratedArmor's native eight-word skin buffer, shared with
+/// device readback and glTF export. Selection retains ordinals up to here.
+fn fill(armor: &mut GeneratedArmor, vertices: Range<usize>, joint: RigJointOrdinal) -> Result<()> {
+    armor.joint_indices[vertices.clone()].fill([u32::try_from(joint)?; 8]);
     armor.joint_weights[vertices].fill([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
-}
-
-/// The cuirass follows the chest as one rigid assembly. Separate horizontal
-/// courses retain their constructed overlaps. Independent course motion needs
-/// armor pivots and lap constraints; body-spine joints are not those pivots.
-pub(crate) fn breastplate(joint_names: &[RigJointName], armor: &mut GeneratedArmor) -> Result<()> {
-    let chest = joint_index(joint_names, &RigJointName::C_SPINE3)?;
-    fill(armor, 0..armor.positions.len(), chest);
     Ok(())
 }
 

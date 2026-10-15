@@ -16,11 +16,7 @@ impl ClothingShell {
             &self.faces,
             self.specification.normal_offset_metres,
         );
-        let faces = validated_placeholder_faces(
-            &ClothingPieceName::from(self.specification.name.as_str()),
-            &self.faces,
-            &positions,
-        )?;
+        let faces = validated_placeholder_faces(&self.specification.name, &self.faces, &positions)?;
         if faces != self.faces {
             return Err(ClothingError::MorphTrianglesInvalidated);
         }

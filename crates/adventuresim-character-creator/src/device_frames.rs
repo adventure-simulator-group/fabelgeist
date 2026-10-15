@@ -7,6 +7,7 @@
 //! finishes the frame for its region. The frame never leaves the device; the
 //! chart kernels read it where it was written.
 
+use crate::armor_frames::{FitRegion, Side, Wearer};
 use anyhow::Result;
 use fabelgeist_armor::ArmorGpu;
 use fabelgeist_armor::gpu::body::{BodySurface, GpuBody};
@@ -16,15 +17,11 @@ use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 use fabelgeist_rig::{RigJointMembership, RigJointName};
-
-use crate::armor_frames::{FitRegion, Side, Wearer};
+use landmarks::Landmarks;
+use passes::{ORDERED_NEGATIVE_INFINITY, ORDERED_POSITIVE_INFINITY, kernels};
 
 mod landmarks;
 mod passes;
-#[cfg(test)]
-mod tests;
-use landmarks::Landmarks;
-use passes::{ORDERED_NEGATIVE_INFINITY, ORDERED_POSITIVE_INFINITY, kernels};
 
 /// Floats in a device frame: origin, three axes, half extents, then the
 /// landmark span its extents were measured along.
@@ -37,6 +34,13 @@ pub struct DeviceFrame {
     pub frame: Buffer,
     /// Frame validity; nonzero is a [`FrameFailure`] bit set.
     pub status: Buffer,
+}
+
+/// A wearer with its body on the device.
+pub struct DeviceWearer<'a> {
+    pub gpu: &'a ArmorGpu,
+    pub body: &'a GpuBody,
+    pub host: &'a Wearer<'a>,
 }
 
 /// Why a frame could not be fitted.
@@ -91,20 +95,6 @@ impl DeviceFrame {
     }
 }
 
-/// WGSL constants every frame pass shares: the failure bits, the skin a
-/// region's joints must own and the smallest half extent.
-pub(crate) fn frame_constants() -> String {
-    use crate::armor_frames::{MINIMUM_REGION_RADIUS_M, skin_support_wgsl};
-    format!(
-        "const COINCIDENT: u32 = {}u;\nconst NO_ENVELOPE: u32 = {}u;\nconst INVALID: u32 = {}u;\n\
-         {}const MINIMUM_REGION_RADIUS_M: f32 = {MINIMUM_REGION_RADIUS_M:?};\n",
-        FrameFailure::CoincidentLandmarks as u32,
-        FrameFailure::NoEnvelope as u32,
-        FrameFailure::Invalid as u32,
-        skin_support_wgsl(),
-    )
-}
-
 impl FrameFailure {
     fn message(self) -> &'static str {
         match self {
@@ -113,13 +103,6 @@ impl FrameFailure {
             Self::Invalid => "frame is not a finite orthonormal frame",
         }
     }
-}
-
-/// A wearer with its body on the device.
-pub struct DeviceWearer<'a> {
-    pub gpu: &'a ArmorGpu,
-    pub body: &'a GpuBody,
-    pub host: &'a Wearer<'a>,
 }
 
 impl Wearer<'_> {
@@ -211,7 +194,7 @@ impl DeviceWearer<'_> {
         parameters.insert("count", self.body.vertex_count);
         parameters.insert("rule", landmarks.rule as u32);
         for (i, joint) in landmarks.joints.iter().enumerate() {
-            parameters.insert(format!("joint{i}"), joint.device_word());
+            parameters.insert(format!("joint{i}"), joint.device_word()?);
         }
         parameters.insert("side", landmarks.side);
         parameters.insert("pad0", 0.0f32);
@@ -240,3 +223,20 @@ impl DeviceWearer<'_> {
         Ok(frame)
     }
 }
+
+/// WGSL constants every frame pass shares: the failure bits, the skin a
+/// region's joints must own and the smallest half extent.
+pub(crate) fn frame_constants() -> String {
+    use crate::armor_frames::{MINIMUM_REGION_RADIUS_M, skin_support_wgsl};
+    format!(
+        "const COINCIDENT: u32 = {}u;\nconst NO_ENVELOPE: u32 = {}u;\nconst INVALID: u32 = {}u;\n\
+         {}const MINIMUM_REGION_RADIUS_M: f32 = {MINIMUM_REGION_RADIUS_M:?};\n",
+        FrameFailure::CoincidentLandmarks as u32,
+        FrameFailure::NoEnvelope as u32,
+        FrameFailure::Invalid as u32,
+        skin_support_wgsl(),
+    )
+}
+
+#[cfg(test)]
+mod tests;

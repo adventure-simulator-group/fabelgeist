@@ -3,7 +3,7 @@ fn resolve_storey_wall_assemblies(
     storeys: &[StoreyPlan],
     projected_defenses: &[ProjectedDefenseAssembly],
     geometry: &mut ResolvedGeometry,
-) -> (Vec<crate::WallAssembly>, Vec<crate::OpeningAssembly>) {
+) -> Result<(Vec<crate::WallAssembly>, Vec<crate::OpeningAssembly>), crate::GenerationError> {
     let mut walls_out = Vec::new();
     let mut openings_out = Vec::new();
     let mut global_index = 0_u64;
@@ -38,14 +38,16 @@ fn resolve_storey_wall_assemblies(
                 small_church::wall_height(program, wall),
             );
             let wall_node = StructuralNodeId(2_000_000 + global_index * 8);
-            geometry.structural_nodes.push(StructuralNode {
-                id: wall_node,
-                owner,
-                kind: StructuralNodeKind::WallBearing,
-                position: Vec3::new(origin.x, resolved_wall_base, origin.y),
-                supported_by: Vec::new(),
-                grounded: true,
-            });
+            geometry
+                .structural_nodes
+                .push(crate::StructuralNode::from_metres(
+                    wall_node,
+                    owner,
+                    StructuralNodeKind::WallBearing,
+                    Vec3::new(origin.x, resolved_wall_base, origin.y),
+                    Vec::new(),
+                    true,
+                )?);
             let replacement = projected_defenses.iter().find(|defense| {
                 defense.host_source_walls.iter().any(|candidate| {
                     candidate.storey_level == storey.level && candidate.wall_index == wall_index
@@ -67,8 +69,7 @@ fn resolve_storey_wall_assemblies(
                     let (use_kind, mut profile, head_kind) =
                         opening_profile_for(program.archetype, opening);
                     if use_kind == crate::OpeningUse::Window {
-                        let maximum_bay_width = if program.church_program.is_some()
-                        {
+                        let maximum_bay_width = if program.church_program.is_some() {
                             // Buttressed cathedral bays carry their opening at
                             // the bay divisions; wall thickness is depth, not a
                             // subtraction from the clear facade span.
@@ -314,65 +315,47 @@ fn resolve_storey_wall_assemblies(
                         StructuralNodeId(wall_node.0 + 1),
                         StructuralNodeId(wall_node.0 + 2),
                     ];
-                    for (side, node) in [-1.0_f32, 1.0].into_iter().zip(jamb_nodes) {
-                        geometry.structural_nodes.push(StructuralNode {
-                            id: node,
-                            owner,
-                            kind: StructuralNodeKind::OpeningJamb,
-                            position: Vec3::new(
-                                origin.x + tangent.x * side * mouth_width * 0.5,
-                                base,
-                                origin.y + tangent.y * side * mouth_width * 0.5,
-                            ),
-                            supported_by: vec![wall_node],
-                            grounded: false,
-                        });
-                    }
+                    opening_jambs::OpeningJambSetOut::from_metres(
+                        jamb_nodes,
+                        owner,
+                        wall_node,
+                        origin,
+                        tangent,
+                        mouth_width,
+                        base,
+                    )?
+                    .append_nodes(geometry)?;
                     let head_node = StructuralNodeId(wall_node.0 + 3);
-                    geometry.structural_nodes.push(StructuralNode {
-                        id: head_node,
-                        owner,
-                        kind: StructuralNodeKind::OpeningHead,
-                        position: Vec3::new(
-                            origin.x,
-                            base + opening.sill_metres + clear_height,
-                            origin.y,
-                        ),
-                        supported_by: jamb_nodes.to_vec(),
-                        grounded: false,
-                    });
                     let spandrel_node = StructuralNodeId(wall_node.0 + 4);
-                    geometry.structural_nodes.push(StructuralNode {
-                        id: spandrel_node,
-                        owner,
-                        kind: StructuralNodeKind::OpeningSpandrel,
-                        position: Vec3::new(
-                            origin.x,
+                    geometry.structural_nodes.extend(
+                        opening_jambs::OpeningHeadSetOut::from_metres(
+                            [head_node, spandrel_node],
+                            owner,
+                            jamb_nodes,
+                            origin,
+                            base + opening.sill_metres + clear_height,
                             base + opening_wall_height,
-                            origin.y,
-                        ),
-                        supported_by: vec![head_node],
-                        grounded: false,
-                    });
+                        )?
+                        .nodes()?,
+                    );
                     let tracery_node =
                         (matches!(profile, crate::OpeningProfile::PointedTwoCentred { .. })
                             && mouth_width >= 0.90)
                             .then(|| {
                                 let node = StructuralNodeId(wall_node.0 + 5);
-                                geometry.structural_nodes.push(StructuralNode {
-                                    id: node,
-                                    owner,
-                                    kind: StructuralNodeKind::MullionBearing,
-                                    position: Vec3::new(
-                                        origin.x,
-                                        base + opening.sill_metres,
-                                        origin.y,
-                                    ),
-                                    supported_by: vec![wall_node],
-                                    grounded: false,
-                                });
-                                node
-                            });
+                                geometry
+                                    .structural_nodes
+                                    .push(crate::StructuralNode::from_metres(
+                                        node,
+                                        owner,
+                                        StructuralNodeKind::MullionBearing,
+                                        Vec3::new(origin.x, base + opening.sill_metres, origin.y),
+                                        vec![wall_node],
+                                        false,
+                                    )?);
+                                Ok::<_, crate::GenerationError>(node)
+                            })
+                            .transpose()?;
                     // Splayed military apertures are resolved as the actual masonry
                     // wedges between the narrow exterior throat and broad interior
                     // mouth.  The exterior pier footprint is authoritative; its
@@ -417,7 +400,7 @@ fn resolve_storey_wall_assemblies(
                             SolidRole::OpeningJamb,
                             shape,
                             jamb_nodes[index],
-                        );
+                        )?;
                         jamb_solids[index] = solid;
                         host_solids.push(solid);
                     }
@@ -436,7 +419,7 @@ fn resolve_storey_wall_assemblies(
                             SolidRole::OpeningSill,
                             crate::ResolvedSolidShape::Cuboid,
                             wall_node,
-                        );
+                        )?;
                         host_solids.push(solid);
                         Some(solid)
                     } else {
@@ -537,11 +520,10 @@ fn resolve_storey_wall_assemblies(
                         SolidRole::OpeningHead,
                         head_shape,
                         head_node,
-                    );
+                    )?;
                     host_solids.push(head_solid);
                     let spandrel_bottom = (head_top - 0.025).max(head_bottom);
-                    let spandrel_height =
-                        (opening_wall_height - spandrel_bottom).max(0.05);
+                    let spandrel_height = (opening_wall_height - spandrel_bottom).max(0.05);
                     let spandrel_size = if wall.is_horizontal() {
                         Vec3::new(head_total_width, spandrel_height, thickness)
                     } else {
@@ -560,7 +542,7 @@ fn resolve_storey_wall_assemblies(
                         SolidRole::OpeningSpandrel,
                         crate::ResolvedSolidShape::Cuboid,
                         spandrel_node,
-                    );
+                    )?;
                     host_solids.push(spandrel_solid);
                     // These interfaces are measured from the resolved head and
                     // pier geometry rather than inferred from node IDs. The
@@ -574,46 +556,52 @@ fn resolve_storey_wall_assemblies(
                         let extent = tangent.abs() * (bearing_width * 0.5)
                             + outward.abs() * (thickness * 0.5);
                         let id = ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | slot);
-                        geometry.support_interfaces.push(SupportInterface {
-                            id,
-                            owner,
-                            node: head_node,
-                            bounds: ResolvedBounds {
-                                min: Vec3::new(
-                                    centre_plan.x - extent.x,
-                                    base + header_base - 0.025,
-                                    centre_plan.y - extent.y,
-                                ),
-                                max: Vec3::new(
-                                    centre_plan.x + extent.x,
-                                    base + header_base + 0.025,
-                                    centre_plan.y + extent.y,
-                                ),
-                            },
-                        });
-                        id
+                        geometry
+                            .support_interfaces
+                            .push(crate::SupportInterface::new(
+                                id,
+                                owner,
+                                head_node,
+                                SpatialBounds::<Architectural>::from_metres(
+                                    Vec3::new(
+                                        centre_plan.x - extent.x,
+                                        base + header_base - 0.025,
+                                        centre_plan.y - extent.y,
+                                    ),
+                                    Vec3::new(
+                                        centre_plan.x + extent.x,
+                                        base + header_base + 0.025,
+                                        centre_plan.y + extent.y,
+                                    ),
+                                )?,
+                            ));
+                        Ok::<_, crate::GenerationError>(id)
                     });
+                    let [first, second] = head_bearing_interfaces;
+                    let head_bearing_interfaces = [first?, second?];
                     let wall_above_interface =
                         ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | 52);
                     let above_half_tangent = tangent.abs() * (mouth_width * 0.5);
                     let above_half_depth = outward.abs() * (thickness * 0.5);
-                    geometry.support_interfaces.push(SupportInterface {
-                        id: wall_above_interface,
-                        owner,
-                        node: spandrel_node,
-                        bounds: ResolvedBounds {
-                            min: Vec3::new(
-                                origin.x - above_half_tangent.x - above_half_depth.x,
-                                base + head_top - 0.025,
-                                origin.y - above_half_tangent.y - above_half_depth.y,
-                            ),
-                            max: Vec3::new(
-                                origin.x + above_half_tangent.x + above_half_depth.x,
-                                base + head_top + 0.025,
-                                origin.y + above_half_tangent.y + above_half_depth.y,
-                            ),
-                        },
-                    });
+                    geometry
+                        .support_interfaces
+                        .push(crate::SupportInterface::new(
+                            wall_above_interface,
+                            owner,
+                            spandrel_node,
+                            SpatialBounds::<Architectural>::from_metres(
+                                Vec3::new(
+                                    origin.x - above_half_tangent.x - above_half_depth.x,
+                                    base + head_top - 0.025,
+                                    origin.y - above_half_tangent.y - above_half_depth.y,
+                                ),
+                                Vec3::new(
+                                    origin.x + above_half_tangent.x + above_half_depth.x,
+                                    base + head_top + 0.025,
+                                    origin.y + above_half_tangent.y + above_half_depth.y,
+                                ),
+                            )?,
+                        ));
                     let half_tangent = tangent.abs() * (mouth_width * 0.5);
                     let half_depth = outward.abs() * (thickness * 0.55);
                     let (exterior_height, interior_height) = match profile {
@@ -643,18 +631,18 @@ fn resolve_storey_wall_assemblies(
                         geometry,
                         owner,
                         0,
-                        ResolvedBounds {
-                            min: Vec3::new(
+                        SpatialBounds::<Architectural>::from_metres(
+                            Vec3::new(
                                 origin.x - half_tangent.x - half_depth.x,
                                 base + opening.sill_metres,
                                 origin.y - half_tangent.y - half_depth.y,
                             ),
-                            max: Vec3::new(
+                            Vec3::new(
                                 origin.x + half_tangent.x + half_depth.x,
                                 base + opening.sill_metres + clear_height,
                                 origin.y + half_tangent.y + half_depth.y,
                             ),
-                        },
+                        )?,
                         opening_id,
                         exterior_width,
                         mouth_width,
@@ -672,18 +660,18 @@ fn resolve_storey_wall_assemblies(
                             geometry,
                             owner,
                             10 + index as u64,
-                            ResolvedBounds {
-                                min: Vec3::new(
+                            SpatialBounds::<Architectural>::from_metres(
+                                Vec3::new(
                                     plan.x - half_depth.x - half_reveal.x,
                                     base + opening.sill_metres,
                                     plan.y - half_depth.y - half_reveal.y,
                                 ),
-                                max: Vec3::new(
+                                Vec3::new(
                                     plan.x + half_depth.x + half_reveal.x,
                                     base + opening.sill_metres + clear_height,
                                     plan.y + half_depth.y + half_reveal.y,
                                 ),
-                            },
+                            )?,
                             if side < 0 {
                                 SurfaceRole::LeftJambReveal
                             } else {
@@ -703,18 +691,18 @@ fn resolve_storey_wall_assemblies(
                         geometry,
                         owner,
                         12,
-                        ResolvedBounds {
-                            min: Vec3::new(
+                        SpatialBounds::<Architectural>::from_metres(
+                            Vec3::new(
                                 origin.x - half_mouth.x - half_wall_depth.x,
                                 base + opening.sill_metres,
                                 origin.y - half_mouth.y - half_wall_depth.y,
                             ),
-                            max: Vec3::new(
+                            Vec3::new(
                                 origin.x + half_mouth.x + half_wall_depth.x,
                                 base + opening.sill_metres + 0.015,
                                 origin.y + half_mouth.y + half_wall_depth.y,
                             ),
-                        },
+                        )?,
                         SurfaceRole::WeatherSill,
                         crate::ResolvedSurfaceShape::WeatherSill {
                             interior_elevation_metres: base + opening.sill_metres,
@@ -750,18 +738,18 @@ fn resolve_storey_wall_assemblies(
                         geometry,
                         owner,
                         13,
-                        ResolvedBounds {
-                            min: Vec3::new(
+                        SpatialBounds::<Architectural>::from_metres(
+                            Vec3::new(
                                 origin.x - half_mouth.x - half_wall_depth.x,
                                 base + header_base - 0.015,
                                 origin.y - half_mouth.y - half_wall_depth.y,
                             ),
-                            max: Vec3::new(
+                            Vec3::new(
                                 origin.x + half_mouth.x + half_wall_depth.x,
                                 base + header_base,
                                 origin.y + half_mouth.y + half_wall_depth.y,
                             ),
-                        },
+                        )?,
                         SurfaceRole::Intrados,
                         intrados_shape,
                     ));
@@ -788,18 +776,18 @@ fn resolve_storey_wall_assemblies(
                             geometry,
                             owner,
                             slot,
-                            ResolvedBounds {
-                                min: Vec3::new(
+                            SpatialBounds::<Architectural>::from_metres(
+                                Vec3::new(
                                     face.x - half_width.x - half_face_depth.x,
                                     base + opening.sill_metres,
                                     face.y - half_width.y - half_face_depth.y,
                                 ),
-                                max: Vec3::new(
+                                Vec3::new(
                                     face.x + half_width.x + half_face_depth.x,
                                     base + opening.sill_metres + height,
                                     face.y + half_width.y + half_face_depth.y,
                                 ),
-                            },
+                            )?,
                             role,
                             crate::ResolvedSurfaceShape::Planar,
                         ));
@@ -807,7 +795,9 @@ fn resolve_storey_wall_assemblies(
                     if matches!(profile, crate::OpeningProfile::PointedTwoCentred { .. })
                         && mouth_width >= 0.90
                     {
-                        let tracery_node = tracery_node.expect("wide pointed opening tracery node");
+                        let tracery_node = tracery_node.ok_or(GenerationError::MissingNode {
+                            node: StructuralNodeId(wall_node.0 + 5),
+                        })?;
                         let mullion_height = match profile {
                             crate::OpeningProfile::PointedTwoCentred {
                                 spring_height_metres,
@@ -834,7 +824,7 @@ fn resolve_storey_wall_assemblies(
                             SolidRole::Mullion,
                             crate::ResolvedSolidShape::Cuboid,
                             tracery_node,
-                        );
+                        )?;
                         host_solids.push(mullion);
                         let transom = wall_solid(
                             geometry,
@@ -853,26 +843,28 @@ fn resolve_storey_wall_assemblies(
                             SolidRole::Mullion,
                             crate::ResolvedSolidShape::Cuboid,
                             tracery_node,
-                        );
+                        )?;
                         host_solids.push(transom);
                         let extent = tangent.abs() * 0.04 + outward.abs() * (thickness * 0.175);
-                        geometry.support_interfaces.push(SupportInterface {
-                            id: ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | 53),
-                            owner,
-                            node: tracery_node,
-                            bounds: ResolvedBounds {
-                                min: Vec3::new(
-                                    origin.x - extent.x,
-                                    base + opening.sill_metres - bearing_embed,
-                                    origin.y - extent.y,
-                                ),
-                                max: Vec3::new(
-                                    origin.x + extent.x,
-                                    base + opening.sill_metres + 0.01,
-                                    origin.y + extent.y,
-                                ),
-                            },
-                        });
+                        geometry
+                            .support_interfaces
+                            .push(crate::SupportInterface::new(
+                                ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | 53),
+                                owner,
+                                tracery_node,
+                                SpatialBounds::<Architectural>::from_metres(
+                                    Vec3::new(
+                                        origin.x - extent.x,
+                                        base + opening.sill_metres - bearing_embed,
+                                        origin.y - extent.y,
+                                    ),
+                                    Vec3::new(
+                                        origin.x + extent.x,
+                                        base + opening.sill_metres + 0.01,
+                                        origin.y + extent.y,
+                                    ),
+                                )?,
+                            ));
                     }
                     let closure = opening_closure(program, storey.level, opening_id, use_kind);
                     let mut closure_solids = Vec::new();
@@ -926,8 +918,10 @@ fn resolve_storey_wall_assemblies(
                                         ),
                                         ring_depth_metres: 0.025,
                                     },
-                                    tracery_node.expect("wide pointed opening tracery node"),
-                                ));
+                                    tracery_node.ok_or(GenerationError::MissingNode {
+                                        node: StructuralNodeId(wall_node.0 + 5),
+                                    })?,
+                                )?);
                             }
                             continue;
                         }
@@ -1011,44 +1005,48 @@ fn resolve_storey_wall_assemblies(
                             role,
                             closure_shape,
                             head_node,
-                        ));
+                        )?);
                     }
                     let military = matches!(
                         use_kind,
                         crate::OpeningUse::ArrowLoop | crate::OpeningUse::GunLoop
                     );
-                    let stance_surface = military.then(|| {
-                        projected_surface(
-                            geometry,
-                            owner,
-                            ResolvedBounds {
-                                min: Vec3::new(
-                                    origin.x - tangent.x.abs() * 0.40 - outward.x.abs() * 0.85,
-                                    base,
-                                    origin.y - tangent.y.abs() * 0.40 - outward.y.abs() * 0.85,
-                                ),
-                                max: Vec3::new(
-                                    origin.x + tangent.x.abs() * 0.40,
-                                    base + 0.02,
-                                    origin.y + tangent.y.abs() * 0.40,
-                                ),
-                            },
-                            SurfaceRole::Stance,
-                        )
-                    });
-                    let mount_solid = (use_kind == crate::OpeningUse::GunLoop).then(|| {
-                        let plan = origin - outward * thickness * 0.35;
-                        wall_solid(
-                            geometry,
-                            owner,
-                            30,
-                            Vec3::new(plan.x, base + opening.sill_metres + 0.20, plan.y),
-                            Vec3::splat(0.18),
-                            SolidRole::WeaponMount,
-                            crate::ResolvedSolidShape::Cuboid,
-                            wall_node,
-                        )
-                    });
+                    let stance_surface = military
+                        .then(|| {
+                            Ok::<_, crate::GenerationError>(projected_surface(
+                                geometry,
+                                owner,
+                                SpatialBounds::<Architectural>::from_metres(
+                                    Vec3::new(
+                                        origin.x - tangent.x.abs() * 0.40 - outward.x.abs() * 0.85,
+                                        base,
+                                        origin.y - tangent.y.abs() * 0.40 - outward.y.abs() * 0.85,
+                                    ),
+                                    Vec3::new(
+                                        origin.x + tangent.x.abs() * 0.40,
+                                        base + 0.02,
+                                        origin.y + tangent.y.abs() * 0.40,
+                                    ),
+                                )?,
+                                SurfaceRole::Stance,
+                            ))
+                        })
+                        .transpose()?;
+                    let mount_solid = (use_kind == crate::OpeningUse::GunLoop)
+                        .then(|| {
+                            let plan = origin - outward * thickness * 0.35;
+                            wall_solid(
+                                geometry,
+                                owner,
+                                30,
+                                Vec3::new(plan.x, base + opening.sill_metres + 0.20, plan.y),
+                                Vec3::splat(0.18),
+                                SolidRole::WeaponMount,
+                                crate::ResolvedSolidShape::Cuboid,
+                                wall_node,
+                            )
+                        })
+                        .transpose()?;
                     let mut ray_indices = Vec::new();
                     if military {
                         let stance = Vec3::new(
@@ -1151,7 +1149,7 @@ fn resolve_storey_wall_assemblies(
                         thickness,
                         span.length(),
                         &mut host_solids,
-                    );
+                    )?;
                 }
             }
             walls_out.push(crate::WallAssembly {
@@ -1183,5 +1181,5 @@ fn resolve_storey_wall_assemblies(
             global_index += 1;
         }
     }
-    (walls_out, openings_out)
+    Ok((walls_out, openings_out))
 }

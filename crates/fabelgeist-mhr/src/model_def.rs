@@ -1,16 +1,17 @@
 //! Parser for the "Momentum Model Definition V1.0" text format
 //! (`compact_v6_1.model`), which maps model parameters onto joint parameters.
 
-use std::collections::HashMap;
-
+use crate::character::{PARAMETERS_PER_JOINT, Skeleton};
 use anyhow::{Result, bail};
 use fabelgeist_rig::RigJointName;
-
-use crate::character::{PARAMETERS_PER_JOINT, Skeleton};
+use std::collections::HashMap;
 
 /// `tx, ty, tz, rx, ry, rz, sc` — the seven channels of a momentum joint.
 pub const JOINT_PARAMETER_NAMES: [&str; PARAMETERS_PER_JOINT] =
     ["tx", "ty", "tz", "rx", "ry", "rz", "sc"];
+
+/// One `(joint parameter row, model parameter column, weight)` contribution.
+type Triplet = (usize, usize, f32);
 
 /// Inclusive bounds on one model parameter.
 #[derive(Debug, Clone, Copy)]
@@ -63,6 +64,53 @@ impl ParameterTransform {
                 *value = value.clamp(limit.min, limit.max);
             }
         }
+    }
+}
+
+/// Parses a `.model` file against a skeleton, producing the parameter transform.
+pub fn parse_model_definition(text: &str, skeleton: &Skeleton) -> Result<ParameterTransform> {
+    let sections = split_sections(text)?;
+    let empty = Vec::new();
+    let (mut transform, triplets) = parse_parameter_transform(
+        sections.get("ParameterTransform").unwrap_or(&empty),
+        skeleton,
+    )?;
+
+    // Densify once the parameter count is final.
+    let columns = transform.num_parameters();
+    transform.transform = vec![0.0; transform.num_joint_parameters * columns];
+    for (row, column, value) in triplets {
+        if value != 0.0 {
+            transform.transform[row * columns + column] += value;
+        }
+    }
+
+    if let Some(lines) = sections.get("ParameterSets") {
+        parse_parameter_sets(lines, &mut transform);
+    }
+    if let Some(lines) = sections.get("Limits") {
+        parse_limits(lines, &mut transform);
+    }
+
+    Ok(transform)
+}
+
+/// Appends one column per blend-shape coefficient, as momentum's
+/// `Character::withBlendShape` does. The new columns drive no joint.
+pub fn append_blend_shape_parameters(transform: &mut ParameterTransform, count: usize) {
+    let old_columns = transform.num_parameters();
+    let new_columns = old_columns + count;
+    let mut dense = vec![0.0; transform.num_joint_parameters * new_columns];
+    for row in 0..transform.num_joint_parameters {
+        let source = &transform.transform[row * old_columns..(row + 1) * old_columns];
+        dense[row * new_columns..row * new_columns + old_columns].copy_from_slice(source);
+    }
+    transform.transform = dense;
+    for index in 0..count {
+        transform.names.push(format!("blend_{index}"));
+    }
+    for set in transform.parameter_sets.values_mut() {
+        set.resize(new_columns, false);
     }
 }
 
@@ -124,9 +172,6 @@ fn split_sections(text: &str) -> Result<HashMap<String, Vec<String>>> {
     Ok(sections)
 }
 
-/// One `(joint parameter row, model parameter column, weight)` contribution.
-type Triplet = (usize, usize, f32);
-
 /// Parses one right-hand side, e.g. `1.0 * spine0_rx + 0.22 * spine_lean0`.
 fn parse_expression(
     triplets: &mut Vec<Triplet>,
@@ -158,19 +203,19 @@ fn parse_expression(
         // The right side may name either a model parameter or a joint channel
         // defined earlier in the file, in which case its terms are copied.
         let parameter = transform.parameter_index(name);
-        let reference =
-            match name.split_once('.') {
-                Some((joint, channel)) => skeleton
-                    .joint_index(&RigJointName::from(joint))
-                    .and_then(|joint| {
-                        let joint = usize::from(joint);
-                        JOINT_PARAMETER_NAMES
-                            .iter()
-                            .position(|c| *c == channel)
-                            .map(|channel| joint * PARAMETERS_PER_JOINT + channel)
-                    }),
-                None => None,
-            };
+        let reference = match name.split_once('.') {
+            Some((joint_name, channel)) => {
+                let joint_name = RigJointName::from(joint_name);
+                skeleton.joint_index(&joint_name).and_then(|joint| {
+                    let joint = usize::from(joint);
+                    JOINT_PARAMETER_NAMES
+                        .iter()
+                        .position(|candidate| *candidate == channel)
+                        .map(|channel| joint * PARAMETERS_PER_JOINT + channel)
+                })
+            }
+            None => None,
+        };
 
         match (parameter, reference) {
             (Some(parameter), _) => triplets.push((row, parameter, weight)),
@@ -212,7 +257,10 @@ fn parse_parameter_transform(
         let Some((joint_name, channel_name)) = left.trim().split_once('.') else {
             bail!("unknown joint name in expression: {line}");
         };
-        let Some(joint) = skeleton.joint_index(&RigJointName::from(joint_name.trim())) else {
+        // The .model file is raw text; admit its exact label after the
+        // format's whitespace handling, then retain it for rig lookup.
+        let joint_name = RigJointName::from(joint_name.trim());
+        let Some(joint) = skeleton.joint_index(&joint_name) else {
             bail!("unknown joint name in expression: {line}");
         };
         let joint = usize::from(joint);
@@ -274,53 +322,6 @@ fn parse_limits(lines: &[String], transform: &mut ParameterTransform) {
                 weight: line[close + 1..].trim().parse().unwrap_or(1.0),
             });
         }
-    }
-}
-
-/// Parses a `.model` file against a skeleton, producing the parameter transform.
-pub fn parse_model_definition(text: &str, skeleton: &Skeleton) -> Result<ParameterTransform> {
-    let sections = split_sections(text)?;
-    let empty = Vec::new();
-    let (mut transform, triplets) = parse_parameter_transform(
-        sections.get("ParameterTransform").unwrap_or(&empty),
-        skeleton,
-    )?;
-
-    // Densify once the parameter count is final.
-    let columns = transform.num_parameters();
-    transform.transform = vec![0.0; transform.num_joint_parameters * columns];
-    for (row, column, value) in triplets {
-        if value != 0.0 {
-            transform.transform[row * columns + column] += value;
-        }
-    }
-
-    if let Some(lines) = sections.get("ParameterSets") {
-        parse_parameter_sets(lines, &mut transform);
-    }
-    if let Some(lines) = sections.get("Limits") {
-        parse_limits(lines, &mut transform);
-    }
-
-    Ok(transform)
-}
-
-/// Appends one column per blend-shape coefficient, as momentum's
-/// `Character::withBlendShape` does. The new columns drive no joint.
-pub fn append_blend_shape_parameters(transform: &mut ParameterTransform, count: usize) {
-    let old_columns = transform.num_parameters();
-    let new_columns = old_columns + count;
-    let mut dense = vec![0.0; transform.num_joint_parameters * new_columns];
-    for row in 0..transform.num_joint_parameters {
-        let source = &transform.transform[row * old_columns..(row + 1) * old_columns];
-        dense[row * new_columns..row * new_columns + old_columns].copy_from_slice(source);
-    }
-    transform.transform = dense;
-    for index in 0..count {
-        transform.names.push(format!("blend_{index}"));
-    }
-    for set in transform.parameter_sets.values_mut() {
-        set.resize(new_columns, false);
     }
 }
 

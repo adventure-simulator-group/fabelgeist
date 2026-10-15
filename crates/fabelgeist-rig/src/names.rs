@@ -1,9 +1,12 @@
 //! Authored anatomical label vocabulary; unfamiliar labels remain valid.
+
 use super::{Cow, RigJointName};
+
 impl RigJointName {
     /// Ordered upper leg, lower leg and foot targets for terrain IK.
     pub const LEFT_LEG_CHAIN: [Self; 3] = [Self::L_UPLEG, Self::L_LOWLEG, Self::L_FOOT];
     pub const RIGHT_LEG_CHAIN: [Self; 3] = [Self::R_UPLEG, Self::R_LOWLEG, Self::R_FOOT];
+    pub const SKELETON: Self = Self(Cow::Borrowed("Skeleton"));
     pub const BODY_WORLD: Self = Self(Cow::Borrowed("body_world"));
     pub const C_CAMERA: Self = Self(Cow::Borrowed("c_camera"));
     pub const C_HEAD: Self = Self(Cow::Borrowed("c_head"));

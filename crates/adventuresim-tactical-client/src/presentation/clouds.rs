@@ -1,7 +1,10 @@
 //! A single, baked optical cloud shell for the grounded tactical camera.
 
 mod noise;
-use noise::{cloud_seed, non_periodic_value_noise_3d};
+use fabelgeist_determinism::Seed;
+use noise::{
+    ActiveCloudLayerOrdinal, CloudDensityCoordinate, cloud_seed, non_periodic_value_noise_3d,
+};
 mod streams;
 use super::cloud_bake_assets::{
     CLOUD_BAKE_AZIMUTH_SEGMENTS, CLOUD_BAKE_CHANNELS, CLOUD_BAKE_ELEVATION_SEGMENTS,
@@ -366,7 +369,7 @@ pub(in crate::presentation) fn update_tactical_cloud_offscreen_target(
 #[derive(Clone, Debug, PartialEq)]
 struct CloudBakeKey {
     layers: [Option<CloudLayerParameters>; 3],
-    seed: u64,
+    seed: Seed,
 }
 
 #[derive(Clone, Debug)]
@@ -435,7 +438,7 @@ pub(in crate::presentation) fn setup_tactical_clouds(
     let empty_request = CloudBakeRequest {
         key: CloudBakeKey {
             layers: [None, None, None],
-            seed: 0,
+            seed: fabelgeist_determinism::Seed::from_u64(0),
         },
         endpoint: 0,
         wind_velocity: Vec2::ZERO,
@@ -553,7 +556,7 @@ fn cloud_bake_image(request: &CloudBakeRequest) -> Image {
                         height,
                         *layer,
                         request.key.seed,
-                        slot as u64,
+                        ActiveCloudLayerOrdinal::new(slot),
                         evolution,
                     );
                     let contribution = density * step * 0.001_45;
@@ -563,7 +566,7 @@ fn cloud_bake_image(request: &CloudBakeRequest) -> Image {
                         height,
                         *layer,
                         request.key.seed,
-                        slot as u64,
+                        ActiveCloudLayerOrdinal::new(slot),
                         evolution,
                     );
                     lighting += contribution * (0.18 + height * 0.76) * (0.18 + detail * 0.82);
@@ -666,8 +669,8 @@ fn baked_cloud_density(
     world: Vec2,
     height: f32,
     layer: CloudLayerParameters,
-    seed: u64,
-    slot: u64,
+    seed: Seed,
+    slot: ActiveCloudLayerOrdinal,
     evolution: f32,
 ) -> f32 {
     let kind = layer.profile as u32;
@@ -676,37 +679,25 @@ fn baked_cloud_density(
     // finite 3-D lattice. Height is an independent coordinate, not a planar
     // translation, so integrating a ray cannot turn a single 2-D field into
     // radial wedges.
-    let warp = Vec3::new(
-        non_periodic_value_noise_3d(
-            coordinate * 0.36,
-            streams::WARP_X.seed(seed, &[slot]).to_u64(),
-        ),
-        non_periodic_value_noise_3d(
-            coordinate * 0.36 + Vec3::splat(13.7),
-            streams::WARP_Y.seed(seed, &[slot]).to_u64(),
-        ),
-        non_periodic_value_noise_3d(
-            coordinate * 0.36 + Vec3::new(4.1, 9.7, 17.3),
-            streams::WARP_Z.seed(seed, &[slot]).to_u64(),
-        ),
-    ) - Vec3::splat(0.5);
+    let warp = noise::density_warp(coordinate, seed, slot);
     let warped = coordinate + warp * Vec3::new(0.85, 0.42, 0.85);
     // Three incommensurate, non-periodic frequencies form clustered lobes;
     // no individual octave can reveal a repeated cell over the dome.
-    let broad =
-        non_periodic_value_noise_3d(warped * 0.58, streams::BROAD.seed(seed, &[slot]).to_u64())
-            * 0.29
-            + non_periodic_value_noise_3d(
-                warped * 1.23,
-                streams::MEDIUM.seed(seed, &[slot]).to_u64(),
-            ) * 0.44
-            + non_periodic_value_noise_3d(
-                warped * 2.61,
-                streams::FINE.seed(seed, &[slot]).to_u64(),
-            ) * 0.27;
+    let broad = non_periodic_value_noise_3d(
+        warped * 0.58,
+        streams::BROAD.seed(seed, &[slot.context_word()]),
+    ) * 0.29
+        + non_periodic_value_noise_3d(
+            warped * 1.23,
+            streams::MEDIUM.seed(seed, &[slot.context_word()]),
+        ) * 0.44
+        + non_periodic_value_noise_3d(
+            warped * 2.61,
+            streams::FINE.seed(seed, &[slot.context_word()]),
+        ) * 0.27;
     let detail = non_periodic_value_noise_3d(
         warped * 5.9 + Vec3::new(9.7, 1.3, 4.1),
-        streams::DETAIL.seed(seed, &[slot]).to_u64(),
+        streams::DETAIL.seed(seed, &[slot.context_word()]),
     );
     let profile = cloud_vertical_profile(height, kind, broad);
     let mut threshold = 0.78 - layer.coverage * 0.34;
@@ -737,16 +728,16 @@ fn cloud_density_coordinate(
     world: Vec2,
     height: f32,
     layer: CloudLayerParameters,
-    seed: u64,
+    seed: Seed,
     evolution: f32,
-) -> Vec3 {
+) -> CloudDensityCoordinate {
     let family_scale = match layer.profile as u32 {
         2 => Vec2::new(0.32, 1.8),
         5 | 8 => Vec2::splat(1.75),
         4 | 6 | 7 | 9 => Vec2::splat(0.58),
         _ => Vec2::ONE,
     };
-    let seed_offset = layer.seed + (seed & 0x0fff) as f32;
+    let seed_offset = layer.seed + (seed.to_u64() & 0x0fff) as f32;
     let mut coordinate = Vec3::new(
         world.x * layer.horizontal_scale + seed_offset * 0.013,
         height * 1.8 + seed_offset * 0.007,
@@ -758,21 +749,21 @@ fn cloud_density_coordinate(
     coordinate += Vec3::new(evolution * 0.37, evolution, -evolution * 0.23);
     coordinate.x *= family_scale.x;
     coordinate.z *= family_scale.y;
-    coordinate
+    CloudDensityCoordinate::from_layer_axes(coordinate)
 }
 
 fn cloud_bake_lighting_variation(
     world: Vec2,
     height: f32,
     layer: CloudLayerParameters,
-    seed: u64,
-    slot: u64,
+    seed: Seed,
+    slot: ActiveCloudLayerOrdinal,
     evolution: f32,
 ) -> f32 {
     non_periodic_value_noise_3d(
         cloud_density_coordinate(world, height, layer, seed, evolution) * 3.17
             + Vec3::new(2.1, 7.3, 11.9),
-        streams::VERTICAL.seed(seed, &[slot]).to_u64(),
+        streams::VERTICAL.seed(seed, &[slot.context_word()]),
     )
 }
 
@@ -1174,11 +1165,15 @@ mod tests {
         SceneEnvironment {
             scene_digest: "cloud-parameter-test".into(),
             generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-            latitude_microdegrees: 53_500_000,
-            longitude_microdegrees: 10_000_000,
+            latitude_microdegrees:
+                adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000)
+                    .unwrap(),
+            longitude_microdegrees:
+                adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(10_000_000)
+                    .unwrap(),
             absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(100_000),
             lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(100_000),
-            absolute_elevation_metres: 20,
+            absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(20).unwrap(),
             weather: WeatherSnapshot {
                 rules_version: WEATHER_RULES_VERSION,
                 interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(
@@ -1253,14 +1248,36 @@ mod tests {
         unseeded.seed = 0.0;
         let sample_world = Vec2::new(640.0, -420.0);
         assert!(
-            (baked_cloud_density(sample_world, 0.34, cumulus, 42, 0, 0.0)
-                - baked_cloud_density(sample_world, 0.34, unseeded, 42, 0, 0.0))
+            (baked_cloud_density(
+                sample_world,
+                0.34,
+                cumulus,
+                fabelgeist_determinism::Seed::from_u64(42),
+                noise::ActiveCloudLayerOrdinal::new(0),
+                0.0
+            ) - baked_cloud_density(
+                sample_world,
+                0.34,
+                unseeded,
+                fabelgeist_determinism::Seed::from_u64(42),
+                noise::ActiveCloudLayerOrdinal::new(0),
+                0.0
+            ))
             .abs()
                 > 0.001
         );
         let occupied = (-3..=3)
             .flat_map(|z| (-3..=3).map(move |x| Vec2::new(x as f32 * 500.0, z as f32 * 500.0)))
-            .filter(|world| baked_cloud_density(*world, 0.34, cumulus, 42, 0, 0.0) > 0.08)
+            .filter(|world| {
+                baked_cloud_density(
+                    *world,
+                    0.34,
+                    cumulus,
+                    fabelgeist_determinism::Seed::from_u64(42),
+                    noise::ActiveCloudLayerOrdinal::new(0),
+                    0.0,
+                ) > 0.08
+            })
             .count();
         assert!(
             occupied >= 4,
@@ -1272,11 +1289,25 @@ mod tests {
     fn cloud_volume_noise_decorrelates_height_without_translating_the_world_field() {
         let cumulus = CloudLayerParameters::capture(TacticalCloudCaptureProfile::Cumulus).unwrap();
         let world = Vec2::new(860.0, -510.0);
-        let low = cloud_density_coordinate(world, 0.22, cumulus, 42, 0.0);
-        let high = cloud_density_coordinate(world, 0.66, cumulus, 42, 0.0);
-        assert_eq!(low.xz(), high.xz());
-        let low_noise = non_periodic_value_noise_3d(low * 1.23, 42);
-        let high_noise = non_periodic_value_noise_3d(high * 1.23, 42);
+        let low = cloud_density_coordinate(
+            world,
+            0.22,
+            cumulus,
+            fabelgeist_determinism::Seed::from_u64(42),
+            0.0,
+        );
+        let high = cloud_density_coordinate(
+            world,
+            0.66,
+            cumulus,
+            fabelgeist_determinism::Seed::from_u64(42),
+            0.0,
+        );
+        assert_eq!(low.axes().xz(), high.axes().xz());
+        let low_noise =
+            non_periodic_value_noise_3d(low * 1.23, fabelgeist_determinism::Seed::from_u64(42));
+        let high_noise =
+            non_periodic_value_noise_3d(high * 1.23, fabelgeist_determinism::Seed::from_u64(42));
         assert!(
             (low_noise - high_noise).abs() > 0.001,
             "height must select an independent 3-D lattice slice"
@@ -1367,7 +1398,7 @@ mod tests {
         let request = CloudBakeRequest {
             key: CloudBakeKey {
                 layers: CloudLayerParameters::layers_from_environment(&environment(), None),
-                seed: 42,
+                seed: fabelgeist_determinism::Seed::from_u64(42),
             },
             endpoint: 0,
             wind_velocity: Vec2::ZERO,
@@ -1420,7 +1451,7 @@ mod tests {
         let image = cloud_bake_image(&CloudBakeRequest {
             key: CloudBakeKey {
                 layers: CloudLayerParameters::layers_from_environment(&environment(), None),
-                seed: 42,
+                seed: fabelgeist_determinism::Seed::from_u64(42),
             },
             endpoint: 0,
             wind_velocity: Vec2::ZERO,
@@ -1479,7 +1510,7 @@ mod tests {
         let request = CloudBakeRequest {
             key: CloudBakeKey {
                 layers: CloudLayerParameters::layers_from_environment(&environment(), None),
-                seed: 42,
+                seed: fabelgeist_determinism::Seed::from_u64(42),
             },
             endpoint: 2,
             wind_velocity: Vec2::new(3.0, -4.0),
@@ -1490,9 +1521,21 @@ mod tests {
 
         let cumulus = CloudLayerParameters::capture(TacticalCloudCaptureProfile::Cumulus).unwrap();
         let world = Vec2::new(640.0, -420.0);
-        let initial = cloud_density_coordinate(world, 0.34, cumulus, 42, 0.0);
-        let evolved = cloud_density_coordinate(world, 0.34, cumulus, 42, request.evolution());
-        assert!(!initial.abs_diff_eq(evolved, 0.001));
+        let initial = cloud_density_coordinate(
+            world,
+            0.34,
+            cumulus,
+            fabelgeist_determinism::Seed::from_u64(42),
+            0.0,
+        );
+        let evolved = cloud_density_coordinate(
+            world,
+            0.34,
+            cumulus,
+            fabelgeist_determinism::Seed::from_u64(42),
+            request.evolution(),
+        );
+        assert!(!initial.axes().abs_diff_eq(evolved.axes(), 0.001));
     }
 
     #[test]
@@ -1545,7 +1588,7 @@ mod tests {
         CloudBakeRequest {
             key: CloudBakeKey {
                 layers: CloudLayerParameters::layers_from_environment(&environment, None),
-                seed: 7,
+                seed: fabelgeist_determinism::Seed::from_u64(7),
             },
             endpoint,
             wind_velocity: cloud_wind_velocity(&environment),
@@ -1591,7 +1634,8 @@ mod tests {
             key: Some(lifecycle_request(0).key),
             ..Default::default()
         };
-        state.key.as_mut().expect("key is present").seed = 8;
+        state.key.as_mut().expect("key is present").seed =
+            fabelgeist_determinism::Seed::from_u64(8);
         let mut images = Assets::default();
         let mut material = lifecycle_material(&mut images);
 

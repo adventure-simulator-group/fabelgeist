@@ -265,8 +265,9 @@ impl BuildingLod {
         {
             return &mut self.meshes[index];
         }
+        let index = self.meshes.len();
         self.meshes.push(LodMesh::new(material));
-        self.meshes.last_mut().expect("mesh was just inserted")
+        &mut self.meshes[index]
     }
 }
 
@@ -458,7 +459,7 @@ mod tests {
     fn fachwerk_lod_joins_wall_cells_and_emits_uv_mapped_details() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let exterior_wall_count = plan
@@ -466,7 +467,7 @@ mod tests {
             .iter()
             .filter(|wall| wall.frame.outside_room.is_none() && wall.radial_frame.is_none())
             .count();
-        let lod = compile_building_lod(&plan, BuildingLodLevel::Facade);
+        let lod = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
         let exterior_ids = plan
             .wall_assemblies
             .iter()
@@ -501,7 +502,7 @@ mod tests {
     fn facade_and_shell_lods_omit_interior_walls() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let interior_ids = plan
@@ -513,7 +514,7 @@ mod tests {
         assert!(!interior_ids.is_empty());
 
         for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
-            let lod = compile_building_lod(&plan, level);
+            let lod = compile_building_lod(&plan, level).unwrap();
             assert!(
                 lod.facade_runs
                     .iter()
@@ -526,11 +527,11 @@ mod tests {
     fn fachwerk_shell_retains_semantic_facades_with_bounded_triangle_count() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
-        let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
-        let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
+        let facade = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
+        let shell = compile_building_lod(&plan, BuildingLodLevel::Shell).unwrap();
         let triangle_count = |lod: &BuildingLod| {
             lod.meshes
                 .iter()
@@ -561,7 +562,7 @@ mod tests {
     fn fachwerk_detail_quads_lie_on_the_outer_member_faces() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let frame = plan.timber_frame.as_ref().unwrap();
@@ -613,7 +614,7 @@ mod tests {
         let expected_plane = wall.frame.origin.dot(wall.frame.outward)
             + wall.thickness_metres * 0.5
             + FACADE_DETAIL_OFFSET_METRES;
-        let midpoint = (brace.start + brace.end) * 0.5;
+        let midpoint = (brace.start.metres() + brace.end.metres()) * 0.5;
         let expected_midpoint = midpoint + outward * (expected_plane - midpoint.dot(outward));
         assert!(mesh.vertices.as_chunks::<4>().0.iter().any(|quad| {
             let centroid = quad.iter().map(|vertex| vertex.position).sum::<Vec3>() * 0.25;
@@ -625,7 +626,7 @@ mod tests {
     fn castle_shell_uses_alpha_mask_batches_for_straight_and_round_crowns() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::CourtyardCastle,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         assert!(
@@ -639,7 +640,7 @@ mod tests {
                 .any(|crown| matches!(crown.path, CrownPath::Round { .. }))
         );
 
-        let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
+        let facade = compile_building_lod(&plan, BuildingLodLevel::Facade).unwrap();
         assert!(
             facade.meshes.iter().any(|mesh| {
                 mesh.material == BuildingLodMaterial::CrownMasonry && !mesh.vertices.is_empty()
@@ -647,7 +648,7 @@ mod tests {
             "the facade representation must retain geometric straight crowns"
         );
 
-        let lod = compile_building_lod(&plan, BuildingLodLevel::Shell);
+        let lod = compile_building_lod(&plan, BuildingLodLevel::Shell).unwrap();
         assert!(
             lod.meshes
                 .iter()

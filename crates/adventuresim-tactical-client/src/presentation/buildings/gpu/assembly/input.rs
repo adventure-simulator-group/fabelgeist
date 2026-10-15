@@ -4,30 +4,56 @@ use crate::presentation::buildings::{CompiledBuildingLevels, TacticalBuildingMat
 use adventuresim_building_generator::BuildingLodMaterial;
 
 #[derive(Default, Resource)]
+pub(in crate::presentation::buildings) struct PendingGpuCities {
+    pub(in crate::presentation::buildings) owners: PresentationOwners<PendingGpuBuildings>,
+}
+
+#[derive(Default)]
 pub(in crate::presentation::buildings) struct PendingGpuBuildings {
     pub(super) parts: Vec<Part>,
     pub(super) buildings: Vec<Placement>,
+    pub(super) publication: Option<CityPublication>,
+}
+
+pub(super) struct CityPublication {
+    pub(super) root: Entity,
+    pub(super) frame: CityFrame,
 }
 
 pub(super) struct Placement {
     root: Entity,
     transform: Mat4,
-    appearance: adventuresim_tactical_core::scene_input::DistantBuildingPlacement,
+    appearance: PlacementAppearance,
     compiled: Arc<CompiledBuildingLevels>,
+}
+
+pub(in crate::presentation::buildings) enum PlacementAppearance {
+    Primary(adventuresim_tactical_core::scene_input::SceneBuildingId),
+    Distant(adventuresim_tactical_core::scene_input::DistantBuildingPlacement),
 }
 
 impl PendingGpuBuildings {
     pub(in crate::presentation::buildings) fn clear(&mut self) {
         self.parts.clear();
         self.buildings.clear();
-        READY.store(false, Ordering::Relaxed);
+        self.publication = None;
+    }
+
+    /// Replacement frames belong to the unpublished queue. Updating the active
+    /// frame before assembly would relocate the previous city's geometry.
+    pub(in crate::presentation::buildings) fn set_publication(
+        &mut self,
+        root: Entity,
+        frame: CityFrame,
+    ) {
+        self.publication = Some(CityPublication { root, frame });
     }
 
     pub(in crate::presentation::buildings) fn push(
         &mut self,
         root: Entity,
         transform: &Transform,
-        appearance: adventuresim_tactical_core::scene_input::DistantBuildingPlacement,
+        appearance: PlacementAppearance,
         compiled: &Arc<CompiledBuildingLevels>,
     ) {
         self.buildings.push(Placement {
@@ -42,16 +68,19 @@ impl PendingGpuBuildings {
         self.parts.is_empty() && self.buildings.is_empty()
     }
 
-    pub(super) fn groups(&self, materials: Option<&TacticalBuildingMaterials>) -> Vec<Group> {
+    pub(super) fn groups(
+        &self,
+        materials: Option<&TacticalBuildingMaterials>,
+    ) -> AssemblyResult<Vec<Group>> {
         let mut groups = Group::from_parts(self.parts.iter().cloned());
         let mut prototypes = HashMap::new();
         for placement in &self.buildings {
-            let palette = materials
-                .expect("city building materials")
-                .for_distant_building(
-                    placement.appearance.prosperity,
-                    placement.appearance.exterior_variant(),
-                );
+            let materials = materials.ok_or(AssemblyError::MissingMaterials)?;
+            let palette = match &placement.appearance {
+                PlacementAppearance::Primary(id) => materials.for_building(id.0),
+                PlacementAppearance::Distant(placement) => materials
+                    .for_distant_building(placement.prosperity, placement.exterior_variant()),
+            };
             // The palette's infill is unique to each appearance. Geometry and
             // appearance are independent; placements share both before packing.
             let key = (
@@ -95,7 +124,7 @@ impl PendingGpuBuildings {
             });
             groups[index].placements.push(placement.transform);
         }
-        groups
+        Ok(groups)
     }
 }
 

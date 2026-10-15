@@ -14,25 +14,45 @@ mod compound;
 mod single;
 mod surface;
 pub use single::{DoorwaySupportBinding, SingleBuildingSupportPlan, SingleBuildingSupportRequest};
-pub use surface::{PropertySupportSurface, SupportSurfaceIssue};
+pub use surface::{
+    FloorBearing, FloorBearingConstructionError, FloorBearingIssue, FloorRegion,
+    PropertySupportSurface, SupportSurfaceAdmissionError, SupportSurfaceIssue,
+};
+mod admission;
+mod collider;
+pub use collider::{SupportColliderError, SupportCollision};
+mod members;
+pub use admission::SupportGeometryIssue;
+pub use members::{PropertyMemberIssue, PropertyMembers};
 mod boundaries;
 mod diagnostic;
+mod location;
+mod measurement;
+pub use location::{SceneCoordinateAttempt, SupportDiagnosticLocation};
+pub use measurement::{
+    BoundViolation, DiagnosticArea, DiagnosticCount, DiagnosticMetres, GeographicGrade,
+    SupportViolation,
+};
 pub(crate) mod enclosure;
 mod entry;
 pub use enclosure::{
     BoundarySupportCell, BoundarySupportConstraint, BoundarySupportElement, BoundarySupportError,
-    BoundarySupportMesh,
+    BoundarySupportMesh, BoundarySupportProjection,
 };
 mod foundations;
 mod mesh;
 mod planar;
+mod policy;
+pub use policy::{SupportGrade, SupportLimits};
 mod profile;
 mod surface_hit;
 pub use diagnostic::{
-    SupportBoundary, SupportConstraint, SupportDiagnostic, SupportDiagnosticUnit,
-    SupportGradingAttempt,
+    SupportBound, SupportBoundary, SupportConstraint, SupportConstructionError, SupportDiagnostic,
+    SupportDiagnosticUnit, SupportGradingAttempt,
 };
 pub use surface_hit::SurfaceHit;
+mod query;
+pub use query::{SupportCeiling, SupportQuery};
 mod selection;
 pub use selection::CompoundSupportRequest;
 mod stairs;
@@ -51,11 +71,13 @@ use stairs::CourtStair;
 pub use stairs::CourtStairLimits;
 
 /// Finite architectural floor or support elevation in scene metres.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, bevy::reflect::Reflect)]
+#[reflect(opaque)]
 #[serde(transparent)]
 pub struct SupportElevation(f32);
 
 impl SupportElevation {
+    pub const ZERO: Self = Self(0.0);
     pub fn from_metres(metres: f32) -> Option<Self> {
         metres.is_finite().then_some(Self(metres))
     }
@@ -88,41 +110,12 @@ impl SurfaceElevations {
     }
 }
 
-/// Engineering constraints supplied by the owning generation/capture caller.
-/// These are not historical measurements or actor movement configuration.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-pub struct SupportLimits {
-    maximum_grade: f32,
-    maximum_displacement_metres: f32,
-    contact_tolerance_metres: f32,
-}
-
-impl SupportLimits {
-    pub fn contact_tolerance_metres(self) -> f32 {
-        self.contact_tolerance_metres
-    }
-
-    pub fn new(grade: f32, displacement_metres: f32, tolerance_metres: f32) -> Option<Self> {
-        (grade.is_finite()
-            && grade > 0.0
-            && displacement_metres.is_finite()
-            && displacement_metres > 0.0
-            && tolerance_metres.is_finite()
-            && tolerance_metres > 0.0)
-            .then_some(Self {
-                maximum_grade: grade,
-                maximum_displacement_metres: displacement_metres,
-                contact_tolerance_metres: tolerance_metres,
-            })
-    }
-}
-
 /// Exact bearing reservation, court threshold and selected member floor.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize)]
 pub struct MemberSupport {
-    pub building_id: u64,
+    pub building_id: crate::scene_input::SceneBuildingId,
     pub contact: CityPlotBounds,
-    pub court_threshold_metres: Vec2,
+    pub court_threshold_metres: crate::scene_coordinates::ScenePlanPoint,
     pub elevation: SupportElevation,
 }
 
@@ -152,6 +145,7 @@ pub struct CompoundSupportPlan {
     levels: CompoundSupportLevels,
     limits: SupportLimits,
     passage: CityAccessSegment,
+    passage_region: CityPlotBounds,
     split_frontage_metres: f32,
     court_profile: SupportProfile,
     passage_profile: SupportProfile,
@@ -168,7 +162,7 @@ impl CompoundSupportPlan {
         court: CourtTreatment,
     ) -> Result<Self, SupportDiagnostic> {
         compound::compile(property, levels, limits, court).map_err(|mut error| {
-            error.attempted_treatment = SupportGradingAttempt::Compound(court);
+            error.attempted_treatment = Box::new(SupportGradingAttempt::Compound(court));
             error
         })
     }
@@ -194,7 +188,7 @@ impl CompoundSupportPlan {
         scene_point: crate::scene_coordinates::ScenePlanPoint,
     ) -> SurfaceElevations {
         let point = scene_point.metres();
-        if !self.contains(point) {
+        if !self.contains(scene_point) {
             return SurfaceElevations::default();
         }
         if let Some(entry) = &self.street_entry
@@ -205,17 +199,22 @@ impl CompoundSupportPlan {
         let local = self
             .property
             .plot
-            .orientation
-            .world_to_local(point - self.property.plot.centre_metres);
+            .orientation()
+            .world_to_local(point - self.property.plot.centre_metres());
         let side = self.property.boundary.gate.hinge.opposite().sign();
         let offset = (local.x - self.split_frontage_metres) * side;
         let mut heights = Vec::new();
-        if self.property.plot.contains(point) && offset <= self.limits.contact_tolerance_metres {
-            heights.push(SupportElevation(self.main_height(local)));
+        if self.property.plot.contains(point)
+            && offset <= self.limits.contact_tolerance_metres.metres()
+            && let Some(height) = self.main_height(local)
+        {
+            heights.push(height);
         }
-        if offset >= -self.limits.contact_tolerance_metres || !self.property.plot.contains(point) {
-            let distance = (point - self.passage.start_metres)
-                .dot((self.passage.end_metres - self.passage.start_metres).normalize());
+        if offset >= -self.limits.contact_tolerance_metres.metres()
+            || !self.property.plot.contains(point)
+        {
+            let distance = (point - self.passage.start_metres())
+                .dot((self.passage.end_metres() - self.passage.start_metres()).normalize());
             if let Some(coordinate) = ProfileCoordinate::from_metres(distance) {
                 heights.push(self.passage_profile.height_at(coordinate));
             }
@@ -230,17 +229,7 @@ impl CompoundSupportPlan {
     /// Complete plot plus its already-bound street approach. Grading owns no
     /// arbitrary margin or neighbouring property outside these regions.
     pub fn support_regions(&self) -> Vec<CityPlotBounds> {
-        let mut regions = vec![
-            self.property.plot,
-            CityPlotBounds {
-                centre_metres: (self.passage.start_metres + self.passage.end_metres) * 0.5,
-                dimensions_metres: Vec2::new(
-                    self.passage.half_width_metres * 2.0,
-                    self.passage.start_metres.distance(self.passage.end_metres),
-                ),
-                orientation: self.property.plot.orientation,
-            },
-        ];
+        let mut regions = vec![self.property.plot, self.passage_region];
         if let Some(entry) = &self.street_entry {
             regions.push(entry.reservation);
         }
@@ -249,7 +238,8 @@ impl CompoundSupportPlan {
 
     /// The short street approach is already an owned access reservation.
     /// It can extend beyond the plot; unrelated terrain is not part of this core.
-    pub fn contains(&self, point: Vec2) -> bool {
+    pub fn contains(&self, point: crate::scene_coordinates::ScenePlanPoint) -> bool {
+        let point = point.metres();
         if self
             .street_entry
             .as_ref()
@@ -260,19 +250,19 @@ impl CompoundSupportPlan {
         if self.property.plot.contains(point) {
             return true;
         }
-        let delta = self.passage.end_metres - self.passage.start_metres;
+        let delta = self.passage.end_metres() - self.passage.start_metres();
         let length = delta.length();
-        let offset = point - self.passage.start_metres;
+        let offset = point - self.passage.start_metres();
         let distance = offset.dot(delta / length);
         (0.0..=length).contains(&distance)
-            && offset.perp_dot(delta / length).abs() <= self.passage.half_width_metres
+            && offset.perp_dot(delta / length).abs() <= self.passage.half_width_metres()
     }
 
     /// Planar support triangles and internal retaining faces. Perimeter grading,
     /// source-triangle clipping and actor/gate collision remain separate checks.
     pub fn mesh(&self) -> Result<PropertySupportMesh, SupportDiagnostic> {
         let attach_treatment = |mut error: SupportDiagnostic| {
-            error.attempted_treatment = SupportGradingAttempt::Compound(self.treatment);
+            error.attempted_treatment = Box::new(SupportGradingAttempt::Compound(self.treatment));
             error
         };
         let mut mesh = PropertySupportMesh::from_compound_plan(self).map_err(attach_treatment)?;
@@ -298,18 +288,19 @@ impl CompoundSupportPlan {
         self.court_stairs.iter().map(|stair| &stair.flight)
     }
 
-    fn main_height(&self, local: Vec2) -> f32 {
-        self.court_stairs
+    fn main_height(&self, local: Vec2) -> Option<SupportElevation> {
+        if let Some(height) = self
+            .court_stairs
             .iter()
             .find_map(|stair| stair.height_at(local))
-            .unwrap_or_else(|| {
+        {
+            SupportElevation::from_metres(height)
+        } else {
+            Some(
                 self.court_profile
-                    .height_at(
-                        ProfileCoordinate::from_metres(local.y)
-                            .expect("finite property-local point"),
-                    )
-                    .metres()
-            })
+                    .height_at(ProfileCoordinate::from_metres(local.y)?),
+            )
+        }
     }
 
     /// A private unit translation evaluates the affine response at unchanged
@@ -324,11 +315,11 @@ impl CompoundSupportPlan {
                 &self.property,
                 SupportConstraint::Reservation,
                 SupportBoundary::CourtLanding,
-                self.property.plot.centre_metres
+                self.property.plot.centre_metres()
                     + self
                         .property
                         .plot
-                        .orientation
+                        .orientation()
                         .local_to_world(Vec2::Y * error.coordinate().metres()),
                 1.0,
                 0.0,
@@ -362,16 +353,16 @@ impl CompoundSupportPlan {
             .iter()
             .map(|support| (support.metres() - geographic_height.metres()).abs())
             .fold(0.0, f32::max);
-        if displacement > self.limits.maximum_displacement_metres {
+        if displacement > self.limits.maximum_displacement_metres.metres() {
             let mut error = SupportDiagnostic::new(
                 &self.property,
                 SupportConstraint::CutFill,
                 SupportBoundary::GeographicSurface,
                 point,
                 displacement,
-                self.limits.maximum_displacement_metres,
+                self.limits.maximum_displacement_metres.metres(),
             );
-            error.attempted_treatment = SupportGradingAttempt::Compound(self.treatment);
+            error.attempted_treatment = Box::new(SupportGradingAttempt::Compound(self.treatment));
             return Err(error);
         }
         Ok(())

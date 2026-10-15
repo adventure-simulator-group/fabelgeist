@@ -42,6 +42,8 @@ pub(super) fn append(
         })
         .collect::<Vec<_>>();
     if let Some(socket_parent) = socket_parent {
+        // glTF joint nodes occupy the original rig order. This Vec access is
+        // the native collection boundary for the retained pelvis ordinal.
         let root_children = nodes[usize::from(socket_parent)]
             .as_object_mut()
             .context("MHR anatomical pelvis node is not an object")?

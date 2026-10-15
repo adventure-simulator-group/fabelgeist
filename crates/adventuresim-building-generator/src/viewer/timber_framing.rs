@@ -17,17 +17,17 @@ pub(super) fn target(
     } else if view == ViewerView::TimberJettyUnderside {
         let min = camera_focused
             .iter()
-            .map(|solid| solid.centre - solid.size * 0.5)
+            .map(|solid| solid.centre.metres() - solid.size.metres() * 0.5)
             .fold(Vec3::splat(f32::INFINITY), Vec3::min);
         let max = camera_focused
             .iter()
-            .map(|solid| solid.centre + solid.size * 0.5)
+            .map(|solid| solid.centre.metres() + solid.size.metres() * 0.5)
             .fold(Vec3::splat(f32::NEG_INFINITY), Vec3::max);
         (min + max) * 0.5
     } else {
         camera_focused
             .iter()
-            .map(|solid| solid.centre)
+            .map(|solid| solid.centre.metres())
             .sum::<Vec3>()
             / camera_focused.len() as f32
     }
@@ -36,11 +36,11 @@ pub(super) fn target(
 pub(super) fn extent(camera_focused: &[&ResolvedSolid]) -> f32 {
     let min = camera_focused
         .iter()
-        .map(|solid| solid.centre - solid.size * 0.5)
+        .map(|solid| solid.centre.metres() - solid.size.metres() * 0.5)
         .fold(Vec3::splat(f32::INFINITY), Vec3::min);
     let max = camera_focused
         .iter()
-        .map(|solid| solid.centre + solid.size * 0.5)
+        .map(|solid| solid.centre.metres() + solid.size.metres() * 0.5)
         .fold(Vec3::splat(f32::NEG_INFINITY), Vec3::max);
     if camera_focused.is_empty() {
         4.0

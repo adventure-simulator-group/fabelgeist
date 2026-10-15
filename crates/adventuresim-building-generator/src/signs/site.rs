@@ -27,7 +27,10 @@ impl SignSite {
     pub fn for_plan(plan: &BuildingPlan) -> Option<Self> {
         let (point, outward, head, wall_id) = if let Some(work) = &plan.workplace {
             let passage = work.passages.first()?;
-            let point = Vec2::new((passage.min.x + passage.max.x) * 0.5, 0.0);
+            let point = Vec2::new(
+                (passage.bounds.min().metres().x + passage.bounds.max().metres().x) * 0.5,
+                0.0,
+            );
             let wall = plan.wall_assemblies.iter().find(|wall| {
                 wall.frame.outward == Vec2::NEG_Y
                     && wall.base_elevation_metres > 0.0
@@ -122,7 +125,9 @@ impl SignSite {
         }
         !plan.resolved_geometry.solids.iter().any(|solid| {
             let extent = solid_extent(solid);
-            (max.min(solid.centre + extent) - min.max(solid.centre - extent)).min_element() > 0.005
+            (max.min(solid.centre.metres() + extent) - min.max(solid.centre.metres() - extent))
+                .min_element()
+                > 0.005
         })
     }
 }
@@ -138,7 +143,7 @@ fn facade_attachment(
     let mut projection = 0.0_f32;
     for solid in &plan.resolved_geometry.solids {
         let extent = solid_extent(solid);
-        let offset = solid.centre - attachment;
+        let offset = solid.centre.metres() - attachment;
         let side = offset.dot(tangent).abs();
         if side > panel_size.x * 0.5 + extent.dot(tangent.abs())
             || offset.y.abs() > panel_size.y * 0.5 + BRACKET_HEADROOM_METRES + extent.y
@@ -155,14 +160,14 @@ fn facade_attachment(
 
 pub(super) fn solid_extent(solid: &crate::ResolvedSolid) -> Vec3 {
     let rotation = solid_rotation(solid);
-    let half = solid.size * 0.5;
+    let half = solid.size.metres() * 0.5;
     (rotation * Vec3::X).abs() * half.x
         + (rotation * Vec3::Y).abs() * half.y
         + (rotation * Vec3::Z).abs() * half.z
 }
 
 pub(super) fn solid_rotation(solid: &crate::ResolvedSolid) -> Quat {
-    Quat::from_rotation_y(solid.yaw_radians)
-        * Quat::from_rotation_x(solid.crossfall_radians)
-        * Quat::from_rotation_z(solid.longfall_radians)
+    Quat::from_rotation_y(solid.yaw_radians.radians())
+        * Quat::from_rotation_x(solid.crossfall_radians.radians())
+        * Quat::from_rotation_z(solid.longfall_radians.radians())
 }

@@ -1,8 +1,3 @@
-mod cloth_motion;
-mod cloth_render;
-#[cfg(test)]
-use cloth_motion::simulate;
-mod colliders;
 use super::*;
 use bevy::{
     animation::{AnimatedBy, AnimationTargetId},
@@ -12,7 +7,13 @@ use bevy::{
         skinning::{SkinnedMesh, SkinnedMeshInverseBindposes},
     },
 };
+#[cfg(test)]
+use cloth_motion::simulate;
 pub use colliders::ArmorSkin;
+
+mod cloth_motion;
+mod cloth_render;
+mod colliders;
 
 #[derive(Resource, Default)]
 pub struct WalkPreview {
@@ -43,6 +44,40 @@ pub struct SimulationSettings {
     pub substeps: u32,
     pub iterations: u32,
 }
+
+#[derive(Component)]
+struct PreviewSkeleton;
+
+// Preserve all eight exported influences. Reducing each vertex independently
+// to four can discard the opposite leg precisely at the centre transition.
+#[derive(Component)]
+pub struct BodySkin {
+    pub positions: Vec<[f32; 3]>,
+    pub faces: Vec<[u32; 3]>,
+    pub indices: Vec<[u32; 8]>,
+    pub weights: Vec<[f32; 8]>,
+}
+
+#[derive(Component)]
+pub struct ClothSkin {
+    render_vertices: Option<Vec<usize>>,
+    form: GarmentForm,
+    positions: Vec<[f32; 3]>,
+    faces: Vec<[u32; 3]>,
+    edges: Vec<[u32; 2]>,
+    indices: Vec<[u32; 8]>,
+    weights: Vec<[f32; 8]>,
+    current: Vec<Vec3>,
+    previous: Vec<Vec3>,
+    simulating: bool,
+}
+
+#[derive(Default)]
+pub struct BodyMotion {
+    rig: Option<Entity>,
+    positions: Vec<Vec3>,
+}
+
 impl Default for SimulationSettings {
     fn default() -> Self {
         Self {
@@ -60,6 +95,7 @@ impl Default for SimulationSettings {
         }
     }
 }
+
 impl WalkPreview {
     pub fn ready(&self) -> bool {
         self.player.is_some() && self.graph.is_some() && self.node.is_some()
@@ -76,8 +112,36 @@ impl WalkPreview {
     }
 }
 
-#[derive(Component)]
-struct PreviewSkeleton;
+impl ClothSkin {
+    pub fn new(
+        form: GarmentForm,
+        positions: Vec<[f32; 3]>,
+        _normals: Vec<[f32; 3]>,
+        faces: Vec<[u32; 3]>,
+        indices: Vec<[u32; 8]>,
+        weights: Vec<[f32; 8]>,
+    ) -> Self {
+        let mut edges = std::collections::BTreeSet::new();
+        for face in &faces {
+            for [a, b] in [[face[0], face[1]], [face[1], face[2]], [face[2], face[0]]] {
+                edges.insert(if a < b { [a, b] } else { [b, a] });
+            }
+        }
+        let current: Vec<Vec3> = positions.iter().copied().map(Vec3::from_array).collect();
+        Self {
+            render_vertices: None,
+            form,
+            positions,
+            faces,
+            edges: edges.into_iter().collect(),
+            indices,
+            weights,
+            previous: current.clone(),
+            current,
+            simulating: false,
+        }
+    }
+}
 
 pub fn request(mut preview: ResMut<WalkPreview>, assets: Res<AssetServer>) {
     preview.requested = assets.load("animations/biped/unarmed/walk.glb");
@@ -208,41 +272,6 @@ pub fn rebuild(
     preview.joints = joints;
 }
 
-/// Convert an exact rig label to the native Bevy naming interface.
-fn bevy_joint_name(name: &fabelgeist_rig::RigJointName) -> Name {
-    Name::new(std::borrow::Cow::from(name.clone()))
-}
-
-fn mhr_state(value: [f32; 8]) -> fabelgeist_mhr::math::Transform {
-    fabelgeist_mhr::math::Transform {
-        translation: [value[0] as f64, value[1] as f64, value[2] as f64],
-        rotation: [
-            value[3] as f64,
-            value[4] as f64,
-            value[5] as f64,
-            value[6] as f64,
-        ],
-        scale: value[7] as f64,
-    }
-}
-
-fn bevy_transform(value: fabelgeist_mhr::math::Transform) -> Transform {
-    Transform {
-        translation: Vec3::new(
-            value.translation[0] as f32,
-            value.translation[1] as f32,
-            value.translation[2] as f32,
-        ),
-        rotation: Quat::from_xyzw(
-            value.rotation[0] as f32,
-            value.rotation[1] as f32,
-            value.rotation[2] as f32,
-            value.rotation[3] as f32,
-        ),
-        scale: Vec3::splat(value.scale as f32),
-    }
-}
-
 pub fn skin_mesh(mesh: &mut Mesh, indices: &[[u32; 8]], weights: &[[f32; 8]]) {
     let mut joint_indices = Vec::with_capacity(indices.len());
     let mut joint_weights = Vec::with_capacity(weights.len());
@@ -278,67 +307,6 @@ pub fn skin(preview: &WalkPreview) -> Option<SkinnedMesh> {
         inverse_bindposes: preview.inverse_bindposes.clone(),
         joints: preview.joints.clone(),
     })
-}
-
-// Preserve all eight exported influences. Reducing each vertex independently
-// to four can discard the opposite leg precisely at the centre transition.
-#[derive(Component)]
-pub struct BodySkin {
-    pub positions: Vec<[f32; 3]>,
-    pub faces: Vec<[u32; 3]>,
-    pub indices: Vec<[u32; 8]>,
-    pub weights: Vec<[f32; 8]>,
-}
-
-#[derive(Component)]
-pub struct ClothSkin {
-    render_vertices: Option<Vec<usize>>,
-    form: GarmentForm,
-    positions: Vec<[f32; 3]>,
-    faces: Vec<[u32; 3]>,
-    edges: Vec<[u32; 2]>,
-    indices: Vec<[u32; 8]>,
-    weights: Vec<[f32; 8]>,
-    current: Vec<Vec3>,
-    previous: Vec<Vec3>,
-    simulating: bool,
-}
-
-impl ClothSkin {
-    pub fn new(
-        form: GarmentForm,
-        positions: Vec<[f32; 3]>,
-        _normals: Vec<[f32; 3]>,
-        faces: Vec<[u32; 3]>,
-        indices: Vec<[u32; 8]>,
-        weights: Vec<[f32; 8]>,
-    ) -> Self {
-        let mut edges = std::collections::BTreeSet::new();
-        for face in &faces {
-            for [a, b] in [[face[0], face[1]], [face[1], face[2]], [face[2], face[0]]] {
-                edges.insert(if a < b { [a, b] } else { [b, a] });
-            }
-        }
-        let current: Vec<Vec3> = positions.iter().copied().map(Vec3::from_array).collect();
-        Self {
-            render_vertices: None,
-            form,
-            positions,
-            faces,
-            edges: edges.into_iter().collect(),
-            indices,
-            weights,
-            previous: current.clone(),
-            current,
-            simulating: false,
-        }
-    }
-}
-
-#[derive(Default)]
-pub struct BodyMotion {
-    rig: Option<Entity>,
-    positions: Vec<Vec3>,
 }
 
 #[expect(
@@ -434,9 +402,47 @@ pub fn deform_cloth(
     }
 }
 
+/// Native Bevy naming boundary. A `From` implementation here is forbidden by
+/// orphan rules: both `Name` and `RigJointName` belong to other crates. Keeping
+/// this adapter here also keeps the shared rig owner independent of Bevy.
+fn bevy_joint_name(name: &fabelgeist_rig::RigJointName) -> Name {
+    Name::new(std::borrow::Cow::from(name.clone()))
+}
+
+fn mhr_state(value: [f32; 8]) -> fabelgeist_mhr::math::Transform {
+    fabelgeist_mhr::math::Transform {
+        translation: [value[0] as f64, value[1] as f64, value[2] as f64],
+        rotation: [
+            value[3] as f64,
+            value[4] as f64,
+            value[5] as f64,
+            value[6] as f64,
+        ],
+        scale: value[7] as f64,
+    }
+}
+
+fn bevy_transform(value: fabelgeist_mhr::math::Transform) -> Transform {
+    Transform {
+        translation: Vec3::new(
+            value.translation[0] as f32,
+            value.translation[1] as f32,
+            value.translation[2] as f32,
+        ),
+        rotation: Quat::from_xyzw(
+            value.rotation[0] as f32,
+            value.rotation[1] as f32,
+            value.rotation[2] as f32,
+            value.rotation[3] as f32,
+        ),
+        scale: Vec3::splat(value.scale as f32),
+    }
+}
+
 fn collision_vector(p: Vec3) -> fabelgeist_math::Vec3 {
     fabelgeist_math::Vec3::new(p.x, p.y, p.z)
 }
+
 fn skinned_positions(
     positions: &[[f32; 3]],
     indices: &[[u32; 8]],

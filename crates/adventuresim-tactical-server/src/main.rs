@@ -692,7 +692,7 @@ fn on_server_started(
             &mut commands,
             generated.buildings,
             &input.establishments,
-        );
+        )?;
         openings::spawn_generated_boundaries(&mut commands, generated.boundaries);
         for garden in generated.gardens {
             commands.spawn((garden, Transform::default()));

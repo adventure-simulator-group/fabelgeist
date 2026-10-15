@@ -2,129 +2,33 @@
 //! skin make a cage, and every panel vertex is placed from it; the shoulder
 //! and flank seams then follow the panels they join.
 
-use anyhow::Result;
-use fabelgeist_armor::gpu::record_garment_torso;
-use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind as Kind};
-use fabelgeist_compute::KernelBatch;
-use fabelgeist_rig::RigJointName;
-
 use crate::armor_frames::FitRegion;
 use crate::device_frames::DeviceWearer;
 use crate::device_garment::{BAND, FRAME_WORDS, JOINTS, UprightSpan};
 use crate::device_garment_kernel::{Grid, Word, dispatch, read, read_u32, write};
 use crate::device_garment_tube::GARMENT_FIT_MARGIN_M;
 use crate::device_piece::DeviceRecording;
+use anyhow::Result;
+use fabelgeist_armor::gpu::record_garment_torso;
+use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind as Kind};
+use fabelgeist_compute::KernelBatch;
+use fabelgeist_rig::RigJointName;
 
 /// The torso frame rises above the neck to hold the shoulder seams.
 const SHOULDER_LIFT_M: f32 = 0.045;
+
 /// Stations of the torso cage, evenly spaced over the frame's height.
 const CAGE_SECTIONS: u32 = 17;
+
 /// Floats per cage section: its height, then its low and high bounds.
 const SECTION_WORDS: u32 = 7;
+
 /// Where the torso fit keeps its landmarks and its cage.
 const SCALARS: u32 = FRAME_WORDS;
+
 const SECTIONS: u32 = SCALARS + 8;
+
 const TORSO_FIT_WORDS: u32 = SECTIONS + CAGE_SECTIONS * SECTION_WORDS;
-
-fn kind_code(kind: Kind) -> Result<f32> {
-    Ok(match kind {
-        Kind::ArmingDoublet => 0.0,
-        Kind::Brigandine => 1.0,
-        Kind::JackOfPlates => 2.0,
-        Kind::MailShirt => 3.0,
-        _ => anyhow::bail!("{kind:?} is not a torso garment"),
-    })
-}
-
-fn layout() -> String {
-    format!(
-        "const SCALARS: u32 = {SCALARS}u;\nconst SECTIONS: u32 = {SECTIONS}u;\n\
-         const SECTION_WORDS: u32 = {SECTION_WORDS}u;\nconst CAGE_SECTIONS: u32 = {CAGE_SECTIONS}u;\n"
-    )
-}
-
-impl DeviceWearer<'_> {
-    /// Record a torso garment's panels and seams, fitted, short of
-    /// thickening.
-    pub(crate) fn record_fitted_torso(
-        &self,
-        batch: &mut KernelBatch,
-        design: &GarmentArmorDesign,
-    ) -> Result<DeviceRecording> {
-        let kind = kind_code(design.kind)?;
-        let head = self.record_frame(batch, FitRegion::Head)?;
-        let raw = self.record_frame(batch, FitRegion::Torso)?;
-        let bottom = if matches!(design.kind, Kind::ArmingDoublet | Kind::MailShirt) {
-            RigJointName::C_SPINE1
-        } else {
-            RigJointName::C_SPINE0
-        };
-        let fit = self.record_upright(
-            batch,
-            TORSO_FIT_WORDS,
-            &raw,
-            &head,
-            UprightSpan {
-                top: (RigJointName::C_NECK, SHOULDER_LIFT_M),
-                bottom: (bottom.clone(), 0.0),
-                reach: (bottom, 0.0),
-            },
-        )?;
-        let gap = design.clearance.metres() + design.wall_thickness.metres() + GARMENT_FIT_MARGIN_M;
-        dispatch(
-            self,
-            batch,
-            &format!("{}{JOINTS}{TORSO_SETUP}", layout()),
-            &[read("joints", &self.body.joints), write("fit", &fit)],
-            &[
-                Word::U(
-                    "neck",
-                    usize::from(self.joint_slot(&RigJointName::C_NECK)?) as u32,
-                ),
-                Word::U(
-                    "waist",
-                    usize::from(self.joint_slot(&RigJointName::C_SPINE1)?) as u32,
-                ),
-                Word::U(
-                    "armpit",
-                    usize::from(self.joint_slot(&RigJointName::L_UPARM)?) as u32,
-                ),
-                Word::F("length", design.length.unit()),
-                Word::F("gap", gap),
-                Word::F("waist_scale", design.waist.unit()),
-                Word::F("flare", design.flare.unit()),
-                Word::F("kind", kind),
-            ],
-            Grid::Singles(1),
-        )?;
-        let support = self.record_region_support(batch, &[FitRegion::Torso, FitRegion::Hips])?;
-        dispatch(
-            self,
-            batch,
-            &format!("{}{BAND}{TORSO_SECTIONS}", layout()),
-            &[
-                read("positions", &self.body.positions),
-                read_u32("support", &support),
-                write("fit", &fit),
-            ],
-            &[],
-            Grid::Singles(CAGE_SECTIONS),
-        )?;
-        let part = record_garment_torso(
-            self.gpu,
-            batch,
-            design,
-            &fit,
-            &format!("{}{HOST_CAGE}{TORSO_CAGE}", layout()),
-        )?;
-        self.record_fit_status(batch, &fit, &part)?;
-        Ok(DeviceRecording {
-            part,
-            frames: vec![(head, FitRegion::Head), (raw, FitRegion::Torso)],
-            checks: Vec::new(),
-        })
-    }
-}
 
 /// The torso's landmarks, relative to its frame.
 const TORSO_SETUP: &str = r#"
@@ -329,3 +233,94 @@ fn torso_vertex(index: u32, coord: vec4<f32>) -> vec3<f32> {
     return local;
 }
 "#;
+
+impl DeviceWearer<'_> {
+    /// Record a torso garment's panels and seams, fitted, short of
+    /// thickening.
+    pub(crate) fn record_fitted_torso(
+        &self,
+        batch: &mut KernelBatch,
+        design: &GarmentArmorDesign,
+    ) -> Result<DeviceRecording> {
+        let kind = kind_code(design.kind)?;
+        let head = self.record_frame(batch, FitRegion::Head)?;
+        let raw = self.record_frame(batch, FitRegion::Torso)?;
+        let bottom = if matches!(design.kind, Kind::ArmingDoublet | Kind::MailShirt) {
+            RigJointName::C_SPINE1
+        } else {
+            RigJointName::C_SPINE0
+        };
+        let fit = self.record_upright(
+            batch,
+            TORSO_FIT_WORDS,
+            &raw,
+            &head,
+            UprightSpan {
+                top: (RigJointName::C_NECK, SHOULDER_LIFT_M),
+                bottom: (bottom.clone(), 0.0),
+                reach: (bottom, 0.0),
+            },
+        )?;
+        let gap = design.clearance.metres() + design.wall_thickness.metres() + GARMENT_FIT_MARGIN_M;
+        dispatch(
+            self,
+            batch,
+            &format!("{}{JOINTS}{TORSO_SETUP}", layout()),
+            &[read("joints", &self.body.joints), write("fit", &fit)],
+            &[
+                Word::Joint("neck", self.joint_slot(&RigJointName::C_NECK)?),
+                Word::Joint("waist", self.joint_slot(&RigJointName::C_SPINE1)?),
+                Word::Joint("armpit", self.joint_slot(&RigJointName::L_UPARM)?),
+                Word::F("length", design.length.unit()),
+                Word::F("gap", gap),
+                Word::F("waist_scale", design.waist.unit()),
+                Word::F("flare", design.flare.unit()),
+                Word::F("kind", kind),
+            ],
+            Grid::Singles(1),
+        )?;
+        let support = self.record_region_support(batch, &[FitRegion::Torso, FitRegion::Hips])?;
+        dispatch(
+            self,
+            batch,
+            &format!("{}{BAND}{TORSO_SECTIONS}", layout()),
+            &[
+                read("positions", &self.body.positions),
+                read_u32("support", &support),
+                write("fit", &fit),
+            ],
+            &[],
+            Grid::Singles(CAGE_SECTIONS),
+        )?;
+        let part = record_garment_torso(
+            self.gpu,
+            batch,
+            design,
+            &fit,
+            &format!("{}{HOST_CAGE}{TORSO_CAGE}", layout()),
+        )?;
+        self.record_fit_status(batch, &fit, &part)?;
+        Ok(DeviceRecording {
+            part,
+            frames: vec![(head, FitRegion::Head), (raw, FitRegion::Torso)],
+            checks: Vec::new(),
+        })
+    }
+}
+
+fn kind_code(kind: Kind) -> Result<f32> {
+    Ok(match kind {
+        Kind::ArmingDoublet => 0.0,
+        Kind::Brigandine => 1.0,
+        Kind::JackOfPlates => 2.0,
+        Kind::MailShirt => 3.0,
+        _ => anyhow::bail!("{kind:?} is not a torso garment"),
+    })
+}
+
+fn layout() -> String {
+    format!(
+        "const SCALARS: u32 = {SCALARS}u;\nconst SECTIONS: u32 = {SECTIONS}u;\n\
+         const SECTION_WORDS: u32 = {SECTION_WORDS}u;\nconst CAGE_SECTIONS: u32 = {CAGE_SECTIONS}u;\n"
+    )
+}

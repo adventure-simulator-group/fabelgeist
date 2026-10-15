@@ -13,8 +13,10 @@ pub(super) fn compare(
     front_floor: f32,
     terrain_height: impl Fn(Vec2) -> Option<f32>,
     maximum_grade: f32,
-) -> Option<Value> {
+) -> Result<Option<Value>, adventuresim_building_generator::DoorError> {
     let route_to = |threshold: Vec2| {
+        let threshold =
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(threshold)?;
         let mut matches = compound
             .access
             .iter()
@@ -22,13 +24,25 @@ pub(super) fn compare(
         let route = matches.next()?;
         matches.next().is_none().then_some(route)
     };
-    let front_route = route_to(front_threshold)?;
-    let rear_route = route_to(rear_threshold)?;
+    let Some(front_route) = route_to(front_threshold) else {
+        return Ok(None);
+    };
+    let Some(rear_route) = route_to(rear_threshold) else {
+        return Ok(None);
+    };
     let stairs = super::solutions::stair_limits();
-    let front_run = stairs.available_run_metres(front_route)?;
-    let rear_run = stairs.available_run_metres(rear_route)?;
-    let court_source = terrain_height(compound.court.centre_metres)?;
-    let rear_source = terrain_height(rear_threshold)?;
+    let Some(front_run) = stairs.available_run_metres(front_route) else {
+        return Ok(None);
+    };
+    let Some(rear_run) = stairs.available_run_metres(rear_route) else {
+        return Ok(None);
+    };
+    let Some(court_source) = terrain_height(compound.court.centre_metres()) else {
+        return Ok(None);
+    };
+    let Some(rear_source) = terrain_height(rear_threshold) else {
+        return Ok(None);
+    };
     let front_reach = front_run * maximum_grade;
     let rear_reach = rear_run * maximum_grade;
     let court = court_source.clamp(front_floor - front_reach, front_floor + front_reach);
@@ -51,15 +65,20 @@ pub(super) fn compare(
             "verification_scope":"Endpoint level feasibility with explicit landings. No support, retaining-wall, gate-sweep or complete terrain-triangle acceptance is asserted.",
         })
     };
-    Some(json!({
+    let Some(approach) =
+        gate_approach::inspect(compound, front_floor, court, &terrain_height, maximum_grade)?
+    else {
+        return Ok(None);
+    };
+    Ok(Some(json!({
         "maximum_candidate_grade": maximum_grade,
         "stair_limits": stairs,
         "source_court_elevation_m":court_source,
         "source_rear_threshold_elevation_m":rear_source,
-        "gate_approach":gate_approach::inspect(compound, front_floor, court, &terrain_height, maximum_grade)?,
+        "gate_approach":approach,
         "candidates":[candidate("level_courtyard_and_both_buildings",[front_floor;3]),
             candidate("stepped_court_with_level_central_landing",[front_floor,court,rear])],
-    }))
+    })))
 }
 
 #[cfg(test)]
@@ -96,7 +115,7 @@ mod tests {
     fn goslar_1238_requires_a_stepped_court_and_reserves_both_landings() {
         let fixture = Fixture::load();
         let height = |point: Vec2| {
-            Some(if point == fixture.compound.court.centre_metres {
+            Some(if point == fixture.compound.court.centre_metres() {
                 fixture.court_source_m
             } else {
                 fixture.rear_source_m
@@ -111,6 +130,7 @@ mod tests {
                 height,
                 0.65,
             )
+            .unwrap()
             .unwrap()
         };
         let report = run(&fixture.compound);
@@ -132,7 +152,7 @@ mod tests {
                 fixture
                     .compound
                     .court
-                    .contains((route.start_metres + route.end_metres) * 0.5),
+                    .contains((route.start_metres() + route.end_metres()) * 0.5),
                 "an access ramp crosses the reserved court rather than bypassing it"
             );
         }
@@ -140,8 +160,8 @@ mod tests {
             assert!(terraced[key].as_f64().unwrap() <= 0.650_001);
         }
         let route_length = fixture.compound.access[2]
-            .start_metres
-            .distance(fixture.compound.access[2].end_metres);
+            .start_metres()
+            .distance(fixture.compound.access[2].end_metres());
         assert!(
             terraced["front_available_flight_run_m"].as_f64().unwrap()
                 <= f64::from(route_length) - 0.999
@@ -164,6 +184,7 @@ mod tests {
                 |_| Some(0.0),
                 0.65
             )
+            .unwrap()
             .is_none()
         );
     }

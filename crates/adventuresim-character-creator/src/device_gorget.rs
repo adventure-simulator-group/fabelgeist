@@ -3,14 +3,6 @@
 //! directional cage seats the bib on the shoulders, and the plates are built
 //! from the collar cage those measurements make.
 
-use anyhow::{Result, bail, ensure};
-use fabelgeist_armor::gpu::{record_gorget_plates, wgsl};
-use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
-use fabelgeist_compute::KernelBatch;
-use fabelgeist_gpu::prelude::Buffer;
-use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_rig::RigJointName;
-
 use crate::armor_frames::FitRegion;
 use crate::armor_layer::ArmorLayerSurface;
 use crate::device_frames::DeviceWearer;
@@ -19,183 +11,40 @@ use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32,
 use crate::device_gorget_cage::{CAGE, GORGET_FIT_WORDS, layout};
 use crate::device_gorget_sections::BANDS;
 use crate::device_piece::DeviceRecording;
+use anyhow::{Result, bail, ensure};
+use fabelgeist_armor::gpu::{record_gorget_plates, wgsl};
+use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
+use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::Buffer;
+use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_rig::RigJointName;
 
 /// Collar and bib proportions, as fractions of the neck's height.
 const COLLAR_BASE_NECK_RATIO: f32 = 0.58;
+
 const COLLAR_MAX_PITCH: f32 = 0.45;
+
 const FRONT_BIB_DROP_NECK_RATIO: f32 = 0.48;
+
 const REAR_BIB_DROP_NECK_RATIO: f32 = 0.30;
+
 const SIDE_BIB_RISE_NECK_RATIO: f32 = 0.45;
+
 const SHOULDER_WIDTH_SECTION_NECK_RATIO: f32 = 0.30;
+
 const SAGITTAL_SECTION_HALF_WIDTH_NECK_RATIO: f32 = 0.18;
+
 const POSTERIOR_SHOULDER_CROWN_NECK_RATIO: f32 = 0.20;
+
 const SIDE_COLLAR_RISE_NECK_RATIO: f32 = 0.15;
+
 const BIB_FLARE_WIDTH_GAIN: f32 = 0.25;
+
 /// The shoulder section, then three down the front and three down the back.
 const BAND_SECTIONS: u32 = 7;
 
-impl DeviceWearer<'_> {
-    /// Record a gorget's collar cage and plates, short of thickening.
-    pub(crate) fn record_fitted_gorget(
-        &self,
-        batch: &mut KernelBatch,
-        design: &GarmentArmorDesign,
-        layers: &[ArmorLayerSurface<'_>],
-    ) -> Result<DeviceRecording> {
-        design.validate()?;
-        ensure!(
-            design.kind == GarmentArmorKind::Gorget,
-            "gorget fitter requires a gorget design"
-        );
-        let GarmentPlateShape::Gorget {
-            neck_clearance,
-            collar_slope,
-            collar_height,
-            hem_flatness,
-            rear_hem_flatness,
-            rear_sweep,
-            front_depth,
-            back_depth,
-            front_width,
-            back_width,
-        } = design.plate_shape
-        else {
-            bail!("gorget requires collar shape controls");
-        };
-        let gpu = self.gpu;
-        let head = self.record_frame(batch, FitRegion::Head)?;
-        let fit = gpu.scratch(u64::from(GORGET_FIT_WORDS) * 4, "gorget fit")?;
-        let clearance = design.clearance.metres() + design.wall_thickness.metres();
-        let collar_padding = neck_clearance.metres() + design.wall_thickness.metres();
-        dispatch(
-            self,
-            batch,
-            &format!("{}{JOINTS}{SETUP}", layout()),
-            &[
-                read("joints", &self.body.joints),
-                read("head", &head.frame),
-                write("fit", &fit),
-            ],
-            &[
-                Word::U(
-                    "neck",
-                    usize::from(self.joint_slot(&RigJointName::C_NECK)?) as u32,
-                ),
-                Word::U(
-                    "crown",
-                    usize::from(self.joint_slot(&RigJointName::C_HEAD)?) as u32,
-                ),
-                Word::F(
-                    "top_ratio",
-                    COLLAR_BASE_NECK_RATIO
-                        + fabelgeist_armor::GORGET_COLLAR_HEIGHT_NECK_RATIO * collar_height.unit(),
-                ),
-                Word::F("base_ratio", COLLAR_BASE_NECK_RATIO),
-                Word::F("pitch", COLLAR_MAX_PITCH * collar_slope.unit()),
-                Word::F(
-                    "front_drop",
-                    -FRONT_BIB_DROP_NECK_RATIO * design.length.unit() * front_depth.unit(),
-                ),
-                Word::F("side_rise", SIDE_BIB_RISE_NECK_RATIO),
-                Word::F("rear_drop", -REAR_BIB_DROP_NECK_RATIO * back_depth.unit()),
-                Word::F("crown_ratio", POSTERIOR_SHOULDER_CROWN_NECK_RATIO),
-                Word::F("collar_rise", SIDE_COLLAR_RISE_NECK_RATIO),
-                Word::F("hem_flatness", hem_flatness.unit()),
-                Word::F("rear_hem_flatness", rear_hem_flatness.unit()),
-                Word::F("rear_sweep", rear_sweep.unit()),
-            ],
-            Grid::Singles(1),
-        )?;
-        let words = [
-            Word::F("clearance", clearance),
-            Word::F("collar_padding", collar_padding),
-            Word::F("flare_gain", design.flare.unit() * BIB_FLARE_WIDTH_GAIN),
-            Word::F("front_width", front_width.unit()),
-            Word::F("back_width", back_width.unit()),
-            Word::F("shoulder_ratio", SHOULDER_WIDTH_SECTION_NECK_RATIO),
-            Word::F("sagittal_ratio", SAGITTAL_SECTION_HALF_WIDTH_NECK_RATIO),
-        ];
-        let samples = self.record_gorget_sections(batch, &fit, &words)?;
-        self.record_gorget_support(batch, &fit, &samples, clearance, collar_padding, layers)?;
-        let cage = format!(
-            "{}fn cage_word(i: u32) -> f32 {{\n    return frames[i];\n}}\n{CAGE}",
-            layout()
-        );
-        let part = record_gorget_plates(gpu, batch, design, &fit, &cage)?;
-        self.record_fit_status(batch, &fit, &part)?;
-        Ok(DeviceRecording {
-            part,
-            frames: vec![(head, FitRegion::Head)],
-            checks: Vec::new(),
-        })
-    }
-
-    /// Record every body vertex in the gorget's frame, and the neck, band and
-    /// cage sections the gorget is fitted to; returns the vertices.
-    fn record_gorget_sections(
-        &self,
-        batch: &mut KernelBatch,
-        fit: &Buffer,
-        words: &[Word],
-    ) -> Result<Buffer> {
-        let gpu = self.gpu;
-        // Every body vertex in the gorget's frame.
-        let samples = gpu.scratch(u64::from(self.body.vertex_count) * 12, "gorget samples")?;
-        dispatch(
-            self,
-            batch,
-            SAMPLES,
-            &[
-                read("positions", &self.body.positions),
-                read("fit", fit),
-                write("points", &samples),
-            ],
-            &[Word::U("count", self.body.vertex_count)],
-            Grid::Items(self.body.vertex_count),
-        )?;
-        let mut planes = Vec::new();
-        for _ in 0..2 {
-            planes.extend([ORDERED_POSITIVE_INFINITY; 3]);
-            planes.extend([ORDERED_NEGATIVE_INFINITY; 3]);
-            planes.push(0);
-        }
-        let planes = gpu.upload(BufferUpload::from_elements(&planes))?;
-        dispatch(
-            self,
-            batch,
-            &format!("{}{}{PLANE_SECTIONS}", layout(), wgsl::ORDERED_FLOAT),
-            &[
-                read_u32("faces", &self.body.faces),
-                read("points", &samples),
-                read("fit", fit),
-                atomic("planes", &planes),
-            ],
-            &[Word::U("count", self.body.face_count)],
-            Grid::Items(self.body.face_count),
-        )?;
-        for (entry, grid) in [
-            (BANDS, Grid::Singles(BAND_SECTIONS)),
-            (CAGE_SETUP, Grid::Singles(1)),
-        ] {
-            dispatch(
-                self,
-                batch,
-                &format!("{}{}{SECTIONS}{entry}", layout(), wgsl::ORDERED_FLOAT),
-                &[
-                    read("points", &samples),
-                    read_u32("faces", &self.body.faces),
-                    read_u32("planes", &planes),
-                    write("fit", fit),
-                ],
-                words,
-                grid,
-            )?;
-        }
-        Ok(samples)
-    }
-}
-
 const ORDERED_POSITIVE_INFINITY: u32 = 0xff80_0000;
+
 const ORDERED_NEGATIVE_INFINITY: u32 = 0x007f_ffff;
 
 /// The gorget frame -- the neck, the head's heading, the neck's height --
@@ -355,3 +204,158 @@ fn main() {
     fit[BACK] = center.y - lower.low.z + params.collar_padding;
 }
 "#;
+
+impl DeviceWearer<'_> {
+    /// Record a gorget's collar cage and plates, short of thickening.
+    pub(crate) fn record_fitted_gorget(
+        &self,
+        batch: &mut KernelBatch,
+        design: &GarmentArmorDesign,
+        layers: &[ArmorLayerSurface<'_>],
+    ) -> Result<DeviceRecording> {
+        design.validate()?;
+        ensure!(
+            design.kind == GarmentArmorKind::Gorget,
+            "gorget fitter requires a gorget design"
+        );
+        let GarmentPlateShape::Gorget {
+            neck_clearance,
+            collar_slope,
+            collar_height,
+            hem_flatness,
+            rear_hem_flatness,
+            rear_sweep,
+            front_depth,
+            back_depth,
+            front_width,
+            back_width,
+        } = design.plate_shape
+        else {
+            bail!("gorget requires collar shape controls");
+        };
+        let gpu = self.gpu;
+        let head = self.record_frame(batch, FitRegion::Head)?;
+        let fit = gpu.scratch(u64::from(GORGET_FIT_WORDS) * 4, "gorget fit")?;
+        let clearance = design.clearance.metres() + design.wall_thickness.metres();
+        let collar_padding = neck_clearance.metres() + design.wall_thickness.metres();
+        dispatch(
+            self,
+            batch,
+            &format!("{}{JOINTS}{SETUP}", layout()),
+            &[
+                read("joints", &self.body.joints),
+                read("head", &head.frame),
+                write("fit", &fit),
+            ],
+            &[
+                Word::Joint("neck", self.joint_slot(&RigJointName::C_NECK)?),
+                Word::Joint("crown", self.joint_slot(&RigJointName::C_HEAD)?),
+                Word::F(
+                    "top_ratio",
+                    COLLAR_BASE_NECK_RATIO
+                        + fabelgeist_armor::GORGET_COLLAR_HEIGHT_NECK_RATIO * collar_height.unit(),
+                ),
+                Word::F("base_ratio", COLLAR_BASE_NECK_RATIO),
+                Word::F("pitch", COLLAR_MAX_PITCH * collar_slope.unit()),
+                Word::F(
+                    "front_drop",
+                    -FRONT_BIB_DROP_NECK_RATIO * design.length.unit() * front_depth.unit(),
+                ),
+                Word::F("side_rise", SIDE_BIB_RISE_NECK_RATIO),
+                Word::F("rear_drop", -REAR_BIB_DROP_NECK_RATIO * back_depth.unit()),
+                Word::F("crown_ratio", POSTERIOR_SHOULDER_CROWN_NECK_RATIO),
+                Word::F("collar_rise", SIDE_COLLAR_RISE_NECK_RATIO),
+                Word::F("hem_flatness", hem_flatness.unit()),
+                Word::F("rear_hem_flatness", rear_hem_flatness.unit()),
+                Word::F("rear_sweep", rear_sweep.unit()),
+            ],
+            Grid::Singles(1),
+        )?;
+        let words = [
+            Word::F("clearance", clearance),
+            Word::F("collar_padding", collar_padding),
+            Word::F("flare_gain", design.flare.unit() * BIB_FLARE_WIDTH_GAIN),
+            Word::F("front_width", front_width.unit()),
+            Word::F("back_width", back_width.unit()),
+            Word::F("shoulder_ratio", SHOULDER_WIDTH_SECTION_NECK_RATIO),
+            Word::F("sagittal_ratio", SAGITTAL_SECTION_HALF_WIDTH_NECK_RATIO),
+        ];
+        let samples = self.record_gorget_sections(batch, &fit, &words)?;
+        self.record_gorget_support(batch, &fit, &samples, clearance, collar_padding, layers)?;
+        let cage = format!(
+            "{}fn cage_word(i: u32) -> f32 {{\n    return frames[i];\n}}\n{CAGE}",
+            layout()
+        );
+        let part = record_gorget_plates(gpu, batch, design, &fit, &cage)?;
+        self.record_fit_status(batch, &fit, &part)?;
+        Ok(DeviceRecording {
+            part,
+            frames: vec![(head, FitRegion::Head)],
+            checks: Vec::new(),
+        })
+    }
+
+    /// Record every body vertex in the gorget's frame, and the neck, band and
+    /// cage sections the gorget is fitted to; returns the vertices.
+    fn record_gorget_sections(
+        &self,
+        batch: &mut KernelBatch,
+        fit: &Buffer,
+        words: &[Word],
+    ) -> Result<Buffer> {
+        let gpu = self.gpu;
+        // Every body vertex in the gorget's frame.
+        let samples = gpu.scratch(u64::from(self.body.vertex_count) * 12, "gorget samples")?;
+        dispatch(
+            self,
+            batch,
+            SAMPLES,
+            &[
+                read("positions", &self.body.positions),
+                read("fit", fit),
+                write("points", &samples),
+            ],
+            &[Word::U("count", self.body.vertex_count)],
+            Grid::Items(self.body.vertex_count),
+        )?;
+        let mut planes = Vec::new();
+        for _ in 0..2 {
+            planes.extend([ORDERED_POSITIVE_INFINITY; 3]);
+            planes.extend([ORDERED_NEGATIVE_INFINITY; 3]);
+            planes.push(0);
+        }
+        let planes = gpu.upload(BufferUpload::from_elements(&planes))?;
+        dispatch(
+            self,
+            batch,
+            &format!("{}{}{PLANE_SECTIONS}", layout(), wgsl::ORDERED_FLOAT),
+            &[
+                read_u32("faces", &self.body.faces),
+                read("points", &samples),
+                read("fit", fit),
+                atomic("planes", &planes),
+            ],
+            &[Word::U("count", self.body.face_count)],
+            Grid::Items(self.body.face_count),
+        )?;
+        for (entry, grid) in [
+            (BANDS, Grid::Singles(BAND_SECTIONS)),
+            (CAGE_SETUP, Grid::Singles(1)),
+        ] {
+            dispatch(
+                self,
+                batch,
+                &format!("{}{}{SECTIONS}{entry}", layout(), wgsl::ORDERED_FLOAT),
+                &[
+                    read("points", &samples),
+                    read_u32("faces", &self.body.faces),
+                    read_u32("planes", &planes),
+                    write("fit", fit),
+                ],
+                words,
+                grid,
+            )?;
+        }
+        Ok(samples)
+    }
+}

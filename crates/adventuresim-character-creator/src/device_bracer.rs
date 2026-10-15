@@ -6,6 +6,8 @@
 //! selected skin of the wearer and displaced off each morph sample's skin.
 //! Everything is read back once, at the end.
 
+use crate::bracer::{ForearmSide, ForearmSurfaceInput};
+use crate::rig_parameters::RigPassParameters;
 use anyhow::{Result, bail, ensure};
 use fabelgeist_armor::gpu::anatomy::{
     DeviceSeams, DeviceSurface, STATUS_EMPTY_SELECTION, SeamTopology,
@@ -19,13 +21,13 @@ use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 use fabelgeist_rig::{RigJointLookupError, RigJointMembership, RigJointName, RigJointOrdinal};
 
-use crate::bracer::{ForearmSide, ForearmSurfaceInput};
-
 /// Skin weight of the forearm and its neighbours that supports a vertex.
 const FOREARM_WEIGHT_THRESHOLD: f32 = 0.35;
+
 /// How far past the elbow and wrist landmarks support extends, as a
 /// fraction of the forearm.
 const AXIAL_SUPPORT_MARGIN: f32 = 0.1;
+
 /// Set when the elbow and wrist landmarks coincide.
 const STATUS_COINCIDENT_LANDMARKS: u32 = 32;
 
@@ -158,8 +160,8 @@ fn record_support(
     );
     let mut parameters = PassParameters::new();
     parameters.insert("count", body.vertex_count);
-    parameters.insert("lowarm", usize::from(lowarm) as u32);
-    parameters.insert("wrist", usize::from(wrist) as u32);
+    parameters.insert_joint("lowarm", lowarm)?;
+    parameters.insert_joint("wrist", wrist)?;
     parameters.insert("pad0", 0u32);
     parameters.insert("positions", body.positions.clone());
     parameters.insert("joints", body.joints.clone());

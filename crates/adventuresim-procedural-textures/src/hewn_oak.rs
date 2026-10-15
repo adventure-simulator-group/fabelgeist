@@ -2,6 +2,7 @@
 
 mod streams;
 use bevy::{asset::Assets, image::Image, math::Vec3};
+use fabelgeist_determinism::Seed;
 
 use super::{SrgbColor, SurfaceTextureSet, image_rgba_mipped, palette::albedo_image};
 
@@ -58,12 +59,12 @@ fn grid_hash(
     y: i32,
     cells_x: i32,
     cells_y: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     let x = x.rem_euclid(cells_x) as u64;
     let y = y.rem_euclid(cells_y) as u64;
     params
-        .rng(streams::LATTICE, &[field_seed, x, y])
+        .rng(streams::LATTICE, &[field_seed.to_u64(), x, y])
         .inclusive_unit_f32()
 }
 
@@ -73,7 +74,7 @@ fn value_noise(
     v: f32,
     cells_x: i32,
     cells_y: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     let x = u.rem_euclid(1.0) * cells_x as f32;
     let y = v.rem_euclid(1.0) * cells_y as f32;
@@ -110,18 +111,21 @@ fn adze_relief(params: &crate::TextureParameters, u: f32, v: f32) -> (f32, f32) 
             let center_u = (cell_x as f32
                 + params.hewn_oak.center_u_margin
                 + params
-                    .rng(streams::ADZE_CROSS_CENTER, &[id])
+                    .element_rng(streams::ADZE_CROSS_CENTER, id)
                     .inclusive_unit_f32()
                     * params.hewn_oak.center_u_jitter)
                 / params.hewn_oak.adze_columns as f32;
             let center_v = (cell_y as f32
                 + params.hewn_oak.center_v_margin
                 + params
-                    .rng(streams::ADZE_LONG_CENTER, &[id])
+                    .element_rng(streams::ADZE_LONG_CENTER, id)
                     .inclusive_unit_f32()
                     * params.hewn_oak.center_v_jitter)
                 / params.hewn_oak.adze_rows as f32;
-            let angle = (params.rng(streams::ADZE_ANGLE, &[id]).inclusive_unit_f32() - 0.5)
+            let angle = (params
+                .element_rng(streams::ADZE_ANGLE, id)
+                .inclusive_unit_f32()
+                - 0.5)
                 * params.hewn_oak.angle_spread;
             let (sin, cos) = angle.sin_cos();
             let dx = periodic_delta(u - center_u);
@@ -133,26 +137,29 @@ fn adze_relief(params: &crate::TextureParameters, u: f32, v: f32) -> (f32, f32) 
             let distance = (local_x / cell_width).powi(2)
                 * (params.hewn_oak.cross_facet_weight
                     + params
-                        .rng(streams::ADZE_CROSS_FACET, &[id])
+                        .element_rng(streams::ADZE_CROSS_FACET, id)
                         .inclusive_unit_f32()
                         * params.hewn_oak.cross_facet_variation)
                 + (local_y / cell_length).powi(2)
                     * (params.hewn_oak.long_facet_weight
                         + params
-                            .rng(streams::ADZE_LONG_FACET, &[id])
+                            .element_rng(streams::ADZE_LONG_FACET, id)
                             .inclusive_unit_f32()
                             * params.hewn_oak.long_facet_variation);
             let slope_x = (params
-                .rng(streams::ADZE_CROSS_SLOPE, &[id])
+                .element_rng(streams::ADZE_CROSS_SLOPE, id)
                 .inclusive_unit_f32()
                 - 0.5)
                 * params.hewn_oak.cross_slope;
             let slope_y = (params
-                .rng(streams::ADZE_LONG_SLOPE, &[id])
+                .element_rng(streams::ADZE_LONG_SLOPE, id)
                 .inclusive_unit_f32()
                 - 0.5)
                 * params.hewn_oak.longitudinal_slope;
-            let offset = (params.rng(streams::ADZE_HEIGHT, &[id]).inclusive_unit_f32() - 0.5)
+            let offset = (params
+                .element_rng(streams::ADZE_HEIGHT, id)
+                .inclusive_unit_f32()
+                - 0.5)
                 * params.hewn_oak.facet_height_variation;
             let plane = offset + local_x / cell_width * slope_x + local_y / cell_length * slope_y;
             // Blend every nearby facet continuously. Selecting just the two
@@ -182,7 +189,7 @@ fn check_field(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
                 ],
             );
             if params
-                .rng(streams::CHECK_PRESENCE, &[id])
+                .element_rng(streams::CHECK_PRESENCE, id)
                 .inclusive_unit_f32()
                 < params.hewn_oak.check_absence_probability
             {
@@ -191,30 +198,34 @@ fn check_field(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
             let center_u = (cell_x as f32
                 + params.hewn_oak.check_field_center_u_1
                 + params
-                    .rng(streams::CHECK_CROSS_CENTER, &[id])
+                    .element_rng(streams::CHECK_CROSS_CENTER, id)
                     .inclusive_unit_f32()
                     * params.hewn_oak.check_field_center_u_2)
                 / params.hewn_oak.check_columns as f32;
             let center_v = (cell_y as f32
                 + params.hewn_oak.check_field_center_v_1
                 + params
-                    .rng(streams::CHECK_LONG_CENTER, &[id])
+                    .element_rng(streams::CHECK_LONG_CENTER, id)
                     .inclusive_unit_f32()
                     * params.hewn_oak.check_field_center_v_2)
                 / params.hewn_oak.check_rows as f32;
             let dx = periodic_delta(u - center_u);
             let dy = periodic_delta(v - center_v);
             let bend = (dy * params.hewn_oak.check_bend_frequency
-                + params.rng(streams::CHECK_BEND, &[id]).inclusive_unit_f32()
+                + params
+                    .element_rng(streams::CHECK_BEND, id)
+                    .inclusive_unit_f32()
                     * params.hewn_oak.check_field_bend)
                 .sin()
                 * params.hewn_oak.check_bend_amplitude;
             let half_width = params.hewn_oak.check_half_width
-                + params.rng(streams::CHECK_WIDTH, &[id]).inclusive_unit_f32()
+                + params
+                    .element_rng(streams::CHECK_WIDTH, id)
+                    .inclusive_unit_f32()
                     * params.hewn_oak.check_half_width;
             let half_length = params.hewn_oak.check_half_length
                 + params
-                    .rng(streams::CHECK_LENGTH, &[id])
+                    .element_rng(streams::CHECK_LENGTH, id)
                     .inclusive_unit_f32()
                     * params.hewn_oak.check_length_variation;
             let across = ((dx - bend) / half_width).abs();

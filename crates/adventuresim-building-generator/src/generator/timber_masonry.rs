@@ -16,7 +16,7 @@ impl TimberFrameBuilder<'_> {
                 .iter()
                 .filter(|member| {
                     member.role == crate::TimberMemberRole::Sill
-                        && (member.start.y - storey_height_metres).abs() <= 0.01
+                        && (member.start.metres().y - storey_height_metres).abs() <= 0.01
                 })
                 .flat_map(|member| {
                     [
@@ -54,11 +54,11 @@ impl TimberFrameBuilder<'_> {
                                 .iter()
                                 .find(|solid| solid.id == *id)
                                 .is_some_and(|solid| {
-                                    let half = solid.size * 0.5 + Vec3::splat(0.01);
-                                    let min = solid.centre - half;
-                                    let max = solid.centre + half;
-                                    interface.bounds.max.cmpge(min).all()
-                                        && interface.bounds.min.cmple(max).all()
+                                    let half = solid.size.metres() * 0.5 + Vec3::splat(0.01);
+                                    let min = solid.centre.metres() - half;
+                                    let max = solid.centre.metres() + half;
+                                    interface.bounds.max().metres().cmpge(min).all()
+                                        && interface.bounds.min().metres().cmple(max).all()
                                 })
                         })
                     })

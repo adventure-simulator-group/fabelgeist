@@ -2,6 +2,7 @@
 use super::*;
 use adventuresim_tactical_core::prelude::GroundSurface;
 use bevy::prelude::Handle;
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 pub(in crate::presentation::ground_scatter) fn spawn(
@@ -11,7 +12,7 @@ pub(in crate::presentation::ground_scatter) fn spawn(
     billboard_materials: &mut Assets<TacticalPebbleBillboardMaterial>,
     terrain: &SceneTerrain,
     ground: &SceneGround,
-    base_seed: u64,
+    base_seed: Seed,
 ) {
     let half_extent = ground.grid_scale() * 0.5;
     let PatchAssets {
@@ -118,8 +119,7 @@ impl PatchAssets {
         for density in PebbleDensity::ALL {
             for variant in 0..MESH_VARIANTS {
                 let seed = StreamId::new("visual.ground-scatter.loose-stone.variant")
-                    .seed(0, &[variant])
-                    .to_u64();
+                    .seed(0.into(), &[variant]);
                 let hero = pebble_patch_mesh(seed, PebbleMeshLod::Hero, half_extent, density);
                 pebble_counts.push(hero.count_vertices() / HERO_PEBBLE_VERTICES);
                 hero_meshes.push(meshes.add(hero));
@@ -173,7 +173,7 @@ impl PatchPlacement {
         terrain: &SceneTerrain,
         index: usize,
         sample: GroundSurface,
-        base_seed: u64,
+        base_seed: Seed,
         half_extent: f32,
     ) -> Option<Self> {
         if !matches!(
@@ -203,8 +203,7 @@ impl PatchPlacement {
             return None;
         }
         let hash = StreamId::new("visual.ground-scatter.loose-stone.scatter")
-            .seed(base_seed, &[index as u64])
-            .to_u64();
+            .seed(base_seed, &[index as u64]);
         let woodland = sample.cover == GroundCover::LeafLitter;
         let density = if woodland {
             // Every woodland cell gets a sparse candidate patch. Individual

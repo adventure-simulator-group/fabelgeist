@@ -11,9 +11,19 @@ pub(super) struct RigDefinition {
 pub(super) struct RigJoint {
     pub(super) target: AnimationTargetId,
     pub(super) bind: LocalPose,
-    pub(super) parent: Option<usize>,
+    pub(super) parent: Option<RigJointOrdinal>,
     pub(super) name: Option<RigJointName>,
-    pub(super) lower_body: bool,
+    pub(super) body_region: AnimationBodyRegion,
+    pub(super) role: Option<BoneRole>,
+    pub(super) pelvis: bool,
+}
+
+struct AdmittedRigBinding {
+    entity: Entity,
+    target: AnimationTargetId,
+    bind: LocalPose,
+    identity: Option<AuthoredRigJoint>,
+    parent: Option<Entity>,
 }
 
 impl RigDefinitions {
@@ -29,7 +39,7 @@ impl RigDefinitions {
             Entity,
             &AnimationTargetId,
             &AuthoredBindTransform,
-            Option<&Name>,
+            Option<&AuthoredRigJoint>,
             Option<&ChildOf>,
         )>,
         transforms: &Query<&Transform>,
@@ -37,14 +47,12 @@ impl RigDefinitions {
         let found = targets
             .iter()
             .filter(|(_, _, bind, _, _)| bind.owner == owner)
-            .map(|(entity, target, bind, name, parent)| {
-                (
-                    entity,
-                    *target,
-                    LocalPose::from_transform(bind.local),
-                    name.map(|name| RigJointName::from(name.as_str())),
-                    parent.map(ChildOf::parent),
-                )
+            .map(|(entity, target, bind, name, parent)| AdmittedRigBinding {
+                entity,
+                target: *target,
+                bind: LocalPose::from_transform(bind.local),
+                identity: name.cloned(),
+                parent: parent.map(ChildOf::parent),
             })
             .collect::<Vec<_>>();
         if found.is_empty() {
@@ -54,28 +62,35 @@ impl RigDefinitions {
             .0
             .entry(family.clone())
             .or_insert_with(|| {
-                let mut ordered = found
-                    .iter()
-                    .map(|(entity, target, bind, name, parent)| {
-                        (*entity, target, bind, name, *parent)
-                    })
-                    .collect::<Vec<_>>();
-                ordered.sort_by(|left, right| left.3.cmp(right.3));
+                let mut ordered = found.iter().collect::<Vec<_>>();
+                ordered.sort_by(|left, right| {
+                    left.identity
+                        .as_ref()
+                        .map(|joint| &joint.name)
+                        .cmp(&right.identity.as_ref().map(|joint| &joint.name))
+                });
                 let indices = ordered
                     .iter()
                     .enumerate()
-                    .map(|(index, (entity, ..))| (*entity, index))
+                    .map(|(index, binding)| (binding.entity, RigJointOrdinal::from(index)))
                     .collect::<HashMap<_, _>>();
                 Arc::new(RigDefinition {
                     family: family.clone(),
                     joints: ordered
                         .into_iter()
-                        .map(|(_entity, target, bind, name, parent)| RigJoint {
-                            target: *target,
-                            bind: *bind,
-                            parent: parent.and_then(|parent| indices.get(&parent).copied()),
-                            name: name.clone(),
-                            lower_body: name.as_ref().is_some_and(is_lower_body_animation_target),
+                        .map(|binding| RigJoint {
+                            target: binding.target,
+                            bind: binding.bind,
+                            parent: binding
+                                .parent
+                                .and_then(|parent| indices.get(&parent).copied()),
+                            name: binding.identity.as_ref().map(|joint| joint.name.clone()),
+                            body_region: binding
+                                .identity
+                                .as_ref()
+                                .map_or(AnimationBodyRegion::Upper, |joint| joint.body_region),
+                            role: binding.identity.as_ref().and_then(|joint| joint.role),
+                            pelvis: binding.identity.as_ref().is_some_and(|joint| joint.pelvis),
                         })
                         .collect(),
                 })
@@ -83,7 +98,7 @@ impl RigDefinitions {
             .clone();
         let by_target = found
             .into_iter()
-            .map(|(entity, target, _, _, _)| (target, entity))
+            .map(|binding| (binding.target, binding.entity))
             .collect::<HashMap<_, _>>();
         let entities = definition
             .joints

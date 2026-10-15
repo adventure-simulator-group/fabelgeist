@@ -9,7 +9,7 @@ use adventuresim_world_schema::settlement_buildings::BusinessId;
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct SettlementBusinessOperatorProfile {
     pub business_id: BusinessId,
-    pub operator_character_id: u64,
+    pub operator_character_id: adventuresim_tactical_core::player::CharacterId,
     pub operator_name: RenderedPersonalName,
 }
 #[derive(Clone, Debug, Eq, PartialEq)]

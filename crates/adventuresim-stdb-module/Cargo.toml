@@ -18,7 +18,7 @@ adventuresim-dialogue.workspace = true
 adventuresim-puzzles.workspace = true
 adventuresim-world-schema = { workspace = true, features = ["spacetimedb"] }
 adventuresim-weapon-model.workspace = true
-fabelgeist-determinism.workspace = true
+fabelgeist-determinism = { workspace = true, features = ["spacetimedb"] }
 log = "0.4"
 spacetimedb.workspace = true
 petname = { version = "2.0.2", default-features = false, features = ["default-words"] }

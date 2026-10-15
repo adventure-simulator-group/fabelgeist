@@ -1,10 +1,13 @@
 //! Tactical grab input, QWERTY slot HUD, and placeholder item presentation.
 
-use std::{
-    collections::{BTreeMap, HashMap},
-    sync::LazyLock,
+use crate::{
+    animation::{
+        AuthoredBindTransform, BoneRole, HandSide, HeldWeaponConstraint, HumanoidRig, MhrBone,
+        authored_bind_global,
+    },
+    player::ClientPlayer,
+    presentation::GrabTargetOutline,
 };
-
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::{
     bevy_replicon::prelude::ClientTriggerExt,
@@ -26,43 +29,42 @@ use bevy::{
 };
 use bevy_egui::{EguiContexts, EguiPrimaryContextPass, EguiTextureHandle, egui};
 use bevy_mod_outline::{OutlineMode, OutlinePlugin, OutlineVolume};
-use serde::Deserialize;
-
-mod grab_world;
-mod icons;
+use grab_world::*;
 use icons::*;
-pub(crate) mod runtime_equipment;
+use placeholder_update::update_item_placeholders;
+pub(crate) use render_binding::ProceduralEquipmentPart;
+pub(crate) use runtime_equipment::RuntimeEquipmentBodyCache;
 #[cfg(test)]
 use runtime_equipment::RuntimeEquipmentPresentation;
 use runtime_equipment::generate_runtime_equipment_models;
-pub(crate) use runtime_equipment::{RuntimeEquipmentBodyCache, RuntimeEquipmentWarmup};
+use serde::Deserialize;
+use skin::sync_procedural_equipment_skins;
+use std::{
+    collections::{BTreeMap, HashMap},
+    sync::LazyLock,
+};
+pub(crate) use visuals::EquipmentVisualPlugin;
+
+mod grab_world;
+mod icons;
 mod placeholder_update;
 mod placeholder_visual;
-use placeholder_update::update_item_placeholders;
-
+#[cfg(any(target_family = "wasm", test))]
+pub(crate) mod readiness;
 mod render_binding;
+pub(crate) mod runtime_equipment;
 mod skin;
 mod slot_selection;
 pub(crate) mod visuals;
-pub(crate) use render_binding::ProceduralEquipmentPart;
-use skin::sync_procedural_equipment_skins;
-pub(crate) use visuals::EquipmentVisualPlugin;
-
-use grab_world::*;
-
-use crate::{
-    animation::{
-        AuthoredBindTransform, BoneRole, HandSide, HeldWeaponConstraint, HumanoidRig, MhrBone,
-        authored_bind_global,
-    },
-    player::ClientPlayer,
-    presentation::GrabTargetOutline,
-};
 
 const PICKUP_RANGE_M: f32 = 2.0;
+
 const INVALID_FLASH_SECS: f32 = 0.18;
+
 const TACTICAL_WEAPON_ICON_SIZE: u16 = 64;
+
 const TACTICAL_WEAPON_ICON_SUPERSAMPLING: u8 = 4;
+
 const EQUIPMENT_ICON_SLUGS: [&str; 56] = [
     "ancient-sword",
     "arm-bandage",
@@ -122,46 +124,28 @@ const EQUIPMENT_ICON_SLUGS: [&str; 56] = [
     "wood-club",
 ];
 
-fn icon_uv(slug: &str) -> egui::Rect {
-    let index = EQUIPMENT_ICON_SLUGS
-        .iter()
-        .position(|candidate| *candidate == slug)
-        .unwrap_or(0);
-    let column = (index % 8) as f32;
-    let row = (index / 8) as f32;
-    egui::Rect::from_min_max(
-        egui::pos2(column / 8.0, row / 7.0),
-        egui::pos2((column + 1.0) / 8.0, (row + 1.0) / 7.0),
-    )
-}
+static PROCEDURAL_EQUIPMENT_ASSETS: LazyLock<BTreeMap<String, BTreeMap<String, String>>> =
+    LazyLock::new(|| {
+        let manifest: ProceduralEquipmentManifest = serde_json::from_str(include_str!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../assets/equipment/procedural/manifest.json"
+        )))
+        .expect("committed procedural equipment manifest must be valid");
+        let mut assets = BTreeMap::<String, BTreeMap<String, String>>::new();
+        for asset in manifest.assets {
+            let replaced = assets
+                .entry(asset.item_id)
+                .or_default()
+                .insert(asset.placement_id, asset.file);
+            assert!(
+                replaced.is_none(),
+                "procedural equipment manifest keys must be unique"
+            );
+        }
+        assets
+    });
 
 pub(crate) struct TacticalEquipmentPlugin;
-
-impl Plugin for TacticalEquipmentPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_plugins(EquipmentVisualPlugin)
-            .init_resource::<GrabSession>()
-            .init_resource::<WeaponIconCache>()
-            .add_systems(
-                PreUpdate,
-                update_grab_input.after(bevy::input::InputSystems),
-            )
-            .add_systems(Update, update_pickup_outlines)
-            .add_systems(EguiPrimaryContextPass, draw_slot_hud);
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum GrabSelection {
-    Slot {
-        location: EquipmentLocation,
-        depth: u16,
-    },
-    Hand(EquipmentHand),
-    SceneItem(Entity),
-    Door(Entity),
-    Window(Entity),
-}
 
 #[derive(Resource, Default)]
 struct GrabSession {
@@ -198,12 +182,6 @@ struct WeaponIconCache {
 }
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
-enum IconSource {
-    Weapon,
-    Holder,
-}
-
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 struct WeaponMeshCacheKey {
     generator_version: u16,
     design_hash: [u8; 32],
@@ -234,26 +212,69 @@ struct ProceduralEquipmentManifestAsset {
     file: String,
 }
 
-static PROCEDURAL_EQUIPMENT_ASSETS: LazyLock<BTreeMap<String, BTreeMap<String, String>>> =
-    LazyLock::new(|| {
-        let manifest: ProceduralEquipmentManifest = serde_json::from_str(include_str!(concat!(
-            env!("CARGO_MANIFEST_DIR"),
-            "/../../assets/equipment/procedural/manifest.json"
-        )))
-        .expect("committed procedural equipment manifest must be valid");
-        let mut assets = BTreeMap::<String, BTreeMap<String, String>>::new();
-        for asset in manifest.assets {
-            let replaced = assets
-                .entry(asset.item_id)
-                .or_default()
-                .insert(asset.placement_id, asset.file);
-            assert!(
-                replaced.is_none(),
-                "procedural equipment manifest keys must be unique"
-            );
-        }
-        assets
-    });
+#[derive(Component)]
+pub(crate) struct ProceduralEquipmentResolved;
+
+#[derive(Component)]
+pub(crate) struct ProceduralEquipmentFailed;
+
+#[derive(Component)]
+struct ItemFallback;
+
+#[derive(Component, Default)]
+struct EquipmentAttachmentSockets(BTreeMap<String, Transform>);
+
+#[derive(Clone, Copy)]
+struct PreviewTarget {
+    entity: Entity,
+    occupied: bool,
+    attached: bool,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum GrabSelection {
+    Slot {
+        location: EquipmentLocation,
+        depth: u16,
+    },
+    Hand(EquipmentHand),
+    SceneItem(Entity),
+    Door(Entity),
+    Window(Entity),
+}
+
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+enum IconSource {
+    Weapon,
+    Holder,
+}
+
+impl Plugin for TacticalEquipmentPlugin {
+    fn build(&self, app: &mut App) {
+        app.add_plugins(EquipmentVisualPlugin)
+            .init_resource::<GrabSession>()
+            .init_resource::<WeaponIconCache>()
+            .add_systems(
+                PreUpdate,
+                update_grab_input.after(bevy::input::InputSystems),
+            )
+            .add_systems(Update, update_pickup_outlines)
+            .add_systems(EguiPrimaryContextPass, draw_slot_hud);
+    }
+}
+
+fn icon_uv(slug: &str) -> egui::Rect {
+    let index = EQUIPMENT_ICON_SLUGS
+        .iter()
+        .position(|candidate| *candidate == slug)
+        .unwrap_or(0);
+    let column = (index % 8) as f32;
+    let row = (index / 8) as f32;
+    egui::Rect::from_min_max(
+        egui::pos2(column / 8.0, row / 7.0),
+        egui::pos2((column + 1.0) / 8.0, (row + 1.0) / 7.0),
+    )
+}
 
 fn procedural_equipment_file(item_id: &str, placement_id: Option<&str>) -> Option<&'static str> {
     let placements = PROCEDURAL_EQUIPMENT_ASSETS.get(item_id)?;
@@ -275,18 +296,6 @@ fn procedural_equipment_asset_path(file: &str) -> String {
         path
     }
 }
-
-#[derive(Component)]
-pub(crate) struct ProceduralEquipmentResolved;
-
-#[derive(Component)]
-pub(crate) struct ProceduralEquipmentFailed;
-
-#[derive(Component)]
-struct ItemFallback;
-
-#[derive(Component, Default)]
-struct EquipmentAttachmentSockets(BTreeMap<String, Transform>);
 
 fn held_item(
     actor: Entity,
@@ -402,13 +411,6 @@ fn update_grab_input(
         action,
     });
     (session.active, session.selection, session.repeated_input) = (None, None, None);
-}
-
-#[derive(Clone, Copy)]
-struct PreviewTarget {
-    entity: Entity,
-    occupied: bool,
-    attached: bool,
 }
 
 fn outermost_occupied_depth(layers: &[PreviewTarget]) -> Option<usize> {
@@ -1383,8 +1385,20 @@ mod tests {
     fn procedural_equipment_uses_live_rig_while_worn_and_rest_pose_when_dropped() {
         let mut world = World::new();
         let owner = world.spawn_empty().id();
-        let root = world.spawn((MhrBone { owner }, Name::new("root"))).id();
-        let spine = world.spawn((MhrBone { owner }, Name::new("c_spine0"))).id();
+        let root = world
+            .spawn((
+                MhrBone { owner },
+                Name::new("root"),
+                crate::animation::AuthoredRigJoint::new("root".into()),
+            ))
+            .id();
+        let spine = world
+            .spawn((
+                MhrBone { owner },
+                Name::new("c_spine0"),
+                crate::animation::AuthoredRigJoint::new("c_spine0".into()),
+            ))
+            .id();
         let item = world.spawn(ItemOf(owner)).id();
         let part = world
             .spawn(ProceduralEquipmentPart {

@@ -1,6 +1,18 @@
-use super::super::AnimationRigScene;
+use super::super::{AnimationRigScene, AuthoredRigJoint};
 use super::*;
 use fabelgeist_rig::{RigJointMembership, RigJointName};
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(super) struct MirroredJointPair {
+    pub(super) left: Entity,
+    pub(super) right: Entity,
+}
+
+#[derive(Clone, Debug, Default)]
+pub(super) struct MhrMirrorTopology {
+    pub(super) centers: Vec<Entity>,
+    pub(super) pairs: Vec<MirroredJointPair>,
+}
 
 #[derive(Component, Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub(crate) struct HumanoidBone {
@@ -22,43 +34,11 @@ pub(crate) struct HumanoidRig {
     bones: [Option<Entity>; BoneRole::COUNT],
     rig_scene: Option<Entity>,
     sole_axes: [Option<Vec3>; 2],
-    mirror_centers: Vec<Entity>,
-    mirror_pairs: Vec<(Entity, Entity)>,
+    mirror: MhrMirrorTopology,
 }
 
-impl Default for HumanoidRig {
-    fn default() -> Self {
-        Self {
-            bones: [None; BoneRole::COUNT],
-            rig_scene: None,
-            sole_axes: [None; 2],
-            mirror_centers: Vec::new(),
-            mirror_pairs: Vec::new(),
-        }
-    }
-}
-
-impl HumanoidRig {
-    pub(crate) fn get(&self, role: &BoneRole) -> Option<&Entity> {
-        self.bones[role.index()].as_ref()
-    }
-
-    pub(crate) fn rig_scene(&self) -> Option<Entity> {
-        self.rig_scene
-    }
-
-    pub(super) fn sole_axis(&self, left: bool) -> Option<Vec3> {
-        self.sole_axes[usize::from(!left)]
-    }
-
-    pub(super) fn mirror_centers(&self) -> &[Entity] {
-        &self.mirror_centers
-    }
-
-    pub(super) fn mirror_pairs(&self) -> &[(Entity, Entity)] {
-        &self.mirror_pairs
-    }
-}
+#[derive(Component, Debug, Clone, Copy)]
+pub(in crate::animation) struct SoleAxisCaptured;
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
@@ -92,23 +72,59 @@ pub(crate) enum BoneRole {
     WeaponRight,
 }
 
-fn mhr_mirror_topology(
-    names: &BTreeMap<RigJointName, Entity>,
-) -> (Vec<Entity>, Vec<(Entity, Entity)>) {
-    let centers = names
-        .iter()
-        .filter_map(|(name, &entity)| {
-            (name.mhr_center_membership() == RigJointMembership::Included).then_some(entity)
-        })
-        .collect();
-    let pairs = names
-        .iter()
-        .filter_map(|(name, &left)| {
-            let right_name = name.mhr_right_partner()?;
-            Some((left, *names.get(&right_name)?))
-        })
-        .collect();
-    (centers, pairs)
+impl MhrMirrorTopology {
+    pub(super) fn from_names(names: &BTreeMap<RigJointName, Entity>) -> Self {
+        let centers = names
+            .iter()
+            .filter_map(|(name, &entity)| {
+                (name.mhr_center_membership() == RigJointMembership::Included).then_some(entity)
+            })
+            .collect();
+        let pairs = names
+            .iter()
+            .filter_map(|(name, &left)| {
+                let right_name = name.mhr_right_partner()?;
+                Some(MirroredJointPair {
+                    left,
+                    right: *names.get(&right_name)?,
+                })
+            })
+            .collect();
+        Self { centers, pairs }
+    }
+}
+
+impl Default for HumanoidRig {
+    fn default() -> Self {
+        Self {
+            bones: [None; BoneRole::COUNT],
+            rig_scene: None,
+            sole_axes: [None; 2],
+            mirror: MhrMirrorTopology::default(),
+        }
+    }
+}
+
+impl HumanoidRig {
+    pub(crate) fn get(&self, role: &BoneRole) -> Option<&Entity> {
+        self.bones[role.index()].as_ref()
+    }
+
+    pub(crate) fn rig_scene(&self) -> Option<Entity> {
+        self.rig_scene
+    }
+
+    pub(super) fn sole_axis(&self, left: bool) -> Option<Vec3> {
+        self.sole_axes[usize::from(!left)]
+    }
+
+    pub(super) fn mirror_centers(&self) -> &[Entity] {
+        &self.mirror.centers
+    }
+
+    pub(super) fn mirror_pairs(&self) -> &[MirroredJointPair] {
+        &self.mirror.pairs
+    }
 }
 
 impl BoneRole {
@@ -184,30 +200,18 @@ impl BoneRole {
     }
 }
 
-fn retain_stable_role(
-    bones: &mut [Option<Entity>; BoneRole::COUNT],
-    role: BoneRole,
-    entity: Entity,
-) -> Option<Entity> {
-    let slot = &mut bones[role.index()];
-    let duplicate = *slot;
-    *slot = Some(duplicate.map_or(entity, |existing| existing.min(entity)));
-    duplicate
-}
-
 #[expect(
     clippy::type_complexity,
-    reason = "the Bevy query expresses the exact added-name and unbound-bone component filter"
+    reason = "the Bevy query expresses the admitted-identity and unbound-bone component filter"
 )]
 pub(crate) fn bind_humanoid_bones(
     mut commands: Commands,
-    bones: Query<(Entity, &Name), (Added<Name>, Without<MhrBone>)>,
+    bones: Query<(Entity, &AuthoredRigJoint), (Added<AuthoredRigJoint>, Without<MhrBone>)>,
     parents: Query<&ChildOf>,
     roots: Query<&AnimationRigScene>,
 ) {
-    for (entity, name) in &bones {
-        let name = RigJointName::from(name.as_str());
-        if name.mhr_membership() == RigJointMembership::Excluded {
+    for (entity, identity) in &bones {
+        if identity.name.mhr_membership() == RigJointMembership::Excluded {
             continue;
         }
         let mut current = entity;
@@ -215,7 +219,7 @@ pub(crate) fn bind_humanoid_bones(
             if let Ok(root) = roots.get(current) {
                 let mut bone = commands.entity(entity);
                 bone.insert(MhrBone { owner: root.0 });
-                if let Some(role) = BoneRole::from_name(&name) {
+                if let Some(role) = identity.role {
                     bone.insert(HumanoidBone {
                         owner: root.0,
                         role,
@@ -238,7 +242,7 @@ pub(crate) fn bind_humanoid_bones(
 pub(crate) fn cache_humanoid_rigs(
     mut commands: Commands,
     all_bones: Query<(Entity, &HumanoidBone)>,
-    all_mhr_bones: Query<(Entity, &MhrBone, &Name)>,
+    all_mhr_bones: Query<(Entity, &MhrBone, &AuthoredRigJoint)>,
     cached: Query<(Entity, &HumanoidRig)>,
     added: Query<(), Added<HumanoidBone>>,
     added_mhr: Query<(), Added<MhrBone>>,
@@ -275,7 +279,7 @@ pub(crate) fn cache_humanoid_rigs(
         named
             .entry(bone.owner)
             .or_default()
-            .insert(RigJointName::from(name.as_str()), entity);
+            .insert(name.name.clone(), entity);
     }
     for (owner, _) in &cached {
         if !rigs.contains_key(&owner) {
@@ -288,21 +292,17 @@ pub(crate) fn cache_humanoid_rigs(
             .map(|(_, rig)| rig.sole_axes)
             .unwrap_or([None; 2]);
         let names = named.remove(&owner).unwrap_or_default();
-        let (mirror_centers, mirror_pairs) = mhr_mirror_topology(&names);
+        let mirror = MhrMirrorTopology::from_names(&names);
         if let Ok(mut entity) = commands.get_entity(owner) {
             entity.insert(HumanoidRig {
                 bones,
                 rig_scene: rig_roots.get(&owner).copied(),
                 sole_axes,
-                mirror_centers,
-                mirror_pairs,
+                mirror,
             });
         }
     }
 }
-
-#[derive(Component, Debug, Clone, Copy)]
-pub(in crate::animation) struct SoleAxisCaptured;
 
 /// Captures the foot's bind-space sole normal from the authored global bind
 /// transform. The MHR foot joint has no guaranteed cardinal local sole-up axis,
@@ -378,6 +378,17 @@ pub(crate) fn pole_to_owner(owner_rotation: Quat, world_pole: Vec3) -> Vec3 {
     owner_rotation.inverse() * world_pole
 }
 
+fn retain_stable_role(
+    bones: &mut [Option<Entity>; BoneRole::COUNT],
+    role: BoneRole,
+    entity: Entity,
+) -> Option<Entity> {
+    let slot = &mut bones[role.index()];
+    let duplicate = *slot;
+    *slot = Some(duplicate.map_or(entity, |existing| existing.min(entity)));
+    duplicate
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -424,15 +435,27 @@ mod tests {
         .map(|(name, entity)| (RigJointName::from(name), Entity::from_bits(entity)))
         .collect::<BTreeMap<_, _>>();
 
-        let (centers, pairs) = mhr_mirror_topology(&named);
+        let MhrMirrorTopology { centers, pairs } = MhrMirrorTopology::from_names(&named);
 
         assert_eq!(centers.len(), 4);
         assert!(centers.contains(&Entity::from_bits(4)));
         assert_eq!(pairs.len(), 4);
-        assert!(pairs.contains(&(Entity::from_bits(5), Entity::from_bits(6))));
-        assert!(pairs.contains(&(Entity::from_bits(7), Entity::from_bits(8))));
-        assert!(pairs.contains(&(Entity::from_bits(9), Entity::from_bits(10))));
-        assert!(pairs.contains(&(Entity::from_bits(11), Entity::from_bits(12))));
+        assert!(pairs.contains(&MirroredJointPair {
+            left: Entity::from_bits(5),
+            right: Entity::from_bits(6)
+        }));
+        assert!(pairs.contains(&MirroredJointPair {
+            left: Entity::from_bits(7),
+            right: Entity::from_bits(8)
+        }));
+        assert!(pairs.contains(&MirroredJointPair {
+            left: Entity::from_bits(9),
+            right: Entity::from_bits(10)
+        }));
+        assert!(pairs.contains(&MirroredJointPair {
+            left: Entity::from_bits(11),
+            right: Entity::from_bits(12)
+        }));
     }
 
     #[test]

@@ -6,14 +6,14 @@
 //! finite difference of the two buffered samples plus the whole-body
 //! momentum, so a mid-swing limb carries its swing into physics.
 
-use adventuresim_tactical_core::prelude::*;
-use bevy::{math::Affine3A, prelude::*};
-
 use super::super::pose_buffer::PoseBufferRig;
 use super::{
     RAGDOLL_LAYER, RagdollBodyPart, RagdollPart,
     definition::{RagdollDefinition, RagdollJointKind},
 };
+use adventuresim_tactical_core::prelude::*;
+use bevy::{math::Affine3A, prelude::*};
+use fabelgeist_rig::RigJointOrdinal;
 
 /// One body's entry state: world pose plus the velocities the animation was
 /// carrying.
@@ -32,6 +32,12 @@ pub(super) struct MuscleTarget {
     pub(super) parent: usize,
     pub(super) child: usize,
     pub(super) relative: Quat,
+}
+
+pub(super) struct SpawnedRagdoll {
+    pub(super) parts: Vec<Entity>,
+    pub(super) bodies: Vec<Option<Entity>>,
+    pub(super) muscles: Vec<MuscleTarget>,
 }
 
 /// World affine of `entity` from the live `Transform` chain. The cached
@@ -55,15 +61,19 @@ pub(super) fn live_world_affine(
 }
 
 /// Pose-buffer joints ordered parent before child.
-pub(super) fn topological_joint_order(rig: &PoseBufferRig) -> Vec<usize> {
+pub(super) fn topological_joint_order(rig: &PoseBufferRig) -> Vec<RigJointOrdinal> {
     let count = rig.joint_count();
     let mut order = Vec::with_capacity(count);
     let mut placed = vec![false; count];
     while order.len() < count {
         let before = order.len();
-        for joint in 0..count {
-            if !placed[joint] && rig.joint_parent(joint).is_none_or(|parent| placed[parent]) {
-                placed[joint] = true;
+        for joint in (0..count).map(RigJointOrdinal::from) {
+            if !placed[usize::from(joint)]
+                && rig
+                    .joint_parent(joint)
+                    .is_none_or(|parent| placed[usize::from(parent)])
+            {
+                placed[usize::from(joint)] = true;
                 order.push(joint);
             }
         }
@@ -80,7 +90,7 @@ pub(super) fn topological_joint_order(rig: &PoseBufferRig) -> Vec<usize> {
 /// the scene node they hang from.
 pub(super) fn joint_base_affine(
     rig: &PoseBufferRig,
-    joint: usize,
+    joint: RigJointOrdinal,
     chain: &Query<(&Transform, Option<&ChildOf>)>,
 ) -> Affine3A {
     rig.joint_entity(joint)
@@ -94,34 +104,24 @@ pub(super) fn joint_base_affine(
 /// samples, composed in `order`.
 pub(super) fn joint_world_affines(
     rig: &PoseBufferRig,
-    order: &[usize],
-    base: &dyn Fn(usize) -> Affine3A,
+    order: &[RigJointOrdinal],
+    base: &dyn Fn(RigJointOrdinal) -> Affine3A,
 ) -> (Vec<Affine3A>, Vec<Affine3A>) {
     let count = rig.joint_count();
     let mut previous = vec![Affine3A::IDENTITY; count];
     let mut next = vec![Affine3A::IDENTITY; count];
     for &joint in order {
         let (parent_previous, parent_next) = match rig.joint_parent(joint) {
-            Some(parent) => (previous[parent], next[parent]),
+            Some(parent) => (previous[usize::from(parent)], next[usize::from(parent)]),
             None => {
                 let base = base(joint);
                 (base, base)
             }
         };
-        previous[joint] = parent_previous * rig.previous_pose(joint).affine();
-        next[joint] = parent_next * rig.upcoming_pose(joint).affine();
+        previous[usize::from(joint)] = parent_previous * rig.previous_pose(joint).affine();
+        next[usize::from(joint)] = parent_next * rig.upcoming_pose(joint).affine();
     }
     (previous, next)
-}
-
-/// Angular velocity (rad/s) carrying `current` onto `next` over
-/// `delta_seconds`, along the short arc.
-fn angular_velocity_between(next: Quat, current: Quat, delta_seconds: f32) -> Vec3 {
-    let mut delta = next * current.inverse();
-    if delta.w < 0.0 {
-        delta = -delta;
-    }
-    delta.to_scaled_axis() / delta_seconds.max(1e-5)
 }
 
 /// Seed each body from the buffered joint that drives it. `momentum` is the
@@ -164,12 +164,6 @@ pub(super) fn seed_bodies(
     seeds
 }
 
-pub(super) struct SpawnedRagdoll {
-    pub(super) parts: Vec<Entity>,
-    pub(super) bodies: Vec<Option<Entity>>,
-    pub(super) muscles: Vec<MuscleTarget>,
-}
-
 /// Spawn bodies at their seeds, colliders under them, and the joints between
 /// them. Muscle targets capture each joint's relative orientation at entry.
 pub(super) fn spawn_ragdoll(
@@ -192,6 +186,16 @@ pub(super) fn spawn_ragdoll(
         bodies,
         muscles,
     }
+}
+
+/// Angular velocity (rad/s) carrying `current` onto `next` over
+/// `delta_seconds`, along the short arc.
+fn angular_velocity_between(next: Quat, current: Quat, delta_seconds: f32) -> Vec3 {
+    let mut delta = next * current.inverse();
+    if delta.w < 0.0 {
+        delta = -delta;
+    }
+    delta.to_scaled_axis() / delta_seconds.max(1e-5)
 }
 
 /// Spawn one rigid body per seeded definition body, each with a capsule

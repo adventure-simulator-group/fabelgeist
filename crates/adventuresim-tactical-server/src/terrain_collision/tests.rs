@@ -19,8 +19,26 @@ fn scene_observer_restores_separate_static_support_bodies_at_the_scene_transform
         ..default()
     };
     let policy = CompoundGradingPolicy {
-        limits: SupportLimits::new(0.65, 6.0, 0.001).unwrap(),
-        stairs: CourtStairLimits::new(0.19, 0.25, 1.0, 1.05, 0.5).unwrap(),
+        limits: SupportLimits::new(
+            adventuresim_tactical_core::city_layout::grounding::SupportGrade::from_ratio(0.65)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(6.0)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.001)
+                .unwrap(),
+        ),
+        stairs: CourtStairLimits::new(
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.19)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.25)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(1.0)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(1.05)
+                .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.5)
+                .unwrap(),
+        ),
         embedment: FoundationEmbedment::from_metres(0.2).unwrap(),
         street_apron: StreetApronDimensions::from_metres(Vec2::new(1.0, 4.0)).unwrap(),
     };
@@ -60,7 +78,7 @@ fn scene_observer_restores_separate_static_support_bodies_at_the_scene_transform
     assert_eq!(shapes.iter(app.world()).count(), plans.len() + 1);
     for plan in plans {
         for member in plan.member_support() {
-            let point = member.contact.centre_metres;
+            let point = member.contact.centre_metres();
             let floor = member.elevation.metres() + offset.y;
             let ray = Vec3::new(point.x, floor + 10.0, point.y) + offset.with_y(0.0);
             let mut heights: Vec<_> = shapes

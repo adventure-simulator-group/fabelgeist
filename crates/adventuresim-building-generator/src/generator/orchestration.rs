@@ -29,7 +29,7 @@ pub(crate) fn generate_structure(
     let defensive_circuits = derive_defensive_circuits(program, &wall_walks);
     let tower_portals = derive_tower_portals(program, &towers, &wall_walks, &defensive_junctions);
     let mut resolved_geometry =
-        resolve_crown_geometry(&crowns, &wall_walks, &stairs, &tower_portals);
+        resolve_crown_geometry(&crowns, &wall_walks, &stairs, &tower_portals)?;
     let gate_defenses = derive_gate_defenses(
         program,
         &gatehouse_assemblies,
@@ -44,13 +44,13 @@ pub(crate) fn generate_structure(
         &battlements,
         &bartizans,
         &mut resolved_geometry,
-    );
+    )?;
     let (wall_assemblies, opening_assemblies) = resolve_storey_wall_assemblies(
         program,
         &storeys,
         &projected_defenses,
         &mut resolved_geometry,
-    );
+    )?;
     let plan = BuildingPlan {
         archetype: program.archetype,
         workplace: None,

@@ -1,18 +1,19 @@
 use super::*;
+use crate::animation::AuthoredRigJoint;
 use fabelgeist_rig::RigJointName;
 
 pub(super) fn sync_procedural_equipment_skins(
     mut commands: Commands,
     parts: Query<(Entity, &ProceduralEquipmentPart, Option<&SkinnedMesh>)>,
     items: Query<(Option<&ItemOf>, Option<&EquipSlot>, Has<TacticalSceneItem>)>,
-    bones: Query<(Entity, &MhrBone, &Name)>,
+    bones: Query<(Entity, &MhrBone, &AuthoredRigJoint)>,
 ) {
     let mut rig_bones = HashMap::<Entity, HashMap<RigJointName, Entity>>::new();
     for (entity, bone, name) in &bones {
         rig_bones
             .entry(bone.owner)
             .or_default()
-            .insert(RigJointName::from(name.as_str()), entity);
+            .insert(name.name.clone(), entity);
     }
     for (entity, part, current_skin) in &parts {
         let desired_joints = items
@@ -55,6 +56,7 @@ mod tests {
             .spawn((
                 MhrBone { owner: first },
                 Name::new("l_upleg"),
+                AuthoredRigJoint::new("l_upleg".into()),
                 Transform::from_xyz(0.05, 1.0, 0.0),
             ))
             .id();
@@ -62,6 +64,7 @@ mod tests {
             .spawn((
                 MhrBone { owner: second },
                 Name::new("l_upleg"),
+                AuthoredRigJoint::new("l_upleg".into()),
                 Transform::from_xyz(0.15, 1.0, 0.0),
             ))
             .id();

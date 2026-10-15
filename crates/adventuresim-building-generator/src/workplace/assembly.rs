@@ -1,4 +1,8 @@
 use super::*;
+use crate::plan_geometry::ArchitecturalPlanPoint;
+use crate::spatial_geometry::{
+    CuboidDimensions, Elevation, PlanDirection, Position, PositiveLength, RigidRotation,
+};
 use crate::*;
 pub(super) mod contact;
 
@@ -17,19 +21,32 @@ pub(super) struct Assembly<'a> {
 
 impl Assembly<'_> {
     /// Orient a fitted cuboid and rebuild its actual bearings before attaching later parts.
-    pub fn orient_part(&mut self, id: ResolvedItemId, rotation: bevy::math::Quat) {
-        let solid = self
-            .geometry
-            .solids
-            .iter_mut()
-            .find(|solid| solid.id == id)
-            .unwrap();
+    pub fn orient_part(
+        &mut self,
+        id: ResolvedItemId,
+        rotation: RigidRotation,
+    ) -> Result<(), crate::GenerationError> {
+        let solid = self.geometry.solids.iter_mut().find(|solid| solid.id == id);
+        let Some(solid) = solid else {
+            return Err(WorkplaceConstructionError::MissingPartAuthority {
+                id,
+                role: PartAuthority::Solid,
+            }
+            .into());
+        };
+        let rotation = rotation.quaternion();
         let (yaw, crossfall, longfall) = rotation.to_euler(bevy::math::EulerRot::YXZ);
-        solid.yaw_radians = yaw;
-        solid.crossfall_radians = crossfall;
-        solid.longfall_radians = longfall;
+        solid.yaw_radians = crate::spatial_geometry::Radians::new(yaw)?;
+        solid.crossfall_radians = crate::spatial_geometry::Radians::new(crossfall)?;
+        solid.longfall_radians = crate::spatial_geometry::Radians::new(longfall)?;
         let solid = solid.clone();
-        let node_id = solid.supported_by[0];
+        let Some(node_id) = solid.supported_by.first().copied() else {
+            return Err(WorkplaceConstructionError::MissingPartAuthority {
+                id,
+                role: PartAuthority::Bearing,
+            }
+            .into());
+        };
         let contacts = self
             .geometry
             .solids
@@ -37,55 +54,73 @@ impl Assembly<'_> {
             .filter(|other| other.id != id && contact::touches(&solid, other, BEARING_DEPTH_METRES))
             .flat_map(|other| other.supported_by.iter().copied())
             .collect();
-        let bounds = contact::bounds(&solid);
+        let bounds = contact::bounds(&solid)?;
         let node = self
             .geometry
             .structural_nodes
             .iter_mut()
-            .find(|node| node.id == node_id)
-            .unwrap();
+            .find(|node| node.id == node_id);
+        let Some(node) = node else {
+            return Err(WorkplaceConstructionError::MissingPartAuthority {
+                id,
+                role: PartAuthority::Bearing,
+            }
+            .into());
+        };
         node.supported_by = contacts;
-        node.position = Vec3::new(solid.centre.x, bounds.min.y, solid.centre.z);
-        node.grounded = bounds.min.y <= BEARING_DEPTH_METRES;
-        self.geometry
+        node.position = Position::<crate::Architectural>::from_metres(Vec3::new(
+            solid.centre.metres().x,
+            bounds.min().metres().y,
+            solid.centre.metres().z,
+        ))?;
+        node.grounded = bounds.min().metres().y <= BEARING_DEPTH_METRES;
+        let interface = self
+            .geometry
             .support_interfaces
             .iter_mut()
-            .find(|interface| interface.node == node_id)
-            .unwrap()
-            .bounds = ResolvedBounds {
-            min: bounds.min,
-            max: Vec3::new(
-                bounds.max.x,
-                bounds.min.y + BEARING_DEPTH_METRES,
-                bounds.max.z,
-            ),
+            .find(|interface| interface.node == node_id);
+        let Some(interface) = interface else {
+            return Err(WorkplaceConstructionError::MissingPartAuthority {
+                id,
+                role: PartAuthority::Interface,
+            }
+            .into());
         };
+        interface.bounds = SpatialBounds::<Architectural>::from_metres(
+            bounds.min().metres(),
+            Vec3::new(
+                bounds.max().metres().x,
+                bounds.min().metres().y + BEARING_DEPTH_METRES,
+                bounds.max().metres().z,
+            ),
+        )?;
+
+        Ok(())
     }
     /// Every part owns a bearing node and records contact with existing support geometry.
     pub fn part(
         &mut self,
         feature: WorkplaceFeature,
         material: WorkplaceMaterial,
-        centre: Vec3,
-        size: Vec3,
-        silhouette: bool,
-    ) -> ResolvedItemId {
+        centre: Position<Architectural>,
+        size: CuboidDimensions,
+        silhouette: WorkplacePartVisibility,
+    ) -> Result<ResolvedItemId, crate::GenerationError> {
+        let centre = centre.metres();
+        let size = size.metres();
         let slot = self.plan.parts.len() as u64 + 1;
         let id = ResolvedItemId((1_u64 << 60) | (u64::from(WORKPLACE_OWNER.0) << 32) | slot);
         let node = StructuralNodeId(WORKPLACE_NODE_BASE + slot);
         let bottom = centre.y - size.y * 0.5;
-        let solid = ResolvedSolid {
-            id,
-            owner: WORKPLACE_OWNER,
-            centre,
-            size,
-            yaw_radians: 0.0,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-            role: SolidRole::WorkplacePart,
-            shape: ResolvedSolidShape::Cuboid,
-            supported_by: vec![node],
-        };
+        let solid = crate::ResolvedSolid::new(
+            crate::CollisionCuboid::<crate::Architectural>::from_metres(
+                id, centre, size, 0.0, 0.0, 0.0,
+            )?,
+            WORKPLACE_OWNER,
+            SolidRole::WorkplacePart,
+            ResolvedSolidShape::Cuboid,
+            vec![node],
+        );
         let supported_by = self
             .geometry
             .solids
@@ -93,27 +128,29 @@ impl Assembly<'_> {
             .filter(|other| contact::touches(&solid, other, BEARING_DEPTH_METRES))
             .flat_map(|other| other.supported_by.iter().copied())
             .collect();
-        self.geometry.structural_nodes.push(StructuralNode {
-            id: node,
-            owner: WORKPLACE_OWNER,
-            kind: StructuralNodeKind::WallBearing,
-            position: Vec3::new(centre.x, bottom, centre.z),
-            supported_by,
-            grounded: bottom <= BEARING_DEPTH_METRES,
-        });
+        self.geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                node,
+                WORKPLACE_OWNER,
+                StructuralNodeKind::WallBearing,
+                Vec3::new(centre.x, bottom, centre.z),
+                supported_by,
+                bottom <= BEARING_DEPTH_METRES,
+            )?);
         self.geometry.solids.push(solid);
         self.geometry.support_interfaces.push(SupportInterface {
             id: ResolvedItemId((4_u64 << 60) | (u64::from(WORKPLACE_OWNER.0) << 32) | slot),
             owner: WORKPLACE_OWNER,
             node,
-            bounds: ResolvedBounds {
-                min: centre - size * 0.5,
-                max: Vec3::new(
+            bounds: SpatialBounds::<Architectural>::from_metres(
+                centre - size * 0.5,
+                Vec3::new(
                     centre.x + size.x * 0.5,
                     bottom + BEARING_DEPTH_METRES,
                     centre.z + size.z * 0.5,
                 ),
-            },
+            )?,
         });
         self.plan.parts.push(WorkplacePart {
             solid: id,
@@ -121,25 +158,30 @@ impl Assembly<'_> {
             material,
             silhouette,
         });
-        id
+        Ok(id)
     }
 
     pub fn wall(
         &mut self,
-        start: Vec2,
-        end: Vec2,
-        outward: Vec2,
-        base: f32,
-        height: f32,
-        timber: bool,
-    ) {
+        start: ArchitecturalPlanPoint,
+        end: ArchitecturalPlanPoint,
+        outward: PlanDirection<Architectural>,
+        base: Elevation<Architectural>,
+        height: PositiveLength,
+        construction: WallConstruction,
+    ) -> Result<(), crate::GenerationError> {
+        let start = start.metres();
+        let end = end.metres();
+        let outward = outward.vector();
+        let base = base.metres();
+        let height = height.metres();
         let tangent = if end.x == start.x {
             Vec2::Y * (end.y - start.y).signum()
         } else {
             Vec2::X * (end.x - start.x).signum()
         };
         let length = start.distance(end);
-        let thickness = if timber {
+        let thickness = if construction == WallConstruction::TimberBoards {
             BOARD_WALL_THICKNESS_METRES
         } else {
             MASONRY_WALL_THICKNESS_METRES
@@ -150,7 +192,7 @@ impl Assembly<'_> {
         } else {
             Vec3::new(thickness, height, length)
         };
-        let material = if timber {
+        let material = if construction == WallConstruction::TimberBoards {
             WorkplaceMaterial::Timber
         } else {
             WorkplaceMaterial::Masonry
@@ -158,18 +200,37 @@ impl Assembly<'_> {
         let solid = self.part(
             WorkplaceFeature::Wall,
             material,
-            Vec3::new(centre.x, base + height * 0.5, centre.y),
-            size,
-            true,
-        );
-        let index = self.plan.walls.len() as u32;
+            Position::<crate::Architectural>::from_metres(Vec3::new(
+                centre.x,
+                base + height * 0.5,
+                centre.y,
+            ))?,
+            CuboidDimensions::from_metres(size)?,
+            WorkplacePartVisibility::Silhouette,
+        )?;
+        let slot = self.plan.walls.len();
+        let index = u32::try_from(slot)
+            .map_err(|cause| WorkplaceConstructionError::WallIdentity { slot, cause })?;
         let id = WallAssemblyId(WORKPLACE_WALL_BASE + u64::from(index));
-        let support_node = self.geometry.solids.last().unwrap().supported_by[0];
+        let Some(support_node) = self
+            .geometry
+            .solids
+            .iter()
+            .find(|part| part.id == solid)
+            .and_then(|part| part.supported_by.first())
+            .copied()
+        else {
+            return Err(WorkplaceConstructionError::MissingPartAuthority {
+                id: solid,
+                role: PartAuthority::Bearing,
+            }
+            .into());
+        };
         self.walls.push(WallAssembly {
             id,
             owner: WORKPLACE_OWNER,
             source: WallSourceId::WorkplaceWall { index },
-            material: if timber {
+            material: if construction == WallConstruction::TimberBoards {
                 WallMaterialClass::TimberInfill
             } else {
                 WallMaterialClass::CivilianMasonry
@@ -194,33 +255,96 @@ impl Assembly<'_> {
             replaced_by_owner: None,
         });
         self.plan.walls.push(id);
+
+        Ok(())
     }
 
-    pub fn passage(&mut self, purpose: WorkplacePassagePurpose, min: Vec3, max: Vec3) {
+    pub fn passage(
+        &mut self,
+        purpose: WorkplacePassagePurpose,
+        min: Position<Architectural>,
+        max: Position<Architectural>,
+    ) -> Result<(), GenerationError> {
+        let slot = self.plan.passages.len();
         let id = WorkplacePassageId(
-            u32::try_from(self.plan.passages.len())
-                .expect("bounded workplace passage count fits u32"),
+            u32::try_from(slot)
+                .map_err(|cause| WorkplaceConstructionError::PassageIdentity { slot, cause })?,
         );
+        let bounds = crate::spatial_geometry::SpatialBounds::new(min, max)
+            .and_then(ClearanceVolume::new)
+            .map_err(|cause| WorkplaceConstructionError::Passage { id, cause })?;
         self.plan.passages.push(WorkplacePassage {
             id,
             purpose,
-            min,
-            max,
+            bounds,
         });
+        Ok(())
     }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(super) enum WallConstruction {
+    TimberBoards,
+    Masonry,
+}
+
+#[derive(Clone, Debug, thiserror::Error, Eq, PartialEq)]
+pub enum WorkplaceConstructionError {
+    #[error("workplace wall ordinal {slot} exceeds its serialized identity: {cause}")]
+    WallIdentity {
+        slot: usize,
+        #[source]
+        cause: std::num::TryFromIntError,
+    },
+    #[error("workplace part {id:?}: {cause}")]
+    Part {
+        id: ResolvedItemId,
+        #[source]
+        cause: crate::spatial_geometry::GeometryError,
+    },
+    #[error("workplace passage ordinal {slot} exceeds its serialized identity: {cause}")]
+    PassageIdentity {
+        slot: usize,
+        #[source]
+        cause: std::num::TryFromIntError,
+    },
+    #[error("workplace passage {id:?}: {cause}")]
+    Passage {
+        id: WorkplacePassageId,
+        #[source]
+        cause: crate::spatial_geometry::GeometryError,
+    },
+    #[error("workplace part {id:?} has no {role:?}")]
+    MissingPartAuthority {
+        id: ResolvedItemId,
+        role: PartAuthority,
+    },
+}
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum PartAuthority {
+    Solid,
+    Bearing,
+    Interface,
 }
 
 pub(crate) fn resolve_workplace(
     program: &BuildingProgram,
     walls: &mut Vec<WallAssembly>,
     geometry: &mut ResolvedGeometry,
-) -> Option<WorkplacePlan> {
-    let kind = program.workplace_kind()?;
+) -> Result<Option<WorkplacePlan>, GenerationError> {
+    let Some(kind) = program.workplace_kind() else {
+        return Ok(None);
+    };
+    let size = program
+        .service_size
+        .ok_or(GenerationError::InvalidWorkplaceProgram)?;
     let mut assembly = Assembly {
         plan: WorkplacePlan {
             kind,
-            size: program.service_size?,
-            plot_dimensions_metres: program.plot_dimensions_metres(),
+            size,
+            plot_dimensions_metres: crate::spatial_geometry::PlanDimensions::from_metres(
+                program.plot_dimensions_metres(),
+            )?,
             walls: vec![],
             parts: vec![],
             passages: vec![],
@@ -228,7 +352,7 @@ pub(crate) fn resolve_workplace(
         geometry,
         walls,
     };
-    super::envelope::build_envelope(&mut assembly, program);
-    super::equipment::fit_workplace(&mut assembly, program);
-    Some(assembly.plan)
+    super::envelope::build_envelope(&mut assembly, program)?;
+    super::equipment::fit_workplace(&mut assembly, program)?;
+    Ok(Some(assembly.plan))
 }

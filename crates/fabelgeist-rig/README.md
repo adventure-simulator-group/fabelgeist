@@ -28,8 +28,13 @@ At external boundaries:
   body metadata. Internal collections retain `RigJointName`.
 - Bevy `Name` admission constructs a label; its native string representation is
   created only when handing a label back to Bevy or parsing native text.
+  Tactical scene admission caches the exact label, canonical animation role,
+  body region, and pelvis classification once; sampling and equipment consume
+  that metadata. The shared rig owner does not depend on Bevy.
 - Native array indexing and glTF/GPU joint words explicitly convert an ordinal.
-  Ordinals do not assert bounds or membership in another rig.
+  Ordinals do not assert bounds or membership in another rig. Uniform insertion
+  and rigid skin assignment use checked `u32` encoding at their final packed
+  word handoff.
 - Skin masks convert membership to the existing zero/one GPU words. Unused
   frame landmarks retain their original zero padding.
 

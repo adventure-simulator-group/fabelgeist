@@ -32,7 +32,8 @@ pub(crate) fn spawn(
         let y = terrain.height_at(Vec2::new(x, z)).unwrap_or_default() + height_offset;
         let yaw = match kind {
             SceneObstacle::Rock(recipe) => {
-                (recipe.seed >> 40) as f32 / ((1_u32 << 24) - 1) as f32 * core::f32::consts::TAU
+                (recipe.seed.to_u64() >> 40) as f32 / ((1_u32 << 24) - 1) as f32
+                    * core::f32::consts::TAU
             }
             SceneObstacle::Tree => 0.0,
         };

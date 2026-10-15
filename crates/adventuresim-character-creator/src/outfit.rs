@@ -1,4 +1,5 @@
 //! Generator inputs for the worn outfit.
+
 use super::*;
 use adventuresim_character_creator::{
     garment::{DrapeInput, PlateLining, UnderPlate},
@@ -38,26 +39,6 @@ pub(super) fn clothing(
         &generated.global_joint_states,
     )
     .map_err(anyhow::Error::from)
-}
-
-fn clothing_specifications(loadout: &Loadout<'_>) -> Result<Vec<GarmentSpecification>> {
-    loadout
-        .clothing
-        .iter()
-        .map(|piece| {
-            let material = piece
-                .item
-                .equipment
-                .as_ref()
-                .and_then(|equipment| equipment.material)
-                .with_context(|| format!("item {} has no procedural material", piece.item.id))?;
-            Ok(GarmentSpecification::from_catalog(
-                format!("{} · {}", piece.item.display_name, piece.placement.id),
-                piece.placement,
-                material,
-            ))
-        })
-        .collect()
 }
 
 /// Drape inputs for worn cloth, innermost first. Cloth worn under plate
@@ -102,4 +83,24 @@ pub(super) fn lining<'a>(
             .map(|(_, armor)| armor),
     )
     .map(Arc::new)
+}
+
+fn clothing_specifications(loadout: &Loadout<'_>) -> Result<Vec<GarmentSpecification>> {
+    loadout
+        .clothing
+        .iter()
+        .map(|piece| {
+            let material = piece
+                .item
+                .equipment
+                .as_ref()
+                .and_then(|equipment| equipment.material)
+                .with_context(|| format!("item {} has no procedural material", piece.item.id))?;
+            Ok(GarmentSpecification::from_catalog(
+                format!("{} · {}", piece.item.display_name, piece.placement.id).into(),
+                piece.placement,
+                material,
+            ))
+        })
+        .collect()
 }

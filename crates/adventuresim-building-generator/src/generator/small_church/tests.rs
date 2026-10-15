@@ -11,7 +11,7 @@ fn modest_church_matrix_has_shared_openings_routes_and_capacity_geometry() {
             if usage == BuildingUse::ParishChurch && size == ServiceBuildingSize::Large {
                 continue;
             }
-            for seed in [0, 42, 101] {
+            for seed in [0, 42, 101].map(fabelgeist_determinism::Seed::from_u64) {
                 let program =
                     BuildingProgram::settlement(BuildingArchetype::ParishChurch, Some(usage), seed)
                         .with_service_size(size);
@@ -23,8 +23,8 @@ fn modest_church_matrix_has_shared_openings_routes_and_capacity_geometry() {
                     church.chancel_eave_metres.is_some(),
                     usage == BuildingUse::ParishChurch
                 );
-                let detail = crate::compile_building_detail(&plan);
-                let collision = crate::compile_building_collision(&plan);
+                let detail = crate::compile_building_detail(&plan).unwrap();
+                let collision = crate::compile_building_collision(&plan).unwrap();
                 for opening in plan
                     .opening_assemblies
                     .iter()
@@ -42,7 +42,7 @@ fn modest_church_matrix_has_shared_openings_routes_and_capacity_geometry() {
                             .find(|solid| solid.id == id)
                             .unwrap();
                         assert!(collision.cuboids.iter().any(|cuboid| cuboid.source == id));
-                        let corner = solid.centre + solid.size * 0.5;
+                        let corner = solid.centre.metres() + solid.size.metres() * 0.5;
                         assert!(
                             detail
                                 .meshes
@@ -57,7 +57,7 @@ fn modest_church_matrix_has_shared_openings_routes_and_capacity_geometry() {
                     crate::BuildingLodLevel::Facade,
                     crate::BuildingLodLevel::Shell,
                 ] {
-                    let lod = crate::compile_building_lod(&plan, level);
+                    let lod = crate::compile_building_lod(&plan, level).unwrap();
                     assert!(
                         lod.meshes
                             .iter()
@@ -79,7 +79,7 @@ fn modest_church_matrix_has_shared_openings_routes_and_capacity_geometry() {
 fn sacred_aisle_rejects_an_added_obstruction() {
     let mut plan = crate::generate(&BuildingProgram::fixture(
         BuildingArchetype::ParishChurch,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap();
     let aisle = plan.small_church.as_ref().unwrap().public_route;
@@ -90,11 +90,16 @@ fn sacred_aisle_rejects_an_added_obstruction() {
         .find(|solid| solid.role == SolidRole::ChurchBell)
         .unwrap()
         .clone();
-    obstruction.centre = (aisle.min + aisle.max) * 0.5;
-    obstruction.size = Vec3::splat(0.3);
+    obstruction.centre = crate::spatial_geometry::Position::<crate::Architectural>::from_metres(
+        (aisle.min().metres() + aisle.max().metres()) * 0.5,
+    )
+    .unwrap();
+    obstruction.size =
+        crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::splat(0.3)).unwrap();
     plan.resolved_geometry.solids.push(obstruction);
     assert!(
         crate::audit_plan(&plan)
+            .unwrap()
             .iter()
             .any(|issue| issue.code == "small_church_blocked_aisle")
     );
@@ -104,7 +109,7 @@ fn sacred_aisle_rejects_an_added_obstruction() {
 fn turret_cut_preserves_bearing_rim_but_removes_the_spanning_ridge_cap() {
     let plan = crate::generate(&BuildingProgram::fixture(
         BuildingArchetype::ParishChurch,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap();
     let roof = &plan.roof_assemblies[0];
@@ -132,11 +137,11 @@ fn turret_cut_preserves_bearing_rim_but_removes_the_spanning_ridge_cap() {
     );
     for edge in ridge {
         assert!(
-            edge.start.z.max(edge.end.z) <= cut.bounds.min.z + 0.001
-                || edge.start.z.min(edge.end.z) >= cut.bounds.max.z - 0.001
+            edge.start.z.max(edge.end.z) <= cut.bounds.min().metres().z + 0.001
+                || edge.start.z.min(edge.end.z) >= cut.bounds.max().metres().z - 0.001
         );
     }
-    let collision = crate::compile_building_collision(&plan);
+    let collision = crate::compile_building_collision(&plan).unwrap();
     for cuboid in collision.cuboids.iter().filter(|cuboid| {
         plan.resolved_geometry.solids.iter().any(|solid| {
             solid.id == cuboid.source
@@ -144,15 +149,15 @@ fn turret_cut_preserves_bearing_rim_but_removes_the_spanning_ridge_cap() {
                 && solid.role == SolidRole::RoofEdgeTreatment
         })
     }) {
-        let orientation = bevy::math::Quat::from_rotation_y(cuboid.yaw_radians)
-            * bevy::math::Quat::from_rotation_x(cuboid.crossfall_radians)
-            * bevy::math::Quat::from_rotation_z(cuboid.longfall_radians);
-        let half = cuboid.size * 0.5;
+        let orientation = bevy::math::Quat::from_rotation_y(cuboid.yaw_radians.radians())
+            * bevy::math::Quat::from_rotation_x(cuboid.crossfall_radians.radians())
+            * bevy::math::Quat::from_rotation_z(cuboid.longfall_radians.radians());
+        let half = cuboid.size.metres() * 0.5;
         let extent = (orientation * Vec3::X).abs() * half.x
             + (orientation * Vec3::Y).abs() * half.y
             + (orientation * Vec3::Z).abs() * half.z;
-        let overlap = (cuboid.centre + extent).min(cut.bounds.max)
-            - (cuboid.centre - extent).max(cut.bounds.min);
+        let overlap = (cuboid.centre.metres() + extent).min(cut.bounds.max().metres())
+            - (cuboid.centre.metres() - extent).max(cut.bounds.min().metres());
         assert!(
             overlap.min_element() <= 0.025,
             "solid ridge cap still blocks the roof opening"

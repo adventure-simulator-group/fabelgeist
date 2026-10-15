@@ -33,16 +33,17 @@ mod tests {
     use bevy::math::Vec3Swizzles;
     #[test]
     fn rotated_contacts_do_not_acquire_empty_bounding_box_corners() {
-        let solid = CollisionCuboid {
-            source: ResolvedItemId(1),
-            centre: Vec3::ZERO,
-            size: Vec3::new(4.0, 2.0, 4.0),
-            yaw_radians: core::f32::consts::FRAC_PI_4,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-        };
+        let solid = CollisionCuboid::<crate::spatial_geometry::Architectural>::from_metres(
+            ResolvedItemId(1),
+            Vec3::ZERO,
+            Vec3::new(4.0, 2.0, 4.0),
+            core::f32::consts::FRAC_PI_4,
+            0.0,
+            0.0,
+        )
+        .unwrap();
         let mut collision = BuildingCollision {
-            bounds: solid.bounds(),
+            bounds: solid.bounds().unwrap(),
             cuboids: vec![solid],
         };
         let footprint = collision.ground_floor_footprint().unwrap().unwrap();
@@ -59,7 +60,8 @@ mod tests {
             .ground_floor_contact_bounds()
             .unwrap()
             .unwrap()
-            .max
+            .max()
+            .metres()
             .xz();
         assert!(
             footprint

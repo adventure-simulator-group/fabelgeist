@@ -8,7 +8,7 @@ use adventuresim_building_generator::{
 fn test_field() -> InteriorField {
     let mut plan = generate(&BuildingProgram::fixture(
         BuildingArchetype::FachwerkCottage,
-        7,
+        fabelgeist_determinism::Seed::from_u64(7),
     ))
     .unwrap();
     plan.storey_height_metres = 3.0;

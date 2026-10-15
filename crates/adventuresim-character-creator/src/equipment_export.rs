@@ -6,96 +6,6 @@ use adventuresim_character_creator::{
     item_catalog_schema::EquipmentPlacement, item_design::ItemDesign,
 };
 
-pub(super) fn generate_equipment_assets(
-    output: &std::path::Path,
-    model: &BodyModel,
-    recipe: &CharacterRecipe,
-    catalog: &EquipmentCatalog,
-    item_filter: &[String],
-) -> Result<()> {
-    if !item_filter.is_empty() {
-        for filter in item_filter {
-            if !catalog.wearable().any(|item| item.id == *filter) {
-                anyhow::bail!("unknown procedural equipment item {filter}");
-            }
-        }
-        if output.exists()
-            && std::fs::read_dir(output)
-                .with_context(|| format!("reading equipment output {}", output.display()))?
-                .next()
-                .is_some()
-        {
-            anyhow::bail!(
-                "filtered equipment export requires a new or empty staging directory: {}",
-                output.display()
-            );
-        }
-    }
-    std::fs::create_dir_all(output)
-        .with_context(|| format!("creating equipment output {}", output.display()))?;
-    let generated = generate_character(model, recipe)?;
-    let morphs = CharacterMorphs::generate(model, recipe, &generated)?;
-    let exporter = EquipmentExporter {
-        model,
-        recipe,
-        generated: &generated,
-        morphs: &morphs,
-    };
-    let mut assets = Vec::new();
-    let mut generated_files = std::collections::BTreeSet::new();
-    for item in catalog.wearable() {
-        if !item_filter.is_empty() && !item_filter.contains(&item.id) {
-            continue;
-        }
-        let equipment = item.equipment.as_ref().expect("filtered equipment");
-        for placement in &equipment.placements {
-            if placement.surface.is_empty() {
-                continue;
-            }
-            let asset = if let Some(design) = catalog.placed_design(&item.id, &placement.id) {
-                exporter
-                    .armor(output, item, placement, &design)
-                    .with_context(|| format!("exporting armor {} ({})", item.id, placement.id))?
-            } else {
-                anyhow::ensure!(
-                    !matches!(
-                        item.kind,
-                        adventuresim_character_creator::item_catalog_schema::ItemKind::Armor { .. }
-                    ),
-                    "armor {} has no parametric generator",
-                    item.id
-                );
-                exporter.garment(output, item, placement)?
-            };
-            generated_files.insert(format!("{}--{}.glb", item.id, placement.id));
-            assets.push(asset);
-        }
-    }
-    for entry in std::fs::read_dir(output)? {
-        let path = entry?.path();
-        if path.extension().is_some_and(|extension| extension == "glb")
-            && path
-                .file_name()
-                .and_then(|name| name.to_str())
-                .is_some_and(|name| !generated_files.contains(name))
-        {
-            std::fs::remove_file(&path)
-                .with_context(|| format!("removing stale generated asset {}", path.display()))?;
-        }
-    }
-    let manifest = serde_json::json!({
-        "schema_version": 1,
-        "mhr_release": "v1.0.1",
-        "lod": model.lod,
-        "assets": assets,
-    });
-    std::fs::write(
-        output.join("manifest.json"),
-        serde_json::to_vec_pretty(&manifest)?,
-    )?;
-    Ok(())
-}
-
 struct EquipmentExporter<'a> {
     model: &'a BodyModel,
     recipe: &'a CharacterRecipe,
@@ -207,7 +117,7 @@ impl EquipmentExporter<'_> {
         let character = &model.mhr.character;
         let equipment = item.equipment.as_ref().expect("filtered equipment");
         let specification = GarmentSpecification::from_catalog(
-            format!("{} · {}", item.display_name, placement.id),
+            format!("{} · {}", item.display_name, placement.id).into(),
             placement,
             equipment
                 .material
@@ -321,4 +231,94 @@ impl EquipmentExporter<'_> {
             })
             .collect::<Result<Vec<_>>>()
     }
+}
+
+pub(super) fn generate_equipment_assets(
+    output: &std::path::Path,
+    model: &BodyModel,
+    recipe: &CharacterRecipe,
+    catalog: &EquipmentCatalog,
+    item_filter: &[String],
+) -> Result<()> {
+    if !item_filter.is_empty() {
+        for filter in item_filter {
+            if !catalog.wearable().any(|item| item.id == *filter) {
+                anyhow::bail!("unknown procedural equipment item {filter}");
+            }
+        }
+        if output.exists()
+            && std::fs::read_dir(output)
+                .with_context(|| format!("reading equipment output {}", output.display()))?
+                .next()
+                .is_some()
+        {
+            anyhow::bail!(
+                "filtered equipment export requires a new or empty staging directory: {}",
+                output.display()
+            );
+        }
+    }
+    std::fs::create_dir_all(output)
+        .with_context(|| format!("creating equipment output {}", output.display()))?;
+    let generated = generate_character(model, recipe)?;
+    let morphs = CharacterMorphs::generate(model, recipe, &generated)?;
+    let exporter = EquipmentExporter {
+        model,
+        recipe,
+        generated: &generated,
+        morphs: &morphs,
+    };
+    let mut assets = Vec::new();
+    let mut generated_files = std::collections::BTreeSet::new();
+    for item in catalog.wearable() {
+        if !item_filter.is_empty() && !item_filter.contains(&item.id) {
+            continue;
+        }
+        let equipment = item.equipment.as_ref().expect("filtered equipment");
+        for placement in &equipment.placements {
+            if placement.surface.is_empty() {
+                continue;
+            }
+            let asset = if let Some(design) = catalog.placed_design(&item.id, &placement.id) {
+                exporter
+                    .armor(output, item, placement, &design)
+                    .with_context(|| format!("exporting armor {} ({})", item.id, placement.id))?
+            } else {
+                anyhow::ensure!(
+                    !matches!(
+                        item.kind,
+                        adventuresim_character_creator::item_catalog_schema::ItemKind::Armor { .. }
+                    ),
+                    "armor {} has no parametric generator",
+                    item.id
+                );
+                exporter.garment(output, item, placement)?
+            };
+            generated_files.insert(format!("{}--{}.glb", item.id, placement.id));
+            assets.push(asset);
+        }
+    }
+    for entry in std::fs::read_dir(output)? {
+        let path = entry?.path();
+        if path.extension().is_some_and(|extension| extension == "glb")
+            && path
+                .file_name()
+                .and_then(|name| name.to_str())
+                .is_some_and(|name| !generated_files.contains(name))
+        {
+            std::fs::remove_file(&path)
+                .with_context(|| format!("removing stale generated asset {}", path.display()))?;
+        }
+    }
+    let manifest = serde_json::json!({
+        "schema_version": 1,
+        "mhr_release": "v1.0.1",
+        "lod": model.lod,
+        "assets": assets,
+    });
+    std::fs::write(
+        output.join("manifest.json"),
+        serde_json::to_vec_pretty(&manifest)?,
+    )?;
+    Ok(())
 }

@@ -1,29 +1,32 @@
 //! Fitted placeholder garments generated from catalog-authored anatomical spans.
 
-mod error;
+use crate::item_catalog_schema::{
+    EquipmentAnatomicalRegion as Region, EquipmentChannel, EquipmentMaterial, EquipmentPlacement,
+    SurfaceAnchor,
+};
 pub use error::{ClothingError, ClothingFaceContext, ClothingPieceName};
-mod fitting;
-mod validation;
-use validation::validated_placeholder_faces;
-mod regions;
 use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
 use fitting::fitted_surface;
 use regions::region_rig;
 #[cfg(feature = "offline-creator")]
 pub(crate) use regions::waist_surface_joint;
-
 use std::collections::{HashMap, HashSet};
+use validation::{decoded_skin_joints, validated_placeholder_faces};
 
-use crate::item_catalog_schema::{
-    EquipmentAnatomicalRegion as Region, EquipmentChannel, EquipmentMaterial, EquipmentPlacement,
-    SurfaceAnchor,
-};
+mod error;
+mod fitting;
+mod regions;
+mod validation;
 
 const WAIST_CROSS_SECTION_WEIGHT_THRESHOLD: f32 = 0.01;
 
+const CONCAVITY_RELAXATION_PASSES: usize = 3;
+
+const CONCAVITY_RELAXATION_STRENGTH: f32 = 0.5;
+
 #[derive(Debug, Clone)]
 pub struct GarmentSpecification {
-    pub name: String,
+    pub name: ClothingPieceName,
     pub material: EquipmentMaterial,
     pub placement: EquipmentPlacement,
     pub weight_threshold: f32,
@@ -33,38 +36,6 @@ pub struct GarmentSpecification {
     pub metallic: f32,
     pub roughness: f32,
     pub occludes_body: bool,
-}
-
-impl GarmentSpecification {
-    pub fn from_catalog(
-        name: impl Into<String>,
-        placement: &EquipmentPlacement,
-        material: EquipmentMaterial,
-    ) -> Self {
-        let channel = placement
-            .outermost_channel()
-            .unwrap_or(EquipmentChannel::BaseClothing);
-        let normal_offset_metres = match channel {
-            EquipmentChannel::BaseClothing | EquipmentChannel::Outerwear => 0.007,
-            EquipmentChannel::Padding => 0.012,
-            EquipmentChannel::FlexibleArmor => 0.017,
-            EquipmentChannel::RigidArmor => 0.024,
-            _ => 0.008,
-        };
-        let (base_color, metallic, roughness) = crate::clothing_material::pbr(material);
-        Self {
-            name: name.into(),
-            material,
-            placement: placement.clone(),
-            weight_threshold: 0.35,
-            expansion_rings: 1,
-            normal_offset_metres,
-            base_color,
-            metallic,
-            roughness,
-            occludes_body: true,
-        }
-    }
 }
 
 #[derive(Debug, Clone)]
@@ -81,12 +52,278 @@ pub struct ClothedMesh {
     pub shells: Vec<ClothingShell>,
 }
 
+impl GarmentSpecification {
+    pub fn from_catalog(
+        name: ClothingPieceName,
+        placement: &EquipmentPlacement,
+        material: EquipmentMaterial,
+    ) -> Self {
+        let channel = placement
+            .outermost_channel()
+            .unwrap_or(EquipmentChannel::BaseClothing);
+        let normal_offset_metres = match channel {
+            EquipmentChannel::BaseClothing | EquipmentChannel::Outerwear => 0.007,
+            EquipmentChannel::Padding => 0.012,
+            EquipmentChannel::FlexibleArmor => 0.017,
+            EquipmentChannel::RigidArmor => 0.024,
+            _ => 0.008,
+        };
+        let (base_color, metallic, roughness) = crate::clothing_material::pbr(material);
+        Self {
+            name,
+            material,
+            placement: placement.clone(),
+            weight_threshold: 0.35,
+            expansion_rings: 1,
+            normal_offset_metres,
+            base_color,
+            metallic,
+            roughness,
+            occludes_body: true,
+        }
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+pub fn generate_clothing_shells(
+    garments: &[GarmentSpecification],
+    positions: &[[f32; 3]],
+    normals: &[[f32; 3]],
+    faces: &[[u32; 3]],
+    joint_indices: &[[u32; 8]],
+    joint_weights: &[[f32; 8]],
+    joint_names: &[RigJointName],
+    global_joint_states: &[[f32; 8]],
+) -> Result<ClothedMesh, ClothingError> {
+    let vertices = positions.len();
+    if normals.len() != vertices
+        || joint_indices.len() != vertices
+        || joint_weights.len() != vertices
+        || global_joint_states.len() != joint_names.len()
+    {
+        return Err(ClothingError::InconsistentBodyInputs);
+    }
+    if faces
+        .iter()
+        .flatten()
+        .any(|vertex| *vertex as usize >= vertices)
+    {
+        return Err(ClothingError::MissingBodyVertex);
+    }
+    let joint_indices = decoded_skin_joints(joint_indices);
+    let joint_position = |name: &RigJointName| -> Result<[f32; 3], RigJointLookupError> {
+        let index = name.require_in(joint_names)?;
+        let state = global_joint_states[usize::from(index)];
+        Ok([state[0], state[1], state[2]])
+    };
+
+    let mut shells = Vec::with_capacity(garments.len());
+    let mut occluded_faces = HashSet::new();
+    for specification in garments {
+        let mut span_masks = Vec::new();
+        for span in &specification.placement.surface {
+            let rigs = span
+                .regions
+                .iter()
+                .copied()
+                .map(region_rig)
+                .collect::<Vec<_>>();
+            let selected_joints = regions::RegionRig::skin_joints(&rigs, joint_names);
+            let segments = rigs
+                .iter()
+                .map(|rig| Ok((joint_position(&rig.proximal)?, joint_position(&rig.distal)?)))
+                .collect::<Result<Vec<_>, RigJointLookupError>>()?;
+            let coordinate_bounds = positions
+                .iter()
+                .enumerate()
+                .filter_map(|(vertex, position)| {
+                    let weight = joint_indices[vertex]
+                        .iter()
+                        .zip(&joint_weights[vertex])
+                        .filter(|(joint, _)| selected_joints.contains(*joint))
+                        .map(|(_, weight)| *weight)
+                        .sum::<f32>();
+                    (weight >= specification.weight_threshold)
+                        .then(|| chain_coordinate(*position, &segments))
+                        .flatten()
+                })
+                .fold(None::<(f32, f32)>, |bounds, coordinate| {
+                    Some(
+                        bounds.map_or((coordinate, coordinate), |(minimum, maximum)| {
+                            (minimum.min(coordinate), maximum.max(coordinate))
+                        }),
+                    )
+                })
+                .ok_or_else(|| ClothingError::NoWeightedVertices {
+                    garment: specification.name.clone(),
+                })?;
+            let interval = anchor_interval(span.anchor, span.coverage);
+            let waist_cross_section = if span.regions.contains(&Region::Stomach) {
+                Some(regions::waist_joints(joint_names))
+            } else {
+                None
+            };
+            span_masks.push((
+                selected_joints,
+                segments,
+                coordinate_bounds,
+                interval,
+                waist_cross_section,
+            ));
+        }
+        if span_masks.is_empty() {
+            return Err(ClothingError::NoSurfaceSpans {
+                garment: specification.name.clone(),
+            });
+        }
+        let covered = positions
+            .iter()
+            .enumerate()
+            .map(|(vertex, position)| {
+                span_masks.iter().any(
+                    |(selected_joints, segments, (minimum, maximum), (start, end), _)| {
+                        let weight = joint_indices[vertex]
+                            .iter()
+                            .zip(&joint_weights[vertex])
+                            .filter(|(joint, _)| selected_joints.contains(*joint))
+                            .map(|(_, weight)| *weight)
+                            .sum::<f32>();
+                        weight >= specification.weight_threshold
+                            && chain_coordinate(*position, segments).is_some_and(|coordinate| {
+                                let extent = maximum - minimum;
+                                extent > f32::EPSILON
+                                    && (coordinate - minimum) / extent >= *start
+                                    && (coordinate - minimum) / extent <= *end
+                            })
+                    },
+                )
+            })
+            .collect::<Vec<_>>();
+        let mut selected_faces = faces
+            .iter()
+            .map(|face| {
+                face.iter()
+                    .filter(|vertex| covered[**vertex as usize])
+                    .count()
+                    >= 2
+            })
+            .collect::<Vec<_>>();
+        for _ in 0..specification.expansion_rings {
+            let mut selected_vertices = vec![false; vertices];
+            for (face, selected) in faces.iter().zip(&selected_faces) {
+                if *selected {
+                    for vertex in face {
+                        selected_vertices[*vertex as usize] = true;
+                    }
+                }
+            }
+            let previous = selected_faces.clone();
+            for (index, face) in faces.iter().enumerate() {
+                selected_faces[index] |= face
+                    .iter()
+                    .filter(|vertex| selected_vertices[**vertex as usize])
+                    .count()
+                    >= 2;
+            }
+            if selected_faces == previous {
+                break;
+            }
+        }
+        let waist_joints = span_masks
+            .iter()
+            .filter_map(|mask| mask.4.as_ref())
+            .flatten()
+            .copied()
+            .collect::<HashSet<_>>();
+        if !waist_joints.is_empty() {
+            let selected_y_bounds = faces
+                .iter()
+                .zip(&selected_faces)
+                .filter(|(_, selected)| **selected)
+                .flat_map(|(face, _)| face.iter())
+                .map(|vertex| positions[*vertex as usize][1])
+                .fold(None::<(f32, f32)>, |bounds, y| {
+                    Some(bounds.map_or((y, y), |(minimum, maximum)| {
+                        (minimum.min(y), maximum.max(y))
+                    }))
+                })
+                .ok_or_else(|| ClothingError::NoWaistVertices {
+                    garment: specification.name.clone(),
+                })?;
+            let cross_section_covered = positions
+                .iter()
+                .enumerate()
+                .map(|(vertex, position)| {
+                    let weight = joint_indices[vertex]
+                        .iter()
+                        .zip(&joint_weights[vertex])
+                        .filter(|(joint, _)| waist_joints.contains(*joint))
+                        .map(|(_, weight)| *weight)
+                        .sum::<f32>();
+                    weight > WAIST_CROSS_SECTION_WEIGHT_THRESHOLD
+                        && position[1] >= selected_y_bounds.0
+                        && position[1] <= selected_y_bounds.1
+                })
+                .collect::<Vec<_>>();
+            for (index, face) in faces.iter().enumerate() {
+                selected_faces[index] |= face
+                    .iter()
+                    .filter(|vertex| cross_section_covered[**vertex as usize])
+                    .count()
+                    >= 2;
+            }
+        }
+        let selected_shell_faces = faces
+            .iter()
+            .copied()
+            .zip(&selected_faces)
+            .filter_map(|(face, selected)| selected.then_some(face))
+            .collect::<Vec<_>>();
+        if selected_shell_faces.is_empty() {
+            return Err(ClothingError::NoSelectedTriangles {
+                garment: specification.name.clone(),
+            });
+        }
+        if specification.occludes_body {
+            occluded_faces.extend(
+                selected_faces
+                    .iter()
+                    .enumerate()
+                    .filter_map(|(index, selected)| selected.then_some(index)),
+            );
+        }
+        let (shell_positions, shell_normals) = fitted_surface(
+            positions,
+            normals,
+            &selected_shell_faces,
+            specification.normal_offset_metres,
+        );
+        let shell_faces = validated_placeholder_faces(
+            &specification.name,
+            &selected_shell_faces,
+            &shell_positions,
+        )?;
+        shells.push(ClothingShell {
+            specification: specification.clone(),
+            positions: shell_positions,
+            normals: shell_normals,
+            faces: shell_faces,
+        });
+    }
+    Ok(ClothedMesh {
+        visible_body_faces: faces
+            .iter()
+            .copied()
+            .enumerate()
+            .filter_map(|(index, face)| (!occluded_faces.contains(&index)).then_some(face))
+            .collect(),
+        shells,
+    })
+}
+
 fn squared_distance(a: [f32; 3], b: [f32; 3]) -> f32 {
     (a[0] - b[0]).powi(2) + (a[1] - b[1]).powi(2) + (a[2] - b[2]).powi(2)
 }
-
-const CONCAVITY_RELAXATION_PASSES: usize = 3;
-const CONCAVITY_RELAXATION_STRENGTH: f32 = 0.5;
 
 fn subtract(a: [f32; 3], b: [f32; 3]) -> [f32; 3] {
     [a[0] - b[0], a[1] - b[1], a[2] - b[2]]
@@ -268,246 +505,6 @@ fn anchor_interval(anchor: SurfaceAnchor, coverage: f32) -> (f32, f32) {
     }
 }
 
-#[allow(clippy::too_many_arguments)]
-pub fn generate_clothing_shells(
-    garments: &[GarmentSpecification],
-    positions: &[[f32; 3]],
-    normals: &[[f32; 3]],
-    faces: &[[u32; 3]],
-    joint_indices: &[[u32; 8]],
-    joint_weights: &[[f32; 8]],
-    joint_names: &[RigJointName],
-    global_joint_states: &[[f32; 8]],
-) -> Result<ClothedMesh, ClothingError> {
-    let vertices = positions.len();
-    if normals.len() != vertices
-        || joint_indices.len() != vertices
-        || joint_weights.len() != vertices
-        || global_joint_states.len() != joint_names.len()
-    {
-        return Err(ClothingError::InconsistentBodyInputs);
-    }
-    if faces
-        .iter()
-        .flatten()
-        .any(|vertex| *vertex as usize >= vertices)
-    {
-        return Err(ClothingError::MissingBodyVertex);
-    }
-    let joint_position = |name: &RigJointName| -> Result<[f32; 3], RigJointLookupError> {
-        let index = name.require_in(joint_names)?;
-        let state = global_joint_states[usize::from(index)];
-        Ok([state[0], state[1], state[2]])
-    };
-
-    let mut shells = Vec::with_capacity(garments.len());
-    let mut occluded_faces = HashSet::new();
-    for specification in garments {
-        let mut span_masks = Vec::new();
-        for span in &specification.placement.surface {
-            let rigs = span
-                .regions
-                .iter()
-                .copied()
-                .map(region_rig)
-                .collect::<Vec<_>>();
-            let selected_joints = regions::RegionRig::skin_joints(&rigs, joint_names);
-            let segments = rigs
-                .iter()
-                .map(|rig| Ok((joint_position(&rig.proximal)?, joint_position(&rig.distal)?)))
-                .collect::<Result<Vec<_>, RigJointLookupError>>()?;
-            let coordinate_bounds = positions
-                .iter()
-                .enumerate()
-                .filter_map(|(vertex, position)| {
-                    let weight = joint_indices[vertex]
-                        .iter()
-                        .zip(&joint_weights[vertex])
-                        .filter(|(joint, _)| {
-                            selected_joints.contains(&RigJointOrdinal::from(**joint))
-                        })
-                        .map(|(_, weight)| *weight)
-                        .sum::<f32>();
-                    (weight >= specification.weight_threshold)
-                        .then(|| chain_coordinate(*position, &segments))
-                        .flatten()
-                })
-                .fold(None::<(f32, f32)>, |bounds, coordinate| {
-                    Some(
-                        bounds.map_or((coordinate, coordinate), |(minimum, maximum)| {
-                            (minimum.min(coordinate), maximum.max(coordinate))
-                        }),
-                    )
-                })
-                .ok_or_else(|| ClothingError::NoWeightedVertices {
-                    garment: ClothingPieceName::from(specification.name.as_str()),
-                })?;
-            let interval = anchor_interval(span.anchor, span.coverage);
-            let waist_cross_section = if span.regions.contains(&Region::Stomach) {
-                Some(regions::waist_joints(joint_names))
-            } else {
-                None
-            };
-            span_masks.push((
-                selected_joints,
-                segments,
-                coordinate_bounds,
-                interval,
-                waist_cross_section,
-            ));
-        }
-        if span_masks.is_empty() {
-            return Err(ClothingError::NoSurfaceSpans {
-                garment: ClothingPieceName::from(specification.name.as_str()),
-            });
-        }
-        let covered = positions
-            .iter()
-            .enumerate()
-            .map(|(vertex, position)| {
-                span_masks.iter().any(
-                    |(selected_joints, segments, (minimum, maximum), (start, end), _)| {
-                        let weight = joint_indices[vertex]
-                            .iter()
-                            .zip(&joint_weights[vertex])
-                            .filter(|(joint, _)| {
-                                selected_joints.contains(&RigJointOrdinal::from(**joint))
-                            })
-                            .map(|(_, weight)| *weight)
-                            .sum::<f32>();
-                        weight >= specification.weight_threshold
-                            && chain_coordinate(*position, segments).is_some_and(|coordinate| {
-                                let extent = maximum - minimum;
-                                extent > f32::EPSILON
-                                    && (coordinate - minimum) / extent >= *start
-                                    && (coordinate - minimum) / extent <= *end
-                            })
-                    },
-                )
-            })
-            .collect::<Vec<_>>();
-        let mut selected_faces = faces
-            .iter()
-            .map(|face| {
-                face.iter()
-                    .filter(|vertex| covered[**vertex as usize])
-                    .count()
-                    >= 2
-            })
-            .collect::<Vec<_>>();
-        for _ in 0..specification.expansion_rings {
-            let mut selected_vertices = vec![false; vertices];
-            for (face, selected) in faces.iter().zip(&selected_faces) {
-                if *selected {
-                    for vertex in face {
-                        selected_vertices[*vertex as usize] = true;
-                    }
-                }
-            }
-            let previous = selected_faces.clone();
-            for (index, face) in faces.iter().enumerate() {
-                selected_faces[index] |= face
-                    .iter()
-                    .filter(|vertex| selected_vertices[**vertex as usize])
-                    .count()
-                    >= 2;
-            }
-            if selected_faces == previous {
-                break;
-            }
-        }
-        let waist_joints = span_masks
-            .iter()
-            .filter_map(|mask| mask.4.as_ref())
-            .flatten()
-            .copied()
-            .collect::<HashSet<_>>();
-        if !waist_joints.is_empty() {
-            let selected_y_bounds = faces
-                .iter()
-                .zip(&selected_faces)
-                .filter(|(_, selected)| **selected)
-                .flat_map(|(face, _)| face.iter())
-                .map(|vertex| positions[*vertex as usize][1])
-                .fold(None::<(f32, f32)>, |bounds, y| {
-                    Some(bounds.map_or((y, y), |(minimum, maximum)| {
-                        (minimum.min(y), maximum.max(y))
-                    }))
-                })
-                .ok_or_else(|| ClothingError::NoWaistVertices {
-                    garment: ClothingPieceName::from(specification.name.as_str()),
-                })?;
-            let cross_section_covered = positions
-                .iter()
-                .enumerate()
-                .map(|(vertex, position)| {
-                    let weight = joint_indices[vertex]
-                        .iter()
-                        .zip(&joint_weights[vertex])
-                        .filter(|(joint, _)| waist_joints.contains(&RigJointOrdinal::from(**joint)))
-                        .map(|(_, weight)| *weight)
-                        .sum::<f32>();
-                    weight > WAIST_CROSS_SECTION_WEIGHT_THRESHOLD
-                        && position[1] >= selected_y_bounds.0
-                        && position[1] <= selected_y_bounds.1
-                })
-                .collect::<Vec<_>>();
-            for (index, face) in faces.iter().enumerate() {
-                selected_faces[index] |= face
-                    .iter()
-                    .filter(|vertex| cross_section_covered[**vertex as usize])
-                    .count()
-                    >= 2;
-            }
-        }
-        let selected_shell_faces = faces
-            .iter()
-            .copied()
-            .zip(&selected_faces)
-            .filter_map(|(face, selected)| selected.then_some(face))
-            .collect::<Vec<_>>();
-        if selected_shell_faces.is_empty() {
-            return Err(ClothingError::NoSelectedTriangles {
-                garment: ClothingPieceName::from(specification.name.as_str()),
-            });
-        }
-        if specification.occludes_body {
-            occluded_faces.extend(
-                selected_faces
-                    .iter()
-                    .enumerate()
-                    .filter_map(|(index, selected)| selected.then_some(index)),
-            );
-        }
-        let (shell_positions, shell_normals) = fitted_surface(
-            positions,
-            normals,
-            &selected_shell_faces,
-            specification.normal_offset_metres,
-        );
-        let shell_faces = validated_placeholder_faces(
-            &ClothingPieceName::from(specification.name.as_str()),
-            &selected_shell_faces,
-            &shell_positions,
-        )?;
-        shells.push(ClothingShell {
-            specification: specification.clone(),
-            positions: shell_positions,
-            normals: shell_normals,
-            faces: shell_faces,
-        });
-    }
-    Ok(ClothedMesh {
-        visible_body_faces: faces
-            .iter()
-            .copied()
-            .enumerate()
-            .filter_map(|(index, face)| (!occluded_faces.contains(&index)).then_some(face))
-            .collect(),
-        shells,
-    })
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -644,7 +641,7 @@ mod tests {
             }],
         };
         let specification = GarmentSpecification::from_catalog(
-            "bracer",
+            "bracer".into(),
             &placement,
             EquipmentMaterial::PolishedSteel,
         );

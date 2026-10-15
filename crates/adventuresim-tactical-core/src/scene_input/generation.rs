@@ -91,19 +91,17 @@ fn generated_obstacles(input: &TacticalSceneInput) -> Vec<GeneratedObstacle> {
                     f32::from(input.playable.depth - 1),
                 ) * 0.5)
                 * input.playable.spacing_metres;
-            if input
-                .landform
-                .is_some_and(|recipe| recipe.transition_collar().contains(point))
-            {
+            if input.landform.is_some_and(|recipe| {
+                crate::scene_coordinates::ScenePlanPoint::try_from(point)
+                    .is_ok_and(|point| recipe.transition_collar().contains(point))
+            }) {
                 return None;
             }
             let context = [u64::from(x), u64::from(z)];
             let tree_roll = StreamId::new("scene.tree-placement")
                 .rng(input.seed, &context)
                 .index(usize::from(BASIS_POINTS_PER_WHOLE)) as u64;
-            let rock_seed = StreamId::new("scene.rock-placement")
-                .seed(input.seed, &context)
-                .to_u64();
+            let rock_seed = StreamId::new("scene.rock-placement").seed(input.seed, &context);
             let rock_roll = StreamId::new("scene.rock-presence")
                 .rng(rock_seed, &[])
                 .index(usize::from(BASIS_POINTS_PER_WHOLE)) as u64;
@@ -192,7 +190,10 @@ mod landform_tests {
                     f32::from(input.playable.depth - 1),
                 ) * 0.5)
                 * input.playable.spacing_metres;
-            assert!(!collar.contains(point));
+            assert!(
+                !crate::scene_coordinates::ScenePlanPoint::try_from(point)
+                    .is_ok_and(|point| collar.contains(point))
+            );
         }
     }
 }

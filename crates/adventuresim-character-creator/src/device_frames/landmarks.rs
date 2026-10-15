@@ -1,11 +1,18 @@
 //! Which rig joints orient and size each region's frame.
 
+use super::Side;
+use crate::armor_frames::{FitRegion, Wearer};
 use fabelgeist_rig::{
     RigJointLookupError, RigJointMembership, RigJointName, RigJointOrdinal, RigJointPart,
 };
 
-use super::Side;
-use crate::armor_frames::{FitRegion, Wearer};
+pub(super) struct Landmarks {
+    pub rule: Rule,
+    /// Joint indices; meaning depends on the rule.
+    pub joints: [FrameLandmark; 6],
+    pub side: f32,
+    pub owners: Vec<RigJointName>,
+}
 
 /// How a region's frame is oriented and finished.
 #[derive(Clone, Copy)]
@@ -26,27 +33,21 @@ pub(super) enum FrameLandmark {
     Joint(RigJointOrdinal),
     Unused,
 }
+
 impl From<RigJointOrdinal> for FrameLandmark {
     fn from(joint: RigJointOrdinal) -> Self {
         Self::Joint(joint)
     }
 }
+
 impl FrameLandmark {
     /// The fixed six-word orientation-kernel layout; unused slots encode zero.
-    pub(super) fn device_word(self) -> u32 {
+    pub(super) fn device_word(self) -> Result<u32, std::num::TryFromIntError> {
         match self {
-            Self::Joint(joint) => usize::from(joint) as u32,
-            Self::Unused => 0,
+            Self::Joint(joint) => u32::try_from(joint),
+            Self::Unused => Ok(0),
         }
     }
-}
-
-pub(super) struct Landmarks {
-    pub rule: Rule,
-    /// Joint indices; meaning depends on the rule.
-    pub joints: [FrameLandmark; 6],
-    pub side: f32,
-    pub owners: Vec<RigJointName>,
 }
 
 impl Wearer<'_> {
@@ -307,23 +308,25 @@ mod packing_tests {
             .unwrap();
         let thumb = wearer.thumb_landmarks(Side::Left).unwrap();
         assert_eq!(
-            head.joints.map(FrameLandmark::device_word),
+            head.joints.map(|landmark| landmark.device_word().unwrap()),
             [4, 1, 2, 3, 4, 0]
         );
         assert_eq!(
-            hand.joints.map(FrameLandmark::device_word),
+            hand.joints.map(|landmark| landmark.device_word().unwrap()),
             [5, 6, 7, 8, 4, 0]
         );
         assert_eq!(
-            foot.joints.map(FrameLandmark::device_word),
+            foot.joints.map(|landmark| landmark.device_word().unwrap()),
             [9, 10, 0, 0, 0, 0]
         );
         assert_eq!(
-            shoulder.joints.map(FrameLandmark::device_word),
+            shoulder
+                .joints
+                .map(|landmark| landmark.device_word().unwrap()),
             [12, 11, 2, 3, 4, 12]
         );
         assert_eq!(
-            thumb.joints.map(FrameLandmark::device_word),
+            thumb.joints.map(|landmark| landmark.device_word().unwrap()),
             [13, 14, 15, 0, 0, 0]
         );
         assert_eq!(

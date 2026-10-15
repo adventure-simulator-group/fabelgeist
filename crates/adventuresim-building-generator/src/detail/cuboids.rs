@@ -5,7 +5,7 @@ pub(super) fn append_oriented_cuboid(
     material: BuildingLodMaterial,
     solid: &ResolvedSolid,
     wall: Option<&crate::WallAssembly>,
-) {
+) -> Result<(), crate::GenerationError> {
     let fachwerk_member = is_fachwerk_member_role(solid.role);
     let resolved_yaw = if matches!(
         solid.role,
@@ -14,16 +14,18 @@ pub(super) fn append_oriented_cuboid(
             | SolidRole::RoofGutter
             | SolidRole::RoofEdgeTreatment
     ) {
-        -solid.yaw_radians
+        -solid.yaw_radians.radians()
     } else {
-        solid.yaw_radians
+        solid.yaw_radians.radians()
     };
     let rotation = Quat::from_rotation_y(resolved_yaw)
-        * Quat::from_rotation_x(solid.crossfall_radians)
-        * Quat::from_rotation_z(solid.longfall_radians);
+        * Quat::from_rotation_x(solid.crossfall_radians.radians())
+        * Quat::from_rotation_z(solid.longfall_radians.radians());
     let (render_centre, render_size) =
-        render_cuboid_placement(solid, wall, fachwerk_member, rotation);
+        render_cuboid_placement(solid, wall, fachwerk_member, rotation)?;
     append_cuboid_faces(detail, material, render_centre, render_size, rotation, wall);
+
+    Ok(())
 }
 
 pub(super) fn is_fachwerk_member_role(role: SolidRole) -> bool {
@@ -49,13 +51,13 @@ pub(super) fn render_cuboid_placement(
     wall: Option<&crate::WallAssembly>,
     fachwerk_member: bool,
     rotation: Quat,
-) -> (Vec3, Vec3) {
+) -> Result<(Vec3, Vec3), crate::GenerationError> {
     let aperture_member =
         wall.is_some_and(|wall| matches!(wall.source, crate::WallSourceId::RoofGable { .. }));
     let mut render_size = if fachwerk_member && !aperture_member {
-        solid.size + Vec3::splat(TIMBER_SEAM_COVER_METRES * 2.0)
+        solid.size.metres() + Vec3::splat(TIMBER_SEAM_COVER_METRES * 2.0)
     } else {
-        solid.size
+        solid.size.metres()
     };
     let mut render_centre = solid.centre;
     if let Some(wall) =
@@ -70,7 +72,7 @@ pub(super) fn render_cuboid_placement(
             .sum::<f32>()
             * 0.5;
         let inner_plane = wall.frame.origin.dot(wall.frame.outward) - wall.thickness_metres * 0.5;
-        let current_inner_extent = render_centre.dot(outward) - projected_half_extent;
+        let current_inner_extent = render_centre.metres().dot(outward) - projected_half_extent;
         let missing_depth =
             (current_inner_extent - (inner_plane - TIMBER_SEAM_COVER_METRES)).max(0.0);
 
@@ -84,11 +86,18 @@ pub(super) fn render_cuboid_placement(
             };
             if alignment > f32::EPSILON {
                 render_size[depth_axis] += missing_depth / alignment;
-                render_centre -= outward * missing_depth * 0.5;
+                {
+                    let mut native_geometry = render_centre.metres();
+                    native_geometry -= outward * missing_depth * 0.5;
+                    render_centre =
+                        crate::spatial_geometry::Position::<crate::Architectural>::from_metres(
+                            native_geometry,
+                        )?;
+                };
             }
         }
     }
-    (render_centre, render_size)
+    Ok((render_centre.metres(), render_size))
 }
 
 pub(super) fn append_cuboid_faces(

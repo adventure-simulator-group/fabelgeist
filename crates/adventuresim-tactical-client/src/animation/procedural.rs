@@ -1,27 +1,42 @@
-use std::collections::BTreeMap;
-
+use super::{AnimationPlayback, AuthoredBindTransform, PresentedSkeleton};
 use adventuresim_tactical_core::prelude::*;
 use bevy::{math::Affine3A, prelude::*};
-
-use super::{AnimationPlayback, AuthoredBindTransform, PresentedSkeleton};
-
-fn procedural_tuning() -> ProceduralAnimationConfig {
-    runtime_animation_config().procedural
-}
-
-mod body_response;
-mod clock;
-mod rig;
 pub(in crate::animation) use body_response::apply_locomotion_body_response;
 #[cfg(test)]
 use body_response::body_response_target;
 use body_response::presentation_tick_delta;
 pub(crate) use clock::ProceduralAnimationClock;
+pub(crate) use ik::{
+    ArmIkState, HandIkTarget, HandSide, HeldWeaponConstraint, HumanoidIkTargets, LegIkDiagnostics,
+    LegIkState, RaisedFootworkState, locomotion_support_weights, measured_ankle_sole_offset_metres,
+    sole_contact_tolerance_metres,
+};
+use ik::{
+    TwoBoneChain, apply_two_bone_solution, canonical_knee_pole, constrain_rendered_leg_pole,
+    smoothstep, snapshot_chain, solve_landing_two_bone,
+};
+#[cfg(test)]
+use ik::{
+    TwoBoneSolution, advance_foot_target_at_speed, advance_pelvis_shift, authored_knee_pole_world,
+    balance_recovery_direction, constrain_foot_to_track, constrain_target_to_reach,
+    foot_track_inner_metres, landing_maximum_reach, maximum_pelvis_correction_step_metres,
+    maximum_reach, minimum_inter_foot_separation_metres, plan_settle_landing, plant_is_continuous,
+    projected_capture_point, raised_footwork_posture_is_valid, retained_plant_requires_release,
+    secondary_grip_world, settle_swing_side, settle_swing_target, slope_aligned_world_rotation,
+    sole_is_at_contact, solve_two_bone, terrain_conformed_guard_target,
+    terrain_ik_posture_is_valid, terrain_leg_has_support,
+};
+pub(super) use ik::{
+    apply_arm_and_weapon_constraints, apply_terrain_leg_ik, enforce_anatomical_knee_yaw,
+    refresh_raised_support_after_propagation,
+};
 pub(crate) use rig::*;
+use std::collections::BTreeMap;
 
-pub(super) fn authored_locomotion_ik_owns(skeleton: &SkeletonState) -> bool {
-    ik::authored_locomotion_owns(skeleton)
-}
+mod body_response;
+mod clock;
+mod ik;
+mod rig;
 
 #[derive(Component, Debug, Clone, Copy)]
 pub(crate) struct ProceduralLookState {
@@ -41,6 +56,69 @@ pub(crate) struct ProceduralJumpAnticipationState {
 pub(super) struct FixedTickPoseCache {
     tick: Option<u64>,
     bones: BTreeMap<Entity, Transform>,
+}
+
+// The upright lowered-guard humanoid_unarmed root/pelvis rotations lift its
+// pelvis by about 33 mm at passing. Subtract that measured authored rise only
+// from the additive run-flight treatment; authored walk/pelvis translation
+// remains untouched.
+#[derive(Component, Debug, Clone, Copy, Default)]
+pub(crate) struct LocomotionHeightState {
+    initialized: bool,
+    amplitude: f32,
+    authored_rise_compensation: f32,
+    displayed_wave: f32,
+    wave_transition_offset: f32,
+    pub(crate) landing_compression: f32,
+    landing_compression_target: f32,
+    landing_absorption_metres_per_second: f32,
+    landing_recovery_metres_per_second: f32,
+    landing_left_foot_target: Option<Vec3>,
+    landing_right_foot_target: Option<Vec3>,
+    landing_plant_owner_position: Option<Vec3>,
+    landing_plant_tick: Option<u64>,
+    landing_plant_resync_tick: Option<u64>,
+    last_landing_sequence: u64,
+    last_guard: Option<WeaponGuardState>,
+    last_posture: Option<Posture>,
+    last_action: Option<SkeletonAction>,
+    last_grounded: Option<bool>,
+    evaluation_tick: Option<u64>,
+}
+
+#[derive(Component, Debug, Clone, Copy, Default)]
+pub(crate) struct LocomotionBodyResponseState {
+    pub(crate) pitch_radians: f32,
+    pub(crate) roll_radians: f32,
+    angular_velocity_radians_per_second: Vec2,
+    target_pitch_radians: f32,
+    target_roll_radians: f32,
+    smoothed_body_acceleration: Vec3,
+    last_body_velocity: Vec3,
+    last_tick: Option<u64>,
+    last_posture: Option<Posture>,
+    last_action: Option<SkeletonAction>,
+    last_grounded: Option<bool>,
+}
+
+#[derive(Clone, Copy)]
+struct MirrorBone {
+    entity: Entity,
+    local: Transform,
+    global: GlobalTransform,
+    parent: Option<Entity>,
+    parent_global: GlobalTransform,
+}
+
+#[derive(Clone, Copy, Debug)]
+struct BoneSnapshot {
+    entity: Entity,
+    global: GlobalTransform,
+    parent_rotation: Quat,
+}
+
+pub(super) fn authored_locomotion_ik_owns(skeleton: &SkeletonState) -> bool {
+    ik::authored_locomotion_owns(skeleton)
 }
 
 /// Tools can render gameplay, side, and front views from one logical sample.
@@ -72,16 +150,6 @@ pub(super) fn stabilize_repeated_fixed_tick_pose(
             *transform = *cached;
         }
     }
-}
-
-fn additive_look_rotation(current: Quat, offset: Quat) -> (Quat, ProceduralLookState) {
-    let applied_rotation = (current * offset).normalize();
-    (
-        applied_rotation,
-        ProceduralLookState {
-            base_rotation: current,
-        },
-    )
 }
 
 /// Remove last frame's procedural look before authored and other procedural
@@ -172,59 +240,6 @@ pub(super) fn apply_head_and_torso_look(
             commands.entity(entity).insert(next);
         }
     }
-}
-
-fn guarded_camera_look(
-    look: &CharacterLook,
-    owner_rotation: Quat,
-    weapon_guard: WeaponGuardState,
-    posture_transitioning: bool,
-) -> Option<Vec2> {
-    (weapon_guard == WeaponGuardState::Raised && !posture_transitioning)
-        .then(|| constrained_camera_look(look, owner_rotation))
-}
-
-fn constrained_camera_look(look: &CharacterLook, owner_rotation: Quat) -> Vec2 {
-    let tuning = procedural_tuning();
-    let joint_limit = tuning.guarded_look_joint_limit_degrees.to_radians();
-    let camera_forward = Quat::from_euler(EulerRot::YXZ, look.yaw, look.pitch, 0.0) * Vec3::NEG_Z;
-    let local = owner_rotation.inverse() * camera_forward;
-    // Directly behind the body there is no anatomically preferable left/right
-    // twist. Using signed Z puts atan2's branch cut at exactly that ambiguous
-    // direction and can flip the neck chain between both joint limits. Fold
-    // the rear hemisphere onto neutral instead: side look remains signed and
-    // continuous, while a camera directly behind leaves the neck untwisted.
-    let yaw = local.x.atan2(local.z.abs());
-    let pitch = local.y.atan2(local.xz().length().max(f32::EPSILON));
-    Vec2::new(
-        (yaw / tuning.guarded_look_joint_count).clamp(-joint_limit, joint_limit),
-        (pitch / tuning.guarded_look_joint_count).clamp(-joint_limit, joint_limit),
-    )
-}
-
-fn jump_charge_pelvis_target(charging: bool, guard: WeaponGuardState) -> f32 {
-    (charging && guard == WeaponGuardState::Lowered) as u8 as f32
-}
-
-fn dive_pelvis_lean(direction: DiveDirection, amount: f32) -> Quat {
-    let angle = procedural_tuning().dive_pelvis_lean_degrees.to_radians() * amount.clamp(0.0, 1.0);
-    match direction {
-        DiveDirection::Forward => Quat::from_rotation_x(angle),
-        DiveDirection::Backward => Quat::from_rotation_x(-angle),
-        DiveDirection::Left => Quat::from_rotation_z(-angle),
-        DiveDirection::Right => Quat::from_rotation_z(angle),
-    }
-}
-
-fn procedural_dive_pelvis_rotation(
-    authored: Quat,
-    bind: Quat,
-    direction: DiveDirection,
-    amount: f32,
-) -> Quat {
-    let amount = amount.clamp(0.0, 1.0);
-    let forward_facing = authored.slerp(bind, amount).normalize();
-    (dive_pelvis_lean(direction, amount) * forward_facing).normalize()
 }
 
 /// Tilts the pelvis and therefore its complete descendant hierarchy toward
@@ -393,7 +408,7 @@ pub(super) fn apply_pose_mirroring(
                 topology
                     .mirror_pairs()
                     .iter()
-                    .flat_map(|&(left, right)| [left, right]),
+                    .flat_map(|pair| [pair.left, pair.right]),
             )
             .collect::<Vec<_>>();
         let local_snapshots = {
@@ -439,8 +454,8 @@ pub(super) fn apply_pose_mirroring(
             desired_globals.insert(bone.entity, mirrored_global_affine(bone.global, rig_global));
             mirror_weights.insert(bone.entity, whole_body_weight);
         }
-        for &(left_entity, right_entity) in topology.mirror_pairs() {
-            let (Some(left), Some(right)) = (rig.get(&left_entity), rig.get(&right_entity)) else {
+        for pair in topology.mirror_pairs() {
+            let (Some(left), Some(right)) = (rig.get(&pair.left), rig.get(&pair.right)) else {
                 continue;
             };
             desired_globals.insert(
@@ -483,58 +498,6 @@ pub(super) fn apply_pose_mirroring(
     }
 }
 
-// The upright lowered-guard humanoid_unarmed root/pelvis rotations lift its
-// pelvis by about 33 mm at passing. Subtract that measured authored rise only
-// from the additive run-flight treatment; authored walk/pelvis translation
-// remains untouched.
-#[derive(Component, Debug, Clone, Copy, Default)]
-pub(crate) struct LocomotionHeightState {
-    initialized: bool,
-    amplitude: f32,
-    authored_rise_compensation: f32,
-    displayed_wave: f32,
-    wave_transition_offset: f32,
-    pub(crate) landing_compression: f32,
-    landing_compression_target: f32,
-    landing_absorption_metres_per_second: f32,
-    landing_recovery_metres_per_second: f32,
-    landing_left_foot_target: Option<Vec3>,
-    landing_right_foot_target: Option<Vec3>,
-    landing_plant_owner_position: Option<Vec3>,
-    landing_plant_tick: Option<u64>,
-    landing_plant_resync_tick: Option<u64>,
-    last_landing_sequence: u64,
-    last_guard: Option<WeaponGuardState>,
-    last_posture: Option<Posture>,
-    last_action: Option<SkeletonAction>,
-    last_grounded: Option<bool>,
-    evaluation_tick: Option<u64>,
-}
-
-/// Additive run-flight waveform with contacts at 0/.5 and flight peaks at
-/// .25/.75. Authored joint translation remains the base pose. This is
-/// presentation-only and is never applied to the authoritative owner/controller
-/// transform.
-fn grounded_height_wave(phase: f32, amplitude: f32) -> f32 {
-    let sine = (phase.rem_euclid(1.0) * std::f32::consts::TAU).sin();
-    amplitude * sine * sine
-}
-
-#[derive(Component, Debug, Clone, Copy, Default)]
-pub(crate) struct LocomotionBodyResponseState {
-    pub(crate) pitch_radians: f32,
-    pub(crate) roll_radians: f32,
-    angular_velocity_radians_per_second: Vec2,
-    target_pitch_radians: f32,
-    target_roll_radians: f32,
-    smoothed_body_acceleration: Vec3,
-    last_body_velocity: Vec3,
-    last_tick: Option<u64>,
-    last_posture: Option<Posture>,
-    last_action: Option<SkeletonAction>,
-    last_grounded: Option<bool>,
-}
-
 pub(crate) fn locomotion_height_wave(skeleton: &SkeletonState) -> f32 {
     if !skeleton.is_grounded()
         || skeleton.is_posture_transitioning()
@@ -558,45 +521,6 @@ pub(crate) fn locomotion_height_wave(skeleton: &SkeletonState) -> f32 {
     let half_step = (skeleton.gait_phase.rem_euclid(0.5) * 2.0).clamp(0.0, 1.0);
     let flight = (half_step * std::f32::consts::PI).sin().powi(2) * profile.flight_apex_metres;
     flight * moving_weight
-}
-
-fn authored_height_compensation(skeleton: &SkeletonState) -> f32 {
-    if !skeleton.is_grounded()
-        || skeleton.action_kind() != SkeletonAction::None
-        || skeleton.animation_pack != "humanoid_unarmed"
-        || skeleton.posture() != Posture::Upright
-        || skeleton.weapon_guard() != WeaponGuardState::Lowered
-    {
-        return 0.0;
-    }
-    let run_weight = locomotion_profile(skeleton).flight_apex_metres
-        / run_locomotion_profile().flight_apex_metres;
-    procedural_tuning().authored_ordinary_passing_rise_metres
-        * run_weight.clamp(0.0, 1.0)
-        * smoothstep(0.05, 0.75, skeleton.animation_speed())
-}
-
-fn advance_towards(current: f32, target: f32, maximum_delta: f32) -> f32 {
-    current + (target - current).clamp(-maximum_delta.max(0.0), maximum_delta.max(0.0))
-}
-
-fn landing_compression_for_impact(profile: LocomotionProfile, impact_speed: f32) -> f32 {
-    if impact_speed < 1.0 {
-        0.0
-    } else {
-        (impact_speed * profile.landing.compression_per_metre_per_second).clamp(
-            profile.landing.minimum_compression_metres,
-            profile.landing.maximum_compression_metres,
-        )
-    }
-}
-
-fn landing_compression_for_action(
-    profile: LocomotionProfile,
-    impact_speed: f32,
-    _previous_action: Option<SkeletonAction>,
-) -> f32 {
-    landing_compression_for_impact(profile, impact_speed)
 }
 
 /// Preserves authored joint translation and adds only the run-flight height
@@ -804,15 +728,6 @@ pub(super) fn orient_guarded_run_lower_body(
     }
 }
 
-fn guarded_run_split_yaw(direction: Vec2) -> Option<(Quat, Quat)> {
-    let direction = direction.try_normalize()?;
-    // Local movement uses -Y for character-forward, corresponding to -Z in
-    // the authored rig. Positive X is character-right.
-    let angle = -direction.x.atan2(-direction.y);
-    let pelvis = Quat::from_rotation_y(angle);
-    Some((pelvis, pelvis.inverse()))
-}
-
 /// Preserves both world-space feet during the short landing-only pelvis
 /// compression by flexing the actual hip/knee chains. This is independent of
 /// the opt-in terrain solver and never translates or stretches thigh roots.
@@ -964,6 +879,130 @@ pub(super) fn apply_landing_leg_compression(
     }
 }
 
+fn procedural_tuning() -> ProceduralAnimationConfig {
+    runtime_animation_config().procedural
+}
+
+fn additive_look_rotation(current: Quat, offset: Quat) -> (Quat, ProceduralLookState) {
+    let applied_rotation = (current * offset).normalize();
+    (
+        applied_rotation,
+        ProceduralLookState {
+            base_rotation: current,
+        },
+    )
+}
+
+fn guarded_camera_look(
+    look: &CharacterLook,
+    owner_rotation: Quat,
+    weapon_guard: WeaponGuardState,
+    posture_transitioning: bool,
+) -> Option<Vec2> {
+    (weapon_guard == WeaponGuardState::Raised && !posture_transitioning)
+        .then(|| constrained_camera_look(look, owner_rotation))
+}
+
+fn constrained_camera_look(look: &CharacterLook, owner_rotation: Quat) -> Vec2 {
+    let tuning = procedural_tuning();
+    let joint_limit = tuning.guarded_look_joint_limit_degrees.to_radians();
+    let camera_forward = Quat::from_euler(EulerRot::YXZ, look.yaw, look.pitch, 0.0) * Vec3::NEG_Z;
+    let local = owner_rotation.inverse() * camera_forward;
+    // Directly behind the body there is no anatomically preferable left/right
+    // twist. Using signed Z puts atan2's branch cut at exactly that ambiguous
+    // direction and can flip the neck chain between both joint limits. Fold
+    // the rear hemisphere onto neutral instead: side look remains signed and
+    // continuous, while a camera directly behind leaves the neck untwisted.
+    let yaw = local.x.atan2(local.z.abs());
+    let pitch = local.y.atan2(local.xz().length().max(f32::EPSILON));
+    Vec2::new(
+        (yaw / tuning.guarded_look_joint_count).clamp(-joint_limit, joint_limit),
+        (pitch / tuning.guarded_look_joint_count).clamp(-joint_limit, joint_limit),
+    )
+}
+
+fn jump_charge_pelvis_target(charging: bool, guard: WeaponGuardState) -> f32 {
+    (charging && guard == WeaponGuardState::Lowered) as u8 as f32
+}
+
+fn dive_pelvis_lean(direction: DiveDirection, amount: f32) -> Quat {
+    let angle = procedural_tuning().dive_pelvis_lean_degrees.to_radians() * amount.clamp(0.0, 1.0);
+    match direction {
+        DiveDirection::Forward => Quat::from_rotation_x(angle),
+        DiveDirection::Backward => Quat::from_rotation_x(-angle),
+        DiveDirection::Left => Quat::from_rotation_z(-angle),
+        DiveDirection::Right => Quat::from_rotation_z(angle),
+    }
+}
+
+fn procedural_dive_pelvis_rotation(
+    authored: Quat,
+    bind: Quat,
+    direction: DiveDirection,
+    amount: f32,
+) -> Quat {
+    let amount = amount.clamp(0.0, 1.0);
+    let forward_facing = authored.slerp(bind, amount).normalize();
+    (dive_pelvis_lean(direction, amount) * forward_facing).normalize()
+}
+
+/// Additive run-flight waveform with contacts at 0/.5 and flight peaks at
+/// .25/.75. Authored joint translation remains the base pose. This is
+/// presentation-only and is never applied to the authoritative owner/controller
+/// transform.
+fn grounded_height_wave(phase: f32, amplitude: f32) -> f32 {
+    let sine = (phase.rem_euclid(1.0) * std::f32::consts::TAU).sin();
+    amplitude * sine * sine
+}
+
+fn authored_height_compensation(skeleton: &SkeletonState) -> f32 {
+    if !skeleton.is_grounded()
+        || skeleton.action_kind() != SkeletonAction::None
+        || skeleton.animation_pack != "humanoid_unarmed"
+        || skeleton.posture() != Posture::Upright
+        || skeleton.weapon_guard() != WeaponGuardState::Lowered
+    {
+        return 0.0;
+    }
+    let run_weight = locomotion_profile(skeleton).flight_apex_metres
+        / run_locomotion_profile().flight_apex_metres;
+    procedural_tuning().authored_ordinary_passing_rise_metres
+        * run_weight.clamp(0.0, 1.0)
+        * smoothstep(0.05, 0.75, skeleton.animation_speed())
+}
+
+fn advance_towards(current: f32, target: f32, maximum_delta: f32) -> f32 {
+    current + (target - current).clamp(-maximum_delta.max(0.0), maximum_delta.max(0.0))
+}
+
+fn landing_compression_for_impact(profile: LocomotionProfile, impact_speed: f32) -> f32 {
+    if impact_speed < 1.0 {
+        0.0
+    } else {
+        (impact_speed * profile.landing.compression_per_metre_per_second).clamp(
+            profile.landing.minimum_compression_metres,
+            profile.landing.maximum_compression_metres,
+        )
+    }
+}
+
+fn landing_compression_for_action(
+    profile: LocomotionProfile,
+    impact_speed: f32,
+    _previous_action: Option<SkeletonAction>,
+) -> f32 {
+    landing_compression_for_impact(profile, impact_speed)
+}
+
+fn guarded_run_split_yaw(direction: Vec2) -> Option<(Quat, Quat)> {
+    let direction = direction.try_normalize()?;
+    // Local movement uses -Y for character-forward, corresponding to -Z in
+    // the authored rig. Positive X is character-right.
+    let angle = -direction.x.atan2(-direction.y);
+    let pelvis = Quat::from_rotation_y(angle);
+    Some((pelvis, pelvis.inverse()))
+}
+
 fn retain_landing_foot_target(
     retained: &mut Option<Vec3>,
     pre_landing_foot_position: Vec3,
@@ -990,15 +1029,6 @@ fn clear_landing_foot_plants(height: &mut LocomotionHeightState) {
     height.landing_plant_resync_tick = None;
 }
 
-#[derive(Clone, Copy)]
-struct MirrorBone {
-    entity: Entity,
-    local: Transform,
-    global: GlobalTransform,
-    parent: Option<Entity>,
-    parent_global: GlobalTransform,
-}
-
 fn mirrored_global_affine(source: GlobalTransform, owner: GlobalTransform) -> Affine3A {
     let owner_affine = owner.affine();
     let relative = owner_affine.inverse() * source.affine();
@@ -1017,39 +1047,6 @@ fn mirrored_across_anatomical_center(mut transform: Transform) -> Transform {
     transform.rotation = Quat::from_xyzw(rotation.x, -rotation.y, -rotation.z, rotation.w);
     transform
 }
-
-#[derive(Clone, Copy, Debug)]
-struct BoneSnapshot {
-    entity: Entity,
-    global: GlobalTransform,
-    parent_rotation: Quat,
-}
-
-mod ik;
-pub(crate) use ik::{
-    ArmIkState, HandIkTarget, HandSide, HeldWeaponConstraint, HumanoidIkTargets, LegIkDiagnostics,
-    LegIkState, RaisedFootworkState, locomotion_support_weights, measured_ankle_sole_offset_metres,
-    sole_contact_tolerance_metres,
-};
-use ik::{
-    TwoBoneChain, apply_two_bone_solution, canonical_knee_pole, constrain_rendered_leg_pole,
-    smoothstep, snapshot_chain, solve_landing_two_bone,
-};
-#[cfg(test)]
-use ik::{
-    TwoBoneSolution, advance_foot_target_at_speed, advance_pelvis_shift, authored_knee_pole_world,
-    balance_recovery_direction, constrain_foot_to_track, constrain_target_to_reach,
-    foot_track_inner_metres, landing_maximum_reach, maximum_pelvis_correction_step_metres,
-    maximum_reach, minimum_inter_foot_separation_metres, plan_settle_landing, plant_is_continuous,
-    projected_capture_point, raised_footwork_posture_is_valid, retained_plant_requires_release,
-    secondary_grip_world, settle_swing_side, settle_swing_target, slope_aligned_world_rotation,
-    sole_is_at_contact, solve_two_bone, terrain_conformed_guard_target,
-    terrain_ik_posture_is_valid, terrain_leg_has_support,
-};
-pub(super) use ik::{
-    apply_arm_and_weapon_constraints, apply_terrain_leg_ik, enforce_anatomical_knee_yaw,
-    refresh_raised_support_after_propagation,
-};
 
 #[cfg(test)]
 mod contract_tests {
@@ -1244,11 +1241,10 @@ mod ik_tests {
             "l_lowarm",
             "r_weapon",
             "l_ball",
-        ] {
-            assert!(
-                BoneRole::from_name(&name.into()).is_some(),
-                "missing {name}"
-            );
+        ]
+        .map(fabelgeist_rig::RigJointName::from)
+        {
+            assert!(BoneRole::from_name(&name).is_some(), "missing {name}");
         }
         assert_eq!(BoneRole::from_name(&"l_upleg_twist2_proc".into()), None);
         assert_eq!(BoneRole::from_name(&"Cylinder".into()), None);

@@ -1,22 +1,49 @@
 use super::*;
 
+pub(super) fn install_requests(app: &mut App) {
+    app.add_systems(Startup, request_animation_packs);
+    #[cfg(target_family = "wasm")]
+    app.add_systems(
+        Update,
+        request_animation_packs
+            .run_if(resource_changed::<crate::browser_runtime::BrowserMode>)
+            .before(collect_loaded_packs),
+    );
+}
+
 pub(super) fn request_animation_packs(
     catalog: Res<AnimationPackCatalog>,
     asset_server: Res<AssetServer>,
     mut runtime: ResMut<AnimationRuntime>,
+    #[cfg(target_family = "wasm")] mode: Res<crate::browser_runtime::BrowserMode>,
 ) {
-    runtime.requested_base = Some(asset_server.load(animation_asset_path(BIPED_BASE_GLB)));
+    if runtime.requested_base.is_none() {
+        runtime.requested_base = Some(asset_server.load(animation_asset_path(BIPED_BASE_GLB)));
+    }
     for grip in WeaponGrip::ALL {
         runtime
             .requested_grips
-            .insert(grip, asset_server.load(animation_asset_path(grip.path())));
+            .entry(grip)
+            .or_insert_with(|| asset_server.load(animation_asset_path(grip.path())));
     }
     for (pack_id, pack) in &catalog.packs {
         for (motion_id, source) in &pack.motions {
-            runtime.requested_motions.insert(
-                (pack_id.clone(), motion_id.clone()),
-                asset_server.load(animation_asset_path(&source.path)),
-            );
+            // Strategic portraits and street characters stand in relaxed idle.
+            // Combat and locomotion clips join the persistent asset cache when
+            // the player enters tactical play.
+            #[cfg(target_family = "wasm")]
+            if *mode == crate::browser_runtime::BrowserMode::Strategic
+                && !pack
+                    .poses
+                    .get(&SemanticPose::IdleRelaxed)
+                    .is_some_and(|anchor| anchor.motion == *motion_id)
+            {
+                continue;
+            }
+            runtime
+                .requested_motions
+                .entry((pack_id.clone(), motion_id.clone()))
+                .or_insert_with(|| asset_server.load(animation_asset_path(&source.path)));
         }
     }
     if let Err(error) = runtime.library.validate_structure() {
@@ -178,64 +205,6 @@ pub(super) fn collect_loaded_packs(
     collect_loaded_grips(&asset_server, &gltfs, &clips, &mut runtime);
 }
 
-fn collect_loaded_grips(
-    asset_server: &AssetServer,
-    gltfs: &Assets<Gltf>,
-    clips: &Assets<AnimationClip>,
-    runtime: &mut AnimationRuntime,
-) {
-    let requested = runtime
-        .requested_grips
-        .iter()
-        .map(|(&grip, handle)| (grip, handle.clone()))
-        .collect::<Vec<_>>();
-    for (grip, handle) in requested {
-        if runtime.processed_grips.contains(&grip) || runtime.unavailable_grips.contains(&grip) {
-            continue;
-        }
-        if matches!(asset_server.load_state(handle.id()), LoadState::Failed(_)) {
-            runtime.unavailable_grips.insert(grip);
-            warn!(path = grip.path(), "Authored weapon grip is unavailable");
-            continue;
-        }
-        let Some(gltf) = gltfs.get(&handle) else {
-            continue;
-        };
-        let Some(clip_handle) = sole_animation(&gltf.animations) else {
-            warn!(
-                path = grip.path(),
-                count = gltf.animations.len(),
-                "Weapon grip must contain exactly one animation"
-            );
-            runtime.unavailable_grips.insert(grip);
-            continue;
-        };
-        let Some(clip) = clips.get(clip_handle) else {
-            continue;
-        };
-        if runtime.canonical_targets.is_empty() {
-            continue;
-        }
-        if !clip_targets_match_base(clip, &runtime.canonical_targets) {
-            warn!(
-                path = grip.path(),
-                "Weapon grip targets are incompatible with the base rig"
-            );
-            runtime.unavailable_grips.insert(grip);
-            continue;
-        }
-        runtime.grips.insert(
-            grip,
-            LoadedClip {
-                handle: clip_handle.clone(),
-                duration_seconds: clip.duration(),
-                layer: ClipLayer::MainHand,
-            },
-        );
-        runtime.processed_grips.insert(grip);
-    }
-}
-
 pub(super) fn sole_animation(
     animations: &[Handle<AnimationClip>],
 ) -> Option<&Handle<AnimationClip>> {
@@ -358,7 +327,11 @@ pub(super) fn bind_animation_target_paths(
     path.push(name.clone());
     let target = AnimationTargetId::from_names(path.iter());
     runtime.canonical_targets.insert(target);
-    commands.entity(entity).insert(target);
+    // `Name` is the native scene boundary; downstream rig consumers retain
+    // this admitted identity and its cached animation classification.
+    commands
+        .entity(entity)
+        .insert((target, AuthoredRigJoint::new(name.as_str().into())));
     if let Ok(entity_children) = children.get(entity) {
         for child in entity_children.iter() {
             bind_animation_target_paths(commands, child, path.clone(), children, names, runtime);
@@ -366,21 +339,60 @@ pub(super) fn bind_animation_target_paths(
     }
 }
 
-pub(super) fn is_lower_body_animation_target(name: &fabelgeist_rig::RigJointName) -> bool {
-    let spelling = std::borrow::Cow::from(name);
-    let bone_name = spelling.to_ascii_lowercase();
-    bone_name == "skeleton"
-        || bone_name == "body_world"
-        || bone_name == "root"
-        || [
-            "_upleg",
-            "_lowleg",
-            "_foot",
-            "_talocrural",
-            "_subtalar",
-            "_transversetarsal",
-            "_ball",
-        ]
+fn collect_loaded_grips(
+    asset_server: &AssetServer,
+    gltfs: &Assets<Gltf>,
+    clips: &Assets<AnimationClip>,
+    runtime: &mut AnimationRuntime,
+) {
+    let requested = runtime
+        .requested_grips
         .iter()
-        .any(|part| bone_name.contains(part))
+        .map(|(&grip, handle)| (grip, handle.clone()))
+        .collect::<Vec<_>>();
+    for (grip, handle) in requested {
+        if runtime.processed_grips.contains(&grip) || runtime.unavailable_grips.contains(&grip) {
+            continue;
+        }
+        if matches!(asset_server.load_state(handle.id()), LoadState::Failed(_)) {
+            runtime.unavailable_grips.insert(grip);
+            warn!(path = grip.path(), "Authored weapon grip is unavailable");
+            continue;
+        }
+        let Some(gltf) = gltfs.get(&handle) else {
+            continue;
+        };
+        let Some(clip_handle) = sole_animation(&gltf.animations) else {
+            warn!(
+                path = grip.path(),
+                count = gltf.animations.len(),
+                "Weapon grip must contain exactly one animation"
+            );
+            runtime.unavailable_grips.insert(grip);
+            continue;
+        };
+        let Some(clip) = clips.get(clip_handle) else {
+            continue;
+        };
+        if runtime.canonical_targets.is_empty() {
+            continue;
+        }
+        if !clip_targets_match_base(clip, &runtime.canonical_targets) {
+            warn!(
+                path = grip.path(),
+                "Weapon grip targets are incompatible with the base rig"
+            );
+            runtime.unavailable_grips.insert(grip);
+            continue;
+        }
+        runtime.grips.insert(
+            grip,
+            LoadedClip {
+                handle: clip_handle.clone(),
+                duration_seconds: clip.duration(),
+                layer: ClipLayer::MainHand,
+            },
+        );
+        runtime.processed_grips.insert(grip);
+    }
 }

@@ -4,10 +4,15 @@ use bevy::math::{Vec2, Vec3};
 use clap::ValueEnum;
 use serde::{Deserialize, Serialize};
 
+use crate::spatial_geometry::{Architectural, ClearanceVolume, PlanDimensions};
+
 use crate::{BuildingProgram, ResolvedItemId, ServiceBuildingSize, WallAssemblyId};
 
+#[cfg(test)]
+mod admission_tests;
 mod assembly;
 mod brewing;
+mod components;
 mod craft;
 mod envelope;
 mod equipment;
@@ -18,6 +23,7 @@ mod validation;
 mod warehouse;
 mod wet;
 pub(crate) use assembly::resolve_workplace;
+pub use assembly::{PartAuthority, WorkplaceConstructionError};
 pub use surfaces::WorkplaceSurface;
 pub(crate) use validation::audit_workplace;
 
@@ -178,7 +184,33 @@ pub struct WorkplacePart {
     pub feature: WorkplaceFeature,
     pub material: WorkplaceMaterial,
     /// Large architectural components remain present in distant representations.
-    pub silhouette: bool,
+    pub silhouette: WorkplacePartVisibility,
+}
+
+/// Whether a physical part remains in the distant architectural silhouette.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum WorkplacePartVisibility {
+    Silhouette,
+    DetailOnly,
+}
+impl WorkplacePartVisibility {
+    pub const fn contributes_to_silhouette(self) -> bool {
+        matches!(self, Self::Silhouette)
+    }
+}
+impl Serialize for WorkplacePartVisibility {
+    fn serialize<S: serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        self.contributes_to_silhouette().serialize(s)
+    }
+}
+impl<'de> Deserialize<'de> for WorkplacePartVisibility {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+        Ok(if bool::deserialize(d)? {
+            Self::Silhouette
+        } else {
+            Self::DetailOnly
+        })
+    }
 }
 
 /// Stable identity of one authored clear passage in an occupied workplace.
@@ -196,19 +228,55 @@ pub enum WorkplacePassagePurpose {
 }
 
 /// Authored clearance volume with a stable identity and explicit use.
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug)]
 pub struct WorkplacePassage {
     pub id: WorkplacePassageId,
     pub purpose: WorkplacePassagePurpose,
-    pub min: Vec3,
-    pub max: Vec3,
+    pub bounds: ClearanceVolume<Architectural>,
+}
+
+impl Serialize for WorkplacePassage {
+    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        use serde::ser::SerializeStruct;
+        let mut value = serializer.serialize_struct("WorkplacePassage", 4)?;
+        value.serialize_field("id", &self.id)?;
+        value.serialize_field("purpose", &self.purpose)?;
+        value.serialize_field("min", &self.bounds.min())?;
+        value.serialize_field("max", &self.bounds.max())?;
+        value.end()
+    }
+}
+impl<'de> Deserialize<'de> for WorkplacePassage {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+        #[derive(Deserialize)]
+        struct Passage {
+            id: WorkplacePassageId,
+            purpose: WorkplacePassagePurpose,
+            min: Vec3,
+            max: Vec3,
+        }
+        let value = Passage::deserialize(d)?;
+        let bounds = crate::spatial_geometry::SpatialBounds::from_metres(value.min, value.max)
+            .and_then(ClearanceVolume::new)
+            .map_err(|cause| {
+                serde::de::Error::custom(WorkplaceConstructionError::Passage {
+                    id: value.id,
+                    cause,
+                })
+            })?;
+        Ok(Self {
+            id: value.id,
+            purpose: value.purpose,
+            bounds,
+        })
+    }
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct WorkplacePlan {
     pub kind: WorkplaceKind,
     pub size: ServiceBuildingSize,
-    pub plot_dimensions_metres: Vec2,
+    pub plot_dimensions_metres: PlanDimensions,
     pub walls: Vec<WallAssemblyId>,
     pub parts: Vec<WorkplacePart>,
     pub passages: Vec<WorkplacePassage>,

@@ -10,20 +10,150 @@
 //! and toward the ball, a reduction bounds the foot's own skin in it, and one
 //! invocation centres and sizes it.
 
-use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_rig::{RigJointLookupError, RigJointOrdinal, RigJointPart};
-use std::sync::Arc;
-
+use crate::armor_frames::{FitRegion, Side};
+use crate::device_frames::{DeviceFrame, DeviceWearer, FRAME_WORDS};
+use crate::rig_parameters::RigPassParameters;
 use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::PassParameters;
-
-use crate::armor_frames::{FitRegion, Side};
-use crate::device_frames::{DeviceFrame, DeviceWearer, FRAME_WORDS};
+use fabelgeist_rig::{RigJointLookupError, RigJointOrdinal, RigJointPart};
+use std::sync::Arc;
 
 const ORDERED_POSITIVE_INFINITY: u32 = 0xff80_0000;
+
 const ORDERED_NEGATIVE_INFINITY: u32 = 0x007f_ffff;
+
+/// The floor under each side of the body.
+const FLOOR: &str = r#"
+@compute @workgroup_size(256)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    let i = id.x;
+    if (i >= params.count) {
+        return;
+    }
+    let p = positions_at(i);
+    if (p.y == p.y && ((params.left != 0u && p.x > 0.0) || (params.left == 0u && p.x < 0.0))) {
+        atomicMin(&reductions[0], ordered_from_float(p.y));
+    }
+}
+"#;
+
+/// One invocation: the frame's axes, provisional origin and landmark span,
+/// from just above the ankle to the floor, facing along the foot.
+const ORIENT: &str = r#"
+@compute @workgroup_size(1)
+fn main() {
+    let ankle = joint(params.ankle);
+    let floor = float_from_ordered(atomicLoad(&reductions[0]));
+    let proximal = vec3<f32>(ankle.x, host_add(ankle.y, ANKLE_RISE_M), ankle.z);
+    let distal = vec3<f32>(ankle.x, floor, ankle.z);
+    let axial = normalized(host_sub3(proximal, distal));
+    let foot = host_sub3(joint(params.ball), ankle);
+    let front = normalized(vec3<f32>(foot.x, 0.0, foot.z));
+    let across = normalized(host_cross(axial, front));
+    let anterior = host_cross(across, axial);
+    set_vector(0u, midpoint(proximal, distal));
+    set_vector(3u, across);
+    set_vector(6u, axial);
+    set_vector(9u, anterior);
+    let span = host_sub3(proximal, distal);
+    frame[15] = host_sqrt(host_dot(span, span));
+}
+"#;
+
+/// Bounds of the foot's own skin in the provisional frame.
+const BOUNDS: &str = r#"
+@compute @workgroup_size(256)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    let i = id.x;
+    if (i >= params.count) {
+        return;
+    }
+    var weight = 0.0;
+    for (var k = 0u; k < 8u; k = k + 1u) {
+        if (owned[joint_indices[i * 8u + k]] != 0u) {
+            weight = host_add(weight, joint_weights[i * 8u + k]);
+        }
+    }
+    if (weight < SKIN_SUPPORT_THRESHOLD) {
+        return;
+    }
+    let d = host_sub3(positions_at(i), origin());
+    let local = vec3<f32>(host_dot(d, axis(0u)), host_dot(d, axis(1u)), host_dot(d, axis(2u)));
+    if (abs(local.y) > host_mul(frame[15], ENVELOPE_SPAN_FRACTION)) {
+        return;
+    }
+    for (var a = 0u; a < 3u; a = a + 1u) {
+        atomicMin(&reductions[1u + a], ordered_from_float(local[a]));
+        atomicMax(&reductions[4u + a], ordered_from_float(local[a]));
+    }
+}
+"#;
+
+/// One invocation: centre the frame on the skin across and front to back,
+/// and size it.
+const FINISH: &str = r#"
+fn low(a: u32) -> f32 {
+    return float_from_ordered(atomicLoad(&reductions[1u + a]));
+}
+
+fn high(a: u32) -> f32 {
+    return float_from_ordered(atomicLoad(&reductions[4u + a]));
+}
+
+@compute @workgroup_size(1)
+fn main() {
+    for (var a = 0u; a < 3u; a = a + 1u) {
+        if (!(abs(low(a)) <= 3.4e38) || !(abs(high(a)) <= 3.4e38)) {
+            fail(NO_ENVELOPE);
+            return;
+        }
+    }
+    let center = vec3<f32>(
+        host_mul(host_add(low(0u), high(0u)), 0.5),
+        0.0,
+        host_mul(host_add(low(2u), high(2u)), 0.5),
+    );
+    // The centre placed along the frame's axes, as `PartFrame::point` places it.
+    var placed: vec3<f32>;
+    let start = origin();
+    for (var c = 0u; c < 3u; c = c + 1u) {
+        let along = host_add(
+            host_add(host_mul(axis(0u)[c], center.x), host_mul(axis(1u)[c], center.y)),
+            host_mul(axis(2u)[c], center.z),
+        );
+        placed[c] = host_add(start[c], along);
+    }
+    set_vector(0u, placed);
+    frame[12] = max(host_mul(host_sub(high(0u), low(0u)), 0.5), MINIMUM_REGION_RADIUS_M);
+    frame[13] = max(host_mul(frame[15], 0.5), MINIMUM_REGION_RADIUS_M);
+    frame[14] = max(host_mul(host_sub(high(2u), low(2u)), 0.5), MINIMUM_REGION_RADIUS_M);
+    // The checks of `PartFrame::validate`: orthonormal axes, positive extents,
+    // finite words.
+    var valid = true;
+    for (var a = 0u; a < 3u; a = a + 1u) {
+        for (var b = 0u; b < 3u; b = b + 1u) {
+            let expected = select(0.0, 1.0, a == b);
+            if (!(abs(host_dot(axis(a), axis(b)) - expected) < 0.001)) {
+                valid = false;
+            }
+        }
+        if (!(frame[12u + a] > 0.0)) {
+            valid = false;
+        }
+    }
+    for (var w = 0u; w < 15u; w = w + 1u) {
+        if (!(abs(frame[w]) <= 3.4e38)) {
+            valid = false;
+        }
+    }
+    if (!valid) {
+        fail(INVALID);
+    }
+}
+"#;
 
 impl DeviceWearer<'_> {
     /// Record the `side` foot's frame.
@@ -42,8 +172,8 @@ impl DeviceWearer<'_> {
         };
         let mut parameters = PassParameters::new();
         parameters.insert("count", self.body.vertex_count);
-        parameters.insert("ankle", usize::from(joint(RigJointPart::Foot)?) as u32);
-        parameters.insert("ball", usize::from(joint(RigJointPart::Ball)?) as u32);
+        parameters.insert_joint("ankle", joint(RigJointPart::Foot)?)?;
+        parameters.insert_joint("ball", joint(RigJointPart::Ball)?)?;
         parameters.insert("left", u32::from(matches!(side, Side::Left)));
         parameters.insert(host_float::ZERO_FIELD, 0u32);
         for pad in ["pad0", "pad1", "pad2"] {
@@ -191,133 +321,3 @@ fn midpoint(a: vec3<f32>, b: vec3<f32>) -> vec3<f32> {{
         frame_constants = crate::device_frames::frame_constants(),
     )
 }
-
-/// The floor under each side of the body.
-const FLOOR: &str = r#"
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {
-    let i = id.x;
-    if (i >= params.count) {
-        return;
-    }
-    let p = positions_at(i);
-    if (p.y == p.y && ((params.left != 0u && p.x > 0.0) || (params.left == 0u && p.x < 0.0))) {
-        atomicMin(&reductions[0], ordered_from_float(p.y));
-    }
-}
-"#;
-
-/// One invocation: the frame's axes, provisional origin and landmark span,
-/// from just above the ankle to the floor, facing along the foot.
-const ORIENT: &str = r#"
-@compute @workgroup_size(1)
-fn main() {
-    let ankle = joint(params.ankle);
-    let floor = float_from_ordered(atomicLoad(&reductions[0]));
-    let proximal = vec3<f32>(ankle.x, host_add(ankle.y, ANKLE_RISE_M), ankle.z);
-    let distal = vec3<f32>(ankle.x, floor, ankle.z);
-    let axial = normalized(host_sub3(proximal, distal));
-    let foot = host_sub3(joint(params.ball), ankle);
-    let front = normalized(vec3<f32>(foot.x, 0.0, foot.z));
-    let across = normalized(host_cross(axial, front));
-    let anterior = host_cross(across, axial);
-    set_vector(0u, midpoint(proximal, distal));
-    set_vector(3u, across);
-    set_vector(6u, axial);
-    set_vector(9u, anterior);
-    let span = host_sub3(proximal, distal);
-    frame[15] = host_sqrt(host_dot(span, span));
-}
-"#;
-
-/// Bounds of the foot's own skin in the provisional frame.
-const BOUNDS: &str = r#"
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) id: vec3<u32>) {
-    let i = id.x;
-    if (i >= params.count) {
-        return;
-    }
-    var weight = 0.0;
-    for (var k = 0u; k < 8u; k = k + 1u) {
-        if (owned[joint_indices[i * 8u + k]] != 0u) {
-            weight = host_add(weight, joint_weights[i * 8u + k]);
-        }
-    }
-    if (weight < SKIN_SUPPORT_THRESHOLD) {
-        return;
-    }
-    let d = host_sub3(positions_at(i), origin());
-    let local = vec3<f32>(host_dot(d, axis(0u)), host_dot(d, axis(1u)), host_dot(d, axis(2u)));
-    if (abs(local.y) > host_mul(frame[15], ENVELOPE_SPAN_FRACTION)) {
-        return;
-    }
-    for (var a = 0u; a < 3u; a = a + 1u) {
-        atomicMin(&reductions[1u + a], ordered_from_float(local[a]));
-        atomicMax(&reductions[4u + a], ordered_from_float(local[a]));
-    }
-}
-"#;
-
-/// One invocation: centre the frame on the skin across and front to back,
-/// and size it.
-const FINISH: &str = r#"
-fn low(a: u32) -> f32 {
-    return float_from_ordered(atomicLoad(&reductions[1u + a]));
-}
-
-fn high(a: u32) -> f32 {
-    return float_from_ordered(atomicLoad(&reductions[4u + a]));
-}
-
-@compute @workgroup_size(1)
-fn main() {
-    for (var a = 0u; a < 3u; a = a + 1u) {
-        if (!(abs(low(a)) <= 3.4e38) || !(abs(high(a)) <= 3.4e38)) {
-            fail(NO_ENVELOPE);
-            return;
-        }
-    }
-    let center = vec3<f32>(
-        host_mul(host_add(low(0u), high(0u)), 0.5),
-        0.0,
-        host_mul(host_add(low(2u), high(2u)), 0.5),
-    );
-    // The centre placed along the frame's axes, as `PartFrame::point` places it.
-    var placed: vec3<f32>;
-    let start = origin();
-    for (var c = 0u; c < 3u; c = c + 1u) {
-        let along = host_add(
-            host_add(host_mul(axis(0u)[c], center.x), host_mul(axis(1u)[c], center.y)),
-            host_mul(axis(2u)[c], center.z),
-        );
-        placed[c] = host_add(start[c], along);
-    }
-    set_vector(0u, placed);
-    frame[12] = max(host_mul(host_sub(high(0u), low(0u)), 0.5), MINIMUM_REGION_RADIUS_M);
-    frame[13] = max(host_mul(frame[15], 0.5), MINIMUM_REGION_RADIUS_M);
-    frame[14] = max(host_mul(host_sub(high(2u), low(2u)), 0.5), MINIMUM_REGION_RADIUS_M);
-    // The checks of `PartFrame::validate`: orthonormal axes, positive extents,
-    // finite words.
-    var valid = true;
-    for (var a = 0u; a < 3u; a = a + 1u) {
-        for (var b = 0u; b < 3u; b = b + 1u) {
-            let expected = select(0.0, 1.0, a == b);
-            if (!(abs(host_dot(axis(a), axis(b)) - expected) < 0.001)) {
-                valid = false;
-            }
-        }
-        if (!(frame[12u + a] > 0.0)) {
-            valid = false;
-        }
-    }
-    for (var w = 0u; w < 15u; w = w + 1u) {
-        if (!(abs(frame[w]) <= 3.4e38)) {
-            valid = false;
-        }
-    }
-    if (!valid) {
-        fail(INVALID);
-    }
-}
-"#;

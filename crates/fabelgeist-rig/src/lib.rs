@@ -1,12 +1,13 @@
 //! Exact skeleton joint labels shared by asset admission and runtime consumers.
 //! Anatomical roles do not replace a rig's authored joint identity.
+
+use derive_more::{Display, From, Into};
+pub use part::RigJointPart;
 use serde::{Deserialize, Serialize};
-use std::borrow::Cow;
+use std::{borrow::Cow, num::TryFromIntError};
+
 mod names;
 mod part;
-#[cfg(test)]
-mod tests;
-pub use part::RigJointPart;
 
 /// An exact rig label. Namespace policy belongs to its source format.
 /// Empty and unfamiliar labels are retained; identity alone does not prove
@@ -21,9 +22,23 @@ pub use part::RigJointPart;
 /// use fabelgeist_rig::{RigJointName, RigJointOrdinal};
 /// let slot: RigJointOrdinal = RigJointName::ROOT;
 /// ```
-#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
+#[derive(
+    Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize, Display, From, Into,
+)]
 #[serde(transparent)]
+#[from(String)]
 pub struct RigJointName(Cow<'static, str>);
+
+/// Zero-based location in an ordered rig, distinct from a parameter row.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, From, Into)]
+pub struct RigJointOrdinal(usize);
+
+/// Absence from the requested rig, retaining the exact query identity.
+#[derive(Clone, Debug, PartialEq, Eq, Display)]
+#[display("rig joint {joint} is missing")]
+pub struct RigJointLookupError {
+    pub joint: RigJointName,
+}
 
 /// Side in an authored rig label, independent of equipment placement.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -38,6 +53,7 @@ pub enum RigJointMembership {
     Included,
     Excluded,
 }
+
 impl From<bool> for RigJointMembership {
     fn from(included: bool) -> Self {
         if included {
@@ -57,35 +73,21 @@ impl From<RigJointMembership> for u32 {
     }
 }
 
-/// Zero-based location in an ordered rig, distinct from a parameter row.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct RigJointOrdinal(usize);
-impl From<usize> for RigJointOrdinal {
-    fn from(index: usize) -> Self {
-        Self(index)
-    }
-}
 impl From<u32> for RigJointOrdinal {
     fn from(index: u32) -> Self {
         Self(index as usize)
     }
 }
-impl From<RigJointOrdinal> for usize {
-    fn from(index: RigJointOrdinal) -> Self {
-        index.0
+
+/// Checked encoding for native formats whose joint words are 32 bits.
+impl TryFrom<RigJointOrdinal> for u32 {
+    type Error = TryFromIntError;
+
+    fn try_from(index: RigJointOrdinal) -> Result<Self, Self::Error> {
+        Self::try_from(index.0)
     }
 }
 
-/// Absence from the requested rig, retaining the exact query identity.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub struct RigJointLookupError {
-    pub joint: RigJointName,
-}
-impl std::fmt::Display for RigJointLookupError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "rig joint {} is missing", self.joint)
-    }
-}
 impl std::error::Error for RigJointLookupError {}
 
 impl RigJointName {
@@ -140,7 +142,14 @@ impl RigJointName {
     /// Existing garment selection matches anatomical fragments anywhere in
     /// the label, including helper suffixes. It does not assert canonical anatomy.
     pub fn contains_part(&self, part: RigJointPart) -> RigJointMembership {
-        RigJointMembership::from(self.0.contains(&part.to_string()))
+        RigJointMembership::from(self.0.contains(part.as_ref()))
+    }
+
+    /// Animation masks match an underscore-prefixed anatomical fragment in
+    /// lowercase spelling, including helper suffixes and namespaced labels.
+    /// This query does not normalize the retained authored identity.
+    pub fn animation_part(&self, part: RigJointPart) -> RigJointMembership {
+        RigJointMembership::from(self.0.to_ascii_lowercase().contains(&format!("_{part}")))
     }
 
     /// Preserve the first occurrence when a rig contains duplicate labels.
@@ -158,29 +167,19 @@ impl RigJointName {
         })
     }
 }
+
 impl From<&str> for RigJointName {
     fn from(name: &str) -> Self {
         Self(Cow::Owned(name.to_owned()))
     }
 }
-impl From<String> for RigJointName {
-    fn from(name: String) -> Self {
-        Self(Cow::Owned(name))
-    }
-}
-impl From<RigJointName> for Cow<'static, str> {
-    fn from(name: RigJointName) -> Self {
-        name.0
-    }
-}
+
 /// Borrow the original spelling at a native text-format boundary.
 impl<'a> From<&'a RigJointName> for Cow<'a, str> {
     fn from(name: &'a RigJointName) -> Self {
         Cow::Borrowed(name.0.as_ref())
     }
 }
-impl std::fmt::Display for RigJointName {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(f)
-    }
-}
+
+#[cfg(test)]
+mod tests;

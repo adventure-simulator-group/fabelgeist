@@ -3,8 +3,6 @@
     reason = "the gameplay client, animation viewer, and reflection linker consume different parts of this shared facade"
 )]
 
-use std::collections::{BTreeMap, BTreeSet, HashSet};
-
 use adventuresim_tactical_core::animation::AttackCurve;
 use adventuresim_tactical_core::prelude::*;
 #[cfg(not(target_family = "wasm"))]
@@ -17,18 +15,21 @@ use bevy::{
     gltf::Gltf,
     prelude::*,
 };
-
-mod bind_pose;
-mod capture_ids;
-mod identity_morphs;
-pub(crate) mod skeletal_proportions;
 use bind_pose::{capture_authored_bind_transforms, restore_authored_bind_pose};
 pub(crate) use capture_ids::{capture_animation_target_id, capture_entity_id};
-
-pub(crate) mod jitter;
-pub(crate) mod pose_buffer;
-mod procedural;
-
+pub use catalog::AnimationPackCatalog;
+use catalog::*;
+use continuation::{ContinuationSpan, append_continuation_span};
+use diagnostics::log_animation_diagnostics;
+#[cfg(not(target_family = "wasm"))]
+pub(crate) use diagnostics::{
+    AnimationDiagnosticLog, DiagnosticInputStatus, RenderScheduleTelemetry,
+};
+use loading::*;
+pub(crate) use presentation::{
+    plugin::{AnimatedActors, StrategicModel},
+    *,
+};
 pub(crate) use procedural::{
     ArmIkState, BoneRole, HandIkTarget, HandSide, HeldWeaponConstraint, HumanoidBone,
     HumanoidIkTargets, HumanoidRig, LegIkDiagnostics, LegIkState, LocomotionBodyResponseState,
@@ -36,64 +37,41 @@ pub(crate) use procedural::{
     authored_bind_global, cache_humanoid_rigs, locomotion_support_weights,
     measured_ankle_sole_offset_metres, sole_contact_tolerance_metres,
 };
-const HUMANOID_UNARMED_PACK: &str = "humanoid_unarmed";
-const HUMANOID_2H_CLOSE_PACK: &str = "humanoid_2h_close";
-const BIPED_BASE_GLB: &str = "animations/biped/unarmed/base.glb";
-const BIPED_GRIP_HILT_GLB: &str = "animations/biped/grip_hilt.glb";
-const BIPED_GRIP_POLEARM_GLB: &str = "animations/biped/grip_polearm.glb";
-fn animation_frames_per_second() -> f32 {
-    runtime_animation_config().playback.frames_per_second
-}
-// Player transforms sit at the center of the 1.9 m server collider, while
-// authored rigs use a floor-level origin. Keep visual feet on the collider's
-// lower face so the first-person camera lands at the authored head.
-fn player_visual_y_offset_metres() -> f32 {
-    runtime_animation_config()
-        .playback
-        .player_visual_y_offset_metres
-}
+use rig_identity::AnimationBodyRegion;
+pub(crate) use rig_identity::AuthoredRigJoint;
+use std::collections::{BTreeMap, BTreeSet, HashSet};
 
-mod diagnostics;
-use diagnostics::log_animation_diagnostics;
+mod bind_pose;
+pub(crate) mod bouncy_bones;
+mod capture_ids;
+pub(crate) mod catalog;
 mod continuation;
-use continuation::{ContinuationSpan, append_continuation_span};
-#[cfg(not(target_family = "wasm"))]
-pub(crate) use diagnostics::{
-    AnimationDiagnosticLog, DiagnosticInputStatus, RenderScheduleTelemetry,
-};
-pub(crate) mod semantic_route;
-
-fn animation_asset_path(path: &str) -> String {
-    #[cfg(not(target_family = "wasm"))]
-    {
-        format!("workspace://{path}")
-    }
-    #[cfg(target_family = "wasm")]
-    {
-        path.to_owned()
-    }
-}
-
+mod diagnostics;
+mod identity_morphs;
+pub(crate) mod jitter;
+mod loading;
+pub(crate) mod pose_buffer;
 mod presentation;
-pub(crate) use presentation::{
-    plugin::{AnimatedActors, StrategicModel},
-    *,
-};
+mod procedural;
+mod ragdoll;
+mod rig_identity;
+pub(crate) mod semantic_route;
+pub(crate) mod skeletal_proportions;
+
+const HUMANOID_UNARMED_PACK: &str = "humanoid_unarmed";
+
+const HUMANOID_2H_CLOSE_PACK: &str = "humanoid_2h_close";
+
+const BIPED_BASE_GLB: &str = "animations/biped/unarmed/base.glb";
+
+const BIPED_GRIP_HILT_GLB: &str = "animations/biped/grip_hilt.glb";
+
+const BIPED_GRIP_POLEARM_GLB: &str = "animations/biped/grip_polearm.glb";
 
 /// Runtime switch for terrain height, slope, and pelvis conformity. This is on
 /// by default; debug builds expose F8 to compare against authored FK.
 #[derive(Resource, Debug, Clone, Copy, PartialEq, Eq)]
 pub(crate) struct TerrainIkEnabled(pub bool);
-
-impl Default for TerrainIkEnabled {
-    fn default() -> Self {
-        Self(true)
-    }
-}
-
-pub(crate) mod catalog;
-pub use catalog::AnimationPackCatalog;
-use catalog::*;
 
 /// Per-step travel and irreducible stance slip measured from the loaded
 /// authored foot curves. Until a motion and rig are both available,
@@ -111,6 +89,158 @@ struct AuthoredStrideMeasurement {
 #[derive(Debug, Clone)]
 struct AuthoredPhaseCurve {
     authored_phases: Vec<f32>,
+}
+
+#[derive(Resource, Debug, Clone, Default)]
+pub(super) struct AuthoredLocomotionStrides {
+    walk: Option<AuthoredStrideMeasurement>,
+    run: Option<AuthoredStrideMeasurement>,
+    strafe: Option<AuthoredStrideMeasurement>,
+    skip: Option<AuthoredStrideMeasurement>,
+    phase_curves: BTreeMap<String, AuthoredPhaseCurve>,
+    measured_clips: BTreeMap<String, AssetId<AnimationClip>>,
+}
+
+#[derive(Debug, Clone)]
+struct LoadedClip {
+    handle: Handle<AnimationClip>,
+    duration_seconds: f32,
+    layer: ClipLayer,
+}
+
+#[derive(Resource, Default)]
+pub(crate) struct AnimationRuntime {
+    requested_base: Option<Handle<Gltf>>,
+    base_processed: bool,
+    base_failed: bool,
+    base_scene: Option<Handle<WorldAsset>>,
+    requested_motions: BTreeMap<(String, String), Handle<Gltf>>,
+    processed_motions: BTreeSet<(String, String)>,
+    unavailable_motions: BTreeSet<(String, String)>,
+    clip_handles: BTreeMap<(String, String), Handle<AnimationClip>>,
+    clips: BTreeMap<(String, String), LoadedClip>,
+    requested_grips: BTreeMap<WeaponGrip, Handle<Gltf>>,
+    processed_grips: BTreeSet<WeaponGrip>,
+    unavailable_grips: BTreeSet<WeaponGrip>,
+    grips: BTreeMap<WeaponGrip, LoadedClip>,
+    library: AnimationPackLibrary,
+    canonical_targets: HashSet<AnimationTargetId>,
+}
+
+#[derive(Component, Debug)]
+pub(super) struct AnimationPlayback {
+    clips: Vec<WeightedClip>,
+    extrapolated_spans: Vec<ExtrapolatedSpan>,
+    continuation_spans: Vec<ContinuationSpan>,
+    use_authored_bind_pose: bool,
+    pub(super) whole_body_mirror: f32,
+    pub(super) foot_ik_weights: Vec2,
+    weapon_guard: WeaponGuardState,
+    ordinary_locomotion_active: bool,
+    direct_sampling: bool,
+}
+
+#[derive(Debug, Clone)]
+struct WeightedClip {
+    clip: LoadedClip,
+    weight: f32,
+    time_seconds: f32,
+    mirrored_weight: f32,
+    /// Unwarped physical phase for ordinary sparse-pose locomotion. Its
+    /// presence selects the Bevy-side semantic-anchor sampler while
+    /// `time_seconds` retains the measured authored phase coordinate.
+    locomotion_phase: Option<f32>,
+}
+
+#[derive(Debug, Clone)]
+struct ExtrapolatedSpan {
+    start: LoadedClip,
+    start_time_seconds: f32,
+    end: LoadedClip,
+    end_time_seconds: f32,
+    coordinate: f32,
+    weight: f32,
+    mirrored_weight: f32,
+}
+
+#[derive(Debug, Clone)]
+struct PlaybackPose {
+    clips: Vec<WeightedClip>,
+    extrapolated_spans: Vec<ExtrapolatedSpan>,
+    continuation_spans: Vec<ContinuationSpan>,
+    use_authored_bind_pose: bool,
+    whole_body_mirror: f32,
+    foot_ik_weights: Vec2,
+    direct_sampling: bool,
+}
+
+#[derive(Component)]
+pub struct FallbackAnimationRig(pub Entity);
+
+#[derive(Component)]
+pub(super) struct AnimationRigScene(pub Entity);
+
+#[derive(Component)]
+struct AnimationRigAttached;
+
+#[derive(Component)]
+struct RigAnimationTargetsBound;
+
+#[derive(Component, Debug, Clone, Copy)]
+pub(crate) struct AuthoredBindTransform {
+    pub(crate) owner: Entity,
+    pub(super) local: Transform,
+}
+
+#[derive(Clone)]
+struct ResolvedAnchor<'a> {
+    clip: &'a LoadedClip,
+    anchor: &'a PoseAnchor,
+    pack_id: &'a str,
+    semantic: SemanticPose,
+    mirrored: bool,
+    timeline_reversed: bool,
+}
+
+#[derive(Clone, Copy)]
+struct PoseSampleResolver<'a> {
+    runtime: &'a AnimationRuntime,
+    catalog: &'a AnimationPackCatalog,
+    pack: &'a str,
+    locomotion_strides: &'a AuthoredLocomotionStrides,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+enum ClipLayer {
+    Whole,
+    Upper,
+    Lower,
+    /// Combat upper-body motion owns the pelvis rotation while the paired
+    /// locomotion layer owns its translation.
+    CombatUpper,
+    CombatLower,
+    /// Static equipment grip owns only the subtree below the right wrist.
+    MainHand,
+    /// Static equipment grip owns only the subtree below the left wrist.
+    Offhand,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+enum WeaponGrip {
+    Hilt,
+    Polearm,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum PoseSamplingCadence {
+    Buffered,
+    Direct,
+}
+
+impl Default for TerrainIkEnabled {
+    fn default() -> Self {
+        Self(true)
+    }
 }
 
 impl AuthoredPhaseCurve {
@@ -137,16 +267,6 @@ impl AuthoredStrideMeasurement {
                 .lerp(other.maximum_stance_slip, amount),
         }
     }
-}
-
-#[derive(Resource, Debug, Clone, Default)]
-pub(super) struct AuthoredLocomotionStrides {
-    walk: Option<AuthoredStrideMeasurement>,
-    run: Option<AuthoredStrideMeasurement>,
-    strafe: Option<AuthoredStrideMeasurement>,
-    skip: Option<AuthoredStrideMeasurement>,
-    phase_curves: BTreeMap<String, AuthoredPhaseCurve>,
-    measured_clips: BTreeMap<String, AssetId<AnimationClip>>,
 }
 
 impl AuthoredLocomotionStrides {
@@ -213,13 +333,6 @@ impl AuthoredLocomotionStrides {
     }
 }
 
-#[derive(Debug, Clone)]
-struct LoadedClip {
-    handle: Handle<AnimationClip>,
-    duration_seconds: f32,
-    layer: ClipLayer,
-}
-
 impl LoadedClip {
     fn at_anchor(&self, frame: u16) -> Self {
         self.at_anchor_layer(frame, ClipLayer::Whole)
@@ -230,27 +343,6 @@ impl LoadedClip {
         clip.layer = layer;
         clip
     }
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-enum ClipLayer {
-    Whole,
-    Upper,
-    Lower,
-    /// Combat upper-body motion owns the pelvis rotation while the paired
-    /// locomotion layer owns its translation.
-    CombatUpper,
-    CombatLower,
-    /// Static equipment grip owns only the subtree below the right wrist.
-    MainHand,
-    /// Static equipment grip owns only the subtree below the left wrist.
-    Offhand,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-enum WeaponGrip {
-    Hilt,
-    Polearm,
 }
 
 impl WeaponGrip {
@@ -264,25 +356,6 @@ impl WeaponGrip {
     }
 }
 
-#[derive(Resource, Default)]
-pub(crate) struct AnimationRuntime {
-    requested_base: Option<Handle<Gltf>>,
-    base_processed: bool,
-    base_failed: bool,
-    base_scene: Option<Handle<WorldAsset>>,
-    requested_motions: BTreeMap<(String, String), Handle<Gltf>>,
-    processed_motions: BTreeSet<(String, String)>,
-    unavailable_motions: BTreeSet<(String, String)>,
-    clip_handles: BTreeMap<(String, String), Handle<AnimationClip>>,
-    clips: BTreeMap<(String, String), LoadedClip>,
-    requested_grips: BTreeMap<WeaponGrip, Handle<Gltf>>,
-    processed_grips: BTreeSet<WeaponGrip>,
-    unavailable_grips: BTreeSet<WeaponGrip>,
-    grips: BTreeMap<WeaponGrip, LoadedClip>,
-    library: AnimationPackLibrary,
-    canonical_targets: HashSet<AnimationTargetId>,
-}
-
 impl AnimationRuntime {
     pub(crate) fn requested_base(&self) -> Option<&Handle<Gltf>> {
         self.requested_base.as_ref()
@@ -293,25 +366,6 @@ impl AnimationRuntime {
             .iter()
             .any(|(_, processed)| processed == motion)
     }
-}
-
-#[derive(Component, Debug)]
-pub(super) struct AnimationPlayback {
-    clips: Vec<WeightedClip>,
-    extrapolated_spans: Vec<ExtrapolatedSpan>,
-    continuation_spans: Vec<ContinuationSpan>,
-    use_authored_bind_pose: bool,
-    pub(super) whole_body_mirror: f32,
-    pub(super) foot_ik_weights: Vec2,
-    weapon_guard: WeaponGuardState,
-    ordinary_locomotion_active: bool,
-    direct_sampling: bool,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-enum PoseSamplingCadence {
-    Buffered,
-    Direct,
 }
 
 impl AnimationPlayback {
@@ -357,62 +411,333 @@ impl Default for AnimationPlayback {
     }
 }
 
-#[derive(Debug, Clone)]
-struct WeightedClip {
-    clip: LoadedClip,
-    weight: f32,
-    time_seconds: f32,
-    mirrored_weight: f32,
-    /// Unwarped physical phase for ordinary sparse-pose locomotion. Its
-    /// presence selects the Bevy-side semantic-anchor sampler while
-    /// `time_seconds` retains the measured authored phase coordinate.
-    locomotion_phase: Option<f32>,
+impl PoseSampleResolver<'_> {
+    fn append_layer(
+        &self,
+        weighted: &mut Vec<WeightedClip>,
+        extrapolated_spans: &mut Vec<ExtrapolatedSpan>,
+        continuation_spans: &mut Vec<ContinuationSpan>,
+        sample: PoseSample,
+        layer: ClipLayer,
+    ) {
+        let Self {
+            runtime,
+            catalog,
+            pack,
+            locomotion_strides,
+        } = *self;
+        let start = resolve_anchor(runtime, catalog, pack, sample.pose);
+        let Some(start) = start.and_then(|resolved| {
+            select_gait_endpoint_parity(runtime, resolved, sample.mirror_lower_body)
+        }) else {
+            return;
+        };
+        match sample.sampling {
+            PoseSampling::Anchor => {
+                append_weighted_anchor(weighted, &start, start.anchor.frame, sample.weight, layer)
+            }
+            PoseSampling::Cycle { phase } => {
+                let sample_phase = locomotion_strides.sample_phase(sample.pose, phase);
+                let clip = start.clip.at_anchor_layer(start.anchor.frame, layer);
+                append_weighted_clip(
+                    weighted,
+                    &clip,
+                    start.mirrored,
+                    start.clip.duration_seconds * sample_phase,
+                    sample.weight,
+                    matches!(
+                        sample.pose,
+                        SemanticPose::WalkContact | SemanticPose::RunContact
+                    )
+                    .then_some(phase.rem_euclid(1.0)),
+                );
+            }
+            PoseSampling::Timeline { progress } => {
+                let progress = progress.clamp(0.0, 1.0);
+                let timeline = if start.timeline_reversed {
+                    1.0 - progress
+                } else {
+                    progress
+                };
+                let clip = start.clip.at_anchor_layer(start.anchor.frame, layer);
+                append_weighted_clip(
+                    weighted,
+                    &clip,
+                    start.mirrored,
+                    start.clip.duration_seconds * timeline,
+                    sample.weight,
+                    None,
+                );
+            }
+            PoseSampling::Span { end, progress } => {
+                let end_pose = end;
+                let progress = progress.clamp(0.0, 1.0);
+                let end = resolve_anchor(runtime, catalog, pack, end_pose);
+                let Some(end) = end else {
+                    append_weighted_anchor(
+                        weighted,
+                        &start,
+                        start.anchor.frame,
+                        sample.weight,
+                        layer,
+                    );
+                    return;
+                };
+                if start.pack_id == end.pack_id && start.anchor.motion == end.anchor.motion {
+                    append_weighted_anchor(
+                        weighted,
+                        &start,
+                        start.anchor.frame,
+                        sample.weight * (1.0 - progress),
+                        layer,
+                    );
+                    append_weighted_anchor(
+                        weighted,
+                        &end,
+                        end.anchor.frame,
+                        sample.weight * progress,
+                        layer,
+                    );
+                } else if let Some(reference) = catalog.packs[end.pack_id]
+                    .references
+                    .get(&end.anchor.motion)
+                    .and_then(|references| {
+                        references
+                            .iter()
+                            .filter(|reference| reference.pose == sample.pose)
+                            .min_by_key(|reference| reference.frame.abs_diff(end.anchor.frame))
+                    })
+                {
+                    append_weighted_anchor(
+                        weighted,
+                        &end,
+                        reference.frame,
+                        sample.weight * (1.0 - progress),
+                        layer,
+                    );
+                    append_weighted_anchor(
+                        weighted,
+                        &end,
+                        end.anchor.frame,
+                        sample.weight * progress,
+                        layer,
+                    );
+                } else if let Some(reference) = catalog.packs[start.pack_id]
+                    .references
+                    .get(&start.anchor.motion)
+                    .and_then(|references| {
+                        references
+                            .iter()
+                            .filter(|reference| reference.pose == end_pose)
+                            .min_by_key(|reference| reference.frame.abs_diff(start.anchor.frame))
+                    })
+                {
+                    append_weighted_anchor(
+                        weighted,
+                        &start,
+                        start.anchor.frame,
+                        sample.weight * (1.0 - progress),
+                        layer,
+                    );
+                    append_weighted_anchor(
+                        weighted,
+                        &start,
+                        reference.frame,
+                        sample.weight * progress,
+                        layer,
+                    );
+                } else {
+                    append_weighted_anchor(
+                        weighted,
+                        &start,
+                        start.anchor.frame,
+                        sample.weight * (1.0 - progress),
+                        layer,
+                    );
+                    append_weighted_anchor(
+                        weighted,
+                        &end,
+                        end.anchor.frame,
+                        sample.weight * progress,
+                        layer,
+                    );
+                }
+            }
+            PoseSampling::CurveSpan { end, coordinate } => {
+                let end_pose = end;
+                let coordinate = coordinate.clamp(
+                    -AttackCurve::maximum_drawback(),
+                    1.0 + AttackCurve::maximum_overshoot(),
+                );
+                let Some(end) = resolve_anchor(runtime, catalog, pack, end_pose) else {
+                    append_weighted_anchor(
+                        weighted,
+                        &start,
+                        start.anchor.frame,
+                        sample.weight,
+                        layer,
+                    );
+                    return;
+                };
+                let (span_start, start_frame, span_end, end_frame) = if start.pack_id == end.pack_id
+                    && start.anchor.motion == end.anchor.motion
+                {
+                    (
+                        start.clone(),
+                        start.anchor.frame,
+                        end.clone(),
+                        end.anchor.frame,
+                    )
+                } else if let Some(reference) = catalog.packs[end.pack_id]
+                    .references
+                    .get(&end.anchor.motion)
+                    .and_then(|references| {
+                        references
+                            .iter()
+                            .filter(|reference| reference.pose == sample.pose)
+                            .min_by_key(|reference| reference.frame.abs_diff(end.anchor.frame))
+                    })
+                {
+                    (end.clone(), reference.frame, end.clone(), end.anchor.frame)
+                } else if let Some(reference) = catalog.packs[start.pack_id]
+                    .references
+                    .get(&start.anchor.motion)
+                    .and_then(|references| {
+                        references
+                            .iter()
+                            .filter(|reference| reference.pose == end_pose)
+                            .min_by_key(|reference| reference.frame.abs_diff(start.anchor.frame))
+                    })
+                {
+                    (
+                        start.clone(),
+                        start.anchor.frame,
+                        start.clone(),
+                        reference.frame,
+                    )
+                } else {
+                    (
+                        start.clone(),
+                        start.anchor.frame,
+                        end.clone(),
+                        end.anchor.frame,
+                    )
+                };
+                extrapolated_spans.push(ExtrapolatedSpan {
+                    start: span_start.clip.at_anchor_layer(start_frame, layer),
+                    start_time_seconds: frame_seconds(start_frame),
+                    end: span_end.clip.at_anchor_layer(end_frame, layer),
+                    end_time_seconds: frame_seconds(end_frame),
+                    coordinate,
+                    weight: sample.weight,
+                    mirrored_weight: if span_start.mirrored {
+                        sample.weight
+                    } else {
+                        0.0
+                    },
+                });
+            }
+            sampling @ PoseSampling::ContinuationSpan { .. } => append_continuation_span(
+                self,
+                weighted,
+                continuation_spans,
+                &start,
+                sample,
+                sampling,
+                layer,
+            ),
+        }
+    }
 }
 
-#[derive(Debug, Clone)]
-struct ExtrapolatedSpan {
-    start: LoadedClip,
-    start_time_seconds: f32,
-    end: LoadedClip,
-    end_time_seconds: f32,
-    coordinate: f32,
-    weight: f32,
-    mirrored_weight: f32,
+/// Spawns a deliberately obvious T-pose mannequin. It remains visible until
+/// the independently loaded authored base rig is available, even if no motion
+/// clip has been exported yet.
+pub fn spawn_fallback_t_pose(
+    parent: &mut ChildSpawnerCommands,
+    owner: Entity,
+    color: Color,
+    meshes: &mut Assets<Mesh>,
+    materials: &mut Assets<StandardMaterial>,
+) {
+    let material = materials.add(StandardMaterial {
+        base_color: color,
+        metallic: 0.0,
+        perceptual_roughness: 1.0,
+        ..default()
+    });
+    let torso = meshes.add(Capsule3d::new(0.24, 0.5));
+    let head = meshes.add(Sphere::new(0.22));
+    let arm = meshes.add(Cuboid::new(0.72, 0.16, 0.18));
+    let leg = meshes.add(Capsule3d::new(0.12, 0.72));
+    parent
+        .spawn((
+            Name::new("Fallback bind-pose T rig"),
+            FallbackAnimationRig(owner),
+            Transform::from_xyz(0.0, player_visual_y_offset_metres(), 0.0),
+            Visibility::Inherited,
+        ))
+        .with_children(|rig| {
+            rig.spawn((
+                Name::new("hips/spine/chest"),
+                Mesh3d(torso),
+                MeshMaterial3d(material.clone()),
+                Transform::from_xyz(0.0, 0.35, 0.0),
+            ));
+            rig.spawn((
+                Name::new("head"),
+                Mesh3d(head),
+                MeshMaterial3d(material.clone()),
+                Transform::from_xyz(0.0, 1.02, 0.0),
+            ));
+            for (name, x) in [
+                ("l_uparm/l_lowarm/l_wrist", -0.56),
+                ("r_uparm/r_lowarm/r_wrist", 0.56),
+            ] {
+                rig.spawn((
+                    Name::new(name),
+                    Mesh3d(arm.clone()),
+                    MeshMaterial3d(material.clone()),
+                    Transform::from_xyz(x, 0.68, 0.0),
+                ));
+            }
+            for (name, x) in [
+                ("l_upleg/l_lowleg/l_foot", -0.16),
+                ("r_upleg/r_lowleg/r_foot", 0.16),
+            ] {
+                rig.spawn((
+                    Name::new(name),
+                    Mesh3d(leg.clone()),
+                    MeshMaterial3d(material.clone()),
+                    Transform::from_xyz(x, -0.46, 0.0),
+                ));
+            }
+        });
 }
 
-#[derive(Debug, Clone)]
-struct PlaybackPose {
-    clips: Vec<WeightedClip>,
-    extrapolated_spans: Vec<ExtrapolatedSpan>,
-    continuation_spans: Vec<ContinuationSpan>,
-    use_authored_bind_pose: bool,
-    whole_body_mirror: f32,
-    foot_ik_weights: Vec2,
-    direct_sampling: bool,
+fn animation_frames_per_second() -> f32 {
+    runtime_animation_config().playback.frames_per_second
 }
 
-#[derive(Component)]
-pub struct FallbackAnimationRig(pub Entity);
-
-#[derive(Component)]
-pub(super) struct AnimationRigScene(pub Entity);
-
-#[derive(Component)]
-struct AnimationRigAttached;
-
-#[derive(Component)]
-struct RigAnimationTargetsBound;
-
-#[derive(Component, Debug, Clone, Copy)]
-pub(crate) struct AuthoredBindTransform {
-    pub(crate) owner: Entity,
-    pub(super) local: Transform,
+// Player transforms sit at the center of the 1.9 m server collider, while
+// authored rigs use a floor-level origin. Keep visual feet on the collider's
+// lower face so the first-person camera lands at the authored head.
+fn player_visual_y_offset_metres() -> f32 {
+    runtime_animation_config()
+        .playback
+        .player_visual_y_offset_metres
 }
 
-pub(crate) mod bouncy_bones;
-mod loading;
-mod ragdoll;
-use loading::*;
+fn animation_asset_path(path: &str) -> String {
+    #[cfg(not(target_family = "wasm"))]
+    {
+        format!("workspace://{path}")
+    }
+    #[cfg(target_family = "wasm")]
+    {
+        path.to_owned()
+    }
+}
 
 #[expect(
     clippy::type_complexity,
@@ -773,16 +1098,6 @@ fn on_successful_attack(
     }
 }
 
-#[derive(Clone)]
-struct ResolvedAnchor<'a> {
-    clip: &'a LoadedClip,
-    anchor: &'a PoseAnchor,
-    pack_id: &'a str,
-    semantic: SemanticPose,
-    mirrored: bool,
-    timeline_reversed: bool,
-}
-
 fn resolve_anchor<'a>(
     runtime: &'a AnimationRuntime,
     catalog: &'a AnimationPackCatalog,
@@ -949,253 +1264,6 @@ fn append_resolved_sample(
     );
 }
 
-#[derive(Clone, Copy)]
-struct PoseSampleResolver<'a> {
-    runtime: &'a AnimationRuntime,
-    catalog: &'a AnimationPackCatalog,
-    pack: &'a str,
-    locomotion_strides: &'a AuthoredLocomotionStrides,
-}
-
-impl PoseSampleResolver<'_> {
-    fn append_layer(
-        &self,
-        weighted: &mut Vec<WeightedClip>,
-        extrapolated_spans: &mut Vec<ExtrapolatedSpan>,
-        continuation_spans: &mut Vec<ContinuationSpan>,
-        sample: PoseSample,
-        layer: ClipLayer,
-    ) {
-        let Self {
-            runtime,
-            catalog,
-            pack,
-            locomotion_strides,
-        } = *self;
-        let start = resolve_anchor(runtime, catalog, pack, sample.pose);
-        let Some(start) = start.and_then(|resolved| {
-            select_gait_endpoint_parity(runtime, resolved, sample.mirror_lower_body)
-        }) else {
-            return;
-        };
-        match sample.sampling {
-            PoseSampling::Anchor => {
-                append_weighted_anchor(weighted, &start, start.anchor.frame, sample.weight, layer)
-            }
-            PoseSampling::Cycle { phase } => {
-                let sample_phase = locomotion_strides.sample_phase(sample.pose, phase);
-                let clip = start.clip.at_anchor_layer(start.anchor.frame, layer);
-                append_weighted_clip(
-                    weighted,
-                    &clip,
-                    start.mirrored,
-                    start.clip.duration_seconds * sample_phase,
-                    sample.weight,
-                    matches!(
-                        sample.pose,
-                        SemanticPose::WalkContact | SemanticPose::RunContact
-                    )
-                    .then_some(phase.rem_euclid(1.0)),
-                );
-            }
-            PoseSampling::Timeline { progress } => {
-                let progress = progress.clamp(0.0, 1.0);
-                let timeline = if start.timeline_reversed {
-                    1.0 - progress
-                } else {
-                    progress
-                };
-                let clip = start.clip.at_anchor_layer(start.anchor.frame, layer);
-                append_weighted_clip(
-                    weighted,
-                    &clip,
-                    start.mirrored,
-                    start.clip.duration_seconds * timeline,
-                    sample.weight,
-                    None,
-                );
-            }
-            PoseSampling::Span { end, progress } => {
-                let end_pose = end;
-                let progress = progress.clamp(0.0, 1.0);
-                let end = resolve_anchor(runtime, catalog, pack, end_pose);
-                let Some(end) = end else {
-                    append_weighted_anchor(
-                        weighted,
-                        &start,
-                        start.anchor.frame,
-                        sample.weight,
-                        layer,
-                    );
-                    return;
-                };
-                if start.pack_id == end.pack_id && start.anchor.motion == end.anchor.motion {
-                    append_weighted_anchor(
-                        weighted,
-                        &start,
-                        start.anchor.frame,
-                        sample.weight * (1.0 - progress),
-                        layer,
-                    );
-                    append_weighted_anchor(
-                        weighted,
-                        &end,
-                        end.anchor.frame,
-                        sample.weight * progress,
-                        layer,
-                    );
-                } else if let Some(reference) = catalog.packs[end.pack_id]
-                    .references
-                    .get(&end.anchor.motion)
-                    .and_then(|references| {
-                        references
-                            .iter()
-                            .filter(|reference| reference.pose == sample.pose)
-                            .min_by_key(|reference| reference.frame.abs_diff(end.anchor.frame))
-                    })
-                {
-                    append_weighted_anchor(
-                        weighted,
-                        &end,
-                        reference.frame,
-                        sample.weight * (1.0 - progress),
-                        layer,
-                    );
-                    append_weighted_anchor(
-                        weighted,
-                        &end,
-                        end.anchor.frame,
-                        sample.weight * progress,
-                        layer,
-                    );
-                } else if let Some(reference) = catalog.packs[start.pack_id]
-                    .references
-                    .get(&start.anchor.motion)
-                    .and_then(|references| {
-                        references
-                            .iter()
-                            .filter(|reference| reference.pose == end_pose)
-                            .min_by_key(|reference| reference.frame.abs_diff(start.anchor.frame))
-                    })
-                {
-                    append_weighted_anchor(
-                        weighted,
-                        &start,
-                        start.anchor.frame,
-                        sample.weight * (1.0 - progress),
-                        layer,
-                    );
-                    append_weighted_anchor(
-                        weighted,
-                        &start,
-                        reference.frame,
-                        sample.weight * progress,
-                        layer,
-                    );
-                } else {
-                    append_weighted_anchor(
-                        weighted,
-                        &start,
-                        start.anchor.frame,
-                        sample.weight * (1.0 - progress),
-                        layer,
-                    );
-                    append_weighted_anchor(
-                        weighted,
-                        &end,
-                        end.anchor.frame,
-                        sample.weight * progress,
-                        layer,
-                    );
-                }
-            }
-            PoseSampling::CurveSpan { end, coordinate } => {
-                let end_pose = end;
-                let coordinate = coordinate.clamp(
-                    -AttackCurve::maximum_drawback(),
-                    1.0 + AttackCurve::maximum_overshoot(),
-                );
-                let Some(end) = resolve_anchor(runtime, catalog, pack, end_pose) else {
-                    append_weighted_anchor(
-                        weighted,
-                        &start,
-                        start.anchor.frame,
-                        sample.weight,
-                        layer,
-                    );
-                    return;
-                };
-                let (span_start, start_frame, span_end, end_frame) = if start.pack_id == end.pack_id
-                    && start.anchor.motion == end.anchor.motion
-                {
-                    (
-                        start.clone(),
-                        start.anchor.frame,
-                        end.clone(),
-                        end.anchor.frame,
-                    )
-                } else if let Some(reference) = catalog.packs[end.pack_id]
-                    .references
-                    .get(&end.anchor.motion)
-                    .and_then(|references| {
-                        references
-                            .iter()
-                            .filter(|reference| reference.pose == sample.pose)
-                            .min_by_key(|reference| reference.frame.abs_diff(end.anchor.frame))
-                    })
-                {
-                    (end.clone(), reference.frame, end.clone(), end.anchor.frame)
-                } else if let Some(reference) = catalog.packs[start.pack_id]
-                    .references
-                    .get(&start.anchor.motion)
-                    .and_then(|references| {
-                        references
-                            .iter()
-                            .filter(|reference| reference.pose == end_pose)
-                            .min_by_key(|reference| reference.frame.abs_diff(start.anchor.frame))
-                    })
-                {
-                    (
-                        start.clone(),
-                        start.anchor.frame,
-                        start.clone(),
-                        reference.frame,
-                    )
-                } else {
-                    (
-                        start.clone(),
-                        start.anchor.frame,
-                        end.clone(),
-                        end.anchor.frame,
-                    )
-                };
-                extrapolated_spans.push(ExtrapolatedSpan {
-                    start: span_start.clip.at_anchor_layer(start_frame, layer),
-                    start_time_seconds: frame_seconds(start_frame),
-                    end: span_end.clip.at_anchor_layer(end_frame, layer),
-                    end_time_seconds: frame_seconds(end_frame),
-                    coordinate,
-                    weight: sample.weight,
-                    mirrored_weight: if span_start.mirrored {
-                        sample.weight
-                    } else {
-                        0.0
-                    },
-                });
-            }
-            sampling @ PoseSampling::ContinuationSpan { .. } => append_continuation_span(
-                self,
-                weighted,
-                continuation_spans,
-                &start,
-                sample,
-                sampling,
-                layer,
-            ),
-        }
-    }
-}
-
 fn update_rig_visibility(
     playbacks: Query<&AnimationPlayback>,
     mut fallbacks: Query<(&FallbackAnimationRig, &mut Visibility)>,
@@ -1219,71 +1287,6 @@ fn update_rig_visibility(
             Visibility::Hidden
         };
     }
-}
-
-/// Spawns a deliberately obvious T-pose mannequin. It remains visible until
-/// the independently loaded authored base rig is available, even if no motion
-/// clip has been exported yet.
-pub fn spawn_fallback_t_pose(
-    parent: &mut ChildSpawnerCommands,
-    owner: Entity,
-    color: Color,
-    meshes: &mut Assets<Mesh>,
-    materials: &mut Assets<StandardMaterial>,
-) {
-    let material = materials.add(StandardMaterial {
-        base_color: color,
-        metallic: 0.0,
-        perceptual_roughness: 1.0,
-        ..default()
-    });
-    let torso = meshes.add(Capsule3d::new(0.24, 0.5));
-    let head = meshes.add(Sphere::new(0.22));
-    let arm = meshes.add(Cuboid::new(0.72, 0.16, 0.18));
-    let leg = meshes.add(Capsule3d::new(0.12, 0.72));
-    parent
-        .spawn((
-            Name::new("Fallback bind-pose T rig"),
-            FallbackAnimationRig(owner),
-            Transform::from_xyz(0.0, player_visual_y_offset_metres(), 0.0),
-            Visibility::Inherited,
-        ))
-        .with_children(|rig| {
-            rig.spawn((
-                Name::new("hips/spine/chest"),
-                Mesh3d(torso),
-                MeshMaterial3d(material.clone()),
-                Transform::from_xyz(0.0, 0.35, 0.0),
-            ));
-            rig.spawn((
-                Name::new("head"),
-                Mesh3d(head),
-                MeshMaterial3d(material.clone()),
-                Transform::from_xyz(0.0, 1.02, 0.0),
-            ));
-            for (name, x) in [
-                ("l_uparm/l_lowarm/l_wrist", -0.56),
-                ("r_uparm/r_lowarm/r_wrist", 0.56),
-            ] {
-                rig.spawn((
-                    Name::new(name),
-                    Mesh3d(arm.clone()),
-                    MeshMaterial3d(material.clone()),
-                    Transform::from_xyz(x, 0.68, 0.0),
-                ));
-            }
-            for (name, x) in [
-                ("l_upleg/l_lowleg/l_foot", -0.16),
-                ("r_upleg/r_lowleg/r_foot", 0.16),
-            ] {
-                rig.spawn((
-                    Name::new(name),
-                    Mesh3d(leg.clone()),
-                    MeshMaterial3d(material.clone()),
-                    Transform::from_xyz(x, -0.46, 0.0),
-                ));
-            }
-        });
 }
 
 #[cfg(test)]

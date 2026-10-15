@@ -4,11 +4,14 @@ use crate::{AuditIssue, BuildingPlan};
 const CONTACT_TOLERANCE_METRES: f32 = 0.04;
 const PLOT_EDGE_ALLOWANCE_METRES: f32 = 0.25;
 
-pub(crate) fn audit_workplace(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
+pub(crate) fn audit_workplace(
+    plan: &BuildingPlan,
+    issues: &mut Vec<AuditIssue>,
+) -> Result<(), crate::GenerationError> {
     let Some(workplace) = &plan.workplace else {
-        return;
+        return Ok(());
     };
-    super::horse_mill::audit_circuit(plan, issues);
+    super::horse_mill::audit_circuit(plan, issues)?;
     let solids = &plan.resolved_geometry.solids;
     for part in &workplace.parts {
         let Some(solid) = solids.iter().find(|solid| solid.id == part.solid) else {
@@ -18,13 +21,13 @@ pub(crate) fn audit_workplace(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>)
             });
             continue;
         };
-        let bounds = super::assembly::contact::bounds(solid);
-        let min = bounds.min;
-        let max = bounds.max;
+        let bounds = super::assembly::contact::bounds(solid)?;
+        let min = bounds.min().metres();
+        let max = bounds.max().metres();
         if min.x < -PLOT_EDGE_ALLOWANCE_METRES
             || min.z < -PLOT_EDGE_ALLOWANCE_METRES
-            || max.x > workplace.plot_dimensions_metres.x + PLOT_EDGE_ALLOWANCE_METRES
-            || max.z > workplace.plot_dimensions_metres.y + PLOT_EDGE_ALLOWANCE_METRES
+            || max.x > workplace.plot_dimensions_metres.metres().x + PLOT_EDGE_ALLOWANCE_METRES
+            || max.z > workplace.plot_dimensions_metres.metres().y + PLOT_EDGE_ALLOWANCE_METRES
         {
             issues.push(AuditIssue {
                 code: "workplace_outside_plot",
@@ -43,7 +46,9 @@ pub(crate) fn audit_workplace(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>)
             });
         }
         if workplace.passages.iter().any(|passage| {
-            (max.min(passage.max) - min.max(passage.min)).min_element() > CONTACT_TOLERANCE_METRES
+            (max.min(passage.bounds.max().metres()) - min.max(passage.bounds.min().metres()))
+                .min_element()
+                > CONTACT_TOLERANCE_METRES
         }) {
             issues.push(AuditIssue {
                 code: "workplace_blocked_passage",
@@ -67,10 +72,11 @@ pub(crate) fn audit_workplace(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>)
         WorkplaceKind::Tannery => WorkplaceFeature::SoakingTank,
         WorkplaceKind::HorseMill => WorkplaceFeature::Millstone,
     };
-    if !workplace.parts.iter().any(|part| part.feature == essential) {
+    let _: () = if !workplace.parts.iter().any(|part| part.feature == essential) {
         issues.push(AuditIssue {
             code: "workplace_missing_function",
             message: format!("{:?} lacks {essential:?}", workplace.kind),
         });
-    }
+    };
+    Ok(())
 }

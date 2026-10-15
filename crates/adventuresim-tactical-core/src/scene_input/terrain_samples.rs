@@ -1,4 +1,5 @@
 //! Captured geographic samples shared by all scene representations.
+use adventuresim_world_schema::source_package::SourcePackageDigest;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
@@ -9,7 +10,7 @@ use serde::{Deserialize, Serialize};
     deny_unknown_fields
 )]
 pub enum SceneSource {
-    ImportedPackage(String),
+    ImportedPackage(SourcePackageDigest),
     SyntheticFixture(String),
 }
 

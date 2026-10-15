@@ -6,31 +6,34 @@ use bevy::math::{Vec2, Vec3};
 use geo::{BooleanOps, Coord, LineString, MultiPolygon, Polygon};
 use thiserror::Error;
 
+use crate::spatial_geometry::{CuboidDimensions, PlanDimensions, Position, Radians};
+
 use crate::{
     AccessBrace, AccessDoor, AccessGuardSegment, AccessLanding, AccessLedger, AccessStairFlight,
-    AuditIssue, BUILDING_DOCUMENT_SCHEMA_VERSION, Bartizan, BattlementKind, BattlementRun,
-    BuildingArchetype, BuildingDocument, BuildingEdit, BuildingPlan, BuildingProgram,
-    CELL_SIZE_METRES, CROWN_DRAIN_CHANNEL_WIDTH_METRES, Cell, CellDiameter, CrownAssembly,
-    CrownJunction, CrownJunctionKind, CrownMaterial, CrownPath, CrownPattern, CrownPhase,
-    CrownProfile, CurtainWallRun, DefenderSample, DefensiveCircuit, DefensiveJunction,
-    DefensiveJunctionKind, Direction, DormerKind, DrainageCatchment, DrainageRoute, FiringPosition,
-    Footprint, GRID_UNIT_METRES, GableProfile, GateClosure, GateClosureKind, GateDefense,
-    GateGuardChamber, GateOperatingPosition, GatehouseAssemblySpec, GatehouseLoadPath,
-    GeometryOwnerId, GridLength, GridPoint, GuardChamberAccess, GuardChamberOpening,
-    GuardChamberSupport, GuardOpeningKind, InnerEdgeTreatment, JunctionBond, Opening, OpeningKind,
-    ProjectedDefenseAssembly, ProjectedDefenseDeployment, ProjectedDefenseHostTopology,
-    ProjectedDefenseHostWallSource, ProjectedDefenseKind, ProjectedDefenseMaterial,
-    ProjectedDefensePath, ProjectedDefensePhase, ProjectedDefenseRange, ProjectedDefenseRay,
-    ProjectedDefenseTarget, ProjectedDefenseWorkingPoint, ResolvedBounds, ResolvedGeometry,
+    Architectural, AuditIssue, BUILDING_DOCUMENT_SCHEMA_VERSION, Bartizan, BattlementKind,
+    BattlementRun, BuildingArchetype, BuildingDocument, BuildingEdit, BuildingPlan,
+    BuildingProgram, CELL_SIZE_METRES, CROWN_DRAIN_CHANNEL_WIDTH_METRES, Cell, CellDiameter,
+    CollisionCuboid, CrownAssembly, CrownJunction, CrownJunctionKind, CrownMaterial, CrownPath,
+    CrownPattern, CrownPhase, CrownProfile, CurtainWallRun, DefenderSample, DefensiveCircuit,
+    DefensiveJunction, DefensiveJunctionKind, Direction, DormerKind, DrainageCatchment,
+    DrainageRoute, FiringPosition, Footprint, GRID_UNIT_METRES, GableProfile, GateClosure,
+    GateClosureKind, GateDefense, GateGuardChamber, GateOperatingPosition, GatehouseAssemblySpec,
+    GatehouseLoadPath, GeometryOwnerId, GridLength, GridPoint, GuardChamberAccess,
+    GuardChamberOpening, GuardChamberSupport, GuardOpeningKind, InnerEdgeTreatment, JunctionBond,
+    Opening, OpeningKind, ProjectedDefenseAssembly, ProjectedDefenseDeployment,
+    ProjectedDefenseHostTopology, ProjectedDefenseHostWallSource, ProjectedDefenseKind,
+    ProjectedDefenseMaterial, ProjectedDefensePath, ProjectedDefensePhase, ProjectedDefenseRange,
+    ProjectedDefenseRay, ProjectedDefenseTarget, ProjectedDefenseWorkingPoint, ResolvedGeometry,
     ResolvedItemId, ResolvedSolid, ResolvedSurface, ResolvedVoid, RidgeAxis, RoofAbutmentAssembly,
     RoofAbutmentKind, RoofAbutmentSample, RoofAssembly, RoofAssemblyId, RoofChildAssembly,
     RoofChildKind, RoofDormer, RoofDrainageDisposition, RoofDrainageNetwork,
     RoofDrainageOutletStation, RoofDrainageRecipient, RoofDrainageSample, RoofEdge, RoofEdgeKind,
     RoofEditError, RoofEnclosureFace, RoofFace, RoofFootprintLoop, RoofKind, RoofMaterial,
-    RoofPhase, RoofPiece, RoofPivotPolicy, RoofPlaneEquation, Room, RoomKind, RoomRequirement,
-    RoundTower, SolidRole, SquareTower, Stair, StoreyPlan, StructuralNode, StructuralNodeId,
-    StructuralNodeKind, SupportInterface, SurfaceRole, TowerChordInterface, TowerPortal,
-    TowerPortalKind, TraversalEnvelope, VerticalConnectionRequirement, VoidRole, WallWalk,
+    RoofPhase, RoofPiece, RoofPivotPolicy, RoofPlaneEquation, Room, RoomIndex, RoomKind,
+    RoomRequirement, RoundTower, SolidRole, SpatialBounds, SquareTower, Stair, StoreyIndex,
+    StoreyPlan, StructuralNodeId, StructuralNodeKind, SupportInterface, SurfaceRole,
+    TowerChordInterface, TowerPortal, TowerPortalKind, TraversalEnvelope,
+    VerticalConnectionRequirement, VoidRole, WallWalk,
 };
 
 include!("generator/core.rs");
@@ -40,8 +43,10 @@ include!("generator/timber.rs");
 include!("generator/roof_editing.rs");
 include!("generator/layout.rs");
 mod architectural_envelope;
+mod artillery_route_geometry;
 mod bell_hanging;
 mod church_ground;
+mod church_window_schedule;
 mod civilian_roofs;
 mod door_profile;
 mod dormer_layout;
@@ -53,14 +58,26 @@ mod gable_enclosure;
 mod gable_openings;
 mod heated_rooms;
 mod occupied_storeys;
+mod opening_jambs;
+mod room_allocation;
+mod room_connections;
+mod stair_landing;
+pub use heated_rooms::ReservationFailure;
+pub use room_allocation::AllocationFailure;
+mod church_apse;
+mod crown_drainage;
 mod roof_child_enclosure;
 mod roof_contacts;
 mod roof_dormers;
 mod roof_enclosure_material;
 mod roof_frame;
+mod roof_plan_sampling;
+mod roof_weather;
+
 mod roof_wall_opening;
 mod shed_dormers;
 pub(crate) mod small_church;
+mod timber_contacts;
 mod timber_hall;
 mod timber_infill;
 mod timber_jetty;

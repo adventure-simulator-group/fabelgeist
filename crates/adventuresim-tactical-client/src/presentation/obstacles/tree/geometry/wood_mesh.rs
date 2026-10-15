@@ -941,7 +941,7 @@ mod tests {
 
     #[test]
     fn aggregate_wood_quality_tiers_reduce_representative_geometry_without_invalid_surface_data() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let full_lod1 =
             procedural_woody_crown_mesh(&branches, 2, WoodyBranchMeshQuality::FullDetail);
         let aggregate_lod1 =
@@ -1043,7 +1043,7 @@ mod tests {
 
     #[test]
     fn trunk_mesh_carries_metric_root_height_without_an_authored_dirt_uv() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let mesh = procedural_tree_branch_mesh(&branches, 0);
         let positions = mesh
             .attribute(Mesh::ATTRIBUTE_POSITION)
@@ -1065,7 +1065,7 @@ mod tests {
 
     #[test]
     fn mid_distance_trunk_reduces_the_upright_bole_with_valid_deterministic_geometry() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let full = procedural_tree_branch_mesh(&branches, 0);
         let mid = procedural_woody_mid_trunk_mesh(&branches);
         let repeated = procedural_woody_mid_trunk_mesh(&branches);
@@ -1139,7 +1139,7 @@ mod tests {
 
     #[test]
     fn explicit_trunk_and_roots_have_bounded_finite_surface_data() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let field = RootFlareField::from_branches(&branches, 0, ENGLISH_OAK_BARK)
             .expect("oak has a root flare");
         assert!(field.maximum.x - field.minimum.x < 4.0);
@@ -1189,10 +1189,14 @@ mod tests {
 
     #[test]
     fn smooth_beech_base_uses_a_finer_quieter_union_than_oak() {
-        let oak = procedural_tree_skeleton(42, 0.0);
+        let oak = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let oak_field =
             RootFlareField::from_branches(&oak, 0, ENGLISH_OAK_BARK).expect("oak has a root flare");
-        let beech = procedural_woody_plant_skeleton(42, 0.65, COMMON_BEECH_PARAMETERS);
+        let beech = procedural_woody_plant_skeleton(
+            fabelgeist_determinism::Seed::from_u64(42),
+            0.65,
+            COMMON_BEECH_PARAMETERS,
+        );
         let beech_field = RootFlareField::from_branches(&beech, 0, COMMON_BEECH_BARK)
             .expect("beech has a root flare");
 
@@ -1203,7 +1207,7 @@ mod tests {
 
     #[test]
     fn root_flare_is_basal_and_overlaps_the_swept_upper_trunk() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let field = RootFlareField::from_branches(&branches, 0, ENGLISH_OAK_BARK)
             .expect("oak has a root flare");
         assert!(
@@ -1229,21 +1233,30 @@ mod tests {
 
     #[test]
     fn bark_phase_is_deterministic_seeded_and_bounded() {
-        let phase = bark_phase_from_branches(&procedural_tree_skeleton(42, 0.0));
+        let phase = bark_phase_from_branches(&procedural_tree_skeleton(
+            fabelgeist_determinism::Seed::from_u64(42),
+            0.0,
+        ));
         assert_eq!(
             phase,
-            bark_phase_from_branches(&procedural_tree_skeleton(42, 0.0))
+            bark_phase_from_branches(&procedural_tree_skeleton(
+                fabelgeist_determinism::Seed::from_u64(42),
+                0.0
+            ))
         );
         assert_ne!(
             phase,
-            bark_phase_from_branches(&procedural_tree_skeleton(43, 0.0))
+            bark_phase_from_branches(&procedural_tree_skeleton(
+                fabelgeist_determinism::Seed::from_u64(43),
+                0.0
+            ))
         );
         assert!((0.0..=core::f32::consts::TAU).contains(&phase));
     }
 
     #[test]
     fn bark_relief_is_periodic_and_blends_at_root_influence_boundaries() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let bark_phase = bark_phase_from_branches(&branches);
         let field = RootFlareField::from_branches(&branches, 0, ENGLISH_OAK_BARK)
             .expect("oak has a root flare");
@@ -1323,7 +1336,7 @@ mod tests {
 
     #[test]
     fn root_profile_lobes_follow_generated_root_directions_and_fade_upward() {
-        let branches = procedural_tree_skeleton(42, 0.0);
+        let branches = procedural_tree_skeleton(fabelgeist_determinism::Seed::from_u64(42), 0.0);
         let field = RootFlareField::from_branches(&branches, 0, ENGLISH_OAK_BARK)
             .expect("oak has a root flare");
         let base = field

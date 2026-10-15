@@ -10,10 +10,9 @@
 //! to what it selected. Which faces count as torso for fitting depends only
 //! on the rig's skin weights, so the host lists them.
 
-use fabelgeist_gpu::prelude::BufferUpload;
-use fabelgeist_rig::{RigJointLookupError, RigJointMembership, RigJointName, RigJointOrdinal};
-use std::collections::BTreeSet;
-
+use crate::bracer::ForearmMorphSample;
+use crate::device_torso_wgsl::{FRAME, HALF_WIDTH, RANK, SUPPORT, WIDTHS, torso_source};
+use crate::rig_parameters::RigPassParameters;
 use anyhow::{Result, bail, ensure};
 use fabelgeist_armor::gpu::anatomy::{
     DeviceSeams, DeviceSurface, STATUS_EMPTY_SELECTION, SeamTopology,
@@ -23,34 +22,22 @@ use fabelgeist_armor::gpu::breastplate::{DeviceBreastplate, TORSO_RIG_WORDS, Tor
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_armor::{ArmorGpu, BreastplateDesign, GeneratedArmor};
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
-
-use crate::bracer::ForearmMorphSample;
-use crate::device_torso_wgsl::{FRAME, HALF_WIDTH, RANK, SUPPORT, WIDTHS, torso_source};
-
-/// The wearer's body, as the breastplate is fitted to it.
-pub struct TorsoSurfaceInput<'a> {
-    pub domain: &'a str,
-    pub positions: &'a [[f32; 3]],
-    pub normals: &'a [[f32; 3]],
-    pub faces: &'a [[u32; 3]],
-    pub texcoords: &'a [[f32; 2]],
-    pub texcoord_faces: &'a [[u32; 3]],
-    pub joint_indices: &'a [[u32; 8]],
-    pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [RigJointName],
-    pub global_joint_states: &'a [[f32; 8]],
-    pub morphs: &'a [ForearmMorphSample],
-}
+use fabelgeist_rig::{RigJointLookupError, RigJointMembership, RigJointName, RigJointOrdinal};
+use std::collections::BTreeSet;
 
 /// Floats of the torso frame: origin at the lower spine, the vertical axis
 /// and its extent to the neck, the lateral and anterior axes, and the front
 /// half width.
 const TORSO_FRAME_WORDS: u64 = 16;
+
 /// Set when the rig's landmarks coincide.
 pub(crate) const STATUS_COINCIDENT_LANDMARKS: u32 = 32;
+
 /// Set when no front vertex measures the torso's width.
 pub(crate) const STATUS_NO_WIDTH: u32 = 64;
+
 /// Set when the torso's measured width is degenerate.
 pub(crate) const STATUS_DEGENERATE_WIDTH: u32 = 128;
 
@@ -82,6 +69,33 @@ const SUPPORT_JOINTS: [RigJointName; 12] = [
     RigJointName::L_UPLEG,
     RigJointName::R_UPLEG,
 ];
+
+const JOINT_PARAMETERS: [&str; 9] = [
+    "joint0", "joint1", "joint2", "joint3", "joint4", "joint5", "joint6", "joint7", "joint8",
+];
+
+/// The wearer's body, as the breastplate is fitted to it.
+pub struct TorsoSurfaceInput<'a> {
+    pub domain: &'a str,
+    pub positions: &'a [[f32; 3]],
+    pub normals: &'a [[f32; 3]],
+    pub faces: &'a [[u32; 3]],
+    pub texcoords: &'a [[f32; 2]],
+    pub texcoord_faces: &'a [[u32; 3]],
+    pub joint_indices: &'a [[u32; 8]],
+    pub joint_weights: &'a [[f32; 8]],
+    pub joint_names: &'a [RigJointName],
+    pub global_joint_states: &'a [[f32; 8]],
+    pub morphs: &'a [ForearmMorphSample],
+}
+
+/// Where the torso's measurement goes.
+struct TorsoOutputs<'a> {
+    rig: &'a Buffer,
+    semantic: &'a Buffer,
+    support: &'a Buffer,
+    status: &'a Buffer,
+}
 
 impl TorsoSurfaceInput<'_> {
     fn check(&self) -> Result<()> {
@@ -257,14 +271,6 @@ fn torso_failure(bits: u32) -> Result<()> {
     Ok(())
 }
 
-/// Where the torso's measurement goes.
-struct TorsoOutputs<'a> {
-    rig: &'a Buffer,
-    semantic: &'a Buffer,
-    support: &'a Buffer,
-    status: &'a Buffer,
-}
-
 /// Record the torso frame, its half width, and each body vertex's
 /// semantic coordinates and support.
 fn record_torso(
@@ -281,7 +287,7 @@ fn record_torso(
     let mut parameters = PassParameters::new();
     parameters.insert("count", body.vertex_count);
     for (slot, joint) in landmarks.iter().enumerate() {
-        parameters.insert(format!("joint{slot}"), usize::from(*joint) as u32);
+        parameters.insert_joint(JOINT_PARAMETERS[slot], *joint)?;
     }
     for pad in 0..6 {
         parameters.insert(format!("pad{pad}"), 0u32);
