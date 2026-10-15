@@ -285,6 +285,15 @@ retains the pelvis and both legs. Above the hips, the attachment fades to
 body-surface skin. Skinning alone does not establish clearance during movement
 or preserve a rigid skirt support's shape.
 
+The catalog's **Linen skirt** uses a fitted procedural surface, without a
+sewing or settling simulation. Its editor controls waist rise, hip-to-ankle
+reach, the fitted upper share, clearance and thickness. Choose a straight,
+flared or bell profile; flared and bell skirts have separate width and depth
+controls. The fit samples triangle bands around both legs and the actual worn
+inner garments. Its rings share connectivity across body morph realizations.
+This plain carrier does not yet include a joined bodice, structural supports,
+pleats or puff-and-slash treatment.
+
 ## Draped chainmail
 
 Choose **Chainmail** as a garment's fabric to make it mail armor. A mail shirt

@@ -1926,6 +1926,33 @@
       }
     },
     {
+      "id": "linen_skirt",
+      "display_name": "Linen skirt",
+      "weight_kg": 0.8,
+      "exterior_volume_ml": 1000,
+      "base_value": 15,
+      "tags": ["clothing"],
+      "presentation": {"icon": "skirt"},
+      "kind": "clothing",
+      "equipment": {
+        "material": "linen",
+        "physical": {"dimensions_m": [0.65, 0.85, 0.40], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, 0.10, 0.0]},
+        "placements": [{
+          "id": "worn",
+          "occupancy": [
+            {"location": "left_leg", "channel": "base_clothing"},
+            {"location": "right_leg", "channel": "base_clothing"}
+          ],
+          "protection": ["left_leg", "right_leg"],
+          "surface": [{"regions": ["left_thigh", "left_lower_leg", "right_thigh", "right_lower_leg"], "anchor": "proximal", "coverage": 0.85}]
+        }],
+        "protection": {"resistance": 2, "padding": 4, "flexibility": 1, "range_of_motion": 0.98}
+      },
+      "capabilities": {
+        "durability": {"quality": 1, "yield_j": 12, "fracture_j": 35, "wear": 0.2, "failure_share": 0.8, "edge_sensitivity": 0, "handling_sensitivity": 0.5}
+      }
+    },
+    {
       "id": "linen_tunic",
       "display_name": "Linen tunic",
       "weight_kg": 0.6,
