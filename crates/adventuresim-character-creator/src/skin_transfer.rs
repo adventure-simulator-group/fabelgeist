@@ -101,6 +101,7 @@ impl SkinSource<'_> {
         // on a wide hem creates a narrow strip of extreme animation shear.
         let cloth_half_span = positions
             .iter()
+            .filter(|p| p[1] <= center.y)
             .map(|&p| (vector(p) - center).dot(axis).abs())
             .fold(half_span, f32::max);
         let pelvis = u32::try_from(RigJointName::ROOT.require_in(self.names)?)?;

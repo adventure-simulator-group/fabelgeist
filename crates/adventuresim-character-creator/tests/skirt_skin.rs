@@ -187,3 +187,15 @@ fn lower_skirt_ownership_is_independent_of_depth_and_surface_helpers() {
     assert_eq!(skin.indices[0], skin.indices[1]);
     assert_eq!(skin.weights[0], skin.weights[1]);
 }
+
+#[test]
+fn upper_garment_width_does_not_change_lower_skirt_motion() {
+    let input = body();
+    let points = [[-0.1, 0.5, 0.1], [0.02, 0.5, 0.1], [0.1, 0.5, 0.1]];
+    let reference = transfer_skin(&input, &points).unwrap();
+    let mut extended = points.to_vec();
+    extended.push([0.6, 1.5, 0.1]);
+    let actual = transfer_skin(&input, &extended).unwrap();
+    assert_eq!(actual.indices[..points.len()], reference.indices);
+    assert_eq!(actual.weights[..points.len()], reference.weights);
+}
