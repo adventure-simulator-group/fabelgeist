@@ -266,6 +266,20 @@ pub async fn fit_recipe_async(
                     | fabelgeist_armor::GarmentArmorKind::PaddedSkirt
             ))
         {
+            // A plain skirt is one smooth shell: its outer carrier vertices
+            // precede their inner-wall copies. Both walls represent the same
+            // material points and must receive identical animation ownership.
+            let carrier_count = if matches!(design, ParametricDesign::Skirt(_)) {
+                let count = (fabelgeist_armor::SKIRT_AXIAL_SEGMENTS + 1)
+                    * fabelgeist_armor::SKIRT_RING_SEGMENTS;
+                anyhow::ensure!(
+                    piece.base.positions.len() == 2 * count,
+                    "invalid skirt shell layout"
+                );
+                count
+            } else {
+                piece.base.positions.len()
+            };
             let skin = crate::skin_transfer::SkinSource {
                 positions: wearer.positions,
                 faces: body.faces,
@@ -274,9 +288,13 @@ pub async fn fit_recipe_async(
                 names: body.joint_names,
                 joints: wearer.joints,
             }
-            .skirt(&piece.base.positions)?;
+            .skirt(&piece.base.positions[..carrier_count])?;
             piece.skin.joint_indices = skin.indices;
             piece.skin.joint_weights = skin.weights;
+            if matches!(design, ParametricDesign::Skirt(_)) {
+                piece.skin.joint_indices.extend_from_within(..);
+                piece.skin.joint_weights.extend_from_within(..);
+            }
         }
         return Ok(piece);
     };
