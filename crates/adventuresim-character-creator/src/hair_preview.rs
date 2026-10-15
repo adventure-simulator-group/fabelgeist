@@ -15,12 +15,15 @@ use std::sync::Arc;
 use std::thread::JoinHandle;
 
 mod assets;
+mod layers;
 #[cfg(test)]
 mod render_test;
 mod scalp_shade;
 mod strand_shading;
 
 use assets::HairAssets;
+use layers::HairLayer;
+pub(super) use layers::{ShownLayers, show as show_layers};
 pub(super) use strand_shading::HairShadingPlugin;
 
 /// The hair mesh shown on the character: the design and the form it draws.
@@ -284,9 +287,12 @@ pub(super) fn refresh(
     match drawn {
         Ok((mesh, (cap, cap_material))) => {
             let material = assets.hair_material(design, form, placed.atlas.clone());
+            let shown = studio.hair_layers;
             commands.spawn((
                 CharacterMesh,
                 HairMesh { design, form },
+                HairLayer::Hair,
+                shown.visibility(HairLayer::Hair),
                 Name::new("Hair"),
                 skin.clone(),
                 Mesh3d(mesh),
@@ -295,6 +301,8 @@ pub(super) fn refresh(
             commands.spawn((
                 CharacterMesh,
                 HairMesh { design, form },
+                HairLayer::Scalp,
+                shown.visibility(HairLayer::Scalp),
                 Name::new("Scalp"),
                 skin,
                 Mesh3d(cap),

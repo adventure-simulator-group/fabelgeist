@@ -8,6 +8,7 @@ use fabelgeist_math::Vec3;
 use rayon::prelude::*;
 use std::sync::Arc;
 
+use super::scalp_map::ScalpMap;
 use super::{AtlasLevel, Groom, HeadPlacement, ScalpCap, drape, scalp_texture};
 
 /// Edge of the surface-nets cells the scalp is cut from, metres: the size the
@@ -36,7 +37,9 @@ pub struct GroomedHair {
     strands: Strands,
     head: Head,
     scalp: Surface,
-    /// The hair lying on the scalp, baked into its UV map.
+    /// Where on the scalp's texture each point of the scalp lies.
+    scalp_map: ScalpMap,
+    /// The hair lying on the scalp, baked into its texture.
     scalp_texture: Arc<Vec<AtlasLevel>>,
 }
 
@@ -65,12 +68,14 @@ impl GroomedHair {
         let head = look.head(&Head::mannequin());
         let scalp = head.scalp(SCALP_CELL);
         let strands = look.grow(&head, &scalp);
-        let scalp_texture = Arc::new(scalp_texture::bake(&strands, &head));
+        let scalp_map = ScalpMap::fit(&head, &scalp);
+        let scalp_texture = Arc::new(scalp_texture::bake(&strands, &head, &scalp_map));
         Self {
             groom,
             strands,
             head,
             scalp,
+            scalp_map,
             scalp_texture,
         }
     }
@@ -145,7 +150,7 @@ impl GroomedHair {
     ) -> PlacedHair {
         let center = Vec3::from_array(placement.point(self.head.cranium.center.to_array()));
         let lods = HairLods::build(strands, center, Some(&body), &LodSettings::default());
-        let cap = ScalpCap::fit(&self.scalp, &self.head, placement, &body);
+        let cap = ScalpCap::fit(&self.scalp, &self.head, &self.scalp_map, placement, &body);
         PlacedHair {
             groom: self.groom,
             lods,

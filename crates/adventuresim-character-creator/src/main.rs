@@ -124,6 +124,9 @@ struct Studio {
     inventory: inventory_ui::InventoryView,
     /// The level of detail the hair is drawn at.
     hair_form: fabelgeist_hair::lod::Form,
+    /// Whether the hair and the scalp under it are drawn, to look at either
+    /// alone.
+    hair_layers: hair_preview::ShownLayers,
 }
 
 impl Studio {
@@ -158,6 +161,7 @@ impl Studio {
             tab: studio_ui::StudioTab::Character,
             inventory: inventory_ui::InventoryView::default(),
             hair_form: fabelgeist_hair::lod::Form::Cards { level: 0 },
+            hair_layers: hair_preview::ShownLayers::default(),
         }
     }
 }
@@ -321,6 +325,7 @@ fn run_studio(
                 regenerate_mesh,
                 drape_preview::poll.after(regenerate_mesh),
                 hair_preview::refresh.after(regenerate_mesh),
+                hair_preview::show_layers.after(hair_preview::refresh),
                 drape_preview::refresh_mail.after(drape_preview::poll),
                 (
                     armory::enter_or_leave,
