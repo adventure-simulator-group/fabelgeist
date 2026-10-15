@@ -28,7 +28,10 @@ fn shell_vertex(index: u32, coord: vec4<f32>) -> ShellVertex {
     let t = clamp((descent - design[FITTED_FRACTION]) / (1.0 - design[FITTED_FRACTION]), 0.0, 1.0);
     var progress = t;
     if (design[PROFILE] > 1.5) {
-        progress = pow(sin(t * PI * 0.5), design[ROUNDNESS]);
+        // Quintic release keeps a tangent join even at the smallest permitted
+        // bell exponent, where a linear release would create a sharp shoulder.
+        let release_t = t * t * t * (t * (t * 6.0 - 15.0) + 10.0);
+        progress = pow(sin(release_t * PI * 0.5), design[ROUNDNESS]);
     }
     let width = mix(1.0, design[HEM_WIDTH], progress);
     let depth = mix(1.0, design[HEM_DEPTH], progress);

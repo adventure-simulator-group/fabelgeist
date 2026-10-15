@@ -26,33 +26,30 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
         "Fitted upper portion",
     );
     ui.horizontal(|ui| {
-        if ui
+        let straight = ui
             .selectable_label(matches!(design.profile, SkirtProfile::Straight), "Straight")
-            .clicked()
-            && !matches!(design.profile, SkirtProfile::Straight)
-        {
+            .clicked();
+        if straight && !matches!(design.profile, SkirtProfile::Straight) {
             design.profile = SkirtProfile::Straight;
             changed = true;
         }
-        if ui
+        let flared = ui
             .selectable_label(
                 matches!(design.profile, SkirtProfile::Flared { .. }),
                 "Flared",
             )
-            .clicked()
-            && !matches!(design.profile, SkirtProfile::Flared { .. })
-        {
+            .clicked();
+        if flared && !matches!(design.profile, SkirtProfile::Flared { .. }) {
             design.profile = SkirtProfile::Flared {
                 width: Permille(1600),
                 depth: Permille(1600),
             };
             changed = true;
         }
-        if ui
+        let bell = ui
             .selectable_label(matches!(design.profile, SkirtProfile::Bell { .. }), "Bell")
-            .clicked()
-            && !matches!(design.profile, SkirtProfile::Bell { .. })
-        {
+            .clicked();
+        if bell && !matches!(design.profile, SkirtProfile::Bell { .. }) {
             design.profile = SkirtProfile::Bell {
                 width: Permille(2200),
                 depth: Permille(2200),
