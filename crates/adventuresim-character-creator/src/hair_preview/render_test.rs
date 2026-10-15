@@ -11,9 +11,12 @@
 //! takes a recipe's hairstyle name, `long` when unset. `HAIR_ON_BUST=1`
 //! draws the hair on the hair crate's own bust instead, as it grew there,
 //! to `bust-<preset>-<form>-<view>.png`: what placing it on a character is
-//! measured against.
+//! measured against. `HAIR_SHAPE` varies the preset as the Hair page does,
+//! taking the shape's recipe fields that differ from its default -- for
+//! instance `{"length": 0.6, "curl": 0.5}` -- and names the images
+//! `<preset>-shaped-...`.
 use super::*;
-use adventuresim_character_creator::hair::{HairGeometry, HairPigment, PlacedHair};
+use adventuresim_character_creator::hair::{HairGeometry, HairPigment, HairShape, PlacedHair};
 use adventuresim_character_creator::studio_environment;
 use bevy::app::ScheduleRunnerPlugin;
 use bevy::camera::RenderTarget;
@@ -22,8 +25,8 @@ use bevy::render::render_resource::{TextureFormat, TextureUsages};
 use bevy::render::view::screenshot::{Screenshot, save_to_disk};
 use bevy::window::ExitCondition;
 use bevy::winit::WinitPlugin;
-use fabelgeist_hair::MeshCollider;
 use fabelgeist_hair::collider::Collider;
+use fabelgeist_hair::{MeshCollider, Preset};
 use fabelgeist_math::Vec3 as HairVec3;
 use std::path::PathBuf;
 use std::time::Duration;
@@ -138,17 +141,31 @@ struct Captures {
     frames: u32,
 }
 
+/// The shape `HAIR_SHAPE` asks for: the default, its fields replaced.
+fn test_shape() -> Result<HairShape> {
+    let mut shape = serde_json::to_value(HairShape::default())?;
+    if let Ok(changes) = std::env::var("HAIR_SHAPE") {
+        let changes: serde_json::Map<String, serde_json::Value> = serde_json::from_str(&changes)?;
+        let fields = shape
+            .as_object_mut()
+            .context("a hair shape is a JSON object")?;
+        fields.extend(changes);
+    }
+    Ok(serde_json::from_value(shape)?)
+}
+
 #[test]
 #[ignore = "requires MHR_ASSETS and a GPU"]
 fn hair_renders() -> Result<()> {
     let assets = std::env::var_os("MHR_ASSETS").context("set MHR_ASSETS")?;
     let preset_name = std::env::var("HAIR_PRESET").unwrap_or_else(|_| "long".to_owned());
     let preset: Preset = serde_json::from_value(serde_json::Value::String(preset_name.clone()))?;
-    let grown = GroomedHair::grow(preset);
     let design = HairDesign {
         preset,
+        shape: test_shape()?,
         pigment: HairPigment::default(),
     };
+    let grown = GroomedHair::grow(design.groom());
     let on_bust = std::env::var_os("HAIR_ON_BUST").is_some();
     let subject = if on_bust {
         Subject::bust(&grown)
@@ -173,6 +190,11 @@ fn hair_renders() -> Result<()> {
     let out = PathBuf::from("../../target/hair-render");
     std::fs::create_dir_all(&out)?;
     let subject_name = if on_bust { "bust-" } else { "" };
+    let preset_name = if design.shape == HairShape::default() {
+        preset_name
+    } else {
+        format!("{preset_name}-shaped")
+    };
 
     let skin = MeshCollider::new(
         positions

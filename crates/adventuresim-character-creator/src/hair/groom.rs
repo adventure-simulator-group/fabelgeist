@@ -3,11 +3,11 @@
 use fabelgeist_hair::collider::{Collider, push_out};
 use fabelgeist_hair::lod::Form;
 use fabelgeist_hair::ops::{Context, Shrinkwrap};
-use fabelgeist_hair::{HairLods, Head, LodSettings, Look, MeshCollider, Preset, Strands, Surface};
+use fabelgeist_hair::{HairLods, Head, LodSettings, MeshCollider, Strands, Surface};
 use fabelgeist_math::Vec3;
 use rayon::prelude::*;
 
-use super::{HeadPlacement, ScalpCap, drape};
+use super::{Groom, HeadPlacement, ScalpCap, drape};
 
 /// Edge of the surface-nets cells the scalp is cut from, metres: the size the
 /// hair crate's viewer and dataset grow on.
@@ -31,7 +31,7 @@ const MIN_ROOT_INCIDENCE: f32 = 0.3;
 /// A hairstyle grown on the mannequin bust, in the bust's frame: metres, up
 /// along +Y, the face towards +Z.
 pub struct GroomedHair {
-    pub preset: Preset,
+    pub groom: Groom,
     strands: Strands,
     head: Head,
     scalp: Surface,
@@ -45,7 +45,7 @@ pub struct BodySurface<'a> {
 
 /// Hair on a character's head, ready to draw at every level of detail.
 pub struct PlacedHair {
-    pub preset: Preset,
+    pub groom: Groom,
     pub(super) lods: HairLods,
     /// The skin the hair was placed on, which the cards' edges stay out of.
     pub(super) body: MeshCollider,
@@ -62,15 +62,15 @@ pub struct SkinCover {
 }
 
 impl GroomedHair {
-    /// Grow `preset` on the mannequin bust: about half a second to a second
+    /// Grow `groom` on the mannequin bust: about half a second to a second
     /// of every core.
-    pub fn grow(preset: Preset) -> Self {
-        let look = Look::new(preset);
+    pub fn grow(groom: Groom) -> Self {
+        let look = groom.look();
         let head = look.head(&Head::mannequin());
         let scalp = head.scalp(SCALP_CELL);
         let strands = look.grow(&head, &scalp);
         Self {
-            preset,
+            groom,
             strands,
             head,
             scalp,
@@ -149,7 +149,7 @@ impl GroomedHair {
         let lods = HairLods::build(strands, center, Some(&body), &LodSettings::default());
         let cap = ScalpCap::fit(&self.scalp, placement, &body, &lods.cover);
         PlacedHair {
-            preset: self.preset,
+            groom: self.groom,
             lods,
             body,
             placement: *placement,

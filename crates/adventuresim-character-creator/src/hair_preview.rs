@@ -8,10 +8,9 @@
 //! it follows the walk preview, and shades the scalp under it.
 use super::*;
 use adventuresim_character_creator::hair::{
-    BodySurface, GroomedHair, HairDesign, HeadPlacement, HeadSkin, PlacedHair, SkinCover,
-    preset_label,
+    BodySurface, Groom, GroomedHair, HairDesign, HeadPlacement, HeadSkin, PlacedHair, SkinCover,
+    variant_label,
 };
-use fabelgeist_hair::Preset;
 use fabelgeist_hair::lod::Form;
 use std::sync::Arc;
 use std::thread::JoinHandle;
@@ -48,7 +47,7 @@ pub(super) struct PlacedStyle {
 }
 
 struct Worker {
-    preset: Preset,
+    groom: Groom,
     body: Arc<GeneratedCharacter>,
     handle: JoinHandle<Result<Prepared>>,
 }
@@ -106,32 +105,32 @@ impl BodyHead {
 }
 
 impl HairPreview {
-    /// The placed hair, if it is `preset` on `body`.
-    fn placed(&self, preset: Preset, body: &Arc<GeneratedCharacter>) -> Option<&PlacedStyle> {
+    /// The placed hair, if it is `groom` on `body`.
+    fn placed(&self, groom: Groom, body: &Arc<GeneratedCharacter>) -> Option<&PlacedStyle> {
         self.placed
             .as_ref()
-            .filter(|placed| placed.preset() == preset && Arc::ptr_eq(&placed.body, body))
+            .filter(|placed| placed.hair.groom == groom && Arc::ptr_eq(&placed.body, body))
     }
 
-    /// Start preparing `preset` on `body` unless that is placed or under way
+    /// Start preparing `groom` on `body` unless that is placed or under way
     /// already; true when a worker started. A worker on another style or
     /// body is left to finish and its hair dropped.
-    fn request(&mut self, preset: Preset, body: &Arc<GeneratedCharacter>, head: BodyHead) -> bool {
+    fn request(&mut self, groom: Groom, body: &Arc<GeneratedCharacter>, head: BodyHead) -> bool {
         let under_way = self
             .worker
             .as_ref()
-            .is_some_and(|worker| worker.preset == preset && Arc::ptr_eq(&worker.body, body));
-        if self.placed(preset, body).is_some() || under_way {
+            .is_some_and(|worker| worker.groom == groom && Arc::ptr_eq(&worker.body, body));
+        if self.placed(groom, body).is_some() || under_way {
             return false;
         }
-        let grown = self.grown.clone().filter(|grown| grown.preset == preset);
+        let grown = self.grown.clone().filter(|grown| grown.groom == groom);
         let handle = std::thread::spawn(move || {
-            let grown = grown.unwrap_or_else(|| Arc::new(GroomedHair::grow(preset)));
+            let grown = grown.unwrap_or_else(|| Arc::new(GroomedHair::grow(groom)));
             let placed = head.place(&grown)?;
             Ok(Prepared { grown, placed })
         });
         self.worker = Some(Worker {
-            preset,
+            groom,
             body: body.clone(),
             handle,
         });
@@ -162,12 +161,6 @@ impl HairPreview {
             atlas,
         });
         Ok(())
-    }
-}
-
-impl PlacedStyle {
-    fn preset(&self) -> Preset {
-        self.hair.preset
     }
 }
 
@@ -263,11 +256,11 @@ pub(super) fn refresh(
             return;
         }
     };
-    let Some(placed) = preview.placed(design.preset, &body) else {
-        if preview.request(design.preset, &body, BodyHead::new(&model, &body)) {
+    let Some(placed) = preview.placed(design.groom(), &body) else {
+        if preview.request(design.groom(), &body, BodyHead::new(&model, &body)) {
             studio.status = format!(
                 "Growing {} hair",
-                preset_label(design.preset).to_lowercase()
+                variant_label(design.preset).to_lowercase()
             );
         }
         return;

@@ -36,7 +36,7 @@ impl ExportedHair {
         morphs: &CharacterMorphs,
         design: HairDesign,
     ) -> Result<Self> {
-        let hair = GroomedHair::grow(design.preset);
+        let hair = GroomedHair::grow(design.groom());
         let placed = hair_preview::BodyHead::new(model, generated).place(&hair)?;
         let placement = *placed.placement();
         let cards = placed.geometry(EXPORTED_FORM);
