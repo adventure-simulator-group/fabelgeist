@@ -137,10 +137,34 @@ jobs:
         run: |
           set -o pipefail
           cargo test --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --test-threads=1 2>&1 | tee target/rig-contracts/mhr.log
-      - name: Test creator fitting and export contracts
+      - name: Test creator rig family contracts
+        shell: bash
         run: |
-          set -o pipefail
-          cargo test --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --lib -- --test-threads=1 2>&1 | tee target/rig-contracts/creator.log
+          set -euo pipefail
+          creator_contract() {
+            local label="$1"
+            shift
+            local log="target/rig-contracts/creator-${label}"
+            printf '%q ' cargo test --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml "$@" > "${log}.command.txt"
+            printf '\n' >> "${log}.command.txt"
+            cargo test --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml "$@" 2>&1 | tee "${log}.log"
+          }
+          creator_contract armor-frames --lib armor_frames:: -- --test-threads=1 --nocapture
+          creator_contract clothing --lib clothing:: -- --test-threads=1 --nocapture
+          creator_contract device-frames --lib device_frames:: -- --test-threads=1 --nocapture
+          creator_contract gorget-bib --lib device_gorget_bib:: -- --test-threads=1 --nocapture
+          creator_contract gorget-collar --lib device_gorget_collar:: -- --test-threads=1 --nocapture
+          creator_contract wrapped-tasset --lib device_wrapped_tasset:: -- --test-threads=1 --nocapture
+          creator_contract export --lib export:: -- --test-threads=1 --nocapture
+          creator_contract garment --lib garment:: -- --test-threads=1 --nocapture
+          creator_contract runtime-equipment --lib runtime_equipment:: -- --test-threads=1 --nocapture
+          creator_contract skin-rules --lib skin_rules:: -- --test-threads=1 --nocapture
+          creator_contract torso-domain --lib torso_domain:: -- --test-threads=1 --nocapture
+          creator_contract underlayer-design --lib underlayer::tests::invalid_cut_and_construction_ranges_are_rejected -- --exact --test-threads=1 --nocapture
+          creator_contract character-morphs --bin adventuresim-character-creator character_morphs:: -- --test-threads=1 --nocapture
+          creator_contract animation-preview --bin adventuresim-character-creator animation_preview:: -- --test-threads=1 --nocapture
+          creator_contract device-bracer --test device_bracer -- --test-threads=1 --nocapture
+          creator_contract device-breastplate --test device_breastplate -- --test-threads=1 --nocapture
       - name: Test tactical animation contracts
         run: |
           set -o pipefail
@@ -149,6 +173,51 @@ jobs:
         run: |
           set -o pipefail
           cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client equipment:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment.log
+      - name: Verify required rig contract execution
+        run: |
+          python3 - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          evidence = Path("target/rig-contracts")
+          revision = (evidence / "revision.txt").read_text().strip()
+          required = [
+              "rig", "mhr", "animation", "equipment",
+              "creator-armor-frames", "creator-clothing",
+              "creator-device-frames", "creator-gorget-bib",
+              "creator-gorget-collar", "creator-wrapped-tasset",
+              "creator-export", "creator-garment",
+              "creator-runtime-equipment", "creator-skin-rules",
+              "creator-torso-domain", "creator-underlayer-design",
+              "creator-character-morphs", "creator-animation-preview",
+              "creator-device-bracer", "creator-device-breastplate",
+          ]
+          cells = []
+          for label in required:
+              log = evidence / f"{label}.log"
+              text = log.read_text() if log.is_file() else ""
+              text = re.sub(r"\x1b\[[0-?]*[ -/]*[@-~]", "", text)
+              results = re.findall(
+                  r"^test result: ok\. (\d+) passed; (\d+) failed; (\d+) ignored;",
+                  text, re.MULTILINE,
+              )
+              passed, failed, ignored = (
+                  sum(int(result[index]) for result in results)
+                  for index in range(3)
+              )
+              cells.append({
+                  "cell": label, "log": str(log), "revision": revision,
+                  "passed": passed, "failed": failed, "ignored": ignored,
+                  "accepted": bool(results) and passed > 0 and failed == 0,
+              })
+          (evidence / "required-cells.json").write_text(
+              json.dumps(cells, indent=2) + "\n"
+          )
+          missing = [cell["cell"] for cell in cells if not cell["accepted"]]
+          if missing:
+              raise SystemExit(f"Missing or empty required test results: {missing}")
+          PY
       - name: Upload rig contract evidence
         if: always()
         uses: actions/upload-artifact@v4
