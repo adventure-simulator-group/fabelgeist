@@ -25,6 +25,7 @@ use fabelgeist_math::Vec3;
 use rayon::prelude::*;
 
 use super::HeadPlacement;
+use super::scalp_map::ScalpMap;
 
 /// How far over the skin the cap lies, metres: under the hair's roots,
 /// clear of the skin's own triangles.
@@ -58,11 +59,12 @@ pub struct ScalpCap {
 }
 
 impl ScalpCap {
-    /// The scalp of the bust `head`, carried onto a character by
-    /// `placement` and laid over its `body`.
+    /// The scalp of the bust `head`, mapped onto its texture by `map`,
+    /// carried onto a character by `placement` and laid over its `body`.
     pub(super) fn fit(
         scalp: &Surface,
         head: &Head,
+        map: &ScalpMap,
         placement: &HeadPlacement,
         body: &MeshCollider,
     ) -> Self {
@@ -87,7 +89,13 @@ impl ScalpCap {
             .collect();
         Self {
             positions: positions.iter().map(|point| point.to_array()).collect(),
-            texcoords: scalp.uvs.clone(),
+            // The map reaches past the scalp's lowest point, so every
+            // point of the scalp lies within it.
+            texcoords: scalp
+                .positions
+                .iter()
+                .map(|&point| map.uv(point).unwrap_or_default())
+                .collect(),
             faces: scalp.triangles.clone(),
             opacity,
         }

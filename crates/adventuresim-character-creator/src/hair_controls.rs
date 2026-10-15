@@ -60,6 +60,18 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, preview: &HairPreview
     shape(ui, design);
     ui.add_space(6.0);
     level_of_detail(ui, &mut studio.hair_form, preview);
+    ui.add_space(6.0);
+    layers(ui, &mut studio.hair_layers);
+}
+
+/// Draw the hair and the scalp under it apart, to look at either alone.
+fn layers(ui: &mut egui::Ui, shown: &mut hair_preview::ShownLayers) {
+    ui.horizontal(|ui| {
+        ui.checkbox(&mut shown.hair, "Show hair")
+            .on_hover_text("Hide the strands or cards to see the scalp alone.");
+        ui.checkbox(&mut shown.scalp, "Show scalp")
+            .on_hover_text("Hide the painted scalp to see the hair alone.");
+    });
 }
 
 /// How the hairstyle is varied from its preset: another cut, arrangement or

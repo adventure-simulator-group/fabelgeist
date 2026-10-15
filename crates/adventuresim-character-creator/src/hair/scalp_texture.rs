@@ -4,8 +4,8 @@
 //! smooth, dead patch. Over a real scalp the eye meets the hair nearest it --
 //! strands lying along the skin in the groom's own direction, parted where
 //! the groom parts and spiralling out of its whorl. Each strand's first few
-//! millimetres off the skin are drawn into the scalp's UV map (the hair
-//! crate's projection about the crown) on the bust the hair grew on, the
+//! millimetres off the skin are drawn into the scalp's texture
+//! ([`ScalpMap`]) on the bust the hair grew on, the
 //! topmost strand over each texel showing: lighter the further it lies off
 //! the skin, darker where it meets it. Single strands are far finer than a
 //! pixel at any distance the head is seen from, so what shows is locks:
@@ -27,10 +27,16 @@ use fabelgeist_math::Vec3;
 use rayon::prelude::*;
 
 use super::AtlasLevel;
+use super::scalp_map::ScalpMap;
 
-/// The texture's side, texels: about a fifth of a millimetre a texel over
-/// the crown, finer down the sides, so lying strands read as lines.
+/// The texture's side, texels: about an eighth of a millimetre a texel,
+/// near a hair's own width, so lying strands read as lines and a parting's
+/// edge as strands' ends.
 const SIZE: usize = 2048;
+/// The longest step along a strand mapped as straight, metres: the map
+/// curves, and a strand drawn straight between points a centimetre apart
+/// would cut its corners.
+const STEP: f32 = 0.002;
 /// How far off the skin a strand is drawn, metres: the layer of hair the
 /// eye meets between cards.
 const REACH: f32 = 0.008;
@@ -48,13 +54,13 @@ const LOCK_WIDTH: f32 = 0.004;
 /// How far off the skin hair still shadows it, metres: hair this near
 /// over a texel no strand lies on keeps it from showing bare.
 const SHADOW_REACH: f32 = 0.025;
-/// The side of the blocks of texels shadowing is judged over: one strand
+/// The side of the blocks shadowing is judged over, metres: one strand
 /// passing over a block shadows all of it, as hair further off the skin
 /// shadows more than the line of its own width.
-const SHADOW_BLOCK: usize = 8;
-/// How far round each texel the bare scalp is measured, texels: about a
+const SHADOW_BLOCK: f32 = 0.0015;
+/// How far round each texel the bare scalp is measured, metres: about a
 /// millimetre across, as wide as a parting.
-const BARE_REACH: usize = 2;
+const BARE_REACH: f32 = 0.0005;
 /// The share of bare texels round a texel at which skin starts to show
 /// there, and shows fully: a parting is mostly bare, the gaps within and
 /// between an afro's coils single texels among strands.
@@ -66,11 +72,15 @@ const SHADOWED: f32 = 0.35;
 /// the topmost strand wins, carrying its shade.
 const STEPS: f32 = 65_535.0;
 
-/// The texture's mip chain, largest first: the scalp's shade as grey, as a
-/// share of the hair's colour, and whether hair covers it as alpha.
-pub(super) fn bake(strands: &Strands, head: &Head) -> Vec<AtlasLevel> {
+/// The texture's mip chain, largest first, mapped by `map`: the scalp's
+/// shade as grey, as a share of the hair's colour, and whether hair covers
+/// it as alpha.
+pub(super) fn bake(strands: &Strands, head: &Head, map: &ScalpMap) -> Vec<AtlasLevel> {
+    let texel = map.texel(SIZE);
+    let block_side = ((SHADOW_BLOCK / texel).round() as usize).max(1);
+    let bare_reach = (BARE_REACH / texel).round() as usize;
     let topmost: Vec<AtomicU32> = (0..SIZE * SIZE).map(|_| AtomicU32::new(0)).collect();
-    let blocks = SIZE / SHADOW_BLOCK;
+    let blocks = SIZE.div_ceil(block_side);
     let shadowed: Vec<AtomicBool> = (0..blocks * blocks)
         .map(|_| AtomicBool::new(false))
         .collect();
@@ -78,17 +88,17 @@ pub(super) fn bake(strands: &Strands, head: &Head) -> Vec<AtlasLevel> {
         let lock = lock_noise(strands.root(strand) * (1.0 / LOCK_WIDTH));
         let tone = 1.0 - LOCK_SPREAD * lock - STRAND_SPREAD * unit(strands.id[strand]);
         let mut previous: Option<([f32; 2], f32)> = None;
-        for &point in strands.strand(strand) {
+        for point in steps(strands.strand(strand)) {
             let height = head.distance(point).max(0.0);
-            let [u, v] = head.scalp_uv(point);
-            let inside = (0.0..1.0).contains(&u) && (0.0..1.0).contains(&v);
-            let here = (height < SHADOW_REACH && inside)
-                .then_some(([u * SIZE as f32, v * SIZE as f32], height));
+            let here = map
+                .uv(point)
+                .filter(|_| height < SHADOW_REACH)
+                .map(|[u, v]| ([u * SIZE as f32, v * SIZE as f32], height));
             if let (Some(from), Some(to)) = (previous, here) {
                 if from.1.min(to.1) < REACH {
                     draw(&topmost, from, to, tone);
                 } else {
-                    shadow(&shadowed, from.0, to.0);
+                    shadow(&shadowed, from.0, to.0, block_side);
                 }
             }
             previous = here;
@@ -99,11 +109,11 @@ pub(super) fn bake(strands: &Strands, head: &Head) -> Vec<AtlasLevel> {
         .enumerate()
         .map(|(texel, packed)| {
             let (row, column) = (texel / SIZE, texel % SIZE);
-            let block = (row / SHADOW_BLOCK) * blocks + column / SHADOW_BLOCK;
+            let block = (row / block_side) * blocks + column / block_side;
             packed.load(Ordering::Relaxed) == 0 && !shadowed[block].load(Ordering::Relaxed)
         })
         .collect();
-    let bare_share = share_around(&bare, BARE_REACH);
+    let bare_share = share_around(&bare, bare_reach);
     let base = AtlasLevel {
         width: SIZE as u32,
         height: SIZE as u32,
@@ -143,14 +153,24 @@ fn draw(topmost: &[AtomicU32], from: ([f32; 2], f32), to: ([f32; 2], f32), tone:
     });
 }
 
-/// Mark the blocks a segment of hair from `from` to `to`, texel positions,
-/// passes over as shadowed.
-fn shadow(shadowed: &[AtomicBool], from: [f32; 2], to: [f32; 2]) {
-    let blocks = SIZE / SHADOW_BLOCK;
+/// Mark the blocks, `side` texels square, a segment of hair from `from` to
+/// `to`, texel positions, passes over as shadowed.
+fn shadow(shadowed: &[AtomicBool], from: [f32; 2], to: [f32; 2], side: usize) {
+    let blocks = SIZE.div_ceil(side);
     trace(from, to, |[column, row], _| {
-        let block = (row / SHADOW_BLOCK) * blocks + column / SHADOW_BLOCK;
+        let block = (row / side) * blocks + column / side;
         shadowed[block].store(true, Ordering::Relaxed);
     });
+}
+
+/// `strand`'s points, with more between any two further apart than
+/// [`STEP`].
+fn steps(strand: &[Vec3]) -> impl Iterator<Item = Vec3> + '_ {
+    let first = strand.first().copied();
+    first.into_iter().chain(strand.windows(2).flat_map(|pair| {
+        let pieces = ((pair[1] - pair[0]).length() / STEP).ceil().max(1.0) as usize;
+        (1..=pieces).map(move |piece| pair[0].lerp(pair[1], piece as f32 / pieces as f32))
+    }))
 }
 
 /// Visit each texel along the line from `from` to `to`, texel positions,

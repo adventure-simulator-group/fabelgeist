@@ -17,7 +17,9 @@
 //! for instance `{"length": 0.6, "curl": 0.5}` -- and names the images
 //! `<preset>-shaped-...`. `HAIR_PIGMENT` colours it as a recipe's pigment does
 //! -- `{"melanin": 0.1, "redness": 0.05, "dye": [0.12, 0.38, 1.0]}`, say -- and
-//! names the images `<preset>-coloured-...`.
+//! names the images `<preset>-coloured-...`. `HAIR_SHOW=scalp` or
+//! `HAIR_SHOW=hair` draws the scalp or the hair alone, as the Hair page's
+//! switches do, to `<preset>-scalp-only-...` or `<preset>-hair-only-...`.
 use super::*;
 use adventuresim_character_creator::hair::{HairGeometry, HairPigment, HairShape, PlacedHair};
 use adventuresim_character_creator::studio_environment;
@@ -144,6 +146,22 @@ struct Captures {
     frames: u32,
 }
 
+/// The layers `HAIR_SHOW` asks for: `hair` or `scalp` alone, or both.
+fn test_layers() -> Result<ShownLayers> {
+    match std::env::var("HAIR_SHOW").as_deref() {
+        Err(_) => Ok(ShownLayers::default()),
+        Ok("hair") => Ok(ShownLayers {
+            hair: true,
+            scalp: false,
+        }),
+        Ok("scalp") => Ok(ShownLayers {
+            hair: false,
+            scalp: true,
+        }),
+        Ok(other) => anyhow::bail!("HAIR_SHOW takes hair or scalp, not {other}"),
+    }
+}
+
 /// The pigment `HAIR_PIGMENT` asks for, as a recipe gives it, or the
 /// default.
 fn test_pigment() -> Result<HairPigment> {
@@ -214,6 +232,12 @@ fn hair_renders() -> Result<()> {
     } else {
         format!("{preset_name}-coloured")
     };
+    let shown = test_layers()?;
+    let preset_name = match (shown.hair, shown.scalp) {
+        (true, true) => preset_name,
+        (false, _) => format!("{preset_name}-scalp-only"),
+        (true, false) => format!("{preset_name}-hair-only"),
+    };
     let texture = placed.scalp_texture().first().context("no scalp texture")?;
     image::RgbaImage::from_raw(texture.width, texture.height, texture.rgba.clone())
         .context("the scalp texture's size")?
@@ -267,6 +291,7 @@ fn hair_renders() -> Result<()> {
         hairs,
         design,
         center,
+        shown,
     };
 
     let mut app = App::new();
@@ -307,6 +332,7 @@ struct Stage {
     hairs: Vec<(Form, Mesh, Vec<PathBuf>)>,
     design: HairDesign,
     center: Vec3,
+    shown: ShownLayers,
 }
 
 /// The body, the light, and per form its hair and a camera for each view,
@@ -341,6 +367,7 @@ fn spawn(
     commands.spawn((
         Mesh3d(meshes.add(cap)),
         MeshMaterial3d(materials.add(scalp_shade::material(scalp_texture))),
+        stage.shown.visibility(HairLayer::Scalp),
         every_layer.clone(),
     ));
     commands.spawn((
@@ -367,6 +394,7 @@ fn spawn(
         commands.spawn((
             Mesh3d(meshes.add(mesh)),
             MeshMaterial3d(hair_materials.add(assets::material(design, form, atlas.clone()))),
+            stage.shown.visibility(HairLayer::Hair),
             RenderLayers::layer(layer),
         ));
         for (view, path) in VIEWS.iter().zip(paths) {
