@@ -1,4 +1,4 @@
-import { installStrategicScene } from "./strategic-scene.js?v=loading-readiness-1";
+import { installStrategicScene } from "./strategic-scene.js?v=worker-reuse-1";
 const surface = document.querySelector("#strategic-render-surface");
 const canvas = surface?.querySelector("#game-canvas");
 let runtimePromise;

@@ -71,6 +71,13 @@ adapter request is recorded without a preliminary GPU probe, and fallback
 software adapters fail acceptance. `STRATEGIC_BROWSER_CHANNEL` selects an
 installed channel; record it and use the same channel for comparisons.
 
+CPU generation keeps at most one idle worker pool per runtime for 30 seconds.
+It retains up to four workers without changing their concurrency limit.
+Overlapping scene and map preparations use separate leases. Failed or cancelled
+leases terminate their workers; an idle timeout or a changed Wasm module also
+discards the retained pool. Persistent generated products remain independent
+of worker lifetime.
+
 ## Attribution
 
 Generation metrics report discovery, dependency transfer, worker generation,

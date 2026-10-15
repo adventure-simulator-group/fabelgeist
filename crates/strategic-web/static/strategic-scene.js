@@ -1,6 +1,6 @@
 // Layout and semantic identity bridge for the single persistent Bevy canvas.
-import { createSceneRequests } from "./strategic-scene-request.js";
-import { createRegionalMapView } from "./regional-map-view.js";
+import { createSceneRequests } from "./strategic-scene-request.js?v=worker-reuse-1";
+import { createRegionalMapView } from "./regional-map-view.js?v=worker-reuse-1";
 const READINESS_POLL_INTERVAL_MS = 16;
 const kinds = { "public-square": "square", residences: "residence", keep: "keep",
   merchants: "market", weapons: "smith", armor: "armor", clothing: "tailor",

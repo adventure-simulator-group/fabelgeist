@@ -1,6 +1,33 @@
 import { createGenerationPool } from "./strategic-generation-pool.js";
 import { openGeneratedCache } from "./strategic-generation-cache.js";
 
+// Keep at most one idle pool per runtime; concurrent owners lease separate pools.
+const IDLE_GENERATION_POOL_MS = 30_000;
+const idleGenerationPools = new WeakMap();
+
+function acquireGenerationPool(runtime, module) {
+  const idle = idleGenerationPools.get(runtime);
+  if (idle) {
+    idleGenerationPools.delete(runtime);
+    clearTimeout(idle.timer);
+    if (idle.module === module) return idle.pool;
+    idle.pool.close();
+  }
+  return createGenerationPool(module);
+}
+
+function retainGenerationPool(runtime, pool, module) {
+  const previous = idleGenerationPools.get(runtime);
+  if (previous) { clearTimeout(previous.timer); previous.pool.close(); }
+  const idle = { pool, module };
+  idle.timer = setTimeout(() => {
+    if (idleGenerationPools.get(runtime) !== idle) return;
+    idleGenerationPools.delete(runtime);
+    idle.pool.close();
+  }, IDLE_GENERATION_POOL_MS);
+  idleGenerationPools.set(runtime, idle);
+}
+
 // Rust owns these exception names. Only invalid persisted products warrant
 // eviction and regeneration; unavailable residency or dependencies fail readiness.
 const invalidCachedProductCodes = new Set([
@@ -31,6 +58,7 @@ async function prepareProducts(runtime, owner, signal, prepare, finish) {
   signal?.throwIfAborted();
   const started = performance.now();
   const preparation = runtime.wasm_begin_generation(JSON.stringify(owner));
+  const generationModule = runtime.generationModule;
   let completed = false, cache, pool;
   const cancel = () => pool?.close();
   signal?.addEventListener("abort", cancel, { once: true });
@@ -54,7 +82,7 @@ async function prepareProducts(runtime, owner, signal, prepare, finish) {
       metrics.receiveMilliseconds += performance.now() - receiveStarted;
     };
     cache = await openGeneratedCache(runtime.generationRevision);
-    pool = createGenerationPool(runtime.generationModule);
+    pool = acquireGenerationPool(runtime, generationModule);
     signal?.throwIfAborted();
     // A cache miss starts generation immediately; unrelated cache reads must
     // not postpone the destination's critical scene job. Workers are lazy, so
@@ -109,7 +137,10 @@ async function prepareProducts(runtime, owner, signal, prepare, finish) {
     return preparation;
   } finally {
     signal?.removeEventListener("abort", cancel);
-    pool?.close();
+    if (pool) {
+      if (completed) retainGenerationPool(runtime, pool, generationModule);
+      else pool.close();
+    }
     if (!completed) runtime.wasm_cancel_generation(preparation);
     // Storage is optional and does not delay asset readiness.
     if (cache) (window.strategicGenerationCacheSettled ||= {})[owner] = cache.close();

@@ -1,4 +1,4 @@
-import { prepareGeneratedScene } from "./strategic-generation.js";
+import { prepareGeneratedScene } from "./strategic-generation.js?v=worker-reuse-1";
 
 // A document becomes prepared only after the complete CPU product set arrives.
 // GPU readiness belongs to the renderer. Generation shares one residency registry,
