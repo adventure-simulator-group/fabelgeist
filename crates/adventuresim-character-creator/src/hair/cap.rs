@@ -23,8 +23,9 @@ use super::{HeadPlacement, SkinCover};
 /// How far over the skin the cap lies, metres: under the hair's roots,
 /// clear of the skin's own triangles.
 const CAP_LIFT: f32 = 0.0004;
-/// Rows of cells from the scalp's edge over which the root tint fades in.
-const EDGE_FADE_ROWS: f32 = 3.0;
+/// Rows of cells from the scalp's edge over which the root tint fades in:
+/// one, so the hairline is soft but no band of bare skin runs along it.
+const EDGE_FADE_ROWS: f32 = 1.0;
 
 /// The scalp, fitted to a character's skull, and how much hair covers each
 /// of its points.

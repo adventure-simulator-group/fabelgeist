@@ -44,8 +44,6 @@ pub(super) struct HairPreview {
 pub(super) struct PlacedStyle {
     pub(super) hair: PlacedHair,
     body: Arc<GeneratedCharacter>,
-    /// How much hair covers each body vertex, for shading the scalp.
-    cover: Vec<SkinCover>,
     atlas: Handle<Image>,
 }
 
@@ -59,13 +57,11 @@ struct Worker {
 struct Prepared {
     grown: Arc<GroomedHair>,
     placed: PlacedHair,
-    cover: Vec<SkinCover>,
 }
 
 /// A body's copy of what placing hair on it reads, for the worker to own.
 pub(super) struct BodyHead {
     positions: Vec<[f32; 3]>,
-    normals: Vec<[f32; 3]>,
     faces: Vec<[u32; 3]>,
     joint_indices: Vec<[u32; 8]>,
     joint_weights: Vec<[f32; 8]>,
@@ -78,7 +74,6 @@ impl BodyHead {
         let character = &model.mhr.character;
         Self {
             positions: generated.positions.clone(),
-            normals: generated.normals.clone(),
             faces: character.mesh.faces.clone(),
             joint_indices: character.skin_weights.index.clone(),
             joint_weights: character.skin_weights.weight.clone(),
@@ -133,12 +128,7 @@ impl HairPreview {
         let handle = std::thread::spawn(move || {
             let grown = grown.unwrap_or_else(|| Arc::new(GroomedHair::grow(preset)));
             let placed = head.place(&grown)?;
-            let cover = placed.cover(&head.positions, &head.normals);
-            Ok(Prepared {
-                grown,
-                placed,
-                cover,
-            })
+            Ok(Prepared { grown, placed })
         });
         self.worker = Some(Worker {
             preset,
@@ -169,7 +159,6 @@ impl HairPreview {
         self.placed = Some(PlacedStyle {
             hair: prepared.placed,
             body: worker.body,
-            cover: prepared.cover,
             atlas,
         });
         Ok(())
@@ -247,7 +236,6 @@ pub(super) fn refresh(
     model: Res<BodyModel>,
     walk: Res<WalkPreview>,
     shown: Query<(Entity, &HairMesh)>,
-    bodies: scalp_shade::Bodies,
     mut assets: HairAssets,
     mut contexts: EguiContexts,
 ) {
@@ -261,7 +249,6 @@ pub(super) fn refresh(
         }
     }
     let Some((design, form)) = wanted else {
-        scalp_shade::clear(&mut commands, &bodies, &mut assets.meshes);
         return;
     };
     // A level of detail is drawn once its slider is let go.
@@ -285,13 +272,6 @@ pub(super) fn refresh(
         }
         return;
     };
-    scalp_shade::apply(
-        &mut commands,
-        &bodies,
-        &mut assets.meshes,
-        design,
-        &placed.cover,
-    );
     if shown
         .iter()
         .any(|(_, mesh)| (mesh.design, mesh.form) == (design, form))

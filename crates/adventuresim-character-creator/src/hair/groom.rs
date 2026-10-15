@@ -190,18 +190,6 @@ impl PlacedHair {
     pub fn card_count(&self, level: usize) -> usize {
         self.lods.cards.get(level).map_or(0, |cut| cut.cards)
     }
-
-    /// How much hair covers each skin point, its outward `normals` beside it.
-    pub fn cover(&self, points: &[[f32; 3]], normals: &[[f32; 3]]) -> Vec<SkinCover> {
-        let points: Vec<Vec3> = points.iter().copied().map(Vec3::from_array).collect();
-        let normals: Vec<Vec3> = normals.iter().copied().map(Vec3::from_array).collect();
-        self.lods
-            .cover
-            .at(&points, &normals)
-            .into_iter()
-            .map(|[roots, over]| SkinCover { roots, over })
-            .collect()
-    }
 }
 
 /// Move each strand whole along its root's normal until the root sits just
