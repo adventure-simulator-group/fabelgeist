@@ -140,9 +140,9 @@ fn both_legs_survive_the_four_influence_export_budget() {
             .filter(|(_, w)| **w > 0.0)
             .map(|(i, _)| *i)
             .collect();
-        assert_eq!(active, [0, 1, 8, 9].into_iter().collect());
+        assert_eq!(active, [0, 8].into_iter().collect());
     }
-    for joint in [0, 1, 8, 9] {
+    for joint in [0, 8] {
         let weight = |v: usize| {
             skin.indices[v]
                 .iter()
@@ -153,4 +153,13 @@ fn both_legs_survive_the_four_influence_export_budget() {
         };
         assert!((weight(0) - weight(1)).abs() < 0.001);
     }
+}
+
+#[test]
+fn lower_skirt_ownership_is_independent_of_depth_and_surface_helpers() {
+    let input = body();
+    let points = [[0.01, 0.5, -0.5], [0.01, 0.5, 0.5]];
+    let skin = transfer_skin(&input, &points).unwrap();
+    assert_eq!(skin.indices[0], skin.indices[1]);
+    assert_eq!(skin.weights[0], skin.weights[1]);
 }

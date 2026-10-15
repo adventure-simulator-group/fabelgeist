@@ -489,13 +489,14 @@ shirt, fitted shirt, tunic, doublet, gambeson, trousers, hose, braies, skirt,
 dress, kirtle, surcoat and houppelande. Everything stays editable afterwards.
 
 Sewn skirts and fitted mail or padded skirts share their skin-transfer policy.
-Below the hips, vertices between the legs blend skin sampled on both sides;
-the sampling direction follows the hip landmarks. Side vertices retain their
-own leg's motion. This removes the abrupt nearest-leg ownership switch at the
-center. Each lower-skirt side reserves at most two influences before blending,
-so the four-influence export cannot discard one leg at the center. The upper
-attachment fades to body-surface skin above the hips. Skinning alone does not
-establish clearance during movement or preserve a rigid skirt support's shape.
+Below the hips, vertices blend the two upper-leg joints; the lateral axis
+follows the hip landmarks. Side vertices retain their own leg's motion. This
+removes the abrupt nearest-leg ownership switch at the center and avoids
+copying surface-helper, knee and foot motion onto continuous cloth. The lower
+skirt uses at most two influences, so four-influence export retains both legs.
+The upper attachment fades to body-surface skin above the hips. Skinning alone
+does not establish clearance during movement or preserve a rigid skirt
+support's shape.
 
 ## Draped chainmail
 
