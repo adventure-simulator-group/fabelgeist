@@ -51,6 +51,7 @@ impl CityGroundKind {
                 ..default()
             },
             extension: CityGroundExtension {
+                source_from_world: Mat4::IDENTITY,
                 traffic_transform: traffic.transform,
                 traffic_mask: traffic.image.clone(),
                 surface: Vec4::new(stone_cover, stone_spacing, garden, 0.0),
@@ -103,6 +104,8 @@ pub(crate) struct CityGroundExtension {
     texture_scale: Vec4,
     #[uniform(100)]
     pub(super) traffic_transform: Vec4,
+    #[uniform(100)]
+    source_from_world: Mat4,
     #[texture(107)]
     #[sampler(108)]
     pub(super) traffic_mask: Handle<Image>,
@@ -129,6 +132,14 @@ impl MaterialExtension for CityGroundExtension {
 pub(crate) type CityGroundMaterial = ExtendedMaterial<StandardMaterial, CityGroundExtension>;
 
 impl CityGroundExtension {
+    /// Native material-space adapter; source stones and wear do not slide when
+    /// the geographic window changes its east/up/south render origin.
+    pub(in crate::presentation) fn set_geographic_frame(
+        &mut self,
+        frame: crate::presentation::buildings::CityFrame,
+    ) {
+        self.source_from_world = frame.world_from_city().inverse();
+    }
     pub(crate) fn texture_ids(&self) -> impl Iterator<Item = AssetId<Image>> {
         [
             &self.soil_height_ao,

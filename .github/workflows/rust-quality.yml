@@ -98,6 +98,8 @@ jobs:
         run: |
           cargo test --package adventuresim-world-schema --all-features
           cargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests
+      - name: Test resolved Bevy guard
+        run: cargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard
       - name: Test checked FBX array encoding
         run: >-
           cargo test --locked --package fabelgeist-fbx --lib

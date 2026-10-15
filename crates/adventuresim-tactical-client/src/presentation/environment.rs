@@ -185,6 +185,10 @@ pub(crate) struct TacticalCameraSetup {
 #[derive(Component)]
 pub(crate) struct TacticalGameplayCamera;
 
+/// Retained geographic camera; independent of actor-scene installation.
+#[derive(Component)]
+pub(crate) struct RegionalMapCamera;
+
 impl Default for TacticalCameraSetup {
     fn default() -> Self {
         Self {

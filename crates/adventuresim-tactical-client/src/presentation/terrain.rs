@@ -1,4 +1,3 @@
-mod ground_map;
 use super::*;
 use adventuresim_procedural_textures::{
     FOREST_LITTER_HEIGHT_RANGE_METRES, FOREST_LITTER_TILE_METRES, FOREST_SOIL_HEIGHT_RANGE_METRES,
@@ -6,52 +5,37 @@ use adventuresim_procedural_textures::{
 };
 #[cfg(test)]
 use adventuresim_tactical_core::terrain_streams as streams;
+pub(in crate::presentation) use cliff_surface::{
+    TacticalTerrainExtension, TacticalTerrainMaterial, enable_cliff_surface,
+};
 use fabelgeist_determinism::Seed;
 pub(super) use ground_map::grass_cover_mask_pixels;
 use ground_map::ground_map_image;
 #[cfg(test)]
 use ground_map::{ground_mask_noise, ground_surface_pixel, organic_ground_pixels};
+pub(in crate::presentation) use landform_product::PreparedTerrainLandform;
+pub(in crate::presentation) use material::terrain_material;
+pub(in crate::presentation) use urban::{UrbanGroundCoveragePlugin, urban_playable_mesh};
+pub(in crate::presentation) use volumetric::terrain_patch_mesh;
 
 mod cliff_surface;
+mod ground_map;
+mod landform_product;
+mod material;
 mod urban;
 mod volumetric;
-pub(in crate::presentation) use urban::{UrbanGroundCoveragePlugin, urban_playable_mesh};
-
-use cliff_surface::enable_cliff_surface;
-pub(in crate::presentation) use cliff_surface::{
-    TacticalTerrainExtension, TacticalTerrainMaterial,
-};
 
 const DETAIL_PATCH_RADIUS_METRES: f32 = 12.0;
 const DETAIL_PATCH_MORPH_START_METRES: f32 = 8.0;
 pub(crate) const DETAIL_PATCH_SPACING_METRES: f32 = 0.5;
 const DETAIL_PATCH_SNAP_METRES: f32 = 1.0;
 const DETAIL_PATCH_DEPTH_BIAS: f32 = 2.0;
+pub(in crate::presentation) const LANDFORM_PATCH_DEPTH_BIAS: f32 = 1.0;
 const DETAIL_PATCH_BASE_CUTOUT_RADIUS_METRES: f32 = 10.0;
 #[cfg(test)]
 const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
 #[cfg(test)]
 const DETAIL_RELIEF_MAXIMUM_METRES: f32 = 0.105;
-pub(in crate::presentation) const TACTICAL_DIRT_SRGB: [u8; 3] = [101, 82, 49];
-
-pub(super) fn scene_ground_color(environment: &SceneEnvironment) -> Color {
-    let mut rgb = if environment.water_bps >= 5_000 {
-        [52.0, 83.0, 98.0]
-    } else if environment.wetland_bps >= 4_000 {
-        [70.0, 62.0, 43.0]
-    } else if environment.cultivation_bps >= 4_000 {
-        [116.0, 91.0, 49.0]
-    } else {
-        TACTICAL_DIRT_SRGB.map(f32::from)
-    };
-    let snow = bps(environment.weather.snow_cover_bps);
-    let wet = bps(environment.weather.ground_moisture_bps);
-    for channel in &mut rgb {
-        *channel *= 1.0 - wet * 0.22;
-        *channel = *channel * (1.0 - snow) + 220.0 * snow;
-    }
-    Color::srgb(rgb[0] / 255.0, rgb[1] / 255.0, rgb[2] / 255.0)
-}
 
 pub(crate) fn terrain_heightmap_image(terrain: &SceneTerrain) -> Image {
     let width = terrain.grid_width() as u32;
@@ -171,7 +155,7 @@ pub(in crate::presentation) fn present_pending_terrain(
     mut startup: Option<ResMut<crate::presentation::ClientStartupTiming>>,
 ) {
     let mut prepared_first_terrain = false;
-    for (entity, id, terrain, environment, ground, landform) in &query {
+    for (entity, id, terrain, environment, ground, landform, prepared) in &query {
         let transition_collar = landform.map(|recipe| recipe.transition_collar());
         let presented = if let (
             Some((_, handle)),
@@ -222,12 +206,12 @@ pub(in crate::presentation) fn present_pending_terrain(
                 terrain,
                 material,
                 landform,
-                transition_collar,
+                prepared,
+                urban::GroundCoverage::new(terrain, environment, &vista),
             );
             let centre = Vec2::ZERO;
             let detail_mesh =
                 terrain_detail_patch_mesh(terrain, environment, &vista, centre, transition_collar);
-            let detail_triangle_count = mesh_triangle_count(&detail_mesh);
             commands.spawn((
                 Name::new(format!("{} camera-local terrain detail patch", id.0)),
                 ScenePresentationOf(entity),
@@ -235,7 +219,7 @@ pub(in crate::presentation) fn present_pending_terrain(
                     centre,
                     vista_revision: vista.revision(),
                 },
-                TerrainTriangleCount(detail_triangle_count),
+                TerrainTriangleCount(mesh_triangle_count(&detail_mesh)),
                 NotShadowCaster,
                 Mesh3d(meshes.add(detail_mesh)),
                 MeshMaterial3d(detail_material),
@@ -317,6 +301,20 @@ fn terrain_detail_patch_mesh(
     centre: Vec2,
     transition_collar: Option<TerrainTransitionCollar>,
 ) -> Mesh {
+    // Canonical urban geometry owns the entire playable surface. Coverage hides
+    // this moving patch, so preserve its refresh slot without sampling a mesh.
+    if urban::GroundTopology::for_scene(terrain, environment, vista)
+        == urban::GroundTopology::Canonical
+    {
+        return Mesh::new(
+            PrimitiveTopology::TriangleList,
+            RenderAssetUsages::MAIN_WORLD | RenderAssetUsages::RENDER_WORLD,
+        )
+        .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, Vec::<[f32; 3]>::new())
+        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, Vec::<[f32; 3]>::new())
+        .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, Vec::<[f32; 2]>::new())
+        .with_inserted_indices(Indices::U32(Vec::new()));
+    }
     let diameter_steps =
         (DETAIL_PATCH_RADIUS_METRES * 2.0 / DETAIL_PATCH_SPACING_METRES).round() as usize;
     let width = diameter_steps + 1;
@@ -741,106 +739,14 @@ fn terrain_smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {
     t * t * (3.0 - 2.0 * t)
 }
 
-pub(in crate::presentation) fn terrain_material(
-    terrain: &SceneTerrain,
-    environment: &SceneEnvironment,
-    ground: Option<&SceneGround>,
-    procedural_assets: &ProceduralTextureAssets,
-    images: &mut Assets<Image>,
-    grass: &crate::presentation::config::GrassConfig,
-) -> TacticalTerrainMaterial {
-    TacticalTerrainMaterial {
-        base: StandardMaterial {
-            base_color: Color::WHITE,
-            perceptual_roughness: 0.92,
-            metallic: 0.0,
-            ..default()
-        },
-        extension: TacticalTerrainExtension {
-            base_color: color_vec4(scene_ground_color(environment)),
-            // Match the rendered optical average of the sward rather than its
-            // brighter pre-lighting blade pigment.
-            grass_color: color_vec4(grass_terminal_pigment(environment)),
-            cover: Vec4::new(
-                bps(environment.canopy_bps),
-                bps(environment.wetland_bps),
-                bps(environment.cultivation_bps),
-                bps(environment.water_bps),
-            ),
-            weather: Vec4::new(
-                bps(environment.weather.ground_moisture_bps),
-                bps(environment.weather.snow_cover_bps),
-                bps(environment.hilly_bps),
-                bps(environment.weather.wind_speed_bps),
-            ),
-            // The final Vista-to-terrain fade retains a band-limited sward
-            // instead of paying for sub-pixel grass. x/y are its distance
-            // interval; z is environment-dependent coverage and w is reserved.
-            far_sward: Vec4::new(
-                grass.lod.vista.fade_out_m[0],
-                grass.lod.vista.fade_out_m[1],
-                (1.0 - bps(environment.water_bps) * 0.9
-                    - bps(environment.weather.snow_cover_bps) * 0.8)
-                    .clamp(0.0, 1.0),
-                0.0,
-            ),
-            // Replace Far's removed physical coverage during the Near-to-Far
-            // crossfade. x/y are the shared blade-LOD interval; z is the
-            // stable Far subset's missing projected coverage; w is reserved.
-            lod_sward: Vec4::new(
-                grass.lod.far.fade_in_m[0],
-                grass.lod.far.fade_in_m[1],
-                grass.transition.terrain_gap_fill_fraction,
-                0.0,
-            ),
-            // x/y are the authoritative playable half extents. The detail
-            // patch alone can extend beyond them; z controls its discrete
-            // substrate-to-vista-sward handoff and w is reserved.
-            playable_bounds: Vec4::new(terrain.width() * 0.5, terrain.depth() * 0.5, 4.0, 0.0),
-            // x marks the coarse base material. Its shader removes only the
-            // safely covered interior beneath the signed detail patch; the
-            // outer overlap remains coplanar and morphs continuously.
-            detail_patch: Vec4::new(1.0, DETAIL_PATCH_BASE_CUTOUT_RADIUS_METRES, 0.0, 0.0),
-            // x is tile repetitions per metre, y is the decoded physical
-            // height range, z scales the derivative normal, and w is the
-            // distance where sub-centimetre detail is completely absent.
-            soil_detail: Vec4::new(
-                1.0 / FOREST_SOIL_TILE_METRES,
-                FOREST_SOIL_HEIGHT_RANGE_METRES,
-                1.0,
-                24.0,
-            ),
-            // Dense leaf litter is an aggregate terrain material first. Its
-            // packed height/AO/tone/coverage map supplies the continuous
-            // forest-floor mass beneath sparse silhouette-breaking meshes.
-            litter_detail: Vec4::new(
-                1.0 / FOREST_LITTER_TILE_METRES,
-                FOREST_LITTER_HEIGHT_RANGE_METRES,
-                0.72,
-                32.0,
-            ),
-            // Cliff presentation is disabled on both ordinary terrain draws.
-            // The implicit patch clone enables it with its required recipe.
-            cliff_palette_a: Vec4::ZERO,
-            cliff_palette_b: Vec4::ZERO,
-            cliff_surface: Vec4::new(1.0 / ROCK_TILE_METRES, ROCK_HEIGHT_RANGE_METRES, 0.8, 0.9),
-            cliff_structure_a: Vec4::ZERO,
-            cliff_structure_b: Vec4::ZERO,
-            ground_map: images.add(ground_map_image(
-                ground,
-                stable_text_seed(&environment.scene_digest),
-            )),
-            soil_height_ao: procedural_assets.forest_soil.height_ao.clone(),
-            litter_surface: procedural_assets.forest_soil.litter_surface.clone(),
-            litter_normal: procedural_assets.forest_soil.litter_normal.clone(),
-            blood_mask: procedural_assets.terrain_blood_mask.clone(),
-            cliff_height: procedural_assets.rock.height.clone(),
-            cliff_arm: procedural_assets.rock.arm.clone(),
-        },
+pub(super) fn on_environment_added(
+    event: On<Add, SceneEnvironment>,
+    mut commands: Commands,
+    scenes: Query<(), With<SceneId>>,
+) {
+    if scenes.get(event.entity).is_err() {
+        return;
     }
-}
-
-pub(super) fn on_environment_added(event: On<Add, SceneEnvironment>, mut commands: Commands) {
     commands
         .entity(event.entity)
         .insert(PendingTerrainPresentation);
@@ -912,7 +818,7 @@ mod tests {
         ));
         assert!(shader.contains("distance(position, view.lod_view_world_position.xyz)"));
         assert!(shader.contains("distance(position.xz, view.lod_view_world_position.xz)"));
-        assert!(shader.contains("let soil_uv = position.xz * terrain.soil_detail.x"));
+        assert!(shader.contains("let soil_uv = material_position.xz * terrain.soil_detail.x"));
         assert!(shader.contains("let height_dx = dpdx(height_metres)"));
         assert!(shader.contains("pbr_input.diffuse_occlusion *= mix(1.0, soil_sample.g"));
         assert!(!shader.contains("select(color, terrain.grass_color.rgb, tall_grass > 0.5)"));
@@ -931,7 +837,7 @@ mod tests {
             shader.contains("let sward_coverage = mix(near_to_far_sward, 1.0, terminal_sward)")
         );
         assert!(shader.contains("color = mix(color, sward_target, sward_amount)"));
-        assert!(shader.contains("abs(position.x) - terrain.playable_bounds.x"));
+        assert!(shader.contains("abs(material_position.x) - terrain.playable_bounds.x"));
         assert!(shader.contains("color = mix(color, sward_target, outside_sward)"));
         assert!(shader.contains("terrain.detail_patch.x > 0.5"));
         assert!(shader.contains("discard"));
@@ -989,6 +895,7 @@ mod tests {
     fn terrain_presentation_remains_pending_until_terrain_arrives() {
         let mut app = App::new();
         app.add_observer(on_game_scene_added);
+        app.add_observer(on_environment_added);
         let scene = app.world_mut().spawn(SceneId("add-order".into())).id();
         app.update();
         assert!(
@@ -1004,6 +911,16 @@ mod tests {
         assert!(
             app.world()
                 .entity(scene)
+                .contains::<PendingTerrainPresentation>()
+        );
+        let backdrop = app
+            .world_mut()
+            .spawn(SceneEnvironmentFixture::TemperateHills.snapshot("strategic-backdrop"))
+            .id();
+        app.update();
+        assert!(
+            !app.world()
+                .entity(backdrop)
                 .contains::<PendingTerrainPresentation>()
         );
     }

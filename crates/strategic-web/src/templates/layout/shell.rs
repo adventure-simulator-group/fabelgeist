@@ -124,7 +124,6 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
                 script src="/static/strategic-condition.js?v=strategic-condition-4" defer {}
                 script src="/static/building-state.js?v=goslar-1" defer {}
                 script src="/static/travel-planner.js?v=travel-rails-2" defer {}
-                script src="/static/strategic-map.js?v=population-culling-3" defer {}
                 script src="/static/rest-duration.js?v=wake-time-5" defer {}
                 script src="/static/schedule-preview.js?v=server-preview-1" defer {}
                 script src="/static/training-schedule.js?v=server-preview-1" defer {}

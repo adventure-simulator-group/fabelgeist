@@ -206,6 +206,11 @@ fn raster_source_mesh(
                     .zip(weights)
                     .map(|(point, weight)| point.z * weight)
                     .sum();
+                // Occluded samples cannot write a pixel. Reject them before
+                // interpolation and lighting, retaining the original depth tie.
+                if z <= target.depth[(y * tile_size + x) as usize] {
+                    continue;
+                }
                 let normal = vertex_indices
                     .iter()
                     .zip(weights)
