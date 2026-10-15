@@ -1,7 +1,7 @@
 //! Meshes, materials and the card atlas the previewed hair is drawn with.
 use super::strand_shading::{HairShading, StrandShading};
 use super::*;
-use adventuresim_character_creator::hair::{HAIR_ROUGHNESS, HairGeometry, ScalpCap};
+use adventuresim_character_creator::hair::{AtlasLevel, HAIR_ROUGHNESS, HairGeometry, ScalpCap};
 use bevy::{
     asset::RenderAssetUsages,
     image::{ImageAddressMode, ImageFilterMode, ImageSampler, ImageSamplerDescriptor},
@@ -13,6 +13,9 @@ use bevy::{
 const HIGHLIGHT_HUE: f32 = 0.4;
 /// Coverage under which a card casts no shadow and writes no depth.
 const SHADOW_COVERAGE: f32 = 0.5;
+/// The most samples the scalp's texture is filtered with along the line
+/// of sight: hardware anisotropic filtering's usual ceiling.
+const SCALP_ANISOTROPY: u16 = 16;
 
 /// The assets hair is made of.
 #[derive(bevy::ecs::system::SystemParam)]
@@ -42,7 +45,8 @@ impl HairAssets<'_> {
         let mesh = cap_mesh(hair.cap(), design, hair.placement().head_joint)?;
         Ok((
             self.meshes.add(mesh),
-            self.materials.add(scalp_shade::material()),
+            self.materials
+                .add(scalp_shade::material(placed.scalp_texture.clone())),
         ))
     }
 
@@ -136,6 +140,7 @@ pub(super) fn cap_mesh(cap: &ScalpCap, design: HairDesign, head_joint: u32) -> R
         RenderAssetUsages::default(),
     )
     .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, cap.positions.clone())
+    .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, cap.texcoords.clone())
     .with_inserted_attribute(
         Mesh::ATTRIBUTE_COLOR,
         scalp_shade::colors(design, &cap.opacity),
@@ -153,7 +158,22 @@ pub(super) fn cap_mesh(cap: &ScalpCap, design: HairDesign, head_joint: u32) -> R
 
 /// The card atlas with its mip chain, shade as grey and coverage as alpha.
 pub(super) fn atlas_image(hair: &PlacedHair) -> Image {
-    let levels = hair.atlas_levels();
+    mip_image(&hair.atlas_levels())
+}
+
+/// The scalp's baked texture with its mip chain, shade as grey, sampled
+/// anisotropically: its strands lie along the scalp, which the eye meets
+/// at every angle round the head.
+pub(super) fn scalp_image(hair: &PlacedHair) -> Image {
+    let mut image = mip_image(hair.scalp_texture());
+    if let ImageSampler::Descriptor(sampler) = &mut image.sampler {
+        sampler.anisotropy_clamp = SCALP_ANISOTROPY;
+    }
+    image
+}
+
+/// An image of `levels`, a mip chain largest first, filtered linearly.
+fn mip_image(levels: &[AtlasLevel]) -> Image {
     let (width, height) = levels
         .first()
         .map_or((1, 1), |level| (level.width, level.height));

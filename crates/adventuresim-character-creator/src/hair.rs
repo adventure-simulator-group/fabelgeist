@@ -13,6 +13,7 @@ mod drape;
 mod geometry;
 mod groom;
 mod placement;
+mod scalp_texture;
 mod shape;
 mod wrap;
 
