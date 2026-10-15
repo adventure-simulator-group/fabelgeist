@@ -1,6 +1,7 @@
 // Layout and semantic identity bridge for the single persistent Bevy canvas.
 import { createSceneRequests } from "./strategic-scene-request.js";
 import { createRegionalMapView } from "./regional-map-view.js";
+const READINESS_POLL_INTERVAL_MS = 16;
 const kinds = { "public-square": "square", residences: "residence", keep: "keep",
   merchants: "market", weapons: "smith", armor: "armor", clothing: "tailor",
   herbalist: "apothecary", books: "books", inn: "inn", religion: "church",
@@ -335,7 +336,7 @@ export function installStrategicScene(command, runtimePromise) {
       if (metrics.navigations.length > 100) metrics.navigations.shift();
       changedAt = undefined;
     }
-    if (!ready) statusTimer = setTimeout(checkReady, 100);
+    if (!ready) statusTimer = setTimeout(checkReady, READINESS_POLL_INTERVAL_MS);
   }
 
   document.addEventListener("strategic-page-mounted", mount);
