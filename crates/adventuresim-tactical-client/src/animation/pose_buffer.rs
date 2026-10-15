@@ -2407,6 +2407,7 @@ mod tests {
             Vec2::new(0.09, 0.09),
         ];
 
+        let feet = [3usize, 6].map(RigJointOrdinal::from);
         for (sample_index, displacement) in paths.into_iter().enumerate() {
             let mut authored = definition
                 .joints
@@ -2415,11 +2416,11 @@ mod tests {
                 .collect::<Vec<_>>();
             authored[3].translation += Vec3::new(displacement.x, 0.0, displacement.y);
             authored[6].translation -= Vec3::new(displacement.x, 0.0, displacement.y);
-            let before = [3, 6].map(|foot| {
+            let before = feet.map(|foot| {
                 local_pose_global(
                     &definition,
                     &authored,
-                    RigJointOrdinal::from(foot),
+                    foot,
                     &mut vec![None; authored.len()],
                 )
                 .translation
@@ -2441,11 +2442,11 @@ mod tests {
                     locomotion_pelvis_rotation: None,
                 },
             );
-            let after = [3, 6].map(|foot| {
+            let after = feet.map(|foot| {
                 local_pose_global(
                     &definition,
                     &conformed,
-                    RigJointOrdinal::from(foot),
+                    foot,
                     &mut vec![None; conformed.len()],
                 )
                 .translation
