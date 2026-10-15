@@ -144,11 +144,11 @@ jobs:
       - name: Test tactical animation contracts
         run: |
           set -o pipefail
-          cargo test --locked --package adventuresim-tactical-client --lib animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/animation.log
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/animation.log
       - name: Test tactical equipment contracts
         run: |
           set -o pipefail
-          cargo test --locked --package adventuresim-tactical-client --lib equipment:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment.log
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client equipment:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment.log
       - name: Upload rig contract evidence
         if: always()
         uses: actions/upload-artifact@v4

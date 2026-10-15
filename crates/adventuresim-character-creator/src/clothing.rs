@@ -5,7 +5,7 @@ use crate::item_catalog_schema::{
     SurfaceAnchor,
 };
 pub use error::{ClothingError, ClothingFaceContext, ClothingPieceName};
-use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
+use fabelgeist_rig::{RigJointLookupError, RigJointName};
 use fitting::fitted_surface;
 use regions::region_rig;
 #[cfg(feature = "offline-creator")]
