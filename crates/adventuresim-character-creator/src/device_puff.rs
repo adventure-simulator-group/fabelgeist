@@ -123,7 +123,7 @@ fn fit_parameters(
         ),
         Word::F("length", design.length.unit()),
         Word::F("proximal", design.proximal_position.unit()),
-        Word::F("puffs", f32::from(design.puff_count)),
+        Word::F("puffs", f32::from(design.pattern.puff_count)),
         Word::F(
             "allowance",
             design.clearance.metres() + 2.0 * design.thickness.metres(),

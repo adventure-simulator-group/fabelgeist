@@ -10,8 +10,8 @@ pub const SKIRT_RING_SEGMENTS: usize = 96;
 /// Axial samples include both the waist and hem.
 pub const SKIRT_AXIAL_SEGMENTS: usize = 32;
 
-/// A plain skirt's placement and silhouette. Structure and surface treatments
-/// are separate construction concerns; this carrier needs no cloth simulation.
+/// Skirt placement, silhouette and optional construction. Structure and surface
+/// treatments remain independent; this carrier needs no cloth simulation.
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct SkirtDesign {
@@ -19,6 +19,7 @@ pub struct SkirtDesign {
     pub bodice: Option<DressBodice>,
     pub pleats: Option<crate::SkirtPleats>,
     pub support: Option<crate::SkirtSupport>,
+    pub puff_and_slash: Option<crate::PuffAndSlashPattern>,
     /// Height above the pelvis landmark in the canonical fitting frame.
     pub waist_rise: Millimeters,
     /// Hip-to-ankle reach: 1000 ends at the ankle landmark.
@@ -93,6 +94,7 @@ impl Default for SkirtDesign {
             bodice: None,
             pleats: None,
             support: None,
+            puff_and_slash: None,
             waist_rise: Millimeters(100),
             length: Permille(850),
             fitted_fraction: Permille(220),
@@ -115,6 +117,9 @@ impl SkirtDesign {
     pub const THICKNESS_RANGE: RangeInclusive<u16> = 1..=6;
 
     pub fn validate(&self) -> Result<(), GenerateError> {
+        if let Some(pattern) = &self.puff_and_slash {
+            pattern.validate()?;
+        }
         if let Some(pleats) = &self.pleats {
             pleats.validate()?;
         }
