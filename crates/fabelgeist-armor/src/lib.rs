@@ -7,6 +7,8 @@ pub mod material;
 pub mod ornament;
 pub mod pattern;
 mod skin;
+mod skirt;
+pub use skirt::{SKIRT_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS, SkirtDesign, SkirtProfile};
 mod tiling;
 pub use construction::{Construction, ConstructionError, Lacing, Plate, Tiling};
 pub use tiling::{Constructed, MAX_TILES};

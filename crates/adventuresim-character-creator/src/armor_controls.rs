@@ -6,6 +6,8 @@ use std::ops::RangeInclusive;
 mod helmet;
 #[path = "limb_controls.rs"]
 mod limb;
+#[path = "skirt_controls.rs"]
+mod skirt;
 
 /// The mail coif's shape controls, for the draped chainmail coif.
 pub(super) fn coif(ui: &mut egui::Ui, design: &mut fabelgeist_armor::CoifDesign) -> bool {
@@ -33,6 +35,7 @@ pub(super) fn design(ui: &mut egui::Ui, design: &mut ItemDesign) -> bool {
         ItemDesign::Recipe(ParametricDesign::Limb(d)) => limb::show(ui, d),
         ItemDesign::Recipe(ParametricDesign::Helmet(d)) => helmet::show(ui, d),
         ItemDesign::Recipe(ParametricDesign::PuffAndSlash(d)) => puff_and_slash(ui, d),
+        ItemDesign::Recipe(ParametricDesign::Skirt(d)) => skirt::show(ui, d),
         ItemDesign::Recipe(ParametricDesign::TrunkHose(d)) => trunk_hose(ui, d),
         ItemDesign::Recipe(ParametricDesign::Garment(d)) => {
             super::garment_armor_controls::show(ui, d)
