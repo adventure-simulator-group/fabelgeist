@@ -8,11 +8,14 @@
 //! into a scalp the bust did not have. Each level is drawn as plain triangles
 //! ([`HairGeometry`]): strands as ribbons, cards as textured strips.
 
+mod cap;
+mod drape;
 mod geometry;
 mod groom;
 mod placement;
 mod wrap;
 
+pub use cap::ScalpCap;
 pub use geometry::{AtlasLevel, HairGeometry};
 pub use groom::{BodySurface, GroomedHair, PlacedHair, SkinCover};
 pub use placement::{HeadPlacement, HeadPlacementError, HeadSkin};

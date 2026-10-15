@@ -299,16 +299,28 @@ pub(super) fn refresh(
     let Some(skin) = animation_preview::skin(&walk) else {
         return;
     };
-    match assets.hair_mesh(placed, form) {
-        Ok(mesh) => {
+    let drawn = assets.hair_mesh(placed, form).and_then(|hair| {
+        let cap = assets.scalp_cap(placed, design)?;
+        Ok((hair, cap))
+    });
+    match drawn {
+        Ok((mesh, (cap, skin_material))) => {
             let material = assets.hair_material(design, form, placed.atlas.clone());
             commands.spawn((
                 CharacterMesh,
                 HairMesh { design, form },
                 Name::new("Hair"),
-                skin,
+                skin.clone(),
                 Mesh3d(mesh),
                 MeshMaterial3d(material),
+            ));
+            commands.spawn((
+                CharacterMesh,
+                HairMesh { design, form },
+                Name::new("Scalp"),
+                skin,
+                Mesh3d(cap),
+                MeshMaterial3d(skin_material),
             ));
         }
         Err(error) => studio.status = format!("Hair could not be drawn: {error:#}"),

@@ -1,6 +1,6 @@
 //! Hair on the default body drawn headless, as the studio draws it -- the
 //! same meshes, materials, scalp shade and lights -- in every level of
-//! detail and from three views: how a change to hair is looked at without
+//! detail and from five views: how a change to hair is looked at without
 //! the studio's window.
 //!
 //! ```text
@@ -41,7 +41,19 @@ struct View {
     target: Vec3,
 }
 
-const VIEWS: [View; 3] = [
+const VIEWS: [View; 5] = [
+    // Close over the parting: how the roots leave the scalp.
+    View {
+        name: "parting",
+        eye: Vec3::new(0.05, 0.2, 0.1),
+        target: Vec3::new(0.0, 0.1, 0.03),
+    },
+    // From above: the roots and the scalp between them.
+    View {
+        name: "crown",
+        eye: Vec3::new(0.0, 0.42, 0.1),
+        target: Vec3::new(0.0, 0.05, 0.0),
+    },
     // From the front and above: the parting and the crown.
     View {
         name: "front",
@@ -84,7 +96,9 @@ fn hair_renders() -> Result<()> {
     let generated = generate_character(&model, &CharacterRecipe::default())?;
     let head = BodyHead::new(&model, &generated);
     let grown = GroomedHair::grow(preset);
+    let started = std::time::Instant::now();
     let placed = head.place(&grown)?;
+    println!("placed in {:.2} s", started.elapsed().as_secs_f32());
     let cover = placed.cover(&head.positions, &head.normals);
     let design = HairDesign {
         preset,
@@ -97,7 +111,13 @@ fn hair_renders() -> Result<()> {
     );
     let mut body =
         studio_generation::visible_body_mesh(&generated, &model.mhr.character.mesh.faces);
-    body.insert_attribute(Mesh::ATTRIBUTE_COLOR, scalp_shade::colors(design, &cover));
+    body.insert_attribute(
+        Mesh::ATTRIBUTE_COLOR,
+        scalp_shade::colors(design, &scalp_shade::shadow_only(&cover)),
+    );
+    let mut cap = assets::cap_mesh(placed.cap(), design, placed.placement().head_joint)?;
+    cap.remove_attribute(Mesh::ATTRIBUTE_JOINT_INDEX);
+    cap.remove_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT);
     let forms = placed.forms();
     let out = PathBuf::from("../../target/hair-render");
     std::fs::create_dir_all(&out)?;
@@ -139,6 +159,7 @@ fn hair_renders() -> Result<()> {
     }
     let stage = Stage {
         body: Some(body),
+        cap: Some(cap),
         atlas: Some(assets::atlas_image(&placed)),
         hairs,
         design,
@@ -174,6 +195,7 @@ fn hair_renders() -> Result<()> {
 #[derive(Resource)]
 struct Stage {
     body: Option<Mesh>,
+    cap: Option<Mesh>,
     atlas: Option<Image>,
     hairs: Vec<(Form, Mesh, Vec<PathBuf>)>,
     design: HairDesign,
@@ -190,20 +212,23 @@ fn spawn(
     mut materials: ResMut<Assets<StandardMaterial>>,
     mut images: ResMut<Assets<Image>>,
 ) {
-    let (Some(body), Some(atlas)) = (stage.body.take(), stage.atlas.take()) else {
+    let (Some(body), Some(cap), Some(atlas)) =
+        (stage.body.take(), stage.cap.take(), stage.atlas.take())
+    else {
         return;
     };
     let atlas = images.add(atlas);
     let environment = images.add(studio_environment::studio_environment());
     let every_layer = RenderLayers::from_layers(&(0..=stage.hairs.len()).collect::<Vec<_>>());
+    let skin = materials.add(preview::skin_material());
     commands.spawn((
         Mesh3d(meshes.add(body)),
-        MeshMaterial3d(materials.add(StandardMaterial {
-            base_color: preview::SKIN_COLOR,
-            perceptual_roughness: 0.52,
-            reflectance: 0.46,
-            ..default()
-        })),
+        MeshMaterial3d(skin.clone()),
+        every_layer.clone(),
+    ));
+    commands.spawn((
+        Mesh3d(meshes.add(cap)),
+        MeshMaterial3d(skin),
         every_layer.clone(),
     ));
     commands.spawn((

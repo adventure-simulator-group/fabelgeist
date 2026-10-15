@@ -2,8 +2,9 @@
 //!
 //! Between strands and cards the skin would show bare and lit. Where roots
 //! grow, the skin takes on the hair's colour at the root; where hair lies
-//! over it, the skin falls into its shadow. The body's vertex colours carry
-//! both, multiplying its skin colour.
+//! over it, the skin falls into its shadow. Vertex colours carry both,
+//! multiplying the skin colour: the scalp cap's, fine enough for a parting,
+//! carry both; the body's, far coarser over the skull, only the shadow.
 use super::*;
 use adventuresim_character_creator::hair::HairPigment;
 
@@ -43,7 +44,7 @@ pub(super) fn apply(
         if mesh.count_vertices() != cover.len() {
             continue;
         }
-        mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, colors(design, cover));
+        mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, colors(design, &shadow_only(cover)));
         commands.entity(entity).insert(ScalpShade(design.pigment));
     }
 }
@@ -63,6 +64,18 @@ pub(super) fn colors(design: HairDesign, cover: &[SkinCover]) -> Vec<[f32; 4]> {
                 shaded / skin[k].max(f32::EPSILON) * shadow
             });
             [r, g, b, 1.0]
+        })
+        .collect()
+}
+
+/// `cover` with no roots growing: what the body's coarse vertices carry,
+/// leaving the roots' tint to the scalp cap.
+pub(super) fn shadow_only(cover: &[SkinCover]) -> Vec<SkinCover> {
+    cover
+        .iter()
+        .map(|cover| SkinCover {
+            roots: 0.0,
+            over: cover.over,
         })
         .collect()
 }

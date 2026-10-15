@@ -1,6 +1,6 @@
 //! Meshes, materials and the card atlas the previewed hair is drawn with.
 use super::*;
-use adventuresim_character_creator::hair::{HAIR_ROUGHNESS, HairGeometry};
+use adventuresim_character_creator::hair::{HAIR_ROUGHNESS, HairGeometry, ScalpCap};
 use bevy::{
     asset::RenderAssetUsages,
     image::{ImageAddressMode, ImageFilterMode, ImageSampler, ImageSamplerDescriptor},
@@ -22,6 +22,21 @@ impl HairAssets<'_> {
     pub(super) fn hair_mesh(&mut self, placed: &PlacedStyle, form: Form) -> Result<Handle<Mesh>> {
         let head = placed.hair.placement().head_joint;
         Ok(self.meshes.add(mesh(placed.hair.geometry(form), head)?))
+    }
+
+    /// The scalp cap under `placed`, skinned wholly to the head joint and
+    /// shaded for `design`, in skin.
+    pub(super) fn scalp_cap(
+        &mut self,
+        placed: &PlacedStyle,
+        design: HairDesign,
+    ) -> Result<(Handle<Mesh>, Handle<StandardMaterial>)> {
+        let hair = &placed.hair;
+        let mesh = cap_mesh(hair.cap(), design, hair.placement().head_joint)?;
+        Ok((
+            self.meshes.add(mesh),
+            self.materials.add(preview::skin_material()),
+        ))
     }
 
     /// Cards cut their painted strands out of the atlas; ribbons are each
@@ -85,6 +100,32 @@ pub(super) fn mesh(geometry: HairGeometry, head_joint: u32) -> Result<Mesh> {
         vec![[1.0f32, 0.0, 0.0, 0.0]; count],
     )
     .with_inserted_indices(Indices::U32(geometry.faces.into_flattened())))
+}
+
+/// The scalp `cap` as a mesh skinned wholly to `head_joint`, its shade for
+/// hair of `design` as vertex colour.
+pub(super) fn cap_mesh(cap: &ScalpCap, design: HairDesign, head_joint: u32) -> Result<Mesh> {
+    let count = cap.positions.len();
+    let head = u16::try_from(head_joint).context("the head joint index exceeds a skin index")?;
+    Ok(Mesh::new(
+        PrimitiveTopology::TriangleList,
+        RenderAssetUsages::default(),
+    )
+    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, cap.positions.clone())
+    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, cap.normals.clone())
+    .with_inserted_attribute(
+        Mesh::ATTRIBUTE_COLOR,
+        scalp_shade::colors(design, &cap.cover),
+    )
+    .with_inserted_attribute(
+        Mesh::ATTRIBUTE_JOINT_INDEX,
+        VertexAttributeValues::Uint16x4(vec![[head, 0, 0, 0]; count]),
+    )
+    .with_inserted_attribute(
+        Mesh::ATTRIBUTE_JOINT_WEIGHT,
+        vec![[1.0f32, 0.0, 0.0, 0.0]; count],
+    )
+    .with_inserted_indices(Indices::U32(cap.faces.as_flattened().to_vec())))
 }
 
 /// The card atlas with its mip chain, shade as grey and coverage as alpha.

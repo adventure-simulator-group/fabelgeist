@@ -167,20 +167,25 @@ pub(super) fn spawn_body(
         },
         animation_preview::skin(walk).expect("animation rig was just rebuilt"),
         Mesh3d(meshes.add(mesh)),
-        MeshMaterial3d(materials.add(StandardMaterial {
-            // Skin is a rough dielectric with a small amount of diffuse
-            // transmission. This keeps thin features such as the nose, ears,
-            // and fingers warm instead of crushing them to black.
-            base_color: SKIN_COLOR,
-            metallic: 0.0,
-            perceptual_roughness: 0.52,
-            reflectance: 0.46,
-            specular_tint: Color::srgb(1.0, 0.93, 0.89),
-            // A small back-diffuse lobe is Bevy's inexpensive approximation
-            // of the short scattering distance seen in skin. Kept subtle so
-            // the body remains opaque and shadowed rather than wax-like.
-            diffuse_transmission: 0.045,
-            ..default()
-        })),
+        MeshMaterial3d(materials.add(skin_material())),
     ));
+}
+
+/// The previewed skin: of the body, and of the scalp cap under hair.
+pub(super) fn skin_material() -> StandardMaterial {
+    StandardMaterial {
+        // Skin is a rough dielectric with a small amount of diffuse
+        // transmission. This keeps thin features such as the nose, ears,
+        // and fingers warm instead of crushing them to black.
+        base_color: SKIN_COLOR,
+        metallic: 0.0,
+        perceptual_roughness: 0.52,
+        reflectance: 0.46,
+        specular_tint: Color::srgb(1.0, 0.93, 0.89),
+        // A small back-diffuse lobe is Bevy's inexpensive approximation
+        // of the short scattering distance seen in skin. Kept subtle so
+        // the body remains opaque and shadowed rather than wax-like.
+        diffuse_transmission: 0.045,
+        ..default()
+    }
 }
