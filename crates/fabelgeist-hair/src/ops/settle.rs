@@ -93,6 +93,16 @@ impl Settle {
     }
 }
 
+impl Settle {
+    /// The equilibrium of the strand `rest` under `load` (an acceleration),
+    /// rooted at its first point and held up by `collider`: how a strand of
+    /// that shape hangs on that body. Draping one groom on two bodies under
+    /// the same load, the difference is how the second body moves it.
+    pub fn equilibrium(&self, rest: &[Vec3], load: Vec3, collider: &dyn Collider) -> Vec<Vec3> {
+        solve(rest, load, self, collider)
+    }
+}
+
 /// The equilibrium of `rest` as an elastic rod under `load` (an
 /// acceleration), rooted at its first point.
 fn solve(rest: &[Vec3], load: Vec3, settings: &Settle, collider: &dyn Collider) -> Vec<Vec3> {

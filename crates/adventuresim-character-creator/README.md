@@ -72,16 +72,27 @@ layered cuts, ponytails, buns, braids, afros, dreadlocks and more. Its
 
 A hairstyle is grown once, on a worker thread, on the hair crate's mannequin
 bust (half a second to a second), then placed on each generated body on the
-same thread (one to two seconds). Placing stretches the bust's head to the
+same thread (three to four seconds). Placing stretches the bust's head to the
 character's width across the ears, its depth from the back of the skull to
 the tip of the nose and its crown, and turns it to face where the eyes look.
 The bust is only fitted to the head's extent, so wherever the character's
 skull is fuller its strands would lie under the skin: each strand is lifted
-whole until its root sits on the skin, then shrinkwrapped around the
-character's body, keeping its length, before its levels of detail are
-prepared against that body. Long hair therefore falls over the character's
-own shoulders. Changing only the colour or the level of detail reuses the
-placed hair.
+whole until its root sits on the skin.
+
+The hair is then draped on the character's own body. What a body does to a
+strand is how its equilibrium under gravity (the hair crate's `Settle`)
+against the body differs from its equilibrium against nothing; that is found
+on the bust, as groomed, and on the character, as carried, and the
+character's minus the bust's is added to the strand. Where the two bodies
+hold the hair alike it is nothing, and where the character's shoulders stand
+higher or wider it is how long hair falls over them, in front of them or
+down the back, rather than hanging through them. A tight coil -- a bun's, a
+braid's -- answers a body unsteadily, so the drape takes hold only below the
+head, fading in from the ears to the jaw. About two thousand guides are
+draped and every strand follows the four whose roots are nearest. A last
+shrinkwrap keeps every strand out of the body, keeping its length, before
+the levels of detail are prepared against that body. Changing only the
+colour or the level of detail reuses the placed hair.
 
 **Level of detail** shows any of the hair crate's forms: its strands at the
 groom's own point count and at 24, 12 and 6 points each, drawn as ribbons,
@@ -93,21 +104,28 @@ with still cover the scalp. **Strands drawn** draws a share of a strand level, e
 wider by the inverse of the share so the head stays covered; the preview
 draws at most a million and a half ribbon vertices. The level is the
 studio's choice, not the recipe's: a game picks it from the head's size on
-screen. The scalp under the hair is shaded as the hair crate shades its own
-head, tinted where roots grow and darkened where hair lies over it, so no
-level shows bare skin between its strands.
+screen.
+
+The scalp under the hair is shaded as the hair crate shades its own head,
+tinted where roots grow and darkened where hair lies over it, so no level
+shows bare skin between its strands. The body has only a few dozen vertices
+over the skull, too few to keep a parting narrow, so the bust's own scalp,
+cut in four-millimetre cells, is carried onto the character as a cap laid
+0.4 mm over its skin and shaded there; towards its edge the root tint fades
+out, and the body itself takes only the shadow of hair lying over it.
 
 Ribbons and cards are straight between their rows, and over a rounded
 shoulder or skull a straight segment between two rows just outside the skin
 passes under it, the coarse levels' long segments most. Near the skin, rows
 are added until no segment is longer than a centimetre, and each row is
-moved whole 1.5 mm off the skin, more for a wide card by as much as it sags
-across a curve as tight as the neck.
+moved whole 0.6 mm off the skin -- just over the scalp cap -- more for a
+wide card by as much as it sags across a curve as tight as the neck.
 
 To look at hair without the studio's window, an ignored test grows a
-hairstyle on the default body and draws every level of detail from the
-front, the back and over the shoulder, as the studio draws them, printing how
-long each level takes to build and how much of it lies under the skin:
+hairstyle on the default body and draws every level of detail as the studio
+draws them, close over the parting, from above, from the front, from behind
+and over the shoulder, printing how long placing takes, how long each level
+takes to build and how much of it lies under the skin:
 
 ```powershell
 $env:MHR_ASSETS = "target/mhr-assets/v1.0.1/assets"; $env:HAIR_PRESET = "long"
@@ -118,8 +136,8 @@ It writes `target/hair-render/<preset>-<level>-<view>.png`.
 
 The hair is skinned wholly to `c_head`, so it follows the walk preview, and
 the rigged GLB exports its fine cards as a `hair` shell on the same joint,
-following the head through every body morph channel. The export does not
-carry the scalp shade.
+following the head through every body morph channel. The export carries
+neither the scalp cap nor the scalp shade.
 
 ## Inventory
 

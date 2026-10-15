@@ -16,11 +16,13 @@ use rayon::prelude::*;
 
 use super::HairGeometry;
 
-/// How far off the skin hair is kept, metres.
-const CLEARANCE: f32 = 0.0015;
+/// How far off the skin hair is kept, metres: as close as the hair crate
+/// keeps a root, over the scalp cap, so roots leave the scalp rather than
+/// hover over it.
+const CLEARANCE: f32 = 0.0006;
 /// The longest segment left near the skin, metres: a straight segment this
 /// long over the tightest curve dips under its ends by a quarter of a
-/// millimetre, well inside the clearance.
+/// millimetre, inside the clearance.
 const LONGEST_SEGMENT: f32 = 0.01;
 /// The tightest curve hair lies over, metres of radius: the neck's.
 const TIGHTEST_CURVE: f32 = 0.05;

@@ -6,7 +6,7 @@ use fabelgeist_hair::ops::{Context, Shrinkwrap};
 use fabelgeist_hair::{HairLods, Head, LodSettings, Look, MeshCollider, Preset, Strands, Surface};
 use fabelgeist_math::Vec3;
 
-use super::HeadPlacement;
+use super::{HeadPlacement, ScalpCap, drape};
 
 /// Edge of the surface-nets cells the scalp is cut from, metres: the size the
 /// hair crate's viewer and dataset grow on.
@@ -40,6 +40,7 @@ pub struct PlacedHair {
     /// The skin the hair was placed on, which the cards' edges stay out of.
     pub(super) body: MeshCollider,
     placement: HeadPlacement,
+    cap: ScalpCap,
 }
 
 /// How much hair covers a point of skin, each share 0 to 1: how densely
@@ -96,6 +97,13 @@ impl GroomedHair {
             BODY_REACH,
         );
         lift_roots(&mut strands, &collider);
+        drape::drape(
+            &mut strands,
+            &self.strands,
+            &self.head,
+            &collider,
+            placement,
+        );
         let context = Context {
             scalp: &self.scalp,
             collider: &collider,
@@ -106,11 +114,14 @@ impl GroomedHair {
         }
         .apply(&mut strands, &context);
         let center = Vec3::from_array(placement.point(self.head.cranium.center.to_array()));
+        let lods = HairLods::build(&strands, center, Some(&collider), &LodSettings::default());
+        let cap = ScalpCap::fit(&self.scalp, placement, &collider, &lods.cover);
         PlacedHair {
             preset: self.preset,
-            lods: HairLods::build(&strands, center, Some(&collider), &LodSettings::default()),
+            lods,
             body: collider,
             placement: *placement,
+            cap,
         }
     }
 }
@@ -118,6 +129,11 @@ impl GroomedHair {
 impl PlacedHair {
     pub fn placement(&self) -> &HeadPlacement {
         &self.placement
+    }
+
+    /// The scalp under the hair, fitted to the character's skull.
+    pub fn cap(&self) -> &ScalpCap {
+        &self.cap
     }
 
     /// Every form this hair can be drawn in, finest first: each strand
