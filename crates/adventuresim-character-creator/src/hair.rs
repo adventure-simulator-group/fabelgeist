@@ -11,6 +11,7 @@
 mod geometry;
 mod groom;
 mod placement;
+mod wrap;
 
 pub use geometry::{AtlasLevel, HairGeometry};
 pub use groom::{BodySurface, GroomedHair, PlacedHair, SkinCover};

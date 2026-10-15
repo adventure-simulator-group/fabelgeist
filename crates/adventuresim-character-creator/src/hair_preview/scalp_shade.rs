@@ -33,8 +33,6 @@ pub(super) fn apply(
     design: HairDesign,
     cover: &[SkinCover],
 ) {
-    let skin = preview::SKIN_COLOR.to_linear().to_f32_array_no_alpha();
-    let root = design.pigment.color().map(|channel| channel * ROOT_SHADE);
     for (entity, mesh, shade) in bodies {
         if shade.is_some_and(|shade| shade.0 == design.pigment) {
             continue;
@@ -45,21 +43,28 @@ pub(super) fn apply(
         if mesh.count_vertices() != cover.len() {
             continue;
         }
-        let colors: Vec<[f32; 4]> = cover
-            .iter()
-            .map(|cover| {
-                let tint = cover.roots * ROOT_TINT;
-                let shadow = 1.0 - OVER_SHADOW * cover.over;
-                let [r, g, b] = std::array::from_fn(|k| {
-                    let shaded = skin[k] + (root[k] - skin[k]) * tint;
-                    shaded / skin[k].max(f32::EPSILON) * shadow
-                });
-                [r, g, b, 1.0]
-            })
-            .collect();
-        mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, colors);
+        mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, colors(design, cover));
         commands.entity(entity).insert(ScalpShade(design.pigment));
     }
+}
+
+/// The vertex colours that shade the skin under hair of `design`, each
+/// multiplying the skin colour, for skin `cover`ed as given.
+pub(super) fn colors(design: HairDesign, cover: &[SkinCover]) -> Vec<[f32; 4]> {
+    let skin = preview::SKIN_COLOR.to_linear().to_f32_array_no_alpha();
+    let root = design.pigment.color().map(|channel| channel * ROOT_SHADE);
+    cover
+        .iter()
+        .map(|cover| {
+            let tint = cover.roots * ROOT_TINT;
+            let shadow = 1.0 - OVER_SHADOW * cover.over;
+            let [r, g, b] = std::array::from_fn(|k| {
+                let shaded = skin[k] + (root[k] - skin[k]) * tint;
+                shaded / skin[k].max(f32::EPSILON) * shadow
+            });
+            [r, g, b, 1.0]
+        })
+        .collect()
 }
 
 /// Return every shaded body to bare skin.

@@ -8,18 +8,14 @@
 //! culling); no ribbon is drawn narrower than a renderer without the crate's
 //! sub-pixel coverage can show.
 
-use fabelgeist_hair::cards::CardMesh;
-use fabelgeist_hair::collider::{Collider, push_out};
+use fabelgeist_hair::cards::{CardMesh, CardVertex};
 use fabelgeist_hair::lod::{Form, StrandLevel};
 use fabelgeist_hair::material::Taper;
 use fabelgeist_math::Vec3;
 
+use super::wrap::{Strip, StripPoint};
 use super::{HeadPlacement, PlacedHair};
 
-/// How far off the skin a card's edge is kept, metres. The hair crate keeps
-/// each card's spine clear, but a wide flat strip over a curved scalp still
-/// dips its edges in.
-const CARD_CLEARANCE: f32 = 0.0005;
 /// The narrowest a strand ribbon is drawn, metres.
 const MIN_RIBBON_WIDTH: f32 = 0.0004;
 /// The most ribbon vertices drawn at once: about a hundred megabytes of
@@ -99,7 +95,7 @@ impl PlacedHair {
             return HairGeometry::empty();
         };
         let variants = self.lods.atlas.variants.max(1) as f32;
-        card_geometry(cards, variants, &self.body)
+        HairGeometry::from_strips(card_strips(cards, variants), &self.body)
     }
 
     fn ribbons(&self, level: usize, share: f32) -> HairGeometry {
@@ -109,7 +105,8 @@ impl PlacedHair {
         };
         let drawn = self.strands_drawn(form);
         let widen = strands.len() as f32 / drawn.max(1) as f32;
-        ribbon_geometry(strands, drawn, widen, self.lods.center)
+        let ribbons = ribbon_strips(strands, drawn, widen, self.lods.center);
+        HairGeometry::from_strips(ribbons, &self.body)
     }
 }
 
@@ -145,63 +142,69 @@ impl HairGeometry {
     }
 }
 
-fn card_geometry(cards: &CardMesh, variants: f32, body: &impl Collider) -> HairGeometry {
-    let vertices = &cards.vertices;
-    HairGeometry {
-        positions: vertices
-            .iter()
-            .map(|vertex| {
-                push_out(body, Vec3::from_array(vertex.position), CARD_CLEARANCE).to_array()
-            })
-            .collect(),
-        normals: vertices.iter().map(|vertex| vertex.normal).collect(),
-        texcoords: vertices
-            .iter()
-            .map(|vertex| [(vertex.variant + vertex.u) / variants, vertex.v])
-            .collect(),
-        occlusion: vertices.iter().map(|vertex| vertex.occlusion).collect(),
-        faces: cards.indices.as_chunks::<3>().0.to_vec(),
-    }
+/// Each card as a strip: the hair crate cuts every card into as many rows,
+/// two points to a row.
+fn card_strips(cards: &CardMesh, variants: f32) -> Vec<Strip> {
+    let rows = cards.vertices.len() / (2 * cards.cards.max(1));
+    let point = |vertex: &CardVertex| StripPoint {
+        position: Vec3::from_array(vertex.position),
+        normal: Vec3::from_array(vertex.normal),
+        texcoord: [(vertex.variant + vertex.u) / variants, vertex.v],
+        occlusion: vertex.occlusion,
+    };
+    cards
+        .vertices
+        .chunks_exact(2 * rows.max(1))
+        .map(|card| {
+            Strip(
+                card.as_chunks::<2>()
+                    .0
+                    .iter()
+                    .map(|[left, right]| [point(left), point(right)])
+                    .collect(),
+            )
+        })
+        .collect()
 }
 
 /// The first `drawn` strands of `level` as ribbons, `widen` times as wide as
 /// the strands they draw.
-fn ribbon_geometry(level: &StrandLevel, drawn: usize, widen: f32, center: Vec3) -> HairGeometry {
+fn ribbon_strips(level: &StrandLevel, drawn: usize, widen: f32, center: Vec3) -> Vec<Strip> {
     let points = level.points;
     let taper = Taper::default();
-    let mut geometry = HairGeometry::empty();
-    for (strand, info) in level.strands.iter().take(drawn).enumerate() {
-        let samples = &level.positions[strand * points..][..points];
-        let base = geometry.positions.len() as u32;
-        let width = (2.0 * info.radius * widen).max(MIN_RIBBON_WIDTH);
-        for (index, sample) in samples.iter().enumerate() {
-            let [x, y, z, visible] = *sample;
-            let point = Vec3::new(x, y, z);
+    level
+        .strands
+        .iter()
+        .take(drawn)
+        .enumerate()
+        .map(|(strand, info)| {
+            let samples = &level.positions[strand * points..][..points];
+            let width = (2.0 * info.radius * widen).max(MIN_RIBBON_WIDTH);
             let at = |i: usize| {
                 let [x, y, z, _] = samples[i];
                 Vec3::new(x, y, z)
             };
-            let tangent =
-                (at((index + 1).min(points - 1)) - at(index.saturating_sub(1))).normalize();
-            let out = point - center;
-            let side = tangent.cross(out).normalize();
-            let normal = side.cross(tangent).normalize();
-            let along = index as f32 / (points - 1).max(1) as f32;
-            let half = 0.5 * width * taper.at(along);
-            for (across, offset) in [(0.0, -half), (1.0, half)] {
-                geometry.positions.push((point + side * offset).to_array());
-                geometry.normals.push(normal.to_array());
-                geometry.texcoords.push([across, along]);
-                geometry.occlusion.push(visible);
-            }
-        }
-        for segment in 0..points as u32 - 1 {
-            let [a, b] = [base + 2 * segment, base + 2 * segment + 1];
-            let [c, d] = [a + 2, b + 2];
-            geometry.faces.extend([[a, c, b], [b, c, d]]);
-        }
-    }
-    geometry
+            let rows = (0..points)
+                .map(|index| {
+                    let point = at(index);
+                    let tangent =
+                        (at((index + 1).min(points - 1)) - at(index.saturating_sub(1))).normalize();
+                    let side = tangent.cross(point - center).normalize();
+                    let normal = side.cross(tangent).normalize();
+                    let along = index as f32 / (points - 1).max(1) as f32;
+                    let half = 0.5 * width * taper.at(along);
+                    let visible = samples[index][3];
+                    [(0.0, -half), (1.0, half)].map(|(across, offset)| StripPoint {
+                        position: point + side * offset,
+                        normal,
+                        texcoord: [across, along],
+                        occlusion: visible,
+                    })
+                })
+                .collect();
+            Strip(rows)
+        })
+        .collect()
 }
 
 /// The atlas stores coverage, shade, depth and coverage; drawing wants the

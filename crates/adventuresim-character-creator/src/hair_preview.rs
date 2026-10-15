@@ -17,6 +17,8 @@ use std::sync::Arc;
 use std::thread::JoinHandle;
 
 mod assets;
+#[cfg(test)]
+mod render_test;
 mod scalp_shade;
 
 use assets::HairAssets;

@@ -8,9 +8,6 @@ use bevy::{
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
 
-/// Atlas texels with less coverage than this are cut away.
-const COVERAGE_CUTOFF: f32 = 0.5;
-
 /// The assets hair is made of.
 #[derive(bevy::ecs::system::SystemParam)]
 pub(crate) struct HairAssets<'w> {
@@ -35,26 +32,35 @@ impl HairAssets<'_> {
         form: Form,
         atlas: Handle<Image>,
     ) -> Handle<StandardMaterial> {
-        let [red, green, blue] = design.pigment.color();
-        let cards = matches!(form, Form::Cards { .. });
-        self.materials.add(StandardMaterial {
-            base_color: Color::linear_rgb(red, green, blue),
-            base_color_texture: cards.then_some(atlas),
-            alpha_mode: if cards {
-                AlphaMode::Mask(COVERAGE_CUTOFF)
-            } else {
-                AlphaMode::Opaque
-            },
-            perceptual_roughness: HAIR_ROUGHNESS,
-            metallic: 0.0,
-            double_sided: true,
-            cull_mode: None,
-            ..default()
-        })
+        self.materials.add(material(design, form, atlas))
     }
 }
 
-fn mesh(geometry: HairGeometry, head_joint: u32) -> Result<Mesh> {
+/// The material `form` of hair of `design` is drawn with. A card's atlas
+/// coverage becomes a share of each pixel's samples, as the hair crate's
+/// renderer draws cards: a cut at half coverage would drop the fine,
+/// half-covered strands a coarse card is painted with, and leave the scalp
+/// bare between them.
+pub(super) fn material(design: HairDesign, form: Form, atlas: Handle<Image>) -> StandardMaterial {
+    let [red, green, blue] = design.pigment.color();
+    let cards = matches!(form, Form::Cards { .. });
+    StandardMaterial {
+        base_color: Color::linear_rgb(red, green, blue),
+        base_color_texture: cards.then_some(atlas),
+        alpha_mode: if cards {
+            AlphaMode::AlphaToCoverage
+        } else {
+            AlphaMode::Opaque
+        },
+        perceptual_roughness: HAIR_ROUGHNESS,
+        metallic: 0.0,
+        double_sided: true,
+        cull_mode: None,
+        ..default()
+    }
+}
+
+pub(super) fn mesh(geometry: HairGeometry, head_joint: u32) -> Result<Mesh> {
     let count = geometry.positions.len();
     let head = u16::try_from(head_joint).context("the head joint index exceeds a skin index")?;
     let colors: Vec<[f32; 4]> = geometry
