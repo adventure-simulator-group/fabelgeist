@@ -47,6 +47,7 @@ mod drape_preview;
 mod drape_worker;
 mod fabric_controls;
 mod garment_controls;
+mod hair_color_controls;
 mod hair_controls;
 mod hair_preview;
 mod inventory_ui;

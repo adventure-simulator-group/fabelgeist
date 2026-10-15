@@ -55,27 +55,11 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, preview: &HairPreview
         return;
     };
     ui.add_space(6.0);
-    pigment(ui, design);
+    hair_color_controls::show(ui, design);
     ui.add_space(6.0);
     shape(ui, design);
     ui.add_space(6.0);
     level_of_detail(ui, &mut studio.hair_form, preview);
-}
-
-/// The hair's colour.
-fn pigment(ui: &mut egui::Ui, design: &mut HairDesign) {
-    let neutral = HairPigment::default();
-    let mut melanin = design.pigment.melanin();
-    let mut redness = design.pigment.redness();
-    let darker = stat_slider(ui, "Melanin", &mut melanin, 0.0..=1.0, neutral.melanin())
-        .on_hover_text("From white through blond and brown to black.")
-        .changed();
-    let redder = stat_slider(ui, "Redness", &mut redness, 0.0..=1.0, neutral.redness())
-        .on_hover_text("From ashen to red.")
-        .changed();
-    if darker || redder {
-        design.pigment = HairPigment::new(melanin, redness);
-    }
 }
 
 /// How the hairstyle is varied from its preset: another cut, arrangement or

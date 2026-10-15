@@ -67,8 +67,13 @@ A recipe's `hair` is a hairstyle and its pigment, or `null` for a bald head.
 The **Hair** page offers the 24 hairstyles of `fabelgeist-hair`, a strand
 hair groomer after DiffLocks (Rosu et al., CVPR 2025): crops, bobs, long and
 layered cuts, ponytails, buns, braids, afros, dreadlocks and more. Its
-**Melanin** slider runs from white through blond and brown to black, and
-**Redness** from ashen to red, as Blender's Principled Hair takes them.
+colour is a pigment as Blender's Principled Hair takes it: **Melanin** runs
+from white through blond and brown to black, **Redness** from ashen to red,
+and a dye tints the strands on top, linear RGB, white for none. The page
+offers the hair crate's eight named natural colours and ten dyes as
+swatches, any dye from a colour picker, and the two sliders, which keep a
+dye. A dye tints the hair's own colour, so it barely shows on dark hair;
+each dye swatch also lightens the hair, as bleaching before dyeing does.
 
 The hairstyle's `shape` varies its preset; its default grows the preset as
 it is. The **Cut**, **Arrangement** and **Growth** menus swap in another of
@@ -152,22 +157,27 @@ crate's projection about the crown, 2048 texels square -- about a fifth of a
 millimetre a texel over the crown. The topmost strand over each texel shows,
 from 25% of the hair's colour where it meets the skin to 90% at 8 mm off it;
 strands rooted within about 4 mm of each other share a tone, so locks show where
-single strands are far finer than a pixel; and bare scalp between them is at
-35%, in the hair's shadow. So the gaps between cards show strands running the
-groom's way, its parting and its whorl, rather than a flat patch, and the
-texture is filtered anisotropically to keep them where the eye meets the scalp
-obliquely. The body has only a few dozen vertices over the skull, too few to
-keep a parting narrow, so the bust's own scalp, cut in four-millimetre cells, is
-carried onto the character as a cap laid 0.4 mm over its skin and painted there.
-Laid by its corners, a cap triangle spanning a ridge or corner of the coarse
-body would dip under the skin and let it show through in specks along the body's
-edges, so each triangle is sampled across and lifted until all of it clears the
-skin. The cap's edge runs in the cells' steps, so it is blended over the skin,
-fading out from 5 mm above the hair crate's hairline over the next 6 mm -- the
-hairline's own smooth curve, above the steps -- and over a row of cells along
-the rest of its edge. Only the cap is painted: the body's skin, the neck and the
-shoulders hair falls over, keeps its colour, and the cap comes and goes with the
-hair.
+single strands are far finer than a pixel. Scalp no strand lies on is at 35%, in
+the shadow of hair standing further off it -- up to 25 mm, judged over blocks of
+eight texels -- as between an afro's coils. Where no hair lies over it either,
+it is bare, as at a parting or a whorl's eye, and where the texels within two of
+a texel are mostly bare, from a quarter to three fifths, the texture turns
+clear, so the body's own skin shows lit through the cap: a parting is a soft
+line of skin, while a texel or two between coils is not. So the gaps between
+cards show strands running the groom's way, its parting and its whorl, rather
+than a flat patch, and the texture is filtered anisotropically to keep them
+where the eye meets the scalp obliquely. The body has only a few dozen vertices
+over the skull, too few to keep a parting narrow, so the bust's own scalp, cut
+in four-millimetre cells, is carried onto the character as a cap laid 0.4 mm
+over its skin and painted there. Laid by its corners, a cap triangle spanning a
+ridge or corner of the coarse body would dip under the skin and let it show
+through in specks along the body's edges, so each triangle is sampled across and
+lifted until all of it clears the skin. The cap's edge runs in the cells' steps,
+so it is blended over the skin, fading out from 5 mm above the hair crate's
+hairline over the next 6 mm -- the hairline's own smooth curve, above the steps
+-- and over a row of cells along the rest of its edge. Only the cap is painted:
+the body's skin, the neck and the shoulders hair falls over, keeps its colour,
+and the cap comes and goes with the hair.
 
 Ribbons and cards are straight between their rows, and over a rounded
 shoulder or skull a straight segment between two rows just outside the skin
@@ -199,7 +209,10 @@ it grew there, to `bust-<preset>-<level>-<view>.png`: whether a fault lies in
 placing hair on a character or in drawing it. `HAIR_SHAPE` varies the preset
 as the Hair page does, taking the shape's fields that differ from its default
 -- `HAIR_SHAPE='{"length": 0.55, "curl": 0.6}'`, say -- and names the images
-`<preset>-shaped-<level>-<view>.png`.
+`<preset>-shaped-<level>-<view>.png`. `HAIR_PIGMENT` colours it as a recipe's
+pigment does -- say
+`HAIR_PIGMENT='{"melanin": 0.1, "redness": 0.05, "dye": [0.1, 0.4, 1]}'` --
+and names the images `<preset>-coloured-...`.
 
 The hair is skinned wholly to `c_head`, so it follows the walk preview, and
 the rigged GLB exports its fine cards as a `hair` shell on the same joint,
