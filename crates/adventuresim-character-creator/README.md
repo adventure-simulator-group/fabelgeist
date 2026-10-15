@@ -143,9 +143,10 @@ draws at most a million and a half ribbon vertices. The level is the
 studio's choice, not the recipe's: a game picks it from the head's size on
 screen.
 
-The scalp under the hair is painted flat in the hair's colour, unlit, so it
-neither shades nor reflects the light, and no level shows lit skin between
-its strands, even between an afro's open curls. The body has only a few
+The scalp under the hair is painted flat in the hair's colour at 40%, as
+dark as hair in its own shadow, unlit, so it neither shades nor reflects the
+light, and no level shows lit skin between its strands, even between an
+afro's open curls: the gaps recede rather than glow. The body has only a few
 dozen vertices over the skull, too few to keep a parting narrow, so the
 bust's own scalp, cut in four-millimetre cells, is carried onto the
 character as a cap laid 0.4 mm over its skin and painted there. Laid by its
