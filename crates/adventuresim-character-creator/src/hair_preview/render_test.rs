@@ -81,7 +81,6 @@ const VIEWS: [View; 5] = [
 struct Subject {
     placed: PlacedHair,
     positions: Vec<[f32; 3]>,
-    normals: Vec<[f32; 3]>,
     faces: Vec<[u32; 3]>,
     body: Mesh,
 }
@@ -105,7 +104,6 @@ impl Subject {
         Ok(Self {
             placed,
             positions: head.positions,
-            normals: head.normals,
             faces: head.faces,
             body,
         })
@@ -122,12 +120,11 @@ impl Subject {
             RenderAssetUsages::default(),
         )
         .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, positions.clone())
-        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, normals.clone())
+        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, normals)
         .with_inserted_indices(Indices::U32(faces.as_flattened().to_vec()));
         Self {
             placed,
             positions,
-            normals,
             faces,
             body,
         }
@@ -161,19 +158,13 @@ fn hair_renders() -> Result<()> {
     let Subject {
         placed,
         positions,
-        normals,
         faces,
-        mut body,
+        body,
     } = subject;
-    let cover = placed.cover(&positions, &normals);
     let center = Vec3::from_array(
         placed
             .placement()
             .point(grown.head().cranium.center.to_array()),
-    );
-    body.insert_attribute(
-        Mesh::ATTRIBUTE_COLOR,
-        scalp_shade::colors(design, &scalp_shade::shadow_only(&cover)),
     );
     let mut cap = assets::cap_mesh(placed.cap(), design, placed.placement().head_joint)?;
     cap.remove_attribute(Mesh::ATTRIBUTE_JOINT_INDEX);

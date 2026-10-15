@@ -121,12 +121,15 @@ studio's choice, not the recipe's: a game picks it from the head's size on
 screen.
 
 The scalp under the hair is shaded as the hair crate shades its own head,
-tinted where roots grow and darkened where hair lies over it, so no level
-shows bare skin between its strands. The body has only a few dozen vertices
+taking the roots' colour wherever hair grows at all densely and darkened
+where hair lies over it, so no level shows the head between its strands,
+even between an afro's open curls. The body has only a few dozen vertices
 over the skull, too few to keep a parting narrow, so the bust's own scalp,
 cut in four-millimetre cells, is carried onto the character as a cap laid
-0.4 mm over its skin and shaded there; towards its edge the root tint fades
-out, and the body itself takes only the shadow of hair lying over it.
+0.4 mm over its skin and shaded there; the root tint softens over its last
+row at the hairline. Only the cap is shaded: the body's skin, the neck and
+the shoulders hair falls over, keeps its colour, and the cap comes and goes
+with the hair.
 
 Ribbons and cards are straight between their rows, and over a rounded
 shoulder or skull a straight segment between two rows just outside the skin
