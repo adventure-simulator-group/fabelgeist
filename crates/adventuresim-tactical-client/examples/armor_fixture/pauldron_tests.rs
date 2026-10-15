@@ -1,5 +1,6 @@
 use super::*;
 use bevy::math::Vec3;
+use fabelgeist_rig::RigJointName;
 
 #[test]
 fn pauldron_shared_saddle_fits_body_and_completed_cuirass() -> Result<()> {
@@ -64,7 +65,13 @@ fn pauldron_shared_saddle_fits_body_and_completed_cuirass() -> Result<()> {
             let owner = body
                 .joint_names
                 .iter()
-                .position(|name| name == if side == "left" { "l_uparm" } else { "r_uparm" })
+                .position(|name| {
+                    name == if side == "left" {
+                        &RigJointName::L_UPARM
+                    } else {
+                        &RigJointName::R_UPARM
+                    }
+                })
                 .unwrap() as u32;
             for armor in [&bare, &dressed] {
                 for component in &armor.components {

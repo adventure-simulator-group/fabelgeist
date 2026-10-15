@@ -1,6 +1,7 @@
 use super::*;
 use bevy::math::{Quat, Vec3};
 use fabelgeist_armor::{AnimeDesign, BreastplateConstruction, Permille};
+use fabelgeist_rig::RigJointName;
 
 #[test]
 fn anime_courses_are_closed_rigid_and_keep_morph_correspondence() -> Result<()> {
@@ -211,7 +212,7 @@ fn anime_courses_are_closed_rigid_and_keep_morph_correspondence() -> Result<()> 
         );
         assert_eq!(
             body.joint_names[*owners.first().unwrap() as usize],
-            "c_spine3"
+            RigJointName::C_SPINE3
         );
         body = original;
     }
