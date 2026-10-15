@@ -1,4 +1,5 @@
 //! Meshes, materials and the card atlas the previewed hair is drawn with.
+use super::strand_shading::{HairShading, StrandShading};
 use super::*;
 use adventuresim_character_creator::hair::{HAIR_ROUGHNESS, HairGeometry, ScalpCap};
 use bevy::{
@@ -8,11 +9,17 @@ use bevy::{
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
 
+/// How far hair's highlights lean from white towards its pigment's hue.
+const HIGHLIGHT_HUE: f32 = 0.4;
+/// Coverage under which a card casts no shadow and writes no depth.
+const SHADOW_COVERAGE: f32 = 0.5;
+
 /// The assets hair is made of.
 #[derive(bevy::ecs::system::SystemParam)]
 pub(crate) struct HairAssets<'w> {
     pub(super) meshes: ResMut<'w, Assets<Mesh>>,
     materials: ResMut<'w, Assets<StandardMaterial>>,
+    hair_materials: ResMut<'w, Assets<HairShading>>,
     pub(super) images: ResMut<'w, Assets<Image>>,
 }
 
@@ -46,37 +53,52 @@ impl HairAssets<'_> {
         design: HairDesign,
         form: Form,
         atlas: Handle<Image>,
-    ) -> Handle<StandardMaterial> {
-        self.materials.add(material(design, form, atlas))
+    ) -> Handle<HairShading> {
+        self.hair_materials.add(material(design, form, atlas))
     }
 }
 
-/// The material `form` of hair of `design` is drawn with. A card's atlas
-/// coverage becomes a share of each pixel's samples, as the hair crate's
-/// renderer draws cards: a cut at half coverage would drop the fine,
-/// half-covered strands a coarse card is painted with, and leave the scalp
-/// bare between them.
-pub(super) fn material(design: HairDesign, form: Form, atlas: Handle<Image>) -> StandardMaterial {
+/// The material `form` of hair of `design` is drawn with, shaded as strands
+/// ([`HairShading`]). A card is cut out of `atlas`: its coverage becomes a
+/// share of each pixel's samples, hashed per card as the hair crate's
+/// renderer does, while shadows and depth cut it at half. A ribbon is one
+/// strand, solid. Hair's highlights lean towards its pigment's hue: light
+/// reflected inside a strand is coloured by it, and white highlights over
+/// dark pigment read as grey hair.
+pub(super) fn material(design: HairDesign, form: Form, atlas: Handle<Image>) -> HairShading {
     let [red, green, blue] = design.pigment.color();
+    let brightest = red.max(green).max(blue).max(f32::EPSILON);
+    let tint = |channel: f32| 1.0 + (channel / brightest - 1.0) * HIGHLIGHT_HUE;
     let cards = matches!(form, Form::Cards { .. });
-    StandardMaterial {
-        base_color: Color::linear_rgb(red, green, blue),
-        base_color_texture: cards.then_some(atlas),
-        alpha_mode: if cards {
-            AlphaMode::AlphaToCoverage
-        } else {
-            AlphaMode::Opaque
+    HairShading {
+        base: StandardMaterial {
+            base_color: Color::linear_rgb(red, green, blue),
+            base_color_texture: cards.then_some(atlas),
+            specular_tint: Color::linear_rgb(tint(red), tint(green), tint(blue)),
+            alpha_mode: AlphaMode::Mask(SHADOW_COVERAGE),
+            perceptual_roughness: HAIR_ROUGHNESS,
+            metallic: 0.0,
+            double_sided: true,
+            cull_mode: None,
+            ..default()
         },
-        perceptual_roughness: HAIR_ROUGHNESS,
-        metallic: 0.0,
-        double_sided: true,
-        cull_mode: None,
-        ..default()
+        extension: StrandShading {},
     }
 }
 
 pub(super) fn mesh(geometry: HairGeometry, head_joint: u32) -> Result<Mesh> {
     let count = geometry.positions.len();
+    let tangents: Vec<[f32; 4]> = geometry
+        .tangents
+        .iter()
+        .map(|&[x, y, z]| [x, y, z, 1.0])
+        .collect();
+    // Each card's random value rides in the second texture coordinates.
+    let randoms: Vec<[f32; 2]> = geometry
+        .randoms
+        .iter()
+        .map(|&random| [random, 0.0])
+        .collect();
     let head = u16::try_from(head_joint).context("the head joint index exceeds a skin index")?;
     let colors: Vec<[f32; 4]> = geometry
         .occlusion
@@ -90,6 +112,8 @@ pub(super) fn mesh(geometry: HairGeometry, head_joint: u32) -> Result<Mesh> {
     .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, geometry.positions)
     .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, geometry.normals)
     .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, geometry.texcoords)
+    .with_inserted_attribute(Mesh::ATTRIBUTE_UV_1, randoms)
+    .with_inserted_attribute(Mesh::ATTRIBUTE_TANGENT, tangents)
     .with_inserted_attribute(Mesh::ATTRIBUTE_COLOR, colors)
     .with_inserted_attribute(
         Mesh::ATTRIBUTE_JOINT_INDEX,

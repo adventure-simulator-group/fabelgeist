@@ -123,13 +123,35 @@ impl GroomedHair {
             ..Shrinkwrap::default()
         }
         .apply(&mut strands, &context);
+        self.prepare(&strands, placement, collider)
+    }
+
+    /// This hair left on its own bust, as the hair crate grew it, with every
+    /// level of detail prepared against the bust: what drawing it on a
+    /// character is measured against. The bust's surface comes beside it.
+    pub fn on_bust(&self) -> (PlacedHair, Surface) {
+        let bust = self.head.mesh(SCALP_CELL);
+        let collider =
+            MeshCollider::new(bust.positions.clone(), bust.triangles.clone(), BODY_REACH);
+        let placement = HeadPlacement::identity(0);
+        (self.prepare(&self.strands, &placement, collider), bust)
+    }
+
+    /// Every level of detail of `strands`, placed by `placement` against
+    /// `body`, and the scalp cap under them.
+    fn prepare(
+        &self,
+        strands: &Strands,
+        placement: &HeadPlacement,
+        body: MeshCollider,
+    ) -> PlacedHair {
         let center = Vec3::from_array(placement.point(self.head.cranium.center.to_array()));
-        let lods = HairLods::build(&strands, center, Some(&collider), &LodSettings::default());
-        let cap = ScalpCap::fit(&self.scalp, placement, &collider, &lods.cover);
+        let lods = HairLods::build(strands, center, Some(&body), &LodSettings::default());
+        let cap = ScalpCap::fit(&self.scalp, placement, &body, &lods.cover);
         PlacedHair {
             preset: self.preset,
             lods,
-            body: collider,
+            body,
             placement: *placement,
             cap,
         }

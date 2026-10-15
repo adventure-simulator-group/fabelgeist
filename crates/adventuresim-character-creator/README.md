@@ -76,8 +76,11 @@ same thread (three to four seconds). Placing stretches the bust's head to the
 character's width across the ears, its depth from the back of the skull to
 the tip of the nose and its crown, and turns it to face where the eyes look.
 The bust is only fitted to the head's extent, so wherever the character's
-skull is fuller its strands would lie under the skin: each strand is lifted
-whole until its root sits on the skin.
+skull is fuller its strands would lie under the skin: each strand is moved
+whole along its root's normal -- the bust scalp's, smooth -- until the root
+sits 0.5 mm off the skin. Pushing each root to the nearest point of the
+coarse body instead would move neighbouring roots apart along different
+facets' normals and part the hair along their edges, at the nape most.
 
 The hair is then draped on the character's own body. What a body does to a
 strand is how its equilibrium under gravity (the hair crate's `Settle`)
@@ -88,19 +91,30 @@ hold the hair alike it is nothing, and where the character's shoulders stand
 higher or wider it is how long hair falls over them, in front of them or
 down the back, rather than hanging through them. A tight coil -- a bun's, a
 braid's -- answers a body unsteadily, so the drape takes hold only below the
-head, fading in from the ears to the jaw. About two thousand guides are
-draped and every strand follows the four whose roots are nearest. A last
-shrinkwrap keeps every strand out of the body, keeping its length, before
-the levels of detail are prepared against that body. Changing only the
+head, fading in from the ears to the jaw. The solve knows nothing of what
+ties a lock, and would slide a ponytail's tail off a thicker neck strand by
+strand, so a strand is draped only as far as it sinks into the body as
+carried: from 3 cm deep, fully from 5 cm, as long hair runs through a
+shoulder; a tail resting against the neck is left to the last shrinkwrap.
+About two thousand guides are draped and every strand follows the one whose
+root is nearest, so hair parts cleanly in front of and behind a shoulder. A
+last shrinkwrap keeps every strand out of the body, keeping its length,
+before the levels of detail are prepared against that body. Changing only the
 colour or the level of detail reuses the placed hair.
 
 **Level of detail** shows any of the hair crate's forms: its strands at the
 groom's own point count and at 24, 12 and 6 points each, drawn as ribbons,
 or its fine and coarse cut of hair cards (strips along the locks, each
-showing a painted bundle of strands from a shared atlas). A card's atlas
-coverage becomes a share of each pixel's multisamples, as the hair crate's
-renderer draws them, so the half-covered strands a coarse card is painted
-with still cover the scalp. **Strands drawn** draws a share of a strand level, each ribbon
+showing a painted bundle of strands from a shared atlas). Both are drawn
+with the standard material extended by `hair_preview/strand_shading.wgsl`,
+shaded as the hair crate shades them: each point's normal faces the eye,
+square to the strands' direction, turned a little towards the card's or
+ribbon's face, and the highlights lean towards the pigment's hue. A card's
+atlas coverage becomes a share of each pixel's four samples, which ones
+hashed from the pixel and the card: the hardware's alpha to coverage would
+give every card of one coverage the same samples, so stacked half-covering
+cards would never add up, and the scalp showed through. Shadows and depth
+cut the coverage at half. **Strands drawn** draws a share of a strand level, each ribbon
 wider by the inverse of the share so the head stays covered; the preview
 draws at most a million and a half ribbon vertices. The level is the
 studio's choice, not the recipe's: a game picks it from the head's size on
@@ -119,7 +133,12 @@ shoulder or skull a straight segment between two rows just outside the skin
 passes under it, the coarse levels' long segments most. Near the skin, rows
 are added until no segment is longer than a centimetre, and each row is
 moved whole 0.6 mm off the skin -- just over the scalp cap -- more for a
-wide card by as much as it sags across a curve as tight as the neck.
+wide card by as much as it sags across a curve as tight as the neck. A row's
+lift spreads to its neighbours, tapering over four rows, so a strip bends
+off the skin rather than in a sawtooth. The hair crate turns a card to face
+away from the head's centre, right beside the head; lying on a shoulder such
+a card would stand on its edge, a fin, so within 3 cm of the skin each row
+turns to lie flat on it.
 
 To look at hair without the studio's window, an ignored test grows a
 hairstyle on the default body and draws every level of detail as the studio
@@ -132,7 +151,10 @@ $env:MHR_ASSETS = "target/mhr-assets/v1.0.1/assets"; $env:HAIR_PRESET = "long"
 cargo test --release --manifest-path crates/adventuresim-character-creator/Cargo.toml --bin adventuresim-character-creator hair_renders -- --ignored --nocapture
 ```
 
-It writes `target/hair-render/<preset>-<level>-<view>.png`.
+It writes `target/hair-render/<preset>-<level>-<view>.png`. With
+`HAIR_ON_BUST=1` it draws the hair on the hair crate's own bust instead, as
+it grew there, to `bust-<preset>-<level>-<view>.png`: whether a fault lies in
+placing hair on a character or in drawing it.
 
 The hair is skinned wholly to `c_head`, so it follows the walk preview, and
 the rigged GLB exports its fine cards as a `hair` shell on the same joint,
