@@ -49,6 +49,7 @@ pub mod device_helmet;
 pub mod device_limb;
 mod device_pauldron;
 pub mod device_piece;
+mod device_piece_skin;
 mod device_puff;
 mod device_sabaton;
 mod device_skirt;
