@@ -147,6 +147,7 @@ mod tests {
             ("kettle_hat", "Helmet", "KettleHat"),
             ("leather_boot", "Limb", "LeatherBoot"),
             ("linen_skirt", "Skirt", "Skirt"),
+            ("linen_dress", "Skirt", "Skirt"),
             ("mail_chausses", "Garment", "MailChausses"),
             ("mail_coif", "Helmet", "MailCoif"),
             ("mail_shirt", "Garment", "MailShirt"),

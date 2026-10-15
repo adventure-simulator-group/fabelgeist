@@ -22,6 +22,12 @@ struct Args {
     /// Additional direct-fit body realizations sharing the reference topology.
     #[arg(long = "morph-body")]
     morph_bodies: Vec<PathBuf>,
+    /// Join a minimal body-conforming upper section.
+    #[arg(long)]
+    dress: bool,
+    /// Use one serialized SkirtDesign instead of the default three profiles.
+    #[arg(long)]
+    design: Option<PathBuf>,
 }
 
 /// Native attributes at the review-file boundary, in canonical metres.
@@ -121,11 +127,24 @@ fn main() -> Result<()> {
         .collect::<Vec<_>>();
     let fit = body.fit_body();
     let wearer = body.realization(&device);
-    for Variant { name, profile } in variants() {
-        let design = ParametricDesign::Skirt(SkirtDesign {
+    let custom = args
+        .design
+        .as_ref()
+        .map(|path| -> Result<SkirtDesign> { Ok(serde_json::from_slice(&std::fs::read(path)?)?) })
+        .transpose()?;
+    for Variant { name, profile } in
+        variants()
+            .into_iter()
+            .take(if custom.is_some() { 1 } else { 3 })
+    {
+        let mut skirt = custom.clone().unwrap_or(SkirtDesign {
             profile,
             ..Default::default()
         });
+        if args.dress {
+            skirt.bodice = Some(Default::default());
+        }
+        let design = ParametricDesign::Skirt(skirt);
         eprintln!("Fitting {name}");
         let piece = device_fit::fit_recipe(&gpu, &fit, &wearer, &morphs, &design, "worn", &[])?;
         let generated = device_fit::assemble_recipe(
