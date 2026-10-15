@@ -117,7 +117,7 @@ impl DeviceWearer<'_> {
             batch,
             &source,
             &[
-                write("fit", &fit),
+                write("fit", fit),
                 read("positions", &positions),
                 read_u32("faces", &faces),
                 write("samples", &samples),
