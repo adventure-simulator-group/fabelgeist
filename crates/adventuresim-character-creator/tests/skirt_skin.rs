@@ -20,10 +20,19 @@ fn body() -> DrapeInput {
             [0.1, 0., 1.],
         ],
         faces: vec![[0, 1, 2], [3, 4, 5]],
-        names: vec![RigJointName::L_UPLEG, RigJointName::R_UPLEG],
+        names: vec![
+            RigJointName::L_UPLEG,
+            RigJointName::R_UPLEG,
+            RigJointName::ROOT,
+            RigJointName::L_LOWLEG,
+            RigJointName::R_LOWLEG,
+        ],
         joints: vec![
             [-0.1, 1., 0., 0., 0., 0., 1., 1.],
             [0.1, 1., 0., 0., 0., 0., 1., 1.],
+            [0., 1., 0., 0., 0., 0., 1., 1.],
+            [-0.1, 0.5, 0., 0., 0., 0., 1., 1.],
+            [0.1, 0.5, 0., 0., 0., 0., 1., 1.],
         ],
         indices: vec![[0; 8], [0; 8], [0; 8], [1; 8], [1; 8], [1; 8]],
         weights: vec![[1., 0., 0., 0., 0., 0., 0., 0.]; 6],
@@ -69,7 +78,11 @@ fn opposing_leg_rotations_do_not_split_the_garment_center() {
             let mut output = [0.; 3];
             for (&joint, &weight) in indices[vertex].iter().zip(&weights[vertex]) {
                 let hip = &input.joints[joint as usize];
-                let angle = if joint == 0 { 0.65f32 } else { -0.65 };
+                let angle = match joint {
+                    0 => 0.65f32,
+                    1 => -0.65,
+                    _ => 0.0,
+                };
                 let (sin, cos) = angle.sin_cos();
                 let dy = points[vertex][1] - hip[1];
                 let dz = points[vertex][2] - hip[2];
@@ -118,16 +131,27 @@ fn malformed_binding_inputs_fail_before_surface_queries() {
 #[test]
 fn both_legs_survive_the_four_influence_export_budget() {
     let mut input = body();
-    input.names = (0..16)
+    input.names = (0..19)
         .map(|i| match i {
             0 => RigJointName::L_UPLEG,
             8 => RigJointName::R_UPLEG,
+            16 => RigJointName::ROOT,
+            17 => RigJointName::L_LOWLEG,
+            18 => RigJointName::R_LOWLEG,
             _ => RigJointName::from(format!("helper_{i}")),
         })
         .collect();
     let left = input.joints[0];
     let right = input.joints[1];
-    input.joints = (0..16).map(|i| if i < 8 { left } else { right }).collect();
+    input.joints = (0..19)
+        .map(|i| match i {
+            16 => [0., 1., 0., 0., 0., 0., 1., 1.],
+            17 => [-0.1, 0.5, 0., 0., 0., 0., 1., 1.],
+            18 => [0.1, 0.5, 0., 0., 0., 0., 1., 1.],
+            _ if i < 8 => left,
+            _ => right,
+        })
+        .collect();
     input.indices = (0..6)
         .map(|v| std::array::from_fn(|i| i as u32 + if v < 3 { 0 } else { 8 }))
         .collect();
@@ -140,9 +164,9 @@ fn both_legs_survive_the_four_influence_export_budget() {
             .filter(|(_, w)| **w > 0.0)
             .map(|(i, _)| *i)
             .collect();
-        assert_eq!(active, [0, 8].into_iter().collect());
+        assert_eq!(active, [0, 8, 16].into_iter().collect());
     }
-    for joint in [0, 8] {
+    for joint in [0, 8, 16] {
         let weight = |v: usize| {
             skin.indices[v]
                 .iter()
