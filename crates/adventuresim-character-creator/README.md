@@ -86,14 +86,35 @@ placed hair.
 **Level of detail** shows any of the hair crate's forms: its strands at the
 groom's own point count and at 24, 12 and 6 points each, drawn as ribbons,
 or its fine and coarse cut of hair cards (strips along the locks, each
-showing a painted bundle of strands from a shared atlas, cut out by its
-coverage). **Strands drawn** draws a share of a strand level, each ribbon
+showing a painted bundle of strands from a shared atlas). A card's atlas
+coverage becomes a share of each pixel's multisamples, as the hair crate's
+renderer draws them, so the half-covered strands a coarse card is painted
+with still cover the scalp. **Strands drawn** draws a share of a strand level, each ribbon
 wider by the inverse of the share so the head stays covered; the preview
 draws at most a million and a half ribbon vertices. The level is the
 studio's choice, not the recipe's: a game picks it from the head's size on
 screen. The scalp under the hair is shaded as the hair crate shades its own
 head, tinted where roots grow and darkened where hair lies over it, so no
 level shows bare skin between its strands.
+
+Ribbons and cards are straight between their rows, and over a rounded
+shoulder or skull a straight segment between two rows just outside the skin
+passes under it, the coarse levels' long segments most. Near the skin, rows
+are added until no segment is longer than a centimetre, and each row is
+moved whole 1.5 mm off the skin, more for a wide card by as much as it sags
+across a curve as tight as the neck.
+
+To look at hair without the studio's window, an ignored test grows a
+hairstyle on the default body and draws every level of detail from the
+front, the back and over the shoulder, as the studio draws them, printing how
+long each level takes to build and how much of it lies under the skin:
+
+```powershell
+$env:MHR_ASSETS = "target/mhr-assets/v1.0.1/assets"; $env:HAIR_PRESET = "long"
+cargo test --release --manifest-path crates/adventuresim-character-creator/Cargo.toml --bin adventuresim-character-creator hair_renders -- --ignored --nocapture
+```
+
+It writes `target/hair-render/<preset>-<level>-<view>.png`.
 
 The hair is skinned wholly to `c_head`, so it follows the walk preview, and
 the rigged GLB exports its fine cards as a `hair` shell on the same joint,
