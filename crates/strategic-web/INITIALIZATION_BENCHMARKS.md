@@ -78,6 +78,13 @@ leases terminate their workers; an idle timeout or a changed Wasm module also
 discards the retained pool. Persistent generated products remain independent
 of worker lifetime.
 
+Focused-map travel retains one previous complete city installation, including
+its ground/support resources, GPU buffers, and hidden draw anchors. A return
+reuses it only when the complete city document and graphics configuration match.
+Geographic reanchoring and the existing render-readiness checks still apply.
+Replacing that inactive city releases its entities and asset handles.
+Explicit scene teardown also clears the active and retained map installations.
+
 ## Attribution
 
 Generation metrics report discovery, dependency transfer, worker generation,

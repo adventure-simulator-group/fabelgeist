@@ -18,6 +18,7 @@ use serde::Serialize;
 use std::sync::Arc;
 
 mod installation;
+mod retention;
 pub(super) use installation::install;
 
 const SETTLED_CITY_FRAMES: usize = 4;
@@ -26,6 +27,7 @@ const SETTLED_CITY_FRAMES: usize = 4;
 pub(super) struct CityResidency {
     pending: Option<InstalledCity>,
     installed: Option<InstalledCity>,
+    previous: Option<InstalledCity>,
     pub status: Option<InstallationStatus>,
     pub visible: bool,
     settled_frames: usize,
@@ -35,6 +37,7 @@ struct InstalledCity {
     root: Entity,
     product: Arc<PreparedCityProduct>,
     ground: FocusedGround,
+    geometry: CityGeometry,
     frame: CityFrame,
 }
 
@@ -50,6 +53,11 @@ pub(super) struct InstallationStatus {
     pub preparation: PreparationTicket,
     pub phase: InstallationPhase,
     pub error: Option<InstallationFailure>,
+}
+
+enum CityGeometry {
+    Active,
+    Retained(Box<buildings::RetainedCityGeometry>),
 }
 
 #[derive(Clone, Copy, Serialize)]
@@ -198,7 +206,7 @@ pub(super) fn sync(world: &mut World) {
         if let (Some(city), Some(origin)) = (state.city.installed.as_mut(), origin) {
             // A staged replacement owns its frame once assembly publishes.
             // Do not reanchor old ground against the new candidate's buffers.
-            if replaced {
+            if matches!(city.geometry, CityGeometry::Retained(_)) || replaced {
                 draw_city = false;
             } else if let Err(error) = city.reanchor(world, origin) {
                 warn!(%error, "Could not reanchor map city");
@@ -276,9 +284,8 @@ fn publish_candidate(world: &mut World, residency: &mut CityResidency) {
     }
     if let Some(pending) = residency.pending.take()
         && let Some(old) = residency.installed.replace(pending)
-        && let Ok(entity) = world.get_entity_mut(old.root)
     {
-        entity.despawn();
+        retention::retire(world, residency, old);
     }
     residency.settled_frames = 0;
 }

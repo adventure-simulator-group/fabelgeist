@@ -12,7 +12,9 @@ use super::*;
 pub(in crate::presentation) use focused::queue_focused_city;
 pub(in crate::presentation) use gpu::CityFrame;
 pub(in crate::presentation) use gpu::set_visible as set_city_visible;
-pub(in crate::presentation) use gpu::{CityAssemblyFailure, CityAssemblyPublished};
+pub(in crate::presentation) use gpu::{
+    CityAssemblyFailure, CityAssemblyPublished, RetainedCityGeometry,
+};
 
 mod boundaries;
 mod focused;

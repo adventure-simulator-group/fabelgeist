@@ -320,6 +320,62 @@ fn queued_buildings_share_geometry_without_per_part_render_entities() {
             "new buffers await render readiness"
         );
     }
+    // Detaching a city keeps its actual buffers and hidden anchors alive through
+    // owner reset. Restoring it must not disturb the actor owner's geometry.
+    let owner = PresentationOwner::RegionalMap;
+    let actors = world
+        .resource::<CityGpuScenes>()
+        .owners
+        .get(PresentationOwner::Scene)
+        .buildings
+        .id();
+    let scene = world.resource::<CityGpuScenes>().owners.get(owner);
+    let buildings = scene.buildings.id();
+    let anchor = scene.batches[0].anchor;
+    READY.get(owner).store(true, Ordering::Relaxed);
+    let root = map_parts[0].root;
+    world
+        .resource_mut::<CityGpuScenes>()
+        .owners
+        .get_mut(owner)
+        .publication_root = Some(root);
+    let wrong_root = world.spawn_empty().id();
+    assert!(super::super::RetainedCityGeometry::take(&mut world, owner, wrong_root).is_none());
+    let retained = super::super::RetainedCityGeometry::take(&mut world, owner, root).unwrap();
+    assert_eq!(world.get::<Visibility>(anchor), Some(&Visibility::Hidden));
+    super::super::reset(&mut world, owner);
+    super::super::set_visible(&mut world, owner, true);
+    assert!(world.get_entity(anchor).is_ok());
+    assert_eq!(world.get::<Visibility>(anchor), Some(&Visibility::Hidden));
+    retained.restore(&mut world);
+    assert_eq!(
+        world
+            .resource::<CityGpuScenes>()
+            .owners
+            .get(owner)
+            .buildings
+            .id(),
+        buildings
+    );
+    assert!(!READY.get(owner).load(Ordering::Relaxed));
+    assert_eq!(
+        world
+            .resource::<CityGpuScenes>()
+            .owners
+            .get(PresentationOwner::Scene)
+            .buildings
+            .id(),
+        actors
+    );
+    super::super::set_visible(&mut world, owner, true);
+    assert_eq!(
+        world.get::<Visibility>(anchor),
+        Some(&Visibility::Inherited)
+    );
+    READY.get(owner).store(true, Ordering::Relaxed);
+    let evicted = super::super::RetainedCityGeometry::take(&mut world, owner, root).unwrap();
+    evicted.discard(&mut world);
+    assert!(world.get_entity(anchor).is_err());
 }
 
 #[test]

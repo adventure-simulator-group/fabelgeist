@@ -208,6 +208,14 @@ impl MapState {
     }
 }
 
+/// Release active and retained city resources during explicit scene teardown.
+pub(in crate::presentation) fn clear_city(world: &mut World) {
+    if world.contains_resource::<MapState>() {
+        world.resource_scope(|world, mut state: Mut<MapState>| state.city.clear(world));
+    }
+    super::buildings::reset_gpu(world, super::ownership::PresentationOwner::RegionalMap);
+}
+
 fn setup(mut commands: Commands) {
     commands.spawn((RegionalMapRoot, Transform::default(), Visibility::Hidden));
     commands.spawn((
