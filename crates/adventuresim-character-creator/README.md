@@ -126,7 +126,13 @@ showing a painted bundle of strands from a shared atlas). Both are drawn
 with the standard material extended by `hair_preview/strand_shading.wgsl`,
 shaded as the hair crate shades them: each point's normal faces the eye,
 square to the strands' direction, turned a little towards the card's or
-ribbon's face, and the highlights lean towards the pigment's hue. A card's
+ribbon's face, and the highlights lean towards the pigment's hue. Strands
+pointing at the eye, as an afro's do at its crown and hairline, have no
+such direction, and their card is seen edge-on: their normal turns to the
+eye instead, or they would catch the environment's reflection at a grazing
+angle and glint a cold grey. The baked sky visibility, which darkens the
+hair's colour, fades that reflection too, so hair deep in the groom is not
+dark and glinting at once. A card's
 atlas coverage becomes a share of each pixel's four samples, which ones
 hashed from the pixel and the card: the hardware's alpha to coverage would
 give every card of one coverage the same samples, so stacked half-covering
@@ -143,10 +149,18 @@ where hair lies over it, so no level shows the head between its strands,
 even between an afro's open curls. The body has only a few dozen vertices
 over the skull, too few to keep a parting narrow, so the bust's own scalp,
 cut in four-millimetre cells, is carried onto the character as a cap laid
-0.4 mm over its skin and shaded there; the root tint softens over its last
-row at the hairline. Only the cap is shaded: the body's skin, the neck and
-the shoulders hair falls over, keeps its colour, and the cap comes and goes
-with the hair.
+0.4 mm over its skin and shaded there. Laid by its corners, a cap triangle
+spanning a ridge or corner of the coarse body would dip under the skin and
+let it show through in specks along the body's edges, so each triangle is
+sampled across and lifted until all of it clears the skin. The cover is
+averaged over each point's neighbours three times, as the hair crate
+smooths its own head's. The cap is lit by the scalp's smooth normals, so
+even bare it would outline itself on the skin, in the cells' steps; it is
+blended over the skin instead, fading out from 5 mm above the hair crate's
+hairline over the next 6 mm -- the hairline's own smooth curve, above the
+steps -- and over a row of cells along the rest of its edge. Only the cap
+is shaded: the body's skin, the neck and the shoulders hair falls over,
+keeps its colour, and the cap comes and goes with the hair.
 
 Ribbons and cards are straight between their rows, and over a rounded
 shoulder or skull a straight segment between two rows just outside the skin

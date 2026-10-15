@@ -4,8 +4,17 @@
 //! grow, the skin takes on the hair's colour at the root; where hair lies
 //! over it, the skin falls into its shadow. Only the scalp cap is shaded --
 //! the body's own skin, the neck and the shoulders hair falls over, keeps its
-//! colour -- and the cap comes and goes with the hair it lies under.
+//! colour -- and the cap comes and goes with the hair it lies under. The cap
+//! is blended over the skin, fading out towards its edge.
 use super::*;
+
+/// The material the scalp cap is drawn with: the skin's, blended over it.
+pub(super) fn material() -> StandardMaterial {
+    StandardMaterial {
+        alpha_mode: AlphaMode::Blend,
+        ..preview::skin_material()
+    }
+}
 
 /// How dark hair is at its root, as a share of its colour.
 const ROOT_SHADE: f32 = 0.7;
@@ -19,13 +28,15 @@ const DENSE_ROOTS: f32 = 0.35;
 const OVER_SHADOW: f32 = 0.6;
 
 /// The vertex colours that shade the skin under hair of `design`, each
-/// multiplying the skin colour, for skin `cover`ed as given.
-pub(super) fn colors(design: HairDesign, cover: &[SkinCover]) -> Vec<[f32; 4]> {
+/// multiplying the skin colour, for skin `cover`ed as given and showing by
+/// `opacity`.
+pub(super) fn colors(design: HairDesign, cover: &[SkinCover], opacity: &[f32]) -> Vec<[f32; 4]> {
     let skin = preview::SKIN_COLOR.to_linear().to_f32_array_no_alpha();
     let root = design.pigment.color().map(|channel| channel * ROOT_SHADE);
     cover
         .iter()
-        .map(|cover| {
+        .zip(opacity)
+        .map(|(cover, &opacity)| {
             let dense = (cover.roots / DENSE_ROOTS).clamp(0.0, 1.0);
             let tint = dense * dense * (3.0 - 2.0 * dense) * ROOT_TINT;
             let shadow = 1.0 - OVER_SHADOW * cover.over;
@@ -33,7 +44,7 @@ pub(super) fn colors(design: HairDesign, cover: &[SkinCover]) -> Vec<[f32; 4]> {
                 let shaded = skin[k] + (root[k] - skin[k]) * tint;
                 shaded / skin[k].max(f32::EPSILON) * shadow
             });
-            [r, g, b, 1.0]
+            [r, g, b, opacity]
         })
         .collect()
 }

@@ -147,7 +147,7 @@ impl GroomedHair {
     ) -> PlacedHair {
         let center = Vec3::from_array(placement.point(self.head.cranium.center.to_array()));
         let lods = HairLods::build(strands, center, Some(&body), &LodSettings::default());
-        let cap = ScalpCap::fit(&self.scalp, placement, &body, &lods.cover);
+        let cap = ScalpCap::fit(&self.scalp, &self.head, placement, &body, &lods.cover);
         PlacedHair {
             groom: self.groom,
             lods,

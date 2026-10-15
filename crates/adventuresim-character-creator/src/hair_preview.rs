@@ -279,7 +279,7 @@ pub(super) fn refresh(
         Ok((hair, cap))
     });
     match drawn {
-        Ok((mesh, (cap, skin_material))) => {
+        Ok((mesh, (cap, cap_material))) => {
             let material = assets.hair_material(design, form, placed.atlas.clone());
             commands.spawn((
                 CharacterMesh,
@@ -295,7 +295,7 @@ pub(super) fn refresh(
                 Name::new("Scalp"),
                 skin,
                 Mesh3d(cap),
-                MeshMaterial3d(skin_material),
+                MeshMaterial3d(cap_material),
             ));
         }
         Err(error) => studio.status = format!("Hair could not be drawn: {error:#}"),
