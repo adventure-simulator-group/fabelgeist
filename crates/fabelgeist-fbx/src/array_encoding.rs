@@ -1,17 +1,30 @@
-//! Array encoding identity admitted from its four-byte wire metadata field.
+//! Supported array encodings admitted from the four-byte wire metadata field.
 
-use derive_more::From;
+use derive_more::{Display, Error};
 
-/// An open encoding code carried from property admission into array decoding.
-/// Zero requests an uncompressed payload. Every nonzero value retains the
-/// reader's existing Zlib policy; this is not a supported-code range check.
-#[derive(Clone, Copy, Debug, From, PartialEq, Eq)]
-pub(super) struct FbxArrayEncodingCode(u32);
+/// An array encoding code this binary FBX reader does not support.
+#[derive(Clone, Copy, Debug, Display, Error, PartialEq, Eq)]
+#[display("unsupported FBX array encoding code {reported_code}")]
+pub struct UnsupportedFbxArrayEncoding {
+    /// The raw 32-bit encoding code reported in the array property header.
+    pub reported_code: u32,
+}
 
-impl FbxArrayEncodingCode {
-    const UNCOMPRESSED: Self = Self(0);
+/// An array encoding supported by this binary FBX reader.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(super) enum FbxArrayEncoding {
+    Uncompressed,
+    Zlib,
+}
 
-    pub(super) fn is_uncompressed(self) -> bool {
-        self == Self::UNCOMPRESSED
+impl TryFrom<u32> for FbxArrayEncoding {
+    type Error = UnsupportedFbxArrayEncoding;
+
+    fn try_from(reported_code: u32) -> Result<Self, Self::Error> {
+        match reported_code {
+            0 => Ok(Self::Uncompressed),
+            1 => Ok(Self::Zlib),
+            _ => Err(UnsupportedFbxArrayEncoding { reported_code }),
+        }
     }
 }
