@@ -26,6 +26,15 @@ struct AdmittedRigBinding {
     parent: Option<Entity>,
 }
 
+impl RigDefinition {
+    pub(super) fn joint_ordinal(&self, name: &RigJointName) -> Option<RigJointOrdinal> {
+        self.joints
+            .iter()
+            .position(|joint| joint.name.as_ref() == Some(name))
+            .map(RigJointOrdinal::from)
+    }
+}
+
 impl RigDefinitions {
     #[expect(
         clippy::type_complexity,

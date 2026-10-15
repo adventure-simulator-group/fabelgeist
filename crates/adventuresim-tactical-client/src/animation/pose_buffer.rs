@@ -176,6 +176,22 @@ enum ContactPlantPolicy {
     Retain,
 }
 
+impl AuthoredWeaponTarget {
+    fn from_pose(definition: &RigDefinition, pose: &[LocalPose]) -> Option<Self> {
+        let weapon_joint = definition
+            .joints
+            .iter()
+            .position(|joint| joint.role == Some(BoneRole::WeaponRight))
+            .map(RigJointOrdinal::from)?;
+        let mut cache = vec![None; pose.len()];
+        let weapon = local_pose_global(definition, pose, weapon_joint, &mut cache);
+        Some(Self {
+            translation: weapon.translation,
+            rotation: weapon.rotation,
+        })
+    }
+}
+
 impl BakedClip {
     fn sample(&self, joint: RigJointOrdinal, time_seconds: f32) -> LocalPose {
         let frame =
@@ -542,19 +558,8 @@ pub(super) fn update_pose_buffers(
             rig.terrain_plants = [None; 2];
         }
         let target = sampled.pose;
-        if let Some(weapon_joint) = rig
-            .definition
-            .joints
-            .iter()
-            .position(|joint| joint.role == Some(BoneRole::WeaponRight))
-            .map(RigJointOrdinal::from)
-        {
-            let mut cache = vec![None; target.len()];
-            let weapon = local_pose_global(&rig.definition, &target, weapon_joint, &mut cache);
-            commands.entity(owner).insert(AuthoredWeaponTarget {
-                translation: weapon.translation,
-                rotation: weapon.rotation,
-            });
+        if let Some(weapon_target) = AuthoredWeaponTarget::from_pose(&rig.definition, &target) {
+            commands.entity(owner).insert(weapon_target);
         }
         let direct_sampling = playback.sampling_cadence() == PoseSamplingCadence::Direct;
         let target_velocities = target
@@ -1394,11 +1399,7 @@ fn measure_authored_contact_step_distance(
     let mut segments = Vec::new();
     for name in feet {
         let mut foot_segments = Vec::new();
-        let foot = definition
-            .joints
-            .iter()
-            .position(|joint| joint.name.as_ref() == Some(&name))
-            .map(RigJointOrdinal::from)?;
+        let foot = definition.joint_ordinal(&name)?;
         let samples = (0..sample_count)
             .map(|frame| {
                 let time = frame as f32 * clip.frame_dt;

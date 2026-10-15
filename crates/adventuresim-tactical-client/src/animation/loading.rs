@@ -396,3 +396,14 @@ fn collect_loaded_grips(
         runtime.processed_grips.insert(grip);
     }
 }
+
+fn animation_asset_path(path: &str) -> String {
+    #[cfg(not(target_family = "wasm"))]
+    {
+        format!("workspace://{path}")
+    }
+    #[cfg(target_family = "wasm")]
+    {
+        path.to_owned()
+    }
+}

@@ -728,17 +728,6 @@ fn player_visual_y_offset_metres() -> f32 {
         .player_visual_y_offset_metres
 }
 
-fn animation_asset_path(path: &str) -> String {
-    #[cfg(not(target_family = "wasm"))]
-    {
-        format!("workspace://{path}")
-    }
-    #[cfg(target_family = "wasm")]
-    {
-        path.to_owned()
-    }
-}
-
 #[expect(
     clippy::type_complexity,
     reason = "the Bevy query couples each presented skeleton with its route, inventory, and playback state"
