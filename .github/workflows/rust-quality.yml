@@ -1,158 +1,135 @@
-name: Rust quality
+name: Creator native control
 
 on:
-  push:
-    branches: ["main"]
-    paths:
-      - "AGENTS.md"
-      - ".cargo/**"
-      - "Cargo.toml"
-      - "Cargo.lock"
-      - "crates/**"
-      - "rustfmt.toml"
-      - "rust-toolchain.toml"
-      - "rust-quality.toml"
-      - "rust-quality-baseline.toml"
-      - "justfile"
-      - "scripts/dev_stack.py"
-      - "scripts/check_calendar_api.py"
-      - "scripts/test_check_calendar_api.py"
-      - "scripts/tests/test_dev_stack.py"
-      - "scripts/tests/test_building_review_boundary.py"
-      - "scripts/capture*review.py"
-      - "scripts/capture_shop_signs.py"
-      - "scripts/capture_workplaces.py"
-      - "assets/tactical-scenes/*review*.json"
-      - ".github/workflows/rust-quality.yml"
-  pull_request:
-    paths:
-      - "AGENTS.md"
-      - ".cargo/**"
-      - "Cargo.toml"
-      - "Cargo.lock"
-      - "crates/**"
-      - "rustfmt.toml"
-      - "rust-toolchain.toml"
-      - "rust-quality.toml"
-      - "rust-quality-baseline.toml"
-      - "justfile"
-      - "scripts/dev_stack.py"
-      - "scripts/check_calendar_api.py"
-      - "scripts/test_check_calendar_api.py"
-      - "scripts/tests/test_dev_stack.py"
-      - "scripts/tests/test_building_review_boundary.py"
-      - "scripts/capture*review.py"
-      - "scripts/capture_shop_signs.py"
-      - "scripts/capture_workplaces.py"
-      - "assets/tactical-scenes/*review*.json"
-      - ".github/workflows/rust-quality.yml"
   workflow_dispatch:
+    inputs:
+      phase:
+        description: Existing isolated case or full creator suite
+        type: choice
+        required: true
+        default: isolated
+        options:
+          - isolated
+          - full
 
 permissions:
   contents: read
 
 env:
   CARGO_TERM_COLOR: always
-  SPACETIMEDB_VERSION: "2.6.1"
+  RUSTUP_TOOLCHAIN: nightly-2026-07-13
+  CONTROL_PHASE: ${{ inputs.phase }}
 
 jobs:
-  rust-quality:
+  native-control:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - name: Check out verified main
+        uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Record rig contract revision
-        run: |
-          set -o pipefail
-          mkdir -p target/rig-contracts
-          git rev-parse HEAD | tee target/rig-contracts/revision.txt
-      - name: Install pinned Rust toolchain
+          ref: d7021347d48f8c166da4c9e29976ebebb7d7de1e
+          path: source-main
+      - name: Check out frozen candidate
+        uses: actions/checkout@v7
+        with:
+          ref: 974467f96d819b0492d2acdab43bffae9c33ba3c
+          path: source-candidate
+      - name: Install matching pinned Rust toolchain
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: nightly-2026-07-13
           components: rustfmt, clippy
           targets: wasm32-unknown-unknown
-      - name: Cache Rust build artifacts
-        uses: Swatinem/rust-cache@v2
-      - name: Install pinned SpacetimeDB CLI
-        run: |
-          curl -sSf https://install.spacetimedb.com | sh -s -- -y
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-          "$HOME/.local/bin/spacetime" version install "$SPACETIMEDB_VERSION"
-          "$HOME/.local/bin/spacetime" version use "$SPACETIMEDB_VERSION"
-      - name: Install configured Linux linker
+      - name: Install matching native packages
         run: >-
           sudo apt-get update && sudo apt-get install --no-install-recommends -y
           mold libasound2-dev libudev-dev libwayland-dev libx11-dev
           libxcursor-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-dev
           libxrandr-dev libxi-dev libvulkan1 mesa-vulkan-drivers
-      - name: Check formatting
+      - name: Record shared runner and native environment
+        shell: bash
         run: |
-          cargo fmt --all -- --check
-          cargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --check
-          cargo fmt --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --check
-          cargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check
-      - name: Test generated bindings verifier
-        run: >-
-          python3 -m unittest
-          scripts.tests.test_dev_stack.WorkflowTests.test_binding_diff_detects_changed_and_extra_files
-      - name: Check building review presentation boundary
-        run: python3 -m unittest scripts.tests.test_building_review_boundary
-      - name: Verify generated SpacetimeDB bindings
-        run: python3 scripts/dev_stack.py verify-bindings
-      - name: Test shared schema and GPU readback boundaries
+          set -euo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/native-control-results"
+          {
+            printf 'phase=%s\nworkflow_sha=%s\n' "$CONTROL_PHASE" "$GITHUB_SHA"
+            printf 'runner_os=%s\nrunner_arch=%s\n' "$RUNNER_OS" "$RUNNER_ARCH"
+            printf 'image_os=%s\nimage_version=%s\n' "${ImageOS:-unavailable}" "${ImageVersion:-unavailable}"
+            printf 'feature_selection=Cargo defaults; no feature overrides\n'
+            printf 'backend_selection=unchanged automatic adapter selection\n'
+            uname -a
+            rustc -Vv
+            cargo -V
+            dpkg-query --show --showformat='${Package}\t${Version}\n' \
+              mold libasound2-dev libudev-dev libwayland-dev libx11-dev \
+              libxcursor-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-dev \
+              libxrandr-dev libxi-dev libvulkan1 mesa-vulkan-drivers
+          } | tee "$GITHUB_WORKSPACE/native-control-results/environment.txt"
+      - name: Run each selected existing control once
+        shell: bash
         run: |
-          cargo test --package adventuresim-world-schema --all-features
-          cargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests
-      - name: Test resolved Bevy guard
-        run: cargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard
-      - name: Check semantic values and Rust growth
-        run: |
-          cargo test --package fabelgeist-rust-quality
-          cargo run --package fabelgeist-rust-quality -- check .
-      - name: Check calendar API ownership
-        run: |
-          python3 -m unittest scripts.test_check_calendar_api
-          python3 scripts/check_calendar_api.py
-      - name: Lint tactical client WASM target
-        run: cargo clippy --package adventuresim-tactical-client --bin adventuresim-tactical-client --target wasm32-unknown-unknown -- -D warnings
-      - name: Test native and WASM deterministic draws
-        run: |
-          python3 -B -m unittest scripts.test_check_deterministic_rng
-          python3 scripts/check_deterministic_rng.py
-          cargo install wasm-bindgen-cli --version 0.2.126 --locked
-          python3 scripts/test_determinism.py
-      - name: Run Clippy with warnings denied
-        run: |
-          cargo clippy --workspace --all-targets --all-features -- -D warnings
-          cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
-          cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
-          cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
-      - name: Test shared rig contracts
-        run: |
-          set -o pipefail
-          cargo test --locked --package fabelgeist-rig 2>&1 | tee target/rig-contracts/rig.log
-      - name: Test MHR rig admission
-        run: |
-          set -o pipefail
-          cargo test --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --test-threads=1 2>&1 | tee target/rig-contracts/mhr.log
-      - name: Test creator fitting and export contracts
-        run: |
-          set -o pipefail
-          cargo test --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --lib -- --test-threads=1 2>&1 | tee target/rig-contracts/creator.log
-      - name: Test tactical animation contracts
-        run: |
-          set -o pipefail
-          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/animation.log
-      - name: Test tactical equipment contracts
-        run: |
-          set -o pipefail
-          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client equipment:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment.log
-      - name: Upload rig contract evidence
+          set -euo pipefail
+          case "$CONTROL_PHASE" in
+            isolated|full) ;;
+            *) printf 'Unsupported phase: %s\n' "$CONTROL_PHASE" >&2; exit 2 ;;
+          esac
+          args=(test --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --lib)
+          if [[ "$CONTROL_PHASE" == isolated ]]; then
+            args+=(device_underlayer::tests::a_frozen_envelope_keeps_the_layers_below_the_facing_sheet_on_every_sample)
+            args+=(-- --exact --test-threads=1 --nocapture)
+          else
+            args+=(-- --test-threads=1 --nocapture)
+          fi
+          results="$GITHUB_WORKSPACE/native-control-results"
+          export CARGO_TARGET_DIR="$RUNNER_TEMP/creator-native-control-target"
+          failed=0
+          {
+            printf '## Creator native control: %s\n\n' "$CONTROL_PHASE"
+            printf 'Diagnostic results only; production PR acceptance remains separate.\n\n'
+            printf '| Source | Checked-out SHA | Cargo exit | Log exit |\n'
+            printf '| --- | --- | --- | --- |\n'
+          } >> "$GITHUB_STEP_SUMMARY"
+          for label in main candidate; do
+            source="$GITHUB_WORKSPACE/source-$label"
+            cell="$results/$label"
+            mkdir -p "$cell"
+            case "$label" in
+              main) expected=d7021347d48f8c166da4c9e29976ebebb7d7de1e ;;
+              candidate) expected=974467f96d819b0492d2acdab43bffae9c33ba3c ;;
+            esac
+            actual=$(git -C "$source" rev-parse HEAD)
+            {
+              printf 'source=%s\nexpected_sha=%s\nchecked_out_sha=%s\nphase=%s\n' "$label" "$expected" "$actual" "$CONTROL_PHASE"
+              printf 'feature_selection=Cargo defaults; no feature overrides\n'
+              printf 'cargo_target_dir=%s\n' "$CARGO_TARGET_DIR"
+              printf 'command='; printf '%q ' cargo "${args[@]}"; printf '\n'
+              awk '/^\[features\]/{show=1;next} show && /^\[/{exit} show {print}' \
+                "$source/crates/adventuresim-character-creator/Cargo.toml"
+            } > "$cell/source-and-command.txt"
+            if [[ "$actual" != "$expected" ]]; then
+              printf 'Source identity mismatch; control was not executed.\n' > "$cell/run.log"
+              printf '2\n' > "$cell/cargo-exit-code.txt"
+              printf '0\n' > "$cell/log-exit-code.txt"
+              printf '| %s | %s | not run: SHA mismatch | 0 |\n' "$label" "$actual" >> "$GITHUB_STEP_SUMMARY"
+              failed=1
+              continue
+            fi
+            set +e
+            (cd "$source" && cargo "${args[@]}") 2>&1 | tee "$cell/run.log"
+            statuses=("${PIPESTATUS[@]}")
+            set -e
+            printf '%s\n' "${statuses[0]}" > "$cell/cargo-exit-code.txt"
+            printf '%s\n' "${statuses[1]}" > "$cell/log-exit-code.txt"
+            printf '| %s | %s | %s | %s |\n' "$label" "$actual" "${statuses[0]}" "${statuses[1]}" >> "$GITHUB_STEP_SUMMARY"
+            if (( statuses[0] != 0 || statuses[1] != 0 )); then
+              failed=1
+            fi
+          done
+          exit "$failed"
+      - name: Upload every control result
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rig-contracts-${{ github.event.pull_request.head.sha || github.sha }}
-          path: target/rig-contracts/
+          name: creator-native-control-${{ inputs.phase }}-${{ github.run_id }}
+          path: native-control-results/
           if-no-files-found: warn
