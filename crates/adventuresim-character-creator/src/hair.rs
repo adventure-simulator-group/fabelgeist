@@ -13,12 +13,17 @@ mod drape;
 mod geometry;
 mod groom;
 mod placement;
+mod shape;
 mod wrap;
 
 pub use cap::ScalpCap;
 pub use geometry::{AtlasLevel, HairGeometry};
 pub use groom::{BodySurface, GroomedHair, PlacedHair, SkinCover};
 pub use placement::{HeadPlacement, HeadPlacementError, HeadSkin};
+pub use shape::{
+    CLUMPING, CURL, FRIZZ, Groom, HairShape, LENGTH, PART, ShapeKnobs, ShapeRangeError, VOLUME,
+    WAVE,
+};
 
 use fabelgeist_hair::{HairMaterial, Preset};
 use serde::{Deserialize, Serialize};
@@ -104,17 +109,29 @@ impl HairPigment {
     }
 }
 
-/// A hairstyle and its colour.
+/// A hairstyle, how it is varied from its preset, and its colour.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct HairDesign {
     pub preset: Preset,
+    pub shape: HairShape,
     pub pigment: HairPigment,
 }
 
-/// A hairstyle's name as the interface shows it: `SideSwept` as "Side swept".
-pub fn preset_label(preset: Preset) -> String {
-    let name = format!("{preset:?}");
+impl HairDesign {
+    /// What grows: the colour aside.
+    pub fn groom(&self) -> Groom {
+        Groom {
+            preset: self.preset,
+            shape: self.shape,
+        }
+    }
+}
+
+/// A hairstyle's, a cut's, an arrangement's or a growth pattern's name as
+/// the interface shows it: `SideSwept` as "Side swept".
+pub fn variant_label(variant: impl std::fmt::Debug) -> String {
+    let name = format!("{variant:?}");
     let mut label = String::with_capacity(name.len() + 2);
     for (index, letter) in name.chars().enumerate() {
         if index > 0 && letter.is_uppercase() {

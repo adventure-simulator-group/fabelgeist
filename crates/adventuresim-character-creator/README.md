@@ -70,6 +70,23 @@ layered cuts, ponytails, buns, braids, afros, dreadlocks and more. Its
 **Melanin** slider runs from white through blond and brown to black, and
 **Redness** from ashen to red, as Blender's Principled Hair takes them.
 
+The hairstyle's `shape` varies its preset; its default grows the preset as
+it is. The **Cut**, **Arrangement** and **Growth** menus swap in another of
+the hair crate's 16 cuts, 10 arrangements (natural, parted, swept, back,
+forward, down, up, ponytail, bun, braid) or 7 growth patterns (whorls,
+cowlick, radial, forward, backward, down), or keep the preset's own. The
+sliders scale or shift the preset's values: **Length** scales every length
+of the cut by 0.3 to 2, keeping the hemline as far from the crown as the hair
+is long; **Volume** adds -1 to 4 cm of lift at the crown; **Part** moves the
+part up to 6 cm either side; **Curl** and **Clumping** add -1 to 1 to how
+much the strands curl and gather into locks, each kept within 0 to 1;
+**Waves** adds -10 to 20 mm of waves either side; and **Frizz** scales the
+stray strands' wander and their share by 0 to 4. Whether hair drapes on the
+body follows the arrangement and length the shape gives: tied, styled or
+short hair does not. A changed shape regrows the hair once its slider is let
+go; choosing another hairstyle starts it from its preset's own shape. The
+recipe stores the shape strictly, rejecting a value outside its range.
+
 A hairstyle is grown once, on a worker thread, on the hair crate's mannequin
 bust (half a second to a second), then placed on each generated body on the
 same thread (three to four seconds). Placing stretches the bust's head to the
@@ -157,7 +174,10 @@ cargo test --release --manifest-path crates/adventuresim-character-creator/Cargo
 It writes `target/hair-render/<preset>-<level>-<view>.png`. With
 `HAIR_ON_BUST=1` it draws the hair on the hair crate's own bust instead, as
 it grew there, to `bust-<preset>-<level>-<view>.png`: whether a fault lies in
-placing hair on a character or in drawing it.
+placing hair on a character or in drawing it. `HAIR_SHAPE` varies the preset
+as the Hair page does, taking the shape's fields that differ from its default
+-- `HAIR_SHAPE='{"length": 0.55, "curl": 0.6}'`, say -- and names the images
+`<preset>-shaped-<level>-<view>.png`.
 
 The hair is skinned wholly to `c_head`, so it follows the walk preview, and
 the rigged GLB exports its fine cards as a `hair` shell on the same joint,

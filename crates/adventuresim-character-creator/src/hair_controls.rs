@@ -1,19 +1,28 @@
-//! The hair page of the character tab: a hairstyle, its colour, and the
-//! level of detail it is drawn at.
+//! The hair page of the character tab: a hairstyle, its colour, how it is
+//! varied from its preset, and the level of detail it is drawn at.
 //!
 //! Hair changes no body, so these controls leave the studio clean: the hair
 //! preview notices the recipe's new hair and grows or recolours it alone.
 //! The level of detail is the studio's, not the recipe's: a game picks it
 //! from how large the head is on screen.
 use super::*;
-use adventuresim_character_creator::hair::{HairDesign, HairPigment, preset_label};
-use fabelgeist_hair::Preset;
+use adventuresim_character_creator::hair::{
+    CLUMPING, CURL, FRIZZ, HairDesign, HairPigment, HairShape, LENGTH, PART, VOLUME, WAVE,
+    variant_label,
+};
 use fabelgeist_hair::lod::Form;
+use fabelgeist_hair::{Arrangement, Cut, Growth, Preset};
 use hair_preview::HairPreview;
+use std::ops::RangeInclusive;
 use studio_theme::stat_slider;
 
 /// What the hairstyle menu calls no hair.
 const BALD: &str = "Bald";
+/// What a cut, arrangement or growth menu calls the preset's own.
+const PRESETS_OWN: &str = "Preset's own";
+/// The sliders' units: centimetres and millimetres a metre.
+const CENTIMETRES: f32 = 100.0;
+const MILLIMETRES: f32 = 1000.0;
 /// The share of strands a strand level starts out drawing.
 const START_SHARE: f32 = 0.25;
 /// The fewest of a level's strands the share slider draws.
@@ -21,7 +30,7 @@ const MIN_SHARE: f32 = 0.01;
 
 pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, preview: &HairPreview) {
     let hair = &mut studio.recipe.hair;
-    let selected = hair.map_or_else(|| BALD.to_owned(), |design| preset_label(design.preset));
+    let selected = hair.map_or_else(|| BALD.to_owned(), |design| variant_label(design.preset));
     egui::ComboBox::from_label("Hairstyle")
         .selected_text(selected)
         .show_ui(ui, |ui| {
@@ -30,9 +39,15 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, preview: &HairPreview
             }
             for preset in Preset::ALL {
                 let chosen = hair.is_some_and(|design| design.preset == preset);
-                if ui.selectable_label(chosen, preset_label(preset)).clicked() {
+                if ui.selectable_label(chosen, variant_label(preset)).clicked() {
+                    // A new hairstyle keeps its colour, and starts as its
+                    // preset has it.
                     let pigment = hair.map_or_else(HairPigment::default, |design| design.pigment);
-                    *hair = Some(HairDesign { preset, pigment });
+                    *hair = Some(HairDesign {
+                        preset,
+                        shape: HairShape::default(),
+                        pigment,
+                    });
                 }
             }
         });
@@ -40,6 +55,15 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, preview: &HairPreview
         return;
     };
     ui.add_space(6.0);
+    pigment(ui, design);
+    ui.add_space(6.0);
+    shape(ui, design);
+    ui.add_space(6.0);
+    level_of_detail(ui, &mut studio.hair_form, preview);
+}
+
+/// The hair's colour.
+fn pigment(ui: &mut egui::Ui, design: &mut HairDesign) {
     let neutral = HairPigment::default();
     let mut melanin = design.pigment.melanin();
     let mut redness = design.pigment.redness();
@@ -52,8 +76,135 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, preview: &HairPreview
     if darker || redder {
         design.pigment = HairPigment::new(melanin, redness);
     }
-    ui.add_space(6.0);
-    level_of_detail(ui, &mut studio.hair_form, preview);
+}
+
+/// How the hairstyle is varied from its preset: another cut, arrangement or
+/// growth pattern, and its lengths, volume, part, curl, waves, frizz and
+/// clumping. The sliders show centimetres and millimetres where the shape
+/// keeps metres.
+fn shape(ui: &mut egui::Ui, design: &mut HairDesign) {
+    let shape = &mut design.shape;
+    ui.horizontal(|ui| {
+        ui.label(egui::RichText::new("Shape").color(studio_theme::PARCHMENT));
+        ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+            let reset = ui
+                .small_button(PRESETS_OWN)
+                .on_hover_text("Grow the hairstyle as its preset has it.");
+            if reset.clicked() {
+                *shape = HairShape::default();
+            }
+        });
+    });
+    let cut = variant(ui, "Cut", shape.cut(), &Cut::ALL);
+    let arrangement = variant(ui, "Arrangement", shape.arrangement(), &Arrangement::ALL);
+    let growth = variant(ui, "Growth", shape.growth(), &Growth::ALL);
+    *shape = shape
+        .with_cut(cut)
+        .with_arrangement(arrangement)
+        .with_growth(growth);
+    let neutral = HairShape::default().knobs();
+    let mut knobs = shape.knobs();
+    let mut changed = false;
+    let mut slide = |label: &str,
+                     hint: &str,
+                     value: &mut f32,
+                     range: RangeInclusive<f32>,
+                     neutral: f32,
+                     unit: f32| {
+        let mut shown = *value * unit;
+        let range = range.start() * unit..=range.end() * unit;
+        if stat_slider(ui, label, &mut shown, range, neutral * unit)
+            .on_hover_text(hint)
+            .changed()
+        {
+            *value = shown / unit;
+            changed = true;
+        }
+    };
+    slide(
+        "Length",
+        "Every length of the cut, as a share of the preset's.",
+        &mut knobs.length,
+        LENGTH,
+        neutral.length,
+        1.0,
+    );
+    slide(
+        "Volume, cm",
+        "How much further the hair stands off the crown.",
+        &mut knobs.volume,
+        VOLUME,
+        neutral.volume,
+        CENTIMETRES,
+    );
+    slide(
+        "Part, cm",
+        "Where the hair parts: towards the character's left or right.",
+        &mut knobs.part,
+        PART,
+        neutral.part,
+        CENTIMETRES,
+    );
+    slide(
+        "Curl",
+        "Added to how much the strands curl, from straight to tight coils.",
+        &mut knobs.curl,
+        CURL,
+        neutral.curl,
+        1.0,
+    );
+    slide(
+        "Waves, mm",
+        "Added to how far the strands wave either side.",
+        &mut knobs.wave,
+        WAVE,
+        neutral.wave,
+        MILLIMETRES,
+    );
+    slide(
+        "Frizz",
+        "How far stray strands wander, and how many fly away, as a share of the preset's.",
+        &mut knobs.frizz,
+        FRIZZ,
+        neutral.frizz,
+        1.0,
+    );
+    slide(
+        "Clumping",
+        "Added to how much the strands gather into locks.",
+        &mut knobs.clumping,
+        CLUMPING,
+        neutral.clumping,
+        1.0,
+    );
+    if changed {
+        *shape = shape.with_knobs(knobs);
+    }
+}
+
+/// A menu of `options`, or the preset's own when none is picked.
+fn variant<T: Copy + PartialEq + std::fmt::Debug>(
+    ui: &mut egui::Ui,
+    label: &str,
+    picked: Option<T>,
+    options: &[T],
+) -> Option<T> {
+    let mut picked = picked;
+    let selected = picked.map_or_else(|| PRESETS_OWN.to_owned(), variant_label);
+    egui::ComboBox::from_label(label)
+        .selected_text(selected)
+        .show_ui(ui, |ui| {
+            if ui.selectable_label(picked.is_none(), PRESETS_OWN).clicked() {
+                picked = None;
+            }
+            for &option in options {
+                let chosen = picked == Some(option);
+                if ui.selectable_label(chosen, variant_label(option)).clicked() {
+                    picked = Some(option);
+                }
+            }
+        });
+    picked
 }
 
 /// Pick a strand level or a cut of cards, and how many of a level's strands
