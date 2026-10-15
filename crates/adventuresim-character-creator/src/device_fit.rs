@@ -247,13 +247,36 @@ pub async fn fit_recipe_async(
     placement: &str,
     layers: &[&GeneratedArmor],
 ) -> Result<DevicePiece> {
+    let skirt_join = if let ParametricDesign::Skirt(skirt) = design {
+        if skirt.bodice.is_some() {
+            let hips = frame(gpu, body, wearer, FitRegion::Hips)?;
+            let head = frame(gpu, body, wearer, FitRegion::Head)?;
+            Some(crate::skirt_join::SkirtJoinPlan::new(
+                skirt,
+                &wearer.wearer(body),
+                &hips,
+                &head,
+            )?)
+        } else {
+            None
+        }
+    } else {
+        None
+    };
     let fit = async |design: &ParametricDesign| {
         fit_piece_async(gpu, body, wearer, morphs, |device, batch, target| {
             let surfaces = layers
                 .iter()
                 .map(|armor| ArmorLayerSurface::from_generated(armor, target))
                 .collect::<Result<Vec<_>>>()?;
-            record_recipe(device, batch, design, placement, &surfaces)
+            record_recipe(
+                device,
+                batch,
+                design,
+                placement,
+                &surfaces,
+                skirt_join.as_ref(),
+            )
         })
         .await
     };
@@ -371,6 +394,7 @@ fn record_recipe(
     design: &ParametricDesign,
     placement: &str,
     layers: &[ArmorLayerSurface<'_>],
+    skirt_join: Option<&crate::skirt_join::SkirtJoinPlan>,
 ) -> Result<DeviceRecording> {
     match design {
         ParametricDesign::Helmet(HelmetDesign::CloseHelmet(d)) => {
@@ -417,7 +441,9 @@ fn record_recipe(
             armor_recipes::fit_region(design, placement)?,
             layers,
         ),
-        ParametricDesign::Skirt(skirt) => wearer.record_fitted_plain_skirt(batch, skirt, layers),
+        ParametricDesign::Skirt(skirt) => {
+            wearer.record_fitted_skirt_textile(batch, skirt, layers, skirt_join)
+        }
         ParametricDesign::WaistAssembly(_) => {
             anyhow::bail!("a waist assembly is fitted as its fauld and tassets")
         }

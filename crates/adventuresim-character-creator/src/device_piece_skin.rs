@@ -23,8 +23,7 @@ impl DevicePiece {
             // precede their inner-wall copies. Both walls represent the same
             // material points and must receive identical animation ownership.
             let carrier_count = if matches!(design, ParametricDesign::Skirt(_)) {
-                let count = (fabelgeist_armor::SKIRT_AXIAL_SEGMENTS + 1)
-                    * fabelgeist_armor::SKIRT_RING_SEGMENTS;
+                let count = self.base.positions.len() / 2;
                 anyhow::ensure!(
                     self.base.positions.len() == 2 * count,
                     "invalid skirt shell layout"

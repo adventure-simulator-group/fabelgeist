@@ -5,6 +5,7 @@ use fabelgeist_gpu::prelude::Buffer;
 
 use super::coord::{AUTHORED, CoordExtrusion, CoordKernel, CoordShell};
 use super::recipe::PartRecipe;
+use super::skirt_attachment::{SKIRT_ATTACHMENT_POINT_WORDS, SkirtAttachment};
 use super::{ArmorGpu, DevicePart};
 use crate::{
     ArmorComponentRole, BoundaryNormals, GenerateError, SKIRT_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS,
@@ -27,16 +28,24 @@ pub fn record_skirt(
     batch: &mut KernelBatch,
     design: &SkirtDesign,
     fit: &Buffer,
+    attachment: Option<&SkirtAttachment>,
 ) -> Result<DevicePart, GenerateError> {
     design.validate()?;
+    if design.bodice.is_some() != attachment.is_some() {
+        return Err(GenerateError::InvalidSurface);
+    }
     let mut coords = Vec::new();
     let mut indices = Vec::new();
-    for row in 0..=SKIRT_AXIAL_SEGMENTS {
+    let first_row = design
+        .bodice
+        .as_ref()
+        .map_or(0, |bodice| bodice.first_skirt_row());
+    for row in first_row..=SKIRT_AXIAL_SEGMENTS {
         for column in 0..SKIRT_RING_SEGMENTS {
             coords.push([column as f32, row as f32, 0.0, 0.0]);
         }
     }
-    for row in 0..SKIRT_AXIAL_SEGMENTS {
+    for row in 0..SKIRT_AXIAL_SEGMENTS - first_row {
         for column in 0..SKIRT_RING_SEGMENTS {
             let a = (row * SKIRT_RING_SEGMENTS + column) as u32;
             let b = (row * SKIRT_RING_SEGMENTS + (column + 1) % SKIRT_RING_SEGMENTS) as u32;
@@ -46,8 +55,11 @@ pub fn record_skirt(
             indices.extend([a, c, b, a, d, c]);
         }
     }
+    if let Some(attachment) = attachment {
+        attachment.append(&mut coords, &mut indices)?;
+    }
     let source = format!(
-        "const COLUMNS: u32 = {SKIRT_RING_SEGMENTS}u;\nconst ROWS: u32 = {SKIRT_AXIAL_SEGMENTS}u;\nconst FIRST_SECTION: u32 = {SKIRT_PROFILE_FIRST_WORD}u;\nconst SECTION_WORDS: u32 = {SKIRT_SECTION_WORDS}u;\n{AUTHORED}{}",
+        "const COLUMNS: u32 = {SKIRT_RING_SEGMENTS}u;\nconst ROWS: u32 = {SKIRT_AXIAL_SEGMENTS}u;\nconst FIRST_SECTION: u32 = {SKIRT_PROFILE_FIRST_WORD}u;\nconst SECTION_WORDS: u32 = {SKIRT_SECTION_WORDS}u;\nconst ATTACHMENT: u32 = {SKIRT_FIT_WORDS}u;\nconst POINT_WORDS: u32 = {SKIRT_ATTACHMENT_POINT_WORDS}u;\n{AUTHORED}{}",
         include_str!("skirt.wgsl"),
     );
     let kernel = CoordKernel::new(gpu, &source)?;
@@ -70,5 +82,6 @@ pub fn record_skirt(
     recipe.component(ArmorComponentRole::OuterFabric, None);
     let mut words = design.profile.shader_words().to_vec();
     words.push(design.fitted_fraction.unit());
+    words.push(first_row as f32);
     recipe.record(gpu, batch, &words, &[fit])
 }

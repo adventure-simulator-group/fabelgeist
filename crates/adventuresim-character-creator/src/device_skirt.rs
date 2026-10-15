@@ -3,7 +3,8 @@
 
 use anyhow::{Result, ensure};
 use fabelgeist_armor::gpu::{
-    SKIRT_FIT_WORDS, SKIRT_PROFILE_FIRST_WORD, SKIRT_SECTION_WORDS, record_skirt,
+    SKIRT_ATTACHMENT_POINT_WORDS, SKIRT_FIT_WORDS, SKIRT_PROFILE_FIRST_WORD, SKIRT_SECTION_WORDS,
+    record_skirt,
 };
 use fabelgeist_armor::{SKIRT_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS, SkirtDesign};
 use fabelgeist_compute::KernelBatch;
@@ -17,6 +18,7 @@ use crate::device_garment::UprightSpan;
 use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32, write};
 use crate::device_piece::{DeviceCheck, DeviceRecording};
 use crate::device_textile_support::TextileSupport;
+use crate::skirt_join::SkirtJoinPlan;
 
 /// Each body triangle contributes its corners and two plane-edge crossings.
 const SAMPLES_PER_TRIANGLE: u32 = 9;
@@ -27,18 +29,23 @@ fn main() { atomicOr(&status[0], atomicLoad(&section_status[0])); }
 "#;
 
 impl DeviceWearer<'_> {
-    pub(crate) fn record_fitted_plain_skirt(
+    pub(crate) fn record_fitted_skirt_textile(
         &self,
         batch: &mut KernelBatch,
         design: &SkirtDesign,
         layers: &[ArmorLayerSurface<'_>],
+        attachment: Option<&SkirtJoinPlan>,
     ) -> Result<DeviceRecording> {
         design.validate()?;
         let hips = self.record_frame(batch, FitRegion::Hips)?;
         let head = self.record_frame(batch, FitRegion::Head)?;
+        let fit_words = SKIRT_FIT_WORDS
+            + attachment.map_or(0, |plan| {
+                (plan.patch.point_count + SKIRT_RING_SEGMENTS as u32) * SKIRT_ATTACHMENT_POINT_WORDS
+            });
         let fit = self.record_upright(
             batch,
-            SKIRT_FIT_WORDS,
+            fit_words,
             &hips,
             &head,
             UprightSpan {
@@ -61,8 +68,22 @@ impl DeviceWearer<'_> {
         )?;
         ensure!(!support.faces.is_empty(), "skirt has no body support");
         let status = self.record_skirt_profile(batch, design, &fit, &support)?;
+        if let Some(plan) = attachment {
+            self.record_skirt_attachment(
+                batch,
+                &fit,
+                plan,
+                design.clearance.metres() + design.thickness.metres(),
+            )?;
+        }
         // The profile must be written before the coordinate kernel reads it.
-        let part = record_skirt(self.gpu, batch, design, &fit)?;
+        let part = record_skirt(
+            self.gpu,
+            batch,
+            design,
+            &fit,
+            attachment.map(|plan| &plan.patch),
+        )?;
         dispatch(
             self,
             batch,
@@ -76,9 +97,13 @@ impl DeviceWearer<'_> {
         )?;
         self.record_fit_status(batch, &fit, &part)?;
         let clearance = design.clearance.metres();
-        let checks = vec![DeviceCheck::Mesh(Box::new(move |part| {
-            crate::skirt_clearance::validate(part, &support, clearance)
-        }))];
+        let checks = if attachment.is_none() {
+            vec![DeviceCheck::Mesh(Box::new(move |part| {
+                crate::skirt_clearance::validate(part, &support, clearance)
+            }))]
+        } else {
+            Vec::new()
+        };
         Ok(DeviceRecording {
             part,
             frames: vec![(hips, FitRegion::Hips), (head, FitRegion::Head)],
