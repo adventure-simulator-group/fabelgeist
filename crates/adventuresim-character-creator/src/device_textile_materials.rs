@@ -8,8 +8,8 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
     if let ParametricDesign::PuffAndSlash(puff) = design {
         for component in &mut armor.components {
             component.material = match component.role {
-                ArmorComponentRole::Undercloth => Some(puff.undercloth_color.material()),
-                ArmorComponentRole::OuterFabric => Some(puff.outer_color.material()),
+                ArmorComponentRole::Undercloth => Some(puff.pattern.undercloth_color.material()),
+                ArmorComponentRole::OuterFabric => Some(puff.pattern.outer_color.material()),
                 _ => component.material,
             };
         }
@@ -22,6 +22,17 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
                     .as_ref()
                     .ok_or_else(|| anyhow::anyhow!("support component without a support design"))?
                     .color
+                    .material(),
+                ArmorComponentRole::Undercloth => skirt
+                    .puff_and_slash
+                    .as_ref()
+                    .ok_or_else(|| anyhow::anyhow!("lining without a textile pattern"))?
+                    .undercloth_color
+                    .material(),
+                ArmorComponentRole::OuterFabric => skirt
+                    .puff_and_slash
+                    .as_ref()
+                    .map_or(skirt.color, |pattern| pattern.outer_color)
                     .material(),
                 _ => skirt.color.material(),
             });

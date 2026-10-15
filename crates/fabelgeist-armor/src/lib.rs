@@ -63,6 +63,8 @@ mod helmets;
 mod limb_armor;
 mod pauldron;
 mod puff_and_slash;
+mod textile;
+pub use textile::TextileColor;
 mod radial_fluting;
 mod trunk_hose;
 mod waist_armor;
@@ -78,7 +80,7 @@ pub use garment_armor::{
 pub use helmets::*;
 pub use limb_armor::*;
 pub use pauldron::{PauldronDesign, PauldronOutline};
-pub use puff_and_slash::{PuffAndSlashDesign, PuffAndSlashKind, TextileColor};
+pub use puff_and_slash::{PuffAndSlashDesign, PuffAndSlashKind, PuffAndSlashPattern};
 pub use trunk_hose::TrunkHoseDesign;
 pub use visor_bellows::VisorBellows;
 pub use wrapped_tassets::{TassetSide, WrappedTassetDesign};
@@ -93,7 +95,7 @@ pub use error::{GenerateError, PlateShellFailure};
 
 pub const SCHEMA_VERSION: u16 = 1;
 /// Identifies mesh-generation behavior in review and equipment manifests.
-pub const GENERATOR_VERSION: u16 = 23;
+pub const GENERATOR_VERSION: u16 = 24;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {
