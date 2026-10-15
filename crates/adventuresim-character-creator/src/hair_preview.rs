@@ -5,11 +5,10 @@
 //! are carried onto the character's head and every level of detail is
 //! prepared there, kept outside the character's own skin. The studio then
 //! draws the level the Hair page picks, skinned wholly to the head joint so
-//! it follows the walk preview, and shades the scalp under it.
+//! it follows the walk preview, and paints the scalp under it.
 use super::*;
 use adventuresim_character_creator::hair::{
-    BodySurface, Groom, GroomedHair, HairDesign, HeadPlacement, HeadSkin, PlacedHair, SkinCover,
-    variant_label,
+    BodySurface, Groom, GroomedHair, HairDesign, HeadPlacement, HeadSkin, PlacedHair, variant_label,
 };
 use fabelgeist_hair::lod::Form;
 use std::sync::Arc;

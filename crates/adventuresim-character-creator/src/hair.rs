@@ -18,7 +18,7 @@ mod wrap;
 
 pub use cap::ScalpCap;
 pub use geometry::{AtlasLevel, HairGeometry};
-pub use groom::{BodySurface, GroomedHair, PlacedHair, SkinCover};
+pub use groom::{BodySurface, GroomedHair, PlacedHair};
 pub use placement::{HeadPlacement, HeadPlacementError, HeadSkin};
 pub use shape::{
     CLUMPING, CURL, FRIZZ, Groom, HairShape, LENGTH, PART, ShapeKnobs, ShapeRangeError, VOLUME,

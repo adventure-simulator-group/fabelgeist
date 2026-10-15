@@ -1,5 +1,5 @@
 //! Hair on the default body drawn headless, as the studio draws it -- the
-//! same meshes, materials, scalp shade and lights -- in every level of
+//! same meshes, materials, scalp paint and lights -- in every level of
 //! detail and from five views: how a change to hair is looked at without
 //! the studio's window.
 //!

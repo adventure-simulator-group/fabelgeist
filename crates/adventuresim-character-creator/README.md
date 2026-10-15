@@ -143,24 +143,21 @@ draws at most a million and a half ribbon vertices. The level is the
 studio's choice, not the recipe's: a game picks it from the head's size on
 screen.
 
-The scalp under the hair is shaded as the hair crate shades its own head,
-taking the roots' colour wherever hair grows at all densely and darkened
-where hair lies over it, so no level shows the head between its strands,
-even between an afro's open curls. The body has only a few dozen vertices
-over the skull, too few to keep a parting narrow, so the bust's own scalp,
-cut in four-millimetre cells, is carried onto the character as a cap laid
-0.4 mm over its skin and shaded there. Laid by its corners, a cap triangle
-spanning a ridge or corner of the coarse body would dip under the skin and
-let it show through in specks along the body's edges, so each triangle is
-sampled across and lifted until all of it clears the skin. The cover is
-averaged over each point's neighbours three times, as the hair crate
-smooths its own head's. The cap is lit by the scalp's smooth normals, so
-even bare it would outline itself on the skin, in the cells' steps; it is
-blended over the skin instead, fading out from 5 mm above the hair crate's
-hairline over the next 6 mm -- the hairline's own smooth curve, above the
-steps -- and over a row of cells along the rest of its edge. Only the cap
-is shaded: the body's skin, the neck and the shoulders hair falls over,
-keeps its colour, and the cap comes and goes with the hair.
+The scalp under the hair is painted flat in the hair's colour, unlit, so it
+neither shades nor reflects the light, and no level shows lit skin between
+its strands, even between an afro's open curls. The body has only a few
+dozen vertices over the skull, too few to keep a parting narrow, so the
+bust's own scalp, cut in four-millimetre cells, is carried onto the
+character as a cap laid 0.4 mm over its skin and painted there. Laid by its
+corners, a cap triangle spanning a ridge or corner of the coarse body would
+dip under the skin and let it show through in specks along the body's
+edges, so each triangle is sampled across and lifted until all of it clears
+the skin. The cap's edge runs in the cells' steps, so it is blended over the
+skin, fading out from 5 mm above the hair crate's hairline over the next
+6 mm -- the hairline's own smooth curve, above the steps -- and over a row of
+cells along the rest of its edge. Only the cap is painted: the body's skin,
+the neck and the shoulders hair falls over, keeps its colour, and the cap
+comes and goes with the hair.
 
 Ribbons and cards are straight between their rows, and over a rounded
 shoulder or skull a straight segment between two rows just outside the skin
@@ -196,7 +193,7 @@ as the Hair page does, taking the shape's fields that differ from its default
 The hair is skinned wholly to `c_head`, so it follows the walk preview, and
 the rigged GLB exports its fine cards as a `hair` shell on the same joint,
 following the head through every body morph channel. The export carries
-neither the scalp cap nor the scalp shade.
+neither the scalp cap nor its paint.
 
 ## Inventory
 

@@ -126,8 +126,8 @@ pub(super) fn mesh(geometry: HairGeometry, head_joint: u32) -> Result<Mesh> {
     .with_inserted_indices(Indices::U32(geometry.faces.into_flattened())))
 }
 
-/// The scalp `cap` as a mesh skinned wholly to `head_joint`, its shade for
-/// hair of `design` as vertex colour.
+/// The scalp `cap` as a mesh skinned wholly to `head_joint`, painted in
+/// the colour of hair of `design` as vertex colour.
 pub(super) fn cap_mesh(cap: &ScalpCap, design: HairDesign, head_joint: u32) -> Result<Mesh> {
     let count = cap.positions.len();
     let head = u16::try_from(head_joint).context("the head joint index exceeds a skin index")?;
@@ -136,10 +136,9 @@ pub(super) fn cap_mesh(cap: &ScalpCap, design: HairDesign, head_joint: u32) -> R
         RenderAssetUsages::default(),
     )
     .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, cap.positions.clone())
-    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, cap.normals.clone())
     .with_inserted_attribute(
         Mesh::ATTRIBUTE_COLOR,
-        scalp_shade::colors(design, &cap.cover, &cap.opacity),
+        scalp_shade::colors(design, &cap.opacity),
     )
     .with_inserted_attribute(
         Mesh::ATTRIBUTE_JOINT_INDEX,
