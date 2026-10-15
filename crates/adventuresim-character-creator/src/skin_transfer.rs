@@ -14,9 +14,6 @@ use std::collections::BTreeMap;
 const MINIMUM_HIP_HALF_SPAN_M: f32 = 0.025;
 /// A squared triangle-area measure in metres to the fourth power.
 const MINIMUM_BARYCENTRIC_DENOMINATOR_M4: f32 = 1e-15;
-/// Reserve two joints for each side before blending. The completed lower
-/// skirt uses at most four, so GLB export cannot discard one leg at the center.
-const SKIRT_SIDE_INFLUENCES: usize = 2;
 
 /// Skin rows ready for the mesh/upload boundary, in garment vertex order.
 pub struct SkinWeights {
@@ -79,9 +76,12 @@ impl SkinSource<'_> {
         Ok(output)
     }
 
-    /// Blend side samples across both hips below the waist. The sampling axis
+    /// Blend the two upper-leg joints below the waist. The lateral axis
     /// follows the hip pair, so turning the canonical body around Y does not
-    /// change which leg owns a side. This is skinning, not collision response.
+    /// change which leg owns a side. Knees, feet and surface twist helpers do not
+    /// drive a continuous skirt: copying their local body ownership creates
+    /// abrupt creases on fabric far from the body. This is skinning, not
+    /// collision response.
     pub fn skirt(&self, positions: &[[f32; 3]]) -> Result<SkinWeights> {
         let left = self.landmark(&RigJointName::L_UPLEG)?;
         let right = self.landmark(&RigJointName::R_UPLEG)?;
@@ -91,21 +91,9 @@ impl SkinSource<'_> {
         ensure!(half_span > 0.0, "skirt hip landmarks coincide");
         let axis = span / span.length();
         let half_span = half_span.max(MINIMUM_HIP_HALF_SPAN_M);
-        let side_query = |sign: f32| -> Vec<[f32; 3]> {
-            positions
-                .iter()
-                .map(|&p| {
-                    let p = vector(p);
-                    let lateral = (p - center).dot(axis);
-                    array(p + axis * (sign * half_span - lateral))
-                })
-                .collect()
-        };
         let mut skin = self.transfer(positions)?;
-        let mut low = self.transfer(&side_query(-1.0))?;
-        let mut high = self.transfer(&side_query(1.0))?;
-        low.reserve_skirt_side();
-        high.reserve_skirt_side();
+        let left_joint = u32::try_from(RigJointName::L_UPLEG.require_in(self.names)?)?;
+        let right_joint = u32::try_from(RigJointName::R_UPLEG.require_in(self.names)?)?;
         for (vertex, &position) in positions.iter().enumerate() {
             let position = vector(position);
             let lateral = (position - center).dot(axis);
@@ -117,18 +105,14 @@ impl SkinSource<'_> {
             // nearest-leg contribution below the hips splits the center.
             let vertical = smooth((center.y + half_span - position.y) / half_span);
             let mut influences = BTreeMap::new();
-            for (source, factor) in [
-                (&skin, 1.0 - vertical),
-                (&low, vertical * (1.0 - horizontal)),
-                (&high, vertical * horizontal),
-            ] {
-                accumulate(
-                    &mut influences,
-                    source.indices[vertex],
-                    source.weights[vertex],
-                    factor,
-                );
-            }
+            accumulate(
+                &mut influences,
+                skin.indices[vertex],
+                skin.weights[vertex],
+                1.0 - vertical,
+            );
+            *influences.entry(left_joint).or_default() += vertical * (1.0 - horizontal);
+            *influences.entry(right_joint).or_default() += vertical * horizontal;
             let row = normalized(influences)?;
             skin.indices[vertex] = row.indices;
             skin.weights[vertex] = row.weights;
@@ -185,23 +169,6 @@ impl SkinSource<'_> {
     }
 }
 
-impl SkinWeights {
-    fn reserve_skirt_side(&mut self) {
-        for (indices, weights) in self.indices.iter_mut().zip(&mut self.weights) {
-            // transfer() already merged, ranked and normalized each row.
-            let sum: f32 = weights[..SKIRT_SIDE_INFLUENCES].iter().sum();
-            for slot in 0..weights.len() {
-                if slot < SKIRT_SIDE_INFLUENCES {
-                    weights[slot] /= sum;
-                } else {
-                    indices[slot] = 0;
-                    weights[slot] = 0.0;
-                }
-            }
-        }
-    }
-}
-
 fn normalized(influences: BTreeMap<u32, f32>) -> Result<SkinRow> {
     let mut influences: Vec<_> = influences.into_iter().filter(|(_, w)| *w > 0.0).collect();
     influences.sort_by(|a, b| b.1.total_cmp(&a.1).then(a.0.cmp(&b.0)));
@@ -247,8 +214,4 @@ fn smooth(t: f32) -> f32 {
 
 fn vector(p: [f32; 3]) -> Vec3 {
     Vec3::new(p[0], p[1], p[2])
-}
-
-fn array(p: Vec3) -> [f32; 3] {
-    [p.x, p.y, p.z]
 }
