@@ -13,10 +13,8 @@
 use fabelgeist_gpu::prelude::BufferUpload;
 use std::collections::BTreeSet;
 
-use anyhow::{Context, Result, bail, ensure};
-use fabelgeist_armor::gpu::anatomy::{
-    DeviceSeams, DeviceSurface, STATUS_EMPTY_SELECTION, SeamTopology,
-};
+use anyhow::{Context, Result, ensure};
+use fabelgeist_armor::gpu::anatomy::{DeviceSeams, DeviceSurface, SeamTopology};
 use fabelgeist_armor::gpu::body::{BodySurface, GpuBody};
 use fabelgeist_armor::gpu::breastplate::{DeviceBreastplate, TORSO_RIG_WORDS, TorsoBody};
 use fabelgeist_armor::gpu::device_error;
@@ -46,13 +44,6 @@ pub struct TorsoSurfaceInput<'a> {
 /// and its extent to the neck, the lateral and anterior axes, and the front
 /// half width.
 const TORSO_FRAME_WORDS: u64 = 16;
-/// Set when the rig's landmarks coincide.
-pub(crate) const STATUS_COINCIDENT_LANDMARKS: u32 = 32;
-/// Set when no front vertex measures the torso's width.
-pub(crate) const STATUS_NO_WIDTH: u32 = 64;
-/// Set when the torso's measured width is degenerate.
-pub(crate) const STATUS_DEGENERATE_WIDTH: u32 = 128;
-
 /// Rig landmarks the torso frame reads, in the frame kernel's order.
 const LANDMARKS: [&str; 9] = [
     "c_spine0",
@@ -218,7 +209,6 @@ pub async fn generate_breastplate_on_device_async(
         batch.submit();
     }
 
-    torso_failure(gpu.read_async::<u32>(&status).await?[0])?;
     let names = input
         .morphs
         .iter()
@@ -227,21 +217,6 @@ pub async fn generate_breastplate_on_device_async(
     let mut armor = breastplate.read_async(gpu, input.domain, &names).await?;
     crate::skin_rules::breastplate(input.joint_names, &mut armor)?;
     Ok(armor)
-}
-
-/// The torso's failure, if its status bits hold one.
-fn torso_failure(bits: u32) -> Result<()> {
-    for (bit, message) in [
-        (STATUS_COINCIDENT_LANDMARKS, "torso landmarks coincide"),
-        (STATUS_NO_WIDTH, "front torso has no width samples"),
-        (STATUS_DEGENERATE_WIDTH, "front torso width is degenerate"),
-        (STATUS_EMPTY_SELECTION, "front torso selection is empty"),
-    ] {
-        if bits & bit != 0 {
-            bail!(message);
-        }
-    }
-    Ok(())
 }
 
 /// Where the torso's measurement goes.
