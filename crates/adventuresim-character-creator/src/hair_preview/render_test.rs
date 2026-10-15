@@ -7,15 +7,17 @@
 //! MHR_ASSETS=target/mhr-assets/v1.0.1/assets HAIR_PRESET=long cargo test --release --manifest-path crates/adventuresim-character-creator/Cargo.toml --bin adventuresim-character-creator hair_renders -- --ignored --nocapture
 //! ```
 //!
-//! writes `target/hair-render/<preset>-<form>-<view>.png`. `HAIR_PRESET`
-//! takes a recipe's hairstyle name, `long` when unset. `HAIR_ON_BUST=1`
-//! draws the hair on the hair crate's own bust instead, as it grew there,
-//! to `bust-<preset>-<form>-<view>.png`: what placing it on a character is
+//! writes `target/hair-render/<preset>-<form>-<view>.png`. `HAIR_PRESET` takes
+//! a recipe's hairstyle name, `long` when unset. `HAIR_ON_BUST=1` draws the
+//! hair on the hair crate's own bust instead, as it grew there, to
+//! `bust-<preset>-<form>-<view>.png`: what placing it on a character is
 //! measured against. Beside them it writes the scalp's baked texture,
-//! `<preset>-scalp-texture.png`. `HAIR_SHAPE` varies the preset as the Hair page does,
-//! taking the shape's recipe fields that differ from its default -- for
-//! instance `{"length": 0.6, "curl": 0.5}` -- and names the images
-//! `<preset>-shaped-...`.
+//! `<preset>-scalp-texture.png`. `HAIR_SHAPE` varies the preset as the Hair
+//! page does, taking the shape's recipe fields that differ from its default --
+//! for instance `{"length": 0.6, "curl": 0.5}` -- and names the images
+//! `<preset>-shaped-...`. `HAIR_PIGMENT` colours it as a recipe's pigment does
+//! -- `{"melanin": 0.1, "redness": 0.05, "dye": [0.12, 0.38, 1.0]}`, say -- and
+//! names the images `<preset>-coloured-...`.
 use super::*;
 use adventuresim_character_creator::hair::{HairGeometry, HairPigment, HairShape, PlacedHair};
 use adventuresim_character_creator::studio_environment;
@@ -142,6 +144,15 @@ struct Captures {
     frames: u32,
 }
 
+/// The pigment `HAIR_PIGMENT` asks for, as a recipe gives it, or the
+/// default.
+fn test_pigment() -> Result<HairPigment> {
+    match std::env::var("HAIR_PIGMENT") {
+        Ok(pigment) => Ok(serde_json::from_str(&pigment)?),
+        Err(_) => Ok(HairPigment::default()),
+    }
+}
+
 /// The shape `HAIR_SHAPE` asks for: the default, its fields replaced.
 fn test_shape() -> Result<HairShape> {
     let mut shape = serde_json::to_value(HairShape::default())?;
@@ -164,7 +175,7 @@ fn hair_renders() -> Result<()> {
     let design = HairDesign {
         preset,
         shape: test_shape()?,
-        pigment: HairPigment::default(),
+        pigment: test_pigment()?,
     };
     let started = std::time::Instant::now();
     let grown = GroomedHair::grow(design.groom());
@@ -197,6 +208,11 @@ fn hair_renders() -> Result<()> {
         preset_name
     } else {
         format!("{preset_name}-shaped")
+    };
+    let preset_name = if design.pigment == HairPigment::default() {
+        preset_name
+    } else {
+        format!("{preset_name}-coloured")
     };
     let texture = placed.scalp_texture().first().context("no scalp texture")?;
     image::RgbaImage::from_raw(texture.width, texture.height, texture.rgba.clone())

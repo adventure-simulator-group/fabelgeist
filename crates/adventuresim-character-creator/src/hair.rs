@@ -35,12 +35,15 @@ pub const HAIR_ROUGHNESS: f32 = 0.55;
 
 /// Hair pigment as Blender's Principled Hair takes it. Both shares run from 0
 /// to 1: melanin from white through blond and brown to black, redness from
-/// ashen to red.
+/// ashen to red. A dye tints the strands on top, linear RGB, each channel 0
+/// to 1 of the light it lets through: white is no dye. A dye shows best on
+/// light hair, as on bleached hair.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, try_from = "PigmentShares")]
 pub struct HairPigment {
     melanin: f32,
     redness: f32,
+    dye: [f32; 3],
 }
 
 #[derive(Deserialize)]
@@ -48,11 +51,12 @@ pub struct HairPigment {
 struct PigmentShares {
     melanin: f32,
     redness: f32,
+    dye: [f32; 3],
 }
 
-/// A pigment share outside 0 to 1.
+/// A pigment share or a dye channel outside 0 to 1.
 #[derive(Debug, thiserror::Error)]
-#[error("hair pigment shares must lie between 0 and 1")]
+#[error("hair pigment shares and dye channels must lie between 0 and 1")]
 pub struct PigmentRangeError;
 
 impl TryFrom<PigmentShares> for HairPigment {
@@ -60,34 +64,55 @@ impl TryFrom<PigmentShares> for HairPigment {
 
     fn try_from(shares: PigmentShares) -> Result<Self, Self::Error> {
         let share = 0.0..=1.0;
-        if share.contains(&shares.melanin) && share.contains(&shares.redness) {
-            Ok(Self {
-                melanin: shares.melanin,
-                redness: shares.redness,
-            })
-        } else {
-            Err(PigmentRangeError)
+        let within = share.contains(&shares.melanin)
+            && share.contains(&shares.redness)
+            && shares.dye.iter().all(|channel| share.contains(channel));
+        if !within {
+            return Err(PigmentRangeError);
         }
+        Ok(Self {
+            melanin: shares.melanin,
+            redness: shares.redness,
+            dye: shares.dye,
+        })
     }
 }
 
 impl Default for HairPigment {
-    /// A mid brown.
+    /// A mid brown, undyed.
     fn default() -> Self {
         let material = HairMaterial::default();
         Self {
             melanin: material.melanin,
             redness: material.redness,
+            dye: NO_DYE,
         }
     }
 }
 
+/// The dye that leaves hair its own colour.
+pub const NO_DYE: [f32; 3] = [1.0; 3];
+
 impl HairPigment {
-    /// A pigment with both shares clamped to 0 to 1.
+    /// An undyed pigment with both shares clamped to 0 to 1.
     pub fn new(melanin: f32, redness: f32) -> Self {
         Self {
             melanin: melanin.clamp(0.0, 1.0),
             redness: redness.clamp(0.0, 1.0),
+            dye: NO_DYE,
+        }
+    }
+
+    /// The hair crate's named natural colour, as "auburn" or "platinum".
+    pub fn named(name: &str) -> Option<Self> {
+        HairMaterial::named(name).map(|material| Self::new(material.melanin, material.redness))
+    }
+
+    /// This pigment dyed `dye`, each channel clamped to 0 to 1.
+    pub fn dyed(self, dye: [f32; 3]) -> Self {
+        Self {
+            dye: dye.map(|channel| channel.clamp(0.0, 1.0)),
+            ..self
         }
     }
 
@@ -99,11 +124,16 @@ impl HairPigment {
         self.redness
     }
 
+    pub fn dye(self) -> [f32; 3] {
+        self.dye
+    }
+
     /// The hair's real-time colour, linear RGB.
     pub fn color(self) -> [f32; 3] {
         HairMaterial {
             melanin: self.melanin,
             redness: self.redness,
+            tint: self.dye,
             ..HairMaterial::default()
         }
         .base_color()
