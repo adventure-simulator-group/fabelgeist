@@ -218,7 +218,9 @@ impl SettledDrape {
             stage: DrapeStage::Worn,
         };
         garment.normals = garment.normals_for(&garment.positions);
-        (garment.indices, garment.weights) = transfer_skin(input, &garment.positions)?;
+        let skin = transfer_skin(input, &garment.positions)?;
+        garment.indices = skin.indices;
+        garment.weights = skin.weights;
         warnings.extend(garment.contact_issues(&collision));
         Ok(garment)
     }

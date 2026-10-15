@@ -488,6 +488,15 @@ garments on the torso in the same layer displace each other.
 shirt, fitted shirt, tunic, doublet, gambeson, trousers, hose, braies, skirt,
 dress, kirtle, surcoat and houppelande. Everything stays editable afterwards.
 
+Sewn skirts and fitted mail or padded skirts share their skin-transfer policy.
+Below the hips, vertices between the legs blend skin sampled on both sides;
+the sampling direction follows the hip landmarks. Side vertices retain their
+own leg's motion. This removes the abrupt nearest-leg ownership switch at the
+center. Each lower-skirt side reserves at most two influences before blending,
+so the four-influence export cannot discard one leg at the center. The upper
+attachment fades to body-surface skin above the hips. Skinning alone does not
+establish clearance during movement or preserve a rigid skirt support's shape.
+
 ## Draped chainmail
 
 Choose **Chainmail** as a garment's fabric to make it mail armor. A mail shirt
