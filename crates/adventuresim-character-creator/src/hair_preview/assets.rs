@@ -32,7 +32,7 @@ impl HairAssets<'_> {
     }
 
     /// The scalp cap under `placed`, skinned wholly to the head joint and
-    /// shaded for `design`, in skin.
+    /// shaded for `design`, blended over the skin.
     pub(super) fn scalp_cap(
         &mut self,
         placed: &PlacedStyle,
@@ -42,7 +42,7 @@ impl HairAssets<'_> {
         let mesh = cap_mesh(hair.cap(), design, hair.placement().head_joint)?;
         Ok((
             self.meshes.add(mesh),
-            self.materials.add(preview::skin_material()),
+            self.materials.add(scalp_shade::material()),
         ))
     }
 
@@ -139,7 +139,7 @@ pub(super) fn cap_mesh(cap: &ScalpCap, design: HairDesign, head_joint: u32) -> R
     .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, cap.normals.clone())
     .with_inserted_attribute(
         Mesh::ATTRIBUTE_COLOR,
-        scalp_shade::colors(design, &cap.cover),
+        scalp_shade::colors(design, &cap.cover, &cap.opacity),
     )
     .with_inserted_attribute(
         Mesh::ATTRIBUTE_JOINT_INDEX,

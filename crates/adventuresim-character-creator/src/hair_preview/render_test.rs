@@ -306,12 +306,12 @@ fn spawn(
     let skin = materials.add(preview::skin_material());
     commands.spawn((
         Mesh3d(meshes.add(body)),
-        MeshMaterial3d(skin.clone()),
+        MeshMaterial3d(skin),
         every_layer.clone(),
     ));
     commands.spawn((
         Mesh3d(meshes.add(cap)),
-        MeshMaterial3d(skin),
+        MeshMaterial3d(materials.add(scalp_shade::material())),
         every_layer.clone(),
     ));
     commands.spawn((

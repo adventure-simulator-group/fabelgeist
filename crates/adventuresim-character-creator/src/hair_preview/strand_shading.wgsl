@@ -16,6 +16,15 @@
 // How far a card's shading normal leans from facing the eye towards the
 // card's own face, as the hair crate shades cards: enough to round a lock.
 const FACE_LEAN: f32 = 0.35;
+// How far off the line of sight a strand must turn, as the sine of the
+// angle, before it is shaded as seen from the side. Seen end-on -- an afro's
+// strands at its crown, pointing at the eye -- the direction square to the
+// strand facing the eye is no direction at all: it jumps from pixel to pixel
+// and lies across the line of sight, where the environment's reflection is
+// brightest, and the strands glint a cold grey. The card is seen edge-on
+// then too, so its face is no better; nearer end-on the normal turns to the
+// eye instead, as the strands' tips face it.
+const SIDE_VIEW: f32 = 0.5;
 
 struct CardFragment {
     @location(0) color: vec4<f32>,
@@ -51,16 +60,20 @@ fn coverage_mask(pixel: vec2<f32>, strand: f32, coverage: f32) -> u32 {
 
 // A card stands for strands, which face the eye whichever way the card does:
 // its shading normal faces the eye square to the strands' direction, turned a
-// little towards the card's own face.
+// little towards the card's own face -- and to the eye as the strands turn to
+// point at it.
 fn strand_normal(in: VertexOutput, face: vec3<f32>) -> vec3<f32> {
 #ifdef VERTEX_TANGENTS
     let tangent = normalize(in.world_tangent.xyz);
     let eye = normalize(view.world_position - in.world_position.xyz);
     let facing = eye - tangent * dot(eye, tangent);
-    if (dot(facing, facing) < 1e-8) {
-        return face;
+    let side = length(facing);
+    if (side < 1e-4) {
+        return eye;
     }
-    return normalize(normalize(facing) + face * FACE_LEAN);
+    let seen = smoothstep(0.0, SIDE_VIEW, side);
+    let square = mix(eye, facing / side, seen);
+    return normalize(square + face * FACE_LEAN * seen);
 #else
     return face;
 #endif
@@ -72,6 +85,13 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> CardFrag
     let normal = strand_normal(in, pbr_input.N);
     pbr_input.N = normal;
     pbr_input.world_normal = normal;
+#ifdef VERTEX_COLORS
+    // The baked sky visibility darkens the hair's colour, and so every light
+    // it scatters; the environment's reflection must fade with it, or hair
+    // deep in the groom -- under an afro's crown -- would be dark but glint
+    // with the whole sky, a cold grey.
+    pbr_input.specular_occlusion *= in.color.r;
+#endif
     let coverage = pbr_input.material.base_color.a;
 #ifdef VERTEX_UVS_B
     // The card's own random value, and the painted strand's shade, so that
