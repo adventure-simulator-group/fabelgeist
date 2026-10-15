@@ -1,10 +1,11 @@
 //! A hairstyle grown on the bust, and the same hair placed on a character.
 
-use fabelgeist_hair::collider::push_out;
+use fabelgeist_hair::collider::{Collider, push_out};
 use fabelgeist_hair::lod::Form;
 use fabelgeist_hair::ops::{Context, Shrinkwrap};
 use fabelgeist_hair::{HairLods, Head, LodSettings, Look, MeshCollider, Preset, Strands, Surface};
 use fabelgeist_math::Vec3;
+use rayon::prelude::*;
 
 use super::{HeadPlacement, ScalpCap, drape};
 
@@ -17,6 +18,15 @@ const BODY_REACH: f32 = 0.1;
 /// How far off the character's skin a strand's root sits, metres: as far as
 /// the hair crate keeps a card's root off its bust.
 const ROOT_CLEARANCE: f32 = 0.0005;
+/// Steps taken to set a root on the skin along its normal, how close it
+/// must come, metres, and how far it may move, metres, before it is pushed
+/// straight out instead.
+const ROOT_STEPS: usize = 12;
+const ROOT_TOLERANCE: f32 = 0.0001;
+const MAX_ROOT_SHIFT: f32 = 0.03;
+/// The flattest a root's normal may meet the skin and still be followed:
+/// the cosine of the angle between them.
+const MIN_ROOT_INCIDENCE: f32 = 0.3;
 
 /// A hairstyle grown on the mannequin bust, in the bust's frame: metres, up
 /// along +Y, the face towards +Z.
@@ -172,14 +182,44 @@ impl PlacedHair {
     }
 }
 
-/// Move each strand whole until its root is just outside `body`.
+/// Move each strand whole along its root's normal until the root sits just
+/// outside `body`. The normal is the bust scalp's, carried, and so smooth:
+/// pushing each root to the nearest point of the body instead would move
+/// neighbouring roots apart along the normals of different facets wherever
+/// the body is coarse, and part the hair along its edges -- at the nape,
+/// where roots start up to a centimetre and a half inside, into wedges.
 fn lift_roots(strands: &mut Strands, body: &MeshCollider) {
     let points = strands.points;
-    for strand in strands.positions.chunks_mut(points) {
-        let root = strand[0];
-        let lift = push_out(body, root, ROOT_CLEARANCE) - root;
-        for point in strand {
-            *point += lift;
+    let normals = &strands.root_normal;
+    strands
+        .positions
+        .par_chunks_mut(points)
+        .zip(normals.par_iter())
+        .for_each(|(strand, &normal)| {
+            let lift = root_lift(body, strand[0], normal);
+            for point in strand {
+                *point += lift;
+            }
+        });
+}
+
+/// How far to move `root` along `normal` to sit [`ROOT_CLEARANCE`] outside
+/// `body`: out of it, or down onto it. Where the normal runs too nearly
+/// along the skin to reach it, the root is pushed straight out instead.
+fn root_lift(body: &MeshCollider, root: Vec3, normal: Vec3) -> Vec3 {
+    let mut along = 0.0;
+    for _ in 0..ROOT_STEPS {
+        let (distance, out) = body.query(root + normal * along);
+        let error = ROOT_CLEARANCE - distance;
+        if error.abs() < ROOT_TOLERANCE {
+            return normal * along;
+        }
+        // The distance changes along the normal as fast as the normal
+        // meets the skin's.
+        along += error / normal.dot(out).max(MIN_ROOT_INCIDENCE);
+        if along.abs() > MAX_ROOT_SHIFT {
+            break;
         }
     }
+    push_out(body, root, ROOT_CLEARANCE) - root
 }
