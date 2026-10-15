@@ -305,8 +305,19 @@ folds. They release gradually below the waist. Optional longitudinal stays
 counts, width, thickness and reach controls. Their exported component roles
 retain construction identity and rigid pelvis attachment. They express the
 reference construction; they do not simulate forces or constrain fabric yet.
-Puff-and-slash treatment is a separate construction stage. Skinning and movement clipping remain
-provisional until cloth physics is implemented.
+Enable puff-and-slash treatment to add puffed courses over a continuous lining.
+Skirts, dresses, sleeves and hose share the same pattern controls, panel
+construction and fullness profile. Edit course count, fullness and taper,
+roundness, constriction bands, slash count, opening dimensions, rotation and
+both textile colors. Turn off open slashes for closed puffed cloth; turn off the
+treatment for plain cloth. Treatment can accompany either pleats or supports.
+On dresses it covers the hanging section; the fitted upper section and waist
+transition remain continuous lining. These controls describe construction, not
+forces, cloth dynamics or collision response. Skinning and movement clipping
+remain provisional until cloth physics is implemented.
+Large fullness with many courses on a short skirt can produce shelf-like
+forms. The controls permit this stylization; finite topology does not establish
+plausible fabric construction across every combination.
 
 ## Draped chainmail
 

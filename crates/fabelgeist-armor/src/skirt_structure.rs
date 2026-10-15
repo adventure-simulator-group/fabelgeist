@@ -27,7 +27,7 @@ pub struct SkirtSupport {
     pub color: TextileColor,
 }
 
-/// Longitudinal strips running from the waist toward the hem.
+/// Longitudinal strips along the hanging skirt section toward the hem.
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct SkirtStays {

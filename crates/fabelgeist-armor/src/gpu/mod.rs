@@ -51,6 +51,7 @@ mod skirt;
 mod skirt_attachment;
 mod skirt_structure;
 pub mod staging;
+mod textile_pattern;
 pub mod wgsl;
 pub mod wrapped_tassets;
 pub use close_helmet::{CLOSE_HELMET_PROFILE_WORDS, FIT_PROFILE_WORD, record_close_helmet};

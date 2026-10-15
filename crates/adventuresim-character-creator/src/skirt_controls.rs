@@ -11,6 +11,7 @@ mod structure;
 pub(super) fn show(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
     let mut changed = bodice(ui, &mut design.bodice);
     changed |= structure::show(ui, design);
+    changed |= treatment(ui, &mut design.puff_and_slash);
     changed |= number(
         ui,
         &mut design.waist_rise.0,
@@ -89,10 +90,33 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
         SkirtDesign::THICKNESS_RANGE,
         "Cloth thickness (mm)",
     );
-    ui.horizontal(|ui| {
-        ui.label("Fabric color");
-        changed |= ui.color_edit_button_srgb(&mut design.color.0).changed();
-    });
+    if design.puff_and_slash.is_none() {
+        ui.horizontal(|ui| {
+            ui.label("Fabric color");
+            changed |= ui.color_edit_button_srgb(&mut design.color.0).changed();
+        });
+    }
+    changed
+}
+
+fn treatment(
+    ui: &mut egui::Ui,
+    pattern: &mut Option<fabelgeist_armor::PuffAndSlashPattern>,
+) -> bool {
+    let mut enabled = pattern.is_some();
+    let mut changed = ui
+        .checkbox(&mut enabled, "Puff-and-slash treatment")
+        .changed();
+    if changed {
+        *pattern = if enabled {
+            Some(Default::default())
+        } else {
+            None
+        };
+    }
+    if let Some(pattern) = pattern {
+        changed |= super::puff_pattern::show(ui, pattern);
+    }
     changed
 }
 
