@@ -1944,7 +1944,7 @@
             {"location": "right_leg", "channel": "base_clothing"}
           ],
           "protection": ["left_leg", "right_leg"],
-          "surface": [{"regions": ["left_thigh", "left_lower_leg", "right_thigh", "right_lower_leg"], "anchor": "proximal", "coverage": 0.85}]
+          "surface": [{"regions": ["left_thigh", "left_lower_leg"], "anchor": "proximal", "coverage": 0.85}, {"regions": ["right_thigh", "right_lower_leg"], "anchor": "proximal", "coverage": 0.85}]
         }],
         "protection": {"resistance": 2, "padding": 4, "flexibility": 1, "range_of_motion": 0.98}
       },

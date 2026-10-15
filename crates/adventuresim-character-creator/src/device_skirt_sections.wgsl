@@ -28,27 +28,24 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     sample_set(first + count, vec2<f32>(0.0)); count++;
     let vertices = build_hull(first, count);
     if (vertices < 3u) { atomicOr(&status[0], 1u); return; }
+    // A plain carrier must not inherit every facet of a triangulated body.
+    // Use an axis-aligned ellipse, expanded to enclose every hull vertex.
+    // Inflate both axes by the same factor so the minimum normal separation
+    // is at least the requested allowance, including at shallow directions.
+    var axes = vec2<f32>(0.0);
+    for (var vertex = 0u; vertex < vertices; vertex++) {
+        axes = max(axes, abs(hull_at(first + vertex)));
+    }
+    if (any(axes <= vec2<f32>(0.0))) { atomicOr(&status[0], 1u); return; }
+    var enclosure = 1.0;
+    for (var vertex = 0u; vertex < vertices; vertex++) {
+        enclosure = max(enclosure, length(hull_at(first + vertex) / axes));
+    }
+    axes *= enclosure + params.allowance / min(axes.x, axes.y);
     let output = FIRST_SECTION + section * SECTION_WORDS;
     for (var column = 0u; column < RADII; column++) {
         let angle = TAU * f32(column) / f32(RADII);
         let direction = vec2<f32>(sin(angle), cos(angle));
-        fit[output + column] = offset_radius(first, vertices, direction);
+        fit[output + column] = 1.0 / length(direction / axes);
     }
-}
-
-// Intersect the ray with the hull's outward-offset supporting lines. Adding
-// the allowance to a radial distance would under-clear shallow hull corners.
-fn offset_radius(first: u32, vertices: u32, direction: vec2<f32>) -> f32 {
-    var radius = INFINITY;
-    for (var edge = 0u; edge < vertices; edge++) {
-        let a = hull_at(first + edge);
-        let delta = hull_at(first + (edge + 1u) % vertices) - a;
-        let normal = normalize(vec2<f32>(delta.y, -delta.x));
-        let facing = dot(direction, normal);
-        if (facing > FLT_EPSILON) {
-            radius = min(radius, (dot(a, normal) + params.allowance) / facing);
-        }
-    }
-    if (!(radius > 0.0 && radius < INFINITY)) { atomicOr(&status[0], 1u); }
-    return radius;
 }
