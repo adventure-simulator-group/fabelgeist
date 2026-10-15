@@ -74,6 +74,7 @@ pub mod proportions;
 mod rig_parameters;
 pub mod runtime_equipment;
 pub mod skin_rules;
+pub mod skin_transfer;
 pub mod studio_environment;
 pub mod surface_cut;
 pub mod torso_domain;

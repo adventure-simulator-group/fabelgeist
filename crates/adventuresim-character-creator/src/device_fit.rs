@@ -258,7 +258,25 @@ pub async fn fit_recipe_async(
         .await
     };
     let ParametricDesign::WaistAssembly(waist) = design else {
-        return fit(design).await;
+        let mut piece = fit(design).await?;
+        if matches!(design, ParametricDesign::Garment(garment) if matches!(
+            garment.kind,
+            fabelgeist_armor::GarmentArmorKind::MailSkirt
+                | fabelgeist_armor::GarmentArmorKind::PaddedSkirt
+        )) {
+            let skin = crate::skin_transfer::SkinSource {
+                positions: wearer.positions,
+                faces: body.faces,
+                indices: body.joint_indices,
+                weights: body.joint_weights,
+                names: body.joint_names,
+                joints: wearer.joints,
+            }
+            .skirt(&piece.base.positions)?;
+            piece.skin.joint_indices = skin.indices;
+            piece.skin.joint_weights = skin.weights;
+        }
+        return Ok(piece);
     };
     let fauld = fit(&ParametricDesign::Garment(waist.fauld.clone())).await?;
     let tassets = if matches!(
