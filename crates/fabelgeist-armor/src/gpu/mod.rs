@@ -49,6 +49,7 @@ pub(crate) mod recipe;
 pub(crate) mod shell_plan;
 mod skirt;
 mod skirt_attachment;
+mod skirt_structure;
 pub mod staging;
 pub mod wgsl;
 pub mod wrapped_tassets;
@@ -85,6 +86,11 @@ impl DevicePart {
     /// Nonzero once any stage has found the part invalid.
     pub fn status(&self) -> &Buffer {
         &self.0.status
+    }
+
+    /// Final mesh indices of the outer material point shared by each wall copy.
+    pub fn outer_aliases(&self) -> Vec<usize> {
+        self.0.layout().outer_aliases()
     }
 
     pub fn shell_count(&self) -> usize {

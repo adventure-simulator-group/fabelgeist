@@ -299,8 +299,13 @@ waist boundary joins it to the skirt before thickening, so it is one continuous
 surface. The catalog's **Linen dress** starts from this construction. Detailed
 necklines, sleeves and corsetry are outside this construction stage.
 
-Structural supports, pleats and puff-and-slash treatment are separate controls
-in the following construction stages. Skinning and movement clipping remain
+Pleats have independent repeat count, depth, rotation and rounded or accordion
+folds. They release gradually below the waist. Optional longitudinal stays
+(boning) and circumferential hoops sit under the fabric, with separate member
+counts, width, thickness and reach controls. Their exported component roles
+retain construction identity and rigid pelvis attachment. They express the
+reference construction; they do not simulate forces or constrain fabric yet.
+Puff-and-slash treatment is a separate construction stage. Skinning and movement clipping remain
 provisional until cloth physics is implemented.
 
 ## Draped chainmail

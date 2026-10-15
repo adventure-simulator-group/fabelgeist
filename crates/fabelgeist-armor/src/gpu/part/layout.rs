@@ -137,6 +137,20 @@ impl PartLayout {
             .mount = Some(mount);
     }
 
+    /// Native mesh correspondence; shell plans place carriers before wall copies.
+    pub(crate) fn outer_aliases(&self) -> Vec<usize> {
+        self.shells
+            .iter()
+            .flat_map(|shell| {
+                shell
+                    .plan
+                    .sources
+                    .iter()
+                    .map(|source| (shell.first_final + (source.packed() & !INNER_BIT)) as usize)
+            })
+            .collect()
+    }
+
     pub(crate) fn shell_count(&self) -> usize {
         self.shells.len()
     }
