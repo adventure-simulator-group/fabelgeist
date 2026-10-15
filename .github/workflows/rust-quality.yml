@@ -62,11 +62,6 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Record rig contract revision
-        run: |
-          set -o pipefail
-          mkdir -p target/rig-contracts
-          git rev-parse HEAD | tee target/rig-contracts/revision.txt
       - name: Install pinned Rust toolchain
         uses: dtolnay/rust-toolchain@master
         with:
@@ -129,6 +124,15 @@ jobs:
           cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
           cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
           cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
+      - name: Record rig contract revision
+        env:
+          EXPECTED_RIG_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          revision="$(git rev-parse HEAD)"
+          test "$revision" = "$EXPECTED_RIG_REVISION"
+          mkdir -p target/rig-contracts
+          printf '%s\n' "$revision" | tee target/rig-contracts/revision.txt
       - name: Test shared rig contracts
         run: |
           set -o pipefail
@@ -174,14 +178,19 @@ jobs:
           set -o pipefail
           cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client equipment:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment.log
       - name: Verify required rig contract execution
+        env:
+          EXPECTED_RIG_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           python3 - <<'PY'
           import json
+          import os
           import re
           from pathlib import Path
 
           evidence = Path("target/rig-contracts")
           revision = (evidence / "revision.txt").read_text().strip()
+          if not re.fullmatch(r"[0-9a-f]{40}", revision) or revision != os.environ["EXPECTED_RIG_REVISION"]:
+              raise SystemExit("Recorded rig revision does not match the required PR head")
           required = [
               "rig", "mhr", "animation", "equipment",
               "creator-armor-frames", "creator-clothing",
