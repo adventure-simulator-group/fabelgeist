@@ -8,9 +8,12 @@
 //! ```
 //!
 //! writes `target/hair-render/<preset>-<form>-<view>.png`. `HAIR_PRESET`
-//! takes a recipe's hairstyle name, `long` when unset.
+//! takes a recipe's hairstyle name, `long` when unset. `HAIR_ON_BUST=1`
+//! draws the hair on the hair crate's own bust instead, as it grew there,
+//! to `bust-<preset>-<form>-<view>.png`: what placing it on a character is
+//! measured against.
 use super::*;
-use adventuresim_character_creator::hair::{HairGeometry, HairPigment};
+use adventuresim_character_creator::hair::{HairGeometry, HairPigment, PlacedHair};
 use adventuresim_character_creator::studio_environment;
 use bevy::app::ScheduleRunnerPlugin;
 use bevy::camera::RenderTarget;
@@ -74,6 +77,63 @@ const VIEWS: [View; 5] = [
     },
 ];
 
+/// The hair placed, and the body it is drawn on.
+struct Subject {
+    placed: PlacedHair,
+    positions: Vec<[f32; 3]>,
+    normals: Vec<[f32; 3]>,
+    faces: Vec<[u32; 3]>,
+    body: Mesh,
+}
+
+impl Subject {
+    /// `grown` placed on the default character, as the studio places it.
+    fn character(assets: &std::ffi::OsStr, grown: &GroomedHair) -> Result<Self> {
+        let model = load_body_model(
+            std::path::Path::new(assets),
+            adventuresim_character_creator::lod::MIN_CHARACTER_LOD,
+            false,
+            &Device::default(),
+        )?;
+        let generated = generate_character(&model, &CharacterRecipe::default())?;
+        let head = BodyHead::new(&model, &generated);
+        let started = std::time::Instant::now();
+        let placed = head.place(grown)?;
+        println!("placed in {:.2} s", started.elapsed().as_secs_f32());
+        let body =
+            studio_generation::visible_body_mesh(&generated, &model.mhr.character.mesh.faces);
+        Ok(Self {
+            placed,
+            positions: head.positions,
+            normals: head.normals,
+            faces: head.faces,
+            body,
+        })
+    }
+
+    /// `grown` left on its own bust, as the hair crate grew it.
+    fn bust(grown: &GroomedHair) -> Self {
+        let (placed, bust) = grown.on_bust();
+        let positions: Vec<[f32; 3]> = bust.positions.iter().map(|p| p.to_array()).collect();
+        let normals: Vec<[f32; 3]> = bust.normals.iter().map(|n| n.to_array()).collect();
+        let faces = bust.triangles.clone();
+        let body = Mesh::new(
+            PrimitiveTopology::TriangleList,
+            RenderAssetUsages::default(),
+        )
+        .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, positions.clone())
+        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, normals.clone())
+        .with_inserted_indices(Indices::U32(faces.as_flattened().to_vec()));
+        Self {
+            placed,
+            positions,
+            normals,
+            faces,
+            body,
+        }
+    }
+}
+
 /// The captures still to write.
 #[derive(Resource)]
 struct Captures {
@@ -87,30 +147,30 @@ fn hair_renders() -> Result<()> {
     let assets = std::env::var_os("MHR_ASSETS").context("set MHR_ASSETS")?;
     let preset_name = std::env::var("HAIR_PRESET").unwrap_or_else(|_| "long".to_owned());
     let preset: Preset = serde_json::from_value(serde_json::Value::String(preset_name.clone()))?;
-    let model = load_body_model(
-        std::path::Path::new(&assets),
-        adventuresim_character_creator::lod::MIN_CHARACTER_LOD,
-        false,
-        &Device::default(),
-    )?;
-    let generated = generate_character(&model, &CharacterRecipe::default())?;
-    let head = BodyHead::new(&model, &generated);
     let grown = GroomedHair::grow(preset);
-    let started = std::time::Instant::now();
-    let placed = head.place(&grown)?;
-    println!("placed in {:.2} s", started.elapsed().as_secs_f32());
-    let cover = placed.cover(&head.positions, &head.normals);
     let design = HairDesign {
         preset,
         pigment: HairPigment::default(),
     };
+    let on_bust = std::env::var_os("HAIR_ON_BUST").is_some();
+    let subject = if on_bust {
+        Subject::bust(&grown)
+    } else {
+        Subject::character(&assets, &grown)?
+    };
+    let Subject {
+        placed,
+        positions,
+        normals,
+        faces,
+        mut body,
+    } = subject;
+    let cover = placed.cover(&positions, &normals);
     let center = Vec3::from_array(
         placed
             .placement()
             .point(grown.head().cranium.center.to_array()),
     );
-    let mut body =
-        studio_generation::visible_body_mesh(&generated, &model.mhr.character.mesh.faces);
     body.insert_attribute(
         Mesh::ATTRIBUTE_COLOR,
         scalp_shade::colors(design, &scalp_shade::shadow_only(&cover)),
@@ -121,14 +181,15 @@ fn hair_renders() -> Result<()> {
     let forms = placed.forms();
     let out = PathBuf::from("../../target/hair-render");
     std::fs::create_dir_all(&out)?;
+    let subject_name = if on_bust { "bust-" } else { "" };
 
     let skin = MeshCollider::new(
-        head.positions
+        positions
             .iter()
             .copied()
             .map(HairVec3::from_array)
             .collect(),
-        head.faces.clone(),
+        faces,
         BURIED_REACH,
     );
     let mut shots = Vec::new();
@@ -153,7 +214,12 @@ fn hair_renders() -> Result<()> {
         mesh.remove_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT);
         let paths = VIEWS
             .iter()
-            .map(|view| out.join(format!("{preset_name}-{form_name}-{}.png", view.name)))
+            .map(|view| {
+                out.join(format!(
+                    "{subject_name}{preset_name}-{form_name}-{}.png",
+                    view.name
+                ))
+            })
             .collect();
         hairs.push((form, mesh, paths));
     }
@@ -177,7 +243,10 @@ fn hair_renders() -> Result<()> {
                 })
                 .disable::<WinitPlugin>(),
         )
-        .add_plugins(ScheduleRunnerPlugin::run_loop(Duration::ZERO))
+        .add_plugins((
+            ScheduleRunnerPlugin::run_loop(Duration::ZERO),
+            HairShadingPlugin,
+        ))
         .insert_resource(stage)
         .insert_resource(Captures {
             shots: std::mem::take(&mut shots),
@@ -210,6 +279,7 @@ fn spawn(
     mut captures: ResMut<Captures>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
+    mut hair_materials: ResMut<Assets<strand_shading::HairShading>>,
     mut images: ResMut<Assets<Image>>,
 ) {
     let (Some(body), Some(cap), Some(atlas)) =
@@ -254,7 +324,7 @@ fn spawn(
         let layer = index + 1;
         commands.spawn((
             Mesh3d(meshes.add(mesh)),
-            MeshMaterial3d(materials.add(assets::material(design, form, atlas.clone()))),
+            MeshMaterial3d(hair_materials.add(assets::material(design, form, atlas.clone()))),
             RenderLayers::layer(layer),
         ));
         for (view, path) in VIEWS.iter().zip(paths) {

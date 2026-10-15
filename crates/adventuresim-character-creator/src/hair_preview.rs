@@ -20,8 +20,10 @@ mod assets;
 #[cfg(test)]
 mod render_test;
 mod scalp_shade;
+mod strand_shading;
 
 use assets::HairAssets;
+pub(super) use strand_shading::HairShadingPlugin;
 
 /// The hair mesh shown on the character: the design and the form it draws.
 #[derive(Component)]

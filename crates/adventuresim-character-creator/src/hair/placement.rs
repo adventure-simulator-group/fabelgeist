@@ -132,6 +132,37 @@ impl HeadPlacement {
         ]
     }
 
+    /// A direction of the bust's frame, in model space: carried as a tangent
+    /// is, stretched with the frame.
+    pub fn direction(&self, d: [f32; 3]) -> [f32; 3] {
+        let [x, y, z] = self.axes;
+        normalize(add(add(scale(x, d[0]), scale(y, d[1])), scale(z, d[2]))).unwrap_or(d)
+    }
+
+    /// A model-space direction, back in the bust's frame: the inverse of
+    /// [`Self::direction`].
+    pub fn bust_direction(&self, d: [f32; 3]) -> [f32; 3] {
+        let [x, y, z] = self.axes;
+        let [sx, sy, sz] = self.scale;
+        normalize([
+            dot(d, x) / (sx * sx),
+            dot(d, y) / (sy * sy),
+            dot(d, z) / (sz * sz),
+        ])
+        .unwrap_or(d)
+    }
+
+    /// The bust left where it stands, skinned to `head_joint`: hair drawn
+    /// on its own bust.
+    pub fn identity(head_joint: u32) -> Self {
+        Self {
+            origin: [0.0; 3],
+            axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+            scale: [1.0; 3],
+            head_joint,
+        }
+    }
+
     /// A model-space normal, back in the bust's frame: the inverse of
     /// [`Self::normal`].
     pub fn bust_normal(&self, n: [f32; 3]) -> [f32; 3] {

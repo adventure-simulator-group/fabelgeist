@@ -12,10 +12,14 @@
 //! them. A body acts on a tight coil -- a bun's, a braid's -- unsteadily, so
 //! the drape takes hold only below the head, fading in from the ears down to
 //! the jaw, where the bust and the character really differ: at the neck and
-//! the shoulders. Draping every strand twice would take long, so a few thousand
+//! the shoulders. And the solve knows nothing of what ties a lock: a
+//! ponytail's tail, resting against a neck a little thicker than the bust's,
+//! would slide off it strand by strand, round both sides. So a strand is
+//! draped only as far as it sinks deep into the character's body as
+//! carried -- long hair through a shoulder fully, a tail resting against the
+//! neck not at all, the shrinkwrap after pushing it out. Draping every strand twice would take long, so a few thousand
 //! guides spread over the head are draped, and every strand follows the
-//! guides whose roots are nearest its own, as the hair crate interpolates a
-//! groom from its guides.
+//! guide whose root is nearest its own.
 
 use fabelgeist_hair::collider::{Collider, NoCollider};
 use fabelgeist_hair::ops::{STANDARD_GRAVITY, Settle, restore_lengths};
@@ -27,10 +31,21 @@ use super::HeadPlacement;
 
 /// Strands draped as guides for the rest.
 const GUIDES: usize = 2048;
-/// Guides each strand follows.
-const NEIGHBOURS: usize = 4;
+/// Guides each strand follows: its nearest only. Over a shoulder the
+/// guides either side of a strand may fall in front and behind, and a blend
+/// of them would run through the shoulder; following one parts the hair
+/// cleanly, as hair parts over a shoulder.
+const NEIGHBOURS: usize = 1;
 /// Root distance below which a guide counts as the strand's own, metres.
 const SAME_ROOT: f32 = 1e-5;
+/// How deep inside the character's body, metres, a strand starts to be
+/// draped, and how deep it is draped fully. A tail resting a couple of
+/// centimetres into a thicker neck is left to the shrinkwrap, which pushes
+/// it straight out; long hair through a shoulder runs several centimetres
+/// deep.
+const SINK_START: f32 = 0.03;
+const SINK_FULL: f32 = 0.05;
+
 /// How far below the cranium's centre the drape starts to take hold, and
 /// where it takes hold fully, in the cranium's vertical radii.
 const DRAPE_START: f32 = 0.5;
@@ -118,12 +133,22 @@ pub(super) fn drape(
     strands
         .positions
         .par_chunks_mut(points)
-        .for_each(|strand| follow(strand, &guides, hold));
+        .for_each(|strand| follow(strand, &guides, hold, body));
 }
 
 /// Move `strand` as the guides nearest its root move, as far as the drape
-/// `hold`s at each point, keeping its length.
-fn follow(strand: &mut [Vec3], guides: &[Guide], hold: Hold) {
+/// `hold`s at each point and as far as the strand sinks into `body`,
+/// keeping its length.
+fn follow(strand: &mut [Vec3], guides: &[Guide], hold: Hold, body: &MeshCollider) {
+    let sunk = strand
+        .iter()
+        .map(|&point| -body.distance(point))
+        .fold(0.0_f32, f32::max);
+    let t = ((sunk - SINK_START) / (SINK_FULL - SINK_START)).clamp(0.0, 1.0);
+    let sinking = t * t * (3.0 - 2.0 * t);
+    if sinking <= 0.0 {
+        return;
+    }
     let root = strand[0];
     let mut nearest: Vec<(f32, &Guide)> = guides
         .iter()
@@ -145,7 +170,7 @@ fn follow(strand: &mut [Vec3], guides: &[Guide], hold: Hold) {
             .fold(Vec3::new(0.0, 0.0, 0.0), |sum, (&(_, guide), &weight)| {
                 sum + guide.moves[index] * weight
             });
-        *point += moved * (hold.at(before[index].y) / total);
+        *point += moved * (sinking * hold.at(before[index].y) / total);
     }
     restore_lengths(strand, &before, 1.0);
 }

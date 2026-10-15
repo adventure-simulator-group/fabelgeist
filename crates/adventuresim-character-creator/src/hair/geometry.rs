@@ -29,6 +29,12 @@ pub struct HairGeometry {
     pub texcoords: Vec<[f32; 2]>,
     /// Baked sky visibility, 0 to 1, from the groom's own self-shadowing.
     pub occlusion: Vec<f32>,
+    /// Each card's own random value, 0 to 1: which of a pixel's samples it
+    /// covers, so stacked cards do not all cover the same ones. 0 for
+    /// strands.
+    pub randoms: Vec<f32>,
+    /// Along the strands, root to tip.
+    pub tangents: Vec<[f32; 3]>,
     pub faces: Vec<[u32; 3]>,
 }
 
@@ -117,6 +123,8 @@ impl HairGeometry {
             normals: Vec::new(),
             texcoords: Vec::new(),
             occlusion: Vec::new(),
+            randoms: Vec::new(),
+            tangents: Vec::new(),
             faces: Vec::new(),
         }
     }
@@ -137,6 +145,12 @@ impl HairGeometry {
                 .collect(),
             texcoords: self.texcoords.clone(),
             occlusion: self.occlusion.clone(),
+            randoms: self.randoms.clone(),
+            tangents: self
+                .tangents
+                .iter()
+                .map(|&tangent| to.direction(from.bust_direction(tangent)))
+                .collect(),
             faces: self.faces.clone(),
         }
     }
@@ -149,8 +163,10 @@ fn card_strips(cards: &CardMesh, variants: f32) -> Vec<Strip> {
     let point = |vertex: &CardVertex| StripPoint {
         position: Vec3::from_array(vertex.position),
         normal: Vec3::from_array(vertex.normal),
+        tangent: Vec3::from_array(vertex.tangent),
         texcoord: [(vertex.variant + vertex.u) / variants, vertex.v],
         occlusion: vertex.occlusion,
+        random: vertex.random,
     };
     cards
         .vertices
@@ -197,8 +213,10 @@ fn ribbon_strips(level: &StrandLevel, drawn: usize, widen: f32, center: Vec3) ->
                     [(0.0, -half), (1.0, half)].map(|(across, offset)| StripPoint {
                         position: point + side * offset,
                         normal,
+                        tangent,
                         texcoord: [across, along],
                         occlusion: visible,
+                        random: 0.0,
                     })
                 })
                 .collect();
