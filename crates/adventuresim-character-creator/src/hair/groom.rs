@@ -53,14 +53,6 @@ pub struct PlacedHair {
     cap: ScalpCap,
 }
 
-/// How much hair covers a point of skin, each share 0 to 1: how densely
-/// roots grow around it, and how much hair lies over it.
-#[derive(Clone, Copy, Debug)]
-pub struct SkinCover {
-    pub roots: f32,
-    pub over: f32,
-}
-
 impl GroomedHair {
     /// Grow `groom` on the mannequin bust: about half a second to a second
     /// of every core.
@@ -147,7 +139,7 @@ impl GroomedHair {
     ) -> PlacedHair {
         let center = Vec3::from_array(placement.point(self.head.cranium.center.to_array()));
         let lods = HairLods::build(strands, center, Some(&body), &LodSettings::default());
-        let cap = ScalpCap::fit(&self.scalp, &self.head, placement, &body, &lods.cover);
+        let cap = ScalpCap::fit(&self.scalp, &self.head, placement, &body);
         PlacedHair {
             groom: self.groom,
             lods,

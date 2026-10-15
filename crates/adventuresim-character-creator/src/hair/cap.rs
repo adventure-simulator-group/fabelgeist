@@ -1,35 +1,30 @@
 //! The scalp under the hair, as a fine cap fitted to the character's skull.
 //!
-//! The hair crate shades its own head where roots grow and where hair lies
-//! over it, so no bare skin shows between strands; its head is cut in
-//! four-millimetre cells, fine enough to keep a parting narrow. The
-//! character's body is far coarser over the skull -- a few dozen vertices --
-//! and shading it per vertex smears a parting across centimetres of bare
-//! skin. The bust's own scalp, at the hair crate's resolution, is carried
-//! onto the character instead and laid just over its skin, to be shaded
-//! there. Over the body's coarse facets a cap triangle laid by its corners
-//! alone would dip under the skin wherever it spans a ridge or a corner of
-//! the body, and the bare skin would show through it in specks along the
-//! body's edges; such triangles are lifted until every point of them clears
-//! the skin.
+//! Between strands and cards the skin would show bare, so the scalp is
+//! painted the hair's colour. The character's body is far too coarse over
+//! the skull for that -- a few dozen vertices -- and painting it per vertex
+//! smears a parting across centimetres. The bust's own scalp, cut in the
+//! hair crate's four-millimetre cells, is carried onto the character
+//! instead and laid just over its skin. Over the body's coarse facets a cap
+//! triangle laid by its corners alone would dip under the skin wherever it
+//! spans a ridge or a corner of the body, and the bare skin would show
+//! through it in specks along the body's edges; such triangles are lifted
+//! until every point of them clears the skin.
 //!
-//! The cap is lit by the scalp's smooth normals, the body by its own, so
-//! even bare the cap would show its outline on the skin; and the bust's
-//! scalp is cut from its cells, so that outline runs in steps a cell high.
-//! The cap fades out instead, to nothing at its edge: above the hairline
-//! from above the highest of those steps, so the hairline is the hair
-//! crate's smooth curve, and over a row of cells along the rest of its
-//! edge, as at the nape.
+//! The bust's scalp is cut from its cells, so its edge runs in steps a cell
+//! high. The cap fades out to nothing at its edge: above the hairline from
+//! above the highest of those steps, so the hairline is the hair crate's
+//! smooth curve, and over a row of cells along the rest of its edge, as at
+//! the nape.
 
 use std::collections::{HashMap, VecDeque};
 
 use fabelgeist_hair::collider::Collider;
-use fabelgeist_hair::cover::ScalpCover;
 use fabelgeist_hair::{Head, MeshCollider, Surface};
 use fabelgeist_math::Vec3;
 use rayon::prelude::*;
 
-use super::{HeadPlacement, SkinCover};
+use super::HeadPlacement;
 
 /// How far over the skin the cap lies, metres: under the hair's roots,
 /// clear of the skin's own triangles.
@@ -50,47 +45,34 @@ const DIP_STEPS: usize = 4;
 /// The most passes made lifting triangles off the skin: a lift moves a
 /// triangle's neighbours too, so it settles in a few.
 const DIP_PASSES: usize = 4;
-/// Passes of averaging the cover over the cap's neighbours, as the hair
-/// crate smooths its own head's: measured a point at a time, it is grainy
-/// at the cap's resolution and steps along the hairline.
-const COVER_SMOOTHING: usize = 3;
 
-/// The scalp, fitted to a character's skull, how much hair covers each of
-/// its points, and how much each shows over the skin beneath.
+/// The scalp, fitted to a character's skull, and how much each of its
+/// points shows over the skin beneath.
 pub struct ScalpCap {
     pub positions: Vec<[f32; 3]>,
-    pub normals: Vec<[f32; 3]>,
     pub faces: Vec<[u32; 3]>,
-    pub cover: Vec<SkinCover>,
     /// 0 to 1: none at the cap's edge, all a little way in.
     pub opacity: Vec<f32>,
 }
 
 impl ScalpCap {
     /// The scalp of the bust `head`, carried onto a character by
-    /// `placement` and laid over its `body`, covered as `cover` says.
+    /// `placement` and laid over its `body`.
     pub(super) fn fit(
         scalp: &Surface,
         head: &Head,
         placement: &HeadPlacement,
         body: &MeshCollider,
-        cover: &ScalpCover,
     ) -> Self {
-        // Laid onto the skin, but shaded with the scalp's own smooth normals:
-        // the body's facets would show through as flat patches.
-        let laid: Vec<(Vec3, Vec3)> = scalp
+        let mut positions: Vec<Vec3> = scalp
             .positions
             .par_iter()
-            .zip(&scalp.normals)
-            .map(|(&point, &normal)| {
+            .map(|&point| {
                 let carried = Vec3::from_array(placement.point(point.to_array()));
                 let (distance, out) = body.query(carried);
-                let smooth = Vec3::from_array(placement.normal(normal.to_array()));
-                (carried - out * (distance - CAP_LIFT), smooth)
+                carried - out * (distance - CAP_LIFT)
             })
             .collect();
-        let mut positions: Vec<Vec3> = laid.iter().map(|&(position, _)| position).collect();
-        let normals: Vec<Vec3> = laid.iter().map(|&(_, normal)| normal).collect();
         clear_skin(&mut positions, &scalp.triangles, body);
         let opacity = edge_fade(positions.len(), &scalp.triangles)
             .into_iter()
@@ -101,16 +83,9 @@ impl ScalpCap {
                 edge.min(t * t * (3.0 - 2.0 * t))
             })
             .collect();
-        let measured = cover.at(&positions, &normals);
-        let cover = smooth(measured, &scalp.triangles)
-            .into_iter()
-            .map(|[roots, over]| SkinCover { roots, over })
-            .collect();
         Self {
             positions: positions.iter().map(|point| point.to_array()).collect(),
-            normals: normals.iter().map(|normal| normal.to_array()).collect(),
             faces: scalp.triangles.clone(),
-            cover,
             opacity,
         }
     }
@@ -160,31 +135,6 @@ fn clear_skin(positions: &mut [Vec3], triangles: &[[u32; 3]], body: &MeshCollide
                 *position += out * lift;
             });
     }
-}
-
-/// `cover` averaged over each point's neighbours in `triangles`,
-/// [`COVER_SMOOTHING`] times.
-fn smooth(mut cover: Vec<[f32; 2]>, triangles: &[[u32; 3]]) -> Vec<[f32; 2]> {
-    for _ in 0..COVER_SMOOTHING {
-        let mut sums = vec![[0.0f32; 2]; cover.len()];
-        let mut counts = vec![0.0f32; cover.len()];
-        for triangle in triangles {
-            for &a in triangle {
-                for &b in triangle {
-                    let (a, b) = (a as usize, b as usize);
-                    sums[a][0] += cover[b][0];
-                    sums[a][1] += cover[b][1];
-                    counts[a] += 1.0;
-                }
-            }
-        }
-        for ((value, sum), count) in cover.iter_mut().zip(sums).zip(counts) {
-            if count > 0.0 {
-                *value = sum.map(|total| total / count);
-            }
-        }
-    }
-    cover
 }
 
 /// For each of `points` vertices, 0 on the edge of `triangles` rising to 1
