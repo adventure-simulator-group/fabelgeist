@@ -88,7 +88,7 @@ go; choosing another hairstyle starts it from its preset's own shape. The
 recipe stores the shape strictly, rejecting a value outside its range.
 
 A hairstyle is grown once, on a worker thread, on the hair crate's mannequin
-bust (half a second to a second), then placed on each generated body on the
+bust (half a second to a second and a half), then placed on each generated body on the
 same thread (three to four seconds). Placing stretches the bust's head to the
 character's width across the ears, its depth from the back of the skull to
 the tip of the nose and its crown, and turns it to face where the eyes look.
@@ -143,22 +143,31 @@ draws at most a million and a half ribbon vertices. The level is the
 studio's choice, not the recipe's: a game picks it from the head's size on
 screen.
 
-The scalp under the hair is painted flat in the hair's colour at 40%, as
-dark as hair in its own shadow, unlit, so it neither shades nor reflects the
-light, and no level shows lit skin between its strands, even between an
-afro's open curls: the gaps recede rather than glow. The body has only a few
-dozen vertices over the skull, too few to keep a parting narrow, so the
-bust's own scalp, cut in four-millimetre cells, is carried onto the
-character as a cap laid 0.4 mm over its skin and painted there. Laid by its
-corners, a cap triangle spanning a ridge or corner of the coarse body would
-dip under the skin and let it show through in specks along the body's
-edges, so each triangle is sampled across and lifted until all of it clears
-the skin. The cap's edge runs in the cells' steps, so it is blended over the
-skin, fading out from 5 mm above the hair crate's hairline over the next
-6 mm -- the hairline's own smooth curve, above the steps -- and over a row of
-cells along the rest of its edge. Only the cap is painted: the body's skin,
-the neck and the shoulders hair falls over, keeps its colour, and the cap
-comes and goes with the hair.
+The scalp under the hair is painted in the hair's colour with the hair lying on
+it, unlit, so it neither shades nor reflects the light, and no level shows lit
+skin between its strands, even between an afro's open curls. The texture is
+baked once per hairstyle, on the bust it grew on (about a tenth of a second):
+each strand's first 8 mm off the skin is drawn into the scalp's UV map, the hair
+crate's projection about the crown, 2048 texels square -- about a fifth of a
+millimetre a texel over the crown. The topmost strand over each texel shows,
+from 25% of the hair's colour where it meets the skin to 90% at 8 mm off it;
+strands rooted within about 4 mm of each other share a tone, so locks show where
+single strands are far finer than a pixel; and bare scalp between them is at
+35%, in the hair's shadow. So the gaps between cards show strands running the
+groom's way, its parting and its whorl, rather than a flat patch, and the
+texture is filtered anisotropically to keep them where the eye meets the scalp
+obliquely. The body has only a few dozen vertices over the skull, too few to
+keep a parting narrow, so the bust's own scalp, cut in four-millimetre cells, is
+carried onto the character as a cap laid 0.4 mm over its skin and painted there.
+Laid by its corners, a cap triangle spanning a ridge or corner of the coarse
+body would dip under the skin and let it show through in specks along the body's
+edges, so each triangle is sampled across and lifted until all of it clears the
+skin. The cap's edge runs in the cells' steps, so it is blended over the skin,
+fading out from 5 mm above the hair crate's hairline over the next 6 mm -- the
+hairline's own smooth curve, above the steps -- and over a row of cells along
+the rest of its edge. Only the cap is painted: the body's skin, the neck and the
+shoulders hair falls over, keeps its colour, and the cap comes and goes with the
+hair.
 
 Ribbons and cards are straight between their rows, and over a rounded
 shoulder or skull a straight segment between two rows just outside the skin
@@ -183,7 +192,8 @@ $env:MHR_ASSETS = "target/mhr-assets/v1.0.1/assets"; $env:HAIR_PRESET = "long"
 cargo test --release --manifest-path crates/adventuresim-character-creator/Cargo.toml --bin adventuresim-character-creator hair_renders -- --ignored --nocapture
 ```
 
-It writes `target/hair-render/<preset>-<level>-<view>.png`. With
+It writes `target/hair-render/<preset>-<level>-<view>.png`, and the baked
+scalp texture as `<preset>-scalp-texture.png`. With
 `HAIR_ON_BUST=1` it draws the hair on the hair crate's own bust instead, as
 it grew there, to `bust-<preset>-<level>-<view>.png`: whether a fault lies in
 placing hair on a character or in drawing it. `HAIR_SHAPE` varies the preset

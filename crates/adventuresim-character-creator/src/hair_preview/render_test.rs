@@ -11,7 +11,8 @@
 //! takes a recipe's hairstyle name, `long` when unset. `HAIR_ON_BUST=1`
 //! draws the hair on the hair crate's own bust instead, as it grew there,
 //! to `bust-<preset>-<form>-<view>.png`: what placing it on a character is
-//! measured against. `HAIR_SHAPE` varies the preset as the Hair page does,
+//! measured against. Beside them it writes the scalp's baked texture,
+//! `<preset>-scalp-texture.png`. `HAIR_SHAPE` varies the preset as the Hair page does,
 //! taking the shape's recipe fields that differ from its default -- for
 //! instance `{"length": 0.6, "curl": 0.5}` -- and names the images
 //! `<preset>-shaped-...`.
@@ -165,7 +166,9 @@ fn hair_renders() -> Result<()> {
         shape: test_shape()?,
         pigment: HairPigment::default(),
     };
+    let started = std::time::Instant::now();
     let grown = GroomedHair::grow(design.groom());
+    println!("grown in {:.2} s", started.elapsed().as_secs_f32());
     let on_bust = std::env::var_os("HAIR_ON_BUST").is_some();
     let subject = if on_bust {
         Subject::bust(&grown)
@@ -195,6 +198,10 @@ fn hair_renders() -> Result<()> {
     } else {
         format!("{preset_name}-shaped")
     };
+    let texture = placed.scalp_texture().first().context("no scalp texture")?;
+    image::RgbaImage::from_raw(texture.width, texture.height, texture.rgba.clone())
+        .context("the scalp texture's size")?
+        .save(out.join(format!("{subject_name}{preset_name}-scalp-texture.png")))?;
 
     let skin = MeshCollider::new(
         positions
@@ -240,6 +247,7 @@ fn hair_renders() -> Result<()> {
         body: Some(body),
         cap: Some(cap),
         atlas: Some(assets::atlas_image(&placed)),
+        scalp_texture: Some(assets::scalp_image(&placed)),
         hairs,
         design,
         center,
@@ -279,6 +287,7 @@ struct Stage {
     body: Option<Mesh>,
     cap: Option<Mesh>,
     atlas: Option<Image>,
+    scalp_texture: Option<Image>,
     hairs: Vec<(Form, Mesh, Vec<PathBuf>)>,
     design: HairDesign,
     center: Vec3,
@@ -295,11 +304,15 @@ fn spawn(
     mut hair_materials: ResMut<Assets<strand_shading::HairShading>>,
     mut images: ResMut<Assets<Image>>,
 ) {
-    let (Some(body), Some(cap), Some(atlas)) =
-        (stage.body.take(), stage.cap.take(), stage.atlas.take())
-    else {
+    let (Some(body), Some(cap), Some(atlas), Some(scalp_texture)) = (
+        stage.body.take(),
+        stage.cap.take(),
+        stage.atlas.take(),
+        stage.scalp_texture.take(),
+    ) else {
         return;
     };
+    let scalp_texture = images.add(scalp_texture);
     let atlas = images.add(atlas);
     let environment = images.add(studio_environment::studio_environment());
     let every_layer = RenderLayers::from_layers(&(0..=stage.hairs.len()).collect::<Vec<_>>());
@@ -311,7 +324,7 @@ fn spawn(
     ));
     commands.spawn((
         Mesh3d(meshes.add(cap)),
-        MeshMaterial3d(materials.add(scalp_shade::material())),
+        MeshMaterial3d(materials.add(scalp_shade::material(scalp_texture))),
         every_layer.clone(),
     ));
     commands.spawn((

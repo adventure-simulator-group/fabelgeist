@@ -50,6 +50,8 @@ const DIP_PASSES: usize = 4;
 /// points shows over the skin beneath.
 pub struct ScalpCap {
     pub positions: Vec<[f32; 3]>,
+    /// Where each point lies in the scalp's texture.
+    pub texcoords: Vec<[f32; 2]>,
     pub faces: Vec<[u32; 3]>,
     /// 0 to 1: none at the cap's edge, all a little way in.
     pub opacity: Vec<f32>,
@@ -85,6 +87,7 @@ impl ScalpCap {
             .collect();
         Self {
             positions: positions.iter().map(|point| point.to_array()).collect(),
+            texcoords: scalp.uvs.clone(),
             faces: scalp.triangles.clone(),
             opacity,
         }

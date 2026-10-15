@@ -6,8 +6,9 @@ use fabelgeist_hair::ops::{Context, Shrinkwrap};
 use fabelgeist_hair::{HairLods, Head, LodSettings, MeshCollider, Strands, Surface};
 use fabelgeist_math::Vec3;
 use rayon::prelude::*;
+use std::sync::Arc;
 
-use super::{Groom, HeadPlacement, ScalpCap, drape};
+use super::{AtlasLevel, Groom, HeadPlacement, ScalpCap, drape, scalp_texture};
 
 /// Edge of the surface-nets cells the scalp is cut from, metres: the size the
 /// hair crate's viewer and dataset grow on.
@@ -35,6 +36,8 @@ pub struct GroomedHair {
     strands: Strands,
     head: Head,
     scalp: Surface,
+    /// The hair lying on the scalp, baked into its UV map.
+    scalp_texture: Arc<Vec<AtlasLevel>>,
 }
 
 /// The skin hair must stay out of, in model space.
@@ -51,21 +54,24 @@ pub struct PlacedHair {
     pub(super) body: MeshCollider,
     placement: HeadPlacement,
     cap: ScalpCap,
+    scalp_texture: Arc<Vec<AtlasLevel>>,
 }
 
 impl GroomedHair {
-    /// Grow `groom` on the mannequin bust: about half a second to a second
-    /// of every core.
+    /// Grow `groom` on the mannequin bust, and bake the hair lying on its
+    /// scalp: half a second to a second and a half of every core.
     pub fn grow(groom: Groom) -> Self {
         let look = groom.look();
         let head = look.head(&Head::mannequin());
         let scalp = head.scalp(SCALP_CELL);
         let strands = look.grow(&head, &scalp);
+        let scalp_texture = Arc::new(scalp_texture::bake(&strands, &head));
         Self {
             groom,
             strands,
             head,
             scalp,
+            scalp_texture,
         }
     }
 
@@ -146,6 +152,7 @@ impl GroomedHair {
             body,
             placement: *placement,
             cap,
+            scalp_texture: self.scalp_texture.clone(),
         }
     }
 }
@@ -158,6 +165,13 @@ impl PlacedHair {
     /// The scalp under the hair, fitted to the character's skull.
     pub fn cap(&self) -> &ScalpCap {
         &self.cap
+    }
+
+    /// The scalp's texture's mip chain, largest first: the hair lying on
+    /// it, as a share of the hair's colour, over the cap's texture
+    /// coordinates.
+    pub fn scalp_texture(&self) -> &[AtlasLevel] {
+        &self.scalp_texture
     }
 
     /// Every form this hair can be drawn in, finest first: each strand
