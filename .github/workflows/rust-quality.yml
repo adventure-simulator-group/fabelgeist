@@ -94,6 +94,8 @@ jobs:
         run: python3 -m unittest scripts.tests.test_building_review_boundary
       - name: Verify generated SpacetimeDB bindings
         run: python3 scripts/dev_stack.py verify-bindings
+      - name: Test FBX property tags and array decoding
+        run: cargo test --locked --package fabelgeist-fbx --all-features
       - name: Test shared schema and GPU readback boundaries
         run: |
           cargo test --package adventuresim-world-schema --all-features

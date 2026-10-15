@@ -59,18 +59,19 @@ retains its existing zero/raw and every-nonzero/Zlib policy.
 
 ## Property tags
 
-The binary FBX model-file reader admits each one-byte property tag into a
-bespoke FbxPropertyTag before dispatch. The same owner names all thirteen
-supported tag codes and distinguishes scalar numbers and Booleans, numeric and
-Boolean arrays, strings, and raw byte payloads. Tag identity remains typed
-through both property selection and array selection.
+The binary FBX model-file reader converts each one-byte property tag into the
+private `FbxPropertyTag` enum before dispatch. Its thirteen variants distinguish
+scalar numbers and Booleans, numeric and Boolean arrays, strings, and raw byte
+payloads. The derived `TryFrom<u8>` rejects unsupported bytes at this boundary,
+so property selection is exhaustive and cannot receive an unknown tag.
+Rejected bytes retain the parser's existing character diagnostic.
 
-Tag admission is open. Unknown native bytes reach the existing dispatch
-rejection and retain the same character diagnostic. The type does not admit
-decoded payloads or change scalar widths, array decoding, Boolean truth rules,
-string encoding, read ordering or parser errors. Version/header layouts, array
-encoding, counts, offsets and structured errors remain separate migration
-responsibilities.
+Native little-endian scalar decoders determine their input-array widths.
+Array decoding uses the same fixed-width input contract, so a tag's selected
+decoder determines each element's width without a separate numeric argument.
+Boolean truth rules, array Boolean bytes, string encoding, read ordering and
+parser errors remain unchanged. Version/header layouts, array encoding,
+counts, offsets and structured parser errors remain separate responsibilities.
 
 A regression fixture records 284 observations from the unchanged main public
 parser. Independently encoded properties cover all 256 native tag bytes, all
@@ -82,10 +83,7 @@ patterns, invalid string bytes and the distinct string/raw property variants.
 
 These bespoke types do not complete the parser's other responsibilities.
 `read_node` still carries native offsets and property counts; `read_props` and
-`decode_array` still carry array counts and scalar widths. Scalar
-conversions still contain guaranteed-length `unwrap`
-calls. Those values and the parser's errors need their own complete
-producer/consumer migrations. They are explicitly outside these header,
-array-encoding and property-tag
-changes; no stricter framing, encoding, version, allocation or error policy is
-introduced here.
+`decode_array` still carry array counts. Those values and the parser's errors
+need their own complete producer/consumer migrations. They are outside the
+header, array-encoding and property-tag changes; no stricter framing,
+encoding, version, allocation or error policy is introduced here.
