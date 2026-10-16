@@ -144,6 +144,12 @@ fn bodice(ui: &mut egui::Ui, bodice: &mut Option<fabelgeist_armor::DressBodice>)
             fabelgeist_armor::DressBodice::TRANSITION_RANGE,
             "Waist transition",
         );
+        changed |= number(
+            ui,
+            &mut bodice.front_point.0,
+            fabelgeist_armor::DressBodice::FRONT_POINT_RANGE,
+            "Front waist point (mm)",
+        );
     }
     changed
 }

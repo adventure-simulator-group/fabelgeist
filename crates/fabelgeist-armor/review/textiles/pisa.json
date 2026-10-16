@@ -1,24 +1,28 @@
 {
   "bodice": {
     "height": 650,
-    "transition": 100
+    "transition": 40,
+    "front_point": 140
   },
   "pleats": {
-    "count": 10,
-    "depth": 70,
+    "count": 12,
+    "depth": 115,
     "style": "Rounded",
-    "rotation": 0,
-    "front_depth": 650,
-    "waist_depth": 16,
-    "front_panel": 80
+    "rotation": 200,
+    "front_depth": 1000,
+    "waist_depth": 30,
+    "front_panel": 0,
+    "waist_count": 36,
+    "gather_falloff": 650,
+    "gather_retention": 650
   },
   "support": null,
   "waist_rise": 200,
-  "length": 1070,
-  "fitted_fraction": 100,
+  "length": 1110,
+  "fitted_fraction": 70,
   "profile": {
     "Flared": {
-      "width": 1550,
+      "width": 1500,
       "depth": 1500
     }
   },
@@ -27,9 +31,9 @@
   "puff_and_slash": null,
   "fabric": {
     "color": [
-      70,
+      52,
       5,
-      12
+      18
     ],
     "finish": "Velvet",
     "layers": [
@@ -43,9 +47,9 @@
         },
         "fill": "Solid",
         "color": [
-          97,
+          111,
           77,
-          44
+          43
         ]
       },
       {
@@ -60,21 +64,26 @@
           "Motifs": {
             "motif": {
               "Scrollwork": {
-                "branches": 1,
-                "curl": 1000
+                "branches": 2,
+                "curl": 950
               }
             },
-            "across": 24,
-            "along": 1,
-            "scale": 1000,
+            "across": 40,
+            "along": 2,
+            "scale": 950,
             "rotation": 0,
-            "stagger": 500
+            "stagger": 500,
+            "offset": {
+              "across": 0,
+              "along": 0
+            },
+            "space": "Region"
           }
         },
         "color": [
-          71,
-          40,
-          25
+          78,
+          34,
+          18
         ]
       },
       {
@@ -87,9 +96,9 @@
         },
         "fill": "Solid",
         "color": [
-          71,
-          40,
-          25
+          78,
+          34,
+          18
         ]
       },
       {
@@ -102,9 +111,9 @@
         },
         "fill": "Solid",
         "color": [
-          71,
-          40,
-          25
+          78,
+          34,
+          18
         ]
       },
       {
@@ -122,9 +131,9 @@
         },
         "fill": "Solid",
         "color": [
-          97,
+          111,
           77,
-          44
+          43
         ]
       },
       {
@@ -144,21 +153,26 @@
           "Motifs": {
             "motif": {
               "Scrollwork": {
-                "branches": 1,
-                "curl": 900
+                "branches": 2,
+                "curl": 950
               }
             },
-            "across": 1,
-            "along": 18,
-            "scale": 1000,
+            "across": 2,
+            "along": 36,
+            "scale": 900,
             "rotation": 0,
-            "stagger": 0
+            "stagger": 500,
+            "offset": {
+              "across": 0,
+              "along": 0
+            },
+            "space": "Region"
           }
         },
         "color": [
-          71,
-          40,
-          25
+          78,
+          34,
+          18
         ]
       }
     ]

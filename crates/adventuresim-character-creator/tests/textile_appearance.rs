@@ -49,6 +49,7 @@ fn curved_ornament_parameters_change_the_shared_baked_surface() -> Result<()> {
         region: TextileRegion::Whole,
         color: TextileColor([145, 110, 55]),
         fill: TextileFill::Motifs {
+            space: fabelgeist_armor::TextilePatternSpace::Region,
             motif: TextileMotif::Scrollwork {
                 branches: TextileRepeatCount(2),
                 curl: Permille(250),
@@ -58,6 +59,7 @@ fn curved_ornament_parameters_change_the_shared_baked_surface() -> Result<()> {
             scale: Permille(1000),
             rotation: Permille(125),
             stagger: Permille(500),
+            offset: Default::default(),
         },
     });
     let before = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
@@ -78,6 +80,90 @@ fn curved_ornament_parameters_change_the_shared_baked_surface() -> Result<()> {
             .pixels()
             .any(|pixel| pixel.0[..3] == fabric.layers.0[0].color.0)
     );
+    if let TextileFill::Motifs { offset, .. } = &mut fabric.layers.0[0].fill {
+        offset.across = Permille(500);
+        offset.along = Permille(500);
+    }
+    let shifted = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
+    let shifted = image::load_from_memory(&shifted.base_color_png)?.to_rgba8();
+    // Half a repeat at 8 x 4 repeats shifts this frozen image by 1/16 x 1/8.
+    for row in (0..after.height()).step_by(17) {
+        for column in (0..after.width()).step_by(17) {
+            assert_eq!(
+                shifted.get_pixel(column, row),
+                after.get_pixel(
+                    (column + after.width() / 16) % after.width(),
+                    (row + after.height() / 8) % after.height()
+                )
+            );
+        }
+    }
+    Ok(())
+}
+
+#[test]
+fn continuous_fabric_keeps_its_repeat_scale_when_clipped_into_bands() -> Result<()> {
+    use fabelgeist_armor::{TextileMotif, TextilePatternSpace, TextileRepeatCount};
+    let mut whole = TextileAppearance::solid(TextileColor([35, 12, 18]), TextileFinish::Velvet);
+    whole.layers.0.push(TextileLayer {
+        region: TextileRegion::Whole,
+        color: TextileColor([145, 110, 55]),
+        fill: TextileFill::Motifs {
+            space: TextilePatternSpace::Garment,
+            motif: TextileMotif::Damask {
+                leaf_pairs: TextileRepeatCount(2),
+                spread: Permille(950),
+            },
+            across: TextileRepeatCount(8),
+            along: TextileRepeatCount(3),
+            scale: Permille(1000),
+            rotation: Permille(0),
+            stagger: Permille(500),
+            offset: Default::default(),
+        },
+    });
+    let mut clipped = whole.clone();
+    clipped.layers.0.clear();
+    for (start, end) in [(200, 400), (700, 900)] {
+        let mut band = whole.layers.0[0].clone();
+        band.region = TextileRegion::Band {
+            axis: TextileAxis::Along,
+            start: Permille(start),
+            end: Permille(end),
+        };
+        clipped.layers.0.push(band);
+    }
+    let render = |fabric: &TextileAppearance| -> Result<image::RgbaImage> {
+        let maps = adventuresim_character_creator::textile_surface::textures(fabric)?.unwrap();
+        Ok(image::load_from_memory(&maps.base_color_png)?.to_rgba8())
+    };
+    let mut denser = whole.clone();
+    if let TextileFill::Motifs {
+        motif: TextileMotif::Damask { leaf_pairs, .. },
+        ..
+    } = &mut denser.layers.0[0].fill
+    {
+        *leaf_pairs = TextileRepeatCount(5);
+    }
+    let denser = render(&denser)?;
+    let whole = render(&whole)?;
+    assert_ne!(whole.as_raw(), denser.as_raw());
+    let clipped = render(&clipped)?;
+    let mut colored = 0;
+    for row in (0..whole.height()).step_by(13) {
+        let along = (row as f32 + 0.5) / whole.height() as f32;
+        let in_band = (0.2..0.4).contains(&along) || (0.7..0.9).contains(&along);
+        for column in (0..whole.width()).step_by(11) {
+            let actual = clipped.get_pixel(column, row);
+            if in_band {
+                assert_eq!(actual, whole.get_pixel(column, row));
+                colored += usize::from(actual.0[..3] == [145, 110, 55]);
+            } else {
+                assert_eq!(actual.0, [35, 12, 18, 255]);
+            }
+        }
+    }
+    assert!(colored > 100, "clipped bands must retain visible ornament");
     Ok(())
 }
 

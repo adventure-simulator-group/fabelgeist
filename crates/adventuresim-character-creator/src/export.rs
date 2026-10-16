@@ -1197,6 +1197,7 @@ mod tests {
             normal_deltas: &normal_delta,
         }];
         let shell = RiggedShell {
+            textile_finish: None,
             surface: None,
             plate_edges: &[],
             textures: None,
@@ -1302,6 +1303,7 @@ mod tests {
         let joint_weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
         let (joint_names, joint_parents, global_joint_states) = attachment_test_skeleton();
         let shell = RiggedShell {
+            textile_finish: None,
             plate_edges: &[],
             surface: Some((&uvs, &textures)),
             textures: None,
@@ -1418,6 +1420,7 @@ mod tests {
         ];
         let shell_faces = [[0, 1, 2]];
         let shell = RiggedShell {
+            textile_finish: None,
             surface: None,
             plate_edges: &[],
             textures: None,
@@ -1547,6 +1550,7 @@ mod tests {
             normal_deltas: &normal_deltas,
         };
         let shell = RiggedShell {
+            textile_finish: None,
             surface: None,
             plate_edges: &[],
             textures: None,
@@ -1681,6 +1685,7 @@ mod tests {
             global_joint_states: &global_joint_states,
         };
         let shell = RiggedShell {
+            textile_finish: None,
             surface: None,
             plate_edges: &[],
             textures: None,
@@ -1738,6 +1743,7 @@ mod tests {
         assert!((bootstrapped[1] - 0.5).abs() < 1e-6);
 
         let open_shell = RiggedShell {
+            textile_finish: None,
             surface: None,
             plate_edges: &[],
             textures: None,
