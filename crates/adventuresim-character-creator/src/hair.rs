@@ -11,6 +11,7 @@
 mod cap;
 mod drape;
 mod geometry;
+mod gpu;
 mod groom;
 mod placement;
 mod scalp_map;
@@ -20,6 +21,7 @@ mod wrap;
 
 pub use cap::ScalpCap;
 pub use geometry::{AtlasLevel, HairGeometry};
+pub use gpu::HairGpu;
 pub use groom::{BodySurface, GroomedHair, PlacedHair};
 pub use placement::{HeadPlacement, HeadPlacementError, HeadSkin};
 pub use scalp_texture::ScalpTexture;

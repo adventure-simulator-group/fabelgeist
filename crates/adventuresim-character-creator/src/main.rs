@@ -304,7 +304,11 @@ fn run_studio(
                     ..default()
                 }),
         )
-        .add_plugins((EguiPlugin::default(), hair_preview::HairShadingPlugin))
+        .add_plugins((
+            EguiPlugin::default(),
+            hair_preview::HairShadingPlugin,
+            hair_preview::HairGpuPlugin,
+        ))
         .init_resource::<CreatorPanelRight>()
         .init_resource::<studio_scene::CharacterBounds>()
         .init_resource::<studio_scene::ShotRequest>()

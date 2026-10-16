@@ -22,7 +22,9 @@
 //! the Hair page's switches do, to `<preset>-scalp-only-...` or
 //! `<preset>-hair-only-...`.
 use super::*;
-use adventuresim_character_creator::hair::{HairGeometry, HairPigment, HairShape, PlacedHair};
+use adventuresim_character_creator::hair::{
+    HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair,
+};
 use adventuresim_character_creator::studio_environment;
 use bevy::app::ScheduleRunnerPlugin;
 use bevy::camera::RenderTarget;
@@ -197,7 +199,13 @@ fn hair_renders() -> Result<()> {
         pigment: test_pigment()?,
     };
     let started = std::time::Instant::now();
-    let grown = GroomedHair::grow(design.groom());
+    let gpu = HairGpu::headless()?;
+    println!(
+        "hair kernels compiled in {:.2} s",
+        started.elapsed().as_secs_f32()
+    );
+    let started = std::time::Instant::now();
+    let grown = GroomedHair::grow(design.groom(), &gpu)?;
     println!("grown in {:.2} s", started.elapsed().as_secs_f32());
     let on_bust = std::env::var_os("HAIR_ON_BUST").is_some();
     let subject = if on_bust {

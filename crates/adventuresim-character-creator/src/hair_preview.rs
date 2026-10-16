@@ -15,6 +15,7 @@ use std::sync::Arc;
 use std::thread::JoinHandle;
 
 mod assets;
+mod gpu;
 mod layers;
 #[cfg(test)]
 mod render_test;
@@ -22,6 +23,7 @@ mod scalp_shade;
 mod strand_shading;
 
 use assets::HairAssets;
+pub(super) use gpu::HairGpuPlugin;
 use layers::HairLayer;
 pub(super) use layers::{ShownLayers, show as show_layers};
 pub(super) use strand_shading::HairShadingPlugin;
@@ -39,6 +41,9 @@ pub(super) struct HairPreview {
     grown: Option<Arc<GroomedHair>>,
     placed: Option<PlacedStyle>,
     worker: Option<Worker>,
+    /// The studio's render device, for growing hair on; there once the
+    /// renderer has started.
+    gpu: Option<gpu::StudioHairGpu>,
 }
 
 /// Hair placed on one generated body.
@@ -128,8 +133,15 @@ impl HairPreview {
             return false;
         }
         let grown = self.grown.clone().filter(|grown| grown.groom == groom);
+        let gpu = self.gpu.clone();
         let handle = std::thread::spawn(move || {
-            let grown = grown.unwrap_or_else(|| Arc::new(GroomedHair::grow(groom)));
+            let grown = match grown {
+                Some(grown) => grown,
+                None => {
+                    let gpu = gpu.context("the renderer has no device to grow hair on")?;
+                    Arc::new(GroomedHair::grow(groom, gpu.kernels()?)?)
+                }
+            };
             let placed = head.place(&grown)?;
             Ok(Prepared { grown, placed })
         });
