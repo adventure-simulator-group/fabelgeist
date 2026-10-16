@@ -3,7 +3,9 @@
 //! Cuts are evaluated once. Barycentric source points subsequently follow every
 //! body morph; neither a UV seam nor a changing body can reroute a cut vertex.
 use std::collections::BTreeMap;
+mod connected;
 mod triangulation;
+pub(crate) use connected::{connected_patch, weld_patch};
 
 /// Interior is the nonpositive half-space, in reference-body metres.
 #[derive(Clone, Copy, Debug)]
@@ -35,7 +37,7 @@ pub(crate) const CORRESPONDENCE_PRECISION: f32 = 1_000_000.0;
 const MINIMUM_TRIANGLE_AREA_SQUARED: f32 = 1e-20;
 // Cutting within 0.15 mm of a source vertex uses that vertex exactly. This
 // prevents microscopic corner slivers and agrees on both sides of a body edge.
-const CUT_VERTEX_SNAP_METRES: f32 = 0.00015;
+pub(crate) const CUT_VERTEX_SNAP_METRES: f32 = 0.00015;
 const CUT_PLANE_ROUNDOFF_METRES: f64 = 1e-6;
 
 impl SurfaceCut {

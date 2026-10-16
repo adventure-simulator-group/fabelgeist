@@ -4,10 +4,9 @@ use anyhow::{Context, Result, ensure};
 use fabelgeist_armor::gpu::{SkirtAttachment, SkirtWaistVertex};
 use fabelgeist_armor::{PartFrame, SKIRT_RING_SEGMENTS, SkirtDesign};
 use fabelgeist_rig::RigJointName;
-use std::collections::{BTreeMap, BTreeSet};
 
 use crate::armor_frames::Wearer;
-use crate::surface_cut::{CORRESPONDENCE_PRECISION, ConvexRegion, Plane, SurfaceCut, interpolate};
+use crate::surface_cut::{ConvexRegion, Plane, SurfaceCut, interpolate};
 
 pub(crate) struct SkirtJoinPlan {
     pub patch: SkirtAttachment,
@@ -49,7 +48,11 @@ impl SkirtJoinPlan {
                 )
             })
             .collect::<Vec<_>>();
-        let cut = central_patch(cut, &reference, [hips.origin[0], waist, hips.origin[2]])?;
+        let cut = crate::surface_cut::connected_patch(
+            cut,
+            &reference,
+            [hips.origin[0], waist, hips.origin[2]],
+        )?;
         let reference = cut
             .points
             .iter()
@@ -60,7 +63,7 @@ impl SkirtJoinPlan {
                 )
             })
             .collect::<Vec<_>>();
-        let mut borders = loops(&cut, &reference)?;
+        let mut borders = cut.boundary_loops(&reference)?;
         ensure!(
             borders.len() == 2,
             "dress upper patch must have a waist and upper opening"
@@ -157,92 +160,6 @@ fn waist_regions(
     regions
 }
 
-/// Weld physical seams, then retain the component nearest the pelvis axis.
-/// Arms clipped by the same horizontal band do not become detached dress parts.
-fn central_patch(cut: SurfaceCut, positions: &[[f32; 3]], center: [f32; 3]) -> Result<SurfaceCut> {
-    let mut physical = BTreeMap::new();
-    let mut points = Vec::new();
-    let mut reference = Vec::new();
-    let vertices = positions
-        .iter()
-        .enumerate()
-        .map(|(i, p)| {
-            *physical
-                .entry(p.map(|v| (v * CORRESPONDENCE_PRECISION).round() as i64))
-                .or_insert_with(|| {
-                    let next = points.len() as u32;
-                    points.push(cut.points[i]);
-                    reference.push(*p);
-                    next
-                })
-        })
-        .collect::<Vec<_>>();
-    let faces = cut
-        .faces
-        .iter()
-        .map(|face| face.map(|v| vertices[v as usize]))
-        .filter(|[a, b, c]| a != b && b != c && c != a)
-        .collect::<Vec<_>>();
-    let first = reference
-        .iter()
-        .enumerate()
-        .min_by(|a, b| distance(*a.1, center).total_cmp(&distance(*b.1, center)))
-        .map(|(i, _)| i as u32)
-        .context("dress body cut is empty")?;
-    let mut adjacent = vec![Vec::new(); points.len()];
-    for face in &faces {
-        for &v in face {
-            adjacent[v as usize].extend(face);
-        }
-    }
-    let mut kept = BTreeSet::new();
-    let mut pending = vec![first];
-    while let Some(vertex) = pending.pop() {
-        if kept.insert(vertex) {
-            pending.extend(&adjacent[vertex as usize]);
-        }
-    }
-    let mut remap = BTreeMap::new();
-    let points = kept
-        .iter()
-        .map(|&v| {
-            remap.insert(v, remap.len() as u32);
-            points[v as usize]
-        })
-        .collect();
-    let faces = faces
-        .into_iter()
-        .filter(|face| kept.contains(&face[0]))
-        .map(|face| face.map(|v| remap[&v]))
-        .collect();
-    Ok(SurfaceCut { points, faces })
-}
-
-fn loops(cut: &SurfaceCut, positions: &[[f32; 3]]) -> Result<Vec<Vec<u32>>> {
-    let edges = cut.borders(positions);
-    let mut next = BTreeMap::new();
-    for [a, b] in edges {
-        ensure!(
-            next.insert(a, b).is_none(),
-            "dress opening is not a simple boundary"
-        );
-    }
-    let mut loops = Vec::new();
-    while let Some((&first, _)) = next.first_key_value() {
-        let mut boundary = Vec::new();
-        let mut at = first;
-        loop {
-            boundary.push(at);
-            at = next.remove(&at).context("dress opening is not closed")?;
-            if at == first {
-                break;
-            }
-        }
-        loops.push(boundary);
-    }
-    Ok(loops)
-}
-
 fn angular_samples(waist: &[SkirtWaistVertex]) -> Vec<u32> {
     let mut samples = Vec::with_capacity(SKIRT_RING_SEGMENTS * 3);
     for column in 0..SKIRT_RING_SEGMENTS {
@@ -277,12 +194,6 @@ fn mean_height(boundary: &[u32], positions: &[[f32; 3]]) -> f32 {
         .map(|&v| positions[v as usize][1])
         .sum::<f32>()
         / boundary.len() as f32
-}
-
-fn distance(point: [f32; 3], center: [f32; 3]) -> f32 {
-    (0..3)
-        .map(|axis| (point[axis] - center[axis]).powi(2))
-        .sum()
 }
 
 fn dot(a: [f32; 3], b: [f32; 3]) -> f32 {

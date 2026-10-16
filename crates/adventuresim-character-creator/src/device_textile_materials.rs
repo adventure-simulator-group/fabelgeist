@@ -6,6 +6,23 @@ use fabelgeist_armor::{ArmorComponentRole, GeneratedArmor};
 pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Result<()> {
     for component in &mut armor.components {
         let fabric = match (design, component.role) {
+            (ParametricDesign::Bodice(bodice), ArmorComponentRole::OuterFabric) => {
+                Some(&bodice.fabric)
+            }
+            (ParametricDesign::Bodice(bodice), ArmorComponentRole::Lining) => Some(
+                &bodice
+                    .lining
+                    .as_ref()
+                    .ok_or_else(|| anyhow::anyhow!("lining without a bodice lining design"))?
+                    .fabric,
+            ),
+            (ParametricDesign::Bodice(bodice), ArmorComponentRole::Interlining) => Some(
+                &bodice
+                    .interlining
+                    .as_ref()
+                    .ok_or_else(|| anyhow::anyhow!("interlining without a bodice facing design"))?
+                    .fabric,
+            ),
             (ParametricDesign::PuffAndSlash(puff), ArmorComponentRole::Undercloth) => {
                 Some(&puff.pattern.undercloth_fabric)
             }

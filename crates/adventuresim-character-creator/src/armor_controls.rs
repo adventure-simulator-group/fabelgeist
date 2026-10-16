@@ -2,6 +2,8 @@
 use adventuresim_character_creator::{armor_recipes::ParametricDesign, item_design::ItemDesign};
 use bevy_egui::egui;
 use std::ops::RangeInclusive;
+#[path = "bodice_controls.rs"]
+mod bodice;
 #[path = "helmet_controls.rs"]
 mod helmet;
 #[path = "limb_controls.rs"]
@@ -40,6 +42,7 @@ pub(super) fn design(ui: &mut egui::Ui, design: &mut ItemDesign) -> bool {
         ItemDesign::Recipe(ParametricDesign::Helmet(d)) => helmet::show(ui, d),
         ItemDesign::Recipe(ParametricDesign::PuffAndSlash(d)) => puff_and_slash(ui, d),
         ItemDesign::Recipe(ParametricDesign::Skirt(d)) => skirt::show(ui, d),
+        ItemDesign::Recipe(ParametricDesign::Bodice(d)) => bodice::show(ui, d),
         ItemDesign::Recipe(ParametricDesign::TrunkHose(d)) => trunk_hose(ui, d),
         ItemDesign::Recipe(ParametricDesign::Garment(d)) => {
             super::garment_armor_controls::show(ui, d)

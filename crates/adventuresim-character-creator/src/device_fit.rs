@@ -250,36 +250,14 @@ pub async fn fit_recipe_async(
     placement: &str,
     layers: &[&GeneratedArmor],
 ) -> Result<DevicePiece> {
-    let skirt_join = if let ParametricDesign::Skirt(skirt) = design {
-        if skirt.bodice.is_some() {
-            let hips = frame(gpu, body, wearer, FitRegion::Hips)?;
-            let head = frame(gpu, body, wearer, FitRegion::Head)?;
-            Some(crate::skirt_join::SkirtJoinPlan::new(
-                skirt,
-                &wearer.wearer(body),
-                &hips,
-                &head,
-            )?)
-        } else {
-            None
-        }
-    } else {
-        None
-    };
+    let plan = crate::device_recipe_plan::RecipePlan::new(gpu, body, wearer, design)?;
     let fit = async |design: &ParametricDesign| {
         fit_piece_async(gpu, body, wearer, morphs, |device, batch, target| {
             let surfaces = layers
                 .iter()
                 .map(|armor| ArmorLayerSurface::from_generated(armor, target))
                 .collect::<Result<Vec<_>>>()?;
-            record_recipe(
-                device,
-                batch,
-                design,
-                placement,
-                &surfaces,
-                skirt_join.as_ref(),
-            )
+            record_recipe(device, batch, design, placement, &surfaces, &plan)
         })
         .await
     };
@@ -402,7 +380,7 @@ fn record_recipe(
     design: &ParametricDesign,
     placement: &str,
     layers: &[ArmorLayerSurface<'_>],
-    skirt_join: Option<&crate::skirt_join::SkirtJoinPlan>,
+    plan: &crate::device_recipe_plan::RecipePlan,
 ) -> Result<DeviceRecording> {
     match design {
         ParametricDesign::Helmet(HelmetDesign::CloseHelmet(d)) => {
@@ -449,8 +427,20 @@ fn record_recipe(
             armor_recipes::fit_region(design, placement)?,
             layers,
         ),
-        ParametricDesign::Skirt(skirt) => {
-            wearer.record_fitted_skirt_textile(batch, skirt, layers, skirt_join)
+        ParametricDesign::Skirt(skirt) => wearer.record_fitted_skirt_textile(
+            batch,
+            skirt,
+            layers,
+            match plan {
+                crate::device_recipe_plan::RecipePlan::Skirt(join) => Some(join),
+                _ => None,
+            },
+        ),
+        ParametricDesign::Bodice(_) => {
+            let crate::device_recipe_plan::RecipePlan::Bodice(plan) = plan else {
+                anyhow::bail!("bodice has no frozen construction plan");
+            };
+            wearer.record_bodice(batch, plan)
         }
         ParametricDesign::WaistAssembly(_) => {
             anyhow::bail!("a waist assembly is fitted as its fauld and tassets")
