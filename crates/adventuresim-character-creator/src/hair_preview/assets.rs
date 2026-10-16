@@ -32,7 +32,8 @@ impl HairAssets<'_> {
     /// its baked occlusion as vertex colour.
     pub(super) fn hair_mesh(&mut self, placed: &PlacedStyle, form: Form) -> Result<Handle<Mesh>> {
         let head = placed.hair.placement().head_joint;
-        Ok(self.meshes.add(mesh(placed.hair.geometry(form), head)?))
+        let geometry = placed.hair.geometry(placed.gpu.kernels()?, form)?;
+        Ok(self.meshes.add(mesh(geometry, head)?))
     }
 
     /// The scalp cap under `placed`, skinned wholly to the head joint and

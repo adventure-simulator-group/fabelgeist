@@ -28,11 +28,11 @@ pub(super) use params;
 
 /// The two position buffers a stack ping-pongs between: the strands' own,
 /// and a scratch one.
-struct PingPong {
-    own: Buffer,
-    scratch: Buffer,
+pub(super) struct PingPong {
+    pub(super) own: Buffer,
+    pub(super) scratch: Buffer,
     /// The current positions are in `scratch`.
-    flipped: bool,
+    pub(super) flipped: bool,
 }
 
 impl PingPong {
@@ -59,18 +59,18 @@ impl PingPong {
 
 /// Strands a stack runs over -- the guides before interpolation, the
 /// groom after -- and what its operations share.
-struct StrandSet {
-    positions: PingPong,
-    attributes: Buffer,
+pub(super) struct StrandSet {
+    pub(super) positions: PingPong,
+    pub(super) attributes: Buffer,
     /// Each strand's root, for the guide maps.
-    roots: Buffer,
-    count: u32,
-    points: u32,
+    pub(super) roots: Buffer,
+    pub(super) count: u32,
+    pub(super) points: u32,
     /// A box the roots are inside.
-    root_bounds: [Vec3; 2],
+    pub(super) root_bounds: [Vec3; 2],
     /// The guide map, and whether one has been made.
-    guide_of: Buffer,
-    mapped: bool,
+    pub(super) guide_of: Buffer,
+    pub(super) mapped: bool,
 }
 
 impl StrandSet {
@@ -79,7 +79,7 @@ impl StrandSet {
     }
 
     /// The positions back in the strands' own buffer.
-    fn settle(&mut self, batch: &mut KernelBatch) -> Result<()> {
+    pub(super) fn settle(&mut self, batch: &mut KernelBatch) -> Result<()> {
         if self.positions.flipped {
             batch.copy_buffer(&self.positions.scratch, &self.positions.own, self.bytes())?;
             self.positions.flipped = false;
@@ -345,7 +345,7 @@ impl GpuGroomer {
 
     /// Record `ops` over `set`, each reading the current positions and
     /// writing the other buffer.
-    fn record_ops(
+    pub(super) fn record_ops(
         &mut self,
         batch: &mut KernelBatch,
         ops: &[Op],

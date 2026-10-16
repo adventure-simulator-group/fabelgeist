@@ -17,6 +17,7 @@ required-features = ["offline-creator"]
 [dependencies]
 adventuresim-core = { path = "../adventuresim-core" }
 anyhow = "1"
+bytemuck = { version = "1.16", features = ["derive"] }
 pollster = "0.4"
 async-lock = "3"
 base64 = "0.22"

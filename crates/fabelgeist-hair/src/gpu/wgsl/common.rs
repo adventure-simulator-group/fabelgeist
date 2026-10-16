@@ -204,9 +204,37 @@ fn in_plane(v: vec3<f32>, n: vec3<f32>) -> vec3<f32> {
 }
 "#;
 
-/// The mannequin's distance field, from `head_shape` (see
-/// [`super::super::head_shape`] for the layout).
+/// The body's distance field, from `head_shape`: the mannequin's shapes
+/// (see [`super::super::head_shape`] for the layout), or a field sampled
+/// on a grid ([`super::super::FieldHeader`]), told apart by the first
+/// entry's `w`.
 pub const HEAD: &str = r#"
+// A sampled field: its header, then the distances, four to an entry, `x`
+// fastest. Outside its box, everything is `reach` from the body.
+fn field_value(i: vec3<i32>, n: vec3<i32>) -> f32 {
+    let c = clamp(i, vec3<i32>(0), n - vec3<i32>(1));
+    let k = u32(c.x + n.x * (c.y + n.y * c.z));
+    return head_shape[3u + k / 4u][k % 4u];
+}
+
+fn field_distance(p: vec3<f32>) -> f32 {
+    let lo = head_shape[0].xyz;
+    let cell = head_shape[1].x;
+    let n = vec3<i32>(head_shape[1].yzw);
+    let reach = head_shape[2].x;
+    let g = (p - lo) / cell - vec3<f32>(0.5);
+    if (any(g < vec3<f32>(-0.5)) || any(g > vec3<f32>(n) - vec3<f32>(0.5))) {
+        return reach;
+    }
+    let i = vec3<i32>(floor(g));
+    let f = g - floor(g);
+    let x00 = mix(field_value(i, n), field_value(i + vec3<i32>(1, 0, 0), n), f.x);
+    let x10 = mix(field_value(i + vec3<i32>(0, 1, 0), n), field_value(i + vec3<i32>(1, 1, 0), n), f.x);
+    let x01 = mix(field_value(i + vec3<i32>(0, 0, 1), n), field_value(i + vec3<i32>(1, 0, 1), n), f.x);
+    let x11 = mix(field_value(i + vec3<i32>(0, 1, 1), n), field_value(i + vec3<i32>(1, 1, 1), n), f.x);
+    return mix(mix(x00, x10, f.y), mix(x01, x11, f.y), f.z);
+}
+
 fn ellipsoid_distance(p: vec3<f32>, center: vec3<f32>, radii: vec3<f32>) -> f32 {
     let q = p - center;
     let k0 = length(q / radii);
@@ -233,6 +261,9 @@ fn head_part(i: u32, p: vec3<f32>) -> f32 {
 }
 
 fn head_distance(p: vec3<f32>) -> f32 {
+    if (head_shape[0].w > 0.5) {
+        return field_distance(p);
+    }
     var d = smooth_min(head_part(0u, p), head_part(2u, p), 0.04);
     d = smooth_min(d, head_part(4u, p), 0.012);
     let ears = min(head_part(6u, p), head_part(8u, p));

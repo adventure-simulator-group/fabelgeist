@@ -46,10 +46,11 @@ impl ExportedHair {
         morphs: &CharacterMorphs,
         design: HairDesign,
     ) -> Result<Self> {
-        let hair = GroomedHair::grow(design.groom(), export_gpu()?)?;
-        let placed = hair_preview::BodyHead::new(model, generated).place(&hair)?;
+        let gpu = export_gpu()?;
+        let hair = GroomedHair::grow(design.groom(), gpu)?;
+        let placed = hair_preview::BodyHead::new(model, generated).place(gpu, &hair)?;
         let placement = *placed.placement();
-        let cards = placed.geometry(EXPORTED_FORM);
+        let cards = placed.geometry(gpu, EXPORTED_FORM)?;
         let count = cards.positions.len();
         let skin = WholeJoint::new(placement.head_joint);
         Ok(Self {

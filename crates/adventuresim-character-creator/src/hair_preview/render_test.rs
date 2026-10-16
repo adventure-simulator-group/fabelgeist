@@ -98,7 +98,7 @@ struct Subject {
 
 impl Subject {
     /// `grown` placed on the default character, as the studio places it.
-    fn character(assets: &std::ffi::OsStr, grown: &GroomedHair) -> Result<Self> {
+    fn character(assets: &std::ffi::OsStr, gpu: &HairGpu, grown: &GroomedHair) -> Result<Self> {
         let model = load_body_model(
             std::path::Path::new(assets),
             adventuresim_character_creator::lod::MIN_CHARACTER_LOD,
@@ -108,7 +108,7 @@ impl Subject {
         let generated = generate_character(&model, &CharacterRecipe::default())?;
         let head = BodyHead::new(&model, &generated);
         let started = std::time::Instant::now();
-        let placed = head.place(grown)?;
+        let placed = head.place(gpu, grown)?;
         println!("placed in {:.2} s", started.elapsed().as_secs_f32());
         let body =
             studio_generation::visible_body_mesh(&generated, &model.mhr.character.mesh.faces);
@@ -121,8 +121,8 @@ impl Subject {
     }
 
     /// `grown` left on its own bust, as the hair crate grew it.
-    fn bust(grown: &GroomedHair) -> Self {
-        let (placed, bust) = grown.on_bust();
+    fn bust(gpu: &HairGpu, grown: &GroomedHair) -> Result<Self> {
+        let (placed, bust) = grown.on_bust(gpu)?;
         let positions: Vec<[f32; 3]> = bust.positions.iter().map(|p| p.to_array()).collect();
         let normals: Vec<[f32; 3]> = bust.normals.iter().map(|n| n.to_array()).collect();
         let faces = bust.triangles.clone();
@@ -133,12 +133,12 @@ impl Subject {
         .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, positions.clone())
         .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, normals)
         .with_inserted_indices(Indices::U32(faces.as_flattened().to_vec()));
-        Self {
+        Ok(Self {
             placed,
             positions,
             faces,
             body,
-        }
+        })
     }
 }
 
@@ -209,9 +209,9 @@ fn hair_renders() -> Result<()> {
     println!("grown in {:.2} s", started.elapsed().as_secs_f32());
     let on_bust = std::env::var_os("HAIR_ON_BUST").is_some();
     let subject = if on_bust {
-        Subject::bust(&grown)
+        Subject::bust(&gpu, &grown)?
     } else {
-        Subject::character(&assets, &grown)?
+        Subject::character(&assets, &gpu, &grown)?
     };
     let Subject {
         placed,
@@ -268,7 +268,7 @@ fn hair_renders() -> Result<()> {
     let mut hairs = Vec::new();
     for &form in &forms {
         let started = std::time::Instant::now();
-        let geometry = placed.geometry(form);
+        let geometry = placed.geometry(&gpu, form)?;
         let built = started.elapsed();
         let buried = buried_share(&geometry, &skin);
         println!(
@@ -330,6 +330,7 @@ fn hair_renders() -> Result<()> {
         .add_systems(Startup, spawn)
         .add_systems(Update, capture);
     app.run();
+    gpu.finish();
     println!("wrote {}", out.display());
     Ok(())
 }

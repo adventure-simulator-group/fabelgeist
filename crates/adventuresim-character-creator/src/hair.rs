@@ -9,7 +9,6 @@
 //! ([`HairGeometry`]): strands as ribbons, cards as textured strips.
 
 mod cap;
-mod drape;
 mod geometry;
 mod gpu;
 mod groom;
@@ -17,7 +16,6 @@ mod placement;
 mod scalp_map;
 mod scalp_texture;
 mod shape;
-mod wrap;
 
 pub use cap::ScalpCap;
 pub use geometry::{AtlasLevel, HairGeometry};

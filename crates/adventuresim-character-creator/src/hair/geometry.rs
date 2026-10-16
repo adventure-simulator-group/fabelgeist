@@ -1,23 +1,13 @@
-//! Hair's levels of detail as plain triangles.
-//!
-//! Cards are strips already; they only take their atlas coordinates. Strands
-//! become ribbons: each point widened across the strand, square to the
-//! direction out from the head's centre, as the hair crate's cards lie. A
-//! level drawn with a share of its strands draws them wider by the inverse of
-//! that share, so the head's coverage holds (the hair crate's strand
-//! culling); no ribbon is drawn narrower than a renderer without the crate's
-//! sub-pixel coverage can show.
+//! Hair's levels of detail as plain triangles: cards as textured strips,
+//! strands as ribbons, built on the GPU the hair was placed on
+//! ([`super::gpu`]'s strips) and read back.
 
-use fabelgeist_hair::cards::{CardMesh, CardVertex};
-use fabelgeist_hair::lod::{Form, StrandLevel};
-use fabelgeist_hair::material::Taper;
-use fabelgeist_math::Vec3;
+use anyhow::Result;
+use fabelgeist_hair::lod::Form;
 
-use super::wrap::{Strip, StripPoint};
-use super::{HeadPlacement, PlacedHair};
+use super::gpu::StripSource;
+use super::{HairGpu, HeadPlacement, PlacedHair};
 
-/// The narrowest a strand ribbon is drawn, metres.
-const MIN_RIBBON_WIDTH: f32 = 0.0004;
 /// The most ribbon vertices drawn at once: about a hundred megabytes of
 /// vertex data in the preview.
 const RIBBON_VERTEX_BUDGET: usize = 1_500_000;
@@ -47,11 +37,38 @@ pub struct AtlasLevel {
 }
 
 impl PlacedHair {
-    /// The triangles of `form`.
-    pub fn geometry(&self, form: Form) -> HairGeometry {
-        match form {
-            Form::Cards { level } => self.cards(level),
-            Form::Strands { level, share } => self.ribbons(level, share),
+    /// The triangles of `form`, built on `gpu`.
+    pub fn geometry(&self, gpu: &HairGpu, form: Form) -> Result<HairGeometry> {
+        let source = self.strip_source();
+        let built = match form {
+            Form::Cards { level } => {
+                let Some(cards) = self
+                    .lods
+                    .cards
+                    .get(level)
+                    .or_else(|| self.lods.cards.last())
+                else {
+                    return Ok(HairGeometry::empty());
+                };
+                source.cards(gpu, cards, self.lods.atlas.variants)?
+            }
+            Form::Strands { level, .. } => {
+                let Some(strands) = self.lods.levels.get(level) else {
+                    return Ok(HairGeometry::empty());
+                };
+                let drawn = self.strands_drawn(form);
+                let widen = strands.count as f32 / drawn.max(1) as f32;
+                source.ribbons(gpu, strands, drawn as u32, widen, self.lods.center)?
+            }
+        };
+        built.read(gpu)
+    }
+
+    /// Where strips of this hair are built from.
+    fn strip_source(&self) -> StripSource<'_> {
+        StripSource {
+            body: &self.body,
+            longest: self.longest,
         }
     }
 
@@ -64,9 +81,11 @@ impl PlacedHair {
         let Some(level) = self.lods.levels.get(level) else {
             return 0;
         };
-        let wanted = (level.len() as f32 * share.clamp(0.0, 1.0)).round() as usize;
-        let affordable = RIBBON_VERTEX_BUDGET / (2 * level.points).max(1);
-        wanted.clamp(1, level.len().max(1)).min(affordable)
+        let strands = level.count as usize;
+        let wanted = (strands as f32 * share.clamp(0.0, 1.0)).round() as usize;
+        let rows = self.strip_source().ribbon_rows(level.points) as usize;
+        let affordable = RIBBON_VERTEX_BUDGET / (2 * rows).max(1);
+        wanted.clamp(1, strands.max(1)).min(affordable)
     }
 
     /// The card atlas's mip chain, largest first.
@@ -90,34 +109,10 @@ impl PlacedHair {
             })
             .collect()
     }
-
-    fn cards(&self, level: usize) -> HairGeometry {
-        let Some(cards) = self
-            .lods
-            .cards
-            .get(level)
-            .or_else(|| self.lods.cards.last())
-        else {
-            return HairGeometry::empty();
-        };
-        let variants = self.lods.atlas.variants.max(1) as f32;
-        HairGeometry::from_strips(card_strips(cards, variants), &self.body)
-    }
-
-    fn ribbons(&self, level: usize, share: f32) -> HairGeometry {
-        let form = Form::Strands { level, share };
-        let Some(strands) = self.lods.levels.get(level) else {
-            return HairGeometry::empty();
-        };
-        let drawn = self.strands_drawn(form);
-        let widen = strands.len() as f32 / drawn.max(1) as f32;
-        let ribbons = ribbon_strips(strands, drawn, widen, self.lods.center);
-        HairGeometry::from_strips(ribbons, &self.body)
-    }
 }
 
 impl HairGeometry {
-    fn empty() -> Self {
+    pub(super) fn empty() -> Self {
         Self {
             positions: Vec::new(),
             normals: Vec::new(),
@@ -154,75 +149,6 @@ impl HairGeometry {
             faces: self.faces.clone(),
         }
     }
-}
-
-/// Each card as a strip: the hair crate cuts every card into as many rows,
-/// two points to a row.
-fn card_strips(cards: &CardMesh, variants: f32) -> Vec<Strip> {
-    let rows = cards.vertices.len() / (2 * cards.cards.max(1));
-    let point = |vertex: &CardVertex| StripPoint {
-        position: Vec3::from_array(vertex.position),
-        normal: Vec3::from_array(vertex.normal),
-        tangent: Vec3::from_array(vertex.tangent),
-        texcoord: [(vertex.variant + vertex.u) / variants, vertex.v],
-        occlusion: vertex.occlusion,
-        random: vertex.random,
-    };
-    cards
-        .vertices
-        .chunks_exact(2 * rows.max(1))
-        .map(|card| {
-            Strip(
-                card.as_chunks::<2>()
-                    .0
-                    .iter()
-                    .map(|[left, right]| [point(left), point(right)])
-                    .collect(),
-            )
-        })
-        .collect()
-}
-
-/// The first `drawn` strands of `level` as ribbons, `widen` times as wide as
-/// the strands they draw.
-fn ribbon_strips(level: &StrandLevel, drawn: usize, widen: f32, center: Vec3) -> Vec<Strip> {
-    let points = level.points;
-    let taper = Taper::default();
-    level
-        .strands
-        .iter()
-        .take(drawn)
-        .enumerate()
-        .map(|(strand, info)| {
-            let samples = &level.positions[strand * points..][..points];
-            let width = (2.0 * info.radius * widen).max(MIN_RIBBON_WIDTH);
-            let at = |i: usize| {
-                let [x, y, z, _] = samples[i];
-                Vec3::new(x, y, z)
-            };
-            let rows = (0..points)
-                .map(|index| {
-                    let point = at(index);
-                    let tangent =
-                        (at((index + 1).min(points - 1)) - at(index.saturating_sub(1))).normalize();
-                    let side = tangent.cross(point - center).normalize();
-                    let normal = side.cross(tangent).normalize();
-                    let along = index as f32 / (points - 1).max(1) as f32;
-                    let half = 0.5 * width * taper.at(along);
-                    let visible = samples[index][3];
-                    [(0.0, -half), (1.0, half)].map(|(across, offset)| StripPoint {
-                        position: point + side * offset,
-                        normal,
-                        tangent,
-                        texcoord: [across, along],
-                        occlusion: visible,
-                        random: 0.0,
-                    })
-                })
-                .collect();
-            Strip(rows)
-        })
-        .collect()
 }
 
 /// The atlas stores coverage, shade, depth and coverage; drawing wants the

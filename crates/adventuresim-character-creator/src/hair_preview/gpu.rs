@@ -11,7 +11,7 @@ use std::sync::OnceLock;
 
 /// The studio's render device, and the hair kernels on it once compiled.
 #[derive(Clone)]
-pub(super) struct StudioHairGpu(Arc<DeviceKernels>);
+pub(crate) struct StudioHairGpu(Arc<DeviceKernels>);
 
 struct DeviceKernels {
     context: WgpuContext,
@@ -20,7 +20,7 @@ struct DeviceKernels {
 
 impl StudioHairGpu {
     /// The hair kernels, compiled on the first call.
-    pub(super) fn kernels(&self) -> Result<&HairGpu> {
+    pub(crate) fn kernels(&self) -> Result<&HairGpu> {
         self.0
             .kernels
             .get_or_init(|| {
