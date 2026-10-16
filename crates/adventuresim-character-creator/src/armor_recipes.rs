@@ -15,6 +15,7 @@ pub enum ParametricDesign {
     Skirt(SkirtDesign),
     Bodice(BodiceDesign),
     Gown(Box<GownDesign>),
+    Partlet(PartletDesign),
     TrunkHose(TrunkHoseDesign),
     Garment(GarmentArmorDesign),
     WaistAssembly(WaistArmorDesign),
@@ -30,6 +31,7 @@ impl ParametricDesign {
             Self::Skirt(d) => d.validate().map_err(anyhow::Error::new),
             Self::Bodice(d) => d.validate().map_err(anyhow::Error::new),
             Self::Gown(d) => d.validate().map_err(anyhow::Error::new),
+            Self::Partlet(d) => d.validate().map_err(anyhow::Error::new),
             Self::TrunkHose(d) => d.validate().map_err(anyhow::Error::new),
             Self::Garment(d) => d.validate().map_err(anyhow::Error::new),
             Self::WaistAssembly(d) => d.validate().map_err(anyhow::Error::new),
@@ -48,6 +50,7 @@ impl ParametricDesign {
             (Self::Skirt(_), Self::Skirt(_)) => true,
             (Self::Bodice(_), Self::Bodice(_)) => true,
             (Self::Gown(_), Self::Gown(_)) => true,
+            (Self::Partlet(_), Self::Partlet(_)) => true,
             (Self::Garment(a), Self::Garment(b)) => a.kind == b.kind,
             (Self::WaistAssembly(_), Self::WaistAssembly(_)) => true,
             (Self::Underlayer(a), Self::Underlayer(b)) => a.kind == b.kind,
@@ -111,6 +114,7 @@ pub fn fit_region(design: &ParametricDesign, placement: &str) -> Result<FitRegio
         ParametricDesign::Skirt(_) => F::Hips,
         ParametricDesign::Bodice(_) => F::Torso,
         ParametricDesign::Gown(_) => F::Torso,
+        ParametricDesign::Partlet(_) => F::Torso,
         ParametricDesign::WaistAssembly(_) => F::Hips,
         ParametricDesign::Limb(d) => match d {
             LimbArmorDesign::Greave(_) => F::LowerLeg(side()?),
@@ -158,6 +162,7 @@ mod tests {
             ("linen_dress", "Skirt", "Skirt"),
             ("linen_bodice", "Bodice", "Bodice"),
             ("linen_gown", "Gown", "Gown"),
+            ("linen_partlet", "Partlet", "Partlet"),
             ("mail_chausses", "Garment", "MailChausses"),
             ("mail_coif", "Helmet", "MailCoif"),
             ("mail_shirt", "Garment", "MailShirt"),
@@ -193,7 +198,10 @@ mod tests {
             if category == "WaistAssembly" {
                 assert_eq!(shape["fauld"]["kind"], "Fauld");
                 assert_eq!(shape["tassets"]["kind"], family);
-            } else if matches!(category, "TrunkHose" | "Skirt" | "Bodice" | "Gown") {
+            } else if matches!(
+                category,
+                "TrunkHose" | "Skirt" | "Bodice" | "Gown" | "Partlet"
+            ) {
                 assert!(shape.is_object(), "{id} lost its {family} family");
             } else if matches!(category, "Garment" | "Underlayer" | "PuffAndSlash") {
                 assert_eq!(shape["kind"], family, "{id}");

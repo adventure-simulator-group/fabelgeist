@@ -122,7 +122,8 @@ mod tests {
                 include_bytes!("../../../../assets_src/equipment/materials/mail-occlusion.png")
                     .to_vec(),
             ),
-            cutout: true,
+            alpha: crate::export::SurfaceAlpha::Mask,
+            sides: crate::export::SurfaceSides::Both,
             sampling: crate::export::SurfaceSampling::Tile,
         };
         let joints = [[0; 8]; 4];

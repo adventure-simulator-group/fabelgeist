@@ -1,6 +1,16 @@
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
+/// Fine fabric gauge; conversion to native metres happens at geometry boundaries.
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+pub struct Micrometers(pub u16);
+
+impl Micrometers {
+    pub fn metres(self) -> f32 {
+        f32::from(self.0) / 1_000_000.
+    }
+}
+
 #[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub struct Millimeters(pub u16);
 
