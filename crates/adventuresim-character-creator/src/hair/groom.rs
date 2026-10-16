@@ -11,7 +11,7 @@ use std::sync::Arc;
 
 use super::gpu::{BodyField, Draping, GpuScalpTexture, longest};
 use super::scalp_map::ScalpMap;
-use super::{Groom, HairGpu, HeadPlacement, ScalpCap, ScalpTexture};
+use super::{Groom, HairGpu, HeadPlacement, ScalpCap};
 
 /// Edge of the surface-nets cells the scalp is cut from, metres: the size the
 /// hair crate's viewer and dataset grow on.
@@ -39,8 +39,8 @@ pub struct GroomedHair {
     scalp: Surface,
     /// Where on the scalp's texture each point of the scalp lies.
     scalp_map: ScalpMap,
-    /// The hair lying on the scalp, baked into its texture.
-    scalp_texture: Arc<ScalpTexture>,
+    /// The hair lying on the scalp, baked into its textures on the GPU.
+    scalp_texture: Arc<GpuScalpTexture>,
 }
 
 /// The skin hair must stay out of, in model space.
@@ -61,7 +61,7 @@ pub struct PlacedHair {
     pub(super) longest: f32,
     placement: HeadPlacement,
     cap: ScalpCap,
-    scalp_texture: Arc<ScalpTexture>,
+    scalp_texture: Arc<GpuScalpTexture>,
 }
 
 impl GroomedHair {
@@ -78,8 +78,7 @@ impl GroomedHair {
             (scalp.read(&groomer)?, grown, bounds)
         };
         let scalp_map = ScalpMap::fit(&head, &scalp);
-        let baked = GpuScalpTexture::bake(gpu, &on_gpu, &head, &scalp_map)?;
-        let scalp_texture = Arc::new(baked.read(gpu)?);
+        let scalp_texture = Arc::new(GpuScalpTexture::bake(gpu, &on_gpu, &head, &scalp_map)?);
         let longest = longest(gpu, &on_gpu)?;
         Ok(Self {
             groom,
@@ -199,7 +198,7 @@ impl PlacedHair {
 
     /// The hair lying on the scalp, baked into textures over the cap's
     /// texture coordinates.
-    pub fn scalp_texture(&self) -> &ScalpTexture {
+    pub fn scalp_texture(&self) -> &GpuScalpTexture {
         &self.scalp_texture
     }
 

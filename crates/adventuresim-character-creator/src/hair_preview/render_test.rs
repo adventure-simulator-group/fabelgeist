@@ -23,16 +23,19 @@
 //! `<preset>-hair-only-...`.
 use super::*;
 use adventuresim_character_creator::hair::{
-    HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair,
+    GpuGeometry, HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair,
 };
 use adventuresim_character_creator::studio_environment;
-use bevy::app::ScheduleRunnerPlugin;
+use bevy::app::{PluginsState, ScheduleRunnerPlugin};
 use bevy::camera::RenderTarget;
-use bevy::camera::visibility::RenderLayers;
+use bevy::camera::visibility::{NoFrustumCulling, RenderLayers};
+use bevy::mesh::skinning::{SkinnedMesh, SkinnedMeshInverseBindposes};
 use bevy::render::render_resource::{TextureFormat, TextureUsages};
 use bevy::render::view::screenshot::{Screenshot, save_to_disk};
 use bevy::window::ExitCondition;
 use bevy::winit::WinitPlugin;
+use fabelgeist_gpu::globals::WgpuContext;
+use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_hair::collider::Collider;
 use fabelgeist_hair::{MeshCollider, Preset};
 use fabelgeist_math::Vec3 as HairVec3;
@@ -198,8 +201,10 @@ fn hair_renders() -> Result<()> {
         shape: test_shape()?,
         pigment: test_pigment()?,
     };
+    // Hair is built on the device it is drawn with, as in the studio.
+    let (mut app, context) = render_app()?;
     let started = std::time::Instant::now();
-    let gpu = HairGpu::headless()?;
+    let gpu = HairGpu::new(context)?;
     println!(
         "hair kernels compiled in {:.2} s",
         started.elapsed().as_secs_f32()
@@ -247,7 +252,7 @@ fn hair_renders() -> Result<()> {
         (false, _) => format!("{preset_name}-scalp-only"),
         (true, false) => format!("{preset_name}-hair-only"),
     };
-    let textures = placed.scalp_texture();
+    let textures = placed.scalp_texture().read(&gpu)?;
     for (name, levels) in [("texture", &textures.shade), ("strands", &textures.strands)] {
         let texture = levels.first().context("no scalp texture")?;
         image::RgbaImage::from_raw(texture.width, texture.height, texture.rgba.clone())
@@ -268,9 +273,12 @@ fn hair_renders() -> Result<()> {
     let mut hairs = Vec::new();
     for &form in &forms {
         let started = std::time::Instant::now();
-        let geometry = placed.geometry(&gpu, form)?;
+        let Some(geometry) = placed.gpu_geometry(&gpu, form)? else {
+            continue;
+        };
+        gpu.finish();
         let built = started.elapsed();
-        let buried = buried_share(&geometry, &skin);
+        let buried = buried_share(&geometry.read(&gpu)?, &skin);
         println!(
             "{form:?}: built in {:.2} s, {:.1}% of hair triangles buried in the skin",
             built.as_secs_f32(),
@@ -280,10 +288,9 @@ fn hair_renders() -> Result<()> {
             Form::Strands { level, .. } => format!("strands{level}"),
             Form::Cards { level } => format!("cards{level}"),
         };
-        let mut mesh = assets::mesh(geometry, placed.placement().head_joint)?;
-        // Drawn in the bind pose, without the skeleton the studio skins it to.
-        mesh.remove_attribute(Mesh::ATTRIBUTE_JOINT_INDEX);
-        mesh.remove_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT);
+        // Drawn in the bind pose, skinned as the studio skins it but to one
+        // joint left where it is.
+        let mesh = assets::mesh(&geometry, 0)?;
         let paths = VIEWS
             .iter()
             .map(|view| {
@@ -293,20 +300,38 @@ fn hair_renders() -> Result<()> {
                 ))
             })
             .collect();
-        hairs.push((form, mesh, paths));
+        hairs.push((form, mesh, geometry, paths));
     }
     let stage = Stage {
         body: Some(body),
         cap: Some(cap),
         atlas: Some(assets::atlas_image(&placed)),
-        scalp_shade: Some(assets::scalp_image(&placed.scalp_texture().shade)),
-        scalp_strands: Some(assets::scalp_image(&placed.scalp_texture().strands)),
+        scalp: Some([
+            placed.scalp_texture().shade().clone(),
+            placed.scalp_texture().strands().clone(),
+        ]),
         hairs,
         design,
         center,
         shown,
     };
 
+    app.insert_resource(stage)
+        .insert_resource(Captures {
+            shots: std::mem::take(&mut shots),
+            frames: 0,
+        })
+        .add_systems(Startup, spawn)
+        .add_systems(Update, capture);
+    app.run();
+    gpu.finish();
+    println!("wrote {}", out.display());
+    Ok(())
+}
+
+/// The studio's renderer, headless, started, and the device it draws with,
+/// to build hair on: taken before the render world moves to its own thread.
+fn render_app() -> Result<(App, WgpuContext)> {
     let mut app = App::new();
     app.insert_resource(ClearColor(studio_scene::BACKDROP))
         .add_plugins(
@@ -321,18 +346,14 @@ fn hair_renders() -> Result<()> {
         .add_plugins((
             ScheduleRunnerPlugin::run_loop(Duration::ZERO),
             HairShadingPlugin,
-        ))
-        .insert_resource(stage)
-        .insert_resource(Captures {
-            shots: std::mem::take(&mut shots),
-            frames: 0,
-        })
-        .add_systems(Startup, spawn)
-        .add_systems(Update, capture);
-    app.run();
-    gpu.finish();
-    println!("wrote {}", out.display());
-    Ok(())
+        ));
+    while app.plugins_state() == PluginsState::Adding {
+        bevy::tasks::tick_global_task_pools_on_main_thread();
+    }
+    app.finish();
+    let context = gpu::render_context(&app).context("the renderer has no device")?;
+    app.cleanup();
+    Ok((app, context))
 }
 
 /// What the startup system spawns: the shaded body, the atlas, and each
@@ -342,9 +363,9 @@ struct Stage {
     body: Option<Mesh>,
     cap: Option<Mesh>,
     atlas: Option<Image>,
-    scalp_shade: Option<Image>,
-    scalp_strands: Option<Image>,
-    hairs: Vec<(Form, Mesh, Vec<PathBuf>)>,
+    /// The scalp's baked shade and strands chains.
+    scalp: Option<[Buffer; 2]>,
+    hairs: Vec<(Form, Mesh, GpuGeometry, Vec<PathBuf>)>,
     design: HairDesign,
     center: Vec3,
     shown: ShownLayers,
@@ -365,19 +386,20 @@ fn spawn(
     mut hair_materials: ResMut<Assets<strand_shading::HairShading>>,
     mut scalp_materials: ResMut<Assets<scalp_shade::ScalpShading>>,
     mut images: ResMut<Assets<Image>>,
+    mut bindposes: ResMut<Assets<SkinnedMeshInverseBindposes>>,
+    uploads: Res<scalp_upload::ScalpUploads>,
 ) {
-    let (Some(body), Some(cap), Some(atlas), Some(shade), Some(strands)) = (
+    let (Some(body), Some(cap), Some(atlas), Some([shade, strands])) = (
         stage.body.take(),
         stage.cap.take(),
         stage.atlas.take(),
-        stage.scalp_shade.take(),
-        stage.scalp_strands.take(),
+        stage.scalp.take(),
     ) else {
         return;
     };
     let scalp = scalp_shade::ScalpImages {
-        shade: images.add(shade),
-        strands: images.add(strands),
+        shade: uploads.image(&shade, &mut images),
+        strands: uploads.image(&strands, &mut images),
     };
     let atlas = images.add(atlas);
     let environment = images.add(studio_environment::studio_environment());
@@ -413,13 +435,21 @@ fn spawn(
     ));
     let design = stage.design;
     let center = stage.center;
-    for (index, (form, mesh, paths)) in std::mem::take(&mut stage.hairs).into_iter().enumerate() {
+    let skin = SkinnedMesh {
+        inverse_bindposes: bindposes.add(vec![Mat4::IDENTITY]),
+        joints: vec![commands.spawn(Transform::default()).id()],
+    };
+    let hairs = std::mem::take(&mut stage.hairs);
+    for (index, (form, mesh, geometry, paths)) in hairs.into_iter().enumerate() {
         let layer = index + 1;
+        let material = assets::material(design, form, atlas.clone(), &geometry);
         commands.spawn((
             Mesh3d(meshes.add(mesh)),
-            MeshMaterial3d(hair_materials.add(assets::material(design, form, atlas.clone()))),
+            MeshMaterial3d(hair_materials.add(material)),
+            skin.clone(),
             stage.shown.visibility(HairLayer::Hair),
             RenderLayers::layer(layer),
+            NoFrustumCulling,
         ));
         for (view, path) in VIEWS.iter().zip(paths) {
             let mut image =

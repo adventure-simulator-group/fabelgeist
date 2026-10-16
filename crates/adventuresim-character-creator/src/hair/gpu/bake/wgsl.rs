@@ -339,15 +339,19 @@ pub(super) const HALVE: &str = r#"
 @group(0) @binding(0) var<storage, read_write> chain: array<u32>;
 struct Params {
     from_side: u32,
+    from_stride: u32,
     from_offset: u32,
     to_side: u32,
+    to_stride: u32,
     to_offset: u32,
+    pad0: u32,
+    pad1: u32,
 };
 @group(0) @binding(1) var<uniform> params: Params;
 
 fn texel_at(x: u32, y: u32) -> vec4<u32> {
     let side = params.from_side;
-    let v = chain[params.from_offset + min(y, side - 1u) * side + min(x, side - 1u)];
+    let v = chain[params.from_offset + min(y, side - 1u) * params.from_stride + min(x, side - 1u)];
     return vec4<u32>(v & 255u, (v >> 8u) & 255u, (v >> 16u) & 255u, v >> 24u);
 }
 
@@ -363,7 +367,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) g
     let sum = texel_at(2u * x, 2u * y) + texel_at(2u * x + 1u, 2u * y)
         + texel_at(2u * x, 2u * y + 1u) + texel_at(2u * x + 1u, 2u * y + 1u);
     let mean = sum / 4u;
-    chain[params.to_offset + k] = mean.x | (mean.y << 8u) | (mean.z << 16u) | (mean.w << 24u);
+    chain[params.to_offset + y * params.to_stride + x] = mean.x | (mean.y << 8u) | (mean.z << 16u) | (mean.w << 24u);
 }
 "#;
 

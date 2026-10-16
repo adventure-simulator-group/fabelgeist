@@ -39,27 +39,9 @@ impl Plugin for HairGpuPlugin {
     fn build(&self, _app: &mut App) {}
 
     fn finish(&self, app: &mut App) {
-        let Some(instance) = app
-            .get_sub_app(RenderApp)
-            .and_then(|render| render.world().get_resource::<RenderInstance>())
-            .map(|instance| (**instance.0).clone())
-        else {
+        let Some(context) = render_context(app) else {
             return;
         };
-        let world = app.world();
-        let (Some(device), Some(queue), Some(adapter)) = (
-            world.get_resource::<RenderDevice>(),
-            world.get_resource::<RenderQueue>(),
-            world.get_resource::<RenderAdapter>(),
-        ) else {
-            return;
-        };
-        let context = WgpuContext::from_parts(
-            Arc::new(instance),
-            Arc::new((**adapter.0).clone()),
-            Arc::new(device.wgpu_device().clone()),
-            Arc::new((**queue.0).clone()),
-        );
         let gpu = StudioHairGpu(Arc::new(DeviceKernels {
             context,
             kernels: OnceLock::new(),
@@ -68,4 +50,24 @@ impl Plugin for HairGpuPlugin {
             preview.gpu = Some(gpu);
         }
     }
+}
+
+/// The device `app` renders with, once its renderer has one: hair built
+/// there is drawn from where it lies.
+pub(crate) fn render_context(app: &App) -> Option<WgpuContext> {
+    let instance = app
+        .get_sub_app(RenderApp)?
+        .world()
+        .get_resource::<RenderInstance>()
+        .map(|instance| (**instance.0).clone())?;
+    let world = app.world();
+    let device = world.get_resource::<RenderDevice>()?;
+    let queue = world.get_resource::<RenderQueue>()?;
+    let adapter = world.get_resource::<RenderAdapter>()?;
+    Some(WgpuContext::from_parts(
+        Arc::new(instance),
+        Arc::new((**adapter.0).clone()),
+        Arc::new(device.wgpu_device().clone()),
+        Arc::new((**queue.0).clone()),
+    ))
 }

@@ -19,7 +19,7 @@ mod shape;
 pub use cap::ScalpCap;
 pub use geometry::{AtlasLevel, HairGeometry};
 pub use gpu::HairGpu;
-pub use gpu::ScalpTexture;
+pub use gpu::{GpuGeometry, GpuScalpTexture, ScalpLevel, ScalpTexture, scalp_levels};
 pub use groom::{BodySurface, GroomedHair, PlacedHair};
 pub use placement::{HeadPlacement, HeadPlacementError, HeadSkin};
 pub use shape::{

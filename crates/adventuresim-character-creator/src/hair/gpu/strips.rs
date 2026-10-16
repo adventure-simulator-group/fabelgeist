@@ -85,8 +85,8 @@ impl StripKernels {
 }
 
 /// Triangles on the GPU: each vertex's attributes, four floats each, and
-/// how many strips of how many rows.
-pub(crate) struct GpuGeometry {
+/// how many strips of how many rows, each row's two edges side by side.
+pub struct GpuGeometry {
     /// Position, and baked sky visibility.
     positions: Buffer,
     /// Normal, and the strip's own random value.
@@ -218,8 +218,28 @@ impl StripSource<'_> {
 }
 
 impl GpuGeometry {
+    /// Position, and baked sky visibility.
+    pub fn positions(&self) -> &Buffer {
+        &self.positions
+    }
+
+    /// Normal, and the strip's own random value.
+    pub fn normals(&self) -> &Buffer {
+        &self.normals
+    }
+
+    /// Along the strands, root to tip.
+    pub fn tangents(&self) -> &Buffer {
+        &self.tangents
+    }
+
+    /// Texture coordinates.
+    pub fn texcoords(&self) -> &Buffer {
+        &self.texcoords
+    }
+
     /// The triangles back on the host.
-    pub(crate) fn read(&self, gpu: &HairGpu) -> Result<HairGeometry> {
+    pub fn read(&self, gpu: &HairGpu) -> Result<HairGeometry> {
         let context = gpu.context();
         let read = |buffer: &Buffer| -> Result<Vec<[f32; 4]>> {
             let mut all: Vec<[f32; 4]> = pollster::block_on(buffer.read(context))?;
@@ -242,12 +262,13 @@ impl GpuGeometry {
         })
     }
 
-    fn vertices(&self) -> usize {
+    /// Vertices: two a row.
+    pub fn vertices(&self) -> usize {
         self.strips as usize * self.rows as usize * 2
     }
 
     /// Two triangles a segment, every strip's rows in order.
-    fn faces(&self) -> Vec<[u32; 3]> {
+    pub fn faces(&self) -> Vec<[u32; 3]> {
         let rows = self.rows;
         (0..self.strips)
             .flat_map(|strip| {
