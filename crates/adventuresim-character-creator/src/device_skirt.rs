@@ -74,6 +74,7 @@ impl DeviceWearer<'_> {
                 &fit,
                 plan,
                 design.clearance.metres() + design.thickness.metres(),
+                &status,
             )?;
         }
         // The profile must be written before the coordinate kernel reads it.

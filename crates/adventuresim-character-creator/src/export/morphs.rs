@@ -133,6 +133,7 @@ mod tests {
             global_joint_states: &[],
         };
         let mut shell = RiggedShell {
+            textile_finish: None,
             surface: None,
             plate_edges: &[],
             textures: None,

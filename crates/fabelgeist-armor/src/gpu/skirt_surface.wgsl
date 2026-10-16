@@ -6,6 +6,21 @@ const ROUNDNESS: u32 = 3u;
 const FITTED_FRACTION: u32 = 4u;
 const FIRST_SKIRT_ROW: u32 = 5u;
 const MINIMUM_JOIN_RADIAL_NORMAL: f32 = 0.2;
+const ATTACHMENT_POINT_COUNT: u32 = 21u;
+
+// A shaped cloned-body waist is authoritative. Advect each material column
+// from that actual boundary toward the common hem, sampling the enclosing
+// body profile at the resulting physical height.
+fn waist_drop(column: f32) -> f32 {
+    let count = u32(design[ATTACHMENT_POINT_COUNT]);
+    if (count == 0u) { return 0.0; }
+    let wrapped = fract(column / f32(COLUMNS)) * f32(COLUMNS);
+    let first = u32(floor(wrapped));
+    let a = ATTACHMENT + (count + first) * POINT_WORDS + 1u;
+    let b = ATTACHMENT + (count + (first + 1u) % COLUMNS) * POINT_WORDS + 1u;
+    let y = mix(frames[a], frames[b], fract(wrapped));
+    return max((fit.half_extents.y - y) / (2.0 * fit.half_extents.y), 0.0);
+}
 
 fn section(row: u32) -> u32 {
     return FIRST_SECTION + row * SECTION_WORDS;
@@ -24,10 +39,11 @@ fn radius(row: f32, column: f32) -> f32 {
 
 fn skirt_surface(column: f32, row: f32, fold_share: f32) -> vec3<f32> {
     let descent = f32(row) / f32(ROWS);
+    let physical_descent = mix(waist_drop(column), 1.0, descent);
     let angle = TAU * f32(column) / f32(COLUMNS);
     let direction = vec2<f32>(sin(angle), cos(angle));
     let release = smoothstep(0.0, design[FITTED_FRACTION], descent);
-    let required = radius(row, column);
+    let required = radius(physical_descent * f32(ROWS), column);
     var hanging = 0.0;
     for (var sample = 0u; sample <= ROWS; sample++) {
         hanging = max(hanging, radius(f32(sample), column));
@@ -56,7 +72,7 @@ fn skirt_surface(column: f32, row: f32, fold_share: f32) -> vec3<f32> {
     let pleat = skirt_fold(column, descent, release);
     let r = max(required, shaped) + pleat * fold_share;
     let point = direction * r;
-    return vec3<f32>(point.x, fit.half_extents.y * (1.0 - 2.0 * descent), point.y);
+    return vec3<f32>(point.x, fit.half_extents.y * (1.0 - 2.0 * physical_descent), point.y);
 }
 
 fn skirt_point(column: f32, row: f32) -> vec3<f32> {

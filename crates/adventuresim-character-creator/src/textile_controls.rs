@@ -103,13 +103,31 @@ fn layer_controls(ui: &mut egui::Ui, layer: &mut TextileLayer) -> bool {
             changed |= proportion(ui, phase, 0..=1000, "Stripe phase");
         }
         TextileFill::Motifs {
+            space,
             motif,
             across,
             along,
             scale,
             rotation,
             stagger,
+            offset,
         } => {
+            ui.horizontal(|ui| {
+                changed |= ui
+                    .selectable_value(
+                        space,
+                        fabelgeist_armor::TextilePatternSpace::Region,
+                        "Pattern fills region",
+                    )
+                    .changed();
+                changed |= ui
+                    .selectable_value(
+                        space,
+                        fabelgeist_armor::TextilePatternSpace::Garment,
+                        "Continuous garment pattern",
+                    )
+                    .changed();
+            });
             changed |= motif_controls(ui, motif);
             changed |= ui
                 .add(egui::Slider::new(&mut across.0, 1..=64).text("Repeats across"))
@@ -120,6 +138,8 @@ fn layer_controls(ui: &mut egui::Ui, layer: &mut TextileLayer) -> bool {
             changed |= proportion(ui, scale, 100..=1000, "Motif scale");
             changed |= proportion(ui, rotation, 0..=1000, "Motif rotation");
             changed |= proportion(ui, stagger, 0..=1000, "Alternate row offset");
+            changed |= proportion(ui, &mut offset.across, 0..=1000, "Pattern offset across");
+            changed |= proportion(ui, &mut offset.along, 0..=1000, "Pattern offset along");
         }
     }
     changed
@@ -157,6 +177,13 @@ fn motif_controls(ui: &mut egui::Ui, motif: &mut TextileMotif) -> bool {
                 },
             ),
             (
+                "Nested damask",
+                TextileMotif::Damask {
+                    leaf_pairs: TextileRepeatCount(4),
+                    spread: Permille(900),
+                },
+            ),
+            (
                 "Scrolling vines",
                 TextileMotif::Scrollwork {
                     branches: TextileRepeatCount(2),
@@ -177,7 +204,8 @@ fn motif_controls(ui: &mut egui::Ui, motif: &mut TextileMotif) -> bool {
                 .add(egui::Slider::new(&mut petals.0, 3..=12).text("Petals"))
                 .changed();
         }
-        TextileMotif::Palmette { leaf_pairs, spread } => {
+        TextileMotif::Palmette { leaf_pairs, spread }
+        | TextileMotif::Damask { leaf_pairs, spread } => {
             changed |= ui
                 .add(egui::Slider::new(&mut leaf_pairs.0, 1..=5).text("Leaf pairs"))
                 .changed();
@@ -211,6 +239,7 @@ fn fill_selection(ui: &mut egui::Ui, fill: &mut TextileFill) -> bool {
             (
                 "Repeating motifs",
                 TextileFill::Motifs {
+                    space: fabelgeist_armor::TextilePatternSpace::Region,
                     motif: TextileMotif::Rosette {
                         petals: TextileRepeatCount(6),
                     },
@@ -219,6 +248,7 @@ fn fill_selection(ui: &mut egui::Ui, fill: &mut TextileFill) -> bool {
                     scale: Permille(800),
                     rotation: Permille(0),
                     stagger: Permille(500),
+                    offset: Default::default(),
                 },
             ),
         ] {

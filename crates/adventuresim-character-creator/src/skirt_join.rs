@@ -7,7 +7,7 @@ use fabelgeist_rig::RigJointName;
 use std::collections::{BTreeMap, BTreeSet};
 
 use crate::armor_frames::Wearer;
-use crate::surface_cut::{CORRESPONDENCE_PRECISION, Plane, SurfaceCut, interpolate};
+use crate::surface_cut::{CORRESPONDENCE_PRECISION, ConvexRegion, Plane, SurfaceCut, interpolate};
 
 pub(crate) struct SkirtJoinPlan {
     pub patch: SkirtAttachment,
@@ -36,16 +36,7 @@ impl SkirtJoinPlan {
             body.positions,
             body.faces,
             body.faces,
-            &[vec![
-                Plane {
-                    normal: [0., -1., 0.],
-                    offset: -waist,
-                },
-                Plane {
-                    normal: [0., 1., 0.],
-                    offset: top,
-                },
-            ]],
+            &waist_regions(bodice.front_point, hips, head, waist, top),
             &[],
         );
         let reference = cut
@@ -113,6 +104,57 @@ impl SkirtJoinPlan {
             samples,
         })
     }
+}
+
+/// Boolean construction boundary in canonical body metres, Y up. The ordinary
+/// torso band is joined to a front wedge whose slopes meet at the requested
+/// drop. Hip breadth determines the wedge width; its cut points retain body
+/// barycentric correspondence through every subsequent refit.
+fn waist_regions(
+    point: fabelgeist_armor::Millimeters,
+    hips: &PartFrame,
+    head: &PartFrame,
+    waist: f32,
+    top: f32,
+) -> Vec<ConvexRegion> {
+    let upper = Plane {
+        normal: [0., 1., 0.],
+        offset: top,
+    };
+    let mut regions = vec![vec![
+        Plane {
+            normal: [0., -1., 0.],
+            offset: -waist,
+        },
+        upper,
+    ]];
+    if point.0 == 0 {
+        return regions;
+    }
+    let drop = point.metres();
+    let slope = drop / hips.half_extents[0];
+    let front_slope = drop / hips.half_extents[2];
+    let lateral = head.axes[0];
+    let anterior = head.axes[2];
+    let mut wedge = vec![
+        upper,
+        Plane {
+            normal: anterior.map(|v| -v),
+            offset: -dot(hips.origin, anterior),
+        },
+    ];
+    for side in [-1.0, 1.0] {
+        let mut normal =
+            std::array::from_fn(|axis| side * slope * lateral[axis] - front_slope * anterior[axis]);
+        normal[1] -= 1.0;
+        wedge.push(Plane {
+            normal,
+            offset: -waist + side * slope * dot(hips.origin, lateral)
+                - front_slope * dot(hips.origin, anterior),
+        });
+    }
+    regions.push(wedge);
+    regions
 }
 
 /// Weld physical seams, then retain the component nearest the pelvis axis.

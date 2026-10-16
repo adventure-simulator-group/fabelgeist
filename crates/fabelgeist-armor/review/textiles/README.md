@@ -1,8 +1,8 @@
 # Parametric dress textile references
 
 These recipes exercise gathered skirts, continuous upper sections, colored
-border panels and repeating foliage. They are stylized studies. Their flat
-ornament and regular folds do not establish faithful historical recreation.
+border panels and repeating foliage. They adapt the referenced designs to
+the wearer; they do not certify exact historical textile or construction.
 Cloth physics, detailed bodices and separate accessories remain outside scope.
 
 `pisa.json` uses the crimson velvet gown displayed at the Museo nazionale di

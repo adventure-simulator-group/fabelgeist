@@ -80,6 +80,19 @@ pub fn record_skirt(
     words.extend(design.pleats.as_ref().map_or([0.0; 2], |pleats| {
         [pleats.waist_depth.metres(), pleats.front_panel.unit()]
     }));
+    words.extend(design.pleats.as_ref().map_or([0.0, 1.0], |pleats| {
+        [
+            f32::from(pleats.waist_count.0),
+            pleats.gather_falloff.unit(),
+        ]
+    }));
+    words.push(attachment.map_or(0, |patch| patch.point_count) as f32);
+    words.push(
+        design
+            .pleats
+            .as_ref()
+            .map_or(0.0, |pleats| pleats.gather_retention.unit()),
+    );
     recipe.record(gpu, batch, &words, &[fit])
 }
 
