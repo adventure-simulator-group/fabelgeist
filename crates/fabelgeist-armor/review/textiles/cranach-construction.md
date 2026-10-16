@@ -58,6 +58,30 @@ textiles. Armhole reach and depth are independent of the neckline. An opening
 cuts every layer. This primitive does not itself represent a complete chemise,
 an open-sided partlet, a paned sleeve or an assembled gown.
 
+`PartletDesign` supplies separate front and back coverage with open flanks,
+shoulder bridges and a rear slit. It can sew an evenly pleated standing collar
+to the actual open neck chain before thickening. Neckline rise and anterior
+slope control its seam; collar taper controls the upper circumference. Final
+collar rows enclose horizontal body-ray intersections. This is a sampled fitting
+constraint, not continuous clearance or posed-collision certification.
+
+Optional folded bindings finish the free panel edges. A collar leaves its sewn
+neck seam unbound; without a collar, that neckline also receives binding. Inner
+neckband and outer collar trim are independent sheets, including their hidden
+surfaces. Each has its own cloth gauge and appearance. The rear opening remains
+open through these bands. Ties and hook-and-eye closures are not yet represented.
+
+The ordered article recipe in `cranach-partlet.json` can be passed directly to
+the character creator's `textile_outfit_review` example. It includes the white
+neckband and gold trim; the catalog's `linen_partlet` omits the decorative trim.
+These recipes describe a construction basis rather than a completed outfit.
+
+All textile appearances carry explicit opacity. Base cloth can be translucent
+while parametric ornament stays opaque. Preview and portable export use the
+same straight-alpha pixels and back-face policy. `MetallicThread` supplies a
+shared metal-thread approximation for trim. Directional thread sheen and woven
+transmission are not simulated.
+
 `GownDesign` sews this full upper face into the hanging skirt before shell
 thickening. Both sides of the waist share physical vertices; their later
 material copies retain the same positions, normals, skin and morph endpoints.

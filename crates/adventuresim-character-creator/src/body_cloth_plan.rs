@@ -7,13 +7,13 @@ use anyhow::Result;
 use fabelgeist_armor::gpu::BodyClothLayer;
 use fabelgeist_armor::{ArmorComponentRole, BodiceDesign, Millimeters, PartFrame};
 
-pub(crate) struct BodicePlan {
+pub(crate) struct BodyClothPlan {
     pub table: Vec<u32>,
     pub layers: Vec<BodyClothLayer>,
     pub surface: SurfaceCut,
 }
 
-impl BodicePlan {
+impl BodyClothPlan {
     pub fn new(design: &BodiceDesign, body: &Wearer<'_>, head: &PartFrame) -> Result<Self> {
         Self::with_waist_band(design, body, head, Millimeters(0))
     }

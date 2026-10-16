@@ -635,6 +635,16 @@ reason = "Egui controls dispatch design edits and save actions through widget re
 
 [[scopes]]
 kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/partlet_controls.rs"
+reason = "Egui controls inspect widget responses; displayed cloth labels are never used as application state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/export/buffer.rs"
+reason = "glTF buffer views encode external protocol keys and native byte alignment."
+
+[[scopes]]
+kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/studio_ui.rs"
 reason = "Egui studio buttons dispatch save, load, export and animation actions through widget responses; labels are never compared as state."
 

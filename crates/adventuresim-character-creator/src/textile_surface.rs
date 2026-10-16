@@ -11,6 +11,7 @@ use image::ImageEncoder;
 pub struct TextileMaps {
     pub base_color_png: Vec<u8>,
     pub normal_png: Vec<u8>,
+    pub translucent: bool,
 }
 
 pub fn material(
@@ -24,11 +25,19 @@ pub fn material(
             surface.base_color[0],
             surface.base_color[1],
             surface.base_color[2],
-            1.0,
+            surface.base_color[3],
         ),
         metallic: surface.metallic,
         perceptual_roughness: surface.roughness,
         reflectance: 0.5 * fabric.finish.specular_factor(),
+        alpha_mode: if fabric.is_translucent() {
+            AlphaMode::Blend
+        } else {
+            AlphaMode::Opaque
+        },
+        // A closed thin shell renders its outward-facing wall once. Rendering
+        // both sides would accumulate the same cloth opacity twice.
+        cull_mode: Some(bevy::render::render_resource::Face::Back),
         ..Default::default()
     };
     if !fabric.layers.0.is_empty() {
@@ -57,13 +66,14 @@ pub fn material(
 
 pub fn textures(fabric: &TextileAppearance) -> Result<Option<TextileMaps>> {
     fabric.validate()?;
-    if fabric.layers.0.is_empty() {
+    if fabric.layers.0.is_empty() && !fabric.is_translucent() {
         return Ok(None);
     }
     let pixels = fabric.pixels()?;
     Ok(Some(TextileMaps {
         base_color_png: encode(&pixels.color, pixels.width, pixels.height)?,
         normal_png: encode(&[128, 128, 255, 255], 1, 1)?,
+        translucent: fabric.is_translucent(),
     }))
 }
 
@@ -74,7 +84,12 @@ impl From<TextileMaps> for crate::export::SurfaceTextures {
             base_color_png: Some(maps.base_color_png),
             normal_png: maps.normal_png,
             occlusion_png: None,
-            cutout: false,
+            alpha: if maps.translucent {
+                crate::export::SurfaceAlpha::Blend
+            } else {
+                crate::export::SurfaceAlpha::Opaque
+            },
+            sides: crate::export::SurfaceSides::Front,
             sampling: crate::export::SurfaceSampling::WrappedGarment,
         }
     }

@@ -5,14 +5,14 @@ use fabelgeist_armor::{
 };
 
 use crate::armor_frames::Wearer;
-use crate::bodice_plan::BodicePlan;
+use crate::body_cloth_plan::BodyClothPlan;
 use crate::device_fit::{DevicePiece, FitBody, Realization, fit_piece_async};
 use crate::skirt_join::{SewnWaist, SkirtJoinPlan};
 use crate::surface_cut::{POINT_WORDS, SurfaceCut};
 
 pub(crate) struct GownPlan {
     pub join: SkirtJoinPlan,
-    inner: BodicePlan,
+    inner: BodyClothPlan,
 }
 
 impl GownPlan {
@@ -23,7 +23,8 @@ impl GownPlan {
         head: &PartFrame,
     ) -> Result<Self> {
         design.validate()?;
-        let mut inner = BodicePlan::with_waist_band(&design.bodice, body, head, design.waist_band)?;
+        let mut inner =
+            BodyClothPlan::with_waist_band(&design.bodice, body, head, design.waist_band)?;
         let face = inner
             .layers
             .pop()
@@ -71,42 +72,17 @@ impl GownPlan {
                 ArmorComponentRole::OuterFabric
             }
         })?;
-        normalize_fabric_charts(&mut piece.base)?;
+        piece.normalize_cloth_charts(&[
+            ArmorComponentRole::BodiceFabric,
+            ArmorComponentRole::OuterFabric,
+        ])?;
         if !self.inner.layers.is_empty() {
             let lining = fit_piece_async(gpu, body, wearer, morphs, |device, batch, _| {
-                device.record_bodice(batch, &self.inner)
+                device.record_body_cloth(batch, &self.inner)
             })
             .await?;
             piece.append(lining)?;
         }
         Ok(())
     }
-}
-
-/// Each cut fabric has its own along-cloth pattern domain. The original
-/// device chart remains the angular chart; no geometry is evaluated here.
-fn normalize_fabric_charts(part: &mut fabelgeist_armor::BuiltPart) -> Result<()> {
-    let coordinates = part
-        .texcoords
-        .as_mut()
-        .context("gown has no fabric chart")?;
-    for component in &part.components {
-        if !matches!(
-            component.role,
-            ArmorComponentRole::BodiceFabric | ArmorComponentRole::OuterFabric
-        ) {
-            continue;
-        }
-        let points = &mut coordinates[component.vertices.clone()];
-        let low = points.iter().map(|uv| uv[1]).fold(f32::INFINITY, f32::min);
-        let high = points
-            .iter()
-            .map(|uv| uv[1])
-            .fold(f32::NEG_INFINITY, f32::max);
-        anyhow::ensure!(high > low, "gown fabric has no along-cloth extent");
-        for uv in points {
-            uv[1] = (uv[1] - low) / (high - low);
-        }
-    }
-    Ok(())
 }

@@ -5890,6 +5890,80 @@
           "handling_sensitivity": 0.5
         }
       }
+    },
+    {
+      "id": "linen_partlet",
+      "display_name": "Sheer linen partlet",
+      "weight_kg": 0.08,
+      "exterior_volume_ml": 100,
+      "base_value": 12,
+      "tags": [
+        "clothing"
+      ],
+      "presentation": {
+        "icon": "shirt"
+      },
+      "kind": "clothing",
+      "equipment": {
+        "material": "linen",
+        "physical": {
+          "dimensions_m": [
+            0.4,
+            0.3,
+            0.25
+          ],
+          "grip_to_tip_m": 0.0,
+          "anchor_offset_m": [
+            0.0,
+            0.1,
+            0.0
+          ]
+        },
+        "placements": [
+          {
+            "id": "worn",
+            "occupancy": [
+              {
+                "location": "chest",
+                "channel": "accessory"
+              },
+              {
+                "location": "back",
+                "channel": "accessory"
+              }
+            ],
+            "protection": [
+              "chest"
+            ],
+            "surface": [
+              {
+                "regions": [
+                  "chest"
+                ],
+                "anchor": "proximal",
+                "coverage": 0.65
+              }
+            ]
+          }
+        ],
+        "protection": {
+          "resistance": 0,
+          "padding": 0,
+          "flexibility": 1,
+          "range_of_motion": 0.98
+        }
+      },
+      "capabilities": {
+        "durability": {
+          "quality": 1,
+          "yield_j": 12,
+          "fracture_j": 35,
+          "wear": 0.2,
+          "failure_share": 0.8,
+          "edge_sensitivity": 0,
+          "handling_sensitivity": 0.5
+        }
+      }
     }
   ]
 }

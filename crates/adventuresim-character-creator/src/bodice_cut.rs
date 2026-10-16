@@ -1,12 +1,11 @@
 //! Boolean boundaries for fitted cloth in canonical, unposed Y-up metres.
 use crate::armor_frames::Wearer;
+use crate::cloth_torso_frame::ClothTorsoFrame;
 use crate::surface_cut::{ConvexRegion, Plane, SurfaceCut, connected_patch, dot, weld_patch};
-use anyhow::Context;
 use anyhow::{Result, ensure};
 use fabelgeist_armor::{
     BodiceDesign, BodiceOpening, InterliningCoverage, Millimeters, NecklineShape, PartFrame,
 };
-use fabelgeist_rig::RigJointName;
 
 const CUT_ARC_SEGMENTS: usize = 16;
 const NECK_TOP_MARGIN_M: f32 = 0.08;
@@ -25,16 +24,6 @@ struct OpeningCut {
     hem: f32,
 }
 
-/// Numerical construction boundary: joints are metres; x/z are the fitted
-/// head frame's lateral/anterior axes, not animation ownership.
-struct Landmarks {
-    waist: [f32; 3],
-    neck: [f32; 3],
-    shoulders: [[f32; 3]; 2],
-    lateral: [f32; 3],
-    anterior: [f32; 3],
-}
-
 impl BodiceSurface {
     pub fn new(
         design: &BodiceDesign,
@@ -43,7 +32,7 @@ impl BodiceSurface {
         band: Millimeters,
     ) -> Result<Self> {
         design.validate()?;
-        let marks = Landmarks::new(body, head)?;
+        let marks = ClothTorsoFrame::new(body, head)?;
         ensure!(
             marks.breadth() > 0. && marks.neck[1] > marks.waist[1] + design.hem_rise.metres(),
             "invalid bodice anatomical span"
@@ -100,36 +89,7 @@ impl BodiceSurface {
     }
 }
 
-impl Landmarks {
-    fn new(body: &Wearer<'_>, head: &PartFrame) -> Result<Self> {
-        let joint = |name: RigJointName| -> Result<[f32; 3]> {
-            let index = usize::from(name.require_in(body.joint_names)?);
-            let state = body
-                .joints
-                .get(index)
-                .context("missing bodice joint state")?;
-            Ok([state[0], state[1], state[2]])
-        };
-        let shoulders = [joint(RigJointName::R_UPARM)?, joint(RigJointName::L_UPARM)?];
-        let span = std::array::from_fn(|axis| shoulders[1][axis] - shoulders[0][axis]);
-        let lateral = if dot(span, head.axes[0]) < 0. {
-            head.axes[0].map(|v| -v)
-        } else {
-            head.axes[0]
-        };
-        Ok(Self {
-            waist: joint(RigJointName::ROOT)?,
-            neck: joint(RigJointName::C_NECK)?,
-            shoulders,
-            lateral,
-            anterior: head.axes[2],
-        })
-    }
-
-    fn breadth(&self) -> f32 {
-        dot(self.shoulders[1], self.lateral) - dot(self.shoulders[0], self.lateral)
-    }
-
+impl ClothTorsoFrame {
     fn torso(&self, design: &BodiceDesign) -> Vec<ConvexRegion> {
         let mut region = vec![
             Plane {
@@ -288,13 +248,6 @@ impl Landmarks {
                     .collect()
             })
             .collect()
-    }
-
-    fn depth_half(&self, side: f32) -> Plane {
-        Plane {
-            normal: self.anterior.map(|v| -side * v),
-            offset: -side * dot(self.neck, self.anterior),
-        }
     }
 
     fn facings(&self, design: &BodiceDesign, width: f32, band: f32) -> Result<Vec<ConvexRegion>> {

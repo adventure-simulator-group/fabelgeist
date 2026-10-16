@@ -28,7 +28,8 @@ pub struct SurfaceTextures {
     pub normal_png: Vec<u8>,
     /// Linear ambient visibility, read from the red channel by glTF and Bevy.
     pub occlusion_png: Option<Vec<u8>>,
-    pub cutout: bool,
+    pub alpha: SurfaceAlpha,
+    pub sides: SurfaceSides,
     pub sampling: SurfaceSampling,
 }
 
@@ -38,6 +39,19 @@ pub struct SurfaceTextures {
 pub enum SurfaceSampling {
     Tile,
     WrappedGarment,
+}
+
+#[derive(Clone, Copy)]
+pub enum SurfaceAlpha {
+    Opaque,
+    Mask,
+    Blend,
+}
+
+#[derive(Clone, Copy)]
+pub enum SurfaceSides {
+    Front,
+    Both,
 }
 
 pub struct ShellTextures {
@@ -158,6 +172,7 @@ impl TextureImages {
         buffer: &mut BufferBuilder,
         material: &mut Value,
     ) {
+        material["doubleSided"] = matches!(maps.sides, SurfaceSides::Both).into();
         if let Some(bytes) = maps.base_color_png {
             let color = self.image(&bytes, buffer, maps.sampling);
             material["pbrMetallicRoughness"]["baseColorFactor"] = json!([1.0, 1.0, 1.0, 1.0]);
@@ -169,9 +184,17 @@ impl TextureImages {
             let occlusion = self.image(&bytes, buffer, maps.sampling);
             material["occlusionTexture"] = json!({"index":occlusion,"strength":1.0});
         }
-        if maps.cutout {
-            material["alphaMode"] = "MASK".into();
-            material["alphaCutoff"] = 0.5.into();
+        match maps.alpha {
+            SurfaceAlpha::Opaque => {
+                material["alphaMode"] = "OPAQUE".into();
+            }
+            SurfaceAlpha::Mask => {
+                material["alphaMode"] = "MASK".into();
+                material["alphaCutoff"] = 0.5.into();
+            }
+            SurfaceAlpha::Blend => {
+                material["alphaMode"] = "BLEND".into();
+            }
         }
     }
 
