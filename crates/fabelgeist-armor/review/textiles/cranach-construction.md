@@ -69,7 +69,12 @@ Optional folded bindings finish the free panel edges. A collar leaves its sewn
 neck seam unbound; without a collar, that neckline also receives binding. Inner
 neckband and outer collar trim are independent sheets, including their hidden
 surfaces. Each has its own cloth gauge and appearance. The rear opening remains
-open through these bands. Ties and hook-and-eye closures are not yet represented.
+open through these bands. Optional cloth ties connect the front and rear hem
+corners at each flank. Their attachment bands, two bow loops, straight tails
+and knot wrap remain separate thickened tapes. Width, tail length, bow span,
+gauge and fabric are editable. The rest shape uses even, symmetric curves;
+layer separation inside the knot follows the cloth gauge. Hook-and-eye closures
+are not yet represented.
 
 The ordered article recipe in `cranach-partlet.json` can be passed directly to
 the character creator's `textile_outfit_review` example. It includes the white

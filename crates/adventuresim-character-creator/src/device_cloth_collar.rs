@@ -103,7 +103,11 @@ impl DeviceWearer<'_> {
         dispatch(
             self,
             batch,
-            &collar_source(include_str!("device_partlet.wgsl")),
+            &collar_source(&format!(
+                "{}\n{}",
+                include_str!("device_cloth_support.wgsl"),
+                include_str!("device_partlet.wgsl")
+            )),
             &[
                 write("fit", fit),
                 read_u32("samples", samples),

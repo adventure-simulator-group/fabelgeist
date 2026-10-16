@@ -60,6 +60,7 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut PartletDesign) -> bool {
         PartletDesign::THICKNESS_RANGE,
         "Cloth gauge (micrometres)",
     );
+    changed |= super::cloth_ties::show(ui, &mut design.ties);
     changed |= collar_controls(ui, &mut design.collar);
     changed |= binding_controls(ui, &mut design.binding);
     ui.collapsing("Panel and collar fabric", |ui| {

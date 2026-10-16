@@ -1,5 +1,6 @@
 //! Open-sided shoulder panels retain frozen body-triangle correspondence.
 use crate::armor_frames::Wearer;
+use crate::cloth_tie_plan::ClothTieAnchors;
 use crate::cloth_torso_frame::ClothTorsoFrame;
 use crate::surface_cut::{
     CUT_VERTEX_SNAP_METRES, ConvexRegion, Plane, SurfaceCut, dot, interpolate, weld_patch,
@@ -12,6 +13,7 @@ pub(crate) struct PartletCut {
     pub surface: SurfaceCut,
     pub reference: Vec<[f32; 3]>,
     pub neck: Vec<u32>,
+    frame: ClothTorsoFrame,
 }
 
 impl PartletCut {
@@ -97,7 +99,43 @@ impl PartletCut {
             surface,
             reference,
             neck,
+            frame,
         })
+    }
+
+    pub fn tie_anchors(&self) -> Result<Vec<ClothTieAnchors>> {
+        let hem = self
+            .reference
+            .iter()
+            .map(|p| p[1])
+            .fold(f32::INFINITY, f32::min);
+        [-1_f32, 1.]
+            .into_iter()
+            .map(|side| {
+                let corner = |direction: f32| -> Result<u32> {
+                    self.reference
+                        .iter()
+                        .enumerate()
+                        .filter(|(_, p)| {
+                            (p[1] - hem).abs() <= 2. * CUT_VERTEX_SNAP_METRES
+                                && direction
+                                    * (dot(**p, self.frame.anterior)
+                                        - dot(self.frame.neck, self.frame.anterior))
+                                    >= 0.
+                        })
+                        .max_by(|(_, a), (_, b)| {
+                            (side * dot(**a, self.frame.lateral))
+                                .total_cmp(&(side * dot(**b, self.frame.lateral)))
+                        })
+                        .map(|(i, _)| i as u32)
+                        .context("partlet has no hem corner for its tie")
+                };
+                Ok(ClothTieAnchors {
+                    front: corner(1.)?,
+                    back: corner(-1.)?,
+                })
+            })
+            .collect()
     }
 }
 

@@ -2,8 +2,10 @@
 //! anatomical surface samples, and the metal it is finished in.
 
 mod bodice;
+mod cloth_ties;
 mod gown;
 mod partlet;
+pub use cloth_ties::ClothTies;
 pub use gown::GownDesign;
 pub use partlet::{ClothBinding, CollarBand, CollarPleats, PartletDesign, StandingClothCollar};
 mod construction;
@@ -114,7 +116,7 @@ pub use error::{GenerateError, PlateShellFailure};
 
 pub const SCHEMA_VERSION: u16 = 1;
 /// Identifies mesh-generation behavior in review and equipment manifests.
-pub const GENERATOR_VERSION: u16 = 30;
+pub const GENERATOR_VERSION: u16 = 31;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {

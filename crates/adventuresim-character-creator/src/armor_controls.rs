@@ -4,6 +4,8 @@ use bevy_egui::egui;
 use std::ops::RangeInclusive;
 #[path = "bodice_controls.rs"]
 mod bodice;
+#[path = "cloth_tie_controls.rs"]
+mod cloth_ties;
 #[path = "gown_controls.rs"]
 mod gown;
 #[path = "helmet_controls.rs"]
