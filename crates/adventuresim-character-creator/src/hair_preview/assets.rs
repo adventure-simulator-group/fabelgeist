@@ -1,4 +1,5 @@
 //! Meshes, materials and the card atlas the previewed hair is drawn with.
+use super::scalp_shade::{ScalpImages, ScalpShading};
 use super::strand_shading::{HairShading, StrandShading};
 use super::*;
 use adventuresim_character_creator::hair::{AtlasLevel, HAIR_ROUGHNESS, HairGeometry, ScalpCap};
@@ -21,8 +22,8 @@ const SCALP_ANISOTROPY: u16 = 16;
 #[derive(bevy::ecs::system::SystemParam)]
 pub(crate) struct HairAssets<'w> {
     pub(super) meshes: ResMut<'w, Assets<Mesh>>,
-    materials: ResMut<'w, Assets<StandardMaterial>>,
     hair_materials: ResMut<'w, Assets<HairShading>>,
+    scalp_materials: ResMut<'w, Assets<ScalpShading>>,
     pub(super) images: ResMut<'w, Assets<Image>>,
 }
 
@@ -35,18 +36,18 @@ impl HairAssets<'_> {
     }
 
     /// The scalp cap under `placed`, skinned wholly to the head joint and
-    /// shaded for `design`, blended over the skin.
+    /// shaded as hair of `design`, blended over the skin.
     pub(super) fn scalp_cap(
         &mut self,
         placed: &PlacedStyle,
         design: HairDesign,
-    ) -> Result<(Handle<Mesh>, Handle<StandardMaterial>)> {
+    ) -> Result<(Handle<Mesh>, Handle<ScalpShading>)> {
         let hair = &placed.hair;
-        let mesh = cap_mesh(hair.cap(), design, hair.placement().head_joint)?;
+        let mesh = cap_mesh(hair.cap(), hair.placement().head_joint)?;
         Ok((
             self.meshes.add(mesh),
-            self.materials
-                .add(scalp_shade::material(placed.scalp_texture.clone())),
+            self.scalp_materials
+                .add(scalp_shade::material(design, &placed.scalp)),
         ))
     }
 
@@ -70,23 +71,31 @@ impl HairAssets<'_> {
 /// reflected inside a strand is coloured by it, and white highlights over
 /// dark pigment read as grey hair.
 pub(super) fn material(design: HairDesign, form: Form, atlas: Handle<Image>) -> HairShading {
-    let [red, green, blue] = design.pigment.color();
-    let brightest = red.max(green).max(blue).max(f32::EPSILON);
-    let tint = |channel: f32| 1.0 + (channel / brightest - 1.0) * HIGHLIGHT_HUE;
     let cards = matches!(form, Form::Cards { .. });
     HairShading {
         base: StandardMaterial {
-            base_color: Color::linear_rgb(red, green, blue),
             base_color_texture: cards.then_some(atlas),
-            specular_tint: Color::linear_rgb(tint(red), tint(green), tint(blue)),
             alpha_mode: AlphaMode::Mask(SHADOW_COVERAGE),
-            perceptual_roughness: HAIR_ROUGHNESS,
-            metallic: 0.0,
             double_sided: true,
             cull_mode: None,
-            ..default()
+            ..hair_surface(design)
         },
         extension: StrandShading {},
+    }
+}
+
+/// The surface of hair of `design`, wherever it is drawn: its colour, a
+/// rough dielectric's sheen, and highlights leaning towards its hue.
+pub(super) fn hair_surface(design: HairDesign) -> StandardMaterial {
+    let [red, green, blue] = design.pigment.color();
+    let brightest = red.max(green).max(blue).max(f32::EPSILON);
+    let tint = |channel: f32| 1.0 + (channel / brightest - 1.0) * HIGHLIGHT_HUE;
+    StandardMaterial {
+        base_color: Color::linear_rgb(red, green, blue),
+        specular_tint: Color::linear_rgb(tint(red), tint(green), tint(blue)),
+        perceptual_roughness: HAIR_ROUGHNESS,
+        metallic: 0.0,
+        ..default()
     }
 }
 
@@ -130,9 +139,9 @@ pub(super) fn mesh(geometry: HairGeometry, head_joint: u32) -> Result<Mesh> {
     .with_inserted_indices(Indices::U32(geometry.faces.into_flattened())))
 }
 
-/// The scalp `cap` as a mesh skinned wholly to `head_joint`, painted in
-/// the colour of hair of `design` as vertex colour.
-pub(super) fn cap_mesh(cap: &ScalpCap, design: HairDesign, head_joint: u32) -> Result<Mesh> {
+/// The scalp `cap` as a mesh skinned wholly to `head_joint`, with its
+/// tangents along the texture and how much it shows as vertex alpha.
+pub(super) fn cap_mesh(cap: &ScalpCap, head_joint: u32) -> Result<Mesh> {
     let count = cap.positions.len();
     let head = u16::try_from(head_joint).context("the head joint index exceeds a skin index")?;
     Ok(Mesh::new(
@@ -140,11 +149,10 @@ pub(super) fn cap_mesh(cap: &ScalpCap, design: HairDesign, head_joint: u32) -> R
         RenderAssetUsages::default(),
     )
     .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, cap.positions.clone())
+    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, cap.normals.clone())
     .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, cap.texcoords.clone())
-    .with_inserted_attribute(
-        Mesh::ATTRIBUTE_COLOR,
-        scalp_shade::colors(design, &cap.opacity),
-    )
+    .with_inserted_attribute(Mesh::ATTRIBUTE_TANGENT, cap.tangents.clone())
+    .with_inserted_attribute(Mesh::ATTRIBUTE_COLOR, scalp_shade::colors(&cap.opacity))
     .with_inserted_attribute(
         Mesh::ATTRIBUTE_JOINT_INDEX,
         VertexAttributeValues::Uint16x4(vec![[head, 0, 0, 0]; count]),
@@ -161,11 +169,20 @@ pub(super) fn atlas_image(hair: &PlacedHair) -> Image {
     mip_image(&hair.atlas_levels())
 }
 
-/// The scalp's baked texture with its mip chain, shade as grey, sampled
-/// anisotropically: its strands lie along the scalp, which the eye meets
+/// The scalp's baked textures with their mip chains, sampled
+/// anisotropically: their strands lie along the scalp, which the eye meets
 /// at every angle round the head.
-pub(super) fn scalp_image(hair: &PlacedHair) -> Image {
-    let mut image = mip_image(hair.scalp_texture());
+pub(super) fn scalp_images(hair: &PlacedHair, images: &mut Assets<Image>) -> ScalpImages {
+    let texture = hair.scalp_texture();
+    ScalpImages {
+        shade: images.add(scalp_image(&texture.shade)),
+        strands: images.add(scalp_image(&texture.strands)),
+    }
+}
+
+/// One of the scalp's baked textures, `levels` its mip chain.
+pub(super) fn scalp_image(levels: &[AtlasLevel]) -> Image {
+    let mut image = mip_image(levels);
     if let ImageSampler::Descriptor(sampler) = &mut image.sampler {
         sampler.anisotropy_clamp = SCALP_ANISOTROPY;
     }

@@ -9,7 +9,7 @@ use rayon::prelude::*;
 use std::sync::Arc;
 
 use super::scalp_map::ScalpMap;
-use super::{AtlasLevel, Groom, HeadPlacement, ScalpCap, drape, scalp_texture};
+use super::{Groom, HeadPlacement, ScalpCap, ScalpTexture, drape};
 
 /// Edge of the surface-nets cells the scalp is cut from, metres: the size the
 /// hair crate's viewer and dataset grow on.
@@ -40,7 +40,7 @@ pub struct GroomedHair {
     /// Where on the scalp's texture each point of the scalp lies.
     scalp_map: ScalpMap,
     /// The hair lying on the scalp, baked into its texture.
-    scalp_texture: Arc<Vec<AtlasLevel>>,
+    scalp_texture: Arc<ScalpTexture>,
 }
 
 /// The skin hair must stay out of, in model space.
@@ -57,7 +57,7 @@ pub struct PlacedHair {
     pub(super) body: MeshCollider,
     placement: HeadPlacement,
     cap: ScalpCap,
-    scalp_texture: Arc<Vec<AtlasLevel>>,
+    scalp_texture: Arc<ScalpTexture>,
 }
 
 impl GroomedHair {
@@ -69,7 +69,7 @@ impl GroomedHair {
         let scalp = head.scalp(SCALP_CELL);
         let strands = look.grow(&head, &scalp);
         let scalp_map = ScalpMap::fit(&head, &scalp);
-        let scalp_texture = Arc::new(scalp_texture::bake(&strands, &head, &scalp_map));
+        let scalp_texture = Arc::new(ScalpTexture::bake(&strands, &head, &scalp_map));
         Self {
             groom,
             strands,
@@ -172,10 +172,9 @@ impl PlacedHair {
         &self.cap
     }
 
-    /// The scalp's texture's mip chain, largest first: the hair lying on
-    /// it, as a share of the hair's colour, over the cap's texture
-    /// coordinates.
-    pub fn scalp_texture(&self) -> &[AtlasLevel] {
+    /// The hair lying on the scalp, baked into textures over the cap's
+    /// texture coordinates.
+    pub fn scalp_texture(&self) -> &ScalpTexture {
         &self.scalp_texture
     }
 

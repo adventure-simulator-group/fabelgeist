@@ -46,8 +46,8 @@ pub(super) struct PlacedStyle {
     pub(super) hair: PlacedHair,
     body: Arc<GeneratedCharacter>,
     atlas: Handle<Image>,
-    /// The scalp's baked texture.
-    scalp_texture: Handle<Image>,
+    /// The scalp's baked textures.
+    scalp: scalp_shade::ScalpImages,
 }
 
 struct Worker {
@@ -158,13 +158,13 @@ impl HairPreview {
             .join()
             .map_err(|_| anyhow::anyhow!("the hair worker panicked"))??;
         let atlas = images.add(assets::atlas_image(&prepared.placed));
-        let scalp_texture = images.add(assets::scalp_image(&prepared.placed));
+        let scalp = assets::scalp_images(&prepared.placed, images);
         self.grown = Some(prepared.grown);
         self.placed = Some(PlacedStyle {
             hair: prepared.placed,
             body: worker.body,
             atlas,
-            scalp_texture,
+            scalp,
         });
         Ok(())
     }

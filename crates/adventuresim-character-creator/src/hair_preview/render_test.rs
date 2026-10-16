@@ -11,15 +11,16 @@
 //! a recipe's hairstyle name, `long` when unset. `HAIR_ON_BUST=1` draws the
 //! hair on the hair crate's own bust instead, as it grew there, to
 //! `bust-<preset>-<form>-<view>.png`: what placing it on a character is
-//! measured against. Beside them it writes the scalp's baked texture,
-//! `<preset>-scalp-texture.png`. `HAIR_SHAPE` varies the preset as the Hair
-//! page does, taking the shape's recipe fields that differ from its default --
-//! for instance `{"length": 0.6, "curl": 0.5}` -- and names the images
-//! `<preset>-shaped-...`. `HAIR_PIGMENT` colours it as a recipe's pigment does
-//! -- `{"melanin": 0.1, "redness": 0.05, "dye": [0.12, 0.38, 1.0]}`, say -- and
-//! names the images `<preset>-coloured-...`. `HAIR_SHOW=scalp` or
-//! `HAIR_SHOW=hair` draws the scalp or the hair alone, as the Hair page's
-//! switches do, to `<preset>-scalp-only-...` or `<preset>-hair-only-...`.
+//! measured against. Beside them it writes the scalp's baked textures,
+//! `<preset>-scalp-texture.png` and `<preset>-scalp-strands.png`. `HAIR_SHAPE`
+//! varies the preset as the Hair page does, taking the shape's recipe fields
+//! that differ from its default -- for instance `{"length": 0.6, "curl": 0.5}`
+//! -- and names the images `<preset>-shaped-...`. `HAIR_PIGMENT` colours it as
+//! a recipe's pigment does -- `{"melanin": 0.1, "redness": 0.05, "dye": [0.12,
+//! 0.38, 1.0]}`, say -- and names the images `<preset>-coloured-...`.
+//! `HAIR_SHOW=scalp` or `HAIR_SHOW=hair` draws the scalp or the hair alone, as
+//! the Hair page's switches do, to `<preset>-scalp-only-...` or
+//! `<preset>-hair-only-...`.
 use super::*;
 use adventuresim_character_creator::hair::{HairGeometry, HairPigment, HairShape, PlacedHair};
 use adventuresim_character_creator::studio_environment;
@@ -215,7 +216,7 @@ fn hair_renders() -> Result<()> {
             .placement()
             .point(grown.head().cranium.center.to_array()),
     );
-    let mut cap = assets::cap_mesh(placed.cap(), design, placed.placement().head_joint)?;
+    let mut cap = assets::cap_mesh(placed.cap(), placed.placement().head_joint)?;
     cap.remove_attribute(Mesh::ATTRIBUTE_JOINT_INDEX);
     cap.remove_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT);
     let forms = placed.forms();
@@ -238,10 +239,13 @@ fn hair_renders() -> Result<()> {
         (false, _) => format!("{preset_name}-scalp-only"),
         (true, false) => format!("{preset_name}-hair-only"),
     };
-    let texture = placed.scalp_texture().first().context("no scalp texture")?;
-    image::RgbaImage::from_raw(texture.width, texture.height, texture.rgba.clone())
-        .context("the scalp texture's size")?
-        .save(out.join(format!("{subject_name}{preset_name}-scalp-texture.png")))?;
+    let textures = placed.scalp_texture();
+    for (name, levels) in [("texture", &textures.shade), ("strands", &textures.strands)] {
+        let texture = levels.first().context("no scalp texture")?;
+        image::RgbaImage::from_raw(texture.width, texture.height, texture.rgba.clone())
+            .context("the scalp texture's size")?
+            .save(out.join(format!("{subject_name}{preset_name}-scalp-{name}.png")))?;
+    }
 
     let skin = MeshCollider::new(
         positions
@@ -287,7 +291,8 @@ fn hair_renders() -> Result<()> {
         body: Some(body),
         cap: Some(cap),
         atlas: Some(assets::atlas_image(&placed)),
-        scalp_texture: Some(assets::scalp_image(&placed)),
+        scalp_shade: Some(assets::scalp_image(&placed.scalp_texture().shade)),
+        scalp_strands: Some(assets::scalp_image(&placed.scalp_texture().strands)),
         hairs,
         design,
         center,
@@ -328,7 +333,8 @@ struct Stage {
     body: Option<Mesh>,
     cap: Option<Mesh>,
     atlas: Option<Image>,
-    scalp_texture: Option<Image>,
+    scalp_shade: Option<Image>,
+    scalp_strands: Option<Image>,
     hairs: Vec<(Form, Mesh, Vec<PathBuf>)>,
     design: HairDesign,
     center: Vec3,
@@ -337,6 +343,10 @@ struct Stage {
 
 /// The body, the light, and per form its hair and a camera for each view,
 /// each form on its own render layer.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Bevy injects the stage, the captures and every asset store it fills"
+)]
 fn spawn(
     mut commands: Commands,
     mut stage: ResMut<Stage>,
@@ -344,17 +354,22 @@ fn spawn(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
     mut hair_materials: ResMut<Assets<strand_shading::HairShading>>,
+    mut scalp_materials: ResMut<Assets<scalp_shade::ScalpShading>>,
     mut images: ResMut<Assets<Image>>,
 ) {
-    let (Some(body), Some(cap), Some(atlas), Some(scalp_texture)) = (
+    let (Some(body), Some(cap), Some(atlas), Some(shade), Some(strands)) = (
         stage.body.take(),
         stage.cap.take(),
         stage.atlas.take(),
-        stage.scalp_texture.take(),
+        stage.scalp_shade.take(),
+        stage.scalp_strands.take(),
     ) else {
         return;
     };
-    let scalp_texture = images.add(scalp_texture);
+    let scalp = scalp_shade::ScalpImages {
+        shade: images.add(shade),
+        strands: images.add(strands),
+    };
     let atlas = images.add(atlas);
     let environment = images.add(studio_environment::studio_environment());
     let every_layer = RenderLayers::from_layers(&(0..=stage.hairs.len()).collect::<Vec<_>>());
@@ -366,7 +381,7 @@ fn spawn(
     ));
     commands.spawn((
         Mesh3d(meshes.add(cap)),
-        MeshMaterial3d(materials.add(scalp_shade::material(scalp_texture))),
+        MeshMaterial3d(scalp_materials.add(scalp_shade::material(stage.design, &scalp))),
         stage.shown.visibility(HairLayer::Scalp),
         every_layer.clone(),
     ));
