@@ -5,8 +5,9 @@ use std::ops::RangeInclusive;
 
 use crate::{DesignError, GenerateError, Millimeters, Permille, TextileColor};
 
-/// Circumferential samples; shared by construction and the fitted hull profile.
-pub const SKIRT_RING_SEGMENTS: usize = 96;
+/// Circumferential samples, shared with the fitted hull. This retains four
+/// samples per fold at 24 repeats with half the cloth reserved for a front panel.
+pub const SKIRT_RING_SEGMENTS: usize = 192;
 /// Axial samples include both the waist and hem.
 pub const SKIRT_AXIAL_SEGMENTS: usize = 32;
 
@@ -22,7 +23,7 @@ pub struct SkirtDesign {
     pub puff_and_slash: Option<crate::PuffAndSlashPattern>,
     /// Height above the pelvis landmark in the canonical fitting frame.
     pub waist_rise: Millimeters,
-    /// Hip-to-ankle reach: 1000 ends at the ankle landmark.
+    /// Hip-to-ankle reach: 1000 ends at the ankle; larger values extend the hem.
     pub length: Permille,
     /// Share of the skirt over which the waist opens into its hanging profile.
     pub fitted_fraction: Permille,
@@ -111,7 +112,7 @@ impl Default for SkirtDesign {
 
 impl SkirtDesign {
     pub const WAIST_RISE_RANGE: RangeInclusive<u16> = 0..=200;
-    pub const LENGTH_RANGE: RangeInclusive<u16> = 100..=1000;
+    pub const LENGTH_RANGE: RangeInclusive<u16> = 100..=1200;
     pub const FITTED_FRACTION_RANGE: RangeInclusive<u16> = 100..=500;
     pub const CLEARANCE_RANGE: RangeInclusive<u16> = 1..=30;
     pub const THICKNESS_RANGE: RangeInclusive<u16> = 1..=6;

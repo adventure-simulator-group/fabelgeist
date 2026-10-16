@@ -22,7 +22,7 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
         ui,
         &mut design.length,
         SkirtDesign::LENGTH_RANGE,
-        "Length (hip to ankle)",
+        "Length (100% reaches ankle)",
     );
     changed |= proportion(
         ui,

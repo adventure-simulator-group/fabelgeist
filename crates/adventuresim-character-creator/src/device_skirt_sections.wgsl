@@ -7,10 +7,12 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     let bounds = vec2<f32>(y - HALF_WIDTH, y + HALF_WIDTH);
     let first = section * params.capacity;
     var count = 0u;
+    var lowest = 3.402823e38;
     for (var face = 0u; face < params.face_count; face++) {
         for (var corner = 0u; corner < 3u; corner++) {
             let a = host_local(f, positions_at(faces[face * 3u + corner]));
             let b = host_local(f, positions_at(faces[face * 3u + (corner + 1u) % 3u]));
+            lowest = min(lowest, a.y);
             if (a.y >= bounds.x && a.y <= bounds.y) {
                 sample_set(first + count, a.xz); count++;
             }
@@ -22,7 +24,18 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
             }
         }
     }
-    if (count < 3u) { atomicOr(&status[0], 1u); return; }
+    if (count < 3u) {
+        // A floor-length hem may hang below the entire wearer. There is no
+        // anatomical enclosure there; the authored carrier supplies its shape.
+        if (bounds.y < lowest) {
+            let output = FIRST_SECTION + section * SECTION_WORDS;
+            for (var column = 0u; column < RADII; column++) {
+                fit[output + column] = params.allowance;
+            }
+            return;
+        }
+        atomicOr(&status[0], 1u); return;
+    }
     // A skirt encloses its suspension axis too. This keeps forward/backward
     // displaced ankle sections representable around the common waist axis.
     sample_set(first + count, vec2<f32>(0.0)); count++;
