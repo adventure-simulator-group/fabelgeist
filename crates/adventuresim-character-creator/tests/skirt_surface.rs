@@ -191,3 +191,39 @@ fn folds_and_supports_are_independent_closed_constructions() -> Result<()> {
     );
     Ok(())
 }
+
+#[test]
+fn a_quiet_front_preserves_the_carrier_while_gathers_shape_the_rear() -> Result<()> {
+    use fabelgeist_armor::{Millimeters, SkirtPleats, SkirtRepeatCount};
+    let gpu = ArmorGpu::open()?;
+    let plain = generate(&gpu, &SkirtDesign::default())?;
+    for count in [4, 24] {
+        let gathered = generate(
+            &gpu,
+            &SkirtDesign {
+                pleats: Some(SkirtPleats {
+                    count: SkirtRepeatCount(count),
+                    depth: Millimeters(70),
+                    waist_depth: Millimeters(30),
+                    front_panel: Permille(500),
+                    front_depth: Permille(0),
+                    rotation: Permille(250),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            },
+        )?;
+        assert_eq!(gathered.indices, plain.indices);
+        assert!(gathered.positions.iter().flatten().all(|v| v.is_finite()));
+        assert!(gathered.normals.iter().flatten().all(|v| v.is_finite()));
+        // Native lattice fixture: row descends, column zero faces +Z. Compare
+        // an interior front point and its opposite, away from thickened rims.
+        let front = SKIRT_AXIAL_SEGMENTS / 2 * SKIRT_RING_SEGMENTS;
+        let rear = front + SKIRT_RING_SEGMENTS / 2;
+        for axis in 0..3 {
+            assert!((gathered.positions[front][axis] - plain.positions[front][axis]).abs() < 1e-6);
+        }
+        assert!(gathered.positions[rear][2] < plain.positions[rear][2] - 0.01);
+    }
+    Ok(())
+}
