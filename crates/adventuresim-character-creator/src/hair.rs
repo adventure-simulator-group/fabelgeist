@@ -14,15 +14,14 @@ mod gpu;
 mod groom;
 mod placement;
 mod scalp_map;
-mod scalp_texture;
 mod shape;
 
 pub use cap::ScalpCap;
 pub use geometry::{AtlasLevel, HairGeometry};
 pub use gpu::HairGpu;
+pub use gpu::ScalpTexture;
 pub use groom::{BodySurface, GroomedHair, PlacedHair};
 pub use placement::{HeadPlacement, HeadPlacementError, HeadSkin};
-pub use scalp_texture::ScalpTexture;
 pub use shape::{
     CLUMPING, CURL, FRIZZ, Groom, HairShape, LENGTH, PART, ShapeKnobs, ShapeRangeError, VOLUME,
     WAVE,

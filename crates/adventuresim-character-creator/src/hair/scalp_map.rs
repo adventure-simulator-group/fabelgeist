@@ -34,14 +34,14 @@ const AXIS_STEPS: usize = 64;
 #[derive(Clone, Copy, Debug)]
 pub(super) struct ScalpMap {
     /// The point the map is projected about: the cranium's centre.
-    center: Vec3,
+    pub(crate) center: Vec3,
     /// The map's axis, and the directions square to it the texture's sides
     /// run along: towards the face, and towards the head's side.
-    axis: Vec3,
-    forward: Vec3,
-    side: Vec3,
+    pub(crate) axis: Vec3,
+    pub(crate) forward: Vec3,
+    pub(crate) side: Vec3,
     /// The sine of half the angle from the axis the map reaches.
-    rim: f32,
+    pub(crate) rim: f32,
     /// About how much skin a texel's side covers, metres, at `size` texels
     /// a side.
     texel_per_side: f32,
