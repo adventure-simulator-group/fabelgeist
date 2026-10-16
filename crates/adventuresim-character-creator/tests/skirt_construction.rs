@@ -11,7 +11,7 @@ use fabelgeist_armor::{
 use fabelgeist_gpu::prelude::BufferUpload;
 use std::collections::{BTreeMap, BTreeSet};
 
-fn joined_fixture(gpu: &ArmorGpu, body_width: f32) -> Result<BuiltPart> {
+fn joined_fixture(gpu: &ArmorGpu, body_width: f32, front_drop: f32) -> Result<BuiltPart> {
     // Native fitted-frame fixture: metres, Y up, square cloned torso above a
     // circular skirt. The waist has fewer vertices than the skirt's ring.
     let mut fit = vec![
@@ -37,7 +37,7 @@ fn joined_fixture(gpu: &ArmorGpu, body_width: f32) -> Result<BuiltPart> {
         });
     }
     for point in 0..8 + SKIRT_RING_SEGMENTS {
-        let (angle, height) = if point < 8 {
+        let (angle, mut height) = if point < 8 {
             (
                 std::f32::consts::TAU * (point % 4) as f32 / 4.0,
                 if point < 4 { 0.45 } else { 0.75 },
@@ -48,6 +48,9 @@ fn joined_fixture(gpu: &ArmorGpu, body_width: f32) -> Result<BuiltPart> {
                 0.45,
             )
         };
+        if !(4..8).contains(&point) {
+            height -= front_drop * angle.cos().max(0.0);
+        }
         let first = SKIRT_FIT_WORDS as usize + point * SKIRT_ATTACHMENT_POINT_WORDS as usize;
         fit[first..first + 6].copy_from_slice(&[
             angle.sin() * 0.16 * body_width,
@@ -65,7 +68,10 @@ fn joined_fixture(gpu: &ArmorGpu, body_width: f32) -> Result<BuiltPart> {
         waist,
     };
     let design = SkirtDesign {
-        bodice: Some(Default::default()),
+        bodice: Some(fabelgeist_armor::DressBodice {
+            transition: fabelgeist_armor::Permille(20),
+            ..Default::default()
+        }),
         ..Default::default()
     };
     let mut batch = gpu.batch("continuous dress integration");
@@ -110,15 +116,18 @@ fn assert_closed_connected(part: &BuiltPart) {
 #[test]
 fn cloned_body_and_skirt_are_one_closed_surface_with_fixed_refit_topology() -> Result<()> {
     let gpu = ArmorGpu::open()?;
-    let reference = joined_fixture(&gpu, 1.0)?;
-    let wider = joined_fixture(&gpu, 1.2)?;
-    assert_eq!(reference.indices, wider.indices);
-    assert_eq!(reference.positions.len(), wider.positions.len());
-    assert_ne!(reference.positions, wider.positions);
-    for part in [&reference, &wider] {
+    let reference = joined_fixture(&gpu, 1.0, 0.0)?;
+    for (width, drop) in [(1.2, 0.0), (1.0, 0.2), (1.2, 0.2)] {
+        let part = joined_fixture(&gpu, width, drop)?;
+        assert_eq!(reference.indices, part.indices);
+        assert_eq!(reference.positions.len(), part.positions.len());
+        assert_ne!(reference.positions, part.positions);
         assert!(part.positions.iter().flatten().all(|v| v.is_finite()));
         assert!(part.normals.iter().flatten().all(|v| v.is_finite()));
-        assert_closed_connected(part);
+        assert_closed_connected(&part);
+        let hem = SKIRT_AXIAL_SEGMENTS - 1;
+        let ring = &part.positions[hem * SKIRT_RING_SEGMENTS..(hem + 1) * SKIRT_RING_SEGMENTS];
+        assert!(ring.iter().all(|p| (p[1] + 0.45).abs() < 1e-6));
     }
     Ok(())
 }

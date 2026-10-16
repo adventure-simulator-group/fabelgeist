@@ -22,6 +22,12 @@ pub struct SkirtPleats {
     pub front_depth: Permille,
     /// Fold depth at the gathered waist, independent of lower-skirt depth.
     pub waist_depth: Millimeters,
+    /// Fine gathers near the waist, separate from the broader hanging falls.
+    pub waist_count: SkirtRepeatCount,
+    /// Skirt reach over which fine waist gathers relax into broad falls.
+    pub gather_falloff: Permille,
+    /// Fine fold depth retained below the waist-gather relaxation region.
+    pub gather_retention: Permille,
     /// Circumference reserved for a quiet central front panel.
     pub front_panel: Permille,
 }
@@ -72,6 +78,9 @@ impl Default for SkirtPleats {
             rotation: Permille(0),
             front_depth: Permille::ONE,
             waist_depth: Millimeters(6),
+            waist_count: SkirtRepeatCount(36),
+            gather_falloff: Permille(400),
+            gather_retention: Permille(0),
             front_panel: Permille(0),
         }
     }
@@ -79,10 +88,13 @@ impl Default for SkirtPleats {
 
 impl SkirtPleats {
     pub const COUNT_RANGE: RangeInclusive<u8> = 4..=24;
-    pub const DEPTH_RANGE: RangeInclusive<u16> = 5..=70;
+    pub const DEPTH_RANGE: RangeInclusive<u16> = 5..=160;
     pub const FRONT_DEPTH_RANGE: RangeInclusive<u16> = 0..=1000;
     pub const WAIST_DEPTH_RANGE: RangeInclusive<u16> = 0..=30;
+    pub const WAIST_COUNT_RANGE: RangeInclusive<u8> = 8..=48;
+    pub const GATHER_FALLOFF_RANGE: RangeInclusive<u16> = 100..=700;
     pub const FRONT_PANEL_RANGE: RangeInclusive<u16> = 0..=500;
+    pub const GATHER_RETENTION_RANGE: RangeInclusive<u16> = 0..=1000;
 
     pub fn validate(&self) -> Result<(), GenerateError> {
         if !Self::COUNT_RANGE.contains(&self.count.0)
@@ -90,6 +102,9 @@ impl SkirtPleats {
             || self.rotation.0 > Permille::ONE.0
             || !Self::FRONT_DEPTH_RANGE.contains(&self.front_depth.0)
             || !Self::WAIST_DEPTH_RANGE.contains(&self.waist_depth.0)
+            || !Self::WAIST_COUNT_RANGE.contains(&self.waist_count.0)
+            || !Self::GATHER_FALLOFF_RANGE.contains(&self.gather_falloff.0)
+            || !Self::GATHER_RETENTION_RANGE.contains(&self.gather_retention.0)
             || !Self::FRONT_PANEL_RANGE.contains(&self.front_panel.0)
         {
             return Err(DesignError::ParametricParameters.into());

@@ -197,6 +197,7 @@ pub(super) fn component_materials(
             shell.plate_edges = &[];
         }
         if let Some(textile) = &component.textile {
+            shell.textile_finish = Some(textile.finish);
             shell.textures =
                 adventuresim_character_creator::textile_surface::textures(textile)?.map(Into::into);
         }
@@ -210,6 +211,7 @@ pub(super) fn rigged_clothing<'a>(
 ) -> RiggedShell<'a> {
     let specification = &shell.specification;
     RiggedShell {
+        textile_finish: None,
         surface: None,
         plate_edges: &[],
         textures: None,
@@ -238,6 +240,7 @@ pub(super) fn rigged_armor<'a>(
     targets: &'a [RiggedMorphTarget<'a>],
 ) -> RiggedArmor<'a> {
     let shell = |name, faces, hinge| RiggedShell {
+        textile_finish: None,
         plate_edges: &[],
         surface: None,
         textures: None,

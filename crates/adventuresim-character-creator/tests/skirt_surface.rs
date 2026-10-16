@@ -54,6 +54,78 @@ fn hem_radius(part: &BuiltPart) -> f32 {
 }
 
 #[test]
+fn tailored_folds_repeat_evenly_and_keep_the_hem_level() -> Result<()> {
+    use fabelgeist_armor::{Millimeters, SkirtPleats, SkirtRepeatCount};
+    let gpu = ArmorGpu::open()?;
+    let design = SkirtDesign {
+        fitted_fraction: Permille(20),
+        pleats: Some(SkirtPleats {
+            count: SkirtRepeatCount(12),
+            depth: Millimeters(140),
+            waist_count: SkirtRepeatCount(36),
+            waist_depth: Millimeters(30),
+            gather_retention: Permille(850),
+            ..Default::default()
+        }),
+        ..Default::default()
+    };
+    let tailored = generate(&gpu, &design)?;
+    let repeat_columns = SKIRT_RING_SEGMENTS / 12;
+    for row in [4, 16, SKIRT_AXIAL_SEGMENTS] {
+        let ring = &tailored.positions[row * SKIRT_RING_SEGMENTS..(row + 1) * SKIRT_RING_SEGMENTS];
+        for column in 0..SKIRT_RING_SEGMENTS {
+            let a = ring[column];
+            let b = ring[(column + repeat_columns) % SKIRT_RING_SEGMENTS];
+            assert!((a[0].hypot(a[2]) - b[0].hypot(b[2])).abs() < 2e-6);
+            assert!((a[1] - b[1]).abs() < 1e-7);
+        }
+    }
+    // At maximum gather count, half-width quiet front and quarter-repeat
+    // phase, the native lattice must retain peaks rather than alias flat.
+    let mut dense = design.clone();
+    let pleats = dense.pleats.as_mut().unwrap();
+    pleats.waist_count = SkirtRepeatCount(48);
+    pleats.front_panel = Permille(500);
+    pleats.rotation = Permille(250);
+    let gathered = generate(&gpu, &dense)?;
+    dense.pleats.as_mut().unwrap().waist_depth = Millimeters(0);
+    let ungathered = generate(&gpu, &dense)?;
+    let row = 4 * SKIRT_RING_SEGMENTS;
+    let differences = (SKIRT_RING_SEGMENTS / 2..SKIRT_RING_SEGMENTS / 2 + 8)
+        .map(|column| {
+            let a = gathered.positions[row + column];
+            let b = ungathered.positions[row + column];
+            a[0].hypot(a[2]) - b[0].hypot(b[2])
+        })
+        .collect::<Vec<_>>();
+    let low = differences.iter().copied().fold(f32::INFINITY, f32::min);
+    let high = differences
+        .iter()
+        .copied()
+        .fold(f32::NEG_INFINITY, f32::max);
+    assert!(
+        high - low > 0.02,
+        "dense gathers aliased into a constant offset"
+    );
+    for half_height in [0.005, 0.45] {
+        let part = generate_in_span(&gpu, &dense, half_height)?;
+        assert!(
+            part.positions
+                .iter()
+                .chain(&part.normals)
+                .flatten()
+                .all(|v| v.is_finite())
+        );
+        for triangle in part.indices.as_chunks::<3>().0 {
+            let [a, b, c] =
+                triangle.map(|index| bevy::math::Vec3::from_array(part.positions[index as usize]));
+            assert!((b - a).cross(c - a).length_squared() > 1e-18);
+        }
+    }
+    Ok(())
+}
+
+#[test]
 fn straight_and_bell_carriers_keep_correspondence_and_distinct_silhouettes() -> Result<()> {
     let gpu = ArmorGpu::open()?;
     let straight = generate(

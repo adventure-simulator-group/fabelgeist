@@ -21,7 +21,8 @@ pub use skirt_structure::{
 };
 pub use textile_pattern::{
     MAX_TEXTILE_LAYERS, TextileAppearance, TextileAxis, TextileFill, TextileFinish, TextileLayer,
-    TextileLayers, TextileMotif, TextileRegion, TextileRepeatCount, TextileSpan,
+    TextileLayers, TextileMotif, TextileOffset, TextilePatternSpace, TextileRegion,
+    TextileRepeatCount, TextileSpan,
 };
 pub use textile_raster::TextilePixels;
 mod tiling;
@@ -104,7 +105,7 @@ pub use error::{GenerateError, PlateShellFailure};
 
 pub const SCHEMA_VERSION: u16 = 1;
 /// Identifies mesh-generation behavior in review and equipment manifests.
-pub const GENERATOR_VERSION: u16 = 26;
+pub const GENERATOR_VERSION: u16 = 27;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {

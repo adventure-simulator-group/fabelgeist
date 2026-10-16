@@ -70,6 +70,7 @@ impl ShellTextures {
 
 #[derive(Default)]
 pub(super) struct TextureImages {
+    uses_textile_finish: bool,
     images: Vec<Value>,
     textures: Vec<Value>,
     shared_files: Option<BTreeMap<String, Vec<u8>>>,
@@ -109,6 +110,9 @@ impl TextureImages {
     }
 
     pub fn finish(self, output: GlbOutput<'_>, document: &mut Value) -> Result<()> {
+        if self.uses_textile_finish {
+            document["extensionsUsed"] = json!(["KHR_materials_specular"]);
+        }
         if let Some(files) = self.shared_files {
             let directory = output
                 .path()
@@ -169,6 +173,16 @@ impl TextureImages {
             material["alphaMode"] = "MASK".into();
             material["alphaCutoff"] = 0.5.into();
         }
+    }
+
+    pub fn apply_textile_finish(
+        &mut self,
+        finish: fabelgeist_armor::TextileFinish,
+        material: &mut Value,
+    ) {
+        self.uses_textile_finish = true;
+        material["extensions"]["KHR_materials_specular"] =
+            json!({"specularFactor":finish.specular_factor()});
     }
 
     pub fn apply_shell_textures(

@@ -1,7 +1,8 @@
 //! Garment-independent colored fabric layers in a normalized cloth chart.
 //!
 //! Across runs around a garment; along runs from its proximal edge to its hem
-//! or cuff. Regions use the whole chart; motif repeats use their region's chart.
+//! or cuff. Regions clip the whole chart; motifs can repeat within each region
+//! or through one continuous garment chart.
 use serde::{Deserialize, Serialize};
 
 use crate::{DesignError, GenerateError, Permille, TextileColor};
@@ -28,6 +29,14 @@ pub struct TextileLayer {
     pub color: TextileColor,
 }
 
+/// Translation in repeat-tile units, before alternating-row staggering.
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct TextileOffset {
+    pub across: Permille,
+    pub along: Permille,
+}
+
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub enum TextileFinish {
     Linen,
@@ -40,6 +49,14 @@ pub enum TextileFinish {
 pub enum TextileAxis {
     Across,
     Along,
+}
+
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+pub enum TextilePatternSpace {
+    /// Rescale the ornament within its bounded region.
+    Region,
+    /// Clip one continuous fabric pattern through any number of regions.
+    Garment,
 }
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
@@ -79,12 +96,14 @@ pub enum TextileFill {
         phase: Permille,
     },
     Motifs {
+        space: TextilePatternSpace,
         motif: TextileMotif,
         across: TextileRepeatCount,
         along: TextileRepeatCount,
         scale: Permille,
         rotation: Permille,
         stagger: Permille,
+        offset: TextileOffset,
     },
 }
 
@@ -104,6 +123,11 @@ pub enum TextileMotif {
     Scrollwork {
         branches: TextileRepeatCount,
         curl: Permille,
+    },
+    /// Upright nested flowers and veined foliage on a curved stem.
+    Damask {
+        leaf_pairs: TextileRepeatCount,
+        spread: Permille,
     },
 }
 
@@ -135,6 +159,18 @@ impl TextileAppearance {
             TextileFinish::Velvet => 0.78,
         };
         material
+    }
+}
+
+impl TextileFinish {
+    /// Native PBR adapter: velvet is a diffuse approximation without the
+    /// default white glossy lobe. Other finishes retain standard dielectric
+    /// specularity. Directional fiber sheen is not represented here.
+    pub fn specular_factor(self) -> f32 {
+        match self {
+            Self::Velvet => 0.0,
+            Self::Linen | Self::Wool | Self::Silk => 1.0,
+        }
     }
 }
 
@@ -180,6 +216,8 @@ impl TextileFill {
                 scale,
                 rotation,
                 stagger,
+                offset,
+                ..
             } => {
                 motif.validate()?;
                 repeat(*across)
@@ -187,6 +225,8 @@ impl TextileFill {
                     && (100..=1000).contains(&scale.0)
                     && share(*rotation)
                     && share(*stagger)
+                    && share(offset.across)
+                    && share(offset.along)
             }
         };
         if !valid {
@@ -201,7 +241,7 @@ impl TextileMotif {
         let valid = match self {
             Self::Lozenge => true,
             Self::Rosette { petals } => (3..=12).contains(&petals.0),
-            Self::Palmette { leaf_pairs, spread } => {
+            Self::Palmette { leaf_pairs, spread } | Self::Damask { leaf_pairs, spread } => {
                 (1..=5).contains(&leaf_pairs.0) && (250..=1000).contains(&spread.0)
             }
             Self::Scrollwork { branches, curl } => {

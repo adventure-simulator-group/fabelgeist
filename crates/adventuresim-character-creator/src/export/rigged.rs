@@ -20,6 +20,7 @@ pub struct RiggedMesh<'a> {
 }
 
 pub struct RiggedShell<'a> {
+    pub textile_finish: Option<fabelgeist_armor::TextileFinish>,
     /// Physical plate boundaries, separate from UV seams.
     pub plate_edges: &'a [[u32; 2]],
     /// Baked plate maps and the UVs that read them.

@@ -84,6 +84,7 @@ impl<'a> CompactShell<'a> {
 
     pub(super) fn rigged<'b>(&'b self, targets: &'b [RiggedMorphTarget<'b>]) -> RiggedShell<'b> {
         RiggedShell {
+            textile_finish: self.source.textile_finish,
             surface: self.source.surface,
             plate_edges: &self.plate_edges,
             textures: self.source.textures.clone(),

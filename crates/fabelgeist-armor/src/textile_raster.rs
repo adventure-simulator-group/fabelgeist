@@ -28,6 +28,10 @@ impl TextileAppearance {
                     motif: TextileMotif::Scrollwork { branches, curl },
                     ..
                 } => Some(BotanicalTile::new(branches.0, curl.unit())),
+                TextileFill::Motifs {
+                    motif: TextileMotif::Damask { leaf_pairs, spread },
+                    ..
+                } => Some(BotanicalTile::damask(leaf_pairs.0, spread.unit())),
                 _ => None,
             })
             .collect::<Vec<_>>();
@@ -56,7 +60,7 @@ impl TextileAppearance {
         let mut color = self.color;
         for (layer, tile) in self.layers.0.iter().zip(tiles) {
             if let Some(local) = layer.region.chart(chart)
-                && layer.fill.covers(local, tile.as_ref())
+                && layer.fill.covers(local, chart, tile.as_ref())
             {
                 color = layer.color;
             }
@@ -104,7 +108,7 @@ impl TextileSpan {
 }
 
 impl TextileFill {
-    fn covers(&self, point: [f32; 2], tile: Option<&BotanicalTile>) -> bool {
+    fn covers(&self, point: [f32; 2], garment: [f32; 2], tile: Option<&BotanicalTile>) -> bool {
         match self {
             Self::Solid => true,
             Self::Stripes {
@@ -117,16 +121,23 @@ impl TextileFill {
                 position.rem_euclid(1.0) < width.unit()
             }
             Self::Motifs {
+                space,
                 motif,
                 across,
                 along,
                 scale,
                 rotation,
                 stagger,
+                offset,
             } => {
-                let row = point[1] * f32::from(along.0);
-                let x =
-                    point[0] * f32::from(across.0) + row.floor().rem_euclid(2.0) * stagger.unit();
+                let point = match space {
+                    crate::TextilePatternSpace::Region => point,
+                    crate::TextilePatternSpace::Garment => garment,
+                };
+                let row = point[1] * f32::from(along.0) + offset.along.unit();
+                let x = point[0] * f32::from(across.0)
+                    + offset.across.unit()
+                    + row.floor().rem_euclid(2.0) * stagger.unit();
                 let local = [
                     (x.rem_euclid(1.0) - 0.5) / scale.unit(),
                     (row.rem_euclid(1.0) - 0.5) / scale.unit(),
@@ -147,7 +158,9 @@ impl TextileMotif {
                 point[0].hypot(point[1]) < radius
             }
             Self::Palmette { leaf_pairs, spread } => palmette(point, leaf_pairs.0, spread.unit()),
-            Self::Scrollwork { .. } => tile.is_some_and(|tile| tile.covers(point)),
+            Self::Scrollwork { .. } | Self::Damask { .. } => {
+                tile.is_some_and(|tile| tile.covers(point))
+            }
         }
     }
 }

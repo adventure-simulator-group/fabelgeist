@@ -28,6 +28,7 @@ pub fn material(
         ),
         metallic: surface.metallic,
         perceptual_roughness: surface.roughness,
+        reflectance: 0.5 * fabric.finish.specular_factor(),
         ..Default::default()
     };
     if !fabric.layers.0.is_empty() {
