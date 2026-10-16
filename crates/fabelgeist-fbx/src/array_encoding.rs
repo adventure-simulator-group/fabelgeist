@@ -11,6 +11,10 @@ pub(super) struct FbxArrayEncodingCode(u32);
 impl FbxArrayEncodingCode {
     const UNCOMPRESSED: Self = Self(0);
 
+    pub(super) fn from_le_bytes(bytes: [u8; size_of::<u32>()]) -> Self {
+        Self(u32::from_le_bytes(bytes))
+    }
+
     pub(super) fn is_uncompressed(self) -> bool {
         self == Self::UNCOMPRESSED
     }

@@ -18,17 +18,21 @@ use std::io::Read;
 
 use anyhow::{Context, Result, anyhow, bail};
 use array_encoding::FbxArrayEncodingCode;
+use array_layout::{FbxArrayCount, FbxArrayPayloadLength};
 use binary_layout::{
     BINARY_MAGIC_PREFIX, FILE_HEADER_BYTES, FILE_VERSION_OFFSET, FbxVersion, HeaderFormat,
 };
 use flate2::read::ZlibDecoder;
+use property_tag::FbxPropertyTag;
 
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
 
 pub mod animation;
 
 mod array_encoding;
+mod array_layout;
 mod binary_layout;
+mod property_tag;
 
 /// One node record of the FBX tree.
 #[derive(Debug, Clone)]
@@ -237,15 +241,32 @@ impl<'a> Reader<'a> {
     }
 
     fn u8(&mut self) -> Result<u8> {
-        Ok(self.take(1)?[0])
+        Ok(u8::from_le_bytes(self.take_array()?))
     }
 
     fn u32(&mut self) -> Result<u32> {
-        Ok(u32::from_le_bytes(self.take(4)?.try_into().unwrap()))
+        Ok(u32::from_le_bytes(self.take_array()?))
     }
 
     fn u64(&mut self) -> Result<u64> {
-        Ok(u64::from_le_bytes(self.take(8)?.try_into().unwrap()))
+        Ok(u64::from_le_bytes(self.take_array()?))
+    }
+
+    fn take_array<const WIDTH: usize>(&mut self) -> Result<[u8; WIDTH]> {
+        let mut bytes = [0; WIDTH];
+        bytes.copy_from_slice(self.take(WIDTH)?);
+        Ok(bytes)
+    }
+
+    fn array<T: Copy, const WIDTH: usize>(
+        &mut self,
+        parse: impl Fn([u8; WIDTH]) -> T,
+    ) -> Result<Vec<T>> {
+        let count = FbxArrayCount::from_le_bytes(self.take_array()?);
+        let encoding = FbxArrayEncodingCode::from_le_bytes(self.take_array()?);
+        let payload_length = FbxArrayPayloadLength::from_le_bytes(self.take_array()?);
+        let raw = self.take(payload_length.native_len())?;
+        decode_array(raw, count, encoding, parse)
     }
 
     /// Node headers went 32-bit -> 64-bit in FBX 7500.
@@ -419,92 +440,62 @@ pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
     Ok(roots)
 }
 
-fn decode_array<T: Copy>(
+fn decode_array<T: Copy, const WIDTH: usize>(
     raw: &[u8],
-    count: usize,
+    count: FbxArrayCount,
     encoding: FbxArrayEncodingCode,
-    parse: impl Fn(&[u8]) -> T,
-    width: usize,
+    parse: impl Fn([u8; WIDTH]) -> T,
 ) -> Result<Vec<T>> {
     let bytes = if encoding.is_uncompressed() {
         raw.to_vec()
     } else {
-        let mut out = Vec::with_capacity(count * width);
+        let mut out = Vec::with_capacity(count.native_byte_len::<WIDTH>());
         ZlibDecoder::new(raw)
             .read_to_end(&mut out)
             .context("inflating FBX array property")?;
         out
     };
-    if bytes.len() < count * width {
+    if bytes.len() < count.native_byte_len::<WIDTH>() {
         bail!(
-            "FBX array property is short: {} bytes for {count} x {width}",
-            bytes.len()
+            "FBX array property is short: {} bytes for {} x {WIDTH}",
+            bytes.len(),
+            count.native_len()
         );
     }
-    Ok((0..count)
-        .map(|i| parse(&bytes[i * width..(i + 1) * width]))
+    Ok((0..count.native_len())
+        .map(|i| {
+            let mut element = [0; WIDTH];
+            element.copy_from_slice(&bytes[i * WIDTH..(i + 1) * WIDTH]);
+            parse(element)
+        })
         .collect())
 }
 
 fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
     let mut props = Vec::with_capacity(count);
     for _ in 0..count {
-        let kind = reader.u8()?;
+        let kind = FbxPropertyTag::try_from(reader.u8()?)
+            .map_err(|error| anyhow!("unknown FBX property type {:?}", char::from(error.input)))?;
         let prop = match kind {
-            b'Y' => Prop::I16(i16::from_le_bytes(reader.take(2)?.try_into().unwrap())),
-            b'C' => Prop::Bool(reader.u8()? != 0),
-            b'I' => Prop::I32(i32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
-            b'F' => Prop::F32(f32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
-            b'D' => Prop::F64(f64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
-            b'L' => Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
-            b'f' | b'd' | b'l' | b'i' | b'b' => {
-                let count = reader.u32()? as usize;
-                // FBX array metadata stores encoding as a little-endian u32.
-                // Admit that wire word before passing it to array decoding.
-                let encoding = FbxArrayEncodingCode::from(reader.u32()?);
-                let compressed_len = reader.u32()? as usize;
-                let raw = reader.take(compressed_len)?;
-                match kind {
-                    b'f' => Prop::ArrF32(decode_array(
-                        raw,
-                        count,
-                        encoding,
-                        |b| f32::from_le_bytes(b.try_into().unwrap()),
-                        4,
-                    )?),
-                    b'd' => Prop::ArrF64(decode_array(
-                        raw,
-                        count,
-                        encoding,
-                        |b| f64::from_le_bytes(b.try_into().unwrap()),
-                        8,
-                    )?),
-                    b'i' => Prop::ArrI32(decode_array(
-                        raw,
-                        count,
-                        encoding,
-                        |b| i32::from_le_bytes(b.try_into().unwrap()),
-                        4,
-                    )?),
-                    b'l' => Prop::ArrI64(decode_array(
-                        raw,
-                        count,
-                        encoding,
-                        |b| i64::from_le_bytes(b.try_into().unwrap()),
-                        8,
-                    )?),
-                    _ => Prop::ArrBool(decode_array(raw, count, encoding, |b| b[0], 1)?),
-                }
-            }
-            b'S' => {
+            FbxPropertyTag::Integer16 => Prop::I16(i16::from_le_bytes(reader.take_array()?)),
+            FbxPropertyTag::Boolean => Prop::Bool(reader.u8()? != 0),
+            FbxPropertyTag::Integer32 => Prop::I32(i32::from_le_bytes(reader.take_array()?)),
+            FbxPropertyTag::Float32 => Prop::F32(f32::from_le_bytes(reader.take_array()?)),
+            FbxPropertyTag::Float64 => Prop::F64(f64::from_le_bytes(reader.take_array()?)),
+            FbxPropertyTag::Integer64 => Prop::I64(i64::from_le_bytes(reader.take_array()?)),
+            FbxPropertyTag::ArrayFloat32 => Prop::ArrF32(reader.array(f32::from_le_bytes)?),
+            FbxPropertyTag::ArrayFloat64 => Prop::ArrF64(reader.array(f64::from_le_bytes)?),
+            FbxPropertyTag::ArrayInteger32 => Prop::ArrI32(reader.array(i32::from_le_bytes)?),
+            FbxPropertyTag::ArrayInteger64 => Prop::ArrI64(reader.array(i64::from_le_bytes)?),
+            FbxPropertyTag::ArrayBoolean => Prop::ArrBool(reader.array(u8::from_le_bytes)?),
+            FbxPropertyTag::String => {
                 let len = reader.u32()? as usize;
                 Prop::Str(reader.take(len)?.to_vec())
             }
-            b'R' => {
+            FbxPropertyTag::RawBytes => {
                 let len = reader.u32()? as usize;
                 Prop::Raw(reader.take(len)?.to_vec())
             }
-            other => bail!("unknown FBX property type {:?}", other as char),
         };
         props.push(prop);
     }
@@ -567,3 +558,5 @@ fn qualified_name(raw: &[u8]) -> String {
 mod array_encoding_tests;
 #[cfg(test)]
 mod binary_layout_tests;
+#[cfg(test)]
+mod property_tag_tests;
