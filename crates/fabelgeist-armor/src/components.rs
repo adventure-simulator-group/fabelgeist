@@ -19,6 +19,8 @@ pub enum ArmorComponentRole {
     JointExtension,
     OuterFabric,
     Undercloth,
+    Lining,
+    Interlining,
     Boning,
     Hoops,
 }
@@ -39,6 +41,8 @@ impl ArmorComponentRole {
             Self::JointExtension => "joint_extension",
             Self::OuterFabric => "outer_fabric",
             Self::Undercloth => "undercloth",
+            Self::Lining => "lining",
+            Self::Interlining => "interlining",
             Self::Boning => "boning",
             Self::Hoops => "hoops",
         }
@@ -60,6 +64,8 @@ impl ArmorComponentRole {
             Self::JointExtension => "joint_extension.trim",
             Self::OuterFabric => "outer_fabric.trim",
             Self::Undercloth => "undercloth.trim",
+            Self::Lining => "lining.trim",
+            Self::Interlining => "interlining.trim",
             Self::Boning => "boning.trim",
             Self::Hoops => "hoops.trim",
         }

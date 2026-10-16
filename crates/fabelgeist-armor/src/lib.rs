@@ -1,7 +1,12 @@
 //! Deterministic, renderer-independent parametric armor fitted to canonical
 //! anatomical surface samples, and the metal it is finished in.
 
+mod bodice;
 mod construction;
+pub use bodice::{
+    BodiceDesign, BodiceInterlining, BodiceLining, BodiceNeckline, BodiceOpening,
+    InterliningCoverage, NecklineShape,
+};
 pub mod engraving;
 pub mod material;
 pub mod ornament;
@@ -105,7 +110,7 @@ pub use error::{GenerateError, PlateShellFailure};
 
 pub const SCHEMA_VERSION: u16 = 1;
 /// Identifies mesh-generation behavior in review and equipment manifests.
-pub const GENERATOR_VERSION: u16 = 27;
+pub const GENERATOR_VERSION: u16 = 28;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {

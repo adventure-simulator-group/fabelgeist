@@ -1953,6 +1953,34 @@
       }
     },
     {
+      "id": "linen_bodice",
+      "display_name": "Fitted linen bodice",
+      "weight_kg": 0.4,
+      "exterior_volume_ml": 450,
+      "base_value": 18,
+      "tags": ["clothing"],
+      "presentation": {"icon": "shirt"},
+      "kind": "clothing",
+      "equipment": {
+        "material": "linen",
+        "physical": {"dimensions_m": [0.4, 0.45, 0.25], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, 0.1, 0.0]},
+        "placements": [{
+          "id": "worn",
+          "occupancy": [
+            {"location": "chest", "channel": "base_clothing"},
+            {"location": "back", "channel": "base_clothing"},
+            {"location": "stomach", "channel": "base_clothing"}
+          ],
+          "protection": ["chest", "stomach"],
+          "surface": [{"regions": ["stomach", "chest"], "anchor": "proximal", "coverage": 0.8}]
+        }],
+        "protection": {"resistance": 2, "padding": 4, "flexibility": 1, "range_of_motion": 0.98}
+      },
+      "capabilities": {
+        "durability": {"quality": 1, "yield_j": 12, "fracture_j": 35, "wear": 0.2, "failure_share": 0.8, "edge_sensitivity": 0, "handling_sensitivity": 0.5}
+      }
+    },
+    {
       "id": "linen_dress",
       "display_name": "Linen dress",
       "weight_kg": 1.2,

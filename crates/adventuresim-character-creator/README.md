@@ -333,8 +333,23 @@ Large fullness with many courses on a short skirt can produce shelf-like
 forms. The controls permit this stylization; finite topology does not establish
 plausible fabric construction across every combination.
 
+The catalog's **Fitted linen bodice** uses a separate `BodiceDesign`. Choose a
+square or round neckline, front and back drop, and independent armhole width
+and depth. Front or back openings have separate waist and neckline widths.
+The upper width must fit within the neckline. A round neckline rejects an
+opening flare that would meet it below the requested upper endpoint.
+
+Face cloth, lining and interlining remain separate mesh components. The
+interlining can cover the whole bodice, as in a supportive underdress, or form
+opening-edge and neck facings. Each sheet has its own thickness and shared
+parametric fabric controls. Set body clearance to leave room for other garments.
+This fitted sleeveless primitive does not include sleeves, collars, lacing,
+sewn skirt attachment or cloth simulation. See the
+[layered Cranach construction target](../fabelgeist-armor/review/textiles/cranach-construction.md)
+for the reference's separate garments and hidden construction.
+
 Fabric appearance is independent of construction. Skirts, joined dresses,
-puffed sleeves and hose share a base color, linen/wool/silk/velvet roughness,
+fitted bodices, puffed sleeves and hose share a base color, linen/wool/silk/velvet roughness,
 and up to twelve ordered color layers. Velvet uses a diffuse approximation
 without the default white glossy lobe. Each layer covers the whole fabric, a
 band, or a bounded panel. Fill it with a solid color, stripes, or repeating
