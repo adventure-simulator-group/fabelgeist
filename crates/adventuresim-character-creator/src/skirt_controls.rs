@@ -10,8 +10,13 @@ mod structure;
 
 pub(super) fn show(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
     let mut changed = bodice(ui, &mut design.bodice);
-    changed |= structure::show(ui, design);
     changed |= treatment(ui, &mut design.puff_and_slash);
+    changed |= hanging(ui, design);
+    changed
+}
+
+pub(super) fn hanging(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
+    let mut changed = structure::show(ui, design);
     changed |= number(
         ui,
         &mut design.waist_rise.0,

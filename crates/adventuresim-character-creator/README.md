@@ -348,6 +348,20 @@ sewn skirt attachment or cloth simulation. See the
 [layered Cranach construction target](../fabelgeist-armor/review/textiles/cranach-construction.md)
 for the reference's separate garments and hidden construction.
 
+The **Sleeveless linen gown** uses `GownDesign` to sew a complete fitted
+bodice to a hanging skirt. The joined face shares a physical waist boundary;
+material copies retain identical positions, normals, skin and morph endpoints.
+Bodice and skirt fabrics have separate pattern charts. The lining and
+interlining remain complete upper sheets behind the face cloth.
+
+The bodice hem and skirt waist must have the same rise and cloth thickness.
+The editor keeps those shared values together. An uncut waist band beneath
+the front or back opening keeps the sewn waist continuous. The skirt cannot
+also supply its minimal upper band or a puff-and-slash treatment. Collars,
+sleeves, fastening hardware, an opening skirt slit and cloth dynamics remain
+separate construction work; this primitive alone is not a complete reference
+outfit.
+
 Fabric appearance is independent of construction. Skirts, joined dresses,
 fitted bodices, puffed sleeves and hose share a base color, linen/wool/silk/velvet roughness,
 and up to twelve ordered color layers. Velvet uses a diffuse approximation

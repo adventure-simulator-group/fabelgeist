@@ -69,13 +69,7 @@ impl DeviceWearer<'_> {
         ensure!(!support.faces.is_empty(), "skirt has no body support");
         let status = self.record_skirt_profile(batch, design, &fit, &support)?;
         if let Some(plan) = attachment {
-            self.record_skirt_attachment(
-                batch,
-                &fit,
-                plan,
-                design.clearance.metres() + design.thickness.metres(),
-                &status,
-            )?;
+            self.record_skirt_attachment(batch, &fit, plan, plan.offset_metres, &status)?;
         }
         // The profile must be written before the coordinate kernel reads it.
         let part = record_skirt(
@@ -137,11 +131,9 @@ impl DeviceWearer<'_> {
         let faces = gpu.upload(BufferUpload::from_elements(&support.faces))?;
         let bytes = u64::from(capacity) * u64::from(sections) * 8;
         let samples = gpu.scratch(bytes, "skirt section samples")?;
-        let hulls = gpu.scratch(bytes, "skirt section hulls")?;
         let status = gpu.upload(BufferUpload::from_elements(&[0u32]))?;
         let source = format!(
-            "const SECTIONS: u32 = {sections}u;\nconst RADII: u32 = {SKIRT_RING_SEGMENTS}u;\nconst FIRST_SECTION: u32 = {SKIRT_PROFILE_FIRST_WORD}u;\nconst SECTION_WORDS: u32 = {SKIRT_SECTION_WORDS}u;\nconst HALF_WIDTH: f32 = {SECTION_HALF_WIDTH_M};\n{}\n{}",
-            include_str!("device_section_hull.wgsl"),
+            "const SECTIONS: u32 = {sections}u;\nconst RADII: u32 = {SKIRT_RING_SEGMENTS}u;\nconst FIRST_SECTION: u32 = {SKIRT_PROFILE_FIRST_WORD}u;\nconst SECTION_WORDS: u32 = {SKIRT_SECTION_WORDS}u;\nconst HALF_WIDTH: f32 = {SECTION_HALF_WIDTH_M};\n{}",
             include_str!("device_skirt_sections.wgsl"),
         );
         dispatch(
@@ -153,7 +145,6 @@ impl DeviceWearer<'_> {
                 read("positions", &positions),
                 read_u32("faces", &faces),
                 write("samples", &samples),
-                write("hulls", &hulls),
                 atomic("status", &status),
             ],
             &[

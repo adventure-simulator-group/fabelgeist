@@ -409,7 +409,8 @@
     "Skirt": {
       "bodice": {
         "height": 800,
-        "transition": 150
+        "transition": 150,
+        "front_point": 0
       },
       "puff_and_slash": null,
       "pleats": null,
@@ -1050,6 +1051,79 @@
       "sleeve_length": 1000,
       "patch_width": 80,
       "cuts": []
+    }
+  },
+  "linen_gown": {
+    "Gown": {
+      "bodice": {
+        "neckline": {
+          "shape": "Square",
+          "width": 600,
+          "front_drop": 180,
+          "back_drop": 100
+        },
+        "armhole_width": 50,
+        "armhole_depth": 110,
+        "hem_rise": 100,
+        "opening": {
+          "Front": {
+            "waist": 30,
+            "chest": 35
+          }
+        },
+        "clearance": 6,
+        "thickness": 1,
+        "fabric": {
+          "color": [
+            82,
+            57,
+            103
+          ],
+          "finish": "Linen",
+          "layers": []
+        },
+        "lining": {
+          "fabric": {
+            "color": [
+              32,
+              29,
+              28
+            ],
+            "finish": "Linen",
+            "layers": []
+          },
+          "thickness": 1
+        },
+        "interlining": null
+      },
+      "skirt": {
+        "bodice": null,
+        "puff_and_slash": null,
+        "pleats": null,
+        "support": null,
+        "waist_rise": 100,
+        "length": 850,
+        "fitted_fraction": 220,
+        "profile": {
+          "Flared": {
+            "width": 1600,
+            "depth": 1600
+          }
+        },
+        "clearance": 8,
+        "thickness": 1,
+        "fabric": {
+          "color": [
+            82,
+            57,
+            103
+          ],
+          "finish": "Linen",
+          "layers": []
+        }
+      },
+      "transition": 150,
+      "waist_band": 15
     }
   }
 }

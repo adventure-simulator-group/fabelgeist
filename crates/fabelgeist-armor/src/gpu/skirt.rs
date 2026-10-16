@@ -31,13 +31,10 @@ pub fn record_skirt(
     attachment: Option<&SkirtAttachment>,
 ) -> Result<DevicePart, GenerateError> {
     design.validate()?;
-    if design.bodice.is_some() != attachment.is_some() {
+    if design.bodice.is_some() && attachment.is_none() {
         return Err(GenerateError::InvalidSurface);
     }
-    let first_row = design
-        .bodice
-        .as_ref()
-        .map_or(0, |bodice| bodice.first_skirt_row());
+    let first_row = attachment.map_or(0, |patch| patch.first_row);
     let kernel = coordinate_kernel(gpu, include_str!("skirt.wgsl"))?;
     let mut recipe = PartRecipe::new();
     recipe.textile_chart();
@@ -50,7 +47,7 @@ pub fn record_skirt(
         },
         None,
     );
-    super::skirt_structure::append(&mut recipe, &kernel, design)?;
+    super::skirt_structure::append(&mut recipe, &kernel, design, first_row)?;
     if let Some(pattern) = &design.puff_and_slash {
         let puff_kernel = coordinate_kernel(gpu, include_str!("skirt_puff.wgsl"))?;
         super::textile_pattern::append_outer(&mut recipe, &puff_kernel, pattern, design.thickness)?;
@@ -114,10 +111,7 @@ fn carrier(
 ) -> Result<CoordShell, GenerateError> {
     let mut coords = Vec::new();
     let mut indices = Vec::new();
-    let first_row = design
-        .bodice
-        .as_ref()
-        .map_or(0, |bodice| bodice.first_skirt_row());
+    let first_row = attachment.map_or(0, |patch| patch.first_row);
     for row in first_row..=SKIRT_AXIAL_SEGMENTS {
         for column in 0..SKIRT_RING_SEGMENTS {
             coords.push([column as f32, row as f32, 0.0, 0.0]);

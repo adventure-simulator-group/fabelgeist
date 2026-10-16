@@ -28,7 +28,7 @@ pub fn attach(
     armor: &mut GeneratedArmor,
 ) -> Result<()> {
     let (joint, roles): (_, &[_]) = match design {
-        ParametricDesign::Skirt(_) => (
+        ParametricDesign::Skirt(_) | ParametricDesign::Gown(_) => (
             RigJointName::ROOT,
             &[ArmorComponentRole::Boning, ArmorComponentRole::Hoops],
         ),
