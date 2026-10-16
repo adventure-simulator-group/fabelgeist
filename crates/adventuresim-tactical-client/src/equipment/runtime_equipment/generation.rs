@@ -183,7 +183,12 @@ impl RuntimeEquipmentBodyCache {
         });
     }
 
-    fn finish(&mut self, meshes: &mut Assets<Mesh>, materials: &mut Assets<StandardMaterial>) {
+    fn finish(
+        &mut self,
+        meshes: &mut Assets<Mesh>,
+        materials: &mut Assets<StandardMaterial>,
+        images: &mut Assets<Image>,
+    ) {
         let Some(pending) = self.pending.as_mut() else {
             return;
         };
@@ -192,15 +197,17 @@ impl RuntimeEquipmentBodyCache {
         };
         let PendingFit { key, .. } = self.pending.take().expect("completed fit");
         let result = result
-            .map(|generated| CachedEquipment {
-                sockets: sockets::garment_sockets(
-                    &self.bodies[&key.shape].body,
-                    &generated,
-                    &key.item,
-                ),
-                parts: equipment_parts(&generated, &key.item, meshes, materials),
-                rigid_center: referenced_center(&generated),
-                generated: Arc::new(generated),
+            .and_then(|generated| {
+                Ok(CachedEquipment {
+                    sockets: sockets::garment_sockets(
+                        &self.bodies[&key.shape].body,
+                        &generated,
+                        &key.item,
+                    ),
+                    parts: equipment_parts(&generated, &key.item, meshes, materials, images)?,
+                    rigid_center: referenced_center(&generated),
+                    generated: Arc::new(generated),
+                })
             })
             .map_err(|error| format!("{error:#}"));
         if let Err(error) = &result {
@@ -251,6 +258,7 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
+    mut images: ResMut<Assets<Image>>,
     mut bindposes: ResMut<Assets<SkinnedMeshInverseBindposes>>,
     mut cache: ResMut<RuntimeEquipmentBodyCache>,
     presentations: Query<(
@@ -269,7 +277,7 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
     )>,
     characters: Query<(&CharacterId, Option<&CharacterSkeletalProportions>)>,
 ) {
-    cache.finish(&mut meshes, &mut materials);
+    cache.finish(&mut meshes, &mut materials, &mut images);
     let outfits = layers::outfits(presentations.iter().filter_map(|(_, presentation, ..)| {
         let (owner, scene, _, slot) = items.get(presentation.item).ok()?;
         let owner = owner.filter(|_| !scene && holding_side(slot).is_none())?;

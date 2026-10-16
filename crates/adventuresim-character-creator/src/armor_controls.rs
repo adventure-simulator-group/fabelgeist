@@ -10,6 +10,8 @@ mod limb;
 mod puff_pattern;
 #[path = "skirt_controls.rs"]
 mod skirt;
+#[path = "textile_controls.rs"]
+mod textile;
 
 /// The mail coif's shape controls, for the draped chainmail coif.
 pub(super) fn coif(ui: &mut egui::Ui, design: &mut fabelgeist_armor::CoifDesign) -> bool {

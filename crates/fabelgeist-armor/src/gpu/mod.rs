@@ -51,6 +51,7 @@ mod skirt;
 mod skirt_attachment;
 mod skirt_structure;
 pub mod staging;
+mod textile_chart;
 mod textile_pattern;
 pub mod wgsl;
 pub mod wrapped_tassets;

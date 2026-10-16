@@ -315,8 +315,9 @@ Enable puff-and-slash treatment to add puffed courses over a continuous lining.
 Skirts, dresses, sleeves and hose share the same pattern controls, panel
 construction and fullness profile. Edit course count, fullness and taper,
 roundness, constriction bands, slash count, opening dimensions, rotation and
-both textile colors. Turn off open slashes for closed puffed cloth; turn off the
-treatment for plain cloth. Treatment can accompany either pleats or supports.
+both textile appearances. Turn off open slashes for closed puffed cloth; turn
+off the treatment for plain cloth. Treatment can accompany either pleats or
+supports.
 On dresses it covers the hanging section; the fitted upper section and waist
 transition remain continuous lining. These controls describe construction, not
 forces, cloth dynamics or collision response. Skinning and movement clipping
@@ -324,6 +325,26 @@ remain provisional until cloth physics is implemented.
 Large fullness with many courses on a short skirt can produce shelf-like
 forms. The controls permit this stylization; finite topology does not establish
 plausible fabric construction across every combination.
+
+Fabric appearance is independent of construction. Skirts, joined dresses,
+puffed sleeves and hose share a base color, linen/wool/silk/velvet roughness,
+and up to twelve ordered color layers. Each layer covers the whole fabric, a
+band, or a bounded panel. Fill it with a solid color, stripes, or repeating
+lozenges, rosettes, palmettes or curved foliage. Repeat count, scale, rotation
+and alternate-row offset control the arrangement; botanical controls change
+the leaves or scrolling branches. These are stylized parametric ornaments,
+not certified reconstructions of historical textiles.
+
+Across runs around the garment, with a rear seam; along runs from its proximal
+edge to the hem or cuff. A joined dress uses the entire continuous surface for
+this chart. Layer intervals are percentages of that chart, so a hem band can
+be reused at a cuff. The chart is frozen across body morphs and is independent
+of anatomical correspondence used for fitting and skinning. Shading vertices
+at its wrap seam retain the same positions, skin weights and morph endpoints.
+The creator and runtime share the same sRGB color-map baker; exported GLBs
+include those maps and repeat around the garment while clamping at its ends.
+This supplies flat color ornament and surface roughness, without simulated
+weave, embroidery relief, metallic thread or velvet's directional sheen.
 
 ## Draped chainmail
 

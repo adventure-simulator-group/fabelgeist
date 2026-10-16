@@ -3,7 +3,10 @@
 use serde::{Deserialize, Serialize};
 use std::ops::RangeInclusive;
 
-use crate::{DesignError, GenerateError, Millimeters, Permille, TextileColor};
+use crate::{
+    DesignError, GenerateError, Millimeters, Permille, TextileAppearance, TextileColor,
+    TextileFinish,
+};
 
 /// Circumferential samples, shared with the fitted hull. This retains four
 /// samples per fold at 24 repeats with half the cloth reserved for a front panel.
@@ -30,7 +33,7 @@ pub struct SkirtDesign {
     pub profile: SkirtProfile,
     pub clearance: Millimeters,
     pub thickness: Millimeters,
-    pub color: TextileColor,
+    pub fabric: TextileAppearance,
 }
 
 /// Minimal continuous dress upper section. Necklines, sleeves and corsetry
@@ -105,7 +108,7 @@ impl Default for SkirtDesign {
             },
             clearance: Millimeters(8),
             thickness: Millimeters(2),
-            color: TextileColor([82, 57, 103]),
+            fabric: TextileAppearance::solid(TextileColor([82, 57, 103]), TextileFinish::Wool),
         }
     }
 }
@@ -118,6 +121,7 @@ impl SkirtDesign {
     pub const THICKNESS_RANGE: RangeInclusive<u16> = 1..=6;
 
     pub fn validate(&self) -> Result<(), GenerateError> {
+        self.fabric.validate()?;
         if let Some(pattern) = &self.puff_and_slash {
             pattern.validate()?;
         }

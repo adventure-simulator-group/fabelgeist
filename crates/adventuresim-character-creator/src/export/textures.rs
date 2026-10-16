@@ -29,6 +29,15 @@ pub struct SurfaceTextures {
     /// Linear ambient visibility, read from the red channel by glTF and Bevy.
     pub occlusion_png: Option<Vec<u8>>,
     pub cutout: bool,
+    pub sampling: SurfaceSampling,
+}
+
+/// Addressing follows the physical chart: a tile repeats both axes; a wrapped
+/// garment repeats around its seam and clamps at its hem and proximal edge.
+#[derive(Clone, Copy)]
+pub enum SurfaceSampling {
+    Tile,
+    WrappedGarment,
 }
 
 pub struct ShellTextures {
@@ -75,7 +84,12 @@ impl TextureImages {
         }
     }
 
-    fn image(&mut self, bytes: &[u8], buffer: &mut BufferBuilder) -> usize {
+    fn image(
+        &mut self,
+        bytes: &[u8],
+        buffer: &mut BufferBuilder,
+        sampling: SurfaceSampling,
+    ) -> usize {
         let index = self.images.len();
         let source = if let Some(files) = &mut self.shared_files {
             let filename = format!("texture-{}.png", blake3::hash(bytes).to_hex());
@@ -85,7 +99,12 @@ impl TextureImages {
             json!({"bufferView":buffer.push(bytes, None),"mimeType":"image/png"})
         };
         self.images.push(source);
-        self.textures.push(json!({"source":index}));
+        let sampler = match sampling {
+            SurfaceSampling::Tile => 0,
+            SurfaceSampling::WrappedGarment => 1,
+        };
+        self.textures
+            .push(json!({"source":index,"sampler":sampler}));
         index
     }
 
@@ -120,6 +139,11 @@ impl TextureImages {
         if !self.images.is_empty() {
             document["images"] = json!(self.images);
             document["textures"] = json!(self.textures);
+            // glTF native sampler constants; linear filtering matches preview.
+            document["samplers"] = json!([
+                {"wrapS":10497,"wrapT":10497,"magFilter":9729,"minFilter":9729},
+                {"wrapS":10497,"wrapT":33071,"magFilter":9729,"minFilter":9729}
+            ]);
         }
         Ok(())
     }
@@ -131,14 +155,14 @@ impl TextureImages {
         material: &mut Value,
     ) {
         if let Some(bytes) = maps.base_color_png {
-            let color = self.image(&bytes, buffer);
+            let color = self.image(&bytes, buffer, maps.sampling);
             material["pbrMetallicRoughness"]["baseColorFactor"] = json!([1.0, 1.0, 1.0, 1.0]);
             material["pbrMetallicRoughness"]["baseColorTexture"] = json!({"index":color});
         }
-        let normal = self.image(&maps.normal_png, buffer);
+        let normal = self.image(&maps.normal_png, buffer, maps.sampling);
         material["normalTexture"] = json!({"index":normal});
         if let Some(bytes) = maps.occlusion_png {
-            let occlusion = self.image(&bytes, buffer);
+            let occlusion = self.image(&bytes, buffer, maps.sampling);
             material["occlusionTexture"] = json!({"index":occlusion,"strength":1.0});
         }
         if maps.cutout {
@@ -157,8 +181,9 @@ impl TextureImages {
         let (normal, metal_roughness) = if let Some(&cached) = self.shell_cache.get(&key) {
             cached
         } else {
-            let normal = self.image(&textures.normal_png, buffer);
-            let metal_roughness = self.image(&textures.metal_roughness_png, buffer);
+            let normal = self.image(&textures.normal_png, buffer, SurfaceSampling::Tile);
+            let metal_roughness =
+                self.image(&textures.metal_roughness_png, buffer, SurfaceSampling::Tile);
             self.shell_cache.insert(key, (normal, metal_roughness));
             (normal, metal_roughness)
         };

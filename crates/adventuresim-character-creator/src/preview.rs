@@ -70,10 +70,15 @@ pub(super) fn lacing_material(cord: &fabelgeist_armor::Lacing) -> StandardMateri
 }
 
 /// Spawn each surface of a piece, and its trim band when it has one.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Bevy asset stores and spawn context are borrowed independently"
+)]
 pub(super) fn spawn_armor(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
+    images: &mut Assets<Image>,
     armor: &GeneratedArmor,
     name: String,
     shading: ArmorShading<'_>,
@@ -90,7 +95,7 @@ pub(super) fn spawn_armor(
         };
         // A component with its own material, such as leather straps, is not
         // shaded as the piece's plate.
-        let own = surface
+        let mut own = surface
             .component
             .and_then(|index| armor.components[index].material)
             .map(|surface| {
@@ -102,6 +107,14 @@ pub(super) fn spawn_armor(
                     ..default()
                 }
             });
+        if let Some(textile) = surface
+            .component
+            .and_then(|index| armor.components[index].textile.as_ref())
+        {
+            own = Some(adventuresim_character_creator::textile_surface::material(
+                textile, images,
+            )?);
+        }
         let mut parts = vec![(
             part_name.clone(),
             surface.plate,

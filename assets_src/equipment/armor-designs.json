@@ -13,7 +13,11 @@
       "kind": "ArmingDoublet",
       "clearance": 4,
       "thickness": 1,
-      "color": [117, 106, 80],
+      "color": [
+        117,
+        106,
+        80
+      ],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -368,10 +372,23 @@
       "waist_rise": 100,
       "length": 850,
       "fitted_fraction": 220,
-      "profile": {"Flared": {"width": 1600, "depth": 1600}},
+      "profile": {
+        "Flared": {
+          "width": 1600,
+          "depth": 1600
+        }
+      },
       "clearance": 8,
       "thickness": 2,
-      "color": [82, 57, 103]
+      "fabric": {
+        "color": [
+          82,
+          57,
+          103
+        ],
+        "finish": "Linen",
+        "layers": []
+      }
     }
   },
   "linen_dress": {
@@ -394,11 +411,15 @@
       },
       "clearance": 8,
       "thickness": 2,
-      "color": [
-        82,
-        57,
-        103
-      ]
+      "fabric": {
+        "color": [
+          82,
+          57,
+          103
+        ],
+        "finish": "Linen",
+        "layers": []
+      }
     }
   },
   "mail_chausses": {
@@ -473,7 +494,11 @@
       "kind": "MailVoiders",
       "clearance": 6,
       "thickness": 1,
-      "color": [196, 198, 198],
+      "color": [
+        196,
+        198,
+        198
+      ],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -533,7 +558,11 @@
       "kind": "PaddedHose",
       "clearance": 1,
       "thickness": 2,
-      "color": [117, 106, 80],
+      "color": [
+        117,
+        106,
+        80
+      ],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -570,16 +599,24 @@
         "slash_length": 700,
         "constriction_width": 110,
         "rotation": 50,
-        "outer_color": [
-          145,
-          30,
-          24
-        ],
-        "undercloth_color": [
-          224,
-          178,
-          48
-        ]
+        "outer_fabric": {
+          "color": [
+            145,
+            30,
+            24
+          ],
+          "finish": "Wool",
+          "layers": []
+        },
+        "undercloth_fabric": {
+          "color": [
+            224,
+            178,
+            48
+          ],
+          "finish": "Silk",
+          "layers": []
+        }
       }
     }
   },
@@ -589,8 +626,16 @@
       "thickness": 2,
       "length": 1000,
       "panel_count": 8,
-      "primary_color": [150, 33, 29],
-      "secondary_color": [48, 78, 35]
+      "primary_color": [
+        150,
+        33,
+        29
+      ],
+      "secondary_color": [
+        48,
+        78,
+        35
+      ]
     }
   },
   "split_hose": {
@@ -610,16 +655,24 @@
         "slash_length": 700,
         "constriction_width": 40,
         "rotation": 0,
-        "outer_color": [
-          150,
-          33,
-          29
-        ],
-        "undercloth_color": [
-          150,
-          33,
-          29
-        ]
+        "outer_fabric": {
+          "color": [
+            150,
+            33,
+            29
+          ],
+          "finish": "Wool",
+          "layers": []
+        },
+        "undercloth_fabric": {
+          "color": [
+            150,
+            33,
+            29
+          ],
+          "finish": "Silk",
+          "layers": []
+        }
       }
     }
   },
@@ -640,16 +693,24 @@
         "slash_length": 700,
         "constriction_width": 120,
         "rotation": 0,
-        "outer_color": [
-          145,
-          30,
-          24
-        ],
-        "undercloth_color": [
-          224,
-          178,
-          48
-        ]
+        "outer_fabric": {
+          "color": [
+            145,
+            30,
+            24
+          ],
+          "finish": "Wool",
+          "layers": []
+        },
+        "undercloth_fabric": {
+          "color": [
+            224,
+            178,
+            48
+          ],
+          "finish": "Silk",
+          "layers": []
+        }
       }
     }
   },
@@ -934,7 +995,11 @@
       "kind": "MailBrayette",
       "clearance": 6,
       "thickness": 1,
-      "color": [196, 198, 198],
+      "color": [
+        196,
+        198,
+        198
+      ],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -946,7 +1011,11 @@
       "kind": "MailKneeVoider",
       "clearance": 6,
       "thickness": 1,
-      "color": [196, 198, 198],
+      "color": [
+        196,
+        198,
+        198
+      ],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -958,7 +1027,11 @@
       "kind": "MailStandard",
       "clearance": 6,
       "thickness": 1,
-      "color": [196, 198, 198],
+      "color": [
+        196,
+        198,
+        198
+      ],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,

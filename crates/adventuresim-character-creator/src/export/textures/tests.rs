@@ -14,6 +14,7 @@ fn maps() -> SurfaceTextures {
                 .to_vec(),
         ),
         cutout: true,
+        sampling: crate::export::SurfaceSampling::Tile,
     }
 }
 
@@ -80,6 +81,7 @@ fn normal_only_material_preserves_its_authored_metal_properties() {
     normal_only.base_color_png = None;
     normal_only.occlusion_png = None;
     normal_only.cutout = false;
+    normal_only.sampling = SurfaceSampling::WrappedGarment;
     export_equipment_with_maps(&path, normal_only, [0.25, 0.5, 0.75, 1.0], 0.8, 0.2).unwrap();
 
     let parsed = gltf::Gltf::from_slice(&fs::read(&path).unwrap()).unwrap();
@@ -91,6 +93,16 @@ fn normal_only_material_preserves_its_authored_metal_properties() {
     assert_eq!(pbr.roughness_factor(), 0.2);
     assert!(material.normal_texture().is_some());
     assert_eq!(parsed.images().count(), 1);
+    for texture in parsed.textures() {
+        assert_eq!(
+            texture.sampler().wrap_s(),
+            gltf::texture::WrappingMode::Repeat
+        );
+        assert_eq!(
+            texture.sampler().wrap_t(),
+            gltf::texture::WrappingMode::ClampToEdge
+        );
+    }
 
     let image_uri = match parsed.images().next().unwrap().source() {
         gltf::image::Source::Uri { uri, .. } => uri.to_owned(),
