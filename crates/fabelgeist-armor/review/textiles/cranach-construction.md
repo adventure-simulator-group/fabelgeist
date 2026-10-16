@@ -52,11 +52,20 @@ openings, sewn panels, gathered fabric, facings, bands, ties and closures.
 Do not put the maker's name or photographic coordinates into fitting code.
 
 `BodiceDesign` describes fitted sleeveless cloth. A frozen Boolean cut retains
-body-triangle correspondence across refits. Face fabric, full lining and full or local
-interlining are independently thickened components with their own parametric
+body-triangle correspondence across refits. Face fabric, full lining and full
+or local interlining are independently thickened components with their own parametric
 textiles. Armhole reach and depth are independent of the neckline. An opening
 cuts every layer. This primitive does not itself represent a complete chemise,
 an open-sided partlet, a paned sleeve or an assembled gown.
+
+`GownDesign` sews this full upper face into the hanging skirt before shell
+thickening. Both sides of the waist share physical vertices; their later
+material copies retain the same positions, normals, skin and morph endpoints.
+The bodice and skirt have separate fabric charts. Hidden upper lining and
+stiffening remain independent sheets. The current join has a shared cloth
+gauge and an uncut band below the bodice opening. It does not yet model the
+maker's opening linen waistband, skirt slit or front fastenings. Those details
+remain required for the complete reconstruction.
 
 Keep authored folds evenly repeated and hems level. Cloth simulation will add
 irregularity later. Do not bake the photographs' accidental wrinkles into the

@@ -11,6 +11,8 @@ pub(crate) const TRANSITION_RINGS: usize = 4;
 /// GPU topology boundary. Body triangles use patch-local vertex indices;
 /// waist vertices are ordered by increasing radians around the fitted Y axis.
 pub struct SkirtAttachment {
+    /// First hanging skirt row after the sewn waist transition.
+    pub first_row: usize,
     pub point_count: u32,
     pub indices: Vec<u32>,
     pub waist: Vec<SkirtWaistVertex>,
@@ -27,7 +29,9 @@ impl SkirtAttachment {
         coords: &mut Vec<[f32; 4]>,
         indices: &mut Vec<u32>,
     ) -> Result<(), GenerateError> {
-        if self.point_count == 0
+        if self.first_row == 0
+            || self.first_row >= crate::SKIRT_AXIAL_SEGMENTS
+            || self.point_count == 0
             || self.waist.len() < 3
             || self.indices.iter().any(|&i| i >= self.point_count)
             || self

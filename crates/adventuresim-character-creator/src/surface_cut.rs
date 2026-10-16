@@ -23,7 +23,7 @@ pub struct SourcePoint {
     pub weights: [f32; 3],
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct SurfaceCut {
     pub points: Vec<SourcePoint>,
     pub faces: Vec<[u32; 3]>,

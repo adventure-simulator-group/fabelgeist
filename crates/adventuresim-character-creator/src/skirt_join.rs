@@ -13,6 +13,13 @@ pub(crate) struct SkirtJoinPlan {
     pub table: Vec<u32>,
     /// Native source-point pair and f32 interpolation bits per angular column.
     pub samples: Vec<u32>,
+    pub offset_metres: f32,
+}
+
+/// Native sewing boundary in canonical upright metres and skirt row indices.
+pub(crate) struct SewnWaist {
+    pub first_row: usize,
+    pub offset_metres: f32,
 }
 
 impl SkirtJoinPlan {
@@ -63,12 +70,43 @@ impl SkirtJoinPlan {
                 )
             })
             .collect::<Vec<_>>();
-        let mut borders = cut.boundary_loops(&reference)?;
+        let borders = cut.boundary_loops(&reference)?;
         ensure!(
             borders.len() == 2,
             "dress upper patch must have a waist and upper opening"
         );
+        Self::from_cut(
+            cut,
+            body,
+            hips,
+            head,
+            SewnWaist {
+                first_row: bodice.first_skirt_row(),
+                offset_metres: design.clearance.metres() + design.thickness.metres(),
+            },
+        )
+    }
+
+    pub fn from_cut(
+        cut: SurfaceCut,
+        body: &Wearer<'_>,
+        hips: &PartFrame,
+        head: &PartFrame,
+        seam: SewnWaist,
+    ) -> Result<Self> {
+        let reference = cut
+            .points
+            .iter()
+            .map(|point| {
+                interpolate(
+                    body.faces[point.triangle].map(|v| body.positions[v as usize]),
+                    point.weights,
+                )
+            })
+            .collect::<Vec<_>>();
+        let mut borders = cut.boundary_loops(&reference)?;
         borders.sort_by(|a, b| mean_height(a, &reference).total_cmp(&mean_height(b, &reference)));
+        ensure!(!borders.is_empty(), "sewn upper has no waist boundary");
         let mut waist = borders
             .remove(0)
             .into_iter()
@@ -98,8 +136,10 @@ impl SkirtJoinPlan {
         );
         let samples = angular_samples(&waist);
         Ok(Self {
+            offset_metres: seam.offset_metres,
             table: cut.source_table(body.faces, body.faces),
             patch: SkirtAttachment {
+                first_row: seam.first_row,
                 point_count: u32::try_from(cut.points.len())?,
                 indices: cut.faces.into_iter().flatten().collect(),
                 waist,

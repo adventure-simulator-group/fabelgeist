@@ -63,6 +63,7 @@ fn joined_fixture(gpu: &ArmorGpu, body_width: f32, front_drop: f32) -> Result<Bu
     }
     let frame = gpu.upload(BufferUpload::from_elements(&fit))?;
     let attachment = SkirtAttachment {
+        first_row: 1,
         point_count: 8,
         indices,
         waist,

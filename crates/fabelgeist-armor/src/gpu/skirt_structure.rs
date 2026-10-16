@@ -11,14 +11,12 @@ pub(super) fn append(
     recipe: &mut PartRecipe,
     kernel: &CoordKernel,
     design: &SkirtDesign,
+    first_row: usize,
 ) -> Result<(), GenerateError> {
     let Some(support) = &design.support else {
         return Ok(());
     };
-    let first = design
-        .bodice
-        .as_ref()
-        .map_or(0.0, |bodice| bodice.first_skirt_row() as f32);
+    let first = first_row as f32;
     if let Some(stays) = &support.stays {
         for stay in 0..stays.count.0 {
             let column = SKIRT_RING_SEGMENTS as f32 * f32::from(stay) / f32::from(stays.count.0);

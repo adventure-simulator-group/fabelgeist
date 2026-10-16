@@ -12,13 +12,14 @@ impl DevicePiece {
         wearer: &Realization<'_>,
         design: &ParametricDesign,
     ) -> Result<()> {
-        if matches!(design, ParametricDesign::Skirt(_))
-            || matches!(design, ParametricDesign::Garment(garment) if matches!(
-                garment.kind,
-                fabelgeist_armor::GarmentArmorKind::MailSkirt
-                    | fabelgeist_armor::GarmentArmorKind::PaddedSkirt
-            ))
-        {
+        if matches!(
+            design,
+            ParametricDesign::Skirt(_) | ParametricDesign::Gown(_)
+        ) || matches!(design, ParametricDesign::Garment(garment) if matches!(
+            garment.kind,
+            fabelgeist_armor::GarmentArmorKind::MailSkirt
+                | fabelgeist_armor::GarmentArmorKind::PaddedSkirt
+        )) {
             let skin = crate::skin_transfer::SkinSource {
                 positions: wearer.positions,
                 faces: body.faces,
@@ -30,7 +31,10 @@ impl DevicePiece {
             .skirt(&self.base.positions)?;
             self.skin.joint_indices = skin.indices;
             self.skin.joint_weights = skin.weights;
-            if matches!(design, ParametricDesign::Skirt(_)) {
+            if matches!(
+                design,
+                ParametricDesign::Skirt(_) | ParametricDesign::Gown(_)
+            ) {
                 anyhow::ensure!(
                     self.skin_aliases.len() == self.base.positions.len()
                         && self

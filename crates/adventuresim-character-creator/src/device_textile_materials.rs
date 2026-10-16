@@ -1,63 +1,27 @@
 //! Textile appearance at the fitted mesh boundary; skin correspondence is done.
 use crate::armor_recipes::ParametricDesign;
-use anyhow::Result;
-use fabelgeist_armor::{ArmorComponentRole, GeneratedArmor};
+use anyhow::{Context, Result};
+use fabelgeist_armor::{
+    ArmorComponent, ArmorComponentRole, BodiceDesign, GeneratedArmor, SkirtDesign,
+    TextileAppearance,
+};
 
 pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Result<()> {
     for component in &mut armor.components {
-        let fabric = match (design, component.role) {
-            (ParametricDesign::Bodice(bodice), ArmorComponentRole::OuterFabric) => {
-                Some(&bodice.fabric)
-            }
-            (ParametricDesign::Bodice(bodice), ArmorComponentRole::Lining) => Some(
-                &bodice
-                    .lining
-                    .as_ref()
-                    .ok_or_else(|| anyhow::anyhow!("lining without a bodice lining design"))?
-                    .fabric,
-            ),
-            (ParametricDesign::Bodice(bodice), ArmorComponentRole::Interlining) => Some(
-                &bodice
-                    .interlining
-                    .as_ref()
-                    .ok_or_else(|| anyhow::anyhow!("interlining without a bodice facing design"))?
-                    .fabric,
-            ),
-            (ParametricDesign::PuffAndSlash(puff), ArmorComponentRole::Undercloth) => {
-                Some(&puff.pattern.undercloth_fabric)
-            }
-            (ParametricDesign::PuffAndSlash(puff), ArmorComponentRole::OuterFabric) => {
-                Some(&puff.pattern.outer_fabric)
-            }
-            (ParametricDesign::Skirt(skirt), ArmorComponentRole::Undercloth) => Some(
-                &skirt
-                    .puff_and_slash
-                    .as_ref()
-                    .ok_or_else(|| anyhow::anyhow!("lining without a textile construction"))?
-                    .undercloth_fabric,
-            ),
-            (ParametricDesign::Skirt(skirt), ArmorComponentRole::OuterFabric) => Some(
-                skirt
-                    .puff_and_slash
-                    .as_ref()
-                    .map_or(&skirt.fabric, |p| &p.outer_fabric),
-            ),
-            (
-                ParametricDesign::Skirt(skirt),
-                ArmorComponentRole::Boning | ArmorComponentRole::Hoops,
-            ) => {
-                component.material = Some(
-                    skirt
-                        .support
-                        .as_ref()
-                        .ok_or_else(|| {
-                            anyhow::anyhow!("support component without a support design")
-                        })?
-                        .color
-                        .material(),
-                );
-                None
-            }
+        let fabric = match design {
+            ParametricDesign::Bodice(bodice) => bodice_fabric(bodice, component.role)?,
+            ParametricDesign::Gown(gown) => match component.role {
+                ArmorComponentRole::BodiceFabric
+                | ArmorComponentRole::Lining
+                | ArmorComponentRole::Interlining => bodice_fabric(&gown.bodice, component.role)?,
+                _ => skirt_fabric(&gown.skirt, component)?,
+            },
+            ParametricDesign::Skirt(skirt) => skirt_fabric(skirt, component)?,
+            ParametricDesign::PuffAndSlash(puff) => match component.role {
+                ArmorComponentRole::Undercloth => Some(&puff.pattern.undercloth_fabric),
+                ArmorComponentRole::OuterFabric => Some(&puff.pattern.outer_fabric),
+                _ => None,
+            },
             _ => None,
         };
         if let Some(fabric) = fabric {
@@ -67,4 +31,61 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
     }
     armor.split_textile_seams()?;
     Ok(())
+}
+
+fn bodice_fabric(
+    bodice: &BodiceDesign,
+    role: ArmorComponentRole,
+) -> Result<Option<&TextileAppearance>> {
+    Ok(match role {
+        ArmorComponentRole::OuterFabric | ArmorComponentRole::BodiceFabric => Some(&bodice.fabric),
+        ArmorComponentRole::Lining => Some(
+            &bodice
+                .lining
+                .as_ref()
+                .context("lining without a bodice lining design")?
+                .fabric,
+        ),
+        ArmorComponentRole::Interlining => Some(
+            &bodice
+                .interlining
+                .as_ref()
+                .context("interlining without a bodice stiffening design")?
+                .fabric,
+        ),
+        _ => None,
+    })
+}
+
+fn skirt_fabric<'a>(
+    skirt: &'a SkirtDesign,
+    component: &mut ArmorComponent,
+) -> Result<Option<&'a TextileAppearance>> {
+    Ok(match component.role {
+        ArmorComponentRole::Undercloth => Some(
+            &skirt
+                .puff_and_slash
+                .as_ref()
+                .context("undercloth without a textile construction")?
+                .undercloth_fabric,
+        ),
+        ArmorComponentRole::OuterFabric => Some(
+            skirt
+                .puff_and_slash
+                .as_ref()
+                .map_or(&skirt.fabric, |p| &p.outer_fabric),
+        ),
+        ArmorComponentRole::Boning | ArmorComponentRole::Hoops => {
+            component.material = Some(
+                skirt
+                    .support
+                    .as_ref()
+                    .context("support component without a support design")?
+                    .color
+                    .material(),
+            );
+            None
+        }
+        _ => None,
+    })
 }
