@@ -7,7 +7,11 @@ use fabelgeist_armor::{
 
 use super::{number, textile};
 
-pub(super) fn show(ui: &mut egui::Ui, design: &mut BodiceDesign) -> bool {
+pub(super) fn show(
+    ui: &mut egui::Ui,
+    design: &mut BodiceDesign,
+    hem_range: std::ops::RangeInclusive<u16>,
+) -> bool {
     let mut changed = false;
     ui.horizontal(|ui| {
         changed |= ui
@@ -55,12 +59,7 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut BodiceDesign) -> bool {
         BodiceDesign::ARMHOLE_DEPTH_RANGE,
         "Armhole depth (mm)",
     );
-    changed |= number(
-        ui,
-        &mut design.hem_rise.0,
-        BodiceDesign::HEM_RISE_RANGE,
-        "Hem rise (mm)",
-    );
+    changed |= number(ui, &mut design.hem_rise.0, hem_range, "Hem rise (mm)");
     changed |= number(
         ui,
         &mut design.clearance.0,

@@ -264,6 +264,9 @@ pub async fn fit_recipe_async(
     let ParametricDesign::WaistAssembly(waist) = design else {
         let mut piece = fit(design).await?;
         piece.bind_flexible_textile(body, wearer, design)?;
+        if let crate::device_recipe_plan::RecipePlan::Gown(gown) = &plan {
+            gown.finish(gpu, body, wearer, morphs, &mut piece).await?;
+        }
         return Ok(piece);
     };
     let fauld = fit(&ParametricDesign::Garment(waist.fauld.clone())).await?;
@@ -441,6 +444,12 @@ fn record_recipe(
                 anyhow::bail!("bodice has no frozen construction plan");
             };
             wearer.record_bodice(batch, plan)
+        }
+        ParametricDesign::Gown(gown) => {
+            let crate::device_recipe_plan::RecipePlan::Gown(plan) = plan else {
+                anyhow::bail!("gown has no frozen sewing plan");
+            };
+            wearer.record_fitted_skirt_textile(batch, &gown.skirt, layers, Some(&plan.join))
         }
         ParametricDesign::WaistAssembly(_) => {
             anyhow::bail!("a waist assembly is fitted as its fauld and tassets")
