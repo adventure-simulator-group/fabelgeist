@@ -17,6 +17,10 @@ use crate::{GenerateError, PartFrame};
 
 pub mod anatomy;
 pub mod body;
+mod body_cloth;
+pub use body_cloth::{
+    BODY_CLOTH_FIRST_POINT, BODY_CLOTH_POINT_WORDS, BodyClothLayer, record_body_cloth,
+};
 pub mod bracer;
 mod bracer_contour_wgsl;
 mod bracer_wgsl;
