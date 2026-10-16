@@ -7,7 +7,9 @@
 use fabelgeist_armor::gpu::wgsl;
 use fabelgeist_compute::host_float;
 
-use crate::device_torso::{STATUS_COINCIDENT_LANDMARKS, STATUS_DEGENERATE_WIDTH, STATUS_NO_WIDTH};
+use fabelgeist_armor::gpu::breastplate::{
+    STATUS_COINCIDENT_LANDMARKS, STATUS_DEGENERATE_WIDTH, STATUS_NO_WIDTH,
+};
 
 /// A torso kernel's full source.
 pub(crate) fn torso_source(entry: &str) -> String {

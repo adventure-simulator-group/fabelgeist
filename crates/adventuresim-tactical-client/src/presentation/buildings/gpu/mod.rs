@@ -10,6 +10,7 @@ use bevy::{
     },
 };
 pub(in crate::presentation) use frame::CityFrame;
+pub(in crate::presentation) use retained::RetainedCityGeometry;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
@@ -19,6 +20,7 @@ mod draw;
 mod frame;
 mod geometry;
 mod material;
+mod retained;
 mod scratch;
 
 static READY: PresentationOwners<AtomicBool> =
@@ -47,6 +49,7 @@ struct CityGpuScenes {
 
 #[derive(Clone, Default)]
 struct CityGpuScene {
+    pub publication_root: Option<Entity>,
     pub frame: CityFrame,
     pub frame_buffer: Handle<ShaderBuffer>,
     pub buildings: Handle<ShaderBuffer>,
@@ -57,6 +60,9 @@ struct CityGpuScene {
 
 #[derive(Component)]
 struct CityBatchAnchor;
+
+#[derive(Component)]
+struct RetainedCityAnchor;
 
 pub(super) struct CityGpuPlugin;
 
@@ -86,10 +92,18 @@ pub(in crate::presentation) fn set_visible(
     owner: PresentationOwner,
     visible: bool,
 ) {
-    let mut anchors =
-        world.query_filtered::<(&PresentationOwner, &mut Visibility), With<CityBatchAnchor>>();
-    for (candidate, mut visibility) in anchors.iter_mut(world) {
-        if *candidate == owner {
+    let Some(scenes) = world.get_resource::<CityGpuScenes>() else {
+        return;
+    };
+    let anchors = scenes
+        .owners
+        .get(owner)
+        .batches
+        .iter()
+        .map(|batch| batch.anchor)
+        .collect::<Vec<_>>();
+    for anchor in anchors {
+        if let Some(mut visibility) = world.get_mut::<Visibility>(anchor) {
             *visibility = if visible {
                 Visibility::Inherited
             } else {
@@ -99,24 +113,25 @@ pub(in crate::presentation) fn set_visible(
     }
 }
 
-/// Drop one city's buffers and phase anchors; the other owner remains resident.
+/// Drop the active city and unretained anchors; cached cities own their lifetime.
 pub(super) fn reset(world: &mut World, owner: PresentationOwner) {
     READY.get(owner).store(false, Ordering::Relaxed);
     world.init_resource::<CityGpuScenes>();
     world.init_resource::<PendingGpuCities>();
-    *world.resource_mut::<CityGpuScenes>().owners.get_mut(owner) = Default::default();
+    let previous = std::mem::take(world.resource_mut::<CityGpuScenes>().owners.get_mut(owner));
     world
         .resource_mut::<PendingGpuCities>()
         .owners
         .get_mut(owner)
         .clear();
-    let anchors: Vec<_> = world
-        .query_filtered::<(Entity, &PresentationOwner), With<CityBatchAnchor>>()
+    previous.discard(world);
+    let anchors = world
+        .query_filtered::<(Entity, &PresentationOwner), (With<CityBatchAnchor>, Without<RetainedCityAnchor>)>()
         .iter(world)
-        .filter_map(|(entity, batch)| (*batch == owner).then_some(entity))
-        .collect();
-    for entity in anchors {
-        if let Ok(entity) = world.get_entity_mut(entity) {
+        .filter_map(|(entity, candidate)| (*candidate == owner).then_some(entity))
+        .collect::<Vec<_>>();
+    for anchor in anchors {
+        if let Ok(entity) = world.get_entity_mut(anchor) {
             entity.despawn();
         }
     }

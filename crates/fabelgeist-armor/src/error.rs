@@ -6,6 +6,8 @@ use crate::DesignError;
 
 #[derive(Debug, Error)]
 pub enum GenerateError {
+    #[error(transparent)]
+    TorsoFit(#[from] TorsoFitFailure),
     #[error("armor plate shell: {0}")]
     PlateShell(#[from] PlateShellFailure),
     #[error(
@@ -32,4 +34,17 @@ pub enum GenerateError {
 pub enum PlateShellFailure {
     #[error("a wall face is collapsed or has nonfinite coordinates")]
     CollapsedFace,
+}
+
+/// The wearer cannot provide the anatomical frame needed by a breastplate.
+#[derive(Clone, Copy, Debug, Error)]
+pub enum TorsoFitFailure {
+    #[error("torso landmarks coincide")]
+    CoincidentLandmarks,
+    #[error("front torso has no width samples")]
+    NoWidthSamples,
+    #[error("front torso width is degenerate")]
+    DegenerateWidth,
+    #[error("front torso selection is empty")]
+    EmptySelection,
 }

@@ -81,7 +81,7 @@ pub use joint_extension::JointExtension;
 pub use waist_armor::{TASSET_SUSPENSION_GAP_M, WaistArmorDesign};
 
 pub use design::*;
-pub use error::{GenerateError, PlateShellFailure};
+pub use error::{GenerateError, PlateShellFailure, TorsoFitFailure};
 
 pub const SCHEMA_VERSION: u16 = 1;
 /// Identifies mesh-generation behavior in review and equipment manifests.

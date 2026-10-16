@@ -1,6 +1,6 @@
 import {createRegionalEnvironmentRequests} from "./regional-environment-request.js";
 import {installMapGestures} from "./regional-map-gestures.js";
-import {createRegionalCityRequests} from "./regional-city-request.js";
+import {createRegionalCityRequests} from "./regional-city-request.js?v=worker-reuse-1";
 import {installRegionalCity} from "./regional-city-installation.js";
 
 // Canvas offsets enter Bevy as f32; tolerate only its subpixel wire rounding.
