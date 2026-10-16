@@ -1,11 +1,12 @@
 //! The material hair is drawn with: the standard material, shaded as
 //! strands and, for cards, its atlas coverage turned into a share of each
-//! pixel's samples, by `strand_shading.wgsl`.
+//! pixel's samples, by `strand_shading.wgsl`. The strand normal it and the
+//! scalp's material share lives in `strand.wgsl`.
 use super::*;
 use bevy::asset::embedded_asset;
 use bevy::pbr::{ExtendedMaterial, MaterialExtension};
 use bevy::render::render_resource::AsBindGroup;
-use bevy::shader::ShaderRef;
+use bevy::shader::{ShaderRef, load_shader_library};
 
 const SHADER: &str = "embedded://adventuresim_character_creator/hair_preview/strand_shading.wgsl";
 
@@ -23,12 +24,18 @@ impl MaterialExtension for StrandShading {
     }
 }
 
-/// Draws hair with [`HairShading`].
+/// Draws hair with [`HairShading`] and the scalp under it with
+/// [`scalp_shade::ScalpShading`].
 pub(crate) struct HairShadingPlugin;
 
 impl Plugin for HairShadingPlugin {
     fn build(&self, app: &mut App) {
+        load_shader_library!(app, "strand.wgsl");
         embedded_asset!(app, "strand_shading.wgsl");
-        app.add_plugins(MaterialPlugin::<HairShading>::default());
+        embedded_asset!(app, "scalp_shading.wgsl");
+        app.add_plugins((
+            MaterialPlugin::<HairShading>::default(),
+            MaterialPlugin::<scalp_shade::ScalpShading>::default(),
+        ));
     }
 }

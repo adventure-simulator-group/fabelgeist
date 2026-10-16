@@ -51,8 +51,15 @@ const DIP_PASSES: usize = 4;
 /// points shows over the skin beneath.
 pub struct ScalpCap {
     pub positions: Vec<[f32; 3]>,
+    /// The scalp's own smooth normals: the body's facets would show through
+    /// the strands painted on it as flat patches.
+    pub normals: Vec<[f32; 3]>,
     /// Where each point lies in the scalp's texture.
     pub texcoords: Vec<[f32; 2]>,
+    /// Along the texture's `u`, square to the normal, and as the fourth
+    /// value which way its `v` runs: `v` runs along the normal crossed
+    /// with the tangent, times that.
+    pub tangents: Vec<[f32; 4]>,
     pub faces: Vec<[u32; 3]>,
     /// 0 to 1: none at the cap's edge, all a little way in.
     pub opacity: Vec<f32>,
@@ -78,6 +85,19 @@ impl ScalpCap {
             })
             .collect();
         clear_skin(&mut positions, &scalp.triangles, body);
+        let normals: Vec<Vec3> = scalp
+            .normals
+            .iter()
+            .map(|normal| Vec3::from_array(placement.normal(normal.to_array())))
+            .collect();
+        // The map reaches past the scalp's lowest point, so every point of
+        // the scalp lies within it.
+        let texcoords: Vec<[f32; 2]> = scalp
+            .positions
+            .iter()
+            .map(|&point| map.uv(point).unwrap_or_default())
+            .collect();
+        let tangents = tangents(&positions, &normals, &texcoords, &scalp.triangles);
         let opacity = edge_fade(positions.len(), &scalp.triangles)
             .into_iter()
             .zip(&scalp.positions)
@@ -89,17 +109,67 @@ impl ScalpCap {
             .collect();
         Self {
             positions: positions.iter().map(|point| point.to_array()).collect(),
-            // The map reaches past the scalp's lowest point, so every
-            // point of the scalp lies within it.
-            texcoords: scalp
-                .positions
-                .iter()
-                .map(|&point| map.uv(point).unwrap_or_default())
-                .collect(),
+            normals: normals.iter().map(|normal| normal.to_array()).collect(),
+            texcoords,
+            tangents,
             faces: scalp.triangles.clone(),
             opacity,
         }
     }
+}
+
+/// Each point's direction along the texture's `u` over `triangles`, square
+/// to its `normal`, and the sign that turns the normal crossed with it into
+/// the direction along `v`.
+fn tangents(
+    positions: &[Vec3],
+    normals: &[Vec3],
+    texcoords: &[[f32; 2]],
+    triangles: &[[u32; 3]],
+) -> Vec<[f32; 4]> {
+    let zero = Vec3::new(0.0, 0.0, 0.0);
+    let mut along_u = vec![zero; positions.len()];
+    let mut along_v = vec![zero; positions.len()];
+    for &[a, b, c] in triangles {
+        let [a, b, c] = [a, b, c].map(|corner| corner as usize);
+        let (first, second) = (positions[b] - positions[a], positions[c] - positions[a]);
+        let [du1, dv1] = [
+            texcoords[b][0] - texcoords[a][0],
+            texcoords[b][1] - texcoords[a][1],
+        ];
+        let [du2, dv2] = [
+            texcoords[c][0] - texcoords[a][0],
+            texcoords[c][1] - texcoords[a][1],
+        ];
+        let area = du1 * dv2 - du2 * dv1;
+        if area.abs() <= f32::EPSILON {
+            continue;
+        }
+        let u = (first * dv2 - second * dv1) * (1.0 / area);
+        let v = (second * du1 - first * du2) * (1.0 / area);
+        for corner in [a, b, c] {
+            along_u[corner] += u;
+            along_v[corner] += v;
+        }
+    }
+    normals
+        .iter()
+        .zip(along_u.iter().zip(&along_v))
+        .map(|(&normal, (&u, &v))| {
+            let square = u - normal * normal.dot(u);
+            let length = square.length();
+            if length <= f32::EPSILON {
+                return [1.0, 0.0, 0.0, 1.0];
+            }
+            let tangent = square * (1.0 / length);
+            let handedness = if normal.cross(tangent).dot(v) < 0.0 {
+                -1.0
+            } else {
+                1.0
+            };
+            [tangent.x, tangent.y, tangent.z, handedness]
+        })
+        .collect()
 }
 
 /// Lift every triangle of the cap whose `positions` dip under `body`'s skin
