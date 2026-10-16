@@ -97,38 +97,49 @@ recipe stores the shape strictly, rejecting a value outside its range.
 A hairstyle is grown once, on a worker thread, on the hair crate's mannequin
 bust, by the hair crate's GPU groomer on the studio's own render device: the
 scalp cut and the whole groom grown in compute kernels, a twentieth to an eighth
-of a second, ten times faster than every core of the CPU, and the strands read
-back. The kernels compile once, on the first hairstyle grown (about half a
-second); an export opens a device of its own for them. The hair is then placed
-on each generated body on the same thread (two to four seconds). Placing
-stretches the bust's head to the character's width across the ears, its depth
-from the back of the skull to the tip of the nose and its crown, and turns it to
-face where the eyes look. The bust is only fitted to the head's extent, so
-wherever the character's skull is fuller its strands would lie under the skin:
-each strand is moved whole along its root's normal -- the bust scalp's, smooth
--- until the root sits 0.5 mm off the skin. Pushing each root to the nearest
-point of the coarse body instead would move neighbouring roots apart along
-different facets' normals and part the hair along their edges, at the nape most.
+of a second, ten times faster than every core of the CPU. The kernels compile
+once, on the first hairstyle grown (about half a second); an export opens a
+device of its own for them. The hair is then placed on each generated body on
+the same thread and the same device, in a tenth of a second or so where the CPU
+took three or four. The body is first sampled as a distance field onto a grid
+round the hair, cells of 2.5 mm out to 10 cm from the skin
+(`hair/gpu/field.rs`): each triangle marks the cells near it, a jump flood
+carries every cell's nearest triangle out to it, and each cell takes its
+distance, signed by the vertex normals at the nearest point as the CPU's mesh
+collider signs it. The hair crate's kernels read the field from the same buffer
+they read the mannequin's shapes from, so every one of them that collides -- the
+drape's solves, the shrinkwrap, the levels of detail -- collides with the
+character's body instead. Placing stretches the bust's head to the character's
+width across the ears, its depth from the back of the skull to the tip of the
+nose and its crown, and turns it to face where the eyes look. The bust is only
+fitted to the head's extent, so wherever the character's skull is fuller its
+strands would lie under the skin: each strand is moved whole along its root's
+normal -- the bust scalp's, smooth -- until the root sits 0.5 mm off the skin.
+Pushing each root to the nearest point of the coarse body instead would move
+neighbouring roots apart along different facets' normals and part the hair along
+their edges, at the nape most.
 
-The hair is then draped on the character's own body. What a body does to a
-strand is how its equilibrium under gravity (the hair crate's `Settle`)
-against the body differs from its equilibrium against nothing; that is found
-on the bust, as groomed, and on the character, as carried, and the
-character's minus the bust's is added to the strand. Where the two bodies
-hold the hair alike it is nothing, and where the character's shoulders stand
-higher or wider it is how long hair falls over them, in front of them or
-down the back, rather than hanging through them. A tight coil -- a bun's, a
-braid's -- answers a body unsteadily, so the drape takes hold only below the
-head, fading in from the ears to the jaw. The solve knows nothing of what
-ties a lock, and would slide a ponytail's tail off a thicker neck strand by
-strand, so a strand is draped only as far as it sinks into the body as
-carried: from 3 cm deep, fully from 5 cm, as long hair runs through a
-shoulder; a tail resting against the neck is left to the last shrinkwrap.
-About two thousand guides are draped and every strand follows the one whose
-root is nearest, so hair parts cleanly in front of and behind a shoulder. A
-last shrinkwrap keeps every strand out of the body, keeping its length,
-before the levels of detail are prepared against that body. Changing only the
-colour or the level of detail reuses the placed hair.
+Hair that hangs free is then draped on the character's own body
+(`hair/gpu/place`). What a body does to a strand is how its equilibrium under
+gravity (the hair crate's `Settle`) against the body differs from its
+equilibrium against nothing; that is found on the bust, as groomed, and on the
+character, as carried, and the character's minus the bust's is added to the
+strand. Where the two bodies hold the hair alike it is nothing, and where the
+character's shoulders stand higher or wider it is how long hair falls over them,
+in front of them or down the back, rather than hanging through them. A tight
+coil answers a body unsteadily, so the drape takes hold only below the head,
+fading in from the ears to the jaw, and only as far as a strand sinks into the
+body as carried: from 3 cm deep, fully from 5 cm, as long hair runs through a
+shoulder. Tied and styled hair -- a ponytail, a bun, a braid, hair swept up --
+is not draped at all, as the hair crate drapes it on its bust only when it hangs
+free: the solve knows nothing of what ties a lock or holds it in place, and
+would slide a ponytail's tail off a thicker neck strand by strand, round both
+sides, where the tail rests two and a half centimetres into it and four at the
+deepest. About two thousand guides are draped and every strand follows the one
+whose root is nearest, so hair parts cleanly in front of and behind a shoulder.
+A last shrinkwrap keeps every strand out of the body, keeping its length, before
+the levels of detail are prepared against that body. Changing only the colour or
+the level of detail reuses the placed hair.
 
 **Level of detail** shows any of the hair crate's forms: its strands at the
 groom's own point count and at 24, 12 and 6 points each, drawn as ribbons,
@@ -203,17 +214,18 @@ cells along the rest of its edge. Only the cap is painted: the body's skin, the
 neck and the shoulders hair falls over, keeps its colour, and the cap comes and
 goes with the hair.
 
-Ribbons and cards are straight between their rows, and over a rounded
-shoulder or skull a straight segment between two rows just outside the skin
-passes under it, the coarse levels' long segments most. Near the skin, rows
-are added until no segment is longer than a centimetre, and each row is
-moved whole 0.6 mm off the skin -- just over the scalp cap -- more for a
-wide card by as much as it sags across a curve as tight as the neck. A row's
-lift spreads to its neighbours, tapering over four rows, so a strip bends
-off the skin rather than in a sawtooth. The hair crate turns a card to face
-away from the head's centre, right beside the head; lying on a shoulder such
-a card would stand on its edge, a fin, so within 3 cm of the skin each row
-turns to lie flat on it.
+Ribbons and cards are built on the GPU too (`hair/gpu/strips.rs`), a strip to an
+invocation, and read back to draw. They are straight between their rows, and
+over a rounded shoulder or skull a straight segment between two rows just
+outside the skin passes under it, the coarse levels' long segments most. So
+every segment is cut into pieces no longer than a centimetre -- at most sixteen
+for a card's, eight for a ribbon's -- and each row near the skin is moved whole
+0.6 mm off it -- just over the scalp cap -- more for a wide card by as much as
+it sags across a curve as tight as the neck. A row's lift spreads to its
+neighbours, tapering over four rows, so a strip bends off the skin rather than
+in a sawtooth. The hair crate turns a card to face away from the head's centre,
+right beside the head; lying on a shoulder such a card would stand on its edge,
+a fin, so within 3 cm of the skin each row turns to lie flat on it.
 
 To look at hair without the studio's window, an ignored test grows a
 hairstyle on the default body and draws every level of detail as the studio

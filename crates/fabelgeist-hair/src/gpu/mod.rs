@@ -77,6 +77,7 @@
 //! # }
 //! ```
 
+mod collide;
 mod grow;
 mod guides;
 mod lods;
@@ -101,6 +102,7 @@ use crate::strands::{Attachment, Strands};
 use crate::surface::Surface;
 use fabelgeist_gpu::prelude::BufferUpload;
 
+pub use collide::FieldHeader;
 pub use guides::{GpuGuides, Guides};
 pub use lods::{GpuCards, GpuLevel, GpuLods};
 pub use scalp::GpuScalp;
@@ -654,12 +656,7 @@ pub fn headless_context() -> Result<WgpuContext> {
             })
             .await
             .map_err(|e| anyhow!("no adapter: {e}"))?;
-        let adapter_limits = adapter.limits();
-        let limits = wgpu::Limits {
-            max_buffer_size: adapter_limits.max_buffer_size,
-            max_storage_buffer_binding_size: adapter_limits.max_storage_buffer_binding_size,
-            ..Default::default()
-        };
+        let limits = required_limits(&adapter);
         let (device, queue) = adapter
             .request_device(&wgpu::DeviceDescriptor {
                 label: Some("hair"),
@@ -681,12 +678,13 @@ pub fn headless_context() -> Result<WgpuContext> {
 
 /// The limits a device grooming on the GPU needs beyond wgpu's defaults:
 /// the largest buffers the adapter allows -- a full groom's positions are
-/// one buffer.
+/// one buffer -- and as many of them to a kernel as it allows.
 pub fn required_limits(adapter: &wgpu::Adapter) -> wgpu::Limits {
     let adapter_limits = adapter.limits();
     wgpu::Limits {
         max_buffer_size: adapter_limits.max_buffer_size,
         max_storage_buffer_binding_size: adapter_limits.max_storage_buffer_binding_size,
+        max_storage_buffers_per_shader_stage: adapter_limits.max_storage_buffers_per_shader_stage,
         ..Default::default()
     }
 }

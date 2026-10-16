@@ -9,7 +9,7 @@ use fabelgeist_gpu::data::gpu::parameters::PassParameters;
 use fabelgeist_math::Vec3;
 
 use super::grow::params;
-use super::{GpuGroom, GpuGroomer, head_shape, storage, upload};
+use super::{GpuGroom, GpuGroomer, storage, upload};
 use crate::cards::{CardAtlas, CardSettings};
 use crate::lod::LodSettings;
 use fabelgeist_gpu::prelude::BufferUse;
@@ -106,25 +106,23 @@ impl Grid {
 }
 
 impl GpuGroomer {
-    /// Prepare `groom` for drawing: its strands sorted into the shuffled
-    /// order every level shares, occlusion baked, every level of
-    /// `settings`, the cards, and the head's cover; `center` is the head's.
-    pub fn lods(
+    /// [`GpuGroomer::lods`], the coarse levels and cards kept off `body`
+    /// (as `head_shape` lays it out), or off nothing without one.
+    pub fn lods_against(
         &mut self,
         groom: &GpuGroom,
         center: Vec3,
         settings: &LodSettings,
+        body: Option<&Buffer>,
     ) -> Result<GpuLods> {
         let context = self.context.clone();
         let count = groom.strands;
         let points = groom.points;
-        let body = groom.head.as_ref();
-        let head = upload(
-            &context,
-            &body.map(head_shape).unwrap_or_else(|| vec![[0.0; 4]; 17]),
-            "hair head shape",
-        )?;
         let has_body = u32::from(body.is_some());
+        let head = match body {
+            Some(body) => body.clone(),
+            None => upload(&context, &[[0.0f32; 4]; 17], "hair no body")?,
+        };
         let bounds = match groom.bounds {
             Some(bounds) => bounds,
             None => self.measure_bounds(groom)?,
@@ -271,7 +269,7 @@ impl GpuGroomer {
     }
 
     /// The box every point of `groom` is in, measured on the GPU.
-    fn measure_bounds(&mut self, groom: &GpuGroom) -> Result<[Vec3; 2]> {
+    pub fn measure_bounds(&mut self, groom: &GpuGroom) -> Result<[Vec3; 2]> {
         let context = self.context.clone();
         let words = self.scratch.box_words.fit(&context, 32, "hair box")?;
         let mut batch = KernelBatch::labelled(&context, "hair box");

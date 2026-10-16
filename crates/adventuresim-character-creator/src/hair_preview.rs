@@ -8,7 +8,8 @@
 //! it follows the walk preview, and paints the scalp under it.
 use super::*;
 use adventuresim_character_creator::hair::{
-    BodySurface, Groom, GroomedHair, HairDesign, HeadPlacement, HeadSkin, PlacedHair, variant_label,
+    BodySurface, Groom, GroomedHair, HairDesign, HairGpu, HeadPlacement, HeadSkin, PlacedHair,
+    variant_label,
 };
 use fabelgeist_hair::lod::Form;
 use std::sync::Arc;
@@ -49,6 +50,8 @@ pub(super) struct HairPreview {
 /// Hair placed on one generated body.
 pub(super) struct PlacedStyle {
     pub(super) hair: PlacedHair,
+    /// The device the hair lies on, where its levels of detail are built.
+    pub(super) gpu: gpu::StudioHairGpu,
     body: Arc<GeneratedCharacter>,
     atlas: Handle<Image>,
     /// The scalp's baked textures.
@@ -65,6 +68,7 @@ struct Worker {
 struct Prepared {
     grown: Arc<GroomedHair>,
     placed: PlacedHair,
+    gpu: gpu::StudioHairGpu,
 }
 
 /// A body's copy of what placing hair on it reads, for the worker to own.
@@ -102,14 +106,14 @@ impl BodyHead {
         Ok(HeadPlacement::fit(&skin, hair.head())?)
     }
 
-    /// `hair` placed on this body, kept outside its skin.
-    pub(super) fn place(&self, hair: &GroomedHair) -> Result<PlacedHair> {
+    /// `hair` placed on this body on `gpu`, kept outside its skin.
+    pub(super) fn place(&self, gpu: &HairGpu, hair: &GroomedHair) -> Result<PlacedHair> {
         let placement = self.placement(hair)?;
         let body = BodySurface {
             positions: &self.positions,
             faces: &self.faces,
         };
-        Ok(hair.place(&placement, &body))
+        hair.place(gpu, &placement, &body)
     }
 }
 
@@ -135,15 +139,14 @@ impl HairPreview {
         let grown = self.grown.clone().filter(|grown| grown.groom == groom);
         let gpu = self.gpu.clone();
         let handle = std::thread::spawn(move || {
+            let gpu = gpu.context("the renderer has no device to grow hair on")?;
+            let kernels = gpu.kernels()?;
             let grown = match grown {
                 Some(grown) => grown,
-                None => {
-                    let gpu = gpu.context("the renderer has no device to grow hair on")?;
-                    Arc::new(GroomedHair::grow(groom, gpu.kernels()?)?)
-                }
+                None => Arc::new(GroomedHair::grow(groom, kernels)?),
             };
-            let placed = head.place(&grown)?;
-            Ok(Prepared { grown, placed })
+            let placed = head.place(kernels, &grown)?;
+            Ok(Prepared { grown, placed, gpu })
         });
         self.worker = Some(Worker {
             groom,
@@ -174,6 +177,7 @@ impl HairPreview {
         self.grown = Some(prepared.grown);
         self.placed = Some(PlacedStyle {
             hair: prepared.placed,
+            gpu: prepared.gpu,
             body: worker.body,
             atlas,
             scalp,
