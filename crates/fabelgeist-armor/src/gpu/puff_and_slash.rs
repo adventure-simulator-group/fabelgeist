@@ -22,6 +22,7 @@ pub fn record_puff_and_slash(
         ),
     )?;
     let mut recipe = PartRecipe::new();
+    recipe.textile_chart();
     recipe.push_coord(
         super::textile_pattern::lining(design.thickness),
         kernel.clone(),

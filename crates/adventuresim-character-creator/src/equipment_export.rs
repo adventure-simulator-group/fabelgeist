@@ -81,7 +81,7 @@ impl EquipmentExporter<'_> {
                 .as_ref()
                 .map(|textures| (armor.texcoords.as_slice(), textures));
         }
-        crate::character_morphs::component_materials(&armor, &mut rigged_shells);
+        crate::character_morphs::component_materials(&armor, &mut rigged_shells)?;
         export_rigged_glb(
             GlbOutput::SharedTextures(&path),
             &item.id,

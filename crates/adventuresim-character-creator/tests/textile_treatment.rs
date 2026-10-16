@@ -146,5 +146,11 @@ fn authored_museum_treatments_use_the_shared_pattern_schema() -> Result<()> {
         "../../fabelgeist-armor/review/museum/landsknecht/armor.json"
     ))?;
     assert_eq!(visit(&museum)?, 5);
+    for recipe in [
+        include_str!("../../fabelgeist-armor/review/textiles/pisa.json"),
+        include_str!("../../fabelgeist-armor/review/textiles/cranach.json"),
+    ] {
+        serde_json::from_str::<SkirtDesign>(recipe)?.validate()?;
+    }
     Ok(())
 }

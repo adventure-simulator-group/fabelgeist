@@ -177,7 +177,7 @@ fn catalog_shells<'a>(
             );
             shell.surface = metal;
         }
-        crate::character_morphs::component_materials(&piece.generated, &mut parts);
+        crate::character_morphs::component_materials(&piece.generated, &mut parts)?;
         shells.extend(parts);
         if let Some(trim) = &piece.trim {
             let textures = metals

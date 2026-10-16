@@ -181,7 +181,10 @@ pub(super) fn armor_targets(armor: &GeneratedArmor) -> Vec<RiggedMorphTarget<'_>
 }
 
 /// Hardware has its own surface, regardless of the catalog's plate material.
-pub(super) fn component_materials(armor: &GeneratedArmor, shells: &mut [RiggedShell<'_>]) {
+pub(super) fn component_materials(
+    armor: &GeneratedArmor,
+    shells: &mut [RiggedShell<'_>],
+) -> Result<()> {
     for (component, shell) in armor.components.iter().zip(shells) {
         if let Some(material) = component.material {
             shell.base_color = material.base_color;
@@ -191,7 +194,12 @@ pub(super) fn component_materials(armor: &GeneratedArmor, shells: &mut [RiggedSh
             shell.surface = None;
             shell.plate_edges = &[];
         }
+        if let Some(textile) = &component.textile {
+            shell.textures =
+                adventuresim_character_creator::textile_surface::textures(textile)?.map(Into::into);
+        }
     }
+    Ok(())
 }
 
 pub(super) fn rigged_clothing<'a>(

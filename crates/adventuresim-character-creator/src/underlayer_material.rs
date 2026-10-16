@@ -18,6 +18,7 @@ pub fn textures(design: Option<&ParametricDesign>) -> Option<SurfaceTextures> {
                         .to_vec(),
                 ),
                 cutout: true,
+                sampling: crate::export::SurfaceSampling::Tile,
             })
         }
         _ => None,

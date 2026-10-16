@@ -360,6 +360,7 @@ fn suspended_waist(
             point[1] += shift;
         }
         let whole = |part: &BuiltPart, role| ArmorComponent {
+            textile: None,
             role,
             vertices: 0..part.positions.len(),
             indices: 0..part.indices.len(),
@@ -512,7 +513,7 @@ pub fn assemble_recipe(
         surface_domain: fitted.domain.into(),
         positions: base.positions,
         normals: base.normals,
-        texcoords: skin.texcoords,
+        texcoords: base.texcoords.unwrap_or(skin.texcoords),
         joint_indices: skin.joint_indices,
         joint_weights: skin.joint_weights,
         indices: base.indices,

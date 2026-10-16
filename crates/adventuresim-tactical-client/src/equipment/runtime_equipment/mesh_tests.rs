@@ -36,6 +36,7 @@ fn material_parts_preserve_skin_uvs_and_relative_position_when_dropped() {
         morphs: Vec::new(),
         components: vec![
             ArmorComponent {
+                textile: None,
                 role: ArmorComponentRole::OuterFabric,
                 vertices: 0..3,
                 indices: 0..3,
@@ -44,6 +45,7 @@ fn material_parts_preserve_skin_uvs_and_relative_position_when_dropped() {
                 material: Some(red),
             },
             ArmorComponent {
+                textile: None,
                 role: ArmorComponentRole::Undercloth,
                 vertices: 3..6,
                 indices: 3..6,
@@ -57,7 +59,15 @@ fn material_parts_preserve_skin_uvs_and_relative_position_when_dropped() {
     assert_eq!(center, Vec3::new(4.0, 3.0, 0.0));
     let mut meshes = Assets::default();
     let mut materials = Assets::default();
-    let parts = equipment_parts(&armor, "linen_tunic", &mut meshes, &mut materials);
+    let mut images = Assets::default();
+    let parts = equipment_parts(
+        &armor,
+        "linen_tunic",
+        &mut meshes,
+        &mut materials,
+        &mut images,
+    )
+    .unwrap();
     assert_eq!(parts.len(), 2);
     assert_eq!(
         materials.get(&parts[0].material).unwrap().base_color,

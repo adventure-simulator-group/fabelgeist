@@ -73,6 +73,7 @@ impl MailMaps {
             normal_png: self.normal_png.clone(),
             occlusion_png: Some(self.occlusion_png.clone()),
             cutout: true,
+            sampling: crate::export::SurfaceSampling::Tile,
         }
     }
 }

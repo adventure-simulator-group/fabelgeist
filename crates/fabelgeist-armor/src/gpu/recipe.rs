@@ -21,11 +21,18 @@ pub(crate) struct PartRecipe {
     layout: PartLayout,
     shells: Vec<(usize, RecipeShell)>,
     hinges: u32,
+    textile_chart: bool,
 }
 
 impl PartRecipe {
     pub(crate) fn new() -> Self {
         Self::default()
+    }
+
+    /// Preserve a shared fabric chart through shell thickening. All shells in
+    /// this recipe use the same local upright garment frame.
+    pub(crate) fn textile_chart(&mut self) {
+        self.textile_chart = true;
     }
 
     pub(crate) fn push_chart(
@@ -95,7 +102,7 @@ impl PartRecipe {
         design: &[f32],
         frames: &[&Buffer],
     ) -> Result<DevicePart, GenerateError> {
-        let build = PartBuild::new(gpu, self.layout, self.hinges)?;
+        let mut build = PartBuild::new(gpu, self.layout, self.hinges)?;
         let design = gpu.upload(BufferUpload::from_elements(design))?;
         let inputs = ChartInputs {
             design: &design,
@@ -120,6 +127,12 @@ impl PartRecipe {
                     )?;
                 }
             }
+        }
+        if self.textile_chart {
+            // Textile recipes share one fitted frame; undo its placement for
+            // appearance without changing anatomical correspondence.
+            let frame = frames.first().ok_or(GenerateError::InvalidSurface)?;
+            build.record_textile_chart(gpu, batch, frame)?;
         }
         Ok(DevicePart(build))
     }

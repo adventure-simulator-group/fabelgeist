@@ -2,6 +2,12 @@
 use super::*;
 use fabelgeist_armor::ArmorComponentMaterial;
 
+struct MaterialPartition<'a> {
+    material: Option<ArmorComponentMaterial>,
+    textile: Option<&'a fabelgeist_armor::TextileAppearance>,
+    indices: Vec<u32>,
+}
+
 #[derive(Clone)]
 pub(super) struct CachedPart {
     pub mesh: Handle<Mesh>,
@@ -15,44 +21,65 @@ pub(super) fn equipment_parts(
     item: &str,
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
-) -> Vec<CachedPart> {
-    let mut groups: Vec<(Option<ArmorComponentMaterial>, Vec<u32>)> = Vec::new();
+    images: &mut Assets<Image>,
+) -> anyhow::Result<Vec<CachedPart>> {
+    let mut groups: Vec<MaterialPartition<'_>> = Vec::new();
     for (triangle, face) in armor.indices.as_chunks::<3>().0.iter().enumerate() {
-        let material = armor.components.iter().find_map(|component| {
-            component
-                .indices
-                .contains(&(triangle * 3))
-                .then_some(component.material)
-                .flatten()
-        });
-        let group = match groups.iter().position(|(found, _)| *found == material) {
+        let component = armor
+            .components
+            .iter()
+            .find(|component| component.indices.contains(&(triangle * 3)));
+        let material = component.and_then(|component| component.material);
+        let textile = component.and_then(|component| component.textile.as_ref());
+        let group = match groups
+            .iter()
+            .position(|found| found.material == material && found.textile == textile)
+        {
             Some(index) => index,
             None => {
-                groups.push((material, Vec::new()));
+                groups.push(MaterialPartition {
+                    material,
+                    textile,
+                    indices: Vec::new(),
+                });
                 groups.len() - 1
             }
         };
-        groups[group].1.extend(face);
+        groups[group].indices.extend(face);
     }
     groups
         .into_iter()
-        .map(|(material, indices)| CachedPart {
-            mesh: runtime_equipment_mesh(armor, &indices, meshes),
-            material: match material {
-                Some(material) => materials.add(StandardMaterial {
-                    base_color: Color::srgba(
-                        material.base_color[0],
-                        material.base_color[1],
-                        material.base_color[2],
-                        material.base_color[3],
-                    ),
-                    metallic: material.metallic,
-                    perceptual_roughness: material.roughness,
-                    ..default()
-                }),
-                None => runtime_equipment_material(item, materials),
+        .map(
+            |MaterialPartition {
+                 material,
+                 textile,
+                 indices,
+             }| {
+                Ok(CachedPart {
+                    mesh: runtime_equipment_mesh(armor, &indices, meshes),
+                    material: if let Some(textile) = textile {
+                        materials.add(adventuresim_character_creator::textile_surface::material(
+                            textile, images,
+                        )?)
+                    } else {
+                        match material {
+                            Some(material) => materials.add(StandardMaterial {
+                                base_color: Color::srgba(
+                                    material.base_color[0],
+                                    material.base_color[1],
+                                    material.base_color[2],
+                                    material.base_color[3],
+                                ),
+                                metallic: material.metallic,
+                                perceptual_roughness: material.roughness,
+                                ..default()
+                            }),
+                            None => runtime_equipment_material(item, materials),
+                        }
+                    },
+                })
             },
-        })
+        )
         .collect()
 }
 

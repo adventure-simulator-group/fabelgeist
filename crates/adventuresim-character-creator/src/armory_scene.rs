@@ -94,6 +94,7 @@ pub(super) fn spawn_exhibit(
             &mut scene.commands,
             &mut scene.meshes,
             &mut scene.materials,
+            &mut scene.images,
             &armor,
             name.clone(),
             preview::ArmorShading {
@@ -112,6 +113,7 @@ pub(super) fn spawn_exhibit(
                 &mut scene.commands,
                 &mut scene.meshes,
                 &mut scene.materials,
+                &mut scene.images,
                 &lacing,
                 format!("{name}.lacing"),
                 preview::ArmorShading {
