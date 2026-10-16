@@ -70,12 +70,22 @@ pub fn record_skirt(
             .map_or([0.0; 5], |pattern| pattern.shader_words()),
     );
     words.push(design.thickness.metres());
+    words.push(
+        design
+            .pleats
+            .as_ref()
+            .map_or(1.0, |pleats| pleats.front_depth.unit()),
+    );
+    words.extend(design.pleats.as_ref().map_or([0.0; 2], |pleats| {
+        [pleats.waist_depth.metres(), pleats.front_panel.unit()]
+    }));
     recipe.record(gpu, batch, &words, &[fit])
 }
 
 fn coordinate_kernel(gpu: &ArmorGpu, shape: &str) -> Result<CoordKernel, GenerateError> {
     let source = format!(
-        "const COLUMNS: u32 = {SKIRT_RING_SEGMENTS}u;\nconst ROWS: u32 = {SKIRT_AXIAL_SEGMENTS}u;\nconst FIRST_SECTION: u32 = {SKIRT_PROFILE_FIRST_WORD}u;\nconst SECTION_WORDS: u32 = {SKIRT_SECTION_WORDS}u;\nconst ATTACHMENT: u32 = {SKIRT_FIT_WORDS}u;\nconst POINT_WORDS: u32 = {SKIRT_ATTACHMENT_POINT_WORDS}u;\n{AUTHORED}{}{}{}",
+        "const COLUMNS: u32 = {SKIRT_RING_SEGMENTS}u;\nconst ROWS: u32 = {SKIRT_AXIAL_SEGMENTS}u;\nconst FIRST_SECTION: u32 = {SKIRT_PROFILE_FIRST_WORD}u;\nconst SECTION_WORDS: u32 = {SKIRT_SECTION_WORDS}u;\nconst ATTACHMENT: u32 = {SKIRT_FIT_WORDS}u;\nconst POINT_WORDS: u32 = {SKIRT_ATTACHMENT_POINT_WORDS}u;\n{AUTHORED}{}{}{}{}",
+        include_str!("skirt_folds.wgsl"),
         include_str!("skirt_surface.wgsl"),
         include_str!("textile_fullness.wgsl"),
         shape,
