@@ -5046,12 +5046,17 @@ dependencies = [
  "bytemuck",
  "crc32fast",
  "fabelgeist-bvh",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
  "fabelgeist-math",
+ "fabelgeist-spatial-hash",
  "miniz_oxide 0.8.9",
+ "pollster",
  "rayon",
  "serde",
  "serde_json",
  "web-time",
+ "wgpu 29.0.4",
 ]
 
 [[package]]
@@ -5123,6 +5128,17 @@ dependencies = [
  "fabelgeist-mesh",
  "fabelgeist-physics",
  "fabelgeist-xpbd",
+]
+
+[[package]]
+name = "fabelgeist-spatial-hash"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
 ]
 
 [[package]]

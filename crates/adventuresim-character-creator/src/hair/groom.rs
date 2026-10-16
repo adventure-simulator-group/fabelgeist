@@ -9,7 +9,7 @@ use rayon::prelude::*;
 use std::sync::Arc;
 
 use super::scalp_map::ScalpMap;
-use super::{Groom, HeadPlacement, ScalpCap, ScalpTexture, drape};
+use super::{Groom, HairGpu, HeadPlacement, ScalpCap, ScalpTexture, drape};
 
 /// Edge of the surface-nets cells the scalp is cut from, metres: the size the
 /// hair crate's viewer and dataset grow on.
@@ -61,23 +61,27 @@ pub struct PlacedHair {
 }
 
 impl GroomedHair {
-    /// Grow `groom` on the mannequin bust, and bake the hair lying on its
-    /// scalp: half a second to a second and a half of every core.
-    pub fn grow(groom: Groom) -> Self {
+    /// Grow `groom` on the mannequin bust on `gpu`, and bake the hair lying
+    /// on its scalp.
+    pub fn grow(groom: Groom, gpu: &HairGpu) -> anyhow::Result<Self> {
         let look = groom.look();
         let head = look.head(&Head::mannequin());
-        let scalp = head.scalp(SCALP_CELL);
-        let strands = look.grow(&head, &scalp);
+        let (scalp, strands) = {
+            let mut groomer = gpu.groomer();
+            let on_gpu = groomer.cut_scalp(&head, SCALP_CELL)?;
+            let grown = groomer.grow_look(&look, &head, &on_gpu)?;
+            (on_gpu.read(&groomer)?, grown.read(groomer.context())?)
+        };
         let scalp_map = ScalpMap::fit(&head, &scalp);
         let scalp_texture = Arc::new(ScalpTexture::bake(&strands, &head, &scalp_map));
-        Self {
+        Ok(Self {
             groom,
             strands,
             head,
             scalp,
             scalp_map,
             scalp_texture,
-        }
+        })
     }
 
     /// The bust this hair grew on.

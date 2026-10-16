@@ -95,16 +95,20 @@ go; choosing another hairstyle starts it from its preset's own shape. The
 recipe stores the shape strictly, rejecting a value outside its range.
 
 A hairstyle is grown once, on a worker thread, on the hair crate's mannequin
-bust (half a second to a second and a half), then placed on each generated body on the
-same thread (three to four seconds). Placing stretches the bust's head to the
-character's width across the ears, its depth from the back of the skull to
-the tip of the nose and its crown, and turns it to face where the eyes look.
-The bust is only fitted to the head's extent, so wherever the character's
-skull is fuller its strands would lie under the skin: each strand is moved
-whole along its root's normal -- the bust scalp's, smooth -- until the root
-sits 0.5 mm off the skin. Pushing each root to the nearest point of the
-coarse body instead would move neighbouring roots apart along different
-facets' normals and part the hair along their edges, at the nape most.
+bust, by the hair crate's GPU groomer on the studio's own render device: the
+scalp cut and the whole groom grown in compute kernels, a twentieth to an eighth
+of a second, ten times faster than every core of the CPU, and the strands read
+back. The kernels compile once, on the first hairstyle grown (about half a
+second); an export opens a device of its own for them. The hair is then placed
+on each generated body on the same thread (two to four seconds). Placing
+stretches the bust's head to the character's width across the ears, its depth
+from the back of the skull to the tip of the nose and its crown, and turns it to
+face where the eyes look. The bust is only fitted to the head's extent, so
+wherever the character's skull is fuller its strands would lie under the skin:
+each strand is moved whole along its root's normal -- the bust scalp's, smooth
+-- until the root sits 0.5 mm off the skin. Pushing each root to the nearest
+point of the coarse body instead would move neighbouring roots apart along
+different facets' normals and part the hair along their edges, at the nape most.
 
 The hair is then draped on the character's own body. What a body does to a
 strand is how its equilibrium under gravity (the hair crate's `Settle`)

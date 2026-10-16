@@ -6,10 +6,11 @@ use crate::character_morphs::WholeJoint;
 use crate::hair_preview;
 use adventuresim_character_creator::export::SurfaceTextures;
 use adventuresim_character_creator::hair::{
-    GroomedHair, HAIR_ROUGHNESS, HairDesign, HairGeometry, PlacedHair,
+    GroomedHair, HAIR_ROUGHNESS, HairDesign, HairGeometry, HairGpu, PlacedHair,
 };
 use fabelgeist_hair::lod::Form;
 use image::ImageEncoder;
+use std::sync::OnceLock;
 
 /// The shell's name in the exported scene.
 const SHELL_NAME: &str = "hair";
@@ -27,6 +28,15 @@ pub(super) struct ExportedHair {
     morphs: Vec<MorphDelta>,
 }
 
+/// The hair kernels exports grow on: a device of their own, opened and
+/// compiled once for the process, as an export may run without a window.
+fn export_gpu() -> Result<&'static HairGpu> {
+    static GPU: OnceLock<Result<HairGpu, String>> = OnceLock::new();
+    GPU.get_or_init(|| HairGpu::headless().map_err(|error| format!("{error:#}")))
+        .as_ref()
+        .map_err(|error| anyhow::anyhow!("opening the hair GPU: {error}"))
+}
+
 impl ExportedHair {
     /// Grow `design`, place it on the `generated` body's head, and follow
     /// the head through every one of the body's morph channels.
@@ -36,7 +46,7 @@ impl ExportedHair {
         morphs: &CharacterMorphs,
         design: HairDesign,
     ) -> Result<Self> {
-        let hair = GroomedHair::grow(design.groom());
+        let hair = GroomedHair::grow(design.groom(), export_gpu()?)?;
         let placed = hair_preview::BodyHead::new(model, generated).place(&hair)?;
         let placement = *placed.placement();
         let cards = placed.geometry(EXPORTED_FORM);
