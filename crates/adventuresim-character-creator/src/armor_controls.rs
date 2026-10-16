@@ -10,6 +10,8 @@ mod gown;
 mod helmet;
 #[path = "limb_controls.rs"]
 mod limb;
+#[path = "partlet_controls.rs"]
+mod partlet;
 #[path = "puff_pattern_controls.rs"]
 mod puff_pattern;
 #[path = "skirt_controls.rs"]
@@ -48,6 +50,7 @@ pub(super) fn design(ui: &mut egui::Ui, design: &mut ItemDesign) -> bool {
             bodice::show(ui, d, fabelgeist_armor::BodiceDesign::HEM_RISE_RANGE)
         }
         ItemDesign::Recipe(ParametricDesign::Gown(d)) => gown::show(ui, d),
+        ItemDesign::Recipe(ParametricDesign::Partlet(d)) => partlet::show(ui, d),
         ItemDesign::Recipe(ParametricDesign::TrunkHose(d)) => trunk_hose(ui, d),
         ItemDesign::Recipe(ParametricDesign::Garment(d)) => {
             super::garment_armor_controls::show(ui, d)

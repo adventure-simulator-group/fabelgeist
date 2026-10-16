@@ -86,6 +86,29 @@ pub(crate) fn connected_patch(
 }
 
 impl SurfaceCut {
+    /// Check all authored panels rather than discarding concealed components.
+    pub(crate) fn validate_connected(&self) -> Result<()> {
+        ensure!(!self.points.is_empty(), "cloth surface is empty");
+        let mut adjacent = vec![Vec::new(); self.points.len()];
+        for face in &self.faces {
+            for &point in face {
+                adjacent[point as usize].extend(face);
+            }
+        }
+        let mut reached = BTreeSet::new();
+        let mut pending = vec![0_u32];
+        while let Some(point) = pending.pop() {
+            if reached.insert(point) {
+                pending.extend(&adjacent[point as usize]);
+            }
+        }
+        ensure!(
+            reached.len() == self.points.len(),
+            "cloth panels or shoulder bridges are disconnected"
+        );
+        Ok(())
+    }
+
     /// Collapse a numerical aperture smaller than the cutter's two-sided snap
     /// envelope. Intended openings exceed this scale. All incident faces share
     /// one retained source point; no cap or independently fitted vertices are

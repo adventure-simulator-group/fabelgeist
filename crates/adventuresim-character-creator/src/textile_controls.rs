@@ -14,12 +14,19 @@ enum LayerAction {
 
 pub(super) fn show(ui: &mut egui::Ui, fabric: &mut TextileAppearance) -> bool {
     let mut changed = ui.color_edit_button_srgb(&mut fabric.color.0).changed();
+    changed |= proportion(
+        ui,
+        &mut fabric.opacity,
+        TextileAppearance::OPACITY_RANGE,
+        "Cloth opacity",
+    );
     ui.horizontal(|ui| {
         for (finish, label) in [
             (TextileFinish::Linen, "Linen"),
             (TextileFinish::Wool, "Wool"),
             (TextileFinish::Silk, "Silk"),
             (TextileFinish::Velvet, "Velvet"),
+            (TextileFinish::MetallicThread, "Metal thread"),
         ] {
             changed |= ui
                 .selectable_value(&mut fabric.finish, finish, label)

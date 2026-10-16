@@ -10,6 +10,23 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
     for component in &mut armor.components {
         let fabric = match design {
             ParametricDesign::Bodice(bodice) => bodice_fabric(bodice, component.role)?,
+            ParametricDesign::Partlet(partlet) => match component.role {
+                ArmorComponentRole::OuterFabric | ArmorComponentRole::CollarFabric => {
+                    Some(&partlet.fabric)
+                }
+                ArmorComponentRole::EdgeBinding => partlet.binding.as_ref().map(|b| &b.fabric),
+                ArmorComponentRole::Neckband => partlet
+                    .collar
+                    .as_ref()
+                    .and_then(|c| c.neckband.as_ref())
+                    .map(|b| &b.fabric),
+                ArmorComponentRole::CollarTrim => partlet
+                    .collar
+                    .as_ref()
+                    .and_then(|c| c.trim.as_ref())
+                    .map(|b| &b.fabric),
+                _ => None,
+            },
             ParametricDesign::Gown(gown) => match component.role {
                 ArmorComponentRole::BodiceFabric
                 | ArmorComponentRole::Lining

@@ -387,21 +387,53 @@
           103
         ],
         "finish": "Linen",
+        "opacity": 1000,
         "layers": []
       }
     }
   },
   "linen_bodice": {
     "Bodice": {
-      "neckline": {"shape": "Square", "width": 600, "front_drop": 180, "back_drop": 100},
+      "neckline": {
+        "shape": "Square",
+        "width": 600,
+        "front_drop": 180,
+        "back_drop": 100
+      },
       "armhole_width": 50,
       "armhole_depth": 110,
       "hem_rise": 100,
-      "opening": {"Front": {"waist": 30, "chest": 35}},
+      "opening": {
+        "Front": {
+          "waist": 30,
+          "chest": 35
+        }
+      },
       "clearance": 6,
       "thickness": 1,
-      "fabric": {"color": [82, 57, 103], "finish": "Linen", "layers": []},
-      "lining": {"fabric": {"color": [32, 29, 28], "finish": "Linen", "layers": []}, "thickness": 1},
+      "fabric": {
+        "color": [
+          82,
+          57,
+          103
+        ],
+        "finish": "Linen",
+        "opacity": 1000,
+        "layers": []
+      },
+      "lining": {
+        "fabric": {
+          "color": [
+            32,
+            29,
+            28
+          ],
+          "finish": "Linen",
+          "opacity": 1000,
+          "layers": []
+        },
+        "thickness": 1
+      },
       "interlining": null
     }
   },
@@ -433,6 +465,7 @@
           103
         ],
         "finish": "Linen",
+        "opacity": 1000,
         "layers": []
       }
     }
@@ -621,6 +654,7 @@
             24
           ],
           "finish": "Wool",
+          "opacity": 1000,
           "layers": []
         },
         "undercloth_fabric": {
@@ -630,6 +664,7 @@
             48
           ],
           "finish": "Silk",
+          "opacity": 1000,
           "layers": []
         }
       }
@@ -677,6 +712,7 @@
             29
           ],
           "finish": "Wool",
+          "opacity": 1000,
           "layers": []
         },
         "undercloth_fabric": {
@@ -686,6 +722,7 @@
             29
           ],
           "finish": "Silk",
+          "opacity": 1000,
           "layers": []
         }
       }
@@ -715,6 +752,7 @@
             24
           ],
           "finish": "Wool",
+          "opacity": 1000,
           "layers": []
         },
         "undercloth_fabric": {
@@ -724,6 +762,7 @@
             48
           ],
           "finish": "Silk",
+          "opacity": 1000,
           "layers": []
         }
       }
@@ -1080,6 +1119,7 @@
             103
           ],
           "finish": "Linen",
+          "opacity": 1000,
           "layers": []
         },
         "lining": {
@@ -1090,6 +1130,7 @@
               28
             ],
             "finish": "Linen",
+            "opacity": 1000,
             "layers": []
           },
           "thickness": 1
@@ -1119,11 +1160,74 @@
             103
           ],
           "finish": "Linen",
+          "opacity": 1000,
           "layers": []
         }
       },
       "transition": 150,
       "waist_band": 15
+    }
+  },
+  "linen_partlet": {
+    "Partlet": {
+      "hem_rise": 250,
+      "neck_rise": 40,
+      "shoulder_bridge": 30,
+      "side_opening": 350,
+      "back_slit": 180,
+      "back_gap": 3,
+      "collar": {
+        "height": 44,
+        "pleats": {
+          "count": 40,
+          "depth": 2
+        },
+        "top_scale": 600,
+        "neckband": {
+          "bottom": 0,
+          "height": 15,
+          "thickness": 200,
+          "fabric": {
+            "color": [
+              242,
+              240,
+              230
+            ],
+            "finish": "Linen",
+            "opacity": 1000,
+            "layers": []
+          }
+        },
+        "trim": null
+      },
+      "clearance": 4,
+      "thickness": 200,
+      "fabric": {
+        "color": [
+          242,
+          240,
+          230
+        ],
+        "finish": "Linen",
+        "opacity": 250,
+        "layers": []
+      },
+      "binding": {
+        "width": 5,
+        "fabric": {
+          "finish": "Linen",
+          "color": [
+            242,
+            240,
+            230
+          ],
+          "layers": [],
+          "opacity": 1000
+        },
+        "hem_width": 13,
+        "thickness": 200
+      },
+      "neckline_slope": 600
     }
   }
 }

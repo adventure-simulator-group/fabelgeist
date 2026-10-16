@@ -12,7 +12,7 @@ const TEXTILE_TEXTURE_HEIGHT: u32 = 2048;
 pub struct TextilePixels {
     pub width: u32,
     pub height: u32,
-    /// Opaque sRGB RGBA8; row zero is the proximal edge of the fabric chart.
+    /// Straight-alpha sRGB RGBA8; row zero is the proximal fabric-chart edge.
     pub color: Vec<u8>,
 }
 
@@ -43,8 +43,7 @@ impl TextileAppearance {
                     (column as f32 + 0.5) / TEXTILE_TEXTURE_WIDTH as f32,
                     (row as f32 + 0.5) / TEXTILE_TEXTURE_HEIGHT as f32,
                 ];
-                color.extend(self.color_at(uv, &tiles).0);
-                color.push(255);
+                color.extend(self.color_at(uv, &tiles));
             }
         }
         Ok(TextilePixels {
@@ -56,16 +55,18 @@ impl TextileAppearance {
 
     /// Native normalized material-chart boundary. This samples appearance,
     /// never body positions or skin correspondence; callers freeze the chart.
-    fn color_at(&self, chart: [f32; 2], tiles: &[Option<BotanicalTile>]) -> crate::TextileColor {
+    fn color_at(&self, chart: [f32; 2], tiles: &[Option<BotanicalTile>]) -> [u8; 4] {
         let mut color = self.color;
+        let mut opacity = (self.opacity.unit() * 255.).round() as u8;
         for (layer, tile) in self.layers.0.iter().zip(tiles) {
             if let Some(local) = layer.region.chart(chart)
                 && layer.fill.covers(local, chart, tile.as_ref())
             {
                 color = layer.color;
+                opacity = 255;
             }
         }
-        color
+        [color.0[0], color.0[1], color.0[2], opacity]
     }
 }
 

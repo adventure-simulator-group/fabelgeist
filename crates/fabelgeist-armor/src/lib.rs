@@ -3,7 +3,9 @@
 
 mod bodice;
 mod gown;
+mod partlet;
 pub use gown::GownDesign;
+pub use partlet::{ClothBinding, CollarBand, CollarPleats, PartletDesign, StandingClothCollar};
 mod construction;
 pub use bodice::{
     BodiceDesign, BodiceInterlining, BodiceLining, BodiceNeckline, BodiceOpening,
@@ -112,7 +114,7 @@ pub use error::{GenerateError, PlateShellFailure};
 
 pub const SCHEMA_VERSION: u16 = 1;
 /// Identifies mesh-generation behavior in review and equipment manifests.
-pub const GENERATOR_VERSION: u16 = 29;
+pub const GENERATOR_VERSION: u16 = 30;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {

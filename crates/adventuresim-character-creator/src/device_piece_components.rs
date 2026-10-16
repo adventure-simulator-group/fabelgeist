@@ -19,6 +19,32 @@ struct MaterialGroup {
 }
 
 impl DevicePiece {
+    /// Each cut fabric has its own along-cloth pattern domain. The original
+    /// device chart remains the angular chart; no geometry is evaluated here.
+    pub(crate) fn normalize_cloth_charts(&mut self, roles: &[ArmorComponentRole]) -> Result<()> {
+        let part = &mut self.base;
+        let coordinates = part
+            .texcoords
+            .as_mut()
+            .context("cloth has no fabric chart")?;
+        for component in &part.components {
+            if !roles.contains(&component.role) {
+                continue;
+            }
+            let points = &mut coordinates[component.vertices.clone()];
+            let low = points.iter().map(|uv| uv[1]).fold(f32::INFINITY, f32::min);
+            let high = points
+                .iter()
+                .map(|uv| uv[1])
+                .fold(f32::NEG_INFINITY, f32::max);
+            anyhow::ensure!(high > low, "cloth has no along-cloth extent");
+            for uv in points {
+                uv[1] = (uv[1] - low) / (high - low);
+            }
+        }
+        Ok(())
+    }
+
     pub(crate) fn append(&mut self, other: Self) -> Result<()> {
         ensure!(
             self.endpoints.len() == other.endpoints.len(),

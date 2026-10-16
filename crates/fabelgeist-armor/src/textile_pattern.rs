@@ -14,6 +14,8 @@ pub const MAX_TEXTILE_LAYERS: usize = 12;
 pub struct TextileAppearance {
     pub color: TextileColor,
     pub finish: TextileFinish,
+    /// Base cloth opacity; colored decorative layers remain opaque.
+    pub opacity: Permille,
     pub layers: TextileLayers,
 }
 
@@ -43,6 +45,7 @@ pub enum TextileFinish {
     Wool,
     Silk,
     Velvet,
+    MetallicThread,
 }
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
@@ -132,16 +135,21 @@ pub enum TextileMotif {
 }
 
 impl TextileAppearance {
+    pub const OPACITY_RANGE: std::ops::RangeInclusive<u16> = 0..=Permille::ONE.0;
+
     pub fn solid(color: TextileColor, finish: TextileFinish) -> Self {
         Self {
             color,
             finish,
+            opacity: Permille::ONE,
             layers: TextileLayers::default(),
         }
     }
 
     pub fn validate(&self) -> Result<(), GenerateError> {
-        if self.layers.0.len() > MAX_TEXTILE_LAYERS {
+        if !Self::OPACITY_RANGE.contains(&self.opacity.0)
+            || self.layers.0.len() > MAX_TEXTILE_LAYERS
+        {
             return Err(DesignError::ParametricParameters.into());
         }
         for layer in &self.layers.0 {
@@ -150,13 +158,26 @@ impl TextileAppearance {
         Ok(())
     }
 
+    /// A conservative material classification; ornament can make covered
+    /// texels opaque without making the underlying cloth opaque.
+    pub fn is_translucent(&self) -> bool {
+        self.opacity.0 < Permille::ONE.0
+    }
+
     pub fn material(&self) -> crate::ArmorComponentMaterial {
         let mut material = self.color.material();
+        material.base_color[3] = self.opacity.unit();
         material.roughness = match self.finish {
             TextileFinish::Linen => 0.88,
             TextileFinish::Wool => 0.92,
             TextileFinish::Silk => 0.46,
             TextileFinish::Velvet => 0.78,
+            TextileFinish::MetallicThread => 0.65,
+        };
+        material.metallic = if self.finish == TextileFinish::MetallicThread {
+            0.8
+        } else {
+            0.0
         };
         material
     }
@@ -169,7 +190,7 @@ impl TextileFinish {
     pub fn specular_factor(self) -> f32 {
         match self {
             Self::Velvet => 0.0,
-            Self::Linen | Self::Wool | Self::Silk => 1.0,
+            Self::Linen | Self::Wool | Self::Silk | Self::MetallicThread => 1.0,
         }
     }
 }

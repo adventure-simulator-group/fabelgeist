@@ -281,6 +281,7 @@ fn bounded_layers_composite_into_the_same_preview_and_export_pixels() -> Result<
     let fabric = TextileAppearance {
         color: TextileColor([20, 30, 40]),
         finish: TextileFinish::Linen,
+        opacity: Permille(1000),
         layers: TextileLayers(vec![
             TextileLayer {
                 region: TextileRegion::Band {
@@ -326,5 +327,58 @@ fn bounded_layers_composite_into_the_same_preview_and_export_pixels() -> Result<
         end: Permille(500),
     };
     assert!(invalid.pixels().is_err());
+    Ok(())
+}
+
+#[test]
+fn sheer_cloth_keeps_opaque_ornament_in_shared_preview_and_portable_pixels() -> Result<()> {
+    use bevy::prelude::{Alpha, AlphaMode, Assets, Image};
+    let mut fabric = TextileAppearance::solid(TextileColor([240, 235, 220]), TextileFinish::Linen);
+    fabric.opacity = Permille(200);
+    fabric.layers.0.push(TextileLayer {
+        region: TextileRegion::Band {
+            axis: TextileAxis::Along,
+            start: Permille(750),
+            end: Permille::ONE,
+        },
+        fill: TextileFill::Solid,
+        color: TextileColor([190, 150, 55]),
+    });
+    let maps = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
+    let pixels = image::load_from_memory(&maps.base_color_png)?.to_rgba8();
+    assert_eq!(pixels.get_pixel(100, 100).0, [240, 235, 220, 51]);
+    assert_eq!(
+        pixels.get_pixel(100, pixels.height() - 100).0,
+        [190, 150, 55, 255]
+    );
+    let material = adventuresim_character_creator::textile_surface::material(
+        &fabric,
+        &mut Assets::<Image>::default(),
+    )?;
+    assert_eq!(material.alpha_mode, AlphaMode::Blend);
+    assert_eq!(material.base_color.alpha(), 1.);
+    assert!(material.base_color_texture.is_some());
+    assert!(material.cull_mode.is_some());
+    #[cfg(feature = "offline-creator")]
+    {
+        let portable: adventuresim_character_creator::export::SurfaceTextures = maps.into();
+        assert!(matches!(
+            portable.alpha,
+            adventuresim_character_creator::export::SurfaceAlpha::Blend
+        ));
+        assert!(matches!(
+            portable.sides,
+            adventuresim_character_creator::export::SurfaceSides::Front
+        ));
+    }
+    fabric.layers.0.clear();
+    assert!(adventuresim_character_creator::textile_surface::textures(&fabric)?.is_some());
+    let material = adventuresim_character_creator::textile_surface::material(
+        &fabric,
+        &mut Assets::<Image>::default(),
+    )?;
+    assert!((material.base_color.alpha() - 0.2).abs() < 1e-6);
+    fabric.opacity = Permille(1001);
+    assert!(fabric.validate().is_err());
     Ok(())
 }
