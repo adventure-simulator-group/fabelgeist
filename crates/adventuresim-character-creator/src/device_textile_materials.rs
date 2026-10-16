@@ -15,6 +15,7 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
                     Some(&partlet.fabric)
                 }
                 ArmorComponentRole::EdgeBinding => partlet.binding.as_ref().map(|b| &b.fabric),
+                ArmorComponentRole::ClothTies => partlet.ties.as_ref().map(|t| &t.fabric),
                 ArmorComponentRole::Neckband => partlet
                     .collar
                     .as_ref()

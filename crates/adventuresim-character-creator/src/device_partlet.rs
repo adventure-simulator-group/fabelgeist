@@ -39,6 +39,7 @@ impl DeviceWearer<'_> {
                 Grid::Items(binding.words.len() as u32 / 4),
             )?;
         }
+        self.record_partlet_ties(batch, design, plan, &fit)?;
         let part = record_body_cloth(self.gpu, batch, &plan.cloth.layers, &fit)?;
         self.record_fit_status(batch, &fit, &part)?;
         Ok(DeviceRecording {

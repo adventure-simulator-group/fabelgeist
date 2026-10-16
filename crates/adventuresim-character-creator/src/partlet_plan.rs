@@ -2,6 +2,7 @@
 use crate::armor_frames::Wearer;
 use crate::body_cloth_plan::BodyClothPlan;
 use crate::cloth_ribbon_plan::{ClothRibbonBoundary, ClothRibbonPlan};
+use crate::cloth_tie_plan::ClothTiePlan;
 use crate::device_fit::DevicePiece;
 use crate::partlet_collar::{CollarBandPlacement, CollarPlan};
 use crate::partlet_cut::PartletCut;
@@ -16,6 +17,7 @@ pub(crate) struct PartletPlan {
     pub collar: Option<CollarPlan>,
     pub binding: Option<ClothRibbonPlan>,
     pub bands: Vec<CollarBandPlacement>,
+    pub ties: Option<ClothTiePlan>,
 }
 
 impl PartletPlan {
@@ -62,11 +64,23 @@ impl PartletPlan {
                 )
             })
             .transpose()?;
+        let ties = design
+            .ties
+            .as_ref()
+            .map(|ties| -> Result<_> {
+                Ok(ClothTiePlan::new(
+                    &cut.tie_anchors()?,
+                    ties,
+                    &mut cloth.layers,
+                ))
+            })
+            .transpose()?;
         Ok(Self {
             cloth,
             collar,
             binding,
             bands,
+            ties,
         })
     }
 

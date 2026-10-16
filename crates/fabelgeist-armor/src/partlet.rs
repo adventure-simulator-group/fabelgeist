@@ -1,6 +1,6 @@
 //! Separate open-sided shoulder/chest covering, with an optional standing collar.
 use crate::{
-    DesignError, GenerateError, Micrometers, Millimeters, Permille, TextileAppearance,
+    ClothTies, DesignError, GenerateError, Micrometers, Millimeters, Permille, TextileAppearance,
     TextileRepeatCount,
 };
 use serde::{Deserialize, Serialize};
@@ -25,6 +25,7 @@ pub struct PartletDesign {
     pub thickness: Micrometers,
     pub fabric: TextileAppearance,
     pub binding: Option<ClothBinding>,
+    pub ties: Option<ClothTies>,
 }
 
 /// Folded finishing tape, independently opaque even on a sheer carrier.
@@ -95,6 +96,9 @@ impl PartletDesign {
         }
         if let Some(binding) = &self.binding {
             binding.validate()?;
+        }
+        if let Some(ties) = &self.ties {
+            ties.validate()?;
         }
         Ok(())
     }

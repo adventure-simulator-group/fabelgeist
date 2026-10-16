@@ -640,6 +640,11 @@ reason = "Egui controls inspect widget responses; displayed cloth labels are nev
 
 [[scopes]]
 kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/cloth_tie_controls.rs"
+reason = "Cloth closure widgets inspect responses without interpreting displayed labels as state."
+
+[[scopes]]
+kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/export/buffer.rs"
 reason = "glTF buffer views encode external protocol keys and native byte alignment."
 
