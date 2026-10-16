@@ -18,6 +18,7 @@ use std::io::Read;
 
 use anyhow::{Context, Result, anyhow, bail};
 use array_encoding::FbxArrayEncodingCode;
+use array_layout::{FbxArrayCount, FbxArrayPayloadLength};
 use binary_layout::{
     BINARY_MAGIC_PREFIX, FILE_HEADER_BYTES, FILE_VERSION_OFFSET, FbxVersion, HeaderFormat,
 };
@@ -29,6 +30,7 @@ pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
 pub mod animation;
 
 mod array_encoding;
+mod array_layout;
 mod binary_layout;
 mod property_tag;
 
@@ -260,10 +262,10 @@ impl<'a> Reader<'a> {
         &mut self,
         parse: impl Fn([u8; WIDTH]) -> T,
     ) -> Result<Vec<T>> {
-        let count = self.u32()? as usize;
-        let encoding = FbxArrayEncodingCode::from(self.u32()?);
-        let compressed_len = self.u32()? as usize;
-        let raw = self.take(compressed_len)?;
+        let count = FbxArrayCount::from_le_bytes(self.take_array()?);
+        let encoding = FbxArrayEncodingCode::from_le_bytes(self.take_array()?);
+        let payload_length = FbxArrayPayloadLength::from_le_bytes(self.take_array()?);
+        let raw = self.take(payload_length.native_len())?;
         decode_array(raw, count, encoding, parse)
     }
 
@@ -440,26 +442,27 @@ pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
 
 fn decode_array<T: Copy, const WIDTH: usize>(
     raw: &[u8],
-    count: usize,
+    count: FbxArrayCount,
     encoding: FbxArrayEncodingCode,
     parse: impl Fn([u8; WIDTH]) -> T,
 ) -> Result<Vec<T>> {
     let bytes = if encoding.is_uncompressed() {
         raw.to_vec()
     } else {
-        let mut out = Vec::with_capacity(count * WIDTH);
+        let mut out = Vec::with_capacity(count.native_byte_len::<WIDTH>());
         ZlibDecoder::new(raw)
             .read_to_end(&mut out)
             .context("inflating FBX array property")?;
         out
     };
-    if bytes.len() < count * WIDTH {
+    if bytes.len() < count.native_byte_len::<WIDTH>() {
         bail!(
-            "FBX array property is short: {} bytes for {count} x {WIDTH}",
-            bytes.len()
+            "FBX array property is short: {} bytes for {} x {WIDTH}",
+            bytes.len(),
+            count.native_len()
         );
     }
-    Ok((0..count)
+    Ok((0..count.native_len())
         .map(|i| {
             let mut element = [0; WIDTH];
             element.copy_from_slice(&bytes[i * WIDTH..(i + 1) * WIDTH]);
