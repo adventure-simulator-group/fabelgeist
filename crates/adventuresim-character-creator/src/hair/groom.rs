@@ -5,11 +5,11 @@ use anyhow::Result;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_hair::gpu::{GpuGroom, GpuLods, head_shape};
 use fabelgeist_hair::lod::Form;
-use fabelgeist_hair::{Head, LodSettings, MeshCollider, Strands, Surface};
+use fabelgeist_hair::{Head, LodSettings, MeshCollider, Surface};
 use fabelgeist_math::Vec3;
 use std::sync::Arc;
 
-use super::gpu::{BodyField, Draping};
+use super::gpu::{BodyField, Draping, GpuScalpTexture, longest};
 use super::scalp_map::ScalpMap;
 use super::{Groom, HairGpu, HeadPlacement, ScalpCap, ScalpTexture};
 
@@ -70,25 +70,22 @@ impl GroomedHair {
     pub fn grow(groom: Groom, gpu: &HairGpu) -> Result<Self> {
         let look = groom.look();
         let head = look.head(&Head::mannequin());
-        let (scalp, strands, on_gpu, bounds) = {
+        let (scalp, on_gpu, bounds) = {
             let mut groomer = gpu.groomer();
             let scalp = groomer.cut_scalp(&head, SCALP_CELL)?;
             let grown = groomer.grow_look(&look, &head, &scalp)?;
             let bounds = groomer.measure_bounds(&grown)?;
-            (
-                scalp.read(&groomer)?,
-                grown.read(groomer.context())?,
-                grown,
-                bounds,
-            )
+            (scalp.read(&groomer)?, grown, bounds)
         };
         let scalp_map = ScalpMap::fit(&head, &scalp);
-        let scalp_texture = Arc::new(ScalpTexture::bake(&strands, &head, &scalp_map));
+        let baked = GpuScalpTexture::bake(gpu, &on_gpu, &head, &scalp_map)?;
+        let scalp_texture = Arc::new(baked.read(gpu)?);
+        let longest = longest(gpu, &on_gpu)?;
         Ok(Self {
             groom,
             on_gpu,
             bounds,
-            longest: longest(&strands),
+            longest,
             drapes: look.drape,
             head,
             scalp,
@@ -188,11 +185,6 @@ impl GroomedHair {
             scalp_texture: self.scalp_texture.clone(),
         })
     }
-}
-
-/// The longest of `strands`, metres.
-fn longest(strands: &Strands) -> f32 {
-    strands.lengths().into_iter().fold(0.0, f32::max)
 }
 
 impl PlacedHair {

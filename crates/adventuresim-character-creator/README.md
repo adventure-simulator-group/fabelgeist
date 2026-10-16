@@ -96,13 +96,14 @@ recipe stores the shape strictly, rejecting a value outside its range.
 
 A hairstyle is grown once, on a worker thread, on the hair crate's mannequin
 bust, by the hair crate's GPU groomer on the studio's own render device: the
-scalp cut and the whole groom grown in compute kernels, a twentieth to an eighth
-of a second, ten times faster than every core of the CPU. The kernels compile
-once, on the first hairstyle grown (about half a second); an export opens a
-device of its own for them. The hair is then placed on each generated body on
-the same thread and the same device, in a tenth of a second or so where the CPU
-took three or four. The body is first sampled as a distance field onto a grid
-round the hair, cells of 2.5 mm out to 10 cm from the skin
+scalp cut and the whole groom grown in compute kernels, its scalp texture baked
+and the textures read back in a twentieth to a twelfth of a second, where the
+CPU took half a second to a second and a half; no strand comes back to the CPU.
+The kernels compile once, on the first hairstyle grown (about half a second); an
+export opens a device of its own for them. The hair is then placed on each
+generated body on the same thread and the same device, in a tenth of a second or
+so where the CPU took three or four. The body is first sampled as a distance
+field onto a grid round the hair, cells of 2.5 mm out to 10 cm from the skin
 (`hair/gpu/field.rs`): each triangle marks the cells near it, a jump flood
 carries every cell's nearest triangle out to it, and each cell takes its
 distance, signed by the vertex normals at the nearest point as the CPU's mesh
@@ -168,51 +169,52 @@ screen.
 The scalp under the hair is painted with the hair lying on it and shaded as the
 hair is, so no level shows lit skin between its strands, even between an afro's
 open curls, and the hair painted on the scalp looks like the hair drawn over it.
-The textures are baked once per hairstyle, on the bust it grew on (about a
-seventh to a quarter of a second): each strand's first 8 mm off the skin is
-drawn, in steps of at most 2 mm, into textures 2048 texels square mapped afresh
-to the scalp. The hair crate maps its scalp by the angle from the crown onto a
-disk inside the square, a texel at the crown covering a few times the skin of
-one at the hairline, the corners unused and much of the disk below the hairline.
-The scalp's texture instead takes Lambert's equal-area projection about the axis
-of the narrowest cone from the cranium's centre that holds the scalp, out to
-just past its edge, spread over the whole square by Shirley and Chiu's
-concentric mapping, which keeps areas too: every texel covers about 0.13 mm of
-skin a side, the crown as finely as the rest, near a hair's own width, and the
-texture has no seam. The topmost strand over each texel shows, from 25% of the
-hair's colour where it meets the skin to 90% at 8 mm off it, and a second
-texture keeps the way it runs across the texture; strands rooted within about 4
-mm of each other share a tone, so locks show where single strands are far finer
-than a pixel. Scalp no strand lies on is at 35%, in the shadow of hair standing
-further off it -- up to 25 mm, judged over blocks of eight texels -- as between
-an afro's coils. Where no hair lies over it either, it is bare, as at a parting
-or a whorl's eye, and how bare the scalp is within about 0.8 mm, measured twice
-over so the nearest counts most, turns the texture clear, from a tenth bare to
-three quarters, so the body's own skin shows lit through the cap. A strand's own
-texel clears only half as far: hair thins into a parting over a couple of
-millimetres strand by strand, the last strands' ends lying over the skin, while
-a texel or two between coils shows no skin. So the gaps between cards show
-strands running the groom's way, its parting and its whorl, rather than a flat
-patch, and the textures are filtered anisotropically to keep them where the eye
-meets the scalp obliquely. The cap is drawn with the hair's own surface -- its
-colour, roughness and highlights leaning to its hue -- extended by
-`hair_preview/scalp_shading.wgsl`: each point's normal is the strand normal the
-cards and ribbons are lit by (`hair_preview/strand.wgsl`), facing the eye square
-to the topmost strand, which the cap's tangents turn from the texture onto the
-head, and the strands' shade fades the environment's reflection as the baked
-occlusion does on cards. Where no strand runs, the cap is lit by the scalp's own
-smooth normals. The body has only a few dozen vertices over the skull, too few
-to keep a parting narrow, so the bust's own scalp, cut in four-millimetre cells,
-is carried onto the character as a cap laid 0.4 mm over its skin and painted
-there. Laid by its corners, a cap triangle spanning a ridge or corner of the
-coarse body would dip under the skin and let it show through in specks along the
-body's edges, so each triangle is sampled across and lifted until all of it
-clears the skin. The cap's edge runs in the cells' steps, so it is blended over
-the skin, fading out from 5 mm above the hair crate's hairline over the next 6
-mm -- the hairline's own smooth curve, above the steps -- and over a row of
-cells along the rest of its edge. Only the cap is painted: the body's skin, the
-neck and the shoulders hair falls over, keeps its colour, and the cap comes and
-goes with the hair.
+The textures are baked once per hairstyle, on the bust it grew on, on the GPU
+(`hair/gpu/bake.rs`; a few milliseconds): each strand, an invocation, draws its
+first 8 mm off the skin, in steps of at most 2 mm, into textures 2048 texels
+square mapped afresh to the scalp. The hair crate maps its scalp by the angle
+from the crown onto a disk inside the square, a texel at the crown covering a
+few times the skin of one at the hairline, the corners unused and much of the
+disk below the hairline. The scalp's texture instead takes Lambert's equal-area
+projection about the axis of the narrowest cone from the cranium's centre that
+holds the scalp, out to just past its edge, spread over the whole square by
+Shirley and Chiu's concentric mapping, which keeps areas too: every texel covers
+about 0.13 mm of skin a side, the crown as finely as the rest, near a hair's own
+width, and the texture has no seam. The topmost strand over each texel shows --
+kept by an atomic maximum over its height, direction and shade packed in one
+word -- from 25% of the hair's colour where it meets the skin to 90% at 8 mm off
+it, and a second texture keeps the way it runs across the texture; strands
+rooted within about 4 mm of each other share a tone, so locks show where single
+strands are far finer than a pixel. Scalp no strand lies on is at 35%, in the
+shadow of hair standing further off it -- up to 25 mm, judged over blocks of
+eight texels -- as between an afro's coils. Where no hair lies over it either,
+it is bare, as at a parting or a whorl's eye, and how bare the scalp is within
+about 0.8 mm, measured twice over so the nearest counts most, turns the texture
+clear, from a tenth bare to three quarters, so the body's own skin shows lit
+through the cap. A strand's own texel clears only half as far: hair thins into a
+parting over a couple of millimetres strand by strand, the last strands' ends
+lying over the skin, while a texel or two between coils shows no skin. So the
+gaps between cards show strands running the groom's way, its parting and its
+whorl, rather than a flat patch, and the textures are filtered anisotropically
+to keep them where the eye meets the scalp obliquely. The cap is drawn with the
+hair's own surface -- its colour, roughness and highlights leaning to its hue --
+extended by `hair_preview/scalp_shading.wgsl`: each point's normal is the strand
+normal the cards and ribbons are lit by (`hair_preview/strand.wgsl`), facing the
+eye square to the topmost strand, which the cap's tangents turn from the texture
+onto the head, and the strands' shade fades the environment's reflection as the
+baked occlusion does on cards. Where no strand runs, the cap is lit by the
+scalp's own smooth normals. The body has only a few dozen vertices over the
+skull, too few to keep a parting narrow, so the bust's own scalp, cut in
+four-millimetre cells, is carried onto the character as a cap laid 0.4 mm over
+its skin and painted there. Laid by its corners, a cap triangle spanning a ridge
+or corner of the coarse body would dip under the skin and let it show through in
+specks along the body's edges, so each triangle is sampled across and lifted
+until all of it clears the skin. The cap's edge runs in the cells' steps, so it
+is blended over the skin, fading out from 5 mm above the hair crate's hairline
+over the next 6 mm -- the hairline's own smooth curve, above the steps -- and
+over a row of cells along the rest of its edge. Only the cap is painted: the
+body's skin, the neck and the shoulders hair falls over, keeps its colour, and
+the cap comes and goes with the hair.
 
 Ribbons and cards are built on the GPU too (`hair/gpu/strips.rs`), a strip to an
 invocation, and read back to draw. They are straight between their rows, and

@@ -11,6 +11,7 @@
 //! drawn from where it lies; an export or a test without a window opens a
 //! device of its own.
 
+mod bake;
 mod field;
 mod place;
 mod strips;
@@ -23,6 +24,8 @@ use fabelgeist_gpu::globals::WgpuContext;
 use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, BufferUpload};
 use fabelgeist_hair::gpu::{GpuGroomer, headless_context};
 
+pub use bake::ScalpTexture;
+pub(crate) use bake::{GpuScalpTexture, longest};
 pub(crate) use field::BodyField;
 pub(crate) use place::Draping;
 pub(crate) use strips::StripSource;
@@ -50,6 +53,7 @@ pub struct HairGpu {
     field: field::FieldKernels,
     place: place::PlaceKernels,
     strips: strips::StripKernels,
+    bake: bake::BakeKernels,
 }
 
 /// Compiles kernels for one device, each source once.
@@ -76,6 +80,7 @@ impl HairGpu {
             field: field::FieldKernels::new(&source)?,
             place: place::PlaceKernels::new(&source)?,
             strips: strips::StripKernels::new(&source)?,
+            bake: bake::BakeKernels::new(&source)?,
             context,
         })
     }
