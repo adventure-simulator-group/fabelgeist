@@ -11,6 +11,7 @@ use adventuresim_character_creator::hair::{
     BodySurface, Groom, GroomedHair, HairDesign, HairGpu, HeadPlacement, HeadSkin, PlacedHair,
     variant_label,
 };
+use bevy::camera::visibility::NoFrustumCulling;
 use fabelgeist_hair::lod::Form;
 use std::sync::Arc;
 use std::thread::JoinHandle;
@@ -21,6 +22,7 @@ mod layers;
 #[cfg(test)]
 mod render_test;
 mod scalp_shade;
+mod scalp_upload;
 mod strand_shading;
 
 use assets::HairAssets;
@@ -157,7 +159,11 @@ impl HairPreview {
     }
 
     /// Take the worker's hair once it has finished.
-    fn collect(&mut self, images: &mut Assets<Image>) -> Result<()> {
+    fn collect(
+        &mut self,
+        images: &mut Assets<Image>,
+        uploads: &scalp_upload::ScalpUploads,
+    ) -> Result<()> {
         if !self
             .worker
             .as_ref()
@@ -173,7 +179,7 @@ impl HairPreview {
             .join()
             .map_err(|_| anyhow::anyhow!("the hair worker panicked"))??;
         let atlas = images.add(assets::atlas_image(&prepared.placed));
-        let scalp = assets::scalp_images(&prepared.placed, images);
+        let scalp = assets::scalp_images(&prepared.placed, images, uploads);
         self.grown = Some(prepared.grown);
         self.placed = Some(PlacedStyle {
             hair: prepared.placed,
@@ -254,7 +260,8 @@ pub(super) fn refresh(
     mut assets: HairAssets,
     mut contexts: EguiContexts,
 ) {
-    if let Err(error) = preview.collect(&mut assets.images) {
+    let uploads = assets.uploads.clone();
+    if let Err(error) = preview.collect(&mut assets.images, &uploads) {
         studio.status = format!("Hair could not be placed: {error:#}");
     }
     let wanted = studio.recipe.hair.map(|design| (design, studio.hair_form));
@@ -296,35 +303,40 @@ pub(super) fn refresh(
     let Some(skin) = animation_preview::skin(&walk) else {
         return;
     };
-    let drawn = assets.hair_mesh(placed, form).and_then(|hair| {
+    let drawn = assets.hair(placed, design, form).and_then(|hair| {
         let cap = assets.scalp_cap(placed, design)?;
         Ok((hair, cap))
     });
-    match drawn {
-        Ok((mesh, (cap, cap_material))) => {
-            let material = assets.hair_material(design, form, placed.atlas.clone());
-            let shown = studio.hair_layers;
-            commands.spawn((
-                CharacterMesh,
-                HairMesh { design, form },
-                HairLayer::Hair,
-                shown.visibility(HairLayer::Hair),
-                Name::new("Hair"),
-                skin.clone(),
-                Mesh3d(mesh),
-                MeshMaterial3d(material),
-            ));
-            commands.spawn((
-                CharacterMesh,
-                HairMesh { design, form },
-                HairLayer::Scalp,
-                shown.visibility(HairLayer::Scalp),
-                Name::new("Scalp"),
-                skin,
-                Mesh3d(cap),
-                MeshMaterial3d(cap_material),
-            ));
+    let (hair, (cap, cap_material)) = match drawn {
+        Ok(drawn) => drawn,
+        Err(error) => {
+            studio.status = format!("Hair could not be drawn: {error:#}");
+            return;
         }
-        Err(error) => studio.status = format!("Hair could not be drawn: {error:#}"),
+    };
+    let shown = studio.hair_layers;
+    if let Some((mesh, material)) = hair {
+        // Its mesh holds no positions to bound it by: they lie on the GPU.
+        commands.spawn((
+            CharacterMesh,
+            HairMesh { design, form },
+            HairLayer::Hair,
+            shown.visibility(HairLayer::Hair),
+            Name::new("Hair"),
+            skin.clone(),
+            Mesh3d(mesh),
+            MeshMaterial3d(material),
+            NoFrustumCulling,
+        ));
     }
+    commands.spawn((
+        CharacterMesh,
+        HairMesh { design, form },
+        HairLayer::Scalp,
+        shown.visibility(HairLayer::Scalp),
+        Name::new("Scalp"),
+        skin,
+        Mesh3d(cap),
+        MeshMaterial3d(cap_material),
+    ));
 }

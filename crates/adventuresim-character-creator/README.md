@@ -96,9 +96,9 @@ recipe stores the shape strictly, rejecting a value outside its range.
 
 A hairstyle is grown once, on a worker thread, on the hair crate's mannequin
 bust, by the hair crate's GPU groomer on the studio's own render device: the
-scalp cut and the whole groom grown in compute kernels, its scalp texture baked
-and the textures read back in a twentieth to a twelfth of a second, where the
-CPU took half a second to a second and a half; no strand comes back to the CPU.
+scalp cut and the whole groom grown in compute kernels and its scalp textures
+baked in a twentieth to a twelfth of a second, where the CPU took half a second
+to a second and a half; no strand or texel comes back to the CPU.
 The kernels compile once, on the first hairstyle grown (about half a second); an
 export opens a device of its own for them. The hair is then placed on each
 generated body on the same thread and the same device, in a tenth of a second or
@@ -170,7 +170,7 @@ The scalp under the hair is painted with the hair lying on it and shaded as the
 hair is, so no level shows lit skin between its strands, even between an afro's
 open curls, and the hair painted on the scalp looks like the hair drawn over it.
 The textures are baked once per hairstyle, on the bust it grew on, on the GPU
-(`hair/gpu/bake.rs`; a few milliseconds): each strand, an invocation, draws its
+(`hair/gpu/bake/`; a few milliseconds): each strand, an invocation, draws its
 first 8 mm off the skin, in steps of at most 2 mm, into textures 2048 texels
 square mapped afresh to the scalp. The hair crate maps its scalp by the angle
 from the crown onto a disk inside the square, a texel at the crown covering a
@@ -217,7 +217,16 @@ body's skin, the neck and the shoulders hair falls over, keeps its colour, and
 the cap comes and goes with the hair.
 
 Ribbons and cards are built on the GPU too (`hair/gpu/strips.rs`), a strip to an
-invocation, and read back to draw. They are straight between their rows, and
+invocation, in a few milliseconds, and drawn from where they were built. The
+hair's material (`hair_preview/strand_shading.rs`) binds the four buffers a
+level was built into, and its vertex shaders, for the main pass and for the
+prepass and shadows, pull each vertex from them by its index; the mesh carries
+only the triangles and each vertex's skin, wholly to the head joint, so it is
+not frustum-culled by positions it does not hold. The scalp's baked textures are
+copied on the GPU from the buffers they were baked in into their images, every
+mip level, once the renderer has made them (`hair_preview/scalp_upload.rs`).
+Only an export reads the hair back, to write it out. Strips are straight
+between their rows, and
 over a rounded shoulder or skull a straight segment between two rows just
 outside the skin passes under it, the coarse levels' long segments most. So
 every segment is cut into pieces no longer than a centimetre -- at most sixteen
@@ -229,11 +238,12 @@ in a sawtooth. The hair crate turns a card to face away from the head's centre,
 right beside the head; lying on a shoulder such a card would stand on its edge,
 a fin, so within 3 cm of the skin each row turns to lie flat on it.
 
-To look at hair without the studio's window, an ignored test grows a
-hairstyle on the default body and draws every level of detail as the studio
-draws them, close over the parting, from above, from the front, from behind
-and over the shoulder, printing how long placing takes, how long each level
-takes to build and how much of it lies under the skin:
+To look at hair without the studio's window, an ignored test grows a hairstyle
+on the default body, on the device it draws with, and draws every level of
+detail as the studio draws them, from the buffers it was built in and skinned to
+one joint left in place, close over the parting, from above, from the front,
+from behind and over the shoulder, printing how long placing takes, how long
+each level takes to build and how much of it lies under the skin:
 
 ```powershell
 $env:MHR_ASSETS = "target/mhr-assets/v1.0.1/assets"; $env:HAIR_PRESET = "long"

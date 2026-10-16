@@ -5,7 +5,7 @@
 use anyhow::Result;
 use fabelgeist_hair::lod::Form;
 
-use super::gpu::StripSource;
+use super::gpu::{GpuGeometry, StripSource};
 use super::{HairGpu, HeadPlacement, PlacedHair};
 
 /// The most ribbon vertices drawn at once: about a hundred megabytes of
@@ -37,8 +37,17 @@ pub struct AtlasLevel {
 }
 
 impl PlacedHair {
-    /// The triangles of `form`, built on `gpu`.
+    /// The triangles of `form`, built on `gpu` and read back.
     pub fn geometry(&self, gpu: &HairGpu, form: Form) -> Result<HairGeometry> {
+        match self.gpu_geometry(gpu, form)? {
+            Some(geometry) => geometry.read(gpu),
+            None => Ok(HairGeometry::empty()),
+        }
+    }
+
+    /// The triangles of `form`, built on `gpu` and left there, to draw from
+    /// where they lie; none for a form this hair has not.
+    pub fn gpu_geometry(&self, gpu: &HairGpu, form: Form) -> Result<Option<GpuGeometry>> {
         let source = self.strip_source();
         let built = match form {
             Form::Cards { level } => {
@@ -48,20 +57,20 @@ impl PlacedHair {
                     .get(level)
                     .or_else(|| self.lods.cards.last())
                 else {
-                    return Ok(HairGeometry::empty());
+                    return Ok(None);
                 };
                 source.cards(gpu, cards, self.lods.atlas.variants)?
             }
             Form::Strands { level, .. } => {
                 let Some(strands) = self.lods.levels.get(level) else {
-                    return Ok(HairGeometry::empty());
+                    return Ok(None);
                 };
                 let drawn = self.strands_drawn(form);
                 let widen = strands.count as f32 / drawn.max(1) as f32;
                 source.ribbons(gpu, strands, drawn as u32, widen, self.lods.center)?
             }
         };
-        built.read(gpu)
+        Ok(Some(built))
     }
 
     /// Where strips of this hair are built from.

@@ -106,8 +106,8 @@ pub struct ScalpTexture {
 }
 
 /// The scalp's textures on the GPU: every mip level, largest first, one
-/// after another, four bytes a texel.
-pub(crate) struct GpuScalpTexture {
+/// after another ([`levels`]), four bytes a texel.
+pub struct GpuScalpTexture {
     shade: Buffer,
     strands: Buffer,
 }
@@ -135,31 +135,41 @@ impl BakeKernels {
     }
 }
 
-/// One mip level's place in the chain: its side, texels, and where it
-/// starts, texels in.
-#[derive(Clone, Copy)]
-struct Level {
-    side: u32,
-    offset: u32,
+/// One mip level's place in the chain: its side, texels; how far apart its
+/// rows start, texels, padded so a row is a whole number of the 256 bytes a
+/// copy into a texture moves rows in; and where it starts, texels in.
+#[derive(Clone, Copy, Debug)]
+pub struct Level {
+    pub side: u32,
+    pub stride: u32,
+    pub offset: u32,
 }
 
+/// Texels in a row a copy into a texture moves rows in multiples of.
+const ROW_TEXELS: u32 = 64;
+
 /// Every mip level of the texture, largest first.
-fn levels() -> Vec<Level> {
+pub fn levels() -> Vec<Level> {
     let mut levels = Vec::new();
     let (mut side, mut offset) = (SIZE, 0);
     loop {
-        levels.push(Level { side, offset });
+        let stride = side.max(ROW_TEXELS);
+        levels.push(Level {
+            side,
+            stride,
+            offset,
+        });
         if side == 1 {
             return levels;
         }
-        offset += side * side;
+        offset += stride * side;
         side /= 2;
     }
 }
 
 impl GpuScalpTexture {
     /// `groom`, grown on `bust`, baked into textures mapped by `map`.
-    pub(crate) fn bake(
+    pub(in crate::hair) fn bake(
         gpu: &HairGpu,
         groom: &GpuGroom,
         bust: &Head,
@@ -173,7 +183,7 @@ impl GpuScalpTexture {
         let texels = u64::from(SIZE) * u64::from(SIZE);
         let chain: u64 = levels()
             .iter()
-            .map(|level| u64::from(level.side).pow(2))
+            .map(|level| u64::from(level.stride) * u64::from(level.side))
             .sum();
         let topmost = storage(context, texels * TEXEL_BYTES, "hair scalp topmost")?;
         let shadowed = storage(
@@ -204,8 +214,18 @@ impl GpuScalpTexture {
         Ok(baked)
     }
 
+    /// The shade texture's chain: shade as grey, coverage as alpha.
+    pub fn shade(&self) -> &Buffer {
+        &self.shade
+    }
+
+    /// The strands texture's chain: the way each runs, and its shade.
+    pub fn strands(&self) -> &Buffer {
+        &self.strands
+    }
+
     /// The textures back on the host.
-    pub(crate) fn read(&self, gpu: &HairGpu) -> Result<ScalpTexture> {
+    pub fn read(&self, gpu: &HairGpu) -> Result<ScalpTexture> {
         let context = gpu.context();
         let chain = |buffer: &Buffer| -> Result<Vec<AtlasLevel>> {
             let texels: Vec<u32> = pollster::block_on(buffer.read(context))?;
@@ -213,12 +233,20 @@ impl GpuScalpTexture {
             Ok(levels()
                 .into_iter()
                 .map(|level| {
-                    let start = level.offset as usize * TEXEL_BYTES as usize;
-                    let length = (level.side * level.side) as usize * TEXEL_BYTES as usize;
+                    let texel = TEXEL_BYTES as usize;
+                    let rgba = (0..level.side as usize)
+                        .flat_map(|row| {
+                            let start =
+                                (level.offset as usize + row * level.stride as usize) * texel;
+                            bytes[start..start + level.side as usize * texel]
+                                .iter()
+                                .copied()
+                        })
+                        .collect();
                     AtlasLevel {
                         width: level.side,
                         height: level.side,
-                        rgba: bytes[start..start + length].to_vec(),
+                        rgba,
                     }
                 })
                 .collect())
@@ -380,9 +408,13 @@ impl GpuScalpTexture {
                     &params! {
                         "chain" => texture.clone(),
                         "from_side" => from.side,
+                        "from_stride" => from.stride,
                         "from_offset" => from.offset,
                         "to_side" => to.side,
+                        "to_stride" => to.stride,
                         "to_offset" => to.offset,
+                        "pad0" => 0u32,
+                        "pad1" => 0u32,
                     },
                     to.side * to.side,
                 )?;

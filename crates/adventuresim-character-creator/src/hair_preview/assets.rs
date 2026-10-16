@@ -1,8 +1,9 @@
 //! Meshes, materials and the card atlas the previewed hair is drawn with.
 use super::scalp_shade::{ScalpImages, ScalpShading};
+use super::scalp_upload::ScalpUploads;
 use super::strand_shading::{HairShading, StrandShading};
 use super::*;
-use adventuresim_character_creator::hair::{AtlasLevel, HAIR_ROUGHNESS, HairGeometry, ScalpCap};
+use adventuresim_character_creator::hair::{AtlasLevel, GpuGeometry, HAIR_ROUGHNESS, ScalpCap};
 use bevy::{
     asset::RenderAssetUsages,
     image::{ImageAddressMode, ImageFilterMode, ImageSampler, ImageSamplerDescriptor},
@@ -14,9 +15,6 @@ use bevy::{
 const HIGHLIGHT_HUE: f32 = 0.4;
 /// Coverage under which a card casts no shadow and writes no depth.
 const SHADOW_COVERAGE: f32 = 0.5;
-/// The most samples the scalp's texture is filtered with along the line
-/// of sight: hardware anisotropic filtering's usual ceiling.
-const SCALP_ANISOTROPY: u16 = 16;
 
 /// The assets hair is made of.
 #[derive(bevy::ecs::system::SystemParam)]
@@ -25,15 +23,28 @@ pub(crate) struct HairAssets<'w> {
     hair_materials: ResMut<'w, Assets<HairShading>>,
     scalp_materials: ResMut<'w, Assets<ScalpShading>>,
     pub(super) images: ResMut<'w, Assets<Image>>,
+    pub(super) uploads: Res<'w, ScalpUploads>,
 }
 
 impl HairAssets<'_> {
-    /// `form` of the placed hair as a mesh skinned wholly to the head joint,
-    /// its baked occlusion as vertex colour.
-    pub(super) fn hair_mesh(&mut self, placed: &PlacedStyle, form: Form) -> Result<Handle<Mesh>> {
-        let head = placed.hair.placement().head_joint;
-        let geometry = placed.hair.geometry(placed.gpu.kernels()?, form)?;
-        Ok(self.meshes.add(mesh(geometry, head)?))
+    /// `form` of the placed hair, built on the GPU and drawn from there:
+    /// its mesh, skinned wholly to the head joint, and its material. None
+    /// for a form the hair has not.
+    pub(super) fn hair(
+        &mut self,
+        placed: &PlacedStyle,
+        design: HairDesign,
+        form: Form,
+    ) -> Result<Option<(Handle<Mesh>, Handle<HairShading>)>> {
+        let Some(geometry) = placed.hair.gpu_geometry(placed.gpu.kernels()?, form)? else {
+            return Ok(None);
+        };
+        let mesh = mesh(&geometry, placed.hair.placement().head_joint)?;
+        let material = material(design, form, placed.atlas.clone(), &geometry);
+        Ok(Some((
+            self.meshes.add(mesh),
+            self.hair_materials.add(material),
+        )))
     }
 
     /// The scalp cap under `placed`, skinned wholly to the head joint and
@@ -51,17 +62,6 @@ impl HairAssets<'_> {
                 .add(scalp_shade::material(design, &placed.scalp)),
         ))
     }
-
-    /// Cards cut their painted strands out of the atlas; ribbons are each
-    /// one strand, solid.
-    pub(super) fn hair_material(
-        &mut self,
-        design: HairDesign,
-        form: Form,
-        atlas: Handle<Image>,
-    ) -> Handle<HairShading> {
-        self.hair_materials.add(material(design, form, atlas))
-    }
 }
 
 /// The material `form` of hair of `design` is drawn with, shaded as strands
@@ -70,8 +70,14 @@ impl HairAssets<'_> {
 /// renderer does, while shadows and depth cut it at half. A ribbon is one
 /// strand, solid. Hair's highlights lean towards its pigment's hue: light
 /// reflected inside a strand is coloured by it, and white highlights over
-/// dark pigment read as grey hair.
-pub(super) fn material(design: HairDesign, form: Form, atlas: Handle<Image>) -> HairShading {
+/// dark pigment read as grey hair. Its vertices are drawn from `geometry`,
+/// where they were built.
+pub(super) fn material(
+    design: HairDesign,
+    form: Form,
+    atlas: Handle<Image>,
+    geometry: &GpuGeometry,
+) -> HairShading {
     let cards = matches!(form, Form::Cards { .. });
     HairShading {
         base: StandardMaterial {
@@ -81,7 +87,7 @@ pub(super) fn material(design: HairDesign, form: Form, atlas: Handle<Image>) -> 
             cull_mode: None,
             ..hair_surface(design)
         },
-        extension: StrandShading {},
+        extension: StrandShading::new(geometry),
     }
 }
 
@@ -100,35 +106,17 @@ pub(super) fn hair_surface(design: HairDesign) -> StandardMaterial {
     }
 }
 
-pub(super) fn mesh(geometry: HairGeometry, head_joint: u32) -> Result<Mesh> {
-    let count = geometry.positions.len();
-    let tangents: Vec<[f32; 4]> = geometry
-        .tangents
-        .iter()
-        .map(|&[x, y, z]| [x, y, z, 1.0])
-        .collect();
-    // Each card's random value rides in the second texture coordinates.
-    let randoms: Vec<[f32; 2]> = geometry
-        .randoms
-        .iter()
-        .map(|&random| [random, 0.0])
-        .collect();
+/// The mesh `geometry` is drawn with, skinned wholly to `head_joint`: its
+/// triangles, and every vertex's skin. Its vertices are drawn from where
+/// they were built, so its positions only count them.
+pub(super) fn mesh(geometry: &GpuGeometry, head_joint: u32) -> Result<Mesh> {
+    let count = geometry.vertices();
     let head = u16::try_from(head_joint).context("the head joint index exceeds a skin index")?;
-    let colors: Vec<[f32; 4]> = geometry
-        .occlusion
-        .iter()
-        .map(|&visible| [visible, visible, visible, 1.0])
-        .collect();
     Ok(Mesh::new(
         PrimitiveTopology::TriangleList,
-        RenderAssetUsages::default(),
+        RenderAssetUsages::RENDER_WORLD,
     )
-    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, geometry.positions)
-    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, geometry.normals)
-    .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, geometry.texcoords)
-    .with_inserted_attribute(Mesh::ATTRIBUTE_UV_1, randoms)
-    .with_inserted_attribute(Mesh::ATTRIBUTE_TANGENT, tangents)
-    .with_inserted_attribute(Mesh::ATTRIBUTE_COLOR, colors)
+    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, vec![[0.0f32; 3]; count])
     .with_inserted_attribute(
         Mesh::ATTRIBUTE_JOINT_INDEX,
         VertexAttributeValues::Uint16x4(vec![[head, 0, 0, 0]; count]),
@@ -137,7 +125,7 @@ pub(super) fn mesh(geometry: HairGeometry, head_joint: u32) -> Result<Mesh> {
         Mesh::ATTRIBUTE_JOINT_WEIGHT,
         vec![[1.0f32, 0.0, 0.0, 0.0]; count],
     )
-    .with_inserted_indices(Indices::U32(geometry.faces.into_flattened())))
+    .with_inserted_indices(Indices::U32(geometry.faces().into_flattened())))
 }
 
 /// The scalp `cap` as a mesh skinned wholly to `head_joint`, with its
@@ -170,24 +158,17 @@ pub(super) fn atlas_image(hair: &PlacedHair) -> Image {
     mip_image(&hair.atlas_levels())
 }
 
-/// The scalp's baked textures with their mip chains, sampled
-/// anisotropically: their strands lie along the scalp, which the eye meets
-/// at every angle round the head.
-pub(super) fn scalp_images(hair: &PlacedHair, images: &mut Assets<Image>) -> ScalpImages {
+/// The scalp's baked textures, copied into images on the GPU.
+pub(super) fn scalp_images(
+    hair: &PlacedHair,
+    images: &mut Assets<Image>,
+    uploads: &ScalpUploads,
+) -> ScalpImages {
     let texture = hair.scalp_texture();
     ScalpImages {
-        shade: images.add(scalp_image(&texture.shade)),
-        strands: images.add(scalp_image(&texture.strands)),
+        shade: uploads.image(texture.shade(), images),
+        strands: uploads.image(texture.strands(), images),
     }
-}
-
-/// One of the scalp's baked textures, `levels` its mip chain.
-pub(super) fn scalp_image(levels: &[AtlasLevel]) -> Image {
-    let mut image = mip_image(levels);
-    if let ImageSampler::Descriptor(sampler) = &mut image.sampler {
-        sampler.anisotropy_clamp = SCALP_ANISOTROPY;
-    }
-    image
 }
 
 /// An image of `levels`, a mip chain largest first, filtered linearly.

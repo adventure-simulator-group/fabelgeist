@@ -24,10 +24,11 @@ use fabelgeist_gpu::globals::WgpuContext;
 use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, BufferUpload};
 use fabelgeist_hair::gpu::{GpuGroomer, headless_context};
 
-pub use bake::ScalpTexture;
-pub(crate) use bake::{GpuScalpTexture, longest};
+pub(crate) use bake::longest;
+pub use bake::{GpuScalpTexture, Level as ScalpLevel, ScalpTexture, levels as scalp_levels};
 pub(crate) use field::BodyField;
 pub(crate) use place::Draping;
+pub use strips::GpuGeometry;
 pub(crate) use strips::StripSource;
 
 /// A kernel's parameters: buffers and values bound by name.
