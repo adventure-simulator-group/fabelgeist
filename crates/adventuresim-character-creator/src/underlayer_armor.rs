@@ -92,6 +92,7 @@ fn fabric_component(
         return Vec::new();
     }
     vec![ArmorComponent {
+        textile: None,
         role: ArmorComponentRole::OuterFabric,
         vertices: 0..vertex_count,
         indices: 0..index_count,
@@ -174,6 +175,7 @@ fn apply_trunk_hose_panes(armor: &mut GeneratedArmor, design: &TrunkHoseDesign) 
     ]
     .into_iter()
     .map(|(indices, color)| ArmorComponent {
+        textile: None,
         role: ArmorComponentRole::OuterFabric,
         vertices: 0..armor.positions.len(),
         indices,

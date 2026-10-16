@@ -250,6 +250,7 @@ mod tests {
 
     fn component(role: ArmorComponentRole, vertices: Range<usize>) -> ArmorComponent {
         ArmorComponent {
+            textile: None,
             role,
             vertices,
             indices: 0..0,

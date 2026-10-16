@@ -19,7 +19,7 @@ mod shell;
 mod skeleton;
 pub mod skinning;
 mod textures;
-pub use textures::{GlbOutput, ShellTextures, SurfaceTextures};
+pub use textures::{GlbOutput, ShellTextures, SurfaceSampling, SurfaceTextures};
 mod sockets;
 mod validation;
 use validation::validate;

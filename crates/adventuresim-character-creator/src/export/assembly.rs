@@ -123,6 +123,7 @@ mod tests {
                     .to_vec(),
             ),
             cutout: true,
+            sampling: crate::export::SurfaceSampling::Tile,
         };
         let joints = [[0; 8]; 4];
         let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];

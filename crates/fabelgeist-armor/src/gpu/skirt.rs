@@ -40,6 +40,7 @@ pub fn record_skirt(
         .map_or(0, |bodice| bodice.first_skirt_row());
     let kernel = coordinate_kernel(gpu, include_str!("skirt.wgsl"))?;
     let mut recipe = PartRecipe::new();
+    recipe.textile_chart();
     recipe.push_coord(carrier(design, attachment)?, kernel.clone())?;
     recipe.component(
         if design.puff_and_slash.is_some() {
