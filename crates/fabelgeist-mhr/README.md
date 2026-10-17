@@ -140,3 +140,13 @@ amplifies to visible error. The tensor is 204 x 889, so the exact form is free.
 - Momentum's non-`minmax` parameter limits (`linear`, `ellipsoid`, `halfplane`)
   are ignored. The MHR rig uses none of them.
 - Vertex normals are not computed; exports carry positions and topology.
+
+## FBX object identity
+
+Rig discovery and skin-cluster lookup retain the FBX reader's `FbxObjectId`;
+joint array indexes remain a separate role. Skeleton traversal starts at the
+reader's named scene-root identity and keeps connection order. This changes no
+rig geometry, skin weights, transform composition or model evaluation.
+
+See the [FBX identity and connection contract](../fabelgeist-fbx/README.md) for
+native identity admission, duplicate lookup and unresolved-link behavior.
