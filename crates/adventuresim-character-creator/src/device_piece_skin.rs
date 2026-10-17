@@ -26,7 +26,14 @@ impl DevicePiece {
         }
         .transfer(&self.base.positions)?;
         for (vertex, &source) in self.skin_aliases.iter().enumerate() {
-            if sleeves.contains(source, first) {
+            let finishing = self.base.components.iter().any(|c| {
+                matches!(
+                    c.role,
+                    fabelgeist_armor::ArmorComponentRole::CuffBinding
+                        | fabelgeist_armor::ArmorComponentRole::CuffBacking
+                ) && c.vertices.contains(&vertex)
+            });
+            if sleeves.contains(source, first) || finishing {
                 self.skin.joint_indices[vertex] = skin.indices[source];
                 self.skin.joint_weights[vertex] = skin.weights[source];
             }

@@ -22,6 +22,8 @@ pub(crate) struct SkirtJoinPlan {
     pub neckline_samples: Vec<u32>,
     pub sleeves: Option<crate::sewn_sleeves::SewnSleevePlan>,
     pub neck_binding: Option<crate::cloth_ribbon_plan::ClothRibbonPlan>,
+    pub cuff_bindings: Vec<crate::cloth_ribbon_plan::ClothRibbonPlan>,
+    pub cuff_backings: Vec<crate::cloth_patch_plan::ClothPatchPlan>,
 }
 
 /// Native sewing boundary in canonical upright metres and skirt row indices.
@@ -35,7 +37,12 @@ impl SkirtJoinPlan {
     pub fn fitted_point_count(&self) -> u32 {
         self.patch.point_count
             + SKIRT_RING_SEGMENTS as u32
-            + self.neck_binding.as_ref().map_or(0, |t| t.point_count())
+            + self
+                .patch
+                .layers
+                .iter()
+                .map(|a| a.layer.point_count)
+                .sum::<u32>()
     }
 
     /// Partition the cloned upper patch using render ancestry, then give each
@@ -189,6 +196,8 @@ impl SkirtJoinPlan {
             neckline_samples: vec![0; crate::gown_ease::NECK_SAMPLE_WORDS],
             sleeves: None,
             neck_binding: None,
+            cuff_bindings: Vec::new(),
+            cuff_backings: Vec::new(),
             offset_metres: seam.offset_metres,
             enclosure_table: Vec::new(),
             table: cut.source_table(body.faces, body.faces),

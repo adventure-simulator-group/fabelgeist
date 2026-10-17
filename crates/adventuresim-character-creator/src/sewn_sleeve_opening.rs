@@ -1,6 +1,6 @@
 //! Actual periodic cut edges supply the cuff's closure anchors.
 use crate::cloth_opening::{ClothEdgeStation, ClothOpening};
-use crate::surface_cut::CORRESPONDENCE_PRECISION;
+use crate::surface_cut::{CORRESPONDENCE_PRECISION, CUT_VERTEX_SNAP_METRES};
 use anyhow::{Result, ensure};
 use fabelgeist_armor::SewnSleeves;
 use std::collections::{BTreeMap, BTreeSet};
@@ -20,7 +20,14 @@ impl ClothOpening {
         let tip = 1. - slit.length.metres() / reach;
         let circumference = design.cuff_circumference.metres()
             + std::f32::consts::TAU * design.frill.as_ref().map_or(0., |f| f.flare.metres());
-        let tolerance = 1. / (CORRESPONDENCE_PRECISION * circumference);
+        // Boolean cuts can snap to a source corner within their physical
+        // tolerance. Match that same edge rather than an ideal unsnapped line;
+        // angle, axial chart and opening progress have different scales.
+        let cut_tolerance = CUT_VERTEX_SNAP_METRES + 1. / CORRESPONDENCE_PRECISION;
+        let slope = slit.gap.metres() / (2. * slit.length.metres());
+        let angular_tolerance = cut_tolerance * (1. + slope * slope).sqrt() / circumference;
+        let axial_tolerance = cut_tolerance / reach;
+        let station_tolerance = 1. / (CORRESPONDENCE_PRECISION * reach);
         let half_gap = slit.gap.metres() / (2. * circumference);
         let mut edges = BTreeMap::<[u32; 2], usize>::new();
         for face in indices.as_chunks::<3>().0 {
@@ -46,11 +53,16 @@ impl ClothOpening {
             let (Some(uv_a), Some(uv_b)) = (uv(a), uv(b)) else {
                 continue;
             };
-            if uv_a[1].min(uv_b[1]) < tip - tolerance || (uv_a[1] - uv_b[1]).abs() <= tolerance {
+            if uv_a[1].min(uv_b[1]) < tip - axial_tolerance
+                || (uv_a[1] - uv_b[1]).abs() <= station_tolerance
+            {
                 continue;
             }
             let angles = [phase(uv_a[0]), phase(uv_b[0])];
-            if angles.iter().any(|v| v.abs() > half_gap + tolerance) {
+            if angles
+                .iter()
+                .any(|v| v.abs() > half_gap + angular_tolerance)
+            {
                 continue;
             }
             let side = usize::from(angles[0] + angles[1] > 0.);
@@ -61,16 +73,27 @@ impl ClothOpening {
                 .iter()
                 .map(|&vertex| ClothEdgeStation {
                     vertex: vertex as usize,
-                    progress: ((chart[(vertex - first) as usize][1] - tip) / (1. - tip))
-                        .clamp(0., 1.),
+                    progress: chart[(vertex - first) as usize][1],
                 })
                 .collect::<Vec<_>>();
             stations.sort_by(|a, b| a.progress.total_cmp(&b.progress));
-            stations.dedup_by(|a, b| (a.progress - b.progress).abs() < tolerance);
+            // Keep both physical endpoints, including a snapped tip. A
+            // near-duplicate interior station must not shorten the opening.
+            let end = stations.last().copied();
+            stations.dedup_by(|a, b| (a.progress - b.progress).abs() < station_tolerance);
+            if let (Some(end), Some(last)) = (end, stations.last_mut()) {
+                *last = end;
+            }
             ensure!(
                 stations.len() >= 2,
                 "cuff slit has no physical closure edge"
             );
+            let start = stations[0].progress;
+            let span = stations[stations.len() - 1].progress - start;
+            ensure!(span > 0., "cuff opening stations must advance");
+            for station in &mut stations {
+                station.progress = (station.progress - start) / span;
+            }
             Ok(stations)
         };
         Ok(Some(Self {

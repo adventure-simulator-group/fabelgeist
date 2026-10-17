@@ -4,10 +4,6 @@ use anyhow::{Result, ensure};
 use bevy::math::DVec3;
 use std::collections::{BTreeMap, BTreeSet};
 
-const CLOTH_PANEL_FACE_TARGET: usize = 500;
-/// RMS distance to accumulated source planes, in canonical body metres.
-const CLOTH_PANEL_PLANE_ERROR_METRES: f64 = 0.003;
-
 #[derive(Clone, Default)]
 struct Quadric {
     matrix: [[f64; 4]; 4],
@@ -27,11 +23,22 @@ struct Collapse {
     error: f64,
 }
 
+/// Source geometry at this numerical boundary is expressed in metres.
+pub(crate) enum ClothSampling {
+    BodyPanel,
+    FinishingStrip,
+}
+
 impl SurfaceCut {
     /// Native body boundary: sample once on the reference wearer, then retain
     /// the resulting source points/connectivity for every morph realization.
     /// Boundary vertices stay exact; only interior edges may collapse.
-    pub(crate) fn sample_cloth(self, body: &[[f32; 3]], body_faces: &[[u32; 3]]) -> Result<Self> {
+    pub(crate) fn sample_cloth(
+        self,
+        body: &[[f32; 3]],
+        body_faces: &[[u32; 3]],
+        sampling: ClothSampling,
+    ) -> Result<Self> {
         let positions = self
             .points
             .iter()
@@ -51,8 +58,8 @@ impl SurfaceCut {
             faces: self.faces,
         };
         patch.accumulate_planes();
-        while patch.faces.len() > CLOTH_PANEL_FACE_TARGET {
-            let Some(collapse) = patch.next_collapse() else {
+        while patch.faces.len() > sampling.face_target() {
+            let Some(collapse) = patch.next_collapse(sampling.plane_error_squared()) else {
                 break;
             };
             let removed = patch.quadrics[collapse.removed as usize].clone();
@@ -67,6 +74,23 @@ impl SurfaceCut {
             patch.faces.retain(|[a, b, c]| a != b && b != c && c != a);
         }
         Ok(patch.compact())
+    }
+}
+
+impl ClothSampling {
+    fn face_target(&self) -> usize {
+        match self {
+            Self::BodyPanel => 500,
+            Self::FinishingStrip => 64,
+        }
+    }
+    /// Squared RMS distance to accumulated source planes, in metres squared.
+    fn plane_error_squared(&self) -> f64 {
+        let metres: f64 = match self {
+            Self::BodyPanel => 0.003,
+            Self::FinishingStrip => 0.0002,
+        };
+        metres.powi(2)
     }
 }
 
@@ -108,7 +132,7 @@ impl ClothPatch {
         }
     }
 
-    fn next_collapse(&self) -> Option<Collapse> {
+    fn next_collapse(&self, plane_error_squared: f64) -> Option<Collapse> {
         let mut edges = BTreeMap::<[u32; 2], Vec<u32>>::new();
         let mut adjacent = vec![BTreeSet::new(); self.points.len()];
         for &[a, b, c] in &self.faces {
@@ -144,7 +168,7 @@ impl ClothPatch {
                     &self.quadrics[retained as usize],
                     self.positions[retained as usize],
                 );
-                if error > CLOTH_PANEL_PLANE_ERROR_METRES.powi(2)
+                if error > plane_error_squared
                     || best.as_ref().is_some_and(|best| error >= best.error)
                     || !self.preserves_faces(removed, retained)
                 {

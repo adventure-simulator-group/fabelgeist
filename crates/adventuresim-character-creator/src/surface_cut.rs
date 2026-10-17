@@ -5,7 +5,9 @@
 use std::collections::BTreeMap;
 mod cloth_sampling;
 mod connected;
+mod edge_splits;
 mod triangulation;
+pub(crate) use cloth_sampling::ClothSampling;
 pub(crate) use connected::{connected_patch, weld_patch};
 
 /// Interior is the nonpositive half-space, in reference-body metres.
@@ -64,28 +66,14 @@ impl SurfaceCut {
             faces: Vec::new(),
         };
         let mut vertices = BTreeMap::new();
-        for (triangle, face) in faces.iter().enumerate() {
+        let fragments = faces
+            .iter()
+            .map(|face| retained_polygons(face.map(|v| positions[v as usize]), include, subtract))
+            .collect::<Vec<_>>();
+        let shared = edge_splits::EdgeSplits::new(faces, &fragments);
+        for (triangle, (face, kept)) in faces.iter().zip(fragments).enumerate() {
             let source = face.map(|v| positions[v as usize]);
-            let mut remaining = vec![vec![[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]];
-            let mut kept = Vec::new();
-            for volume in include {
-                let mut outside = Vec::new();
-                for polygon in remaining {
-                    let (inside, rest) = partition(polygon, volume, source);
-                    if inside.len() >= 3 {
-                        kept.push(inside);
-                    }
-                    outside.extend(rest);
-                }
-                remaining = outside;
-            }
-            for volume in subtract {
-                kept = kept
-                    .into_iter()
-                    .flat_map(|p| partition(p, volume, source).1)
-                    .collect();
-            }
-            for corners in triangulation::conforming(kept) {
+            for corners in triangulation::conforming(kept, &shared.points(face)) {
                 let corners = corners.map(|w| w.map(|v| v as f32));
                 let p = corners.map(|w| interpolate(source, w));
                 if area_squared(p) <= MINIMUM_TRIANGLE_AREA_SQUARED {
@@ -141,24 +129,64 @@ impl SurfaceCut {
     }
 }
 
+fn retained_polygons(
+    source: [[f32; 3]; 3],
+    include: &[ConvexRegion],
+    subtract: &[ConvexRegion],
+) -> Vec<Polygon> {
+    let mut remaining = vec![vec![[1., 0., 0.], [0., 1., 0.], [0., 0., 1.]]];
+    let mut kept = Vec::new();
+    for volume in include {
+        let mut outside = Vec::new();
+        for polygon in remaining {
+            let (inside, rest) = partition(polygon, volume, source);
+            if inside.len() >= 3 {
+                kept.push(inside);
+            }
+            outside.extend(rest);
+        }
+        remaining = outside;
+    }
+    for volume in subtract {
+        kept = kept
+            .into_iter()
+            .flat_map(|p| partition(p, volume, source).1)
+            .collect();
+    }
+    kept
+}
+
 fn partition(
     mut polygon: Polygon,
     volume: &[Plane],
     source: [[f32; 3]; 3],
 ) -> (Polygon, Vec<Polygon>) {
+    let planes = volume
+        .iter()
+        .map(|plane| {
+            source.map(|p| {
+                let distance = (0..3)
+                    .map(|i| f64::from(p[i]) * f64::from(plane.normal[i]))
+                    .sum::<f64>()
+                    - f64::from(plane.offset);
+                if distance.abs() < f64::from(CUT_VERTEX_SNAP_METRES) {
+                    0.0
+                } else {
+                    distance
+                }
+            })
+        })
+        .collect::<Vec<_>>();
+    // A polygon wholly outside any one half-space cannot meet this convex
+    // cutter. Keep it intact instead of splitting it along unrelated planes.
+    if planes
+        .iter()
+        .any(|&distances| polygon.iter().all(|&p| clipped_distance(p, distances) > 0.))
+    {
+        return (Vec::new(), vec![polygon]);
+    }
     let mut outside = Vec::new();
-    for plane in volume {
-        let distances = source.map(|p| {
-            let distance = (0..3)
-                .map(|i| f64::from(p[i]) * f64::from(plane.normal[i]))
-                .sum::<f64>()
-                - f64::from(plane.offset);
-            if distance.abs() < f64::from(CUT_VERTEX_SNAP_METRES) {
-                0.0
-            } else {
-                distance
-            }
-        });
+    for distances in planes {
         let rejected = clip(&polygon, distances, false);
         if rejected.len() >= 3 {
             outside.push(rejected);
@@ -181,16 +209,8 @@ fn clip(polygon: &Polygon, distances: [f64; 3], inside: bool) -> Polygon {
         let b = polygon[(i + 1) % polygon.len()];
         // Successive planes can meet on a previously cut edge. Preserve that
         // shared corner instead of inserting a second point a few nm away.
-        let distance = |point: [f64; 3]| {
-            let value: f64 = (0..3).map(|j| point[j] * distances[j]).sum();
-            if value.abs() < CUT_PLANE_ROUNDOFF_METRES {
-                0.0
-            } else {
-                value
-            }
-        };
-        let da = distance(a);
-        let db = distance(b);
+        let da = clipped_distance(a, distances);
+        let db = clipped_distance(b, distances);
         let keep_a = if inside { da <= 0.0 } else { da > 0.0 };
         let keep_b = if inside { db <= 0.0 } else { db > 0.0 };
         if keep_a {
@@ -202,6 +222,16 @@ fn clip(polygon: &Polygon, distances: [f64; 3], inside: bool) -> Polygon {
         }
     }
     result
+}
+
+/// Native barycentric interpolation of signed source-plane metre distances.
+fn clipped_distance(point: [f64; 3], distances: [f64; 3]) -> f64 {
+    let value: f64 = (0..3).map(|j| point[j] * distances[j]).sum();
+    if value.abs() < CUT_PLANE_ROUNDOFF_METRES {
+        0.
+    } else {
+        value
+    }
 }
 
 pub fn interpolate<const N: usize>(values: [[f32; N]; 3], weights: [f32; 3]) -> [f32; N] {
@@ -236,7 +266,7 @@ mod tests {
         let polygon = vec![[1., 0., 0.], [0., 1., 0.], [0., 0., 1.]];
         let result = clip(&polygon, [5e-8, -1., 1.], true);
         assert!(result.contains(&polygon[0]));
-        let triangles = triangulation::conforming(vec![result]);
+        let triangles = triangulation::conforming(vec![result], &[]);
         assert_eq!(triangles.len(), 1);
         assert!(triangles[0].contains(&polygon[0]));
     }

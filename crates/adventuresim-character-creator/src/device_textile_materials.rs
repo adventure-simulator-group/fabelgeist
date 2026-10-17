@@ -28,6 +28,16 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
                 _ => None,
             },
             ParametricDesign::Gown(gown) => match component.role {
+                ArmorComponentRole::CuffBinding => gown
+                    .sleeves
+                    .as_ref()
+                    .and_then(|s| s.cuff_binding.as_ref())
+                    .map(|t| &t.fabric),
+                ArmorComponentRole::CuffBacking => gown
+                    .sleeves
+                    .as_ref()
+                    .and_then(|s| s.cuff_backing.as_ref())
+                    .map(|t| &t.fabric),
                 ArmorComponentRole::EdgeBinding => Some(
                     &gown
                         .neck_binding

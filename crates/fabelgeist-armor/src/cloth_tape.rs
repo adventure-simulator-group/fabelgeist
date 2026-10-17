@@ -12,7 +12,7 @@ pub struct ClothTape {
     pub fabric: TextileAppearance,
 }
 impl ClothTape {
-    pub const WIDTH_RANGE: RangeInclusive<u16> = 1..=30;
+    pub const WIDTH_RANGE: RangeInclusive<u16> = 1..=80;
     pub const THICKNESS_RANGE: RangeInclusive<u16> = 100..=1000;
     pub fn validate(&self) -> Result<(), GenerateError> {
         self.fabric.validate()?;
