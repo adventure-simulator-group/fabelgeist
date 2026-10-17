@@ -120,6 +120,7 @@ impl GownPlan {
                 sleeves,
                 self.join.patch.carrier_point_count(),
             )?;
+            sleeves.attach_closures(piece, self.join.patch.carrier_point_count())?;
         }
         self.join.finish(piece, self.carrier_role)?;
         if !self.inner.layers.is_empty() {

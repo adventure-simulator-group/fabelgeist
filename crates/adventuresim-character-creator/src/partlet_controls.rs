@@ -98,6 +98,7 @@ fn collar_controls(ui: &mut egui::Ui, design: &mut Option<StandingClothCollar>) 
     if ui.checkbox(&mut enabled, "Standing collar").changed() {
         changed = true;
         *design = enabled.then_some(StandingClothCollar {
+            closures: None,
             height: Millimeters(44),
             fabric: TextileAppearance::solid(TextileColor([242, 240, 230]), TextileFinish::Linen),
             top_scale: Permille::ONE,
@@ -156,41 +157,65 @@ fn collar_controls(ui: &mut egui::Ui, design: &mut Option<StandingClothCollar>) 
             StandingClothCollar::HEIGHT_RANGE,
             "Collar height (mm)",
         );
-        let mut pleated = collar.pleats.is_some();
-        if ui.checkbox(&mut pleated, "Even collar pleats").changed() {
-            changed = true;
-            collar.pleats = pleated.then_some(ClothPleats {
-                count: TextileRepeatCount(40),
-                depth: Millimeters(2),
-                profile: ClothPleatProfile::Fluted,
-            });
-        }
-        if let Some(pleats) = &mut collar.pleats {
-            changed |= ui
-                .add(
-                    egui::Slider::new(&mut pleats.count.0, StandingClothCollar::PLEAT_COUNT_RANGE)
-                        .text("Pleat count"),
-                )
-                .changed();
-            changed |= ui
-                .selectable_value(&mut pleats.profile, ClothPleatProfile::Fluted, "Flutes")
-                .changed();
-            changed |= ui
-                .selectable_value(
-                    &mut pleats.profile,
-                    ClothPleatProfile::RoundedGathers,
-                    "Rounded gathers",
-                )
-                .changed();
-            changed |= super::number(
-                ui,
-                &mut pleats.depth.0,
-                StandingClothCollar::PLEAT_DEPTH_RANGE,
-                "Pleat depth (mm)",
-            );
-        }
+        changed |= collar_pleat_controls(ui, &mut collar.pleats);
+        changed |= collar_closure_controls(ui, collar);
     }
     changed
+}
+
+fn collar_pleat_controls(ui: &mut egui::Ui, design: &mut Option<ClothPleats>) -> bool {
+    let mut changed = false;
+    let mut pleated = design.is_some();
+    if ui.checkbox(&mut pleated, "Even collar pleats").changed() {
+        changed = true;
+        *design = pleated.then_some(ClothPleats {
+            count: TextileRepeatCount(40),
+            depth: Millimeters(2),
+            profile: ClothPleatProfile::Fluted,
+        });
+    }
+    if let Some(pleats) = design {
+        changed |= ui
+            .add(
+                egui::Slider::new(&mut pleats.count.0, StandingClothCollar::PLEAT_COUNT_RANGE)
+                    .text("Pleat count"),
+            )
+            .changed();
+        changed |= ui
+            .selectable_value(&mut pleats.profile, ClothPleatProfile::Fluted, "Flutes")
+            .changed();
+        changed |= ui
+            .selectable_value(
+                &mut pleats.profile,
+                ClothPleatProfile::RoundedGathers,
+                "Rounded gathers",
+            )
+            .changed();
+        changed |= super::number(
+            ui,
+            &mut pleats.depth.0,
+            StandingClothCollar::PLEAT_DEPTH_RANGE,
+            "Pleat depth (mm)",
+        );
+    }
+    changed
+}
+
+fn collar_closure_controls(ui: &mut egui::Ui, collar: &mut StandingClothCollar) -> bool {
+    super::cloth_closures::show(
+        ui,
+        &mut collar.closures,
+        fabelgeist_armor::ClothClosures {
+            positions: vec![Permille(350), Permille(800)],
+            fastener: fabelgeist_armor::ClothFastener::HookEye {
+                length: Millimeters(8),
+                width: Millimeters(4),
+                wire: Micrometers(500),
+                color: TextileColor([185, 143, 58]),
+                roughness: Permille(300),
+            },
+        },
+    )
 }
 
 fn section_controls(ui: &mut egui::Ui, section: &mut CollarSection) -> bool {
