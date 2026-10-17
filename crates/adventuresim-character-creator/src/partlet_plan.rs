@@ -18,6 +18,7 @@ pub(crate) struct PartletPlan {
     pub binding: Option<ClothRibbonPlan>,
     pub bands: Vec<CollarBandPlacement>,
     pub ties: Option<ClothTiePlan>,
+    pub closures: Option<crate::cloth_closure_fit::PlannedClothClosures>,
 }
 
 impl PartletPlan {
@@ -37,6 +38,12 @@ impl PartletPlan {
             .transpose()?;
         let point_count =
             cut.surface.points.len() as u32 + collar.as_ref().map_or(0, |c| c.rows * c.columns);
+        let closures = collar
+            .as_ref()
+            .zip(design.collar.as_ref())
+            .map(|(plan, design)| plan.closures(design, cut.surface.points.len()))
+            .transpose()?
+            .flatten();
         let mut cloth = BodyClothPlan {
             table: cut.surface.source_table(body.faces, body.faces),
             layers: vec![BodyClothLayer {
@@ -82,10 +89,14 @@ impl PartletPlan {
             binding,
             bands,
             ties,
+            closures,
         })
     }
 
     pub fn finish(&self, piece: &mut DevicePiece) -> Result<()> {
+        if let Some(closures) = &self.closures {
+            piece.attach_closures(&closures.design, &closures.opening, 0)?;
+        }
         if let Some(collar) = &self.collar {
             let source = piece.skin_aliases.clone();
             let seam_progress = collar

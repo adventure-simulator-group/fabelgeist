@@ -65,6 +65,8 @@ pub struct StandingClothCollar {
     pub pleats: Option<ClothPleats>,
     pub neckband: Option<CollarBand>,
     pub trim: Option<CollarBand>,
+    /// Rear fasteners, measured from the sewn neck seam to the collar top.
+    pub closures: Option<crate::ClothClosures>,
 }
 
 /// Separate smooth tape anchored to the same open neck seam as the collar.
@@ -203,6 +205,9 @@ impl StandingClothCollar {
 
     fn validate(&self) -> Result<(), GenerateError> {
         self.fabric.validate()?;
+        if let Some(closures) = &self.closures {
+            closures.validate()?;
+        }
         if !Self::HEIGHT_RANGE.contains(&self.height.0)
             || !Self::TOP_SCALE_RANGE.contains(&self.top_scale.0)
             || self.taper_height.0 == 0

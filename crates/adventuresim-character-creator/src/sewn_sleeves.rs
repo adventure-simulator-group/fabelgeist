@@ -21,6 +21,7 @@ pub(crate) struct SleeveSeam {
     pub chart: Vec<[f32; 2]>,
     pub table: Vec<u32>,
     pub grid: Vec<u32>,
+    pub opening: Option<crate::cloth_opening::ClothOpening>,
     pub side: Side,
 }
 
@@ -30,6 +31,25 @@ pub(crate) struct SewnSleevePlan {
 }
 
 impl SewnSleevePlan {
+    pub fn attach_closures(
+        &self,
+        piece: &mut crate::device_fit::DevicePiece,
+        first: usize,
+    ) -> Result<()> {
+        let Some(design) = &self.design.cuff_closures else {
+            return Ok(());
+        };
+        for seam in &self.seams {
+            piece.attach_closures(
+                design,
+                seam.opening
+                    .as_ref()
+                    .context("cuff closures require a slit")?,
+                first,
+            )?;
+        }
+        Ok(())
+    }
     pub fn contains(&self, point: usize, carrier_points: usize) -> bool {
         self.seams.iter().any(|seam| {
             let start = carrier_points + seam.first as usize;
@@ -131,6 +151,7 @@ impl SewnSleevePlan {
                 chart: pattern.chart,
                 table: pattern.table,
                 grid: pattern.grid,
+                opening: pattern.opening,
                 side: armhole.side,
             });
         }

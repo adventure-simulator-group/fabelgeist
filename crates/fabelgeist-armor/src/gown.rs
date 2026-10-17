@@ -50,6 +50,7 @@ pub struct SewnSleeves {
     pub frill: Option<crate::ClothFrill>,
     /// Rotation zero follows projected world up around the sleeve axis.
     pub cuff_slit: Option<crate::ClothSlit>,
+    pub cuff_closures: Option<crate::ClothClosures>,
 }
 
 impl SewnSleeves {
@@ -75,6 +76,12 @@ impl SewnSleeves {
             slit.validate()?;
             let frill = self.frill.as_ref().map_or(0, |f| f.length.0);
             if slit.length.0 <= frill || slit.length.0 >= frill + self.cuff_length.0 {
+                return Err(DesignError::ParametricParameters.into());
+            }
+        }
+        if let Some(closures) = &self.cuff_closures {
+            closures.validate()?;
+            if self.cuff_slit.is_none() {
                 return Err(DesignError::ParametricParameters.into());
             }
         }

@@ -15,6 +15,7 @@ pub(crate) struct SleevePattern {
     pub grid: Vec<u32>,
     pub chart: Vec<[f32; 2]>,
     pub indices: Vec<u32>,
+    pub opening: Option<crate::cloth_opening::ClothOpening>,
 }
 struct PatternGrid {
     points: Vec<[f32; 3]>,
@@ -224,11 +225,14 @@ impl SleevePattern {
             faces: Vec::new(),
         }
         .source_table(&grid.faces, &grid.faces);
+        let opening =
+            crate::cloth_opening::ClothOpening::cuff(first, &chart, &indices, design, reach)?;
         Ok(Self {
             table,
             grid: grid.words,
             chart,
             indices,
+            opening,
         })
     }
 }
