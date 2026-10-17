@@ -15,7 +15,7 @@ pub enum ParametricDesign {
     Skirt(SkirtDesign),
     Bodice(BodiceDesign),
     Gown(Box<GownDesign>),
-    Partlet(PartletDesign),
+    Partlet(Box<PartletDesign>),
     TrunkHose(TrunkHoseDesign),
     Garment(GarmentArmorDesign),
     WaistAssembly(WaistArmorDesign),

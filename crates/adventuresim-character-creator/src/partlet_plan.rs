@@ -7,10 +7,10 @@ use crate::device_fit::DevicePiece;
 use crate::partlet_collar::{CollarBandPlacement, CollarPlan};
 use crate::partlet_cut::PartletCut;
 use crate::surface_cut::CUT_VERTEX_SNAP_METRES;
-use anyhow::Result;
+use anyhow::{Context, Result};
 use fabelgeist_armor::gpu::BodyClothLayer;
 use fabelgeist_armor::{ArmorComponentRole, PartFrame, PartletDesign};
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 
 pub(crate) struct PartletPlan {
     pub cloth: BodyClothPlan,
@@ -33,13 +33,14 @@ impl PartletPlan {
         let collar = design
             .collar
             .as_ref()
-            .map(|collar| CollarPlan::new(collar, &cut, design.thickness.metres(), &mut indices))
+            .map(|collar| CollarPlan::new(collar, &cut, &mut indices))
             .transpose()?;
         let point_count =
             cut.surface.points.len() as u32 + collar.as_ref().map_or(0, |c| c.rows * c.columns);
         let mut cloth = BodyClothPlan {
             table: cut.surface.source_table(body.faces, body.faces),
             layers: vec![BodyClothLayer {
+                chart: None,
                 point_count,
                 indices,
                 role: ArmorComponentRole::OuterFabric,
@@ -85,16 +86,66 @@ impl PartletPlan {
     }
 
     pub fn finish(&self, piece: &mut DevicePiece) -> Result<()> {
-        if self.collar.is_some() {
+        if let Some(collar) = &self.collar {
             let source = piece.skin_aliases.clone();
+            let seam_progress = collar
+                .seam
+                .iter()
+                .map(|point| (point.vertex as usize, point.progress))
+                .collect::<BTreeMap<_, _>>();
+            let seam_chart = piece
+                .base
+                .positions
+                .iter()
+                .zip(&source)
+                .filter_map(|(position, point)| {
+                    seam_progress
+                        .get(point)
+                        .map(|&progress| (position.map(f32::to_bits), [progress, 1.]))
+                })
+                .collect::<BTreeMap<_, _>>();
             let body_count = self.cloth.surface.points.len();
+            let coordinates = piece
+                .base
+                .texcoords
+                .as_mut()
+                .context("partlet has no fabric chart")?;
+            let collar_end = body_count + (collar.rows * collar.columns) as usize;
+            let height = collar.heights[collar.heights.len() - 1];
+            for (uv, &point) in coordinates.iter_mut().zip(&source) {
+                if point >= body_count && point < collar_end {
+                    let local = (point - body_count) as u32;
+                    *uv = [
+                        (local % collar.columns) as f32 / (collar.columns - 1) as f32,
+                        1. - collar.heights[(local / collar.columns) as usize] / height,
+                    ];
+                }
+            }
+            let collar_start =
+                self.cloth.surface.points.len() + (collar.panel_rows * collar.columns) as usize;
             piece.partition_first_component(|triangle| {
-                if triangle.iter().any(|&v| source[v as usize] >= body_count) {
+                if triangle.iter().any(|&v| source[v as usize] >= collar_start) {
                     ArmorComponentRole::CollarFabric
                 } else {
                     ArmorComponentRole::OuterFabric
                 }
             })?;
+            let coordinates = piece
+                .base
+                .texcoords
+                .as_mut()
+                .context("partlet has no fabric chart")?;
+            for component in &piece.base.components {
+                if component.role == ArmorComponentRole::CollarFabric {
+                    for vertex in component.vertices.clone() {
+                        if let Some(&uv) =
+                            seam_chart.get(&piece.base.positions[vertex].map(f32::to_bits))
+                        {
+                            coordinates[vertex] = uv;
+                        }
+                    }
+                }
+            }
         }
         piece.normalize_cloth_charts(&[
             ArmorComponentRole::OuterFabric,

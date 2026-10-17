@@ -3,6 +3,7 @@
 //! Cuts are evaluated once. Barycentric source points subsequently follow every
 //! body morph; neither a UV seam nor a changing body can reroute a cut vertex.
 use std::collections::BTreeMap;
+mod cloth_sampling;
 mod connected;
 mod triangulation;
 pub(crate) use connected::{connected_patch, weld_patch};

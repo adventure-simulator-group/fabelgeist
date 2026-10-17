@@ -74,6 +74,7 @@ impl BodyClothPlan {
     ) {
         self.table.extend(cut.source_table(body.faces, body.faces));
         self.layers.push(BodyClothLayer {
+            chart: None,
             point_count: cut.points.len() as u32,
             indices: cut.faces.iter().flatten().copied().collect(),
             role,

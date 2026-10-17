@@ -264,12 +264,7 @@ pub async fn fit_recipe_async(
     let ParametricDesign::WaistAssembly(waist) = design else {
         let mut piece = fit(design).await?;
         piece.bind_flexible_textile(body, wearer, design)?;
-        if let crate::device_recipe_plan::RecipePlan::Gown(gown) = &plan {
-            gown.finish(gpu, body, wearer, morphs, &mut piece).await?;
-        }
-        if let crate::device_recipe_plan::RecipePlan::Partlet(partlet) = &plan {
-            partlet.finish(&mut piece)?;
-        }
+        plan.finish(gpu, body, wearer, morphs, &mut piece).await?;
         return Ok(piece);
     };
     let fauld = fit(&ParametricDesign::Garment(waist.fauld.clone())).await?;
@@ -438,7 +433,7 @@ fn record_recipe(
             skirt,
             layers,
             match plan {
-                crate::device_recipe_plan::RecipePlan::Skirt(join) => Some(join),
+                crate::device_recipe_plan::RecipePlan::Skirt { join, .. } => Some(join),
                 _ => None,
             },
         ),

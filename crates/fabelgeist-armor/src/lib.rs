@@ -7,7 +7,10 @@ mod gown;
 mod partlet;
 pub use cloth_ties::ClothTies;
 pub use gown::GownDesign;
-pub use partlet::{ClothBinding, CollarBand, CollarPleats, PartletDesign, StandingClothCollar};
+pub use partlet::{
+    ClothBinding, ClothNeckCurve, ClothPleatProfile, ClothPleats, CollarBand, CollarSection,
+    PartletDesign, StandingClothCollar,
+};
 mod construction;
 pub use bodice::{
     BodiceDesign, BodiceInterlining, BodiceLining, BodiceNeckline, BodiceOpening,
@@ -22,10 +25,16 @@ mod skirt;
 mod skirt_structure;
 mod textile_botanical;
 mod textile_pattern;
+mod textile_pleat_relief;
 mod textile_raster;
+mod textile_relief;
+pub use textile_pleat_relief::{TextileChartSize, TextilePleatLayout, TextilePleatRelief};
+mod textile_sampling;
 mod textile_seams;
+mod textile_weave;
 pub use skirt::{
-    DressBodice, SKIRT_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS, SkirtDesign, SkirtProfile,
+    DressBodice, SKIRT_AXIAL_SEGMENTS, SKIRT_MESH_AXIAL_SEGMENTS, SKIRT_MESH_RING_SEGMENTS,
+    SKIRT_RING_SEGMENTS, SkirtDesign, SkirtProfile,
 };
 pub use skirt_structure::{
     PleatStyle, SkirtHoops, SkirtPleats, SkirtRepeatCount, SkirtStays, SkirtSupport,
@@ -33,7 +42,7 @@ pub use skirt_structure::{
 pub use textile_pattern::{
     MAX_TEXTILE_LAYERS, TextileAppearance, TextileAxis, TextileFill, TextileFinish, TextileLayer,
     TextileLayers, TextileMotif, TextileOffset, TextilePatternSpace, TextileRegion,
-    TextileRepeatCount, TextileSpan,
+    TextileRepeatCount, TextileSpan, TextileThreadCount,
 };
 pub use textile_raster::TextilePixels;
 mod tiling;
@@ -43,7 +52,8 @@ pub use tiling::{Constructed, MAX_TILES};
 mod helmet_crown;
 mod sampling;
 pub use helmet_crown::HelmetCrown;
-pub use sampling::{ArmorDetail, ArmorLod};
+pub use sampling::{ArmorDetail, ArmorLod, EQUIPMENT_TRIANGLE_BUDGET};
+pub use skirt::skirt_carrier_point_count;
 
 mod breastplate_design;
 pub use breastplate_design::*;
@@ -116,7 +126,7 @@ pub use error::{GenerateError, PlateShellFailure};
 
 pub const SCHEMA_VERSION: u16 = 1;
 /// Identifies mesh-generation behavior in review and equipment manifests.
-pub const GENERATOR_VERSION: u16 = 31;
+pub const GENERATOR_VERSION: u16 = 32;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {

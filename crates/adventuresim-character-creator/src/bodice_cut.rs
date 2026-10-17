@@ -85,6 +85,10 @@ impl BodiceSurface {
             }
         };
 
+        let cut = cut.sample_cloth(body.positions, body.faces)?;
+        let facing = facing
+            .map(|facing| facing.sample_cloth(body.positions, body.faces))
+            .transpose()?;
         Ok(Self { cut, facing })
     }
 }

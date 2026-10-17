@@ -99,7 +99,9 @@ fn portable_sheer_cloth_blends_once_and_retains_opaque_pattern_pixels() -> Resul
         image::load_from_memory(&blob[view.offset()..view.offset() + view.length()])?.to_rgba8();
     assert_eq!(pixels.get_pixel(100, 100).0, [240, 235, 220, 51]);
     assert_eq!(
-        pixels.get_pixel(100, pixels.height() - 100).0,
+        pixels
+            .get_pixel(pixels.width() / 2, pixels.height() * 9 / 10)
+            .0,
         [190, 150, 55, 255]
     );
     std::fs::remove_file(path)?;

@@ -1171,21 +1171,22 @@
   "linen_partlet": {
     "Partlet": {
       "hem_rise": 250,
-      "neck_rise": 40,
+      "neck_rise": 45,
       "shoulder_bridge": 30,
       "side_opening": 350,
       "back_slit": 180,
       "back_gap": 3,
       "collar": {
-        "height": 44,
+        "height": 25,
         "pleats": {
           "count": 40,
-          "depth": 2
+          "depth": 2,
+          "profile": "Fluted"
         },
-        "top_scale": 600,
+        "top_scale": 900,
         "neckband": {
           "bottom": 0,
-          "height": 15,
+          "height": 10,
           "thickness": 200,
           "fabric": {
             "color": [
@@ -1198,7 +1199,20 @@
             "layers": []
           }
         },
-        "trim": null
+        "trim": null,
+        "flare": 0,
+        "fabric": {
+          "color": [
+            242,
+            240,
+            230
+          ],
+          "finish": "Linen",
+          "opacity": 700,
+          "layers": []
+        },
+        "taper_height": 25,
+        "section": "Fitted"
       },
       "clearance": 4,
       "thickness": 200,
@@ -1227,7 +1241,7 @@
         "hem_width": 13,
         "thickness": 200
       },
-      "neckline_slope": 600,
+      "neckline_slope": 0,
       "ties": {
         "width": 13,
         "tail_length": 180,
@@ -1243,6 +1257,10 @@
           "opacity": 1000,
           "layers": []
         }
+      },
+      "front_curve": {
+        "reach": 80,
+        "drop": 55
       }
     }
   }

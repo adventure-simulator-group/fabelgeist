@@ -11,6 +11,7 @@ use fabelgeist_compute::{KernelBatch, NormalWeighting, VertexNormals};
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
+mod cloth_chart;
 mod layout;
 mod shell_kernels;
 
@@ -105,22 +106,6 @@ impl PartBuild {
 
     pub(crate) fn layout(&self) -> &PartLayout {
         &self.layout
-    }
-
-    pub(crate) fn record_textile_chart(
-        &mut self,
-        gpu: &ArmorGpu,
-        batch: &mut KernelBatch,
-        frame: &Buffer,
-    ) -> Result<(), GenerateError> {
-        self.textile_coordinates = Some(super::textile_chart::record(
-            gpu,
-            batch,
-            &self.carriers,
-            self.layout.carrier_count,
-            frame,
-        )?);
-        Ok(())
     }
 
     /// Thicken every shell and compute the final normals.

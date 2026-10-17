@@ -88,6 +88,7 @@ impl ClothRibbonPlan {
         }
         let carrier = &layers[0];
         layers.push(BodyClothLayer {
+            chart: None,
             point_count: words.len() as u32 / 4,
             indices,
             role: ArmorComponentRole::EdgeBinding,

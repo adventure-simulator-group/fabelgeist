@@ -17,6 +17,7 @@ pub struct TextileAppearance {
     /// Base cloth opacity; colored decorative layers remain opaque.
     pub opacity: Permille,
     pub layers: TextileLayers,
+    pub relief: Option<Box<crate::TextilePleatRelief>>,
 }
 
 #[derive(Clone, Debug, Default, Eq, Hash, PartialEq, Serialize, Deserialize)]
@@ -89,9 +90,19 @@ pub struct TextileSpan {
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub struct TextileRepeatCount(pub u8);
 
+/// Yarn periods across a normalized material chart, independent of motif repeats.
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+pub struct TextileThreadCount(pub u16);
+
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub enum TextileFill {
     Solid,
+    /// Crossing warp and weft yarns; the gaps retain the base cloth opacity.
+    Weave {
+        warp: TextileThreadCount,
+        weft: TextileThreadCount,
+        width: Permille,
+    },
     Stripes {
         axis: TextileAxis,
         repeats: TextileRepeatCount,
@@ -116,6 +127,13 @@ pub enum TextileMotif {
     Rosette {
         petals: TextileRepeatCount,
     },
+    /// Concentric thread rings around a small lobed flower.
+    Medallion {
+        petals: TextileRepeatCount,
+        rings: TextileRepeatCount,
+        threads: TextileRepeatCount,
+        stroke: Permille,
+    },
     /// Mirrored foliage and a crowned flower; a stylized woven motif, not an
     /// attribution to a particular historical textile.
     Palmette {
@@ -134,6 +152,10 @@ pub enum TextileMotif {
     },
 }
 
+impl TextileThreadCount {
+    pub const RANGE: std::ops::RangeInclusive<u16> = 1..=1024;
+}
+
 impl TextileAppearance {
     pub const OPACITY_RANGE: std::ops::RangeInclusive<u16> = 0..=Permille::ONE.0;
 
@@ -143,6 +165,7 @@ impl TextileAppearance {
             finish,
             opacity: Permille::ONE,
             layers: TextileLayers::default(),
+            relief: None,
         }
     }
 
@@ -151,6 +174,9 @@ impl TextileAppearance {
             || self.layers.0.len() > MAX_TEXTILE_LAYERS
         {
             return Err(DesignError::ParametricParameters.into());
+        }
+        if let Some(relief) = &self.relief {
+            relief.validate()?;
         }
         for layer in &self.layers.0 {
             layer.validate()?;
@@ -224,6 +250,11 @@ impl TextileFill {
         let share = |n: Permille| n.0 <= Permille::ONE.0;
         let valid = match self {
             Self::Solid => true,
+            Self::Weave { warp, weft, width } => {
+                TextileThreadCount::RANGE.contains(&warp.0)
+                    && TextileThreadCount::RANGE.contains(&weft.0)
+                    && (1..=900).contains(&width.0)
+            }
             Self::Stripes {
                 repeats,
                 width,
@@ -262,6 +293,17 @@ impl TextileMotif {
         let valid = match self {
             Self::Lozenge => true,
             Self::Rosette { petals } => (3..=12).contains(&petals.0),
+            Self::Medallion {
+                petals,
+                rings,
+                threads,
+                stroke,
+            } => {
+                (3..=12).contains(&petals.0)
+                    && (1..=4).contains(&rings.0)
+                    && (8..=64).contains(&threads.0)
+                    && (5..=80).contains(&stroke.0)
+            }
             Self::Palmette { leaf_pairs, spread } | Self::Damask { leaf_pairs, spread } => {
                 (1..=5).contains(&leaf_pairs.0) && (250..=1000).contains(&spread.0)
             }

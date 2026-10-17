@@ -4,8 +4,8 @@ use fabelgeist_armor::gpu::{
     SKIRT_FIT_WORDS, SKIRT_PROFILE_FIRST_WORD, SKIRT_SECTION_WORDS, record_skirt,
 };
 use fabelgeist_armor::{
-    ArmorGpu, BuiltPart, Permille, SKIRT_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS, SkirtDesign,
-    SkirtProfile,
+    ArmorGpu, BuiltPart, Permille, SKIRT_AXIAL_SEGMENTS, SKIRT_MESH_AXIAL_SEGMENTS,
+    SKIRT_MESH_RING_SEGMENTS, SKIRT_RING_SEGMENTS, SkirtDesign, SkirtProfile,
 };
 use fabelgeist_gpu::prelude::BufferUpload;
 
@@ -70,18 +70,19 @@ fn tailored_folds_repeat_evenly_and_keep_the_hem_level() -> Result<()> {
         ..Default::default()
     };
     let tailored = generate(&gpu, &design)?;
-    let repeat_columns = SKIRT_RING_SEGMENTS / 12;
-    for row in [4, 16, SKIRT_AXIAL_SEGMENTS] {
-        let ring = &tailored.positions[row * SKIRT_RING_SEGMENTS..(row + 1) * SKIRT_RING_SEGMENTS];
-        for column in 0..SKIRT_RING_SEGMENTS {
+    let repeat_columns = SKIRT_MESH_RING_SEGMENTS / 12;
+    for row in [1, 2, SKIRT_MESH_AXIAL_SEGMENTS] {
+        let ring = &tailored.positions
+            [row * SKIRT_MESH_RING_SEGMENTS..(row + 1) * SKIRT_MESH_RING_SEGMENTS];
+        for column in 0..SKIRT_MESH_RING_SEGMENTS {
             let a = ring[column];
-            let b = ring[(column + repeat_columns) % SKIRT_RING_SEGMENTS];
+            let b = ring[(column + repeat_columns) % SKIRT_MESH_RING_SEGMENTS];
             assert!((a[0].hypot(a[2]) - b[0].hypot(b[2])).abs() < 2e-6);
             assert!((a[1] - b[1]).abs() < 1e-7);
         }
     }
-    // At maximum gather count, half-width quiet front and quarter-repeat
-    // phase, the native lattice must retain peaks rather than alias flat.
+    // Fine gathering changes surface normals instead of mesh connectivity or
+    // positions, including the densest gathered half-width quiet-front recipe.
     let mut dense = design.clone();
     let pleats = dense.pleats.as_mut().unwrap();
     pleats.waist_count = SkirtRepeatCount(48);
@@ -90,23 +91,8 @@ fn tailored_folds_repeat_evenly_and_keep_the_hem_level() -> Result<()> {
     let gathered = generate(&gpu, &dense)?;
     dense.pleats.as_mut().unwrap().waist_depth = Millimeters(0);
     let ungathered = generate(&gpu, &dense)?;
-    let row = 4 * SKIRT_RING_SEGMENTS;
-    let differences = (SKIRT_RING_SEGMENTS / 2..SKIRT_RING_SEGMENTS / 2 + 8)
-        .map(|column| {
-            let a = gathered.positions[row + column];
-            let b = ungathered.positions[row + column];
-            a[0].hypot(a[2]) - b[0].hypot(b[2])
-        })
-        .collect::<Vec<_>>();
-    let low = differences.iter().copied().fold(f32::INFINITY, f32::min);
-    let high = differences
-        .iter()
-        .copied()
-        .fold(f32::NEG_INFINITY, f32::max);
-    assert!(
-        high - low > 0.02,
-        "dense gathers aliased into a constant offset"
-    );
+    assert_eq!(gathered.positions, ungathered.positions);
+    assert_eq!(gathered.indices, ungathered.indices);
     for half_height in [0.005, 0.45] {
         let part = generate_in_span(&gpu, &dense, half_height)?;
         assert!(
@@ -290,8 +276,8 @@ fn a_quiet_front_preserves_the_carrier_while_gathers_shape_the_rear() -> Result<
         assert!(gathered.normals.iter().flatten().all(|v| v.is_finite()));
         // Native lattice fixture: row descends, column zero faces +Z. Compare
         // an interior front point and its opposite, away from thickened rims.
-        let front = SKIRT_AXIAL_SEGMENTS / 2 * SKIRT_RING_SEGMENTS;
-        let rear = front + SKIRT_RING_SEGMENTS / 2;
+        let front = SKIRT_MESH_AXIAL_SEGMENTS / 2 * SKIRT_MESH_RING_SEGMENTS;
+        let rear = front + SKIRT_MESH_RING_SEGMENTS / 2;
         for axis in 0..3 {
             assert!((gathered.positions[front][axis] - plain.positions[front][axis]).abs() < 1e-6);
         }

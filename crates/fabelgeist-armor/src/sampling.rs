@@ -3,6 +3,10 @@
 //! Detail levels change where a recipe is evaluated. They never collapse edges
 //! or weld vertices from an already triangulated armor mesh.
 
+/// Normal per-model runtime budget, including hidden clothing construction.
+/// Dense sources used only to bake surface maps are measured separately.
+pub const EQUIPMENT_TRIANGLE_BUDGET: usize = 10_000;
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum ArmorLod {
     Lod4,
