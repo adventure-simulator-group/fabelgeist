@@ -5,7 +5,7 @@ fn spawn_resolved_crowns(
     origin: Vec2,
     visible_owners: Option<&std::collections::HashSet<u32>>,
     section_view: Option<ViewerView>,
-) {
+) -> Result<(), adventuresim_building_generator::GenerationError> {
     let removed_items = section_view
         .map(|view| {
             architectural_section_removed_item_ids(plan, view)
@@ -58,7 +58,7 @@ fn spawn_resolved_crowns(
                 || visible_owners.is_none_or(|owners| owners.contains(&solid.owner.0)),
                 |items| items.contains(&solid.id.0),
             ) {
-                bell::spawn(world, plan, solid, origin, section_view);
+                bell::spawn(world, plan, solid, origin, section_view)?;
             }
             continue;
         }
@@ -150,7 +150,9 @@ fn spawn_resolved_crowns(
                 | SolidRole::StairTread
                 | SolidRole::StairNewel => &palette.stair,
                 SolidRole::ChurchStairNewel | SolidRole::ChurchServiceLadder => &palette.timber,
-                SolidRole::RoofFlashing if solid.size.y <= 0.03 && solid.size.z <= 0.12 => {
+                SolidRole::RoofFlashing
+                    if solid.size.metres().y <= 0.03 && solid.size.metres().z <= 0.12 =>
+                {
                     &palette.roof
                 }
                 SolidRole::DefenseRoof | SolidRole::RoofFlashing | SolidRole::RoofGutter => {
@@ -206,19 +208,20 @@ fn spawn_resolved_crowns(
         // courtyard regression.
         let tangent_is_z = wall
             .map(|wall| wall.frame.tangent.y.abs() > 0.5)
-            .unwrap_or(solid.size.z > solid.size.x);
+            .unwrap_or(solid.size.metres().z > solid.size.metres().x);
         let (mesh, shape_yaw) = match solid.shape {
             adventuresim_building_generator::ResolvedSolidShape::BellShell
             | adventuresim_building_generator::ResolvedSolidShape::CylinderAlongX => (
                 flat_face_mesh(
-                    &adventuresim_building_generator::compile_solid_detail(plan, solid)
+                    &adventuresim_building_generator::compile_solid_detail(plan, solid)?
                         .meshes
                         .iter()
                         .flat_map(|mesh| {
                             mesh.indices.as_chunks::<3>().0.iter().map(|indices| {
                                 indices
                                     .map(|index| {
-                                        mesh.vertices[index as usize].position - solid.centre
+                                        mesh.vertices[index as usize].position
+                                            - solid.centre.metres()
                                     })
                                     .to_vec()
                             })
@@ -237,18 +240,18 @@ fn spawn_resolved_crowns(
                     SolidRole::OpeningClosure | SolidRole::LeadedGlazing
                 ) {
                     arched_panel_mesh(
-                        solid.size.x.max(solid.size.z),
-                        solid.size.y,
-                        solid.size.x.min(solid.size.z),
+                        solid.size.metres().x.max(solid.size.metres().z),
+                        solid.size.metres().y,
+                        solid.size.metres().x.min(solid.size.metres().z),
                         spring_height_metres,
                         rise_metres,
                         None,
                     )
                 } else {
                     arched_spandrel_mesh(
-                        solid.size.x.max(solid.size.z),
-                        solid.size.y,
-                        solid.size.x.min(solid.size.z),
+                        solid.size.metres().x.max(solid.size.metres().z),
+                        solid.size.metres().y,
+                        solid.size.metres().x.min(solid.size.metres().z),
                         rise_metres,
                         None,
                     )
@@ -266,18 +269,18 @@ fn spawn_resolved_crowns(
                     SolidRole::OpeningClosure | SolidRole::LeadedGlazing
                 ) {
                     arched_panel_mesh(
-                        solid.size.x.max(solid.size.z),
-                        solid.size.y,
-                        solid.size.x.min(solid.size.z),
+                        solid.size.metres().x.max(solid.size.metres().z),
+                        solid.size.metres().y,
+                        solid.size.metres().x.min(solid.size.metres().z),
                         spring_height_metres,
                         apex_height_metres - spring_height_metres,
                         Some(arc_radius_metres),
                     )
                 } else {
                     arched_spandrel_mesh(
-                        solid.size.x.max(solid.size.z),
-                        solid.size.y,
-                        solid.size.x.min(solid.size.z),
+                        solid.size.metres().x.max(solid.size.metres().z),
+                        solid.size.metres().y,
+                        solid.size.metres().x.min(solid.size.metres().z),
                         apex_height_metres - spring_height_metres,
                         Some(arc_radius_metres),
                     )
@@ -289,7 +292,7 @@ fn spawn_resolved_crowns(
                 outward,
                 depth_metres,
             } => (
-                timber_panel_prism_mesh(vertices, outward, depth_metres, solid.centre),
+                timber_panel_prism_mesh(vertices, outward, depth_metres, solid.centre.metres()),
                 None,
             ),
             adventuresim_building_generator::ResolvedSolidShape::SplayedReveal {
@@ -299,9 +302,9 @@ fn spawn_resolved_crowns(
                 exterior_depth_sign,
             } => (
                 splayed_jamb_mesh(
-                    solid.size.x.max(solid.size.z),
-                    solid.size.y,
-                    solid.size.x.min(solid.size.z),
+                    solid.size.metres().x.max(solid.size.metres().z),
+                    solid.size.metres().y,
+                    solid.size.metres().x.min(solid.size.metres().z),
                     exterior_width_metres,
                     interior_width_metres,
                     side,
@@ -315,9 +318,9 @@ fn spawn_resolved_crowns(
                 exterior_depth_sign,
             } => (
                 splayed_head_mesh(
-                    solid.size.x.max(solid.size.z),
-                    solid.size.y,
-                    solid.size.x.min(solid.size.z),
+                    solid.size.metres().x.max(solid.size.metres().z),
+                    solid.size.metres().y,
+                    solid.size.metres().x.min(solid.size.metres().z),
                     exterior_clear_height_metres,
                     interior_clear_height_metres,
                     exterior_depth_sign,
@@ -325,7 +328,11 @@ fn spawn_resolved_crowns(
                 tangent_is_z.then_some(-std::f32::consts::FRAC_PI_2),
             ),
             adventuresim_building_generator::ResolvedSolidShape::Cuboid => (
-                Mesh::from(Cuboid::new(solid.size.x, solid.size.y, solid.size.z)),
+                Mesh::from(Cuboid::new(
+                    solid.size.metres().x,
+                    solid.size.metres().y,
+                    solid.size.metres().z,
+                )),
                 None,
             ),
             adventuresim_building_generator::ResolvedSolidShape::AnnularPrism {
@@ -339,7 +346,7 @@ fn spawn_resolved_crowns(
                 sloped_annulus_mesh(
                     inner_radius_metres,
                     outer_radius_metres,
-                    solid.size.y,
+                    solid.size.metres().y,
                     inner_top_offset_metres,
                     outer_top_offset_metres,
                     drainage_outlet_count,
@@ -358,7 +365,7 @@ fn spawn_resolved_crowns(
                 annular_sector_mesh(
                     inner_radius_metres,
                     outer_radius_metres,
-                    solid.size.y,
+                    solid.size.metres().y,
                     start_angle_radians,
                     end_angle_radians,
                     inner_top_offset_metres,
@@ -378,9 +385,9 @@ fn spawn_resolved_crowns(
                 | SolidRole::RoofGutter
                 | SolidRole::RoofEdgeTreatment
         ) {
-            -solid.yaw_radians
+            -solid.yaw_radians.radians()
         } else {
-            solid.yaw_radians
+            solid.yaw_radians.radians()
         };
         world.spawn((
             Name::new(if projected.is_some() {
@@ -398,16 +405,16 @@ fn spawn_resolved_crowns(
                 fingerprint: stable_u64(
                     &serde_json::to_vec(solid).expect("serialize rendered resolved solid"),
                 ),
-                local_half_size: solid.size * 0.5,
+                local_half_size: solid.size.metres() * 0.5,
             },
             Mesh3d(mesh),
             MeshMaterial3d(material.clone()),
             Transform {
-                translation: solid.centre + Vec3::new(origin.x, 0.0, origin.y),
+                translation: solid.centre.metres() + Vec3::new(origin.x, 0.0, origin.y),
                 rotation: Quat::from_rotation_y(resolved_yaw)
                     * Quat::from_rotation_y(shape_yaw.unwrap_or(0.0))
-                    * Quat::from_rotation_x(solid.crossfall_radians)
-                    * Quat::from_rotation_z(solid.longfall_radians),
+                    * Quat::from_rotation_x(solid.crossfall_radians.radians())
+                    * Quat::from_rotation_z(solid.longfall_radians.radians()),
                 ..default()
             },
             if isolated_church_items.as_ref().map_or_else(
@@ -420,4 +427,6 @@ fn spawn_resolved_crowns(
             },
         ));
     }
+
+    Ok(())
 }

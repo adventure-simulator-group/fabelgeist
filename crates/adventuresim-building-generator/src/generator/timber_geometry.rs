@@ -38,9 +38,9 @@ fn timber_member_wall_polygon(
         )
     };
     timber_member_end_face_polygon(
-        project(member.start),
-        project(member.end),
-        timber_infill_cut_half_width(member.section_metres),
+        project(member.start.metres()),
+        project(member.end.metres()),
+        timber_infill_cut_half_width(member.section_metres.metres()),
     )
 }
 

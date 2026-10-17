@@ -132,7 +132,7 @@ fn native_decoding_and_ordered_selectors_match_original() -> anyhow::Result<()> 
     output.push_str(&format!(
         "mesh:{:?}",
         scene
-            .objects_of_kind(&FbxRecordName::GEOMETRY, &FbxClassName::MESH)
+            .objects_of_kind(&FbxRecordName::Geometry, &FbxClassName::Mesh)
             .map(|o| o.id)
             .collect::<Vec<_>>()
     ));
@@ -145,7 +145,7 @@ fn native_decoding_and_ordered_selectors_match_original() -> anyhow::Result<()> 
     output.push_str(&format!(
         "first_mesh:{:?}",
         scene
-            .child_of_kind(0, &FbxRecordName::GEOMETRY, &FbxClassName::MESH)
+            .child_of_kind(0, &FbxRecordName::Geometry, &FbxClassName::Mesh)
             .map(|o| o.id)
     ));
     output.push('\n');
@@ -174,7 +174,7 @@ fn native_decoding_and_ordered_selectors_match_original() -> anyhow::Result<()> 
     output.push_str(&format!(
         "empty_class:{:?}",
         scene
-            .objects_of_kind(&FbxRecordName::MODEL, &FbxClassName::from(""))
+            .objects_of_kind(&FbxRecordName::Model, &FbxClassName::from(""))
             .map(|o| o.id)
             .collect::<Vec<_>>()
     ));
@@ -202,7 +202,7 @@ fn selected_references_borrow_tree_and_scene_after_selectors_are_dropped() -> an
         [1, 2]
     );
     let scene = Scene::from_roots(vec![Node {
-        name: FbxRecordName::OBJECTS,
+        name: FbxRecordName::Objects,
         props: vec![],
         children: vec![object("Geometry", 3, Some(Prop::Str(b"Mesh".to_vec())))],
     }])?;

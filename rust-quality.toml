@@ -8,6 +8,18 @@ excluded_paths = [
 ]
 
 [[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-tactical-client/build.rs"
+item = "CargoPackageRole::from"
+reason = "Classifies Cargo lockfile package names in the derived Serde String conversion without admitting non-string values."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-world-schema/src/regional_connection.rs"
+item = "RegionalConnectionKind::from_str"
+reason = "Admits the closed Viabundus CSV connection categories into the shared presentation classification."
+
+[[scopes]]
 kind = "authored_catalog"
 path = "crates/adventuresim-tactical-client/src/animation_viewer/inspection.rs"
 item = "inspect_materials"
@@ -778,3 +790,15 @@ reason = "Feature-gated bootstrap-capability-guarded social request and executio
 kind = "fixture"
 path = "crates/adventuresim-stdb-module/src/investigation/authority_tests.rs"
 reason = "Feature-gated bootstrap-capability-guarded investigation storage, snapshot, and prerequisite acceptance fixtures."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/fabelgeist-fbx/src/record.rs"
+item = "FbxRecordName::from"
+reason = "Classifies exact native FBX record labels into canonical variants while preserving every unknown decoded spelling."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/fabelgeist-fbx/src/class.rs"
+item = "FbxClassName::from"
+reason = "Classifies exact native FBX subclass labels into canonical variants while preserving every unknown decoded spelling."

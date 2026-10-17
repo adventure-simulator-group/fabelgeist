@@ -17,6 +17,7 @@ struct InteriorBuilding {
 struct InteriorField {
     daylight: vec4<f32>,
     outdoor_irradiance: vec4<f32>,
+    // y is reserved zero so interpolation stays compact in compiled PBR.
     counts: vec4<u32>,
     buildings: array<InteriorBuilding, 16>,
     samples: array<InteriorSample>,
@@ -52,8 +53,9 @@ fn interior_irradiance(world_position: vec3<f32>, normal: vec3<f32>) -> vec4<f32
         let fraction = fract(grid);
         var positive = vec3(0.0);
         var negative = vec3(0.0);
-        for (var z = 0; z < 2; z += 1) {
-            for (var x = 0; x < 2; x += 1) {
+        let interpolation_width = 2 + i32(interior.counts.y);
+        for (var z = 0; z < interpolation_width; z += 1) {
+            for (var x = 0; x < interpolation_width; x += 1) {
                 let adjacent = base + vec2(x, z);
                 var sample = centre;
                 if all(adjacent >= vec2(0)) && all(adjacent < vec2<i32>(dimensions.xz)) {

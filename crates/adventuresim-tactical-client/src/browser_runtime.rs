@@ -40,9 +40,13 @@ enum BrowserCommand {
     PrepareStrategicScene {
         location: String,
         input_json: String,
+        preparation: crate::presentation::generation::PreparationTicket,
     },
     SyncStrategicView {
         view: crate::strategic_scene::protocol::StrategicView,
+    },
+    RegionalMap {
+        command: crate::presentation::regional_map::protocol::MapCommand,
     },
     ShowStrategicScene {
         scene: StrategicScene,
@@ -128,7 +132,10 @@ impl BrowserRuntimePlugin {
 
 impl Plugin for BrowserRuntimePlugin {
     fn build(&self, app: &mut App) {
-        app.add_plugins(crate::strategic_scene::StrategicScenePlugin);
+        app.add_plugins((
+            crate::strategic_scene::StrategicScenePlugin,
+            crate::presentation::regional_map::RegionalMapPlugin,
+        ));
         app.insert_resource(self.initial_mode)
             .init_resource::<ForgePreviewView>()
             .add_systems(Startup, forge_view::setup)
@@ -205,9 +212,13 @@ fn drain_browser_commands(
             BrowserCommand::PrepareStrategicScene {
                 location,
                 input_json,
-            } => prepare_city(&mut commands, location, input_json),
+                preparation,
+            } => prepare_city(&mut commands, location, input_json, preparation),
             BrowserCommand::SyncStrategicView { view } => {
                 commands.insert_resource(view);
+            }
+            BrowserCommand::RegionalMap { command } => {
+                commands.queue(move |world: &mut World| command.apply(world))
             }
             BrowserCommand::ShowStrategicScene { scene } => {
                 *mode = BrowserMode::Strategic;
@@ -246,6 +257,9 @@ fn drain_browser_commands(
                 server_addr,
                 character_id,
             } => {
+                commands.queue(|world: &mut World| {
+                    crate::presentation::regional_map::protocol::MapCommand::Hide.apply(world)
+                });
                 commands.queue(crate::strategic_scene::release_scene);
                 commands.remove_resource::<crate::strategic_scene::protocol::StrategicView>();
                 despawn_forge_preview(&mut commands, &scene_entities);
@@ -479,9 +493,15 @@ mod tests {
     }
 }
 
-fn prepare_city(commands: &mut Commands, location: String, input_json: String) {
+fn prepare_city(
+    commands: &mut Commands,
+    location: String,
+    input_json: String,
+    preparation: crate::presentation::generation::PreparationTicket,
+) {
     commands.insert_resource(crate::strategic_scene::SceneDocument::parse(
         location,
         &input_json,
+        preparation,
     ));
 }

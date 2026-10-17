@@ -112,9 +112,9 @@ pub(super) fn sync_skeletal_proportions(
                 commands.entity(bind.owner).insert(exported);
             }
         }
-        let proportions = explicit
-            .map(|value| value.0)
-            .unwrap_or_else(|| CharacterProportions::from_character_id(id.0));
+        let proportions = explicit.map(|value| value.0).unwrap_or_else(|| {
+            CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(id.0))
+        });
         rigs.entry(bind.owner).or_default().insert(
             entity,
             BoneReference {
@@ -262,11 +262,9 @@ mod tests {
             .entity_mut(owner)
             .remove::<CharacterSkeletalProportions>();
         world.run_system_cached(sync_skeletal_proportions).unwrap();
-        let expected = world
-            .get::<SkeletalJointBasis>(hip)
-            .unwrap()
-            .0
-            .translation(CharacterProportions::from_character_id(43));
+        let expected = world.get::<SkeletalJointBasis>(hip).unwrap().0.translation(
+            CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(43)),
+        );
         assert_eq!(
             world.get::<SkeletalJointOffset>(hip).unwrap().0.x,
             expected[0]

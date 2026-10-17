@@ -29,6 +29,40 @@ pub struct Curve {
     pub values: Vec<f64>,
 }
 
+/// One of a node's transform properties, as three channels plus the static
+/// values to use where a channel has no curve.
+#[derive(Debug, Clone, Default)]
+pub struct TransformChannel {
+    pub x: Curve,
+    pub y: Curve,
+    pub z: Curve,
+    /// The curve node's own `d|X`, `d|Y`, `d|Z` values.
+    pub default: [f64; 3],
+}
+
+/// Everything one take animates on one node.
+#[derive(Debug, Clone)]
+pub struct NodeAnimation {
+    /// Object id of the animated `Model`.
+    pub node: i64,
+    /// The model's name, namespace intact.
+    pub name: String,
+    pub translation: Option<TransformChannel>,
+    /// Euler angles in degrees, in the node's own rotation order.
+    pub rotation: Option<TransformChannel>,
+    pub scale: Option<TransformChannel>,
+}
+
+/// One `AnimationStack` — what other tools call a take or a clip.
+#[derive(Debug, Clone)]
+pub struct Take {
+    pub name: String,
+    /// Seconds, from the stack's declared local time span when it has one and
+    /// from the keys otherwise.
+    pub duration: f64,
+    pub nodes: Vec<NodeAnimation>,
+}
+
 impl Curve {
     pub fn is_empty(&self) -> bool {
         self.times.is_empty()
@@ -61,17 +95,6 @@ impl Curve {
     }
 }
 
-/// One of a node's transform properties, as three channels plus the static
-/// values to use where a channel has no curve.
-#[derive(Debug, Clone, Default)]
-pub struct TransformChannel {
-    pub x: Curve,
-    pub y: Curve,
-    pub z: Curve,
-    /// The curve node's own `d|X`, `d|Y`, `d|Z` values.
-    pub default: [f64; 3],
-}
-
 impl TransformChannel {
     pub fn is_empty(&self) -> bool {
         self.x.is_empty() && self.y.is_empty() && self.z.is_empty()
@@ -94,19 +117,6 @@ impl TransformChannel {
     }
 }
 
-/// Everything one take animates on one node.
-#[derive(Debug, Clone)]
-pub struct NodeAnimation {
-    /// Object id of the animated `Model`.
-    pub node: i64,
-    /// The model's name, namespace intact.
-    pub name: String,
-    pub translation: Option<TransformChannel>,
-    /// Euler angles in degrees, in the node's own rotation order.
-    pub rotation: Option<TransformChannel>,
-    pub scale: Option<TransformChannel>,
-}
-
 impl NodeAnimation {
     pub fn key_times(&self, into: &mut Vec<f64>) {
         for channel in [&self.translation, &self.rotation, &self.scale]
@@ -116,16 +126,6 @@ impl NodeAnimation {
             channel.key_times(into);
         }
     }
-}
-
-/// One `AnimationStack` — what other tools call a take or a clip.
-#[derive(Debug, Clone)]
-pub struct Take {
-    pub name: String,
-    /// Seconds, from the stack's declared local time span when it has one and
-    /// from the keys otherwise.
-    pub duration: f64,
-    pub nodes: Vec<NodeAnimation>,
 }
 
 impl Take {
@@ -142,10 +142,6 @@ impl Take {
         }
         times
     }
-}
-
-fn ticks_to_seconds(ticks: i64) -> f64 {
-    ticks as f64 / TICKS_PER_SECOND
 }
 
 impl Scene {
@@ -171,7 +167,7 @@ impl Scene {
 
         self.objects
             .iter()
-            .filter(|object| object.kind == FbxRecordName::ANIMATION_STACK)
+            .filter(|object| object.kind == FbxRecordName::AnimationStack)
             .filter_map(|stack| {
                 let mut nodes: Vec<NodeAnimation> = Vec::new();
 
@@ -179,7 +175,7 @@ impl Scene {
                 // the base layer, which is the first one connected.
                 if let Some(layer) = self
                     .children(stack.id)
-                    .find(|object| object.kind == FbxRecordName::ANIMATION_LAYER)
+                    .find(|object| object.kind == FbxRecordName::AnimationLayer)
                 {
                     self.collect_layer(layer.id, &targets, &mut nodes);
                 }
@@ -224,7 +220,7 @@ impl Scene {
     ) {
         for curve_node in self
             .children(layer)
-            .filter(|object| object.kind == FbxRecordName::ANIMATION_CURVE_NODE)
+            .filter(|object| object.kind == FbxRecordName::AnimationCurveNode)
         {
             let Some((model, property)) = targets.get(&curve_node.id) else {
                 continue;
@@ -280,19 +276,19 @@ impl Scene {
         }
 
         for (curve, property) in self.children_with_property(curve_node) {
-            if curve.kind != FbxRecordName::ANIMATION_CURVE {
+            if curve.kind != FbxRecordName::AnimationCurve {
                 continue;
             }
             let Some(times) = curve
                 .node
-                .child(&FbxRecordName::KEY_TIME)
+                .child(&FbxRecordName::KeyTime)
                 .and_then(|node| node.i64_array())
             else {
                 continue;
             };
             let Some(values) = curve
                 .node
-                .child(&FbxRecordName::KEY_VALUE_FLOAT)
+                .child(&FbxRecordName::KeyValueFloat)
                 .and_then(|node| node.props.first().and_then(Prop::as_f64_array))
             else {
                 continue;
@@ -315,4 +311,8 @@ impl Scene {
 
         channel
     }
+}
+
+fn ticks_to_seconds(ticks: i64) -> f64 {
+    ticks as f64 / TICKS_PER_SECOND
 }

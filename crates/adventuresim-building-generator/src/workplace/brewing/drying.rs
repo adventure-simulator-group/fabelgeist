@@ -1,96 +1,150 @@
 use super::*;
+use crate::GenerationResult as Result;
+use crate::plan_geometry::ArchitecturalPlanPoint;
+use crate::spatial_geometry::{
+    CuboidDimensions, Elevation, PlanDirection, Position, PositiveLength,
+};
 
-pub(in super::super) fn drying_wall(a: &mut Assembly<'_>, x: f32, d: f32, h: f32, outward: Vec2) {
-    let bays = (d / 2.5) as u32;
-    let length = d / bays as f32;
-    for bay in 0..bays {
+pub(in super::super) fn drying_wall(
+    assembly: &mut Assembly<'_>,
+    origin: ArchitecturalPlanPoint,
+    depth: PositiveLength,
+    height: PositiveLength,
+    outward: PlanDirection<crate::Architectural>,
+) -> Result<()> {
+    // The wall starts at origin and runs along architectural +Z in metres.
+    // Bay division and louver set-out remain a native authored-layout kernel.
+    let origin = origin.metres();
+    let depth = depth.metres();
+    let height_owner = height;
+    let height = height.metres();
+    let bays = (depth / 2.5) as u32;
+    let length = depth / bays as f32;
+    let _: () = for bay in 0..bays {
         let start = bay as f32 * length;
         let left = start + length * 0.5 - 0.7;
         let right = left + 1.4;
         for (from, to) in [(start, left), (right, start + length)] {
-            a.wall(Vec2::new(x, from), Vec2::new(x, to), outward, 0.0, h, false);
-        }
-        for (base, height) in [(0.0, 1.6), (2.6, h - 2.6)] {
-            a.wall(
-                Vec2::new(x, left),
-                Vec2::new(x, right),
+            assembly.wall(
+                ArchitecturalPlanPoint::try_from(Vec2::new(origin.x, origin.y + from))?,
+                ArchitecturalPlanPoint::try_from(Vec2::new(origin.x, origin.y + to))?,
                 outward,
-                base,
-                height,
-                false,
-            );
+                Elevation::<crate::Architectural>::from_metres(0.0)?,
+                height_owner,
+                crate::workplace::assembly::WallConstruction::Masonry,
+            )?;
+        }
+        for (base, height) in [(0.0, 1.6), (2.6, height - 2.6)] {
+            assembly.wall(
+                ArchitecturalPlanPoint::try_from(Vec2::new(origin.x, origin.y + left))?,
+                ArchitecturalPlanPoint::try_from(Vec2::new(origin.x, origin.y + right))?,
+                outward,
+                Elevation::<crate::Architectural>::from_metres(base)?,
+                PositiveLength::from_metres(height)?,
+                crate::workplace::assembly::WallConstruction::Masonry,
+            )?;
         }
         // Framed horizontal slats leave real ventilation slots through the masonry wall.
         for z in [left, right] {
-            a.part(
+            assembly.part(
                 WorkplaceFeature::Louver,
                 WorkplaceMaterial::Timber,
-                Vec3::new(x, 2.1, z),
-                Vec3::new(0.5, 1.04, 0.09),
-                true,
-            );
+                Position::<crate::Architectural>::from_metres(Vec3::new(
+                    origin.x,
+                    2.1,
+                    origin.y + z,
+                ))?,
+                CuboidDimensions::from_metres(Vec3::new(0.5, 1.04, 0.09))?,
+                crate::workplace::WorkplacePartVisibility::Silhouette,
+            )?;
         }
         for row in 0..4 {
-            a.part(
+            assembly.part(
                 WorkplaceFeature::Louver,
                 WorkplaceMaterial::Timber,
-                Vec3::new(x, 1.71 + row as f32 * 0.25, (left + right) * 0.5),
-                Vec3::new(0.5, 0.12, 1.4),
-                true,
-            );
+                Position::<crate::Architectural>::from_metres(Vec3::new(
+                    origin.x,
+                    1.71 + row as f32 * 0.25,
+                    origin.y + (left + right) * 0.5,
+                ))?,
+                CuboidDimensions::from_metres(Vec3::new(0.5, 0.12, 1.4))?,
+                crate::workplace::WorkplacePartVisibility::Silhouette,
+            )?;
         }
-    }
+    };
+    Ok(())
 }
 
-pub(in super::super) fn malthouse(a: &mut Assembly<'_>, w: f32, d: f32) {
-    super::kiln::drying_kiln(a, Vec2::new(w + 3.0, d - 2.6));
-    for x in [2.2, w - 2.2] {
-        for z in [2.4, d * 0.5, d - 2.4] {
-            drying_bed(a, Vec2::new(x, z));
+pub(in super::super) fn malthouse(
+    assembly: &mut Assembly<'_>,
+    dimensions: crate::spatial_geometry::PlanDimensions,
+) -> Result<()> {
+    let width = dimensions.metres().x;
+    let depth = dimensions.metres().y;
+    super::kiln::drying_kiln(
+        assembly,
+        crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(
+            width + 3.0,
+            depth - 2.6,
+        ))?,
+    )?;
+    let _: () = for x in [2.2, width - 2.2] {
+        for z in [2.4, depth * 0.5, depth - 2.4] {
+            drying_bed(
+                assembly,
+                crate::plan_geometry::ArchitecturalPlanPoint::from_metres(Vec2::new(x, z))?,
+            )?;
         }
-    }
+    };
+    Ok(())
 }
 
-fn drying_bed(a: &mut Assembly<'_>, p: Vec2) {
+fn drying_bed(
+    assembly: &mut Assembly<'_>,
+    centre: crate::plan_geometry::ArchitecturalPlanPoint,
+) -> Result<()> {
+    let centre = centre.metres();
     for x in [-0.8, 0.8] {
-        a.part(
+        assembly.part(
             WorkplaceFeature::Post,
             WorkplaceMaterial::UnpaintedTimber,
-            Vec3::new(p.x + x, 0.3, p.y),
-            Vec3::new(0.16, 0.6, 2.0),
-            true,
-        );
+            Position::<crate::Architectural>::from_metres(Vec3::new(centre.x + x, 0.3, centre.y))?,
+            CuboidDimensions::from_metres(Vec3::new(0.16, 0.6, 2.0))?,
+            crate::workplace::WorkplacePartVisibility::Silhouette,
+        )?;
     }
-    a.part(
+    assembly.part(
         WorkplaceFeature::Rack,
         WorkplaceMaterial::UnpaintedTimber,
-        Vec3::new(p.x, 0.68, p.y),
-        Vec3::new(2.0, 0.16, 2.0),
-        true,
-    );
+        Position::<crate::Architectural>::from_metres(Vec3::new(centre.x, 0.68, centre.y))?,
+        CuboidDimensions::from_metres(Vec3::new(2.0, 0.16, 2.0))?,
+        crate::workplace::WorkplacePartVisibility::Silhouette,
+    )?;
     for x in [-0.98, 0.98] {
-        a.part(
+        assembly.part(
             WorkplaceFeature::Rack,
             WorkplaceMaterial::UnpaintedTimber,
-            Vec3::new(p.x + x, 0.85, p.y),
-            Vec3::new(0.08, 0.18, 2.0),
-            true,
-        );
+            Position::<crate::Architectural>::from_metres(Vec3::new(centre.x + x, 0.85, centre.y))?,
+            CuboidDimensions::from_metres(Vec3::new(0.08, 0.18, 2.0))?,
+            crate::workplace::WorkplacePartVisibility::Silhouette,
+        )?;
     }
     for z in [-0.98, 0.98] {
-        a.part(
+        assembly.part(
             WorkplaceFeature::Rack,
             WorkplaceMaterial::UnpaintedTimber,
-            Vec3::new(p.x, 0.85, p.y + z),
-            Vec3::new(1.88, 0.18, 0.08),
-            true,
-        );
+            Position::<crate::Architectural>::from_metres(Vec3::new(centre.x, 0.85, centre.y + z))?,
+            CuboidDimensions::from_metres(Vec3::new(1.88, 0.18, 0.08))?,
+            crate::workplace::WorkplacePartVisibility::Silhouette,
+        )?;
     }
-    a.part(
+    assembly.part(
         WorkplaceFeature::StorageBin,
         WorkplaceMaterial::Grain,
-        Vec3::new(p.x, 0.79, p.y),
-        Vec3::new(1.84, 0.06, 1.84),
-        true,
-    );
+        Position::<crate::Architectural>::from_metres(Vec3::new(centre.x, 0.79, centre.y))?,
+        CuboidDimensions::from_metres(Vec3::new(1.84, 0.06, 1.84))?,
+        crate::workplace::WorkplacePartVisibility::Silhouette,
+    )?;
+
+    Ok(())
 }

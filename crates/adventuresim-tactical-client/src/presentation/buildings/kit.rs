@@ -50,7 +50,7 @@ impl ComponentCache {
             for batch in self.get(instance.component, meshes) {
                 let mut batch = batch.clone();
                 batch.transform =
-                    Mat4::from_translation(-compiled.local_origin) * instance.transform;
+                    Mat4::from_translation(-compiled.local_origin.metres()) * instance.transform;
                 batch.uv_offset = instance.uv_offset;
                 if compiled.detail == BuildingDetail::Static {
                     compiled.lod0.push(batch.clone());
@@ -66,14 +66,14 @@ impl ComponentCache {
 #[cfg(target_family = "wasm")]
 pub(super) fn install_facade(
     cache: &mut TacticalBuildingMeshCache,
-    prepared: super::super::generation::PreparedFacade,
+    prepared: Arc<super::super::generation::PreparedFacade>,
     meshes: &mut Assets<Mesh>,
-) -> Arc<CompiledBuildingLevels> {
+) -> Result<Arc<CompiledBuildingLevels>> {
     let mut batches = |source: &[LodMesh]| {
         source
             .iter()
             .map(|batch| {
-                let mut mesh = recipe_mesh(batch, prepared.local_origin);
+                let mut mesh = recipe_mesh(batch, prepared.local_origin.metres());
                 mesh.asset_usage = RenderAssetUsages::MAIN_WORLD;
                 CompiledBuildingBatch {
                     material: batch.material,
@@ -88,11 +88,11 @@ pub(super) fn install_facade(
     let mut compiled = CompiledBuildingLevels {
         facade_openings: Default::default(),
         interior: None,
-        program: prepared.program,
+        program: prepared.program.clone(),
         detail: BuildingDetail::Facade,
 
         local_origin: prepared.local_origin,
-        sign_sites: prepared.sign_sites,
+        sign_sites: prepared.sign_sites.clone(),
         lod0: Vec::new(),
         lod1: batches(&prepared.facade),
         lod2: batches(&prepared.shell),
@@ -101,7 +101,7 @@ pub(super) fn install_facade(
         .components
         .append(&prepared.instances, &mut compiled, meshes);
     let compiled = Arc::new(compiled);
-    super::super::generation::retain_facade(&compiled.program);
+    super::super::generation::retain_facade(&compiled.program)?;
     cache.levels.push(compiled.clone());
-    compiled
+    Ok(compiled)
 }

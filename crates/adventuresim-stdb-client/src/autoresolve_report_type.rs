@@ -4,12 +4,14 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::seed_type::Seed;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct AutoresolveReport {
     pub battle_id: String,
     pub party_id: String,
-    pub seed: u64,
+    pub seed: Seed,
     pub victor: String,
     pub rounds: u32,
     pub summary: String,
@@ -26,7 +28,7 @@ impl __sdk::InModule for AutoresolveReport {
 pub struct AutoresolveReportCols {
     pub battle_id: __sdk::__query_builder::Col<AutoresolveReport, String>,
     pub party_id: __sdk::__query_builder::Col<AutoresolveReport, String>,
-    pub seed: __sdk::__query_builder::Col<AutoresolveReport, u64>,
+    pub seed: __sdk::__query_builder::Col<AutoresolveReport, Seed>,
     pub victor: __sdk::__query_builder::Col<AutoresolveReport, String>,
     pub rounds: __sdk::__query_builder::Col<AutoresolveReport, u32>,
     pub summary: __sdk::__query_builder::Col<AutoresolveReport, String>,

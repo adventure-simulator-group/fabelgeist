@@ -1,3 +1,8 @@
+struct HostSourceWall {
+    index: usize,
+    wall: crate::WallSegment,
+}
+
 struct LinearDefenseHost {
     owner: GeometryOwnerId,
     bearing: StructuralNodeId,
@@ -21,7 +26,7 @@ fn resolve_linear_defense_host(
     run: BattlementRun,
     socket_count: Option<usize>,
     needs_portal: bool,
-) -> LinearDefenseHost {
+) -> Result<LinearDefenseHost, crate::GenerationError> {
     let owner = GeometryOwnerId(10_000 + source_index as u32);
     let bearing = StructuralNodeId(900_000 + source_index as u64 * 100);
     let tangent = (run.end - run.start).normalize_or_zero();
@@ -29,37 +34,28 @@ fn resolve_linear_defense_host(
     let midpoint = (run.start + run.end) * 0.5;
     let length = run.start.distance(run.end);
     let yaw = -tangent.y.atan2(tangent.x);
-    geometry.structural_nodes.push(StructuralNode {
-        id: bearing,
-        owner,
-        kind: StructuralNodeKind::WallBearing,
-        position: Vec3::new(midpoint.x, 0.0, midpoint.y),
-        supported_by: Vec::new(),
-        grounded: true,
-    });
-    let top_storey = storeys.last().expect("projected defense host storey");
+    geometry
+        .structural_nodes
+        .push(crate::StructuralNode::from_metres(
+            bearing,
+            owner,
+            StructuralNodeKind::WallBearing,
+            Vec3::new(midpoint.x, 0.0, midpoint.y),
+            Vec::new(),
+            true,
+        )?);
+    let top_storey = storeys
+        .last()
+        .ok_or(GenerationError::MissingDefenseHost { owner })?;
     let wall_top = f32::from(top_storey.level + 1)
         * (run.base_height_metres / f32::from(top_storey.level + 1));
     let wall_bottom = wall_top - run.base_height_metres / f32::from(top_storey.level + 1);
     let wall_depth = 0.18;
-    let source_walls = top_storey
-        .walls
-        .iter()
-        .enumerate()
-        .filter(|(_, wall)| {
-            if !wall.exterior() || wall.direction != run.outward {
-                return false;
-            }
-            let offset = wall.centre() - midpoint;
-            offset.dot(outward).abs() <= 0.12
-                && offset.dot(tangent).abs() <= length * 0.5 + CELL_SIZE_METRES * 0.51
-        })
-        .map(|(wall_index, wall)| (wall_index, *wall))
-        .collect::<Vec<_>>();
-    assert!(
-        !source_walls.is_empty(),
-        "projected defense must bind real source wall cells"
-    );
+    let source_walls =
+        linear_host_source_walls(top_storey, run, midpoint, tangent, outward, length);
+    if source_walls.is_empty() {
+        return Err(GenerationError::MissingDefenseHost { owner });
+    }
 
     let mut cuts = Vec::<(f32, f32, f32, f32, VoidRole)>::new();
     let mut portal = None;
@@ -90,7 +86,10 @@ fn resolve_linear_defense_host(
     }
     let source_average = source_walls
         .iter()
-        .map(|(_, wall)| wall.centre())
+        .map(|source| {
+            let wall = source.wall;
+            wall.centre()
+        })
         .fold(Vec2::ZERO, |sum, centre| sum + centre)
         / source_walls.len() as f32;
     let host_line = midpoint + outward * (source_average - midpoint).dot(outward);
@@ -99,8 +98,8 @@ fn resolve_linear_defense_host(
         let id = projected_void(
             geometry,
             owner,
-            ResolvedBounds {
-                min: Vec3::new(
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     centre.x
                         - tangent.x.abs() * (*to - *from) * 0.5
                         - outward.x.abs() * wall_depth * 0.5,
@@ -109,7 +108,7 @@ fn resolve_linear_defense_host(
                         - tangent.y.abs() * (*to - *from) * 0.5
                         - outward.y.abs() * wall_depth * 0.5,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     centre.x
                         + tangent.x.abs() * (*to - *from) * 0.5
                         + outward.x.abs() * wall_depth * 0.5,
@@ -118,7 +117,7 @@ fn resolve_linear_defense_host(
                         + tangent.y.abs() * (*to - *from) * 0.5
                         + outward.y.abs() * wall_depth * 0.5,
                 ),
-            },
+            )?,
             *role,
         );
         match role {
@@ -134,7 +133,8 @@ fn resolve_linear_defense_host(
         .map(|void| void.id)
         .collect::<Vec<_>>();
     let mut walls = Vec::new();
-    for (_, wall) in &source_walls {
+    for source in &source_walls {
+        let wall = &source.wall;
         let along_centre = (wall.centre() - midpoint).dot(tangent);
         let segment_min = (along_centre - CELL_SIZE_METRES * 0.5).max(-length * 0.5);
         let segment_max = (along_centre + CELL_SIZE_METRES * 0.5).min(length * 0.5);
@@ -168,7 +168,7 @@ fn resolve_linear_defense_host(
                     yaw,
                     SolidRole::DefenseHostWall,
                     vec![bearing],
-                ));
+                )?);
             }
         }
     }
@@ -181,17 +181,17 @@ fn resolve_linear_defense_host(
         yaw,
         SolidRole::CircuitWalk,
         vec![bearing],
-    );
-    LinearDefenseHost {
+    )?;
+    Ok(LinearDefenseHost {
         owner,
         bearing,
         walls,
         buttresses: Vec::new(),
         sources: source_walls
             .into_iter()
-            .map(|(wall_index, _)| ProjectedDefenseHostWallSource {
+            .map(|source| ProjectedDefenseHostWallSource {
                 storey_level: top_storey.level,
-                wall_index,
+                wall_index: source.index,
             })
             .collect(),
         top_elevation_metres: wall_top,
@@ -199,5 +199,32 @@ fn resolve_linear_defense_host(
         walk,
         portal,
         sockets,
-    }
+    })
+}
+
+fn linear_host_source_walls(
+    storey: &StoreyPlan,
+    run: BattlementRun,
+    midpoint: Vec2,
+    tangent: Vec2,
+    outward: Vec2,
+    length: f32,
+) -> Vec<HostSourceWall> {
+    storey
+        .walls
+        .iter()
+        .enumerate()
+        .filter(|(_, wall)| {
+            if !wall.exterior() || wall.direction != run.outward {
+                return false;
+            }
+            let offset = wall.centre() - midpoint;
+            offset.dot(outward).abs() <= 0.12
+                && offset.dot(tangent).abs() <= length * 0.5 + CELL_SIZE_METRES * 0.51
+        })
+        .map(|(wall_index, wall)| HostSourceWall {
+            index: wall_index,
+            wall: *wall,
+        })
+        .collect::<Vec<_>>()
 }

@@ -98,6 +98,12 @@ jobs:
         run: |
           cargo test --package adventuresim-world-schema --all-features
           cargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests
+      - name: Test resolved Bevy guard
+        run: cargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard
+      - name: Test FBX record and class selection
+        run: |
+          cargo test --locked --package fabelgeist-fbx
+          cargo test --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --lib character::selector_tests::record_and_class_selection_keeps_original_rig_payload -- --exact
       - name: Check semantic values and Rust growth
         run: |
           cargo test --package fabelgeist-rust-quality

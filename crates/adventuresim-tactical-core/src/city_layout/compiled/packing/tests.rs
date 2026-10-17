@@ -2,7 +2,9 @@ use super::*;
 
 #[test]
 fn measured_packing_retains_selected_roster_and_capacity() {
-    for (seed, population) in [(42, 900), (101, 6500)] {
+    for (seed, population) in [(42, 900), (101, 6500)]
+        .map(|(seed, population)| (fabelgeist_determinism::Seed::from_u64(seed), population))
+    {
         let mut generated = CitySite::central_german_market_town().generate(
             seed,
             population,
@@ -74,8 +76,8 @@ fn measured_packing_retains_selected_roster_and_capacity() {
 #[test]
 fn twelve_thousand_seed_101_retains_buildable_complete_properties() {
     CitySite::central_german_market_town()
-        .generate(101, 12000, &super::super::super::tests::economy())
-        .compile(101)
+        .generate((101).into(), 12000, &super::super::super::tests::economy())
+        .compile((101).into())
         .unwrap();
 }
 
@@ -91,7 +93,11 @@ fn save_pair(before: &CompiledCityLayout, after: &CompiledCityLayout) {
         let buildings: Vec<_> = layout
             .buildings
             .iter()
-            .filter(|b| [57, 193].contains(&b.id))
+            .filter(|b| {
+                [57, 193]
+                    .map(crate::scene_input::SceneBuildingId)
+                    .contains(&b.id)
+            })
             .collect();
         std::fs::write(path.join(format!("packing-6500-101-pair-{label}.json")),serde_json::to_vec_pretty(&serde_json::json!({
             "fixture":"population 6500, seed 101, economy inn/temple", "buildings":buildings,
@@ -112,22 +118,29 @@ fn assert_diagnosed_pair_is_separate(before: &CompiledCityLayout, after: &mut Co
             .support_recipes
             .for_program(&building.program)
             .unwrap();
-        CityPlotBounds {
-            centre_metres: building.centre_metres
-                + building
-                    .orientation
-                    .local_to_world((recipe.render_min + recipe.render_max) * 0.5),
-            dimensions_metres: recipe.render_max - recipe.render_min,
-            orientation: building.orientation,
-        }
+        CityPlotBounds::new(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                building.centre_metres.metres()
+                    + building
+                        .orientation
+                        .local_to_world((recipe.render_min + recipe.render_max) * 0.5),
+            )
+            .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                recipe.render_max - recipe.render_min,
+            )
+            .unwrap(),
+            building.orientation,
+        )
+        .unwrap()
     };
     let mut before = before.clone();
     assert!(
-        envelope(&mut before, 57).intersects(envelope(&mut before, 193)),
+        envelope(&mut before, (57).into()).intersects(envelope(&mut before, (193).into())),
         "the fixed 6500/101 case must reproduce its original exterior conflict"
     );
     assert!(
-        !envelope(after, 57).intersects(envelope(after, 193)),
+        !envelope(after, (57).into()).intersects(envelope(after, (193).into())),
         "accepted full exterior projections must separate the diagnosed pair at every floor datum"
     );
     assert!(after.buildings.iter().any(|b| {
@@ -144,23 +157,23 @@ fn assert_diagnosed_pair_is_separate(before: &CompiledCityLayout, after: &mut Co
 #[test]
 fn packing_is_independent_of_selected_lot_iteration_order() {
     let generated = CitySite::central_german_market_town().generate(
-        47,
+        (47).into(),
         900,
         &super::super::super::tests::economy(),
     );
     let mut reversed = generated.clone();
     reversed.lots.reverse();
     assert_eq!(
-        generated.compile(47).unwrap(),
-        reversed.compile(47).unwrap()
+        generated.compile((47).into()).unwrap(),
+        reversed.compile((47).into()).unwrap()
     );
 }
 
 #[test]
 fn twelve_thousand_seed_47_retains_garden_bounds() {
     CitySite::central_german_market_town()
-        .generate(47, 12000, &super::super::super::tests::economy())
-        .compile(47)
+        .generate((47).into(), 12000, &super::super::super::tests::economy())
+        .compile((47).into())
         .unwrap();
 }
 
@@ -226,7 +239,7 @@ fn single_bearing_points(layout: &CompiledCityLayout, property: &CitySinglePrope
         .unwrap();
     let mut recipes = layout.support_recipes.clone();
     let recipe = recipes.for_program(&building.program).unwrap();
-    let origin = recipe.collision.bounds.centre();
+    let origin = recipe.collision.bounds.centre().unwrap().metres();
     recipe
         .collision
         .ground_floor_footprint()
@@ -235,7 +248,7 @@ fn single_bearing_points(layout: &CompiledCityLayout, property: &CitySinglePrope
         .vertices()
         .iter()
         .map(|point| {
-            building.centre_metres
+            building.centre_metres.metres()
                 + building
                     .orientation
                     .local_to_world(point.metres() - Vec2::new(origin.x, origin.z))
@@ -260,10 +273,18 @@ fn insufficient_owned_plot_rejects_the_exact_member_without_programme_substituti
         .iter_mut()
         .find(|p| p.id == CityPropertyId(615))
         .unwrap();
-    property.plot.dimensions_metres = Vec2::splat(4.0);
+    property
+        .plot
+        .resize(
+            adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                Vec2::splat(4.0),
+            )
+            .unwrap(),
+        )
+        .unwrap();
     let error = layout.seat_single_bearings().unwrap_err();
     assert!(
-        matches!(error,CityCompileError::Packing { property:CityPropertyId(615), issue:CityPackingIssue::BearingOutsidePlot { building:615, plot_half_dimensions_metres, minimum_local_metres, maximum_local_metres } } if plot_half_dimensions_metres==Vec2::splat(2.0) && (maximum_local_metres-minimum_local_metres).min_element()>4.0)
+        matches!(error,CityCompileError::Packing { property:CityPropertyId(615), issue:CityPackingIssue::BearingOutsidePlot { building: crate::scene_input::SceneBuildingId(615), plot_half_dimensions_metres, minimum_local_metres, maximum_local_metres } } if plot_half_dimensions_metres==Vec2::splat(2.0) && (maximum_local_metres-minimum_local_metres).min_element()>4.0)
     );
     assert_eq!(
         before,
@@ -315,7 +336,7 @@ fn large_population_frontage_retains_complete_measured_properties() {
         assert_eq!(&expected, after, "only horizontal placement may change");
     }
     for (before, after) in original_gardens.iter().zip(&compiled.gardens) {
-        let delta = after.plot.centre_metres - before.plot.centre_metres;
+        let delta = after.plot.centre_metres() - before.plot.centre_metres();
         assert_eq!(before.owner, after.owner);
         assert_eq!(before.front_building_id, after.front_building_id);
         assert_eq!(before.beds.len(), after.beds.len());
@@ -326,22 +347,28 @@ fn large_population_frontage_retains_complete_measured_properties() {
             assert_eq!(original.scale, moved.scale);
             assert_eq!(original.orientation, moved.orientation);
             assert!(
-                (moved.centre_metres - original.centre_metres - delta).length()
+                (moved.centre_metres.metres() - original.centre_metres.metres() - delta).length()
                     < CityPlotBounds::COORDINATE_TOLERANCE_METRES as f32
             );
         }
-        assert_eq!(before.plot.dimensions_metres, after.plot.dimensions_metres);
-        assert_eq!(before.plot.orientation, after.plot.orientation);
+        assert_eq!(
+            before.plot.dimensions_metres(),
+            after.plot.dimensions_metres()
+        );
+        assert_eq!(before.plot.orientation(), after.plot.orientation());
         after.validate_geometry(&compiled.streets).unwrap();
     }
     for (before, after) in original_compounds.iter().zip(&compiled.compounds) {
         assert_eq!(before.id, after.id);
         assert_eq!(before.front_building_id, after.front_building_id);
         assert_eq!(before.rear_building_id, after.rear_building_id);
-        assert_eq!(before.plot.dimensions_metres, after.plot.dimensions_metres);
         assert_eq!(
-            before.court.dimensions_metres,
-            after.court.dimensions_metres
+            before.plot.dimensions_metres(),
+            after.plot.dimensions_metres()
+        );
+        assert_eq!(
+            before.court.dimensions_metres(),
+            after.court.dimensions_metres()
         );
         assert_eq!(before.boundary.walls.len(), after.boundary.walls.len());
         assert_eq!(

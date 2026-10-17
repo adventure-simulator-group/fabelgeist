@@ -148,9 +148,9 @@ pub struct TimberFrameMember {
     pub end_node: StructuralNodeId,
     pub start_joint: TimberJointId,
     pub end_joint: TimberJointId,
-    pub start: Vec3,
-    pub end: Vec3,
-    pub section_metres: Vec2,
+    pub start: crate::spatial_geometry::Position<Architectural>,
+    pub end: crate::spatial_geometry::Position<Architectural>,
+    pub section_metres: crate::spatial_geometry::PlanDimensions,
     pub solid: ResolvedItemId,
     pub support_interfaces: [ResolvedItemId; 2],
     pub structural: bool,
@@ -238,7 +238,7 @@ pub enum TimberRouteNodeKind {
 pub struct TimberRouteNode {
     pub surface: ResolvedItemId,
     pub kind: TimberRouteNodeKind,
-    pub position: Vec3,
+    pub position: crate::spatial_geometry::Position<Architectural>,
     pub level: u16,
 }
 

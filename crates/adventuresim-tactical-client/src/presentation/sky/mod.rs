@@ -229,10 +229,8 @@ pub(in crate::presentation) struct PresentedCelestialLighting {
 
 impl CelestialLightingSnapshot {
     fn from_environment(scene: Entity, environment: &SceneEnvironment) -> Self {
-        let latitude = LatitudeMicrodegrees::new(environment.latitude_microdegrees)
-            .expect("validated tactical scene latitude");
-        let longitude = LongitudeMicrodegrees::new(environment.longitude_microdegrees)
-            .expect("validated tactical scene longitude");
+        let latitude = environment.latitude_microdegrees;
+        let longitude = environment.longitude_microdegrees;
         let celestial = celestial_directions_with_phase(
             environment.absolute_minute,
             environment.lunar_phase_minute,
@@ -772,11 +770,13 @@ mod tests {
         let environment = SceneEnvironment {
             scene_digest: "sky-test".into(),
             generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-            latitude_microdegrees: 0,
-            longitude_microdegrees: 0,
+            latitude_microdegrees:
+                adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(0).unwrap(),
+            longitude_microdegrees:
+                adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(0).unwrap(),
             absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(0),
             lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(0),
-            absolute_elevation_metres: 0,
+            absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(0).unwrap(),
             weather: WeatherSnapshot {
                 rules_version: WEATHER_RULES_VERSION,
                 interval_start_minute: StrategicMinute::ZERO,

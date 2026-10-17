@@ -43,7 +43,7 @@ impl GardenObservation<'_, '_> {
             .iter()
             .flat_map(|(scene, transform)| {
                 scene
-                    .garden
+                    .garden()
                     .plants
                     .iter()
                     .map(move |plant| (plant, transform))
@@ -61,8 +61,11 @@ impl GardenObservation<'_, '_> {
                 return Err("garden plant identity");
             };
             let actual = transform.compute_transform();
-            let position =
-                base.transform_point(Vec3::new(plant.centre_metres.x, 0.0, plant.centre_metres.y));
+            let position = base.transform_point(Vec3::new(
+                plant.centre_metres.metres().x,
+                0.0,
+                plant.centre_metres.metres().y,
+            ));
             if actual.translation.distance(position) > 0.001
                 || actual.scale.distance(Vec3::splat(plant.scale.value())) > 0.001
                 || actual

@@ -36,9 +36,9 @@ impl FitKey {
             BodyShapeKey::new(
                 &canonical.names,
                 Some(id.0),
-                explicit
-                    .map(|p| p.0)
-                    .unwrap_or_else(|| CharacterProportions::from_character_id(id.0)),
+                explicit.map(|p| p.0).unwrap_or_else(|| {
+                    CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(id.0))
+                }),
                 canonical.rig.reference,
             )
         } else {
@@ -358,7 +358,7 @@ impl RuntimeEquipmentBodyCache {
             };
             let body = &self.bodies[&key.shape];
             model.attach(commands, entity, presentation, body);
-        } else if self.pending.is_none() {
+        } else if !self.is_preparing() {
             let result = self.next_fit(&key).and_then(|next| {
                 self.prepare_shape(&next.shape, bindposes)?;
                 self.start(next);

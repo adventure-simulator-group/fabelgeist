@@ -871,7 +871,7 @@ fn reissue_stale_custody_capability(
     capability.consequence_json = serde_json::to_string(&refreshed)
         .map_err(|_| "Refreshed investigation consequence is invalid")?;
     capability.version = capability.version.saturating_add(1);
-    capability.seed = ctx.random::<u64>();
+    capability.seed = ctx.random::<Seed>();
     ctx.db
         .investigation_action_capability()
         .id()
@@ -1262,7 +1262,7 @@ fn correction_requires_progress_reset(has_live_replacement_support: bool) -> boo
 fn reset_capability_progress_if_unsupported(
     capability: &mut InvestigationActionCapability,
     has_live_replacement_support: bool,
-    replacement_seed: impl FnOnce() -> u64,
+    replacement_seed: impl FnOnce() -> Seed,
 ) -> bool {
     if !correction_requires_progress_reset(has_live_replacement_support) {
         return false;
@@ -1290,7 +1290,7 @@ fn reset_unsupported_capability_progress(
         if !reset_capability_progress_if_unsupported(
             &mut capability,
             has_live_replacement_support,
-            || ctx.random::<u64>(),
+            || ctx.random::<Seed>(),
         ) {
             continue;
         }
@@ -1745,7 +1745,7 @@ pub(crate) fn perform_investigation_action_authorized(
                 )?,
             });
         capability.version = capability.version.saturating_add(1);
-        capability.seed = ctx.random::<u64>();
+        capability.seed = ctx.random::<Seed>();
         ctx.db
             .investigation_action_capability()
             .id()
@@ -1794,7 +1794,7 @@ pub(crate) fn perform_investigation_action_authorized(
     let outcome_case_id = capability.case_id.clone();
     let safe_result_on_success = capability.safe_result_on_success.clone();
     capability.version = capability.version.saturating_add(1);
-    capability.seed = ctx.random::<u64>();
+    capability.seed = ctx.random::<Seed>();
     capability.uncertainty_bps = resolution.resulting_uncertainty_bps;
     capability.active = !resolution.success;
     ctx.db

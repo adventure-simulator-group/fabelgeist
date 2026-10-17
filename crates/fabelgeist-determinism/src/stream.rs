@@ -40,6 +40,11 @@ impl DeterministicRng {
         self.0.next_u64()
     }
 
+    /// One unchanged word draw whose consumer owns a generation seed.
+    pub fn next_seed(&mut self) -> Seed {
+        Seed::from_u64(self.next_u64())
+    }
+
     /// Uniform `[0, upper)` using Rand's constructed, unbiased u64 sampler.
     pub fn below(&mut self, upper: NonZeroU64) -> u64 {
         sample_below(&mut self.0, upper)

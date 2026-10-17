@@ -1,12 +1,34 @@
 //! Check actual folded-sheet coverage independently of the construction records.
+use super::super::weather_sections::{SheetSection, WeatherSide};
 use super::*;
+use crate::GenerationResult as Result;
+use crate::plan_geometry::ArchitecturalPlanPoint;
+use crate::spatial_geometry::SignedLength;
+
+// These acceptance margins are smaller than the authored folds. Keeping them
+// independent lets the audit detect a shortened lap or insufficient engagement.
+const MIN_UPSTAND_HEIGHT_METRES: f32 = 0.15;
+const STACK_TOP_RESERVE_METRES: f32 = 0.3;
+const CORNER_LAP_METRES: f32 = 0.002;
+const UPSTAND_INNER_DEPTH_METRES: f32 = -0.002;
+const UPSTAND_OUTER_DEPTH_METRES: f32 = 0.004;
+const UPSTAND_FOOT_LAP_METRES: f32 = 0.01;
+const REGLET_INNER_DEPTH_METRES: f32 = -0.025;
+const SKIRT_OUTER_DEPTH_METRES: f32 = 0.012;
+const MIN_COUNTERFLASHING_THICKNESS_METRES: f32 = 0.003;
+const SKIRT_INNER_DEPTH_METRES: f32 = 0.008;
+const MIN_SKIRT_DROP_METRES: f32 = 0.06;
+const COVERAGE_TOLERANCE_METRES: f32 = 0.0001;
+const MIN_PAN_NORMAL_ALIGNMENT: f32 = 0.99999;
+const PAN_PLANE_TOLERANCE_METRES: f32 = 0.001;
+const MIN_OUTBOARD_CONTACT_SQUARE_METRES: f32 = 0.001;
 
 pub(super) fn audit(
     plan: &BuildingPlan,
     heating: &DomesticHeatingPlan,
     face: &RoofFace,
-    shaft: ResolvedBounds,
-) -> bool {
+    shaft: SpatialBounds<Architectural>,
+) -> Result<bool> {
     let sheets = |kind| {
         heating
             .parts
@@ -27,70 +49,117 @@ pub(super) fn audit(
     let upstands = sheets(HeatingPartKind::RoofUpstand);
     let counter = sheets(HeatingPartKind::RoofCounterFlashing);
     if upstands.len() != 4 || counter.len() != 8 {
-        return false;
+        return Ok(false);
     }
-    let min = Vec2::new(shaft.min.x, shaft.min.z);
-    let max = Vec2::new(shaft.max.x, shaft.max.z);
+    let min = Vec2::new(shaft.min().metres().x, shaft.min().metres().z);
+    let max = Vec2::new(shaft.max().metres().x, shaft.max().metres().z);
     let highest = [min, Vec2::new(min.x, max.y), max, Vec2::new(max.x, min.y)]
-        .map(|p| super::super::placement::roof_height(face, p))
         .into_iter()
-        .fold(f32::NEG_INFINITY, f32::max);
+        .try_fold(f32::NEG_INFINITY, |high, p| {
+            Ok::<_, crate::GenerationError>(
+                high.max(
+                    super::super::placement::roof_height(
+                        face,
+                        ArchitecturalPlanPoint::from_metres(p)?,
+                    )?
+                    .metres(),
+                ),
+            )
+        })?;
     let tops = upstands
         .iter()
-        .map(|s| s.cuboid_bounds().max.y)
-        .collect::<Vec<_>>();
+        .map(|s| Ok(s.cuboid_bounds()?.max().metres().y))
+        .collect::<Result<Vec<_>>>()?;
     let top = tops[0];
-    if top < highest + 0.15
-        || top > shaft.max.y - 0.3
+    if top < highest + MIN_UPSTAND_HEIGHT_METRES
+        || top > shaft.max().metres().y - STACK_TOP_RESERVE_METRES
         || tops
             .iter()
             .any(|y| (y - top).abs() > GEOMETRY_TOLERANCE_METRES)
     {
-        return false;
+        return Ok(false);
     }
-    for (start, end, outward) in [
-        (min, Vec2::new(min.x, max.y), -Vec2::X),
-        (Vec2::new(max.x, min.y), max, Vec2::X),
-        (min, Vec2::new(max.x, min.y), -Vec2::Y),
-        (Vec2::new(min.x, max.y), max, Vec2::Y),
-    ] {
-        let low = super::super::placement::roof_height(face, start)
-            .min(super::super::placement::roof_height(face, end));
+    for side in WeatherSide::around(shaft)? {
+        let [start, end] = side.ends;
+        let low = super::super::placement::roof_height(face, start)?
+            .metres()
+            .min(super::super::placement::roof_height(face, end)?.metres());
         // Require positive masonry engagement, apron contact and corner lap.
-        let tangent = (end - start).normalize();
-        let ends = [start - tangent * 0.002, end + tangent * 0.002];
-        if !covers(
+        let tangent = (end.metres() - start.metres()).normalize();
+        let side = WeatherSide {
+            ends: [
+                ArchitecturalPlanPoint::from_metres(start.metres() - tangent * CORNER_LAP_METRES)?,
+                ArchitecturalPlanPoint::from_metres(end.metres() + tangent * CORNER_LAP_METRES)?,
+            ],
+            outward: side.outward,
+        };
+        if !side.has_weather_coverage(
             &upstands,
-            section(ends, outward, [-0.002, 0.004], [low - 0.01, top]),
-        ) || !covers(
             &counter,
-            section(ends, outward, [-0.025, 0.012], [top, top + 0.003]),
-        ) || !covers(
-            &counter,
-            section(ends, outward, [0.008, 0.012], [top - 0.06, top]),
-        ) {
-            return false;
+            crate::spatial_geometry::Elevation::from_metres(low)?,
+            crate::spatial_geometry::Elevation::from_metres(top)?,
+        )? {
+            return Ok(false);
         }
     }
-    true
+    Ok(true)
 }
 
-fn section(ends: [Vec2; 2], outward: Vec2, depth: [f32; 2], height: [f32; 2]) -> ResolvedBounds {
-    let p = ends[0] + outward * depth[0];
-    let q = ends[1] + outward * depth[1];
-    let min = p.min(q);
-    let max = p.max(q);
-    ResolvedBounds {
-        min: Vec3::new(min.x, height[0], min.y),
-        max: Vec3::new(max.x, height[1], max.y),
+impl WeatherSide {
+    fn has_weather_coverage(
+        self,
+        upstands: &[&ResolvedSolid],
+        counter: &[&ResolvedSolid],
+        low: crate::spatial_geometry::Elevation<Architectural>,
+        top: crate::spatial_geometry::Elevation<Architectural>,
+    ) -> Result<bool> {
+        let side = self;
+        let low = low.metres();
+        let top_metres = top.metres();
+        Ok(covers(
+            upstands,
+            SheetSection::new(
+                SignedLength::from_metres(UPSTAND_INNER_DEPTH_METRES)?,
+                SignedLength::from_metres(UPSTAND_OUTER_DEPTH_METRES)?,
+                crate::spatial_geometry::Elevation::from_metres(low - UPSTAND_FOOT_LAP_METRES)?,
+                top,
+            )?
+            .bounds(side)?,
+        )? && covers(
+            counter,
+            SheetSection::new(
+                SignedLength::from_metres(REGLET_INNER_DEPTH_METRES)?,
+                SignedLength::from_metres(SKIRT_OUTER_DEPTH_METRES)?,
+                top,
+                crate::spatial_geometry::Elevation::from_metres(
+                    top_metres + MIN_COUNTERFLASHING_THICKNESS_METRES,
+                )?,
+            )?
+            .bounds(side)?,
+        )? && covers(
+            counter,
+            SheetSection::new(
+                SignedLength::from_metres(SKIRT_INNER_DEPTH_METRES)?,
+                SignedLength::from_metres(SKIRT_OUTER_DEPTH_METRES)?,
+                crate::spatial_geometry::Elevation::from_metres(
+                    top_metres - MIN_SKIRT_DROP_METRES,
+                )?,
+                top,
+            )?
+            .bounds(side)?,
+        )?)
     }
 }
 
-fn covers(solids: &[&ResolvedSolid], required: ResolvedBounds) -> bool {
-    solids.iter().any(|s| {
-        let actual = s.cuboid_bounds();
-        (required.min - actual.min).min_element() >= -0.0001
-            && (actual.max - required.max).min_element() >= -0.0001
+fn covers(solids: &[&ResolvedSolid], required: SpatialBounds<Architectural>) -> Result<bool> {
+    crate::geometry_index::try_any(solids.iter(), |s| {
+        let actual = s.cuboid_bounds()?;
+        Ok::<bool, crate::GenerationError>(
+            (required.min().metres() - actual.min().metres()).min_element()
+                >= -COVERAGE_TOLERANCE_METRES
+                && (actual.max().metres() - required.max().metres()).min_element()
+                    >= -COVERAGE_TOLERANCE_METRES,
+        )
     })
 }
 
@@ -98,8 +167,8 @@ pub(super) fn continuous_pan(
     plan: &BuildingPlan,
     heating: &DomesticHeatingPlan,
     face: &RoofFace,
-    shaft: ResolvedBounds,
-) -> bool {
+    shaft: SpatialBounds<Architectural>,
+) -> Result<bool> {
     let sheets = heating
         .roof
         .flashing
@@ -107,39 +176,41 @@ pub(super) fn continuous_pan(
         .filter_map(|id| plan.resolved_geometry.solids.iter().find(|s| s.id == *id))
         .collect::<Vec<_>>();
     if sheets.len() != 4 {
-        return false;
+        return Ok(false);
     }
     let normal = |s: &ResolvedSolid| {
         bevy::math::Quat::from_euler(
             bevy::math::EulerRot::YXZ,
-            s.yaw_radians,
-            s.crossfall_radians,
-            s.longfall_radians,
+            s.yaw_radians.radians(),
+            s.crossfall_radians.radians(),
+            s.longfall_radians.radians(),
         ) * Vec3::Y
     };
     let reference_normal = normal(sheets[0]);
     let downhill = Vec3::new(face.plane.normal.x, 0.0, face.plane.normal.z).normalize();
     if reference_normal.dot(downhill) <= 0.0 {
-        return false;
+        return Ok(false);
     }
     for index in 0..4 {
         let sheet = sheets[index];
         let next = sheets[(index + 1) % 4];
-        if normal(sheet).dot(reference_normal) < 0.99999
-            || (sheet.centre - sheets[0].centre)
+        if normal(sheet).dot(reference_normal) < MIN_PAN_NORMAL_ALIGNMENT
+            || (sheet.centre.metres() - sheets[0].centre.metres())
                 .dot(reference_normal)
                 .abs()
-                > 0.001
+                > PAN_PLANE_TOLERANCE_METRES
         {
-            return false;
+            return Ok(false);
         }
-        let Some(contact) = super::super::contact::measured(sheet, next) else {
-            return false;
+        let Some(contact) = super::super::contact::measured(sheet, next)? else {
+            return Ok(false);
         };
         // A contact inside the masonry does not close an outboard pan corner.
-        if rect(contact).difference(&rect(shaft)).unsigned_area() < 0.001 {
-            return false;
+        if rect(contact).difference(&rect(shaft)).unsigned_area()
+            < MIN_OUTBOARD_CONTACT_SQUARE_METRES
+        {
+            return Ok(false);
         }
     }
-    true
+    Ok(true)
 }

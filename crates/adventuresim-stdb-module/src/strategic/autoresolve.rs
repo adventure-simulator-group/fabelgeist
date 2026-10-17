@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 use adventuresim_core::morale::fervor_event_occurs;
 use adventuresim_core::prelude::*;
 use adventuresim_world_schema::{

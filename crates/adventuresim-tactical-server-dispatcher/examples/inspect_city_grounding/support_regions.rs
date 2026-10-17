@@ -1,9 +1,9 @@
 //! Conservative ground-contact and fixed-post boundaries in one property frame.
 //! These measurements select support topology; they do not certify a foundation.
-use adventuresim_building_generator::plan_geometry::PlanGeometryError;
+
 use adventuresim_tactical_core::{
     city_layout::{CityCompound, CityPlotBounds},
-    prelude::{BuildingOrientation, TacticalBuildingPlacement},
+    prelude::TacticalBuildingPlacement,
     scene_input::GeneratedBuildingRecipe,
 };
 use bevy::math::{Vec2, Vec3Swizzles};
@@ -15,25 +15,26 @@ pub(super) fn describe(
     compound: &CityCompound,
     placement: &TacticalBuildingPlacement,
     recipe: &GeneratedBuildingRecipe,
-) -> Result<Option<Value>, PlanGeometryError> {
+) -> Result<Option<Value>, Box<dyn std::error::Error>> {
     let Some(contact_region) = contact_region(placement, recipe)? else {
         return Ok(None);
     };
-    let post = compound.boundary.gate.post(compound.boundary.gate.hinge);
-    let post_region = CityPlotBounds {
-        centre_metres: post.centre_metres.xz(),
-        dimensions_metres: post.size_metres.xz(),
-        orientation: match BuildingOrientation::from_radians(post.yaw_radians) {
-            Some(value) => value,
-            None => return Ok(None),
-        },
-    };
+    let post = compound.boundary.gate.post(compound.boundary.gate.hinge)?;
+    let post_region = CityPlotBounds::new(
+        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+            post.pose.plan_metres(),
+        )?,
+        adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+            post.size_metres.metres().xz(),
+        )?,
+        post.orientation,
+    )?;
     let local_bounds = |region: CityPlotBounds| {
         let points = region.corners().map(|p| {
             compound
                 .plot
-                .orientation
-                .world_to_local(p - compound.plot.centre_metres)
+                .orientation()
+                .world_to_local(p - compound.plot.centre_metres())
         });
         (
             points
@@ -46,16 +47,16 @@ pub(super) fn describe(
     };
     let (contact_min, contact_max) = local_bounds(contact_region);
     let (post_min, post_max) = local_bounds(post_region);
-    let door = compound.boundary.gate.door(compound.id);
+    let door = compound.boundary.gate.door(compound.id)?;
     let hinge_local = compound
         .plot
-        .orientation
-        .world_to_local(door.hinge_centre.xz() - compound.plot.centre_metres);
+        .orientation()
+        .world_to_local(door.hinge_centre.metres().xz() - compound.plot.centre_metres());
     let post_polygon = post_region.corners().map(|p| {
         compound
             .plot
-            .orientation
-            .world_to_local(p - compound.plot.centre_metres)
+            .orientation()
+            .world_to_local(p - compound.plot.centre_metres())
     });
     let closest = nearest_post_contact(compound, placement, recipe, &post_polygon)?;
     Ok(Some(json!({
@@ -77,18 +78,23 @@ pub(super) fn describe(
 pub(super) fn contact_region(
     placement: &TacticalBuildingPlacement,
     recipe: &GeneratedBuildingRecipe,
-) -> Result<Option<CityPlotBounds>, PlanGeometryError> {
+) -> Result<Option<CityPlotBounds>, Box<dyn std::error::Error>> {
     let Some(contact) = recipe.collision.ground_floor_contact_bounds()? else {
         return Ok(None);
     };
-    Ok(Some(CityPlotBounds {
-        centre_metres: placement.centre_metres
-            + placement
-                .orientation
-                .local_to_world(contact.centre().xz() - recipe.collision.bounds.centre().xz()),
-        dimensions_metres: contact.plan_half_extents() * 2.0,
-        orientation: placement.orientation,
-    }))
+    Ok(Some(CityPlotBounds::new(
+        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+            placement.centre_metres.metres()
+                + placement.orientation.local_to_world(
+                    contact.centre()?.metres().xz()
+                        - recipe.collision.bounds.centre()?.metres().xz(),
+                ),
+        )?,
+        adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+            contact.plan_half_extents()?.metres() * 2.0,
+        )?,
+        placement.orientation,
+    )?))
 }
 
 fn nearest_post_contact(
@@ -96,7 +102,8 @@ fn nearest_post_contact(
     placement: &TacticalBuildingPlacement,
     recipe: &GeneratedBuildingRecipe,
     post_polygon: &[Vec2],
-) -> Result<Option<Value>, PlanGeometryError> {
+) -> Result<Option<Value>, Box<dyn std::error::Error>> {
+    let origin = recipe.collision.bounds.centre()?.metres().xz();
     let contacts = recipe
         .collision
         .cuboids
@@ -106,19 +113,17 @@ fn nearest_post_contact(
                 .ground_contact()?
                 .points()
                 .map(|p| {
-                    let world = placement.centre_metres
-                        + placement
-                            .orientation
-                            .local_to_world(p.metres() - recipe.collision.bounds.centre().xz());
+                    let world = placement.centre_metres.metres()
+                        + placement.orientation.local_to_world(p.metres() - origin);
                     compound
                         .plot
-                        .orientation
-                        .world_to_local(world - compound.plot.centre_metres)
+                        .orientation()
+                        .world_to_local(world - compound.plot.centre_metres())
                 })
                 .collect::<Vec<_>>();
             Ok(distance::between(&polygon, post_polygon).map(|gap| (solid.source, gap, polygon)))
         })
-        .collect::<Result<Vec<_>, PlanGeometryError>>()?;
+        .collect::<Result<Vec<_>, Box<dyn std::error::Error>>>()?;
     let mut contacts: Vec<_> = contacts.into_iter().flatten().collect();
     contacts.sort_by(|a, b| a.1.total_cmp(&b.1).then(a.0.cmp(&b.0)));
     Ok(contacts.first().map(|(source, gap, polygon)| {

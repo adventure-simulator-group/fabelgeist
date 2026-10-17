@@ -20,8 +20,25 @@ macro_rules! child_value {
 }
 
 child_value!(ChildIdentitySeed);
-child_value!(ChildNameSeed);
-child_value!(HouseholdPlacementSeed);
+macro_rules! child_seed {
+    ($name:ident) => {
+        #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+        #[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+        pub struct $name {
+            seed: fabelgeist_determinism::Seed,
+        }
+        impl $name {
+            pub const fn new(seed: fabelgeist_determinism::Seed) -> Self {
+                Self { seed }
+            }
+            pub const fn get(self) -> fabelgeist_determinism::Seed {
+                self.seed
+            }
+        }
+    };
+}
+child_seed!(ChildNameSeed);
+child_seed!(HouseholdPlacementSeed);
 child_value!(PregnancyOrdinal);
 
 impl ChildIdentitySeed {
@@ -64,13 +81,17 @@ pub fn deterministic_child_seeds(
     let base = [left, right, &pregnancy, &birth];
     ChildSeeds {
         identity: ChildIdentitySeed::new(stable_lifecycle_hash(CHILD_IDENTITY_DOMAIN, &base)),
-        name: ChildNameSeed::new(stable_lifecycle_hash(CHILD_NAME_DOMAIN, &base)),
+        name: ChildNameSeed::new(fabelgeist_determinism::Seed::from_u64(
+            stable_lifecycle_hash(CHILD_NAME_DOMAIN, &base),
+        )),
         sex: *CHILD_SEX_STREAM
-            .rng(stable_lifecycle_hash(CHILD_SEX_DOMAIN, &base), &[])
+            .rng(stable_lifecycle_hash(CHILD_SEX_DOMAIN, &base).into(), &[])
             .choose(Sex::VARIANTS),
-        home: HouseholdPlacementSeed::new(stable_lifecycle_hash(
-            CHILD_HOME_DOMAIN,
-            &[left, right, &pregnancy, &birth, home_location_id],
+        home: HouseholdPlacementSeed::new(fabelgeist_determinism::Seed::from_u64(
+            stable_lifecycle_hash(
+                CHILD_HOME_DOMAIN,
+                &[left, right, &pregnancy, &birth, home_location_id],
+            ),
         )),
     }
 }

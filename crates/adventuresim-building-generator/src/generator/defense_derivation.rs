@@ -12,7 +12,7 @@ fn derive_battlements(program: &BuildingProgram) -> Vec<BattlementRun> {
                 kind: BattlementKind::CoveredWallWalk,
                 outward: Direction::East,
             };
-            let study = program.seed % 1_000;
+            let study = program.seed.to_u64() % 1_000;
             let mut runs = vec![covered_walk];
             if matches!(study, 201..=203) {
                 // Isolated projected-defense studies retain the accepted

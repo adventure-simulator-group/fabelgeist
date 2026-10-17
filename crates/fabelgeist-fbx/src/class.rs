@@ -1,51 +1,96 @@
-//! Exact decoded object subclass identity.
-use std::borrow::Cow;
+//! Decoded FBX object subclass roles and their exact format spelling.
+
+use std::fmt;
+
+/// An unrecognized label admitted by its canonical name owner.
+/// Its private spelling can be obtained only after known labels are classified.
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+pub struct UnknownFbxClassName(String);
 
 /// A decoded object subclass, preserving unknown spelling and suffixes.
-/// It does not establish record role or rig membership.
+/// Known labels have dedicated variants; they do not establish rig membership.
 ///
 /// ```compile_fail
 /// use fabelgeist_fbx::{FbxClassName, FbxRecordName, Scene};
 /// fn select(scene: &Scene) {
-///     scene.objects_of_kind(&FbxClassName::MESH, &FbxRecordName::GEOMETRY);
+///     scene.objects_of_kind(&FbxClassName::Mesh, &FbxRecordName::Geometry);
 /// }
 /// ```
-#[derive(Clone, Default, PartialEq, Eq, Hash)]
-pub struct FbxClassName(Cow<'static, str>);
-impl FbxClassName {
-    pub const LIMB_NODE: Self = Self(Cow::Borrowed("LimbNode"));
-    pub const ROOT: Self = Self(Cow::Borrowed("Root"));
-    pub const NULL: Self = Self(Cow::Borrowed("Null"));
-    pub const MESH: Self = Self(Cow::Borrowed("Mesh"));
-    pub const BLEND_SHAPE: Self = Self(Cow::Borrowed("BlendShape"));
-    pub const BLEND_SHAPE_CHANNEL: Self = Self(Cow::Borrowed("BlendShapeChannel"));
-    pub const SHAPE: Self = Self(Cow::Borrowed("Shape"));
-    pub const SKIN: Self = Self(Cow::Borrowed("Skin"));
-    pub const CLUSTER: Self = Self(Cow::Borrowed("Cluster"));
+#[derive(Clone, PartialEq, Eq, Hash)]
+pub enum FbxClassName {
+    LimbNode,
+    Root,
+    Null,
+    Mesh,
+    BlendShape,
+    BlendShapeChannel,
+    Shape,
+    Skin,
+    Cluster,
+    Unknown(UnknownFbxClassName),
 }
+
+impl FbxClassName {
+    // Native spelling is used only by formatting.
+    fn spelling_for_format(&self) -> &str {
+        match self {
+            Self::LimbNode => "LimbNode",
+            Self::Root => "Root",
+            Self::Null => "Null",
+            Self::Mesh => "Mesh",
+            Self::BlendShape => "BlendShape",
+            Self::BlendShapeChannel => "BlendShapeChannel",
+            Self::Shape => "Shape",
+            Self::Skin => "Skin",
+            Self::Cluster => "Cluster",
+            Self::Unknown(label) => label.0.as_str(),
+        }
+    }
+}
+
+impl Default for FbxClassName {
+    fn default() -> Self {
+        Self::from(String::new())
+    }
+}
+
 impl From<&[u8]> for FbxClassName {
     fn from(encoded: &[u8]) -> Self {
-        Self(Cow::Owned(String::from_utf8_lossy(encoded).into_owned()))
+        Self::from(String::from_utf8_lossy(encoded).into_owned())
     }
 }
+
 impl From<&str> for FbxClassName {
     fn from(decoded: &str) -> Self {
-        Self(Cow::Owned(decoded.to_owned()))
-    }
-}
-impl std::fmt::Display for FbxClassName {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(f)
+        Self::from(decoded.to_owned())
     }
 }
 
 impl From<String> for FbxClassName {
     fn from(decoded: String) -> Self {
-        Self(Cow::Owned(decoded))
+        match decoded.as_str() {
+            "LimbNode" => Self::LimbNode,
+            "Root" => Self::Root,
+            "Null" => Self::Null,
+            "Mesh" => Self::Mesh,
+            "BlendShape" => Self::BlendShape,
+            "BlendShapeChannel" => Self::BlendShapeChannel,
+            "Shape" => Self::Shape,
+            "Skin" => Self::Skin,
+            "Cluster" => Self::Cluster,
+            _ => Self::Unknown(UnknownFbxClassName(decoded)),
+        }
     }
 }
-impl std::fmt::Debug for FbxClassName {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        std::fmt::Debug::fmt(&self.0, f)
+
+impl fmt::Display for FbxClassName {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter.write_str(self.spelling_for_format())
+    }
+}
+
+impl fmt::Debug for FbxClassName {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        fmt::Debug::fmt(self.spelling_for_format(), formatter)
     }
 }

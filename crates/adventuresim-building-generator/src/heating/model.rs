@@ -1,11 +1,11 @@
 //! Programme, ownership and physical connections of one domestic heating core.
+use crate::{Architectural, SpatialBounds};
 
-use bevy::math::Vec2;
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    BuildingLodMaterial, GeometryOwnerId, ResolvedBounds, ResolvedItemId, RoofAssemblyId,
-    StructuralNodeId, WallAssemblyId,
+    BuildingLodMaterial, GeometryOwnerId, ResolvedItemId, RoofAssemblyId, StructuralNodeId,
+    WallAssemblyId,
 };
 
 /// A selected construction programme, not a claim that every house had a chimney.
@@ -17,8 +17,8 @@ pub enum DomesticHeatingProgramme {
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct HeatingRoom {
-    pub storey_level: u16,
-    pub room_id: u16,
+    pub storey_level: crate::StoreyIndex,
+    pub room_id: crate::RoomIndex,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
@@ -74,9 +74,9 @@ pub struct HeatingRoofPenetration {
 /// A physical deck opening and its noncombustible, supported cover.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct HeatingFloorPenetration {
-    pub storey_level: u16,
-    pub core: ResolvedBounds,
-    pub cut: ResolvedBounds,
+    pub storey_level: crate::StoreyIndex,
+    pub core: SpatialBounds<Architectural>,
+    pub cut: SpatialBounds<Architectural>,
     pub closures: Vec<ResolvedItemId>,
 }
 
@@ -87,13 +87,13 @@ pub struct DomesticHeatingPlan {
     pub kitchen: HeatingRoom,
     pub heated_room: HeatingRoom,
     pub fire_wall: WallAssemblyId,
-    pub centre_metres: Vec2,
-    pub kitchen_axis: Vec2,
-    pub floor_height_metres: f32,
+    pub centre_metres: crate::plan_geometry::ArchitecturalPlanPoint,
+    pub kitchen_axis: crate::spatial_geometry::PlanDirection<crate::Architectural>,
+    pub floor_height_metres: crate::spatial_geometry::Elevation<crate::Architectural>,
     pub ground_support: StructuralNodeId,
     pub parts: Vec<HeatingPart>,
     pub passages: Vec<HeatingPassage>,
-    pub operating_space: ResolvedBounds,
+    pub operating_space: SpatialBounds<Architectural>,
     pub roof: HeatingRoofPenetration,
     pub floors: Vec<HeatingFloorPenetration>,
 }

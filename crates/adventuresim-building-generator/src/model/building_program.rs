@@ -1,4 +1,5 @@
 use super::*;
+use fabelgeist_determinism::Seed;
 mod fortified;
 mod institutional;
 mod residential;
@@ -15,7 +16,7 @@ pub struct BuildingProgram {
     pub archetype: BuildingArchetype,
     pub usage: Option<adventuresim_world_schema::settlement_buildings::BuildingUse>,
     pub service_size: Option<crate::ServiceBuildingSize>,
-    pub seed: u64,
+    pub seed: Seed,
     pub footprint: Footprint,
     pub storey_height_metres: f32,
     pub storeys: Vec<StoreyProgram>,
@@ -38,7 +39,7 @@ pub struct BuildingProgram {
 }
 
 impl BuildingProgram {
-    pub fn fixture(archetype: BuildingArchetype, seed: u64) -> Self {
+    pub fn fixture(archetype: BuildingArchetype, seed: Seed) -> Self {
         match archetype {
             BuildingArchetype::StorageRange => Self::storage_range(seed),
             BuildingArchetype::Workplace => {
@@ -62,4 +63,4 @@ impl BuildingProgram {
     }
 }
 
-pub const BUILDING_DOCUMENT_SCHEMA_VERSION: u32 = 10;
+pub const BUILDING_DOCUMENT_SCHEMA_VERSION: u32 = 11;

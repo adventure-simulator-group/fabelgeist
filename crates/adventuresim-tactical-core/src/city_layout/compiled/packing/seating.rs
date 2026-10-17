@@ -31,24 +31,24 @@ impl CompiledCityLayout {
                         building: building.id,
                     },
                 })?;
-            let origin = recipe.collision.bounds.centre();
+            let origin = recipe.collision.bounds.centre()?.metres();
             let (min, max) = footprint
                 .vertices()
                 .iter()
                 .map(|point| {
-                    property.plot.orientation.world_to_local(
-                        building.centre_metres
+                    property.plot.orientation().world_to_local(
+                        building.centre_metres.metres()
                             + building
                                 .orientation
                                 .local_to_world(point.metres() - Vec2::new(origin.x, origin.z))
-                            - property.plot.centre_metres,
+                            - property.plot.centre_metres(),
                     )
                 })
                 .fold(
                     (Vec2::splat(f32::INFINITY), Vec2::splat(f32::NEG_INFINITY)),
                     |(min, max), point| (min.min(point), max.max(point)),
                 );
-            let half = property.plot.dimensions_metres * 0.5;
+            let half = property.plot.dimensions_metres() * 0.5;
             let tolerance = Vec2::splat(CityPlotBounds::COORDINATE_TOLERANCE_METRES as f32);
             let lower = -half - min + tolerance;
             let upper = half - max - tolerance;
@@ -65,10 +65,14 @@ impl CompiledCityLayout {
             }
             // The programme and rotation stay fixed. Reserve the existing
             // side passage and rear court; no footprint is scaled or clipped.
-            building.centre_metres += property
-                .plot
-                .orientation
-                .local_to_world(Vec2::ZERO.clamp(lower, upper));
+            building.centre_metres = building.centre_metres.translated(
+                crate::scene_coordinates::PlanDisplacement::try_from(
+                    property
+                        .plot
+                        .orientation()
+                        .local_to_world(Vec2::ZERO.clamp(lower, upper)),
+                )?,
+            )?;
         }
         self.reconnect_garden_lanes()
     }
@@ -86,43 +90,57 @@ impl CompiledCityLayout {
                     },
                 })?;
             let recipe = self.support_recipes.for_program(&building.program)?;
-            let bounds = gardens::envelope(building, &recipe);
+            let bounds = gardens::envelope(building, &recipe)?;
             let (min, max) = bounds
                 .corners()
                 .into_iter()
                 .map(|point| {
                     garden
                         .plot
-                        .orientation
-                        .world_to_local(point - garden.plot.centre_metres)
+                        .orientation()
+                        .world_to_local(point - garden.plot.centre_metres())
                         .x
                 })
                 .fold((f32::INFINITY, f32::NEG_INFINITY), |(min, max), x| {
                     (min.min(x), max.max(x))
                 });
-            let junction = garden.access[0].end_metres;
+            let junction = garden.access[0].end_metres();
             let lane = garden
                 .plot
-                .orientation
-                .world_to_local(junction - garden.plot.centre_metres)
+                .orientation()
+                .world_to_local(junction - garden.plot.centre_metres())
                 .x;
-            let clearance = garden.access[0].half_width_metres
+            let clearance = garden.access[0].half_width_metres()
                 + CityPlotBounds::COORDINATE_TOLERANCE_METRES as f32;
             let offset = if lane > 0.0 {
                 (max + clearance - lane).max(0.0)
             } else {
                 (min - clearance - lane).min(0.0)
             };
-            let delta = garden.plot.orientation.local_to_world(Vec2::X * offset);
-            garden.access[0].start_metres += delta;
-            garden.access[0].end_metres += delta;
+            let delta = garden.plot.orientation().local_to_world(Vec2::X * offset);
+            garden.access[0] = garden.access[0].translated(
+                crate::scene_coordinates::PlanDisplacement::try_from(delta)?,
+                crate::scene_coordinates::PlanDisplacement::try_from(delta)?,
+            )?;
             for route in &mut garden.access[1..] {
-                if route.start_metres.distance(junction) <= CityAccessSegment::JOIN_TOLERANCE_METRES
+                if route.start_metres().distance(junction)
+                    <= CityAccessSegment::JOIN_TOLERANCE_METRES
                 {
-                    route.start_metres += delta;
+                    *route = route.with_endpoints(
+                        route.start().translated(
+                            crate::scene_coordinates::PlanDisplacement::try_from(delta)?,
+                        )?,
+                        route.end(),
+                    )?;
                 }
-                if route.end_metres.distance(junction) <= CityAccessSegment::JOIN_TOLERANCE_METRES {
-                    route.end_metres += delta;
+                if route.end_metres().distance(junction) <= CityAccessSegment::JOIN_TOLERANCE_METRES
+                {
+                    *route = route.with_endpoints(
+                        route.start(),
+                        route.end().translated(
+                            crate::scene_coordinates::PlanDisplacement::try_from(delta)?,
+                        )?,
+                    )?;
                 }
             }
             garden

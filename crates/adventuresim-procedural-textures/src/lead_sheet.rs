@@ -7,6 +7,7 @@
 //! for forged iron.
 
 use bevy::{asset::Assets, image::Image, math::Vec3};
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
@@ -21,14 +22,14 @@ fn hash(
     y: i32,
     period_x: i32,
     period_y: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     let x = x.rem_euclid(period_x) as u64;
     let y = y.rem_euclid(period_y) as u64;
     params
         .rng(
             StreamId::new("texture.lead-sheet.lattice"),
-            &[field_seed, x, y],
+            &[field_seed.to_u64(), x, y],
         )
         .inclusive_unit_f32()
 }
@@ -43,7 +44,7 @@ fn periodic_noise(
     v: f32,
     cells_x: i32,
     cells_y: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     let x = u.rem_euclid(1.0) * cells_x as f32;
     let y = v.rem_euclid(1.0) * cells_y as f32;

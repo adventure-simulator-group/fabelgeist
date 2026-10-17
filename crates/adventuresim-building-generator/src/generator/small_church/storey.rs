@@ -1,6 +1,6 @@
 use super::*;
 
-pub(super) fn build(dimensions: Dimensions) -> StoreyPlan {
+pub(super) fn build(dimensions: Dimensions) -> Result<StoreyPlan, GenerationError> {
     let width = dimensions.width_cells as i16;
     let nave_depth = dimensions.nave_cells as i16;
     let depth = (dimensions.nave_cells + dimensions.chancel_cells) as i16;
@@ -8,14 +8,14 @@ pub(super) fn build(dimensions: Dimensions) -> StoreyPlan {
     for z in 0..depth {
         for x in 0..width {
             if z < nave_depth {
-                assignments.insert(Cell::new(x, z), 0);
+                assignments.insert(Cell::new(x, z), crate::RoomIndex::from_serialized(0));
             } else if x > 0 && x < width - 1 {
-                assignments.insert(Cell::new(x, z), 1);
+                assignments.insert(Cell::new(x, z), crate::RoomIndex::from_serialized(1));
             }
         }
     }
     let cells = assignments.keys().copied().collect::<Vec<_>>();
-    let mut walls = derive_walls(&cells, &assignments);
+    let mut walls = derive_walls(&cells, &assignments)?;
     // The chancel connects through a real 4.5 m opening. Its upper bearing band is resolved separately.
     walls.retain(|wall| !(wall.outside_room.is_some() && (wall.cell.x - width / 2).abs() <= 1));
     let mut openings = Vec::new();
@@ -56,7 +56,9 @@ pub(super) fn build(dimensions: Dimensions) -> StoreyPlan {
         kind: RoomKind::Nave,
         cells: assignments
             .iter()
-            .filter_map(|(&cell, &room)| (room == 0).then_some(cell))
+            .filter_map(|(&cell, &room)| {
+                (room == crate::RoomIndex::from_serialized(0)).then_some(cell)
+            })
             .collect(),
     }];
     if dimensions.chancel_cells > 0 {
@@ -65,14 +67,16 @@ pub(super) fn build(dimensions: Dimensions) -> StoreyPlan {
             kind: RoomKind::Chancel,
             cells: assignments
                 .iter()
-                .filter_map(|(&cell, &room)| (room == 1).then_some(cell))
+                .filter_map(|(&cell, &room)| {
+                    (room == crate::RoomIndex::from_serialized(1)).then_some(cell)
+                })
                 .collect(),
         });
     }
-    StoreyPlan {
+    Ok(StoreyPlan {
         level: 0,
         rooms,
         walls,
         openings,
-    }
+    })
 }

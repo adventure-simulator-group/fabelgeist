@@ -1,4 +1,5 @@
 use super::*;
+use bevy::math::Vec3Swizzles;
 use candidates::Candidate;
 use fabelgeist_determinism::StreamId;
 use ground::PlacementGround;
@@ -13,16 +14,16 @@ pub(super) fn generate(
     terrain: &SceneTerrain,
     ground: &SceneGround,
     obstacles: &[GeneratedObstacle],
-) -> FurnitureLayout {
+) -> Result<FurnitureLayout, super::super::SceneInputError> {
     let mut layout = FurnitureLayout {
-        reserved_routes: reservations::routes(input, buildings),
+        reserved_routes: reservations::routes(input, buildings)?,
         ..Default::default()
     };
     let mut occupied = occupancy::Occupancy::default();
     let support = PlacementGround::new(input, terrain, ground);
-    let market = candidates::market(input);
+    let market = candidates::market(input)?;
     layout.reserved_routes.extend(market.aisles);
-    for footprint in reservations::obstacles(input, terrain, buildings, obstacles)
+    for footprint in reservations::obstacles(input, terrain, buildings, obstacles)?
         .into_iter()
         .chain(layout.reserved_routes.iter().copied())
     {
@@ -35,7 +36,7 @@ pub(super) fn generate(
     ordered.sort_by_key(|building| building.placement.id);
     for building in ordered {
         let mut accepted = 0;
-        for candidate in candidates::building(input, building) {
+        for candidate in candidates::building(input, building)? {
             if accept(input, &support, candidate, &mut occupied, &mut layout) {
                 accepted += 1;
                 if accepted >= candidates::group_limit(building) {
@@ -44,7 +45,7 @@ pub(super) fn generate(
             }
         }
     }
-    layout
+    Ok(layout)
 }
 
 fn accept(
@@ -70,26 +71,36 @@ fn accept(
     }
     let samples = corners
         .into_iter()
-        .chain([footprint.centre_metres])
+        .chain([footprint.centre().metres()])
         .map(|point| {
-            if input
-                .landform
-                .is_some_and(|landform| landform.transition_collar().contains(point))
-            {
+            if input.landform.is_some_and(|landform| {
+                crate::scene_coordinates::ScenePlanPoint::try_from(point)
+                    .is_ok_and(|point| landform.transition_collar().contains(point))
+            }) {
                 return None;
             }
             support
                 .allows_activity(point)
-                .then(|| support.height_at(point))
+                .then(|| {
+                    support.height_at(crate::scene_coordinates::ScenePlanPoint::from_metres(
+                        point,
+                    )?)
+                })
                 .flatten()
         })
         .collect::<Option<Vec<_>>>();
     let Some(samples) = samples else {
         return false;
     };
-    let min = samples.iter().copied().fold(f32::INFINITY, f32::min);
-    let max = samples.into_iter().fold(f32::NEG_INFINITY, f32::max);
-    if max - min > footprint.half_extents_metres.length() * 2.0 * MAX_GROUP_GRADE {
+    let min = samples
+        .iter()
+        .map(|height| height.metres())
+        .fold(f32::INFINITY, f32::min);
+    let max = samples
+        .into_iter()
+        .map(|height| height.metres())
+        .fold(f32::NEG_INFINITY, f32::max);
+    if max - min > footprint.half_extents().metres().length() * 2.0 * MAX_GROUP_GRADE {
         return false;
     }
     let Some(instances) = supported_instances(&candidate, support) else {
@@ -119,9 +130,12 @@ fn supported_instances(
         .iter()
         .enumerate()
         .map(|(index, item)| {
-            let centre = candidate.footprint.centre_metres
-                + candidate.footprint.orientation.local_to_world(item.offset);
-            let supports = &item.key.recipe().support_points_metres;
+            let centre = candidate.footprint.centre().metres()
+                + candidate
+                    .footprint
+                    .orientation()
+                    .local_to_world(item.offset.metres().xz());
+            let supports = &item.recipe.support_points_metres;
             if supports.is_empty() {
                 return None;
             }
@@ -131,9 +145,13 @@ fn supported_instances(
                     let position = centre
                         + candidate
                             .footprint
-                            .orientation
-                            .local_to_world(Vec2::new(point.x, point.z));
-                    support.height_at(position).map(|height| height - point.y)
+                            .orientation()
+                            .local_to_world(Vec2::new(point.metres().x, point.metres().z));
+                    support
+                        .height_at(crate::scene_coordinates::ScenePlanPoint::from_metres(
+                            position,
+                        )?)
+                        .map(|height| height.metres() - point.metres().y)
                 })
                 .collect::<Option<Vec<_>>>()?;
             let min = heights.iter().copied().fold(f32::INFINITY, f32::min);
@@ -145,7 +163,7 @@ fn supported_instances(
                 scene: SceneFurniture {
                     id: FurnitureInstanceId(
                         INSTANCE_DOMAIN
-                            .seed(candidate.id.0, &[index as u64])
+                            .seed(candidate.id.0.into(), &[index as u64])
                             .to_u64(),
                     ),
                     key: item.key,
@@ -153,8 +171,12 @@ fn supported_instances(
                         group_id: candidate.id,
                     },
                 },
-                position_metres: Vec3::new(centre.x, max, centre.y),
-                orientation: candidate.footprint.orientation,
+                position_metres:
+                    adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                        Vec3::new(centre.x, max, centre.y),
+                    )
+                    .ok()?,
+                orientation: candidate.footprint.orientation(),
             })
         })
         .collect()

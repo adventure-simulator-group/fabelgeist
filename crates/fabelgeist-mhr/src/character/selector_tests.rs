@@ -88,7 +88,7 @@ fn record_and_class_selection_keeps_original_rig_payload() -> Result<()> {
     let rig = Scene::from_roots(vec![objects, links])?;
     let (skeleton, ids) = parse_skeleton(&rig);
     let geometry = &rig
-        .objects_of_kind(&FbxRecordName::GEOMETRY, &FbxClassName::MESH)
+        .objects_of_kind(&FbxRecordName::Geometry, &FbxClassName::Mesh)
         .next()
         .unwrap();
     let mut inverse = vec![
