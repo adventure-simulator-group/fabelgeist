@@ -18,6 +18,11 @@ existing cutoff without claiming support for other features. Derived `From` and
 checks only the original magic prefix; its two following marker bytes remain
 ignored. Naming the full signature's width does not strengthen that validation.
 
+The format owner also names the exact ASCII FBX prefixes: `; FBX`, either at
+byte zero or following a UTF-8 byte-order mark. The ASCII re-export hint still
+runs only after the binary header length or magic check fails; prefix detection
+does not parse ASCII FBX or remove the byte-order mark.
+
 Named version and record scenarios encode the same 59 public-parser observations
 as the original golden fixture. The version uses the shared `FbxVersion` owner.
 Independent narrow/wide wire encoders and named wire-header and node records

@@ -12,10 +12,8 @@ mod layers;
 mod meshes;
 mod rig;
 mod sockets;
-pub(super) mod warmup;
 use body::try_build_runtime_body;
 use meshes::{CachedPart, equipment_parts, referenced_center};
-pub(crate) use warmup::RuntimeEquipmentWarmup;
 
 use adventuresim_character_creator::{
     design_input::{load_bracer_design, load_breastplate_design},
@@ -44,6 +42,14 @@ pub(crate) struct RuntimeEquipmentBodyCache {
     pending: Option<PendingFit>,
     use_clock: u64,
     last_used: HashMap<FitKey, u64>,
+}
+
+impl RuntimeEquipmentBodyCache {
+    /// Device compilation and fitting belong to the requested item's task.
+    /// Capture budgets must not count its asynchronous device wait as a frame.
+    pub(crate) fn is_preparing(&self) -> bool {
+        self.pending.is_some()
+    }
 }
 
 #[expect(clippy::too_many_arguments)]

@@ -23,6 +23,9 @@ pub(super) fn spawn(
     if let Some(landform) = input.landform {
         terrain_entity.insert(landform);
     }
+    if let Some(patch) = terrain_patch {
+        terrain_entity.insert(patch.clone());
+    }
     terrain_entity.with_children(|parent| {
         for collider in colliders {
             parent.spawn((

@@ -6,7 +6,6 @@ use adventuresim_tactical_core::scene_coordinates::PlanDisplacement;
 use bevy::prelude::*;
 use serde::Serialize;
 use std::collections::HashMap;
-mod clearance;
 
 const BUILDING_GAP_METRES: f32 = 4.0;
 const MINIMUM_BAY_METRES: f32 = 18.0;
@@ -36,7 +35,8 @@ impl Street {
         input: &TacticalSceneInput,
         places: &[super::protocol::Place],
         selected: &HashMap<PlaceId, adventuresim_tactical_core::scene_input::SceneBuildingId>,
-        generated: &mut GeneratedTacticalScene,
+        generated: &mut crate::presentation::PreparedStrategicScene,
+        backdrop: &crate::presentation::StrategicBackdrop,
     ) -> Result<Self, String> {
         let front_z = input
             .distant_buildings
@@ -50,10 +50,7 @@ impl Street {
             )
             .fold(0.0, f32::max)
             + CITY_CLEARANCE_METRES;
-        let elevation = generated
-            .terrain
-            .height_at(Vec2::new(0.0, front_z))
-            .unwrap_or(0.0);
+        let elevation = backdrop.height_at(Vec2::new(0.0, front_z)).unwrap_or(0.0);
         let mut street = Self {
             bays: Vec::new(),
             width: 0.0,
@@ -230,7 +227,9 @@ mod tests {
             "../../../../assets/tactical-scenes/flat-dry-grassland.json"
         ))
         .unwrap();
-        let mut generated = flat.generate().unwrap();
+        let mut generated = crate::presentation::PreparedStrategicScene::generate(&flat).unwrap();
+        let backdrop =
+            crate::presentation::StrategicBackdrop::new(&flat, flat.vista.lods.len()).unwrap();
         generated.buildings = input
             .buildings
             .iter()
@@ -269,7 +268,8 @@ mod tests {
             .map(|b| (b.placement.id, b.transform().unwrap()))
             .collect();
         let furniture = generated.furniture.instances.clone();
-        let street = Street::arrange(&input, &places, &selected, &mut generated).unwrap();
+        let street =
+            Street::arrange(&input, &places, &selected, &mut generated, &backdrop).unwrap();
         let mut bay_left = -street.width * 0.5;
         let mut previous_right = bay_left;
         for (building, bay) in generated.buildings.iter().zip(&street.bays) {

@@ -18,7 +18,8 @@ use std::io::Read;
 
 use anyhow::{Context, Result, anyhow, bail};
 use binary_layout::{
-    BINARY_MAGIC_PREFIX, FILE_HEADER_BYTES, FILE_VERSION_OFFSET, FbxVersion, HeaderFormat,
+    ASCII_FBX_PREFIX, BINARY_MAGIC_PREFIX, FILE_HEADER_BYTES, FILE_VERSION_OFFSET, FbxVersion,
+    HeaderFormat, UTF8_BOM_ASCII_FBX_PREFIX,
 };
 use flate2::read::ZlibDecoder;
 
@@ -392,7 +393,7 @@ pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
     if data.len() < FILE_HEADER_BYTES || &data[..BINARY_MAGIC_PREFIX.len()] != BINARY_MAGIC_PREFIX {
         // ASCII FBX is a different format sharing the extension. Saying so is
         // more use than "not a binary FBX file", because the fix is a re-export.
-        if data.starts_with(b"; FBX") || data.starts_with(b"\xef\xbb\xbf; FBX") {
+        if data.starts_with(ASCII_FBX_PREFIX) || data.starts_with(UTF8_BOM_ASCII_FBX_PREFIX) {
             bail!("this is an ASCII FBX file; re-export it as binary FBX");
         }
         bail!("not a binary FBX file");

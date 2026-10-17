@@ -1,4 +1,4 @@
-//! Native version admission and binary node-header layout selection.
+//! File signatures, native version admission and binary node-header layout.
 
 use derive_more::{From, Into};
 
@@ -6,6 +6,8 @@ pub(super) const BINARY_SIGNATURE: &[u8] = b"Kaydara FBX Binary  \0\x1a\0";
 // The existing reader checks only this prefix; the two marker bytes stay
 // ignored.
 pub(super) const BINARY_MAGIC_PREFIX: &[u8] = b"Kaydara FBX Binary  \0";
+pub(super) const ASCII_FBX_PREFIX: &[u8] = b"; FBX";
+pub(super) const UTF8_BOM_ASCII_FBX_PREFIX: &[u8] = b"\xef\xbb\xbf; FBX";
 pub(super) const FILE_VERSION_OFFSET: usize = BINARY_SIGNATURE.len();
 pub(super) const FILE_HEADER_BYTES: usize = FILE_VERSION_OFFSET + size_of::<u32>();
 

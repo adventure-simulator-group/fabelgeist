@@ -98,6 +98,13 @@ jobs:
         run: |
           cargo test --package adventuresim-world-schema --all-features
           cargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests
+      - name: Test resolved Bevy guard
+        run: cargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard
+      - name: Test FBX binary header regression
+        run: >-
+          cargo test --locked --package fabelgeist-fbx --lib
+          binary_layout_tests::binary_headers_preserve_actual_main_version_and_layout_behavior
+          -- --exact
       - name: Check semantic values and Rust growth
         run: |
           cargo test --package fabelgeist-rust-quality
