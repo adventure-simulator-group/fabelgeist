@@ -31,9 +31,10 @@ impl DeviceWearer<'_> {
             let frill = plan.design.frill.as_ref();
             let folds = frill.and_then(|f| f.folds.as_ref());
             let source = format!(
-                "const FIRST_POINT:u32={SKIRT_FIT_WORDS}u;\nconst POINT_WORDS:u32={SKIRT_ATTACHMENT_POINT_WORDS}u;\nconst BODY_ROWS:u32={}u;\nconst SOURCE_WORDS:u32={}u;\n{}",
+                "const FIRST_POINT:u32={SKIRT_FIT_WORDS}u;\nconst POINT_WORDS:u32={SKIRT_ATTACHMENT_POINT_WORDS}u;\nconst BODY_ROWS:u32={}u;\nconst SOURCE_WORDS:u32={}u;\nconst GRID_WORDS:u32={}u;\n{}",
                 SLEEVE_BODY_STATIONS.len(),
                 crate::surface_cut::POINT_WORDS,
+                crate::sewn_sleeve_pattern::SLEEVE_GRID_WORDS,
                 include_str!("device_sewn_sleeves.wgsl"),
             );
             dispatch(
@@ -56,6 +57,8 @@ impl DeviceWearer<'_> {
                     Word::Joint("elbow", joint(RigJointPart::Lowarm)?),
                     Word::Joint("wrist", joint(RigJointPart::Wrist)?),
                     Word::F("reach", plan.design.length.unit()),
+                    Word::F("proximal_fullness", plan.design.proximal_fullness.unit()),
+                    Word::F("fullness_release", plan.design.fullness_release.unit()),
                     Word::F(
                         "radius",
                         plan.design.circumference.metres() / std::f32::consts::TAU,

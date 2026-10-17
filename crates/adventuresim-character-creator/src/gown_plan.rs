@@ -93,6 +93,7 @@ impl GownPlan {
             )?);
         }
         join.bind_neckline(&inner.surface, body, head, design)?;
+        join.finish_cuffs(design)?;
         let carrier_role = if design.skirt.puff_and_slash.is_some() {
             ArmorComponentRole::Undercloth
         } else {

@@ -28,7 +28,7 @@
             "relief": {
               "pleats": {
                 "count": 96,
-                "depth": 1,
+                "depth": 2,
                 "profile": "Fluted"
               },
               "chart": {
@@ -88,9 +88,9 @@
         "transition": 100,
         "waist_band": 15,
         "sleeves": {
-          "length": 1040,
+          "length": 1000,
           "circumference": 750,
-          "cuff_circumference": 220,
+          "cuff_circumference": 200,
           "cuff_length": 32,
           "fabric": {
             "color": [
@@ -126,10 +126,10 @@
           },
           "frill": {
             "length": 25,
-            "flare": 12,
+            "flare": 8,
             "folds": {
               "count": 8,
-              "depth": 12,
+              "depth": 6,
               "profile": "Fluted"
             }
           },
@@ -160,7 +160,39 @@
                 }
               }
             }
-          }
+          },
+          "cuff_binding": {
+            "width": 2,
+            "thickness": 200,
+            "fabric": {
+              "color": [
+                242,
+                240,
+                230
+              ],
+              "finish": "Linen",
+              "opacity": 1000,
+              "layers": [],
+              "relief": null
+            }
+          },
+          "cuff_backing": {
+            "width": 32,
+            "thickness": 200,
+            "fabric": {
+              "color": [
+                242,
+                240,
+                230
+              ],
+              "finish": "Linen",
+              "opacity": 1000,
+              "layers": [],
+              "relief": null
+            }
+          },
+          "proximal_fullness": 650,
+          "fullness_release": 500
         },
         "body_fit": {
           "Loose": {

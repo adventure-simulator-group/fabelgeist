@@ -10,6 +10,8 @@ mod cloth_closures;
 mod cloth_ties;
 #[path = "gown_controls.rs"]
 mod gown;
+#[path = "gown_cuff_controls.rs"]
+mod gown_cuffs;
 #[path = "helmet_controls.rs"]
 mod helmet;
 #[path = "limb_controls.rs"]

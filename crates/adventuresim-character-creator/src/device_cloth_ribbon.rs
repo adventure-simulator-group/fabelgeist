@@ -7,6 +7,7 @@ use fabelgeist_compute::{KernelBatch, QueryHits, TriangleTargets};
 use fabelgeist_gpu::prelude::{Buffer, BufferUpload};
 
 /// Native float-table layout: first point word and position/normal stride.
+#[derive(Clone, Copy)]
 pub(crate) struct ClothFitLayout {
     pub first_point: u32,
     pub point_words: u32,

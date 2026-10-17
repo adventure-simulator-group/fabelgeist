@@ -3,10 +3,15 @@ use super::Polygon;
 
 // The source positions and final correspondence weights are f32. Treating
 // sub-precision repetitions as separate corners creates sliver triangles.
-const BARYCENTRIC_COLLINEAR_EPSILON: f64 = 1e-6;
+pub(super) const BARYCENTRIC_COLLINEAR_EPSILON: f64 = 1e-6;
 
-pub(super) fn conforming(polygons: Vec<Polygon>) -> Vec<[[f64; 3]; 3]> {
-    let points = polygons.iter().flatten().copied().collect::<Vec<_>>();
+pub(super) fn conforming(polygons: Vec<Polygon>, shared: &[[f64; 3]]) -> Vec<[[f64; 3]; 3]> {
+    let points = polygons
+        .iter()
+        .flatten()
+        .copied()
+        .chain(shared.iter().copied())
+        .collect::<Vec<_>>();
     let mut result = Vec::new();
     for polygon in polygons {
         let mut boundary = Vec::new();
