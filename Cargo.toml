@@ -34,6 +34,7 @@ members = [
   "crates/fabelgeist-mesh",
   "crates/fabelgeist-shell",
   "crates/fabelgeist-fbx",
+  "crates/fabelgeist-rig",
   "crates/fabelgeist-rust-quality",
   "crates/fabelgeist-compute",
   "crates/fabelgeist-bvh",
@@ -85,6 +86,7 @@ fabelgeist-timer = { version = "0.1.0", path = "crates/fabelgeist-timer" }
 fabelgeist-fs = { version = "0.1.0", path = "crates/fabelgeist-fs" }
 fabelgeist-gpu = { version = "0.1.0", path = "crates/fabelgeist-gpu" }
 fabelgeist-fbx = { version = "0.1.0", path = "crates/fabelgeist-fbx" }
+fabelgeist-rig = { version = "0.1.0", path = "crates/fabelgeist-rig" }
 
 bevy = { version = "0.19.0", default-features = false, features = [
   "reflect_auto_register",

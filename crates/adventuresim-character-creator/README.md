@@ -352,6 +352,21 @@ before capture:
 cargo run --manifest-path crates/adventuresim-character-creator/Cargo.toml --example garment_preview -- outfit.glb outfit.png
 ```
 
+## Rig identity in fitting and export
+
+Fitting and export retain `fabelgeist_rig::RigJointName` through joint selection,
+landmark lookup, attachment construction, and saved body metadata. Joint labels
+and rig ordinals cannot be interchanged. A missing landmark retains its exact
+label in `RigJointLookupError`; clothing admission exposes `ClothingError`
+variants for invalid body correspondence, missing landmarks, and fitted mesh
+failures. Presentation callers format these errors at their existing boundary.
+
+Exported node labels remain scalar strings. Skin words and frame landmarks keep
+their existing native packing, including unused landmark padding. The
+[shared rig guide](../fabelgeist-rig/README.md) describes exact identity,
+duplicate lookup, and skin-selection policies. This typing change does not alter
+body or armor geometry.
+
 ## Animation integration
 
 The exported base establishes MHR's stable bone names and hierarchy as the

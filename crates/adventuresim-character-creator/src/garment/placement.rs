@@ -1,4 +1,5 @@
 use super::*;
+use fabelgeist_rig::RigJointName;
 
 pub(super) async fn prepare(
     input: &DrapeInput,
@@ -19,8 +20,9 @@ pub(super) async fn prepare(
             .iter()
             .map(|p| p[1])
             .fold(f32::INFINITY, f32::min);
-        let hip = |name: &str| input.joints[input.names.iter().position(|n| n == name).unwrap()];
-        let (left, right) = (hip("l_upleg"), hip("r_upleg"));
+        let hip =
+            |name: &RigJointName| input.joints[input.names.iter().position(|n| n == name).unwrap()];
+        let (left, right) = (hip(&RigJointName::L_UPLEG), hip(&RigJointName::R_UPLEG));
         let hip_center_x = (left[0] + right[0]) * 0.5;
         let lateral_offset = if hip_center_x.abs() < 0.005 {
             0.0

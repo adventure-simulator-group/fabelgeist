@@ -1,15 +1,30 @@
 //! Sample MHR identity and refit clothing with fixed vertex correspondence.
 
 use super::*;
-mod draped;
 use adventuresim_character_creator::clothing::ClothingShell;
 use adventuresim_core::character_morph::{IDENTITY_MORPH_STEP, IdentityMorph};
 use adventuresim_core::skeletal_fit::SkeletalFitMorph;
+
+mod draped;
 
 pub(super) struct MorphDelta {
     name: String,
     positions: Vec<[f32; 3]>,
     normals: Vec<[f32; 3]>,
+}
+
+pub(super) struct CharacterMorphs {
+    pub samples: Vec<ForearmMorphSample>,
+    pub body: Vec<MorphDelta>,
+    reference_joints: Vec<[f32; 8]>,
+    joint_indices: Vec<[u32; 8]>,
+    joint_weights: Vec<[f32; 8]>,
+}
+
+/// A piece's shells: its plates, and the bands along their edges.
+pub(super) struct RiggedArmor<'a> {
+    pub plate: Vec<RiggedShell<'a>>,
+    pub trim: Vec<RiggedShell<'a>>,
 }
 
 impl MorphDelta {
@@ -44,14 +59,6 @@ impl MorphDelta {
             normal_deltas: &self.normals,
         }
     }
-}
-
-pub(super) struct CharacterMorphs {
-    pub samples: Vec<ForearmMorphSample>,
-    pub body: Vec<MorphDelta>,
-    reference_joints: Vec<[f32; 8]>,
-    joint_indices: Vec<[u32; 8]>,
-    joint_weights: Vec<[f32; 8]>,
 }
 
 impl CharacterMorphs {
@@ -119,7 +126,7 @@ impl CharacterMorphs {
                     .map(|sample| {
                         let fitted = base
                             .refit(&sample.positions, &sample.normals)
-                            .map_err(anyhow::Error::msg)?;
+                            .map_err(anyhow::Error::from)?;
                         let mut delta = MorphDelta::between(
                             sample.name.clone(),
                             &base.positions,
@@ -139,33 +146,6 @@ impl CharacterMorphs {
                     .collect()
             })
             .collect()
-    }
-}
-
-/// Fit targets contain only the displacement not already produced by the bones.
-fn remove_skeletal_translation(
-    deltas: &mut [[f32; 3]],
-    sample: &ForearmMorphSample,
-    reference: &[[f32; 8]],
-    indices: &[[u32; 8]],
-    weights: &[[f32; 8]],
-) {
-    if SkeletalFitMorph::from_name(&sample.name).is_none() {
-        return;
-    }
-    for ((delta, indices), weights) in deltas.iter_mut().zip(indices).zip(weights) {
-        let (indices, weights) =
-            adventuresim_character_creator::export::skinning::strongest_four(*indices, *weights);
-        for (&joint, &weight) in indices.iter().zip(&weights) {
-            if weight == 0.0 {
-                continue;
-            }
-            for (axis, value) in delta.iter_mut().enumerate() {
-                *value -= weight
-                    * (sample.global_joint_states[joint as usize][axis]
-                        - reference[joint as usize][axis]);
-            }
-        }
     }
 }
 
@@ -225,7 +205,7 @@ pub(super) fn rigged_clothing<'a>(
         textures: None,
         texcoords: None,
         hinge: None,
-        name: &specification.name,
+        name: specification.name.as_ref(),
         positions: &shell.positions,
         normals: &shell.normals,
         faces: &shell.faces,
@@ -236,12 +216,6 @@ pub(super) fn rigged_clothing<'a>(
         metallic: specification.metallic,
         roughness: specification.roughness,
     }
-}
-
-/// A piece's shells: its plates, and the bands along their edges.
-pub(super) struct RiggedArmor<'a> {
-    pub plate: Vec<RiggedShell<'a>>,
-    pub trim: Vec<RiggedShell<'a>>,
 }
 
 /// The shells of a piece, one per component, or `name` for the whole piece
@@ -292,6 +266,33 @@ pub(super) fn rigged_armor<'a>(
         }
     }
     rigged
+}
+
+/// Fit targets contain only the displacement not already produced by the bones.
+fn remove_skeletal_translation(
+    deltas: &mut [[f32; 3]],
+    sample: &ForearmMorphSample,
+    reference: &[[f32; 8]],
+    indices: &[[u32; 8]],
+    weights: &[[f32; 8]],
+) {
+    if SkeletalFitMorph::from_name(&sample.name).is_none() {
+        return;
+    }
+    for ((delta, indices), weights) in deltas.iter_mut().zip(indices).zip(weights) {
+        let (indices, weights) =
+            adventuresim_character_creator::export::skinning::strongest_four(*indices, *weights);
+        for (&joint, &weight) in indices.iter().zip(&weights) {
+            if weight == 0.0 {
+                continue;
+            }
+            for (axis, value) in delta.iter_mut().enumerate() {
+                *value -= weight
+                    * (sample.global_joint_states[joint as usize][axis]
+                        - reference[joint as usize][axis]);
+            }
+        }
+    }
 }
 
 #[cfg(test)]

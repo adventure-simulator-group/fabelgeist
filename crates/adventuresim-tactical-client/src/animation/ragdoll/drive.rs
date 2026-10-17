@@ -2,14 +2,14 @@
 //! re-assert that pose after the procedural passes, and keep the bodies out
 //! of the authoritative terrain heightfield.
 
-use adventuresim_tactical_core::prelude::*;
-use bevy::{math::Affine3A, prelude::*};
-
 use super::super::pose_buffer::{LocalPose, PoseBufferRig};
 use super::{
     RagdollBodyPart, Ragdolling,
     entry::{joint_base_affine, joint_world_affines},
 };
+use adventuresim_tactical_core::prelude::*;
+use bevy::{math::Affine3A, prelude::*};
+use fabelgeist_rig::RigJointOrdinal;
 
 /// Read the ragdoll bodies back into the pose buffer: driven joints follow
 /// their body (converted to joint-local through the live parent chain),
@@ -32,20 +32,21 @@ pub(in crate::animation) fn drive_ragdoll_pose_buffers(
         // off its body.
         let mut ancestor_of_driven = vec![false; count];
         for &joint in ragdoll.joint_order.iter().rev() {
-            if (driven[joint] || ancestor_of_driven[joint])
+            if (driven[usize::from(joint)] || ancestor_of_driven[usize::from(joint)])
                 && let Some(parent) = rig.joint_parent(joint)
             {
-                ancestor_of_driven[parent] = true;
+                ancestor_of_driven[usize::from(parent)] = true;
             }
         }
         let mut world = vec![Affine3A::IDENTITY; count];
         for &joint in &ragdoll.joint_order {
             let parent_affine = match rig.joint_parent(joint) {
-                Some(parent) => world[parent],
+                Some(parent) => world[usize::from(parent)],
                 None => joint_base_affine(&rig, joint, &chain),
             };
-            if driven[joint] {
-                let body = ragdoll.joint_bodies[joint].expect("driven joints map to a body");
+            if driven[usize::from(joint)] {
+                let body =
+                    ragdoll.joint_bodies[usize::from(joint)].expect("driven joints map to a body");
                 let entity = ragdoll.bodies[body].expect("driven joints have a body entity");
                 let body_affine = chain
                     .get(entity)
@@ -72,12 +73,12 @@ pub(in crate::animation) fn drive_ragdoll_pose_buffers(
                         scale,
                     },
                 );
-                world[joint] = bone_world;
+                world[usize::from(joint)] = bone_world;
             } else {
-                if ancestor_of_driven[joint] {
+                if ancestor_of_driven[usize::from(joint)] {
                     rig.hold_joint(joint);
                 }
-                world[joint] = parent_affine * rig.upcoming_pose(joint).affine();
+                world[usize::from(joint)] = parent_affine * rig.upcoming_pose(joint).affine();
             }
         }
     }
@@ -90,7 +91,7 @@ pub(in crate::animation) fn apply_ragdoll_poses(
     mut transforms: Query<&mut Transform, Without<PoseBufferRig>>,
 ) {
     for rig in &rigs {
-        for joint in 0..rig.joint_count() {
+        for joint in (0..rig.joint_count()).map(RigJointOrdinal::from) {
             let Some(entity) = rig.joint_entity(joint) else {
                 continue;
             };
@@ -102,23 +103,6 @@ pub(in crate::animation) fn apply_ragdoll_poses(
             }
         }
     }
-}
-
-/// How far a capsule sits below the terrain, sampling both end spheres and
-/// the centre: a single centre test lets a tilted limb tunnel into a slope
-/// whenever its low endpoint is over higher terrain.
-fn capsule_terrain_penetration(
-    part: &RagdollBodyPart,
-    position: Vec3,
-    rotation: Quat,
-    mut height_at: impl FnMut(Vec2) -> Option<f32>,
-) -> f32 {
-    let center = position + rotation * part.center_local;
-    let axis = rotation * part.axis_local * part.half_length;
-    [center - axis, center, center + axis]
-        .into_iter()
-        .filter_map(|sample| height_at(sample.xz()).map(|height| height + part.radius - sample.y))
-        .fold(0.0_f32, f32::max)
 }
 
 /// Resolve body contacts against the authoritative terrain heightfield. The
@@ -159,6 +143,23 @@ pub(in crate::animation) fn resolve_ragdoll_terrain_contacts(
         velocity.x *= retention;
         velocity.z *= retention;
     }
+}
+
+/// How far a capsule sits below the terrain, sampling both end spheres and
+/// the centre: a single centre test lets a tilted limb tunnel into a slope
+/// whenever its low endpoint is over higher terrain.
+fn capsule_terrain_penetration(
+    part: &RagdollBodyPart,
+    position: Vec3,
+    rotation: Quat,
+    mut height_at: impl FnMut(Vec2) -> Option<f32>,
+) -> f32 {
+    let center = position + rotation * part.center_local;
+    let axis = rotation * part.axis_local * part.half_length;
+    [center - axis, center, center + axis]
+        .into_iter()
+        .filter_map(|sample| height_at(sample.xz()).map(|height| height + part.radius - sample.y))
+        .fold(0.0_f32, f32::max)
 }
 
 #[cfg(test)]

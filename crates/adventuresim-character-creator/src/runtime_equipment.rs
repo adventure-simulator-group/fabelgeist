@@ -16,10 +16,19 @@ use anyhow::{Context, Result, bail};
 use fabelgeist_armor::{
     ArmorGpu, BracerDesign, BreastplateDesign, GeneratedArmor, parametric_design_hash,
 };
+use fabelgeist_rig::RigJointName;
 use std::sync::LazyLock;
+pub use warmup::{WarmupReport, warm_up};
 
 mod warmup;
-pub use warmup::{WarmupReport, warm_up};
+
+static ITEM_CATALOG: LazyLock<Vec<crate::item_catalog_schema::ItemDefinition>> =
+    LazyLock::new(|| {
+        let document: crate::item_catalog_schema::ItemCatalogDocument =
+            serde_json::from_str(include_str!("../../../content/items/catalog.yaml"))
+                .expect("embedded item catalog must be valid");
+        document.items
+    });
 
 /// One evaluated wearer in its unposed fitting frame. Runtime equipment has no
 /// body-shape morph targets; a changed body requires a new fit.
@@ -34,7 +43,7 @@ pub struct RuntimeBody {
     pub texcoord_faces: Vec<[u32; 3]>,
     pub joint_indices: Vec<[u32; 8]>,
     pub joint_weights: Vec<[f32; 8]>,
-    pub joint_names: Vec<String>,
+    pub joint_names: Vec<RigJointName>,
     pub global_joint_states: Vec<[f32; 8]>,
     /// This body on the armor device, once a piece has uploaded it.
     pub device: DeviceBody,
@@ -129,6 +138,103 @@ pub async fn generate_runtime_armor(
             generate_parametric(gpu, body, &design, placement, layers).await
         }
     }
+}
+
+/// Generate one fitted clothing item directly from the canonical body mesh.
+pub fn generate_runtime_clothing(
+    body: &RuntimeBody,
+    item_id: &str,
+    placement_id: &str,
+) -> Result<GeneratedArmor> {
+    body.validate()?;
+    let item = catalog_item(item_id).with_context(|| format!("unknown clothing item {item_id}"))?;
+    let equipment = item
+        .equipment
+        .as_ref()
+        .with_context(|| format!("clothing item {item_id} has no equipment definition"))?;
+    let material = equipment
+        .material
+        .with_context(|| format!("clothing item {item_id} has no material"))?;
+    let placement = equipment
+        .placements
+        .iter()
+        .find(|placement| placement.id == placement_id)
+        .with_context(|| format!("clothing item {item_id} has no placement {placement_id}"))?;
+    let specification = GarmentSpecification::from_catalog(
+        format!("{item_id} · {placement_id}").into(),
+        placement,
+        material,
+    );
+    let generated = generate_clothing_shells(
+        &[specification],
+        &body.positions,
+        &body.normals,
+        &body.faces,
+        &body.joint_indices,
+        &body.joint_weights,
+        &body.joint_names,
+        &body.global_joint_states,
+    )
+    .map_err(anyhow::Error::from)?;
+    let shell = generated
+        .shells
+        .into_iter()
+        .next()
+        .context("clothing generator returned no shell")?;
+    let base_positions = shell.positions.clone();
+    let base_normals = shell.normals.clone();
+    let indices = shell
+        .faces
+        .iter()
+        .flat_map(|face| face.iter().copied())
+        .collect::<Vec<_>>();
+    let design_hash = parametric_design_hash(
+        &serde_json::to_vec(&(item_id, placement_id)).expect("clothing IDs serialize"),
+    );
+    Ok(GeneratedArmor {
+        design_hash,
+        surface_domain: body.domain.clone(),
+        positions: base_positions,
+        normals: base_normals,
+        texcoords: body.texcoords.clone(),
+        joint_indices: body.joint_indices.clone(),
+        joint_weights: body.joint_weights.clone(),
+        indices,
+        // Offset from the body: a cloth layer, not a thickened plate.
+        faces: Vec::new(),
+        trim: None,
+        grids: Vec::new(),
+        morphs: Vec::new(),
+        components: Vec::new(),
+    })
+}
+
+/// The material assigned to an authored runtime equipment item.
+pub fn runtime_equipment_material(
+    item_id: &str,
+) -> Option<crate::item_catalog_schema::EquipmentMaterial> {
+    catalog_item(item_id)
+        .and_then(|item| item.equipment.as_ref())
+        .and_then(|equipment| equipment.material)
+}
+
+/// Whether the item has an authored parametric armor runtime path.
+pub fn is_runtime_armor(item_id: &str) -> bool {
+    armor_recipes::is_parametric(item_id)
+}
+
+/// Whether the item has an authored fitted clothing runtime path.
+pub fn is_runtime_clothing(item_id: &str) -> bool {
+    catalog_item(item_id).is_some_and(|item| {
+        (matches!(item.kind, crate::item_catalog_schema::ItemKind::Clothing)
+            || item_id == "leather_belt")
+            && !is_runtime_armor(item_id)
+    })
+}
+
+/// Whether the item should be generated from the loaded body rig.
+pub fn is_runtime_equipment(item_id: &str) -> bool {
+    is_runtime_armor(item_id) || is_runtime_clothing(item_id)
 }
 
 async fn generate_vambrace(
@@ -242,113 +348,8 @@ async fn generate_parametric(
     }
 }
 
-/// Generate one fitted clothing item directly from the canonical body mesh.
-pub fn generate_runtime_clothing(
-    body: &RuntimeBody,
-    item_id: &str,
-    placement_id: &str,
-) -> Result<GeneratedArmor> {
-    body.validate()?;
-    let item = catalog_item(item_id).with_context(|| format!("unknown clothing item {item_id}"))?;
-    let equipment = item
-        .equipment
-        .as_ref()
-        .with_context(|| format!("clothing item {item_id} has no equipment definition"))?;
-    let material = equipment
-        .material
-        .with_context(|| format!("clothing item {item_id} has no material"))?;
-    let placement = equipment
-        .placements
-        .iter()
-        .find(|placement| placement.id == placement_id)
-        .with_context(|| format!("clothing item {item_id} has no placement {placement_id}"))?;
-    let specification = GarmentSpecification::from_catalog(
-        format!("{item_id} · {placement_id}"),
-        placement,
-        material,
-    );
-    let generated = generate_clothing_shells(
-        &[specification],
-        &body.positions,
-        &body.normals,
-        &body.faces,
-        &body.joint_indices,
-        &body.joint_weights,
-        &body.joint_names,
-        &body.global_joint_states,
-    )
-    .map_err(anyhow::Error::msg)?;
-    let shell = generated
-        .shells
-        .into_iter()
-        .next()
-        .context("clothing generator returned no shell")?;
-    let base_positions = shell.positions.clone();
-    let base_normals = shell.normals.clone();
-    let indices = shell
-        .faces
-        .iter()
-        .flat_map(|face| face.iter().copied())
-        .collect::<Vec<_>>();
-    let design_hash = parametric_design_hash(
-        &serde_json::to_vec(&(item_id, placement_id)).expect("clothing IDs serialize"),
-    );
-    Ok(GeneratedArmor {
-        design_hash,
-        surface_domain: body.domain.clone(),
-        positions: base_positions,
-        normals: base_normals,
-        texcoords: body.texcoords.clone(),
-        joint_indices: body.joint_indices.clone(),
-        joint_weights: body.joint_weights.clone(),
-        indices,
-        // Offset from the body: a cloth layer, not a thickened plate.
-        faces: Vec::new(),
-        trim: None,
-        grids: Vec::new(),
-        morphs: Vec::new(),
-        components: Vec::new(),
-    })
-}
-
-static ITEM_CATALOG: LazyLock<Vec<crate::item_catalog_schema::ItemDefinition>> =
-    LazyLock::new(|| {
-        let document: crate::item_catalog_schema::ItemCatalogDocument =
-            serde_json::from_str(include_str!("../../../content/items/catalog.yaml"))
-                .expect("embedded item catalog must be valid");
-        document.items
-    });
-
 fn catalog_item(item_id: &str) -> Option<&'static crate::item_catalog_schema::ItemDefinition> {
     ITEM_CATALOG.iter().find(|item| item.id == item_id)
-}
-
-/// The material assigned to an authored runtime equipment item.
-pub fn runtime_equipment_material(
-    item_id: &str,
-) -> Option<crate::item_catalog_schema::EquipmentMaterial> {
-    catalog_item(item_id)
-        .and_then(|item| item.equipment.as_ref())
-        .and_then(|equipment| equipment.material)
-}
-
-/// Whether the item has an authored parametric armor runtime path.
-pub fn is_runtime_armor(item_id: &str) -> bool {
-    armor_recipes::is_parametric(item_id)
-}
-
-/// Whether the item has an authored fitted clothing runtime path.
-pub fn is_runtime_clothing(item_id: &str) -> bool {
-    catalog_item(item_id).is_some_and(|item| {
-        (matches!(item.kind, crate::item_catalog_schema::ItemKind::Clothing)
-            || item_id == "leather_belt")
-            && !is_runtime_armor(item_id)
-    })
-}
-
-/// Whether the item should be generated from the loaded body rig.
-pub fn is_runtime_equipment(item_id: &str) -> bool {
-    is_runtime_armor(item_id) || is_runtime_clothing(item_id)
 }
 
 #[cfg(test)]

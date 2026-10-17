@@ -1,10 +1,31 @@
 //! Measure cadence and phase from each body's retargeted foot trajectories.
+
 use super::*;
 
 #[derive(Component)]
 pub(in crate::animation) struct CharacterLocomotionStrides {
     pub(in crate::animation) measurements: AuthoredLocomotionStrides,
     offsets: Vec<Vec3>,
+}
+
+#[derive(Clone, Copy)]
+enum CalibrationMotion {
+    Walk,
+    Run,
+    Strafe,
+    Skip,
+}
+
+impl CalibrationMotion {
+    const ALL: [Self; 4] = [Self::Walk, Self::Run, Self::Strafe, Self::Skip];
+    fn source(self) -> (&'static str, usize) {
+        match self {
+            Self::Walk => ("walk", 2),
+            Self::Run => ("run", 2),
+            Self::Strafe => ("strafe", 0),
+            Self::Skip => ("skip", 2),
+        }
+    }
 }
 
 pub(in crate::animation) fn calibrate_character_strides(
@@ -126,6 +147,23 @@ pub(super) fn calibrate(
     }
 }
 
+pub(super) fn has_unmeasured_motion(
+    runtime: &AnimationRuntime,
+    clips: &Assets<AnimationClip>,
+    strides: &AuthoredLocomotionStrides,
+) -> bool {
+    CalibrationMotion::ALL.iter().any(|kind| {
+        let (motion, _) = kind.source();
+        runtime
+            .clips
+            .get(&(HUMANOID_UNARMED_PACK.to_owned(), motion.to_owned()))
+            .is_some_and(|loaded| {
+                clips.contains(loaded.handle.id())
+                    && strides.measured_clips.get(motion) != Some(&loaded.handle.id())
+            })
+    })
+}
+
 fn apply_baked_offsets(clip: &mut BakedClip, offsets: &[Vec3]) {
     for (track, offset) in clip.tracks.iter_mut().zip(offsets) {
         for translation in &mut track.translations {
@@ -145,12 +183,17 @@ mod tests {
             joints: ["root", "l_foot", "r_foot"]
                 .into_iter()
                 .enumerate()
-                .map(|(index, name)| RigJoint {
-                    target: AnimationTargetId::from_name(&Name::new(name)),
-                    bind: LocalPose::from_transform(Transform::IDENTITY),
-                    parent: (index != 0).then_some(0),
-                    name: Some(name.into()),
-                    lower_body: true,
+                .map(|(index, name)| {
+                    let identity = AuthoredRigJoint::new(name.into());
+                    RigJoint {
+                        target: AnimationTargetId::from_name(&Name::new(name)),
+                        bind: LocalPose::from_transform(Transform::IDENTITY),
+                        parent: (index != 0).then_some(RigJointOrdinal::from(0usize)),
+                        name: Some(identity.name),
+                        role: identity.role,
+                        pelvis: identity.pelvis,
+                        body_region: AnimationBodyRegion::Lower,
+                    }
                 })
                 .collect(),
         };
@@ -183,40 +226,4 @@ mod tests {
         let longer = measure_authored_foot_range(&definition, &clip, 2).unwrap();
         assert!((longer / original - 1.5).abs() < 1e-5);
     }
-}
-
-#[derive(Clone, Copy)]
-enum CalibrationMotion {
-    Walk,
-    Run,
-    Strafe,
-    Skip,
-}
-impl CalibrationMotion {
-    const ALL: [Self; 4] = [Self::Walk, Self::Run, Self::Strafe, Self::Skip];
-    fn source(self) -> (&'static str, usize) {
-        match self {
-            Self::Walk => ("walk", 2),
-            Self::Run => ("run", 2),
-            Self::Strafe => ("strafe", 0),
-            Self::Skip => ("skip", 2),
-        }
-    }
-}
-
-pub(super) fn has_unmeasured_motion(
-    runtime: &AnimationRuntime,
-    clips: &Assets<AnimationClip>,
-    strides: &AuthoredLocomotionStrides,
-) -> bool {
-    CalibrationMotion::ALL.iter().any(|kind| {
-        let (motion, _) = kind.source();
-        runtime
-            .clips
-            .get(&(HUMANOID_UNARMED_PACK.to_owned(), motion.to_owned()))
-            .is_some_and(|loaded| {
-                clips.contains(loaded.handle.id())
-                    && strides.measured_clips.get(motion) != Some(&loaded.handle.id())
-            })
-    })
 }

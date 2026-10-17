@@ -140,6 +140,7 @@ dependencies = [
  "fabelgeist-gpu",
  "fabelgeist-math",
  "fabelgeist-mhr",
+ "fabelgeist-rig",
  "fabelgeist-shell",
  "gltf",
  "image",
@@ -148,6 +149,7 @@ dependencies = [
  "rayon",
  "serde",
  "serde_json",
+ "thiserror 2.0.20",
  "tokio",
 ]
 
@@ -4961,6 +4963,7 @@ name = "fabelgeist-fbx"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "fabelgeist-rig",
  "flate2",
 ]
 
@@ -5067,6 +5070,7 @@ dependencies = [
  "fabelgeist-fbx",
  "fabelgeist-fs",
  "fabelgeist-numpy-storage",
+ "fabelgeist-rig",
 ]
 
 [[package]]
@@ -5090,6 +5094,15 @@ dependencies = [
  "fabelgeist-gpu",
  "fabelgeist-math",
  "fabelgeist-xpbd",
+]
+
+[[package]]
+name = "fabelgeist-rig"
+version = "0.1.0"
+dependencies = [
+ "derive_more 2.1.1",
+ "serde",
+ "strum 0.27.2",
 ]
 
 [[package]]

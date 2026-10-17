@@ -10,19 +10,6 @@
 //! exit, where the ordinary inertialized transition carries the skeleton out
 //! of whatever tangle the ragdoll ended in.
 
-use adventuresim_tactical_core::prelude::*;
-use bevy::{math::Affine3A, prelude::*};
-
-mod definition;
-mod drive;
-mod entry;
-mod muscles;
-
-pub(super) use drive::{
-    apply_ragdoll_poses, drive_ragdoll_pose_buffers, resolve_ragdoll_terrain_contacts,
-};
-pub(super) use muscles::{apply_muscles, damp_joints};
-
 use self::{
     definition::{PELVIS_BODY, RagdollDefinition},
     entry::{
@@ -36,6 +23,18 @@ use super::{
     procedural::{BoneRole, HumanoidRig},
     skeletal_proportions::SkeletalJointOffset,
 };
+use adventuresim_tactical_core::prelude::*;
+use bevy::{math::Affine3A, prelude::*};
+pub(super) use drive::{
+    apply_ragdoll_poses, drive_ragdoll_pose_buffers, resolve_ragdoll_terrain_contacts,
+};
+use fabelgeist_rig::RigJointOrdinal;
+pub(super) use muscles::{apply_muscles, damp_joints};
+
+mod definition;
+mod drive;
+mod entry;
+mod muscles;
 
 /// The client-only collision island every ragdoll body lives on.
 pub(super) const RAGDOLL_LAYER: u32 = 1 << 7;
@@ -52,7 +51,7 @@ pub(crate) struct Ragdolling {
     /// Pose-buffer joint index to definition body index.
     joint_bodies: Vec<Option<usize>>,
     /// Pose-buffer joints ordered parent before child.
-    joint_order: Vec<usize>,
+    joint_order: Vec<RigJointOrdinal>,
     muscles: Vec<MuscleTarget>,
     /// Seconds since entry; drives the stun, rise, and limp envelope.
     age_seconds: f32,
@@ -79,44 +78,6 @@ pub(super) struct RagdollBodyPart {
     center_local: Vec3,
     axis_local: Vec3,
     kinematic: bool,
-}
-
-/// The owner-space bind transform of a rig node with its skeletal
-/// proportion offset applied, composed from the authored locals.
-fn proportioned_bind_global(
-    entity: Entity,
-    owner: Entity,
-    bind_nodes: &Query<(
-        &AuthoredBindTransform,
-        Option<&SkeletalJointOffset>,
-        Option<&ChildOf>,
-    )>,
-) -> Option<Transform> {
-    let mut current = entity;
-    let mut locals = Vec::new();
-    for _ in 0..64 {
-        let Ok((bind, offset, parent)) = bind_nodes.get(current) else {
-            break;
-        };
-        if bind.owner != owner {
-            break;
-        }
-        let mut local = bind.local;
-        local.translation += offset.map(|offset| offset.0).unwrap_or_default();
-        locals.push(local);
-        let Some(parent) = parent else {
-            break;
-        };
-        current = parent.parent();
-    }
-    (!locals.is_empty()).then(|| {
-        locals
-            .into_iter()
-            .rev()
-            .fold(Transform::IDENTITY, |global, local| {
-                global.mul_transform(local)
-            })
-    })
 }
 
 #[expect(
@@ -184,6 +145,44 @@ pub(super) fn sync_ragdolls(
     }
 }
 
+/// The owner-space bind transform of a rig node with its skeletal
+/// proportion offset applied, composed from the authored locals.
+fn proportioned_bind_global(
+    entity: Entity,
+    owner: Entity,
+    bind_nodes: &Query<(
+        &AuthoredBindTransform,
+        Option<&SkeletalJointOffset>,
+        Option<&ChildOf>,
+    )>,
+) -> Option<Transform> {
+    let mut current = entity;
+    let mut locals = Vec::new();
+    for _ in 0..64 {
+        let Ok((bind, offset, parent)) = bind_nodes.get(current) else {
+            break;
+        };
+        if bind.owner != owner {
+            break;
+        }
+        let mut local = bind.local;
+        local.translation += offset.map(|offset| offset.0).unwrap_or_default();
+        locals.push(local);
+        let Some(parent) = parent else {
+            break;
+        };
+        current = parent.parent();
+    }
+    (!locals.is_empty()).then(|| {
+        locals
+            .into_iter()
+            .rev()
+            .fold(Transform::IDENTITY, |global, local| {
+                global.mul_transform(local)
+            })
+    })
+}
+
 #[expect(
     clippy::too_many_arguments,
     reason = "ragdoll entry samples every independently borrowed rig source once"
@@ -212,9 +211,9 @@ fn enter_ragdoll(
         return;
     };
     let joint_bodies = (0..rig.joint_count())
+        .map(RigJointOrdinal::from)
         .map(|joint| {
-            rig.joint_name(joint)
-                .and_then(BoneRole::from_name)
+            rig.joint_role(joint)
                 .and_then(|role| definition.body_of(role))
         })
         .collect::<Vec<_>>();

@@ -3,6 +3,18 @@
 use super::*;
 use adventuresim_character_creator::clothing::ClothingShell;
 
+/// How a piece is shaded: its plate, and the band along its edges.
+pub(super) struct ArmorShading<'a> {
+    pub plate: StandardMaterial,
+    pub trim: Option<TrimPreview<'a>>,
+}
+
+/// The band along a piece's edges, as the preview shades it.
+pub(super) struct TrimPreview<'a> {
+    pub texcoords: &'a [[f32; 2]],
+    pub material: StandardMaterial,
+}
+
 pub(super) fn spawn_clothing(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
@@ -34,7 +46,7 @@ pub(super) fn spawn_clothing(
         commands.spawn((
             CharacterMesh,
             animation_preview::skin(walk).expect("animation rig was just rebuilt"),
-            Name::new(specification.name.clone()),
+            Name::new(specification.name.as_ref().to_owned()),
             Mesh3d(meshes.add(mesh)),
             MeshMaterial3d(materials.add(StandardMaterial {
                 base_color: Color::srgba(red, green, blue, alpha),
@@ -44,18 +56,6 @@ pub(super) fn spawn_clothing(
             })),
         ));
     }
-}
-
-/// How a piece is shaded: its plate, and the band along its edges.
-pub(super) struct ArmorShading<'a> {
-    pub plate: StandardMaterial,
-    pub trim: Option<TrimPreview<'a>>,
-}
-
-/// The band along a piece's edges, as the preview shades it.
-pub(super) struct TrimPreview<'a> {
-    pub texcoords: &'a [[f32; 2]],
-    pub material: StandardMaterial,
 }
 
 /// The cord lacing a piece's small plates, as the preview shades it.

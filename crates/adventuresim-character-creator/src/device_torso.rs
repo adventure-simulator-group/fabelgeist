@@ -10,10 +10,10 @@
 //! to what it selected. Which faces count as torso for fitting depends only
 //! on the rig's skin weights, so the host lists them.
 
-use fabelgeist_gpu::prelude::BufferUpload;
-use std::collections::BTreeSet;
-
-use anyhow::{Context, Result, bail, ensure};
+use crate::bracer::ForearmMorphSample;
+use crate::device_torso_wgsl::{FRAME, HALF_WIDTH, RANK, SUPPORT, WIDTHS, torso_source};
+use crate::rig_parameters::RigPassParameters;
+use anyhow::{Result, bail, ensure};
 use fabelgeist_armor::gpu::anatomy::{
     DeviceSeams, DeviceSurface, STATUS_EMPTY_SELECTION, SeamTopology,
 };
@@ -22,10 +22,57 @@ use fabelgeist_armor::gpu::breastplate::{DeviceBreastplate, TORSO_RIG_WORDS, Tor
 use fabelgeist_armor::gpu::device_error;
 use fabelgeist_armor::{ArmorGpu, BreastplateDesign, GeneratedArmor};
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+use fabelgeist_rig::{RigJointLookupError, RigJointMembership, RigJointName, RigJointOrdinal};
+use std::collections::BTreeSet;
 
-use crate::bracer::ForearmMorphSample;
-use crate::device_torso_wgsl::{FRAME, HALF_WIDTH, RANK, SUPPORT, WIDTHS, torso_source};
+/// Floats of the torso frame: origin at the lower spine, the vertical axis
+/// and its extent to the neck, the lateral and anterior axes, and the front
+/// half width.
+const TORSO_FRAME_WORDS: u64 = 16;
+
+/// Set when the rig's landmarks coincide.
+pub(crate) const STATUS_COINCIDENT_LANDMARKS: u32 = 32;
+
+/// Set when no front vertex measures the torso's width.
+pub(crate) const STATUS_NO_WIDTH: u32 = 64;
+
+/// Set when the torso's measured width is degenerate.
+pub(crate) const STATUS_DEGENERATE_WIDTH: u32 = 128;
+
+/// Rig landmarks the torso frame reads, in the frame kernel's order.
+const LANDMARKS: [RigJointName; 9] = [
+    RigJointName::C_SPINE0,
+    RigJointName::C_NECK,
+    RigJointName::L_CLAVICLE,
+    RigJointName::R_CLAVICLE,
+    RigJointName::L_UPARM,
+    RigJointName::R_UPARM,
+    RigJointName::C_HEAD,
+    RigJointName::L_EYE,
+    RigJointName::R_EYE,
+];
+
+/// Joints whose skin supports the front torso.
+const SUPPORT_JOINTS: [RigJointName; 12] = [
+    RigJointName::C_SPINE0,
+    RigJointName::ROOT,
+    RigJointName::C_SPINE1,
+    RigJointName::C_SPINE2,
+    RigJointName::C_SPINE3,
+    RigJointName::C_NECK,
+    RigJointName::L_CLAVICLE,
+    RigJointName::R_CLAVICLE,
+    RigJointName::L_UPARM,
+    RigJointName::R_UPARM,
+    RigJointName::L_UPLEG,
+    RigJointName::R_UPLEG,
+];
+
+const JOINT_PARAMETERS: [&str; 9] = [
+    "joint0", "joint1", "joint2", "joint3", "joint4", "joint5", "joint6", "joint7", "joint8",
+];
 
 /// The wearer's body, as the breastplate is fitted to it.
 pub struct TorsoSurfaceInput<'a> {
@@ -37,50 +84,18 @@ pub struct TorsoSurfaceInput<'a> {
     pub texcoord_faces: &'a [[u32; 3]],
     pub joint_indices: &'a [[u32; 8]],
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [String],
+    pub joint_names: &'a [RigJointName],
     pub global_joint_states: &'a [[f32; 8]],
     pub morphs: &'a [ForearmMorphSample],
 }
 
-/// Floats of the torso frame: origin at the lower spine, the vertical axis
-/// and its extent to the neck, the lateral and anterior axes, and the front
-/// half width.
-const TORSO_FRAME_WORDS: u64 = 16;
-/// Set when the rig's landmarks coincide.
-pub(crate) const STATUS_COINCIDENT_LANDMARKS: u32 = 32;
-/// Set when no front vertex measures the torso's width.
-pub(crate) const STATUS_NO_WIDTH: u32 = 64;
-/// Set when the torso's measured width is degenerate.
-pub(crate) const STATUS_DEGENERATE_WIDTH: u32 = 128;
-
-/// Rig landmarks the torso frame reads, in the frame kernel's order.
-const LANDMARKS: [&str; 9] = [
-    "c_spine0",
-    "c_neck",
-    "l_clavicle",
-    "r_clavicle",
-    "l_uparm",
-    "r_uparm",
-    "c_head",
-    "l_eye",
-    "r_eye",
-];
-
-/// Joints whose skin supports the front torso.
-const SUPPORT_JOINTS: [&str; 12] = [
-    "c_spine0",
-    "root",
-    "c_spine1",
-    "c_spine2",
-    "c_spine3",
-    "c_neck",
-    "l_clavicle",
-    "r_clavicle",
-    "l_uparm",
-    "r_uparm",
-    "l_upleg",
-    "r_upleg",
-];
+/// Where the torso's measurement goes.
+struct TorsoOutputs<'a> {
+    rig: &'a Buffer,
+    semantic: &'a Buffer,
+    support: &'a Buffer,
+    status: &'a Buffer,
+}
 
 impl TorsoSurfaceInput<'_> {
     fn check(&self) -> Result<()> {
@@ -102,25 +117,31 @@ impl TorsoSurfaceInput<'_> {
         Ok(())
     }
 
-    fn joints_named(&self, keep: impl Fn(&str) -> bool) -> BTreeSet<usize> {
+    fn joints_named(
+        &self,
+        keep: impl Fn(&RigJointName) -> RigJointMembership,
+    ) -> BTreeSet<RigJointOrdinal> {
         self.joint_names
             .iter()
             .enumerate()
-            .filter_map(|(index, name)| keep(name).then_some(index))
+            .filter_map(
+                |(index, name): (usize, &RigJointName)| -> Option<RigJointOrdinal> {
+                    (keep(name) == RigJointMembership::Included)
+                        .then_some(RigJointOrdinal::from(index))
+                },
+            )
             .collect()
     }
 
     /// The rig joints of [`LANDMARKS`].
-    fn landmarks(&self) -> Result<Vec<u32>> {
+    fn landmarks(&self) -> std::result::Result<Vec<RigJointOrdinal>, RigJointLookupError> {
         LANDMARKS
             .iter()
-            .map(|name| {
-                self.joint_names
-                    .iter()
-                    .position(|candidate| candidate == name)
-                    .map(|index| index as u32)
-                    .with_context(|| format!("MHR rig is missing {name}"))
-            })
+            .map(
+                |name: &RigJointName| -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+                    name.require_in(self.joint_names)
+                },
+            )
             .collect()
     }
 }
@@ -141,9 +162,13 @@ pub async fn generate_breastplate_on_device_async(
 ) -> Result<GeneratedArmor> {
     input.check()?;
     let landmarks = input.landmarks()?;
-    let support_joints = input.joints_named(|name| SUPPORT_JOINTS.contains(&name));
+    let support_joints = input.joints_named(|name: &RigJointName| -> RigJointMembership {
+        RigJointMembership::from(SUPPORT_JOINTS.contains(name))
+    });
     let supports = (0..input.joint_names.len())
-        .map(|joint| u32::from(support_joints.contains(&joint)))
+        .map(|joint: usize| -> RigJointMembership {
+            RigJointMembership::from(support_joints.contains(&RigJointOrdinal::from(joint)))
+        })
         .collect::<Vec<_>>();
     let eligible = crate::torso_domain::TorsoSkinDomain {
         faces: input.faces,
@@ -185,7 +210,9 @@ pub async fn generate_breastplate_on_device_async(
         &mut batch,
         &body,
         &landmarks,
-        &gpu.upload(BufferUpload::from_elements(&supports))?,
+        &gpu.upload(BufferUpload::from_elements(
+            &supports.into_iter().map(u32::from).collect::<Vec<_>>(),
+        ))?,
         TorsoOutputs {
             rig: &rig,
             semantic: &semantic,
@@ -244,21 +271,13 @@ fn torso_failure(bits: u32) -> Result<()> {
     Ok(())
 }
 
-/// Where the torso's measurement goes.
-struct TorsoOutputs<'a> {
-    rig: &'a Buffer,
-    semantic: &'a Buffer,
-    support: &'a Buffer,
-    status: &'a Buffer,
-}
-
 /// Record the torso frame, its half width, and each body vertex's
 /// semantic coordinates and support.
 fn record_torso(
     gpu: &ArmorGpu,
     batch: &mut KernelBatch,
     body: &GpuBody,
-    landmarks: &[u32],
+    landmarks: &[RigJointOrdinal],
     supports: &Buffer,
     outputs: TorsoOutputs,
 ) -> Result<()> {
@@ -268,7 +287,7 @@ fn record_torso(
     let mut parameters = PassParameters::new();
     parameters.insert("count", body.vertex_count);
     for (slot, joint) in landmarks.iter().enumerate() {
-        parameters.insert(format!("joint{slot}"), *joint);
+        parameters.insert_joint(JOINT_PARAMETERS[slot], *joint)?;
     }
     for pad in 0..6 {
         parameters.insert(format!("pad{pad}"), 0u32);

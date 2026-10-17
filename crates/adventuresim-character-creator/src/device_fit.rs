@@ -12,6 +12,7 @@ use fabelgeist_armor::{
     HelmetDesign, LimbArmorDesign, PartFrame, TASSET_SUSPENSION_GAP_M,
 };
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_rig::RigJointName;
 
 use crate::armor_frames::{FitRegion, Wearer};
 use crate::armor_layer::ArmorLayerSurface;
@@ -29,7 +30,7 @@ pub struct FitBody<'a> {
     pub texcoords: &'a [[f32; 2]],
     pub joint_indices: &'a [[u32; 8]],
     pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [String],
+    pub joint_names: &'a [RigJointName],
 }
 
 /// One shape of the body: the wearer or a morph realization, with its device
@@ -427,7 +428,7 @@ pub struct Fitted<'a> {
     /// Each morph realization's name, in order.
     pub morphs: &'a [&'a str],
     pub domain: &'a str,
-    pub joint_names: &'a [String],
+    pub joint_names: &'a [RigJointName],
     /// The wearer's global joint states, one per name.
     pub joints: &'a [[f32; 8]],
 }

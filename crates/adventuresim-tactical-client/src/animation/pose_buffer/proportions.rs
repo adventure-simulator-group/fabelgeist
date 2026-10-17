@@ -56,7 +56,7 @@ mod tests {
         };
         let offsets = state.get(&world).unwrap();
         for _ in 0..2 {
-            let source = clip.sample(0, 0.5);
+            let source = clip.sample(RigJointOrdinal::from(0usize), 0.5);
             let mut first = vec![source];
             let mut second = vec![source];
             apply_offsets(&mut first, &[Some(narrow)], &offsets);
@@ -64,7 +64,7 @@ mod tests {
             assert!((second[0].translation.x - first[0].translation.x - 0.1).abs() < 1e-6);
             assert_eq!(second[0].translation.yz(), source.translation.yz());
             assert_eq!(second[0].rotation, source.rotation);
-            assert_eq!(source, clip.sample(0, 0.5));
+            assert_eq!(source, clip.sample(RigJointOrdinal::from(0usize), 0.5));
         }
     }
 }

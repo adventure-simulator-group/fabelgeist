@@ -4,42 +4,45 @@
 //! feeds rendering, the procedural passes, and, on exit, the ordinary
 //! inertialized transition out of whatever tangle physics ended in.
 
-use bevy::math::Affine3A;
-
 use super::*;
+use bevy::math::Affine3A;
 
 impl PoseBufferRig {
     pub(in crate::animation) fn joint_count(&self) -> usize {
         self.definition.joints.len()
     }
 
-    pub(in crate::animation) fn joint_name(&self, joint: usize) -> Option<&str> {
-        self.definition.joints[joint].name.as_deref()
+    pub(in crate::animation) fn joint_role(&self, joint: RigJointOrdinal) -> Option<BoneRole> {
+        self.definition.joints[usize::from(joint)].role
     }
 
-    pub(in crate::animation) fn joint_parent(&self, joint: usize) -> Option<usize> {
-        self.definition.joints[joint].parent
+    pub(in crate::animation) fn joint_parent(
+        &self,
+        joint: RigJointOrdinal,
+    ) -> Option<RigJointOrdinal> {
+        self.definition.joints[usize::from(joint)].parent
     }
 
-    pub(in crate::animation) fn joint_entity(&self, joint: usize) -> Option<Entity> {
-        self.entities[joint]
+    pub(in crate::animation) fn joint_entity(&self, joint: RigJointOrdinal) -> Option<Entity> {
+        self.entities[usize::from(joint)]
     }
 
-    pub(in crate::animation) fn previous_pose(&self, joint: usize) -> LocalPose {
-        self.previous[joint]
+    pub(in crate::animation) fn previous_pose(&self, joint: RigJointOrdinal) -> LocalPose {
+        self.previous[usize::from(joint)]
     }
 
-    pub(in crate::animation) fn upcoming_pose(&self, joint: usize) -> LocalPose {
-        self.next[joint]
+    pub(in crate::animation) fn upcoming_pose(&self, joint: RigJointOrdinal) -> LocalPose {
+        self.next[usize::from(joint)]
     }
 
     /// The pose the renderer shows this frame, inertial offset included.
-    pub(in crate::animation) fn displayed_pose(&self, joint: usize) -> LocalPose {
-        let pose = self.previous[joint].interpolate(self.next[joint], self.interpolation_alpha);
+    pub(in crate::animation) fn displayed_pose(&self, joint: RigJointOrdinal) -> LocalPose {
+        let pose = self.previous[usize::from(joint)]
+            .interpolate(self.next[usize::from(joint)], self.interpolation_alpha);
         if self.settled {
             pose
         } else {
-            self.offsets[joint].peek(pose)
+            self.offsets[usize::from(joint)].peek(pose)
         }
     }
 
@@ -64,19 +67,19 @@ impl PoseBufferRig {
     /// Physics owns this joint: both buffered samples become `pose`, and any
     /// in-flight transition on it is dropped so the bone lands exactly on
     /// its body.
-    pub(in crate::animation) fn pin_joint(&mut self, joint: usize, pose: LocalPose) {
-        self.previous[joint] = pose;
-        self.next[joint] = pose;
-        self.offsets[joint] = JointInertialOffset::default();
-        self.target_linear_velocities[joint] = Vec3::ZERO;
-        self.target_angular_velocities[joint] = Vec3::ZERO;
+    pub(in crate::animation) fn pin_joint(&mut self, joint: RigJointOrdinal, pose: LocalPose) {
+        self.previous[usize::from(joint)] = pose;
+        self.next[usize::from(joint)] = pose;
+        self.offsets[usize::from(joint)] = JointInertialOffset::default();
+        self.target_linear_velocities[usize::from(joint)] = Vec3::ZERO;
+        self.target_angular_velocities[usize::from(joint)] = Vec3::ZERO;
     }
 
     /// An undriven ancestor of a driven joint: hold exactly `next`, with no
     /// interpolation or offset displacing it, so the driven descendants'
     /// derived locals compose back onto their bodies.
-    pub(in crate::animation) fn hold_joint(&mut self, joint: usize) {
-        let held = self.next[joint];
+    pub(in crate::animation) fn hold_joint(&mut self, joint: RigJointOrdinal) {
+        let held = self.next[usize::from(joint)];
         self.pin_joint(joint, held);
     }
 

@@ -126,7 +126,7 @@ mod tests {
         };
         let joints = [[0; 8]; 4];
         let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
-        let names = ["c_head".to_owned()];
+        let names = [RigJointName::C_HEAD];
         let states = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]];
         let target_count = adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
             + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len();

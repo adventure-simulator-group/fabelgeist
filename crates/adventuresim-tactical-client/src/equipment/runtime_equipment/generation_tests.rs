@@ -282,6 +282,14 @@ fn actor(world: &mut World, id: u64) -> Entity {
         world.spawn((
             HumanoidBone { owner, role },
             MhrBone { owner },
+            crate::animation::AuthoredRigJoint::new(
+                if role == BoneRole::ForearmLeft {
+                    "l_lowarm"
+                } else {
+                    "hand"
+                }
+                .into(),
+            ),
             Name::new(if role == BoneRole::ForearmLeft {
                 "l_lowarm"
             } else {

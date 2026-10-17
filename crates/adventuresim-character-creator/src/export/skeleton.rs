@@ -1,7 +1,8 @@
 use super::*;
+use fabelgeist_rig::RigJointName;
 
 pub(super) fn nodes(
-    joint_names: &[String],
+    joint_names: &[RigJointName],
     joint_parents: &[i32],
     globals: &[Transform],
     mesh: &RiggedMesh<'_>,
@@ -53,4 +54,18 @@ pub(super) fn validate_proportions(mesh: &RiggedMesh<'_>) -> Result<()> {
         "skeletal basis contains a non-finite translation"
     );
     Ok(())
+}
+
+/// Extend the ordered skeleton while retaining the attachment parent identity.
+pub(super) fn append_attachment(
+    names: &mut Vec<RigJointName>,
+    parents: &mut Vec<i32>,
+    globals: &mut Vec<Transform>,
+    name: &RigJointName,
+    parent: RigJointOrdinal,
+    transform: Transform,
+) {
+    names.push(name.clone());
+    parents.push(usize::from(parent) as i32);
+    globals.push(transform);
 }

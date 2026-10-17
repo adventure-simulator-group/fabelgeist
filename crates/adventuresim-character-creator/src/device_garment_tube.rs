@@ -3,6 +3,11 @@
 //! station along a curve through the limb's joints, and a sleeve's top sewn to
 //! the torso's armhole.
 
+use crate::armor_frames::{FitRegion, Side};
+use crate::device_frames::DeviceWearer;
+use crate::device_garment::{BAND, FRAME_WORDS, JOINTS};
+use crate::device_garment_kernel::{Grid, Word, dispatch, read, read_u32, write};
+use crate::device_piece::DeviceRecording;
 use anyhow::Result;
 use fabelgeist_armor::{
     GARMENT_ARMPIT_ROW as ARMPIT, GARMENT_PANEL_ACROSS as ACROSS, GARMENT_PANEL_ALONG as ALONG,
@@ -12,194 +17,23 @@ use fabelgeist_armor::{
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_gpu::prelude::BufferUpload;
-
-use crate::armor_frames::{FitRegion, Side};
-use crate::device_frames::DeviceWearer;
-use crate::device_garment::{BAND, FRAME_WORDS, JOINTS};
-use crate::device_garment_kernel::{Grid, Word, dispatch, read, read_u32, write};
-use crate::device_piece::DeviceRecording;
+use fabelgeist_rig::{RigJointLookupError, RigJointOrdinal, RigJointPart};
 
 /// Clearance a garment keeps from the skin beyond its gauge.
 pub(crate) const GARMENT_FIT_MARGIN_M: f32 = 0.006;
+
 /// Where a tube's fit keeps its joint anchors and its sewing ring.
 const ANCHORS: u32 = FRAME_WORDS;
+
 pub(crate) const RING: u32 = ANCHORS + 9;
+
 /// Floats per ring point: its angle, then the point.
 const RING_POINT_WORDS: u32 = 4;
+
 /// Sewing rings never have more points than this.
 const RING_CAPACITY: u32 = 96;
+
 pub(crate) const RING_FIT_WORDS: u32 = RING + 1 + RING_CAPACITY * RING_POINT_WORDS;
-
-/// Torso carriers along one side's armhole: up the front panel's edge from the
-/// armpit, across the shoulder band, down the back panel's edge, and back
-/// across the top of the flank.
-pub(crate) fn armhole(side: Side) -> Vec<u32> {
-    let stride = ACROSS + 1;
-    let panel = (ALONG + 1) * stride;
-    let left = matches!(side, Side::Left);
-    let col = if left { ACROSS } else { 0 };
-    let mut points = (ARMPIT..=ALONG)
-        .map(|row| row * stride + col)
-        .collect::<Vec<_>>();
-    let band_width = ACROSS / 4 + 1;
-    let band = usize::from(left);
-    let band_col = if left { band_width - 1 } else { 0 };
-    for depth in 0..SHOULDER - 1 {
-        points.push(2 * panel + band * (SHOULDER - 1) * band_width + depth * band_width + band_col);
-    }
-    points.extend((ARMPIT..=ALONG).rev().map(|row| panel + row * stride + col));
-    let flanks_start = 2 * panel + 2 * (SHOULDER - 1) * band_width;
-    let flank_start = flanks_start + usize::from(left) * (ARMPIT + 1) * (SHOULDER - 1);
-    points.extend(
-        (0..SHOULDER - 1)
-            .rev()
-            .map(|depth| flank_start + ARMPIT * (SHOULDER - 1) + depth),
-    );
-    points.into_iter().map(|i| i as u32).collect()
-}
-
-/// Torso carriers along the hem: across the front panel's bottom row, back
-/// across the back panel's, then along each flank's bottom.
-pub(crate) fn hem() -> Vec<u32> {
-    let panel = (ALONG + 1) * (ACROSS + 1);
-    let mut points = (0..=ACROSS).collect::<Vec<_>>();
-    points.extend((0..=ACROSS).rev().map(|col| panel + col));
-    let flanks_start = 2 * panel + 2 * (SHOULDER - 1) * (ACROSS / 4 + 1);
-    for flank in 0..2 {
-        let start = flanks_start + flank * (ARMPIT + 1) * (SHOULDER - 1);
-        points.extend((0..SHOULDER - 1).map(|depth| start + depth));
-    }
-    points.into_iter().map(|i| i as u32).collect()
-}
-
-impl DeviceWearer<'_> {
-    /// Record the sewing ring through `torso` carriers `indices` into `fit`,
-    /// in the angular chart of the fit's frame.
-    pub(crate) fn record_ring(
-        &self,
-        batch: &mut KernelBatch,
-        fit: &Buffer,
-        torso: &Buffer,
-        indices: &[u32],
-    ) -> Result<()> {
-        anyhow::ensure!(
-            indices.len() as u32 <= RING_CAPACITY,
-            "sewing ring too long"
-        );
-        let indices_buffer = self.gpu.upload(BufferUpload::from_elements(indices))?;
-        dispatch(
-            self,
-            batch,
-            &format!("const RING: u32 = {RING}u;\n{RING_SOURCE}"),
-            &[
-                read("points", torso),
-                read_u32("ring_indices", &indices_buffer),
-                write("fit", fit),
-            ],
-            &[Word::U("count", indices.len() as u32)],
-            Grid::Singles(1),
-        )
-    }
-
-    /// Record a sleeve or chausse: authored, fitted, and sewn.
-    pub(crate) fn record_fitted_tube(
-        &self,
-        batch: &mut KernelBatch,
-        design: &GarmentArmorDesign,
-        placement: &str,
-    ) -> Result<DeviceRecording> {
-        let side = Side::from_placement(placement)?;
-        let prefix = side.prefix();
-        let arm = matches!(design.kind, Kind::MailSleeve | Kind::QuiltedSleeve);
-        let names = if arm {
-            ["uparm", "lowarm", "wrist"]
-        } else {
-            ["upleg", "lowleg", "foot"]
-        };
-        let anchors = names
-            .map(|name| self.joint_slot(&format!("{prefix}_{name}")))
-            .into_iter()
-            .collect::<Result<Vec<_>>>()?;
-        let region = if arm {
-            FitRegion::WholeArm(side)
-        } else {
-            FitRegion::WholeLeg(side)
-        };
-        let gpu = self.gpu;
-        let frame = self.record_frame(batch, region)?;
-        let fit = gpu.scratch(u64::from(RING_FIT_WORDS) * 4, "tube fit")?;
-        dispatch(
-            self,
-            batch,
-            &format!(
-                "const ANCHORS: u32 = {ANCHORS}u;\nconst RING: u32 = {RING}u;\n{JOINTS}{TUBE_SETUP}"
-            ),
-            &[
-                read("joints", &self.body.joints),
-                read("region", &frame.frame),
-                write("fit", &fit),
-            ],
-            &[
-                Word::U("anchor0", anchors[0]),
-                Word::U("anchor1", anchors[1]),
-                Word::U("anchor2", anchors[2]),
-            ],
-            Grid::Singles(1),
-        )?;
-        let mut frames = vec![(frame, region)];
-        let attachment = if arm {
-            let mut torso_design = GarmentArmorDesign::new(if design.kind == Kind::QuiltedSleeve {
-                Kind::ArmingDoublet
-            } else {
-                Kind::MailShirt
-            });
-            torso_design.clearance = design.clearance;
-            torso_design.wall_thickness = design.wall_thickness;
-            let torso = self.record_fitted_torso(batch, &torso_design)?;
-            self.record_ring(batch, &fit, torso.part.carriers(), &armhole(side))?;
-            frames.extend(torso.frames);
-            true
-        } else {
-            false
-        };
-        let support = self.record_region_support(batch, &[region])?;
-        let part = record_garment_tube(gpu, batch, design, &fit)?;
-        let gap = design.clearance.metres() + design.wall_thickness.metres() + GARMENT_FIT_MARGIN_M;
-        dispatch(
-            self,
-            batch,
-            &format!(
-                "const ANCHORS: u32 = {ANCHORS}u;\nconst RING: u32 = {RING}u;\n{BAND}{RING_AT}{TUBE_FIT}"
-            ),
-            &[
-                read("positions", &self.body.positions),
-                read_u32("support", &support),
-                read("fit", &fit),
-                write("carriers", part.carriers()),
-            ],
-            &[
-                Word::U("count", part.carrier_count()),
-                Word::U("arm", u32::from(arm)),
-                Word::U("attached", u32::from(attachment)),
-                Word::U(
-                    "quilted",
-                    u32::from(matches!(
-                        design.kind,
-                        Kind::QuiltedSleeve | Kind::PaddedChausses
-                    )),
-                ),
-                Word::U("reserved", u32::from(design.kind == Kind::QuiltedSleeve)),
-                Word::F("gap", gap),
-            ],
-            Grid::Items(part.carrier_count()),
-        )?;
-        Ok(DeviceRecording {
-            part,
-            frames,
-            checks: Vec::new(),
-        })
-    }
-}
 
 /// The limb frame, with its failure flag cleared, then the joint anchors.
 const TUBE_SETUP: &str = r#"
@@ -433,3 +267,213 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     carriers_set(i, point);
 }
 "#;
+
+/// The anatomical span of a sleeve or chausse, independent of its device flags.
+#[derive(Clone, Copy)]
+enum TubeRig {
+    Arm,
+    Leg,
+}
+
+impl From<&GarmentArmorDesign> for TubeRig {
+    fn from(design: &GarmentArmorDesign) -> Self {
+        if matches!(design.kind, Kind::MailSleeve | Kind::QuiltedSleeve) {
+            Self::Arm
+        } else {
+            Self::Leg
+        }
+    }
+}
+
+impl TubeRig {
+    fn region(self, side: Side) -> FitRegion {
+        match self {
+            Self::Arm => FitRegion::WholeArm(side),
+            Self::Leg => FitRegion::WholeLeg(side),
+        }
+    }
+    fn anchors(
+        self,
+        body: &crate::armor_frames::Wearer<'_>,
+        side: Side,
+    ) -> std::result::Result<[RigJointOrdinal; 3], RigJointLookupError> {
+        let parts = match self {
+            Self::Arm => [
+                RigJointPart::Uparm,
+                RigJointPart::Lowarm,
+                RigJointPart::Wrist,
+            ],
+            Self::Leg => [
+                RigJointPart::Upleg,
+                RigJointPart::Lowleg,
+                RigJointPart::Foot,
+            ],
+        };
+        let [first, second, third] = parts;
+        Ok([
+            side.joint(first).require_in(body.joint_names)?,
+            side.joint(second).require_in(body.joint_names)?,
+            side.joint(third).require_in(body.joint_names)?,
+        ])
+    }
+}
+
+impl DeviceWearer<'_> {
+    /// Record the sewing ring through `torso` carriers `indices` into `fit`,
+    /// in the angular chart of the fit's frame.
+    pub(crate) fn record_ring(
+        &self,
+        batch: &mut KernelBatch,
+        fit: &Buffer,
+        torso: &Buffer,
+        indices: &[u32],
+    ) -> Result<()> {
+        anyhow::ensure!(
+            indices.len() as u32 <= RING_CAPACITY,
+            "sewing ring too long"
+        );
+        let indices_buffer = self.gpu.upload(BufferUpload::from_elements(indices))?;
+        dispatch(
+            self,
+            batch,
+            &format!("const RING: u32 = {RING}u;\n{RING_SOURCE}"),
+            &[
+                read("points", torso),
+                read_u32("ring_indices", &indices_buffer),
+                write("fit", fit),
+            ],
+            &[Word::U("count", indices.len() as u32)],
+            Grid::Singles(1),
+        )
+    }
+
+    /// Record a sleeve or chausse: authored, fitted, and sewn.
+    pub(crate) fn record_fitted_tube(
+        &self,
+        batch: &mut KernelBatch,
+        design: &GarmentArmorDesign,
+        placement: &str,
+    ) -> Result<DeviceRecording> {
+        let side = Side::from_placement(placement)?;
+
+        let rig = TubeRig::from(design);
+        let anchors = rig.anchors(self.host, side)?;
+        let region = rig.region(side);
+        let frame = self.record_frame(batch, region)?;
+        let fit = self
+            .gpu
+            .scratch(u64::from(RING_FIT_WORDS) * 4, "tube fit")?;
+        dispatch(
+            self,
+            batch,
+            &format!(
+                "const ANCHORS: u32 = {ANCHORS}u;\nconst RING: u32 = {RING}u;\n{JOINTS}{TUBE_SETUP}"
+            ),
+            &[
+                read("joints", &self.body.joints),
+                read("region", &frame.frame),
+                write("fit", &fit),
+            ],
+            &[
+                Word::Joint("anchor0", anchors[0]),
+                Word::Joint("anchor1", anchors[1]),
+                Word::Joint("anchor2", anchors[2]),
+            ],
+            Grid::Singles(1),
+        )?;
+        let mut frames = vec![(frame, region)];
+        let attachment = if matches!(rig, TubeRig::Arm) {
+            let mut torso_design = GarmentArmorDesign::new(if design.kind == Kind::QuiltedSleeve {
+                Kind::ArmingDoublet
+            } else {
+                Kind::MailShirt
+            });
+            torso_design.clearance = design.clearance;
+            torso_design.wall_thickness = design.wall_thickness;
+            let torso = self.record_fitted_torso(batch, &torso_design)?;
+            self.record_ring(batch, &fit, torso.part.carriers(), &armhole(side))?;
+            frames.extend(torso.frames);
+            true
+        } else {
+            false
+        };
+        let support = self.record_region_support(batch, &[region])?;
+        let part = record_garment_tube(self.gpu, batch, design, &fit)?;
+        let gap = design.clearance.metres() + design.wall_thickness.metres() + GARMENT_FIT_MARGIN_M;
+        dispatch(
+            self,
+            batch,
+            &format!(
+                "const ANCHORS: u32 = {ANCHORS}u;\nconst RING: u32 = {RING}u;\n{BAND}{RING_AT}{TUBE_FIT}"
+            ),
+            &[
+                read("positions", &self.body.positions),
+                read_u32("support", &support),
+                read("fit", &fit),
+                write("carriers", part.carriers()),
+            ],
+            &[
+                Word::U("count", part.carrier_count()),
+                Word::U("arm", u32::from(matches!(rig, TubeRig::Arm))),
+                Word::U("attached", u32::from(attachment)),
+                Word::U(
+                    "quilted",
+                    u32::from(matches!(
+                        design.kind,
+                        Kind::QuiltedSleeve | Kind::PaddedChausses
+                    )),
+                ),
+                Word::U("reserved", u32::from(design.kind == Kind::QuiltedSleeve)),
+                Word::F("gap", gap),
+            ],
+            Grid::Items(part.carrier_count()),
+        )?;
+        Ok(DeviceRecording {
+            part,
+            frames,
+            checks: Vec::new(),
+        })
+    }
+}
+
+/// Torso carriers along one side's armhole: up the front panel's edge from the
+/// armpit, across the shoulder band, down the back panel's edge, and back
+/// across the top of the flank.
+pub(crate) fn armhole(side: Side) -> Vec<u32> {
+    let stride = ACROSS + 1;
+    let panel = (ALONG + 1) * stride;
+    let left = matches!(side, Side::Left);
+    let col = if left { ACROSS } else { 0 };
+    let mut points = (ARMPIT..=ALONG)
+        .map(|row| row * stride + col)
+        .collect::<Vec<_>>();
+    let band_width = ACROSS / 4 + 1;
+    let band = usize::from(left);
+    let band_col = if left { band_width - 1 } else { 0 };
+    for depth in 0..SHOULDER - 1 {
+        points.push(2 * panel + band * (SHOULDER - 1) * band_width + depth * band_width + band_col);
+    }
+    points.extend((ARMPIT..=ALONG).rev().map(|row| panel + row * stride + col));
+    let flanks_start = 2 * panel + 2 * (SHOULDER - 1) * band_width;
+    let flank_start = flanks_start + usize::from(left) * (ARMPIT + 1) * (SHOULDER - 1);
+    points.extend(
+        (0..SHOULDER - 1)
+            .rev()
+            .map(|depth| flank_start + ARMPIT * (SHOULDER - 1) + depth),
+    );
+    points.into_iter().map(|i| i as u32).collect()
+}
+
+/// Torso carriers along the hem: across the front panel's bottom row, back
+/// across the back panel's, then along each flank's bottom.
+pub(crate) fn hem() -> Vec<u32> {
+    let panel = (ALONG + 1) * (ACROSS + 1);
+    let mut points = (0..=ACROSS).collect::<Vec<_>>();
+    points.extend((0..=ACROSS).rev().map(|col| panel + col));
+    let flanks_start = 2 * panel + 2 * (SHOULDER - 1) * (ACROSS / 4 + 1);
+    for flank in 0..2 {
+        let start = flanks_start + flank * (ARMPIT + 1) * (SHOULDER - 1);
+        points.extend((0..SHOULDER - 1).map(|depth| start + depth));
+    }
+    points.into_iter().map(|i| i as u32).collect()
+}
