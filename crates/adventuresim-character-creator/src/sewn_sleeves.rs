@@ -12,14 +12,15 @@ use crate::surface_cut::{SurfaceCut, dot};
 pub(crate) const SLEEVE_BODY_STATIONS: [f32; 10] = [
     0.025, 0.065, 0.115, 0.19, 0.30, 0.45, 0.60, 0.74, 0.85, 0.93,
 ];
-pub(crate) const SLEEVE_ROWS: usize = SLEEVE_BODY_STATIONS.len() + 2;
 /// Native topology boundary: point ordinals and reference angles in radians.
 pub(crate) struct SleeveSeam {
     pub first: u32,
     pub boundary: Vec<u32>,
     pub angles: Vec<f32>,
     /// Native normalized construction distance along the reference sleeve.
-    pub progress: Vec<f32>,
+    pub chart: Vec<[f32; 2]>,
+    pub table: Vec<u32>,
+    pub grid: Vec<u32>,
     pub side: Side,
 }
 
@@ -32,7 +33,7 @@ impl SewnSleevePlan {
     pub fn contains(&self, point: usize, carrier_points: usize) -> bool {
         self.seams.iter().any(|seam| {
             let start = carrier_points + seam.first as usize;
-            (start..start + seam.boundary.len() * SLEEVE_ROWS).contains(&point)
+            (start..start + seam.table.len() / crate::surface_cut::POINT_WORDS).contains(&point)
         })
     }
 
@@ -45,30 +46,25 @@ impl SewnSleevePlan {
         for (vertex, &source) in piece.skin_aliases.iter().enumerate() {
             for seam in &self.seams {
                 let first = carrier_points + seam.first as usize;
-                let (column, down) =
-                    if (first..first + seam.boundary.len() * SLEEVE_ROWS).contains(&source) {
-                        let offset = source - first;
-                        (
-                            offset % seam.boundary.len(),
-                            seam.progress[offset / seam.boundary.len()],
-                        )
-                    } else if let Some(column) = seam
-                        .boundary
-                        .iter()
-                        .position(|&i| i as usize + carrier_points == source)
-                    {
-                        (column, 0.)
-                    } else {
-                        continue;
-                    };
-                chart.insert(
-                    piece.base.positions[vertex].map(f32::to_bits),
+                let coordinates = if (first
+                    ..first + seam.table.len() / crate::surface_cut::POINT_WORDS)
+                    .contains(&source)
+                {
+                    seam.chart[source - first]
+                } else if let Some(column) = seam
+                    .boundary
+                    .iter()
+                    .position(|&i| i as usize + carrier_points == source)
+                {
                     [
                         seam.angles[column].rem_euclid(std::f32::consts::TAU)
                             / std::f32::consts::TAU,
-                        down,
-                    ],
-                );
+                        0.,
+                    ]
+                } else {
+                    continue;
+                };
+                chart.insert(piece.base.positions[vertex].map(f32::to_bits), coordinates);
             }
         }
         chart
@@ -106,39 +102,35 @@ impl SewnSleevePlan {
             );
             let reach =
                 (dot(upper, upper).sqrt() + dot(lower, lower).sqrt()) * design.length.unit();
-            let cuff_start = (1. - design.cuff_length.metres() / reach).max(0.);
-            let progress = SLEEVE_BODY_STATIONS
+            let frill_length = design.frill.as_ref().map_or(0., |f| f.length.metres());
+            ensure!(
+                reach > design.cuff_length.metres() + frill_length,
+                "sleeve band and frill exceed its reach"
+            );
+            let gather_end = 1. - frill_length / reach;
+            let cuff_start = gather_end - design.cuff_length.metres() / reach;
+            let mut progress = SLEEVE_BODY_STATIONS
                 .iter()
                 .map(|&v| v * cuff_start)
-                .chain([cuff_start, 1.])
-                .collect();
-            let first = join.patch.point_count;
-            let columns = boundary.len() as u32;
-            for row in 0..SLEEVE_ROWS as u32 {
-                for column in 0..columns {
-                    let next = (column + 1) % columns;
-                    let a = if row == 0 {
-                        boundary[column as usize]
-                    } else {
-                        first + (row - 1) * columns + column
-                    };
-                    let b = if row == 0 {
-                        boundary[next as usize]
-                    } else {
-                        first + (row - 1) * columns + next
-                    };
-                    let c = first + row * columns + column;
-                    let d = first + row * columns + next;
-                    // Reverse the existing oriented boundary edge exactly.
-                    join.patch.indices.extend([b, a, c, b, c, d]);
-                }
+                .chain([cuff_start, gather_end])
+                .collect::<Vec<_>>();
+            if design.frill.is_some() {
+                progress.extend([(gather_end + 1.) * 0.5, 1.]);
             }
-            join.patch.point_count += columns * SLEEVE_ROWS as u32;
+            let first = join.patch.point_count;
+            let pattern = crate::sewn_sleeve_pattern::SleevePattern::new(
+                &boundary, &angles, &progress, reach, design, first,
+            )?;
+            join.patch.indices.extend(pattern.indices);
+            join.patch.point_count +=
+                pattern.table.len() as u32 / crate::surface_cut::POINT_WORDS as u32;
             seams.push(SleeveSeam {
                 first,
                 boundary,
                 angles,
-                progress,
+                chart: pattern.chart,
+                table: pattern.table,
+                grid: pattern.grid,
                 side: armhole.side,
             });
         }

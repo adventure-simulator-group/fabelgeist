@@ -21,6 +21,7 @@ pub(crate) struct SkirtJoinPlan {
     pub release_weights: Vec<f32>,
     pub neckline_samples: Vec<u32>,
     pub sleeves: Option<crate::sewn_sleeves::SewnSleevePlan>,
+    pub neck_binding: Option<crate::cloth_ribbon_plan::ClothRibbonPlan>,
 }
 
 /// Native sewing boundary in canonical upright metres and skirt row indices.
@@ -30,6 +31,13 @@ pub(crate) struct SewnWaist {
 }
 
 impl SkirtJoinPlan {
+    /// Native fit-table capacity includes dense waist samples and finishing tape.
+    pub fn fitted_point_count(&self) -> u32 {
+        self.patch.point_count
+            + SKIRT_RING_SEGMENTS as u32
+            + self.neck_binding.as_ref().map_or(0, |t| t.point_count())
+    }
+
     /// Partition the cloned upper patch using render ancestry, then give each
     /// cut fabric its own chart. Fine waist relief never reaches the torso.
     pub fn finish(
@@ -180,6 +188,7 @@ impl SkirtJoinPlan {
             release_weights: vec![0.; cut.points.len()],
             neckline_samples: vec![0; crate::gown_ease::NECK_SAMPLE_WORDS],
             sleeves: None,
+            neck_binding: None,
             offset_metres: seam.offset_metres,
             enclosure_table: Vec::new(),
             table: cut.source_table(body.faces, body.faces),
@@ -190,6 +199,7 @@ impl SkirtJoinPlan {
                 point_count: u32::try_from(cut.points.len())?,
                 indices: cut.faces.into_iter().flatten().collect(),
                 waist,
+                layers: Vec::new(),
             },
             samples,
         })

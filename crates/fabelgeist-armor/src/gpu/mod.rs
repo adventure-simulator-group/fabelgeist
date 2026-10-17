@@ -53,6 +53,7 @@ pub(crate) mod recipe;
 pub(crate) mod shell_plan;
 mod skirt;
 mod skirt_attachment;
+mod skirt_attachment_layers;
 mod skirt_structure;
 pub mod staging;
 mod textile_chart;
@@ -77,7 +78,8 @@ pub use puff_and_slash::record_puff_and_slash;
 pub use recipe::frame_words;
 pub use skirt::{SKIRT_FIT_WORDS, SKIRT_PROFILE_FIRST_WORD, SKIRT_SECTION_WORDS, record_skirt};
 pub use skirt_attachment::{
-    ClothRingVertex, SKIRT_ATTACHMENT_POINT_WORDS, SkirtAttachment, SkirtSeamLayout,
+    AttachedClothLayer, ClothRingVertex, SKIRT_ATTACHMENT_POINT_WORDS, SkirtAttachment,
+    SkirtSeamLayout,
 };
 pub use staging::{Staged, StagedResults, Staging};
 
