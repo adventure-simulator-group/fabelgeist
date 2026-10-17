@@ -23,8 +23,10 @@ code, including empty arrays and corrupt payloads.
 
 The native `Reader::u32` call reads the serialized encoding word: FBX array
 metadata stores element count, encoding and compressed byte length as three
-little-endian 32-bit words. `TryFrom<u32>` checks this word once in `read_props`,
-and the enum remains typed through array decoding. Blender's published binary
+little-endian 32-bit words. The enum declares codes 0 and 1 as explicit `u32`
+discriminants and derives `TryFrom<u32>`. `read_props` checks the wire word once
+and maps the generated conversion error's rejected input to the public bespoke
+error. The enum remains typed through array decoding. Blender's published binary
 format description documents code 0 for raw contents and code 1 for Zlib; it
 reports that other values had not been observed. Those values are unsupported
 by this reader, without asserting that Autodesk formally declares them invalid.

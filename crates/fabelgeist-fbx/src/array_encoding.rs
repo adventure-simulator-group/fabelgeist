@@ -1,6 +1,6 @@
 //! Supported array encodings admitted from the four-byte wire metadata field.
 
-use derive_more::{Display, Error};
+use derive_more::{Display, Error, TryFrom};
 
 /// An array encoding code this binary FBX reader does not support.
 #[derive(Clone, Copy, Debug, Display, Error, PartialEq, Eq)]
@@ -11,20 +11,10 @@ pub struct UnsupportedFbxArrayEncoding {
 }
 
 /// An array encoding supported by this binary FBX reader.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, TryFrom)]
+#[repr(u32)]
+#[try_from(repr)]
 pub(super) enum FbxArrayEncoding {
-    Uncompressed,
-    Zlib,
-}
-
-impl TryFrom<u32> for FbxArrayEncoding {
-    type Error = UnsupportedFbxArrayEncoding;
-
-    fn try_from(reported_code: u32) -> Result<Self, Self::Error> {
-        match reported_code {
-            0 => Ok(Self::Uncompressed),
-            1 => Ok(Self::Zlib),
-            _ => Err(UnsupportedFbxArrayEncoding { reported_code }),
-        }
-    }
+    Uncompressed = 0,
+    Zlib = 1,
 }
