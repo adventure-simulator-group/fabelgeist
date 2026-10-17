@@ -1,5 +1,8 @@
 //! Fine repeated cloth folds drawn as physical heights on a material chart.
-use crate::{ClothPleatProfile, ClothPleats, DesignError, GenerateError, Millimeters, Permille};
+use crate::{
+    ClothPleatProfile, ClothPleats, DesignError, GenerateError, Millimeters, Permille,
+    TextileRepeatCount, TextileSpan,
+};
 use serde::{Deserialize, Serialize};
 
 const MILLIMETRES_PER_METRE: f64 = 1000.;
@@ -23,6 +26,11 @@ pub struct TextilePleatRelief {
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub enum TextilePleatLayout {
+    /// Constant longitudinal folds, with no gathering band or free-edge fade.
+    Uniform,
+    /// Counted-thread shirring inside a bounded chart interval; regular
+    /// longitudinal gathers continue outside it without adding mesh vertices.
+    Shirred(TextileShirring),
     /// V=1 is the sewn base; relief releases toward the free edge at V=0.
     FreeEdge,
     /// V=0 is the waist. The quiet front is centered at U=0.5, matching the
@@ -35,6 +43,21 @@ pub enum TextilePleatLayout {
         retention: Permille,
         release: Permille,
     },
+}
+
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct TextileShirring {
+    pub band: TextileSpan,
+    pub rows: TextileRepeatCount,
+    pub pattern: ShirringPattern,
+    pub retention: Permille,
+}
+
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+pub enum ShirringPattern {
+    Diamonds,
+    Chevron,
 }
 
 impl TextileChartSize {
@@ -104,6 +127,19 @@ impl TextilePleatRelief {
         {
             return Err(DesignError::ParametricParameters.into());
         }
+        if let TextilePleatLayout::Shirred(TextileShirring {
+            band,
+            rows,
+            retention,
+            ..
+        }) = self.layout
+            && (band.start.0 >= band.end.0
+                || band.end.0 > 1000
+                || !(1..=32).contains(&rows.0)
+                || retention.0 > 1000)
+        {
+            return Err(DesignError::ParametricParameters.into());
+        }
         if let TextilePleatLayout::Waist {
             front_panel,
             front_depth,
@@ -129,6 +165,8 @@ impl TextilePleatRelief {
     /// Height in metres. V runs from free edge to sewn base; U repeats evenly.
     pub(crate) fn height(&self, uv: [f32; 2]) -> f32 {
         let (across, envelope, rotation) = match self.layout {
+            TextilePleatLayout::Uniform => (uv[0], 1., 0.),
+            TextilePleatLayout::Shirred(shirring) => return shirring.height(&self.pleats, uv),
             TextilePleatLayout::FreeEdge => (uv[0], smooth_release(1. - uv[1]), 0.),
             TextilePleatLayout::Waist {
                 front_panel,
@@ -176,6 +214,30 @@ impl TextilePleatRelief {
             }
         };
         self.pleats.depth.metres() * profile * envelope
+    }
+}
+
+impl TextileShirring {
+    fn height(&self, pleats: &ClothPleats, uv: [f32; 2]) -> f32 {
+        let across = uv[0] * f32::from(pleats.count.0);
+        let plain = (1. - (std::f32::consts::TAU * across).cos()) * 0.5;
+        if uv[1] < self.band.start.unit() || uv[1] > self.band.end.unit() {
+            return pleats.depth.metres() * self.retention.unit() * plain;
+        }
+        let along = (uv[1] - self.band.start.unit())
+            / (self.band.end.unit() - self.band.start.unit())
+            * f32::from(self.rows.0);
+        let shift = match self.pattern {
+            ShirringPattern::Diamonds => (2. * (along * 0.5).fract() - 1.).abs() * 0.5,
+            ShirringPattern::Chevron => along * 0.5,
+        };
+        let ridge = (1. - (std::f32::consts::TAU * (across + shift)).cos()) * 0.5;
+        let stitch = (std::f32::consts::TAU * along).cos() * 0.5 + 0.5;
+        // Blend the band envelope over one stitch row so band boundaries do
+        // not introduce discontinuous heights or a false groove in the cloth.
+        let edge = smooth_release(along.min(f32::from(self.rows.0) - along));
+        pleats.depth.metres()
+            * (self.retention.unit() * plain * (1. - edge) + ridge * stitch * edge)
     }
 }
 

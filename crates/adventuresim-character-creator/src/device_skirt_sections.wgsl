@@ -33,7 +33,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
         if (bounds.y < lowest) {
             let output = FIRST_SECTION + section * SECTION_WORDS;
             for (var column = 0u; column < RADII; column++) {
-                fit[output + column] = params.allowance;
+                fit[output + column] = params.allowance+params.ease;
             }
             return;
         }
@@ -69,6 +69,6 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     for (var column = 0u; column < RADII; column++) {
         let angle = TAU * f32(column) / f32(RADII);
         let direction = vec2<f32>(sin(angle), cos(angle));
-        fit[output + column] = 1.0 / length(direction / axes);
+        fit[output + column] = 1.0 / length(direction / axes)+params.ease;
     }
 }

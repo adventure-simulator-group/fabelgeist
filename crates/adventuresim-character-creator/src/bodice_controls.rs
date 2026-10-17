@@ -17,6 +17,13 @@ pub(super) fn show(
         changed |= ui
             .selectable_value(
                 &mut design.neckline.shape,
+                NecklineShape::SoftSquare,
+                "Soft square neckline",
+            )
+            .changed();
+        changed |= ui
+            .selectable_value(
+                &mut design.neckline.shape,
                 NecklineShape::Square,
                 "Square neckline",
             )

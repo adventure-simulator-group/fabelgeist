@@ -19,13 +19,7 @@ impl TextileRasterSize {
     pub fn for_appearance(fabric: &TextileAppearance) -> Self {
         let mut repeats = [1_f32; 2];
         if let Some(relief) = &fabric.relief {
-            // Fine relief needs sixteen height samples per fold, independent
-            // of the smooth carrier's triangle count.
-            let span = match relief.layout {
-                crate::TextilePleatLayout::FreeEdge => 1.,
-                crate::TextilePleatLayout::Waist { front_panel, .. } => 1. - front_panel.unit(),
-            };
-            repeats[0] = f32::from(relief.pleats.count.0) * 16. / (span * PIXELS_PER_REPEAT);
+            repeats = relief_density(relief);
         }
         for layer in &fabric.layers.0 {
             let span = match layer.region {
@@ -114,6 +108,23 @@ impl TextileRasterSize {
             height: sides[1],
         }
     }
+}
+
+/// Native raster adapter: repeat density on each normalized cloth-chart axis.
+fn relief_density(relief: &crate::TextilePleatRelief) -> [f32; 2] {
+    let mut repeats = [1_f32; 2];
+    let span = match relief.layout {
+        crate::TextilePleatLayout::FreeEdge | crate::TextilePleatLayout::Uniform => 1.,
+        crate::TextilePleatLayout::Waist { front_panel, .. } => 1. - front_panel.unit(),
+        crate::TextilePleatLayout::Shirred(crate::TextileShirring { band, rows, .. }) => {
+            repeats[1] = (f32::from(rows.0) * 16.
+                / ((band.end.unit() - band.start.unit()) * PIXELS_PER_REPEAT))
+                .max(1.);
+            1.
+        }
+    };
+    repeats[0] = f32::from(relief.pleats.count.0) * 16. / (span * PIXELS_PER_REPEAT);
+    repeats
 }
 
 fn axis_index(axis: TextileAxis) -> usize {

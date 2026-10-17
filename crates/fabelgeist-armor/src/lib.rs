@@ -6,7 +6,7 @@ mod cloth_ties;
 mod gown;
 mod partlet;
 pub use cloth_ties::ClothTies;
-pub use gown::GownDesign;
+pub use gown::{GownBodyFit, GownDesign, SewnSleeves};
 pub use partlet::{
     ClothBinding, ClothNeckCurve, ClothPleatProfile, ClothPleats, CollarBand, CollarSection,
     PartletDesign, StandingClothCollar,
@@ -28,7 +28,9 @@ mod textile_pattern;
 mod textile_pleat_relief;
 mod textile_raster;
 mod textile_relief;
-pub use textile_pleat_relief::{TextileChartSize, TextilePleatLayout, TextilePleatRelief};
+pub use textile_pleat_relief::{
+    ShirringPattern, TextileChartSize, TextilePleatLayout, TextilePleatRelief, TextileShirring,
+};
 mod textile_sampling;
 mod textile_seams;
 mod textile_weave;

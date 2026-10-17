@@ -9,6 +9,10 @@ use fabelgeist_rig::{RigJointOrdinal, RigJointPart};
 /// parameter bindings, distinct from the authored names of their joint values.
 #[derive(Clone, Copy, Display)]
 pub(crate) enum RigJointParameter {
+    #[display("shoulder")]
+    SleeveShoulder,
+    #[display("elbow")]
+    SleeveElbow,
     #[display("seat_top")]
     CollarSeatTop,
     #[display("seat_bottom")]

@@ -22,6 +22,12 @@ impl GownPlan {
         head: &PartFrame,
     ) -> Result<Self> {
         design.validate()?;
+        let straight_fall = matches!(
+            design.skirt.profile,
+            fabelgeist_armor::SkirtProfile::Straight
+        ) && design.skirt.pleats.is_none()
+            && design.first_skirt_row() as f32 / fabelgeist_armor::SKIRT_AXIAL_SEGMENTS as f32
+                >= design.skirt.fitted_fraction.unit();
         let mut inner =
             BodyClothPlan::with_waist_band(&design.bodice, body, head, design.waist_band)?;
         let face = inner
@@ -31,7 +37,20 @@ impl GownPlan {
         inner
             .table
             .truncate(inner.table.len() - face.point_count as usize * POINT_WORDS);
-        let join = SkirtJoinPlan::from_cut(
+        let enclosure_table = inner.surface.source_table(body.faces, body.faces);
+        if let fabelgeist_armor::GownBodyFit::Loose { release, .. } = design.body_fit
+            && straight_fall
+        {
+            let loft = crate::gown_ease::GownEasePlan::new(
+                &inner.surface,
+                body,
+                hips,
+                head,
+                design.bodice.hem_rise,
+            )?;
+            inner.surface = loft.upper_patch(inner.surface, body, head, release)?;
+        }
+        let mut join = SkirtJoinPlan::from_cut(
             SurfaceCut {
                 points: inner.surface.points.clone(),
                 faces: inner.surface.faces.clone(),
@@ -44,6 +63,35 @@ impl GownPlan {
                 offset_metres: face.offset_metres,
             },
         )?;
+        if let fabelgeist_armor::GownBodyFit::Loose { ease, release } = design.body_fit {
+            join.enclosure_table = enclosure_table;
+            join.ease = ease;
+            join.release = release;
+            let ease_plan = crate::gown_ease::GownEasePlan::new(
+                &inner.surface,
+                body,
+                hips,
+                head,
+                design.bodice.hem_rise,
+            )?;
+            join.release_weights = ease_plan.weights;
+            join.neckline_samples = ease_plan.neckline_samples;
+            if straight_fall {
+                // A straight hanging sheet has no intermediate silhouette bend.
+                const STRAIGHT_CLOTH_INTERVALS: usize = 2;
+                join.patch.hanging_intervals = STRAIGHT_CLOTH_INTERVALS;
+                join.patch.seam_layout = fabelgeist_armor::gpu::SkirtSeamLayout::StraightFall;
+            }
+        }
+        if let Some(sleeves) = &design.sleeves {
+            join.sleeves = Some(crate::sewn_sleeves::SewnSleevePlan::new(
+                &inner.surface,
+                body,
+                head,
+                &mut join,
+                sleeves,
+            )?);
+        }
         let carrier_role = if design.skirt.puff_and_slash.is_some() {
             ArmorComponentRole::Undercloth
         } else {
@@ -64,6 +112,14 @@ impl GownPlan {
         morphs: &[(&str, Realization<'_>)],
         piece: &mut DevicePiece,
     ) -> Result<()> {
+        if let Some(sleeves) = &self.join.sleeves {
+            piece.bind_sewn_sleeves(
+                body,
+                wearer,
+                sleeves,
+                self.join.patch.carrier_point_count(),
+            )?;
+        }
         self.join.finish(piece, self.carrier_role)?;
         if !self.inner.layers.is_empty() {
             let lining = fit_piece_async(gpu, body, wearer, morphs, |device, batch, _| {

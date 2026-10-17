@@ -28,6 +28,13 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
                 _ => None,
             },
             ParametricDesign::Gown(gown) => match component.role {
+                ArmorComponentRole::SleeveFabric => Some(
+                    &gown
+                        .sleeves
+                        .as_ref()
+                        .context("sleeve material without a sleeve design")?
+                        .fabric,
+                ),
                 ArmorComponentRole::BodiceFabric
                 | ArmorComponentRole::Lining
                 | ArmorComponentRole::Interlining => bodice_fabric(&gown.bodice, component.role)?,
@@ -56,7 +63,9 @@ fn bodice_fabric(
     role: ArmorComponentRole,
 ) -> Result<Option<&TextileAppearance>> {
     Ok(match role {
-        ArmorComponentRole::OuterFabric | ArmorComponentRole::BodiceFabric => Some(&bodice.fabric),
+        ArmorComponentRole::OuterFabric
+        | ArmorComponentRole::BodiceFabric
+        | ArmorComponentRole::SleeveFabric => Some(&bodice.fabric),
         ArmorComponentRole::Lining => Some(
             &bodice
                 .lining

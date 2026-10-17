@@ -18,8 +18,8 @@ pub const SKIRT_MESH_RING_SEGMENTS: usize = 192;
 pub const SKIRT_MESH_AXIAL_SEGMENTS: usize = 4;
 
 /// Carrier points before a cloned upper patch is appended.
-pub fn skirt_carrier_point_count() -> usize {
-    (SKIRT_MESH_AXIAL_SEGMENTS + 1) * SKIRT_MESH_RING_SEGMENTS
+pub fn skirt_carrier_point_count(hanging_intervals: usize) -> usize {
+    (hanging_intervals + 1) * SKIRT_MESH_RING_SEGMENTS
 }
 
 /// Skirt placement, silhouette and optional construction. Structure and surface

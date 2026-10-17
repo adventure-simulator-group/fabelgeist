@@ -4,6 +4,10 @@ fn attachment_vector(point: u32, offset: u32) -> vec3<f32> {
 }
 
 fn shell_vertex(index: u32, coord: vec4<f32>) -> ShellVertex {
+    if (coord.w>4.5) {
+        let sewn=attachment_vector(u32(coord.x),0u);
+        return ShellVertex(vec3<f32>(sewn.x,mix(sewn.y,-fit.half_extents.y,coord.y),sewn.z),0.0);
+    }
     if (coord.w > 2.5) {
         var column = coord.x;
         var row = coord.y;
