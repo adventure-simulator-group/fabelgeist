@@ -6,6 +6,7 @@ use thiserror::Error;
 pub struct Micrometers(pub u16);
 
 impl Micrometers {
+    pub const PER_MILLIMETRE: u32 = 1_000;
     pub fn metres(self) -> f32 {
         f32::from(self.0) / 1_000_000.
     }

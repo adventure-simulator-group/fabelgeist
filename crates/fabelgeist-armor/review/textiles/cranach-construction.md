@@ -215,8 +215,25 @@ projected world up around the canonical arm axis. Boolean cuts are made on the
 reference sewing pattern and preserve their source correspondence during
 refitting. Rotation wraps at the pattern seam.
 
-The chemise still needs underarm gussets, rolled slit hems, cuff backing and
-cuff closures. Its current sleeve relief places a chevron shirring band above
+`ClothClosures` places an ordered set of fasteners along a real cloth opening.
+Positions run from its inner end to its free edge. `ButtonLoop` supplies a
+small faceted bead, its sewn shank and a separate finger loop; `HookEye`
+supplies a metal hook and eye. Size, cord or wire gauge, fabric or metal color,
+and placement are independent controls. Both styles work on sewn sleeve slits
+and standing collar openings. Each half follows its own cloth edge. Reference
+edge samples and topology stay fixed across body morphs; this does not certify
+posed attachment or collision-free animation.
+
+The [maker's cuff close-up](https://i0.wp.com/annevonwiese.com/wp-content/uploads/2024/08/img_6577-1.png?ssl=1)
+shows two button-and-loop pairs per cuff. The chemise recipe places both within
+the shirring band that will receive linen backing. The partlet recipe supplies
+two rear hook-and-eye pairs. Small closed fastener solids are appended after
+fitting rather than thickened a second time as cloth sheets. Fine thread
+wrapping remains a surface
+detail, not an extra mesh.
+
+The chemise still needs underarm gussets, rolled slit hems and cuff backing.
+Its current sleeve relief places a chevron shirring band above
 the free frill. The reference's hidden construction remains a separate
 reconstruction requirement; the broad carrier does not imply those pieces.
 

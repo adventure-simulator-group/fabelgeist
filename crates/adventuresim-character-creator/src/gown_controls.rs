@@ -58,21 +58,33 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut GownDesign) -> bool {
             "Fullness release",
         );
     }
-    let mut sleeves = design.sleeves.is_some();
+    changed |= sleeve_controls(ui, &mut design.sleeves, &design.bodice.fabric);
+    changed |= neck_binding_controls(ui, &mut design.neck_binding, &design.bodice.fabric);
+    changed
+}
+
+fn sleeve_controls(
+    ui: &mut egui::Ui,
+    design: &mut Option<SewnSleeves>,
+    fabric: &fabelgeist_armor::TextileAppearance,
+) -> bool {
+    let mut changed = false;
+    let mut sleeves = design.is_some();
     let sleeve_response = ui.checkbox(&mut sleeves, "Sewn sleeves");
     if sleeve_response.changed() {
-        design.sleeves = sleeves.then_some(SewnSleeves {
-            fabric: design.bodice.fabric.clone(),
+        *design = sleeves.then_some(SewnSleeves {
+            fabric: fabric.clone(),
             length: Permille(1000),
             circumference: Millimeters(600),
             cuff_circumference: Millimeters(180),
             cuff_length: Millimeters(30),
             frill: None,
             cuff_slit: None,
+            cuff_closures: None,
         });
         changed = true;
     }
-    if let Some(sleeves) = &mut design.sleeves {
+    if let Some(sleeves) = design {
         changed |= super::textile::show(ui, &mut sleeves.fabric);
         changed |= super::number(
             ui,
@@ -100,9 +112,30 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut GownDesign) -> bool {
         );
         changed |= frill_controls(ui, &mut sleeves.frill);
         changed |= slit_controls(ui, sleeves);
+        changed |= cuff_closure_controls(ui, sleeves);
     }
-    changed |= neck_binding_controls(ui, &mut design.neck_binding, &design.bodice.fabric);
     changed
+}
+
+fn cuff_closure_controls(ui: &mut egui::Ui, sleeves: &mut SewnSleeves) -> bool {
+    if sleeves.cuff_slit.is_none() {
+        return sleeves.cuff_closures.take().is_some();
+    }
+    let mut fabric = sleeves.fabric.clone();
+    fabric.relief = None;
+    fabric.layers.0.clear();
+    super::cloth_closures::show(
+        ui,
+        &mut sleeves.cuff_closures,
+        fabelgeist_armor::ClothClosures {
+            positions: vec![Permille(100), Permille(400)],
+            fastener: fabelgeist_armor::ClothFastener::ButtonLoop {
+                diameter: Millimeters(5),
+                cord: fabelgeist_armor::Micrometers(500),
+                fabric,
+            },
+        },
+    )
 }
 
 fn neck_binding_controls(
