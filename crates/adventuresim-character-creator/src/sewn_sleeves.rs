@@ -22,6 +22,9 @@ pub(crate) struct SleeveSeam {
     pub table: Vec<u32>,
     pub grid: Vec<u32>,
     pub opening: Option<crate::cloth_opening::ClothOpening>,
+    pub indices: Vec<u32>,
+    /// Shoulder-to-hem length of the reference sewing pattern, in metres.
+    pub reach: f32,
     pub side: Side,
 }
 
@@ -141,7 +144,7 @@ impl SewnSleevePlan {
             let pattern = crate::sewn_sleeve_pattern::SleevePattern::new(
                 &boundary, &angles, &progress, reach, design, first,
             )?;
-            join.patch.indices.extend(pattern.indices);
+            join.patch.indices.extend_from_slice(&pattern.indices);
             join.patch.point_count +=
                 pattern.table.len() as u32 / crate::surface_cut::POINT_WORDS as u32;
             seams.push(SleeveSeam {
@@ -152,6 +155,8 @@ impl SewnSleevePlan {
                 table: pattern.table,
                 grid: pattern.grid,
                 opening: pattern.opening,
+                indices: pattern.indices,
+                reach,
                 side: armhole.side,
             });
         }

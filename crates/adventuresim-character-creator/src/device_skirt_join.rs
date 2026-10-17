@@ -68,16 +68,18 @@ impl DeviceWearer<'_> {
         if let Some(sleeves) = &plan.sleeves {
             self.record_sewn_sleeves(batch, fit, sleeves, status)?;
         }
+        let layout = crate::device_cloth_ribbon::ClothFitLayout {
+            first_point: SKIRT_FIT_WORDS,
+            point_words: SKIRT_ATTACHMENT_POINT_WORDS,
+        };
         if let Some(binding) = &plan.neck_binding {
-            self.record_cloth_ribbon(
-                batch,
-                fit,
-                binding,
-                crate::device_cloth_ribbon::ClothFitLayout {
-                    first_point: SKIRT_FIT_WORDS,
-                    point_words: SKIRT_ATTACHMENT_POINT_WORDS,
-                },
-            )?;
+            self.record_cloth_ribbon(batch, fit, binding, layout)?;
+        }
+        for binding in &plan.cuff_bindings {
+            self.record_cloth_ribbon(batch, fit, binding, layout)?;
+        }
+        for backing in &plan.cuff_backings {
+            self.record_cloth_patch(batch, fit, backing, layout, status)?;
         }
         Ok(())
     }

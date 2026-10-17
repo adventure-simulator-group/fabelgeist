@@ -162,12 +162,11 @@ fn carrier(
         indices,
         boundary_normals: BoundaryNormals::Smooth,
         thickness: design.thickness.metres(),
-        extrusion: if attachment
-            .is_some_and(|patch| patch.seam_layout == super::SkirtSeamLayout::StraightFall)
-        {
-            CoordExtrusion::AngleWeightedNormal
-        } else {
-            CoordExtrusion::Normal
+        extrusion: match attachment.map_or(fabelgeist_compute::NormalWeighting::Area, |a| {
+            a.normal_weighting()
+        }) {
+            fabelgeist_compute::NormalWeighting::Angle => CoordExtrusion::AngleWeightedNormal,
+            fabelgeist_compute::NormalWeighting::Area => CoordExtrusion::Normal,
         },
         values: [0.0; 4],
         mirrored: false,

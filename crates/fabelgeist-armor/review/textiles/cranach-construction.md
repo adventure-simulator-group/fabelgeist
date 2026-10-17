@@ -185,7 +185,11 @@ points, sewing loops and connectivity.
 
 Optional `SewnSleeves` share the upper carrier's armhole vertices before
 thickening. Their reach, full circumference, cuff circumference and cuff length
-are independent controls. Sleeves have their own fabric and construction chart;
+are independent controls. Proximal fullness narrows the volume after the
+protected attachment cap; the fullness-release distance returns it to the
+authored full circumference. Broad cross sections use their own coarse samples,
+while the armhole keeps every actual sewing point. Free folds have separate
+silhouette samples. Sleeves have their own fabric and construction chart;
 the sleeve side of each armhole receives sleeve coordinates after material
 partitioning. Surface-based skin transfer keeps them out of the skirt's leg
 blend. This does not certify posed clearance or arm-only animation ownership.
@@ -226,14 +230,29 @@ posed attachment or collision-free animation.
 
 The [maker's cuff close-up](https://i0.wp.com/annevonwiese.com/wp-content/uploads/2024/08/img_6577-1.png?ssl=1)
 shows two button-and-loop pairs per cuff. The chemise recipe places both within
-the shirring band that will receive linen backing. The partlet recipe supplies
+the shirring band over the linen backing. The partlet recipe supplies
 two rear hook-and-eye pairs. Small closed fastener solids are appended after
 fitting rather than thickened a second time as cloth sheets. Fine thread
 wrapping remains a surface
 detail, not an extra mesh.
 
-The chemise still needs underarm gussets, rolled slit hems and cuff backing.
-Its current sleeve relief places a chevron shirring band above
+Optional cuff `ClothTape` binding follows the actual hem and slit edges with
+its own width, gauge and fabric. Separate inner cuff backing uses the same tape
+parameters, with width limited to the gathered band. Its cut retains the slit
+and follows the actual fitted inner cloth surface with the carrier's normal
+weighting. The backing chart wraps independently around the sleeve. Narrow
+strips preserve boundary samples and simplify only interior source edges toward
+64 faces with 0.2 mm RMS error against their nominal source planes. This is not
+a fitted clearance bound or a guaranteed triangle count.
+
+Boolean cloth cuts reject whole polygons outside a convex cutter before
+partitioning. Retained pieces share source-edge split samples across adjacent
+body faces, preserving conforming edges without unnecessary distant cuts. UV
+seams retain their separate material coordinates.
+
+The chemise still needs underarm gussets and the reference's rolled,
+whipstitched slit finish. The narrow folded tape represents an independently
+adjustable edge finish. Its current sleeve relief places a chevron band above
 the free frill. The reference's hidden construction remains a separate
 reconstruction requirement; the broad carrier does not imply those pieces.
 

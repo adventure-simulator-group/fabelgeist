@@ -1,3 +1,5 @@
+// Keep the attachment cap supported while releasing into the authored volume.
+const SLEEVE_ATTACHMENT_RELEASE:f32=0.18;
 // Cubic joint spans preserve a continuous tangent through the elbow.
 fn sleeve_curve(a:vec3<f32>,b:vec3<f32>,ta:vec3<f32>,tb:vec3<f32>,t:f32)->vec3<f32> {
     let t2=t*t;let t3=t2*t;
@@ -24,13 +26,15 @@ fn frill_fold(angle:f32)->f32 {
     return valley+high*sqrt(max(1.0-pow(2.0*local-1.0,2.0),0.0));
 }
 fn sleeve_point(raw:u32)->SleevePoint {
-    let source_row=grid[raw*3u];let angle=bitcast<f32>(grid[raw*3u+1u]);
-    let boundary_column=grid[raw*3u+2u];
+    let record=raw*GRID_WORDS;
+    let source_row=grid[record];let angle=bitcast<f32>(grid[record+1u]);
+    let start=boundary[grid[record+2u]];let end=boundary[grid[record+3u]];
+    let blend=bitcast<f32>(grid[record+4u]);
     let frame=frame_at(0u);
+    let source=host_point(frame,mix3(sleeve_vector(start,0u),sleeve_vector(end,0u),blend));
     if (source_row==0u) {
-        let point=host_point(frame,sleeve_vector(boundary[boundary_column],0u));
-        let local=sleeve_vector(boundary[boundary_column],3u);
-        return SleevePoint(point,frame.x*local.x+frame.y*local.y+frame.z*local.z);
+        let local=host_normalized(mix3(sleeve_vector(start,3u),sleeve_vector(end,3u),blend));
+        return SleevePoint(source,frame.x*local.x+frame.y*local.y+frame.z*local.z);
     }
     let row=source_row-1u;
     let shoulder=sleeve_joint(params.shoulder);let elbow=sleeve_joint(params.elbow);
@@ -63,15 +67,16 @@ fn sleeve_point(raw:u32)->SleevePoint {
     let across=host_cross(axis,up);
     let radial=up*cos(angle)+across*sin(angle);
     let gather=smoothstep(0.80*cuff_start,cuff_start,t);
-    var radius=mix(params.radius,params.cuff_radius,gather);
+    let cap_fullness=mix(1.0,params.proximal_fullness,smoothstep(0.0,SLEEVE_ATTACHMENT_RELEASE,t));
+    let fullness=mix(cap_fullness,1.0,smoothstep(SLEEVE_ATTACHMENT_RELEASE,params.fullness_release,t));
+    var radius=mix(params.radius*fullness,params.cuff_radius,gather);
     if (params.frill_length>0.0) {
         let flare=params.frill_flare+params.fold_depth*(frill_fold(angle)-0.5);
         radius+=flare*smoothstep(gather_end,1.0,t);
     }
     var point=center+radial*radius;
     // Preserve the cut boundary at the attachment; release into an even volume.
-    let source=host_point(frame,sleeve_vector(boundary[boundary_column],0u));
-    let release=smoothstep(0.0,0.18,t);
+    let release=smoothstep(0.0,SLEEVE_ATTACHMENT_RELEASE,t);
     point=mix3(source,center+radial*radius,release);
     return SleevePoint(point,radial);
 }

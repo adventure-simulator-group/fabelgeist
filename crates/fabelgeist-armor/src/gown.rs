@@ -45,12 +45,20 @@ pub struct SewnSleeves {
     pub length: Permille,
     /// Uncompressed circumference of the full sleeve body.
     pub circumference: Millimeters,
+    /// Fullness after the protected attachment cap, relative to the sleeve body.
+    pub proximal_fullness: Permille,
+    /// Sleeve distance by which the narrowed proximal volume reaches full size.
+    pub fullness_release: Permille,
     pub cuff_circumference: Millimeters,
     pub cuff_length: Millimeters,
     pub frill: Option<crate::ClothFrill>,
     /// Rotation zero follows projected world up around the sleeve axis.
     pub cuff_slit: Option<crate::ClothSlit>,
     pub cuff_closures: Option<crate::ClothClosures>,
+    /// Folded finishing around the sleeve hem and any cuff slit.
+    pub cuff_binding: Option<crate::ClothTape>,
+    /// Separate inner strip immediately above the free frill.
+    pub cuff_backing: Option<crate::ClothTape>,
 }
 
 impl SewnSleeves {
@@ -58,6 +66,8 @@ impl SewnSleeves {
     pub const CIRCUMFERENCE_RANGE: std::ops::RangeInclusive<u16> = 250..=1000;
     pub const CUFF_CIRCUMFERENCE_RANGE: std::ops::RangeInclusive<u16> = 140..=400;
     pub const CUFF_LENGTH_RANGE: std::ops::RangeInclusive<u16> = 5..=80;
+    pub const PROXIMAL_FULLNESS_RANGE: std::ops::RangeInclusive<u16> = 300..=1000;
+    pub const FULLNESS_RELEASE_RANGE: std::ops::RangeInclusive<u16> = 200..=800;
 
     pub fn validate(&self) -> Result<(), GenerateError> {
         self.fabric.validate()?;
@@ -68,6 +78,8 @@ impl SewnSleeves {
             || !Self::CIRCUMFERENCE_RANGE.contains(&self.circumference.0)
             || !Self::CUFF_CIRCUMFERENCE_RANGE.contains(&self.cuff_circumference.0)
             || !Self::CUFF_LENGTH_RANGE.contains(&self.cuff_length.0)
+            || !Self::PROXIMAL_FULLNESS_RANGE.contains(&self.proximal_fullness.0)
+            || !Self::FULLNESS_RELEASE_RANGE.contains(&self.fullness_release.0)
             || self.cuff_circumference.0 > self.circumference.0
         {
             return Err(DesignError::ParametricParameters.into());
@@ -82,6 +94,15 @@ impl SewnSleeves {
         if let Some(closures) = &self.cuff_closures {
             closures.validate()?;
             if self.cuff_slit.is_none() {
+                return Err(DesignError::ParametricParameters.into());
+            }
+        }
+        if let Some(tape) = &self.cuff_binding {
+            tape.validate()?;
+        }
+        if let Some(tape) = &self.cuff_backing {
+            tape.validate()?;
+            if tape.width.0 > self.cuff_length.0 {
                 return Err(DesignError::ParametricParameters.into());
             }
         }

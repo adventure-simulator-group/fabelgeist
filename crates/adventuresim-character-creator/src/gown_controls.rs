@@ -76,11 +76,15 @@ fn sleeve_controls(
             fabric: fabric.clone(),
             length: Permille(1000),
             circumference: Millimeters(600),
+            proximal_fullness: Permille(650),
+            fullness_release: Permille(500),
             cuff_circumference: Millimeters(180),
             cuff_length: Millimeters(30),
             frill: None,
             cuff_slit: None,
             cuff_closures: None,
+            cuff_binding: None,
+            cuff_backing: None,
         });
         changed = true;
     }
@@ -106,6 +110,18 @@ fn sleeve_controls(
         );
         changed |= super::number(
             ui,
+            &mut sleeves.proximal_fullness.0,
+            SewnSleeves::PROXIMAL_FULLNESS_RANGE,
+            "Shoulder fullness",
+        );
+        changed |= super::number(
+            ui,
+            &mut sleeves.fullness_release.0,
+            SewnSleeves::FULLNESS_RELEASE_RANGE,
+            "Full sleeve release distance",
+        );
+        changed |= super::number(
+            ui,
             &mut sleeves.cuff_length.0,
             SewnSleeves::CUFF_LENGTH_RANGE,
             "Cuff length (mm)",
@@ -113,6 +129,7 @@ fn sleeve_controls(
         changed |= frill_controls(ui, &mut sleeves.frill);
         changed |= slit_controls(ui, sleeves);
         changed |= cuff_closure_controls(ui, sleeves);
+        changed |= super::gown_cuffs::show(ui, sleeves);
     }
     changed
 }

@@ -8,6 +8,10 @@ use std::collections::BTreeMap;
 
 /// Samples per broad free-edge fold, independent of the body armhole density.
 const FRILL_SAMPLES_PER_FOLD: usize = 8;
+/// Broad sleeve cross sections do not inherit the body's armhole tessellation.
+const SLEEVE_RING_SAMPLES: usize = 32;
+/// Native grid record: station, angle bits, two root ordinals, blend bits.
+pub(crate) const SLEEVE_GRID_WORDS: usize = 5;
 
 /// Native source-grid records and material coordinates for sewn sleeve points.
 pub(crate) struct SleevePattern {
@@ -40,6 +44,9 @@ impl PatternGrid {
             .map(|&a| (a - angles[0]) * winding / turn)
             .chain([1.])
             .collect::<Vec<_>>();
+        let regular = (0..=SLEEVE_RING_SAMPLES)
+            .map(|i| i as f32 / SLEEVE_RING_SAMPLES as f32)
+            .collect::<Vec<_>>();
         let refined = design
             .frill
             .as_ref()
@@ -54,23 +61,31 @@ impl PatternGrid {
         let mut words = Vec::new();
         let mut rings = Vec::new();
         for (row, down) in std::iter::once(&0.).chain(progress).enumerate() {
-            let arcs = if row >= progress.len() - 1 {
-                refined.as_ref().unwrap_or(&original)
-            } else {
+            let arcs = if row == 0 {
                 &original
+            } else if row >= progress.len() - 1 {
+                refined.as_ref().unwrap_or(&regular)
+            } else {
+                &regular
             };
             rings.push(PatternRing {
                 first: points.len() as u32,
                 arcs: arcs.clone(),
             });
-            for (column, &across) in arcs.iter().enumerate() {
+            for &across in arcs {
                 points.push([across * circumference, down * reach, 0.]);
-                // Native grid records: source station, angle radians, original
-                // root column. Refined distal points are fully released.
+                let edge = original.partition_point(|&a| a <= across);
+                let start = edge.saturating_sub(1).min(angles.len() - 1);
+                let end = start + 1;
+                let blend = (across - original[start]) / (original[end] - original[start]);
+                // Preserve a continuous piecewise-linear root along the real
+                // armhole, even when later rings have a different sample count.
                 words.extend([
                     row as u32,
                     (angles[0] + winding * turn * across).to_bits(),
-                    (column % angles.len()) as u32,
+                    (start % angles.len()) as u32,
+                    (end % angles.len()) as u32,
+                    blend.to_bits(),
                 ]);
             }
         }

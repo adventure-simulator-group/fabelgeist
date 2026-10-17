@@ -44,6 +44,13 @@ pub enum SkirtSeamLayout {
 }
 
 impl SkirtAttachment {
+    /// Use the same normal convention for the main wall and seated inner cloth.
+    pub fn normal_weighting(&self) -> fabelgeist_compute::NormalWeighting {
+        match self.seam_layout {
+            SkirtSeamLayout::Transition => fabelgeist_compute::NormalWeighting::Area,
+            SkirtSeamLayout::StraightFall => fabelgeist_compute::NormalWeighting::Angle,
+        }
+    }
     pub fn hanging_columns(&self) -> usize {
         match self.seam_layout {
             SkirtSeamLayout::Transition => SKIRT_MESH_RING_SEGMENTS,
