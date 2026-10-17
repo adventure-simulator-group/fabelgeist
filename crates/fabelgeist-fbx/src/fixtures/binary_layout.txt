@@ -1,0 +1,59 @@
+0-empty:nodes:[]
+0-terminated:nodes:[]
+0-leaf:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }]
+0-nested:nodes:[Node { name: "Root", props: [I64(-9223372036854775808)], children: [Node { name: "Child", props: [I32(-17)], children: [] }] }]
+0-siblings:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }, Node { name: "Other", props: [I64(-9223372036854775808)], children: [] }]
+0-truncated-name:error:truncated FBX file: wanted 9 bytes at offset 40
+0-truncated-property:error:truncated FBX file: wanted 4 bytes at offset 45
+7100-empty:nodes:[]
+7100-terminated:nodes:[]
+7100-leaf:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }]
+7100-nested:nodes:[Node { name: "Root", props: [I64(-9223372036854775808)], children: [Node { name: "Child", props: [I32(-17)], children: [] }] }]
+7100-siblings:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }, Node { name: "Other", props: [I64(-9223372036854775808)], children: [] }]
+7100-truncated-name:error:truncated FBX file: wanted 9 bytes at offset 40
+7100-truncated-property:error:truncated FBX file: wanted 4 bytes at offset 45
+7400-empty:nodes:[]
+7400-terminated:nodes:[]
+7400-leaf:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }]
+7400-nested:nodes:[Node { name: "Root", props: [I64(-9223372036854775808)], children: [Node { name: "Child", props: [I32(-17)], children: [] }] }]
+7400-siblings:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }, Node { name: "Other", props: [I64(-9223372036854775808)], children: [] }]
+7400-truncated-name:error:truncated FBX file: wanted 9 bytes at offset 40
+7400-truncated-property:error:truncated FBX file: wanted 4 bytes at offset 45
+7499-empty:nodes:[]
+7499-terminated:nodes:[]
+7499-leaf:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }]
+7499-nested:nodes:[Node { name: "Root", props: [I64(-9223372036854775808)], children: [Node { name: "Child", props: [I32(-17)], children: [] }] }]
+7499-siblings:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }, Node { name: "Other", props: [I64(-9223372036854775808)], children: [] }]
+7499-truncated-name:error:truncated FBX file: wanted 9 bytes at offset 40
+7499-truncated-property:error:truncated FBX file: wanted 4 bytes at offset 45
+7500-empty:nodes:[]
+7500-terminated:nodes:[]
+7500-leaf:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }]
+7500-nested:nodes:[Node { name: "Root", props: [I64(-9223372036854775808)], children: [Node { name: "Child", props: [I32(-17)], children: [] }] }]
+7500-siblings:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }, Node { name: "Other", props: [I64(-9223372036854775808)], children: [] }]
+7500-truncated-name:error:truncated FBX file: wanted 9 bytes at offset 52
+7500-truncated-property:error:truncated FBX file: wanted 4 bytes at offset 57
+7501-empty:nodes:[]
+7501-terminated:nodes:[]
+7501-leaf:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }]
+7501-nested:nodes:[Node { name: "Root", props: [I64(-9223372036854775808)], children: [Node { name: "Child", props: [I32(-17)], children: [] }] }]
+7501-siblings:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }, Node { name: "Other", props: [I64(-9223372036854775808)], children: [] }]
+7501-truncated-name:error:truncated FBX file: wanted 9 bytes at offset 52
+7501-truncated-property:error:truncated FBX file: wanted 4 bytes at offset 57
+7700-empty:nodes:[]
+7700-terminated:nodes:[]
+7700-leaf:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }]
+7700-nested:nodes:[Node { name: "Root", props: [I64(-9223372036854775808)], children: [Node { name: "Child", props: [I32(-17)], children: [] }] }]
+7700-siblings:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }, Node { name: "Other", props: [I64(-9223372036854775808)], children: [] }]
+7700-truncated-name:error:truncated FBX file: wanted 9 bytes at offset 52
+7700-truncated-property:error:truncated FBX file: wanted 4 bytes at offset 57
+4294967295-empty:nodes:[]
+4294967295-terminated:nodes:[]
+4294967295-leaf:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }]
+4294967295-nested:nodes:[Node { name: "Root", props: [I64(-9223372036854775808)], children: [Node { name: "Child", props: [I32(-17)], children: [] }] }]
+4294967295-siblings:nodes:[Node { name: "Root", props: [I32(-17)], children: [] }, Node { name: "Other", props: [I64(-9223372036854775808)], children: [] }]
+4294967295-truncated-name:error:truncated FBX file: wanted 9 bytes at offset 52
+4294967295-truncated-property:error:truncated FBX file: wanted 4 bytes at offset 57
+ascii:error:this is an ASCII FBX file; re-export it as binary FBX
+empty-input:error:not a binary FBX file
+bad-magic:error:not a binary FBX file
