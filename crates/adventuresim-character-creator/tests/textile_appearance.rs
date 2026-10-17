@@ -672,3 +672,78 @@ fn ordinary_skirt_and_slash_sleeve_fit_the_runtime_triangle_budget() -> Result<(
     }
     Ok(())
 }
+
+#[test]
+fn bounded_shirring_changes_exported_normals_and_keeps_the_cloth_color() -> Result<()> {
+    use fabelgeist_armor::{
+        ClothPleatProfile, ClothPleats, Millimeters, ShirringPattern, TextileChartSize,
+        TextilePleatLayout, TextilePleatRelief, TextileRepeatCount, TextileShirring,
+    };
+    let mut fabric = TextileAppearance::solid(TextileColor([240, 239, 231]), TextileFinish::Linen);
+    fabric.relief = Some(Box::new(TextilePleatRelief {
+        pleats: ClothPleats {
+            count: TextileRepeatCount(32),
+            depth: Millimeters(1),
+            profile: ClothPleatProfile::Fluted,
+        },
+        chart: TextileChartSize {
+            across: Millimeters(800),
+            along: Millimeters(600),
+        },
+        layout: TextilePleatLayout::Shirred(TextileShirring {
+            band: TextileSpan {
+                start: Permille(200),
+                end: Permille(500),
+            },
+            rows: TextileRepeatCount(8),
+            pattern: ShirringPattern::Diamonds,
+            retention: Permille(500),
+        }),
+    }));
+    let pixels = fabric.pixels()?;
+    let preview = pixels.surface_normals(&fabric)?;
+    let diamond = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
+    let diamond_normals = image::load_from_memory(&diamond.normal_png)?.to_rgba8();
+    assert_eq!(preview, diamond_normals.as_raw().as_slice());
+    if let TextilePleatLayout::Shirred(shirring) = &mut fabric.relief.as_mut().unwrap().layout {
+        shirring.pattern = ShirringPattern::Chevron;
+    }
+    let chevron = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
+    let chevron_normals = image::load_from_memory(&chevron.normal_png)?.to_rgba8();
+    assert_eq!(diamond.base_color_png, chevron.base_color_png);
+    assert_eq!(diamond_normals.dimensions(), chevron_normals.dimensions());
+    let mut changed_inside = 0;
+    for row in 0..diamond_normals.height() {
+        let along = (row as f32 + 0.5) / diamond_normals.height() as f32;
+        for column in 0..diamond_normals.width() {
+            let a = diamond_normals.get_pixel(column, row);
+            let b = chevron_normals.get_pixel(column, row);
+            if !(0.15..=0.55).contains(&along) {
+                assert_eq!(a, b, "shirring altered cloth outside its bounded region");
+            } else if a != b {
+                changed_inside += 1;
+            }
+            let length = a.0[..3]
+                .iter()
+                .map(|&c| (f32::from(c) / 127.5 - 1.).powi(2))
+                .sum::<f32>()
+                .sqrt();
+            assert!(
+                (length - 1.).abs() < 0.015,
+                "non-unit exported tangent normal"
+            );
+        }
+    }
+    assert!(
+        changed_inside > 100,
+        "shirring patterns did not change the sewn band"
+    );
+    if let TextilePleatLayout::Shirred(shirring) = &mut fabric.relief.as_mut().unwrap().layout {
+        shirring.band.end = shirring.band.start;
+    }
+    assert!(
+        fabric.validate().is_err(),
+        "empty shirring band was admitted"
+    );
+    Ok(())
+}

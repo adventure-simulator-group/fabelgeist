@@ -174,6 +174,35 @@ and an uncut band below the bodice opening. It does not yet model the maker's
 opening linen waistband, skirt slit or front fastenings. Those details remain
 required for the complete reconstruction.
 
+`GownBodyFit::Loose` releases an unlined, closed upper from the bound neckline.
+Its radial ease and fullness-release height are independent of the suspension
+height. The fitted upper retains body-source correspondence around the neckline
+and armholes. Once the cloth is fully released, a straight fall continues the
+sewing boundary's own columns to the hem. The lower sheet does not retain an
+artificial waist seam or a second set of circumferential samples. Other skirt
+profiles retain the shaped transition. Morph endpoints reuse the same source
+points, sewing loops and connectivity.
+
+Optional `SewnSleeves` share the upper carrier's armhole vertices before
+thickening. Their reach, full circumference, cuff circumference and cuff length
+are independent controls. Sleeves have their own fabric and construction chart;
+the sleeve side of each armhole receives sleeve coordinates after material
+partitioning. Surface-based skin transfer keeps them out of the skirt's leg
+blend. This does not certify posed clearance or arm-only animation ownership.
+
+`TextilePleatLayout::Shirred` draws counted-thread diamond or chevron shirring
+within a bounded interval of a fabric chart. Repeat count, depth, stitch rows,
+band extent and retained longitudinal gathers are parametric. `Uniform` supplies
+regular longitudinal relief without a shirring band. These fields use the
+shared physical-height-to-normal pipeline. Fine folds and stitch relief add no
+triangles. Their chart dimensions are measured from the fitted material surface
+for preview and portable export.
+
+`cranach-chemise.json` is the construction recipe for the separate white
+underlayer. Its current carrier includes the loose body and long full sleeves;
+it is not the completed historical reconstruction. Sewn neckline bindings,
+underarm gussets, cuff slits, frilled cuff ends and cuff closures remain required.
+
 Keep authored folds evenly repeated and hems level. Cloth simulation will add
 irregularity later. Do not bake the photographs' accidental wrinkles into the
 rest construction. Deferred skinning and clipping polish does not waive finite

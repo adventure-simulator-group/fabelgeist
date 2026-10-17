@@ -67,7 +67,8 @@ impl DeviceWearer<'_> {
             layers,
         )?;
         ensure!(!support.faces.is_empty(), "skirt has no body support");
-        let status = self.record_skirt_profile(batch, design, &fit, &support)?;
+        let ease = attachment.map_or(fabelgeist_armor::Millimeters(0), |plan| plan.ease);
+        let status = self.record_skirt_profile(batch, design, &fit, &support, ease)?;
         if let Some(plan) = attachment {
             self.record_skirt_attachment(batch, &fit, plan, plan.offset_metres, &status)?;
         }
@@ -118,6 +119,7 @@ impl DeviceWearer<'_> {
         design: &SkirtDesign,
         fit: &fabelgeist_gpu::prelude::Buffer,
         support: &TextileSupport,
+        ease: fabelgeist_armor::Millimeters,
     ) -> Result<fabelgeist_gpu::prelude::Buffer> {
         let gpu = self.gpu;
         let face_count = u32::try_from(support.faces.len())?;
@@ -154,6 +156,7 @@ impl DeviceWearer<'_> {
                     "allowance",
                     design.clearance.metres() + design.thickness.metres(),
                 ),
+                Word::F("ease", ease.metres()),
             ],
             Grid::Singles(sections),
         )?;

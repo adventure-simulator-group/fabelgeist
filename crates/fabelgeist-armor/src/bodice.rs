@@ -53,6 +53,8 @@ pub struct BodiceDesign {
 pub enum NecklineShape {
     Square,
     Round,
+    /// A fourth-power rounded rectangle: broad bottom and softened corners.
+    SoftSquare,
 }
 
 /// An opening traverses the complete bodice, including its lining. The two
