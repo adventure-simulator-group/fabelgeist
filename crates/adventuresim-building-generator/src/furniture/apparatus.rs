@@ -11,8 +11,11 @@ mod household;
 mod printing;
 mod weaving;
 
-pub(super) fn assemble(builder: &mut Builder, key: FurnitureKey) {
-    let size = key.interior_spec().unwrap().size_metres;
+pub(super) fn assemble(
+    builder: &mut Builder,
+    key: FurnitureKey,
+) -> Result<(), super::FurnitureRecipeError> {
+    let size = key.interior_spec()?.size_metres.metres();
     match key.kind {
         FurnitureKind::CandleStand => household::candle_stand(builder, size),
         FurnitureKind::SpinningStool => household::spinning(builder, size),
@@ -21,8 +24,9 @@ pub(super) fn assemble(builder: &mut Builder, key: FurnitureKey) {
         FurnitureKind::TreadleLoom => weaving::loom(builder, size),
         FurnitureKind::PrintingPress => printing::press(builder, size),
         FurnitureKind::TypeCase => printing::type_case(builder, size),
-        _ => unreachable!("apparatus recipe dispatch"),
+        _ => return Err(super::FurnitureRecipeError::MissingRecipe { key }),
     }
+    Ok(())
 }
 
 fn table(builder: &mut Builder, size: Vec3, height: f32) {

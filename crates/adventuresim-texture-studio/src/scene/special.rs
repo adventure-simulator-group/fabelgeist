@@ -136,6 +136,7 @@ fn bark(
             deposition: Vec4::new(-100.0, -99.0, 0.045, 0.007),
             terrain_surface: Vec4::new(1.0, 1.0, -100.0, -99.0),
             soil_response: Vec4::new(1.0, 0.0, 0.0, 0.0),
+            // y is the shader's reserved zero loop bound.
             soil_optics: Vec4::new(0.35, 0.0, 0.0, 0.0),
             terrain_heightmap: map.clone(),
             soil_height_ao: map,

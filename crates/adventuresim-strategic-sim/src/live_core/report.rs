@@ -1,6 +1,7 @@
 //! Public metrics, final-agent state, and report wire model.
 
 use super::*;
+use fabelgeist_determinism::Seed;
 
 #[derive(Clone, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -150,7 +151,7 @@ pub struct FinalAgentState {
 pub struct CoreLoopReport {
     pub format_version: u32,
     pub backend_kind: String,
-    pub seed: u64,
+    pub seed: Seed,
     pub server_origin: String,
     pub database: String,
     pub run_nonce: String,

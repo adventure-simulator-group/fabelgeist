@@ -86,17 +86,17 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
         for treatment in plan.resolved_geometry.solids.iter().filter(|solid| {
             solid.owner == assembly.owner && solid.role == SolidRole::RoofEdgeTreatment
         }) {
-            let pitch_cosine = treatment.longfall_radians.cos();
+            let pitch_cosine = treatment.longfall_radians.radians().cos();
             let axis = Vec3::new(
-                treatment.yaw_radians.cos() * pitch_cosine,
-                treatment.longfall_radians.sin(),
-                treatment.yaw_radians.sin() * pitch_cosine,
+                treatment.yaw_radians.radians().cos() * pitch_cosine,
+                treatment.longfall_radians.radians().sin(),
+                treatment.yaw_radians.radians().sin() * pitch_cosine,
             );
             let endpoints = [
-                treatment.centre - axis * treatment.size.x * 0.5,
-                treatment.centre + axis * treatment.size.x * 0.5,
+                treatment.centre.metres() - axis * treatment.size.metres().x * 0.5,
+                treatment.centre.metres() + axis * treatment.size.metres().x * 0.5,
             ];
-            let aligned = treatment.crossfall_radians.abs() <= 0.001
+            let aligned = treatment.crossfall_radians.radians().abs() <= 0.001
                 && assembly.edges.iter().any(|edge| {
                     if !matches!(
                         edge.kind,
@@ -106,7 +106,7 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     }
                     let edge_delta = edge.end - edge.start;
                     let edge_length_squared = edge_delta.length_squared().max(0.000_001);
-                    treatment.size.x <= edge_delta.length() + 0.03
+                    treatment.size.metres().x <= edge_delta.length() + 0.03
                         && endpoints.iter().all(|point| {
                             let t = ((*point - edge.start).dot(edge_delta) / edge_length_squared)
                                 .clamp(0.0, 1.0);
@@ -297,25 +297,30 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         plan.resolved_geometry.solids.iter().any(|solid| {
                             solid.id == *id
                                 && solid.role == SolidRole::RoofGutter
-                                && solid.longfall_radians < -0.001
+                                && solid.longfall_radians.radians() < -0.001
                         })
                     });
                     let collector_connects_outlet = outlet.is_some_and(|outlet| {
-                        let outlet_centre = (outlet.bounds.min + outlet.bounds.max) * 0.5;
+                        let outlet_centre =
+                            (outlet.bounds.min().metres() + outlet.bounds.max().metres()) * 0.5;
                         network.collector_solids.iter().any(|id| {
                             plan.resolved_geometry.solids.iter().any(|solid| {
                                 if solid.id != *id {
                                     return false;
                                 }
                                 let tangent = Vec3::new(
-                                    solid.yaw_radians.cos(),
+                                    solid.yaw_radians.radians().cos(),
                                     0.0,
-                                    solid.yaw_radians.sin(),
+                                    solid.yaw_radians.radians().sin(),
                                 );
-                                let half_run = solid.size.x * 0.5;
-                                let half_drop = solid.longfall_radians.sin() * half_run;
-                                let start = solid.centre - tangent * half_run - Vec3::Y * half_drop;
-                                let end = solid.centre + tangent * half_run + Vec3::Y * half_drop;
+                                let half_run = solid.size.metres().x * 0.5;
+                                let half_drop = solid.longfall_radians.radians().sin() * half_run;
+                                let start = solid.centre.metres()
+                                    - tangent * half_run
+                                    - Vec3::Y * half_drop;
+                                let end = solid.centre.metres()
+                                    + tangent * half_run
+                                    + Vec3::Y * half_drop;
                                 (start.distance(network.channel_low) <= 0.12
                                     && end.distance(outlet_centre) <= 0.12)
                                     || (end.distance(network.channel_low) <= 0.12
@@ -331,15 +336,16 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                     && surface.role == crate::SurfaceRole::DrainageRecipient
                                     && station
                                         .discharge
-                                        .cmpge(surface.bounds.min - Vec3::splat(0.01))
+                                        .cmpge(surface.bounds.min().metres() - Vec3::splat(0.01))
                                         .all()
                                     && station
                                         .discharge
-                                        .cmple(surface.bounds.max + Vec3::splat(0.01))
+                                        .cmple(surface.bounds.max().metres() + Vec3::splat(0.01))
                                         .all()
                             });
                         let outlet_matches = outlet.is_some_and(|outlet| {
-                            let centre = (outlet.bounds.min + outlet.bounds.max) * 0.5;
+                            let centre =
+                                (outlet.bounds.min().metres() + outlet.bounds.max().metres()) * 0.5;
                             centre.distance(
                                 plan.resolved_geometry
                                     .drainage_routes
@@ -350,11 +356,15 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         });
                         let fall_plan = Vec2::new(station.discharge.x, station.discharge.z);
                         let fall_top = outlet
-                            .map(|outlet| (outlet.bounds.min + outlet.bounds.max).y * 0.5)
+                            .map(|outlet| {
+                                (outlet.bounds.min().metres() + outlet.bounds.max().metres()).y
+                                    * 0.5
+                            })
                             .unwrap_or(station.discharge.y);
                         let fall_bottom = station.discharge.y;
                         let fall_is_vertical = outlet.is_some_and(|outlet| {
-                            let centre = (outlet.bounds.min + outlet.bounds.max) * 0.5;
+                            let centre =
+                                (outlet.bounds.min().metres() + outlet.bounds.max().metres()) * 0.5;
                             Vec2::new(centre.x, centre.z).distance(fall_plan) <= 0.04
                                 && centre.y > fall_bottom + 0.08
                         });
@@ -428,9 +438,10 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                         outer_radius_metres,
                                         ..
                                     } => {
-                                        fall_plan
-                                            .distance(Vec2::new(solid.centre.x, solid.centre.z))
-                                            <= outer_radius_metres + 0.08
+                                        fall_plan.distance(Vec2::new(
+                                            solid.centre.metres().x,
+                                            solid.centre.metres().z,
+                                        )) <= outer_radius_metres + 0.08
                                     }
                                     _ => {
                                         fall_plan.x >= bounds.0.x - 0.08
@@ -470,13 +481,17 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                     matches!(
                                         void.role,
                                         VoidRole::WallOpening | VoidRole::AccessPortal
-                                    ) && void.bounds.min.y < surface.bounds.max.y + 1.0
+                                    ) && void.bounds.min().metres().y
+                                        < surface.bounds.max().metres().y + 1.0
                                 })
                                 .all(|void| {
-                                    surface.bounds.max.x < void.bounds.min.x
-                                        || surface.bounds.min.x > void.bounds.max.x
-                                        || surface.bounds.max.z < void.bounds.min.z
-                                        || surface.bounds.min.z > void.bounds.max.z
+                                    surface.bounds.max().metres().x < void.bounds.min().metres().x
+                                        || surface.bounds.min().metres().x
+                                            > void.bounds.max().metres().x
+                                        || surface.bounds.max().metres().z
+                                            < void.bounds.min().metres().z
+                                        || surface.bounds.min().metres().z
+                                            > void.bounds.max().metres().z
                                 })
                         });
                         let splash_clears_stairs = plan.stairs.iter().all(|stair| match *stair {
@@ -570,7 +585,8 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                 else {
                                     return false;
                                 };
-                                let plan_point = Vec2::new(spout.centre.x, spout.centre.z);
+                                let plan_point =
+                                    Vec2::new(spout.centre.metres().x, spout.centre.metres().z);
                                 let offset = plan_point - host.frame.origin;
                                 let projected_facade_clearance = match plan.archetype {
                                     crate::BuildingArchetype::TownHouse => 0.22,
@@ -626,7 +642,10 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                     .all(|void| {
                                         !bounds_overlap_3d(
                                             spout_bounds,
-                                            (void.bounds.min, void.bounds.max),
+                                            (
+                                                void.bounds.min().metres(),
+                                                void.bounds.max().metres(),
+                                            ),
                                             -0.08,
                                         )
                                     });
@@ -649,9 +668,12 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                             -0.08,
                                         )
                                     });
-                                let spout_plan = Vec2::new(spout.centre.x, spout.centre.z);
-                                let spout_bottom = spout.centre.y - spout.size.y * 0.5;
-                                let spout_top = spout.centre.y + spout.size.y * 0.5;
+                                let spout_plan =
+                                    Vec2::new(spout.centre.metres().x, spout.centre.metres().z);
+                                let spout_bottom =
+                                    spout.centre.metres().y - spout.size.metres().y * 0.5;
+                                let spout_top =
+                                    spout.centre.metres().y + spout.size.metres().y * 0.5;
                                 let avoids_stairs = plan.stairs.iter().all(|stair| match *stair {
                                     crate::Stair::Straight {
                                         start,
@@ -720,7 +742,8 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         let edge_a = Vec2::new(edge.start.x, edge.start.z);
                         let edge_b = Vec2::new(edge.end.x, edge.end.z);
                         let edge_delta = edge_b - edge_a;
-                        let floor_plan = Vec2::new(floor.centre.x, floor.centre.z);
+                        let floor_plan =
+                            Vec2::new(floor.centre.metres().x, floor.centre.metres().z);
                         let along = ((floor_plan - edge_a).dot(edge_delta)
                             / edge_delta.length_squared().max(0.000_001))
                         .clamp(0.0, 1.0);
@@ -743,8 +766,8 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                             0.035
                         };
                         floor.role == SolidRole::RoofGutter
-                            && floor.longfall_radians.abs() >= 0.004
-                            && floor.size.x + 0.05 >= edge_delta.length()
+                            && floor.longfall_radians.radians().abs() >= 0.004
+                            && floor.size.metres().x + 0.05 >= edge_delta.length()
                             && contact_distance <= maximum_fascia_offset
                             && network.channel_high.y > network.channel_low.y + minimum_longfall
                     }) && lips_exist
@@ -752,7 +775,8 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         && station_valid
                         && network.discharge.y + 0.02 < network.channel_low.y
                         && outlet.is_some_and(|outlet| {
-                            let centre = (outlet.bounds.min + outlet.bounds.max) * 0.5;
+                            let centre =
+                                (outlet.bounds.min().metres() + outlet.bounds.max().metres()) * 0.5;
                             let low_plan = Vec2::new(network.channel_low.x, network.channel_low.z);
                             let channel_delta = Vec2::new(
                                 network.channel_high.x - network.channel_low.x,
@@ -1085,7 +1109,10 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     .any(|solid| {
                         bounds_overlap_3d(
                             resolved_solid_bounds(solid),
-                            (interface.bounds.min, interface.bounds.max),
+                            (
+                                interface.bounds.min().metres(),
+                                interface.bounds.max().metres(),
+                            ),
                             0.003,
                         )
                     });
@@ -1161,7 +1188,7 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     plan.resolved_geometry.solids.iter().any(|solid| {
                         solid.id == flashing
                             && solid.role == SolidRole::RoofFlashing
-                            && solid.longfall_radians.abs() > 0.001
+                            && solid.longfall_radians.radians().abs() > 0.001
                     })
                 });
                 let terminal = edge.drainage_terminal.and_then(|terminal| {
@@ -1171,7 +1198,8 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         .find(|void| void.id == terminal && void.role == VoidRole::Drain)
                 });
                 let route_is_physical = terminal.is_some_and(|terminal| {
-                    let terminal_centre = (terminal.bounds.min + terminal.bounds.max) * 0.5;
+                    let terminal_centre =
+                        (terminal.bounds.min().metres() + terminal.bounds.max().metres()) * 0.5;
                     plan.resolved_geometry.drainage_routes.iter().any(|route| {
                         route.outlet_void == terminal.id
                             && route.inlet.y > route.outlet.y + 0.01
@@ -1237,10 +1265,10 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         .flat_map(|face| &face.cutouts)
                         .any(|cutout| {
                             cutout.iter().all(|point| {
-                                point.x >= void.bounds.min.x - 0.01
-                                    && point.x <= void.bounds.max.x + 0.01
-                                    && point.z >= void.bounds.min.z - 0.01
-                                    && point.z <= void.bounds.max.z + 0.01
+                                point.x >= void.bounds.min().metres().x - 0.01
+                                    && point.x <= void.bounds.max().metres().x + 0.01
+                                    && point.z >= void.bounds.min().metres().z - 0.01
+                                    && point.z <= void.bounds.max().metres().z + 0.01
                             })
                         })
                 });
@@ -1385,16 +1413,16 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     });
                     let pieces_exist = pieces.iter().all(Option::is_some);
                     let weathering_seated = pieces[0]
-                        .is_some_and(|solid| solid.centre.distance(sample.point) <= 0.24)
+                        .is_some_and(|solid| solid.centre.metres().distance(sample.point) <= 0.24)
                         && pieces[1].is_some_and(|solid| {
-                            (solid.centre.y - sample.point.y - 0.18).abs() <= 0.03
-                                && Vec2::new(solid.centre.x, solid.centre.z)
+                            (solid.centre.metres().y - sample.point.y - 0.18).abs() <= 0.03
+                                && Vec2::new(solid.centre.metres().x, solid.centre.metres().z)
                                     .distance(Vec2::new(sample.point.x, sample.point.z))
                                     <= 0.08
                         })
                         && pieces[2].is_some_and(|solid| {
-                            (solid.centre.y - sample.point.y - 0.315).abs() <= 0.03
-                                && Vec2::new(solid.centre.x, solid.centre.z)
+                            (solid.centre.metres().y - sample.point.y - 0.315).abs() <= 0.03
+                                && Vec2::new(solid.centre.metres().x, solid.centre.metres().z)
                                     .distance(Vec2::new(sample.point.x, sample.point.z))
                                     <= 0.08
                         });
@@ -1415,7 +1443,7 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         pieces.iter().flatten().all(|solid| {
                             !bounds_overlap_3d(
                                 resolved_solid_bounds(solid),
-                                (void.bounds.min, void.bounds.max),
+                                (void.bounds.min().metres(), void.bounds.max().metres()),
                                 -0.01,
                             )
                         })
@@ -1436,7 +1464,8 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         && void.owner == assembly.owner
                 })
                 .is_some_and(|outlet| {
-                    let outlet_centre = (outlet.bounds.min + outlet.bounds.max) * 0.5;
+                    let outlet_centre =
+                        (outlet.bounds.min().metres() + outlet.bounds.max().metres()) * 0.5;
                     plan.resolved_geometry.drainage_routes.iter().any(|route| {
                         route.id == abutment.drainage_route
                             && route.outlet_void == outlet.id
@@ -1456,44 +1485,5 @@ fn audit_roof_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             }
         }
     }
-    for assembly in plan
-        .roof_assemblies
-        .iter()
-        .filter(|assembly| assembly.parent.is_some())
-    {
-        let parent = assembly.parent.expect("filtered parent");
-        let references = plan
-            .roof_assemblies
-            .iter()
-            .filter(|candidate| candidate.id == parent)
-            .flat_map(|candidate| &candidate.children)
-            .filter(|child| child.child == assembly.id)
-            .count();
-        if references != 1 {
-            issues.push(issue(
-                "orphan_roof_child",
-                format!(
-                    "roof {} has {references} parent graph references, expected one",
-                    assembly.id.0
-                ),
-            ));
-        }
-    }
-    let expected = plan.roofs.len()
-        + plan.roof_dormers.len()
-        + plan
-            .towers
-            .iter()
-            .filter(|tower| tower.roof.is_some())
-            .count()
-        + plan.square_towers.len();
-    if expected != plan.roof_assemblies.len() {
-        issues.push(issue(
-            "legacy_roof_authority",
-            format!(
-                "expected {expected} resolved roof assemblies, found {}",
-                plan.roof_assemblies.len()
-            ),
-        ));
-    }
+    roof_graph::audit(plan, issues);
 }

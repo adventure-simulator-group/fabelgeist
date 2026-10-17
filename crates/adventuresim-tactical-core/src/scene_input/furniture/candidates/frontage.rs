@@ -33,22 +33,22 @@ pub(in crate::scene_input::furniture) fn group_limit(building: &sites::Furniture
 pub(in crate::scene_input::furniture) fn building(
     input: &TacticalSceneInput,
     building: &sites::FurnitureSite,
-) -> Vec<Candidate> {
+) -> Result<Vec<Candidate>, crate::scene_input::SceneInputError> {
     let Some(kind) = kind(building) else {
-        return Vec::new();
+        return Ok(Vec::new());
     };
-    let half = building.half_extents;
+    let half = building.half_extents.metres();
     let mut candidates = Vec::new();
     for slot in 0..FRONTAGE_SAMPLES * 4 {
-        let mut candidate = Candidate::new(
+        let candidate = LocalCandidate::new(
             input.seed,
             slot,
             kind,
             FurnitureAnchor::Building {
                 id: building.placement.id,
             },
-        );
-        let size = candidate.footprint.half_extents_metres;
+        )?;
+        let size = candidate.half_extents.metres();
         let fraction = ((slot % FRONTAGE_SAMPLES) as f32 / (FRONTAGE_SAMPLES - 1) as f32 * 2.0
             - 1.0)
             * FRONTAGE_END_FRACTION;
@@ -58,10 +58,14 @@ pub(in crate::scene_input::furniture) fn building(
             2 => Vec2::new(-half.x - size.x - FRONTAGE_GAP_METRES, half.y * fraction),
             _ => Vec2::new(half.x * fraction, half.y + size.y + FRONTAGE_GAP_METRES),
         };
-        candidate.footprint.centre_metres =
-            building.placement.centre_metres + building.placement.orientation.local_to_world(local);
-        candidate.footprint.orientation = building.placement.orientation;
+        let candidate = candidate.place(
+            crate::scene_coordinates::ScenePlanPoint::try_from(
+                building.placement.centre_metres.metres()
+                    + building.placement.orientation.local_to_world(local),
+            )?,
+            building.placement.orientation,
+        )?;
         candidates.push(candidate);
     }
-    candidates
+    Ok(candidates)
 }

@@ -26,17 +26,19 @@ fn on_scene_window_added(
     materials: Res<TacticalBuildingMaterials>,
 ) -> Result {
     let window = windows.get(event.entity)?;
-    let batches = cache.window(window.size_metres, window.leaf, &mut meshes);
+    let batches = cache.window(window.size_metres, window.leaf, &mut meshes)?;
     let body = batches
         .iter()
         .find(|batch| batch.material == window.leaf.material())
-        .expect("window leaf has its primary material");
+        .ok_or(
+            super::closure_meshes::ClosureMeshError::MissingPrimaryMaterial { kind: window.leaf },
+        )?;
     commands.entity(event.entity).insert((
         PresentedWindowCasement,
         Mesh3d(body.mesh.clone()),
         MeshMaterial3d(
             materials
-                .for_building(window.building_id)
+                .for_building(window.building_id.0)
                 .get(window.leaf.material()),
         ),
         Visibility::default(),
@@ -59,7 +61,7 @@ fn on_scene_window_added(
                 Mesh3d(batch.mesh.clone()),
                 MeshMaterial3d(
                     materials
-                        .for_building(window.building_id)
+                        .for_building(window.building_id.0)
                         .get(batch.material),
                 ),
                 Transform::IDENTITY,

@@ -16,19 +16,19 @@ struct SweptBand {
 }
 
 impl SweptBand {
-    fn from_solid(solid: &ResolvedSolid) -> Self {
-        let bounds = super::super::assembly::contact::bounds(solid);
-        let min = Vec2::new(bounds.min.x, bounds.min.z);
-        let max = Vec2::new(bounds.max.x, bounds.max.z);
-        Self {
+    fn from_solid(solid: &ResolvedSolid) -> Result<Self, crate::GenerationError> {
+        let bounds = super::super::assembly::contact::bounds(solid)?;
+        let min = Vec2::new(bounds.min().metres().x, bounds.min().metres().z);
+        let max = Vec2::new(bounds.max().metres().x, bounds.max().metres().z);
+        Ok(Self {
             inner: DRIVE_CENTRE.clamp(min, max).distance(DRIVE_CENTRE),
             outer: [min, max, Vec2::new(min.x, max.y), Vec2::new(max.x, min.y)]
                 .into_iter()
                 .map(|corner| corner.distance(DRIVE_CENTRE))
                 .fold(0.0_f32, f32::max),
-            bottom: bounds.min.y,
-            top: bounds.max.y,
-        }
+            bottom: bounds.min().metres().y,
+            top: bounds.max().metres().y,
+        })
     }
 
     fn intersects_sweep(&self, sweep: &Self) -> bool {
@@ -39,13 +39,16 @@ impl SweptBand {
     }
 }
 
-pub(in super::super) fn audit_circuit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
+pub(in super::super) fn audit_circuit(
+    plan: &BuildingPlan,
+    issues: &mut Vec<AuditIssue>,
+) -> Result<(), crate::GenerationError> {
     let Some(work) = plan
         .workplace
         .as_ref()
         .filter(|work| work.kind == WorkplaceKind::HorseMill)
     else {
-        return;
+        return Ok(());
     };
     let moving = work
         .parts
@@ -59,7 +62,7 @@ pub(in super::super) fn audit_circuit(plan: &BuildingPlan, issues: &mut Vec<Audi
         .iter()
         .filter(|solid| moving.contains(&solid.id))
         .map(SweptBand::from_solid)
-        .collect::<Vec<_>>();
+        .collect::<Result<Vec<_>, _>>()?;
     for sweep in &sweeps {
         if sweep.bottom < ANIMAL_HEADROOM_METRES
             && (sweep.inner < ANIMAL_TRACK_INNER_METRES || sweep.outer > ANIMAL_TRACK_OUTER_METRES)
@@ -70,11 +73,11 @@ pub(in super::super) fn audit_circuit(plan: &BuildingPlan, issues: &mut Vec<Audi
             });
         }
     }
-    for solid in &plan.resolved_geometry.solids {
+    let _: () = for solid in &plan.resolved_geometry.solids {
         if moving.contains(&solid.id) {
             continue;
         }
-        let band = SweptBand::from_solid(solid);
+        let band = SweptBand::from_solid(solid)?;
         if band.top > TRACK_GROUND_CLEARANCE_METRES
             && band.bottom < ANIMAL_HEADROOM_METRES
             && band.inner < ANIMAL_TRACK_OUTER_METRES
@@ -94,5 +97,6 @@ pub(in super::super) fn audit_circuit(plan: &BuildingPlan, issues: &mut Vec<Audi
                 ),
             });
         }
-    }
+    };
+    Ok(())
 }

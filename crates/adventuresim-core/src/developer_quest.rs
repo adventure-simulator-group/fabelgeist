@@ -1959,7 +1959,7 @@ mod tests {
 
     fn context() -> GenerationContext {
         GenerationContext {
-            seed: 7,
+            seed: fabelgeist_determinism::Seed::from_u64(7),
             observer_entropy_hi: 8,
             observer_entropy_lo: 9,
             settlement_id: "riverdale".into(),
@@ -2052,7 +2052,7 @@ mod tests {
     }
 
     fn generated_definition_with_custody() -> DeveloperQuestDefinition {
-        for seed in 0..256 {
+        for seed in (0..256).map(fabelgeist_determinism::Seed::from_u64) {
             let mut candidate = context();
             candidate.seed = seed;
             candidate.requested_family = Some(TemplateFamily::DisappearanceOrLoss);
@@ -2102,7 +2102,7 @@ mod tests {
         })
         .unwrap();
         let mut other = context();
-        other.seed = 77;
+        other.seed = fabelgeist_determinism::Seed::from_u64(77);
         other.observer_entropy_hi = 88;
         other.observer_entropy_lo = 99;
         other.ordinal = 1;

@@ -159,7 +159,7 @@ fn all_nonterminal_encounters_follow_authoritative_public_post_state() {
 
 #[test]
 fn narrative_encounter_policy_uses_safe_meaningful_choices_and_keeps_ignore_fallback() {
-    let mut profile = generate_profile(42, 0);
+    let mut profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
     profile.personality = adventuresim_core::personality::Personality::neutral();
     let presentation = adventuresim_core::road_encounter_catalog::EncounterPresentation {
         cast: Vec::new(),

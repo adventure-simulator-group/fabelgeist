@@ -1,4 +1,5 @@
 use adventuresim_world_schema::calendar::StrategicMinute;
+use fabelgeist_determinism::Seed;
 mod fixtures;
 use super::{
     ArgumentValue, Capability, CapabilityIdentity, ChoiceArguments, ChoiceId, ChoiceKind,
@@ -22,13 +23,13 @@ use std::collections::{BTreeMap, BTreeSet};
 
 #[derive(Clone, Debug)]
 pub struct EvalCaseConfig {
-    pub seed: u64,
+    pub seed: Seed,
     pub family: TemplateFamily,
     pub party: EvaluationPartyView,
 }
 
 impl EvalCaseConfig {
-    pub fn fixture(seed: u64, family: TemplateFamily) -> Self {
+    pub fn fixture(seed: Seed, family: TemplateFamily) -> Self {
         Self {
             seed,
             family,
@@ -125,7 +126,7 @@ impl InvestigationEnvironment {
             legal_choices: Vec::new(),
         };
         let mut witness_returns_at = BTreeMap::new();
-        if generated.generation_seed.is_multiple_of(2) {
+        if generated.generation_seed.to_u64().is_multiple_of(2) {
             witness_returns_at.insert(1, StrategicMinute::new(90));
         }
         let mut value = Self {
@@ -1201,7 +1202,7 @@ mod tests {
     #[test]
     fn forged_choices_and_arguments_fail_closed() {
         let mut env = InvestigationEnvironment::generate(EvalCaseConfig::fixture(
-            7,
+            fabelgeist_determinism::Seed::from_u64(7),
             TemplateFamily::RecurringDepredation,
         ))
         .unwrap();
@@ -1229,7 +1230,7 @@ mod tests {
     #[test]
     fn private_truth_is_absent_from_player_serialization() {
         let env = InvestigationEnvironment::generate(EvalCaseConfig::fixture(
-            11,
+            fabelgeist_determinism::Seed::from_u64(11),
             TemplateFamily::DisappearanceOrLoss,
         ))
         .unwrap();
@@ -1245,7 +1246,7 @@ mod tests {
     #[test]
     fn tavern_referral_requires_visible_testimony_before_roots() {
         let mut env = InvestigationEnvironment::generate(EvalCaseConfig::fixture(
-            9,
+            fabelgeist_determinism::Seed::from_u64(9),
             TemplateFamily::RecurringDepredation,
         ))
         .unwrap();
@@ -1286,7 +1287,10 @@ mod tests {
 
     #[test]
     fn offline_projection_excludes_withheld_and_unreferred_testimony() {
-        let context = generation_context(19, TemplateFamily::RecurringDepredation);
+        let context = generation_context(
+            fabelgeist_determinism::Seed::from_u64(19),
+            TemplateFamily::RecurringDepredation,
+        );
         let mut generated = qg::generate(&context).unwrap();
         generated.witnesses[0].testimony.push(qg::TestimonyDraft {
             proposition_id: "withheld-canary-proposition".into(),
@@ -1318,7 +1322,11 @@ mod tests {
             .target_id = generated.witnesses[1].resident_character_id.to_string();
         let mut env = InvestigationEnvironment::from_generated(
             generated,
-            EvalCaseConfig::fixture(19, TemplateFamily::RecurringDepredation).party,
+            EvalCaseConfig::fixture(
+                fabelgeist_determinism::Seed::from_u64(19),
+                TemplateFamily::RecurringDepredation,
+            )
+            .party,
         )
         .unwrap();
         let tavern = env.frame().legal_choices[0].choice_id.clone();
@@ -1356,7 +1364,7 @@ mod tests {
     #[test]
     fn mixed_route_progress_cannot_offer_an_unrelated_finale() {
         let mut env = InvestigationEnvironment::generate(EvalCaseConfig::fixture(
-            17,
+            fabelgeist_determinism::Seed::from_u64(17),
             TemplateFamily::DisappearanceOrLoss,
         ))
         .unwrap();
@@ -1390,7 +1398,7 @@ mod tests {
     #[test]
     fn exact_outbreak_remediation_output_solves_the_generated_objective() {
         let mut env = InvestigationEnvironment::generate(EvalCaseConfig::fixture(
-            0,
+            fabelgeist_determinism::Seed::from_u64(0),
             TemplateFamily::Outbreak,
         ))
         .unwrap();

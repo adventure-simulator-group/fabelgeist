@@ -7,12 +7,13 @@ const GROUND_CONTACT_TOLERANCE_METRES: f32 = 0.001;
 #[derive(Default)]
 pub(crate) struct Builder {
     meshes: Vec<LodMesh>,
+    construction_error: Option<crate::CollisionError>,
     pub(super) wood_state: FurnitureWoodState,
-    colliders: Vec<CollisionCuboid>,
+    colliders: Vec<CollisionCuboid<crate::furniture::FurnitureLocal>>,
     supports: Vec<Vec3>,
     clearances: Vec<FurnitureClearance>,
     #[cfg(test)]
-    members: Vec<CollisionCuboid>,
+    members: Vec<CollisionCuboid<crate::furniture::FurnitureLocal>>,
 }
 
 #[derive(Clone, Copy)]
@@ -23,8 +24,11 @@ pub(crate) enum CollisionPolicy {
 
 impl Builder {
     /// Preserve the caller's local origin for architectural components.
-    pub(crate) fn into_meshes(self) -> Vec<LodMesh> {
-        self.meshes
+    pub(crate) fn into_meshes(self) -> Result<Vec<LodMesh>, crate::CollisionError> {
+        if let Some(error) = self.construction_error {
+            return Err(error);
+        }
+        Ok(self.meshes)
     }
     pub(super) fn mesh(&mut self, material: BuildingLodMaterial) -> &mut LodMesh {
         if let Some(index) = self
@@ -35,7 +39,8 @@ impl Builder {
             return &mut self.meshes[index];
         }
         self.meshes.push(LodMesh::new(material));
-        self.meshes.last_mut().unwrap()
+        let index = self.meshes.len() - 1;
+        &mut self.meshes[index]
     }
 
     pub(crate) fn cuboid(
@@ -75,18 +80,26 @@ impl Builder {
         collision: CollisionPolicy,
         wear: Option<super::finish::WearFace>,
     ) {
-        let half = size * 0.5;
-        let corners = [
-            Vec3::new(-half.x, -half.y, -half.z),
-            Vec3::new(half.x, -half.y, -half.z),
-            Vec3::new(half.x, half.y, -half.z),
-            Vec3::new(-half.x, half.y, -half.z),
-            Vec3::new(-half.x, -half.y, half.z),
-            Vec3::new(half.x, -half.y, half.z),
-            Vec3::new(half.x, half.y, half.z),
-            Vec3::new(-half.x, half.y, half.z),
-        ]
-        .map(|point| centre + rotation * point);
+        use crate::spatial_geometry::{CuboidDimensions, Position, RigidRotation};
+        let admit = || {
+            crate::CuboidCorners::from_pose(
+                Position::<super::FurnitureLocal>::from_metres(centre)?,
+                CuboidDimensions::from_metres(size)?,
+                RigidRotation::from_quaternion(rotation)?,
+            )
+        };
+        let corners = match admit() {
+            Ok(corners) => corners,
+            Err(cause) => {
+                self.reject(crate::CollisionError {
+                    source_id: ResolvedItemId(self.colliders.len() as u64 + 1),
+                    cause,
+                });
+                return;
+            }
+        };
+        // Mesh winding uses this permutation of the shared sign-coded topology.
+        let corners = [0, 1, 3, 2, 4, 5, 7, 6].map(|index| corners.points()[index].metres());
         for (indices, normal) in [
             ([0, 1, 2, 3], -Vec3::Z),
             ([5, 4, 7, 6], Vec3::Z),
@@ -121,19 +134,29 @@ impl Builder {
             self.support(point);
         }
         let (yaw_radians, crossfall_radians, longfall_radians) = rotation.to_euler(EulerRot::YXZ);
-        let cuboid = CollisionCuboid {
-            source: ResolvedItemId(self.colliders.len() as u64 + 1),
+        match CollisionCuboid::from_metres(
+            ResolvedItemId(self.colliders.len() as u64 + 1),
             centre,
             size,
             yaw_radians,
             crossfall_radians,
             longfall_radians,
-        };
-        #[cfg(test)]
-        self.members.push(cuboid);
-        if matches!(collision, CollisionPolicy::Solid) {
-            self.colliders.push(cuboid);
+        ) {
+            Ok(cuboid) => {
+                #[cfg(test)]
+                self.members.push(cuboid);
+                if matches!(collision, CollisionPolicy::Solid) {
+                    self.colliders.push(cuboid);
+                }
+            }
+            Err(error) => self.reject(error),
         }
+    }
+
+    // Authored recipe assembly is transactional. A failed member never yields a
+    // finished recipe; retain the first cause until the assembly boundary.
+    fn reject(&mut self, error: crate::CollisionError) {
+        self.construction_error.get_or_insert(error);
     }
 
     pub(super) fn timber(&mut self, centre: Vec3, size: Vec3) {
@@ -193,61 +216,90 @@ impl Builder {
     }
 
     pub(super) fn collider(&mut self, centre: Vec3, size: Vec3) {
-        self.colliders.push(CollisionCuboid {
-            source: ResolvedItemId(self.colliders.len() as u64 + 1),
+        match CollisionCuboid::from_metres(
+            ResolvedItemId(self.colliders.len() as u64 + 1),
             centre,
             size,
-            yaw_radians: 0.0,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-        });
+            0.0,
+            0.0,
+            0.0,
+        ) {
+            Ok(cuboid) => self.colliders.push(cuboid),
+            Err(error) => self.reject(error),
+        }
     }
 
     pub(super) fn clearance(&mut self, kind: FurnitureClearanceKind, min: Vec3, max: Vec3) {
-        self.clearances.push(FurnitureClearance {
-            kind,
-            bounds: CollisionBounds { min, max },
-        });
+        match crate::spatial_geometry::SpatialBounds::from_metres(min, max) {
+            Ok(bounds) => self.clearances.push(FurnitureClearance { kind, bounds }),
+            Err(cause) => self.reject(crate::CollisionError {
+                source_id: ResolvedItemId::default(),
+                cause,
+            }),
+        }
     }
 
-    pub(crate) fn finish(mut self) -> FurnitureRecipe {
-        let mut bounds = CollisionBounds {
-            min: Vec3::splat(f32::INFINITY),
-            max: Vec3::splat(f32::NEG_INFINITY),
-        };
-        for vertex in self.meshes.iter().flat_map(|mesh| &mesh.vertices) {
-            bounds.min = bounds.min.min(vertex.position);
-            bounds.max = bounds.max.max(vertex.position);
+    pub(crate) fn finish(mut self) -> Result<FurnitureRecipe, crate::CollisionError> {
+        if let Some(error) = self.construction_error {
+            return Err(error);
         }
-        let centre = (bounds.min + bounds.max) * 0.5;
+        let failure = |cause| crate::CollisionError {
+            source_id: ResolvedItemId::default(),
+            cause,
+        };
+        // Infinity sentinels belong only to the native vertex accumulator. They
+        // cannot enter the admitted bounds owner, including an empty mesh set.
+        let mut min = Vec3::splat(f32::INFINITY);
+        let mut max = Vec3::splat(f32::NEG_INFINITY);
+        for vertex in self.meshes.iter().flat_map(|mesh| &mesh.vertices) {
+            min = min.min(vertex.position);
+            max = max.max(vertex.position);
+        }
+        let bounds = crate::spatial_geometry::SpatialBounds::<crate::furniture::FurnitureLocal>
+            ::from_metres(min, max).map_err(failure)?;
+        let centre = bounds.centre().map_err(failure)?.metres();
         let origin = Vec3::new(centre.x, 0.0, centre.z);
         for vertex in self.meshes.iter_mut().flat_map(|mesh| &mut mesh.vertices) {
             vertex.position -= origin;
         }
         for collider in &mut self.colliders {
-            collider.centre -= origin;
+            collider.centre =
+                crate::spatial_geometry::Position::from_metres(collider.centre.metres() - origin)
+                    .map_err(|cause| crate::CollisionError {
+                    source_id: collider.source,
+                    cause,
+                })?;
         }
         for point in &mut self.supports {
             *point -= origin;
         }
         for clearance in &mut self.clearances {
-            clearance.bounds.min -= origin;
-            clearance.bounds.max -= origin;
+            clearance.bounds = crate::spatial_geometry::SpatialBounds::from_metres(
+                clearance.bounds.min().metres() - origin,
+                clearance.bounds.max().metres() - origin,
+            )
+            .map_err(failure)?;
         }
         #[cfg(test)]
         for member in &mut self.members {
-            member.centre -= origin;
+            member.centre =
+                crate::spatial_geometry::Position::from_metres(member.centre.metres() - origin)
+                    .map_err(failure)?;
         }
-        bounds.min -= origin;
-        bounds.max -= origin;
-        FurnitureRecipe {
+        Ok(FurnitureRecipe {
             meshes: self.meshes,
             colliders: self.colliders,
-            bounds,
-            support_points_metres: self.supports,
+            bounds: crate::spatial_geometry::SpatialBounds::from_metres(min - origin, max - origin)
+                .map_err(failure)?,
+            support_points_metres: self
+                .supports
+                .into_iter()
+                .map(crate::spatial_geometry::Position::from_metres)
+                .collect::<Result<Vec<_>, _>>()
+                .map_err(failure)?,
             clearances: self.clearances,
             #[cfg(test)]
             members: self.members,
-        }
+        })
     }
 }

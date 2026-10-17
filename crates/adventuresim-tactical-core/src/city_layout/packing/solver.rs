@@ -25,7 +25,7 @@ impl PlacementDomain {
     fn from_frontage(
         frontage: ParcelFrontage,
         layout: &CompiledCityLayout,
-        envelopes: &BTreeMap<u64, MeasuredBuildingEnvelope>,
+        envelopes: &BTreeMap<crate::scene_input::SceneBuildingId, MeasuredBuildingEnvelope>,
     ) -> Result<Self, CityCompileError> {
         let owner = CityPropertyId(frontage.lot.id);
         let geometry = frontage.geometry(layout, envelopes)?;
@@ -92,7 +92,7 @@ impl PlacementDomain {
 pub(super) fn solve(
     layout: &CompiledCityLayout,
     context: &CityPackingContext,
-    envelopes: &BTreeMap<u64, MeasuredBuildingEnvelope>,
+    envelopes: &BTreeMap<crate::scene_input::SceneBuildingId, MeasuredBuildingEnvelope>,
 ) -> Result<BTreeMap<CityPropertyId, Vec2>, CityCompileError> {
     let mut blocks = BTreeMap::<BlockId, Vec<PlacementDomain>>::new();
     for &frontage in context.frontages.values() {

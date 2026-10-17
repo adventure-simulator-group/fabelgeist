@@ -5,7 +5,9 @@
 use crate::animation::retarget::profile::*;
 use crate::animation::retarget::semantic::{HumanoidChain, HumanoidJoint};
 use crate::animation::retarget::{Retargeter, retarget};
-use crate::animation::{Animation, Curve, JointTrack, JointTransform, model_pose, rest_pose};
+use crate::animation::{
+    Animation, AnimationClipName, Curve, JointTrack, JointTransform, model_pose, rest_pose,
+};
 use crate::skeleton::{Joint, Skeleton};
 use fabelgeist_math::matrix::Mat4;
 use fabelgeist_math::transform::Transform;
@@ -413,7 +415,7 @@ fn unmapped_source_bones_are_ignored_and_extra_target_bones_keep_their_rest_pose
 /// Wraps a single pose into a two-key clip, so pose-level expectations can be
 /// checked through the clip path as well.
 fn clip_from_pose(skeleton: &Skeleton, locals: &[JointTransform], duration: f32) -> Animation {
-    let mut clip = Animation::new("test");
+    let mut clip = Animation::new(AnimationClipName::from("test"));
     clip.duration = duration;
     for (index, local) in locals.iter().enumerate() {
         clip.tracks.push(JointTrack {
@@ -439,7 +441,7 @@ fn clip_duration_and_key_timing_survive_retargeting() {
     let profile = RetargetProfile::new(humanoid_profile("a:"), humanoid_profile("b:"))
         .with_settings(settings());
 
-    let mut clip = Animation::new("walk");
+    let mut clip = Animation::new(AnimationClipName::from("walk"));
     clip.tracks.push(JointTrack {
         joint: "a:upperarm_l".into(),
         rotation: Some(Curve::new(
@@ -465,7 +467,7 @@ fn clip_duration_and_key_timing_survive_retargeting() {
 
     let retargeted = retarget(&source, &clip, &target, &profile).expect("retargeting succeeds");
 
-    assert_eq!(retargeted.name, "walk");
+    assert_eq!(retargeted.name, AnimationClipName::from("walk"));
     assert!((retargeted.duration - clip.duration).abs() < 1.0e-6);
     assert_eq!(retargeted.key_times(), clip.key_times());
     let arm = retargeted
@@ -950,7 +952,7 @@ fn root_motion_is_measured_from_the_clips_own_first_frame() {
     );
 
     // A clip that does travel starts its track at zero and reports the delta.
-    let mut walk = Animation::new("walk");
+    let mut walk = Animation::new(AnimationClipName::from("walk"));
     walk.tracks.push(JointTrack {
         joint: "a:hips".into(),
         translation: Some(Curve::new(

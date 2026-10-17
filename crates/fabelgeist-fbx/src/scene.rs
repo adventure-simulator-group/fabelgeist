@@ -3,7 +3,7 @@ use std::collections::HashMap;
 
 use anyhow::Result;
 
-use crate::{FbxConnectionProperty, FbxObjectId, Node};
+use crate::{FbxConnectionProperty, FbxObjectId, Node, Prop};
 
 /// An entry of the `Objects` block.
 #[derive(Debug)]
@@ -21,22 +21,6 @@ pub struct Object {
     /// The record name, e.g. `Model`, `Geometry`, `Deformer`.
     pub kind: String,
     pub node: Node,
-}
-
-impl Object {
-    /// OpenFBX maps `Model::Root` onto a limb node, which is why `body_world`
-    /// becomes joint 0 of the MHR skeleton rather than a plain null node.
-    pub fn is_limb(&self) -> bool {
-        self.kind == "Model" && (self.class == "LimbNode" || self.class == "Root")
-    }
-
-    pub fn is_null_node(&self) -> bool {
-        self.kind == "Model" && self.class == "Null"
-    }
-
-    pub fn is_node(&self) -> bool {
-        self.kind == "Model"
-    }
 }
 
 /// One entry of the connection list.
@@ -61,26 +45,56 @@ pub struct Scene {
     links: HashMap<FbxObjectId, Vec<Link>>,
 }
 
-fn object_name(raw: &[u8]) -> String {
-    let name = match raw.windows(2).position(|w| w == [0, 1]) {
-        Some(pos) => &raw[..pos],
-        None => raw,
-    };
-    let name = String::from_utf8_lossy(name).into_owned();
-    // momentum strips namespaces before matching joints against the .model file.
-    match name.rfind(':') {
-        Some(pos) => name[pos + 1..].to_string(),
-        None => name,
+/// A field in an object record's fixed property layout.
+enum ObjectPropertySlot {
+    Id,
+    Name,
+    Class,
+}
+
+/// A field in a connection record's fixed property layout.
+enum ConnectionPropertySlot {
+    Source,
+    Destination,
+    Property,
+}
+
+impl Node {
+    fn object_property(&self, slot: ObjectPropertySlot) -> Option<&Prop> {
+        // Decoded object properties follow [id, name, class]. Native indexing
+        // stays at this checked property-container boundary.
+        self.props.get(match slot {
+            ObjectPropertySlot::Id => 0,
+            ObjectPropertySlot::Name => 1,
+            ObjectPropertySlot::Class => 2,
+        })
+    }
+
+    fn connection_property(&self, slot: ConnectionPropertySlot) -> Option<&Prop> {
+        // Connections follow [type, source, destination, optional property].
+        // The existing reader leaves the type field uninterpreted.
+        self.props.get(match slot {
+            ConnectionPropertySlot::Source => 1,
+            ConnectionPropertySlot::Destination => 2,
+            ConnectionPropertySlot::Property => 3,
+        })
     }
 }
 
-/// The object name with any namespace left on, e.g. `mixamorig:Hips`.
-fn qualified_name(raw: &[u8]) -> String {
-    let name = match raw.windows(2).position(|w| w == [0, 1]) {
-        Some(pos) => &raw[..pos],
-        None => raw,
-    };
-    String::from_utf8_lossy(name).into_owned()
+impl Object {
+    /// OpenFBX maps `Model::Root` onto a limb node, which is why `body_world`
+    /// becomes joint 0 of the MHR skeleton rather than a plain null node.
+    pub fn is_limb(&self) -> bool {
+        self.kind == "Model" && (self.class == "LimbNode" || self.class == "Root")
+    }
+
+    pub fn is_null_node(&self) -> bool {
+        self.kind == "Model" && self.class == "Null"
+    }
+
+    pub fn is_node(&self) -> bool {
+        self.kind == "Model"
+    }
 }
 
 impl Scene {
@@ -97,13 +111,25 @@ impl Scene {
                 continue;
             }
             for node in &root.children {
-                let Some(id) = node.props.first().and_then(FbxObjectId::from_property) else {
+                let Some(id) = node
+                    .object_property(ObjectPropertySlot::Id)
+                    .and_then(FbxObjectId::from_property)
+                else {
                     continue;
                 };
-                let name = node.str_prop(1).map(object_name).unwrap_or_default();
-                let qualified = node.str_prop(1).map(qualified_name).unwrap_or_default();
+                let name = node
+                    .object_property(ObjectPropertySlot::Name)
+                    .and_then(Prop::as_str)
+                    .map(object_name)
+                    .unwrap_or_default();
+                let qualified = node
+                    .object_property(ObjectPropertySlot::Name)
+                    .and_then(Prop::as_str)
+                    .map(qualified_name)
+                    .unwrap_or_default();
                 let class = node
-                    .str_prop(2)
+                    .object_property(ObjectPropertySlot::Class)
+                    .and_then(Prop::as_str)
                     .map(|c| String::from_utf8_lossy(c).into_owned())
                     .unwrap_or_default();
                 by_id.insert(id, objects.len());
@@ -125,8 +151,10 @@ impl Scene {
             for c in &root.children {
                 // C: [type, from, to, (property name)]
                 let (Some(from), Some(to)) = (
-                    c.props.get(1).and_then(FbxObjectId::from_property),
-                    c.props.get(2).and_then(FbxObjectId::from_property),
+                    c.connection_property(ConnectionPropertySlot::Source)
+                        .and_then(FbxObjectId::from_property),
+                    c.connection_property(ConnectionPropertySlot::Destination)
+                        .and_then(FbxObjectId::from_property),
                 ) else {
                     continue;
                 };
@@ -134,8 +162,7 @@ impl Scene {
                     continue;
                 }
                 let property = c
-                    .props
-                    .get(3)
+                    .connection_property(ConnectionPropertySlot::Property)
                     .and_then(FbxConnectionProperty::from_property);
                 links.entry(to).or_default().push(Link { from, property });
             }
@@ -179,10 +206,6 @@ impl Scene {
         })
     }
 
-    fn incoming(&self, id: FbxObjectId) -> impl Iterator<Item = &Link> {
-        self.links.get(&id).map(Vec::as_slice).unwrap_or(&[]).iter()
-    }
-
     /// The first child of `id` whose record name and class match.
     pub fn child_of_kind(&self, id: FbxObjectId, kind: &str, class: &str) -> Option<&Object> {
         self.children(id)
@@ -198,6 +221,32 @@ impl Scene {
             .iter()
             .filter(move |o| o.kind == kind && o.class == class)
     }
+
+    fn incoming(&self, id: FbxObjectId) -> impl Iterator<Item = &Link> {
+        self.links.get(&id).map(Vec::as_slice).unwrap_or(&[]).iter()
+    }
+}
+
+fn object_name(raw: &[u8]) -> String {
+    let name = match raw.windows(2).position(|w| w == [0, 1]) {
+        Some(pos) => &raw[..pos],
+        None => raw,
+    };
+    let name = String::from_utf8_lossy(name).into_owned();
+    // momentum strips namespaces before matching joints against the .model file.
+    match name.rfind(':') {
+        Some(pos) => name[pos + 1..].to_string(),
+        None => name,
+    }
+}
+
+/// The object name with any namespace left on, e.g. `mixamorig:Hips`.
+fn qualified_name(raw: &[u8]) -> String {
+    let name = match raw.windows(2).position(|w| w == [0, 1]) {
+        Some(pos) => &raw[..pos],
+        None => raw,
+    };
+    String::from_utf8_lossy(name).into_owned()
 }
 
 #[cfg(test)]

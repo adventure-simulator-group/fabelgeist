@@ -83,7 +83,7 @@ mod tests {
     #[test]
     fn mirrored_frontages_fit_their_original_slots_before_candidate_culling() {
         let mut saw_left = false;
-        for seed in [42, 47, 101] {
+        for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             for tangent in [Vec2::X, Vec2::new(0.8, 0.6)] {
                 let mut candidates = Vec::new();
                 append_frontage(
@@ -112,7 +112,7 @@ mod tests {
     #[test]
     fn reserved_courts_and_passages_do_not_overlap_neighbouring_plots() {
         let city = CitySite::central_german_market_town().generate(
-            42,
+            (42).into(),
             2000,
             &SettlementEconomyProfile::stage_placeholder(),
         );

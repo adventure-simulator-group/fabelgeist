@@ -29,10 +29,10 @@ pub struct SmallChurchPlan {
     pub nave_bays: u16,
     pub nave_depth_metres: f32,
     pub chancel_eave_metres: Option<f32>,
-    pub belfry_stage: ResolvedBounds,
+    pub belfry_stage: SpatialBounds<Architectural>,
     pub fittings: Vec<ResolvedItemId>,
     pub bearing_walls: Vec<crate::WallAssemblyId>,
-    pub public_route: ResolvedBounds,
+    pub public_route: SpatialBounds<Architectural>,
 }
 
 impl SmallChurchKind {
@@ -45,8 +45,12 @@ impl SmallChurchKind {
     }
 }
 
-pub(super) fn occupied_storey(program: &BuildingProgram) -> Option<StoreyPlan> {
-    Some(storey::build(Dimensions::from_program(program)?))
+pub(super) fn occupied_storey(
+    program: &BuildingProgram,
+) -> Result<Option<StoreyPlan>, GenerationError> {
+    Dimensions::from_program(program)
+        .map(storey::build)
+        .transpose()
 }
 
 pub(super) fn wall_height(program: &BuildingProgram, wall: crate::WallSegment) -> f32 {
@@ -74,14 +78,16 @@ pub(super) fn resolve(
     program: &BuildingProgram,
     walls: &mut Vec<crate::WallAssembly>,
     geometry: &mut ResolvedGeometry,
-) -> Option<SmallChurchPlan> {
-    let dimensions = Dimensions::from_program(program)?;
-    Some(fittings::assemble(
+) -> Result<Option<SmallChurchPlan>, GenerationError> {
+    let Some(dimensions) = Dimensions::from_program(program) else {
+        return Ok(None);
+    };
+    Ok(Some(fittings::assemble(
         dimensions,
         program.roof_pitch_degrees,
         walls,
         geometry,
-    ))
+    )?))
 }
 
 #[derive(Clone, Copy)]

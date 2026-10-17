@@ -34,7 +34,7 @@ fn resolve_church_tower_door_wall(
     owner: GeometryOwnerId,
     centre: Vec2,
     geometry: &mut ResolvedGeometry,
-) -> (crate::WallAssembly, crate::OpeningAssembly) {
+) -> Result<(crate::WallAssembly, crate::OpeningAssembly), crate::GenerationError> {
     let outward = direction_vector(face);
     let tangent = if outward.y.abs() > 0.5 {
         Vec2::X
@@ -54,45 +54,31 @@ fn resolve_church_tower_door_wall(
     ];
     let head_node = StructuralNodeId(wall_node.0 + 3);
     let spandrel_node = StructuralNodeId(wall_node.0 + 4);
-    geometry.structural_nodes.push(StructuralNode {
-        id: wall_node,
-        owner,
-        kind: StructuralNodeKind::WallBearing,
-        position: Vec3::new(origin.x, 0.0, origin.y),
-        supported_by: Vec::new(),
-        grounded: true,
-    });
-    for (index, node_id) in jamb_nodes.into_iter().enumerate() {
-        let side = if index == 0 { -1.0 } else { 1.0 };
-        geometry.structural_nodes.push(StructuralNode {
-            id: node_id,
+    geometry
+        .structural_nodes
+        .push(crate::StructuralNode::from_metres(
+            wall_node,
             owner,
-            kind: StructuralNodeKind::OpeningJamb,
-            position: Vec3::new(
-                origin.x + tangent.x * side * width * 0.5,
-                0.0,
-                origin.y + tangent.y * side * width * 0.5,
-            ),
-            supported_by: vec![wall_node],
-            grounded: false,
-        });
-    }
-    geometry.structural_nodes.push(StructuralNode {
-        id: head_node,
-        owner,
-        kind: StructuralNodeKind::OpeningHead,
-        position: Vec3::new(origin.x, clear_height, origin.y),
-        supported_by: jamb_nodes.to_vec(),
-        grounded: false,
-    });
-    geometry.structural_nodes.push(StructuralNode {
-        id: spandrel_node,
-        owner,
-        kind: StructuralNodeKind::OpeningSpandrel,
-        position: Vec3::new(origin.x, clear_height + 0.35, origin.y),
-        supported_by: vec![head_node],
-        grounded: false,
-    });
+            StructuralNodeKind::WallBearing,
+            Vec3::new(origin.x, 0.0, origin.y),
+            Vec::new(),
+            true,
+        )?);
+    opening_jambs::OpeningJambSetOut::from_metres(
+        jamb_nodes, owner, wall_node, origin, tangent, width, 0.0,
+    )?
+    .append_nodes(geometry)?;
+    geometry.structural_nodes.extend(
+        opening_jambs::OpeningHeadSetOut::from_metres(
+            [head_node, spandrel_node],
+            owner,
+            jamb_nodes,
+            origin,
+            clear_height,
+            clear_height + 0.35,
+        )?
+        .nodes()?,
+    );
     let side_width = (length - width) * 0.5;
     let mut jamb_solids = [ResolvedItemId(0); 2];
     let mut host_solids = Vec::new();
@@ -111,7 +97,7 @@ fn resolve_church_tower_door_wall(
             SolidRole::OpeningJamb,
             crate::ResolvedSolidShape::Cuboid,
             jamb_nodes[index],
-        );
+        )?;
         host_solids.push(jamb_solids[index]);
     }
     let head_solid = wall_solid(
@@ -127,7 +113,7 @@ fn resolve_church_tower_door_wall(
         SolidRole::OpeningHead,
         crate::ResolvedSolidShape::Cuboid,
         head_node,
-    );
+    )?;
     host_solids.push(head_solid);
     let spandrel_bottom = clear_height + 0.325;
     let spandrel_height = height - spandrel_bottom;
@@ -144,7 +130,7 @@ fn resolve_church_tower_door_wall(
         SolidRole::OpeningSpandrel,
         crate::ResolvedSolidShape::Cuboid,
         spandrel_node,
-    );
+    )?;
     host_solids.push(spandrel_solid);
     let half_tangent = tangent.abs() * (width * 0.5);
     let half_depth = outward.abs() * (thickness * 0.55);
@@ -159,18 +145,18 @@ fn resolve_church_tower_door_wall(
         geometry,
         owner,
         0,
-        ResolvedBounds {
-            min: Vec3::new(
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 origin.x - half_tangent.x - half_depth.x,
                 0.0,
                 origin.y - half_tangent.y - half_depth.y,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 origin.x + half_tangent.x + half_depth.x,
                 clear_height,
                 origin.y + half_tangent.y + half_depth.y,
             ),
-        },
+        )?,
         opening_id,
         width,
         width,
@@ -189,10 +175,10 @@ fn resolve_church_tower_door_wall(
             geometry,
             owner,
             slot,
-            ResolvedBounds {
-                min: Vec3::new(plan.x - extent.x, 0.0, plan.y - extent.y),
-                max: Vec3::new(plan.x + extent.x, clear_height, plan.y + extent.y),
-            },
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(plan.x - extent.x, 0.0, plan.y - extent.y),
+                Vec3::new(plan.x + extent.x, clear_height, plan.y + extent.y),
+            )?,
             role,
             crate::ResolvedSurfaceShape::SplayedJamb {
                 side: side as i8,
@@ -206,18 +192,18 @@ fn resolve_church_tower_door_wall(
         geometry,
         owner,
         12,
-        ResolvedBounds {
-            min: Vec3::new(
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 origin.x - half_tangent.x - half_depth.x,
                 clear_height - 0.02,
                 origin.y - half_tangent.y - half_depth.y,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 origin.x + half_tangent.x + half_depth.x,
                 clear_height + 0.02,
                 origin.y + half_tangent.y + half_depth.y,
             ),
-        },
+        )?,
         SurfaceRole::Intrados,
         crate::ResolvedSurfaceShape::Planar,
     ));
@@ -225,18 +211,18 @@ fn resolve_church_tower_door_wall(
         geometry,
         owner,
         15,
-        ResolvedBounds {
-            min: Vec3::new(
+        SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 origin.x - half_tangent.x - half_depth.x,
                 -0.025,
                 origin.y - half_tangent.y - half_depth.y,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 origin.x + half_tangent.x + half_depth.x,
                 0.025,
                 origin.y + half_tangent.y + half_depth.y,
             ),
-        },
+        )?,
         SurfaceRole::WeatherSill,
         crate::ResolvedSurfaceShape::WeatherSill {
             interior_elevation_metres: 0.02,
@@ -253,18 +239,18 @@ fn resolve_church_tower_door_wall(
             geometry,
             owner,
             slot,
-            ResolvedBounds {
-                min: Vec3::new(
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     plan.x - half_tangent.x - 0.006,
                     0.0,
                     plan.y - half_tangent.y - 0.006,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     plan.x + half_tangent.x + 0.006,
                     clear_height,
                     plan.y + half_tangent.y + 0.006,
                 ),
-            },
+            )?,
             role,
             crate::ResolvedSurfaceShape::Planar,
         ));
@@ -283,42 +269,48 @@ fn resolve_church_tower_door_wall(
         SolidRole::OpeningClosure,
         crate::ResolvedSolidShape::Cuboid,
         jamb_nodes[0],
-    );
+    )?;
     let bearing_width = 0.15_f32;
     let head_bearing_interfaces = [-1.0_f32, 1.0].map(|side| {
         let slot = if side < 0.0 { 50 } else { 51 };
         let plan = origin + tangent * side * (width * 0.5 + bearing_width * 0.5);
         let extent = tangent.abs() * bearing_width * 0.5 + outward.abs() * thickness * 0.5;
         let id = ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | slot);
-        geometry.support_interfaces.push(SupportInterface {
-            id,
-            owner,
-            node: head_node,
-            bounds: ResolvedBounds {
-                min: Vec3::new(plan.x - extent.x, clear_height - 0.025, plan.y - extent.y),
-                max: Vec3::new(plan.x + extent.x, clear_height + 0.025, plan.y + extent.y),
-            },
-        });
-        id
+        geometry
+            .support_interfaces
+            .push(crate::SupportInterface::new(
+                id,
+                owner,
+                head_node,
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(plan.x - extent.x, clear_height - 0.025, plan.y - extent.y),
+                    Vec3::new(plan.x + extent.x, clear_height + 0.025, plan.y + extent.y),
+                )?,
+            ));
+        Ok::<_, crate::GenerationError>(id)
     });
+    let [first, second] = head_bearing_interfaces;
+    let head_bearing_interfaces = [first?, second?];
     let wall_above_interface = ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | 52);
-    geometry.support_interfaces.push(SupportInterface {
-        id: wall_above_interface,
-        owner,
-        node: spandrel_node,
-        bounds: ResolvedBounds {
-            min: Vec3::new(
-                origin.x - half_tangent.x - half_depth.x,
-                clear_height + 0.325,
-                origin.y - half_tangent.y - half_depth.y,
-            ),
-            max: Vec3::new(
-                origin.x + half_tangent.x + half_depth.x,
-                clear_height + 0.375,
-                origin.y + half_tangent.y + half_depth.y,
-            ),
-        },
-    });
+    geometry
+        .support_interfaces
+        .push(crate::SupportInterface::new(
+            wall_above_interface,
+            owner,
+            spandrel_node,
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
+                    origin.x - half_tangent.x - half_depth.x,
+                    clear_height + 0.325,
+                    origin.y - half_tangent.y - half_depth.y,
+                ),
+                Vec3::new(
+                    origin.x + half_tangent.x + half_depth.x,
+                    clear_height + 0.375,
+                    origin.y + half_tangent.y + half_depth.y,
+                ),
+            )?,
+        ));
     let source = crate::WallSourceId::ChurchTowerFace {
         face,
         stage: crate::ChurchTowerStage::Portal,
@@ -391,7 +383,7 @@ fn resolve_church_tower_door_wall(
         head_bearing_interfaces,
         wall_above_interface,
     };
-    (wall, opening)
+    Ok((wall, opening))
 }
 
 fn resolve_cathedral_bell_stage(
@@ -399,8 +391,8 @@ fn resolve_cathedral_bell_stage(
     walls: &mut Vec<crate::WallAssembly>,
     openings: &mut Vec<crate::OpeningAssembly>,
     geometry: &mut ResolvedGeometry,
-) {
-    for (tower_index, tower) in towers
+) -> Result<(), crate::GenerationError> {
+    let _: () = for (tower_index, tower) in towers
         .iter()
         .enumerate()
         .filter(|(_, tower)| tower.bell_openings)
@@ -444,14 +436,16 @@ fn resolve_cathedral_bell_stage(
                 let origin = tower.centre
                     + outward * (depth_span * 0.5)
                     + tangent * (bay_sign * bay_length * 0.5);
-                geometry.structural_nodes.push(StructuralNode {
-                    id: wall_node,
-                    owner,
-                    kind: StructuralNodeKind::WallBearing,
-                    position: Vec3::new(origin.x, 0.0, origin.y),
-                    supported_by: Vec::new(),
-                    grounded: true,
-                });
+                geometry
+                    .structural_nodes
+                    .push(crate::StructuralNode::from_metres(
+                        wall_node,
+                        owner,
+                        StructuralNodeKind::WallBearing,
+                        Vec3::new(origin.x, 0.0, origin.y),
+                        Vec::new(),
+                        true,
+                    )?);
                 let width = 1.15_f32;
                 let sill = 0.45_f32;
                 let spring = 2.10_f32;
@@ -467,38 +461,23 @@ fn resolve_cathedral_bell_stage(
                     StructuralNodeId(wall_node.0 + 1),
                     StructuralNodeId(wall_node.0 + 2),
                 ];
-                for (side, node) in [-1.0_f32, 1.0].into_iter().zip(jamb_nodes) {
-                    geometry.structural_nodes.push(StructuralNode {
-                        id: node,
-                        owner,
-                        kind: StructuralNodeKind::OpeningJamb,
-                        position: Vec3::new(
-                            origin.x + tangent.x * side * width * 0.5,
-                            base,
-                            origin.y + tangent.y * side * width * 0.5,
-                        ),
-                        supported_by: vec![wall_node],
-                        grounded: false,
-                    });
-                }
+                opening_jambs::OpeningJambSetOut::from_metres(
+                    jamb_nodes, owner, wall_node, origin, tangent, width, base,
+                )?
+                .append_nodes(geometry)?;
                 let head_node = StructuralNodeId(wall_node.0 + 3);
-                geometry.structural_nodes.push(StructuralNode {
-                    id: head_node,
-                    owner,
-                    kind: StructuralNodeKind::OpeningHead,
-                    position: Vec3::new(origin.x, base + sill + apex, origin.y),
-                    supported_by: jamb_nodes.to_vec(),
-                    grounded: false,
-                });
                 let spandrel_node = StructuralNodeId(wall_node.0 + 4);
-                geometry.structural_nodes.push(StructuralNode {
-                    id: spandrel_node,
-                    owner,
-                    kind: StructuralNodeKind::OpeningSpandrel,
-                    position: Vec3::new(origin.x, base + stage_height, origin.y),
-                    supported_by: vec![head_node],
-                    grounded: false,
-                });
+                geometry.structural_nodes.extend(
+                    opening_jambs::OpeningHeadSetOut::from_metres(
+                        [head_node, spandrel_node],
+                        owner,
+                        jamb_nodes,
+                        origin,
+                        base + sill + apex,
+                        base + stage_height,
+                    )?
+                    .nodes()?,
+                );
                 let side_width = (bay_length - width) * 0.5;
                 let mut jamb_solids = [ResolvedItemId::default(); 2];
                 let mut host_solids = Vec::new();
@@ -521,7 +500,7 @@ fn resolve_cathedral_bell_stage(
                     SolidRole::WallHost,
                     crate::ResolvedSolidShape::Cuboid,
                     wall_node,
-                );
+                )?;
                 host_solids.push(shaft_solid);
                 for (index, side) in [-1.0_f32, 1.0].into_iter().enumerate() {
                     let plan = origin + tangent * side * (width + side_width) * 0.5;
@@ -538,7 +517,7 @@ fn resolve_cathedral_bell_stage(
                         SolidRole::OpeningJamb,
                         crate::ResolvedSolidShape::Cuboid,
                         jamb_nodes[index],
-                    );
+                    )?;
                     jamb_solids[index] = id;
                     host_solids.push(id);
                 }
@@ -555,7 +534,7 @@ fn resolve_cathedral_bell_stage(
                     SolidRole::OpeningSill,
                     crate::ResolvedSolidShape::Cuboid,
                     wall_node,
-                );
+                )?;
                 host_solids.push(sill_solid);
                 let bearing_width = 0.12_f32;
                 let header_base = sill + spring;
@@ -580,7 +559,7 @@ fn resolve_cathedral_bell_stage(
                         ring_depth_metres: 0.22,
                     },
                     head_node,
-                );
+                )?;
                 host_solids.push(head_solid);
                 let spandrel_bottom = head_top - 0.025;
                 let spandrel_height = stage_height - spandrel_bottom;
@@ -601,7 +580,7 @@ fn resolve_cathedral_bell_stage(
                     SolidRole::OpeningSpandrel,
                     crate::ResolvedSolidShape::Cuboid,
                     spandrel_node,
-                );
+                )?;
                 host_solids.push(spandrel_solid);
                 let half_tangent = tangent.abs() * (width * 0.5);
                 let half_depth = outward.abs() * (thickness * 0.55);
@@ -616,18 +595,18 @@ fn resolve_cathedral_bell_stage(
                     geometry,
                     owner,
                     0,
-                    ResolvedBounds {
-                        min: Vec3::new(
+                    SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(
                             origin.x - half_tangent.x - half_depth.x,
                             base + sill,
                             origin.y - half_tangent.y - half_depth.y,
                         ),
-                        max: Vec3::new(
+                        Vec3::new(
                             origin.x + half_tangent.x + half_depth.x,
                             base + sill + apex,
                             origin.y + half_tangent.y + half_depth.y,
                         ),
-                    },
+                    )?,
                     opening_id,
                     width,
                     width,
@@ -647,14 +626,14 @@ fn resolve_cathedral_bell_stage(
                         geometry,
                         owner,
                         slot,
-                        ResolvedBounds {
-                            min: Vec3::new(plan.x - hd.x - hr.x, base + sill, plan.y - hd.y - hr.y),
-                            max: Vec3::new(
+                        SpatialBounds::<Architectural>::from_metres(
+                            Vec3::new(plan.x - hd.x - hr.x, base + sill, plan.y - hd.y - hr.y),
+                            Vec3::new(
                                 plan.x + hd.x + hr.x,
                                 base + sill + apex,
                                 plan.y + hd.y + hr.y,
                             ),
-                        },
+                        )?,
                         role,
                         crate::ResolvedSurfaceShape::SplayedJamb {
                             side,
@@ -668,18 +647,18 @@ fn resolve_cathedral_bell_stage(
                     geometry,
                     owner,
                     12,
-                    ResolvedBounds {
-                        min: Vec3::new(
+                    SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(
                             origin.x - half_tangent.x - half_depth.x,
                             base + sill - 0.035,
                             origin.y - half_tangent.y - half_depth.y,
                         ),
-                        max: Vec3::new(
+                        Vec3::new(
                             origin.x + half_tangent.x + half_depth.x,
                             base + sill + 0.015,
                             origin.y + half_tangent.y + half_depth.y,
                         ),
-                    },
+                    )?,
                     SurfaceRole::WeatherSill,
                     crate::ResolvedSurfaceShape::WeatherSill {
                         interior_elevation_metres: base + sill,
@@ -691,18 +670,18 @@ fn resolve_cathedral_bell_stage(
                     geometry,
                     owner,
                     13,
-                    ResolvedBounds {
-                        min: Vec3::new(
+                    SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(
                             origin.x - half_tangent.x - half_depth.x,
                             base + sill + spring - 0.015,
                             origin.y - half_tangent.y - half_depth.y,
                         ),
-                        max: Vec3::new(
+                        Vec3::new(
                             origin.x + half_tangent.x + half_depth.x,
                             base + sill + apex,
                             origin.y + half_tangent.y + half_depth.y,
                         ),
-                    },
+                    )?,
                     SurfaceRole::Intrados,
                     crate::ResolvedSurfaceShape::PointedIntrados {
                         clear_span_metres: width,
@@ -721,18 +700,18 @@ fn resolve_cathedral_bell_stage(
                         geometry,
                         owner,
                         slot,
-                        ResolvedBounds {
-                            min: Vec3::new(
+                        SpatialBounds::<Architectural>::from_metres(
+                            Vec3::new(
                                 face_plan.x - half_tangent.x - hf.x,
                                 base + sill,
                                 face_plan.y - half_tangent.y - hf.y,
                             ),
-                            max: Vec3::new(
+                            Vec3::new(
                                 face_plan.x + half_tangent.x + hf.x,
                                 base + sill + apex,
                                 face_plan.y + half_tangent.y + hf.y,
                             ),
-                        },
+                        )?,
                         role,
                         crate::ResolvedSurfaceShape::Planar,
                     ));
@@ -756,7 +735,7 @@ fn resolve_cathedral_bell_stage(
                         SolidRole::OpeningClosure,
                         crate::ResolvedSolidShape::Cuboid,
                         head_node,
-                    ));
+                    )?);
                 }
                 let head_bearing_interfaces = [-1.0_f32, 1.0].map(|side| {
                     let slot = if side < 0.0 { 50 } else { 51 };
@@ -764,44 +743,50 @@ fn resolve_cathedral_bell_stage(
                     let extent =
                         tangent.abs() * (bearing_width * 0.5) + outward.abs() * (thickness * 0.5);
                     let id = ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | slot);
-                    geometry.support_interfaces.push(SupportInterface {
-                        id,
-                        owner,
-                        node: head_node,
-                        bounds: ResolvedBounds {
-                            min: Vec3::new(
-                                centre_plan.x - extent.x,
-                                base + header_base - 0.025,
-                                centre_plan.y - extent.y,
-                            ),
-                            max: Vec3::new(
-                                centre_plan.x + extent.x,
-                                base + header_base + 0.025,
-                                centre_plan.y + extent.y,
-                            ),
-                        },
-                    });
-                    id
+                    geometry
+                        .support_interfaces
+                        .push(crate::SupportInterface::new(
+                            id,
+                            owner,
+                            head_node,
+                            SpatialBounds::<Architectural>::from_metres(
+                                Vec3::new(
+                                    centre_plan.x - extent.x,
+                                    base + header_base - 0.025,
+                                    centre_plan.y - extent.y,
+                                ),
+                                Vec3::new(
+                                    centre_plan.x + extent.x,
+                                    base + header_base + 0.025,
+                                    centre_plan.y + extent.y,
+                                ),
+                            )?,
+                        ));
+                    Ok::<_, crate::GenerationError>(id)
                 });
+                let [first, second] = head_bearing_interfaces;
+                let head_bearing_interfaces = [first?, second?];
                 let wall_above_interface =
                     ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | 52);
-                geometry.support_interfaces.push(SupportInterface {
-                    id: wall_above_interface,
-                    owner,
-                    node: spandrel_node,
-                    bounds: ResolvedBounds {
-                        min: Vec3::new(
-                            origin.x - half_tangent.x - outward.x.abs() * thickness * 0.5,
-                            base + head_top - 0.025,
-                            origin.y - half_tangent.y - outward.y.abs() * thickness * 0.5,
-                        ),
-                        max: Vec3::new(
-                            origin.x + half_tangent.x + outward.x.abs() * thickness * 0.5,
-                            base + head_top + 0.025,
-                            origin.y + half_tangent.y + outward.y.abs() * thickness * 0.5,
-                        ),
-                    },
-                });
+                geometry
+                    .support_interfaces
+                    .push(crate::SupportInterface::new(
+                        wall_above_interface,
+                        owner,
+                        spandrel_node,
+                        SpatialBounds::<Architectural>::from_metres(
+                            Vec3::new(
+                                origin.x - half_tangent.x - outward.x.abs() * thickness * 0.5,
+                                base + head_top - 0.025,
+                                origin.y - half_tangent.y - outward.y.abs() * thickness * 0.5,
+                            ),
+                            Vec3::new(
+                                origin.x + half_tangent.x + outward.x.abs() * thickness * 0.5,
+                                base + head_top + 0.025,
+                                origin.y + half_tangent.y + outward.y.abs() * thickness * 0.5,
+                            ),
+                        )?,
+                    ));
                 openings.push(crate::OpeningAssembly {
                     id: opening_id,
                     owner,
@@ -882,5 +867,6 @@ fn resolve_cathedral_bell_stage(
                 });
             }
         }
-    }
+    };
+    Ok(())
 }

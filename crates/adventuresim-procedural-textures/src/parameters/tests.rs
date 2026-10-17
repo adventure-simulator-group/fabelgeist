@@ -100,3 +100,30 @@ fn imported_nested_typos_and_degenerate_features_are_rejected() {
     value["window_glass"]["bubbles"][0][2] = 0.0.into();
     assert!(TextureParameters::from_value(value).is_err());
 }
+
+#[test]
+fn named_seed_records_survive_presets_and_worker_transport_without_control_clamping() {
+    for word in [17, 73, u64::MAX] {
+        let parameters = TextureParameters {
+            seed: fabelgeist_determinism::Seed::from_u64(word),
+            ..draft()
+        };
+        parameters.validate().unwrap();
+        let value = serde_json::to_value(&parameters).unwrap();
+        assert_eq!(value["seed"], serde_json::json!({ "word": word }));
+        assert_eq!(
+            TextureParameters::from_value(value).unwrap().seed,
+            parameters.seed
+        );
+    }
+    for malformed in [
+        serde_json::json!(73),
+        serde_json::json!({"word": -1}),
+        serde_json::json!({"word": 42, "extra": 0}),
+        serde_json::json!({}),
+    ] {
+        let mut value = serde_json::to_value(draft()).unwrap();
+        value["seed"] = malformed;
+        assert!(TextureParameters::from_value(value).is_err());
+    }
+}

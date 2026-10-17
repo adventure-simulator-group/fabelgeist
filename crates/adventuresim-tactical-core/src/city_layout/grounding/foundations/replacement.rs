@@ -8,13 +8,22 @@ mod tests;
 /// remain construction geometry; collision uses solid convex cells.
 #[derive(Clone, Debug, PartialEq, Serialize)]
 pub struct BoundedPropertyTerrain {
-    pub foundations: PropertyFoundationMesh,
-    pub natural_triangles: Vec<[Vec3; 3]>,
-    pub support_regions: Vec<CityPlotBounds>,
+    pub(super) foundations: PropertyFoundationMesh,
+    pub(super) natural_triangles: Vec<[Vec3; 3]>,
+    pub(super) support_regions: Vec<CityPlotBounds>,
     contact_tolerance_metres: f32,
 }
 
 impl BoundedPropertyTerrain {
+    pub fn foundations(&self) -> &PropertyFoundationMesh {
+        &self.foundations
+    }
+    pub fn natural_triangles(&self) -> &[[Vec3; 3]] {
+        &self.natural_triangles
+    }
+    pub fn support_regions(&self) -> &[CityPlotBounds] {
+        &self.support_regions
+    }
     pub fn compile(
         plan: &CompoundSupportPlan,
         geographic: &GeographicSurface,
@@ -23,7 +32,19 @@ impl BoundedPropertyTerrain {
         let foundations = plan.foundations(geographic, embedment)?;
         let regions = plan.support_regions();
         let outlines = plan.source_clipping_outlines();
-        let cuts = geometry::SourceCutRegions::from_outlines(outlines);
+        let cuts = geometry::SourceCutRegions::from_outlines(outlines).map_err(|issue| {
+            let mut error = SupportDiagnostic::new(
+                &plan.property,
+                SupportConstraint::Reservation,
+                SupportBoundary::PropertyReservation,
+                plan.property.plot.centre_metres(),
+                1.0,
+                0.0,
+            );
+            error.construction_failure = Some(Box::new(SupportConstructionError::Geometry(issue)));
+            error.attempted_treatment = Box::new(SupportGradingAttempt::Compound(plan.treatment));
+            error
+        })?;
         let natural_triangles = geographic
             .triangles
             .iter()
@@ -34,7 +55,7 @@ impl BoundedPropertyTerrain {
             foundations,
             natural_triangles,
             support_regions: regions,
-            contact_tolerance_metres: plan.limits.contact_tolerance_metres,
+            contact_tolerance_metres: plan.limits.contact_tolerance_metres.metres(),
         })
     }
 
@@ -52,9 +73,10 @@ impl BoundedPropertyTerrain {
             .chain(self.natural_triangles.iter().copied())
             .filter_map(|points| {
                 let triangle = GroundTriangle::new(points)?;
-                triangle
-                    .contains(point, self.contact_tolerance_metres)
-                    .then(|| SupportElevation(triangle.height_at(point)))
+                if !triangle.contains(point, self.contact_tolerance_metres) {
+                    return None;
+                }
+                SupportElevation::from_metres(triangle.height_at(point))
             })
             .collect();
         heights.sort_by(|a, b| a.metres().total_cmp(&b.metres()));
@@ -64,21 +86,28 @@ impl BoundedPropertyTerrain {
 
     /// Avian composite colliders cannot be nested. Install these immutable
     /// shapes on separate static bodies with the same scene-space origin.
-    pub fn colliders(&self) -> Vec<avian3d::prelude::Collider> {
-        let foundation = self.foundations.collider();
+    pub fn colliders(&self) -> Result<Vec<avian3d::prelude::Collider>, SupportColliderError> {
+        let mut colliders: Vec<_> = self
+            .foundations
+            .collider()?
+            .into_solid()
+            .into_iter()
+            .collect();
         if self.natural_triangles.is_empty() {
-            return vec![foundation];
+            return Ok(colliders);
         }
         let triangles: Vec<_> = self
             .natural_triangles
             .iter()
             .chain(&self.foundations.cut_faces)
             .collect();
+        if triangles.len() > u32::MAX as usize / 3 {
+            return Err(SupportGeometryIssue::Topology.into());
+        }
         let positions: Vec<_> = triangles.iter().flat_map(|t| t.iter()).copied().collect();
         let indices = (0..triangles.len())
             .map(|i| {
-                let start =
-                    u32::try_from(i * 3).expect("bounded geographic mesh fits in u32 indices");
+                let start = (i * 3) as u32;
                 if i < self.natural_triangles.len() {
                     [start, start + 2, start + 1]
                 } else {
@@ -87,7 +116,8 @@ impl BoundedPropertyTerrain {
             })
             .collect();
         let natural = avian3d::prelude::Collider::trimesh(positions, indices);
-        vec![foundation, natural]
+        colliders.push(natural);
+        Ok(colliders)
     }
 }
 
@@ -109,9 +139,10 @@ impl CompoundSupportPlan {
         if self.street_entry.is_some() {
             let (a, b) = (regions[0][0], regions[0][1]);
             let edge = b - a;
-            let apron = regions
-                .last_mut()
-                .expect("bound entry supplies its clipping region");
+            // support_regions appends the bound street entry after the front
+            // bearing, so this branch has a complete final apron rectangle.
+            let last = regions.len() - 1;
+            let apron = &mut regions[last];
             for point in &mut apron[2..] {
                 *point = a + edge * ((*point - a).dot(edge) / edge.length_squared());
             }

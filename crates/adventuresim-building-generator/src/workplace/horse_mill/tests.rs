@@ -1,11 +1,16 @@
 use super::*;
+use crate::spatial_geometry::{CuboidDimensions, Position};
 use crate::{BuildingPlan, audit_plan, generate, settlement_archetype};
 
 fn mill(size: ServiceBuildingSize) -> BuildingPlan {
     let usage = BuildingUse::HorseMill;
     generate(
-        &BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42)
-            .with_service_size(size),
+        &BuildingProgram::settlement(
+            settlement_archetype(usage),
+            Some(usage),
+            fabelgeist_determinism::Seed::from_u64(42),
+        )
+        .with_service_size(size),
     )
     .unwrap()
 }
@@ -76,10 +81,11 @@ fn full_rotation_rejects_obstacles_away_from_the_parked_sweep_including_its_high
             .iter_mut()
             .find(|s| s.id == id)
             .unwrap();
-        obstruction.centre = centre;
-        obstruction.size = Vec3::splat(0.02);
+        obstruction.centre = Position::<crate::Architectural>::from_metres(centre).unwrap();
+        obstruction.size = CuboidDimensions::from_metres(Vec3::splat(0.02)).unwrap();
         assert!(
             audit_plan(&plan)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "horse_mill_sweep_obstruction"),
             "full turning envelope missed obstacle at {centre:?}"
@@ -110,22 +116,35 @@ fn animal_circuit_and_low_draw_link_are_enforced_independently_of_worker_passage
         .iter_mut()
         .find(|s| s.id == stock)
         .unwrap();
-    obstruction.centre = Vec3::new(6.5, 0.9, 10.0);
-    obstruction.size = Vec3::splat(0.3);
+    obstruction.centre =
+        Position::<crate::Architectural>::from_metres(Vec3::new(6.5, 0.9, 10.0)).unwrap();
+    obstruction.size = CuboidDimensions::from_metres(Vec3::splat(0.3)).unwrap();
     assert!(
         audit_plan(&plan)
+            .unwrap()
             .iter()
             .any(|issue| issue.code == "horse_mill_track_obstruction")
     );
-    plan.resolved_geometry
-        .solids
-        .iter_mut()
-        .find(|s| s.id == link)
-        .unwrap()
-        .centre
-        .z = 3.5;
+    {
+        let mut native_geometry = plan
+            .resolved_geometry
+            .solids
+            .iter_mut()
+            .find(|s| s.id == link)
+            .unwrap()
+            .centre
+            .metres();
+        native_geometry.z = 3.5;
+        plan.resolved_geometry
+            .solids
+            .iter_mut()
+            .find(|s| s.id == link)
+            .unwrap()
+            .centre = Position::from_metres(native_geometry).unwrap();
+    };
     assert!(
         audit_plan(&plan)
+            .unwrap()
             .iter()
             .any(|issue| issue.code == "horse_mill_draw_link_outside_track")
     );

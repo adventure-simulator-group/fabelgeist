@@ -69,7 +69,10 @@ impl SceneTerrain {
         stride: usize,
         collar: TerrainTransitionCollar,
     ) -> (Vec<[f32; 3]>, Vec<u32>, Vec<[f32; 2]>) {
-        self.mesh_components_with_stride_filtered(stride, |point| !collar.cuts_out(point))
+        self.mesh_components_with_stride_filtered(stride, |point| {
+            !crate::scene_coordinates::ScenePlanPoint::try_from(point)
+                .is_ok_and(|point| collar.cuts_out(point))
+        })
     }
 
     #[cfg(feature = "meshgen")]

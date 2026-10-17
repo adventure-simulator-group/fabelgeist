@@ -1,5 +1,8 @@
-fn supplement_split_eave_drainage(assemblies: &[RoofAssembly], geometry: &mut ResolvedGeometry) {
-    for assembly in assemblies {
+fn supplement_split_eave_drainage(
+    assemblies: &[RoofAssembly],
+    geometry: &mut ResolvedGeometry,
+) -> Result<(), crate::GenerationError> {
+    let _: () = for assembly in assemblies {
         for link in assembly.children.iter().filter(|link| {
             link.kind == RoofChildKind::CrossGable && link.split_eave_edges.len() == 3
         }) {
@@ -44,47 +47,19 @@ fn supplement_split_eave_drainage(assemblies: &[RoofAssembly], geometry: &mut Re
                     face.plane.normal.z / face.plane.normal.y,
                 )
                 .normalize_or_zero();
-                let projected = face
-                    .polygon
-                    .iter()
-                    .map(|point| Vec2::new(point.x, point.z))
-                    .collect::<Vec<_>>();
-                let min = projected
-                    .iter()
-                    .copied()
-                    .fold(Vec2::splat(f32::INFINITY), Vec2::min);
-                let max = projected
-                    .iter()
-                    .copied()
-                    .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max);
-                let cutouts = face
-                    .cutouts
-                    .iter()
-                    .map(|cut| cut.iter().map(|p| Vec2::new(p.x, p.z)).collect::<Vec<_>>())
-                    .collect::<Vec<_>>();
+                let sampling = roof_plan_sampling::RoofPlanSampling::new(face);
                 let mut samples = Vec::new();
-                for x in 0..5 {
-                    for z in 0..5 {
-                        let fraction = Vec2::new((x as f32 + 0.5) / 5.0, (z as f32 + 0.5) / 5.0);
-                        let origin = min + (max - min) * fraction;
-                        if !plan_point_in_convex_polygon(origin, &projected)
-                            || cutouts
-                                .iter()
-                                .any(|cut| plan_point_in_convex_polygon(origin, cut))
-                        {
-                            continue;
-                        }
-                        let Some(hit) = ray_segment_intersection(origin, downhill, a, b) else {
-                            continue;
-                        };
-                        let surface_y = roof_plane_height(face.plane, origin);
-                        let edge_y = roof_plane_height(face.plane, hit);
-                        if surface_y > edge_y + 0.005 {
-                            samples.push(RoofDrainageSample {
-                                surface_point: Vec3::new(origin.x, surface_y, origin.y),
-                                channel_inlet: Vec3::new(hit.x, edge_y - 0.025, hit.y),
-                            });
-                        }
+                for origin in sampling.origins() {
+                    let Some(hit) = ray_segment_intersection(origin, downhill, a, b) else {
+                        continue;
+                    };
+                    let surface_y = roof_plane_height(face.plane, origin);
+                    let edge_y = roof_plane_height(face.plane, hit);
+                    if surface_y > edge_y + 0.005 {
+                        samples.push(RoofDrainageSample {
+                            surface_point: Vec3::new(origin.x, surface_y, origin.y),
+                            channel_inlet: Vec3::new(hit.x, edge_y - 0.025, hit.y),
+                        });
                     }
                 }
                 if samples.is_empty() {
@@ -128,27 +103,31 @@ fn supplement_split_eave_drainage(assemblies: &[RoofAssembly], geometry: &mut Re
                         Vec3::new(length, 0.11, 0.035),
                     ),
                 ] {
-                    geometry.solids.push(ResolvedSolid {
-                        id,
-                        owner: assembly.owner,
-                        centre: item_centre,
-                        size,
-                        yaw_radians: yaw,
-                        crossfall_radians: 0.0,
-                        longfall_radians: longfall,
-                        role: SolidRole::RoofGutter,
-                        shape: crate::ResolvedSolidShape::Cuboid,
-                        supported_by: face.support_nodes.clone(),
-                    });
-                    geometry.support_interfaces.push(SupportInterface {
-                        id: ResolvedItemId((0x9_u64 << 60) | (id.0 & 0x0FFF_FFFF_FFFF_FFFF)),
-                        owner: assembly.owner,
-                        node: face.support_nodes[0],
-                        bounds: ResolvedBounds {
-                            min: item_centre - Vec3::splat(0.035),
-                            max: item_centre + Vec3::splat(0.035),
-                        },
-                    });
+                    geometry.solids.push(ResolvedSolid::new(
+                        CollisionCuboid::<Architectural>::from_metres(
+                            id,
+                            item_centre,
+                            size,
+                            yaw,
+                            0.0,
+                            longfall,
+                        )?,
+                        assembly.owner,
+                        SolidRole::RoofGutter,
+                        crate::ResolvedSolidShape::Cuboid,
+                        face.support_nodes.clone(),
+                    ));
+                    geometry
+                        .support_interfaces
+                        .push(crate::SupportInterface::new(
+                            ResolvedItemId((0x9_u64 << 60) | (id.0 & 0x0FFF_FFFF_FFFF_FFFF)),
+                            assembly.owner,
+                            face.support_nodes[0],
+                            SpatialBounds::<Architectural>::from_metres(
+                                item_centre - Vec3::splat(0.035),
+                                item_centre + Vec3::splat(0.035),
+                            )?,
+                        ));
                 }
                 let outlet_plan = low_plan + channel_tangent * 0.08 + outward * 0.38;
                 let outlet = Vec3::new(outlet_plan.x, low.y - 0.025, outlet_plan.y);
@@ -156,10 +135,10 @@ fn supplement_split_eave_drainage(assemblies: &[RoofAssembly], geometry: &mut Re
                 geometry.voids.push(ResolvedVoid {
                     id: outlet_void,
                     owner: assembly.owner,
-                    bounds: ResolvedBounds {
-                        min: outlet - Vec3::splat(0.04),
-                        max: outlet + Vec3::splat(0.04),
-                    },
+                    bounds: SpatialBounds::<Architectural>::from_metres(
+                        outlet - Vec3::splat(0.04),
+                        outlet + Vec3::splat(0.04),
+                    )?,
                     role: VoidRole::Drain,
                     shape: crate::ResolvedVoidShape::Box,
                     subtracts_from: assembly.owner,
@@ -174,7 +153,7 @@ fn supplement_split_eave_drainage(assemblies: &[RoofAssembly], geometry: &mut Re
                 geometry.surfaces.push(ResolvedSurface {
                     id: catchment,
                     owner: assembly.owner,
-                    bounds: roof_polygon_bounds(&face.polygon),
+                    bounds: roof_polygon_bounds(face.id, &face.polygon)?,
                     role: SurfaceRole::RoofDrainage,
                     shape: crate::ResolvedSurfaceShape::Planar,
                 });
@@ -194,28 +173,32 @@ fn supplement_split_eave_drainage(assemblies: &[RoofAssembly], geometry: &mut Re
                     outer_elevation_metres: low.y,
                     outlet_along_metres: length * 0.5,
                 });
-                geometry.solids.push(ResolvedSolid {
-                    id: spout,
-                    owner: assembly.owner,
-                    centre: (outlet + discharge) * 0.5 - Vec3::Y * 0.10,
-                    size: Vec3::new(0.09, (outlet.y - discharge.y - 0.20).max(0.09), 0.09),
-                    yaw_radians: 0.0,
-                    crossfall_radians: 0.0,
-                    longfall_radians: 0.0,
-                    role: SolidRole::RoofGutter,
-                    shape: crate::ResolvedSolidShape::Cuboid,
-                    supported_by: face.support_nodes.clone(),
-                });
+                geometry.solids.push(ResolvedSolid::new(
+                    CollisionCuboid::<Architectural>::from_metres(
+                        spout,
+                        (outlet + discharge) * 0.5 - Vec3::Y * 0.10,
+                        Vec3::new(0.09, (outlet.y - discharge.y - 0.20).max(0.09), 0.09),
+                        0.0,
+                        0.0,
+                        0.0,
+                    )?,
+                    assembly.owner,
+                    SolidRole::RoofGutter,
+                    crate::ResolvedSolidShape::Cuboid,
+                    face.support_nodes.clone(),
+                ));
                 let spout_top = Vec3::new(outlet.x, outlet.y - 0.20, outlet.z);
-                geometry.support_interfaces.push(SupportInterface {
-                    id: ResolvedItemId((0x9_u64 << 60) | (spout.0 & 0x0FFF_FFFF_FFFF_FFFF)),
-                    owner: assembly.owner,
-                    node: face.support_nodes[0],
-                    bounds: ResolvedBounds {
-                        min: spout_top - Vec3::splat(0.035),
-                        max: spout_top + Vec3::splat(0.035),
-                    },
-                });
+                geometry
+                    .support_interfaces
+                    .push(crate::SupportInterface::new(
+                        ResolvedItemId((0x9_u64 << 60) | (spout.0 & 0x0FFF_FFFF_FFFF_FFFF)),
+                        assembly.owner,
+                        face.support_nodes[0],
+                        SpatialBounds::<Architectural>::from_metres(
+                            spout_top - Vec3::splat(0.035),
+                            spout_top + Vec3::splat(0.035),
+                        )?,
+                    ));
                 geometry.roof_drainage_networks.push(RoofDrainageNetwork {
                     id: network,
                     owner: assembly.owner,
@@ -235,5 +218,6 @@ fn supplement_split_eave_drainage(assemblies: &[RoofAssembly], geometry: &mut Re
                 });
             }
         }
-    }
+    };
+    Ok(())
 }

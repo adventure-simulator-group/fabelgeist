@@ -82,7 +82,7 @@ pub fn blood_exposure_attempts_through(
             );
             attempts.push(adventuresim_core::disease::AcquisitionAttempt::exposure(
                 adventuresim_core::disease::InfectionEpisode {
-                    id: seed,
+                    id: seed.to_u64(),
                     character_id,
                     disease_id,
                     contracted_at: minute,

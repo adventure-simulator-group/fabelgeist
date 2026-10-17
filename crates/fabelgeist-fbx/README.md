@@ -11,6 +11,10 @@ require a tensor runtime or an FBX SDK.
 error. `Scene::from_roots` assembles decoded records without a failure result;
 malformed object identities and connection endpoints are skipped.
 
+Object and connection fields use distinct semantic slot enums at scene admission.
+Private `Node` lookups select native property positions only at the checked
+container access, so scene assembly passes field roles rather than raw offsets.
+
 `FbxObjectId` keeps an object-table identity distinct from an array index or an
 animation time tick. Signed integers of all previously admitted widths and
 boolean properties remain valid identity encodings. Negative and zero IDs are

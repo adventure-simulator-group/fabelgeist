@@ -1,21 +1,25 @@
 //! Select semantic exterior assemblies and compile their render representations.
 use super::*;
+use crate::GenerationResult as Result;
 
 /// Compiles a render-only LOD from the accepted semantic plan.
-pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> BuildingLod {
+pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> Result<BuildingLod> {
     compile(plan, level, &std::collections::BTreeSet::new())
 }
 
 /// Reserve operable leaves for the same dynamic entities through Facade distance.
 /// Shell retains its coarse authored enclosure representation.
-pub fn compile_static_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> BuildingLod {
-    compile(plan, level, &crate::detail::dynamic_closure_solids(plan))
+pub fn compile_static_building_lod(
+    plan: &BuildingPlan,
+    level: BuildingLodLevel,
+) -> Result<BuildingLod> {
+    compile(plan, level, &crate::detail::dynamic_closure_solids(plan)?)
 }
 
 pub(crate) fn compile_components(
     plan: &BuildingPlan,
     excluded: &std::collections::BTreeSet<crate::ResolvedItemId>,
-) -> BuildingLod {
+) -> Result<BuildingLod> {
     compile(plan, BuildingLodLevel::Facade, excluded)
 }
 
@@ -23,7 +27,7 @@ fn compile(
     plan: &BuildingPlan,
     level: BuildingLodLevel,
     excluded: &std::collections::BTreeSet<crate::ResolvedItemId>,
-) -> BuildingLod {
+) -> Result<BuildingLod> {
     if plan.small_church.is_some() {
         return small_church::compile(plan, level, excluded);
     }
@@ -35,23 +39,23 @@ fn compile(
     };
     let exact_facade = level == BuildingLodLevel::Facade && closures::exact_facade(plan);
     if exact_facade {
-        exterior::append_facades(&mut lod, plan, excluded);
+        exterior::append_facades(&mut lod, plan, excluded)?;
     } else {
         append_wall_envelopes(&mut lod);
     }
-    urban_church::append_buttresses(&mut lod, plan);
+    urban_church::append_buttresses(&mut lod, plan)?;
     append_roofs(&mut lod, plan);
-    gable_openings::append(&mut lod, plan);
+    gable_openings::append(&mut lod, plan)?;
     if !exact_facade {
         append_opening_details(&mut lod, plan);
         append_timber_details(&mut lod, plan);
     }
-    append_gable_details(&mut lod, plan);
+    append_gable_details(&mut lod, plan)?;
     append_crowns(&mut lod, plan);
-    for batch in crate::detail::compile_workplace_lod(plan)
+    for batch in crate::detail::compile_workplace_lod(plan)?
         .meshes
         .into_iter()
-        .chain(crate::detail::compile_heating_lod(plan).meshes)
+        .chain(crate::detail::compile_heating_lod(plan)?.meshes)
     {
         let target = lod.mesh_mut(batch.material);
         let offset = target.vertices.len() as u32;
@@ -65,7 +69,7 @@ fn compile(
     for mesh in &mut lod.meshes {
         mesh.remap_vertices();
     }
-    lod
+    Ok(lod)
 }
 
 /// Retain complete joined runs in the render compiler and capability query.

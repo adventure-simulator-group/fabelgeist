@@ -1,97 +1,144 @@
 //! Sampled rigid bell sweeps against nearby collision solids and actual roof faces.
 use super::*;
+use crate::spatial_geometry::{Architectural, Area, Position, Radians};
+use crate::{CollisionResult, GenerationResult as Result};
 use bell_hanging::moving;
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(super) enum BellSwingAssessment {
+    Clear,
+    MissingAxle {
+        bell: ResolvedItemId,
+    },
+    Blocked {
+        bell: ResolvedItemId,
+        source: ResolvedItemId,
+    },
+}
 
 const CONTACT_TOLERANCE_METRES: f32 = 0.001;
 const SWING_HALF_STEPS: i32 = 30;
 type Triangle = [Vec3; 3];
 
-pub(super) fn is_clear(plan: &BuildingPlan, bell: &ResolvedSolid, limit: f32) -> bool {
+struct RoofTriangle {
+    source: ResolvedItemId,
+    /// Architectural mesh vertices in metres, consumed only by the sweep kernel.
+    positions: Triangle,
+}
+
+// Mesh triangles stay native inside the sampled rigid sweep kernel. Fixed
+// cuboids and roof triangles retain their source IDs for obstruction reports.
+pub(super) fn is_clear(
+    plan: &BuildingPlan,
+    bell: &ResolvedSolid,
+    limit: Radians,
+) -> Result<BellSwingAssessment> {
     let Some(axle) = plan
         .resolved_geometry
         .solids
         .iter()
         .find(|part| part.owner == bell.owner && part.role == SolidRole::ChurchBellAxle)
     else {
-        return false;
+        return Ok(BellSwingAssessment::MissingAxle { bell: bell.id });
     };
-    let pivot = Vec3::new(bell.centre.x, axle.centre.y, bell.centre.z);
-    let moving_triangles = plan
-        .resolved_geometry
-        .solids
-        .iter()
-        .filter(|part| part.owner == bell.owner && moving(part.role))
-        .flat_map(|part| crate::compile_solid_detail(plan, part).meshes)
-        .flat_map(|mesh| {
-            mesh.indices
-                .as_chunks::<3>()
-                .0
-                .iter()
-                .map(|indices| indices.map(|i| mesh.vertices[i as usize].position))
-                .collect::<Vec<_>>()
-        })
-        .collect::<Vec<_>>();
+    let pivot = Position::<Architectural>::from_metres(Vec3::new(
+        bell.centre.metres().x,
+        axle.centre.metres().y,
+        bell.centre.metres().z,
+    ))?;
+    let moving_triangles = moving_mesh_triangles(plan, bell)?;
     let radius_squared = moving_triangles
         .iter()
         .flatten()
-        .map(|p| p.distance_squared(pivot))
+        .map(|p| p.distance_squared(pivot.metres()))
         .fold(0.0_f32, f32::max);
+    let radius_squared = Area::from_square_metres(radius_squared)?;
+    // Rigid sweep arithmetic stays native from this point: the pivot is in
+    // architectural metres and the broad-phase radius is squared metres.
+    let pivot_position = pivot;
+    let pivot = pivot.metres();
     let fixed = plan
         .resolved_geometry
         .solids
         .iter()
         .filter(|part| !(part.owner == bell.owner && moving(part.role)))
-        .flat_map(|part| crate::collision::collision_parts(plan, part))
-        .filter(|part| {
-            let bounds = part.bounds();
-            pivot.clamp(bounds.min, bounds.max).distance_squared(pivot) <= radius_squared
+        .map(|part| crate::collision::collision_parts(plan, part))
+        .collect::<CollisionResult<Vec<_>>>()?
+        .into_iter()
+        .flatten()
+        .map(|part| part.bounds().map(|bounds| (part, bounds)))
+        .collect::<CollisionResult<Vec<_>>>()?
+        .into_iter()
+        .filter(|(_, bounds)| {
+            pivot
+                .clamp(bounds.min().metres(), bounds.max().metres())
+                .distance_squared(pivot)
+                <= radius_squared.square_metres()
         })
+        .map(|(part, _)| part)
         .map(|part| {
             let rotation = Quat::from_euler(
                 bevy::math::EulerRot::YXZ,
-                part.yaw_radians,
-                part.crossfall_radians,
-                part.longfall_radians,
+                part.yaw_radians.radians(),
+                part.crossfall_radians.radians(),
+                part.longfall_radians.radians(),
             );
             (
-                part.centre,
+                part.source,
+                part.centre.metres(),
                 rotation.inverse(),
-                part.size * 0.5 - Vec3::splat(CONTACT_TOLERANCE_METRES),
+                part.size.metres() * 0.5 - Vec3::splat(CONTACT_TOLERANCE_METRES),
             )
         })
         .collect::<Vec<_>>();
-    let roofs =
-        plan.roof_assemblies
-            .iter()
-            .flat_map(|roof| {
-                roof.faces
-                    .iter()
-                    .flat_map(crate::tessellate_roof_face)
-                    .chain(roof.enclosure_faces.iter().flat_map(|face| {
-                        crate::tessellate_roof_enclosure(face, &plan.wall_assemblies)
-                    }))
-            })
-            .map(|triangle| triangle.positions)
-            .filter(|triangle| {
-                let (min, max) = bounds(*triangle);
-                pivot.clamp(min, max).distance_squared(pivot) <= radius_squared
-            })
-            .collect::<Vec<_>>();
+    let roofs = nearby_roof_triangles(plan, pivot_position, radius_squared);
     for step in -SWING_HALF_STEPS..=SWING_HALF_STEPS {
-        let rotation = Quat::from_rotation_x(limit * step as f32 / SWING_HALF_STEPS as f32);
+        let rotation =
+            Quat::from_rotation_x(limit.radians() * step as f32 / SWING_HALF_STEPS as f32);
         for triangle in &moving_triangles {
             let triangle = triangle.map(|p| pivot + rotation * (p - pivot));
-            if fixed.iter().any(|&(centre, inverse, half)| {
-                triangle_box(triangle.map(|p| inverse * (p - centre)), half)
-            }) || roofs
+            let source = fixed
                 .iter()
-                .any(|roof| triangles_intersect(triangle, *roof))
-            {
-                return false;
+                .find(|&&(_, centre, inverse, half)| {
+                    triangle_box(triangle.map(|p| inverse * (p - centre)), half)
+                })
+                .map(|entry| entry.0)
+                .or_else(|| {
+                    roofs
+                        .iter()
+                        .find(|roof| triangles_intersect(triangle, roof.positions))
+                        .map(|roof| roof.source)
+                });
+            if let Some(source) = source {
+                return Ok(BellSwingAssessment::Blocked {
+                    bell: bell.id,
+                    source,
+                });
             }
         }
     }
-    true
+    Ok(BellSwingAssessment::Clear)
+}
+
+fn moving_mesh_triangles(plan: &BuildingPlan, bell: &ResolvedSolid) -> Result<Vec<Triangle>> {
+    let mut triangles = Vec::new();
+    for part in plan
+        .resolved_geometry
+        .solids
+        .iter()
+        .filter(|part| part.owner == bell.owner && moving(part.role))
+    {
+        for mesh in crate::compile_solid_detail(plan, part)?.meshes {
+            triangles.extend(
+                mesh.indices
+                    .as_chunks::<3>()
+                    .0
+                    .iter()
+                    .map(|indices| indices.map(|i| mesh.vertices[i as usize].position)),
+            );
+        }
+    }
+    Ok(triangles)
 }
 
 fn bounds(triangle: Triangle) -> (Vec3, Vec3) {
@@ -166,15 +213,77 @@ fn triangles_intersect(left: Triangle, right: Triangle) -> bool {
         })
 }
 
+fn nearby_roof_triangles(
+    plan: &BuildingPlan,
+    pivot: Position<Architectural>,
+    radius_squared: Area,
+) -> Vec<RoofTriangle> {
+    let mut roofs = Vec::new();
+    for roof in &plan.roof_assemblies {
+        for face in &roof.faces {
+            roofs.extend(
+                crate::tessellate_roof_face(face)
+                    .into_iter()
+                    .map(|triangle| RoofTriangle {
+                        source: face.id,
+                        positions: triangle.positions,
+                    }),
+            );
+        }
+        for face in &roof.enclosure_faces {
+            roofs.extend(
+                crate::tessellate_roof_enclosure(face, &plan.wall_assemblies)
+                    .into_iter()
+                    .map(|triangle| RoofTriangle {
+                        source: face.id,
+                        positions: triangle.positions,
+                    }),
+            );
+        }
+    }
+    roofs.retain(|triangle| {
+        let (min, max) = bounds(triangle.positions);
+        pivot
+            .metres()
+            .clamp(min, max)
+            .distance_squared(pivot.metres())
+            <= radius_squared.square_metres()
+    });
+    roofs
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
+    fn missing_axle_reports_the_bell_identity() {
+        let mut plan = crate::generate(&crate::BuildingProgram::fixture(
+            BuildingArchetype::ParishChurch,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ))
+        .unwrap();
+        let bell = plan
+            .resolved_geometry
+            .solids
+            .iter()
+            .find(|solid| solid.role == SolidRole::ChurchBell)
+            .unwrap()
+            .clone();
+        plan.resolved_geometry
+            .solids
+            .retain(|solid| solid.owner != bell.owner || solid.role != SolidRole::ChurchBellAxle);
+        assert_eq!(
+            is_clear(&plan, &bell, Radians::QUARTER_TURN).unwrap(),
+            BellSwingAssessment::MissingAxle { bell: bell.id }
+        );
+    }
+
+    #[test]
     fn narrow_rotated_foreign_beam_blocks_bell_sweep() {
         let mut plan = crate::generate(&crate::BuildingProgram::fixture(
             BuildingArchetype::ParishChurch,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let bell = plan
@@ -189,12 +298,21 @@ mod tests {
         obstruction.owner = crate::GeometryOwnerId(u32::MAX);
         obstruction.role = SolidRole::BeamJoist;
         obstruction.shape = crate::ResolvedSolidShape::Cuboid;
-        obstruction.size = Vec3::new(2.0, 0.03, 0.03);
-        obstruction.yaw_radians = 0.3;
-        obstruction.crossfall_radians = 0.2;
-        obstruction.centre.y -= bell.size.y * 0.25;
+        obstruction.size =
+            crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(2.0, 0.03, 0.03))
+                .unwrap();
+        obstruction.yaw_radians = crate::spatial_geometry::Radians::new(0.3).unwrap();
+        obstruction.crossfall_radians = crate::spatial_geometry::Radians::new(0.2).unwrap();
+        {
+            let mut native_geometry = obstruction.centre.metres();
+            native_geometry.y -= bell.size.metres().y * 0.25;
+            obstruction.centre =
+                crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+        };
         plan.resolved_geometry.solids.push(obstruction);
-        assert!(!is_clear(&plan, &bell, std::f32::consts::FRAC_PI_6));
+        assert!(
+            matches!(is_clear(&plan, &bell, Radians::new(std::f32::consts::FRAC_PI_6).unwrap()).unwrap(), BellSwingAssessment::Blocked { bell: id, source } if id == bell.id && source == ResolvedItemId(u64::MAX))
+        );
     }
 
     #[test]

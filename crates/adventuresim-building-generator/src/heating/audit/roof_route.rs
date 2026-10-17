@@ -4,7 +4,7 @@ use super::*;
 pub(super) fn audit(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
-    shaft: ResolvedBounds,
+    shaft: SpatialBounds<Architectural>,
     issues: &mut Vec<AuditIssue>,
 ) {
     let weather = h
@@ -37,7 +37,7 @@ pub(super) fn audit(
 pub(in crate::heating) fn obstructed(
     plan: &BuildingPlan,
     target: ResolvedItemId,
-    shaft: ResolvedBounds,
+    shaft: SpatialBounds<Architectural>,
     weather: &[&ResolvedSolid],
 ) -> bool {
     for roof in &plan.roof_assemblies {
@@ -52,7 +52,7 @@ pub(in crate::heating) fn obstructed(
         if triangles.into_iter().any(|triangle| {
             crate::solid_overlap::triangle_overlaps_bounds(
                 triangle.positions,
-                (shaft.min, shaft.max),
+                (shaft.min().metres(), shaft.max().metres()),
                 GEOMETRY_TOLERANCE_METRES,
             ) || weather.iter().any(|solid| {
                 crate::solid_overlap::triangle_overlaps_solid(
@@ -73,8 +73,11 @@ mod tests {
     use super::*;
     #[test]
     fn parent_cut_drift_blocks_the_shed_flue_despite_its_intact_child_penetration() {
-        let mut plan =
-            generate(&BuildingProgram::fixture(BuildingArchetype::HallHouse, 2)).unwrap();
+        let mut plan = generate(&BuildingProgram::fixture(
+            BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(2),
+        ))
+        .unwrap();
         let h = plan.domestic_heating.as_ref().unwrap();
         let target = plan
             .roof_assemblies
@@ -113,6 +116,7 @@ mod tests {
         );
         assert!(
             super::super::audit(&plan)
+                .unwrap()
                 .iter()
                 .any(|issue| issue.code == "blocked_heating_roof_route")
         );

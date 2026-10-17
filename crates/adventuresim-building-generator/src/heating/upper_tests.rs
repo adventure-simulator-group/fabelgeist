@@ -1,8 +1,12 @@
 use super::*;
 use bevy::math::Vec3;
+use fabelgeist_determinism::Seed;
 
 fn merchant() -> (BuildingProgram, BuildingPlan) {
-    let mut program = BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 3);
+    let mut program = BuildingProgram::fixture(
+        BuildingArchetype::FachwerkMerchantHouse,
+        fabelgeist_determinism::Seed::from_u64(3),
+    );
     program.domestic_heating = Some(DomesticHeatingProgramme::HearthAndRearFedStove);
     let plan = generate(&program).unwrap();
     (program, plan)
@@ -20,7 +24,7 @@ fn part(plan: &BuildingPlan, kind: HeatingPartKind) -> ResolvedItemId {
 }
 
 fn fails(plan: &BuildingPlan, code: &str) {
-    let issues = audit(plan);
+    let issues = audit(plan).unwrap();
     assert!(
         issues.iter().any(|i| i.code == code),
         "expected {code}: {issues:?}"
@@ -31,14 +35,22 @@ fn fails(plan: &BuildingPlan, code: &str) {
 fn upper_appliance_preserves_roof_structure_and_furnished_access_on_every_floor() {
     let (program, plan) = merchant();
     let heating = plan.domestic_heating.as_ref().unwrap();
-    assert_eq!(heating.kitchen.storey_level, 1);
-    assert_eq!(heating.floor_height_metres, plan.storey_height_metres);
+    assert_eq!(heating.kitchen.storey_level, StoreyIndex::FIRST_UPPER);
+    assert_eq!(
+        heating.floor_height_metres.metres(),
+        plan.storey_height_metres
+    );
     assert_eq!(heating.floors.len(), 2);
-    assert!(audit_plan(&plan).is_empty());
+    assert!(audit_plan(&plan).unwrap().is_empty());
     crate::interior::validate_circulation(&plan).unwrap();
     let layout = crate::interior::furnish(&plan, &program).unwrap();
     for storey in &plan.storeys {
-        assert!(layout.placements.iter().any(|p| p.storey == storey.level));
+        assert!(
+            layout
+                .placements
+                .iter()
+                .any(|p| p.storey == crate::StoreyIndex::from_serialized(storey.level))
+        );
     }
     let baseline = crate::generator::generate_structure(&program, &[]).unwrap();
     for member in plan
@@ -74,7 +86,7 @@ fn upper_appliance_preserves_roof_structure_and_furnished_access_on_every_floor(
             serde_json::to_value(before).unwrap()
         );
     }
-    let collision = compile_building_collision(&plan);
+    let collision = compile_building_collision(&plan).unwrap();
     for part in &heating.parts {
         assert!(collision.cuboids.iter().any(|s| s.source == part.solid));
     }
@@ -88,14 +100,24 @@ fn upper_weight_requires_continuous_downward_ground_bearing() {
     missing.resolved_geometry.solids.retain(|s| s.id != pier);
     fails(&missing, "unsupported_upper_heating");
     let mut shifted = original.clone();
-    shifted
-        .resolved_geometry
-        .solids
-        .iter_mut()
-        .find(|s| s.id == pier)
-        .unwrap()
-        .centre
-        .x += 0.2;
+    {
+        let mut native_geometry = shifted
+            .resolved_geometry
+            .solids
+            .iter_mut()
+            .find(|s| s.id == pier)
+            .unwrap()
+            .centre
+            .metres();
+        native_geometry.x += 0.2;
+        shifted
+            .resolved_geometry
+            .solids
+            .iter_mut()
+            .find(|s| s.id == pier)
+            .unwrap()
+            .centre = crate::spatial_geometry::Position::from_metres(native_geometry).unwrap();
+    };
     fails(&shifted, "unsupported_upper_heating");
     let mut false_foundation = original;
     let footing = part(&false_foundation, HeatingPartKind::Footing);
@@ -129,8 +151,14 @@ fn decks_and_joists_cannot_cross_either_occupied_floor_penetration() {
             .unwrap()
             .clone();
         plug.id = ResolvedItemId(u64::MAX);
-        plug.centre = (opening.cut.min + opening.cut.max) * 0.5;
-        plug.size = opening.cut.max - opening.cut.min;
+        plug.centre = crate::spatial_geometry::Position::<crate::Architectural>::from_metres(
+            (opening.cut.min().metres() + opening.cut.max().metres()) * 0.5,
+        )
+        .unwrap();
+        plug.size = crate::spatial_geometry::CuboidDimensions::from_metres(
+            opening.cut.max().metres() - opening.cut.min().metres(),
+        )
+        .unwrap();
         blocked.resolved_geometry.solids.push(plug);
         fails(&blocked, "blocked_heating_floor_penetration");
         let mut joist = original.clone();
@@ -140,7 +168,10 @@ fn decks_and_joists_cannot_cross_either_occupied_floor_penetration() {
             .iter_mut()
             .find(|s| s.role == SolidRole::FrameJoist)
             .unwrap();
-        member.centre = (opening.cut.min + opening.cut.max) * 0.5;
+        member.centre = crate::spatial_geometry::Position::<crate::Architectural>::from_metres(
+            (opening.cut.min().metres() + opening.cut.max().metres()) * 0.5,
+        )
+        .unwrap();
         fails(&joist, "blocked_heating_floor_penetration");
     }
 }
@@ -156,19 +187,32 @@ fn floor_clearance_needs_complete_covers_and_bearing_laps() {
             .retain(|s| s.id != opening.closures[0]);
         fails(&missing, "open_heating_floor_clearance");
         let mut excess = original.clone();
-        excess
-            .resolved_geometry
-            .solids
-            .iter_mut()
-            .find(|s| s.id == opening.closures[0])
-            .unwrap()
-            .size
-            .x += 0.2;
+        {
+            let mut native_geometry = excess
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == opening.closures[0])
+                .unwrap()
+                .size
+                .metres();
+            native_geometry.x += 0.2;
+            excess
+                .resolved_geometry
+                .solids
+                .iter_mut()
+                .find(|s| s.id == opening.closures[0])
+                .unwrap()
+                .size =
+                crate::spatial_geometry::CuboidDimensions::from_metres(native_geometry).unwrap();
+        };
         fails(&excess, "open_heating_floor_clearance");
         let mut no_deck = original.clone();
         no_deck.resolved_geometry.solids.retain(|s| {
             s.role != SolidRole::FrameFloor
-                || (s.cuboid_bounds().max.y - opening.core.max.y).abs() > 0.001
+                || (s.cuboid_bounds().unwrap().max().metres().y - opening.core.max().metres().y)
+                    .abs()
+                    > 0.001
         });
         fails(&no_deck, "open_heating_floor_clearance");
     }
@@ -217,15 +261,17 @@ fn occupied_upper_flue_bore_and_lower_entrance_remain_clear() {
     let mut plug = original.resolved_geometry.solids[0].clone();
     plug.id = ResolvedItemId(u64::MAX);
     plug.shape = ResolvedSolidShape::Cuboid;
-    plug.yaw_radians = 0.0;
-    plug.crossfall_radians = 0.0;
-    plug.longfall_radians = 0.0;
-    plug.centre = Vec3::new(
-        (bounds.min.x + bounds.max.x) * 0.5,
-        6.5,
-        (bounds.min.z + bounds.max.z) * 0.5,
-    );
-    plug.size = Vec3::splat(0.1);
+    plug.yaw_radians = crate::spatial_geometry::Radians::new(0.0).unwrap();
+    plug.crossfall_radians = crate::spatial_geometry::Radians::new(0.0).unwrap();
+    plug.longfall_radians = crate::spatial_geometry::Radians::new(0.0).unwrap();
+    plug.centre =
+        crate::spatial_geometry::Position::<crate::Architectural>::from_metres(Vec3::new(
+            (bounds.min().metres().x + bounds.max().metres().x) * 0.5,
+            6.5,
+            (bounds.min().metres().z + bounds.max().metres().z) * 0.5,
+        ))
+        .unwrap();
+    plug.size = crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::splat(0.1)).unwrap();
     plugged.resolved_geometry.solids.push(plug.clone());
     fails(&plugged, "blocked_domestic_smoke_route");
     let mut blocked = original.clone();
@@ -241,8 +287,12 @@ fn occupied_upper_flue_bore_and_lower_entrance_remain_clear() {
         .iter()
         .find(|o| o.id == entry)
         .unwrap();
-    plug.centre = Vec3::new(door.frame.origin.x, 1.0, door.frame.origin.y);
-    plug.size = Vec3::new(2.0, 2.0, 2.0);
+    plug.centre = crate::spatial_geometry::Position::<crate::Architectural>::from_metres(
+        Vec3::new(door.frame.origin.x, 1.0, door.frame.origin.y),
+    )
+    .unwrap();
+    plug.size =
+        crate::spatial_geometry::CuboidDimensions::from_metres(Vec3::new(2.0, 2.0, 2.0)).unwrap();
     blocked
         .domestic_heating
         .as_mut()
@@ -259,15 +309,28 @@ fn occupied_upper_flue_bore_and_lower_entrance_remain_clear() {
 
 #[test]
 fn town_kitchen_and_support_share_an_accessible_vertical_bay() {
-    let mut program = BuildingProgram::fixture(BuildingArchetype::TownHouse, 8);
+    let mut program = BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(8),
+    );
     program.domestic_heating = Some(DomesticHeatingProgramme::HearthAndRearFedStove);
     let plan = generate(&program).unwrap();
     assert_eq!(plan.domestic_heating.as_ref().unwrap().floors.len(), 1);
-    assert!(audit_plan(&plan).is_empty());
+    assert!(audit_plan(&plan).unwrap().is_empty());
     crate::interior::validate_circulation(&plan).unwrap();
     let furniture = crate::interior::furnish(&plan, &program).unwrap();
-    assert!(furniture.placements.iter().any(|p| p.storey == 0));
-    assert!(furniture.placements.iter().any(|p| p.storey == 1));
+    assert!(
+        furniture
+            .placements
+            .iter()
+            .any(|p| p.storey == crate::StoreyIndex::new(0))
+    );
+    assert!(
+        furniture
+            .placements
+            .iter()
+            .any(|p| p.storey == crate::StoreyIndex::new(1))
+    );
 }
 
 #[test]
@@ -276,7 +339,7 @@ fn occupied_recipe_catalogue_selects_buildable_upper_heating() {
         BuildingArchetype::TownHouse,
         BuildingArchetype::FachwerkMerchantHouse,
     ] {
-        for seed in [42, 47, 101] {
+        for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let program = BuildingProgram::validated_settlement(
                 archetype,
                 adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling,
@@ -287,7 +350,7 @@ fn occupied_recipe_catalogue_selects_buildable_upper_heating() {
             let plan = generate(&program).unwrap();
             assert_eq!(
                 plan.domestic_heating.as_ref().unwrap().kitchen.storey_level,
-                1
+                StoreyIndex::FIRST_UPPER
             );
             crate::interior::furnish(&plan, &program).unwrap();
         }
@@ -297,8 +360,8 @@ fn occupied_recipe_catalogue_selects_buildable_upper_heating() {
 #[test]
 fn shipped_upper_heating_programmes_remain_structurally_valid_and_accessible() {
     for (archetype, seed) in [
-        (BuildingArchetype::TownHouse, 11),
-        (BuildingArchetype::FachwerkMerchantHouse, 0),
+        (BuildingArchetype::TownHouse, Seed::from_u64(11)),
+        (BuildingArchetype::FachwerkMerchantHouse, Seed::from_u64(0)),
     ] {
         let mut program = BuildingProgram::fixture(archetype, seed);
         program.domestic_heating = Some(DomesticHeatingProgramme::HearthAndRearFedStove);
@@ -312,16 +375,14 @@ fn shipped_upper_heating_programmes_remain_structurally_valid_and_accessible() {
             heating.programme,
             DomesticHeatingProgramme::HearthAndRearFedStove
         );
-        assert_eq!(heating.kitchen.storey_level, 1);
-        assert!(audit_plan(&plan).is_empty());
+        assert_eq!(heating.kitchen.storey_level, StoreyIndex::FIRST_UPPER);
+        assert!(audit_plan(&plan).unwrap().is_empty());
         crate::interior::validate_circulation(&plan).unwrap();
         let furniture = crate::interior::furnish(&plan, &program).unwrap();
         for storey in &plan.storeys {
             assert!(
-                furniture
-                    .placements
-                    .iter()
-                    .any(|placement| placement.storey == storey.level)
+                furniture.placements.iter().any(|placement| placement.storey
+                    == crate::StoreyIndex::from_serialized(storey.level))
             );
         }
     }
@@ -333,7 +394,9 @@ fn exact_merchant_programme_retains_upper_pantry_access() {
         6_006_670_756_388_891_727,
         7_989_866_213_631_017_260,
         269_418_199_818_528_039,
-    ] {
+    ]
+    .map(Seed::from_u64)
+    {
         let program = BuildingProgram::settlement(
             BuildingArchetype::FachwerkMerchantHouse,
             Some(adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling),

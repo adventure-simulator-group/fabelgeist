@@ -3,7 +3,6 @@
 mod buildings;
 mod cached_views;
 mod equipment;
-mod equipment_readiness;
 mod instances;
 mod lighting_diagnostics;
 pub(crate) mod protocol;
@@ -13,6 +12,8 @@ mod staging;
 pub(crate) mod status;
 mod street;
 mod views;
+#[cfg(target_family = "wasm")]
+pub(crate) use views::StrategicCamera;
 mod visibility;
 mod world;
 
@@ -140,7 +141,13 @@ fn retain_people(
             }
             continue;
         }
-        let layer = protocol::COMPOSITOR_LAYER + 1 + scene.next_person_layer;
+        // A selected ID alone has no visible camera on map or forge pages.
+        // Keep visited actors, but only install a new rig and wardrobe when
+        // a requested stage or portrait can actually show it.
+        if !view.requires_person(person.id) {
+            continue;
+        }
+        let layer = protocol::FIRST_PERSON_LAYER + scene.next_person_layer;
         scene.next_person_layer += 1;
         let entity = commands
             .spawn((

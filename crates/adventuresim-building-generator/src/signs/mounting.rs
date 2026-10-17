@@ -34,7 +34,7 @@ impl SignMounting {
                 continue;
             }
             let extent = super::site::solid_extent(solid);
-            let face = solid.centre.dot(outward) + extent.dot(outward.abs());
+            let face = solid.centre.metres().dot(outward) + extent.dot(outward.abs());
             if (face - attachment.dot(outward)).abs() > MAX_ANCHOR_RECESS_METRES {
                 continue;
             }
@@ -42,16 +42,20 @@ impl SignMounting {
                 Vec2::new(PLATE_SHORT_EDGE_METRES, PLATE_LONG_EDGE_METRES),
                 Vec2::new(PLATE_LONG_EDGE_METRES, PLATE_SHORT_EDGE_METRES),
             ] {
-                if (attachment - solid.centre).dot(tangent).abs()
+                if (attachment - solid.centre.metres()).dot(tangent).abs()
                     + size.x * 0.5
                     + SUPPORT_EDGE_MARGIN_METRES
                     > extent.dot(tangent.abs())
                 {
                     continue;
                 }
-                let lower = (solid.centre.y - extent.y + size.y * 0.5 + SUPPORT_EDGE_MARGIN_METRES)
+                let lower = (solid.centre.metres().y - extent.y
+                    + size.y * 0.5
+                    + SUPPORT_EDGE_MARGIN_METRES)
                     .max(minimum_y);
-                let upper = (solid.centre.y + extent.y - size.y * 0.5 - SUPPORT_EDGE_MARGIN_METRES)
+                let upper = (solid.centre.metres().y + extent.y
+                    - size.y * 0.5
+                    - SUPPORT_EDGE_MARGIN_METRES)
                     .min(minimum_y + MAX_BRACKET_RISE_METRES);
                 if lower > upper {
                     continue;
@@ -86,7 +90,7 @@ impl SignMounting {
         }
         let extent = super::site::solid_extent(solid);
         let tangent = Vec3::Y.cross(outward);
-        let offset = self.contact - solid.centre;
+        let offset = self.contact - solid.centre.metres();
         (offset.dot(outward) - extent.dot(outward.abs())).abs() <= CONTACT_TOLERANCE_METRES
             && offset.dot(tangent).abs() + self.size.x * 0.5 + SUPPORT_EDGE_MARGIN_METRES
                 <= extent.dot(tangent.abs()) + CONTACT_TOLERANCE_METRES

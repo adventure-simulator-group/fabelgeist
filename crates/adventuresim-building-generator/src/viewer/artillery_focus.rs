@@ -341,15 +341,16 @@ fn artillery_section_removed_item_ids(plan: &BuildingPlan, view: ViewerView) -> 
         .filter(|solid| match view {
             ViewerView::ArtilleryWholeLongitudinalCut
             | ViewerView::ArtilleryCirculation
-            | ViewerView::ArtillerySupportDag => solid.centre.x > 6.0,
-            ViewerView::ArtilleryWholeTransverseCut => solid.centre.z < 6.0,
-            ViewerView::ArtilleryCurtainSection => solid.centre.x > 6.0,
+            | ViewerView::ArtillerySupportDag => solid.centre.metres().x > 6.0,
+            ViewerView::ArtilleryWholeTransverseCut => solid.centre.metres().z < 6.0,
+            ViewerView::ArtilleryCurtainSection => solid.centre.metres().x > 6.0,
             ViewerView::ArtilleryRondelCasemate | ViewerView::ArtilleryRondelCutaway => {
                 rondel_centre.is_some_and(|centre| {
-                    (Vec2::new(solid.centre.x, solid.centre.z) - centre)
+                    (Vec2::new(solid.centre.metres().x, solid.centre.metres().z) - centre)
                         .dot(Vec2::new(-0.707_106_77, -0.707_106_77))
                         > 0.1
-                        || (view == ViewerView::ArtilleryRondelCasemate && solid.centre.y > 3.05)
+                        || (view == ViewerView::ArtilleryRondelCasemate
+                            && solid.centre.metres().y > 3.05)
                 })
             }
             _ => false,

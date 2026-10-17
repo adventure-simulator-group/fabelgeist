@@ -8,7 +8,11 @@ fn presets_share_a_continuous_shape_space() {
     assert_eq!(a.interpolate(&b, 0.0), a);
     assert_eq!(a.interpolate(&b, 1.0), b);
     let mask = |shape: &LeafShape| {
-        let k = kernel::Kernel::from(uniform::LeafUniform::new(shape, 128, 7));
+        let k = kernel::Kernel::from(uniform::LeafUniform::new(
+            shape,
+            128,
+            fabelgeist_determinism::Seed::from_u64(7),
+        ));
         (0..64 * 64)
             .map(|i| {
                 k.class(
@@ -42,7 +46,11 @@ fn every_reference_preset_has_finite_editable_controls_and_visible_anatomy() {
             let n = v.as_f64().unwrap() as f32;
             assert!((min..=max).contains(&n), "{name}/{field}: {n}");
         }
-        let k = kernel::Kernel::from(uniform::LeafUniform::new(&shape, 128, 1));
+        let k = kernel::Kernel::from(uniform::LeafUniform::new(
+            &shape,
+            128,
+            fabelgeist_determinism::Seed::from_u64(1),
+        ));
         let mut classes = [0; 3];
         for y in 0..64 {
             for x in 0..64 {
@@ -90,8 +98,16 @@ fn fractional_lobe_counts_do_not_pop_at_integer_boundaries() {
     };
     let mut b = a.clone();
     b.lobe_frequency = 5.001;
-    let ka = kernel::Kernel::from(uniform::LeafUniform::new(&a, 256, 1));
-    let kb = kernel::Kernel::from(uniform::LeafUniform::new(&b, 256, 1));
+    let ka = kernel::Kernel::from(uniform::LeafUniform::new(
+        &a,
+        256,
+        fabelgeist_determinism::Seed::from_u64(1),
+    ));
+    let kb = kernel::Kernel::from(uniform::LeafUniform::new(
+        &b,
+        256,
+        fabelgeist_determinism::Seed::from_u64(1),
+    ));
     let mut changed = 0;
     for y in 0..128 {
         for x in 0..128 {

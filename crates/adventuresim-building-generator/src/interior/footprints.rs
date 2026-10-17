@@ -1,6 +1,7 @@
 //! Incremental checks retain the architecture proof of the accepted prefix.
 use super::{InteriorLayoutError, InteriorPlacement, navigation::Navigation};
 use crate::BuildingPlan;
+use crate::interior::InteriorResult as Result;
 
 /// `accepted` placements must already have passed this check against this plan.
 /// Use zero when validating an untrusted or edited layout.
@@ -9,29 +10,27 @@ pub(super) fn validate(
     nav: &Navigation,
     placements: &[InteriorPlacement],
     accepted: usize,
-) -> Result<(), InteriorLayoutError> {
+) -> Result<()> {
     for (index, p) in placements.iter().enumerate() {
         // Accepted objects already satisfy static architecture and each other.
         // New objects can still obstruct their usable faces.
         if index < accepted {
-            for &face in p
-                .key
-                .interior_spec()
-                .expect("validated prefix")
-                .required_faces
-            {
-                let access = p.access_rect(face);
-                if placements[accepted..]
-                    .iter()
-                    .any(|q| q.storey == p.storey && q.footprint().overlaps(access))
-                {
+            for &face in p.key.interior_spec()?.required_faces {
+                let access = p.access_rect(face)?;
+                if overlapping(
+                    placements[accepted..]
+                        .iter()
+                        .filter(|q| q.storey == p.storey),
+                    access,
+                )? {
                     return Err(InteriorLayoutError::InaccessibleFurniture { index });
                 }
             }
             continue;
         }
         let error = InteriorLayoutError::InvalidPlacement { index };
-        if p.key.interior_spec().is_none() || !p.centre_metres.is_finite() {
+        let specification = p.key.interior_spec()?;
+        if !p.centre_metres.metres().is_finite() {
             return Err(error);
         }
         let floor = nav
@@ -42,47 +41,71 @@ pub(super) fn validate(
         let room = plan
             .storeys
             .iter()
-            .find(|s| s.level == p.storey)
-            .and_then(|s| s.rooms.iter().find(|r| r.id == p.room_id))
+            .find(|s| crate::StoreyIndex::from_serialized(s.level) == p.storey)
+            .and_then(|s| {
+                s.rooms
+                    .iter()
+                    .find(|r| crate::RoomIndex::from_serialized(r.id) == p.room_id)
+            })
             .ok_or_else(|| error.clone())?;
-        let footprint = p.footprint();
+        let footprint = p.footprint()?;
         let elevation = floor
             .height_at(p.centre_metres)
             .ok_or_else(|| error.clone())?;
-        if !floor.supports(footprint, elevation)
+        if !floor.supports(footprint, elevation)?
             || !floor.placement_clear(
                 footprint,
                 elevation,
-                p.key.interior_spec().unwrap().size_metres.y,
-            )
+                crate::spatial_geometry::PositiveLength::from_metres(
+                    specification.size_metres.metres().y,
+                )?,
+            )?
         {
             return Err(error);
         }
-        if !footprint.inside_room(room)
+        if !footprint.inside_room(room)?
             || floor
                 .obstacles
                 .iter()
                 .chain(&floor.reserved)
                 .any(|o| o.overlaps(footprint))
-            || placements[..index]
-                .iter()
-                .any(|q| q.storey == p.storey && q.footprint().overlaps(footprint))
+            || overlapping(
+                placements[..index].iter().filter(|q| q.storey == p.storey),
+                footprint,
+            )?
         {
             return Err(error);
         }
-        for &face in p.key.interior_spec().unwrap().required_faces {
-            let access = p.access_rect(face);
-            if !access.inside_room(room)
+        for &face in specification.required_faces {
+            let access = p.access_rect(face)?;
+            if !access.inside_room(room)?
                 || floor.obstacles.iter().any(|o| o.overlaps(access))
-                || placements.iter().enumerate().any(|(j, q)| {
-                    j != index && q.storey == p.storey && q.footprint().overlaps(access)
-                })
+                || overlapping(
+                    placements
+                        .iter()
+                        .enumerate()
+                        .filter(|(j, q)| *j != index && q.storey == p.storey)
+                        .map(|(_, placement)| placement),
+                    access,
+                )?
             {
                 return Err(InteriorLayoutError::InaccessibleFurniture { index });
             }
         }
     }
     Ok(())
+}
+
+fn overlapping<'a>(
+    placements: impl Iterator<Item = &'a InteriorPlacement>,
+    rect: super::geometry::Rect,
+) -> Result<bool> {
+    for placement in placements {
+        if placement.footprint()?.overlaps(rect) {
+            return Ok(true);
+        }
+    }
+    Ok(false)
 }
 
 #[cfg(test)]
@@ -99,7 +122,7 @@ mod tests {
             BuildingArchetype::TownHouse,
             BuildingArchetype::FachwerkMerchantHouse,
         ] {
-            for seed in [42, 47] {
+            for seed in [42, 47].map(fabelgeist_determinism::Seed::from_u64) {
                 let program = BuildingProgram::fixture(archetype, seed);
                 let plan = crate::generate(&program).unwrap();
                 let nav = Navigation::new(&plan).unwrap();
@@ -107,7 +130,15 @@ mod tests {
                 for storey in &plan.storeys {
                     for room in &storey.rooms {
                         for budget in furniture_budgets(&program, room) {
-                            for group in candidates(&plan, &program, room, storey.level, budget) {
+                            for group in candidates(
+                                &plan,
+                                &program,
+                                room,
+                                crate::StoreyIndex::from_serialized(storey.level),
+                                budget,
+                            )
+                            .unwrap()
+                            {
                                 let previous = placements.len();
                                 placements.extend(group);
                                 let full = validate(&plan, &nav, &placements, 0);

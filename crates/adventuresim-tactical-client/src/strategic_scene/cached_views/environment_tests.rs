@@ -6,6 +6,7 @@ fn new_and_reused_capture_cameras_inherit_environment_before_the_first_render() 
     let mut app = App::new();
     install(&mut app);
     app.insert_resource(super::super::status::SceneAssetsReady(true))
+        .insert_resource(super::super::status::SceneInstallationReady(true))
         .init_resource::<Assets<Image>>();
     app.world_mut().spawn((
         crate::presentation::TacticalGameplayCamera,

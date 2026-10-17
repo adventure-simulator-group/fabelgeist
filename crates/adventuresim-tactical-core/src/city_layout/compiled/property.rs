@@ -40,14 +40,14 @@ pub(super) fn compile(
     let front_half = lot.footprint_metres * 0.5;
     let court_depth = plots::REAR_COURT_METRES;
     let rear = range_recipe.place(
-        AUXILIARY_BUILDING_ID_BASE + lot.id,
+        (AUXILIARY_BUILDING_ID_BASE + lot.id).into(),
         world(Vec2::new(
             lot.passage_side.sign() * REAR_RANGE_SIDE_OFFSET_METRES,
             front_half.y + court_depth + compound::REAR_RANGE_DEPTH_METRES * 0.5,
         )),
         lot.orientation,
-    );
-    let plot = CityPlotBounds::from(plots::reservation(lot));
+    )?;
+    let plot = CityPlotBounds::try_from(plots::reservation(lot))?;
     if !front_recipe.fits(front, plot) || !range_recipe.fits(&rear, plot) {
         return Err(CityCompileError::Compound {
             property: id,
@@ -55,32 +55,34 @@ pub(super) fn compile(
         });
     }
     let front_door = front_recipe
-        .door_point(front, Vec2::Y)
+        .door_point(front, adventuresim_building_generator::Direction::North)?
         .ok_or(CityCompileError::Compound {
             property: id,
             issue: CompoundIssue::MissingCourtDoor,
-        })?;
+        })?
+        .metres();
     let rear_door = range_recipe
-        .door_point(&rear, -Vec2::Y)
+        .door_point(&rear, adventuresim_building_generator::Direction::South)?
         .ok_or(CityCompileError::Compound {
             property: id,
             issue: CompoundIssue::MissingRangeDoor,
-        })?;
+        })?
+        .metres();
     let boundary = boundary(lot);
-    let court = CityPlotBounds {
-        centre_metres: world(Vec2::new(
+    let court = CityPlotBounds::new(
+        crate::scene_coordinates::ScenePlanPoint::try_from(world(Vec2::new(
             lot.passage_side.sign() * plots::SIDE_PASSAGE_METRES * 0.5,
             front_half.y + court_depth * 0.5,
-        )),
-        dimensions_metres: Vec2::new(
+        )))?,
+        adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(Vec2::new(
             lot.footprint_metres.x + plots::SIDE_PASSAGE_METRES,
             court_depth,
-        ),
-        orientation: lot.orientation,
-    };
+        ))?,
+        lot.orientation,
+    )?;
     let court_local = lot
         .orientation
-        .world_to_local(court.centre_metres - lot.centre_metres);
+        .world_to_local(court.centre_metres() - lot.centre_metres);
     let gate_local = lot
         .orientation
         .world_to_local(boundary.gate.centre_metres - lot.centre_metres);
@@ -91,10 +93,10 @@ pub(super) fn compile(
         junction,
         court_local.y,
         [front_door, rear_door],
-    );
+    )?;
     if !streets
         .iter()
-        .any(|street| street.contains(access[0].start_metres))
+        .any(|street| street.contains(access[0].start_metres()))
     {
         return Err(CityCompileError::Compound {
             property: id,
@@ -129,13 +131,17 @@ fn access(
     junction: Vec2,
     court_local_north: f32,
     doors: [Vec2; 2],
-) -> Vec<CityAccessSegment> {
-    let mut routes = vec![CityAccessSegment {
-        start_metres: gate.centre_metres
-            + gate.orientation.local_to_world(-Vec2::Y) * GATE_STREET_APPROACH_METRES,
-        end_metres: junction,
-        half_width_metres: compound::ACCESS_HALF_WIDTH_METRES,
-    }];
+) -> Result<Vec<CityAccessSegment>, CityCompileError> {
+    let mut routes = vec![CityAccessSegment::new(
+        crate::scene_coordinates::ScenePlanPoint::try_from(
+            gate.centre_metres
+                + gate.orientation.local_to_world(-Vec2::Y) * GATE_STREET_APPROACH_METRES,
+        )?,
+        crate::scene_coordinates::ScenePlanPoint::try_from(junction)?,
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+            compound::ACCESS_HALF_WIDTH_METRES,
+        )?,
+    )?];
     for door in doors {
         let local = lot.orientation.world_to_local(door - lot.centre_metres);
         let turn = lot.centre_metres
@@ -143,14 +149,16 @@ fn access(
                 .orientation
                 .local_to_world(Vec2::new(local.x, court_local_north));
         for (start, end) in [(junction, turn), (turn, door)] {
-            routes.push(CityAccessSegment {
-                start_metres: start,
-                end_metres: end,
-                half_width_metres: compound::ACCESS_HALF_WIDTH_METRES,
-            });
+            routes.push(CityAccessSegment::new(
+                crate::scene_coordinates::ScenePlanPoint::try_from(start)?,
+                crate::scene_coordinates::ScenePlanPoint::try_from(end)?,
+                adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                    compound::ACCESS_HALF_WIDTH_METRES,
+                )?,
+            )?);
         }
     }
-    routes
+    Ok(routes)
 }
 
 fn boundary(lot: CityBuildingLot) -> CityBoundary {
