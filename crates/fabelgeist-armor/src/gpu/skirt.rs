@@ -46,7 +46,9 @@ pub fn record_skirt(
     let kernel = coordinate_kernel(gpu, include_str!("skirt.wgsl"))?;
     let mut recipe = PartRecipe::new();
     recipe.textile_chart();
-    recipe.push_coord(carrier(design, attachment)?, kernel.clone())?;
+    let cloth = carrier(design, attachment)?;
+    let first_finish = cloth.coords.len() as u32;
+    recipe.push_coord(cloth, kernel.clone())?;
     recipe.component(
         if design.puff_and_slash.is_some() {
             ArmorComponentRole::Undercloth
@@ -55,6 +57,9 @@ pub fn record_skirt(
         },
         None,
     );
+    if let Some(patch) = attachment {
+        super::skirt_attachment_layers::append(&mut recipe, &kernel, patch, first_finish)?;
+    }
     super::skirt_structure::append(&mut recipe, &kernel, design, first_row)?;
     if let Some(pattern) = &design.puff_and_slash {
         let puff_kernel = coordinate_kernel(gpu, include_str!("skirt_puff.wgsl"))?;

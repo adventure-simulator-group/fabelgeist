@@ -41,7 +41,7 @@ impl DeviceWearer<'_> {
         let head = self.record_frame(batch, FitRegion::Head)?;
         let fit_words = SKIRT_FIT_WORDS
             + attachment.map_or(0, |plan| {
-                (plan.patch.point_count + SKIRT_RING_SEGMENTS as u32) * SKIRT_ATTACHMENT_POINT_WORDS
+                plan.fitted_point_count() * SKIRT_ATTACHMENT_POINT_WORDS
             });
         let fit = self.record_upright(
             batch,

@@ -88,9 +88,9 @@
         "transition": 100,
         "waist_band": 15,
         "sleeves": {
-          "length": 1000,
+          "length": 1040,
           "circumference": 750,
-          "cuff_circumference": 180,
+          "cuff_circumference": 220,
           "cuff_length": 32,
           "fabric": {
             "color": [
@@ -114,8 +114,8 @@
               "layout": {
                 "Shirred": {
                   "band": {
-                    "start": 920,
-                    "end": 990
+                    "start": 890,
+                    "end": 950
                   },
                   "rows": 8,
                   "pattern": "Chevron",
@@ -123,12 +123,41 @@
                 }
               }
             }
+          },
+          "frill": {
+            "length": 25,
+            "flare": 12,
+            "folds": {
+              "count": 8,
+              "depth": 12,
+              "profile": "Fluted"
+            }
+          },
+          "cuff_slit": {
+            "length": 45,
+            "gap": 2,
+            "rotation": 500
           }
         },
         "body_fit": {
           "Loose": {
             "ease": 10,
             "release": 650
+          }
+        },
+        "neck_binding": {
+          "width": 12,
+          "thickness": 200,
+          "fabric": {
+            "color": [
+              242,
+              240,
+              230
+            ],
+            "finish": "Linen",
+            "opacity": 1000,
+            "layers": [],
+            "relief": null
           }
         }
       }

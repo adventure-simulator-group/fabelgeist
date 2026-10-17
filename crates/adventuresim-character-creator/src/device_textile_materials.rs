@@ -28,6 +28,13 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
                 _ => None,
             },
             ParametricDesign::Gown(gown) => match component.role {
+                ArmorComponentRole::EdgeBinding => Some(
+                    &gown
+                        .neck_binding
+                        .as_ref()
+                        .context("neck binding without a tape design")?
+                        .fabric,
+                ),
                 ArmorComponentRole::SleeveFabric => Some(
                     &gown
                         .sleeves

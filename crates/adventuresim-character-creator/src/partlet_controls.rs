@@ -1,9 +1,9 @@
 //! Open-sided shoulder covering and its independently pleated standing collar.
 use bevy_egui::egui;
 use fabelgeist_armor::{
-    ClothBinding, ClothNeckCurve, ClothPleatProfile, ClothPleats, CollarBand, CollarSection,
-    Micrometers, Millimeters, PartletDesign, Permille, StandingClothCollar, TextileAppearance,
-    TextileColor, TextileFinish, TextileRepeatCount,
+    ClothBinding, ClothNeckCurve, ClothPleatProfile, ClothPleats, ClothTape, CollarBand,
+    CollarSection, Micrometers, Millimeters, PartletDesign, Permille, StandingClothCollar,
+    TextileAppearance, TextileColor, TextileFinish, TextileRepeatCount,
 };
 
 pub(super) fn show(ui: &mut egui::Ui, design: &mut PartletDesign) -> bool {
@@ -233,19 +233,19 @@ fn binding_controls(ui: &mut egui::Ui, design: &mut Option<ClothBinding>) -> boo
         changed |= super::number(
             ui,
             &mut binding.width.0,
-            ClothBinding::WIDTH_RANGE,
+            ClothTape::WIDTH_RANGE,
             "Edge binding width (mm)",
         );
         changed |= super::number(
             ui,
             &mut binding.hem_width.0,
-            ClothBinding::WIDTH_RANGE,
+            ClothTape::WIDTH_RANGE,
             "Hem binding width (mm)",
         );
         changed |= super::number(
             ui,
             &mut binding.thickness.0,
-            ClothBinding::THICKNESS_RANGE,
+            ClothTape::THICKNESS_RANGE,
             "Binding gauge (micrometres)",
         );
         ui.collapsing("Binding fabric", |ui| {
@@ -288,7 +288,7 @@ fn band_controls(
         changed |= super::number(
             ui,
             &mut band.thickness.0,
-            ClothBinding::THICKNESS_RANGE,
+            ClothTape::THICKNESS_RANGE,
             "Band gauge (micrometres)",
         );
         ui.collapsing(label, |ui| {

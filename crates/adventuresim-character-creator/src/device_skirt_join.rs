@@ -66,7 +66,18 @@ impl DeviceWearer<'_> {
             Grid::Items(count),
         )?;
         if let Some(sleeves) = &plan.sleeves {
-            self.record_sewn_sleeves(batch, fit, sleeves)?;
+            self.record_sewn_sleeves(batch, fit, sleeves, status)?;
+        }
+        if let Some(binding) = &plan.neck_binding {
+            self.record_cloth_ribbon(
+                batch,
+                fit,
+                binding,
+                crate::device_cloth_ribbon::ClothFitLayout {
+                    first_point: SKIRT_FIT_WORDS,
+                    point_words: SKIRT_ATTACHMENT_POINT_WORDS,
+                },
+            )?;
         }
         Ok(())
     }
