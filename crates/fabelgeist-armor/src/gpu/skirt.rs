@@ -32,6 +32,13 @@ pub fn record_skirt(
     attachment: Option<&SkirtAttachment>,
 ) -> Result<DevicePart, GenerateError> {
     design.validate()?;
+    if attachment.is_some_and(|patch| patch.seam_layout == super::SkirtSeamLayout::StraightFall)
+        && (!matches!(design.profile, crate::SkirtProfile::Straight)
+            || design.pleats.is_some()
+            || design.puff_and_slash.is_some())
+    {
+        return Err(GenerateError::InvalidSurface);
+    }
     if design.bodice.is_some() && attachment.is_none() {
         return Err(GenerateError::InvalidSurface);
     }
@@ -104,26 +111,40 @@ fn carrier(
     let mut coords = Vec::new();
     let mut indices = Vec::new();
     let first_row = attachment.map_or(0, |patch| patch.first_row);
-    for row in 0..=SKIRT_MESH_AXIAL_SEGMENTS {
+    let hanging_intervals =
+        attachment.map_or(SKIRT_MESH_AXIAL_SEGMENTS, |patch| patch.hanging_intervals);
+    let columns = attachment.map_or(SKIRT_MESH_RING_SEGMENTS, |patch| patch.hanging_columns());
+    for row in 0..=hanging_intervals {
         let descent = first_row as f32
-            + (SKIRT_AXIAL_SEGMENTS - first_row) as f32 * row as f32
-                / SKIRT_MESH_AXIAL_SEGMENTS as f32;
-        for column in 0..SKIRT_MESH_RING_SEGMENTS {
-            coords.push([
-                column as f32 * SKIRT_RING_SEGMENTS as f32 / SKIRT_MESH_RING_SEGMENTS as f32,
-                descent,
-                0.0,
-                0.0,
-            ]);
+            + (SKIRT_AXIAL_SEGMENTS - first_row) as f32 * row as f32 / hanging_intervals as f32;
+        for column in 0..columns {
+            if let Some(patch) =
+                attachment.filter(|patch| patch.seam_layout == super::SkirtSeamLayout::StraightFall)
+            {
+                // Native point ordinal, descent share, and straight-fall tag.
+                const STRAIGHT_FALL_COORDINATE: f32 = 5.;
+                coords.push([
+                    patch.waist[column].vertex as f32,
+                    descent / SKIRT_AXIAL_SEGMENTS as f32,
+                    0.,
+                    STRAIGHT_FALL_COORDINATE,
+                ]);
+            } else {
+                coords.push([
+                    column as f32 * SKIRT_RING_SEGMENTS as f32 / SKIRT_MESH_RING_SEGMENTS as f32,
+                    descent,
+                    0.0,
+                    0.0,
+                ]);
+            }
         }
     }
-    for row in 0..SKIRT_MESH_AXIAL_SEGMENTS {
-        for column in 0..SKIRT_MESH_RING_SEGMENTS {
-            let a = (row * SKIRT_MESH_RING_SEGMENTS + column) as u32;
-            let b =
-                (row * SKIRT_MESH_RING_SEGMENTS + (column + 1) % SKIRT_MESH_RING_SEGMENTS) as u32;
-            let c = b + SKIRT_MESH_RING_SEGMENTS as u32;
-            let d = a + SKIRT_MESH_RING_SEGMENTS as u32;
+    for row in 0..hanging_intervals {
+        for column in 0..columns {
+            let a = (row * columns + column) as u32;
+            let b = (row * columns + (column + 1) % columns) as u32;
+            let c = b + columns as u32;
+            let d = a + columns as u32;
             // Rows descend: reverse the upward-tube convention.
             indices.extend([a, c, b, a, d, c]);
         }
@@ -136,7 +157,13 @@ fn carrier(
         indices,
         boundary_normals: BoundaryNormals::Smooth,
         thickness: design.thickness.metres(),
-        extrusion: CoordExtrusion::Normal,
+        extrusion: if attachment
+            .is_some_and(|patch| patch.seam_layout == super::SkirtSeamLayout::StraightFall)
+        {
+            CoordExtrusion::AngleWeightedNormal
+        } else {
+            CoordExtrusion::Normal
+        },
         values: [0.0; 4],
         mirrored: false,
         frame: 0,

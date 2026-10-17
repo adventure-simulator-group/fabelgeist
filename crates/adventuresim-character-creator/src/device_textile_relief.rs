@@ -4,6 +4,19 @@ use anyhow::Result;
 use fabelgeist_armor::{ArmorComponentRole, GeneratedArmor};
 
 pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Result<()> {
+    for component in &mut armor.components {
+        if let Some(relief) = component
+            .textile
+            .as_mut()
+            .and_then(|fabric| fabric.relief.as_mut())
+        {
+            relief.chart = fabelgeist_armor::TextileChartSize::from_surface(
+                &armor.positions,
+                &armor.texcoords,
+                &armor.indices[component.indices.clone()],
+            )?;
+        }
+    }
     if let ParametricDesign::Partlet(partlet) = design {
         for component in &mut armor.components {
             if component.role == ArmorComponentRole::CollarFabric

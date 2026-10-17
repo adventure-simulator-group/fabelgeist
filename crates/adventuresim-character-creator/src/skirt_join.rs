@@ -1,7 +1,7 @@
 //! Frozen cloned-body topology and angular correspondence at a dress waist.
 
 use anyhow::{Context, Result, ensure};
-use fabelgeist_armor::gpu::{SkirtAttachment, SkirtWaistVertex};
+use fabelgeist_armor::gpu::{ClothRingVertex, SkirtAttachment};
 use fabelgeist_armor::{PartFrame, SKIRT_RING_SEGMENTS, SkirtDesign};
 use fabelgeist_rig::RigJointName;
 
@@ -11,9 +11,16 @@ use crate::surface_cut::{ConvexRegion, Plane, SurfaceCut, interpolate};
 pub(crate) struct SkirtJoinPlan {
     pub patch: SkirtAttachment,
     pub table: Vec<u32>,
+    /// Complete torso support remains available after trimming the render cut.
+    pub enclosure_table: Vec<u32>,
     /// Native source-point pair and f32 interpolation bits per angular column.
     pub samples: Vec<u32>,
     pub offset_metres: f32,
+    pub ease: fabelgeist_armor::Millimeters,
+    pub release: fabelgeist_armor::Permille,
+    pub release_weights: Vec<f32>,
+    pub neckline_samples: Vec<u32>,
+    pub sleeves: Option<crate::sewn_sleeves::SewnSleevePlan>,
 }
 
 /// Native sewing boundary in canonical upright metres and skirt row indices.
@@ -31,11 +38,18 @@ impl SkirtJoinPlan {
         carrier: fabelgeist_armor::ArmorComponentRole,
     ) -> Result<()> {
         use fabelgeist_armor::ArmorComponentRole;
-        let first = fabelgeist_armor::skirt_carrier_point_count();
+        let first = self.patch.carrier_point_count();
         let upper = first..first + self.patch.point_count as usize;
         let sources = piece.skin_aliases.clone();
+        let charts = crate::gown_charts::SewnCharts::new(self, piece)?;
         piece.partition_first_component(|triangle| {
-            if triangle
+            if self.sleeves.as_ref().is_some_and(|sleeves| {
+                triangle
+                    .iter()
+                    .any(|&v| sleeves.contains(sources[v as usize], first))
+            }) {
+                ArmorComponentRole::SleeveFabric
+            } else if triangle
                 .iter()
                 .all(|&v| upper.contains(&sources[v as usize]))
             {
@@ -44,6 +58,7 @@ impl SkirtJoinPlan {
                 carrier
             }
         })?;
+        charts.apply(piece)?;
         piece.normalize_cloth_charts(&[ArmorComponentRole::BodiceFabric, carrier])
     }
 
@@ -137,7 +152,7 @@ impl SkirtJoinPlan {
             .map(|vertex| {
                 let point = reference[vertex as usize];
                 let local = [point[0] - hips.origin[0], 0.0, point[2] - hips.origin[2]];
-                SkirtWaistVertex {
+                ClothRingVertex {
                     vertex,
                     angle: dot(local, head.axes[0])
                         .atan2(dot(local, head.axes[2]))
@@ -160,9 +175,17 @@ impl SkirtJoinPlan {
         );
         let samples = angular_samples(&waist);
         Ok(Self {
+            ease: fabelgeist_armor::Millimeters(0),
+            release: fabelgeist_armor::Permille::ONE,
+            release_weights: vec![0.; cut.points.len()],
+            neckline_samples: vec![0; crate::gown_ease::NECK_SAMPLE_WORDS],
+            sleeves: None,
             offset_metres: seam.offset_metres,
+            enclosure_table: Vec::new(),
             table: cut.source_table(body.faces, body.faces),
             patch: SkirtAttachment {
+                seam_layout: fabelgeist_armor::gpu::SkirtSeamLayout::Transition,
+                hanging_intervals: fabelgeist_armor::SKIRT_MESH_AXIAL_SEGMENTS,
                 first_row: seam.first_row,
                 point_count: u32::try_from(cut.points.len())?,
                 indices: cut.faces.into_iter().flatten().collect(),
@@ -224,32 +247,39 @@ fn waist_regions(
     regions
 }
 
-fn angular_samples(waist: &[SkirtWaistVertex]) -> Vec<u32> {
-    let mut samples = Vec::with_capacity(SKIRT_RING_SEGMENTS * 3);
-    for column in 0..SKIRT_RING_SEGMENTS {
-        let mut angle = std::f32::consts::TAU * column as f32 / SKIRT_RING_SEGMENTS as f32;
-        if angle < waist[0].angle {
-            angle += std::f32::consts::TAU;
-        }
-        let next = waist
-            .iter()
-            .position(|p| p.angle > angle)
-            .unwrap_or(waist.len());
-        let a = &waist[next - 1];
-        let b = &waist[next % waist.len()];
-        let end = b.angle
-            + if next == waist.len() {
-                std::f32::consts::TAU
-            } else {
-                0.0
-            };
-        samples.extend([
-            a.vertex,
-            b.vertex,
-            ((angle - a.angle) / (end - a.angle)).to_bits(),
-        ]);
+fn angular_samples(waist: &[ClothRingVertex]) -> Vec<u32> {
+    (0..SKIRT_RING_SEGMENTS)
+        .flat_map(|column| {
+            angular_sample(
+                waist,
+                std::f32::consts::TAU * column as f32 / SKIRT_RING_SEGMENTS as f32,
+            )
+        })
+        .collect()
+}
+
+/// Native ordered ring boundary: source ordinals, radians, f32 blend bits.
+pub(crate) fn angular_sample(ring: &[ClothRingVertex], mut angle: f32) -> [u32; 3] {
+    if angle < ring[0].angle {
+        angle += std::f32::consts::TAU;
     }
-    samples
+    let next = ring
+        .iter()
+        .position(|p| p.angle > angle)
+        .unwrap_or(ring.len());
+    let a = &ring[next - 1];
+    let b = &ring[next % ring.len()];
+    let end = b.angle
+        + if next == ring.len() {
+            std::f32::consts::TAU
+        } else {
+            0.
+        };
+    [
+        a.vertex,
+        b.vertex,
+        ((angle - a.angle) / (end - a.angle)).to_bits(),
+    ]
 }
 
 fn mean_height(boundary: &[u32], positions: &[[f32; 3]]) -> f32 {

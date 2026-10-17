@@ -136,8 +136,9 @@ impl ClothTorsoFrame {
             } else {
                 for segment in 1..CUT_ARC_SEGMENTS {
                     let angle = std::f32::consts::PI * segment as f32 / CUT_ARC_SEGMENTS as f32;
-                    let mut normal = self.lateral.map(|v| v * angle.cos() / radius);
-                    normal[1] -= angle.sin() / drop.metres().max(f32::EPSILON);
+                    let [across, down] = neckline_tangent(design.neckline.shape, angle);
+                    let mut normal = self.lateral.map(|v| v * across / radius);
+                    normal[1] -= down / drop.metres().max(f32::EPSILON);
                     neck.push(Plane {
                         normal,
                         offset: dot(self.neck, normal) + 1.,
@@ -185,7 +186,14 @@ impl ClothTorsoFrame {
         let top = if design.neckline.shape == NecklineShape::Square {
             self.neck[1] - drop.metres()
         } else {
-            self.round_opening_top(radius, drop.metres(), waist.metres() * 0.5, half_width, hem)?
+            self.round_opening_top(
+                design.neckline.shape,
+                radius,
+                drop.metres(),
+                waist.metres() * 0.5,
+                half_width,
+                hem,
+            )?
         };
         ensure!(top > hem, "bodice neckline must remain above its hem");
         Ok(Some(OpeningCut {
@@ -201,6 +209,7 @@ impl ClothTorsoFrame {
     /// reject a combination whose segment already entered it further down.
     fn round_opening_top(
         &self,
+        shape: NecklineShape,
         radius: f32,
         drop: f32,
         lower_half_width: f32,
@@ -208,7 +217,8 @@ impl ClothTorsoFrame {
         hem: f32,
     ) -> Result<f32> {
         let height = |angle: f32, across: f32| {
-            self.neck[1] + drop * (angle.cos() * across / radius - 1.) / angle.sin()
+            let [lateral, down] = neckline_tangent(shape, angle);
+            self.neck[1] + drop * (lateral * across / radius - 1.) / down
         };
         let top = (1..CUT_ARC_SEGMENTS)
             .map(|segment| {
@@ -297,6 +307,17 @@ impl ClothTorsoFrame {
         }
         regions.push(neck);
         Ok(regions)
+    }
+}
+
+/// Unit superellipse support plane: ellipse exponent two, soft square four.
+fn neckline_tangent(shape: NecklineShape, angle: f32) -> [f32; 2] {
+    if shape == NecklineShape::SoftSquare {
+        let x = angle.cos();
+        let y = angle.sin();
+        [x.signum() * x.abs().powf(1.5), y.powf(1.5)]
+    } else {
+        [angle.cos(), angle.sin()]
     }
 }
 

@@ -6,6 +6,34 @@ use crate::armor_recipes::ParametricDesign;
 use crate::device_fit::{DevicePiece, FitBody, Realization};
 
 impl DevicePiece {
+    /// Keep sleeve cloth out of the skirt's leg blend by transferring the
+    /// nearest body surface ownership, including cuffs below the hips.
+    /// Shell copies share the original carrier's row before material splitting.
+    pub(crate) fn bind_sewn_sleeves(
+        &mut self,
+        body: &FitBody<'_>,
+        wearer: &Realization<'_>,
+        sleeves: &crate::sewn_sleeves::SewnSleevePlan,
+        first: usize,
+    ) -> Result<()> {
+        let skin = crate::skin_transfer::SkinSource {
+            positions: wearer.positions,
+            faces: body.faces,
+            indices: body.joint_indices,
+            weights: body.joint_weights,
+            names: body.joint_names,
+            joints: wearer.joints,
+        }
+        .transfer(&self.base.positions)?;
+        for (vertex, &source) in self.skin_aliases.iter().enumerate() {
+            if sleeves.contains(source, first) {
+                self.skin.joint_indices[vertex] = skin.indices[source];
+                self.skin.joint_weights[vertex] = skin.weights[source];
+            }
+        }
+        Ok(())
+    }
+
     pub(crate) fn bind_flexible_textile(
         &mut self,
         body: &FitBody<'_>,
