@@ -23,6 +23,30 @@ pub(crate) struct SewnWaist {
 }
 
 impl SkirtJoinPlan {
+    /// Partition the cloned upper patch using render ancestry, then give each
+    /// cut fabric its own chart. Fine waist relief never reaches the torso.
+    pub fn finish(
+        &self,
+        piece: &mut crate::device_fit::DevicePiece,
+        carrier: fabelgeist_armor::ArmorComponentRole,
+    ) -> Result<()> {
+        use fabelgeist_armor::ArmorComponentRole;
+        let first = fabelgeist_armor::skirt_carrier_point_count();
+        let upper = first..first + self.patch.point_count as usize;
+        let sources = piece.skin_aliases.clone();
+        piece.partition_first_component(|triangle| {
+            if triangle
+                .iter()
+                .all(|&v| upper.contains(&sources[v as usize]))
+            {
+                ArmorComponentRole::BodiceFabric
+            } else {
+                carrier
+            }
+        })?;
+        piece.normalize_cloth_charts(&[ArmorComponentRole::BodiceFabric, carrier])
+    }
+
     pub fn new(
         design: &SkirtDesign,
         body: &Wearer<'_>,

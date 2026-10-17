@@ -11,9 +11,8 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
         let fabric = match design {
             ParametricDesign::Bodice(bodice) => bodice_fabric(bodice, component.role)?,
             ParametricDesign::Partlet(partlet) => match component.role {
-                ArmorComponentRole::OuterFabric | ArmorComponentRole::CollarFabric => {
-                    Some(&partlet.fabric)
-                }
+                ArmorComponentRole::OuterFabric => Some(&partlet.fabric),
+                ArmorComponentRole::CollarFabric => partlet.collar.as_ref().map(|c| &c.fabric),
                 ArmorComponentRole::EdgeBinding => partlet.binding.as_ref().map(|b| &b.fabric),
                 ArmorComponentRole::ClothTies => partlet.ties.as_ref().map(|t| &t.fabric),
                 ArmorComponentRole::Neckband => partlet
@@ -48,6 +47,7 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
         }
     }
     armor.split_textile_seams()?;
+    crate::device_textile_relief::apply(design, armor)?;
     Ok(())
 }
 
@@ -80,6 +80,7 @@ fn skirt_fabric<'a>(
     component: &mut ArmorComponent,
 ) -> Result<Option<&'a TextileAppearance>> {
     Ok(match component.role {
+        ArmorComponentRole::BodiceFabric => Some(&skirt.fabric),
         ArmorComponentRole::Undercloth => Some(
             &skirt
                 .puff_and_slash

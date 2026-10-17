@@ -4,21 +4,22 @@
     "design": {
       "Partlet": {
         "hem_rise": 250,
-        "neck_rise": 40,
+        "neck_rise": 45,
         "shoulder_bridge": 30,
         "side_opening": 350,
         "back_slit": 180,
         "back_gap": 3,
         "collar": {
-          "height": 44,
+          "height": 35,
           "pleats": {
-            "count": 40,
-            "depth": 2
+            "count": 128,
+            "depth": 2,
+            "profile": "RoundedGathers"
           },
-          "top_scale": 600,
+          "top_scale": 850,
           "neckband": {
-            "bottom": 0,
-            "height": 15,
+            "bottom": 3,
+            "height": 20,
             "thickness": 200,
             "fabric": {
               "color": [
@@ -32,23 +33,101 @@
             }
           },
           "trim": {
-            "bottom": 0,
-            "height": 25,
+            "bottom": 3,
+            "height": 20,
             "thickness": 200,
             "fabric": {
               "color": [
-                185,
-                138,
-                37
+                184,
+                140,
+                45
               ],
               "finish": "MetallicThread",
               "opacity": 1000,
-              "layers": []
+              "layers": [
+                {
+                  "region": "Whole",
+                  "fill": {
+                    "Motifs": {
+                      "space": "Garment",
+                      "motif": {
+                        "Medallion": {
+                          "petals": 4,
+                          "rings": 3,
+                          "stroke": 20,
+                          "threads": 64
+                        }
+                      },
+                      "across": 24,
+                      "along": 1,
+                      "scale": 950,
+                      "rotation": 0,
+                      "stagger": 0,
+                      "offset": {
+                        "across": 0,
+                        "along": 0
+                      }
+                    }
+                  },
+                  "color": [
+                    210,
+                    170,
+                    70
+                  ]
+                },
+                {
+                  "region": {
+                    "Band": {
+                      "axis": "Along",
+                      "start": 0,
+                      "end": 50
+                    }
+                  },
+                  "fill": "Solid",
+                  "color": [
+                    210,
+                    170,
+                    68
+                  ]
+                },
+                {
+                  "region": {
+                    "Band": {
+                      "axis": "Along",
+                      "start": 950,
+                      "end": 1000
+                    }
+                  },
+                  "fill": "Solid",
+                  "color": [
+                    210,
+                    170,
+                    68
+                  ]
+                }
+              ]
+            }
+          },
+          "flare": 2,
+          "fabric": {
+            "color": [
+              242,
+              240,
+              230
+            ],
+            "finish": "Linen",
+            "opacity": 700,
+            "layers": []
+          },
+          "taper_height": 3,
+          "section": {
+            "Oval": {
+              "depth_to_width": 1100
             }
           }
         },
-        "clearance": 4,
-        "thickness": 200,
+        "clearance": 3,
+        "thickness": 100,
         "fabric": {
           "color": [
             242,
@@ -56,8 +135,24 @@
             230
           ],
           "finish": "Linen",
-          "opacity": 250,
-          "layers": []
+          "opacity": 25,
+          "layers": [
+            {
+              "region": "Whole",
+              "fill": {
+                "Weave": {
+                  "warp": 1024,
+                  "weft": 768,
+                  "width": 40
+                }
+              },
+              "color": [
+                248,
+                247,
+                238
+              ]
+            }
+          ]
         },
         "binding": {
           "width": 5,
@@ -74,7 +169,7 @@
           "hem_width": 13,
           "thickness": 200
         },
-        "neckline_slope": 600,
+        "neckline_slope": 0,
         "ties": {
           "width": 13,
           "tail_length": 180,
@@ -90,6 +185,10 @@
             "opacity": 1000,
             "layers": []
           }
+        },
+        "front_curve": {
+          "reach": 80,
+          "drop": 55
         }
       }
     }

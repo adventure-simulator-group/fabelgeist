@@ -42,6 +42,7 @@ fn generate(gpu: &ArmorGpu, width: f32) -> Result<BuiltPart> {
             fit.extend([x * width, y, 0., 0., 0., 1.]);
         }
         layers.push(BodyClothLayer {
+            chart: Some(points.iter().map(|[x, y]| [x + 0.5, 1. - y]).collect()),
             point_count: points.len() as u32,
             indices,
             role,
@@ -70,6 +71,8 @@ fn hidden_laminates_survive_thickening_and_refit_without_filling_the_opening() -
     assert_eq!(base.indices, wider.indices);
     assert_eq!(base.positions.len(), wider.positions.len());
     assert_ne!(base.positions, wider.positions);
+    // Construction-authored coordinates survive refit and all shell copies.
+    assert_eq!(base.texcoords, wider.texcoords);
     assert_eq!(base.components.len(), 3);
     for part in [&base, &wider] {
         assert!(
@@ -96,6 +99,14 @@ fn hidden_laminates_survive_thickening_and_refit_without_filling_the_opening() -
             assert_eq!(component.role, expected);
             assert!(!component.indices.is_empty());
             let points = &part.positions[component.vertices.clone()];
+            for (point, uv) in points
+                .iter()
+                .zip(&part.texcoords.as_ref().unwrap()[component.vertices.clone()])
+            {
+                let scale = if std::ptr::eq(part, &base) { 1. } else { 1.3 };
+                assert!((uv[0] - (point[0] / scale + 0.5)).abs() < 1e-6);
+                assert!((uv[1] - (1. - point[1])).abs() < 1e-6);
+            }
             let near = points.iter().map(|p| p[2]).fold(f32::INFINITY, f32::min);
             let far = points
                 .iter()

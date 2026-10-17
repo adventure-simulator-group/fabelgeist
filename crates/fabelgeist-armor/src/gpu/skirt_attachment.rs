@@ -1,12 +1,13 @@
 //! Native topology adapter for a cloned body patch and its shared waist seam.
 
+use crate::skirt::SKIRT_MESH_RING_SEGMENTS;
 use crate::{GenerateError, SKIRT_RING_SEGMENTS};
 
 /// Fitted points follow the ordinary skirt profile in the shared fit buffer.
 /// Each has local position and local normal, packed as six native floats.
 pub const SKIRT_ATTACHMENT_POINT_WORDS: u32 = 6;
 /// Interior rings in the transition; waist and skirt endpoints are shared.
-pub(crate) const TRANSITION_RINGS: usize = 4;
+pub(crate) const TRANSITION_RINGS: usize = 2;
 
 /// GPU topology boundary. Body triangles use patch-local vertex indices;
 /// waist vertices are ordered by increasing radians around the fitted Y axis.
@@ -56,10 +57,11 @@ impl SkirtAttachment {
         for ring in 1..=TRANSITION_RINGS {
             let first_ring = coords.len() as u32;
             let progress = ring as f32 / (TRANSITION_RINGS + 1) as f32;
-            coords.extend((0..SKIRT_RING_SEGMENTS).map(|column| {
+            coords.extend((0..SKIRT_MESH_RING_SEGMENTS).map(|column| {
+                let sample = column * SKIRT_RING_SEGMENTS / SKIRT_MESH_RING_SEGMENTS;
                 [
-                    (self.point_count as usize + column) as f32,
-                    column as f32,
+                    (self.point_count as usize + sample) as f32,
+                    sample as f32,
                     progress,
                     2.0,
                 ]
@@ -74,10 +76,10 @@ impl SkirtAttachment {
 }
 
 fn angular_ring(first: u32) -> Vec<SkirtWaistVertex> {
-    (0..SKIRT_RING_SEGMENTS)
+    (0..SKIRT_MESH_RING_SEGMENTS)
         .map(|column| SkirtWaistVertex {
             vertex: first + column as u32,
-            angle: std::f32::consts::TAU * column as f32 / SKIRT_RING_SEGMENTS as f32,
+            angle: std::f32::consts::TAU * column as f32 / SKIRT_MESH_RING_SEGMENTS as f32,
         })
         .collect()
 }

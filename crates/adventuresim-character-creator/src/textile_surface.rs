@@ -6,7 +6,7 @@ use bevy::{
     prelude::*,
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
-use fabelgeist_armor::TextileAppearance;
+use fabelgeist_armor::{TextileAppearance, TextileFinish};
 use image::ImageEncoder;
 pub struct TextileMaps {
     pub base_color_png: Vec<u8>,
@@ -40,24 +40,22 @@ pub fn material(
         cull_mode: Some(bevy::render::render_resource::Face::Back),
         ..Default::default()
     };
-    if !fabric.layers.0.is_empty() {
+    if !fabric.layers.0.is_empty() || fabric.relief.is_some() {
         let pixels = fabric.pixels()?;
-        let mut image = Image::new(
-            Extent3d {
-                width: pixels.width,
-                height: pixels.height,
-                depth_or_array_layers: 1,
-            },
-            TextureDimension::D2,
+        if fabric.finish == TextileFinish::MetallicThread || fabric.relief.is_some() {
+            material.normal_map_texture = Some(images.add(texture_image(
+                pixels.width,
+                pixels.height,
+                pixels.surface_normals(fabric)?,
+                TextureFormat::Rgba8Unorm,
+            )));
+        }
+        let image = texture_image(
+            pixels.width,
+            pixels.height,
             pixels.color,
             TextureFormat::Rgba8UnormSrgb,
-            RenderAssetUsages::default(),
         );
-        image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor {
-            address_mode_u: ImageAddressMode::Repeat,
-            address_mode_v: ImageAddressMode::ClampToEdge,
-            ..ImageSamplerDescriptor::linear()
-        });
         material.base_color = Color::WHITE;
         material.base_color_texture = Some(images.add(image));
     }
@@ -66,13 +64,21 @@ pub fn material(
 
 pub fn textures(fabric: &TextileAppearance) -> Result<Option<TextileMaps>> {
     fabric.validate()?;
-    if fabric.layers.0.is_empty() && !fabric.is_translucent() {
+    if fabric.layers.0.is_empty() && !fabric.is_translucent() && fabric.relief.is_none() {
         return Ok(None);
     }
     let pixels = fabric.pixels()?;
     Ok(Some(TextileMaps {
         base_color_png: encode(&pixels.color, pixels.width, pixels.height)?,
-        normal_png: encode(&[128, 128, 255, 255], 1, 1)?,
+        normal_png: if fabric.finish == TextileFinish::MetallicThread || fabric.relief.is_some() {
+            encode(
+                &pixels.surface_normals(fabric)?,
+                pixels.width,
+                pixels.height,
+            )?
+        } else {
+            encode(&[128, 128, 255, 255], 1, 1)?
+        },
         translucent: fabric.is_translucent(),
     }))
 }
@@ -104,4 +110,24 @@ fn encode(pixels: &[u8], width: u32, height: u32) -> Result<Vec<u8>> {
         image::ExtendedColorType::Rgba8,
     )?;
     Ok(bytes)
+}
+
+fn texture_image(width: u32, height: u32, pixels: Vec<u8>, format: TextureFormat) -> Image {
+    let mut image = Image::new(
+        Extent3d {
+            width,
+            height,
+            depth_or_array_layers: 1,
+        },
+        TextureDimension::D2,
+        pixels,
+        format,
+        RenderAssetUsages::default(),
+    );
+    image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor {
+        address_mode_u: ImageAddressMode::Repeat,
+        address_mode_v: ImageAddressMode::ClampToEdge,
+        ..ImageSamplerDescriptor::linear()
+    });
+    image
 }

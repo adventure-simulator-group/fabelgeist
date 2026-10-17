@@ -7,6 +7,7 @@ use super::coord::{AUTHORED, CoordExtrusion, CoordKernel, CoordShell};
 use super::recipe::PartRecipe;
 use super::skirt_attachment::{SKIRT_ATTACHMENT_POINT_WORDS, SkirtAttachment};
 use super::{ArmorGpu, DevicePart};
+use crate::skirt::{SKIRT_MESH_AXIAL_SEGMENTS, SKIRT_MESH_RING_SEGMENTS};
 use crate::{
     ArmorComponentRole, BoundaryNormals, GenerateError, SKIRT_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS,
     SkirtDesign,
@@ -74,22 +75,13 @@ pub fn record_skirt(
             .as_ref()
             .map_or(1.0, |pleats| pleats.front_depth.unit()),
     );
-    words.extend(design.pleats.as_ref().map_or([0.0; 2], |pleats| {
-        [pleats.waist_depth.metres(), pleats.front_panel.unit()]
-    }));
-    words.extend(design.pleats.as_ref().map_or([0.0, 1.0], |pleats| {
-        [
-            f32::from(pleats.waist_count.0),
-            pleats.gather_falloff.unit(),
-        ]
-    }));
-    words.push(attachment.map_or(0, |patch| patch.point_count) as f32);
     words.push(
         design
             .pleats
             .as_ref()
-            .map_or(0.0, |pleats| pleats.gather_retention.unit()),
+            .map_or(0., |pleats| pleats.front_panel.unit()),
     );
+    words.push(attachment.map_or(0, |patch| patch.point_count) as f32);
     recipe.record(gpu, batch, &words, &[fit])
 }
 
@@ -112,17 +104,26 @@ fn carrier(
     let mut coords = Vec::new();
     let mut indices = Vec::new();
     let first_row = attachment.map_or(0, |patch| patch.first_row);
-    for row in first_row..=SKIRT_AXIAL_SEGMENTS {
-        for column in 0..SKIRT_RING_SEGMENTS {
-            coords.push([column as f32, row as f32, 0.0, 0.0]);
+    for row in 0..=SKIRT_MESH_AXIAL_SEGMENTS {
+        let descent = first_row as f32
+            + (SKIRT_AXIAL_SEGMENTS - first_row) as f32 * row as f32
+                / SKIRT_MESH_AXIAL_SEGMENTS as f32;
+        for column in 0..SKIRT_MESH_RING_SEGMENTS {
+            coords.push([
+                column as f32 * SKIRT_RING_SEGMENTS as f32 / SKIRT_MESH_RING_SEGMENTS as f32,
+                descent,
+                0.0,
+                0.0,
+            ]);
         }
     }
-    for row in 0..SKIRT_AXIAL_SEGMENTS - first_row {
-        for column in 0..SKIRT_RING_SEGMENTS {
-            let a = (row * SKIRT_RING_SEGMENTS + column) as u32;
-            let b = (row * SKIRT_RING_SEGMENTS + (column + 1) % SKIRT_RING_SEGMENTS) as u32;
-            let c = b + SKIRT_RING_SEGMENTS as u32;
-            let d = a + SKIRT_RING_SEGMENTS as u32;
+    for row in 0..SKIRT_MESH_AXIAL_SEGMENTS {
+        for column in 0..SKIRT_MESH_RING_SEGMENTS {
+            let a = (row * SKIRT_MESH_RING_SEGMENTS + column) as u32;
+            let b =
+                (row * SKIRT_MESH_RING_SEGMENTS + (column + 1) % SKIRT_MESH_RING_SEGMENTS) as u32;
+            let c = b + SKIRT_MESH_RING_SEGMENTS as u32;
+            let d = a + SKIRT_MESH_RING_SEGMENTS as u32;
             // Rows descend: reverse the upward-tube convention.
             indices.extend([a, c, b, a, d, c]);
         }
