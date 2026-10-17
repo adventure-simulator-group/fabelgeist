@@ -34,8 +34,11 @@ are the same at every LOD.
 
 `Character::skeleton` retains labels as `fabelgeist_rig::RigJointName`.
 `Skeleton::joint_index` accepts that label and returns `RigJointOrdinal`,
-retaining the first match when names repeat. FBX decoding keeps its existing
-namespace policy; the shared type does not perform additional normalization.
+retaining the first match when names repeat. FBX decoding constructs
+`FbxQualifiedName` without the class suffix, then derives `FbxObjectName` by
+removing everything through the last colon. Skeleton admission converts that
+normalized owner directly into the shared rig label without further changes.
+`BlendShapes::names` retains the normalized FBX owner for each shape.
 See the [shared rig guide](../fabelgeist-rig/README.md) for lookup and native
 conversion boundaries.
 
