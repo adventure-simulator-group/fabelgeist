@@ -2,7 +2,13 @@
 //! anatomical surface samples, and the metal it is finished in.
 
 mod bodice;
+mod cloth_frill;
+mod cloth_slit;
+pub use cloth_slit::ClothSlit;
+mod cloth_tape;
+pub use cloth_frill::ClothFrill;
 mod cloth_ties;
+pub use cloth_tape::ClothTape;
 mod gown;
 mod partlet;
 pub use cloth_ties::ClothTies;

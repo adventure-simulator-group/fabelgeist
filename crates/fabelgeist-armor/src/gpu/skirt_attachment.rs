@@ -20,6 +20,14 @@ pub struct SkirtAttachment {
     pub point_count: u32,
     pub indices: Vec<u32>,
     pub waist: Vec<ClothRingVertex>,
+    pub layers: Vec<AttachedClothLayer>,
+}
+
+/// A finishing sheet over already evaluated points in the attachment table.
+/// Offsets are relative to that cloth face, not to the wearer's bare surface.
+pub struct AttachedClothLayer {
+    pub first_point: u32,
+    pub layer: super::BodyClothLayer,
 }
 
 pub struct ClothRingVertex {

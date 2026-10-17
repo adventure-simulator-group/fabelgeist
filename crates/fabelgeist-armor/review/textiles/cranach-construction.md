@@ -200,8 +200,25 @@ for preview and portable export.
 
 `cranach-chemise.json` is the construction recipe for the separate white
 underlayer. Its current carrier includes the loose body and long full sleeves;
-it is not the completed historical reconstruction. Sewn neckline bindings,
-underarm gussets, cuff slits, frilled cuff ends and cuff closures remain required.
+it is not the completed historical reconstruction. An optional `ClothTape`
+wraps the neckline with its own width, gauge and fabric. It follows the actual
+cloth face, including loose cloth. The reference fit freezes its seating
+triangles and barycentric weights; morphs evaluate those same source points.
+Partlet bindings use this shared tape fitter too.
+
+`ClothFrill` adds a free hem beyond the gathered sleeve band. Its length and
+flare are independent. Optional broad `ClothPleats` affect the free edge's
+silhouette; fine gathering stays in the fabric normal map. `ClothSlit` cuts a
+real tapered opening from the sleeve hem through the frill into the gathered
+band. Length, hem gap and rotation are independent. Sleeve rotation zero is
+projected world up around the canonical arm axis. Boolean cuts are made on the
+reference sewing pattern and preserve their source correspondence during
+refitting. Rotation wraps at the pattern seam.
+
+The chemise still needs underarm gussets, rolled slit hems, cuff backing and
+cuff closures. Its current sleeve relief places a chevron shirring band above
+the free frill. The reference's hidden construction remains a separate
+reconstruction requirement; the broad carrier does not imply those pieces.
 
 Keep authored folds evenly repeated and hems level. Cloth simulation will add
 irregularity later. Do not bake the photographs' accidental wrinkles into the

@@ -59,7 +59,7 @@ impl PartletPlan {
             .map(|binding| {
                 ClothRibbonPlan::new(
                     binding_boundary(&cut, design, binding),
-                    binding,
+                    binding.thickness,
                     point_count,
                     &mut cloth.layers,
                 )

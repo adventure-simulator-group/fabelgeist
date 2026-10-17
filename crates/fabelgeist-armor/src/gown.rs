@@ -18,6 +18,7 @@ pub struct GownDesign {
     pub waist_band: Millimeters,
     pub body_fit: GownBodyFit,
     pub sleeves: Option<SewnSleeves>,
+    pub neck_binding: Option<crate::ClothTape>,
 }
 
 /// A fitted upper sheet or loose cloth released from a bound neckline.
@@ -46,6 +47,9 @@ pub struct SewnSleeves {
     pub circumference: Millimeters,
     pub cuff_circumference: Millimeters,
     pub cuff_length: Millimeters,
+    pub frill: Option<crate::ClothFrill>,
+    /// Rotation zero follows projected world up around the sleeve axis.
+    pub cuff_slit: Option<crate::ClothSlit>,
 }
 
 impl SewnSleeves {
@@ -56,6 +60,9 @@ impl SewnSleeves {
 
     pub fn validate(&self) -> Result<(), GenerateError> {
         self.fabric.validate()?;
+        if let Some(frill) = &self.frill {
+            frill.validate()?;
+        }
         if !Self::LENGTH_RANGE.contains(&self.length.0)
             || !Self::CIRCUMFERENCE_RANGE.contains(&self.circumference.0)
             || !Self::CUFF_CIRCUMFERENCE_RANGE.contains(&self.cuff_circumference.0)
@@ -63,6 +70,13 @@ impl SewnSleeves {
             || self.cuff_circumference.0 > self.circumference.0
         {
             return Err(DesignError::ParametricParameters.into());
+        }
+        if let Some(slit) = &self.cuff_slit {
+            slit.validate()?;
+            let frill = self.frill.as_ref().map_or(0, |f| f.length.0);
+            if slit.length.0 <= frill || slit.length.0 >= frill + self.cuff_length.0 {
+                return Err(DesignError::ParametricParameters.into());
+            }
         }
         Ok(())
     }
@@ -76,6 +90,9 @@ impl GownDesign {
     pub fn validate(&self) -> Result<(), GenerateError> {
         self.bodice.validate()?;
         self.skirt.validate()?;
+        if let Some(tape) = &self.neck_binding {
+            tape.validate()?;
+        }
         if let Some(sleeves) = &self.sleeves {
             sleeves.validate()?;
         }

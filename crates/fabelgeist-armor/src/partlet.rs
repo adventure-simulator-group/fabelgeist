@@ -1,7 +1,7 @@
 //! Separate open-sided shoulder/chest covering, with an optional standing collar.
 use crate::{
-    ClothTies, DesignError, GenerateError, Micrometers, Millimeters, Permille, TextileAppearance,
-    TextileRepeatCount,
+    ClothTape, ClothTies, DesignError, GenerateError, Micrometers, Millimeters, Permille,
+    TextileAppearance, TextileRepeatCount,
 };
 use serde::{Deserialize, Serialize};
 use std::ops::RangeInclusive;
@@ -173,14 +173,11 @@ impl ClothNeckCurve {
 }
 
 impl ClothBinding {
-    pub const WIDTH_RANGE: RangeInclusive<u16> = 1..=30;
-    pub const THICKNESS_RANGE: RangeInclusive<u16> = 100..=1000;
-
     pub fn validate(&self) -> Result<(), GenerateError> {
         self.fabric.validate()?;
-        if !Self::WIDTH_RANGE.contains(&self.width.0)
-            || !Self::WIDTH_RANGE.contains(&self.hem_width.0)
-            || !Self::THICKNESS_RANGE.contains(&self.thickness.0)
+        if !ClothTape::WIDTH_RANGE.contains(&self.width.0)
+            || !ClothTape::WIDTH_RANGE.contains(&self.hem_width.0)
+            || !ClothTape::THICKNESS_RANGE.contains(&self.thickness.0)
         {
             return Err(DesignError::ParametricParameters.into());
         }
@@ -223,7 +220,7 @@ impl StandingClothCollar {
             band.fabric.validate()?;
             if band.height.0 == 0
                 || u32::from(band.bottom.0) + u32::from(band.height.0) > u32::from(self.height.0)
-                || !ClothBinding::THICKNESS_RANGE.contains(&band.thickness.0)
+                || !ClothTape::THICKNESS_RANGE.contains(&band.thickness.0)
             {
                 return Err(DesignError::ParametricParameters.into());
             }
