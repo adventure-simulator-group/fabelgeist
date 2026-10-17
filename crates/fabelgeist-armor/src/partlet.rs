@@ -13,6 +13,7 @@ pub struct PartletDesign {
     pub neck_rise: Millimeters,
     /// Downward anterior slope of the neck seam; 1000 means one metre per metre.
     pub neckline_slope: Permille,
+    pub front_curve: Option<ClothNeckCurve>,
     /// Vertical depth of the connected cloth over each shoulder.
     pub shoulder_bridge: Millimeters,
     /// Angular share of a quarter turn removed at each flank.
@@ -26,6 +27,15 @@ pub struct PartletDesign {
     pub fabric: TextileAppearance,
     pub binding: Option<ClothBinding>,
     pub ties: Option<ClothTies>,
+}
+
+/// Smooth additional anterior drop below the nominal neckline. The curve is
+/// level at the neck anchor and reaches the authored drop one reach forward.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct ClothNeckCurve {
+    pub reach: Millimeters,
+    pub drop: Millimeters,
 }
 
 /// Folded finishing tape, independently opaque even on a sheer carrier.
@@ -42,9 +52,17 @@ pub struct ClothBinding {
 #[serde(deny_unknown_fields)]
 pub struct StandingClothCollar {
     pub height: Millimeters,
-    /// Nominal top scale relative to the sewn base; body support can expand it.
+    /// Fabric above the transition on an oval stand; the fitted section uses
+    /// this fabric from the sewn seam. The partlet panel covers the oval base.
+    pub fabric: TextileAppearance,
+    /// Circumference relative to the sewn base. Fitted support can expand it.
     pub top_scale: Permille,
-    pub pleats: Option<CollarPleats>,
+    /// Height over which the sewn base reaches its upper circumference.
+    pub taper_height: Millimeters,
+    pub section: CollarSection,
+    /// Outward turn above the highest supporting collar band.
+    pub flare: Millimeters,
+    pub pleats: Option<ClothPleats>,
     pub neckband: Option<CollarBand>,
     pub trim: Option<CollarBand>,
 }
@@ -59,11 +77,38 @@ pub struct CollarBand {
     pub fabric: TextileAppearance,
 }
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub struct CollarPleats {
+pub struct ClothPleats {
     pub count: TextileRepeatCount,
     pub depth: Millimeters,
+    pub profile: ClothPleatProfile,
+}
+
+/// Cross-section repeated uniformly along the collar, released above its seam.
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+#[repr(u32)]
+pub enum ClothPleatProfile {
+    Fluted,
+    RoundedGathers,
+}
+
+/// A fitted surface or an oval tailor-rest stand. The oval does not chase
+/// local jaw and shoulder bulges. Its smooth seat is fitted above the unposed
+/// shoulder surface; detailed body collision and posed settling remain separate.
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+pub enum CollarSection {
+    Fitted,
+    Oval { depth_to_width: Permille },
+}
+
+impl ClothPleatProfile {
+    pub const MOUTH_SHARE: Permille = Permille(800);
+    pub const VALLEY_DEPTH_SHARE: Permille = Permille(200);
+}
+
+impl CollarSection {
+    pub const DEPTH_TO_WIDTH_RANGE: RangeInclusive<u16> = 500..=1500;
 }
 
 impl PartletDesign {
@@ -79,6 +124,9 @@ impl PartletDesign {
 
     pub fn validate(&self) -> Result<(), GenerateError> {
         self.fabric.validate()?;
+        if let Some(curve) = &self.front_curve {
+            curve.validate()?;
+        }
         if !Self::HEM_RISE_RANGE.contains(&self.hem_rise.0)
             || !Self::NECK_RISE_RANGE.contains(&self.neck_rise.0)
             || !Self::NECKLINE_SLOPE_RANGE.contains(&self.neckline_slope.0)
@@ -93,12 +141,32 @@ impl PartletDesign {
         }
         if let Some(collar) = &self.collar {
             collar.validate()?;
+            let free_height = collar.height.metres() - collar.free_edge_start_metres();
+            // The quartic turn has maximum second derivative 12*flare/height².
+            if collar.flare.0 > 0
+                && self.thickness.metres()
+                    >= free_height * free_height / (12. * collar.flare.metres())
+            {
+                return Err(DesignError::ParametricParameters.into());
+            }
         }
         if let Some(binding) = &self.binding {
             binding.validate()?;
         }
         if let Some(ties) = &self.ties {
             ties.validate()?;
+        }
+        Ok(())
+    }
+}
+
+impl ClothNeckCurve {
+    pub const REACH_RANGE: RangeInclusive<u16> = 20..=150;
+    pub const DROP_RANGE: RangeInclusive<u16> = 1..=100;
+
+    fn validate(&self) -> Result<(), GenerateError> {
+        if !Self::REACH_RANGE.contains(&self.reach.0) || !Self::DROP_RANGE.contains(&self.drop.0) {
+            return Err(DesignError::ParametricParameters.into());
         }
         Ok(())
     }
@@ -123,12 +191,27 @@ impl ClothBinding {
 impl StandingClothCollar {
     pub const HEIGHT_RANGE: RangeInclusive<u16> = 5..=70;
     pub const TOP_SCALE_RANGE: RangeInclusive<u16> = 500..=1500;
-    pub const PLEAT_COUNT_RANGE: RangeInclusive<u8> = 8..=64;
+    pub const FLARE_RANGE: RangeInclusive<u16> = 0..=20;
+    pub const PLEAT_COUNT_RANGE: RangeInclusive<u8> = 8..=192;
     pub const PLEAT_DEPTH_RANGE: RangeInclusive<u16> = 1..=6;
 
+    /// Native collar kernel boundary; the returned height is in metres.
+    pub fn free_edge_start_metres(&self) -> f32 {
+        [&self.neckband, &self.trim]
+            .into_iter()
+            .flatten()
+            .map(|band| Millimeters(band.bottom.0 + band.height.0).metres())
+            .fold(0., f32::max)
+    }
+
     fn validate(&self) -> Result<(), GenerateError> {
+        self.fabric.validate()?;
         if !Self::HEIGHT_RANGE.contains(&self.height.0)
             || !Self::TOP_SCALE_RANGE.contains(&self.top_scale.0)
+            || self.taper_height.0 == 0
+            || self.taper_height.0 > self.height.0
+            || matches!(self.section, CollarSection::Oval { depth_to_width } if !CollarSection::DEPTH_TO_WIDTH_RANGE.contains(&depth_to_width.0))
+            || !Self::FLARE_RANGE.contains(&self.flare.0)
             || self.pleats.as_ref().is_some_and(|pleats| {
                 !Self::PLEAT_COUNT_RANGE.contains(&pleats.count.0)
                     || !Self::PLEAT_DEPTH_RANGE.contains(&pleats.depth.0)

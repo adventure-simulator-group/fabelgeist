@@ -16,6 +16,8 @@ pub struct BodyClothLayer {
     pub point_count: u32,
     pub indices: Vec<u32>,
     pub role: ArmorComponentRole,
+    /// Optional logical fabric coordinates per carrier; independent of refit.
+    pub chart: Option<Vec<[f32; 2]>>,
     /// Outward offset to the face; the wall extends inward by `thickness`.
     pub offset_metres: f32,
     pub thickness_metres: f32,
@@ -50,6 +52,14 @@ pub fn record_body_cloth(
             || layer.offset_metres < layer.thickness_metres
         {
             return Err(GenerateError::InvalidSurface);
+        }
+        if let Some(chart) = &layer.chart {
+            if chart.len() != layer.point_count as usize
+                || chart.iter().flatten().any(|v| !v.is_finite())
+            {
+                return Err(GenerateError::InvalidSurface);
+            }
+            recipe.textile_chart_points(first, chart);
         }
         recipe.push_coord(
             CoordShell {

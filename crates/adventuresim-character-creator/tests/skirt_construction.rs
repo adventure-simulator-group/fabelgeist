@@ -126,9 +126,11 @@ fn cloned_body_and_skirt_are_one_closed_surface_with_fixed_refit_topology() -> R
         assert!(part.positions.iter().flatten().all(|v| v.is_finite()));
         assert!(part.normals.iter().flatten().all(|v| v.is_finite()));
         assert_closed_connected(&part);
-        let hem = SKIRT_AXIAL_SEGMENTS - 1;
-        let ring = &part.positions[hem * SKIRT_RING_SEGMENTS..(hem + 1) * SKIRT_RING_SEGMENTS];
-        assert!(ring.iter().all(|p| (p[1] + 0.45).abs() < 1e-6));
+        let hem = part.positions[..fabelgeist_armor::skirt_carrier_point_count()]
+            .iter()
+            .map(|point| point[1])
+            .fold(f32::INFINITY, f32::min);
+        assert!((hem + 0.45).abs() < 1e-6);
     }
     Ok(())
 }

@@ -4,11 +4,7 @@ const PLEAT_DEPTH: u32 = 7u;
 const PLEAT_STYLE: u32 = 8u;
 const PLEAT_ROTATION: u32 = 9u;
 const PLEAT_FRONT_DEPTH: u32 = 16u;
-const PLEAT_WAIST_DEPTH: u32 = 17u;
-const PLEAT_FRONT_PANEL: u32 = 18u;
-const PLEAT_WAIST_COUNT: u32 = 19u;
-const PLEAT_GATHER_FALLOFF: u32 = 20u;
-const PLEAT_GATHER_RETENTION: u32 = 22u;
+const PLEAT_FRONT_PANEL: u32 = 17u;
 
 fn skirt_fold(column: f32, descent: f32, release: f32) -> f32 {
     let around = fract(column / f32(COLUMNS));
@@ -31,9 +27,8 @@ fn skirt_fold(column: f32, descent: f32, release: f32) -> f32 {
     let front = pow(max(cos(TAU * around), 0.0), 2.0);
     let distribution = mix(1.0, design[PLEAT_FRONT_DEPTH], front);
     let depth = design[PLEAT_DEPTH] * sqrt(descent);
-    let fine_phase = chart * design[PLEAT_WAIST_COUNT] + design[PLEAT_ROTATION];
-    let gathering = (0.5 - 0.5 * cos(TAU * fine_phase)) * design[PLEAT_WAIST_DEPTH]
-        * mix(1.0, design[PLEAT_GATHER_RETENTION], smoothstep(0.0, design[PLEAT_GATHER_FALLOFF], descent));
-    return (mix(rounded, accordion, design[PLEAT_STYLE]) * depth + gathering)
+    // Fine waist gathering is a physical height field in the material chart.
+    // Only the broad hanging falls contribute to the carrier silhouette.
+    return mix(rounded, accordion, design[PLEAT_STYLE]) * depth
         * release * distribution * edge;
 }

@@ -2,7 +2,7 @@
 use fabelgeist_armor::gpu::BodyClothLayer;
 use fabelgeist_armor::{ArmorComponentRole, ClothTies};
 
-const TIE_CURVE_SEGMENTS: u32 = 24;
+const TIE_CURVE_SEGMENTS: u32 = 8;
 const TIE_TAIL_SEGMENTS: u32 = 4;
 pub(crate) const TIE_POINT_WORDS: u32 = 5;
 
@@ -76,6 +76,7 @@ impl ClothTiePlan {
             }
         }
         layers.push(BodyClothLayer {
+            chart: None,
             point_count: words.len() as u32 / TIE_POINT_WORDS,
             indices,
             role: ArmorComponentRole::ClothTies,

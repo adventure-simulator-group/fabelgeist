@@ -5,7 +5,9 @@ fn textile_fullness(axial: f32, seam: f32, role: f32, profile: vec4<f32>, constr
     let proximal = puff / max(profile.x - 1.0, 1.0);
     let scale = select(mix(profile.z, 1.0, proximal), 1.0, profile.x == 1.0);
     var edge = 0.0;
-    if (role == 1.0) { edge = course * constriction * 0.5; }
+    // Both cloth layers release from the same constricted band edges.
+    // Otherwise the lining bulges through the outer pane ends.
+    if (role == 1.0 || role == 0.0) { edge = course * constriction * 0.5; }
     let phase = clamp(((axial + seam) - puff * course - edge) / (course - 2.0 * edge), 0.0, 1.0);
     var fullness = profile.y * scale * pow(max(sin(PI * phase), 0.0), profile.w);
     if (role == 2.0) { fullness = 0.0; }

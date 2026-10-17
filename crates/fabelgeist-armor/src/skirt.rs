@@ -8,11 +8,19 @@ use crate::{
     TextileFinish,
 };
 
-/// Circumferential samples, shared with the fitted hull. This retains four
-/// samples per fine gather at maximum repeat count and quiet-front width.
+/// Dense circumferential fitting samples; independent of render tessellation.
 pub const SKIRT_RING_SEGMENTS: usize = 384;
 /// Axial samples include both the waist and hem.
 pub const SKIRT_AXIAL_SEGMENTS: usize = 32;
+/// Render columns retain the broad falls; fine gathers use normal relief.
+pub const SKIRT_MESH_RING_SEGMENTS: usize = 192;
+/// Coarse hanging intervals preserve silhouette without tessellating the weave.
+pub const SKIRT_MESH_AXIAL_SEGMENTS: usize = 4;
+
+/// Carrier points before a cloned upper patch is appended.
+pub fn skirt_carrier_point_count() -> usize {
+    (SKIRT_MESH_AXIAL_SEGMENTS + 1) * SKIRT_MESH_RING_SEGMENTS
+}
 
 /// Skirt placement, silhouette and optional construction. Structure and surface
 /// treatments remain independent; this carrier needs no cloth simulation.

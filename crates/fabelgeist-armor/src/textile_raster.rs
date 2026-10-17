@@ -1,13 +1,12 @@
 //! Deterministic textile color maps, shared by native preview and export.
 use crate::textile_botanical::BotanicalTile;
+use crate::textile_sampling::TextileRasterSize;
+use crate::textile_weave::{composite_yarn, weave_coverage};
 use crate::{
-    GenerateError, TextileAppearance, TextileAxis, TextileFill, TextileMotif, TextileRegion,
-    TextileSpan,
+    GenerateError, Permille, TextileAppearance, TextileAxis, TextileFill, TextileMotif,
+    TextileRegion, TextileRepeatCount, TextileSpan,
 };
 use std::f32::consts::{PI, TAU};
-
-const TEXTILE_TEXTURE_WIDTH: u32 = 1024;
-const TEXTILE_TEXTURE_HEIGHT: u32 = 2048;
 
 pub struct TextilePixels {
     pub width: u32,
@@ -35,38 +34,49 @@ impl TextileAppearance {
                 _ => None,
             })
             .collect::<Vec<_>>();
-        let mut color =
-            Vec::with_capacity((TEXTILE_TEXTURE_WIDTH * TEXTILE_TEXTURE_HEIGHT * 4) as usize);
-        for row in 0..TEXTILE_TEXTURE_HEIGHT {
-            for column in 0..TEXTILE_TEXTURE_WIDTH {
+        let size = TextileRasterSize::for_appearance(self);
+        let mut color = Vec::with_capacity((size.width * size.height * 4) as usize);
+        for row in 0..size.height {
+            for column in 0..size.width {
                 let uv = [
-                    (column as f32 + 0.5) / TEXTILE_TEXTURE_WIDTH as f32,
-                    (row as f32 + 0.5) / TEXTILE_TEXTURE_HEIGHT as f32,
+                    (column as f32 + 0.5) / size.width as f32,
+                    (row as f32 + 0.5) / size.height as f32,
                 ];
-                color.extend(self.color_at(uv, &tiles));
+                color.extend(self.color_at(
+                    uv,
+                    [1. / size.width as f32, 1. / size.height as f32],
+                    &tiles,
+                ));
             }
         }
         Ok(TextilePixels {
-            width: TEXTILE_TEXTURE_WIDTH,
-            height: TEXTILE_TEXTURE_HEIGHT,
+            width: size.width,
+            height: size.height,
             color,
         })
     }
 
     /// Native normalized material-chart boundary. This samples appearance,
     /// never body positions or skin correspondence; callers freeze the chart.
-    fn color_at(&self, chart: [f32; 2], tiles: &[Option<BotanicalTile>]) -> [u8; 4] {
-        let mut color = self.color;
-        let mut opacity = (self.opacity.unit() * 255.).round() as u8;
+    fn color_at(
+        &self,
+        chart: [f32; 2],
+        footprint: [f32; 2],
+        tiles: &[Option<BotanicalTile>],
+    ) -> [u8; 4] {
+        let mut color = [
+            self.color.0[0],
+            self.color.0[1],
+            self.color.0[2],
+            (self.opacity.unit() * 255.).round() as u8,
+        ];
         for (layer, tile) in self.layers.0.iter().zip(tiles) {
-            if let Some(local) = layer.region.chart(chart)
-                && layer.fill.covers(local, chart, tile.as_ref())
-            {
-                color = layer.color;
-                opacity = 255;
+            if let Some(local) = layer.region.chart(chart) {
+                let coverage = layer.fill.coverage(local, chart, footprint, tile.as_ref());
+                color = composite_yarn(color, layer.color, coverage);
             }
         }
-        [color.0[0], color.0[1], color.0[2], opacity]
+        color
     }
 }
 
@@ -109,9 +119,18 @@ impl TextileSpan {
 }
 
 impl TextileFill {
-    fn covers(&self, point: [f32; 2], garment: [f32; 2], tile: Option<&BotanicalTile>) -> bool {
-        match self {
+    fn coverage(
+        &self,
+        point: [f32; 2],
+        garment: [f32; 2],
+        footprint: [f32; 2],
+        tile: Option<&BotanicalTile>,
+    ) -> f32 {
+        let covered = match self {
             Self::Solid => true,
+            Self::Weave { warp, weft, width } => {
+                return weave_coverage(garment, footprint, *warp, *weft, *width);
+            }
             Self::Stripes {
                 axis,
                 repeats,
@@ -145,7 +164,8 @@ impl TextileFill {
                 ];
                 motif.covers(rotate(local, rotation.unit() * TAU), tile)
             }
-        }
+        };
+        if covered { 1. } else { 0. }
     }
 }
 
@@ -158,12 +178,57 @@ impl TextileMotif {
                 let radius = 0.28 + 0.1 * (angle * f32::from(petals.0)).cos();
                 point[0].hypot(point[1]) < radius
             }
+            Self::Medallion {
+                petals,
+                rings,
+                threads,
+                stroke,
+            } => medallion(point, *petals, *rings, *threads, *stroke),
             Self::Palmette { leaf_pairs, spread } => palmette(point, leaf_pairs.0, spread.unit()),
             Self::Scrollwork { .. } | Self::Damask { .. } => {
                 tile.is_some_and(|tile| tile.covers(point))
             }
         }
     }
+}
+
+/// Native ornament kernel: normalized tile XY, with rounded stitch footprints
+/// alternating warp/weft directions. Ring stitches follow their radial frame.
+fn medallion(
+    point: [f32; 2],
+    petals: TextileRepeatCount,
+    rings: TextileRepeatCount,
+    threads: TextileRepeatCount,
+    stroke: Permille,
+) -> bool {
+    let radius = point[0].hypot(point[1]);
+    let angle = point[1].atan2(point[0]);
+    let flower = (0..petals.0).any(|petal| {
+        let direction = TAU * f32::from(petal) / f32::from(petals.0);
+        ellipse(
+            [
+                point[0] - direction.cos() * 0.095,
+                point[1] - direction.sin() * 0.095,
+            ],
+            [0.075, 0.075],
+        )
+    }) || ellipse(point, [0.055, 0.055]);
+    let thread = point.map(|v| v * f32::from(threads.0));
+    let local = thread.map(|v| v.rem_euclid(1.) - 0.5);
+    let warp = (thread[0].floor() + thread[1].floor()).rem_euclid(2.) < 1.;
+    let weave = ellipse(local, if warp { [0.46, 0.16] } else { [0.16, 0.46] });
+    let rays = radius > 0.2
+        && radius < 0.29
+        && (angle * f32::from(threads.0) + radius * TAU * f32::from(rings.0))
+            .sin()
+            .abs()
+            < 0.3;
+    let border = (0..rings.0).any(|ring| {
+        let thread_radius = 0.42 - f32::from(ring) * 0.055;
+        (radius - thread_radius).abs() < stroke.unit() * 0.5
+            && (angle * f32::from(threads.0) * 2.).sin() > -0.6
+    });
+    flower || weave || rays || border
 }
 
 /// Native motif kernel: normalized tile coordinates, with paired elliptical

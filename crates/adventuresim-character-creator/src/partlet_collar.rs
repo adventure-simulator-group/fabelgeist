@@ -1,21 +1,28 @@
 //! Even collar sampling and an open sewn seam; no rear-opening bridge.
+use crate::collar_oval::OvalArc;
+use crate::collar_rows::CollarRows;
 use crate::partlet_cut::PartletCut;
 use anyhow::{Result, ensure};
-use fabelgeist_armor::StandingClothCollar;
 use fabelgeist_armor::gpu::BodyClothLayer;
 use fabelgeist_armor::{ArmorComponentRole, PartletDesign};
+use fabelgeist_armor::{CollarSection, StandingClothCollar};
 
-const COLLAR_AXIAL_ROWS: u32 = 6;
-const MINIMUM_COLLAR_COLUMNS: u32 = 64;
-const SAMPLES_PER_PLEAT: u32 = 6;
-pub(crate) const MAX_COLLAR_COLUMNS: u32 =
-    *StandingClothCollar::PLEAT_COUNT_RANGE.end() as u32 * SAMPLES_PER_PLEAT + 1;
+pub(crate) const COLLAR_SAMPLE_WORDS: u32 = 4;
+const BAND_AXIAL_ROWS: u32 = 1;
+const COLLAR_RING_INTERVALS: u32 = 32;
+pub(crate) const MAX_COLLAR_COLUMNS: u32 = COLLAR_RING_INTERVALS + 1;
 
 pub(crate) struct CollarPlan {
-    /// Native body-point pair and f32 interpolation weight per column.
+    /// Native body-point pair, f32 interpolation weight and oval angle per column.
     pub samples: Vec<u32>,
     pub columns: u32,
     pub rows: u32,
+    pub lateral: [f32; 3],
+    pub anterior: [f32; 3],
+    pub heights: Vec<f32>,
+    pub panel_rows: u32,
+    pub seam: Vec<SeamPoint>,
+    pub oval_length: f32,
 }
 
 /// Native metre placements of independently thickened inner and outer tapes.
@@ -26,9 +33,10 @@ pub(crate) struct CollarBandPlacement {
     pub rows: u32,
 }
 
-struct SeamPoint {
-    vertex: u32,
-    progress: f32,
+#[derive(Clone)]
+pub(crate) struct SeamPoint {
+    pub vertex: u32,
+    pub progress: f32,
 }
 
 impl CollarPlan {
@@ -50,7 +58,7 @@ impl CollarPlan {
             };
             let first = layers.iter().map(|l| l.point_count).sum();
             let mut indices = Vec::new();
-            let rows = COLLAR_AXIAL_ROWS + 1;
+            let rows = BAND_AXIAL_ROWS + 1;
             for row in 0..rows - 1 {
                 for column in 0..self.columns - 1 {
                     let a = row * self.columns + column;
@@ -61,12 +69,21 @@ impl CollarPlan {
             let offset = if role == ArmorComponentRole::Neckband {
                 design.clearance.metres()
             } else {
-                design.clearance.metres()
-                    + design.thickness.metres()
-                    + collar.pleats.as_ref().map_or(0., |p| p.depth.metres())
-                    + band.thickness.metres()
+                design.clearance.metres() + design.thickness.metres() + band.thickness.metres()
             };
             layers.push(BodyClothLayer {
+                chart: Some(
+                    (0..rows)
+                        .flat_map(|row| {
+                            (0..self.columns).map(move |column| {
+                                [
+                                    column as f32 / (self.columns - 1) as f32,
+                                    1. - row as f32 / (rows - 1) as f32,
+                                ]
+                            })
+                        })
+                        .collect(),
+                ),
                 point_count: self.columns * rows,
                 indices,
                 role,
@@ -86,7 +103,6 @@ impl CollarPlan {
     pub fn new(
         design: &StandingClothCollar,
         cut: &PartletCut,
-        thickness: f32,
         indices: &mut Vec<u32>,
     ) -> Result<Self> {
         let mut distance = vec![0_f32];
@@ -99,47 +115,48 @@ impl CollarPlan {
         }
         let total = distance[distance.len() - 1];
         ensure!(total > 0., "collar neckline has no length");
-        if let Some(pleats) = &design.pleats {
-            let pitch = total * design.top_scale.unit().min(1.) / f32::from(pleats.count.0);
-            let radius =
-                pitch.powi(2) / (2. * std::f32::consts::PI.powi(2) * pleats.depth.metres());
-            ensure!(
-                thickness < radius,
-                "collar cloth is too thick for its pleat spacing and depth"
-            );
-        }
-        let requested = MINIMUM_COLLAR_COLUMNS.max(
-            design
-                .pleats
-                .as_ref()
-                .map_or(0, |p| u32::from(p.count.0) * SAMPLES_PER_PLEAT),
+        let intervals = COLLAR_RING_INTERVALS;
+        let oval = matches!(design.section, CollarSection::Oval { .. })
+            .then(|| OvalArc::new(cut, design.section, intervals))
+            .transpose()?;
+        let progress = oval.as_ref().map_or_else(
+            || {
+                distance
+                    .iter()
+                    .map(|value| value / total)
+                    .collect::<Vec<_>>()
+            },
+            |arc| arc.source_progress.clone(),
         );
-        let intervals = design.pleats.as_ref().map_or(requested, |pleats| {
-            let count = u32::from(pleats.count.0);
-            requested.div_ceil(count) * count
-        });
+        let rows = CollarRows::new(design);
         let mut samples = Vec::new();
         let mut edge = 0;
         for column in 0..=intervals {
-            let along = total * column as f32 / intervals as f32;
-            while edge + 2 < distance.len() && distance[edge + 1] < along {
+            let along = column as f32 / intervals as f32;
+            while edge + 2 < progress.len() && progress[edge + 1] < along {
                 edge += 1;
             }
             let weight =
-                ((along - distance[edge]) / (distance[edge + 1] - distance[edge])).clamp(0., 1.);
-            samples.extend([cut.neck[edge], cut.neck[edge + 1], weight.to_bits()]);
+                ((along - progress[edge]) / (progress[edge + 1] - progress[edge])).clamp(0., 1.);
+            samples.extend([
+                cut.neck[edge],
+                cut.neck[edge + 1],
+                weight.to_bits(),
+                oval.as_ref().map_or(0., |arc| arc.angle(column)).to_bits(),
+            ]);
         }
         let mut upper = cut
             .neck
             .iter()
-            .zip(&distance)
+            .zip(&progress)
             .map(|(&vertex, &d)| SeamPoint {
                 vertex,
-                progress: d / total,
+                progress: d,
             })
             .collect::<Vec<_>>();
+        let seam = upper.clone();
         let columns = intervals + 1;
-        for row in 0..COLLAR_AXIAL_ROWS {
+        for row in 0..rows.heights.len() as u32 {
             let lower = (0..columns)
                 .map(|column| SeamPoint {
                     vertex: cut.surface.points.len() as u32 + row * columns + column,
@@ -151,8 +168,14 @@ impl CollarPlan {
         }
         Ok(Self {
             samples,
+            seam,
             columns,
-            rows: COLLAR_AXIAL_ROWS,
+            rows: rows.heights.len() as u32,
+            lateral: cut.frame.lateral,
+            anterior: cut.frame.anterior,
+            oval_length: oval.as_ref().map_or(0., |arc| arc.length),
+            heights: rows.heights,
+            panel_rows: rows.panel_rows,
         })
     }
 }
