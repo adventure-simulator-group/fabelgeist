@@ -16,17 +16,35 @@
 use std::io::Read;
 
 use anyhow::{Context, Result, anyhow, bail};
+use array_encoding::FbxArrayEncoding;
 use flate2::read::ZlibDecoder;
 
+pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
+pub use array_encoding::UnsupportedFbxArrayEncoding;
+pub use connection::{CurveAxis, FbxConnectionProperty, TransformProperty};
+pub use identity::FbxObjectId;
+pub use scene::{Link, Object, Scene};
+
 pub mod animation;
+
+mod array_encoding;
 mod connection;
 mod identity;
 mod scene;
 
-pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
-pub use connection::{CurveAxis, FbxConnectionProperty, TransformProperty};
-pub use identity::FbxObjectId;
-pub use scene::{Link, Object, Scene};
+/// One node record of the FBX tree.
+#[derive(Debug, Clone)]
+pub struct Node {
+    pub name: String,
+    pub props: Vec<Prop>,
+    pub children: Vec<Node>,
+}
+
+struct Reader<'a> {
+    data: &'a [u8],
+    pos: usize,
+    version: u32,
+}
 
 /// A typed FBX property value.
 #[derive(Debug, Clone)]
@@ -98,14 +116,6 @@ impl Prop {
     }
 }
 
-/// One node record of the FBX tree.
-#[derive(Debug, Clone)]
-pub struct Node {
-    pub name: String,
-    pub props: Vec<Prop>,
-    pub children: Vec<Node>,
-}
-
 impl Node {
     pub fn child(&self, name: &str) -> Option<&Node> {
         self.children.iter().find(|c| c.name == name)
@@ -171,12 +181,6 @@ impl Node {
     }
 }
 
-struct Reader<'a> {
-    data: &'a [u8],
-    pos: usize,
-    version: u32,
-}
-
 impl<'a> Reader<'a> {
     fn take(&mut self, len: usize) -> Result<&'a [u8]> {
         let end = self
@@ -221,21 +225,50 @@ impl<'a> Reader<'a> {
     }
 }
 
+/// Parses the top-level node list of a binary FBX file.
+pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
+    const MAGIC: &[u8] = b"Kaydara FBX Binary  \x00";
+    if data.len() < 27 || &data[..MAGIC.len()] != MAGIC {
+        // ASCII FBX is a different format sharing the extension. Saying so is
+        // more use than "not a binary FBX file", because the fix is a re-export.
+        if data.starts_with(b"; FBX") || data.starts_with(b"\xef\xbb\xbf; FBX") {
+            bail!("this is an ASCII FBX file; re-export it as binary FBX");
+        }
+        bail!("not a binary FBX file");
+    }
+    let version = u32::from_le_bytes(data[23..27].try_into().unwrap());
+    let mut reader = Reader {
+        data,
+        pos: 27,
+        version,
+    };
+
+    let mut roots = Vec::new();
+    while reader.pos + reader.header_size() <= data.len() {
+        match read_node(&mut reader)? {
+            Some(node) => roots.push(node),
+            None => break,
+        }
+    }
+    Ok(roots)
+}
+
 fn decode_array<T: Copy>(
     raw: &[u8],
     count: usize,
-    encoding: u32,
+    encoding: FbxArrayEncoding,
     parse: impl Fn(&[u8]) -> T,
     width: usize,
 ) -> Result<Vec<T>> {
-    let bytes = if encoding == 0 {
-        raw.to_vec()
-    } else {
-        let mut out = Vec::with_capacity(count * width);
-        ZlibDecoder::new(raw)
-            .read_to_end(&mut out)
-            .context("inflating FBX array property")?;
-        out
+    let bytes = match encoding {
+        FbxArrayEncoding::Uncompressed => raw.to_vec(),
+        FbxArrayEncoding::Zlib => {
+            let mut out = Vec::with_capacity(count * width);
+            ZlibDecoder::new(raw)
+                .read_to_end(&mut out)
+                .context("inflating FBX array property")?;
+            out
+        }
     };
     if bytes.len() < count * width {
         bail!(
@@ -261,7 +294,9 @@ fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
             b'L' => Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
             b'f' | b'd' | b'l' | b'i' | b'b' => {
                 let count = reader.u32()? as usize;
-                let encoding = reader.u32()?;
+                // FBX array metadata stores encoding as a little-endian u32.
+                // Admit only supported encodings before decoding the payload.
+                let encoding = FbxArrayEncoding::try_from(reader.u32()?)?;
                 let compressed_len = reader.u32()? as usize;
                 let raw = reader.take(compressed_len)?;
                 match kind {
@@ -342,30 +377,5 @@ fn read_node(reader: &mut Reader<'_>) -> Result<Option<Node>> {
     }))
 }
 
-/// Parses the top-level node list of a binary FBX file.
-pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
-    const MAGIC: &[u8] = b"Kaydara FBX Binary  \x00";
-    if data.len() < 27 || &data[..MAGIC.len()] != MAGIC {
-        // ASCII FBX is a different format sharing the extension. Saying so is
-        // more use than "not a binary FBX file", because the fix is a re-export.
-        if data.starts_with(b"; FBX") || data.starts_with(b"\xef\xbb\xbf; FBX") {
-            bail!("this is an ASCII FBX file; re-export it as binary FBX");
-        }
-        bail!("not a binary FBX file");
-    }
-    let version = u32::from_le_bytes(data[23..27].try_into().unwrap());
-    let mut reader = Reader {
-        data,
-        pos: 27,
-        version,
-    };
-
-    let mut roots = Vec::new();
-    while reader.pos + reader.header_size() <= data.len() {
-        match read_node(&mut reader)? {
-            Some(node) => roots.push(node),
-            None => break,
-        }
-    }
-    Ok(roots)
-}
+#[cfg(test)]
+mod array_encoding_tests;
