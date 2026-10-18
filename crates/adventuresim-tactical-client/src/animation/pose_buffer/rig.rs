@@ -16,7 +16,6 @@ pub(super) struct RigJoint {
     pub(super) name: Option<RigJointName>,
     pub(super) body_region: AnimationBodyRegion,
     pub(super) role: Option<BoneRole>,
-    pub(super) pelvis: PelvisRole,
 }
 
 struct AdmittedRigBinding {
@@ -108,10 +107,6 @@ impl RigDefinitions {
                                 .as_ref()
                                 .map_or(AnimationBodyRegion::Upper, |joint| joint.body_region),
                             role: binding.identity.as_ref().and_then(|joint| joint.role),
-                            pelvis: binding
-                                .identity
-                                .as_ref()
-                                .map_or(PelvisRole::Other, |joint| joint.pelvis),
                         })
                         .collect(),
                     name_ordinals: Default::default(),

@@ -31,10 +31,16 @@ pub(crate) struct MhrBone {
 /// is binding; procedural passes read it without rebuilding owner/role maps.
 #[derive(Component, Debug, Clone, Default)]
 pub(crate) struct HumanoidRig {
-    bones: [Option<Entity>; BoneRole::COUNT],
+    bones: BTreeMap<BoneRole, Entity>,
     rig_scene: Option<Entity>,
-    sole_axes: [Option<Vec3>; 2],
+    sole_axes: SoleAxes,
     mirror: MhrMirrorTopology,
+}
+
+#[derive(Clone, Copy, Debug, Default)]
+struct SoleAxes {
+    left: Option<Vec3>,
+    right: Option<Vec3>,
 }
 
 #[derive(Component, Debug, Clone, Copy)]
@@ -97,15 +103,18 @@ impl MhrMirrorTopology {
 
 impl HumanoidRig {
     pub(crate) fn get(&self, role: &BoneRole) -> Option<&Entity> {
-        self.bones[role.index()].as_ref()
+        self.bones.get(role)
     }
 
     pub(crate) fn rig_scene(&self) -> Option<Entity> {
         self.rig_scene
     }
 
-    pub(super) fn sole_axis(&self, left: bool) -> Option<Vec3> {
-        self.sole_axes[usize::from(!left)]
+    pub(super) fn sole_axis(&self, foot: LeadFoot) -> Option<Vec3> {
+        match foot {
+            LeadFoot::Left => self.sole_axes.left,
+            LeadFoot::Right => self.sole_axes.right,
+        }
     }
 
     pub(super) fn mirror_centers(&self) -> &[Entity] {
@@ -114,6 +123,13 @@ impl HumanoidRig {
 
     pub(super) fn mirror_pairs(&self) -> &[MirroredJointPair] {
         &self.mirror.pairs
+    }
+
+    fn retain_stable_role(&mut self, role: BoneRole, entity: Entity) -> Option<Entity> {
+        let retained = self
+            .get(&role)
+            .map_or(entity, |existing| (*existing).min(entity));
+        self.bones.insert(role, retained)
     }
 }
 
@@ -148,10 +164,6 @@ impl BoneRole {
         Self::HandRight,
         Self::WeaponRight,
     ];
-
-    pub(crate) fn index(self) -> usize {
-        self as usize
-    }
 
     fn joint_name(self) -> RigJointName {
         match self {
@@ -249,11 +261,11 @@ pub(crate) fn cache_humanoid_rigs(
     if !topology_changed {
         return;
     }
-    let mut rigs = BTreeMap::<Entity, [Option<Entity>; BoneRole::COUNT]>::new();
+    let mut rigs = BTreeMap::<Entity, HumanoidRig>::new();
     for (entity, bone) in &all_bones {
-        let bones = rigs.entry(bone.owner).or_insert([None; BoneRole::COUNT]);
-        if retain_stable_role(bones, bone.role, entity).is_some() {
-            let retained = bones[bone.role.index()].expect("duplicate role remains populated");
+        let rig = rigs.entry(bone.owner).or_default();
+        if let Some(previous) = rig.retain_stable_role(bone.role, entity) {
+            let retained = previous.min(entity);
             warn!(
                 owner = ?bone.owner,
                 role = ?bone.role,
@@ -278,20 +290,18 @@ pub(crate) fn cache_humanoid_rigs(
             commands.entity(owner).remove::<HumanoidRig>();
         }
     }
-    for (owner, bones) in rigs {
+    for (owner, mut rig) in rigs {
         let sole_axes = cached
             .get(owner)
             .map(|(_, rig)| rig.sole_axes)
-            .unwrap_or([None; 2]);
+            .unwrap_or_default();
         let names = named.remove(&owner).unwrap_or_default();
         let mirror = MhrMirrorTopology::from_names(&names);
         if let Ok(mut entity) = commands.get_entity(owner) {
-            entity.insert(HumanoidRig {
-                bones,
-                rig_scene: rig_roots.get(&owner).copied(),
-                sole_axes,
-                mirror,
-            });
+            rig.rig_scene = rig_roots.get(&owner).copied();
+            rig.sole_axes = sole_axes;
+            rig.mirror = mirror;
+            entity.insert(rig);
         }
     }
 }
@@ -306,9 +316,11 @@ pub(crate) fn capture_humanoid_rig_axes(
     mut rigs: Query<&mut HumanoidRig>,
 ) {
     for (entity, bone, _) in &feet {
-        if !matches!(bone.role, BoneRole::FootLeft | BoneRole::FootRight) {
-            continue;
-        }
+        let foot = match bone.role {
+            BoneRole::FootLeft => LeadFoot::Left,
+            BoneRole::FootRight => LeadFoot::Right,
+            _ => continue,
+        };
         let Some(bind_global) = authored_bind_global(entity, bone.owner, &bind_nodes) else {
             continue;
         };
@@ -321,8 +333,10 @@ pub(crate) fn capture_humanoid_rig_axes(
         if let Some(axis) = axis.try_normalize() {
             commands.entity(entity).insert(SoleAxisCaptured);
             if let Ok(mut rig) = rigs.get_mut(bone.owner) {
-                let index = usize::from(bone.role == BoneRole::FootRight);
-                rig.sole_axes[index] = Some(axis);
+                match foot {
+                    LeadFoot::Left => rig.sole_axes.left = Some(axis),
+                    LeadFoot::Right => rig.sole_axes.right = Some(axis),
+                }
             }
         }
     }
@@ -370,39 +384,25 @@ pub(crate) fn pole_to_owner(owner_rotation: Quat, world_pole: Vec3) -> Vec3 {
     owner_rotation.inverse() * world_pole
 }
 
-fn retain_stable_role(
-    bones: &mut [Option<Entity>; BoneRole::COUNT],
-    role: BoneRole,
-    entity: Entity,
-) -> Option<Entity> {
-    let slot = &mut bones[role.index()];
-    let duplicate = *slot;
-    *slot = Some(duplicate.map_or(entity, |existing| existing.min(entity)));
-    duplicate
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn duplicate_roles_retain_the_lowest_stable_entity() {
-        let mut bones = [None; BoneRole::COUNT];
+        let mut rig = HumanoidRig::default();
         let high = Entity::from_bits(20);
         let low = Entity::from_bits(10);
-        assert_eq!(retain_stable_role(&mut bones, BoneRole::Head, high), None);
-        assert_eq!(
-            retain_stable_role(&mut bones, BoneRole::Head, low),
-            Some(high)
-        );
-        assert_eq!(bones[BoneRole::Head.index()], Some(low));
+        assert_eq!(rig.retain_stable_role(BoneRole::Head, high), None);
+        assert_eq!(rig.retain_stable_role(BoneRole::Head, low), Some(high));
+        assert_eq!(rig.get(&BoneRole::Head).copied(), Some(low));
     }
 
     #[test]
     fn partial_and_empty_rigs_have_explicit_missing_chains() {
         let mut rig = HumanoidRig::default();
         assert_eq!(rig.get(&BoneRole::Head), None);
-        retain_stable_role(&mut rig.bones, BoneRole::Head, Entity::from_bits(7));
+        rig.retain_stable_role(BoneRole::Head, Entity::from_bits(7));
         assert_eq!(rig.get(&BoneRole::Head), Some(&Entity::from_bits(7)));
         assert_eq!(rig.get(&BoneRole::NeckOne), None);
     }
@@ -494,8 +494,8 @@ mod tests {
         world.entity_mut(foot).add_child(toe);
         {
             let mut rig = world.get_mut::<HumanoidRig>(owner).unwrap();
-            rig.bones[BoneRole::FootLeft.index()] = Some(foot);
-            rig.bones[BoneRole::ToeLeft.index()] = Some(toe);
+            rig.retain_stable_role(BoneRole::FootLeft, foot);
+            rig.retain_stable_role(BoneRole::ToeLeft, toe);
         }
 
         world.run_system_cached(capture_humanoid_rig_axes).unwrap();
@@ -506,7 +506,7 @@ mod tests {
         let actual = world
             .get::<HumanoidRig>(owner)
             .unwrap()
-            .sole_axis(true)
+            .sole_axis(LeadFoot::Left)
             .unwrap();
         assert!(actual.dot(expected) > 0.9999);
         assert!(world.get::<SoleAxisCaptured>(foot).is_some());

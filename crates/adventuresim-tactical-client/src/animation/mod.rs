@@ -46,8 +46,8 @@ pub(crate) use procedural::{
     measured_ankle_sole_offset_metres, sole_contact_tolerance_metres,
 };
 use resolver::PoseSampleResolver;
+use rig_identity::AnimationBodyRegion;
 pub(crate) use rig_identity::AuthoredRigJoint;
-use rig_identity::{AnimationBodyRegion, PelvisRole};
 use sample_values::{AnimationValueResult, BlendWeight, ClipDuration, ClipTime, CyclePhase};
 use std::collections::{BTreeMap, BTreeSet, HashSet};
 use weighted::{WeightedClip, append_weighted_anchor, append_weighted_clip};

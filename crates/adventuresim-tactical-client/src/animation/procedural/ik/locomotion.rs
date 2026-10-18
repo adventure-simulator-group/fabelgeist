@@ -92,14 +92,14 @@ pub(in crate::animation) fn apply(
                 BoneRole::ShinLeft,
                 BoneRole::FootLeft,
                 solve_weights.x,
-                true,
+                LeadFoot::Left,
             ),
             (
                 BoneRole::ThighRight,
                 BoneRole::ShinRight,
                 BoneRole::FootRight,
                 solve_weights.y,
-                false,
+                LeadFoot::Right,
             ),
         ];
         let mut targets = [None, None];
@@ -166,7 +166,7 @@ pub(in crate::animation) fn apply(
             .map(|global| global.rotation())
             .unwrap_or(Quat::IDENTITY);
 
-        for (index, (upper_role, lower_role, foot_role, weight, left)) in
+        for (index, (upper_role, lower_role, foot_role, weight, foot_side)) in
             legs.iter().copied().enumerate()
         {
             let (Some(target), Some(&upper), Some(&lower), Some(&foot)) = (
@@ -196,6 +196,7 @@ pub(in crate::animation) fn apply(
                 .global
                 .translation()
                 .distance(foot_snapshot.global.translation());
+            let left = foot_side == LeadFoot::Left;
             let canonical = pole_to_world(
                 rig_rotation,
                 canonical_knee_pole(if left { -1.0 } else { 1.0 }),
@@ -209,7 +210,7 @@ pub(in crate::animation) fn apply(
             .unwrap_or(canonical);
             let pole = constrain_rendered_leg_pole(
                 rig,
-                left,
+                foot_side,
                 upper_snapshot.global.translation(),
                 foot_snapshot.global.translation(),
                 target,
@@ -235,7 +236,7 @@ pub(in crate::animation) fn apply(
                 && let (Some(_), Some(normal), Some(sole_axis)) = (
                     terrain,
                     terrain.and_then(|terrain| terrain.normal_at(target.xz())),
-                    rig.sole_axis(left),
+                    rig.sole_axis(foot_side),
                 )
             {
                 align_foot_to_slope_weighted(

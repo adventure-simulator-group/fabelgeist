@@ -507,6 +507,12 @@ l_upleg / r_upleg    l_lowleg / r_lowleg  l_foot / r_foot
 l_ball / r_ball
 ```
 
+Procedural binding and pelvis masks use the same exact bone roles: `root` is
+the pelvis and `body_world` is the rig root. Other spellings, including
+`ROOT` and `Root`, remain unbound and receive no special pelvis masking or
+terrain-reference treatment. Topology rebuilds preserve the calibrated left
+and right sole axes; each axis is captured once from the authored bind pose.
+
 Finger, face, foot-articulation, and distributed twist bones retain authored FK.
 They still participate in full-pose mirroring. `l_weapon`, `r_weapon`, and
 `c_camera` are export-added attachment joints on the canonical MHR hierarchy.

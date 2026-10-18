@@ -192,14 +192,14 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 BoneRole::ShinLeft,
                 BoneRole::FootLeft,
                 left_weight,
-                true,
+                LeadFoot::Left,
             ),
             (
                 BoneRole::ThighRight,
                 BoneRole::ShinRight,
                 BoneRole::FootRight,
                 right_weight,
-                false,
+                LeadFoot::Right,
             ),
         ];
         let (mut memory, memory_was_missing) = match ik_states.get_mut(owner) {
@@ -882,13 +882,13 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             }
 
             let mut airborne_orientation_owned = [true; 2];
-            for (leg_index, (upper, lower, foot, target, left, support)) in [
+            for (leg_index, (upper, lower, foot, target, foot_side, support)) in [
                 (
                     left_upper,
                     left_lower,
                     left_foot,
                     left_target,
-                    true,
+                    LeadFoot::Left,
                     left_nominal_support,
                 ),
                 (
@@ -896,13 +896,14 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     right_lower,
                     right_foot,
                     right_target,
-                    false,
+                    LeadFoot::Right,
                     right_nominal_support,
                 ),
             ]
             .into_iter()
             .enumerate()
             {
+                let left = foot_side == LeadFoot::Left;
                 let Some((upper_snapshot, lower_snapshot, foot_snapshot)) =
                     snapshot_chain(upper, lower, foot, &parents, &transforms.p0())
                 else {
@@ -944,7 +945,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 let canonical_world = pole_to_world(rig_rotation, canonical_pole);
                 let foot_facing = rendered_foot_facing(
                     rig,
-                    left,
+                    foot_side,
                     foot_snapshot.global.translation(),
                     &parents,
                     &transforms.p0(),
@@ -961,7 +962,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 .unwrap_or(canonical_world);
                 let pole = constrain_rendered_leg_pole(
                     rig,
-                    left,
+                    foot_side,
                     upper_snapshot.global.translation(),
                     foot_snapshot.global.translation(),
                     target,
@@ -1031,7 +1032,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     && reported_support
                     && let Some(terrain) = terrain
                     && let Some(normal) = terrain.normal_at(target.xz())
-                    && let Some(sole_axis) = rig.sole_axis(left)
+                    && let Some(sole_axis) = rig.sole_axis(foot_side)
                 {
                     let cached_chain = if left {
                         memory.left_rotation_chain
@@ -1203,7 +1204,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
         prepare_slope_rotation_cache(&mut memory, SlopeAlignmentMode::Ordinary);
         let mut desired_hip_shift = 0.0_f32;
         let mut settle_contact_reached = false;
-        for (upper_role, lower_role, foot_role, weight, left) in legs {
+        for (upper_role, lower_role, foot_role, weight, foot_side) in legs {
             let (Some(&upper), Some(&lower), Some(&foot)) = (
                 rig.get(&upper_role),
                 rig.get(&lower_role),
@@ -1222,29 +1223,26 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 desired_hip_shift = desired_hip_shift
                     .min(((desired_ankle - position.y) * weight).clamp(-0.18, 0.0));
             }
-            let plant = if left {
-                memory.left_foot_plant
-            } else {
-                memory.right_foot_plant
+            let plant = match foot_side {
+                LeadFoot::Left => memory.left_foot_plant,
+                LeadFoot::Right => memory.right_foot_plant,
             };
-            let planned = if left {
-                memory.left_planned_contact
-            } else {
-                memory.right_planned_contact
+            let planned = match foot_side {
+                LeadFoot::Left => memory.left_planned_contact,
+                LeadFoot::Right => memory.right_planned_contact,
             };
-            let acquired = if left {
-                memory.left_foot_plant_acquired
-            } else {
-                memory.right_foot_plant_acquired
+            let acquired = match foot_side {
+                LeadFoot::Left => memory.left_foot_plant_acquired,
+                LeadFoot::Right => memory.right_foot_plant_acquired,
             };
-            let planned_phase_start = if left {
-                memory.left_planned_contact_phase_start
-            } else {
-                memory.right_planned_contact_phase_start
+            let planned_phase_start = match foot_side {
+                LeadFoot::Left => memory.left_planned_contact_phase_start,
+                LeadFoot::Right => memory.right_planned_contact_phase_start,
             };
             let run = locomotion_profile(skeleton).gait == LocomotionGait::Run;
             let planned_weight = if run && !acquired && (plant.is_some() || planned.is_some()) {
-                let phase_to_contact = phase_to_next_contact(skeleton.gait_phase, left);
+                let phase_to_contact =
+                    phase_to_next_contact(skeleton.gait_phase, foot_side == LeadFoot::Left);
                 run_contact_approach_progress(
                     phase_to_contact,
                     planned_phase_start.unwrap_or(ik_tuning().run_contact_approach_phase),
@@ -1388,9 +1386,10 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
         }
         let mut airborne_orientation_owned = [false; 2];
         let mut airborne_just_released = [false; 2];
-        for (leg_index, (upper_role, lower_role, foot_role, weight, left)) in
+        for (leg_index, (upper_role, lower_role, foot_role, weight, foot_side)) in
             legs.into_iter().enumerate()
         {
+            let left = foot_side == LeadFoot::Left;
             let mut weight = weight;
             let settle_support_owned = memory
                 .settle
@@ -1499,7 +1498,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 .unwrap_or(canonical_world);
                 let pole = constrain_rendered_leg_pole(
                     rig,
-                    left,
+                    foot_side,
                     upper_snapshot.global.translation(),
                     foot_position,
                     target,
@@ -1545,7 +1544,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     }
                 }
                 if let Some(normal) = terrain.normal_at(target.xz())
-                    && let Some(sole_axis) = rig.sole_axis(left)
+                    && let Some(sole_axis) = rig.sole_axis(foot_side)
                 {
                     align_foot_to_slope(foot, sole_axis, normal, &parents, &mut transforms);
                 }
@@ -2181,7 +2180,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     .unwrap_or(canonical_world);
                     let pole = constrain_rendered_leg_pole(
                         rig,
-                        left,
+                        foot_side,
                         upper_snapshot.global.translation(),
                         foot_position,
                         target,
@@ -2230,7 +2229,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     }
                     if locomotion_profile(skeleton).gait == LocomotionGait::Run
                         && let Some(normal) = terrain.normal_at(target.xz())
-                        && let Some(sole_axis) = rig.sole_axis(left)
+                        && let Some(sole_axis) = rig.sole_axis(foot_side)
                     {
                         // Run swing orientation is terrain-aware before the
                         // nominal support edge. Arriving tangent prevents the
@@ -2372,7 +2371,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 let pole = remembered.unwrap_or(canonical_world);
                 let pole = constrain_rendered_leg_pole(
                     rig,
-                    left,
+                    foot_side,
                     upper_snapshot.global.translation(),
                     foot_position,
                     target,
@@ -2423,7 +2422,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     }
                 }
                 if let Some(normal) = terrain.normal_at(target.xz())
-                    && let Some(sole_axis) = rig.sole_axis(left)
+                    && let Some(sole_axis) = rig.sole_axis(foot_side)
                 {
                     // A settling foot approaches its contact tangent throughout
                     // the capture arc. Deferring alignment until terminal idle
@@ -2898,7 +2897,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 .unwrap_or(canonical_world);
             let pole = constrain_rendered_leg_pole(
                 rig,
-                left,
+                foot_side,
                 upper_snapshot.global.translation(),
                 foot_position,
                 target,
@@ -3006,7 +3005,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             }
             if solve_weight > 0.001
                 && let Some(normal) = terrain.normal_at(horizontal_target.xz())
-                && let Some(sole_axis) = rig.sole_axis(left)
+                && let Some(sole_axis) = rig.sole_axis(foot_side)
             {
                 let cached_chain = if left {
                     memory.left_rotation_chain

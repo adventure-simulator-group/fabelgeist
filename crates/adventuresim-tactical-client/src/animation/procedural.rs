@@ -714,18 +714,18 @@ pub(super) fn apply_landing_leg_compression(
                 transform.translation += local_delta;
             }
         }
-        for (upper_role, lower_role, foot_role, left) in [
+        for (upper_role, lower_role, foot_role, foot_side) in [
             (
                 BoneRole::ThighLeft,
                 BoneRole::ShinLeft,
                 BoneRole::FootLeft,
-                true,
+                LeadFoot::Left,
             ),
             (
                 BoneRole::ThighRight,
                 BoneRole::ShinRight,
                 BoneRole::FootRight,
-                false,
+                LeadFoot::Right,
             ),
         ] {
             let (Some(&upper), Some(&lower), Some(&foot)) = (
@@ -748,22 +748,20 @@ pub(super) fn apply_landing_leg_compression(
                 .global
                 .translation()
                 .distance(foot_snapshot.global.translation());
-            let target = if left {
-                retain_landing_foot_target(
-                    &mut height.landing_left_foot_target,
-                    previous_world_positions[&foot],
-                )
-            } else {
-                retain_landing_foot_target(
-                    &mut height.landing_right_foot_target,
-                    previous_world_positions[&foot],
-                )
+            let retained_target = match foot_side {
+                LeadFoot::Left => &mut height.landing_left_foot_target,
+                LeadFoot::Right => &mut height.landing_right_foot_target,
             };
-            let side = if left { -1.0 } else { 1.0 };
+            let target =
+                retain_landing_foot_target(retained_target, previous_world_positions[&foot]);
+            let side = match foot_side {
+                LeadFoot::Left => -1.0,
+                LeadFoot::Right => 1.0,
+            };
             let pole = owner_transform.rotation() * canonical_knee_pole(side);
             let pole = constrain_rendered_leg_pole(
                 rig,
-                left,
+                foot_side,
                 upper_snapshot.global.translation(),
                 foot_snapshot.global.translation(),
                 target,

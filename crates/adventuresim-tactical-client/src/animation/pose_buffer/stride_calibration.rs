@@ -205,7 +205,6 @@ mod tests {
                         parent: (index != 0).then_some(RigJointOrdinal::from(0usize)),
                         name: Some(identity.name),
                         role: identity.role,
-                        pelvis: identity.pelvis,
                         body_region: AnimationBodyRegion::Lower,
                     }
                 })

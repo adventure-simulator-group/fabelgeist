@@ -793,13 +793,13 @@ fn sample_plan(
     for (joint_index, joint) in definition.joints.indexed() {
         let mut blended = joint.bind;
         let mut accumulated = 0.0_f32;
-        let pelvis = joint.pelvis;
+        let is_pelvis = joint.role == Some(BoneRole::Pelvis);
         let mut combat_upper = joint.bind;
         let mut combat_upper_weight = 0.0_f32;
         let mut combat_lower = joint.bind;
         let mut combat_lower_weight = 0.0_f32;
         for (weighted, clip, source) in &baked {
-            let included = joint.body_region.includes(weighted.clip.layer, pelvis);
+            let included = joint.body_region.includes(weighted.clip.layer, joint.role);
             if !included || weighted.weight.is_absent() {
                 continue;
             }
@@ -817,7 +817,7 @@ fn sample_plan(
                 clip.sample(joint_index, weighted.time_seconds)
             };
             let sample = sanitize_pose(sample, joint.bind);
-            if pelvis == PelvisRole::Pelvis && weighted.clip.layer == ClipLayer::CombatUpper {
+            if is_pelvis && weighted.clip.layer == ClipLayer::CombatUpper {
                 accumulate_local_pose(
                     &mut combat_upper,
                     &mut combat_upper_weight,
@@ -826,7 +826,7 @@ fn sample_plan(
                 );
                 continue;
             }
-            if pelvis == PelvisRole::Pelvis && weighted.clip.layer == ClipLayer::CombatLower {
+            if is_pelvis && weighted.clip.layer == ClipLayer::CombatLower {
                 accumulate_local_pose(
                     &mut combat_lower,
                     &mut combat_lower_weight,
@@ -849,7 +849,7 @@ fn sample_plan(
             accumulated = next_total;
         }
         for (span, start_clip, end_clip) in &baked_spans {
-            let included = joint.body_region.includes(span.start.layer, pelvis);
+            let included = joint.body_region.includes(span.start.layer, joint.role);
             if !included || span.weight.factor() <= f32::EPSILON {
                 continue;
             }
@@ -867,7 +867,7 @@ fn sample_plan(
             // so contact cannot introduce a hidden ease-out/ease-in stop.
             let sample = start.extrapolate(end, span.coordinate);
             let sample = sanitize_pose(sample, joint.bind);
-            if pelvis == PelvisRole::Pelvis && span.start.layer == ClipLayer::CombatUpper {
+            if is_pelvis && span.start.layer == ClipLayer::CombatUpper {
                 accumulate_local_pose(
                     &mut combat_upper,
                     &mut combat_upper_weight,
@@ -876,7 +876,7 @@ fn sample_plan(
                 );
                 continue;
             }
-            if pelvis == PelvisRole::Pelvis && span.start.layer == ClipLayer::CombatLower {
+            if is_pelvis && span.start.layer == ClipLayer::CombatLower {
                 accumulate_local_pose(
                     &mut combat_lower,
                     &mut combat_lower_weight,
@@ -901,7 +901,7 @@ fn sample_plan(
         for (span, start_clip, contact_clip, end_clip, outgoing_clip, finish_clip) in
             &baked_continuations
         {
-            let included = joint.body_region.includes(span.start.layer, pelvis);
+            let included = joint.body_region.includes(span.start.layer, joint.role);
             if !included || span.weight.factor() <= f32::EPSILON {
                 continue;
             }
@@ -932,7 +932,7 @@ fn sample_plan(
                 ),
                 joint.bind,
             );
-            if pelvis == PelvisRole::Pelvis && span.start.layer == ClipLayer::CombatUpper {
+            if is_pelvis && span.start.layer == ClipLayer::CombatUpper {
                 accumulate_local_pose(
                     &mut combat_upper,
                     &mut combat_upper_weight,
@@ -941,7 +941,7 @@ fn sample_plan(
                 );
                 continue;
             }
-            if pelvis == PelvisRole::Pelvis && span.start.layer == ClipLayer::CombatLower {
+            if is_pelvis && span.start.layer == ClipLayer::CombatLower {
                 accumulate_local_pose(
                     &mut combat_lower,
                     &mut combat_lower_weight,
@@ -963,10 +963,7 @@ fn sample_plan(
             };
             accumulated = next_total;
         }
-        let mut result = if pelvis == PelvisRole::Pelvis
-            && combat_upper_weight > 0.0
-            && combat_lower_weight > 0.0
-        {
+        let mut result = if is_pelvis && combat_upper_weight > 0.0 && combat_lower_weight > 0.0 {
             locomotion_pelvis_rotation = Some(combat_lower.rotation);
             combine_combat_pelvis(combat_upper, combat_lower)
         } else if accumulated > 0.0 {
@@ -1094,7 +1091,7 @@ fn conform_upcoming_pose_to_terrain(
         definition
             .joints
             .iter()
-            .position(|joint| joint.pelvis == PelvisRole::Pelvis)
+            .position(|joint| joint.role == Some(BoneRole::Pelvis))
             .map(RigJointOrdinal::from)
             .map(|pelvis| {
                 let mut reference = pose.clone();
@@ -1820,7 +1817,6 @@ mod tests {
                 parent: parent.map(RigJointOrdinal::from),
                 name: Some(identity.name),
                 role: identity.role,
-                pelvis: identity.pelvis,
                 body_region: AnimationBodyRegion::Lower,
             }
         };
@@ -1879,7 +1875,6 @@ mod tests {
                 parent: parent.map(RigJointOrdinal::from),
                 name: Some(identity.name),
                 role: identity.role,
-                pelvis: identity.pelvis,
                 body_region: AnimationBodyRegion::Lower,
             }
         };
@@ -2023,7 +2018,6 @@ mod tests {
                 parent: parent.map(RigJointOrdinal::from),
                 name: Some(identity.name),
                 role: identity.role,
-                pelvis: identity.pelvis,
                 body_region: AnimationBodyRegion::Lower,
             }
         };
@@ -2096,7 +2090,6 @@ mod tests {
                 parent: parent.map(RigJointOrdinal::from),
                 name: Some(identity.name),
                 role: identity.role,
-                pelvis: identity.pelvis,
                 body_region: AnimationBodyRegion::Lower,
             }
         };
@@ -2169,7 +2162,6 @@ mod tests {
                 parent: parent.map(RigJointOrdinal::from),
                 name: Some(identity.name),
                 role: identity.role,
-                pelvis: identity.pelvis,
                 body_region: AnimationBodyRegion::Lower,
             }
         };
@@ -2232,7 +2224,6 @@ mod tests {
                 parent: parent.map(RigJointOrdinal::from),
                 name: Some(identity.name),
                 role: identity.role,
-                pelvis: identity.pelvis,
                 body_region: AnimationBodyRegion::Lower,
             }
         };
@@ -2328,7 +2319,6 @@ mod tests {
                 parent: parent.map(RigJointOrdinal::from),
                 name: Some(identity.name),
                 role: identity.role,
-                pelvis: identity.pelvis,
                 body_region: AnimationBodyRegion::Lower,
             }
         };

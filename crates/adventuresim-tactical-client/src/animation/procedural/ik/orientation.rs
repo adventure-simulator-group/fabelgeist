@@ -155,7 +155,7 @@ pub(in crate::animation::procedural) fn constrain_knee_pole_to_foot_facing(
 )]
 pub(in crate::animation::procedural) fn constrain_rendered_leg_pole(
     rig: &HumanoidRig,
-    left: bool,
+    foot_side: LeadFoot,
     hip: Vec3,
     foot_position: Vec3,
     target: Vec3,
@@ -163,7 +163,7 @@ pub(in crate::animation::procedural) fn constrain_rendered_leg_pole(
     parents: &Query<&ChildOf>,
     transforms: &TransformHelper,
 ) -> Vec3 {
-    rendered_foot_facing(rig, left, foot_position, parents, transforms)
+    rendered_foot_facing(rig, foot_side, foot_position, parents, transforms)
         .and_then(|facing| {
             constrain_knee_pole_to_foot_facing(
                 pole,
@@ -182,20 +182,18 @@ pub(in crate::animation::procedural) fn constrain_rendered_leg_pole(
 
 pub(in crate::animation::procedural) fn rendered_foot_facing(
     rig: &HumanoidRig,
-    left: bool,
+    foot_side: LeadFoot,
     foot_position: Vec3,
     parents: &Query<&ChildOf>,
     transforms: &TransformHelper,
 ) -> Option<Vec3> {
-    let foot = *rig.get(if left {
-        &BoneRole::FootLeft
-    } else {
-        &BoneRole::FootRight
+    let foot = *rig.get(&match foot_side {
+        LeadFoot::Left => BoneRole::FootLeft,
+        LeadFoot::Right => BoneRole::FootRight,
     })?;
-    let toe = *rig.get(if left {
-        &BoneRole::ToeLeft
-    } else {
-        &BoneRole::ToeRight
+    let toe = *rig.get(&match foot_side {
+        LeadFoot::Left => BoneRole::ToeLeft,
+        LeadFoot::Right => BoneRole::ToeRight,
     })?;
     let foot_rotation = snapshot(foot, parents, transforms)?.global.rotation();
     let toe_position = snapshot(toe, parents, transforms)?.global.translation();
@@ -207,7 +205,7 @@ pub(in crate::animation::procedural) fn rendered_foot_facing(
     // anatomical right, and world-up cross right gives horizontal forward.
     // This preserves the direction the foot is facing even at heel/toe roll.
     if let Some(sole_up) = rig
-        .sole_axis(left)
+        .sole_axis(foot_side)
         .map(|axis| foot_rotation * axis)
         .and_then(Vec3::try_normalize)
         && let Some(lateral) = toe_direction.cross(sole_up).try_normalize()
@@ -574,18 +572,18 @@ pub(in crate::animation) fn enforce_anatomical_knee_yaw(
             .and_then(|entity| transforms.p0().compute_global_transform(entity).ok())
             .map(|global| (global.translation(), global.rotation()))
             .unwrap_or((Vec3::ZERO, Quat::IDENTITY));
-        for (leg_index, (upper_role, lower_role, foot_role, left)) in [
+        for (leg_index, (upper_role, lower_role, foot_role, foot_side)) in [
             (
                 BoneRole::ThighLeft,
                 BoneRole::ShinLeft,
                 BoneRole::FootLeft,
-                true,
+                LeadFoot::Left,
             ),
             (
                 BoneRole::ThighRight,
                 BoneRole::ShinRight,
                 BoneRole::FootRight,
-                false,
+                LeadFoot::Right,
             ),
         ]
         .into_iter()
@@ -609,7 +607,7 @@ pub(in crate::animation) fn enforce_anatomical_knee_yaw(
             let upper_length = hip.distance(knee);
             let lower_length = knee.distance(target);
             let leg_direction = (target - hip).normalize_or_zero();
-            let side = anatomical_side(rig_rotation, rig_origin, hip, left);
+            let side = anatomical_side(rig_rotation, rig_origin, hip, foot_side == LeadFoot::Left);
             let canonical = pole_to_world(rig_rotation, canonical_knee_pole(side));
             let current_bend = (knee - hip)
                 .reject_from_normalized(leg_direction)
@@ -617,7 +615,7 @@ pub(in crate::animation) fn enforce_anatomical_knee_yaw(
                 .unwrap_or(canonical);
             let pole = constrain_rendered_leg_pole(
                 rig,
-                left,
+                foot_side,
                 hip,
                 target,
                 target,
@@ -643,7 +641,7 @@ pub(in crate::animation) fn enforce_anatomical_knee_yaw(
                     .try_normalize()
                     && let Some(facing) = rendered_foot_facing(
                         rig,
-                        left,
+                        foot_side,
                         final_foot.global.translation(),
                         &parents,
                         &transforms.p0(),

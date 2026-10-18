@@ -101,7 +101,6 @@ mod tests {
                 parent: parent.map(RigJointOrdinal::from),
                 name: Some(identity.name),
                 role: identity.role,
-                pelvis: identity.pelvis,
                 body_region: AnimationBodyRegion::Upper,
             }
         };

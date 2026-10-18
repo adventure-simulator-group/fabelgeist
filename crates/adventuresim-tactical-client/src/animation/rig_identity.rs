@@ -9,7 +9,6 @@ pub(crate) struct AuthoredRigJoint {
     pub(crate) name: RigJointName,
     pub(super) body_region: AnimationBodyRegion,
     pub(super) role: Option<BoneRole>,
-    pub(super) pelvis: PelvisRole,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -18,26 +17,14 @@ pub(super) enum AnimationBodyRegion {
     Lower,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum PelvisRole {
-    Pelvis,
-    Other,
-}
-
 impl AuthoredRigJoint {
     pub(crate) fn new(name: RigJointName) -> Self {
         let body_region = AnimationBodyRegion::from(&name);
         let role = BoneRole::from_name(&name);
-        let pelvis = if name.eq_ignore_ascii_case(&RigJointName::ROOT) {
-            PelvisRole::Pelvis
-        } else {
-            PelvisRole::Other
-        };
         Self {
             name,
             body_region,
             role,
-            pelvis,
         }
     }
 }
@@ -75,12 +62,12 @@ impl From<&RigJointName> for AnimationBodyRegion {
 }
 
 impl AnimationBodyRegion {
-    pub(super) fn includes(self, layer: ClipLayer, pelvis: PelvisRole) -> bool {
+    pub(super) fn includes(self, layer: ClipLayer, role: Option<BoneRole>) -> bool {
         match layer {
             ClipLayer::Whole => true,
             ClipLayer::Upper => self == Self::Upper,
             ClipLayer::Lower | ClipLayer::CombatLower => self == Self::Lower,
-            ClipLayer::CombatUpper => self == Self::Upper || pelvis == PelvisRole::Pelvis,
+            ClipLayer::CombatUpper => self == Self::Upper || role == Some(BoneRole::Pelvis),
             ClipLayer::MainHand | ClipLayer::Offhand => false,
         }
     }
