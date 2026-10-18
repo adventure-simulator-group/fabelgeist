@@ -61,7 +61,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 2
       - name: Install pinned Rust toolchain
         uses: dtolnay/rust-toolchain@master
         with:
@@ -129,7 +129,8 @@ jobs:
         run: |
           mkdir -p target/constraint-validation
           git rev-parse HEAD | tee target/constraint-validation/source.txt
-          test "$(cat target/constraint-validation/source.txt)" = "$EXPECTED_SOURCE"
+          printf '%s\n' "$EXPECTED_SOURCE" > target/constraint-validation/pr-head.txt
+          git merge-base --is-ancestor "$EXPECTED_SOURCE" HEAD
           export XDG_RUNTIME_DIR="$RUNNER_TEMP/constraint-runtime"
           mkdir -p "$XDG_RUNTIME_DIR"
           chmod 700 "$XDG_RUNTIME_DIR"
