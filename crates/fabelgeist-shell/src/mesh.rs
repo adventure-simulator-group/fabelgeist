@@ -13,7 +13,7 @@ pub struct ShellMesh {
     pub edges: Vec<[u32; 2]>,
     pub rest_lengths: Vec<f32>,
     pub bends: Vec<BendQuad>,
-    pub bend_weights: Vec<[f32; 8]>,
+    pub bend_weights: Vec<crate::BendRecord>,
     pub seams: Vec<[u32; 2]>,
     pub masses: Vec<ParticleMass>,
 }
@@ -60,14 +60,10 @@ impl ShellMesh {
         let mut bend_weights = Vec::new();
         for bend in topology.bends {
             let points = bend.particles().map(|i| positions[i as usize]);
-            if let Some(k) = topology::bending_weights(points) {
-                let rest = points
-                    .iter()
-                    .zip(k)
-                    .fold(Vec3::default(), |s, (p, w)| s + *p * w)
-                    .length();
+            let points = crate::BendPoints::from(points);
+            if let Ok(weights) = crate::BendWeights::for_points(points) {
                 bends.push(bend);
-                bend_weights.push([k[0], k[1], k[2], k[3], rest, 0.0, 0.0, 0.0]);
+                bend_weights.push(weights.observed_rest(points));
             }
         }
         let masses = topology::vertex_masses(&positions, &triangles, areal_density);
@@ -123,7 +119,10 @@ impl ShellMesh {
         );
         ensure!(
             self.rest_lengths.iter().all(|v| v.is_finite() && *v >= 0.0)
-                && self.bend_weights.iter().flatten().all(|v| v.is_finite()),
+                && self
+                    .bend_weights
+                    .iter()
+                    .all(|record| record.validity() == crate::BendRecordValidity::Finite),
             "invalid shell rest data"
         );
         Ok(())

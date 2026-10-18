@@ -213,34 +213,6 @@ impl ConstraintSet {
         Ok(())
     }
 
-    /// Bind a buffer whose length is a multiple of the constraint count --
-    /// several values per constraint, already in colour order.
-    pub fn attach_raw<T: bytemuck::NoUninit>(
-        &mut self,
-        context: &WgpuContext,
-        name: impl Into<String>,
-        values: &[T],
-    ) -> Result<()> {
-        let name = name.into();
-        let count = self.constraint_count();
-        if count > 0 && !values.len().is_multiple_of(count) {
-            return Err(anyhow!(
-                "ConstraintSet `{}`: attachment `{name}` has {} values, which is not a whole number per constraint ({count})",
-                self.name,
-                values.len()
-            ));
-        }
-        let definition = BufferDefinition::storage().with_label(name.as_str().into());
-        let buffer = if values.is_empty() {
-            Buffer::from_upload(context, BufferUpload::from_elements(&[0u32]), definition)?
-        } else {
-            Buffer::from_upload(context, BufferUpload::from_elements(values), definition)?
-        };
-        self.attachments.retain(|(existing, _)| existing != &name);
-        self.attachments.push((name, buffer));
-        Ok(())
-    }
-
     pub fn constraint_count(&self) -> usize {
         self.coloring.constraint_count()
     }
