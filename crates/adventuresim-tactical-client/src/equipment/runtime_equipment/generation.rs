@@ -358,7 +358,7 @@ impl RuntimeEquipmentBodyCache {
             };
             let body = &self.bodies[&key.shape];
             model.attach(commands, entity, presentation, body);
-        } else if self.pending.is_none() {
+        } else if !self.is_preparing() {
             let result = self.next_fit(&key).and_then(|next| {
                 self.prepare_shape(&next.shape, bindposes)?;
                 self.start(next);
