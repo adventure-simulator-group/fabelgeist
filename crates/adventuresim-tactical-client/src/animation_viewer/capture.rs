@@ -681,12 +681,12 @@ pub(super) fn collect_locomotion_presentation_events(
     if sequence.index >= sequence.plan.len() {
         return;
     }
-    let scenario = sequence.plan[sequence.index].scenario.to_owned();
+    let scenario = sequence.plan[sequence.index].scenario;
     let scenario_frame = sequence.plan[sequence.index].scenario_frame;
     sequence
         .presentation_events
         .extend(events.read().map(move |event| PresentationEventSample {
-            scenario: scenario.clone(),
+            scenario: scenario.label().to_owned(),
             scenario_frame,
             owner: capture_entity_id(event.owner),
             sample_tick: event.sample_tick,
