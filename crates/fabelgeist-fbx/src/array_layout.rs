@@ -4,7 +4,7 @@ use derive_more::From;
 
 /// An encoded element count, distinct from a stored payload byte length.
 #[derive(Clone, Copy, Debug, From, PartialEq, Eq)]
-pub(super) struct FbxArrayCount(u32);
+pub struct FbxArrayCount(u32);
 
 /// Length of the stored array payload, whether raw or Zlib-compressed.
 pub(super) struct FbxArrayPayloadLength(u32);

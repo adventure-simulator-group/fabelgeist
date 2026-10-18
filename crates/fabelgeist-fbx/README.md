@@ -1,4 +1,12 @@
-# Binary FBX header layout
+# Binary FBX reader
+
+FBX is a format for 3D model files. This crate reads its binary node and
+property tree. The decoder returns a bespoke `FbxDecodeError` through
+`fabelgeist_fbx::Result<T>`; see [binary decoding errors](binary-errors.md) for
+classifications, typed context and native causes. Scene queries built from
+already decoded roots remain infallible.
+
+## Header layout
 
 The binary FBX reader admits the four-byte file version into `FbxVersion` before
 selecting node-header layout. Version 7500 changes the end offset, property
@@ -36,7 +44,8 @@ Boolean bytes.
 This reader supports exactly two encoding codes: 0 selects `Uncompressed`, and 1
 selects `Zlib`. Every other code returns `UnsupportedFbxArrayEncoding` before
 payload decoding. Its public `reported_code` field retains the raw wire value;
-callers can inspect this bespoke error through the parser's `anyhow::Error`.
+the decoder retains it as the source of
+`FbxDecodeError::UnsupportedArrayEncoding`.
 The shared decoder matches the two supported variants exhaustively.
 
 The existing regression fixture records 95 observations through the public
@@ -137,9 +146,14 @@ is claimed.
 
 ## Remaining decoding audit
 
-These bespoke types do not complete the parser's other responsibilities.
-`read_node` still carries native offsets and property-list byte lengths.
-Those values and the parser's errors need their own complete producer/consumer
-migrations. Header layout, array metadata, property tags and node property
-counts introduce no stricter framing, version or allocation policy. Array
-encodings follow the checked admission described above.
+Binary rejection classification is owned by `FbxDecodeError`. The decoder
+retains native node offsets and property-list byte lengths. Array counts and
+stored payload lengths stay typed until their native buffer adapters; scalar
+and element decoders use fixed-size arrays after checked reads or decoded
+length checks establish the required bytes.
+
+This does not complete framing, extent or resource admission. Native node-end
+arithmetic, integer casts, allocation requests and declared offsets retain
+their existing behavior. No resource limit or stricter version policy is added;
+malformed offsets or excessive declarations can still panic or exhaust memory.
+Array encodings retain the checked admission described above.
