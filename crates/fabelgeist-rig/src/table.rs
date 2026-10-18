@@ -1,13 +1,14 @@
 //! Dense values in the ordinal order of one admitted rig.
 
 use crate::RigJointOrdinal;
-use derive_more::From;
+use derive_more::{From, IntoIterator};
 use std::ops::{Index, IndexMut};
 
 /// A rig-order column. Ordinals select joints rather than arbitrary native slots.
 /// Its creator must use the same admitted rig order for every associated column;
 /// this type does not prove that two columns belong to the same rig instance.
-#[derive(Clone, Debug, PartialEq, From)]
+#[derive(Clone, Debug, PartialEq, From, IntoIterator)]
+#[into_iterator(owned, ref, ref_mut)]
 pub struct RigJointTable<T>(Vec<T>);
 
 impl<T> RigJointTable<T> {
@@ -80,32 +81,5 @@ impl<T> Index<RigJointOrdinal> for RigJointTable<T> {
 impl<T> IndexMut<RigJointOrdinal> for RigJointTable<T> {
     fn index_mut(&mut self, joint: RigJointOrdinal) -> &mut Self::Output {
         &mut self.0[usize::from(joint)]
-    }
-}
-
-impl<T> IntoIterator for RigJointTable<T> {
-    type Item = T;
-    type IntoIter = std::vec::IntoIter<T>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        self.0.into_iter()
-    }
-}
-
-impl<'a, T> IntoIterator for &'a RigJointTable<T> {
-    type Item = &'a T;
-    type IntoIter = std::slice::Iter<'a, T>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        self.iter()
-    }
-}
-
-impl<'a, T> IntoIterator for &'a mut RigJointTable<T> {
-    type Item = &'a mut T;
-    type IntoIter = std::slice::IterMut<'a, T>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        self.iter_mut()
     }
 }

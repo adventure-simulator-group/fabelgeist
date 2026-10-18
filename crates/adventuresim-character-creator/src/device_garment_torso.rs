@@ -236,11 +236,12 @@ fn torso_vertex(index: u32, coord: vec4<f32>) -> vec3<f32> {
 "#;
 
 #[derive(Clone, Copy)]
+#[repr(u8)]
 enum TorsoGarment {
-    ArmingDoublet,
-    Brigandine,
-    JackOfPlates,
-    MailShirt,
+    ArmingDoublet = 0,
+    Brigandine = 1,
+    JackOfPlates = 2,
+    MailShirt = 3,
 }
 
 impl TryFrom<Kind> for TorsoGarment {
@@ -260,12 +261,7 @@ impl TryFrom<Kind> for TorsoGarment {
 impl TorsoGarment {
     /// The existing WGSL uniform discriminant is an f32, not an application state.
     fn device_word(self) -> f32 {
-        match self {
-            Self::ArmingDoublet => 0.0,
-            Self::Brigandine => 1.0,
-            Self::JackOfPlates => 2.0,
-            Self::MailShirt => 3.0,
-        }
+        f32::from(self as u8)
     }
 }
 

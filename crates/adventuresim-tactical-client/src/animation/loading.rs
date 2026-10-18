@@ -404,6 +404,6 @@ fn animation_asset_path(path: &AnimationAssetPath) -> String {
     }
     #[cfg(target_family = "wasm")]
     {
-        path.relative().to_owned()
+        path.as_ref().to_owned()
     }
 }

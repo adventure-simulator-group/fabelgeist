@@ -1,7 +1,7 @@
 //! Authored motion and asset identity admitted by the animation catalog.
 
 use adventuresim_tactical_core::animation::AnimationPackId;
-use derive_more::{Debug, Display, From};
+use derive_more::{AsRef, Debug, Display, From};
 use std::borrow::Cow;
 
 #[derive(Clone, Debug, Display, PartialEq, Eq, PartialOrd, Ord, From)]
@@ -15,8 +15,10 @@ pub(super) struct MotionKey {
     pub(super) motion: MotionId,
 }
 
-#[derive(Clone, Debug, Display, PartialEq, Eq)]
+#[derive(Clone, Debug, Display, PartialEq, Eq, From, AsRef)]
 #[debug("{_0:?}")]
+#[from(String)]
+#[as_ref(str)]
 pub(super) struct AnimationAssetPath(Cow<'static, str>);
 
 impl MotionId {
@@ -46,12 +48,5 @@ impl MotionKey {
 impl AnimationAssetPath {
     pub(super) const fn from_static(path: &'static str) -> Self {
         Self(Cow::Borrowed(path))
-    }
-    pub(super) fn from_relative(path: String) -> Self {
-        Self(Cow::Owned(path))
-    }
-    /// Native filesystem/Bevy asset adapters retain the catalog's exact path.
-    pub(super) fn relative(&self) -> &str {
-        self.0.as_ref()
     }
 }

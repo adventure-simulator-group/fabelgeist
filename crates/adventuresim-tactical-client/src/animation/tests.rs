@@ -339,7 +339,7 @@ mod legacy_tests {
             .count();
         assert_eq!(authored_variants, 29);
         assert_eq!(
-            root.motions[&MotionId::from_static("walk")].path.relative(),
+            root.motions[&MotionId::from_static("walk")].path.as_ref(),
             "animations/biped/unarmed/walk.glb"
         );
         assert_eq!(
@@ -423,7 +423,7 @@ mod legacy_tests {
         assert_eq!(
             pack.motions[&MotionId::from_static("swing")]
                 .path
-                .relative(),
+                .as_ref(),
             "animations/biped/2h_close/swing.glb"
         );
         assert!(pack.poses.contains_key(&SemanticPose::AttackSwing));
@@ -465,7 +465,7 @@ mod legacy_tests {
             Some(&AnimationPackId::HUMANOID_UNARMED)
         );
         assert_eq!(
-            pack.motions[&MotionId::from_static("idle")].path.relative(),
+            pack.motions[&MotionId::from_static("idle")].path.as_ref(),
             "animations/armored/idle.glb"
         );
     }

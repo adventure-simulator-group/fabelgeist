@@ -94,7 +94,7 @@ impl PackBuilder {
         self.pack.motions.insert(
             MotionId::from(id),
             MotionSource {
-                path: AnimationAssetPath::from_relative(format!("{}/{id}.glb", self.path_prefix)),
+                path: AnimationAssetPath::from(format!("{}/{id}.glb", self.path_prefix)),
                 required_last_frame,
                 last_frame,
             },
@@ -367,7 +367,7 @@ pub(crate) fn validate_editor_asset_root(
     for (pack_id, pack) in &catalog.packs {
         motion_count += pack.motions.len();
         for (motion_id, motion) in &pack.motions {
-            let full_path = asset_root.join(motion.path.relative());
+            let full_path = asset_root.join(motion.path.as_ref());
             if !full_path.is_file() {
                 missing_motion_count += 1;
                 warnings.push(format!(
@@ -518,7 +518,7 @@ fn resolve_editor_pose(
                 resolved_pack: pack_id.to_owned(),
                 resolved_pose,
                 mirrored,
-                motion_path: asset_root.join(motion.path.relative()),
+                motion_path: asset_root.join(motion.path.as_ref()),
                 frame: anchor.frame,
             });
         }
