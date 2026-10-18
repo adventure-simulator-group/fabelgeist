@@ -9,13 +9,16 @@
 use std::io::Write;
 use std::path::Path;
 
-use anyhow::{Context, Result, bail};
+use crate::export::error::{HairDataError, HairDataFormat, Result};
 
 /// A little-endian `float32` array in `.npy` format, version 1.0.
 pub fn npy(shape: &[usize], data: &[f32]) -> Result<Vec<u8>> {
     let count: usize = shape.iter().product();
     if count != data.len() {
-        bail!("shape {shape:?} holds {count} values, not {}", data.len());
+        return Err(HairDataError::ShapeMismatch {
+            shape: shape.to_vec(),
+            actual_values: data.len(),
+        });
     }
     let dims = match shape {
         [one] => format!("({one},)"),
@@ -52,7 +55,7 @@ pub fn archive(arrays: &[(&str, &[usize], &[f32])]) -> Result<Vec<u8>> {
         let body = npy(shape, data)?;
         let file = format!("{name}.npy");
         if body.len() >= u32::MAX as usize || out.len() >= u32::MAX as usize {
-            bail!("{file} is too large for a zip without ZIP64");
+            return Err(HairDataError::ZipEntryTooLarge { name: file });
         }
         let crc = crc32fast::hash(&body);
         let offset = out.len() as u32;
@@ -109,37 +112,60 @@ pub struct Array {
 /// Parse a `.npy` file.
 pub fn parse_npy(bytes: &[u8]) -> Result<Array> {
     if bytes.len() < 10 || &bytes[..6] != b"\x93NUMPY" {
-        bail!("not a .npy");
+        return Err(HairDataError::InvalidSignature {
+            format: HairDataFormat::Npy,
+        });
     }
     let (length, start) = match bytes[6] {
         1 => (u16::from_le_bytes([bytes[8], bytes[9]]) as usize, 10),
         2 | 3 => (
-            u32::from_le_bytes(bytes[8..12].try_into().context("header")?) as usize,
+            u32::from_le_bytes(
+                bytes
+                    .get(8..12)
+                    .ok_or(HairDataError::Truncated {
+                        format: HairDataFormat::Npy,
+                    })?
+                    .try_into()?,
+            ) as usize,
             12,
         ),
-        v => bail!(".npy version {v}"),
+        version => return Err(HairDataError::NpyVersion { version }),
     };
-    let header = std::str::from_utf8(bytes.get(start..start + length).context("header")?)?;
+    let header = std::str::from_utf8(bytes.get(start..start + length).ok_or_else(|| {
+        HairDataError::NpyField {
+            name: "header".into(),
+        }
+    })?)?;
     let field = |key: &str| -> Result<&str> {
         let at = header
             .find(&format!("'{key}'"))
-            .with_context(|| format!("no {key} in {header}"))?;
+            .ok_or_else(|| HairDataError::NpyField { name: key.into() })?;
         let rest = &header[at + key.len() + 2..];
         Ok(rest.trim_start_matches([':', ' ']))
     };
     let descr = field("descr")?;
-    let descr = &descr[1..descr[1..].find('\'').context("descr")? + 1];
+    let descr = descr
+        .strip_prefix('\'')
+        .and_then(|rest| rest.split_once('\'').map(|(descr, _)| descr))
+        .ok_or_else(|| HairDataError::NpyField {
+            name: "descr".into(),
+        })?;
     if field("fortran_order")?.starts_with("True") {
-        bail!("Fortran-ordered arrays are not read");
+        return Err(HairDataError::FortranOrder);
     }
     let shape_text = field("shape")?;
-    let shape_text = &shape_text[1..shape_text.find(')').context("shape")?];
+    let shape_text =
+        &shape_text[1..shape_text
+            .find(')')
+            .ok_or_else(|| HairDataError::NpyField {
+                name: "shape".into(),
+            })?];
     let shape: Vec<usize> = shape_text
         .split(',')
         .map(str::trim)
         .filter(|s| !s.is_empty())
         .map(|s| s.parse::<usize>())
-        .collect::<Result<_, _>>()?;
+        .collect::<std::result::Result<_, _>>()?;
     let count: usize = shape.iter().product();
     let body = &bytes[start + length..];
     let data: Vec<f32> = match descr {
@@ -164,10 +190,13 @@ pub fn parse_npy(bytes: &[u8]) -> Result<Array> {
             .take(count)
             .map(|c| half_to_f32(u16::from_le_bytes(*c)))
             .collect(),
-        other => bail!("dtype {other} is not read"),
+        other => return Err(HairDataError::NpyDtype { name: other.into() }),
     };
     if data.len() != count {
-        bail!("{} values for shape {shape:?}", data.len());
+        return Err(HairDataError::ShapeMismatch {
+            shape,
+            actual_values: data.len(),
+        });
     }
     Ok(Array { shape, data })
 }
@@ -189,75 +218,97 @@ fn half_to_f32(h: u16) -> f32 {
     }
 }
 
+struct ArchiveBytes<'a>(&'a [u8]);
+impl ArchiveBytes<'_> {
+    fn u16_at(&self, at: usize) -> Result<u16> {
+        Ok(u16::from_le_bytes(
+            self.0
+                .get(at..at + 2)
+                .ok_or(HairDataError::Truncated {
+                    format: HairDataFormat::Npz,
+                })?
+                .try_into()?,
+        ))
+    }
+    fn u32_at(&self, at: usize) -> Result<u32> {
+        Ok(u32::from_le_bytes(
+            self.0
+                .get(at..at + 4)
+                .ok_or(HairDataError::Truncated {
+                    format: HairDataFormat::Npz,
+                })?
+                .try_into()?,
+        ))
+    }
+    fn u64_at(&self, at: usize) -> Result<u64> {
+        Ok(u64::from_le_bytes(
+            self.0
+                .get(at..at + 8)
+                .ok_or(HairDataError::Truncated {
+                    format: HairDataFormat::Npz,
+                })?
+                .try_into()?,
+        ))
+    }
+}
+
 /// The arrays in an `.npz`, by name (without `.npy`).
 pub fn read_archive(bytes: &[u8]) -> Result<Vec<(String, Array)>> {
-    let u16_at = |at: usize| -> Result<u16> {
-        Ok(u16::from_le_bytes(
-            bytes.get(at..at + 2).context("truncated")?.try_into()?,
-        ))
-    };
-    let u32_at = |at: usize| -> Result<u32> {
-        Ok(u32::from_le_bytes(
-            bytes.get(at..at + 4).context("truncated")?.try_into()?,
-        ))
-    };
-    let u64_at = |at: usize| -> Result<u64> {
-        Ok(u64::from_le_bytes(
-            bytes.get(at..at + 8).context("truncated")?.try_into()?,
-        ))
-    };
+    let archive = ArchiveBytes(bytes);
     // The end of the central directory, and ZIP64's if the sizes overflow.
     let end = (0..bytes.len().saturating_sub(21))
         .rev()
         .find(|&i| bytes[i..i + 4] == 0x0605_4b50u32.to_le_bytes())
-        .context("not a zip")?;
-    let mut entries = u16_at(end + 10)? as u64;
-    let mut directory = u32_at(end + 16)? as u64;
+        .ok_or(HairDataError::InvalidSignature {
+            format: HairDataFormat::Npz,
+        })?;
+    let mut entries = archive.u16_at(end + 10)? as u64;
+    let mut directory = archive.u32_at(end + 16)? as u64;
     if (entries == 0xFFFF || directory == 0xFFFF_FFFF) && end >= 20 {
         let locator = end - 20;
-        if u32_at(locator)? == 0x0706_4b50 {
-            let zip64 = u64_at(locator + 8)? as usize;
-            entries = u64_at(zip64 + 32)?;
-            directory = u64_at(zip64 + 48)?;
+        if archive.u32_at(locator)? == 0x0706_4b50 {
+            let zip64 = archive.u64_at(locator + 8)? as usize;
+            entries = archive.u64_at(zip64 + 32)?;
+            directory = archive.u64_at(zip64 + 48)?;
         }
     }
     let mut at = directory as usize;
     let mut out = Vec::new();
     for _ in 0..entries {
-        if u32_at(at)? != 0x0201_4b50 {
-            bail!("bad central directory");
+        if archive.u32_at(at)? != 0x0201_4b50 {
+            return Err(HairDataError::ZipDirectory);
         }
-        let method = u16_at(at + 10)?;
-        let mut compressed = u32_at(at + 20)? as u64;
-        let mut size = u32_at(at + 24)? as u64;
-        let name_length = u16_at(at + 28)? as usize;
-        let extra_length = u16_at(at + 30)? as usize;
-        let comment_length = u16_at(at + 32)? as usize;
-        let mut offset = u32_at(at + 42)? as u64;
-        let name = std::str::from_utf8(
-            bytes
-                .get(at + 46..at + 46 + name_length)
-                .context("truncated")?,
-        )?
+        let method = archive.u16_at(at + 10)?;
+        let mut compressed = archive.u32_at(at + 20)? as u64;
+        let mut size = archive.u32_at(at + 24)? as u64;
+        let name_length = archive.u16_at(at + 28)? as usize;
+        let extra_length = archive.u16_at(at + 30)? as usize;
+        let comment_length = archive.u16_at(at + 32)? as usize;
+        let mut offset = archive.u32_at(at + 42)? as u64;
+        let name = std::str::from_utf8(bytes.get(at + 46..at + 46 + name_length).ok_or(
+            HairDataError::Truncated {
+                format: HairDataFormat::Npz,
+            },
+        )?)?
         .to_string();
         // ZIP64: the fields that overflowed, in this order.
         let mut extra = at + 46 + name_length;
         let extra_end = extra + extra_length;
         while extra + 4 <= extra_end {
-            let id = u16_at(extra)?;
-            let length = u16_at(extra + 2)? as usize;
+            let id = archive.u16_at(extra)?;
+            let length = archive.u16_at(extra + 2)? as usize;
             if id == 0x0001 {
                 let mut field = extra + 4;
                 if size == 0xFFFF_FFFF {
-                    size = u64_at(field)?;
+                    size = archive.u64_at(field)?;
                     field += 8;
                 }
                 if compressed == 0xFFFF_FFFF {
-                    compressed = u64_at(field)?;
+                    compressed = archive.u64_at(field)?;
                     field += 8;
                 }
                 if offset == 0xFFFF_FFFF {
-                    offset = u64_at(field)?;
+                    offset = archive.u64_at(field)?;
                 }
             }
             extra += 4 + length;
@@ -265,23 +316,36 @@ pub fn read_archive(bytes: &[u8]) -> Result<Vec<(String, Array)>> {
         at = extra_end + comment_length;
 
         let local = offset as usize;
-        if u32_at(local)? != 0x0403_4b50 {
-            bail!("bad local header for {name}");
+        if archive.u32_at(local)? != 0x0403_4b50 {
+            return Err(HairDataError::ZipLocalHeader { name });
         }
-        let start = local + 30 + u16_at(local + 26)? as usize + u16_at(local + 28)? as usize;
-        let raw = bytes
-            .get(start..start + compressed as usize)
-            .with_context(|| format!("{name} is truncated"))?;
+        let start = local
+            + 30
+            + archive.u16_at(local + 26)? as usize
+            + archive.u16_at(local + 28)? as usize;
+        let raw =
+            bytes
+                .get(start..start + compressed as usize)
+                .ok_or(HairDataError::Truncated {
+                    format: HairDataFormat::Npz,
+                })?;
         let body = match method {
             0 => raw.to_vec(),
-            8 => miniz_oxide::inflate::decompress_to_vec_with_limit(raw, size as usize)
-                .map_err(|e| anyhow::anyhow!("{name}: {e:?}"))?,
-            m => bail!("{name}: compression {m} is not read"),
+            8 => miniz_oxide::inflate::decompress_to_vec_with_limit(raw, size as usize).map_err(
+                |details| HairDataError::Deflate {
+                    name: name.clone(),
+                    details,
+                },
+            )?,
+            method => return Err(HairDataError::ZipCompression { name, method }),
         };
         let key = name.strip_suffix(".npy").unwrap_or(&name).to_string();
         out.push((
             key,
-            parse_npy(&body).with_context(|| format!("reading {name}"))?,
+            parse_npy(&body).map_err(|source| HairDataError::ArchiveEntry {
+                name,
+                source: Box::new(source),
+            })?,
         ));
     }
     Ok(out)
@@ -289,8 +353,14 @@ pub fn read_archive(bytes: &[u8]) -> Result<Vec<(String, Array)>> {
 
 /// Read the arrays in an `.npz` file.
 pub fn read(path: &Path) -> Result<Vec<(String, Array)>> {
-    let bytes = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
-    read_archive(&bytes).with_context(|| format!("reading {}", path.display()))
+    let bytes = std::fs::read(path).map_err(|source| HairDataError::FileIo {
+        path: path.to_owned(),
+        source,
+    })?;
+    read_archive(&bytes).map_err(|source| HairDataError::File {
+        path: path.to_owned(),
+        source: Box::new(source),
+    })
 }
 
 /// Write named arrays to an `.npz` file.

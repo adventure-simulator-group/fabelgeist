@@ -1,7 +1,7 @@
 //! The guides a groom grows from, on the GPU: grown there from a hairdo
 //! ([`crate::hairdo::Hairdo::guides`]'s kernels), or brought from the host.
 
-use anyhow::Result;
+use crate::gpu::error::Result;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_gpu::globals::WgpuContext;
@@ -15,6 +15,8 @@ use crate::head::Head;
 use crate::ops::Parting;
 use crate::rng;
 use crate::strands::Strands;
+
+mod packed;
 
 /// What a groom grows from.
 pub enum Guides<'a> {
@@ -158,8 +160,8 @@ impl GpuGroomer {
         let candidates = wanted * 40;
         let candidate_buffer = self.scratch.guide_candidates.fit(
             &context,
-            candidates as u64 * 48,
-            "hair guide candidates",
+            (candidates as u64 * 48).into(),
+            "hair guide candidates".into(),
         )?;
         batch.dispatch_folded(
             &self.kernels.guide_candidates,
@@ -184,8 +186,8 @@ impl GpuGroomer {
         let boundary = scalp.boundary_count;
         let closest = self.scratch.guide_edges.fit(
             &context,
-            boundary.max(1) as u64 * 48,
-            "hair guide hairline",
+            (boundary.max(1) as u64 * 48).into(),
+            "hair guide hairline".into(),
         )?;
         batch.dispatch_folded(
             &self.kernels.edge_closest,
@@ -205,10 +207,18 @@ impl GpuGroomer {
         )?;
         let capacity = (wanted + boundary) as u64;
         let roots = GuideRoots {
-            position: storage(&context, capacity * 16, "hair guide roots")?,
-            normal: storage(&context, capacity * 16, "hair guide root normals")?,
-            uv: storage(&context, capacity * 16, "hair guide root uvs")?,
-            counts: storage(&context, 16, "hair guide counts")?,
+            position: storage(&context, (capacity * 16).into(), "hair guide roots".into())?,
+            normal: storage(
+                &context,
+                (capacity * 16).into(),
+                "hair guide root normals".into(),
+            )?,
+            uv: storage(
+                &context,
+                (capacity * 16).into(),
+                "hair guide root uvs".into(),
+            )?,
+            counts: storage(&context, 16_u64.into(), "hair guide counts".into())?,
         };
         batch.dispatch(
             &self.kernels.guide_select,
@@ -251,95 +261,32 @@ impl GpuGroomer {
         let context = self.context.clone();
         let longest = longest_guide(hairdo, variation);
         let max_path = ((longest / 0.002).ceil() as u32).max(301) + 2;
-        let field = hairdo.follicles.field(head);
-        let whorl = |i: usize| field.whorls.get(i).copied();
-        let (w0, w1) = (whorl(0), whorl(1));
-        let (flow, flow_value) = hairdo.flow_code();
-        let tied = Tied::new(head, hairdo);
-        let axis: Vec<[f32; 4]> = tied.as_ref().map_or(vec![[0.0; 4]; 2], |t| {
-            t.axis.iter().map(|p| [p.x, p.y, p.z, 0.0]).collect()
-        });
-        let cut = &hairdo.haircut;
-        let style = &hairdo.hairstyle;
+        let packed::HairdoUpload { gpu, axis } =
+            packed::HairdoUpload::new(hairdo, head, variation, seed, count, points, max_path);
         let follicles = &hairdo.follicles;
-        let fringe = cut.fringe.unwrap_or_default();
-        let to3 = |v: Vec3| v.to_array();
-        let gpu = HairdoGpu {
-            guides: count,
-            points,
-            max_path,
-            key: guide_key(seed),
-            variation,
-            angle: follicles.angle,
-            angle_spread: follicles.angle_spread,
-            direction_spread: follicles.direction_spread,
-            kink: follicles.kink,
-            growth: Growth::ALL
-                .iter()
-                .position(|g| *g == field.growth)
-                .unwrap_or(0) as u32,
-            whorls: field.whorls.len() as u32,
-            fringe_falls: u32::from(hairdo.fringe_falls()),
-            center: to3(field.center),
-            lanes: match hairdo.parting() {
-                Parting::Lanes { count } => count,
-                _ => 0,
-            },
-            w0: w0.map_or([0.0; 3], |w| to3(w.point)),
-            w0_spiral: w0.map_or(0.0, |w| w.spiral),
-            w0_hand: w0.map_or(1.0, |w| w.hand),
-            w0_reach: w0.map_or(0.07, |w| w.reach),
-            w1: w1.map_or([0.0; 3], |w| to3(w.point)),
-            w1_spiral: w1.map_or(0.0, |w| w.spiral),
-            w1_hand: w1.map_or(1.0, |w| w.hand),
-            w1_reach: w1.map_or(0.07, |w| w.reach),
-            top: cut.top,
-            front: cut.front,
-            sides: cut.sides,
-            back: cut.back,
-            has_hemline: u32::from(cut.hemline.is_some()),
-            hemline: cut.hemline.unwrap_or(0.0),
-            slope: cut.slope,
-            clip: cut.clip,
-            clipper: cut.clipper,
-            fade: cut.fade,
-            strip: cut.strip,
-            has_fringe: u32::from(cut.fringe.is_some()),
-            fringe_width: fringe.width,
-            fringe_depth: fringe.depth,
-            fringe_drop: fringe.drop,
-            dome: cut.dome,
-            flow,
-            flow_value,
-            part: style.part,
-            hold: style.hold,
-            lift: style.lift,
-            volume: style.volume,
-            cling: style.cling,
-            tuck: style.tuck,
-            hairline: head.hairline,
-            recession: head.recession,
-            peak: head.peak,
-            tied: u32::from(tied.is_some()),
-            tie: tied.as_ref().map_or([0.0; 3], |t| to3(t.point)),
-            out: tied.as_ref().map_or([0.0; 3], |t| to3(t.out)),
-            axis_len: axis.len() as u32,
-        };
         let path = self.scratch.guide_paths.fit(
             &context,
-            count as u64 * max_path as u64 * 16,
-            "hair guide paths",
+            (count as u64 * max_path as u64 * 16).into(),
+            "hair guide paths".into(),
         )?;
         let guides = GpuGuides {
             count,
             points,
-            positions: storage(&context, count as u64 * points as u64 * 16, "hair guides")?,
+            positions: storage(
+                &context,
+                (count as u64 * points as u64 * 16).into(),
+                "hair guides".into(),
+            )?,
             attributes: storage(
                 &context,
-                count as u64 * std::mem::size_of::<StrandGpu>() as u64,
-                "hair guide strands",
+                (count as u64 * std::mem::size_of::<StrandGpu>() as u64).into(),
+                "hair guide strands".into(),
             )?,
-            roots: storage(&context, count as u64 * 16, "hair guide roots")?,
+            roots: storage(
+                &context,
+                (count as u64 * 16).into(),
+                "hair guide roots".into(),
+            )?,
         };
         // A workgroup a guide.
         batch.dispatch(
@@ -347,9 +294,9 @@ impl GpuGroomer {
             &params! {
                 "root_position" => roots.position.clone(),
                 "root_normal" => roots.normal.clone(),
-                "hairdo" => upload(&context, &[gpu], "hair hairdo")?,
+                "hairdo" => upload(&context, &[gpu], "hair hairdo".into())?,
                 "head_shape" => head_shape.clone(),
-                "tie_axis" => upload(&context, &axis, "hair tie")?,
+                "tie_axis" => upload(&context, &axis, "hair tie".into())?,
                 "path" => path,
                 "positions" => guides.positions.clone(),
             },
@@ -385,9 +332,9 @@ impl GpuGroomer {
                 let a = guides.attachment(s);
                 StrandGpu {
                     normal: a.normal.to_array(),
-                    id: a.id,
+                    id: (a.id).word(),
                     uv: a.uv,
-                    group: a.group,
+                    group: (a.group).gpu_word(),
                     radius: a.radius,
                 }
             })
@@ -402,9 +349,9 @@ impl GpuGroomer {
         Ok(GpuGuides {
             count: guides.len() as u32,
             points,
-            positions: upload(context, &positions, "hair guides")?,
-            attributes: upload(context, &attributes, "hair guide strands")?,
-            roots: upload(context, &roots, "hair guide roots")?,
+            positions: upload(context, &positions, "hair guides".into())?,
+            attributes: upload(context, &attributes, "hair guide strands".into())?,
+            roots: upload(context, &roots, "hair guide roots".into())?,
         })
     }
 }

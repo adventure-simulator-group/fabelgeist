@@ -3,7 +3,7 @@
 //! write one as DiffLocks' `scalp.ply` is laid out (binary, `x y z nx ny nz
 //! s t`, triangles).
 
-use anyhow::{Context, Result, bail};
+use crate::export::error::{HairDataError, HairDataFormat, Result};
 
 pub struct Ply {
     pub vertex_properties: Vec<String>,
@@ -34,7 +34,7 @@ impl Scalar {
             "uint" | "uint32" => Scalar::U32,
             "float" | "float32" => Scalar::F32,
             "double" | "float64" => Scalar::F64,
-            other => bail!("unknown PLY type `{other}`"),
+            other => return Err(HairDataError::PlyScalar { name: other.into() }),
         })
     }
 
@@ -104,49 +104,75 @@ pub fn write_surface(surface: &crate::surface::Surface) -> Vec<u8> {
     out
 }
 
+struct Header {
+    ascii: bool,
+    body: usize,
+    elements: Vec<Element>,
+}
+
+impl Header {
+    fn read(bytes: &[u8]) -> Result<Self> {
+        let end = bytes.windows(10).position(|w| w == b"end_header").ok_or(
+            HairDataError::InvalidSignature {
+                format: HairDataFormat::Ply,
+            },
+        )?;
+        let header = std::str::from_utf8(&bytes[..end])?;
+        let mut body = end + 10;
+        while body < bytes.len() && (bytes[body] == b'\r' || bytes[body] == b'\n') {
+            body += 1;
+            if bytes[body - 1] == b'\n' {
+                break;
+            }
+        }
+        let mut ascii = false;
+        let mut elements: Vec<Element> = Vec::new();
+        for line in header.lines() {
+            let words: Vec<&str> = line.split_whitespace().collect();
+            match words.as_slice() {
+                ["format", "ascii", ..] => ascii = true,
+                ["format", "binary_little_endian", ..] => ascii = false,
+                ["format", other, ..] => {
+                    return Err(HairDataError::PlyEncoding {
+                        name: (*other).into(),
+                    });
+                }
+                ["element", name, count] => elements.push(Element {
+                    name: name.to_string(),
+                    count: count.parse()?,
+                    properties: Vec::new(),
+                }),
+                ["property", "list", count, item, name] => elements
+                    .last_mut()
+                    .ok_or(HairDataError::PlyPropertyWithoutElement)?
+                    .properties
+                    .push(Property::List(
+                        name.to_string(),
+                        Scalar::parse(count)?,
+                        Scalar::parse(item)?,
+                    )),
+                ["property", kind, name] => elements
+                    .last_mut()
+                    .ok_or(HairDataError::PlyPropertyWithoutElement)?
+                    .properties
+                    .push(Property::Scalar(name.to_string(), Scalar::parse(kind)?)),
+                _ => {}
+            }
+        }
+        Ok(Self {
+            ascii,
+            body,
+            elements,
+        })
+    }
+}
+
 pub fn read(bytes: &[u8]) -> Result<Ply> {
-    let end = bytes
-        .windows(10)
-        .position(|w| w == b"end_header")
-        .context("no PLY header")?;
-    let header = std::str::from_utf8(&bytes[..end])?;
-    let mut body = end + 10;
-    while body < bytes.len() && (bytes[body] == b'\r' || bytes[body] == b'\n') {
-        body += 1;
-        if bytes[body - 1] == b'\n' {
-            break;
-        }
-    }
-    let mut ascii = false;
-    let mut elements: Vec<Element> = Vec::new();
-    for line in header.lines() {
-        let words: Vec<&str> = line.split_whitespace().collect();
-        match words.as_slice() {
-            ["format", "ascii", ..] => ascii = true,
-            ["format", "binary_little_endian", ..] => ascii = false,
-            ["format", other, ..] => bail!("unsupported PLY format `{other}`"),
-            ["element", name, count] => elements.push(Element {
-                name: name.to_string(),
-                count: count.parse()?,
-                properties: Vec::new(),
-            }),
-            ["property", "list", count, item, name] => elements
-                .last_mut()
-                .context("property before element")?
-                .properties
-                .push(Property::List(
-                    name.to_string(),
-                    Scalar::parse(count)?,
-                    Scalar::parse(item)?,
-                )),
-            ["property", kind, name] => elements
-                .last_mut()
-                .context("property before element")?
-                .properties
-                .push(Property::Scalar(name.to_string(), Scalar::parse(kind)?)),
-            _ => {}
-        }
-    }
+    let Header {
+        ascii,
+        body,
+        elements,
+    } = Header::read(bytes)?;
 
     let mut ply = Ply {
         vertex_properties: Vec::new(),
@@ -161,10 +187,19 @@ pub fn read(bytes: &[u8]) -> Result<Ply> {
     let mut cursor = body;
     let mut next = |kind: Scalar| -> Result<f64> {
         if let Some(tokens) = tokens.as_mut() {
-            Ok(tokens.next().context("truncated PLY")?.parse()?)
+            Ok(tokens
+                .next()
+                .ok_or(HairDataError::Truncated {
+                    format: HairDataFormat::Ply,
+                })?
+                .parse()?)
         } else {
             let size = kind.size();
-            let b = bytes.get(cursor..cursor + size).context("truncated PLY")?;
+            let b = bytes
+                .get(cursor..cursor + size)
+                .ok_or(HairDataError::Truncated {
+                    format: HairDataFormat::Ply,
+                })?;
             cursor += size;
             Ok(kind.read(b))
         }

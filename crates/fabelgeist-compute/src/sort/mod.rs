@@ -164,19 +164,19 @@ impl SortScratch {
             keys: Buffer::new(
                 context,
                 ((capacity as u64) * 4).into(),
-                storage.clone().with_label(("sort keys").into()),
+                storage.clone().with_label("sort keys".into()),
             )?,
             values: Buffer::new(
                 context,
                 ((capacity as u64) * 4).into(),
-                storage.clone().with_label(("sort values").into()),
+                storage.clone().with_label("sort values".into()),
             )?,
             histogram: Buffer::new(
                 context,
                 ((RADIX as u64) * (tiles as u64) * 4).into(),
-                storage.with_label(("sort histogram").into()),
+                storage.with_label("sort histogram".into()),
             )?,
-            scan: PrefixSumScratch::new(context, RADIX * tiles)?,
+            scan: PrefixSumScratch::new(context, ScanElementCount::from_elements(RADIX * tiles))?,
             capacity,
         })
     }
@@ -279,8 +279,12 @@ impl RadixSort {
             histogram_parameters.insert("keys", source_keys.clone());
             batch.dispatch(&self.histogram, &histogram_parameters, [tiles, 1, 1])?;
 
-            self.scan
-                .record(batch, &scratch.histogram, &scratch.scan, RADIX * tiles)?;
+            self.scan.record(
+                batch,
+                &scratch.histogram,
+                &scratch.scan,
+                ScanElementCount::from_elements(RADIX * tiles),
+            )?;
 
             let mut scatter_parameters = parameters;
             scatter_parameters.insert("keys_in", source_keys.clone());

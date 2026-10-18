@@ -52,7 +52,7 @@ impl Trim {
                         return;
                     }
                     let mut keep = total
-                        * (self.length * (1.0 - self.random * rng::unit(ids[s], seed)))
+                        * (self.length * (1.0 - self.random * rng::unit((ids[s]).word(), seed)))
                             .clamp(0.02, 1.0);
                     if self.max_length > 0.0 {
                         keep = keep.min(self.max_length);

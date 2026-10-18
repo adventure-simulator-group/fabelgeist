@@ -1,11 +1,14 @@
 //! Why armor generation failed.
 
+use fabelgeist_compute::ReadbackError;
 use thiserror::Error;
 
 use crate::DesignError;
 
 #[derive(Debug, Error)]
 pub enum GenerateError {
+    #[error("armor GPU readback: {0}")]
+    Readback(#[from] ReadbackError),
     #[error("armor plate shell: {0}")]
     PlateShell(#[from] PlateShellFailure),
     #[error(

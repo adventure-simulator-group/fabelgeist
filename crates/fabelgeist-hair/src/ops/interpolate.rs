@@ -18,6 +18,8 @@
 //! between them -- across the face, from the front hairline -- where real
 //! hair would part and go one way or the other.
 
+use crate::identity::PartingGroup;
+use crate::identity::StrandId;
 use fabelgeist_math::Vec3;
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
@@ -127,8 +129,8 @@ impl Parting {
 
     /// The group of a root: 0 or 1 on either side of the part, -1 where
     /// there is none.
-    pub fn group(&self, p: Vec3) -> i32 {
-        match self {
+    pub fn group(&self, p: Vec3) -> PartingGroup {
+        let word = match self {
             Parting::None => -1,
             Parting::Plane {
                 normal,
@@ -157,14 +159,15 @@ impl Parting {
                 let t = (a + std::f32::consts::PI) / std::f32::consts::TAU;
                 ((t * *count as f32) as i32).clamp(0, *count as i32 - 1)
             }
-        }
+        };
+        PartingGroup::from_gpu_word(word)
     }
 }
 
 /// Whether a strand of group `own` may take its shape from a guide of group
 /// `guide`: the same side, or either has no side.
-pub fn compatible(own: i32, guide: i32) -> bool {
-    own < 0 || guide < 0 || own == guide
+pub fn compatible(own: PartingGroup, guide: PartingGroup) -> bool {
+    own.is_unassigned() || guide.is_unassigned() || own == guide
 }
 
 /// How likely a root is to be kept, over the scalp. Patterns read the scalp
@@ -257,7 +260,7 @@ impl Interpolate {
             if self.poisson && placed.any_within(point.position, spacing, |_| true) {
                 continue;
             }
-            placed.insert(point.position, 0);
+            placed.insert(point.position, PartingGroup::from_gpu_word(0));
             roots.push(point);
         }
         let seed = rng::seed(self.seed, 0xD3_5E);
@@ -285,9 +288,9 @@ impl Interpolate {
         });
 
         // The guides, by root, in their parting groups.
-        let guide_groups: Vec<i32> = (0..guides.len())
+        let guide_groups: Vec<PartingGroup> = (0..guides.len())
             .map(|g| match self.parting {
-                Parting::None => -1,
+                Parting::None => PartingGroup::Unassigned,
                 _ => self.parting.group(guides.root(g)),
             })
             .collect();
@@ -377,7 +380,7 @@ impl Interpolate {
                     Attachment {
                         uv: root.uv,
                         normal: root.normal,
-                        id,
+                        id: StrandId::from_word(id),
                         group,
                         radius,
                     },
@@ -410,7 +413,7 @@ impl Interpolate {
             return grid;
         }
         for p in scalp.boundary(0.001) {
-            grid.insert(p, 0);
+            grid.insert(p, PartingGroup::from_gpu_word(0));
         }
         grid
     }

@@ -32,7 +32,7 @@ mod math;
 
 use std::sync::Arc;
 
-use anyhow::{Result, bail};
+use crate::gpu::error::{HairGpuError, Result};
 use fabelgeist_math::Vec3;
 use wgpu::util::DeviceExt;
 
@@ -1691,7 +1691,7 @@ impl HairRenderer {
         policy: &LodPolicy,
     ) -> Result<FrameInfo> {
         let Some(targets) = &self.targets else {
-            bail!("resize before rendering");
+            return Err(HairGpuError::MissingRenderTargets);
         };
         let (width, height) = (targets.width, targets.height);
         let aspect = width as f32 / height as f32;
@@ -2218,7 +2218,7 @@ impl HairRenderer {
     /// The output texture's pixels, tightly packed rows of four bytes each.
     pub fn read_rgba(&self) -> Result<(u32, u32, Vec<u8>)> {
         let Some(targets) = &self.targets else {
-            bail!("nothing rendered");
+            return Err(HairGpuError::NothingRendered);
         };
         let (width, height) = (targets.width, targets.height);
         let row = width * 4;
@@ -2288,7 +2288,7 @@ pub fn headless_device() -> Result<(Arc<wgpu::Device>, Arc<wgpu::Queue>)> {
                 force_fallback_adapter: false,
             })
             .await
-            .map_err(|e| anyhow::anyhow!("no adapter: {e}"))?;
+            .map_err(HairGpuError::Adapter)?;
         let adapter_limits = adapter.limits();
         let limits = wgpu::Limits {
             max_buffer_size: adapter_limits.max_buffer_size,

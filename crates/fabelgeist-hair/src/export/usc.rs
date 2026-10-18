@@ -2,14 +2,16 @@
 //! count, a `u16` point count per strand, then every point as three `f32`,
 //! little-endian. DiffLocks reads and writes it (`utils/strand_util.py`).
 
-use anyhow::{Result, bail};
+use crate::export::error::{HairDataError, HairDataFormat, Result};
+use crate::identity::PartingGroup;
+use crate::identity::StrandId;
 use fabelgeist_math::Vec3;
 
 use crate::strands::{Attachment, Strands, resample_into};
 
 pub fn write(strands: &Strands) -> Result<Vec<u8>> {
     if strands.points > u16::MAX as usize {
-        bail!("{} points a strand do not fit the format", strands.points);
+        return Err(HairDataError::UscPointCount);
     }
     let mut out = Vec::with_capacity(8 + strands.len() * (2 + strands.points * 12));
     out.extend_from_slice(&(strands.len() as u32).to_le_bytes());
@@ -29,9 +31,9 @@ pub fn write(strands: &Strands) -> Result<Vec<u8>> {
 /// of fewer than two points are skipped.
 pub fn read(bytes: &[u8], points: usize) -> Result<Strands> {
     let word = |at: usize| -> Result<u32> {
-        let b = bytes
-            .get(at..at + 4)
-            .ok_or_else(|| anyhow::anyhow!("truncated"))?;
+        let b = bytes.get(at..at + 4).ok_or(HairDataError::Truncated {
+            format: HairDataFormat::Usc,
+        })?;
         Ok(u32::from_le_bytes(b.try_into()?))
     };
     let count = word(0)? as usize;
@@ -40,7 +42,9 @@ pub fn read(bytes: &[u8], points: usize) -> Result<Strands> {
     for _ in 0..count {
         let b = bytes
             .get(cursor..cursor + 2)
-            .ok_or_else(|| anyhow::anyhow!("truncated"))?;
+            .ok_or(HairDataError::Truncated {
+                format: HairDataFormat::Usc,
+            })?;
         sizes.push(u16::from_le_bytes([b[0], b[1]]) as usize);
         cursor += 2;
     }
@@ -52,8 +56,11 @@ pub fn read(bytes: &[u8], points: usize) -> Result<Strands> {
         for _ in 0..size {
             let b = bytes
                 .get(cursor..cursor + 12)
-                .ok_or_else(|| anyhow::anyhow!("truncated"))?;
-            let f = |k: usize| f32::from_le_bytes(b[k * 4..k * 4 + 4].try_into().unwrap());
+                .ok_or(HairDataError::Truncated {
+                    format: HairDataFormat::Usc,
+                })?;
+            let f =
+                |k: usize| f32::from_le_bytes([b[k * 4], b[k * 4 + 1], b[k * 4 + 2], b[k * 4 + 3]]);
             strand.push(Vec3::new(f(0), f(1), f(2)));
             cursor += 12;
         }
@@ -66,8 +73,8 @@ pub fn read(bytes: &[u8], points: usize) -> Result<Strands> {
             &buffer,
             Attachment {
                 normal,
-                id: s as u32,
-                group: -1,
+                id: StrandId::from_word(s as u32),
+                group: PartingGroup::Unassigned,
                 radius: 35e-6,
                 ..Default::default()
             },

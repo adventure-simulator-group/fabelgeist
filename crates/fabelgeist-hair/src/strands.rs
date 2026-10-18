@@ -21,6 +21,8 @@
 //! [`id`]: Strands::id
 //! [`group`]: Strands::group
 
+use crate::identity::PartingGroup;
+use crate::identity::StrandId;
 use fabelgeist_math::Vec3;
 
 /// A set of strands with the same number of points each.
@@ -36,9 +38,9 @@ pub struct Strands {
     pub root_normal: Vec<Vec3>,
     /// Stable per-strand ID: every random choice about a strand is keyed by
     /// it, so a strand keeps its curl phase when others are added.
-    pub id: Vec<u32>,
+    pub id: Vec<StrandId>,
     /// The parting group a strand was interpolated in; `-1` belongs to none.
-    pub group: Vec<i32>,
+    pub group: Vec<PartingGroup>,
     /// Radius at the root, metres. The profile along the strand is the
     /// groom's ([`crate::ops::Profile`]).
     pub radius: Vec<f32>,
@@ -176,8 +178,8 @@ impl Strands {
 pub struct Attachment {
     pub uv: [f32; 2],
     pub normal: Vec3,
-    pub id: u32,
-    pub group: i32,
+    pub id: StrandId,
+    pub group: PartingGroup,
     pub radius: f32,
 }
 

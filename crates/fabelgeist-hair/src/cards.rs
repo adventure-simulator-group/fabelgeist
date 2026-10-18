@@ -16,6 +16,7 @@
 //! converging towards the tip, each with its own shade and depth in the
 //! bundle, mipmapped by coverage.
 
+use crate::identity::StrandId;
 use fabelgeist_math::Vec3;
 use rayon::prelude::*;
 
@@ -94,7 +95,7 @@ impl CardMesh {
         }
         let segments = settings.segments.max(1);
         let points = strands.points;
-        let cards: Vec<(Vec<CardVertex>, u32)> = map
+        let cards: Vec<(Vec<CardVertex>, StrandId)> = map
             .guides
             .par_iter()
             .filter_map(|&g| {
@@ -161,8 +162,8 @@ impl CardMesh {
                     widths[j] = (raw[j - 1] + 2.0 * raw[j] + raw[j + 1]) * 0.25;
                 }
                 let id = strands.id[g as usize];
-                let variant = (rng::hash(id, 0x7A) % variants.max(1)) as f32;
-                let random = rng::unit(id, 0x7B);
+                let variant = (rng::hash((id).word(), 0x7A) % variants.max(1)) as f32;
+                let random = rng::unit((id).word(), 0x7B);
                 let mut vertices = Vec::with_capacity((segments + 1) * 2);
                 for j in 0..=segments {
                     let (tangent, normal, side) = frames[j];
@@ -330,6 +331,7 @@ fn paint_bundle(width: u32, height: u32, seed: u64) -> Vec<u8> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::identity::PartingGroup;
     use crate::strands::Attachment;
 
     #[test]
@@ -343,8 +345,8 @@ mod tests {
             strands.push(
                 &positions,
                 Attachment {
-                    id: i,
-                    group: -1,
+                    id: StrandId::from_word(i),
+                    group: PartingGroup::Unassigned,
                     radius: 3e-5,
                     ..Default::default()
                 },

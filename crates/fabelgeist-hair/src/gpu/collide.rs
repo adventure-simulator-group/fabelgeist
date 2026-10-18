@@ -3,7 +3,7 @@
 //! ([`FieldHeader`]) -- a character's, say -- in the `head_shape` buffer
 //! every colliding kernel reads.
 
-use anyhow::Result;
+use crate::gpu::error::Result;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_math::Vec3;
@@ -68,7 +68,11 @@ impl GpuGroomer {
         settings: &LodSettings,
     ) -> Result<GpuLods> {
         let body = match groom.head.as_ref() {
-            Some(head) => Some(upload(&self.context, &head_shape(head), "hair head shape")?),
+            Some(head) => Some(upload(
+                &self.context,
+                &head_shape(head),
+                "hair head shape".into(),
+            )?),
             None => None,
         };
         self.lods_against(groom, center, settings, body.as_ref())
@@ -86,10 +90,11 @@ impl GpuGroomer {
         let mut set = StrandSet {
             positions: PingPong {
                 own: groom.positions.clone(),
-                scratch: self
-                    .scratch
-                    .positions
-                    .fit(&context, bytes, "hair positions scratch")?,
+                scratch: self.scratch.positions.fit(
+                    &context,
+                    (bytes).into(),
+                    "hair positions scratch".into(),
+                )?,
                 flipped: false,
             },
             attributes: groom.attributes.clone(),
@@ -97,10 +102,11 @@ impl GpuGroomer {
             count,
             points,
             root_bounds: groom.root_bounds,
-            guide_of: self
-                .scratch
-                .guide_of
-                .fit(&context, count as u64 * 4, "hair guide map")?,
+            guide_of: self.scratch.guide_of.fit(
+                &context,
+                (count as u64 * 4).into(),
+                "hair guide map".into(),
+            )?,
             mapped: false,
         };
         let mut batch = KernelBatch::labelled(&context, "hair operations");
@@ -126,15 +132,17 @@ impl GpuGroomer {
     ) -> Result<Buffer> {
         let context = self.context.clone();
         let bytes = count as u64 * points as u64 * 16;
-        let solved = storage(&context, bytes, "hair equilibrium")?;
-        let moments = self
-            .scratch
-            .settle_moments
-            .fit(&context, bytes, "hair drape moments")?;
-        let dirs = self
-            .scratch
-            .settle_dirs
-            .fit(&context, bytes, "hair drape directions")?;
+        let solved = storage(&context, (bytes).into(), "hair equilibrium".into())?;
+        let moments = self.scratch.settle_moments.fit(
+            &context,
+            (bytes).into(),
+            "hair drape moments".into(),
+        )?;
+        let dirs = self.scratch.settle_dirs.fit(
+            &context,
+            (bytes).into(),
+            "hair drape directions".into(),
+        )?;
         let compliance = 1.0 / (STANDARD_GRAVITY * settle.stiffness.max(1e-3).powi(3));
         let mut batch = KernelBatch::labelled(&context, "hair equilibrium");
         batch.dispatch_folded(

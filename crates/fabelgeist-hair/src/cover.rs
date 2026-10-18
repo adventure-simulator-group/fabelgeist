@@ -13,6 +13,7 @@
 //! chance a line straight out from the skin meets a strand in the first
 //! couple of centimetres), and the head is shaded by it.
 
+use crate::identity::PartingGroup;
 use fabelgeist_math::Vec3;
 use rayon::prelude::*;
 
@@ -39,7 +40,7 @@ impl ScalpCover {
     pub fn new(strands: &Strands) -> Self {
         let roots = PointGrid::build(
             &(0..strands.len())
-                .map(|s| (strands.root(s), 0))
+                .map(|s| (strands.root(s), PartingGroup::Unassigned))
                 .collect::<Vec<_>>(),
             ROOT_RADIUS,
         );

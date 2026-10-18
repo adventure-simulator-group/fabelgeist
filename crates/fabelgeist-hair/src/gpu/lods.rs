@@ -1,9 +1,10 @@
 //! [`GpuGroomer::lods`]: a groom grown on the GPU made ready to draw there.
 
+use fabelgeist_compute::KernelBatch;
+use fabelgeist_compute::ScanElementCount;
 use std::sync::Arc;
 
-use anyhow::Result;
-use fabelgeist_compute::KernelBatch;
+use crate::gpu::error::Result;
 use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
 use fabelgeist_gpu::data::gpu::parameters::PassParameters;
 use fabelgeist_math::Vec3;
@@ -105,6 +106,9 @@ impl Grid {
     }
 }
 
+mod prepare;
+use prepare::{CardBuffers, CoverDensity};
+
 impl GpuGroomer {
     /// [`GpuGroomer::lods`], the coarse levels and cards kept off `body`
     /// (as `head_shape` lays it out), or off nothing without one.
@@ -121,7 +125,7 @@ impl GpuGroomer {
         let has_body = u32::from(body.is_some());
         let head = match body {
             Some(body) => body.clone(),
-            None => upload(&context, &[[0.0f32; 4]; 17], "hair no body")?,
+            None => upload(&context, &[[0.0f32; 4]; 17], "hair no body".into())?,
         };
         let bounds = match groom.bounds {
             Some(bounds) => bounds,
@@ -129,36 +133,18 @@ impl GpuGroomer {
         };
         let mut batch = KernelBatch::labelled(&context, "hair levels");
 
-        // The shuffled order.
-        let keys = self
-            .scratch
-            .keys
-            .fit(&context, count as u64 * 4, "hair order keys")?;
-        let order = storage(&context, count as u64 * 4, "hair order")?;
-        batch.dispatch_folded(
-            &self.kernels.order_keys,
-            &params! {
-                "strands" => groom.attributes.clone(),
-                "keys" => keys.clone(),
-                "order" => order.clone(),
-                "count" => count,
-                "pad0" => 0u32,
-                "pad1" => 0u32,
-                "pad2" => 0u32,
-            },
-            count,
-        )?;
-        self.sort_scratch.ensure(&context, count)?;
-        self.sort
-            .record(&mut batch, &keys, &order, &mut self.sort_scratch, count, 32)?;
-
+        let order = self.record_order(&context, &mut batch, groom)?;
         // Occlusion: the hair's optical density, the body opaque, and each
         // cell's sky visibility.
         let pad = Vec3::splat(0.02);
         let (lo, hi) = (bounds[0] - pad, bounds[1] + pad);
         let resolution = settings.occlusion.resolution.max(4) as u32;
         let occlusion = Grid::over(lo, hi, (hi - lo).max_component() / resolution as f32);
-        let visibility = storage(&context, occlusion.cells() as u64 * 4, "hair visibility")?;
+        let visibility = storage(
+            &context,
+            (occlusion.cells() as u64 * 4).into(),
+            "hair visibility".into(),
+        )?;
         self.record_density(
             &mut batch,
             groom,
@@ -167,10 +153,11 @@ impl GpuGroomer {
             has_body,
             &head,
         )?;
-        let density =
-            self.scratch
-                .density
-                .fit(&context, occlusion.cells() as u64 * 4, "hair density")?;
+        let density = self.scratch.density.fit(
+            &context,
+            (occlusion.cells() as u64 * 4).into(),
+            "hair density".into(),
+        )?;
         let mut p = params! {
             "density" => density.clone(),
             "visibility" => visibility.clone(),
@@ -194,10 +181,14 @@ impl GpuGroomer {
         for &n in &counts {
             let positions = storage(
                 &context,
-                count as u64 * n as u64 * 16,
-                "hair level positions",
+                (count as u64 * n as u64 * 16).into(),
+                "hair level positions".into(),
             )?;
-            let infos = storage(&context, count as u64 * 16, "hair level infos")?;
+            let infos = storage(
+                &context,
+                (count as u64 * 16).into(),
+                "hair level infos".into(),
+            )?;
             let mut p = params! {
                 "positions" => groom.positions.clone(),
                 "strands" => groom.attributes.clone(),
@@ -271,7 +262,10 @@ impl GpuGroomer {
     /// The box every point of `groom` is in, measured on the GPU.
     pub fn measure_bounds(&mut self, groom: &GpuGroom) -> Result<[Vec3; 2]> {
         let context = self.context.clone();
-        let words = self.scratch.box_words.fit(&context, 32, "hair box")?;
+        let words = self
+            .scratch
+            .box_words
+            .fit(&context, 32_u64.into(), "hair box".into())?;
         let mut batch = KernelBatch::labelled(&context, "hair box");
         batch.clear_buffer(&words);
         let count = groom.strands * groom.points;
@@ -323,10 +317,11 @@ impl GpuGroomer {
         head: &Buffer,
     ) -> Result<()> {
         let context = self.context.clone();
-        let deposits =
-            self.scratch
-                .deposits
-                .fit(&context, grid.cells() as u64 * 4, "hair deposits")?;
+        let deposits = self.scratch.deposits.fit(
+            &context,
+            (grid.cells() as u64 * 4).into(),
+            "hair deposits".into(),
+        )?;
         batch.clear_buffer(&deposits);
         let mut p = params! {
             "positions" => groom.positions.clone(),
@@ -339,10 +334,11 @@ impl GpuGroomer {
         };
         grid.insert(&mut p, groom.strands);
         batch.dispatch_folded(&self.kernels.splat, &p, groom.strands * (groom.points - 1))?;
-        let density =
-            self.scratch
-                .density
-                .fit(&context, grid.cells() as u64 * 4, "hair density")?;
+        let density = self.scratch.density.fit(
+            &context,
+            (grid.cells() as u64 * 4).into(),
+            "hair density".into(),
+        )?;
         let mut p = params! {
             "deposits" => deposits,
             "head_shape" => head.clone(),
@@ -377,10 +373,11 @@ impl GpuGroomer {
         let count = groom.strands;
         let segments = card.segments.clamp(1, 31) as u32;
         let rows = segments + 1;
-        let guide_of =
-            self.scratch
-                .card_guides
-                .fit(context, count as u64 * 4, "hair card locks")?;
+        let guide_of = self.scratch.card_guides.fit(
+            context,
+            (count as u64 * 4).into(),
+            "hair card locks".into(),
+        )?;
         self.record_map(
             &mut batch,
             &groom.roots,
@@ -393,10 +390,11 @@ impl GpuGroomer {
             0xCA4D,
         )?;
         let stride = 4 + rows as u64 * 4;
-        let locks =
-            self.scratch
-                .locks
-                .fit(context, count as u64 * stride * 4, "hair card lock stats")?;
+        let locks = self.scratch.locks.fit(
+            context,
+            (count as u64 * stride * 4).into(),
+            "hair card lock stats".into(),
+        )?;
         batch.clear_buffer(&locks);
         let card_params = |mut p: PassParameters| {
             p.insert("count", count);
@@ -414,10 +412,11 @@ impl GpuGroomer {
             }),
             count,
         )?;
-        let flags = self
-            .scratch
-            .flags
-            .fit(context, (count as u64 + 1) * 4, "hair card flags")?;
+        let flags = self.scratch.flags.fit(
+            context,
+            ((count as u64 + 1) * 4).into(),
+            "hair card flags".into(),
+        )?;
         batch.clear_buffer(&flags);
         batch.dispatch_folded(
             &self.kernels.card_flags,
@@ -428,8 +427,12 @@ impl GpuGroomer {
             count,
         )?;
         self.ensure_scan(count + 1)?;
-        self.scan
-            .record(&mut batch, &flags, &self.scan_scratch, count + 1)?;
+        self.scan.record(
+            &mut batch,
+            &flags,
+            &self.scan_scratch,
+            ScanElementCount::from_elements(count + 1),
+        )?;
         let cards = self.read_word(batch, &flags, count)?;
 
         let mut batch = KernelBatch::labelled(context, "hair cards");
@@ -447,20 +450,7 @@ impl GpuGroomer {
             }),
             count,
         )?;
-        let vertices = Buffer::new(
-            context,
-            ((cards.max(1) as u64) * rows as u64 * 2 * 64).into(),
-            BufferDefinition::storage()
-                .with_usage(BufferUse::Vertex)
-                .with_label(("hair card vertices").into()),
-        )?;
-        let indices = Buffer::new(
-            context,
-            ((cards.max(1) as u64) * segments as u64 * 6 * 4).into(),
-            BufferDefinition::storage()
-                .with_usage(BufferUse::Index)
-                .with_label(("hair card indices").into()),
-        )?;
+        let CardBuffers { vertices, indices } = CardBuffers::new(context, cards, rows, segments)?;
         let mut p = params! {
             "locks" => locks,
             "slots" => flags,
@@ -522,11 +512,15 @@ impl GpuGroomer {
         let radius = 0.004f32;
         self.grid.ensure_capacity(&context, count)?;
         self.grid.record_build(batch, &groom.roots, count, radius)?;
-        let root_counts =
+        let root_counts = self.scratch.root_counts.fit(
+            &context,
+            (vertices as u64 * 4).into(),
+            "hair cover roots".into(),
+        )?;
+        let totals =
             self.scratch
-                .root_counts
-                .fit(&context, vertices as u64 * 4, "hair cover roots")?;
-        let totals = self.scratch.totals.fit(&context, 16, "hair cover totals")?;
+                .totals
+                .fit(&context, 16_u64.into(), "hair cover totals".into())?;
         batch.clear_buffer(&totals);
         let mut p = params! {
             "points" => groom.roots.clone(),
@@ -545,26 +539,13 @@ impl GpuGroomer {
         self.grid.bind(&mut p);
         batch.dispatch_folded(&self.kernels.cover_count, &p, vertices)?;
 
-        // Hair over the skin: its density on a grid of four millimetres.
         let reach = 0.024f32;
-        let pad = Vec3::splat(reach + 0.004);
-        let grid = Grid::over(bounds[0] - pad, bounds[1] + pad, 0.004);
-        let grid = if grid.cells() > 32 << 20 {
-            let cell = ((bounds[1] - bounds[0] + pad * 2.0).max_component()) / 300.0;
-            Grid::over(bounds[0] - pad, bounds[1] + pad, cell)
-        } else {
-            grid
-        };
-        let head = upload(&context, &[[0.0f32; 4]; 17], "hair no body")?;
-        self.record_density(batch, groom, grid, 1.0, 0, &head)?;
-        let density =
+        let CoverDensity { grid, density } =
+            self.record_cover_density(batch, groom, bounds, reach)?;
+        let raw =
             self.scratch
-                .density
-                .fit(&context, grid.cells() as u64 * 4, "hair density")?;
-        let raw = self
-            .scratch
-            .cover
-            .fit(&context, vertices as u64 * 8, "hair cover")?;
+                .cover
+                .fit(&context, (vertices as u64 * 8).into(), "hair cover".into())?;
         let mut p = params! {
             "head_points" => head_points,
             "head_normals" => head_normals,
@@ -581,14 +562,18 @@ impl GpuGroomer {
         batch.dispatch_folded(&self.kernels.cover_finish, &p, vertices)?;
 
         // Smoothed over the mesh, three passes, into a buffer of its own.
-        let spare = storage(&context, vertices as u64 * 8, "hair cover smoothing")?;
+        let spare = storage(
+            &context,
+            (vertices as u64 * 8).into(),
+            "hair cover smoothing".into(),
+        )?;
         // Drawn from directly: the head's second vertex buffer.
         let out = Buffer::new(
             &context,
             (vertices as u64 * 8).into(),
             BufferDefinition::storage()
                 .with_usage(BufferUse::Vertex)
-                .with_label(("hair head cover").into()),
+                .with_label("hair head cover".into()),
         )?;
         let passes = [(&raw, &spare), (&spare, &raw), (&raw, &out)];
         for (from, to) in passes {

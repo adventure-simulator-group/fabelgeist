@@ -86,8 +86,8 @@ impl Curl {
                         return;
                     };
                     parameters(strand, lengths, factors);
-                    let phase0 = rng::unit(ids[g], seed) * 3.9
-                        + rng::unit(ids[s], seed ^ 0xC0FF) * self.random_offset;
+                    let phase0 = rng::unit((ids[g]).word(), seed) * 3.9
+                        + rng::unit((ids[s]).word(), seed ^ 0xC0FF) * self.random_offset;
                     // The root stays attached whatever the ease.
                     for (j, p) in strand.iter_mut().enumerate().skip(1) {
                         let t = factors[j];

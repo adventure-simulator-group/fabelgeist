@@ -129,11 +129,12 @@ impl Clump {
                     let tip = guide.at_factor(1.0);
                     let mut gather = Vec3::default();
                     if self.tip_spread != 0.0 {
-                        let r = rng::signed_vec3(ids[s], seed) * self.tip_spread;
+                        let r = rng::signed_vec3((ids[s]).word(), seed) * self.tip_spread;
                         gather += tip.normal * r.x + tip.binormal() * r.y + tip.tangent * r.z;
                     }
                     if self.clump_offset != 0.0 {
-                        let r = rng::signed_vec3(ids[g], seed ^ 0x0FF5) * self.clump_offset;
+                        let r =
+                            rng::signed_vec3((ids[g]).word(), seed ^ 0x0FF5) * self.clump_offset;
                         gather += tip.normal * r.x + tip.binormal() * r.y;
                     }
 
@@ -188,6 +189,7 @@ impl Clump {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::identity::{PartingGroup, StrandId};
     use crate::strands::Attachment;
 
     /// Parallel straight strands on a line of roots.
@@ -202,8 +204,8 @@ mod tests {
                 &positions,
                 Attachment {
                     normal: Vec3::up(),
-                    id: i as u32,
-                    group: -1,
+                    id: StrandId::from_word(i as u32),
+                    group: PartingGroup::Unassigned,
                     ..Default::default()
                 },
             );

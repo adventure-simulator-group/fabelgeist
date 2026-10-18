@@ -740,19 +740,19 @@ ceiling = 899
 
 [[files]]
 path = "crates/fabelgeist-hair/src/gpu/grow.rs"
-ceiling = 813
+ceiling = 810
 
 [[files]]
 path = "crates/fabelgeist-hair/src/gpu/lods.rs"
-ceiling = 550
+ceiling = 536
 
 [[files]]
 path = "crates/fabelgeist-hair/src/gpu/mod.rs"
-ceiling = 552
+ceiling = 520
 
 [[files]]
 path = "crates/fabelgeist-hair/src/gpu/sim.rs"
-ceiling = 657
+ceiling = 650
 
 [[files]]
 path = "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs"
@@ -773,14 +773,6 @@ ceiling = 514
 [[files]]
 path = "crates/fabelgeist-hair/src/gpu/wgsl/sim.rs"
 ceiling = 1444
-
-[[files]]
-path = "crates/fabelgeist-hair/src/hairdo.rs"
-ceiling = 517
-
-[[files]]
-path = "crates/fabelgeist-hair/src/look.rs"
-ceiling = 562
 
 [[files]]
 path = "crates/fabelgeist-hair/src/render/mod.rs"
@@ -2906,49 +2898,34 @@ item = "CardMesh::build"
 ceiling = 120
 
 [[functions]]
-path = "crates/fabelgeist-hair/src/export/ply.rs"
-item = "read"
-ceiling = 103
-
-[[functions]]
 path = "crates/fabelgeist-hair/src/gpu/grow.rs"
 item = "GpuGroomer::grow"
-ceiling = 218
+ceiling = 214
 
 [[functions]]
 path = "crates/fabelgeist-hair/src/gpu/grow.rs"
 item = "GpuGroomer::record_ops"
-ceiling = 312
-
-[[functions]]
-path = "crates/fabelgeist-hair/src/gpu/guides.rs"
-item = "GpuGroomer::record_hairdo_guides"
-ceiling = 135
+ceiling = 301
 
 [[functions]]
 path = "crates/fabelgeist-hair/src/gpu/lods.rs"
 item = "GpuGroomer::lods_against"
-ceiling = 148
+ceiling = 136
 
 [[functions]]
 path = "crates/fabelgeist-hair/src/gpu/lods.rs"
 item = "GpuGroomer::record_cards"
-ceiling = 135
-
-[[functions]]
-path = "crates/fabelgeist-hair/src/gpu/lods.rs"
-item = "GpuGroomer::record_cover"
-ceiling = 103
+ceiling = 129
 
 [[functions]]
 path = "crates/fabelgeist-hair/src/gpu/scalp.rs"
 item = "GpuGroomer::cut_scalp"
-ceiling = 267
+ceiling = 264
 
 [[functions]]
 path = "crates/fabelgeist-hair/src/gpu/sim.rs"
 item = "GpuGroomer::make_sim"
-ceiling = 182
+ceiling = 162
 
 [[functions]]
 path = "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs"
@@ -3012,18 +2989,13 @@ ceiling = 134
 
 [[functions]]
 path = "crates/fabelgeist-hair/src/look.rs"
-item = "Look::groom"
-ceiling = 152
-
-[[functions]]
-path = "crates/fabelgeist-hair/src/look.rs"
 item = "Look::new"
 ceiling = 177
 
 [[functions]]
 path = "crates/fabelgeist-hair/src/look.rs"
 item = "Look::random"
-ceiling = 164
+ceiling = 126
 
 [[functions]]
 path = "crates/fabelgeist-hair/src/occlusion.rs"
