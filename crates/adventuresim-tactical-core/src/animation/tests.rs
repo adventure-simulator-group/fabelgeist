@@ -182,7 +182,7 @@ mod legacy_tests {
         library.insert(pack("b", Some("a"), [])).unwrap();
         assert_eq!(
             library.validate_structure(),
-            Err(PackValidationError::FallbackCycle("a".to_owned()))
+            Err(PackValidationError::FallbackCycle(AnimationPackId::from("a")))
         );
     }
 
