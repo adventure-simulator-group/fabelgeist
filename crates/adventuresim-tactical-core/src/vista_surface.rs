@@ -247,12 +247,30 @@ pub fn vista_triangle_height(
     terrain: &SceneTerrain,
     point: Vec2,
 ) -> Option<f32> {
+    sampled_vista_triangle_height(
+        lod,
+        coarser,
+        Some(terrain),
+        Vec2::new(terrain.width(), terrain.depth()) * 0.5,
+        point,
+    )
+}
+
+/// Sample the rendered ring in canonical east/north metres. The inner rectangle
+/// and optional playable seam are the same inputs used by sampled ring meshing.
+pub fn sampled_vista_triangle_height(
+    lod: &VistaLod,
+    coarser: Option<&VistaLod>,
+    terrain: Option<&SceneTerrain>,
+    inner_half_extent: Vec2,
+    point: Vec2,
+) -> Option<f32> {
     let local = point
         - Vec2::new(
             lod.origin_east_metres as f32,
             lod.origin_north_metres as f32,
         );
-    let half = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
+    let half = inner_half_extent;
     let size = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1));
     let cell = (local / lod.spacing_metres + size * 0.5).floor();
     if cell.cmplt(Vec2::ZERO).any() || cell.cmpge(size).any() {
@@ -261,15 +279,12 @@ pub fn vista_triangle_height(
     let minimum = (cell - size * 0.5) * lod.spacing_metres;
     let maximum = minimum + Vec2::splat(lod.spacing_metres);
     for rectangle in cell_rectangles_outside_inner_rectangle(minimum, maximum, half) {
-        for [x0, x1, z0, z1] in
-            subdivide_playable_boundary_rectangle(rectangle, half, Some(terrain))
-        {
+        for [x0, x1, z0, z1] in subdivide_playable_boundary_rectangle(rectangle, half, terrain) {
             if local.x < x0 || local.x > x1 || local.y < z0 || local.y > z1 {
                 continue;
             }
-            let vertex = |x, z| {
-                presented_vista_vertex_height(lod, coarser, Some(terrain), Vec2::new(x, z), half)
-            };
+            let vertex =
+                |x, z| presented_vista_vertex_height(lod, coarser, terrain, Vec2::new(x, z), half);
             let a = vertex(x0, z0)?;
             let b = vertex(x1, z0)?;
             let c = vertex(x1, z1)?;

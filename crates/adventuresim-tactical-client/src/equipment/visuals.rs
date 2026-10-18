@@ -23,13 +23,11 @@ impl Plugin for EquipmentVisualPlugin {
                     .in_set(EquipmentVisualSystems),
             );
         app.init_resource::<RuntimeEquipmentBodyCache>()
-            .init_resource::<RuntimeEquipmentWarmup>()
             .add_systems(
                 Update,
                 (
                     runtime_equipment::prepare_runtime_equipment_body,
-                    runtime_equipment::warmup::prepare,
-                    generate_runtime_equipment_models.run_if(runtime_equipment::warmup::ready),
+                    generate_runtime_equipment_models,
                 )
                     .chain()
                     .in_set(EquipmentVisualSystems)
