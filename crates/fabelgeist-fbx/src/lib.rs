@@ -17,7 +17,7 @@ use std::collections::HashMap;
 use std::io::Read;
 
 use anyhow::{Context, Result, anyhow, bail};
-use array_encoding::FbxArrayEncodingCode;
+use array_encoding::FbxArrayEncoding;
 use array_layout::{FbxArrayCount, FbxArrayPayloadLength};
 use binary_layout::{
     BINARY_MAGIC_PREFIX, FILE_HEADER_BYTES, FILE_VERSION_OFFSET, FbxVersion, HeaderFormat,
@@ -26,6 +26,7 @@ use flate2::read::ZlibDecoder;
 use property_tag::FbxPropertyTag;
 
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
+pub use array_encoding::UnsupportedFbxArrayEncoding;
 
 pub mod animation;
 
@@ -263,7 +264,7 @@ impl<'a> Reader<'a> {
         parse: impl Fn([u8; WIDTH]) -> T,
     ) -> Result<Vec<T>> {
         let count = FbxArrayCount::from_le_bytes(self.take_array()?);
-        let encoding = FbxArrayEncodingCode::from_le_bytes(self.take_array()?);
+        let encoding = FbxArrayEncoding::try_from_le_bytes(self.take_array()?)?;
         let payload_length = FbxArrayPayloadLength::from_le_bytes(self.take_array()?);
         let raw = self.take(payload_length.native_len())?;
         decode_array(raw, count, encoding, parse)
@@ -443,17 +444,18 @@ pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
 fn decode_array<T: Copy, const WIDTH: usize>(
     raw: &[u8],
     count: FbxArrayCount,
-    encoding: FbxArrayEncodingCode,
+    encoding: FbxArrayEncoding,
     parse: impl Fn([u8; WIDTH]) -> T,
 ) -> Result<Vec<T>> {
-    let bytes = if encoding.is_uncompressed() {
-        raw.to_vec()
-    } else {
-        let mut out = Vec::with_capacity(count.native_byte_len::<WIDTH>());
-        ZlibDecoder::new(raw)
-            .read_to_end(&mut out)
-            .context("inflating FBX array property")?;
-        out
+    let bytes = match encoding {
+        FbxArrayEncoding::Uncompressed => raw.to_vec(),
+        FbxArrayEncoding::Zlib => {
+            let mut out = Vec::with_capacity(count.native_byte_len::<WIDTH>());
+            ZlibDecoder::new(raw)
+                .read_to_end(&mut out)
+                .context("inflating FBX array property")?;
+            out
+        }
     };
     if bytes.len() < count.native_byte_len::<WIDTH>() {
         bail!(

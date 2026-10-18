@@ -6,8 +6,6 @@
 //! rounded result unless its true value lies within about `2^-44` of a unit
 //! of a rounding boundary -- about one argument in a million.
 
-use std::fmt::Write;
-
 /// Terms of the sine series `r^(2k+1) / (2k+1)!` over an eighth turn; the
 /// next is below `2^-64` of the first.
 const SINE_TERMS: u32 = 9;
@@ -53,25 +51,34 @@ fn double_float(value: f64) -> String {
     format!("vec2<f32>({}, {})", literal(high), literal(low))
 }
 
-/// A WGSL function evaluating a double-float polynomial in `z` by Horner's
-/// rule; `coefficients` run from the constant term up.
-fn horner(name: &str, coefficients: impl DoubleEndedIterator<Item = f64>) -> String {
-    let mut coefficients = coefficients.rev();
-    let leading = coefficients.next().expect("a polynomial has a term");
-    let mut source = format!(
-        "fn {name}(z: vec2<f32>) -> vec2<f32> {{\n    var sum = {};\n",
-        double_float(leading)
+/// A WGSL function evaluating a nonempty double-float polynomial in `z` by
+/// Horner's rule; the four series below supply fixed positive term counts.
+fn horner<const N: usize>(name: &str, coefficients: [f64; N]) -> String {
+    let coefficients = coefficients
+        .into_iter()
+        .rev()
+        .map(double_float)
+        .collect::<Vec<_>>()
+        .join(",\n        ");
+    // A runtime zero keeps the bounded loop from expanding every fenced
+    // multiply/add into each caller. Coefficients and evaluation order remain
+    // exactly the same as the expanded Horner sequence.
+    // Instruction-footprint reference:
+    // https://developer.nvidia.com/blog/improving-gpu-performance-by-reducing-instruction-cache-misses-2/
+    format!(
+        "fn {name}(z: vec2<f32>) -> vec2<f32> {{
+    const coefficients = array<vec2<f32>, {N}>(
+        {coefficients}
     );
-    for coefficient in coefficients {
-        writeln!(
-            source,
-            "    sum = df_add(df_mul(sum, z), {});",
-            double_float(coefficient)
-        )
-        .expect("writing to a string");
-    }
-    source.push_str("    return sum;\n}\n");
-    source
+    var sum = coefficients[0];
+    let count = {N}u + host_zero();
+    for (var index = 1u; index < count; index++) {{
+        sum = df_add(df_mul(sum, z), coefficients[index]);
+    }}
+    return sum;
+}}
+"
+    )
 }
 
 fn factorial(n: u32) -> f64 {
@@ -86,37 +93,30 @@ fn alternating(k: u32) -> f64 {
 pub(super) fn source() -> String {
     let mut source = String::from(OPERATIONS);
     for (k, part) in QUARTER_TURN.iter().enumerate() {
-        writeln!(
-            source,
-            "const DF_QUARTER_TURN_{k}: f32 = {};",
+        source.push_str(&format!(
+            "const DF_QUARTER_TURN_{k}: f32 = {};\n",
             literal(*part)
-        )
-        .expect("writing to a string");
+        ));
     }
     for (k, part) in LN_2.iter().enumerate() {
-        writeln!(source, "const DF_LN_2_{k}: f32 = {};", literal(*part))
-            .expect("writing to a string");
+        source.push_str(&format!("const DF_LN_2_{k}: f32 = {};\n", literal(*part)));
     }
-    writeln!(
-        source,
-        "const DF_TWO_OVER_PI: f32 = {};\nconst DF_LOG2_E: f32 = {};",
+    source.push_str(&format!(
+        "const DF_TWO_OVER_PI: f32 = {};\nconst DF_LOG2_E: f32 = {};\n",
         literal(std::f32::consts::FRAC_2_PI),
         literal(std::f32::consts::LOG2_E)
-    )
-    .expect("writing to a string");
-    source += &horner(
-        "df_sine_series",
-        (0..SINE_TERMS).map(|k| alternating(k) / factorial(2 * k + 1)),
-    );
-    source += &horner(
-        "df_cosine_series",
-        (0..COSINE_TERMS).map(|k| alternating(k) / factorial(2 * k)),
-    );
-    source += &horner(
-        "df_atanh_series",
-        (0..LOG_TERMS).map(|k| 2.0 / f64::from(2 * k + 1)),
-    );
-    source += &horner("df_exp_series", (0..EXP_TERMS).map(|k| 1.0 / factorial(k)));
+    ));
+    let sine: [f64; SINE_TERMS as usize] =
+        std::array::from_fn(|k| alternating(k as u32) / factorial(2 * k as u32 + 1));
+    let cosine: [f64; COSINE_TERMS as usize] =
+        std::array::from_fn(|k| alternating(k as u32) / factorial(2 * k as u32));
+    let logarithm: [f64; LOG_TERMS as usize] =
+        std::array::from_fn(|k| 2.0 / f64::from(2 * k as u32 + 1));
+    let exponential: [f64; EXP_TERMS as usize] = std::array::from_fn(|k| 1.0 / factorial(k as u32));
+    source += &horner("df_sine_series", sine);
+    source += &horner("df_cosine_series", cosine);
+    source += &horner("df_atanh_series", logarithm);
+    source += &horner("df_exp_series", exponential);
     source += FUNCTIONS;
     source
 }

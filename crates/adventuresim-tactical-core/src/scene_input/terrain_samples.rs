@@ -1,4 +1,5 @@
 //! Captured geographic samples shared by all scene representations.
+use adventuresim_world_schema::source_package::SourcePackageDigest;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
@@ -104,36 +105,5 @@ mod tests {
         );
         assert!(serde_json::from_str::<VistaLevelIndex>("-1").is_err());
         assert!(serde_json::from_str::<VistaLevelIndex>("256").is_err());
-    }
-}
-
-/// SHA-256 of the imported terrain source package. This authority is distinct
-/// from geographic triangle content and immutable scene placement bindings.
-#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
-#[serde(transparent)]
-pub struct SourcePackageDigest(String);
-impl SourcePackageDigest {
-    pub fn from_hex(value: &str) -> Result<Self, super::SceneValidationError> {
-        if value.len() != 64
-            || !value
-                .bytes()
-                .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
-        {
-            return Err(super::SceneValidationError::SourceDigest);
-        }
-        Ok(Self(value.into()))
-    }
-    pub fn as_str(&self) -> &str {
-        &self.0
-    }
-}
-impl std::fmt::Display for SourcePackageDigest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(f)
-    }
-}
-impl<'de> Deserialize<'de> for SourcePackageDigest {
-    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
-        Self::from_hex(&String::deserialize(d)?).map_err(serde::de::Error::custom)
     }
 }

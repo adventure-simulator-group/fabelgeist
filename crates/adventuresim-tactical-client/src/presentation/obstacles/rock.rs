@@ -4,71 +4,97 @@ use fabelgeist_determinism::StreamId;
 
 const BOULDER_GRID_SAMPLES: usize = 18;
 
-fn rock_field(recipe: RockRecipe, point: Vec3) -> f32 {
-    let dimensions = Vec3::from_array(recipe.dimensions_metres());
-    let half_extents = dimensions * 0.5;
-    let normalized = point / half_extents;
-    let phase = StreamId::new("visual.obstacles.rock.phase")
-        .rng(recipe.seed, &[])
-        .inclusive_unit_f32()
-        * core::f32::consts::TAU;
-    let (sin_phase, cos_phase) = phase.sin_cos();
-    let oriented = Vec3::new(
-        normalized.x * cos_phase - normalized.z * sin_phase,
-        normalized.y,
-        normalized.x * sin_phase + normalized.z * cos_phase,
-    );
-    let broad = (normalized.dot(Vec3::new(2.73, 1.91, 2.27)) + phase).sin();
-    let cross = (normalized.dot(Vec3::new(-1.37, 3.11, 1.73)) - phase * 0.61).sin();
-    let radius = 0.84 + broad * 0.055 + cross * 0.035;
-    let shape = match recipe.archetype {
-        RockArchetype::Rounded => {
-            let softly_faceted = oriented.abs().dot(Vec3::new(0.48, 0.58, 0.46)) / 0.88;
-            normalized.length().lerp(softly_faceted, 0.17)
+/// Recipe constants for the native scene-metre surface sampling kernel.
+struct RockField {
+    archetype: RockArchetype,
+    half_extents: Vec3,
+    phase: f32,
+    sin_phase: f32,
+    cos_phase: f32,
+    radius: f32,
+}
+
+impl RockField {
+    fn new(recipe: RockRecipe) -> Self {
+        let dimensions = Vec3::from_array(recipe.dimensions_metres());
+        let phase = StreamId::new("visual.obstacles.rock.phase")
+            .rng(recipe.seed, &[])
+            .inclusive_unit_f32()
+            * core::f32::consts::TAU;
+        let (sin_phase, cos_phase) = phase.sin_cos();
+        Self {
+            archetype: recipe.archetype,
+            half_extents: dimensions * 0.5,
+            phase,
+            sin_phase,
+            cos_phase,
+            radius: recipe.collision_radius_metres(),
         }
-        RockArchetype::Angular => {
-            let primary = oriented.abs().max_element() * 0.72 + normalized.length() * 0.28;
-            let fracture = oriented.dot(Vec3::new(0.61, 0.27, -0.74)).abs() / 0.94;
-            primary.max(fracture * 0.92)
-        }
-        RockArchetype::Slab => {
-            let bedded = (oriented.x.abs().powi(6)
-                + (oriented.y * 1.13).abs().powi(4)
-                + oriented.z.abs().powi(6))
-            .powf(1.0 / 6.0);
-            let cleaved = oriented.dot(Vec3::new(-0.72, 0.18, 0.66)).abs() / 0.96;
-            bedded.max(cleaved * 0.9)
-        }
-    };
-    let ground_contact = -normalized.y
-        - match recipe.archetype {
-            RockArchetype::Rounded => 0.63,
-            RockArchetype::Angular => 0.69,
-            RockArchetype::Slab => 0.74,
+    }
+
+    fn sample(&self, point: Vec3) -> f32 {
+        let normalized = point / self.half_extents;
+        let phase = self.phase;
+        let sin_phase = self.sin_phase;
+        let cos_phase = self.cos_phase;
+        let oriented = Vec3::new(
+            normalized.x * cos_phase - normalized.z * sin_phase,
+            normalized.y,
+            normalized.x * sin_phase + normalized.z * cos_phase,
+        );
+        let broad = (normalized.dot(Vec3::new(2.73, 1.91, 2.27)) + phase).sin();
+        let cross = (normalized.dot(Vec3::new(-1.37, 3.11, 1.73)) - phase * 0.61).sin();
+        let radius = 0.84 + broad * 0.055 + cross * 0.035;
+        let shape = match self.archetype {
+            RockArchetype::Rounded => {
+                let softly_faceted = oriented.abs().dot(Vec3::new(0.48, 0.58, 0.46)) / 0.88;
+                normalized.length().lerp(softly_faceted, 0.17)
+            }
+            RockArchetype::Angular => {
+                let primary = oriented.abs().max_element() * 0.72 + normalized.length() * 0.28;
+                let fracture = oriented.dot(Vec3::new(0.61, 0.27, -0.74)).abs() / 0.94;
+                primary.max(fracture * 0.92)
+            }
+            RockArchetype::Slab => {
+                let bedded = (oriented.x.abs().powi(6)
+                    + (oriented.y * 1.13).abs().powi(4)
+                    + oriented.z.abs().powi(6))
+                .powf(1.0 / 6.0);
+                let cleaved = oriented.dot(Vec3::new(-0.72, 0.18, 0.66)).abs() / 0.96;
+                bedded.max(cleaved * 0.9)
+            }
         };
-    let side_chip = match recipe.archetype {
-        RockArchetype::Rounded => oriented.dot(Vec3::new(0.78, 0.31, 0.54)) - 0.73,
-        RockArchetype::Angular => oriented.dot(Vec3::new(-0.55, 0.43, 0.71)) - 0.57,
-        RockArchetype::Slab => oriented.dot(Vec3::new(0.64, 0.12, -0.76)) - 0.66,
-    };
-    // The procedural render surface is always contained by the server's
-    // conservative sphere proxy, irrespective of archetype or field detail.
-    let proxy_bound = point.length() / recipe.collision_radius_metres() - 0.94;
-    (shape - radius)
-        .max(ground_contact)
-        .max(side_chip)
-        .max(proxy_bound)
+        let ground_contact = -normalized.y
+            - match self.archetype {
+                RockArchetype::Rounded => 0.63,
+                RockArchetype::Angular => 0.69,
+                RockArchetype::Slab => 0.74,
+            };
+        let side_chip = match self.archetype {
+            RockArchetype::Rounded => oriented.dot(Vec3::new(0.78, 0.31, 0.54)) - 0.73,
+            RockArchetype::Angular => oriented.dot(Vec3::new(-0.55, 0.43, 0.71)) - 0.57,
+            RockArchetype::Slab => oriented.dot(Vec3::new(0.64, 0.12, -0.76)) - 0.66,
+        };
+        // The procedural render surface is always contained by the server's
+        // conservative sphere proxy, irrespective of archetype or field detail.
+        let proxy_bound = point.length() / self.radius - 0.94;
+        (shape - radius)
+            .max(ground_contact)
+            .max(side_chip)
+            .max(proxy_bound)
+    }
 }
 
 pub(in crate::presentation) fn procedural_rock_mesh(recipe: RockRecipe) -> Mesh {
-    let radius = recipe.collision_radius_metres();
+    let field = RockField::new(recipe);
+    let radius = field.radius;
     extract_surface_nets(
         SurfaceNetsGrid {
             sample_counts: [BOULDER_GRID_SAMPLES; 3],
             minimum: Vec3::splat(-radius),
             maximum: Vec3::splat(radius),
         },
-        |point| rock_field(recipe, point),
+        |point| field.sample(point),
     )
     .expect("bounded rock recipe produces a finite client field")
     .into_mesh()
@@ -224,8 +250,9 @@ mod tests {
         ] {
             let recipe = recipe(fabelgeist_determinism::Seed::from_u64(17), archetype);
             let radius = recipe.collision_radius_metres();
-            assert!(rock_field(recipe, Vec3::new(0.0, -radius, 0.0)) > 0.0);
-            assert!(rock_field(recipe, Vec3::ZERO) < 0.0);
+            let field = RockField::new(recipe);
+            assert!(field.sample(Vec3::new(0.0, -radius, 0.0)) > 0.0);
+            assert!(field.sample(Vec3::ZERO) < 0.0);
         }
         let point = Vec3::new(0.45, 0.28, -0.51);
         let values = [
@@ -234,10 +261,11 @@ mod tests {
             RockArchetype::Slab,
         ]
         .map(|archetype| {
-            rock_field(
-                recipe(fabelgeist_determinism::Seed::from_u64(17), archetype),
-                point,
-            )
+            RockField::new(recipe(
+                fabelgeist_determinism::Seed::from_u64(17),
+                archetype,
+            ))
+            .sample(point)
             .to_bits()
         });
         assert_ne!(values[0], values[1]);

@@ -1,22 +1,49 @@
 use super::*;
 
+pub(super) fn install_requests(app: &mut App) {
+    app.add_systems(Startup, request_animation_packs);
+    #[cfg(target_family = "wasm")]
+    app.add_systems(
+        Update,
+        request_animation_packs
+            .run_if(resource_changed::<crate::browser_runtime::BrowserMode>)
+            .before(collect_loaded_packs),
+    );
+}
+
 pub(super) fn request_animation_packs(
     catalog: Res<AnimationPackCatalog>,
     asset_server: Res<AssetServer>,
     mut runtime: ResMut<AnimationRuntime>,
+    #[cfg(target_family = "wasm")] mode: Res<crate::browser_runtime::BrowserMode>,
 ) {
-    runtime.requested_base = Some(asset_server.load(animation_asset_path(BIPED_BASE_GLB)));
+    if runtime.requested_base.is_none() {
+        runtime.requested_base = Some(asset_server.load(animation_asset_path(BIPED_BASE_GLB)));
+    }
     for grip in WeaponGrip::ALL {
         runtime
             .requested_grips
-            .insert(grip, asset_server.load(animation_asset_path(grip.path())));
+            .entry(grip)
+            .or_insert_with(|| asset_server.load(animation_asset_path(grip.path())));
     }
     for (pack_id, pack) in &catalog.packs {
         for (motion_id, source) in &pack.motions {
-            runtime.requested_motions.insert(
-                (pack_id.clone(), motion_id.clone()),
-                asset_server.load(animation_asset_path(&source.path)),
-            );
+            // Strategic portraits and street characters stand in relaxed idle.
+            // Combat and locomotion clips join the persistent asset cache when
+            // the player enters tactical play.
+            #[cfg(target_family = "wasm")]
+            if *mode == crate::browser_runtime::BrowserMode::Strategic
+                && !pack
+                    .poses
+                    .get(&SemanticPose::IdleRelaxed)
+                    .is_some_and(|anchor| anchor.motion == *motion_id)
+            {
+                continue;
+            }
+            runtime
+                .requested_motions
+                .entry((pack_id.clone(), motion_id.clone()))
+                .or_insert_with(|| asset_server.load(animation_asset_path(&source.path)));
         }
     }
     if let Err(error) = runtime.library.validate_structure() {
