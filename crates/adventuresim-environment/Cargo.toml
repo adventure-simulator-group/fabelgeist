@@ -23,6 +23,7 @@ viewer = [
   "dep:fabelgeist-gpu",
   "dep:pollster",
   "dep:clap",
+  "dep:serde_json",
 ]
 
 [dependencies]
@@ -39,6 +40,7 @@ bevy_panorbit_camera = { workspace = true, optional = true }
 fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false, optional = true }
 pollster = { version = "0.4", optional = true }
 clap = { workspace = true, optional = true }
+serde_json = { workspace = true, optional = true }
 
 [lints]
 workspace = true

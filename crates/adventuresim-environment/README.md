@@ -39,6 +39,9 @@ where branches meet or lay litter on the ground.
 
 ## Environment viewer
 
+See [Forest component measurements](BENCHMARKS.md) for the bounded,
+machine-readable generation and rendering benchmark workflow.
+
 The `environment-viewer` binary watches a scene grow. Botany's simulation
 thread and snapshots come from the `fabelgeist_botany::viewer` module; the
 Bevy app, its forest renderer and its egui interface live here, outside the

@@ -12,6 +12,7 @@ use bevy_eidolon::prelude::*;
 use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance, PlantInstance, Snapshot};
 
 use super::ForestDetail;
+use super::benchmark::{ForestBenchmark, ForestPart};
 use super::levels::{Level, LevelView};
 use super::materials::ForestMaterials;
 use super::records::fingerprint;
@@ -174,6 +175,7 @@ pub(super) fn show(
     placement: &Placement,
     Chunks(mut chunks): Chunks,
     shown: &mut Shown,
+    probe: Option<&ForestBenchmark>,
 ) {
     for (entity, mut chunk, mut data, mut aabb) in shown.iter_mut() {
         let Some(gathered) = chunks.remove(&chunk.key) else {
@@ -189,6 +191,7 @@ pub(super) fn show(
         chunk.fingerprint = gathered.fingerprint;
     }
     for (key, gathered) in chunks {
+        let instance_count = gathered.instances.len();
         let level = placement.view.level(
             &gathered.aabb,
             gathered.radius,
@@ -219,6 +222,14 @@ pub(super) fn show(
             Visibility::Inherited,
         ));
         placement.forest.dress(&mut chunk, key.foliage, level);
+        if let Some(probe) = probe {
+            let part = if key.foliage {
+                ForestPart::Leaves
+            } else {
+                ForestPart::Branches
+            };
+            probe.expect_chunk(chunk.id(), instance_count, part);
+        }
     }
 }
 

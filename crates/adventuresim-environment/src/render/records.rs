@@ -15,6 +15,7 @@ use bevy::render::storage::{GpuShaderBuffer, ShaderBuffer};
 use bevy::render::{MainWorld, Render, RenderApp, RenderSystems};
 use fabelgeist_botany::viewer::sim::Snapshot;
 
+use super::benchmark::ForestBenchmark;
 use super::materials::SpeciesRecord;
 
 /// A buffer's smallest size, bytes: a binding may not be empty.
@@ -180,20 +181,40 @@ struct BufferWrite {
     buffer: AssetId<ShaderBuffer>,
     bytes: Vec<u8>,
     waited: u32,
+    probe: Option<ForestBenchmark>,
 }
 
 /// Writes queued on the main thread, until the render thread takes them.
 #[derive(Resource, Default)]
-pub(super) struct PendingWrites(Vec<BufferWrite>);
+pub(super) struct PendingWrites {
+    writes: Vec<BufferWrite>,
+    probe: Option<ForestBenchmark>,
+}
 
 impl PendingWrites {
+    pub(super) fn observe(&mut self, probe: ForestBenchmark) {
+        self.probe = Some(probe);
+    }
+
     /// Queue `bytes` for `buffer`, in place of any older bytes for it.
     fn queue(&mut self, buffer: AssetId<ShaderBuffer>, bytes: Vec<u8>) {
-        self.0.retain(|write| write.buffer != buffer);
-        self.0.push(BufferWrite {
+        self.writes.retain(|write| {
+            if write.buffer == buffer {
+                if let Some(probe) = &write.probe {
+                    probe.superseded();
+                }
+                return false;
+            }
+            true
+        });
+        if let Some(probe) = &self.probe {
+            probe.queued();
+        }
+        self.writes.push(BufferWrite {
             buffer,
             bytes,
             waited: 0,
+            probe: self.probe.clone(),
         });
     }
 }
@@ -216,8 +237,16 @@ pub(super) fn install(app: &mut App) {
 
 fn take_writes(mut main: ResMut<MainWorld>, mut taken: ResMut<RenderWrites>) {
     let mut pending = main.resource_mut::<PendingWrites>();
-    for write in pending.0.drain(..) {
-        taken.0.retain(|older| older.buffer != write.buffer);
+    for write in pending.writes.drain(..) {
+        taken.0.retain(|older| {
+            if older.buffer == write.buffer {
+                if let Some(probe) = &older.probe {
+                    probe.superseded();
+                }
+                return false;
+            }
+            true
+        });
         taken.0.push(write);
     }
 }
@@ -232,9 +261,17 @@ fn write(
     writes.0.retain_mut(|write| {
         let Some(gpu) = buffers.get(write.buffer) else {
             write.waited += 1;
+            if write.waited >= PATIENCE
+                && let Some(probe) = &write.probe
+            {
+                probe.discarded();
+            }
             return write.waited < PATIENCE;
         };
         queue.write_buffer(&gpu.buffer, 0, &write.bytes);
+        if let Some(probe) = &write.probe {
+            probe.submitted(write.bytes.len());
+        }
         false
     });
 }

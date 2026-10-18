@@ -12,11 +12,13 @@ use std::path::PathBuf;
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
-use adventuresim_environment::render::{ForestFeed, ForestPlugin};
+use adventuresim_environment::render::benchmark::ForestBenchmark;
+use adventuresim_environment::render::{ForestDetail, ForestFeed, ForestPlugin};
 use anyhow::Result;
 use bevy::app::{AppExit, ScheduleRunnerPlugin};
 use bevy::camera::RenderTarget;
 use bevy::diagnostic::DiagnosticsStore;
+use bevy::ecs::system::SystemParam;
 use bevy::prelude::*;
 use bevy::render::diagnostic::RenderDiagnosticsPlugin;
 use bevy::render::render_resource::TextureFormat;
@@ -32,6 +34,7 @@ use fabelgeist_botany::viewer::profile::Profile;
 use fabelgeist_botany::viewer::sim::{self, Snapshot};
 use fabelgeist_gpu::globals::WgpuContext;
 
+use crate::benchmark::{self, Measurement, Preparation, Readback};
 use crate::stage::{self, Orbit};
 
 /// The image's size, pixels.
@@ -72,6 +75,7 @@ pub struct Request {
     pub orbit: bool,
     /// Hand the forest the snapshot again every this many timed frames.
     pub refeed: Option<u32>,
+    pub benchmark: Option<benchmark::Request>,
 }
 
 /// The grown scene, waiting to be shown, and where the frame goes.
@@ -94,16 +98,49 @@ struct Still {
     captured: bool,
 }
 
+#[derive(SystemParam)]
+struct CaptureObservation<'w> {
+    diagnostics: Option<Res<'w, DiagnosticsStore>>,
+    measurement: Option<ResMut<'w, Measurement>>,
+    probe: Option<Res<'w, ForestBenchmark>>,
+    exit: MessageWriter<'w, AppExit>,
+}
+
 /// Grow the scene and render it headless, then leave.
 pub fn run(mut request: Request) -> Result<()> {
+    let scene_started = Instant::now();
     let ecosystem = request.ecosystem.take().unwrap_or_else(|| {
         request
             .scene
             .build(fabelgeist_determinism::Seed::from_u64(1))
     });
-    let (snapshot, orbit) = grow(ecosystem, &request)?;
+    let scene_time = scene_started.elapsed();
+    let (snapshot, orbit, mut preparation) = grow(ecosystem, &request)?;
+    preparation.scene = scene_time;
+    let detail = ForestDetail {
+        tube_sides: request.profile.tube_sides,
+        tube_spans: request.profile.tube_spans,
+        leaf_blades: request.profile.leaf_blades,
+        full_pixels: request.profile.full_pixels,
+        middle_pixels: request.profile.middle_pixels,
+        leaves: true,
+    };
+    let measurement = request.benchmark.take().map(|benchmark| {
+        let probe = ForestBenchmark::new(benchmark.started);
+        probe.expect_snapshot(snapshot.branches.len(), snapshot.leaves.len());
+        let measurement = Measurement::new(
+            benchmark,
+            preparation,
+            request.scene.name().into(),
+            &snapshot,
+            detail,
+            orbit,
+        );
+        (probe, measurement)
+    });
     let mut app = App::new();
     app.insert_resource(ClearColor(stage::SKY))
+        .insert_resource(detail)
         .add_plugins(
             DefaultPlugins
                 .set(WindowPlugin {
@@ -131,9 +168,14 @@ pub fn run(mut request: Request) -> Result<()> {
         })
         .add_systems(Startup, (setup, stage::sun))
         .add_systems(Update, (show, step).chain());
+    let observed = measurement.is_some();
+    if let Some((probe, measurement)) = measurement {
+        probe.install(&mut app);
+        app.insert_resource(measurement);
+    }
     if request.frames.is_some() {
         app.add_plugins(RenderDiagnosticsPlugin);
-        if let Some(render) = app.get_sub_app_mut(RenderApp) {
+        if !observed && let Some(render) = app.get_sub_app_mut(RenderApp) {
             render.add_systems(Render, wait_for_gpu.in_set(RenderSystems::Cleanup));
         }
     }
@@ -142,16 +184,21 @@ pub fn run(mut request: Request) -> Result<()> {
 }
 
 /// Grow `ecosystem` for the years asked, and frame its snapshot.
-fn grow(ecosystem: Ecosystem, request: &Request) -> Result<(Snapshot, Orbit)> {
+fn grow(ecosystem: Ecosystem, request: &Request) -> Result<(Snapshot, Orbit, Preparation)> {
+    let gpu_started = Instant::now();
     let context = pollster::block_on(WgpuContext::new())?;
     let mut ecosystem = ecosystem.with_gpu(context)?;
+    let gpu_setup = gpu_started.elapsed();
     ecosystem.settings.dt = request.profile.step_years;
     let steps = (request.years / ecosystem.settings.dt.duration().years()).ceil() as usize;
     let started = Instant::now();
     for _ in 0..steps {
         pollster::block_on(ecosystem.step())?;
     }
+    let growth = started.elapsed();
+    let packing_started = Instant::now();
     let snapshot = sim::capture(&ecosystem, &request.profile, 1, true, 0.0);
+    let packing = packing_started.elapsed();
     println!(
         "{}: {:.0} years in {:.1} s, {} plants, {} segments, {} leaf clusters",
         request.scene.name(),
@@ -178,7 +225,16 @@ fn grow(ecosystem: Ecosystem, request: &Request) -> Result<(Snapshot, Orbit)> {
         orbit.yaw = yaw;
     }
     orbit.radius /= framing.zoom;
-    Ok((snapshot, orbit))
+    Ok((
+        snapshot,
+        orbit,
+        Preparation {
+            gpu_setup,
+            growth,
+            packing,
+            ..Default::default()
+        },
+    ))
 }
 
 /// A camera drawing into an image instead of a window.
@@ -208,9 +264,31 @@ fn step(
     mut still: ResMut<Still>,
     mut feed: ResMut<ForestFeed>,
     mut cameras: Query<&mut Transform, With<Camera3d>>,
-    diagnostics: Option<Res<DiagnosticsStore>>,
+    observation: CaptureObservation,
 ) {
+    let CaptureObservation {
+        diagnostics,
+        mut measurement,
+        probe,
+        mut exit,
+    } = observation;
+    if let (Some(measurement), Some(probe)) = (measurement.as_ref(), probe.as_ref())
+        && let Err(error) = measurement.check(probe)
+    {
+        error!("{error}");
+        exit.write(AppExit::error());
+        return;
+    }
     if still.captured || (still.drawn.is_none() && !feed.is_drawn()) {
+        return;
+    }
+    if let Some(measurement) = measurement.as_mut() {
+        measurement.handoff_finished();
+    }
+    if probe
+        .as_ref()
+        .is_some_and(|probe| probe.counts().first_submission_micros.is_none())
+    {
         return;
     }
     let drawn = *still.drawn.get_or_insert_with(Instant::now);
@@ -219,6 +297,9 @@ fn step(
         return;
     }
     if let Some(frames) = still.frames {
+        if let Some(measurement) = measurement.as_mut() {
+            measurement.frame();
+        }
         let started = *still.timing.get_or_insert_with(Instant::now);
         let timed = still.timed;
         still.timed += 1;
@@ -245,8 +326,39 @@ fn step(
     };
     still.captured = true;
     let path = still.path.clone();
-    commands.spawn(Screenshot::image(target)).observe(
-        move |captured: On<ScreenshotCaptured>, mut exit: MessageWriter<AppExit>| {
+    capture(&mut commands, target, path);
+}
+
+fn capture(commands: &mut Commands, target: Handle<Image>, path: PathBuf) {
+    commands.spawn(Screenshot::image(target.clone())).observe(
+        move |captured: On<ScreenshotCaptured>,
+              mut commands: Commands,
+              mut measurement: Option<ResMut<Measurement>>,
+              probe: Option<Res<ForestBenchmark>>,
+              mut exit: MessageWriter<AppExit>| {
+            if let Some(measurement) = measurement.as_mut() {
+                let Some(probe) = probe.as_ref() else {
+                    error!("the foliage benchmark probe is missing");
+                    exit.write(AppExit::error());
+                    return;
+                };
+                match measurement.readback(&captured.image, probe) {
+                    Ok(Readback::Repeat) => {
+                        let attempt = measurement.readback_number();
+                        save_to_disk(path.with_extension(format!("readback-{attempt:02}.png")))(
+                            captured,
+                        );
+                        capture(&mut commands, target.clone(), path.clone());
+                        return;
+                    }
+                    Ok(Readback::Stable) => {}
+                    Err(error) => {
+                        error!("{error}");
+                        exit.write(AppExit::error());
+                        return;
+                    }
+                }
+            }
             save_to_disk(path.clone())(captured);
             println!("wrote {}", path.display());
             exit.write(AppExit::Success);

@@ -22,6 +22,7 @@
 //! frames the tallest plant instead of the whole scene, looking at `--aim`
 //! of its height; `--solo conifer` grows one plant of a species alone.
 
+mod benchmark;
 mod frame_times;
 mod hotbar;
 mod hud;
@@ -39,6 +40,7 @@ mod widgets;
 mod world;
 
 use std::path::PathBuf;
+use std::time::Instant;
 
 use adventuresim_environment::render::ForestPlugin;
 use adventuresim_environment::{SoloSpecies, scene_named};
@@ -95,9 +97,13 @@ struct Options {
     /// Hand the forest the snapshot again every this many timed frames.
     #[arg(long)]
     refeed: Option<u32>,
+    /// Save stage timings and two stable readbacks for one frozen snapshot.
+    #[arg(long, requires = "snapshot", conflicts_with_all = ["refeed", "orbit"])]
+    benchmark_report: Option<PathBuf>,
 }
 
 fn main() -> anyhow::Result<()> {
+    let started = Instant::now();
     let options = Options::parse();
     let scene = match &options.scene {
         Some(name) => scene_named(name)?,
@@ -121,6 +127,9 @@ fn main() -> anyhow::Result<()> {
             frames: options.frames,
             orbit: options.orbit,
             refeed: options.refeed,
+            benchmark: options
+                .benchmark_report
+                .map(|report| benchmark::Request { report, started }),
         });
     }
     let [width, height] = WINDOW_SIZE;

@@ -12,6 +12,7 @@
 //! An application feeds it with [`ForestFeed::show`] and tunes it with
 //! [`ForestDetail`].
 
+pub mod benchmark;
 mod chunks;
 mod feed;
 mod ground;
