@@ -15,10 +15,11 @@ use fabelgeist_gpu::prelude::*;
 use fabelgeist_xpbd::{
     ParticleCapacity, ParticleCount, ParticleInputCount, Particles, SubstepHook,
 };
-mod hash_layout;
 use hash_layout::CollisionTableSize;
 
 use crate::wgsl;
+
+mod hash_layout;
 
 /// The hash grid, its buffers, and the passes over them.
 pub struct SelfCollision {
@@ -63,7 +64,8 @@ impl SelfCollision {
         adjacency: &[Vec<u32>],
         radius: f32,
     ) -> Result<Self> {
-        if ParticleInputCount::from(adjacency.len()).gpu_count() != particle_count {
+        let adjacency_count = ParticleCount::try_from(ParticleInputCount::from(adjacency.len()))?;
+        if adjacency_count != particle_count {
             return Err(anyhow!(
                 "SelfCollision: {particle_count} particles but {} adjacency lists",
                 adjacency.len()

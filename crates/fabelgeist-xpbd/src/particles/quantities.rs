@@ -2,6 +2,7 @@
 use super::ParticlePositionRecord;
 use anyhow::{Result, ensure};
 use fabelgeist_gpu::prelude::{BufferByteLength, PassParameter};
+use thiserror::Error;
 
 /// Particle records in a native GPU prefix, distinct from allocated capacity.
 /// This cardinality does not prove that the records belong to an allocation.
@@ -13,6 +14,30 @@ use fabelgeist_gpu::prelude::{BufferByteLength, PassParameter};
 /// ```
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
 pub struct ParticleCount(u32);
+
+/// Requested allocation size; an empty request reserves one sentinel record.
+/// This does not prove device support, allocation identity, or active length.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct ParticleCapacity(u32);
+
+/// Full host cardinality, before checked conversion to the native GPU word.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
+pub struct ParticleInputCount(usize);
+
+/// The parallel mass input has its own admission and diagnostic role.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(super) struct InverseMassCount(usize);
+
+/// A host particle count cannot fit the native GPU's unsigned count word.
+#[derive(Clone, Copy, Debug, Error, PartialEq, Eq)]
+#[error(
+    "Particle count {input} exceeds the native GPU maximum of {}",
+    u32::MAX
+)]
+pub struct ParticleCountOverflow {
+    pub input: ParticleInputCount,
+}
+
 impl From<u32> for ParticleCount {
     fn from(particles: u32) -> Self {
         Self(particles)
@@ -43,9 +68,9 @@ impl ParticleCount {
     pub fn record_bytes(self) -> BufferByteLength {
         (u64::from(self.0) * std::mem::size_of::<ParticlePositionRecord>() as u64).into()
     }
-    pub(super) fn admit_replacement(self, actual: ParticleInputCount) -> Result<()> {
+    pub(super) fn admit_replacement(self, actual: ParticleCount) -> Result<()> {
         ensure!(
-            actual.gpu_count() == self,
+            actual == self,
             "Particles::write_positions: holds {} particles, given {}",
             self,
             actual
@@ -54,10 +79,16 @@ impl ParticleCount {
     }
 }
 
-/// Physical particle allocation; an empty request reserves one sentinel record.
-/// Capacity never establishes the number of currently uploaded particles.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct ParticleCapacity(u32);
+impl TryFrom<ParticleInputCount> for ParticleCount {
+    type Error = ParticleCountOverflow;
+
+    fn try_from(input: ParticleInputCount) -> std::result::Result<Self, Self::Error> {
+        u32::try_from(input.0)
+            .map(Self)
+            .map_err(|_| ParticleCountOverflow { input })
+    }
+}
+
 impl From<u32> for ParticleCapacity {
     fn from(particles: u32) -> Self {
         Self(particles.max(1))
@@ -94,9 +125,9 @@ impl ParticleCapacity {
     pub fn index_bytes(self) -> BufferByteLength {
         (u64::from(self.0) * std::mem::size_of::<u32>() as u64).into()
     }
-    pub(super) fn admit(self, actual: ParticleInputCount) -> Result<()> {
+    pub(super) fn admit(self, actual: ParticleCount) -> Result<()> {
         ensure!(
-            self.contains(actual.gpu_count()),
+            self.contains(actual),
             "Particles::write: capacity is {}, given {}",
             self,
             actual
@@ -105,9 +136,6 @@ impl ParticleCapacity {
     }
 }
 
-/// Full host cardinality, before the native GPU's unsigned-word narrowing.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
-pub struct ParticleInputCount(usize);
 impl From<usize> for ParticleInputCount {
     fn from(particles: usize) -> Self {
         Self(particles)
@@ -124,10 +152,6 @@ impl std::fmt::Display for ParticleInputCount {
     }
 }
 impl ParticleInputCount {
-    /// Truncate to the native word width, without proving allocation or bounds.
-    pub fn gpu_count(self) -> ParticleCount {
-        ParticleCount(self.0 as u32)
-    }
     pub(super) fn admit_masses(self, masses: InverseMassCount) -> Result<()> {
         ensure!(
             self.0 == masses.0,
@@ -139,9 +163,6 @@ impl ParticleInputCount {
     }
 }
 
-/// The parallel mass input has its own admission and diagnostic role.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) struct InverseMassCount(usize);
 impl From<usize> for InverseMassCount {
     fn from(masses: usize) -> Self {
         Self(masses)

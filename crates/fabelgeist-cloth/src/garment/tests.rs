@@ -99,7 +99,10 @@ fn builds_a_single_panel() {
     assert_eq!(mesh.panel_count(), 1);
     assert_eq!(
         mesh.panel_offsets,
-        vec![0, u32::from(mesh.particle_count().gpu_count())]
+        vec![
+            0,
+            u32::from(fabelgeist_xpbd::ParticleCount::try_from(mesh.particle_count()).unwrap())
+        ]
     );
     assert!(mesh.seams.is_empty(), "one panel has nothing to sew to");
 
@@ -276,7 +279,9 @@ fn rejects_a_nonsense_resolution() {
 fn panel_lookup_covers_every_particle() {
     let (panels, seams) = tube();
     let mesh = build(&panels, &seams, 0.04, 0.2.into()).unwrap();
-    for particle in 0..u32::from(mesh.particle_count().gpu_count()) {
+    for particle in
+        0..u32::from(fabelgeist_xpbd::ParticleCount::try_from(mesh.particle_count()).unwrap())
+    {
         let panel = mesh.panel_of(particle);
         assert!(panel < mesh.panel_count());
         assert!(particle >= mesh.panel_offsets[panel]);

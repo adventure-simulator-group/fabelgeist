@@ -1,16 +1,17 @@
 //! Particle state on the GPU.
 
 use crate::ParticleInverseMass;
-mod quantities;
 use fabelgeist_gpu::prelude::BufferUse;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
-use quantities::InverseMassCount;
-pub use quantities::{ParticleCapacity, ParticleCount, ParticleInputCount};
-mod packed;
 pub use packed::{
     ParticlePositionRecord, ParticlePositions, ParticleVelocities, ParticleVelocityRecord,
 };
+use quantities::InverseMassCount;
+pub use quantities::{ParticleCapacity, ParticleCount, ParticleCountOverflow, ParticleInputCount};
+
+mod packed;
+mod quantities;
 
 /// Positions, the previous substep's positions, and velocities.
 ///
@@ -71,10 +72,10 @@ impl Particles {
         positions: &[Vec3],
         inverse_masses: &[ParticleInverseMass],
     ) -> Result<Self> {
-        let mut particles = Self::new(
-            context,
-            ParticleInputCount::from(positions.len()).gpu_count().into(),
-        )?;
+        let input = ParticleInputCount::from(positions.len());
+        input.admit_masses(InverseMassCount::from(inverse_masses.len()))?;
+        let count = ParticleCount::try_from(input)?;
+        let mut particles = Self::new(context, ParticleCapacity::from(count))?;
         particles.write(context, positions, inverse_masses)?;
         Ok(particles)
     }
@@ -94,8 +95,9 @@ impl Particles {
         positions: &[Vec3],
         inverse_masses: &[ParticleInverseMass],
     ) -> Result<()> {
-        let count = ParticleInputCount::from(positions.len());
-        count.admit_masses(InverseMassCount::from(inverse_masses.len()))?;
+        let input = ParticleInputCount::from(positions.len());
+        input.admit_masses(InverseMassCount::from(inverse_masses.len()))?;
+        let count = ParticleCount::try_from(input)?;
         self.capacity.admit(count)?;
 
         let packed = ParticlePositions::new(positions, inverse_masses)?;
@@ -103,7 +105,7 @@ impl Particles {
         self.previous.write(context, packed.upload())?;
         self.velocities
             .write(context, ParticleVelocities::at_rest(&packed).upload())?;
-        self.count = count.gpu_count();
+        self.count = count;
         self.inverse_masses = inverse_masses.to_vec();
         Ok(())
     }
@@ -116,8 +118,8 @@ impl Particles {
     /// Overwrite positions, keeping the inverse masses. Used to re-drape a
     /// garment from a fresh layout without rebuilding the constraints.
     pub fn write_positions(&mut self, context: &WgpuContext, positions: &[Vec3]) -> Result<()> {
-        self.count
-            .admit_replacement(ParticleInputCount::from(positions.len()))?;
+        let count = ParticleCount::try_from(ParticleInputCount::from(positions.len()))?;
+        self.count.admit_replacement(count)?;
         let masses = std::mem::take(&mut self.inverse_masses);
         let result = self.write(context, positions, &masses);
         self.inverse_masses = masses;
