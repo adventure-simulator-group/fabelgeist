@@ -113,7 +113,7 @@ fn resolve_asset_dir(path: &Path) -> Result<PathBuf> {
 }
 
 impl Mhr {
-    /// Loads MHR through `fabelgeist-fs`, including `prism://project`, HTTP/blob,
+    /// Loads MHR through `fabelgeist-fs`, including `project://`, HTTP/blob,
     /// browser File System Access handles, and native filesystem paths.
     pub async fn from_uri(asset_dir: &str, config: MhrConfig, device: &Device) -> Result<Self> {
         if !(MIN_LOD..=MAX_LOD).contains(&config.lod) {

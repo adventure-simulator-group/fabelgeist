@@ -641,7 +641,7 @@ pub async fn read_bytes(uri: &str) -> Result<Vec<u8>> {
     }
 
     let mut is_project_relative = false;
-    let clean_uri = if let Some(path) = uri.strip_prefix("prism://project/") {
+    let clean_uri = if let Some(path) = uri.strip_prefix("project://") {
         is_project_relative = true;
         path
     } else if let Some(path) = uri.strip_prefix("file:///") {
@@ -709,7 +709,7 @@ pub async fn write_bytes(uri: &str, data: &[u8]) -> Result<()> {
     }
 
     let mut is_project_relative = false;
-    let clean_uri = if let Some(path) = uri.strip_prefix("prism://project/") {
+    let clean_uri = if let Some(path) = uri.strip_prefix("project://") {
         is_project_relative = true;
         path
     } else if let Some(path) = uri.strip_prefix("file:///") {
@@ -758,7 +758,7 @@ pub async fn write_bytes(uri: &str, data: &[u8]) -> Result<()> {
 
     #[cfg(not(target_arch = "wasm32"))]
     {
-        let path = if let Some(path) = uri.strip_prefix("prism://project/") {
+        let path = if let Some(path) = uri.strip_prefix("project://") {
             path
         } else {
             uri.strip_prefix("file://").unwrap_or(uri)
@@ -856,7 +856,7 @@ async fn load_http(uri: &str) -> Result<Vec<u8>> {
 
 #[cfg(not(target_arch = "wasm32"))]
 async fn load_file(_uri: &str) -> Result<Vec<u8>> {
-    let path = if let Some(path) = _uri.strip_prefix("prism://project/") {
+    let path = if let Some(path) = _uri.strip_prefix("project://") {
         path
     } else {
         _uri.strip_prefix("file://").unwrap_or(_uri)
