@@ -6,7 +6,7 @@ use super::*;
 /// dive travel. Dive clips are upper-body-only; their root/pelvis/leg tracks
 /// are masked out before this pass. The directional load supplies the lower
 /// launch pose and blends to the authored ground contact only after impact.
-pub(super) fn apply_procedural_dive_lower_body(
+pub(in crate::animation) fn apply_procedural_dive_lower_body(
     owners: Query<&PresentedSkeleton>,
     mut bones: Query<(&HumanoidBone, &AuthoredBindTransform, &mut Transform)>,
 ) {

@@ -14,7 +14,7 @@ pub(super) mod plugin;
 
 pub struct TacticalAnimationPlugin;
 
-fn playback_tuning() -> AnimationPlaybackConfig {
+pub(super) fn playback_tuning() -> AnimationPlaybackConfig {
     runtime_animation_config().playback
 }
 
