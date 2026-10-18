@@ -74,6 +74,22 @@ boundaries. The native array decoder determines the element width used with
 the count. These conversions retain the existing host-size casts and
 multiplication; they add no allocation limit or overflow policy.
 
+The selected native decoder's fixed-size input determines the element layout:
+32-bit and 64-bit floats, 32-bit and 64-bit integers, or Boolean bytes. Raw data
+is copied before its decoded-length check; compressed data reserves capacity
+before inflation. Extra decoded bytes remain ignored, and Boolean arrays retain
+every byte value. Host multiplication, overflow and allocator behavior retain
+their existing policies.
+
+The array-layout regression fixture records 282 public-parser observations.
+Independent native records cover both header layouts, all five element layouts,
+zero/one/two/three declarations, raw and Zlib payloads, short and extra data,
+corrupt compressed input, exact float bits and Boolean bytes. Its 140 cases
+using codes 7 or 4294967295 report the canonical unsupported-encoding error;
+the other 142 observations retain their exact output. Large raw declarations
+fit 32-bit native multiplication, while extreme compressed capacities are not
+executed. No 32-bit runtime or allocator-safety verdict is claimed.
+
 ## Property tags
 
 The binary FBX model-file reader converts each one-byte property tag into the

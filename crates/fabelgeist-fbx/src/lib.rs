@@ -561,6 +561,8 @@ fn qualified_name(raw: &[u8]) -> String {
 #[cfg(test)]
 mod array_encoding_tests;
 #[cfg(test)]
+mod array_layout_tests;
+#[cfg(test)]
 mod binary_layout_tests;
 #[cfg(test)]
 mod property_count_tests;
