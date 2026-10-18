@@ -6,8 +6,9 @@ use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
 
 use crate::{
-    CompliancePerSubstep, ConstraintMultiplier, ConstraintSet, ConstraintViolation,
-    ParticleInverseMass, ParticleMobility, Particles, ProjectionActivity, Solver, SolverSettings,
+    ColorCount, ColorRange, CompliancePerSubstep, ConstraintCount, ConstraintEdges,
+    ConstraintMultiplier, ConstraintSet, ConstraintViolation, ParticleInverseMass,
+    ParticleMobility, Particles, ProjectionActivity, Solver, SolverSettings,
 };
 
 /// The XPBD distance projection, written out on the host.
@@ -27,7 +28,7 @@ struct ReferenceConstraints {
     /// Particle pairs, in colour order.
     edges: Vec<[u32; 2]>,
     rest_lengths: Vec<f32>,
-    ranges: Vec<u32>,
+    ranges: Vec<ColorRange>,
     compliance: f32,
 }
 
@@ -59,10 +60,9 @@ impl Reference {
 
             let mut lambdas = vec![ConstraintMultiplier::ZERO; constraints.edges.len()];
             for _ in 0..settings.iterations.max(1) {
-                for color in 0..constraints.ranges.len() - 1 {
-                    let range =
-                        constraints.ranges[color] as usize..constraints.ranges[color + 1] as usize;
-                    for c in range {
+                for range in &constraints.ranges {
+                    for slot in range.slots() {
+                        let c = usize::from(slot);
                         let [a, b] = constraints.edges[c].map(|i| i as usize);
                         let inverse_a = self.inverse_masses[a];
                         let inverse_b = self.inverse_masses[b];
@@ -143,7 +143,7 @@ async fn run(
         &context,
         &cache,
         "distance",
-        edges,
+        &ConstraintEdges::from(edges),
         rest_lengths,
         compliance,
     )?;
@@ -159,11 +159,15 @@ async fn run(
 
     // The same run on the host, using the colour order the set chose.
     let coloring = set.coloring();
-    let ordered_edges: Vec<[u32; 2]> = coloring.order.iter().map(|&i| edges[i as usize]).collect();
-    let ordered_rest: Vec<f32> = coloring
-        .order
+    let ordered_edges: Vec<[u32; 2]> = coloring
+        .order()
         .iter()
-        .map(|&i| rest_lengths[i as usize])
+        .map(|&i| edges[usize::from(i)])
+        .collect();
+    let ordered_rest: Vec<f32> = coloring
+        .order()
+        .iter()
+        .map(|&i| rest_lengths[usize::from(i)])
         .collect();
 
     let mut reference = Reference {
@@ -175,7 +179,7 @@ async fn run(
     let mut reference_constraints = ReferenceConstraints {
         edges: ordered_edges,
         rest_lengths: ordered_rest,
-        ranges: coloring.ranges.clone(),
+        ranges: coloring.colors().collect(),
         compliance,
     };
     for _ in 0..steps {
@@ -357,8 +361,14 @@ async fn a_stiff_chain_holds_its_length() -> Result<()> {
     let context = WgpuContext::new().await?;
     let cache = KernelCache::new();
     let particles = Particles::from_positions(&context, &positions, &inverse_masses)?;
-    let mut set =
-        ConstraintSet::distance(&context, &cache, "distance", &edges, &rest_lengths, 0.0)?;
+    let mut set = ConstraintSet::distance(
+        &context,
+        &cache,
+        "distance",
+        &ConstraintEdges::from(edges.as_slice()),
+        &rest_lengths,
+        0.0,
+    )?;
     let solver = Solver::with_cache(
         &context,
         &cache,
@@ -408,7 +418,7 @@ async fn compliance_orders_the_stretch() -> Result<()> {
             &context,
             &cache,
             "distance",
-            &edges,
+            &ConstraintEdges::from(edges.as_slice()),
             &rest_lengths,
             compliance,
         )?;
@@ -487,9 +497,16 @@ async fn a_colored_grid_solves_without_racing() -> Result<()> {
     let context = WgpuContext::new().await?;
     let cache = KernelCache::new();
     let particles = Particles::from_positions(&context, &positions, &inverse_masses)?;
-    let mut set = ConstraintSet::distance(&context, &cache, "stretch", &edges, &rest_lengths, 0.0)?;
+    let mut set = ConstraintSet::distance(
+        &context,
+        &cache,
+        "stretch",
+        &ConstraintEdges::from(edges.as_slice()),
+        &rest_lengths,
+        0.0,
+    )?;
     assert!(
-        set.color_count() >= 4,
+        set.color_count() >= ColorCount::from(4),
         "a grid needs at least four colours, got {}",
         set.color_count()
     );
@@ -536,7 +553,15 @@ async fn rejects_mismatched_inputs() -> Result<()> {
     let cache = KernelCache::new();
 
     assert!(
-        ConstraintSet::distance(&context, &cache, "bad", &[[0, 1]], &[1.0, 2.0], 0.0).is_err(),
+        ConstraintSet::distance(
+            &context,
+            &cache,
+            "bad",
+            &ConstraintEdges::from([[0, 1]].as_slice()),
+            &[1.0, 2.0],
+            0.0
+        )
+        .is_err(),
         "one edge with two rest lengths must be rejected"
     );
 
@@ -563,8 +588,15 @@ async fn handles_empty_constraint_sets() -> Result<()> {
     let context = WgpuContext::new().await?;
     let cache = KernelCache::new();
     let particles = Particles::from_positions(&context, &[Vec3::default()], &[1.0.into()])?;
-    let mut set = ConstraintSet::distance(&context, &cache, "none", &[], &[], 0.0)?;
-    assert_eq!(set.constraint_count(), 0);
+    let mut set = ConstraintSet::distance(
+        &context,
+        &cache,
+        "none",
+        &ConstraintEdges::default(),
+        &[],
+        0.0,
+    )?;
+    assert_eq!(set.constraint_count(), ConstraintCount::from(0));
 
     let solver = Solver::with_cache(&context, &cache, SolverSettings::default())?;
     solver.step(&context, &particles, &mut [&mut set], &mut (), 1.0 / 60.0)?;

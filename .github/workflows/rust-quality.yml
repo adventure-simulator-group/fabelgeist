@@ -62,6 +62,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 2
       - name: Install pinned Rust toolchain
         uses: dtolnay/rust-toolchain@master
         with:
@@ -131,6 +132,28 @@ jobs:
           cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
           cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
           cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
+      - name: Test constraint graph and shell consumers
+        timeout-minutes: 20
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p target/constraint-validation
+          git rev-parse HEAD | tee target/constraint-validation/source.txt
+          printf '%s\n' "$EXPECTED_SOURCE" > target/constraint-validation/pr-head.txt
+          git merge-base --is-ancestor "$EXPECTED_SOURCE" HEAD
+          export XDG_RUNTIME_DIR="$RUNNER_TEMP/constraint-runtime"
+          mkdir -p "$XDG_RUNTIME_DIR"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          cargo test --locked --package fabelgeist-xpbd --package fabelgeist-shell -- --test-threads=1 2>&1 | tee target/constraint-validation/tests.log
+          git diff --exit-code -- Cargo.lock crates/adventuresim-character-creator/Cargo.lock crates/fabelgeist-mhr/Cargo.lock crates/fabelgeist-numpy-storage/Cargo.lock
+      - name: Upload constraint validation evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: constraint-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/constraint-validation/
+          if-no-files-found: error
       - name: Record rig contract revision
         env:
           EXPECTED_RIG_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
