@@ -1,6 +1,6 @@
 //! Machine epsilon is a precision parameter, not an absolute tolerance.
 
-use std::collections::HashSet;
+use std::{collections::HashSet, path::Path};
 
 use proc_macro2::{Span, TokenStream, TokenTree};
 use quote::ToTokens;
@@ -22,7 +22,7 @@ struct EpsilonReferences<'a> {
     path: &'a str,
     owners: Vec<String>,
     findings: Vec<Finding>,
-    float_modules: &'a HashSet<String>,
+    float_globs: &'a HashSet<(usize, usize)>,
     locations: HashSet<(usize, usize)>,
 }
 
@@ -61,21 +61,23 @@ impl EpsilonReferences<'_> {
         }
     }
 
-    fn import(&mut self, tree: &syn::UseTree, module: &str) {
+    fn import(&mut self, tree: &syn::UseTree) {
         // Report imports before they can hide precision behind a local name.
         match tree {
-            syn::UseTree::Path(path) => self.import(&path.tree, &path.ident.to_string()),
+            syn::UseTree::Path(path) => self.import(&path.tree),
             syn::UseTree::Name(name) if name.ident == EPSILON_MEMBER => {
                 self.record(name.ident.span())
             }
             syn::UseTree::Rename(name) if name.ident == EPSILON_MEMBER => {
                 self.record(name.ident.span())
             }
-            syn::UseTree::Group(group) => group
-                .items
-                .iter()
-                .for_each(|tree| self.import(tree, module)),
-            syn::UseTree::Glob(glob) if self.float_modules.contains(module) => {
+            syn::UseTree::Group(group) => group.items.iter().for_each(|tree| self.import(tree)),
+            syn::UseTree::Glob(glob)
+                if {
+                    let position = glob.star_token.span.start();
+                    self.float_globs.contains(&(position.line, position.column))
+                } =>
+            {
                 // A float-module glob can conceal bare EPSILON in expressions
                 // and macros. Reject the import itself, including its aliases.
                 self.record(glob.star_token.span);
@@ -166,41 +168,56 @@ impl<'ast> Visit<'ast> for EpsilonReferences<'_> {
     }
 
     fn visit_item_use(&mut self, item: &'ast syn::ItemUse) {
-        self.import(&item.tree, "");
+        self.import(&item.tree);
     }
 
     fn visit_macro(&mut self, item: &'ast Macro) {
         for import in imports::token_imports(item.tokens.clone()) {
-            self.import(&import.tree, "");
+            self.import(&import.tree);
         }
         self.tokens(item.tokens.clone());
     }
 }
 
-pub fn check_files(files: &[ParsedFile]) -> Vec<Finding> {
-    let float_modules = imports::float_module_aliases(files.iter().map(|file| &file.syntax));
+pub fn check_files(root: &Path, files: &[ParsedFile]) -> Result<Vec<Finding>, String> {
+    let globs = imports::float_globs(Some(root), files)?;
+    Ok(check_with_globs(files, &globs))
+}
+
+fn check_with_globs(files: &[ParsedFile], globs: &imports::FloatGlobs) -> Vec<Finding> {
+    let empty = HashSet::new();
     files
         .iter()
-        .flat_map(|file| check_with_modules(&file.path, &file.syntax, &float_modules))
+        .flat_map(|file| {
+            check_references(
+                &file.path,
+                &file.syntax,
+                globs.get(&file.path).unwrap_or(&empty),
+            )
+        })
         .collect()
 }
 
 #[cfg(test)]
 pub fn check_file(path: &str, syntax: &syn::File) -> Vec<Finding> {
-    let float_modules = imports::float_module_aliases([syntax]);
-    check_with_modules(path, syntax, &float_modules)
+    let files = [ParsedFile {
+        path: path.into(),
+        syntax: syntax.clone(),
+    }];
+    let globs = imports::float_globs(None, &files).unwrap();
+    check_with_globs(&files, &globs)
 }
 
-fn check_with_modules(
+fn check_references(
     path: &str,
     syntax: &syn::File,
-    float_modules: &HashSet<String>,
+    float_globs: &HashSet<(usize, usize)>,
 ) -> Vec<Finding> {
     let mut checker = EpsilonReferences {
         path,
         owners: Vec::new(),
         findings: Vec::new(),
-        float_modules,
+        float_globs,
         locations: HashSet::new(),
     };
     checker.visit_file(syntax);
