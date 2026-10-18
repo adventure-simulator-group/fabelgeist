@@ -29,7 +29,7 @@ use combat_state::incapacitation_wheel_segments;
 use combat_state::{combat_state_label, forecast_wheel_segments};
 
 #[cfg(feature = "debug")]
-use crate::animation::TerrainIkEnabled;
+use crate::animation::TerrainIkMode;
 #[cfg(feature = "debug")]
 use crate::camera::{CameraDebugEnabled, CameraRigDebugState};
 #[cfg(feature = "debug")]
@@ -602,11 +602,11 @@ fn update_camera_ui(
 
 #[cfg(feature = "debug")]
 fn update_terrain_ik_debug_ui(
-    enabled: Res<TerrainIkEnabled>,
+    enabled: Res<TerrainIkMode>,
     mut span: Single<&mut TextSpan, With<TerrainIkDebugSpan>>,
 ) {
     if enabled.is_changed() {
-        span.0 = if enabled.0 {
+        span.0 = if enabled.is_enabled() {
             " | F8 terrain IK: ON".to_owned()
         } else {
             " | F8 terrain IK: OFF".to_owned()

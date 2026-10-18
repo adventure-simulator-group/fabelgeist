@@ -17,7 +17,7 @@ pub(super) struct WeightedClip {
 pub(super) fn append_weighted_anchor(
     weighted: &mut Vec<WeightedClip>,
     resolved: &ResolvedAnchor,
-    frame: u16,
+    frame: AuthoredAnimationFrame,
     weight: f32,
     layer: ClipLayer,
 ) -> AnimationValueResult<()> {

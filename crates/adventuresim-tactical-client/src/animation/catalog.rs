@@ -4,7 +4,7 @@ use std::{collections::BTreeMap, str::FromStr};
 #[cfg(test)]
 use std::path::{Path, PathBuf};
 
-use super::catalog_id::{AnimationAssetPath, MotionId};
+use super::catalog_id::{AnimationAssetPath, AuthoredAnimationFrame, MotionId};
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
 
@@ -37,20 +37,20 @@ pub(super) struct PackCatalog {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(super) struct MotionSource {
     pub(super) path: AnimationAssetPath,
-    pub(super) required_last_frame: u16,
-    pub(super) last_frame: u16,
+    pub(super) required_last_frame: AuthoredAnimationFrame,
+    pub(super) last_frame: AuthoredAnimationFrame,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(super) struct PoseAnchor {
     pub(super) motion: MotionId,
-    pub(super) frame: u16,
+    pub(super) frame: AuthoredAnimationFrame,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(super) struct ReferenceAnchor {
     pub(super) pose: SemanticPose,
-    pub(super) frame: u16,
+    pub(super) frame: AuthoredAnimationFrame,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -86,11 +86,16 @@ impl PackBuilder {
         }
     }
 
-    pub(super) fn motion(&mut self, id: &str, last_frame: u16) {
+    pub(super) fn motion(&mut self, id: &str, last_frame: AuthoredAnimationFrame) {
         self.variable_motion(id, last_frame, last_frame);
     }
 
-    pub(super) fn variable_motion(&mut self, id: &str, required_last_frame: u16, last_frame: u16) {
+    pub(super) fn variable_motion(
+        &mut self,
+        id: &str,
+        required_last_frame: AuthoredAnimationFrame,
+        last_frame: AuthoredAnimationFrame,
+    ) {
         self.pack.motions.insert(
             MotionId::from(id),
             MotionSource {
@@ -104,7 +109,7 @@ impl PackBuilder {
     pub(super) fn pose(
         &mut self,
         motion: &str,
-        frame: u16,
+        frame: AuthoredAnimationFrame,
         pose: SemanticPose,
     ) -> Result<(), CatalogError> {
         let motion = MotionId::from(motion);
@@ -131,7 +136,7 @@ impl PackBuilder {
     pub(super) fn reference(
         &mut self,
         motion: &str,
-        frame: u16,
+        frame: AuthoredAnimationFrame,
         pose: &str,
     ) -> Result<(), CatalogError> {
         let motion = MotionId::from(motion);
@@ -153,32 +158,6 @@ impl PackBuilder {
     }
 }
 
-fn add_attack_motions(builder: &mut PackBuilder) -> Result<(), CatalogError> {
-    builder.variable_motion("swing", 4, 12);
-    for (frame, pose) in [
-        (0, SemanticPose::GuardSwing),
-        (4, SemanticPose::AttackSwing),
-        (8, SemanticPose::RecoverSwing),
-        (12, SemanticPose::ContinueSwing),
-    ] {
-        builder.pose("swing", frame, pose)?;
-    }
-    builder.variable_motion("thrust", 4, 12);
-    for (frame, pose) in [
-        (0, SemanticPose::GuardThrust),
-        (4, SemanticPose::AttackThrust),
-        (8, SemanticPose::RecoverThrust),
-        (12, SemanticPose::ContinueThrust),
-    ] {
-        builder.pose("thrust", frame, pose)?;
-    }
-    builder.variable_motion("offhand", 0, 4);
-    builder.pose("offhand", 0, SemanticPose::GuardOffhand)?;
-    builder.pose("offhand", 0, SemanticPose::AttackOffhand)?;
-    builder.pose("offhand", 4, SemanticPose::AttackOffhandPrepared)?;
-    Ok(())
-}
-
 impl AnimationPackCatalog {
     pub(super) fn biped_root() -> Result<Self, CatalogError> {
         let mut builder = PackBuilder::new(
@@ -188,38 +167,14 @@ impl AnimationPackCatalog {
             "animations/biped/unarmed",
         );
         for pose in ["idle_relaxed", "prone_idle", "supine_idle"] {
-            builder.motion(pose, 0);
+            builder.motion(pose, AuthoredAnimationFrame::from(0u16));
             builder.pose(
                 pose,
-                0,
+                AuthoredAnimationFrame::from(0u16),
                 SemanticPose::from_str(pose).expect("typed catalog pose"),
             )?;
         }
-        for (motion, last_frame, anchors) in [
-            ("walk", 64, [(0, "walk_contact"), (16, "walk_passing")]),
-            ("run", 64, [(0, "run_contact"), (16, "run_flight")]),
-        ] {
-            builder.motion(motion, last_frame);
-            for (frame, pose) in anchors {
-                builder.pose(
-                    motion,
-                    frame,
-                    SemanticPose::from_str(pose).expect("typed catalog pose"),
-                )?;
-            }
-        }
-        builder.motion("combat_stance", 0);
-        builder.pose("combat_stance", 0, SemanticPose::CombatStance)?;
-        // The authored combat locomotion files expose keys at 0/6/12/18. The
-        // publication pipeline closes each cycle by copying frame 0 to frame
-        // 24, so frames 6/18 remain the two authoritative contacts.
-        for (motion, pose) in [
-            ("strafe", SemanticPose::StrafeCycle),
-            ("skip", SemanticPose::SkipCycle),
-        ] {
-            builder.motion(motion, 24);
-            builder.pose(motion, 0, pose)?;
-        }
+        add_locomotion_motions(&mut builder)?;
         for (motion, takeoff, contact) in [
             (
                 "quickstep_forward",
@@ -242,42 +197,45 @@ impl AnimationPackCatalog {
                 SemanticPose::QuickstepBackContact,
             ),
         ] {
-            builder.motion(motion, 12);
-            builder.pose(motion, 0, takeoff)?;
-            builder.pose(motion, 12, contact)?;
+            builder.motion(motion, AuthoredAnimationFrame::from(12u16));
+            builder.pose(motion, AuthoredAnimationFrame::from(0u16), takeoff)?;
+            builder.pose(motion, AuthoredAnimationFrame::from(12u16), contact)?;
         }
         for (motion, pose) in [
             ("prone_crawl", "prone_crawl_contact"),
             ("supine_scamper", "supine_scamper_contact"),
         ] {
-            builder.motion(motion, 0);
+            builder.motion(motion, AuthoredAnimationFrame::from(0u16));
             builder.pose(
                 motion,
-                0,
+                AuthoredAnimationFrame::from(0u16),
                 SemanticPose::from_str(pose).expect("typed catalog pose"),
             )?;
         }
         // Pre-reflected copies of the sparse gait anchors are selected only
         // as mirrored blend endpoints; they own no independent semantics.
-        builder.motion("walk_mirrored", 64);
-        builder.motion("run_mirrored", 64);
-        builder.motion("prone_crawl_mirrored", 0);
-        builder.motion("supine_scamper_mirrored", 0);
-        builder.motion("dive", 0);
+        builder.motion("walk_mirrored", AuthoredAnimationFrame::from(64u16));
+        builder.motion("run_mirrored", AuthoredAnimationFrame::from(64u16));
+        builder.motion("prone_crawl_mirrored", AuthoredAnimationFrame::from(0u16));
+        builder.motion(
+            "supine_scamper_mirrored",
+            AuthoredAnimationFrame::from(0u16),
+        );
+        builder.motion("dive", AuthoredAnimationFrame::from(0u16));
         for pose in [
             SemanticPose::DiveForward,
             SemanticPose::DiveBackward,
             SemanticPose::DiveLeft,
             SemanticPose::DiveRight,
         ] {
-            builder.pose("dive", 0, pose)?;
+            builder.pose("dive", AuthoredAnimationFrame::from(0u16), pose)?;
         }
         for (motion, pose) in [
             ("airborne_center", SemanticPose::AirborneCenter),
             ("airborne_travel", SemanticPose::AirborneTravel),
         ] {
-            builder.motion(motion, 0);
-            builder.pose(motion, 0, pose)?;
+            builder.motion(motion, AuthoredAnimationFrame::from(0u16));
+            builder.pose(motion, AuthoredAnimationFrame::from(0u16), pose)?;
         }
         add_attack_motions(&mut builder)?;
         for (motion, pose) in [
@@ -286,10 +244,10 @@ impl AnimationPackCatalog {
             ("prone_supine_roll_right", "prone_supine_roll_right"),
             ("supine_transition", "supine_transition"),
         ] {
-            builder.motion(motion, 0);
+            builder.motion(motion, AuthoredAnimationFrame::from(0u16));
             builder.pose(
                 motion,
-                0,
+                AuthoredAnimationFrame::from(0u16),
                 SemanticPose::from_str(pose).expect("typed catalog pose"),
             )?;
         }
@@ -328,6 +286,124 @@ impl AnimationPackCatalog {
     }
 }
 
+fn add_attack_motions(builder: &mut PackBuilder) -> Result<(), CatalogError> {
+    builder.variable_motion(
+        "swing",
+        AuthoredAnimationFrame::from(4u16),
+        AuthoredAnimationFrame::from(12u16),
+    );
+    for (frame, pose) in [
+        (AuthoredAnimationFrame::from(0u16), SemanticPose::GuardSwing),
+        (
+            AuthoredAnimationFrame::from(4u16),
+            SemanticPose::AttackSwing,
+        ),
+        (
+            AuthoredAnimationFrame::from(8u16),
+            SemanticPose::RecoverSwing,
+        ),
+        (
+            AuthoredAnimationFrame::from(12u16),
+            SemanticPose::ContinueSwing,
+        ),
+    ] {
+        builder.pose("swing", frame, pose)?;
+    }
+    builder.variable_motion(
+        "thrust",
+        AuthoredAnimationFrame::from(4u16),
+        AuthoredAnimationFrame::from(12u16),
+    );
+    for (frame, pose) in [
+        (
+            AuthoredAnimationFrame::from(0u16),
+            SemanticPose::GuardThrust,
+        ),
+        (
+            AuthoredAnimationFrame::from(4u16),
+            SemanticPose::AttackThrust,
+        ),
+        (
+            AuthoredAnimationFrame::from(8u16),
+            SemanticPose::RecoverThrust,
+        ),
+        (
+            AuthoredAnimationFrame::from(12u16),
+            SemanticPose::ContinueThrust,
+        ),
+    ] {
+        builder.pose("thrust", frame, pose)?;
+    }
+    builder.variable_motion(
+        "offhand",
+        AuthoredAnimationFrame::from(0u16),
+        AuthoredAnimationFrame::from(4u16),
+    );
+    builder.pose(
+        "offhand",
+        AuthoredAnimationFrame::from(0u16),
+        SemanticPose::GuardOffhand,
+    )?;
+    builder.pose(
+        "offhand",
+        AuthoredAnimationFrame::from(0u16),
+        SemanticPose::AttackOffhand,
+    )?;
+    builder.pose(
+        "offhand",
+        AuthoredAnimationFrame::from(4u16),
+        SemanticPose::AttackOffhandPrepared,
+    )?;
+    Ok(())
+}
+
+fn add_locomotion_motions(builder: &mut PackBuilder) -> Result<(), CatalogError> {
+    for (motion, last_frame, anchors) in [
+        (
+            "walk",
+            AuthoredAnimationFrame::from(64u16),
+            [
+                (AuthoredAnimationFrame::from(0u16), "walk_contact"),
+                (AuthoredAnimationFrame::from(16u16), "walk_passing"),
+            ],
+        ),
+        (
+            "run",
+            AuthoredAnimationFrame::from(64u16),
+            [
+                (AuthoredAnimationFrame::from(0u16), "run_contact"),
+                (AuthoredAnimationFrame::from(16u16), "run_flight"),
+            ],
+        ),
+    ] {
+        builder.motion(motion, last_frame);
+        for (frame, pose) in anchors {
+            builder.pose(
+                motion,
+                frame,
+                SemanticPose::from_str(pose).expect("typed catalog pose"),
+            )?;
+        }
+    }
+    builder.motion("combat_stance", AuthoredAnimationFrame::from(0u16));
+    builder.pose(
+        "combat_stance",
+        AuthoredAnimationFrame::from(0u16),
+        SemanticPose::CombatStance,
+    )?;
+    // The authored combat locomotion files expose keys at 0/6/12/18. The
+    // publication pipeline closes each cycle by copying frame 0 to frame
+    // 24, so frames 6/18 remain the two authoritative contacts.
+    for (motion, pose) in [
+        ("strafe", SemanticPose::StrafeCycle),
+        ("skip", SemanticPose::SkipCycle),
+    ] {
+        builder.motion(motion, AuthoredAnimationFrame::from(24u16));
+        builder.pose(motion, AuthoredAnimationFrame::from(0u16), pose)?;
+    }
+    Ok(())
+}
+
 #[cfg(test)]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(crate) struct EditorRouteResolution {
@@ -337,7 +413,7 @@ pub(crate) struct EditorRouteResolution {
     pub resolved_pose: SemanticPose,
     pub mirrored: bool,
     pub motion_path: PathBuf,
-    pub frame: u16,
+    pub frame: AuthoredAnimationFrame,
 }
 
 #[cfg(test)]

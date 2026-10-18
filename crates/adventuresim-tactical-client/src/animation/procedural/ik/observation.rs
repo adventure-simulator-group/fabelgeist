@@ -3,15 +3,15 @@
 use super::*;
 
 pub(in crate::animation::procedural) fn retain_monotonic_contact_sequence(
-    current: u64,
-    observed: u64,
-) -> u64 {
+    current: ContactSequence,
+    observed: ContactSequence,
+) -> ContactSequence {
     // The replicated gait planner can return to its zero-valued idle plan
     // while authored locomotion still owns the crossfade. That is an owner
     // transition, not a landing, so retain the presentation sequence until
     // stationary raised footwork takes over. Genuine cadence increments (and
     // the u64 wrap) remain forward by exactly one.
-    if observed.wrapping_sub(current) <= 1 {
+    if observed.wrapping_distance_from(current) <= 1 {
         observed
     } else {
         current

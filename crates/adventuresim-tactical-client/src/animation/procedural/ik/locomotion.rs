@@ -75,7 +75,7 @@ pub(in crate::animation::procedural) fn owns(skeleton: &SkeletonState) -> bool {
     reason = "Bevy injects each independently borrowed locomotion IK resource and query as a system parameter"
 )]
 pub(in crate::animation) fn apply(
-    enabled: Res<super::super::super::TerrainIkEnabled>,
+    enabled: Res<super::super::super::TerrainIkMode>,
     time: Res<Time>,
     clock: Res<ProceduralAnimationClock>,
     terrain: Query<&SceneTerrain>,
@@ -103,7 +103,7 @@ pub(in crate::animation) fn apply(
             .unwrap_or_default();
         let delta_seconds = state.sample_delta_seconds(&clock, &time);
         let authored_weights = playback.foot_ik_weights;
-        let solve_weights = if enabled.0 && terrain.is_some() {
+        let solve_weights = if enabled.is_enabled() && terrain.is_some() {
             authored_weights
         } else {
             Vec2::ZERO

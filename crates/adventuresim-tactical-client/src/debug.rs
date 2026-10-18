@@ -14,7 +14,7 @@ use bevy::{
 use bevy_enhanced_input::prelude::{ActionMock, Actions};
 
 use crate::{
-    animation::TerrainIkEnabled,
+    animation::TerrainIkMode,
     camera::{CameraAimState, CameraDebugEnabled, CameraRigDebugState},
     player::{ClientPlayer, HitPerformed, LimbHitbox},
 };
@@ -102,7 +102,7 @@ struct DebugRay {
 fn toggle_debug_visuals(
     keyboard: Res<ButtonInput<KeyCode>>,
     mut config: ResMut<DebugVisualsConfig>,
-    mut terrain_ik: ResMut<TerrainIkEnabled>,
+    mut terrain_ik: ResMut<TerrainIkMode>,
     mut game_speed: ResMut<DebugGameSpeed>,
     mut virtual_time: ResMut<Time<Virtual>>,
     q_colliders: Query<(Entity, Option<&LimbHitbox>), (With<Collider>, Without<ClientPlayer>)>,
@@ -152,8 +152,8 @@ fn toggle_debug_visuals(
     }
 
     if keyboard.just_pressed(KeyCode::F8) {
-        terrain_ik.0 = !terrain_ik.0;
-        info!(enabled = terrain_ik.0, "Terrain leg IK toggled");
+        terrain_ik.toggle();
+        info!(enabled = terrain_ik.is_enabled(), "Terrain leg IK toggled");
     }
 
     if keyboard.just_pressed(KeyCode::F10) {
@@ -332,7 +332,7 @@ mod tests {
         app.init_resource::<ButtonInput<KeyCode>>()
             .init_resource::<DebugVisualsConfig>()
             .init_resource::<DebugGameSpeed>()
-            .init_resource::<TerrainIkEnabled>()
+            .init_resource::<TerrainIkMode>()
             .init_resource::<Time<Virtual>>()
             .add_systems(Update, toggle_debug_visuals);
 
@@ -340,7 +340,10 @@ mod tests {
             .resource_mut::<ButtonInput<KeyCode>>()
             .press(KeyCode::F8);
         app.update();
-        assert!(!app.world().resource::<TerrainIkEnabled>().0);
+        assert_eq!(
+            *app.world().resource::<TerrainIkMode>(),
+            TerrainIkMode::Disabled
+        );
 
         {
             let mut keyboard = app.world_mut().resource_mut::<ButtonInput<KeyCode>>();
@@ -350,6 +353,9 @@ mod tests {
             keyboard.press(KeyCode::F8);
         }
         app.update();
-        assert!(app.world().resource::<TerrainIkEnabled>().0);
+        assert_eq!(
+            *app.world().resource::<TerrainIkMode>(),
+            TerrainIkMode::Enabled
+        );
     }
 }

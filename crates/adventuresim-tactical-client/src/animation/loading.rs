@@ -140,7 +140,7 @@ pub(super) fn collect_loaded_packs(
             warn!(
                 pack = %key.pack,
                 motion = %key.motion,
-                last_frame = source.required_last_frame,
+                last_frame = u16::from(source.required_last_frame),
                 duration = clip.duration(),
                 "Motion is shorter than its catalog frames"
             );
@@ -194,14 +194,14 @@ pub(super) fn sole_animation(
     (animations.len() == 1).then(|| &animations[0])
 }
 
-pub(super) fn frame_fits_clip(frame: u16, duration: f32) -> bool {
+pub(super) fn frame_fits_clip(frame: AuthoredAnimationFrame, duration: f32) -> bool {
     frame_seconds(frame)
         .is_ok_and(|time| time.seconds() <= duration + 0.5 / animation_frames_per_second())
 }
 
-pub(super) fn frame_seconds(frame: u16) -> AnimationValueResult<ClipTime> {
+pub(super) fn frame_seconds(frame: AuthoredAnimationFrame) -> AnimationValueResult<ClipTime> {
     // Catalog frames enter the engine's seconds coordinate here.
-    ClipTime::from_seconds(frame as f32 / animation_frames_per_second())
+    ClipTime::from_seconds(f32::from(u16::from(frame)) / animation_frames_per_second())
 }
 
 pub(super) fn clip_targets_match_base(

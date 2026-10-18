@@ -385,15 +385,17 @@ fn relax_concavities(
             };
             let inverse_count = 1.0 / adjacent.len() as f32;
             let average = adjacent.iter().fold([0.0; 3], |mut average, neighbor| {
-                for axis in 0..3 {
-                    average[axis] += previous[*neighbor][axis] * inverse_count;
+                for (sum, component) in average.iter_mut().zip(previous[*neighbor]) {
+                    *sum += component * inverse_count;
                 }
                 average
             });
             let outward_lift = dot(subtract(average, previous[vertex]), normal).max(0.0)
                 * CONCAVITY_RELAXATION_STRENGTH;
-            for axis in 0..3 {
-                relaxed[vertex][axis] = previous[vertex][axis] + normal[axis] * outward_lift;
+            for ((output, previous_component), normal_component) in
+                relaxed[vertex].iter_mut().zip(previous[vertex]).zip(normal)
+            {
+                *output = previous_component + normal_component * outward_lift;
             }
         }
     }

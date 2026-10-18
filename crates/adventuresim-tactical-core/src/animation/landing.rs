@@ -22,6 +22,10 @@ impl LandingSequence {
     pub fn events_since(self, previous: Self) -> Option<u64> {
         self.0.checked_sub(previous.0)
     }
+    /// Observed report continuity is distinct from checked event coalescing.
+    pub fn wrapping_distance_from(self, previous: Self) -> u64 {
+        self.0.wrapping_sub(previous.0)
+    }
     /// Scalar event-stream encoding, separate from a rig slot or sample tick.
     pub fn encoded(self) -> u64 {
         self.0

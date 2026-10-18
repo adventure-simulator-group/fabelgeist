@@ -489,8 +489,22 @@ Missed landing updates collapse to the latest observation rather than bursting.
 An event's sample tick is the tick where its replicated sequence was observed,
 not an invented historical contact timestamp.
 
-Terrain conformity starts off. In debug builds, press `F8` to opt into its
-height, slope, and pelvis corrections. The HUD reports whether it is on or off;
+Contact and landing counters have separate `ContactSequence` and
+`LandingSequence` owners. Event coalescing uses checked forward gaps; retained
+contact/report continuity separately permits wrapping counters. Presentation
+messages carry one contact-or-landing payload. Capture reports preserve their
+flat numeric sequence/tick fields and contact-foot labels, and audio projects
+the payload sequence only at its deterministic seed boundary.
+
+Authored catalogue frames use `AuthoredAnimationFrame`, distinct from simulation
+sample ticks. Catalogue anchors retain that frame through motion selection;
+loading converts it to checked clip seconds at the configured frame rate.
+
+Terrain conformity defaults to `TerrainIkMode::Enabled`. In debug builds,
+press `F8` to toggle its height, slope, and pelvis corrections. The animation
+viewer separately starts without terrain conformity unless its selected scenario
+requests terrain; per-frame scenario policy also permits raised tap-stop captures
+and preserves the mid-stride comparison window. The HUD reports on or off;
 authored FK, gait endpoint blending, torso stabilization, and procedural guard
 stepping remain active. Ordinary flat-ground locomotion does not run the terrain
 leg solver while the toggle is off.

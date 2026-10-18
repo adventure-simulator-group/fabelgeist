@@ -7,7 +7,7 @@ impl CaptureSequence {
         &mut self,
         frame: &PlannedFrame,
         animation_runtime: &AnimationRuntime,
-        presentation_settled: bool,
+        playback: Option<&AnimationPlayback>,
     ) -> bool {
         if self.warmup_frames > 0 {
             self.warmup_frames -= 1;
@@ -17,7 +17,7 @@ impl CaptureSequence {
             && let Some(motion) = required_motion_for_scenario(frame.scenario)
         {
             if !animation_runtime.motion_is_processed(&crate::animation::MotionId::from(motion))
-                || !presentation_settled
+                || !playback.is_some_and(AnimationPlayback::presentation_is_settled)
             {
                 self.motion_ready_frames = 0;
                 return false;

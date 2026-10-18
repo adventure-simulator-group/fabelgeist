@@ -1503,7 +1503,7 @@ pub struct SkeletonState {
     pub gait_phase: f32,
     pub locomotion_sample_tick: AnimationSampleTick,
     pub world_acceleration: Vec3,
-    pub contact_sequence: u64,
+    pub contact_sequence: ContactSequence,
     pub contact_foot: LeadFoot,
     raised_footwork: GuardFootworkPlan,
     pub landing_sequence: LandingSequence,
@@ -1529,7 +1529,7 @@ struct SkeletonStateWire {
     gait_phase: f32,
     locomotion_sample_tick: u64,
     world_acceleration: Vec3,
-    contact_sequence: u64,
+    contact_sequence: ContactSequence,
     contact_foot: LeadFoot,
     #[serde(default)]
     raised_footwork: GuardFootworkPlan,
@@ -1601,7 +1601,7 @@ impl Default for SkeletonState {
             gait_phase: 0.0,
             locomotion_sample_tick: AnimationSampleTick::ZERO,
             world_acceleration: Vec3::ZERO,
-            contact_sequence: 0,
+            contact_sequence: ContactSequence::ZERO,
             contact_foot: LeadFoot::Left,
             raised_footwork: GuardFootworkPlan::default(),
             landing_sequence: LandingSequence::ZERO,
@@ -2654,7 +2654,7 @@ fn advance_contact_identity(
     first_contact: Option<LeadFoot>,
 ) {
     for handoff in 0..handoffs {
-        skeleton.contact_sequence = skeleton.contact_sequence.wrapping_add(1);
+        skeleton.contact_sequence = skeleton.contact_sequence.next();
         skeleton.contact_foot = if handoff == 0 {
             first_contact.unwrap_or_else(|| opposite_foot(skeleton.contact_foot))
         } else {
@@ -2741,7 +2741,7 @@ fn advance_guard_footwork(skeleton: &mut SkeletonState, delta_seconds: f32, tick
             }
             let contacts = step.contacts.with_contact(step.swing_foot, step.landing);
             skeleton.contact_foot = step.swing_foot;
-            skeleton.contact_sequence = skeleton.contact_sequence.wrapping_add(1);
+            skeleton.contact_sequence = skeleton.contact_sequence.next();
             plan = GuardFootworkPlan::Planted {
                 contacts,
                 next_swing: opposite_foot(step.swing_foot),

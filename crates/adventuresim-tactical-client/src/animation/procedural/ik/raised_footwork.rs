@@ -77,7 +77,7 @@ impl GuardStepState {
 #[derive(Component, Debug, Clone, Copy)]
 pub(crate) struct RaisedFootworkState {
     pub(super) step: GuardStepState,
-    pub(super) step_sequence: u64,
+    pub(super) step_sequence: ContactSequence,
     pub(crate) left_support_weight: f32,
     pub(crate) right_support_weight: f32,
     pub(crate) left_solve_target: Option<Vec3>,
@@ -91,7 +91,7 @@ impl Default for RaisedFootworkState {
     fn default() -> Self {
         Self {
             step: GuardStepState::Uninitialized,
-            step_sequence: 0,
+            step_sequence: ContactSequence::ZERO,
             left_support_weight: 0.0,
             right_support_weight: 0.0,
             left_solve_target: None,
@@ -109,7 +109,7 @@ impl RaisedFootworkState {
         self.step.initialized()
     }
 
-    pub(crate) fn step_sequence(&self) -> u64 {
+    pub(crate) fn step_sequence(&self) -> ContactSequence {
         self.step_sequence
     }
 

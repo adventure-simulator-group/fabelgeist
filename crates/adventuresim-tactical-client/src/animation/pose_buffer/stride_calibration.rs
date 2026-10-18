@@ -12,7 +12,14 @@ pub(in crate::animation) struct CharacterLocomotionStrides {
 
 struct CalibrationSource {
     motion: MotionId,
-    axis: usize,
+    axis: CalibrationAxis,
+}
+
+/// Travel component in the authored foot-trajectory frame.
+#[derive(Clone, Copy)]
+pub(super) enum CalibrationAxis {
+    Lateral,
+    Longitudinal,
 }
 
 #[derive(Clone, Copy, EnumIter, IntoStaticStr)]
@@ -24,13 +31,22 @@ enum CalibrationMotion {
     Skip,
 }
 
+impl CalibrationAxis {
+    pub(super) fn component(self, position: Vec3) -> f32 {
+        match self {
+            Self::Lateral => position.x,
+            Self::Longitudinal => position.z,
+        }
+    }
+}
+
 impl CalibrationMotion {
     fn source(self) -> CalibrationSource {
         CalibrationSource {
             motion: MotionId::from_static(self.into()),
             axis: match self {
-                Self::Strafe => 0,
-                Self::Walk | Self::Run | Self::Skip => 2,
+                Self::Strafe => CalibrationAxis::Lateral,
+                Self::Walk | Self::Run | Self::Skip => CalibrationAxis::Longitudinal,
             },
         }
     }
@@ -232,12 +248,14 @@ mod tests {
                 })
                 .collect(),
         };
-        let original = measure_authored_foot_range(&definition, &clip, 2).unwrap();
+        let original =
+            measure_authored_foot_range(&definition, &clip, CalibrationAxis::Longitudinal).unwrap();
         apply_baked_offsets(
             &mut clip,
             &[Vec3::ZERO, Vec3::NEG_Y * 0.5, Vec3::NEG_Y * 0.5],
         );
-        let longer = measure_authored_foot_range(&definition, &clip, 2).unwrap();
+        let longer =
+            measure_authored_foot_range(&definition, &clip, CalibrationAxis::Longitudinal).unwrap();
         assert!((longer / original - 1.5).abs() < 1e-5);
     }
 }

@@ -17,7 +17,7 @@ impl Plugin for TacticalAnimationPlugin {
             .init_resource::<AuthoredLocomotionStrides>()
             .init_resource::<AnimationRuntime>()
             .init_resource::<semantic_route::SemanticRouteTelemetry>()
-            .init_resource::<TerrainIkEnabled>()
+            .init_resource::<TerrainIkMode>()
             .init_resource::<ProceduralAnimationClock>()
             .init_resource::<procedural::FixedTickPoseCache>()
             .init_resource::<bouncy_bones::BouncyBonesTelemetry>()

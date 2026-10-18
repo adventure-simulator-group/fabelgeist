@@ -37,8 +37,8 @@ pub mod prelude {
     pub use crate::animation::{
         ActionState, ActionTransitionError, AnimationElapsed, AnimationEvaluation, AnimationPack,
         AnimationPackLibrary, AttackAnimation, AttackAnimations, AttackCurve, AttackHand,
-        AttackLine, AttackPreparation, AttackSpec, BlockSpec, BodyState, DiveDirection,
-        DiveTrajectory, DodgeSpec, DownedFacingPose, GroundedPosture, GuardContacts,
+        AttackLine, AttackPreparation, AttackSpec, BlockSpec, BodyState, ContactSequence,
+        DiveDirection, DiveTrajectory, DodgeSpec, DownedFacingPose, GroundedPosture, GuardContacts,
         GuardFootworkPlan, GuardStepPlan, JumpAnticipation, LandingProfile, LeadFoot,
         LocomotionGait, LocomotionProfile, MeleePreparationInput, PackValidationError, PoseSample,
         PoseSampling, Posture, PostureTransitionKind, PostureTransitionState,

@@ -354,6 +354,12 @@ cargo run --manifest-path crates/adventuresim-character-creator/Cargo.toml --exa
 
 ## Rig identity in fitting and export
 
+Runtime clothing admission retains the validated wearer and the canonical item,
+placement and material records. Armor dispatch remains separate and precedes
+clothing admission. Region support validates every packed skin slot, including
+zero-weight slots, against the rig-order membership table before filtering the
+eight weights; unknown joints remain errors.
+
 Fitting and export retain `fabelgeist_rig::RigJointName` through joint selection,
 landmark lookup, attachment construction, and saved body metadata. Joint labels
 and rig ordinals cannot be interchanged. A missing landmark retains its exact

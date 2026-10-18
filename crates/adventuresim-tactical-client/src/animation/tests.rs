@@ -1,3 +1,4 @@
+use super::fallback::spawn_fallback_t_pose;
 use super::*;
 
 #[cfg(test)]
@@ -107,7 +108,7 @@ mod legacy_tests {
 
     #[test]
     fn terrain_ik_defaults_on() {
-        assert!(TerrainIkEnabled::default().0);
+        assert_eq!(TerrainIkMode::default(), TerrainIkMode::Enabled);
     }
 
     #[test]
@@ -380,21 +381,21 @@ mod legacy_tests {
             root.poses[&SemanticPose::WalkPassing],
             PoseAnchor {
                 motion: MotionId::from_static("walk"),
-                frame: 16,
+                frame: AuthoredAnimationFrame::from(16u16),
             }
         );
         assert_eq!(
             root.poses[&SemanticPose::AttackThrust],
             PoseAnchor {
                 motion: MotionId::from_static("thrust"),
-                frame: 4,
+                frame: AuthoredAnimationFrame::from(4u16),
             }
         );
         assert_eq!(
             root.poses[&SemanticPose::DiveForward],
             PoseAnchor {
                 motion: MotionId::from_static("dive"),
-                frame: 0,
+                frame: AuthoredAnimationFrame::from(0u16),
             }
         );
         for pose in [
@@ -405,44 +406,68 @@ mod legacy_tests {
             assert_eq!(root.poses[&pose].motion, MotionId::from_static("dive"));
         }
         assert_eq!(SemanticPose::DiveRight.mirrored_counterpart(), None);
-        assert_eq!(root.poses[&SemanticPose::GuardSwing].frame, 0);
-        assert_eq!(root.poses[&SemanticPose::GuardThrust].frame, 0);
-        assert_eq!(root.poses[&SemanticPose::AttackOffhand].frame, 0);
-        assert_eq!(root.motions[&MotionId::from_static("swing")].last_frame, 12);
+        assert_eq!(
+            root.poses[&SemanticPose::GuardSwing].frame,
+            AuthoredAnimationFrame::from(0u16)
+        );
+        assert_eq!(
+            root.poses[&SemanticPose::GuardThrust].frame,
+            AuthoredAnimationFrame::from(0u16)
+        );
+        assert_eq!(
+            root.poses[&SemanticPose::AttackOffhand].frame,
+            AuthoredAnimationFrame::from(0u16)
+        );
+        assert_eq!(
+            root.motions[&MotionId::from_static("swing")].last_frame,
+            AuthoredAnimationFrame::from(12u16)
+        );
         assert_eq!(
             root.motions[&MotionId::from_static("swing")].required_last_frame,
-            4
+            AuthoredAnimationFrame::from(4u16)
         );
         assert_eq!(
             root.motions[&MotionId::from_static("thrust")].last_frame,
-            12
+            AuthoredAnimationFrame::from(12u16)
         );
         assert_eq!(
             root.motions[&MotionId::from_static("thrust")].required_last_frame,
-            4
+            AuthoredAnimationFrame::from(4u16)
         );
         assert_eq!(
             root.motions[&MotionId::from_static("offhand")].last_frame,
-            4
+            AuthoredAnimationFrame::from(4u16)
         );
         assert_eq!(
             root.motions[&MotionId::from_static("offhand")].required_last_frame,
-            0
+            AuthoredAnimationFrame::from(0u16)
         );
         assert_eq!(
             root.motions[&MotionId::from_static("strafe")].last_frame,
-            24
+            AuthoredAnimationFrame::from(24u16)
         );
-        assert_eq!(root.motions[&MotionId::from_static("skip")].last_frame, 24);
-        assert_eq!(root.poses[&SemanticPose::StrafeCycle].frame, 0);
-        assert_eq!(root.poses[&SemanticPose::SkipCycle].frame, 0);
+        assert_eq!(
+            root.motions[&MotionId::from_static("skip")].last_frame,
+            AuthoredAnimationFrame::from(24u16)
+        );
+        assert_eq!(
+            root.poses[&SemanticPose::StrafeCycle].frame,
+            AuthoredAnimationFrame::from(0u16)
+        );
+        assert_eq!(
+            root.poses[&SemanticPose::SkipCycle].frame,
+            AuthoredAnimationFrame::from(0u16)
+        );
         for motion in [
             "quickstep_forward",
             "quickstep_right",
             "quickstep_left",
             "quickstep_back",
         ] {
-            assert_eq!(root.motions[&MotionId::from(motion)].last_frame, 12);
+            assert_eq!(
+                root.motions[&MotionId::from(motion)].last_frame,
+                AuthoredAnimationFrame::from(12u16)
+            );
         }
     }
 
@@ -471,11 +496,21 @@ mod legacy_tests {
             None,
             "animations/test",
         );
-        builder.motion("one", 0);
-        builder.motion("two", 0);
-        builder.pose("one", 0, SemanticPose::IdleRelaxed).unwrap();
+        builder.motion("one", AuthoredAnimationFrame::from(0u16));
+        builder.motion("two", AuthoredAnimationFrame::from(0u16));
+        builder
+            .pose(
+                "one",
+                AuthoredAnimationFrame::from(0u16),
+                SemanticPose::IdleRelaxed,
+            )
+            .unwrap();
         assert_eq!(
-            builder.pose("two", 0, SemanticPose::IdleRelaxed),
+            builder.pose(
+                "two",
+                AuthoredAnimationFrame::from(0u16),
+                SemanticPose::IdleRelaxed
+            ),
             Err(CatalogError::DuplicatePose(SemanticPose::IdleRelaxed))
         );
     }
@@ -488,8 +523,14 @@ mod legacy_tests {
             Some(&AnimationPackId::HUMANOID_UNARMED),
             "animations/armored",
         );
-        builder.motion("idle", 0);
-        builder.pose("idle", 0, SemanticPose::IdleRelaxed).unwrap();
+        builder.motion("idle", AuthoredAnimationFrame::from(0u16));
+        builder
+            .pose(
+                "idle",
+                AuthoredAnimationFrame::from(0u16),
+                SemanticPose::IdleRelaxed,
+            )
+            .unwrap();
         let (id, pack) = builder.finish();
         assert_eq!(id, AnimationPackId::from("armored"));
         assert_eq!(
@@ -504,7 +545,14 @@ mod legacy_tests {
 
     #[test]
     fn frame_eight_is_sampled_at_thirty_fps() {
-        assert!((frame_seconds(8).unwrap().seconds() - 8.0 / 30.0).abs() < f32::EPSILON);
+        assert!(
+            (frame_seconds(AuthoredAnimationFrame::from(8u16))
+                .unwrap()
+                .seconds()
+                - 8.0 / 30.0)
+                .abs()
+                < f32::EPSILON
+        );
     }
 
     #[test]
@@ -547,9 +595,11 @@ mod legacy_tests {
                 LoadedClip {
                     handle: assets.add(AnimationClip::default()),
                     duration_seconds: ClipDuration::from_seconds(
-                        catalog.packs[&AnimationPackId::HUMANOID_UNARMED].motions[&anchor.motion]
-                            .last_frame as f32
-                            / animation_frames_per_second(),
+                        f32::from(u16::from(
+                            catalog.packs[&AnimationPackId::HUMANOID_UNARMED].motions
+                                [&anchor.motion]
+                                .last_frame,
+                        )) / animation_frames_per_second(),
                     )
                     .unwrap(),
                     layer: ClipLayer::Whole,
@@ -1123,8 +1173,11 @@ mod legacy_tests {
 
     #[test]
     fn out_of_range_catalog_frame_is_unavailable() {
-        assert!(frame_fits_clip(8, 8.0 / 30.0));
-        assert!(!frame_fits_clip(20, 0.1));
+        assert!(frame_fits_clip(
+            AuthoredAnimationFrame::from(8u16),
+            8.0 / 30.0
+        ));
+        assert!(!frame_fits_clip(AuthoredAnimationFrame::from(20u16), 0.1));
     }
 
     #[test]
@@ -1197,21 +1250,79 @@ mod legacy_tests {
     #[test]
     fn presentation_sequence_gaps_are_bounded_ordered_and_reset_safe() {
         assert_eq!(
-            coalesced_contacts(10, 13, LeadFoot::Right),
+            coalesced_contacts(
+                ContactSequence::from(10u64),
+                ContactSequence::from(13u64),
+                LeadFoot::Right
+            ),
             Some(vec![
-                (11, LeadFoot::Right),
-                (12, LeadFoot::Left),
-                (13, LeadFoot::Right),
+                CoalescedContact {
+                    sequence: ContactSequence::from(11u64),
+                    foot: LeadFoot::Right
+                },
+                CoalescedContact {
+                    sequence: ContactSequence::from(12u64),
+                    foot: LeadFoot::Left
+                },
+                CoalescedContact {
+                    sequence: ContactSequence::from(13u64),
+                    foot: LeadFoot::Right
+                },
             ])
         );
-        assert_eq!(coalesced_contacts(13, 13, LeadFoot::Right), Some(vec![]));
-        assert_eq!(coalesced_contacts(13, 2, LeadFoot::Left), None);
-        assert_eq!(coalesced_contacts(2, 20, LeadFoot::Left), None);
-        assert_eq!(bounded_forward_sequence_delta(7, 9), Some(2));
-        assert_eq!(bounded_forward_sequence_delta(9, 7), None);
-        assert_eq!(latest_coalesced_landing(7, 9), Some(9));
-        assert_eq!(latest_coalesced_landing(9, 7), None);
-        assert_eq!(latest_coalesced_landing(2, 20), None);
+        assert_eq!(
+            coalesced_contacts(
+                ContactSequence::from(13u64),
+                ContactSequence::from(13u64),
+                LeadFoot::Right
+            ),
+            Some(vec![])
+        );
+        assert_eq!(
+            coalesced_contacts(
+                ContactSequence::from(13u64),
+                ContactSequence::from(2u64),
+                LeadFoot::Left
+            ),
+            None
+        );
+        assert_eq!(
+            coalesced_contacts(
+                ContactSequence::from(2u64),
+                ContactSequence::from(20u64),
+                LeadFoot::Left
+            ),
+            None
+        );
+        assert_eq!(
+            ContactSequence::from(9u64).events_since(ContactSequence::from(7u64)),
+            Some(2)
+        );
+        assert_eq!(
+            ContactSequence::from(7u64).events_since(ContactSequence::from(9u64)),
+            None
+        );
+        assert_eq!(
+            latest_coalesced_landing(
+                adventuresim_tactical_core::animation::LandingSequence::from(7u64),
+                adventuresim_tactical_core::animation::LandingSequence::from(9u64)
+            ),
+            Some(adventuresim_tactical_core::animation::LandingSequence::from(9u64))
+        );
+        assert_eq!(
+            latest_coalesced_landing(
+                adventuresim_tactical_core::animation::LandingSequence::from(9u64),
+                adventuresim_tactical_core::animation::LandingSequence::from(7u64)
+            ),
+            None
+        );
+        assert_eq!(
+            latest_coalesced_landing(
+                adventuresim_tactical_core::animation::LandingSequence::from(2u64),
+                adventuresim_tactical_core::animation::LandingSequence::from(20u64)
+            ),
+            None
+        );
     }
 
     #[test]

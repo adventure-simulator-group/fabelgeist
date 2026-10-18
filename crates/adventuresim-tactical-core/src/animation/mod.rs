@@ -12,6 +12,7 @@ use adventuresim_core::combat_style::MeleeAttackStyle;
 use bevy::prelude::*;
 use serde::{Deserialize, Serialize};
 
+pub use contact::ContactSequence;
 pub use elapsed::AnimationElapsed;
 pub use evaluation::*;
 pub use landing::{LandingImpactSpeed, LandingSequence};
@@ -24,6 +25,7 @@ pub use state::*;
 pub use value_error::{AnimationQuantity, AnimationValueError, AnimationValueResult};
 
 mod attack_commitment;
+mod contact;
 mod elapsed;
 mod evaluation;
 mod landing;

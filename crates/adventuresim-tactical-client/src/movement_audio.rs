@@ -5,7 +5,7 @@ use bevy::prelude::*;
 use fabelgeist_determinism::{Seed, StreamId};
 
 use crate::{
-    animation::{LocomotionPresentationEvent, LocomotionPresentationEventKind},
+    animation::{LocomotionPresentationEvent, LocomotionPresentationPayload},
     audio_config::TacticalAudioConfig,
     presentation::GroundScatterLayer,
 };
@@ -97,10 +97,10 @@ fn play_locomotion_audio(
         };
         let position = transform.translation();
         let sequence = StreamId::new("audio.locomotion-event")
-            .seed((character_id.0).into(), &[event.sequence])
+            .seed((character_id.0).into(), &[event.payload.encoded_sequence()])
             .to_u64();
-        match event.kind {
-            LocomotionPresentationEventKind::Contact(_) => {
+        match event.payload {
+            LocomotionPresentationPayload::Contact { .. } => {
                 let surface = ground.and_then(|ground| ground.ground_at(position.xz()));
                 let on_grass = surface.is_some_and(|surface| {
                     matches!(surface.cover, GroundCover::TallGrass | GroundCover::Reeds)
@@ -144,7 +144,7 @@ fn play_locomotion_audio(
                     );
                 }
             }
-            LocomotionPresentationEventKind::Landing
+            LocomotionPresentationPayload::Landing { .. }
                 if matches!(
                     skeleton
                         .posture_transition()
@@ -162,7 +162,7 @@ fn play_locomotion_audio(
                     config.movement.pitch_randomization,
                 );
             }
-            LocomotionPresentationEventKind::Landing => {}
+            LocomotionPresentationPayload::Landing { .. } => {}
         }
     }
 }

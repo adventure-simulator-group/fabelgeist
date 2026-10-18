@@ -1,6 +1,8 @@
 //! Deterministic animation-review fixtures and scenario classification.
 
 use super::*;
+
+pub(super) mod terrain_policy;
 pub(super) const QUICKSTEP_FIXTURE_BIOLOGICAL_MASS_KG: f32 = 70.0;
 pub(super) const QUICKSTEP_FIXTURE_TOTAL_MASS_KG: f32 = 93.9;
 pub(super) const QUICKSTEP_FIXTURE_LEG_STRENGTH: f32 = 4.0;
@@ -276,22 +278,6 @@ pub(super) fn terrain_half_turn_reversal_scenario() -> Vec<PlannedFrame> {
             lead_foot: LeadFoot::Left,
         })
         .collect()
-}
-
-pub(super) fn scenario_uses_terrain_ik(scenario: &str) -> bool {
-    scenario_metadata(scenario).kind == ScenarioKind::Terrain
-        || scenario.starts_with("raised-guard-tap-stop-")
-}
-
-pub(super) fn terrain_ik_enabled_for_frame(frame: &PlannedFrame) -> bool {
-    (scenario_uses_terrain_ik(frame.scenario) || frame.scenario.contains("terrain"))
-        && (frame.scenario != "terrain-toggle-mid-stride"
-            || (16..80).contains(&frame.scenario_frame))
-}
-
-pub(super) fn raised_scenario_requires_zero_flight(scenario: &str) -> bool {
-    scenario_metadata(scenario).kind == ScenarioKind::RaisedGuard
-        && !scenario.starts_with("raised-guard-tap-stop-")
 }
 
 pub(super) fn dynamics_speed_scenario(name: &'static str, hard_stop: bool) -> Vec<PlannedFrame> {
@@ -1385,7 +1371,11 @@ mod tests {
             assert_eq!(scenario_metadata(name).kind, ScenarioKind::RaisedGuard);
             assert!(scenario_uses_terrain_ik(name));
             assert!(!raised_scenario_requires_zero_flight(name));
-            assert!(frames.iter().all(terrain_ik_enabled_for_frame));
+            assert!(
+                frames
+                    .iter()
+                    .all(|frame| terrain_ik_mode_for_frame(frame) == TerrainIkMode::Enabled)
+            );
         }
     }
 

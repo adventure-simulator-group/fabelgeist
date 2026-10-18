@@ -8,7 +8,7 @@ use bevy::ecs::system::SystemParam;
 use bevy::prelude::*;
 
 use crate::{
-    animation::spawn_fallback_t_pose,
+    animation::fallback::spawn_fallback_t_pose,
     presentation::{GrassInteractor, TacticalGameplayCamera},
     targeting::auto_aim_candidate,
 };

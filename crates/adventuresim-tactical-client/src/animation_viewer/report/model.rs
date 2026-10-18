@@ -1,7 +1,10 @@
 //! Serialized capture, validation, metric, and trace contracts.
 
 use super::*;
-use adventuresim_tactical_core::animation::AnimationSampleTick;
+use adventuresim_tactical_core::animation::{
+    AnimationSampleTick, ContactSequence, LandingSequence,
+};
+use serde::ser::SerializeStruct;
 
 pub(in crate::animation_viewer) const VIEWS: [CaptureView; 3] =
     [CaptureView::Gameplay, CaptureView::Side, CaptureView::Front];
@@ -60,14 +63,13 @@ pub(in crate::animation_viewer) struct QualityCategories {
     pub(in crate::animation_viewer) jitter_and_jerk_failed: bool,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug)]
 pub(in crate::animation_viewer) struct PresentationEventSample {
     pub(in crate::animation_viewer) scenario: String,
     pub(in crate::animation_viewer) scenario_frame: usize,
     pub(in crate::animation_viewer) owner: String,
-    pub(in crate::animation_viewer) sequence: u64,
     pub(in crate::animation_viewer) sample_tick: AnimationSampleTick,
-    pub(in crate::animation_viewer) kind: String,
+    pub(in crate::animation_viewer) payload: LocomotionPresentationPayload,
 }
 
 #[derive(Debug, Serialize)]
@@ -177,9 +179,9 @@ pub(in crate::animation_viewer) struct FrameSample {
     pub(in crate::animation_viewer) world_acceleration: [f32; 3],
     pub(in crate::animation_viewer) bouncy_active_springs: u32,
     pub(in crate::animation_viewer) bouncy_maximum_deflection_radians: f32,
-    pub(in crate::animation_viewer) contact_sequence: u64,
+    pub(in crate::animation_viewer) contact_sequence: ContactSequence,
     pub(in crate::animation_viewer) contact_foot: LeadFoot,
-    pub(in crate::animation_viewer) landing_sequence: u64,
+    pub(in crate::animation_viewer) landing_sequence: LandingSequence,
     pub(in crate::animation_viewer) landing_impact_speed: f32,
     pub(in crate::animation_viewer) body_lean_pitch_degrees: f32,
     pub(in crate::animation_viewer) body_lean_roll_degrees: f32,
@@ -262,10 +264,23 @@ pub(super) struct CompletedReport {
 impl PresentationEventSample {
     /// Advances the sequence without moving the observed sample tick backwards.
     pub(super) fn advances_from(&self, previous: &Self) -> bool {
-        self.sequence > previous.sequence
+        self.payload.advances_from(previous.payload)
             && self
                 .sample_tick
                 .checked_delta(previous.sample_tick)
                 .is_some()
+    }
+}
+
+impl Serialize for PresentationEventSample {
+    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        let mut record = serializer.serialize_struct("PresentationEventSample", 6)?;
+        record.serialize_field("scenario", &self.scenario)?;
+        record.serialize_field("scenario_frame", &self.scenario_frame)?;
+        record.serialize_field("owner", &self.owner)?;
+        record.serialize_field("sequence", &self.payload.encoded_sequence())?;
+        record.serialize_field("sample_tick", &self.sample_tick)?;
+        record.serialize_field("kind", self.payload.report_kind())?;
+        record.end()
     }
 }

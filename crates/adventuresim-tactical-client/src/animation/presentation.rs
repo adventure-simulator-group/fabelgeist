@@ -2,11 +2,13 @@ use super::*;
 use adventuresim_tactical_core::animation::AnimationSampleTick;
 use attack::advance_presented_attack;
 use events::emit_locomotion_presentation_events;
-pub(crate) use events::{LocomotionPresentationEvent, LocomotionPresentationEventKind};
+pub(crate) use events::{LocomotionPresentationEvent, LocomotionPresentationPayload};
 pub(super) use events::{
-    bounded_forward_sequence_delta, coalesced_contacts, latest_coalesced_landing,
-    trace_locomotion_presentation_events,
+    coalesced_contacts, latest_coalesced_landing, trace_locomotion_presentation_events,
 };
+
+#[cfg(test)]
+pub(super) use events::CoalescedContact;
 
 mod attack;
 mod events;

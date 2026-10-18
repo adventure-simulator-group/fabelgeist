@@ -306,7 +306,7 @@ mod tests {
             .spawn((
                 ItemOf(actor),
                 ItemProperties {
-                    id: "leather_belt".into(),
+                    id: "belt".into(),
                     weight: 0.35,
                 },
                 EquipmentTopology {

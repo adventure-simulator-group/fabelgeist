@@ -33,6 +33,7 @@ use std::{
     collections::{HashMap, HashSet},
     sync::Arc,
 };
+use stride_calibration::CalibrationAxis;
 pub(super) use stride_calibration::{CharacterLocomotionStrides, calibrate_character_strides};
 
 mod baking;
@@ -394,7 +395,7 @@ pub(super) fn update_pose_buffers(
     clips: Res<Assets<AnimationClip>>,
     cameras: visibility::AnimationViews,
     terrain: Query<&SceneTerrain>,
-    terrain_ik_enabled: Res<TerrainIkEnabled>,
+    terrain_ik_enabled: Res<TerrainIkMode>,
     owners: Query<(
         Entity,
         &PresentedSkeleton,
@@ -490,7 +491,7 @@ pub(super) fn update_pose_buffers(
             continue;
         };
         let locomotion_ik_owns = procedural::authored_locomotion_ik_owns(skeleton);
-        let terrain = (terrain_ik_enabled.0 && locomotion_ik_owns)
+        let terrain = (terrain_ik_enabled.is_enabled() && locomotion_ik_owns)
             .then(|| terrain.single().ok())
             .flatten();
         if terrain.is_some() || sampled.locomotion_pelvis_rotation.is_some() {
@@ -1298,7 +1299,7 @@ fn solve_pose_two_bone(
 fn measure_authored_contact_step_distance(
     definition: &RigDefinition,
     clip: &BakedClip,
-    travel_axis: usize,
+    travel_axis: CalibrationAxis,
     expected_stance_direction: f32,
 ) -> Option<AuthoredLocomotionCalibration> {
     if clip.duration.seconds() <= f32::EPSILON
@@ -1354,7 +1355,7 @@ fn measure_authored_contact_step_distance(
                 let wraps = (start + offset) / sample_count;
                 current.push((
                     samples[index].0 + wraps as f32,
-                    samples[index].1[travel_axis],
+                    travel_axis.component(samples[index].1),
                 ));
             } else if !current.is_empty() {
                 if current.len() >= 3 {
@@ -1539,7 +1540,7 @@ fn measure_authored_contact_step_distance(
 fn measure_authored_foot_range(
     definition: &RigDefinition,
     clip: &BakedClip,
-    travel_axis: usize,
+    travel_axis: CalibrationAxis,
 ) -> Option<f32> {
     let feet =
         [RigJointName::L_FOOT, RigJointName::R_FOOT].map(|name| definition.joint_ordinal(&name));
@@ -1551,14 +1552,16 @@ fn measure_authored_foot_range(
         let mut maximum = f32::NEG_INFINITY;
         for frame in 0..clip.frames {
             let mut globals = RigJointTable::from(vec![None; definition.joints.len()]);
-            let position = sampled_global_transform(
-                definition,
-                clip,
-                foot,
-                clip.frame_time(frame).ok()?,
-                &mut globals,
-            )
-            .translation[travel_axis];
+            let position = travel_axis.component(
+                sampled_global_transform(
+                    definition,
+                    clip,
+                    foot,
+                    clip.frame_time(frame).ok()?,
+                    &mut globals,
+                )
+                .translation,
+            );
             minimum = minimum.min(position);
             maximum = maximum.max(position);
         }
@@ -1852,7 +1855,7 @@ mod tests {
         };
 
         assert_eq!(
-            measure_authored_foot_range(&definition, &clip, 2),
+            measure_authored_foot_range(&definition, &clip, CalibrationAxis::Longitudinal),
             Some(2.5)
         );
     }
@@ -1930,8 +1933,13 @@ mod tests {
             .into(),
         };
 
-        let measurement = measure_authored_contact_step_distance(&definition, &clip, 2, 1.0)
-            .expect("the two stance windows should determine travel");
+        let measurement = measure_authored_contact_step_distance(
+            &definition,
+            &clip,
+            CalibrationAxis::Longitudinal,
+            1.0,
+        )
+        .expect("the two stance windows should determine travel");
         assert!((measurement.stride.step_distance - 1.0).abs() < 0.0001);
         assert!(measurement.stride.maximum_stance_slip < 0.0001);
         assert!(measurement.phase_curve.is_some());
@@ -1950,9 +1958,13 @@ mod tests {
                 }
             }
         }
-        let projected =
-            measure_authored_contact_step_distance(&definition, &projected_rotation, 2, 1.0)
-                .expect("a monotone articulated projection should be phase-warpable");
+        let projected = measure_authored_contact_step_distance(
+            &definition,
+            &projected_rotation,
+            CalibrationAxis::Longitudinal,
+            1.0,
+        )
+        .expect("a monotone articulated projection should be phase-warpable");
         assert!((projected.stride.step_distance - 1.0).abs() < 0.02);
         assert!(projected.stride.maximum_stance_slip < 0.08);
         let curve = projected
@@ -1974,8 +1986,12 @@ mod tests {
                 track.translations[index] = Vec3::new(0.0, 0.005, 0.2 - offset as f32 * 0.1);
             }
         }
-        let misleading =
-            measure_authored_contact_step_distance(&definition, &low_wrong_way_approach, 2, 1.0);
+        let misleading = measure_authored_contact_step_distance(
+            &definition,
+            &low_wrong_way_approach,
+            CalibrationAxis::Longitudinal,
+            1.0,
+        );
         assert!(
             misleading.is_none_or(|measurement| {
                 measurement.stride.maximum_stance_slip
@@ -1990,8 +2006,13 @@ mod tests {
                 translation.z = -translation.z;
             }
         }
-        let reversed = measure_authored_contact_step_distance(&definition, &wrong_way, 2, 1.0)
-            .expect("a cyclic clip authored backward should be sampled in reverse");
+        let reversed = measure_authored_contact_step_distance(
+            &definition,
+            &wrong_way,
+            CalibrationAxis::Longitudinal,
+            1.0,
+        )
+        .expect("a cyclic clip authored backward should be sampled in reverse");
         assert!((reversed.stride.step_distance - 1.0).abs() < 0.0001);
         let curve = reversed.phase_curve.unwrap();
         let authored_delta = (curve

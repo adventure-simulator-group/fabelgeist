@@ -33,11 +33,11 @@ pub(in crate::animation::procedural) fn preserve_raised_handoff_targets(
 }
 
 pub(in crate::animation::procedural) fn terrain_ik_is_required(
-    enabled: bool,
+    mode: crate::animation::TerrainIkMode,
     settle_active: bool,
     raised_handoff: bool,
 ) -> bool {
-    enabled || settle_active || raised_handoff
+    mode.is_enabled() || settle_active || raised_handoff
 }
 
 pub(in crate::animation::procedural) fn advance_settle_state(

@@ -30,8 +30,8 @@ use crate::animation::pose_buffer::PoseBufferMetrics;
 use crate::animation::{
     AnimationPlayback, AnimationRuntime, ArmIkState, AuthoredBindTransform, BoneRole, HumanoidBone,
     LegIkDiagnostics, LegIkState, LocomotionBodyResponseState, LocomotionHeightState,
-    LocomotionPresentationEvent, LocomotionPresentationEventKind, PresentedSkeleton,
-    ProceduralAnimationClock, RaisedFootworkState, TacticalAnimationPlugin, TerrainIkEnabled,
+    LocomotionPresentationEvent, LocomotionPresentationPayload, PresentedSkeleton,
+    ProceduralAnimationClock, RaisedFootworkState, TacticalAnimationPlugin, TerrainIkMode,
     bouncy_bones::BouncyBonesTelemetry,
     capture_animation_target_id, capture_entity_id, locomotion_support_weights,
     measured_ankle_sole_offset_metres,
@@ -67,6 +67,9 @@ mod scenarios;
 
 use capture::*;
 use report::*;
+use scenarios::terrain_policy::{
+    raised_scenario_requires_zero_flight, scenario_uses_terrain_ik, terrain_ik_mode_for_frame,
+};
 use scenarios::*;
 
 pub(crate) struct CaptureOptions {
@@ -99,9 +102,13 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
     });
     invalidate_previous_report(&output);
     setup::write_body_proportions(&output, body_proportions);
-    let initial_terrain_ik = scenario.is_some_and(|name| {
+    let initial_terrain_ik = if scenario.is_some_and(|name| {
         scenario_metadata(name).kind == ScenarioKind::Terrain || name.contains("terrain")
-    });
+    }) {
+        TerrainIkMode::Enabled
+    } else {
+        TerrainIkMode::Disabled
+    };
     let default_character_id = default_tactical_character_id();
 
     let workspace_asset_source =
@@ -156,7 +163,7 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
         .insert_resource(Time::<Fixed>::from_hz(locomotion_sample_hz() as f64))
         // Individual scenarios select terrain conformity explicitly so the
         // viewer can retain FK-only controls after the live default changed.
-        .insert_resource(TerrainIkEnabled(initial_terrain_ik))
+        .insert_resource(initial_terrain_ik)
         .insert_resource(ClearColor(Color::srgb(0.08, 0.1, 0.13)))
         .insert_resource(CaptureSequence::new(output, settle_frames, scenario))
         .add_systems(Startup, setup_viewer)

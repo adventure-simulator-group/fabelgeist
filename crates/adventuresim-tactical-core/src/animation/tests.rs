@@ -287,7 +287,7 @@ mod legacy_tests {
             },
         )
         .unwrap();
-        assert_eq!(state.contact_sequence, 1);
+        assert_eq!(state.contact_sequence, ContactSequence::from(1u64));
         assert_eq!(state.contact_foot, LeadFoot::Right);
         assert_eq!(state.landing_sequence, LandingSequence::from(1u64));
         assert_eq!(
@@ -891,7 +891,7 @@ mod legacy_tests {
                     },
                 )
                 .unwrap();
-                if state.contact_sequence > 0 {
+                if state.contact_sequence > ContactSequence::ZERO {
                     break;
                 }
             }
@@ -965,7 +965,7 @@ mod legacy_tests {
             )
             .unwrap();
         }
-        assert!(state.contact_sequence >= 2);
+        assert!(state.contact_sequence >= ContactSequence::from(2u64));
         let contacts = state.raised_footwork().contacts().unwrap();
         assert!(contacts.left().is_finite() && contacts.right().is_finite());
     }

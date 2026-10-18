@@ -1486,9 +1486,9 @@ mod tests {
             world_acceleration: Vec3::ZERO.to_array(),
             bouncy_active_springs: 0,
             bouncy_maximum_deflection_radians: 0.0,
-            contact_sequence: 0,
+            contact_sequence: ContactSequence::ZERO,
             contact_foot: LeadFoot::Left,
-            landing_sequence: 0,
+            landing_sequence: adventuresim_tactical_core::animation::LandingSequence::ZERO,
             landing_impact_speed: 0.0,
             body_lean_pitch_degrees: 0.0,
             body_lean_roll_degrees: 0.0,
@@ -1627,9 +1627,9 @@ mod tests {
             world_acceleration: Vec3::ZERO.to_array(),
             bouncy_active_springs: 0,
             bouncy_maximum_deflection_radians: 0.0,
-            contact_sequence: 0,
+            contact_sequence: ContactSequence::ZERO,
             contact_foot: LeadFoot::Left,
-            landing_sequence: 0,
+            landing_sequence: adventuresim_tactical_core::animation::LandingSequence::ZERO,
             landing_impact_speed: 0.0,
             body_lean_pitch_degrees: 0.0,
             body_lean_roll_degrees: 0.0,
@@ -1890,7 +1890,7 @@ mod tests {
             frame.weapon_guard = WeaponGuardState::Raised;
             frame.right_support_weight = if frame.scenario_frame < 2 { 1.0 } else { 0.0 };
         }
-        frames[2].contact_sequence = 1;
+        frames[2].contact_sequence = ContactSequence::from(1u64);
         frames[2].contact_foot = LeadFoot::Right;
         let references = frames.iter().collect::<Vec<_>>();
 

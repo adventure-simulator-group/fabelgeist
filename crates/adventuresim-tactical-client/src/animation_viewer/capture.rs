@@ -153,7 +153,7 @@ pub(super) struct RepeatedEvaluationSnapshot {
     scenario: &'static str,
     scenario_frame: usize,
     bones: BTreeMap<String, BoneSample>,
-    contact_sequence: u64,
+    contact_sequence: ContactSequence,
     landing_sequence: adventuresim_tactical_core::animation::LandingSequence,
     event_count: usize,
     leg_ik: LegIkDiagnostics,
@@ -261,7 +261,7 @@ pub(super) fn freeze_capture_look(
 pub(super) fn drive_sequence(
     mut sequence: ResMut<CaptureSequence>,
     mut procedural_clock: ResMut<ProceduralAnimationClock>,
-    mut terrain_ik: ResMut<TerrainIkEnabled>,
+    mut terrain_ik: ResMut<TerrainIkMode>,
     mut guard_input: ResMut<WeaponGuardInputState>,
     animation_runtime: Res<AnimationRuntime>,
     terrain: Single<&SceneTerrain>,
@@ -287,7 +287,7 @@ pub(super) fn drive_sequence(
     let frame = sequence.plan[sequence.index].clone();
     let metadata = scenario_metadata(frame.scenario);
     let mut gait_phase = 0.0;
-    let mut presentation_settled = false;
+    let mut observed_playback = None;
     for (
         mut skeleton,
         mut transform,
@@ -303,7 +303,7 @@ pub(super) fn drive_sequence(
         let Some(playback) = playback else {
             return;
         };
-        presentation_settled = playback.presentation_is_settled();
+        observed_playback = Some(playback);
         if frame.scenario != "full-ragdoll" && !playback.authored_pose_is_ready() {
             return;
         }
@@ -376,7 +376,7 @@ pub(super) fn drive_sequence(
         {
             skeleton.lead_foot = frame.lead_foot;
         }
-        terrain_ik.0 = terrain_ik_enabled_for_frame(&frame);
+        *terrain_ik = terrain_ik_mode_for_frame(&frame);
         guard_input.desired = frame.weapon_guard;
         set_weapon_guard(&mut skeleton, guard_input.desired);
         if frame.scenario == "downed-prone-look-at" {
@@ -454,7 +454,7 @@ pub(super) fn drive_sequence(
                 + quickstep_fixture_vertical_state(frame.scenario_frame)
                     .0
                     .max(0.0)
-        } else if terrain_ik.0 {
+        } else if terrain_ik.is_enabled() {
             terrain.height_at(horizontal).unwrap_or_default() + CAPTURE_ROOT_GROUND_OFFSET_METRES
         } else {
             transform.translation.y
@@ -567,7 +567,7 @@ pub(super) fn drive_sequence(
         }
         gait_phase = skeleton.gait_phase;
     }
-    if !sequence.ready_for_frame(&frame, &animation_runtime, presentation_settled) {
+    if !sequence.ready_for_frame(&frame, &animation_runtime, observed_playback) {
         return;
     }
     for mut label in &mut labels {
@@ -698,14 +698,8 @@ pub(super) fn collect_locomotion_presentation_events(
             scenario: scenario.clone(),
             scenario_frame,
             owner: capture_entity_id(event.owner),
-            sequence: event.sequence,
             sample_tick: event.sample_tick,
-            kind: match event.kind {
-                LocomotionPresentationEventKind::Contact(foot) => {
-                    format!("contact_{}", foot.id())
-                }
-                LocomotionPresentationEventKind::Landing => "landing".to_owned(),
-            },
+            payload: event.payload,
         }));
 }
 
@@ -719,7 +713,7 @@ pub(super) fn capture_frame(
     mut sequence: ResMut<CaptureSequence>,
     pose_buffer_metrics: Res<PoseBufferMetrics>,
     bouncy_bones_telemetry: Res<BouncyBonesTelemetry>,
-    terrain_ik: Res<TerrainIkEnabled>,
+    terrain_ik: Res<TerrainIkMode>,
     subjects: Query<
         (
             Entity,
@@ -815,7 +809,7 @@ pub(super) fn capture_frame(
         subject,
         &bones,
         &terrain,
-        (!terrain_ik.0)
+        (!terrain_ik.is_enabled())
             .then_some(subject_global.translation().y - CAPTURE_ROOT_GROUND_OFFSET_METRES),
     );
     let evaluation_leg_ik = leg_ik.map(LegIkState::diagnostics).unwrap_or_default();
@@ -855,8 +849,8 @@ pub(super) fn capture_frame(
             warn!(
                 scenario = frame.scenario,
                 scenario_frame = frame.scenario_frame,
-                baseline_contact = baseline.contact_sequence,
-                contact = skeleton.contact_sequence,
+                baseline_contact = baseline.contact_sequence.encoded(),
+                contact = skeleton.contact_sequence.encoded(),
                 baseline_landing = baseline.landing_sequence.encoded(),
                 landing = skeleton.landing_sequence.encoded(),
                 baseline_events = baseline.event_count,
@@ -920,7 +914,7 @@ pub(super) fn capture_frame(
             contact_foot: raised_footwork
                 .and_then(RaisedFootworkState::contact_foot)
                 .unwrap_or(skeleton.contact_foot),
-            landing_sequence: skeleton.landing_sequence.encoded(),
+            landing_sequence: skeleton.landing_sequence,
             landing_impact_speed: skeleton.landing_impact_speed.metres_per_second(),
             body_lean_pitch_degrees: body_response
                 .map_or(0.0, |state| state.pitch_radians.radians().to_degrees()),
@@ -1289,7 +1283,7 @@ mod tests {
             assert!(sequence.plan.iter().all(|frame| {
                 frame.scenario == scenario
                     && frame.speed == speed
-                    && terrain_ik_enabled_for_frame(frame)
+                    && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Enabled
             }));
         }
 
@@ -1299,7 +1293,7 @@ mod tests {
         assert!(sprint.plan.iter().all(|frame| {
             frame.scenario == "flat-grid-sprint-no-ik"
                 && (frame.speed - canonical_john_sprint_speed()).abs() < f32::EPSILON
-                && !terrain_ik_enabled_for_frame(frame)
+                && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Disabled
         }));
         assert!((canonical_john_sprint_speed() - 8.957_856).abs() < 0.000_01);
 
@@ -1309,7 +1303,7 @@ mod tests {
         assert!(walk.plan.iter().all(|frame| {
             frame.scenario == "flat-grid-walk-no-ik"
                 && (frame.speed - 2.0).abs() < f32::EPSILON
-                && !terrain_ik_enabled_for_frame(frame)
+                && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Disabled
         }));
 
         let ordinary = CaptureSequence::new(PathBuf::new(), 1, Some("steady-walk-2.0"));

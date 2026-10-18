@@ -92,7 +92,7 @@ pub(crate) fn sole_contact_tolerance_metres() -> f32 {
     reason = "Bevy injects each independently borrowed terrain IK resource and query as a system parameter"
 )]
 pub(in crate::animation) fn apply_terrain_leg_ik(
-    enabled: Res<super::super::TerrainIkEnabled>,
+    enabled: Res<super::super::TerrainIkMode>,
     time: Res<Time>,
     clock: Res<ProceduralAnimationClock>,
     terrain: Query<&SceneTerrain>,
@@ -208,7 +208,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 // Startup is not a toggle transition: establish the configured
                 // mode immediately so the first supported frame can plant.
                 LegIkMemory {
-                    terrain_blend: if enabled.0 { 1.0 } else { 0.0 },
+                    terrain_blend: if enabled.is_enabled() { 1.0 } else { 0.0 },
                     ..default()
                 },
                 true,
@@ -227,7 +227,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
         }
         if !state_delta_seconds.is_zero() {
             let desired = if terrain_ik_is_required(
-                enabled.0,
+                *enabled,
                 memory.settle.is_some(),
                 raised_footwork_handoff,
             ) {
@@ -656,7 +656,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     let authored_local = rig_rotation.inverse() * (authored - rig_origin);
                     let target = rig_origin
                         + rig_rotation * Vec3::new(contact.x, authored_local.y, contact.y);
-                    if enabled.0 {
+                    if enabled.is_enabled() {
                         terrain.map_or(target, |terrain| {
                             terrain_conformed_guard_target(target, terrain.height_at(target.xz()))
                         })
@@ -765,7 +765,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 // sequence advances when the airborne foot lands (or a
                 // skipped presentation sample lands and launches the other
                 // foot), not when toe-off begins.
-                footwork.step_sequence = footwork.step_sequence.wrapping_add(1);
+                footwork.step_sequence = footwork.step_sequence.next();
             }
 
             let mut left_target;
@@ -1012,7 +1012,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 }
                 let rendered_ankle = snapshot(foot, &parents, &transforms.p0())
                     .map(|rendered| rendered.global.translation());
-                let reported_support = if enabled.0 {
+                let reported_support = if enabled.is_enabled() {
                     rendered_ankle.is_some_and(|ankle| {
                         terrain
                             .and_then(|terrain| terrain.height_at(ankle.xz()))
@@ -1028,7 +1028,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     support
                 };
                 airborne_orientation_owned[leg_index] = !reported_support;
-                if enabled.0
+                if enabled.is_enabled()
                     && reported_support
                     && let Some(terrain) = terrain
                     && let Some(normal) = terrain.normal_at(target.xz())
@@ -1102,7 +1102,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     continue;
                 };
                 let ankle = rendered.global.translation();
-                let reported_support = if enabled.0 {
+                let reported_support = if enabled.is_enabled() {
                     terrain
                         .and_then(|terrain| terrain.height_at(ankle.xz()))
                         .is_some_and(|height| {
@@ -1136,7 +1136,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             continue;
         }
 
-        if !enabled.0
+        if !enabled.is_enabled()
             && terrain_blend <= 0.001
             && memory.settle.is_none()
             && !memory.left_release_active

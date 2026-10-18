@@ -1,7 +1,7 @@
 //! Authored motion and asset identity admitted by the animation catalog.
 
 use adventuresim_tactical_core::animation::AnimationPackId;
-use derive_more::{AsRef, Debug, Display, From};
+use derive_more::{AsRef, Debug, Display, From, Into};
 use std::borrow::Cow;
 
 #[derive(Clone, Debug, Display, PartialEq, Eq, PartialOrd, Ord, From)]
@@ -20,6 +20,19 @@ pub(super) struct MotionKey {
 #[from(String)]
 #[as_ref(str)]
 pub(super) struct AnimationAssetPath(Cow<'static, str>);
+
+/// An authored catalogue frame at the configured clip frame rate, not a sample tick.
+#[derive(Clone, Copy, Debug, Display, PartialEq, Eq, PartialOrd, Ord, From, Into)]
+#[debug("{_0:?}")]
+pub(crate) struct AuthoredAnimationFrame(u16);
+
+impl AuthoredAnimationFrame {
+    pub(super) const ZERO: Self = Self(0);
+
+    pub(super) fn abs_diff(self, other: Self) -> u16 {
+        self.0.abs_diff(other.0)
+    }
+}
 
 impl MotionId {
     pub(super) const fn from_static(name: &'static str) -> Self {

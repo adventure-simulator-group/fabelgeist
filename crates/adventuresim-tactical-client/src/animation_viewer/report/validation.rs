@@ -192,7 +192,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             }
             let delta = pair[1]
                 .contact_sequence
-                .wrapping_sub(pair[0].contact_sequence);
+                .wrapping_distance_from(pair[0].contact_sequence);
             delta <= 1
                 && (delta == 0
                     || pair[1].contact_foot != pair[0].contact_foot
@@ -230,7 +230,10 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
     let cadence_contacts = cadence_frames
         .windows(2)
         .filter_map(|pair| {
-            (pair[1].contact_sequence == pair[0].contact_sequence + 1).then_some(pair[1])
+            (pair[1]
+                .contact_sequence
+                .is_successor_of(pair[0].contact_sequence))
+            .then_some(pair[1])
         })
         .collect::<Vec<_>>();
     let cadence_step_distance = ordinary_step_distance(2.0);
@@ -249,7 +252,9 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
     let cadence_contact_valid = cadence_frames.is_empty()
         || (cadence_contacts.len() == 4
             && cadence_contacts.windows(2).all(|pair| {
-                pair[1].contact_sequence == pair[0].contact_sequence + 1
+                pair[1]
+                    .contact_sequence
+                    .is_successor_of(pair[0].contact_sequence)
                     && pair[1].contact_foot != pair[0].contact_foot
             })
             && adjusted_contact_distances.windows(2).all(|pair| {
@@ -258,28 +263,28 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             && adjusted_contact_distances.windows(3).all(|window| {
                 ((window[2] - window[0]) - cadence_step_distance * 2.0).abs() <= cadence_tolerance
             }));
-    let event_stream_valid = presentation_events.windows(2).all(|pair| {
-        let same_stream = (pair[0].kind.starts_with("contact")
-            && pair[1].kind.starts_with("contact"))
-            || (pair[0].kind == "landing" && pair[1].kind == "landing");
-        pair[0].scenario != pair[1].scenario || !same_stream || pair[1].advances_from(&pair[0])
-    }) && presentation_events
+    let event_stream_valid = presentation_events
         .iter()
-        .enumerate()
-        .all(|(index, event)| {
-            !presentation_events[..index].iter().any(|previous| {
-                previous.owner == event.owner
-                    && previous.scenario == event.scenario
-                    && previous.kind == event.kind
-                    && previous.sequence == event.sequence
-            })
+        .zip(presentation_events.iter().skip(1))
+        .all(|(previous, current)| {
+            previous.scenario != current.scenario
+                || !previous.payload.same_stream(current.payload)
+                || current.advances_from(previous)
         })
+        && presentation_events
+            .iter()
+            .enumerate()
+            .all(|(index, event)| {
+                !presentation_events.iter().take(index).any(|previous| {
+                    previous.owner == event.owner
+                        && previous.scenario == event.scenario
+                        && previous.payload == event.payload
+                })
+            })
         && (cadence_frames.is_empty()
             || presentation_events
                 .iter()
-                .filter(|event| {
-                    event.scenario == "cadence-contact" && event.kind.starts_with("contact")
-                })
+                .filter(|event| event.scenario == "cadence-contact" && event.payload.is_contact())
                 .count()
                 == 4)
         && (!frames
@@ -287,7 +292,10 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             .any(|frame| frame.scenario == "airborne-landing")
             || presentation_events
                 .iter()
-                .filter(|event| event.scenario == "airborne-landing" && event.kind == "landing")
+                .filter(|event| {
+                    event.scenario == "airborne-landing"
+                        && matches!(event.payload, LocomotionPresentationPayload::Landing { .. })
+                })
                 .count()
                 == 1);
     let speed_ramp_phase_continuity_valid = frames.windows(2).all(|pair| {
@@ -299,7 +307,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             || (phase_delta < -0.5
                 && pair[1]
                     .contact_sequence
-                    .wrapping_sub(pair[0].contact_sequence)
+                    .wrapping_distance_from(pair[0].contact_sequence)
                     == 1)
     });
     let lean_range = |scenario: &str, select: fn(&FrameSample) -> f32| {
@@ -389,7 +397,9 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             .last()
             .zip(landing_frames.first())
             .is_some_and(|(last, first)| {
-                last.landing_sequence.wrapping_sub(first.landing_sequence) == 1
+                last.landing_sequence
+                    .wrapping_distance_from(first.landing_sequence)
+                    == 1
             })
             && (0.04..=0.08).contains(
                 &landing_frames

@@ -10,10 +10,34 @@ mod coordination_tests {
 
     #[test]
     fn authored_to_idle_handoff_does_not_reset_contact_sequence() {
-        assert_eq!(retain_monotonic_contact_sequence(1, 0), 1);
-        assert_eq!(retain_monotonic_contact_sequence(1, 1), 1);
-        assert_eq!(retain_monotonic_contact_sequence(1, 2), 2);
-        assert_eq!(retain_monotonic_contact_sequence(u64::MAX, 0), 0);
+        assert_eq!(
+            retain_monotonic_contact_sequence(
+                ContactSequence::from(1u64),
+                ContactSequence::from(0u64)
+            ),
+            ContactSequence::from(1u64)
+        );
+        assert_eq!(
+            retain_monotonic_contact_sequence(
+                ContactSequence::from(1u64),
+                ContactSequence::from(1u64)
+            ),
+            ContactSequence::from(1u64)
+        );
+        assert_eq!(
+            retain_monotonic_contact_sequence(
+                ContactSequence::from(1u64),
+                ContactSequence::from(2u64)
+            ),
+            ContactSequence::from(2u64)
+        );
+        assert_eq!(
+            retain_monotonic_contact_sequence(
+                ContactSequence::from(u64::MAX),
+                ContactSequence::from(0u64)
+            ),
+            ContactSequence::from(0u64)
+        );
     }
 
     #[test]
@@ -1066,14 +1090,21 @@ mod coordination_tests {
             raised_handoff: true,
         };
 
-        assert!(terrain_ik_is_required(false, false, true));
+        assert!(terrain_ik_is_required(
+            crate::animation::TerrainIkMode::Disabled,
+            false,
+            true
+        ));
         for tick in 0..4 {
             settle = advance_settle_state(
                 settle,
                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
             )
             .unwrap();
-            assert!(terrain_ik_is_required(false, true, false), "tick {tick}");
+            assert!(
+                terrain_ik_is_required(crate::animation::TerrainIkMode::Disabled, true, false),
+                "tick {tick}"
+            );
             assert!(settle.progress > 0.0 && settle.progress < 1.0);
         }
         assert!(
@@ -1097,7 +1128,11 @@ mod coordination_tests {
                 + ik_tuning().raised_settle_pelvis_knee_budget_metres
                 < ik_tuning().maximum_knee_step_metres
         );
-        assert!(!terrain_ik_is_required(false, false, false));
+        assert!(!terrain_ik_is_required(
+            crate::animation::TerrainIkMode::Disabled,
+            false,
+            false
+        ));
     }
 
     #[test]

@@ -13,7 +13,6 @@ use adventuresim_tactical_netcode::message::SuccessfulAttackResponse;
 use bevy::{
     animation::AnimationTargetId,
     asset::{AssetId, LoadState},
-    ecs::hierarchy::ChildSpawnerCommands,
     gltf::Gltf,
     prelude::*,
 };
@@ -22,7 +21,7 @@ pub(crate) use capture_ids::{capture_animation_target_id, capture_entity_id};
 pub use catalog::AnimationPackCatalog;
 use catalog::*;
 pub(crate) use catalog_id::MotionId;
-use catalog_id::{AnimationAssetPath, MotionKey};
+use catalog_id::{AnimationAssetPath, AuthoredAnimationFrame, MotionKey};
 use continuation::{ContinuationSpan, append_continuation_span};
 use diagnostics::log_animation_diagnostics;
 #[cfg(not(target_family = "wasm"))]
@@ -59,6 +58,7 @@ pub(crate) mod catalog;
 mod catalog_id;
 mod continuation;
 mod diagnostics;
+pub(crate) mod fallback;
 mod identity_morphs;
 pub(crate) mod jitter;
 mod loading;
@@ -82,11 +82,6 @@ const BIPED_GRIP_HILT_GLB: AnimationAssetPath =
 
 const BIPED_GRIP_POLEARM_GLB: AnimationAssetPath =
     AnimationAssetPath::from_static("animations/biped/grip_polearm.glb");
-
-/// Runtime switch for terrain height, slope, and pelvis conformity. This is on
-/// by default; debug builds expose F8 to compare against authored FK.
-#[derive(Resource, Debug, Clone, Copy, PartialEq, Eq)]
-pub(crate) struct TerrainIkEnabled(pub bool);
 
 /// Per-step travel and irreducible stance slip measured from the loaded
 /// authored foot curves. Until a motion and rig are both available,
@@ -204,6 +199,15 @@ struct ResolvedAnchor<'a> {
     timeline_direction: TimelineDirection,
 }
 
+/// Runtime mode for terrain height, slope, and pelvis conformity. This is on
+/// by default; debug builds expose F8 to compare against authored FK.
+#[derive(Resource, Debug, Default, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum TerrainIkMode {
+    #[default]
+    Enabled,
+    Disabled,
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 enum ClipLayer {
     Whole,
@@ -231,9 +235,16 @@ enum PoseSamplingCadence {
     Direct,
 }
 
-impl Default for TerrainIkEnabled {
-    fn default() -> Self {
-        Self(true)
+impl TerrainIkMode {
+    pub(crate) fn is_enabled(self) -> bool {
+        self == Self::Enabled
+    }
+
+    pub(crate) fn toggle(&mut self) {
+        *self = match self {
+            Self::Enabled => Self::Disabled,
+            Self::Disabled => Self::Enabled,
+        };
     }
 }
 
@@ -339,11 +350,11 @@ impl AuthoredLocomotionStrides {
 }
 
 impl LoadedClip {
-    fn at_anchor(&self, frame: u16) -> Self {
+    fn at_anchor(&self, frame: AuthoredAnimationFrame) -> Self {
         self.at_anchor_layer(frame, ClipLayer::Whole)
     }
 
-    fn at_anchor_layer(&self, _frame: u16, layer: ClipLayer) -> Self {
+    fn at_anchor_layer(&self, _frame: AuthoredAnimationFrame, layer: ClipLayer) -> Self {
         let mut clip = self.clone();
         clip.layer = layer;
         clip
@@ -448,71 +459,6 @@ impl Default for AnimationPlayback {
     }
 }
 
-/// Spawns a deliberately obvious T-pose mannequin. It remains visible until
-/// the independently loaded authored base rig is available, even if no motion
-/// clip has been exported yet.
-pub fn spawn_fallback_t_pose(
-    parent: &mut ChildSpawnerCommands,
-    owner: Entity,
-    color: Color,
-    meshes: &mut Assets<Mesh>,
-    materials: &mut Assets<StandardMaterial>,
-) {
-    let material = materials.add(StandardMaterial {
-        base_color: color,
-        metallic: 0.0,
-        perceptual_roughness: 1.0,
-        ..default()
-    });
-    let torso = meshes.add(Capsule3d::new(0.24, 0.5));
-    let head = meshes.add(Sphere::new(0.22));
-    let arm = meshes.add(Cuboid::new(0.72, 0.16, 0.18));
-    let leg = meshes.add(Capsule3d::new(0.12, 0.72));
-    parent
-        .spawn((
-            Name::new("Fallback bind-pose T rig"),
-            FallbackAnimationRig(owner),
-            Transform::from_xyz(0.0, player_visual_y_offset_metres(), 0.0),
-            Visibility::Inherited,
-        ))
-        .with_children(|rig| {
-            rig.spawn((
-                Name::new("hips/spine/chest"),
-                Mesh3d(torso),
-                MeshMaterial3d(material.clone()),
-                Transform::from_xyz(0.0, 0.35, 0.0),
-            ));
-            rig.spawn((
-                Name::new("head"),
-                Mesh3d(head),
-                MeshMaterial3d(material.clone()),
-                Transform::from_xyz(0.0, 1.02, 0.0),
-            ));
-            for (name, x) in [
-                ("l_uparm/l_lowarm/l_wrist", -0.56),
-                ("r_uparm/r_lowarm/r_wrist", 0.56),
-            ] {
-                rig.spawn((
-                    Name::new(name),
-                    Mesh3d(arm.clone()),
-                    MeshMaterial3d(material.clone()),
-                    Transform::from_xyz(x, 0.68, 0.0),
-                ));
-            }
-            for (name, x) in [
-                ("l_upleg/l_lowleg/l_foot", -0.16),
-                ("r_upleg/r_lowleg/r_foot", 0.16),
-            ] {
-                rig.spawn((
-                    Name::new(name),
-                    Mesh3d(leg.clone()),
-                    MeshMaterial3d(material.clone()),
-                    Transform::from_xyz(x, -0.46, 0.0),
-                ));
-            }
-        });
-}
-
 fn animation_frames_per_second() -> f32 {
     runtime_animation_config().playback.frames_per_second
 }
@@ -584,7 +530,7 @@ fn evaluate_skeletons(
             {
                 if let Err(error) = append_weighted_clip(
                     &mut target.clips,
-                    &clip.at_anchor_layer(0, layer),
+                    &clip.at_anchor_layer(AuthoredAnimationFrame::ZERO, layer),
                     ClipMirror::Original,
                     ClipTime::ZERO,
                     BlendWeight::ONE,

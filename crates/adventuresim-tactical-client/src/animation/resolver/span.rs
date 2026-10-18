@@ -4,7 +4,7 @@ use super::*;
 
 struct ResolvedSpanEndpoint<'a> {
     anchor: ResolvedAnchor<'a>,
-    frame: u16,
+    frame: AuthoredAnimationFrame,
 }
 
 struct ResolvedSpan<'a> {

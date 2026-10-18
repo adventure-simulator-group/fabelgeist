@@ -1,7 +1,9 @@
 //! The wearer armor is fitted to: its body, rig and anatomical regions.
 
 use anyhow::Result;
-use fabelgeist_rig::{RigJointMembership, RigJointName, RigJointPart, RigSide};
+use fabelgeist_rig::{
+    RigJointMembership, RigJointName, RigJointOrdinal, RigJointPart, RigJointTable, RigSide,
+};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Side {
@@ -189,12 +191,17 @@ impl Wearer<'_> {
                         == RigJointMembership::Included
                 }))
             })
+            .collect::<RigJointTable<_>>();
+        // Admit every packed GPU slot before filtering, including zero weights.
+        let joint_indices = joint_indices
+            .iter()
+            .map(|row| row.map(RigJointOrdinal::from))
             .collect::<Vec<_>>();
         anyhow::ensure!(
             joint_indices
                 .iter()
                 .flatten()
-                .all(|&index| (index as usize) < owned.len()),
+                .all(|&joint| owned.get(joint).is_some()),
             "surface skin references an unknown joint"
         );
         Ok(joint_indices
@@ -205,7 +212,7 @@ impl Wearer<'_> {
                 let weight: f32 = indices
                     .iter()
                     .zip(weights)
-                    .filter(|(j, _)| owned[**j as usize] == RigJointMembership::Included)
+                    .filter(|(j, _)| owned[**j] == RigJointMembership::Included)
                     .map(|(_, w)| w)
                     .sum();
                 (weight >= SKIN_SUPPORT_THRESHOLD).then_some(i)
