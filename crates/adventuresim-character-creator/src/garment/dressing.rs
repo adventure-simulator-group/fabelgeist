@@ -40,18 +40,18 @@ impl BodyPart {
             RigJointPart::Talocrural,
             RigJointPart::Subtalar,
         ];
-        let contains = |parts: &[RigJointPart]| -> RigJointMembership {
-            RigJointMembership::from(parts.iter().any(|part: &RigJointPart| -> bool {
-                name.contains_part(*part) == RigJointMembership::Included
-            }))
+        let contains = |parts: &[RigJointPart]| {
+            parts
+                .iter()
+                .any(|part| name.contains_part(*part) == RigJointMembership::Included)
         };
-        if contains(&HEAD) == RigJointMembership::Included {
+        if contains(&HEAD) {
             Self::Head
-        } else if contains(&HAND) == RigJointMembership::Included {
+        } else if contains(&HAND) {
             Self::Hand
-        } else if contains(&FOOT) == RigJointMembership::Included {
+        } else if contains(&FOOT) {
             Self::Foot
-        } else if contains(&LEG) == RigJointMembership::Included {
+        } else if contains(&LEG) {
             Self::Leg
         } else {
             Self::Trunk
