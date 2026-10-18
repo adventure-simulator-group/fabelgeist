@@ -27,6 +27,7 @@ mod frame_times;
 mod hotbar;
 mod hud;
 mod icons;
+mod input;
 mod live;
 mod menu;
 mod pointer;
@@ -42,7 +43,8 @@ mod world;
 use std::path::PathBuf;
 use std::time::Instant;
 
-use adventuresim_environment::render::ForestPlugin;
+use adventuresim_environment::prepared::VariantBudget;
+use adventuresim_environment::render::{ForestPlugin, Level, LevelSelection};
 use adventuresim_environment::{SoloSpecies, scene_named};
 use anyhow::anyhow;
 use bevy::prelude::*;
@@ -61,6 +63,23 @@ const WINDOW_SIZE: [u32; 2] = [1480, 900];
 #[derive(Parser)]
 #[command(about = "Watch a botany ecosystem grow, or capture one frame of it")]
 struct Options {
+    /// Grow and freeze render assets offline; this never times arrival.
+    #[arg(long, conflicts_with_all = ["snapshot", "prepared_forest", "frames", "benchmark_report", "orbit", "refeed"]) ]
+    prepare_forest: Option<PathBuf>,
+    /// Maximum representatives per species, preserving leafed/bare states.
+    #[arg(long, requires = "prepare_forest", conflicts_with = "all_plants")]
+    variants_per_species: Option<std::num::NonZeroU16>,
+    /// One model per source plant for a small renderer parity fixture.
+    #[arg(long, requires = "prepare_forest")]
+    all_plants: bool,
+    /// Load frozen assets directly, without growing an ecosystem.
+    #[arg(long, requires_all = ["snapshot", "representation"], conflicts_with_all = ["scene", "solo", "years", "profile", "refeed", "orbit"]) ]
+    prepared_forest: Option<PathBuf>,
+    #[arg(long, value_enum, requires = "prepared_forest")]
+    representation: Option<input::Representation>,
+    /// Force a common geometric level for controlled capture comparisons.
+    #[arg(long, value_enum, requires = "snapshot")]
+    fixed_lod: Option<Level>,
     /// The scene, by the start of its name (`boreal`, `castle-unplanted`...).
     #[arg(long)]
     scene: Option<String>,
@@ -109,15 +128,37 @@ fn main() -> anyhow::Result<()> {
         Some(name) => scene_named(name)?,
         None => Scene::MixedForest,
     };
+    if let Some(directory) = &options.prepare_forest {
+        let budget = match (options.all_plants, options.variants_per_species) {
+            (true, None) => VariantBudget::AllPlants,
+            (false, Some(count)) => VariantBudget::PerSpecies(count),
+            _ => {
+                return Err(anyhow!(
+                    "preparation requires --variants-per-species or --all-plants"
+                ));
+            }
+        };
+        return input::prepare(options.growth(scene)?, directory.clone(), budget);
+    }
     if let Some(path) = &options.snapshot {
-        let profile = Profile::named(&options.profile)
-            .ok_or_else(|| anyhow!("unknown profile `{}`", options.profile))?;
+        let source = match (&options.prepared_forest, options.representation) {
+            (Some(directory), Some(representation)) => input::Source::Prepared {
+                directory: directory.clone(),
+                representation,
+            },
+            (None, None) => input::Source::Growth(Box::new(options.growth(scene)?)),
+            _ => {
+                return Err(anyhow!(
+                    "prepared capture requires a directory and representation"
+                ));
+            }
+        };
         return snapshot::run(snapshot::Request {
             path: path.clone(),
-            scene,
-            ecosystem: options.solo.map(SoloSpecies::ecosystem),
-            years: options.years,
-            profile: profile_controls::drawable(profile),
+            source,
+            level: options
+                .fixed_lod
+                .map_or(LevelSelection::Adaptive, LevelSelection::Fixed),
             framing: Framing {
                 closeup: options.closeup,
                 aim: options.aim,
@@ -147,4 +188,17 @@ fn main() -> anyhow::Result<()> {
     live::install(&mut app, scene);
     app.run();
     Ok(())
+}
+
+impl Options {
+    fn growth(&self, scene: Scene) -> anyhow::Result<input::Growth> {
+        let profile = Profile::named(&self.profile)
+            .ok_or_else(|| anyhow!("unknown profile `{}`", self.profile))?;
+        Ok(input::Growth {
+            scene,
+            ecosystem: self.solo.map(SoloSpecies::ecosystem),
+            years: self.years,
+            profile: profile_controls::drawable(profile),
+        })
+    }
 }

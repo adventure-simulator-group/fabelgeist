@@ -3,17 +3,18 @@
 use std::path::PathBuf;
 use std::time::{Duration, Instant};
 
+use adventuresim_environment::prepared::ForestFrame;
 use adventuresim_environment::render::ForestDetail;
 use adventuresim_environment::render::benchmark::{ForestBenchmark, ForestBenchmarkCounts};
 use bevy::prelude::*;
-use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance, PlantInstance, Snapshot};
+use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance, PlantInstance};
 use serde_json::json;
 
 use crate::stage::Orbit;
 
 /// Consecutive readbacks must agree within this bounded number of attempts.
 const MAX_READBACKS: usize = 8;
-const REPORT_VERSION: u32 = 1;
+const REPORT_VERSION: u32 = 2;
 const READINESS_TIMEOUT: Duration = Duration::from_secs(240);
 
 pub struct Request {
@@ -27,10 +28,26 @@ pub struct Preparation {
     pub gpu_setup: Duration,
     pub growth: Duration,
     pub packing: Duration,
+    pub asset_load: Duration,
+    pub asset_decode: Duration,
+    pub asset_bytes: usize,
+    pub mesh_bytes: usize,
+    pub library_models: usize,
+    pub library_branches: usize,
+    pub library_leaves: usize,
+    pub placed_branches: usize,
+    pub placed_leaves: usize,
+}
+
+pub enum ArrivalPath {
+    GrowthReplay,
+    PreparedUnique,
+    PreparedShared,
 }
 
 #[derive(Resource)]
 pub struct Measurement {
+    arrival: ArrivalPath,
     request: Request,
     preparation: Preparation,
     scene: String,
@@ -44,14 +61,40 @@ pub struct Measurement {
     handoff: Option<Duration>,
     previous_frame: Option<Instant>,
     frames: Vec<Duration>,
-    readbacks: usize,
-    previous_pixels: Option<Vec<u8>>,
+    pixels: PixelStability,
     first_readback: Option<Duration>,
 }
 
 pub enum Readback {
     Repeat,
     Stable,
+}
+
+/// Consecutive GPU readbacks must agree, including untimed correctness captures.
+#[derive(Resource, Default)]
+pub struct PixelStability {
+    attempts: usize,
+    previous: Option<Vec<u8>>,
+}
+
+impl PixelStability {
+    pub fn attempts(&self) -> usize {
+        self.attempts
+    }
+    pub fn observe(&mut self, image: &Image) -> Result<Readback, MeasurementError> {
+        self.attempts += 1;
+        let pixels = image.data.as_ref().ok_or(MeasurementError::MissingPixels)?;
+        let stable = self.previous.as_ref() == Some(pixels);
+        self.previous = Some(pixels.clone());
+        if stable {
+            return Ok(Readback::Stable);
+        }
+        if self.attempts < MAX_READBACKS {
+            Ok(Readback::Repeat)
+        } else {
+            Err(MeasurementError::UnstablePixels)
+        }
+    }
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -63,7 +106,7 @@ pub enum MeasurementError {
     #[error("the forest GPU submission was not acknowledged")]
     MissingSubmission,
     #[error("the forest upload or GPU probe failed: {0:?}")]
-    FailedSubmission(ForestBenchmarkCounts),
+    FailedSubmission(Box<ForestBenchmarkCounts>),
     #[error("the forest readiness probe exceeded its bounded deadline")]
     ReadinessTimeout,
     #[error("could not serialize the foliage measurement")]
@@ -80,29 +123,29 @@ impl Measurement {
     pub fn new(
         request: Request,
         preparation: Preparation,
-        scene: String,
-        snapshot: &Snapshot,
+        frame: &ForestFrame,
         detail: ForestDetail,
         camera: Orbit,
+        arrival: ArrivalPath,
     ) -> Self {
         Self {
             request,
+            arrival,
             preparation,
-            scene,
-            years: snapshot.time,
-            plants: snapshot.plants,
-            branches: snapshot.branches.len(),
-            leaves: snapshot.leaves.len(),
-            record_bytes: snapshot.branches.len() * size_of::<BranchInstance>()
-                + snapshot.leaves.len() * size_of::<LeafInstance>()
-                + snapshot.plant_bounds.len() * size_of::<PlantInstance>(),
+            scene: frame.label.clone(),
+            years: frame.time,
+            plants: frame.source.plants,
+            branches: frame.source.branches,
+            leaves: frame.source.leaves,
+            record_bytes: frame.source.branches * size_of::<BranchInstance>()
+                + frame.source.leaves * size_of::<LeafInstance>()
+                + frame.source.plants * size_of::<PlantInstance>(),
             detail,
             camera,
             handoff: None,
             previous_frame: None,
             frames: Vec::new(),
-            readbacks: 0,
-            previous_pixels: None,
+            pixels: PixelStability::default(),
             first_readback: None,
         }
     }
@@ -115,7 +158,7 @@ impl Measurement {
     pub fn check(&self, probe: &ForestBenchmark) -> Result<(), MeasurementError> {
         let counts = probe.counts();
         if counts.discarded_writes > 0 || counts.gpu_failures > 0 || counts.superseded_writes > 0 {
-            return Err(MeasurementError::FailedSubmission(counts));
+            return Err(MeasurementError::FailedSubmission(Box::new(counts)));
         }
         if self.request.started.elapsed() > READINESS_TIMEOUT {
             return Err(MeasurementError::ReadinessTimeout);
@@ -124,7 +167,7 @@ impl Measurement {
     }
 
     pub fn readback_number(&self) -> usize {
-        self.readbacks
+        self.pixels.attempts()
     }
 
     /// Call only for the fixed-camera interval being measured.
@@ -140,22 +183,14 @@ impl Measurement {
         image: &Image,
         probe: &ForestBenchmark,
     ) -> Result<Readback, MeasurementError> {
-        self.readbacks += 1;
         let now = self.request.started.elapsed();
         self.first_readback.get_or_insert(now);
-        let pixels = image.data.as_ref().ok_or(MeasurementError::MissingPixels)?;
-        let stable = self.previous_pixels.as_ref() == Some(pixels);
-        self.previous_pixels = Some(pixels.clone());
-        if !stable {
-            return if self.readbacks < MAX_READBACKS {
-                Ok(Readback::Repeat)
-            } else {
-                Err(MeasurementError::UnstablePixels)
-            };
+        if matches!(self.pixels.observe(image)?, Readback::Repeat) {
+            return Ok(Readback::Repeat);
         }
         let counts = probe.counts();
         if counts.discarded_writes > 0 || counts.gpu_failures > 0 || counts.superseded_writes > 0 {
-            return Err(MeasurementError::FailedSubmission(counts));
+            return Err(MeasurementError::FailedSubmission(Box::new(counts)));
         }
         let submission = counts
             .first_submission_micros
@@ -165,6 +200,7 @@ impl Measurement {
             "schema_version": REPORT_VERSION,
             "scope": "native_offscreen_forest_component",
             "area_acceptance": "unassessed",
+            "arrival_path": match self.arrival { ArrivalPath::GrowthReplay => "growth_replay", ArrivalPath::PreparedUnique => "prepared_unique", ArrivalPath::PreparedShared => "prepared_shared" },
             "scene": self.scene,
             "years": self.years,
             "resolution": [image.width(), image.height()],
@@ -174,27 +210,21 @@ impl Measurement {
                 "yaw_radians": self.camera.yaw,
                 "pitch_radians": self.camera.pitch,
             },
-            "counts": {
-                "plants": self.plants, "branches": self.branches,
-                "leaf_clusters": self.leaves, "structural_record_bytes": self.record_bytes,
-                "queued_writes": counts.queued_writes,
-                "submitted_writes": counts.submitted_writes,
-                "superseded_writes": counts.superseded_writes,
-                "discarded_writes": counts.discarded_writes,
-                "uploaded_record_bytes": counts.uploaded_bytes,
-                "gpu_failures": counts.gpu_failures,
-            },
+            "counts": self.workload(&counts),
             "effective_detail": {
                 "tube_sides": self.detail.tube_sides, "tube_spans": self.detail.tube_spans,
                 "leaf_blades": self.detail.leaf_blades,
                 "full_pixels": self.detail.full_pixels,
                 "middle_pixels": self.detail.middle_pixels, "leaves": self.detail.leaves,
+                "level_selection": self.detail.level,
             },
             "stages_ms": {
                 "scene_construction": milliseconds(self.preparation.scene),
                 "simulation_gpu_setup": milliseconds(self.preparation.gpu_setup),
                 "growth": milliseconds(self.preparation.growth),
                 "snapshot_packing": milliseconds(self.preparation.packing),
+                "required_asset_file_read": milliseconds(self.preparation.asset_load),
+                "required_asset_decode_validate": milliseconds(self.preparation.asset_decode),
             },
             "elapsed_from_request_ms": {
                 "cpu_handoff": self.handoff.map(milliseconds),
@@ -204,7 +234,7 @@ impl Measurement {
             },
             "cpu_gpu_waited_frame_ms": self.frames.iter().copied().map(milliseconds).collect::<Vec<_>>(),
             "stable_readbacks": 2,
-            "readback_attempts": self.readbacks,
+            "readback_attempts": self.pixels.attempts(),
             "limits": [
                 "native offscreen component; no browser, area transfer or production travel",
                 "submission acknowledgement is not pixel coverage; review both saved readbacks",
@@ -212,7 +242,9 @@ impl Measurement {
                 "settled readbacks include the existing one-second and thirty-frame warmup",
                 "readbacks occur after the requested steady-frame interval and may include earlier PNG writes",
                 "GPU waits serialize frames; report separately from ordinary presentation",
-                "record bytes exclude instance buffers, textures and peak resident memory",
+                "uploaded_record_bytes include compact placements but exclude meshes, instance buffers and textures",
+                "library mesh bytes count vertex/index payloads requested for GPU residency, not peak resident memory",
+                "fresh file reads may hit operating-system storage caches; this is not a network measurement",
             ],
         });
         let bytes = serde_json::to_vec_pretty(&report)?;
@@ -221,5 +253,35 @@ impl Measurement {
             source,
         })?;
         Ok(Readback::Stable)
+    }
+
+    fn workload(&self, counts: &ForestBenchmarkCounts) -> serde_json::Value {
+        json!({
+            "plants": self.plants, "branches": self.branches,
+            "leaf_clusters": self.leaves, "structural_record_bytes": self.record_bytes,
+            "queued_writes": counts.queued_writes,
+            "submitted_writes": counts.submitted_writes,
+            "superseded_writes": counts.superseded_writes,
+            "discarded_writes": counts.discarded_writes,
+            "uploaded_record_bytes": counts.uploaded_bytes,
+            "gpu_failures": counts.gpu_failures,
+            "required_asset_file_bytes": self.preparation.asset_bytes,
+            "library_mesh_vertex_index_bytes": self.preparation.mesh_bytes,
+            "library_models": self.preparation.library_models,
+            "library_branches": self.preparation.library_branches,
+            "library_leaf_clusters": self.preparation.library_leaves,
+            "records_implied_by_shared_placements": {
+                "branches": self.preparation.placed_branches,
+                "leaf_clusters": self.preparation.placed_leaves,
+            },
+            "expected_branch_draw_instances": counts.expected_branch_instances,
+            "expected_leaf_draw_instances": counts.expected_leaf_instances,
+            "completed_spatial_batches": counts.expected_batches,
+            "required_gpu_meshes": counts.expected_meshes,
+            "settled_draw_instances_by_lod": {
+                "branches": { "full": counts.branch_lod.full, "middle": counts.branch_lod.middle, "coarse": counts.branch_lod.coarse },
+                "leaves": { "full": counts.leaf_lod.full, "middle": counts.leaf_lod.middle, "coarse": counts.leaf_lod.coarse },
+            },
+        })
     }
 }

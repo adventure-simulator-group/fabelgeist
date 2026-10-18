@@ -17,6 +17,10 @@
 @group(3) @binding(1) var<storage, read> branches: array<Branch>;
 @group(3) @binding(2) var<storage, read> species: array<Species>;
 @group(3) @binding(3) var<storage, read> plants: array<PlantInfo>;
+#ifdef FOREST_SHARED_TREES
+#import adventuresim_environment::tree_pose::{TreePose, place_tree, tree_normal}
+@group(3) @binding(4) var<storage, read> placements: array<TreePose>;
+#endif
 
 struct BranchOut {
     @builtin(position) clip: vec4<f32>,
@@ -25,6 +29,7 @@ struct BranchOut {
     @location(2) light: f32,
     @location(3) @interpolate(flat) segment: u32,
     @location(4) @interpolate(flat) kind: u32,
+    @location(5) surface: vec3<f32>,
 };
 
 struct AxisPoint {
@@ -51,7 +56,11 @@ fn axis_at(branch: Branch, s: f32) -> AxisPoint {
 
 @vertex
 fn vertex(vertex: Vertex) -> BranchOut {
+#ifdef FOREST_SHARED_TREES
+    let index = u32(round(vertex.position.z));
+#else
     let index = vertex.i_index;
+#endif
     let branch = branches[index];
     let sides = lod.x;
     let spans = lod.y;
@@ -74,12 +83,20 @@ fn vertex(vertex: Vertex) -> BranchOut {
     let frame = basis(point.tangent);
     let theta = TAU * f32(k) / f32(sides);
     let n = cos(theta) * frame[0] + sin(theta) * frame[1];
-    let world = vec4<f32>(point.center + n * radius, 1.0);
+    let surface = point.center + n * radius;
+    var world = vec4<f32>(surface, 1.0);
+    var normal = n;
+#ifdef FOREST_SHARED_TREES
+    let pose = placements[vertex.i_index];
+    world = vec4<f32>(place_tree(pose, surface), 1.0);
+    normal = tree_normal(pose, n);
+#endif
 
     var out: BranchOut;
     out.world = world;
     out.clip = view.clip_from_world * world;
-    out.normal = n;
+    out.normal = normal;
+    out.surface = surface;
     out.light = mix(branch.light_start, branch.light, s);
     out.segment = index;
     out.kind = plants[branch.plant].kind;
@@ -130,7 +147,7 @@ fn bark(u: f32, v: f32, palm: bool) -> vec2<f32> {
 fn fragment(in: BranchOut) -> @location(0) vec4<f32> {
     let branch = branches[in.segment];
     let palm = u32(species[in.kind].leaf.w) == 2u;
-    let place = bark_coordinates(branch, in.world.xyz);
+    let place = bark_coordinates(branch, in.surface);
     let pattern = bark(place.x, place.y, palm);
     let albedo = linear(species[in.kind].bark.rgb) * pattern.x;
     // Deep in a crown, and in the furrows, less sky reaches the bark.

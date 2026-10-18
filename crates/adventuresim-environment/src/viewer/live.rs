@@ -125,6 +125,7 @@ fn apply(
         full_pixels: viewer.profile.full_pixels,
         middle_pixels: viewer.profile.middle_pixels,
         leaves: viewer.leaves,
+        level: Default::default(),
     };
     detail.set_if_neq(wanted);
     let lighting = viewer.lighting;

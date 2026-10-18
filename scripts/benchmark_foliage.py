@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 import statistics
 import subprocess
@@ -37,9 +38,15 @@ def arguments() -> argparse.Namespace:
                         action="append")
     parser.add_argument("--run", action="store_true",
                         help="run only after the user confirms the quiet window")
+    parser.add_argument("--representation", default="replay",
+                        choices=("replay", "unique", "shared"))
+    parser.add_argument("--prepared-root", type=Path,
+                        help="root containing frozen mixed/ and boreal/ asset folders")
     result = parser.parse_args()
     if result.repetitions < 1 or result.frames < 1 or result.timeout <= 0:
         parser.error("repetitions, frames and timeout must be positive")
+    if (result.representation == "replay") != (result.prepared_root is None):
+        parser.error("prepared representations require --prepared-root; replay must not use it")
     return result
 
 
@@ -80,6 +87,14 @@ def main() -> int:
     dirty = subprocess.check_output(
         ["git", "status", "--porcelain"], cwd=repo, text=True)
     fixtures = [f for f in FIXTURES if not args.fixture or f["name"] in args.fixture]
+    assets = {}
+    if args.prepared_root:
+        names = ["unique.forest"] if args.representation == "unique" else [
+            "library.forest", "population.forest"]
+        for scene in sorted({fixture["scene"] for fixture in fixtures}):
+            for name in names:
+                path = args.prepared_root.resolve() / scene / name
+                assets[str(path)] = {"bytes": path.stat().st_size, "sha256": digest(path)}
     provenance = json.loads(args.provenance.read_text(encoding="utf-8"))
     for field in ("hardware", "software", "tool_versions", "render_settings"):
         if not provenance.get(field):
@@ -92,6 +107,7 @@ def main() -> int:
         "repetitions": args.repetitions, "frames": args.frames,
         "resolution": [1600, 1000], "seed": 1, "profile": "fast",
         "fixtures": fixtures,
+        "representation": args.representation, "required_prepared_assets": assets,
         "provenance": provenance,
         "build_profile": "release (must match the prebuilt executable)",
         "conditions": "fresh process; existing driver and filesystem caches retained",
@@ -99,7 +115,7 @@ def main() -> int:
         "limitations": [
             "built-in forest patches are not full landscape vistas",
             "automatic framing is fixed for each deterministic fixture, not between fixtures",
-            "no browser, network transfer, production travel or shared-library arrival case",
+            "no browser, network transfer, production travel or cross-area library residency",
             "no claim of cold driver cache, complete GPU allocation counts or peak memory",
             "readback coverage needs independent visual review",
         ],
@@ -117,9 +133,16 @@ def main() -> int:
             image = run_dir / "forest.png"
             report = run_dir / "measurement.json"
             command = [str(executable), "--snapshot", str(image),
-                       "--scene", fixture["scene"], "--years", str(fixture["years"]),
-                       "--profile", "fast", "--frames", str(args.frames),
+                       "--frames", str(args.frames),
                        "--benchmark-report", str(report), *fixture["camera"]]
+            if args.representation == "replay":
+                command += ["--scene", fixture["scene"], "--years", str(fixture["years"]),
+                            "--profile", "fast"]
+            else:
+                command += ["--prepared-forest", str(args.prepared_root.resolve() / fixture["scene"]),
+                            "--representation", args.representation]
+                if any(digest(Path(path)) != data["sha256"] for path, data in assets.items()):
+                    raise SystemExit("prepared input changed after the contract was frozen")
             write_json(run_dir / "command.json", command)
             started = time.perf_counter()
             result = {"fixture": fixture["name"], "repetition": repetition + 1,
@@ -130,13 +153,19 @@ def main() -> int:
                         command, cwd=repo, stdout=log, stderr=subprocess.STDOUT,
                         timeout=args.timeout, check=False)
                 result["exit_code"] = completed.returncode
-                if (completed.returncode == 0 and report.is_file() and image.is_file()
+                renderer_errors = [line for line in (run_dir / "process.log").read_text(
+                    encoding="utf-8").splitlines() if re.search(r"\bERROR\b", line)]
+                if renderer_errors:
+                    result["reason"] = "renderer emitted errors; inspect process.log"
+                    result["renderer_error_lines"] = len(renderer_errors)
+                elif (completed.returncode == 0 and report.is_file() and image.is_file()
                         and image.with_suffix(".readback-01.png").is_file()):
                     data = json.loads(report.read_text(encoding="utf-8"))
                     counts = data["counts"]
                     previous = image.with_suffix(
                         f".readback-{data['readback_attempts'] - 1:02d}.png")
                     valid = (previous.is_file()
+                             and digest(previous) == digest(image)
                              and counts["branches"] > 0 and counts["leaf_clusters"] > 0
                              and counts["queued_writes"] == counts["submitted_writes"]
                              and counts["queued_writes"] > 0

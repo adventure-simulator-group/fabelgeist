@@ -21,6 +21,14 @@ pub(super) struct Ground {
 }
 
 impl Ground {
+    #[cfg(feature = "prepared")]
+    pub(super) fn prepared(frame: &crate::prepared::ForestFrame) -> Self {
+        Self {
+            terrain: frame.terrain.clone(),
+            structures: frame.structures.clone(),
+        }
+    }
+
     pub(super) fn new(snapshot: &Snapshot) -> Self {
         Self {
             terrain: snapshot.terrain.clone(),

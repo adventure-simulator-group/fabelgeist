@@ -15,8 +15,9 @@ render = [
   "dep:bevy_eidolon",
   "dep:bytemuck",
 ]
+prepared = ["render", "dep:serde", "dep:serde_json", "dep:sha2"]
 viewer = [
-  "render",
+  "prepared",
   "bevy/default",
   "dep:bevy_egui",
   "dep:bevy_panorbit_camera",
@@ -41,6 +42,8 @@ fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false, optiona
 pollster = { version = "0.4", optional = true }
 clap = { workspace = true, optional = true }
 serde_json = { workspace = true, optional = true }
+serde = { workspace = true, features = ["derive"], optional = true }
+sha2 = { workspace = true, optional = true }
 
 [lints]
 workspace = true

@@ -9,6 +9,7 @@ use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::time::Instant;
 
 use bevy::core_pipeline::core_3d::Opaque3d;
+use bevy::ecs::system::SystemParam;
 use bevy::ecs::system::{SystemParamItem, lifetimeless::SRes};
 use bevy::prelude::*;
 use bevy::render::render_phase::{
@@ -18,6 +19,10 @@ use bevy::render::render_phase::{
 use bevy::render::render_resource::{CachedPipelineState, PipelineCache, PollType};
 use bevy::render::renderer::RenderDevice;
 use bevy::render::{Render, RenderApp, RenderSystems};
+use bevy::render::{
+    mesh::{RenderMesh, RenderMeshBufferInfo},
+    render_asset::RenderAssets,
+};
 use bevy::shader::ShaderCacheError;
 use bevy_eidolon::cull::pipeline::InstancedComputePipeline;
 use bevy_eidolon::prelude::{InstancedMaterial, MaterialBatchRanges};
@@ -53,12 +58,40 @@ struct Expected {
     branches: usize,
     leaves: usize,
     chunks: Vec<ExpectedChunk>,
+    meshes: Vec<ExpectedMesh>,
+}
+
+struct ExpectedMesh {
+    id: AssetId<Mesh>,
+    vertices: usize,
+    indices: usize,
+}
+
+/// Counts of draw instances, distinct from botanical source-record counts.
+pub struct ForestInstances {
+    pub branches: usize,
+    pub leaves: usize,
+}
+
+#[derive(Debug, Default)]
+pub struct LodInstances {
+    pub full: usize,
+    pub middle: usize,
+    pub coarse: usize,
+}
+
+#[derive(SystemParam)]
+struct GeometryReady<'w, B: InstancedMaterial, L: InstancedMaterial> {
+    branches: Res<'w, InstancedComputePipeline<B>>,
+    leaves: Res<'w, InstancedComputePipeline<L>>,
+    meshes: Res<'w, RenderAssets<RenderMesh>>,
 }
 
 struct ExpectedChunk {
     entity: Entity,
     instances: usize,
     part: ForestPart,
+    level: super::Level,
 }
 
 pub(super) enum ForestPart {
@@ -76,9 +109,34 @@ pub struct ForestBenchmarkCounts {
     pub uploaded_bytes: u64,
     pub first_submission_micros: Option<u64>,
     pub gpu_failures: usize,
+    pub expected_branch_instances: usize,
+    pub expected_leaf_instances: usize,
+    pub expected_batches: usize,
+    pub expected_meshes: usize,
+    pub branch_lod: LodInstances,
+    pub leaf_lod: LodInstances,
 }
 
 struct RecordDraw<const FOLIAGE: bool>;
+
+impl LodInstances {
+    fn add(&mut self, level: super::Level, count: usize) {
+        match level {
+            super::Level::Full => self.full += count,
+            super::Level::Middle => self.middle += count,
+            super::Level::Coarse => self.coarse += count,
+        }
+    }
+}
+
+impl Expected {
+    fn active(&self, chunk: &ExpectedChunk) -> bool {
+        match chunk.part {
+            ForestPart::Branches => self.branches > 0,
+            ForestPart::Leaves => self.leaves > 0,
+        }
+    }
+}
 
 impl ForestBenchmark {
     pub fn new(started: Instant) -> Self {
@@ -102,6 +160,17 @@ impl ForestBenchmark {
     /// Install before material assets are prepared. This probe adds a GPU wait
     /// per frame and must not be enabled in ordinary play.
     pub fn install(&self, app: &mut App) {
+        self.install_materials::<BranchMaterial, LeafMaterial>(app);
+    }
+
+    #[cfg(feature = "prepared")]
+    pub fn install_shared(&self, app: &mut App) {
+        self.install_materials::<super::trees::TreeBranchMaterial, super::trees::TreeLeafMaterial>(
+            app,
+        );
+    }
+
+    fn install_materials<B: InstancedMaterial, L: InstancedMaterial>(&self, app: &mut App) {
         app.insert_resource(self.clone());
         app.world_mut()
             .resource_mut::<super::records::PendingWrites>()
@@ -111,14 +180,29 @@ impl ForestBenchmark {
             return;
         };
         render.insert_resource(self.clone());
-        observe_draws::<BranchMaterial, false>(render.world_mut());
-        observe_draws::<LeafMaterial, true>(render.world_mut());
-        render.add_systems(Render, complete.in_set(RenderSystems::Cleanup));
+        observe_draws::<B, false>(render.world_mut());
+        observe_draws::<L, true>(render.world_mut());
+        render.add_systems(Render, complete::<B, L>.in_set(RenderSystems::Cleanup));
     }
 
     pub fn counts(&self) -> ForestBenchmarkCounts {
         let read = |counter: &AtomicUsize| counter.load(Ordering::Acquire);
         let micros = self.inner.completed_micros.load(Ordering::Acquire);
+        let expected = self.inner.expected.lock().ok();
+        let mut branch_lod = LodInstances::default();
+        let mut leaf_lod = LodInstances::default();
+        if let Some(expected) = &expected {
+            for chunk in expected
+                .chunks
+                .iter()
+                .filter(|chunk| expected.active(chunk))
+            {
+                match chunk.part {
+                    ForestPart::Branches => branch_lod.add(chunk.level, chunk.instances),
+                    ForestPart::Leaves => leaf_lod.add(chunk.level, chunk.instances),
+                }
+            }
+        }
         ForestBenchmarkCounts {
             queued_writes: read(&self.inner.queued),
             submitted_writes: read(&self.inner.submitted),
@@ -127,14 +211,22 @@ impl ForestBenchmark {
             uploaded_bytes: self.inner.bytes.load(Ordering::Acquire),
             first_submission_micros: (micros != UNOBSERVED).then_some(micros),
             gpu_failures: read(&self.inner.failures),
+            expected_branch_instances: expected.as_ref().map_or(0, |e| e.branches),
+            expected_leaf_instances: expected.as_ref().map_or(0, |e| e.leaves),
+            expected_batches: expected.as_ref().map_or(0, |e| {
+                e.chunks.iter().filter(|chunk| e.active(chunk)).count()
+            }),
+            expected_meshes: expected.as_ref().map_or(0, |e| e.meshes.len()),
+            branch_lod,
+            leaf_lod,
         }
     }
 
-    pub fn expect_snapshot(&self, branches: usize, leaves: usize) {
+    pub fn expect_instances(&self, instances: ForestInstances) {
         match self.inner.expected.lock() {
             Ok(mut expected) => {
-                expected.branches = branches;
-                expected.leaves = leaves;
+                expected.branches = instances.branches;
+                expected.leaves = instances.leaves;
             }
             Err(_) => {
                 self.inner.failures.fetch_add(1, Ordering::Release);
@@ -142,12 +234,12 @@ impl ForestBenchmark {
         }
     }
 
-    pub(super) fn expect_chunk(&self, entity: Entity, instances: usize, part: ForestPart) {
+    pub(super) fn expect_mesh(&self, id: AssetId<Mesh>, vertices: usize, indices: usize) {
         match self.inner.expected.lock() {
-            Ok(mut expected) => expected.chunks.push(ExpectedChunk {
-                entity,
-                instances,
-                part,
+            Ok(mut expected) => expected.meshes.push(ExpectedMesh {
+                id,
+                vertices,
+                indices,
             }),
             Err(_) => {
                 self.inner.failures.fetch_add(1, Ordering::Release);
@@ -155,10 +247,53 @@ impl ForestBenchmark {
         }
     }
 
-    fn complete_chunks(
+    fn complete_meshes(&self, meshes: &RenderAssets<RenderMesh>) -> bool {
+        let Ok(expected) = self.inner.expected.lock() else {
+            return false;
+        };
+        expected.meshes.iter().all(|expected| meshes.get(expected.id).is_some_and(|mesh| {
+            mesh.vertex_count as usize == expected.vertices && matches!(mesh.buffer_info, RenderMeshBufferInfo::Indexed { count, .. } if count as usize == expected.indices)
+        }))
+    }
+
+    pub(super) fn expect_chunk(
         &self,
-        branches: &MaterialBatchRanges<BranchMaterial>,
-        leaves: &MaterialBatchRanges<LeafMaterial>,
+        entity: Entity,
+        instances: usize,
+        part: ForestPart,
+        level: super::Level,
+    ) {
+        match self.inner.expected.lock() {
+            Ok(mut expected) => expected.chunks.push(ExpectedChunk {
+                entity,
+                instances,
+                part,
+                level,
+            }),
+            Err(_) => {
+                self.inner.failures.fetch_add(1, Ordering::Release);
+            }
+        }
+    }
+
+    pub(super) fn expect_level(&self, entity: Entity, level: super::Level) {
+        if let Ok(mut expected) = self.inner.expected.lock() {
+            if let Some(chunk) = expected
+                .chunks
+                .iter_mut()
+                .find(|chunk| chunk.entity == entity)
+            {
+                chunk.level = level;
+            }
+        } else {
+            self.inner.failures.fetch_add(1, Ordering::Release);
+        }
+    }
+
+    fn complete_chunks<B: InstancedMaterial, L: InstancedMaterial>(
+        &self,
+        branches: &MaterialBatchRanges<B>,
+        leaves: &MaterialBatchRanges<L>,
     ) -> bool {
         let Ok(expected) = self.inner.expected.lock() else {
             return false;
@@ -172,7 +307,12 @@ impl ForestBenchmark {
             leaves.entities.iter().map(|(_, main)| main.id()).collect();
         let mut branch_count = 0;
         let mut leaf_count = 0;
-        for chunk in &expected.chunks {
+        let mut visible_batches = 0;
+        for chunk in expected
+            .chunks
+            .iter()
+            .filter(|chunk| expected.active(chunk))
+        {
             let (entities, total) = match chunk.part {
                 ForestPart::Branches => (&branch_entities, &mut branch_count),
                 ForestPart::Leaves => (&leaf_entities, &mut leaf_count),
@@ -181,10 +321,11 @@ impl ForestBenchmark {
                 return false;
             }
             *total += chunk.instances;
+            visible_batches += 1;
         }
         branch_count == expected.branches
             && leaf_count == expected.leaves
-            && expected.chunks.len() == branch_entities.len() + leaf_entities.len()
+            && visible_batches == branch_entities.len() + leaf_entities.len()
     }
 
     pub(super) fn queued(&self) {
@@ -246,14 +387,13 @@ fn compute_ready<M: InstancedMaterial>(
         .is_some_and(|id| cache.get_compute_pipeline(id).is_some())
 }
 
-fn complete(
+fn complete<B: InstancedMaterial, L: InstancedMaterial>(
     probe: Res<ForestBenchmark>,
     device: Res<RenderDevice>,
     cache: Res<PipelineCache>,
-    branches: Res<MaterialBatchRanges<BranchMaterial>>,
-    leaves: Res<MaterialBatchRanges<LeafMaterial>>,
-    branch_compute: Res<InstancedComputePipeline<BranchMaterial>>,
-    leaf_compute: Res<InstancedComputePipeline<LeafMaterial>>,
+    branches: Res<MaterialBatchRanges<B>>,
+    leaves: Res<MaterialBatchRanges<L>>,
+    geometry: GeometryReady<B, L>,
 ) {
     let counters = &probe.inner;
     let branch_draws = counters.branch_draws.swap(0, Ordering::AcqRel);
@@ -278,16 +418,15 @@ fn complete(
         && counts.queued_writes == counts.submitted_writes
         && counts.superseded_writes == 0
         && counts.discarded_writes == 0;
-    let draws_done = !branches.entities.is_empty()
-        && !leaves.entities.is_empty()
-        && branch_draws == branches.entities.len()
+    let draws_done = branch_draws == branches.entities.len()
         && leaf_draws == leaves.entities.len()
         && probe.complete_chunks(&branches, &leaves);
     if writes_done
         && draws_done
         && counts.gpu_failures == 0
-        && compute_ready(&branch_compute, &cache)
-        && compute_ready(&leaf_compute, &cache)
+        && (counts.expected_branch_instances == 0 || compute_ready(&geometry.branches, &cache))
+        && (counts.expected_leaf_instances == 0 || compute_ready(&geometry.leaves, &cache))
+        && probe.complete_meshes(&geometry.meshes)
     {
         let micros = counters.started.elapsed().as_micros().min(u64::MAX as u128) as u64;
         let _ = counters.completed_micros.compare_exchange(

@@ -7,6 +7,8 @@
 //! in Bevy ([`render`], the `render` feature). Its `environment-viewer`
 //! binary (the `viewer` feature) watches a scene grow.
 
+#[cfg(feature = "prepared")]
+pub mod prepared;
 #[cfg(feature = "render")]
 pub mod render;
 mod scene;

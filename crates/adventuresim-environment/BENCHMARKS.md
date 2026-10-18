@@ -35,6 +35,63 @@ the selected adapter/backend, power mode and driver; verify them against the
 pilot's actual process log before repeating runs. Keep unresolved fields
 explicitly unknown during the pilot, not as assumed hardware facts.
 
+## Prepared unique and shared-tree controls
+
+The local prototype separates removal of growth replay from reuse of tree
+geometry. Prepare each source forest offline with an explicit species-wide
+variant budget; this command does not measure arrival:
+
+```powershell
+environment-viewer --prepare-forest target/prepared/mixed --scene mixed --years 120 --profile fast --variants-per-species 8
+environment-viewer --prepare-forest target/prepared/boreal --scene boreal --years 120 --profile fast --variants-per-species 8
+```
+
+Each new output directory contains unique records, a separate model library,
+and regional placements bound to that library by a SHA-256 content digest.
+All required files must be available to a fresh client. File reads, decoding,
+record uploads and mesh readiness count in the prepared arrival path. Local
+file reads do not establish network-transfer costs.
+
+Capture these assets without replay or performance measurements:
+
+```powershell
+environment-viewer --prepared-forest target/prepared/mixed --representation unique --snapshot target/unique.png
+environment-viewer --prepared-forest target/prepared/mixed --representation shared --snapshot target/shared.png
+```
+
+Prepared captures require completed draws and consecutive identical GPU
+readbacks. For a small all-plants renderer oracle, prepare with `--all-plants`
+and compare both representations with `--fixed-lod full`, `middle`, and
+`coarse`. Preparation rejects address meshes larger than 256 MiB; the full
+mature boreal all-plants oracle exceeds this prototype resource limit.
+
+Shared trees retain species, stable identity and root. Offline matching uses
+height, radial width, branch/leaf complexity and vertical crown occupancy;
+these shape measurements are separate from conservative render bounds.
+Placements scale the chosen shape to source height/width. Asymmetric crowns
+retain their dominant direction; other substitutions receive deterministic
+yaw from stable plant identity. An all-plants oracle retains unit scale/yaw.
+An explicit species budget must accommodate observed empty, bare and leafed
+geometry states. A model's source light samples and crown shape remain an
+approximation when reused elsewhere. Review silhouettes, repetition, canopy
+coverage and lighting before interpreting timings.
+
+The shared renderer instances whole-tree meshes in variant/size/16-metre-cell
+batches. Frustum culling is per spatial batch; distance culling is per tree.
+Address-grid meshes and records reside once per library model and LOD.
+Placements carry positive horizontal/vertical scale, yaw and translation.
+Procedural bark and crown occlusion use model coordinates; surface normals
+use the inverse transpose of the placement scale.
+
+After correctness passes and contributors clear the machine, use the same
+runner with `--prepared-root target/prepared --representation unique` or
+`shared`. Omitting those options measures replay. Freeze the same asset files
+and effective detail for each comparison. The runner records required asset
+hashes and bytes; the viewer reports library records, placement instances,
+spatial batches and all-LOD mesh payloads separately. Peak memory remains
+unmeasured. This prototype does not implement distant impostors, ecological
+cohort updates or production area streaming.
+
 ## Measure on an otherwise idle machine
 
 Coordinate with other contributors before starting. Do not overlap these

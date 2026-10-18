@@ -26,23 +26,34 @@ const HYSTERESIS: f32 = 0.15;
 
 /// How finely a chunk's plants are drawn.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
-pub(super) enum Level {
+#[cfg_attr(feature = "prepared", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "viewer", derive(clap::ValueEnum))]
+pub enum Level {
     Full,
     Middle,
     #[default]
     Coarse,
 }
 
+/// Adaptive spatial-batch selection, or one common level for every batch.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+#[cfg_attr(feature = "prepared", derive(serde::Serialize, serde::Deserialize))]
+pub enum LevelSelection {
+    #[default]
+    Adaptive,
+    Fixed(Level),
+}
+
 /// How a level builds its instances: sides around a branch tube and spans
 /// along it, and blades a leaf cluster.
-pub(super) struct Shape {
-    pub(super) sides: u32,
-    pub(super) spans: u32,
-    pub(super) blades: u32,
+pub(crate) struct Shape {
+    pub(crate) sides: u32,
+    pub(crate) spans: u32,
+    pub(crate) blades: u32,
 }
 
 impl Level {
-    pub(super) const ALL: [Level; 3] = [Level::Full, Level::Middle, Level::Coarse];
+    pub(crate) const ALL: [Level; 3] = [Level::Full, Level::Middle, Level::Coarse];
 
     pub(super) fn index(self) -> usize {
         match self {
@@ -54,7 +65,7 @@ impl Level {
 
     /// The level's shape: in full detail as `detail` asks, coarser
     /// further down.
-    pub(super) fn shape(self, detail: &ForestDetail) -> Shape {
+    pub(crate) fn shape(self, detail: &ForestDetail) -> Shape {
         match self {
             Level::Full => Shape {
                 sides: detail.tube_sides.max(3),
@@ -114,6 +125,9 @@ impl LevelView {
         current: Level,
         detail: &ForestDetail,
     ) -> Level {
+        if let LevelSelection::Fixed(level) = detail.level {
+            return level;
+        }
         let low = Vec3::from(aabb.min());
         let high = Vec3::from(aabb.max());
         let distance = self.eye.distance(self.eye.clamp(low, high)).max(NEAREST);
@@ -149,6 +163,7 @@ pub(super) fn pick(
     view: Res<LevelView>,
     forest: Res<ForestMaterials>,
     mut chunks: Query<(Entity, &mut ForestChunk, &Aabb)>,
+    probe: Option<Res<super::benchmark::ForestBenchmark>>,
 ) {
     for (entity, mut chunk, aabb) in &mut chunks {
         let level = view.level(aabb, chunk.radius(), chunk.level(), &detail);
@@ -156,6 +171,9 @@ pub(super) fn pick(
             continue;
         }
         chunk.set_level(level);
+        if let Some(probe) = &probe {
+            probe.expect_level(entity, level);
+        }
         let mut entity = commands.entity(entity);
         forest.dress(&mut entity, chunk.foliage(), level);
     }

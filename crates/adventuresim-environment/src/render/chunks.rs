@@ -1,6 +1,7 @@
 //! A snapshot's instances, gathered into square chunks of ground. Each chunk
 //! is one instanced draw with its own bounds: the GPU culls whole chunks
-//! outside the view before it culls their instances.
+//! outside the view, then tests each instance's distance. Frustum culling is
+//! per chunk, not per branch or leaf.
 
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -18,9 +19,9 @@ use super::materials::ForestMaterials;
 use super::records::fingerprint;
 
 /// A chunk's side, metres.
-const CHUNK: f32 = 16.0;
+pub(super) const CHUNK: f32 = 16.0;
 /// Farther than this an instance is not drawn, metres: beyond any scene.
-const FAR: f32 = 100_000.0;
+pub(super) const FAR: f32 = 100_000.0;
 /// How far a cluster's blades reach from its centre, in cluster sizes: a
 /// palm frond is four long.
 const CLUSTER_REACH: f32 = 4.0;
@@ -118,7 +119,7 @@ fn plant_radius(plants: &[PlantInstance], plant: u32) -> f32 {
 }
 
 /// The size class of a plant of `radius`.
-fn size_class(radius: f32) -> usize {
+pub(super) fn size_class(radius: f32) -> usize {
     SIZE_CLASSES
         .iter()
         .take_while(|bound| radius >= **bound)
@@ -228,7 +229,7 @@ pub(super) fn show(
             } else {
                 ForestPart::Branches
             };
-            probe.expect_chunk(chunk.id(), instance_count, part);
+            probe.expect_chunk(chunk.id(), instance_count, part, level);
         }
     }
 }

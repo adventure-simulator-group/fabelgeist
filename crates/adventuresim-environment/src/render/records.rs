@@ -35,13 +35,13 @@ pub(super) struct Records {
 }
 
 /// One record set's bytes and their fingerprint.
-struct Bytes {
+pub(super) struct Bytes {
     bytes: Vec<u8>,
     fingerprint: u64,
 }
 
 impl Bytes {
-    fn new<T: bytemuck::Pod>(records: &[T]) -> Self {
+    pub(super) fn new<T: bytemuck::Pod>(records: &[T]) -> Self {
         let bytes = bytemuck::cast_slice(records).to_vec();
         Self {
             fingerprint: fingerprint(&bytes),
@@ -54,13 +54,26 @@ impl Records {
     /// The bytes of `snapshot`'s records. It copies and reads every record,
     /// so it runs off the main thread.
     pub(super) fn new(snapshot: &Snapshot) -> Self {
-        let species: Vec<SpeciesRecord> =
-            snapshot.species.iter().map(SpeciesRecord::from).collect();
+        Self::from_parts(
+            &snapshot.species,
+            &snapshot.branches,
+            &snapshot.plant_bounds,
+            &snapshot.leaves,
+        )
+    }
+
+    pub(super) fn from_parts(
+        species: &[fabelgeist_botany::viewer::sim::SpeciesInfo],
+        branches: &[fabelgeist_botany::viewer::sim::BranchInstance],
+        plants: &[fabelgeist_botany::viewer::sim::PlantInstance],
+        leaves: &[fabelgeist_botany::viewer::sim::LeafInstance],
+    ) -> Self {
+        let species: Vec<SpeciesRecord> = species.iter().map(SpeciesRecord::from).collect();
         Self {
             species: Bytes::new(&species),
-            branches: Bytes::new(&snapshot.branches),
-            plants: Bytes::new(&snapshot.plant_bounds),
-            leaves: Bytes::new(&snapshot.leaves),
+            branches: Bytes::new(branches),
+            plants: Bytes::new(plants),
+            leaves: Bytes::new(leaves),
         }
     }
 }
@@ -81,14 +94,14 @@ pub(super) fn fingerprint(bytes: &[u8]) -> u64 {
 }
 
 /// One storage buffer: its handle, its size and what was last written.
-struct Stored {
-    handle: Handle<ShaderBuffer>,
+pub(super) struct Stored {
+    pub(super) handle: Handle<ShaderBuffer>,
     capacity: u64,
     written: Option<u64>,
 }
 
 impl Stored {
-    fn new(buffers: &mut Assets<ShaderBuffer>) -> Self {
+    pub(super) fn new(buffers: &mut Assets<ShaderBuffer>) -> Self {
         Self {
             handle: buffers.add(empty(MINIMUM)),
             capacity: MINIMUM,
@@ -98,7 +111,7 @@ impl Stored {
 
     /// Queue `bytes` to be written, making room first; true when the
     /// buffer was replaced to make room.
-    fn write(
+    pub(super) fn write(
         &mut self,
         bytes: Bytes,
         buffers: &mut Assets<ShaderBuffer>,

@@ -12,7 +12,7 @@ const QUAD: [[u32; 2]; 6] = [[0, 0], [1, 0], [0, 1], [1, 0], [1, 1], [0, 1]];
 
 /// A tube's grid: `sides + 1` columns (the last closing the seam) by
 /// `spans + 1` rings, each vertex at `(column, ring, 0)`.
-pub(super) fn branch_grid(sides: u32, spans: u32) -> Mesh {
+pub(crate) fn branch_grid(sides: u32, spans: u32) -> Mesh {
     let sides = sides.max(3);
     let spans = spans.max(1);
     let columns = sides + 1;
@@ -31,7 +31,7 @@ pub(super) fn branch_grid(sides: u32, spans: u32) -> Mesh {
 }
 
 /// `blades` quads, each vertex at `(across, along, blade)`.
-pub(super) fn leaf_blades(blades: u32) -> Mesh {
+pub(crate) fn leaf_blades(blades: u32) -> Mesh {
     let blades = blades.max(1);
     let positions: Vec<[f32; 3]> = (0..blades)
         .flat_map(|blade| {

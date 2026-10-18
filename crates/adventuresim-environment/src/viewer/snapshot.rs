@@ -9,11 +9,13 @@
 
 use std::f32::consts::TAU;
 use std::path::PathBuf;
-use std::sync::Arc;
 use std::time::{Duration, Instant};
 
 use adventuresim_environment::render::benchmark::ForestBenchmark;
-use adventuresim_environment::render::{ForestDetail, ForestFeed, ForestPlugin};
+use adventuresim_environment::render::{
+    ForestFeed, ForestPlugin, LevelSelection,
+    trees::{TreeFeed, TreeForestPlugin},
+};
 use anyhow::Result;
 use bevy::app::{AppExit, ScheduleRunnerPlugin};
 use bevy::camera::RenderTarget;
@@ -28,13 +30,9 @@ use bevy::render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_dis
 use bevy::render::{Render, RenderApp, RenderSystems};
 use bevy::window::ExitCondition;
 use bevy::winit::WinitPlugin;
-use fabelgeist_botany::Ecosystem;
-use fabelgeist_botany::scenes::Scene;
-use fabelgeist_botany::viewer::profile::Profile;
-use fabelgeist_botany::viewer::sim::{self, Snapshot};
-use fabelgeist_gpu::globals::WgpuContext;
 
-use crate::benchmark::{self, Measurement, Preparation, Readback};
+use crate::benchmark::{self, ArrivalPath, Measurement, PixelStability, Readback};
+use crate::input::{self, FrozenForest, Source};
 use crate::stage::{self, Orbit};
 
 /// The image's size, pixels.
@@ -63,11 +61,8 @@ pub struct Framing {
 /// What to grow and how to show it.
 pub struct Request {
     pub path: PathBuf,
-    pub scene: Scene,
-    /// Grown instead of the scene, when given.
-    pub ecosystem: Option<Ecosystem>,
-    pub years: f32,
-    pub profile: Profile,
+    pub source: Source,
+    pub level: LevelSelection,
     pub framing: Framing,
     /// Frames to time before the capture.
     pub frames: Option<u32>,
@@ -81,7 +76,8 @@ pub struct Request {
 /// The grown scene, waiting to be shown, and where the frame goes.
 #[derive(Resource)]
 struct Still {
-    snapshot: Arc<Snapshot>,
+    forest: FrozenForest,
+    started: Instant,
     shown: bool,
     orbit: Orbit,
     path: PathBuf,
@@ -108,36 +104,40 @@ struct CaptureObservation<'w> {
 
 /// Grow the scene and render it headless, then leave.
 pub fn run(mut request: Request) -> Result<()> {
-    let scene_started = Instant::now();
-    let ecosystem = request.ecosystem.take().unwrap_or_else(|| {
-        request
-            .scene
-            .build(fabelgeist_determinism::Seed::from_u64(1))
-    });
-    let scene_time = scene_started.elapsed();
-    let (snapshot, orbit, mut preparation) = grow(ecosystem, &request)?;
-    preparation.scene = scene_time;
-    let detail = ForestDetail {
-        tube_sides: request.profile.tube_sides,
-        tube_spans: request.profile.tube_spans,
-        leaf_blades: request.profile.leaf_blades,
-        full_pixels: request.profile.full_pixels,
-        middle_pixels: request.profile.middle_pixels,
-        leaves: true,
+    let prepared = matches!(&request.source, Source::Prepared { .. });
+    let input::Loaded {
+        forest,
+        frame,
+        preparation,
+    } = input::load(request.source)?;
+    let shared = matches!(&forest, FrozenForest::Shared(_));
+    let arrival = if shared {
+        ArrivalPath::PreparedShared
+    } else if prepared {
+        ArrivalPath::PreparedUnique
+    } else {
+        ArrivalPath::GrowthReplay
     };
-    let measurement = request.benchmark.take().map(|benchmark| {
-        let probe = ForestBenchmark::new(benchmark.started);
-        probe.expect_snapshot(snapshot.branches.len(), snapshot.leaves.len());
-        let measurement = Measurement::new(
-            benchmark,
-            preparation,
-            request.scene.name().into(),
-            &snapshot,
-            detail,
-            orbit,
-        );
-        (probe, measurement)
+    let orbit = request.framing.orbit(&frame);
+    let mut detail = frame.detail;
+    detail.level = request.level;
+    let probe = (prepared || request.benchmark.is_some()).then(|| {
+        let started = request
+            .benchmark
+            .as_ref()
+            .map_or_else(Instant::now, |r| r.started);
+        let probe = ForestBenchmark::new(started);
+        let mut instances = forest.expected_instances();
+        if !detail.leaves {
+            instances.leaves = 0;
+        }
+        probe.expect_instances(instances);
+        probe
     });
+    let measurement = request
+        .benchmark
+        .take()
+        .map(|request| Measurement::new(request, preparation, &frame, detail, orbit, arrival));
     let mut app = App::new();
     app.insert_resource(ClearColor(stage::SKY))
         .insert_resource(detail)
@@ -150,28 +150,42 @@ pub fn run(mut request: Request) -> Result<()> {
                 })
                 .disable::<WinitPlugin>(),
         )
-        .add_plugins((ScheduleRunnerPlugin::run_loop(Duration::ZERO), ForestPlugin))
-        .insert_resource(Still {
-            snapshot: Arc::new(snapshot),
-            shown: false,
-            orbit,
-            path: request.path,
-            frames: request.frames,
-            turning: request.orbit,
-            refeed: request.refeed,
-            target: None,
-            drawn: None,
-            settling: 0,
-            timing: None,
-            timed: 0,
-            captured: false,
-        })
-        .add_systems(Startup, (setup, stage::sun))
-        .add_systems(Update, (show, step).chain());
-    let observed = measurement.is_some();
-    if let Some((probe, measurement)) = measurement {
-        probe.install(&mut app);
+        .add_plugins(ScheduleRunnerPlugin::run_loop(Duration::ZERO));
+    if shared {
+        app.add_plugins(TreeForestPlugin);
+    } else {
+        app.add_plugins(ForestPlugin);
+    }
+    app.insert_resource(Still {
+        forest,
+        started: Instant::now(),
+        shown: false,
+        orbit,
+        path: request.path,
+        frames: request.frames,
+        turning: request.orbit,
+        refeed: request.refeed,
+        target: None,
+        drawn: None,
+        settling: 0,
+        timing: None,
+        timed: 0,
+        captured: false,
+    })
+    .add_systems(Startup, (setup, stage::sun))
+    .add_systems(Update, (show, step).chain());
+    let observed = probe.is_some();
+    if let Some(probe) = probe {
+        if shared {
+            probe.install_shared(&mut app);
+        } else {
+            probe.install(&mut app);
+        }
+    }
+    if let Some(measurement) = measurement {
         app.insert_resource(measurement);
+    } else if prepared {
+        app.init_resource::<PixelStability>();
     }
     if request.frames.is_some() {
         app.add_plugins(RenderDiagnosticsPlugin);
@@ -179,62 +193,31 @@ pub fn run(mut request: Request) -> Result<()> {
             render.add_systems(Render, wait_for_gpu.in_set(RenderSystems::Cleanup));
         }
     }
-    app.run();
+    let outcome = app.run();
+    anyhow::ensure!(
+        matches!(outcome, AppExit::Success),
+        "forest capture failed: {outcome:?}"
+    );
     Ok(())
 }
 
-/// Grow `ecosystem` for the years asked, and frame its snapshot.
-fn grow(ecosystem: Ecosystem, request: &Request) -> Result<(Snapshot, Orbit, Preparation)> {
-    let gpu_started = Instant::now();
-    let context = pollster::block_on(WgpuContext::new())?;
-    let mut ecosystem = ecosystem.with_gpu(context)?;
-    let gpu_setup = gpu_started.elapsed();
-    ecosystem.settings.dt = request.profile.step_years;
-    let steps = (request.years / ecosystem.settings.dt.duration().years()).ceil() as usize;
-    let started = Instant::now();
-    for _ in 0..steps {
-        pollster::block_on(ecosystem.step())?;
+/// The comparison camera follows source metadata, regardless of representation.
+impl Framing {
+    fn orbit(&self, frame: &adventuresim_environment::prepared::ForestFrame) -> Orbit {
+        let mut orbit = Orbit::framing(frame.bounds);
+        if let Some(focus) = frame.focus.filter(|_| self.closeup) {
+            let height = focus.height.metres().max(1.0);
+            let [x, y, z] = focus.root.map(fabelgeist_math::units::Metres::metres);
+            orbit.focus = Vec3::new(x, y + height * self.aim, z);
+            orbit.radius = height * CLOSEUP_DISTANCE;
+            orbit.pitch = CLOSEUP_PITCH;
+        }
+        if let Some(yaw) = self.yaw {
+            orbit.yaw = yaw;
+        }
+        orbit.radius /= self.zoom;
+        orbit
     }
-    let growth = started.elapsed();
-    let packing_started = Instant::now();
-    let snapshot = sim::capture(&ecosystem, &request.profile, 1, true, 0.0);
-    let packing = packing_started.elapsed();
-    println!(
-        "{}: {:.0} years in {:.1} s, {} plants, {} segments, {} leaf clusters",
-        request.scene.name(),
-        ecosystem.time.years(),
-        started.elapsed().as_secs_f32(),
-        snapshot.plants,
-        snapshot.branches.len(),
-        snapshot.leaves.len()
-    );
-    let framing = &request.framing;
-    let mut orbit = Orbit::framing(snapshot.bounds);
-    let tallest = ecosystem
-        .plants
-        .iter()
-        .max_by(|a, b| a.height().total_cmp(&b.height()));
-    if let Some(plant) = tallest.filter(|_| framing.closeup) {
-        let height = plant.height().max(1.0);
-        let p = plant.position;
-        orbit.focus = Vec3::new(p.x, p.y + height * framing.aim, p.z);
-        orbit.radius = height * CLOSEUP_DISTANCE;
-        orbit.pitch = CLOSEUP_PITCH;
-    }
-    if let Some(yaw) = framing.yaw {
-        orbit.yaw = yaw;
-    }
-    orbit.radius /= framing.zoom;
-    Ok((
-        snapshot,
-        orbit,
-        Preparation {
-            gpu_setup,
-            growth,
-            packing,
-            ..Default::default()
-        },
-    ))
 }
 
 /// A camera drawing into an image instead of a window.
@@ -251,10 +234,25 @@ fn setup(mut commands: Commands, mut images: ResMut<Assets<Image>>, mut still: R
 }
 
 /// Show the grown scene once.
-fn show(mut still: ResMut<Still>, mut feed: ResMut<ForestFeed>) {
+fn show(
+    mut still: ResMut<Still>,
+    mut feed: ResMut<ForestFeed>,
+    mut trees: Option<ResMut<TreeFeed>>,
+    mut exit: MessageWriter<AppExit>,
+) {
     if !still.shown {
         still.shown = true;
-        feed.show(still.snapshot.clone());
+        match &still.forest {
+            FrozenForest::Unique(snapshot) => feed.show(snapshot.clone()),
+            FrozenForest::Shared(forest) => {
+                let Some(trees) = trees.as_mut() else {
+                    error!("shared-tree renderer missing");
+                    exit.write(AppExit::error());
+                    return;
+                };
+                trees.show(forest.clone());
+            }
+        }
     }
 }
 
@@ -263,6 +261,7 @@ fn step(
     mut commands: Commands,
     mut still: ResMut<Still>,
     mut feed: ResMut<ForestFeed>,
+    mut trees: Option<ResMut<TreeFeed>>,
     mut cameras: Query<&mut Transform, With<Camera3d>>,
     observation: CaptureObservation,
 ) {
@@ -279,7 +278,24 @@ fn step(
         exit.write(AppExit::error());
         return;
     }
-    if still.captured || (still.drawn.is_none() && !feed.is_drawn()) {
+    if let Some(probe) = &probe {
+        let counts = probe.counts();
+        const CAPTURE_TIMEOUT: Duration = Duration::from_secs(240);
+        if counts.gpu_failures > 0
+            || counts.discarded_writes > 0
+            || counts.superseded_writes > 0
+            || still.started.elapsed() > CAPTURE_TIMEOUT
+        {
+            error!("forest capture readiness failed: {counts:?}");
+            exit.write(AppExit::error());
+            return;
+        }
+    }
+    let is_drawn = match &still.forest {
+        FrozenForest::Unique(_) => feed.is_drawn(),
+        FrozenForest::Shared(_) => trees.as_ref().is_some_and(|feed| feed.is_drawn()),
+    };
+    if still.captured || (still.drawn.is_none() && !is_drawn) {
         return;
     }
     if let Some(measurement) = measurement.as_mut() {
@@ -315,7 +331,14 @@ fn step(
                 .refeed
                 .is_some_and(|every| timed.is_multiple_of(every.max(1)))
             {
-                feed.show(still.snapshot.clone());
+                match &still.forest {
+                    FrozenForest::Unique(snapshot) => feed.show(snapshot.clone()),
+                    FrozenForest::Shared(forest) => {
+                        if let Some(trees) = trees.as_mut() {
+                            trees.show(forest.clone());
+                        }
+                    }
+                }
             }
             return;
         }
@@ -334,6 +357,7 @@ fn capture(commands: &mut Commands, target: Handle<Image>, path: PathBuf) {
         move |captured: On<ScreenshotCaptured>,
               mut commands: Commands,
               mut measurement: Option<ResMut<Measurement>>,
+              mut pixels: Option<ResMut<PixelStability>>,
               probe: Option<Res<ForestBenchmark>>,
               mut exit: MessageWriter<AppExit>| {
             if let Some(measurement) = measurement.as_mut() {
@@ -358,6 +382,21 @@ fn capture(commands: &mut Commands, target: Handle<Image>, path: PathBuf) {
                         return;
                     }
                 }
+            }
+            if let Some(pixels) = pixels.as_mut() {
+                match pixels.observe(&captured.image) {
+                    Ok(Readback::Repeat) => {
+                        save_to_disk(path.with_extension(format!("readback-{:02}.png", pixels.attempts())))(captured);
+                        capture(&mut commands, target.clone(), path.clone());
+                        return;
+                    }
+                    Ok(Readback::Stable) => {}
+                    Err(error) => { error!("{error}"); exit.write(AppExit::error()); return; }
+                }
+            }
+            if let Some(probe) = probe {
+                let counts = probe.counts();
+                println!("forest ready: {}/{} writes, {}/{} branch/leaf instances, {} batches, {} meshes", counts.submitted_writes, counts.queued_writes, counts.expected_branch_instances, counts.expected_leaf_instances, counts.expected_batches, counts.expected_meshes);
             }
             save_to_disk(path.clone())(captured);
             println!("wrote {}", path.display());

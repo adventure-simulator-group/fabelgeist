@@ -18,6 +18,10 @@ const GOLDEN: f32 = 2.39996323;
 @group(3) @binding(0) var<uniform> lod: vec4<u32>;
 @group(3) @binding(1) var<storage, read> leaves: array<Leaf>;
 @group(3) @binding(2) var<storage, read> species: array<Species>;
+#ifdef FOREST_SHARED_TREES
+#import adventuresim_environment::tree_pose::{TreePose, place_tree, tree_normal}
+@group(3) @binding(4) var<storage, read> placements: array<TreePose>;
+#endif
 
 struct LeafOut {
     @builtin(position) clip: vec4<f32>,
@@ -30,6 +34,7 @@ struct LeafOut {
     @location(4) uv: vec2<f32>,
     @location(5) @interpolate(flat) seed: f32,
     @location(6) @interpolate(flat) crown: vec4<f32>,
+    @location(7) surface: vec3<f32>,
 };
 
 fn rand(seed: f32, i: u32, k: f32) -> f32 {
@@ -38,12 +43,18 @@ fn rand(seed: f32, i: u32, k: f32) -> f32 {
 
 @vertex
 fn vertex(vertex: Vertex) -> LeafOut {
-    let inst = leaves[vertex.i_index];
     let blades = lod.x;
+#ifdef FOREST_SHARED_TREES
+    let address = u32(round(vertex.position.z));
+    let inst = leaves[address / blades];
+    let i = address % blades;
+#else
+    let inst = leaves[vertex.i_index];
+    let i = u32(round(vertex.position.z));
+#endif
     // Fewer blades cover as much, each larger.
     let spread = sqrt(10.0 / f32(blades));
     let corner = vec2<f32>(vertex.position.x, vertex.position.y);
-    let i = u32(round(vertex.position.z));
     let foliage = u32(species[inst.kind].leaf.w);
     let up = vec3<f32>(0.0, 1.0, 0.0);
     let tip = inst.center_size.xyz;
@@ -113,6 +124,12 @@ fn vertex(vertex: Vertex) -> LeafOut {
         out.seed = fract(inst.seed * 7.13 + f32(i) * 0.618);
     }
 
+    out.surface = world;
+#ifdef FOREST_SHARED_TREES
+    let pose = placements[vertex.i_index];
+    world = place_tree(pose, world);
+    normal = tree_normal(pose, normal);
+#endif
     out.world = vec4<f32>(world, 1.0);
     out.clip = view.clip_from_world * out.world;
     out.normal = normal;
@@ -172,7 +189,7 @@ fn fragment(in: LeafOut, @builtin(front_facing) front: bool) -> @location(0) vec
     albedo = mix(albedo, albedo * vec3<f32>(1.6, 1.5, 1.1), midrib * 0.4);
     // Deep in a crown little sky gets through: the light the simulation
     // measured, and how far in the leaf sits.
-    let depth = clamp(length(in.world.xyz - in.crown.xyz) / max(in.crown.w, 1e-3), 0.0, 1.0);
+    let depth = clamp(length(in.surface - in.crown.xyz) / max(in.crown.w, 1e-3), 0.0, 1.0);
     let ao = mix(0.3, 1.0, in.light) * mix(0.45, 1.0, smoothstep(0.1, 1.0, depth));
 
     var pbr_input: pbr_types::PbrInput = pbr_types::pbr_input_new();

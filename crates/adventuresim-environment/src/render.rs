@@ -16,10 +16,12 @@ pub mod benchmark;
 mod chunks;
 mod feed;
 mod ground;
-mod levels;
+pub(crate) mod levels;
 mod materials;
 mod records;
-mod shapes;
+pub(crate) mod shapes;
+#[cfg(feature = "prepared")]
+pub mod trees;
 
 use bevy::asset::embedded_asset;
 use bevy::prelude::*;
@@ -28,10 +30,12 @@ use bevy_eidolon::{prelude::*, prepass::CullComputeCamera};
 
 pub use feed::ForestFeed;
 pub use ground::GroundPart;
+pub use levels::{Level, LevelSelection};
 pub use materials::{BranchMaterial, LeafMaterial};
 
 /// How finely the forest is built, and whether its foliage is drawn.
 #[derive(Resource, Clone, Copy, Debug, PartialEq)]
+#[cfg_attr(feature = "prepared", derive(serde::Serialize, serde::Deserialize))]
 pub struct ForestDetail {
     /// Around each branch tube, and along each segment, in full detail.
     pub tube_sides: u32,
@@ -44,6 +48,8 @@ pub struct ForestDetail {
     pub full_pixels: f32,
     pub middle_pixels: f32,
     pub leaves: bool,
+    /// Override adaptive selection for controlled representation comparisons.
+    pub level: LevelSelection,
 }
 
 impl Default for ForestDetail {
@@ -56,6 +62,7 @@ impl Default for ForestDetail {
             full_pixels: 220.0,
             middle_pixels: 40.0,
             leaves: true,
+            level: LevelSelection::Adaptive,
         }
     }
 }
@@ -66,8 +73,11 @@ pub struct ForestPlugin;
 impl Plugin for ForestPlugin {
     fn build(&self, app: &mut App) {
         load_shader_library!(app, "render/shaders/forest_common.wgsl");
+        // Bevy discovers conditional imports before pipeline specialization.
+        load_shader_library!(app, "render/shaders/tree_pose.wgsl");
         embedded_asset!(app, "render/shaders/branch.wgsl");
         embedded_asset!(app, "render/shaders/leaf.wgsl");
+        embedded_asset!(app, "render/shaders/forest_cull.wgsl");
         if !app.is_plugin_added::<InstancedMaterialCorePlugin>() {
             app.add_plugins(InstancedMaterialCorePlugin);
         }
