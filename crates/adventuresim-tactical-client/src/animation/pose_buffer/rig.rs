@@ -144,6 +144,30 @@ impl RigDefinitions {
 }
 
 impl PoseBufferRig {
+    pub(super) fn begin_observation(
+        &mut self,
+        clock: &ProceduralAnimationClock,
+        time: &Time,
+    ) -> AnimationValueResult<Option<AnimationElapsed>> {
+        let elapsed = match clock.fixed_step() {
+            Some(FixedAnimationStep { tick, .. }) if self.last_evaluation_tick == Some(tick) => {
+                self.decay_delta_seconds = AnimationElapsed::ZERO;
+                return Ok(None);
+            }
+            Some(step) => {
+                self.last_evaluation_tick = Some(step.tick);
+                step.delta_seconds
+            }
+            None => {
+                self.last_evaluation_tick = None;
+                AnimationElapsed::from(time.delta())
+            }
+        }
+        .capped_by_seconds(0.1)?;
+        self.decay_delta_seconds = elapsed;
+        Ok(Some(elapsed))
+    }
+
     fn new(
         definition: Arc<RigDefinition>,
         entities: RigJointTable<Option<Entity>>,
@@ -155,10 +179,10 @@ impl PoseBufferRig {
             entities,
             previous: current.clone(),
             next: current,
-            sample_accumulator: 0.0,
+            sample_accumulator: AnimationElapsed::ZERO,
             interpolation_alpha: 0.0,
             last_evaluation_tick: None,
-            decay_delta_seconds: 0.0,
+            decay_delta_seconds: AnimationElapsed::ZERO,
             offsets: RigJointTable::from(vec![JointInertialOffset::default(); joint_count]),
             target_linear_velocities: RigJointTable::from(vec![Vec3::ZERO; joint_count]),
             target_angular_velocities: RigJointTable::from(vec![Vec3::ZERO; joint_count]),

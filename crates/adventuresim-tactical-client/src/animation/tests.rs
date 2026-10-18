@@ -128,14 +128,21 @@ mod legacy_tests {
                     orientation: Quat::IDENTITY,
                     linear_velocity: Vec3::NEG_Z * 5.5,
                     grounded: true,
-                    delta_seconds: 1.0 / locomotion_sample_hz(),
+                    delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz())
+                        .unwrap(),
                     tick,
                 },
-            );
+            )
+            .unwrap();
             if tick % 4 == 0 {
                 replicated = authoritative.clone();
             }
-            advance_presented_skeleton(&mut presented, &replicated, 1.0 / locomotion_sample_hz());
+            advance_presented_skeleton(
+                &mut presented,
+                &replicated,
+                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            )
+            .unwrap();
             let step = circular_phase_delta(previous_phase, presented.gait_phase).abs();
             largest_step = largest_step.max(step);
             if tick % 4 != 0 && step > 0.001 {
@@ -164,11 +171,18 @@ mod legacy_tests {
                 orientation: Quat::IDENTITY,
                 linear_velocity: velocity,
                 grounded: true,
-                delta_seconds: 1.0 / locomotion_sample_hz(),
+                delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz())
+                    .unwrap(),
                 tick: 1,
             },
-        );
-        advance_presented_skeleton(&mut presented, &authoritative, 1.0 / locomotion_sample_hz());
+        )
+        .unwrap();
+        advance_presented_skeleton(
+            &mut presented,
+            &authoritative,
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+        )
+        .unwrap();
 
         assert!(
             circular_phase_delta(presented.gait_phase, authoritative.gait_phase).abs() < 0.000_01
@@ -195,7 +209,12 @@ mod legacy_tests {
         let mut previous_phase = presented.gait_phase;
 
         for delta_seconds in render_deltas.into_iter().cycle().take(16) {
-            advance_presented_skeleton(&mut presented, &authoritative, delta_seconds);
+            advance_presented_skeleton(
+                &mut presented,
+                &authoritative,
+                AnimationElapsed::from_seconds(delta_seconds).unwrap(),
+            )
+            .unwrap();
             let actual = circular_phase_delta(previous_phase, presented.gait_phase);
             let predicted = gait_cycle_phase_delta(
                 locomotion_profile(&presented.state),
@@ -231,7 +250,12 @@ mod legacy_tests {
             authoritative.gait_phase = (previous_phase + predicted_delta + jitter).rem_euclid(1.0);
             authoritative.locomotion_sample_tick = AnimationSampleTick::from(tick);
 
-            advance_presented_skeleton(&mut presented, &authoritative, delta_seconds);
+            advance_presented_skeleton(
+                &mut presented,
+                &authoritative,
+                AnimationElapsed::from_seconds(delta_seconds).unwrap(),
+            )
+            .unwrap();
 
             let actual_delta = circular_phase_delta(previous_phase, presented.gait_phase);
             assert!((actual_delta - predicted_delta).abs() < 0.000_01);
@@ -262,7 +286,12 @@ mod legacy_tests {
                 (presented.gait_phase + predicted_delta + 0.10).rem_euclid(1.0);
             authoritative.locomotion_sample_tick = AnimationSampleTick::from(tick);
 
-            advance_presented_skeleton(&mut presented, &authoritative, delta_seconds);
+            advance_presented_skeleton(
+                &mut presented,
+                &authoritative,
+                AnimationElapsed::from_seconds(delta_seconds).unwrap(),
+            )
+            .unwrap();
 
             assert!(presented.last_phase_correction_delta > 0.0);
             assert!(presented.last_phase_correction_delta <= maximum_correction + 0.000_01);
@@ -287,7 +316,12 @@ mod legacy_tests {
             .with_locomotion_sample_tick(4)
             .with_gait_phase(0.1);
 
-        advance_presented_skeleton(&mut presented, &turned, 1.0 / locomotion_sample_hz());
+        advance_presented_skeleton(
+            &mut presented,
+            &turned,
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+        )
+        .unwrap();
 
         assert_eq!(turned.local_velocity, Vec3::X * 5.5);
         assert!(presented.local_velocity.x > 0.0);
@@ -421,9 +455,7 @@ mod legacy_tests {
             Some(&AnimationPackId::HUMANOID_UNARMED)
         );
         assert_eq!(
-            pack.motions[&MotionId::from_static("swing")]
-                .path
-                .as_ref(),
+            pack.motions[&MotionId::from_static("swing")].path.as_ref(),
             "animations/biped/2h_close/swing.glb"
         );
         assert!(pack.poses.contains_key(&SemanticPose::AttackSwing));
@@ -472,7 +504,7 @@ mod legacy_tests {
 
     #[test]
     fn frame_eight_is_sampled_at_thirty_fps() {
-        assert!((frame_seconds(8) - 8.0 / 30.0).abs() < f32::EPSILON);
+        assert!((frame_seconds(8).unwrap().seconds() - 8.0 / 30.0).abs() < f32::EPSILON);
     }
 
     #[test]
@@ -518,7 +550,8 @@ mod legacy_tests {
                         catalog.packs[&AnimationPackId::HUMANOID_UNARMED].motions[&anchor.motion]
                             .last_frame as f32
                             / animation_frames_per_second(),
-                    ),
+                    )
+                    .unwrap(),
                     layer: ClipLayer::Whole,
                 },
             );
@@ -546,7 +579,8 @@ mod legacy_tests {
                 weight: 1.0,
                 mirror_lower_body: false,
             },
-        );
+        )
+        .unwrap();
         assert_eq!(weighted.len(), 2);
         assert!(weighted.iter().any(|sample| {
             sample.time_seconds.seconds() == 0.0 && (sample.weight.factor() - 0.5).abs() < 0.0001
@@ -577,7 +611,8 @@ mod legacy_tests {
                 weight: 1.0,
                 mirror_lower_body: false,
             },
-        );
+        )
+        .unwrap();
         assert_eq!(weighted.len(), 2);
         let thrust = runtime.clips[&MotionKey::new(
             &AnimationPackId::HUMANOID_UNARMED,
@@ -616,7 +651,8 @@ mod legacy_tests {
             ),
             LoadedClip {
                 handle: mirrored_handle.clone(),
-                duration_seconds: ClipDuration::from_seconds(64.0 / animation_frames_per_second()),
+                duration_seconds: ClipDuration::from_seconds(64.0 / animation_frames_per_second())
+                    .unwrap(),
                 layer: ClipLayer::Whole,
             },
         );
@@ -632,7 +668,8 @@ mod legacy_tests {
                 weight: 0.5,
                 mirror_lower_body: true,
             },
-        );
+        )
+        .unwrap();
 
         assert_eq!(weighted.len(), 1);
         assert_eq!(weighted[0].clip.handle.id(), mirrored_handle.id());
@@ -792,7 +829,7 @@ mod legacy_tests {
 
         let clip = LoadedClip {
             handle: Handle::default(),
-            duration_seconds: ClipDuration::from_seconds(0.4),
+            duration_seconds: ClipDuration::from_seconds(0.4).unwrap(),
             layer: ClipLayer::Whole,
         };
         playback.extrapolated_spans.push(ExtrapolatedSpan {
@@ -869,7 +906,8 @@ mod legacy_tests {
                 weight: 1.0,
                 mirror_lower_body: false,
             },
-        );
+        )
+        .unwrap();
         assert_eq!(weighted.len(), 1);
         assert!(weighted[0].time_seconds.seconds().abs() < 0.0001);
     }
@@ -893,7 +931,8 @@ mod legacy_tests {
                 weight: 1.0,
                 mirror_lower_body: false,
             },
-        );
+        )
+        .unwrap();
 
         let back = runtime.clips[&MotionKey::new(
             &AnimationPackId::HUMANOID_UNARMED,
@@ -931,7 +970,8 @@ mod legacy_tests {
                 weight: 1.0,
                 mirror_lower_body: false,
             },
-        );
+        )
+        .unwrap();
 
         let right = runtime.clips[&MotionKey::new(
             &AnimationPackId::HUMANOID_UNARMED,
@@ -985,13 +1025,15 @@ mod legacy_tests {
             let mut weighted = Vec::new();
             let mut spans = Vec::new();
             let mut continuations = Vec::new();
-            sample_resolver.append_layer(
-                &mut weighted,
-                &mut spans,
-                &mut continuations,
-                sample,
-                expected_layer,
-            );
+            sample_resolver
+                .append_layer(
+                    &mut weighted,
+                    &mut spans,
+                    &mut continuations,
+                    sample,
+                    expected_layer,
+                )
+                .unwrap();
             assert_eq!(weighted.len(), 1);
             assert_eq!(weighted[0].clip.layer, expected_layer);
         }
@@ -1006,7 +1048,10 @@ mod legacy_tests {
         strides.phase_curves.insert(
             MotionId::from_static("walk"),
             AuthoredPhaseCurve {
-                authored_phases: vec![0.0, 0.75, 1.0],
+                authored_phases: vec![0.0, 0.75, 1.0]
+                    .into_iter()
+                    .map(|phase| CyclePhase::from_cycles(phase).unwrap())
+                    .collect(),
             },
         );
         let physical_phase = 0.5;
@@ -1019,20 +1064,22 @@ mod legacy_tests {
             pack: &AnimationPackId::HUMANOID_UNARMED,
             locomotion_strides: &strides,
         };
-        sample_resolver.append_layer(
-            &mut weighted,
-            &mut spans,
-            &mut continuations,
-            PoseSample {
-                pose: SemanticPose::WalkContact,
-                sampling: PoseSampling::Cycle {
-                    phase: physical_phase,
+        sample_resolver
+            .append_layer(
+                &mut weighted,
+                &mut spans,
+                &mut continuations,
+                PoseSample {
+                    pose: SemanticPose::WalkContact,
+                    sampling: PoseSampling::Cycle {
+                        phase: physical_phase,
+                    },
+                    weight: 1.0,
+                    mirror_lower_body: false,
                 },
-                weight: 1.0,
-                mirror_lower_body: false,
-            },
-            ClipLayer::Lower,
-        );
+                ClipLayer::Lower,
+            )
+            .unwrap();
         let walk_duration = runtime.clips[&MotionKey::new(
             &AnimationPackId::HUMANOID_UNARMED,
             &MotionId::from_static("walk"),
@@ -1042,24 +1089,26 @@ mod legacy_tests {
         assert!((weighted[0].time_seconds.seconds() - walk_duration * 0.75).abs() < 0.0001);
         assert_eq!(
             weighted[0].locomotion_phase,
-            Some(CyclePhase::from_cycles(physical_phase))
+            Some(CyclePhase::from_cycles(physical_phase).unwrap())
         );
 
         weighted.clear();
-        sample_resolver.append_layer(
-            &mut weighted,
-            &mut spans,
-            &mut continuations,
-            PoseSample {
-                pose: SemanticPose::StrafeCycle,
-                sampling: PoseSampling::Cycle {
-                    phase: physical_phase,
+        sample_resolver
+            .append_layer(
+                &mut weighted,
+                &mut spans,
+                &mut continuations,
+                PoseSample {
+                    pose: SemanticPose::StrafeCycle,
+                    sampling: PoseSampling::Cycle {
+                        phase: physical_phase,
+                    },
+                    weight: 1.0,
+                    mirror_lower_body: false,
                 },
-                weight: 1.0,
-                mirror_lower_body: false,
-            },
-            ClipLayer::Lower,
-        );
+                ClipLayer::Lower,
+            )
+            .unwrap();
         let strafe_duration = runtime.clips[&MotionKey::new(
             &AnimationPackId::HUMANOID_UNARMED,
             &MotionId::from_static("strafe"),
@@ -1179,7 +1228,7 @@ mod legacy_tests {
     fn combat_cycle_support_is_exclusive_and_switches_at_authored_contacts() {
         for sample in 0..240 {
             let phase = sample as f32 / 240.0;
-            let weights = combat_cycle_ik_weights(CyclePhase::from_cycles(phase));
+            let weights = combat_cycle_ik_weights(CyclePhase::from_cycles(phase).unwrap());
             assert!(
                 (weights.x > 0.0) ^ (weights.y > 0.0),
                 "phase {phase:.4} reported overlapping or absent support: {weights:?}"
@@ -1187,19 +1236,19 @@ mod legacy_tests {
         }
 
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.2499)),
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.2499).unwrap()),
             Vec2::Y
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.25)),
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.25).unwrap()),
             Vec2::X
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.7499)),
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.7499).unwrap()),
             Vec2::X
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.75)),
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.75).unwrap()),
             Vec2::Y
         );
     }

@@ -1,4 +1,8 @@
-//! Values carried by resolved clip plans before the numerical sampler boundary.
+//! Checked values carried by resolved plans before numerical sampling.
+
+use adventuresim_tactical_core::animation::{AnimationQuantity, AnimationValueError};
+
+pub(super) use adventuresim_tactical_core::animation::AnimationValueResult;
 
 /// Existing coalescing resolution for samples from the same clip/layer.
 const SAMPLE_COHERENCE_SECONDS: f32 = 0.0001;
@@ -16,27 +20,48 @@ pub(super) struct ClipTime(f32);
 #[serde(transparent)]
 pub(super) struct CyclePhase(f32);
 
-/// A blend contribution, distinct from sample time or cycle phase. Admission
-/// retains the source factor; the sampler still rejects non-finite factors.
+/// A finite nonnegative contribution. Independent contributions may sum above one.
 #[derive(Debug, Clone, Copy, PartialEq, serde::Serialize)]
 #[serde(transparent)]
 pub(super) struct BlendWeight(f32);
 
 impl ClipDuration {
-    pub(super) fn from_seconds(seconds: f32) -> Self {
-        Self(seconds)
+    pub(super) fn from_seconds(seconds: f32) -> AnimationValueResult<Self> {
+        if !seconds.is_finite() {
+            return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::ClipDuration,
+            });
+        }
+        if seconds < 0.0 {
+            return Err(AnimationValueError::Negative {
+                quantity: AnimationQuantity::ClipDuration,
+            });
+        }
+        Ok(Self(seconds))
     }
     pub(super) fn seconds(self) -> f32 {
         self.0
     }
-    pub(super) fn at_phase(self, phase: CyclePhase) -> ClipTime {
-        ClipTime::from_seconds(self.seconds() * phase.cycles())
+    pub(super) fn at_phase(self, phase: CyclePhase) -> AnimationValueResult<ClipTime> {
+        let seconds = self.seconds() * phase.cycles();
+        if !seconds.is_finite() {
+            return Err(AnimationValueError::Overflow {
+                quantity: AnimationQuantity::ClipTime,
+            });
+        }
+        Ok(ClipTime(seconds))
     }
 }
 
 impl ClipTime {
-    pub(super) fn from_seconds(seconds: f32) -> Self {
-        Self(seconds)
+    pub(super) const ZERO: Self = Self(0.0);
+    pub(super) fn from_seconds(seconds: f32) -> AnimationValueResult<Self> {
+        if !seconds.is_finite() {
+            return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::ClipTime,
+            });
+        }
+        Ok(Self(seconds))
     }
     pub(super) fn seconds(self) -> f32 {
         self.0
@@ -47,22 +72,46 @@ impl ClipTime {
 }
 
 impl CyclePhase {
-    pub(super) fn from_cycles(cycles: f32) -> Self {
-        Self(cycles)
+    pub(super) fn from_cycles(cycles: f32) -> AnimationValueResult<Self> {
+        if !cycles.is_finite() {
+            return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::CyclePhase,
+            });
+        }
+        Ok(Self(cycles))
     }
     pub(super) fn cycles(self) -> f32 {
         self.0
     }
-    pub(super) fn wrapped(self) -> f32 {
-        self.0.rem_euclid(1.0)
+    pub(super) fn wrapped(self) -> Self {
+        Self(self.0.rem_euclid(1.0))
     }
 }
 
 impl BlendWeight {
     pub(super) const ZERO: Self = Self(0.0);
     pub(super) const ONE: Self = Self(1.0);
-    pub(super) fn from_factor(factor: f32) -> Self {
-        Self(factor)
+    pub(super) fn from_factor(factor: f32) -> AnimationValueResult<Self> {
+        if !factor.is_finite() {
+            return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::BlendWeight,
+            });
+        }
+        if factor < 0.0 {
+            return Err(AnimationValueError::Negative {
+                quantity: AnimationQuantity::BlendWeight,
+            });
+        }
+        Ok(Self(factor))
+    }
+    pub(super) fn checked_add(self, other: Self) -> AnimationValueResult<Self> {
+        let factor = self.0 + other.0;
+        if !factor.is_finite() {
+            return Err(AnimationValueError::Overflow {
+                quantity: AnimationQuantity::BlendWeight,
+            });
+        }
+        Ok(Self(factor))
     }
     pub(super) fn factor(self) -> f32 {
         self.0
@@ -73,8 +122,30 @@ impl BlendWeight {
     }
 }
 
-impl std::ops::AddAssign for BlendWeight {
-    fn add_assign(&mut self, other: Self) {
-        self.0 += other.0;
+impl<'de> serde::Deserialize<'de> for ClipDuration {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        Self::from_seconds(<f32 as serde::Deserialize>::deserialize(deserializer)?)
+            .map_err(serde::de::Error::custom)
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ClipTime {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        Self::from_seconds(<f32 as serde::Deserialize>::deserialize(deserializer)?)
+            .map_err(serde::de::Error::custom)
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CyclePhase {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        Self::from_cycles(<f32 as serde::Deserialize>::deserialize(deserializer)?)
+            .map_err(serde::de::Error::custom)
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for BlendWeight {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        Self::from_factor(<f32 as serde::Deserialize>::deserialize(deserializer)?)
+            .map_err(serde::de::Error::custom)
     }
 }

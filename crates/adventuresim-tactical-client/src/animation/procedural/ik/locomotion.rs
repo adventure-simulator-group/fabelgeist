@@ -8,22 +8,26 @@ pub(in crate::animation) struct OrdinaryLocomotionIkState {
 }
 
 impl OrdinaryLocomotionIkState {
-    /// Native seconds for the IK numerical step, deduplicated by its typed sample tick.
-    fn sample_delta_seconds(&mut self, clock: &ProceduralAnimationClock, time: &Time) -> f32 {
+    /// Elapsed IK interval, deduplicated by its typed sample tick.
+    fn sample_delta_seconds(
+        &mut self,
+        clock: &ProceduralAnimationClock,
+        time: &Time,
+    ) -> AnimationElapsed {
         match clock.fixed_step() {
             Some(super::super::clock::FixedAnimationStep { tick, .. })
                 if self.evaluation_tick == Some(tick) =>
             {
-                0.0
+                AnimationElapsed::ZERO
             }
             Some(super::super::clock::FixedAnimationStep {
                 tick,
                 delta_seconds: delta,
             }) => {
                 self.evaluation_tick = Some(tick);
-                delta.max(0.0)
+                delta
             }
-            None => time.delta_secs().max(0.0),
+            None => AnimationElapsed::from(time.delta()),
         }
     }
 }
@@ -149,7 +153,7 @@ pub(in crate::animation) fn apply(
 
         state.pelvis_shift = if !state.initialized {
             desired_pelvis_shift
-        } else if delta_seconds > 0.0 {
+        } else if !delta_seconds.is_zero() {
             advance_pelvis_shift(state.pelvis_shift, desired_pelvis_shift, delta_seconds)
         } else {
             state.pelvis_shift

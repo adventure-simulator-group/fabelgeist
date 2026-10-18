@@ -18,10 +18,10 @@ pub(in crate::animation::procedural) fn plant_is_continuous(
 pub(in crate::animation::procedural) fn advance_pelvis_shift(
     current: f32,
     desired: f32,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
 ) -> f32 {
     let maximum_step = (ik_tuning().pelvis_correction_speed_metres_per_second
-        * delta_seconds.max(0.0))
+        * delta_seconds.seconds())
     .min(maximum_pelvis_correction_step_metres());
     current + (desired - current).clamp(-maximum_step, maximum_step)
 }
@@ -151,7 +151,7 @@ pub(in crate::animation::procedural) fn solve_two_bone_with_reach(
 pub(in crate::animation::procedural) fn advance_foot_target_at_speed(
     previous: Option<Vec3>,
     desired: Vec3,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
     maximum_speed: f32,
 ) -> Vec3 {
     let Some(previous) = previous.filter(|position| position.is_finite()) else {
@@ -160,7 +160,7 @@ pub(in crate::animation::procedural) fn advance_foot_target_at_speed(
     if !desired.is_finite() {
         return previous;
     }
-    let maximum_step = maximum_speed.max(0.0) * delta_seconds.max(0.0);
+    let maximum_step = maximum_speed.max(0.0) * delta_seconds.seconds();
     previous + (desired - previous).clamp_length_max(maximum_step)
 }
 

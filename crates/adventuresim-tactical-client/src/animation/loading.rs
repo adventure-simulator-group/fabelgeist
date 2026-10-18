@@ -184,24 +184,7 @@ pub(super) fn collect_loaded_packs(
             error!(?error, pack = %pack_id, "Rejected animation pack");
         }
     }
-    runtime.clips = runtime
-        .clip_handles
-        .iter()
-        .map(|(key, handle)| (key.clone(), handle.clone()))
-        .collect::<Vec<_>>()
-        .into_iter()
-        .map(|(key, handle)| {
-            let duration_seconds = clips.get(&handle).map_or(0.0, AnimationClip::duration);
-            (
-                key,
-                LoadedClip {
-                    handle,
-                    duration_seconds: ClipDuration::from_seconds(duration_seconds),
-                    layer: ClipLayer::Whole,
-                },
-            )
-        })
-        .collect();
+    runtime.clips = loaded_motion_clips(&runtime, &clips);
     collect_loaded_grips(&asset_server, &gltfs, &clips, &mut runtime);
 }
 
@@ -212,11 +195,13 @@ pub(super) fn sole_animation(
 }
 
 pub(super) fn frame_fits_clip(frame: u16, duration: f32) -> bool {
-    frame_seconds(frame) <= duration + 0.5 / animation_frames_per_second()
+    frame_seconds(frame)
+        .is_ok_and(|time| time.seconds() <= duration + 0.5 / animation_frames_per_second())
 }
 
-pub(super) fn frame_seconds(frame: u16) -> f32 {
-    frame as f32 / animation_frames_per_second()
+pub(super) fn frame_seconds(frame: u16) -> AnimationValueResult<ClipTime> {
+    // Catalog frames enter the engine's seconds coordinate here.
+    ClipTime::from_seconds(frame as f32 / animation_frames_per_second())
 }
 
 pub(super) fn clip_targets_match_base(
@@ -385,11 +370,19 @@ fn collect_loaded_grips(
             runtime.unavailable_grips.insert(grip);
             continue;
         }
+        let duration_seconds = match ClipDuration::from_seconds(clip.duration()) {
+            Ok(duration) => duration,
+            Err(error) => {
+                warn!(%error, path = %grip.path(), "Rejected grip duration");
+                runtime.unavailable_grips.insert(grip);
+                continue;
+            }
+        };
         runtime.grips.insert(
             grip,
             LoadedClip {
                 handle: clip_handle.clone(),
-                duration_seconds: ClipDuration::from_seconds(clip.duration()),
+                duration_seconds,
                 layer: ClipLayer::MainHand,
             },
         );
@@ -406,4 +399,35 @@ fn animation_asset_path(path: &AnimationAssetPath) -> String {
     {
         path.as_ref().to_owned()
     }
+}
+
+fn loaded_motion_clips(
+    runtime: &AnimationRuntime,
+    clips: &Assets<AnimationClip>,
+) -> BTreeMap<MotionKey, LoadedClip> {
+    runtime
+        .clip_handles
+        .iter()
+        .map(|(key, handle)| (key.clone(), handle.clone()))
+        .collect::<Vec<_>>()
+        .into_iter()
+        .filter_map(|(key, handle)| {
+            let source = clips.get(&handle)?;
+            let duration_seconds = match ClipDuration::from_seconds(source.duration()) {
+                Ok(duration) => duration,
+                Err(error) => {
+                    warn!(%error, motion = %key.motion, "Rejected animation duration");
+                    return None;
+                }
+            };
+            Some((
+                key,
+                LoadedClip {
+                    handle,
+                    duration_seconds,
+                    layer: ClipLayer::Whole,
+                },
+            ))
+        })
+        .collect()
 }

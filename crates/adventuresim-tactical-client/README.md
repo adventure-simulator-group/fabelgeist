@@ -179,6 +179,19 @@ Authored clips are sampled by the client-owned pose buffer. The semantic router
 reads presentation state, resolves weighted clip samples through the animation
 pack catalog, and applies fixed-rate FK with per-joint inertialization before
 procedural terrain, body-response, and weapon-constraint passes.
+Resolved playback carries finite nonnegative `ClipDuration` and `BlendWeight`
+values. Contributions may exceed one; checked accumulation rejects overflow.
+`ClipTime` and `CyclePhase` require finiteness while retaining signed sample
+positions and unwrapped cycles. Endpoint times and contributions use these same
+owners in both extrapolated and continuation spans; their different anchor and
+tangent operations remain separate. Baked clips retain checked durations and
+frame intervals until the native interpolation or Bevy sampling operation.
+
+The deterministic override stores an `AnimationSampleTick` with the shared
+`AnimationElapsed` interval. Repeated observations retain zero elapsed time.
+Body response carries finite signed angles, angular velocities and body-local
+velocity/acceleration; failed arithmetic leaves the previous response intact.
+
 ## Animation export contract
 
 The humanoid base rig is independent from authored motions:

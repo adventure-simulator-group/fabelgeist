@@ -9,6 +9,9 @@
 
 use super::procedural::clock::{AnimationSampleTick, FixedAnimationStep};
 use super::*;
+#[cfg(test)]
+use baking::BoneTrack;
+use baking::{BakedClip, bake_clip, get_or_bake};
 use bevy::{
     animation::{AnimationTargetId, animated_field},
     asset::{AssetEvent, AssetId},
@@ -31,8 +34,10 @@ use std::{
 };
 pub(super) use stride_calibration::{CharacterLocomotionStrides, calibrate_character_strides};
 
+mod baking;
 mod hierarchy;
 mod inertialization;
+mod phase_calibration;
 mod physics_pose;
 mod proportions;
 mod rig;
@@ -62,23 +67,6 @@ pub(super) struct RigDefinitions(HashMap<String, Arc<RigDefinition>>);
 #[derive(Resource, Default)]
 pub(super) struct BakedClipBank(HashMap<(String, AssetId<AnimationClip>), Arc<BakedClip>>);
 
-#[derive(Clone)]
-struct BakedClip {
-    duration: f32,
-    frame_dt: f32,
-    frames: usize,
-    tracks: RigJointTable<BoneTrack>,
-}
-
-#[derive(Clone)]
-struct BoneTrack {
-    translations: Vec<Vec3>,
-    rotations: Vec<Quat>,
-    scales: Vec<Vec3>,
-    animated: bool,
-}
-
-/// One joint's local transform in the pose buffer.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub(in crate::animation) struct LocalPose {
     pub(in crate::animation) translation: Vec3,
@@ -117,10 +105,10 @@ pub(crate) struct PoseBufferRig {
     entities: RigJointTable<Option<Entity>>,
     previous: RigJointTable<LocalPose>,
     next: RigJointTable<LocalPose>,
-    sample_accumulator: f32,
+    sample_accumulator: AnimationElapsed,
     interpolation_alpha: f32,
     last_evaluation_tick: Option<AnimationSampleTick>,
-    decay_delta_seconds: f32,
+    decay_delta_seconds: AnimationElapsed,
     offsets: RigJointTable<JointInertialOffset>,
     target_linear_velocities: RigJointTable<Vec3>,
     target_angular_velocities: RigJointTable<Vec3>,
@@ -190,33 +178,6 @@ impl AuthoredWeaponTarget {
             translation: weapon.translation,
             rotation: weapon.rotation,
         })
-    }
-}
-
-impl BakedClip {
-    fn sample(&self, joint: RigJointOrdinal, time_seconds: f32) -> LocalPose {
-        let frame =
-            (time_seconds.clamp(0.0, self.duration) / self.frame_dt).min((self.frames - 1) as f32);
-        let first = frame as usize;
-        let second = (first + 1).min(self.frames - 1);
-        let alpha = frame.fract();
-        let track = &self.tracks[joint];
-        LocalPose {
-            translation: track.translations[first].lerp(track.translations[second], alpha),
-            rotation: hemisphere_slerp(track.rotations[first], track.rotations[second], alpha),
-            scale: track.scales[first].lerp(track.scales[second], alpha),
-        }
-    }
-
-    fn memory_bytes(&self) -> usize {
-        self.tracks
-            .iter()
-            .map(|track| {
-                track.translations.len() * size_of::<Vec3>()
-                    + track.rotations.len() * size_of::<Quat>()
-                    + track.scales.len() * size_of::<Vec3>()
-            })
-            .sum()
     }
 }
 
@@ -473,24 +434,14 @@ pub(super) fn update_pose_buffers(
             continue;
         };
 
-        let delta_seconds = match procedural_clock.fixed_step() {
-            Some(FixedAnimationStep { tick, .. }) if rig.last_evaluation_tick == Some(tick) => {
-                rig.decay_delta_seconds = 0.0;
+        let delta_seconds = match rig.begin_observation(&procedural_clock, &time) {
+            Ok(Some(elapsed)) => elapsed,
+            Ok(None) => continue,
+            Err(error) => {
+                warn!(%error, "Rejected pose-buffer interval");
                 continue;
             }
-            Some(FixedAnimationStep {
-                tick,
-                delta_seconds,
-            }) => {
-                rig.last_evaluation_tick = Some(tick);
-                delta_seconds.clamp(0.0, 0.1)
-            }
-            None => {
-                rig.last_evaluation_tick = None;
-                time.delta_secs().clamp(0.0, 0.1)
-            }
         };
-        rig.decay_delta_seconds = delta_seconds;
 
         if rig.ownership == PoseOwnership::Physics {
             // The ragdoll readback owns `previous`/`next`; a culled or
@@ -509,7 +460,7 @@ pub(super) fn update_pose_buffers(
             continue;
         }
         if rig.visibility == PoseVisibility::Frozen {
-            rig.sample_accumulator = 0.0;
+            rig.sample_accumulator = AnimationElapsed::ZERO;
             rig.interpolation_alpha = 0.0;
             rig.target_linear_velocities.fill(Vec3::ZERO);
             rig.target_angular_velocities.fill(Vec3::ZERO);
@@ -518,7 +469,13 @@ pub(super) fn update_pose_buffers(
 
         let key = PosePlanKey::from_playback(playback);
         let transition = !rig.active || rig.plan.as_ref() != Some(&key);
-        rig.sample_accumulator += delta_seconds;
+        rig.sample_accumulator = match rig.sample_accumulator.checked_add(delta_seconds) {
+            Ok(elapsed) => elapsed,
+            Err(error) => {
+                warn!(%error, "Rejected pose-buffer accumulator");
+                continue;
+            }
+        };
         let Some(mut sampled) = sample_character_plan(
             playback,
             &rig,
@@ -575,7 +532,7 @@ pub(super) fn update_pose_buffers(
             .zip(&rig.next)
             .map(|(target, previous)| {
                 if rig.active && direct_sampling && !transition {
-                    local_pose_velocity(*previous, *target, delta_seconds)
+                    local_pose_velocity(*previous, *target, delta_seconds.seconds())
                 } else {
                     // Poses on opposite sides of a plan change do not form a
                     // trajectory. Differentiating them invents an angular
@@ -589,7 +546,7 @@ pub(super) fn update_pose_buffers(
             rig.set_target_velocities(&target_velocities);
             rig.previous.clone_from(&target);
             rig.next = target;
-            rig.sample_accumulator = 0.0;
+            rig.sample_accumulator = AnimationElapsed::ZERO;
             rig.interpolation_alpha = 1.0;
             rig.plan = Some(key);
             rig.active = true;
@@ -600,11 +557,11 @@ pub(super) fn update_pose_buffers(
                 // updates through the authored-clip sampling accumulator.
                 rig.previous.clone_from(&target);
                 rig.next = target;
-                rig.sample_accumulator = 0.0;
+                rig.sample_accumulator = AnimationElapsed::ZERO;
                 rig.interpolation_alpha = 1.0;
                 rig.set_target_velocities(&target_velocities);
             } else {
-                let due = samples_due(rig.sample_accumulator);
+                let due = samples_due(rig.sample_accumulator.seconds());
                 if due > 0 {
                     rig.previous = rig.next.clone();
                     rig.next = target;
@@ -618,15 +575,23 @@ pub(super) fn update_pose_buffers(
                         rig.target_linear_velocities[joint] = linear;
                         rig.target_angular_velocities[joint] = angular;
                     }
-                    rig.sample_accumulator =
-                        (rig.sample_accumulator - pose_sample_seconds() * due as f32).max(0.0);
+                    rig.sample_accumulator = match AnimationElapsed::from_seconds(
+                        (rig.sample_accumulator.seconds() - pose_sample_seconds() * due as f32)
+                            .max(0.0),
+                    ) {
+                        Ok(elapsed) => elapsed,
+                        Err(error) => {
+                            warn!(%error, "Rejected pose-buffer remainder");
+                            continue;
+                        }
+                    };
                 }
                 // Terrain IK has already modified `next`. Interpolate local
                 // joint transforms from the preceding solved sample to that
                 // upcoming solved sample; no post-interpolation contact toggle
                 // is needed.
                 rig.interpolation_alpha =
-                    (rig.sample_accumulator / pose_sample_seconds()).clamp(0.0, 1.0);
+                    (rig.sample_accumulator.seconds() / pose_sample_seconds()).clamp(0.0, 1.0);
             }
         }
     }
@@ -651,8 +616,8 @@ pub(super) fn apply_pose_buffers(
             let input = rig.previous[joint].interpolate(rig.next[joint], alpha);
             let pose = if rig.inertial_state == InertialState::Settled {
                 input
-            } else if delta_seconds > 0.0 {
-                rig.offsets[joint].update(input, delta_seconds)
+            } else if !delta_seconds.is_zero() {
+                rig.offsets[joint].update(input, delta_seconds.seconds())
             } else {
                 rig.offsets[joint].peek(input)
             };
@@ -835,15 +800,21 @@ fn sample_plan(
         let mut combat_lower_weight = 0.0_f32;
         for (weighted, clip, source) in &baked {
             let included = joint.body_region.includes(weighted.clip.layer, pelvis);
-            if !included || weighted.weight.is_absent() || !weighted.weight.factor().is_finite() {
+            if !included || weighted.weight.is_absent() {
                 continue;
             }
             let sample = if weighted.locomotion_phase.is_some() {
-                let authored_phase =
-                    weighted.time_seconds.seconds() / source.duration().max(f32::EPSILON);
-                sample_two_pose_locomotion_clip(source, joint, authored_phase)
+                let authored_phase = weighted.time_seconds.seconds()
+                    / weighted.clip.duration_seconds.seconds().max(f32::EPSILON);
+                sample_two_pose_locomotion_clip(
+                    source,
+                    joint,
+                    weighted.clip.duration_seconds,
+                    CyclePhase::from_cycles(authored_phase).ok()?,
+                )
+                .ok()?
             } else {
-                clip.sample(joint_index, weighted.time_seconds.seconds())
+                clip.sample(joint_index, weighted.time_seconds)
             };
             let sample = sanitize_pose(sample, joint.bind);
             if pelvis == PelvisRole::Pelvis && weighted.clip.layer == ClipLayer::CombatUpper {
@@ -879,7 +850,7 @@ fn sample_plan(
         }
         for (span, start_clip, end_clip) in &baked_spans {
             let included = joint.body_region.includes(span.start.layer, pelvis);
-            if !included || span.weight <= f32::EPSILON || !span.weight.is_finite() {
+            if !included || span.weight.factor() <= f32::EPSILON {
                 continue;
             }
             let start = sanitize_pose(
@@ -901,7 +872,7 @@ fn sample_plan(
                     &mut combat_upper,
                     &mut combat_upper_weight,
                     sample,
-                    span.weight,
+                    span.weight.factor(),
                 );
                 continue;
             }
@@ -910,13 +881,13 @@ fn sample_plan(
                     &mut combat_lower,
                     &mut combat_lower_weight,
                     sample,
-                    span.weight,
+                    span.weight.factor(),
                 );
                 continue;
             }
-            let next_total = accumulated + span.weight;
+            let next_total = accumulated + span.weight.factor();
             let alpha = if next_total > 0.0 {
-                span.weight / next_total
+                span.weight.factor() / next_total
             } else {
                 0.0
             };
@@ -931,7 +902,7 @@ fn sample_plan(
             &baked_continuations
         {
             let included = joint.body_region.includes(span.start.layer, pelvis);
-            if !included || span.weight <= f32::EPSILON || !span.weight.is_finite() {
+            if !included || span.weight.factor() <= f32::EPSILON {
                 continue;
             }
             let start = sanitize_pose(
@@ -966,7 +937,7 @@ fn sample_plan(
                     &mut combat_upper,
                     &mut combat_upper_weight,
                     sample,
-                    span.weight,
+                    span.weight.factor(),
                 );
                 continue;
             }
@@ -975,13 +946,13 @@ fn sample_plan(
                     &mut combat_lower,
                     &mut combat_lower_weight,
                     sample,
-                    span.weight,
+                    span.weight.factor(),
                 );
                 continue;
             }
-            let next_total = accumulated + span.weight;
+            let next_total = accumulated + span.weight.factor();
             let alpha = if next_total > 0.0 {
-                span.weight / next_total
+                span.weight.factor() / next_total
             } else {
                 0.0
             };
@@ -1010,14 +981,11 @@ fn sample_plan(
                 if weighted.clip.layer != hand
                     || !clip.tracks[joint_index].animated
                     || weighted.weight.is_absent()
-                    || !weighted.weight.factor().is_finite()
                 {
                     continue;
                 }
-                let sample = sanitize_pose(
-                    clip.sample(joint_index, weighted.time_seconds.seconds()),
-                    joint.bind,
-                );
+                let sample =
+                    sanitize_pose(clip.sample(joint_index, weighted.time_seconds), joint.bind);
                 let total = hand_weight + weighted.weight.factor();
                 hand_pose = if hand_weight <= 0.0 {
                     sample
@@ -1062,19 +1030,19 @@ fn combine_combat_pelvis(combat: LocalPose, locomotion: LocalPose) -> LocalPose 
     }
 }
 
-fn sample_source_clip(clip: &AnimationClip, joint: &RigJoint, time_seconds: f32) -> LocalPose {
+fn sample_source_clip(clip: &AnimationClip, joint: &RigJoint, time_seconds: ClipTime) -> LocalPose {
     let translation_field = animated_field!(Transform::translation);
     let rotation_field = animated_field!(Transform::rotation);
     let scale_field = animated_field!(Transform::scale);
     LocalPose {
         translation: clip
-            .sample_clamped(translation_field, joint.target, time_seconds)
+            .sample_clamped(translation_field, joint.target, time_seconds.seconds())
             .unwrap_or(joint.bind.translation),
         rotation: clip
-            .sample_clamped(rotation_field, joint.target, time_seconds)
+            .sample_clamped(rotation_field, joint.target, time_seconds.seconds())
             .unwrap_or(joint.bind.rotation),
         scale: clip
-            .sample_clamped(scale_field, joint.target, time_seconds)
+            .sample_clamped(scale_field, joint.target, time_seconds.seconds())
             .unwrap_or(joint.bind.scale),
     }
 }
@@ -1082,17 +1050,21 @@ fn sample_source_clip(clip: &AnimationClip, joint: &RigJoint, time_seconds: f32)
 fn sample_two_pose_locomotion_clip(
     clip: &AnimationClip,
     joint: &RigJoint,
-    authored_phase: f32,
-) -> LocalPose {
+    duration: ClipDuration,
+    authored_phase: CyclePhase,
+) -> AnimationValueResult<LocalPose> {
     // The source owns two unique poses: contact and passing/flight. Their
     // mirrored counterparts occupy the other half-cycle. Sample only those
     // four semantic anchors, then own every in-between here instead of asking
     // the glTF sampler (or the 30 Hz baked cache) for intermediate frames.
-    let (start_index, end_index, amount) = sparse_locomotion_segment(authored_phase);
+    let (start_index, end_index, amount) = sparse_locomotion_segment(authored_phase.cycles());
     const ANCHOR_COUNT: f32 = 4.0;
-    let sample_anchor =
-        |index: u32| sample_source_clip(clip, joint, clip.duration() * index as f32 / ANCHOR_COUNT);
-    sample_anchor(start_index).interpolate(sample_anchor(end_index), amount)
+    let sample_anchor = |index: u32| {
+        // Preserve the source kernel's multiply-then-divide f32 order.
+        ClipTime::from_seconds(duration.seconds() * index as f32 / ANCHOR_COUNT)
+            .map(|time| sample_source_clip(clip, joint, time))
+    };
+    Ok(sample_anchor(start_index)?.interpolate(sample_anchor(end_index)?, amount))
 }
 
 fn sparse_locomotion_segment(authored_phase: f32) -> (u32, u32, f32) {
@@ -1323,80 +1295,13 @@ fn solve_pose_two_bone(
     (knee.is_finite() && end.is_finite()).then_some((knee, end))
 }
 
-fn get_or_bake(
-    id: AssetId<AnimationClip>,
-    handle: &Handle<AnimationClip>,
-    definition: &RigDefinition,
-    clips: &Assets<AnimationClip>,
-    bank: &mut BakedClipBank,
-    metrics: &mut PoseBufferMetrics,
-) -> Option<Arc<BakedClip>> {
-    let key = (definition.family.clone(), id);
-    if let Some(clip) = bank.0.get(&key) {
-        return Some(clip.clone());
-    }
-    let clip = clips.get(handle)?;
-    let baked = Arc::new(bake_clip(clip, definition));
-    metrics.baked_clip_bytes = metrics
-        .baked_clip_bytes
-        .saturating_add(baked.memory_bytes());
-    metrics.baked_clip_count = metrics.baked_clip_count.saturating_add(1);
-    bank.0.insert(key, baked.clone());
-    Some(baked)
-}
-
-fn bake_clip(clip: &AnimationClip, definition: &RigDefinition) -> BakedClip {
-    let duration = clip.duration().max(0.001);
-    let frames = (duration / pose_sample_seconds()).ceil() as usize + 1;
-    let translation_field = animated_field!(Transform::translation);
-    let rotation_field = animated_field!(Transform::rotation);
-    let scale_field = animated_field!(Transform::scale);
-    let tracks: RigJointTable<BoneTrack> = definition
-        .joints
-        .iter()
-        .map(|joint| {
-            let sample_time = |frame: usize| (frame as f32 * pose_sample_seconds()).min(duration);
-            let translations = (0..frames)
-                .map(|frame| {
-                    clip.sample_clamped(translation_field.clone(), joint.target, sample_time(frame))
-                        .unwrap_or(joint.bind.translation)
-                })
-                .collect::<Vec<_>>();
-            let rotations = (0..frames)
-                .map(|frame| {
-                    clip.sample_clamped(rotation_field.clone(), joint.target, sample_time(frame))
-                        .unwrap_or(joint.bind.rotation)
-                })
-                .collect::<Vec<_>>();
-            let scales = (0..frames)
-                .map(|frame| {
-                    clip.sample_clamped(scale_field.clone(), joint.target, sample_time(frame))
-                        .unwrap_or(joint.bind.scale)
-                })
-                .collect::<Vec<_>>();
-            BoneTrack {
-                translations,
-                rotations,
-                scales,
-                animated: clip.curves().contains_key(&joint.target),
-            }
-        })
-        .collect();
-    BakedClip {
-        duration,
-        frame_dt: pose_sample_seconds(),
-        frames,
-        tracks,
-    }
-}
-
 fn measure_authored_contact_step_distance(
     definition: &RigDefinition,
     clip: &BakedClip,
     travel_axis: usize,
     expected_stance_direction: f32,
 ) -> Option<AuthoredLocomotionCalibration> {
-    if clip.duration <= f32::EPSILON
+    if clip.duration.seconds() <= f32::EPSILON
         || clip.frames < 4
         || expected_stance_direction.abs() <= f32::EPSILON
     {
@@ -1410,13 +1315,13 @@ fn measure_authored_contact_step_distance(
         let foot = definition.joint_ordinal(&name)?;
         let samples = (0..sample_count)
             .map(|frame| {
-                let time = frame as f32 * clip.frame_dt;
+                let time = clip.frame_time(frame).ok()?;
                 let mut globals = RigJointTable::from(vec![None; definition.joints.len()]);
                 let position = sampled_global_transform(definition, clip, foot, time, &mut globals)
                     .translation;
-                (time / clip.duration, position)
+                Some((time.seconds() / clip.duration.seconds(), position))
             })
-            .collect::<Vec<_>>();
+            .collect::<Option<Vec<_>>>()?;
         let minimum_height = samples
             .iter()
             .map(|(_, position)| position.y)
@@ -1575,19 +1480,14 @@ fn measure_authored_contact_step_distance(
         warped_segments.push(warped);
     }
 
-    let mut authored_phases = (0..=256)
-        .map(|index| {
-            let physical_phase = index as f32 / 256.0;
-            sample_authored_phase_spans(
-                &phase_spans,
-                physical_phase,
-                reverse_playback,
-                phase_offset,
-            )
-        })
-        .collect::<Vec<_>>();
-    smooth_periodic_phase_curve(&mut authored_phases, reverse_playback, phase_offset);
-    let phase_curve = AuthoredPhaseCurve { authored_phases };
+    let phase_curve =
+        match AuthoredPhaseCurve::fit_contact_spans(&phase_spans, reverse_playback, phase_offset) {
+            Ok(curve) => curve,
+            Err(error) => {
+                warn!(%error, "Rejected authored phase calibration");
+                return None;
+            }
+        };
 
     // Each stance gets its own intercept; only the common virtual-root slope
     // is shared between feet and contact lobes. Measure the residual after the
@@ -1636,88 +1536,6 @@ fn measure_authored_contact_step_distance(
     })
 }
 
-fn sample_authored_phase_spans(
-    spans: &[Vec<(f32, f32)>],
-    physical_phase: f32,
-    reverse_playback: bool,
-    phase_offset: f32,
-) -> f32 {
-    for span in spans {
-        for cycle_offset in [-1.0, 0.0, 1.0] {
-            let authored_offset = if reverse_playback {
-                -cycle_offset
-            } else {
-                cycle_offset
-            };
-            let start = span[0].0 + cycle_offset;
-            let end = span[span.len() - 1].0 + cycle_offset;
-            if physical_phase + 0.000_001 < start || physical_phase - 0.000_001 > end {
-                continue;
-            }
-            let upper = span.partition_point(|(phase, _)| *phase + cycle_offset < physical_phase);
-            if upper == 0 {
-                return span[0].1 + authored_offset;
-            }
-            if upper >= span.len() {
-                return span[span.len() - 1].1 + authored_offset;
-            }
-            let (lower_phase, lower_authored) = span[upper - 1];
-            let (upper_phase, upper_authored) = span[upper];
-            let amount = ((physical_phase - (lower_phase + cycle_offset))
-                / (upper_phase - lower_phase))
-                .clamp(0.0, 1.0);
-            return (lower_authored + authored_offset)
-                .lerp(upper_authored + authored_offset, amount);
-        }
-    }
-    if reverse_playback {
-        phase_offset - physical_phase
-    } else {
-        physical_phase + phase_offset
-    }
-}
-
-fn smooth_periodic_phase_curve(values: &mut [f32], reverse: bool, phase_offset: f32) {
-    let sample_count = values.len().saturating_sub(1);
-    if sample_count < 3 {
-        return;
-    }
-    let deviations = (0..sample_count)
-        .map(|index| {
-            let phase = index as f32 / sample_count as f32;
-            let base = if reverse {
-                phase_offset - phase
-            } else {
-                phase_offset + phase
-            };
-            values[index] - base
-        })
-        .collect::<Vec<_>>();
-    const RADIUS: isize = 6;
-    for (index, value) in values.iter_mut().take(sample_count).enumerate() {
-        let mut weighted_sum = 0.0;
-        let mut total_weight = 0.0;
-        for offset in -RADIUS..=RADIUS {
-            let wrapped = (index as isize + offset).rem_euclid(sample_count as isize) as usize;
-            let weight = (RADIUS + 1 - offset.abs()) as f32;
-            weighted_sum += deviations[wrapped] * weight;
-            total_weight += weight;
-        }
-        let phase = index as f32 / sample_count as f32;
-        let base = if reverse {
-            phase_offset - phase
-        } else {
-            phase_offset + phase
-        };
-        *value = base + weighted_sum / total_weight;
-    }
-    values[sample_count] = if reverse {
-        values[0] - 1.0
-    } else {
-        values[0] + 1.0
-    };
-}
-
 fn measure_authored_foot_range(
     definition: &RigDefinition,
     clip: &BakedClip,
@@ -1737,16 +1555,19 @@ fn measure_authored_foot_range(
                 definition,
                 clip,
                 foot,
-                frame as f32 * clip.frame_dt,
+                clip.frame_time(frame).ok()?,
                 &mut globals,
             )
             .translation[travel_axis];
             minimum = minimum.min(position);
             maximum = maximum.max(position);
         }
-        maximum - minimum
+        Some(maximum - minimum)
     });
-    let stride = (ranges[0] + ranges[1]) * 0.5;
+    let [Some(left), Some(right)] = ranges else {
+        return None;
+    };
+    let stride = (left + right) * 0.5;
     (stride.is_finite() && (0.05..=3.0).contains(&stride)).then_some(stride)
 }
 
@@ -2020,8 +1841,8 @@ mod tests {
             animated: true,
         };
         let clip = BakedClip {
-            duration: 2.0 / 30.0,
-            frame_dt: 1.0 / 30.0,
+            duration: ClipDuration::from_seconds(2.0 / 30.0).unwrap(),
+            frame_dt: AnimationElapsed::from_seconds(1.0 / 30.0).unwrap(),
             frames: 3,
             tracks: vec![
                 track(vec![Vec3::ZERO; 3]),
@@ -2095,8 +1916,8 @@ mod tests {
             animated: true,
         };
         let clip = BakedClip {
-            duration,
-            frame_dt,
+            duration: ClipDuration::from_seconds(duration).unwrap(),
+            frame_dt: AnimationElapsed::from_seconds(frame_dt).unwrap(),
             frames,
             tracks: vec![
                 BoneTrack {
@@ -2140,7 +1961,11 @@ mod tests {
             .phase_curve
             .expect("ordinary gait derives a curve");
         assert!(
-            curve.sample(0.2) > 0.22,
+            curve
+                .sample(CyclePhase::from_cycles(0.2).unwrap())
+                .unwrap()
+                .cycles()
+                > 0.22,
             "distance inversion must be nonlinear"
         );
 
@@ -2171,7 +1996,17 @@ mod tests {
             .expect("a cyclic clip authored backward should be sampled in reverse");
         assert!((reversed.stride.step_distance - 1.0).abs() < 0.0001);
         let curve = reversed.phase_curve.unwrap();
-        let authored_delta = (curve.sample(0.25) - curve.sample(0.2) + 0.5).rem_euclid(1.0) - 0.5;
+        let authored_delta = (curve
+            .sample(CyclePhase::from_cycles(0.25).unwrap())
+            .unwrap()
+            .cycles()
+            - curve
+                .sample(CyclePhase::from_cycles(0.2).unwrap())
+                .unwrap()
+                .cycles()
+            + 0.5)
+            .rem_euclid(1.0)
+            - 0.5;
         assert!(
             authored_delta < 0.0,
             "reverse playback must decrease authored phase while physical phase advances"

@@ -36,20 +36,6 @@ impl AiOffenseConfig {
 
 impl Default for AiOffenseConfig {
     fn default() -> Self {
-        Self {
-            hit_precision: 1.0,
-            target_body_part: BodyPart::Chest,
-            windup_seconds: 0.65,
-            cooldown_seconds: 0.25,
-            initiative_delay_min_seconds: 0.04,
-            initiative_delay_max_seconds: 0.22,
-            cadence_jitter_seconds: 0.16,
-            long_weapon_measure_threshold_metres: 1.2,
-            melee_measure_reach_fraction: 0.7,
-            ranged_standoff_min_metres: 1.5,
-            ranged_standoff_max_metres: 12.0,
-            ranged_standoff_slop_metres: 0.5,
-            ranged_reach_fraction: 0.5,
-        }
+        super::defaults::canonical().ai.ordinary.offense.clone()
     }
 }

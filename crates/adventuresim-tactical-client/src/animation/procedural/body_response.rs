@@ -1,6 +1,10 @@
 //! Bounded locomotion body response applied after authored pose evaluation.
 
 use super::*;
+pub(in crate::animation::procedural) use target::body_response_target;
+use target::deceleration_lean_scale;
+
+mod target;
 
 impl LocomotionBodyResponseState {
     fn advance_for_presentation(
@@ -9,21 +13,24 @@ impl LocomotionBodyResponseState {
         owner_transform: &Transform,
         procedural_clock: &ProceduralAnimationClock,
         time: &Time,
-    ) -> Self {
+    ) -> AnimationValueResult<Self> {
         let tick = skeleton.locomotion_sample_tick;
         let tick_delta = presentation_tick_delta(self.last_tick, tick);
         let delta_seconds = match procedural_clock.fixed_step() {
             Some(FixedAnimationStep {
                 tick: fixed_tick, ..
-            }) if self.last_tick == Some(fixed_tick) => 0.0,
+            }) if self.last_tick == Some(fixed_tick) => AnimationElapsed::ZERO,
             Some(FixedAnimationStep { delta_seconds, .. }) => delta_seconds,
-            None => time
-                .delta_secs()
-                .clamp(0.0, body_response_tuning().maximum_frame_seconds),
+            None => AnimationElapsed::from(time.delta())
+                .capped_by_seconds(body_response_tuning().maximum_frame_seconds)?,
         };
         let inverse_body_rotation = owner_transform.rotation.inverse();
-        let body_velocity = inverse_body_rotation * skeleton.world_velocity;
-        let body_acceleration = inverse_body_rotation * skeleton.world_acceleration;
+        let body_velocity = BodyLocalVelocity::from_metres_per_second(
+            inverse_body_rotation * skeleton.world_velocity,
+        )?;
+        let body_acceleration = BodyLocalAcceleration::from_metres_per_second_squared(
+            inverse_body_rotation * skeleton.world_acceleration,
+        )?;
         let discontinuous = tick_delta.is_none();
         let source_changed = matches!(tick_delta, Some(1..));
         if skeleton.is_posture_transitioning()
@@ -44,49 +51,44 @@ impl LocomotionBodyResponseState {
             // value in render time so packet delivery cannot create an
             // inertial impulse. Releasing the impulse more slowly also avoids
             // a second head snap when the motor reaches its target speed.
-            self.smoothed_body_acceleration =
-                BodyLocalAcceleration::from_metres_per_second_squared(smooth_acceleration(
-                    self.smoothed_body_acceleration.metres_per_second_squared(),
-                    body_acceleration,
-                    delta_seconds,
-                ));
+            self.smoothed_body_acceleration = smooth_acceleration(
+                self.smoothed_body_acceleration,
+                body_acceleration,
+                delta_seconds,
+            )?;
             let braking_scale = deceleration_lean_scale(
-                self.last_body_velocity.metres_per_second(),
+                self.last_body_velocity,
                 body_velocity,
-                self.smoothed_body_acceleration.metres_per_second_squared(),
-            );
+                self.smoothed_body_acceleration,
+            )?;
             let combined = body_response_target(
                 body_velocity,
-                self.smoothed_body_acceleration.metres_per_second_squared(),
+                self.smoothed_body_acceleration,
                 braking_scale,
-            );
-            self.target_pitch_radians = BodyAngle::from_radians(combined.x);
-            self.target_roll_radians = BodyAngle::from_radians(combined.y);
-            let current = Vec2::new(self.pitch_radians.radians(), self.roll_radians.radians());
-            let target = Vec2::new(
-                self.target_pitch_radians.radians(),
-                self.target_roll_radians.radians(),
-            );
-            let (advanced, angular_velocity) = advance_body_response(
-                current,
-                self.angular_velocity_radians_per_second
-                    .radians_per_second(),
-                target,
+            )?;
+            self.target_pitch_radians = combined.pitch;
+            self.target_roll_radians = combined.roll;
+            let advanced = advance_body_response(
+                BodyResponseAngles {
+                    pitch: self.pitch_radians,
+                    roll: self.roll_radians,
+                },
+                self.angular_velocity_radians_per_second,
+                combined,
                 delta_seconds,
-            );
-            self.pitch_radians = BodyAngle::from_radians(advanced.x);
-            self.roll_radians = BodyAngle::from_radians(advanced.y);
-            self.angular_velocity_radians_per_second =
-                BodyAngularVelocity::from_radians_per_second(angular_velocity);
+            )?;
+            self.pitch_radians = advanced.angles.pitch;
+            self.roll_radians = advanced.angles.roll;
+            self.angular_velocity_radians_per_second = advanced.angular_velocity;
         }
         if self.last_tick.is_none() || discontinuous || source_changed {
-            self.last_body_velocity = BodyLocalVelocity::from_metres_per_second(body_velocity);
+            self.last_body_velocity = body_velocity;
         }
         self.last_tick = Some(tick);
         self.last_posture = Some(skeleton.posture());
         self.last_action = Some(skeleton.action_kind());
         self.last_ground_contact = Some(GroundContact::from(skeleton));
-        self
+        Ok(self)
     }
 }
 
@@ -133,6 +135,13 @@ pub(in crate::animation) fn apply_locomotion_body_response(
             .copied()
             .unwrap_or_default()
             .advance_for_presentation(skeleton, owner_transform, &procedural_clock, &time);
+        let next = match next {
+            Ok(next) => next,
+            Err(error) => {
+                warn!(?owner, %error, "Rejected locomotion body response");
+                continue;
+            }
+        };
         responses.insert(owner, next);
         if let Some(mut state) = state {
             *state = next;
@@ -180,41 +189,74 @@ fn body_response_tuning() -> BodyResponseConfig {
     runtime_animation_config().procedural.body_response
 }
 
-fn smooth_acceleration(current: Vec3, target: Vec3, delta_seconds: f32) -> Vec3 {
-    let response_per_second = if target.xz().length_squared() > current.xz().length_squared() {
+fn smooth_acceleration(
+    current: BodyLocalAcceleration,
+    target: BodyLocalAcceleration,
+    elapsed: AnimationElapsed,
+) -> AnimationValueResult<BodyLocalAcceleration> {
+    // Exponential filtering operates on native body-local metres/second squared.
+    let current = current.metres_per_second_squared();
+    let target = target.metres_per_second_squared();
+    if !target.xz().length_squared().is_finite() || !current.xz().length_squared().is_finite() {
+        return Err(AnimationValueError::Overflow {
+            quantity: AnimationQuantity::BodyLocalAcceleration,
+        });
+    }
+    let rate = if target.xz().length_squared() > current.xz().length_squared() {
         body_response_tuning().acceleration_attack_response_per_second
     } else {
         body_response_tuning().acceleration_release_response_per_second
     };
-    let response = 1.0 - (-response_per_second * delta_seconds.max(0.0)).exp();
-    current.lerp(target, response)
+    let exponent = -rate * elapsed.seconds();
+    if !exponent.is_finite() {
+        return Err(AnimationValueError::Overflow {
+            quantity: AnimationQuantity::BodyLocalAcceleration,
+        });
+    }
+    let response = 1.0 - exponent.exp();
+    BodyLocalAcceleration::from_metres_per_second_squared(current.lerp(target, response))
 }
 
 fn advance_body_response(
-    current: Vec2,
-    velocity: Vec2,
-    target: Vec2,
-    delta_seconds: f32,
-) -> (Vec2, Vec2) {
-    let delta_seconds = delta_seconds.max(0.0);
-    if delta_seconds == 0.0 {
-        return (current, velocity);
+    current: BodyResponseAngles,
+    velocity: BodyAngularVelocity,
+    target: BodyResponseAngles,
+    elapsed: AnimationElapsed,
+) -> AnimationValueResult<BodyResponseStep> {
+    if elapsed.is_zero() {
+        return Ok(BodyResponseStep {
+            angles: current,
+            angular_velocity: velocity,
+        });
     }
-
-    // An implicit critically damped spring retains angular velocity across
-    // target changes. Unlike a first-order slew limiter, it cannot consume a
-    // small accumulated target error as a separate one-frame lean when the
-    // presented motor velocity locks to its sprint plateau.
+    // The implicit spring is a native two-axis radians/seconds numerical kernel.
+    let current = current.radians();
+    let target = target.radians();
+    let velocity = velocity.radians_per_second();
+    let delta_seconds = elapsed.seconds();
     let omega = 2.0 / body_response_tuning().smooth_time_seconds;
     let omega_squared = omega * omega;
     let denominator =
         1.0 + 2.0 * delta_seconds * omega + delta_seconds * delta_seconds * omega_squared;
-    let next_velocity =
-        (velocity + delta_seconds * omega_squared * (target - current)) / denominator;
+    let numerator = velocity + delta_seconds * omega_squared * (target - current);
+    if !denominator.is_finite() || !numerator.is_finite() {
+        return Err(AnimationValueError::Overflow {
+            quantity: AnimationQuantity::BodyAngularVelocity,
+        });
+    }
+    let next_velocity = numerator / denominator;
+    if !next_velocity.length_squared().is_finite() {
+        return Err(AnimationValueError::Overflow {
+            quantity: AnimationQuantity::BodyAngularVelocity,
+        });
+    }
     let maximum_speed = body_response_tuning().degrees_per_second.to_radians();
     let next_velocity = next_velocity.clamp_length_max(maximum_speed);
     let next = current + next_velocity * delta_seconds;
-    (next, next_velocity)
+    Ok(BodyResponseStep {
+        angles: BodyResponseAngles::from_radians(next)?,
+        angular_velocity: BodyAngularVelocity::from_radians_per_second(next_velocity)?,
+    })
 }
 
 fn stable_pelvis_response(
@@ -231,81 +273,6 @@ fn stable_pelvis_response(
         (parent_space_response * authored_rotation).normalize(),
         leg_compensation,
     )
-}
-
-pub(in crate::animation::procedural) fn body_response_target(
-    velocity: Vec3,
-    acceleration: Vec3,
-    braking_scale: f32,
-) -> Vec2 {
-    // Tactical body forward is local +Z (the authored rig carries its own
-    // facing correction). Authored locomotion keeps a straight back, so steady
-    // travel supplies a pronounced base lean and acceleration adds a somewhat
-    // stronger combined startup pose. Keeping most of the lean in travel avoids
-    // a large initial snap followed by an almost upright steady run.
-    let travel_pitch = (velocity.z / run_locomotion_profile().reference_speed
-        * body_response_tuning()
-            .steady_travel_lean_degrees
-            .to_radians())
-    .clamp(-18.0_f32.to_radians(), 18.0_f32.to_radians());
-    let travel_roll = (-velocity.x / run_locomotion_profile().reference_speed
-        * body_response_tuning()
-            .steady_travel_lean_degrees
-            .to_radians())
-    .clamp(-18.0_f32.to_radians(), 18.0_f32.to_radians());
-    // Acceleration is an early accent rather than a second full pose. Fade it
-    // almost completely into the stable velocity posture, so reaching target
-    // speed cannot release a late, visibly separate lean.
-    let speed_fraction =
-        (velocity.xz().length() / run_locomotion_profile().reference_speed).clamp(0.0, 1.0);
-    let startup_inertial_scale = body_response_tuning().startup_inertial_lean_scale.lerp(
-        body_response_tuning().sustained_inertial_lean_scale,
-        speed_fraction,
-    );
-    let inertial_pitch = if acceleration.z > 0.0 {
-        (acceleration.z / 12.0
-            * body_response_tuning()
-                .forward_acceleration_lean_degrees
-                .to_radians())
-        .clamp(0.0, 14.0_f32.to_radians())
-            * startup_inertial_scale
-    } else {
-        (acceleration.z / 12.0 * 18.0_f32.to_radians()).clamp(-22.0_f32.to_radians(), 0.0)
-            * braking_scale.clamp(0.0, 1.0)
-    };
-    // Turning should read clearly without the extreme motorcycle-like bank of
-    // the first stronger-lean pass. Keep lateral travel posture unchanged and
-    // scale only acceleration-driven turning response to 60% of that tuning.
-    let inertial_roll = (-acceleration.x / 10.0
-        * body_response_tuning()
-            .lateral_acceleration_lean_degrees
-            .to_radians())
-    .clamp(-8.0_f32.to_radians(), 8.0_f32.to_radians())
-        * startup_inertial_scale;
-    let pitch = travel_pitch + inertial_pitch;
-    let roll = travel_roll + inertial_roll;
-    let response = Vec2::new(pitch, roll);
-    // Leave a sub-milliradian numerical margin so degree conversion cannot
-    // report a value microscopically above the documented 30-degree cap.
-    let maximum_response = 30.0_f32.to_radians() - 0.000001;
-    if response.length_squared() > maximum_response * maximum_response {
-        response.normalize_or_zero() * maximum_response
-    } else {
-        response
-    }
-}
-
-fn deceleration_lean_scale(previous_velocity: Vec3, velocity: Vec3, acceleration: Vec3) -> f32 {
-    let previous_planar = previous_velocity.xz();
-    let planar = velocity.xz();
-    let planar_acceleration = acceleration.xz();
-    let is_decelerating = previous_planar.dot(planar_acceleration) < 0.0
-        && planar.length_squared() <= previous_planar.length_squared() + 0.000_1;
-    if is_decelerating {
-        (planar.length() / run_locomotion_profile().reference_speed).clamp(0.0, 1.0)
-    } else {
-        1.0
-    }
 }
 
 #[cfg(test)]
@@ -334,7 +301,12 @@ mod tests {
     #[test]
     fn deceleration_lean_follows_current_planar_speed_only_while_braking() {
         let walking = Vec3::Z * walk_locomotion_profile().reference_speed;
-        let walking_scale = deceleration_lean_scale(walking, walking, Vec3::NEG_Z * 12.0);
+        let walking_scale = deceleration_lean_scale(
+            BodyLocalVelocity::from_metres_per_second(walking).unwrap(),
+            BodyLocalVelocity::from_metres_per_second(walking).unwrap(),
+            BodyLocalAcceleration::from_metres_per_second_squared(Vec3::NEG_Z * 12.0).unwrap(),
+        )
+        .unwrap();
         assert!(
             (walking_scale
                 - walk_locomotion_profile().reference_speed
@@ -343,15 +315,30 @@ mod tests {
                 <= f32::EPSILON
         );
         assert_eq!(
-            deceleration_lean_scale(Vec3::Z * 0.5, Vec3::ZERO, Vec3::NEG_Z * 12.0),
+            deceleration_lean_scale(
+                BodyLocalVelocity::from_metres_per_second(Vec3::Z * 0.5).unwrap(),
+                BodyLocalVelocity::from_metres_per_second(Vec3::ZERO).unwrap(),
+                BodyLocalAcceleration::from_metres_per_second_squared(Vec3::NEG_Z * 12.0).unwrap()
+            )
+            .unwrap(),
             0.0
         );
         assert_eq!(
-            deceleration_lean_scale(Vec3::ZERO, Vec3::NEG_Z, Vec3::NEG_Z * 12.0),
+            deceleration_lean_scale(
+                BodyLocalVelocity::from_metres_per_second(Vec3::ZERO).unwrap(),
+                BodyLocalVelocity::from_metres_per_second(Vec3::NEG_Z).unwrap(),
+                BodyLocalAcceleration::from_metres_per_second_squared(Vec3::NEG_Z * 12.0).unwrap()
+            )
+            .unwrap(),
             1.0
         );
         assert_eq!(
-            deceleration_lean_scale(Vec3::Z * 5.5, Vec3::Z * 5.5, Vec3::NEG_Z * 12.0),
+            deceleration_lean_scale(
+                BodyLocalVelocity::from_metres_per_second(Vec3::Z * 5.5).unwrap(),
+                BodyLocalVelocity::from_metres_per_second(Vec3::Z * 5.5).unwrap(),
+                BodyLocalAcceleration::from_metres_per_second_squared(Vec3::NEG_Z * 12.0).unwrap()
+            )
+            .unwrap(),
             1.0
         );
     }
@@ -360,10 +347,22 @@ mod tests {
     fn acceleration_response_has_smooth_attack_and_release() {
         let frame_seconds = 1.0 / 60.0;
         let raw = Vec3::Z * 12.0;
-        let attacked = smooth_acceleration(Vec3::ZERO, raw, frame_seconds);
+        let attacked = smooth_acceleration(
+            BodyLocalAcceleration::from_metres_per_second_squared(Vec3::ZERO).unwrap(),
+            BodyLocalAcceleration::from_metres_per_second_squared(raw).unwrap(),
+            AnimationElapsed::from_seconds(frame_seconds).unwrap(),
+        )
+        .unwrap()
+        .metres_per_second_squared();
         assert!(attacked.z > 0.0 && attacked.z < raw.z);
 
-        let released = smooth_acceleration(attacked, Vec3::ZERO, frame_seconds);
+        let released = smooth_acceleration(
+            BodyLocalAcceleration::from_metres_per_second_squared(attacked).unwrap(),
+            BodyLocalAcceleration::from_metres_per_second_squared(Vec3::ZERO).unwrap(),
+            AnimationElapsed::from_seconds(frame_seconds).unwrap(),
+        )
+        .unwrap()
+        .metres_per_second_squared();
         assert!(released.z > 0.0 && released.z < attacked.z);
     }
 
@@ -372,8 +371,19 @@ mod tests {
         let frame_seconds = 1.0 / 60.0;
         let current = Vec2::ZERO;
         let target = Vec2::splat(30.0_f32.to_radians());
-        let (advanced, velocity) =
-            advance_body_response(current, Vec2::ZERO, target, frame_seconds);
+        let (advanced, velocity) = advance_body_response(
+            BodyResponseAngles::from_radians(current).unwrap(),
+            BodyAngularVelocity::from_radians_per_second(Vec2::ZERO).unwrap(),
+            BodyResponseAngles::from_radians(target).unwrap(),
+            AnimationElapsed::from_seconds(frame_seconds).unwrap(),
+        )
+        .map(|step| {
+            (
+                step.angles.radians(),
+                step.angular_velocity.radians_per_second(),
+            )
+        })
+        .unwrap();
         let maximum_step = body_response_tuning().degrees_per_second.to_radians() * frame_seconds;
         assert!(advanced.length() <= maximum_step + 0.000_001);
         assert!(
@@ -387,8 +397,19 @@ mod tests {
         let velocity = Vec2::new(28.0_f32.to_radians(), 0.0);
         let current = Vec2::new(14.0_f32.to_radians(), 0.0);
         let target = Vec2::new(16.0_f32.to_radians(), 0.0);
-        let (advanced, next_velocity) =
-            advance_body_response(current, velocity, target, frame_seconds);
+        let (advanced, next_velocity) = advance_body_response(
+            BodyResponseAngles::from_radians(current).unwrap(),
+            BodyAngularVelocity::from_radians_per_second(velocity).unwrap(),
+            BodyResponseAngles::from_radians(target).unwrap(),
+            AnimationElapsed::from_seconds(frame_seconds).unwrap(),
+        )
+        .map(|step| {
+            (
+                step.angles.radians(),
+                step.angular_velocity.radians_per_second(),
+            )
+        })
+        .unwrap();
 
         assert!(advanced.x > current.x);
         assert!(next_velocity.x > 0.0);
@@ -412,10 +433,34 @@ mod tests {
             } else {
                 Vec3::ZERO
             };
-            acceleration = smooth_acceleration(acceleration, raw_acceleration, frame_seconds);
-            let target = body_response_target(Vec3::Z * speed, acceleration, 1.0);
+            acceleration = smooth_acceleration(
+                BodyLocalAcceleration::from_metres_per_second_squared(acceleration).unwrap(),
+                BodyLocalAcceleration::from_metres_per_second_squared(raw_acceleration).unwrap(),
+                AnimationElapsed::from_seconds(frame_seconds).unwrap(),
+            )
+            .unwrap()
+            .metres_per_second_squared();
+            let target = body_response_target(
+                BodyLocalVelocity::from_metres_per_second(Vec3::Z * speed).unwrap(),
+                BodyLocalAcceleration::from_metres_per_second_squared(acceleration).unwrap(),
+                1.0,
+            )
+            .unwrap()
+            .radians();
             let previous = response;
-            (response, velocity) = advance_body_response(response, velocity, target, frame_seconds);
+            (response, velocity) = advance_body_response(
+                BodyResponseAngles::from_radians(response).unwrap(),
+                BodyAngularVelocity::from_radians_per_second(velocity).unwrap(),
+                BodyResponseAngles::from_radians(target).unwrap(),
+                AnimationElapsed::from_seconds(frame_seconds).unwrap(),
+            )
+            .map(|step| {
+                (
+                    step.angles.radians(),
+                    step.angular_velocity.radians_per_second(),
+                )
+            })
+            .unwrap();
             maximum_pitch = maximum_pitch.max(response.x);
             maximum_step = maximum_step.max((response.x - previous.x).abs());
         }

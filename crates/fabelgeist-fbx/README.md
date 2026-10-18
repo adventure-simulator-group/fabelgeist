@@ -26,6 +26,14 @@ transform arithmetic, curve sampling or malformed-record handling. Record and
 class selection and other parser policies remain independent of these name
 identities.
 
+## Animation duration admission
+
+`FbxAnimationDuration::from_seconds` admits finite nonnegative f64 seconds,
+including zero, and returns `InvalidFbxAnimationDuration` for rejected values.
+`Scene::takes` returns a fallible collection and retains the take name with the
+construction cause. Empty stacks are still skipped; declared positive spans
+and the existing key-based duration inference keep their order and precision.
+
 ## Array encoding
 
 The binary FBX model-file reader admits the four-byte array encoding field into

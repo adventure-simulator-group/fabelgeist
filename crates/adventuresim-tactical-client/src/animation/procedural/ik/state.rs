@@ -10,7 +10,7 @@ pub(in crate::animation::procedural) struct LocomotionSettleState {
     pub(super) capture_point: Vec3,
     pub(super) landing_target: Vec3,
     pub(super) progress: f32,
-    pub(super) elapsed_seconds: f32,
+    pub(super) elapsed_seconds: AnimationElapsed,
     pub(super) raised_handoff: bool,
 }
 

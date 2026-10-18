@@ -208,6 +208,9 @@ animation:
     maximum_authored_stance_slip_metres: 0.03
     authored_cadence_cap_transition_width: 1.0
     maximum_coalesced_events: 8
+    initial_locomotion_speed_metres_per_second: 0.05
+    locomotion_deactivation_speed_metres_per_second: 0.03
+    locomotion_activation_speed_metres_per_second: 0.08
   pose_buffer:
     sample_hz: 30.0
     inertial_blend_seconds: 0.2

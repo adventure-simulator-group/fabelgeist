@@ -42,12 +42,12 @@ pub(in crate::animation::procedural) fn terrain_ik_is_required(
 
 pub(in crate::animation::procedural) fn advance_settle_state(
     mut settle: LocomotionSettleState,
-    delta_seconds: f32,
-) -> LocomotionSettleState {
-    let delta_seconds = delta_seconds.max(0.0);
-    settle.elapsed_seconds += delta_seconds;
-    settle.progress = (settle.progress + delta_seconds / ik_tuning().settle_step_seconds).min(1.0);
-    settle
+    delta_seconds: AnimationElapsed,
+) -> AnimationValueResult<LocomotionSettleState> {
+    settle.elapsed_seconds = settle.elapsed_seconds.checked_add(delta_seconds)?;
+    settle.progress =
+        (settle.progress + delta_seconds.seconds() / ik_tuning().settle_step_seconds).min(1.0);
+    Ok(settle)
 }
 
 pub(in crate::animation::procedural) fn settle_target_speed(settle: LocomotionSettleState) -> f32 {

@@ -21,15 +21,26 @@ pub(super) struct ResolvedBodyPlan {
 }
 
 impl ResolvedBodyPlan {
-    pub(super) fn into_playback(self, evaluation: &AnimationEvaluation) -> PlaybackPose {
-        PlaybackPose {
+    pub(super) fn into_playback(
+        self,
+        evaluation: &AnimationEvaluation,
+    ) -> AnimationValueResult<PlaybackPose> {
+        // Grip contributions join after body resolution. Validate the complete
+        // nonnegative total before the native per-joint blending kernel runs.
+        self.clips
+            .iter()
+            .map(|clip| clip.weight)
+            .chain(self.extrapolated_spans.iter().map(|span| span.weight))
+            .chain(self.continuation_spans.iter().map(|span| span.weight))
+            .try_fold(BlendWeight::ZERO, |total, weight| total.checked_add(weight))?;
+        Ok(PlaybackPose {
             pose_source: PoseSource::for_empty_plan(
                 self.clips.is_empty()
                     && self.extrapolated_spans.is_empty()
                     && self.continuation_spans.is_empty(),
             ),
             whole_body_mirror: self.whole_body_mirror,
-            foot_ik_weights: semantic_foot_ik_weights(evaluation),
+            foot_ik_weights: semantic_foot_ik_weights(evaluation)?,
             cadence: if evaluation.action.is_empty() {
                 PoseSamplingCadence::Buffered
             } else {
@@ -38,7 +49,7 @@ impl ResolvedBodyPlan {
             clips: self.clips,
             extrapolated_spans: self.extrapolated_spans,
             continuation_spans: self.continuation_spans,
-        }
+        })
     }
 }
 
@@ -47,7 +58,7 @@ impl PoseSampleResolver<'_> {
         &self,
         skeleton: &SkeletonState,
         evaluation: &AnimationEvaluation,
-    ) -> ResolvedBodyPlan {
+    ) -> AnimationValueResult<ResolvedBodyPlan> {
         let mut weighted = Vec::<WeightedClip>::new();
         let mut extrapolated_spans = Vec::<ExtrapolatedSpan>::new();
         let mut continuation_spans = Vec::<ContinuationSpan>::new();
@@ -71,7 +82,7 @@ impl PoseSampleResolver<'_> {
                 &mut continuation_spans,
                 *sample,
                 base_layer,
-            );
+            )?;
         }
         let lower_layer = if split_combat_pelvis {
             ClipLayer::CombatLower
@@ -85,35 +96,29 @@ impl PoseSampleResolver<'_> {
                 &mut continuation_spans,
                 *sample,
                 lower_layer,
-            );
+            )?;
         }
-        let (total_weight, mirrored_weight) = weighted
-            .iter()
-            .map(|clip| (clip.weight.factor(), clip.mirrored_weight.factor()))
-            .chain(
-                extrapolated_spans
-                    .iter()
-                    .map(|span| (span.weight, span.mirrored_weight)),
-            )
-            .chain(
-                continuation_spans
-                    .iter()
-                    .map(|span| (span.weight, span.mirrored_weight)),
-            )
-            .fold((0.0, 0.0), |(total, mirrored), (weight, mirror)| {
-                (total + weight, mirrored + mirror)
-            });
-        let whole_body_mirror = if total_weight > 0.0 {
-            (mirrored_weight / total_weight).clamp(0.0, 1.0)
-        } else {
-            0.0
-        };
-        ResolvedBodyPlan {
-            whole_body_mirror: BlendWeight::from_factor(whole_body_mirror),
+        let whole_body_mirror = mirror_fraction(
+            weighted
+                .iter()
+                .map(|clip| (clip.weight, clip.mirrored_weight))
+                .chain(
+                    extrapolated_spans
+                        .iter()
+                        .map(|span| (span.weight, span.mirrored_weight)),
+                )
+                .chain(
+                    continuation_spans
+                        .iter()
+                        .map(|span| (span.weight, span.mirrored_weight)),
+                ),
+        )?;
+        Ok(ResolvedBodyPlan {
+            whole_body_mirror,
             clips: weighted,
             extrapolated_spans,
             continuation_spans,
-        }
+        })
     }
 
     pub(super) fn append_layer(
@@ -123,7 +128,7 @@ impl PoseSampleResolver<'_> {
         continuation_spans: &mut Vec<ContinuationSpan>,
         sample: PoseSample,
         layer: ClipLayer,
-    ) {
+    ) -> AnimationValueResult<()> {
         let start = resolve_anchor(self.runtime, self.catalog, self.pack, sample.pose);
         let Some(start) = start.and_then(|resolved| {
             select_gait_endpoint_parity(
@@ -132,20 +137,20 @@ impl PoseSampleResolver<'_> {
                 ClipMirror::from_resolved_pose(sample.mirror_lower_body),
             )
         }) else {
-            return;
+            return Ok(());
         };
         match sample.sampling {
             PoseSampling::Anchor => {
                 append_weighted_anchor(weighted, &start, start.anchor.frame, sample.weight, layer)
             }
             PoseSampling::Cycle { .. } | PoseSampling::Timeline { .. } => {
-                self.append_timed_sample(weighted, &start, sample, layer);
+                self.append_timed_sample(weighted, &start, sample, layer)
             }
             PoseSampling::Span { .. } => {
-                self.append_interpolated_span(weighted, &start, sample, layer);
+                self.append_interpolated_span(weighted, &start, sample, layer)
             }
             PoseSampling::CurveSpan { .. } => {
-                self.append_curve_span(weighted, extrapolated_spans, &start, sample, layer);
+                self.append_curve_span(weighted, extrapolated_spans, &start, sample, layer)
             }
             sampling @ PoseSampling::ContinuationSpan { .. } => append_continuation_span(
                 self,
@@ -165,29 +170,27 @@ impl PoseSampleResolver<'_> {
         start: &ResolvedAnchor<'_>,
         sample: PoseSample,
         layer: ClipLayer,
-    ) {
+    ) -> AnimationValueResult<()> {
         match sample.sampling {
             PoseSampling::Cycle { phase } => {
-                let sample_phase = self.locomotion_strides.sample_phase(sample.pose, phase);
+                let phase = CyclePhase::from_cycles(phase)?;
+                let sample_phase = self.locomotion_strides.sample_phase(sample.pose, phase)?;
                 let clip = start.clip.at_anchor_layer(start.anchor.frame, layer);
                 append_weighted_clip(
                     weighted,
                     &clip,
                     start.mirrored,
-                    start
-                        .clip
-                        .duration_seconds
-                        .at_phase(CyclePhase::from_cycles(sample_phase)),
-                    BlendWeight::from_factor(sample.weight),
+                    start.clip.duration_seconds.at_phase(sample_phase)?,
+                    BlendWeight::from_factor(sample.weight)?,
                     matches!(
                         sample.pose,
                         SemanticPose::WalkContact | SemanticPose::RunContact
                     )
-                    .then_some(CyclePhase::from_cycles(phase.rem_euclid(1.0))),
-                );
+                    .then_some(phase.wrapped()),
+                )
             }
             PoseSampling::Timeline { progress } => {
-                let progress = progress.clamp(0.0, 1.0);
+                let progress = CyclePhase::from_cycles(progress)?.cycles().clamp(0.0, 1.0);
                 let timeline = if start.timeline_direction == TimelineDirection::Reversed {
                     1.0 - progress
                 } else {
@@ -201,12 +204,27 @@ impl PoseSampleResolver<'_> {
                     start
                         .clip
                         .duration_seconds
-                        .at_phase(CyclePhase::from_cycles(timeline)),
-                    BlendWeight::from_factor(sample.weight),
+                        .at_phase(CyclePhase::from_cycles(timeline)?)?,
+                    BlendWeight::from_factor(sample.weight)?,
                     None,
-                );
+                )
             }
-            _ => {}
+            _ => Ok(()),
         }
     }
+}
+
+fn mirror_fraction(
+    contributions: impl Iterator<Item = (BlendWeight, BlendWeight)>,
+) -> AnimationValueResult<BlendWeight> {
+    let mut total = BlendWeight::ZERO;
+    let mut mirrored = BlendWeight::ZERO;
+    for (weight, mirror) in contributions {
+        total = total.checked_add(weight)?;
+        mirrored = mirrored.checked_add(mirror)?;
+    }
+    if total.is_absent() {
+        return Ok(BlendWeight::ZERO);
+    }
+    BlendWeight::from_factor((mirrored.factor() / total.factor()).clamp(0.0, 1.0))
 }

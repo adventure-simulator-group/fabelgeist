@@ -69,7 +69,7 @@ pub(in crate::animation::procedural) fn bound_unacquired_run_support_release_tar
     desired_world_target: Vec3,
     rig_origin: Vec3,
     rig_rotation: Quat,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
     minimum_world_y: impl Fn(Vec2) -> Option<f32>,
 ) -> Vec3 {
     if run_budget && !has_plan && !acquired && release_owned {
@@ -184,17 +184,17 @@ pub(in crate::animation::procedural) fn update_measured_owner_planar_speed(
     retained_speed: f32,
     previous_origin: Option<Vec3>,
     current_origin: Vec3,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
     evaluation_advances: bool,
     owner_discontinuous: bool,
 ) -> f32 {
     if !evaluation_advances {
         retained_speed
-    } else if owner_discontinuous || delta_seconds <= 0.0 {
+    } else if owner_discontinuous || delta_seconds.is_zero() {
         0.0
     } else {
         previous_origin
-            .map(|previous| current_origin.xz().distance(previous.xz()) / delta_seconds)
+            .map(|previous| current_origin.xz().distance(previous.xz()) / delta_seconds.seconds())
             .filter(|speed| speed.is_finite())
             .unwrap_or(0.0)
     }
@@ -528,7 +528,7 @@ pub(in crate::animation::procedural) fn run_contact_within_follower_step(
     desired_world: Vec3,
     rig_origin: Vec3,
     rig_rotation: Quat,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
 ) -> bool {
     let Some(previous_owner) = previous_owner else {
         return true;
@@ -536,7 +536,7 @@ pub(in crate::animation::procedural) fn run_contact_within_follower_step(
     let desired_owner = rig_rotation.inverse() * (desired_world - rig_origin);
     previous_owner.distance(desired_owner)
         <= (ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz)
-            * delta_seconds.max(0.0)
+            * delta_seconds.seconds()
             + sole_contact_tolerance_metres()
 }
 
@@ -553,7 +553,7 @@ pub(in crate::animation::procedural) fn run_contact_within_follower_motion_step(
     desired_world: Vec3,
     rig_origin: Vec3,
     rig_rotation: Quat,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
 ) -> bool {
     let Some(previous_owner) = previous_owner else {
         return true;
@@ -561,7 +561,7 @@ pub(in crate::animation::procedural) fn run_contact_within_follower_motion_step(
     let desired_owner = rig_rotation.inverse() * (desired_world - rig_origin);
     previous_owner.distance(desired_owner)
         <= (ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz)
-            * delta_seconds.max(0.0)
+            * delta_seconds.seconds()
             + 0.0001
 }
 
@@ -577,7 +577,7 @@ pub(in crate::animation::procedural) fn retarget_unacquired_run_contact_for_desc
     side: f32,
     upper_root: Vec3,
     maximum_reach: f32,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
     terrain_height_at: impl Fn(Vec2) -> Option<f32>,
 ) -> Option<Vec3> {
     let previous_owner = previous_owner?;
@@ -603,7 +603,7 @@ pub(in crate::animation::procedural) fn retarget_unacquired_run_contact_for_desc
     let start_world = rig_origin + rig_rotation * previous_owner;
     let maximum_motion = (ik_tuning().run_airborne_owner_step_metres
         * ik_tuning().continuity_sample_hz)
-        * delta_seconds.max(0.0);
+        * delta_seconds.seconds();
     let mut transported_contact = if fixed_within_motion {
         fixed_contact
     } else {
@@ -819,10 +819,10 @@ pub(in crate::animation::procedural) fn acquisition_planted_target(
 pub(in crate::animation::procedural) fn advance_scalar_at_speed(
     current: f32,
     desired: f32,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
     speed: f32,
 ) -> f32 {
-    let maximum_step = speed.max(0.0) * delta_seconds.max(0.0);
+    let maximum_step = speed.max(0.0) * delta_seconds.seconds();
     current + (desired - current).clamp(-maximum_step, maximum_step)
 }
 
@@ -831,7 +831,7 @@ pub(in crate::animation::procedural) fn advance_run_airborne_world_target(
     desired_world: Vec3,
     rig_origin: Vec3,
     rig_rotation: Quat,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
     speed: f32,
     minimum_ankle_y_at: impl Fn(Vec2) -> Option<f32>,
 ) -> Vec3 {
@@ -843,7 +843,7 @@ pub(in crate::animation::procedural) fn advance_run_airborne_world_target(
         return target;
     };
     let start_world = rig_origin + rig_rotation * previous_owner;
-    let maximum_step = speed.max(0.0) * delta_seconds.max(0.0);
+    let maximum_step = speed.max(0.0) * delta_seconds.seconds();
     let cleared_at = |progress: f32| {
         let mut target = start_world.lerp(desired_world, progress.clamp(0.0, 1.0));
         if let Some(minimum_y) = minimum_ankle_y_at(target.xz()) {
@@ -1003,14 +1003,14 @@ pub(in crate::animation::procedural) fn toe_aware_minimum_ankle_y(
 pub(in crate::animation::procedural) fn transition_toe_clearance_with_rotation_margin(
     rendered_ankle: Vec3,
     rendered_toe: Vec3,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
 ) -> f32 {
     // The cached foot chain may rotate by up to nine degrees after the ankle
     // target is selected. Reserve the maximum vertical motion of the visible
     // ankle-to-toe lever so a target that was toe-safe before finalization is
     // still toe-safe in the propagated pose.
     let angular_step = (ik_tuning().airborne_foot_rotation_speed_degrees_per_second
-        * delta_seconds.max(0.0))
+        * delta_seconds.seconds())
     .min(90.0)
     .to_radians();
     ik_tuning().terrain_transition_flight_toe_clearance_metres

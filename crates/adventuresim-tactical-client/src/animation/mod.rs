@@ -5,6 +5,7 @@
 
 use adventuresim_tactical_core::animation::AnimationPackId;
 use adventuresim_tactical_core::animation::AttackCurve;
+use adventuresim_tactical_core::animation::{AnimationElapsed, AnimationValueError};
 use adventuresim_tactical_core::prelude::*;
 #[cfg(not(target_family = "wasm"))]
 use adventuresim_tactical_netcode::message::PlayerInputRequest;
@@ -47,8 +48,9 @@ pub(crate) use procedural::{
 use resolver::PoseSampleResolver;
 pub(crate) use rig_identity::AuthoredRigJoint;
 use rig_identity::{AnimationBodyRegion, PelvisRole};
-use sample_values::{BlendWeight, ClipDuration, ClipTime, CyclePhase};
+use sample_values::{AnimationValueResult, BlendWeight, ClipDuration, ClipTime, CyclePhase};
 use std::collections::{BTreeMap, BTreeSet, HashSet};
+use weighted::{WeightedClip, append_weighted_anchor, append_weighted_clip};
 
 mod bind_pose;
 pub(crate) mod bouncy_bones;
@@ -70,6 +72,7 @@ mod rig_identity;
 mod sample_values;
 pub(crate) mod semantic_route;
 pub(crate) mod skeletal_proportions;
+mod weighted;
 
 const BIPED_BASE_GLB: AnimationAssetPath =
     AnimationAssetPath::from_static("animations/biped/unarmed/base.glb");
@@ -100,7 +103,7 @@ struct AuthoredStrideMeasurement {
 /// continuous across the cycle seam; callers wrap only the final result.
 #[derive(Debug, Clone)]
 struct AuthoredPhaseCurve {
-    authored_phases: Vec<f32>,
+    authored_phases: Vec<CyclePhase>,
 }
 
 #[derive(Resource, Debug, Clone, Default)]
@@ -152,26 +155,14 @@ pub(super) struct AnimationPlayback {
 }
 
 #[derive(Debug, Clone)]
-struct WeightedClip {
-    clip: LoadedClip,
-    weight: BlendWeight,
-    time_seconds: ClipTime,
-    mirrored_weight: BlendWeight,
-    /// Unwarped physical phase for ordinary sparse-pose locomotion. Its
-    /// presence selects the Bevy-side semantic-anchor sampler while
-    /// `time_seconds` retains the measured authored phase coordinate.
-    locomotion_phase: Option<CyclePhase>,
-}
-
-#[derive(Debug, Clone)]
 struct ExtrapolatedSpan {
     start: LoadedClip,
-    start_time_seconds: f32,
+    start_time_seconds: ClipTime,
     end: LoadedClip,
-    end_time_seconds: f32,
+    end_time_seconds: ClipTime,
     coordinate: f32,
-    weight: f32,
-    mirrored_weight: f32,
+    weight: BlendWeight,
+    mirrored_weight: BlendWeight,
 }
 
 #[derive(Debug, Clone)]
@@ -247,17 +238,24 @@ impl Default for TerrainIkEnabled {
 }
 
 impl AuthoredPhaseCurve {
-    fn sample(&self, physical_phase: f32) -> f32 {
+    fn sample(&self, physical_phase: CyclePhase) -> AnimationValueResult<CyclePhase> {
         if self.authored_phases.len() < 2 {
-            return physical_phase.rem_euclid(1.0);
+            return Ok(physical_phase.wrapped());
         }
-        let phase = physical_phase.rem_euclid(1.0);
+        let phase = physical_phase.wrapped().cycles();
         let coordinate = phase * (self.authored_phases.len() - 1) as f32;
         let lower = coordinate.floor() as usize;
         let upper = (lower + 1).min(self.authored_phases.len() - 1);
-        self.authored_phases[lower]
-            .lerp(self.authored_phases[upper], coordinate - lower as f32)
-            .rem_euclid(1.0)
+        // The measured periodic curve is interpolated in native cycle coordinates.
+        CyclePhase::from_cycles(
+            self.authored_phases[lower]
+                .cycles()
+                .lerp(
+                    self.authored_phases[upper].cycles(),
+                    coordinate - lower as f32,
+                )
+                .rem_euclid(1.0),
+        )
     }
 }
 
@@ -284,14 +282,18 @@ impl AuthoredLocomotionStrides {
         }
     }
 
-    fn sample_phase(&self, pose: SemanticPose, physical_phase: f32) -> f32 {
+    fn sample_phase(
+        &self,
+        pose: SemanticPose,
+        physical_phase: CyclePhase,
+    ) -> AnimationValueResult<CyclePhase> {
         let motion = match pose {
             SemanticPose::WalkContact => MotionId::from_static("walk"),
             SemanticPose::RunContact => MotionId::from_static("run"),
-            _ => return physical_phase.rem_euclid(1.0),
+            _ => return Ok(physical_phase.wrapped()),
         };
         self.phase_curves.get(&motion).map_or_else(
-            || physical_phase.rem_euclid(1.0),
+            || Ok(physical_phase.wrapped()),
             |curve| curve.sample(physical_phase),
         )
     }
@@ -384,7 +386,9 @@ impl AnimationPlayback {
     }
 
     fn from_presented_pose(skeleton: &SkeletonState, target: PlaybackPose) -> Self {
-        let active = ordinary_locomotion_candidate(skeleton) && skeleton.animation_speed() > 0.05;
+        let active = ordinary_locomotion_candidate(skeleton)
+            && skeleton.animation_speed()
+                > playback_tuning().initial_locomotion_speed_metres_per_second;
         Self {
             clips: target.clips,
             extrapolated_spans: target.extrapolated_spans,
@@ -402,9 +406,9 @@ impl AnimationPlayback {
         // Hysteresis prevents sub-threshold velocity noise from repeatedly
         // restarting the idle/locomotion presentation transition.
         let threshold = if self.ordinary_locomotion == OrdinaryLocomotion::Active {
-            0.03
+            playback_tuning().locomotion_deactivation_speed_metres_per_second
         } else {
-            0.08
+            playback_tuning().locomotion_activation_speed_metres_per_second
         };
         let active =
             ordinary_locomotion_candidate(skeleton) && skeleton.animation_speed() > threshold;
@@ -545,7 +549,7 @@ fn evaluate_skeletons(
     weapons: Query<(&WeaponItem, &ItemProperties)>,
     equip_slots: Query<&EquipSlot>,
 ) {
-    for (entity, skeleton, route_trace, inventory, playback, character_strides) in players {
+    'actor: for (entity, skeleton, route_trace, inventory, playback, character_strides) in players {
         // The preceding chained system directly routes authoritative
         // presentation state into deterministic semantic samples.
         let evaluation = route_trace.evaluation.clone();
@@ -561,7 +565,13 @@ fn evaluate_skeletons(
             locomotion_strides: character_strides
                 .map_or(&*locomotion_strides, |strides| &strides.measurements),
         };
-        let mut target = sample_resolver.resolve_body(skeleton, &evaluation);
+        let mut target = match sample_resolver.resolve_body(skeleton, &evaluation) {
+            Ok(target) => target,
+            Err(error) => {
+                error!(?entity, %error, "Rejected animation sample plan");
+                continue;
+            }
+        };
         if let Some((weapon, properties)) = equipped_main_weapon(inventory, &weapons, &equip_slots)
             && let Some(clip) = runtime.grips.get(&weapon_grip(&weapon.skill_weights))
         {
@@ -572,17 +582,26 @@ fn evaluate_skeletons(
                 .into_iter()
                 .flatten()
             {
-                append_weighted_clip(
+                if let Err(error) = append_weighted_clip(
                     &mut target.clips,
                     &clip.at_anchor_layer(0, layer),
                     ClipMirror::Original,
-                    ClipTime::from_seconds(0.0),
+                    ClipTime::ZERO,
                     BlendWeight::ONE,
                     None,
-                );
+                ) {
+                    error!(?entity, %error, "Rejected weapon grip contribution");
+                    continue 'actor;
+                }
             }
         }
-        let target = target.into_playback(&evaluation);
+        let target = match target.into_playback(&evaluation) {
+            Ok(target) => target,
+            Err(error) => {
+                error!(?entity, %error, "Rejected animation IK contributions");
+                continue;
+            }
+        };
         if let Some(mut playback) = playback {
             playback.apply_presented_pose(skeleton, target);
         } else {
@@ -711,16 +730,16 @@ fn apply_playback_pose(playback: &mut AnimationPlayback, pose: PlaybackPose) {
 /// IK ownership follows the direct semantic locomotion samples.
 /// The curve shapes are animation metadata: walk keeps one supported foot,
 /// run has genuine intervals with neither foot loaded, and idle loads both.
-fn semantic_foot_ik_weights(evaluation: &AnimationEvaluation) -> Vec2 {
+fn semantic_foot_ik_weights(evaluation: &AnimationEvaluation) -> AnimationValueResult<Vec2> {
     let samples = if !evaluation.lower_body.is_empty() {
         &evaluation.lower_body
     } else if evaluation.action.is_empty() {
         &evaluation.base
     } else {
-        return Vec2::ZERO;
+        return Ok(Vec2::ZERO);
     };
     let mut result = Vec2::ZERO;
-    let mut total = 0.0;
+    let mut total = BlendWeight::ZERO;
     for sample in samples {
         let mut weights = match (sample.pose, sample.sampling) {
             (SemanticPose::IdleRelaxed, _) => Vec2::ONE,
@@ -728,7 +747,7 @@ fn semantic_foot_ik_weights(evaluation: &AnimationEvaluation) -> Vec2 {
             (
                 SemanticPose::StrafeCycle | SemanticPose::SkipCycle,
                 PoseSampling::Cycle { phase },
-            ) => combat_cycle_ik_weights(CyclePhase::from_cycles(phase)),
+            ) => combat_cycle_ik_weights(CyclePhase::from_cycles(phase)?),
             (
                 SemanticPose::QuickstepForwardTakeoff
                 | SemanticPose::QuickstepRightTakeoff
@@ -756,15 +775,22 @@ fn semantic_foot_ik_weights(evaluation: &AnimationEvaluation) -> Vec2 {
         if sample.mirror_lower_body {
             weights = Vec2::new(weights.y, weights.x);
         }
-        result += weights * sample.weight;
-        total += sample.weight;
+        let weight = BlendWeight::from_factor(sample.weight)?;
+        let next = result + weights * weight.factor();
+        if !next.is_finite() {
+            return Err(AnimationValueError::Overflow {
+                quantity: adventuresim_tactical_core::animation::AnimationQuantity::BlendWeight,
+            });
+        }
+        total = total.checked_add(weight)?;
+        result = next;
     }
-    if total > f32::EPSILON {
-        result / total
+    Ok(if total.factor() > f32::EPSILON {
+        result / total.factor()
     } else {
         Vec2::ZERO
     }
-    .clamp(Vec2::ZERO, Vec2::ONE)
+    .clamp(Vec2::ZERO, Vec2::ONE))
 }
 
 /// Select the single authored combat contact. Frames 0/12 are swing midpoints
@@ -772,7 +798,7 @@ fn semantic_foot_ik_weights(evaluation: &AnimationEvaluation) -> Vec2 {
 /// into each terrain-conformed target; support identity itself must not overlap
 /// because an outgoing foot is free as soon as the incoming foot contacts.
 fn combat_cycle_ik_weights(phase: CyclePhase) -> Vec2 {
-    let phase = phase.wrapped();
+    let phase = phase.wrapped().cycles();
     if (catalog::COMBAT_FIRST_CONTACT_PHASE..catalog::COMBAT_SECOND_CONTACT_PHASE).contains(&phase)
     {
         Vec2::X
@@ -889,67 +915,13 @@ fn select_gait_endpoint_parity<'a>(
     Some(ResolvedAnchor { clip, ..resolved })
 }
 
-fn append_weighted_anchor(
-    weighted: &mut Vec<WeightedClip>,
-    resolved: &ResolvedAnchor,
-    frame: u16,
-    weight: f32,
-    layer: ClipLayer,
-) {
-    let clip = resolved.clip.at_anchor_layer(frame, layer);
-    append_weighted_clip(
-        weighted,
-        &clip,
-        resolved.mirrored,
-        ClipTime::from_seconds(frame_seconds(frame)),
-        BlendWeight::from_factor(weight),
-        None,
-    );
-}
-
-fn append_weighted_clip(
-    weighted: &mut Vec<WeightedClip>,
-    clip: &LoadedClip,
-    mirrored: ClipMirror,
-    time_seconds: ClipTime,
-    weight: BlendWeight,
-    locomotion_phase: Option<CyclePhase>,
-) {
-    if weight.is_absent() {
-        return;
-    }
-    if let Some(existing) = weighted.iter_mut().find(|existing| {
-        existing.clip.handle.id() == clip.handle.id()
-            && existing.clip.layer == clip.layer
-            && existing.time_seconds.same_sample(time_seconds)
-            && existing.locomotion_phase == locomotion_phase
-    }) {
-        existing.weight += weight;
-        if mirrored == ClipMirror::Mirrored {
-            existing.mirrored_weight += weight;
-        }
-    } else {
-        weighted.push(WeightedClip {
-            clip: clip.clone(),
-            weight,
-            time_seconds,
-            mirrored_weight: if mirrored == ClipMirror::Mirrored {
-                weight
-            } else {
-                BlendWeight::ZERO
-            },
-            locomotion_phase,
-        });
-    }
-}
-
 fn append_resolved_sample(
     weighted: &mut Vec<WeightedClip>,
     runtime: &AnimationRuntime,
     catalog: &AnimationPackCatalog,
     pack: &AnimationPackId,
     sample: PoseSample,
-) {
+) -> AnimationValueResult<()> {
     let mut extrapolated_spans = Vec::new();
     let mut continuation_spans = Vec::new();
     let locomotion_strides = AuthoredLocomotionStrides::default();
@@ -965,7 +937,7 @@ fn append_resolved_sample(
         &mut continuation_spans,
         sample,
         ClipLayer::Whole,
-    );
+    )
 }
 
 fn update_rig_visibility(
@@ -1045,35 +1017,35 @@ mod contract_tests {
     #[test]
     fn combat_cycle_ik_switches_exclusive_support_at_authored_contacts() {
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.0)),
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.0).unwrap()),
             Vec2::Y
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.125)),
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.125).unwrap()),
             Vec2::Y
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.25)),
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.25).unwrap()),
             Vec2::X
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.375)),
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.375).unwrap()),
             Vec2::X
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.5)),
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.5).unwrap()),
             Vec2::X
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.625)),
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.625).unwrap()),
             Vec2::X
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.75)),
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.75).unwrap()),
             Vec2::Y
         );
         assert_eq!(
-            combat_cycle_ik_weights(CyclePhase::from_cycles(0.875)),
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.875).unwrap()),
             Vec2::Y
         );
     }
@@ -1123,7 +1095,11 @@ mod contract_tests {
         for tick in [100, 150, 199] {
             state.advance_action(tick);
             let evaluation = AnimationEvaluation::from_skeleton(&state);
-            assert_eq!(semantic_foot_ik_weights(&evaluation), Vec2::ZERO, "{tick}");
+            assert_eq!(
+                semantic_foot_ik_weights(&evaluation).unwrap(),
+                Vec2::ZERO,
+                "{tick}"
+            );
         }
     }
 }

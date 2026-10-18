@@ -1,4 +1,10 @@
 use super::*;
+pub use projection::{
+    SkeletonLocomotionInput, project_skeleton_locomotion,
+    project_skeleton_locomotion_with_body_rotation, project_skeleton_locomotion_with_intent,
+};
+
+mod projection;
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize, Reflect)]
 pub enum Posture {
@@ -1528,7 +1534,7 @@ struct SkeletonStateWire {
     #[serde(default)]
     raised_footwork: GuardFootworkPlan,
     landing_sequence: u64,
-    landing_impact_speed: f32,
+    landing_impact_speed: LandingImpactSpeed,
     lead_foot: LeadFoot,
     guarded_sprint_locomotion: bool,
     stance: StanceState,
@@ -1564,9 +1570,7 @@ impl<'de> Deserialize<'de> for SkeletonState {
             contact_foot: wire.contact_foot,
             raised_footwork: wire.raised_footwork.normalized(),
             landing_sequence: LandingSequence::from(wire.landing_sequence),
-            landing_impact_speed: LandingImpactSpeed::from_wire_metres_per_second(
-                wire.landing_impact_speed,
-            ),
+            landing_impact_speed: wire.landing_impact_speed,
             lead_foot: wire.lead_foot,
             guarded_sprint_locomotion: wire.guarded_sprint_locomotion,
             stance: wire.stance,
@@ -2476,18 +2480,6 @@ impl SkeletonState {
     }
 }
 
-/// One authoritative fixed-tick locomotion observation. The tactical server
-/// supplies this from its character controller; deterministic presentation
-/// fixtures replay the same boundary without inventing gait phase directly.
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub struct SkeletonLocomotionInput {
-    pub orientation: Quat,
-    pub linear_velocity: Vec3,
-    pub grounded: bool,
-    pub delta_seconds: f32,
-    pub tick: u64,
-}
-
 pub fn body_turn_speed_radians() -> f32 {
     std::f32::consts::PI
         / crate::combat_config::runtime_combat_presentation_config().body_turn_seconds_per_half_turn
@@ -2654,138 +2646,6 @@ pub fn downed_camera_roll_target(body_rotation: Quat, controller_orientation: Qu
         delta = std::f32::consts::PI;
     }
     delta / std::f32::consts::PI
-}
-
-/// Projects controller motion into the compact replicated animation state.
-/// Bone evaluation remains client-only; this is the shared server seam that
-/// keeps deterministic captures on the same stride and posture rules.
-pub fn project_skeleton_locomotion(skeleton: &mut SkeletonState, input: SkeletonLocomotionInput) {
-    project_skeleton_locomotion_with_intent(skeleton, input, None);
-}
-
-/// Server projection variant that preserves held movement intent while the
-/// physical motor temporarily brakes to zero between guard contacts.
-pub fn project_skeleton_locomotion_with_intent(
-    skeleton: &mut SkeletonState,
-    input: SkeletonLocomotionInput,
-    requested_local_direction: Option<Vec2>,
-) {
-    let body_rotation = controller_yaw(input.orientation);
-    project_skeleton_locomotion_with_body_rotation(
-        skeleton,
-        input,
-        body_rotation,
-        requested_local_direction,
-    );
-}
-
-/// Projection variant for the authoritative server, which owns both the
-/// camera/controller frame and the independently rotating body root.
-pub fn project_skeleton_locomotion_with_body_rotation(
-    skeleton: &mut SkeletonState,
-    input: SkeletonLocomotionInput,
-    body_rotation: Quat,
-    requested_local_direction: Option<Vec2>,
-) {
-    let linear_velocity = if input.linear_velocity.is_finite() {
-        input.linear_velocity
-    } else {
-        Vec3::ZERO
-    };
-    let delta_seconds = if input.delta_seconds.is_finite() {
-        // Preserve coalesced fixed-step handoffs across a bounded hitch. A
-        // quarter-second clamp can erase a complete raised-guard half-step
-        // and make sequence identity disagree with phase parity.
-        input.delta_seconds.clamp(0.0, 1.0)
-    } else {
-        0.0
-    };
-    let previous_world_velocity = skeleton.world_velocity;
-    let was_supported = skeleton.body.is_surface_supported();
-    let controller_local_velocity = controller_yaw(input.orientation).inverse() * linear_velocity;
-    let body_rotation = if body_rotation.is_finite() {
-        body_rotation
-    } else {
-        Quat::IDENTITY
-    };
-    let body_local_velocity = body_rotation.inverse() * linear_velocity;
-    let local_velocity = if skeleton.weapon_guard() == WeaponGuardState::Raised {
-        controller_local_velocity
-    } else {
-        body_local_velocity
-    };
-    let physical_speed = linear_velocity.xz().length();
-    let contiguous_sample = input.tick == skeleton.locomotion_sample_tick.next().encoded();
-    skeleton.world_acceleration = if contiguous_sample {
-        ((linear_velocity - previous_world_velocity) * locomotion_sample_hz())
-            .clamp_length_max(80.0)
-    } else {
-        Vec3::ZERO
-    };
-    skeleton.local_velocity = local_velocity;
-    skeleton.world_velocity = linear_velocity;
-    skeleton.locomotion_sample_tick = AnimationSampleTick::from(input.tick);
-    if skeleton.body == BodyState::Ragdolled {
-        skeleton.set_raised_locomotion(RaisedLocomotionIntent::planted());
-        skeleton.action = ActionState::default();
-        return;
-    }
-    let landed = !was_supported && input.grounded;
-    if landed {
-        skeleton.landing_sequence = skeleton.landing_sequence.next();
-        skeleton.landing_impact_speed =
-            LandingImpactSpeed::from_metres_per_second((-previous_world_velocity.y).max(0.0));
-    }
-    skeleton.transition_body(if input.grounded {
-        match skeleton.body {
-            BodyState::Prone | BodyState::Supine => skeleton.body,
-            _ => BodyState::Grounded(GroundedPosture::Upright),
-        }
-    } else {
-        BodyState::Airborne
-    });
-    if landed && skeleton.action_kind() == SkeletonAction::Dodge {
-        // Contact ends presentation ownership immediately. Residual horizontal
-        // velocity remains authoritative and can continue through ordinary
-        // raised locomotion while the server applies its landing drag.
-        skeleton.action = ActionState::default();
-    }
-
-    let ground_speed = if skeleton.downed_turning() {
-        // Turning in place has no physical velocity, but its crawl/scamper
-        // cycle should run at twice the former synthetic cadence.
-        physical_speed.max(0.8) * 2.0
-    } else if matches!(skeleton.body, BodyState::Prone | BodyState::Supine) {
-        // Residual impulses and collision correction may translate a downed
-        // body, but prone/supine presentation deliberately slides in its idle
-        // pose. Velocity-driven locomotion belongs only to upright bodies.
-        0.0
-    } else {
-        physical_speed
-    };
-    if skeleton.weapon_guard() == WeaponGuardState::Raised && skeleton.posture() == Posture::Upright
-    {
-        advance_raised_locomotion_intent(skeleton, local_velocity, requested_local_direction);
-        advance_guard_footwork(skeleton, delta_seconds, input.tick);
-    } else {
-        skeleton.set_raised_locomotion(RaisedLocomotionIntent::planted());
-        if input.grounded && ground_speed > 0.05 {
-            let profile = locomotion_profile(skeleton);
-            let phase = skeleton.gait_phase.rem_euclid(1.0);
-            let next_phase = phase + gait_cycle_phase_delta(profile, ground_speed, delta_seconds);
-            let handoffs = ((next_phase * 2.0).floor() - (phase * 2.0).floor()).max(0.0) as u32;
-            skeleton.gait_phase = next_phase.rem_euclid(1.0);
-            advance_contact_identity(skeleton, handoffs, None);
-            if skeleton.weapon_guard() == WeaponGuardState::Lowered {
-                skeleton.lead_foot = if skeleton.gait_phase < 0.5 {
-                    LeadFoot::Left
-                } else {
-                    LeadFoot::Right
-                };
-            }
-        }
-    }
-    skeleton.advance_action(input.tick);
 }
 
 fn advance_contact_identity(

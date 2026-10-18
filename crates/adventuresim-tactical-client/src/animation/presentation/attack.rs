@@ -9,7 +9,7 @@ pub(super) fn advance_presented_attack(
     next: &mut SkeletonState,
     presented: &mut Option<PresentedAttackPhase>,
     source_changed: bool,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
 ) {
     let stale_attack_payload = reconcile_attack_source(previous, authoritative, next);
     let source = next.clone();
@@ -37,11 +37,14 @@ pub(super) fn advance_presented_attack(
         return;
     }
 
+    let Some(phase) = presented.as_mut() else {
+        return;
+    };
     advance_attack_phase(
         previous,
         &source,
         next,
-        presented.as_mut().expect("matching attack phase exists"),
+        phase,
         source_changed && !stale_attack_payload,
         delta_seconds,
     );
@@ -83,7 +86,7 @@ fn complete_attack_tail(
     previous: &SkeletonState,
     next: &mut SkeletonState,
     presented: &mut Option<PresentedAttackPhase>,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
 ) -> bool {
     let Some(phase) = presented.as_mut() else {
         return false;
@@ -106,7 +109,7 @@ fn advance_attack_phase(
     next: &mut SkeletonState,
     phase: &mut PresentedAttackPhase,
     measure_source: bool,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
 ) {
     let duration_ticks = if phase.phase < 0.5 {
         source.action_preparation_ticks()
@@ -131,7 +134,8 @@ fn advance_attack_phase(
     } else if presentation_owned_recovery {
         phase.error_remaining = 0.0;
     }
-    let maximum_correction = presentation_phase_correction_rate_per_second() * delta_seconds;
+    let maximum_correction =
+        presentation_phase_correction_rate_per_second() * delta_seconds.seconds();
     let correction = phase
         .error_remaining
         .clamp(-maximum_correction, maximum_correction);
@@ -144,14 +148,14 @@ fn advance_attack_phase(
     );
 }
 
-fn attack_phase_delta(delta_seconds: f32, duration_ticks: u64) -> f32 {
-    delta_seconds.max(0.0) * locomotion_sample_hz() * 0.5 / duration_ticks.max(1) as f32
+fn attack_phase_delta(delta_seconds: AnimationElapsed, duration_ticks: u64) -> f32 {
+    delta_seconds.seconds() * locomotion_sample_hz() * 0.5 / duration_ticks.max(1) as f32
 }
 
 fn presented_attack_phase_delta(
     source: &SkeletonState,
     phase: f32,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
     duration_ticks: u64,
 ) -> f32 {
     let recovery_time_scale = if source.attack_is_continuation() && phase >= 0.5 {

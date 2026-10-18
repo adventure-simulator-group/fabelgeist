@@ -154,23 +154,24 @@ fn same_guard_step(previous: &SkeletonState, authoritative: &SkeletonState) -> b
 pub(super) fn advance_presented_skeleton(
     presented: &mut PresentedSkeleton,
     authoritative: &SkeletonState,
-    delta_seconds: f32,
-) {
+    elapsed: AnimationElapsed,
+) -> AnimationValueResult<()> {
     advance_presented_skeleton_with_strides(
         presented,
         authoritative,
-        delta_seconds,
+        elapsed,
         &AuthoredLocomotionStrides::default(),
-    );
+    )
 }
 
 fn advance_presented_skeleton_with_strides(
     presented: &mut PresentedSkeleton,
     authoritative: &SkeletonState,
-    delta_seconds: f32,
+    elapsed: AnimationElapsed,
     authored_strides: &AuthoredLocomotionStrides,
-) {
-    let delta_seconds = delta_seconds.clamp(0.0, 0.1);
+) -> AnimationValueResult<()> {
+    let elapsed = elapsed.capped_by_seconds(0.1)?;
+    let delta_seconds = elapsed.seconds();
     let source_changed = presented.source_tick != authoritative.locomotion_sample_tick;
     presented.last_phase_prediction_delta = 0.0;
     presented.last_phase_correction_delta = 0.0;
@@ -244,7 +245,7 @@ fn advance_presented_skeleton_with_strides(
         authoritative,
         &mut next,
         &mut presented.quickstep_phase,
-        delta_seconds,
+        elapsed,
     );
     advance_presented_attack(
         &previous,
@@ -252,17 +253,18 @@ fn advance_presented_skeleton_with_strides(
         &mut next,
         &mut presented.attack_phase,
         source_changed,
-        delta_seconds,
+        elapsed,
     );
     apply_authored_cadence(
         &previous,
         &mut next,
         &mut presented.authored_cadence,
         authored_strides,
-        delta_seconds,
+        elapsed,
     );
     presented.state = next;
     presented.source_tick = authoritative.locomotion_sample_tick;
+    Ok(())
 }
 
 /// Keep authored quicksteps on a render-time timeline. Authoritative tactical
@@ -275,8 +277,9 @@ fn advance_presented_quickstep(
     authoritative: &SkeletonState,
     next: &mut SkeletonState,
     phase: &mut Option<f32>,
-    delta_seconds: f32,
+    elapsed: AnimationElapsed,
 ) {
+    let delta_seconds = elapsed.seconds();
     let continuing = previous.is_quickstep();
     if !authoritative.is_quickstep() && !continuing {
         *phase = None;
@@ -322,8 +325,9 @@ fn apply_authored_cadence(
     next: &mut SkeletonState,
     cadence: &mut Option<AuthoredCadence>,
     strides: &AuthoredLocomotionStrides,
-    delta_seconds: f32,
+    elapsed: AnimationElapsed,
 ) {
+    let delta_seconds = elapsed.seconds();
     if next.posture() != Posture::Upright || next.is_quickstep() {
         *cadence = None;
         return;
@@ -430,18 +434,24 @@ pub(super) fn update_presented_skeletons(
             let tick = step.tick;
             let advances = presented.presentation_tick != Some(tick);
             presented.presentation_tick = Some(tick);
-            if advances { step.delta_seconds } else { 0.0 }
+            if advances {
+                step.delta_seconds
+            } else {
+                AnimationElapsed::ZERO
+            }
         } else {
-            time.delta_secs()
+            AnimationElapsed::from(time.delta())
         };
-        advance_presented_skeleton_with_strides(
+        if let Err(error) = advance_presented_skeleton_with_strides(
             &mut presented,
             authoritative,
             delta_seconds,
             character_strides
                 .get(entity)
                 .map_or(&*authored_strides, |strides| &strides.measurements),
-        );
+        ) {
+            warn!(?entity, %error, "Rejected presentation interval");
+        }
     }
 }
 
@@ -463,7 +473,10 @@ mod authored_cadence_tests {
         strides.phase_curves.insert(
             super::MotionId::from_static("walk"),
             AuthoredPhaseCurve {
-                authored_phases: vec![0.25, 1.25],
+                authored_phases: vec![0.25, 1.25]
+                    .into_iter()
+                    .map(|phase| CyclePhase::from_cycles(phase).unwrap())
+                    .collect(),
             },
         );
 
@@ -494,7 +507,13 @@ mod authored_cadence_tests {
             ..default()
         };
 
-        advance_presented_skeleton_with_strides(&mut presented, &state, 0.1, &strides);
+        advance_presented_skeleton_with_strides(
+            &mut presented,
+            &state,
+            AnimationElapsed::from_seconds(0.1).unwrap(),
+            &strides,
+        )
+        .unwrap();
 
         // One cycle owns two one-metre steps: 2 m/s advances 0.1 cycle in 0.1 s.
         assert!((presented.gait_phase - 0.1).abs() < 0.0001);
@@ -519,7 +538,13 @@ mod authored_cadence_tests {
             ..default()
         };
 
-        advance_presented_skeleton_with_strides(&mut presented, &state, 0.1, &strides);
+        advance_presented_skeleton_with_strides(
+            &mut presented,
+            &state,
+            AnimationElapsed::from_seconds(0.1).unwrap(),
+            &strides,
+        )
+        .unwrap();
 
         assert!((presented.gait_phase - 0.2).abs() < 0.0001);
     }
@@ -540,7 +565,13 @@ mod authored_cadence_tests {
             ..default()
         };
 
-        advance_presented_skeleton_with_strides(&mut presented, &state, 0.1, &strides);
+        advance_presented_skeleton_with_strides(
+            &mut presented,
+            &state,
+            AnimationElapsed::from_seconds(0.1).unwrap(),
+            &strides,
+        )
+        .unwrap();
 
         assert!((presented.gait_phase - 0.25).abs() < 0.0001);
         assert!(
@@ -584,9 +615,10 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
         assert_eq!(presented.action_phase(), 0.5);
 
         // No new server tick: render presentation must cross contact instead
@@ -594,9 +626,10 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
         assert!(presented.action_phase() > 0.5);
         assert!(presented.action_phase() < 0.55);
         assert_eq!(authoritative.action_phase(), 0.5);
@@ -615,15 +648,17 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
         let predicted = presented.action_phase();
 
         authoritative.locomotion_sample_tick = authoritative.locomotion_sample_tick.next();
@@ -631,9 +666,10 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
 
         assert!(presented.action_phase() > predicted);
         assert!(presented.action_phase() <= predicted + 0.05);
@@ -656,9 +692,10 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
         let previous_phase = presented.action_phase();
 
         authoritative.advance_action(13);
@@ -667,9 +704,10 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
 
         let nominal_delta = 0.5 / 17.0;
         let maximum_correction =
@@ -697,9 +735,10 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &attack,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
 
         let mut idle = attack.with_locomotion_sample_tick(21);
         idle.advance_action(21);
@@ -708,9 +747,10 @@ mod authored_cadence_tests {
             advance_presented_skeleton_with_strides(
                 &mut presented,
                 &idle,
-                1.0 / locomotion_sample_hz(),
+                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
                 &strides,
-            );
+            )
+            .unwrap();
         }
         assert_eq!(presented.action_kind(), SkeletonAction::Attack);
         assert_eq!(presented.action_phase(), 1.0);
@@ -718,9 +758,10 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &idle,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
         assert_eq!(presented.action_kind(), SkeletonAction::None);
     }
 
@@ -740,15 +781,17 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
 
         let expected_delta = 0.5 / (10.0 * recovery_scale);
         assert!((presented.action_phase() - (0.5 + expected_delta)).abs() < 0.0001);
@@ -779,9 +822,10 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &predicted,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
         assert!(presented.attack_has_queued_continuation());
         assert!(!presented.attack_is_continuation());
 
@@ -791,9 +835,10 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &stale,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
         assert!(presented.attack_has_queued_continuation());
         assert!(!presented.attack_is_continuation());
 
@@ -804,9 +849,10 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &stale,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
         assert!(presented.attack_is_continuation());
         assert_eq!(presented.action_start_tick(), Some(continuation_tick));
 
@@ -816,9 +862,10 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &predicted,
-            1.0 / locomotion_sample_hz(),
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             &strides,
-        );
+        )
+        .unwrap();
         assert!(presented.attack_is_continuation());
         assert!(presented.action_phase() >= stale_follow_phase);
     }
@@ -841,9 +888,10 @@ mod authored_cadence_tests {
             advance_presented_skeleton_with_strides(
                 &mut presented,
                 &authoritative,
-                1.0 / locomotion_sample_hz(),
+                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
                 &strides,
-            );
+            )
+            .unwrap();
         }
         let evaluation = AnimationEvaluation::from_skeleton(&presented.state);
         assert!((presented.action_phase() - 0.75).abs() < 0.051);
@@ -884,9 +932,10 @@ mod authored_cadence_tests {
             advance_presented_skeleton_with_strides(
                 &mut presented,
                 &authoritative,
-                1.0 / locomotion_sample_hz(),
+                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
                 &strides,
-            );
+            )
+            .unwrap();
             let evaluation = AnimationEvaluation::from_skeleton(&presented.state);
             if presented.is_quickstep() {
                 assert!(!evaluation.lower_body.is_empty());

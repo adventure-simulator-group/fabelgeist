@@ -33,11 +33,14 @@ use crate::{
     stdb::{SpacetimeDb, SpacetimeDbReady},
 };
 use input::AccumulatedInput;
-mod projection_equipment;
+use posture_facing::{advance_projected_posture, posture_transition_locks_body_facing};
 use projection_equipment::{
     projected_armor, projected_holder_appearance, projected_parametric_weapon,
     projected_weapon_appearance,
 };
+
+mod posture_facing;
+mod projection_equipment;
 
 type PlayerInputStateQuery<'world, 'state> = Query<
     'world,
@@ -1760,29 +1763,24 @@ pub(crate) fn update_skeleton_locomotion(
                 )
             };
         }
-        project_skeleton_locomotion_with_body_rotation(
+        if let Err(error) = project_skeleton_locomotion_with_body_rotation(
             &mut skeleton,
             SkeletonLocomotionInput {
                 orientation: controller.orientation,
                 linear_velocity: velocity.0,
                 grounded: controller.grounded.is_some() || quickstep_push.active,
-                delta_seconds: time.delta_secs(),
+                delta_seconds: AnimationElapsed::from(time.delta()),
                 tick,
             },
             transform.rotation,
             accumulated_input
                 .last_movement
                 .map(|movement| Vec2::new(movement.x, -movement.y)),
-        );
-        let previous_transition = skeleton.posture_transition();
-        skeleton.advance_posture_transition(tick);
-        advance_posture_transition_facing(
-            &mut transform,
-            &mut physics_rotation,
-            previous_transition,
-            skeleton.posture_transition(),
-        );
-        skeleton.set_guarded_sprint_locomotion(*pace == MovementPace::Sprint);
+        ) {
+            warn!(%error, "Rejected controller animation observation");
+            continue;
+        }
+        advance_projected_posture(&mut skeleton, &mut transform, &mut physics_rotation, *pace);
     }
 }
 
@@ -2090,30 +2088,6 @@ pub(crate) fn expire_disconnected_players(
         purge_equipment_lifecycle(entity, &mut pending_actions, &mut action_sequences);
         commands.entity(entity).despawn();
     }
-}
-
-fn posture_transition_locks_body_facing(skeleton: &SkeletonState) -> bool {
-    // Every authored posture transition encodes its own direction relative to
-    // the current root. Turning the root toward residual/controller velocity
-    // double-rotates directional dives and can reverse a get-up mid-pose.
-    skeleton.is_posture_transitioning()
-}
-
-fn advance_posture_transition_facing(
-    transform: &mut Transform,
-    physics_rotation: &mut Rotation,
-    previous_transition: Option<PostureTransitionState>,
-    current_transition: Option<PostureTransitionState>,
-) {
-    // Directional dives transfer the downed contact pose's yaw to the root
-    // during landing. A backward dive's half-turn is spread across contact
-    // recovery; the supine get-up applies the inverse convention change.
-    let rotation = (transform.rotation
-        * dive_landing_facing_delta(previous_transition, current_transition)
-        * supine_get_up_counter_yaw_delta(previous_transition, current_transition))
-    .normalize();
-    transform.rotation = rotation;
-    physics_rotation.0 = rotation;
 }
 
 fn player_collider() -> Collider {

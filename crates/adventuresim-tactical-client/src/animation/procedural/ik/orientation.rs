@@ -268,7 +268,7 @@ pub(in crate::animation::procedural) fn align_foot_to_slope(
 pub(in crate::animation::procedural) fn advance_airborne_foot_rotation(
     previous: Option<Quat>,
     desired: Quat,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
     maximum_speed_degrees: f32,
 ) -> Quat {
     let Some(previous) = previous.filter(|rotation| rotation.is_finite()) else {
@@ -278,7 +278,7 @@ pub(in crate::animation::procedural) fn advance_airborne_foot_rotation(
         return previous;
     }
     let angle = previous.angle_between(desired);
-    let maximum_step = maximum_speed_degrees.max(0.0).to_radians() * delta_seconds.max(0.0);
+    let maximum_step = maximum_speed_degrees.max(0.0).to_radians() * delta_seconds.seconds();
     if maximum_step <= f32::EPSILON {
         return previous;
     }
@@ -350,7 +350,7 @@ pub(in crate::animation::procedural) fn finalize_leg_rotation_chains(
     rig_rotation: Quat,
     memory: &mut LegIkMemory,
     evaluation_advances: bool,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
     airborne_orientation_owned: [bool; 2],
     airborne_just_released: [bool; 2],
     parents: &Query<&ChildOf>,

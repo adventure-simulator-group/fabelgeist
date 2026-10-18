@@ -5,6 +5,28 @@ access planning. Live movement, damage and combat state belong to the transient
 server. Static preparation products do not acquire authority over tactical
 ticks.
 
+## Animation values and combat configuration
+
+`content/tactical/combat.yaml` is the single authored value source for
+`TacticalCombatConfig::default()` and the nested landing, ragdoll, offensive AI
+and incapacitation-forecast defaults. A private cached snapshot deserializes
+and validates the embedded committed YAML once; each default clones or copies
+its projection. Invalid compiled-in YAML is an internal invariant failure.
+External configuration loading remains fallible and does not use a numeric
+fallback or invoke these defaults during deserialization.
+
+`AnimationElapsed` carries finite nonnegative f32 seconds, including zero for
+an observation that does not advance. Checked addition rejects overflow, and
+serde admission applies the same invariant. Landing recovery reuses this type
+and additionally requires a positive interval in configuration validation.
+`LandingImpactSpeed` similarly admits only finite nonnegative metres per
+second. Invalid controller observations are rejected before retained skeleton
+state changes; finite upward velocity still projects to zero downward impact.
+
+The playback configuration owns the initial, deactivation and activation
+locomotion speed thresholds in metres per second. Their authored values are
+0.05, 0.03 and 0.08, with deactivation <= initial <= activation validation.
+
 ## Architectural geometry conversion
 
 The building generator owns building-local geometry in metres. Core's

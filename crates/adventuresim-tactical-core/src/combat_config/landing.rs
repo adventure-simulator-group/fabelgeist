@@ -1,6 +1,7 @@
 //! Landing compression tuning shared by authority and presentation.
 
 use super::TacticalCombatConfigError;
+use crate::animation::AnimationElapsed;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
@@ -10,18 +11,12 @@ pub struct AnimationLandingConfig {
     pub compression_per_metre_per_second: f32,
     pub minimum_compression_metres: f32,
     pub maximum_compression_metres: f32,
-    pub recovery_seconds: f32,
+    pub recovery_seconds: AnimationElapsed,
 }
 
 impl Default for AnimationLandingConfig {
     fn default() -> Self {
-        Self {
-            minimum_impact_speed_metres_per_second: 1.0,
-            compression_per_metre_per_second: 0.012,
-            minimum_compression_metres: 0.04,
-            maximum_compression_metres: 0.08,
-            recovery_seconds: 0.16,
-        }
+        super::defaults::canonical().animation.locomotion.landing
     }
 }
 
@@ -34,12 +29,11 @@ impl AnimationLandingConfig {
             landing.compression_per_metre_per_second,
             landing.minimum_compression_metres,
             landing.maximum_compression_metres,
-            landing.recovery_seconds,
         ]
         .into_iter()
         .all(finite_nonnegative)
             || landing.maximum_compression_metres < landing.minimum_compression_metres
-            || landing.recovery_seconds == 0.0
+            || landing.recovery_seconds.is_zero()
         {
             return Err(TacticalCombatConfigError::Validation(
                 "invalid animation landing tuning",

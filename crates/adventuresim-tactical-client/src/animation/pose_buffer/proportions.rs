@@ -44,8 +44,8 @@ mod tests {
         let mut state =
             SystemState::<Query<&skeletal_proportions::SkeletalJointOffset>>::new(&mut world);
         let clip = BakedClip {
-            duration: 1.0,
-            frame_dt: 1.0,
+            duration: ClipDuration::from_seconds(1.0).unwrap(),
+            frame_dt: AnimationElapsed::from_seconds(1.0).unwrap(),
             frames: 2,
             tracks: vec![BoneTrack {
                 translations: vec![Vec3::new(0.1, 0.0, 0.0), Vec3::new(0.1, 0.2, 0.3)],
@@ -57,7 +57,10 @@ mod tests {
         };
         let offsets = state.get(&world).unwrap();
         for _ in 0..2 {
-            let source = clip.sample(RigJointOrdinal::from(0usize), 0.5);
+            let source = clip.sample(
+                RigJointOrdinal::from(0usize),
+                ClipTime::from_seconds(0.5).unwrap(),
+            );
             let mut first = RigJointTable::from(vec![source]);
             let mut second = RigJointTable::from(vec![source]);
             apply_offsets(
@@ -85,7 +88,13 @@ mod tests {
                 second[RigJointOrdinal::from(0usize)].rotation,
                 source.rotation
             );
-            assert_eq!(source, clip.sample(RigJointOrdinal::from(0usize), 0.5));
+            assert_eq!(
+                source,
+                clip.sample(
+                    RigJointOrdinal::from(0usize),
+                    ClipTime::from_seconds(0.5).unwrap()
+                )
+            );
         }
     }
 }

@@ -148,20 +148,27 @@ mod contract_tests {
     }
 
     #[test]
-    fn projection_owns_grounded_body_transitions_and_sanitizes_motion() {
+    fn projection_rejects_nonfinite_elapsed_before_mutating_body() {
         let mut state = SkeletonState::default();
-        project_skeleton_locomotion(
-            &mut state,
-            SkeletonLocomotionInput {
-                orientation: Quat::IDENTITY,
-                linear_velocity: Vec3::splat(f32::NAN),
-                grounded: false,
-                delta_seconds: f32::NAN,
-                tick: 1,
-            },
+        let admission = AnimationElapsed::from_seconds(f32::NAN).and_then(|delta_seconds| {
+            project_skeleton_locomotion(
+                &mut state,
+                SkeletonLocomotionInput {
+                    orientation: Quat::IDENTITY,
+                    linear_velocity: Vec3::splat(f32::NAN),
+                    grounded: false,
+                    delta_seconds,
+                    tick: 1,
+                },
+            )
+        });
+        assert_eq!(
+            admission,
+            Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::Elapsed
+            })
         );
-        assert_eq!(state.body(), BodyState::Airborne);
-        assert!(!state.is_grounded());
+        assert!(state.is_grounded());
         assert_eq!(state.world_velocity, Vec3::ZERO);
     }
 
@@ -351,10 +358,11 @@ mod contract_tests {
                 orientation: Quat::IDENTITY,
                 linear_velocity: Vec3::ZERO,
                 grounded: true,
-                delta_seconds: 0.25,
+                delta_seconds: AnimationElapsed::from_seconds(0.25).unwrap(),
                 tick: 1,
             },
-        );
+        )
+        .unwrap();
         let expected = gait_cycle_phase_delta(supine_locomotion_profile(), 1.6, 0.25);
         assert!((state.gait_phase - expected).abs() < 0.000_01);
         let evaluation = AnimationEvaluation::from_skeleton(&state);
@@ -376,10 +384,11 @@ mod contract_tests {
                     orientation: Quat::IDENTITY,
                     linear_velocity: Vec3::NEG_Z * 2.0,
                     grounded: true,
-                    delta_seconds: 0.25,
+                    delta_seconds: AnimationElapsed::from_seconds(0.25).unwrap(),
                     tick: 1,
                 },
-            );
+            )
+            .unwrap();
             assert_eq!(state.gait_phase, 0.0);
             let evaluation = AnimationEvaluation::from_skeleton(&state);
             assert_eq!(evaluation.base.len(), 1);
@@ -496,10 +505,12 @@ mod contract_tests {
                 orientation: Quat::IDENTITY,
                 linear_velocity: Vec3::ZERO,
                 grounded: true,
-                delta_seconds: 1.0 / locomotion_sample_hz(),
+                delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz())
+                    .unwrap(),
                 tick: 1,
             },
-        );
+        )
+        .unwrap();
         assert_eq!(state.body(), BodyState::Prone);
         assert_eq!(state.landing_sequence, LandingSequence::from(7u64));
     }

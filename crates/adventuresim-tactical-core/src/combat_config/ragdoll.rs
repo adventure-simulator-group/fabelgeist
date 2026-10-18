@@ -134,62 +134,6 @@ impl RagdollConfig {
 
 impl Default for RagdollConfig {
     fn default() -> Self {
-        Self {
-            capsules: RagdollCapsulesConfig {
-                pelvis: RagdollCapsuleConfig {
-                    radius_metres: 0.18,
-                    length_metres: 0.24,
-                },
-                chest: RagdollCapsuleConfig {
-                    radius_metres: 0.18,
-                    length_metres: 0.28,
-                },
-                head: RagdollCapsuleConfig {
-                    radius_metres: 0.15,
-                    length_metres: 0.16,
-                },
-                thigh: RagdollCapsuleConfig {
-                    radius_metres: 0.10,
-                    length_metres: 0.36,
-                },
-                shin: RagdollCapsuleConfig {
-                    radius_metres: 0.085,
-                    length_metres: 0.34,
-                },
-                foot: RagdollCapsuleConfig {
-                    radius_metres: 0.09,
-                    length_metres: 0.20,
-                },
-                upper_arm: RagdollCapsuleConfig {
-                    radius_metres: 0.075,
-                    length_metres: 0.27,
-                },
-                forearm: RagdollCapsuleConfig {
-                    radius_metres: 0.065,
-                    length_metres: 0.25,
-                },
-                hand: RagdollCapsuleConfig {
-                    radius_metres: 0.07,
-                    length_metres: 0.14,
-                },
-            },
-            muscles: RagdollMusclesConfig {
-                tone: 1.0,
-                proportional_gain: 600.0,
-                derivative_gain: 20.0,
-                maximum_kick_radians_per_second: 60.0,
-                stun_seconds: 0.15,
-                rise_seconds: 0.5,
-                stun_floor: 0.2,
-                limp_at_seconds: 2.0,
-                limp_seconds: 1.0,
-            },
-            joint_relative_damping_per_second: 8.0,
-            joint_maximum_brake_radians_per_second: 30.0,
-            speculative_contact_margin_metres: 0.5,
-            maximum_seed_speed_metres_per_second: 10.0,
-            maximum_seed_spin_radians_per_second: 30.0,
-            terrain_horizontal_velocity_retention: 0.72,
-        }
+        super::defaults::canonical().animation.ragdoll
     }
 }

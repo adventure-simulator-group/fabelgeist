@@ -1534,14 +1534,18 @@ mod tests {
                             frame.local_direction.y,
                         ) * frame.speed,
                         grounded: true,
-                        delta_seconds: if frame.scenario_frame == 0 {
-                            0.0
-                        } else {
-                            1.0 / locomotion_sample_hz()
-                        },
+                        delta_seconds: AnimationElapsed::from_seconds(
+                            if frame.scenario_frame == 0 {
+                                0.0
+                            } else {
+                                1.0 / locomotion_sample_hz()
+                            },
+                        )
+                        .unwrap(),
                         tick: frame.scenario_frame as u64,
                     },
-                );
+                )
+                .unwrap();
                 assert_eq!(skeleton.lead_foot, frame.lead_foot);
                 let evaluation = AnimationEvaluation::from_skeleton(&skeleton);
                 assert_eq!(evaluation.base.len(), 1);
@@ -1574,14 +1578,18 @@ mod tests {
                             frame.local_direction.y,
                         ) * frame.speed,
                         grounded: true,
-                        delta_seconds: if frame.scenario_frame == 0 {
-                            0.0
-                        } else {
-                            1.0 / locomotion_sample_hz()
-                        },
+                        delta_seconds: AnimationElapsed::from_seconds(
+                            if frame.scenario_frame == 0 {
+                                0.0
+                            } else {
+                                1.0 / locomotion_sample_hz()
+                            },
+                        )
+                        .unwrap(),
                         tick: frame.scenario_frame as u64,
                     },
-                );
+                )
+                .unwrap();
                 samples.push((
                     frame.scenario_frame,
                     skeleton.gait_phase,

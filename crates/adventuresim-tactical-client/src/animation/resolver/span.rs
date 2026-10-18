@@ -19,14 +19,19 @@ impl<'a> PoseSampleResolver<'a> {
         start: &ResolvedAnchor<'a>,
         sample: PoseSample,
         layer: ClipLayer,
-    ) {
+    ) -> AnimationValueResult<()> {
         let PoseSampling::Span { end, progress } = sample.sampling else {
-            return;
+            return Ok(());
         };
-        let progress = progress.clamp(0.0, 1.0);
+        let progress = CyclePhase::from_cycles(progress)?.cycles().clamp(0.0, 1.0);
         let Some(span) = self.resolve_span(start, sample.pose, end) else {
-            append_weighted_anchor(weighted, start, start.anchor.frame, sample.weight, layer);
-            return;
+            return append_weighted_anchor(
+                weighted,
+                start,
+                start.anchor.frame,
+                sample.weight,
+                layer,
+            );
         };
         append_weighted_anchor(
             weighted,
@@ -34,14 +39,14 @@ impl<'a> PoseSampleResolver<'a> {
             span.start.frame,
             sample.weight * (1.0 - progress),
             layer,
-        );
+        )?;
         append_weighted_anchor(
             weighted,
             &span.end.anchor,
             span.end.frame,
             sample.weight * progress,
             layer,
-        );
+        )
     }
 
     pub(super) fn append_curve_span(
@@ -51,17 +56,22 @@ impl<'a> PoseSampleResolver<'a> {
         start: &ResolvedAnchor<'a>,
         sample: PoseSample,
         layer: ClipLayer,
-    ) {
+    ) -> AnimationValueResult<()> {
         let PoseSampling::CurveSpan { end, coordinate } = sample.sampling else {
-            return;
+            return Ok(());
         };
-        let coordinate = coordinate.clamp(
+        let coordinate = CyclePhase::from_cycles(coordinate)?.cycles().clamp(
             -AttackCurve::maximum_drawback(),
             1.0 + AttackCurve::maximum_overshoot(),
         );
         let Some(span) = self.resolve_span(start, sample.pose, end) else {
-            append_weighted_anchor(weighted, start, start.anchor.frame, sample.weight, layer);
-            return;
+            return append_weighted_anchor(
+                weighted,
+                start,
+                start.anchor.frame,
+                sample.weight,
+                layer,
+            );
         };
         extrapolated_spans.push(ExtrapolatedSpan {
             start: span
@@ -69,17 +79,18 @@ impl<'a> PoseSampleResolver<'a> {
                 .anchor
                 .clip
                 .at_anchor_layer(span.start.frame, layer),
-            start_time_seconds: frame_seconds(span.start.frame),
+            start_time_seconds: frame_seconds(span.start.frame)?,
             end: span.end.anchor.clip.at_anchor_layer(span.end.frame, layer),
-            end_time_seconds: frame_seconds(span.end.frame),
+            end_time_seconds: frame_seconds(span.end.frame)?,
             coordinate,
-            weight: sample.weight,
+            weight: BlendWeight::from_factor(sample.weight)?,
             mirrored_weight: if span.start.anchor.mirrored == ClipMirror::Mirrored {
-                sample.weight
+                BlendWeight::from_factor(sample.weight)?
             } else {
-                0.0
+                BlendWeight::ZERO
             },
         });
+        Ok(())
     }
 
     fn resolve_span(

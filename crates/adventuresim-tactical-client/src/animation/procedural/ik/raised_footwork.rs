@@ -164,7 +164,7 @@ pub(in crate::animation::procedural) fn guard_swing_target(swing: GuardSwing) ->
 pub(in crate::animation::procedural) fn advance_stationary_turn_step(
     current: GuardStepState,
     requested: GuardStepState,
-    delta_seconds: f32,
+    delta_seconds: AnimationElapsed,
 ) -> GuardStepState {
     let GuardStepState::Stationary {
         left: desired_left,
@@ -216,7 +216,7 @@ pub(in crate::animation::procedural) fn advance_stationary_turn_step(
         } => {
             left.end = desired_left;
             left.progress = (left.progress
-                + delta_seconds.max(0.0) / ik_tuning().stationary_turn_step_seconds)
+                + delta_seconds.seconds() / ik_tuning().stationary_turn_step_seconds)
                 .clamp(0.0, 1.0);
             if left.progress >= 1.0 {
                 GuardStepState::Stationary {
@@ -237,7 +237,7 @@ pub(in crate::animation::procedural) fn advance_stationary_turn_step(
         } => {
             right.end = desired_right;
             right.progress = (right.progress
-                + delta_seconds.max(0.0) / ik_tuning().stationary_turn_step_seconds)
+                + delta_seconds.seconds() / ik_tuning().stationary_turn_step_seconds)
                 .clamp(0.0, 1.0);
             if right.progress >= 1.0 {
                 GuardStepState::Stationary {

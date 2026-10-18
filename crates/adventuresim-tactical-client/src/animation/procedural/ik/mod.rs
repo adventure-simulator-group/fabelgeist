@@ -9,6 +9,7 @@
 
 use super::*;
 
+mod evaluation_clock;
 mod hands;
 mod locomotion;
 mod observation;
@@ -213,17 +214,9 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 true,
             ),
         };
-        let (state_delta_seconds, evaluation_advances) = match clock.fixed_step() {
-            Some(step) if memory.evaluation_tick == Some(step.tick) => (0.0, false),
-            Some(step) => {
-                memory.evaluation_tick = Some(step.tick);
-                (step.delta_seconds, true)
-            }
-            None => {
-                let delta_seconds = time.delta_secs();
-                (delta_seconds, delta_seconds > 0.0)
-            }
-        };
+        let observation = memory.sample_elapsed(&clock, &time);
+        let evaluation_advances = observation.is_some();
+        let state_delta_seconds = observation.unwrap_or(AnimationElapsed::ZERO);
         if repeated_fixed_tick_skips_ik(clock.fixed_tick.is_some(), evaluation_advances) {
             // Multi-view tools restore the first complete local pose at the
             // end of the procedural chain. Re-running IK from memory already
@@ -232,7 +225,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             // Skip both evaluation and state mutation for repeated fixed ticks.
             continue;
         }
-        if state_delta_seconds > 0.0 {
+        if !state_delta_seconds.is_zero() {
             let desired = if terrain_ik_is_required(
                 enabled.0,
                 memory.settle.is_some(),
@@ -243,8 +236,8 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 0.0
             };
             memory.terrain_blend += (desired - memory.terrain_blend).clamp(
-                -ik_tuning().terrain_blend_speed_per_second * state_delta_seconds,
-                ik_tuning().terrain_blend_speed_per_second * state_delta_seconds,
+                -ik_tuning().terrain_blend_speed_per_second * state_delta_seconds.seconds(),
+                ik_tuning().terrain_blend_speed_per_second * state_delta_seconds.seconds(),
             );
         }
         let terrain_blend = memory.terrain_blend.clamp(0.0, 1.0);
@@ -260,7 +253,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             memory.left_foot_world_target = Some(rig_origin + rig_rotation * left);
             memory.right_foot_world_target = Some(rig_origin + rig_rotation * right);
         }
-        if state_delta_seconds > 0.0 {
+        if !state_delta_seconds.is_zero() {
             let previous_rig_origin = memory.rig_origin;
             let owner_discontinuous = previous_rig_origin.is_some_and(|previous| {
                 previous.distance(rig_origin)
@@ -471,7 +464,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     capture_point,
                     landing_target,
                     progress: 0.0,
-                    elapsed_seconds: 0.0,
+                    elapsed_seconds: AnimationElapsed::ZERO,
                     raised_handoff: raised_footwork_handoff,
                 });
             }
@@ -489,8 +482,14 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
         }
         let mut settle_ready_for_contact = false;
         if let Some(mut settle) = memory.settle {
-            if state_delta_seconds > 0.0 {
-                settle = advance_settle_state(settle, state_delta_seconds);
+            if !state_delta_seconds.is_zero() {
+                settle = match advance_settle_state(settle, state_delta_seconds) {
+                    Ok(settle) => settle,
+                    Err(error) => {
+                        warn!(%error, "Rejected IK settlement interval");
+                        continue;
+                    }
+                };
             }
             settle_ready_for_contact = settle.progress >= 1.0;
             if settle.support_left {
@@ -508,7 +507,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
         // shared root drop the authored near-straight legs exhaust their reach
         // after only a few centimetres of lateral root travel, forcing the
         // support foot to slide. This moves the body, never either contact.
-        if state_delta_seconds > 0.0 {
+        if !state_delta_seconds.is_zero() {
             let desired = if raised_guard_follower {
                 -ik_tuning().guard_reach_pelvis_drop_metres
             } else {
@@ -996,7 +995,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     );
                     let bend = (solution.knee - upper_snapshot.global.translation())
                         .reject_from_normalized(solution.end_direction);
-                    if state_delta_seconds > 0.0
+                    if !state_delta_seconds.is_zero()
                         && let Some(valid) = bend.try_normalize()
                     {
                         if left {
@@ -1317,7 +1316,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             let target_shift = *memory
                 .terminal_reach_target_shift
                 .get_or_insert(desired_hip_shift.clamp(-0.25, 0.0));
-            if state_delta_seconds > 0.0 {
+            if !state_delta_seconds.is_zero() {
                 memory.terminal_reach_shift = advance_pelvis_shift(
                     memory.terminal_reach_shift,
                     target_shift,
@@ -1329,7 +1328,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             // correction during ordinary locomotion.
             if memory_was_missing {
                 memory.pelvis_shift = desired_hip_shift;
-            } else if state_delta_seconds > 0.0 {
+            } else if !state_delta_seconds.is_zero() {
                 memory.pelvis_shift = if locomotion_profile(skeleton).gait == LocomotionGait::Run {
                     advance_scalar_at_speed(
                         memory.pelvis_shift,
@@ -1528,7 +1527,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         &parents,
                         &mut transforms,
                     );
-                    if state_delta_seconds > 0.0 {
+                    if !state_delta_seconds.is_zero() {
                         let bend = (solution.knee - upper_snapshot.global.translation())
                             .reject_from_normalized(solution.end_direction)
                             .try_normalize();
@@ -2011,7 +2010,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                                 previous.distance(desired_owner_target)
                                     > (ik_tuning().airborne_release_step_metres
                                         * ik_tuning().continuity_sample_hz)
-                                        * state_delta_seconds.max(0.0)
+                                        * state_delta_seconds.seconds()
                                         + 0.001
                             });
                         let release_goal = if was_releasing {
@@ -2212,7 +2211,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                             &parents,
                             &mut transforms,
                         );
-                        if state_delta_seconds > 0.0 {
+                        if !state_delta_seconds.is_zero() {
                             let bend = (solution.knee - upper_snapshot.global.translation())
                                 .reject_from_normalized(solution.end_direction)
                                 .try_normalize();
@@ -2406,7 +2405,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         &parents,
                         &mut transforms,
                     );
-                    if state_delta_seconds > 0.0 {
+                    if !state_delta_seconds.is_zero() {
                         let bend = (solution.knee - upper_snapshot.global.translation())
                             .reject_from_normalized(solution.end_direction)
                             .try_normalize();
@@ -2846,7 +2845,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             );
             if left {
                 memory.left_foot_target = Some(owner_target);
-                if state_delta_seconds > 0.0 || memory.left_support_weight.is_none() {
+                if !state_delta_seconds.is_zero() || memory.left_support_weight.is_none() {
                     memory.left_support_weight = Some(weight);
                     memory.left_transition_support_weight = Some(weight);
                 }
@@ -2854,7 +2853,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 memory.left_release_target = release_target;
             } else {
                 memory.right_foot_target = Some(owner_target);
-                if state_delta_seconds > 0.0 || memory.right_support_weight.is_none() {
+                if !state_delta_seconds.is_zero() || memory.right_support_weight.is_none() {
                     memory.right_support_weight = Some(weight);
                     memory.right_transition_support_weight = Some(weight);
                 }
@@ -2961,7 +2960,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 );
                 let bend = (solution.knee - upper_snapshot.global.translation())
                     .reject_from_normalized(solution.end_direction);
-                if state_delta_seconds > 0.0
+                if !state_delta_seconds.is_zero()
                     && let Some(valid) = bend.try_normalize()
                 {
                     if left {
@@ -2970,7 +2969,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         memory.right_terrain_pole_world = Some(valid);
                     }
                 }
-                if state_delta_seconds > 0.0 {
+                if !state_delta_seconds.is_zero() {
                     if left {
                         memory.left_terrain_end_direction = Some(solution.end_direction);
                     } else {
@@ -3032,7 +3031,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             &mut transforms,
         );
         let safe_settle_fallback = memory.settle.is_some_and(|settle| {
-            settle.elapsed_seconds >= 0.75
+            settle.elapsed_seconds.seconds() >= 0.75
                 && settle_stance_is_safe(
                     projected_body_center(rig, &transforms.p0()).unwrap_or(rig_origin),
                     memory.left_foot_world_target,

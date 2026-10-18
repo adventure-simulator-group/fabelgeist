@@ -68,7 +68,7 @@ pub(super) fn sampled_global_transform(
     definition: &RigDefinition,
     clip: &BakedClip,
     joint: RigJointOrdinal,
-    time_seconds: f32,
+    time_seconds: ClipTime,
     cache: &mut RigJointTable<Option<Transform>>,
 ) -> Transform {
     if let Some(transform) = cache[joint] {

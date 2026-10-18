@@ -33,7 +33,7 @@ pub struct LandingProfile {
     pub compression_per_metre_per_second: f32,
     pub minimum_compression_metres: f32,
     pub maximum_compression_metres: f32,
-    pub recovery_seconds: f32,
+    pub recovery_seconds: AnimationElapsed,
 }
 
 fn landing_profile() -> LandingProfile {

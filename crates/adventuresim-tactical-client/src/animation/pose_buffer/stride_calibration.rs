@@ -96,7 +96,13 @@ pub(super) fn calibrate(
         let Some(clip) = clips.get(&loaded.handle) else {
             continue;
         };
-        let mut baked = bake_clip(clip, definition);
+        let mut baked = match bake_clip(clip, definition) {
+            Ok(baked) => baked,
+            Err(error) => {
+                warn!(%error, motion = %motion, "Rejected stride bake grid");
+                continue;
+            }
+        };
         apply_baked_offsets(&mut baked, offsets);
         let calibration = match kind {
             // Walk and run use a measured distance-domain phase curve while
@@ -207,8 +213,8 @@ mod tests {
             name_ordinals: Default::default(),
         };
         let mut clip = BakedClip {
-            duration: 1.0,
-            frame_dt: 0.5,
+            duration: ClipDuration::from_seconds(1.0).unwrap(),
+            frame_dt: AnimationElapsed::from_seconds(0.5).unwrap(),
             frames: 3,
             tracks: (0..3)
                 .map(|index| BoneTrack {

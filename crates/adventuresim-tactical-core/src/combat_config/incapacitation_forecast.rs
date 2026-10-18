@@ -11,10 +11,9 @@ pub struct IncapacitationForecastConfig {
 
 impl Default for IncapacitationForecastConfig {
     fn default() -> Self {
-        Self {
-            horizon_seconds: 2.0,
-            trend_response_seconds: 1.0,
-        }
+        super::defaults::canonical()
+            .presentation
+            .incapacitation_forecast
     }
 }
 

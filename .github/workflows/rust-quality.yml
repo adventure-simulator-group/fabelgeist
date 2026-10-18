@@ -211,6 +211,29 @@ jobs:
         run: |
           set -euo pipefail
           cargo test --locked --package adventuresim-tactical-core --lib animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-core-animation.log
+      - name: Test canonical combat configuration
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-tactical-core --lib combat_config:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-core-combat-config.log
+          grep -Eq '^test result: ok\. [1-9][0-9]* passed; 0 failed;' target/rig-contracts/tactical-core-combat-config.log
+      - name: Test server configuration startup
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server startup::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-server-startup.log
+          grep -Eq '^test result: ok\. [1-9][0-9]* passed; 0 failed;' target/rig-contracts/tactical-server-startup.log
+      - name: Export semantic family baseline snapshot
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo run --locked --package fabelgeist-rust-quality -- baseline . | tee target/rig-contracts/quality-baseline.toml
       - name: Verify required rig contract execution
         env:
           EXPECTED_RIG_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}

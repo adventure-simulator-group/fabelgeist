@@ -35,7 +35,7 @@ pub use avian3d;
 pub mod prelude {
     pub use crate::AdventureSimulatorCorePlugins;
     pub use crate::animation::{
-        ActionState, ActionTransitionError, AnimationEvaluation, AnimationPack,
+        ActionState, ActionTransitionError, AnimationElapsed, AnimationEvaluation, AnimationPack,
         AnimationPackLibrary, AttackAnimation, AttackAnimations, AttackCurve, AttackHand,
         AttackLine, AttackPreparation, AttackSpec, BlockSpec, BodyState, DiveDirection,
         DiveTrajectory, DodgeSpec, DownedFacingPose, GroundedPosture, GuardContacts,

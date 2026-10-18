@@ -1,7 +1,9 @@
 //! ECS fixture driving, sampling, and three-view capture.
 
 use super::*;
+use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
 
+mod frame_clock;
 mod readiness;
 
 pub(super) const CAPTURE_ROOT_GROUND_OFFSET_METRES: f32 = 0.95;
@@ -144,14 +146,6 @@ impl CaptureSequence {
             playback_backend,
             pose_buffer_metrics,
         }
-    }
-}
-
-pub(super) fn next_capture_simulation_tick(current: u64, absolute_first_sample: bool) -> u64 {
-    if absolute_first_sample {
-        current
-    } else {
-        current.wrapping_add(1)
     }
 }
 
@@ -447,12 +441,11 @@ pub(super) fn drive_sequence(
             };
             skeleton.begin_posture_transition(transition, sequence.simulation_tick, duration);
         }
-        let delta_seconds = if frame.scenario_frame == 0 {
-            0.0
-        } else {
-            1.0 / locomotion_sample_hz()
+        let Some(elapsed) = capture_frame_elapsed(frame.scenario_frame) else {
+            return;
         };
-        procedural_clock.fixed_tick = Some((sequence.simulation_tick, delta_seconds.max(0.0)));
+        let delta_seconds = elapsed.seconds();
+        procedural_clock.set_fixed_step(sequence.simulation_tick.into(), elapsed);
         let horizontal = transform.translation.xz() + world_velocity.xz() * delta_seconds;
         let vertical = if quickstep {
             let ground = terrain.height_at(horizontal).unwrap_or_default()
@@ -545,18 +538,21 @@ pub(super) fn drive_sequence(
         sequence.scenario_distance += frame.speed * delta_seconds;
         let jump_charging =
             frame.scenario == "jump-charge-anticipation" && (4..48).contains(&frame.scenario_frame);
-        project_skeleton_locomotion_with_body_rotation(
+        if let Err(error) = project_skeleton_locomotion_with_body_rotation(
             &mut skeleton,
             SkeletonLocomotionInput {
                 orientation,
                 linear_velocity: world_velocity,
                 grounded,
-                delta_seconds,
+                delta_seconds: elapsed,
                 tick: sequence.simulation_tick,
             },
             transform.rotation,
             None,
-        );
+        ) {
+            error!(%error, "Rejected capture locomotion observation");
+            return;
+        }
         skeleton.set_jump_anticipation(jump_charging);
         if sequence.warmup_frames == 0 && transition_for_scenario(frame.scenario).is_some() {
             let previous_transition = skeleton.posture_transition();
@@ -1256,16 +1252,6 @@ pub(super) fn wait_or_fail(
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn capture_ticks_remain_unique_across_consecutive_scenario_boundaries() {
-        let first = next_capture_simulation_tick(0, true);
-        let second = next_capture_simulation_tick(first, false);
-        let next_scenario_frame_zero = next_capture_simulation_tick(second, false);
-        assert_eq!(first, 0);
-        assert_eq!(second, 1);
-        assert_eq!(next_scenario_frame_zero, 2);
-    }
 
     #[test]
     fn repeated_evaluation_rejects_missing_or_extra_tracked_bones() {

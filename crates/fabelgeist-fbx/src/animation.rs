@@ -17,6 +17,7 @@
 //! container question.
 
 use crate::{FbxObjectName, FbxQualifiedName, Prop, Scene};
+use anyhow::{Context, Result};
 
 /// FBX stores times as integer ticks of this many per second.
 const TICKS_PER_SECOND: f64 = 46_186_158_000.0;
@@ -68,9 +69,24 @@ pub struct Take {
     pub nodes: Vec<NodeAnimation>,
 }
 
+/// Rejection at the source-file seconds boundary.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, derive_more::Display, derive_more::Error)]
+pub enum InvalidFbxAnimationDuration {
+    #[display("FBX take duration must be finite")]
+    NonFinite,
+    #[display("FBX take duration must be nonnegative")]
+    Negative,
+}
+
 impl FbxAnimationDuration {
-    pub fn from_seconds(seconds: f64) -> Self {
-        Self(seconds)
+    pub fn from_seconds(seconds: f64) -> std::result::Result<Self, InvalidFbxAnimationDuration> {
+        if !seconds.is_finite() {
+            return Err(InvalidFbxAnimationDuration::NonFinite);
+        }
+        if seconds < 0.0 {
+            return Err(InvalidFbxAnimationDuration::Negative);
+        }
+        Ok(Self(seconds))
     }
     pub fn seconds(self) -> f64 {
         self.0
@@ -163,7 +179,7 @@ impl Scene {
     ///
     /// Takes with no animated node are dropped: FBX exporters routinely emit an
     /// empty stack alongside the real one.
-    pub fn takes(&self) -> Vec<Take> {
+    pub fn takes(&self) -> Result<Vec<Take>> {
         // Curve nodes point at the model they drive, but the link is recorded
         // on the model's side, so the reverse map is built once rather than
         // rediscovered per curve node.
@@ -205,11 +221,15 @@ impl Scene {
                     times.into_iter().fold(0.0, f64::max)
                 });
 
-                Some(Take {
-                    name: stack.name.clone(),
-                    duration: FbxAnimationDuration::from_seconds(duration),
-                    nodes,
-                })
+                Some(
+                    FbxAnimationDuration::from_seconds(duration)
+                        .with_context(|| format!("Invalid duration for FBX take {}", stack.name))
+                        .map(|duration| Take {
+                            name: stack.name.clone(),
+                            duration,
+                            nodes,
+                        }),
+                )
             })
             .collect()
     }
