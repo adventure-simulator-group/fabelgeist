@@ -459,11 +459,7 @@ fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
                 let count = reader.u32()? as usize;
                 // FBX array metadata stores encoding as a little-endian u32.
                 // Admit only supported encodings before decoding the payload.
-                let encoding = FbxArrayEncoding::try_from(reader.u32()?).map_err(|error| {
-                    UnsupportedFbxArrayEncoding {
-                        reported_code: error.input,
-                    }
-                })?;
+                let encoding = FbxArrayEncoding::try_from(reader.u32()?)?;
                 let compressed_len = reader.u32()? as usize;
                 let raw = reader.take(compressed_len)?;
                 match kind {
