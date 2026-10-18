@@ -1,6 +1,7 @@
 //! Native particle records preserve position, mass, and velocity roles.
+use super::quantities::{InverseMassCount, ParticleInputCount};
 use crate::ParticleInverseMass;
-use anyhow::{Result, ensure};
+use anyhow::Result;
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_math::Vec3;
 
@@ -24,12 +25,8 @@ pub struct ParticleVelocityRecord {
 pub struct ParticlePositions(Vec<ParticlePositionRecord>);
 impl ParticlePositions {
     pub fn new(positions: &[Vec3], inverse_masses: &[ParticleInverseMass]) -> Result<Self> {
-        ensure!(
-            positions.len() == inverse_masses.len(),
-            "Particles::write: {} positions but {} inverse masses",
-            positions.len(),
-            inverse_masses.len()
-        );
+        ParticleInputCount::from(positions.len())
+            .admit_masses(InverseMassCount::from(inverse_masses.len()))?;
         Ok(Self(
             positions
                 .iter()

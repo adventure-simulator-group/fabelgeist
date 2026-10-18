@@ -50,8 +50,8 @@ impl ShellMaterial {
 }
 
 pub use fabelgeist_xpbd::{
-    ArealDensityValidity, MassValidity, ParticleArealDensity, ParticleInverseMass, ParticleMass,
-    ParticleMobility,
+    ArealDensityValidity, MassValidity, ParticleArealDensity, ParticleInputCount,
+    ParticleInverseMass, ParticleMass, ParticleMobility,
 };
 
 #[cfg(test)]

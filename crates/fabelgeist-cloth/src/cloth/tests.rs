@@ -621,7 +621,7 @@ async fn coincident_non_neighbours_separate_and_pinned_particles_stay_fixed() ->
     let mut collision = crate::SelfCollision::new(
         &harness.context,
         &harness.cache,
-        2,
+        2.into(),
         &[vec![], vec![]],
         0.005,
     )?;

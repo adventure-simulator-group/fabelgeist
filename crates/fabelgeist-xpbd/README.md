@@ -14,10 +14,30 @@ mass does not imply a stationary obstacle.
 mismatched parallel inputs before creating native records. `ParticleVelocities`
 owns velocity records, with a zeroed unused shader word. Both expose borrowed
 `BufferUpload` values; readback decodes complete records and limits results to
-the active particle count. Position and velocity collections are separate
-types, even though their native records both occupy four scalar words.
+the active particle count. Position and velocity collections are separate types,
+even though their native records both occupy four scalar words.
 
 Contact gradients, barycentric weights, effective inverse mass, and projection
 corrections retain distinct roles through the host solver. The checked native
 word fixtures cover particle records, triangle mass accumulation, contact
 resolution, and layer projection.
+
+`ParticleCount` describes a native GPU particle prefix. `ParticleCapacity`
+describes requested allocation size, including the one-record sentinel for an
+empty request. A capacity cannot be passed as an active count.
+`ParticleInputCount` keeps full host lengths distinct until
+`ParticleCount::try_from` checks that those lengths fit the native GPU word.
+Overflow returns `ParticleCountOverflow` with the full input count before
+particle allocation or writes. Capacity keeps its minimum of one record. Neither
+count nor capacity proves device support or allocation identity.
+
+Counts remain bespoke types through construction, write admission, readback,
+solver and collision parameters, and shell queries. Host garment queries and
+adjacency use `ParticleInputCount`. Native dispatch, sorting, indexing, and
+parameter encoding use explicit adapters to the existing GPU interfaces. Empty
+requests still have zero active records. Mass-length rejection precedes count
+conversion and capacity rejection; position replacement checks the active count
+before taking stored masses. Empty readback still visits the provider. Existing
+generic error results propagate the structured count overflow; other errors are
+unchanged. Hash bucket sizing retains unsigned arithmetic and its
+build-dependent overflow behavior, rather than promising admission bounds.

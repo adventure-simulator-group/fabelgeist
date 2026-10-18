@@ -1,14 +1,17 @@
 //! Particle state on the GPU.
 
 use crate::ParticleInverseMass;
-use anyhow::anyhow;
 use fabelgeist_gpu::prelude::BufferUse;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
-mod packed;
 pub use packed::{
     ParticlePositionRecord, ParticlePositions, ParticleVelocities, ParticleVelocityRecord,
 };
+use quantities::InverseMassCount;
+pub use quantities::{ParticleCapacity, ParticleCount, ParticleCountOverflow, ParticleInputCount};
+
+mod packed;
+mod quantities;
 
 /// Positions, the previous substep's positions, and velocities.
 ///
@@ -29,14 +32,13 @@ pub struct Particles {
     /// positions: re-uploading positions alone would otherwise have to read
     /// the buffer back first.
     inverse_masses: Vec<ParticleInverseMass>,
-    count: u32,
-    capacity: u32,
+    count: ParticleCount,
+    capacity: ParticleCapacity,
 }
 
 impl Particles {
-    pub fn new(context: &WgpuContext, capacity: u32) -> Result<Self> {
-        let capacity = capacity.max(1);
-        let bytes = capacity as u64 * 16;
+    pub fn new(context: &WgpuContext, capacity: ParticleCapacity) -> Result<Self> {
+        let bytes = capacity.record_bytes();
         // `vertex` so that the renderer can draw straight out of the solver's
         // own buffer, with no copy between simulating and showing.
         let definition = BufferDefinition::storage()
@@ -45,21 +47,21 @@ impl Particles {
         Ok(Self {
             positions: Buffer::new(
                 context,
-                (bytes).into(),
+                bytes,
                 definition.clone().with_label(("particle positions").into()),
             )?,
             previous: Buffer::new(
                 context,
-                (bytes).into(),
+                bytes,
                 definition.clone().with_label(("particle previous").into()),
             )?,
             velocities: Buffer::new(
                 context,
-                (bytes).into(),
+                bytes,
                 definition.with_label(("particle velocities").into()),
             )?,
             inverse_masses: Vec::new(),
-            count: 0,
+            count: ParticleCount::EMPTY,
             capacity,
         })
     }
@@ -70,16 +72,19 @@ impl Particles {
         positions: &[Vec3],
         inverse_masses: &[ParticleInverseMass],
     ) -> Result<Self> {
-        let mut particles = Self::new(context, positions.len() as u32)?;
+        let input = ParticleInputCount::from(positions.len());
+        input.admit_masses(InverseMassCount::from(inverse_masses.len()))?;
+        let count = ParticleCount::try_from(input)?;
+        let mut particles = Self::new(context, ParticleCapacity::from(count))?;
         particles.write(context, positions, inverse_masses)?;
         Ok(particles)
     }
 
-    pub fn count(&self) -> u32 {
+    pub fn count(&self) -> ParticleCount {
         self.count
     }
 
-    pub fn capacity(&self) -> u32 {
+    pub fn capacity(&self) -> ParticleCapacity {
         self.capacity
     }
 
@@ -90,27 +95,17 @@ impl Particles {
         positions: &[Vec3],
         inverse_masses: &[ParticleInverseMass],
     ) -> Result<()> {
-        if positions.len() != inverse_masses.len() {
-            return Err(anyhow!(
-                "Particles::write: {} positions but {} inverse masses",
-                positions.len(),
-                inverse_masses.len()
-            ));
-        }
-        if positions.len() as u32 > self.capacity {
-            return Err(anyhow!(
-                "Particles::write: capacity is {}, given {}",
-                self.capacity,
-                positions.len()
-            ));
-        }
+        let input = ParticleInputCount::from(positions.len());
+        input.admit_masses(InverseMassCount::from(inverse_masses.len()))?;
+        let count = ParticleCount::try_from(input)?;
+        self.capacity.admit(count)?;
 
         let packed = ParticlePositions::new(positions, inverse_masses)?;
         self.positions.write(context, packed.upload())?;
         self.previous.write(context, packed.upload())?;
         self.velocities
             .write(context, ParticleVelocities::at_rest(&packed).upload())?;
-        self.count = positions.len() as u32;
+        self.count = count;
         self.inverse_masses = inverse_masses.to_vec();
         Ok(())
     }
@@ -123,13 +118,8 @@ impl Particles {
     /// Overwrite positions, keeping the inverse masses. Used to re-drape a
     /// garment from a fresh layout without rebuilding the constraints.
     pub fn write_positions(&mut self, context: &WgpuContext, positions: &[Vec3]) -> Result<()> {
-        if positions.len() as u32 != self.count {
-            return Err(anyhow!(
-                "Particles::write_positions: holds {} particles, given {}",
-                self.count,
-                positions.len()
-            ));
-        }
+        let count = ParticleCount::try_from(ParticleInputCount::from(positions.len()))?;
+        self.count.admit_replacement(count)?;
         let masses = std::mem::take(&mut self.inverse_masses);
         let result = self.write(context, positions, &masses);
         self.inverse_masses = masses;
@@ -142,7 +132,7 @@ impl Particles {
                 .read::<ParticlePositionRecord>(context)
                 .await?,
         );
-        Ok(records.positions().take(self.count as usize).collect())
+        Ok(records.positions().take(usize::from(self.count)).collect())
     }
 
     pub async fn read_velocities(&self, context: &WgpuContext) -> Result<Vec<Vec3>> {
@@ -151,7 +141,7 @@ impl Particles {
                 .read::<ParticleVelocityRecord>(context)
                 .await?,
         );
-        Ok(records.velocities().take(self.count as usize).collect())
+        Ok(records.velocities().take(usize::from(self.count)).collect())
     }
 
     pub async fn read_inverse_masses(
@@ -163,7 +153,10 @@ impl Particles {
                 .read::<ParticlePositionRecord>(context)
                 .await?,
         );
-        Ok(records.inverse_masses().take(self.count as usize).collect())
+        Ok(records
+            .inverse_masses()
+            .take(usize::from(self.count))
+            .collect())
     }
 }
 

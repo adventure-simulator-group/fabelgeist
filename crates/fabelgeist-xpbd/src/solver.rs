@@ -23,7 +23,7 @@ use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
 
 use crate::constraint::ConstraintSet;
-use crate::particles::Particles;
+use crate::particles::{ParticleCount, Particles};
 use crate::wgsl;
 
 /// How the substep loop is driven.
@@ -143,7 +143,7 @@ impl Solver {
         delta: f32,
     ) -> Result<()> {
         let count = particles.count();
-        if count == 0 || delta <= 0.0 || self.settings.substeps == 0 {
+        if count == ParticleCount::EMPTY || delta <= 0.0 || self.settings.substeps == 0 {
             return Ok(());
         }
         let substep = delta / self.settings.substeps as f32;
@@ -205,7 +205,7 @@ impl Solver {
         delta: f32,
     ) -> Result<()> {
         let count = particles.count();
-        if count == 0 || delta <= 0.0 || self.settings.substeps == 0 {
+        if count == ParticleCount::EMPTY || delta <= 0.0 || self.settings.substeps == 0 {
             return Ok(());
         }
         let substep = delta / self.settings.substeps as f32;
@@ -256,7 +256,7 @@ impl Solver {
         parameters.insert("damping", self.settings.damping);
         parameters.insert("count", particles.count());
         parameters.insert("max_speed", self.settings.max_speed);
-        batch.dispatch_items(&self.predict, &parameters, particles.count())?;
+        batch.dispatch_items(&self.predict, &parameters, u32::from(particles.count()))?;
         Ok(())
     }
 
@@ -274,7 +274,7 @@ impl Solver {
         parameters.insert("count", particles.count());
         parameters.insert("pad0", 0u32);
         parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.finalize, &parameters, particles.count())?;
+        batch.dispatch_items(&self.finalize, &parameters, u32::from(particles.count()))?;
         Ok(())
     }
 }
