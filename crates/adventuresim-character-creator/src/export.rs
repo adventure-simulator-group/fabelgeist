@@ -1574,9 +1574,7 @@ mod tests {
                 joint_weights: &body_weights,
                 joint_names: &[RigJointName::ROOT],
                 joint_parents: &[-1],
-                global_joint_states: (&[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]])
-                    .iter()
-                    .collect(),
+                global_joint_states: [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]].iter().collect(),
             },
             &[shell],
             &[],
