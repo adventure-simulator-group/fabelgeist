@@ -444,7 +444,7 @@ mod tests {
             let target = body_response_target(
                 BodyLocalVelocity::from_metres_per_second(Vec3::Z * speed).unwrap(),
                 BodyLocalAcceleration::from_metres_per_second_squared(acceleration).unwrap(),
-                1.0,
+                BrakingLeanScale::from_fraction(1.0).unwrap(),
             )
             .unwrap()
             .radians();
