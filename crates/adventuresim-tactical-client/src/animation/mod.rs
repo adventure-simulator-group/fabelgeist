@@ -350,10 +350,10 @@ impl LoadedClip {
 impl WeaponGrip {
     const ALL: [Self; 2] = [Self::Hilt, Self::Polearm];
 
-    const fn path(self) -> &'static AnimationAssetPath {
+    const fn path(self) -> AnimationAssetPath {
         match self {
-            Self::Hilt => &BIPED_GRIP_HILT_GLB,
-            Self::Polearm => &BIPED_GRIP_POLEARM_GLB,
+            Self::Hilt => BIPED_GRIP_HILT_GLB,
+            Self::Polearm => BIPED_GRIP_POLEARM_GLB,
         }
     }
 }

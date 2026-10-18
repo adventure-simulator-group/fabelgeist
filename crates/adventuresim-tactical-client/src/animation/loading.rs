@@ -24,7 +24,7 @@ pub(super) fn request_animation_packs(
         runtime
             .requested_grips
             .entry(grip)
-            .or_insert_with(|| asset_server.load(animation_asset_path(grip.path())));
+            .or_insert_with(|| asset_server.load(animation_asset_path(&grip.path())));
     }
     for (pack_id, pack) in &catalog.packs {
         for (motion_id, source) in &pack.motions {

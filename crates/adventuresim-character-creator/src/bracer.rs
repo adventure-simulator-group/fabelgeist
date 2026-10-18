@@ -11,36 +11,36 @@ pub enum ForearmSide {
 }
 
 impl ForearmSide {
-    pub(crate) fn lowarm(self) -> &'static RigJointName {
+    pub(crate) fn lowarm(self) -> RigJointName {
         match self {
-            Self::Left => &RigJointName::L_LOWARM,
-            Self::Right => &RigJointName::R_LOWARM,
+            Self::Left => RigJointName::L_LOWARM,
+            Self::Right => RigJointName::R_LOWARM,
         }
     }
 
-    pub(crate) fn wrist(self) -> &'static RigJointName {
+    pub(crate) fn wrist(self) -> RigJointName {
         match self {
-            Self::Left => &RigJointName::L_WRIST,
-            Self::Right => &RigJointName::R_WRIST,
+            Self::Left => RigJointName::L_WRIST,
+            Self::Right => RigJointName::R_WRIST,
         }
     }
 
-    fn upperarm(self) -> &'static RigJointName {
+    fn upperarm(self) -> RigJointName {
         match self {
-            Self::Left => &RigJointName::L_UPPERARM,
-            Self::Right => &RigJointName::R_UPPERARM,
+            Self::Left => RigJointName::L_UPPERARM,
+            Self::Right => RigJointName::R_UPPERARM,
         }
     }
 
     fn owns_forearm_joint(self, name: &RigJointName) -> RigJointMembership {
-        crate::clothing::rig_selection::skin_family(name, self.lowarm())
+        crate::clothing::rig_selection::skin_family(name, &self.lowarm())
     }
 
     pub(crate) fn supports_forearm_boundary(self, name: &RigJointName) -> RigJointMembership {
         RigJointMembership::from(
             self.owns_forearm_joint(name) == RigJointMembership::Included
-                || name == self.wrist()
-                || crate::clothing::rig_selection::skin_family(name, self.upperarm())
+                || name == &self.wrist()
+                || crate::clothing::rig_selection::skin_family(name, &self.upperarm())
                     == RigJointMembership::Included,
         )
     }
@@ -110,7 +110,7 @@ impl ForearmSurfaceInput<'_> {
             .collect::<BTreeSet<_>>();
         if forearm_joints.is_empty() {
             return Err(ForearmInputError::MissingSkinFamily {
-                owner: self.side.lowarm().clone(),
+                owner: self.side.lowarm(),
             });
         }
         Ok(())

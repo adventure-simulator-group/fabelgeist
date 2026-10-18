@@ -57,8 +57,8 @@ pub async fn generate_bracer_on_device_async(
 ) -> Result<GeneratedArmor> {
     input.validate()?;
     let side = input.side;
-    let lowarm = side.joint(side.lowarm(), input.joint_names)?;
-    let wrist = side.joint(side.wrist(), input.joint_names)?;
+    let lowarm = side.joint(&side.lowarm(), input.joint_names)?;
+    let wrist = side.joint(&side.wrist(), input.joint_names)?;
     let supports = input
         .joint_names
         .iter()

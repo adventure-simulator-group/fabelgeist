@@ -153,40 +153,42 @@ impl BoneRole {
         self as usize
     }
 
-    fn joint_name(self) -> &'static RigJointName {
+    fn joint_name(self) -> RigJointName {
         match self {
-            Self::Root => &RigJointName::BODY_WORLD,
-            Self::Pelvis => &RigJointName::ROOT,
-            Self::StomachOne => &RigJointName::C_SPINE0,
-            Self::StomachTwo => &RigJointName::C_SPINE1,
-            Self::StomachThree => &RigJointName::C_SPINE2,
-            Self::Chest => &RigJointName::C_SPINE3,
-            Self::NeckOne => &RigJointName::C_NECK,
-            Self::Head => &RigJointName::C_HEAD,
-            Self::Camera => &RigJointName::C_CAMERA,
-            Self::ClavicleLeft => &RigJointName::L_CLAVICLE,
-            Self::ClavicleRight => &RigJointName::R_CLAVICLE,
-            Self::ThighLeft => &RigJointName::L_UPLEG,
-            Self::ShinLeft => &RigJointName::L_LOWLEG,
-            Self::FootLeft => &RigJointName::L_FOOT,
-            Self::ToeLeft => &RigJointName::L_BALL,
-            Self::ThighRight => &RigJointName::R_UPLEG,
-            Self::ShinRight => &RigJointName::R_LOWLEG,
-            Self::FootRight => &RigJointName::R_FOOT,
-            Self::ToeRight => &RigJointName::R_BALL,
-            Self::UpperArmLeft => &RigJointName::L_UPARM,
-            Self::ForearmLeft => &RigJointName::L_LOWARM,
-            Self::HandLeft => &RigJointName::L_WRIST,
-            Self::WeaponLeft => &RigJointName::L_WEAPON,
-            Self::UpperArmRight => &RigJointName::R_UPARM,
-            Self::ForearmRight => &RigJointName::R_LOWARM,
-            Self::HandRight => &RigJointName::R_WRIST,
-            Self::WeaponRight => &RigJointName::R_WEAPON,
+            Self::Root => RigJointName::BODY_WORLD,
+            Self::Pelvis => RigJointName::ROOT,
+            Self::StomachOne => RigJointName::C_SPINE0,
+            Self::StomachTwo => RigJointName::C_SPINE1,
+            Self::StomachThree => RigJointName::C_SPINE2,
+            Self::Chest => RigJointName::C_SPINE3,
+            Self::NeckOne => RigJointName::C_NECK,
+            Self::Head => RigJointName::C_HEAD,
+            Self::Camera => RigJointName::C_CAMERA,
+            Self::ClavicleLeft => RigJointName::L_CLAVICLE,
+            Self::ClavicleRight => RigJointName::R_CLAVICLE,
+            Self::ThighLeft => RigJointName::L_UPLEG,
+            Self::ShinLeft => RigJointName::L_LOWLEG,
+            Self::FootLeft => RigJointName::L_FOOT,
+            Self::ToeLeft => RigJointName::L_BALL,
+            Self::ThighRight => RigJointName::R_UPLEG,
+            Self::ShinRight => RigJointName::R_LOWLEG,
+            Self::FootRight => RigJointName::R_FOOT,
+            Self::ToeRight => RigJointName::R_BALL,
+            Self::UpperArmLeft => RigJointName::L_UPARM,
+            Self::ForearmLeft => RigJointName::L_LOWARM,
+            Self::HandLeft => RigJointName::L_WRIST,
+            Self::WeaponLeft => RigJointName::L_WEAPON,
+            Self::UpperArmRight => RigJointName::R_UPARM,
+            Self::ForearmRight => RigJointName::R_LOWARM,
+            Self::HandRight => RigJointName::R_WRIST,
+            Self::WeaponRight => RigJointName::R_WEAPON,
         }
     }
 
     pub(crate) fn from_name(name: &RigJointName) -> Option<Self> {
-        Self::ALL.into_iter().find(|role| role.joint_name() == name)
+        Self::ALL
+            .into_iter()
+            .find(|role| &role.joint_name() == name)
     }
 }
 
