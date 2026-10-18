@@ -1,6 +1,8 @@
 //! Compute bindings are reflected before choosing a dispatch pipeline layout.
 use super::*;
-use crate::data::gpu::shader::{BindGroupReflection, BufferBinding, TextureBinding, UniformMember};
+use crate::data::gpu::shader::{
+    BindGroupReflection, BufferBinding, ShaderSource, TextureBinding, UniformMember,
+};
 use std::collections::BTreeMap;
 
 pub(super) struct ReflectedInterface {
@@ -14,7 +16,7 @@ struct GroupBuilder {
 }
 
 impl ReflectedInterface {
-    pub(super) fn new(context: &WgpuContext, code: &str) -> Result<Self> {
+    pub(super) fn new(context: &WgpuContext, code: &ShaderSource<'_>) -> Result<Self> {
         let module = parse_naga(code, wgpu::naga::ShaderStage::Compute)
             .map_err(|e| anyhow!("Compute Shader Parse Error for Reflection: {e}"))?;
         let entry = module
