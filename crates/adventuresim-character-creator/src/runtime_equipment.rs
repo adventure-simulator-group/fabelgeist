@@ -13,9 +13,7 @@ use crate::{
 };
 use anyhow::{Context, Result, bail};
 use clothing::RuntimeClothing;
-use fabelgeist_armor::{
-    ArmorGpu, BracerDesign, BreastplateDesign, GeneratedArmor, parametric_design_hash,
-};
+use fabelgeist_armor::{ArmorGpu, BracerDesign, BreastplateDesign, GeneratedArmor};
 use fabelgeist_rig::RigJointName;
 use std::sync::LazyLock;
 pub use warmup::{WarmupReport, warm_up};
