@@ -35,6 +35,7 @@ pub fn check_repository(
     let mut findings = Vec::new();
     let mut literals = Vec::new();
     let mut calendar_diagnostics = Vec::new();
+    let mut epsilon_files = Vec::new();
     let mut seen_items: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
 
     for entry in WalkDir::new(root.join("crates")) {
@@ -52,8 +53,11 @@ pub fn check_repository(
             .map_err(|error| format!("cannot read {relative}: {error}"))?;
         let syntax = syn::parse_file(&source)
             .map_err(|error| format!("cannot parse {relative}: {error}"))?;
-        findings.extend(float_epsilon::check_file(&relative, &syntax));
         if test_file(&relative) {
+            epsilon_files.push(float_epsilon::ParsedFile {
+                path: relative,
+                syntax,
+            });
             continue;
         }
         calendar_diagnostics.extend(calendar_flow::check_file(&relative, &syntax));
@@ -62,9 +66,14 @@ pub fn check_repository(
         functions.extend(result.functions);
         findings.extend(result.findings);
         literals.extend(result.literals);
-        seen_items.insert(relative, result.seen_items);
+        seen_items.insert(relative.clone(), result.seen_items);
+        epsilon_files.push(float_epsilon::ParsedFile {
+            path: relative,
+            syntax,
+        });
     }
 
+    findings.extend(float_epsilon::check_files(&epsilon_files));
     let grouped_findings = group_findings(&findings);
     let mut diagnostics = manifests::check(root)?;
     diagnostics.extend(calendar_diagnostics);
@@ -488,6 +497,82 @@ mod tests {
         assert!(report.diagnostics[0].contains(float_epsilon::RULE));
         assert!(report.snapshot.files.is_empty());
         assert!(report.snapshot.functions.is_empty());
+    }
+
+    #[test]
+    fn epsilon_provenance_crosses_reexports_test_files_and_macro_definitions() {
+        let root = std::env::temp_dir().join(format!(
+            "fabelgeist-epsilon-reexports-{}",
+            std::process::id()
+        ));
+        fs::create_dir_all(root.join("crates/example/src")).unwrap();
+        fs::create_dir_all(root.join("crates/example/tests")).unwrap();
+        fs::write(
+            root.join("Cargo.toml"),
+            "[workspace]\nmembers = []\n[workspace.lints.clippy]\nall = 'warn'\n",
+        )
+        .unwrap();
+        // Create consumers first and reverse the alias chain's lexical order.
+        // Neither filesystem order nor the containing syntax tree determines
+        // the imported module's provenance.
+        for (path, source) in [
+            (
+                "src/lib.rs",
+                r#"
+                mod floats; mod bridge; mod macros;
+                use bridge::number::*;
+                pub fn near_zero(x: f32) -> bool { x <= EPSILON }
+            "#,
+            ),
+            (
+                "tests/numeric.rs",
+                r#"
+                use example::bridge::number::*;
+                #[test] fn boundary() { assert!(value <= EPSILON); }
+            "#,
+            ),
+            (
+                "src/macros.rs",
+                r#"
+                macro_rules! reexported {
+                    ($x:expr) => {{ use crate::bridge::number::*; $x <= EPSILON }};
+                }
+                macro_rules! another_alias {
+                    ($x:expr) => {{ use core::f64 as double; use double::*; $x <= EPSILON }};
+                }
+                macro_rules! grouped {
+                    ($x:expr) => {{ use std::f32::{EPSILON as error}; $x <= error }};
+                }
+            "#,
+            ),
+            ("src/bridge.rs", "pub use crate::floats::single as number;"),
+            ("src/floats.rs", "pub use std::f32 as single;"),
+        ] {
+            fs::write(root.join("crates/example").join(path), source).unwrap();
+        }
+        let config: Config = toml::from_str("file_limit = 500\nfunction_limit = 100\n").unwrap();
+        let report = check_repository(&root, &config, &Baseline::default()).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+        assert_eq!(report.diagnostics.len(), 5, "{:?}", report.diagnostics);
+        assert!(
+            report
+                .diagnostics
+                .iter()
+                .all(|diagnostic| diagnostic.contains(float_epsilon::RULE))
+        );
+        for path in ["src/lib.rs", "src/macros.rs", "tests/numeric.rs"] {
+            assert!(
+                report
+                    .diagnostics
+                    .iter()
+                    .any(|diagnostic| diagnostic.contains(path)),
+                "{path}"
+            );
+        }
+        assert!(
+            report.snapshot.findings.is_empty(),
+            "epsilon cannot be baselined"
+        );
     }
 
     #[test]

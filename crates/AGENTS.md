@@ -153,7 +153,9 @@ governed by the repository-root generation rule instead.
   decimal tolerance.
 - `fabelgeist-rust-quality` checks machine-epsilon references in production
   code, tests, and macros. It also rejects float-module glob imports, including
-  module aliases, because they can conceal bare `EPSILON` references.
+  module aliases, because they can conceal bare `EPSILON` references. Import
+  scanning includes macro definitions and assertions; alias provenance is
+  collected across scanned first-party files, including module re-exports.
   Valid precision calculations require an exact
   `machine-epsilon` exception in `rust-quality.toml`, including the owning item,
   fingerprint, occurrence count, and numerical justification. Fixture and

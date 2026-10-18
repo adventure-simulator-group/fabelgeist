@@ -8,19 +8,32 @@ use syn::{ImplItemFn, Item, ItemImpl, ItemMod, Macro, visit::Visit};
 
 use crate::scan::Finding;
 
+mod imports;
+
 pub const RULE: &str = "machine-epsilon";
 const EPSILON_MEMBER: &str = "EPSILON";
-const SELF_IMPORT: &str = "self";
+
+pub struct ParsedFile {
+    pub path: String,
+    pub syntax: syn::File,
+}
 
 struct EpsilonReferences<'a> {
     path: &'a str,
     owners: Vec<String>,
     findings: Vec<Finding>,
-    float_modules: HashSet<String>,
+    float_modules: &'a HashSet<String>,
+    locations: HashSet<(usize, usize)>,
 }
 
 impl EpsilonReferences<'_> {
     fn record(&mut self, span: Span) {
+        let location = span.start();
+        // Macro imports are inspected as syntax and as tokens. Their source
+        // identifier still represents one occurrence, even in a grouped use.
+        if !self.locations.insert((location.line, location.column)) {
+            return;
+        }
         self.findings.push(Finding {
             rule: RULE.into(),
             path: self.path.into(),
@@ -47,6 +60,29 @@ impl EpsilonReferences<'_> {
             colon = matches!(&token, TokenTree::Punct(punct) if punct.as_char() == ':');
         }
     }
+
+    fn import(&mut self, tree: &syn::UseTree, module: &str) {
+        // Report imports before they can hide precision behind a local name.
+        match tree {
+            syn::UseTree::Path(path) => self.import(&path.tree, &path.ident.to_string()),
+            syn::UseTree::Name(name) if name.ident == EPSILON_MEMBER => {
+                self.record(name.ident.span())
+            }
+            syn::UseTree::Rename(name) if name.ident == EPSILON_MEMBER => {
+                self.record(name.ident.span())
+            }
+            syn::UseTree::Group(group) => group
+                .items
+                .iter()
+                .for_each(|tree| self.import(tree, module)),
+            syn::UseTree::Glob(glob) if self.float_modules.contains(module) => {
+                // A float-module glob can conceal bare EPSILON in expressions
+                // and macros. Reject the import itself, including its aliases.
+                self.record(glob.star_token.span);
+            }
+            _ => {}
+        }
+    }
 }
 
 impl<'ast> Visit<'ast> for EpsilonReferences<'_> {
@@ -57,6 +93,7 @@ impl<'ast> Visit<'ast> for EpsilonReferences<'_> {
             Item::Static(item) => Some(item.ident.to_string()),
             Item::Trait(item) => Some(item.ident.to_string()),
             Item::Type(item) => Some(item.ident.to_string()),
+            Item::Macro(item) => item.ident.as_ref().map(ToString::to_string),
             _ => None,
         };
         if let Some(name) = name {
@@ -129,95 +166,45 @@ impl<'ast> Visit<'ast> for EpsilonReferences<'_> {
     }
 
     fn visit_item_use(&mut self, item: &'ast syn::ItemUse) {
-        // An aliased import is reported at its source, before it can hide the
-        // precision parameter behind a local tolerance name.
-        fn imports(checker: &mut EpsilonReferences<'_>, tree: &syn::UseTree, module: &str) {
-            match tree {
-                syn::UseTree::Path(path) => imports(checker, &path.tree, &path.ident.to_string()),
-                syn::UseTree::Name(name) if name.ident == EPSILON_MEMBER => {
-                    checker.record(name.ident.span())
-                }
-                syn::UseTree::Rename(name) if name.ident == EPSILON_MEMBER => {
-                    checker.record(name.ident.span())
-                }
-                syn::UseTree::Group(group) => group
-                    .items
-                    .iter()
-                    .for_each(|tree| imports(checker, tree, module)),
-                syn::UseTree::Glob(glob) if checker.float_modules.contains(module) => {
-                    // A float-module glob brings EPSILON into scope, where
-                    // ordinary paths and macro tokens can hide its origin.
-                    // Reject the import itself, including aliases of it.
-                    checker.record(glob.star_token.span);
-                }
-                _ => {}
-            }
-        }
-        imports(self, &item.tree, "");
+        self.import(&item.tree, "");
     }
 
     fn visit_macro(&mut self, item: &'ast Macro) {
+        for import in imports::token_imports(item.tokens.clone()) {
+            self.import(&import.tree, "");
+        }
         self.tokens(item.tokens.clone());
     }
 }
 
+pub fn check_files(files: &[ParsedFile]) -> Vec<Finding> {
+    let float_modules = imports::float_module_aliases(files.iter().map(|file| &file.syntax));
+    files
+        .iter()
+        .flat_map(|file| check_with_modules(&file.path, &file.syntax, &float_modules))
+        .collect()
+}
+
+#[cfg(test)]
 pub fn check_file(path: &str, syntax: &syn::File) -> Vec<Finding> {
+    let float_modules = imports::float_module_aliases([syntax]);
+    check_with_modules(path, syntax, &float_modules)
+}
+
+fn check_with_modules(
+    path: &str,
+    syntax: &syn::File,
+    float_modules: &HashSet<String>,
+) -> Vec<Finding> {
     let mut checker = EpsilonReferences {
         path,
         owners: Vec::new(),
         findings: Vec::new(),
-        float_modules: float_module_aliases(syntax),
+        float_modules,
+        locations: HashSet::new(),
     };
     checker.visit_file(syntax);
     checker.findings
-}
-
-fn float_module_aliases(syntax: &syn::File) -> HashSet<String> {
-    #[derive(Default)]
-    struct Imports(Vec<(String, String)>);
-
-    impl<'ast> Visit<'ast> for Imports {
-        fn visit_item_use(&mut self, item: &'ast syn::ItemUse) {
-            fn aliases(imports: &mut Imports, tree: &syn::UseTree, module: &str) {
-                match tree {
-                    syn::UseTree::Path(path) => {
-                        aliases(imports, &path.tree, &path.ident.to_string())
-                    }
-                    syn::UseTree::Group(group) => group
-                        .items
-                        .iter()
-                        .for_each(|tree| aliases(imports, tree, module)),
-                    syn::UseTree::Rename(rename) => {
-                        let source = if rename.ident == SELF_IMPORT {
-                            module.to_string()
-                        } else {
-                            rename.ident.to_string()
-                        };
-                        imports.0.push((source, rename.rename.to_string()));
-                    }
-                    _ => {}
-                }
-            }
-            aliases(self, &item.tree, "");
-        }
-    }
-
-    let mut imports = Imports::default();
-    imports.visit_file(syntax);
-    let mut modules = HashSet::from(["f32".into(), "f64".into()]);
-    // Rust imports are independent of declaration order. Resolve chained
-    // aliases to a fixed point before checking any glob import.
-    loop {
-        let previous = modules.len();
-        for (source, alias) in &imports.0 {
-            if modules.contains(source) {
-                modules.insert(alias.clone());
-            }
-        }
-        if modules.len() == previous {
-            return modules;
-        }
-    }
 }
 
 #[cfg(test)]
@@ -312,11 +299,89 @@ mod tests {
     }
 
     #[test]
+    fn checks_imports_in_macro_definitions_and_assertion_arguments() {
+        let syntax = syn::parse_file(
+            r#"
+            macro_rules! glob {
+                ($x:expr) => {{ use std::f32::*; $x <= EPSILON }};
+            }
+            macro_rules! grouped {
+                ($x:expr) => {{ use core::f64::{EPSILON}; $x <= EPSILON }};
+            }
+            macro_rules! renamed {
+                ($x:expr) => {{ use std::{f32::{EPSILON as error}}; $x <= error }};
+            }
+            macro_rules! qualified {
+                ($x:expr) => {{ use std::f32::EPSILON as error; $x <= error }};
+            }
+            macro_rules! aliased_module {
+                ($x:expr) => {{ use core::f32 as number; use number::*; $x <= EPSILON }};
+            }
+            fn assertion(x: f32) {
+                assert!({ use std::f32::{EPSILON}; x > EPSILON });
+            }
+        "#,
+        )
+        .unwrap();
+        let findings = check_file("crates/example/src/lib.rs", &syntax);
+        assert_eq!(findings.len(), 6, "{findings:#?}");
+        assert_eq!(
+            findings
+                .iter()
+                .map(|finding| finding.item.as_str())
+                .collect::<Vec<_>>(),
+            [
+                "glob",
+                "grouped",
+                "renamed",
+                "qualified",
+                "aliased_module",
+                "assertion"
+            ]
+        );
+    }
+
+    #[test]
+    fn macro_import_occurrences_count_source_identifiers_once() {
+        let syntax = syn::parse_file(
+            r#"
+            macro_rules! direct {
+                () => {{ use std::f32::EPSILON; EPSILON }};
+            }
+            macro_rules! grouped {
+                () => {{ use std::f32::{EPSILON, EPSILON as second}; EPSILON + second }};
+            }
+            macro_rules! unrelated {
+                () => {{ const EPSILON: f32 = 0.5; EPSILON }};
+            }
+        "#,
+        )
+        .unwrap();
+        let findings = check_file("crates/example/src/lib.rs", &syntax);
+        assert_eq!(findings.len(), 3, "{findings:#?}");
+        assert_eq!(
+            findings
+                .iter()
+                .filter(|finding| finding.item == "direct")
+                .count(),
+            1
+        );
+        assert_eq!(
+            findings
+                .iter()
+                .filter(|finding| finding.item == "grouped")
+                .count(),
+            2
+        );
+    }
+
+    #[test]
     fn ignores_comments_strings_and_adjacent_float_boundaries() {
         let syntax = syn::parse_file(
             r#"
             // f32::EPSILON
             const DOCUMENTATION: &str = "f64::EPSILON";
+            macro_rules! documentation { () => { "use std::f32::*; EPSILON" }; }
             fn sample(value: f32) -> f32 { value.clamp(0.0_f32.next_up(), 1.0_f32.next_down()) }
         "#,
         )
