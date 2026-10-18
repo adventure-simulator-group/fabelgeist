@@ -373,8 +373,8 @@ fn update_grab_input(
         held.is_some(),
         world_targets.pointed(actor_transform),
     );
-    let held_item = HeldPreviewItem::from(held.and_then(|entity| properties.get(entity).ok()));
-    slot_selection::keyboard_slots(&mut session, &keys, held_item, |location| {
+    let held_preview = HeldPreviewItem::from(held.and_then(|entity| properties.get(entity).ok()));
+    slot_selection::keyboard_slots(&mut session, &keys, held_preview, |location| {
         ordered_preview_at_location(actor, location, &topologies)
     });
     let released = match hand {
