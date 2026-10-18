@@ -233,7 +233,10 @@ mod tests {
     use super::*;
     #[test]
     fn occupied_storey_indices_classify_roles_and_reject_absent_storeys() {
-        let mut program = BuildingProgram::fixture(BuildingArchetype::TownHouse, 11);
+        let mut program = BuildingProgram::fixture(
+            BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(11),
+        );
         program.domestic_heating = Some(DomesticHeatingProgramme::HearthAndRearFedStove);
         let upper = program.storeys[1].clone();
         program.storeys.extend([upper.clone(), upper]);

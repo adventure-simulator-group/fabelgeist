@@ -1,6 +1,7 @@
 //! Keep reusable litter prototypes on the CPU and upload only assembled batches.
 
 use super::*;
+use bevy::asset::RenderAssetUsages;
 
 pub(super) fn append_litter_batch(
     meshes: &bevy::prelude::Assets<Mesh>,
@@ -87,14 +88,15 @@ pub(super) fn spawn_batches(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use bevy::asset::RenderAssetUsages;
 
     #[test]
     fn prototypes_survive_between_scenes_while_batches_upload_only() {
         let mut meshes = bevy::prelude::Assets::<Mesh>::default();
         for prototype in [
-            dry_leaf_patch_mesh(0),
-            twig_patch_mesh(0),
-            woodland_plant_patch_mesh(0),
+            dry_leaf_patch_mesh(0).unwrap(),
+            twig_patch_mesh(0).unwrap(),
+            woodland_plant_patch_mesh(0).unwrap(),
         ] {
             assert_eq!(prototype.asset_usage, RenderAssetUsages::MAIN_WORLD);
             let source = meshes.add(prototype);

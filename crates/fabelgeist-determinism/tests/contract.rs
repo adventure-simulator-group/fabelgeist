@@ -153,3 +153,101 @@ fn empty_and_singleton_shuffles_and_float_endpoints() {
         1_f64.to_bits()
     );
 }
+
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen_test::wasm_bindgen_test)]
+#[cfg_attr(not(target_arch = "wasm32"), test)]
+fn producer_seeds_preserve_draw_slots_word_arithmetic_and_lattice_order() {
+    for root in [0, 42, 255, 256, u64::MAX] {
+        let mut words = Seed::from_u64(root).rng();
+        let mut seeds = words.clone();
+        for _ in 0..16 {
+            let word = words.next_u64();
+            let produced = seeds.next_seed();
+            assert_eq!(produced.to_u64(), word);
+            assert_eq!(
+                produced.unit_f32().to_bits(),
+                fabelgeist_determinism::unit_f32(word).to_bits()
+            );
+            assert_eq!(
+                produced.unit_f64().to_bits(),
+                fabelgeist_determinism::unit_f64(word).to_bits()
+            );
+            assert_eq!(
+                produced.inclusive_unit_f32().to_bits(),
+                fabelgeist_determinism::inclusive_unit_f32(word).to_bits()
+            );
+        }
+        let seed = Seed::from_u64(root);
+        assert_eq!(seed.wrapping_offset(1).to_u64(), root.wrapping_add(1));
+        assert_eq!(
+            seed.xor_word(0x6f62_7365_7276_6572).to_u64(),
+            root ^ 0x6f62_7365_7276_6572
+        );
+        assert_eq!(seed.to_string(), root.to_string());
+        assert_eq!(format!("{seed:016x}"), format!("{root:016x}"));
+        assert_eq!(root.to_string().parse::<Seed>().unwrap(), seed);
+    }
+    let words = [u64::MAX, 256, 1, 255, 65_536, 65_535];
+    let mut seeds = words.map(Seed::from_u64);
+    let mut expected = words;
+    seeds.sort();
+    expected.sort();
+    assert_eq!(seeds.map(Seed::to_u64), expected);
+}
+
+#[cfg(feature = "spacetimedb")]
+#[test]
+fn database_seed_schema_retains_its_record_and_draw_slots() {
+    use spacetimedb_sats::{AlgebraicType, SpacetimeType, bsatn, typespace::TypespaceBuilder};
+    struct Schema;
+    impl TypespaceBuilder for Schema {
+        fn add(
+            &mut self,
+            _type_id: std::any::TypeId,
+            name: Option<&'static str>,
+            make_type: impl FnOnce(&mut Self) -> AlgebraicType,
+        ) -> AlgebraicType {
+            assert_eq!(name, Some("Seed"));
+            make_type(self)
+        }
+    }
+    use rand08::Rng;
+    let AlgebraicType::Product(record) = Seed::make_type(&mut Schema) else {
+        panic!("Seed must be a named product rather than a primitive alias");
+    };
+    let [word_field] = record.elements.as_ref() else {
+        panic!("one root word");
+    };
+    assert_eq!(word_field.name.as_deref(), Some("word"));
+    assert_eq!(word_field.algebraic_type, AlgebraicType::U64);
+    for word in [0, 42, 255, 256, u64::MAX] {
+        let seed = Seed::from_u64(word);
+        let bytes = bsatn::to_vec(&seed).unwrap();
+        assert_eq!(bytes.len(), 8);
+        assert_eq!(bsatn::from_slice::<Seed>(&bytes).unwrap(), seed);
+        let mut native = rand08::rngs::mock::StepRng::new(word, 17);
+        let mut typed = rand08::rngs::mock::StepRng::new(word, 17);
+        for _ in 0..16 {
+            assert_eq!(typed.r#gen::<Seed>().to_u64(), native.r#gen::<u64>());
+        }
+    }
+}
+
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen_test::wasm_bindgen_test)]
+#[cfg_attr(not(target_arch = "wasm32"), test)]
+fn seed_documents_admit_only_the_final_record_shape() {
+    for word in [0, 42, u64::MAX] {
+        let seed = Seed::from_u64(word);
+        let document = serde_json::to_value(seed).unwrap();
+        assert_eq!(document, serde_json::json!({"word": word}));
+        assert_eq!(serde_json::from_value::<Seed>(document).unwrap(), seed);
+        assert!(serde_json::from_value::<Seed>(serde_json::json!(word)).is_err());
+    }
+    for document in [
+        serde_json::json!({}),
+        serde_json::json!({"word": -1}),
+        serde_json::json!({"word": 42, "other": 0}),
+    ] {
+        assert!(serde_json::from_value::<Seed>(document).is_err());
+    }
+}

@@ -223,7 +223,7 @@ impl Observation<'_, '_> {
             let Some((presented, _, transform)) = self.signs.iter().find(|(_, parent, _)| {
                 self.buildings
                     .get(parent.parent())
-                    .is_ok_and(|building| building.id.0 == id)
+                    .is_ok_and(|building| building.id == id)
             }) else {
                 return false;
             };

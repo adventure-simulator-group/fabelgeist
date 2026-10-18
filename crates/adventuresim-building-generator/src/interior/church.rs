@@ -74,7 +74,7 @@ mod tests {
 
     #[test]
     fn parish_furnishings_preserve_the_full_architectural_nave_aisle() {
-        for seed in [42, 47, 101] {
+        for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let program = BuildingProgram::fixture(BuildingArchetype::ParishChurch, seed);
             let plan = generate(&program).unwrap();
             let layout = furnish(&plan, &program).unwrap();

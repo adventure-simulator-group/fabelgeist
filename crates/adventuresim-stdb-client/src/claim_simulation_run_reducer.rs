@@ -4,12 +4,14 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::seed_type::Seed;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub(super) struct ClaimSimulationRunArgs {
     pub bootstrap_token: String,
     pub nonce: String,
-    pub policy_seed: u64,
+    pub policy_seed: Seed,
 }
 
 impl From<ClaimSimulationRunArgs> for super::Reducer {
@@ -41,7 +43,7 @@ pub trait claim_simulation_run {
         &self,
         bootstrap_token: String,
         nonce: String,
-        policy_seed: u64,
+        policy_seed: Seed,
     ) -> __sdk::Result<()> {
         self.claim_simulation_run_then(bootstrap_token, nonce, policy_seed, |_, _| {})
     }
@@ -56,7 +58,7 @@ pub trait claim_simulation_run {
         &self,
         bootstrap_token: String,
         nonce: String,
-        policy_seed: u64,
+        policy_seed: Seed,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,
@@ -71,7 +73,7 @@ impl claim_simulation_run for super::RemoteReducers {
         &self,
         bootstrap_token: String,
         nonce: String,
-        policy_seed: u64,
+        policy_seed: Seed,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,

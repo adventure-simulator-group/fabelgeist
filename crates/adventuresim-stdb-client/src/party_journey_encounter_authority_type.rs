@@ -4,11 +4,13 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::seed_type::Seed;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct PartyJourneyEncounterAuthority {
     pub party_id: String,
-    pub seed: u64,
+    pub seed: Seed,
     pub next_roll: u64,
     pub narrative_rest_elapsed_minutes: u64,
 }
@@ -22,7 +24,7 @@ impl __sdk::InModule for PartyJourneyEncounterAuthority {
 /// Provides typed access to columns for query building.
 pub struct PartyJourneyEncounterAuthorityCols {
     pub party_id: __sdk::__query_builder::Col<PartyJourneyEncounterAuthority, String>,
-    pub seed: __sdk::__query_builder::Col<PartyJourneyEncounterAuthority, u64>,
+    pub seed: __sdk::__query_builder::Col<PartyJourneyEncounterAuthority, Seed>,
     pub next_roll: __sdk::__query_builder::Col<PartyJourneyEncounterAuthority, u64>,
     pub narrative_rest_elapsed_minutes:
         __sdk::__query_builder::Col<PartyJourneyEncounterAuthority, u64>,

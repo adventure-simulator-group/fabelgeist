@@ -86,7 +86,6 @@ pub(super) fn vista_meshes(
             rectangle.positions.extend(
                 prepared
                     .in_rectangle(rectangle.minimum, rectangle.maximum)
-                    .into_iter()
                     .flatten()
                     .map(|p| p.to_array()),
             );

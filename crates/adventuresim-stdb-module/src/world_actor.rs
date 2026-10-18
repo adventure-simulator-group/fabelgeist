@@ -387,7 +387,7 @@ pub(crate) fn materialize_context_roster(
             ctx,
             "Pending generated name".into(),
             id,
-            id,
+            fabelgeist_determinism::Seed::from_u64(id),
             None,
         )?;
         crate::character::assign_generated_historical_name_for_age(
@@ -554,7 +554,7 @@ pub(crate) fn materialize_road_encounter_cast(
             ctx,
             speaker.name.clone(),
             character_id,
-            character_id,
+            fabelgeist_determinism::Seed::from_u64(character_id),
             Some(absolute_minute),
         )?;
         ctx.db

@@ -15,9 +15,9 @@ fn interior_furniture_restore_preserves_room_identity_and_rebuilds_rotated_colli
             FurnitureWoodState::Repaired,
         ),
         location: FurnitureLocation::Interior {
-            building_id: 81,
-            room_id: 7,
-            storey: 1,
+            building_id: 81.into(),
+            room_id: adventuresim_building_generator::RoomIndex::from_serialized(7),
+            storey: adventuresim_building_generator::StoreyIndex::from_serialized(1),
         },
     };
     let transform = Transform::from_xyz(5.0, 3.0, 7.0)

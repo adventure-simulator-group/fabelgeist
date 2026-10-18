@@ -2,7 +2,7 @@
 use super::Contract;
 use adventuresim_tactical_core::scene_input::{
     GeneratedBoundary, GeneratedBuilding, GeneratedBuildingRecipe, GeneratedTacticalScene,
-    SceneGarden, SceneInputError, TacticalSceneInput,
+    SceneGarden, SceneInputError, SceneValidationError, TacticalSceneInput,
 };
 use std::collections::BTreeSet;
 
@@ -40,9 +40,10 @@ impl Contract {
                 .map(Ok)
                 .unwrap_or_else(|| GeneratedBuildingRecipe::generate(placement.program.clone()))
                 .map_err(|error| {
-                    SceneInputError::Validation(format!(
-                        "capture building {id} program is invalid: {error}"
-                    ))
+                    SceneInputError::Validation(SceneValidationError::BuildingProgram {
+                        building: id,
+                        source: error,
+                    })
                 })?;
             promoted.push(GeneratedBuilding {
                 placement,

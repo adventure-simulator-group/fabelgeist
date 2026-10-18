@@ -282,7 +282,9 @@ fn materialize_requested_scene(
                                         ordinal: operator.business_id.key.ordinal,
                                     },
                                 ),
-                            operator_character_id: operator.operator_character_id,
+                            operator_character_id: adventuresim_tactical_core::player::CharacterId(
+                                operator.operator_character_id,
+                            ),
                             operator_name,
                         })
                     })

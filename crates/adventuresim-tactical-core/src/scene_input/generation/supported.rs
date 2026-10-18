@@ -35,9 +35,9 @@ impl TacticalSceneInput {
                 &terrain,
                 &self.vista,
             )
-            .ok_or_else(|| {
-                SceneInputError::Validation("geographic support source is invalid".into())
-            })?;
+            .ok_or(SceneInputError::Validation(
+                SceneValidationError::GeographicSupport,
+            ))?;
             let support = projection.reconstruct(&source, &self.physical_placements())?;
             terrain = terrain.with_property_surface(support);
         }

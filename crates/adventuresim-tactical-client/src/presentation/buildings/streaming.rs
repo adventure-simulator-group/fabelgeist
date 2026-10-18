@@ -70,8 +70,9 @@ impl PendingCityBuildings {
         self.placements.make_contiguous().sort_by(|a, b| {
             a.placement
                 .centre_metres
+                .metres()
                 .distance_squared(focus)
-                .total_cmp(&b.placement.centre_metres.distance_squared(focus))
+                .total_cmp(&b.placement.centre_metres.metres().distance_squared(focus))
         });
     }
 
@@ -144,7 +145,12 @@ mod tests {
     fn camera_movement_prioritizes_nearby_unfinished_buildings() {
         let mut placements = placements();
         for (index, placement) in placements.iter_mut().enumerate() {
-            placement.centre_metres = Vec2::new(index as f32 * 100.0, 0.0);
+            placement.centre_metres =
+                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(
+                    index as f32 * 100.0,
+                    0.0,
+                ))
+                .unwrap();
         }
         let mut pending = PendingCityBuildings::new(&placements, &[]);
         pending.prioritize(Vec2::new(200.0, 0.0));
@@ -166,7 +172,7 @@ pub(super) struct CityBuildingAssets<'w> {
     materials: Res<'w, TacticalBuildingMaterials>,
     cache: ResMut<'w, TacticalBuildingMeshCache>,
     signs: signs::SignAssets<'w>,
-    pub(super) gpu: ResMut<'w, gpu::PendingGpuBuildings>,
+    pub(super) gpu: ResMut<'w, gpu::PendingGpuCities>,
 }
 
 impl CityBuildingAssets<'_> {
@@ -178,27 +184,41 @@ impl CityBuildingAssets<'_> {
         detail: BuildingDetail,
     ) -> Result<bool> {
         let program = placement.occupied_program();
-        let compiled =
-            cached_building_levels(&mut self.cache, &program, detail, &mut self.meshes, None)?;
+        let compiled = cached_building_levels(
+            PresentationOwner::Scene,
+            &mut self.cache,
+            &program,
+            detail,
+            &mut self.meshes,
+            None,
+        )?;
         let transform = Transform::from_xyz(
-            placement.centre_metres.x,
-            placement.base_elevation_metres + compiled.local_origin.metres().y,
-            placement.centre_metres.y,
+            placement.centre_metres.metres().x,
+            placement.base_elevation_metres.metres() + compiled.local_origin.metres().y,
+            placement.centre_metres.metres().y,
         )
         .with_rotation(Quat::from_rotation_y(placement.orientation.yaw_radians()));
         let mut entity = commands.spawn((
             Name::new(format!("Distant city building {}", placement.id)),
             DistantCityBuildingPresentation,
+            crate::presentation::ownership::PresentationOwner::Scene,
             Visibility::default(),
             transform,
         ));
         self.gpu
-            .push(entity.id(), &transform, *placement, &compiled);
+            .owners
+            .get_mut(crate::presentation::ownership::PresentationOwner::Scene)
+            .push(
+                entity.id(),
+                &transform,
+                gpu::PlacementAppearance::Distant(*placement),
+                &compiled,
+            );
         entity.with_children(|parent| {
             let sign = establishment.and_then(|establishment| {
                 establishment.shop_name.clone().and_then(|name| {
                     adventuresim_building_generator::signs::ShopSign::for_establishment(
-                        adventuresim_building_generator::signs::EstablishmentId(placement.id),
+                        adventuresim_building_generator::signs::EstablishmentId(placement.id.0),
                         establishment.business_id.key.usage,
                         name,
                     )
@@ -243,6 +263,10 @@ pub(super) fn present(
         // Drop those temporary CPU plans once all city meshes are resident.
         assets.cache.recipes.clear();
         #[cfg(target_family = "wasm")]
-        super::super::generation::release_unused_facades();
+        if let Err(error) = super::super::generation::release_unused_facades(
+            crate::presentation::ownership::PresentationOwner::Scene,
+        ) {
+            warn!(%error, "Could not release temporary generated facades");
+        }
     }
 }

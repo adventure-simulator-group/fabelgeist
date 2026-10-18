@@ -5,7 +5,7 @@ use fabelgeist_determinism::StreamId;
 
 const COLUMN_SPACING_METRES: f32 = 2.4;
 
-pub(super) fn front(along: f32, seed: u64) -> f32 {
+pub(super) fn front(along: f32, seed: fabelgeist_determinism::Seed) -> f32 {
     let phase = StreamId::new("terrain.basalt.phase")
         .rng(seed, &[])
         .inclusive_unit_f32()

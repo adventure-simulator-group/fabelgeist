@@ -2,11 +2,9 @@ use core::f32;
 
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
 use avian3d::prelude::*;
-use bevy::platform::hash::RandomState;
 use bevy::prelude::*;
 use noiz::prelude::*;
 use serde::{Deserialize, Serialize};
-use std::hash::BuildHasher;
 
 #[cfg(test)]
 use crate::terrain_transition::TerrainTransitionCollar;
@@ -16,13 +14,13 @@ use crate::terrain_transition::TerrainTransitionCollar;
 /// captures from approximating a different surface than gameplay uses.
 #[derive(Debug, Clone)]
 pub struct TerrainGenerator {
-    pub seed: u32,
+    pub seed: fabelgeist_determinism::Seed,
     pub period: f32,
     pub grid_scale: f32,
 }
 
 impl TerrainGenerator {
-    pub fn new(seed: u32) -> Self {
+    pub fn new(seed: fabelgeist_determinism::Seed) -> Self {
         Self {
             seed,
             period: 30.0,
@@ -30,11 +28,12 @@ impl TerrainGenerator {
         }
     }
 
-    pub fn from_hash(hash: impl std::hash::Hash) -> Self {
-        Self::new(RandomState::default().hash_one(&hash) as u32)
-    }
-
-    pub fn generate(self, width: usize, height: usize, depth: usize) -> SceneTerrain {
+    pub fn generate(
+        self,
+        width: usize,
+        height: usize,
+        depth: usize,
+    ) -> Result<SceneTerrain, TerrainAdmissionError> {
         let mut noise = Noise::from(LayeredNoise::new(
             Normed::<f32>::default(),
             Persistence(0.5),
@@ -44,7 +43,8 @@ impl TerrainGenerator {
                 amount: 8,
             },
         ));
-        noise.set_seed(self.seed);
+        // Noiz owns a 32-bit native seed port; preserve the original low word.
+        noise.set_seed(self.seed.to_u64() as u32);
         noise.set_period(self.period);
 
         SceneTerrain::new(width, depth, self.grid_scale, move |location| {
@@ -63,12 +63,15 @@ pub struct SceneId(pub String);
 mod ground;
 pub use ground::*;
 pub(crate) mod grade;
-pub use grade::TerrainGradeError;
+pub use grade::{TerrainGradeError, TerrainGradeLimit};
+mod admission;
+pub use admission::TerrainAdmissionError;
 mod property_support;
 use property_support::TerrainGeometry;
 
-#[derive(Component, Serialize, Deserialize, Default, Debug, Reflect, Clone, PartialEq)]
-#[reflect(Component)]
+#[derive(Component, Serialize, Deserialize, Debug, Reflect, Clone, PartialEq)]
+#[reflect(opaque, Component)]
+#[serde(try_from = "admission::TerrainWire")]
 pub struct SceneTerrain {
     heightmap: Vec<f32>,
     width: usize,
@@ -95,43 +98,50 @@ impl SceneTerrain {
         scale: f32,
         heightmap: Vec<f32>,
     ) -> Option<Self> {
-        if grid_width < 2
-            || grid_depth < 2
-            || !scale.is_finite()
-            || scale <= 0.0
-            || heightmap.len() != grid_width.checked_mul(grid_depth)?
-            || heightmap.iter().any(|height| !height.is_finite())
-        {
-            return None;
-        }
-        Some(Self {
+        let terrain = Self {
             heightmap,
             width: grid_width,
             scale,
             coarse_stride: 1,
             geometry: TerrainGeometry::Sampled,
-        })
+        };
+        if terrain.grid_depth_checked()? != grid_depth {
+            return None;
+        }
+        terrain.validate().ok()?;
+        Some(terrain)
     }
 
-    pub fn new(width: usize, depth: usize, scale: f32, op: impl Fn(Vec2) -> f32) -> Self {
-        // number of points = segments + 1
-        let width = width + 1;
-        let depth = depth + 1;
-
-        let heightmap = (0..(width * depth))
-            .map(move |i| {
-                let coords = Vec2::new((i % width) as f32, (i / width) as f32);
-                op(coords)
-            })
+    /// Native row-major sampling boundary; dimensions count cells and the
+    /// callback returns metres. Admission completes before any mesh/query use.
+    pub fn new(
+        width: usize,
+        depth: usize,
+        scale: f32,
+        op: impl Fn(Vec2) -> f32,
+    ) -> Result<Self, TerrainAdmissionError> {
+        let width = width
+            .checked_add(1)
+            .ok_or(TerrainAdmissionError::Dimensions)?;
+        let depth = depth
+            .checked_add(1)
+            .ok_or(TerrainAdmissionError::Dimensions)?;
+        let count = width
+            .checked_mul(depth)
+            .ok_or(TerrainAdmissionError::Dimensions)?;
+        admission::validate_dimensions(width, depth, scale, 1)?;
+        let heightmap = (0..count)
+            .map(|i| op(Vec2::new((i % width) as f32, (i / width) as f32)))
             .collect();
-
-        Self {
+        let terrain = Self {
             width,
             heightmap,
             scale,
             coarse_stride: 1,
             geometry: TerrainGeometry::Sampled,
-        }
+        };
+        terrain.validate()?;
+        Ok(terrain)
     }
 
     /// Refines every coarse cell by an integer factor and evaluates one
@@ -160,6 +170,7 @@ impl SceneTerrain {
         let width = cells_x.checked_add(1)?;
         let depth = cells_z.checked_add(1)?;
         let scale = self.scale / subdivisions as f32;
+        admission::validate_dimensions(width, depth, scale, subdivisions).ok()?;
         let half_extent = Vec2::new(self.width(), self.depth()) * 0.5;
         let mut heights = Vec::with_capacity(width.checked_mul(depth)?);
         for z in 0..depth {
@@ -173,13 +184,15 @@ impl SceneTerrain {
                 heights.push(height);
             }
         }
-        Some(Self {
+        let terrain = Self {
             heightmap: heights,
             width,
             scale,
             coarse_stride: subdivisions,
             geometry: TerrainGeometry::Sampled,
-        })
+        };
+        terrain.validate().ok()?;
+        Some(terrain)
     }
 
     pub fn grid_width(&self) -> usize {
@@ -208,7 +221,10 @@ impl SceneTerrain {
 
     /// Constrain the actual rendered/collision triangle gradients. Already valid
     /// relief retains its bits; owned support is never rewritten by this repair.
-    pub fn constrain_max_grade(&mut self, maximum_grade: f32) -> Result<(), TerrainGradeError> {
+    pub fn constrain_max_grade(
+        &mut self,
+        maximum_grade: grade::TerrainGradeLimit,
+    ) -> Result<(), TerrainGradeError> {
         if !matches!(self.geometry, TerrainGeometry::Sampled) {
             return Err(TerrainGradeError::OwnedSurface);
         }
@@ -218,7 +234,7 @@ impl SceneTerrain {
             self.width,
             depth,
             self.scale,
-            maximum_grade,
+            maximum_grade.ratio(),
         )
     }
 
@@ -352,12 +368,14 @@ impl SceneTerrain {
 
     /// Install each shape on its own static body. Owned foundation compounds
     /// and the natural trimesh cannot be nested in one composite collider.
-    pub fn colliders(&self) -> Vec<Collider> {
+    pub fn colliders(
+        &self,
+    ) -> Result<Vec<Collider>, crate::city_layout::grounding::SupportColliderError> {
         match &self.geometry {
-            TerrainGeometry::Sampled => vec![Collider::heightfield(
+            TerrainGeometry::Sampled => Ok(vec![Collider::heightfield(
                 self.collider_height_matrix(),
                 Vec3::new(self.width(), 1.0, self.depth()),
-            )],
+            )]),
             TerrainGeometry::Owned(surface) => surface.colliders(),
         }
     }
@@ -481,18 +499,36 @@ mod tests {
 
     #[test]
     fn transition_collar_removes_only_the_heightfield_interior() {
-        let terrain = SceneTerrain::new(10, 10, 1.0, |_| 0.0);
-        let collar = TerrainTransitionCollar::irregular_ellipse(
-            Vec2::ZERO,
-            Vec2::X,
-            3.0,
-            3.0,
-            1.0,
-            0,
-            0.0,
-            0,
-        )
-        .unwrap();
+        let terrain = SceneTerrain::new(10, 10, 1.0, |_| 0.0).unwrap();
+        let collar =
+            TerrainTransitionCollar::irregular_ellipse(crate::prelude::TerrainCollarParameters {
+                origin: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::ZERO).unwrap(),
+                tangent:
+                    adventuresim_building_generator::spatial_geometry::PlanDirection::from_vector(
+                        Vec2::X,
+                    )
+                    .unwrap(),
+                half_length:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        3.0,
+                    )
+                    .unwrap(),
+                half_width:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        3.0,
+                    )
+                    .unwrap(),
+                width:
+                    adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(
+                        1.0,
+                    )
+                    .unwrap(),
+                seed: 0.into(),
+                wander: crate::prelude::RuptureWander::from_metres(0.0).unwrap(),
+                width_variation: crate::prelude::CollarWidthVariation::from_basis_points(0)
+                    .unwrap(),
+            })
+            .unwrap();
         let (_, full_indices, _) = terrain.mesh_components_with_stride(1);
         let (positions, cut_indices, _) =
             terrain.mesh_components_with_stride_and_transition(1, collar);
@@ -504,13 +540,31 @@ mod tests {
                 .map(|&index| Vec3::from_array(positions[index as usize]))
                 .sum::<Vec3>()
                 / 3.0;
-            assert!(!collar.cuts_out(Vec2::new(centre.x, centre.z)));
+            assert!(
+                !crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(centre.x, centre.z))
+                    .is_ok_and(|point| collar.cuts_out(point))
+            );
         }
-        assert!(collar.cuts_out(Vec2::ZERO));
-        assert!(collar.cuts_out(Vec2::new(2.5, 0.0)));
-        assert!(!collar.cuts_out(Vec2::new(3.0, 0.0)));
-        assert!(collar.contains(Vec2::new(2.5, 0.0)));
-        assert!(!collar.contains(Vec2::splat(2.5)));
+        assert!(
+            crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::ZERO)
+                .is_ok_and(|point| collar.cuts_out(point))
+        );
+        assert!(
+            crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(2.5, 0.0))
+                .is_ok_and(|point| collar.cuts_out(point))
+        );
+        assert!(
+            !crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(3.0, 0.0))
+                .is_ok_and(|point| collar.cuts_out(point))
+        );
+        assert!(
+            crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(2.5, 0.0))
+                .is_ok_and(|point| collar.contains(point))
+        );
+        assert!(
+            !crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::splat(2.5))
+                .is_ok_and(|point| collar.contains(point))
+        );
     }
 
     #[test]
@@ -534,7 +588,7 @@ mod tests {
 
     #[test]
     fn height_interpolation_respects_non_unit_grid_scale() {
-        let terrain = SceneTerrain::new(2, 2, 2.0, |point| point.x + point.y * 2.0);
+        let terrain = SceneTerrain::new(2, 2, 2.0, |point| point.x + point.y * 2.0).unwrap();
         assert!((terrain.height_at(Vec2::new(-1.0, -1.0)).unwrap() - 1.5).abs() < 0.0001);
         assert_eq!(terrain.height_at(Vec2::new(-3.0, 0.0)), None);
     }
@@ -548,7 +602,8 @@ mod tests {
             |point| {
                 if point == Vec2::ONE { 1.0 } else { 0.0 }
             },
-        );
+        )
+        .unwrap();
 
         // Avian's heightfield diagonal joins the two zero-height off-diagonal
         // vertices. The high corner therefore affects only its own triangle,
@@ -561,7 +616,7 @@ mod tests {
 
     #[test]
     fn refined_surface_keeps_a_coarse_lod_without_splitting_query_authority() {
-        let coarse = SceneTerrain::new(4, 4, 1.0, |_| 0.0);
+        let coarse = SceneTerrain::new(4, 4, 1.0, |_| 0.0).unwrap();
         let refined = coarse
             .refined(0.5, |point, base| {
                 base + (point.x * core::f32::consts::PI).sin()
@@ -579,7 +634,7 @@ mod tests {
 
     #[test]
     fn mesh_vertices_follow_heightmap_row_major_order() {
-        let terrain = SceneTerrain::new(2, 2, 1.0, |point| point.x + point.y * 10.0);
+        let terrain = SceneTerrain::new(2, 2, 1.0, |point| point.x + point.y * 10.0).unwrap();
         let (positions, indices, _) = terrain.mesh_components();
 
         assert_eq!(positions[0][1], 0.0);
@@ -602,7 +657,7 @@ mod tests {
             vec![vec![0.0, 10.0, 1.0], vec![13.0, 4.0, 20.0]]
         );
 
-        let collider = terrain.colliders().pop().unwrap();
+        let collider = terrain.colliders().unwrap().pop().unwrap();
         for point in [
             Vec2::new(-0.6, -0.2),
             Vec2::new(0.6, -0.2),
@@ -633,7 +688,7 @@ mod tests {
 
     #[test]
     fn normals_are_finite_at_center_and_boundary() {
-        let terrain = SceneTerrain::new(2, 2, 2.0, |point| point.x * 0.25);
+        let terrain = SceneTerrain::new(2, 2, 2.0, |point| point.x * 0.25).unwrap();
         for position in [Vec2::ZERO, Vec2::new(2.0, 2.0)] {
             let normal = terrain.normal_at(position).unwrap();
             assert!(normal.is_finite());

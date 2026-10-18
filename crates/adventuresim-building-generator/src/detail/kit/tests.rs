@@ -12,7 +12,11 @@ fn component_instances_preserve_detailed_and_facade_surfaces() {
         BuildingArchetype::FachwerkCottage,
         BuildingArchetype::FachwerkMerchantHouse,
     ] {
-        let plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(
+            archetype,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ))
+        .unwrap();
         let kit = BuildingKit::new(&plan).unwrap();
         assert!(!kit.instances.is_empty());
         for instance in &kit.instances {

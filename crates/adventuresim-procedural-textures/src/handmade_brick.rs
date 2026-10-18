@@ -2,6 +2,7 @@
 
 mod streams;
 use bevy::{asset::Assets, image::Image, math::Vec3};
+use fabelgeist_determinism::Seed;
 
 use super::{
     MasonryColors, SrgbColor, SurfaceTextureSet, image_rgba_mipped, palette::albedo_image,
@@ -33,11 +34,11 @@ const VERTICAL_MORTAR_METRES: f32 = 0.014;
 struct BrickSample {
     height: f32,
     brick: bool,
-    brick_id: u64,
+    brick_id: Seed,
     brick_coverage: f32,
 }
 
-fn brick_id(params: &crate::TextureParameters, row: i32, column: i32) -> u64 {
+fn brick_id(params: &crate::TextureParameters, row: i32, column: i32) -> Seed {
     let wrapped_row = row.rem_euclid(params.handmade_brick.courses) as u64;
     let wrapped_column = column.rem_euclid(params.handmade_brick.bricks_per_course) as u64;
     params.field_seed(streams::BRICK, &[wrapped_row, wrapped_column])
@@ -47,13 +48,13 @@ fn periodic_delta(value: f32) -> f32 {
     value - value.round()
 }
 
-fn face_noise(params: &crate::TextureParameters, local_x: f32, local_y: f32, id: u64) -> f32 {
+fn face_noise(params: &crate::TextureParameters, local_x: f32, local_y: f32, id: Seed) -> f32 {
     let phase_a = params
-        .rng(streams::FACE_BROAD_PHASE, &[id])
+        .element_rng(streams::FACE_BROAD_PHASE, id)
         .inclusive_unit_f32()
         * std::f32::consts::TAU;
     let phase_b = params
-        .rng(streams::FACE_FINE_PHASE, &[id])
+        .element_rng(streams::FACE_FINE_PHASE, id)
         .inclusive_unit_f32()
         * std::f32::consts::TAU;
     let broad = (local_x * params.handmade_brick.broad_cross_frequency
@@ -67,29 +68,39 @@ fn face_noise(params: &crate::TextureParameters, local_x: f32, local_y: f32, id:
     broad * params.handmade_brick.broad_weight + crossed * params.handmade_brick.fine_weight
 }
 
-fn bowed_edge(params: &crate::TextureParameters, coordinate: f32, id: u64, field_seed: u64) -> f32 {
+fn bowed_edge(
+    params: &crate::TextureParameters,
+    coordinate: f32,
+    id: Seed,
+    field_seed: Seed,
+) -> f32 {
     let phase = params
-        .rng(streams::BOW_PHASE, &[id, field_seed])
+        .rng(streams::BOW_PHASE, &[id.to_u64(), field_seed.to_u64()])
         .inclusive_unit_f32()
         * std::f32::consts::TAU;
     let amplitude = params.handmade_brick.edge_bow_min
         + params
-            .rng(streams::BOW_AMPLITUDE, &[id, field_seed])
+            .rng(streams::BOW_AMPLITUDE, &[id.to_u64(), field_seed.to_u64()])
             .inclusive_unit_f32()
             * params.handmade_brick.edge_bow_variation;
     (coordinate * std::f32::consts::PI + phase).sin() * amplitude
 }
 
-fn edge_chip(params: &crate::TextureParameters, coordinate: f32, id: u64, field_seed: u64) -> f32 {
+fn edge_chip(
+    params: &crate::TextureParameters,
+    coordinate: f32,
+    id: Seed,
+    field_seed: Seed,
+) -> f32 {
     if params
-        .rng(streams::CHIP_PRESENCE, &[id, field_seed])
+        .rng(streams::CHIP_PRESENCE, &[id.to_u64(), field_seed.to_u64()])
         .inclusive_unit_f32()
         < params.handmade_brick.chip_absence_probability
     {
         return 0.0;
     }
     let center = params
-        .rng(streams::CHIP_CENTER, &[id, field_seed])
+        .rng(streams::CHIP_CENTER, &[id.to_u64(), field_seed.to_u64()])
         .inclusive_unit_f32()
         .mul_add(
             params.handmade_brick.edge_chip_center_1,
@@ -97,7 +108,7 @@ fn edge_chip(params: &crate::TextureParameters, coordinate: f32, id: u64, field_
         );
     let half_width = params.handmade_brick.chip_half_width
         + params
-            .rng(streams::CHIP_WIDTH, &[id, field_seed])
+            .rng(streams::CHIP_WIDTH, &[id.to_u64(), field_seed.to_u64()])
             .inclusive_unit_f32()
             * params.handmade_brick.chip_width_variation;
     let distance = ((coordinate - center) / half_width).abs();
@@ -106,7 +117,7 @@ fn edge_chip(params: &crate::TextureParameters, coordinate: f32, id: u64, field_
         * profile
         * (params.handmade_brick.chip_depth
             + params
-                .rng(streams::CHIP_DEPTH, &[id, field_seed])
+                .rng(streams::CHIP_DEPTH, &[id.to_u64(), field_seed.to_u64()])
                 .inclusive_unit_f32()
                 * params.handmade_brick.chip_depth_variation)
 }
@@ -123,7 +134,7 @@ fn sample_brickwork(params: &crate::TextureParameters, u: f32, v: f32) -> BrickS
         - params.handmade_brick.horizontal_mortar_metres / params.handmade_brick.tile_metres)
         * 0.5;
     let base_row = (v / pitch_y).floor() as i32;
-    let mut best = (f32::INFINITY, 0_u64, 0.0_f32, 0.0_f32, 1.0_f32);
+    let mut best = (f32::INFINITY, Seed::from_u64(0), 0.0_f32, 0.0_f32, 1.0_f32);
 
     for row in (base_row - 1)..=(base_row + 1) {
         let offset = if row.rem_euclid(2) == 0 { 0.0 } else { 0.5 };
@@ -132,14 +143,14 @@ fn sample_brickwork(params: &crate::TextureParameters, u: f32, v: f32) -> BrickS
             let id = brick_id(params, row, column);
             let center_x = (column as f32 + 0.5 + offset) * pitch_x
                 + (params
-                    .rng(streams::HORIZONTAL_JITTER, &[id])
+                    .element_rng(streams::HORIZONTAL_JITTER, id)
                     .inclusive_unit_f32()
                     - 0.5)
                     * pitch_x
                     * params.handmade_brick.horizontal_jitter;
             let center_y = (row as f32 + 0.5) * pitch_y
                 + (params
-                    .rng(streams::VERTICAL_JITTER, &[id])
+                    .element_rng(streams::VERTICAL_JITTER, id)
                     .inclusive_unit_f32()
                     - 0.5)
                     * pitch_y
@@ -148,20 +159,22 @@ fn sample_brickwork(params: &crate::TextureParameters, u: f32, v: f32) -> BrickS
             let dy = periodic_delta(v - center_y);
             let width = nominal_half_width
                 * (params.handmade_brick.width_minimum
-                    + params.rng(streams::WIDTH, &[id]).inclusive_unit_f32()
+                    + params.element_rng(streams::WIDTH, id).inclusive_unit_f32()
                         * params.handmade_brick.width_variation);
             let height = nominal_half_height
                 * (params.handmade_brick.height_minimum
-                    + params.rng(streams::HEIGHT, &[id]).inclusive_unit_f32()
+                    + params.element_rng(streams::HEIGHT, id).inclusive_unit_f32()
                         * params.handmade_brick.height_variation);
             let local_x = dx / width;
             let local_y = dy / height;
-            let right =
-                1.0 + bowed_edge(params, local_y, id, 0) - edge_chip(params, local_y, id, 0);
-            let left = 1.0 + bowed_edge(params, local_y, id, 1) - edge_chip(params, local_y, id, 1);
-            let top = 1.0 + bowed_edge(params, local_x, id, 2) - edge_chip(params, local_x, id, 2);
-            let bottom =
-                1.0 + bowed_edge(params, local_x, id, 3) - edge_chip(params, local_x, id, 3);
+            let right = 1.0 + bowed_edge(params, local_y, id, Seed::from_u64(0))
+                - edge_chip(params, local_y, id, Seed::from_u64(0));
+            let left = 1.0 + bowed_edge(params, local_y, id, Seed::from_u64(1))
+                - edge_chip(params, local_y, id, Seed::from_u64(1));
+            let top = 1.0 + bowed_edge(params, local_x, id, Seed::from_u64(2))
+                - edge_chip(params, local_x, id, Seed::from_u64(2));
+            let bottom = 1.0 + bowed_edge(params, local_x, id, Seed::from_u64(3))
+                - edge_chip(params, local_x, id, Seed::from_u64(3));
             let edge_distance = (local_x - right)
                 .max(-local_x - left)
                 .max(local_y - top)
@@ -181,7 +194,7 @@ fn brick_color(
     colors: &MasonryColors<5>,
 ) -> ([u8; 3], u8) {
     let unit = colors.units[params
-        .rng(streams::PALETTE, &[sample.brick_id])
+        .rng(streams::PALETTE, &[sample.brick_id.to_u64()])
         .index(colors.units.len())];
     let color = colors.mortar.covered_by(unit, sample.brick_coverage).0;
     let roughness = if sample.brick {
@@ -415,7 +428,7 @@ mod tests {
             .flat_map(|id| {
                 edge_salts.map(move |field_seed| {
                     params
-                        .rng(streams::CHIP_PRESENCE, &[*id, field_seed])
+                        .rng(streams::CHIP_PRESENCE, &[id.to_u64(), field_seed])
                         .inclusive_unit_f32()
                 })
             })
@@ -435,7 +448,7 @@ mod tests {
         let mut maximum = f32::NEG_INFINITY;
         // Sample the physical face away from the rollover, independently of
         // the pigment coverage ramp (which also covers bevelled clay).
-        for id in 0..32 {
+        for id in (0..32).map(fabelgeist_determinism::Seed::from_u64) {
             for y in -4..=4 {
                 for x in -4..=4 {
                     let sample = surface::finish(

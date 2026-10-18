@@ -10,22 +10,23 @@ pub(super) fn inspect(
     court_height: f32,
     maximum_grade: f32,
 ) -> Result<Value, adventuresim_building_generator::DoorError> {
-    let delta = route.end_metres - route.start_metres;
+    let delta = route.end_metres() - route.start_metres();
     let length = delta.length();
     let direction = delta / length;
-    let gate_distance = (compound.boundary.gate.centre_metres - route.start_metres).dot(direction);
+    let gate_distance =
+        (compound.boundary.gate.centre_metres - route.start_metres()).dot(direction);
     let door = compound.boundary.gate.door(compound.id)?;
-    let hinge_distance = (door.hinge_centre.metres().xz() - route.start_metres).dot(direction);
+    let hinge_distance = (door.hinge_centre.metres().xz() - route.start_metres()).dot(direction);
     let radius = door.horizontal_sweep_radius_metres()?;
-    let platform_end = hinge_distance + radius + route.half_width_metres;
-    let court_begin = length - route.half_width_metres;
+    let platform_end = hinge_distance + radius + route.half_width_metres();
+    let court_begin = length - route.half_width_metres();
     let run = court_begin - platform_end;
     let rise = (gate_height - court_height).abs();
     let permitted = run.max(0.0) * maximum_grade;
     let points = [
         (0.0, street_height),
-        (route.half_width_metres, street_height),
-        (gate_distance - route.half_width_metres, gate_height),
+        (route.half_width_metres(), street_height),
+        (gate_distance - route.half_width_metres(), gate_height),
         (platform_end, gate_height),
         (court_begin, court_height),
         (length, court_height),
@@ -41,7 +42,7 @@ pub(super) fn inspect(
         "grade":if run > 0.0 {Some(rise/run)} else {None},
         "passes_endpoint_grade":run > 0.0 && rise <= permitted,
         "points":points.map(|(distance,height)|json!({"distance_m":distance,
-            "point":route.start_metres+direction*distance,"elevation_m":height})),
+            "point":route.start_metres()+direction*distance,"elevation_m":height})),
         "verification_scope":"A longitudinal route profile with landings and a conservative gate-swing radius. Lateral support, retaining faces, terrain transitions, actor traversal and complete gate-sweep collision are unaccepted.",
     }))
 }

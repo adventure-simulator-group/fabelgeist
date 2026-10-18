@@ -26,8 +26,9 @@ impl TacticalSceneInput {
             upsample_playable_grid(&self.playable);
         let mut repairs =
             prepare_terrain(self, width, depth, spacing, &mut heights, &mut environment)?;
-        let coarse = SceneTerrain::from_heightmap(width, depth, spacing, heights)
-            .ok_or_else(|| SceneInputError::Validation("geographic heightmap is invalid".into()))?;
+        let coarse = SceneTerrain::from_heightmap(width, depth, spacing, heights).ok_or(
+            SceneInputError::Validation(SceneValidationError::GeographicHeightmap),
+        )?;
         let mut obstacles = generated_obstacles(self);
         remove_reserved_obstacles(self, &mut obstacles, &mut repairs);
         let reservations = reservation_pads(self, &buildings)?;
@@ -72,7 +73,7 @@ fn reservation_pads(
     let mut pads: Vec<_> = buildings
         .iter()
         .map(|building| Ok(buildings::BuildingPad {
-            centre: building.placement.centre_metres,
+            centre: building.placement.centre_metres.metres(),
             half_extents: building.collision.bounds.plan_half_extents()?.metres(),
             orientation: building.placement.orientation,
             elevation_metres: building.placement.base_elevation_metres,
@@ -87,10 +88,10 @@ fn reservation_pads(
             .map(|property| property.plot)
             .chain(input.gardens.iter().map(|garden| garden.plot))
             .map(|plot| buildings::BuildingPad {
-                centre: plot.centre_metres,
-                half_extents: plot.dimensions_metres * 0.5,
-                orientation: plot.orientation,
-                elevation_metres: 0.0,
+                centre: plot.centre_metres(),
+                half_extents: plot.dimensions_metres() * 0.5,
+                orientation: plot.orientation(),
+                elevation_metres: crate::city_layout::grounding::SupportElevation::ZERO,
             }),
     );
     Ok(pads)

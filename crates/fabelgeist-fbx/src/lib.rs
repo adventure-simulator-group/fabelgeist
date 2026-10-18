@@ -10,16 +10,67 @@
 //! how FBX's transform chain composes, what units the file is in — is left to
 //! callers, because rigs disagree about all three.
 //!
-//! Uses only a pure-Rust inflate dependency,
-//! so an asset pipeline can read FBX without pulling in a tensor runtime.
+//! Binary decoding uses a pure-Rust inflater and concrete format errors,
+//! without pulling in a tensor runtime.
 
 use std::collections::HashMap;
 
-pub mod animation;
-mod binary;
+pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
+pub use array_encoding::UnsupportedFbxArrayEncoding;
 pub use binary::{FbxDecodeError, Result, parse};
 
-pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
+pub mod animation;
+
+mod array_encoding;
+mod binary;
+
+/// One node record of the FBX tree.
+#[derive(Debug, Clone)]
+pub struct Node {
+    pub name: String,
+    pub props: Vec<Prop>,
+    pub children: Vec<Node>,
+}
+
+/// An entry of the `Objects` block.
+#[derive(Debug)]
+pub struct Object {
+    pub id: i64,
+    /// Object name with the `\0\x01Class` suffix and any `namespace:` prefix removed.
+    pub name: String,
+    /// Object name with its namespace intact, e.g. `mixamorig:Hips`.
+    ///
+    /// Rig profiles are usually written against the namespaced name, so an
+    /// importer wants this one even though momentum matches on the stripped one.
+    pub qualified: String,
+    /// The sub-class token, e.g. `LimbNode`, `Mesh`, `Cluster`, `BlendShapeChannel`.
+    pub class: String,
+    /// The record name, e.g. `Model`, `Geometry`, `Deformer`.
+    pub kind: String,
+    pub node: Node,
+}
+
+/// One entry of the connection list.
+#[derive(Debug, Clone)]
+pub struct Link {
+    /// The object being connected in.
+    pub from: i64,
+    /// The property it connects to, for object-property (`OP`) links.
+    ///
+    /// Animation is addressed entirely through these: a curve node connects to
+    /// a model's `Lcl Rotation`, and a curve connects to that node's `d|X`.
+    pub property: Option<String>,
+}
+
+/// The object table plus the connection graph of an FBX file.
+pub struct Scene {
+    pub objects: Vec<Object>,
+    /// The file's top-level records, kept for `GlobalSettings` and friends.
+    pub roots: Vec<Node>,
+    by_id: HashMap<i64, usize>,
+    /// Incoming links per object id, in file order (id 0 is the scene root).
+    links: HashMap<i64, Vec<Link>>,
+}
 
 /// A typed FBX property value.
 #[derive(Debug, Clone)]
@@ -91,14 +142,6 @@ impl Prop {
     }
 }
 
-/// One node record of the FBX tree.
-#[derive(Debug, Clone)]
-pub struct Node {
-    pub name: String,
-    pub props: Vec<Prop>,
-    pub children: Vec<Node>,
-}
-
 impl Node {
     pub fn child(&self, name: &str) -> Option<&Node> {
         self.children.iter().find(|c| c.name == name)
@@ -164,24 +207,6 @@ impl Node {
     }
 }
 
-/// An entry of the `Objects` block.
-#[derive(Debug)]
-pub struct Object {
-    pub id: i64,
-    /// Object name with the `\0\x01Class` suffix and any `namespace:` prefix removed.
-    pub name: String,
-    /// Object name with its namespace intact, e.g. `mixamorig:Hips`.
-    ///
-    /// Rig profiles are usually written against the namespaced name, so an
-    /// importer wants this one even though momentum matches on the stripped one.
-    pub qualified: String,
-    /// The sub-class token, e.g. `LimbNode`, `Mesh`, `Cluster`, `BlendShapeChannel`.
-    pub class: String,
-    /// The record name, e.g. `Model`, `Geometry`, `Deformer`.
-    pub kind: String,
-    pub node: Node,
-}
-
 impl Object {
     /// OpenFBX maps `Model::Root` onto a limb node, which is why `body_world`
     /// becomes joint 0 of the MHR skeleton rather than a plain null node.
@@ -196,50 +221,6 @@ impl Object {
     pub fn is_node(&self) -> bool {
         self.kind == "Model"
     }
-}
-
-/// One entry of the connection list.
-#[derive(Debug, Clone)]
-pub struct Link {
-    /// The object being connected in.
-    pub from: i64,
-    /// The property it connects to, for object-property (`OP`) links.
-    ///
-    /// Animation is addressed entirely through these: a curve node connects to
-    /// a model's `Lcl Rotation`, and a curve connects to that node's `d|X`.
-    pub property: Option<String>,
-}
-
-/// The object table plus the connection graph of an FBX file.
-pub struct Scene {
-    pub objects: Vec<Object>,
-    /// The file's top-level records, kept for `GlobalSettings` and friends.
-    pub roots: Vec<Node>,
-    by_id: HashMap<i64, usize>,
-    /// Incoming links per object id, in file order (id 0 is the scene root).
-    links: HashMap<i64, Vec<Link>>,
-}
-
-fn object_name(raw: &[u8]) -> String {
-    let name = match raw.windows(2).position(|w| w == [0, 1]) {
-        Some(pos) => &raw[..pos],
-        None => raw,
-    };
-    let name = String::from_utf8_lossy(name).into_owned();
-    // momentum strips namespaces before matching joints against the .model file.
-    match name.rfind(':') {
-        Some(pos) => name[pos + 1..].to_string(),
-        None => name,
-    }
-}
-
-/// The object name with any namespace left on, e.g. `mixamorig:Hips`.
-fn qualified_name(raw: &[u8]) -> String {
-    let name = match raw.windows(2).position(|w| w == [0, 1]) {
-        Some(pos) => &raw[..pos],
-        None => raw,
-    };
-    String::from_utf8_lossy(name).into_owned()
 }
 
 impl Scene {
@@ -354,3 +335,27 @@ impl Scene {
             .filter(move |o| o.kind == kind && o.class == class)
     }
 }
+
+fn object_name(raw: &[u8]) -> String {
+    let name = match raw.windows(2).position(|w| w == [0, 1]) {
+        Some(pos) => &raw[..pos],
+        None => raw,
+    };
+    let name = String::from_utf8_lossy(name).into_owned();
+    // momentum strips namespaces before matching joints against the .model file.
+    match name.rfind(':') {
+        Some(pos) => name[pos + 1..].to_string(),
+        None => name,
+    }
+}
+
+/// The object name with any namespace left on, e.g. `mixamorig:Hips`.
+fn qualified_name(raw: &[u8]) -> String {
+    let name = match raw.windows(2).position(|w| w == [0, 1]) {
+        Some(pos) => &raw[..pos],
+        None => raw,
+    };
+    String::from_utf8_lossy(name).into_owned()
+}
+#[cfg(test)]
+mod array_encoding_tests;

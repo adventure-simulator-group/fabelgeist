@@ -180,7 +180,7 @@ mod tests {
         let program = crate::BuildingProgram::validated_settlement(
             crate::settlement_archetype(BuildingUse::Hospital),
             BuildingUse::Hospital,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
             None,
         )
         .unwrap();

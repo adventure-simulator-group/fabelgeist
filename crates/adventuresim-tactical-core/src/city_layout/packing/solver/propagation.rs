@@ -97,7 +97,8 @@ mod tests {
 
     #[test]
     fn cross_frontage_propagation_preserves_clear_neighbor_choices() {
-        let generated = CitySite::central_german_market_town().generate(42, 900, &economy());
+        let generated =
+            CitySite::central_german_market_town().generate((42).into(), 900, &economy());
         let mut frontage = *generated
             .packing
             .as_ref()
@@ -114,11 +115,15 @@ mod tests {
         ];
         let domain = |edge: usize, half_range: f64| {
             let frontage = ParcelFrontage::on_edge(frontage.lot, frontage.block, edge).unwrap();
-            let bounds = CityPlotBounds {
-                centre_metres: Vec2::splat(10.0),
-                dimensions_metres: Vec2::splat(4.0),
-                orientation: BuildingOrientation::from_radians(0.0).unwrap(),
-            };
+            let bounds = CityPlotBounds::new(
+                crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::splat(10.0)).unwrap(),
+                adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+                    Vec2::splat(4.0),
+                )
+                .unwrap(),
+                BuildingOrientation::from_radians(0.0).unwrap(),
+            )
+            .unwrap();
             PlacementDomain {
                 owner: CityPropertyId(edge as u64 + 1),
                 base_translation: PlanDisplacement::ZERO,

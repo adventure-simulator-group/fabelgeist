@@ -116,8 +116,11 @@ mod tests {
             BuildingArchetype::Cathedral,
             BuildingArchetype::ParishChurch,
         ] {
-            let mut plan =
-                crate::generate(&crate::BuildingProgram::fixture(archetype, 42)).unwrap();
+            let mut plan = crate::generate(&crate::BuildingProgram::fixture(
+                archetype,
+                fabelgeist_determinism::Seed::from_u64(42),
+            ))
+            .unwrap();
             let mut issues = Vec::new();
             audit(&plan, &mut issues);
             assert!(issues.is_empty(), "{archetype:?}: {issues:?}");
@@ -148,7 +151,7 @@ mod tests {
             let plan = crate::generate(&crate::BuildingProgram::settlement(
                 BuildingArchetype::ParishChurch,
                 Some(usage),
-                42,
+                fabelgeist_determinism::Seed::from_u64(42),
             ))
             .unwrap();
             let bell = plan

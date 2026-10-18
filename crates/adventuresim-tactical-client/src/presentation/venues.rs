@@ -62,13 +62,13 @@ pub(crate) fn select_building(
     input: &TacticalSceneInput,
     kind: PlaceKind,
     operators: impl Iterator<Item = u64>,
-) -> Option<u64> {
+) -> Option<adventuresim_tactical_core::scene_input::SceneBuildingId> {
     let operators: Vec<_> = operators.collect();
     let usage = building_use(kind);
     input
         .establishments
         .iter()
-        .find(|e| operators.contains(&e.operator_character_id))
+        .find(|e| operators.contains(&e.operator_character_id.0))
         .map(|e| e.building_id)
         .or_else(|| {
             input

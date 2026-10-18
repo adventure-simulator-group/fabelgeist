@@ -1,5 +1,6 @@
 mod streams;
 use super::*;
+use fabelgeist_determinism::Seed;
 
 pub const LIME_PLASTER_TEXTURE_SIZE: u32 = 1024;
 pub const LIME_PLASTER_TILE_METRES: f32 = 1.0;
@@ -35,12 +36,12 @@ fn hash_grid(
     x: i32,
     y: i32,
     cells: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     let x = x.rem_euclid(cells) as u64;
     let y = y.rem_euclid(cells) as u64;
     params
-        .rng(streams::LATTICE, &[field_seed, x, y])
+        .rng(streams::LATTICE, &[field_seed.to_u64(), x, y])
         .inclusive_unit_f32()
 }
 
@@ -53,7 +54,7 @@ fn periodic_noise(
     u: f32,
     v: f32,
     cells: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     let x = u * cells as f32;
     let y = v * cells as f32;
@@ -77,7 +78,7 @@ fn cellular_feature(
     u: f32,
     v: f32,
     cells: i32,
-    field_seed: u64,
+    field_seed: Seed,
     enabled_threshold: f32,
 ) -> (f32, f32) {
     let scaled_x = u * cells as f32;
@@ -95,7 +96,7 @@ fn cellular_feature(
                 candidate_x,
                 candidate_y,
                 cells,
-                params.field_seed(streams::FEATURE_PRESENCE, &[field_seed]),
+                params.field_seed(streams::FEATURE_PRESENCE, &[field_seed.to_u64()]),
             );
             if enabled < enabled_threshold {
                 continue;
@@ -107,7 +108,7 @@ fn cellular_feature(
                     candidate_x,
                     candidate_y,
                     cells,
-                    params.field_seed(streams::FEATURE_X, &[field_seed]),
+                    params.field_seed(streams::FEATURE_X, &[field_seed.to_u64()]),
                 ) * params.lime_plaster.cellular_feature_site_x_2;
             let site_y = candidate_y as f32
                 + params.lime_plaster.cellular_feature_site_y_1
@@ -116,7 +117,7 @@ fn cellular_feature(
                     candidate_x,
                     candidate_y,
                     cells,
-                    params.field_seed(streams::FEATURE_Y, &[field_seed]),
+                    params.field_seed(streams::FEATURE_Y, &[field_seed.to_u64()]),
                 ) * params.lime_plaster.cellular_feature_site_y_2;
             let dx = wrapped_offset((scaled_x - site_x) / cells as f32) * cells as f32;
             let dy = wrapped_offset((scaled_y - site_y) / cells as f32) * cells as f32;
@@ -128,7 +129,7 @@ fn cellular_feature(
                     candidate_x,
                     candidate_y,
                     cells,
-                    params.field_seed(streams::FEATURE_IDENTITY, &[field_seed]),
+                    params.field_seed(streams::FEATURE_IDENTITY, &[field_seed.to_u64()]),
                 );
             }
         }

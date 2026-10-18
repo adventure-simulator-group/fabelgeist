@@ -6,6 +6,10 @@ use std::{collections::BTreeMap, sync::OnceLock};
 #[serde(transparent)]
 pub struct ControlPath(String);
 impl ControlPath {
+    /// JSON pointer to the editable seed record.
+    pub const SEED: &'static str = "/seed";
+    /// Native integer word inside the canonical seed record.
+    pub const SEED_WORD: &'static str = "/seed/word";
     pub fn as_str(&self) -> &str {
         &self.0
     }

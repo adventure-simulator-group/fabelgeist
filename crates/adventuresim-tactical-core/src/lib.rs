@@ -16,6 +16,10 @@ mod inventory_armor;
 mod marching_tetrahedra;
 pub mod physics;
 pub mod player;
+pub mod regional_city;
+pub mod regional_environment;
+pub mod regional_map;
+pub mod regional_terrain;
 pub mod scene;
 pub mod scene_coordinates;
 mod scene_fault;
@@ -119,7 +123,9 @@ pub mod prelude {
         TacticalBuildingPlacement, TacticalSceneInput, TacticalSurface, TerrainSampleGrid,
         VistaLod, VistaSample,
     };
-    pub use crate::terrain_transition::TerrainTransitionCollar;
+    pub use crate::terrain_transition::{
+        CollarWidthVariation, RuptureWander, TerrainCollarParameters, TerrainTransitionCollar,
+    };
     pub use crate::volumetric_terrain::{
         SceneTerrainPatch, TerrainGeologicStructure, TerrainLandformKind, TerrainLandformLod,
         TerrainLandformRecipe, TerrainSurfaceParameters, TerrainSurfacePreset,

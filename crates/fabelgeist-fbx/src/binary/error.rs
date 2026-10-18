@@ -1,14 +1,36 @@
 //! Rejections at the native binary FBX serialization boundary.
 use std::{error::Error, fmt, io};
 
+use derive_more::From;
+
+use crate::UnsupportedFbxArrayEncoding;
+
+/// Result shared by the binary decoder and serialized scene constructor.
+///
+/// Errors retain their concrete FBX classification:
+/// ```
+/// use fabelgeist_fbx::{FbxDecodeError, Node, Result, parse};
+/// let parsed: Result<Vec<Node>> = parse(b"; FBX");
+/// assert!(matches!(parsed, Err(FbxDecodeError::AsciiInput)));
+/// ```
+/// The public error is not an arbitrary native IO result:
+/// ```compile_fail
+/// use fabelgeist_fbx::{Node, parse};
+/// let parsed: std::result::Result<Vec<Node>, std::io::Error> = parse(b"; FBX");
+/// ```
+pub type Result<T> = std::result::Result<T, FbxDecodeError>;
+
 /// A binary FBX decoding failure, with rejected native diagnostic provenance.
 ///
 /// Native positions, lengths, counts and tags here describe failed serialized
 /// input. They are not admitted storage or metadata values and expose no
 /// arithmetic, validation or conversion API. General storage ownership remains
 /// separate from this format-specific failure classification.
-#[derive(Debug)]
+#[derive(Debug, From)]
 pub enum FbxDecodeError {
+    /// Unsupported wire encoding, retaining its canonical rejected-code error.
+    #[from]
+    UnsupportedArrayEncoding(UnsupportedFbxArrayEncoding),
     AsciiInput,
     NotBinaryInput,
     ReadOverflow {
@@ -41,24 +63,10 @@ pub enum FbxDecodeError {
     },
 }
 
-/// Result shared by the binary decoder and serialized scene constructor.
-///
-/// Errors retain their concrete FBX classification:
-/// ```
-/// use fabelgeist_fbx::{FbxDecodeError, Node, Result, parse};
-/// let parsed: Result<Vec<Node>> = parse(b"; FBX");
-/// assert!(matches!(parsed, Err(FbxDecodeError::AsciiInput)));
-/// ```
-/// The public error is not an arbitrary native IO result:
-/// ```compile_fail
-/// use fabelgeist_fbx::{Node, parse};
-/// let parsed: std::result::Result<Vec<Node>, std::io::Error> = parse(b"; FBX");
-/// ```
-pub type Result<T> = std::result::Result<T, FbxDecodeError>;
-
 impl fmt::Display for FbxDecodeError {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
+            Self::UnsupportedArrayEncoding(source) => fmt::Display::fmt(source, formatter),
             Self::AsciiInput => {
                 formatter.write_str("this is an ASCII FBX file; re-export it as binary FBX")
             }
@@ -71,7 +79,13 @@ impl fmt::Display for FbxDecodeError {
                 formatter,
                 "truncated FBX file: wanted {native_length} bytes at offset {native_offset}"
             ),
-            Self::Inflate { .. } => formatter.write_str("inflating FBX array property"),
+            Self::Inflate { source } => {
+                formatter.write_str("inflating FBX array property")?;
+                if formatter.alternate() {
+                    write!(formatter, ": {source}")?;
+                }
+                Ok(())
+            }
             Self::ArrayShort {
                 native_bytes,
                 native_count,
@@ -91,6 +105,7 @@ impl fmt::Display for FbxDecodeError {
 impl Error for FbxDecodeError {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
         match self {
+            Self::UnsupportedArrayEncoding(source) => Some(source),
             Self::Inflate { source } => Some(source),
             _ => None,
         }

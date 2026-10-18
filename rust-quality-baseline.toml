@@ -571,10 +571,6 @@ path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litt
 ceiling = 748
 
 [[files]]
-path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves.rs"
-ceiling = 559
-
-[[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs"
 ceiling = 835
 
@@ -593,10 +589,6 @@ ceiling = 1003
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/sky/mod.rs"
 ceiling = 539
-
-[[files]]
-path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-ceiling = 593
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
@@ -652,15 +644,11 @@ ceiling = 524
 
 [[files]]
 path = "crates/adventuresim-terrain/src/lib.rs"
-ceiling = 1413
+ceiling = 1394
 
 [[files]]
 path = "crates/adventuresim-world-import/src/bin/build-strategic-map.rs"
-ceiling = 1116
-
-[[files]]
-path = "crates/adventuresim-world-import/src/bin/build-strategic-map/tiles.rs"
-ceiling = 1098
+ceiling = 827
 
 [[files]]
 path = "crates/adventuresim-world-import/src/main.rs"
@@ -764,7 +752,7 @@ ceiling = 599
 
 [[files]]
 path = "crates/strategic-web/src/routes/mod.rs"
-ceiling = 844
+ceiling = 724
 
 [[files]]
 path = "crates/strategic-web/src/routes/parties.rs"
@@ -796,19 +784,11 @@ ceiling = 696
 
 [[files]]
 path = "crates/strategic-web/src/routes/settlements/service_quests.rs"
-ceiling = 622
-
-[[files]]
-path = "crates/strategic-web/src/routes/travel.rs"
-ceiling = 525
+ceiling = 573
 
 [[files]]
 path = "crates/strategic-web/src/spacetimedb/types.rs"
-ceiling = 1781
-
-[[files]]
-path = "crates/strategic-web/src/strategic_map.rs"
-ceiling = 673
+ceiling = 1738
 
 [[files]]
 path = "crates/strategic-web/src/templates/layout.rs"
@@ -1587,11 +1567,6 @@ ceiling = 393
 path = "crates/adventuresim-stdb-module/src/outbreak.rs"
 item = "materialize_patient_corpse"
 ceiling = 127
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/personality.rs"
-item = "random_personality"
-ceiling = 126
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/relationship/commitments.rs"
@@ -2404,11 +2379,6 @@ item = "pebble_patch_mesh"
 ceiling = 128
 
 [[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs"
-item = "spawn_ground_foliage"
-ceiling = 114
-
-[[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs"
 item = "procedural_beech_skeleton"
 ceiling = 158
@@ -2570,23 +2540,13 @@ ceiling = 116
 
 [[functions]]
 path = "crates/adventuresim-world-import/src/bin/build-strategic-map.rs"
-item = "build"
-ceiling = 139
-
-[[functions]]
-path = "crates/adventuresim-world-import/src/bin/build-strategic-map.rs"
 item = "cultivated_land"
-ceiling = 222
+ceiling = 214
 
 [[functions]]
 path = "crates/adventuresim-world-import/src/bin/build-strategic-map.rs"
 item = "run"
-ceiling = 152
-
-[[functions]]
-path = "crates/adventuresim-world-import/src/bin/build-strategic-map/tiles.rs"
-item = "render_with_forest_field"
-ceiling = 107
+ceiling = 121
 
 [[functions]]
 path = "crates/adventuresim-world-import/src/cultivation.rs"
@@ -2869,11 +2829,6 @@ item = "ComputePass::record"
 ceiling = 410
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs"
-item = "ComputePipeline::new"
-ceiling = 251
-
-[[functions]]
 path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
 item = "TextureCube::blit_texture_to_face"
 ceiling = 161
@@ -2917,11 +2872,6 @@ ceiling = 138
 path = "crates/strategic-web/src/live.rs"
 item = "LiveState::connect"
 ceiling = 244
-
-[[functions]]
-path = "crates/strategic-web/src/main.rs"
-item = "main"
-ceiling = 109
 
 [[functions]]
 path = "crates/strategic-web/src/main.rs"
@@ -3006,7 +2956,7 @@ ceiling = 203
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/overview.rs"
 item = "settlement_map"
-ceiling = 266
+ceiling = 250
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/party/containers.rs"
@@ -3071,7 +3021,7 @@ ceiling = 112
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/service_quests.rs"
 item = "service_quest_offers"
-ceiling = 244
+ceiling = 212
 
 [[functions]]
 path = "crates/strategic-web/src/routes/weapon_icons.rs"
@@ -3087,16 +3037,6 @@ ceiling = 156
 path = "crates/strategic-web/src/spacetimedb/types.rs"
 item = "core_personality"
 ceiling = 105
-
-[[functions]]
-path = "crates/strategic-web/src/strategic_map.rs"
-item = "StrategicMap::load"
-ceiling = 106
-
-[[functions]]
-path = "crates/strategic-web/src/strategic_map.rs"
-item = "strategic_map"
-ceiling = 191
 
 [[functions]]
 path = "crates/strategic-web/src/templates/character.rs"
@@ -3211,7 +3151,7 @@ ceiling = 417
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/merchant.rs"
 item = "live_merchant_shop_page"
-ceiling = 232
+ceiling = 224
 
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/party_pool.rs"
@@ -11445,13 +11385,6 @@ occurrences = 1
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/strategic-web/src/routes/mod.rs"
-item = "has_same_origin"
-fingerprint = "string:/"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/mod.rs"
 item = "local_return_url"
 fingerprint = "string://"
 occurrences = 1
@@ -13887,22 +13820,8 @@ occurrences = 1
 
 [[findings]]
 rule = "semantic-family:e7-coordinates"
-path = "crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs"
-item = "vista_sample_color"
-fingerprint = "10000000"
-occurrences = 1
-
-[[findings]]
-rule = "semantic-family:e7-coordinates"
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
 item = "<module>"
-fingerprint = "10000000"
-occurrences = 1
-
-[[findings]]
-rule = "semantic-family:e7-coordinates"
-path = "crates/adventuresim-tactical-core/src/scene_input/environment.rs"
-item = "SceneEnvironmentFixture::snapshot"
 fingerprint = "10000000"
 occurrences = 1
 

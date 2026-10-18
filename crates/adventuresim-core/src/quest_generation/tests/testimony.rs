@@ -1,3 +1,5 @@
+use fabelgeist_determinism::Seed;
+
 #[test]
 fn every_report_description_has_ambiguous_natural_testimony() {
     let reports = crate::quest_catalog::catalog()
@@ -64,7 +66,7 @@ fn account_presentation_candidates_do_not_encode_reliability() {
 
 #[test]
 fn generated_location_testimony_has_one_public_grant_shape() {
-    for seed in 0..256 {
+    for seed in (0..256).map(fabelgeist_determinism::Seed::from_u64) {
         let generated = generate(&context(seed, TemplateFamily::RecurringDepredation)).unwrap();
         let draft = &generated.witnesses[0].testimony[0];
         assert_eq!(
@@ -80,7 +82,7 @@ fn generated_location_testimony_has_one_public_grant_shape() {
 
 #[test]
 fn claim_authority_separates_accuracy_from_demeanor_and_ignores_presentation_wording() {
-    let generated = generate(&context(7, TemplateFamily::RecurringDepredation)).unwrap();
+    let generated = generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation)).unwrap();
     let mut draft = generated.witnesses[0].testimony[2].clone();
     assert_ne!(draft.spoken_text, draft.truthful_text);
     assert_eq!(
@@ -119,7 +121,7 @@ fn private_concern_never_changes_complete_initial_dialogue_shape() {
         TemplateFamily::RecurringDepredation,
         TemplateFamily::DisappearanceOrLoss,
     ] {
-        for seed in 0..256 {
+        for seed in (0..256).map(fabelgeist_determinism::Seed::from_u64) {
             let mut visible_outputs = BTreeSet::new();
             let mut concern_states = BTreeSet::new();
             for entropy in 0..64 {
@@ -170,7 +172,7 @@ fn private_concern_is_reliability_independent_and_pipeline_solvable() {
 
     let mut concern_reliability_states = BTreeSet::new();
     let mut checked_private_route_guard = false;
-    for seed in 0..4_096 {
+    for seed in (0..4_096).map(fabelgeist_determinism::Seed::from_u64) {
         let source = context(seed, TemplateFamily::RecurringDepredation);
         let generated = generate(&source).unwrap();
         let primary = &generated.witnesses[0];
@@ -215,7 +217,7 @@ fn generated_physical_trails_are_opaque_contiguous_two_segment_chains() {
         TemplateFamily::RecurringDepredation,
         TemplateFamily::DisappearanceOrLoss,
     ] {
-        let generated = generate(&context(73, family)).unwrap();
+        let generated = generate(&context(fabelgeist_determinism::Seed::from_u64(73), family)).unwrap();
         let [trail] = generated.track_trails.as_slice() else {
             panic!("generated case must have one physical trail");
         };
@@ -274,7 +276,7 @@ fn generated_physical_trails_are_opaque_contiguous_two_segment_chains() {
 
 #[test]
 fn track_validator_rejects_broken_links_skips_and_early_exact_locations() {
-    let generated = generate(&context(91, TemplateFamily::RecurringDepredation)).unwrap();
+    let generated = generate(&context(fabelgeist_determinism::Seed::from_u64(91), TemplateFamily::RecurringDepredation)).unwrap();
 
     let mut broken_link = generated.clone();
     broken_link.track_segments[0].next = None;
@@ -358,10 +360,10 @@ fn inn_only_settlement_witnesses() -> (
     (tabs, candidates)
 }
 
-fn context(seed: u64, family: TemplateFamily) -> GenerationContext {
+fn context(seed: Seed, family: TemplateFamily) -> GenerationContext {
     GenerationContext {
         seed,
-        observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
+        observer_entropy_hi: seed.to_u64() ^ 0x6f62_7365_7276_6572,
         observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high").seed(seed, &[]).to_u64(),
         settlement_id: "lubeck".into(),
         settlement_name: "Lubeck".into(),
@@ -377,7 +379,7 @@ fn context(seed: u64, family: TemplateFamily) -> GenerationContext {
 }
 
 fn case_with_primary_location_accuracy(family: TemplateFamily, truthful: bool) -> GeneratedCase {
-    (0..4_096)
+    (0..4_096).map(fabelgeist_determinism::Seed::from_u64)
             .find_map(|seed| {
                 let generated = generate(&context(seed, family)).ok()?;
                 let is_truthful = generated.witnesses[0].testimony[0].reliability
@@ -398,7 +400,7 @@ fn witness_described_places_are_neutral_and_attributed() {
         TemplateFamily::RecurringDepredation,
         TemplateFamily::DisappearanceOrLoss,
     ] {
-        let generated = generate(&context(17, family)).unwrap();
+        let generated = generate(&context(fabelgeist_determinism::Seed::from_u64(17), family)).unwrap();
         let primary = &generated.witnesses[0];
         let described_place = generated
             .sites
@@ -437,7 +439,7 @@ fn referrals_only_use_advertised_tabs_across_families_and_many_seeds() {
         TemplateFamily::RecurringDepredation,
         TemplateFamily::DisappearanceOrLoss,
     ] {
-        for seed in 0..128 {
+        for seed in (0..128).map(fabelgeist_determinism::Seed::from_u64) {
             let mut generation_context = context(seed, family);
             generation_context.witness_candidates = candidates.clone();
             let generated = generate(&generation_context).unwrap_or_else(|error| {
@@ -464,13 +466,13 @@ fn referrals_only_use_advertised_tabs_across_families_and_many_seeds() {
 #[test]
 fn golden_seeds_cover_both_families() {
     assert_eq!(
-        generate(&context(7, TemplateFamily::RecurringDepredation))
+        generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation))
             .unwrap()
             .family,
         TemplateFamily::RecurringDepredation
     );
     assert_eq!(
-        generate(&context(7, TemplateFamily::DisappearanceOrLoss))
+        generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::DisappearanceOrLoss))
             .unwrap()
             .family,
         TemplateFamily::DisappearanceOrLoss
@@ -484,7 +486,7 @@ fn referred_witness_pipeline_fits_every_stable_id_budget_in_both_families() {
         (7, TemplateFamily::RecurringDepredation),
         (11, TemplateFamily::DisappearanceOrLoss),
     ] {
-        let mut context = context(seed, family);
+        let mut context = context(Seed::from_u64(seed), family);
         for (index, witness) in context.witness_candidates.iter_mut().enumerate() {
             witness.resident_character_id = 9_007_199_254_740_993 + seed * 16 + index as u64;
         }
@@ -533,7 +535,7 @@ fn referred_witness_pipeline_fits_every_stable_id_budget_in_both_families() {
 #[test]
 fn incident_weather_changes_perception_without_changing_reliability_stages() {
     use crate::investigation::PerceptionCondition;
-    let clear_context = context(7, TemplateFamily::RecurringDepredation);
+    let clear_context = context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation);
     let generated = generate(&clear_context).unwrap();
     let witness = &generated.witnesses[0];
     let (_, clear) =
@@ -566,7 +568,7 @@ fn incident_weather_changes_perception_without_changing_reliability_stages() {
 
 #[test]
 fn secondary_witnesses_require_explicit_acyclic_referral_edges() {
-    let generated = (0..4_096)
+    let generated = (0..4_096).map(fabelgeist_determinism::Seed::from_u64)
         .find_map(|seed| {
             let generated = generate(&context(seed, TemplateFamily::RecurringDepredation)).ok()?;
             let secondary = generated.witnesses.get(1)?;
@@ -612,7 +614,7 @@ fn secondary_witnesses_require_explicit_acyclic_referral_edges() {
 
 #[test]
 fn challenge_boundaries_and_optional_authored_responses_validate() {
-    let mut generated = generate(&context(7, TemplateFamily::RecurringDepredation)).unwrap();
+    let mut generated = generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation)).unwrap();
     let first = &generated.witnesses[0].testimony[0];
     assert_eq!(
         first
@@ -647,7 +649,7 @@ fn challenge_boundaries_and_optional_authored_responses_validate() {
 
 #[test]
 fn challenge_validation_rejects_padded_challenge_text() {
-    let mut generated = generate(&context(7, TemplateFamily::RecurringDepredation)).unwrap();
+    let mut generated = generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation)).unwrap();
     generated.witnesses[0].testimony[0].challenge_text =
         format!(" {} ", generated.witnesses[0].testimony[0].challenge_text);
     assert!(
@@ -660,7 +662,7 @@ fn challenge_validation_rejects_padded_challenge_text() {
 
 #[test]
 fn challenge_validation_rejects_response_containing_normalized_claim_text() {
-    let mut generated = generate(&context(7, TemplateFamily::RecurringDepredation)).unwrap();
+    let mut generated = generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation)).unwrap();
     let normalized_claim = generated.witnesses[0].testimony[0]
         .challenge_text
         .to_uppercase();
@@ -677,7 +679,7 @@ fn challenge_validation_rejects_response_containing_normalized_claim_text() {
 
 #[test]
 fn generated_claim_boundaries_exclude_narration_and_punctuation() {
-    let generated = generate(&context(7, TemplateFamily::RecurringDepredation)).unwrap();
+    let generated = generate(&context(fabelgeist_determinism::Seed::from_u64(7), TemplateFamily::RecurringDepredation)).unwrap();
     let primary = &generated.witnesses[0].testimony;
     assert_eq!(
         primary[1].challenge_text,
@@ -692,7 +694,7 @@ fn generated_claim_boundaries_exclude_narration_and_punctuation() {
     );
     assert!(!primary[2].challenge_text.ends_with('.'));
 
-    let visual = (0..1_000)
+    let visual = (0..1_000).map(fabelgeist_determinism::Seed::from_u64)
         .find_map(|seed| {
             let generated = generate(&context(seed, TemplateFamily::RecurringDepredation)).ok()?;
             generated.witnesses[0]

@@ -123,7 +123,7 @@ dependencies = [
  "adventuresim-world-schema",
  "anyhow",
  "async-lock",
- "base64 0.22.1",
+ "base64",
  "bevy",
  "bevy_egui",
  "blake3",
@@ -4953,13 +4953,16 @@ dependencies = [
  "blake3",
  "rand 0.9.5",
  "rand_xoshiro",
+ "serde",
 ]
 
 [[package]]
 name = "fabelgeist-fbx"
 version = "0.1.0"
 dependencies = [
+ "derive_more 2.1.1",
  "flate2",
+ "num_enum",
 ]
 
 [[package]]

@@ -44,9 +44,9 @@ pub(super) fn sync_character_morphs(
             continue;
         }
         let identity = CharacterMorphWeights::from_character_id(character_id.0);
-        let proportions = explicit
-            .map(|p| p.0)
-            .unwrap_or_else(|| CharacterProportions::from_character_id(character_id.0));
+        let proportions = explicit.map(|p| p.0).unwrap_or_else(|| {
+            CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(character_id.0))
+        });
         let reference = reference.map(|p| p.0).unwrap_or_default();
         for entity in descendants_including(root, &children) {
             let Ok(mut weights) = morphs.get_mut(entity) else {

@@ -217,7 +217,7 @@ mod tests {
         let mut operable = 0;
         let mut fixed = 0;
         let mut barred = 0;
-        for seed in 0..20 {
+        for seed in (0..20).map(fabelgeist_determinism::Seed::from_u64) {
             let plan = generate(&BuildingProgram::fixture(
                 BuildingArchetype::TownHouse,
                 seed,
@@ -245,7 +245,11 @@ mod tests {
 
     #[test]
     fn operable_windows_swing_toward_the_inside() {
-        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(
+            BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ))
+        .unwrap();
         for window in compile_operable_windows(&plan).unwrap() {
             let closed_arm = Vec3::new(window.tangent.vector().x, 0.0, window.tangent.vector().y);
             let open_arm = Quat::from_rotation_y(window.open_angle_radians.radians()) * closed_arm;

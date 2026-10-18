@@ -6,8 +6,12 @@ uses the same decoder and builds scene queries from those roots. Both return
 `Scene::from_roots` accepts already decoded nodes and returns `Scene` directly;
 it has no failure path.
 
-The bespoke error classifies the decoder's seven existing rejection cases:
+The bespoke error retains the decoder's existing rejection cases and wraps
+main's canonical unsupported-array-encoding error:
 
+- `UnsupportedArrayEncoding`: a wire encoding other than 0/1, retaining
+  `UnsupportedFbxArrayEncoding` and its public `reported_code` through
+  `Error::source`.
 - `AsciiInput`: recognized ASCII FBX input, including a byte-order mark.
 - `NotBinaryInput`: an incomplete or unrecognized binary header.
 - `ReadOverflow`: native cursor plus requested byte length overflows `usize`.
@@ -19,7 +23,9 @@ The bespoke error classifies the decoder's seven existing rejection cases:
 
 The public error's `Display` preserves the decoder's existing messages.
 `Inflate` displays the FBX context separately from its native I/O cause, exposed
-through `std::error::Error::source`. `Debug` exposes the new variant and its
+through `std::error::Error::source`. Alternate Display also includes that
+cause, preserving the existing array regression diagnostic. `Debug` exposes
+the variant and its
 rejected provenance, allowing callers to match the variant instead of prose.
 
 The MHR character and model loaders retain their existing `anyhow` contexts.
@@ -46,8 +52,9 @@ reader, property and node admission belong to their respective constructors.
 
 ## Preserved wire policy and limits
 
-Every nonzero array encoding word still selects zlib, and extra decoded array
-bytes remain ignored. Versions below 7500 use narrow node headers; all other
+Encoding 0 selects raw contents and encoding 1 selects Zlib; every other word
+returns the canonical unsupported-code error before payload decoding. Extra
+decoded array bytes remain ignored. Versions below 7500 use narrow node headers; all other
 version words use wide headers without unsupported-version rejection. Ignored
 header fields, lossy names, raw string bytes, Boolean decoding, ordering,
 duplicate object lookup and trailing data retain their existing behavior.

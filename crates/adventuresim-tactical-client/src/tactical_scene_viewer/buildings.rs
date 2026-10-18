@@ -21,23 +21,19 @@ pub(super) fn spawn_boundaries(
     boundaries: Vec<GeneratedBoundary>,
 ) -> Result {
     for boundary in boundaries {
-        let door = boundary
-            .scene
-            .boundary
-            .gate
-            .door(boundary.scene.property_id)?;
+        let elevation = boundary.elevation_metres();
+        let scene = boundary.into_scene();
+        let door = scene.boundary().gate.door(scene.property_id())?;
         let pose = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
-            boundary.elevation_metres,
+            elevation.metres(),
         )?
         .door(door)?;
         let door = pose.leaf();
-        let elevation = Vec3::Y * boundary.elevation_metres;
+        let elevation = Vec3::Y * elevation.metres();
         let centre = door.closed_centre.metres();
         commands.spawn((
             SceneDoor {
-                building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
-                    boundary.scene.front_building_id,
-                ),
+                building_id: scene.front_building_id(),
                 opening_id: door.opening,
                 size_metres: door.size_metres,
                 doorway_centre_metres: door.closed_centre,
@@ -47,7 +43,7 @@ pub(super) fn spawn_boundaries(
             Transform::from_translation(centre).with_rotation(pose.native_rotation()),
             super::building_review::ReviewLeafPose::from_scene(pose),
         ));
-        commands.spawn((boundary.scene, Transform::from_translation(elevation)));
+        commands.spawn((scene, Transform::from_translation(elevation)));
     }
     Ok(())
 }
@@ -66,9 +62,7 @@ pub(super) fn spawn_tactical_buildings(
         commands.entity(entity).insert((
             Name::new(format!("Tactical building {}", building.placement.id)),
             SceneBuilding {
-                id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(
-                    building.placement.id,
-                ),
+                id: building.placement.id,
                 program: building.placement.program,
                 orientation: building.placement.orientation,
             },

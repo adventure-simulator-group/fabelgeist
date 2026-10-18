@@ -12,20 +12,25 @@ pub(super) fn compile(
         .iter()
         .map(|indices| {
             GroundTriangle::new(indices.map(|i| plan.mesh.positions[i as usize]))
-                .expect("validated support triangle")
+                .ok_or_else(|| geometry_rejection(plan, SupportGeometryIssue::Topology))
         })
-        .collect();
+        .collect::<Result<_, _>>()?;
     let mut faces = Vec::new();
     for segment in boundaries::exterior(&plan.clipping_outlines) {
         let source_sections = sections(
             segment,
-            source.intersecting_boundary_segment(segment, plan.limits.contact_tolerance_metres),
-            plan.limits.contact_tolerance_metres,
+            source
+                .intersecting_boundary_segment(
+                    segment,
+                    plan.limits.contact_tolerance_metres.metres(),
+                )
+                .map_err(|issue| geometry_rejection(plan, issue))?,
+            plan.limits.contact_tolerance_metres.metres(),
         );
         let support_sections = sections(
             segment,
             supports.iter(),
-            plan.limits.contact_tolerance_metres,
+            plan.limits.contact_tolerance_metres.metres(),
         );
         let mut stations = vec![0.0, 1.0];
         for (begin, end, _) in source_sections.iter().chain(&support_sections) {
@@ -43,13 +48,13 @@ pub(super) fn compile(
                 .find(|(begin, end, _)| *begin <= midpoint && midpoint <= *end)
             else {
                 let uncovered = (segment[1] - segment[0]).length() * (pair[1] - pair[0]);
-                if uncovered > f64::from(plan.limits.contact_tolerance_metres) {
+                if uncovered > f64::from(plan.limits.contact_tolerance_metres.metres()) {
                     return Err(plan.rejection(
                         SupportConstraint::BoundaryCoverage,
                         SupportBoundary::GeographicSurface,
                         segment[0].lerp(segment[1], midpoint).as_vec2(),
                         uncovered as f32,
-                        plan.limits.contact_tolerance_metres,
+                        plan.limits.contact_tolerance_metres.metres(),
                     ));
                 }
                 continue;
@@ -63,13 +68,13 @@ pub(super) fn compile(
                 })
             else {
                 let uncovered = (segment[1] - segment[0]).length() * (pair[1] - pair[0]);
-                if uncovered > f64::from(plan.limits.contact_tolerance_metres) {
+                if uncovered > f64::from(plan.limits.contact_tolerance_metres.metres()) {
                     return Err(plan.rejection(
                         SupportConstraint::BoundaryCoverage,
                         SupportBoundary::PropertyReservation,
                         segment[0].lerp(segment[1], midpoint).as_vec2(),
                         uncovered as f32,
-                        plan.limits.contact_tolerance_metres,
+                        plan.limits.contact_tolerance_metres.metres(),
                     ));
                 }
                 continue;
@@ -92,7 +97,7 @@ fn append_faces(
     let difference = |point| natural.height_f64(point) - support.height_f64(point);
     let heights = points.map(difference);
     if heights.into_iter().fold(f64::NEG_INFINITY, f64::max)
-        <= f64::from(limits.contact_tolerance_metres)
+        <= f64::from(limits.contact_tolerance_metres.metres())
     {
         return;
     }

@@ -1,6 +1,7 @@
 use super::*;
 use bevy::math::Vec3;
-fn fixture(archetype: BuildingArchetype, seed: u64) -> BuildingPlan {
+use fabelgeist_determinism::Seed;
+fn fixture(archetype: BuildingArchetype, seed: Seed) -> BuildingPlan {
     generate(&BuildingProgram::fixture(archetype, seed)).unwrap()
 }
 
@@ -56,7 +57,7 @@ fn grounded_programme_preserves_roof_members_and_reaches_real_rooms() {
         BuildingArchetype::FachwerkCottage,
         BuildingArchetype::HallHouse,
     ] {
-        for seed in [42, 47, 101, u64::MAX] {
+        for seed in [42, 47, 101, u64::MAX].map(fabelgeist_determinism::Seed::from_u64) {
             let heated = fixture(archetype, seed);
             let mut program = BuildingProgram::fixture(archetype, seed);
             program.domestic_heating = None;
@@ -92,7 +93,10 @@ fn grounded_programme_preserves_roof_members_and_reaches_real_rooms() {
 }
 #[test]
 fn smoke_and_weather_mutations_fail_closed() {
-    let original = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let original = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     let mut missing_route = original.clone();
     missing_route
         .domestic_heating
@@ -168,7 +172,10 @@ fn smoke_and_weather_mutations_fail_closed() {
 }
 #[test]
 fn collision_and_both_lods_retain_the_canonical_stack() {
-    let plan = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let plan = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     let collision = compile_building_collision(&plan).unwrap();
     for part in &plan.domestic_heating.as_ref().unwrap().parts {
         assert!(collision.cuboids.iter().any(|c| c.source == part.solid));
@@ -204,7 +211,10 @@ fn collision_and_both_lods_retain_the_canonical_stack() {
 
 #[test]
 fn folded_weathering_requires_every_return_and_downstream_lap() {
-    let original = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let original = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     for part in original
         .domestic_heating
         .as_ref()
@@ -294,7 +304,10 @@ fn folded_weathering_requires_every_return_and_downstream_lap() {
 }
 #[test]
 fn roof_pitch_change_is_atomic() {
-    let mut plan = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let mut plan = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     let id = plan.domestic_heating.as_ref().unwrap().roof.roof;
     let pitch = plan
         .roof_assemblies
@@ -314,7 +327,10 @@ fn roof_pitch_change_is_atomic() {
 
 #[test]
 fn missing_appliance_material_and_displaced_weathering_are_rejected() {
-    let original = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let original = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     for part in original
         .domestic_heating
         .as_ref()
@@ -405,7 +421,8 @@ fn settlement_height_and_roof_variation_preserves_the_heating_core() {
         BuildingArchetype::FachwerkCottage,
         BuildingArchetype::HallHouse,
     ] {
-        for seed in [0, 1, 2, 17, 42, 47, 101, u64::MAX] {
+        for seed in [0, 1, 2, 17, 42, 47, 101, u64::MAX].map(fabelgeist_determinism::Seed::from_u64)
+        {
             let program = BuildingProgram::settlement(
                 archetype,
                 Some(adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling),
@@ -436,7 +453,10 @@ fn settlement_height_and_roof_variation_preserves_the_heating_core() {
 
 #[test]
 fn rotated_masonry_and_tilted_flashing_do_not_count_as_sealed_material() {
-    let original = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let original = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     for kind in [HeatingPartKind::TiledStove, HeatingPartKind::RoofFlashing] {
         let mut changed = original.clone();
         let id = changed
@@ -476,7 +496,10 @@ fn rotated_masonry_and_tilted_flashing_do_not_count_as_sealed_material() {
 
 #[test]
 fn penetration_updates_drainage_stations_at_the_cut_boundary() {
-    let mut plan = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let mut plan = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     let face = plan.domestic_heating.as_ref().unwrap().roof.face;
     let network = plan
         .resolved_geometry
@@ -505,7 +528,10 @@ fn penetration_updates_drainage_stations_at_the_cut_boundary() {
 
 #[test]
 fn selection_reports_missing_room_and_storey_bindings_before_trying_roofs() {
-    let original = fixture(BuildingArchetype::FachwerkCottage, 42);
+    let original = fixture(
+        BuildingArchetype::FachwerkCottage,
+        fabelgeist_determinism::Seed::from_u64(42),
+    );
     let wall = original
         .wall_assemblies
         .iter()

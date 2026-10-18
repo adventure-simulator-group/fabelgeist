@@ -1,8 +1,12 @@
 use super::*;
 use bevy::math::Vec3;
+use fabelgeist_determinism::Seed;
 
 fn merchant() -> (BuildingProgram, BuildingPlan) {
-    let mut program = BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 3);
+    let mut program = BuildingProgram::fixture(
+        BuildingArchetype::FachwerkMerchantHouse,
+        fabelgeist_determinism::Seed::from_u64(3),
+    );
     program.domestic_heating = Some(DomesticHeatingProgramme::HearthAndRearFedStove);
     let plan = generate(&program).unwrap();
     (program, plan)
@@ -305,7 +309,10 @@ fn occupied_upper_flue_bore_and_lower_entrance_remain_clear() {
 
 #[test]
 fn town_kitchen_and_support_share_an_accessible_vertical_bay() {
-    let mut program = BuildingProgram::fixture(BuildingArchetype::TownHouse, 8);
+    let mut program = BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(8),
+    );
     program.domestic_heating = Some(DomesticHeatingProgramme::HearthAndRearFedStove);
     let plan = generate(&program).unwrap();
     assert_eq!(plan.domestic_heating.as_ref().unwrap().floors.len(), 1);
@@ -332,7 +339,7 @@ fn occupied_recipe_catalogue_selects_buildable_upper_heating() {
         BuildingArchetype::TownHouse,
         BuildingArchetype::FachwerkMerchantHouse,
     ] {
-        for seed in [42, 47, 101] {
+        for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
             let program = BuildingProgram::validated_settlement(
                 archetype,
                 adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling,
@@ -353,8 +360,8 @@ fn occupied_recipe_catalogue_selects_buildable_upper_heating() {
 #[test]
 fn shipped_upper_heating_programmes_remain_structurally_valid_and_accessible() {
     for (archetype, seed) in [
-        (BuildingArchetype::TownHouse, 11),
-        (BuildingArchetype::FachwerkMerchantHouse, 0),
+        (BuildingArchetype::TownHouse, Seed::from_u64(11)),
+        (BuildingArchetype::FachwerkMerchantHouse, Seed::from_u64(0)),
     ] {
         let mut program = BuildingProgram::fixture(archetype, seed);
         program.domestic_heating = Some(DomesticHeatingProgramme::HearthAndRearFedStove);
@@ -387,7 +394,9 @@ fn exact_merchant_programme_retains_upper_pantry_access() {
         6_006_670_756_388_891_727,
         7_989_866_213_631_017_260,
         269_418_199_818_528_039,
-    ] {
+    ]
+    .map(Seed::from_u64)
+    {
         let program = BuildingProgram::settlement(
             BuildingArchetype::FachwerkMerchantHouse,
             Some(adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling),

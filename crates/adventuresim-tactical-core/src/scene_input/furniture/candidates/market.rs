@@ -44,7 +44,7 @@ impl MarketFrame {
             if inward.dot(centre - (start + end) * 0.5) < 0.0 {
                 inward = -inward;
             }
-            let clearance = reservations::market_edge_clearance(input, start, end, inward)
+            let clearance = reservations::market_edge_clearance(input, start, end, inward).ok()?
                 + BOUNDARY_MARGIN_METRES;
             let local_inward = orientation.world_to_local(inward);
             let axis = if local_inward.x.abs() > local_inward.y.abs() {
@@ -73,14 +73,17 @@ impl MarketFrame {
 
 pub(in crate::scene_input::furniture) fn market(
     input: &TacticalSceneInput,
-) -> Result<MarketCandidates, adventuresim_building_generator::furniture::FurnitureRecipeError> {
+) -> Result<MarketCandidates, crate::scene_input::SceneInputError> {
     let mut result = MarketCandidates {
         groups: Vec::new(),
         aisles: Vec::new(),
     };
     let mut row_depth = 0.0_f32;
     for variant in FurnitureVariant::ALL {
-        let (min, max) = reservation_bounds(
+        let LocalReservationBounds {
+            minimum: min,
+            maximum: max,
+        } = reservation_bounds(
             FurnitureKey::natural(FurnitureKind::CanvasStall, variant).recipe()?,
         );
         row_depth = row_depth.max(max.y - min.y);
@@ -122,7 +125,7 @@ pub(in crate::scene_input::furniture) fn market(
                         frame.point(Vec2::new(frame.minimum.x, aisle_y)),
                         frame.point(Vec2::new(frame.maximum.x, aisle_y)),
                         CUSTOMER_AISLE_METRES * 0.5,
-                    ));
+                    )?);
                     cursor += CUSTOMER_AISLE_METRES + BOUNDARY_MARGIN_METRES;
                 }
             }
@@ -144,7 +147,7 @@ impl MarketRow {
         input: &TacticalSceneInput,
         frame: &MarketFrame,
         candidates: &mut Vec<Candidate>,
-    ) -> Result<(), adventuresim_building_generator::furniture::FurnitureRecipeError> {
+    ) -> Result<(), crate::scene_input::SceneInputError> {
         let Self {
             patch_index,
             patch,
@@ -154,35 +157,34 @@ impl MarketRow {
         } = *self;
         let facing_centre = row.is_multiple_of(2);
         let reversed = (direction < 0.0) == facing_centre;
-        let orientation = if reversed {
-            BuildingOrientation::from_radians(
+        let orientation =
+            if reversed {
+                BuildingOrientation::from_radians(
                 frame.orientation.yaw_radians() + std::f32::consts::PI,
             )
-            .unwrap()
-        } else {
-            frame.orientation
-        };
+.ok_or(adventuresim_building_generator::spatial_geometry::GeometryError::InvalidProjection)?
+            } else {
+                frame.orientation
+            };
         let mut x = frame.minimum.x;
         for column in 0..MAX_ROW_CANDIDATES {
             let slot = ((row as u64) << ROW_ID_SHIFT) | column as u64;
-            let mut candidate = Candidate::new(
-                StreamId::new("furniture.market-anchor")
-                    .seed(
-                        input.seed,
-                        &[
-                            u64::from(frame.centre.x.to_bits()),
-                            u64::from(frame.centre.y.to_bits()),
-                            u64::from(frame.orientation.yaw_radians().to_bits()),
-                        ],
-                    )
-                    .to_u64(),
+            let candidate = LocalCandidate::new(
+                StreamId::new("furniture.market-anchor").seed(
+                    input.seed,
+                    &[
+                        u64::from(frame.centre.x.to_bits()),
+                        u64::from(frame.centre.y.to_bits()),
+                        u64::from(frame.orientation.yaw_radians().to_bits()),
+                    ],
+                ),
                 slot,
                 FurnitureGroupKind::Vendor,
                 FurnitureAnchor::Market {
                     patch_index: patch_index as u32,
                 },
             )?;
-            let half_width = candidate.footprint.half_extents_metres.x;
+            let half_width = candidate.half_extents.metres().x;
             // Restart beyond the central through-route instead of wasting a crossing slot.
             let crossing = reservations::MARKET_AISLE_HALF_WIDTH_METRES + BOUNDARY_MARGIN_METRES;
             if x < crossing && x + half_width * 2.0 > -crossing {
@@ -191,8 +193,12 @@ impl MarketRow {
             if x + half_width * 2.0 > frame.maximum.x {
                 break;
             }
-            candidate.footprint.centre_metres = frame.point(Vec2::new(x + half_width, y));
-            candidate.footprint.orientation = orientation;
+            let mut candidate = candidate.place(
+                crate::scene_coordinates::ScenePlanPoint::try_from(
+                    frame.point(Vec2::new(x + half_width, y)),
+                )?,
+                orientation,
+            )?;
             candidate.market = Some(patch);
             x += half_width * 2.0 + STALL_SEPARATION_METRES;
             candidates.push(candidate);

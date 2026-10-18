@@ -1,7 +1,8 @@
 //! Aggregate crown and macro-cluster orientation.
 use super::*;
+use fabelgeist_determinism::Seed;
 
-pub(super) fn subcluster_phase(seed: u64, key: u16) -> f32 {
+pub(super) fn subcluster_phase(seed: Seed, key: u16) -> f32 {
     fabelgeist_determinism::StreamId::new("visual.obstacles.tree.impostor.subcluster-phase")
         .rng(seed, &[u64::from(key)])
         .inclusive_unit_f32()

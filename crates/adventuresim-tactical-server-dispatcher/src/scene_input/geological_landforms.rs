@@ -29,7 +29,7 @@ pub(super) fn select(
     features: &[TerrainFeature],
     center: Wgs84CoordinateE7,
     grid: &TerrainSampleGrid,
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
 ) -> Option<TerrainLandformRecipe> {
     let geographic =
         Proj::from_proj_string("+proj=longlat +datum=WGS84 +ellps=WGS84 +no_defs").ok()?;
@@ -81,26 +81,30 @@ pub(super) fn select(
             ) else {
                 continue;
             };
-            let recipe = TerrainLandformRecipe {
-                kind,
-                surface: TerrainSurfaceRecipe::new(
-                    lithology,
-                    TerrainSurfaceSource::Mapped,
+            let recipe = TerrainLandformRecipe::from_quantized(
+                adventuresim_tactical_core::volumetric_terrain::QuantizedLandformRecipe {
+                    kind,
+                    surface: TerrainSurfaceRecipe::new(
+                        lithology,
+                        TerrainSurfaceSource::Mapped,
+                        seed,
+                        tangent_permyriad,
+                    )
+                    .ok()?,
                     seed,
+                    origin_cm: [
+                        (point.x * 100.0).round() as i32,
+                        (point.y * 100.0).round() as i32,
+                    ],
                     tangent_permyriad,
-                ),
-                seed,
-                origin_cm: [
-                    (point.x * 100.0).round() as i32,
-                    (point.y * 100.0).round() as i32,
-                ],
-                tangent_permyriad,
-                relief_cm: (relief * 100.0).round() as u16,
-                half_length_cm: HALF_LENGTH_CM,
-                half_width_cm: HALF_WIDTH_CM,
-                collar_cm: COLLAR_CM,
-                lod: TerrainLandformLod::Detail,
-            };
+                    relief_cm: (relief * 100.0).round() as u16,
+                    half_length_cm: HALF_LENGTH_CM,
+                    half_width_cm: HALF_WIDTH_CM,
+                    collar_cm: COLLAR_CM,
+                    lod: TerrainLandformLod::Detail,
+                },
+            )
+            .ok()?;
             if !safe_footprint(grid, &terrain, recipe) {
                 continue;
             }
@@ -136,8 +140,8 @@ fn safe_footprint(
     terrain: &SceneTerrain,
     recipe: TerrainLandformRecipe,
 ) -> bool {
-    let origin = Vec2::new(recipe.origin_cm[0] as f32, recipe.origin_cm[1] as f32) / 100.0;
-    let radius = f32::from(recipe.half_length_cm.max(recipe.half_width_cm)) / 100.0 + 2.0;
+    let origin = Vec2::new(recipe.origin_cm()[0] as f32, recipe.origin_cm()[1] as f32) / 100.0;
+    let radius = f32::from(recipe.half_length_cm().max(recipe.half_width_cm())) / 100.0 + 2.0;
     let half = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
     if origin.x.abs() + radius >= half.x
         || origin.y.abs() + radius >= half.y
@@ -233,7 +237,7 @@ pub(super) fn mapped_fault_surface(
     center: Wgs84CoordinateE7,
     point: Vec2,
     radius_metres: f64,
-    seed: u64,
+    seed: fabelgeist_determinism::Seed,
     tangent_permyriad: [i16; 2],
 ) -> Option<TerrainSurfaceRecipe> {
     let geographic =
@@ -247,12 +251,13 @@ pub(super) fn mapped_fault_surface(
         &geographic,
         &projected,
     )?;
-    Some(TerrainSurfaceRecipe::new(
+    TerrainSurfaceRecipe::new(
         lithology,
         TerrainSurfaceSource::Mapped,
         seed,
         tangent_permyriad,
-    ))
+    )
+    .ok()
 }
 
 #[cfg(test)]
@@ -289,11 +294,11 @@ mod tests {
     #[test]
     fn imported_lithology_and_relief_generate_a_safe_downhill_landform() {
         let (center, grid, features) = context();
-        let recipe = select(&features, center, &grid, 42).unwrap();
-        assert_eq!(recipe.kind, TerrainLandformKind::SandstoneAlcove);
-        assert_eq!(Some(recipe), select(&features, center, &grid, 42));
-        assert!(recipe.origin_cm[1].abs() > 2100);
-        assert!(recipe.tangent_permyriad[0] > 9900);
+        let recipe = select(&features, center, &grid, 42.into()).unwrap();
+        assert_eq!(recipe.kind(), TerrainLandformKind::SandstoneAlcove);
+        assert_eq!(Some(recipe), select(&features, center, &grid, 42.into()));
+        assert!(recipe.origin_cm()[1].abs() > 2100);
+        assert!(recipe.tangent_permyriad()[0] > 9900);
     }
 
     #[test]
@@ -308,12 +313,12 @@ mod tests {
                 unreachable!()
             };
             window.lithology = SurfaceLithology::Sedimentary(rock);
-            let selected = select(&features, center, &grid, 42);
+            let selected = select(&features, center, &grid, 42.into());
             if rock == SedimentaryRock::Marl {
                 assert!(selected.is_none());
             } else {
                 assert_eq!(
-                    selected.unwrap().kind,
+                    selected.unwrap().kind(),
                     TerrainLandformKind::CarbonateDissolution
                 );
             }
@@ -328,14 +333,15 @@ mod tests {
         };
         window.lithology = SurfaceLithology::Sedimentary(SedimentaryRock::Shale);
 
-        let surface = mapped_fault_surface(&features, center, Vec2::ZERO, 45.0, 42, [10_000, 0])
-            .expect("a containing mapped unit must drive every fault surface family");
+        let surface =
+            mapped_fault_surface(&features, center, Vec2::ZERO, 45.0, 42.into(), [10_000, 0])
+                .expect("a containing mapped unit must drive every fault surface family");
 
         assert_eq!(
-            surface.lithology,
+            surface.lithology(),
             SurfaceLithology::Sedimentary(SedimentaryRock::Shale)
         );
-        assert_eq!(surface.source, TerrainSurfaceSource::Mapped);
+        assert_eq!(surface.source(), TerrainSurfaceSource::Mapped);
         assert_eq!(surface.preset(), TerrainSurfacePreset::Shale);
     }
 
@@ -351,12 +357,12 @@ mod tests {
                 unreachable!()
             };
             window.lithology = SurfaceLithology::Igneous(rock);
-            let selected = select(&features, center, &grid, 42);
+            let selected = select(&features, center, &grid, 42.into());
             if rock == IgneousRock::OtherPlutonic {
                 assert!(selected.is_none());
             } else {
                 assert_eq!(
-                    selected.unwrap().kind,
+                    selected.unwrap().kind(),
                     TerrainLandformKind::GraniteJointRockfall
                 );
             }
@@ -418,7 +424,7 @@ mod tests {
             let north = (index / 101) as f32 - 50.0;
             *height = -(north / 30.0).floor() * 9.0;
         }
-        let recipe = select(&features, center, &grid, 42).unwrap();
+        let recipe = select(&features, center, &grid, 42.into()).unwrap();
         let mut input = TacticalSceneInput::load(Path::new(concat!(
             env!("CARGO_MANIFEST_DIR"),
             "/../../assets/tactical-scenes/sandstone-alcove.json"
@@ -429,20 +435,25 @@ mod tests {
         let generated = input.generate().unwrap();
         let mesh = generated.terrain_patch.unwrap();
         if matches!(
-            recipe.kind,
+            recipe.kind(),
             TerrainLandformKind::BasaltCoolingColumns | TerrainLandformKind::CohesiveSlumpHeadscarp
         ) {
-            assert!(mesh.normals.iter().any(|normal| normal[1].abs() < 0.025));
+            assert!(mesh.normals().iter().any(|normal| normal[1].abs() < 0.025));
         } else {
-            assert!(mesh.normals.iter().any(|normal| normal[1] < -0.2));
+            assert!(mesh.normals().iter().any(|normal| normal[1] < -0.2));
         }
         let half_width =
             (f32::from(input.playable.width) - 1.0) * input.playable.spacing_metres * 0.5;
         for index in 0..101 {
             let point = Vec2::new(index as f32 - half_width, 0.0);
-            assert!(!recipe.transition_collar().contains(point));
+            assert!(
+                !recipe.transition_collar().contains(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(point)
+                        .unwrap()
+                )
+            );
         }
-        if recipe.kind == TerrainLandformKind::SandstoneAlcove
+        if recipe.kind() == TerrainLandformKind::SandstoneAlcove
             && let Some(output) = std::env::var_os("GEOLOGY_REVIEW_STEPPED_INPUT")
         {
             fs::write(output, serde_json::to_vec_pretty(&input).unwrap()).unwrap();
@@ -452,16 +463,16 @@ mod tests {
     #[test]
     fn missing_wrong_lithology_flat_water_road_and_cultivation_cannot_generate_cliffs() {
         let (center, grid, mut features) = context();
-        assert!(select(&[], center, &grid, 42).is_none());
+        assert!(select(&[], center, &grid, 42.into()).is_none());
         let TerrainFeature::MappedGeology(window) = &mut features[0] else {
             unreachable!()
         };
         window.lithology = SurfaceLithology::Sedimentary(SedimentaryRock::Coal);
-        assert!(select(&features, center, &grid, 42).is_none());
+        assert!(select(&features, center, &grid, 42.into()).is_none());
         let (_, grid, features) = context();
         let mut flat = grid.clone();
         flat.heights_metres.fill(0.0);
-        assert!(select(&features, center, &flat, 42).is_none());
+        assert!(select(&features, center, &flat, 42.into()).is_none());
         for surface in [
             TacticalSurface::Road,
             TacticalSurface::Water,
@@ -471,12 +482,12 @@ mod tests {
             for sample in &mut protected.environment {
                 sample.surface = surface;
             }
-            assert!(select(&features, center, &protected, 42).is_none());
+            assert!(select(&features, center, &protected, 42.into()).is_none());
         }
         let mut cultivated = grid.clone();
         for sample in &mut cultivated.environment {
             sample.cultivation_bps = 10000;
         }
-        assert!(select(&features, center, &cultivated, 42).is_none());
+        assert!(select(&features, center, &cultivated, 42.into()).is_none());
     }
 }

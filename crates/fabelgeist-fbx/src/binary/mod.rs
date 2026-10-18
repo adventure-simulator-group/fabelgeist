@@ -1,14 +1,18 @@
 //! Native byte decoding and failure admission for binary FBX.
 //!
-//! Cursor positions, wire counts/encoding words and scalar byte arities remain
+//! Cursor positions, wire counts and scalar byte arities remain
 //! native representations here, directly at slice, allocation, range and
 //! little-endian conversion ports. They are not forwarded as admitted metadata
-//! or shared storage values. Framing and metadata ownership are separate work.
-use crate::{Node, Prop};
-use flate2::read::ZlibDecoder;
+//! or shared storage values. Array encoding is checked once before payload
+//! decoding; framing and other metadata ownership remain separate work.
 use std::io::Read;
-mod error;
+
+use flate2::read::ZlibDecoder;
+
+use crate::{Node, Prop, array_encoding::FbxArrayEncoding};
 pub use error::{FbxDecodeError, Result};
+
+mod error;
 
 struct Reader<'a> {
     data: &'a [u8],
@@ -81,17 +85,18 @@ impl<'a> Reader<'a> {
     // port; counts and arity do not cross another semantic helper boundary.
     fn array<const N: usize, T: Copy>(&mut self, decode: impl Fn([u8; N]) -> T) -> Result<Vec<T>> {
         let count = self.u32()? as usize;
-        let encoding = self.u32()?;
+        let encoding = FbxArrayEncoding::try_from(self.u32()?)?;
         let compressed_length = self.u32()? as usize;
         let raw = self.take(compressed_length)?;
-        let bytes = if encoding == 0 {
-            raw.to_vec()
-        } else {
-            let mut output = Vec::with_capacity(count * N);
-            ZlibDecoder::new(raw)
-                .read_to_end(&mut output)
-                .map_err(|source| FbxDecodeError::Inflate { source })?;
-            output
+        let bytes = match encoding {
+            FbxArrayEncoding::Uncompressed => raw.to_vec(),
+            FbxArrayEncoding::Zlib => {
+                let mut output = Vec::with_capacity(count * N);
+                ZlibDecoder::new(raw)
+                    .read_to_end(&mut output)
+                    .map_err(|source| FbxDecodeError::Inflate { source })?;
+                output
+            }
         };
         if bytes.len() < count * N {
             return Err(FbxDecodeError::ArrayShort {
@@ -170,8 +175,8 @@ impl Node {
 
 /// Parses the native top-level node list of a binary FBX file.
 ///
-/// Every nonzero array encoding uses zlib. Native version words choose the
-/// inherited narrow/wide layout without unsupported-version rejection.
+/// Array encoding uses the checked canonical owner. Native version words
+/// choose the inherited narrow/wide layout without unsupported-version rejection.
 pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
     let mut reader = Reader::from_binary(data)?;
     let mut roots = Vec::new();

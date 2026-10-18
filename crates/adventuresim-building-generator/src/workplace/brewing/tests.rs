@@ -5,8 +5,12 @@ use crate::{audit_plan, compile_building_collision, generate, settlement_archety
 #[test]
 fn brewing_vessels_have_usable_open_volume_and_solid_timber_bottoms() {
     let usage = BuildingUse::Brewery;
-    let program = BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42)
-        .with_service_size(ServiceBuildingSize::Small);
+    let program = BuildingProgram::settlement(
+        settlement_archetype(usage),
+        Some(usage),
+        fabelgeist_determinism::Seed::from_u64(42),
+    )
+    .with_service_size(ServiceBuildingSize::Small);
     let plan = generate(&program).unwrap();
     let workplace = plan.workplace.as_ref().unwrap();
     let centre = Vec3::new(2.0, 0.7, 2.24);
@@ -52,8 +56,12 @@ fn brewing_vessels_have_usable_open_volume_and_solid_timber_bottoms() {
 #[test]
 fn detached_vessel_hoops_are_rejected_by_the_architecture_audit() {
     let usage = BuildingUse::Brewery;
-    let program = BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42)
-        .with_service_size(ServiceBuildingSize::Small);
+    let program = BuildingProgram::settlement(
+        settlement_archetype(usage),
+        Some(usage),
+        fabelgeist_determinism::Seed::from_u64(42),
+    )
+    .with_service_size(ServiceBuildingSize::Small);
     let mut plan = generate(&program).unwrap();
     let hoop = plan
         .workplace
@@ -94,8 +102,12 @@ fn detached_vessel_hoops_are_rejected_by_the_architecture_audit() {
 #[test]
 fn malt_kiln_rejects_obstruction_of_its_continuous_exhaust_channel() {
     let usage = BuildingUse::Malthouse;
-    let program = BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42)
-        .with_service_size(ServiceBuildingSize::Medium);
+    let program = BuildingProgram::settlement(
+        settlement_archetype(usage),
+        Some(usage),
+        fabelgeist_determinism::Seed::from_u64(42),
+    )
+    .with_service_size(ServiceBuildingSize::Medium);
     let mut plan = generate(&program).unwrap();
     let work = plan.workplace.as_ref().unwrap();
     let vent = work
