@@ -6,6 +6,11 @@
 //! renderer draws directly. The window keeps its frame rate however slow the
 //! simulation is, and only the latest snapshot is ever kept.
 
+use crate::species::{Foliage, LitterContribution};
+use crate::units::Years;
+use crate::units::{Celsius, Millimetres};
+use fabelgeist_determinism::Seed;
+use fabelgeist_math::units::Metres;
 use std::sync::mpsc::{Receiver, RecvTimeoutError, Sender, channel};
 use std::sync::{Arc, Mutex};
 use std::thread::JoinHandle;
@@ -22,6 +27,10 @@ use fabelgeist_surface_field::{Shape, SurfaceIndex};
 use rayon::prelude::*;
 
 use crate::viewer::profile::Profile;
+
+mod commands;
+mod foliage;
+mod measurements;
 
 /// One branch segment, as the branch shader reads it: a tube between two
 /// rings, curving from one's tangent to the other's.
@@ -123,14 +132,6 @@ pub struct StructureGeometry {
     pub indices: Vec<u32>,
 }
 
-/// How a species' foliage is drawn.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum Foliage {
-    Broadleaf = 0,
-    Needles = 1,
-    Fronds = 2,
-}
-
 #[derive(Clone, Debug)]
 pub struct SpeciesInfo {
     pub name: String,
@@ -195,8 +196,8 @@ pub enum Command {
     /// as it goes.
     Speed(f32),
     Climate {
-        temperature: f32,
-        precipitation: f32,
+        temperature: Celsius,
+        precipitation: Millimetres,
     },
     GlobalShadowing(bool),
     /// Whether plants spread by seed.
@@ -227,7 +228,7 @@ pub struct Simulation {
 }
 
 impl Simulation {
-    pub fn start(scene: Scene, profile: Profile) -> Self {
+    pub fn start(scene: Scene, profile: Profile) -> crate::error::Result<Self> {
         let (commands, receiver) = channel();
         let latest = Arc::new(Mutex::new(None));
         let slot = latest.clone();
@@ -238,12 +239,12 @@ impl Simulation {
                     eprintln!("simulation stopped: {error:#}");
                 }
             })
-            .expect("spawn the simulation thread");
-        Self {
+            .map_err(crate::error::BotanyError::ThreadSpawn)?;
+        Ok(Self {
             commands,
             latest,
             _thread: thread,
-        }
+        })
     }
 
     pub fn send(&self, command: Command) {
@@ -273,8 +274,9 @@ fn run(
     latest: Arc<Mutex<Option<Snapshot>>>,
 ) -> anyhow::Result<()> {
     let context = pollster::block_on(WgpuContext::new())?;
-    let build =
-        |scene: Scene| -> anyhow::Result<Ecosystem> { scene.build(1).with_gpu(context.clone()) };
+    let build = |scene: Scene| -> crate::error::Result<Ecosystem> {
+        scene.build(Seed::from_u64(1)).with_gpu(context.clone())
+    };
     let build = |scene: Scene, profile: &Profile| -> anyhow::Result<Ecosystem> {
         let mut ecosystem = build(scene)?;
         ecosystem.settings.dt = profile.step_years;
@@ -310,57 +312,12 @@ fn run(
         };
         let mut step_once = false;
         while let Some(command) = first.take().or_else(|| commands.try_recv().ok()) {
-            match command {
-                Command::Reset(scene) => {
-                    state.ecosystem = build(scene, &state.profile)?;
-                    state.generation += 1;
-                    state.terrain_sent = false;
-                }
-                Command::Play(playing) => state.playing = playing,
-                Command::Step => step_once = true,
-                Command::Speed(speed) => state.years_per_second = speed,
-                Command::Climate {
-                    temperature,
-                    precipitation,
-                } => {
-                    state.ecosystem.climate.temperature = temperature;
-                    state.ecosystem.climate.precipitation = precipitation;
-                    state.ecosystem.refresh_species();
-                }
-                Command::Seeding(enabled) => state.ecosystem.settings.seeding = enabled,
-                Command::Mortality(enabled) => state.ecosystem.settings.mortality = enabled,
-                Command::GlobalShadowing(enabled) => {
-                    state.ecosystem.settings.global_shadowing = enabled
-                }
-                Command::Profile(profile) => {
-                    state.profile = profile;
-                    state.ecosystem.settings.dt = profile.step_years;
-                }
-                Command::Gap { x, z, radius } => {
-                    state.ecosystem.clear(x, z, radius);
-                }
-                Command::Sow {
-                    species,
-                    origin,
-                    direction,
-                } => {
-                    let ecosystem = &mut state.ecosystem;
-                    let thrown = (Vec3::from_array(origin), Vec3::from_array(direction));
-                    if let Some([x, z]) = ecosystem.landing(thrown.0, thrown.1) {
-                        let plants = ecosystem.species.len();
-                        if species < plants {
-                            ecosystem.plant(species, x, z);
-                        } else {
-                            ecosystem.plant_vine(species - plants, x, z);
-                        }
-                    }
-                }
-            }
+            state.apply_command(command, &build, &mut step_once)?;
             dirty = true;
         }
 
         let now = Instant::now();
-        let dt = state.ecosystem.settings.dt;
+        let dt = state.ecosystem.settings.dt.duration().years();
         if !state.profile.continuous {
             // A step at a time, as often as the speed asks and no oftener.
             if step_once || (state.playing && now >= next_step) {
@@ -400,7 +357,9 @@ fn run(
         }
         if let Some(years) = years {
             last_advance = now;
-            if let Some(report) = pollster::block_on(state.ecosystem.advance(years))? {
+            if let Some(report) =
+                pollster::block_on(state.ecosystem.advance(Years::from_years(years)))?
+            {
                 state.last_step_ms = report.total.as_secs_f32() * 1e3;
             }
             dirty = true;
@@ -441,14 +400,6 @@ fn run(
     }
 }
 
-fn foliage(species: &PlantType) -> Foliage {
-    match species.name.as_str() {
-        "conifer" => Foliage::Needles,
-        "palm" => Foliage::Fronds,
-        _ => Foliage::Broadleaf,
-    }
-}
-
 /// Everything the window needs of `ecosystem` now, as `profile` draws it;
 /// the terrain too when `with_terrain`.
 pub fn capture(
@@ -466,7 +417,7 @@ pub fn capture(
         .par_iter()
         .enumerate()
         .map(|(i, plant)| {
-            let species = &ecosystem.species[plant.species as usize];
+            let species = &ecosystem.species[plant.species.index()];
             instances(plant, i as u32, species, &ecosystem.prototypes)
         })
         .collect();
@@ -484,8 +435,8 @@ pub fn capture(
         .par_iter()
         .enumerate()
         .map(|(i, vine)| {
-            let species = &ecosystem.vine_species[vine.species as usize];
-            let kind = (ecosystem.species.len() + vine.species as usize) as u32;
+            let species = &ecosystem.vine_species[vine.species.index()];
+            let kind = (ecosystem.species.len() + vine.species.index()) as u32;
             vine_instances(vine, first + i as u32, kind, species)
         })
         .collect();
@@ -510,60 +461,15 @@ pub fn capture(
         ..
     } = forest;
 
-    let mut species: Vec<SpeciesInfo> = ecosystem
-        .species
-        .iter()
-        .map(|s| SpeciesInfo {
-            name: s.name.clone(),
-            bark: s.bark_color,
-            leaf: s.leaf_color,
-            foliage: foliage(s),
-            plants: 0,
-        })
-        .collect();
-    species.extend(ecosystem.vine_species.iter().map(|s| SpeciesInfo {
-        name: s.name.clone(),
-        bark: s.bark_color,
-        leaf: s.leaf_color,
-        foliage: Foliage::Broadleaf,
-        plants: 0,
-    }));
-    let mut lo = [f32::INFINITY; 3];
-    let mut hi = [f32::NEG_INFINITY; 3];
-    for plant in &ecosystem.plants {
-        species[plant.species as usize].plants += 1;
-        for node in &plant.nodes {
-            let p = node.position.to_array();
-            for k in 0..3 {
-                lo[k] = lo[k].min(p[k]);
-                hi[k] = hi[k].max(p[k]);
-            }
-        }
-    }
-    for vine in &ecosystem.vines {
-        species[ecosystem.species.len() + vine.species as usize].plants += 1;
-    }
-    if let Some(obstacles) = &ecosystem.obstacles {
-        let [a, b] = obstacles.structure.bounds();
-        for k in 0..3 {
-            lo[k] = lo[k].min(a[k]);
-            hi[k] = hi[k].max(b[k]);
-        }
-    }
-    let t = &ecosystem.terrain;
-    let (low, high) = t.height_range();
-    let bounds = [
-        [t.origin[0], low.min(lo[1]), t.origin[1]],
-        [
-            t.origin[0] + t.size[0],
-            high.max(hi[1]).max(low + 1.0),
-            t.origin[1] + t.size[1],
-        ],
-    ];
+    let measurements::SceneMeasurements {
+        species,
+        bounds,
+        biome,
+    } = measurements::SceneMeasurements::new(ecosystem);
 
     Snapshot {
         scene_generation: generation,
-        time: ecosystem.time,
+        time: ecosystem.time.years(),
         plants: ecosystem.plants.len(),
         modules: ecosystem.plants.iter().map(|p| p.modules.len()).sum(),
         step_ms,
@@ -579,7 +485,7 @@ pub fn capture(
         terrain,
         structures,
         bounds,
-        biome: ecosystem.climate.biome_at(low),
+        biome,
     }
 }
 
@@ -599,9 +505,9 @@ fn litter(
     let rows = (t.size[1] / cell).ceil().max(1.0) as usize;
     let mut cells = vec![[0.0f32; 4]; columns * rows];
     for (plant, (_, leaves, _)) in ecosystem.plants.iter().zip(per_plant) {
-        let species = &ecosystem.species[plant.species as usize];
+        let species = &ecosystem.species[plant.species.index()];
         // Grass is the ground cover itself.
-        if leaves.is_empty() || species.name == "grass" {
+        if leaves.is_empty() || species.litter == LitterContribution::GroundCover {
             continue;
         }
         let [x, z] = [plant.position.x, plant.position.z];
@@ -615,7 +521,7 @@ fn litter(
         // Spread as 1 - (d / r)^2 over the crown's disc, whose integral is
         // half the disc: the density at its centre is twice the average.
         let peak = 2.0 * area / (std::f32::consts::PI * reach * reach);
-        let channel = usize::from(foliage(species) != Foliage::Needles);
+        let channel = usize::from(species.foliage != Foliage::Needles);
         let lo = |v: f32, o: f32| (((v - reach - o) / cell).floor().max(0.0)) as usize;
         let hi =
             |v: f32, o: f32, n: usize| (((v + reach - o) / cell).ceil().max(0.0) as usize).min(n);
@@ -678,8 +584,8 @@ fn blend_index(branches: &[BranchInstance], size: f32, thinnest: f32) -> BlendSh
 /// Years from a module's birth that it carries leaves behind the tips: the
 /// years it takes to develop, and a few more; a conifer keeps its needles
 /// longer, further back along its branches.
-const FOLIAGE_YEARS: f32 = 8.0;
-const NEEDLE_YEARS: f32 = 14.0;
+const FOLIAGE_YEARS: Years = Years::from_years(8.0);
+const NEEDLE_YEARS: Years = Years::from_years(14.0);
 /// Twigs up to this many tip diameters thick carry leaves too, however old
 /// -- spur shoots -- and a conifer's further back.
 const TWIG_DIAMETERS: f32 = 2.5;
@@ -730,7 +636,10 @@ fn instances(
     let mut ending = vec![u32::MAX; plant.nodes.len()];
     for (u, module) in plant.modules.iter().enumerate() {
         let prototype = prototypes.get(module.prototype);
-        let offset = module.node_offset as usize;
+        let Some(offset) = module.node_offset else {
+            continue;
+        };
+        let offset = offset.index();
         if offset + prototype.node_count() > plant.nodes.len() {
             continue;
         }
@@ -764,14 +673,11 @@ fn instances(
         let prototype = prototypes.get(module.prototype);
         let parent = prototype.nodes[s.node].parent as usize;
         if parent != 0 {
-            return Some(module.node_offset as usize + parent);
+            return Some(module.node_offset?.index() + parent);
         }
-        if module.parent == NONE {
-            return None;
-        }
-        let up = &plant.modules[module.parent as usize];
+        let up = &plant.modules[module.parent?.index()];
         let terminal = prototypes.get(up.prototype).terminals[module.parent_slot as usize];
-        Some((up.node_offset + terminal) as usize)
+        Some(up.node_offset?.index() + terminal as usize)
     };
     let count = segments.len();
     let mut parent = vec![u32::MAX; count];
@@ -903,9 +809,9 @@ fn instances(
 
     // Leaves.
     let mut leaves = Vec::new();
-    let crowned = foliage(species) == Foliage::Fronds;
+    let crowned = species.foliage == Foliage::Fronds;
     if species.leaf_size > 0.0 && !crowned {
-        let (foliage_years, twig) = if foliage(species) == Foliage::Needles {
+        let (foliage_years, twig) = if species.foliage == Foliage::Needles {
             (NEEDLE_YEARS, NEEDLE_TWIG_DIAMETERS)
         } else {
             (FOLIAGE_YEARS, TWIG_DIAMETERS)
@@ -915,38 +821,32 @@ fn instances(
             let module = &plant.modules[segment.module];
             let prototype = prototypes.get(module.prototype);
             let n = segment.node;
-            let tip = plant.nodes[module.node_offset as usize + n];
-            // Foliage at every shoot tip, along the last few years' growth
-            // behind them, and on thin twigs however old. Each goes
-            // gradually: a tip's as the shoot that buds from it takes over,
-            // young growth's over its last year, a twig's as it comes to feed
-            // more shoots -- its sapwood, which grows with them smoothly --
-            // and a species that sheds its leaves by age (a palm's fronds)
-            // over the last half year.
-            let slot = prototype.terminal_slot[n];
-            let tipness = if !prototype.children[n].is_empty() {
-                0.0
-            } else if slot == NONE || module.children[slot as usize] == NONE {
-                1.0
-            } else {
-                let shoot = &plant.modules[module.children[slot as usize] as usize];
-                1.0 - smoothstep(0.0, 0.5, shoot.age)
+            let Some(offset) = module.node_offset else {
+                continue;
             };
-            let years = plant.age - module.born;
-            let youth = 1.0 - smoothstep(foliage_years - 1.0, foliage_years, years);
-            let thin = 1.0 - smoothstep(0.75 * twig, twig, tip.sapwood);
-            let kept = species
-                .leaf_years
-                .map_or(1.0, |limit| 1.0 - smoothstep(limit - 0.5, limit, years));
-            let fade = tipness.max(youth).max(thin) * kept;
+            let tip = plant.nodes[offset.index() + n];
+            let opacity = foliage::leaf_fade(
+                plant,
+                module,
+                prototype,
+                n,
+                &tip,
+                foliage::LeafRetention {
+                    years: foliage_years,
+                    twig_diameter: Metres::from_metres(twig),
+                },
+                species,
+            );
+            // Pack semantic opacity into native shader-instance factors.
+            let (tipness, fade) = (opacity.tip.ratio(), opacity.total.ratio());
             if fade < 0.02 {
                 continue;
             }
             // Keyed on the module's lasting id, not its index, so a leaf
             // keeps its look when shedding shifts the modules around it.
-            let hash = (plant.id as u32)
+            let hash = (plant.id.word() as u32)
                 .wrapping_mul(2_654_435_761)
-                .wrapping_add(module.id.wrapping_mul(40_503))
+                .wrapping_add(module.id.word().wrapping_mul(40_503))
                 .wrapping_add(n as u32 * 97);
             leaves.push(LeafInstance {
                 center: tip.position.to_array(),
@@ -954,14 +854,14 @@ fn instances(
                 // of the segment they grow on, which may emerge well after
                 // its module began. Behind the tip they are a little smaller.
                 size: species.leaf_size
-                    * smoothstep(0.0, 0.3, tip.age)
-                    * (0.5 + 0.5 * tip.age.min(1.0))
+                    * smoothstep(0.0, 0.3, tip.age.stage())
+                    * (0.5 + 0.5 * tip.age.stage().min(1.0))
                     * (0.8 + 0.2 * tipness)
                     * fade,
                 axis: segment.direction.to_array(),
                 light: module.lit.clamp(0.0, 1.0),
                 crown: [0.0; 4],
-                species: plant.species as u32,
+                species: plant.species.word() as u32,
                 seed: (hash % 10_000) as f32 / 10_000.0,
                 plant: index,
                 pad: 0,
@@ -998,32 +898,7 @@ fn instances(
     }
 
     // Bounds: everything drawn, leaves' reach included.
-    let mut lo = plant.position;
-    let mut hi = plant.position;
-    for node in &plant.nodes {
-        lo = Vec3::new(
-            lo.x.min(node.position.x),
-            lo.y.min(node.position.y),
-            lo.z.min(node.position.z),
-        );
-        hi = Vec3::new(
-            hi.x.max(node.position.x),
-            hi.y.max(node.position.y),
-            hi.z.max(node.position.z),
-        );
-    }
-    let reach = species.leaf_size * if crowned { 4.5 } else { 1.5 };
-    let center = (lo + hi) * 0.5;
-    let bounds = PlantInstance {
-        sphere: [
-            center.x,
-            center.y,
-            center.z,
-            (hi - lo).length() * 0.5 + reach,
-        ],
-        species: plant.species as u32,
-        pad: [0; 3],
-    };
+    let bounds = measurements::plant_bounds(plant, species);
     (branches, leaves, bounds)
 }
 
@@ -1124,7 +999,7 @@ fn vine_instances(
         };
         let center = node.position + node.normal * (size * 0.3);
         let behind = center - axis * size;
-        let hash = (vine.id as u32)
+        let hash = (vine.id.word() as u32)
             .wrapping_mul(2_654_435_761)
             .wrapping_add((i as u32).wrapping_mul(40_503));
         leaves.push(LeafInstance {
@@ -1211,7 +1086,10 @@ fn palm_crown(
     let mut apex: Option<(Vec3, Vec3, f32)> = None;
     for module in plant.modules.iter().filter(|m| m.order == 0) {
         let prototype = prototypes.get(module.prototype);
-        let offset = module.node_offset as usize;
+        let Some(offset) = module.node_offset else {
+            continue;
+        };
+        let offset = offset.index();
         if offset + prototype.node_count() > plant.nodes.len() {
             continue;
         }
@@ -1230,7 +1108,7 @@ fn palm_crown(
     let crown = plant.crown_size();
     let made = plant.crown_leaves;
     let size = species.leaf_size * (0.5 + 0.5 * (height / 5.0).min(1.0));
-    let turn = ((plant.id as u32).wrapping_mul(2_654_435_761) % 10_000) as f32;
+    let turn = ((plant.id.word() as u32).wrapping_mul(2_654_435_761) % 10_000) as f32;
     let first = (made - crown).floor().max(0.0) as u32;
     for leaf in first..=(made.floor() as u32) {
         // How far through its life the frond is, zero to one.
@@ -1253,7 +1131,7 @@ fn palm_crown(
             axis: axis.to_array(),
             light,
             crown: [0.0; 4],
-            species: plant.species as u32,
+            species: plant.species.word() as u32,
             seed: (leaf.wrapping_mul(7_919) % 10_000) as f32 / 10_000.0,
             plant: index,
             pad: 0,
@@ -1287,7 +1165,7 @@ fn terrain_geometry(ecosystem: &Ecosystem) -> TerrainGeometry {
     let mesh = source.mesh();
     let (low, high) = terrain.height_range();
     let climate = &ecosystem.climate;
-    let wetness = (climate.precipitation / 1500.0).clamp(0.0, 1.0);
+    let wetness = (climate.precipitation.millimetres() / 1500.0).clamp(0.0, 1.0);
 
     let dry = [0.55, 0.47, 0.32];
     let lush = [0.27, 0.36, 0.15];
@@ -1305,7 +1183,7 @@ fn terrain_geometry(ecosystem: &Ecosystem) -> TerrainGeometry {
             .zip(&mesh.normals)
             .map(|(p, n)| {
                 let h = p[1];
-                let temperature = climate.temperature_at(h);
+                let temperature = climate.temperature_at(Metres::from_metres(h)).degrees();
                 // Round a building's foot the ground is trodden bare.
                 let built = ecosystem.obstacles.as_ref().is_some_and(|o| {
                     o.distance(fabelgeist_math::Vec3::new(p[0], h + 0.3, p[2])) < 1.2
@@ -1340,7 +1218,7 @@ fn terrain_geometry(ecosystem: &Ecosystem) -> TerrainGeometry {
     let apron = mix(
         mix(dry, lush, wetness),
         tundra,
-        (8.0 - climate.temperature_at(low)) / 10.0,
+        (8.0 - climate.temperature_at(Metres::from_metres(low)).degrees()) / 10.0,
     );
     let [cx, cz] = [
         terrain.origin[0] + terrain.size[0] * 0.5,
@@ -1364,6 +1242,8 @@ fn terrain_geometry(ecosystem: &Ecosystem) -> TerrainGeometry {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::identity::SpeciesId;
+    use crate::units::GroundPoint;
     use crate::{Climate, Terrain};
 
     /// Leaves between one frame and the next: how large the ones that
@@ -1377,7 +1257,12 @@ mod tests {
         };
         let climate = Climate::new(species.temperature_optimum, species.precipitation_optimum);
         let mut ecosystem = Ecosystem::new(Terrain::flat(40.0, 40.0), climate, vec![species]);
-        ecosystem.plant(0, 0.0, 0.0);
+        ecosystem
+            .plant(
+                SpeciesId::from_word(0),
+                GroundPoint::new(Metres::from_metres(0.0), Metres::from_metres(0.0)),
+            )
+            .unwrap();
         let leaves = |e: &Ecosystem| capture(e, &Profile::DETAILED, 1, false, 0.0).leaves;
         let mut before = leaves(&ecosystem);
         let (mut appeared, mut went) = (0.0f32, 0.0f32);
@@ -1388,8 +1273,8 @@ mod tests {
                     .sum::<f32>()
                     < 0.05 * 0.05
         };
-        while ecosystem.time < years {
-            let shed = pollster::block_on(ecosystem.advance(1.0 / 30.0))
+        while ecosystem.time < Years::from_years(years) {
+            let shed = pollster::block_on(ecosystem.advance(Years::from_years(1.0 / 30.0)))
                 .unwrap()
                 .is_some_and(|r| r.shed > 0);
             let after = leaves(&ecosystem);
@@ -1423,8 +1308,13 @@ mod tests {
         };
         let climate = Climate::new(species.temperature_optimum, species.precipitation_optimum);
         let mut ecosystem = Ecosystem::new(Terrain::flat(40.0, 40.0), climate, vec![species]);
-        ecosystem.plant(0, 0.0, 0.0);
-        while ecosystem.time < 100.0 {
+        ecosystem
+            .plant(
+                SpeciesId::from_word(0),
+                GroundPoint::new(Metres::from_metres(0.0), Metres::from_metres(0.0)),
+            )
+            .unwrap();
+        while ecosystem.time < Years::from_years(100.0) {
             pollster::block_on(ecosystem.step()).unwrap();
         }
         let branches = capture(&ecosystem, &Profile::DETAILED, 1, false, 0.0).branches;
@@ -1452,9 +1342,17 @@ mod tests {
         let climate = Climate::new(species.temperature_optimum, species.precipitation_optimum);
         let mut ecosystem = Ecosystem::new(Terrain::flat(40.0, 40.0), climate, vec![species]);
         for i in 0..4 {
-            ecosystem.plant(0, i as f32 * 6.0 - 9.0, 0.0);
+            ecosystem
+                .plant(
+                    SpeciesId::from_word(0),
+                    GroundPoint::new(
+                        Metres::from_metres(i as f32 * 6.0 - 9.0),
+                        Metres::from_metres(0.0),
+                    ),
+                )
+                .unwrap();
         }
-        while ecosystem.time < 30.0 {
+        while ecosystem.time < Years::from_years(30.0) {
             pollster::block_on(ecosystem.step()).unwrap();
         }
         let fast = capture(&ecosystem, &Profile::FAST, 1, false, 0.0);

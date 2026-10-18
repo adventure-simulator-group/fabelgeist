@@ -152,19 +152,24 @@ fn world_page(ui: &mut Ui, viewer: &mut Viewer) {
     let world = &mut viewer.world;
     let requests = &mut viewer.requests;
     widgets::section(ui, "Climate");
+    // UI sliders expose native display units; state and commands stay typed.
+    let mut temperature_degrees = world.temperature.degrees();
+    let mut rainfall_mm = world.precipitation.millimetres();
     let temperature = widgets::setting(
         ui,
         "Temperature",
-        format!("{:.1} °C", world.temperature),
-        Slider::new(&mut world.temperature, -12.0..=32.0).step_by(0.5),
+        format!("{temperature_degrees:.1} °C"),
+        Slider::new(&mut temperature_degrees, -12.0..=32.0).step_by(0.5),
     );
     let precipitation = widgets::setting(
         ui,
         "Rainfall",
-        format!("{:.0} mm a year", world.precipitation),
-        Slider::new(&mut world.precipitation, 50.0..=4000.0).step_by(25.0),
+        format!("{rainfall_mm:.0} mm a year"),
+        Slider::new(&mut rainfall_mm, 50.0..=4000.0).step_by(25.0),
     );
     if temperature.changed() || precipitation.changed() {
+        world.temperature = fabelgeist_botany::units::Celsius::from_degrees(temperature_degrees);
+        world.precipitation = fabelgeist_botany::units::Millimetres::from_millimetres(rainfall_mm);
         requests.push(Request::Send(world.climate()));
     }
     ui.label(

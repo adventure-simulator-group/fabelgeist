@@ -5,6 +5,7 @@
 //! The presets are starting points; any knob can be turned from there.
 
 /// Every knob between the simulation and the screen.
+use crate::units::StepDuration;
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Profile {
     // Growth.
@@ -13,7 +14,7 @@ pub struct Profile {
     pub continuous: bool,
     /// Years a step's regulation covers: light, vigour, budding and
     /// shedding, death and seeding (`EcosystemSettings::dt`).
-    pub step_years: f32,
+    pub step_years: StepDuration,
     /// The view is refreshed at most this often, milliseconds -- and never
     /// more often than twice what packing a snapshot costs, so a large
     /// forest spends its time growing.
@@ -57,7 +58,7 @@ impl Profile {
     /// snapshot costs little and is packed once a step.
     pub const FAST: Profile = Profile {
         continuous: false,
-        step_years: 0.5,
+        step_years: StepDuration::HALF_YEAR,
         refresh_ms: 33.0,
         fillets: false,
         fillet_size: 0.6,

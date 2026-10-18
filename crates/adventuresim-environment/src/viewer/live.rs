@@ -48,7 +48,13 @@ pub struct Viewer {
 /// Run the live viewer on `scene`.
 pub fn install(app: &mut App, scene: Scene) {
     let profile = profile_controls::drawable(Profile::default());
-    let simulation = Simulation::start(scene, profile);
+    let simulation = match Simulation::start(scene, profile) {
+        Ok(simulation) => simulation,
+        Err(error) => {
+            error!("Could not start the botanical viewer: {error}");
+            return;
+        }
+    };
     let world = World::new(scene);
     simulation.send(Command::Speed(world.pace.years_per_second()));
     app.insert_resource(Viewer {

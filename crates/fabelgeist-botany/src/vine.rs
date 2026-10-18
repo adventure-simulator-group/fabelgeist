@@ -33,9 +33,11 @@
 
 use std::collections::HashMap;
 
+use crate::units::Years;
 use fabelgeist_math::Vec3;
 use fabelgeist_spatial_hash::HashGrid;
 
+use crate::identity::{ModuleId, ModuleIndex, PlantId, PlantIndex, VineId, VineSpeciesId};
 use crate::obstacles::Obstacles;
 use crate::plant::{Plant, hydraulic, light_response};
 use crate::prototype::{NONE, PrototypeLibrary};
@@ -45,6 +47,8 @@ use crate::terrain::Terrain;
 const G: f32 = 9.81;
 
 /// How a vine holds on.
+mod supports;
+
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Climbing {
     /// Adventitious roots or adhesive pads (ivy, Virginia creeper): any
@@ -222,8 +226,8 @@ pub enum Hold {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct BarkHold {
     /// [`Plant::id`] and [`crate::Module::id`]: lasting.
-    pub plant: u64,
-    pub module: u32,
+    pub plant: PlantId,
+    pub module: ModuleId,
     /// The segment ending at this node of the module.
     pub node: u16,
     /// Along the segment, `0..=1`.
@@ -232,8 +236,8 @@ pub struct BarkHold {
     pub angle: f32,
     /// Where the plant and the module are now in the ecosystem: refreshed
     /// whenever plants are shed or reordered.
-    pub plant_index: u32,
-    pub module_index: u32,
+    pub plant_index: PlantIndex,
+    pub module_index: ModuleIndex,
 }
 
 /// One node of a vine: the end of the internode from its parent.
@@ -249,7 +253,7 @@ pub struct VineNode {
     pub sapwood: f32,
     pub heartwood: f32,
     /// The vine's age when it was laid.
-    pub born: f32,
+    pub born: Years,
     pub hold: Hold,
     /// The outward normal of what it holds; zero when free.
     pub normal: Vec3,
@@ -286,11 +290,11 @@ pub struct Shoot {
 
 #[derive(Clone, Debug)]
 pub struct Vine {
-    pub id: u64,
-    pub species: u16,
+    pub id: VineId,
+    pub species: VineSpeciesId,
     /// Where it is rooted.
     pub position: Vec3,
-    pub age: f32,
+    pub age: Years,
     pub nodes: Vec<VineNode>,
     pub shoots: Vec<Shoot>,
     pub alive: bool,
@@ -330,8 +334,8 @@ pub struct Contact {
 /// A branch segment of a plant: the one ending at `node` of a module.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct BarkSegment {
-    pub plant: u32,
-    pub module: u32,
+    pub plant: PlantIndex,
+    pub module: ModuleIndex,
     pub node: u16,
 }
 
@@ -363,10 +367,13 @@ impl BarkIndex {
             }
             for (m, module) in plant.modules.iter().enumerate() {
                 let prototype = prototypes.get(module.prototype);
-                if module.node_offset == NONE {
+                if module.node_offset.is_none() {
                     continue;
                 }
-                let offset = module.node_offset as usize;
+                let Some(offset) = module.node_offset else {
+                    continue;
+                };
+                let offset = offset.index();
                 for (n, node) in prototype.nodes.iter().enumerate().skip(1) {
                     let (Some(a), Some(b)) = (
                         plant.nodes.get(offset + node.parent as usize),
@@ -380,8 +387,8 @@ impl BarkIndex {
                     let middle = (a.position + b.position) * 0.5;
                     reach = reach.max((b.position - a.position).length() * 0.5 + b.diameter * 0.5);
                     segments.push(BarkSegment {
-                        plant: p as u32,
-                        module: m as u32,
+                        plant: PlantIndex::from_word(p),
+                        module: ModuleIndex::from_word(m as u32),
                         node: n as u16,
                     });
                     middles.push(middle.to_array());
@@ -430,129 +437,6 @@ fn droop(v: Vec3, angle: f32) -> Vec3 {
     v * a.cos() + k.cross(v) * a.sin()
 }
 
-impl Supports<'_> {
-    /// A bark segment as the plant has it now: its ends and their radii.
-    pub fn segment(&self, s: &BarkSegment) -> Option<(Vec3, Vec3, f32, f32)> {
-        let plant = self.plants.get(s.plant as usize)?;
-        let module = plant.modules.get(s.module as usize)?;
-        let prototype = self.prototypes.get(module.prototype);
-        let n = s.node as usize;
-        if n == 0 || n >= prototype.node_count() || module.node_offset == NONE {
-            return None;
-        }
-        let offset = module.node_offset as usize;
-        let b = plant.nodes.get(offset + n)?;
-        let a = plant
-            .nodes
-            .get(offset + prototype.nodes[n].parent as usize)?
-            .position;
-        let end = if b.end_diameter > 0.0 {
-            b.end_diameter.min(b.diameter)
-        } else {
-            b.diameter * 0.5
-        };
-        Some((a, b.position, b.diameter * 0.5, end * 0.5))
-    }
-
-    fn ground(&self, p: Vec3) -> Contact {
-        let h = self.terrain.height_at(p.x, p.z);
-        let e = 0.25;
-        let dx = self.terrain.height_at(p.x + e, p.z) - self.terrain.height_at(p.x - e, p.z);
-        let dz = self.terrain.height_at(p.x, p.z + e) - self.terrain.height_at(p.x, p.z - e);
-        let normal = Vec3::new(-dx / (2.0 * e), 1.0, -dz / (2.0 * e)).normalize();
-        let distance = (p.y - h) * normal.y;
-        Contact {
-            point: p - normal * distance,
-            normal,
-            distance,
-            kind: Support::Ground,
-            diameter: f32::INFINITY,
-            axis: Vec3::new(0.0, 0.0, 0.0),
-        }
-    }
-
-    /// The nearest surface within `range` of `p` that `accept` takes.
-    pub fn nearest(
-        &self,
-        p: Vec3,
-        range: f32,
-        accept: impl Fn(&Contact) -> bool,
-    ) -> Option<Contact> {
-        let mut best: Option<Contact> = None;
-        let mut offer = |c: Contact| {
-            if c.distance < range && best.is_none_or(|b| c.distance < b.distance) && accept(&c) {
-                best = Some(c);
-            }
-        };
-        offer(self.ground(p));
-        if let Some(obstacles) = self.obstacles {
-            let distance = obstacles.distance(p);
-            if distance < range
-                && let Some(normal) = obstacles.normal(p)
-            {
-                offer(Contact {
-                    point: p - normal * distance,
-                    normal,
-                    distance,
-                    kind: Support::Masonry,
-                    diameter: f32::INFINITY,
-                    axis: Vec3::new(0.0, 0.0, 0.0),
-                });
-            }
-        }
-        let cells = ((range + self.bark.reach) / BARK_CELL).ceil() as i32;
-        self.bark.grid.for_each_near(p.to_array(), cells, |i| {
-            let Some((a, b, ra, rb)) = self.segment(&self.bark.segments[i as usize]) else {
-                return;
-            };
-            let ab = b - a;
-            let length2 = ab.dot(ab).max(1e-12);
-            let t = ((p - a).dot(ab) / length2).clamp(0.0, 1.0);
-            let c = a + ab * t;
-            let r = ra + (rb - ra) * t;
-            let v = p - c;
-            let d = v.length();
-            if d < 1e-6 {
-                return;
-            }
-            let normal = v / d;
-            offer(Contact {
-                point: c + normal * r,
-                normal,
-                distance: d - r,
-                kind: Support::Bark { segment: i },
-                diameter: 2.0 * r,
-                axis: ab / length2.sqrt(),
-            });
-        });
-        best
-    }
-
-    /// Where a hold on bark is now, `lift` out from the surface, and the
-    /// surface's normal there; `None` if the branch is gone.
-    pub fn bark_point(&self, hold: &BarkHold, lift: f32) -> Option<(Vec3, Vec3)> {
-        let plant = self
-            .plants
-            .get(hold.plant_index as usize)
-            .filter(|p| p.id == hold.plant)?;
-        plant
-            .modules
-            .get(hold.module_index as usize)
-            .filter(|m| m.id == hold.module)?;
-        let segment = BarkSegment {
-            plant: hold.plant_index,
-            module: hold.module_index,
-            node: hold.node,
-        };
-        let (a, b, ra, rb) = self.segment(&segment)?;
-        let axis = (b - a).normalize();
-        let (f1, f2) = basis(axis);
-        let out = f1 * hold.angle.cos() + f2 * hold.angle.sin();
-        let r = ra + (rb - ra) * hold.t;
-        Some((a + (b - a) * hold.t + out * (r + lift), out))
-    }
-}
-
 fn random_unit(rng: &mut Rng) -> Vec3 {
     Vec3::new(rng.gaussian(), rng.gaussian(), rng.gaussian()).normalize()
 }
@@ -560,8 +444,8 @@ fn random_unit(rng: &mut Rng) -> Vec3 {
 impl Vine {
     /// A seedling rooted at `position`, its first shoot leaning a little.
     pub fn new(
-        id: u64,
-        species_index: u16,
+        id: VineId,
+        species_index: VineSpeciesId,
         species: &VineType,
         position: Vec3,
         mut rng: Rng,
@@ -576,7 +460,7 @@ impl Vine {
             diameter: species.shoot_diameter,
             sapwood: species.shoot_diameter,
             heartwood: 0.0,
-            born: 0.0,
+            born: Years::from_years(0.0),
             hold: Hold::Fixed,
             normal: Vec3::new(0.0, 1.0, 0.0),
             light: 1.0,
@@ -599,7 +483,7 @@ impl Vine {
             id,
             species: species_index,
             position,
-            age: 0.0,
+            age: Years::from_years(0.0),
             nodes: vec![root, tip],
             shoots: vec![Shoot {
                 node: 1,
@@ -618,7 +502,7 @@ impl Vine {
     /// months, are kept for as long as the species keeps them, and fall
     /// after a year in the dark ([`VineNode::bare`]).
     pub fn leafiness(&self, node: &VineNode, species: &VineType) -> f32 {
-        let years = self.age - node.born;
+        let years = self.age.years() - node.born.years();
         let opening = (years / 0.3).clamp(0.0, 1.0);
         let kept = species
             .leaf_years
@@ -659,7 +543,9 @@ impl Vine {
     /// Grow for `years` at the rates the last [`Vine::regulate`] set: tips
     /// lay internodes, holds follow the branches they are on, and what hangs
     /// settles under its weight.
-    pub fn develop(&mut self, species: &VineType, supports: &Supports, years: f32) {
+    pub fn develop(&mut self, species: &VineType, supports: &Supports, years: Years) {
+        // Native extension/settling formulas use simulation years.
+        let years = years.years();
         if !self.alive || years <= 0.0 {
             return;
         }
@@ -668,7 +554,7 @@ impl Vine {
             self.settle(species, supports);
             return;
         }
-        self.age += years;
+        self.age = Years::from_years(self.age.years() + years);
         let ease = 1.0 - (-years / 0.3).exp();
         for node in &mut self.nodes {
             node.lit += (node.light - node.lit) * ease;
@@ -841,14 +727,14 @@ impl Vine {
         let Some((a, b, _, _)) = supports.segment(&s) else {
             return Hold::Free;
         };
-        let plant = &supports.plants[s.plant as usize];
+        let plant = &supports.plants[s.plant.index()];
         let ab = b - a;
         let t = ((p - a).dot(ab) / ab.dot(ab).max(1e-12)).clamp(0.0, 1.0);
         let (f1, f2) = basis(ab.normalize());
         let v = p - (a + ab * t);
         Hold::Bark(BarkHold {
             plant: plant.id,
-            module: plant.modules[s.module as usize].id,
+            module: plant.modules[s.module.index()].id,
             node: s.node,
             t,
             angle: v.dot(f2).atan2(v.dot(f1)),
@@ -1037,11 +923,13 @@ impl Vine {
     /// What happens once a step of `dt` years, after the environment has set
     /// each node's light: shoots are given their rates, those in the dark
     /// stop, new shoots break where it is lit, and stems thicken.
-    pub fn regulate(&mut self, species: &VineType, dt: f32) {
+    pub fn regulate(&mut self, species: &VineType, dt: Years) {
+        // Native growth formulas below measure dt in simulation years.
+        let dt = dt.years();
         if !self.alive || self.preserved {
             return;
         }
-        if self.age > species.max_age {
+        if self.age.years() > species.max_age {
             self.end();
             return;
         }
@@ -1185,8 +1073,8 @@ impl Vine {
     /// `plants`; a hold whose branch is gone lets go.
     pub fn refresh_holds(
         &mut self,
-        plants: &HashMap<u64, u32>,
-        modules: &mut dyn FnMut(u32, u32) -> Option<u32>,
+        plants: &HashMap<PlantId, PlantIndex>,
+        modules: &mut dyn FnMut(PlantIndex, ModuleId) -> Option<ModuleIndex>,
     ) {
         for i in 0..self.nodes.len() {
             let Hold::Bark(mut hold) = self.nodes[i].hold else {
@@ -1223,6 +1111,7 @@ impl Vine {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use fabelgeist_determinism::Seed;
     use std::f32::consts::PI;
 
     #[test]
@@ -1238,18 +1127,24 @@ mod tests {
             prototypes: &prototypes,
             bark: &bark,
         };
-        let mut vine = Vine::new(1, 0, &species, Vec3::new(0.0, 10.0, 0.0), Rng::new(1));
+        let mut vine = Vine::new(
+            VineId::from_word(1),
+            VineSpeciesId::from_word(0),
+            &species,
+            Vec3::new(0.0, 10.0, 0.0),
+            Rng::new(Seed::from_u64(1)),
+        );
         vine.shoots.clear();
         // Its leaves open.
-        vine.develop(&species, &supports, 0.5);
+        vine.develop(&species, &supports, Years::from_years(0.5));
         let c = species.light_compensation;
         let step = |vine: &mut Vine, exposure: f32| {
             for node in &mut vine.nodes {
                 node.exposure = exposure;
                 node.light = exposure;
             }
-            vine.regulate(&species, 0.5);
-            vine.develop(&species, &supports, 0.5);
+            vine.regulate(&species, Years::from_years(0.5));
+            vine.develop(&species, &supports, Years::from_years(0.5));
             vine.leafiness(&vine.nodes[1], &species)
         };
         // A step's light either side of the compensation point: the leaves
@@ -1285,8 +1180,14 @@ mod tests {
         // A straight leafy shoot held out level from a hold, ten metres up,
         // short enough to bend only a little.
         let (segments, length) = (40, 0.25f32);
-        let mut vine = Vine::new(1, 0, &species, Vec3::new(0.0, 10.0, 0.0), Rng::new(1));
-        vine.age = 10.0;
+        let mut vine = Vine::new(
+            VineId::from_word(1),
+            VineSpeciesId::from_word(0),
+            &species,
+            Vec3::new(0.0, 10.0, 0.0),
+            Rng::new(Seed::from_u64(1)),
+        );
+        vine.age = Years::from_years(10.0);
         vine.shoots.clear();
         vine.nodes.truncate(1);
         let l = length / segments as f32;

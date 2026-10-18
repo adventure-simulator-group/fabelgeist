@@ -1,7 +1,13 @@
 //! Ready-made ecosystems: a terrain, a climate and the species suited to it.
 
+use crate::identity::SpeciesId;
+use crate::identity::VineSpeciesId;
+use crate::units::GroundPoint;
+use crate::units::{Celsius, Millimetres};
 use fabelgeist_buildings::medieval;
 use fabelgeist_buildings::{FeatureKind, SolidIndex};
+use fabelgeist_determinism::Seed;
+use fabelgeist_math::units::Metres;
 
 use crate::climate::Climate;
 use crate::ecosystem::{Ecosystem, EcosystemSettings};
@@ -54,13 +60,16 @@ impl Scene {
 
     /// The ecosystem, seeded and ready to step. Environment passes run on the
     /// host until [`Ecosystem::with_gpu`] is called.
-    pub fn build(self, seed: u64) -> Ecosystem {
+    pub fn build(self, seed: Seed) -> Ecosystem {
         let (terrain, climate, species, plants, settings) = match self {
             Scene::Castle => return castle(seed, true),
             Scene::EmptyCastle => return castle(seed, false),
             Scene::MixedForest => (
                 Terrain::flat(60.0, 60.0),
-                Climate::new(12.0, 672.0),
+                Climate::new(
+                    Celsius::from_degrees(12.0),
+                    Millimetres::from_millimetres(672.0),
+                ),
                 vec![
                     PlantType::conifer(),
                     PlantType::deciduous(),
@@ -79,11 +88,11 @@ impl Scene {
                     Climate::of(crate::Biome::BorealForest),
                     vec![
                         PlantType {
-                            temperature_optimum: 2.0,
+                            temperature_optimum: Celsius::from_degrees(2.0),
                             ..PlantType::conifer()
                         },
                         PlantType {
-                            temperature_optimum: 0.0,
+                            temperature_optimum: Celsius::from_degrees(0.0),
                             ..PlantType::shrub()
                         },
                     ],
@@ -99,13 +108,13 @@ impl Scene {
                 vec![
                     PlantType::baobab(),
                     PlantType {
-                        temperature_optimum: 26.0,
-                        precipitation_optimum: 900.0,
+                        temperature_optimum: Celsius::from_degrees(26.0),
+                        precipitation_optimum: Millimetres::from_millimetres(900.0),
                         ..PlantType::grass()
                     },
                     PlantType {
-                        temperature_optimum: 26.0,
-                        precipitation_optimum: 900.0,
+                        temperature_optimum: Celsius::from_degrees(26.0),
+                        precipitation_optimum: Millimetres::from_millimetres(900.0),
                         ..PlantType::shrub()
                     },
                 ],
@@ -121,8 +130,8 @@ impl Scene {
                 vec![
                     PlantType::palm(),
                     PlantType {
-                        temperature_optimum: 26.0,
-                        precipitation_optimum: 3500.0,
+                        temperature_optimum: Celsius::from_degrees(26.0),
+                        precipitation_optimum: Millimetres::from_millimetres(3500.0),
                         shade_tolerance: 0.7,
                         light_compensation: crate::species::compensation(0.7),
                         leaf_color: [0.16, 0.42, 0.12],
@@ -147,7 +156,7 @@ fn castle_ground(x: f32, z: f32) -> f32 {
 }
 
 /// [`Scene::Castle`], or with nothing planted, [`Scene::EmptyCastle`].
-fn castle(seed: u64, planted: bool) -> Ecosystem {
+fn castle(seed: Seed, planted: bool) -> Ecosystem {
     let structure = medieval::settlement(&castle_ground, 7);
     // Nothing roots under a building, nor in the foundations at its foot.
     let index = SolidIndex::new(structure.solids.clone(), 2.0);
@@ -156,7 +165,10 @@ fn castle(seed: u64, planted: bool) -> Ecosystem {
     let features = structure.features.clone();
     let mut ecosystem = Ecosystem::new(
         terrain,
-        Climate::new(11.0, 800.0),
+        Climate::new(
+            Celsius::from_degrees(11.0),
+            Millimetres::from_millimetres(800.0),
+        ),
         vec![
             PlantType::deciduous(),
             PlantType::conifer(),
@@ -178,7 +190,7 @@ fn castle(seed: u64, planted: bool) -> Ecosystem {
         return ecosystem;
     }
 
-    let mut rng = Rng::new(seed ^ 0x00ca_571e);
+    let mut rng = Rng::new(seed.xor_word(0x00ca_571e));
     let mut pick = |points: &[[f32; 3]]| {
         points[(rng.next_f32() * points.len() as f32) as usize % points.len()]
     };
@@ -188,22 +200,43 @@ fn castle(seed: u64, planted: bool) -> Ecosystem {
                 // A broadleaf close enough that its crown has to grow round
                 // the tower, and ivy at the tower's foot.
                 let p = pick(&feature.around(2.0, 3.0));
-                ecosystem.plant(0, p[0], p[2]);
+                let _ = ecosystem.plant(
+                    SpeciesId::from_word(0),
+                    GroundPoint::new(Metres::from_metres(p[0]), Metres::from_metres(p[2])),
+                );
                 for p in feature.around(0.8, 6.0).iter().step_by(3) {
-                    ecosystem.plant_vine(0, p[0], p[2]);
+                    let _ = ecosystem.plant_vine(
+                        VineSpeciesId::from_word(0),
+                        GroundPoint::new(Metres::from_metres(p[0]), Metres::from_metres(p[2])),
+                    );
                 }
             }
             FeatureKind::Wall => {
                 let points = feature.around(0.8, 6.0);
                 let p = pick(&points);
-                ecosystem.plant_vine(0, p[0], p[2]);
+                let _ = ecosystem.plant_vine(
+                    VineSpeciesId::from_word(0),
+                    GroundPoint::new(Metres::from_metres(p[0]), Metres::from_metres(p[2])),
+                );
             }
             FeatureKind::House => {
                 // A shrub by the house, and honeysuckle at its foot to twine
                 // through it.
                 let p = pick(&feature.around(1.6, 2.0));
-                if ecosystem.plant(2, p[0], p[2]).is_some() {
-                    ecosystem.plant_vine(1, p[0] + 0.5, p[2] + 0.3);
+                if ecosystem
+                    .plant(
+                        SpeciesId::from_word(2),
+                        GroundPoint::new(Metres::from_metres(p[0]), Metres::from_metres(p[2])),
+                    )
+                    .is_ok()
+                {
+                    let _ = ecosystem.plant_vine(
+                        VineSpeciesId::from_word(1),
+                        GroundPoint::new(
+                            Metres::from_metres(p[0] + 0.5),
+                            Metres::from_metres(p[2] + 0.3),
+                        ),
+                    );
                 }
             }
             _ => {}
@@ -214,11 +247,14 @@ fn castle(seed: u64, planted: bool) -> Ecosystem {
     let trees: Vec<[f32; 2]> = ecosystem
         .plants
         .iter()
-        .filter(|p| p.species == 0)
+        .filter(|p| p.species == SpeciesId::from_word(0))
         .map(|p| [p.position.x, p.position.z])
         .collect();
     for t in trees.iter().step_by(3) {
-        ecosystem.plant_vine(0, t[0] + 0.6, t[1]);
+        let _ = ecosystem.plant_vine(
+            VineSpeciesId::from_word(0),
+            GroundPoint::new(Metres::from_metres(t[0] + 0.6), Metres::from_metres(t[1])),
+        );
     }
     ecosystem
 }
@@ -231,26 +267,28 @@ mod tests {
     #[test]
     fn every_scene_builds_with_plants() {
         for scene in Scene::ALL.into_iter().filter(|s| *s != Scene::EmptyCastle) {
-            let ecosystem = scene.build(1);
+            let ecosystem = scene.build(Seed::from_u64(1));
             assert!(!ecosystem.plants.is_empty(), "{}", scene.name());
         }
     }
 
     #[test]
     fn seeds_thrown_at_the_empty_castle_land_on_open_soil() {
-        let mut ecosystem = Scene::EmptyCastle.build(1);
+        let mut ecosystem = Scene::EmptyCastle.build(Seed::from_u64(1));
         assert!(ecosystem.plants.is_empty() && ecosystem.vines.is_empty());
         let down = Vec3::new(0.0, -1.0, 0.0);
         // Straight down onto open ground, outside the walls.
-        let [x, z] = ecosystem
+        let ground = ecosystem
             .landing(Vec3::new(-20.0, 60.0, 30.0), down)
             .expect("open ground");
+        let (x, z) = (ground.x.metres(), ground.z.metres());
         assert!((x + 20.0).abs() < 1e-3 && (z - 30.0).abs() < 1e-3);
-        assert!(ecosystem.plant(0, x, z).is_some());
+        assert!(ecosystem.plant(SpeciesId::from_word(0), ground).is_ok());
         // Thrown level from the west at the south-west corner tower: it
         // falls to the drum's foot on that side.
         let wall = ecosystem.landing(Vec3::new(-30.0, 6.0, 3.0), Vec3::new(1.0, 0.0, 0.0));
-        let [x, z] = wall.expect("the foot of the tower");
+        let ground = wall.expect("the foot of the tower");
+        let (x, z) = (ground.x.metres(), ground.z.metres());
         assert!(ecosystem.terrain.is_open(x, z));
         assert!(x < -15.0, "on the tower's west side, not behind it");
         let from_tower = (x + 15.0).hypot(z - 3.0);
@@ -258,6 +296,10 @@ mod tests {
             (3.4..5.0).contains(&from_tower),
             "{from_tower} m from the tower's axis"
         );
-        assert!(ecosystem.plant_vine(0, x, z).is_some());
+        assert!(
+            ecosystem
+                .plant_vine(VineSpeciesId::from_word(0), ground)
+                .is_ok()
+        );
     }
 }

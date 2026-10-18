@@ -12,7 +12,7 @@ use fabelgeist_gpu::globals::WgpuContext;
 const NONE: u32 = u32::MAX;
 
 fn scattered_spheres(count: usize, seed: u64) -> SphereSet {
-    let mut rng = Rng::new(seed);
+    let mut rng = Rng::new(fabelgeist_determinism::Seed::from_u64(seed));
     let mut set = SphereSet::default();
     for i in 0..count {
         set.spheres.push([
@@ -144,7 +144,7 @@ async fn orientation_parity(
     let mut host = HostEnvironment::default();
     let settings = EnvironmentSettings::default();
 
-    let mut rng = Rng::new(3);
+    let mut rng = Rng::new(fabelgeist_determinism::Seed::from_u64(3));
     let requests: Vec<OrientRequest> = (0..request_count)
         .map(|k| {
             let index = k * 7;
@@ -205,7 +205,10 @@ async fn orientation_parity(
 fn forest(settings: EcosystemSettings) -> Ecosystem {
     let mut ecosystem = Ecosystem::new(
         Terrain::flat(30.0, 30.0),
-        Climate::new(12.0, 672.0),
+        Climate::new(
+            fabelgeist_botany::units::Celsius::from_degrees(12.0),
+            fabelgeist_botany::units::Millimetres::from_millimetres(672.0),
+        ),
         vec![
             PlantType::conifer(),
             PlantType::deciduous(),

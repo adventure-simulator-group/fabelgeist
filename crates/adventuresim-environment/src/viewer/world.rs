@@ -3,7 +3,9 @@
 
 use fabelgeist_botany::Biome;
 use fabelgeist_botany::scenes::Scene;
+use fabelgeist_botany::units::{Celsius, Millimetres};
 use fabelgeist_botany::viewer::sim::Command;
+use fabelgeist_determinism::Seed;
 
 /// How fast years pass while the world plays.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -60,9 +62,9 @@ pub struct World {
     pub playing: bool,
     pub pace: Pace,
     /// At the valley floor, degrees Celsius.
-    pub temperature: f32,
+    pub temperature: Celsius,
     /// A year's, millimetres.
-    pub precipitation: f32,
+    pub precipitation: Millimetres,
     /// Whether plants shade the plants under them.
     pub canopy_shading: bool,
     /// Whether plants spread seed, and whether plants and vines die; kept
@@ -77,8 +79,8 @@ impl World {
             scene,
             playing: true,
             pace: Pace::Normal,
-            temperature: 0.0,
-            precipitation: 0.0,
+            temperature: Celsius::from_degrees(0.0),
+            precipitation: Millimetres::from_millimetres(0.0),
             canopy_shading: true,
             seeding: true,
             mortality: true,
@@ -89,7 +91,7 @@ impl World {
 
     /// The climate settings start from a scene's own climate.
     pub fn adopt_climate(&mut self, scene: Scene) {
-        let climate = scene.build(1).climate;
+        let climate = scene.build(Seed::from_u64(1)).climate;
         self.scene = scene;
         self.temperature = climate.temperature;
         self.precipitation = climate.precipitation;

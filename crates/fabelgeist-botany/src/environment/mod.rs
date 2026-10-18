@@ -189,7 +189,13 @@ impl Environment {
         set: &SphereSet,
         shadow: Option<&ShadowGrid>,
         settings: &EnvironmentSettings,
-    ) -> anyhow::Result<Vec<[f32; 2]>> {
+    ) -> crate::error::Result<Vec<[f32; 2]>> {
+        if set.parents.len() != set.len() {
+            return Err(crate::error::BotanyError::ParentCount {
+                modules: set.len(),
+                parents: set.parents.len(),
+            });
+        }
         let mut light = match self {
             Environment::Host(host) => host.light(set, shadow, settings),
             #[cfg(feature = "gpu")]
@@ -214,7 +220,7 @@ impl Environment {
         set: &SphereSet,
         requests: &[OrientRequest],
         settings: &EnvironmentSettings,
-    ) -> anyhow::Result<Vec<Oriented>> {
+    ) -> crate::error::Result<Vec<Oriented>> {
         if requests.is_empty() {
             return Ok(Vec::new());
         }

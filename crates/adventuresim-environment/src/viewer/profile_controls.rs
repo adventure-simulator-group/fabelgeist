@@ -20,12 +20,18 @@ pub fn drawable(mut profile: Profile) -> Profile {
 pub fn growth(ui: &mut Ui, p: &mut Profile) -> bool {
     let before = *p;
     widgets::switch(ui, &mut p.continuous, "Grow between steps too");
+    let mut step_years = p.step_years.duration().years();
     widgets::setting(
         ui,
         "Step",
-        format!("{:.1} years", p.step_years),
-        Slider::new(&mut p.step_years, 0.1..=2.0).step_by(0.1),
+        format!("{step_years:.1} years"),
+        Slider::new(&mut step_years, 0.1..=2.0).step_by(0.1),
     );
+    if let Ok(duration) = fabelgeist_botany::units::StepDuration::try_new(
+        fabelgeist_botany::units::Years::from_years(step_years),
+    ) {
+        p.step_years = duration;
+    }
     widgets::setting(
         ui,
         "View refresh",

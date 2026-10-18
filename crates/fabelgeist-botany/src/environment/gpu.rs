@@ -6,7 +6,7 @@
 //! module). Each ends in one readback. Buffers are kept and grown by half
 //! again when they run out, so a steady population allocates nothing.
 
-use anyhow::Result;
+use crate::error::Result;
 use fabelgeist_compute::{Kernel, KernelBatch, KernelCache};
 use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
 use fabelgeist_gpu::data::gpu::parameters::PassParameters;
@@ -17,7 +17,7 @@ use std::sync::Arc;
 
 use super::shadow::FIXED_POINT;
 use super::{EnvironmentSettings, OrientRequest, Oriented, ShadowGrid, SphereSet, wgsl};
-use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::{BufferByteLength, BufferLabel, BufferUpload};
 
 struct Kernels {
     light: Arc<Kernel>,
@@ -31,31 +31,34 @@ struct Kernels {
 const SINGLE_DISPATCH_LAYER: u32 = 1 << 16;
 
 /// A buffer that grows to fit, by half again each time.
-#[derive(Default)]
 struct Growable {
     buffer: Option<Buffer>,
-    label: &'static str,
+    label: BufferLabel,
 }
 
 impl Growable {
-    fn new(label: &'static str) -> Self {
+    fn new(label: BufferLabel) -> Self {
         Self {
             buffer: None,
             label,
         }
     }
 
-    fn fit(&mut self, context: &WgpuContext, bytes: u64) -> Result<Buffer> {
-        let bytes = bytes.max(16);
-        if self.buffer.as_ref().is_none_or(|b| b.buffer.size() < bytes) {
-            let grown = bytes.max(self.buffer.as_ref().map_or(0, |b| b.buffer.size() * 3 / 2));
-            self.buffer = Some(Buffer::new(
-                context,
-                (grown).into(),
-                BufferDefinition::storage().with_label((self.label).into()),
-            )?);
-        }
-        let mut buffer = self.buffer.clone().expect("allocated above");
+    fn fit(&mut self, context: &WgpuContext, bytes: BufferByteLength) -> Result<Buffer> {
+        let bytes = u64::from(bytes).max(16);
+        let mut buffer =
+            if let Some(buffer) = self.buffer.as_ref().filter(|b| b.buffer.size() >= bytes) {
+                buffer.clone()
+            } else {
+                let grown = bytes.max(self.buffer.as_ref().map_or(0, |b| b.buffer.size() * 3 / 2));
+                let buffer = Buffer::new(
+                    context,
+                    grown.into(),
+                    BufferDefinition::storage().with_label(self.label.clone()),
+                )?;
+                self.buffer = Some(buffer.clone());
+                buffer
+            };
         buffer.size = (bytes).into();
         Ok(buffer)
     }
@@ -91,15 +94,15 @@ impl GpuEnvironment {
             context,
             kernels,
             grid,
-            points: Growable::new("module spheres"),
-            parents: Growable::new("module parents"),
-            light: Growable::new("module light"),
-            density: Growable::new("shadow deposits"),
-            shadow: Growable::new("shadow"),
-            requests: Growable::new("orientation requests"),
-            rotations: Growable::new("orientation results"),
-            crowding: Growable::new("orientation crowding"),
-            solids: Growable::new("obstacle solids"),
+            points: Growable::new("module spheres".into()),
+            parents: Growable::new("module parents".into()),
+            light: Growable::new("module light".into()),
+            density: Growable::new("shadow deposits".into()),
+            shadow: Growable::new("shadow".into()),
+            requests: Growable::new("orientation requests".into()),
+            rotations: Growable::new("orientation results".into()),
+            crowding: Growable::new("orientation crowding".into()),
+            solids: Growable::new("obstacle solids".into()),
         })
     }
 
@@ -110,8 +113,8 @@ impl GpuEnvironment {
     /// Upload the set and record the hash build over it.
     fn record_set(&mut self, batch: &mut KernelBatch, set: &SphereSet) -> Result<(Buffer, Buffer)> {
         let count = set.len() as u32;
-        let points = self.points.fit(&self.context, count as u64 * 16)?;
-        let parents = self.parents.fit(&self.context, count as u64 * 4)?;
+        let points = self.points.fit(&self.context, (count as u64 * 16).into())?;
+        let parents = self.parents.fit(&self.context, (count as u64 * 4).into())?;
         points.write(&self.context, BufferUpload::from_elements(&set.spheres))?;
         parents.write(&self.context, BufferUpload::from_elements(&set.parents))?;
         self.grid.ensure_capacity(&self.context, count)?;
@@ -151,8 +154,8 @@ impl GpuEnvironment {
         let (points, parents) = self.record_set(&mut batch, set)?;
 
         let cells = shadow.map_or(1, |g| g.cell_count() as u64);
-        let density = self.density.fit(&context, cells * 4)?;
-        let field = self.shadow.fit(&context, cells * 4)?;
+        let density = self.density.fit(&context, (cells * 4).into())?;
+        let field = self.shadow.fit(&context, (cells * 4).into())?;
         batch.clear_buffer(&field);
 
         if let Some(grid) = shadow {
@@ -212,7 +215,7 @@ impl GpuEnvironment {
             }
         }
 
-        let light = self.light.fit(&context, count as u64 * 8)?;
+        let light = self.light.fit(&context, (count as u64 * 8).into())?;
         let mut parameters = self.neighbour_parameters(&points, &parents, count);
         parameters.insert("shadow", field.clone());
         parameters.insert("light", light.clone());
@@ -249,14 +252,14 @@ impl GpuEnvironment {
         let count = requests.len() as u32;
         let request_buffer = self
             .requests
-            .fit(&context, std::mem::size_of_val(requests) as u64)?;
+            .fit(&context, (std::mem::size_of_val(requests) as u64).into())?;
         request_buffer.write(&context, BufferUpload::from_elements(requests))?;
-        let rotations = self.rotations.fit(&context, count as u64 * 16)?;
+        let rotations = self.rotations.fit(&context, (count as u64 * 16).into())?;
 
         let mut parameters = self.neighbour_parameters(&points, &parents, count);
         parameters.insert("requests", request_buffer);
         parameters.insert("rotations", rotations.clone());
-        let crowding = self.crowding.fit(&context, count as u64 * 4)?;
+        let crowding = self.crowding.fit(&context, (count as u64 * 4).into())?;
         parameters.insert("crowding_out", crowding.clone());
         // The scene's solids, or one that is nowhere.
         let nowhere = [fabelgeist_buildings::Solid {
@@ -269,7 +272,7 @@ impl GpuEnvironment {
         };
         let solid_buffer = self
             .solids
-            .fit(&context, std::mem::size_of_val(solids) as u64)?;
+            .fit(&context, (std::mem::size_of_val(solids) as u64).into())?;
         solid_buffer.write(&context, BufferUpload::from_elements(solids))?;
         parameters.insert("solids", solid_buffer);
         // A workgroup per request, folded into two dimensions past the

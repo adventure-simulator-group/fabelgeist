@@ -10,14 +10,17 @@ fn among(structure: Structure, species: Vec<PlantType>) -> Ecosystem {
     let index = SolidIndex::new(structure.solids.clone(), 2.0);
     let terrain = Terrain::from_fn([-20.0, -20.0], [40.0, 40.0], [81, 81], |_, _| 0.0)
         .with_soil(|x, z, h| index.distance([x, h + 0.3, z]) < 0.5);
-    let climate = Climate::new(12.0, 800.0);
+    let climate = Climate::new(
+        fabelgeist_botany::units::Celsius::from_degrees(12.0),
+        fabelgeist_botany::units::Millimetres::from_millimetres(800.0),
+    );
     Ecosystem::new(terrain, climate, species)
         .with_obstacles(structure)
         .with_vines(vec![VineType::ivy()])
 }
 
 fn grow(ecosystem: &mut Ecosystem, until: f32) {
-    while ecosystem.time < until {
+    while ecosystem.time.years() < until {
         pollster::block_on(ecosystem.step()).unwrap();
     }
 }
@@ -43,12 +46,21 @@ fn a_crown_grows_round_a_tower_and_not_into_it() {
         } else {
             Ecosystem::new(
                 Terrain::flat(40.0, 40.0),
-                Climate::new(12.0, 800.0),
+                Climate::new(
+                    fabelgeist_botany::units::Celsius::from_degrees(12.0),
+                    fabelgeist_botany::units::Millimetres::from_millimetres(800.0),
+                ),
                 species,
             )
         };
         ecosystem
-            .plant(0, 4.4, 0.0)
+            .plant(
+                fabelgeist_botany::identity::SpeciesId::from_word(0),
+                fabelgeist_botany::units::GroundPoint::new(
+                    fabelgeist_math::units::Metres::from_metres(4.4),
+                    fabelgeist_math::units::Metres::from_metres(0.0),
+                ),
+            )
             .expect("open soil beside the tower");
         grow(&mut ecosystem, 40.0);
         ecosystem.plants.remove(0)
@@ -91,7 +103,13 @@ fn ivy_climbs_a_wall_holding_on_to_its_face() {
     wall.block([0.0, -0.5, 0.0], [5.0, 0.6], 8.5, 0.0, Material::Stone, 1.0);
     let mut ecosystem = among(wall, vec![]);
     ecosystem
-        .plant_vine(0, 0.0, 1.4)
+        .plant_vine(
+            fabelgeist_botany::identity::VineSpeciesId::from_word(0),
+            fabelgeist_botany::units::GroundPoint::new(
+                fabelgeist_math::units::Metres::from_metres(0.0),
+                fabelgeist_math::units::Metres::from_metres(1.4),
+            ),
+        )
         .expect("open soil by the wall");
     grow(&mut ecosystem, 12.0);
     let vine = &ecosystem.vines[0];
@@ -120,13 +138,32 @@ fn ivy_climbs_a_wall_holding_on_to_its_face() {
 fn ivy_climbs_a_trunk_and_rides_on_it_as_it_grows() {
     let mut ecosystem = Ecosystem::new(
         Terrain::flat(30.0, 30.0),
-        Climate::new(12.0, 800.0),
+        Climate::new(
+            fabelgeist_botany::units::Celsius::from_degrees(12.0),
+            fabelgeist_botany::units::Millimetres::from_millimetres(800.0),
+        ),
         vec![lone(PlantType::deciduous())],
     )
     .with_vines(vec![VineType::ivy()]);
-    ecosystem.plant(0, 0.0, 0.0);
+    ecosystem
+        .plant(
+            fabelgeist_botany::identity::SpeciesId::from_word(0),
+            fabelgeist_botany::units::GroundPoint::new(
+                fabelgeist_math::units::Metres::from_metres(0.0),
+                fabelgeist_math::units::Metres::from_metres(0.0),
+            ),
+        )
+        .unwrap();
     grow(&mut ecosystem, 20.0);
-    ecosystem.plant_vine(0, 0.5, 0.0);
+    ecosystem
+        .plant_vine(
+            fabelgeist_botany::identity::VineSpeciesId::from_word(0),
+            fabelgeist_botany::units::GroundPoint::new(
+                fabelgeist_math::units::Metres::from_metres(0.5),
+                fabelgeist_math::units::Metres::from_metres(0.0),
+            ),
+        )
+        .unwrap();
     grow(&mut ecosystem, 34.0);
     let supports = ecosystem.supports();
     let vine = &ecosystem.vines[0];

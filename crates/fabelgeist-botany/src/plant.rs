@@ -5,34 +5,39 @@
 //! tip) and a backward walk basipetal (tip to base). Shedding compacts the
 //! array and keeps that order.
 
+use crate::identity::{ModuleId, ModuleIndex, NodeOffset, PlantId, PrototypeId, SpeciesId};
+use crate::units::{AgeRate, PhysiologicalAge, Years};
 use fabelgeist_math::{Vec3, Vec4};
 
 use crate::prototype::{A_MATURE, MAX_TERMINALS, NONE, Prototype, PrototypeLibrary};
 use crate::rng::Rng;
 use crate::species::PlantType;
 
+mod geometry;
+mod mechanics;
+
 /// One instance of a prototype, attached to a plant.
 #[derive(Clone, Debug, PartialEq)]
 pub struct Module {
     /// Stable for the module's life, unlike its index, which shedding
     /// shifts: what anything drawn for it is keyed on.
-    pub id: u32,
-    pub prototype: u16,
-    /// Parent module, or [`NONE`] for the root module.
-    pub parent: u32,
+    pub id: ModuleId,
+    pub prototype: PrototypeId,
+    /// Parent module, or `None` for the root module.
+    pub parent: Option<ModuleIndex>,
     /// Terminal of the parent this module hangs from.
     pub parent_slot: u8,
     /// Branch order: zero along the trunk, one more at every lateral.
     pub order: u8,
-    /// Child module per terminal, [`NONE`] where empty.
-    pub children: [u32; MAX_TERMINALS],
+    /// Child module per terminal, `None` where empty.
+    pub children: [Option<ModuleIndex>; MAX_TERMINALS],
     /// World orientation; local `+Y` is the module's growth axis.
     pub orientation: Vec4,
     /// `a_u`: physiological age, `0..=A_MATURE`.
-    pub age: f32,
+    pub age: PhysiologicalAge,
     /// `da_u / dt`: how fast `age` advances, physiological age per year, as
     /// the last [`Plant::regulate`] set it from vigor, light and limits.
-    pub rate: f32,
+    pub rate: AgeRate,
     /// `Q(u)`: light exposure, as the environment last measured it.
     pub light: f32,
     /// `light`, eased towards each new measurement over a few months: what
@@ -42,15 +47,15 @@ pub struct Module {
     pub light_total: f32,
     /// `v(u)`: the vigor flowing through this module.
     pub vigor: f32,
-    /// First of this module's nodes in [`Plant::nodes`]; [`NONE`] until the
+    /// First of this module's nodes in [`Plant::nodes`]; `None` until the
     /// module is first laid out.
-    pub node_offset: u32,
+    pub node_offset: Option<NodeOffset>,
     /// Bounding sphere, centre and radius.
     pub sphere: [f32; 4],
     /// Created this step; its orientation has not been optimised yet.
     pub fresh: bool,
     /// The plant's age, in years, when this module was created.
-    pub born: f32,
+    pub born: Years,
     /// The light actually reaching the module, `Q Q_G`, before shade
     /// tolerance: what [`PlantType::light_compensation`] is compared with.
     pub exposure: f32,
@@ -87,7 +92,7 @@ pub struct Node {
     /// Diameter at the far end of the segment: the thickest continuation.
     pub end_diameter: f32,
     /// `a_b`: physiological age of the segment ending here.
-    pub age: f32,
+    pub age: PhysiologicalAge,
 }
 
 /// What one growth step produced.
@@ -103,15 +108,15 @@ pub struct GrowthOutcome {
 
 #[derive(Clone, Debug)]
 pub struct Plant {
-    pub id: u64,
-    pub species: u16,
+    pub id: PlantId,
+    pub species: SpeciesId,
     /// Where the root module stands.
     pub position: Vec3,
     /// Where the clump this stem sprouted from is rooted: its own position
     /// for a plant grown from seed ([`PlantType::sprouts_per_year`]).
     pub clump: Vec3,
     /// Age in years.
-    pub age: f32,
+    pub age: Years,
     pub modules: Vec<Module>,
     pub nodes: Vec<Node>,
     /// Eq. 11's `o`, fixed where the plant stands.
@@ -179,7 +184,7 @@ pub fn mature_extent(prototype: &Prototype, species: &PlantType) -> (Vec3, f32) 
     let mut positions = Vec::with_capacity(prototype.nodes.len());
     positions.push(Vec3::new(0.0, 0.0, 0.0));
     for node in &prototype.nodes[1..] {
-        let length = segment_length(species, A_MATURE - node.emergence) * node.length;
+        let length = segment_length(species, A_MATURE - node.emergence.stage()) * node.length;
         positions.push(positions[node.parent as usize] + node.direction * length);
     }
     sphere_of(&positions, species.tip_diameter)
@@ -206,8 +211,8 @@ fn segment_length(species: &PlantType, age: f32) -> f32 {
 impl Plant {
     /// A seedling: one freshly created root module standing at `position`.
     pub fn new(
-        id: u64,
-        species_index: u16,
+        id: PlantId,
+        species_index: SpeciesId,
         species: &PlantType,
         prototypes: &PrototypeLibrary,
         position: Vec3,
@@ -231,25 +236,25 @@ impl Plant {
             species: species_index,
             position,
             clump: position,
-            age: 0.0,
+            age: Years::from_years(0.0),
             modules: vec![Module {
-                id: 0,
+                id: ModuleId::from_word(0),
                 prototype,
-                parent: NONE,
+                parent: None,
                 parent_slot: 0,
                 order: 0,
-                children: [NONE; MAX_TERMINALS],
+                children: [None; MAX_TERMINALS],
                 orientation: roll,
-                age: 0.0,
-                rate: 0.0,
+                age: PhysiologicalAge::from_stage(0.0),
+                rate: AgeRate::from_stages_per_year(0.0),
                 light: 1.0,
                 lit: 1.0,
                 light_total: 1.0,
                 vigor: species.vigor_max,
-                node_offset: NONE,
+                node_offset: None,
                 sphere: [position.x, position.y, position.z, 1e-3],
                 fresh: false,
-                born: 0.0,
+                born: Years::from_years(0.0),
                 exposure: 1.0,
                 sag: Vec4::quat_identity(),
                 bend: Vec4::quat_identity(),
@@ -285,8 +290,9 @@ impl Plant {
     /// `v_root_max`, scaled by adaptation and, past `p_max`, falling linearly
     /// to zero -- senescence.
     pub fn root_vigor_cap(&self, species: &PlantType) -> f32 {
-        let senescence = if self.age > species.max_age {
-            (1.0 - (self.age - species.max_age) / species.senescence_years.max(1e-3)).max(0.0)
+        let senescence = if self.age.years() > species.max_age {
+            (1.0 - (self.age.years() - species.max_age) / species.senescence_years.max(1e-3))
+                .max(0.0)
         } else {
             1.0
         };
@@ -309,7 +315,7 @@ impl Plant {
         &mut self,
         species: &PlantType,
         prototypes: &PrototypeLibrary,
-        dt: f32,
+        dt: Years,
     ) -> GrowthOutcome {
         let outcome = self.regulate(species, prototypes, dt);
         self.develop(species, dt);
@@ -325,14 +331,16 @@ impl Plant {
         &mut self,
         species: &PlantType,
         prototypes: &PrototypeLibrary,
-        dt: f32,
+        dt: Years,
     ) -> GrowthOutcome {
+        // Native growth formulas below measure dt in simulation years.
+        let dt = dt.years();
         let mut outcome = GrowthOutcome::default();
         if !self.alive || self.preserved {
             return outcome;
         }
         // Its age come, it senesces -- or, kept, stays as it is.
-        if self.immortal && self.age >= species.max_age {
+        if self.immortal && self.age.years() >= species.max_age {
             self.end();
             return outcome;
         }
@@ -342,8 +350,8 @@ impl Plant {
         for u in (0..self.modules.len()).rev() {
             let mut total = self.modules[u].light;
             for &c in &self.modules[u].children {
-                if c != NONE {
-                    total += self.modules[c as usize].light_total;
+                if let Some(c) = c {
+                    total += self.modules[c.index()].light_total;
                 }
             }
             self.modules[u].light_total = total;
@@ -364,7 +372,7 @@ impl Plant {
         if !self.flowering {
             let ratio = (species.root_vigor_max / self.root_vigor.max(1e-3)).min(2.0);
             let flowering_age = species.flowering_age * ratio;
-            if self.age >= flowering_age {
+            if self.age.years() >= flowering_age {
                 self.flowering = true;
             }
         }
@@ -377,12 +385,12 @@ impl Plant {
         // terminal of a mature module is a sink too, weighted by its share
         // of the module's own light, and what it receives decides whether a
         // new module attaches there.
-        let mut spawn: Vec<(u32, u8, f32)> = Vec::new();
+        let mut spawn: Vec<(ModuleIndex, u8, f32)> = Vec::new();
         // By index: children's vigor is written as parents are read.
         #[allow(clippy::needless_range_loop)]
         for u in 0..self.modules.len() {
             let module = &self.modules[u];
-            if module.age < A_MATURE {
+            if module.age.stage() < A_MATURE {
                 continue;
             }
             let prototype = prototypes.get(module.prototype);
@@ -397,8 +405,8 @@ impl Plant {
                     1.0 - lambda
                 };
                 let child = module.children[slot];
-                let q = if child != NONE {
-                    self.modules[child as usize].light_total
+                let q = if let Some(child) = child {
+                    self.modules[child.index()].light_total
                 } else {
                     own
                 };
@@ -413,14 +421,14 @@ impl Plant {
             for slot in 0..slots {
                 let share = vigor * weights[slot] / sum;
                 let child = children[slot];
-                if child != NONE {
-                    self.modules[child as usize].vigor = share;
+                if let Some(child) = child {
+                    self.modules[child.index()].vigor = share;
                 } else if share * limits[u] > species.vigor_min
                     && !self.on_bole(prototypes, u, slot, bole)
                 {
                     // A bud breaks only where the branch can bear more,
                     // water still reaches it, and the trunk keeps branches.
-                    spawn.push((u as u32, slot as u8, share));
+                    spawn.push((ModuleIndex::from_word(u as u32), slot as u8, share));
                 }
             }
         }
@@ -441,13 +449,13 @@ impl Plant {
             exposure[u] += self.modules[u].exposure;
             carried[u] += 1;
             let parent = self.modules[u].parent;
-            if parent != NONE {
-                exposure[parent as usize] += exposure[u];
-                carried[parent as usize] += carried[u];
+            if let Some(parent) = parent {
+                exposure[parent.index()] += exposure[u];
+                carried[parent.index()] += carried[u];
             }
         }
         // A plant that as a whole cannot reach its compensation point dies.
-        if self.modules[0].age >= A_MATURE
+        if self.modules[0].age.stage() >= A_MATURE
             && exposure[0] / (carried[0] as f32) < species.light_compensation
         {
             self.end();
@@ -456,13 +464,18 @@ impl Plant {
         let mut keep = vec![true; count];
         for u in 1..count {
             let module = &self.modules[u];
-            let dark = module.age >= A_MATURE
+            let dark = module.age.stage() >= A_MATURE
                 && exposure[u] / (carried[u] as f32) < species.light_compensation;
-            let parent = module.parent as usize;
+            let Some(parent) = module.parent else {
+                continue;
+            };
+            let parent = parent.index();
             let cleared = bole > 0.0
                 && module.order > 0
                 && self.modules[parent].order == 0
-                && self.attachment(prototypes, u).y - self.position.y < bole;
+                && self
+                    .attachment(prototypes, ModuleIndex::from_word(u as u32))
+                    .is_some_and(|root| root.y - self.position.y < bole);
             if !keep[parent]
                 || module.vigor < species.vigor_min
                 || dark
@@ -472,29 +485,18 @@ impl Plant {
                 keep[u] = false;
             }
         }
-        spawn.retain(|&(u, _, _)| keep[u as usize]);
+        spawn.retain(|&(u, _, _)| keep[u.index()]);
         outcome.shed = keep.iter().filter(|k| !**k).count() as u32;
         if outcome.shed > 0 {
             self.compact(&keep, &mut spawn);
         }
 
-        // Development rates, Eqs. 5 and 6, slowed on a limb that bears all it
-        // safely can and near the plant's ceiling.
-        let limits = self.growth_limits(species, prototypes);
-        for (module, limit) in self.modules.iter_mut().zip(limits) {
-            let v = module.vigor.min(species.vigor_max);
-            module.rate = smooth((v - species.vigor_min) / (species.vigor_max - species.vigor_min))
-                * species.growth_rate
-                * self.potential
-                * light_response(module.light)
-                * species.lateral_extension.powi(module.order.min(1) as i32)
-                * limit;
-        }
+        self.set_development_rates(species, prototypes);
 
         // New modules at the vigorous empty terminals. Vigorous parents pick
         // more determinate prototypes: D' = v(parent) D / v_max.
         for (parent, slot, share) in spawn {
-            let parent_module = &self.modules[parent as usize];
+            let parent_module = &self.modules[parent.index()];
             let d = parent_module.vigor.min(species.vigor_max) / species.vigor_max * determinacy;
             let prototype = if species.unbranched {
                 prototypes.unbranched
@@ -520,26 +522,27 @@ impl Plant {
             let apical = prototypes.get(parent_module.prototype).apical == slot as usize;
             let order = parent_module.order.saturating_add(u8::from(!apical));
             let index = self.modules.len() as u32;
-            self.modules[parent as usize].children[slot as usize] = index;
+            self.modules[parent.index()].children[slot as usize] =
+                Some(ModuleIndex::from_word(index));
             let id = self.next_module;
             self.next_module += 1;
             self.modules.push(Module {
-                id,
+                id: ModuleId::from_word(id),
                 prototype,
-                parent,
+                parent: Some(parent),
                 parent_slot: slot,
                 order,
-                children: [NONE; MAX_TERMINALS],
+                children: [None; MAX_TERMINALS],
                 orientation,
-                age: 0.0,
+                age: PhysiologicalAge::from_stage(0.0),
                 // It starts to develop at the next step, as its light is
                 // first measured.
-                rate: 0.0,
+                rate: AgeRate::from_stages_per_year(0.0),
                 light: 1.0,
                 lit: 1.0,
                 light_total: 1.0,
                 vigor: share,
-                node_offset: NONE,
+                node_offset: None,
                 sphere: [0.0; 4],
                 fresh: true,
                 born: self.age,
@@ -571,7 +574,7 @@ impl Plant {
         if self.immortal {
             self.preserved = true;
             for module in &mut self.modules {
-                module.rate = 0.0;
+                module.rate = AgeRate::from_stages_per_year(0.0);
             }
         } else {
             self.alive = false;
@@ -582,15 +585,19 @@ impl Plant {
     /// rates the last [`Plant::regulate`] set: modules lengthen (Eqs. 5-10
     /// through their age), stems add wood, and a palm's tip puts out fronds.
     /// Call [`Plant::update_geometry`] after to see it.
-    pub fn develop(&mut self, species: &PlantType, dt: f32) {
+    pub fn develop(&mut self, species: &PlantType, dt: Years) {
+        // Native growth formulas below measure dt in simulation years.
+        let dt = dt.years();
         if !self.alive || self.preserved || dt <= 0.0 {
             return;
         }
-        self.age += dt;
+        self.age = Years::from_years(self.age.years() + dt);
         // Light as drawn eases towards light as measured over a few months.
         let ease = 1.0 - (-dt / 0.3).exp();
         for module in &mut self.modules {
-            module.age = (module.age + module.rate * dt).min(A_MATURE);
+            module.age = PhysiologicalAge::from_stage(
+                (module.age.stage() + module.rate.stages_per_year() * dt).min(A_MATURE),
+            );
             module.lit += (module.light - module.lit) * ease;
         }
         // Secondary growth: each year the innermost sapwood stops conducting
@@ -614,74 +621,6 @@ impl Plant {
         (6.0 + 0.8 * self.height()).min(26.0)
     }
 
-    /// Whether the empty terminal `slot` of module `u` is a lateral bud on
-    /// the trunk below `bole` metres, where the trunk keeps no branches.
-    fn on_bole(&self, prototypes: &PrototypeLibrary, u: usize, slot: usize, bole: f32) -> bool {
-        let module = &self.modules[u];
-        let prototype = prototypes.get(module.prototype);
-        if bole <= 0.0 || module.order > 0 || slot == prototype.apical {
-            return false;
-        }
-        let terminal = (module.node_offset + prototype.terminals[slot]) as usize;
-        self.nodes
-            .get(terminal)
-            .is_some_and(|n| n.position.y - self.position.y < bole)
-    }
-
-    /// How much each module may still grow, from zero to one, as the last
-    /// geometry update left it: limited by the load it bears -- the highest
-    /// stress over strength between it and the ground -- and by its
-    /// hydraulic distance from the roots: its height, and the friction of
-    /// the branch between it and the trunk ([`PlantType::branch_resistance`]).
-    fn growth_limits(&self, species: &PlantType, prototypes: &PrototypeLibrary) -> Vec<f32> {
-        let ceiling = self.max_height(species);
-        let mut load = vec![0.0f32; self.modules.len()];
-        // Length of branch from the trunk to each module's tip, and when
-        // the branch it is on grew out of the trunk.
-        let mut branch = vec![0.0f32; self.modules.len()];
-        let mut sprouted = vec![self.age; self.modules.len()];
-        let mut limits = Vec::with_capacity(self.modules.len());
-        for (u, module) in self.modules.iter().enumerate() {
-            let (below, along) = if module.parent == NONE {
-                (0.0, 0.0)
-            } else {
-                let p = module.parent as usize;
-                sprouted[u] = if self.modules[p].order == 0 {
-                    module.born
-                } else {
-                    sprouted[p]
-                };
-                (load[p], branch[p])
-            };
-            load[u] = module.stress.max(below);
-            let offset = module.node_offset as usize;
-            let count = prototypes.get(module.prototype).node_count();
-            // A module spawned since the last geometry update has no nodes
-            // yet; it stands where it attaches, below its parent's top.
-            let nodes = self.nodes.get(offset..offset + count).unwrap_or_default();
-            let top = nodes
-                .iter()
-                .map(|n| n.position.y - self.position.y)
-                .fold(0.0, f32::max);
-            if module.order > 0 {
-                let root = nodes
-                    .first()
-                    .map_or(Vec3::new(0.0, 0.0, 0.0), |n| n.position);
-                let span = nodes
-                    .iter()
-                    .map(|n| (n.position - root).length())
-                    .fold(0.0, f32::max);
-                branch[u] = along + span;
-            }
-            // At the ceiling, gravity and the wood's friction each take about
-            // half of the water's pull; a branch adds only friction.
-            let distance = top + 0.5 * species.branch_resistance * branch[u];
-            let aging = (-(self.age - sprouted[u]) / species.branch_half_life).exp2();
-            limits.push(headroom(load[u], species) * hydraulic(distance, ceiling) * aging);
-        }
-        limits
-    }
-
     /// Drop the modules `keep` rejects -- which must carry nothing -- and
     /// empty the terminals they hung from.
     pub fn discard(&mut self, keep: &[bool]) {
@@ -689,12 +628,12 @@ impl Plant {
     }
 
     /// Drop the modules `keep` rejects, remapping every index.
-    fn compact(&mut self, keep: &[bool], spawn: &mut [(u32, u8, f32)]) {
-        let mut remap = vec![NONE; self.modules.len()];
+    fn compact(&mut self, keep: &[bool], spawn: &mut [(ModuleIndex, u8, f32)]) {
+        let mut remap = vec![None; self.modules.len()];
         let mut next = 0u32;
         for (u, &k) in keep.iter().enumerate() {
             if k {
-                remap[u] = next;
+                remap[u] = Some(ModuleIndex::from_word(next));
                 next += 1;
             }
         }
@@ -704,31 +643,32 @@ impl Plant {
             .zip(keep)
             .filter(|(_, k)| **k)
             .map(|(mut module, _)| {
-                if module.parent != NONE {
-                    module.parent = remap[module.parent as usize];
-                }
+                module.parent = module.parent.and_then(|parent| remap[parent.index()]);
                 for child in &mut module.children {
-                    if *child != NONE {
-                        *child = remap[*child as usize];
-                    }
+                    *child = child.and_then(|child| remap[child.index()]);
                 }
                 module
             })
             .collect();
         for entry in spawn {
-            entry.0 = remap[entry.0 as usize];
+            if let Some(parent) = remap[entry.0.index()] {
+                entry.0 = parent;
+            }
         }
     }
 
     /// Where a module attaches: the plant's base, or its parent's terminal.
-    pub fn attachment(&self, prototypes: &PrototypeLibrary, module: usize) -> Vec3 {
-        let m = &self.modules[module];
-        if m.parent == NONE {
-            return self.position;
-        }
-        let parent = &self.modules[m.parent as usize];
+    pub fn attachment(&self, prototypes: &PrototypeLibrary, module: ModuleIndex) -> Option<Vec3> {
+        let m = self.modules.get(module.index())?;
+        let Some(parent) = m.parent else {
+            return Some(self.position);
+        };
+        let parent = self.modules.get(parent.index())?;
         let terminal = prototypes.get(parent.prototype).terminals[m.parent_slot as usize];
-        self.nodes[(parent.node_offset + terminal) as usize].position
+        let offset = parent.node_offset?;
+        self.nodes
+            .get(offset.index() + terminal as usize)
+            .map(|node| node.position)
     }
 
     /// Recompute every node, diameter and bounding sphere from the modules'
@@ -747,12 +687,12 @@ impl Plant {
         // so the sag it was born into does not tip it over.
         for u in 0..self.modules.len() {
             let module = &self.modules[u];
-            let inherited = if module.parent == NONE {
-                Vec4::quat_identity()
-            } else {
-                self.modules[module.parent as usize]
+            let inherited = if let Some(parent) = module.parent {
+                self.modules[parent.index()]
                     .bend
                     .mul_quat(module.birth_bend.conjugate())
+            } else {
+                Vec4::quat_identity()
             };
             let bend = module.sag.mul_quat(inherited).normalize();
             self.modules[u].bend = bend;
@@ -769,20 +709,22 @@ impl Plant {
         // parent wrote this same pass.
         #[allow(clippy::needless_range_loop)]
         for u in 0..self.modules.len() {
-            let root = self.attachment(prototypes, u);
+            let Some(root) = self.attachment(prototypes, ModuleIndex::from_word(u as u32)) else {
+                continue;
+            };
             let offset = self.nodes.len();
-            let before = self.modules[u].node_offset as usize;
-            self.modules[u].node_offset = offset as u32;
+            let before = self.modules[u].node_offset;
+            self.modules[u].node_offset = Some(NodeOffset::from_word(offset as u32));
             let module = &self.modules[u];
             let prototype = prototypes.get(module.prototype);
-            let (orientation, age) = (module.bend.mul_quat(module.orientation), module.age);
+            let (orientation, age) = (module.bend.mul_quat(module.orientation), module.age.stage());
             self.nodes.push(Node {
                 position: root,
                 ..Node::default()
             });
             for node in &prototype.nodes[1..] {
                 // Eq. 7: a segment ages from the moment it emerges.
-                let segment_age = (age - node.emergence).max(0.0);
+                let segment_age = (age - node.emergence.stage()).max(0.0);
                 let length = segment_length(species, segment_age) * node.length;
                 // Eq. 10: young segments bend most; the offset fades as
                 // g1 / (a_b + g1).
@@ -795,13 +737,15 @@ impl Plant {
                 position.y = position.y.max(self.position.y);
                 self.nodes.push(Node {
                     position,
-                    age: segment_age,
+                    age: PhysiologicalAge::from_stage(segment_age),
                     ..Node::default()
                 });
             }
             // Until the diameters are worked out below, `diameter` holds the
             // one the node had: wood already laid down.
-            if let Some(laid) = old.get(before..before + prototype.node_count()) {
+            if let Some(laid) = before
+                .and_then(|before| old.get(before.index()..before.index() + prototype.node_count()))
+            {
                 for (node, laid) in self.nodes[offset..].iter_mut().zip(laid) {
                     node.diameter = laid.diameter;
                     node.heartwood = laid.heartwood;
@@ -809,55 +753,7 @@ impl Plant {
             }
         }
 
-        // Diameters, basipetally: Eq. 8, the pipe model with n = 2, for the
-        // sapwood. Wood is never taken away: sapwood that a shed branch drew
-        // on stops conducting but stays, as heartwood.
-        for u in (0..self.modules.len()).rev() {
-            let module = &self.modules[u];
-            let prototype = prototypes.get(module.prototype);
-            let offset = module.node_offset as usize;
-            for n in (0..prototype.node_count()).rev() {
-                let mut sum = 0.0f32;
-                let mut thickest = 0.0f32;
-                let mut continuation = |node: &Node| {
-                    sum += node.sapwood * node.sapwood;
-                    thickest = thickest.max(node.diameter);
-                };
-                for &c in &prototype.children[n] {
-                    continuation(&self.nodes[offset + c as usize]);
-                }
-                let slot = prototype.terminal_slot[n];
-                if slot != NONE {
-                    let child = module.children[slot as usize];
-                    if child != NONE {
-                        continuation(
-                            &self.nodes[self.modules[child as usize].node_offset as usize],
-                        );
-                    }
-                }
-                let node = &mut self.nodes[offset + n];
-                // A new shoot starts thin and reaches its tip's diameter over
-                // its first stretch of growth, so that what it adds below it
-                // comes on gradually too; and a grown segment is never thinner
-                // than a tip, or a shoot budding from its end, starting thin,
-                // would thin everything below it.
-                let tip = if n > 0 && node.age > 0.0 {
-                    species.tip_diameter * (node.age / 0.2).min(1.0)
-                } else {
-                    0.0
-                };
-                let (sapwood, end) = if sum.sqrt() > tip {
-                    (sum.sqrt(), thickest)
-                } else {
-                    (tip, tip * 0.5)
-                };
-                let laid = node.diameter;
-                node.sapwood = sapwood;
-                node.heartwood = node.heartwood.max(laid * laid - sapwood * sapwood);
-                node.diameter = (sapwood * sapwood + node.heartwood).sqrt();
-                node.end_diameter = end;
-            }
-        }
+        self.update_diameters(species, prototypes);
 
         self.update_mechanics(species, prototypes);
 
@@ -865,7 +761,10 @@ impl Plant {
         let mut scratch = Vec::new();
         for module in &mut self.modules {
             let count = prototypes.get(module.prototype).node_count();
-            let offset = module.node_offset as usize;
+            let Some(offset) = module.node_offset else {
+                continue;
+            };
+            let offset = offset.index();
             scratch.clear();
             scratch.extend(
                 self.nodes[offset..offset + count]
@@ -878,93 +777,6 @@ impl Plant {
                 .fold(0.0, f32::max);
             let (center, radius) = sphere_of(&scratch, thickness);
             module.sphere = [center.x, center.y, center.z, radius];
-        }
-    }
-
-    /// Load each module with everything it carries -- wood and leaves -- and
-    /// from the bending moment at its base work out how far it sags and how
-    /// close it is to breaking. Beam theory for a circular section: stress
-    /// `32 M / (pi d^3)`, and over a module of length `l` a change of slope
-    /// of about `M l / (2 E I)` with `I = pi d^4 / 64` -- the moment falls
-    /// from `M` at the base towards the tip. Each module bends only by its
-    /// own share; the slopes add up along the branch, as a beam's do. The
-    /// trunk keeps upright, as reaction wood holds it. The sag is eased
-    /// towards its new value, so a branch settles rather than oscillates
-    /// between steps.
-    fn update_mechanics(&mut self, species: &PlantType, prototypes: &PrototypeLibrary) {
-        const G: f32 = 9.81;
-        /// The most one module bends in a step's equilibrium, radians.
-        const MAX_SLOPE: f32 = 0.35;
-        let count = self.modules.len();
-        let mut mass = vec![0.0f32; count];
-        let mut moment = vec![Vec3::new(0.0, 0.0, 0.0); count];
-        let mut span = vec![0.0f32; count];
-        let leaves = species.leaf_size > 0.0;
-        for u in (0..count).rev() {
-            let module = &self.modules[u];
-            let prototype = prototypes.get(module.prototype);
-            let offset = module.node_offset as usize;
-            let root = self.nodes[offset].position;
-            let leafy = leaves && self.has_leaves(module, species);
-            for (n, node) in prototype.nodes.iter().enumerate().skip(1) {
-                let a = self.nodes[offset + node.parent as usize].position;
-                let b = self.nodes[offset + n];
-                let r = b.diameter * 0.5;
-                let m =
-                    species.wood_density * std::f32::consts::PI * r * r * (b.position - a).length();
-                mass[u] += m;
-                moment[u] += (a + b.position) * (0.5 * m);
-                span[u] = span[u].max((b.position - root).length());
-                let slot = prototype.terminal_slot[n];
-                let bare_tip = prototype.children[n].is_empty()
-                    && (slot == NONE || module.children[slot as usize] == NONE);
-                if leafy && bare_tip && b.age > 0.0 {
-                    mass[u] += species.leaf_mass;
-                    moment[u] += b.position * species.leaf_mass;
-                }
-            }
-            for &c in &module.children {
-                if c != NONE {
-                    let (m, carried) = (mass[c as usize], moment[c as usize]);
-                    mass[u] += m;
-                    moment[u] += carried;
-                }
-            }
-        }
-
-        let up = Vec3::new(0.0, 1.0, 0.0);
-        for u in 0..count {
-            let base = self.nodes[self.modules[u].node_offset as usize];
-            let d = base.diameter;
-            if mass[u] <= 0.0 || d <= 0.0 {
-                continue;
-            }
-            let lever = moment[u] / mass[u] - base.position;
-            let horizontal = Vec3::new(lever.x, 0.0, lever.z);
-            let arm = horizontal.length();
-            let bending = mass[u] * G * arm;
-            let inertia = std::f32::consts::PI * d.powi(4) / 64.0;
-            let stress = bending * (d * 0.5) / inertia;
-            let module = &mut self.modules[u];
-            module.stress = stress / species.wood_strength;
-            if module.order == 0 {
-                continue;
-            }
-            let slope =
-                (bending * span[u] / (2.0 * species.wood_stiffness * inertia)).min(MAX_SLOPE);
-            let target = if arm > 1e-4 {
-                Vec4::from_axis_angle(up.cross(horizontal), slope)
-            } else {
-                Vec4::quat_identity()
-            };
-            // Ease half-way towards the new bend.
-            let q = module.sag;
-            let t = if q.dot(target) < 0.0 {
-                Vec4::new(-target.x, -target.y, -target.z, -target.w)
-            } else {
-                target
-            };
-            module.sag = Vec4::new(q.x + t.x, q.y + t.y, q.z + t.z, q.w + t.w).normalize();
         }
     }
 
@@ -986,7 +798,10 @@ impl Plant {
         let mut volume = 0.0;
         for module in &self.modules {
             let prototype = prototypes.get(module.prototype);
-            let offset = module.node_offset as usize;
+            let Some(offset) = module.node_offset else {
+                continue;
+            };
+            let offset = offset.index();
             for (n, node) in prototype.nodes.iter().enumerate().skip(1) {
                 let a = self.nodes[offset + node.parent as usize].position;
                 let b = &self.nodes[offset + n];
@@ -1001,18 +816,19 @@ impl Plant {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use fabelgeist_determinism::Seed;
 
     fn seedling() -> (PlantType, PrototypeLibrary, Plant) {
         let species = PlantType::default();
         let prototypes = PrototypeLibrary::halle();
         let plant = Plant::new(
-            1,
-            0,
+            PlantId::from_word(1),
+            SpeciesId::from_word(0),
             &species,
             &prototypes,
             Vec3::new(0.0, 0.0, 0.0),
             1.0,
-            Rng::new(7),
+            Rng::new(Seed::from_u64(7)),
         );
         (species, prototypes, plant)
     }
@@ -1025,7 +841,7 @@ mod tests {
                 m.light = 1.0;
                 m.fresh = false;
             }
-            plant.grow(&species, &prototypes, 0.5);
+            plant.grow(&species, &prototypes, Years::from_years(0.5));
             plant.update_geometry(&species, &prototypes);
         }
         assert!(plant.alive);
@@ -1033,7 +849,7 @@ mod tests {
         assert!(plant.height() > 2.0, "height {}", plant.height());
         // Parents always precede children.
         for (u, m) in plant.modules.iter().enumerate() {
-            assert!(m.parent == NONE || (m.parent as usize) < u);
+            assert!(m.parent.is_none_or(|parent| parent.index() < u));
         }
         // The pipe model thickens towards the base.
         let base = plant.trunk_diameter();
@@ -1047,7 +863,7 @@ mod tests {
             for m in &mut plant.modules {
                 m.light = 0.8;
             }
-            plant.grow(&species, &prototypes, 0.5);
+            plant.grow(&species, &prototypes, Years::from_years(0.5));
             plant.update_geometry(&species, &prototypes);
         }
         // Children of a module never receive more than flows through it.
@@ -1055,8 +871,8 @@ mod tests {
             let to_children: f32 = m
                 .children
                 .iter()
-                .filter(|&&c| c != NONE)
-                .map(|&c| plant.modules[c as usize].vigor)
+                .flatten()
+                .map(|&c| plant.modules[c.index()].vigor)
                 .sum();
             assert!(to_children <= m.vigor * 1.0001 + 1e-6);
         }
@@ -1072,7 +888,7 @@ mod tests {
                 m.fresh = false;
             }
             broken += plant.modules.iter().filter(|m| m.stress >= 1.0).count();
-            plant.grow(&species, &prototypes, 0.5);
+            plant.grow(&species, &prototypes, Years::from_years(0.5));
             plant.update_geometry(&species, &prototypes);
         }
         assert!(plant.alive);
@@ -1102,20 +918,20 @@ mod tests {
         };
         let prototypes = PrototypeLibrary::halle();
         let mut plant = Plant::new(
-            1,
-            0,
+            PlantId::from_word(1),
+            SpeciesId::from_word(0),
             &species,
             &prototypes,
             Vec3::new(0.0, 0.0, 0.0),
             1.0,
-            Rng::new(7),
+            Rng::new(Seed::from_u64(7)),
         );
         for _ in 0..200 {
             for m in &mut plant.modules {
                 m.light = 1.0;
                 m.fresh = false;
             }
-            plant.grow(&species, &prototypes, 0.5);
+            plant.grow(&species, &prototypes, Years::from_years(0.5));
             plant.update_geometry(&species, &prototypes);
         }
         assert!(plant.alive);
@@ -1136,13 +952,13 @@ mod tests {
         };
         let prototypes = PrototypeLibrary::halle();
         let mut plant = Plant::new(
-            1,
-            0,
+            PlantId::from_word(1),
+            SpeciesId::from_word(0),
             &species,
             &prototypes,
             Vec3::new(0.0, 0.0, 0.0),
             1.0,
-            Rng::new(7),
+            Rng::new(Seed::from_u64(7)),
         );
         let mut diameters = Vec::new();
         for _ in 0..240 {
@@ -1150,7 +966,7 @@ mod tests {
                 m.light = 1.0;
                 m.fresh = false;
             }
-            plant.grow(&species, &prototypes, 0.5);
+            plant.grow(&species, &prototypes, Years::from_years(0.5));
             plant.update_geometry(&species, &prototypes);
             diameters.push(plant.trunk_diameter());
         }
@@ -1169,20 +985,20 @@ mod tests {
         let heights: Vec<f32> = (0..6)
             .map(|seed| {
                 let mut plant = Plant::new(
-                    1,
-                    0,
+                    PlantId::from_word(1),
+                    SpeciesId::from_word(0),
                     &species,
                     &prototypes,
                     Vec3::new(0.0, 0.0, 0.0),
                     1.0,
-                    Rng::new(seed),
+                    Rng::new(Seed::from_u64(seed)),
                 );
                 for _ in 0..60 {
                     for m in &mut plant.modules {
                         m.light = 1.0;
                         m.fresh = false;
                     }
-                    plant.grow(&species, &prototypes, 0.5);
+                    plant.grow(&species, &prototypes, Years::from_years(0.5));
                     plant.update_geometry(&species, &prototypes);
                 }
                 plant.height()
@@ -1204,7 +1020,7 @@ mod tests {
                     m.light = light;
                     m.fresh = false;
                 }
-                plant.grow(&species, &prototypes, 0.5);
+                plant.grow(&species, &prototypes, Years::from_years(0.5));
                 plant.update_geometry(&species, &prototypes);
             }
             plant.height()
@@ -1221,20 +1037,20 @@ mod tests {
         };
         let prototypes = PrototypeLibrary::halle();
         let mut plant = Plant::new(
-            1,
-            0,
+            PlantId::from_word(1),
+            SpeciesId::from_word(0),
             &species,
             &prototypes,
             Vec3::new(0.0, 0.0, 0.0),
             1.0,
-            Rng::new(7),
+            Rng::new(Seed::from_u64(7)),
         );
         for _ in 0..120 {
             for m in &mut plant.modules {
                 m.light = 1.0;
                 m.fresh = false;
             }
-            plant.grow(&species, &prototypes, 0.5);
+            plant.grow(&species, &prototypes, Years::from_years(0.5));
             plant.update_geometry(&species, &prototypes);
         }
         assert!(plant.alive);
@@ -1242,9 +1058,12 @@ mod tests {
         let bole = 0.45 * plant.height();
         let mut branches = 0;
         for (u, m) in plant.modules.iter().enumerate() {
-            if m.order > 0 && plant.modules[m.parent as usize].order == 0 {
+            if m.order > 0 && plant.modules[m.parent.map_or(0, ModuleIndex::index)].order == 0 {
                 branches += 1;
-                let at = plant.attachment(&prototypes, u).y;
+                let at = plant
+                    .attachment(&prototypes, ModuleIndex::from_word(u as u32))
+                    .unwrap()
+                    .y;
                 assert!(at >= bole, "a branch at {at} m below the bole at {bole} m");
             }
         }
@@ -1256,20 +1075,20 @@ mod tests {
         let species = PlantType::palm();
         let prototypes = PrototypeLibrary::halle();
         let mut plant = Plant::new(
-            1,
-            0,
+            PlantId::from_word(1),
+            SpeciesId::from_word(0),
             &species,
             &prototypes,
             Vec3::new(0.0, 0.0, 0.0),
             1.0,
-            Rng::new(7),
+            Rng::new(Seed::from_u64(7)),
         );
         for _ in 0..80 {
             for m in &mut plant.modules {
                 m.light = 1.0;
                 m.fresh = false;
             }
-            plant.grow(&species, &prototypes, 0.5);
+            plant.grow(&species, &prototypes, Years::from_years(0.5));
             plant.update_geometry(&species, &prototypes);
         }
         assert!(plant.alive);
@@ -1289,7 +1108,7 @@ mod tests {
             for m in &mut plant.modules {
                 m.light = 0.01;
             }
-            plant.grow(&species, &prototypes, 1.0);
+            plant.grow(&species, &prototypes, Years::from_years(1.0));
         }
         assert!(!plant.alive);
     }
@@ -1300,14 +1119,14 @@ mod tests {
         species: &PlantType,
         prototypes: &PrototypeLibrary,
         light: f32,
-        years: f32,
+        years: Years,
     ) -> Plant {
-        for _ in 0..(years / 0.5) as usize {
+        for _ in 0..(years.years() / 0.5) as usize {
             for m in &mut plant.modules {
                 m.light = light;
                 m.fresh = false;
             }
-            plant.grow(species, prototypes, 0.5);
+            plant.grow(species, prototypes, Years::from_years(0.5));
             plant.update_geometry(species, prototypes);
         }
         plant
@@ -1318,10 +1137,10 @@ mod tests {
         // Starved in the dark: kept as the seedling it was, even once lit.
         let (species, prototypes, mut plant) = seedling();
         plant.immortal = true;
-        let plant = grown(plant, &species, &prototypes, 0.01, 3.0);
+        let plant = grown(plant, &species, &prototypes, 0.01, Years::from_years(3.0));
         assert!(plant.alive && plant.preserved);
         let (height, modules) = (plant.height(), plant.modules.len());
-        let plant = grown(plant, &species, &prototypes, 1.0, 10.0);
+        let plant = grown(plant, &species, &prototypes, 1.0, Years::from_years(10.0));
         assert_eq!(
             (plant.height(), plant.modules.len()),
             (height, modules),
@@ -1335,20 +1154,23 @@ mod tests {
             ..PlantType::default()
         };
         let mut plant = Plant::new(
-            1,
-            0,
+            PlantId::from_word(1),
+            SpeciesId::from_word(0),
             &old,
             &prototypes,
             Vec3::new(0.0, 0.0, 0.0),
             1.0,
-            Rng::new(3),
+            Rng::new(Seed::from_u64(3)),
         );
         plant.immortal = true;
-        let plant = grown(plant, &old, &prototypes, 1.0, 13.0);
-        assert!(plant.alive && plant.preserved, "age {}", plant.age);
+        let plant = grown(plant, &old, &prototypes, 1.0, Years::from_years(13.0));
+        assert!(plant.alive && plant.preserved, "age {}", plant.age.years());
         let (age, height, modules) = (plant.age, plant.height(), plant.modules.len());
-        assert!((12.0..12.6).contains(&age), "kept at {age}, past its age");
-        let plant = grown(plant, &old, &prototypes, 1.0, 30.0);
+        assert!(
+            (12.0..12.6).contains(&age.years()),
+            "kept at {age:?}, past its age"
+        );
+        let plant = grown(plant, &old, &prototypes, 1.0, Years::from_years(30.0));
         assert_eq!(
             (plant.age, plant.height(), plant.modules.len()),
             (age, height, modules)
@@ -1365,20 +1187,20 @@ mod tests {
         };
         let prototypes = PrototypeLibrary::halle();
         let mut plant = Plant::new(
-            1,
-            0,
+            PlantId::from_word(1),
+            SpeciesId::from_word(0),
             &species,
             &prototypes,
             Vec3::new(0.0, 0.0, 0.0),
             1.0,
-            Rng::new(3),
+            Rng::new(Seed::from_u64(3)),
         );
         let mut years = 0.0;
         while plant.alive && years < 30.0 {
             for m in &mut plant.modules {
                 m.light = 1.0;
             }
-            plant.grow(&species, &prototypes, 0.5);
+            plant.grow(&species, &prototypes, Years::from_years(0.5));
             plant.update_geometry(&species, &prototypes);
             years += 0.5;
         }
