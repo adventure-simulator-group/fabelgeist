@@ -17,6 +17,7 @@ use bevy::{
     asset::{AssetEvent, AssetId},
     camera::visibility::RenderLayers,
 };
+use display_history::PosePresentationMode;
 use fabelgeist_rig::{RigJointName, RigJointOrdinal, RigJointTable};
 use hierarchy::{
     aim_pose_joint, hand_animation_joint, local_pose_global, sampled_global_transform,
@@ -25,7 +26,6 @@ use inertialization::{
     JointInertialOffset, hemisphere_slerp, local_pose_velocity, quaternion_exp, quaternion_log,
     shortest_rotation,
 };
-use presentation::PosePresentationMode;
 use proportions::sample_character_plan;
 use rig::{RigDefinition, RigJoint};
 use spline::clamped_cubic_spline_vec3;
@@ -36,11 +36,11 @@ use std::{
 pub(super) use stride_calibration::{CharacterLocomotionStrides, calibrate_character_strides};
 
 mod baking;
+mod display_history;
 mod hierarchy;
 mod inertialization;
 mod phase_calibration;
 mod physics_pose;
-mod presentation;
 mod proportions;
 mod rig;
 mod spline;
