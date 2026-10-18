@@ -104,6 +104,11 @@ jobs:
         run: |
           cargo test --locked --package fabelgeist-fbx
           cargo test --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --lib character::selector_tests::record_and_class_selection_keeps_original_rig_payload -- --exact
+      - name: Test checked FBX array encoding
+        run: >-
+          cargo test --locked --package fabelgeist-fbx --lib
+          array_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior
+          -- --exact --nocapture
       - name: Check semantic values and Rust growth
         run: |
           cargo test --package fabelgeist-rust-quality
