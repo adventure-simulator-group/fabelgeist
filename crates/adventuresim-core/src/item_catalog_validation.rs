@@ -510,7 +510,7 @@ fn validate_item(
         errors.push(format!("{path}.block"), "field is only valid for shield");
     }
     if kind == "shield" {
-        finite_in(item, "block", f64::EPSILON, 10_000.0, &path, errors);
+        finite_in(item, "block", 0.0_f64.next_up(), 10_000.0, &path, errors);
     }
     if kind == "armor" {
         for field in ["flexibility", "range_of_motion"] {

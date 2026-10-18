@@ -434,9 +434,7 @@ pub(crate) fn validate_editor_asset_root(
                     sample.pose.as_str()
                 )),
             }
-            if let PoseSampling::Span { end, progress } = sample.sampling
-                && progress > f32::EPSILON
-            {
+            if let PoseSampling::Span { end, .. } = sample.sampling {
                 match resolve_editor_pose(&catalog, HUMANOID_UNARMED_PACK, end, asset_root) {
                     Some(resolution) => {
                         if !resolution.motion_path.is_file() {

@@ -9,7 +9,7 @@ use walkdir::WalkDir;
 use crate::{
     calendar_flow,
     config::{Baseline, Config, Debt, Exception, FindingBaseline},
-    manifests,
+    float_epsilon, manifests,
     scan::{Finding, FunctionSize, LiteralOccurrence, path_matches, scan},
 };
 
@@ -45,13 +45,17 @@ pub fn check_repository(
             continue;
         }
         let relative = relative_path(root, entry.path())?;
-        if excluded(config, &relative) || test_file(&relative) {
+        if excluded(config, &relative) {
             continue;
         }
         let source = fs::read_to_string(entry.path())
             .map_err(|error| format!("cannot read {relative}: {error}"))?;
         let syntax = syn::parse_file(&source)
             .map_err(|error| format!("cannot parse {relative}: {error}"))?;
+        findings.extend(float_epsilon::check_file(&relative, &syntax));
+        if test_file(&relative) {
+            continue;
+        }
         calendar_diagnostics.extend(calendar_flow::check_file(&relative, &syntax));
         let result = scan(&relative, &source, &syntax, config);
         files.insert(relative.clone(), result.production_lines);
@@ -160,7 +164,12 @@ fn validate_findings(
         .collect::<BTreeMap<_, _>>();
 
     for (key, group) in actual {
-        if let Some(expected) = baselined.get(key) {
+        if key.rule == float_epsilon::RULE && baselined.contains_key(key) {
+            diagnostics.push(format!(
+                "{}:{}: machine-epsilon requires an audited exception, not a baseline",
+                key.path, group.first_line
+            ));
+        } else if let Some(expected) = baselined.get(key) {
             if *expected != group.count {
                 diagnostics.push(format!(
                     "{}:{}: baseline for {} {} expected {} occurrence(s), found {}; tighten it",
@@ -325,6 +334,7 @@ fn snapshot(
         .collect();
     let finding_debt = findings
         .into_iter()
+        .filter(|(key, _)| key.rule != float_epsilon::RULE)
         .map(|(key, group)| FindingBaseline {
             rule: key.rule,
             path: key.path,
@@ -456,6 +466,31 @@ mod tests {
     }
 
     #[test]
+    fn precision_scan_includes_test_files_without_changing_production_metrics() {
+        let root =
+            std::env::temp_dir().join(format!("fabelgeist-epsilon-scan-{}", std::process::id()));
+        fs::create_dir(&root).unwrap();
+        fs::create_dir_all(root.join("crates/example/tests")).unwrap();
+        fs::write(
+            root.join("Cargo.toml"),
+            "[workspace]\nmembers = []\n[workspace.lints.clippy]\nall = 'warn'\n",
+        )
+        .unwrap();
+        fs::write(
+            root.join("crates/example/tests/numerics.rs"),
+            "#[test] fn boundary() { assert!(value <= f32::EPSILON); }",
+        )
+        .unwrap();
+        let config: Config = toml::from_str("file_limit = 1\nfunction_limit = 1\n").unwrap();
+        let report = check_repository(&root, &config, &Baseline::default()).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+        assert_eq!(report.diagnostics.len(), 1);
+        assert!(report.diagnostics[0].contains(float_epsilon::RULE));
+        assert!(report.snapshot.files.is_empty());
+        assert!(report.snapshot.functions.is_empty());
+    }
+
+    #[test]
     fn stale_exceptions_fail() {
         let config = Config {
             file_limit: 500,
@@ -483,6 +518,59 @@ mod tests {
         );
         assert_eq!(diagnostics.len(), 1);
         assert!(diagnostics[0].contains("stale exception"));
+    }
+
+    #[test]
+    fn machine_precision_requires_exact_audited_exceptions() {
+        let mut config: Config =
+            toml::from_str("file_limit = 500\nfunction_limit = 100\n").unwrap();
+        let syntax = syn::parse_file("const ROUNDING: f32 = f32::EPSILON;").unwrap();
+        let findings = float_epsilon::check_file("crates/example/tests/rounding.rs", &syntax);
+        let actual = group_findings(&findings);
+        let finding = &findings[0];
+        let mut diagnostics = Vec::new();
+        validate_findings(&config, &Baseline::default(), &actual, &mut diagnostics);
+        assert_eq!(diagnostics.len(), 1);
+        config.exceptions.push(Exception {
+            rule: finding.rule.clone(),
+            path: finding.path.clone(),
+            item: finding.item.clone(),
+            fingerprint: finding.fingerprint.clone(),
+            occurrences: 1,
+            reason: "Relative roundoff in a normalized calculation.".into(),
+        });
+        diagnostics.clear();
+        validate_findings(&config, &Baseline::default(), &actual, &mut diagnostics);
+        assert!(diagnostics.is_empty());
+        config.exceptions[0].occurrences = 2;
+        validate_findings(&config, &Baseline::default(), &actual, &mut diagnostics);
+        assert!(diagnostics[0].contains("expected 2 occurrence(s), found 1"));
+        diagnostics.clear();
+        validate_findings(
+            &config,
+            &Baseline::default(),
+            &BTreeMap::new(),
+            &mut diagnostics,
+        );
+        assert!(diagnostics[0].contains("stale exception"));
+        let baseline = Baseline {
+            findings: vec![FindingBaseline {
+                rule: finding.rule.clone(),
+                path: finding.path.clone(),
+                item: finding.item.clone(),
+                fingerprint: finding.fingerprint.clone(),
+                occurrences: 1,
+            }],
+            ..Default::default()
+        };
+        diagnostics.clear();
+        validate_findings(&config, &baseline, &actual, &mut diagnostics);
+        assert!(diagnostics[0].contains("not a baseline"));
+        assert!(
+            snapshot(&config, BTreeMap::new(), Vec::new(), actual)
+                .findings
+                .is_empty()
+        );
     }
 
     #[test]

@@ -63,7 +63,7 @@ pub fn durable_removal_ids(mut instances: Vec<(u64, bool)>, remove: u32) -> Vec<
 
 /// Stable workshop quote for the complete portion of a job this smith can do.
 pub fn repair_quote(base_value: u32, repairable_damage: f32) -> u32 {
-    if !repairable_damage.is_finite() || repairable_damage <= f32::EPSILON {
+    if !repairable_damage.is_finite() || repairable_damage <= 0.0 {
         return 0;
     }
     ((base_value.max(1) as f32 * repairable_damage.clamp(0.0, 1.0)).ceil() as u32).max(1)
@@ -243,7 +243,11 @@ pub fn damage_from_impact(profile: DurabilityProfile, stress: f32) -> DamageEven
         };
     }
     if stress >= catastrophic_threshold {
-        let overload = stress / catastrophic_threshold.max(f32::EPSILON) - 1.0;
+        let overload = if catastrophic_threshold > 0.0 {
+            stress / catastrophic_threshold - 1.0
+        } else {
+            0.0
+        };
         return DamageEvent {
             amount: (profile.failure_share * (1.0 + overload * 0.35)).clamp(0.0, 1.0),
             tier: (3 + (overload * 2.0).floor() as u8 + profile.quality.saturating_sub(3) / 2)
@@ -251,7 +255,7 @@ pub fn damage_from_impact(profile: DurabilityProfile, stress: f32) -> DamageEven
             catastrophic: true,
         };
     }
-    let span = (catastrophic_threshold - yield_threshold).max(f32::EPSILON);
+    let span = catastrophic_threshold - yield_threshold;
     let severity = (stress - yield_threshold) / span;
     DamageEvent {
         amount: (severity * wear_rate).clamp(0.0, profile.failure_share.max(0.01)),
@@ -408,6 +412,9 @@ mod tests {
         assert_eq!(repair_quote(3, 0.01), 1);
         assert_eq!(repair_quote(100, 0.0), 0);
         assert_eq!(repair_quote(100, f32::NAN), 0);
+        assert_eq!(repair_quote(100, f32::INFINITY), 0);
+        assert_eq!(repair_quote(100, -1.0e-10), 0);
+        assert_eq!(repair_quote(100, 1.0e-10), 1);
     }
 
     #[test]

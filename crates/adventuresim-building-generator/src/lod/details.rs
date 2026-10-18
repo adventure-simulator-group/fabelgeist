@@ -100,7 +100,7 @@ pub(super) fn append_timber_details(lod: &mut BuildingLod, plan: &BuildingPlan) 
             let axis = (member.end.metres() - member.start.metres()).normalize_or_zero();
             let side =
                 outward.cross(axis).normalize_or_zero() * member.section_metres.metres().x * 0.5;
-            if side.length_squared() <= f32::EPSILON || axis.dot(outward).abs() > 0.001 {
+            if side.length_squared() <= 0.0 || axis.dot(outward).abs() > 0.001 {
                 continue;
             }
             let project = |point: Vec3| point + outward * (surface_plane - point.dot(outward));

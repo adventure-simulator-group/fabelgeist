@@ -22,7 +22,7 @@ impl Camera {
         let target = Vec3::from_array(self.target_metres);
         position.is_finite()
             && target.is_finite()
-            && (target - position).cross(Vec3::Y).length_squared() > f32::EPSILON
+            && (target - position).cross(Vec3::Y).length_squared() > 0.0
     }
 
     fn review(&self) -> BuildingReviewCamera {

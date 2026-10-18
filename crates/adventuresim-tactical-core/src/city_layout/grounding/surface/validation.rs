@@ -106,7 +106,7 @@ impl PropertySupportSurface {
             || self.mesh.support_triangles.iter().any(|indices| {
                 let [a, b, c] = indices.map(|i| self.mesh.positions[i as usize]);
                 let normal = (b - a).cross(c - a);
-                !normal.is_finite() || normal.y.abs() <= f32::EPSILON
+                !normal.is_finite() || normal.y == 0.0
             })
         {
             return Err(SupportSurfaceIssue::Topology);
@@ -134,11 +134,11 @@ impl PropertySupportSurface {
 fn valid_outline(outline: &[bevy::math::DVec2]) -> bool {
     outline.len() >= 3
         && outline.iter().all(|p| p.is_finite())
-        && planar::signed_area(outline) > f64::EPSILON
+        && planar::signed_area(outline) > 0.0
         && (0..outline.len()).all(|i| {
             let a = outline[i];
             let edge = outline[(i + 1) % outline.len()] - a;
-            edge.length_squared() > f64::EPSILON
+            edge.length_squared() > 0.0
                 && outline.iter().all(|point| {
                     edge.perp_dot(*point - a)
                         >= -edge.length() * CityPlotBounds::COORDINATE_TOLERANCE_METRES

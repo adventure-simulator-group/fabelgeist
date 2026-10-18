@@ -84,7 +84,7 @@ pub(super) fn render_cuboid_placement(
             } else {
                 (2, z_alignment)
             };
-            if alignment > f32::EPSILON {
+            if alignment > 0.0 {
                 render_size[depth_axis] += missing_depth / alignment;
                 {
                     let mut native_geometry = render_centre.metres();
@@ -188,9 +188,30 @@ pub(super) fn wall_surface_uv(wall: &crate::WallAssembly, point: Vec3) -> Vec2 {
 }
 
 fn canonical_wall_texture_tangent(tangent: Vec2) -> Vec2 {
-    if tangent.x < -f32::EPSILON || (tangent.x.abs() <= f32::EPSILON && tangent.y < 0.0) {
+    // Axis-aligned yaw can leave a rounded horizontal component. Classify it
+    // at the tangent's represented scale so equivalent walls keep the same UV
+    // direction even when their frame was produced through trigonometry.
+    let axis_roundoff = tangent.length() * f32::EPSILON;
+    if tangent.x < -axis_roundoff || (tangent.x.abs() <= axis_roundoff && tangent.y < 0.0) {
         -tangent
     } else {
         tangent
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn near_axis_texture_orientation_is_independent_of_tangent_scale() {
+        let angle = core::f32::consts::FRAC_PI_2;
+        let tangent = Vec2::new(angle.cos(), angle.sin());
+        for scale in [1.0e-5, 1.0, 1.0e5] {
+            let forward = canonical_wall_texture_tangent(tangent * scale);
+            let reversed = canonical_wall_texture_tangent(-tangent * scale);
+            assert!(forward.y > 0.0);
+            assert_eq!(forward, reversed);
+        }
     }
 }

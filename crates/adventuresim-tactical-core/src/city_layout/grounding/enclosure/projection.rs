@@ -144,13 +144,13 @@ impl MemberProjection<'_> {
                 polygon = planar::clip(polygon, |p| edge.perp_dot(p - a));
             }
             let area = planar::signed_area(&polygon).abs();
-            if area <= f64::EPSILON {
+            if area <= 0.0 {
                 continue;
             }
             covered += area;
             for i in 1..polygon.len().saturating_sub(1) {
                 let points = [polygon[0], polygon[i], polygon[i + 1]];
-                if planar::signed_area(&points).abs() <= f64::EPSILON {
+                if planar::signed_area(&points) == 0.0 {
                     continue;
                 }
                 mesh.cells.push(self.cell(triangle, points)?);

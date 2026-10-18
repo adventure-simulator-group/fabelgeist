@@ -819,7 +819,9 @@ mod tests {
     fn moon_disc_preserves_physical_angular_diameter() {
         let radius = MOON_DISTANCE_METRES * MOON_ANGULAR_RADIUS_RADIANS.tan();
         let reconstructed = (radius / MOON_DISTANCE_METRES).atan();
-        assert!((reconstructed - MOON_ANGULAR_RADIUS_RADIANS).abs() < f32::EPSILON);
+        let angular_roundoff_radians =
+            (MOON_ANGULAR_RADIUS_RADIANS.next_up() - MOON_ANGULAR_RADIUS_RADIANS) * 2.0;
+        assert!((reconstructed - MOON_ANGULAR_RADIUS_RADIANS).abs() <= angular_roundoff_radians);
         assert!((MOON_ANGULAR_RADIUS_RADIANS.to_degrees() * 2.0 - 0.5).abs() < 1.0e-5);
     }
 }

@@ -2,7 +2,8 @@
 
 pub(super) const PROJECTION: &str = r#"
 const DETERMINANT_EPSILON: f32 = 1e-10;
-const BARYCENTRIC_TOLERANCE: f32 = 16.0 * FLT_EPSILON;
+// Relative rounding per f32 operation, used only to bound triangle arithmetic.
+const BARYCENTRIC_ROUNDOFF: f32 = 16.0 * 1.1920929e-7;
 const SECTION_HEIGHT_TOLERANCE_M: f32 = 1e-6;
 
 // Where a depth ray crosses a triangle rotated into the ray's directional
@@ -12,10 +13,12 @@ fn ray_depth(p: vec2<f32>, a: vec3<f32>, b: vec3<f32>, c: vec3<f32>) -> vec2<f32
     if (abs(determinant) < DETERMINANT_EPSILON) {
         return vec2<f32>(0.0, 0.0);
     }
+    let tolerance = BARYCENTRIC_ROUNDOFF *
+        (abs((b.y-c.y)*(a.x-c.x)) + abs((c.x-b.x)*(a.y-c.y))) / abs(determinant);
     let u = ((b.y - c.y) * (p.x - c.x) + (c.x - b.x) * (p.y - c.y)) / determinant;
     let v = ((c.y - a.y) * (p.x - c.x) + (a.x - c.x) * (p.y - c.y)) / determinant;
-    if (u >= -BARYCENTRIC_TOLERANCE && v >= -BARYCENTRIC_TOLERANCE &&
-        u + v <= 1.0 + BARYCENTRIC_TOLERANCE) {
+    if (u >= -tolerance && v >= -tolerance &&
+        u + v <= 1.0 + tolerance) {
         return vec2<f32>(u * a.z + v * b.z + (1.0 - u - v) * c.z, 1.0);
     }
     return vec2<f32>(0.0, 0.0);

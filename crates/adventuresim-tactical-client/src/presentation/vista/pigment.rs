@@ -120,7 +120,11 @@ pub(super) fn stitch_vista_color_to_playable_edge(
     let outside_distance = (local.abs() - playable_half_extent)
         .max(Vec2::ZERO)
         .max_element();
-    let vista_weight = (outside_distance / transition_width.max(f32::EPSILON)).clamp(0.0, 1.0);
+    let vista_weight = if transition_width > 0.0 {
+        (outside_distance / transition_width).clamp(0.0, 1.0)
+    } else {
+        f32::from(outside_distance > 0.0)
+    };
     let mut stitched = playable_color.lerp(vista_color, vista_weight);
     // Alpha carries distant geometric-sward coverage, not material opacity.
     // Preserve it while blending only the molded substrate pigment.

@@ -181,7 +181,7 @@ pub fn whole_body_armor_coverage(equipment: &impl PlayerEquipment) -> f32 {
 
 #[must_use]
 pub fn body_part_from_contact_sample(sample: f32) -> BodyPart {
-    weighted_body_part_and_local(sample.clamp(0.0, 1.0 - f32::EPSILON), |_| 1.0).0
+    weighted_body_part_and_local(sample.clamp(0.0, 1.0_f32.next_down()), |_| 1.0).0
 }
 
 #[must_use]
@@ -202,16 +202,16 @@ pub fn melee_contact_location(
 
 fn melee_contact_coordinates(contact_sample: f32, gap_targeting: f32) -> (BodyPart, f32) {
     let (body_part, local_coordinate) =
-        weighted_body_part_and_local(contact_sample.clamp(0.0, 1.0 - f32::EPSILON), |_| 1.0);
+        weighted_body_part_and_local(contact_sample.clamp(0.0, 1.0_f32.next_down()), |_| 1.0);
     let gap_targeting = gap_targeting.clamp(0.0, 1.0);
     let targeted_coordinate =
-        local_coordinate + (1.0 - f32::EPSILON - local_coordinate) * gap_targeting;
+        local_coordinate + (1.0_f32.next_down() - local_coordinate) * gap_targeting;
     (body_part, targeted_coordinate)
 }
 
 #[must_use]
 pub fn anatomical_subregion(body_part: BodyPart, area_sample: f32) -> AnatomicalSubregion {
-    let area_sample = area_sample.clamp(0.0, 1.0 - f32::EPSILON);
+    let area_sample = area_sample.clamp(0.0, 1.0_f32.next_down());
     match body_part {
         BodyPart::LeftArm => AnatomicalSubregion::LeftArm,
         BodyPart::RightArm => AnatomicalSubregion::RightArm,
@@ -240,18 +240,18 @@ fn weighted_body_part_and_local(sample: f32, factor: impl Fn(BodyPart) -> f32) -
     let mut cursor = sample * total;
     for (part, weight) in BODY_PART_CONTACT_WEIGHTS {
         let candidate_weight = weight * factor(part).max(0.0);
-        if candidate_weight <= f32::EPSILON {
+        if candidate_weight <= 0.0 {
             continue;
         }
         if cursor < candidate_weight {
             return (
                 part,
-                (cursor / candidate_weight).clamp(0.0, 1.0 - f32::EPSILON),
+                (cursor / candidate_weight).clamp(0.0, 1.0_f32.next_down()),
             );
         }
         cursor -= candidate_weight;
     }
-    (BodyPart::Head, 1.0 - f32::EPSILON)
+    (BodyPart::Head, 1.0_f32.next_down())
 }
 
 #[cfg(test)]

@@ -407,7 +407,7 @@ pub(super) fn drive_offensive_combat_ai(
         };
         let offset = target_transform.translation.xz() - transform.translation.xz();
         let distance = offset.length();
-        if distance > f32::EPSILON {
+        if distance > 0.0 {
             look.yaw = (-offset.x).atan2(-offset.y);
         }
         let OffensiveFacts {

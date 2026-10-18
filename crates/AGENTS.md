@@ -140,6 +140,22 @@ governed by the repository-root generation rule instead.
 
 ## Lints, tests, and optimization
 
+- Machine epsilon describes floating-point precision near one; it is not a
+  general absolute tolerance or a minimum physical quantity. Use exact zero
+  and positivity checks for presence, checked vector normalization, and
+  `next_up`/`next_down` for open interval endpoints. Handle valid zero
+  denominators explicitly instead of flooring them to machine epsilon.
+- Approximate comparisons need a tolerance owned by the calculation, with
+  units and an error budget. Squared lengths need squared distance tolerances.
+  Keep rounding bounds dependent on the operands' scale and condition. Tests
+  use exact equality for exact contracts and quantity-specific error bounds
+  for approximate results; do not replace machine epsilon with a universal
+  decimal tolerance.
+- `fabelgeist-rust-quality` checks machine-epsilon references in production
+  code, tests, and macros. Valid precision calculations require an exact
+  `machine-epsilon` exception in `rust-quality.toml`, including the owning item,
+  fingerprint, occurrence count, and numerical justification. Fixture and
+  adapter scopes do not exempt this rule, and it cannot be baselined.
 - The `fabelgeist-rust-quality check` command enforces the semantic-value
   registry, raw-string branching rules, Cargo lint inheritance, and the
   500-line file and 100-line function no-growth ceilings. `just lint` runs it

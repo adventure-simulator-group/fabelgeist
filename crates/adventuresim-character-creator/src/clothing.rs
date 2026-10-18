@@ -98,8 +98,8 @@ fn cross(a: [f32; 3], b: [f32; 3]) -> [f32; 3] {
 }
 
 fn normalized(value: [f32; 3]) -> Option<[f32; 3]> {
-    let length = dot(value, value).sqrt();
-    (length > f32::EPSILON).then(|| [value[0] / length, value[1] / length, value[2] / length])
+    let unit = bevy::math::Vec3::from_array(value).try_normalize()?;
+    Some(unit.to_array())
 }
 
 /// Raises local valleys without shrinking the garment shell into the body.
@@ -229,13 +229,13 @@ fn chain_coordinate(point: [f32; 3], segments: &[([f32; 3], [f32; 3])]) -> Optio
         .map(|(start, end)| squared_distance(*start, *end).sqrt())
         .collect::<Vec<_>>();
     let total = lengths.iter().sum::<f32>();
-    if total <= f32::EPSILON {
+    if total <= 0.0 {
         return None;
     }
     let mut best = None::<(f32, f32)>;
     let mut distance_along = 0.0;
     for (index, ((start, end), length)) in segments.iter().zip(lengths).enumerate() {
-        if length <= f32::EPSILON {
+        if length <= 0.0 {
             continue;
         }
         let axis = [
@@ -400,7 +400,7 @@ pub fn generate_clothing_shells(
                         weight >= specification.weight_threshold
                             && chain_coordinate(*position, segments).is_some_and(|coordinate| {
                                 let extent = maximum - minimum;
-                                extent > f32::EPSILON
+                                extent > 0.0
                                     && (coordinate - minimum) / extent >= *start
                                     && (coordinate - minimum) / extent <= *end
                             })

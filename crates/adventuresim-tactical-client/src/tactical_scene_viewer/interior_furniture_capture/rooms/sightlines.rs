@@ -68,7 +68,7 @@ impl PreparedBlocker {
         let half = self.half + Vec3::splat(margin);
         let (mut enter, mut leave) = (0.0_f32, 1.0_f32);
         for axis in 0..3 {
-            if delta[axis].abs() < f32::EPSILON {
+            if delta[axis] == 0.0 {
                 if start[axis].abs() > half[axis] {
                     return None;
                 }

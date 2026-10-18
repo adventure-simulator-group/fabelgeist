@@ -126,7 +126,7 @@ fn validate_equipment_surface_span(
             "expected proximal, distal, or center",
         );
     }
-    finite_in(span, "coverage", f64::EPSILON, 1.0, span_path, errors);
+    finite_in(span, "coverage", 0.0_f64.next_up(), 1.0, span_path, errors);
 }
 
 fn anatomical_body_part(region: &str) -> &str {
