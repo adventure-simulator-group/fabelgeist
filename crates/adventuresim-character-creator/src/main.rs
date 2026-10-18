@@ -71,7 +71,7 @@ use adventuresim_character_creator::{
     bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput},
     clothing::{GarmentSpecification, generate_clothing_shells},
     device_torso::TorsoSurfaceInput,
-    equipment_catalog::ItemCatalog,
+    equipment_catalog::{EquipmentItemSelection, ItemCatalog},
     export::{
         GlbOutput, MHR_ANATOMICAL_UV_DOMAIN, RiggedMesh, RiggedMorphTarget, RiggedShell,
         RiggedSocket, SurfaceUvLayout, export_rigged_glb, fitted_equipment_socket_from_uv,
@@ -221,8 +221,7 @@ fn main() -> Result<()> {
     }
 
     if args.generate_equipment {
-        let selection =
-            equipment_catalog::EquipmentItemSelection::admit(&catalog, &args.equipment_item)?;
+        let selection = EquipmentItemSelection::admit(&catalog, &args.equipment_item)?;
         generate_equipment_assets(
             &args.equipment_output,
             &model,

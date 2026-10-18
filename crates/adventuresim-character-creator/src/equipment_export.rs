@@ -3,7 +3,8 @@ use super::character_morphs::{
 };
 use super::*;
 use adventuresim_character_creator::{
-    item_catalog_schema::EquipmentPlacement, item_design::ItemDesign,
+    equipment_catalog::EquipmentItemSelection, item_catalog_schema::EquipmentPlacement,
+    item_design::ItemDesign,
 };
 
 struct EquipmentExporter<'a> {
@@ -238,7 +239,7 @@ pub(super) fn generate_equipment_assets(
     model: &BodyModel,
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
-    selection: &crate::equipment_catalog::EquipmentItemSelection<'_>,
+    selection: &EquipmentItemSelection<'_>,
 ) -> Result<()> {
     if selection.is_filtered() {
         if output.exists()
