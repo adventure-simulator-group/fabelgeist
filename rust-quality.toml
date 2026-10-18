@@ -164,6 +164,29 @@ reason = "This subsystem parses and emits an external shader language."
 
 [[scopes]]
 kind = "boundary_adapter"
+path = "crates/fabelgeist-hair/src/export/**"
+reason = "Hair exporters read and write NumPy and PLY files, whose headers name their own fields and types."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/fabelgeist-hair/src/difflocks.rs"
+item = "load_sample"
+reason = "Reader of the DiffLocks dataset's sample archives, keyed by the dataset's array names."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/fabelgeist-hair/src/surface.rs"
+item = "Surface::from_ply"
+reason = "The PLY scalp reader matches the file's vertex property names."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/fabelgeist-hair/src/material.rs"
+item = "HairMaterial::named"
+reason = "Lookup of Blender's named hair colours by the names its tools and datasets use."
+
+[[scopes]]
+kind = "boundary_adapter"
 path = "crates/adventuresim-world-import/src/**"
 reason = "World import explicitly adapts external formats and vocabularies."
 
