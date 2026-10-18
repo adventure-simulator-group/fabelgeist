@@ -12,7 +12,7 @@
 
 use crate::bracer::ForearmMorphSample;
 use crate::device_torso_wgsl::{FRAME, HALF_WIDTH, RANK, SUPPORT, WIDTHS, torso_source};
-use crate::rig_parameters::RigPassParameters;
+use crate::rig_parameters::{RigJointParameter, RigPassParameters};
 use anyhow::{Result, bail, ensure};
 use fabelgeist_armor::gpu::anatomy::{
     DeviceSeams, DeviceSurface, STATUS_EMPTY_SELECTION, SeamTopology,
@@ -70,8 +70,16 @@ const SUPPORT_JOINTS: [RigJointName; 12] = [
     RigJointName::R_UPLEG,
 ];
 
-const JOINT_PARAMETERS: [&str; 9] = [
-    "joint0", "joint1", "joint2", "joint3", "joint4", "joint5", "joint6", "joint7", "joint8",
+const JOINT_PARAMETERS: [RigJointParameter; 9] = [
+    RigJointParameter::TorsoSpine0,
+    RigJointParameter::TorsoNeck,
+    RigJointParameter::TorsoLeftClavicle,
+    RigJointParameter::TorsoRightClavicle,
+    RigJointParameter::TorsoLeftUpperArm,
+    RigJointParameter::TorsoRightUpperArm,
+    RigJointParameter::TorsoHead,
+    RigJointParameter::TorsoLeftEye,
+    RigJointParameter::TorsoRightEye,
 ];
 
 /// The wearer's body, as the breastplate is fitted to it.

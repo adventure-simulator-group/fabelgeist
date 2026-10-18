@@ -13,6 +13,7 @@ use crate::device_garment_kernel::{
     Access, Bound, Grid, Word, atomic, dispatch, read, read_u32, write,
 };
 use crate::device_piece::DeviceRecording;
+use crate::rig_parameters::RigJointParameter;
 use anyhow::Result;
 use fabelgeist_armor::{DevicePart, GarmentArmorDesign, GarmentArmorKind as Kind};
 use fabelgeist_compute::KernelBatch;
@@ -279,9 +280,15 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[
-                Word::Joint("top_joint", self.joint_slot(&span.top.0)?),
-                Word::Joint("bottom_joint", self.joint_slot(&span.bottom.0)?),
-                Word::Joint("reach_joint", self.joint_slot(&span.reach.0)?),
+                Word::Joint(RigJointParameter::TopJoint, self.joint_slot(&span.top.0)?),
+                Word::Joint(
+                    RigJointParameter::BottomJoint,
+                    self.joint_slot(&span.bottom.0)?,
+                ),
+                Word::Joint(
+                    RigJointParameter::ReachJoint,
+                    self.joint_slot(&span.reach.0)?,
+                ),
                 Word::F("top_offset", span.top.1),
                 Word::F("bottom_offset", span.bottom.1),
                 Word::F("reach", span.reach.1),

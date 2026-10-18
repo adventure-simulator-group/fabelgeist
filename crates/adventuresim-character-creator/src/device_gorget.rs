@@ -11,6 +11,7 @@ use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32,
 use crate::device_gorget_cage::{CAGE, GORGET_FIT_WORDS, layout};
 use crate::device_gorget_sections::BANDS;
 use crate::device_piece::DeviceRecording;
+use crate::rig_parameters::RigJointParameter;
 use anyhow::{Result, bail, ensure};
 use fabelgeist_armor::gpu::{record_gorget_plates, wgsl};
 use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
@@ -248,8 +249,14 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[
-                Word::Joint("neck", self.joint_slot(&RigJointName::C_NECK)?),
-                Word::Joint("crown", self.joint_slot(&RigJointName::C_HEAD)?),
+                Word::Joint(
+                    RigJointParameter::Neck,
+                    self.joint_slot(&RigJointName::C_NECK)?,
+                ),
+                Word::Joint(
+                    RigJointParameter::Crown,
+                    self.joint_slot(&RigJointName::C_HEAD)?,
+                ),
                 Word::F(
                     "top_ratio",
                     COLLAR_BASE_NECK_RATIO

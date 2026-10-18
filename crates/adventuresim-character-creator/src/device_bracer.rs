@@ -7,7 +7,7 @@
 //! Everything is read back once, at the end.
 
 use crate::bracer::{ForearmSide, ForearmSurfaceInput};
-use crate::rig_parameters::RigPassParameters;
+use crate::rig_parameters::{RigJointParameter, RigPassParameters};
 use anyhow::{Result, bail, ensure};
 use fabelgeist_armor::gpu::anatomy::{
     DeviceSeams, DeviceSurface, STATUS_EMPTY_SELECTION, SeamTopology,
@@ -160,8 +160,8 @@ fn record_support(
     );
     let mut parameters = PassParameters::new();
     parameters.insert("count", body.vertex_count);
-    parameters.insert_joint("lowarm", lowarm)?;
-    parameters.insert_joint("wrist", wrist)?;
+    parameters.insert_joint(RigJointParameter::Lowarm, lowarm)?;
+    parameters.insert_joint(RigJointParameter::Wrist, wrist)?;
     parameters.insert("pad0", 0u32);
     parameters.insert("positions", body.positions.clone());
     parameters.insert("joints", body.joints.clone());

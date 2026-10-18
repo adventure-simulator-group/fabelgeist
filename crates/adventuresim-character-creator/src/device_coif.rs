@@ -10,7 +10,7 @@
 use crate::armor_frames::{FitRegion, Wearer};
 use crate::device_frames::{DeviceFrame, DeviceWearer};
 use crate::device_piece::DeviceRecording;
-use crate::rig_parameters::RigPassParameters;
+use crate::rig_parameters::{RigJointParameter, RigPassParameters};
 use anyhow::{Result, ensure};
 use fabelgeist_armor::gpu::COIF_DRAPE_SECTIONS;
 use fabelgeist_armor::gpu::{COIF_DRAPE_WORDS, FIT_PROFILE_WORD, device_error, record_coif, wgsl};
@@ -309,9 +309,9 @@ impl DeviceWearer<'_> {
         ];
         let mut parameters = PassParameters::new();
         parameters.insert("count", (support.len() / 3) as u32);
-        parameters.insert_joint("neck", joint(&RigJointName::C_NECK)?)?;
-        parameters.insert_joint("jaw", joint(&RigJointName::C_JAW_NULL)?)?;
-        parameters.insert_joint("head", joint(&RigJointName::C_HEAD)?)?;
+        parameters.insert_joint(RigJointParameter::Neck, joint(&RigJointName::C_NECK)?)?;
+        parameters.insert_joint(RigJointParameter::Jaw, joint(&RigJointName::C_JAW_NULL)?)?;
+        parameters.insert_joint(RigJointParameter::Head, joint(&RigJointName::C_HEAD)?)?;
         parameters.insert("positions", self.body.positions.clone());
         parameters.insert(
             "support",

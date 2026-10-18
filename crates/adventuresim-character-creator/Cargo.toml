@@ -19,6 +19,7 @@ fabelgeist-rig = { path = "../fabelgeist-rig" }
 adventuresim-core = { path = "../adventuresim-core" }
 anyhow = "1"
 thiserror = "2.0.18"
+derive_more = { version = "2.1.1", features = ["as_ref", "display", "from"] }
 pollster = "0.4"
 async-lock = "3"
 base64 = "0.22"

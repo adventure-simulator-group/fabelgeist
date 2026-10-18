@@ -10,7 +10,7 @@
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::{DeviceFrame, DeviceWearer, FRAME_WORDS};
-use crate::rig_parameters::RigPassParameters;
+use crate::rig_parameters::{RigJointParameter, RigPassParameters};
 use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
@@ -170,10 +170,10 @@ impl DeviceWearer<'_> {
         };
         let mut parameters = PassParameters::new();
         parameters.insert("count", self.body.vertex_count);
-        parameters.insert_joint("head", joint(&RigJointName::C_HEAD)?)?;
-        parameters.insert_joint("jaw", joint(&RigJointName::C_JAW_NULL)?)?;
-        parameters.insert_joint("left_eye", joint(&RigJointName::L_EYE)?)?;
-        parameters.insert_joint("right_eye", joint(&RigJointName::R_EYE)?)?;
+        parameters.insert_joint(RigJointParameter::Head, joint(&RigJointName::C_HEAD)?)?;
+        parameters.insert_joint(RigJointParameter::Jaw, joint(&RigJointName::C_JAW_NULL)?)?;
+        parameters.insert_joint(RigJointParameter::LeftEye, joint(&RigJointName::L_EYE)?)?;
+        parameters.insert_joint(RigJointParameter::RightEye, joint(&RigJointName::R_EYE)?)?;
         parameters.insert("pad0", 0u32);
         parameters.insert("pad1", 0u32);
         parameters.insert("pad2", 0u32);

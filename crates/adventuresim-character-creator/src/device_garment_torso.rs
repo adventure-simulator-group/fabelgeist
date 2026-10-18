@@ -8,6 +8,7 @@ use crate::device_garment::{BAND, FRAME_WORDS, JOINTS, UprightSpan};
 use crate::device_garment_kernel::{Grid, Word, dispatch, read, read_u32, write};
 use crate::device_garment_tube::GARMENT_FIT_MARGIN_M;
 use crate::device_piece::DeviceRecording;
+use crate::rig_parameters::RigJointParameter;
 use anyhow::Result;
 use fabelgeist_armor::gpu::record_garment_torso;
 use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind as Kind};
@@ -268,9 +269,18 @@ impl DeviceWearer<'_> {
             &format!("{}{JOINTS}{TORSO_SETUP}", layout()),
             &[read("joints", &self.body.joints), write("fit", &fit)],
             &[
-                Word::Joint("neck", self.joint_slot(&RigJointName::C_NECK)?),
-                Word::Joint("waist", self.joint_slot(&RigJointName::C_SPINE1)?),
-                Word::Joint("armpit", self.joint_slot(&RigJointName::L_UPARM)?),
+                Word::Joint(
+                    RigJointParameter::Neck,
+                    self.joint_slot(&RigJointName::C_NECK)?,
+                ),
+                Word::Joint(
+                    RigJointParameter::Waist,
+                    self.joint_slot(&RigJointName::C_SPINE1)?,
+                ),
+                Word::Joint(
+                    RigJointParameter::Armpit,
+                    self.joint_slot(&RigJointName::L_UPARM)?,
+                ),
                 Word::F("length", design.length.unit()),
                 Word::F("gap", gap),
                 Word::F("waist_scale", design.waist.unit()),

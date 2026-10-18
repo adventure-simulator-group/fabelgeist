@@ -5,17 +5,18 @@ use crate::item_catalog_schema::{
     SurfaceAnchor,
 };
 pub use error::{ClothingError, ClothingFaceContext, ClothingPieceName};
-use fabelgeist_rig::{RigJointLookupError, RigJointName};
+use fabelgeist_rig::RigJointName;
 use fitting::fitted_surface;
-use regions::region_rig;
 #[cfg(feature = "offline-creator")]
 pub(crate) use regions::waist_surface_joint;
+use rig::ClothingRig;
 use std::collections::{HashMap, HashSet};
 use validation::{decoded_skin_joints, validated_placeholder_faces};
 
 mod error;
 mod fitting;
 mod regions;
+mod rig;
 mod validation;
 
 const WAIST_CROSS_SECTION_WEIGHT_THRESHOLD: f32 = 0.01;
@@ -111,28 +112,28 @@ pub fn generate_clothing_shells(
         return Err(ClothingError::MissingBodyVertex);
     }
     let joint_indices = decoded_skin_joints(joint_indices);
-    let joint_position = |name: &RigJointName| -> Result<[f32; 3], RigJointLookupError> {
-        let index = name.require_in(joint_names)?;
-        let state = global_joint_states[usize::from(index)];
-        Ok([state[0], state[1], state[2]])
-    };
+    let mut rig = ClothingRig::new(joint_names);
 
     let mut shells = Vec::with_capacity(garments.len());
     let mut occluded_faces = HashSet::new();
     for specification in garments {
         let mut span_masks = Vec::new();
         for span in &specification.placement.surface {
-            let rigs = span
-                .regions
+            let binding = rig.span(&span.regions)?;
+            let selected_joints = binding.selected_joints;
+            // Joint slots project only at the existing rest-frame XYZ kernel.
+            let segments = binding
+                .segments
                 .iter()
-                .copied()
-                .map(region_rig)
+                .map(|segment| {
+                    let proximal = global_joint_states[usize::from(segment.proximal)];
+                    let distal = global_joint_states[usize::from(segment.distal)];
+                    (
+                        [proximal[0], proximal[1], proximal[2]],
+                        [distal[0], distal[1], distal[2]],
+                    )
+                })
                 .collect::<Vec<_>>();
-            let selected_joints = regions::RegionRig::skin_joints(&rigs, joint_names);
-            let segments = rigs
-                .iter()
-                .map(|rig| Ok((joint_position(&rig.proximal)?, joint_position(&rig.distal)?)))
-                .collect::<Result<Vec<_>, RigJointLookupError>>()?;
             let coordinate_bounds = positions
                 .iter()
                 .enumerate()
@@ -159,7 +160,7 @@ pub fn generate_clothing_shells(
                 })?;
             let interval = anchor_interval(span.anchor, span.coverage);
             let waist_cross_section = if span.regions.contains(&Region::Stomach) {
-                Some(regions::waist_joints(joint_names))
+                Some(rig.waist_joints().clone())
             } else {
                 None
             };

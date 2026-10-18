@@ -12,7 +12,7 @@
 
 use crate::armor_frames::{FitRegion, Side};
 use crate::device_frames::{DeviceFrame, DeviceWearer, FRAME_WORDS};
-use crate::rig_parameters::RigPassParameters;
+use crate::rig_parameters::{RigJointParameter, RigPassParameters};
 use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
@@ -172,8 +172,8 @@ impl DeviceWearer<'_> {
         };
         let mut parameters = PassParameters::new();
         parameters.insert("count", self.body.vertex_count);
-        parameters.insert_joint("ankle", joint(RigJointPart::Foot)?)?;
-        parameters.insert_joint("ball", joint(RigJointPart::Ball)?)?;
+        parameters.insert_joint(RigJointParameter::Ankle, joint(RigJointPart::Foot)?)?;
+        parameters.insert_joint(RigJointParameter::Ball, joint(RigJointPart::Ball)?)?;
         parameters.insert("left", u32::from(matches!(side, Side::Left)));
         parameters.insert(host_float::ZERO_FIELD, 0u32);
         for pad in ["pad0", "pad1", "pad2"] {

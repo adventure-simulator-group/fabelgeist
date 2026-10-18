@@ -8,6 +8,7 @@ use crate::device_frames::DeviceWearer;
 use crate::device_garment::{BAND, FRAME_WORDS, JOINTS};
 use crate::device_garment_kernel::{Grid, Word, dispatch, read, read_u32, write};
 use crate::device_piece::DeviceRecording;
+use crate::rig_parameters::RigJointParameter;
 use anyhow::Result;
 use fabelgeist_armor::{
     GARMENT_ARMPIT_ROW as ARMPIT, GARMENT_PANEL_ACROSS as ACROSS, GARMENT_PANEL_ALONG as ALONG,
@@ -375,9 +376,9 @@ impl DeviceWearer<'_> {
                 write("fit", &fit),
             ],
             &[
-                Word::Joint("anchor0", anchors[0]),
-                Word::Joint("anchor1", anchors[1]),
-                Word::Joint("anchor2", anchors[2]),
+                Word::Joint(RigJointParameter::ProximalAnchor, anchors[0]),
+                Word::Joint(RigJointParameter::IntermediateAnchor, anchors[1]),
+                Word::Joint(RigJointParameter::DistalAnchor, anchors[2]),
             ],
             Grid::Singles(1),
         )?;

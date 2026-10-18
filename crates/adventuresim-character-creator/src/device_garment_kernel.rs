@@ -6,7 +6,7 @@
 //! accessors for buffers of packed points -- and records the dispatch.
 
 use crate::device_frames::DeviceWearer;
-use crate::rig_parameters::RigPassParameters;
+use crate::rig_parameters::{RigJointParameter, RigPassParameters};
 use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::KernelBatch;
@@ -88,7 +88,7 @@ pub(crate) enum Access {
 /// A uniform word a garment kernel reads as `params.<name>`.
 #[derive(Clone, Copy)]
 pub(crate) enum Word {
-    Joint(&'static str, RigJointOrdinal),
+    Joint(RigJointParameter, RigJointOrdinal),
     U(&'static str, u32),
     F(&'static str, f32),
 }

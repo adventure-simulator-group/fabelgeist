@@ -7,6 +7,7 @@ use bevy::{
         skinning::{SkinnedMesh, SkinnedMeshInverseBindposes},
     },
 };
+use cloth_motion::ClothMotion;
 #[cfg(test)]
 use cloth_motion::simulate;
 pub use colliders::ArmorSkin;
@@ -69,7 +70,7 @@ pub struct ClothSkin {
     weights: Vec<[f32; 8]>,
     current: Vec<Vec3>,
     previous: Vec<Vec3>,
-    simulating: bool,
+    motion: ClothMotion,
 }
 
 #[derive(Default)]
@@ -138,7 +139,7 @@ impl ClothSkin {
             weights,
             previous: current.clone(),
             current,
-            simulating: false,
+            motion: ClothMotion::Skinned,
         }
     }
 }
@@ -385,7 +386,7 @@ pub fn deform_cloth(
                 .expect("weighted animation computes targets");
             skin.current.clone_from(target);
             skin.previous.clone_from(target);
-            skin.simulating = false;
+            skin.motion = ClothMotion::Skinned;
         }
     }
     if let Some((_, end, _)) = body {

@@ -9,7 +9,7 @@
 
 use crate::armor_frames::{FitRegion, Side};
 use crate::device_frames::{DeviceFrame, DeviceWearer};
-use crate::rig_parameters::RigPassParameters;
+use crate::rig_parameters::{RigJointParameter, RigPassParameters};
 use anyhow::Result;
 use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_armor::{
@@ -226,9 +226,9 @@ impl DeviceWearer<'_> {
         let mut parameters = PassParameters::new();
         parameters.insert("count", self.body.vertex_count);
         parameters.insert("carriers_count", part.carrier_count());
-        parameters.insert_joint("hip", anchor(RigJointPart::Upleg)?)?;
-        parameters.insert_joint("knee", anchor(RigJointPart::Lowleg)?)?;
-        parameters.insert_joint("ankle", anchor(RigJointPart::Foot)?)?;
+        parameters.insert_joint(RigJointParameter::Hip, anchor(RigJointPart::Upleg)?)?;
+        parameters.insert_joint(RigJointParameter::Knee, anchor(RigJointPart::Lowleg)?)?;
+        parameters.insert_joint(RigJointParameter::Ankle, anchor(RigJointPart::Foot)?)?;
         parameters.insert(
             "quilted",
             u32::from(kind == GarmentArmorKind::PaddedChausses),
