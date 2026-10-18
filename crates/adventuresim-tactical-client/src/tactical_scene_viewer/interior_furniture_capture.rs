@@ -243,12 +243,17 @@ pub(super) fn setup_catalog(
                     key,
                     // Specimens have no real building, but use the same interior location payload.
                     location: FurnitureLocation::Interior {
-                        building_id: 0,
-                        room_id: index as u16,
-                        storey: 0,
+                        building_id: (0).into(),
+                        room_id: adventuresim_building_generator::RoomIndex::from_serialized(
+                            index as u16,
+                        ),
+                        storey: adventuresim_building_generator::StoreyIndex::from_serialized(0),
                     },
                 },
-                position_metres: Vec3::new(point.x, terrain.height_at(point).unwrap(), point.y),
+                position_metres:
+                    adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                        Vec3::new(point.x, terrain.height_at(point).unwrap(), point.y),
+                    )?,
                 orientation: BuildingOrientation::from_radians(std::f32::consts::PI).unwrap(),
             });
         }
@@ -260,8 +265,8 @@ pub(super) fn setup_catalog(
         let ground = Vec3::new(bay.x, terrain.height_at(bay).unwrap(), bay.y);
         cameras.push(catalog_camera(kind, envelope, ground));
     }
-    cameras.push(joined_counters(layout, terrain));
-    cameras.extend(finishes::stage(layout, terrain));
+    cameras.push(joined_counters(layout, terrain)?);
+    cameras.extend(finishes::stage(layout, terrain)?);
     expect_furniture(commands, layout)?;
     std::fs::write(output.join("interior-catalog.json"), serde_json::to_vec_pretty(
             &serde_json::json!({ "left_variant": "Compact", "right_variant": "Broad", "finish_order": ["natural", "handled", "repaired", "painted"],
@@ -326,7 +331,10 @@ fn envelope_corners(size: Vec3) -> [Vec3; 8] {
     })
 }
 
-fn joined_counters(layout: &mut FurnitureLayout, terrain: &SceneTerrain) -> BuildingReviewCamera {
+fn joined_counters(
+    layout: &mut FurnitureLayout,
+    terrain: &SceneTerrain,
+) -> Result<BuildingReviewCamera> {
     use FurnitureKind::*;
     let variant = FurnitureVariant::Broad;
     let size = FurnitureKey::natural(Counter, variant)
@@ -363,21 +371,26 @@ fn joined_counters(layout: &mut FurnitureLayout, terrain: &SceneTerrain) -> Buil
                 ),
                 key: FurnitureKey::natural(kind, variant),
                 location: FurnitureLocation::Interior {
-                    building_id: 0,
-                    room_id: CATALOG.len() as u16,
-                    storey: 0,
+                    building_id: (0).into(),
+                    room_id: adventuresim_building_generator::RoomIndex::from_serialized(
+                        CATALOG.len() as u16,
+                    ),
+                    storey: adventuresim_building_generator::StoreyIndex::from_serialized(0),
                 },
             },
-            position_metres: Vec3::new(point.x, ground, point.y),
+            position_metres:
+                adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                    Vec3::new(point.x, ground, point.y),
+                )?,
             orientation: BuildingOrientation::from_radians(yaw + std::f32::consts::PI).unwrap(),
         });
     }
     let target = Vec3::new(bay.x - first, ground + size.y * 0.5, bay.y - first);
-    BuildingReviewCamera {
+    Ok(BuildingReviewCamera {
         position: target + Vec3::new(5.5, 4.5, 6.0),
         target,
         plaster_raking_light: None,
-    }
+    })
 }
 
 pub(super) fn setup_rooms(

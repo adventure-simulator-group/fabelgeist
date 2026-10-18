@@ -2,10 +2,10 @@
 use super::protocol::PlaceId;
 use adventuresim_building_generator::OpeningUse;
 use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_core::scene_coordinates::PlanDisplacement;
 use bevy::prelude::*;
 use serde::Serialize;
 use std::collections::HashMap;
-mod clearance;
 
 const BUILDING_GAP_METRES: f32 = 4.0;
 const MINIMUM_BAY_METRES: f32 = 18.0;
@@ -34,25 +34,23 @@ impl Street {
     pub(super) fn arrange(
         input: &TacticalSceneInput,
         places: &[super::protocol::Place],
-        selected: &HashMap<PlaceId, u64>,
-        generated: &mut GeneratedTacticalScene,
+        selected: &HashMap<PlaceId, adventuresim_tactical_core::scene_input::SceneBuildingId>,
+        generated: &mut crate::presentation::PreparedStrategicScene,
+        backdrop: &crate::presentation::StrategicBackdrop,
     ) -> Result<Self, String> {
         let front_z = input
             .distant_buildings
             .iter()
-            .map(|b| b.centre_metres.y)
+            .map(|b| b.centre_metres.metres().y)
             .chain(
                 generated
                     .buildings
                     .iter()
-                    .map(|b| b.placement.centre_metres.y),
+                    .map(|b| b.placement.centre_metres.metres().y),
             )
             .fold(0.0, f32::max)
             + CITY_CLEARANCE_METRES;
-        let elevation = generated
-            .terrain
-            .height_at(Vec2::new(0.0, front_z))
-            .unwrap_or(0.0);
+        let elevation = backdrop.height_at(Vec2::new(0.0, front_z)).unwrap_or(0.0);
         let mut street = Self {
             bays: Vec::new(),
             width: 0.0,
@@ -96,8 +94,11 @@ impl Street {
                 street.height = street.height.max(extent.y + SKY_MARGIN_METRES);
                 building.placement.orientation = orientation;
                 building.placement.centre_metres =
-                    Vec2::new(street.width + width * 0.5, front_z - size.z * 0.5);
-                building.placement.base_elevation_metres = elevation;
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(street.width + width * 0.5, front_z - size.z * 0.5),
+                    )
+                    .map_err(|cause| cause.to_string())?;
+                building.placement.base_elevation_metres = adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(elevation).ok_or("invalid relocated floor elevation")?;
                 moves.insert(
                     building.placement.id,
                     (
@@ -112,9 +113,14 @@ impl Street {
             });
             street.width += width;
         }
+        let centering = PlanDisplacement::try_from(Vec2::new(-street.width * 0.5, 0.0))
+            .map_err(|error| error.to_string())?;
         for building in &mut generated.buildings {
             if let Some((_, after)) = moves.get_mut(&building.placement.id) {
-                building.placement.centre_metres.x -= street.width * 0.5;
+                let centre = building.placement.centre_metres;
+                building.placement.centre_metres = centre
+                    .translated(centering)
+                    .map_err(|error| error.to_string())?;
                 *after = building.transform().map_err(|error| error.to_string())?;
             }
         }
@@ -177,7 +183,10 @@ pub(super) fn build_ground(
 
 fn relocate_interior_furniture(
     furniture: &mut FurnitureLayout,
-    moves: &HashMap<u64, (Transform, Transform)>,
+    moves: &HashMap<
+        adventuresim_tactical_core::scene_input::SceneBuildingId,
+        (Transform, Transform),
+    >,
 ) -> Result<(), String> {
     for furniture in &mut furniture.instances {
         if let FurnitureLocation::Interior { building_id, .. } = furniture.scene.location
@@ -186,8 +195,12 @@ fn relocate_interior_furniture(
             let local = before
                 .compute_affine()
                 .inverse()
-                .transform_point3(furniture.position_metres);
-            furniture.position_metres = after.transform_point(local);
+                .transform_point3(furniture.position_metres.metres());
+            furniture.position_metres =
+                adventuresim_building_generator::spatial_geometry::Position::from_metres(
+                    after.transform_point(local),
+                )
+                .map_err(|cause| cause.to_string())?;
             let delta = (after.rotation * before.rotation.inverse())
                 .to_euler(EulerRot::YXZ)
                 .0;
@@ -214,7 +227,9 @@ mod tests {
             "../../../../assets/tactical-scenes/flat-dry-grassland.json"
         ))
         .unwrap();
-        let mut generated = flat.generate().unwrap();
+        let mut generated = crate::presentation::PreparedStrategicScene::generate(&flat).unwrap();
+        let backdrop =
+            crate::presentation::StrategicBackdrop::new(&flat, flat.vista.lods.len()).unwrap();
         generated.buildings = input
             .buildings
             .iter()
@@ -253,10 +268,21 @@ mod tests {
             .map(|b| (b.placement.id, b.transform().unwrap()))
             .collect();
         let furniture = generated.furniture.instances.clone();
-        let street = Street::arrange(&input, &places, &selected, &mut generated).unwrap();
-        let mut previous_right = -street.width * 0.5;
-        for building in &generated.buildings {
+        let street =
+            Street::arrange(&input, &places, &selected, &mut generated, &backdrop).unwrap();
+        let mut bay_left = -street.width * 0.5;
+        let mut previous_right = bay_left;
+        for (building, bay) in generated.buildings.iter().zip(&street.bays) {
             let pose = building.transform().unwrap();
+            let bay_centre = bay_left + bay.width * 0.5;
+            assert!(
+                (pose.translation.x - bay_centre).abs() < 0.001,
+                "building {} is at {}, expected centered bay at {}",
+                building.placement.id,
+                pose.translation.x,
+                bay_centre,
+            );
+            bay_left += bay.width;
             assert_eq!(pose.scale, Vec3::ONE);
             let extent =
                 building.collision.bounds.max().metres() - building.collision.bounds.min().metres();
@@ -271,15 +297,17 @@ mod tests {
                     let old_local = originals[&building.placement.id]
                         .compute_affine()
                         .inverse()
-                        .transform_point3(before.position_metres);
+                        .transform_point3(before.position_metres.metres());
                     let new_local = pose
                         .compute_affine()
                         .inverse()
-                        .transform_point3(after.position_metres);
+                        .transform_point3(after.position_metres.metres());
                     assert!(old_local.distance(new_local) < 0.001);
                 }
             }
         }
+        assert!(previous_right <= street.width * 0.5);
+        assert_eq!(street.camera().translation.x, 0.0);
         assert!(street.camera().translation.z > street.front.z);
         assert!((street.camera().translation.y - street.front.y - EYE_HEIGHT_METRES).abs() < 0.001);
     }

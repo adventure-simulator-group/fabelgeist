@@ -174,7 +174,7 @@ mod tests {
             BuildingArchetype::FachwerkCottage,
             BuildingArchetype::HallHouse,
         ] {
-            for seed in [42, 47, 101] {
+            for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
                 let plan = generate(&BuildingProgram::fixture(archetype, seed)).unwrap();
                 let heating = plan.domestic_heating.as_ref().unwrap();
                 let solids = heating

@@ -3,7 +3,7 @@ use bevy::prelude::*;
 
 pub(super) struct TuftVariation {
     pub jitter: Vec2,
-    pub species: u64,
+    pub species: fabelgeist_determinism::Seed,
     pub rotation: f32,
     pub shader_seed: u32,
 }
@@ -16,7 +16,7 @@ impl TuftVariation {
         Self {
             jitter: Vec2::new(rng.inclusive_unit_f32(), rng.inclusive_unit_f32())
                 - Vec2::splat(0.5),
-            species: rng.next_u64(),
+            species: rng.next_seed(),
             rotation: rng.inclusive_unit_f32() * core::f32::consts::TAU,
             shader_seed: rng.next_u64() as u32,
         }

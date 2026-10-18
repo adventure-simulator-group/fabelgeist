@@ -1,5 +1,6 @@
 use super::{assembly::Assembly, *};
 use crate::CELL_SIZE_METRES;
+use crate::GenerationResult as Result;
 use crate::plan_geometry::ArchitecturalPlanPoint;
 use crate::spatial_geometry::{
     CuboidDimensions, Elevation, PlanDirection, Position, PositiveLength,
@@ -9,10 +10,7 @@ const POST_WIDTH_METRES: f32 = 0.24;
 const BEAM_DEPTH_METRES: f32 = 0.28;
 const BOARD_WIDTH_METRES: f32 = 0.22;
 
-pub(super) fn build_envelope(
-    a: &mut Assembly<'_>,
-    program: &BuildingProgram,
-) -> Result<(), crate::GenerationError> {
+pub(super) fn build_envelope(a: &mut Assembly<'_>, program: &BuildingProgram) -> Result<()> {
     if a.plan.kind == WorkplaceKind::HorseMill {
         super::horse_mill::build_envelope(a, program)?;
         return Ok(());
@@ -188,7 +186,7 @@ pub(super) fn build_envelope(
     Ok(())
 }
 
-fn yard_shed(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate::GenerationError> {
+fn yard_shed(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<()> {
     let west = w + 1.8;
     let east = w + 4.2;
     let front = d - 4.2;
@@ -229,12 +227,7 @@ fn yard_shed(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate::Generati
     Ok(())
 }
 
-fn market_frame(
-    a: &mut Assembly<'_>,
-    w: f32,
-    d: f32,
-    h: f32,
-) -> Result<(), crate::GenerationError> {
+fn market_frame(a: &mut Assembly<'_>, w: f32, d: f32, h: f32) -> Result<()> {
     // Each side is a continuous wall-plate on independent grounded posts.
     for x in [0.0, w] {
         for bay in 0..=(d / 3.0) as u32 {
@@ -290,7 +283,7 @@ fn market_frame(
     Ok(())
 }
 
-fn open_side(a: &mut Assembly<'_>, w: f32, d: f32, h: f32) -> Result<(), crate::GenerationError> {
+fn open_side(a: &mut Assembly<'_>, w: f32, d: f32, h: f32) -> Result<()> {
     for bay in 0..=(d / 3.0) as u32 {
         a.part(
             WorkplaceFeature::Post,
@@ -312,13 +305,7 @@ fn open_side(a: &mut Assembly<'_>, w: f32, d: f32, h: f32) -> Result<(), crate::
     Ok(())
 }
 
-fn boarding(
-    a: &mut Assembly<'_>,
-    w: f32,
-    d: f32,
-    h: f32,
-    kind: WorkplaceKind,
-) -> Result<(), crate::GenerationError> {
+fn boarding(a: &mut Assembly<'_>, w: f32, d: f32, h: f32, kind: WorkplaceKind) -> Result<()> {
     // Raised board edges catch light at close range; the continuous panel remains at distance.
     for x in [0.0, w] {
         if x == w && kind == WorkplaceKind::Stable {
@@ -352,7 +339,7 @@ fn boarding(
     Ok(())
 }
 
-fn working_yard(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate::GenerationError> {
+fn working_yard(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<()> {
     let yard = a.plan.kind.yard_width_metres();
     if yard == 0.0 {
         return Ok(());
@@ -386,15 +373,15 @@ fn working_yard(a: &mut Assembly<'_>, w: f32, d: f32) -> Result<(), crate::Gener
     Ok(())
 }
 
-fn ventilated_side(
-    a: &mut Assembly<'_>,
-    x: f32,
-    d: f32,
-    h: f32,
-    outward: Vec2,
-) -> Result<(), crate::GenerationError> {
+fn ventilated_side(a: &mut Assembly<'_>, x: f32, d: f32, h: f32, outward: Vec2) -> Result<()> {
     if a.plan.kind == WorkplaceKind::Malthouse {
-        super::brewing::drying_wall(a, x, d, h, outward)?;
+        super::brewing::drying_wall(
+            a,
+            ArchitecturalPlanPoint::from_metres(Vec2::new(x, 0.0))?,
+            PositiveLength::from_metres(d)?,
+            PositiveLength::from_metres(h)?,
+            PlanDirection::from_normalized(outward)?,
+        )?;
         return Ok(());
     }
     let bays = (d / 3.0) as u32;

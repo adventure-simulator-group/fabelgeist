@@ -4,6 +4,7 @@
 //! walls, opening assemblies, timber members, floors, and roof framing. It is
 //! render-only; tactical collision remains independently compiled.
 
+use crate::GenerationResult;
 use std::collections::{BTreeMap, BTreeSet};
 
 use bevy::math::{Quat, Vec2, Vec3};
@@ -66,21 +67,19 @@ impl BuildingDetail {
 }
 
 /// Compiles the authoritative high-detail representation used in playable space.
-pub fn compile_building_detail(
-    plan: &BuildingPlan,
-) -> Result<BuildingDetail, crate::GenerationError> {
+pub fn compile_building_detail(plan: &BuildingPlan) -> GenerationResult<BuildingDetail> {
     compile_detail(plan, &BTreeSet::new())
 }
 
 /// Compiles high detail while reserving operable exterior leaves for dynamic entities.
-pub fn compile_static_building_detail(
-    plan: &BuildingPlan,
-) -> Result<BuildingDetail, crate::GenerationError> {
-    compile_detail(plan, &dynamic_closure_solids(plan))
+pub fn compile_static_building_detail(plan: &BuildingPlan) -> GenerationResult<BuildingDetail> {
+    compile_detail(plan, &dynamic_closure_solids(plan)?)
 }
 
-pub(crate) fn dynamic_closure_solids(plan: &BuildingPlan) -> BTreeSet<crate::ResolvedItemId> {
-    crate::doors::operable_openings(plan)
+pub(crate) fn dynamic_closure_solids(
+    plan: &BuildingPlan,
+) -> GenerationResult<BTreeSet<crate::ResolvedItemId>> {
+    Ok(crate::doors::operable_openings(plan)
         .filter_map(|opening| {
             opening
                 .closure_solids
@@ -94,18 +93,18 @@ pub(crate) fn dynamic_closure_solids(plan: &BuildingPlan) -> BTreeSet<crate::Res
                 .copied()
         })
         .chain(
-            compile_operable_windows(plan)
+            compile_operable_windows(plan)?
                 .into_iter()
                 .map(|window| window.source),
         )
-        .collect()
+        .collect())
 }
 
 /// One canonical architectural solid, shared by exact detail and facade LODs.
 pub fn compile_solid_detail(
     plan: &BuildingPlan,
     solid: &ResolvedSolid,
-) -> Result<BuildingDetail, crate::GenerationError> {
+) -> GenerationResult<BuildingDetail> {
     SolidDetailCompiler::new(plan).compile(solid)
 }
 
@@ -114,9 +113,9 @@ pub(crate) fn compile_bar_detail(bar: &crate::WindowBarSpec) -> BuildingDetail {
     append_cuboid_faces(
         &mut detail,
         BuildingLodMaterial::Iron,
-        bar.centre,
-        bar.size_metres,
-        Quat::from_rotation_y(bar.yaw_radians),
+        bar.centre.metres(),
+        bar.size_metres.metres(),
+        Quat::from_rotation_y(bar.yaw_radians.radians()),
         None,
     );
     detail
@@ -125,7 +124,7 @@ pub(crate) fn compile_bar_detail(bar: &crate::WindowBarSpec) -> BuildingDetail {
 fn compile_detail(
     plan: &BuildingPlan,
     excluded_solids: &BTreeSet<crate::ResolvedItemId>,
-) -> Result<BuildingDetail, crate::GenerationError> {
+) -> GenerationResult<BuildingDetail> {
     let mut detail = BuildingDetail { meshes: Vec::new() };
     let compiler = SolidDetailCompiler::new(plan);
 
@@ -135,13 +134,13 @@ fn compile_detail(
         }
         compiler.append(&mut detail, solid)?;
     }
-    for bar in compile_window_bars(plan) {
+    for bar in compile_window_bars(plan)? {
         append_cuboid_faces(
             &mut detail,
             BuildingLodMaterial::Iron,
-            bar.centre,
-            bar.size_metres,
-            Quat::from_rotation_y(bar.yaw_radians),
+            bar.centre.metres(),
+            bar.size_metres.metres(),
+            Quat::from_rotation_y(bar.yaw_radians.radians()),
             None,
         );
     }
@@ -291,7 +290,7 @@ mod tests {
     fn playable_detail_contains_interior_wall_material() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let detail = compile_building_detail(&plan).unwrap();
@@ -339,7 +338,7 @@ mod tests {
             BuildingArchetype::FachwerkMerchantHouse,
         ];
         for archetype in archetypes {
-            for seed in [42_u64, 47, 101] {
+            for seed in [42_u64, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
                 let plan = generate(&BuildingProgram::fixture(archetype, seed)).unwrap();
                 for wall in plan
                     .wall_assemblies
@@ -489,7 +488,7 @@ mod tests {
     fn exact_roof_routes_only_room_facing_slopes_to_interior_timber() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let mut inward_triangles = 0;
@@ -517,9 +516,13 @@ mod tests {
 
     #[test]
     fn static_playable_detail_reserves_operable_leaves_for_dynamic_entities() {
-        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 42)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(
+            BuildingArchetype::TownHouse,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ))
+        .unwrap();
         let operable_doors = compile_operable_doors(&plan).unwrap();
-        let operable_windows = compile_operable_windows(&plan);
+        let operable_windows = compile_operable_windows(&plan).unwrap();
         assert!(!operable_windows.is_empty());
         let self_contained = compile_building_detail(&plan).unwrap();
         let static_detail = compile_static_building_detail(&plan).unwrap();
@@ -537,7 +540,7 @@ mod tests {
                 + operable_windows
                     .iter()
                     .map(|window| crate::compile_window_leaf(
-                        window.size_metres,
+                        window.size_metres.cuboid(),
                         window.leaf,
                         crate::ClosureState::Operable
                     )
@@ -556,7 +559,7 @@ mod tests {
             BuildingArchetype::TownHouse,
             BuildingArchetype::FachwerkMerchantHouse,
         ] {
-            for seed in [42, 47, 101] {
+            for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
                 let plan = generate(&BuildingProgram::fixture(archetype, seed)).unwrap();
                 assert!(plan.resolved_geometry.solids.iter().all(|solid| matches!(
                     solid.shape,
@@ -570,7 +573,7 @@ mod tests {
     fn resolved_floor_mesh_does_not_reintroduce_tiles_over_stair_cuts() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let detail = compile_building_detail(&plan).unwrap();
@@ -606,7 +609,11 @@ mod tests {
             BuildingArchetype::TownHouse,
             BuildingArchetype::FachwerkMerchantHouse,
         ] {
-            let plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
+            let plan = generate(&BuildingProgram::fixture(
+                archetype,
+                fabelgeist_determinism::Seed::from_u64(42),
+            ))
+            .unwrap();
             let detail = compile_building_detail(&plan).unwrap();
             assert_eq!(
                 coplanar_overlap_count(&detail),
@@ -624,7 +631,11 @@ mod tests {
             BuildingArchetype::TownHouse,
             BuildingArchetype::FachwerkMerchantHouse,
         ] {
-            let plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
+            let plan = generate(&BuildingProgram::fixture(
+                archetype,
+                fabelgeist_determinism::Seed::from_u64(42),
+            ))
+            .unwrap();
             let detail = compile_building_detail(&plan).unwrap();
             for mesh in detail.meshes.iter().filter(|mesh| {
                 matches!(
@@ -659,7 +670,7 @@ mod tests {
     fn exterior_wall_back_faces_keep_positions_and_wall_local_uvs_paired() {
         let mut plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         // Isolate wall surfaces: roof linings have their own planar UV basis.
@@ -694,7 +705,7 @@ mod tests {
     fn coplanar_wall_assemblies_share_plaster_tile_phase_at_edges() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let walls = plan
@@ -749,7 +760,7 @@ mod tests {
     fn rendered_fachwerk_members_seal_the_full_wall_depth() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         ))
         .unwrap();
         let frame = plan.timber_frame.as_ref().unwrap();

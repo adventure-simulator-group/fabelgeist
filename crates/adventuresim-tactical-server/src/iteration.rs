@@ -1,5 +1,6 @@
 //! In-process, fixed-step tactical-server melee duel harness.
 
+use fabelgeist_determinism::Seed;
 use std::time::Duration;
 
 use adventuresim_core::{
@@ -38,7 +39,7 @@ const MAX_DUEL_SECONDS: u64 = 180;
 pub fn resolve_tactical_server_melee_duel(
     left: &MeleeIterationBuild,
     right: &MeleeIterationBuild,
-    seed: u64,
+    seed: Seed,
 ) -> TacticalMeleeOutcome {
     let mut app = tactical_iteration_app(seed);
     let left_entity = spawn_combatant(
@@ -120,7 +121,7 @@ fn combatant_defeated(world: &World, entity: Entity) -> bool {
         || world.get::<crate::bot::CombatantYielded>(entity).is_some()
 }
 
-fn tactical_iteration_app(seed: u64) -> App {
+fn tactical_iteration_app(seed: Seed) -> App {
     let mut app = App::new();
     app.add_plugins((
         MinimalPlugins,
@@ -286,7 +287,11 @@ mod tests {
     #[test]
     fn duel_uses_production_bot_and_combat_observers() {
         let (john, opponents) = melee_iteration_roster().unwrap();
-        let outcome = resolve_tactical_server_melee_duel(&john, &opponents[1], 2);
+        let outcome = resolve_tactical_server_melee_duel(
+            &john,
+            &opponents[1],
+            fabelgeist_determinism::Seed::from_u64(2),
+        );
         assert!(outcome.attack_starts > 0, "{outcome:?}");
         assert!(outcome.resolved_attacks > 0);
         assert_eq!(outcome.resolved_attacks as usize, outcome.events.len());
@@ -367,7 +372,7 @@ mod tests {
     fn production_dodge_observers_cover_a_seeded_melee_sample() {
         let (john, opponents) = melee_iteration_roster().unwrap();
         let mut total_attempts = 0;
-        for seed in 0..4 {
+        for seed in (0..4).map(Seed::from_u64) {
             let outcome = resolve_tactical_server_melee_duel(&john, &opponents[0], seed);
             let count = |status| {
                 outcome
@@ -394,7 +399,7 @@ mod tests {
     #[test]
     fn fixed_step_advances_production_skeleton_projection() {
         let (john, opponents) = melee_iteration_roster().unwrap();
-        let mut app = tactical_iteration_app(1);
+        let mut app = tactical_iteration_app(fabelgeist_determinism::Seed::from_u64(1));
         let john_entity = spawn_combatant(
             app.world_mut(),
             &john,
@@ -421,8 +426,16 @@ mod tests {
     #[test]
     fn fixed_seed_replays_identically() {
         let (john, opponents) = melee_iteration_roster().unwrap();
-        let first = resolve_tactical_server_melee_duel(&john, &opponents[0], 22);
-        let second = resolve_tactical_server_melee_duel(&john, &opponents[0], 22);
+        let first = resolve_tactical_server_melee_duel(
+            &john,
+            &opponents[0],
+            fabelgeist_determinism::Seed::from_u64(22),
+        );
+        let second = resolve_tactical_server_melee_duel(
+            &john,
+            &opponents[0],
+            fabelgeist_determinism::Seed::from_u64(22),
+        );
         assert_eq!(
             serde_json::to_string(&first).unwrap(),
             serde_json::to_string(&second).unwrap()
@@ -433,6 +446,7 @@ mod tests {
     fn parry_consumes_the_committed_attack_before_any_later_riposte() {
         let (john, opponents) = melee_iteration_roster().unwrap();
         let outcome = (1..=8)
+            .map(Seed::from_u64)
             .map(|seed| resolve_tactical_server_melee_duel(&john, &opponents[0], seed))
             .find(|outcome| {
                 outcome
@@ -470,7 +484,11 @@ mod tests {
     #[test]
     fn committed_sword_uses_buckler_and_is_transformed_before_contact() {
         let (john, opponents) = melee_iteration_roster().unwrap();
-        let outcome = resolve_tactical_server_melee_duel(&john, &opponents[0], 2);
+        let outcome = resolve_tactical_server_melee_duel(
+            &john,
+            &opponents[0],
+            fabelgeist_determinism::Seed::from_u64(2),
+        );
         assert!(outcome.events.iter().any(|event| {
             event.defender == "Shield Militiaman"
                 && event.defensive_implement.as_deref() == Some("buckler")
@@ -508,6 +526,7 @@ mod tests {
             adventuresim_core::combat::EMBEDDED_AUTORESOLVE_PARAMETERS.melee_measure_reach_fraction,
         );
         let outcomes = (1..=8)
+            .map(Seed::from_u64)
             .map(|seed| resolve_tactical_server_melee_duel(&john, veteran, seed))
             .collect::<Vec<_>>();
         assert!(
@@ -564,7 +583,11 @@ mod tests {
         let (mut john, opponents) = melee_iteration_roster().unwrap();
         john.combatant.body.health.fill(10.0);
         john.combatant.body.health[body_part_index(BodyPart::RightArm)] = 0.0;
-        let outcome = resolve_tactical_server_melee_duel(&john, &opponents[0], 3);
+        let outcome = resolve_tactical_server_melee_duel(
+            &john,
+            &opponents[0],
+            fabelgeist_determinism::Seed::from_u64(3),
+        );
         let decisions = outcome
             .decision_events
             .iter()

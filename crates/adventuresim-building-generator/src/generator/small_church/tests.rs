@@ -11,7 +11,7 @@ fn modest_church_matrix_has_shared_openings_routes_and_capacity_geometry() {
             if usage == BuildingUse::ParishChurch && size == ServiceBuildingSize::Large {
                 continue;
             }
-            for seed in [0, 42, 101] {
+            for seed in [0, 42, 101].map(fabelgeist_determinism::Seed::from_u64) {
                 let program =
                     BuildingProgram::settlement(BuildingArchetype::ParishChurch, Some(usage), seed)
                         .with_service_size(size);
@@ -79,7 +79,7 @@ fn modest_church_matrix_has_shared_openings_routes_and_capacity_geometry() {
 fn sacred_aisle_rejects_an_added_obstruction() {
     let mut plan = crate::generate(&BuildingProgram::fixture(
         BuildingArchetype::ParishChurch,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap();
     let aisle = plan.small_church.as_ref().unwrap().public_route;
@@ -109,7 +109,7 @@ fn sacred_aisle_rejects_an_added_obstruction() {
 fn turret_cut_preserves_bearing_rim_but_removes_the_spanning_ridge_cap() {
     let plan = crate::generate(&BuildingProgram::fixture(
         BuildingArchetype::ParishChurch,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap();
     let roof = &plan.roof_assemblies[0];

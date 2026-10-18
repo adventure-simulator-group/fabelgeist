@@ -1,14 +1,15 @@
 //! Independent checks of downward support and finished occupied-floor openings.
 use super::*;
+use crate::GenerationResult as Result;
 use crate::heating::floors::{
-    CLOSURE_LAP_METRES, CLOSURE_THICKNESS_METRES, MASONRY_BEARING_METRES,
+    CLOSURE_LAP_METRES, CLOSURE_THICKNESS_METRES, MASONRY_BEARING_METRES, PENETRATION_DEPTH_METRES,
 };
 
 pub(super) fn audit(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     support(plan, h, issues)?;
     shoulders(plan, h, issues)?;
     if h.floors.len() != plan.storeys.iter().filter(|s| s.level > 0).count() {
@@ -32,7 +33,10 @@ pub(super) fn audit(
             );
             continue;
         }
-        if !super::super::floor_bearings::valid(plan, storey.level) {
+        if !super::super::floor_bearings::valid(
+            plan,
+            crate::StoreyIndex::from_serialized(storey.level),
+        ) {
             fail(
                 issues,
                 "detached_heating_floor_bearing",
@@ -65,7 +69,7 @@ fn support(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let footings = part(plan, h, HeatingPartKind::Footing);
     let piers = part(plan, h, HeatingPartKind::SupportPier);
     if footings.len() != 1
@@ -94,7 +98,7 @@ fn support(
         let valid = bounds.min().metres().y.abs() < GEOMETRY_TOLERANCE_METRES
             && (bounds.max().metres().y - footing.min().metres().y).abs()
                 < GEOMETRY_TOLERANCE_METRES
-            && expected.difference(&bearing).unsigned_area() < 0.00001
+            && expected.difference(&bearing).unsigned_area() < AREA_TOLERANCE_SQUARE_METRES
             && pier.supported_by.contains(&h.ground_support)
             && footings[0].supported_by.iter().any(|id| {
                 plan.resolved_geometry.structural_nodes.iter().any(|node| {
@@ -141,7 +145,7 @@ fn opening(
     h: &DomesticHeatingPlan,
     opening: &HeatingFloorPenetration,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let solids = if opening.storey_level <= h.kitchen.storey_level {
         part(plan, h, HeatingPartKind::Footing)
     } else {
@@ -157,7 +161,7 @@ fn opening(
     let mut min = core.min().metres();
     let mut max = core.max().metres();
     max.y = f32::from(opening.storey_level.serialized_ordinal()?) * plan.storey_height_metres;
-    min.y = max.y - 0.16;
+    min.y = max.y - PENETRATION_DEPTH_METRES;
     let core = SpatialBounds::from_metres(min, max)?;
     let margin = Vec3::new(
         super::super::placement::TIMBER_CLEARANCE_METRES + MASONRY_BEARING_METRES,
@@ -199,7 +203,7 @@ fn closures(
     core: SpatialBounds<Architectural>,
     cut: SpatialBounds<Architectural>,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let lap = Vec3::new(CLOSURE_LAP_METRES, 0.0, CLOSURE_LAP_METRES);
     let outer = SpatialBounds::<Architectural>::from_metres(
         cut.min().metres() - lap,
@@ -245,7 +249,7 @@ fn shoulders(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let _: () = for shoulder in part(plan, h, HeatingPartKind::FlueShoulder) {
         let bounds = shoulder.cuboid_bounds()?;
         let mut bearing = geo::MultiPolygon::new(vec![]);
@@ -280,7 +284,7 @@ fn cover_bearings(
     cut: SpatialBounds<Architectural>,
     outer: SpatialBounds<Architectural>,
     bounds: SpatialBounds<Architectural>,
-) -> Result<bool, crate::GenerationError> {
+) -> Result<bool> {
     let bearing_at = bounds.min().metres().y;
     let mut deck = geo::MultiPolygon::new(vec![]);
     let mut masonry = geo::MultiPolygon::new(vec![]);
@@ -315,6 +319,6 @@ fn cover_bearings(
         .intersection(&rect(bounds));
     Ok(required_inner.unsigned_area() > 0.001
         && required_outer.unsigned_area() > 0.001
-        && required_inner.difference(&masonry).unsigned_area() < 0.00001
-        && required_outer.difference(&deck).unsigned_area() < 0.00001)
+        && required_inner.difference(&masonry).unsigned_area() < AREA_TOLERANCE_SQUARE_METRES
+        && required_outer.difference(&deck).unsigned_area() < AREA_TOLERANCE_SQUARE_METRES)
 }

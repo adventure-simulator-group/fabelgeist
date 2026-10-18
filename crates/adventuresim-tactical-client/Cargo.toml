@@ -44,7 +44,6 @@ serde-saphyr.workspace = true
 postcard.workspace = true
 tracing.workspace = true
 web-time.workspace = true
-todo-or-die = { version = "0.1.2", features = ["crate"] }
 tracing-tracy = { version = "0.11", optional = true }
 tracing-subscriber = { version = "0.3", optional = true }
 tracy-client-sys = { version = "=0.28.0", optional = true }
@@ -57,6 +56,8 @@ bevy_eidolon.workspace = true
 bevy = { workspace = true, default-features = true, features = ["file_watcher", "jpeg"] }
 
 [target."cfg(target_family = \"wasm\")".dependencies]
+# Select the shared hashing backend only for the browser renderer graph.
+blake3 = { workspace = true, features = ["wasm32_simd"] }
 bevy = { workspace = true, default-features = false, features = [
     "default_app",
     "std",
@@ -81,6 +82,12 @@ wasm-bindgen-futures = "0.4"
 
 [lints]
 workspace = true
+
+[build-dependencies]
+serde.workspace = true
+semver = "1"
+toml = "0.9"
+thiserror.workspace = true
 
 [lib]
 name = "adventuresim_tactical_client"

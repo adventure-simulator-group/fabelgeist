@@ -12,12 +12,19 @@ fn furniture_dump_restores_collision_and_the_same_activity_groups() {
     let group = FurnitureGroup {
         id: FurnitureGroupId(71),
         kind: FurnitureGroupKind::Receiving,
-        anchor: FurnitureAnchor::Building { id: 1 },
-        footprint: FurnitureFootprint {
-            centre_metres: Vec2::new(5.0, 7.0),
-            half_extents_metres: Vec2::new(2.0, 3.0),
-            orientation: BuildingOrientation::IDENTITY,
-        },
+        anchor: FurnitureAnchor::Building { id: 1.into() },
+        footprint: FurnitureFootprint::new(
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(Vec2::new(
+                5.0, 7.0,
+            ))
+            .unwrap(),
+            adventuresim_building_generator::spatial_geometry::PlanExtents::from_metres(Vec2::new(
+                2.0, 3.0,
+            ))
+            .unwrap(),
+            BuildingOrientation::IDENTITY,
+        )
+        .unwrap(),
     };
     let key = FurnitureKey::natural(FurnitureKind::Barrel, FurnitureVariant::Compact);
     let scene = SceneFurniture {
@@ -52,7 +59,10 @@ fn furniture_dump_restores_collision_and_the_same_activity_groups() {
             id: FurnitureInstanceId(93),
             ..scene
         },
-        position_metres: Vec3::new(250.0, 2.0, 10.0),
+        position_metres: adventuresim_building_generator::spatial_geometry::Position::from_metres(
+            Vec3::new(250.0, 2.0, 10.0),
+        )
+        .unwrap(),
         orientation: BuildingOrientation::IDENTITY,
     };
     let vista_entity = app

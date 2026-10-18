@@ -6,6 +6,7 @@ use bevy::{
     camera::visibility::VisibilityRange,
     prelude::{Commands, Mesh3d, MeshMaterial3d, Name, Vec2},
 };
+use fabelgeist_determinism::Seed;
 
 use super::{
     GroundScatterLayer, TreeLeafRepresentation, WoodyUnderstoryPresentationCache, foliage_transform,
@@ -26,7 +27,7 @@ pub(super) struct UnderstoryHabitat {
     pub(super) moisture: f32,
 }
 
-pub(super) fn select_species(hash: u64, habitat: UnderstoryHabitat) -> UnderstorySpecies {
+pub(super) fn select_species(hash: Seed, habitat: UnderstoryHabitat) -> UnderstorySpecies {
     // This temporary habitat model intentionally uses only scene data already
     // available to the client. Hazel favors shaded, mesic woodland; blackthorn
     // favors brighter, drier scrub; hawthorn gains weight at open/cultivated
@@ -53,21 +54,19 @@ pub(super) fn select_species(hash: u64, habitat: UnderstoryHabitat) -> Understor
     ][index]
 }
 
-fn community_hash(base_seed: u64, x: i32, z: i32) -> u64 {
+fn community_hash(base_seed: Seed, x: i32, z: i32) -> Seed {
     // Four-by-four lattice communities produce roughly 13-metre thickets.
     // Species identity varies between communities, while each specimen keeps
     // its independent placement/rotation hash within the selected thicket.
     let community_x = x.div_euclid(4);
     let community_z = z.div_euclid(4);
-    streams::COMMUNITY
-        .seed(
-            base_seed,
-            &[community_x as u32 as u64, community_z as u32 as u64],
-        )
-        .to_u64()
+    streams::COMMUNITY.seed(
+        base_seed,
+        &[community_x as u32 as u64, community_z as u32 as u64],
+    )
 }
 
-fn community_density_multiplier(hash: u64) -> f32 {
+fn community_density_multiplier(hash: Seed) -> f32 {
     // Concentrate the same approximate population into legible thickets.
     // Dense cores, loose margins, and mostly open cells keep shrubs from
     // reading as evenly-spaced miniature trees across the whole landscape.
@@ -106,7 +105,7 @@ pub(super) struct ShrubPlacement {
     pub(super) species: UnderstorySpecies,
     pub(super) world_x: f32,
     pub(super) world_z: f32,
-    pub(super) hash: u64,
+    pub(super) hash: Seed,
 }
 
 /// Deterministic shrub placement walk shared by both renderers, so the
@@ -114,7 +113,7 @@ pub(super) struct ShrubPlacement {
 pub(super) fn placements(
     terrain: &SceneTerrain,
     ground: &SceneGround,
-    base_seed: u64,
+    base_seed: Seed,
     chance: f32,
     habitat: UnderstoryHabitat,
 ) -> Vec<ShrubPlacement> {
@@ -126,9 +125,7 @@ pub(super) fn placements(
     let mut sites = Vec::new();
     for z in 0..count_z {
         for x in 0..count_x {
-            let hash = streams::SPECIMEN
-                .seed(base_seed, &[x as u32 as u64, z as u32 as u64])
-                .to_u64();
+            let hash = streams::SPECIMEN.seed(base_seed, &[x as u32 as u64, z as u32 as u64]);
             let community = community_hash(base_seed, x, z);
             let local_chance = (chance * community_density_multiplier(community)).min(0.82);
             if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() >= local_chance {
@@ -168,7 +165,7 @@ mod tests {
 
     #[test]
     fn understory_species_form_coherent_four_by_four_communities() {
-        let seed = 42;
+        let seed = fabelgeist_determinism::Seed::from_u64(42);
         let habitat = UnderstoryHabitat {
             canopy: 0.45,
             wetland: 0.08,
@@ -194,7 +191,7 @@ mod tests {
         let mut mean = 0.0;
         for cell in 0..4_096_u64 {
             let multiplier =
-                community_density_multiplier(streams::TEST_COMMUNITY.seed(cell, &[]).to_u64());
+                community_density_multiplier(streams::TEST_COMMUNITY.seed(cell.into(), &[]));
             dense += usize::from(multiplier > 2.0);
             open += usize::from(multiplier < 0.2);
             mean += multiplier;
@@ -210,7 +207,7 @@ mod tests {
         let count = |habitat, species| {
             (0..4_096_u64)
                 .filter(|seed| {
-                    select_species(streams::TEST_SPECIES.seed(*seed, &[]).to_u64(), habitat)
+                    select_species(streams::TEST_SPECIES.seed((*seed).into(), &[]), habitat)
                         == species
                 })
                 .count()
@@ -299,8 +296,17 @@ mod tests {
             BLACKTHORN_PARAMETERS,
             COMMON_HAWTHORN_PARAMETERS,
         ] {
-            let branches = procedural_woody_plant_skeleton(42, 0.0, parameters);
-            let leaves = procedural_woody_plant_leaves(42, &branches, 0.0, parameters);
+            let branches = procedural_woody_plant_skeleton(
+                fabelgeist_determinism::Seed::from_u64(42),
+                0.0,
+                parameters,
+            );
+            let leaves = procedural_woody_plant_leaves(
+                fabelgeist_determinism::Seed::from_u64(42),
+                &branches,
+                0.0,
+                parameters,
+            );
             let full = procedural_oak_leaf_card_mesh(&leaves);
             let sparse = procedural_woody_sparse_leaf_card_mesh(&leaves);
             budgets.push((
@@ -325,8 +331,17 @@ mod tests {
 
     #[test]
     fn minimal_shrub_cards_are_deterministic_when_source_order_changes() {
-        let branches = procedural_woody_plant_skeleton(42, 0.0, COMMON_HAZEL_PARAMETERS);
-        let leaves = procedural_woody_plant_leaves(42, &branches, 0.0, COMMON_HAZEL_PARAMETERS);
+        let branches = procedural_woody_plant_skeleton(
+            fabelgeist_determinism::Seed::from_u64(42),
+            0.0,
+            COMMON_HAZEL_PARAMETERS,
+        );
+        let leaves = procedural_woody_plant_leaves(
+            fabelgeist_determinism::Seed::from_u64(42),
+            &branches,
+            0.0,
+            COMMON_HAZEL_PARAMETERS,
+        );
         let first = procedural_woody_sparse_leaf_card_mesh(&leaves);
         let mut reordered = leaves;
         reordered.reverse();

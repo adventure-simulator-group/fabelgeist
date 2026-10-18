@@ -53,7 +53,7 @@ pub fn settle_secret_courtship_discovery_for_pair(
         let insight = baseline.observer_insight;
         let deception = courtship.weaker_deception_baseline;
         let entropy = fabelgeist_determinism::StreamId::new("courtship.discovery")
-            .rng(first, &[second, observer_id, day]).unit_f32();
+            .rng(first.into(), &[second, observer_id, day]).unit_f32();
         let discovery_chance = ((insight - deception) * 0.08 + 0.15).clamp(0.02, 0.85);
         let succeeded = entropy < discovery_chance;
         ctx.db.courtship_discovery().insert(CourtshipDiscovery {

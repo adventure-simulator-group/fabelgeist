@@ -6,6 +6,7 @@ use bevy::{
     image::Image,
     math::{FloatExt, Vec3},
 };
+use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
@@ -32,11 +33,11 @@ struct DaubSample {
     exposed_cavity: f32,
 }
 
-fn hash_unit(params: &crate::TextureParameters, x: i32, y: i32, field_seed: u64) -> f32 {
+fn hash_unit(params: &crate::TextureParameters, x: i32, y: i32, field_seed: Seed) -> f32 {
     params
         .rng(
             streams::LATTICE,
-            &[field_seed, x as u32 as u64, y as u32 as u64],
+            &[field_seed.to_u64(), x as u32 as u64, y as u32 as u64],
         )
         .inclusive_unit_f32()
 }
@@ -47,7 +48,7 @@ fn periodic_hash(
     y: i32,
     cells_x: i32,
     cells_y: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     hash_unit(
         params,
@@ -72,7 +73,7 @@ fn periodic_noise(
     v: f32,
     cells_x: i32,
     cells_y: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     let x = u.rem_euclid(1.0) * cells_x as f32;
     let y = v.rem_euclid(1.0) * cells_y as f32;
@@ -135,7 +136,7 @@ fn sparse_capsules(
                 cell_y,
                 cells,
                 cells,
-                params.field_seed(streams::PRESENCE, &[field_seed]),
+                params.field_seed(streams::PRESENCE, &[field_seed.to_u64()]),
             ) < enabled_threshold
             {
                 continue;
@@ -149,7 +150,7 @@ fn sparse_capsules(
                         cell_y,
                         cells,
                         cells,
-                        params.field_seed(streams::CENTER_X, &[field_seed]),
+                        params.field_seed(streams::CENTER_X, &[field_seed.to_u64()]),
                     ) * params.wattle_and_daub.sparse_capsules_center_2,
                 cell_y as f32
                     + params.wattle_and_daub.sparse_capsules_center_3
@@ -159,7 +160,7 @@ fn sparse_capsules(
                         cell_y,
                         cells,
                         cells,
-                        params.field_seed(streams::CENTER_Y, &[field_seed]),
+                        params.field_seed(streams::CENTER_Y, &[field_seed.to_u64()]),
                     ) * params.wattle_and_daub.sparse_capsules_center_4,
             );
             let angle = periodic_hash(
@@ -168,7 +169,7 @@ fn sparse_capsules(
                 cell_y,
                 cells,
                 cells,
-                params.field_seed(streams::ANGLE, &[field_seed]),
+                params.field_seed(streams::ANGLE, &[field_seed.to_u64()]),
             ) * std::f32::consts::TAU;
             let half_length = half_length_range.0
                 + periodic_hash(
@@ -177,7 +178,7 @@ fn sparse_capsules(
                     cell_y,
                     cells,
                     cells,
-                    params.field_seed(streams::LENGTH, &[field_seed]),
+                    params.field_seed(streams::LENGTH, &[field_seed.to_u64()]),
                 ) * (half_length_range.1 - half_length_range.0);
             let direction = (angle.cos() * half_length, angle.sin() * half_length);
             let point = (scaled_x, scaled_y);
@@ -528,7 +529,7 @@ mod tests {
         let sample_count = 4 * 512_usize.pow(2);
         // Sparse inclusions fluctuate between tiles; bound the coverage across
         // independently seeded tiles while preserving their physical scale.
-        for seed in 0..4 {
+        for seed in (0..4).map(fabelgeist_determinism::Seed::from_u64) {
             params.seed = seed;
             for y in 0..512 {
                 for x in 0..512 {

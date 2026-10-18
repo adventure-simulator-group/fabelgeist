@@ -5,6 +5,7 @@ import importlib.util
 import json
 from pathlib import Path
 import subprocess
+import struct
 import sys
 import tempfile
 import unittest
@@ -21,8 +22,8 @@ SPEC.loader.exec_module(runtime)
 
 def write_fixture(root: Path, blocked: bool = False) -> None:
     map_dir = root / "target/strategic-map"
-    map_dir.mkdir(parents=True)
-    tile_pack = b"avif-pack"
+    map_dir.mkdir(parents=True, exist_ok=True)
+    road_pack = struct.pack("<BIdddd", 0, 2, 9.0, 51.0, 10.0, 52.0)
     terrain_pack = b"terrain-pack"
     source_identity = {"release-blocked": {"reason": "test"}} if blocked else {"raw-sha256": {"sha256": "1" * 64}}
     world = {
@@ -43,22 +44,19 @@ def write_fixture(root: Path, blocked: bool = False) -> None:
     (root / "target/world-1544.json").write_text(json.dumps(world), encoding="utf-8")
     terrain_digest = runtime.bytes_sha256(terrain_pack)
     terrain_package = "2" * 64
-    map_manifest = {
-        "schema": 5,
-        "year": 1544,
-        "tiles": {"format": "avif", "content_sha256": runtime.bytes_sha256(tile_pack)},
-        "terrain_package_sha256": terrain_package,
-        "cultivation": {
-            "grid_crs": "EPSG:3035",
-            "grid_resolution_m": 1000,
-            "rules_version": 1,
-            "source_sha256": "3" * 64,
-            "square_count": 7,
-        },
+    road_manifest = {
+        "schema": 1,
+        "source": terrain_package,
+        "road_geometry_sha256": "4" * 64,
+        "content_sha256": runtime.bytes_sha256(road_pack),
+        "roads": 1,
+        "points": 2,
     }
     terrain_manifest = {
         "schema": 8,
         "purpose": "final",
+        "bounds": [8.965, 50.877, 11.2, 52.25],
+        "road_geometry_sha256": "4" * 64,
         "content_sha256": terrain_digest,
         "package_sha256": terrain_package,
         "cultivation_grid_crs": "EPSG:3035",
@@ -67,14 +65,44 @@ def write_fixture(root: Path, blocked: bool = False) -> None:
         "cultivation_source_sha256": "3" * 64,
         "cultivated_square_count": 7,
     }
-    (map_dir / "strategic-map-v1.json").write_text(json.dumps(map_manifest), encoding="utf-8")
-    (map_dir / "strategic-map-tiles-v1.pack").write_bytes(tile_pack)
+    (map_dir / "regional-roads-v1.json").write_text(json.dumps(road_manifest), encoding="utf-8")
+    (map_dir / "regional-roads-v1.pack").write_bytes(road_pack)
     (map_dir / "terrain-routing-v3.json").write_text(json.dumps(terrain_manifest), encoding="utf-8")
     (map_dir / "terrain-routing-v3.pack").write_bytes(terrain_pack)
     (map_dir / "STRATEGIC_MAP_DATA_LICENSE.md").write_text("fixture map notice\n", encoding="utf-8")
 
 
 class RuntimeReleaseTests(unittest.TestCase):
+    def test_release_rejects_incoherent_or_invalid_road_payload(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for failure in ("source", "road_mask", "content", "truncated", "count", "classification", "coordinate"):
+                with self.subTest(failure=failure):
+                    write_fixture(root)
+                    manifest_path = root / "target/strategic-map/regional-roads-v1.json"
+                    pack_path = root / "target/strategic-map/regional-roads-v1.pack"
+                    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                    if failure == "source":
+                        manifest["source"] = "5" * 64
+                    elif failure == "road_mask":
+                        manifest["road_geometry_sha256"] = "5" * 64
+                    elif failure == "content":
+                        pack_path.write_bytes(b"changed")
+                    elif failure == "truncated":
+                        pack_path.write_bytes(pack_path.read_bytes()[:-1])
+                        manifest["content_sha256"] = runtime.sha256(pack_path)
+                    elif failure == "count":
+                        manifest["points"] = 1_000_001
+                    elif failure == "classification":
+                        pack_path.write_bytes(bytes([255]) + pack_path.read_bytes()[1:])
+                        manifest["content_sha256"] = runtime.sha256(pack_path)
+                    else:
+                        pack_path.write_bytes(struct.pack("<BIdddd", 0, 2, float("nan"), 51.0, 10.0, 52.0))
+                        manifest["content_sha256"] = runtime.sha256(pack_path)
+                    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+                    with self.assertRaises(RuntimeError):
+                        runtime.validate_runtime_sources(root)
+
     def test_build_verify_and_install_round_trip(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

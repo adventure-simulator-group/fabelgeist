@@ -21,6 +21,27 @@ visiting unrelated entities in another order cannot perturb it. Changing the
 eligible candidate set can change selection; stream separation does not make
 selection independent of its inputs.
 
+## Producer boundaries
+
+Random roots, derived field seeds and subsequent sampling parameters carry
+`Seed`. A draw intended as another producer's root uses `next_seed`; numeric
+IDs, counts and receipts retain their own meaning. Extract words only for
+explicit hash context framing, identity encodings and shader packing. Repeated
+internal word-to-seed conversions indicate that the producer still needs to
+carry the type.
+
+`wrapping_offset` and `xor_word` preserve authored root-word arithmetic without
+extracting and readmitting a seed. Seed ordering compares unsigned words, so
+ordered lattice keys retain their previous order. Decimal parsing and display
+expose the root word at command-line boundaries.
+JSON and SpacetimeDB schemas carry a named `Seed` record with a `word` field;
+producer fields and generated SDK bindings retain that type. No primitive
+serialization alias or compatibility decoding path is provided.
+
+Framework sampling of `Seed` consumes exactly one native `u64` draw. The
+`spacetimedb` feature supplies the adapter for the transaction RNG's Rand 0.8
+interface; ordinary generators use the pinned Rand 0.9 interface.
+
 ## Dependency audit
 
 The pinned `rand_xoshiro` 0.7.0 implementation reads its eight seed bytes as a

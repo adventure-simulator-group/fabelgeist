@@ -12,7 +12,7 @@ impl Envelope<'_> {
     pub(super) fn axes(self) -> Vec<DVec2> {
         match self {
             Self::Rectangle(bounds) => [Vec2::X, Vec2::Y]
-                .map(|axis| bounds.orientation.local_to_world(axis).as_dvec2())
+                .map(|axis| bounds.orientation().local_to_world(axis).as_dvec2())
                 .to_vec(),
             Self::Ground(geometry) => Self::Rectangle(geometry.reservation).axes(),
             Self::Polygon(points) => points
@@ -27,10 +27,10 @@ impl Envelope<'_> {
         match self {
             Self::Rectangle(bounds) => {
                 let [x, y] =
-                    [Vec2::X, Vec2::Y].map(|a| bounds.orientation.local_to_world(a).as_dvec2());
-                let half = bounds.dimensions_metres.as_dvec2() * 0.5;
+                    [Vec2::X, Vec2::Y].map(|a| bounds.orientation().local_to_world(a).as_dvec2());
+                let half = bounds.dimensions_metres().as_dvec2() * 0.5;
                 let radius = half.x * axis.dot(x).abs() + half.y * axis.dot(y).abs();
-                let centre = axis.dot(bounds.centre_metres.as_dvec2());
+                let centre = axis.dot(bounds.centre_metres().as_dvec2());
                 (centre - radius, centre + radius)
             }
             Self::Polygon(points) => points

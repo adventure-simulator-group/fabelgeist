@@ -142,9 +142,9 @@ mod tests {
                     == adventuresim_building_generator::furniture::FurniturePlacementRole::Interior
                 {
                     FurnitureLocation::Interior {
-                        building_id: u64::MAX - 1,
-                        room_id: u16::MAX,
-                        storey: u16::MAX,
+                        building_id: adventuresim_tactical_core::scene_input::SceneBuildingId(u64::MAX - 1),
+                        room_id: adventuresim_tactical_core::scene_input::furniture::RoomIndex::from_serialized(u16::MAX),
+                        storey: adventuresim_tactical_core::scene_input::furniture::StoreyIndex::from_serialized(u16::MAX),
                     }
                 } else {
                     FurnitureLocation::Outdoor {
@@ -167,8 +167,11 @@ mod tests {
 
     fn building() -> SceneBuilding {
         SceneBuilding {
-            id: 7,
-            program: BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 47),
+            id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(7),
+            program: BuildingProgram::fixture(
+                BuildingArchetype::FachwerkMerchantHouse,
+                fabelgeist_determinism::Seed::from_u64(47),
+            ),
             orientation: BuildingOrientation::from_radians(0.73).unwrap(),
         }
     }
@@ -197,8 +200,8 @@ mod tests {
     #[test]
     fn scene_door_round_trips_through_replication_codec() {
         let door = SceneDoor {
-            building_id: 7,
-            opening_id: 11,
+            building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(7),
+            opening_id: adventuresim_building_generator::OpeningAssemblyId(11),
             size_metres: adventuresim_building_generator::spatial_geometry::LeafDimensions::from_metres(Vec3::new(1.0, 2.1, 0.07)).unwrap(),
             doorway_centre_metres: adventuresim_building_generator::spatial_geometry::Position::from_metres(Vec3::new(3.0, 1.05, -2.0)).unwrap(),
             tangent: adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::X).unwrap(),
@@ -215,15 +218,18 @@ mod tests {
 
     #[test]
     fn scene_window_round_trips_through_replication_codec() {
+        use adventuresim_building_generator::spatial_geometry::{
+            LeafDimensions, Position, SpatialDirection,
+        };
         let window = SceneWindow {
             leaf: adventuresim_building_generator::WindowLeafKind::LeadedGlass,
-            building_id: 7,
-            opening_id: 12,
-            size_metres: Vec3::new(0.9, 1.0, 0.025),
-            opening_centre_metres: Vec3::new(3.0, 1.5, -2.0),
-            tangent: Vec3::X,
-            outward: Vec3::NEG_Z,
-            barred: true,
+            building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(7),
+            opening_id: adventuresim_building_generator::OpeningAssemblyId(12),
+            size_metres: LeafDimensions::from_metres(Vec3::new(0.9, 1.0, 0.025)).unwrap(),
+            opening_centre_metres: Position::from_metres(Vec3::new(3.0, 1.5, -2.0)).unwrap(),
+            tangent: SpatialDirection::from_normalized(Vec3::X).unwrap(),
+            outward: SpatialDirection::from_normalized(Vec3::NEG_Z).unwrap(),
+            bars: adventuresim_building_generator::WindowBarPresence::Present,
         };
         let mut bytes = Vec::new();
         postcard_utils::to_extend_mut(&window, &mut bytes).unwrap();

@@ -34,7 +34,7 @@ impl ArchitecturalPlanProjection {
             );
         }
         Ok(Self {
-            centre: ScenePlanPoint::try_from(placement.centre_metres)?,
+            centre: ScenePlanPoint::try_from(placement.centre_metres.metres())?,
             origin: ArchitecturalPlanPoint::try_from(bounds.centre()?.metres().xz())?,
             orientation: placement.orientation,
         })

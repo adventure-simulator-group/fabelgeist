@@ -261,7 +261,7 @@ pub fn rest_at_camp(
             let allowed = effective_location_schedule(
                 &allowed_camp_schedule(&schedule.downtime),
                 ActivityLocation::JourneyCamp,
-                member_id,
+                fabelgeist_determinism::Seed::from_u64(member_id),
             );
             let mut skills = ctx
                 .db

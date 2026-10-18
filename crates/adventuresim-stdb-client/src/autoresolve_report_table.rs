@@ -3,6 +3,7 @@
 
 #![allow(unused, clippy::all)]
 use super::autoresolve_report_type::AutoresolveReport;
+use super::seed_type::Seed;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `autoresolve_report`.

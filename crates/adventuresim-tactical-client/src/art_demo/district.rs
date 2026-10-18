@@ -97,7 +97,7 @@ mod tests {
             input
                 .distant_buildings
                 .iter()
-                .any(|b| b.centre_metres.length() > 500.0)
+                .any(|b| b.centre_metres.metres().length() > 500.0)
         );
         assert!(input.streets.len() > 500);
         assert!(
@@ -115,9 +115,9 @@ mod tests {
             .terrain
             .property_surface()
             .unwrap()
-            .foundations
+            .foundations()
             .iter()
-            .flat_map(|foundation| foundation.member_building_ids.iter().copied())
+            .flat_map(|foundation| foundation.member_building_ids().iter().copied())
             .collect();
         assert_eq!(
             members,

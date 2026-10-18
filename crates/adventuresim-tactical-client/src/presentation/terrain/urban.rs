@@ -42,9 +42,36 @@ impl GroundTopology {
 }
 
 #[derive(Component)]
-struct GroundCoverage {
+pub(super) struct GroundCoverage {
     revision: u64,
     topology: GroundTopology,
+}
+
+impl GroundCoverage {
+    pub(super) fn new(
+        terrain: &SceneTerrain,
+        environment: &SceneEnvironment,
+        vista: &ActiveVistaSurface,
+    ) -> Self {
+        Self {
+            revision: vista.revision(),
+            topology: GroundTopology::for_scene(terrain, environment, vista),
+        }
+    }
+
+    pub(super) fn mesh(
+        &self,
+        terrain: &SceneTerrain,
+        landform: Option<&TerrainLandformRecipe>,
+    ) -> Mesh {
+        match self.topology {
+            GroundTopology::Canonical => urban_playable_mesh(terrain, landform),
+            GroundTopology::Sampled => landform.map_or_else(
+                || terrain.coarse_mesh(),
+                |recipe| terrain.coarse_mesh_with_transition(recipe.transition_collar()),
+            ),
+        }
+    }
 }
 
 pub(in crate::presentation) fn urban_playable_mesh(
@@ -154,6 +181,7 @@ mod tests {
     #[test]
     fn late_vista_switches_existing_base_to_fine_topology_and_can_restore_natural_lod() {
         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0)
+            .unwrap()
             .refined(0.5, |point, base| base + point.x.sin() * 0.02)
             .unwrap();
         let fine_count = terrain.mesh().count_vertices();

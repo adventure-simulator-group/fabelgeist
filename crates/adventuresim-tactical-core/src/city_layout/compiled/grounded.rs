@@ -3,15 +3,22 @@ use super::*;
 use crate::city_layout::grounding::*;
 use std::collections::{BTreeMap, BTreeSet};
 mod projection;
-use projection::GroundingDigest;
-pub use projection::{CityGroundingProjection, CityGroundingProjectionError};
+use projection::GeographicGeometryDigest;
+pub use projection::{
+    CityGroundingProjection, CityGroundingProjectionError, ProjectionBoundary,
+    ProjectionOwnerContext,
+};
 
 #[derive(Debug, thiserror::Error)]
 pub enum CityGroundingError {
     #[error("building {building} occurs twice in the physical scene")]
-    DuplicateBuilding { building: u64 },
+    DuplicateBuilding {
+        building: crate::scene_input::SceneBuildingId,
+    },
     #[error("building {building} lacks an exact property support binding")]
-    UnboundBuilding { building: u64 },
+    UnboundBuilding {
+        building: crate::scene_input::SceneBuildingId,
+    },
     #[error(transparent)]
     Binding(#[from] CitySupportError),
     #[error(transparent)]
@@ -27,7 +34,7 @@ pub struct SelectedCityGrounding {
     geographic: GeographicSurface,
     embedment: FoundationEmbedment,
     surfaces: Vec<PropertySupportSurface>,
-    members: BTreeMap<u64, MemberSupport>,
+    members: BTreeMap<crate::scene_input::SceneBuildingId, MemberSupport>,
 }
 
 /// One accepted projection contains both the seated placements and their
@@ -35,7 +42,7 @@ pub struct SelectedCityGrounding {
 /// enclosure collision, rendering and route access require separate validation.
 #[derive(Debug)]
 pub struct GroundedCitySceneLayout {
-    source_digest: GroundingDigest,
+    source_digest: GeographicGeometryDigest,
     embedment: FoundationEmbedment,
     layout: CitySceneLayout,
     terrain: BoundedSettlementTerrain,
@@ -97,13 +104,13 @@ impl SelectedCityGrounding {
             BoundedSettlementTerrain::compile(&self.surfaces, &self.geographic, self.embedment)?;
         let mut layout = self.layout;
         for placement in &mut layout.playable {
-            placement.base_elevation_metres = self.members[&placement.id].elevation.metres();
+            placement.base_elevation_metres = self.members[&placement.id].elevation;
         }
         for placement in &mut layout.distant {
-            placement.base_elevation_metres = self.members[&placement.id].elevation.metres();
+            placement.base_elevation_metres = self.members[&placement.id].elevation;
         }
         Ok(GroundedCitySceneLayout {
-            source_digest: GroundingDigest::from_geographic(&self.geographic),
+            source_digest: GeographicGeometryDigest::from_geographic(&self.geographic),
             embedment: self.embedment,
             layout,
             terrain,

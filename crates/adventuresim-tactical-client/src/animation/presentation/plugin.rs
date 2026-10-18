@@ -9,6 +9,7 @@ pub(crate) type AnimatedActors = Or<(With<Player>, With<StrategicModel>)>;
 
 impl Plugin for TacticalAnimationPlugin {
     fn build(&self, app: &mut App) {
+        install_requests(app);
         app.init_resource::<AnimationPackCatalog>()
             .init_resource::<pose_buffer::PoseBufferMetrics>()
             .init_resource::<pose_buffer::RigDefinitions>()
@@ -23,7 +24,6 @@ impl Plugin for TacticalAnimationPlugin {
             .register_required_components::<procedural::HumanoidRig, bouncy_bones::BouncyBones>()
             .add_message::<LocomotionPresentationEvent>()
             .add_message::<bouncy_bones::BoneKick>()
-            .add_systems(Startup, request_animation_packs)
             .add_systems(
                 Update,
                 (

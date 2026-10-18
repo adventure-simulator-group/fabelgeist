@@ -1,5 +1,6 @@
 //! Open deck boards only where the complete masonry fits between retained members.
 use super::{assembly::Assembly, placement::Placement};
+use crate::GenerationResult as Result;
 use crate::*;
 use bevy::math::Vec3;
 
@@ -7,24 +8,28 @@ pub(super) const MASONRY_BEARING_METRES: f32 = 0.04;
 pub(super) const CLOSURE_LAP_METRES: f32 = 0.05;
 pub(super) const CLOSURE_THICKNESS_METRES: f32 = 0.02;
 const CUT_TOLERANCE_METRES: f32 = 0.001;
+pub(super) const PENETRATION_DEPTH_METRES: f32 = 0.16;
 
 pub(super) fn openings(
     plan: &BuildingPlan,
     placement: Placement,
-) -> Result<Vec<HeatingFloorPenetration>, crate::GenerationError> {
+) -> Result<Vec<HeatingFloorPenetration>> {
     plan.storeys
         .iter()
         .filter(|s| s.level > 0)
         .map(|storey| {
             let elevation = f32::from(storey.level) * plan.storey_height_metres;
-            let body = if storey.level <= placement.storey_level {
-                placement.body()?
+            let body = if StoreyIndex::from_serialized(storey.level) <= placement.site.storey_level
+            {
+                placement.site.body()?
             } else {
-                placement.shaft(elevation)?
+                placement
+                    .site
+                    .shaft(crate::spatial_geometry::Elevation::from_metres(elevation)?)?
             };
             let mut min = body.min().metres();
             let mut max = body.max().metres();
-            min.y = elevation - 0.16;
+            min.y = elevation - PENETRATION_DEPTH_METRES;
             max.y = elevation;
             let core = SpatialBounds::from_metres(min, max)?;
             let margin = Vec3::new(
@@ -49,7 +54,7 @@ pub(super) fn openings(
 pub(super) fn pieces(
     source: SpatialBounds<Architectural>,
     cut: SpatialBounds<Architectural>,
-) -> Result<Vec<SpatialBounds<Architectural>>, crate::GenerationError> {
+) -> Result<Vec<SpatialBounds<Architectural>>> {
     let min = source.min().metres().max(cut.min().metres());
     let max = source.max().metres().min(cut.max().metres());
     if (max - min).min_element() <= CUT_TOLERANCE_METRES {
@@ -75,12 +80,9 @@ pub(super) fn pieces(
     Ok(result)
 }
 
-pub(super) fn supported(
-    plan: &BuildingPlan,
-    placement: Placement,
-) -> Result<bool, crate::GenerationError> {
+pub(super) fn supported(plan: &BuildingPlan, placement: Placement) -> Result<bool> {
     let Some(frame) = &plan.timber_frame else {
-        return Ok(placement.storey_level == 0);
+        return Ok(placement.site.storey_level == StoreyIndex::GROUND);
     };
     for opening in openings(plan, placement)? {
         let Some(floor) = frame
@@ -134,7 +136,7 @@ pub(super) fn supported(
 pub(super) fn cut(
     plan: &mut BuildingPlan,
     placement: Placement,
-) -> Result<Vec<HeatingFloorPenetration>, crate::GenerationError> {
+) -> Result<Vec<HeatingFloorPenetration>> {
     let openings = openings(plan, placement)?;
     let Some(frame) = &mut plan.timber_frame else {
         return Ok(openings);
@@ -201,9 +203,9 @@ pub(super) fn cut(
 
 /// Mineral cover slabs bridge the clearance band and bear on the retained deck.
 pub(super) fn close(
-    a: &mut Assembly<'_>,
+    assembly: &mut Assembly<'_>,
     mut openings: Vec<HeatingFloorPenetration>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     for opening in &mut openings {
         let margin = Vec3::new(CLOSURE_LAP_METRES, 0.0, CLOSURE_LAP_METRES);
         let mut min = opening.cut.min().metres() - margin;
@@ -224,14 +226,14 @@ pub(super) fn close(
             ),
         )?;
         for bounds in pieces(outer, inner)? {
-            opening.closures.push(a.absolute_part(
+            opening.closures.push(assembly.absolute_part(
                 HeatingPartKind::FloorClosure,
                 BuildingLodMaterial::Earthenware,
                 bounds,
             )?);
         }
     }
-    a.plan.floors = openings;
+    assembly.plan.floors = openings;
 
     Ok(())
 }

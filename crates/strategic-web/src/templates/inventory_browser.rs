@@ -49,7 +49,8 @@ impl InventoryBrowser<'_> {
         };
         html! {
             div class="inventory-browser" data-inventory-browser=(self.namespace)
-                data-optional-columns=(optional_columns) {
+                data-optional-columns=(optional_columns)
+                data-repair-actions=(self.show_condition) {
                 div class="inventory-browser-toolbar" {
                     label class="inventory-browser-search" {
                         span class="sr-only" { "Search items by name" }
@@ -82,6 +83,7 @@ impl InventoryBrowser<'_> {
                         @if self.show_condition { col class="inventory-column-durability"; }
                         col class="inventory-column-weight";
                         col class="inventory-column-gold";
+                        @if self.show_condition { col class="inventory-column-repair"; }
                         col class="inventory-column-actions";
                     }
                     thead { tr {
@@ -97,13 +99,18 @@ impl InventoryBrowser<'_> {
                         @if self.show_condition {
                             th scope="col" class="inventory-column-durability" {
                                 button type="button" data-inventory-sort="durability" aria-label="Sort by durability" {
-                                    (game_icon("Durability", "hammer-nails")) span class="inventory-header-label" { "Wear" }
+                                    (game_icon("Durability", "hammer-nails"))
                                     span class="inventory-sort-indicator" aria-hidden="true" {}
                                 }
                             }
                         }
                         (sortable_icon_header("weight", "inventory-column-weight", "kg", game_icon("Weight", "weight")))
                         (sortable_icon_header("value", "inventory-column-gold", "Value", game_icon("Currency", "coins")))
+                        @if self.show_condition {
+                            th scope="col" class="inventory-repair-header" title="Repair item" aria-label="Repair item" {
+                                (game_icon("Repair item", "hammer-nails"))
+                            }
+                        }
                         th class="inventory-actions-header" aria-label="Inventory actions" {}
                     } }
                     tbody { (self.rows) }
@@ -119,7 +126,7 @@ fn sortable_text_header(key: &str, label: &str, class: &str) -> Markup {
 }
 
 fn sortable_icon_header(key: &str, class: &str, label: &str, icon: Markup) -> Markup {
-    html! { th scope="col" class=(class) title=(label) { button type="button" data-inventory-sort=(key) aria-label=(format!("Sort by {label}")) { (icon) span class="inventory-header-label" { (label) } span class="inventory-sort-indicator" aria-hidden="true" {} } } }
+    html! { th scope="col" class=(class) title=(label) { button type="button" data-inventory-sort=(key) aria-label=(format!("Sort by {label}")) { (icon) span class="inventory-sort-indicator" aria-hidden="true" {} } } }
 }
 
 #[cfg(test)]

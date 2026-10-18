@@ -2,7 +2,7 @@
 use super::*;
 use adventuresim_building_generator::{
     OpeningUse, Room, RoomKind, SolidRole, StoreyPlan,
-    interior::{InteriorLayout, InteriorPlacement, furniture_floor_height},
+    interior::{InteriorLayout, InteriorPlacement},
 };
 use sightlines::{Blocker, Owner, Subject};
 
@@ -58,7 +58,7 @@ pub(super) fn camera(
                 .expect("selected room has furniture");
             (
                 storey.level,
-                furniture_floor_height(&building.plan, placement)?.metres(),
+                placement.floor_height(&building.plan)?.metres(),
                 Some(room),
             )
         }
@@ -167,16 +167,14 @@ fn blockers(building: &GeneratedBuilding, layout: &InteriorLayout) -> Result<Vec
     for (index, placement) in layout.placements.iter().enumerate() {
         let translation = Vec3::new(
             placement.centre_metres.metres().x,
-            furniture_floor_height(&building.plan, placement)?.metres(),
+            placement.floor_height(&building.plan)?.metres(),
             placement.centre_metres.metres().y,
         );
         let pose = adventuresim_building_generator::furniture::ArchitecturalFurniturePose {
             centre: adventuresim_building_generator::spatial_geometry::Position::from_metres(
                 translation,
             )?,
-            yaw: adventuresim_building_generator::spatial_geometry::Radians::new(
-                placement.yaw_radians(),
-            )?,
+            yaw: placement.yaw_radians(),
         };
         for &solid in &placement.key.recipe()?.colliders {
             result.push(Blocker {
@@ -219,10 +217,10 @@ fn furniture_subject(
     selection: RoomSelection,
 ) -> Result<Subject> {
     let size = placement.key.interior_spec().unwrap().size_metres.metres();
-    let rotation = Quat::from_rotation_y(placement.yaw_radians());
+    let rotation = Quat::from_rotation_y(placement.yaw_radians().radians());
     let translation = Vec3::new(
         placement.centre_metres.metres().x,
-        furniture_floor_height(&building.plan, placement)?.metres(),
+        placement.floor_height(&building.plan)?.metres(),
         placement.centre_metres.metres().y,
     );
     let points = std::iter::once(Vec3::Y * size.y * 0.5)
@@ -331,7 +329,7 @@ mod tests {
         let program = BuildingProgram::settlement(
             BuildingArchetype::WalledKeep,
             Some(BuildingUse::Castle),
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         );
         let plan = generate(&program).unwrap();
         let collision = compile_building_collision(&plan).unwrap();

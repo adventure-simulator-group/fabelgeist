@@ -9,6 +9,7 @@ use adventuresim_core::{
 };
 use adventuresim_world_schema::{BestiaryHours, ReligionHours, Sex};
 use fabelgeist_determinism::DeterministicRng;
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 
 const PROFILE_DOMAIN: fabelgeist_determinism::StreamId =
@@ -65,7 +66,7 @@ pub struct EquipmentPreferences {
 #[serde(deny_unknown_fields)]
 pub struct AgentProfile {
     pub agent_id: u32,
-    pub profile_seed: u64,
+    pub profile_seed: Seed,
     pub attributes: PlayerAttributeValues,
     pub personality: Personality,
     pub build: AgentBuild,
@@ -85,7 +86,7 @@ fn bounded(base: f32, spread: f32, rng: &mut DeterministicRng) -> f32 {
     (base + rng.range_f32(-spread, spread)).clamp(0.5, 5.0)
 }
 
-fn generated_attributes(profile_seed: u64) -> PlayerAttributeValues {
+fn generated_attributes(profile_seed: Seed) -> PlayerAttributeValues {
     let mut rng =
         fabelgeist_determinism::StreamId::new("strategic.agent-attributes").rng(profile_seed, &[]);
     // Shared latent factors create plausible correlations while limb-specific noise
@@ -113,8 +114,8 @@ fn generated_attributes(profile_seed: u64) -> PlayerAttributeValues {
     }
 }
 
-pub fn generate_profile(seed: u64, agent_id: u32) -> AgentProfile {
-    let profile_seed = PROFILE_DOMAIN.seed(seed, &[u64::from(agent_id)]).to_u64();
+pub fn generate_profile(seed: Seed, agent_id: u32) -> AgentProfile {
+    let profile_seed = PROFILE_DOMAIN.seed(seed, &[u64::from(agent_id)]);
     let attributes = generated_attributes(profile_seed);
     let personality = generated_personality(
         &mut fabelgeist_determinism::StreamId::new("strategic.agent-personality")
@@ -461,7 +462,7 @@ pub fn derive_build(p: &Personality, a: &PlayerAttributeValues) -> AgentBuild {
 /// A matched pair preserves the generated profile and circumstances, changing
 /// only the named activity preference and its schedule allocation.
 pub fn matched_activity_pair(
-    seed: u64,
+    seed: Seed,
     agent_id: u32,
     left: ActivityPreference,
     right: ActivityPreference,
@@ -547,8 +548,8 @@ mod tests {
     #[test]
     fn generated_personality_is_reproducible_and_sparse() {
         for id in 0..100 {
-            let a = generate_profile(42, id);
-            let b = generate_profile(42, id);
+            let a = generate_profile(fabelgeist_determinism::Seed::from_u64(42), id);
+            let b = generate_profile(fabelgeist_determinism::Seed::from_u64(42), id);
             assert_eq!(a, b);
             assert!((2..=4).contains(&a.personality.non_neutral_count()));
         }
@@ -556,7 +557,7 @@ mod tests {
 
     #[test]
     fn profile_attributes_keep_the_direct_core_wire_shape() {
-        let profile = generate_profile(42, 0);
+        let profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
         let encoded = serde_json::to_value(&profile).unwrap();
         let attributes = encoded["attributes"].as_object().unwrap();
         assert_eq!(attributes.len(), 15);
@@ -726,7 +727,7 @@ mod tests {
             assert!(adult_fixture.contains(&format!("\"{item_id}\"")));
         }
         let profiles = (0..4)
-            .map(|agent_id| generate_profile(42, agent_id))
+            .map(|agent_id| generate_profile(fabelgeist_determinism::Seed::from_u64(42), agent_id))
             .collect::<Vec<_>>();
         let groups = crate::live_core::balanced_party_groups(&profiles, 2);
         assert_eq!(groups.len(), 2);
@@ -767,7 +768,7 @@ mod tests {
             Some(true)
         );
 
-        for seed in 0..256 {
+        for seed in (0..256).map(fabelgeist_determinism::Seed::from_u64) {
             let outcome = resolve_battle(
                 allies.clone(),
                 vec![enemy.clone()],

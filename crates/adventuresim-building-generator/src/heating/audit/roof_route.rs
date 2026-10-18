@@ -73,8 +73,11 @@ mod tests {
     use super::*;
     #[test]
     fn parent_cut_drift_blocks_the_shed_flue_despite_its_intact_child_penetration() {
-        let mut plan =
-            generate(&BuildingProgram::fixture(BuildingArchetype::HallHouse, 2)).unwrap();
+        let mut plan = generate(&BuildingProgram::fixture(
+            BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(2),
+        ))
+        .unwrap();
         let h = plan.domestic_heating.as_ref().unwrap();
         let target = plan
             .roof_assemblies

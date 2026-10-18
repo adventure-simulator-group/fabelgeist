@@ -5,33 +5,33 @@
 //! no terrain simulation or mesh persistence runs during tactical ticks.
 //! The heightfield remains authoritative outside the transition collar.
 
+mod error;
 use bevy::{
     math::{FloatExt, Vec2, Vec3, Vec3Swizzles},
-    prelude::{Component, Reflect, ReflectComponent},
+    prelude::Component,
 };
+pub use error::{TerrainRecipeError, TerrainRecipeResult};
 use fabelgeist_determinism::StreamId;
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 
-use crate::marching_tetrahedra::marching_tetrahedra;
+use crate::marching_tetrahedra::marching_height_surface;
 use crate::{scene::SceneTerrain, terrain_transition::TerrainTransitionCollar};
+use resistance::{ScarpResistance, ScarpResistanceGrid};
 
 mod recipe;
+mod resistance;
 mod surface_recipe;
-pub use recipe::{TerrainLandformKind, TerrainLandformLod, TerrainLandformRecipe};
+pub use recipe::{
+    QuantizedLandformRecipe, TerrainLandformKind, TerrainLandformLod, TerrainLandformRecipe,
+};
 pub use surface_recipe::{
     TerrainGeologicStructure, TerrainSurfaceParameters, TerrainSurfacePreset, TerrainSurfaceRecipe,
     TerrainSurfaceSource,
 };
 
-#[derive(Component, Clone, Debug, PartialEq, Reflect, Serialize, Deserialize)]
-#[reflect(Component)]
-pub struct SceneTerrainPatch {
-    pub transition_collar: TerrainTransitionCollar,
-    pub positions: Vec<[f32; 3]>,
-    pub normals: Vec<[f32; 3]>,
-    pub indices: Vec<u32>,
-}
+mod patch;
+pub use patch::{SceneTerrainPatch, TerrainMeshBuffers};
 
 impl SceneTerrainPatch {
     pub fn collider(&self) -> avian3d::prelude::Collider {
@@ -53,11 +53,17 @@ impl SceneTerrainPatch {
     pub fn colliders_with_terrain(
         &self,
         terrain: &SceneTerrain,
-    ) -> Vec<avian3d::prelude::Collider> {
+    ) -> Result<Vec<avian3d::prelude::Collider>, crate::city_layout::grounding::SupportColliderError>
+    {
         let (mut positions, mut triangles) =
             terrain.natural_collision_mesh_with_transition(self.transition_collar);
-        let patch_offset = u32::try_from(positions.len())
-            .expect("bounded tactical terrain collider fits in u32 indices");
+        let total = positions
+            .len()
+            .checked_add(self.positions.len())
+            .ok_or(crate::city_layout::grounding::SupportGeometryIssue::Topology)?;
+        u32::try_from(total)
+            .map_err(|_| crate::city_layout::grounding::SupportGeometryIssue::Topology)?;
+        let patch_offset = positions.len() as u32;
         positions.extend(self.positions.iter().copied().map(Vec3::from_array));
         triangles.extend(self.indices.as_chunks::<3>().0.iter().map(|triangle| {
             [
@@ -66,9 +72,9 @@ impl SceneTerrainPatch {
                 triangle[2] + patch_offset,
             ]
         }));
-        let mut colliders = terrain.foundation_colliders();
+        let mut colliders = terrain.foundation_colliders()?;
         colliders.push(avian3d::prelude::Collider::trimesh(positions, triangles));
-        colliders
+        Ok(colliders)
     }
 
     pub fn triangle_count(&self) -> usize {
@@ -79,7 +85,7 @@ impl SceneTerrainPatch {
 pub fn terrain_landform_patch(
     terrain: &SceneTerrain,
     recipe: TerrainLandformRecipe,
-) -> Result<SceneTerrainPatch, &'static str> {
+) -> TerrainRecipeResult<SceneTerrainPatch> {
     recipe.validate(terrain)?;
     if recipe.kind != TerrainLandformKind::FaultScarp {
         return crate::erosional_terrain::patch(terrain, recipe);
@@ -105,7 +111,7 @@ pub fn terrain_landform_patch(
     let required_top = maximum + throw + spacing * 2.0;
     let vertical = ((required_top - bottom) / spacing).ceil() as usize + 1;
     if side > 195 || vertical > 96 {
-        return Err("fault patch voxel grid exceeds its bound");
+        return Err(TerrainRecipeError::VoxelGridBound);
     }
     let dimensions = [side, vertical, side];
     let sample_position = |index: [usize; 3]| {
@@ -115,15 +121,20 @@ pub fn terrain_landform_patch(
             origin.y + index[2] as f32 * spacing - radius,
         )
     };
-    let field = |position: Vec3| {
-        position.y
-            - (terrain_height_extended_to_edge(terrain, position.xz())
-                + surface.offset_at(position.xz()))
-    };
-    marching_tetrahedra(
+    // A fault is a displaced height surface. Every vertical sample in a
+    // column shares the exact same terrain lookup and displacement. Reuse the
+    // producer's coordinate expression so ownership-edge rounding is unchanged.
+    let surface_heights = (0..side * side)
+        .into_par_iter()
+        .map(|index| {
+            let point = sample_position([index % side, 0, index / side]).xz();
+            terrain_height_extended_to_edge(terrain, point) + surface.offset_at(point)
+        })
+        .collect::<Vec<_>>();
+    marching_height_surface(
         dimensions,
         sample_position,
-        field,
+        &surface_heights,
         recipe.transition_collar(),
     )
 }
@@ -134,8 +145,6 @@ const SCARP_RESISTANT_FACE_GRADE_RANGE: f32 = 2.6;
 const SCARP_MAXIMUM_TRANSFER_FRACTION: f32 = 0.20;
 const SCARP_RUPTURE_WANDER_METRES: f32 = 1.25;
 const SCARP_WIDTH_VARIATION_BPS: u16 = 1_200;
-const SCARP_FREE_FACE_HALF_WIDTH_METRES: f32 = 0.55;
-const SCARP_GULLY_COUNT: usize = 4;
 
 struct SimulatedScarpSurface {
     minimum: Vec2,
@@ -158,7 +167,7 @@ impl SimulatedScarpSurface {
             .lerp(c.lerp(d, fraction.x), fraction.y)
     }
 
-    fn height_range(&self, terrain: &SceneTerrain) -> Result<(f32, f32), &'static str> {
+    fn height_range(&self, terrain: &SceneTerrain) -> TerrainRecipeResult<(f32, f32)> {
         let range = self
             .offsets
             .par_iter()
@@ -184,7 +193,7 @@ fn simulate_fault_scarp(
     side: usize,
     spacing: f32,
     minimum: Vec2,
-) -> Result<SimulatedScarpSurface, &'static str> {
+) -> TerrainRecipeResult<SimulatedScarpSurface> {
     let collar = recipe.transition_collar();
     let throw = f32::from(recipe.relief_cm) / 100.0;
     // Keep both displaced blocks clear of the original heightfield.  A zero
@@ -212,9 +221,7 @@ fn simulate_fault_scarp(
             *mask = collar.blend_weight(point);
             let throw_variation = 0.84
                 + (smooth_value_noise(
-                    StreamId::new("terrain.volume.throw")
-                        .seed(recipe.seed, &[])
-                        .to_u64(),
+                    StreamId::new("terrain.volume.throw").seed(recipe.seed, &[]),
                     along / 3.6,
                 ) * 0.5
                     + 0.5)
@@ -261,6 +268,7 @@ fn erode_surface(
     spacing: f32,
     minimum: Vec2,
 ) {
+    let resistances = ScarpResistanceGrid::new(masks, recipe, collar, side, spacing, minimum);
     let mut horizontal_transfers = vec![0.0; offsets.len()];
     let mut vertical_transfers = vec![0.0; offsets.len()];
     for _ in 0..SCARP_EROSION_STEPS {
@@ -271,24 +279,15 @@ fn erode_surface(
             .for_each(|(source, (horizontal, vertical))| {
                 let x = source % side;
                 let z = source / side;
-                let source_point = minimum + Vec2::new(x as f32, z as f32) * spacing;
-                let transfer_to = |nx: usize, nz: usize| {
-                    if nx >= side || nz >= side {
+                let cell = resistances.cell(source);
+                let transfer_to = |nx: usize, nz: usize, resistance: Option<ScarpResistance>| {
+                    let Some(resistance) = resistance else {
                         return 0.0;
-                    }
+                    };
                     let target = nz * side + nx;
-                    if masks[source] <= 0.0 || masks[target] <= 0.0 {
-                        return 0.0;
-                    }
                     let difference = (base_heights[source] + offsets[source])
                         - (base_heights[target] + offsets[target]);
-                    let target_point = minimum + Vec2::new(nx as f32, nz as f32) * spacing;
-                    let resistance = scarp_resistance(
-                        recipe.seed,
-                        collar,
-                        (source_point + target_point) * 0.5,
-                        f32::from(recipe.half_length_cm) / 100.0,
-                    );
+                    let resistance = resistance.coefficient();
                     let threshold = spacing
                         * (SCARP_COLLUVIAL_GRADE + resistance * SCARP_RESISTANT_FACE_GRADE_RANGE);
                     let excess = difference.abs() - threshold;
@@ -299,8 +298,8 @@ fn erode_surface(
                         excess * SCARP_MAXIMUM_TRANSFER_FRACTION * (1.0 - resistance * 0.55);
                     transfer * difference.signum()
                 };
-                *horizontal = transfer_to(x + 1, z);
-                *vertical = transfer_to(x, z + 1);
+                *horizontal = transfer_to(x + 1, z, cell.x_neighbor);
+                *vertical = transfer_to(x, z + 1, cell.z_neighbor);
             });
         offsets
             .par_iter_mut()
@@ -333,7 +332,7 @@ fn terrain_height_extended_to_edge(terrain: &SceneTerrain, point: Vec2) -> f32 {
         .expect("clamped point lies on validated terrain")
 }
 
-fn smooth_value_noise(seed: u64, coordinate: f32) -> f32 {
+fn smooth_value_noise(seed: fabelgeist_determinism::Seed, coordinate: f32) -> f32 {
     let cell = coordinate.floor() as i64;
     let fraction = smoothstep01(coordinate - coordinate.floor());
     let sample = |offset: i64| {
@@ -344,47 +343,6 @@ fn smooth_value_noise(seed: u64, coordinate: f32) -> f32 {
             - 1.0
     };
     sample(0).lerp(sample(1), fraction)
-}
-
-fn scarp_resistance(
-    seed: u64,
-    collar: TerrainTransitionCollar,
-    point: Vec2,
-    half_length: f32,
-) -> f32 {
-    let local = collar.local_coordinates(point);
-    // Resistant material is biased slightly into the uplifted block.  The
-    // hanging-wall side therefore relaxes to a broader colluvial toe while a
-    // narrower bedrock free face survives below the rounded crest.
-    let free_face_distance = (local.y + 0.35).abs();
-    let free_face = smoothstep01(
-        (SCARP_FREE_FACE_HALF_WIDTH_METRES - free_face_distance)
-            / SCARP_FREE_FACE_HALF_WIDTH_METRES,
-    );
-    let coherent_material = (smooth_value_noise(
-        StreamId::new("terrain.volume.resistance")
-            .seed(seed, &[])
-            .to_u64(),
-        local.x / 6.5 + local.y / 8.0,
-    ) * 0.5
-        + 0.5)
-        * 0.18;
-    let drainage = scarp_gully_strength(seed, local.x, half_length)
-        * smoothstep01((SCARP_FREE_FACE_HALF_WIDTH_METRES * 2.4 - local.y.abs()) / 3.0);
-    (0.08 + free_face * 0.78 + coherent_material - drainage * 0.58).clamp(0.0, 1.0)
-}
-
-fn scarp_gully_strength(seed: u64, along: f32, half_length: f32) -> f32 {
-    (0..SCARP_GULLY_COUNT)
-        .map(|index| {
-            let mut random = StreamId::new("terrain.gully").rng(seed, &[index as u64]);
-            let interval = (index as f32 + 0.5) / SCARP_GULLY_COUNT as f32;
-            let jitter = (random.inclusive_unit_f32() - 0.5) * 0.16;
-            let centre = (interval + jitter) * half_length * 1.8 - half_length * 0.9;
-            let width = 1.4 + random.inclusive_unit_f32() * 1.3;
-            smoothstep01((width - (along - centre).abs()) / width)
-        })
-        .fold(0.0, f32::max)
 }
 
 fn smoothstep01(value: f32) -> f32 {
@@ -398,30 +356,34 @@ mod tests {
     use adventuresim_world_schema::{SedimentaryRock, SurfaceLithology};
     use std::collections::HashMap;
 
-    fn test_surface(seed: u64) -> TerrainSurfaceRecipe {
+    fn test_surface(seed: fabelgeist_determinism::Seed) -> TerrainSurfaceRecipe {
         TerrainSurfaceRecipe::new(
             SurfaceLithology::Sedimentary(SedimentaryRock::Sandstone),
             TerrainSurfaceSource::AuthoredFixture,
             seed,
             [10_000, 0],
         )
+        .unwrap()
     }
 
     #[test]
     fn fault_scarp_is_deterministic_and_has_a_vertical_face() {
-        let terrain = SceneTerrain::new(40, 40, 1.0, |_| 0.0);
-        let recipe = TerrainLandformRecipe {
-            kind: TerrainLandformKind::FaultScarp,
-            surface: test_surface(17),
-            seed: 17,
-            origin_cm: [0, 0],
-            tangent_permyriad: [10_000, 0],
-            relief_cm: 600,
-            half_length_cm: 1_000,
-            half_width_cm: 800,
-            collar_cm: 200,
-            lod: TerrainLandformLod::Detail,
-        };
+        let terrain = SceneTerrain::new(40, 40, 1.0, |_| 0.0).unwrap();
+        let recipe = TerrainLandformRecipe::from_quantized(
+            crate::volumetric_terrain::QuantizedLandformRecipe {
+                kind: TerrainLandformKind::FaultScarp,
+                surface: test_surface(17.into()),
+                seed: 17.into(),
+                origin_cm: [0, 0],
+                tangent_permyriad: [10_000, 0],
+                relief_cm: 600,
+                half_length_cm: 1_000,
+                half_width_cm: 800,
+                collar_cm: 200,
+                lod: TerrainLandformLod::Detail,
+            },
+        )
+        .unwrap();
         let generate_with_threads = |threads| {
             rayon::ThreadPoolBuilder::new()
                 .num_threads(threads)
@@ -476,19 +438,22 @@ mod tests {
 
     #[test]
     fn fringe_lod_keeps_the_full_feature_across_the_playable_edge() {
-        let terrain = SceneTerrain::new(100, 100, 1.0, |_| 0.0);
-        let recipe = TerrainLandformRecipe {
-            kind: TerrainLandformKind::FaultScarp,
-            surface: test_surface(29),
-            seed: 29,
-            origin_cm: [0, 6_000],
-            tangent_permyriad: [10_000, 0],
-            relief_cm: 800,
-            half_length_cm: 4_500,
-            half_width_cm: 1_800,
-            collar_cm: 400,
-            lod: TerrainLandformLod::Fringe,
-        };
+        let terrain = SceneTerrain::new(100, 100, 1.0, |_| 0.0).unwrap();
+        let recipe = TerrainLandformRecipe::from_quantized(
+            crate::volumetric_terrain::QuantizedLandformRecipe {
+                kind: TerrainLandformKind::FaultScarp,
+                surface: test_surface(29.into()),
+                seed: 29.into(),
+                origin_cm: [0, 6_000],
+                tangent_permyriad: [10_000, 0],
+                relief_cm: 800,
+                half_length_cm: 4_500,
+                half_width_cm: 1_800,
+                collar_cm: 400,
+                lod: TerrainLandformLod::Fringe,
+            },
+        )
+        .unwrap();
 
         let patch = terrain_landform_patch(&terrain, recipe).unwrap();
 
@@ -499,19 +464,22 @@ mod tests {
 
     #[test]
     fn collar_matches_the_heightfield_exactly() {
-        let terrain = SceneTerrain::new(40, 40, 1.0, |point| point.x * 0.02);
-        let recipe = TerrainLandformRecipe {
-            kind: TerrainLandformKind::FaultScarp,
-            surface: test_surface(17),
-            seed: 17,
-            origin_cm: [0, 0],
-            tangent_permyriad: [10_000, 0],
-            relief_cm: 600,
-            half_length_cm: 1_000,
-            half_width_cm: 800,
-            collar_cm: 200,
-            lod: TerrainLandformLod::Detail,
-        };
+        let terrain = SceneTerrain::new(40, 40, 1.0, |point| point.x * 0.02).unwrap();
+        let recipe = TerrainLandformRecipe::from_quantized(
+            crate::volumetric_terrain::QuantizedLandformRecipe {
+                kind: TerrainLandformKind::FaultScarp,
+                surface: test_surface(17.into()),
+                seed: 17.into(),
+                origin_cm: [0, 0],
+                tangent_permyriad: [10_000, 0],
+                relief_cm: 600,
+                half_length_cm: 1_000,
+                half_width_cm: 800,
+                collar_cm: 200,
+                lod: TerrainLandformLod::Detail,
+            },
+        )
+        .unwrap();
         let spacing = f32::from(recipe.lod.voxel_cm()) / 100.0;
         let radius = f32::from(recipe.half_length_cm.max(recipe.half_width_cm)) / 100.0;
         let side = (radius * 2.0 / spacing).round() as usize + 1;

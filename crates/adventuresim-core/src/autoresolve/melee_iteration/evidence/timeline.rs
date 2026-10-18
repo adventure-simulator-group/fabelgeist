@@ -1,11 +1,13 @@
 use super::*;
+use fabelgeist_determinism::Seed;
+
+const SEED: Seed = Seed::from_u64(1);
 
 pub(super) fn autoresolve_timeline_evidence(
     john: &MeleeIterationBuild,
     veteran: &MeleeIterationBuild,
     hammer: &MeleeIterationBuild,
 ) -> Result<AutoresolveTimelineEvidence, String> {
-    const SEED: u64 = 1;
     let forward = resolve_battle(
         vec![john.combatant.clone()],
         vec![hammer.combatant.clone()],
@@ -41,7 +43,8 @@ pub(super) fn autoresolve_timeline_evidence(
         .map_or(polearm.timeline.len(), |index| index + 1);
     let polearm_opening_measure = polearm.timeline[..first_contact].to_vec();
     let simultaneous_contacts = simultaneous_contact_evidence(john, hammer, SEED);
-    let cancellation = (SEED..=64)
+    let cancellation = (1..=64)
+        .map(Seed::from_u64)
         .map(|seed| {
             resolve_battle(
                 vec![john.combatant.clone()],
@@ -104,7 +107,7 @@ pub(super) fn autoresolve_timeline_evidence(
 fn simultaneous_contact_evidence(
     john: &MeleeIterationBuild,
     hammer: &MeleeIterationBuild,
-    seed: u64,
+    seed: Seed,
 ) -> Vec<MeleeTimelineEvent> {
     let mut allies = vec![john.combatant.clone()];
     let mut enemies = vec![hammer.combatant.clone()];
@@ -123,7 +126,7 @@ fn simultaneous_contact_evidence(
         &mut allies,
         &mut enemies,
         1,
-        &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(seed)),
+        &mut DeterministicRng::new(seed),
         &mut recorder,
         crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS,
     );

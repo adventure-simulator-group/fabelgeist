@@ -1,5 +1,6 @@
 //! Seeded growth assigns cells to admitted authored room ordinals.
 use super::*;
+use fabelgeist_determinism::Seed;
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum AllocationFailure {
     MissingCellAssignment { cell: Cell },
@@ -13,7 +14,7 @@ pub(super) fn allocate(
     width: u16,
     depth: u16,
     requirements: &[RoomRequirement],
-    seed: u64,
+    seed: Seed,
     archetype: BuildingArchetype,
     reservations: &BTreeMap<Cell, RoomIndex>,
 ) -> Result<BTreeMap<Cell, RoomIndex>, GenerationError> {
@@ -92,7 +93,7 @@ fn seed_score(
     width: u16,
     depth: u16,
     room_index: usize,
-    seed: u64,
+    seed: Seed,
 ) -> u64 {
     let x = i32::from(cell.x);
     let z = i32::from(cell.z);
@@ -188,7 +189,7 @@ fn grow_rooms(
     footprint: &[Cell],
     requirements: &[RoomRequirement],
     room_seeds: &[Option<Cell>],
-    seed: u64,
+    seed: Seed,
 ) -> Result<(), GenerationError> {
     while assignments.len() < footprint.len() {
         let room_counts = room_counts(requirements.len(), assignments);

@@ -4,7 +4,7 @@ use super::*;
 pub(in crate::presentation) fn shoot_identity(shoot: &TreeBranchSegment) -> u64 {
     streams::SHOOT_IDENTITY
         .seed(
-            0,
+            0.into(),
             &[
                 u64::from(shoot.primary_group),
                 u64::from(shoot.secondary_group),

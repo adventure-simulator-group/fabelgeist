@@ -1,12 +1,13 @@
 //! Actual material must enclose the stove and cooking hood and retain the fire wall.
 use super::*;
+use crate::GenerationResult as Result;
 const SECTION_OFFSET_METRES: f32 = 0.003;
 
 pub(super) fn audit(
     plan: &BuildingPlan,
     h: &DomesticHeatingPlan,
     issues: &mut Vec<AuditIssue>,
-) -> Result<(), crate::GenerationError> {
+) -> Result<()> {
     let axis = h.kitchen_axis.vector();
     let centre = h.centre_metres.metres();
     let floor_height = h.floor_height_metres.metres();
@@ -112,7 +113,7 @@ fn section(
     h: &DomesticHeatingPlan,
     axis: usize,
     at: f32,
-) -> Result<geo::MultiPolygon<f32>, crate::GenerationError> {
+) -> Result<geo::MultiPolygon<f32>> {
     let mut coverage = geo::MultiPolygon::new(vec![]);
     for part in h
         .parts

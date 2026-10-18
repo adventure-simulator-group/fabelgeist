@@ -141,10 +141,23 @@ mod tests {
             Vec2::ONE,
             Vec2::new(-1.0, 1.0),
         ];
-        let comparison = source.compare_in_outline(&fine, &outline).unwrap();
-        assert_eq!(comparison.minimum.difference_metres, 0.0);
-        assert_eq!(comparison.maximum.difference_metres, 0.0);
-        assert_eq!(comparison.covered_area_square_metres, 4.0);
+        let comparison = source
+            .compare_in_outline(
+                &fine,
+                &crate::scene_coordinates::ScenePlanPolygon::from_ordered_vertices(
+                    (outline)
+                        .iter()
+                        .copied()
+                        .map(crate::scene_coordinates::ScenePlanPoint::try_from)
+                        .collect::<Result<Vec<_>, _>>()
+                        .unwrap(),
+                )
+                .unwrap(),
+            )
+            .unwrap();
+        assert_eq!(comparison.minimum.difference_metres.metres(), 0.0);
+        assert_eq!(comparison.maximum.difference_metres.metres(), 0.0);
+        assert_eq!(comparison.covered_area_square_metres.square_metres(), 4.0);
         for point in [
             Vec2::new(1.0, 0.37),
             Vec2::new(1.2, -0.3),
@@ -154,7 +167,17 @@ mod tests {
             let expected =
                 vista_triangle_height(&vista.lods[0], Some(&vista.lods[1]), &terrain, point)
                     .unwrap();
-            assert!((source.elevation_at(point).unwrap().metres() - expected).abs() < 1e-6);
+            assert!(
+                (source
+                    .elevation_at(
+                        crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap()
+                    )
+                    .unwrap()
+                    .metres()
+                    - expected)
+                    .abs()
+                    < 1e-6
+            );
         }
         let constant = GeographicSurface::from_triangles([
             [
@@ -175,12 +198,35 @@ mod tests {
             Vec2::splat(1.4),
             Vec2::new(-1.4, 1.4),
         ];
-        let comparison = source.compare_in_outline(&constant, &across).unwrap();
+        let comparison = source
+            .compare_in_outline(
+                &constant,
+                &crate::scene_coordinates::ScenePlanPolygon::from_ordered_vertices(
+                    (across)
+                        .iter()
+                        .copied()
+                        .map(crate::scene_coordinates::ScenePlanPoint::try_from)
+                        .collect::<Result<Vec<_>, _>>()
+                        .unwrap(),
+                )
+                .unwrap(),
+            )
+            .unwrap();
         assert!(
-            (comparison.covered_area_square_metres - comparison.required_area_square_metres).abs()
+            (comparison.covered_area_square_metres.square_metres()
+                - comparison.required_area_square_metres.square_metres())
+            .abs()
                 < 1e-8
         );
-        assert_eq!(source.elevation_at(Vec2::splat(7.0)).unwrap().metres(), 8.0);
+        assert_eq!(
+            source
+                .elevation_at(
+                    crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::splat(7.0)).unwrap()
+                )
+                .unwrap()
+                .metres(),
+            8.0
+        );
     }
 
     #[test]

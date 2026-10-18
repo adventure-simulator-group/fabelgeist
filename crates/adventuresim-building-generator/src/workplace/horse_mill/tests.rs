@@ -5,8 +5,12 @@ use crate::{BuildingPlan, audit_plan, generate, settlement_archetype};
 fn mill(size: ServiceBuildingSize) -> BuildingPlan {
     let usage = BuildingUse::HorseMill;
     generate(
-        &BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42)
-            .with_service_size(size),
+        &BuildingProgram::settlement(
+            settlement_archetype(usage),
+            Some(usage),
+            fabelgeist_determinism::Seed::from_u64(42),
+        )
+        .with_service_size(size),
     )
     .unwrap()
 }

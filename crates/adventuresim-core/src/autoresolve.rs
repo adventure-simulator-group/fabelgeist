@@ -2,7 +2,7 @@
 
 use crate::prelude::*;
 use adventuresim_world_schema::{BestiaryCategory, BestiaryHours};
-use fabelgeist_determinism::DeterministicRng;
+use fabelgeist_determinism::{DeterministicRng, Seed, StreamId};
 use serde::Serialize;
 
 mod classification;
@@ -578,7 +578,7 @@ pub struct MeleeContactTelemetry {
 
 #[derive(Clone, Debug, Serialize)]
 pub struct BattleOutcome {
-    pub seed: u64,
+    pub seed: Seed,
     pub resolution: BattleResolution,
     pub rounds: usize,
     pub allies: Vec<CombatantOutcome>,
@@ -900,11 +900,11 @@ pub enum BattleOpening {
 pub fn resolve_battle(
     mut allies: Vec<Combatant>,
     mut enemies: Vec<Combatant>,
-    seed: u64,
+    seed: Seed,
     opening: BattleOpening,
 ) -> BattleOutcome {
     let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
-    let mut random = fabelgeist_determinism::StreamId::new("combat.autoresolve").rng(seed, &[]);
+    let mut random = StreamId::new("combat.autoresolve").rng(seed, &[]);
     let mut recorder = BattleRecorder::default();
     let mut resolution = None;
     let mut rounds = 0;
@@ -1860,13 +1860,13 @@ mod tests {
         let first = resolve_battle(
             vec![fighter(1, 3.0, false)],
             vec![fighter(2, 2.0, false)],
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
             BattleOpening::Normal,
         );
         let second = resolve_battle(
             vec![fighter(1, 3.0, false)],
             vec![fighter(2, 2.0, false)],
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
             BattleOpening::Normal,
         );
         assert_eq!(first.resolution, second.resolution);
@@ -1882,10 +1882,15 @@ mod tests {
         let forward = resolve_battle(
             vec![first.clone()],
             vec![second.clone()],
-            91,
+            fabelgeist_determinism::Seed::from_u64(91),
             BattleOpening::Normal,
         );
-        let reversed = resolve_battle(vec![second], vec![first], 91, BattleOpening::Normal);
+        let reversed = resolve_battle(
+            vec![second],
+            vec![first],
+            fabelgeist_determinism::Seed::from_u64(91),
+            BattleOpening::Normal,
+        );
         let causal_sequence = |outcome: &BattleOutcome| {
             outcome
                 .log
@@ -1960,6 +1965,7 @@ mod tests {
     #[test]
     fn timeline_canceled_attack_ids_never_emit_contacts() {
         let outcome = (0..64)
+            .map(fabelgeist_determinism::Seed::from_u64)
             .map(|seed| {
                 resolve_battle(
                     vec![fighter(11, 3.0, false)],
@@ -2001,13 +2007,13 @@ mod tests {
         let allies_first = resolve_battle(
             vec![fighter(1, 5.0, false)],
             vec![fighter(2, 5.0, false)],
-            77,
+            fabelgeist_determinism::Seed::from_u64(77),
             BattleOpening::AlliesSurprise,
         );
         let enemies_first = resolve_battle(
             vec![fighter(1, 5.0, false)],
             vec![fighter(2, 5.0, false)],
-            77,
+            fabelgeist_determinism::Seed::from_u64(77),
             BattleOpening::EnemiesSurprise,
         );
         assert_eq!(allies_first.log.first().map(|hit| hit.attacker_id), Some(1));
@@ -2550,12 +2556,12 @@ mod tests {
         let outcome = resolve_battle(
             vec![fighter(1, 3.0, false)],
             Vec::new(),
-            1,
+            fabelgeist_determinism::Seed::from_u64(1),
             BattleOpening::Normal,
         );
         assert_eq!(outcome.resolution, BattleResolution::AlliesVictory);
         assert_eq!(outcome.rounds, 0);
-        assert_eq!(outcome.seed, 1);
+        assert_eq!(outcome.seed, fabelgeist_determinism::Seed::from_u64(1));
     }
 
     #[test]
@@ -2739,10 +2745,10 @@ mod tests {
         let outcome = resolve_battle(
             vec![fighter(1, 4.0, false)],
             vec![fighter(2, 1.0, false)],
-            27,
+            fabelgeist_determinism::Seed::from_u64(27),
             BattleOpening::Normal,
         );
-        assert_eq!(outcome.seed, 27);
+        assert_eq!(outcome.seed, fabelgeist_determinism::Seed::from_u64(27));
         assert_eq!(outcome.summary.melee_attacks as usize, outcome.log.len());
         assert_eq!(outcome.log.first().map(|entry| entry.sequence), Some(0));
     }
@@ -2750,6 +2756,7 @@ mod tests {
     #[test]
     fn skill_and_numbers_change_battle_odds() {
         let strong_wins = (0..64)
+            .map(fabelgeist_determinism::Seed::from_u64)
             .filter(|seed| {
                 resolve_battle(
                     vec![fighter(1, 4.0, false), fighter(2, 4.0, false)],
@@ -2762,6 +2769,7 @@ mod tests {
             })
             .count();
         let weak_wins = (0..64)
+            .map(fabelgeist_determinism::Seed::from_u64)
             .filter(|seed| {
                 resolve_battle(
                     vec![fighter(1, 1.5, false)],

@@ -59,20 +59,15 @@ impl GardenAssets<'_> {
     }
 
     fn spawn(&self, parent: &mut ChildSpawnerCommands, scene: &SceneGarden) {
-        let garden = &scene.garden;
-        for plant in &garden.plants {
-            let support = scene
-                .plant_support
-                .iter()
-                .find(|support| support.plant_id == plant.id)
-                .expect("complete generated garden binds every exact plant root");
+        let garden = scene.garden();
+        for (plant, support) in garden.plants.iter().zip(scene.plant_support()) {
             let presentation = match plant.specimen {
                 GardenSpecimen::CommonHazel => &self.cache.hazel,
             };
             let transform = Transform::from_xyz(
-                plant.centre_metres.x,
+                plant.centre_metres.metres().x,
                 support.elevation.metres(),
-                plant.centre_metres.y,
+                plant.centre_metres.metres().y,
             )
             .with_rotation(Quat::from_rotation_y(plant.orientation.yaw_radians()))
             .with_scale(Vec3::splat(plant.scale.value()));

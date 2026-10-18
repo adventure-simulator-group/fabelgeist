@@ -32,8 +32,8 @@ pub(super) fn measure(
     let mut cut = 0.0;
     let mut maximum = (0.0_f32, Vec2::ZERO);
     let mut rejection = None;
-    for indices in &mesh.support_triangles {
-        let support = indices.map(|i| mesh.positions[i as usize]);
+    for indices in mesh.support_triangles() {
+        let support = indices.map(|i| mesh.positions()[i as usize]);
         let clipper = [support[0].xz(), support[2].xz(), support[1].xz()];
         for source in geographic {
             let polygon = clip(source.map(|v| v.xz()).to_vec(), &clipper);
@@ -66,10 +66,10 @@ pub(super) fn measure(
         }
     }
     let internal_faces = mesh
-        .retaining_triangles
+        .retaining_triangles()
         .iter()
         .map(|indices| {
-            let [a, b, c] = indices.map(|i| mesh.positions[i as usize]);
+            let [a, b, c] = indices.map(|i| mesh.positions()[i as usize]);
             f64::from((b - a).cross(c - a).length()) * 0.5
         })
         .sum::<f64>();

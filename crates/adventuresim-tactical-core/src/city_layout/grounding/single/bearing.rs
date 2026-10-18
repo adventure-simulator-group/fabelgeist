@@ -5,18 +5,20 @@ impl PropertySupportSurface {
         request: &SingleBuildingSupportRequest<'_>,
     ) -> Result<Self, SupportDiagnostic> {
         let surface = PropertySupportSurface {
+            floor_bearings: Vec::new(),
             mesh: PropertySupportMesh {
                 property_id: request.property.id,
                 member_building_ids: vec![request.property.building_id],
                 positions: Vec::new(),
                 support_triangles: Vec::new(),
                 retaining_triangles: Vec::new(),
-                contact_tolerance_metres: request.policy.limits.contact_tolerance_metres,
+                contact_tolerance_metres: request.policy.limits.contact_tolerance_metres.metres(),
             },
             regions: vec![request.bearing],
             clipping_outlines: vec![
                 request
-                    .bearing_outline
+                    .bearing_region
+                    .outline()
                     .vertices()
                     .iter()
                     .map(|p| p.metres().as_dvec2())
@@ -32,13 +34,14 @@ impl PropertySupportSurface {
             return Err(surface.rejection(
                 SupportConstraint::Reservation,
                 SupportBoundary::PropertyReservation,
-                request.bearing.centre_metres,
+                request.bearing.centre_metres(),
                 1.0,
                 0.0,
             ));
         }
         if let Some(point) = request
-            .bearing_outline
+            .bearing_region
+            .outline()
             .vertices()
             .iter()
             .find(|point| !request.property.plot.contains(point.metres()))
@@ -46,10 +49,10 @@ impl PropertySupportSurface {
             let local = request
                 .property
                 .plot
-                .orientation
-                .world_to_local(point.metres() - request.property.plot.centre_metres)
+                .orientation()
+                .world_to_local(point.metres() - request.property.plot.centre_metres())
                 .abs();
-            let excess = (local - request.property.plot.dimensions_metres * 0.5).max_element();
+            let excess = (local - request.property.plot.dimensions_metres() * 0.5).max_element();
             return Err(surface.rejection(
                 SupportConstraint::Bearing,
                 SupportBoundary::PropertyReservation,
