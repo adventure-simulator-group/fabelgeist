@@ -241,18 +241,17 @@ pub(super) fn generate_equipment_assets(
     catalog: &EquipmentCatalog,
     selection: &EquipmentItemSelection<'_>,
 ) -> Result<()> {
-    if selection.is_filtered() {
-        if output.exists()
-            && std::fs::read_dir(output)
-                .with_context(|| format!("reading equipment output {}", output.display()))?
-                .next()
-                .is_some()
-        {
-            anyhow::bail!(
-                "filtered equipment export requires a new or empty staging directory: {}",
-                output.display()
-            );
-        }
+    if selection.is_filtered()
+        && output.exists()
+        && std::fs::read_dir(output)
+            .with_context(|| format!("reading equipment output {}", output.display()))?
+            .next()
+            .is_some()
+    {
+        anyhow::bail!(
+            "filtered equipment export requires a new or empty staging directory: {}",
+            output.display()
+        );
     }
     std::fs::create_dir_all(output)
         .with_context(|| format!("creating equipment output {}", output.display()))?;
