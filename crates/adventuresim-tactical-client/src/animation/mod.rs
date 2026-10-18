@@ -144,7 +144,7 @@ pub(super) struct AnimationPlayback {
     extrapolated_spans: Vec<ExtrapolatedSpan>,
     continuation_spans: Vec<ContinuationSpan>,
     pose_source: PoseSource,
-    pub(super) whole_body_mirror: BlendWeight,
+    whole_body_mirror: BlendWeight,
     pub(super) foot_ik_weights: Vec2,
     weapon_guard: WeaponGuardState,
     ordinary_locomotion: OrdinaryLocomotion,
