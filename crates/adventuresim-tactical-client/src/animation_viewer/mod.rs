@@ -68,7 +68,8 @@ mod scenarios;
 use capture::*;
 use report::*;
 use scenarios::terrain_policy::{
-    raised_scenario_requires_zero_flight, scenario_uses_terrain_ik, terrain_ik_mode_for_frame,
+    raised_scenario_requires_zero_flight, scenario_uses_terrain_ik, startup_terrain_ik_mode,
+    terrain_ik_mode_for_frame,
 };
 use scenarios::*;
 
@@ -102,13 +103,7 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
     });
     invalidate_previous_report(&output);
     setup::write_body_proportions(&output, body_proportions);
-    let initial_terrain_ik = if scenario.is_some_and(|name| {
-        scenario_metadata(name).kind == ScenarioKind::Terrain || name.contains("terrain")
-    }) {
-        TerrainIkMode::Enabled
-    } else {
-        TerrainIkMode::Disabled
-    };
+    let initial_terrain_ik = startup_terrain_ik_mode(scenario);
     let default_character_id = default_tactical_character_id();
 
     let workspace_asset_source =
