@@ -595,10 +595,6 @@ path = "crates/adventuresim-tactical-client/src/ui.rs"
 ceiling = 862
 
 [[files]]
-path = "crates/adventuresim-tactical-core/src/animation/evaluation.rs"
-ceiling = 518
-
-[[files]]
 path = "crates/adventuresim-tactical-core/src/animation/state.rs"
 ceiling = 2545
 
@@ -2185,11 +2181,6 @@ item = "validate_profile"
 ceiling = 107
 
 [[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/catalog.rs"
-item = "AnimationPackCatalog::biped_root"
-ceiling = 123
-
-[[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/diagnostics.rs"
 item = 'log_animation_diagnostics@cfg(not(target_family="wasm"))'
 ceiling = 154
@@ -2223,11 +2214,6 @@ ceiling = 190
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
 item = "apply_landing_leg_compression"
 ceiling = 145
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
-item = "apply_locomotion_height"
-ceiling = 137
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"

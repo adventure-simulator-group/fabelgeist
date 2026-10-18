@@ -1,6 +1,9 @@
 //! Animation review metric policy and calculations.
 
 use super::*;
+use height_peaks::prominent_height_peaks;
+
+mod height_peaks;
 
 pub(super) const RAISED_MINIMUM_INTER_FOOT_SEPARATION_METRES: f32 = 0.16;
 pub(super) const RAISED_MAXIMUM_PELVIS_VERTICAL_STEP_METRES: f32 = 0.05;
@@ -10,10 +13,6 @@ pub(super) const RAISED_MAXIMUM_PELVIS_VERTICAL_STEP_METRES: f32 = 0.05;
 pub(super) const LOCOMOTION_STATE_MAXIMUM_PELVIS_VERTICAL_STEP_METRES: f32 = 0.04;
 pub(super) const ORDINARY_VERTICAL_RANGE_LIMIT_METRES: f32 = 0.20;
 pub(super) const RAISED_GUARD_VERTICAL_RANGE_LIMIT_METRES: f32 = 0.30;
-// Ignore sub-3 mm sampling noise, but reject any additional visible beat in
-// the phase-owned vertical curve.
-pub(super) const HEIGHT_PEAK_PROMINENCE_METRES: f32 = 0.003;
-pub(super) const PASSING_PEAK_PHASE_WINDOW: f32 = 0.10;
 
 pub(super) const CATASTROPHIC_FOOT_HORIZONTAL_HIP_OFFSET_METRES: f32 = 0.65;
 pub(super) const CATASTROPHIC_FOOT_DISPLACEMENT_SECONDS: f32 = 0.1;
@@ -957,50 +956,6 @@ pub(super) fn visual_height_peaks(frames: &[&FrameSample]) -> (usize, bool) {
             .iter()
             .all(|(count, in_windows)| *count == 2 && *in_windows),
     )
-}
-
-pub(super) fn prominent_height_peaks(samples: &[(f32, f32)]) -> (usize, bool) {
-    if samples.len() < 3 {
-        return (0, false);
-    }
-    let mut peaks = Vec::new();
-    for (index, &(phase, height)) in samples.iter().enumerate() {
-        let previous = samples[(index + samples.len() - 1) % samples.len()].1;
-        let next = samples[(index + 1) % samples.len()].1;
-        if height <= previous || height < next {
-            continue;
-        }
-        let left_minimum = samples
-            .iter()
-            .filter_map(|&(candidate_phase, candidate_height)| {
-                let distance = (phase - candidate_phase).rem_euclid(1.0);
-                (distance > f32::EPSILON && distance <= 0.125).then_some(candidate_height)
-            })
-            .fold(f32::INFINITY, f32::min);
-        let right_minimum = samples
-            .iter()
-            .filter_map(|&(candidate_phase, candidate_height)| {
-                let distance = (candidate_phase - phase).rem_euclid(1.0);
-                (distance > f32::EPSILON && distance <= 0.125).then_some(candidate_height)
-            })
-            .fold(f32::INFINITY, f32::min);
-        let prominence = height - left_minimum.max(right_minimum);
-        if prominence >= HEIGHT_PEAK_PROMINENCE_METRES {
-            peaks.push(phase);
-        }
-    }
-    let phase_distance = |phase: f32, target: f32| {
-        let distance = (phase - target).abs();
-        distance.min(1.0 - distance)
-    };
-    let in_passing_windows = [0.25, 0.75].into_iter().all(|target| {
-        peaks
-            .iter()
-            .filter(|&&phase| phase_distance(phase, target) <= PASSING_PEAK_PHASE_WINDOW)
-            .count()
-            == 1
-    });
-    (peaks.len(), in_passing_windows)
 }
 
 pub(super) fn phase_height_range(frames: &[&FrameSample]) -> f32 {

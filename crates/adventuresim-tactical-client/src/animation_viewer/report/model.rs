@@ -1,6 +1,7 @@
 //! Serialized capture, validation, metric, and trace contracts.
 
 use super::*;
+use crate::animation_viewer::scenarios::PlannedFrame;
 use adventuresim_tactical_core::animation::{
     AnimationSampleTick, ContactSequence, LandingSequence,
 };
@@ -24,6 +25,15 @@ impl CaptureView {
             Self::Side => "side",
             Self::Front => "front",
         }
+    }
+
+    pub(in crate::animation_viewer) fn screenshot_name(self, frame: &PlannedFrame) -> String {
+        format!(
+            "{}-{:04}-{}.png",
+            frame.scenario.label(),
+            frame.scenario_frame,
+            self.slug()
+        )
     }
 }
 

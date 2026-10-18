@@ -789,12 +789,7 @@ pub(super) fn capture_frame(
 
     let frame = sequence.plan[sequence.index].clone();
     let view = VIEWS[sequence.view_index];
-    let file_name = format!(
-        "{}-{:04}-{}.png",
-        frame.scenario.label(),
-        frame.scenario_frame,
-        view.slug()
-    );
+    let file_name = view.screenshot_name(&frame);
     let path = sequence.output.join(&file_name);
     let evaluation_bones = collect_bones(
         subject,
@@ -967,17 +962,7 @@ pub(super) fn capture_frame(
             semantic_route_runtime_evaluated: semantic_route.runtime_evaluated,
             screenshots: VIEWS
                 .into_iter()
-                .map(|view| {
-                    (
-                        view.slug().to_owned(),
-                        format!(
-                            "{}-{:04}-{}.png",
-                            frame.scenario.label(),
-                            frame.scenario_frame,
-                            view.slug()
-                        ),
-                    )
-                })
+                .map(|view| (view.slug().to_owned(), view.screenshot_name(&frame)))
                 .collect(),
             bones: evaluation_bones,
         });

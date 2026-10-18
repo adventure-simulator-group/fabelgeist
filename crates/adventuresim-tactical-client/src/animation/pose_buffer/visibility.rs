@@ -17,6 +17,19 @@ pub(super) type AnimationViews<'w, 's> = Query<
     With<Camera3d>,
 >;
 
+impl PoseBufferRig {
+    /// Resume sampling after culling without changing authored display history.
+    pub(super) fn resume_visible_sampling(&mut self) {
+        if self.visibility == PoseVisibility::Frozen {
+            self.sample_accumulator = AnimationElapsed::ZERO;
+            self.interpolation_alpha = PoseInterpolation::ZERO;
+            self.target_linear_velocities.fill(Vec3::ZERO);
+            self.target_angular_velocities.fill(Vec3::ZERO);
+        }
+        self.visibility = PoseVisibility::Visible;
+    }
+}
+
 pub(super) fn outside_views(
     position: Vec3,
     layers: Option<&RenderLayers>,

@@ -463,13 +463,7 @@ pub(super) fn update_pose_buffers(
             metrics.culled_character_count += 1;
             continue;
         }
-        if rig.visibility == PoseVisibility::Frozen {
-            rig.sample_accumulator = AnimationElapsed::ZERO;
-            rig.interpolation_alpha = PoseInterpolation::ZERO;
-            rig.target_linear_velocities.fill(Vec3::ZERO);
-            rig.target_angular_velocities.fill(Vec3::ZERO);
-        }
-        rig.visibility = PoseVisibility::Visible;
+        rig.resume_visible_sampling();
 
         let key = PosePlanKey::from_playback(playback);
         let transition = !rig.has_presented_pose() || rig.plan.as_ref() != Some(&key);
