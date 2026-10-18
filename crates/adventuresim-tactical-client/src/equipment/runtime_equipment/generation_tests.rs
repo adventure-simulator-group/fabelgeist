@@ -1,4 +1,42 @@
 use super::*;
+use crate::equipment::readiness::EquipmentReadiness;
+use bevy::ecs::system::RunSystemOnce;
+
+#[test]
+fn readiness_waits_for_requested_equipment_and_surfaces_fit_failures() {
+    let mut world = World::new();
+    let readiness = |world: &mut World, items: Vec<Entity>| {
+        world
+            .run_system_once(move |readiness: EquipmentReadiness| {
+                readiness.check(items.iter().copied())
+            })
+            .unwrap()
+    };
+    assert_eq!(readiness(&mut world, vec![]), Ok(true));
+    let item = world.spawn_empty().id();
+    assert_eq!(readiness(&mut world, vec![item]), Ok(false));
+    let root = world
+        .spawn((
+            ItemPlaceholder(item),
+            Visibility::Hidden,
+            RuntimeEquipmentPresentation {
+                item,
+                item_id: "cuirass".into(),
+                placement_id: "worn".into(),
+            },
+        ))
+        .id();
+    assert_eq!(readiness(&mut world, vec![item]), Ok(false));
+    world
+        .entity_mut(root)
+        .insert((ProceduralEquipmentResolved, Visibility::Inherited));
+    assert_eq!(readiness(&mut world, vec![item]), Ok(true));
+    world.entity_mut(root).insert(ProceduralEquipmentFailed);
+    assert_eq!(
+        readiness(&mut world, vec![item]),
+        Err("Could not generate character equipment")
+    );
+}
 
 fn empty_body() -> RuntimeBody {
     RuntimeBody {
@@ -48,7 +86,6 @@ fn character_key(id: u64) -> FitKey {
 fn physical_fit_survives_hold_drop_and_placeholder_rebuild_then_refits_new_wearer() {
     let mut app = App::new();
     app.init_resource::<Assets<Mesh>>()
-        .insert_resource(RuntimeEquipmentWarmup::ready_for_tests())
         .init_resource::<Assets<StandardMaterial>>()
         .init_resource::<Assets<SkinnedMeshInverseBindposes>>()
         .init_resource::<WeaponMeshCache>()

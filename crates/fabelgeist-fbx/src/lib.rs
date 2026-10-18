@@ -17,9 +17,9 @@
 use std::collections::HashMap;
 
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
-pub use array_layout::{FbxArrayCount, FbxArrayKind};
+pub use array_encoding::UnsupportedFbxArrayEncoding;
+pub use array_layout::FbxArrayCount;
 pub use binary::{FbxDecodeError, Result, parse};
-pub use property_tag::FbxPropertyTag;
 
 pub mod animation;
 

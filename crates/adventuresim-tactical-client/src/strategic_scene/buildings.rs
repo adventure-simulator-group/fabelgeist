@@ -61,8 +61,9 @@ impl Venue {
 pub(super) fn prepare_venues(
     input: &TacticalSceneInput,
     view: &super::protocol::StrategicView,
-    generated: &mut GeneratedTacticalScene,
+    generated: &mut crate::presentation::PreparedStrategicScene,
     street: &mut Option<super::street::Street>,
+    backdrop: &crate::presentation::StrategicBackdrop,
 ) -> Result<std::collections::HashMap<super::protocol::PlaceId, Venue>, String> {
     let mut venues = std::collections::HashMap::new();
     let (promoted, selected) = select_buildings(input, view, generated)?;
@@ -81,6 +82,7 @@ pub(super) fn prepare_venues(
             &view.places,
             &selected,
             generated,
+            backdrop,
         )?)
     } else {
         None
@@ -99,7 +101,7 @@ pub(super) fn prepare_venues(
             Venue::from_building(building, &interior.layout)?
         } else {
             // Public squares and camps are real outdoor positions on the terrain.
-            let anchor = Vec3::Y * generated.terrain.height_at(Vec2::ZERO).unwrap_or_default();
+            let anchor = Vec3::Y * backdrop.height_at(Vec2::ZERO).unwrap_or_default();
             Venue {
                 anchor,
                 positions: vec![Transform::from_translation(anchor)],
@@ -110,10 +112,7 @@ pub(super) fn prepare_venues(
             let position = venue.approach;
             venue.anchor = Vec3::new(
                 position.x,
-                generated
-                    .terrain
-                    .height_at(position.xz())
-                    .unwrap_or(venue.anchor.y),
+                backdrop.height_at(position.xz()).unwrap_or(venue.anchor.y),
                 position.z,
             );
             venue.positions = vec![Transform::from_translation(venue.anchor)];
@@ -126,7 +125,7 @@ pub(super) fn prepare_venues(
 fn select_buildings(
     input: &TacticalSceneInput,
     view: &super::protocol::StrategicView,
-    generated: &mut GeneratedTacticalScene,
+    generated: &mut crate::presentation::PreparedStrategicScene,
 ) -> Result<
     (
         Vec<GeneratedBuilding>,
@@ -192,9 +191,11 @@ mod tests {
             "stage": null, "forge": null, "portraits": []
         }))
         .unwrap();
-        let mut generated = input.generate().unwrap();
+        let mut generated = crate::presentation::PreparedStrategicScene::generate(&input).unwrap();
+        let backdrop =
+            crate::presentation::StrategicBackdrop::new(&input, input.vista.lods.len()).unwrap();
         let mut street = None;
-        let venues = prepare_venues(&input, &view, &mut generated, &mut street).unwrap();
+        let venues = prepare_venues(&input, &view, &mut generated, &mut street, &backdrop).unwrap();
         assert!(street.is_none());
         assert_eq!(venues.len(), 1);
     }

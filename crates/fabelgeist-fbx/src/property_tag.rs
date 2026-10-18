@@ -1,33 +1,23 @@
-//! Property tag identities admitted from native one-byte wire fields.
+//! Supported property tags decoded from one-byte wire fields.
 
-/// An open property tag carried through scalar and array dispatch.
-/// Unknown values are retained until the reader's existing rejection point.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct FbxPropertyTag(u8);
+use derive_more::TryFrom;
 
-impl From<u8> for FbxPropertyTag {
-    fn from(tag: u8) -> Self {
-        Self(tag)
-    }
-}
-
-impl FbxPropertyTag {
-    pub(super) const INTEGER16: Self = Self(b'Y');
-    pub(super) const BOOLEAN: Self = Self(b'C');
-    pub(super) const INTEGER32: Self = Self(b'I');
-    pub(super) const INTEGER64: Self = Self(b'L');
-    pub(super) const FLOAT32: Self = Self(b'F');
-    pub(super) const FLOAT64: Self = Self(b'D');
-    pub(super) const ARRAY_FLOAT32: Self = Self(b'f');
-    pub(super) const ARRAY_FLOAT64: Self = Self(b'd');
-    pub(super) const ARRAY_INTEGER32: Self = Self(b'i');
-    pub(super) const ARRAY_INTEGER64: Self = Self(b'l');
-    pub(super) const ARRAY_BOOLEAN: Self = Self(b'b');
-    pub(super) const STRING: Self = Self(b'S');
-    pub(super) const RAW_BYTES: Self = Self(b'R');
-
-    /// Preserve the reader's character representation in unknown-tag errors.
-    pub(super) fn diagnostic_character(self) -> char {
-        char::from(self.0)
-    }
+/// A supported scalar, array, string or raw-byte property tag.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, TryFrom)]
+#[repr(u8)]
+#[try_from(repr)]
+pub(super) enum FbxPropertyTag {
+    Integer16 = b'Y',
+    Boolean = b'C',
+    Integer32 = b'I',
+    Integer64 = b'L',
+    Float32 = b'F',
+    Float64 = b'D',
+    ArrayFloat32 = b'f',
+    ArrayFloat64 = b'd',
+    ArrayInteger32 = b'i',
+    ArrayInteger64 = b'l',
+    ArrayBoolean = b'b',
+    String = b'S',
+    RawBytes = b'R',
 }

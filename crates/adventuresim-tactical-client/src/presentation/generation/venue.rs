@@ -48,21 +48,21 @@ impl VenueRequest {
     }
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 pub(super) struct PreparedVenue {
     pub recipe: GeneratedBuildingRecipe,
     pub interior: InteriorLayout,
-    pub geometry: Option<VenueGeometry>,
+    pub geometry: Option<Arc<VenueGeometry>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 pub(in crate::presentation) struct VenueGeometry {
     pub detail: Vec<PreparedBatch>,
     pub facade: Vec<PreparedBatch>,
     pub shell: Vec<PreparedBatch>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 pub(in crate::presentation) struct PreparedBatch {
     pub material: BuildingLodMaterial,
     #[serde(with = "super::packed")]
@@ -78,6 +78,10 @@ pub(in crate::presentation) struct PreparedBatch {
 }
 
 impl PreparedBatch {
+    pub(in crate::presentation) fn triangle_count(&self) -> usize {
+        self.indices.len() / 3
+    }
+
     fn new(batch: &LodMesh, origin: Vec3) -> Self {
         let mut mesh = super::super::recipe_mesh::recipe_mesh(batch, origin);
         let Some(VertexAttributeValues::Float32x3(positions)) =
@@ -130,18 +134,13 @@ impl PreparedVenue {
     pub(super) fn generate(
         program: BuildingProgram,
         recipe: Option<GeneratedBuildingRecipe>,
-    ) -> Result<Self, String> {
+    ) -> PreparationResult<Self> {
         let recipe = match recipe {
             Some(recipe) if recipe.program == program => recipe,
-            Some(_) => return Err("venue recipe does not match its program".into()),
-            None => GeneratedBuildingRecipe::generate(program).map_err(|e| e.to_string())?,
+            Some(_) => return Err(PreparationError::ProductMismatch),
+            None => GeneratedBuildingRecipe::generate(program)?,
         };
-        let origin = recipe
-            .collision
-            .bounds
-            .centre()
-            .map_err(|error| error.to_string())?
-            .metres();
+        let origin = recipe.collision.bounds.centre()?.metres();
         let batches = |meshes: Vec<LodMesh>| {
             meshes
                 .iter()
@@ -149,27 +148,17 @@ impl PreparedVenue {
                 .collect()
         };
         let geometry = VenueGeometry {
-            detail: batches(
-                compile_static_building_detail(&recipe.plan)
-                    .map_err(|error| error.to_string())?
-                    .meshes,
-            ),
+            detail: batches(compile_static_building_detail(&recipe.plan)?.meshes),
             facade: batches(
-                compile_static_building_lod(&recipe.plan, BuildingLodLevel::Facade)
-                    .map_err(|error| error.to_string())?
-                    .meshes,
+                compile_static_building_lod(&recipe.plan, BuildingLodLevel::Facade)?.meshes,
             ),
-            shell: batches(
-                compile_building_lod(&recipe.plan, BuildingLodLevel::Shell)
-                    .map_err(|error| error.to_string())?
-                    .meshes,
-            ),
+            shell: batches(compile_building_lod(&recipe.plan, BuildingLodLevel::Shell)?.meshes),
         };
-        let interior = furnish(&recipe.plan, &recipe.program).map_err(|e| e.to_string())?;
+        let interior = furnish(&recipe.plan, &recipe.program)?;
         Ok(Self {
             recipe,
             interior,
-            geometry: Some(geometry),
+            geometry: Some(Arc::new(geometry)),
         })
     }
 }

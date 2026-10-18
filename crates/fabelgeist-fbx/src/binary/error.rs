@@ -1,6 +1,6 @@
 //! Rejections at the binary FBX decoding boundary.
 
-use crate::{FbxArrayCount, FbxArrayKind, FbxPropertyTag};
+use crate::{FbxArrayCount, UnsupportedFbxArrayEncoding};
 use std::{fmt, io};
 use thiserror::Error;
 
@@ -28,18 +28,24 @@ pub enum FbxDecodeError {
     },
     #[error(fmt = fmt_inflate)]
     Inflate { source: io::Error },
+    #[error("{0}")]
+    UnsupportedArrayEncoding(#[from] UnsupportedFbxArrayEncoding),
     #[error(
-        "FBX array property is short: {native_bytes} bytes for {} x {}",
-        .count.native_len(), .kind.native_width()
+        "FBX array property is short: {native_bytes} bytes for {} x {native_width}",
+        .count.native_len()
     )]
     ArrayShort {
         /// Observed native decoded-buffer length in bytes.
         native_bytes: usize,
         count: FbxArrayCount,
-        kind: FbxArrayKind,
+        /// Input width of the selected native element decoder, in bytes.
+        native_width: usize,
     },
-    #[error("unknown FBX property type {:?}", .tag.diagnostic_character())]
-    PropertyTag { tag: FbxPropertyTag },
+    #[error("unknown FBX property type {:?}", char::from(*.native_tag))]
+    PropertyTag {
+        /// Rejected native tag byte, before supported-tag admission.
+        native_tag: u8,
+    },
 }
 
 // The previous anyhow context printed each native cause only in alternate

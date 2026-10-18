@@ -310,6 +310,7 @@ dependencies = [
  "bevy_eidolon",
  "bevy_flair",
  "bevy_mod_outline",
+ "blake3",
  "bytemuck",
  "ciborium",
  "clap",
@@ -499,10 +500,8 @@ dependencies = [
  "geo",
  "geozero",
  "html-escape",
- "image",
  "netcdf-reader",
  "proj4rs",
- "rayon",
  "reqwest",
  "rusqlite",
  "serde",
@@ -511,7 +510,6 @@ dependencies = [
  "shapefile",
  "thiserror 2.0.20",
  "tiff",
- "tiny-skia",
  "zip",
 ]
 
@@ -4918,6 +4916,7 @@ version = "0.1.0"
 dependencies = [
  "derive_more 2.1.1",
  "flate2",
+ "num_enum",
  "thiserror 2.0.20",
 ]
 
@@ -10475,6 +10474,7 @@ checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
 name = "strategic-web"
 version = "0.1.0"
 dependencies = [
+ "adventuresim-building-generator",
  "adventuresim-core",
  "adventuresim-dialogue",
  "adventuresim-puzzles",
