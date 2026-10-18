@@ -42,9 +42,36 @@ impl GroundTopology {
 }
 
 #[derive(Component)]
-struct GroundCoverage {
+pub(super) struct GroundCoverage {
     revision: u64,
     topology: GroundTopology,
+}
+
+impl GroundCoverage {
+    pub(super) fn new(
+        terrain: &SceneTerrain,
+        environment: &SceneEnvironment,
+        vista: &ActiveVistaSurface,
+    ) -> Self {
+        Self {
+            revision: vista.revision(),
+            topology: GroundTopology::for_scene(terrain, environment, vista),
+        }
+    }
+
+    pub(super) fn mesh(
+        &self,
+        terrain: &SceneTerrain,
+        landform: Option<&TerrainLandformRecipe>,
+    ) -> Mesh {
+        match self.topology {
+            GroundTopology::Canonical => urban_playable_mesh(terrain, landform),
+            GroundTopology::Sampled => landform.map_or_else(
+                || terrain.coarse_mesh(),
+                |recipe| terrain.coarse_mesh_with_transition(recipe.transition_collar()),
+            ),
+        }
+    }
 }
 
 pub(in crate::presentation) fn urban_playable_mesh(

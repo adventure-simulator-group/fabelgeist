@@ -21,6 +21,9 @@ use std::sync::{Arc, RwLock};
 
 mod fast;
 
+// Validation scopes on one device must not interleave during compilation.
+static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
+
 /// A compiled compute kernel: the pipeline plus the workgroup size declared in
 /// its own source, so that a dispatch can be sized in *items* rather than in
 /// workgroups.
@@ -59,7 +62,6 @@ impl Kernel {
     pub fn new(context: &WgpuContext, code: ShaderSource<'_>) -> Result<Self> {
         // Shader and pipeline creation read back validation error scopes,
         // which interleave badly when two threads compile at once.
-        static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
         let _compiling = COMPILING
             .lock()
             .unwrap_or_else(|poisoned| poisoned.into_inner());
@@ -81,16 +83,25 @@ impl Kernel {
         }
 
         let shader = ComputeShader::new(context, code.clone())?;
-        let pipeline = ComputePipeline::new(context, shader)?;
+        let mut pipeline = ComputePipeline::prepare(context, shader)?;
 
-        let fast = pipeline
+        let fast = match pipeline
             .shader
             .module
             .as_ref()
             .zip(pipeline.reflection.as_ref())
-            .and_then(|(module, reflection)| {
-                fast::FastPath::new(context, module, &entry_point, reflection)
-            });
+        {
+            Some((module, reflection)) => {
+                fast::FastPath::new(context, module, &entry_point, reflection)?
+            }
+            None => None,
+        };
+
+        // The batched layout owns its pipeline. Compile the static layout only
+        // for kernels requiring it, or when a caller uses a one-off dispatch.
+        if fast.is_none() {
+            pipeline.compile(context)?;
+        }
 
         Ok(Self {
             pipeline,
@@ -118,13 +129,16 @@ impl Kernel {
         parameters: PassParameters,
         groups: [u32; 3],
     ) -> Result<()> {
+        let pipeline = {
+            let _compiling = COMPILING
+                .lock()
+                .unwrap_or_else(|poisoned| poisoned.into_inner());
+            let mut pipeline = self.pipeline.clone();
+            pipeline.compile(context)?;
+            pipeline
+        };
         ComputePass::dispatch(
-            context,
-            self.pipeline.clone(),
-            parameters,
-            groups[0],
-            groups[1],
-            groups[2],
+            context, pipeline, parameters, groups[0], groups[1], groups[2],
         )
     }
 }
