@@ -1,0 +1,27 @@
+decode7400:[Node { name: "unknown: record\0\u{1}suffix", props: [], children: [] }];encoded=[117, 110, 107, 110, 111, 119, 110, 58, 32, 114, 101, 99, 111, 114, 100, 0, 1, 115, 117, 102, 102, 105, 120]
+decode7400:[Node { name: " bad�Label ", props: [], children: [] }];encoded=[32, 98, 97, 100, 239, 191, 189, 76, 97, 98, 101, 108, 32]
+decode7400:[Node { name: "", props: [], children: [] }];encoded=[]
+decode7400:[Node { name: "Model", props: [], children: [] }];encoded=[77, 111, 100, 101, 108]
+decode7500:[Node { name: "unknown: record\0\u{1}suffix", props: [], children: [] }];encoded=[117, 110, 107, 110, 111, 119, 110, 58, 32, 114, 101, 99, 111, 114, 100, 0, 1, 115, 117, 102, 102, 105, 120]
+decode7500:[Node { name: " bad�Label ", props: [], children: [] }];encoded=[32, 98, 97, 100, 239, 191, 189, 76, 97, 98, 101, 108, 32]
+decode7500:[Node { name: "", props: [], children: [] }];encoded=[]
+decode7500:[Node { name: "Model", props: [], children: [] }];encoded=[77, 111, 100, 101, 108]
+first:Some(Node { name: "Repeat", props: [I64(1)], children: [] })
+all:[Node { name: "Repeat", props: [I64(1)], children: [] }, Node { name: "Repeat", props: [I64(3)], children: [] }]
+unknown:None;case:Some(Node { name: "repeat", props: [I64(4)], children: [] })
+object:Object { id: 1, name: "item", qualified: "ns:item", class: "Root", kind: "Model", node: Node { name: "Model", props: [I64(1), Str([110, 115, 58, 105, 116, 101, 109, 0, 1, 105, 103, 110, 111, 114, 101, 100]), Str([82, 111, 111, 116])], children: [] } };node=true;limb=true;null=false
+object:Object { id: 2, name: "item", qualified: "ns:item", class: "LimbNode", kind: "Model", node: Node { name: "Model", props: [I64(2), Str([110, 115, 58, 105, 116, 101, 109, 0, 1, 105, 103, 110, 111, 114, 101, 100]), Str([76, 105, 109, 98, 78, 111, 100, 101])], children: [] } };node=true;limb=true;null=false
+object:Object { id: 3, name: "item", qualified: "ns:item", class: "Null", kind: "Model", node: Node { name: "Model", props: [I64(3), Str([110, 115, 58, 105, 116, 101, 109, 0, 1, 105, 103, 110, 111, 114, 101, 100]), Str([78, 117, 108, 108])], children: [] } };node=true;limb=false;null=true
+object:Object { id: 4, name: "item", qualified: "ns:item", class: "Mesh", kind: "Geometry", node: Node { name: "Geometry", props: [I64(4), Str([110, 115, 58, 105, 116, 101, 109, 0, 1, 105, 103, 110, 111, 114, 101, 100]), Str([77, 101, 115, 104])], children: [] } };node=false;limb=false;null=false
+object:Object { id: 5, name: "item", qualified: "ns:item", class: "Mesh", kind: "Geometry", node: Node { name: "Geometry", props: [I64(5), Str([110, 115, 58, 105, 116, 101, 109, 0, 1, 105, 103, 110, 111, 114, 101, 100]), Raw([77, 101, 115, 104])], children: [] } };node=false;limb=false;null=false
+object:Object { id: 6, name: "item", qualified: "ns:item", class: "Root\0\u{1}suffix", kind: "Model", node: Node { name: "Model", props: [I64(6), Str([110, 115, 58, 105, 116, 101, 109, 0, 1, 105, 103, 110, 111, 114, 101, 100]), Str([82, 111, 111, 116, 0, 1, 115, 117, 102, 102, 105, 120])], children: [] } };node=true;limb=false;null=false
+object:Object { id: 7, name: "item", qualified: "ns:item", class: "�X", kind: "unknown: kind", node: Node { name: "unknown: kind", props: [I64(7), Str([110, 115, 58, 105, 116, 101, 109, 0, 1, 105, 103, 110, 111, 114, 101, 100]), Str([255, 88])], children: [] } };node=false;limb=false;null=false
+object:Object { id: 8, name: "item", qualified: "ns:item", class: "", kind: "Model", node: Node { name: "Model", props: [I64(8), Str([110, 115, 58, 105, 116, 101, 109, 0, 1, 105, 103, 110, 111, 114, 101, 100])], children: [] } };node=true;limb=false;null=false
+object:Object { id: 9, name: "item", qualified: "ns:item", class: "", kind: "Model", node: Node { name: "Model", props: [I64(9), Str([110, 115, 58, 105, 116, 101, 109, 0, 1, 105, 103, 110, 111, 114, 101, 100]), I32(5)], children: [] } };node=true;limb=false;null=false
+root:Some(Node { name: "GlobalSettings", props: [I64(10)], children: [] })
+mesh:[4, 5]
+children:[5, 4, 1, 3, 2]
+first_mesh:Some(5)
+transposed:[]
+unknown_class:[7]
+empty_class:[8, 9]

@@ -20,17 +20,21 @@ use anyhow::{Context, Result, anyhow, bail};
 use array_encoding::FbxArrayEncoding;
 use flate2::read::ZlibDecoder;
 
+pub use class::{FbxClassName, UnknownFbxClassName};
+pub use record::{FbxRecordName, UnknownFbxRecordName};
+
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
 pub use array_encoding::UnsupportedFbxArrayEncoding;
 
 pub mod animation;
-
 mod array_encoding;
+mod class;
+mod record;
 
 /// One node record of the FBX tree.
 #[derive(Debug, Clone)]
 pub struct Node {
-    pub name: String,
+    pub name: FbxRecordName,
     pub props: Vec<Prop>,
     pub children: Vec<Node>,
 }
@@ -53,9 +57,9 @@ pub struct Object {
     /// importer wants this one even though momentum matches on the stripped one.
     pub qualified: String,
     /// The sub-class token, e.g. `LimbNode`, `Mesh`, `Cluster`, `BlendShapeChannel`.
-    pub class: String,
+    pub class: FbxClassName,
     /// The record name, e.g. `Model`, `Geometry`, `Deformer`.
-    pub kind: String,
+    pub kind: FbxRecordName,
     pub node: Node,
 }
 
@@ -152,12 +156,13 @@ impl Prop {
 }
 
 impl Node {
-    pub fn child(&self, name: &str) -> Option<&Node> {
-        self.children.iter().find(|c| c.name == name)
+    pub fn child(&self, name: &FbxRecordName) -> Option<&Node> {
+        self.children.iter().find(|c| &c.name == name)
     }
 
-    pub fn children_named<'a>(&'a self, name: &'a str) -> impl Iterator<Item = &'a Node> {
-        self.children.iter().filter(move |c| c.name == name)
+    /// Matching children in file order; yielded nodes borrow the tree.
+    pub fn children_named<'a>(&'a self, name: &FbxRecordName) -> impl Iterator<Item = &'a Node> {
+        self.children.iter().filter(move |c| &c.name == name)
     }
 
     pub fn prop(&self, index: usize) -> Option<&Prop> {
@@ -183,7 +188,7 @@ impl Node {
     /// Mirrors OpenFBX `resolveProperty`: a `P` record whose first property is
     /// the requested name; values start at index 4.
     pub fn property70(&self, name: &str) -> Option<&Node> {
-        let props = self.child("Properties70")?;
+        let props = self.child(&FbxRecordName::Properties70)?;
         props.children.iter().find(|p| {
             p.props
                 .first()
@@ -264,15 +269,16 @@ impl Object {
     /// OpenFBX maps `Model::Root` onto a limb node, which is why `body_world`
     /// becomes joint 0 of the MHR skeleton rather than a plain null node.
     pub fn is_limb(&self) -> bool {
-        self.kind == "Model" && (self.class == "LimbNode" || self.class == "Root")
+        self.kind == FbxRecordName::Model
+            && (self.class == FbxClassName::LimbNode || self.class == FbxClassName::Root)
     }
 
     pub fn is_null_node(&self) -> bool {
-        self.kind == "Model" && self.class == "Null"
+        self.kind == FbxRecordName::Model && self.class == FbxClassName::Null
     }
 
     pub fn is_node(&self) -> bool {
-        self.kind == "Model"
+        self.kind == FbxRecordName::Model
     }
 }
 
@@ -283,7 +289,7 @@ impl Scene {
         let mut links: HashMap<i64, Vec<Link>> = HashMap::new();
 
         for root in &roots {
-            if root.name != "Objects" {
+            if root.name != FbxRecordName::Objects {
                 continue;
             }
             for node in &root.children {
@@ -292,10 +298,7 @@ impl Scene {
                 };
                 let name = node.str_prop(1).map(object_name).unwrap_or_default();
                 let qualified = node.str_prop(1).map(qualified_name).unwrap_or_default();
-                let class = node
-                    .str_prop(2)
-                    .map(|c| String::from_utf8_lossy(c).into_owned())
-                    .unwrap_or_default();
+                let class = node.str_prop(2).map(FbxClassName::from).unwrap_or_default();
                 by_id.insert(id, objects.len());
                 objects.push(Object {
                     id,
@@ -309,7 +312,7 @@ impl Scene {
         }
 
         for root in &roots {
-            if root.name != "Connections" {
+            if root.name != FbxRecordName::Connections {
                 continue;
             }
             for c in &root.children {
@@ -349,8 +352,8 @@ impl Scene {
     }
 
     /// A top-level record such as `GlobalSettings` or `Definitions`.
-    pub fn root(&self, name: &str) -> Option<&Node> {
-        self.roots.iter().find(|root| root.name == name)
+    pub fn root(&self, name: &FbxRecordName) -> Option<&Node> {
+        self.roots.iter().find(|root| &root.name == name)
     }
 
     /// Objects connected as children of `id`, in file order. This is OpenFBX's
@@ -372,19 +375,25 @@ impl Scene {
     }
 
     /// The first child of `id` whose record name and class match.
-    pub fn child_of_kind(&self, id: i64, kind: &str, class: &str) -> Option<&Object> {
+    pub fn child_of_kind(
+        &self,
+        id: i64,
+        kind: &FbxRecordName,
+        class: &FbxClassName,
+    ) -> Option<&Object> {
         self.children(id)
-            .find(|o| o.kind == kind && o.class == class)
+            .find(|o| &o.kind == kind && &o.class == class)
     }
 
+    /// Matching objects in file order; yielded objects borrow the scene.
     pub fn objects_of_kind<'a>(
         &'a self,
-        kind: &'a str,
-        class: &'a str,
+        kind: &FbxRecordName,
+        class: &FbxClassName,
     ) -> impl Iterator<Item = &'a Object> {
         self.objects
             .iter()
-            .filter(move |o| o.kind == kind && o.class == class)
+            .filter(move |o| &o.kind == kind && &o.class == class)
     }
 }
 
@@ -515,7 +524,7 @@ fn read_node(reader: &mut Reader<'_>) -> Result<Option<Node>> {
     let num_props = reader.header_word()? as usize;
     let _prop_list_len = reader.header_word()?;
     let name_len = reader.u8()? as usize;
-    let name = String::from_utf8_lossy(reader.take(name_len)?).into_owned();
+    let name = FbxRecordName::from(reader.take(name_len)?);
 
     if end_offset == 0 {
         return Ok(None);
