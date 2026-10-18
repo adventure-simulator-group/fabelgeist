@@ -30,7 +30,8 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     let b = (first + 1u) * SECTION_WORDS;
     let center = mix(vec2<f32>(sections[a], sections[a + 1u]), vec2<f32>(sections[b], sections[b + 1u]), blend);
     let distance = length(p.xz);
-    let direction = p.xz / max(distance, FLT_EPSILON);
+    var direction = vec2<f32>(1.0, 0.0);
+    if (distance > 0.0) { direction = p.xz / distance; }
     let ellipse_radius = 1.0 / length(direction / f.half_extents.xz);
     var allowance = distance - ellipse_radius;
     if (params.taper != 0u) {

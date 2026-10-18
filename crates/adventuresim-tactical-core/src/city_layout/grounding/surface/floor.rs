@@ -220,7 +220,7 @@ impl PropertySupportSurface {
             }
             let intersection = intersection_with_outline(face.clone(), &outline);
             // Retaining-edge contact at another level has no bearing area.
-            if planar::signed_area(&intersection).abs() <= f64::EPSILON {
+            if planar::signed_area(&intersection) == 0.0 {
                 continue;
             }
             if let Some(point) = intersection.iter().find(|point| {

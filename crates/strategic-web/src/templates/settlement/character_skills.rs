@@ -3493,7 +3493,7 @@ mod tests {
         let reading = preview
             .reading
             .expect("German primer is readable and useful");
-        assert!((reading.rate - 0.5).abs() < f32::EPSILON);
+        assert_eq!(reading.rate, 0.5);
         let selected_title = adventuresim_core::item_catalog::definition("primer_german_latin")
             .expect("German primer remains authored")
             .display_name
@@ -3779,12 +3779,10 @@ mod tests {
         let family_tooltip = bestiary_family_tooltip(&skills);
         let expected_direct =
             skills.bestiary_hours.total_direct() / BestiaryCategory::ALL.len() as f32;
-        assert!((family_tooltip.trained_hours - expected_direct).abs() < f32::EPSILON);
-        assert!(
-            (family_tooltip.trained_hours + family_tooltip.correlated_hours
-                - skills.bestiary_hours.aggregate_effective())
-            .abs()
-                < f32::EPSILON
+        assert_eq!(family_tooltip.trained_hours, expected_direct);
+        assert_eq!(
+            family_tooltip.trained_hours + family_tooltip.correlated_hours,
+            skills.bestiary_hours.aggregate_effective()
         );
         assert!(rendered.contains("data-skill-family=\"bestiary\""));
         assert!(rendered.contains("/static/icons/stats/bestiary/bestiary.png"));

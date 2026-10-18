@@ -123,7 +123,7 @@ fn append_ring(mesh: &mut LodMesh, ring: &LineString<f32>, bottom: f32, top: f32
         let start = points[index];
         let end = points[(index + 1) % points.len()];
         let edge = end - start;
-        if edge.length_squared() <= f32::EPSILON {
+        if edge.length_squared() <= 0.0 {
             continue;
         }
         let next_distance = distance + edge.length();

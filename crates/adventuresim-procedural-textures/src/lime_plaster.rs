@@ -244,8 +244,11 @@ pub(super) fn lime_plaster_sample(
         );
 
     let micro_variation = oblique_micro_variation(params, u, v);
-    let worked =
-        (strokes.bowl / params.lime_plaster.trowel_strokes.depth.max(f32::EPSILON)).clamp(0.0, 1.0);
+    let worked = if params.lime_plaster.trowel_strokes.depth > 0.0 {
+        (strokes.bowl / params.lime_plaster.trowel_strokes.depth).clamp(0.0, 1.0)
+    } else {
+        0.0
+    };
     let aggregate_retention = 1.0 - worked * params.lime_plaster.tool_smoothing;
     let height_metres = trowel * params.lime_plaster.trowel_body_height_metres
         + trowel_edge * params.lime_plaster.trowel_edge_height_metres

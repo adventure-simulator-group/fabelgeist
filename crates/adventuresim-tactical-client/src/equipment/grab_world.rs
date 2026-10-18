@@ -84,7 +84,7 @@ impl WorldGrabTargets<'_, '_> {
     fn visible(&self, origin: Vec3, position: Vec3) -> bool {
         let sight = position - origin;
         let distance = sight.length();
-        distance > f32::EPSILON
+        distance > 0.0
             && Dir3::new(sight / distance).is_ok_and(|direction| {
                 self.spatial
                     .cast_ray(

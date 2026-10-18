@@ -57,9 +57,13 @@ pub struct CommittedThreatDecision {
 /// has learned will otherwise be discarded, breaking a fixed phase cycle.
 #[must_use]
 pub fn choose_committed_threat_response(facts: CommittedThreatFacts) -> CommittedThreatDecision {
-    let windup = facts.own_windup_seconds.max(f32::EPSILON);
+    let windup = facts.own_windup_seconds.max(0.0);
     let contact_lag = facts.own_contact_after_incoming_seconds.max(0.0);
-    let completed_work_fraction = (1.0 - contact_lag / windup).clamp(0.0, 1.0);
+    let completed_work_fraction = if contact_lag == 0.0 {
+        1.0
+    } else {
+        (1.0 - contact_lag / windup).clamp(0.0, 1.0)
+    };
     if facts.own_contact_after_incoming_seconds <= 0.0 {
         return CommittedThreatDecision {
             choice: CommittedThreatChoice::FinishTrade,
@@ -76,13 +80,17 @@ pub fn choose_committed_threat_response(facts: CommittedThreatFacts) -> Committe
         / (f32::from(facts.consecutive_intercepts) + 1.0);
     let sunk_attack_work =
         completed_work_fraction * (1.0 + inertia_commitment) + learned_phase_commitment;
-    let recovery_exposure =
-        facts.weapon_recovery_seconds.max(0.0) / (facts.weapon_recovery_seconds.max(0.0) + windup);
+    let recovery = facts.weapon_recovery_seconds.max(0.0);
+    let recovery_exposure = if recovery == 0.0 {
+        0.0
+    } else {
+        recovery / (recovery + windup)
+    };
     let contact_vulnerability = 1.0 + facts.incapacitation.clamp(0.0, 1.0) + recovery_exposure;
     let expected_intercept_benefit =
         facts.expected_intercept_engagement.clamp(0.0, 1.0) * contact_vulnerability;
     let total = sunk_attack_work + expected_intercept_benefit;
-    let finish_trade_probability = if total <= f32::EPSILON {
+    let finish_trade_probability = if total <= 0.0 {
         0.0
     } else {
         sunk_attack_work / total
@@ -132,7 +140,7 @@ pub fn resolve_weapon_defense_alignment(
         };
     }
     let success_probability = 1.0 / (1.0 + attack_value.exp());
-    let sample = alignment_sample.clamp(f32::EPSILON, 1.0 - f32::EPSILON);
+    let sample = alignment_sample.clamp(0.0_f32.next_up(), 1.0_f32.next_down());
     // A uniform sample transformed by the inverse logistic CDF is a physical
     // alignment error on the same practical-skill scale as `attack_value`.
     // The remaining intercept margin then produces a continuous engagement:

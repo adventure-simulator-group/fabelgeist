@@ -137,7 +137,7 @@ impl CitySurfaceMeshBuilder {
                         if (clipped[1] - clipped[0])
                             .cross(clipped[2] - clipped[0])
                             .length_squared()
-                            <= f64::from(f32::EPSILON)
+                            == 0.0
                         {
                             continue;
                         }
@@ -237,7 +237,7 @@ mod tests {
                     .iter()
                     .all(|triangle| {
                         let [a, b, c] = triangle.map(Vec3::from_array);
-                        (b - a).cross(c - a).length_squared() > f32::EPSILON
+                        (b - a).cross(c - a).length_squared() > 0.0
                     })
             );
         }

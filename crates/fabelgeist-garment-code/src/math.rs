@@ -347,10 +347,11 @@ pub fn euler_xyz_to_r(euler: V3) -> [[f64; 3]; 3] {
 
 /// `rotation.R_to_euler` -- output in degrees.
 pub fn r_to_euler(r: [[f64; 3]; 3]) -> V3 {
-    let tol = f64::EPSILON * 10.0;
+    // Ten scalar operations on unit rotation-matrix entries at gimbal lock.
+    const ROTATION_MATRIX_ROUNDOFF: f64 = 10.0 * f64::EPSILON;
 
     let (eul1, eul2, eul3);
-    if r[0][0].abs() < tol && r[1][0].abs() < tol {
+    if r[0][0].abs() < ROTATION_MATRIX_ROUNDOFF && r[1][0].abs() < ROTATION_MATRIX_ROUNDOFF {
         eul1 = 0.0;
         eul2 = (-r[2][0]).atan2(r[0][0]);
         eul3 = (-r[1][2]).atan2(r[1][1]);

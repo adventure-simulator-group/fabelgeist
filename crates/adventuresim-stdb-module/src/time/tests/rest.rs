@@ -223,8 +223,8 @@ fn camp_schedule_excludes_organization_training_and_activity() {
 
 #[test]
 fn physiology_check_sets_the_daily_healing_rate() {
-    assert!((health_recovered_per_day(0.0) - 0.01).abs() < f32::EPSILON);
-    assert!((health_recovered_per_day(2.5) - 0.035).abs() < f32::EPSILON);
-    assert!((health_recovered_per_day(5.0) - 0.06).abs() < f32::EPSILON);
-    assert!((health_recovered_per_day(8.0) - 0.06).abs() < f32::EPSILON);
+    assert_eq!(health_recovered_per_day(0.0), 0.01);
+    assert_eq!(health_recovered_per_day(2.5), 0.035);
+    assert_eq!(health_recovered_per_day(5.0), 0.06);
+    assert_eq!(health_recovered_per_day(8.0), 0.06);
 }

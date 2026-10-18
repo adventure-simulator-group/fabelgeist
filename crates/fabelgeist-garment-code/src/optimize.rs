@@ -405,11 +405,7 @@ pub fn minimize_bounded<F: Fn(&[f64]) -> f64>(f: F, x0: &[f64], bounds: &[Bound]
             break;
         };
         clamp_to_bounds(&mut x_new, bounds);
-        let f_new = if x_new
-            .iter()
-            .zip(&x)
-            .all(|(a, b)| (a - b).abs() < f64::EPSILON)
-        {
+        let f_new = if x_new.iter().zip(&x).all(|(a, b)| a == b) {
             f_new
         } else {
             f(&x_new)

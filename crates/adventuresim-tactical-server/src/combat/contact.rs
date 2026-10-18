@@ -133,7 +133,7 @@ pub(super) fn resolve_melee_contact(
         parameters.contact,
     );
     if let Some(body_part) = forced_body_part {
-        let surface_coordinate = sample.clamp(0.0, 1.0 - f32::EPSILON);
+        let surface_coordinate = sample.clamp(0.0, 1.0_f32.next_down());
         let armor_surface = defender.armor_surface(body_part, surface_coordinate);
         contact = MeleeContactLocation::new(
             body_part,

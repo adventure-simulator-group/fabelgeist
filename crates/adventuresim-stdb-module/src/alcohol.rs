@@ -536,7 +536,7 @@ pub fn consume_emergency_hydration(
     minute: StrategicMinute,
 ) -> u32 {
     let mut supplied = 0_u32;
-    while supplied as f32 + f32::EPSILON < requested_ml {
+    while (supplied as f32) < requested_ml {
         let Some((stack, def, available)) = available_stacks(ctx, character_id, false, false, true)
             .into_iter()
             .next()
