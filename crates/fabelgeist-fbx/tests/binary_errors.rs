@@ -136,7 +136,7 @@ fn first_property_failure_keeps_native_unknown_tag_and_rejection_order() {
 }
 
 #[test]
-fn accepted_layouts_keep_float_bits_lossy_names_and_nonzero_encoding_policy() {
+fn accepted_layouts_keep_float_bits_lossy_names_and_supported_encoding() {
     // Literal byte fixtures are the native version/encoding construction port.
     for bytes in [
         include_bytes!("fixtures/version0.fbx").as_slice(),
