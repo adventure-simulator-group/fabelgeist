@@ -1283,7 +1283,7 @@ pub(crate) fn on_player_input(
                             simulation_tick = input.simulation_tick,
                             sequence = validated.jump.sequence,
                             ?direction,
-                            skeleton_tick = skeleton.locomotion_sample_tick,
+                            skeleton_tick = skeleton.locomotion_sample_tick.encoded(),
                             push_start_tick = quickstep_push.start_tick,
                             push_origin = ?quickstep_push.origin,
                             "[quickstep][server-input] accepted animation and actuator"
@@ -1343,7 +1343,7 @@ pub(crate) fn begin_authoritative_quickstep(
     {
         return false;
     }
-    let start = skeleton.locomotion_sample_tick;
+    let start = skeleton.locomotion_sample_tick.encoded();
     let Some(spec) = DodgeSpec::quickstep(direction) else {
         return false;
     };
@@ -1437,7 +1437,7 @@ fn apply_posture_action(
         begin_get_up_transition_configured(skeleton, config);
         return None;
     }
-    let tick = skeleton.locomotion_sample_tick;
+    let tick = skeleton.locomotion_sample_tick.encoded();
     let mut dive_launch = None;
     let transition = match action {
         PostureActionRequest::Toggle => match skeleton.body() {
@@ -1522,7 +1522,7 @@ pub(crate) fn begin_get_up_transition_configured(
     };
     skeleton.begin_posture_transition(
         transition,
-        skeleton.locomotion_sample_tick,
+        skeleton.locomotion_sample_tick.encoded(),
         combat_seconds_to_ticks(config.movement.maneuvers.get_up_seconds),
     )
 }
@@ -1802,10 +1802,11 @@ pub(crate) fn trace_authoritative_quickstep_after_collision(players: QuickstepTr
         info!(
             target: "quickstep_trace",
             ?entity,
-            skeleton_tick = skeleton.locomotion_sample_tick,
+            skeleton_tick = skeleton.locomotion_sample_tick.encoded(),
             push_start_tick = push.start_tick,
             elapsed_ticks = skeleton
                 .locomotion_sample_tick
+                .encoded()
                 .saturating_sub(push.start_tick),
             ?world_direction,
             translation = ?transform.translation,

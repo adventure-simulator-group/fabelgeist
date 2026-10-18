@@ -14,8 +14,8 @@ pub(super) fn sample_character_plan(
 }
 
 fn apply_offsets(
-    poses: &mut [LocalPose],
-    entities: &[Option<Entity>],
+    poses: &mut RigJointTable<LocalPose>,
+    entities: &RigJointTable<Option<Entity>>,
     offsets: &Query<&skeletal_proportions::SkeletalJointOffset>,
 ) {
     for (pose, entity) in poses.iter_mut().zip(entities) {
@@ -52,18 +52,39 @@ mod tests {
                 rotations: vec![Quat::IDENTITY, Quat::from_rotation_z(0.4)],
                 scales: vec![Vec3::ONE; 2],
                 animated: true,
-            }],
+            }]
+            .into(),
         };
         let offsets = state.get(&world).unwrap();
         for _ in 0..2 {
             let source = clip.sample(RigJointOrdinal::from(0usize), 0.5);
-            let mut first = vec![source];
-            let mut second = vec![source];
-            apply_offsets(&mut first, &[Some(narrow)], &offsets);
-            apply_offsets(&mut second, &[Some(wide)], &offsets);
-            assert!((second[0].translation.x - first[0].translation.x - 0.1).abs() < 1e-6);
-            assert_eq!(second[0].translation.yz(), source.translation.yz());
-            assert_eq!(second[0].rotation, source.rotation);
+            let mut first = RigJointTable::from(vec![source]);
+            let mut second = RigJointTable::from(vec![source]);
+            apply_offsets(
+                &mut first,
+                &RigJointTable::from(vec![Some(narrow)]),
+                &offsets,
+            );
+            apply_offsets(
+                &mut second,
+                &RigJointTable::from(vec![Some(wide)]),
+                &offsets,
+            );
+            assert!(
+                (second[RigJointOrdinal::from(0usize)].translation.x
+                    - first[RigJointOrdinal::from(0usize)].translation.x
+                    - 0.1)
+                    .abs()
+                    < 1e-6
+            );
+            assert_eq!(
+                second[RigJointOrdinal::from(0usize)].translation.yz(),
+                source.translation.yz()
+            );
+            assert_eq!(
+                second[RigJointOrdinal::from(0usize)].rotation,
+                source.rotation
+            );
             assert_eq!(source, clip.sample(RigJointOrdinal::from(0usize), 0.5));
         }
     }

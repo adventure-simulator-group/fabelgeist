@@ -9,7 +9,7 @@ use super::{
 };
 use adventuresim_tactical_core::prelude::*;
 use bevy::{math::Affine3A, prelude::*};
-use fabelgeist_rig::RigJointOrdinal;
+use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
 
 /// Read the ragdoll bodies back into the pose buffer: driven joints follow
 /// their body (converted to joint-local through the live parent chain),
@@ -21,8 +21,8 @@ pub(in crate::animation) fn drive_ragdoll_pose_buffers(
 ) {
     for (mut rig, ragdoll) in &mut rigs {
         let count = rig.joint_count();
-        let mut driven = vec![false; count];
-        for (joint, body) in ragdoll.joint_bodies.iter().enumerate() {
+        let mut driven = RigJointTable::from(vec![false; count]);
+        for (joint, body) in ragdoll.joint_bodies.indexed() {
             driven[joint] = body
                 .and_then(|body| ragdoll.bodies[body])
                 .is_some_and(|entity| chain.contains(entity));
@@ -30,23 +30,22 @@ pub(in crate::animation) fn drive_ragdoll_pose_buffers(
         // Undriven joints with a driven descendant must hold exactly `next`:
         // an interpolated or offset value there shears every physics bone
         // off its body.
-        let mut ancestor_of_driven = vec![false; count];
+        let mut ancestor_of_driven = RigJointTable::from(vec![false; count]);
         for &joint in ragdoll.joint_order.iter().rev() {
-            if (driven[usize::from(joint)] || ancestor_of_driven[usize::from(joint)])
+            if (driven[joint] || ancestor_of_driven[joint])
                 && let Some(parent) = rig.joint_parent(joint)
             {
-                ancestor_of_driven[usize::from(parent)] = true;
+                ancestor_of_driven[parent] = true;
             }
         }
-        let mut world = vec![Affine3A::IDENTITY; count];
+        let mut world = RigJointTable::from(vec![Affine3A::IDENTITY; count]);
         for &joint in &ragdoll.joint_order {
             let parent_affine = match rig.joint_parent(joint) {
-                Some(parent) => world[usize::from(parent)],
+                Some(parent) => world[parent],
                 None => joint_base_affine(&rig, joint, &chain),
             };
-            if driven[usize::from(joint)] {
-                let body =
-                    ragdoll.joint_bodies[usize::from(joint)].expect("driven joints map to a body");
+            if driven[joint] {
+                let body = ragdoll.joint_bodies[joint].expect("driven joints map to a body");
                 let entity = ragdoll.bodies[body].expect("driven joints have a body entity");
                 let body_affine = chain
                     .get(entity)
@@ -73,12 +72,12 @@ pub(in crate::animation) fn drive_ragdoll_pose_buffers(
                         scale,
                     },
                 );
-                world[usize::from(joint)] = bone_world;
+                world[joint] = bone_world;
             } else {
-                if ancestor_of_driven[usize::from(joint)] {
+                if ancestor_of_driven[joint] {
                     rig.hold_joint(joint);
                 }
-                world[usize::from(joint)] = parent_affine * rig.upcoming_pose(joint).affine();
+                world[joint] = parent_affine * rig.upcoming_pose(joint).affine();
             }
         }
     }

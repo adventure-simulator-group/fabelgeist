@@ -16,6 +16,33 @@ pub struct ItemCatalog {
     pub designs: CatalogDesigns,
 }
 
+/// A validated export selection. Input spelling is admitted against this catalog
+/// once; duplicate catalog records with the same identity remain selected.
+pub struct EquipmentItemSelection<'a> {
+    ids: Vec<&'a str>,
+}
+
+impl<'a> EquipmentItemSelection<'a> {
+    pub fn admit(catalog: &'a ItemCatalog, filters: &[String]) -> Result<Self> {
+        let mut ids = Vec::new();
+        for filter in filters {
+            let Some(item) = catalog.wearable().find(|item| item.id == *filter) else {
+                anyhow::bail!("unknown procedural equipment item {filter}");
+            };
+            ids.push(item.id.as_str());
+        }
+        Ok(Self { ids })
+    }
+
+    pub fn is_filtered(&self) -> bool {
+        !self.ids.is_empty()
+    }
+
+    pub fn includes(&self, item: &ItemDefinition) -> bool {
+        self.ids.is_empty() || self.ids.contains(&item.id.as_str())
+    }
+}
+
 impl ItemCatalog {
     pub fn new(items: Vec<ItemDefinition>, designs: CatalogDesigns) -> Result<Self> {
         validate_armor_recipes(&items)?;

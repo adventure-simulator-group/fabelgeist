@@ -686,7 +686,9 @@ fn apply_character_motor(
             .xz()
             .normalize_or_zero();
             let elapsed_ticks = skeleton
-                .map_or(push.start_tick, |skeleton| skeleton.locomotion_sample_tick)
+                .map_or(push.start_tick, |skeleton| {
+                    skeleton.locomotion_sample_tick.encoded()
+                })
                 .saturating_sub(push.start_tick);
             let action_duration = movement_config.maneuvers.quickstep_duration_seconds;
             let action_ticks = (action_duration * locomotion_sample_hz()).round().max(1.0) as u64;
@@ -783,7 +785,7 @@ fn apply_character_motor(
                 info!(
                     target: "quickstep_trace",
                     ?entity,
-                    skeleton_tick = skeleton.map_or(0, |skeleton| skeleton.locomotion_sample_tick),
+                    skeleton_tick = skeleton.map_or(0, |skeleton| skeleton.locomotion_sample_tick.encoded()),
                     push_start_tick = push.start_tick,
                     elapsed_ticks,
                     ?world_direction,
@@ -811,7 +813,7 @@ fn apply_character_motor(
                 warn!(
                     target: "quickstep_trace",
                     ?entity,
-                    skeleton_tick = skeleton.map_or(0, |skeleton| skeleton.locomotion_sample_tick),
+                    skeleton_tick = skeleton.map_or(0, |skeleton| skeleton.locomotion_sample_tick.encoded()),
                     action_direction = ?skeleton.map_or(Vec2::ZERO, SkeletonState::action_direction),
                     push_present = quickstep_push_present,
                     push_active = quickstep_push_active,

@@ -158,7 +158,7 @@ pub(super) struct RepeatedEvaluationSnapshot {
     scenario_frame: usize,
     bones: BTreeMap<String, BoneSample>,
     contact_sequence: u64,
-    landing_sequence: u64,
+    landing_sequence: adventuresim_tactical_core::animation::LandingSequence,
     event_count: usize,
     leg_ik: LegIkDiagnostics,
 }
@@ -361,8 +361,9 @@ pub(super) fn drive_sequence(
                     required_motion_for_scenario(frame.scenario),
                     Some("prone_crawl" | "supine_scamper")
                 )
-                && !required_motion_for_scenario(frame.scenario)
-                    .is_some_and(|motion| animation_runtime.motion_is_processed(motion));
+                && !required_motion_for_scenario(frame.scenario).is_some_and(|motion| {
+                    animation_runtime.motion_is_processed(&crate::animation::MotionId::from(motion))
+                });
             skeleton.set_downed_turning(
                 frame.scenario != "downed-prone-look-at"
                     && (preload_locomotion || (frame.scenario_frame >= 4 && frame.speed <= 0.05)),
@@ -575,7 +576,9 @@ pub(super) fn drive_sequence(
     if frame.scenario_frame == 0
         && let Some(motion) = required_motion_for_scenario(frame.scenario)
     {
-        if !animation_runtime.motion_is_processed(motion) || !presentation_settled {
+        if !animation_runtime.motion_is_processed(&crate::animation::MotionId::from(motion))
+            || !presentation_settled
+        {
             sequence.motion_ready_frames = 0;
             return;
         }
@@ -871,8 +874,8 @@ pub(super) fn capture_frame(
                 scenario_frame = frame.scenario_frame,
                 baseline_contact = baseline.contact_sequence,
                 contact = skeleton.contact_sequence,
-                baseline_landing = baseline.landing_sequence,
-                landing = skeleton.landing_sequence,
+                baseline_landing = baseline.landing_sequence.encoded(),
+                landing = skeleton.landing_sequence.encoded(),
                 baseline_events = baseline.event_count,
                 events = sequence.presentation_events.len(),
                 "repeated animation evaluation changed non-bone state"
@@ -913,7 +916,7 @@ pub(super) fn capture_frame(
             time_seconds: frame.time_seconds,
             speed_metres_per_second: frame.speed,
             gait_phase: skeleton.gait_phase,
-            locomotion_sample_tick: skeleton.locomotion_sample_tick,
+            locomotion_sample_tick: skeleton.locomotion_sample_tick.encoded(),
             body_acceleration: (subject_global.rotation().inverse() * skeleton.world_acceleration)
                 .to_array(),
             world_acceleration: skeleton.world_acceleration.to_array(),
@@ -934,12 +937,12 @@ pub(super) fn capture_frame(
             contact_foot: raised_footwork
                 .and_then(RaisedFootworkState::contact_foot)
                 .unwrap_or(skeleton.contact_foot),
-            landing_sequence: skeleton.landing_sequence,
-            landing_impact_speed: skeleton.landing_impact_speed,
+            landing_sequence: skeleton.landing_sequence.encoded(),
+            landing_impact_speed: skeleton.landing_impact_speed.metres_per_second(),
             body_lean_pitch_degrees: body_response
-                .map_or(0.0, |state| state.pitch_radians.to_degrees()),
+                .map_or(0.0, |state| state.pitch_radians.radians().to_degrees()),
             body_lean_roll_degrees: body_response
-                .map_or(0.0, |state| state.roll_radians.to_degrees()),
+                .map_or(0.0, |state| state.roll_radians.radians().to_degrees()),
             landing_compression_metres: height_state.map_or(0.0, |state| state.landing_compression),
             root_distance_metres,
             root_position_metres: subject_global.translation().to_array(),

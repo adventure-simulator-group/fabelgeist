@@ -196,7 +196,7 @@ impl DeviceWearer<'_> {
         for (i, joint) in landmarks.joints.iter().enumerate() {
             parameters.insert(format!("joint{i}"), joint.device_word()?);
         }
-        parameters.insert("side", landmarks.side);
+        parameters.insert("side", landmarks.side.device_sign());
         parameters.insert("pad0", 0.0f32);
         parameters.insert("positions", self.body.positions.clone());
         parameters.insert("joint_indices", self.body.joint_indices.clone());

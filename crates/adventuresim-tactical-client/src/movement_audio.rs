@@ -192,7 +192,10 @@ fn play_grounded_dive_impacts(
                 &asset_server,
                 "impactSoft_heavy_00",
                 StreamId::new("audio.grounded-dive")
-                    .seed((character_id.0).into(), &[skeleton.locomotion_sample_tick])
+                    .seed(
+                        (character_id.0).into(),
+                        &[skeleton.locomotion_sample_tick.encoded()],
+                    )
                     .to_u64(),
                 transform.translation(),
                 config.movement.body_impact_relative_volume,

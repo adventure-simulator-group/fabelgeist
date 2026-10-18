@@ -33,14 +33,15 @@ impl ForearmSide {
     }
 
     fn owns_forearm_joint(self, name: &RigJointName) -> RigJointMembership {
-        name.skin_family(self.lowarm())
+        crate::clothing::rig_selection::skin_family(name, self.lowarm())
     }
 
     pub(crate) fn supports_forearm_boundary(self, name: &RigJointName) -> RigJointMembership {
         RigJointMembership::from(
             self.owns_forearm_joint(name) == RigJointMembership::Included
                 || name == self.wrist()
-                || name.skin_family(self.upperarm()) == RigJointMembership::Included,
+                || crate::clothing::rig_selection::skin_family(name, self.upperarm())
+                    == RigJointMembership::Included,
         )
     }
 }

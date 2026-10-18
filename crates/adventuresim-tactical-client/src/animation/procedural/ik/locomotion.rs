@@ -4,7 +4,7 @@ use super::*;
 pub(in crate::animation) struct OrdinaryLocomotionIkState {
     initialized: bool,
     pelvis_shift: f32,
-    evaluation_tick: Option<u64>,
+    evaluation_tick: Option<super::super::clock::AnimationSampleTick>,
 }
 
 pub(in crate::animation::procedural) fn owns(skeleton: &SkeletonState) -> bool {
@@ -54,8 +54,15 @@ pub(in crate::animation) fn apply(
             .map(|state| *state)
             .unwrap_or_default();
         let delta_seconds = match clock.fixed_step() {
-            Some((tick, _)) if state.evaluation_tick == Some(tick) => 0.0,
-            Some((tick, delta)) => {
+            Some(super::super::clock::FixedAnimationStep { tick, .. })
+                if state.evaluation_tick == Some(tick) =>
+            {
+                0.0
+            }
+            Some(super::super::clock::FixedAnimationStep {
+                tick,
+                delta_seconds: delta,
+            }) => {
                 state.evaluation_tick = Some(tick);
                 delta.max(0.0)
             }

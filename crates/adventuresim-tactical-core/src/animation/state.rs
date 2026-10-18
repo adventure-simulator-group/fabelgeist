@@ -1495,13 +1495,13 @@ pub struct SkeletonState {
     pub local_velocity: Vec3,
     pub world_velocity: Vec3,
     pub gait_phase: f32,
-    pub locomotion_sample_tick: u64,
+    pub locomotion_sample_tick: AnimationSampleTick,
     pub world_acceleration: Vec3,
     pub contact_sequence: u64,
     pub contact_foot: LeadFoot,
     raised_footwork: GuardFootworkPlan,
-    pub landing_sequence: u64,
-    pub landing_impact_speed: f32,
+    pub landing_sequence: LandingSequence,
+    pub landing_impact_speed: LandingImpactSpeed,
     pub lead_foot: LeadFoot,
     guarded_sprint_locomotion: bool,
     stance: StanceState,
@@ -1510,7 +1510,7 @@ pub struct SkeletonState {
     posture_transition: Option<PostureTransitionState>,
     downed_facing: Option<DownedFacingState>,
     downed_turning: bool,
-    pub animation_pack: String,
+    pub animation_pack: AnimationPackId,
     pub attack_animations: AttackAnimations,
 }
 
@@ -1537,7 +1537,7 @@ struct SkeletonStateWire {
     posture_transition: Option<PostureTransitionState>,
     downed_facing: Option<DownedFacingState>,
     downed_turning: bool,
-    animation_pack: String,
+    animation_pack: AnimationPackId,
     attack_animations: AttackAnimations,
 }
 
@@ -1558,17 +1558,15 @@ impl<'de> Deserialize<'de> for SkeletonState {
             } else {
                 0.0
             },
-            locomotion_sample_tick: wire.locomotion_sample_tick,
+            locomotion_sample_tick: AnimationSampleTick::from(wire.locomotion_sample_tick),
             world_acceleration: finite(wire.world_acceleration),
             contact_sequence: wire.contact_sequence,
             contact_foot: wire.contact_foot,
             raised_footwork: wire.raised_footwork.normalized(),
-            landing_sequence: wire.landing_sequence,
-            landing_impact_speed: if wire.landing_impact_speed.is_finite() {
-                wire.landing_impact_speed.max(0.0)
-            } else {
-                0.0
-            },
+            landing_sequence: LandingSequence::from(wire.landing_sequence),
+            landing_impact_speed: LandingImpactSpeed::from_wire_metres_per_second(
+                wire.landing_impact_speed,
+            ),
             lead_foot: wire.lead_foot,
             guarded_sprint_locomotion: wire.guarded_sprint_locomotion,
             stance: wire.stance,
@@ -1597,13 +1595,13 @@ impl Default for SkeletonState {
             local_velocity: Vec3::ZERO,
             world_velocity: Vec3::ZERO,
             gait_phase: 0.0,
-            locomotion_sample_tick: 0,
+            locomotion_sample_tick: AnimationSampleTick::ZERO,
             world_acceleration: Vec3::ZERO,
             contact_sequence: 0,
             contact_foot: LeadFoot::Left,
             raised_footwork: GuardFootworkPlan::default(),
-            landing_sequence: 0,
-            landing_impact_speed: 0.0,
+            landing_sequence: LandingSequence::ZERO,
+            landing_impact_speed: LandingImpactSpeed::ZERO,
             lead_foot: LeadFoot::Left,
             guarded_sprint_locomotion: false,
             stance: StanceState::Lowered,
@@ -1612,7 +1610,7 @@ impl Default for SkeletonState {
             posture_transition: None,
             downed_facing: None,
             downed_turning: false,
-            animation_pack: "humanoid_unarmed".to_owned(),
+            animation_pack: AnimationPackId::HUMANOID_UNARMED,
             attack_animations: AttackAnimations::default(),
         }
     }
@@ -1678,7 +1676,7 @@ impl SkeletonState {
         self
     }
     pub fn with_locomotion_sample_tick(mut self, tick: u64) -> Self {
-        self.locomotion_sample_tick = tick;
+        self.locomotion_sample_tick = AnimationSampleTick::from(tick);
         self
     }
     pub fn with_lead_foot(mut self, lead: LeadFoot) -> Self {
@@ -2717,7 +2715,7 @@ pub fn project_skeleton_locomotion_with_body_rotation(
         body_local_velocity
     };
     let physical_speed = linear_velocity.xz().length();
-    let contiguous_sample = input.tick == skeleton.locomotion_sample_tick.wrapping_add(1);
+    let contiguous_sample = input.tick == skeleton.locomotion_sample_tick.next().encoded();
     skeleton.world_acceleration = if contiguous_sample {
         ((linear_velocity - previous_world_velocity) * locomotion_sample_hz())
             .clamp_length_max(80.0)
@@ -2726,7 +2724,7 @@ pub fn project_skeleton_locomotion_with_body_rotation(
     };
     skeleton.local_velocity = local_velocity;
     skeleton.world_velocity = linear_velocity;
-    skeleton.locomotion_sample_tick = input.tick;
+    skeleton.locomotion_sample_tick = AnimationSampleTick::from(input.tick);
     if skeleton.body == BodyState::Ragdolled {
         skeleton.set_raised_locomotion(RaisedLocomotionIntent::planted());
         skeleton.action = ActionState::default();
@@ -2734,8 +2732,9 @@ pub fn project_skeleton_locomotion_with_body_rotation(
     }
     let landed = !was_supported && input.grounded;
     if landed {
-        skeleton.landing_sequence = skeleton.landing_sequence.wrapping_add(1);
-        skeleton.landing_impact_speed = (-previous_world_velocity.y).max(0.0);
+        skeleton.landing_sequence = skeleton.landing_sequence.next();
+        skeleton.landing_impact_speed =
+            LandingImpactSpeed::from_metres_per_second((-previous_world_velocity.y).max(0.0));
     }
     skeleton.transition_body(if input.grounded {
         match skeleton.body {

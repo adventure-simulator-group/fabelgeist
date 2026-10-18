@@ -2,18 +2,102 @@
 
 use super::*;
 
-fn body_response_tuning() -> BodyResponseConfig {
-    runtime_animation_config().procedural.body_response
+impl LocomotionBodyResponseState {
+    fn advance_for_presentation(
+        mut self,
+        skeleton: &SkeletonState,
+        owner_transform: &Transform,
+        procedural_clock: &ProceduralAnimationClock,
+        time: &Time,
+    ) -> Self {
+        let tick = skeleton.locomotion_sample_tick;
+        let tick_delta = presentation_tick_delta(self.last_tick, tick);
+        let delta_seconds = match procedural_clock.fixed_step() {
+            Some(FixedAnimationStep {
+                tick: fixed_tick, ..
+            }) if self.last_tick == Some(fixed_tick) => 0.0,
+            Some(FixedAnimationStep { delta_seconds, .. }) => delta_seconds,
+            None => time
+                .delta_secs()
+                .clamp(0.0, body_response_tuning().maximum_frame_seconds),
+        };
+        let inverse_body_rotation = owner_transform.rotation.inverse();
+        let body_velocity = inverse_body_rotation * skeleton.world_velocity;
+        let body_acceleration = inverse_body_rotation * skeleton.world_acceleration;
+        let discontinuous = tick_delta.is_none();
+        let source_changed = matches!(tick_delta, Some(1..));
+        if skeleton.is_posture_transitioning()
+            || skeleton.action_kind() != SkeletonAction::None
+            || !skeleton.is_grounded()
+            || skeleton.weapon_guard() == WeaponGuardState::Raised
+            || discontinuous
+        {
+            self.pitch_radians = BodyAngle::ZERO;
+            self.roll_radians = BodyAngle::ZERO;
+            self.angular_velocity_radians_per_second = BodyAngularVelocity::ZERO;
+            self.target_pitch_radians = BodyAngle::ZERO;
+            self.target_roll_radians = BodyAngle::ZERO;
+            self.smoothed_body_acceleration = BodyLocalAcceleration::ZERO;
+        } else {
+            // Authoritative acceleration is a discrete finite difference and
+            // remains unchanged between replicated samples. Filter that held
+            // value in render time so packet delivery cannot create an
+            // inertial impulse. Releasing the impulse more slowly also avoids
+            // a second head snap when the motor reaches its target speed.
+            self.smoothed_body_acceleration =
+                BodyLocalAcceleration::from_metres_per_second_squared(smooth_acceleration(
+                    self.smoothed_body_acceleration.metres_per_second_squared(),
+                    body_acceleration,
+                    delta_seconds,
+                ));
+            let braking_scale = deceleration_lean_scale(
+                self.last_body_velocity.metres_per_second(),
+                body_velocity,
+                self.smoothed_body_acceleration.metres_per_second_squared(),
+            );
+            let combined = body_response_target(
+                body_velocity,
+                self.smoothed_body_acceleration.metres_per_second_squared(),
+                braking_scale,
+            );
+            self.target_pitch_radians = BodyAngle::from_radians(combined.x);
+            self.target_roll_radians = BodyAngle::from_radians(combined.y);
+            let current = Vec2::new(self.pitch_radians.radians(), self.roll_radians.radians());
+            let target = Vec2::new(
+                self.target_pitch_radians.radians(),
+                self.target_roll_radians.radians(),
+            );
+            let (advanced, angular_velocity) = advance_body_response(
+                current,
+                self.angular_velocity_radians_per_second
+                    .radians_per_second(),
+                target,
+                delta_seconds,
+            );
+            self.pitch_radians = BodyAngle::from_radians(advanced.x);
+            self.roll_radians = BodyAngle::from_radians(advanced.y);
+            self.angular_velocity_radians_per_second =
+                BodyAngularVelocity::from_radians_per_second(angular_velocity);
+        }
+        if self.last_tick.is_none() || discontinuous || source_changed {
+            self.last_body_velocity = BodyLocalVelocity::from_metres_per_second(body_velocity);
+        }
+        self.last_tick = Some(tick);
+        self.last_posture = Some(skeleton.posture());
+        self.last_action = Some(skeleton.action_kind());
+        self.last_ground_contact = Some(GroundContact::from(skeleton));
+        self
+    }
 }
 
 pub(in crate::animation::procedural) fn presentation_tick_delta(
-    previous: Option<u64>,
-    current: u64,
+    previous: Option<AnimationSampleTick>,
+    current: AnimationSampleTick,
 ) -> Option<u64> {
     match previous {
         None => Some(0),
         Some(previous) => {
-            let delta = current.wrapping_sub(previous);
+            let delta = current.wrapping_delta(previous);
             (delta <= body_response_tuning().maximum_presentation_sample_gap_ticks).then_some(delta)
         }
     }
@@ -42,78 +126,13 @@ pub(in crate::animation) fn apply_locomotion_body_response(
     >,
 ) {
     let _spike = crate::animation::diagnostics::SpikeGuard::new("apply_locomotion_body_response");
-    let render_delta_seconds = time
-        .delta_secs()
-        .clamp(0.0, body_response_tuning().maximum_frame_seconds);
     let mut responses = BTreeMap::new();
     for (owner, skeleton, owner_transform, state) in &mut owners {
-        let mut next = state.as_deref().copied().unwrap_or_default();
-        let tick = skeleton.locomotion_sample_tick;
-        let tick_delta = presentation_tick_delta(next.last_tick, tick);
-        let delta_seconds = match procedural_clock.fixed_step() {
-            Some((fixed_tick, _)) if next.last_tick == Some(fixed_tick) => 0.0,
-            Some((_, fixed_delta_seconds)) => fixed_delta_seconds,
-            None => render_delta_seconds,
-        };
-        let inverse_body_rotation = owner_transform.rotation.inverse();
-        let body_velocity = inverse_body_rotation * skeleton.world_velocity;
-        let body_acceleration = inverse_body_rotation * skeleton.world_acceleration;
-        let discontinuous = tick_delta.is_none();
-        let source_changed = matches!(tick_delta, Some(1..));
-        if skeleton.is_posture_transitioning()
-            || skeleton.action_kind() != SkeletonAction::None
-            || !skeleton.is_grounded()
-            || skeleton.weapon_guard() == WeaponGuardState::Raised
-            || discontinuous
-        {
-            next.pitch_radians = 0.0;
-            next.roll_radians = 0.0;
-            next.angular_velocity_radians_per_second = Vec2::ZERO;
-            next.target_pitch_radians = 0.0;
-            next.target_roll_radians = 0.0;
-            next.smoothed_body_acceleration = Vec3::ZERO;
-        } else {
-            // Authoritative acceleration is a discrete finite difference and
-            // remains unchanged between replicated samples. Filter that held
-            // value in render time so packet delivery cannot create an
-            // inertial impulse. Releasing the impulse more slowly also avoids
-            // a second head snap when the motor reaches its target speed.
-            next.smoothed_body_acceleration = smooth_acceleration(
-                next.smoothed_body_acceleration,
-                body_acceleration,
-                delta_seconds,
-            );
-            let braking_scale = deceleration_lean_scale(
-                next.last_body_velocity,
-                body_velocity,
-                next.smoothed_body_acceleration,
-            );
-            let combined = body_response_target(
-                body_velocity,
-                next.smoothed_body_acceleration,
-                braking_scale,
-            );
-            next.target_pitch_radians = combined.x;
-            next.target_roll_radians = combined.y;
-            let current = Vec2::new(next.pitch_radians, next.roll_radians);
-            let target = Vec2::new(next.target_pitch_radians, next.target_roll_radians);
-            let (advanced, angular_velocity) = advance_body_response(
-                current,
-                next.angular_velocity_radians_per_second,
-                target,
-                delta_seconds,
-            );
-            next.pitch_radians = advanced.x;
-            next.roll_radians = advanced.y;
-            next.angular_velocity_radians_per_second = angular_velocity;
-        }
-        if next.last_tick.is_none() || discontinuous || source_changed {
-            next.last_body_velocity = body_velocity;
-        }
-        next.last_tick = Some(tick);
-        next.last_posture = Some(skeleton.posture());
-        next.last_action = Some(skeleton.action_kind());
-        next.last_grounded = Some(skeleton.is_grounded());
+        let next = state
+            .as_deref()
+            .copied()
+            .unwrap_or_default()
+            .advance_for_presentation(skeleton, owner_transform, &procedural_clock, &time);
         responses.insert(owner, next);
         if let Some(mut state) = state {
             *state = next;
@@ -131,9 +150,9 @@ pub(in crate::animation) fn apply_locomotion_body_response(
         }
         let response_rotation = Quat::from_euler(
             EulerRot::XYZ,
-            response.pitch_radians,
+            response.pitch_radians.radians(),
             0.0,
-            response.roll_radians,
+            response.roll_radians.radians(),
         );
         let (pelvis_rotation, leg_compensation) =
             stable_pelvis_response(transform.rotation, bind.local.rotation, response_rotation);
@@ -155,6 +174,10 @@ pub(in crate::animation) fn apply_locomotion_body_response(
         // targets are unchanged by torso lean.
         transform.rotation = compensation * transform.rotation;
     }
+}
+
+fn body_response_tuning() -> BodyResponseConfig {
+    runtime_animation_config().procedural.body_response
 }
 
 fn smooth_acceleration(current: Vec3, target: Vec3, delta_seconds: f32) -> Vec3 {

@@ -1,18 +1,22 @@
 //! The qualified and namespace-stripped names admitted from FBX object bytes.
 
-use std::fmt;
+use derive_more::{Debug, Display};
 
 use fabelgeist_rig::RigJointName;
 
 /// Object spelling without its FBX class suffix or namespace prefix.
 /// Empty, unfamiliar and lossy UTF-8 spellings remain valid.
-#[derive(Clone, Default, PartialEq, Eq, Hash)]
+#[derive(Clone, Default, PartialEq, Eq, Hash, Debug, Display)]
+#[debug("{_0:?}")]
+#[display("{}", format_args!("{_0}"))]
 pub struct FbxObjectName(String);
 
 /// Object spelling without its FBX class suffix, retaining every namespace.
 /// Construction from source bytes removes the first NUL-one separator and
 /// everything after it before decoding with replacement for invalid UTF-8.
-#[derive(Clone, Default, PartialEq, Eq, Hash)]
+#[derive(Clone, Default, PartialEq, Eq, Hash, Debug, Display)]
+#[debug("{_0:?}")]
+#[display("{}", format_args!("{_0}"))]
 pub struct FbxQualifiedName(String);
 
 impl From<&[u8]> for FbxQualifiedName {
@@ -38,29 +42,5 @@ impl From<&FbxQualifiedName> for FbxObjectName {
 impl From<&FbxObjectName> for RigJointName {
     fn from(name: &FbxObjectName) -> Self {
         Self::from(name.0.clone())
-    }
-}
-
-impl fmt::Display for FbxObjectName {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        formatter.write_str(&self.0)
-    }
-}
-
-impl fmt::Debug for FbxObjectName {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Debug::fmt(&self.0, formatter)
-    }
-}
-
-impl fmt::Display for FbxQualifiedName {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        formatter.write_str(&self.0)
-    }
-}
-
-impl fmt::Debug for FbxQualifiedName {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt::Debug::fmt(&self.0, formatter)
     }
 }

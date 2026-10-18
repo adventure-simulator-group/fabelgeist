@@ -29,6 +29,7 @@ pub struct LocomotionProfile {
 
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, Reflect)]
 pub struct LandingProfile {
+    pub minimum_impact_speed_metres_per_second: f32,
     pub compression_per_metre_per_second: f32,
     pub minimum_compression_metres: f32,
     pub maximum_compression_metres: f32,
@@ -40,6 +41,7 @@ fn landing_profile() -> LandingProfile {
         .locomotion
         .landing;
     LandingProfile {
+        minimum_impact_speed_metres_per_second: config.minimum_impact_speed_metres_per_second,
         compression_per_metre_per_second: config.compression_per_metre_per_second,
         minimum_compression_metres: config.minimum_compression_metres,
         maximum_compression_metres: config.maximum_compression_metres,

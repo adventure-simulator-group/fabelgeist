@@ -504,7 +504,7 @@ ceiling = 790
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-ceiling = 1168
+ceiling = 950
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
@@ -548,7 +548,7 @@ ceiling = 711
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
-ceiling = 1267
+ceiling = 1100
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/player.rs"
@@ -600,7 +600,7 @@ ceiling = 518
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/animation/state.rs"
-ceiling = 2661
+ceiling = 2660
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/combat_config.rs"
@@ -2200,16 +2200,6 @@ item = "collect_loaded_packs"
 ceiling = 148
 
 [[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-item = "PoseSampleResolver<'_>::append_layer"
-ceiling = 236
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-item = "evaluate_skeletons"
-ceiling = 152
-
-[[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
 item = "conform_upcoming_pose_to_terrain"
 ceiling = 175
@@ -2243,11 +2233,6 @@ ceiling = 157
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
 item = "apply_pose_mirroring"
 ceiling = 114
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs"
-item = "apply_locomotion_body_response"
-ceiling = 122
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/hands.rs"
@@ -2323,11 +2308,6 @@ ceiling = 267
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
 item = "draw_slot_hud"
 ceiling = 289
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "hud_layers"
-ceiling = 104
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/main.rs"
@@ -8640,41 +8620,6 @@ path = "crates/adventuresim-tactical-client/src/animation/jitter.rs"
 item = "thresholds_for_scenario"
 fingerprint = "string:tap-stop"
 occurrences = 3
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-item = "AuthoredLocomotionStrides::clear_motion"
-fingerprint = "string:run"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-item = "AuthoredLocomotionStrides::clear_motion"
-fingerprint = "string:skip"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-item = "AuthoredLocomotionStrides::clear_motion"
-fingerprint = "string:strafe"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-item = "AuthoredLocomotionStrides::clear_motion"
-fingerprint = "string:walk"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
-item = "authored_height_compensation"
-fingerprint = "string:humanoid_unarmed"
-occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"

@@ -7,7 +7,7 @@ license = "GPL-3.0"
 
 [dependencies]
 anyhow = "1"
-derive_more = { version = "2.1.1", default-features = false, features = ["display", "error", "from"] }
+derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "error", "from"] }
 fabelgeist-rig = { path = "../fabelgeist-rig" }
 # Pure-Rust inflate (miniz_oxide) for deflated FBX array properties; no C
 # toolchain is pulled in.

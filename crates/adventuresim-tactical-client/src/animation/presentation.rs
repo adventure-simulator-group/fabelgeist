@@ -28,8 +28,8 @@ pub(super) fn maximum_authored_stance_slip_metres() -> f32 {
 #[derive(Component, Debug, Clone)]
 pub(crate) struct PresentedSkeleton {
     pub(crate) state: SkeletonState,
-    source_tick: u64,
-    presentation_tick: Option<u64>,
+    source_tick: AnimationSampleTick,
+    presentation_tick: Option<AnimationSampleTick>,
     pub(crate) phase_error_remaining: f32,
     pub(crate) last_phase_prediction_delta: f32,
     pub(crate) last_phase_correction_delta: f32,
@@ -75,7 +75,10 @@ impl PresentedAttackPhase {
 }
 
 impl PresentedSkeleton {
-    pub(super) fn new(state: SkeletonState, presentation_tick: Option<u64>) -> Self {
+    pub(super) fn new(
+        state: SkeletonState,
+        presentation_tick: Option<AnimationSampleTick>,
+    ) -> Self {
         let source_tick = state.locomotion_sample_tick;
         Self {
             state,
@@ -167,7 +170,7 @@ fn advance_presented_skeleton_with_strides(
     presented.last_phase_source_changed = source_changed;
     let source_gap = authoritative
         .locomotion_sample_tick
-        .checked_sub(presented.source_tick);
+        .checked_delta(presented.source_tick);
     let previous = presented.state.clone();
     let mut next = authoritative.clone();
 
@@ -411,14 +414,15 @@ pub(super) fn update_presented_skeletons(
         let Some(mut presented) = presented else {
             commands.entity(entity).insert(PresentedSkeleton::new(
                 authoritative.clone(),
-                procedural_clock.fixed_step().map(|(tick, _)| tick),
+                procedural_clock.fixed_step().map(|step| step.tick),
             ));
             continue;
         };
-        let delta_seconds = if let Some((tick, fixed_delta)) = procedural_clock.fixed_step() {
+        let delta_seconds = if let Some(step) = procedural_clock.fixed_step() {
+            let tick = step.tick;
             let advances = presented.presentation_tick != Some(tick);
             presented.presentation_tick = Some(tick);
-            if advances { fixed_delta } else { 0.0 }
+            if advances { step.delta_seconds } else { 0.0 }
         } else {
             time.delta_secs()
         };
@@ -445,7 +449,7 @@ pub(crate) struct LocomotionPresentationEvent {
     pub sequence: u64,
     /// Authoritative sample tick when this sequence state was observed. For a
     /// coalesced gap this is not a reconstructed historical contact time.
-    pub sample_tick: u64,
+    pub sample_tick: AnimationSampleTick,
     pub kind: LocomotionPresentationEventKind,
 }
 
@@ -493,7 +497,7 @@ pub(super) fn coalesced_contacts(
 struct LocomotionEventCursor {
     initialized: bool,
     contact_sequence: u64,
-    landing_sequence: u64,
+    landing_sequence: LandingSequence,
 }
 
 pub(super) fn trace_locomotion_presentation_events(
@@ -503,7 +507,7 @@ pub(super) fn trace_locomotion_presentation_events(
         trace!(
             owner = ?message.owner,
             sequence = message.sequence,
-            sample_tick = message.sample_tick,
+            sample_tick = message.sample_tick.encoded(),
             kind = ?message.kind,
             "locomotion presentation event"
         );
@@ -536,9 +540,10 @@ fn emit_locomotion_presentation_events(
                     });
                 }
             }
-            if let Some(sequence) =
-                latest_coalesced_landing(next.landing_sequence, skeleton.landing_sequence)
-            {
+            if let Some(sequence) = latest_coalesced_landing(
+                next.landing_sequence.encoded(),
+                skeleton.landing_sequence.encoded(),
+            ) {
                 messages.write(LocomotionPresentationEvent {
                     owner,
                     sequence,
@@ -573,17 +578,21 @@ mod authored_cadence_tests {
             ..default()
         };
         strides.phase_curves.insert(
-            "walk".to_owned(),
+            super::MotionId::from_static("walk"),
             AuthoredPhaseCurve {
                 authored_phases: vec![0.25, 1.25],
             },
         );
 
-        strides.clear_motion("walk");
+        strides.clear_motion(&super::MotionId::from_static("walk"));
 
         assert!(strides.walk.is_none());
         assert!(strides.run.is_some());
-        assert!(!strides.phase_curves.contains_key("walk"));
+        assert!(
+            !strides
+                .phase_curves
+                .contains_key(&super::MotionId::from_static("walk"))
+        );
     }
 
     #[test]
@@ -734,7 +743,7 @@ mod authored_cadence_tests {
         );
         let predicted = presented.action_phase();
 
-        authoritative.locomotion_sample_tick += 1;
+        authoritative.locomotion_sample_tick = authoritative.locomotion_sample_tick.next();
         authoritative.advance_action(13);
         advance_presented_skeleton_with_strides(
             &mut presented,

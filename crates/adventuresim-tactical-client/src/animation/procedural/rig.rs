@@ -29,7 +29,7 @@ pub(crate) struct MhrBone {
 
 /// Cached rig topology. It changes only while an asynchronously loaded scene
 /// is binding; procedural passes read it without rebuilding owner/role maps.
-#[derive(Component, Debug, Clone)]
+#[derive(Component, Debug, Clone, Default)]
 pub(crate) struct HumanoidRig {
     bones: [Option<Entity>; BoneRole::COUNT],
     rig_scene: Option<Entity>,
@@ -77,13 +77,14 @@ impl MhrMirrorTopology {
         let centers = names
             .iter()
             .filter_map(|(name, &entity)| {
-                (name.mhr_center_membership() == RigJointMembership::Included).then_some(entity)
+                (fabelgeist_rig::mhr::center_membership(name) == RigJointMembership::Included)
+                    .then_some(entity)
             })
             .collect();
         let pairs = names
             .iter()
             .filter_map(|(name, &left)| {
-                let right_name = name.mhr_right_partner()?;
+                let right_name = fabelgeist_rig::mhr::right_partner(name)?;
                 Some(MirroredJointPair {
                     left,
                     right: *names.get(&right_name)?,
@@ -91,17 +92,6 @@ impl MhrMirrorTopology {
             })
             .collect();
         Self { centers, pairs }
-    }
-}
-
-impl Default for HumanoidRig {
-    fn default() -> Self {
-        Self {
-            bones: [None; BoneRole::COUNT],
-            rig_scene: None,
-            sole_axes: [None; 2],
-            mirror: MhrMirrorTopology::default(),
-        }
     }
 }
 
@@ -211,7 +201,7 @@ pub(crate) fn bind_humanoid_bones(
     roots: Query<&AnimationRigScene>,
 ) {
     for (entity, identity) in &bones {
-        if identity.name.mhr_membership() == RigJointMembership::Excluded {
+        if fabelgeist_rig::mhr::membership(&identity.name) == RigJointMembership::Excluded {
             continue;
         }
         let mut current = entity;

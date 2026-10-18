@@ -28,7 +28,7 @@ use bevy::{math::Affine3A, prelude::*};
 pub(super) use drive::{
     apply_ragdoll_poses, drive_ragdoll_pose_buffers, resolve_ragdoll_terrain_contacts,
 };
-use fabelgeist_rig::RigJointOrdinal;
+use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
 pub(super) use muscles::{apply_muscles, damp_joints};
 
 mod definition;
@@ -38,6 +38,9 @@ mod muscles;
 
 /// The client-only collision island every ragdoll body lives on.
 pub(super) const RAGDOLL_LAYER: u32 = 1 << 7;
+
+/// Stop malformed/cyclic authored parent chains before unbounded traversal.
+const MAXIMUM_BIND_PARENT_DEPTH: usize = 64;
 
 /// On a rig owner while its skeleton is a physics ragdoll.
 #[derive(Component)]
@@ -49,7 +52,7 @@ pub(crate) struct Ragdolling {
     /// Body entities aligned with the definition's bodies.
     bodies: Vec<Option<Entity>>,
     /// Pose-buffer joint index to definition body index.
-    joint_bodies: Vec<Option<usize>>,
+    joint_bodies: RigJointTable<Option<usize>>,
     /// Pose-buffer joints ordered parent before child.
     joint_order: Vec<RigJointOrdinal>,
     muscles: Vec<MuscleTarget>,
@@ -158,7 +161,7 @@ fn proportioned_bind_global(
 ) -> Option<Transform> {
     let mut current = entity;
     let mut locals = Vec::new();
-    for _ in 0..64 {
+    for _ in 0..MAXIMUM_BIND_PARENT_DEPTH {
         let Ok((bind, offset, parent)) = bind_nodes.get(current) else {
             break;
         };
@@ -216,7 +219,7 @@ fn enter_ragdoll(
             rig.joint_role(joint)
                 .and_then(|role| definition.body_of(role))
         })
-        .collect::<Vec<_>>();
+        .collect::<RigJointTable<_>>();
     let joint_order = topological_joint_order(rig);
     let owner_world = live_world_affine(owner, chain);
     let scale = owner_world.to_scale_rotation_translation().0.x;
@@ -239,7 +242,7 @@ fn enter_ragdoll(
     let spawned = spawn_ragdoll(commands, owner, &definition, &seeds, scale, config);
     let pelvis_owner_local = owner_world.inverse()
         * Affine3A::from_rotation_translation(pelvis.rotation, pelvis.position);
-    rig.set_physics_owned(true);
+    rig.set_ownership(crate::animation::PoseOwnership::Physics);
     commands.entity(owner).insert(Ragdolling {
         definition,
         parts: spawned.parts,
@@ -265,7 +268,7 @@ fn exit_ragdoll(
         commands.entity(*part).despawn();
     }
     commands.entity(owner).remove::<Ragdolling>();
-    rig.set_physics_owned(false);
+    rig.set_ownership(crate::animation::PoseOwnership::Authored);
 }
 
 #[cfg(test)]

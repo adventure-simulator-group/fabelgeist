@@ -18,7 +18,7 @@ pub(super) fn request_animation_packs(
     #[cfg(target_family = "wasm")] mode: Res<crate::browser_runtime::BrowserMode>,
 ) {
     if runtime.requested_base.is_none() {
-        runtime.requested_base = Some(asset_server.load(animation_asset_path(BIPED_BASE_GLB)));
+        runtime.requested_base = Some(asset_server.load(animation_asset_path(&BIPED_BASE_GLB)));
     }
     for grip in WeaponGrip::ALL {
         runtime
@@ -42,7 +42,7 @@ pub(super) fn request_animation_packs(
             }
             runtime
                 .requested_motions
-                .entry((pack_id.clone(), motion_id.clone()))
+                .entry(MotionKey::new(pack_id, motion_id))
                 .or_insert_with(|| asset_server.load(animation_asset_path(&source.path)));
         }
     }
@@ -62,23 +62,23 @@ pub(super) fn collect_loaded_packs(
     mut runtime: ResMut<AnimationRuntime>,
 ) {
     let mut changed = false;
-    if !runtime.base_processed && !runtime.base_failed {
+    if runtime.base_load == BaseRigLoad::Pending {
         let Some(handle) = runtime.requested_base.as_ref() else {
             return;
         };
         if matches!(asset_server.load_state(handle.id()), LoadState::Failed(_)) {
-            runtime.base_failed = true;
-            warn!(path = BIPED_BASE_GLB, "Authored base rig is unavailable");
+            runtime.base_load = BaseRigLoad::Failed;
+            warn!(path = %BIPED_BASE_GLB, "Authored base rig is unavailable");
         } else if let Some(gltf) = gltfs.get(handle) {
             runtime.base_scene = gltf
                 .default_scene
                 .clone()
                 .or_else(|| gltf.scenes.first().cloned());
             if runtime.base_scene.is_none() {
-                runtime.base_failed = true;
-                warn!(path = BIPED_BASE_GLB, "Authored base rig has no scene");
+                runtime.base_load = BaseRigLoad::Failed;
+                warn!(path = %BIPED_BASE_GLB, "Authored base rig has no scene");
             } else {
-                runtime.base_processed = true;
+                runtime.base_load = BaseRigLoad::Ready;
             }
         }
     }
@@ -102,8 +102,8 @@ pub(super) fn collect_loaded_packs(
         };
         let Some(clip_handle) = sole_animation(&gltf.animations) else {
             warn!(
-                pack = key.0,
-                motion = key.1,
+                pack = %key.pack,
+                motion = %key.motion,
                 count = gltf.animations.len(),
                 "Motion must contain exactly one animation"
             );
@@ -119,8 +119,8 @@ pub(super) fn collect_loaded_packs(
         }
         if !clip_targets_match_base(clip, &runtime.canonical_targets) {
             warn!(
-                pack = key.0,
-                motion = key.1,
+                pack = %key.pack,
+                motion = %key.motion,
                 "Motion targets are incompatible with the base rig"
             );
             runtime.unavailable_motions.insert(key.clone());
@@ -129,8 +129,8 @@ pub(super) fn collect_loaded_packs(
         }
         let Some(source) = catalog
             .packs
-            .get(&key.0)
-            .and_then(|pack| pack.motions.get(&key.1))
+            .get(&key.pack)
+            .and_then(|pack| pack.motions.get(&key.motion))
         else {
             runtime.unavailable_motions.insert(key.clone());
             changed = true;
@@ -138,8 +138,8 @@ pub(super) fn collect_loaded_packs(
         };
         if !frame_fits_clip(source.required_last_frame, clip.duration()) {
             warn!(
-                pack = key.0,
-                motion = key.1,
+                pack = %key.pack,
+                motion = %key.motion,
                 last_frame = source.required_last_frame,
                 duration = clip.duration(),
                 "Motion is shorter than its catalog frames"
@@ -165,7 +165,7 @@ pub(super) fn collect_loaded_packs(
             .poses
             .iter()
             .filter(|(_, anchor)| {
-                let key = (pack_id.clone(), anchor.motion.clone());
+                let key = MotionKey::new(pack_id, &anchor.motion);
                 runtime.processed_motions.contains(&key)
                     && runtime
                         .clip_handles
@@ -181,7 +181,7 @@ pub(super) fn collect_loaded_packs(
             fallback: pack.fallback.clone(),
             clips: available,
         }) {
-            error!(?error, pack = pack_id, "Rejected animation pack");
+            error!(?error, pack = %pack_id, "Rejected animation pack");
         }
     }
     runtime.clips = runtime
@@ -196,7 +196,7 @@ pub(super) fn collect_loaded_packs(
                 key,
                 LoadedClip {
                     handle,
-                    duration_seconds,
+                    duration_seconds: ClipDuration::from_seconds(duration_seconds),
                     layer: ClipLayer::Whole,
                 },
             )
@@ -356,7 +356,7 @@ fn collect_loaded_grips(
         }
         if matches!(asset_server.load_state(handle.id()), LoadState::Failed(_)) {
             runtime.unavailable_grips.insert(grip);
-            warn!(path = grip.path(), "Authored weapon grip is unavailable");
+            warn!(path = %grip.path(), "Authored weapon grip is unavailable");
             continue;
         }
         let Some(gltf) = gltfs.get(&handle) else {
@@ -364,7 +364,7 @@ fn collect_loaded_grips(
         };
         let Some(clip_handle) = sole_animation(&gltf.animations) else {
             warn!(
-                path = grip.path(),
+                path = %grip.path(),
                 count = gltf.animations.len(),
                 "Weapon grip must contain exactly one animation"
             );
@@ -379,7 +379,7 @@ fn collect_loaded_grips(
         }
         if !clip_targets_match_base(clip, &runtime.canonical_targets) {
             warn!(
-                path = grip.path(),
+                path = %grip.path(),
                 "Weapon grip targets are incompatible with the base rig"
             );
             runtime.unavailable_grips.insert(grip);
@@ -389,7 +389,7 @@ fn collect_loaded_grips(
             grip,
             LoadedClip {
                 handle: clip_handle.clone(),
-                duration_seconds: clip.duration(),
+                duration_seconds: ClipDuration::from_seconds(clip.duration()),
                 layer: ClipLayer::MainHand,
             },
         );
@@ -397,13 +397,13 @@ fn collect_loaded_grips(
     }
 }
 
-fn animation_asset_path(path: &str) -> String {
+fn animation_asset_path(path: &AnimationAssetPath) -> String {
     #[cfg(not(target_family = "wasm"))]
     {
         format!("workspace://{path}")
     }
     #[cfg(target_family = "wasm")]
     {
-        path.to_owned()
+        path.relative().to_owned()
     }
 }

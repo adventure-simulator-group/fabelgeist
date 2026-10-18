@@ -19,7 +19,7 @@ use anyhow::{Context, Result, anyhow, bail};
 use array_encoding::FbxArrayEncoding;
 use flate2::read::ZlibDecoder;
 
-pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
+pub use animation::{Curve, FbxAnimationDuration, NodeAnimation, Take, TransformChannel};
 pub use array_encoding::UnsupportedFbxArrayEncoding;
 pub use object_name::{FbxObjectName, FbxQualifiedName};
 

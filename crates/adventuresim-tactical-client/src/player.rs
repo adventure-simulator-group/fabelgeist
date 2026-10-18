@@ -547,7 +547,7 @@ fn trace_local_quickstep_state(
                 ?entity,
                 dodge_action,
                 action_direction = ?skeleton.action_direction(),
-                skeleton_tick = skeleton.locomotion_sample_tick,
+                skeleton_tick = skeleton.locomotion_sample_tick.encoded(),
                 push_active = push.active,
                 push_start_tick = push.start_tick,
                 push_direction = ?push.direction,
@@ -562,7 +562,7 @@ fn trace_local_quickstep_state(
                 ?entity,
                 dodge_action,
                 action_direction = ?skeleton.action_direction(),
-                skeleton_tick = skeleton.locomotion_sample_tick,
+                skeleton_tick = skeleton.locomotion_sample_tick.encoded(),
                 push_active = push.active,
                 push_start_tick = push.start_tick,
                 push_direction = ?push.direction,
@@ -1153,7 +1153,8 @@ fn melee_contact_delay_from_input(
     ordinary_contact_seconds: f32,
 ) -> f32 {
     if continuation {
-        contact_tick.saturating_sub(skeleton.locomotion_sample_tick) as f32 / locomotion_sample_hz()
+        contact_tick.saturating_sub(skeleton.locomotion_sample_tick.encoded()) as f32
+            / locomotion_sample_hz()
     } else {
         ordinary_contact_seconds
     }

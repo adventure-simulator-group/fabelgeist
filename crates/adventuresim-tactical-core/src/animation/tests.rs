@@ -15,9 +15,9 @@ mod legacy_tests {
         clips: impl IntoIterator<Item = SemanticPose>,
     ) -> AnimationPack {
         AnimationPack {
-            id: id.to_owned(),
+            id: AnimationPackId::from(id),
             skeleton_family: "humanoid".to_owned(),
-            fallback: fallback.map(str::to_owned),
+            fallback: fallback.map(AnimationPackId::from),
             clips: clips.into_iter().collect(),
         }
     }
@@ -33,18 +33,18 @@ mod legacy_tests {
             .unwrap();
 
         assert_eq!(
-            library.resolve("rapier", SemanticPose::RunContact),
+            library.resolve(&AnimationPackId::from("rapier"), SemanticPose::RunContact),
             ResolvedPose::Clip {
-                pack_id: "unarmed",
+                pack_id: &AnimationPackId::from("unarmed"),
                 semantic: SemanticPose::WalkContact,
                 pose: SemanticPose::WalkContact,
                 mirrored: false,
             }
         );
         assert_eq!(
-            library.resolve("rapier", SemanticPose::RunFlight),
+            library.resolve(&AnimationPackId::from("rapier"), SemanticPose::RunFlight),
             ResolvedPose::Clip {
-                pack_id: "rapier",
+                pack_id: &AnimationPackId::from("rapier"),
                 semantic: SemanticPose::RunFlight,
                 pose: SemanticPose::RunFlight,
                 mirrored: false,
@@ -119,7 +119,7 @@ mod legacy_tests {
             .unwrap();
 
         assert_eq!(
-            library.attack_animations("sword"),
+            library.attack_animations(&AnimationPackId::from("sword")),
             AttackAnimations {
                 swing: true,
                 swing_continuation: false,
@@ -130,7 +130,7 @@ mod legacy_tests {
             }
         );
         assert_eq!(
-            library.attack_animations("shield"),
+            library.attack_animations(&AnimationPackId::from("shield")),
             AttackAnimations {
                 swing: true,
                 swing_continuation: true,
@@ -147,11 +147,14 @@ mod legacy_tests {
         let mut library = AnimationPackLibrary::default();
         library.insert(pack("empty", None, [])).unwrap();
         assert_eq!(
-            library.resolve("empty", SemanticPose::AirborneTravel),
+            library.resolve(
+                &AnimationPackId::from("empty"),
+                SemanticPose::AirborneTravel
+            ),
             ResolvedPose::BindPoseT
         );
         assert_eq!(
-            library.resolve("missing", SemanticPose::IdleRelaxed),
+            library.resolve(&AnimationPackId::from("missing"), SemanticPose::IdleRelaxed),
             ResolvedPose::BindPoseT
         );
     }
@@ -163,7 +166,7 @@ mod legacy_tests {
             .insert(pack("unarmed", None, [SemanticPose::GuardThrust]))
             .unwrap();
         assert!(matches!(
-            library.resolve("unarmed", SemanticPose::DiveLeft),
+            library.resolve(&AnimationPackId::from("unarmed"), SemanticPose::DiveLeft),
             ResolvedPose::Clip {
                 semantic: SemanticPose::GuardThrust,
                 pose: SemanticPose::GuardThrust,
@@ -280,8 +283,11 @@ mod legacy_tests {
         );
         assert_eq!(state.contact_sequence, 1);
         assert_eq!(state.contact_foot, LeadFoot::Right);
-        assert_eq!(state.landing_sequence, 1);
-        assert_eq!(state.landing_impact_speed, 4.0);
+        assert_eq!(state.landing_sequence, LandingSequence::from(1u64));
+        assert_eq!(
+            state.landing_impact_speed,
+            LandingImpactSpeed::from_metres_per_second(4.0)
+        );
         assert!(state.world_acceleration.length() > 0.0);
         project_skeleton_locomotion(
             &mut state,
@@ -293,7 +299,7 @@ mod legacy_tests {
                 tick: 3,
             },
         );
-        assert_eq!(state.landing_sequence, 1);
+        assert_eq!(state.landing_sequence, LandingSequence::from(1u64));
     }
 
     #[test]
@@ -1034,12 +1040,7 @@ mod legacy_tests {
         };
 
         let mut lateral = SkeletonState::default();
-        project_skeleton_locomotion_with_body_rotation(
-            &mut lateral,
-            input,
-            Quat::IDENTITY,
-            None,
-        );
+        project_skeleton_locomotion_with_body_rotation(&mut lateral, input, Quat::IDENTITY, None);
         let lateral_evaluation = AnimationEvaluation::from_skeleton(&lateral);
         assert!(lateral.local_velocity.abs_diff_eq(Vec3::X * 2.0, 0.0001));
         assert_eq!(lateral_evaluation.base.len(), 1);

@@ -1,7 +1,7 @@
 //! Traverse the retained rig hierarchy in pose-buffer space.
 //!
-//! Joint ordinals remain typed across recursive sampling. Each usize projection
-//! below indexes a native rig, pose, track, or cache collection in rig order.
+//! Joint ordinals remain typed across recursive sampling. Their
+//! values select rig-order collections whose owner performs native indexing.
 
 use super::*;
 
@@ -10,42 +10,40 @@ pub(super) fn hand_animation_joint(
     mut joint: RigJointOrdinal,
 ) -> Option<ClipLayer> {
     loop {
-        match definition.joints[usize::from(joint)].role {
+        match definition.joints[joint].role {
             Some(BoneRole::HandRight) => return Some(ClipLayer::MainHand),
             Some(BoneRole::HandLeft) => return Some(ClipLayer::Offhand),
             _ => {}
         }
-        let parent = definition.joints[usize::from(joint)].parent?;
+        let parent = definition.joints[joint].parent?;
         joint = parent;
     }
 }
 
 pub(super) fn local_pose_global(
     definition: &RigDefinition,
-    pose: &[LocalPose],
+    pose: &RigJointTable<LocalPose>,
     joint: RigJointOrdinal,
-    cache: &mut [Option<Transform>],
+    cache: &mut RigJointTable<Option<Transform>>,
 ) -> Transform {
-    if let Some(global) = cache[usize::from(joint)] {
+    if let Some(global) = cache[joint] {
         return global;
     }
     let local = Transform {
-        translation: pose[usize::from(joint)].translation,
-        rotation: pose[usize::from(joint)].rotation,
-        scale: pose[usize::from(joint)].scale,
+        translation: pose[joint].translation,
+        rotation: pose[joint].rotation,
+        scale: pose[joint].scale,
     };
-    let global = definition.joints[usize::from(joint)]
-        .parent
-        .map_or(local, |parent| {
-            local_pose_global(definition, pose, parent, cache).mul_transform(local)
-        });
-    cache[usize::from(joint)] = Some(global);
+    let global = definition.joints[joint].parent.map_or(local, |parent| {
+        local_pose_global(definition, pose, parent, cache).mul_transform(local)
+    });
+    cache[joint] = Some(global);
     global
 }
 
 pub(super) fn aim_pose_joint(
     definition: &RigDefinition,
-    pose: &mut [LocalPose],
+    pose: &mut RigJointTable<LocalPose>,
     joint: RigJointOrdinal,
     from: Vec3,
     to: Vec3,
@@ -53,16 +51,16 @@ pub(super) fn aim_pose_joint(
     let (Some(from), Some(to)) = (from.try_normalize(), to.try_normalize()) else {
         return;
     };
-    let mut cache = vec![None; pose.len()];
+    let mut cache = RigJointTable::from(vec![None; pose.len()]);
     let current = local_pose_global(definition, pose, joint, &mut cache);
-    let parent_rotation = definition.joints[usize::from(joint)]
+    let parent_rotation = definition.joints[joint]
         .parent
         .map(|parent| local_pose_global(definition, pose, parent, &mut cache).rotation)
         .unwrap_or(Quat::IDENTITY);
     let desired_world = Quat::from_rotation_arc(from, to) * current.rotation;
     let local = parent_rotation.inverse() * desired_world;
     if local.is_finite() {
-        pose[usize::from(joint)].rotation = local.normalize();
+        pose[joint].rotation = local.normalize();
     }
 }
 
@@ -71,9 +69,9 @@ pub(super) fn sampled_global_transform(
     clip: &BakedClip,
     joint: RigJointOrdinal,
     time_seconds: f32,
-    cache: &mut [Option<Transform>],
+    cache: &mut RigJointTable<Option<Transform>>,
 ) -> Transform {
-    if let Some(transform) = cache[usize::from(joint)] {
+    if let Some(transform) = cache[joint] {
         return transform;
     }
     let pose = clip.sample(joint, time_seconds);
@@ -82,13 +80,10 @@ pub(super) fn sampled_global_transform(
         rotation: pose.rotation,
         scale: pose.scale,
     };
-    let global = definition.joints[usize::from(joint)]
-        .parent
-        .map_or(local, |parent| {
-            sampled_global_transform(definition, clip, parent, time_seconds, cache)
-                .mul_transform(local)
-        });
-    cache[usize::from(joint)] = Some(global);
+    let global = definition.joints[joint].parent.map_or(local, |parent| {
+        sampled_global_transform(definition, clip, parent, time_seconds, cache).mul_transform(local)
+    });
+    cache[joint] = Some(global);
     global
 }
 
@@ -119,7 +114,9 @@ mod tests {
                 joint("r_index1", Some(2)),
                 joint("l_wrist", Some(0)),
                 joint("l_thumb1", Some(4)),
-            ],
+            ]
+            .into(),
+            name_ordinals: Default::default(),
         };
 
         assert_eq!(

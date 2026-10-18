@@ -228,9 +228,9 @@ pub(super) fn log_animation_diagnostics(
                 "evaluation_equivalent": trace.evaluation == evaluation,
             })),
             "playback": {
-                "use_authored_bind_pose": playback.use_authored_bind_pose,
+                "use_authored_bind_pose": (playback.pose_source == super::PoseSource::Bind),
                 "whole_body_mirror": playback.whole_body_mirror,
-                "ordinary_locomotion_active": playback.ordinary_locomotion_active,
+                "ordinary_locomotion_active": (playback.ordinary_locomotion == super::OrdinaryLocomotion::Active),
                 "clips": clips,
             },
         }));

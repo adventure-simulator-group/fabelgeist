@@ -207,6 +207,10 @@ jobs:
         run: |
           set -o pipefail
           cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client equipment:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment.log
+      - name: Test shared animation value contracts
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-core --lib animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-core-animation.log
       - name: Verify required rig contract execution
         env:
           EXPECTED_RIG_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}

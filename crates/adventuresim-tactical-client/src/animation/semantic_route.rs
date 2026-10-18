@@ -23,7 +23,7 @@ pub(crate) struct SemanticRouteInputs {
     pub lead: LeadFoot,
     pub support: LeadFoot,
     pub contact_sequence: u64,
-    pub pack: String,
+    pub pack: AnimationPackId,
 }
 
 impl SemanticRouteInputs {

@@ -6,11 +6,16 @@ use fabelgeist_rig::{
     RigJointLookupError, RigJointMembership, RigJointName, RigJointOrdinal, RigJointPart,
 };
 
+/// Fixed number of joint words read by the orientation-kernel ABI.
+pub(super) const FRAME_LANDMARK_SLOTS: usize = 6;
+
+type Result<T> = std::result::Result<T, RigJointLookupError>;
+
 pub(super) struct Landmarks {
     pub rule: Rule,
     /// Joint indices; meaning depends on the rule.
-    pub joints: [FrameLandmark; 6],
-    pub side: f32,
+    pub joints: [FrameLandmark; FRAME_LANDMARK_SLOTS],
+    pub side: FrameSide,
     pub owners: Vec<RigJointName>,
 }
 
@@ -28,21 +33,31 @@ pub(super) enum Rule {
 }
 
 /// Landmark slots the orientation kernel reads, by rule.
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, derive_more::From)]
 pub(super) enum FrameLandmark {
     Joint(RigJointOrdinal),
+    #[from(skip)]
     Unused,
 }
 
-impl From<RigJointOrdinal> for FrameLandmark {
-    fn from(joint: RigJointOrdinal) -> Self {
-        Self::Joint(joint)
+#[derive(Clone, Copy)]
+pub(super) enum FrameSide {
+    Central,
+    Paired(Side),
+}
+
+impl FrameSide {
+    pub(super) fn device_sign(self) -> f32 {
+        match self {
+            Self::Central => 1.0,
+            Self::Paired(side) => side.sign(),
+        }
     }
 }
 
 impl FrameLandmark {
     /// The fixed six-word orientation-kernel layout; unused slots encode zero.
-    pub(super) fn device_word(self) -> Result<u32, std::num::TryFromIntError> {
+    pub(super) fn device_word(self) -> std::result::Result<u32, std::num::TryFromIntError> {
         match self {
             Self::Joint(joint) => u32::try_from(joint),
             Self::Unused => Ok(0),
@@ -51,10 +66,24 @@ impl FrameLandmark {
 }
 
 impl Wearer<'_> {
-    fn joint_index(
-        &self,
-        name: &RigJointName,
-    ) -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+    pub(super) fn thumb_landmarks(&self, side: Side) -> Result<Landmarks> {
+        Ok(Landmarks {
+            rule: Rule::Thumb,
+            joints: [
+                self.side_joint(side, RigJointPart::Thumb1)?.into(),
+                self.side_joint(side, RigJointPart::ThumbNull)?.into(),
+                self.side_joint(side, RigJointPart::Thumb3)?.into(),
+                FrameLandmark::Unused,
+                FrameLandmark::Unused,
+                FrameLandmark::Unused,
+            ],
+            side: FrameSide::Paired(side),
+            // Every thumb joint, matched by prefix below.
+            owners: Vec::new(),
+        })
+    }
+
+    fn joint_index(&self, name: &RigJointName) -> Result<RigJointOrdinal> {
         name.require_in(self.joint_names)
     }
 
@@ -64,16 +93,14 @@ impl Wearer<'_> {
             .iter()
             .map(|name: &RigJointName| -> RigJointMembership {
                 RigJointMembership::from(owners.iter().any(|owner: &RigJointName| -> bool {
-                    name.skin_family(owner) == RigJointMembership::Included
+                    crate::clothing::rig_selection::skin_family(name, owner)
+                        == RigJointMembership::Included
                 }))
             })
             .collect()
     }
 
-    pub(super) fn device_landmarks(
-        &self,
-        region: FitRegion,
-    ) -> std::result::Result<Landmarks, RigJointLookupError> {
+    pub(super) fn device_landmarks(&self, region: FitRegion) -> Result<Landmarks> {
         use FitRegion::*;
         use RigJointPart::{Foot as FootPart, Lowarm, Lowleg, Uparm, Upleg, Wrist};
         let unused = FrameLandmark::Unused;
@@ -82,44 +109,64 @@ impl Wearer<'_> {
             Neck => (
                 Rule::Limb,
                 self.named(&RigJointName::C_NECK, &RigJointName::C_SPINE3)?,
-                1.0,
+                FrameSide::Central,
             ),
             Torso => (
                 Rule::Limb,
                 self.named(&RigJointName::C_NECK, &RigJointName::C_SPINE0)?,
-                1.0,
+                FrameSide::Central,
             ),
             Hips => (
                 Rule::Limb,
                 self.named(&RigJointName::C_SPINE1, &RigJointName::ROOT)?,
-                1.0,
+                FrameSide::Central,
             ),
-            UpperArm(s) => (Rule::Limb, self.limb(s, Uparm, Lowarm, unused)?, s.sign()),
+            UpperArm(s) => (
+                Rule::Limb,
+                self.limb(s, Uparm, Lowarm, unused)?,
+                FrameSide::Paired(s),
+            ),
             Shoulder(s) => {
                 let uparm = self.side_joint(s, Uparm)?;
                 (
                     Rule::Shoulder,
                     self.limb(s, Uparm, Lowarm, uparm.into())?,
-                    s.sign(),
+                    FrameSide::Paired(s),
                 )
             }
-            Forearm(s) => (Rule::Limb, self.limb(s, Lowarm, Wrist, unused)?, s.sign()),
-            WholeArm(s) => (Rule::Limb, self.limb(s, Uparm, Wrist, unused)?, s.sign()),
-            Thigh(s) => (Rule::Limb, self.limb(s, Upleg, Lowleg, unused)?, s.sign()),
+            Forearm(s) => (
+                Rule::Limb,
+                self.limb(s, Lowarm, Wrist, unused)?,
+                FrameSide::Paired(s),
+            ),
+            WholeArm(s) => (
+                Rule::Limb,
+                self.limb(s, Uparm, Wrist, unused)?,
+                FrameSide::Paired(s),
+            ),
+            Thigh(s) => (
+                Rule::Limb,
+                self.limb(s, Upleg, Lowleg, unused)?,
+                FrameSide::Paired(s),
+            ),
             LowerLeg(s) => (
                 Rule::Limb,
                 self.limb(s, Lowleg, FootPart, unused)?,
-                s.sign(),
+                FrameSide::Paired(s),
             ),
             Knee(s) => {
                 let lowleg = self.side_joint(s, Lowleg)?;
                 (
                     Rule::Knee,
                     self.limb(s, Lowleg, FootPart, lowleg.into())?,
-                    s.sign(),
+                    FrameSide::Paired(s),
                 )
             }
-            WholeLeg(s) => (Rule::Limb, self.limb(s, Upleg, FootPart, unused)?, s.sign()),
+            WholeLeg(s) => (
+                Rule::Limb,
+                self.limb(s, Upleg, FootPart, unused)?,
+                FrameSide::Paired(s),
+            ),
             Elbow(s) => {
                 let joints = [
                     self.side_joint(s, Lowarm)?.into(),
@@ -129,7 +176,7 @@ impl Wearer<'_> {
                     unused,
                     unused,
                 ];
-                (Rule::Elbow, joints, s.sign())
+                (Rule::Elbow, joints, FrameSide::Paired(s))
             }
             Hand(s) => return self.hand_landmarks(s),
             Foot(s) => return self.foot_landmarks(s),
@@ -142,7 +189,7 @@ impl Wearer<'_> {
         })
     }
 
-    fn head_landmarks(&self) -> std::result::Result<Landmarks, RigJointLookupError> {
+    fn head_landmarks(&self) -> Result<Landmarks> {
         let [left, right, head] = self.eyes()?;
         Ok(Landmarks {
             rule: Rule::Head,
@@ -154,12 +201,12 @@ impl Wearer<'_> {
                 head.into(),
                 FrameLandmark::Unused,
             ],
-            side: 1.0,
+            side: FrameSide::Central,
             owners: FitRegion::Head.owners(),
         })
     }
 
-    fn hand_landmarks(&self, side: Side) -> std::result::Result<Landmarks, RigJointLookupError> {
+    fn hand_landmarks(&self, side: Side) -> Result<Landmarks> {
         let mut joints = self.limb(
             side,
             RigJointPart::Wrist,
@@ -171,33 +218,29 @@ impl Wearer<'_> {
         Ok(Landmarks {
             rule: Rule::Hand,
             joints,
-            side: side.sign(),
+            side: FrameSide::Paired(side),
             owners: FitRegion::Hand(side).owners(),
         })
     }
 
-    fn foot_landmarks(&self, side: Side) -> std::result::Result<Landmarks, RigJointLookupError> {
-        let mut joints = [FrameLandmark::Unused; 6];
+    fn foot_landmarks(&self, side: Side) -> Result<Landmarks> {
+        let mut joints = [FrameLandmark::Unused; FRAME_LANDMARK_SLOTS];
         joints[0] = self.side_joint(side, RigJointPart::Foot)?.into();
         joints[1] = self.side_joint(side, RigJointPart::Ball)?.into();
         Ok(Landmarks {
             rule: Rule::Foot,
             joints,
-            side: side.sign(),
+            side: FrameSide::Paired(side),
             owners: FitRegion::Foot(side).owners(),
         })
     }
 
-    fn side_joint(
-        &self,
-        side: Side,
-        name: RigJointPart,
-    ) -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+    fn side_joint(&self, side: Side, name: RigJointPart) -> Result<RigJointOrdinal> {
         self.joint_index(&side.joint(name))
     }
 
     /// The eyes and the head, which face every frame forward.
-    fn eyes(&self) -> std::result::Result<[RigJointOrdinal; 3], RigJointLookupError> {
+    fn eyes(&self) -> Result<[RigJointOrdinal; 3]> {
         Ok([
             self.joint_index(&RigJointName::L_EYE)?,
             self.joint_index(&RigJointName::R_EYE)?,
@@ -210,7 +253,7 @@ impl Wearer<'_> {
         &self,
         proximal: &RigJointName,
         distal: &RigJointName,
-    ) -> std::result::Result<[FrameLandmark; 6], RigJointLookupError> {
+    ) -> Result<[FrameLandmark; FRAME_LANDMARK_SLOTS]> {
         let [l, r, h] = self.eyes()?;
         Ok([
             self.joint_index(proximal)?.into(),
@@ -229,7 +272,7 @@ impl Wearer<'_> {
         proximal: RigJointPart,
         distal: RigJointPart,
         extra: FrameLandmark,
-    ) -> std::result::Result<[FrameLandmark; 6], RigJointLookupError> {
+    ) -> Result<[FrameLandmark; FRAME_LANDMARK_SLOTS]> {
         let [l, r, h] = self.eyes()?;
         Ok([
             self.side_joint(side, proximal)?.into(),
@@ -239,26 +282,6 @@ impl Wearer<'_> {
             h.into(),
             extra,
         ])
-    }
-
-    pub(super) fn thumb_landmarks(
-        &self,
-        side: Side,
-    ) -> std::result::Result<Landmarks, RigJointLookupError> {
-        Ok(Landmarks {
-            rule: Rule::Thumb,
-            joints: [
-                self.side_joint(side, RigJointPart::Thumb1)?.into(),
-                self.side_joint(side, RigJointPart::ThumbNull)?.into(),
-                self.side_joint(side, RigJointPart::Thumb3)?.into(),
-                FrameLandmark::Unused,
-                FrameLandmark::Unused,
-                FrameLandmark::Unused,
-            ],
-            side: side.sign(),
-            // Every thumb joint, matched by prefix below.
-            owners: Vec::new(),
-        })
     }
 }
 

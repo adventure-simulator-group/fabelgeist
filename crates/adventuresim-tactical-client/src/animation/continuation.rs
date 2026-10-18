@@ -86,6 +86,10 @@ pub(super) fn append_continuation_span(
         ready_phase: ready_phase.clamp(f32::EPSILON, 0.5 - f32::EPSILON),
         progress: progress.clamp(0.0, 1.0),
         weight: sample.weight,
-        mirrored_weight: if start.mirrored { sample.weight } else { 0.0 },
+        mirrored_weight: if start.mirrored == super::ClipMirror::Mirrored {
+            sample.weight
+        } else {
+            0.0
+        },
     });
 }

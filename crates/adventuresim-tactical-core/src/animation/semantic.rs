@@ -77,7 +77,10 @@ mod contract_tests {
                 clips: authored,
             })
             .unwrap();
-        assert_eq!(library.validate_complete("root"), Ok(()));
+        assert_eq!(
+            library.validate_complete(&AnimationPackId::from("root")),
+            Ok(())
+        );
     }
 
     #[test]
@@ -100,7 +103,7 @@ mod contract_tests {
             })
             .unwrap();
         assert_eq!(
-            library.validate_complete("root"),
+            library.validate_complete(&AnimationPackId::from("root")),
             Err(PackValidationError::RootHasFallback("root".into()))
         );
     }
@@ -486,7 +489,7 @@ mod contract_tests {
     #[test]
     fn supported_prone_projection_does_not_repeat_landing_or_restore_upright() {
         let mut state = SkeletonState::default().with_body_state(BodyState::Prone);
-        state.landing_sequence = 7;
+        state.landing_sequence = LandingSequence::from(7u64);
         project_skeleton_locomotion(
             &mut state,
             SkeletonLocomotionInput {
@@ -498,7 +501,7 @@ mod contract_tests {
             },
         );
         assert_eq!(state.body(), BodyState::Prone);
-        assert_eq!(state.landing_sequence, 7);
+        assert_eq!(state.landing_sequence, LandingSequence::from(7u64));
     }
 
     #[test]

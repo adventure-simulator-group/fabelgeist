@@ -7,13 +7,14 @@
 //! grid. Both paths write per-character local-pose buffers before the shared
 //! procedural passes.
 
+use super::procedural::clock::{AnimationSampleTick, FixedAnimationStep};
 use super::*;
 use bevy::{
     animation::{AnimationTargetId, animated_field},
     asset::{AssetEvent, AssetId},
     camera::visibility::RenderLayers,
 };
-use fabelgeist_rig::{RigJointName, RigJointOrdinal};
+use fabelgeist_rig::{RigJointName, RigJointOrdinal, RigJointTable};
 use hierarchy::{
     aim_pose_joint, hand_animation_joint, local_pose_global, sampled_global_transform,
 };
@@ -66,7 +67,7 @@ struct BakedClip {
     duration: f32,
     frame_dt: f32,
     frames: usize,
-    tracks: Vec<BoneTrack>,
+    tracks: RigJointTable<BoneTrack>,
 }
 
 #[derive(Clone)]
@@ -98,7 +99,7 @@ struct ContinuationTransition {
 
 #[derive(Debug)]
 struct SampledPlan {
-    pose: Vec<LocalPose>,
+    pose: RigJointTable<LocalPose>,
     /// Pelvis rotation sampled from combat locomotion before the attack/guard
     /// rotation is applied. This is the FK reference for compensating leg IK.
     locomotion_pelvis_rotation: Option<Quat>,
@@ -106,33 +107,33 @@ struct SampledPlan {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 struct PosePlanKey {
-    bind_pose: bool,
+    pose_source: PoseSource,
     clips: Vec<(AssetId<AnimationClip>, ClipLayer)>,
 }
 
 #[derive(Component)]
 pub(crate) struct PoseBufferRig {
     definition: Arc<RigDefinition>,
-    entities: Vec<Option<Entity>>,
-    previous: Vec<LocalPose>,
-    next: Vec<LocalPose>,
+    entities: RigJointTable<Option<Entity>>,
+    previous: RigJointTable<LocalPose>,
+    next: RigJointTable<LocalPose>,
     sample_accumulator: f32,
     interpolation_alpha: f32,
-    last_evaluation_tick: Option<u64>,
+    last_evaluation_tick: Option<AnimationSampleTick>,
     decay_delta_seconds: f32,
-    offsets: Vec<JointInertialOffset>,
-    target_linear_velocities: Vec<Vec3>,
-    target_angular_velocities: Vec<Vec3>,
+    offsets: RigJointTable<JointInertialOffset>,
+    target_linear_velocities: RigJointTable<Vec3>,
+    target_angular_velocities: RigJointTable<Vec3>,
     terrain_plants: [Option<AuthoredContactPlant>; 2],
     plan: Option<PosePlanKey>,
     active: bool,
-    frozen: bool,
+    visibility: PoseVisibility,
     /// Every inertial offset has decayed to zero: the decay is skipped until
     /// the next transition captures a new one.
-    settled: bool,
+    inertial_state: InertialState,
     /// A physics ragdoll writes this buffer; authored sampling, transitions,
     /// and LOD freezing stand down until it hands the pose back.
-    physics_owned: bool,
+    ownership: PoseOwnership,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -177,13 +178,13 @@ enum ContactPlantPolicy {
 }
 
 impl AuthoredWeaponTarget {
-    fn from_pose(definition: &RigDefinition, pose: &[LocalPose]) -> Option<Self> {
+    fn from_pose(definition: &RigDefinition, pose: &RigJointTable<LocalPose>) -> Option<Self> {
         let weapon_joint = definition
             .joints
             .iter()
             .position(|joint| joint.role == Some(BoneRole::WeaponRight))
             .map(RigJointOrdinal::from)?;
-        let mut cache = vec![None; pose.len()];
+        let mut cache = RigJointTable::from(vec![None; pose.len()]);
         let weapon = local_pose_global(definition, pose, weapon_joint, &mut cache);
         Some(Self {
             translation: weapon.translation,
@@ -199,7 +200,7 @@ impl BakedClip {
         let first = frame as usize;
         let second = (first + 1).min(self.frames - 1);
         let alpha = frame.fract();
-        let track = &self.tracks[usize::from(joint)];
+        let track = &self.tracks[joint];
         LocalPose {
             translation: track.translations[first].lerp(track.translations[second], alpha),
             rotation: hemisphere_slerp(track.rotations[first], track.rotations[second], alpha),
@@ -359,19 +360,24 @@ impl PosePlanKey {
         clips.sort_by_key(|(id, layer)| (*id, *layer as u8));
         clips.dedup();
         Self {
-            bind_pose: playback.use_authored_bind_pose,
+            pose_source: playback.pose_source,
             clips,
         }
     }
 }
 
 impl PoseBufferRig {
+    fn set_target_velocities(&mut self, velocities: &RigJointTable<(Vec3, Vec3)>) {
+        for (joint, &(linear, angular)) in velocities.indexed() {
+            self.target_linear_velocities[joint] = linear;
+            self.target_angular_velocities[joint] = angular;
+        }
+    }
+
     fn displayed_velocity(&self, joint: RigJointOrdinal) -> (Vec3, Vec3) {
         (
-            self.target_linear_velocities[usize::from(joint)]
-                + self.offsets[usize::from(joint)].translation_velocity(),
-            self.target_angular_velocities[usize::from(joint)]
-                + self.offsets[usize::from(joint)].angular_velocity(),
+            self.target_linear_velocities[joint] + self.offsets[joint].translation_velocity(),
+            self.target_angular_velocities[joint] + self.offsets[joint].angular_velocity(),
         )
     }
 
@@ -380,12 +386,11 @@ impl PoseBufferRig {
     /// displayed and snaps straight to the target.
     fn capture_transition_offsets(
         &mut self,
-        target: &[LocalPose],
-        target_velocities: &[(Vec3, Vec3)],
+        target: &RigJointTable<LocalPose>,
+        target_velocities: &RigJointTable<(Vec3, Vec3)>,
     ) {
         let capture_displayed = self.active;
-        for (index, target_pose) in target.iter().copied().enumerate() {
-            let joint = RigJointOrdinal::from(index);
+        for (joint, &target_pose) in target.indexed() {
             let displayed = if capture_displayed {
                 // Animation evaluation may already have written the new
                 // plan into live transforms this frame. The pose buffer is
@@ -401,15 +406,15 @@ impl PoseBufferRig {
             } else {
                 (Vec3::ZERO, Vec3::ZERO)
             };
-            self.offsets[usize::from(joint)].capture(
+            self.offsets[joint].capture(
                 displayed,
                 displayed_velocity,
                 target_pose,
-                target_velocities[usize::from(joint)],
+                target_velocities[joint],
                 pose_tuning().inertial_blend_seconds,
             );
         }
-        self.settled = false;
+        self.inertial_state = InertialState::Blending;
     }
 }
 
@@ -469,11 +474,14 @@ pub(super) fn update_pose_buffers(
         };
 
         let delta_seconds = match procedural_clock.fixed_step() {
-            Some((tick, _)) if rig.last_evaluation_tick == Some(tick) => {
+            Some(FixedAnimationStep { tick, .. }) if rig.last_evaluation_tick == Some(tick) => {
                 rig.decay_delta_seconds = 0.0;
                 continue;
             }
-            Some((tick, delta_seconds)) => {
+            Some(FixedAnimationStep {
+                tick,
+                delta_seconds,
+            }) => {
                 rig.last_evaluation_tick = Some(tick);
                 delta_seconds.clamp(0.0, 0.1)
             }
@@ -484,11 +492,11 @@ pub(super) fn update_pose_buffers(
         };
         rig.decay_delta_seconds = delta_seconds;
 
-        if rig.physics_owned {
+        if rig.ownership == PoseOwnership::Physics {
             // The ragdoll readback owns `previous`/`next`; a culled or
             // resampled buffer here would drag driven bones off their
             // bodies.
-            rig.frozen = false;
+            rig.visibility = PoseVisibility::Visible;
             continue;
         }
 
@@ -496,17 +504,17 @@ pub(super) fn update_pose_buffers(
         // Initialize retained models before culling so first selection has a pose.
         let frozen = rig.active && visibility::outside_views(position, layers, &cameras);
         if frozen {
-            rig.frozen = true;
+            rig.visibility = PoseVisibility::Frozen;
             metrics.culled_character_count += 1;
             continue;
         }
-        if rig.frozen {
+        if rig.visibility == PoseVisibility::Frozen {
             rig.sample_accumulator = 0.0;
             rig.interpolation_alpha = 0.0;
             rig.target_linear_velocities.fill(Vec3::ZERO);
             rig.target_angular_velocities.fill(Vec3::ZERO);
         }
-        rig.frozen = false;
+        rig.visibility = PoseVisibility::Visible;
 
         let key = PosePlanKey::from_playback(playback);
         let transition = !rig.active || rig.plan.as_ref() != Some(&key);
@@ -575,13 +583,10 @@ pub(super) fn update_pose_buffers(
                     (Vec3::ZERO, Vec3::ZERO)
                 }
             })
-            .collect::<Vec<_>>();
+            .collect::<RigJointTable<_>>();
         if transition {
             rig.capture_transition_offsets(&target, &target_velocities);
-            for (joint, (linear, angular)) in target_velocities.iter().copied().enumerate() {
-                rig.target_linear_velocities[joint] = linear;
-                rig.target_angular_velocities[joint] = angular;
-            }
+            rig.set_target_velocities(&target_velocities);
             rig.previous.clone_from(&target);
             rig.next = target;
             rig.sample_accumulator = 0.0;
@@ -597,17 +602,14 @@ pub(super) fn update_pose_buffers(
                 rig.next = target;
                 rig.sample_accumulator = 0.0;
                 rig.interpolation_alpha = 1.0;
-                for (joint, (linear, angular)) in target_velocities.iter().copied().enumerate() {
-                    rig.target_linear_velocities[joint] = linear;
-                    rig.target_angular_velocities[joint] = angular;
-                }
+                rig.set_target_velocities(&target_velocities);
             } else {
                 let due = samples_due(rig.sample_accumulator);
                 if due > 0 {
                     rig.previous = rig.next.clone();
                     rig.next = target;
                     let sample_seconds = pose_sample_seconds() * due as f32;
-                    for joint in 0..rig.next.len() {
+                    for joint in rig.next.ordinals() {
                         let (linear, angular) = local_pose_velocity(
                             rig.previous[joint],
                             rig.next[joint],
@@ -636,18 +638,18 @@ pub(super) fn apply_pose_buffers(
 ) {
     let _spike = crate::animation::diagnostics::SpikeGuard::new("apply_pose_buffers");
     for mut rig in &mut rigs {
-        if !rig.active || rig.frozen {
+        if !rig.active || rig.visibility == PoseVisibility::Frozen {
             continue;
         }
         let alpha = rig.interpolation_alpha;
         let delta_seconds = rig.decay_delta_seconds;
         let rig = &mut *rig;
-        for joint in 0..rig.entities.len() {
+        for joint in rig.entities.ordinals() {
             let Some(entity) = rig.entities[joint] else {
                 continue;
             };
             let input = rig.previous[joint].interpolate(rig.next[joint], alpha);
-            let pose = if rig.settled {
+            let pose = if rig.inertial_state == InertialState::Settled {
                 input
             } else if delta_seconds > 0.0 {
                 rig.offsets[joint].update(input, delta_seconds)
@@ -662,8 +664,10 @@ pub(super) fn apply_pose_buffers(
         }
         // Once every quintic has run its full length the offsets are exactly
         // zero; clear them so at-rest rigs skip the decay entirely.
-        if !rig.settled && rig.offsets.iter().all(JointInertialOffset::done) {
-            rig.settled = true;
+        if rig.inertial_state != InertialState::Settled
+            && rig.offsets.iter().all(JointInertialOffset::done)
+        {
+            rig.inertial_state = InertialState::Settled;
             rig.offsets.fill(JointInertialOffset::default());
         }
     }
@@ -733,7 +737,7 @@ fn sample_plan(
     bank: &mut BakedClipBank,
     metrics: &mut PoseBufferMetrics,
 ) -> Option<SampledPlan> {
-    if playback.use_authored_bind_pose
+    if playback.pose_source == PoseSource::Bind
         || (playback.clips.is_empty()
             && playback.extrapolated_spans.is_empty()
             && playback.continuation_spans.is_empty())
@@ -819,10 +823,9 @@ fn sample_plan(
         )?;
         baked_continuations.push((span, start, contact, end, outgoing, finish));
     }
-    let mut pose = Vec::with_capacity(definition.joints.len());
+    let mut pose = RigJointTable::default();
     let mut locomotion_pelvis_rotation = None;
-    for (index, joint) in definition.joints.iter().enumerate() {
-        let joint_index = RigJointOrdinal::from(index);
+    for (joint_index, joint) in definition.joints.indexed() {
         let mut blended = joint.bind;
         let mut accumulated = 0.0_f32;
         let pelvis = joint.pelvis;
@@ -832,41 +835,42 @@ fn sample_plan(
         let mut combat_lower_weight = 0.0_f32;
         for (weighted, clip, source) in &baked {
             let included = joint.body_region.includes(weighted.clip.layer, pelvis);
-            if !included || weighted.weight <= f32::EPSILON || !weighted.weight.is_finite() {
+            if !included || weighted.weight.is_absent() || !weighted.weight.factor().is_finite() {
                 continue;
             }
             let sample = if weighted.locomotion_phase.is_some() {
-                let authored_phase = weighted.time_seconds / source.duration().max(f32::EPSILON);
+                let authored_phase =
+                    weighted.time_seconds.seconds() / source.duration().max(f32::EPSILON);
                 sample_two_pose_locomotion_clip(source, joint, authored_phase)
             } else {
-                clip.sample(joint_index, weighted.time_seconds)
+                clip.sample(joint_index, weighted.time_seconds.seconds())
             };
             let sample = sanitize_pose(sample, joint.bind);
-            if pelvis && weighted.clip.layer == ClipLayer::CombatUpper {
+            if pelvis == PelvisRole::Pelvis && weighted.clip.layer == ClipLayer::CombatUpper {
                 accumulate_local_pose(
                     &mut combat_upper,
                     &mut combat_upper_weight,
                     sample,
-                    weighted.weight,
+                    weighted.weight.factor(),
                 );
                 continue;
             }
-            if pelvis && weighted.clip.layer == ClipLayer::CombatLower {
+            if pelvis == PelvisRole::Pelvis && weighted.clip.layer == ClipLayer::CombatLower {
                 accumulate_local_pose(
                     &mut combat_lower,
                     &mut combat_lower_weight,
                     sample,
-                    weighted.weight,
+                    weighted.weight.factor(),
                 );
                 continue;
             }
-            let next_total = accumulated + weighted.weight;
-            let alpha = if next_total > f32::EPSILON {
-                weighted.weight / next_total
+            let next_total = accumulated + weighted.weight.factor();
+            let alpha = if next_total > 0.0 {
+                weighted.weight.factor() / next_total
             } else {
                 0.0
             };
-            blended = if accumulated <= f32::EPSILON {
+            blended = if accumulated <= 0.0 {
                 sample
             } else {
                 blended.interpolate(sample, alpha)
@@ -892,7 +896,7 @@ fn sample_plan(
             // so contact cannot introduce a hidden ease-out/ease-in stop.
             let sample = start.extrapolate(end, span.coordinate);
             let sample = sanitize_pose(sample, joint.bind);
-            if pelvis && span.start.layer == ClipLayer::CombatUpper {
+            if pelvis == PelvisRole::Pelvis && span.start.layer == ClipLayer::CombatUpper {
                 accumulate_local_pose(
                     &mut combat_upper,
                     &mut combat_upper_weight,
@@ -901,7 +905,7 @@ fn sample_plan(
                 );
                 continue;
             }
-            if pelvis && span.start.layer == ClipLayer::CombatLower {
+            if pelvis == PelvisRole::Pelvis && span.start.layer == ClipLayer::CombatLower {
                 accumulate_local_pose(
                     &mut combat_lower,
                     &mut combat_lower_weight,
@@ -911,12 +915,12 @@ fn sample_plan(
                 continue;
             }
             let next_total = accumulated + span.weight;
-            let alpha = if next_total > f32::EPSILON {
+            let alpha = if next_total > 0.0 {
                 span.weight / next_total
             } else {
                 0.0
             };
-            blended = if accumulated <= f32::EPSILON {
+            blended = if accumulated <= 0.0 {
                 sample
             } else {
                 blended.interpolate(sample, alpha)
@@ -957,7 +961,7 @@ fn sample_plan(
                 ),
                 joint.bind,
             );
-            if pelvis && span.start.layer == ClipLayer::CombatUpper {
+            if pelvis == PelvisRole::Pelvis && span.start.layer == ClipLayer::CombatUpper {
                 accumulate_local_pose(
                     &mut combat_upper,
                     &mut combat_upper_weight,
@@ -966,7 +970,7 @@ fn sample_plan(
                 );
                 continue;
             }
-            if pelvis && span.start.layer == ClipLayer::CombatLower {
+            if pelvis == PelvisRole::Pelvis && span.start.layer == ClipLayer::CombatLower {
                 accumulate_local_pose(
                     &mut combat_lower,
                     &mut combat_lower_weight,
@@ -976,49 +980,53 @@ fn sample_plan(
                 continue;
             }
             let next_total = accumulated + span.weight;
-            let alpha = if next_total > f32::EPSILON {
+            let alpha = if next_total > 0.0 {
                 span.weight / next_total
             } else {
                 0.0
             };
-            blended = if accumulated <= f32::EPSILON {
+            blended = if accumulated <= 0.0 {
                 sample
             } else {
                 blended.interpolate(sample, alpha)
             };
             accumulated = next_total;
         }
-        let mut result =
-            if pelvis && combat_upper_weight > f32::EPSILON && combat_lower_weight > f32::EPSILON {
-                locomotion_pelvis_rotation = Some(combat_lower.rotation);
-                combine_combat_pelvis(combat_upper, combat_lower)
-            } else if accumulated > f32::EPSILON {
-                blended
-            } else {
-                joint.bind
-            };
+        let mut result = if pelvis == PelvisRole::Pelvis
+            && combat_upper_weight > 0.0
+            && combat_lower_weight > 0.0
+        {
+            locomotion_pelvis_rotation = Some(combat_lower.rotation);
+            combine_combat_pelvis(combat_upper, combat_lower)
+        } else if accumulated > 0.0 {
+            blended
+        } else {
+            joint.bind
+        };
         if let Some(hand) = hand_animation_joint(definition, joint_index) {
             let mut hand_pose = joint.bind;
             let mut hand_weight = 0.0_f32;
             for (weighted, clip, _) in &baked {
                 if weighted.clip.layer != hand
-                    || !clip.tracks[usize::from(joint_index)].animated
-                    || weighted.weight <= f32::EPSILON
-                    || !weighted.weight.is_finite()
+                    || !clip.tracks[joint_index].animated
+                    || weighted.weight.is_absent()
+                    || !weighted.weight.factor().is_finite()
                 {
                     continue;
                 }
-                let sample =
-                    sanitize_pose(clip.sample(joint_index, weighted.time_seconds), joint.bind);
-                let total = hand_weight + weighted.weight;
-                hand_pose = if hand_weight <= f32::EPSILON {
+                let sample = sanitize_pose(
+                    clip.sample(joint_index, weighted.time_seconds.seconds()),
+                    joint.bind,
+                );
+                let total = hand_weight + weighted.weight.factor();
+                hand_pose = if hand_weight <= 0.0 {
                     sample
                 } else {
-                    hand_pose.interpolate(sample, weighted.weight / total)
+                    hand_pose.interpolate(sample, weighted.weight.factor() / total)
                 };
                 hand_weight = total;
             }
-            if hand_weight > f32::EPSILON {
+            if hand_weight > 0.0 {
                 result = hand_pose;
             }
         }
@@ -1038,7 +1046,7 @@ fn accumulate_local_pose(
     weight: f32,
 ) {
     let next_total = *accumulated_weight + weight;
-    *accumulated_pose = if *accumulated_weight <= f32::EPSILON {
+    *accumulated_pose = if *accumulated_weight <= 0.0 {
         sample
     } else {
         accumulated_pose.interpolate(sample, weight / next_total)
@@ -1096,7 +1104,7 @@ fn sparse_locomotion_segment(authored_phase: f32) -> (u32, u32, f32) {
 
 fn conform_upcoming_pose_to_terrain(
     definition: &RigDefinition,
-    pose: &mut [LocalPose],
+    pose: &mut RigJointTable<LocalPose>,
     plants: &mut [Option<AuthoredContactPlant>; 2],
     conformity: PoseConformity<'_>,
 ) {
@@ -1114,17 +1122,17 @@ fn conform_upcoming_pose_to_terrain(
         definition
             .joints
             .iter()
-            .position(|joint| joint.pelvis)
+            .position(|joint| joint.pelvis == PelvisRole::Pelvis)
             .map(RigJointOrdinal::from)
             .map(|pelvis| {
-                let mut reference = pose.to_vec();
-                reference[usize::from(pelvis)].rotation = rotation;
+                let mut reference = pose.clone();
+                reference[pelvis].rotation = rotation;
                 reference
             })
     });
     let mut locomotion_reference_cache = locomotion_reference
         .as_ref()
-        .map(|reference| vec![None; reference.len()]);
+        .map(|reference| RigJointTable::from(vec![None; reference.len()]));
     for (index, (left, weight, names)) in [
         (true, weights.x, RigJointName::LEFT_LEG_CHAIN),
         (false, weights.y, RigJointName::RIGHT_LEG_CHAIN),
@@ -1151,7 +1159,7 @@ fn conform_upcoming_pose_to_terrain(
         }) else {
             continue;
         };
-        let mut cache = vec![None; pose.len()];
+        let mut cache = RigJointTable::from(vec![None; pose.len()]);
         let upper_global = local_pose_global(definition, pose, upper, &mut cache);
         let lower_global = local_pose_global(definition, pose, lower, &mut cache);
         let foot_global = local_pose_global(definition, pose, foot, &mut cache);
@@ -1261,7 +1269,7 @@ fn conform_upcoming_pose_to_terrain(
             continue;
         };
         aim_pose_joint(definition, pose, upper, knee - hip, solution.0 - hip);
-        let mut cache = vec![None; pose.len()];
+        let mut cache = RigJointTable::from(vec![None; pose.len()]);
         let lower_after = local_pose_global(definition, pose, lower, &mut cache);
         let foot_after = local_pose_global(definition, pose, foot, &mut cache);
         aim_pose_joint(
@@ -1271,14 +1279,14 @@ fn conform_upcoming_pose_to_terrain(
             foot_after.translation - lower_after.translation,
             solution.1 - solution.0,
         );
-        let mut cache = vec![None; pose.len()];
-        let parent_rotation = definition.joints[usize::from(foot)]
+        let mut cache = RigJointTable::from(vec![None; pose.len()]);
+        let parent_rotation = definition.joints[foot]
             .parent
             .map(|parent| local_pose_global(definition, pose, parent, &mut cache).rotation)
             .unwrap_or(Quat::IDENTITY);
         let local = parent_rotation.inverse() * preserved_foot_rotation;
         if local.is_finite() {
-            pose[usize::from(foot)].rotation = local.normalize();
+            pose[foot].rotation = local.normalize();
         }
     }
 }
@@ -1343,7 +1351,7 @@ fn bake_clip(clip: &AnimationClip, definition: &RigDefinition) -> BakedClip {
     let translation_field = animated_field!(Transform::translation);
     let rotation_field = animated_field!(Transform::rotation);
     let scale_field = animated_field!(Transform::scale);
-    let tracks = definition
+    let tracks: RigJointTable<BoneTrack> = definition
         .joints
         .iter()
         .map(|joint| {
@@ -1403,7 +1411,7 @@ fn measure_authored_contact_step_distance(
         let samples = (0..sample_count)
             .map(|frame| {
                 let time = frame as f32 * clip.frame_dt;
-                let mut globals = vec![None; definition.joints.len()];
+                let mut globals = RigJointTable::from(vec![None; definition.joints.len()]);
                 let position = sampled_global_transform(definition, clip, foot, time, &mut globals)
                     .translation;
                 (time / clip.duration, position)
@@ -1715,13 +1723,8 @@ fn measure_authored_foot_range(
     clip: &BakedClip,
     travel_axis: usize,
 ) -> Option<f32> {
-    let feet = [RigJointName::L_FOOT, RigJointName::R_FOOT].map(|name| {
-        definition
-            .joints
-            .iter()
-            .position(|joint| joint.name.as_ref() == Some(&name))
-            .map(RigJointOrdinal::from)
-    });
+    let feet =
+        [RigJointName::L_FOOT, RigJointName::R_FOOT].map(|name| definition.joint_ordinal(&name));
     let [Some(left), Some(right)] = feet else {
         return None;
     };
@@ -1729,7 +1732,7 @@ fn measure_authored_foot_range(
         let mut minimum = f32::INFINITY;
         let mut maximum = f32::NEG_INFINITY;
         for frame in 0..clip.frames {
-            let mut globals = vec![None; definition.joints.len()];
+            let mut globals = RigJointTable::from(vec![None; definition.joints.len()]);
             let position = sampled_global_transform(
                 definition,
                 clip,
@@ -2006,7 +2009,9 @@ mod tests {
                 joint("root", None),
                 joint("l_foot", Some(0)),
                 joint("r_foot", Some(0)),
-            ],
+            ]
+            .into(),
+            name_ordinals: Default::default(),
         };
         let track = |translations| BoneTrack {
             translations,
@@ -2022,7 +2027,8 @@ mod tests {
                 track(vec![Vec3::ZERO; 3]),
                 track(vec![Vec3::ZERO, Vec3::Z, Vec3::Z * 2.0]),
                 track(vec![Vec3::ZERO, Vec3::Z * -1.5, Vec3::Z * -3.0]),
-            ],
+            ]
+            .into(),
         };
 
         assert_eq!(
@@ -2062,7 +2068,9 @@ mod tests {
                 joint("root", None),
                 joint("l_foot", Some(0)),
                 joint("r_foot", Some(0)),
-            ],
+            ]
+            .into(),
+            name_ordinals: Default::default(),
         };
         let frames = 21;
         let duration = 1.0;
@@ -2099,7 +2107,8 @@ mod tests {
                 },
                 foot_track(0.1, 50.0),
                 foot_track(0.6, -80.0),
-            ],
+            ]
+            .into(),
         };
 
         let measurement = measure_authored_contact_step_distance(&definition, &clip, 2, 1.0)
@@ -2109,8 +2118,8 @@ mod tests {
         assert!(measurement.phase_curve.is_some());
 
         let mut projected_rotation = clip.clone();
-        for (track_index, contact_phase) in [(1, 0.1_f32), (2, 0.6_f32)] {
-            let track = &mut projected_rotation.tracks[track_index];
+        for (track_index, contact_phase) in [(1usize, 0.1_f32), (2, 0.6_f32)] {
+            let track = &mut projected_rotation.tracks[RigJointOrdinal::from(track_index)];
             for (frame, translation) in track.translations.iter_mut().enumerate() {
                 let phase = frame as f32 / (frames - 1) as f32;
                 let stance_phase = phase - contact_phase;
@@ -2136,8 +2145,8 @@ mod tests {
         );
 
         let mut low_wrong_way_approach = clip.clone();
-        for (track_index, indices) in [(1, [0, 1]), (2, [10, 11])] {
-            let track = &mut low_wrong_way_approach.tracks[track_index];
+        for (track_index, indices) in [(1usize, [0, 1]), (2, [10, 11])] {
+            let track = &mut low_wrong_way_approach.tracks[RigJointOrdinal::from(track_index)];
             for (offset, index) in indices.into_iter().enumerate() {
                 track.translations[index] = Vec3::new(0.0, 0.005, 0.2 - offset as f32 * 0.1);
             }
@@ -2153,7 +2162,7 @@ mod tests {
         );
 
         let mut wrong_way = clip.clone();
-        for track in &mut wrong_way.tracks[1..] {
+        for track in wrong_way.tracks.iter_mut().skip(1) {
             for translation in &mut track.translations {
                 translation.z = -translation.z;
             }
@@ -2190,13 +2199,15 @@ mod tests {
                 joint("l_upleg", Some(0), Vec3::Y * 2.0),
                 joint("l_lowleg", Some(1), Vec3::NEG_Y),
                 joint("l_foot", Some(2), Vec3::NEG_Y),
-            ],
+            ]
+            .into(),
+            name_ordinals: Default::default(),
         };
         let previous = definition
             .joints
             .iter()
             .map(|joint| joint.bind)
-            .collect::<Vec<_>>();
+            .collect::<RigJointTable<_>>();
         let mut next = previous.clone();
         let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.5).unwrap();
         conform_upcoming_pose_to_terrain(
@@ -2212,24 +2223,27 @@ mod tests {
             },
         );
 
-        assert_ne!(next[1].rotation, previous[1].rotation);
+        assert_ne!(
+            next[RigJointOrdinal::from(1usize)].rotation,
+            previous[RigJointOrdinal::from(1usize)].rotation
+        );
         let displayed = previous
             .iter()
             .zip(&next)
             .map(|(previous, next)| previous.interpolate(*next, 0.5))
-            .collect::<Vec<_>>();
+            .collect::<RigJointTable<_>>();
         let next_foot = local_pose_global(
             &definition,
             &next,
             RigJointOrdinal::from(3usize),
-            &mut vec![None; definition.joints.len()],
+            &mut RigJointTable::from(vec![None; definition.joints.len()]),
         )
         .translation;
         let displayed_foot = local_pose_global(
             &definition,
             &displayed,
             RigJointOrdinal::from(3usize),
-            &mut vec![None; definition.joints.len()],
+            &mut RigJointTable::from(vec![None; definition.joints.len()]),
         )
         .translation;
         assert!(displayed_foot.y > 0.0);
@@ -2258,18 +2272,20 @@ mod tests {
                 joint("l_upleg", Some(0), Vec3::new(-0.2, 1.8, 0.0)),
                 joint("l_lowleg", Some(1), Vec3::new(0.0, -0.9, 0.15)),
                 joint("l_foot", Some(2), Vec3::new(0.0, -0.85, 0.15)),
-            ],
+            ]
+            .into(),
+            name_ordinals: Default::default(),
         };
         let locomotion = definition
             .joints
             .iter()
             .map(|joint| joint.bind)
-            .collect::<Vec<_>>();
+            .collect::<RigJointTable<_>>();
         let expected = local_pose_global(
             &definition,
             &locomotion,
             RigJointOrdinal::from(3usize),
-            &mut vec![None; locomotion.len()],
+            &mut RigJointTable::from(vec![None; locomotion.len()]),
         )
         .translation;
         let mut combined = locomotion;
@@ -2292,7 +2308,7 @@ mod tests {
             &definition,
             &combined,
             RigJointOrdinal::from(3usize),
-            &mut vec![None; combined.len()],
+            &mut RigJointTable::from(vec![None; combined.len()]),
         )
         .translation;
         assert!(compensated.distance(expected) < 0.0002);
@@ -2329,18 +2345,20 @@ mod tests {
                 joint("l_upleg", Some(0), Vec3::Y * 2.1),
                 joint("l_lowleg", Some(1), Vec3::NEG_Y),
                 joint("l_foot", Some(2), Vec3::NEG_Y),
-            ],
+            ]
+            .into(),
+            name_ordinals: Default::default(),
         };
         let mut next = definition
             .joints
             .iter()
             .map(|joint| joint.bind)
-            .collect::<Vec<_>>();
+            .collect::<RigJointTable<_>>();
         let before = local_pose_global(
             &definition,
             &next,
             RigJointOrdinal::from(3usize),
-            &mut vec![None; next.len()],
+            &mut RigJointTable::from(vec![None; next.len()]),
         )
         .translation;
         let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0).unwrap();
@@ -2362,7 +2380,7 @@ mod tests {
             &definition,
             &next,
             RigJointOrdinal::from(3usize),
-            &mut vec![None; next.len()],
+            &mut RigJointTable::from(vec![None; next.len()]),
         )
         .translation;
         assert!(before.y > measured_ankle_sole_offset_metres());
@@ -2393,7 +2411,9 @@ mod tests {
                 joint("r_upleg", Some(0), Vec3::new(0.2, 2.085, 0.0)),
                 joint("r_lowleg", Some(4), Vec3::NEG_Y),
                 joint("r_foot", Some(5), Vec3::new(0.0, -1.003, 0.0)),
-            ],
+            ]
+            .into(),
+            name_ordinals: Default::default(),
         };
         let terrain = SceneTerrain::new(4, 4, 1.0, |_| 0.0).unwrap();
         let paths = [
@@ -2413,15 +2433,17 @@ mod tests {
                 .joints
                 .iter()
                 .map(|joint| joint.bind)
-                .collect::<Vec<_>>();
-            authored[3].translation += Vec3::new(displacement.x, 0.0, displacement.y);
-            authored[6].translation -= Vec3::new(displacement.x, 0.0, displacement.y);
+                .collect::<RigJointTable<_>>();
+            authored[RigJointOrdinal::from(3usize)].translation +=
+                Vec3::new(displacement.x, 0.0, displacement.y);
+            authored[RigJointOrdinal::from(6usize)].translation -=
+                Vec3::new(displacement.x, 0.0, displacement.y);
             let before = feet.map(|foot| {
                 local_pose_global(
                     &definition,
                     &authored,
                     foot,
-                    &mut vec![None; authored.len()],
+                    &mut RigJointTable::from(vec![None; authored.len()]),
                 )
                 .translation
             });
@@ -2447,7 +2469,7 @@ mod tests {
                     &definition,
                     &conformed,
                     foot,
-                    &mut vec![None; conformed.len()],
+                    &mut RigJointTable::from(vec![None; conformed.len()]),
                 )
                 .translation
             });
@@ -2482,13 +2504,15 @@ mod tests {
                 joint("l_upleg", Some(0), Vec3::new(0.2, 2.1, 0.0)),
                 joint("l_lowleg", Some(1), Vec3::NEG_Y),
                 joint("l_foot", Some(2), Vec3::NEG_Y),
-            ],
+            ]
+            .into(),
+            name_ordinals: Default::default(),
         };
         let authored = definition
             .joints
             .iter()
             .map(|joint| joint.bind)
-            .collect::<Vec<_>>();
+            .collect::<RigJointTable<_>>();
         let terrain = SceneTerrain::new(2, 2, 1.0, |_| 0.0).unwrap();
         let mut plants = [None; 2];
         let mut first = authored.clone();
@@ -2533,7 +2557,7 @@ mod tests {
             &definition,
             &modest,
             RigJointOrdinal::from(3usize),
-            &mut vec![None; definition.joints.len()],
+            &mut RigJointTable::from(vec![None; definition.joints.len()]),
         );
         let retained_distance = modest_owner
             .transform_point(modest_foot.translation)
@@ -2566,7 +2590,7 @@ mod tests {
             &definition,
             &authored,
             RigJointOrdinal::from(3usize),
-            &mut vec![None; definition.joints.len()],
+            &mut RigJointTable::from(vec![None; definition.joints.len()]),
         );
         let far_authored_world = far_owner.transform_point(authored_foot.translation);
         assert!(slid.position_world.distance(acquired.position_world) > 0.001);

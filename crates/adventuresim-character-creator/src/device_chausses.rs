@@ -223,6 +223,8 @@ impl DeviceWearer<'_> {
             |part: RigJointPart| -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
                 side.joint(part).require_in(self.host.joint_names)
             };
+        // Native WGSL binding names, resolved by the GPU parameter adapter.
+        // These fields bind buffers/uniforms; they do not select rig joints.
         let mut parameters = PassParameters::new();
         parameters.insert("count", self.body.vertex_count);
         parameters.insert("carriers_count", part.carrier_count());

@@ -420,7 +420,7 @@ mod tests {
             app.update();
         }
         let skeleton = app.world().get::<SkeletonState>(john_entity).unwrap();
-        assert!(skeleton.locomotion_sample_tick > 0);
+        assert!(skeleton.locomotion_sample_tick.encoded() > 0);
     }
 
     #[test]

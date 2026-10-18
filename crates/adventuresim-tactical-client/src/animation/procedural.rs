@@ -6,6 +6,7 @@ pub(in crate::animation) use body_response::apply_locomotion_body_response;
 use body_response::body_response_target;
 use body_response::presentation_tick_delta;
 pub(crate) use clock::ProceduralAnimationClock;
+use clock::{AnimationSampleTick, FixedAnimationStep};
 pub(crate) use ik::{
     ArmIkState, HandIkTarget, HandSide, HeldWeaponConstraint, HumanoidIkTargets, LegIkDiagnostics,
     LegIkState, RaisedFootworkState, locomotion_support_weights, measured_ankle_sole_offset_metres,
@@ -31,12 +32,18 @@ pub(super) use ik::{
     refresh_raised_support_after_propagation,
 };
 pub(crate) use rig::*;
+use sample_state::{
+    BodyAngle, BodyAngularVelocity, BodyLocalAcceleration, BodyLocalVelocity, GroundContact,
+    HeightInitialization,
+};
+pub(crate) use sample_state::{LocomotionBodyResponseState, LocomotionHeightState};
 use std::collections::BTreeMap;
 
 mod body_response;
-mod clock;
+pub(in crate::animation) mod clock;
 mod ik;
 mod rig;
+mod sample_state;
 
 #[derive(Component, Debug, Clone, Copy)]
 pub(crate) struct ProceduralLookState {
@@ -49,56 +56,13 @@ pub(crate) struct ProceduralJumpAnticipationState {
     applied: Transform,
     amount: f32,
     pelvis_amount: f32,
-    evaluation_tick: u64,
+    evaluation_tick: AnimationSampleTick,
 }
 
 #[derive(Resource, Debug, Default)]
 pub(super) struct FixedTickPoseCache {
-    tick: Option<u64>,
+    tick: Option<AnimationSampleTick>,
     bones: BTreeMap<Entity, Transform>,
-}
-
-// The upright lowered-guard humanoid_unarmed root/pelvis rotations lift its
-// pelvis by about 33 mm at passing. Subtract that measured authored rise only
-// from the additive run-flight treatment; authored walk/pelvis translation
-// remains untouched.
-#[derive(Component, Debug, Clone, Copy, Default)]
-pub(crate) struct LocomotionHeightState {
-    initialized: bool,
-    amplitude: f32,
-    authored_rise_compensation: f32,
-    displayed_wave: f32,
-    wave_transition_offset: f32,
-    pub(crate) landing_compression: f32,
-    landing_compression_target: f32,
-    landing_absorption_metres_per_second: f32,
-    landing_recovery_metres_per_second: f32,
-    landing_left_foot_target: Option<Vec3>,
-    landing_right_foot_target: Option<Vec3>,
-    landing_plant_owner_position: Option<Vec3>,
-    landing_plant_tick: Option<u64>,
-    landing_plant_resync_tick: Option<u64>,
-    last_landing_sequence: u64,
-    last_guard: Option<WeaponGuardState>,
-    last_posture: Option<Posture>,
-    last_action: Option<SkeletonAction>,
-    last_grounded: Option<bool>,
-    evaluation_tick: Option<u64>,
-}
-
-#[derive(Component, Debug, Clone, Copy, Default)]
-pub(crate) struct LocomotionBodyResponseState {
-    pub(crate) pitch_radians: f32,
-    pub(crate) roll_radians: f32,
-    angular_velocity_radians_per_second: Vec2,
-    target_pitch_radians: f32,
-    target_roll_radians: f32,
-    smoothed_body_acceleration: Vec3,
-    last_body_velocity: Vec3,
-    last_tick: Option<u64>,
-    last_posture: Option<Posture>,
-    last_action: Option<SkeletonAction>,
-    last_grounded: Option<bool>,
 }
 
 #[derive(Clone, Copy)]
@@ -130,7 +94,7 @@ pub(super) fn stabilize_repeated_fixed_tick_pose(
     mut cache: ResMut<FixedTickPoseCache>,
     mut bones: Query<(Entity, &mut Transform), With<MhrBone>>,
 ) {
-    let Some((tick, _)) = clock.fixed_step() else {
+    let Some(FixedAnimationStep { tick, .. }) = clock.fixed_step() else {
         cache.tick = None;
         cache.bones.clear();
         return;
@@ -393,7 +357,7 @@ pub(super) fn apply_pose_mirroring(
         let Ok(playback) = playbacks.get(owner) else {
             continue;
         };
-        let whole_body_weight = playback.whole_body_mirror.clamp(0.0, 1.0);
+        let whole_body_weight = playback.whole_body_mirror.factor().clamp(0.0, 1.0);
         if whole_body_weight <= f32::EPSILON {
             continue;
         }
@@ -556,14 +520,14 @@ pub(super) fn apply_locomotion_height(
         let target_wave = locomotion_height_wave(skeleton);
         let target_authored_compensation = authored_height_compensation(skeleton);
         let mut next = state.as_deref().copied().unwrap_or_default();
-        if !next.initialized {
-            next.initialized = true;
+        if next.initialization == HeightInitialization::Pending {
+            next.initialization = HeightInitialization::Ready;
             next.amplitude = target_wave;
             next.authored_rise_compensation = target_authored_compensation;
             next.last_guard = Some(skeleton.weapon_guard());
             next.last_posture = Some(skeleton.posture());
             next.last_action = Some(skeleton.action_kind());
-            next.last_grounded = Some(skeleton.is_grounded());
+            next.last_ground_contact = Some(GroundContact::from(&**skeleton));
             next.last_landing_sequence = skeleton.landing_sequence;
         }
         let tick_delta =
@@ -591,7 +555,7 @@ pub(super) fn apply_locomotion_height(
         );
         let landing_delta = skeleton
             .landing_sequence
-            .checked_sub(next.last_landing_sequence)
+            .events_since(next.last_landing_sequence)
             .filter(|delta| *delta <= 8);
         let landed = landing_delta.is_some_and(|delta| delta > 0);
         if skeleton.landing_sequence != next.last_landing_sequence {
@@ -617,7 +581,7 @@ pub(super) fn apply_locomotion_height(
                 // changing their bend plane by the full compression in one
                 // presentation sample.
                 next.landing_absorption_metres_per_second =
-                    skeleton.landing_impact_speed.max(0.001);
+                    skeleton.landing_impact_speed.metres_per_second().max(0.001);
                 next.landing_recovery_metres_per_second = next.landing_compression_target
                     / locomotion_profile(skeleton).landing.recovery_seconds;
             }
@@ -656,7 +620,7 @@ pub(super) fn apply_locomotion_height(
         let state_changed = next.last_guard != Some(skeleton.weapon_guard())
             || next.last_posture != Some(skeleton.posture())
             || next.last_action != Some(skeleton.action_kind())
-            || next.last_grounded != Some(skeleton.is_grounded());
+            || next.last_ground_contact != Some(GroundContact::from(&**skeleton));
         if state_changed {
             next.wave_transition_offset = next.displayed_wave - raw_wave;
         } else {
@@ -670,7 +634,7 @@ pub(super) fn apply_locomotion_height(
         next.last_guard = Some(skeleton.weapon_guard());
         next.last_posture = Some(skeleton.posture());
         next.last_action = Some(skeleton.action_kind());
-        next.last_grounded = Some(skeleton.is_grounded());
+        next.last_ground_contact = Some(GroundContact::from(&**skeleton));
         heights.insert(owner, next);
         if let Some(mut state) = state {
             *state = next;
@@ -958,7 +922,7 @@ fn grounded_height_wave(phase: f32, amplitude: f32) -> f32 {
 fn authored_height_compensation(skeleton: &SkeletonState) -> f32 {
     if !skeleton.is_grounded()
         || skeleton.action_kind() != SkeletonAction::None
-        || skeleton.animation_pack != "humanoid_unarmed"
+        || skeleton.animation_pack != AnimationPackId::HUMANOID_UNARMED
         || skeleton.posture() != Posture::Upright
         || skeleton.weapon_guard() != WeaponGuardState::Lowered
     {
@@ -975,8 +939,12 @@ fn advance_towards(current: f32, target: f32, maximum_delta: f32) -> f32 {
     current + (target - current).clamp(-maximum_delta.max(0.0), maximum_delta.max(0.0))
 }
 
-fn landing_compression_for_impact(profile: LocomotionProfile, impact_speed: f32) -> f32 {
-    if impact_speed < 1.0 {
+fn landing_compression_for_impact(
+    profile: LocomotionProfile,
+    impact_speed: LandingImpactSpeed,
+) -> f32 {
+    let impact_speed = impact_speed.metres_per_second();
+    if impact_speed < profile.landing.minimum_impact_speed_metres_per_second {
         0.0
     } else {
         (impact_speed * profile.landing.compression_per_metre_per_second).clamp(
@@ -988,7 +956,7 @@ fn landing_compression_for_impact(profile: LocomotionProfile, impact_speed: f32)
 
 fn landing_compression_for_action(
     profile: LocomotionProfile,
-    impact_speed: f32,
+    impact_speed: LandingImpactSpeed,
     _previous_action: Option<SkeletonAction>,
 ) -> f32 {
     landing_compression_for_impact(profile, impact_speed)
@@ -1011,8 +979,8 @@ fn retain_landing_foot_target(
 }
 
 fn landing_plant_is_discontinuous(
-    previous_tick: Option<u64>,
-    current_tick: u64,
+    previous_tick: Option<AnimationSampleTick>,
+    current_tick: AnimationSampleTick,
     previous_owner_position: Option<Vec3>,
     current_owner_position: Vec3,
 ) -> bool {
@@ -1157,8 +1125,20 @@ mod contract_tests {
 
     #[test]
     fn presentation_tick_delta_handles_wrap_and_rejects_large_gaps() {
-        assert_eq!(presentation_tick_delta(Some(u64::MAX), 0), Some(1));
-        assert_eq!(presentation_tick_delta(Some(1), 100), None);
+        assert_eq!(
+            presentation_tick_delta(
+                Some(AnimationSampleTick::from(u64::MAX)),
+                AnimationSampleTick::ZERO
+            ),
+            Some(1)
+        );
+        assert_eq!(
+            presentation_tick_delta(
+                Some(AnimationSampleTick::from(1u64)),
+                AnimationSampleTick::from(100u64)
+            ),
+            None
+        );
     }
 
     #[test]
@@ -1418,7 +1398,7 @@ mod ik_tests {
             0.0
         );
         let mut specialized = moving(2.0, Posture::Upright, WeaponGuardState::Lowered);
-        specialized.animation_pack = "humanoid_sword_and_shield".to_owned();
+        specialized.animation_pack = "humanoid_sword_and_shield".into();
         assert_eq!(authored_height_compensation(&specialized), 0.0);
     }
 
@@ -1451,25 +1431,58 @@ mod ik_tests {
                 <= 30.0
         );
         assert_eq!(
-            landing_compression_for_impact(walk_locomotion_profile(), 0.5),
+            landing_compression_for_impact(
+                walk_locomotion_profile(),
+                LandingImpactSpeed::from_metres_per_second(0.5)
+            ),
             0.0
         );
         assert!((0.04..=0.08).contains(&landing_compression_for_impact(
             walk_locomotion_profile(),
-            4.5,
+            LandingImpactSpeed::from_metres_per_second(4.5),
         )));
         assert!(
             landing_compression_for_action(
                 walk_locomotion_profile(),
-                4.5,
+                LandingImpactSpeed::from_metres_per_second(4.5),
                 Some(SkeletonAction::Dodge),
             ) > 0.0
         );
-        assert!(landing_compression_for_action(walk_locomotion_profile(), 4.5, None) > 0.0);
-        assert_eq!(presentation_tick_delta(Some(10), 10), Some(0));
-        assert_eq!(presentation_tick_delta(Some(10), 14), Some(4));
-        assert_eq!(presentation_tick_delta(Some(14), 2), None);
-        assert_eq!(presentation_tick_delta(Some(2), 40), None);
+        assert!(
+            landing_compression_for_action(
+                walk_locomotion_profile(),
+                LandingImpactSpeed::from_metres_per_second(4.5),
+                None
+            ) > 0.0
+        );
+        assert_eq!(
+            presentation_tick_delta(
+                Some(AnimationSampleTick::from(10u64)),
+                AnimationSampleTick::from(10u64)
+            ),
+            Some(0)
+        );
+        assert_eq!(
+            presentation_tick_delta(
+                Some(AnimationSampleTick::from(10u64)),
+                AnimationSampleTick::from(14u64)
+            ),
+            Some(4)
+        );
+        assert_eq!(
+            presentation_tick_delta(
+                Some(AnimationSampleTick::from(14u64)),
+                AnimationSampleTick::from(2u64)
+            ),
+            None
+        );
+        assert_eq!(
+            presentation_tick_delta(
+                Some(AnimationSampleTick::from(2u64)),
+                AnimationSampleTick::from(40u64)
+            ),
+            None
+        );
     }
 
     #[test]
@@ -1508,20 +1521,20 @@ mod ik_tests {
         assert_eq!(first, target);
         assert_eq!(recovered_frame, first);
         assert!(!landing_plant_is_discontinuous(
-            Some(10),
-            10,
+            Some(AnimationSampleTick::from(10u64)),
+            AnimationSampleTick::from(10u64),
             Some(Vec3::ZERO),
             Vec3::ZERO,
         ));
         assert!(landing_plant_is_discontinuous(
-            Some(10),
-            9,
+            Some(AnimationSampleTick::from(10u64)),
+            AnimationSampleTick::from(9u64),
             Some(Vec3::ZERO),
             Vec3::ZERO,
         ));
         assert!(landing_plant_is_discontinuous(
-            Some(10),
-            11,
+            Some(AnimationSampleTick::from(10u64)),
+            AnimationSampleTick::from(11u64),
             Some(Vec3::ZERO),
             Vec3::X * 3.0,
         ));
@@ -1530,8 +1543,8 @@ mod ik_tests {
             landing_left_foot_target: retained,
             landing_right_foot_target: Some(first),
             landing_plant_owner_position: Some(Vec3::ZERO),
-            landing_plant_tick: Some(10),
-            landing_plant_resync_tick: Some(10),
+            landing_plant_tick: Some(AnimationSampleTick::from(10u64)),
+            landing_plant_resync_tick: Some(AnimationSampleTick::from(10u64)),
             ..default()
         };
         clear_landing_foot_plants(&mut height);

@@ -19,6 +19,8 @@ use bind_pose::{capture_authored_bind_transforms, restore_authored_bind_pose};
 pub(crate) use capture_ids::{capture_animation_target_id, capture_entity_id};
 pub use catalog::AnimationPackCatalog;
 use catalog::*;
+pub(crate) use catalog_id::MotionId;
+use catalog_id::{AnimationAssetPath, MotionKey};
 use continuation::{ContinuationSpan, append_continuation_span};
 use diagnostics::log_animation_diagnostics;
 #[cfg(not(target_family = "wasm"))]
@@ -26,6 +28,10 @@ pub(crate) use diagnostics::{
     AnimationDiagnosticLog, DiagnosticInputStatus, RenderScheduleTelemetry,
 };
 use loading::*;
+use playback_state::{
+    BaseRigLoad, ClipMirror, InertialState, OrdinaryLocomotion, PoseOwnership, PoseSource,
+    PoseVisibility, TimelineDirection,
+};
 pub(crate) use presentation::{
     plugin::{AnimatedActors, StrategicModel},
     *,
@@ -37,36 +43,41 @@ pub(crate) use procedural::{
     authored_bind_global, cache_humanoid_rigs, locomotion_support_weights,
     measured_ankle_sole_offset_metres, sole_contact_tolerance_metres,
 };
-use rig_identity::AnimationBodyRegion;
+use resolver::PoseSampleResolver;
 pub(crate) use rig_identity::AuthoredRigJoint;
+use rig_identity::{AnimationBodyRegion, PelvisRole};
+use sample_values::{BlendWeight, ClipDuration, ClipTime, CyclePhase};
 use std::collections::{BTreeMap, BTreeSet, HashSet};
 
 mod bind_pose;
 pub(crate) mod bouncy_bones;
 mod capture_ids;
 pub(crate) mod catalog;
+mod catalog_id;
 mod continuation;
 mod diagnostics;
 mod identity_morphs;
 pub(crate) mod jitter;
 mod loading;
+mod playback_state;
 pub(crate) mod pose_buffer;
 mod presentation;
 mod procedural;
 mod ragdoll;
+mod resolver;
 mod rig_identity;
+mod sample_values;
 pub(crate) mod semantic_route;
 pub(crate) mod skeletal_proportions;
 
-const HUMANOID_UNARMED_PACK: &str = "humanoid_unarmed";
+const BIPED_BASE_GLB: AnimationAssetPath =
+    AnimationAssetPath::from_static("animations/biped/unarmed/base.glb");
 
-const HUMANOID_2H_CLOSE_PACK: &str = "humanoid_2h_close";
+const BIPED_GRIP_HILT_GLB: AnimationAssetPath =
+    AnimationAssetPath::from_static("animations/biped/grip_hilt.glb");
 
-const BIPED_BASE_GLB: &str = "animations/biped/unarmed/base.glb";
-
-const BIPED_GRIP_HILT_GLB: &str = "animations/biped/grip_hilt.glb";
-
-const BIPED_GRIP_POLEARM_GLB: &str = "animations/biped/grip_polearm.glb";
+const BIPED_GRIP_POLEARM_GLB: AnimationAssetPath =
+    AnimationAssetPath::from_static("animations/biped/grip_polearm.glb");
 
 /// Runtime switch for terrain height, slope, and pelvis conformity. This is on
 /// by default; debug builds expose F8 to compare against authored FK.
@@ -97,28 +108,27 @@ pub(super) struct AuthoredLocomotionStrides {
     run: Option<AuthoredStrideMeasurement>,
     strafe: Option<AuthoredStrideMeasurement>,
     skip: Option<AuthoredStrideMeasurement>,
-    phase_curves: BTreeMap<String, AuthoredPhaseCurve>,
-    measured_clips: BTreeMap<String, AssetId<AnimationClip>>,
+    phase_curves: BTreeMap<MotionId, AuthoredPhaseCurve>,
+    measured_clips: BTreeMap<MotionId, AssetId<AnimationClip>>,
 }
 
 #[derive(Debug, Clone)]
 struct LoadedClip {
     handle: Handle<AnimationClip>,
-    duration_seconds: f32,
+    duration_seconds: ClipDuration,
     layer: ClipLayer,
 }
 
 #[derive(Resource, Default)]
 pub(crate) struct AnimationRuntime {
     requested_base: Option<Handle<Gltf>>,
-    base_processed: bool,
-    base_failed: bool,
+    base_load: BaseRigLoad,
     base_scene: Option<Handle<WorldAsset>>,
-    requested_motions: BTreeMap<(String, String), Handle<Gltf>>,
-    processed_motions: BTreeSet<(String, String)>,
-    unavailable_motions: BTreeSet<(String, String)>,
-    clip_handles: BTreeMap<(String, String), Handle<AnimationClip>>,
-    clips: BTreeMap<(String, String), LoadedClip>,
+    requested_motions: BTreeMap<MotionKey, Handle<Gltf>>,
+    processed_motions: BTreeSet<MotionKey>,
+    unavailable_motions: BTreeSet<MotionKey>,
+    clip_handles: BTreeMap<MotionKey, Handle<AnimationClip>>,
+    clips: BTreeMap<MotionKey, LoadedClip>,
     requested_grips: BTreeMap<WeaponGrip, Handle<Gltf>>,
     processed_grips: BTreeSet<WeaponGrip>,
     unavailable_grips: BTreeSet<WeaponGrip>,
@@ -132,24 +142,24 @@ pub(super) struct AnimationPlayback {
     clips: Vec<WeightedClip>,
     extrapolated_spans: Vec<ExtrapolatedSpan>,
     continuation_spans: Vec<ContinuationSpan>,
-    use_authored_bind_pose: bool,
-    pub(super) whole_body_mirror: f32,
+    pose_source: PoseSource,
+    pub(super) whole_body_mirror: BlendWeight,
     pub(super) foot_ik_weights: Vec2,
     weapon_guard: WeaponGuardState,
-    ordinary_locomotion_active: bool,
-    direct_sampling: bool,
+    ordinary_locomotion: OrdinaryLocomotion,
+    cadence: PoseSamplingCadence,
 }
 
 #[derive(Debug, Clone)]
 struct WeightedClip {
     clip: LoadedClip,
-    weight: f32,
-    time_seconds: f32,
-    mirrored_weight: f32,
+    weight: BlendWeight,
+    time_seconds: ClipTime,
+    mirrored_weight: BlendWeight,
     /// Unwarped physical phase for ordinary sparse-pose locomotion. Its
     /// presence selects the Bevy-side semantic-anchor sampler while
     /// `time_seconds` retains the measured authored phase coordinate.
-    locomotion_phase: Option<f32>,
+    locomotion_phase: Option<CyclePhase>,
 }
 
 #[derive(Debug, Clone)]
@@ -168,10 +178,10 @@ struct PlaybackPose {
     clips: Vec<WeightedClip>,
     extrapolated_spans: Vec<ExtrapolatedSpan>,
     continuation_spans: Vec<ContinuationSpan>,
-    use_authored_bind_pose: bool,
-    whole_body_mirror: f32,
+    pose_source: PoseSource,
+    whole_body_mirror: BlendWeight,
     foot_ik_weights: Vec2,
-    direct_sampling: bool,
+    cadence: PoseSamplingCadence,
 }
 
 #[derive(Component)]
@@ -196,18 +206,10 @@ pub(crate) struct AuthoredBindTransform {
 struct ResolvedAnchor<'a> {
     clip: &'a LoadedClip,
     anchor: &'a PoseAnchor,
-    pack_id: &'a str,
+    pack_id: &'a AnimationPackId,
     semantic: SemanticPose,
-    mirrored: bool,
-    timeline_reversed: bool,
-}
-
-#[derive(Clone, Copy)]
-struct PoseSampleResolver<'a> {
-    runtime: &'a AnimationRuntime,
-    catalog: &'a AnimationPackCatalog,
-    pack: &'a str,
-    locomotion_strides: &'a AuthoredLocomotionStrides,
+    mirrored: ClipMirror,
+    timeline_direction: TimelineDirection,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -270,24 +272,24 @@ impl AuthoredStrideMeasurement {
 }
 
 impl AuthoredLocomotionStrides {
-    fn clear_motion(&mut self, motion: &str) {
+    fn clear_motion(&mut self, motion: &MotionId) {
         self.phase_curves.remove(motion);
         match motion {
-            "walk" => self.walk = None,
-            "run" => self.run = None,
-            "strafe" => self.strafe = None,
-            "skip" => self.skip = None,
+            motion if motion == &MotionId::from_static("walk") => self.walk = None,
+            motion if motion == &MotionId::from_static("run") => self.run = None,
+            motion if motion == &MotionId::from_static("strafe") => self.strafe = None,
+            motion if motion == &MotionId::from_static("skip") => self.skip = None,
             _ => {}
         }
     }
 
     fn sample_phase(&self, pose: SemanticPose, physical_phase: f32) -> f32 {
         let motion = match pose {
-            SemanticPose::WalkContact => "walk",
-            SemanticPose::RunContact => "run",
+            SemanticPose::WalkContact => MotionId::from_static("walk"),
+            SemanticPose::RunContact => MotionId::from_static("run"),
             _ => return physical_phase.rem_euclid(1.0),
         };
-        self.phase_curves.get(motion).map_or_else(
+        self.phase_curves.get(&motion).map_or_else(
             || physical_phase.rem_euclid(1.0),
             |curve| curve.sample(physical_phase),
         )
@@ -348,10 +350,10 @@ impl LoadedClip {
 impl WeaponGrip {
     const ALL: [Self; 2] = [Self::Hilt, Self::Polearm];
 
-    const fn path(self) -> &'static str {
+    const fn path(self) -> &'static AnimationAssetPath {
         match self {
-            Self::Hilt => BIPED_GRIP_HILT_GLB,
-            Self::Polearm => BIPED_GRIP_POLEARM_GLB,
+            Self::Hilt => &BIPED_GRIP_HILT_GLB,
+            Self::Polearm => &BIPED_GRIP_POLEARM_GLB,
         }
     }
 }
@@ -361,16 +363,16 @@ impl AnimationRuntime {
         self.requested_base.as_ref()
     }
 
-    pub(super) fn motion_is_processed(&self, motion: &str) -> bool {
+    pub(super) fn motion_is_processed(&self, motion: &MotionId) -> bool {
         self.processed_motions
             .iter()
-            .any(|(_, processed)| processed == motion)
+            .any(|key| &key.motion == motion)
     }
 }
 
 impl AnimationPlayback {
     pub(super) fn authored_pose_is_ready(&self) -> bool {
-        !self.use_authored_bind_pose
+        self.pose_source == PoseSource::Clips
             && (!self.clips.is_empty()
                 || !self.extrapolated_spans.is_empty()
                 || !self.continuation_spans.is_empty())
@@ -380,8 +382,38 @@ impl AnimationPlayback {
         self.authored_pose_is_ready()
     }
 
+    fn from_presented_pose(skeleton: &SkeletonState, target: PlaybackPose) -> Self {
+        let active = ordinary_locomotion_candidate(skeleton) && skeleton.animation_speed() > 0.05;
+        Self {
+            clips: target.clips,
+            extrapolated_spans: target.extrapolated_spans,
+            continuation_spans: target.continuation_spans,
+            pose_source: target.pose_source,
+            whole_body_mirror: target.whole_body_mirror,
+            foot_ik_weights: target.foot_ik_weights,
+            weapon_guard: skeleton.weapon_guard(),
+            ordinary_locomotion: OrdinaryLocomotion::from_candidate(active),
+            cadence: target.cadence,
+        }
+    }
+
+    fn apply_presented_pose(&mut self, skeleton: &SkeletonState, target: PlaybackPose) {
+        // Hysteresis prevents sub-threshold velocity noise from repeatedly
+        // restarting the idle/locomotion presentation transition.
+        let threshold = if self.ordinary_locomotion == OrdinaryLocomotion::Active {
+            0.03
+        } else {
+            0.08
+        };
+        let active =
+            ordinary_locomotion_candidate(skeleton) && skeleton.animation_speed() > threshold;
+        self.weapon_guard = skeleton.weapon_guard();
+        self.ordinary_locomotion = OrdinaryLocomotion::from_candidate(active);
+        apply_playback_pose(self, target);
+    }
+
     fn sampling_cadence(&self) -> PoseSamplingCadence {
-        if !self.direct_sampling
+        if self.cadence == PoseSamplingCadence::Buffered
             && self.extrapolated_spans.is_empty()
             && self.continuation_spans.is_empty()
         {
@@ -401,251 +433,12 @@ impl Default for AnimationPlayback {
             clips: Vec::new(),
             extrapolated_spans: Vec::new(),
             continuation_spans: Vec::new(),
-            use_authored_bind_pose: true,
-            whole_body_mirror: 0.0,
+            pose_source: PoseSource::Bind,
+            whole_body_mirror: BlendWeight::ZERO,
             foot_ik_weights: Vec2::ZERO,
             weapon_guard: WeaponGuardState::Lowered,
-            ordinary_locomotion_active: false,
-            direct_sampling: false,
-        }
-    }
-}
-
-impl PoseSampleResolver<'_> {
-    fn append_layer(
-        &self,
-        weighted: &mut Vec<WeightedClip>,
-        extrapolated_spans: &mut Vec<ExtrapolatedSpan>,
-        continuation_spans: &mut Vec<ContinuationSpan>,
-        sample: PoseSample,
-        layer: ClipLayer,
-    ) {
-        let Self {
-            runtime,
-            catalog,
-            pack,
-            locomotion_strides,
-        } = *self;
-        let start = resolve_anchor(runtime, catalog, pack, sample.pose);
-        let Some(start) = start.and_then(|resolved| {
-            select_gait_endpoint_parity(runtime, resolved, sample.mirror_lower_body)
-        }) else {
-            return;
-        };
-        match sample.sampling {
-            PoseSampling::Anchor => {
-                append_weighted_anchor(weighted, &start, start.anchor.frame, sample.weight, layer)
-            }
-            PoseSampling::Cycle { phase } => {
-                let sample_phase = locomotion_strides.sample_phase(sample.pose, phase);
-                let clip = start.clip.at_anchor_layer(start.anchor.frame, layer);
-                append_weighted_clip(
-                    weighted,
-                    &clip,
-                    start.mirrored,
-                    start.clip.duration_seconds * sample_phase,
-                    sample.weight,
-                    matches!(
-                        sample.pose,
-                        SemanticPose::WalkContact | SemanticPose::RunContact
-                    )
-                    .then_some(phase.rem_euclid(1.0)),
-                );
-            }
-            PoseSampling::Timeline { progress } => {
-                let progress = progress.clamp(0.0, 1.0);
-                let timeline = if start.timeline_reversed {
-                    1.0 - progress
-                } else {
-                    progress
-                };
-                let clip = start.clip.at_anchor_layer(start.anchor.frame, layer);
-                append_weighted_clip(
-                    weighted,
-                    &clip,
-                    start.mirrored,
-                    start.clip.duration_seconds * timeline,
-                    sample.weight,
-                    None,
-                );
-            }
-            PoseSampling::Span { end, progress } => {
-                let end_pose = end;
-                let progress = progress.clamp(0.0, 1.0);
-                let end = resolve_anchor(runtime, catalog, pack, end_pose);
-                let Some(end) = end else {
-                    append_weighted_anchor(
-                        weighted,
-                        &start,
-                        start.anchor.frame,
-                        sample.weight,
-                        layer,
-                    );
-                    return;
-                };
-                if start.pack_id == end.pack_id && start.anchor.motion == end.anchor.motion {
-                    append_weighted_anchor(
-                        weighted,
-                        &start,
-                        start.anchor.frame,
-                        sample.weight * (1.0 - progress),
-                        layer,
-                    );
-                    append_weighted_anchor(
-                        weighted,
-                        &end,
-                        end.anchor.frame,
-                        sample.weight * progress,
-                        layer,
-                    );
-                } else if let Some(reference) = catalog.packs[end.pack_id]
-                    .references
-                    .get(&end.anchor.motion)
-                    .and_then(|references| {
-                        references
-                            .iter()
-                            .filter(|reference| reference.pose == sample.pose)
-                            .min_by_key(|reference| reference.frame.abs_diff(end.anchor.frame))
-                    })
-                {
-                    append_weighted_anchor(
-                        weighted,
-                        &end,
-                        reference.frame,
-                        sample.weight * (1.0 - progress),
-                        layer,
-                    );
-                    append_weighted_anchor(
-                        weighted,
-                        &end,
-                        end.anchor.frame,
-                        sample.weight * progress,
-                        layer,
-                    );
-                } else if let Some(reference) = catalog.packs[start.pack_id]
-                    .references
-                    .get(&start.anchor.motion)
-                    .and_then(|references| {
-                        references
-                            .iter()
-                            .filter(|reference| reference.pose == end_pose)
-                            .min_by_key(|reference| reference.frame.abs_diff(start.anchor.frame))
-                    })
-                {
-                    append_weighted_anchor(
-                        weighted,
-                        &start,
-                        start.anchor.frame,
-                        sample.weight * (1.0 - progress),
-                        layer,
-                    );
-                    append_weighted_anchor(
-                        weighted,
-                        &start,
-                        reference.frame,
-                        sample.weight * progress,
-                        layer,
-                    );
-                } else {
-                    append_weighted_anchor(
-                        weighted,
-                        &start,
-                        start.anchor.frame,
-                        sample.weight * (1.0 - progress),
-                        layer,
-                    );
-                    append_weighted_anchor(
-                        weighted,
-                        &end,
-                        end.anchor.frame,
-                        sample.weight * progress,
-                        layer,
-                    );
-                }
-            }
-            PoseSampling::CurveSpan { end, coordinate } => {
-                let end_pose = end;
-                let coordinate = coordinate.clamp(
-                    -AttackCurve::maximum_drawback(),
-                    1.0 + AttackCurve::maximum_overshoot(),
-                );
-                let Some(end) = resolve_anchor(runtime, catalog, pack, end_pose) else {
-                    append_weighted_anchor(
-                        weighted,
-                        &start,
-                        start.anchor.frame,
-                        sample.weight,
-                        layer,
-                    );
-                    return;
-                };
-                let (span_start, start_frame, span_end, end_frame) = if start.pack_id == end.pack_id
-                    && start.anchor.motion == end.anchor.motion
-                {
-                    (
-                        start.clone(),
-                        start.anchor.frame,
-                        end.clone(),
-                        end.anchor.frame,
-                    )
-                } else if let Some(reference) = catalog.packs[end.pack_id]
-                    .references
-                    .get(&end.anchor.motion)
-                    .and_then(|references| {
-                        references
-                            .iter()
-                            .filter(|reference| reference.pose == sample.pose)
-                            .min_by_key(|reference| reference.frame.abs_diff(end.anchor.frame))
-                    })
-                {
-                    (end.clone(), reference.frame, end.clone(), end.anchor.frame)
-                } else if let Some(reference) = catalog.packs[start.pack_id]
-                    .references
-                    .get(&start.anchor.motion)
-                    .and_then(|references| {
-                        references
-                            .iter()
-                            .filter(|reference| reference.pose == end_pose)
-                            .min_by_key(|reference| reference.frame.abs_diff(start.anchor.frame))
-                    })
-                {
-                    (
-                        start.clone(),
-                        start.anchor.frame,
-                        start.clone(),
-                        reference.frame,
-                    )
-                } else {
-                    (
-                        start.clone(),
-                        start.anchor.frame,
-                        end.clone(),
-                        end.anchor.frame,
-                    )
-                };
-                extrapolated_spans.push(ExtrapolatedSpan {
-                    start: span_start.clip.at_anchor_layer(start_frame, layer),
-                    start_time_seconds: frame_seconds(start_frame),
-                    end: span_end.clip.at_anchor_layer(end_frame, layer),
-                    end_time_seconds: frame_seconds(end_frame),
-                    coordinate,
-                    weight: sample.weight,
-                    mirrored_weight: if span_start.mirrored {
-                        sample.weight
-                    } else {
-                        0.0
-                    },
-                });
-            }
-            sampling @ PoseSampling::ContinuationSpan { .. } => append_continuation_span(
-                self,
-                weighted,
-                continuation_spans,
-                &start,
-                sample,
-                sampling,
-                layer,
-            ),
+            ordinary_locomotion: OrdinaryLocomotion::Inactive,
+            cadence: PoseSamplingCadence::Buffered,
         }
     }
 }
@@ -760,17 +553,6 @@ fn evaluate_skeletons(
         } else {
             &evaluation.action
         };
-        let mut weighted = Vec::<WeightedClip>::new();
-        let mut extrapolated_spans = Vec::<ExtrapolatedSpan>::new();
-        let mut continuation_spans = Vec::<ContinuationSpan>::new();
-        let split_combat_pelvis = combat_pelvis_is_component_blended(skeleton, &evaluation);
-        let base_layer = if split_combat_pelvis {
-            ClipLayer::CombatUpper
-        } else if !evaluation.lower_body.is_empty() {
-            ClipLayer::Upper
-        } else {
-            ClipLayer::Whole
-        };
         let sample_resolver = PoseSampleResolver {
             runtime: &runtime,
             catalog: &catalog,
@@ -778,50 +560,7 @@ fn evaluate_skeletons(
             locomotion_strides: character_strides
                 .map_or(&*locomotion_strides, |strides| &strides.measurements),
         };
-        for sample in samples {
-            sample_resolver.append_layer(
-                &mut weighted,
-                &mut extrapolated_spans,
-                &mut continuation_spans,
-                *sample,
-                base_layer,
-            );
-        }
-        let lower_layer = if split_combat_pelvis {
-            ClipLayer::CombatLower
-        } else {
-            ClipLayer::Lower
-        };
-        for sample in &evaluation.lower_body {
-            sample_resolver.append_layer(
-                &mut weighted,
-                &mut extrapolated_spans,
-                &mut continuation_spans,
-                *sample,
-                lower_layer,
-            );
-        }
-        let (total_weight, mirrored_weight) = weighted
-            .iter()
-            .map(|clip| (clip.weight, clip.mirrored_weight))
-            .chain(
-                extrapolated_spans
-                    .iter()
-                    .map(|span| (span.weight, span.mirrored_weight)),
-            )
-            .chain(
-                continuation_spans
-                    .iter()
-                    .map(|span| (span.weight, span.mirrored_weight)),
-            )
-            .fold((0.0, 0.0), |(total, mirrored), (weight, mirror)| {
-                (total + weight, mirrored + mirror)
-            });
-        let whole_body_mirror = if total_weight > f32::EPSILON {
-            (mirrored_weight / total_weight).clamp(0.0, 1.0)
-        } else {
-            0.0
-        };
+        let mut target = sample_resolver.resolve_body(skeleton, &evaluation);
         if let Some((weapon, properties)) = equipped_main_weapon(inventory, &weapons, &equip_slots)
             && let Some(clip) = runtime.grips.get(&weapon_grip(&weapon.skill_weights))
         {
@@ -833,54 +572,22 @@ fn evaluate_skeletons(
                 .flatten()
             {
                 append_weighted_clip(
-                    &mut weighted,
+                    &mut target.clips,
                     &clip.at_anchor_layer(0, layer),
-                    false,
-                    0.0,
-                    1.0,
+                    ClipMirror::Original,
+                    ClipTime::from_seconds(0.0),
+                    BlendWeight::ONE,
                     None,
                 );
             }
         }
-        let target = PlaybackPose {
-            use_authored_bind_pose: weighted.is_empty()
-                && extrapolated_spans.is_empty()
-                && continuation_spans.is_empty(),
-            whole_body_mirror,
-            foot_ik_weights: semantic_foot_ik_weights(&evaluation),
-            direct_sampling: !evaluation.action.is_empty(),
-            clips: weighted,
-            extrapolated_spans,
-            continuation_spans,
-        };
-        let ordinary_locomotion_candidate = ordinary_locomotion_candidate(skeleton);
+        let target = target.into_playback(&evaluation);
         if let Some(mut playback) = playback {
-            // Hysteresis prevents sub-threshold velocity noise from repeatedly
-            // restarting the idle/locomotion presentation transition.
-            let locomotion_threshold = if playback.ordinary_locomotion_active {
-                0.03
-            } else {
-                0.08
-            };
-            let ordinary_locomotion_active =
-                ordinary_locomotion_candidate && skeleton.animation_speed() > locomotion_threshold;
-            playback.weapon_guard = skeleton.weapon_guard();
-            playback.ordinary_locomotion_active = ordinary_locomotion_active;
-            apply_playback_pose(&mut playback, target);
+            playback.apply_presented_pose(skeleton, target);
         } else {
-            let ordinary_locomotion_active =
-                ordinary_locomotion_candidate && skeleton.animation_speed() > 0.05;
-            commands.entity(entity).insert(AnimationPlayback {
-                clips: target.clips,
-                extrapolated_spans: target.extrapolated_spans,
-                continuation_spans: target.continuation_spans,
-                use_authored_bind_pose: target.use_authored_bind_pose,
-                whole_body_mirror: target.whole_body_mirror,
-                foot_ik_weights: target.foot_ik_weights,
-                weapon_guard: skeleton.weapon_guard(),
-                ordinary_locomotion_active,
-                direct_sampling: target.direct_sampling,
-            });
+            commands
+                .entity(entity)
+                .insert(AnimationPlayback::from_presented_pose(skeleton, target));
         }
     }
 }
@@ -955,11 +662,11 @@ fn equipped_animation_pack(
     inventory: Option<&InventoryItems>,
     items: &Query<&ItemProperties, With<WeaponItem>>,
     equip_slots: &Query<&EquipSlot>,
-) -> &'static str {
+) -> AnimationPackId {
     let Some(properties) = held_item(inventory, equip_slots, EquipSlot::HoldingRight)
         .and_then(|entity| items.get(entity).ok())
     else {
-        return HUMANOID_UNARMED_PACK;
+        return AnimationPackId::HUMANOID_UNARMED;
     };
     animation_pack_for_weapon(
         &properties.id,
@@ -967,18 +674,18 @@ fn equipped_animation_pack(
     )
 }
 
-fn animation_pack_for_weapon(item_id: &str, uses_offhand: bool) -> &'static str {
+fn animation_pack_for_weapon(item_id: &str, uses_offhand: bool) -> AnimationPackId {
     if item_catalog::weapon_handling(item_id) == Some(item_catalog::WeaponHandling::TwoHanded)
         && !uses_offhand
     {
-        return HUMANOID_UNARMED_PACK;
+        return AnimationPackId::HUMANOID_UNARMED;
     }
     if let Some(pack) = item_catalog::weapon_animation_pack(item_id) {
-        return pack;
+        return AnimationPackId::from(pack);
     }
     match item_catalog::weapon_handling(item_id) {
-        Some(item_catalog::WeaponHandling::TwoHanded) => HUMANOID_2H_CLOSE_PACK,
-        _ => HUMANOID_UNARMED_PACK,
+        Some(item_catalog::WeaponHandling::TwoHanded) => AnimationPackId::HUMANOID_2H_CLOSE,
+        _ => AnimationPackId::HUMANOID_UNARMED,
     }
 }
 
@@ -994,10 +701,10 @@ fn apply_playback_pose(playback: &mut AnimationPlayback, pose: PlaybackPose) {
     playback.clips = pose.clips;
     playback.extrapolated_spans = pose.extrapolated_spans;
     playback.continuation_spans = pose.continuation_spans;
-    playback.use_authored_bind_pose = pose.use_authored_bind_pose;
+    playback.pose_source = pose.pose_source;
     playback.whole_body_mirror = pose.whole_body_mirror;
     playback.foot_ik_weights = pose.foot_ik_weights;
-    playback.direct_sampling = pose.direct_sampling;
+    playback.cadence = pose.cadence;
 }
 
 /// IK ownership follows the direct semantic locomotion samples.
@@ -1020,7 +727,7 @@ fn semantic_foot_ik_weights(evaluation: &AnimationEvaluation) -> Vec2 {
             (
                 SemanticPose::StrafeCycle | SemanticPose::SkipCycle,
                 PoseSampling::Cycle { phase },
-            ) => combat_cycle_ik_weights(phase),
+            ) => combat_cycle_ik_weights(CyclePhase::from_cycles(phase)),
             (
                 SemanticPose::QuickstepForwardTakeoff
                 | SemanticPose::QuickstepRightTakeoff
@@ -1063,9 +770,10 @@ fn semantic_foot_ik_weights(evaluation: &AnimationEvaluation) -> Vec2 {
 /// and frames 6/18 switch contact. The pose buffer interpolates continuously
 /// into each terrain-conformed target; support identity itself must not overlap
 /// because an outgoing foot is free as soon as the incoming foot contacts.
-fn combat_cycle_ik_weights(phase: f32) -> Vec2 {
-    let phase = phase.rem_euclid(1.0);
-    if (0.25..0.75).contains(&phase) {
+fn combat_cycle_ik_weights(phase: CyclePhase) -> Vec2 {
+    let phase = phase.wrapped();
+    if (catalog::COMBAT_FIRST_CONTACT_PHASE..catalog::COMBAT_SECOND_CONTACT_PHASE).contains(&phase)
+    {
         Vec2::X
     } else {
         Vec2::Y
@@ -1090,7 +798,7 @@ fn on_successful_attack(
 fn resolve_anchor<'a>(
     runtime: &'a AnimationRuntime,
     catalog: &'a AnimationPackCatalog,
-    requested_pack: &str,
+    requested_pack: &AnimationPackId,
     pose: SemanticPose,
 ) -> Option<ResolvedAnchor<'a>> {
     let ordinary = resolve_library_anchor(runtime, catalog, requested_pack, pose);
@@ -1111,7 +819,7 @@ fn resolve_anchor<'a>(
         && reversed.semantic == reversed_pose
     {
         return Some(ResolvedAnchor {
-            timeline_reversed: true,
+            timeline_direction: TimelineDirection::Reversed,
             ..reversed
         });
     }
@@ -1122,7 +830,7 @@ fn resolve_anchor<'a>(
 fn resolve_library_anchor<'a>(
     runtime: &'a AnimationRuntime,
     catalog: &'a AnimationPackCatalog,
-    requested_pack: &str,
+    requested_pack: &AnimationPackId,
     pose: SemanticPose,
 ) -> Option<ResolvedAnchor<'a>> {
     let ResolvedPose::Clip {
@@ -1139,14 +847,14 @@ fn resolve_library_anchor<'a>(
     pack.motions.get(&anchor.motion)?;
     let clip = runtime
         .clips
-        .get(&(pack_id.to_owned(), anchor.motion.clone()))?;
+        .get(&MotionKey::new(pack_id, &anchor.motion))?;
     Some(ResolvedAnchor {
         clip,
         anchor,
         pack_id,
         semantic: resolved_pose,
-        mirrored,
-        timeline_reversed: false,
+        mirrored: ClipMirror::from_resolved_pose(mirrored),
+        timeline_direction: TimelineDirection::Forward,
     })
 }
 
@@ -1168,13 +876,15 @@ fn reversed_quickstep_pose(pose: SemanticPose) -> Option<SemanticPose> {
 fn select_gait_endpoint_parity<'a>(
     runtime: &'a AnimationRuntime,
     resolved: ResolvedAnchor<'a>,
-    mirrored: bool,
+    mirrored: ClipMirror,
 ) -> Option<ResolvedAnchor<'a>> {
-    if !mirrored {
+    if mirrored == ClipMirror::Original {
         return Some(resolved);
     }
-    let motion = format!("{}_mirrored", resolved.anchor.motion);
-    let clip = runtime.clips.get(&(resolved.pack_id.to_owned(), motion))?;
+    let motion = resolved.anchor.motion.mirrored();
+    let clip = runtime
+        .clips
+        .get(&MotionKey::new(resolved.pack_id, &motion))?;
     Some(ResolvedAnchor { clip, ..resolved })
 }
 
@@ -1190,8 +900,8 @@ fn append_weighted_anchor(
         weighted,
         &clip,
         resolved.mirrored,
-        frame_seconds(frame),
-        weight,
+        ClipTime::from_seconds(frame_seconds(frame)),
+        BlendWeight::from_factor(weight),
         None,
     );
 }
@@ -1199,22 +909,22 @@ fn append_weighted_anchor(
 fn append_weighted_clip(
     weighted: &mut Vec<WeightedClip>,
     clip: &LoadedClip,
-    mirrored: bool,
-    time_seconds: f32,
-    weight: f32,
-    locomotion_phase: Option<f32>,
+    mirrored: ClipMirror,
+    time_seconds: ClipTime,
+    weight: BlendWeight,
+    locomotion_phase: Option<CyclePhase>,
 ) {
-    if weight <= f32::EPSILON {
+    if weight.is_absent() {
         return;
     }
     if let Some(existing) = weighted.iter_mut().find(|existing| {
         existing.clip.handle.id() == clip.handle.id()
             && existing.clip.layer == clip.layer
-            && (existing.time_seconds - time_seconds).abs() < 0.0001
+            && existing.time_seconds.same_sample(time_seconds)
             && existing.locomotion_phase == locomotion_phase
     }) {
         existing.weight += weight;
-        if mirrored {
+        if mirrored == ClipMirror::Mirrored {
             existing.mirrored_weight += weight;
         }
     } else {
@@ -1222,7 +932,11 @@ fn append_weighted_clip(
             clip: clip.clone(),
             weight,
             time_seconds,
-            mirrored_weight: if mirrored { weight } else { 0.0 },
+            mirrored_weight: if mirrored == ClipMirror::Mirrored {
+                weight
+            } else {
+                BlendWeight::ZERO
+            },
             locomotion_phase,
         });
     }
@@ -1232,7 +946,7 @@ fn append_resolved_sample(
     weighted: &mut Vec<WeightedClip>,
     runtime: &AnimationRuntime,
     catalog: &AnimationPackCatalog,
-    pack: &str,
+    pack: &AnimationPackId,
     sample: PoseSample,
 ) {
     let mut extrapolated_spans = Vec::new();
@@ -1285,35 +999,82 @@ mod contract_tests {
     #[test]
     fn sparse_catalog_declares_airborne_and_three_attack_assets() {
         let catalog = AnimationPackCatalog::biped_root().unwrap();
-        let root = &catalog.packs[HUMANOID_UNARMED_PACK];
-        assert!(root.motions.contains_key("airborne_center"));
-        assert!(root.motions.contains_key("airborne_travel"));
-        assert!(root.motions.contains_key("swing"));
-        assert!(root.motions.contains_key("thrust"));
-        assert!(root.motions.contains_key("offhand"));
-        assert!(!root.motions.keys().any(|name| name.starts_with("jump_")));
+        let root = &catalog.packs[&AnimationPackId::HUMANOID_UNARMED];
+        assert!(
+            root.motions
+                .contains_key(&MotionId::from_static("airborne_center"))
+        );
+        assert!(
+            root.motions
+                .contains_key(&MotionId::from_static("airborne_travel"))
+        );
+        assert!(root.motions.contains_key(&MotionId::from_static("swing")));
+        assert!(root.motions.contains_key(&MotionId::from_static("thrust")));
+        assert!(root.motions.contains_key(&MotionId::from_static("offhand")));
+        assert!(
+            !root
+                .motions
+                .keys()
+                .any(|name| name.to_string().starts_with("jump_"))
+        );
     }
 
     #[test]
     fn attack_semantics_use_the_canonical_motion_names() {
         let catalog = AnimationPackCatalog::biped_root().unwrap();
-        let root = &catalog.packs[HUMANOID_UNARMED_PACK];
-        assert_eq!(root.poses[&SemanticPose::AttackThrust].motion, "thrust");
-        assert_eq!(root.poses[&SemanticPose::AttackSwing].motion, "swing");
-        assert_eq!(root.poses[&SemanticPose::ContinueSwing].motion, "swing");
-        assert_eq!(root.poses[&SemanticPose::AttackOffhand].motion, "offhand");
+        let root = &catalog.packs[&AnimationPackId::HUMANOID_UNARMED];
+        assert_eq!(
+            root.poses[&SemanticPose::AttackThrust].motion,
+            MotionId::from_static("thrust")
+        );
+        assert_eq!(
+            root.poses[&SemanticPose::AttackSwing].motion,
+            MotionId::from_static("swing")
+        );
+        assert_eq!(
+            root.poses[&SemanticPose::ContinueSwing].motion,
+            MotionId::from_static("swing")
+        );
+        assert_eq!(
+            root.poses[&SemanticPose::AttackOffhand].motion,
+            MotionId::from_static("offhand")
+        );
     }
 
     #[test]
     fn combat_cycle_ik_switches_exclusive_support_at_authored_contacts() {
-        assert_eq!(combat_cycle_ik_weights(0.0), Vec2::Y);
-        assert_eq!(combat_cycle_ik_weights(0.125), Vec2::Y);
-        assert_eq!(combat_cycle_ik_weights(0.25), Vec2::X);
-        assert_eq!(combat_cycle_ik_weights(0.375), Vec2::X);
-        assert_eq!(combat_cycle_ik_weights(0.5), Vec2::X);
-        assert_eq!(combat_cycle_ik_weights(0.625), Vec2::X);
-        assert_eq!(combat_cycle_ik_weights(0.75), Vec2::Y);
-        assert_eq!(combat_cycle_ik_weights(0.875), Vec2::Y);
+        assert_eq!(
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.0)),
+            Vec2::Y
+        );
+        assert_eq!(
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.125)),
+            Vec2::Y
+        );
+        assert_eq!(
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.25)),
+            Vec2::X
+        );
+        assert_eq!(
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.375)),
+            Vec2::X
+        );
+        assert_eq!(
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.5)),
+            Vec2::X
+        );
+        assert_eq!(
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.625)),
+            Vec2::X
+        );
+        assert_eq!(
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.75)),
+            Vec2::Y
+        );
+        assert_eq!(
+            combat_cycle_ik_weights(CyclePhase::from_cycles(0.875)),
+            Vec2::Y
+        );
     }
 
     #[test]

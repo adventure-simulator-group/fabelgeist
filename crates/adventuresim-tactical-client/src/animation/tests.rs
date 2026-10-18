@@ -90,9 +90,18 @@ mod legacy_tests {
     #[test]
     fn runtime_catalog_registers_both_downed_gait_mirror_endpoints() {
         let catalog = catalog::AnimationPackCatalog::default();
-        let pack = catalog.packs.get(HUMANOID_UNARMED_PACK).unwrap();
-        assert!(pack.motions.contains_key("prone_crawl_mirrored"));
-        assert!(pack.motions.contains_key("supine_scamper_mirrored"));
+        let pack = catalog
+            .packs
+            .get(&AnimationPackId::HUMANOID_UNARMED)
+            .unwrap();
+        assert!(
+            pack.motions
+                .contains_key(&MotionId::from_static("prone_crawl_mirrored"))
+        );
+        assert!(
+            pack.motions
+                .contains_key(&MotionId::from_static("supine_scamper_mirrored"))
+        );
     }
 
     #[test]
@@ -210,7 +219,7 @@ mod legacy_tests {
         let mut presented = PresentedSkeleton::new(authoritative.clone(), None);
         let delta_seconds = 1.0 / 60.0;
 
-        for tick in 1..=32 {
+        for tick in 1u64..=32 {
             let previous_phase = presented.gait_phase;
             let predicted_delta = gait_cycle_phase_delta(
                 locomotion_profile(&presented.state),
@@ -219,7 +228,7 @@ mod legacy_tests {
             );
             let jitter = if tick % 2 == 0 { 0.03 } else { -0.03 };
             authoritative.gait_phase = (previous_phase + predicted_delta + jitter).rem_euclid(1.0);
-            authoritative.locomotion_sample_tick = tick;
+            authoritative.locomotion_sample_tick = AnimationSampleTick::from(tick);
 
             advance_presented_skeleton(&mut presented, &authoritative, delta_seconds);
 
@@ -242,7 +251,7 @@ mod legacy_tests {
         let delta_seconds = 1.0 / 60.0;
         let maximum_correction = presentation_phase_correction_rate_per_second() * delta_seconds;
 
-        for tick in 1..=8 {
+        for tick in 1u64..=8 {
             let predicted_delta = gait_cycle_phase_delta(
                 locomotion_profile(&presented.state),
                 presented.animation_speed(),
@@ -250,7 +259,7 @@ mod legacy_tests {
             );
             authoritative.gait_phase =
                 (presented.gait_phase + predicted_delta + 0.10).rem_euclid(1.0);
-            authoritative.locomotion_sample_tick = tick;
+            authoritative.locomotion_sample_tick = AnimationSampleTick::from(tick);
 
             advance_presented_skeleton(&mut presented, &authoritative, delta_seconds);
 
@@ -299,11 +308,11 @@ mod legacy_tests {
     #[test]
     fn default_catalog_owns_all_required_poses_once() {
         let catalog = AnimationPackCatalog::default();
-        let root = &catalog.packs[HUMANOID_UNARMED_PACK];
+        let root = &catalog.packs[&AnimationPackId::HUMANOID_UNARMED];
         let mut library = AnimationPackLibrary::default();
         library
             .insert(AnimationPack {
-                id: HUMANOID_UNARMED_PACK.to_owned(),
+                id: AnimationPackId::HUMANOID_UNARMED.to_owned(),
                 skeleton_family: root.skeleton_family.clone(),
                 fallback: root.fallback.clone(),
                 clips: root.poses.keys().copied().collect(),
@@ -312,7 +321,7 @@ mod legacy_tests {
         for required in SemanticPose::HUMANOID_REQUIRED {
             assert!(
                 matches!(
-                    library.resolve(HUMANOID_UNARMED_PACK, required),
+                    library.resolve(&AnimationPackId::HUMANOID_UNARMED, required),
                     ResolvedPose::Clip { semantic, .. } if semantic == required
                 ),
                 "required pose {required:?} did not resolve"
@@ -329,27 +338,27 @@ mod legacy_tests {
             .count();
         assert_eq!(authored_variants, 29);
         assert_eq!(
-            root.motions["walk"].path,
+            root.motions[&MotionId::from_static("walk")].path.relative(),
             "animations/biped/unarmed/walk.glb"
         );
         assert_eq!(
             root.poses[&SemanticPose::WalkPassing],
             PoseAnchor {
-                motion: "walk".to_owned(),
+                motion: MotionId::from_static("walk"),
                 frame: 16,
             }
         );
         assert_eq!(
             root.poses[&SemanticPose::AttackThrust],
             PoseAnchor {
-                motion: "thrust".to_owned(),
+                motion: MotionId::from_static("thrust"),
                 frame: 4,
             }
         );
         assert_eq!(
             root.poses[&SemanticPose::DiveForward],
             PoseAnchor {
-                motion: "dive".to_owned(),
+                motion: MotionId::from_static("dive"),
                 frame: 0,
             }
         );
@@ -358,20 +367,38 @@ mod legacy_tests {
             SemanticPose::DiveLeft,
             SemanticPose::DiveRight,
         ] {
-            assert_eq!(root.poses[&pose].motion, "dive");
+            assert_eq!(root.poses[&pose].motion, MotionId::from_static("dive"));
         }
         assert_eq!(SemanticPose::DiveRight.mirrored_counterpart(), None);
         assert_eq!(root.poses[&SemanticPose::GuardSwing].frame, 0);
         assert_eq!(root.poses[&SemanticPose::GuardThrust].frame, 0);
         assert_eq!(root.poses[&SemanticPose::AttackOffhand].frame, 0);
-        assert_eq!(root.motions["swing"].last_frame, 12);
-        assert_eq!(root.motions["swing"].required_last_frame, 4);
-        assert_eq!(root.motions["thrust"].last_frame, 12);
-        assert_eq!(root.motions["thrust"].required_last_frame, 4);
-        assert_eq!(root.motions["offhand"].last_frame, 4);
-        assert_eq!(root.motions["offhand"].required_last_frame, 0);
-        assert_eq!(root.motions["strafe"].last_frame, 24);
-        assert_eq!(root.motions["skip"].last_frame, 24);
+        assert_eq!(root.motions[&MotionId::from_static("swing")].last_frame, 12);
+        assert_eq!(
+            root.motions[&MotionId::from_static("swing")].required_last_frame,
+            4
+        );
+        assert_eq!(
+            root.motions[&MotionId::from_static("thrust")].last_frame,
+            12
+        );
+        assert_eq!(
+            root.motions[&MotionId::from_static("thrust")].required_last_frame,
+            4
+        );
+        assert_eq!(
+            root.motions[&MotionId::from_static("offhand")].last_frame,
+            4
+        );
+        assert_eq!(
+            root.motions[&MotionId::from_static("offhand")].required_last_frame,
+            0
+        );
+        assert_eq!(
+            root.motions[&MotionId::from_static("strafe")].last_frame,
+            24
+        );
+        assert_eq!(root.motions[&MotionId::from_static("skip")].last_frame, 24);
         assert_eq!(root.poses[&SemanticPose::StrafeCycle].frame, 0);
         assert_eq!(root.poses[&SemanticPose::SkipCycle].frame, 0);
         for motion in [
@@ -380,17 +407,22 @@ mod legacy_tests {
             "quickstep_left",
             "quickstep_back",
         ] {
-            assert_eq!(root.motions[motion].last_frame, 12);
+            assert_eq!(root.motions[&MotionId::from(motion)].last_frame, 12);
         }
     }
 
     #[test]
     fn two_handed_close_pack_overrides_attacks_and_inherits_other_poses() {
         let catalog = AnimationPackCatalog::default();
-        let pack = &catalog.packs[HUMANOID_2H_CLOSE_PACK];
-        assert_eq!(pack.fallback.as_deref(), Some(HUMANOID_UNARMED_PACK));
+        let pack = &catalog.packs[&AnimationPackId::HUMANOID_2H_CLOSE];
         assert_eq!(
-            pack.motions["swing"].path,
+            pack.fallback.as_ref(),
+            Some(&AnimationPackId::HUMANOID_UNARMED)
+        );
+        assert_eq!(
+            pack.motions[&MotionId::from_static("swing")]
+                .path
+                .relative(),
             "animations/biped/2h_close/swing.glb"
         );
         assert!(pack.poses.contains_key(&SemanticPose::AttackSwing));
@@ -400,7 +432,12 @@ mod legacy_tests {
 
     #[test]
     fn duplicate_authoritative_pose_is_rejected() {
-        let mut builder = PackBuilder::new("test", "humanoid", None, "animations/test");
+        let mut builder = PackBuilder::new(
+            &AnimationPackId::from("test"),
+            "humanoid",
+            None,
+            "animations/test",
+        );
         builder.motion("one", 0);
         builder.motion("two", 0);
         builder.pose("one", 0, SemanticPose::IdleRelaxed).unwrap();
@@ -413,17 +450,23 @@ mod legacy_tests {
     #[test]
     fn pack_builder_supports_specialized_pack_paths_and_fallbacks() {
         let mut builder = PackBuilder::new(
-            "armored",
+            &AnimationPackId::from("armored"),
             "humanoid",
-            Some(HUMANOID_UNARMED_PACK),
+            Some(&AnimationPackId::HUMANOID_UNARMED),
             "animations/armored",
         );
         builder.motion("idle", 0);
         builder.pose("idle", 0, SemanticPose::IdleRelaxed).unwrap();
         let (id, pack) = builder.finish();
-        assert_eq!(id, "armored");
-        assert_eq!(pack.fallback.as_deref(), Some(HUMANOID_UNARMED_PACK));
-        assert_eq!(pack.motions["idle"].path, "animations/armored/idle.glb");
+        assert_eq!(id, AnimationPackId::from("armored"));
+        assert_eq!(
+            pack.fallback.as_ref(),
+            Some(&AnimationPackId::HUMANOID_UNARMED)
+        );
+        assert_eq!(
+            pack.motions[&MotionId::from_static("idle")].path.relative(),
+            "animations/armored/idle.glb"
+        );
     }
 
     #[test]
@@ -450,7 +493,7 @@ mod legacy_tests {
         let mut library = AnimationPackLibrary::default();
         library
             .insert(AnimationPack {
-                id: HUMANOID_UNARMED_PACK.to_owned(),
+                id: AnimationPackId::HUMANOID_UNARMED.to_owned(),
                 skeleton_family: "humanoid".to_owned(),
                 fallback: None,
                 clips: poses.clone(),
@@ -461,8 +504,8 @@ mod legacy_tests {
             ..default()
         };
         for pose in poses {
-            let anchor = &catalog.packs[HUMANOID_UNARMED_PACK].poses[&pose];
-            let key = (HUMANOID_UNARMED_PACK.to_owned(), anchor.motion.clone());
+            let anchor = &catalog.packs[&AnimationPackId::HUMANOID_UNARMED].poses[&pose];
+            let key = MotionKey::new(&AnimationPackId::HUMANOID_UNARMED, &anchor.motion);
             if runtime.clips.contains_key(&key) {
                 continue;
             }
@@ -470,9 +513,11 @@ mod legacy_tests {
                 key,
                 LoadedClip {
                     handle: assets.add(AnimationClip::default()),
-                    duration_seconds: catalog.packs[HUMANOID_UNARMED_PACK].motions[&anchor.motion]
-                        .last_frame as f32
-                        / animation_frames_per_second(),
+                    duration_seconds: ClipDuration::from_seconds(
+                        catalog.packs[&AnimationPackId::HUMANOID_UNARMED].motions[&anchor.motion]
+                            .last_frame as f32
+                            / animation_frames_per_second(),
+                    ),
                     layer: ClipLayer::Whole,
                 },
             );
@@ -490,7 +535,7 @@ mod legacy_tests {
             &mut weighted,
             &runtime,
             &catalog,
-            HUMANOID_UNARMED_PACK,
+            &AnimationPackId::HUMANOID_UNARMED,
             PoseSample {
                 pose: SemanticPose::WalkContact,
                 sampling: PoseSampling::Span {
@@ -502,14 +547,12 @@ mod legacy_tests {
             },
         );
         assert_eq!(weighted.len(), 2);
-        assert!(
-            weighted.iter().any(|sample| {
-                sample.time_seconds == 0.0 && (sample.weight - 0.5).abs() < 0.0001
-            })
-        );
         assert!(weighted.iter().any(|sample| {
-            (sample.time_seconds - 16.0 / animation_frames_per_second()).abs() < 0.0001
-                && (sample.weight - 0.5).abs() < 0.0001
+            sample.time_seconds.seconds() == 0.0 && (sample.weight.factor() - 0.5).abs() < 0.0001
+        }));
+        assert!(weighted.iter().any(|sample| {
+            (sample.time_seconds.seconds() - 16.0 / animation_frames_per_second()).abs() < 0.0001
+                && (sample.weight.factor() - 0.5).abs() < 0.0001
         }));
     }
 
@@ -523,7 +566,7 @@ mod legacy_tests {
             &mut weighted,
             &runtime,
             &catalog,
-            HUMANOID_UNARMED_PACK,
+            &AnimationPackId::HUMANOID_UNARMED,
             PoseSample {
                 pose: SemanticPose::GuardThrust,
                 sampling: PoseSampling::Span {
@@ -535,7 +578,10 @@ mod legacy_tests {
             },
         );
         assert_eq!(weighted.len(), 2);
-        let thrust = runtime.clips[&(HUMANOID_UNARMED_PACK.to_owned(), "thrust".to_owned())]
+        let thrust = runtime.clips[&MotionKey::new(
+            &AnimationPackId::HUMANOID_UNARMED,
+            &MotionId::from_static("thrust"),
+        )]
             .handle
             .id();
         assert!(
@@ -546,11 +592,12 @@ mod legacy_tests {
         assert!(
             weighted
                 .iter()
-                .any(|sample| sample.time_seconds == 0.0 && (sample.weight - 0.5).abs() < 0.0001)
+                .any(|sample| sample.time_seconds.seconds() == 0.0
+                    && (sample.weight.factor() - 0.5).abs() < 0.0001)
         );
         assert!(weighted.iter().any(|sample| {
-            (sample.time_seconds - 4.0 / animation_frames_per_second()).abs() < 0.0001
-                && (sample.weight - 0.5).abs() < 0.0001
+            (sample.time_seconds.seconds() - 4.0 / animation_frames_per_second()).abs() < 0.0001
+                && (sample.weight.factor() - 0.5).abs() < 0.0001
         }));
     }
 
@@ -562,10 +609,13 @@ mod legacy_tests {
         let mut assets = Assets::<AnimationClip>::default();
         let mirrored_handle = assets.add(AnimationClip::default());
         runtime.clips.insert(
-            (HUMANOID_UNARMED_PACK.to_owned(), "run_mirrored".to_owned()),
+            MotionKey::new(
+                &AnimationPackId::HUMANOID_UNARMED,
+                &MotionId::from_static("run_mirrored"),
+            ),
             LoadedClip {
                 handle: mirrored_handle.clone(),
-                duration_seconds: 64.0 / animation_frames_per_second(),
+                duration_seconds: ClipDuration::from_seconds(64.0 / animation_frames_per_second()),
                 layer: ClipLayer::Whole,
             },
         );
@@ -574,7 +624,7 @@ mod legacy_tests {
             &mut weighted,
             &runtime,
             &catalog,
-            HUMANOID_UNARMED_PACK,
+            &AnimationPackId::HUMANOID_UNARMED,
             PoseSample {
                 pose: SemanticPose::RunContact,
                 sampling: PoseSampling::Anchor,
@@ -585,7 +635,7 @@ mod legacy_tests {
 
         assert_eq!(weighted.len(), 1);
         assert_eq!(weighted[0].clip.handle.id(), mirrored_handle.id());
-        assert!((weighted[0].weight - 0.5).abs() < 0.0001);
+        assert!((weighted[0].weight.factor() - 0.5).abs() < 0.0001);
     }
 
     #[test]
@@ -681,19 +731,19 @@ mod legacy_tests {
     fn weapon_catalog_selects_specific_and_two_handed_fallback_packs() {
         assert_eq!(
             animation_pack_for_weapon("longsword", true),
-            HUMANOID_2H_CLOSE_PACK
+            AnimationPackId::HUMANOID_2H_CLOSE
         );
         assert_eq!(
             animation_pack_for_weapon("zweihander", true),
-            HUMANOID_2H_CLOSE_PACK
+            AnimationPackId::HUMANOID_2H_CLOSE
         );
         assert_eq!(
             animation_pack_for_weapon("halberd", true),
-            HUMANOID_2H_CLOSE_PACK
+            AnimationPackId::HUMANOID_2H_CLOSE
         );
         assert_eq!(
             animation_pack_for_weapon("arming_sword", false),
-            HUMANOID_UNARMED_PACK
+            AnimationPackId::HUMANOID_UNARMED
         );
     }
 
@@ -704,7 +754,7 @@ mod legacy_tests {
         assert!(!weapon_uses_offhand("arming_sword", true));
         assert_eq!(
             animation_pack_for_weapon("longsword", false),
-            HUMANOID_UNARMED_PACK
+            AnimationPackId::HUMANOID_UNARMED
         );
         assert_eq!(
             weapon_grip_layers(true, true),
@@ -741,7 +791,7 @@ mod legacy_tests {
 
         let clip = LoadedClip {
             handle: Handle::default(),
-            duration_seconds: 0.4,
+            duration_seconds: ClipDuration::from_seconds(0.4),
             layer: ClipLayer::Whole,
         };
         playback.extrapolated_spans.push(ExtrapolatedSpan {
@@ -811,7 +861,7 @@ mod legacy_tests {
             &mut weighted,
             &runtime,
             &catalog,
-            HUMANOID_UNARMED_PACK,
+            &AnimationPackId::HUMANOID_UNARMED,
             PoseSample {
                 pose: SemanticPose::RunContact,
                 sampling: PoseSampling::Anchor,
@@ -820,7 +870,7 @@ mod legacy_tests {
             },
         );
         assert_eq!(weighted.len(), 1);
-        assert!(weighted[0].time_seconds.abs() < 0.0001);
+        assert!(weighted[0].time_seconds.seconds().abs() < 0.0001);
     }
 
     #[test]
@@ -835,7 +885,7 @@ mod legacy_tests {
             &mut weighted,
             &runtime,
             &catalog,
-            HUMANOID_UNARMED_PACK,
+            &AnimationPackId::HUMANOID_UNARMED,
             PoseSample {
                 pose: SemanticPose::QuickstepForwardTakeoff,
                 sampling: PoseSampling::Timeline { progress: 0.25 },
@@ -844,16 +894,19 @@ mod legacy_tests {
             },
         );
 
-        let back = runtime.clips[&(
-            HUMANOID_UNARMED_PACK.to_owned(),
-            "quickstep_back".to_owned(),
+        let back = runtime.clips[&MotionKey::new(
+            &AnimationPackId::HUMANOID_UNARMED,
+            &MotionId::from_static("quickstep_back"),
         )]
             .handle
             .id();
         assert_eq!(weighted.len(), 1);
         assert_eq!(weighted[0].clip.handle.id(), back);
-        assert!((weighted[0].time_seconds - 9.0 / animation_frames_per_second()).abs() < 0.0001);
-        assert!((weighted[0].weight - 1.0).abs() < 0.0001);
+        assert!(
+            (weighted[0].time_seconds.seconds() - 9.0 / animation_frames_per_second()).abs()
+                < 0.0001
+        );
+        assert!((weighted[0].weight.factor() - 1.0).abs() < 0.0001);
     }
 
     #[test]
@@ -870,7 +923,7 @@ mod legacy_tests {
             &mut weighted,
             &runtime,
             &catalog,
-            HUMANOID_UNARMED_PACK,
+            &AnimationPackId::HUMANOID_UNARMED,
             PoseSample {
                 pose: SemanticPose::QuickstepRightTakeoff,
                 sampling: PoseSampling::Timeline { progress: 0.5 },
@@ -879,15 +932,18 @@ mod legacy_tests {
             },
         );
 
-        let right = runtime.clips[&(
-            HUMANOID_UNARMED_PACK.to_owned(),
-            "quickstep_right".to_owned(),
+        let right = runtime.clips[&MotionKey::new(
+            &AnimationPackId::HUMANOID_UNARMED,
+            &MotionId::from_static("quickstep_right"),
         )]
             .handle
             .id();
         assert_eq!(weighted.len(), 1);
         assert_eq!(weighted[0].clip.handle.id(), right);
-        assert!((weighted[0].time_seconds - 6.0 / animation_frames_per_second()).abs() < 0.0001);
+        assert!(
+            (weighted[0].time_seconds.seconds() - 6.0 / animation_frames_per_second()).abs()
+                < 0.0001
+        );
     }
 
     #[test]
@@ -902,7 +958,7 @@ mod legacy_tests {
         let sample_resolver = PoseSampleResolver {
             runtime: &runtime,
             catalog: &catalog,
-            pack: HUMANOID_UNARMED_PACK,
+            pack: &AnimationPackId::HUMANOID_UNARMED,
             locomotion_strides: &strides,
         };
         for (sample, expected_layer) in [
@@ -947,7 +1003,7 @@ mod legacy_tests {
             runtime_with_available([SemanticPose::WalkContact, SemanticPose::StrafeCycle]);
         let mut strides = AuthoredLocomotionStrides::default();
         strides.phase_curves.insert(
-            "walk".to_owned(),
+            MotionId::from_static("walk"),
             AuthoredPhaseCurve {
                 authored_phases: vec![0.0, 0.75, 1.0],
             },
@@ -959,7 +1015,7 @@ mod legacy_tests {
         let sample_resolver = PoseSampleResolver {
             runtime: &runtime,
             catalog: &catalog,
-            pack: HUMANOID_UNARMED_PACK,
+            pack: &AnimationPackId::HUMANOID_UNARMED,
             locomotion_strides: &strides,
         };
         sample_resolver.append_layer(
@@ -976,10 +1032,17 @@ mod legacy_tests {
             },
             ClipLayer::Lower,
         );
-        let walk_duration =
-            runtime.clips[&(HUMANOID_UNARMED_PACK.to_owned(), "walk".to_owned())].duration_seconds;
-        assert!((weighted[0].time_seconds - walk_duration * 0.75).abs() < 0.0001);
-        assert_eq!(weighted[0].locomotion_phase, Some(physical_phase));
+        let walk_duration = runtime.clips[&MotionKey::new(
+            &AnimationPackId::HUMANOID_UNARMED,
+            &MotionId::from_static("walk"),
+        )]
+            .duration_seconds
+            .seconds();
+        assert!((weighted[0].time_seconds.seconds() - walk_duration * 0.75).abs() < 0.0001);
+        assert_eq!(
+            weighted[0].locomotion_phase,
+            Some(CyclePhase::from_cycles(physical_phase))
+        );
 
         weighted.clear();
         sample_resolver.append_layer(
@@ -996,10 +1059,15 @@ mod legacy_tests {
             },
             ClipLayer::Lower,
         );
-        let strafe_duration = runtime.clips
-            [&(HUMANOID_UNARMED_PACK.to_owned(), "strafe".to_owned())]
-            .duration_seconds;
-        assert!((weighted[0].time_seconds - strafe_duration * physical_phase).abs() < 0.0001);
+        let strafe_duration = runtime.clips[&MotionKey::new(
+            &AnimationPackId::HUMANOID_UNARMED,
+            &MotionId::from_static("strafe"),
+        )]
+            .duration_seconds
+            .seconds();
+        assert!(
+            (weighted[0].time_seconds.seconds() - strafe_duration * physical_phase).abs() < 0.0001
+        );
         assert_eq!(weighted[0].locomotion_phase, None);
     }
 

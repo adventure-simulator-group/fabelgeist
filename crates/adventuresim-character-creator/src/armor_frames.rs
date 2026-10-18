@@ -27,7 +27,7 @@ impl Side {
 
     /// Construct the anatomical label on this equipment side.
     pub(crate) fn joint(self, part: RigJointPart) -> RigJointName {
-        RigJointName::sided(
+        fabelgeist_rig::mhr::sided(
             match self {
                 Self::Left => RigSide::Left,
                 Self::Right => RigSide::Right,
@@ -185,7 +185,8 @@ impl Wearer<'_> {
             .iter()
             .map(|name: &RigJointName| -> RigJointMembership {
                 RigJointMembership::from(owners.iter().any(|owner: &RigJointName| -> bool {
-                    name.skin_family(owner) == RigJointMembership::Included
+                    crate::clothing::rig_selection::skin_family(name, owner)
+                        == RigJointMembership::Included
                 }))
             })
             .collect::<Vec<_>>();

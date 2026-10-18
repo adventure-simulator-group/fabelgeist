@@ -13,7 +13,10 @@ use super::{
 };
 use adventuresim_tactical_core::prelude::*;
 use bevy::{math::Affine3A, prelude::*};
-use fabelgeist_rig::RigJointOrdinal;
+use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
+
+/// Finite-difference denominator floor in seconds for a coincident sample pair.
+const MINIMUM_VELOCITY_INTERVAL_SECONDS: f32 = 0.00001;
 
 /// One body's entry state: world pose plus the velocities the animation was
 /// carrying.
@@ -64,16 +67,12 @@ pub(super) fn live_world_affine(
 pub(super) fn topological_joint_order(rig: &PoseBufferRig) -> Vec<RigJointOrdinal> {
     let count = rig.joint_count();
     let mut order = Vec::with_capacity(count);
-    let mut placed = vec![false; count];
+    let mut placed = RigJointTable::from(vec![false; count]);
     while order.len() < count {
         let before = order.len();
         for joint in (0..count).map(RigJointOrdinal::from) {
-            if !placed[usize::from(joint)]
-                && rig
-                    .joint_parent(joint)
-                    .is_none_or(|parent| placed[usize::from(parent)])
-            {
-                placed[usize::from(joint)] = true;
+            if !placed[joint] && rig.joint_parent(joint).is_none_or(|parent| placed[parent]) {
+                placed[joint] = true;
                 order.push(joint);
             }
         }
@@ -106,20 +105,20 @@ pub(super) fn joint_world_affines(
     rig: &PoseBufferRig,
     order: &[RigJointOrdinal],
     base: &dyn Fn(RigJointOrdinal) -> Affine3A,
-) -> (Vec<Affine3A>, Vec<Affine3A>) {
+) -> (RigJointTable<Affine3A>, RigJointTable<Affine3A>) {
     let count = rig.joint_count();
-    let mut previous = vec![Affine3A::IDENTITY; count];
-    let mut next = vec![Affine3A::IDENTITY; count];
+    let mut previous = RigJointTable::from(vec![Affine3A::IDENTITY; count]);
+    let mut next = RigJointTable::from(vec![Affine3A::IDENTITY; count]);
     for &joint in order {
         let (parent_previous, parent_next) = match rig.joint_parent(joint) {
-            Some(parent) => (previous[usize::from(parent)], next[usize::from(parent)]),
+            Some(parent) => (previous[parent], next[parent]),
             None => {
                 let base = base(joint);
                 (base, base)
             }
         };
-        previous[usize::from(joint)] = parent_previous * rig.previous_pose(joint).affine();
-        next[usize::from(joint)] = parent_next * rig.upcoming_pose(joint).affine();
+        previous[joint] = parent_previous * rig.previous_pose(joint).affine();
+        next[joint] = parent_next * rig.upcoming_pose(joint).affine();
     }
     (previous, next)
 }
@@ -129,15 +128,15 @@ pub(super) fn joint_world_affines(
 pub(super) fn seed_bodies(
     definition: &RagdollDefinition,
     rig: &PoseBufferRig,
-    joint_bodies: &[Option<usize>],
-    world_previous: &[Affine3A],
-    world_next: &[Affine3A],
+    joint_bodies: &RigJointTable<Option<usize>>,
+    world_previous: &RigJointTable<Affine3A>,
+    world_next: &RigJointTable<Affine3A>,
     momentum: Vec3,
     config: &RagdollConfig,
 ) -> Vec<Option<BodySeed>> {
     let sample_seconds = rig.sample_interval_seconds();
     let mut seeds = vec![None; definition.bodies.len()];
-    for (joint, body) in joint_bodies.iter().enumerate() {
+    for (joint, body) in joint_bodies.indexed() {
         let Some(body) = *body else {
             continue;
         };
@@ -195,7 +194,7 @@ fn angular_velocity_between(next: Quat, current: Quat, delta_seconds: f32) -> Ve
     if delta.w < 0.0 {
         delta = -delta;
     }
-    delta.to_scaled_axis() / delta_seconds.max(1e-5)
+    delta.to_scaled_axis() / delta_seconds.max(MINIMUM_VELOCITY_INTERVAL_SECONDS)
 }
 
 /// Spawn one rigid body per seeded definition body, each with a capsule

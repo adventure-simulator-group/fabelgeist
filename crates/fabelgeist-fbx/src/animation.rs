@@ -21,6 +21,11 @@ use crate::{FbxObjectName, FbxQualifiedName, Prop, Scene};
 /// FBX stores times as integer ticks of this many per second.
 const TICKS_PER_SECOND: f64 = 46_186_158_000.0;
 
+/// Declared or inferred FBX take duration in source seconds, retaining f64 precision.
+#[derive(derive_more::Debug, Clone, Copy, PartialEq)]
+#[debug("{_0:?}")]
+pub struct FbxAnimationDuration(f64);
+
 /// One animated scalar channel.
 #[derive(Debug, Clone, Default)]
 pub struct Curve {
@@ -59,8 +64,17 @@ pub struct Take {
     pub name: FbxObjectName,
     /// Seconds, from the stack's declared local time span when it has one and
     /// from the keys otherwise.
-    pub duration: f64,
+    pub duration: FbxAnimationDuration,
     pub nodes: Vec<NodeAnimation>,
+}
+
+impl FbxAnimationDuration {
+    pub fn from_seconds(seconds: f64) -> Self {
+        Self(seconds)
+    }
+    pub fn seconds(self) -> f64 {
+        self.0
+    }
 }
 
 impl Curve {
@@ -193,7 +207,7 @@ impl Scene {
 
                 Some(Take {
                     name: stack.name.clone(),
-                    duration,
+                    duration: FbxAnimationDuration::from_seconds(duration),
                     nodes,
                 })
             })

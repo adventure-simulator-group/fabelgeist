@@ -238,14 +238,9 @@ pub(super) fn generate_equipment_assets(
     model: &BodyModel,
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
-    item_filter: &[String],
+    selection: &crate::equipment_catalog::EquipmentItemSelection<'_>,
 ) -> Result<()> {
-    if !item_filter.is_empty() {
-        for filter in item_filter {
-            if !catalog.wearable().any(|item| item.id == *filter) {
-                anyhow::bail!("unknown procedural equipment item {filter}");
-            }
-        }
+    if selection.is_filtered() {
         if output.exists()
             && std::fs::read_dir(output)
                 .with_context(|| format!("reading equipment output {}", output.display()))?
@@ -271,7 +266,7 @@ pub(super) fn generate_equipment_assets(
     let mut assets = Vec::new();
     let mut generated_files = std::collections::BTreeSet::new();
     for item in catalog.wearable() {
-        if !item_filter.is_empty() && !item_filter.contains(&item.id) {
+        if !selection.includes(item) {
             continue;
         }
         let equipment = item.equipment.as_ref().expect("filtered equipment");

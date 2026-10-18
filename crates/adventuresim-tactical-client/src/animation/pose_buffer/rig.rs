@@ -4,7 +4,8 @@ use super::*;
 
 pub(super) struct RigDefinition {
     pub(super) family: String,
-    pub(super) joints: Vec<RigJoint>,
+    pub(super) joints: RigJointTable<RigJoint>,
+    pub(super) name_ordinals: std::sync::OnceLock<HashMap<RigJointName, RigJointOrdinal>>,
 }
 
 #[derive(Clone)]
@@ -15,7 +16,7 @@ pub(super) struct RigJoint {
     pub(super) name: Option<RigJointName>,
     pub(super) body_region: AnimationBodyRegion,
     pub(super) role: Option<BoneRole>,
-    pub(super) pelvis: bool,
+    pub(super) pelvis: PelvisRole,
 }
 
 struct AdmittedRigBinding {
@@ -28,10 +29,18 @@ struct AdmittedRigBinding {
 
 impl RigDefinition {
     pub(super) fn joint_ordinal(&self, name: &RigJointName) -> Option<RigJointOrdinal> {
-        self.joints
-            .iter()
-            .position(|joint| joint.name.as_ref() == Some(name))
-            .map(RigJointOrdinal::from)
+        self.name_ordinals
+            .get_or_init(|| {
+                let mut ordinals = HashMap::new();
+                for (ordinal, joint) in self.joints.indexed() {
+                    if let Some(name) = &joint.name {
+                        ordinals.entry(name.clone()).or_insert(ordinal);
+                    }
+                }
+                ordinals
+            })
+            .get(name)
+            .copied()
     }
 }
 
@@ -99,9 +108,13 @@ impl RigDefinitions {
                                 .as_ref()
                                 .map_or(AnimationBodyRegion::Upper, |joint| joint.body_region),
                             role: binding.identity.as_ref().and_then(|joint| joint.role),
-                            pelvis: binding.identity.as_ref().is_some_and(|joint| joint.pelvis),
+                            pelvis: binding
+                                .identity
+                                .as_ref()
+                                .map_or(PelvisRole::Other, |joint| joint.pelvis),
                         })
                         .collect(),
+                    name_ordinals: Default::default(),
                 })
             })
             .clone();
@@ -113,7 +126,7 @@ impl RigDefinitions {
             .joints
             .iter()
             .map(|joint| by_target.get(&joint.target).copied())
-            .collect::<Vec<_>>();
+            .collect::<RigJointTable<_>>();
         let current = definition
             .joints
             .iter()
@@ -124,7 +137,7 @@ impl RigDefinitions {
                     .map(LocalPose::from_transform)
                     .unwrap_or(joint.bind)
             })
-            .collect::<Vec<_>>();
+            .collect::<RigJointTable<_>>();
         let pose_rig = PoseBufferRig::new(definition, entities, current);
         Some(pose_rig)
     }
@@ -133,8 +146,8 @@ impl RigDefinitions {
 impl PoseBufferRig {
     fn new(
         definition: Arc<RigDefinition>,
-        entities: Vec<Option<Entity>>,
-        current: Vec<LocalPose>,
+        entities: RigJointTable<Option<Entity>>,
+        current: RigJointTable<LocalPose>,
     ) -> Self {
         let joint_count = definition.joints.len();
         Self {
@@ -146,15 +159,15 @@ impl PoseBufferRig {
             interpolation_alpha: 0.0,
             last_evaluation_tick: None,
             decay_delta_seconds: 0.0,
-            offsets: vec![JointInertialOffset::default(); joint_count],
-            target_linear_velocities: vec![Vec3::ZERO; joint_count],
-            target_angular_velocities: vec![Vec3::ZERO; joint_count],
+            offsets: RigJointTable::from(vec![JointInertialOffset::default(); joint_count]),
+            target_linear_velocities: RigJointTable::from(vec![Vec3::ZERO; joint_count]),
+            target_angular_velocities: RigJointTable::from(vec![Vec3::ZERO; joint_count]),
             terrain_plants: [None; 2],
             plan: None,
             active: false,
-            frozen: false,
-            settled: true,
-            physics_owned: false,
+            visibility: PoseVisibility::Visible,
+            inertial_state: InertialState::Settled,
+            ownership: PoseOwnership::Authored,
         }
     }
 }

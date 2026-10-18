@@ -1,6 +1,7 @@
 //! Measure cadence and phase from each body's retargeted foot trajectories.
 
 use super::*;
+use strum::{EnumIter, IntoEnumIterator, IntoStaticStr};
 
 #[derive(Component)]
 pub(in crate::animation) struct CharacterLocomotionStrides {
@@ -8,7 +9,13 @@ pub(in crate::animation) struct CharacterLocomotionStrides {
     offsets: Vec<Vec3>,
 }
 
-#[derive(Clone, Copy)]
+struct CalibrationSource {
+    motion: MotionId,
+    axis: usize,
+}
+
+#[derive(Clone, Copy, EnumIter, IntoStaticStr)]
+#[strum(serialize_all = "snake_case")]
 enum CalibrationMotion {
     Walk,
     Run,
@@ -17,13 +24,13 @@ enum CalibrationMotion {
 }
 
 impl CalibrationMotion {
-    const ALL: [Self; 4] = [Self::Walk, Self::Run, Self::Strafe, Self::Skip];
-    fn source(self) -> (&'static str, usize) {
-        match self {
-            Self::Walk => ("walk", 2),
-            Self::Run => ("run", 2),
-            Self::Strafe => ("strafe", 0),
-            Self::Skip => ("skip", 2),
+    fn source(self) -> CalibrationSource {
+        CalibrationSource {
+            motion: MotionId::from_static(self.into()),
+            axis: match self {
+                Self::Strafe => 0,
+                Self::Walk | Self::Run | Self::Skip => 2,
+            },
         }
     }
 }
@@ -72,19 +79,19 @@ pub(super) fn calibrate(
     strides: &mut AuthoredLocomotionStrides,
     offsets: &[Vec3],
 ) {
-    for kind in CalibrationMotion::ALL {
-        let (motion, axis) = kind.source();
+    for kind in CalibrationMotion::iter() {
+        let CalibrationSource { motion, axis } = kind.source();
         let Some(loaded) = runtime
             .clips
-            .get(&(HUMANOID_UNARMED_PACK.to_owned(), motion.to_owned()))
+            .get(&MotionKey::new(&AnimationPackId::HUMANOID_UNARMED, &motion))
         else {
             continue;
         };
         let id = loaded.handle.id();
-        if strides.measured_clips.get(motion) == Some(&id) {
+        if strides.measured_clips.get(&motion) == Some(&id) {
             continue;
         }
-        strides.clear_motion(motion);
+        strides.clear_motion(&motion);
         let Some(clip) = clips.get(&loaded.handle) else {
             continue;
         };
@@ -112,8 +119,8 @@ pub(super) fn calibrate(
             }
         };
         let Some(calibration) = calibration else {
-            warn!(motion, "Could not infer authored locomotion stride");
-            strides.measured_clips.insert(motion.to_owned(), id);
+            warn!(motion = %motion, "Could not infer authored locomotion stride");
+            strides.measured_clips.insert(motion.clone(), id);
             continue;
         };
         let AuthoredLocomotionCalibration {
@@ -121,17 +128,17 @@ pub(super) fn calibrate(
             phase_curve,
         } = calibration;
         if let Some(phase_curve) = phase_curve {
-            strides.phase_curves.insert(motion.to_owned(), phase_curve);
+            strides.phase_curves.insert(motion.clone(), phase_curve);
         }
         info!(
-            motion,
+            motion = %motion,
             stride_metres = stride.step_distance,
             maximum_stance_slip_metres = stride.maximum_stance_slip,
             "Measured authored locomotion stride"
         );
         if stride.maximum_stance_slip > presentation::maximum_authored_stance_slip_metres() {
             warn!(
-                motion,
+                motion = %motion,
                 stride_metres = stride.step_distance,
                 maximum_stance_slip_metres = stride.maximum_stance_slip,
                 "Authored locomotion contact fit exceeds the stance-slip budget"
@@ -143,7 +150,7 @@ pub(super) fn calibrate(
             CalibrationMotion::Strafe => strides.strafe = Some(stride),
             CalibrationMotion::Skip => strides.skip = Some(stride),
         }
-        strides.measured_clips.insert(motion.to_owned(), id);
+        strides.measured_clips.insert(motion.clone(), id);
     }
 }
 
@@ -152,14 +159,14 @@ pub(super) fn has_unmeasured_motion(
     clips: &Assets<AnimationClip>,
     strides: &AuthoredLocomotionStrides,
 ) -> bool {
-    CalibrationMotion::ALL.iter().any(|kind| {
-        let (motion, _) = kind.source();
+    CalibrationMotion::iter().any(|kind| {
+        let motion = kind.source().motion;
         runtime
             .clips
-            .get(&(HUMANOID_UNARMED_PACK.to_owned(), motion.to_owned()))
+            .get(&MotionKey::new(&AnimationPackId::HUMANOID_UNARMED, &motion))
             .is_some_and(|loaded| {
                 clips.contains(loaded.handle.id())
-                    && strides.measured_clips.get(motion) != Some(&loaded.handle.id())
+                    && strides.measured_clips.get(&motion) != Some(&loaded.handle.id())
             })
     })
 }
@@ -196,6 +203,7 @@ mod tests {
                     }
                 })
                 .collect(),
+            name_ordinals: Default::default(),
         };
         let mut clip = BakedClip {
             duration: 1.0,

@@ -63,7 +63,7 @@ fn reconcile_attack_source(
         && previous
             .attack_continuation_tick()
             .is_some_and(|transition_tick| {
-                authoritative.locomotion_sample_tick
+                authoritative.locomotion_sample_tick.encoded()
                     <= transition_tick.saturating_add(playback_tuning().maximum_source_gap_ticks)
             });
     let stale_initial_attack = previous.attack_is_continuation()
@@ -72,9 +72,9 @@ fn reconcile_attack_source(
     let stale_attack_payload = stale_missing_queue || stale_initial_attack;
     if stale_attack_payload {
         *next = previous.clone();
-        next.advance_action(authoritative.locomotion_sample_tick);
+        next.advance_action(authoritative.locomotion_sample_tick.encoded());
     } else if authoritative.attack_has_queued_continuation() {
-        next.advance_action(authoritative.locomotion_sample_tick);
+        next.advance_action(authoritative.locomotion_sample_tick.encoded());
     }
     stale_attack_payload
 }

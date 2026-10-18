@@ -30,6 +30,11 @@ static ITEM_CATALOG: LazyLock<Vec<crate::item_catalog_schema::ItemDefinition>> =
         document.items
     });
 
+/// Canonical accessory record admitted once from this runtime catalog.
+static FITTED_CLOTHING_ACCESSORY: LazyLock<
+    Option<&'static crate::item_catalog_schema::ItemDefinition>,
+> = LazyLock::new(|| catalog_item("leather_belt"));
+
 /// One evaluated wearer in its unposed fitting frame. Runtime equipment has no
 /// body-shape morph targets; a changed body requires a new fit.
 #[derive(Clone)]
@@ -47,6 +52,28 @@ pub struct RuntimeBody {
     pub global_joint_states: Vec<[f32; 8]>,
     /// This body on the armor device, once a piece has uploaded it.
     pub device: DeviceBody,
+}
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum RuntimeClothingRole {
+    Fitted,
+    Unsupported,
+}
+
+impl From<&crate::item_catalog_schema::ItemDefinition> for RuntimeClothingRole {
+    fn from(item: &crate::item_catalog_schema::ItemDefinition) -> Self {
+        // The belt is an authored accessory rather than ItemKind::Clothing.
+        // Resolve its catalog identity once at this boundary, never compare
+        // arbitrary caller text with a clothing policy token.
+        let belt = *FITTED_CLOTHING_ACCESSORY;
+        if matches!(item.kind, crate::item_catalog_schema::ItemKind::Clothing)
+            || belt.is_some_and(|belt| std::ptr::eq(item, belt))
+        {
+            Self::Fitted
+        } else {
+            Self::Unsupported
+        }
+    }
 }
 
 impl RuntimeBody {
@@ -226,9 +253,7 @@ pub fn is_runtime_armor(item_id: &str) -> bool {
 /// Whether the item has an authored fitted clothing runtime path.
 pub fn is_runtime_clothing(item_id: &str) -> bool {
     catalog_item(item_id).is_some_and(|item| {
-        (matches!(item.kind, crate::item_catalog_schema::ItemKind::Clothing)
-            || item_id == "leather_belt")
-            && !is_runtime_armor(item_id)
+        RuntimeClothingRole::from(item) == RuntimeClothingRole::Fitted && !is_runtime_armor(item_id)
     })
 }
 

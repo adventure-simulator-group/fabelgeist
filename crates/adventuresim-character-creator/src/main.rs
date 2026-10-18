@@ -221,12 +221,14 @@ fn main() -> Result<()> {
     }
 
     if args.generate_equipment {
+        let selection =
+            equipment_catalog::EquipmentItemSelection::admit(&catalog, &args.equipment_item)?;
         generate_equipment_assets(
             &args.equipment_output,
             &model,
             &recipe,
             &catalog,
-            &args.equipment_item,
+            &selection,
         )?;
         println!(
             "Generated equipment under {}",

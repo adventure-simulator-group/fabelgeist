@@ -73,6 +73,7 @@ pub struct AnimationLocomotionConfig {
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct AnimationLandingConfig {
+    pub minimum_impact_speed_metres_per_second: f32,
     pub compression_per_metre_per_second: f32,
     pub minimum_compression_metres: f32,
     pub maximum_compression_metres: f32,
@@ -779,6 +780,7 @@ impl TacticalCombatConfig {
         }
         let landing = locomotion.landing;
         if ![
+            landing.minimum_impact_speed_metres_per_second,
             landing.compression_per_metre_per_second,
             landing.minimum_compression_metres,
             landing.maximum_compression_metres,
@@ -1144,6 +1146,7 @@ impl Default for TacticalCombatConfig {
                 locomotion: AnimationLocomotionConfig {
                     sample_hz: 64.0,
                     landing: AnimationLandingConfig {
+                        minimum_impact_speed_metres_per_second: 1.0,
                         compression_per_metre_per_second: 0.012,
                         minimum_compression_metres: 0.04,
                         maximum_compression_metres: 0.08,

@@ -17,6 +17,7 @@ mod error;
 mod fitting;
 mod regions;
 mod rig;
+pub(crate) mod rig_selection;
 mod validation;
 
 const WAIST_CROSS_SECTION_WEIGHT_THRESHOLD: f32 = 0.01;
@@ -457,13 +458,14 @@ fn chain_coordinate(point: [f32; 3], segments: &[([f32; 3], [f32; 3])]) -> Optio
         .map(|(start, end)| squared_distance(*start, *end).sqrt())
         .collect::<Vec<_>>();
     let total = lengths.iter().sum::<f32>();
-    if total <= f32::EPSILON {
+    // Only a genuinely collapsed chain has no projection coordinate.
+    if total == 0.0 || !total.is_finite() {
         return None;
     }
     let mut best = None::<(f32, f32)>;
     let mut distance_along = 0.0;
     for (index, ((start, end), length)) in segments.iter().zip(lengths).enumerate() {
-        if length <= f32::EPSILON {
+        if length == 0.0 {
             continue;
         }
         let axis = [
@@ -490,7 +492,7 @@ fn chain_coordinate(point: [f32; 3], segments: &[([f32; 3], [f32; 3])]) -> Optio
             squared_distance(point, nearest),
             (distance_along + projection) / total,
         );
-        if best.is_none_or(|current| candidate.0 < current.0) {
+        if candidate.1.is_finite() && best.is_none_or(|current| candidate.0 < current.0) {
             best = Some(candidate);
         }
         distance_along += length;

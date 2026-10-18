@@ -6,7 +6,7 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 license = "GPL-3.0"
 
 [dependencies]
-derive_more = { version = "2.1.1", features = ["display", "from", "into"] }
+derive_more = { version = "2.1.1", features = ["as_ref", "display", "error", "from", "into"] }
 strum = { version = "0.27.2", features = ["derive"] }
 serde = { version = "1", features = ["derive"] }
 

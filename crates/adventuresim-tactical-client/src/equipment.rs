@@ -32,6 +32,9 @@ use bevy_mod_outline::{OutlineMode, OutlinePlugin, OutlineVolume};
 use grab_world::*;
 use icons::*;
 use placeholder_update::update_item_placeholders;
+use preview::{
+    eligible_slot_depth, hud_layers, ordered_preview_at_location, outermost_occupied_depth,
+};
 pub(crate) use render_binding::ProceduralEquipmentPart;
 pub(crate) use runtime_equipment::RuntimeEquipmentBodyCache;
 #[cfg(test)]
@@ -49,6 +52,7 @@ mod grab_world;
 mod icons;
 mod placeholder_update;
 mod placeholder_visual;
+mod preview;
 #[cfg(any(target_family = "wasm", test))]
 pub(crate) mod readiness;
 mod render_binding;
@@ -64,6 +68,9 @@ const INVALID_FLASH_SECS: f32 = 0.18;
 const TACTICAL_WEAPON_ICON_SIZE: u16 = 64;
 
 const TACTICAL_WEAPON_ICON_SUPERSAMPLING: u8 = 4;
+
+const EQUIPMENT_ICON_COLUMNS: usize = 8;
+const EQUIPMENT_ICON_ROWS: usize = 7;
 
 const EQUIPMENT_ICON_SLUGS: [&str; 56] = [
     "ancient-sword",
@@ -224,13 +231,6 @@ struct ItemFallback;
 #[derive(Component, Default)]
 struct EquipmentAttachmentSockets(BTreeMap<String, Transform>);
 
-#[derive(Clone, Copy)]
-struct PreviewTarget {
-    entity: Entity,
-    occupied: bool,
-    attached: bool,
-}
-
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum GrabSelection {
     Slot {
@@ -268,11 +268,17 @@ fn icon_uv(slug: &str) -> egui::Rect {
         .iter()
         .position(|candidate| *candidate == slug)
         .unwrap_or(0);
-    let column = (index % 8) as f32;
-    let row = (index / 8) as f32;
+    let column = (index % EQUIPMENT_ICON_COLUMNS) as f32;
+    let row = (index / EQUIPMENT_ICON_COLUMNS) as f32;
     egui::Rect::from_min_max(
-        egui::pos2(column / 8.0, row / 7.0),
-        egui::pos2((column + 1.0) / 8.0, (row + 1.0) / 7.0),
+        egui::pos2(
+            column / EQUIPMENT_ICON_COLUMNS as f32,
+            row / EQUIPMENT_ICON_ROWS as f32,
+        ),
+        egui::pos2(
+            (column + 1.0) / EQUIPMENT_ICON_COLUMNS as f32,
+            (row + 1.0) / EQUIPMENT_ICON_ROWS as f32,
+        ),
     )
 }
 
@@ -411,233 +417,6 @@ fn update_grab_input(
         action,
     });
     (session.active, session.selection, session.repeated_input) = (None, None, None);
-}
-
-fn outermost_occupied_depth(layers: &[PreviewTarget]) -> Option<usize> {
-    layers.iter().position(|target| target.occupied)
-}
-
-fn eligible_slot_depth(
-    held_item_id: &str,
-    location: EquipmentLocation,
-    layers: &[PreviewTarget],
-) -> Option<usize> {
-    let equipment = item_catalog::definition(held_item_id)?.equipment.as_ref()?;
-    if equipment.placements.iter().any(|placement| {
-        placement
-            .occupancy
-            .iter()
-            .any(|occupancy| occupancy.location == location)
-    }) {
-        return Some(0);
-    }
-    equipment
-        .placements
-        .iter()
-        .any(|placement| !placement.parents.is_empty())
-        .then(|| layers.iter().position(|target| target.attached))?
-}
-
-fn ordered_preview_at_location(
-    actor: Entity,
-    location: EquipmentLocation,
-    topologies: &Query<(Entity, &ItemOf, &EquipmentTopology, &ItemProperties)>,
-) -> Vec<PreviewTarget> {
-    let mut found: Vec<_> = topologies
-        .iter()
-        .filter(|(_, owner, _, _)| owner.0 == actor)
-        .filter_map(|(entity, _, topology, properties)| {
-            topology
-                .root_order(location, &properties.id)
-                .map(|key| (key, entity))
-        })
-        .collect();
-    found.sort_by_key(|(key, _)| *key);
-    let mut output = Vec::new();
-    let mut visited = std::collections::HashSet::new();
-    for (_, entity) in found {
-        append_preview(entity, location, topologies, &mut visited, &mut output);
-    }
-    output
-}
-
-fn append_preview(
-    entity: Entity,
-    location: EquipmentLocation,
-    items: &Query<(Entity, &ItemOf, &EquipmentTopology, &ItemProperties)>,
-    visited: &mut std::collections::HashSet<Entity>,
-    output: &mut Vec<PreviewTarget>,
-) {
-    if !visited.insert(entity) {
-        return;
-    }
-    let Ok((_, _, _, properties)) = items.get(entity) else {
-        output.push(PreviewTarget {
-            entity,
-            occupied: true,
-            attached: false,
-        });
-        return;
-    };
-    let Some(equipment) = item_catalog::definition(&properties.id)
-        .and_then(|definition| definition.equipment.as_ref())
-    else {
-        output.push(PreviewTarget {
-            entity,
-            occupied: true,
-            attached: false,
-        });
-        return;
-    };
-    let mut points: Vec<_> = equipment.attachment_points.iter().collect();
-    points.sort_by_key(|point| (point.order, point.id.as_str()));
-    for point in points
-        .into_iter()
-        .filter(|point| point.locations.is_empty() || point.locations.contains(&location))
-    {
-        for capacity_index in 0..point.capacity {
-            let child =
-                items.iter().find_map(|(child, _, topology, _)| {
-                    topology.occupancies.iter().any(|occupancy| {
-                    matches!(
-                        &occupancy.anchor,
-                        TacticalEquipmentAnchor::ItemAttachment { parent, attachment_point_id }
-                            if *parent == entity
-                                && attachment_point_id == &point.id
-                                && occupancy.capacity_index == capacity_index
-                    )
-                }).then_some(child)
-                });
-            if let Some(child) = child {
-                append_preview(child, location, items, visited, output);
-            } else {
-                // Empty attachment points address their mapped parent. Depth
-                // disambiguates the exact authored point/capacity on server.
-                output.push(PreviewTarget {
-                    entity,
-                    occupied: false,
-                    attached: true,
-                });
-            }
-        }
-    }
-    output.push(PreviewTarget {
-        entity,
-        occupied: true,
-        attached: items.get(entity).is_ok_and(|(_, _, topology, _)| {
-            topology.occupancies.iter().any(|occupancy| {
-                matches!(
-                    occupancy.anchor,
-                    TacticalEquipmentAnchor::ItemAttachment { .. }
-                )
-            })
-        }),
-    });
-}
-
-fn hud_layers(
-    actor: Entity,
-    location: EquipmentLocation,
-    items: &Query<(
-        Entity,
-        &ItemOf,
-        Option<&EquipSlot>,
-        &ItemProperties,
-        &EquipmentTopology,
-    )>,
-) -> Vec<PreviewTarget> {
-    let mut roots: Vec<_> = items
-        .iter()
-        .filter(|(_, owner, _, _, _)| owner.0 == actor)
-        .filter_map(|(entity, _, _, properties, topology)| {
-            topology
-                .root_order(location, &properties.id)
-                .map(|key| (key, entity))
-        })
-        .collect();
-    roots.sort_by_key(|(key, _)| *key);
-    let mut output = Vec::new();
-    let mut visited = std::collections::HashSet::new();
-    fn append(
-        entity: Entity,
-        location: EquipmentLocation,
-        items: &Query<(
-            Entity,
-            &ItemOf,
-            Option<&EquipSlot>,
-            &ItemProperties,
-            &EquipmentTopology,
-        )>,
-        visited: &mut std::collections::HashSet<Entity>,
-        output: &mut Vec<PreviewTarget>,
-    ) {
-        if !visited.insert(entity) {
-            return;
-        }
-        let Ok((_, _, _, properties, _)) = items.get(entity) else {
-            output.push(PreviewTarget {
-                entity,
-                occupied: true,
-                attached: false,
-            });
-            return;
-        };
-        let Some(equipment) = item_catalog::definition(&properties.id)
-            .and_then(|definition| definition.equipment.as_ref())
-        else {
-            output.push(PreviewTarget {
-                entity,
-                occupied: true,
-                attached: false,
-            });
-            return;
-        };
-        let mut points: Vec<_> = equipment.attachment_points.iter().collect();
-        points.sort_by_key(|point| (point.order, point.id.as_str()));
-        for point in points
-            .into_iter()
-            .filter(|point| point.locations.is_empty() || point.locations.contains(&location))
-        {
-            for capacity_index in 0..point.capacity {
-                let child = items.iter().find_map(|(child, _, _, _, topology)| {
-                    topology.occupancies.iter().any(|occupancy| {
-                        matches!(
-                            &occupancy.anchor,
-                            TacticalEquipmentAnchor::ItemAttachment { parent, attachment_point_id }
-                                if *parent == entity
-                                    && attachment_point_id == &point.id
-                                    && occupancy.capacity_index == capacity_index
-                        )
-                    }).then_some(child)
-                });
-                if let Some(child) = child {
-                    append(child, location, items, visited, output);
-                } else {
-                    output.push(PreviewTarget {
-                        entity,
-                        occupied: false,
-                        attached: true,
-                    });
-                }
-            }
-        }
-        output.push(PreviewTarget {
-            entity,
-            occupied: true,
-            attached: items.get(entity).is_ok_and(|(_, _, _, _, topology)| {
-                topology.occupancies.iter().any(|occupancy| {
-                    matches!(
-                        occupancy.anchor,
-                        TacticalEquipmentAnchor::ItemAttachment { .. }
-                    )
-                })
-            }),
-        });
-    }
-    for (_, root) in roots {
-        append(root, location, items, &mut visited, &mut output);
-    }
-    output
 }
 
 #[expect(
@@ -1788,30 +1567,6 @@ mod tests {
     }
 
     #[test]
-    fn outermost_display_skips_empty_attachment_capacity() {
-        let parent = Entity::from_bits(1);
-        let child = Entity::from_bits(2);
-        let layers = [
-            PreviewTarget {
-                entity: parent,
-                occupied: false,
-                attached: true,
-            },
-            PreviewTarget {
-                entity: child,
-                occupied: true,
-                attached: true,
-            },
-            PreviewTarget {
-                entity: parent,
-                occupied: true,
-                attached: false,
-            },
-        ];
-        assert_eq!(outermost_occupied_depth(&layers), Some(1));
-    }
-
-    #[test]
     fn empty_hand_tracks_the_pointed_scene_item_for_release() {
         let first = Entity::from_bits(21);
         let second = Entity::from_bits(22);
@@ -1863,115 +1618,6 @@ mod tests {
                 Some(GrabSelection::SceneItem(Entity::from_bits(23))),
             ),
             selection
-        );
-    }
-
-    #[test]
-    fn preview_traversal_keeps_belt_attachment_points_in_their_slots() {
-        let mut world = World::new();
-        let actor = world.spawn_empty().id();
-        let belt = world
-            .spawn((
-                ItemOf(actor),
-                ItemProperties {
-                    id: "leather_belt".into(),
-                    weight: 0.35,
-                },
-                EquipmentTopology {
-                    placement_id: Some("worn".into()),
-                    occupancies: [
-                        EquipmentLocation::LeftBelt,
-                        EquipmentLocation::RightBelt,
-                        EquipmentLocation::FrontBelt,
-                        EquipmentLocation::BackBelt,
-                    ]
-                    .into_iter()
-                    .enumerate()
-                    .map(|(index, location)| EquipmentTopologyOccupancy {
-                        occupancy_id: format!("belt-{index}"),
-                        anchor: TacticalEquipmentAnchor::CharacterLocation(location),
-                        channel: EquipmentChannel::Accessory,
-                        order: 0,
-                        requirement_index: index as u16,
-                        capacity_index: 0,
-                    })
-                    .collect(),
-                },
-            ))
-            .id();
-        let right_sheath = world
-            .spawn((
-                ItemOf(actor),
-                ItemProperties {
-                    id: "scabbard".into(),
-                    weight: 0.3,
-                },
-                EquipmentTopology {
-                    placement_id: Some("right".into()),
-                    occupancies: vec![EquipmentTopologyOccupancy {
-                        occupancy_id: "right-sheath".into(),
-                        anchor: TacticalEquipmentAnchor::ItemAttachment {
-                            parent: belt,
-                            attachment_point_id: "right".into(),
-                        },
-                        channel: EquipmentChannel::Mount,
-                        order: 1,
-                        requirement_index: 0,
-                        capacity_index: 0,
-                    }],
-                },
-            ))
-            .id();
-        let sheath = world
-            .spawn((
-                ItemOf(actor),
-                ItemProperties {
-                    id: "sword_sheath".into(),
-                    weight: 0.3,
-                },
-                EquipmentTopology {
-                    placement_id: Some("attached".into()),
-                    occupancies: vec![EquipmentTopologyOccupancy {
-                        occupancy_id: "sheath".into(),
-                        anchor: TacticalEquipmentAnchor::ItemAttachment {
-                            parent: belt,
-                            attachment_point_id: "left".into(),
-                        },
-                        channel: EquipmentChannel::Mount,
-                        order: 0,
-                        requirement_index: 0,
-                        capacity_index: 0,
-                    }],
-                },
-            ))
-            .id();
-        let preview = world
-            .run_system_once(
-                move |items: Query<(Entity, &ItemOf, &EquipmentTopology, &ItemProperties)>| {
-                    ordered_preview_at_location(actor, EquipmentLocation::LeftBelt, &items)
-                },
-            )
-            .unwrap();
-        assert_eq!(preview.first().map(|target| target.entity), Some(sheath));
-        assert!(
-            !preview.first().unwrap().occupied,
-            "deepest empty blade is first"
-        );
-        assert_eq!(preview.last().map(|target| target.entity), Some(belt));
-        let right_preview = world
-            .run_system_once(
-                move |items: Query<(Entity, &ItemOf, &EquipmentTopology, &ItemProperties)>| {
-                    ordered_preview_at_location(actor, EquipmentLocation::RightBelt, &items)
-                },
-            )
-            .unwrap();
-        assert_eq!(
-            right_preview.first().map(|target| target.entity),
-            Some(right_sheath)
-        );
-        assert!(
-            right_preview.iter().all(|target| target.entity != sheath),
-            "the left sheath must not appear in the right belt slot"
         );
     }
 

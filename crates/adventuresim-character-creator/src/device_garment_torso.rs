@@ -235,6 +235,40 @@ fn torso_vertex(index: u32, coord: vec4<f32>) -> vec3<f32> {
 }
 "#;
 
+#[derive(Clone, Copy)]
+enum TorsoGarment {
+    ArmingDoublet,
+    Brigandine,
+    JackOfPlates,
+    MailShirt,
+}
+
+impl TryFrom<Kind> for TorsoGarment {
+    type Error = anyhow::Error;
+
+    fn try_from(kind: Kind) -> Result<Self> {
+        Ok(match kind {
+            Kind::ArmingDoublet => Self::ArmingDoublet,
+            Kind::Brigandine => Self::Brigandine,
+            Kind::JackOfPlates => Self::JackOfPlates,
+            Kind::MailShirt => Self::MailShirt,
+            _ => anyhow::bail!("{kind:?} is not a torso garment"),
+        })
+    }
+}
+
+impl TorsoGarment {
+    /// The existing WGSL uniform discriminant is an f32, not an application state.
+    fn device_word(self) -> f32 {
+        match self {
+            Self::ArmingDoublet => 0.0,
+            Self::Brigandine => 1.0,
+            Self::JackOfPlates => 2.0,
+            Self::MailShirt => 3.0,
+        }
+    }
+}
+
 impl DeviceWearer<'_> {
     /// Record a torso garment's panels and seams, fitted, short of
     /// thickening.
@@ -243,7 +277,7 @@ impl DeviceWearer<'_> {
         batch: &mut KernelBatch,
         design: &GarmentArmorDesign,
     ) -> Result<DeviceRecording> {
-        let kind = kind_code(design.kind)?;
+        let kind = TorsoGarment::try_from(design.kind)?;
         let head = self.record_frame(batch, FitRegion::Head)?;
         let raw = self.record_frame(batch, FitRegion::Torso)?;
         let bottom = if matches!(design.kind, Kind::ArmingDoublet | Kind::MailShirt) {
@@ -285,7 +319,7 @@ impl DeviceWearer<'_> {
                 Word::F("gap", gap),
                 Word::F("waist_scale", design.waist.unit()),
                 Word::F("flare", design.flare.unit()),
-                Word::F("kind", kind),
+                Word::F("kind", kind.device_word()),
             ],
             Grid::Singles(1),
         )?;
@@ -316,16 +350,6 @@ impl DeviceWearer<'_> {
             checks: Vec::new(),
         })
     }
-}
-
-fn kind_code(kind: Kind) -> Result<f32> {
-    Ok(match kind {
-        Kind::ArmingDoublet => 0.0,
-        Kind::Brigandine => 1.0,
-        Kind::JackOfPlates => 2.0,
-        Kind::MailShirt => 3.0,
-        _ => anyhow::bail!("{kind:?} is not a torso garment"),
-    })
 }
 
 fn layout() -> String {

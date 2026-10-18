@@ -63,7 +63,10 @@ impl RegionRig {
                 .contains(name)
                     || name.family_prefix(&RigJointName::C_TONGUE) == RigJointMembership::Included
             }
-            Region::Neck => name.skin_family(&RigJointName::C_NECK) == RigJointMembership::Included,
+            Region::Neck => {
+                crate::clothing::rig_selection::skin_family(name, &RigJointName::C_NECK)
+                    == RigJointMembership::Included
+            }
             Region::Chest => [
                 RigJointName::C_SPINE2,
                 RigJointName::C_SPINE3,
@@ -88,7 +91,8 @@ impl RegionRig {
             | Region::LeftLowerLeg
             | Region::RightThigh
             | Region::RightLowerLeg => {
-                name.skin_family(&self.proximal) == RigJointMembership::Included
+                crate::clothing::rig_selection::skin_family(name, &self.proximal)
+                    == RigJointMembership::Included
             }
         };
         RigJointMembership::from(included)
@@ -105,8 +109,10 @@ pub(crate) fn waist_surface_joint(name: &RigJointName) -> RigJointMembership {
             RigJointName::C_SPINE1,
         ]
         .contains(name)
-            || name.skin_family(&RigJointName::L_UPLEG) == RigJointMembership::Included
-            || name.skin_family(&RigJointName::R_UPLEG) == RigJointMembership::Included,
+            || crate::clothing::rig_selection::skin_family(name, &RigJointName::L_UPLEG)
+                == RigJointMembership::Included
+            || crate::clothing::rig_selection::skin_family(name, &RigJointName::R_UPLEG)
+                == RigJointMembership::Included,
     )
 }
 
