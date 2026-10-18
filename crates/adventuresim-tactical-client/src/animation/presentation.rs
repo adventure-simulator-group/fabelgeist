@@ -895,7 +895,7 @@ mod authored_cadence_tests {
             )
             .unwrap();
         }
-        let evaluation = AnimationEvaluation::from_skeleton(&presented.state);
+        let evaluation = AnimationEvaluation::from_skeleton(&presented.state).unwrap();
         assert!((presented.action_phase() - 0.75).abs() < 0.051);
         assert!(evaluation.lower_body.iter().any(|sample| matches!(
             sample.sampling,
@@ -921,7 +921,7 @@ mod authored_cadence_tests {
         authoritative = authoritative.with_weapon_guard(WeaponGuardState::Lowered);
         authoritative = authoritative.with_local_velocity(Vec3::X * 2.0);
 
-        let initial = AnimationEvaluation::from_skeleton(&presented.state);
+        let initial = AnimationEvaluation::from_skeleton(&presented.state).unwrap();
         let mut progresses = initial
             .lower_body
             .iter()
@@ -938,7 +938,7 @@ mod authored_cadence_tests {
                 &strides,
             )
             .unwrap();
-            let evaluation = AnimationEvaluation::from_skeleton(&presented.state);
+            let evaluation = AnimationEvaluation::from_skeleton(&presented.state).unwrap();
             if presented.is_quickstep() {
                 assert!(!evaluation.lower_body.is_empty());
                 for sample in &evaluation.lower_body {
@@ -959,7 +959,7 @@ mod authored_cadence_tests {
                 .any(|progress| (*progress - 0.5).abs() <= 0.11)
         );
         assert!(progresses.last().is_some_and(|progress| *progress >= 0.99));
-        let released = AnimationEvaluation::from_skeleton(&presented.state);
+        let released = AnimationEvaluation::from_skeleton(&presented.state).unwrap();
         assert!(released.lower_body.iter().all(|sample| !matches!(
             sample.pose,
             SemanticPose::QuickstepRightTakeoff

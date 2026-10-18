@@ -103,7 +103,7 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
     });
     invalidate_previous_report(&output);
     setup::write_body_proportions(&output, body_proportions);
-    let initial_terrain_ik = startup_terrain_ik_mode(scenario);
+    let initial_terrain_ik = startup_terrain_ik_mode(scenario.map(ScenarioMetadata::from_label));
     let default_character_id = default_tactical_character_id();
 
     let workspace_asset_source =
@@ -114,7 +114,10 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
         .insert_resource(CaptureBodyProportions(body_proportions))
         .insert_resource(harness::ArmorCapture::new(armor_harness, output.clone()))
         .insert_resource(harness::equipment_cache(armor_harness))
-        .register_asset_source("workspace", workspace_asset_source)
+        .register_asset_source(
+            crate::animation::WORKSPACE_ASSET_SOURCE,
+            workspace_asset_source,
+        )
         // The live debug client registers the same default through
         // `DebugPlugin`. The fixture does not install that input/network
         // plugin, so mirror its presentation default explicitly.

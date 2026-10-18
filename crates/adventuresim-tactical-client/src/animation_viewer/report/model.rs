@@ -280,7 +280,18 @@ impl Serialize for PresentationEventSample {
         record.serialize_field("owner", &self.owner)?;
         record.serialize_field("sequence", &self.payload.encoded_sequence())?;
         record.serialize_field("sample_tick", &self.sample_tick)?;
-        record.serialize_field("kind", self.payload.report_kind())?;
+        let kind = match self.payload {
+            LocomotionPresentationPayload::Contact {
+                foot: LeadFoot::Left,
+                ..
+            } => "contact_left",
+            LocomotionPresentationPayload::Contact {
+                foot: LeadFoot::Right,
+                ..
+            } => "contact_right",
+            LocomotionPresentationPayload::Landing { .. } => "landing",
+        };
+        record.serialize_field("kind", kind)?;
         record.end()
     }
 }

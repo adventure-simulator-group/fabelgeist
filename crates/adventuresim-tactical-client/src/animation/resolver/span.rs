@@ -23,7 +23,7 @@ impl<'a> PoseSampleResolver<'a> {
         let PoseSampling::Span { end, progress } = sample.sampling else {
             return Ok(());
         };
-        let progress = CyclePhase::from_cycles(progress)?.cycles().clamp(0.0, 1.0);
+        let progress = finite_sample_value(progress)?.clamp(0.0, 1.0);
         let Some(span) = self.resolve_span(start, sample.pose, end) else {
             return append_weighted_anchor(
                 weighted,
@@ -37,14 +37,18 @@ impl<'a> PoseSampleResolver<'a> {
             weighted,
             &span.start.anchor,
             span.start.frame,
-            sample.weight * (1.0 - progress),
+            sample
+                .weight
+                .checked_scale(BlendWeight::from_factor(1.0 - progress)?)?,
             layer,
         )?;
         append_weighted_anchor(
             weighted,
             &span.end.anchor,
             span.end.frame,
-            sample.weight * progress,
+            sample
+                .weight
+                .checked_scale(BlendWeight::from_factor(progress)?)?,
             layer,
         )
     }
@@ -60,7 +64,7 @@ impl<'a> PoseSampleResolver<'a> {
         let PoseSampling::CurveSpan { end, coordinate } = sample.sampling else {
             return Ok(());
         };
-        let coordinate = CyclePhase::from_cycles(coordinate)?.cycles().clamp(
+        let coordinate = finite_sample_value(coordinate)?.clamp(
             -AttackCurve::maximum_drawback(),
             1.0 + AttackCurve::maximum_overshoot(),
         );
@@ -83,9 +87,9 @@ impl<'a> PoseSampleResolver<'a> {
             end: span.end.anchor.clip.at_anchor_layer(span.end.frame, layer),
             end_time_seconds: frame_seconds(span.end.frame)?,
             coordinate,
-            weight: BlendWeight::from_factor(sample.weight)?,
+            weight: sample.weight,
             mirrored_weight: if span.start.anchor.mirrored == ClipMirror::Mirrored {
-                BlendWeight::from_factor(sample.weight)?
+                sample.weight
             } else {
                 BlendWeight::ZERO
             },

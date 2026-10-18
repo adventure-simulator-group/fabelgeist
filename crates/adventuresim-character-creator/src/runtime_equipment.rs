@@ -11,8 +11,9 @@ use crate::{
     device_underlayer::SurfaceDomain,
     underlayer_armor::{self, UnderlayerBody},
 };
+use adventuresim_core::{item_catalog, item_references::BELT_ID};
 use anyhow::{Context, Result, bail};
-use clothing::RuntimeClothing;
+use clothing::{ClothingPlacement, RuntimeClothing};
 use fabelgeist_armor::{ArmorGpu, BracerDesign, BreastplateDesign, GeneratedArmor};
 use fabelgeist_rig::RigJointName;
 use std::sync::LazyLock;
@@ -21,18 +22,19 @@ pub use warmup::{WarmupReport, warm_up};
 mod clothing;
 mod warmup;
 
-static ITEM_CATALOG: LazyLock<Vec<crate::item_catalog_schema::ItemDefinition>> =
-    LazyLock::new(|| {
-        let document: crate::item_catalog_schema::ItemCatalogDocument =
-            serde_json::from_str(include_str!("../../../content/items/catalog.yaml"))
-                .expect("embedded item catalog must be valid");
-        document.items
-    });
+static ITEM_CATALOG: LazyLock<Vec<RuntimeCatalogItem>> = LazyLock::new(|| {
+    item_catalog::authored_document_items()
+        .into_iter()
+        .map(RuntimeCatalogItem::from_catalog)
+        .collect()
+});
 
-/// Canonical accessory record admitted once from this runtime catalog.
-static FITTED_CLOTHING_ACCESSORY: LazyLock<
-    Option<&'static crate::item_catalog_schema::ItemDefinition>,
-> = LazyLock::new(|| catalog_item("belt"));
+/// A canonical catalogue reference with clothing eligibility classified once.
+#[derive(Clone, Copy)]
+struct RuntimeCatalogItem {
+    definition: &'static crate::item_catalog_schema::ItemDefinition,
+    clothing_role: RuntimeClothingRole,
+}
 
 /// One evaluated wearer in its unposed fitting frame. Runtime equipment has no
 /// body-shape morph targets; a changed body requires a new fit.
@@ -59,19 +61,39 @@ enum RuntimeClothingRole {
     Unsupported,
 }
 
-impl From<&crate::item_catalog_schema::ItemDefinition> for RuntimeClothingRole {
-    fn from(item: &crate::item_catalog_schema::ItemDefinition) -> Self {
-        // The belt is an authored accessory rather than ItemKind::Clothing.
-        // Resolve its catalog identity once at this boundary, never compare
-        // arbitrary caller text with a clothing policy token.
-        let belt = *FITTED_CLOTHING_ACCESSORY;
-        if matches!(item.kind, crate::item_catalog_schema::ItemKind::Clothing)
-            || belt.is_some_and(|belt| std::ptr::eq(item, belt))
-        {
-            Self::Fitted
-        } else {
-            Self::Unsupported
+impl RuntimeCatalogItem {
+    fn from_catalog(item: &'static crate::item_catalog_schema::ItemDefinition) -> Self {
+        let fitted = matches!(item.kind, crate::item_catalog_schema::ItemKind::Clothing)
+            || item.id == BELT_ID;
+        Self {
+            definition: item,
+            clothing_role: if fitted {
+                RuntimeClothingRole::Fitted
+            } else {
+                RuntimeClothingRole::Unsupported
+            },
         }
+    }
+    fn clothing_placement(self, placement_id: &str) -> Result<ClothingPlacement> {
+        let item = self.definition;
+        let item_id = item.id.as_str();
+        let equipment = item
+            .equipment
+            .as_ref()
+            .with_context(|| format!("clothing item {item_id} has no equipment definition"))?;
+        let material = equipment
+            .material
+            .with_context(|| format!("clothing item {item_id} has no material"))?;
+        let placement = equipment
+            .placements
+            .iter()
+            .find(|placement| placement.id == placement_id)
+            .with_context(|| format!("clothing item {item_id} has no placement {placement_id}"))?;
+        Ok(ClothingPlacement {
+            item,
+            placement,
+            material,
+        })
     }
 }
 
@@ -134,7 +156,10 @@ pub async fn generate(
         )
         .await
     } else {
-        RuntimeClothing::admit(body, item_id, placement)?.generate()
+        body.validate()?;
+        let item =
+            catalog_item(item_id).with_context(|| format!("unknown clothing item {item_id}"))?;
+        RuntimeClothing::new(body, item.clothing_placement(placement)?).generate()
     }
 }
 
@@ -171,7 +196,7 @@ pub fn runtime_equipment_material(
     item_id: &str,
 ) -> Option<crate::item_catalog_schema::EquipmentMaterial> {
     catalog_item(item_id)
-        .and_then(|item| item.equipment.as_ref())
+        .and_then(|item| item.definition.equipment.as_ref())
         .and_then(|equipment| equipment.material)
 }
 
@@ -183,7 +208,7 @@ pub fn is_runtime_armor(item_id: &str) -> bool {
 /// Whether the item has an authored fitted clothing runtime path.
 pub fn is_runtime_clothing(item_id: &str) -> bool {
     catalog_item(item_id).is_some_and(|item| {
-        RuntimeClothingRole::from(item) == RuntimeClothingRole::Fitted && !is_runtime_armor(item_id)
+        item.clothing_role == RuntimeClothingRole::Fitted && !is_runtime_armor(item_id)
     })
 }
 
@@ -303,8 +328,11 @@ async fn generate_parametric(
     }
 }
 
-fn catalog_item(item_id: &str) -> Option<&'static crate::item_catalog_schema::ItemDefinition> {
-    ITEM_CATALOG.iter().find(|item| item.id == item_id)
+fn catalog_item(item_id: &str) -> Option<RuntimeCatalogItem> {
+    ITEM_CATALOG
+        .iter()
+        .find(|item| item.definition.id == item_id)
+        .copied()
 }
 
 #[cfg(test)]

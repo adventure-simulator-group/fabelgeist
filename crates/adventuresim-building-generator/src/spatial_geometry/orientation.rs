@@ -8,7 +8,7 @@ use serde::{Deserialize, Serialize};
 use std::marker::PhantomData;
 
 /// Finite radians. Admission preserves the represented angle without wrapping.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect, Default)]
 #[repr(transparent)]
 #[serde(transparent)]
 #[reflect(opaque)]

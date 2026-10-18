@@ -215,7 +215,7 @@ pub(crate) fn bind_humanoid_bones(
     roots: Query<&AnimationRigScene>,
 ) {
     for (entity, identity) in &bones {
-        if fabelgeist_rig::mhr::membership(&identity.name) == RigJointMembership::Excluded {
+        if fabelgeist_rig::mhr::membership(identity.name()) == RigJointMembership::Excluded {
             continue;
         }
         let mut current = entity;
@@ -223,7 +223,7 @@ pub(crate) fn bind_humanoid_bones(
             if let Ok(root) = roots.get(current) {
                 let mut bone = commands.entity(entity);
                 bone.insert(MhrBone { owner: root.0 });
-                if let Some(role) = identity.role {
+                if let Some(role) = identity.role() {
                     bone.insert(HumanoidBone {
                         owner: root.0,
                         role,
@@ -283,7 +283,7 @@ pub(crate) fn cache_humanoid_rigs(
         named
             .entry(bone.owner)
             .or_default()
-            .insert(name.name.clone(), entity);
+            .insert(name.name().clone(), entity);
     }
     for (owner, _) in &cached {
         if !rigs.contains_key(&owner) {

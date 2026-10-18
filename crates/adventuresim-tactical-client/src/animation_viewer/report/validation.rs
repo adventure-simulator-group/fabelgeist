@@ -22,14 +22,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
                 && bone.rotation_xyzw.into_iter().all(f32::is_finite)
         })
     });
-    let all_scenarios_complete = frames.len() == plan.len()
-        && frames.iter().zip(&plan).all(|(frame, planned)| {
-            frame.scenario == planned.scenario
-                && frame.scenario_frame == planned.scenario_frame
-                && TRACKED_BONE_NAMES
-                    .iter()
-                    .all(|name| frame.bones.contains_key(*name))
-        });
+    let all_scenarios_complete = capture_scenarios_complete(&frames, &plan);
     let all_artifacts_written = capture_artifacts_written(&output, &frames);
     let continuity_within_review_bounds = scenarios.iter().all(|metrics| {
         if metrics.scenario == "full-ragdoll" {
@@ -57,7 +50,9 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             && metrics.maximum_bone_rotation_step_degrees <= 60.0
             && (!metrics.scenario.contains("run")
                 || metrics.maximum_foot_rotation_step_degrees
-                    <= if scenario_metadata(&metrics.scenario).kind == ScenarioKind::Terrain {
+                    <= if ScenarioMetadata::from_label(&metrics.scenario).kind()
+                        == ScenarioKind::Terrain
+                    {
                         // Direct weight-driven slope alignment can rotate a
                         // pointed run foot rapidly during the short contact
                         // approach. Position, contact, penetration, and knee
@@ -80,7 +75,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             // and report false penetration once the feet rotate onto a side
             // or heel; visual review and finite/continuity gates remain active.
             true
-        } else if scenario_metadata(&metrics.scenario).kind == ScenarioKind::Attack {
+        } else if ScenarioMetadata::from_label(&metrics.scenario).kind() == ScenarioKind::Attack {
             // Gait-phase contact selection does not describe a one-shot attack
             // handoff. Its dedicated validator checks the actual requested
             // plant; retain only the raw ankle penetration guard here.
@@ -90,7 +85,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             // strict five-centimetre raw-joint guard while the dedicated gate
             // verifies the actual ball plant and its slip separately.
             metrics.minimum_foot_clearance_metres >= -0.05
-        } else if scenario_metadata(&metrics.scenario).kind == ScenarioKind::Terrain
+        } else if ScenarioMetadata::from_label(&metrics.scenario).kind() == ScenarioKind::Terrain
             && metrics.scenario != "terrain-toggle-mid-stride"
         {
             // Only a contact foot is ground-constrained. Gate those contacts;
@@ -125,7 +120,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
     });
     let flat_controller_height_stable = scenarios.iter().all(|metrics| {
         metrics.scenario == "full-ragdoll"
-            || scenario_uses_terrain_ik(&metrics.scenario)
+            || scenario_uses_terrain_ik(ScenarioMetadata::from_label(&metrics.scenario))
             || metrics.scenario.contains("terrain")
             || is_quickstep_scenario(&metrics.scenario)
             || metrics.controller_vertical_range_metres <= 0.0001
@@ -172,8 +167,9 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
         } else if matches!(
             metrics.scenario.as_str(),
             "steady-walk-2.0" | "flat-grid-walk-2.0"
-        ) || raised_scenario_requires_zero_flight(&metrics.scenario)
-        {
+        ) || raised_scenario_requires_zero_flight(ScenarioMetadata::from_label(
+            &metrics.scenario,
+        )) {
             metrics.maximum_no_support_seconds <= f32::EPSILON
         } else {
             true
@@ -390,7 +386,9 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             });
     let landing_frames = frames
         .iter()
-        .filter(|frame| scenario_metadata(&frame.scenario).kind == ScenarioKind::Landing)
+        .filter(|frame| {
+            ScenarioMetadata::from_label(&frame.scenario).kind() == ScenarioKind::Landing
+        })
         .collect::<Vec<_>>();
     let landing_response_valid = landing_frames.is_empty()
         || (landing_frames
@@ -447,7 +445,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             if pair[0].scenario != pair[1].scenario {
                 return true;
             }
-            if scenario_metadata(&pair[1].scenario).kind != ScenarioKind::Terrain
+            if ScenarioMetadata::from_label(&pair[1].scenario).kind() != ScenarioKind::Terrain
                 || pair[1].speed_metres_per_second <= 0.05
                 || pair[1].ik_settle_progress.is_some()
             {
@@ -587,9 +585,9 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
                 && metrics.pelvis_vertical_range_metres <= vertical_range_limit
                 && metrics.head_vertical_range_metres <= vertical_range_limit;
         }
-        let attack = scenario_metadata(&metrics.scenario).kind == ScenarioKind::Attack;
+        let attack = ScenarioMetadata::from_label(&metrics.scenario).kind() == ScenarioKind::Attack;
         let world_plants = matches!(
-            scenario_metadata(&metrics.scenario).kind,
+            ScenarioMetadata::from_label(&metrics.scenario).kind(),
             ScenarioKind::RaisedGuard | ScenarioKind::Attack
         ) && !uses_authored_combat_locomotion(&metrics.scenario)
             && !is_guard_stop_transition(&metrics.scenario);

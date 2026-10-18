@@ -33,7 +33,10 @@ use crate::{
     stdb::{SpacetimeDb, SpacetimeDbReady},
 };
 use input::AccumulatedInput;
-use posture_facing::{advance_projected_posture, posture_transition_locks_body_facing};
+use posture_facing::{
+    advance_downed_facing_for_camera, advance_projected_posture,
+    posture_transition_locks_body_facing,
+};
 use projection_equipment::{
     projected_armor, projected_holder_appearance, projected_parametric_weapon,
     projected_weapon_appearance,
@@ -1609,21 +1612,6 @@ fn body_relative_controller_input(
     Vec2::new(controller_local.x, -controller_local.z).clamp_length_max(1.0)
 }
 
-fn advance_downed_facing_for_camera(
-    skeleton: &mut SkeletonState,
-    facing: CameraFacingIntent,
-    target: f32,
-    maximum_step: f32,
-) {
-    if facing == CameraFacingIntent::Aim {
-        skeleton.advance_downed_facing(target, true, maximum_step);
-    } else if skeleton.downed_facing().is_some() {
-        // Aim release resolves an already-active interpolation to its nearest
-        // stable contact. A free camera cannot seed a new prone/supine roll.
-        skeleton.advance_downed_facing(target, false, 1.0);
-    }
-}
-
 /// Rehydrates Ahoy's disposable fixed-loop input from the latest accepted
 /// complete request before movement runs. Ahoy may clear its accumulator after
 /// every fixed loop without turning a missing network packet into a stop.
@@ -1735,20 +1723,10 @@ pub(crate) fn update_skeleton_locomotion(
         } else if skeleton.body() != BodyState::Ragdolled {
             skeleton.set_downed_turning(false);
             transform.rotation = if let Some(attack_facing) = attack_facing {
-                let remaining_seconds =
-                    attack_facing.contact_tick.saturating_sub(tick) as f32 / locomotion_sample_hz();
-                let desired_forward = attack_facing.target_position - transform.translation;
-                let turn_speed = body_turn_speed_for_deadline(
-                    transform.rotation,
-                    desired_forward,
-                    remaining_seconds,
-                    time.delta_secs(),
-                );
-                advance_body_facing_toward(
-                    transform.rotation,
-                    desired_forward,
-                    time.delta_secs(),
-                    turn_speed,
+                attack_facing.advance_rotation(
+                    &transform,
+                    tick,
+                    AnimationElapsed::from(time.delta()),
                 )
             } else {
                 advance_body_facing_with_speed(
@@ -1763,20 +1741,23 @@ pub(crate) fn update_skeleton_locomotion(
                 )
             };
         }
-        if let Err(error) = project_skeleton_locomotion_with_body_rotation(
-            &mut skeleton,
-            SkeletonLocomotionInput {
-                orientation: controller.orientation,
-                linear_velocity: velocity.0,
-                grounded: controller.grounded.is_some() || quickstep_push.active,
-                delta_seconds: AnimationElapsed::from(time.delta()),
-                tick,
-            },
-            transform.rotation,
-            accumulated_input
-                .last_movement
-                .map(|movement| Vec2::new(movement.x, -movement.y)),
-        ) {
+        let observation = SkeletonLocomotionInput::from_controller(
+            controller.orientation,
+            velocity.0,
+            GroundContact::from(controller.grounded.is_some() || quickstep_push.active),
+            AnimationElapsed::from(time.delta()),
+            AnimationSampleTick::from(tick),
+        );
+        if let Err(error) = observation.and_then(|input| {
+            project_skeleton_locomotion_with_body_rotation(
+                &mut skeleton,
+                input,
+                transform.rotation,
+                accumulated_input
+                    .last_movement
+                    .map(|movement| Vec2::new(movement.x, -movement.y)),
+            )
+        }) {
             warn!(%error, "Rejected controller animation observation");
             continue;
         }
@@ -2401,21 +2382,22 @@ mod standalone_join_tests {
 
 #[cfg(test)]
 mod tests {
-    use super::posture_facing::advance_posture_transition_facing;
+    use super::posture_facing::{
+        advance_downed_facing_for_camera, advance_posture_transition_facing,
+    };
     use super::projection_equipment::parametric_combat_geometry;
     use super::{
         AuthoritativeInputTick, AuthoritativeMovementIntent, AuthoritativePostureIntent,
         BACKWARD_DIVE_POSTURE_TRANSITION_TICKS, CameraFacingIntent, DisconnectedPlayer, DiveLaunch,
         GROUND_POSTURE_TRANSITION_TICKS, MeleeAttackAuthority, Player, RECONNECT_GRACE_SECS,
         ROLL_POSTURE_TRANSITION_TICKS, RangedAttackAuthority, ReconnectSession, WeaponGuardState,
-        advance_downed_facing_for_camera, apply_dive_launch_velocity, apply_posture_action,
-        authoritative_weapon_guard, begin_authoritative_quickstep, combat_seconds_to_ticks,
-        dive_horizontal_velocity, downed_tank_controller_input, input, mission_enemy_health_scale,
-        mission_enemy_scale, on_client_disconnected, player_collider,
-        posture_transition_locks_body_facing, queue_replication_rebind, reconnect_matches,
-        restore_authoritative_movement_intent, sequence_is_newer,
-        tactical_movement_speed_for_guard, try_claim_reconnect, update_character_motion_snapshots,
-        validate_player_input,
+        apply_dive_launch_velocity, apply_posture_action, authoritative_weapon_guard,
+        begin_authoritative_quickstep, combat_seconds_to_ticks, dive_horizontal_velocity,
+        downed_tank_controller_input, input, mission_enemy_health_scale, mission_enemy_scale,
+        on_client_disconnected, player_collider, posture_transition_locks_body_facing,
+        queue_replication_rebind, reconnect_matches, restore_authoritative_movement_intent,
+        sequence_is_newer, tactical_movement_speed_for_guard, try_claim_reconnect,
+        update_character_motion_snapshots, validate_player_input,
     };
     use adventuresim_tactical_core::physics::tactical_character_controller;
     use adventuresim_tactical_core::prelude::{

@@ -9,8 +9,8 @@ use serde::{Deserialize, Serialize};
 #[debug("{_0:?}")]
 pub struct LandingSequence(u64);
 
-#[derive(Clone, Copy, Debug, Default, PartialEq, Serialize)]
-#[serde(transparent)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, Serialize, Deserialize)]
+#[serde(try_from = "f32", into = "f32")]
 #[debug("{_0:?}")]
 pub struct LandingImpactSpeed(f32);
 
@@ -52,9 +52,14 @@ impl LandingImpactSpeed {
     }
 }
 
-impl<'de> Deserialize<'de> for LandingImpactSpeed {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        Self::from_metres_per_second(f32::deserialize(deserializer)?)
-            .map_err(serde::de::Error::custom)
+impl TryFrom<f32> for LandingImpactSpeed {
+    type Error = AnimationValueError;
+    fn try_from(value: f32) -> AnimationValueResult<Self> {
+        Self::from_metres_per_second(value)
+    }
+}
+impl From<LandingImpactSpeed> for f32 {
+    fn from(value: LandingImpactSpeed) -> Self {
+        value.metres_per_second()
     }
 }

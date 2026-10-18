@@ -144,18 +144,14 @@ pub(super) fn log_animation_diagnostics(
         let diagnostic_frame = log.frame;
         let global_translation = global_transform.translation();
         let terrain_height = terrain.and_then(|terrain| terrain.height_at(global_translation.xz()));
-        let evaluation = AnimationEvaluation::from_skeleton(presented);
-        let clips = playback
-            .clips
-            .iter()
-            .map(|clip| {
-                serde_json::json!({
-                    "weight": clip.weight,
-                    "time_seconds": clip.time_seconds,
-                    "mirrored_weight": clip.mirrored_weight,
-                })
-            })
-            .collect::<Vec<_>>();
+        let evaluation = match AnimationEvaluation::from_skeleton(presented) {
+            Ok(evaluation) => evaluation,
+            Err(error) => {
+                warn!(%error, ?player, "Rejected diagnostic animation evaluation");
+                continue;
+            }
+        };
+        let clips = diagnostic_clips(playback);
         let mut bone_transforms = bones
             .iter()
             .filter(|(_, bind, _, _)| bind.owner == player)
@@ -235,6 +231,21 @@ pub(super) fn log_animation_diagnostics(
             },
         }));
     }
+}
+
+#[cfg(not(target_family = "wasm"))]
+fn diagnostic_clips(playback: &AnimationPlayback) -> Vec<serde_json::Value> {
+    playback
+        .clips
+        .iter()
+        .map(|clip| {
+            serde_json::json!({
+                "weight": clip.weight,
+                "time_seconds": clip.time_seconds,
+                "mirrored_weight": clip.mirrored_weight,
+            })
+        })
+        .collect::<Vec<_>>()
 }
 
 #[cfg(target_family = "wasm")]

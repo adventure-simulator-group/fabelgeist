@@ -24,10 +24,10 @@ pub(in crate::animation) fn apply_procedural_dive_lower_body(
             continue;
         };
         let phase = transition.phase().clamp(0.0, 1.0);
-        let amount = if phase <= 0.5 {
-            smoothstep(0.0, 0.5, phase)
+        let amount = if phase <= DIVE_GROUND_CONTACT_PHASE {
+            smoothstep(0.0, DIVE_GROUND_CONTACT_PHASE, phase)
         } else {
-            1.0 - smoothstep(0.5, 1.0, phase)
+            1.0 - smoothstep(DIVE_GROUND_CONTACT_PHASE, 1.0, phase)
         };
         let amount = match BlendWeight::from_factor(amount) {
             Ok(amount) => amount,

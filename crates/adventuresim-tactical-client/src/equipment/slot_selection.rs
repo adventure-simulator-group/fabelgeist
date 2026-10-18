@@ -1,5 +1,5 @@
 //! Keyboard and HUD resolve a binding to an eligible anatomical location.
-use super::preview::PreviewTarget;
+use super::preview::{HeldPreviewItem, PreviewTarget};
 use super::{
     GrabSelection, GrabSession, INVALID_FLASH_SECS, eligible_slot_depth, key_code,
     outermost_occupied_depth,
@@ -17,7 +17,7 @@ pub(super) struct MappedSlot {
 
 fn eligible_mapped_slot(
     mapping: &InputAddressMapping,
-    held_item_id: Option<&str>,
+    held_item: HeldPreviewItem,
     start: usize,
     mut layers_at: impl FnMut(EquipmentLocation) -> Vec<PreviewTarget>,
 ) -> Option<MappedSlot> {
@@ -25,9 +25,10 @@ fn eligible_mapped_slot(
         let location_index = (start + offset) % mapping.locations.len();
         let location = mapping.locations[location_index];
         let layers = layers_at(location);
-        let depth = match held_item_id {
-            Some(item_id) => eligible_slot_depth(item_id, location, &layers),
-            None => outermost_occupied_depth(&layers),
+        let depth = match held_item {
+            HeldPreviewItem::Defined(item) => eligible_slot_depth(item, location, &layers),
+            HeldPreviewItem::Empty => outermost_occupied_depth(&layers),
+            HeldPreviewItem::Unknown => None,
         }?;
         Some(MappedSlot {
             location,
@@ -40,7 +41,7 @@ fn eligible_mapped_slot(
 pub(super) fn keyboard_slots(
     session: &mut GrabSession,
     keys: &ButtonInput<KeyCode>,
-    held_item_id: Option<&str>,
+    held_item: HeldPreviewItem,
     mut layers_at: impl FnMut(EquipmentLocation) -> Vec<PreviewTarget>,
 ) {
     for mapping in INPUT_ADDRESS_MAPPINGS {
@@ -51,7 +52,7 @@ pub(super) fn keyboard_slots(
             .repeated_input
             .filter(|(input, _)| *input == mapping.input)
             .map_or(0, |(_, index)| index + 1);
-        if let Some(slot) = eligible_mapped_slot(mapping, held_item_id, start, &mut layers_at) {
+        if let Some(slot) = eligible_mapped_slot(mapping, held_item, start, &mut layers_at) {
             apply_slot(session, mapping, slot);
         } else {
             session.invalid_flash_remaining = INVALID_FLASH_SECS;
@@ -62,7 +63,7 @@ pub(super) fn keyboard_slots(
 pub(super) fn hud_slot(
     session: &GrabSession,
     mapping: &InputAddressMapping,
-    held_item_id: Option<&str>,
+    held_item: HeldPreviewItem,
     layers_at: impl FnMut(EquipmentLocation) -> Vec<PreviewTarget>,
 ) -> Option<MappedSlot> {
     let start = match session.selection {
@@ -73,7 +74,7 @@ pub(super) fn hud_slot(
             .unwrap_or(0),
         _ => 0,
     };
-    eligible_mapped_slot(mapping, held_item_id, start, layers_at)
+    eligible_mapped_slot(mapping, held_item, start, layers_at)
 }
 
 pub(super) fn apply_slot(
@@ -109,12 +110,27 @@ mod tests {
                 active: Some(EquipmentHand::Right),
                 ..Default::default()
             };
-            let hud = hud_slot(&session, mapping, Some("mitten_gauntlet"), |_| vec![]).unwrap();
+            let hud = hud_slot(
+                &session,
+                mapping,
+                HeldPreviewItem::Defined(
+                    adventuresim_core::item_catalog::definition("mitten_gauntlet").unwrap(),
+                ),
+                |_| vec![],
+            )
+            .unwrap();
             assert_eq!(
                 hud.location, location,
                 "fresh HUD binding must reach the authored hand"
             );
-            keyboard_slots(&mut session, &keys, Some("mitten_gauntlet"), |_| vec![]);
+            keyboard_slots(
+                &mut session,
+                &keys,
+                HeldPreviewItem::Defined(
+                    adventuresim_core::item_catalog::definition("mitten_gauntlet").unwrap(),
+                ),
+                |_| vec![],
+            );
             assert_eq!(
                 session.selection,
                 Some(GrabSelection::Slot { location, depth: 0 })
@@ -123,7 +139,14 @@ mod tests {
             keys.clear();
             keys.release(key);
             keys.press(key);
-            keyboard_slots(&mut session, &keys, Some("mitten_gauntlet"), |_| vec![]);
+            keyboard_slots(
+                &mut session,
+                &keys,
+                HeldPreviewItem::Defined(
+                    adventuresim_core::item_catalog::definition("mitten_gauntlet").unwrap(),
+                ),
+                |_| vec![],
+            );
             assert_eq!(
                 session.selection,
                 Some(GrabSelection::Slot { location, depth: 0 }),

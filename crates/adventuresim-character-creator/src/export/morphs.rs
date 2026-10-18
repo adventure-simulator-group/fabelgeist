@@ -130,7 +130,7 @@ mod tests {
             joint_weights: &[],
             joint_names: &[],
             joint_parents: &[],
-            global_joint_states: &[],
+            global_joint_states: Default::default(),
         };
         let mut shell = RiggedShell {
             surface: None,

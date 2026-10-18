@@ -33,7 +33,8 @@ use grab_world::*;
 use icons::*;
 use placeholder_update::update_item_placeholders;
 use preview::{
-    eligible_slot_depth, hud_layers, ordered_preview_at_location, outermost_occupied_depth,
+    HeldPreviewItem, eligible_slot_depth, hud_layers, ordered_preview_at_location,
+    outermost_occupied_depth,
 };
 pub(crate) use render_binding::ProceduralEquipmentPart;
 pub(crate) use runtime_equipment::RuntimeEquipmentBodyCache;
@@ -372,10 +373,8 @@ fn update_grab_input(
         held.is_some(),
         world_targets.pointed(actor_transform),
     );
-    let held_item_id = held
-        .and_then(|entity| properties.get(entity).ok())
-        .map(|properties| properties.id.as_str());
-    slot_selection::keyboard_slots(&mut session, &keys, held_item_id, |location| {
+    let held_item = HeldPreviewItem::from(held.and_then(|entity| properties.get(entity).ok()));
+    slot_selection::keyboard_slots(&mut session, &keys, held_item, |location| {
         ordered_preview_at_location(actor, location, &topologies)
     });
     let released = match hand {
@@ -486,7 +485,7 @@ fn draw_slot_hud(
                         if let Some(mapping) = INPUT_ADDRESS_MAPPINGS.iter().find(|mapping| {
                             mapping.keyboard_row == row && mapping.keyboard_column == column
                         }) {
-                            let slot = slot_selection::hud_slot(&session, mapping, held.map(|(_, _, _, properties, _)| properties.id.as_str()), |location| hud_layers(actor, location, &items));
+                            let slot = slot_selection::hud_slot(&session, mapping, HeldPreviewItem::from(held.map(|(_, _, _, properties, _)| properties)), |location| hud_layers(actor, location, &items));
                             let location = slot.map_or(mapping.locations[0], |slot| slot.location);
                             let layers = hud_layers(actor, location, &items);
                             let outermost = outermost_occupied_depth(&layers)

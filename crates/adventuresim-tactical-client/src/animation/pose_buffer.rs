@@ -11,7 +11,7 @@ use super::procedural::clock::{AnimationSampleTick, FixedAnimationStep};
 use super::*;
 #[cfg(test)]
 use baking::BoneTrack;
-use baking::{BakedClip, bake_clip, get_or_bake};
+use baking::{BakedClip, BoneTrackSource, bake_clip, get_or_bake};
 use bevy::{
     animation::{AnimationTargetId, animated_field},
     asset::{AssetEvent, AssetId},
@@ -26,6 +26,7 @@ use inertialization::{
     JointInertialOffset, hemisphere_slerp, local_pose_velocity, quaternion_exp, quaternion_log,
     shortest_rotation,
 };
+use interpolation::PoseInterpolation;
 use proportions::sample_character_plan;
 use rig::{RigDefinition, RigJoint};
 use spline::clamped_cubic_spline_vec3;
@@ -40,6 +41,7 @@ mod baking;
 mod display_history;
 mod hierarchy;
 mod inertialization;
+mod interpolation;
 mod phase_calibration;
 mod physics_pose;
 mod proportions;
@@ -109,7 +111,7 @@ pub(crate) struct PoseBufferRig {
     previous: RigJointTable<LocalPose>,
     next: RigJointTable<LocalPose>,
     sample_accumulator: AnimationElapsed,
-    interpolation_alpha: f32,
+    interpolation_alpha: PoseInterpolation,
     last_evaluation_tick: Option<AnimationSampleTick>,
     decay_delta_seconds: AnimationElapsed,
     offsets: RigJointTable<JointInertialOffset>,
@@ -243,9 +245,7 @@ impl LocalPose {
     fn continuation_transition(self, transition: ContinuationTransition, progress: f32) -> Self {
         let start = self.extrapolate(transition.contact, transition.start_coordinate);
         let progress = progress.clamp(0.0, 1.0);
-        let ready_phase = transition
-            .ready_phase
-            .clamp(f32::EPSILON, 0.5 - f32::EPSILON);
+        let ready_phase = transition.ready_phase;
         let knots = [0.0, ready_phase, 0.5, 1.0];
         let incoming_scale = transition.incoming_tangent / ready_phase;
         let rotation_values = [
@@ -465,7 +465,7 @@ pub(super) fn update_pose_buffers(
         }
         if rig.visibility == PoseVisibility::Frozen {
             rig.sample_accumulator = AnimationElapsed::ZERO;
-            rig.interpolation_alpha = 0.0;
+            rig.interpolation_alpha = PoseInterpolation::ZERO;
             rig.target_linear_velocities.fill(Vec3::ZERO);
             rig.target_angular_velocities.fill(Vec3::ZERO);
         }
@@ -551,7 +551,7 @@ pub(super) fn update_pose_buffers(
             rig.previous.clone_from(&target);
             rig.next = target;
             rig.sample_accumulator = AnimationElapsed::ZERO;
-            rig.interpolation_alpha = 1.0;
+            rig.interpolation_alpha = PoseInterpolation::ONE;
             rig.plan = Some(key);
             rig.presentation = PosePresentationMode::Displaying;
         } else {
@@ -562,7 +562,7 @@ pub(super) fn update_pose_buffers(
                 rig.previous.clone_from(&target);
                 rig.next = target;
                 rig.sample_accumulator = AnimationElapsed::ZERO;
-                rig.interpolation_alpha = 1.0;
+                rig.interpolation_alpha = PoseInterpolation::ONE;
                 rig.set_target_velocities(&target_velocities);
             } else {
                 let due = samples_due(rig.sample_accumulator.seconds());
@@ -594,8 +594,10 @@ pub(super) fn update_pose_buffers(
                 // joint transforms from the preceding solved sample to that
                 // upcoming solved sample; no post-interpolation contact toggle
                 // is needed.
-                rig.interpolation_alpha =
-                    (rig.sample_accumulator.seconds() / pose_sample_seconds()).clamp(0.0, 1.0);
+                if let Err(error) = rig.update_interpolation() {
+                    warn!(%error, "Rejected pose interpolation clock");
+                    continue;
+                }
             }
         }
     }
@@ -610,7 +612,7 @@ pub(super) fn apply_pose_buffers(
         if !rig.has_presented_pose() || rig.visibility == PoseVisibility::Frozen {
             continue;
         }
-        let alpha = rig.interpolation_alpha;
+        let alpha = rig.interpolation_alpha.fraction();
         let delta_seconds = rig.decay_delta_seconds;
         let rig = &mut *rig;
         for joint in rig.entities.ordinals() {
@@ -796,20 +798,24 @@ fn sample_plan(
     let mut locomotion_pelvis_rotation = None;
     for (joint_index, joint) in definition.joints.indexed() {
         let mut blended = joint.bind;
-        let mut accumulated = 0.0_f32;
+        let mut accumulated = BlendWeight::ZERO;
         let is_pelvis = joint.role == Some(BoneRole::Pelvis);
         let mut combat_upper = joint.bind;
-        let mut combat_upper_weight = 0.0_f32;
+        let mut combat_upper_weight = BlendWeight::ZERO;
         let mut combat_lower = joint.bind;
-        let mut combat_lower_weight = 0.0_f32;
+        let mut combat_lower_weight = BlendWeight::ZERO;
         for (weighted, clip, source) in &baked {
             let included = joint.body_region.includes(weighted.clip.layer, joint.role);
             if !included || weighted.weight.is_absent() {
                 continue;
             }
             let sample = if weighted.locomotion_phase.is_some() {
-                let authored_phase = weighted.time_seconds.seconds()
-                    / weighted.clip.duration_seconds.seconds().max(f32::EPSILON);
+                let duration = weighted.clip.duration_seconds.seconds();
+                let authored_phase = if duration == 0.0 {
+                    0.0
+                } else {
+                    weighted.time_seconds.seconds() / duration
+                };
                 sample_two_pose_locomotion_clip(
                     source,
                     joint,
@@ -826,8 +832,9 @@ fn sample_plan(
                     &mut combat_upper,
                     &mut combat_upper_weight,
                     sample,
-                    weighted.weight.factor(),
-                );
+                    weighted.weight,
+                )
+                .ok()?;
                 continue;
             }
             if is_pelvis && weighted.clip.layer == ClipLayer::CombatLower {
@@ -835,26 +842,16 @@ fn sample_plan(
                     &mut combat_lower,
                     &mut combat_lower_weight,
                     sample,
-                    weighted.weight.factor(),
-                );
+                    weighted.weight,
+                )
+                .ok()?;
                 continue;
             }
-            let next_total = accumulated + weighted.weight.factor();
-            let alpha = if next_total > 0.0 {
-                weighted.weight.factor() / next_total
-            } else {
-                0.0
-            };
-            blended = if accumulated <= 0.0 {
-                sample
-            } else {
-                blended.interpolate(sample, alpha)
-            };
-            accumulated = next_total;
+            accumulate_local_pose(&mut blended, &mut accumulated, sample, weighted.weight).ok()?;
         }
         for (span, start_clip, end_clip) in &baked_spans {
             let included = joint.body_region.includes(span.start.layer, joint.role);
-            if !included || span.weight.factor() <= f32::EPSILON {
+            if !included || span.weight.is_absent() {
                 continue;
             }
             let start = sanitize_pose(
@@ -876,8 +873,9 @@ fn sample_plan(
                     &mut combat_upper,
                     &mut combat_upper_weight,
                     sample,
-                    span.weight.factor(),
-                );
+                    span.weight,
+                )
+                .ok()?;
                 continue;
             }
             if is_pelvis && span.start.layer == ClipLayer::CombatLower {
@@ -885,28 +883,18 @@ fn sample_plan(
                     &mut combat_lower,
                     &mut combat_lower_weight,
                     sample,
-                    span.weight.factor(),
-                );
+                    span.weight,
+                )
+                .ok()?;
                 continue;
             }
-            let next_total = accumulated + span.weight.factor();
-            let alpha = if next_total > 0.0 {
-                span.weight.factor() / next_total
-            } else {
-                0.0
-            };
-            blended = if accumulated <= 0.0 {
-                sample
-            } else {
-                blended.interpolate(sample, alpha)
-            };
-            accumulated = next_total;
+            accumulate_local_pose(&mut blended, &mut accumulated, sample, span.weight).ok()?;
         }
         for (span, start_clip, contact_clip, end_clip, outgoing_clip, finish_clip) in
             &baked_continuations
         {
             let included = joint.body_region.includes(span.start.layer, joint.role);
-            if !included || span.weight.factor() <= f32::EPSILON {
+            if !included || span.weight.is_absent() {
                 continue;
             }
             let start = sanitize_pose(
@@ -941,8 +929,9 @@ fn sample_plan(
                     &mut combat_upper,
                     &mut combat_upper_weight,
                     sample,
-                    span.weight.factor(),
-                );
+                    span.weight,
+                )
+                .ok()?;
                 continue;
             }
             if is_pelvis && span.start.layer == ClipLayer::CombatLower {
@@ -950,52 +939,38 @@ fn sample_plan(
                     &mut combat_lower,
                     &mut combat_lower_weight,
                     sample,
-                    span.weight.factor(),
-                );
+                    span.weight,
+                )
+                .ok()?;
                 continue;
             }
-            let next_total = accumulated + span.weight.factor();
-            let alpha = if next_total > 0.0 {
-                span.weight.factor() / next_total
-            } else {
-                0.0
-            };
-            blended = if accumulated <= 0.0 {
-                sample
-            } else {
-                blended.interpolate(sample, alpha)
-            };
-            accumulated = next_total;
+            accumulate_local_pose(&mut blended, &mut accumulated, sample, span.weight).ok()?;
         }
-        let mut result = if is_pelvis && combat_upper_weight > 0.0 && combat_lower_weight > 0.0 {
-            locomotion_pelvis_rotation = Some(combat_lower.rotation);
-            combine_combat_pelvis(combat_upper, combat_lower)
-        } else if accumulated > 0.0 {
-            blended
-        } else {
-            joint.bind
-        };
+        let mut result =
+            if is_pelvis && !combat_upper_weight.is_absent() && !combat_lower_weight.is_absent() {
+                locomotion_pelvis_rotation = Some(combat_lower.rotation);
+                combine_combat_pelvis(combat_upper, combat_lower)
+            } else if !accumulated.is_absent() {
+                blended
+            } else {
+                joint.bind
+            };
         if let Some(hand) = hand_animation_joint(definition, joint_index) {
             let mut hand_pose = joint.bind;
-            let mut hand_weight = 0.0_f32;
+            let mut hand_weight = BlendWeight::ZERO;
             for (weighted, clip, _) in &baked {
                 if weighted.clip.layer != hand
-                    || !clip.tracks[joint_index].animated
+                    || clip.tracks[joint_index].source != BoneTrackSource::Authored
                     || weighted.weight.is_absent()
                 {
                     continue;
                 }
                 let sample =
                     sanitize_pose(clip.sample(joint_index, weighted.time_seconds), joint.bind);
-                let total = hand_weight + weighted.weight.factor();
-                hand_pose = if hand_weight <= 0.0 {
-                    sample
-                } else {
-                    hand_pose.interpolate(sample, weighted.weight.factor() / total)
-                };
-                hand_weight = total;
+                accumulate_local_pose(&mut hand_pose, &mut hand_weight, sample, weighted.weight)
+                    .ok()?;
             }
-            if hand_weight > 0.0 {
+            if !hand_weight.is_absent() {
                 result = hand_pose;
             }
         }
@@ -1010,17 +985,19 @@ fn sample_plan(
 
 fn accumulate_local_pose(
     accumulated_pose: &mut LocalPose,
-    accumulated_weight: &mut f32,
+    accumulated_weight: &mut BlendWeight,
     sample: LocalPose,
-    weight: f32,
-) {
-    let next_total = *accumulated_weight + weight;
-    *accumulated_pose = if *accumulated_weight <= 0.0 {
+    weight: BlendWeight,
+) -> AnimationValueResult<()> {
+    let next_total = accumulated_weight.checked_add(weight)?;
+    let next_pose = if accumulated_weight.is_absent() {
         sample
     } else {
-        accumulated_pose.interpolate(sample, weight / next_total)
+        accumulated_pose.interpolate(sample, weight.factor() / next_total.factor())
     };
+    *accumulated_pose = next_pose;
     *accumulated_weight = next_total;
+    Ok(())
 }
 
 fn combine_combat_pelvis(combat: LocalPose, locomotion: LocalPose) -> LocalPose {
@@ -1376,46 +1353,14 @@ fn measure_authored_contact_step_distance(
         return None;
     }
 
-    // Some source tools export cyclic locomotion with the phase direction
-    // opposite to the runtime's forward gait convention. Choose one playback
-    // orientation for the entire clip from the signed stance displacement;
-    // reversing clip time is safe for a cycle and does not reverse physical
-    // gait phase or contact ownership.
-    let signed_stance_displacement = segments
-        .iter()
-        .map(|samples| {
-            (samples.last().unwrap().1 - samples.first().unwrap().1)
-                * expected_stance_direction.signum()
-        })
-        .sum::<f32>();
-    if signed_stance_displacement.abs() <= 0.02 {
-        return None;
-    }
-    let reverse_playback = signed_stance_displacement < 0.0;
-    let semantic_contact_centers = [0.0_f32, 0.5_f32];
-    let mut offsets =
-        segments
-            .iter()
-            .zip(semantic_contact_centers)
-            .map(|(samples, semantic_center)| {
-                let authored_center =
-                    (samples.first().unwrap().0 + samples.last().unwrap().0) * 0.5;
-                if reverse_playback {
-                    authored_center + semantic_center
-                } else {
-                    authored_center - semantic_center
-                }
-            });
-    let first_offset = offsets.next()?.rem_euclid(1.0);
-    let (offset_sum, offset_count) = offsets.fold((first_offset, 1_u32), |(sum, count), offset| {
-        let aligned = first_offset + (offset - first_offset + 0.5).rem_euclid(1.0) - 0.5;
-        (sum + aligned, count + 1)
-    });
-    let phase_offset = (offset_sum / offset_count as f32).rem_euclid(1.0);
+    let orientation =
+        phase_calibration::ContactOrientation::fit(&segments, expected_stance_direction)?;
+    let direction = orientation.direction;
+    let phase_offset = orientation.offset.cycles();
     let oriented_segments = segments
         .iter()
         .map(|samples| {
-            if reverse_playback {
+            if direction == TimelineDirection::Reversed {
                 samples
                     .iter()
                     .rev()
@@ -1482,7 +1427,7 @@ fn measure_authored_contact_step_distance(
     }
 
     let phase_curve =
-        match AuthoredPhaseCurve::fit_contact_spans(&phase_spans, reverse_playback, phase_offset) {
+        match AuthoredPhaseCurve::fit_contact_spans(&phase_spans, direction, phase_offset) {
             Ok(curve) => curve,
             Err(error) => {
                 warn!(%error, "Rejected authored phase calibration");
@@ -1527,7 +1472,9 @@ fn measure_authored_contact_step_distance(
     (step_distance.is_finite()
         && maximum_stance_slip.is_finite()
         && cycle_distance > 0.0
-        && (0.05..=3.0).contains(&step_distance))
+        && (pose_tuning().minimum_authored_foot_range_metres
+            ..=pose_tuning().maximum_authored_foot_range_metres)
+            .contains(&step_distance))
     .then_some(AuthoredLocomotionCalibration {
         stride: AuthoredStrideMeasurement {
             step_distance,
@@ -1571,7 +1518,11 @@ fn measure_authored_foot_range(
         return None;
     };
     let stride = (left + right) * 0.5;
-    (stride.is_finite() && (0.05..=3.0).contains(&stride)).then_some(stride)
+    (stride.is_finite()
+        && (pose_tuning().minimum_authored_foot_range_metres
+            ..=pose_tuning().maximum_authored_foot_range_metres)
+            .contains(&stride))
+    .then_some(stride)
 }
 
 fn sanitize_pose(pose: LocalPose, fallback: LocalPose) -> LocalPose {
@@ -1821,8 +1772,8 @@ mod tests {
                 target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
                 bind: pose(Vec3::ZERO, Quat::IDENTITY),
                 parent: parent.map(RigJointOrdinal::from),
-                name: Some(identity.name),
-                role: identity.role,
+                name: Some(identity.name().clone()),
+                role: identity.role(),
                 body_region: AnimationBodyRegion::Lower,
             }
         };
@@ -1840,7 +1791,7 @@ mod tests {
             translations,
             rotations: vec![Quat::IDENTITY; 3],
             scales: vec![Vec3::ONE; 3],
-            animated: true,
+            source: BoneTrackSource::Authored,
         };
         let clip = BakedClip {
             duration: ClipDuration::from_seconds(2.0 / 30.0).unwrap(),
@@ -1879,8 +1830,8 @@ mod tests {
                 target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
                 bind: pose(Vec3::ZERO, Quat::IDENTITY),
                 parent: parent.map(RigJointOrdinal::from),
-                name: Some(identity.name),
-                role: identity.role,
+                name: Some(identity.name().clone()),
+                role: identity.role(),
                 body_region: AnimationBodyRegion::Lower,
             }
         };
@@ -1914,7 +1865,7 @@ mod tests {
                 .collect(),
             rotations: vec![Quat::IDENTITY; frames],
             scales: vec![Vec3::ONE; frames],
-            animated: true,
+            source: BoneTrackSource::Authored,
         };
         let clip = BakedClip {
             duration: ClipDuration::from_seconds(duration).unwrap(),
@@ -1925,7 +1876,7 @@ mod tests {
                     translations: vec![Vec3::ZERO; frames],
                     rotations: vec![Quat::IDENTITY; frames],
                     scales: vec![Vec3::ONE; frames],
-                    animated: true,
+                    source: BoneTrackSource::Authored,
                 },
                 foot_track(0.1, 50.0),
                 foot_track(0.6, -80.0),
@@ -2040,8 +1991,8 @@ mod tests {
                 target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
                 bind: pose(translation, Quat::IDENTITY),
                 parent: parent.map(RigJointOrdinal::from),
-                name: Some(identity.name),
-                role: identity.role,
+                name: Some(identity.name().clone()),
+                role: identity.role(),
                 body_region: AnimationBodyRegion::Lower,
             }
         };
@@ -2112,8 +2063,8 @@ mod tests {
                 target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
                 bind: pose(translation, Quat::IDENTITY),
                 parent: parent.map(RigJointOrdinal::from),
-                name: Some(identity.name),
-                role: identity.role,
+                name: Some(identity.name().clone()),
+                role: identity.role(),
                 body_region: AnimationBodyRegion::Lower,
             }
         };
@@ -2184,8 +2135,8 @@ mod tests {
                 target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
                 bind: pose(translation, Quat::IDENTITY),
                 parent: parent.map(RigJointOrdinal::from),
-                name: Some(identity.name),
-                role: identity.role,
+                name: Some(identity.name().clone()),
+                role: identity.role(),
                 body_region: AnimationBodyRegion::Lower,
             }
         };
@@ -2246,8 +2197,8 @@ mod tests {
                 target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
                 bind: pose(translation, Quat::IDENTITY),
                 parent: parent.map(RigJointOrdinal::from),
-                name: Some(identity.name),
-                role: identity.role,
+                name: Some(identity.name().clone()),
+                role: identity.role(),
                 body_region: AnimationBodyRegion::Lower,
             }
         };
@@ -2341,8 +2292,8 @@ mod tests {
                 target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
                 bind: pose(translation, Quat::IDENTITY),
                 parent: parent.map(RigJointOrdinal::from),
-                name: Some(identity.name),
-                role: identity.role,
+                name: Some(identity.name().clone()),
+                role: identity.role(),
                 body_region: AnimationBodyRegion::Lower,
             }
         };

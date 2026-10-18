@@ -1,13 +1,14 @@
 //! Playback timing and locomotion presentation thresholds authored in YAML.
 
 use super::TacticalCombatConfigError;
+use adventuresim_building_generator::spatial_geometry::SignedLength;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct AnimationPlaybackConfig {
     pub frames_per_second: f32,
-    pub player_visual_y_offset_metres: f32,
+    pub player_visual_y_offset_metres: SignedLength,
     pub velocity_response_per_second: f32,
     pub phase_correction_rate_per_second: f32,
     pub phase_drift_deadband: f32,
@@ -43,7 +44,7 @@ impl AnimationPlaybackConfig {
         ]
         .into_iter()
         .all(finite_nonnegative)
-            || !playback.player_visual_y_offset_metres.is_finite()
+            || playback.phase_drift_measurement_blend > 1.0
             || playback.frames_per_second == 0.0
             || playback.maximum_source_gap_ticks == 0
             || playback.maximum_coalesced_events == 0

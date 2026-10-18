@@ -120,7 +120,7 @@ pub(super) fn sync_skeletal_proportions(
             BoneReference {
                 entity,
                 parent: parent.map(ChildOf::parent),
-                role: name.and_then(|identity| identity.role),
+                role: name.and_then(|identity| identity.role()),
                 bind: bind.local,
                 offset: basis
                     .map(|basis| Vec3::from_array(basis.0.translation(proportions)))

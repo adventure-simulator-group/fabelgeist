@@ -16,7 +16,7 @@ mod legacy_tests {
         let skeleton = SkeletonState::default()
             .with_local_velocity(Vec3::NEG_Z * 2.0)
             .with_world_velocity(Vec3::NEG_Z * 2.0);
-        let before = AnimationEvaluation::from_skeleton(&skeleton);
+        let before = AnimationEvaluation::from_skeleton(&skeleton).unwrap();
         let after = route(skeleton);
         assert_eq!(after.path, SemanticRoutePath::OrdinaryLocomotion);
         assert!(after.runtime_evaluated);
@@ -35,7 +35,7 @@ mod legacy_tests {
         skeleton.advance_action(15);
         let before = serde_json::to_vec(&skeleton).unwrap();
         let presented = PresentedSkeleton::new(skeleton, None);
-        let evaluation = AnimationEvaluation::from_skeleton(&presented);
+        let evaluation = AnimationEvaluation::from_skeleton(&presented).unwrap();
         let inputs = semantic_route::SemanticRouteInputs::from_presented(&presented, &evaluation);
 
         assert_eq!(inputs.action, SkeletonAction::Attack);
@@ -56,13 +56,15 @@ mod legacy_tests {
                 .unwrap();
             skeleton.advance_action(tick);
             let presented = PresentedSkeleton::new(skeleton.clone(), None);
-            let direct = AnimationEvaluation::from_skeleton(&skeleton);
+            let direct = AnimationEvaluation::from_skeleton(&skeleton).unwrap();
             let routed = route(skeleton);
 
             assert_eq!(routed.path, SemanticRoutePath::RaisedGuardAttack);
             assert!(routed.runtime_evaluated);
             assert_eq!(routed.evaluation, direct);
-            assert!((routed.inputs.gait_phase - presented.gait_phase).abs() < f32::EPSILON);
+            assert!(
+                (routed.inputs.gait_phase.cycles() - presented.gait_phase).abs() < f32::EPSILON
+            );
             assert!((routed.evaluation.action_phase - expected_phase).abs() < f32::EPSILON);
         }
     }
@@ -125,14 +127,14 @@ mod legacy_tests {
         for tick in 1..=64 {
             project_skeleton_locomotion(
                 &mut authoritative,
-                SkeletonLocomotionInput {
-                    orientation: Quat::IDENTITY,
-                    linear_velocity: Vec3::NEG_Z * 5.5,
-                    grounded: true,
-                    delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz())
-                        .unwrap(),
-                    tick,
-                },
+                SkeletonLocomotionInput::from_controller(
+                    Quat::IDENTITY,
+                    Vec3::NEG_Z * 5.5,
+                    GroundContact::Grounded,
+                    AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                    AnimationSampleTick::from(tick),
+                )
+                .unwrap(),
             )
             .unwrap();
             if tick % 4 == 0 {
@@ -168,14 +170,14 @@ mod legacy_tests {
 
         project_skeleton_locomotion(
             &mut authoritative,
-            SkeletonLocomotionInput {
-                orientation: Quat::IDENTITY,
-                linear_velocity: velocity,
-                grounded: true,
-                delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz())
-                    .unwrap(),
-                tick: 1,
-            },
+            SkeletonLocomotionInput::from_controller(
+                Quat::IDENTITY,
+                velocity,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                AnimationSampleTick::from(1u64),
+            )
+            .unwrap(),
         )
         .unwrap();
         advance_presented_skeleton(
@@ -233,6 +235,7 @@ mod legacy_tests {
 
     #[test]
     fn presentation_phase_ignores_minor_authoritative_packet_jitter() {
+        const JITTER_OBSERVATION_COUNT: u64 = 32;
         let velocity = Vec3::NEG_Z * 5.5;
         let mut authoritative = SkeletonState::default()
             .with_local_velocity(velocity)
@@ -240,7 +243,7 @@ mod legacy_tests {
         let mut presented = PresentedSkeleton::new(authoritative.clone(), None);
         let delta_seconds = 1.0 / 60.0;
 
-        for tick in 1u64..=32 {
+        for tick in 1u64..=JITTER_OBSERVATION_COUNT {
             let previous_phase = presented.gait_phase;
             let predicted_delta = gait_cycle_phase_delta(
                 locomotion_profile(&presented.state),
@@ -626,8 +629,8 @@ mod legacy_tests {
                     end: SemanticPose::WalkPassing,
                     progress: 0.5,
                 },
-                weight: 1.0,
-                mirror_lower_body: false,
+                weight: BlendWeight::from_factor(1.0).unwrap(),
+                mirror_lower_body: ClipMirror::Original,
             },
         )
         .unwrap();
@@ -658,8 +661,8 @@ mod legacy_tests {
                     end: SemanticPose::AttackThrust,
                     progress: 0.5,
                 },
-                weight: 1.0,
-                mirror_lower_body: false,
+                weight: BlendWeight::from_factor(1.0).unwrap(),
+                mirror_lower_body: ClipMirror::Original,
             },
         )
         .unwrap();
@@ -715,8 +718,8 @@ mod legacy_tests {
             PoseSample {
                 pose: SemanticPose::RunContact,
                 sampling: PoseSampling::Anchor,
-                weight: 0.5,
-                mirror_lower_body: true,
+                weight: BlendWeight::from_factor(0.5).unwrap(),
+                mirror_lower_body: ClipMirror::Mirrored,
             },
         )
         .unwrap();
@@ -865,7 +868,7 @@ mod legacy_tests {
     #[test]
     fn raised_guard_uses_authored_hand_tracks_before_the_attack_starts() {
         let skeleton = SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
-        let evaluation = AnimationEvaluation::from_skeleton(&skeleton);
+        let evaluation = AnimationEvaluation::from_skeleton(&skeleton).unwrap();
 
         assert!(evaluation.action.is_empty());
         assert!(authored_pose_owns_hands(&evaluation.base));
@@ -918,7 +921,7 @@ mod legacy_tests {
             .expect("client authored rig");
         assert_eq!(
             world.get::<Transform>(rig).unwrap().translation.y,
-            player_visual_y_offset_metres()
+            player_visual_y_offset().metres()
         );
     }
 
@@ -953,8 +956,8 @@ mod legacy_tests {
             PoseSample {
                 pose: SemanticPose::RunContact,
                 sampling: PoseSampling::Anchor,
-                weight: 1.0,
-                mirror_lower_body: false,
+                weight: BlendWeight::from_factor(1.0).unwrap(),
+                mirror_lower_body: ClipMirror::Original,
             },
         )
         .unwrap();
@@ -978,8 +981,8 @@ mod legacy_tests {
             PoseSample {
                 pose: SemanticPose::QuickstepForwardTakeoff,
                 sampling: PoseSampling::Timeline { progress: 0.25 },
-                weight: 1.0,
-                mirror_lower_body: false,
+                weight: BlendWeight::from_factor(1.0).unwrap(),
+                mirror_lower_body: ClipMirror::Original,
             },
         )
         .unwrap();
@@ -1017,8 +1020,8 @@ mod legacy_tests {
             PoseSample {
                 pose: SemanticPose::QuickstepRightTakeoff,
                 sampling: PoseSampling::Timeline { progress: 0.5 },
-                weight: 1.0,
-                mirror_lower_body: false,
+                weight: BlendWeight::from_factor(1.0).unwrap(),
+                mirror_lower_body: ClipMirror::Original,
             },
         )
         .unwrap();
@@ -1056,9 +1059,11 @@ mod legacy_tests {
             (
                 PoseSample {
                     pose: SemanticPose::StrafeCycle,
-                    sampling: PoseSampling::Cycle { phase: 0.5 },
-                    weight: 1.0,
-                    mirror_lower_body: false,
+                    sampling: PoseSampling::Cycle {
+                        phase: CyclePhase::from_cycles(0.5).unwrap(),
+                    },
+                    weight: BlendWeight::from_factor(1.0).unwrap(),
+                    mirror_lower_body: ClipMirror::Original,
                 },
                 ClipLayer::Lower,
             ),
@@ -1066,8 +1071,8 @@ mod legacy_tests {
                 PoseSample {
                     pose: SemanticPose::QuickstepRightTakeoff,
                     sampling: PoseSampling::Timeline { progress: 0.5 },
-                    weight: 1.0,
-                    mirror_lower_body: false,
+                    weight: BlendWeight::from_factor(1.0).unwrap(),
+                    mirror_lower_body: ClipMirror::Original,
                 },
                 ClipLayer::Lower,
             ),
@@ -1122,10 +1127,10 @@ mod legacy_tests {
                 PoseSample {
                     pose: SemanticPose::WalkContact,
                     sampling: PoseSampling::Cycle {
-                        phase: physical_phase,
+                        phase: CyclePhase::from_cycles(physical_phase).unwrap(),
                     },
-                    weight: 1.0,
-                    mirror_lower_body: false,
+                    weight: BlendWeight::from_factor(1.0).unwrap(),
+                    mirror_lower_body: ClipMirror::Original,
                 },
                 ClipLayer::Lower,
             )
@@ -1151,10 +1156,10 @@ mod legacy_tests {
                 PoseSample {
                     pose: SemanticPose::StrafeCycle,
                     sampling: PoseSampling::Cycle {
-                        phase: physical_phase,
+                        phase: CyclePhase::from_cycles(physical_phase).unwrap(),
                     },
-                    weight: 1.0,
-                    mirror_lower_body: false,
+                    weight: BlendWeight::from_factor(1.0).unwrap(),
+                    mirror_lower_body: ClipMirror::Original,
                 },
                 ClipLayer::Lower,
             )

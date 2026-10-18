@@ -1,11 +1,50 @@
 //! Native diagnostic mannequin geometry in the root-local fitting frame.
 
-use super::{FallbackAnimationRig, player_visual_y_offset_metres};
+use super::{FallbackAnimationRig, player_visual_y_offset};
+use adventuresim_building_generator::spatial_geometry::{
+    CuboidDimensions, GeometryResult, PositiveLength,
+};
 use bevy::{ecs::hierarchy::ChildSpawnerCommands, prelude::*};
 
 struct LimbAnchor {
     name: &'static str,
     root_local_metres: Vec3,
+}
+
+/// Authored positive capsule dimensions; segment length excludes hemisphere ends.
+struct FallbackCapsule {
+    radius: PositiveLength,
+    segment_length: PositiveLength,
+}
+
+/// Mannequin dimensions in each body's root-local X/Y/Z frame.
+struct FallbackGeometry {
+    torso: FallbackCapsule,
+    head_radius: PositiveLength,
+    arm: CuboidDimensions,
+    leg: FallbackCapsule,
+}
+
+impl FallbackCapsule {
+    fn mesh(self) -> Capsule3d {
+        Capsule3d::new(self.radius.metres(), self.segment_length.metres())
+    }
+}
+impl FallbackGeometry {
+    fn authored() -> GeometryResult<Self> {
+        Ok(Self {
+            torso: FallbackCapsule {
+                radius: PositiveLength::from_metres(0.24)?,
+                segment_length: PositiveLength::from_metres(0.5)?,
+            },
+            head_radius: PositiveLength::from_metres(0.22)?,
+            arm: CuboidDimensions::from_metres(Vec3::new(0.72, 0.16, 0.18))?,
+            leg: FallbackCapsule {
+                radius: PositiveLength::from_metres(0.12)?,
+                segment_length: PositiveLength::from_metres(0.72)?,
+            },
+        })
+    }
 }
 
 /// Spawns a deliberately obvious T-pose mannequin. It remains visible until
@@ -18,23 +57,29 @@ pub(crate) fn spawn_fallback_t_pose(
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
 ) {
+    let geometry = match FallbackGeometry::authored() {
+        Ok(geometry) => geometry,
+        Err(error) => {
+            error!(%error, "Invalid authored fallback mannequin dimensions");
+            return;
+        }
+    };
     let material = materials.add(StandardMaterial {
         base_color: color,
         metallic: 0.0,
         perceptual_roughness: 1.0,
         ..default()
     });
-    let torso = meshes.add(torso_mesh());
-    let head_radius_metres = 0.22;
-    let head = meshes.add(Sphere::new(head_radius_metres));
-    let arm_dimensions_metres = Vec3::new(0.72, 0.16, 0.18);
-    let arm = meshes.add(Cuboid::from_size(arm_dimensions_metres));
-    let leg = meshes.add(leg_mesh());
+    // The checked dimensions project only at the native Bevy mesh constructors.
+    let torso = meshes.add(geometry.torso.mesh());
+    let head = meshes.add(Sphere::new(geometry.head_radius.metres()));
+    let arm = meshes.add(Cuboid::from_size(geometry.arm.metres()));
+    let leg = meshes.add(geometry.leg.mesh());
     parent
         .spawn((
             Name::new("Fallback bind-pose T rig"),
             FallbackAnimationRig(owner),
-            Transform::from_xyz(0.0, player_visual_y_offset_metres(), 0.0),
+            Transform::from_xyz(0.0, player_visual_y_offset().metres(), 0.0),
             Visibility::Inherited,
         ))
         .with_children(|rig| {
@@ -67,20 +112,6 @@ pub(crate) fn spawn_fallback_t_pose(
                 ));
             }
         });
-}
-
-// Native Bevy shape adapters: Capsule3d takes the cylinder segment length,
-// excluding the hemispherical ends. Dimensions and anchors are in metres.
-fn torso_mesh() -> Capsule3d {
-    let radius_metres = 0.24;
-    let segment_length_metres = 0.5;
-    Capsule3d::new(radius_metres, segment_length_metres)
-}
-
-fn leg_mesh() -> Capsule3d {
-    let radius_metres = 0.12;
-    let segment_length_metres = 0.72;
-    Capsule3d::new(radius_metres, segment_length_metres)
 }
 
 fn torso_anchor() -> Vec3 {

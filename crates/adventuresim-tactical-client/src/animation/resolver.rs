@@ -131,11 +131,7 @@ impl PoseSampleResolver<'_> {
     ) -> AnimationValueResult<()> {
         let start = resolve_anchor(self.runtime, self.catalog, self.pack, sample.pose);
         let Some(start) = start.and_then(|resolved| {
-            select_gait_endpoint_parity(
-                self.runtime,
-                resolved,
-                ClipMirror::from_resolved_pose(sample.mirror_lower_body),
-            )
+            select_gait_endpoint_parity(self.runtime, resolved, sample.mirror_lower_body)
         }) else {
             return Ok(());
         };
@@ -173,7 +169,6 @@ impl PoseSampleResolver<'_> {
     ) -> AnimationValueResult<()> {
         match sample.sampling {
             PoseSampling::Cycle { phase } => {
-                let phase = CyclePhase::from_cycles(phase)?;
                 let sample_phase = self.locomotion_strides.sample_phase(sample.pose, phase)?;
                 let clip = start.clip.at_anchor_layer(start.anchor.frame, layer);
                 append_weighted_clip(
@@ -181,7 +176,7 @@ impl PoseSampleResolver<'_> {
                     &clip,
                     start.mirrored,
                     start.clip.duration_seconds.at_phase(sample_phase)?,
-                    BlendWeight::from_factor(sample.weight)?,
+                    sample.weight,
                     matches!(
                         sample.pose,
                         SemanticPose::WalkContact | SemanticPose::RunContact
@@ -190,7 +185,7 @@ impl PoseSampleResolver<'_> {
                 )
             }
             PoseSampling::Timeline { progress } => {
-                let progress = CyclePhase::from_cycles(progress)?.cycles().clamp(0.0, 1.0);
+                let progress = finite_sample_value(progress)?.clamp(0.0, 1.0);
                 let timeline = if start.timeline_direction == TimelineDirection::Reversed {
                     1.0 - progress
                 } else {
@@ -201,11 +196,8 @@ impl PoseSampleResolver<'_> {
                     weighted,
                     &clip,
                     start.mirrored,
-                    start
-                        .clip
-                        .duration_seconds
-                        .at_phase(CyclePhase::from_cycles(timeline)?)?,
-                    BlendWeight::from_factor(sample.weight)?,
+                    ClipTime::from_seconds(start.clip.duration_seconds.seconds() * timeline)?,
+                    sample.weight,
                     None,
                 )
             }
@@ -226,5 +218,11 @@ fn mirror_fraction(
     if total.is_absent() {
         return Ok(BlendWeight::ZERO);
     }
-    BlendWeight::from_factor((mirrored.factor() / total.factor()).clamp(0.0, 1.0))
+    let fraction = mirrored.factor() / total.factor();
+    if !fraction.is_finite() {
+        return Err(AnimationValueError::Overflow {
+            quantity: adventuresim_tactical_core::animation::AnimationQuantity::BlendWeight,
+        });
+    }
+    BlendWeight::from_factor(fraction.clamp(0.0, 1.0))
 }

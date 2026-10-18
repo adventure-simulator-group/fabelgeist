@@ -194,15 +194,12 @@ fn smooth_acceleration(
     target: BodyLocalAcceleration,
     elapsed: AnimationElapsed,
 ) -> AnimationValueResult<BodyLocalAcceleration> {
+    let target_squared = target.planar_squared()?;
+    let current_squared = current.planar_squared()?;
     // Exponential filtering operates on native body-local metres/second squared.
     let current = current.metres_per_second_squared();
     let target = target.metres_per_second_squared();
-    if !target.xz().length_squared().is_finite() || !current.xz().length_squared().is_finite() {
-        return Err(AnimationValueError::Overflow {
-            quantity: AnimationQuantity::BodyLocalAcceleration,
-        });
-    }
-    let rate = if target.xz().length_squared() > current.xz().length_squared() {
+    let rate = if target_squared > current_squared {
         body_response_tuning().acceleration_attack_response_per_second
     } else {
         body_response_tuning().acceleration_release_response_per_second
@@ -306,7 +303,8 @@ mod tests {
             BodyLocalVelocity::from_metres_per_second(walking).unwrap(),
             BodyLocalAcceleration::from_metres_per_second_squared(Vec3::NEG_Z * 12.0).unwrap(),
         )
-        .unwrap();
+        .unwrap()
+        .fraction();
         assert!(
             (walking_scale
                 - walk_locomotion_profile().reference_speed
@@ -320,7 +318,8 @@ mod tests {
                 BodyLocalVelocity::from_metres_per_second(Vec3::ZERO).unwrap(),
                 BodyLocalAcceleration::from_metres_per_second_squared(Vec3::NEG_Z * 12.0).unwrap()
             )
-            .unwrap(),
+            .unwrap()
+            .fraction(),
             0.0
         );
         assert_eq!(
@@ -329,7 +328,8 @@ mod tests {
                 BodyLocalVelocity::from_metres_per_second(Vec3::NEG_Z).unwrap(),
                 BodyLocalAcceleration::from_metres_per_second_squared(Vec3::NEG_Z * 12.0).unwrap()
             )
-            .unwrap(),
+            .unwrap()
+            .fraction(),
             1.0
         );
         assert_eq!(
@@ -338,7 +338,8 @@ mod tests {
                 BodyLocalVelocity::from_metres_per_second(Vec3::Z * 5.5).unwrap(),
                 BodyLocalAcceleration::from_metres_per_second_squared(Vec3::NEG_Z * 12.0).unwrap()
             )
-            .unwrap(),
+            .unwrap()
+            .fraction(),
             1.0
         );
     }

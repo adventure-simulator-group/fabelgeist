@@ -1,8 +1,42 @@
 use super::*;
 
-mod attack;
-
 use attack::{attack_samples, guard_pose};
+use locomotion::{
+    combat_lower_body_samples, downed_animation_speed, gait_or_idle, quickstep_lower_body_samples,
+    upright_locomotion_samples,
+};
+
+mod attack;
+pub(super) mod locomotion;
+
+/// The dive action reaches authored ground contact halfway through its timeline.
+pub const DIVE_GROUND_CONTACT_PHASE: f32 = 0.5;
+
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+pub struct PoseSample {
+    pub pose: SemanticPose,
+    pub sampling: PoseSampling,
+    pub weight: BlendWeight,
+    /// Selects the pre-mirrored gait clip for this complete anchor pose.
+    /// Mirroring is binary because fractional reflection after FK blending
+    /// collapses the bilateral limbs' forward/back separation.
+    pub mirror_lower_body: ClipMirror,
+}
+
+/// Client-side blend coordinates derived from authoritative state.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct AnimationEvaluation {
+    pub base: Vec<PoseSample>,
+    /// Optional locomotion layer evaluated only on the pelvis and legs. This
+    /// lets a raised upper-body guard retain an ordinary walk/run blend.
+    pub lower_body: Vec<PoseSample>,
+    pub action: Vec<PoseSample>,
+    pub movement_speed: f32,
+    pub gait_phase: CyclePhase,
+    pub airborne_phase: f32,
+    pub action_phase: f32,
+    pub attack_target_height: f32,
+}
 
 /// One weighted authored pose contributing to the FK result.
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
@@ -12,12 +46,13 @@ pub enum PoseSampling {
     /// Sample the complete authored motion at a normalized timeline phase.
     /// The graph still owns this sample's blend weight; the runtime only
     /// converts phase to the motion's authored timeline.
-    Cycle { phase: f32 },
+    Cycle { phase: CyclePhase },
     /// Sample a finite authored motion from its first through final frame.
     /// Progress one holds the final frame rather than wrapping to the start.
     Timeline { progress: f32 },
     /// Blend two semantic anchor poses. The client samples both catalog frames
     /// exactly and never evaluates exported in-between keys.
+    /// Both endpoints declare topology even at zero weight; zero contributes no sampling.
     Span { end: SemanticPose, progress: f32 },
     /// Extrapolate the transform delta between two semantic anchors. Unlike a
     /// normal span, the coordinate is intentionally allowed outside zero to
@@ -38,38 +73,12 @@ pub enum PoseSampling {
     },
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
-pub struct PoseSample {
-    pub pose: SemanticPose,
-    pub sampling: PoseSampling,
-    pub weight: f32,
-    /// Selects the pre-mirrored gait clip for this complete anchor pose.
-    /// Mirroring is binary because fractional reflection after FK blending
-    /// collapses the bilateral limbs' forward/back separation.
-    pub mirror_lower_body: bool,
-}
-
-/// Client-side blend coordinates derived from authoritative state.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct AnimationEvaluation {
-    pub base: Vec<PoseSample>,
-    /// Optional locomotion layer evaluated only on the pelvis and legs. This
-    /// lets a raised upper-body guard retain an ordinary walk/run blend.
-    pub lower_body: Vec<PoseSample>,
-    pub action: Vec<PoseSample>,
-    pub movement_speed: f32,
-    pub gait_phase: f32,
-    pub airborne_phase: f32,
-    pub action_phase: f32,
-    pub attack_target_height: f32,
-}
-
 impl AnimationEvaluation {
     /// Evaluates semantic FK inputs. Clip resolution, bone masks, IK, and the
     /// final procedural pass happen after this deterministic selection stage.
-    pub fn from_skeleton(state: &SkeletonState) -> Self {
+    pub fn from_skeleton(state: &SkeletonState) -> AnimationValueResult<Self> {
         let speed = state.animation_speed();
-        let gait_phase = state.gait_phase.rem_euclid(1.0);
+        let gait_phase = CyclePhase::from_cycles(state.gait_phase)?.wrapped();
         let base = match state.action_kind() {
             SkeletonAction::Dodge => raised_guard_locomotion_samples(state),
             _ => match state.posture() {
@@ -78,19 +87,19 @@ impl AnimationEvaluation {
                     gait_phase,
                     SemanticPose::ProneIdle,
                     SemanticPose::ProneCrawlContact,
-                ),
+                )?,
                 Posture::Supine => gait_or_idle(
                     downed_animation_speed(state),
                     gait_phase,
                     SemanticPose::SupineIdle,
                     SemanticPose::SupineScamperContact,
-                ),
+                )?,
                 Posture::Airborne => vec![airborne_sample(state.local_velocity.xz().length())],
                 Posture::Ragdolled => Vec::new(),
                 Posture::Upright if state.weapon_guard() == WeaponGuardState::Raised => {
                     raised_guard_locomotion_samples(state)
                 }
-                Posture::Upright => upright_locomotion_samples(state),
+                Posture::Upright => upright_locomotion_samples(state)?,
             },
         };
         let lower_body = if let Some(transition) = state.posture_transition()
@@ -98,18 +107,18 @@ impl AnimationEvaluation {
         {
             dive_lower_body_samples(state.lead_foot, direction, transition.phase())
         } else if state.is_quickstep() {
-            quickstep_lower_body_samples(state)
+            quickstep_lower_body_samples(state)?
         } else if state.posture() == Posture::Upright
             && state.weapon_guard() == WeaponGuardState::Raised
         {
-            combat_lower_body_samples(state)
+            combat_lower_body_samples(state)?
         } else {
             Vec::new()
         };
         let action = posture_transition_samples(state)
             .or_else(|| downed_facing_samples(state))
             .unwrap_or_else(|| action_samples(state));
-        Self {
+        Ok(Self {
             base,
             lower_body,
             action,
@@ -118,7 +127,7 @@ impl AnimationEvaluation {
             airborne_phase: (0.5 - state.local_velocity.y * 0.2).clamp(0.0, 1.0),
             action_phase: state.action_phase().clamp(0.0, 1.0),
             attack_target_height: state.attack_target_height().clamp(0.0, 1.0),
-        }
+        })
     }
 }
 
@@ -174,8 +183,8 @@ fn posture_transition_samples(state: &SkeletonState) -> Option<Vec<PoseSample>> 
             end: next,
             progress,
         },
-        weight: 1.0,
-        mirror_lower_body: false,
+        weight: BlendWeight::ONE,
+        mirror_lower_body: ClipMirror::Original,
     }])
 }
 
@@ -211,8 +220,8 @@ fn downed_facing_samples(state: &SkeletonState) -> Option<Vec<PoseSample>> {
             end: next,
             progress: span,
         },
-        weight: 1.0,
-        mirror_lower_body: false,
+        weight: BlendWeight::ONE,
+        mirror_lower_body: ClipMirror::Original,
     }])
 }
 
@@ -223,15 +232,15 @@ fn dive_transition_samples(
 ) -> Vec<PoseSample> {
     let dive = dive_pose(direction);
     let phase = phase.clamp(0.0, 1.0);
-    if phase < 0.5 {
+    if phase < DIVE_GROUND_CONTACT_PHASE {
         return vec![PoseSample {
             pose: SemanticPose::GuardThrust,
             sampling: PoseSampling::Span {
                 end: dive,
                 progress: phase * 2.0,
             },
-            weight: 1.0,
-            mirror_lower_body: false,
+            weight: BlendWeight::ONE,
+            mirror_lower_body: ClipMirror::Original,
         }];
     }
     let contact = match direction {
@@ -251,8 +260,8 @@ fn dive_transition_samples(
             end: contact,
             progress: recovery,
         },
-        weight: 1.0,
-        mirror_lower_body: false,
+        weight: BlendWeight::ONE,
+        mirror_lower_body: ClipMirror::Original,
     }]
 }
 
@@ -264,7 +273,7 @@ fn dive_lower_body_samples(
     phase: f32,
 ) -> Vec<PoseSample> {
     let phase = phase.clamp(0.0, 1.0);
-    let sampling = if phase < 0.5 {
+    let sampling = if phase < DIVE_GROUND_CONTACT_PHASE {
         PoseSampling::Anchor
     } else {
         let contact = match direction {
@@ -281,18 +290,13 @@ fn dive_lower_body_samples(
     vec![PoseSample {
         pose: SemanticPose::GuardThrust,
         sampling,
-        weight: 1.0,
-        mirror_lower_body: false,
+        weight: BlendWeight::ONE,
+        mirror_lower_body: ClipMirror::Original,
     }]
 }
 
 fn dive_contact_pose_progress(phase: f32) -> f32 {
-    let recovery = smoothstep01((phase - 0.5) * 2.0);
-    // Weighted clips at or below epsilon are discarded before the pose-buffer
-    // plan key is built. Prime the contact endpoint invisibly on the exact
-    // landing pose so the first advancing recovery frame does not also change
-    // clip topology and retrigger whole-chain inertialization.
-    recovery.max(f32::EPSILON * 2.0)
+    smoothstep01((phase - DIVE_GROUND_CONTACT_PHASE) * 2.0)
 }
 
 fn dive_pose(direction: DiveDirection) -> SemanticPose {
@@ -324,292 +328,9 @@ fn raised_guard_locomotion_samples(state: &SkeletonState) -> Vec<PoseSample> {
     vec![PoseSample {
         pose: guard_pose(preparation.from),
         sampling,
-        weight: 1.0,
-        mirror_lower_body: false,
+        weight: BlendWeight::ONE,
+        mirror_lower_body: ClipMirror::Original,
     }]
-}
-
-fn combat_lower_body_samples(state: &SkeletonState) -> Vec<PoseSample> {
-    let speed = state.animation_speed();
-    if speed <= 0.05 || !state.raised_locomotion().is_moving() {
-        return vec![anchor_sample(SemanticPose::CombatStance)];
-    }
-    if state.guarded_sprint_locomotion() {
-        return locomotion_samples(speed, state.gait_phase);
-    }
-
-    let direction = state.raised_locomotion().local_direction();
-    let strafe = direction.x.abs();
-    let skip = direction.y.abs();
-    let total = strafe + skip;
-    if total <= f32::EPSILON {
-        return vec![anchor_sample(SemanticPose::CombatStance)];
-    }
-    let mut samples = Vec::with_capacity(2);
-    if strafe > f32::EPSILON {
-        let phase = combat_cycle_phase(state.gait_phase);
-        let mut sample = cycle_sample(
-            SemanticPose::StrafeCycle,
-            if direction.x < 0.0 {
-                reverse_cycle_phase(phase)
-            } else {
-                phase
-            },
-        );
-        sample.weight = strafe / total;
-        samples.push(sample);
-    }
-    if skip > f32::EPSILON {
-        let phase = combat_cycle_phase(state.gait_phase);
-        // `skip.glb` serves both travel directions by changing which foot is
-        // forward. Backward is the authored foot order; forward therefore
-        // pairs against the opposite half-cycle. Without this contact-identity
-        // shift, both forward diagonals blend a strafe pose with the wrong
-        // skip foot even though their scalar weights are correct.
-        let phase = if direction.y < 0.0 {
-            (phase + 0.5).rem_euclid(1.0)
-        } else {
-            phase
-        };
-        let mut sample = cycle_sample(SemanticPose::SkipCycle, phase);
-        sample.weight = skip / total;
-        samples.push(sample);
-    }
-    samples
-}
-
-fn combat_cycle_phase(gait_phase: f32) -> f32 {
-    // Gait phase 0/0.5 are authoritative contact boundaries. The authored
-    // combat cycles place those contacts at frames 6/18 of a 24-frame cycle.
-    (gait_phase + 0.25).rem_euclid(1.0)
-}
-
-fn reverse_cycle_phase(phase: f32) -> f32 {
-    (1.0 - phase).rem_euclid(1.0)
-}
-
-fn quickstep_lower_body_samples(state: &SkeletonState) -> Vec<PoseSample> {
-    // Authored frames 0/12 are the combat-idle endpoints surrounding the
-    // complete load, launch, flight, and landing sequence at 3/6/9. Sampling
-    // the full action phase keeps those poses synchronized with the physical
-    // force curve instead of starting the legs only after the root launches.
-    let progress = state.action_phase().clamp(0.0, 1.0);
-    let direction = state.action_direction().normalize_or_zero();
-    let directional = [
-        (direction.y.max(0.0), SemanticPose::QuickstepForwardTakeoff),
-        (direction.x.max(0.0), SemanticPose::QuickstepRightTakeoff),
-        ((-direction.x).max(0.0), SemanticPose::QuickstepLeftTakeoff),
-        ((-direction.y).max(0.0), SemanticPose::QuickstepBackTakeoff),
-    ];
-    let total = directional.iter().map(|(weight, _)| weight).sum::<f32>();
-    directional
-        .into_iter()
-        .filter(|(weight, _)| *weight > f32::EPSILON)
-        .map(|(weight, pose)| PoseSample {
-            pose,
-            sampling: PoseSampling::Timeline { progress },
-            weight: weight / total,
-            mirror_lower_body: false,
-        })
-        .collect()
-}
-
-fn anchor_sample(pose: SemanticPose) -> PoseSample {
-    PoseSample {
-        pose,
-        sampling: PoseSampling::Anchor,
-        weight: 1.0,
-        mirror_lower_body: false,
-    }
-}
-
-fn gait_or_idle(
-    speed: f32,
-    phase: f32,
-    idle: SemanticPose,
-    contact: SemanticPose,
-) -> Vec<PoseSample> {
-    if speed < 0.05 {
-        vec![PoseSample {
-            pose: idle,
-            sampling: PoseSampling::Anchor,
-            weight: 1.0,
-            mirror_lower_body: false,
-        }]
-    } else {
-        alternating_contact_pair(phase, contact)
-    }
-}
-
-fn alternating_contact_pair(phase: f32, contact: SemanticPose) -> Vec<PoseSample> {
-    let half = phase.rem_euclid(1.0) * 2.0;
-    let progress = smoothstep01(half.fract());
-    let (start_mirrored, end_mirrored) = if half < 1.0 {
-        (false, true)
-    } else {
-        (true, false)
-    };
-    let mut samples = Vec::with_capacity(2);
-    if progress < 1.0 {
-        samples.push(PoseSample {
-            pose: contact,
-            sampling: PoseSampling::Anchor,
-            weight: 1.0 - progress,
-            mirror_lower_body: start_mirrored,
-        });
-    }
-    if progress > 0.0 {
-        samples.push(PoseSample {
-            pose: contact,
-            sampling: PoseSampling::Anchor,
-            weight: progress,
-            mirror_lower_body: end_mirrored,
-        });
-    }
-    samples
-}
-
-fn locomotion_samples(speed: f32, phase: f32) -> Vec<PoseSample> {
-    let locomotion = smoothstep01(
-        speed
-            / crate::combat_config::runtime_animation_config()
-                .locomotion
-                .blend_speed,
-    );
-    let run = ((speed - walk_locomotion_profile().reference_speed)
-        / (run_locomotion_profile().reference_speed - walk_locomotion_profile().reference_speed))
-        .clamp(0.0, 1.0);
-    let mut samples = Vec::with_capacity(5);
-    append_scaled(
-        &mut samples,
-        vec![PoseSample {
-            pose: SemanticPose::IdleRelaxed,
-            sampling: PoseSampling::Anchor,
-            weight: 1.0,
-            mirror_lower_body: false,
-        }],
-        1.0 - locomotion,
-    );
-    append_scaled(
-        &mut samples,
-        vec![cycle_sample(SemanticPose::WalkContact, phase)],
-        locomotion * (1.0 - run),
-    );
-    append_scaled(
-        &mut samples,
-        vec![cycle_sample(SemanticPose::RunContact, phase)],
-        locomotion * run,
-    );
-    samples.retain(|sample| sample.weight > f32::EPSILON);
-    samples
-}
-
-/// Ordinary upright locomotion blends the forward gait against the authored
-/// strafe cycle in the hips' frame. As the root turns toward world velocity,
-/// the lateral contribution naturally falls to zero.
-fn upright_locomotion_samples(state: &SkeletonState) -> Vec<PoseSample> {
-    let speed = state.animation_speed();
-    let phase = state.gait_phase.rem_euclid(1.0);
-    let direction = state.animation_local_velocity().xz().normalize_or_zero();
-    let lateral = direction.x.abs();
-    let longitudinal = direction.y.abs();
-    let total = lateral + longitudinal;
-    if lateral <= f32::EPSILON || total <= f32::EPSILON {
-        return locomotion_samples(speed, phase);
-    }
-
-    let locomotion = smoothstep01(
-        speed
-            / crate::combat_config::runtime_animation_config()
-                .locomotion
-                .blend_speed,
-    );
-    let longitudinal_weight = longitudinal / total;
-    let lateral_weight = lateral / total;
-    let mut samples = locomotion_samples(speed, phase);
-    for sample in &mut samples {
-        if sample.pose == SemanticPose::IdleRelaxed {
-            continue;
-        }
-        sample.weight *= longitudinal_weight;
-    }
-    let strafe_phase = combat_cycle_phase(phase);
-    let mut strafe = cycle_sample(
-        SemanticPose::StrafeCycle,
-        if direction.x < 0.0 {
-            reverse_cycle_phase(strafe_phase)
-        } else {
-            strafe_phase
-        },
-    );
-    strafe.weight = locomotion * lateral_weight;
-    samples.push(strafe);
-    samples.retain(|sample| sample.weight > f32::EPSILON);
-    samples
-}
-
-fn downed_animation_speed(state: &SkeletonState) -> f32 {
-    if state.downed_turning() {
-        state.animation_speed()
-    } else {
-        0.0
-    }
-}
-
-fn cycle_sample(pose: SemanticPose, phase: f32) -> PoseSample {
-    PoseSample {
-        pose,
-        sampling: PoseSampling::Cycle {
-            phase: phase.rem_euclid(1.0),
-        },
-        weight: 1.0,
-        mirror_lower_body: false,
-    }
-}
-
-fn append_scaled(into: &mut Vec<PoseSample>, samples: Vec<PoseSample>, scale: f32) {
-    into.extend(samples.into_iter().map(|mut sample| {
-        sample.weight *= scale;
-        sample
-    }));
-}
-
-#[cfg(test)]
-pub(super) fn gait_pair(
-    phase: f32,
-    contact: SemanticPose,
-    passing: SemanticPose,
-) -> Vec<PoseSample> {
-    let quarter = phase.rem_euclid(1.0) * 4.0;
-    // A smooth cubic Hermite coordinate gives every sparse contact/flight
-    // anchor zero endpoint velocity. Linear quarter interpolation changed
-    // velocity discontinuously at each anchor and produced a visible knee and
-    // ankle snap even though the poses themselves were continuous.
-    let progress = smoothstep01(quarter.fract());
-    let (start, start_mirrored, end, end_mirrored) = match quarter.floor() as u8 {
-        0 => (contact, false, passing, false),
-        1 => (passing, false, contact, true),
-        2 => (contact, true, passing, true),
-        _ => (passing, true, contact, false),
-    };
-    let mut samples = Vec::with_capacity(2);
-    if progress < 1.0 {
-        samples.push(PoseSample {
-            pose: start,
-            sampling: PoseSampling::Anchor,
-            weight: 1.0 - progress,
-            mirror_lower_body: start_mirrored,
-        });
-    }
-    if progress > 0.0 {
-        samples.push(PoseSample {
-            pose: end,
-            sampling: PoseSampling::Anchor,
-            weight: progress,
-            mirror_lower_body: end_mirrored,
-        });
-    }
-    samples
 }
 
 fn smoothstep01(value: f32) -> f32 {
@@ -624,8 +345,8 @@ fn airborne_sample(horizontal_speed: f32) -> PoseSample {
             end: SemanticPose::AirborneTravel,
             progress: smoothstep01(horizontal_speed / walk_locomotion_profile().reference_speed),
         },
-        weight: 1.0,
-        mirror_lower_body: false,
+        weight: BlendWeight::ONE,
+        mirror_lower_body: ClipMirror::Original,
     }
 }
 
@@ -660,7 +381,7 @@ mod tests {
             contact[0].sampling,
             PoseSampling::Span {
                 end: SemanticPose::ProneSupineRollRight,
-                progress: f32::EPSILON * 2.0,
+                progress: 0.0,
             }
         );
 
@@ -702,7 +423,7 @@ mod tests {
             contact[0].sampling,
             PoseSampling::Span {
                 end: SemanticPose::SupineIdle,
-                progress: f32::EPSILON * 2.0,
+                progress: 0.0,
             }
         );
 
@@ -745,12 +466,12 @@ mod tests {
             .begin_dodge(DodgeSpec::quickstep(Vec2::new(1.0, 1.0)).unwrap(), 0, 100)
             .unwrap();
         state.advance_action(150);
-        let samples = quickstep_lower_body_samples(&state);
+        let samples = quickstep_lower_body_samples(&state).unwrap();
         assert_eq!(samples.len(), 2);
         assert_eq!(samples[0].pose, SemanticPose::QuickstepForwardTakeoff);
-        assert_eq!(samples[0].weight, 0.5);
+        assert_eq!(samples[0].weight.factor(), 0.5);
         assert_eq!(samples[1].pose, SemanticPose::QuickstepRightTakeoff);
-        assert_eq!(samples[1].weight, 0.5);
+        assert_eq!(samples[1].weight.factor(), 0.5);
         assert!(samples.iter().all(|sample| {
             matches!(sample.sampling, PoseSampling::Timeline { progress: 0.75 })
         }));
@@ -761,7 +482,7 @@ mod tests {
         let mut state = SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
         state.begin_attack(AttackSpec::default(), 0, 100).unwrap();
         state.advance_action(50);
-        let evaluation = AnimationEvaluation::from_skeleton(&state);
+        let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(evaluation.action[0].pose, SemanticPose::GuardThrust);
         assert_eq!(evaluation.lower_body[0].pose, SemanticPose::CombatStance);
     }

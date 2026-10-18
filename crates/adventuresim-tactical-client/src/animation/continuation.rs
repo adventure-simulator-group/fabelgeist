@@ -77,15 +77,13 @@ pub(super) fn append_continuation_span(
         outgoing_time_seconds: frame_seconds(outgoing.anchor.frame)?,
         finish: finish.clip.at_anchor_layer(finish.anchor.frame, layer),
         finish_time_seconds: frame_seconds(finish.anchor.frame)?,
-        start_coordinate: CyclePhase::from_cycles(start_coordinate)?.cycles(),
-        incoming_tangent: CyclePhase::from_cycles(incoming_tangent)?.cycles().max(0.0),
-        ready_phase: CyclePhase::from_cycles(ready_phase)?
-            .cycles()
-            .clamp(f32::EPSILON, 0.5 - f32::EPSILON),
-        progress: CyclePhase::from_cycles(progress)?.cycles().clamp(0.0, 1.0),
-        weight: BlendWeight::from_factor(sample.weight)?,
+        start_coordinate: finite_sample_value(start_coordinate)?,
+        incoming_tangent: finite_sample_value(incoming_tangent)?.max(0.0),
+        ready_phase: finite_sample_value(ready_phase)?,
+        progress: finite_sample_value(progress)?.clamp(0.0, 1.0),
+        weight: sample.weight,
         mirrored_weight: if start.mirrored == super::ClipMirror::Mirrored {
-            BlendWeight::from_factor(sample.weight)?
+            sample.weight
         } else {
             BlendWeight::ZERO
         },

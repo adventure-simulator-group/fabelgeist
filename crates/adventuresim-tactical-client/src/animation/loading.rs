@@ -1,4 +1,5 @@
 use super::*;
+use bevy::asset::AssetPath;
 
 pub(super) fn install_requests(app: &mut App) {
     app.add_systems(Startup, request_animation_packs);
@@ -238,7 +239,7 @@ pub(super) fn attach_loaded_rig_scenes(
                 Name::new("Authored animation rig"),
                 AnimationRigScene(player),
                 WorldAssetRoot(scene.clone()),
-                Transform::from_xyz(0.0, player_visual_y_offset_metres(), 0.0),
+                Transform::from_xyz(0.0, player_visual_y_offset().metres(), 0.0),
                 Visibility::Hidden,
             ));
         });
@@ -390,14 +391,14 @@ fn collect_loaded_grips(
     }
 }
 
-fn animation_asset_path(path: &AnimationAssetPath) -> String {
+fn animation_asset_path(path: &AnimationAssetPath) -> AssetPath<'static> {
     #[cfg(not(target_family = "wasm"))]
     {
-        format!("workspace://{path}")
+        AssetPath::from(path.as_ref().to_owned()).with_source(WORKSPACE_ASSET_SOURCE)
     }
     #[cfg(target_family = "wasm")]
     {
-        path.as_ref().to_owned()
+        AssetPath::from(path.as_ref().to_owned())
     }
 }
 

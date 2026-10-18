@@ -1,29 +1,19 @@
 //! Checked values carried by resolved plans before numerical sampling.
 
-use adventuresim_tactical_core::animation::{AnimationQuantity, AnimationValueError};
+use adventuresim_tactical_core::animation::{AnimationQuantity, AnimationValueError, CyclePhase};
 
 pub(super) use adventuresim_tactical_core::animation::AnimationValueResult;
 
 /// Existing coalescing resolution for samples from the same clip/layer.
 const SAMPLE_COHERENCE_SECONDS: f32 = 0.0001;
 
-#[derive(Debug, Clone, Copy, PartialEq, serde::Serialize)]
-#[serde(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize)]
+#[serde(try_from = "f32", into = "f32")]
 pub(super) struct ClipDuration(f32);
 
-#[derive(Debug, Clone, Copy, PartialEq, serde::Serialize)]
-#[serde(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize)]
+#[serde(try_from = "f32", into = "f32")]
 pub(super) struct ClipTime(f32);
-
-/// Cycles, deliberately unwrapped until the consuming periodic operation.
-#[derive(Debug, Clone, Copy, PartialEq, serde::Serialize)]
-#[serde(transparent)]
-pub(super) struct CyclePhase(f32);
-
-/// A finite nonnegative contribution. Independent contributions may sum above one.
-#[derive(Debug, Clone, Copy, PartialEq, serde::Serialize)]
-#[serde(transparent)]
-pub(super) struct BlendWeight(f32);
 
 impl ClipDuration {
     pub(super) fn from_seconds(seconds: f32) -> AnimationValueResult<Self> {
@@ -71,81 +61,37 @@ impl ClipTime {
     }
 }
 
-impl CyclePhase {
-    pub(super) fn from_cycles(cycles: f32) -> AnimationValueResult<Self> {
-        if !cycles.is_finite() {
-            return Err(AnimationValueError::NonFinite {
-                quantity: AnimationQuantity::CyclePhase,
-            });
-        }
-        Ok(Self(cycles))
+impl TryFrom<f32> for ClipDuration {
+    type Error = AnimationValueError;
+    fn try_from(value: f32) -> AnimationValueResult<Self> {
+        Self::from_seconds(value)
     }
-    pub(super) fn cycles(self) -> f32 {
-        self.0
-    }
-    pub(super) fn wrapped(self) -> Self {
-        Self(self.0.rem_euclid(1.0))
+}
+impl From<ClipDuration> for f32 {
+    fn from(value: ClipDuration) -> Self {
+        value.seconds()
     }
 }
 
-impl BlendWeight {
-    pub(super) const ZERO: Self = Self(0.0);
-    pub(super) const ONE: Self = Self(1.0);
-    pub(super) fn from_factor(factor: f32) -> AnimationValueResult<Self> {
-        if !factor.is_finite() {
-            return Err(AnimationValueError::NonFinite {
-                quantity: AnimationQuantity::BlendWeight,
-            });
-        }
-        if factor < 0.0 {
-            return Err(AnimationValueError::Negative {
-                quantity: AnimationQuantity::BlendWeight,
-            });
-        }
-        Ok(Self(factor))
+impl TryFrom<f32> for ClipTime {
+    type Error = AnimationValueError;
+    fn try_from(value: f32) -> AnimationValueResult<Self> {
+        Self::from_seconds(value)
     }
-    pub(super) fn checked_add(self, other: Self) -> AnimationValueResult<Self> {
-        let factor = self.0 + other.0;
-        if !factor.is_finite() {
-            return Err(AnimationValueError::Overflow {
-                quantity: AnimationQuantity::BlendWeight,
-            });
-        }
-        Ok(Self(factor))
-    }
-    pub(super) fn factor(self) -> f32 {
-        self.0
-    }
-    /// There is no authored minimum contribution: every positive factor counts.
-    pub(super) fn is_absent(self) -> bool {
-        self.0 <= 0.0
+}
+impl From<ClipTime> for f32 {
+    fn from(value: ClipTime) -> Self {
+        value.seconds()
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ClipDuration {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        Self::from_seconds(<f32 as serde::Deserialize>::deserialize(deserializer)?)
-            .map_err(serde::de::Error::custom)
+/// Admission for the still-primitive noncyclic sampling channels. Their complete
+/// quantity migration is separate; retain the existing finite-value rejection.
+pub(super) fn finite_sample_value(value: f32) -> AnimationValueResult<f32> {
+    if !value.is_finite() {
+        return Err(AnimationValueError::NonFinite {
+            quantity: AnimationQuantity::CyclePhase,
+        });
     }
-}
-
-impl<'de> serde::Deserialize<'de> for ClipTime {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        Self::from_seconds(<f32 as serde::Deserialize>::deserialize(deserializer)?)
-            .map_err(serde::de::Error::custom)
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CyclePhase {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        Self::from_cycles(<f32 as serde::Deserialize>::deserialize(deserializer)?)
-            .map_err(serde::de::Error::custom)
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for BlendWeight {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        Self::from_factor(<f32 as serde::Deserialize>::deserialize(deserializer)?)
-            .map_err(serde::de::Error::custom)
-    }
+    Ok(value)
 }

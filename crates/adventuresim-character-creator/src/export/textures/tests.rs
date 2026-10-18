@@ -63,7 +63,9 @@ fn export_equipment_with_maps(
             joint_weights: &weights,
             joint_names: &[RigJointName::ROOT],
             joint_parents: &[-1],
-            global_joint_states: &[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]],
+            global_joint_states: (&[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]])
+                .iter()
+                .collect(),
             joint_proportions: &[],
             morph_targets: &[],
         },

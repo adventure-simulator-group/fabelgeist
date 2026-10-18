@@ -5,6 +5,7 @@ use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
 
 mod frame_clock;
 mod readiness;
+mod subject_motion;
 
 pub(super) const CAPTURE_ROOT_GROUND_OFFSET_METRES: f32 = 0.95;
 pub(super) const FULL_PLANT_SUPPORT_WEIGHT: f32 = 0.99;
@@ -84,7 +85,7 @@ impl CaptureSequence {
             Some("full-ragdoll") => full_ragdoll_scenario(),
             _ => capture_plan()
                 .into_iter()
-                .filter(|frame| scenario.is_none_or(|scenario| frame.scenario == scenario))
+                .filter(|frame| scenario.is_none_or(|scenario| frame.scenario.label() == scenario))
                 .collect::<Vec<_>>(),
         };
         assert!(
@@ -127,7 +128,7 @@ impl CaptureSequence {
     pub(super) fn uses_flat_grid(&self) -> bool {
         self.plan
             .iter()
-            .all(|frame| frame.scenario.starts_with("flat-grid-"))
+            .all(|frame| frame.scenario.label().starts_with("flat-grid-"))
     }
 
     fn complete(
@@ -285,7 +286,7 @@ pub(super) fn drive_sequence(
         return;
     }
     let frame = sequence.plan[sequence.index].clone();
-    let metadata = scenario_metadata(frame.scenario);
+    let metadata = frame.scenario;
     let mut gait_phase = 0.0;
     let mut observed_playback = None;
     for (
@@ -304,12 +305,12 @@ pub(super) fn drive_sequence(
             return;
         };
         observed_playback = Some(playback);
-        if frame.scenario != "full-ragdoll" && !playback.authored_pose_is_ready() {
+        if frame.scenario.label() != "full-ragdoll" && !playback.authored_pose_is_ready() {
             return;
         }
 
-        if sequence.active_scenario != Some(frame.scenario) {
-            sequence.active_scenario = Some(frame.scenario);
+        if sequence.active_scenario != Some(frame.scenario.label()) {
+            sequence.active_scenario = Some(frame.scenario.label());
             sequence.scenario_distance = 0.0;
             sequence.motion_ready_frames = 0;
             *skeleton = SkeletonState::default();
@@ -332,7 +333,7 @@ pub(super) fn drive_sequence(
             let ground = terrain.height_at(Vec2::ZERO).unwrap_or_default();
             transform.translation = Vec3::new(0.0, ground + CAPTURE_ROOT_GROUND_OFFSET_METRES, 0.0);
             transform.rotation = Quat::from_rotation_y(std::f32::consts::PI);
-            if frame.scenario.starts_with("raised-guard-tap-stop-") {
+            if frame.scenario.label().starts_with("raised-guard-tap-stop-") {
                 // Prime the static combat stance and its terrain-conformed IK
                 // before judging the later six-frame movement tap. A live
                 // character has already held this stance; capturing component
@@ -340,7 +341,7 @@ pub(super) fn drive_sequence(
                 // not the authored-to-procedural stop transition.
                 sequence.warmup_frames = 8;
             }
-            if let Some((start_body, _)) = transition_for_scenario(frame.scenario) {
+            if let Some((start_body, _)) = transition_for_scenario(frame.scenario.label()) {
                 skeleton.transition_body(start_body);
                 // Prime the authored endpoint before beginning the transition.
                 // Live characters have already evaluated their prone/supine or
@@ -350,18 +351,18 @@ pub(super) fn drive_sequence(
             }
         }
 
-        if let Some(body) = downed_body_for_scenario(frame.scenario) {
+        if let Some(body) = downed_body_for_scenario(frame.scenario.label()) {
             skeleton.transition_body(body);
             let preload_locomotion = frame.scenario_frame == 0
                 && matches!(
-                    required_motion_for_scenario(frame.scenario),
+                    required_motion_for_scenario(frame.scenario.label()),
                     Some("prone_crawl" | "supine_scamper")
                 )
-                && !required_motion_for_scenario(frame.scenario).is_some_and(|motion| {
+                && !required_motion_for_scenario(frame.scenario.label()).is_some_and(|motion| {
                     animation_runtime.motion_is_processed(&crate::animation::MotionId::from(motion))
                 });
             skeleton.set_downed_turning(
-                frame.scenario != "downed-prone-look-at"
+                frame.scenario.label() != "downed-prone-look-at"
                     && (preload_locomotion || (frame.scenario_frame >= 4 && frame.speed <= 0.05)),
             );
         }
@@ -370,7 +371,11 @@ pub(super) fn drive_sequence(
             Quat::from_euler(EulerRot::YXZ, frame.camera_yaw, frame.camera_pitch, 0.0);
         look.yaw = frame.camera_yaw;
         look.pitch = frame.camera_pitch;
-        let attack_start_frame = frame.scenario.starts_with("attack-live-").then_some(8);
+        let attack_start_frame = frame
+            .scenario
+            .label()
+            .starts_with("attack-live-")
+            .then_some(8);
         if frame.action != SkeletonAction::Attack
             || attack_start_frame == Some(frame.scenario_frame)
         {
@@ -379,7 +384,7 @@ pub(super) fn drive_sequence(
         *terrain_ik = terrain_ik_mode_for_frame(&frame);
         guard_input.desired = frame.weapon_guard;
         set_weapon_guard(&mut skeleton, guard_input.desired);
-        if frame.scenario == "downed-prone-look-at" {
+        if frame.scenario.label() == "downed-prone-look-at" {
             let target = downed_camera_roll_target(transform.rotation, orientation);
             skeleton.advance_downed_facing(
                 target,
@@ -391,19 +396,19 @@ pub(super) fn drive_sequence(
                 },
             );
         }
-        let dive_impact = frame.scenario.ends_with("-impact");
-        let quickstep = is_quickstep_scenario(frame.scenario);
+        let dive_impact = frame.scenario.label().ends_with("-impact");
+        let quickstep = is_quickstep_scenario(frame.scenario.label());
         let grounded = if quickstep {
             frame.scenario_frame < quickstep_release_frame()
                 || frame.scenario_frame >= quickstep_landing_frame()
         } else if dive_impact {
             frame.scenario_frame == 0 || frame.scenario_frame >= 17
         } else {
-            metadata.kind != ScenarioKind::Landing || frame.scenario_frame >= 32
+            metadata.kind() != ScenarioKind::Landing || frame.scenario_frame >= 32
         };
         let vertical_velocity = if quickstep && frame.scenario_frame < quickstep_landing_frame() {
             quickstep_fixture_vertical_state(frame.scenario_frame).1
-        } else if (metadata.kind == ScenarioKind::Landing || dive_impact) && !grounded {
+        } else if (metadata.kind() == ScenarioKind::Landing || dive_impact) && !grounded {
             -4.5
         } else {
             0.0
@@ -421,10 +426,10 @@ pub(super) fn drive_sequence(
         );
         if sequence.warmup_frames == 0
             && frame.scenario_frame == 0
-            && let Some((start_body, transition)) = transition_for_scenario(frame.scenario)
+            && let Some((start_body, transition)) = transition_for_scenario(frame.scenario.label())
         {
             skeleton.transition_body(start_body);
-            if frame.scenario.ends_with("-aimed-impact") {
+            if frame.scenario.label().ends_with("-aimed-impact") {
                 // Match the authoritative launch seam: velocity and authored
                 // direction capture one camera frame even if the previously
                 // displayed root had not finished turning toward it.
@@ -432,7 +437,7 @@ pub(super) fn drive_sequence(
                     dive_launch_root_rotation(Quat::from_rotation_y(frame.camera_yaw));
             }
             // Matches the live server's terrain-contact dive recovery.
-            let duration = if frame.scenario.starts_with("dive-backward") {
+            let duration = if frame.scenario.label().starts_with("dive-backward") {
                 32
             } else if dive_impact {
                 20
@@ -476,7 +481,7 @@ pub(super) fn drive_sequence(
                 };
             match frame.action {
                 SkeletonAction::Attack => {
-                    let attack = if frame.scenario == "attack-live-stationary-swing" {
+                    let attack = if frame.scenario.label() == "attack-live-stationary-swing" {
                         AttackSpec::new(AttackAnimation::Swing)
                     } else {
                         AttackSpec::new(AttackAnimation::Thrust)
@@ -522,7 +527,7 @@ pub(super) fn drive_sequence(
                 delta_seconds,
             );
         }
-        if frame.scenario == "full-ragdoll" {
+        if frame.scenario.label() == "full-ragdoll" {
             let fall = ((frame.scenario_frame + 4) as f32 / 8.0).clamp(0.0, 1.0);
             transform.rotation = Quat::from_rotation_y(std::f32::consts::PI)
                 * Quat::from_rotation_x(1.25 * smoothstep01(fall));
@@ -536,34 +541,20 @@ pub(super) fn drive_sequence(
                 ground + CAPTURE_ROOT_GROUND_OFFSET_METRES - 0.62 * smoothstep01(fall);
         }
         sequence.scenario_distance += frame.speed * delta_seconds;
-        let jump_charging =
-            frame.scenario == "jump-charge-anticipation" && (4..48).contains(&frame.scenario_frame);
-        if let Err(error) = project_skeleton_locomotion_with_body_rotation(
+        if let Err(error) = subject_motion::project_capture_motion(
             &mut skeleton,
-            SkeletonLocomotionInput {
+            &mut transform,
+            &frame,
+            subject_motion::CaptureMotion {
                 orientation,
-                linear_velocity: world_velocity,
-                grounded,
-                delta_seconds: elapsed,
-                tick: sequence.simulation_tick,
+                world_velocity,
+                contact: GroundContact::from(grounded),
+                elapsed,
             },
-            transform.rotation,
-            None,
+            &sequence,
         ) {
             error!(%error, "Rejected capture locomotion observation");
             return;
-        }
-        skeleton.set_jump_anticipation(jump_charging);
-        if sequence.warmup_frames == 0 && transition_for_scenario(frame.scenario).is_some() {
-            let previous_transition = skeleton.posture_transition();
-            skeleton.advance_posture_transition(sequence.simulation_tick);
-            transform.rotation = (transform.rotation
-                * dive_landing_facing_delta(previous_transition, skeleton.posture_transition())
-                * supine_get_up_counter_yaw_delta(
-                    previous_transition,
-                    skeleton.posture_transition(),
-                ))
-            .normalize();
         }
         gait_phase = skeleton.gait_phase;
     }
@@ -573,7 +564,7 @@ pub(super) fn drive_sequence(
     for mut label in &mut labels {
         **label = format!(
             "{} | {:>4.2} m/s | phase {:>5.3} | {} view | 64 Hz frame {}",
-            frame.scenario,
+            frame.scenario.label(),
             frame.speed,
             gait_phase,
             VIEWS[sequence.view_index].slug(),
@@ -652,7 +643,7 @@ pub(super) fn draw_flat_ground_grid(sequence: Res<CaptureSequence>, mut gizmos: 
     let Some(frame) = sequence.plan.get(sequence.index) else {
         return;
     };
-    if !frame.scenario.starts_with("flat-grid-") {
+    if !frame.scenario.label().starts_with("flat-grid-") {
         return;
     }
 
@@ -800,7 +791,7 @@ pub(super) fn capture_frame(
     let view = VIEWS[sequence.view_index];
     let file_name = format!(
         "{}-{:04}-{}.png",
-        frame.scenario,
+        frame.scenario.label(),
         frame.scenario_frame,
         view.slug()
     );
@@ -815,7 +806,7 @@ pub(super) fn capture_frame(
     let evaluation_leg_ik = leg_ik.map(LegIkState::diagnostics).unwrap_or_default();
     if sequence.view_index == 0 {
         sequence.repeated_evaluation_baseline = Some(RepeatedEvaluationSnapshot {
-            scenario: frame.scenario,
+            scenario: frame.scenario.label(),
             scenario_frame: frame.scenario_frame,
             bones: evaluation_bones.clone(),
             contact_sequence: skeleton.contact_sequence,
@@ -826,7 +817,7 @@ pub(super) fn capture_frame(
     } else if let Some(baseline) = &sequence.repeated_evaluation_baseline {
         let bone_mismatch = repeated_bone_mismatch(&baseline.bones, &evaluation_bones);
         let bones_match = bone_mismatch.is_none();
-        let repeated_evaluation_matches = baseline.scenario == frame.scenario
+        let repeated_evaluation_matches = baseline.scenario == frame.scenario.label()
             && baseline.scenario_frame == frame.scenario_frame
             && bones_match
             && baseline.contact_sequence == skeleton.contact_sequence
@@ -837,7 +828,7 @@ pub(super) fn capture_frame(
             && let Some((bone, position_delta, rotation_delta)) = &bone_mismatch
         {
             warn!(
-                scenario = frame.scenario,
+                scenario = frame.scenario.label(),
                 scenario_frame = frame.scenario_frame,
                 bone,
                 position_delta,
@@ -847,7 +838,7 @@ pub(super) fn capture_frame(
         }
         if !repeated_evaluation_matches && bone_mismatch.is_none() {
             warn!(
-                scenario = frame.scenario,
+                scenario = frame.scenario.label(),
                 scenario_frame = frame.scenario_frame,
                 baseline_contact = baseline.contact_sequence.encoded(),
                 contact = skeleton.contact_sequence.encoded(),
@@ -862,7 +853,7 @@ pub(super) fn capture_frame(
     }
     if sequence.view_index == 0 {
         sequence.global_bone_frames.push(GlobalBoneFrame {
-            scenario: frame.scenario.to_owned(),
+            scenario: frame.scenario.label().to_owned(),
             scenario_frame: frame.scenario_frame,
             time_seconds: frame.time_seconds,
             action: skeleton.action_kind(),
@@ -888,7 +879,7 @@ pub(super) fn capture_frame(
             .map(|state| (state.left_support_weight, state.right_support_weight))
             .unwrap_or(ik_support);
         sequence.samples.push(FrameSample {
-            scenario: frame.scenario.to_owned(),
+            scenario: frame.scenario.label().to_owned(),
             scenario_frame: frame.scenario_frame,
             time_seconds: frame.time_seconds,
             speed_metres_per_second: frame.speed,
@@ -920,7 +911,8 @@ pub(super) fn capture_frame(
                 .map_or(0.0, |state| state.pitch_radians.radians().to_degrees()),
             body_lean_roll_degrees: body_response
                 .map_or(0.0, |state| state.roll_radians.radians().to_degrees()),
-            landing_compression_metres: height_state.map_or(0.0, |state| state.landing_compression),
+            landing_compression_metres: height_state
+                .map_or(0.0, |state| state.landing_compression.metres()),
             root_distance_metres,
             root_position_metres: subject_global.translation().to_array(),
             world_travel_direction: (controller_yaw(Quat::from_rotation_y(frame.camera_yaw))
@@ -980,7 +972,7 @@ pub(super) fn capture_frame(
                         view.slug().to_owned(),
                         format!(
                             "{}-{:04}-{}.png",
-                            frame.scenario,
+                            frame.scenario.label(),
                             frame.scenario_frame,
                             view.slug()
                         ),
@@ -991,7 +983,7 @@ pub(super) fn capture_frame(
         });
     }
     sequence.capture_in_flight = true;
-    let frame_key = format!("{}:{}", frame.scenario, frame.scenario_frame);
+    let frame_key = format!("{}:{}", frame.scenario.label(), frame.scenario_frame);
     commands.spawn(Screenshot::primary_window()).observe(
         move |captured: On<ScreenshotCaptured>,
               mut sequence: ResMut<CaptureSequence>,
@@ -1281,7 +1273,7 @@ mod tests {
             assert!(sequence.uses_flat_grid());
             assert!(sequence.plan.len() > 64);
             assert!(sequence.plan.iter().all(|frame| {
-                frame.scenario == scenario
+                frame.scenario.label() == scenario
                     && frame.speed == speed
                     && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Enabled
             }));
@@ -1291,7 +1283,7 @@ mod tests {
         assert!(sprint.uses_flat_grid());
         assert!(sprint.plan.len() > 64);
         assert!(sprint.plan.iter().all(|frame| {
-            frame.scenario == "flat-grid-sprint-no-ik"
+            frame.scenario.label() == "flat-grid-sprint-no-ik"
                 && (frame.speed - canonical_john_sprint_speed()).abs() < f32::EPSILON
                 && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Disabled
         }));
@@ -1301,7 +1293,7 @@ mod tests {
         assert!(walk.uses_flat_grid());
         assert!(walk.plan.len() > 64);
         assert!(walk.plan.iter().all(|frame| {
-            frame.scenario == "flat-grid-walk-no-ik"
+            frame.scenario.label() == "flat-grid-walk-no-ik"
                 && (frame.speed - 2.0).abs() < f32::EPSILON
                 && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Disabled
         }));

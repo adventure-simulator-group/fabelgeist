@@ -14,7 +14,7 @@ impl CaptureSequence {
             return false;
         }
         if frame.scenario_frame == 0
-            && let Some(motion) = required_motion_for_scenario(frame.scenario)
+            && let Some(motion) = required_motion_for_scenario(frame.scenario.label())
         {
             if !animation_runtime.motion_is_processed(&crate::animation::MotionId::from(motion))
                 || !playback.is_some_and(AnimationPlayback::presentation_is_settled)

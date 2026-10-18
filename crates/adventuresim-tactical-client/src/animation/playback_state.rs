@@ -7,12 +7,6 @@ pub(super) enum PoseSource {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(super) enum ClipMirror {
-    Original,
-    Mirrored,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub(super) enum TimelineDirection {
     Forward,
     Reversed,
@@ -53,16 +47,6 @@ pub(super) enum InertialState {
 impl PoseSource {
     pub(super) fn for_empty_plan(empty: bool) -> Self {
         if empty { Self::Bind } else { Self::Clips }
-    }
-}
-
-impl ClipMirror {
-    pub(super) fn from_resolved_pose(mirrored: bool) -> Self {
-        if mirrored {
-            Self::Mirrored
-        } else {
-            Self::Original
-        }
     }
 }
 

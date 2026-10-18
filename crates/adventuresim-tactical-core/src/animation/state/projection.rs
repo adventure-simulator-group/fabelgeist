@@ -7,11 +7,11 @@ use super::*;
 /// fixtures replay the same boundary without inventing gait phase directly.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct SkeletonLocomotionInput {
-    pub orientation: Quat,
-    pub linear_velocity: Vec3,
-    pub grounded: bool,
-    pub delta_seconds: AnimationElapsed,
-    pub tick: u64,
+    orientation: Quat,
+    linear_velocity: Vec3,
+    ground_contact: GroundContact,
+    delta_seconds: AnimationElapsed,
+    tick: AnimationSampleTick,
 }
 
 struct ProjectedObservation {
@@ -21,18 +21,49 @@ struct ProjectedObservation {
     landing_impact: Option<LandingImpactSpeed>,
 }
 
+impl SkeletonLocomotionInput {
+    /// Admit the controller's native orientation and world velocity once. A
+    /// finite quaternion need not be unit length at this existing boundary;
+    /// transformed vectors and derived norms are checked during projection.
+    pub fn from_controller(
+        orientation: Quat,
+        linear_velocity: Vec3,
+        ground_contact: GroundContact,
+        delta_seconds: AnimationElapsed,
+        tick: AnimationSampleTick,
+    ) -> AnimationValueResult<Self> {
+        if !linear_velocity.is_finite() {
+            return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::WorldVelocity,
+            });
+        }
+        if !orientation.is_finite() {
+            return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::BodyOrientation,
+            });
+        }
+        Ok(Self {
+            orientation,
+            linear_velocity,
+            ground_contact,
+            delta_seconds,
+            tick,
+        })
+    }
+}
+
 impl ProjectedObservation {
     fn admit(
         skeleton: &SkeletonState,
         input: SkeletonLocomotionInput,
         body_rotation: Quat,
     ) -> AnimationValueResult<Self> {
-        if !input.linear_velocity.is_finite() || !skeleton.world_velocity.is_finite() {
+        if !skeleton.world_velocity.is_finite() {
             return Err(AnimationValueError::NonFinite {
                 quantity: AnimationQuantity::WorldVelocity,
             });
         }
-        if !body_rotation.is_finite() || !input.orientation.is_finite() {
+        if !body_rotation.is_finite() {
             return Err(AnimationValueError::NonFinite {
                 quantity: AnimationQuantity::BodyOrientation,
             });
@@ -47,7 +78,7 @@ impl ProjectedObservation {
             body_local
         };
         let physical_speed = input.linear_velocity.xz().length();
-        let acceleration = if input.tick == skeleton.locomotion_sample_tick.next().encoded() {
+        let acceleration = if input.tick == skeleton.locomotion_sample_tick.next() {
             (input.linear_velocity - previous_world_velocity) * locomotion_sample_hz()
         } else {
             Vec3::ZERO
@@ -60,7 +91,9 @@ impl ProjectedObservation {
                 quantity: AnimationQuantity::WorldVelocity,
             });
         }
-        let landing_impact = if !skeleton.body.is_surface_supported() && input.grounded {
+        let landing_impact = if !skeleton.body.is_surface_supported()
+            && input.ground_contact == GroundContact::Grounded
+        {
             // Upward finite velocity has zero downward impact; this is physical
             // projection after admission, not repair of an invalid speed.
             Some(LandingImpactSpeed::from_metres_per_second(
@@ -123,7 +156,7 @@ pub fn project_skeleton_locomotion_with_body_rotation(
     skeleton.world_acceleration = world_acceleration;
     skeleton.local_velocity = local_velocity;
     skeleton.world_velocity = input.linear_velocity;
-    skeleton.locomotion_sample_tick = AnimationSampleTick::from(input.tick);
+    skeleton.locomotion_sample_tick = input.tick;
     if skeleton.body == BodyState::Ragdolled {
         skeleton.set_raised_locomotion(RaisedLocomotionIntent::planted());
         skeleton.action = ActionState::default();
@@ -134,7 +167,7 @@ pub fn project_skeleton_locomotion_with_body_rotation(
         skeleton.landing_sequence = skeleton.landing_sequence.next();
         skeleton.landing_impact_speed = impact;
     }
-    skeleton.transition_body(if input.grounded {
+    skeleton.transition_body(if input.ground_contact == GroundContact::Grounded {
         match skeleton.body {
             BodyState::Prone | BodyState::Supine => skeleton.body,
             _ => BodyState::Grounded(GroundedPosture::Upright),
@@ -156,7 +189,7 @@ pub fn project_skeleton_locomotion_with_body_rotation(
         physical_speed,
         requested_local_direction,
     );
-    skeleton.advance_action(input.tick);
+    skeleton.advance_action(input.tick.encoded());
     Ok(())
 }
 
@@ -182,10 +215,19 @@ fn advance_projected_ground_cycle(
     if skeleton.weapon_guard() == WeaponGuardState::Raised && skeleton.posture() == Posture::Upright
     {
         advance_raised_locomotion_intent(skeleton, local_velocity, requested_local_direction);
-        advance_guard_footwork(skeleton, input.delta_seconds.seconds().min(1.0), input.tick);
+        advance_guard_footwork(
+            skeleton,
+            input.delta_seconds.seconds().min(1.0),
+            input.tick.encoded(),
+        );
     } else {
         skeleton.set_raised_locomotion(RaisedLocomotionIntent::planted());
-        if input.grounded && ground_speed > 0.05 {
+        if input.ground_contact == GroundContact::Grounded
+            && ground_speed
+                > crate::combat_config::runtime_animation_config()
+                    .playback
+                    .initial_locomotion_speed_metres_per_second
+        {
             let profile = locomotion_profile(skeleton);
             let phase = skeleton.gait_phase.rem_euclid(1.0);
             let next_phase = phase
@@ -194,11 +236,13 @@ fn advance_projected_ground_cycle(
                     ground_speed,
                     input.delta_seconds.seconds().min(1.0),
                 );
-            let handoffs = ((next_phase * 2.0).floor() - (phase * 2.0).floor()).max(0.0) as u32;
+            let handoffs = ((next_phase * f32::from(LOCOMOTION_CONTACTS_PER_CYCLE)).floor()
+                - (phase * f32::from(LOCOMOTION_CONTACTS_PER_CYCLE)).floor())
+            .max(0.0) as u32;
             skeleton.gait_phase = next_phase.rem_euclid(1.0);
             advance_contact_identity(skeleton, handoffs, None);
             if skeleton.weapon_guard() == WeaponGuardState::Lowered {
-                skeleton.lead_foot = if skeleton.gait_phase < 0.5 {
+                skeleton.lead_foot = if skeleton.gait_phase < LOCOMOTION_SECOND_CONTACT_PHASE {
                     LeadFoot::Left
                 } else {
                     LeadFoot::Right

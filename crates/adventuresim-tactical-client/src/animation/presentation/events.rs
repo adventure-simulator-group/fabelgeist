@@ -4,7 +4,6 @@ use super::*;
 use adventuresim_tactical_core::animation::{
     AnimationSampleTick, ContactSequence, LandingSequence,
 };
-use std::fmt;
 
 #[derive(Message, Debug, Clone, Copy)]
 pub(crate) struct LocomotionPresentationEvent {
@@ -31,15 +30,15 @@ pub(in crate::animation) struct CoalescedContact {
     pub foot: LeadFoot,
 }
 
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, derive_more::Debug)]
 pub(crate) enum LocomotionPresentationPayload {
+    #[debug("Contact({foot:?})")]
     Contact {
         sequence: ContactSequence,
         foot: LeadFoot,
     },
-    Landing {
-        sequence: LandingSequence,
-    },
+    #[debug("Landing")]
+    Landing { sequence: LandingSequence },
 }
 
 impl LocomotionPresentationPayload {
@@ -73,29 +72,6 @@ impl LocomotionPresentationPayload {
                 .events_since(earlier)
                 .is_some_and(|delta| delta > 0),
             _ => false,
-        }
-    }
-
-    pub(crate) fn report_kind(self) -> &'static str {
-        match self {
-            Self::Contact {
-                foot: LeadFoot::Left,
-                ..
-            } => "contact_left",
-            Self::Contact {
-                foot: LeadFoot::Right,
-                ..
-            } => "contact_right",
-            Self::Landing { .. } => "landing",
-        }
-    }
-}
-
-impl fmt::Debug for LocomotionPresentationPayload {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            Self::Contact { foot, .. } => formatter.debug_tuple("Contact").field(foot).finish(),
-            Self::Landing { .. } => formatter.write_str("Landing"),
         }
     }
 }

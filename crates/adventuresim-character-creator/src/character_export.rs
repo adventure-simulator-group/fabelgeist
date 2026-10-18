@@ -79,7 +79,7 @@ pub(super) fn export_character(
             joint_weights: &character.skin_weights.weight,
             joint_names: &character.skeleton.names,
             joint_parents: &character.skeleton.parents,
-            global_joint_states: &generated.global_joint_states,
+            global_joint_states: generated.global_joint_states.iter().collect(),
         },
         &shells,
         &[],

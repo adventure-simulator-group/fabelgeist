@@ -7,8 +7,8 @@ use serde::{Deserialize, Serialize};
 use std::time::Duration;
 
 /// Elapsed seconds, including zero for an observation that does not advance.
-#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Reflect)]
-#[serde(transparent)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Reflect, Deserialize)]
+#[serde(try_from = "f32", into = "f32")]
 #[reflect(opaque)]
 #[debug("{_0:?}")]
 pub struct AnimationElapsed(f32);
@@ -66,8 +66,14 @@ impl From<Duration> for AnimationElapsed {
     }
 }
 
-impl<'de> Deserialize<'de> for AnimationElapsed {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        Self::from_seconds(f32::deserialize(deserializer)?).map_err(serde::de::Error::custom)
+impl TryFrom<f32> for AnimationElapsed {
+    type Error = AnimationValueError;
+    fn try_from(value: f32) -> AnimationValueResult<Self> {
+        Self::from_seconds(value)
+    }
+}
+impl From<AnimationElapsed> for f32 {
+    fn from(value: AnimationElapsed) -> Self {
+        value.seconds()
     }
 }

@@ -99,8 +99,8 @@ mod tests {
                 target: AnimationTargetId::from_name(&Name::new(name.to_owned())),
                 bind: LocalPose::from_transform(Transform::IDENTITY),
                 parent: parent.map(RigJointOrdinal::from),
-                name: Some(identity.name),
-                role: identity.role,
+                name: Some(identity.name().clone()),
+                role: identity.role(),
                 body_region: AnimationBodyRegion::Upper,
             }
         };

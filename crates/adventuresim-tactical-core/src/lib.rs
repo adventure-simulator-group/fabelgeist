@@ -36,9 +36,10 @@ pub mod prelude {
     pub use crate::AdventureSimulatorCorePlugins;
     pub use crate::animation::{
         ActionState, ActionTransitionError, AnimationElapsed, AnimationEvaluation, AnimationPack,
-        AnimationPackLibrary, AttackAnimation, AttackAnimations, AttackCurve, AttackHand,
-        AttackLine, AttackPreparation, AttackSpec, BlockSpec, BodyState, ContactSequence,
-        DiveDirection, DiveTrajectory, DodgeSpec, DownedFacingPose, GroundedPosture, GuardContacts,
+        AnimationPackLibrary, AnimationSampleTick, AttackAnimation, AttackAnimations, AttackCurve,
+        AttackHand, AttackLine, AttackPreparation, AttackSpec, BlendWeight, BlockSpec, BodyState,
+        ClipMirror, ContactSequence, CyclePhase, DIVE_GROUND_CONTACT_PHASE, DiveDirection,
+        DiveTrajectory, DodgeSpec, DownedFacingPose, GroundContact, GroundedPosture, GuardContacts,
         GuardFootworkPlan, GuardStepPlan, JumpAnticipation, LandingProfile, LeadFoot,
         LocomotionGait, LocomotionProfile, MeleePreparationInput, PackValidationError, PoseSample,
         PoseSampling, Posture, PostureTransitionKind, PostureTransitionState,

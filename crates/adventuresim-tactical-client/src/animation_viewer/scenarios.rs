@@ -11,6 +11,29 @@ pub(super) const QUICKSTEP_FIXTURE_LEG_AGILITY: f32 = 4.0;
 // play: one catalog unit weight for each durable inventory row.
 pub(super) const JOHN_CURRENT_TOTAL_BURDEN_KG: f32 = 94.9;
 
+#[derive(Debug, Clone)]
+pub(super) struct PlannedFrame {
+    pub(super) scenario: ScenarioMetadata<'static>,
+    pub(super) scenario_frame: usize,
+    pub(super) speed: f32,
+    pub(super) time_seconds: f32,
+    pub(super) local_direction: Vec2,
+    pub(super) camera_yaw: f32,
+    pub(super) camera_pitch: f32,
+    pub(super) action: SkeletonAction,
+    pub(super) weapon_guard: WeaponGuardState,
+    pub(super) lead_foot: LeadFoot,
+}
+
+#[derive(Debug, Clone, Copy)]
+pub(super) struct ScenarioMetadata<'a> {
+    label: &'a str,
+    terrain: terrain_policy::ScenarioTerrain,
+    kind: ScenarioKind,
+    repeatable: bool,
+    procedural_solver: bool,
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub(super) enum ScenarioKind {
     Ordinary,
@@ -19,13 +42,6 @@ pub(super) enum ScenarioKind {
     Transition,
     Landing,
     Attack,
-}
-
-#[derive(Debug, Clone, Copy)]
-pub(super) struct ScenarioMetadata {
-    pub(super) kind: ScenarioKind,
-    pub(super) repeatable: bool,
-    pub(super) procedural_solver: bool,
 }
 
 pub(super) fn uses_authored_combat_locomotion(name: &str) -> bool {
@@ -45,7 +61,14 @@ pub(super) fn is_quickstep_scenario(name: &str) -> bool {
     name.starts_with("quickstep-")
 }
 
-pub(super) fn scenario_metadata(name: &str) -> ScenarioMetadata {
+fn scenario_metadata(name: &str) -> ScenarioMetadata<'_> {
+    let classified = |kind, repeatable, procedural_solver| ScenarioMetadata {
+        label: name,
+        terrain: terrain_policy::ScenarioTerrain::from_label(name, kind),
+        kind,
+        repeatable,
+        procedural_solver,
+    };
     if is_quickstep_scenario(name)
         || name.starts_with("downed-")
         || name.starts_with("dive-")
@@ -53,96 +76,53 @@ pub(super) fn scenario_metadata(name: &str) -> ScenarioMetadata {
         || name.starts_with("prone-roll-")
         || name == "jump-charge-anticipation"
     {
-        ScenarioMetadata {
-            kind: ScenarioKind::Transition,
-            repeatable: false,
-            procedural_solver: false,
-        }
+        classified(ScenarioKind::Transition, false, false)
     } else if name == "terrain-toggle-mid-stride" {
-        ScenarioMetadata {
-            kind: ScenarioKind::Terrain,
-            repeatable: false,
-            // This scenario deliberately spends time with the solver off. Its
-            // contract is bounded transition continuity, not steady plants.
-            procedural_solver: false,
-        }
+        classified(
+            ScenarioKind::Terrain,
+            false, // contract is bounded transition continuity, not steady plants.
+            false,
+        )
     } else if matches!(name, "flat-grid-walk-no-ik" | "flat-grid-sprint-no-ik") {
-        ScenarioMetadata {
-            kind: ScenarioKind::Ordinary,
-            repeatable: true,
-            procedural_solver: false,
-        }
+        classified(ScenarioKind::Ordinary, true, false)
     } else if name == "cross-slope-walk"
         || name.starts_with("terrain-")
         || name.starts_with("flat-grid-")
     {
-        ScenarioMetadata {
-            kind: ScenarioKind::Terrain,
-            repeatable: !name.contains("stop")
+        classified(
+            ScenarioKind::Terrain,
+            !name.contains("stop")
                 && !name.contains("turn")
                 && !name.contains("toggle")
                 && !name.contains("restart")
                 && !name.contains("chatter")
                 && !name.starts_with("terrain-steady-run"),
-            procedural_solver: true,
-        }
+            true,
+        )
     } else if name.starts_with("attack-live-") {
-        ScenarioMetadata {
-            kind: ScenarioKind::Attack,
-            repeatable: false,
-            procedural_solver: true,
-        }
+        classified(ScenarioKind::Attack, false, true)
     } else if name.starts_with("raised-guard") {
-        ScenarioMetadata {
-            kind: ScenarioKind::RaisedGuard,
-            repeatable: !name.contains("release")
+        classified(
+            ScenarioKind::RaisedGuard,
+            !name.contains("release")
                 && !name.contains("reversal")
                 && !name.contains("accelerate")
                 && name != "raised-guard-stationary-turn"
-                && name != "raised-guard-transition",
-            // Translating combat locomotion is authored skip/strafe FK. The
-            // stationary turn and guard-entry fixtures still exercise the
-            // procedural plant/step solver.
-            procedural_solver: !uses_authored_combat_locomotion(name),
-        }
+                && name != "raised-guard-transition", // procedural plant/step solver.
+            !uses_authored_combat_locomotion(name),
+        )
     } else if name == "airborne-landing" {
-        ScenarioMetadata {
-            kind: ScenarioKind::Landing,
-            repeatable: false,
-            procedural_solver: false,
-        }
+        classified(ScenarioKind::Landing, false, false)
     } else if name.contains("transition")
         || name.contains("enter-exit")
         || name.contains("hard-stop")
         || name.contains("ramp")
         || name.contains("turn")
     {
-        ScenarioMetadata {
-            kind: ScenarioKind::Transition,
-            repeatable: false,
-            procedural_solver: false,
-        }
+        classified(ScenarioKind::Transition, false, false)
     } else {
-        ScenarioMetadata {
-            kind: ScenarioKind::Ordinary,
-            repeatable: true,
-            procedural_solver: false,
-        }
+        classified(ScenarioKind::Ordinary, true, false)
     }
-}
-
-#[derive(Debug, Clone)]
-pub(super) struct PlannedFrame {
-    pub(super) scenario: &'static str,
-    pub(super) scenario_frame: usize,
-    pub(super) speed: f32,
-    pub(super) time_seconds: f32,
-    pub(super) local_direction: Vec2,
-    pub(super) camera_yaw: f32,
-    pub(super) camera_pitch: f32,
-    pub(super) action: SkeletonAction,
-    pub(super) weapon_guard: WeaponGuardState,
-    pub(super) lead_foot: LeadFoot,
 }
 
 pub(super) fn canonical_john_sprint_speed() -> f32 {
@@ -164,7 +144,7 @@ pub(super) fn full_ragdoll_scenario() -> Vec<PlannedFrame> {
     // window, so nine captured samples already cover a stable physics result.
     (0..=8)
         .map(|scenario_frame| PlannedFrame {
-            scenario: "full-ragdoll",
+            scenario: ScenarioMetadata::from_label("full-ragdoll"),
             scenario_frame,
             speed: 0.0,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -193,7 +173,7 @@ pub(super) fn steady_scenario_in_direction(
     let last_frame = (duration * locomotion_sample_hz()).ceil() as usize + 1;
     (0..=last_frame)
         .map(|scenario_frame| PlannedFrame {
-            scenario: name,
+            scenario: ScenarioMetadata::from_label(name),
             scenario_frame,
             speed,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -227,7 +207,7 @@ pub(super) fn transition_scenario() -> Vec<PlannedFrame> {
                 0.0
             };
             PlannedFrame {
-                scenario: "start-stop-transition",
+                scenario: ScenarioMetadata::from_label("start-stop-transition"),
                 scenario_frame: frame,
                 speed,
                 time_seconds: t,
@@ -245,7 +225,7 @@ pub(super) fn transition_scenario() -> Vec<PlannedFrame> {
 pub(super) fn terrain_toggle_scenario() -> Vec<PlannedFrame> {
     (0..=112)
         .map(|scenario_frame| PlannedFrame {
-            scenario: "terrain-toggle-mid-stride",
+            scenario: ScenarioMetadata::from_label("terrain-toggle-mid-stride"),
             scenario_frame,
             speed: 2.0,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -262,7 +242,7 @@ pub(super) fn terrain_toggle_scenario() -> Vec<PlannedFrame> {
 pub(super) fn terrain_half_turn_reversal_scenario() -> Vec<PlannedFrame> {
     (0..=192)
         .map(|scenario_frame| PlannedFrame {
-            scenario: "terrain-half-turn-reversal",
+            scenario: ScenarioMetadata::from_label("terrain-half-turn-reversal"),
             scenario_frame,
             speed: 2.0,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -295,7 +275,7 @@ pub(super) fn dynamics_speed_scenario(name: &'static str, hard_stop: bool) -> Ve
                 0.0
             };
             PlannedFrame {
-                scenario: name,
+                scenario: ScenarioMetadata::from_label(name),
                 scenario_frame,
                 speed,
                 time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -321,7 +301,7 @@ pub(super) fn flat_grid_walk_stop_scenario() -> Vec<PlannedFrame> {
                 0.0
             };
             PlannedFrame {
-                scenario: "flat-grid-walk-stop",
+                scenario: ScenarioMetadata::from_label("flat-grid-walk-stop"),
                 scenario_frame,
                 speed,
                 time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -344,7 +324,7 @@ pub(super) fn terrain_tap_stop_scenario(
 ) -> Vec<PlannedFrame> {
     (0..=96)
         .map(|scenario_frame| PlannedFrame {
-            scenario: name,
+            scenario: ScenarioMetadata::from_label(name),
             scenario_frame,
             speed: if moving_frames.contains(&scenario_frame) {
                 speed
@@ -367,7 +347,7 @@ pub(super) fn terrain_tap_restart_scenario() -> Vec<PlannedFrame> {
         .map(|scenario_frame| {
             let moving = matches!(scenario_frame, 8..=17 | 24..=33 | 40..=49);
             PlannedFrame {
-                scenario: "terrain-tap-restart-crossfade",
+                scenario: ScenarioMetadata::from_label("terrain-tap-restart-crossfade"),
                 scenario_frame,
                 speed: if moving { 5.5 } else { 0.0 },
                 time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -385,7 +365,7 @@ pub(super) fn terrain_tap_restart_scenario() -> Vec<PlannedFrame> {
 pub(super) fn terrain_threshold_chatter_scenario() -> Vec<PlannedFrame> {
     (0..=128)
         .map(|scenario_frame| PlannedFrame {
-            scenario: "terrain-speed-threshold-chatter",
+            scenario: ScenarioMetadata::from_label("terrain-speed-threshold-chatter"),
             scenario_frame,
             speed: match scenario_frame {
                 8..=39 => {
@@ -430,7 +410,7 @@ pub(super) fn raised_guard_lateral_tap_stop_scenario(
 ) -> Vec<PlannedFrame> {
     (0..=96)
         .map(|scenario_frame| PlannedFrame {
-            scenario: name,
+            scenario: ScenarioMetadata::from_label(name),
             scenario_frame,
             speed: if (32..38).contains(&scenario_frame) {
                 1.0
@@ -451,7 +431,7 @@ pub(super) fn raised_guard_lateral_tap_stop_scenario(
 pub(super) fn airborne_landing_scenario() -> Vec<PlannedFrame> {
     (0..=96)
         .map(|scenario_frame| PlannedFrame {
-            scenario: "airborne-landing",
+            scenario: ScenarioMetadata::from_label("airborne-landing"),
             scenario_frame,
             speed: 0.0,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -482,7 +462,7 @@ pub(super) fn attack_live_scenario(
     // take as many bounded guard-convergence steps as it needs.
     (0..=127)
         .map(|scenario_frame| PlannedFrame {
-            scenario: name,
+            scenario: ScenarioMetadata::from_label(name),
             scenario_frame,
             speed,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -716,7 +696,7 @@ pub(super) fn quickstep_scenario(name: &'static str, local_direction: Vec2) -> V
     let planar_speeds = quickstep_fixture_planar_speeds(72);
     (0..72)
         .map(|scenario_frame| PlannedFrame {
-            scenario: name,
+            scenario: ScenarioMetadata::from_label(name),
             scenario_frame,
             speed: planar_speeds[scenario_frame],
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -861,7 +841,7 @@ pub(super) fn downed_contact_scenario(name: &'static str, body: BodyState) -> Ve
     // the kind of crawl discontinuity this scenario is meant to diagnose.
     (0..=148)
         .map(|scenario_frame| PlannedFrame {
-            scenario: name,
+            scenario: ScenarioMetadata::from_label(name),
             scenario_frame,
             speed,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -878,7 +858,7 @@ pub(super) fn downed_contact_scenario(name: &'static str, body: BodyState) -> Ve
 pub(super) fn downed_look_scenario() -> Vec<PlannedFrame> {
     (0..=64)
         .map(|scenario_frame| PlannedFrame {
-            scenario: "downed-prone-look-at",
+            scenario: ScenarioMetadata::from_label("downed-prone-look-at"),
             scenario_frame,
             speed: 0.0,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -895,7 +875,7 @@ pub(super) fn downed_look_scenario() -> Vec<PlannedFrame> {
 pub(super) fn ordinary_camera_pitch_scenario() -> Vec<PlannedFrame> {
     (0..=64)
         .map(|scenario_frame| PlannedFrame {
-            scenario: "ordinary-camera-pitch",
+            scenario: ScenarioMetadata::from_label("ordinary-camera-pitch"),
             scenario_frame,
             speed: 0.0,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -924,7 +904,7 @@ pub(super) fn posture_transition_scenario(
     // validate the contact endpoint independently.
     (0..=80)
         .map(|scenario_frame| PlannedFrame {
-            scenario: name,
+            scenario: ScenarioMetadata::from_label(name),
             scenario_frame,
             speed: 0.0,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -965,7 +945,7 @@ pub(super) fn dive_impact_scenario_with_aim(name: &'static str, aimed: bool) -> 
     };
     (0..=final_frame)
         .map(|scenario_frame| PlannedFrame {
-            scenario: name,
+            scenario: ScenarioMetadata::from_label(name),
             scenario_frame,
             // Match the server's camera-relative launch rather than judging a
             // directional pose on a stationary root. Retain velocity through
@@ -994,7 +974,7 @@ pub(super) fn dive_impact_scenario_with_aim(name: &'static str, aimed: bool) -> 
 pub(super) fn jump_charge_scenario() -> Vec<PlannedFrame> {
     (0..=64)
         .map(|scenario_frame| PlannedFrame {
-            scenario: "jump-charge-anticipation",
+            scenario: ScenarioMetadata::from_label("jump-charge-anticipation"),
             scenario_frame,
             speed: 0.0,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -1081,7 +1061,7 @@ pub(super) fn turning_scenario(name: &'static str, reversal: bool) -> Vec<Planne
         .map(|frame| {
             let progress = frame as f32 / 64.0;
             PlannedFrame {
-                scenario: name,
+                scenario: ScenarioMetadata::from_label(name),
                 scenario_frame: frame,
                 speed: 2.0,
                 time_seconds: progress,
@@ -1107,7 +1087,7 @@ pub(super) fn dynamics_turn_scenario(name: &'static str, angle_radians: f32) -> 
         .map(|frame| {
             let progress = frame as f32 / 64.0;
             PlannedFrame {
-                scenario: name,
+                scenario: ScenarioMetadata::from_label(name),
                 scenario_frame: frame,
                 speed: 5.5,
                 time_seconds: progress,
@@ -1127,7 +1107,7 @@ pub(super) fn guard_plant_turn_scenario() -> Vec<PlannedFrame> {
         .map(|frame| {
             let progress = frame as f32 / 64.0;
             PlannedFrame {
-                scenario: "planted-guard-turn",
+                scenario: ScenarioMetadata::from_label("planted-guard-turn"),
                 scenario_frame: frame,
                 speed: 0.35,
                 time_seconds: progress,
@@ -1147,7 +1127,7 @@ pub(super) fn raised_guard_stationary_turn_scenario() -> Vec<PlannedFrame> {
         .map(|scenario_frame| {
             let turn_progress = (scenario_frame as f32 / 64.0).clamp(0.0, 1.0);
             PlannedFrame {
-                scenario: "raised-guard-stationary-turn",
+                scenario: ScenarioMetadata::from_label("raised-guard-stationary-turn"),
                 scenario_frame,
                 speed: 0.0,
                 time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -1190,7 +1170,7 @@ pub(super) fn raised_guard_steady_scenario_with_lead(
     let last_frame = (duration * locomotion_sample_hz()).ceil() as usize + 1;
     (0..=last_frame)
         .map(|scenario_frame| PlannedFrame {
-            scenario: name,
+            scenario: ScenarioMetadata::from_label(name),
             scenario_frame,
             speed,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -1219,7 +1199,7 @@ pub(super) fn raised_guard_acceleration_scenario_with_lead(
         .map(|scenario_frame| {
             let time_seconds = scenario_frame as f32 / locomotion_sample_hz();
             PlannedFrame {
-                scenario: name,
+                scenario: ScenarioMetadata::from_label(name),
                 scenario_frame,
                 speed: (time_seconds / 0.5).clamp(0.0, 1.0) * 2.0,
                 time_seconds,
@@ -1237,7 +1217,7 @@ pub(super) fn raised_guard_acceleration_scenario_with_lead(
 pub(super) fn raised_guard_transition_scenario() -> Vec<PlannedFrame> {
     (0..=64)
         .map(|scenario_frame| PlannedFrame {
-            scenario: "raised-guard-transition",
+            scenario: ScenarioMetadata::from_label("raised-guard-transition"),
             scenario_frame,
             speed: 2.0,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -1266,7 +1246,7 @@ pub(super) fn raised_guard_release_scenario_with_lead(
     let release_frame = (guard_step_length(2.0) * 0.75 * locomotion_sample_hz()).round() as usize;
     (0..=64)
         .map(|scenario_frame| PlannedFrame {
-            scenario: name,
+            scenario: ScenarioMetadata::from_label(name),
             scenario_frame,
             speed: if scenario_frame <= release_frame {
                 2.0
@@ -1294,7 +1274,7 @@ pub(super) fn raised_guard_reversal_scenario_with_lead(
 ) -> Vec<PlannedFrame> {
     (0..=64)
         .map(|scenario_frame| PlannedFrame {
-            scenario: name,
+            scenario: ScenarioMetadata::from_label(name),
             scenario_frame,
             speed: 2.0,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
@@ -1368,9 +1348,14 @@ mod tests {
             ("raised-guard-tap-stop-right", Vec2::X),
         ] {
             let frames = raised_guard_lateral_tap_stop_scenario(name, direction);
-            assert_eq!(scenario_metadata(name).kind, ScenarioKind::RaisedGuard);
-            assert!(scenario_uses_terrain_ik(name));
-            assert!(!raised_scenario_requires_zero_flight(name));
+            assert_eq!(
+                ScenarioMetadata::from_label(name).kind(),
+                ScenarioKind::RaisedGuard
+            );
+            assert!(scenario_uses_terrain_ik(ScenarioMetadata::from_label(name)));
+            assert!(!raised_scenario_requires_zero_flight(
+                ScenarioMetadata::from_label(name)
+            ));
             assert!(
                 frames
                     .iter()
@@ -1381,23 +1366,35 @@ mod tests {
 
     #[test]
     fn terrain_and_steady_raised_gate_classification_remain_distinct() {
-        assert!(scenario_uses_terrain_ik("cross-slope-walk"));
-        assert!(!scenario_uses_terrain_ik("raised-guard-forward"));
-        assert!(!scenario_uses_terrain_ik("raised-guard-stationary-turn"));
-        assert!(!scenario_uses_terrain_ik("steady-walk-2.0"));
-        assert!(raised_scenario_requires_zero_flight("raised-guard-forward"));
-        assert!(raised_scenario_requires_zero_flight(
+        assert!(scenario_uses_terrain_ik(ScenarioMetadata::from_label(
+            "cross-slope-walk"
+        )));
+        assert!(!scenario_uses_terrain_ik(ScenarioMetadata::from_label(
+            "raised-guard-forward"
+        )));
+        assert!(!scenario_uses_terrain_ik(ScenarioMetadata::from_label(
             "raised-guard-stationary-turn"
+        )));
+        assert!(!scenario_uses_terrain_ik(ScenarioMetadata::from_label(
+            "steady-walk-2.0"
+        )));
+        assert!(raised_scenario_requires_zero_flight(
+            ScenarioMetadata::from_label("raised-guard-forward")
+        ));
+        assert!(raised_scenario_requires_zero_flight(
+            ScenarioMetadata::from_label("raised-guard-stationary-turn")
         ));
         assert!(!raised_scenario_requires_zero_flight(
-            "raised-guard-tap-stop-right"
+            ScenarioMetadata::from_label("raised-guard-tap-stop-right")
         ));
-        assert!(!raised_scenario_requires_zero_flight("cross-slope-walk"));
+        assert!(!raised_scenario_requires_zero_flight(
+            ScenarioMetadata::from_label("cross-slope-walk")
+        ));
 
-        let stationary_turn = scenario_metadata("raised-guard-stationary-turn");
-        assert_eq!(stationary_turn.kind, ScenarioKind::RaisedGuard);
-        assert!(!stationary_turn.repeatable);
-        assert!(stationary_turn.procedural_solver);
+        let stationary_turn = ScenarioMetadata::from_label("raised-guard-stationary-turn");
+        assert_eq!(stationary_turn.kind(), ScenarioKind::RaisedGuard);
+        assert!(!stationary_turn.repeatable());
+        assert!(stationary_turn.procedural_solver());
     }
 
     #[test]
@@ -1439,12 +1436,12 @@ mod tests {
             "raised-guard-backward-right",
         ] {
             assert!(plan.iter().any(|frame| {
-                frame.scenario == scenario && frame.weapon_guard == WeaponGuardState::Raised
+                frame.scenario.label() == scenario && frame.weapon_guard == WeaponGuardState::Raised
             }));
         }
         let stationary_turn = plan
             .iter()
-            .filter(|frame| frame.scenario == "raised-guard-stationary-turn")
+            .filter(|frame| frame.scenario.label() == "raised-guard-stationary-turn")
             .collect::<Vec<_>>();
         assert_eq!(stationary_turn.len(), 128);
         assert!(stationary_turn.iter().all(|frame| {
@@ -1459,7 +1456,7 @@ mod tests {
         );
         let transition = plan
             .iter()
-            .filter(|frame| frame.scenario == "raised-guard-transition")
+            .filter(|frame| frame.scenario.label() == "raised-guard-transition")
             .collect::<Vec<_>>();
         assert!(
             transition
@@ -1488,7 +1485,7 @@ mod tests {
             "raised-guard-right-support-reversal",
         ] {
             assert!(plan.iter().any(|frame| {
-                frame.scenario == scenario
+                frame.scenario.label() == scenario
                     && frame.weapon_guard == WeaponGuardState::Raised
                     && frame.lead_foot == LeadFoot::Right
             }));
@@ -1512,32 +1509,28 @@ mod tests {
             let mut phases = Vec::new();
             for frame in capture_plan()
                 .into_iter()
-                .filter(|frame| frame.scenario == scenario)
+                .filter(|frame| frame.scenario.label() == scenario)
             {
                 project_skeleton_locomotion(
                     &mut skeleton,
-                    SkeletonLocomotionInput {
-                        orientation: Quat::IDENTITY,
-                        linear_velocity: Vec3::new(
-                            frame.local_direction.x,
-                            0.0,
-                            frame.local_direction.y,
-                        ) * frame.speed,
-                        grounded: true,
-                        delta_seconds: AnimationElapsed::from_seconds(
-                            if frame.scenario_frame == 0 {
-                                0.0
-                            } else {
-                                1.0 / locomotion_sample_hz()
-                            },
-                        )
+                    SkeletonLocomotionInput::from_controller(
+                        Quat::IDENTITY,
+                        Vec3::new(frame.local_direction.x, 0.0, frame.local_direction.y)
+                            * frame.speed,
+                        GroundContact::Grounded,
+                        AnimationElapsed::from_seconds(if frame.scenario_frame == 0 {
+                            0.0
+                        } else {
+                            1.0 / locomotion_sample_hz()
+                        })
                         .unwrap(),
-                        tick: frame.scenario_frame as u64,
-                    },
+                        AnimationSampleTick::from(frame.scenario_frame as u64),
+                    )
+                    .unwrap(),
                 )
                 .unwrap();
                 assert_eq!(skeleton.lead_foot, frame.lead_foot);
-                let evaluation = AnimationEvaluation::from_skeleton(&skeleton);
+                let evaluation = AnimationEvaluation::from_skeleton(&skeleton).unwrap();
                 assert_eq!(evaluation.base.len(), 1);
                 assert_eq!(evaluation.base[0].pose, SemanticPose::GuardThrust);
                 assert_eq!(evaluation.base[0].sampling, PoseSampling::Anchor);
@@ -1556,28 +1549,24 @@ mod tests {
             let mut samples = Vec::new();
             for frame in capture_plan()
                 .into_iter()
-                .filter(|frame| frame.scenario == scenario)
+                .filter(|frame| frame.scenario.label() == scenario)
             {
                 project_skeleton_locomotion(
                     &mut skeleton,
-                    SkeletonLocomotionInput {
-                        orientation: Quat::IDENTITY,
-                        linear_velocity: Vec3::new(
-                            frame.local_direction.x,
-                            0.0,
-                            frame.local_direction.y,
-                        ) * frame.speed,
-                        grounded: true,
-                        delta_seconds: AnimationElapsed::from_seconds(
-                            if frame.scenario_frame == 0 {
-                                0.0
-                            } else {
-                                1.0 / locomotion_sample_hz()
-                            },
-                        )
+                    SkeletonLocomotionInput::from_controller(
+                        Quat::IDENTITY,
+                        Vec3::new(frame.local_direction.x, 0.0, frame.local_direction.y)
+                            * frame.speed,
+                        GroundContact::Grounded,
+                        AnimationElapsed::from_seconds(if frame.scenario_frame == 0 {
+                            0.0
+                        } else {
+                            1.0 / locomotion_sample_hz()
+                        })
                         .unwrap(),
-                        tick: frame.scenario_frame as u64,
-                    },
+                        AnimationSampleTick::from(frame.scenario_frame as u64),
+                    )
+                    .unwrap(),
                 )
                 .unwrap();
                 samples.push((

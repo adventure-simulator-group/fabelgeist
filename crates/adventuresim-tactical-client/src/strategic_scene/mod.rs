@@ -177,7 +177,7 @@ fn model_transform(anchor: Vec3) -> Transform {
     let height = adventuresim_tactical_core::combat_config::runtime_animation_config()
         .playback
         .player_visual_y_offset_metres;
-    Transform::from_translation(anchor - Vec3::Y * height)
+    Transform::from_translation(anchor - Vec3::Y * height.metres())
 }
 
 #[expect(

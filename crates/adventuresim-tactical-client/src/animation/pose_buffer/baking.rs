@@ -15,7 +15,14 @@ pub(super) struct BoneTrack {
     pub(super) translations: Vec<Vec3>,
     pub(super) rotations: Vec<Quat>,
     pub(super) scales: Vec<Vec3>,
-    pub(super) animated: bool,
+    pub(super) source: BoneTrackSource,
+}
+
+/// Whether the source clip owns this joint or sampling retained its bind transform.
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub(super) enum BoneTrackSource {
+    Authored,
+    BindPose,
 }
 
 /// One joint's local transform in the pose buffer.
@@ -135,7 +142,11 @@ pub(super) fn bake_clip(
                 translations,
                 rotations,
                 scales,
-                animated: clip.curves().contains_key(&joint.target),
+                source: if clip.curves().contains_key(&joint.target) {
+                    BoneTrackSource::Authored
+                } else {
+                    BoneTrackSource::BindPose
+                },
             }
         })
         .collect();

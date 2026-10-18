@@ -360,9 +360,19 @@ clothing admission. Region support validates every packed skin slot, including
 zero-weight slots, against the rig-order membership table before filtering the
 eight weights; unknown joints remain errors.
 
+Runtime admission reuses core's single parsed catalogue and its source metadata
+rather than parsing another embedded document. General-item warmup retains the
+authored document order. A private catalogue handle admits the actual item,
+placement and material records; clothing classification uses the authored item
+identity and kind, independently of its address in memory. Clothing design-hash
+serialization propagates its existing error path.
+
 Fitting and export retain `fabelgeist_rig::RigJointName` through joint selection,
 landmark lookup, attachment construction, and saved body metadata. Joint labels
-and rig ordinals cannot be interchanged. A missing landmark retains its exact
+and rig ordinals cannot be interchanged. Export retains global transform columns
+in `RigJointTable` through attachment construction; packed source words and glTF
+node/parent arrays remain explicit native adapters. A missing landmark retains
+its exact
 label in `RigJointLookupError`; clothing admission exposes `ClothingError`
 variants for invalid body correspondence, missing landmarks, and fitted mesh
 failures. Presentation callers format these errors at their existing boundary.

@@ -21,6 +21,26 @@ pub(super) enum PreviewAttachment {
     Attached,
 }
 
+/// The held item at catalogue admission, retaining an unknown item separately
+/// from an empty hand so an unavailable definition cannot select occupied slots.
+#[derive(Clone, Copy)]
+pub(super) enum HeldPreviewItem {
+    Empty,
+    Unknown,
+    Defined(&'static item_catalog::ItemDefinition),
+}
+
+impl From<Option<&ItemProperties>> for HeldPreviewItem {
+    fn from(properties: Option<&ItemProperties>) -> Self {
+        match properties {
+            None => Self::Empty,
+            Some(properties) => {
+                item_catalog::definition(&properties.id).map_or(Self::Unknown, Self::Defined)
+            }
+        }
+    }
+}
+
 impl PreviewAttachment {
     fn from_predicate(attached: bool) -> Self {
         if attached {
@@ -38,11 +58,11 @@ pub(super) fn outermost_occupied_depth(layers: &[PreviewTarget]) -> Option<usize
 }
 
 pub(super) fn eligible_slot_depth(
-    held_item_id: &str,
+    item: &item_catalog::ItemDefinition,
     location: EquipmentLocation,
     layers: &[PreviewTarget],
 ) -> Option<usize> {
-    let equipment = item_catalog::definition(held_item_id)?.equipment.as_ref()?;
+    let equipment = item.equipment.as_ref()?;
     if equipment.placements.iter().any(|placement| {
         placement
             .occupancy

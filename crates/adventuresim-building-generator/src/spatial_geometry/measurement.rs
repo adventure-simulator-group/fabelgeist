@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 /// use adventuresim_building_generator::spatial_geometry::{SignedLength, PositiveLength};
 /// fn wrong_role(inset: SignedLength) -> PositiveLength { inset }
 /// ```
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect, Default)]
 #[repr(transparent)]
 #[serde(transparent)]
 #[reflect(opaque)]

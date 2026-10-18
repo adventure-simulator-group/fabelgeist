@@ -3,9 +3,9 @@
     reason = "the gameplay client, animation viewer, and reflection linker consume different parts of this shared facade"
 )]
 
-use adventuresim_tactical_core::animation::AnimationPackId;
 use adventuresim_tactical_core::animation::AttackCurve;
 use adventuresim_tactical_core::animation::{AnimationElapsed, AnimationValueError};
+use adventuresim_tactical_core::animation::{AnimationPackId, BlendWeight, ClipMirror, CyclePhase};
 use adventuresim_tactical_core::prelude::*;
 #[cfg(not(target_family = "wasm"))]
 use adventuresim_tactical_netcode::message::PlayerInputRequest;
@@ -30,8 +30,8 @@ pub(crate) use diagnostics::{
 };
 use loading::*;
 use playback_state::{
-    BaseRigLoad, ClipMirror, InertialState, OrdinaryLocomotion, PoseOwnership, PoseSource,
-    PoseVisibility, TimelineDirection,
+    BaseRigLoad, InertialState, OrdinaryLocomotion, PoseOwnership, PoseSource, PoseVisibility,
+    TimelineDirection,
 };
 pub(crate) use presentation::{
     plugin::{AnimatedActors, StrategicModel},
@@ -47,7 +47,10 @@ pub(crate) use procedural::{
 use resolver::PoseSampleResolver;
 use rig_identity::AnimationBodyRegion;
 pub(crate) use rig_identity::AuthoredRigJoint;
-use sample_values::{AnimationValueResult, BlendWeight, ClipDuration, ClipTime, CyclePhase};
+use sample_values::{AnimationValueResult, ClipDuration, ClipTime, finite_sample_value};
+#[cfg(test)]
+use semantic_route::combat_cycle_ik_weights;
+use semantic_route::semantic_foot_ik_weights;
 use std::collections::{BTreeMap, BTreeSet, HashSet};
 use weighted::{WeightedClip, append_weighted_anchor, append_weighted_clip};
 
@@ -73,6 +76,8 @@ mod sample_values;
 pub(crate) mod semantic_route;
 pub(crate) mod skeletal_proportions;
 mod weighted;
+
+pub(crate) const WORKSPACE_ASSET_SOURCE: &str = "workspace";
 
 const BIPED_BASE_GLB: AnimationAssetPath =
     AnimationAssetPath::from_static("animations/biped/unarmed/base.glb");
@@ -315,7 +320,7 @@ impl AuthoredLocomotionStrides {
             / (run_locomotion_profile().reference_speed
                 - walk_locomotion_profile().reference_speed))
             .clamp(0.0, 1.0);
-        if blend <= f32::EPSILON {
+        if blend <= 0.0 {
             Some(walk)
         } else {
             Some(walk.lerp(self.run?, blend))
@@ -326,19 +331,19 @@ impl AuthoredLocomotionStrides {
         let strafe_weight = direction.x.abs();
         let skip_weight = direction.y.abs();
         let total = strafe_weight + skip_weight;
-        if total <= f32::EPSILON {
+        if total <= 0.0 {
             return None;
         }
         let mut stride = AuthoredStrideMeasurement {
             step_distance: 0.0,
             maximum_stance_slip: 0.0,
         };
-        if strafe_weight > f32::EPSILON {
+        if strafe_weight > 0.0 {
             let strafe = self.strafe?;
             stride.step_distance += strafe.step_distance * strafe_weight;
             stride.maximum_stance_slip += strafe.maximum_stance_slip * strafe_weight;
         }
-        if skip_weight > f32::EPSILON {
+        if skip_weight > 0.0 {
             let skip = self.skip?;
             stride.step_distance += skip.step_distance * skip_weight;
             stride.maximum_stance_slip += skip.maximum_stance_slip * skip_weight;
@@ -466,7 +471,7 @@ fn animation_frames_per_second() -> f32 {
 // Player transforms sit at the center of the 1.9 m server collider, while
 // authored rigs use a floor-level origin. Keep visual feet on the collider's
 // lower face so the first-person camera lands at the authored head.
-fn player_visual_y_offset_metres() -> f32 {
+fn player_visual_y_offset() -> adventuresim_building_generator::spatial_geometry::SignedLength {
     runtime_animation_config()
         .playback
         .player_visual_y_offset_metres
@@ -673,86 +678,6 @@ fn apply_playback_pose(playback: &mut AnimationPlayback, pose: PlaybackPose) {
     playback.cadence = pose.cadence;
 }
 
-/// IK ownership follows the direct semantic locomotion samples.
-/// The curve shapes are animation metadata: walk keeps one supported foot,
-/// run has genuine intervals with neither foot loaded, and idle loads both.
-fn semantic_foot_ik_weights(evaluation: &AnimationEvaluation) -> AnimationValueResult<Vec2> {
-    let samples = if !evaluation.lower_body.is_empty() {
-        &evaluation.lower_body
-    } else if evaluation.action.is_empty() {
-        &evaluation.base
-    } else {
-        return Ok(Vec2::ZERO);
-    };
-    let mut result = Vec2::ZERO;
-    let mut total = BlendWeight::ZERO;
-    for sample in samples {
-        let mut weights = match (sample.pose, sample.sampling) {
-            (SemanticPose::IdleRelaxed, _) => Vec2::ONE,
-            (SemanticPose::CombatStance, _) => Vec2::ONE,
-            (
-                SemanticPose::StrafeCycle | SemanticPose::SkipCycle,
-                PoseSampling::Cycle { phase },
-            ) => combat_cycle_ik_weights(CyclePhase::from_cycles(phase)?),
-            (
-                SemanticPose::QuickstepForwardTakeoff
-                | SemanticPose::QuickstepRightTakeoff
-                | SemanticPose::QuickstepLeftTakeoff
-                | SemanticPose::QuickstepBackTakeoff,
-                PoseSampling::Timeline { .. },
-            ) => Vec2::ZERO,
-            (SemanticPose::WalkContact, PoseSampling::Cycle { phase }) => {
-                let (left, right) = gait_support_weights(walk_locomotion_profile(), phase);
-                Vec2::new(left, right)
-            }
-            (SemanticPose::RunContact, PoseSampling::Cycle { phase }) => {
-                // Simulation support spans the complete stance interval. IK
-                // is animation metadata and should only become strong near
-                // the authored contact itself, after the foot has descended.
-                let contact_profile = LocomotionProfile {
-                    support_phase_radius: 0.11,
-                    ..run_locomotion_profile()
-                };
-                let (left, right) = gait_support_weights(contact_profile, phase);
-                Vec2::new(left, right)
-            }
-            _ => Vec2::ZERO,
-        };
-        if sample.mirror_lower_body {
-            weights = Vec2::new(weights.y, weights.x);
-        }
-        let weight = BlendWeight::from_factor(sample.weight)?;
-        let next = result + weights * weight.factor();
-        if !next.is_finite() {
-            return Err(AnimationValueError::Overflow {
-                quantity: adventuresim_tactical_core::animation::AnimationQuantity::BlendWeight,
-            });
-        }
-        total = total.checked_add(weight)?;
-        result = next;
-    }
-    Ok(if total.factor() > f32::EPSILON {
-        result / total.factor()
-    } else {
-        Vec2::ZERO
-    }
-    .clamp(Vec2::ZERO, Vec2::ONE))
-}
-
-/// Select the single authored combat contact. Frames 0/12 are swing midpoints
-/// and frames 6/18 switch contact. The pose buffer interpolates continuously
-/// into each terrain-conformed target; support identity itself must not overlap
-/// because an outgoing foot is free as soon as the incoming foot contacts.
-fn combat_cycle_ik_weights(phase: CyclePhase) -> Vec2 {
-    let phase = phase.wrapped().cycles();
-    if (catalog::COMBAT_FIRST_CONTACT_PHASE..catalog::COMBAT_SECOND_CONTACT_PHASE).contains(&phase)
-    {
-        Vec2::X
-    } else {
-        Vec2::Y
-    }
-}
-
 /// A server-confirmed hit kicks the struck bone's spring on the recipient.
 fn on_successful_attack(
     event: On<SuccessfulAttackResponse>,
@@ -826,7 +751,7 @@ fn resolve_library_anchor<'a>(
         anchor,
         pack_id,
         semantic: resolved_pose,
-        mirrored: ClipMirror::from_resolved_pose(mirrored),
+        mirrored: ClipMirror::from(mirrored),
         timeline_direction: TimelineDirection::Forward,
     })
 }
@@ -1000,7 +925,7 @@ mod contract_tests {
     fn planted_and_moving_combat_both_component_blend_the_pelvis() {
         let mut planted = SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
         planted.begin_attack(AttackSpec::default(), 0, 100).unwrap();
-        let planted_evaluation = AnimationEvaluation::from_skeleton(&planted);
+        let planted_evaluation = AnimationEvaluation::from_skeleton(&planted).unwrap();
         assert!(!planted_evaluation.action.is_empty());
         assert!(!planted_evaluation.lower_body.is_empty());
         assert!(combat_pelvis_is_component_blended(
@@ -1011,7 +936,7 @@ mod contract_tests {
         let moving = planted
             .clone()
             .with_raised_locomotion(RaisedLocomotionIntent::moving(Vec2::X, 1.0));
-        let moving_evaluation = AnimationEvaluation::from_skeleton(&moving);
+        let moving_evaluation = AnimationEvaluation::from_skeleton(&moving).unwrap();
         assert!(!moving_evaluation.action.is_empty());
         assert!(combat_pelvis_is_component_blended(
             &moving,
@@ -1022,7 +947,7 @@ mod contract_tests {
         quickstep
             .begin_dodge(DodgeSpec::quickstep(Vec2::X).unwrap(), 0, 100)
             .unwrap();
-        let quickstep_evaluation = AnimationEvaluation::from_skeleton(&quickstep);
+        let quickstep_evaluation = AnimationEvaluation::from_skeleton(&quickstep).unwrap();
         assert!(!combat_pelvis_is_component_blended(
             &quickstep,
             &quickstep_evaluation
@@ -1040,7 +965,7 @@ mod contract_tests {
         // quickstep pose remains completely free of leg IK.
         for tick in [100, 150, 199] {
             state.advance_action(tick);
-            let evaluation = AnimationEvaluation::from_skeleton(&state);
+            let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
             assert_eq!(
                 semantic_foot_ik_weights(&evaluation).unwrap(),
                 Vec2::ZERO,

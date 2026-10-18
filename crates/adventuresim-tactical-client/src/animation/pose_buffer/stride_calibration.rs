@@ -219,8 +219,8 @@ mod tests {
                         target: AnimationTargetId::from_name(&Name::new(name)),
                         bind: LocalPose::from_transform(Transform::IDENTITY),
                         parent: (index != 0).then_some(RigJointOrdinal::from(0usize)),
-                        name: Some(identity.name),
-                        role: identity.role,
+                        name: Some(identity.name().clone()),
+                        role: identity.role(),
                         body_region: AnimationBodyRegion::Lower,
                     }
                 })
@@ -244,7 +244,7 @@ mod tests {
                         vec![Quat::IDENTITY; 3]
                     },
                     scales: vec![Vec3::ONE; 3],
-                    animated: true,
+                    source: BoneTrackSource::Authored,
                 })
                 .collect(),
         };

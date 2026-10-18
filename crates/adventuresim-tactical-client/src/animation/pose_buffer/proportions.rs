@@ -32,6 +32,7 @@ mod tests {
 
     #[test]
     fn skeletal_proportions_preserve_shared_motion_and_do_not_accumulate() {
+        const OFFSET_COMPARISON_TOLERANCE_METRES: f32 = 1e-6;
         let mut world = World::new();
         let narrow = world
             .spawn(skeletal_proportions::SkeletalJointOffset(
@@ -51,7 +52,7 @@ mod tests {
                 translations: vec![Vec3::new(0.1, 0.0, 0.0), Vec3::new(0.1, 0.2, 0.3)],
                 rotations: vec![Quat::IDENTITY, Quat::from_rotation_z(0.4)],
                 scales: vec![Vec3::ONE; 2],
-                animated: true,
+                source: BoneTrackSource::Authored,
             }]
             .into(),
         };
@@ -78,7 +79,7 @@ mod tests {
                     - first[RigJointOrdinal::from(0usize)].translation.x
                     - 0.1)
                     .abs()
-                    < 1e-6
+                    < OFFSET_COMPARISON_TOLERANCE_METRES
             );
             assert_eq!(
                 second[RigJointOrdinal::from(0usize)].translation.yz(),

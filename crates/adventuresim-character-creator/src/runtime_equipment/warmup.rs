@@ -23,10 +23,11 @@ pub async fn warm_up(
     breastplate: &BreastplateDesign,
 ) -> Result<WarmupReport> {
     let mut fitted_placements = 0;
-    for item in ITEM_CATALOG
+    for canonical in ITEM_CATALOG
         .iter()
-        .filter(|item| is_runtime_armor(&item.id))
+        .filter(|item| is_runtime_armor(&item.definition.id))
     {
+        let item = canonical.definition;
         let equipment = item
             .equipment
             .as_ref()

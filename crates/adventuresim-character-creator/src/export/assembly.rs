@@ -185,7 +185,7 @@ mod tests {
                 joint_weights: &weights,
                 joint_names: &names,
                 joint_parents: &[-1],
-                global_joint_states: &states,
+                global_joint_states: states.iter().collect(),
             },
             &shells,
             &[],

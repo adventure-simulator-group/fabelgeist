@@ -284,7 +284,7 @@ fn equipment_surface_socket(
     tangent: [f32; 3],
 ) -> Result<Transform> {
     let pelvis = landmark(mesh, &RigJointName::ROOT)?;
-    let pelvis_transform = state(mesh.global_joint_states[usize::from(pelvis)]);
+    let pelvis_transform = state(*mesh.global_joint_states[pelvis]);
     let direction = normalize(normal, "equipment", "surface normal")?;
     let translation = std::array::from_fn(|axis| {
         translation[axis] + direction[axis] * EQUIPMENT_SOCKET_CLEARANCE_METERS
@@ -692,17 +692,12 @@ pub fn export_rigged_glb(
         })
         .collect::<Vec<_>>();
 
-    let mut globals = mesh
-        .global_joint_states
-        .iter()
-        .copied()
-        .map(state)
-        .collect::<Vec<_>>();
+    let mut globals = mesh.global_transforms();
     let mut joint_names = mesh.joint_names.to_vec();
     let mut joint_parents = mesh.joint_parents.to_vec();
     let mut attachments = Vec::new();
     if !mesh.faces.is_empty() {
-        let transform = |joint: RigJointOrdinal| -> Transform { globals[usize::from(joint)] };
+        let transform = |joint: RigJointOrdinal| -> Transform { globals[joint] };
         let left_wrist = landmark(mesh, &RigJointName::L_WRIST)?;
         let left_middle = landmark(mesh, &RigJointName::L_MIDDLE1)?;
         let left_index = landmark(mesh, &RigJointName::L_INDEX1)?;
@@ -1015,7 +1010,7 @@ mod tests {
                 joint_weights: &joint_weights,
                 joint_names: &joint_names,
                 joint_parents: &joint_parents,
-                global_joint_states: &global_joint_states,
+                global_joint_states: global_joint_states.iter().collect(),
             },
             &[],
             &[],
@@ -1151,7 +1146,7 @@ mod tests {
                 joint_weights: &joint_weights,
                 joint_names: &joint_names,
                 joint_parents: &joint_parents,
-                global_joint_states: &global_joint_states,
+                global_joint_states: global_joint_states.iter().collect(),
             },
             &[],
             &[],
@@ -1229,7 +1224,7 @@ mod tests {
                 joint_weights: &joint_weights,
                 joint_names: &joint_names,
                 joint_parents: &joint_parents,
-                global_joint_states: &global_joint_states,
+                global_joint_states: global_joint_states.iter().collect(),
             },
             &[shell],
             &[],
@@ -1334,7 +1329,7 @@ mod tests {
                 joint_weights: &joint_weights,
                 joint_names: &joint_names,
                 joint_parents: &joint_parents,
-                global_joint_states: &global_joint_states,
+                global_joint_states: global_joint_states.iter().collect(),
             },
             &[shell],
             &[],
@@ -1461,7 +1456,7 @@ mod tests {
                 joint_weights: &joint_weights,
                 joint_names: &joint_names,
                 joint_parents: &joint_parents,
-                global_joint_states: &global_joint_states,
+                global_joint_states: global_joint_states.iter().collect(),
             },
             &[shell],
             &[socket],
@@ -1579,7 +1574,9 @@ mod tests {
                 joint_weights: &body_weights,
                 joint_names: &[RigJointName::ROOT],
                 joint_parents: &[-1],
-                global_joint_states: &[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]],
+                global_joint_states: (&[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]])
+                    .iter()
+                    .collect(),
             },
             &[shell],
             &[],
@@ -1678,7 +1675,7 @@ mod tests {
             joint_weights: &joint_weights,
             joint_names: &joint_names,
             joint_parents: &joint_parents,
-            global_joint_states: &global_joint_states,
+            global_joint_states: global_joint_states.iter().collect(),
         };
         let shell = RiggedShell {
             surface: None,

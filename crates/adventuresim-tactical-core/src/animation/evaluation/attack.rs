@@ -32,8 +32,8 @@ pub(super) fn attack_samples(state: &SkeletonState) -> Vec<PoseSample> {
                 ready_phase: continuation_ready_phase(),
                 progress: phase,
             },
-            weight: 1.0,
-            mirror_lower_body: false,
+            weight: BlendWeight::ONE,
+            mirror_lower_body: ClipMirror::Original,
         }];
     }
     let coordinate = if phase < 0.5 || !state.attack_has_queued_continuation() {
@@ -47,8 +47,8 @@ pub(super) fn attack_samples(state: &SkeletonState) -> Vec<PoseSample> {
             end: contact,
             coordinate,
         },
-        weight: 1.0,
-        mirror_lower_body: false,
+        weight: BlendWeight::ONE,
+        mirror_lower_body: ClipMirror::Original,
     }]
 }
 

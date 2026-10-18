@@ -1,6 +1,6 @@
 //! Admitted runtime clothing requests and body-mesh generation.
 
-use super::{RuntimeBody, catalog_item};
+use super::RuntimeBody;
 use crate::{
     clothing::{GarmentSpecification, generate_clothing_shells},
     item_catalog_schema::{EquipmentMaterial, EquipmentPlacement, ItemDefinition},
@@ -15,29 +15,21 @@ pub(super) struct RuntimeClothing<'a> {
     material: EquipmentMaterial,
 }
 
+/// A placement admitted against one canonical item, retaining the actual records.
+pub(super) struct ClothingPlacement {
+    pub(super) item: &'static ItemDefinition,
+    pub(super) placement: &'static EquipmentPlacement,
+    pub(super) material: EquipmentMaterial,
+}
+
 impl<'a> RuntimeClothing<'a> {
-    pub(super) fn admit(body: &'a RuntimeBody, item_id: &str, placement_id: &str) -> Result<Self> {
-        body.validate()?;
-        let item =
-            catalog_item(item_id).with_context(|| format!("unknown clothing item {item_id}"))?;
-        let equipment = item
-            .equipment
-            .as_ref()
-            .with_context(|| format!("clothing item {item_id} has no equipment definition"))?;
-        let material = equipment
-            .material
-            .with_context(|| format!("clothing item {item_id} has no material"))?;
-        let placement = equipment
-            .placements
-            .iter()
-            .find(|placement| placement.id == placement_id)
-            .with_context(|| format!("clothing item {item_id} has no placement {placement_id}"))?;
-        Ok(Self {
+    pub(super) fn new(body: &'a RuntimeBody, admitted: ClothingPlacement) -> Self {
+        Self {
             body,
-            item,
-            placement,
-            material,
-        })
+            item: admitted.item,
+            placement: admitted.placement,
+            material: admitted.material,
+        }
     }
 
     pub(super) fn generate(self) -> Result<GeneratedArmor> {
@@ -77,9 +69,7 @@ impl<'a> RuntimeClothing<'a> {
             .iter()
             .flat_map(|face| face.iter().copied())
             .collect::<Vec<_>>();
-        let design_hash = parametric_design_hash(
-            &serde_json::to_vec(&(item_id, placement_id)).expect("clothing IDs serialize"),
-        );
+        let design_hash = parametric_design_hash(&serde_json::to_vec(&(item_id, placement_id))?);
         Ok(GeneratedArmor {
             design_hash,
             surface_domain: body.domain.clone(),

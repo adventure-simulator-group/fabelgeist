@@ -6,9 +6,9 @@ use fabelgeist_rig::{RigJointName, RigJointPart};
 
 #[derive(Component, Clone, Debug)]
 pub(crate) struct AuthoredRigJoint {
-    pub(crate) name: RigJointName,
-    pub(super) body_region: AnimationBodyRegion,
-    pub(super) role: Option<BoneRole>,
+    name: RigJointName,
+    body_region: AnimationBodyRegion,
+    role: Option<BoneRole>,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -18,6 +18,16 @@ pub(super) enum AnimationBodyRegion {
 }
 
 impl AuthoredRigJoint {
+    pub(crate) fn name(&self) -> &RigJointName {
+        &self.name
+    }
+    pub(super) fn body_region(&self) -> AnimationBodyRegion {
+        self.body_region
+    }
+    pub(super) fn role(&self) -> Option<BoneRole> {
+        self.role
+    }
+
     pub(crate) fn new(name: RigJointName) -> Self {
         let body_region = AnimationBodyRegion::from(&name);
         let role = BoneRole::from_name(&name);

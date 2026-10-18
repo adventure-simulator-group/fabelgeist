@@ -20,12 +20,30 @@ an observation that does not advance. Checked addition rejects overflow, and
 serde admission applies the same invariant. Landing recovery reuses this type
 and additionally requires a positive interval in configuration validation.
 `LandingImpactSpeed` similarly admits only finite nonnegative metres per
-second. Invalid controller observations are rejected before retained skeleton
-state changes; finite upward velocity still projects to zero downward impact.
+second. Core locomotion projection rejects invalid observations before its
+retained skeleton writes; finite upward velocity still projects to zero
+downward impact.
+
+Semantic evaluation shares checked `BlendWeight` and `CyclePhase` with the
+presentation client. Weights are finite and nonnegative, permit values above
+one, and reject arithmetic overflow. Cycles retain finite signed, unwrapped
+values until periodic sampling. `ClipMirror` is binary and keeps the Boolean
+wire encoding. These scalar quantities use checked serde admission.
+
+`SkeletonLocomotionInput::from_controller` admits native finite orientation and
+world-velocity observations with `GroundContact`, `AnimationElapsed` and
+`AnimationSampleTick`. Finite orientation retains the existing acceptance
+contract; it does not assert unit-quaternion normalization. Projection still
+checks retained inputs and overflow after transforms, norms and acceleration
+arithmetic, before its retained skeleton writes. Downed surface support remains
+distinct from controller ground contact.
 
 The playback configuration owns the initial, deactivation and activation
 locomotion speed thresholds in metres per second. Their authored values are
 0.05, 0.03 and 0.08, with deactivation <= initial <= activation validation.
+The drift measurement blend is a finite interpolation fraction in `[0, 1]`.
+Additional required pose-buffer and procedural tuning values live in the same
+embedded YAML and use the same validated default snapshot.
 
 ## Architectural geometry conversion
 

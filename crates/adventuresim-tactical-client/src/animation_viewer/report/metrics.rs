@@ -197,7 +197,8 @@ pub(super) fn supported_foot_slip_limit(scenario: &str) -> f32 {
 }
 
 pub(super) fn procedural_leg_solver_gates_apply(scenario: &str) -> bool {
-    scenario_metadata(scenario).procedural_solver && !is_guard_stop_transition(scenario)
+    ScenarioMetadata::from_label(scenario).procedural_solver()
+        && !is_guard_stop_transition(scenario)
 }
 
 pub(super) fn inter_foot_separation_limit(scenario: &str) -> f32 {
@@ -228,8 +229,8 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
             // Terrain conformity calibrates retained pelvis/plant state during
             // its first cycle. Judge its steady gait after that deterministic
             // warmup, matching the phase-height validation window.
-            let metadata = scenario_metadata(scenario);
-            let metric_frames = if metadata.kind == ScenarioKind::Terrain {
+            let metadata = ScenarioMetadata::from_label(scenario);
+            let metric_frames = if metadata.kind() == ScenarioKind::Terrain {
                 phase_validation_frames(&frames)
             } else {
                 frames.clone()
@@ -237,7 +238,7 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
             let procedural_frames = metric_frames
                 .iter()
                 .copied()
-                .filter(|frame| metadata.kind == ScenarioKind::Terrain || frame.guard_action)
+                .filter(|frame| metadata.kind() == ScenarioKind::Terrain || frame.guard_action)
                 .collect::<Vec<_>>();
             let mut maximum_step = 0.0_f32;
             let mut maximum_leg_step = 0.0_f32;
@@ -311,7 +312,7 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
                     // A body turn deliberately slides an old world plant onto
                     // its new anatomical side corridor. Treat that bounded
                     // adaptation separately from skating under a stable body.
-                    let procedural_plant_active = metadata.kind == ScenarioKind::Terrain
+                    let procedural_plant_active = metadata.kind() == ScenarioKind::Terrain
                         || (before.guard_action && after.guard_action);
                     if procedural_plant_active
                         && support >= 0.9
@@ -326,7 +327,7 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
                     }
                 }
             }
-            let maximum_plant_drift = maximum_planted_foot_drift(scenario, &metric_frames);
+            let maximum_plant_drift = maximum_planted_foot_drift(metadata, &metric_frames);
             let looped = expects_loop_seam(scenario);
             let (loop_position, loop_rotation) = if looped {
                 let seams = frames
@@ -418,7 +419,7 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
 }
 
 pub(super) fn expects_loop_seam(scenario: &str) -> bool {
-    scenario_metadata(scenario).repeatable
+    ScenarioMetadata::from_label(scenario).repeatable()
 }
 
 pub(super) fn vertical_range_limit(scenario: &str, foot_terrain_relief_metres: f32) -> f32 {
@@ -436,7 +437,7 @@ pub(super) fn vertical_range_limit(scenario: &str, foot_terrain_relief_metres: f
         // The scenario intentionally spans the run apex and exact final idle.
         // Per-frame release continuity is enforced separately at 2 cm.
         ORDINARY_VERTICAL_RANGE_LIMIT_METRES + 0.01
-    } else if scenario_metadata(scenario).kind == ScenarioKind::Terrain {
+    } else if ScenarioMetadata::from_label(scenario).kind() == ScenarioKind::Terrain {
         ORDINARY_VERTICAL_RANGE_LIMIT_METRES + foot_terrain_relief_metres.max(0.0)
     } else {
         ORDINARY_VERTICAL_RANGE_LIMIT_METRES
@@ -478,10 +479,10 @@ pub(super) struct GuardStepLivenessMetrics {
 
 pub(super) fn guard_step_liveness_metrics(frames: &[&FrameSample]) -> GuardStepLivenessMetrics {
     let required = frames.first().is_some_and(|frame| {
-        let metadata = scenario_metadata(&frame.scenario);
-        metadata.kind == ScenarioKind::RaisedGuard
-            && metadata.procedural_solver
-            && metadata.repeatable
+        let metadata = ScenarioMetadata::from_label(&frame.scenario);
+        metadata.kind() == ScenarioKind::RaisedGuard
+            && metadata.procedural_solver()
+            && metadata.repeatable()
             && frames
                 .iter()
                 .all(|frame| frame.speed_metres_per_second > 0.05)
@@ -1030,7 +1031,7 @@ pub(super) fn maximum_no_support_seconds(frames: &[&FrameSample]) -> f32 {
 }
 
 pub(super) fn ordinary_swing_frame_is_owned(frame: &FrameSample) -> bool {
-    if scenario_metadata(&frame.scenario).kind != ScenarioKind::Terrain
+    if ScenarioMetadata::from_label(&frame.scenario).kind() != ScenarioKind::Terrain
         || frame.speed_metres_per_second <= 0.05
         || frame.ik_settle_progress.is_some()
     {
@@ -1231,7 +1232,7 @@ pub(super) fn minimum_toe_clearance(frames: &[&FrameSample], contact: bool) -> f
         })
         .flat_map(|frame| {
             let (left_support, right_support) =
-                if scenario_metadata(&frame.scenario).procedural_solver {
+                if ScenarioMetadata::from_label(&frame.scenario).procedural_solver() {
                     (frame.ik_left_support_weight, frame.ik_right_support_weight)
                 } else {
                     (frame.left_support_weight, frame.right_support_weight)
@@ -1269,9 +1270,9 @@ pub(super) fn strict_transition_flight_toe_clearance_is_valid(clearance_metres: 
 pub(super) fn reported_support_contacts_are_valid(frames: &[FrameSample]) -> bool {
     frames.iter().all(|frame| {
         if is_quickstep_scenario(&frame.scenario)
-            || scenario_metadata(&frame.scenario).kind == ScenarioKind::Attack
+            || ScenarioMetadata::from_label(&frame.scenario).kind() == ScenarioKind::Attack
             || frame.action != SkeletonAction::None
-            || (!scenario_uses_terrain_ik(&frame.scenario)
+            || (!scenario_uses_terrain_ik(ScenarioMetadata::from_label(&frame.scenario))
                 && frame.weapon_guard == WeaponGuardState::Lowered)
         {
             // In an FK-only comparison the semantic weights describe authored
@@ -1384,12 +1385,12 @@ pub(super) fn foot_terrain_relief(frames: &[&FrameSample]) -> f32 {
     }
 }
 
-pub(super) fn maximum_planted_foot_drift(scenario: &str, frames: &[&FrameSample]) -> f32 {
+fn maximum_planted_foot_drift(metadata: ScenarioMetadata<'_>, frames: &[&FrameSample]) -> f32 {
     let mut maximum = 0.0_f32;
     for (foot, left) in [("left_foot", true), ("right_foot", false)] {
         let mut anchor = None;
         for frame in frames {
-            if scenario_metadata(scenario).kind != ScenarioKind::Terrain && !frame.guard_action {
+            if metadata.kind() != ScenarioKind::Terrain && !frame.guard_action {
                 anchor = None;
                 continue;
             }
@@ -1874,7 +1875,12 @@ mod tests {
         let references = frames.iter().collect::<Vec<_>>();
 
         assert!(
-            (maximum_planted_foot_drift("cross-slope-walk", &references) - 0.02).abs() < 0.0001
+            (maximum_planted_foot_drift(
+                ScenarioMetadata::from_label("cross-slope-walk"),
+                &references
+            ) - 0.02)
+                .abs()
+                < 0.0001
         );
     }
 
@@ -2100,8 +2106,8 @@ mod scenario_policy_tests {
         assert!(!procedural_leg_solver_gates_apply(
             "raised-guard-tap-stop-left"
         ));
-        assert!(scenario_metadata("raised-guard-release-at-peak").procedural_solver);
-        assert!(scenario_metadata("raised-guard-tap-stop-left").procedural_solver);
+        assert!(ScenarioMetadata::from_label("raised-guard-release-at-peak").procedural_solver());
+        assert!(ScenarioMetadata::from_label("raised-guard-tap-stop-left").procedural_solver());
         assert!(!procedural_leg_solver_gates_apply(
             "raised-guard-left-right-reversal"
         ));

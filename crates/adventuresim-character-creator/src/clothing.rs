@@ -193,7 +193,7 @@ pub fn generate_clothing_shells(
                         weight >= specification.weight_threshold
                             && chain_coordinate(*position, segments).is_some_and(|coordinate| {
                                 let extent = maximum - minimum;
-                                extent > f32::EPSILON
+                                extent > 0.0
                                     && (coordinate - minimum) / extent >= *start
                                     && (coordinate - minimum) / extent <= *end
                             })
@@ -344,8 +344,8 @@ fn cross(a: [f32; 3], b: [f32; 3]) -> [f32; 3] {
 }
 
 fn normalized(value: [f32; 3]) -> Option<[f32; 3]> {
-    let length = dot(value, value).sqrt();
-    (length > f32::EPSILON).then(|| [value[0] / length, value[1] / length, value[2] / length])
+    let unit = bevy::math::Vec3::from_array(value).try_normalize()?;
+    Some(unit.to_array())
 }
 
 /// Raises local valleys without shrinking the garment shell into the body.

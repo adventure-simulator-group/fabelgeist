@@ -83,8 +83,8 @@ impl RigDefinitions {
                 ordered.sort_by(|left, right| {
                     left.identity
                         .as_ref()
-                        .map(|joint| &joint.name)
-                        .cmp(&right.identity.as_ref().map(|joint| &joint.name))
+                        .map(|joint| joint.name())
+                        .cmp(&right.identity.as_ref().map(|joint| joint.name()))
                 });
                 let indices = ordered
                     .iter()
@@ -101,12 +101,12 @@ impl RigDefinitions {
                             parent: binding
                                 .parent
                                 .and_then(|parent| indices.get(&parent).copied()),
-                            name: binding.identity.as_ref().map(|joint| joint.name.clone()),
+                            name: binding.identity.as_ref().map(|joint| joint.name().clone()),
                             body_region: binding
                                 .identity
                                 .as_ref()
-                                .map_or(AnimationBodyRegion::Upper, |joint| joint.body_region),
-                            role: binding.identity.as_ref().and_then(|joint| joint.role),
+                                .map_or(AnimationBodyRegion::Upper, |joint| joint.body_region()),
+                            role: binding.identity.as_ref().and_then(|joint| joint.role()),
                         })
                         .collect(),
                     name_ordinals: Default::default(),
@@ -158,9 +158,16 @@ impl PoseBufferRig {
                 AnimationElapsed::from(time.delta())
             }
         }
-        .capped_by_seconds(0.1)?;
+        .capped_by_seconds(pose_tuning().maximum_observation_seconds)?;
         self.decay_delta_seconds = elapsed;
         Ok(Some(elapsed))
+    }
+
+    pub(super) fn update_interpolation(&mut self) -> AnimationValueResult<()> {
+        let interval = AnimationElapsed::from_seconds(pose_sample_seconds())?;
+        let fraction = PoseInterpolation::from_sample_clock(self.sample_accumulator, interval)?;
+        self.interpolation_alpha = fraction;
+        Ok(())
     }
 
     fn new(
@@ -175,7 +182,7 @@ impl PoseBufferRig {
             previous: current.clone(),
             next: current,
             sample_accumulator: AnimationElapsed::ZERO,
-            interpolation_alpha: 0.0,
+            interpolation_alpha: PoseInterpolation::ZERO,
             last_evaluation_tick: None,
             decay_delta_seconds: AnimationElapsed::ZERO,
             offsets: RigJointTable::from(vec![JointInertialOffset::default(); joint_count]),

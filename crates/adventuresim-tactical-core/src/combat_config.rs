@@ -18,11 +18,18 @@ pub use runtime::{
     runtime_animation_config, runtime_combat_presentation_config, runtime_melee_authority_config,
 };
 
+pub use pose_buffer::PoseBufferConfig;
+pub use procedural::{
+    BODY_RESPONSE_DEGREE_REPORT_MARGIN_RADIANS, BodyResponseConfig, ProceduralAnimationConfig,
+};
+
 mod ai_offense;
 mod defaults;
 mod incapacitation_forecast;
 mod landing;
 mod playback;
+mod pose_buffer;
+mod procedural;
 mod ragdoll;
 mod runtime;
 
@@ -100,49 +107,6 @@ pub struct AnimationStateTransitionConfig {
     pub downed_facing_edge_stickiness: f32,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct PoseBufferConfig {
-    pub sample_hz: f32,
-    /// Seconds an inertialized transition takes to decay fully onto its new
-    /// target. A joint already closing fast may finish sooner.
-    pub inertial_blend_seconds: f32,
-    pub cull_distance_metres: f32,
-    pub cull_radius_metres: f32,
-    pub authored_contact_plant_limit_metres: f32,
-    pub authored_contact_height_fraction: f32,
-    pub authored_contact_minimum_height_window_metres: f32,
-    pub authored_contact_maximum_height_window_metres: f32,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct ProceduralAnimationConfig {
-    pub guarded_look_joint_limit_degrees: f32,
-    pub guarded_look_joint_count: f32,
-    pub dive_pelvis_lean_degrees: f32,
-    pub height_transition_speed_metres_per_second: f32,
-    pub locomotion_stop_height_speed_metres_per_second: f32,
-    pub authored_ordinary_passing_rise_metres: f32,
-    pub body_response: BodyResponseConfig,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct BodyResponseConfig {
-    pub maximum_presentation_sample_gap_ticks: u64,
-    pub steady_travel_lean_degrees: f32,
-    pub forward_acceleration_lean_degrees: f32,
-    pub lateral_acceleration_lean_degrees: f32,
-    pub startup_inertial_lean_scale: f32,
-    pub sustained_inertial_lean_scale: f32,
-    pub degrees_per_second: f32,
-    pub smooth_time_seconds: f32,
-    pub acceleration_attack_response_per_second: f32,
-    pub acceleration_release_response_per_second: f32,
-    pub maximum_frame_seconds: f32,
-}
-
 /// Additive rotational hit springs on the rendered skeleton. A hit kicks
 /// the struck bone's spring and the reaction travels the bone chain as a
 /// wave; nothing here touches gameplay or physics.
@@ -173,6 +137,7 @@ pub struct BouncyBonesConfig {
 #[serde(deny_unknown_fields)]
 pub struct InverseKinematicsConfig {
     pub minimum_inter_foot_separation_metres: f32,
+    pub safe_settle_fallback_seconds: f32,
     pub outer_foot_track_metres: f32,
     pub maximum_plant_discontinuity_metres: f32,
     pub maximum_owner_translation_per_tick_metres: f32,
@@ -772,56 +737,9 @@ impl TacticalCombatConfig {
             ));
         }
         animation.playback.validate()?;
-        let pose = animation.pose_buffer;
-        if ![
-            pose.sample_hz,
-            pose.inertial_blend_seconds,
-            pose.cull_distance_metres,
-            pose.cull_radius_metres,
-            pose.authored_contact_plant_limit_metres,
-            pose.authored_contact_height_fraction,
-            pose.authored_contact_minimum_height_window_metres,
-            pose.authored_contact_maximum_height_window_metres,
-        ]
-        .into_iter()
-        .all(|value| finite_nonnegative(value) && value > 0.0)
-            || pose.authored_contact_maximum_height_window_metres
-                < pose.authored_contact_minimum_height_window_metres
-        {
-            return Err(TacticalCombatConfigError::Validation(
-                "invalid pose buffer tuning",
-            ));
-        }
+        animation.pose_buffer.validate()?;
         animation.ragdoll.validate()?;
-        let procedural = animation.procedural;
-        let response = procedural.body_response;
-        if ![
-            procedural.guarded_look_joint_limit_degrees,
-            procedural.guarded_look_joint_count,
-            procedural.dive_pelvis_lean_degrees,
-            procedural.height_transition_speed_metres_per_second,
-            procedural.locomotion_stop_height_speed_metres_per_second,
-            procedural.authored_ordinary_passing_rise_metres,
-            response.steady_travel_lean_degrees,
-            response.forward_acceleration_lean_degrees,
-            response.lateral_acceleration_lean_degrees,
-            response.startup_inertial_lean_scale,
-            response.sustained_inertial_lean_scale,
-            response.degrees_per_second,
-            response.smooth_time_seconds,
-            response.acceleration_attack_response_per_second,
-            response.acceleration_release_response_per_second,
-            response.maximum_frame_seconds,
-        ]
-        .into_iter()
-        .all(finite_nonnegative)
-            || procedural.guarded_look_joint_count == 0.0
-            || response.maximum_presentation_sample_gap_ticks == 0
-        {
-            return Err(TacticalCombatConfigError::Validation(
-                "invalid procedural animation tuning",
-            ));
-        }
+        animation.procedural.validate()?;
         let bouncy = animation.bouncy_bones;
         if ![
             bouncy.impact_impulse_scale,
@@ -845,6 +763,7 @@ impl TacticalCombatConfig {
         let ik = animation.inverse_kinematics;
         if ![
             ik.minimum_inter_foot_separation_metres,
+            ik.safe_settle_fallback_seconds,
             ik.outer_foot_track_metres,
             ik.maximum_plant_discontinuity_metres,
             ik.maximum_owner_translation_per_tick_metres,

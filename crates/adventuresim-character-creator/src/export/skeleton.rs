@@ -1,10 +1,10 @@
 use super::*;
-use fabelgeist_rig::RigJointName;
+use fabelgeist_rig::{RigJointName, RigJointTable};
 
 pub(super) fn nodes(
     joint_names: &[RigJointName],
     joint_parents: &[i32],
-    globals: &[Transform],
+    globals: &RigJointTable<Transform>,
     mesh: &RiggedMesh<'_>,
 ) -> Result<(Vec<Value>, Vec<usize>)> {
     validate_proportions(mesh)?;
@@ -18,13 +18,15 @@ pub(super) fn nodes(
         }
     }
     let mut nodes = Vec::with_capacity(joint_names.len() + 2);
-    for joint in 0..joint_names.len() {
+    for (ordinal, global) in globals.indexed() {
+        // glTF node/parent arrays are native collection indexes at this serializer.
+        let joint = usize::from(ordinal);
         let local = if joint_parents[joint] < 0 {
-            globals[joint]
+            *global
         } else {
-            globals[joint_parents[joint] as usize]
+            globals[RigJointOrdinal::from(joint_parents[joint] as usize)]
                 .inverse()
-                .compose(&globals[joint])
+                .compose(global)
         };
         let state = local.to_skel_state();
         let mut node = json!({
@@ -60,7 +62,7 @@ pub(super) fn validate_proportions(mesh: &RiggedMesh<'_>) -> Result<()> {
 pub(super) fn append_attachment(
     names: &mut Vec<RigJointName>,
     parents: &mut Vec<i32>,
-    globals: &mut Vec<Transform>,
+    globals: &mut RigJointTable<Transform>,
     name: &RigJointName,
     parent: RigJointOrdinal,
     transform: Transform,

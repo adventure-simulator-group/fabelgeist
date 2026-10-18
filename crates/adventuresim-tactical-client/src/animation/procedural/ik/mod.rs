@@ -3030,7 +3030,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             &mut transforms,
         );
         let safe_settle_fallback = memory.settle.is_some_and(|settle| {
-            settle.elapsed_seconds.seconds() >= 0.75
+            settle.elapsed_seconds.seconds() >= ik_tuning().safe_settle_fallback_seconds
                 && settle_stance_is_safe(
                     projected_body_center(rig, &transforms.p0()).unwrap_or(rig_origin),
                     memory.left_foot_world_target,

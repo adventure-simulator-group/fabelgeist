@@ -24,6 +24,16 @@ pub enum AnimationQuantity {
     CyclePhase,
     #[display("blend contribution")]
     BlendWeight,
+    #[display("pose interpolation fraction")]
+    PoseInterpolation,
+    #[display("height distance")]
+    HeightDistance,
+    #[display("height offset")]
+    HeightOffset,
+    #[display("height rate")]
+    HeightSpeed,
+    #[display("braking lean scale")]
+    BrakingLeanScale,
     #[display("body angle")]
     BodyAngle,
     #[display("body angular velocity")]
@@ -40,6 +50,8 @@ pub enum AnimationValueError {
     NonFinite { quantity: AnimationQuantity },
     #[error("{quantity} must be nonnegative")]
     Negative { quantity: AnimationQuantity },
+    #[error("{quantity} must lie in [0, 1]")]
+    OutsideUnitInterval { quantity: AnimationQuantity },
     #[error("{quantity} arithmetic overflowed")]
     Overflow { quantity: AnimationQuantity },
 }

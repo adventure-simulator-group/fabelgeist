@@ -186,18 +186,36 @@ not establish authored display history. Ordinary locomotion adopts its first
 vertical hip correction even at zero elapsed time, then retains that correction
 on subsequent zero-elapsed observations.
 
-Resolved playback carries finite nonnegative `ClipDuration` and `BlendWeight`
-values. Contributions may exceed one; checked accumulation rejects overflow.
-`ClipTime` and `CyclePhase` require finiteness while retaining signed sample
-positions and unwrapped cycles. Endpoint times and contributions use these same
-owners in both extrapolated and continuation spans; their different anchor and
-tangent operations remain separate. Baked clips retain checked durations and
-frame intervals until the native interpolation or Bevy sampling operation.
+Shared semantic evaluation and resolved playback carry the same core
+`BlendWeight`, `CyclePhase` and `ClipMirror` owners. Weights admit every finite
+nonnegative contribution, including values above one; checked accumulation
+rejects overflow. Cycles remain finite, signed and unwrapped until a periodic
+operation. Mirroring remains binary and serializes as a Boolean. Declared span
+endpoints remain in the playback plan even at zero weight; numerical sampling
+skips zero contributions. Continuation coordinates and their tangent operations
+remain distinct from cyclic phase.
+
+`ClipDuration` admits finite nonnegative seconds, while `ClipTime` admits signed
+finite sample positions. Baked clips and both span families retain checked times
+and weights until native interpolation or Bevy sampling. Pose interpolation
+carries a checked fraction of the fixed sample interval.
 
 The deterministic override stores an `AnimationSampleTick` with the shared
 `AnimationElapsed` interval. Repeated observations retain zero elapsed time.
 Body response carries finite signed angles, angular velocities and body-local
-velocity/acceleration; failed arithmetic leaves the previous response intact.
+velocity/acceleration; checked norms and arithmetic remain necessary after
+component admission. Failed arithmetic leaves the previous response intact.
+Retained run amplitude, authored compensation and landing compression use
+nonnegative metre distances; absorption/recovery use nonnegative metre-per-second
+rates. Displayed waves and transition offsets use the existing signed metre
+owner. Height updates commit only after their checked operations succeed.
+
+Combat YAML owns the observation cap, calibration grid and accepted foot range,
+landing tolerances, body-response caps/reference accelerations and safe-settle
+interval. Playback drift measurement blending admits only fractions in `[0, 1]`.
+The visual root offset uses the existing signed metre owner. Capture frames
+retain scenario classification for terrain policy; text is decoded once at
+source admission and projected back to labels for authored lookup or reports.
 
 ## Animation export contract
 

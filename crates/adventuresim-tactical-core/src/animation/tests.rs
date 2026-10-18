@@ -195,13 +195,14 @@ mod legacy_tests {
         let local_velocity = Vec3::NEG_Z * 2.0;
         project_skeleton_locomotion(
             &mut state,
-            SkeletonLocomotionInput {
+            SkeletonLocomotionInput::from_controller(
                 orientation,
-                linear_velocity: orientation * local_velocity,
-                grounded: true,
-                delta_seconds: AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
-                tick: 1,
-            },
+                orientation * local_velocity,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
+                AnimationSampleTick::from(1u64),
+            )
+            .unwrap(),
         )
         .unwrap();
 
@@ -238,14 +239,14 @@ mod legacy_tests {
         let mut state = SkeletonState::default();
         project_skeleton_locomotion(
             &mut state,
-            SkeletonLocomotionInput {
-                orientation: Quat::IDENTITY,
-                linear_velocity: Vec3::NEG_Z * 2.0,
-                grounded: true,
-                delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz())
-                    .unwrap(),
-                tick: 1,
-            },
+            SkeletonLocomotionInput::from_controller(
+                Quat::IDENTITY,
+                Vec3::NEG_Z * 2.0,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                AnimationSampleTick::from(1u64),
+            )
+            .unwrap(),
         )
         .unwrap();
 
@@ -253,7 +254,7 @@ mod legacy_tests {
             state.animation_speed(),
             walk_locomotion_profile().reference_speed
         );
-        let evaluation = AnimationEvaluation::from_skeleton(&state);
+        let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert!(evaluation.base.iter().all(|sample| matches!(
             sample.pose,
             SemanticPose::WalkContact | SemanticPose::WalkPassing
@@ -262,7 +263,7 @@ mod legacy_tests {
             evaluation
                 .base
                 .iter()
-                .map(|sample| sample.weight)
+                .map(|sample| sample.weight.factor())
                 .sum::<f32>(),
             1.0
         );
@@ -278,13 +279,14 @@ mod legacy_tests {
             .with_body_state(BodyState::Airborne);
         project_skeleton_locomotion(
             &mut state,
-            SkeletonLocomotionInput {
-                orientation: Quat::IDENTITY,
-                linear_velocity: Vec3::NEG_Z * 2.0,
-                grounded: true,
-                delta_seconds: AnimationElapsed::from_seconds(0.1).unwrap(),
-                tick: 2,
-            },
+            SkeletonLocomotionInput::from_controller(
+                Quat::IDENTITY,
+                Vec3::NEG_Z * 2.0,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(0.1).unwrap(),
+                AnimationSampleTick::from(2u64),
+            )
+            .unwrap(),
         )
         .unwrap();
         assert_eq!(state.contact_sequence, ContactSequence::from(1u64));
@@ -297,13 +299,14 @@ mod legacy_tests {
         assert!(state.world_acceleration.length() > 0.0);
         project_skeleton_locomotion(
             &mut state,
-            SkeletonLocomotionInput {
-                orientation: Quat::IDENTITY,
-                linear_velocity: Vec3::NEG_Z * 2.0,
-                grounded: true,
-                delta_seconds: AnimationElapsed::from_seconds(0.1).unwrap(),
-                tick: 3,
-            },
+            SkeletonLocomotionInput::from_controller(
+                Quat::IDENTITY,
+                Vec3::NEG_Z * 2.0,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(0.1).unwrap(),
+                AnimationSampleTick::from(3u64),
+            )
+            .unwrap(),
         )
         .unwrap();
         assert_eq!(state.landing_sequence, LandingSequence::from(1u64));
@@ -322,14 +325,14 @@ mod legacy_tests {
 
         project_skeleton_locomotion(
             &mut state,
-            SkeletonLocomotionInput {
-                orientation: Quat::IDENTITY,
-                linear_velocity: Vec3::X * 2.5,
-                grounded: true,
-                delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz())
-                    .unwrap(),
-                tick: 11,
-            },
+            SkeletonLocomotionInput::from_controller(
+                Quat::IDENTITY,
+                Vec3::X * 2.5,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                AnimationSampleTick::from(11u64),
+            )
+            .unwrap(),
         )
         .unwrap();
 
@@ -338,7 +341,7 @@ mod legacy_tests {
         assert_eq!(state.world_velocity, Vec3::X * 2.5);
         assert!(state.raised_locomotion().is_moving());
         assert_eq!(
-            AnimationEvaluation::from_skeleton(&state).base[0].pose,
+            AnimationEvaluation::from_skeleton(&state).unwrap().base[0].pose,
             SemanticPose::GuardThrust
         );
     }
@@ -354,14 +357,14 @@ mod legacy_tests {
             .with_world_velocity(previous_velocity);
         project_skeleton_locomotion(
             &mut state,
-            SkeletonLocomotionInput {
+            SkeletonLocomotionInput::from_controller(
                 orientation,
-                linear_velocity: current_velocity,
-                grounded: true,
-                delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz())
-                    .unwrap(),
-                tick: 5,
-            },
+                current_velocity,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                AnimationSampleTick::from(5u64),
+            )
+            .unwrap(),
         )
         .unwrap();
         let expected = ((current_velocity - previous_velocity) * locomotion_sample_hz())
@@ -377,13 +380,14 @@ mod legacy_tests {
         let mut state = SkeletonState::default();
         project_skeleton_locomotion(
             &mut state,
-            SkeletonLocomotionInput {
+            SkeletonLocomotionInput::from_controller(
                 orientation,
-                linear_velocity: world_velocity,
-                grounded: true,
-                delta_seconds: AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
-                tick: 1,
-            },
+                world_velocity,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
+                AnimationSampleTick::from(1u64),
+            )
+            .unwrap(),
         )
         .unwrap();
         assert!(state.local_velocity.abs_diff_eq(Vec3::NEG_Z * 3.0, 0.0001));
@@ -391,12 +395,15 @@ mod legacy_tests {
 
     #[test]
     fn raised_guard_freezes_lead_and_plans_each_direction_explicitly() {
-        let input = |linear_velocity| SkeletonLocomotionInput {
-            orientation: Quat::IDENTITY,
-            linear_velocity,
-            grounded: true,
-            delta_seconds: AnimationElapsed::from_seconds(0.1).unwrap(),
-            tick: 1,
+        let input = |linear_velocity| {
+            SkeletonLocomotionInput::from_controller(
+                Quat::IDENTITY,
+                linear_velocity,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(0.1).unwrap(),
+                AnimationSampleTick::from(1u64),
+            )
+            .unwrap()
         };
         let mut forward = SkeletonState::default()
             .with_lead_foot(LeadFoot::Left)
@@ -502,7 +509,7 @@ mod legacy_tests {
                 state.downed_facing().map(DownedFacingState::half_turns),
                 Some(expected_half_turns)
             );
-            let evaluation = AnimationEvaluation::from_skeleton(&state);
+            let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
             assert_eq!(evaluation.action[0].pose, expected_pose);
         }
     }
@@ -579,19 +586,25 @@ mod legacy_tests {
         let state = SkeletonState::default()
             .with_local_velocity(Vec3::new(0.0, 0.0, 3.75))
             .with_gait_phase(0.25);
-        let evaluation = AnimationEvaluation::from_skeleton(&state);
+        let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(evaluation.base.len(), 2);
         assert!(evaluation.base.iter().any(|sample| {
             sample.pose == SemanticPose::WalkContact
-                && sample.sampling == PoseSampling::Cycle { phase: 0.25 }
-                && !sample.mirror_lower_body
-                && sample.weight == 0.5
+                && sample.sampling
+                    == PoseSampling::Cycle {
+                        phase: CyclePhase::from_cycles(0.25).unwrap(),
+                    }
+                && !bool::from(sample.mirror_lower_body)
+                && sample.weight.factor() == 0.5
         }));
         assert!(evaluation.base.iter().any(|sample| {
             sample.pose == SemanticPose::RunContact
-                && sample.sampling == PoseSampling::Cycle { phase: 0.25 }
-                && !sample.mirror_lower_body
-                && sample.weight == 0.5
+                && sample.sampling
+                    == PoseSampling::Cycle {
+                        phase: CyclePhase::from_cycles(0.25).unwrap(),
+                    }
+                && !bool::from(sample.mirror_lower_body)
+                && sample.weight.factor() == 0.5
         }));
     }
 
@@ -616,6 +629,7 @@ mod legacy_tests {
                     .with_gait_phase(0.25)
                     .with_raised_locomotion(raised_intent(velocity)),
             )
+            .unwrap()
         };
         let idle = evaluate(Vec3::ZERO);
         assert_eq!(idle.base[0].pose, SemanticPose::GuardThrust);
@@ -636,7 +650,7 @@ mod legacy_tests {
             assert_eq!(
                 evaluation.lower_body[0].sampling,
                 PoseSampling::Cycle {
-                    phase: expected_phase
+                    phase: CyclePhase::from_cycles(expected_phase).unwrap()
                 }
             );
         }
@@ -651,16 +665,17 @@ mod legacy_tests {
                 .with_weapon_guard(WeaponGuardState::Raised)
                 .with_gait_phase(0.75)
                 .with_raised_locomotion(raised_intent(Vec3::new(-3.0, 0.0, -1.0))),
-        );
+        )
+        .unwrap();
         assert_eq!(evaluation.base.len(), 1);
         assert_eq!(evaluation.base[0].pose, SemanticPose::GuardThrust);
         assert_eq!(evaluation.base[0].sampling, PoseSampling::Anchor);
-        assert_eq!(evaluation.base[0].weight, 1.0);
+        assert_eq!(evaluation.base[0].weight.factor(), 1.0);
         assert_eq!(evaluation.lower_body.len(), 2);
         assert_eq!(evaluation.lower_body[0].pose, SemanticPose::StrafeCycle);
-        assert_eq!(evaluation.lower_body[0].weight, 0.75);
+        assert_eq!(evaluation.lower_body[0].weight.factor(), 0.75);
         assert_eq!(evaluation.lower_body[1].pose, SemanticPose::SkipCycle);
-        assert_eq!(evaluation.lower_body[1].weight, 0.25);
+        assert_eq!(evaluation.lower_body[1].weight.factor(), 0.25);
     }
 
     #[test]
@@ -673,10 +688,11 @@ mod legacy_tests {
                     .with_gait_phase(0.0)
                     .with_raised_locomotion(raised_intent(velocity)),
             )
+            .unwrap()
             .lower_body
             .into_iter()
             .map(|sample| match sample.sampling {
-                PoseSampling::Cycle { phase } => (sample.pose, phase),
+                PoseSampling::Cycle { phase } => (sample.pose, phase.cycles()),
                 _ => panic!("combat locomotion must be a cycle"),
             })
             .collect::<Vec<_>>()
@@ -722,15 +738,20 @@ mod legacy_tests {
                     .with_gait_phase(0.0)
                     .with_raised_locomotion(raised_intent(velocity)),
             )
+            .unwrap()
         };
 
         assert_eq!(
             evaluate(Vec3::X).lower_body[0].sampling,
-            PoseSampling::Cycle { phase: 0.25 }
+            PoseSampling::Cycle {
+                phase: CyclePhase::from_cycles(0.25).unwrap()
+            }
         );
         assert_eq!(
             evaluate(Vec3::NEG_X).lower_body[0].sampling,
-            PoseSampling::Cycle { phase: 0.75 }
+            PoseSampling::Cycle {
+                phase: CyclePhase::from_cycles(0.75).unwrap()
+            }
         );
     }
 
@@ -744,14 +765,15 @@ mod legacy_tests {
                     .with_weapon_guard(WeaponGuardState::Raised)
                     .with_gait_phase(phase)
                     .with_raised_locomotion(raised_intent(Vec3::NEG_Z)),
-            );
+            )
+            .unwrap();
             assert_eq!(evaluation.base[0].pose, SemanticPose::GuardThrust);
             assert_eq!(evaluation.base[0].sampling, PoseSampling::Anchor);
             assert_eq!(evaluation.lower_body[0].pose, SemanticPose::SkipCycle);
             assert_eq!(
                 evaluation.lower_body[0].sampling,
                 PoseSampling::Cycle {
-                    phase: (phase + 0.75).rem_euclid(1.0)
+                    phase: CyclePhase::from_cycles((phase + 0.75).rem_euclid(1.0)).unwrap()
                 }
             );
         }
@@ -766,7 +788,8 @@ mod legacy_tests {
                 .with_gait_phase(0.25)
                 .with_guarded_sprint_locomotion(true)
                 .with_raised_locomotion(raised_intent(Vec3::new(0.0, 0.0, -3.75))),
-        );
+        )
+        .unwrap();
         assert_eq!(evaluation.base[0].pose, SemanticPose::GuardThrust);
         assert_eq!(evaluation.lower_body.len(), 2);
         assert_eq!(evaluation.lower_body[0].pose, SemanticPose::WalkContact);
@@ -781,7 +804,8 @@ mod legacy_tests {
                 .with_weapon_guard(WeaponGuardState::Raised)
                 .with_gait_phase(0.25)
                 .with_raised_locomotion(raised_intent(Vec3::new(0.0, 0.0, -3.75))),
-        );
+        )
+        .unwrap();
 
         assert_eq!(evaluation.lower_body.len(), 1);
         assert_eq!(evaluation.lower_body[0].pose, SemanticPose::SkipCycle);
@@ -809,12 +833,15 @@ mod legacy_tests {
     fn raised_guard_release_finishes_the_authoritative_in_flight_step() {
         let mut state = SkeletonState::default();
         set_weapon_guard(&mut state, WeaponGuardState::Raised);
-        let input = |velocity, tick| SkeletonLocomotionInput {
-            orientation: Quat::IDENTITY,
-            linear_velocity: velocity,
-            grounded: true,
-            delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
-            tick,
+        let input = |velocity, tick: u64| {
+            SkeletonLocomotionInput::from_controller(
+                Quat::IDENTITY,
+                velocity,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                AnimationSampleTick::from(tick),
+            )
+            .unwrap()
         };
         project_skeleton_locomotion(&mut state, input(Vec3::NEG_Z * 2.0, 1)).unwrap();
         assert!(state.raised_locomotion().is_moving());
@@ -836,12 +863,15 @@ mod legacy_tests {
     fn raised_guard_direction_change_places_a_new_contact_when_support_is_behind() {
         let mut state = SkeletonState::default();
         set_weapon_guard(&mut state, WeaponGuardState::Raised);
-        let input = |velocity, tick| SkeletonLocomotionInput {
-            orientation: Quat::IDENTITY,
-            linear_velocity: velocity,
-            grounded: true,
-            delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
-            tick,
+        let input = |velocity, tick: u64| {
+            SkeletonLocomotionInput::from_controller(
+                Quat::IDENTITY,
+                velocity,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                AnimationSampleTick::from(tick),
+            )
+            .unwrap()
         };
         project_skeleton_locomotion(&mut state, input(Vec3::NEG_X * 2.0, 1)).unwrap();
         let previous_sequence = state.contact_sequence;
@@ -857,12 +887,15 @@ mod legacy_tests {
     fn raised_guard_reversal_updates_motion_without_snapping_visual_phase() {
         let mut state = SkeletonState::default();
         set_weapon_guard(&mut state, WeaponGuardState::Raised);
-        let input = |velocity, tick| SkeletonLocomotionInput {
-            orientation: Quat::IDENTITY,
-            linear_velocity: velocity,
-            grounded: true,
-            delta_seconds: AnimationElapsed::from_seconds(0.05).unwrap(),
-            tick,
+        let input = |velocity, tick: u64| {
+            SkeletonLocomotionInput::from_controller(
+                Quat::IDENTITY,
+                velocity,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(0.05).unwrap(),
+                AnimationSampleTick::from(tick),
+            )
+            .unwrap()
         };
         project_skeleton_locomotion(&mut state, input(Vec3::NEG_X * 2.0, 1)).unwrap();
         let committed = state.raised_footwork().step().unwrap();
@@ -881,14 +914,14 @@ mod legacy_tests {
             for tick in 1..=80 {
                 project_skeleton_locomotion(
                     &mut state,
-                    SkeletonLocomotionInput {
-                        orientation: Quat::IDENTITY,
-                        linear_velocity: Vec3::NEG_Z * speed,
-                        grounded: true,
-                        delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz())
-                            .unwrap(),
-                        tick,
-                    },
+                    SkeletonLocomotionInput::from_controller(
+                        Quat::IDENTITY,
+                        Vec3::NEG_Z * speed,
+                        GroundContact::Grounded,
+                        AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                        AnimationSampleTick::from(tick),
+                    )
+                    .unwrap(),
                 )
                 .unwrap();
                 if state.contact_sequence > ContactSequence::ZERO {
@@ -922,12 +955,15 @@ mod legacy_tests {
     fn held_guard_input_survives_zero_velocity_until_front_contact() {
         let mut state = SkeletonState::default();
         set_weapon_guard(&mut state, WeaponGuardState::Raised);
-        let input = |velocity, tick, delta_seconds| SkeletonLocomotionInput {
-            orientation: Quat::IDENTITY,
-            linear_velocity: velocity,
-            grounded: true,
-            delta_seconds: AnimationElapsed::from_seconds(delta_seconds).unwrap(),
-            tick,
+        let input = |velocity, tick: u64, delta_seconds| {
+            SkeletonLocomotionInput::from_controller(
+                Quat::IDENTITY,
+                velocity,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(delta_seconds).unwrap(),
+                AnimationSampleTick::from(tick),
+            )
+            .unwrap()
         };
         project_skeleton_locomotion_with_intent(
             &mut state,
@@ -954,14 +990,14 @@ mod legacy_tests {
         for tick in 1..=80 {
             project_skeleton_locomotion(
                 &mut state,
-                SkeletonLocomotionInput {
-                    orientation: Quat::IDENTITY,
-                    linear_velocity: Vec3::NEG_Z * 2.0,
-                    grounded: true,
-                    delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz())
-                        .unwrap(),
-                    tick,
-                },
+                SkeletonLocomotionInput::from_controller(
+                    Quat::IDENTITY,
+                    Vec3::NEG_Z * 2.0,
+                    GroundContact::Grounded,
+                    AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                    AnimationSampleTick::from(tick),
+                )
+                .unwrap(),
             )
             .unwrap();
         }
@@ -988,14 +1024,14 @@ mod legacy_tests {
                 }
                 project_skeleton_locomotion(
                     &mut state,
-                    SkeletonLocomotionInput {
-                        orientation: Quat::IDENTITY,
-                        linear_velocity: velocity,
-                        grounded: true,
-                        delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz())
-                            .unwrap(),
-                        tick,
-                    },
+                    SkeletonLocomotionInput::from_controller(
+                        Quat::IDENTITY,
+                        velocity,
+                        GroundContact::Grounded,
+                        AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                        AnimationSampleTick::from(tick),
+                    )
+                    .unwrap(),
                 )
                 .unwrap();
                 let contacts = state.raised_footwork().contacts().unwrap();
@@ -1025,7 +1061,8 @@ mod legacy_tests {
                 .with_local_velocity(Vec3::Y)
                 .with_body_state(BodyState::Airborne)
                 .with_weapon_guard(WeaponGuardState::Raised),
-        );
+        )
+        .unwrap();
         assert_eq!(airborne.base[0].pose, SemanticPose::AirborneCenter);
     }
 
@@ -1035,35 +1072,37 @@ mod legacy_tests {
             &SkeletonState::default()
                 .with_local_velocity(Vec3::new(0.0, 0.0, 0.25))
                 .with_gait_phase(0.375),
-        );
+        )
+        .unwrap();
         assert!(evaluation.base.len() >= 2);
-        assert!(!evaluation.base[0].mirror_lower_body);
+        assert!(evaluation.base[0].mirror_lower_body == ClipMirror::Original);
         assert!(
             evaluation
                 .base
                 .iter()
-                .all(|sample| !sample.mirror_lower_body)
+                .all(|sample| !bool::from(sample.mirror_lower_body))
         );
         assert!(evaluation.base.iter().any(|sample| matches!(
             sample.sampling,
-            PoseSampling::Cycle { phase } if (phase - 0.375).abs() < 0.0001
+            PoseSampling::Cycle { phase } if (phase.cycles() - 0.375).abs() < 0.0001
         )));
     }
 
     #[test]
     fn ordinary_locomotion_blends_strafe_while_hips_turn_toward_velocity() {
-        let input = SkeletonLocomotionInput {
-            orientation: Quat::IDENTITY,
-            linear_velocity: Vec3::X * 2.0,
-            grounded: true,
-            delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
-            tick: 1,
-        };
+        let input = SkeletonLocomotionInput::from_controller(
+            Quat::IDENTITY,
+            Vec3::X * 2.0,
+            GroundContact::Grounded,
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            AnimationSampleTick::from(1u64),
+        )
+        .unwrap();
 
         let mut lateral = SkeletonState::default();
         project_skeleton_locomotion_with_body_rotation(&mut lateral, input, Quat::IDENTITY, None)
             .unwrap();
-        let lateral_evaluation = AnimationEvaluation::from_skeleton(&lateral);
+        let lateral_evaluation = AnimationEvaluation::from_skeleton(&lateral).unwrap();
         assert!(lateral.local_velocity.abs_diff_eq(Vec3::X * 2.0, 0.0001));
         assert_eq!(lateral_evaluation.base.len(), 1);
         assert_eq!(lateral_evaluation.base[0].pose, SemanticPose::StrafeCycle);
@@ -1076,7 +1115,7 @@ mod legacy_tests {
             None,
         )
         .unwrap();
-        let turning_evaluation = AnimationEvaluation::from_skeleton(&turning);
+        let turning_evaluation = AnimationEvaluation::from_skeleton(&turning).unwrap();
         assert!(turning_evaluation.base.iter().any(|sample| {
             matches!(
                 sample.pose,
@@ -1098,7 +1137,7 @@ mod legacy_tests {
             None,
         )
         .unwrap();
-        let aligned_evaluation = AnimationEvaluation::from_skeleton(&aligned);
+        let aligned_evaluation = AnimationEvaluation::from_skeleton(&aligned).unwrap();
         assert!(
             aligned_evaluation
                 .base
@@ -1109,8 +1148,9 @@ mod legacy_tests {
 
     #[test]
     fn gait_constructs_four_quarters_from_sparse_authoritative_anchors() {
-        let samples = [0.0, 0.25, 0.5, 0.75]
-            .map(|phase| gait_pair(phase, SemanticPose::WalkContact, SemanticPose::WalkPassing)[0]);
+        let samples = [0.0, 0.25, 0.5, 0.75].map(|phase| {
+            gait_pair(phase, SemanticPose::WalkContact, SemanticPose::WalkPassing).unwrap()[0]
+        });
         assert_eq!(
             samples.map(|sample| sample.pose),
             [
@@ -1125,15 +1165,20 @@ mod legacy_tests {
             [PoseSampling::Anchor; 4]
         );
         assert_eq!(
-            samples.map(|sample| sample.mirror_lower_body),
+            samples.map(|sample| bool::from(sample.mirror_lower_body)),
             [false, false, true, true]
         );
-        let between = gait_pair(0.375, SemanticPose::WalkContact, SemanticPose::WalkPassing);
+        let between =
+            gait_pair(0.375, SemanticPose::WalkContact, SemanticPose::WalkPassing).unwrap();
         assert_eq!(between.len(), 2);
         assert_eq!(
             between
                 .iter()
-                .map(|sample| (sample.pose, sample.mirror_lower_body, sample.weight))
+                .map(|sample| (
+                    sample.pose,
+                    bool::from(sample.mirror_lower_body),
+                    sample.weight.factor()
+                ))
                 .collect::<Vec<_>>(),
             vec![
                 (SemanticPose::WalkPassing, false, 0.5),
@@ -1149,9 +1194,18 @@ mod legacy_tests {
                 frame as f32 / 256.0,
                 SemanticPose::RunContact,
                 SemanticPose::RunFlight,
-            );
+            )
+            .unwrap();
             assert!(samples.len() <= 2);
-            assert!((samples.iter().map(|sample| sample.weight).sum::<f32>() - 1.0).abs() < 0.0001);
+            assert!(
+                (samples
+                    .iter()
+                    .map(|sample| sample.weight.factor())
+                    .sum::<f32>()
+                    - 1.0)
+                    .abs()
+                    < 0.0001
+            );
             assert!(
                 samples
                     .iter()
@@ -1169,8 +1223,9 @@ mod legacy_tests {
                     let phase = frame as f32 * step;
                     let quarter = phase.rem_euclid(1.0) * 4.0;
                     let gait =
-                        gait_pair(phase, SemanticPose::WalkContact, SemanticPose::WalkPassing);
-                    let end_weight = gait.get(1).map_or(0.0, |sample| sample.weight);
+                        gait_pair(phase, SemanticPose::WalkContact, SemanticPose::WalkPassing)
+                            .unwrap();
+                    let end_weight = gait.get(1).map_or(0.0, |sample| sample.weight.factor());
                     (quarter.floor() as u8, end_weight)
                 })
                 .collect::<Vec<_>>();
@@ -1191,18 +1246,26 @@ mod legacy_tests {
                 travel.iter().all(|delta| *delta >= 0.0 && *delta < 0.3),
                 "non-monotone or discontinuous gait travel at {frames_per_cycle} frames/cycle: {travel:?}"
             );
-            let start = gait_pair(0.0, SemanticPose::WalkContact, SemanticPose::WalkPassing);
-            let near_start = gait_pair(step, SemanticPose::WalkContact, SemanticPose::WalkPassing);
-            let start_delta = near_start.get(1).map_or(0.0, |sample| sample.weight)
-                - start.get(1).map_or(0.0, |sample| sample.weight);
-            let middle = gait_pair(0.125, SemanticPose::WalkContact, SemanticPose::WalkPassing);
+            let start =
+                gait_pair(0.0, SemanticPose::WalkContact, SemanticPose::WalkPassing).unwrap();
+            let near_start =
+                gait_pair(step, SemanticPose::WalkContact, SemanticPose::WalkPassing).unwrap();
+            let start_delta = near_start
+                .get(1)
+                .map_or(0.0, |sample| sample.weight.factor())
+                - start.get(1).map_or(0.0, |sample| sample.weight.factor());
+            let middle =
+                gait_pair(0.125, SemanticPose::WalkContact, SemanticPose::WalkPassing).unwrap();
             let near_middle = gait_pair(
                 0.125 + step,
                 SemanticPose::WalkContact,
                 SemanticPose::WalkPassing,
-            );
-            let middle_delta = near_middle.get(1).map_or(0.0, |sample| sample.weight)
-                - middle.get(1).map_or(0.0, |sample| sample.weight);
+            )
+            .unwrap();
+            let middle_delta = near_middle
+                .get(1)
+                .map_or(0.0, |sample| sample.weight.factor())
+                - middle.get(1).map_or(0.0, |sample| sample.weight.factor());
             assert!(
                 start_delta < middle_delta,
                 "Hermite endpoints ease into motion"
@@ -1217,7 +1280,7 @@ mod legacy_tests {
             .begin_attack(AttackSpec::new(AttackAnimation::Swing), 0, 100)
             .unwrap();
         state.advance_action(100);
-        let evaluation = AnimationEvaluation::from_skeleton(&state);
+        let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(
             evaluation.action,
             vec![PoseSample {
@@ -1226,13 +1289,13 @@ mod legacy_tests {
                     end: SemanticPose::AttackSwing,
                     coordinate: 1.0,
                 },
-                weight: 1.0,
-                mirror_lower_body: false,
+                weight: BlendWeight::ONE,
+                mirror_lower_body: ClipMirror::Original,
             }]
         );
 
         state.advance_action(199);
-        let end = AnimationEvaluation::from_skeleton(&state);
+        let end = AnimationEvaluation::from_skeleton(&state).unwrap();
         let PoseSampling::CurveSpan { end, coordinate } = end.action[0].sampling else {
             panic!("attack recovery should remain an extrapolating curve span");
         };
@@ -1295,7 +1358,7 @@ mod legacy_tests {
         assert_eq!(state.select_main_attack(StrikeFamily::Swing), None);
 
         state.advance_action(continuation_tick - 2);
-        let before_recovery = AnimationEvaluation::from_skeleton(&state);
+        let before_recovery = AnimationEvaluation::from_skeleton(&state).unwrap();
         let PoseSampling::CurveSpan {
             coordinate: before_coordinate,
             ..
@@ -1305,7 +1368,7 @@ mod legacy_tests {
         };
         state.advance_action(continuation_tick - 1);
         assert!(!state.attack_is_continuation());
-        let recovery = AnimationEvaluation::from_skeleton(&state);
+        let recovery = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(recovery.action[0].pose, SemanticPose::GuardSwing);
         let PoseSampling::CurveSpan { end, coordinate } = recovery.action[0].sampling else {
             panic!("queued recovery should remain a frame-0-to-frame-4 extrapolation");
@@ -1320,7 +1383,7 @@ mod legacy_tests {
         state.advance_action(continuation_tick);
         assert!(state.attack_is_continuation());
         assert_eq!(state.action_phase(), 0.0);
-        let follow_up_start = AnimationEvaluation::from_skeleton(&state);
+        let follow_up_start = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(follow_up_start.action.len(), 1);
         let PoseSampling::ContinuationSpan {
             contact,
@@ -1344,10 +1407,10 @@ mod legacy_tests {
         assert!(incoming_tangent > 0.0);
         assert_eq!(ready_phase, 7.0 / 24.0);
         assert_eq!(progress, 0.0);
-        assert_eq!(follow_up_start.action[0].weight, 1.0);
+        assert_eq!(follow_up_start.action[0].weight.factor(), 1.0);
 
         state.advance_action(continuation_tick + 14);
-        let prepared = AnimationEvaluation::from_skeleton(&state);
+        let prepared = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(prepared.action[0].pose, SemanticPose::GuardSwing);
         assert_eq!(
             prepared.action[0].sampling,
@@ -1365,7 +1428,7 @@ mod legacy_tests {
         state.advance_action(continuation_tick + 24);
         assert_eq!(state.action_phase(), 0.5);
         assert_eq!(
-            AnimationEvaluation::from_skeleton(&state).action[0].sampling,
+            AnimationEvaluation::from_skeleton(&state).unwrap().action[0].sampling,
             PoseSampling::ContinuationSpan {
                 contact: SemanticPose::AttackSwing,
                 end: SemanticPose::RecoverSwing,
@@ -1389,14 +1452,14 @@ mod legacy_tests {
             .unwrap();
 
         for tick in 11..80 {
-            let input = SkeletonLocomotionInput {
-                orientation: Quat::IDENTITY,
-                linear_velocity: Vec3::NEG_Z * 2.0,
-                grounded: true,
-                delta_seconds: AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz())
-                    .unwrap(),
-                tick,
-            };
+            let input = SkeletonLocomotionInput::from_controller(
+                Quat::IDENTITY,
+                Vec3::NEG_Z * 2.0,
+                GroundContact::Grounded,
+                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                AnimationSampleTick::from(tick),
+            )
+            .unwrap();
             project_skeleton_locomotion(&mut guard, input).unwrap();
             project_skeleton_locomotion(&mut attack, input).unwrap();
 
@@ -1416,7 +1479,8 @@ mod legacy_tests {
                 &SkeletonState::default()
                     .with_local_velocity(Vec3::new(speed, 0.0, 0.0))
                     .with_body_state(BodyState::Airborne),
-            );
+            )
+            .unwrap();
             assert_eq!(evaluation.base[0].pose, SemanticPose::AirborneCenter);
             assert_eq!(
                 evaluation.base[0].sampling,
@@ -1434,7 +1498,7 @@ mod legacy_tests {
             .begin_dodge(DodgeSpec::quickstep(Vec2::X).unwrap(), 0, 100)
             .unwrap();
         dodge_state.advance_action(150);
-        let dodge = AnimationEvaluation::from_skeleton(&dodge_state);
+        let dodge = AnimationEvaluation::from_skeleton(&dodge_state).unwrap();
         assert_eq!(dodge.base[0].pose, SemanticPose::GuardThrust);
         assert!(dodge.action.is_empty());
 
@@ -1443,13 +1507,16 @@ mod legacy_tests {
             .begin_dodge(DodgeSpec::quickstep(Vec2::NEG_X).unwrap(), 0, 100)
             .unwrap();
         right_lead_dodge_state.advance_action(50);
-        let right_lead_dodge = AnimationEvaluation::from_skeleton(&right_lead_dodge_state);
+        let right_lead_dodge = AnimationEvaluation::from_skeleton(&right_lead_dodge_state).unwrap();
         assert_eq!(right_lead_dodge.base[0].pose, SemanticPose::GuardThrust);
         assert!(right_lead_dodge.action.is_empty());
 
         dodge_state.transition_body(BodyState::Airborne);
         assert_eq!(
-            AnimationEvaluation::from_skeleton(&dodge_state).base[0].pose,
+            AnimationEvaluation::from_skeleton(&dodge_state)
+                .unwrap()
+                .base[0]
+                .pose,
             SemanticPose::GuardThrust
         );
 
@@ -1458,7 +1525,7 @@ mod legacy_tests {
             .begin_block(BlockSpec::default(), 0, 100)
             .unwrap();
         block_state.advance_action(150);
-        let block = AnimationEvaluation::from_skeleton(&block_state);
+        let block = AnimationEvaluation::from_skeleton(&block_state).unwrap();
         assert!(block.action.is_empty());
     }
 
@@ -1472,7 +1539,7 @@ mod legacy_tests {
         for (tick, expected_progress) in [(0, 0.0), (50, 0.25), (100, 0.5), (150, 0.75), (200, 1.0)]
         {
             state.advance_action(tick);
-            let evaluation = AnimationEvaluation::from_skeleton(&state);
+            let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
             assert_eq!(evaluation.lower_body.len(), 1);
             assert_eq!(
                 evaluation.lower_body[0].pose,

@@ -18,7 +18,7 @@ pub(super) fn append_weighted_anchor(
     weighted: &mut Vec<WeightedClip>,
     resolved: &ResolvedAnchor,
     frame: AuthoredAnimationFrame,
-    weight: f32,
+    weight: BlendWeight,
     layer: ClipLayer,
 ) -> AnimationValueResult<()> {
     let clip = resolved.clip.at_anchor_layer(frame, layer);
@@ -27,7 +27,7 @@ pub(super) fn append_weighted_anchor(
         &clip,
         resolved.mirrored,
         frame_seconds(frame)?,
-        BlendWeight::from_factor(weight)?,
+        weight,
         None,
     )
 }
@@ -40,9 +40,6 @@ pub(super) fn append_weighted_clip(
     weight: BlendWeight,
     locomotion_phase: Option<CyclePhase>,
 ) -> AnimationValueResult<()> {
-    if weight.is_absent() {
-        return Ok(());
-    }
     if let Some(existing) = weighted.iter_mut().find(|existing| {
         existing.clip.handle.id() == clip.handle.id()
             && existing.clip.layer == clip.layer

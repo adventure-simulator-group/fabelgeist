@@ -28,6 +28,17 @@ pub(super) fn invalidate_previous_report(output: &std::path::Path) {
     }
 }
 
+fn capture_scenarios_complete(frames: &[FrameSample], plan: &[PlannedFrame]) -> bool {
+    frames.len() == plan.len()
+        && frames.iter().zip(plan).all(|(frame, planned)| {
+            frame.scenario == planned.scenario.label()
+                && frame.scenario_frame == planned.scenario_frame
+                && TRACKED_BONE_NAMES
+                    .iter()
+                    .all(|name| frame.bones.contains_key(*name))
+        })
+}
+
 fn capture_artifacts_written(output: &std::path::Path, frames: &[FrameSample]) -> bool {
     frames.iter().all(|frame| {
         VIEWS.iter().all(|view| {

@@ -13,7 +13,7 @@ pub(super) fn sync_procedural_equipment_skins(
         rig_bones
             .entry(bone.owner)
             .or_default()
-            .insert(name.name.clone(), entity);
+            .insert(name.name().clone(), entity);
     }
     for (entity, part, current_skin) in &parts {
         let desired_joints = items

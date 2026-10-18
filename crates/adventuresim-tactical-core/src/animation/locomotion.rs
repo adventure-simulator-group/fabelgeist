@@ -1,5 +1,9 @@
 use super::*;
 
+/// One bilateral locomotion cycle hands support between two contacts.
+pub const LOCOMOTION_CONTACTS_PER_CYCLE: u8 = 2;
+pub const LOCOMOTION_SECOND_CONTACT_PHASE: f32 = 0.5;
+
 /// Typed locomotion families shared by authoritative cadence projection and
 /// client-only presentation.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize, Reflect)]

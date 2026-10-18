@@ -10,6 +10,9 @@ use std::sync::OnceLock;
 
 include!(concat!(env!("OUT_DIR"), "/item_catalog.rs"));
 
+/// Source identity of the general authored item document, admitted by build.rs.
+const AUTHORED_ITEM_DOCUMENT: &str = "content/items/catalog.yaml";
+
 static CATALOG: OnceLock<Vec<ItemDefinition>> = OnceLock::new();
 static SOURCE_MAP: OnceLock<Vec<ItemSourceRef>> = OnceLock::new();
 
@@ -102,6 +105,20 @@ pub fn catalog() -> &'static [ItemDefinition] {
             items
         })
         .as_slice()
+}
+
+/// Canonical records from the general item document in their authored source order.
+/// The full catalogue remains ID-sorted for lookup; callers that warm authored
+/// equipment retain the original document order without parsing a second copy.
+pub fn authored_document_items() -> Vec<&'static ItemDefinition> {
+    let mut items = catalog()
+        .iter()
+        .filter(|item| {
+            source_for_item(&item.id).is_some_and(|source| source.file == AUTHORED_ITEM_DOCUMENT)
+        })
+        .collect::<Vec<_>>();
+    items.sort_by_key(|item| source_for_item(&item.id).map(|source| (source.line, source.column)));
+    items
 }
 
 pub fn definition(id: &str) -> Option<&'static ItemDefinition> {

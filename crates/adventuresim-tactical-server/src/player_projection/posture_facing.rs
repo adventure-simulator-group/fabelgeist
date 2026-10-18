@@ -2,6 +2,31 @@
 
 use super::*;
 
+impl AttackFacing {
+    pub(super) fn advance_rotation(
+        &self,
+        transform: &Transform,
+        tick: u64,
+        elapsed: AnimationElapsed,
+    ) -> Quat {
+        let remaining_seconds =
+            self.contact_tick.saturating_sub(tick) as f32 / locomotion_sample_hz();
+        let desired_forward = self.target_position - transform.translation;
+        let turn_speed = body_turn_speed_for_deadline(
+            transform.rotation,
+            desired_forward,
+            remaining_seconds,
+            elapsed.seconds(),
+        );
+        advance_body_facing_toward(
+            transform.rotation,
+            desired_forward,
+            elapsed.seconds(),
+            turn_speed,
+        )
+    }
+}
+
 pub(super) fn posture_transition_locks_body_facing(skeleton: &SkeletonState) -> bool {
     // Every authored posture transition encodes its own direction relative to
     // the current root. Turning the root toward residual/controller velocity
@@ -42,4 +67,19 @@ pub(super) fn advance_posture_transition_facing(
     .normalize();
     transform.rotation = rotation;
     physics_rotation.0 = rotation;
+}
+
+pub(super) fn advance_downed_facing_for_camera(
+    skeleton: &mut SkeletonState,
+    facing: CameraFacingIntent,
+    target: f32,
+    maximum_step: f32,
+) {
+    if facing == CameraFacingIntent::Aim {
+        skeleton.advance_downed_facing(target, true, maximum_step);
+    } else if skeleton.downed_facing().is_some() {
+        // Aim release resolves an already-active interpolation to its nearest
+        // stable contact. A free camera cannot seed a new prone/supine roll.
+        skeleton.advance_downed_facing(target, false, 1.0);
+    }
 }
