@@ -11,6 +11,7 @@ use crate::{
 };
 
 mod plugin;
+mod quickstep;
 pub use plugin::{AdventureSimulatorPhysicsPlugin, AdventureSimulatorPhysicsSet};
 
 #[derive(
@@ -253,20 +254,6 @@ fn melee_lunge_has_arrived(travelled_metres: f32, planned_distance_metres: f32) 
 
 #[derive(Component, Debug, Clone, Copy, Default)]
 struct QuickstepMismatchLogged;
-
-impl QuickstepPush {
-    pub fn begin(&mut self, start_tick: u64, direction: Vec2, orientation: Quat, origin: Vec3) {
-        self.start_tick = start_tick;
-        self.direction = direction.normalize_or_zero();
-        self.orientation = orientation;
-        self.origin = origin;
-        self.active = self.direction != Vec2::ZERO;
-    }
-
-    pub fn cancel(&mut self) {
-        self.active = false;
-    }
-}
 
 const QUICKSTEP_FORCE_CURVE_RAMP_FRACTION: f32 = 0.31;
 /// Smooth rise, maximal mid-push force, and smooth release. Its normalized
@@ -685,11 +672,7 @@ fn apply_character_motor(
                 * Vec3::new(push.direction.x, 0.0, -push.direction.y))
             .xz()
             .normalize_or_zero();
-            let elapsed_ticks = skeleton
-                .map_or(push.start_tick, |skeleton| {
-                    skeleton.locomotion_sample_tick.encoded()
-                })
-                .saturating_sub(push.start_tick);
+            let elapsed_ticks = push.elapsed_sample_ticks(skeleton);
             let action_duration = movement_config.maneuvers.quickstep_duration_seconds;
             let action_ticks = (action_duration * locomotion_sample_hz()).round().max(1.0) as u64;
             let forward_velocity = velocity.xz().dot(world_direction);

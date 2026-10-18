@@ -7,6 +7,27 @@ pub(in crate::animation) struct OrdinaryLocomotionIkState {
     evaluation_tick: Option<super::super::clock::AnimationSampleTick>,
 }
 
+impl OrdinaryLocomotionIkState {
+    /// Native seconds for the IK numerical step, deduplicated by its typed sample tick.
+    fn sample_delta_seconds(&mut self, clock: &ProceduralAnimationClock, time: &Time) -> f32 {
+        match clock.fixed_step() {
+            Some(super::super::clock::FixedAnimationStep { tick, .. })
+                if self.evaluation_tick == Some(tick) =>
+            {
+                0.0
+            }
+            Some(super::super::clock::FixedAnimationStep {
+                tick,
+                delta_seconds: delta,
+            }) => {
+                self.evaluation_tick = Some(tick);
+                delta.max(0.0)
+            }
+            None => time.delta_secs().max(0.0),
+        }
+    }
+}
+
 pub(in crate::animation::procedural) fn owns(skeleton: &SkeletonState) -> bool {
     skeleton.is_grounded()
         && !skeleton.is_posture_transitioning()
@@ -53,21 +74,7 @@ pub(in crate::animation) fn apply(
             .get_mut(owner)
             .map(|state| *state)
             .unwrap_or_default();
-        let delta_seconds = match clock.fixed_step() {
-            Some(super::super::clock::FixedAnimationStep { tick, .. })
-                if state.evaluation_tick == Some(tick) =>
-            {
-                0.0
-            }
-            Some(super::super::clock::FixedAnimationStep {
-                tick,
-                delta_seconds: delta,
-            }) => {
-                state.evaluation_tick = Some(tick);
-                delta.max(0.0)
-            }
-            None => time.delta_secs().max(0.0),
-        };
+        let delta_seconds = state.sample_delta_seconds(&clock, &time);
         let authored_weights = playback.foot_ik_weights;
         let solve_weights = if enabled.0 && terrain.is_some() {
             authored_weights

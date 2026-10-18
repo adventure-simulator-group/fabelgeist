@@ -2,6 +2,8 @@
 
 use super::*;
 
+mod readiness;
+
 pub(super) const CAPTURE_ROOT_GROUND_OFFSET_METRES: f32 = 0.95;
 pub(super) const FULL_PLANT_SUPPORT_WEIGHT: f32 = 0.99;
 pub(super) const TRACKED_BONE_NAMES: [&str; 17] = [
@@ -569,23 +571,8 @@ pub(super) fn drive_sequence(
         }
         gait_phase = skeleton.gait_phase;
     }
-    if sequence.warmup_frames > 0 {
-        sequence.warmup_frames -= 1;
+    if !sequence.ready_for_frame(&frame, &animation_runtime, presentation_settled) {
         return;
-    }
-    if frame.scenario_frame == 0
-        && let Some(motion) = required_motion_for_scenario(frame.scenario)
-    {
-        if !animation_runtime.motion_is_processed(&crate::animation::MotionId::from(motion))
-            || !presentation_settled
-        {
-            sequence.motion_ready_frames = 0;
-            return;
-        }
-        sequence.motion_ready_frames += 1;
-        if sequence.motion_ready_frames < 2 {
-            return;
-        }
     }
     for mut label in &mut labels {
         **label = format!(

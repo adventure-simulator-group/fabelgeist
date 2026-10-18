@@ -3,6 +3,7 @@ use adventuresim_core::{
     combat::{AutoresolveParameters, CombatResolutionParameters},
 };
 use bevy::prelude::Resource;
+pub use landing::AnimationLandingConfig;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use thiserror::Error;
@@ -15,6 +16,7 @@ use crate::physics::{
 
 mod ai_offense;
 mod incapacitation_forecast;
+mod landing;
 pub use incapacitation_forecast::IncapacitationForecastConfig;
 mod ragdoll;
 mod runtime;
@@ -68,16 +70,6 @@ pub struct AnimationLocomotionConfig {
     pub prone: AnimationGaitConfig,
     pub supine: AnimationGaitConfig,
     pub blend_speed: f32,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimationLandingConfig {
-    pub minimum_impact_speed_metres_per_second: f32,
-    pub compression_per_metre_per_second: f32,
-    pub minimum_compression_metres: f32,
-    pub maximum_compression_metres: f32,
-    pub recovery_seconds: f32,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
@@ -778,23 +770,7 @@ impl TacticalCombatConfig {
                 "invalid animation locomotion tuning",
             ));
         }
-        let landing = locomotion.landing;
-        if ![
-            landing.minimum_impact_speed_metres_per_second,
-            landing.compression_per_metre_per_second,
-            landing.minimum_compression_metres,
-            landing.maximum_compression_metres,
-            landing.recovery_seconds,
-        ]
-        .into_iter()
-        .all(finite_nonnegative)
-            || landing.maximum_compression_metres < landing.minimum_compression_metres
-            || landing.recovery_seconds == 0.0
-        {
-            return Err(TacticalCombatConfigError::Validation(
-                "invalid animation landing tuning",
-            ));
-        }
+        locomotion.landing.validate()?;
         let guard = animation.guard_footwork;
         if ![
             guard.default_half_width_metres,
@@ -1145,13 +1121,7 @@ impl Default for TacticalCombatConfig {
             animation: TacticalAnimationConfig {
                 locomotion: AnimationLocomotionConfig {
                     sample_hz: 64.0,
-                    landing: AnimationLandingConfig {
-                        minimum_impact_speed_metres_per_second: 1.0,
-                        compression_per_metre_per_second: 0.012,
-                        minimum_compression_metres: 0.04,
-                        maximum_compression_metres: 0.08,
-                        recovery_seconds: 0.16,
-                    },
+                    landing: AnimationLandingConfig::default(),
                     walk: AnimationGaitConfig {
                         reference_speed_metres_per_second: 2.0,
                         step_distance_metres: 1.22,
