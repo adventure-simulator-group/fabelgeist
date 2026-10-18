@@ -1,5 +1,5 @@
 use super::*;
-use crate::{ConstraintArity, ConstraintEdges, ConstraintOccupancy};
+use crate::{ConstraintArity, ConstraintEdges};
 
 /// No constraints are lost and distinct constraints in a color share no particle.
 fn check(constraints: &[&[ParticleIndex]], coloring: &Coloring) {
@@ -127,10 +127,7 @@ fn colors_mixed_arity() {
 #[test]
 fn colors_nothing() {
     let coloring = Coloring::for_constraints(&[]);
-    assert_eq!(
-        coloring.constraint_count().occupancy(),
-        ConstraintOccupancy::Empty
-    );
+    assert!(coloring.constraint_count().is_empty());
     assert_eq!(coloring.color_count(), ColorCount::from(0));
 }
 
@@ -153,10 +150,11 @@ fn independent_constraints_share_one_color() {
 
 #[test]
 fn fixed_arity_matches_the_general_form() {
-    let flat = vec![0u32, 1, 1, 2, 2, 3, 3, 0];
-    let incidence =
-        ConstraintIncidence::from_native_flat(&flat, ConstraintArity::try_from(2).unwrap())
-            .unwrap();
+    let flat: Vec<_> = [0u32, 1, 1, 2, 2, 3, 3, 0]
+        .into_iter()
+        .map(ParticleIndex::from)
+        .collect();
+    let incidence = ConstraintIncidence::new(&flat, ConstraintArity::try_from(2).unwrap()).unwrap();
     let chunks: Vec<&[ParticleIndex]> = incidence.records().collect();
     assert_eq!(
         Coloring::for_incidence(&incidence).order(),

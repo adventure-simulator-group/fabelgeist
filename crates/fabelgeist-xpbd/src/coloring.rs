@@ -10,25 +10,10 @@ use fabelgeist_gpu::prelude::PassParameters;
 /// A color's position in the sequential solve schedule.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct ConstraintColor(usize);
-impl std::fmt::Display for ConstraintColor {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(formatter)
-    }
-}
 
 /// Number of colors in the sequential solve schedule.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub struct ColorCount(usize);
-impl From<usize> for ColorCount {
-    fn from(colors: usize) -> Self {
-        Self(colors)
-    }
-}
-impl std::fmt::Display for ColorCount {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(formatter)
-    }
-}
 
 /// A constraint address after permutation into color order.
 ///
@@ -39,11 +24,6 @@ impl std::fmt::Display for ColorCount {
 /// ```
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct ConstraintSlot(u32);
-impl From<ConstraintSlot> for usize {
-    fn from(slot: ConstraintSlot) -> Self {
-        slot.0 as usize
-    }
-}
 
 /// Immutable color interval, in reordered constraint slots.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -52,6 +32,38 @@ pub struct ColorRange {
     first: ConstraintSlot,
     end: ConstraintSlot,
 }
+
+/// Constraints grouped into colors, with their immutable permutation.
+#[derive(Clone, Debug, Default)]
+pub struct Coloring {
+    order: Vec<ConstraintIndex>,
+    ranges: Vec<ConstraintSlot>,
+}
+
+impl std::fmt::Display for ConstraintColor {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(formatter)
+    }
+}
+
+impl From<usize> for ColorCount {
+    fn from(colors: usize) -> Self {
+        Self(colors)
+    }
+}
+
+impl std::fmt::Display for ColorCount {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(formatter)
+    }
+}
+
+impl From<ConstraintSlot> for usize {
+    fn from(slot: ConstraintSlot) -> Self {
+        slot.0 as usize
+    }
+}
+
 impl ColorRange {
     pub fn color(self) -> ConstraintColor {
         self.color
@@ -71,12 +83,6 @@ impl ColorRange {
     }
 }
 
-/// Constraints grouped into colors, with their immutable permutation.
-#[derive(Clone, Debug, Default)]
-pub struct Coloring {
-    order: Vec<ConstraintIndex>,
-    ranges: Vec<ConstraintSlot>,
-}
 impl Coloring {
     pub fn color_count(&self) -> ColorCount {
         self.ranges.len().saturating_sub(1).into()
@@ -87,13 +93,17 @@ impl Coloring {
     pub fn order(&self) -> &[ConstraintIndex] {
         &self.order
     }
-    pub fn colors(&self) -> ConstraintColors<'_> {
-        ConstraintColors {
-            ranges: &self.ranges,
-            next: ConstraintColor(0),
-        }
+    pub fn colors(&self) -> impl Iterator<Item = ColorRange> + '_ {
+        self.ranges
+            .windows(2)
+            .enumerate()
+            .map(|(color, bounds)| ColorRange {
+                color: ConstraintColor(color),
+                first: bounds[0],
+                end: bounds[1],
+            })
     }
-    pub fn for_incidence(incidence: &ConstraintIncidence) -> Self {
+    pub fn for_incidence(incidence: &ConstraintIncidence<'_>) -> Self {
         let records: Vec<&[ParticleIndex]> = incidence.records().collect();
         Self::for_constraints(&records)
     }
@@ -106,7 +116,7 @@ impl Coloring {
                 ranges: vec![ConstraintSlot(0)],
             };
         }
-        let mut taken: HashMap<ParticleIndex, Vec<ColorUse>> = HashMap::new();
+        let mut taken: HashMap<ParticleIndex, Vec<bool>> = HashMap::new();
         let mut colors = Vec::with_capacity(constraints.len());
         let mut color_count = ColorCount(0);
         for particles in constraints {
@@ -115,7 +125,7 @@ impl Coloring {
                 let mut free = true;
                 for particle in *particles {
                     if let Some(used) = taken.get(particle)
-                        && used.get(candidate.0) == Some(&ColorUse::Taken)
+                        && used.get(candidate.0).is_some_and(|&occupied| occupied)
                     {
                         free = false;
                         break;
@@ -129,9 +139,9 @@ impl Coloring {
             for &particle in *particles {
                 let used = taken.entry(particle).or_default();
                 if used.len() <= candidate.0 {
-                    used.resize(candidate.0 + 1, ColorUse::Free);
+                    used.resize(candidate.0 + 1, false);
                 }
-                used[candidate.0] = ColorUse::Taken;
+                used[candidate.0] = true;
             }
             // Preserve the original native u32 color word narrowing.
             colors.push(ConstraintColor(candidate.0 as u32 as usize));
@@ -153,32 +163,6 @@ impl Coloring {
             slot.0 += 1;
         }
         Self { order, ranges }
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum ColorUse {
-    Free,
-    Taken,
-}
-
-pub struct ConstraintColors<'a> {
-    ranges: &'a [ConstraintSlot],
-    next: ConstraintColor,
-}
-impl Iterator for ConstraintColors<'_> {
-    type Item = ColorRange;
-    fn next(&mut self) -> Option<ColorRange> {
-        if self.next.0 + 1 >= self.ranges.len() {
-            return None;
-        }
-        let range = ColorRange {
-            color: self.next,
-            first: self.ranges[self.next.0],
-            end: self.ranges[self.next.0 + 1],
-        };
-        self.next.0 += 1;
-        Some(range)
     }
 }
 

@@ -13,11 +13,12 @@ use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 
 use crate::coloring::{ColorCount, Coloring};
-use crate::{ConstraintArity, ConstraintEdges, ConstraintIncidence};
-mod address;
 use crate::particles::Particles;
 use crate::wgsl;
-pub use address::{ConstraintCount, ConstraintIndex, ConstraintOccupancy};
+use crate::{ConstraintArity, ConstraintEdges, ConstraintIncidence};
+pub use address::{ConstraintCount, ConstraintIndex};
+
+mod address;
 
 /// Extra per-constraint buffers a kernel wants, bound by name.
 ///
@@ -61,7 +62,7 @@ impl ConstraintSet {
         name: impl Into<String>,
         kernel: Arc<Kernel>,
         cache: &KernelCache,
-        incidence: &ConstraintIncidence,
+        incidence: &ConstraintIncidence<'_>,
         compliance: f32,
     ) -> Result<Self> {
         let coloring = Coloring::for_incidence(incidence);
@@ -199,9 +200,7 @@ impl ConstraintSet {
     ) -> Result<()> {
         let name = name.into();
         let count = self.constraint_count();
-        if count.occupancy() == ConstraintOccupancy::Populated
-            && !values.len().is_multiple_of(usize::from(count))
-        {
+        if !count.is_empty() && !values.len().is_multiple_of(usize::from(count)) {
             return Err(anyhow!(
                 "ConstraintSet `{}`: attachment `{name}` has {} values, which is not a whole number per constraint ({count})",
                 self.name,
@@ -239,7 +238,7 @@ impl ConstraintSet {
     /// compliance only means a real stiffness if `lambda` starts each substep
     /// at zero.
     pub fn record_clear(&self, batch: &mut KernelBatch) -> Result<()> {
-        if !self.enabled || self.constraint_count().occupancy() == ConstraintOccupancy::Empty {
+        if !self.enabled || self.constraint_count().is_empty() {
             return Ok(());
         }
         let mut parameters = PassParameters::new();
@@ -263,12 +262,12 @@ impl ConstraintSet {
         particles: &Particles,
         substep: f32,
     ) -> Result<()> {
-        if !self.enabled || self.constraint_count().occupancy() == ConstraintOccupancy::Empty {
+        if !self.enabled || self.constraint_count().is_empty() {
             return Ok(());
         }
 
         for range in self.coloring.colors() {
-            if range.count().occupancy() == ConstraintOccupancy::Empty {
+            if range.count().is_empty() {
                 continue;
             }
 

@@ -11,51 +11,25 @@ use std::num::NonZeroUsize;
 /// ```
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct ParticleIndex(u32);
-impl From<u32> for ParticleIndex {
-    fn from(word: u32) -> Self {
-        Self(word)
-    }
-}
-impl From<ParticleIndex> for usize {
-    fn from(index: ParticleIndex) -> Self {
-        index.0 as usize
-    }
-}
-impl std::fmt::Display for ParticleIndex {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(formatter)
-    }
-}
 
 /// Number of particle entries in a flattened constraint input.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct ConstraintParticleCount(usize);
-impl std::fmt::Display for ConstraintParticleCount {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(formatter)
-    }
-}
 
 /// A fixed constraint always touches at least one particle.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct ConstraintArity(NonZeroUsize);
-impl ConstraintArity {
-    // A native edge record contains two particle addresses.
-    const PAIR: Self = Self(NonZeroUsize::MIN.saturating_add(1));
+
+/// A checked view of complete, immutable fixed-arity particle records.
+#[derive(Clone, Debug)]
+pub struct ConstraintIncidence<'a> {
+    particles: &'a [ParticleIndex],
+    arity: ConstraintArity,
 }
-impl TryFrom<usize> for ConstraintArity {
-    type Error = ConstraintLayoutError;
-    fn try_from(arity: usize) -> Result<Self, ConstraintLayoutError> {
-        NonZeroUsize::new(arity)
-            .map(Self)
-            .ok_or(ConstraintLayoutError::ZeroArity)
-    }
-}
-impl std::fmt::Display for ConstraintArity {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(formatter)
-    }
-}
+
+/// The two-particle records used by distance and spring constraints.
+#[derive(Clone, Debug, Default)]
+pub struct ConstraintEdges(Vec<[ParticleIndex; 2]>);
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum ConstraintLayoutError {
@@ -65,6 +39,51 @@ pub enum ConstraintLayoutError {
         arity: ConstraintArity,
     },
 }
+
+impl From<u32> for ParticleIndex {
+    fn from(word: u32) -> Self {
+        Self(word)
+    }
+}
+
+impl From<ParticleIndex> for usize {
+    fn from(index: ParticleIndex) -> Self {
+        index.0 as usize
+    }
+}
+
+impl std::fmt::Display for ParticleIndex {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(formatter)
+    }
+}
+
+impl std::fmt::Display for ConstraintParticleCount {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(formatter)
+    }
+}
+
+impl ConstraintArity {
+    // A native edge record contains two particle addresses.
+    const PAIR: Self = Self(NonZeroUsize::MIN.saturating_add(1));
+}
+
+impl TryFrom<usize> for ConstraintArity {
+    type Error = ConstraintLayoutError;
+    fn try_from(arity: usize) -> Result<Self, ConstraintLayoutError> {
+        NonZeroUsize::new(arity)
+            .map(Self)
+            .ok_or(ConstraintLayoutError::ZeroArity)
+    }
+}
+
+impl std::fmt::Display for ConstraintArity {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(formatter)
+    }
+}
+
 impl std::fmt::Display for ConstraintLayoutError {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -76,37 +95,29 @@ impl std::fmt::Display for ConstraintLayoutError {
         }
     }
 }
+
 impl std::error::Error for ConstraintLayoutError {}
 
-/// Complete, immutable fixed-arity constraints in their producer's order.
-#[derive(Clone, Debug)]
-pub struct ConstraintIncidence {
-    particles: Vec<ParticleIndex>,
-    arity: ConstraintArity,
-}
-impl ConstraintIncidence {
-    /// Decode native particle-address records, preserving their exact order.
-    pub fn from_native_records<const N: usize>(
-        records: &[[u32; N]],
+impl<'a> ConstraintIncidence<'a> {
+    /// Borrow particle-address records, preserving their exact order.
+    pub fn from_records<const N: usize>(
+        records: &'a [[ParticleIndex; N]],
     ) -> Result<Self, ConstraintLayoutError> {
-        Self::from_native_flat(records.as_flattened(), ConstraintArity::try_from(N)?)
+        Self::new(records.as_flattened(), ConstraintArity::try_from(N)?)
     }
 
-    /// Decode a flat native representation only when every record is complete.
-    pub fn from_native_flat(
-        words: &[u32],
+    /// Borrow flat particle storage only when every record is complete.
+    pub fn new(
+        particles: &'a [ParticleIndex],
         arity: ConstraintArity,
     ) -> Result<Self, ConstraintLayoutError> {
-        if !words.len().is_multiple_of(arity.0.get()) {
+        if !particles.len().is_multiple_of(arity.0.get()) {
             return Err(ConstraintLayoutError::Incomplete {
-                particles: ConstraintParticleCount(words.len()),
+                particles: ConstraintParticleCount(particles.len()),
                 arity,
             });
         }
-        Ok(Self {
-            particles: words.iter().copied().map(ParticleIndex::from).collect(),
-            arity,
-        })
+        Ok(Self { particles, arity })
     }
     pub fn arity(&self) -> ConstraintArity {
         self.arity
@@ -135,9 +146,6 @@ impl ConstraintIncidence {
     }
 }
 
-/// The two-particle records used by distance and spring constraints.
-#[derive(Clone, Debug, Default)]
-pub struct ConstraintEdges(Vec<[ParticleIndex; 2]>);
 impl From<&[[u32; 2]]> for ConstraintEdges {
     fn from(records: &[[u32; 2]]) -> Self {
         let mut edges = Vec::with_capacity(records.len());
@@ -147,6 +155,7 @@ impl From<&[[u32; 2]]> for ConstraintEdges {
         Self(edges)
     }
 }
+
 impl ConstraintEdges {
     pub fn pairs(&self) -> &[[ParticleIndex; 2]] {
         &self.0
@@ -154,13 +163,9 @@ impl ConstraintEdges {
     pub fn count(&self) -> crate::ConstraintCount {
         self.0.len().into()
     }
-    pub fn incidence(&self) -> ConstraintIncidence {
-        let mut particles = Vec::with_capacity(self.0.len() * 2);
-        for edge in &self.0 {
-            particles.extend_from_slice(edge);
-        }
+    pub fn incidence(&self) -> ConstraintIncidence<'_> {
         ConstraintIncidence {
-            particles,
+            particles: self.0.as_flattened(),
             arity: ConstraintArity::PAIR,
         }
     }

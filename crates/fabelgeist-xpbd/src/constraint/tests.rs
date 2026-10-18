@@ -16,9 +16,12 @@ async fn preserves_native_upload_allocation_admission_and_recording() -> anyhow:
     let cache = KernelCache::new();
     let mut messages = vec![
         ConstraintArity::try_from(0).unwrap_err().to_string(),
-        ConstraintIncidence::from_native_flat(&[0, 1, 2], ConstraintArity::try_from(2)?)
-            .unwrap_err()
-            .to_string(),
+        ConstraintIncidence::new(
+            &[0, 1, 2].map(crate::ParticleIndex::from),
+            ConstraintArity::try_from(2)?,
+        )
+        .unwrap_err()
+        .to_string(),
     ];
     messages.push(rejected(ConstraintSet::distance(
         &context,

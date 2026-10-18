@@ -11,10 +11,10 @@ fn rejects_zero_arity_and_incomplete_records_before_upload() {
         "ConstraintSet: arity must be at least one"
     );
     assert!(error.source().is_none());
-    let error = ConstraintIncidence::from_native_records::<0>(&[[]]).unwrap_err();
+    let error = ConstraintIncidence::from_records::<0>(&[[]]).unwrap_err();
     assert_eq!(error, ConstraintLayoutError::ZeroArity);
     let arity = ConstraintArity::try_from(2).unwrap();
-    let error = ConstraintIncidence::from_native_flat(&[0, 1, 2], arity).unwrap_err();
+    let error = ConstraintIncidence::new(&[0, 1, 2].map(ParticleIndex::from), arity).unwrap_err();
     assert_eq!(
         error,
         ConstraintLayoutError::Incomplete {
@@ -32,21 +32,16 @@ fn rejects_zero_arity_and_incomplete_records_before_upload() {
 #[tokio::test]
 async fn uploads_the_original_color_order_and_native_empty_sentinel() {
     let context = WgpuContext::new().await.unwrap();
-    let incidence = ConstraintIncidence::from_native_records(&[
-        [0u32, 1],
-        [1, 2],
-        [2, 3],
-        [3, 0],
-        [u32::MAX, 7],
-    ])
-    .unwrap();
+    let records = [[0u32, 1], [1, 2], [2, 3], [3, 0], [u32::MAX, 7]]
+        .map(|record| record.map(ParticleIndex::from));
+    let incidence = ConstraintIncidence::from_records(&records).unwrap();
     let coloring = Coloring::for_incidence(&incidence);
     let buffer = incidence.upload_ordered(&context, &coloring).unwrap();
     assert_eq!(
         buffer.read::<u32>(&context).await.unwrap(),
         [0, 1, 2, 3, u32::MAX, 7, 1, 2, 3, 0]
     );
-    let empty = ConstraintIncidence::from_native_records::<4>(&[]).unwrap();
+    let empty = ConstraintIncidence::from_records::<4>(&[]).unwrap();
     let buffer = empty
         .upload_ordered(&context, &Coloring::for_incidence(&empty))
         .unwrap();
