@@ -188,15 +188,16 @@ pub(super) fn wall_surface_uv(wall: &crate::WallAssembly, point: Vec3) -> Vec2 {
 }
 
 fn canonical_wall_texture_tangent(tangent: Vec2) -> Vec2 {
-    // Axis-aligned yaw can leave a rounded horizontal component. Classify it
-    // at the tangent's represented scale so equivalent walls keep the same UV
-    // direction even when their frame was produced through trigonometry.
-    let axis_roundoff = tangent.length() * f32::EPSILON;
-    if tangent.x < -axis_roundoff || (tangent.x.abs() <= axis_roundoff && tangent.y < 0.0) {
-        -tangent
+    // Point the largest represented component toward its positive axis, with
+    // X owning ties. This defines orientation without inferring exact axis
+    // alignment from the error of a particular frame producer. Tiny components
+    // left by yaw, coordinate subtraction, or frame composition cannot flip it.
+    let dominant = if tangent.x.abs() >= tangent.y.abs() {
+        tangent.x
     } else {
-        tangent
-    }
+        tangent.y
+    };
+    if dominant < 0.0 { -tangent } else { tangent }
 }
 
 #[cfg(test)]
@@ -205,13 +206,49 @@ mod tests {
 
     #[test]
     fn near_axis_texture_orientation_is_independent_of_tangent_scale() {
-        let angle = core::f32::consts::FRAC_PI_2;
-        let tangent = Vec2::new(angle.cos(), angle.sin());
-        for scale in [1.0e-5, 1.0, 1.0e5] {
-            let forward = canonical_wall_texture_tangent(tangent * scale);
-            let reversed = canonical_wall_texture_tangent(-tangent * scale);
-            assert!(forward.y > 0.0);
-            assert_eq!(forward, reversed);
+        for angle in [
+            0.0,
+            core::f32::consts::FRAC_PI_2,
+            core::f32::consts::PI,
+            4.7,
+        ] {
+            let tangent = Vec2::new(angle.cos(), angle.sin());
+            for scale in [1.0e-5, 1.0, 1.0e5] {
+                let forward = canonical_wall_texture_tangent(tangent * scale);
+                let reversed = canonical_wall_texture_tangent(-tangent * scale);
+                assert!(forward.max_element() > 0.0);
+                assert_eq!(forward, reversed);
+            }
+        }
+    }
+
+    #[test]
+    fn generated_wall_frames_share_texture_coordinates_in_both_directions() {
+        for archetype in [
+            crate::BuildingArchetype::FachwerkCottage,
+            crate::BuildingArchetype::TownHouse,
+            crate::BuildingArchetype::ParishChurch,
+        ] {
+            let plan = crate::generate(&crate::BuildingProgram::settlement(
+                archetype,
+                None,
+                fabelgeist_determinism::Seed::from_u64(42),
+            ))
+            .unwrap();
+            assert!(!plan.wall_assemblies.is_empty());
+            for wall in &plan.wall_assemblies {
+                let mut reversed = wall.clone();
+                reversed.frame.tangent = -wall.frame.tangent;
+                for point in [
+                    Vec3::ZERO,
+                    Vec3::new(wall.frame.origin.x, 3.0, wall.frame.origin.y),
+                ] {
+                    assert_eq!(
+                        wall_surface_uv(wall, point),
+                        wall_surface_uv(&reversed, point)
+                    );
+                }
+            }
         }
     }
 }

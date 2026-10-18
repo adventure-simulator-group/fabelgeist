@@ -1,6 +1,6 @@
 //! Catalog bounds and anatomical chain validation.
 
-use super::{CatalogDiagnostics, finite_in, reject_unknown};
+use super::{CatalogDiagnostics, positive_f32_in, reject_unknown};
 use crate::item_catalog_schema::{EquipmentAnatomicalRegion as Region, SurfaceAnchor};
 use serde_json::Value;
 use std::collections::BTreeSet;
@@ -126,7 +126,7 @@ fn validate_equipment_surface_span(
             "expected proximal, distal, or center",
         );
     }
-    finite_in(span, "coverage", 0.0_f64.next_up(), 1.0, span_path, errors);
+    positive_f32_in(span, "coverage", 1.0, span_path, errors);
 }
 
 fn anatomical_body_part(region: &str) -> &str {
@@ -161,6 +161,39 @@ fn contiguous_regions(proximal: &str, distal: &str) -> bool {
 mod tests {
     use super::*;
     use serde_json::json;
+
+    #[test]
+    fn surface_coverage_must_stay_positive_after_f32_conversion() {
+        let smallest = f64::from(0.0_f32.next_up());
+        for (coverage, valid) in [
+            (0.0, false),
+            (1.0e-100, false),
+            (smallest, true),
+            (1.0e-30, true),
+        ] {
+            let span = json!({"regions":["chest"], "anchor":"center", "coverage":coverage});
+            let mut diagnostics = Vec::new();
+            validate_equipment_surface_span(
+                &span,
+                "test",
+                &BTreeSet::new(),
+                &mut CatalogDiagnostics {
+                    source_index: 0,
+                    diagnostics: &mut diagnostics,
+                },
+            );
+            assert_eq!(
+                diagnostics.is_empty(),
+                valid,
+                "coverage {coverage}: {diagnostics:?}"
+            );
+            if valid {
+                let stored: crate::item_catalog_schema::EquipmentSurfaceSpan =
+                    serde_json::from_value(span).unwrap();
+                assert!(stored.coverage > 0.0);
+            }
+        }
+    }
 
     #[test]
     fn catalog_rejects_segment_overflow_before_combat_projection() {

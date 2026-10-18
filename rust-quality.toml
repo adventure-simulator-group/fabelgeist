@@ -953,14 +953,6 @@ reason = "Implements the documented L-BFGS-B relative function-reduction criteri
 
 [[exceptions]]
 rule = "machine-epsilon"
-path = "crates/adventuresim-building-generator/src/detail/cuboids.rs"
-item = "canonical_wall_texture_tangent"
-fingerprint = "EPSILON"
-occurrences = 1
-reason = "Bounds a rounded axis component relative to the tangent magnitude so trigonometric wall frames retain a scale-independent texture direction."
-
-[[exceptions]]
-rule = "machine-epsilon"
 path = "crates/adventuresim-procedural-textures/src/fracture_planes.rs"
 item = "Parameters::sample"
 fingerprint = "EPSILON"

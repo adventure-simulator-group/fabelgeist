@@ -204,8 +204,9 @@ fn melee_contact_coordinates(contact_sample: f32, gap_targeting: f32) -> (BodyPa
     let (body_part, local_coordinate) =
         weighted_body_part_and_local(contact_sample.clamp(0.0, 1.0_f32.next_down()), |_| 1.0);
     let gap_targeting = gap_targeting.clamp(0.0, 1.0);
-    let targeted_coordinate =
-        local_coordinate + (1.0_f32.next_down() - local_coordinate) * gap_targeting;
+    let targeted_coordinate = (local_coordinate
+        + (1.0_f32.next_down() - local_coordinate) * gap_targeting)
+        .clamp(0.0, 1.0_f32.next_down());
     (body_part, targeted_coordinate)
 }
 
@@ -258,6 +259,31 @@ fn weighted_body_part_and_local(sample: f32, factor: impl Fn(BodyPart) -> f32) -
 mod tests {
     use super::*;
     use crate::autoresolve::{body_part_index, melee_iteration_roster};
+
+    #[test]
+    fn full_gap_targeting_keeps_emitted_contact_coordinates_below_one() {
+        let (_, opponents) = melee_iteration_roster().unwrap();
+        let equipment = &opponents[0].combatant.equipment;
+        for sample in [
+            0.0,
+            0.000582,
+            0.12,
+            0.24,
+            0.48,
+            0.70,
+            1.0_f32.next_down(),
+            1.0,
+        ]
+        .into_iter()
+        .chain((0..10_000).map(|index| index as f32 / 10_000.0))
+        {
+            let contact = melee_contact_location(equipment, sample, 1.0);
+            assert!(
+                (0.0..1.0).contains(&contact.surface_coordinate),
+                "sample {sample}: {contact:?}"
+            );
+        }
+    }
 
     #[test]
     fn torso_subregions_follow_named_area_and_accessibility_weights() {

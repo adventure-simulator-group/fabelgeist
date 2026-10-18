@@ -152,7 +152,9 @@ governed by the repository-root generation rule instead.
   for approximate results; do not replace machine epsilon with a universal
   decimal tolerance.
 - `fabelgeist-rust-quality` checks machine-epsilon references in production
-  code, tests, and macros. Valid precision calculations require an exact
+  code, tests, and macros. It also rejects float-module glob imports, including
+  module aliases, because they can conceal bare `EPSILON` references.
+  Valid precision calculations require an exact
   `machine-epsilon` exception in `rust-quality.toml`, including the owning item,
   fingerprint, occurrence count, and numerical justification. Fixture and
   adapter scopes do not exempt this rule, and it cannot be baselined.
