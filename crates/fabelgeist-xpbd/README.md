@@ -21,3 +21,6 @@ Contact gradients, barycentric weights, effective inverse mass, and projection
 corrections retain distinct roles through the host solver. The checked native
 word fixtures cover particle records, triangle mass accumulation, contact
 resolution, and layer projection.
+
+[Solver substep cardinality](substep-count.md) describes count admission, local
+zero policies and native simulation/settings ports.

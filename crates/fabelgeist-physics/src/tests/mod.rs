@@ -4,7 +4,7 @@ use fabelgeist_bvh::gpu::BvhKernels;
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
-use fabelgeist_xpbd::{Particles, Solver, SolverSettings};
+use fabelgeist_xpbd::{Particles, Solver, SolverSettings, SubstepCount};
 
 use crate::collider::{Collider, Shape};
 use crate::mesh::{MeshCollider, MeshSurface};
@@ -154,7 +154,7 @@ impl Harness {
     }
 }
 
-fn settings(substeps: u32) -> SolverSettings {
+fn settings(substeps: SubstepCount) -> SolverSettings {
     SolverSettings {
         substeps,
         damping: 1.0,
@@ -180,7 +180,7 @@ async fn particles_settle_on_the_ground() -> Result<()> {
         vec![Collider::ground(0.0).with_thickness(0.01)],
     )?;
 
-    let solver = harness.solver(settings(10))?;
+    let solver = harness.solver(settings(10.into()))?;
     for _ in 0..180 {
         solver.step(
             &harness.context,
@@ -234,7 +234,7 @@ async fn particles_stay_outside_a_sphere() -> Result<()> {
         ],
     )?;
 
-    let solver = harness.solver(settings(15))?;
+    let solver = harness.solver(settings(15.into()))?;
     for _ in 0..150 {
         solver.step(
             &harness.context,
@@ -284,7 +284,7 @@ async fn friction_holds_a_particle_on_a_slope() -> Result<()> {
         )?;
 
         let solver = harness.solver(SolverSettings {
-            substeps: 20,
+            substeps: 20.into(),
             damping: 0.0,
             ..Default::default()
         })?;
@@ -350,7 +350,7 @@ async fn particles_stay_outside_a_mesh() -> Result<()> {
         },
     )?));
 
-    let solver = harness.solver(settings(20))?;
+    let solver = harness.solver(settings(20.into()))?;
     for _ in 0..200 {
         solver.step(
             &harness.context,
@@ -417,7 +417,7 @@ async fn a_moving_mesh_still_collides() -> Result<()> {
     let final_offset = Vec3::new(0.0, 0.2, 0.0);
 
     collisions.set_mesh(Some(mesh));
-    let solver = harness.solver(settings(20))?;
+    let solver = harness.solver(settings(20.into()))?;
     for _ in 0..120 {
         solver.step(
             &harness.context,
@@ -486,7 +486,7 @@ async fn a_particle_started_inside_is_pushed_out() -> Result<()> {
 
     // And once out, an ordinary run keeps it out.
     let solver = harness.solver(SolverSettings {
-        substeps: 20,
+        substeps: 20.into(),
         gravity: Vec3::default(),
         damping: 5.0,
         ..Default::default()
@@ -519,7 +519,7 @@ async fn pinned_particles_ignore_collision() -> Result<()> {
     let mut collisions = harness.collisions()?;
     collisions.set_colliders(&harness.context, vec![Collider::ground(0.0)])?;
 
-    let solver = harness.solver(settings(10))?;
+    let solver = harness.solver(settings(10.into()))?;
     for _ in 0..60 {
         solver.step(
             &harness.context,
@@ -582,7 +582,7 @@ async fn a_hook_chain_runs_every_hook() -> Result<()> {
     collisions.set_colliders(&harness.context, vec![Collider::ground(0.0)])?;
 
     let mut calls = 0usize;
-    let solver = harness.solver(settings(4))?;
+    let solver = harness.solver(settings(4.into()))?;
     {
         let mut counter = |_: &mut KernelBatch, _: &Particles, _: f32| {
             calls += 1;
