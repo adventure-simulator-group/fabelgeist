@@ -17,6 +17,7 @@ use std::collections::HashMap;
 use std::io::Read;
 
 use anyhow::{Context, Result, anyhow, bail};
+use array_encoding::FbxArrayEncoding;
 use binary_layout::{
     ASCII_FBX_PREFIX, BINARY_MAGIC_PREFIX, FILE_HEADER_BYTES, FILE_VERSION_OFFSET, FbxVersion,
     HeaderFormat, UTF8_BOM_ASCII_FBX_PREFIX,
@@ -24,9 +25,11 @@ use binary_layout::{
 use flate2::read::ZlibDecoder;
 
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
+pub use array_encoding::UnsupportedFbxArrayEncoding;
 
 pub mod animation;
 
+mod array_encoding;
 mod binary_layout;
 
 /// One node record of the FBX tree.
@@ -421,18 +424,19 @@ pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
 fn decode_array<T: Copy>(
     raw: &[u8],
     count: usize,
-    encoding: u32,
+    encoding: FbxArrayEncoding,
     parse: impl Fn(&[u8]) -> T,
     width: usize,
 ) -> Result<Vec<T>> {
-    let bytes = if encoding == 0 {
-        raw.to_vec()
-    } else {
-        let mut out = Vec::with_capacity(count * width);
-        ZlibDecoder::new(raw)
-            .read_to_end(&mut out)
-            .context("inflating FBX array property")?;
-        out
+    let bytes = match encoding {
+        FbxArrayEncoding::Uncompressed => raw.to_vec(),
+        FbxArrayEncoding::Zlib => {
+            let mut out = Vec::with_capacity(count * width);
+            ZlibDecoder::new(raw)
+                .read_to_end(&mut out)
+                .context("inflating FBX array property")?;
+            out
+        }
     };
     if bytes.len() < count * width {
         bail!(
@@ -458,7 +462,9 @@ fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
             b'L' => Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
             b'f' | b'd' | b'l' | b'i' | b'b' => {
                 let count = reader.u32()? as usize;
-                let encoding = reader.u32()?;
+                // FBX array metadata stores encoding as a little-endian u32.
+                // Admit only supported encodings before decoding the payload.
+                let encoding = FbxArrayEncoding::try_from(reader.u32()?)?;
                 let compressed_len = reader.u32()? as usize;
                 let raw = reader.take(compressed_len)?;
                 match kind {
@@ -560,5 +566,7 @@ fn qualified_name(raw: &[u8]) -> String {
     };
     String::from_utf8_lossy(name).into_owned()
 }
+#[cfg(test)]
+mod array_encoding_tests;
 #[cfg(test)]
 mod binary_layout_tests;
