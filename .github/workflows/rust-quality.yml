@@ -94,10 +94,14 @@ jobs:
         run: python3 -m unittest scripts.tests.test_building_review_boundary
       - name: Verify generated SpacetimeDB bindings
         run: python3 scripts/dev_stack.py verify-bindings
+      - name: Test FBX property tags, array encoding and header decoding
+        run: cargo test --locked --package fabelgeist-fbx --all-features
       - name: Test shared schema and GPU readback boundaries
         run: |
           cargo test --package adventuresim-world-schema --all-features
           cargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests
+      - name: Test resolved Bevy guard
+        run: cargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard
       - name: Check semantic values and Rust growth
         run: |
           cargo test --package fabelgeist-rust-quality

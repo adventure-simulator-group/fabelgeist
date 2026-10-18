@@ -228,7 +228,7 @@ pub(super) async fn settlement_map(
             settlement,
             &settlements,
             &case_sites,
-            state.strategic_map.as_deref(),
+            state.terrain.as_deref(),
             &destinations,
             query.destination.as_deref(),
             active_character.as_ref().map(|(character, _)| character),

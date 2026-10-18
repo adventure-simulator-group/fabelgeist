@@ -10,6 +10,7 @@ mod config;
 mod live;
 mod location_urls;
 mod medical;
+mod regional_source;
 mod routes;
 mod schedule;
 mod session;
@@ -90,37 +91,7 @@ async fn main() -> anyhow::Result<()> {
         config.spacetimedb_token.clone(),
     )?;
 
-    // Create app state
-    let assets = (|| -> anyhow::Result<_> {
-        let map = strategic_map::StrategicMap::load(&config.strategic_map_bundle_dir)?;
-        let pack = adventuresim_terrain::TerrainPack::load(
-            &config
-                .strategic_map_bundle_dir
-                .join("terrain-routing-v3.json"),
-            &config
-                .strategic_map_bundle_dir
-                .join("terrain-routing-v3.pack"),
-        )?;
-        map.validate_terrain_identity(&pack)?;
-        let digest = pack.digest().to_string();
-        Ok((
-            std::sync::Arc::new(map),
-            std::sync::Arc::new(routes::travel::TerrainPlanner::new(std::sync::Arc::new(
-                pack,
-            ))),
-            digest,
-        ))
-    })();
-    let (strategic_map, terrain) = match assets {
-        Ok((map, terrain, digest)) => {
-            tracing::info!(bundle=%config.strategic_map_bundle_dir.display(),%digest,"loaded coherent final strategic map and terrain bundle");
-            (Some(map), Some(terrain))
-        }
-        Err(error) => {
-            tracing::warn!(bundle=%config.strategic_map_bundle_dir.display(),%error,"strategic map and terrain bundle unavailable or incoherent; disabling both");
-            (None, None)
-        }
-    };
+    let terrain = regional_source::load_terrain(&config.strategic_map_bundle_dir);
     db.call(
         "register_strategic_gateway",
         &[
@@ -133,8 +104,10 @@ async fn main() -> anyhow::Result<()> {
     let state = AppState {
         db,
         live,
-        strategic_map,
         terrain,
+        regional_roads: std::sync::Arc::new(routes::RegionalRoadSource::new(
+            config.strategic_map_bundle_dir.clone(),
+        )),
         session_codec,
     };
 
