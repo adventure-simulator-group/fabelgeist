@@ -2401,20 +2401,21 @@ mod standalone_join_tests {
 
 #[cfg(test)]
 mod tests {
+    use super::posture_facing::advance_posture_transition_facing;
     use super::projection_equipment::parametric_combat_geometry;
     use super::{
         AuthoritativeInputTick, AuthoritativeMovementIntent, AuthoritativePostureIntent,
         BACKWARD_DIVE_POSTURE_TRANSITION_TICKS, CameraFacingIntent, DisconnectedPlayer, DiveLaunch,
         GROUND_POSTURE_TRANSITION_TICKS, MeleeAttackAuthority, Player, RECONNECT_GRACE_SECS,
         ROLL_POSTURE_TRANSITION_TICKS, RangedAttackAuthority, ReconnectSession, WeaponGuardState,
-        advance_downed_facing_for_camera, advance_posture_transition_facing,
-        apply_dive_launch_velocity, apply_posture_action, authoritative_weapon_guard,
-        begin_authoritative_quickstep, combat_seconds_to_ticks, dive_horizontal_velocity,
-        downed_tank_controller_input, input, mission_enemy_health_scale, mission_enemy_scale,
-        on_client_disconnected, player_collider, posture_transition_locks_body_facing,
-        queue_replication_rebind, reconnect_matches, restore_authoritative_movement_intent,
-        sequence_is_newer, tactical_movement_speed_for_guard, try_claim_reconnect,
-        update_character_motion_snapshots, validate_player_input,
+        advance_downed_facing_for_camera, apply_dive_launch_velocity, apply_posture_action,
+        authoritative_weapon_guard, begin_authoritative_quickstep, combat_seconds_to_ticks,
+        dive_horizontal_velocity, downed_tank_controller_input, input, mission_enemy_health_scale,
+        mission_enemy_scale, on_client_disconnected, player_collider,
+        posture_transition_locks_body_facing, queue_replication_rebind, reconnect_matches,
+        restore_authoritative_movement_intent, sequence_is_newer,
+        tactical_movement_speed_for_guard, try_claim_reconnect, update_character_motion_snapshots,
+        validate_player_input,
     };
     use adventuresim_tactical_core::physics::tactical_character_controller;
     use adventuresim_tactical_core::prelude::{

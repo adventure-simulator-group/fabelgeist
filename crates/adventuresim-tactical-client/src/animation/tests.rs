@@ -834,12 +834,12 @@ mod legacy_tests {
         };
         playback.extrapolated_spans.push(ExtrapolatedSpan {
             start: clip.clone(),
-            start_time_seconds: 0.0,
+            start_time_seconds: ClipTime::ZERO,
             end: clip,
-            end_time_seconds: 4.0 / animation_frames_per_second(),
+            end_time_seconds: ClipTime::from_seconds(4.0 / animation_frames_per_second()).unwrap(),
             coordinate: 1.0,
-            weight: 1.0,
-            mirrored_weight: 0.0,
+            weight: BlendWeight::ONE,
+            mirrored_weight: BlendWeight::ZERO,
         });
 
         assert_eq!(playback.sampling_cadence(), PoseSamplingCadence::Direct);

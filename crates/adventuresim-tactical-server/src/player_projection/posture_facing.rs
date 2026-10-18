@@ -27,7 +27,7 @@ pub(super) fn advance_projected_posture(
     skeleton.set_guarded_sprint_locomotion(pace == MovementPace::Sprint);
 }
 
-fn advance_posture_transition_facing(
+pub(super) fn advance_posture_transition_facing(
     transform: &mut Transform,
     physics_rotation: &mut Rotation,
     previous_transition: Option<PostureTransitionState>,

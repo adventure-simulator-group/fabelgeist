@@ -345,7 +345,7 @@ mod coordination_tests {
         let advanced = advance_airborne_foot_rotation(
             Some(previous),
             desired,
-            1.0 / 64.0,
+            AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
             ik_tuning().airborne_foot_rotation_speed_degrees_per_second,
         );
 
@@ -355,7 +355,7 @@ mod coordination_tests {
             advance_airborne_foot_rotation(
                 Some(advanced),
                 desired,
-                0.0,
+                AnimationElapsed::from_seconds(0.0).unwrap(),
                 ik_tuning().airborne_foot_rotation_speed_degrees_per_second,
             ),
             advanced
@@ -364,7 +364,7 @@ mod coordination_tests {
             advance_airborne_foot_rotation(
                 None,
                 desired,
-                1.0 / 64.0,
+                AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
                 ik_tuning().airborne_foot_rotation_speed_degrees_per_second,
             ),
             desired
@@ -962,7 +962,7 @@ mod coordination_tests {
         let first_contact = advance_airborne_foot_rotation(
             Some(airborne),
             contact,
-            1.0 / ik_tuning().continuity_sample_hz,
+            AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
             ik_tuning().airborne_foot_rotation_speed_degrees_per_second,
         );
         assert!(
@@ -2271,7 +2271,7 @@ mod coordination_tests {
         let released_rotation = advance_airborne_foot_rotation(
             Some(previous_rotation),
             desired_rotation,
-            1.0 / ik_tuning().continuity_sample_hz,
+            AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
             ik_tuning().first_run_release_foot_rotation_speed_degrees_per_second,
         );
         assert!(
@@ -2350,7 +2350,7 @@ mod coordination_tests {
             advance_airborne_foot_rotation(
                 previous_airborne_foot_orientation(Some(analytic), Some(propagated), true),
                 Quat::IDENTITY,
-                1.0 / ik_tuning().continuity_sample_hz,
+                AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
                 ik_tuning().first_run_release_foot_rotation_speed_degrees_per_second,
             ),
             propagated
@@ -2432,7 +2432,7 @@ mod coordination_tests {
             0.0,
             Some(before_root),
             after_root,
-            1.0 / ik_tuning().continuity_sample_hz,
+            AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
             true,
             false,
         );
@@ -2447,7 +2447,7 @@ mod coordination_tests {
                 measured_speed,
                 Some(after_root),
                 after_root + Vec3::X,
-                1.0 / ik_tuning().continuity_sample_hz,
+                AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
                 false,
                 false,
             ),
@@ -2458,7 +2458,7 @@ mod coordination_tests {
                 measured_speed,
                 Some(after_root),
                 after_root + Vec3::X,
-                1.0 / ik_tuning().continuity_sample_hz,
+                AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
                 true,
                 true,
             ),
