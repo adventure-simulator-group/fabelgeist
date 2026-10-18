@@ -46,9 +46,9 @@ pub(in crate::presentation) use materials::{
     leaf_material,
 };
 pub(in crate::presentation) use presentation::{
-    PendingTreePresentation, StreamedTreePresentation, TreePresentationCache,
-    VistaTreePresentationCache, ensure_vista_tree_variant, present_pending_trees,
-    stream_tree_lod_children,
+    PendingTreePresentation, RetainedTreePresentations, StreamedTreePresentation,
+    TreePresentationCache, VistaTreePresentationCache, ensure_vista_tree_variant,
+    present_pending_trees, stream_tree_lod_children,
 };
 pub(crate) use presentation::{
     PresentedTree, TreeAssetResidencyDiagnostics, TreeLeafTriangleCount,

@@ -42,7 +42,7 @@ use super::cover_mask::CoverageMask;
 mod batches;
 mod culling;
 mod diagnostics;
-pub(in crate::presentation) use batches::{PreparedTufts, spawn_tuft_batches};
+pub(in crate::presentation) use batches::spawn_tuft_batches;
 mod material;
 mod view_culling;
 pub(crate) use diagnostics::GrassTriangleCount;
@@ -104,16 +104,7 @@ fn present_instanced_grass(
         let wind_scale = 0.16 + bps(environment.weather.wind_speed_bps) * 0.36;
         let grass = &settings.config.grass;
         let base_seed = stable_text_seed(&environment.scene_digest).xor_word(0x6772_6173_735f_6c6f);
-        #[cfg(target_family = "wasm")]
-        let prepared = crate::presentation::generation::landscape::grass(&environment.scene_digest);
-        #[cfg(not(target_family = "wasm"))]
-        let prepared: Option<
-            std::sync::Arc<crate::presentation::vista::grass::PreparedGrass>,
-        > = None;
-        let mut batches = prepared.map_or_else(
-            || prepare_scene_tufts(terrain, ground, environment, grass, fault_scarp),
-            |prepared| prepared.playable.to_batches(),
-        );
+        let mut batches = prepare_scene_tufts(terrain, ground, environment, grass, fault_scarp);
         spawn_tuft_batches(
             GrassWorld {
                 commands: &mut commands,

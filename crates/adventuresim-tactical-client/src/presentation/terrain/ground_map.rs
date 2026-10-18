@@ -225,9 +225,14 @@ pub(in crate::presentation) fn grass_cover_mask_pixels(
 }
 
 pub(super) fn ground_map_image(ground: Option<&SceneGround>, seed: Seed) -> Image {
+    let started = web_time::Instant::now();
     let (width, height, pixels) = ground.map_or_else(
         || (1, 1, vec![0, 0, 0, 0]),
         |ground| organic_ground_pixels(ground, seed),
+    );
+    info!(
+        elapsed_ms = started.elapsed().as_millis(),
+        width, height, "Ground surface texture preparation"
     );
     let mut image = Image::new(
         Extent3d {
