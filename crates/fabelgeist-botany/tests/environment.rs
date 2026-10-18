@@ -92,7 +92,14 @@ async fn gpu_shadow_on_a_large_grid_matches_host() -> anyhow::Result<()> {
 
 #[tokio::test]
 async fn gpu_orientation_matches_host_orientation() -> anyhow::Result<()> {
-    orientation_parity(scattered_spheres(2000, 9), false).await
+    orientation_parity(scattered_spheres(2000, 9), false, 200).await
+}
+
+#[tokio::test]
+async fn gpu_orientation_in_large_dispatch_matches_host() -> anyhow::Result<()> {
+    // Small dispatches missed device loss from per-invocation search arrays
+    // on the RX 9070 XT Vulkan backend. Exercise a forest-sized dispatch.
+    orientation_parity(scattered_spheres(30_000, 9), false, 2000).await
 }
 
 /// Solids among the modules: every shape, turned, crowding the requests
@@ -124,17 +131,21 @@ async fn gpu_orientation_against_solids_matches_host() -> anyhow::Result<()> {
     structure.pyramid([3.0, 0.0, -6.0], 2.0, 6.0, 1.0, Material::Slate, 1.0);
     let mut set = scattered_spheres(2000, 9);
     set.obstacles = Some(fabelgeist_botany::Obstacles::new(structure));
-    orientation_parity(set, true).await
+    orientation_parity(set, true, 200).await
 }
 
-async fn orientation_parity(set: SphereSet, obstacles: bool) -> anyhow::Result<()> {
+async fn orientation_parity(
+    set: SphereSet,
+    obstacles: bool,
+    request_count: u32,
+) -> anyhow::Result<()> {
     let context = WgpuContext::new().await?;
     let mut gpu = GpuEnvironment::new(context)?;
     let mut host = HostEnvironment::default();
     let settings = EnvironmentSettings::default();
 
     let mut rng = Rng::new(3);
-    let requests: Vec<OrientRequest> = (0..200u32)
+    let requests: Vec<OrientRequest> = (0..request_count)
         .map(|k| {
             let index = k * 7;
             let s = set.spheres[index as usize];
@@ -160,6 +171,8 @@ async fn orientation_parity(set: SphereSet, obstacles: bool) -> anyhow::Result<(
 
     let a = gpu.orient(&set, &requests, &settings).await?;
     let b = host.orient(&set, &requests, &settings);
+    assert_eq!(a.len(), requests.len(), "GPU result count");
+    assert_eq!(b.len(), requests.len(), "host result count");
     let mut moved = 0;
     for (i, ((x, y), r)) in a.iter().zip(&b).zip(&requests).enumerate() {
         // Same pattern search: the same rotation up to float noise, or at

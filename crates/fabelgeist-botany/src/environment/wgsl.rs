@@ -73,6 +73,23 @@ const NEIGHBOUR_BINDINGS: &str = r#"
 @group(0) @binding(3) var<storage, read> hash_ranges: array<u32>;
 "#;
 
+/// Quaternion composition and vector rotation for the orientation search.
+const ROTATIONS: &str = r#"
+fn qmul(a: vec4<f32>, b: vec4<f32>) -> vec4<f32> {
+    return vec4<f32>(
+        a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y,
+        a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x,
+        a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w,
+        a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z,
+    );
+}
+
+fn qrot(q: vec4<f32>, v: vec3<f32>) -> vec3<f32> {
+    let c = cross(q.xyz, v);
+    return v + (c * q.w + cross(q.xyz, c)) * 2.0;
+}
+"#;
+
 pub fn light() -> String {
     format!(
         r#"
@@ -314,19 +331,7 @@ struct OrientParams {{
 {SOLID_WGSL}
 {OBSTACLES}
 
-fn qmul(a: vec4<f32>, b: vec4<f32>) -> vec4<f32> {{
-    return vec4<f32>(
-        a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y,
-        a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x,
-        a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w,
-        a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z,
-    );
-}}
-
-fn qrot(q: vec4<f32>, v: vec3<f32>) -> vec3<f32> {{
-    let c = cross(q.xyz, v);
-    return v + (c * q.w + cross(q.xyz, c)) * 2.0;
-}}
+{ROTATIONS}
 
 const THREADS: u32 = 64u;
 const CANDIDATES: u32 = 5u;
@@ -334,6 +339,8 @@ const CANDIDATES: u32 = 5u;
 var<workgroup> partial: array<array<f32, 5>, 64>;
 var<workgroup> obstacle: array<f32, 5>;
 var<workgroup> rotation: vec4<f32>;
+var<workgroup> candidates: array<vec4<f32>, 5>;
+var<workgroup> centers: array<vec3<f32>, 5>;
 var<workgroup> done: u32;
 var<workgroup> crowded: f32;
 
@@ -364,12 +371,6 @@ fn main(
 
     let s = sin(params.epsilon * 0.5);
     let c = cos(params.epsilon * 0.5);
-    let moves = array<vec4<f32>, 4>(
-        vec4<f32>(s, 0.0, 0.0, c),
-        vec4<f32>(-s, 0.0, 0.0, c),
-        vec4<f32>(0.0, 0.0, s, c),
-        vec4<f32>(0.0, 0.0, -s, c),
-    );
 
     if (t == 0u) {{
         rotation = requests[k * 5u + 2u];
@@ -379,25 +380,33 @@ fn main(
 
     for (var step = 0u; step < params.steps; step++) {{
         let q = workgroupUniformLoad(&rotation);
-        var candidates: array<vec4<f32>, 5>;
-        var centers: array<vec3<f32>, 5>;
-        candidates[0] = q;
-        for (var m = 1u; m < CANDIDATES; m++) {{
-            candidates[m] = normalize(qmul(q, moves[m - 1u]));
+        // All lanes search the same candidates. Publish one copy before
+        // distributing their neighbourhood queries across the workgroup.
+        if (t < CANDIDATES) {{
+            if (t == 0u) {{
+                candidates[t] = q;
+            }} else {{
+                var perturbation = vec4<f32>(s, 0.0, 0.0, c);
+                switch t {{
+                    case 2u: {{ perturbation = vec4<f32>(-s, 0.0, 0.0, c); }}
+                    case 3u: {{ perturbation = vec4<f32>(0.0, 0.0, s, c); }}
+                    case 4u: {{ perturbation = vec4<f32>(0.0, 0.0, -s, c); }}
+                    default: {{}}
+                }}
+                candidates[t] = normalize(qmul(q, perturbation));
+            }}
+            centers[t] = root + qrot(candidates[t], local_center);
         }}
-        for (var m = 0u; m < CANDIDATES; m++) {{
-            centers[m] = root + qrot(candidates[m], local_center);
-        }}
+        workgroupBarrier();
 
-        var sums = array<f32, 5>(0.0, 0.0, 0.0, 0.0, 0.0);
+        for (var m = 0u; m < CANDIDATES; m++) {{
+            partial[t][m] = 0.0;
+        }}
         for (var task = t; task < CANDIDATES * 27u; task += THREADS) {{
             let m = task / 27u;
             let base = spatial_hash_cell(centers[m], params.inverse_cell);
             let cell = neighbour_cell(base, task % 27u);
-            sums[m] += crowding_cell(index, parent, centers[m], radius, cell);
-        }}
-        for (var m = 0u; m < CANDIDATES; m++) {{
-            partial[t][m] = sums[m];
+            partial[t][m] += crowding_cell(index, parent, centers[m], radius, cell);
         }}
         // Each candidate's share inside solids, a thread apiece.
         if (t < CANDIDATES) {{
