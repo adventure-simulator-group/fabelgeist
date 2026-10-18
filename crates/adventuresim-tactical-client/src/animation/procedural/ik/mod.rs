@@ -213,11 +213,11 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 true,
             ),
         };
-        let (state_delta_seconds, evaluation_advances) = match clock.fixed_tick {
-            Some((tick, _)) if memory.evaluation_tick == Some(tick) => (0.0, false),
-            Some((tick, delta_seconds)) => {
-                memory.evaluation_tick = Some(tick);
-                (delta_seconds, true)
+        let (state_delta_seconds, evaluation_advances) = match clock.fixed_step() {
+            Some(step) if memory.evaluation_tick == Some(step.tick) => (0.0, false),
+            Some(step) => {
+                memory.evaluation_tick = Some(step.tick);
+                (step.delta_seconds, true)
             }
             None => {
                 let delta_seconds = time.delta_secs();

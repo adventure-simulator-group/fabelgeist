@@ -1,3 +1,4 @@
+use adventuresim_tactical_core::animation::AnimationPackId;
 use std::{collections::BTreeMap, str::FromStr};
 
 #[cfg(test)]

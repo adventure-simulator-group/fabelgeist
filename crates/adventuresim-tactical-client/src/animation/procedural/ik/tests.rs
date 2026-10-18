@@ -6,6 +6,7 @@ mod coordination_tests {
     // planning, settlement, and orientation rather than one policy owner in
     // isolation. Owner-local tests remain in hands, locomotion, and solver.
     use super::*;
+    use adventuresim_tactical_core::animation::AnimationSampleTick;
 
     #[test]
     fn authored_to_idle_handoff_does_not_reset_contact_sequence() {
@@ -1706,7 +1707,7 @@ mod coordination_tests {
             left_support_weight: Some(0.4),
             left_transition_support_weight: Some(0.4),
             left_release_active: false,
-            evaluation_tick: Some(91),
+            evaluation_tick: Some(AnimationSampleTick::from(91u64)),
             ..default()
         };
         let advanced = memory;

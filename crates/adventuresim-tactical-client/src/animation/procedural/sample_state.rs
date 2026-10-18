@@ -1,6 +1,6 @@
 //! Procedural sample roles and units retained between presentation updates.
 
-use super::clock::AnimationSampleTick;
+use adventuresim_tactical_core::animation::{AnimationSampleTick, LandingSequence};
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
 

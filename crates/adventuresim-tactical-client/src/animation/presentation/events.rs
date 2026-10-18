@@ -1,6 +1,7 @@
 //! Authoritative locomotion observations emitted as bounded presentation events.
 
 use super::*;
+use adventuresim_tactical_core::animation::{AnimationSampleTick, LandingSequence};
 
 #[derive(Message, Debug, Clone, Copy)]
 pub(crate) struct LocomotionPresentationEvent {

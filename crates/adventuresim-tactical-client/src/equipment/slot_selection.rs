@@ -1,6 +1,7 @@
 //! Keyboard and HUD resolve a binding to an eligible anatomical location.
+use super::preview::PreviewTarget;
 use super::{
-    GrabSelection, GrabSession, INVALID_FLASH_SECS, PreviewTarget, eligible_slot_depth, key_code,
+    GrabSelection, GrabSession, INVALID_FLASH_SECS, eligible_slot_depth, key_code,
     outermost_occupied_depth,
 };
 use adventuresim_core::equipment::{INPUT_ADDRESS_MAPPINGS, InputAddressMapping};

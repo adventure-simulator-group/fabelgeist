@@ -1,6 +1,7 @@
 //! Measure cadence and phase from each body's retargeted foot trajectories.
 
 use super::*;
+use adventuresim_tactical_core::animation::AnimationPackId;
 use strum::{EnumIter, IntoEnumIterator, IntoStaticStr};
 
 #[derive(Component)]

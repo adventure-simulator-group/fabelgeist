@@ -3,6 +3,7 @@
 //! Authoritative presentation state is converted directly into the semantic
 //! pose samples consumed by the pose buffer.
 
+use adventuresim_tactical_core::animation::AnimationPackId;
 use std::collections::BTreeMap;
 
 use adventuresim_tactical_core::prelude::*;

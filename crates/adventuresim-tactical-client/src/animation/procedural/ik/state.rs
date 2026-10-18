@@ -2,6 +2,7 @@
 // authority is persisted outside the Bevy presentation world.
 
 use super::*;
+use adventuresim_tactical_core::animation::AnimationSampleTick;
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub(in crate::animation::procedural) struct LocomotionSettleState {
     pub(super) support_left: bool,
@@ -102,7 +103,7 @@ pub(in crate::animation::procedural) struct LegIkMemory {
     pub(super) rig_origin: Option<Vec3>,
     pub(super) rig_rotation: Option<Quat>,
     pub(super) measured_owner_planar_speed: f32,
-    pub(super) evaluation_tick: Option<u64>,
+    pub(super) evaluation_tick: Option<AnimationSampleTick>,
     pub(super) recent_movement_velocity: Vec3,
     pub(super) settle: Option<LocomotionSettleState>,
 }

@@ -1,4 +1,5 @@
 use super::*;
+use adventuresim_tactical_core::animation::AnimationSampleTick;
 use attack::advance_presented_attack;
 use events::emit_locomotion_presentation_events;
 pub(crate) use events::{LocomotionPresentationEvent, LocomotionPresentationEventKind};

@@ -1,6 +1,7 @@
 //! Resolve semantic samples into authored clip plans.
 
 use super::*;
+use adventuresim_tactical_core::animation::AnimationPackId;
 
 mod span;
 

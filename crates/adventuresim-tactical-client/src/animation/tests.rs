@@ -3,6 +3,7 @@ use super::*;
 #[cfg(test)]
 mod legacy_tests {
     use super::*;
+    use adventuresim_tactical_core::animation::AnimationSampleTick;
     use semantic_route::{SemanticRoutePath, SemanticRouteTrace};
 
     fn route(skeleton: SkeletonState) -> SemanticRouteTrace {

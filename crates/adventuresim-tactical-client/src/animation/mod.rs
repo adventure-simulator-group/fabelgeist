@@ -3,6 +3,7 @@
     reason = "the gameplay client, animation viewer, and reflection linker consume different parts of this shared facade"
 )]
 
+use adventuresim_tactical_core::animation::AnimationPackId;
 use adventuresim_tactical_core::animation::AttackCurve;
 use adventuresim_tactical_core::prelude::*;
 #[cfg(not(target_family = "wasm"))]

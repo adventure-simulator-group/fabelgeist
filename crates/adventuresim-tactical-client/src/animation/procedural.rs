@@ -1,4 +1,5 @@
 use super::{AnimationPlayback, AuthoredBindTransform, PresentedSkeleton};
+use adventuresim_tactical_core::animation::{AnimationPackId, LandingImpactSpeed};
 use adventuresim_tactical_core::prelude::*;
 use bevy::{math::Affine3A, prelude::*};
 pub(in crate::animation) use body_response::apply_locomotion_body_response;
