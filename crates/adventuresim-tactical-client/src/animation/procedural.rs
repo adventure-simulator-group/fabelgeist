@@ -171,7 +171,7 @@ pub(super) fn apply_head_and_torso_look(
                         look,
                         owner_rotation,
                         skeleton.weapon_guard(),
-                        skeleton.is_posture_transitioning(),
+                        skeleton.posture_transition(),
                     ),
                     skeleton.action_direction().x.clamp(-1.0, 1.0) * 0.35,
                 ),
@@ -266,7 +266,8 @@ pub(super) fn apply_jump_anticipation(
         {
             previous_pelvis_amount
         } else {
-            let target = jump_charge_pelvis_target(charging, skeleton.weapon_guard());
+            let target =
+                jump_charge_pelvis_target(skeleton.jump_anticipation(), skeleton.weapon_guard());
             previous_pelvis_amount + (target - previous_pelvis_amount).clamp(-0.125, 0.125)
         };
         let mut applied = base;
@@ -805,9 +806,9 @@ fn guarded_camera_look(
     look: &CharacterLook,
     owner_rotation: Quat,
     weapon_guard: WeaponGuardState,
-    posture_transitioning: bool,
+    posture_transition: Option<PostureTransitionState>,
 ) -> Option<Vec2> {
-    (weapon_guard == WeaponGuardState::Raised && !posture_transitioning)
+    (weapon_guard == WeaponGuardState::Raised && posture_transition.is_none())
         .then(|| constrained_camera_look(look, owner_rotation))
 }
 
@@ -829,8 +830,8 @@ fn constrained_camera_look(look: &CharacterLook, owner_rotation: Quat) -> Vec2 {
     )
 }
 
-fn jump_charge_pelvis_target(charging: bool, guard: WeaponGuardState) -> f32 {
-    (charging && guard == WeaponGuardState::Lowered) as u8 as f32
+fn jump_charge_pelvis_target(anticipation: JumpAnticipation, guard: WeaponGuardState) -> f32 {
+    (anticipation == JumpAnticipation::Charging && guard == WeaponGuardState::Lowered) as u8 as f32
 }
 
 /// Additive run-flight waveform with contacts at 0/.5 and flight peaks at
@@ -1077,11 +1078,11 @@ mod contract_tests {
     #[test]
     fn raised_guard_never_adds_jump_charge_pelvis_lowering() {
         assert_eq!(
-            jump_charge_pelvis_target(true, WeaponGuardState::Raised),
+            jump_charge_pelvis_target(JumpAnticipation::Charging, WeaponGuardState::Raised),
             0.0
         );
         assert_eq!(
-            jump_charge_pelvis_target(true, WeaponGuardState::Lowered),
+            jump_charge_pelvis_target(JumpAnticipation::Charging, WeaponGuardState::Lowered),
             1.0
         );
     }
@@ -1137,18 +1138,25 @@ mod ik_tests {
             pitch: 0.6,
         };
         assert_eq!(
-            guarded_camera_look(&look, Quat::IDENTITY, WeaponGuardState::Lowered, false),
+            guarded_camera_look(&look, Quat::IDENTITY, WeaponGuardState::Lowered, None),
             None
         );
         assert!(
-            guarded_camera_look(&look, Quat::IDENTITY, WeaponGuardState::Raised, false)
+            guarded_camera_look(&look, Quat::IDENTITY, WeaponGuardState::Raised, None)
                 .unwrap()
                 .y
                 .abs()
                 > 0.1
         );
+        let mut transitioning = SkeletonState::default();
+        transitioning.begin_posture_transition(PostureTransitionKind::UprightToProne, 0, 10);
         assert_eq!(
-            guarded_camera_look(&look, Quat::IDENTITY, WeaponGuardState::Raised, true),
+            guarded_camera_look(
+                &look,
+                Quat::IDENTITY,
+                WeaponGuardState::Raised,
+                transitioning.posture_transition(),
+            ),
             None,
             "authored posture transitions exclusively own the spine and head"
         );

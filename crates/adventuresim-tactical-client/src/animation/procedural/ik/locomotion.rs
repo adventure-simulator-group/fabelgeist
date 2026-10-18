@@ -2,9 +2,18 @@ use super::*;
 
 #[derive(Component, Debug, Clone, Copy, Default)]
 pub(in crate::animation) struct OrdinaryLocomotionIkState {
-    initialized: bool,
-    pelvis_shift: f32,
+    pelvis_shift: PelvisShiftState,
     evaluation_tick: Option<super::super::clock::AnimationSampleTick>,
+}
+
+#[derive(Debug, Clone, Copy, Default)]
+enum PelvisShiftState {
+    #[default]
+    Pending,
+    Tracking {
+        /// Retained world-vertical correction, in signed metres.
+        metres: f32,
+    },
 }
 
 impl OrdinaryLocomotionIkState {
@@ -29,6 +38,20 @@ impl OrdinaryLocomotionIkState {
             }
             None => AnimationElapsed::from(time.delta()),
         }
+    }
+}
+
+impl PelvisShiftState {
+    fn advance(&mut self, desired_metres: f32, elapsed: AnimationElapsed) -> f32 {
+        let metres = match *self {
+            Self::Pending => desired_metres,
+            Self::Tracking { metres } if !elapsed.is_zero() => {
+                advance_pelvis_shift(metres, desired_metres, elapsed)
+            }
+            Self::Tracking { metres } => metres,
+        };
+        *self = Self::Tracking { metres };
+        metres
     }
 }
 
@@ -151,15 +174,10 @@ pub(in crate::animation) fn apply(
             );
         }
 
-        state.pelvis_shift = if !state.initialized {
-            desired_pelvis_shift
-        } else if !delta_seconds.is_zero() {
-            advance_pelvis_shift(state.pelvis_shift, desired_pelvis_shift, delta_seconds)
-        } else {
-            state.pelvis_shift
-        };
-        state.initialized = true;
-        apply_root_vertical_shift(rig, state.pelvis_shift, &parents, &mut transforms);
+        let pelvis_shift_metres = state
+            .pelvis_shift
+            .advance(desired_pelvis_shift, delta_seconds);
+        apply_root_vertical_shift(rig, pelvis_shift_metres, &parents, &mut transforms);
         let rig_rotation = rig
             .rig_scene()
             .and_then(|entity| transforms.p0().compute_global_transform(entity).ok())
@@ -257,7 +275,7 @@ pub(in crate::animation) fn apply(
             right_foot_world_target: targets[1],
             left_support_weight: Some(authored_weights.x),
             right_support_weight: Some(authored_weights.y),
-            pelvis_shift: state.pelvis_shift,
+            pelvis_shift: pelvis_shift_metres,
             evaluation_tick: state.evaluation_tick,
             ..default()
         };

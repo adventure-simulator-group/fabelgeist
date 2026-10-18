@@ -44,13 +44,6 @@ pub(super) fn outside_views(
     has_view
 }
 
-impl PoseBufferRig {
-    #[cfg(any(target_family = "wasm", test))]
-    pub(crate) fn has_presented_pose(&self) -> bool {
-        self.active
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;

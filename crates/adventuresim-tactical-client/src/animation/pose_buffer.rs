@@ -25,6 +25,7 @@ use inertialization::{
     JointInertialOffset, hemisphere_slerp, local_pose_velocity, quaternion_exp, quaternion_log,
     shortest_rotation,
 };
+use presentation::PosePresentationMode;
 use proportions::sample_character_plan;
 use rig::{RigDefinition, RigJoint};
 use spline::clamped_cubic_spline_vec3;
@@ -39,6 +40,7 @@ mod hierarchy;
 mod inertialization;
 mod phase_calibration;
 mod physics_pose;
+mod presentation;
 mod proportions;
 mod rig;
 mod spline;
@@ -114,7 +116,7 @@ pub(crate) struct PoseBufferRig {
     target_angular_velocities: RigJointTable<Vec3>,
     terrain_plants: [Option<AuthoredContactPlant>; 2],
     plan: Option<PosePlanKey>,
-    active: bool,
+    presentation: PosePresentationMode,
     visibility: PoseVisibility,
     /// Every inertial offset has decayed to zero: the decay is skipped until
     /// the next transition captures a new one.
@@ -350,7 +352,7 @@ impl PoseBufferRig {
         target: &RigJointTable<LocalPose>,
         target_velocities: &RigJointTable<(Vec3, Vec3)>,
     ) {
-        let capture_displayed = self.active;
+        let capture_displayed = self.has_presented_pose();
         for (joint, &target_pose) in target.indexed() {
             let displayed = if capture_displayed {
                 // Animation evaluation may already have written the new
@@ -453,7 +455,8 @@ pub(super) fn update_pose_buffers(
 
         let position = owner_transform.translation();
         // Initialize retained models before culling so first selection has a pose.
-        let frozen = rig.active && visibility::outside_views(position, layers, &cameras);
+        let frozen =
+            rig.has_presented_pose() && visibility::outside_views(position, layers, &cameras);
         if frozen {
             rig.visibility = PoseVisibility::Frozen;
             metrics.culled_character_count += 1;
@@ -468,7 +471,7 @@ pub(super) fn update_pose_buffers(
         rig.visibility = PoseVisibility::Visible;
 
         let key = PosePlanKey::from_playback(playback);
-        let transition = !rig.active || rig.plan.as_ref() != Some(&key);
+        let transition = !rig.has_presented_pose() || rig.plan.as_ref() != Some(&key);
         rig.sample_accumulator = match rig.sample_accumulator.checked_add(delta_seconds) {
             Ok(elapsed) => elapsed,
             Err(error) => {
@@ -531,7 +534,7 @@ pub(super) fn update_pose_buffers(
             .iter()
             .zip(&rig.next)
             .map(|(target, previous)| {
-                if rig.active && direct_sampling && !transition {
+                if rig.has_presented_pose() && direct_sampling && !transition {
                     local_pose_velocity(*previous, *target, delta_seconds.seconds())
                 } else {
                     // Poses on opposite sides of a plan change do not form a
@@ -549,7 +552,7 @@ pub(super) fn update_pose_buffers(
             rig.sample_accumulator = AnimationElapsed::ZERO;
             rig.interpolation_alpha = 1.0;
             rig.plan = Some(key);
-            rig.active = true;
+            rig.presentation = PosePresentationMode::Displaying;
         } else {
             if direct_sampling {
                 // The semantic curve supplies the continuous target. Preserve
@@ -603,7 +606,7 @@ pub(super) fn apply_pose_buffers(
 ) {
     let _spike = crate::animation::diagnostics::SpikeGuard::new("apply_pose_buffers");
     for mut rig in &mut rigs {
-        if !rig.active || rig.visibility == PoseVisibility::Frozen {
+        if !rig.has_presented_pose() || rig.visibility == PoseVisibility::Frozen {
             continue;
         }
         let alpha = rig.interpolation_alpha;

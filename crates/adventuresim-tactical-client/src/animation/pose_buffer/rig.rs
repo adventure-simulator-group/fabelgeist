@@ -183,7 +183,7 @@ impl PoseBufferRig {
             target_angular_velocities: RigJointTable::from(vec![Vec3::ZERO; joint_count]),
             terrain_plants: [None; 2],
             plan: None,
-            active: false,
+            presentation: PosePresentationMode::default(),
             visibility: PoseVisibility::Visible,
             inertial_state: InertialState::Settled,
             ownership: PoseOwnership::Authored,

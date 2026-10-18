@@ -179,6 +179,13 @@ Authored clips are sampled by the client-owned pose buffer. The semantic router
 reads presentation state, resolves weighted clip samples through the animation
 pack catalog, and applies fixed-rate FK with per-joint inertialization before
 procedural terrain, body-response, and weapon-constraint passes.
+Pose buffers distinguish inactive state from retained authored display history.
+The first plan snaps to its target; later transitions capture displayed output.
+Visibility and physics ownership remain separate: pinning a physics pose does
+not establish authored display history. Ordinary locomotion adopts its first
+vertical hip correction even at zero elapsed time, then retains that correction
+on subsequent zero-elapsed observations.
+
 Resolved playback carries finite nonnegative `ClipDuration` and `BlendWeight`
 values. Contributions may exceed one; checked accumulation rejects overflow.
 `ClipTime` and `CyclePhase` require finiteness while retaining signed sample
