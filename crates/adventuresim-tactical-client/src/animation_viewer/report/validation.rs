@@ -262,9 +262,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
         let same_stream = (pair[0].kind.starts_with("contact")
             && pair[1].kind.starts_with("contact"))
             || (pair[0].kind == "landing" && pair[1].kind == "landing");
-        pair[0].scenario != pair[1].scenario
-            || !same_stream
-            || (pair[1].sequence > pair[0].sequence && pair[1].sample_tick >= pair[0].sample_tick)
+        pair[0].scenario != pair[1].scenario || !same_stream || pair[1].advances_from(&pair[0])
     }) && presentation_events
         .iter()
         .enumerate()

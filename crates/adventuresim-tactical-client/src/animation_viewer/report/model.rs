@@ -1,6 +1,7 @@
 //! Serialized capture, validation, metric, and trace contracts.
 
 use super::*;
+use adventuresim_tactical_core::animation::AnimationSampleTick;
 
 pub(in crate::animation_viewer) const VIEWS: [CaptureView; 3] =
     [CaptureView::Gameplay, CaptureView::Side, CaptureView::Front];
@@ -65,7 +66,7 @@ pub(in crate::animation_viewer) struct PresentationEventSample {
     pub(in crate::animation_viewer) scenario_frame: usize,
     pub(in crate::animation_viewer) owner: String,
     pub(in crate::animation_viewer) sequence: u64,
-    pub(in crate::animation_viewer) sample_tick: u64,
+    pub(in crate::animation_viewer) sample_tick: AnimationSampleTick,
     pub(in crate::animation_viewer) kind: String,
 }
 
@@ -256,4 +257,15 @@ pub(super) struct CompletedReport {
     pub(super) manifest: AnimationCaptureManifest,
     pub(super) global_bone_frames: Vec<GlobalBoneFrame>,
     pub(super) acceptance_passed: bool,
+}
+
+impl PresentationEventSample {
+    /// Advances the sequence without moving the observed sample tick backwards.
+    pub(super) fn advances_from(&self, previous: &Self) -> bool {
+        self.sequence > previous.sequence
+            && self
+                .sample_tick
+                .checked_delta(previous.sample_tick)
+                .is_some()
+    }
 }

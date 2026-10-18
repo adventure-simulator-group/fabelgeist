@@ -2289,7 +2289,7 @@ mod tests {
         )
         .translation;
         let mut combined = locomotion;
-        combined[0].rotation = Quat::from_rotation_y(0.6);
+        combined[RigJointOrdinal::from(0usize)].rotation = Quat::from_rotation_y(0.6);
 
         conform_upcoming_pose_to_terrain(
             &definition,
