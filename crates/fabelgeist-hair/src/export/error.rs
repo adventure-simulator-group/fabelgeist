@@ -47,6 +47,8 @@ pub enum HairDataError {
         shape: Vec<usize>,
         actual_values: usize,
     },
+    #[error("NumPy shape {shape:?} exceeds the addressable array extent")]
+    ShapeExtentOverflow { shape: Vec<usize> },
     #[error("ZIP entry {name} exceeds the supported archive width")]
     ZipEntryTooLarge { name: String },
     #[error("unsupported NumPy version {version}")]

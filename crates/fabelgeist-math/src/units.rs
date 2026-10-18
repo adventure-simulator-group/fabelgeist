@@ -13,6 +13,42 @@ use serde::{Deserialize, Serialize};
 #[serde(transparent)]
 pub struct Metres(f32);
 
+/// A dimensionless ratio; application records own policy bounds.
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct Ratio(f32);
+
+/// Angular change per metre of a curve.
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct RadiansPerMetre(f32);
+
+/// Complete turns per metre of a curve.
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct TurnsPerMetre(f32);
+
+/// Spatial frequency in inverse metres.
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct PerMetre(f32);
+
+/// Acceleration in metres per second squared.
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct Acceleration(f32);
+
+/// Acceleration components in the model coordinate frame, in metres per second squared.
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct AccelerationVector([f32; 3]);
+
 impl Metres {
     pub const fn from_metres(value: f32) -> Self {
         Self(value)
@@ -22,12 +58,6 @@ impl Metres {
         self.0
     }
 }
-
-/// A dimensionless ratio; application records own policy bounds.
-#[repr(transparent)]
-#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(transparent)]
-pub struct Ratio(f32);
 
 impl Ratio {
     pub const fn from_ratio(value: f32) -> Self {
@@ -39,12 +69,6 @@ impl Ratio {
     }
 }
 
-/// Angular change per metre of a curve.
-#[repr(transparent)]
-#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(transparent)]
-pub struct RadiansPerMetre(f32);
-
 impl RadiansPerMetre {
     pub const fn from_radians_per_metre(value: f32) -> Self {
         Self(value)
@@ -54,12 +78,6 @@ impl RadiansPerMetre {
         self.0
     }
 }
-
-/// Complete turns per metre of a curve.
-#[repr(transparent)]
-#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(transparent)]
-pub struct TurnsPerMetre(f32);
 
 impl TurnsPerMetre {
     pub const fn from_turns_per_metre(value: f32) -> Self {
@@ -71,12 +89,6 @@ impl TurnsPerMetre {
     }
 }
 
-/// Spatial frequency in inverse metres.
-#[repr(transparent)]
-#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(transparent)]
-pub struct PerMetre(f32);
-
 impl PerMetre {
     pub const fn from_per_metre(value: f32) -> Self {
         Self(value)
@@ -87,12 +99,6 @@ impl PerMetre {
     }
 }
 
-/// Acceleration in metres per second squared.
-#[repr(transparent)]
-#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(transparent)]
-pub struct Acceleration(f32);
-
 impl Acceleration {
     pub const fn from_metres_per_second_squared(value: f32) -> Self {
         Self(value)
@@ -102,12 +108,6 @@ impl Acceleration {
         self.0
     }
 }
-
-/// Acceleration components in the model coordinate frame, in metres per second squared.
-#[repr(transparent)]
-#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(transparent)]
-pub struct AccelerationVector([f32; 3]);
 
 impl AccelerationVector {
     pub const fn from_components(value: [f32; 3]) -> Self {

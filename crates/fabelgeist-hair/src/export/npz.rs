@@ -13,7 +13,12 @@ use crate::export::error::{HairDataError, HairDataFormat, Result};
 
 /// A little-endian `float32` array in `.npy` format, version 1.0.
 pub fn npy(shape: &[usize], data: &[f32]) -> Result<Vec<u8>> {
-    let count: usize = shape.iter().product();
+    let count = shape
+        .iter()
+        .try_fold(1usize, |count, &extent| count.checked_mul(extent))
+        .ok_or_else(|| HairDataError::ShapeExtentOverflow {
+            shape: shape.to_vec(),
+        })?;
     if count != data.len() {
         return Err(HairDataError::ShapeMismatch {
             shape: shape.to_vec(),
@@ -116,7 +121,7 @@ pub fn parse_npy(bytes: &[u8]) -> Result<Array> {
             format: HairDataFormat::Npy,
         });
     }
-    let (length, start) = match bytes[6] {
+    let (length, start): (usize, usize) = match bytes[6] {
         1 => (u16::from_le_bytes([bytes[8], bytes[9]]) as usize, 10),
         2 | 3 => (
             u32::from_le_bytes(
@@ -131,7 +136,10 @@ pub fn parse_npy(bytes: &[u8]) -> Result<Array> {
         ),
         version => return Err(HairDataError::NpyVersion { version }),
     };
-    let header = std::str::from_utf8(bytes.get(start..start + length).ok_or_else(|| {
+    let header_end = start.checked_add(length).ok_or(HairDataError::Truncated {
+        format: HairDataFormat::Npy,
+    })?;
+    let header = std::str::from_utf8(bytes.get(start..header_end).ok_or_else(|| {
         HairDataError::NpyField {
             name: "header".into(),
         }
@@ -153,21 +161,25 @@ pub fn parse_npy(bytes: &[u8]) -> Result<Array> {
     if field("fortran_order")?.starts_with("True") {
         return Err(HairDataError::FortranOrder);
     }
-    let shape_text = field("shape")?;
-    let shape_text =
-        &shape_text[1..shape_text
-            .find(')')
-            .ok_or_else(|| HairDataError::NpyField {
-                name: "shape".into(),
-            })?];
+    let shape_text = field("shape")?
+        .strip_prefix('(')
+        .and_then(|text| text.split_once(')').map(|(shape, _)| shape))
+        .ok_or_else(|| HairDataError::NpyField {
+            name: "shape".into(),
+        })?;
     let shape: Vec<usize> = shape_text
         .split(',')
         .map(str::trim)
         .filter(|s| !s.is_empty())
         .map(|s| s.parse::<usize>())
         .collect::<std::result::Result<_, _>>()?;
-    let count: usize = shape.iter().product();
-    let body = &bytes[start + length..];
+    let count = shape
+        .iter()
+        .try_fold(1usize, |count, &extent| count.checked_mul(extent))
+        .ok_or_else(|| HairDataError::ShapeExtentOverflow {
+            shape: shape.clone(),
+        })?;
+    let body = &bytes[header_end..];
     let data: Vec<f32> = match descr {
         "<f4" | "=f4" => body
             .as_chunks::<4>()

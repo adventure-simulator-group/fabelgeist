@@ -19,21 +19,6 @@ use fabelgeist_gpu::prelude::{Buffer, BufferByteLength, BufferByteOffset, WgpuCo
 
 use crate::KernelBatch;
 
-/// Failures of recording or retrieving a batch of GPU results.
-#[derive(Debug, thiserror::Error)]
-pub enum ReadbackError {
-    #[error("readback staging extent exceeds the addressable buffer size")]
-    ExtentOverflow,
-    #[error("readback mapping callback was dropped")]
-    ChannelClosed,
-    #[error("readback mapping failed")]
-    Mapping(#[source] wgpu::BufferAsyncError),
-    #[error("readback device polling failed")]
-    Poll(#[source] wgpu::PollError),
-    #[error("readback results have already been taken")]
-    AlreadyRead,
-}
-
 type Result<T> = std::result::Result<T, ReadbackError>;
 
 /// A buffer's admitted location in the shared staging allocation.
@@ -56,6 +41,21 @@ pub struct PendingReadback {
     staging: Arc<wgpu::Buffer>,
     ranges: Vec<StagedRange>,
     state: Arc<Mutex<ReadbackState>>,
+}
+
+/// Failures of recording or retrieving a batch of GPU results.
+#[derive(Debug, thiserror::Error)]
+pub enum ReadbackError {
+    #[error("readback staging extent exceeds the addressable buffer size")]
+    ExtentOverflow,
+    #[error("readback mapping callback was dropped")]
+    ChannelClosed,
+    #[error("readback mapping failed")]
+    Mapping(#[source] wgpu::BufferAsyncError),
+    #[error("readback device polling failed")]
+    Poll(#[source] wgpu::PollError),
+    #[error("readback results have already been taken")]
+    AlreadyRead,
 }
 
 #[derive(Debug)]

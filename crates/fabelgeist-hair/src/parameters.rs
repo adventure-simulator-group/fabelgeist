@@ -8,6 +8,40 @@ use serde::{Deserialize, Serialize};
 #[serde(transparent)]
 pub struct StrandCount(usize);
 
+/// Number of samples in each strand.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct PointsPerStrand(usize);
+
+/// Number of guide neighbours blended for a strand.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct GuideNeighborCount(usize);
+
+/// A hair shader's signed 32-bit seed, backed by the canonical seed owner.
+/// The bit pattern, hash algorithm and numeric JSON representation are retained.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(from = "i32", into = "i32")]
+pub struct HairSeed(Seed);
+
+/// Whether coarse locks are gathered into ropes.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(from = "bool", into = "bool")]
+pub enum LockFormation {
+    #[default]
+    Separate,
+    Roped,
+}
+
+/// Whether the authored groom is draped under the requested acceleration.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(from = "bool", into = "bool")]
+pub enum Draping {
+    #[default]
+    Disabled,
+    Enabled,
+}
+
 impl StrandCount {
     pub const fn from_count(count: usize) -> Self {
         Self(count)
@@ -17,11 +51,6 @@ impl StrandCount {
         self.0
     }
 }
-
-/// Number of samples in each strand.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-#[serde(transparent)]
-pub struct PointsPerStrand(usize);
 
 impl PointsPerStrand {
     pub const fn from_count(count: usize) -> Self {
@@ -33,11 +62,6 @@ impl PointsPerStrand {
     }
 }
 
-/// Number of guide neighbours blended for a strand.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-#[serde(transparent)]
-pub struct GuideNeighborCount(usize);
-
 impl GuideNeighborCount {
     pub const fn from_count(count: usize) -> Self {
         Self(count)
@@ -47,12 +71,6 @@ impl GuideNeighborCount {
         self.0
     }
 }
-
-/// A hair shader's signed 32-bit seed, backed by the canonical seed owner.
-/// The bit pattern, hash algorithm and numeric JSON representation are retained.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(from = "i32", into = "i32")]
-pub struct HairSeed(Seed);
 
 impl HairSeed {
     pub const fn from_word(word: i32) -> Self {
@@ -75,15 +93,6 @@ impl From<HairSeed> for i32 {
     }
 }
 
-/// Whether coarse locks are gathered into ropes.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(from = "bool", into = "bool")]
-pub enum LockFormation {
-    #[default]
-    Separate,
-    Roped,
-}
-
 impl LockFormation {
     pub const fn from_enabled(enabled: bool) -> Self {
         if enabled { Self::Roped } else { Self::Separate }
@@ -103,15 +112,6 @@ impl From<LockFormation> for bool {
     fn from(formation: LockFormation) -> Self {
         formation.enabled()
     }
-}
-
-/// Whether the authored groom is draped under the requested acceleration.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(from = "bool", into = "bool")]
-pub enum Draping {
-    #[default]
-    Disabled,
-    Enabled,
 }
 
 impl Draping {
