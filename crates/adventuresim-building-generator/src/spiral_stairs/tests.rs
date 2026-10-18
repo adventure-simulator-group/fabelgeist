@@ -119,7 +119,7 @@ fn contains(member: &SpiralMember, point: Vec3) -> bool {
 fn fortified_stairs_and_floor_holes_are_shared_by_detail_and_collision() {
     let plan = crate::generate(&crate::BuildingProgram::fixture(
         BuildingArchetype::WalledKeep,
-        42,
+        fabelgeist_determinism::Seed::from_u64(42),
     ))
     .unwrap_or_else(|error| match error {
         crate::GenerationError::StructuralContract { issues, .. } => panic!(
@@ -182,16 +182,18 @@ fn auxiliary_castle_stairs_do_not_claim_unbuilt_occupied_floor_portals() {
         BuildingArchetype::CastleGatehouse,
         BuildingArchetype::CourtyardCastle,
     ] {
-        let plan = crate::generate(&crate::BuildingProgram::fixture(archetype, 59)).unwrap_or_else(
-            |error| match error {
-                crate::GenerationError::StructuralContract { issues, .. } => panic!(
-                    "{archetype:?}: {} issues; first {:?}",
-                    issues.len(),
-                    &issues[..issues.len().min(4)]
-                ),
-                other => panic!("{other}"),
-            },
-        );
+        let plan = crate::generate(&crate::BuildingProgram::fixture(
+            archetype,
+            fabelgeist_determinism::Seed::from_u64(59),
+        ))
+        .unwrap_or_else(|error| match error {
+            crate::GenerationError::StructuralContract { issues, .. } => panic!(
+                "{archetype:?}: {} issues; first {:?}",
+                issues.len(),
+                &issues[..issues.len().min(4)]
+            ),
+            other => panic!("{other}"),
+        });
         assert!(
             !plan
                 .resolved_geometry

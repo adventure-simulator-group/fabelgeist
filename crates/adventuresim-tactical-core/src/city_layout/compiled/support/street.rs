@@ -5,23 +5,25 @@ use crate::city_layout::grounding::access::{access_regions, available_run};
 pub(super) fn select(
     property: &CityCompound,
     observations: CompoundSupportLevels,
-    threshold: Vec2,
+    threshold: crate::scene_coordinates::ScenePlanPoint,
     geographic: &GeographicSurface,
     streets: &[CityStreetPatch],
     policy: CompoundGradingPolicy,
 ) -> Result<CompoundSupportPlan, CitySupportError> {
+    let threshold_point = threshold;
+    let threshold = threshold.metres();
     let plot = property.plot;
     let local = plot
-        .orientation
-        .world_to_local(threshold - plot.centre_metres);
-    let edge = plot.centre_metres
+        .orientation()
+        .world_to_local(threshold - plot.centre_metres());
+    let edge = plot.centre_metres()
         + plot
-            .orientation
-            .local_to_world(Vec2::new(local.x, -plot.dimensions_metres.y * 0.5));
-    let direction = plot.orientation.local_to_world(-Vec2::Y);
-    let offset = plot.orientation.local_to_world(Vec2::X) * policy.street_apron.0.x * 0.5;
+            .orientation()
+            .local_to_world(Vec2::new(local.x, -plot.dimensions_metres().y * 0.5));
+    let direction = plot.orientation().local_to_world(-Vec2::Y);
+    let offset = plot.orientation().local_to_world(Vec2::X) * policy.street_apron.0.x * 0.5;
     let maximum = policy.street_apron.0.y;
-    let regions = access_regions(plot, streets, edge);
+    let regions = access_regions(plot, streets, edge)?;
     let preferred = (available_run(
         edge,
         direction,
@@ -35,12 +37,8 @@ pub(super) fn select(
         CompoundSupportRequest {
             property,
             observations,
-            street_threshold_metres: threshold,
-            street_apron: CityPlotBounds {
-                centre_metres: edge + direction * run * 0.5,
-                dimensions_metres: Vec2::new(policy.street_apron.0.x, run),
-                orientation: plot.orientation,
-            },
+            street_threshold_metres: threshold_point,
+            street_apron: (|| -> adventuresim_building_generator::spatial_geometry::GeometryResult<CityPlotBounds> { CityPlotBounds::new(crate::scene_coordinates::ScenePlanPoint::try_from(edge + direction * run * 0.5)?,adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(Vec2::new(policy.street_apron.0.x, run))?,plot.orientation()) })().map_err(|cause| SupportDiagnostic::framed_geometry(property, edge, cause))?,
             geographic,
             limits: policy.limits,
             stairs: policy.stairs,

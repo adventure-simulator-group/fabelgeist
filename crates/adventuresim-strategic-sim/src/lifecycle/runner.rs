@@ -23,6 +23,7 @@ use adventuresim_core::{
     },
 };
 use adventuresim_world_schema::calendar::{DAYS_PER_YEAR, MINUTES_PER_DAY, StrategicMinute};
+use fabelgeist_determinism::Seed;
 use sampling::lifecycle_entropy;
 use serde::Serialize;
 use std::{
@@ -90,7 +91,7 @@ impl ScenarioState {
         }
     }
 
-    fn advance_to(&mut self, end: StrategicMinute, seed: u64) {
+    fn advance_to(&mut self, end: StrategicMinute, seed: Seed) {
         while self.now < end {
             let boundary = end.min(self.now.day_start().saturating_add_days(1));
             self.process_interval(self.now, boundary, seed);
@@ -98,7 +99,7 @@ impl ScenarioState {
         }
     }
 
-    fn process_interval(&mut self, start: StrategicMinute, end: StrategicMinute, seed: u64) {
+    fn process_interval(&mut self, start: StrategicMinute, end: StrategicMinute, seed: Seed) {
         self.process_billing(end);
         self.process_wedding(end);
         self.process_joint_leisure(start, end, seed);
@@ -145,7 +146,7 @@ impl ScenarioState {
         }
     }
 
-    fn process_joint_leisure(&mut self, start: StrategicMinute, end: StrategicMinute, seed: u64) {
+    fn process_joint_leisure(&mut self, start: StrategicMinute, end: StrategicMinute, seed: Seed) {
         if !self.wedding_done || self.conception_minute.is_some() {
             return;
         }
@@ -229,7 +230,7 @@ fn select_socializing_role<'a>(tiers: &[(&'a str, &[&'a str])]) -> Option<(&'a s
     })
 }
 
-fn run_cadence(seed: u64, cadence: LifecycleCadence) -> Result<LifecycleReport, String> {
+fn run_cadence(seed: Seed, cadence: LifecycleCadence) -> Result<LifecycleReport, String> {
     let mut state = ScenarioState::new();
     let horizon = StrategicMinute::day_start_for_index(HORIZON_DAYS);
     match cadence {
@@ -478,7 +479,7 @@ fn digest_json<T: Serialize>(value: &T) -> Result<String, String> {
         .map_err(|error| error.to_string())
 }
 
-pub fn run_lifecycle_acceptance(seed: u64) -> Result<LifecycleBundle, String> {
+pub fn run_lifecycle_acceptance(seed: Seed) -> Result<LifecycleBundle, String> {
     let whole = run_cadence(seed, LifecycleCadence::Whole)?;
     let daily = run_cadence(seed, LifecycleCadence::Daily)?;
     let mut differences = Vec::new();
@@ -517,7 +518,10 @@ pub fn run_lifecycle_acceptance(seed: u64) -> Result<LifecycleBundle, String> {
     })
 }
 
-pub fn write_lifecycle_acceptance(output_dir: &Path, seed: u64) -> Result<LifecycleBundle, String> {
+pub fn write_lifecycle_acceptance(
+    output_dir: &Path,
+    seed: Seed,
+) -> Result<LifecycleBundle, String> {
     if output_dir.exists() {
         return Err(format!(
             "lifecycle output directory already exists: {}",
@@ -556,7 +560,7 @@ mod tests {
 
     #[test]
     fn whole_and_daily_lifecycle_runs_are_identical_and_public_safe() {
-        let bundle = run_lifecycle_acceptance(42).unwrap();
+        let bundle = run_lifecycle_acceptance(fabelgeist_determinism::Seed::from_u64(42)).unwrap();
         assert!(bundle.whole.passed);
         assert!(bundle.daily.passed);
         assert!(bundle.comparison.passed);
@@ -577,8 +581,10 @@ mod tests {
         if root.exists() {
             std::fs::remove_dir_all(&root).unwrap();
         }
-        write_lifecycle_acceptance(&root, 7).unwrap();
-        assert!(write_lifecycle_acceptance(&root, 7).is_err());
+        write_lifecycle_acceptance(&root, fabelgeist_determinism::Seed::from_u64(7)).unwrap();
+        assert!(
+            write_lifecycle_acceptance(&root, fabelgeist_determinism::Seed::from_u64(7)).is_err()
+        );
         std::fs::remove_dir_all(root).unwrap();
     }
 }

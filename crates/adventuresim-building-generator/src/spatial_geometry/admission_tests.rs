@@ -64,3 +64,41 @@ fn checked_point_arithmetic_retains_zero_and_rejects_overflow() {
     let opposite = Position::from_metres(-point.metres()).unwrap();
     assert!(opposite.displacement_to(point).is_err());
 }
+
+#[test]
+fn signed_lengths_and_areas_admit_their_distinct_zero_and_negative_contracts() {
+    for metres in [-3.5, -0.0, 0.0, 2.0] {
+        let signed = SignedLength::from_metres(metres).unwrap();
+        let wire = postcard::to_allocvec(&metres).unwrap();
+        assert_eq!(postcard::to_allocvec(&signed).unwrap(), wire);
+        assert_eq!(postcard::from_bytes::<SignedLength>(&wire).unwrap(), signed);
+    }
+    for square_metres in [0.0, 0.000_001, 3.5] {
+        let area = Area::from_square_metres(square_metres).unwrap();
+        let wire = postcard::to_allocvec(&square_metres).unwrap();
+        assert_eq!(postcard::to_allocvec(&area).unwrap(), wire);
+        assert_eq!(postcard::from_bytes::<Area>(&wire).unwrap(), area);
+    }
+    for invalid in [f32::NAN, f32::INFINITY, f32::NEG_INFINITY] {
+        let wire = postcard::to_allocvec(&invalid).unwrap();
+        assert!(SignedLength::from_metres(invalid).is_err());
+        assert!(Area::from_square_metres(invalid).is_err());
+        assert!(postcard::from_bytes::<SignedLength>(&wire).is_err());
+        assert!(postcard::from_bytes::<Area>(&wire).is_err());
+    }
+    assert!(Area::from_square_metres(-0.01).is_err());
+    let mut area = Area::ZERO;
+    let mut signed = SignedLength::ZERO;
+    assert!(matches!(area.reflect_ref(), ReflectRef::Opaque(_)));
+    assert!(matches!(signed.reflect_ref(), ReflectRef::Opaque(_)));
+    assert!(area.try_apply(&-1.0_f32).is_err());
+    assert!(signed.try_apply(&f32::NAN).is_err());
+    assert_eq!(area, Area::ZERO);
+    assert_eq!(signed, SignedLength::ZERO);
+    let mut registry = bevy::reflect::TypeRegistry::default();
+    registry.register::<Area>();
+    registry.register::<SignedLength>();
+    assert!(registry.get(std::any::TypeId::of::<Area>()).is_some());
+    assert_eq!(size_of::<Area>(), size_of::<f32>());
+    assert_eq!(size_of::<SignedLength>(), size_of::<f32>());
+}

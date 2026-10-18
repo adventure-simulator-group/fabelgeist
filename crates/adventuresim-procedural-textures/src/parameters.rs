@@ -1,4 +1,5 @@
 //! Typed artistic recipe controls shared by native bakers and the browser studio.
+use fabelgeist_determinism::Seed;
 use serde::{Deserialize, Serialize};
 mod detail_bounds;
 mod inspector;
@@ -23,7 +24,7 @@ pub(crate) use parameter_block;
 #[derive(Clone, Default, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct TextureParameters {
-    pub seed: u64,
+    pub seed: Seed,
     pub leaves: crate::leaf::LeafPresets,
     pub leaf_colors: LeafColorParameters,
     pub resolution: BakeResolution,
@@ -77,12 +78,22 @@ impl TextureParameters {
         purpose.rng(self.seed, context)
     }
 
+    /// Frame a derived surface-element seed as the sole context word while
+    /// retaining this material's root and the caller-owned stream purpose.
+    pub(crate) fn element_rng(
+        &self,
+        stream: fabelgeist_determinism::StreamId,
+        element: fabelgeist_determinism::Seed,
+    ) -> fabelgeist_determinism::DeterministicRng {
+        self.rng(stream, &[element.to_u64()])
+    }
+
     pub(crate) fn field_seed(
         &self,
         purpose: fabelgeist_determinism::StreamId,
         context: &[u64],
-    ) -> u64 {
-        purpose.seed(self.seed, context).to_u64()
+    ) -> Seed {
+        purpose.seed(self.seed, context)
     }
 }
 

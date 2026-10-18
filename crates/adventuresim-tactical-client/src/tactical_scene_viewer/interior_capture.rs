@@ -180,10 +180,18 @@ mod tests {
             .into_iter()
             .enumerate()
             .map(|(index, archetype)| TacticalBuildingPlacement {
-                base_elevation_metres: 0.0,
-                id: index as u64 + 1,
-                program: BuildingProgram::fixture(archetype, 42),
-                centre_metres: Vec2::new(index as f32 * 30.0, 0.0),
+                base_elevation_metres:
+                    adventuresim_tactical_core::city_layout::grounding::SupportElevation::ZERO,
+                id: (index as u64 + 1).into(),
+                program: BuildingProgram::fixture(
+                    archetype,
+                    fabelgeist_determinism::Seed::from_u64(42),
+                ),
+                centre_metres:
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                        Vec2::new(index as f32 * 30.0, 0.0),
+                    )
+                    .unwrap(),
                 orientation: BuildingOrientation::IDENTITY,
             })
             .collect::<Vec<_>>();

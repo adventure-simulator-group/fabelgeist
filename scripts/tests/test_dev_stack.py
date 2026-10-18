@@ -396,7 +396,8 @@ class WorkflowTests(unittest.TestCase):
             Path(left, "a.rs").write_text("fn a() {}\n")
             Path(right, "a.rs").write_text("fn b() {}\n")
             Path(right, "b.rs").write_text("")
-            self.assertEqual(dev_stack.binding_differences(Path(left), Path(right)), ["b.rs", "a.rs"])
+            Path(right, "lib.rs").write_text("")
+            self.assertEqual(dev_stack.binding_differences(Path(left), Path(right)), ["b.rs", "lib.rs", "a.rs"])
 
     def test_nonpositive_pid_rejected(self):
         self.assertIsNone(dev_stack.process_snapshot(0))

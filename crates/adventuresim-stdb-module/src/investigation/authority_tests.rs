@@ -46,7 +46,7 @@ fn stored_methods(ctx: &ReducerContext) -> Result<Vec<InvestigationActionCapabil
             action::InvestigationTargetKind::Route,
             "authority-route".into(),
             terrain,
-            7,
+            fabelgeist_determinism::Seed::from_u64(7),
             0,
             "Fixture route".into(),
             "Fixture prerequisite".into(),
@@ -147,7 +147,7 @@ fn check_generated_binding(
         },
     };
     let context = GenerationContext {
-        seed: 7,
+        seed: fabelgeist_determinism::Seed::from_u64(7),
         observer_entropy_hi: 11,
         observer_entropy_lo: 13,
         settlement_id: "lubeck".into(),

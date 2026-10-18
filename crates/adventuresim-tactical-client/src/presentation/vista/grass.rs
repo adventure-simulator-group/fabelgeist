@@ -1,58 +1,11 @@
 //! Shared pure vista tuft preparation and renderer installation.
 use super::*;
-use crate::presentation::ground_scatter::instanced_grass::{PreparedTufts, prepare_scene_tufts};
 use crate::presentation::ground_scatter::{
     GrassWorld, MINIMUM_GRASS_SLOPE_NORMAL_Y, TierSpeciesBatches, TuftPigment, TuftPlacement,
     grass_scatter_density, scatter_cell_tufts, spawn_tuft_batches,
 };
+use fabelgeist_determinism::Seed;
 
-#[derive(serde::Serialize, serde::Deserialize)]
-pub(in crate::presentation) struct PreparedGrass {
-    pub playable: PreparedTufts,
-    pub vista: PreparedTufts,
-}
-
-impl PreparedGrass {
-    pub(in crate::presentation) fn new(
-        input: &TacticalSceneInput,
-        terrain: &SceneTerrain,
-        ground: &SceneGround,
-        config: &crate::presentation::config::TacticalGraphicsConfig,
-    ) -> Self {
-        let environment = input.environment_snapshot(input.digest().expect("validated scene"));
-        let playable = prepare_scene_tufts(
-            terrain,
-            ground,
-            &environment,
-            &config.grass,
-            input.landform.as_ref(),
-        );
-        let lods = input
-            .vista
-            .lods
-            .iter()
-            .take(config.rendering.vista.maximum_lods)
-            .collect::<Vec<_>>();
-        let vista = lods
-            .first()
-            .map_or_else(TierSpeciesBatches::default, |lod| {
-                scatter(
-                    lod,
-                    lods.get(1).copied(),
-                    Vec2::new(terrain.width(), terrain.depth()) * 0.5,
-                    terrain,
-                    ground,
-                    &environment,
-                    &config.grass,
-                    &UrbanGround::new(&input.streets, &input.yards),
-                )
-            });
-        Self {
-            playable: playable.into(),
-            vista: vista.into(),
-        }
-    }
-}
 /// Instance placement for the vista rings: the same tuft lattice as the
 /// playable sward. Owned scenes sample height from accepted physical support;
 /// sampled scenes use the presented vista heightfield. Coverage comes from the
@@ -84,7 +37,7 @@ impl TuftPlacement for VistaTuftPlacement<'_> {
     /// the boundary exact. Rejecting cells that sit wholly inside it as well is
     /// pure speed: those cells would query support height once per tuft only
     /// to discard every one.
-    fn cell_allows(&self, _cell_hash: u64, cell: IVec2, cell_spacing: f32, _jitter: f32) -> bool {
+    fn cell_allows(&self, _cell_hash: Seed, cell: IVec2, cell_spacing: f32, _jitter: f32) -> bool {
         let centre = cell.as_vec2() * cell_spacing;
         let interior = self.playable_half_extent - Vec2::splat(cell_spacing);
         centre.x.abs() > interior.x || centre.y.abs() > interior.y
@@ -111,11 +64,13 @@ impl TuftPlacement for VistaTuftPlacement<'_> {
 
     fn height(&self, centre: Vec2) -> Option<f32> {
         if self.playable_terrain.property_surface().is_some() {
-            let hit = self.playable_terrain.surface_below(Vec3::new(
-                centre.x,
-                f32::INFINITY,
-                centre.y,
-            ))?;
+            let hit = self.playable_terrain.surface_below(
+                adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
+                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                        bevy::math::Vec2::new(centre.x, centre.y),
+                    )?,
+                ),
+            )?;
             return (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y)
                 .then_some(hit.elevation.metres());
         }
@@ -194,27 +149,17 @@ pub(super) fn spawn_near_vista_scatter(
         dryness: grass_dryness,
         wind_scale: 0.16 + bps(environment.weather.wind_speed_bps) * 0.36,
     };
-    let grass_seed = streams::GRASS.seed(scene_seed, &[]).to_u64();
-    #[cfg(target_family = "wasm")]
-    let prepared = crate::presentation::generation::landscape::grass(&environment.scene_digest);
-    #[cfg(not(target_family = "wasm"))]
-    let prepared: Option<std::sync::Arc<PreparedGrass>> = None;
-    let mut batches = prepared.map_or_else(
-        || {
-            scatter(
-                lod,
-                coarser_lod,
-                playable_half_extent,
-                playable_terrain,
-                playable_ground,
-                environment,
-                grass,
-                urban_ground,
-            )
-        },
-        |p| p.vista.to_batches(),
+    let grass_seed = streams::GRASS.seed(scene_seed, &[]);
+    let mut batches = scatter(
+        lod,
+        coarser_lod,
+        playable_half_extent,
+        playable_terrain,
+        playable_ground,
+        environment,
+        grass,
+        urban_ground,
     );
-
     spawn_tuft_batches(
         GrassWorld {
             commands,
@@ -270,9 +215,7 @@ fn scatter(
     if !grass.enabled {
         return Default::default();
     }
-    let grass_seed = streams::GRASS
-        .seed(stable_text_seed(&environment.scene_digest), &[])
-        .to_u64();
+    let grass_seed = streams::GRASS.seed(stable_text_seed(&environment.scene_digest), &[]);
     let profile = GrassCommunityProfile::from_environment(environment);
     let placement = |outer_collar| VistaTuftPlacement {
         lod,
@@ -315,7 +258,7 @@ fn scatter(
     scatter_cell_tufts(
         &mut batches[GrassMeshLod::Vista.tier_index()],
         &mut placement(tier_sward_collar_metres(GrassMeshLod::Vista, grass)),
-        streams::GRASS_LOD.seed(grass_seed, &[]).to_u64(),
+        streams::GRASS_LOD.seed(grass_seed, &[]),
         GrassMeshLod::Vista,
         grass.placement.vista_patch_spacing_m,
         grass,

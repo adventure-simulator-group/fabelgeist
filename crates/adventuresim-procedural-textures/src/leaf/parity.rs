@@ -18,7 +18,8 @@ fn export_reference_vectors() {
     }
     let mut cases = Vec::new();
     for (name, shape) in shapes {
-        let uniform = uniform::LeafUniform::new(&shape, 128, 1);
+        let uniform =
+            uniform::LeafUniform::new(&shape, 128, fabelgeist_determinism::Seed::from_u64(1));
         let packed = serde_json::to_value(&uniform).unwrap();
         let kernel = kernel::Kernel::from(uniform);
         let classes: Vec<u8> = (0..32 * 32)

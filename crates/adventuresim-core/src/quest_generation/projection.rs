@@ -338,7 +338,7 @@ pub fn select_follow_up_evidence(
     if indices.is_empty() { return None; }
     let weights: Vec<_> = indices.iter().map(|index| candidates[*index].weight.combined()).collect();
     let selected = fabelgeist_determinism::StreamId::new("quest.follow-up-evidence")
-        .rng(entropy, &[]).weighted_index(&weights).expect("bounded catalog weights have positive non-overflowing total");
+        .rng(entropy.into(), &[]).weighted_index(&weights).expect("bounded catalog weights have positive non-overflowing total");
     Some(candidates[indices[selected]].value)
 }
 

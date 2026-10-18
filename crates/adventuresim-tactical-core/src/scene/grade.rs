@@ -1,5 +1,42 @@
 //! Bound the gradient of the triangles shared by rendering and collision.
+use crate::city_layout::grounding::{DiagnosticCount, GeographicGrade};
 use thiserror::Error;
+/// Finite nonnegative maximum terrain rise/run; zero admits level terrain.
+#[derive(Clone, Copy, Debug, PartialEq, serde::Serialize, bevy::reflect::Reflect)]
+#[serde(transparent)]
+#[reflect(opaque)]
+pub struct TerrainGradeLimit(f32);
+impl TerrainGradeLimit {
+    /// Repair grade of procedural ground, distinct from actor movement limits.
+    pub const PLAYABLE: Self = Self(0.65);
+    pub const fn from_ratio(value: f32) -> Option<Self> {
+        if value.is_finite() && value >= 0.0 {
+            Some(Self(value))
+        } else {
+            None
+        }
+    }
+    pub const fn ratio(self) -> f32 {
+        self.0
+    }
+}
+impl<'de> serde::Deserialize<'de> for TerrainGradeLimit {
+    fn deserialize<D: serde::Deserializer<'de>>(decoder: D) -> Result<Self, D::Error> {
+        Self::from_ratio(<f32 as serde::Deserialize>::deserialize(decoder)?).ok_or_else(|| {
+            serde::de::Error::custom("terrain grade limit must be finite and nonnegative")
+        })
+    }
+}
+/// Column/row ordinals in the admitted row-major heightmap.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct HeightmapCell {
+    pub column: usize,
+    pub row: usize,
+}
+struct WorstCell {
+    sample: Option<HeightmapCell>,
+    rise_metres: f64,
+}
 
 /// A finite work bound; exhausting it rejects preparation rather than publishing
 /// a surface whose advertised grade differs from its physical bearing faces.
@@ -14,13 +51,13 @@ pub enum TerrainGradeError {
     #[error("selected owned support cannot be rewritten as a sampled heightmap")]
     OwnedSurface,
     #[error(
-        "terrain triangle at sample {sample:?} has grade {measured}, above {permitted}, after {sweeps} repair sweeps"
+        "terrain triangle at sample {sample:?} has grade {measured}, above {permitted:?}, after {sweeps} repair sweeps"
     )]
     Convergence {
-        sample: [usize; 2],
-        measured: f64,
-        permitted: f32,
-        sweeps: usize,
+        sample: HeightmapCell,
+        measured: GeographicGrade,
+        permitted: TerrainGradeLimit,
+        sweeps: DiagnosticCount,
     },
 }
 
@@ -48,7 +85,10 @@ pub(crate) fn constrain(
         .iter()
         .fold(f64::from(spacing), |m, h| m.max(h.abs()));
     let roundoff = magnitude * f64::from(f32::EPSILON) * HEIGHTMAP_ROUNDOFF_ULPS;
-    let (_, initial) = worst(&values, width, depth, None);
+    let WorstCell {
+        rise_metres: initial,
+        ..
+    } = worst(&values, width, depth, None);
     if initial <= bound + roundoff {
         // Geographic relief already satisfying the physical limit retains every
         // original bit, including axis-aligned slopes near the permitted bound.
@@ -68,7 +108,10 @@ pub(crate) fn constrain(
         );
         // Clean cells were proved valid at their last visit and have no
         // subsequently changed vertex. Only dirty cells can prevent convergence.
-        let (_, residual) = worst(&values, width, depth, Some(&dirty));
+        let WorstCell {
+            rise_metres: residual,
+            ..
+        } = worst(&values, width, depth, Some(&dirty));
         if residual <= target + roundoff * 0.5 {
             for (height, value) in heights.iter_mut().zip(values) {
                 *height = value as f32;
@@ -76,12 +119,17 @@ pub(crate) fn constrain(
             return Ok(());
         }
     }
-    let (sample, measured) = worst(&values, width, depth, None);
+    let WorstCell {
+        sample,
+        rise_metres: measured,
+    } = worst(&values, width, depth, None);
     Err(TerrainGradeError::Convergence {
-        sample: sample.unwrap_or([0, 0]),
-        measured: measured / f64::from(spacing),
-        permitted: maximum_grade,
-        sweeps: MAXIMUM_REPAIR_SWEEPS,
+        sample: sample.unwrap_or(HeightmapCell { column: 0, row: 0 }),
+        measured: GeographicGrade::from_ratio(measured / f64::from(spacing))
+            .ok_or(TerrainGradeError::InvalidInput)?,
+        permitted: TerrainGradeLimit::from_ratio(maximum_grade)
+            .ok_or(TerrainGradeError::InvalidInput)?,
+        sweeps: DiagnosticCount::new(MAXIMUM_REPAIR_SWEEPS as u64),
     })
 }
 
@@ -166,12 +214,7 @@ fn precondition(values: &mut [f64], width: usize, depth: usize, bound: f64) {
     }
 }
 
-fn worst(
-    values: &[f64],
-    width: usize,
-    depth: usize,
-    dirty: Option<&[bool]>,
-) -> (Option<[usize; 2]>, f64) {
+fn worst(values: &[f64], width: usize, depth: usize, dirty: Option<&[bool]>) -> WorstCell {
     let mut sample = None;
     let mut maximum = 0.0_f64;
     for z in 0..depth - 1 {
@@ -191,11 +234,14 @@ fn worst(
             let magnitude_squared = first.max(second);
             if magnitude_squared > maximum {
                 maximum = magnitude_squared;
-                sample = Some([x, z]);
+                sample = Some(HeightmapCell { column: x, row: z });
             }
         }
     }
-    (sample, libm::sqrt(maximum))
+    WorstCell {
+        sample,
+        rise_metres: libm::sqrt(maximum),
+    }
 }
 
 #[inline]

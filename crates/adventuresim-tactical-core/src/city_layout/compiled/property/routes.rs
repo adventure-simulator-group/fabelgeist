@@ -20,7 +20,7 @@ pub(in crate::city_layout::compiled) fn validate_access(
         .door_point(rear, adventuresim_building_generator::Direction::South)?
         .ok_or(error(CompoundIssue::MissingRangeDoor))?
         .metres();
-    let endpoints = |route: &CityAccessSegment| [route.start_metres, route.end_metres];
+    let endpoints = |route: &CityAccessSegment| [route.start_metres(), route.end_metres()];
     let near = |a: Vec2, b: Vec2| a.distance(b) <= CityAccessSegment::JOIN_TOLERANCE_METRES;
     let mut connected = BTreeSet::new();
     for (i, route) in compound.access.iter().enumerate() {

@@ -159,7 +159,9 @@ fn appearance_fixture(
         .map(|(index, key)| {
             Ok(SettlementBusinessOperatorProfile {
                 business_id: BusinessId::new(&settlement.id, key),
-                operator_character_id: u64::try_from(index)? + 1,
+                operator_character_id: adventuresim_tactical_core::player::CharacterId(
+                    u64::try_from(index)? + 1,
+                ),
                 operator_name: RenderedPersonalName::try_from(format!("Capture operator {index}"))?,
             })
         })

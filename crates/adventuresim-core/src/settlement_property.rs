@@ -1,4 +1,5 @@
 //! Physical home identity and bounded household allocation, independent of UI.
+use fabelgeist_determinism::Seed;
 use std::collections::BTreeSet;
 
 use serde::{Deserialize, Serialize};
@@ -75,7 +76,7 @@ pub struct GeneratedHome {
 #[serde(deny_unknown_fields)]
 pub struct GeneratedHomeCatalog {
     pub settlement_id: String,
-    pub seed: u64,
+    pub seed: Seed,
     pub population: u32,
     pub homes: Vec<GeneratedHome>,
 }

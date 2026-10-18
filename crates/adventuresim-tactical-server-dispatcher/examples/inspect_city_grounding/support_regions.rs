@@ -20,17 +20,21 @@ pub(super) fn describe(
         return Ok(None);
     };
     let post = compound.boundary.gate.post(compound.boundary.gate.hinge)?;
-    let post_region = CityPlotBounds {
-        centre_metres: post.pose.plan_metres(),
-        dimensions_metres: post.size_metres.metres().xz(),
-        orientation: post.orientation,
-    };
+    let post_region = CityPlotBounds::new(
+        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+            post.pose.plan_metres(),
+        )?,
+        adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+            post.size_metres.metres().xz(),
+        )?,
+        post.orientation,
+    )?;
     let local_bounds = |region: CityPlotBounds| {
         let points = region.corners().map(|p| {
             compound
                 .plot
-                .orientation
-                .world_to_local(p - compound.plot.centre_metres)
+                .orientation()
+                .world_to_local(p - compound.plot.centre_metres())
         });
         (
             points
@@ -46,13 +50,13 @@ pub(super) fn describe(
     let door = compound.boundary.gate.door(compound.id)?;
     let hinge_local = compound
         .plot
-        .orientation
-        .world_to_local(door.hinge_centre.metres().xz() - compound.plot.centre_metres);
+        .orientation()
+        .world_to_local(door.hinge_centre.metres().xz() - compound.plot.centre_metres());
     let post_polygon = post_region.corners().map(|p| {
         compound
             .plot
-            .orientation
-            .world_to_local(p - compound.plot.centre_metres)
+            .orientation()
+            .world_to_local(p - compound.plot.centre_metres())
     });
     let closest = nearest_post_contact(compound, placement, recipe, &post_polygon)?;
     Ok(Some(json!({
@@ -78,14 +82,19 @@ pub(super) fn contact_region(
     let Some(contact) = recipe.collision.ground_floor_contact_bounds()? else {
         return Ok(None);
     };
-    Ok(Some(CityPlotBounds {
-        centre_metres: placement.centre_metres
-            + placement.orientation.local_to_world(
-                contact.centre()?.metres().xz() - recipe.collision.bounds.centre()?.metres().xz(),
-            ),
-        dimensions_metres: contact.plan_half_extents()?.metres() * 2.0,
-        orientation: placement.orientation,
-    }))
+    Ok(Some(CityPlotBounds::new(
+        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+            placement.centre_metres.metres()
+                + placement.orientation.local_to_world(
+                    contact.centre()?.metres().xz()
+                        - recipe.collision.bounds.centre()?.metres().xz(),
+                ),
+        )?,
+        adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(
+            contact.plan_half_extents()?.metres() * 2.0,
+        )?,
+        placement.orientation,
+    )?))
 }
 
 fn nearest_post_contact(
@@ -104,12 +113,12 @@ fn nearest_post_contact(
                 .ground_contact()?
                 .points()
                 .map(|p| {
-                    let world = placement.centre_metres
+                    let world = placement.centre_metres.metres()
                         + placement.orientation.local_to_world(p.metres() - origin);
                     compound
                         .plot
-                        .orientation
-                        .world_to_local(world - compound.plot.centre_metres)
+                        .orientation()
+                        .world_to_local(world - compound.plot.centre_metres())
                 })
                 .collect::<Vec<_>>();
             Ok(distance::between(&polygon, post_polygon).map(|gap| (solid.source, gap, polygon)))

@@ -38,7 +38,7 @@ fn on_scene_window_added(
         Mesh3d(body.mesh.clone()),
         MeshMaterial3d(
             materials
-                .for_building(window.building_id)
+                .for_building(window.building_id.0)
                 .get(window.leaf.material()),
         ),
         Visibility::default(),
@@ -61,7 +61,7 @@ fn on_scene_window_added(
                 Mesh3d(batch.mesh.clone()),
                 MeshMaterial3d(
                     materials
-                        .for_building(window.building_id)
+                        .for_building(window.building_id.0)
                         .get(batch.material),
                 ),
                 Transform::IDENTITY,

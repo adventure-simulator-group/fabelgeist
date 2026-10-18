@@ -144,8 +144,10 @@ impl Harness {
         let state = AppState {
             db: crate::spacetimedb::SpacetimeClient::new(&address, "test").unwrap(),
             live: crate::live::LiveState::connect(&address, "test", None).unwrap(),
-            strategic_map: None,
             terrain: None,
+            regional_roads: std::sync::Arc::new(crate::routes::RegionalRoadSource::new(
+                std::path::PathBuf::new(),
+            )),
             session_codec: codec,
         };
         let app = Router::new()
@@ -293,7 +295,7 @@ async fn proposed_allocation_is_read_only_and_uses_current_server_eligibility() 
         assert_eq!(status, StatusCode::OK, "{preview}");
         let execution = ValidatedSchedule::try_from(proposed)
             .unwrap()
-            .effective_at(policy, 7);
+            .effective_at(policy, fabelgeist_determinism::Seed::from_u64(7));
         assert_eq!(
             preview["effective"],
             serde_json::to_value(execution).unwrap()

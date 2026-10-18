@@ -15,7 +15,7 @@ use crate::{
 };
 
 /// Audit operations that can fail with a generation error.
-type Result<T> = std::result::Result<T, crate::GenerationError>;
+use crate::GenerationResult as Result;
 
 include!("audit/core.rs");
 include!("audit/vertical_circulation.rs");
@@ -23,6 +23,8 @@ include!("audit/artillery.rs");
 mod artillery_clearance;
 mod bell_hanging;
 mod bell_swing;
+mod bonding_metrics;
+use bonding_metrics::{bonded_geometry_matches, resolved_plan_overlap_area};
 #[cfg(test)]
 mod spatial_tests;
 include!("audit/timber_geometry.rs");

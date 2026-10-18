@@ -10,11 +10,11 @@ pub(super) fn apply(
     layout: &mut CompiledCityLayout,
     context: &CityPackingContext,
     translations: &BTreeMap<CityPropertyId, Vec2>,
-) -> BTreeMap<u64, Vec2> {
+) -> Result<BTreeMap<crate::scene_input::SceneBuildingId, Vec2>, CityCompileError> {
     let mut members: BTreeMap<_, _> = context
         .frontages
         .keys()
-        .map(|&owner| (owner.0, owner))
+        .map(|&owner| (crate::scene_input::SceneBuildingId(owner.0), owner))
         .collect();
     let mut yards: BTreeMap<_, _> = context
         .frontages
@@ -42,15 +42,28 @@ pub(super) fn apply(
         .map(|(member, owner)| (member, translations[&owner]))
         .collect();
     for building in &mut layout.buildings {
-        building.centre_metres += building_translations[&building.id];
+        building.centre_metres = building.centre_metres.translated(
+            crate::scene_coordinates::PlanDisplacement::try_from(
+                building_translations[&building.id],
+            )?,
+        )?;
     }
     for property in &mut layout.single_properties {
-        property.plot.centre_metres += translations[&property.id];
+        property.plot =
+            property
+                .plot
+                .translated(crate::scene_coordinates::PlanDisplacement::try_from(
+                    translations[&property.id],
+                )?)?;
     }
     for compound in &mut layout.compounds {
         let delta = translations[&compound.id];
-        compound.plot.centre_metres += delta;
-        compound.court.centre_metres += delta;
+        compound.plot = compound
+            .plot
+            .translated(crate::scene_coordinates::PlanDisplacement::try_from(delta)?)?;
+        compound.court = compound
+            .court
+            .translated(crate::scene_coordinates::PlanDisplacement::try_from(delta)?)?;
         compound.boundary.gate.centre_metres += delta;
         for wall in &mut compound.boundary.walls {
             wall.start_metres += delta;
@@ -60,26 +73,26 @@ pub(super) fn apply(
             &mut compound.access,
             delta,
             *context.frontages[&compound.id].tangent(),
-        );
+        )?;
     }
     for garden in &mut layout.gardens {
         garden.translate(
             translations[&garden.owner],
             *context.frontages[&garden.owner].tangent(),
-        );
+        )?;
     }
     for yard in &mut layout.yards {
         if let Some(owner) = yards.get(&yard_key(yard.corners_metres)) {
             yard.corners_metres = yard.corners_metres.map(|point| point + translations[owner]);
         }
     }
-    building_translations
+    Ok(building_translations)
 }
 
 pub(super) fn validate_gardens(
     layout: &CompiledCityLayout,
     envelopes: &[MeasuredBuildingEnvelope],
-    building_translations: &BTreeMap<u64, Vec2>,
+    building_translations: &BTreeMap<crate::scene_input::SceneBuildingId, Vec2>,
 ) -> Result<(), CityCompileError> {
     for garden in &layout.gardens {
         garden
@@ -95,10 +108,10 @@ pub(super) fn validate_gardens(
         } in envelopes
         {
             let (building, envelope) = (*building, *envelope);
-            let moved = CityPlotBounds {
-                centre_metres: envelope.centre_metres + building_translations[&building],
-                ..envelope
-            };
+            let moved =
+                (envelope).relocated(crate::scene_coordinates::ScenePlanPoint::try_from(
+                    envelope.centre_metres() + building_translations[&building],
+                )?)?;
             if !garden.clears_building(moved) {
                 return Err(CityCompileError::Packing {
                     property: garden.owner,
@@ -108,12 +121,13 @@ pub(super) fn validate_gardens(
         }
     }
     for (index, first) in envelopes.iter().enumerate() {
-        let moved = |envelope: &MeasuredBuildingEnvelope| CityPlotBounds {
-            centre_metres: envelope.body.centre_metres + building_translations[&envelope.building],
-            ..envelope.body
+        let moved = |envelope: &MeasuredBuildingEnvelope| {
+            (envelope.body).relocated(crate::scene_coordinates::ScenePlanPoint::try_from(
+                envelope.body.centre_metres() + building_translations[&envelope.building],
+            )?)
         };
         for second in &envelopes[index + 1..] {
-            if moved(first).intersects(moved(second)) {
+            if moved(first)?.intersects(moved(second)?) {
                 // Members of one compound were validated during its assembly.
                 // This check also covers roof projections across block boundaries.
                 let same_property = layout.compounds.iter().any(|p| {
@@ -128,7 +142,7 @@ pub(super) fn validate_gardens(
                             .find(|p| {
                                 [p.front_building_id, p.rear_building_id].contains(&first.building)
                             })
-                            .map_or(CityPropertyId(first.building), |p| p.id),
+                            .map_or(CityPropertyId(first.building.0), |p| p.id),
                         issue: CityPackingIssue::BuildingOverlap {
                             first: first.building,
                             second: second.building,

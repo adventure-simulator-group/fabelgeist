@@ -717,8 +717,8 @@ fn mission_candidate_is_current(
         }))
 }
 
-fn mission_outcome_draw(mission: &MissionAuthority, candidates: &[MissionOutcomeCandidate]) -> u64 {
-    let mut candidates = candidates.to_vec();
+fn mission_outcome_draw(mission: &MissionAuthority, outcomes: &[MissionOutcomeCandidate]) -> Seed {
+    let mut candidates = outcomes.to_vec();
     candidates.sort_by(|left, right| left.id.cmp(&right.id));
     let mut fields = vec![mission.outcome_entropy.to_le_bytes().to_vec()];
     for candidate in &candidates {
@@ -733,7 +733,6 @@ fn mission_outcome_draw(mission: &MissionAuthority, candidates: &[MissionOutcome
         fabelgeist_determinism::StreamId::new("mission.outcome-candidates"),
         &fields,
     )
-    .to_u64()
 }
 
 #[expect(
@@ -1369,7 +1368,7 @@ fn commit_hostile_battle_resolution(
                 .saturating_add(quantity);
         }
     }
-    let loot_seed = include_random_gold.then(|| ctx.random::<u64>());
+    let loot_seed = include_random_gold.then(|| ctx.random::<fabelgeist_determinism::Seed>());
     if let Some(loot_seed) = loot_seed {
         let maximum_gold = difficulty.max(1) as u32 * 10;
         if let Some(gold) = inventory_trade_streams::gold(loot_seed, maximum_gold)

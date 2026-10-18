@@ -1,10 +1,11 @@
 //! Correlated fixed-point weather lattice and interpolation.
 use super::*;
+use fabelgeist_determinism::Seed;
 
 /// Smooth deterministic field with synoptic-scale spatial correlation,
 /// eastward advection, and day-scale evolution.
 pub(super) fn correlated_field(
-    seed: u64,
+    seed: Seed,
     domain: StreamId,
     interval: u64,
     lat: i32,

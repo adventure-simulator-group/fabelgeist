@@ -4,6 +4,7 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::seed_type::Seed;
 use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
@@ -16,7 +17,7 @@ pub struct ForageAttemptAuthority {
     pub authority_input_digest: String,
     pub environment_digest: String,
     pub canonical_place: String,
-    pub resolution_seed: u64,
+    pub resolution_seed: Seed,
     pub started_at: StrategicMinute,
     pub completed_at: StrategicMinute,
     pub requested_minutes: u64,
@@ -63,7 +64,7 @@ pub struct ForageAttemptAuthorityCols {
     pub authority_input_digest: __sdk::__query_builder::Col<ForageAttemptAuthority, String>,
     pub environment_digest: __sdk::__query_builder::Col<ForageAttemptAuthority, String>,
     pub canonical_place: __sdk::__query_builder::Col<ForageAttemptAuthority, String>,
-    pub resolution_seed: __sdk::__query_builder::Col<ForageAttemptAuthority, u64>,
+    pub resolution_seed: __sdk::__query_builder::Col<ForageAttemptAuthority, Seed>,
     pub started_at: __sdk::__query_builder::Col<ForageAttemptAuthority, StrategicMinute>,
     pub completed_at: __sdk::__query_builder::Col<ForageAttemptAuthority, StrategicMinute>,
     pub requested_minutes: __sdk::__query_builder::Col<ForageAttemptAuthority, u64>,

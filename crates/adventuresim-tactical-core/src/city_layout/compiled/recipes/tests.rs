@@ -8,7 +8,7 @@ fn occupied_programme_reuses_the_accepted_recipe_after_memo_transfer() {
             BuildingArchetype::TownHouse,
             Some(BuildingUse::Dwelling),
             None,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         )
         .unwrap();
     let mut transferred = palette.clone();
@@ -26,7 +26,7 @@ fn an_invalid_occupied_programme_is_rejected_without_recipe_reselection() {
             BuildingArchetype::TownHouse,
             Some(BuildingUse::Dwelling),
             None,
-            42,
+            fabelgeist_determinism::Seed::from_u64(42),
         )
         .unwrap();
     let mut invalid = selected.program.clone();

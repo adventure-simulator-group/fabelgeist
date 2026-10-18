@@ -30,7 +30,8 @@ fn enclosure_mesh_closes_projecting_storey_corners() {
         BuildingArchetype::TownHouse,
         BuildingArchetype::FachwerkMerchantHouse,
     ] {
-        let program = BuildingProgram::fixture(archetype, 47);
+        let program =
+            BuildingProgram::fixture(archetype, fabelgeist_determinism::Seed::from_u64(47));
         let plan = generate(&program).unwrap();
         let representations = [
             compile_building_detail(&plan).unwrap().meshes,
@@ -70,7 +71,11 @@ fn enclosure_mesh_closes_gable_rakes() {
         BuildingArchetype::TownHouse,
         BuildingArchetype::FachwerkMerchantHouse,
     ] {
-        let plan = generate(&BuildingProgram::fixture(archetype, 47)).unwrap();
+        let plan = generate(&BuildingProgram::fixture(
+            archetype,
+            fabelgeist_determinism::Seed::from_u64(47),
+        ))
+        .unwrap();
         let representations = [
             compile_building_detail(&plan).unwrap().meshes,
             compile_building_lod(&plan, BuildingLodLevel::Facade)
@@ -105,7 +110,7 @@ fn enclosure_mesh_closes_gable_rakes() {
 fn enclosure_audit_rejects_lowered_and_narrowed_gables() {
     let fixture = generate(&BuildingProgram::fixture(
         BuildingArchetype::FachwerkMerchantHouse,
-        47,
+        fabelgeist_determinism::Seed::from_u64(47),
     ))
     .unwrap();
     for narrow in [false, true] {
@@ -131,7 +136,11 @@ fn enclosure_audit_rejects_lowered_and_narrowed_gables() {
 
 #[test]
 fn enclosure_audit_rejects_missing_corner_material_without_a_declared_bond() {
-    let mut plan = generate(&BuildingProgram::fixture(BuildingArchetype::TownHouse, 47)).unwrap();
+    let mut plan = generate(&BuildingProgram::fixture(
+        BuildingArchetype::TownHouse,
+        fabelgeist_determinism::Seed::from_u64(47),
+    ))
+    .unwrap();
     let projection = plan.upper_storey_projection_metres;
     let corner = Vec3::new(-projection, plan.storey_height_metres * 1.5, -projection);
     // Remove the post and backing infill to create an actual enclosure defect.
