@@ -825,7 +825,7 @@ mod tests {
         let belt = spawn_test_item(
             &mut world,
             actor,
-            "leather_belt",
+            "belt",
             EquipmentTopology {
                 placement_id: Some("worn".into()),
                 occupancies: [
@@ -873,7 +873,7 @@ mod tests {
         let belt = spawn_test_item(
             &mut world,
             actor,
-            "leather_belt",
+            "belt",
             EquipmentTopology {
                 placement_id: Some("worn".into()),
                 occupancies: vec![EquipmentTopologyOccupancy {
@@ -943,12 +943,7 @@ mod tests {
     fn descendants_block_drop_and_graph_reparenting() {
         let mut world = World::new();
         let actor = world.spawn_empty().id();
-        let parent = spawn_test_item(
-            &mut world,
-            actor,
-            "leather_belt",
-            EquipmentTopology::default(),
-        );
+        let parent = spawn_test_item(&mut world, actor, "belt", EquipmentTopology::default());
         spawn_test_item(
             &mut world,
             actor,

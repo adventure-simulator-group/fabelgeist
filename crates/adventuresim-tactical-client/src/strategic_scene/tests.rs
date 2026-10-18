@@ -140,7 +140,7 @@ fn strategic_scene_keeps_character_entities_without_tactical_authority() {
         portraits: vec![],
     });
     let outfit = serde_json::from_value(serde_json::json!({
-        "id": "9007199254740993", "item": "leather_belt", "placement": "worn",
+        "id": "9007199254740993", "item": "belt", "placement": "worn",
         "occupancies": [{"anchor": {"Character": "front_belt"}, "channel": "accessory",
             "order": 0, "requirement_index": 0, "capacity_index": 0}],
         "weapon": null, "holder": null,

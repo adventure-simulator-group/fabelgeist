@@ -376,11 +376,7 @@ mod tests {
     fn compiled_catalog_represents_attachment_graph_examples_without_kind_inference() {
         use crate::item_catalog_schema::EquipmentChannel;
 
-        let belt = definition("leather_belt")
-            .unwrap()
-            .equipment
-            .as_ref()
-            .unwrap();
+        let belt = definition("belt").unwrap().equipment.as_ref().unwrap();
         assert!(
             belt.attachment_points
                 .iter()

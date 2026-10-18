@@ -32,7 +32,7 @@ static ITEM_CATALOG: LazyLock<Vec<crate::item_catalog_schema::ItemDefinition>> =
 /// Canonical accessory record admitted once from this runtime catalog.
 static FITTED_CLOTHING_ACCESSORY: LazyLock<
     Option<&'static crate::item_catalog_schema::ItemDefinition>,
-> = LazyLock::new(|| catalog_item("leather_belt"));
+> = LazyLock::new(|| catalog_item("belt"));
 
 /// One evaluated wearer in its unposed fitting frame. Runtime equipment has no
 /// body-shape morph targets; a changed body requires a new fit.
@@ -313,7 +313,7 @@ mod tests {
 
     #[test]
     fn generated_clothing_uses_the_runtime_path() {
-        for item_id in ["linen_tunic", "linen_breeches", "leather_belt"] {
+        for item_id in ["linen_tunic", "linen_breeches", "belt"] {
             assert!(is_runtime_clothing(item_id), "{item_id}");
             assert!(is_runtime_equipment(item_id), "{item_id}");
         }

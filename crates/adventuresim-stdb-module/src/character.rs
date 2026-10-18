@@ -3204,9 +3204,9 @@ fn provision_generated_weapon_carry(ctx: &ReducerContext, character_id: u64) -> 
         ));
     }
 
-    let belt = add_inventory_item(ctx, character_id, "leather_belt", 1)
-        .ok_or("Could not add generated leather belt")?;
-    let belt_placement = authored_placement_index(ctx, "leather_belt", "worn")?;
+    let belt =
+        add_inventory_item(ctx, character_id, "belt", 1).ok_or("Could not add generated belt")?;
+    let belt_placement = authored_placement_index(ctx, "belt", "worn")?;
     equip_equipment_internal(
         ctx,
         character_id,
@@ -3766,7 +3766,7 @@ mod starting_character_boundary_tests {
             .unwrap();
         for evidence in [
             "is_sheathable_weapon",
-            "leather_belt",
+            "\"belt\"",
             "recommended_holder",
             "scabbard",
             "weapon_loop",

@@ -78,7 +78,7 @@ async function serve() {
         const equipment = [
         ["linen_tunic", "chest", "base_clothing"],
         ["linen_breeches", "left_leg", "base_clothing"],
-        ["leather_belt", "front_belt", "accessory"],
+        ["belt", "front_belt", "accessory"],
         ...(Number(id) % 2 ? [["barbute", "head", "rigid_armor"], ["breastplate", "chest", "rigid_armor"]] : []),
       ].map(([item, location, channel], index) => ({id: `${id}${index}`, item, placement: "worn",
         occupancies: [{anchor: {Character: location}, channel, order: 0, requirement_index: 0, capacity_index: 0}], weapon: null, holder: null}));

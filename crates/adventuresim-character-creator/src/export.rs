@@ -1423,7 +1423,7 @@ mod tests {
             textures: None,
             texcoords: None,
             hinge: None,
-            name: "Leather belt",
+            name: "Belt",
             positions: &positions,
             normals: &normals,
             faces: &shell_faces,
@@ -1447,7 +1447,7 @@ mod tests {
 
         export_rigged_glb(
             GlbOutput::Standalone(&path),
-            "leather_belt",
+            "belt",
             1,
             4,
             &RiggedMesh {

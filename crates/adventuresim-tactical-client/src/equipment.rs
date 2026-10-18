@@ -1124,12 +1124,12 @@ mod tests {
             None
         );
         assert_eq!(
-            procedural_equipment_file("leather_belt", Some("worn")),
-            Some("leather_belt--worn.glb")
+            procedural_equipment_file("belt", Some("worn")),
+            Some("belt--worn.glb")
         );
         assert_eq!(
-            procedural_equipment_file("leather_belt", None),
-            Some("leather_belt--worn.glb")
+            procedural_equipment_file("belt", None),
+            Some("belt--worn.glb")
         );
         assert_eq!(
             procedural_equipment_file("linen_breeches", Some("worn")),
