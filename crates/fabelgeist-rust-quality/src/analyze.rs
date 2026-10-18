@@ -576,6 +576,72 @@ mod tests {
     }
 
     #[test]
+    fn included_production_and_test_fragments_keep_exact_exception_locations() {
+        let root = std::env::temp_dir().join(format!(
+            "fabelgeist-epsilon-includes-{}",
+            std::process::id()
+        ));
+        fs::create_dir_all(root.join("crates/example/src")).unwrap();
+        fs::create_dir_all(root.join("crates/example/tests/fragments")).unwrap();
+        for (path, source) in [
+            (
+                "Cargo.toml",
+                "[workspace]\nmembers = []\n[workspace.lints.clippy]\nall = 'warn'\n",
+            ),
+            (
+                "crates/example/src/lib.rs",
+                r#"
+                use std::f32 as values;
+                include!("checks.rs");
+                #[cfg(test)] mod tests {
+                    use core::f64 as values;
+                    include!("../tests/fragments/checks.rs");
+                }
+            "#,
+            ),
+            (
+                "crates/example/src/checks.rs",
+                "use values::*; pub fn near_zero(x: f32) -> bool { x <= EPSILON }",
+            ),
+            (
+                "crates/example/tests/fragments/checks.rs",
+                "use values::*; #[test] fn boundary() { assert!(0.0 <= EPSILON); }",
+            ),
+        ] {
+            fs::write(root.join(path), source).unwrap();
+        }
+        let mut config: Config =
+            toml::from_str("file_limit = 500\nfunction_limit = 100\n").unwrap();
+        let report = check_repository(&root, &config, &Baseline::default()).unwrap();
+        assert_eq!(report.diagnostics.len(), 2, "{:?}", report.diagnostics);
+        for path in [
+            "crates/example/src/checks.rs",
+            "crates/example/tests/fragments/checks.rs",
+        ] {
+            assert!(report.diagnostics.iter().any(|message| {
+                message.starts_with(&format!("{path}:1: machine-epsilon in <module>"))
+            }));
+            config.exceptions.push(Exception {
+                rule: float_epsilon::RULE.into(),
+                path: path.into(),
+                item: "<module>".into(),
+                fingerprint: "EPSILON".into(),
+                occurrences: 1,
+                reason: "Fixture checks source identity for inherited floating-point imports."
+                    .into(),
+            });
+        }
+        let audited = check_repository(&root, &config, &Baseline::default()).unwrap();
+        fs::write(root.join("crates/example/src/checks.rs"), "").unwrap();
+        let stale = check_repository(&root, &config, &Baseline::default()).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+        assert!(audited.diagnostics.is_empty(), "{:?}", audited.diagnostics);
+        assert_eq!(stale.diagnostics.len(), 1, "{:?}", stale.diagnostics);
+        assert!(stale.diagnostics[0].contains("stale exception machine-epsilon"));
+        assert!(stale.diagnostics[0].contains("crates/example/src/checks.rs::<module>"));
+    }
+
+    #[test]
     fn independent_crates_and_modules_with_matching_names_need_no_exception() {
         let root = std::env::temp_dir().join(format!(
             "fabelgeist-epsilon-isolation-{}",

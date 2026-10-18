@@ -11,6 +11,7 @@ use syn::ItemUse;
 use super::ParsedFile;
 
 mod collect;
+mod includes;
 mod scopes;
 mod targets;
 #[cfg(test)]

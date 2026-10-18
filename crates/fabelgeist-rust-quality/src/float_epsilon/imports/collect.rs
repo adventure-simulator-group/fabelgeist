@@ -1,4 +1,4 @@
-//! Follow declared module trees, then isolate otherwise unreferenced sources.
+//! Follow module trees and included fragments, then isolate unreached sources.
 //!
 //! File lookup follows the Rust Reference's module-source rules:
 //! https://doc.rust-lang.org/reference/items/modules.html#the-path-attribute
@@ -13,7 +13,7 @@ use syn::{Item, ItemMod, ItemUse, Macro, UseTree, visit::Visit};
 
 use super::super::ParsedFile;
 use super::{
-    FloatGlobs, SELF_IMPORT, import_at, normalize,
+    FloatGlobs, SELF_IMPORT, import_at, includes, normalize,
     scopes::{Graph, ImportPath, ScopeId, ScopeKind},
     targets,
 };
@@ -52,6 +52,7 @@ enum FileKind {
     CrateRoot,
     Module,
     ExplicitPath,
+    Include,
 }
 
 impl Collector<'_> {
@@ -65,8 +66,10 @@ impl Collector<'_> {
         let context = Context {
             file,
             scope,
-            module_dir: if matches!(kind, FileKind::CrateRoot | FileKind::ExplicitPath)
-                || path.file_name().is_some_and(|name| name == MOD_SOURCE)
+            module_dir: if matches!(
+                kind,
+                FileKind::CrateRoot | FileKind::ExplicitPath | FileKind::Include
+            ) || path.file_name().is_some_and(|name| name == MOD_SOURCE)
             {
                 parent.into()
             } else {
@@ -79,6 +82,17 @@ impl Collector<'_> {
         self.visit_file(&files[file].syntax);
         self.context = previous;
         self.active.remove(&file);
+    }
+
+    fn include(&mut self, path: &syn::LitStr) {
+        let source = Path::new(&self.files[self.context.file].path);
+        let directory = source.parent().unwrap_or(Path::new(""));
+        let path = normalize(&directory.join(path.value()));
+        // Only follow audited first-party source. Generated and excluded files
+        // are absent from this inventory, even when an include points at them.
+        if let Some(file) = self.paths.get(&path).copied() {
+            self.file(file, self.context.scope, FileKind::Include);
+        }
     }
 
     fn import(&mut self, item: &ItemUse) {
@@ -143,6 +157,11 @@ impl Collector<'_> {
         let tokens = stream.into_iter().collect::<Vec<_>>();
         let mut index = 0;
         while index < tokens.len() {
+            if let Some((path, length)) = includes::at(&tokens, index) {
+                self.include(&path);
+                index += length;
+                continue;
+            }
             if let Some((import, length)) = import_at(&tokens[index..]) {
                 self.import(&import);
                 index += length;
@@ -226,6 +245,10 @@ impl<'ast> Visit<'ast> for Collector<'_> {
     }
 
     fn visit_macro(&mut self, item: &'ast Macro) {
+        if let Some(path) = includes::literal_path(item) {
+            self.include(&path);
+            return;
+        }
         let previous = self.context.scope;
         self.context.scope = self.graph.scope(Some(previous), ScopeKind::Block);
         self.tokens(item.tokens.clone());

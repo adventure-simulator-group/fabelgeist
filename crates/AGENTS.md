@@ -155,11 +155,12 @@ governed by the repository-root generation rule instead.
   code, tests, and macros. It also rejects float-module glob imports, including
   module aliases, because they can conceal bare `EPSILON` references. Import
   scanning includes macro definitions and assertions; alias provenance is
-  resolved across scanned first-party files through Cargo target roots and
-  module paths. Crate, module and block bindings remain separate, including
-  aliases inside macro bodies and module re-exports.
-  Valid precision calculations require an exact
-  `machine-epsilon` exception in `rust-quality.toml`, including the owning item,
+  resolved across scanned first-party files through Cargo target roots, module
+  paths and literal `include!` fragments. Included fragments share the caller's
+  scope and retain their source locations. Crate, module and block bindings
+  remain separate, including aliases inside macro bodies and module re-exports.
+  Valid precision calculations require an exact `machine-epsilon` exception in
+  `rust-quality.toml`, including the owning item,
   fingerprint, occurrence count, and numerical justification. Fixture and
   adapter scopes do not exempt this rule, and it cannot be baselined.
 - The `fabelgeist-rust-quality check` command enforces the semantic-value

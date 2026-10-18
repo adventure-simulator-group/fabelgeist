@@ -233,3 +233,181 @@ fn restricted_aliases_follow_module_and_crate_visibility() {
     )]);
     assert_eq!(actual.len(), 4, "{actual:#?}");
 }
+
+#[test]
+fn literal_fragments_share_aliases_with_the_including_module() {
+    let actual = findings(&[
+        (
+            "crates/a/src/lib.rs",
+            r#"
+            use std::f32 as values;
+            include!("checks.rs");
+            include!("aliases.rs");
+            use doubles::*;
+        "#,
+        ),
+        (
+            "crates/a/src/checks.rs",
+            "\nuse values::*;\npub fn near_zero(x: f32) -> bool { x <= EPSILON }",
+        ),
+        ("crates/a/src/aliases.rs", "use core::f64 as doubles;"),
+    ]);
+    assert_eq!(actual.len(), 2, "{actual:#?}");
+    let fragment = actual
+        .iter()
+        .find(|finding| finding.path == "crates/a/src/checks.rs")
+        .unwrap();
+    assert_eq!(fragment.line, 2);
+    assert_eq!(fragment.item, "<module>");
+}
+
+#[test]
+fn nested_fragments_and_their_modules_resolve_from_the_fragment_source() {
+    let actual = findings(&[
+        (
+            "crates/a/src/lib.rs",
+            r#"
+            mod inline {
+                use std::f32 as values;
+                include!("parts/body.rs");
+                use child::values::*;
+            }
+        "#,
+        ),
+        (
+            "crates/a/src/parts/body.rs",
+            "include!(\"nested/checks.rs\"); mod child;",
+        ),
+        (
+            "crates/a/src/parts/nested/checks.rs",
+            "use values::*; pub fn near_zero(x: f32) -> bool { x <= EPSILON }",
+        ),
+        (
+            "crates/a/src/parts/child.rs",
+            "pub use core::f64 as values;",
+        ),
+    ]);
+    assert_eq!(actual.len(), 2, "{actual:#?}");
+    assert!(
+        actual
+            .iter()
+            .any(|finding| finding.path.ends_with("nested/checks.rs"))
+    );
+}
+
+#[test]
+fn included_bindings_stay_in_their_module_block_and_crate() {
+    let actual = findings(&[
+        (
+            "crates/a/src/lib.rs",
+            r#"
+            mod numeric { use std::f32 as values; include!("numeric.rs"); }
+            mod ordinary { mod values {} include!("ordinary.rs"); }
+            fn inside() { include!("aliases.rs"); use local::*; }
+            fn outside() { mod local {} use local::*; }
+        "#,
+        ),
+        ("crates/a/src/numeric.rs", "use values::*;"),
+        ("crates/a/src/ordinary.rs", "use values::*;"),
+        ("crates/a/src/aliases.rs", "use core::f64 as local;"),
+        (
+            "crates/b/src/lib.rs",
+            "mod local {} use local::*; mod values {} include!(\"ordinary.rs\");",
+        ),
+        ("crates/b/src/ordinary.rs", "use values::*;"),
+    ]);
+    assert_eq!(actual.len(), 2, "{actual:#?}");
+    assert!(actual.iter().any(|finding| finding.item == "inside"));
+    assert!(
+        actual
+            .iter()
+            .any(|finding| finding.path.ends_with("numeric.rs"))
+    );
+}
+
+#[test]
+fn a_shared_fragment_is_resolved_in_every_caller_and_reported_once() {
+    let actual = findings(&[
+        (
+            "crates/a/src/lib.rs",
+            r#"
+            mod ordinary {
+                mod values { pub const EPSILON: f32 = 0.0; }
+                include!("shared.rs");
+            }
+            mod numeric { use std::f32 as values; include!("shared.rs"); }
+            mod another { use core::f32 as values; include!("shared.rs"); }
+        "#,
+        ),
+        (
+            "crates/a/src/shared.rs",
+            "use values::*; pub fn current() -> f32 { EPSILON }",
+        ),
+    ]);
+    assert_eq!(actual.len(), 1, "{actual:#?}");
+    assert_eq!(actual[0].path, "crates/a/src/shared.rs");
+}
+
+#[test]
+fn recursive_includes_terminate_without_hiding_inherited_aliases() {
+    let actual = findings(&[
+        (
+            "crates/a/src/lib.rs",
+            "use std::f32 as values; include!(\"first.rs\");",
+        ),
+        ("crates/a/src/first.rs", "include!(\"second.rs\");"),
+        (
+            "crates/a/src/second.rs",
+            "include!(\"first.rs\"); use values::*;",
+        ),
+    ]);
+    assert_eq!(actual.len(), 1, "{actual:#?}");
+    assert_eq!(actual[0].path, "crates/a/src/second.rs");
+}
+
+#[test]
+fn macro_bodies_follow_literal_includes_in_their_own_scope() {
+    let actual = findings(&[
+        (
+            "crates/a/src/lib.rs",
+            r#"
+            macro_rules! numeric {
+                () => {{ use core::f64 as values; ::std::include!(r"checks.rs",); }};
+            }
+            macro_rules! ordinary {
+                () => {{ mod values {} core::include!("ordinary.rs"); }};
+            }
+            mod local {} use local::*;
+        "#,
+        ),
+        (
+            "crates/a/src/checks.rs",
+            "use values::*; use std::f32 as local;",
+        ),
+        ("crates/a/src/ordinary.rs", "use values::*;"),
+    ]);
+    assert_eq!(actual.len(), 1, "{actual:#?}");
+    assert_eq!(actual[0].path, "crates/a/src/checks.rs");
+}
+
+#[test]
+fn text_custom_and_nonliteral_macros_do_not_inherit_include_semantics() {
+    let actual = findings(&[
+        (
+            "crates/a/src/lib.rs",
+            r#"
+            use std::f32 as values;
+            custom::include!("checks.rs");
+            macro_rules! text {
+                () => {{
+                    custom::include!("checks.rs");
+                    include_str!("checks.rs");
+                    include!(concat!("checks", ".rs"));
+                }};
+            }
+        "#,
+        ),
+        ("crates/a/src/checks.rs", "use values::*;"),
+    ]);
+    assert!(actual.is_empty(), "{actual:#?}");
+}
