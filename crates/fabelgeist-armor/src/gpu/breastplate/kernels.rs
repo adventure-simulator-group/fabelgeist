@@ -13,7 +13,7 @@ use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 use super::carrier_wgsl::COARSE_WORDS;
 use super::finish_wgsl::CARRIER_WORDS;
 use super::fit::RadialFit;
-use super::fit_wgsl::{self, CENTER_WORDS};
+use super::fit_wgsl::{self, SECTION_WORDS};
 use super::shape_wgsl;
 use super::skin_wgsl::{MORPH_WORDS, SAMPLE_WORDS, SKIN_WORDS};
 use super::topology::{SKIRT_SAMPLES, U_SAMPLES, V_SAMPLES};
@@ -94,7 +94,7 @@ const HEADER: u32 = {header}u;
 const U_SAMPLES: u32 = {u_samples}u;
 const V_SAMPLES: u32 = {v_samples}u;
 const SKIRT_SAMPLES: u32 = {skirt_samples}u;
-const CENTER_WORDS: u32 = {center_words}u;
+const SECTION_WORDS: u32 = {section_words}u;
 const SAMPLE_WORDS: u32 = {sample_words}u;
 const CARRIER_WORDS: u32 = {carrier_words}u;
 const MORPH_WORDS: u32 = {morph_words}u;
@@ -119,7 +119,7 @@ const MAX_FIT_CORRECTION: f32 = 0.060;
         u_samples = U_SAMPLES,
         v_samples = V_SAMPLES,
         skirt_samples = SKIRT_SAMPLES,
-        center_words = CENTER_WORDS,
+        section_words = SECTION_WORDS,
         sample_words = SAMPLE_WORDS,
         carrier_words = CARRIER_WORDS,
         morph_words = MORPH_WORDS,

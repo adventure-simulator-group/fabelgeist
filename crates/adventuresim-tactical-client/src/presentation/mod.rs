@@ -26,18 +26,29 @@ mod furniture;
 pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
 mod building_closures;
 mod environment;
+mod ground_palette;
 pub(crate) mod ground_scatter;
+#[cfg(any(target_family = "wasm", test))]
+mod regional_lighting;
+#[cfg(target_family = "wasm")]
+pub(crate) mod regional_map;
+use ground_palette::{TACTICAL_DIRT_SRGB, scene_ground_color};
 pub(crate) use ground_scatter::gardens::ManagedGardenPlant;
 pub(crate) mod interior_lighting;
 mod materials;
 mod obstacles;
+pub(crate) mod ownership;
 mod procedural;
 pub(crate) mod procedural_texture_setup;
 pub(crate) mod recipe_mesh;
 mod sky;
+mod strategic_scene_assets;
 mod terrain;
+pub(crate) use strategic_scene_assets::PreparedStrategicScene;
 pub(crate) mod venues;
 mod vista;
+pub(crate) use buildings::queue_strategic_city;
+pub(crate) use vista::{StrategicBackdrop, spawn_strategic_backdrop};
 mod volumetric;
 mod weather;
 mod windows;
@@ -95,7 +106,7 @@ pub(crate) use clouds::{
     TacticalCloudAnimationStatus, TacticalCloudBenchmarkIsolation, TacticalCloudCaptureOverride,
     TacticalCloudCaptureProfile, TacticalCloudLayer, TacticalCloudOffscreenCamera,
 };
-pub(crate) use environment::{TacticalCameraSetup, TacticalGameplayCamera};
+pub(crate) use environment::{RegionalMapCamera, TacticalCameraSetup, TacticalGameplayCamera};
 pub(crate) use ground_scatter::{
     GrassInteractor, GroundLitterCaptureAnchors, GroundLitterCapturePair, GroundLitterDiagnostics,
     GroundScatterLayer, LooseStonePebblePatch, PlantCaptureAnchors, PlantLodInstance,
@@ -243,6 +254,7 @@ impl Plugin for TacticalPresentationPlugin {
             .init_resource::<WoodyUnderstoryPresentationCache>()
             .init_resource::<GroundFoliagePresentationCache>()
             .init_resource::<TreePresentationCache>()
+            .init_resource::<obstacles::tree::RetainedTreePresentations>()
             .init_resource::<TreeAssetResidencyDiagnostics>()
             .init_resource::<VistaTreePresentationCache>()
             .init_resource::<PreparedTreeImpostorAssets>()

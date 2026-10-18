@@ -3,6 +3,8 @@
 //! The fields are local to one mesh preparation and its exact weather snapshot.
 use super::*;
 
+pub(super) const PLAYABLE_COLOR_TRANSITION_CELLS: f32 = 4.0;
+
 pub(super) struct VistaVertexColors<'a> {
     own: SampleColors<'a>,
     coarser: Option<SampleColors<'a>>,
@@ -52,7 +54,7 @@ impl<'a> VistaVertexColors<'a> {
                     stitch_vista_color_to_playable_edge(
                         local,
                         playable_half_extent,
-                        lod.spacing_metres * 4.0,
+                        lod.spacing_metres * PLAYABLE_COLOR_TRANSITION_CELLS,
                         vista_color,
                         playable,
                     )
@@ -127,29 +129,11 @@ pub(super) fn stitch_vista_color_to_playable_edge(
 }
 
 pub(super) fn vista_sample_color(sample: EnvironmentalSample, weather: WeatherSnapshot) -> Vec4 {
-    let environment =
-        SceneEnvironment {
-            scene_digest: String::new(),
-            generation_version: TACTICAL_SCENE_GENERATION_VERSION,
-            latitude_microdegrees:
-                adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000)
-                    .unwrap(),
-            longitude_microdegrees:
-                adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(10_000_000)
-                    .unwrap(),
-            absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::ZERO
-                .saturating_add_minutes(12 * 60),
-            lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::ZERO
-                .saturating_add_minutes(12 * 60),
-            absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(20).unwrap(),
-            weather,
-            canopy_bps: sample.canopy_bps,
-            wetland_bps: sample.wetland_bps,
-            cultivation_bps: sample.cultivation_bps,
-            water_bps: sample.water_bps,
-            hilly_bps: sample.hilly_bps,
-        };
-    let mut color = Vec4::from_array(scene_ground_color(&environment).to_linear().to_f32_array());
+    let mut color = Vec4::from_array(
+        super::super::ground_palette::sample_ground_color(sample, weather)
+            .to_linear()
+            .to_f32_array(),
+    );
     let hills = bps(sample.hilly_bps);
     let snow = bps(weather.snow_cover_bps);
     let exposed_rock = hills

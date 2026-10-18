@@ -65,12 +65,7 @@
     root.setProperty("--environment-light", value.light.toFixed(3));
     root.setProperty("--environment-warmth", value.warmth.toFixed(3));
     root.setProperty("--environment-tint", value.high);
-    root.setProperty("--map-light", (0.62 + value.light * 0.38).toFixed(3));
-    root.setProperty("--map-saturation", (0.7 + value.light * 0.3).toFixed(3));
-    root.setProperty("--map-atmosphere-opacity", (0.3 - value.light * 0.22 + value.warmth * 0.05).toFixed(3));
     root.setProperty("--scene-atmosphere-opacity", ((0.3 - value.light * 0.22 + value.warmth * 0.05) * 0.65).toFixed(3));
-    root.setProperty("--map-surface-mix", `${(62 + value.light * 38).toFixed(1)}%`);
-    root.setProperty("--map-land-mix", `${(70 + value.light * 30).toFixed(1)}%`);
   };
 
   window.strategicTimeLighting = lighting;
