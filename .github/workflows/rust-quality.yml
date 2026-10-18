@@ -60,6 +60,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
       - name: Install pinned Rust toolchain
         uses: dtolnay/rust-toolchain@master
         with:
@@ -79,7 +81,7 @@ jobs:
           sudo apt-get update && sudo apt-get install --no-install-recommends -y
           mold libasound2-dev libudev-dev libwayland-dev libx11-dev
           libxcursor-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-dev
-          libxrandr-dev libxi-dev
+          libxrandr-dev libxi-dev libvulkan1 mesa-vulkan-drivers
       - name: Check formatting
         run: |
           cargo fmt --all -- --check
@@ -127,3 +129,24 @@ jobs:
           cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
           cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
           cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
+      - name: Test constraint graph and shell consumers
+        timeout-minutes: 20
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          mkdir -p target/constraint-validation
+          git rev-parse HEAD | tee target/constraint-validation/source.txt
+          printf '%s\n' "$EXPECTED_SOURCE" > target/constraint-validation/pr-head.txt
+          git merge-base --is-ancestor "$EXPECTED_SOURCE" HEAD
+          export XDG_RUNTIME_DIR="$RUNNER_TEMP/constraint-runtime"
+          mkdir -p "$XDG_RUNTIME_DIR"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          cargo test --locked --package fabelgeist-xpbd --package fabelgeist-shell -- --test-threads=1 2>&1 | tee target/constraint-validation/tests.log
+          git diff --exit-code -- Cargo.lock crates/adventuresim-character-creator/Cargo.lock crates/fabelgeist-mhr/Cargo.lock crates/fabelgeist-numpy-storage/Cargo.lock
+      - name: Upload constraint validation evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: constraint-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/constraint-validation/
+          if-no-files-found: error
