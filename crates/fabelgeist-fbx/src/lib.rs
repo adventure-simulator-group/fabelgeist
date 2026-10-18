@@ -23,6 +23,7 @@ use binary_layout::{
     BINARY_MAGIC_PREFIX, FILE_HEADER_BYTES, FILE_VERSION_OFFSET, FbxVersion, HeaderFormat,
 };
 use flate2::read::ZlibDecoder;
+use property_count::FbxPropertyCount;
 use property_tag::FbxPropertyTag;
 
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
@@ -33,6 +34,7 @@ pub mod animation;
 mod array_encoding;
 mod array_layout;
 mod binary_layout;
+mod property_count;
 mod property_tag;
 
 /// One node record of the FBX tree.
@@ -473,9 +475,9 @@ fn decode_array<T: Copy, const WIDTH: usize>(
         .collect())
 }
 
-fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
-    let mut props = Vec::with_capacity(count);
-    for _ in 0..count {
+fn read_props(reader: &mut Reader<'_>, count: FbxPropertyCount) -> Result<Vec<Prop>> {
+    let mut props = Vec::with_capacity(count.native_len());
+    for _ in 0..count.native_len() {
         let kind = FbxPropertyTag::try_from(reader.u8()?)
             .map_err(|error| anyhow!("unknown FBX property type {:?}", char::from(error.input)))?;
         let prop = match kind {
@@ -507,7 +509,7 @@ fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
 /// Reads one node record. Returns `None` for the null record that terminates a list.
 fn read_node(reader: &mut Reader<'_>) -> Result<Option<Node>> {
     let end_offset = reader.header_word()? as usize;
-    let num_props = reader.header_word()? as usize;
+    let num_props = FbxPropertyCount::from(reader.header_word()?);
     let _prop_list_len = reader.header_word()?;
     let name_len = reader.u8()? as usize;
     let name = String::from_utf8_lossy(reader.take(name_len)?).into_owned();
@@ -560,5 +562,7 @@ fn qualified_name(raw: &[u8]) -> String {
 mod array_encoding_tests;
 #[cfg(test)]
 mod binary_layout_tests;
+#[cfg(test)]
+mod property_count_tests;
 #[cfg(test)]
 mod property_tag_tests;
