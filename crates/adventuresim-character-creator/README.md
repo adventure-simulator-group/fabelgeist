@@ -534,10 +534,10 @@ garment. Body, pattern, fabric, resolution or sewing changes start again,
 as does **Drape again**.
 
 Draping resolves swept vertex/triangle and edge/edge contacts after each GPU
-substep. This host projection is vendored from Prism's `shell` library and
-includes body triangle interiors and excludes joined seam copies. Fixed body
-bounds are cached between substeps. It prevents crossings missed by particle
-spheres; it does not infer layer order for already intersecting starting meshes.
+substep. This host projection comes from `fabelgeist-shell` and includes body
+triangle interiors and excludes joined seam copies. Fixed body bounds are cached
+between substeps. It prevents crossings missed by particle spheres; it does not
+infer layer order for already intersecting starting meshes.
 
 Clothing, padding and mail lie under worn rigid plate. Wherever a plate covers
 them, the last fit presses them in towards the wearer, clear of the plate's
@@ -566,14 +566,13 @@ cargo run --manifest-path crates/adventuresim-character-creator/Cargo.toml --exa
 
 The exported base establishes MHR's stable bone names and hierarchy as the
 animation-pack contract. The preview keeps body identity separate from
-animation. Prism's retargeting pipeline establishes the intended boundary:
-import a clip into an engine skeleton, retarget model-space deltas through
-semantic rig profiles, then encode the resulting MHR joint pose into MHR's 204
-model parameters. Identity remains this recipe's 45 coefficients, so one
-retargeted clip works for every generated body. The creator currently shows a
-neutral pose; clip playback should reuse Prism's `Retargeter`, `MhrRig`, and
-`MhrPoseEncoder`, including its T-pose reference and hinge correction, rather
-than copying local rotations.
+animation. The intended boundary for animation is to import a clip into an
+engine skeleton, retarget model-space deltas through semantic rig profiles, then
+encode the resulting MHR joint pose into MHR's 204 model parameters. Identity
+remains this recipe's 45 coefficients, so one retargeted clip works for every
+generated body. The creator currently shows a neutral pose; clip playback should
+reuse `fabelgeist-animation`'s `Retargeter`, including its T-pose reference and
+hinge correction, rather than copying local rotations.
 
 ## Identity morphs in game
 
