@@ -87,7 +87,10 @@ fn array_admission_retains_checked_shape_and_payload_consistency() {
         Ok(_) => panic!("overflowing shape was admitted"),
     };
     assert!(matches!(
-        error.downcast_ref::<NpyLayoutError>(),
+        match &error {
+            crate::NpyDecodeError::Layout(layout) => Some(layout),
+            _ => None,
+        },
         Some(NpyLayoutError::ElementCountOverflow { .. })
     ));
     let error = match NpyArray::from_bytes(&encode("<f8", &format!("{},", usize::MAX), &[])) {
@@ -95,7 +98,10 @@ fn array_admission_retains_checked_shape_and_payload_consistency() {
         Ok(_) => panic!("overflowing payload was admitted"),
     };
     assert!(matches!(
-        error.downcast_ref::<NpyLayoutError>(),
+        match &error {
+            crate::NpyDecodeError::Layout(layout) => Some(layout),
+            _ => None,
+        },
         Some(NpyLayoutError::PayloadLengthOverflow { .. })
     ));
 }

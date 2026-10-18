@@ -72,7 +72,11 @@ fn layout_failures_keep_rejected_dimensions_counts_widths_and_lengths() {
     let error = NpyArray::from_bytes(&encoded("<f4", "2,", &[0; 7]))
         .err()
         .unwrap();
-    let layout = error.downcast_ref::<NpyLayoutError>().unwrap();
+    let layout = match &error {
+        fabelgeist_numpy_storage::NpyDecodeError::Layout(layout) => Some(layout),
+        _ => None,
+    }
+    .unwrap();
     assert!(
         matches!(layout, NpyLayoutError::TruncatedPayload { expected, available } if expected.to_string() == "8" && available.to_string() == "7")
     );
