@@ -49,7 +49,10 @@ fn goslar_foundations_are_closed_and_extend_below_complete_source_intersections(
         )
         .unwrap();
     assert_eq!(foundations.property_id, CityPropertyId(1238));
-    assert_eq!(foundations.member_building_ids, [1238, 17622]);
+    assert_eq!(
+        foundations.member_building_ids,
+        [1238, 17622].map(crate::scene_input::SceneBuildingId)
+    );
     assert!(foundations.volume_cubic_metres() > 1282.0);
     for (cell, triangles) in foundations
         .positions
@@ -96,7 +99,7 @@ fn a_coplanar_source_has_one_foundation_volume_instead_of_duplicate_zero_line_ce
         .iter()
         .map(|indices| {
             let mesh = plan.mesh().unwrap();
-            let [a, b, c] = indices.map(|i| mesh.positions[i as usize].xz().as_dvec2());
+            let [a, b, c] = indices.map(|i| mesh.positions()[i as usize].xz().as_dvec2());
             (b - a).perp_dot(c - a).abs() * 0.5
         })
         .sum();
@@ -135,12 +138,15 @@ fn missing_geographic_coverage_reports_exact_property_and_square_metre_shortfall
         .foundations(&source, FoundationEmbedment::from_metres(0.2).unwrap())
         .unwrap_err();
     assert_eq!(error.property_id, CityPropertyId(1238));
-    assert_eq!(error.member_building_ids, [1238, 17622]);
-    assert_eq!(error.constraint, SupportConstraint::SurfaceCoverage);
-    assert_eq!(error.unit, SupportDiagnosticUnit::SquareMetres);
-    assert!(error.shortfall > 0.1);
     assert_eq!(
-        error.attempted_treatment,
+        error.member_building_ids,
+        [1238, 17622].map(crate::scene_input::SceneBuildingId)
+    );
+    assert_eq!(error.constraint, SupportConstraint::SurfaceCoverage);
+    assert_eq!(error.violation.unit(), SupportDiagnosticUnit::SquareMetres);
+    assert!(error.violation.discrepancy_value() > 0.1);
+    assert_eq!(
+        *error.attempted_treatment,
         SupportGradingAttempt::Compound(terraced())
     );
 }
@@ -155,8 +161,11 @@ fn overlapping_geographic_triangles_are_rejected_instead_of_counted_as_support()
         .foundations(&source, FoundationEmbedment::from_metres(0.2).unwrap())
         .unwrap_err();
     assert_eq!(error.constraint, SupportConstraint::SurfaceOverlap);
-    assert_eq!(error.member_building_ids, [1238, 17622]);
-    assert!(error.shortfall > 0.1);
+    assert_eq!(
+        error.member_building_ids,
+        [1238, 17622].map(crate::scene_input::SceneBuildingId)
+    );
+    assert!(error.violation.discrepancy_value() > 0.1);
 }
 
 #[test]
@@ -164,7 +173,7 @@ fn an_interior_source_peak_is_rejected_even_when_its_corners_fit_cut_fill_limits
     let plan = Fixture::load().plan(terraced());
     let square = flat_source(&plan, 20.0);
     let corners = [square[0][0], square[0][1], square[0][2], square[1][2]];
-    let point = plan.reservation().centre_metres;
+    let point = plan.reservation().centre_metres();
     let peak = Vec3::new(point.x, 28.0, point.y);
     let source =
         GeographicSurface::from_triangles((0..4).map(|i| [corners[i], corners[(i + 1) % 4], peak]))
@@ -173,8 +182,11 @@ fn an_interior_source_peak_is_rejected_even_when_its_corners_fit_cut_fill_limits
         .foundations(&source, FoundationEmbedment::from_metres(0.2).unwrap())
         .unwrap_err();
     assert_eq!(error.constraint, SupportConstraint::CutFill);
-    assert_eq!(error.member_building_ids, [1238, 17622]);
-    assert!(error.measured > error.permitted);
+    assert_eq!(
+        error.member_building_ids,
+        [1238, 17622].map(crate::scene_input::SceneBuildingId)
+    );
+    assert!(error.violation.actual_value() > error.violation.limit_value());
 }
 
 #[test]
@@ -191,9 +203,9 @@ fn bounded_replacement_removes_interior_ground_without_changing_surrounding_reli
         for x in 1..10 {
             for z in 1..10 {
                 let local = (Vec2::new(x as f32, z as f32) / 10.0 - Vec2::splat(0.5))
-                    * member.contact.dimensions_metres;
-                let point =
-                    member.contact.centre_metres + member.contact.orientation.local_to_world(local);
+                    * member.contact.dimensions_metres();
+                let point = member.contact.centre_metres()
+                    + member.contact.orientation().local_to_world(local);
                 let heights: Vec<_> = terrain
                     .elevations_at(
                         crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap(),
@@ -216,7 +228,9 @@ fn bounded_replacement_removes_interior_ground_without_changing_surrounding_reli
         for u in 1..10 {
             for v in 1..10 - u {
                 let point = a + (b - a) * (u as f32 / 10.0) + (c - a) * (v as f32 / 10.0);
-                if plan.contains(point.xz()) {
+                if plan.contains(
+                    crate::scene_coordinates::ScenePlanPoint::try_from(point.xz()).unwrap(),
+                ) {
                     continue;
                 }
                 let heights: Vec<_> = terrain
@@ -244,9 +258,18 @@ fn complete_triangles_reject_boundary_fill_that_a_containment_query_can_miss() {
     fixture.levels.front.elevation = elevation(21.192_965);
     fixture.levels.court = elevation(20.212_461);
     fixture.levels.rear.elevation = elevation(19.206_753);
-    let plan = fixture.plan(CourtTreatment::Terraced(
-        CourtStairLimits::new(0.19, 0.25, 1.0, 1.05, 0.5).unwrap(),
-    ));
+    let plan = fixture.plan(CourtTreatment::Terraced(CourtStairLimits::new(
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.19)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.25)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(1.0)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(1.05)
+            .unwrap(),
+        adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.5)
+            .unwrap(),
+    )));
     let error = plan
         .foundations(
             &geographic_fixture(),
@@ -254,10 +277,13 @@ fn complete_triangles_reject_boundary_fill_that_a_containment_query_can_miss() {
         )
         .unwrap_err();
     assert_eq!(error.property_id, CityPropertyId(1238));
-    assert_eq!(error.member_building_ids, [1238, 17622]);
+    assert_eq!(
+        error.member_building_ids,
+        [1238, 17622].map(crate::scene_input::SceneBuildingId)
+    );
     assert_eq!(error.constraint, SupportConstraint::CutFill);
     assert_eq!(error.boundary, SupportBoundary::GeographicSurface);
-    assert!(error.measured > 6.01);
-    assert_eq!(error.permitted, 6.0);
-    assert!(error.shortfall > 0.01);
+    assert!(error.violation.actual_value() > 6.01);
+    assert_eq!(error.violation.limit_value(), 6.0);
+    assert!(error.violation.discrepancy_value() > 0.01);
 }

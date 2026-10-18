@@ -7,7 +7,12 @@ const MAX_POCKET_DEPTH_METRES: f32 = 1.8;
 const MAX_POCKET_RELIEF_FRACTION: f32 = 0.5;
 const POCKET_POSITION_JITTER_METRES: f32 = 0.6;
 
-pub(super) fn front(along: f32, depth_fraction: f32, relief: f32, seed: u64) -> f32 {
+pub(super) fn front(
+    along: f32,
+    depth_fraction: f32,
+    relief: f32,
+    seed: fabelgeist_determinism::Seed,
+) -> f32 {
     // Authored dimensional catalog: centre, half-width, depth centre, depth radius.
     // The hollows remain separated by load-bearing rock; none reaches the roof.
     let pockets = [

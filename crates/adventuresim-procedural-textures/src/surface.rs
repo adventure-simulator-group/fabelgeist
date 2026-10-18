@@ -1,6 +1,7 @@
 //! Metric oak bark with narrow raised plates and broad shouldered fissures.
 mod streams;
 use super::*;
+use fabelgeist_determinism::Seed;
 
 pub(super) const OAK_BARK_TILE_METRES: f32 = 0.5;
 pub(super) const OAK_BARK_HEIGHT_RANGE_METRES: f32 = 0.032;
@@ -17,17 +18,20 @@ pub(super) fn bark_random(
     params: &crate::TextureParameters,
     cell_x: i32,
     cell_y: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     params
         .rng(
             streams::LATTICE,
-            &[field_seed, bark_cell_id(params, cell_x, cell_y)],
+            &[
+                field_seed.to_u64(),
+                bark_cell_id(params, cell_x, cell_y).to_u64(),
+            ],
         )
         .inclusive_unit_f32()
 }
 
-fn bark_cell_id(params: &crate::TextureParameters, cell_x: i32, cell_y: i32) -> u64 {
+fn bark_cell_id(params: &crate::TextureParameters, cell_x: i32, cell_y: i32) -> Seed {
     let wrapped_x = cell_x.rem_euclid(params.surface.columns) as u64;
     let wrapped_y = cell_y.rem_euclid(params.surface.rows) as u64;
     params.field_seed(streams::CELL, &[wrapped_x, wrapped_y])
@@ -37,7 +41,7 @@ pub(super) fn bark_edge_rng(
     params: &crate::TextureParameters,
     first: (i32, i32),
     second: (i32, i32),
-    field_seed: u64,
+    field_seed: Seed,
 ) -> fabelgeist_determinism::DeterministicRng {
     let first = bark_cell_id(params, first.0, first.1);
     let second = bark_cell_id(params, second.0, second.1);
@@ -46,14 +50,17 @@ pub(super) fn bark_edge_rng(
     } else {
         (second, first)
     };
-    params.rng(streams::EDGE, &[field_seed, lower, upper])
+    params.rng(
+        streams::EDGE,
+        &[field_seed.to_u64(), lower.to_u64(), upper.to_u64()],
+    )
 }
 
 fn bark_edge_random(
     params: &crate::TextureParameters,
     first: (i32, i32),
     second: (i32, i32),
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     bark_edge_rng(params, first, second, field_seed).inclusive_unit_f32()
 }

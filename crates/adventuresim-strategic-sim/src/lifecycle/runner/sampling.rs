@@ -1,6 +1,8 @@
 //! Lifecycle event sampling keyed by defined event sequence.
 
-pub(super) fn lifecycle_entropy(seed: u64, domain: &str, ordinal: u64) -> u16 {
+use fabelgeist_determinism::Seed;
+
+pub(super) fn lifecycle_entropy(seed: Seed, domain: &str, ordinal: u64) -> u16 {
     fabelgeist_determinism::Seed::derive(
         &seed.to_le_bytes(),
         fabelgeist_determinism::StreamId::new("simulation.lifecycle"),

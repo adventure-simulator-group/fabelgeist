@@ -52,3 +52,11 @@ German variant because the catalog has only German names. It is distinct from
 Unknown private sex in observer-facing quest data is `None`, serialized as
 `null`. Generated SpacetimeDB client types remain transport types and require
 explicit conversion at client boundaries.
+
+## Imported source identity
+
+`source_package::SourcePackageDigest` identifies an immutable imported source
+package with a checked lowercase SHA-256 digest. Geographic producers, scene
+capture and map presentation use this same type. Malformed identities return
+`SourcePackageDigestError` at the decoding boundary. Geometry content and scene
+placement bindings remain separate identities.

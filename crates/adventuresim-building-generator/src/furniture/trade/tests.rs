@@ -4,17 +4,17 @@ use bevy::math::Quat;
 
 fn recipe(kind: FurnitureKind, variant: FurnitureVariant) -> FurnitureRecipe {
     let mut builder = Builder::default();
-    assemble(&mut builder, FurnitureKey::natural(kind, variant));
-    builder.finish()
+    assemble(&mut builder, FurnitureKey::natural(kind, variant)).unwrap();
+    builder.finish().unwrap()
 }
 
 fn solid_at(recipe: &FurnitureRecipe, point: Vec3) -> bool {
     recipe.colliders.iter().any(|collider| {
-        let rotation = Quat::from_rotation_y(collider.yaw_radians)
-            * Quat::from_rotation_x(collider.crossfall_radians)
-            * Quat::from_rotation_z(collider.longfall_radians);
-        let local = rotation.inverse() * (point - collider.centre);
-        (collider.size * 0.5 + Vec3::splat(0.000_01) - local.abs()).min_element() >= 0.0
+        let rotation = Quat::from_rotation_y(collider.yaw_radians.radians())
+            * Quat::from_rotation_x(collider.crossfall_radians.radians())
+            * Quat::from_rotation_z(collider.longfall_radians.radians());
+        let local = rotation.inverse() * (point - collider.centre.metres());
+        (collider.size.metres() * 0.5 + Vec3::splat(0.000_01) - local.abs()).min_element() >= 0.0
     })
 }
 
@@ -23,12 +23,15 @@ fn joined_counters_have_continuous_level_tops_and_only_terminal_endcaps() {
     use FurnitureKind::*;
     for variant in FurnitureVariant::ALL {
         let pieces = [CounterLeftEnd, Counter, CounterRightEnd].map(|kind| recipe(kind, variant));
-        let width = pieces[1].bounds.max.x - pieces[1].bounds.min.x;
-        let height = pieces[1].bounds.max.y;
-        let depth = pieces[1].bounds.max.z - pieces[1].bounds.min.z;
+        let width = pieces[1].bounds.max().metres().x - pieces[1].bounds.min().metres().x;
+        let height = pieces[1].bounds.max().metres().y;
+        let depth = pieces[1].bounds.max().metres().z - pieces[1].bounds.min().metres().z;
         for (index, piece) in pieces.iter().enumerate() {
-            assert!((piece.bounds.max.y - height).abs() < 0.000_01);
-            assert!((piece.bounds.max.x - piece.bounds.min.x - width).abs() < 0.000_01);
+            assert!((piece.bounds.max().metres().y - height).abs() < 0.000_01);
+            assert!(
+                (piece.bounds.max().metres().x - piece.bounds.min().metres().x - width).abs()
+                    < 0.000_01
+            );
             for step in 0..=20 {
                 let z = -depth * 0.5 + depth * step as f32 / 20.0;
                 for sign in [-1.0, 1.0] {
@@ -43,8 +46,8 @@ fn joined_counters_have_continuous_level_tops_and_only_terminal_endcaps() {
         for join in 0..2 {
             let left_origin = Vec3::X * width * join as f32;
             let right_origin = left_origin + Vec3::X * width;
-            let left_edge = left_origin.x + pieces[join].bounds.max.x;
-            let right_edge = right_origin.x + pieces[join + 1].bounds.min.x;
+            let left_edge = left_origin.x + pieces[join].bounds.max().metres().x;
+            let right_edge = right_origin.x + pieces[join + 1].bounds.min().metres().x;
             assert!((left_edge - right_edge).abs() < 0.000_01);
             for side in [-1.0, 1.0] {
                 let world = Vec3::new(left_edge + side * 0.001, height - 0.01, 0.0);
@@ -70,10 +73,10 @@ fn counter_corner_joins_two_orthogonal_runs_without_a_top_step() {
     for variant in FurnitureVariant::ALL {
         let corner = recipe(FurnitureKind::CounterCorner, variant);
         let straight = recipe(FurnitureKind::Counter, variant);
-        let half_width = straight.bounds.max.x;
-        let half_corner = corner.bounds.max.x;
-        let height = corner.bounds.max.y;
-        assert!((height - straight.bounds.max.y).abs() < 0.000_01);
+        let half_width = straight.bounds.max().metres().x;
+        let half_corner = corner.bounds.max().metres().x;
+        let height = corner.bounds.max().metres().y;
+        assert!((height - straight.bounds.max().metres().y).abs() < 0.000_01);
         for axis in [Vec3::X, Vec3::Z] {
             let rotation = if axis == Vec3::X {
                 Quat::IDENTITY
@@ -122,7 +125,7 @@ fn trade_geometry_and_colliders_fit_the_placement_envelope() {
     for kind in kinds {
         for variant in FurnitureVariant::ALL {
             let key = FurnitureKey::natural(kind, variant);
-            let size = key.interior_spec().unwrap().size_metres;
+            let size = key.interior_spec().unwrap().size_metres.metres();
             let recipe = recipe(kind, variant);
             let min = Vec3::new(-size.x * 0.5, 0.0, -size.z * 0.5);
             let max = Vec3::new(size.x * 0.5, size.y, size.z * 0.5);
@@ -139,14 +142,14 @@ fn trade_geometry_and_colliders_fit_the_placement_envelope() {
                 );
             }
             for collider in &recipe.colliders {
-                let rotation = Quat::from_rotation_y(collider.yaw_radians)
-                    * Quat::from_rotation_x(collider.crossfall_radians)
-                    * Quat::from_rotation_z(collider.longfall_radians);
+                let rotation = Quat::from_rotation_y(collider.yaw_radians.radians())
+                    * Quat::from_rotation_x(collider.crossfall_radians.radians())
+                    * Quat::from_rotation_z(collider.longfall_radians.radians());
                 for x in [-1.0, 1.0] {
                     for y in [-1.0, 1.0] {
                         for z in [-1.0, 1.0] {
-                            let point = collider.centre
-                                + rotation * (collider.size * Vec3::new(x, y, z) * 0.5);
+                            let point = collider.centre.metres()
+                                + rotation * (collider.size.metres() * Vec3::new(x, y, z) * 0.5);
                             assert!(
                                 (point - min).min_element() >= -0.000_1
                                     && (max - point).min_element() >= -0.000_1,
@@ -158,8 +161,8 @@ fn trade_geometry_and_colliders_fit_the_placement_envelope() {
             }
             assert!(recipe.support_points_metres.len() >= 4);
             for point in &recipe.support_points_metres {
-                assert!(solid_at(&recipe, *point));
-                assert!(point.y.abs() < 0.000_1);
+                assert!(solid_at(&recipe, point.metres()));
+                assert!(point.metres().y.abs() < 0.000_1);
             }
         }
     }
@@ -175,14 +178,18 @@ fn bins_and_display_trays_remain_empty_above_their_supported_bottoms() {
     ] {
         for variant in FurnitureVariant::ALL {
             let recipe = recipe(kind, variant);
-            let probe = Vec3::new(recipe.bounds.max.x * 0.5, recipe.bounds.max.y - 0.06, 0.0);
+            let probe = Vec3::new(
+                recipe.bounds.max().metres().x * 0.5,
+                recipe.bounds.max().metres().y - 0.06,
+                0.0,
+            );
             assert!(
                 !solid_at(&recipe, probe),
                 "{kind:?} is solid-filled or contains stock"
             );
             assert!(
                 recipe.colliders.iter().any(|collider| {
-                    let point = Vec3::new(probe.x, collider.centre.y, probe.z);
+                    let point = Vec3::new(probe.x, collider.centre.metres().y, probe.z);
                     point.y < probe.y && solid_at(&recipe, point)
                 }),
                 "{kind:?} has no supported bottom"

@@ -23,6 +23,20 @@ impl<'a> GroundSupport<'a> {
         }
     }
 
+    pub(super) fn audit(&mut self, issues: &mut Vec<crate::AuditIssue>) {
+        for node in self.nodes.values() {
+            if !self.reaches_ground(node.id) {
+                issues.push(super::issue(
+                "unsupported_resolved_structure",
+                format!(
+                    "structural node {} {:?} at {:?} supports {:?} does not reach ground through an acyclic graph",
+                    node.id.0, node.kind, node.position, node.supported_by
+                ),
+            ));
+            }
+        }
+    }
+
     pub(super) fn reaches_ground(&mut self, id: StructuralNodeId) -> bool {
         if let Some(state) = self.states.get(&id) {
             // An active node means this path contains a cycle; a completed node is reusable.
@@ -58,13 +72,21 @@ mod tests {
     use bevy::math::Vec3;
 
     fn node(id: u64, grounded: bool, parents: &[u64]) -> StructuralNode {
-        StructuralNode {
-            id: StructuralNodeId(id),
-            owner: GeometryOwnerId(1),
-            kind: StructuralNodeKind::WallBearing,
-            position: Vec3::ZERO,
-            supported_by: parents.iter().copied().map(StructuralNodeId).collect(),
-            grounded,
+        {
+            let admitted_node_id = StructuralNodeId(id);
+            crate::StructuralNode::new(
+                admitted_node_id,
+                GeometryOwnerId(1),
+                StructuralNodeKind::WallBearing,
+                crate::spatial_geometry::Position::<crate::Architectural>::from_metres(Vec3::ZERO)
+                    .map_err(|cause| crate::StructuralNodeError {
+                        node: admitted_node_id,
+                        cause,
+                    })
+                    .unwrap(),
+                parents.iter().copied().map(StructuralNodeId).collect(),
+                grounded,
+            )
         }
     }
 

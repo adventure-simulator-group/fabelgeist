@@ -152,7 +152,7 @@ fn purpose_build(
         attributes,
         skills,
         currency: 0,
-        settlement_selector: 0,
+        settlement_selector: fabelgeist_determinism::Seed::from_u64(0),
         inventory: Vec::new(),
         age_tier: crate::starting_character::StartingAgeTier::Adult,
         profession: None,
@@ -614,6 +614,7 @@ mod tests {
         for opponent in opponents {
             let outcomes = || {
                 (1..=32)
+                    .map(fabelgeist_determinism::Seed::from_u64)
                     .map(|seed| {
                         let outcome = resolve_battle(
                             vec![john.combatant.clone()],
@@ -649,23 +650,25 @@ mod tests {
             } else {
                 opponent.combatant.id
             };
-            let landed = (1..=64).any(|seed| {
-                resolve_battle(
-                    vec![john.combatant.clone()],
-                    vec![opponent.combatant.clone()],
-                    seed,
-                    BattleOpening::Normal,
-                )
-                .log
-                .iter()
-                .any(|entry| {
-                    entry.attacker_id == shorter_id
-                        && matches!(
-                            entry.outcome,
-                            BattleAttackOutcome::HitHealth | BattleAttackOutcome::HitArmor
-                        )
-                })
-            });
+            let landed = (1..=64)
+                .map(fabelgeist_determinism::Seed::from_u64)
+                .any(|seed| {
+                    resolve_battle(
+                        vec![john.combatant.clone()],
+                        vec![opponent.combatant.clone()],
+                        seed,
+                        BattleOpening::Normal,
+                    )
+                    .log
+                    .iter()
+                    .any(|entry| {
+                        entry.attacker_id == shorter_id
+                            && matches!(
+                                entry.outcome,
+                                BattleAttackOutcome::HitHealth | BattleAttackOutcome::HitArmor
+                            )
+                    })
+                });
             assert!(landed, "{} shorter-reach side never landed", opponent.name);
         }
     }
@@ -680,7 +683,7 @@ mod tests {
         let outcome = resolve_battle(
             vec![john.combatant],
             vec![hammer_brute.combatant.clone()],
-            1,
+            fabelgeist_determinism::Seed::from_u64(1),
             BattleOpening::Normal,
         );
         let scheduled_contacts = outcome
@@ -712,7 +715,7 @@ mod tests {
         let outcome = resolve_battle(
             vec![john.combatant],
             vec![veteran.combatant.clone()],
-            1,
+            fabelgeist_determinism::Seed::from_u64(1),
             BattleOpening::Normal,
         );
         for movement in outcome

@@ -6,7 +6,7 @@ pub(super) fn resolve(
     walls: &mut [crate::WallAssembly],
     openings: &[crate::OpeningAssembly],
     bays: &mut [crate::TimberFrameBay],
-) {
+) -> Result<(), crate::GenerationError> {
     // Replace monolithic Stage 3 WallHost leaves with bay-local infill
     // panels. Opening jamb/head/sill/spandrel solids retain their independent
     // bearing authority; these residual panels cover only the wall field
@@ -32,8 +32,8 @@ pub(super) fn resolve(
         wall.host_solids.retain(|id| !old_panels.contains(id));
 
         let residual = residual(builder, wall, openings, bays);
-        recess_opening_hosts(builder.geometry, wall);
-        let panel_ids = append_panels(builder.geometry, wall, residual);
+        recess_opening_hosts(builder.geometry, wall)?;
+        let panel_ids = append_panels(builder.geometry, wall, residual)?;
         for bay in bays.iter_mut().filter(|bay| bay.wall == Some(wall.id)) {
             bay.infill_solids = panel_ids.clone();
         }
@@ -42,6 +42,8 @@ pub(super) fn resolve(
         .geometry
         .solids
         .retain(|solid| !removed_panel_ids.contains(&solid.id));
+
+    Ok(())
 }
 
 fn residual(
@@ -91,7 +93,10 @@ fn residual(
     residual
 }
 
-fn recess_opening_hosts(geometry: &mut ResolvedGeometry, wall: &crate::WallAssembly) {
+fn recess_opening_hosts(
+    geometry: &mut ResolvedGeometry,
+    wall: &crate::WallAssembly,
+) -> Result<(), crate::GenerationError> {
     // Stage 3 opening-bearing solids retain the structural wall depth, but
     // their exposed face is recessed from the Fachwerk plane. Their exact
     // overlap with the opening's jamb/header members is a typed composite
@@ -99,7 +104,7 @@ fn recess_opening_hosts(geometry: &mut ResolvedGeometry, wall: &crate::WallAssem
     // such permission.
     let opening_recess = 0.012_f32.min(wall.thickness_metres - 0.04);
     let inward = -wall.frame.outward;
-    for solid in geometry.solids.iter_mut().filter(|solid| {
+    let _: () = for solid in geometry.solids.iter_mut().filter(|solid| {
         wall.host_solids.contains(&solid.id)
             && matches!(
                 solid.role,
@@ -109,20 +114,49 @@ fn recess_opening_hosts(geometry: &mut ResolvedGeometry, wall: &crate::WallAssem
                     | SolidRole::OpeningSpandrel
             )
     }) {
-        solid.centre += Vec3::new(inward.x, 0.0, inward.y) * opening_recess * 0.5;
+        {
+            let mut native_geometry = solid.centre.metres();
+            native_geometry += Vec3::new(inward.x, 0.0, inward.y) * opening_recess * 0.5;
+            solid.centre = crate::spatial_geometry::Position::<crate::Architectural>::from_metres(
+                native_geometry,
+            )
+            .map_err(|cause| crate::CollisionError {
+                source_id: solid.id,
+                cause,
+            })?;
+        };
         if wall.frame.outward.x.abs() > 0.5 {
-            solid.size.x = (solid.size.x - opening_recess).max(0.04);
+            {
+                let mut native_geometry = solid.size.metres();
+                native_geometry.x = (solid.size.metres().x - opening_recess).max(0.04);
+                solid.size =
+                    crate::spatial_geometry::CuboidDimensions::from_metres(native_geometry)
+                        .map_err(|cause| crate::CollisionError {
+                            source_id: solid.id,
+                            cause,
+                        })?;
+            };
         } else {
-            solid.size.z = (solid.size.z - opening_recess).max(0.04);
+            {
+                let mut native_geometry = solid.size.metres();
+                native_geometry.z = (solid.size.metres().z - opening_recess).max(0.04);
+                solid.size =
+                    crate::spatial_geometry::CuboidDimensions::from_metres(native_geometry)
+                        .map_err(|cause| crate::CollisionError {
+                            source_id: solid.id,
+                            cause,
+                        })?;
+            };
         }
-    }
+    };
+    Ok(())
 }
 
 fn append_panels(
     geometry: &mut ResolvedGeometry,
     wall: &mut crate::WallAssembly,
     residual: MultiPolygon<f32>,
-) -> Vec<ResolvedItemId> {
+) -> Result<Vec<ResolvedItemId>, crate::GenerationError> {
     let panel_depth = timber_infill_panel_depth(wall);
     let mut panel_ids = Vec::new();
     let triangles = residual
@@ -154,41 +188,40 @@ fn append_panels(
             .fold(Vec3::splat(f32::NEG_INFINITY), Vec3::max);
         let centre = (min + max) * 0.5;
         let size = max - min;
-        geometry.solids.push(ResolvedSolid {
-            id,
-            owner: wall.owner,
-            centre,
-            size,
-            yaw_radians: 0.0,
-            crossfall_radians: 0.0,
-            longfall_radians: 0.0,
-            role: SolidRole::WallHost,
-            shape: crate::ResolvedSolidShape::TimberPanelPrism {
+        geometry.solids.push(crate::ResolvedSolid::new(
+            crate::CollisionCuboid::<crate::Architectural>::from_metres(
+                id, centre, size, 0.0, 0.0, 0.0,
+            )?,
+            wall.owner,
+            SolidRole::WallHost,
+            crate::ResolvedSolidShape::TimberPanelPrism {
                 vertices,
                 outward: wall.frame.outward,
                 depth_metres: panel_depth,
             },
-            supported_by: vec![wall.support_node],
-        });
-        geometry.support_interfaces.push(SupportInterface {
-            id: contact,
-            owner: wall.owner,
-            node: wall.support_node,
-            bounds: ResolvedBounds {
-                min: Vec3::new(
-                    centre.x - size.x * 0.5,
-                    centre.y - size.y * 0.5 - 0.004,
-                    centre.z - size.z * 0.5,
-                ),
-                max: Vec3::new(
-                    centre.x + size.x * 0.5,
-                    centre.y - size.y * 0.5 + 0.008,
-                    centre.z + size.z * 0.5,
-                ),
-            },
-        });
+            vec![wall.support_node],
+        ));
+        geometry
+            .support_interfaces
+            .push(crate::SupportInterface::new(
+                contact,
+                wall.owner,
+                wall.support_node,
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(
+                        centre.x - size.x * 0.5,
+                        centre.y - size.y * 0.5 - 0.004,
+                        centre.z - size.z * 0.5,
+                    ),
+                    Vec3::new(
+                        centre.x + size.x * 0.5,
+                        centre.y - size.y * 0.5 + 0.008,
+                        centre.z + size.z * 0.5,
+                    ),
+                )?,
+            ));
         wall.host_solids.push(id);
         panel_ids.push(id);
     }
-    panel_ids
+    Ok(panel_ids)
 }

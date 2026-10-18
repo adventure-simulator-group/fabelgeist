@@ -1,7 +1,9 @@
 use super::*;
 
 /// Keep the exact outdoor stack and weathering in both distance representations.
-pub(crate) fn compile_heating_lod(plan: &BuildingPlan) -> BuildingDetail {
+pub(crate) fn compile_heating_lod(
+    plan: &BuildingPlan,
+) -> Result<BuildingDetail, crate::GenerationError> {
     let mut detail = BuildingDetail { meshes: Vec::new() };
     if let Some(heating) = &plan.domestic_heating {
         for part in heating.parts.iter().filter(|p| {
@@ -19,9 +21,9 @@ pub(crate) fn compile_heating_lod(plan: &BuildingPlan) -> BuildingDetail {
                 .iter()
                 .find(|s| s.id == part.solid)
             {
-                append_oriented_cuboid(&mut detail, part.material, solid, None);
+                append_oriented_cuboid(&mut detail, part.material, solid, None)?;
             }
         }
     }
-    detail
+    Ok(detail)
 }

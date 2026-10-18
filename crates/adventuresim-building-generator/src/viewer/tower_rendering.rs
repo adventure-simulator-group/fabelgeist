@@ -130,7 +130,7 @@ fn spawn_tower(
                         &serde_json::to_vec(resolved)
                             .expect("serialize rendered radial wall shell"),
                     ),
-                    local_half_size: resolved.size * 0.5,
+                    local_half_size: resolved.size.metres() * 0.5,
                 },
             ));
         }

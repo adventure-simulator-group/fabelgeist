@@ -6,7 +6,7 @@ use fabelgeist_gpu::prelude::BufferUpload;
 
 use super::TorsoBody;
 use super::carrier_wgsl::{self, COARSE_WORDS};
-use super::fit_wgsl::{self, CENTER_WORDS};
+use super::fit_wgsl::{self, SECTION_WORDS};
 use super::kernels::{Params, dispatch};
 use super::plates::{Plate, Plates};
 use super::shape_wgsl;
@@ -61,16 +61,16 @@ pub(super) fn record_fitted(
         status,
     };
     let (coarse, back) = (&plates.coarse, &plates.back);
-    let coarse_centers = fitter.record_carrier(batch, coarse, false)?;
-    let back_centers = fitter.record_carrier(batch, back, true)?;
-    fitter.record_fit(batch, coarse, &coarse_centers, false, RadialFit::Seat)?;
-    fitter.record_fit(batch, back, &back_centers, true, RadialFit::Seat)?;
+    let coarse_sections = fitter.record_carrier(batch, coarse, false)?;
+    let back_sections = fitter.record_carrier(batch, back, true)?;
+    fitter.record_fit(batch, coarse, &coarse_sections, false, RadialFit::Seat)?;
+    fitter.record_fit(batch, back, &back_sections, true, RadialFit::Seat)?;
     fitter.record_lap(batch, back, coarse)?;
     // Restore local enclosure after seating the lap.
-    fitter.record_fit(batch, back, &back_centers, true, RadialFit::Enclose)?;
-    for (plate, centers, rear) in [
-        (coarse, &coarse_centers, false),
-        (back, &back_centers, true),
+    fitter.record_fit(batch, back, &back_sections, true, RadialFit::Enclose)?;
+    for (plate, sections, rear) in [
+        (coarse, &coarse_sections, false),
+        (back, &back_sections, true),
     ] {
         dispatch(
             gpu,
@@ -86,7 +86,7 @@ pub(super) fn record_fitted(
         )?;
         let trim = if rear { &plates.back } else { &plates.front };
         trim.record_arm_trim(gpu, batch, fitter.plate, rear)?;
-        fitter.record_trim_validation(batch, plate, centers, rear, &trim.arm_distances)?;
+        fitter.record_trim_validation(batch, plate, sections, rear, &trim.arm_distances)?;
     }
     Ok(Fitted { plate, body_local })
 }
@@ -181,7 +181,7 @@ impl Fitter<'_> {
         &self,
         batch: &mut KernelBatch,
         plate: &Plate,
-        centers: &Buffer,
+        sections: &Buffer,
         rear: bool,
         arm_distances: &Buffer,
     ) -> Result<(), GenerateError> {
@@ -205,7 +205,7 @@ impl Fitter<'_> {
             &[
                 ("plate", self.plate),
                 ("positions", &plate.positions),
-                ("centers", centers),
+                ("sections", sections),
                 ("torso_faces", self.torso_faces),
                 ("body_local", self.body_local),
                 ("support_radii", &support),
@@ -236,8 +236,8 @@ impl Fitter<'_> {
         )
     }
 
-    /// Evaluate an unfluted plate's carrier, and the torso section centre at
-    /// each of its vertices' heights, which fitting never changes.
+    /// Evaluate an unfluted carrier and its torso section validity at each
+    /// vertex height, which fitting never changes.
     fn record_carrier(
         &self,
         batch: &mut KernelBatch,
@@ -291,14 +291,14 @@ impl Fitter<'_> {
             ],
             count,
         )?;
-        let centers = gpu.scratch(
-            count as u64 * CENTER_WORDS as u64 * 4,
-            "torso section centres",
+        let sections = gpu.scratch(
+            count as u64 * SECTION_WORDS as u64 * 4,
+            "torso section validity",
         )?;
         dispatch(
             gpu,
             batch,
-            wearer_wgsl::CENTERS,
+            wearer_wgsl::SECTIONS,
             &[("positions", false), ("body_local", false)],
             params,
             &[
@@ -306,11 +306,11 @@ impl Fitter<'_> {
                 ("positions", &plate.positions),
                 ("torso_faces", self.torso_faces),
                 ("body_local", self.body_local),
-                ("centers", &centers),
+                ("sections", &sections),
             ],
             count,
         )?;
-        Ok(centers)
+        Ok(sections)
     }
 
     /// Close the rear plate's width onto the front's edge: each side in
@@ -351,7 +351,7 @@ impl Fitter<'_> {
         &self,
         batch: &mut KernelBatch,
         plate: &Plate,
-        centers: &Buffer,
+        sections: &Buffer,
         rear: bool,
         radial_fit: RadialFit,
     ) -> Result<(), GenerateError> {
@@ -378,7 +378,7 @@ impl Fitter<'_> {
             &[
                 ("plate", self.plate),
                 ("positions", positions),
-                ("centers", centers),
+                ("sections", sections),
                 ("torso_faces", self.torso_faces),
                 ("body_local", self.body_local),
                 ("support_radii", &support_radii),
@@ -410,7 +410,7 @@ impl Fitter<'_> {
             &[
                 ("positions", positions),
                 ("plate", self.plate),
-                ("centers", centers),
+                ("sections", sections),
                 ("envelope", &envelope),
                 ("support_radii", &support_radii),
                 ("status", self.status),

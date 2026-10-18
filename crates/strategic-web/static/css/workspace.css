@@ -112,7 +112,7 @@
     height: 5.5rem;
   }
   #strategic-page[data-strategic-workspace] .main-grid:has(.party-member-stage, .service-visual-chest) {
-    grid-template-columns: minmax(19rem, 1fr) minmax(20rem, 1fr) minmax(19rem, 1fr);
+    grid-template-columns: minmax(12.67rem, 2fr) minmax(20rem, 5fr) minmax(12.67rem, 2fr);
     grid-template-rows: minmax(0, 1fr);
     grid-template-areas: "left main right";
   }
@@ -161,6 +161,36 @@
 .inventory-browser .inventory-actions-cell :is(.trade-transfer, .row-repair-form) {
   width: 2.25rem; height: 2.25rem; min-width: 2.25rem;
 }
+.inventory-browser .inventory-repair-cell,
+.inventory-browser .inventory-repair-header {
+  box-sizing: border-box;
+  width: 2.25rem;
+  min-width: 2.25rem;
+  padding: .2rem !important;
+  text-align: center;
+}
+.inventory-browser .inventory-repair-cell { opacity: 0; transition: opacity .12s; }
+.inventory-browser .trade-inventory-row:is(:hover, :focus-within) .inventory-repair-cell { opacity: 1; }
+.inventory-browser .inventory-repair-cell .row-repair-form {
+  position: static;
+  width: 2.25rem;
+  height: 2.25rem;
+  opacity: 1;
+  transform: none;
+}
+.inventory-browser .inventory-repair-cell .repair-item-button {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.right-sidebar .inventory-browser .inventory-repair-cell,
+.right-sidebar .inventory-browser .inventory-repair-header {
+  position: sticky;
+  z-index: 3;
+  left: 2.75rem;
+  right: auto;
+  background: var(--panel-bg);
+  box-shadow: 1px 0 var(--border-color);
+}
 #strategic-page .inventory-browser-table-frame {
   width: 100%; min-width: 0; max-width: 100%; overflow-x: auto;
 }
@@ -169,6 +199,17 @@
   margin-inline: 0; padding-inline: 0;
 }
 @media (pointer: coarse) {
+  .inventory-browser .inventory-repair-cell { opacity: 1; }
+  .inventory-browser .inventory-repair-cell,
+  .inventory-browser .inventory-repair-header,
+  .inventory-browser .inventory-repair-cell .row-repair-form,
+  .inventory-browser .inventory-repair-cell .repair-item-button {
+    width: 2.75rem;
+    height: 2.75rem;
+    min-width: 2.75rem;
+  }
+  .right-sidebar .inventory-browser .inventory-repair-cell,
+  .right-sidebar .inventory-browser .inventory-repair-header { left: 2.75rem; }
   .inventory-browser .inventory-actions-cell :is(.trade-transfer, .row-repair-form) {
     width: 2.75rem; height: 2.75rem; min-width: 2.75rem;
   }

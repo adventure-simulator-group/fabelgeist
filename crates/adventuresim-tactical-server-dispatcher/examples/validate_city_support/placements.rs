@@ -5,7 +5,7 @@ use std::path::Path;
 
 #[derive(serde::Serialize)]
 struct BusinessBinding {
-    building_id: u64,
+    building_id: adventuresim_tactical_core::scene_input::SceneBuildingId,
     key: BusinessKey,
 }
 

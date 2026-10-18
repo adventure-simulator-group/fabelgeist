@@ -3,7 +3,7 @@ use crate::{BakeResolution, BakedRecipe, MapChannel, TextureParameters, TextureR
 
 #[test]
 fn forged_field_is_periodic_including_changed_controls_and_seeds() {
-    for seed in [0, 31, 918] {
+    for seed in [0, 31, 918].map(fabelgeist_determinism::Seed::from_u64) {
         let mut p = TextureParameters {
             seed,
             ..Default::default()

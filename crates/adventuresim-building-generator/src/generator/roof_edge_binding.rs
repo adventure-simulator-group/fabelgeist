@@ -1,7 +1,7 @@
 fn bind_coincident_primary_roof_edges(
     assemblies: &mut [RoofAssembly],
     geometry: &mut ResolvedGeometry,
-) {
+) -> Result<(), crate::GenerationError> {
     let mut removals = Vec::new();
     for left_index in 0..assemblies.len() {
         if assemblies[left_index].parent.is_some()
@@ -35,17 +35,7 @@ fn bind_coincident_primary_roof_edges(
                 else {
                     continue;
                 };
-                let kind = if matches!(
-                    left_edge.kind,
-                    RoofEdgeKind::WallAbutment | RoofEdgeKind::TowerAbutment
-                ) || matches!(
-                    right_edge.kind,
-                    RoofEdgeKind::WallAbutment | RoofEdgeKind::TowerAbutment
-                ) {
-                    RoofEdgeKind::WallAbutment
-                } else {
-                    RoofEdgeKind::Valley
-                };
+                let kind = primary_roof_junction_kind(left_edge.kind, right_edge.kind);
                 let flashing_id = ResolvedItemId(
                     (0x8_u64 << 60)
                         | (assemblies[left_index].id.0 << 16)
@@ -54,40 +44,44 @@ fn bind_coincident_primary_roof_edges(
                 );
                 let delta = left_edge.end - left_edge.start;
                 let support = assemblies[left_index].support_nodes[0];
-                geometry.solids.push(ResolvedSolid {
-                    id: flashing_id,
-                    owner: assemblies[left_index].owner,
-                    centre: (left_edge.start + left_edge.end) * 0.5 + Vec3::Y * 0.02,
-                    size: Vec3::new(Vec2::new(delta.x, delta.z).length(), 0.06, 0.20),
-                    yaw_radians: delta.z.atan2(delta.x),
-                    crossfall_radians: if kind == RoofEdgeKind::Valley {
-                        -0.08
-                    } else {
-                        0.12
-                    },
-                    longfall_radians: if kind == RoofEdgeKind::Valley {
-                        0.012
-                    } else {
-                        0.0
-                    },
-                    role: SolidRole::RoofFlashing,
-                    shape: crate::ResolvedSolidShape::Cuboid,
-                    supported_by: vec![support],
-                });
-                geometry.support_interfaces.push(SupportInterface {
-                    id: ResolvedItemId(
-                        (0x9_u64 << 60)
-                            | (assemblies[left_index].id.0 << 16)
-                            | 0x6000
-                            | left_edge_index as u64,
-                    ),
-                    owner: assemblies[left_index].owner,
-                    node: support,
-                    bounds: ResolvedBounds {
-                        min: (left_edge.start + left_edge.end) * 0.5 - Vec3::new(0.08, 0.025, 0.08),
-                        max: (left_edge.start + left_edge.end) * 0.5 + Vec3::new(0.08, 0.025, 0.08),
-                    },
-                });
+                geometry.solids.push(ResolvedSolid::new(
+                    CollisionCuboid::<Architectural>::from_metres(
+                        flashing_id,
+                        (left_edge.start + left_edge.end) * 0.5 + Vec3::Y * 0.02,
+                        Vec3::new(Vec2::new(delta.x, delta.z).length(), 0.06, 0.20),
+                        delta.z.atan2(delta.x),
+                        if kind == RoofEdgeKind::Valley {
+                            -0.08
+                        } else {
+                            0.12
+                        },
+                        if kind == RoofEdgeKind::Valley {
+                            0.012
+                        } else {
+                            0.0
+                        },
+                    )?,
+                    assemblies[left_index].owner,
+                    SolidRole::RoofFlashing,
+                    crate::ResolvedSolidShape::Cuboid,
+                    vec![support],
+                ));
+                geometry
+                    .support_interfaces
+                    .push(crate::SupportInterface::new(
+                        ResolvedItemId(
+                            (0x9_u64 << 60)
+                                | (assemblies[left_index].id.0 << 16)
+                                | 0x6000
+                                | left_edge_index as u64,
+                        ),
+                        assemblies[left_index].owner,
+                        support,
+                        SpatialBounds::<Architectural>::from_metres(
+                            (left_edge.start + left_edge.end) * 0.5 - Vec3::new(0.08, 0.025, 0.08),
+                            (left_edge.start + left_edge.end) * 0.5 + Vec3::new(0.08, 0.025, 0.08),
+                        )?,
+                    ));
                 let edge = &mut assemblies[left_index].edges[left_edge_index];
                 edge.kind = kind;
                 edge.flashing = Some(flashing_id);
@@ -103,10 +97,10 @@ fn bind_coincident_primary_roof_edges(
                     geometry.voids.push(ResolvedVoid {
                         id: outlet_id,
                         owner: assemblies[left_index].owner,
-                        bounds: ResolvedBounds {
-                            min: outlet - Vec3::splat(0.04),
-                            max: outlet + Vec3::splat(0.04),
-                        },
+                        bounds: SpatialBounds::<Architectural>::from_metres(
+                            outlet - Vec3::splat(0.04),
+                            outlet + Vec3::splat(0.04),
+                        )?,
                         role: VoidRole::Drain,
                         shape: crate::ResolvedVoidShape::Box,
                         subtracts_from: assemblies[left_index].owner,
@@ -149,7 +143,22 @@ fn bind_coincident_primary_roof_edges(
     }
     removals.sort_unstable();
     removals.dedup();
-    for (assembly_index, edge_index) in removals.into_iter().rev() {
+    let _: () = for (assembly_index, edge_index) in removals.into_iter().rev() {
         assemblies[assembly_index].edges.remove(edge_index);
+    };
+    Ok(())
+}
+
+fn primary_roof_junction_kind(left: RoofEdgeKind, right: RoofEdgeKind) -> RoofEdgeKind {
+    if matches!(
+        left,
+        RoofEdgeKind::WallAbutment | RoofEdgeKind::TowerAbutment
+    ) || matches!(
+        right,
+        RoofEdgeKind::WallAbutment | RoofEdgeKind::TowerAbutment
+    ) {
+        RoofEdgeKind::WallAbutment
+    } else {
+        RoofEdgeKind::Valley
     }
 }

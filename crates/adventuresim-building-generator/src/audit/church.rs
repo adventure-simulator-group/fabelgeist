@@ -1,6 +1,10 @@
 fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
     let Some(church) = &plan.church else {
-        if matches!(plan.archetype, BuildingArchetype::Cathedral | BuildingArchetype::ParishChurch) && plan.small_church.is_none() {
+        if matches!(
+            plan.archetype,
+            BuildingArchetype::Cathedral | BuildingArchetype::ParishChurch
+        ) && plan.small_church.is_none()
+        {
             issues.push(issue(
                 "missing_church_program",
                 "church has no authoritative physical assembly".to_owned(),
@@ -9,45 +13,7 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
         return;
     };
     let program = church.program;
-    if !matches!(plan.archetype, BuildingArchetype::Cathedral | BuildingArchetype::ParishChurch)
-        || program != crate::ChurchProgram::URBAN_BRICK_BASILICA
-        || plan.small_church.is_some()
-    {
-        issues.push(issue(
-            "invalid_church_program",
-            "church is not the frozen east-oriented 4-bay cruciform basilica type".to_owned(),
-        ));
-    }
-    if plan
-        .storeys
-        .iter()
-        .any(|storey| !storey.walls.is_empty() || !storey.openings.is_empty())
-    {
-        issues.push(issue(
-            "legacy_church_authority",
-            "church still contains generic cell walls or overlay openings".to_owned(),
-        ));
-    }
-    let strictly_increasing =
-        |values: &[f32]| values.windows(2).all(|pair| pair[1] > pair[0] + 0.10);
-    if church.nave_axes_metres.len() != usize::from(program.nave_bays)
-        || church.choir_axes_metres.len() != usize::from(program.choir_bays)
-        || !strictly_increasing(&church.nave_axes_metres)
-        || !strictly_increasing(&church.choir_axes_metres)
-        || church
-            .nave_axes_metres
-            .last()
-            .is_none_or(|axis| *axis >= church.crossing_axis_metres)
-        || church
-            .choir_axes_metres
-            .first()
-            .is_none_or(|axis| *axis <= church.crossing_axis_metres)
-    {
-        issues.push(issue(
-            "invalid_church_bay_axes",
-            "nave/crossing/choir axes are missing, unordered, or blocked".to_owned(),
-        ));
-    }
+    church_program::audit(plan, church, issues);
     let solids = plan
         .resolved_geometry
         .solids
@@ -158,12 +124,18 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                             };
                             interface.node != arcade.supported_by[0]
                                 || !bounds_overlap_3d(
-                                    (interface.bounds.min, interface.bounds.max),
+                                    (
+                                        interface.bounds.min().metres(),
+                                        interface.bounds.max().metres(),
+                                    ),
                                     resolved_solid_bounds(arcade),
                                     0.02,
                                 )
                                 || !bounds_overlap_3d(
-                                    (interface.bounds.min, interface.bounds.max),
+                                    (
+                                        interface.bounds.min().metres(),
+                                        interface.bounds.max().metres(),
+                                    ),
                                     resolved_solid_bounds(pier),
                                     0.02,
                                 )
@@ -236,7 +208,10 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                             || !bay.vault_thrust_solids.iter().any(|solid_id| {
                                 solids.get(solid_id).is_some_and(|solid| {
                                     bounds_overlap_3d(
-                                        (interface.bounds.min, interface.bounds.max),
+                                        (
+                                            interface.bounds.min().metres(),
+                                            interface.bounds.max().metres(),
+                                        ),
                                         resolved_solid_bounds(solid),
                                         0.03,
                                     )
@@ -361,13 +336,19 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                             interfaces.get(id).is_some_and(|interface| {
                                 interface.node == spring.id
                                     && bounds_overlap_3d(
-                                        (interface.bounds.min, interface.bounds.max),
+                                        (
+                                            interface.bounds.min().metres(),
+                                            interface.bounds.max().metres(),
+                                        ),
                                         resolved_solid_bounds(arch),
                                         0.02,
                                     )
                                     && support_solid(bearings[end]).is_some_and(|bearing| {
                                         bounds_overlap_3d(
-                                            (interface.bounds.min, interface.bounds.max),
+                                            (
+                                                interface.bounds.min().metres(),
+                                                interface.bounds.max().metres(),
+                                            ),
                                             resolved_solid_bounds(bearing),
                                             0.02,
                                         )
@@ -415,7 +396,10 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     && church.crossing.vault_thrust_solids.iter().any(|solid_id| {
                         solids.get(solid_id).is_some_and(|solid| {
                             bounds_overlap_3d(
-                                (interface.bounds.min, interface.bounds.max),
+                                (
+                                    interface.bounds.min().metres(),
+                                    interface.bounds.max().metres(),
+                                ),
                                 resolved_solid_bounds(solid),
                                 0.03,
                             )
@@ -475,13 +459,19 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                             interfaces.get(id).is_some_and(|interface| {
                                 interface.node == spring.id
                                     && bounds_overlap_3d(
-                                        (interface.bounds.min, interface.bounds.max),
+                                        (
+                                            interface.bounds.min().metres(),
+                                            interface.bounds.max().metres(),
+                                        ),
                                         resolved_solid_bounds(arch),
                                         0.02,
                                     )
                                     && support_solid(bearings[end]).is_some_and(|bearing| {
                                         bounds_overlap_3d(
-                                            (interface.bounds.min, interface.bounds.max),
+                                            (
+                                                interface.bounds.min().metres(),
+                                                interface.bounds.max().metres(),
+                                            ),
                                             resolved_solid_bounds(bearing),
                                             0.02,
                                         )
@@ -537,7 +527,10 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     && church.choir.vault_thrust_solids.iter().any(|solid_id| {
                         solids.get(solid_id).is_some_and(|solid| {
                             bounds_overlap_3d(
-                                (interface.bounds.min, interface.bounds.max),
+                                (
+                                    interface.bounds.min().metres(),
+                                    interface.bounds.max().metres(),
+                                ),
                                 resolved_solid_bounds(solid),
                                 0.03,
                             )
@@ -637,7 +630,7 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
         .bell_floor_solids
         .iter()
         .filter_map(|id| solids.get(id))
-        .map(|solid| solid.size.x * solid.size.z)
+        .map(|solid| solid.size.metres().x * solid.size.metres().z)
         .sum::<f32>();
     let floor_blocks_stairwell = church.tower.bell_floor_solids.iter().any(|id| {
         solids.get(id).is_some_and(|solid| {
@@ -702,7 +695,7 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             .or_else(|| {
                 surfaces
                     .get(&id)
-                    .map(|surface| (surface.bounds.min, surface.bounds.max))
+                    .map(|surface| (surface.bounds.min().metres(), surface.bounds.max().metres()))
             })
     };
     let bounds_gap = |a: (Vec3, Vec3), b: (Vec3, Vec3)| {
@@ -766,12 +759,12 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             let lateral = (plan_point - opening.frame.origin)
                 .dot(opening.frame.tangent)
                 .abs();
-            let inside_void_envelope = foot.x >= void.bounds.min.x - 0.005
-                && foot.x <= void.bounds.max.x + 0.005
-                && foot.z >= void.bounds.min.z - 0.005
-                && foot.z <= void.bounds.max.z + 0.005
-                && foot.y >= void.bounds.min.y - 0.005
-                && foot.y + edge.clear_headroom_metres <= void.bounds.max.y + 0.005;
+            let inside_void_envelope = foot.x >= void.bounds.min().metres().x - 0.005
+                && foot.x <= void.bounds.max().metres().x + 0.005
+                && foot.z >= void.bounds.min().metres().z - 0.005
+                && foot.z <= void.bounds.max().metres().z + 0.005
+                && foot.y >= void.bounds.min().metres().y - 0.005
+                && foot.y + edge.clear_headroom_metres <= void.bounds.max().metres().y + 0.005;
             lateral + edge.clear_width_metres * 0.5 <= slice.width_metres * 0.5 + 0.005
                 && foot.y >= opening.sill_elevation_metres - 0.005
                 && foot.y + edge.clear_headroom_metres
@@ -924,12 +917,18 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                             != vec![church.tower.stair_bearing_node]
                                         || !resolved_solid_overlaps_bounds(
                                             tread,
-                                            (interface.bounds.min, interface.bounds.max),
+                                            (
+                                                interface.bounds.min().metres(),
+                                                interface.bounds.max().metres(),
+                                            ),
                                             0.005,
                                         )
                                         || !resolved_solid_overlaps_bounds(
                                             newel,
-                                            (interface.bounds.min, interface.bounds.max),
+                                            (
+                                                interface.bounds.min().metres(),
+                                                interface.bounds.max().metres(),
+                                            ),
                                             0.005,
                                         )
                                 })
@@ -939,9 +938,9 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     .get(&id)
                     .map(|solid| {
                         Vec3::new(
-                            solid.centre.x,
+                            solid.centre.metres().x,
                             resolved_solid_bounds(solid).1.y + 0.015,
-                            solid.centre.z,
+                            solid.centre.metres().z,
                         )
                     })
                     .or_else(|| route_surface_point(id).map(|point| point + Vec3::Y * 0.015))
@@ -1002,17 +1001,17 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 || church.tower.stair_tread_solids.iter().any(|id| {
                     solids.get(id).is_none_or(|solid| {
                         solid.role != SolidRole::ChurchStairTread
-                            || solid.size.x < 0.90
-                            || solid.centre.x
+                            || solid.size.metres().x < 0.90
+                            || solid.centre.metres().x
                                 < church.tower.centre.x - church.tower.footprint_size_metres.x * 0.5
                                     + 0.90
-                            || solid.centre.x
+                            || solid.centre.metres().x
                                 > church.tower.centre.x + church.tower.footprint_size_metres.x * 0.5
                                     - 0.90
-                            || solid.centre.z
+                            || solid.centre.metres().z
                                 < church.tower.centre.y - church.tower.footprint_size_metres.y * 0.5
                                     + 0.90
-                            || solid.centre.z
+                            || solid.centre.metres().z
                                 > church.tower.centre.y + church.tower.footprint_size_metres.y * 0.5
                                     - 0.90
                             || tower_wall_solids.iter().any(|wall| {
@@ -1033,7 +1032,7 @@ fn audit_church_assembly(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         solids
                             .get(lower)
                             .zip(solids.get(upper))
-                            .is_none_or(|(a, b)| b.centre.y - a.centre.y < 1.90)
+                            .is_none_or(|(a, b)| b.centre.metres().y - a.centre.metres().y < 1.90)
                     })
                 || church
                     .tower

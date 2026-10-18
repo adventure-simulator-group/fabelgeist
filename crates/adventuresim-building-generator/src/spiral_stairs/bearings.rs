@@ -4,9 +4,9 @@ use super::*;
 const BOND_DOMAIN: u64 = 14_u64 << 60;
 const BOND_TOLERANCE_METRES: f32 = 0.005;
 
-pub(super) fn resolve(geometry: &mut ResolvedGeometry) {
+pub(super) fn resolve(geometry: &mut ResolvedGeometry) -> Result<(), crate::GenerationError> {
     let solids = &geometry.solids;
-    for (index, a) in solids.iter().enumerate() {
+    let _: () = for (index, a) in solids.iter().enumerate() {
         for b in &solids[index + 1..] {
             if a.owner == b.owner || !bearing_pair(a, b) {
                 continue;
@@ -26,12 +26,13 @@ pub(super) fn resolve(geometry: &mut ResolvedGeometry) {
             geometry.junction_bonds.push(crate::JunctionBond {
                 id: ResolvedItemId(BOND_DOMAIN | geometry.junction_bonds.len() as u64),
                 owners: [a.owner, b.owner],
-                bounds: ResolvedBounds { min, max },
+                bounds: SpatialBounds::<Architectural>::from_metres(min, max)?,
                 minimum_interface_area_square_metres: axes[1] * axes[2] * 0.9,
                 maximum_penetration_metres: overlap.x.min(overlap.z) + BOND_TOLERANCE_METRES,
             });
         }
-    }
+    };
+    Ok(())
 }
 
 fn bearing_pair(a: &ResolvedSolid, b: &ResolvedSolid) -> bool {
@@ -60,9 +61,9 @@ fn bearing_pair(a: &ResolvedSolid, b: &ResolvedSolid) -> bool {
 }
 
 fn bounds(solid: &ResolvedSolid) -> (Vec3, Vec3) {
-    let q = bevy::math::Quat::from_rotation_y(solid.yaw_radians);
-    let half = (q * Vec3::X).abs() * solid.size.x * 0.5
-        + Vec3::Y * solid.size.y * 0.5
-        + (q * Vec3::Z).abs() * solid.size.z * 0.5;
-    (solid.centre - half, solid.centre + half)
+    let q = bevy::math::Quat::from_rotation_y(solid.yaw_radians.radians());
+    let half = (q * Vec3::X).abs() * solid.size.metres().x * 0.5
+        + Vec3::Y * solid.size.metres().y * 0.5
+        + (q * Vec3::Z).abs() * solid.size.metres().z * 0.5;
+    (solid.centre.metres() - half, solid.centre.metres() + half)
 }

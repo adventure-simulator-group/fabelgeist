@@ -32,7 +32,7 @@ pub(super) fn append(
             assemblies.first(),
             walls,
             geometry,
-        );
+        )?;
         extend_ridge(&mut child, inward, ridge_seam_depth, enclosure_depth);
         remove_rear_gable(
             &mut child,
@@ -68,7 +68,7 @@ pub(super) fn append(
                 1.0
             },
             geometry,
-        );
+        )?;
         child.phase = RoofPhase::AttachedChild;
         assemblies.push(child);
     }
@@ -245,21 +245,21 @@ fn attach_to_parent(
     tangent: Vec2,
     scale: f32,
     geometry: &mut ResolvedGeometry,
-) {
-    if child.parent.is_some() {
+) -> Result<(), crate::GenerationError> {
+    let _: () = if child.parent.is_some() {
         let cut_id = ResolvedItemId((0xF_u64 << 60) | id.0);
-        let bounds = ResolvedBounds {
-            min: Vec3::new(
+        let bounds = SpatialBounds::<Architectural>::from_metres(
+            Vec3::new(
                 recipe.centre.x - recipe.size.x * 0.5,
                 recipe.base_height_metres - 0.2,
                 recipe.centre.y - recipe.size.y * 0.5,
             ),
-            max: Vec3::new(
+            Vec3::new(
                 recipe.centre.x + recipe.size.x * 0.5,
                 recipe.base_height_metres + 4.0,
                 recipe.centre.y + recipe.size.y * 0.5,
             ),
-        };
+        )?;
         geometry.voids.push(ResolvedVoid {
             id: cut_id,
             owner: assemblies[0].owner,
@@ -273,8 +273,8 @@ fn attach_to_parent(
             DormerKind::Shed => RoofChildKind::ShedDormer,
             DormerKind::TransverseGable => RoofChildKind::CrossGable,
         };
-        let cut_edges = cut_parent_roof_face(&mut assemblies[0], child, bounds, geometry);
-        let valleys = bind_child_valleys(&mut assemblies[0], child, &cut_edges, geometry);
+        let cut_edges = cut_parent_roof_face(&mut assemblies[0], child, bounds, geometry)?;
+        let valleys = bind_child_valleys(&mut assemblies[0], child, &cut_edges, geometry)?;
         let flashing_ids = assemblies[0]
             .edges
             .iter()
@@ -300,5 +300,6 @@ fn attach_to_parent(
                 dormer.width_metres * scale,
             );
         }
-    }
+    };
+    Ok(())
 }

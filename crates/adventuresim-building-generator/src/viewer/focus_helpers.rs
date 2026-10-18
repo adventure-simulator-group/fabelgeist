@@ -59,7 +59,7 @@ fn church_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                 );
                 return drainage_role
                     && (!matches!(view, ViewerView::ChurchTowerRoofDrain)
-                        || solid.centre.x <= church.tower.centre.x + 4.5);
+                        || solid.centre.metres().x <= church.tower.centre.x + 4.5);
             }
             if !class_matches(solid) {
                 return false;
@@ -70,7 +70,8 @@ fn church_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                 | ViewerView::ChurchBaySection
                 | ViewerView::ChurchBayLoad
                 | ViewerView::ChurchBayVault => {
-                    let in_bay = (solid.centre.x - church.nave_axes_metres[1]).abs() <= 2.8;
+                    let in_bay =
+                        (solid.centre.metres().x - church.nave_axes_metres[1]).abs() <= 2.8;
                     in_bay
                         && match view {
                             ViewerView::ChurchBaySection => matches!(
@@ -105,7 +106,7 @@ fn church_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                 | ViewerView::ChurchCrossingExterior
                 | ViewerView::ChurchCrossingTop
                 | ViewerView::ChurchCrossingCutLoad => {
-                    (solid.centre.x - church.crossing_axis_metres).abs() <= 3.0
+                    (solid.centre.metres().x - church.crossing_axis_metres).abs() <= 3.0
                         && (!matches!(view, ViewerView::ChurchCrossingCutLoad)
                             || matches!(
                                 solid.role,
@@ -120,7 +121,7 @@ fn church_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                 | ViewerView::ChurchChoirInterior
                 | ViewerView::ChurchChoirTop
                 | ViewerView::ChurchChoirRadialSection => {
-                    solid.centre.x >= church.crossing_axis_metres + 2.0
+                    solid.centre.metres().x >= church.crossing_axis_metres + 2.0
                         && (!matches!(
                             view,
                             ViewerView::ChurchChoirInterior | ViewerView::ChurchChoirRadialSection
@@ -148,7 +149,7 @@ fn church_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                     // Include the bonded first nave-bay return as part of the
                     // westwork proof, rather than treating the tall tower as
                     // an isolated freestanding object.
-                    let in_westwork = solid.centre.x <= church.tower.centre.x + 5.5;
+                    let in_westwork = solid.centre.metres().x <= church.tower.centre.x + 5.5;
                     in_westwork
                         && match view {
                             ViewerView::ChurchTowerStair => matches!(
@@ -162,8 +163,10 @@ fn church_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                             ViewerView::ChurchTowerBellUnderside => matches!(
                                 solid.role,
                                 SolidRole::ChurchBell
-                                    | SolidRole::ChurchBellHeadstock | SolidRole::ChurchBellAxle
-                                    | SolidRole::ChurchBellBearing | SolidRole::ChurchBellCrown
+                                    | SolidRole::ChurchBellHeadstock
+                                    | SolidRole::ChurchBellAxle
+                                    | SolidRole::ChurchBellBearing
+                                    | SolidRole::ChurchBellCrown
                                     | SolidRole::ChurchBellFitting
                             ),
                             ViewerView::ChurchTowerFrame => matches!(
@@ -179,7 +182,7 @@ fn church_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                                     | SolidRole::ChurchBellFloor
                             ),
                             ViewerView::ChurchTowerJunction => {
-                                solid.centre.y <= 4.25
+                                solid.centre.metres().y <= 4.25
                                     && (matches!(
                                         solid.role,
                                         SolidRole::ChurchPier
@@ -192,16 +195,18 @@ fn church_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                                     ) || church_wall_owners.contains(&solid.owner))
                             }
                             ViewerView::ChurchTowerPortal => {
-                                church_wall_owners.contains(&solid.owner) && solid.centre.y <= 5.5
+                                church_wall_owners.contains(&solid.owner)
+                                    && solid.centre.metres().y <= 5.5
                             }
                             ViewerView::ChurchTowerLouvredExterior => {
-                                church_wall_owners.contains(&solid.owner) && solid.centre.y >= 13.0
+                                church_wall_owners.contains(&solid.owner)
+                                    && solid.centre.metres().y >= 13.0
                             }
                             _ => true,
                         }
                 }
                 ViewerView::ChurchSupportDag => {
-                    (solid.centre.x - church.nave_axes_metres[1]).abs() <= 2.8
+                    (solid.centre.metres().x - church.nave_axes_metres[1]).abs() <= 2.8
                         && matches!(
                             solid.role,
                             SolidRole::ChurchPier
@@ -281,9 +286,12 @@ fn focused_crown_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                     .iter()
                     .filter(|solid| solid.owner == *owner && solid.role == role)
                     .min_by(|a, b| {
-                        Vec2::new(a.centre.x, a.centre.z)
+                        Vec2::new(a.centre.metres().x, a.centre.metres().z)
                             .distance_squared(focus)
-                            .total_cmp(&Vec2::new(b.centre.x, b.centre.z).distance_squared(focus))
+                            .total_cmp(
+                                &Vec2::new(b.centre.metres().x, b.centre.metres().z)
+                                    .distance_squared(focus),
+                            )
                     })
                     .map(|solid| solid.id.0)
             })
@@ -453,12 +461,12 @@ fn architectural_section_removed_item_ids(plan: &BuildingPlan, view: ViewerView)
                 let beyond_cut = radial_cut.map_or_else(
                     || {
                         if transverse {
-                            solid.centre.x > church.crossing_axis_metres + 0.05
+                            solid.centre.metres().x > church.crossing_axis_metres + 0.05
                         } else {
-                            solid.centre.z < church.tower.centre.y - 0.05
+                            solid.centre.metres().z < church.tower.centre.y - 0.05
                         }
                     },
-                    |cut| solid.centre.x > cut + 0.05,
+                    |cut| solid.centre.metres().x > cut + 0.05,
                 );
                 beyond_cut
                     && !matches!(
@@ -498,7 +506,7 @@ fn architectural_section_removed_item_ids(plan: &BuildingPlan, view: ViewerView)
         .iter()
         .filter(|solid| solid.owner == wall.owner)
         .filter(|solid| {
-            let plan_centre = Vec2::new(solid.centre.x, solid.centre.z);
+            let plan_centre = Vec2::new(solid.centre.metres().x, solid.centre.metres().z);
             (plan_centre - wall.frame.origin).dot(wall.frame.tangent) > 0.01
         })
         .map(|solid| solid.id.0)

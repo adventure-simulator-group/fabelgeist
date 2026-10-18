@@ -1,17 +1,18 @@
 mod streams;
 use super::*;
+use fabelgeist_determinism::Seed;
 
 fn soil_rng(
     params: &crate::TextureParameters,
     cell_x: i32,
     cell_y: i32,
     period: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> fabelgeist_determinism::DeterministicRng {
     params.rng(
         streams::LATTICE,
         &[
-            field_seed,
+            field_seed.to_u64(),
             cell_x.rem_euclid(period) as u64,
             cell_y.rem_euclid(period) as u64,
         ],
@@ -23,7 +24,7 @@ fn soil_random(
     cell_x: i32,
     cell_y: i32,
     period: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     soil_rng(params, cell_x, cell_y, period, field_seed).inclusive_unit_f32()
 }
@@ -32,7 +33,7 @@ fn soil_value_noise(
     params: &crate::TextureParameters,
     point: Vec2,
     frequency: i32,
-    field_seed: u64,
+    field_seed: Seed,
 ) -> f32 {
     let scaled = point * frequency as f32;
     let cell = scaled.floor().as_ivec2();
@@ -48,7 +49,7 @@ fn soil_value_noise(
 #[derive(Clone, Copy, Debug)]
 struct SoilClusterRecipe {
     grid: i32,
-    field_seed: u64,
+    field_seed: Seed,
     density: f32,
     base_radius: f32,
     radius_span: f32,
@@ -69,7 +70,7 @@ impl SoilClusterRecipe {
                     cell.x,
                     cell.y,
                     self.grid,
-                    params.field_seed(streams::PRESENCE, &[self.field_seed]),
+                    params.field_seed(streams::PRESENCE, &[self.field_seed.to_u64()]),
                 );
                 if enabled > self.density + 0.14 {
                     continue;
@@ -87,7 +88,7 @@ impl SoilClusterRecipe {
                                 cell.x,
                                 cell.y,
                                 self.grid,
-                                params.field_seed(streams::CENTER_X, &[self.field_seed]),
+                                params.field_seed(streams::CENTER_X, &[self.field_seed.to_u64()]),
                             ) * params.ground.sample_centre_2,
                         params.ground.sample_centre_3
                             + soil_random(
@@ -95,7 +96,7 @@ impl SoilClusterRecipe {
                                 cell.x,
                                 cell.y,
                                 self.grid,
-                                params.field_seed(streams::CENTER_Y, &[self.field_seed]),
+                                params.field_seed(streams::CENTER_Y, &[self.field_seed.to_u64()]),
                             ) * params.ground.sample_centre_4,
                     );
                 let parent_angle = soil_random(
@@ -103,21 +104,23 @@ impl SoilClusterRecipe {
                     cell.x,
                     cell.y,
                     self.grid,
-                    params.field_seed(streams::ANGLE, &[self.field_seed]),
+                    params.field_seed(streams::ANGLE, &[self.field_seed.to_u64()]),
                 ) * core::f32::consts::TAU;
                 let child_count = 2 + soil_rng(
                     params,
                     cell.x,
                     cell.y,
                     self.grid,
-                    params.field_seed(streams::CHILD_COUNT, &[self.field_seed]),
+                    params.field_seed(streams::CHILD_COUNT, &[self.field_seed.to_u64()]),
                 )
                 .index(params.ground.cluster_child_variants)
                     as u32;
                 let mut cluster = 0.0_f32;
                 for child in 0..child_count {
-                    let child_salt = params
-                        .field_seed(streams::CLUSTER_CHILD, &[self.field_seed, u64::from(child)]);
+                    let child_salt = params.field_seed(
+                        streams::CLUSTER_CHILD,
+                        &[self.field_seed.to_u64(), u64::from(child)],
+                    );
                     let child_angle = parent_angle
                         + core::f32::consts::TAU
                             * soil_random(
@@ -125,7 +128,7 @@ impl SoilClusterRecipe {
                                 cell.x,
                                 cell.y,
                                 self.grid,
-                                params.field_seed(streams::CHILD_ANGLE, &[child_salt]),
+                                params.field_seed(streams::CHILD_ANGLE, &[child_salt.to_u64()]),
                             );
                     let radial = if child == 0 {
                         0.0
@@ -137,7 +140,8 @@ impl SoilClusterRecipe {
                                     cell.x,
                                     cell.y,
                                     self.grid,
-                                    params.field_seed(streams::CHILD_RADIUS, &[child_salt]),
+                                    params
+                                        .field_seed(streams::CHILD_RADIUS, &[child_salt.to_u64()]),
                                 ) * params.ground.sample_radial_2)
                     };
                     let child_centre =
@@ -148,7 +152,7 @@ impl SoilClusterRecipe {
                             cell.x,
                             cell.y,
                             self.grid,
-                            params.field_seed(streams::AXIS_ANGLE, &[child_salt]),
+                            params.field_seed(streams::AXIS_ANGLE, &[child_salt.to_u64()]),
                         ) - 0.5)
                             * params.ground.sample_axis_angle;
                     let axis = Vec2::new(axis_angle.cos(), axis_angle.sin());
@@ -161,7 +165,7 @@ impl SoilClusterRecipe {
                                 cell.x,
                                 cell.y,
                                 self.grid,
-                                params.field_seed(streams::RADIUS, &[child_salt]),
+                                params.field_seed(streams::RADIUS, &[child_salt.to_u64()]),
                             );
                     let aspect = params.ground.sample_aspect_1
                         + soil_random(
@@ -169,7 +173,7 @@ impl SoilClusterRecipe {
                             cell.x,
                             cell.y,
                             self.grid,
-                            params.field_seed(streams::ASPECT, &[child_salt]),
+                            params.field_seed(streams::ASPECT, &[child_salt.to_u64()]),
                         ) * params.ground.sample_aspect_2;
                     let normalized = Vec2::new(local.x / radius, local.y / (radius * aspect));
                     let angle = normalized.y.atan2(normalized.x);
@@ -179,7 +183,7 @@ impl SoilClusterRecipe {
                             cell.x,
                             cell.y,
                             self.grid,
-                            params.field_seed(streams::LOBES, &[child_salt]),
+                            params.field_seed(streams::LOBES, &[child_salt.to_u64()]),
                         )
                         .index(3) as f32;
                     let second_lobes = first_lobes + 2.0;
@@ -188,7 +192,7 @@ impl SoilClusterRecipe {
                         cell.x,
                         cell.y,
                         self.grid,
-                        params.field_seed(streams::PHASE, &[child_salt]),
+                        params.field_seed(streams::PHASE, &[child_salt.to_u64()]),
                     ) * core::f32::consts::TAU;
                     let edge_warp = 1.0
                         + params.ground.sample_edge_warp_1 * (angle * first_lobes + phase).sin()

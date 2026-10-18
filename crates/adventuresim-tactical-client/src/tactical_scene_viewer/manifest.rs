@@ -1,4 +1,5 @@
 use adventuresim_tactical_core::prelude::{SceneRepairReport, SceneSource, WeatherSnapshot};
+use fabelgeist_determinism::Seed;
 use serde::Serialize;
 
 #[cfg(test)]
@@ -123,7 +124,7 @@ pub(super) struct FoliageSummary {
 
 #[derive(Serialize)]
 pub(super) struct TreeBakeSummary {
-    pub(super) seed: u64,
+    pub(super) seed: Seed,
     pub(super) lod: u8,
     pub(super) bake_version: u32,
     pub(super) source_geometry_hash: String,
@@ -206,7 +207,7 @@ pub(super) struct SceneCaptureManifest {
     pub(super) fixture: String,
     pub(super) source_input: String,
     pub(super) scene_digest: String,
-    pub(super) seed: u64,
+    pub(super) seed: Seed,
     pub(super) absolute_minute: u64,
     pub(super) canopy_bps: u16,
     pub(super) generation_version: u16,

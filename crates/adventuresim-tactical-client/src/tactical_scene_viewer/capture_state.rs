@@ -1,3 +1,4 @@
+use fabelgeist_determinism::Seed;
 use std::{collections::BTreeSet, path::PathBuf};
 
 use adventuresim_tactical_core::prelude::{SceneSource, WeatherSnapshot};
@@ -67,7 +68,7 @@ pub(super) struct SceneCaptureState {
     pub(super) input_path: PathBuf,
     pub(super) output: PathBuf,
     pub(super) digest: String,
-    pub(super) seed: u64,
+    pub(super) seed: Seed,
     pub(super) absolute_minute: StrategicMinute,
     pub(super) latitude_microdegrees: i32,
     pub(super) longitude_microdegrees: i32,

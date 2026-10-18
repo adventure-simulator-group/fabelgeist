@@ -33,7 +33,7 @@ fn resolve_roof_assemblies(
             None,
             walls,
             geometry,
-        ));
+        )?);
     }
     if let Some(parent) = assemblies
         .first()
@@ -76,18 +76,18 @@ fn resolve_roof_assemblies(
                     enclosure_material,
                 );
                 let cut_id = ResolvedItemId((0xF_u64 << 60) | child_id.0);
-                let bounds = ResolvedBounds {
-                    min: Vec3::new(
+                let bounds = SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(
                         child_min.x,
                         parent_recipe.base_height_metres - 0.2,
                         child_min.y,
                     ),
-                    max: Vec3::new(
+                    Vec3::new(
                         child_max.x,
                         child_recipe.base_height_metres + 5.0,
                         child_max.y,
                     ),
-                };
+                )?;
                 geometry.voids.push(ResolvedVoid {
                     id: cut_id,
                     owner: parent.1,
@@ -98,13 +98,13 @@ fn resolve_roof_assemblies(
                 });
                 let child_supports = assemblies[index].support_nodes.clone();
                 let child_copy = assemblies[index].clone();
-                roof_internal_cut::split_internal_edges(&mut assemblies[0], bounds, geometry);
-                trim_roof_edge_treatments_for_cut(assemblies[0].owner, bounds, geometry);
+                roof_internal_cut::split_internal_edges(&mut assemblies[0], bounds, geometry)?;
+                trim_roof_edge_treatments_for_cut(assemblies[0].owner, bounds, geometry)?;
                 trim_roof_boundary_edges_for_cut(&mut assemblies[0], bounds);
                 let cut_edges =
-                    cut_parent_roof_face(&mut assemblies[0], &child_copy, bounds, geometry);
+                    cut_parent_roof_face(&mut assemblies[0], &child_copy, bounds, geometry)?;
                 let valleys =
-                    bind_child_valleys(&mut assemblies[0], &child_copy, &cut_edges, geometry);
+                    bind_child_valleys(&mut assemblies[0], &child_copy, &cut_edges, geometry)?;
                 let flashing_ids = assemblies[0]
                     .edges
                     .iter()
@@ -140,7 +140,7 @@ fn resolve_roof_assemblies(
                 None,
                 walls,
                 geometry,
-            ));
+            )?);
         }
     }
     for (index, tower) in square_towers.iter().copied().enumerate() {
@@ -157,7 +157,7 @@ fn resolve_roof_assemblies(
             None,
             walls,
             geometry,
-        ));
+        )?);
     }
     // A tower piercing the principal roof is a true abutment, not two
     // overlapping independent meshes. Cut the main weather faces to the
@@ -188,8 +188,8 @@ fn resolve_roof_assemblies(
                 })
                 .fold(0.0_f32, f32::max);
             let half = tower.size * 0.5 + Vec2::splat(shell_half_thickness);
-            let bounds = ResolvedBounds {
-                min: Vec3::new(
+            let bounds = SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     tower.centre.x - half.x,
                     assemblies[0]
                         .faces
@@ -199,12 +199,12 @@ fn resolve_roof_assemblies(
                         - 0.2,
                     tower.centre.y - half.y,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     tower.centre.x + half.x,
                     tower.wall_height_metres + 8.0,
                     tower.centre.y + half.y,
                 ),
-            };
+            )?;
             geometry.voids.push(ResolvedVoid {
                 id: cut_id,
                 owner: assemblies[0].owner,
@@ -213,14 +213,14 @@ fn resolve_roof_assemblies(
                 shape: crate::ResolvedVoidShape::Box,
                 subtracts_from: assemblies[0].owner,
             });
-            let cut_height = bounds.max.y;
+            let cut_height = bounds.max().metres().y;
             let mut vertical_cut = child.clone();
             let mut cut_face = child.faces[0].clone();
             cut_face.polygon = vec![
-                Vec3::new(bounds.min.x, cut_height, bounds.min.z),
-                Vec3::new(bounds.max.x, cut_height, bounds.min.z),
-                Vec3::new(bounds.max.x, cut_height, bounds.max.z),
-                Vec3::new(bounds.min.x, cut_height, bounds.max.z),
+                Vec3::new(bounds.min().metres().x, cut_height, bounds.min().metres().z),
+                Vec3::new(bounds.max().metres().x, cut_height, bounds.min().metres().z),
+                Vec3::new(bounds.max().metres().x, cut_height, bounds.max().metres().z),
+                Vec3::new(bounds.min().metres().x, cut_height, bounds.max().metres().z),
             ];
             cut_face.cutouts.clear();
             cut_face.plane = RoofPlaneEquation {
@@ -228,10 +228,10 @@ fn resolve_roof_assemblies(
                 constant: -cut_height,
             };
             vertical_cut.faces = vec![cut_face];
-            trim_roof_edge_treatments_for_cut(assemblies[0].owner, bounds, geometry);
+            trim_roof_edge_treatments_for_cut(assemblies[0].owner, bounds, geometry)?;
             trim_roof_boundary_edges_for_cut(&mut assemblies[0], bounds);
             let cut_edges =
-                cut_parent_roof_face(&mut assemblies[0], &vertical_cut, bounds, geometry);
+                cut_parent_roof_face(&mut assemblies[0], &vertical_cut, bounds, geometry)?;
             for edge in assemblies[0]
                 .edges
                 .iter_mut()
@@ -259,9 +259,9 @@ fn resolve_roof_assemblies(
             assemblies[child_index].phase = RoofPhase::AttachedChild;
         }
     }
-    bind_coincident_primary_roof_edges(&mut assemblies, geometry);
-    finalize_roof_drainage(program.archetype, &mut assemblies, geometry);
-    supplement_split_eave_drainage(&assemblies, geometry);
+    bind_coincident_primary_roof_edges(&mut assemblies, geometry)?;
+    finalize_roof_drainage(program.archetype, &mut assemblies, geometry)?;
+    supplement_split_eave_drainage(&assemblies, geometry)?;
     consolidate_roof_outlet_stations(
         program.archetype,
         &mut assemblies,
@@ -269,9 +269,9 @@ fn resolve_roof_assemblies(
         walls,
         openings,
         geometry,
-    );
-    resolve_roof_abutment_contours(&mut assemblies, walls, geometry);
-    refit_roof_edge_treatments(&mut assemblies, geometry);
-    bind_roof_junctions(&assemblies, geometry);
+    )?;
+    resolve_roof_abutment_contours(&mut assemblies, walls, geometry)?;
+    refit_roof_edge_treatments(&mut assemblies, geometry)?;
+    bind_roof_junctions(&assemblies, geometry)?;
     Ok(assemblies)
 }

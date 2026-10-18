@@ -19,6 +19,7 @@ fn goslar_1036_clipped_source_preserves_the_represented_geographic_plane() {
             .map(|region| serde_json::from_value(region["outline_metres"].clone()).unwrap())
             .collect(),
     );
+    let cuts = cuts.unwrap();
     let pieces = source.outside_regions(&cuts);
     assert!(pieces.len() > 1);
     for triangle in &pieces {

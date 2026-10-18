@@ -42,8 +42,11 @@ mod tests {
 
     #[test]
     fn shed_layout_rotates_with_its_front_and_rejects_an_unreachable_parent() {
-        let plan =
-            crate::generate(&BuildingProgram::fixture(BuildingArchetype::HallHouse, 42)).unwrap();
+        let plan = crate::generate(&BuildingProgram::fixture(
+            BuildingArchetype::HallHouse,
+            fabelgeist_determinism::Seed::from_u64(42),
+        ))
+        .unwrap();
         let source = plan.roof_dormers[0];
         for (quarter, facing) in [
             Direction::East,
@@ -94,7 +97,7 @@ mod tests {
             BuildingArchetype::FachwerkCottage,
             BuildingArchetype::HallHouse,
         ] {
-            for seed in [42, 47, 101] {
+            for seed in [42, 47, 101].map(fabelgeist_determinism::Seed::from_u64) {
                 let plan = crate::generate(&BuildingProgram::fixture(archetype, seed)).unwrap();
                 assert!(
                     plan.roof_dormers

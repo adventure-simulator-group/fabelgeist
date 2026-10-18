@@ -104,7 +104,7 @@ def write_inputs(repository: Path, output: Path) -> list[tuple[str, Path]]:
     bare_vista = PROFILES["bare"]
     for index, (name, profile) in enumerate(PROFILES.items()):
         scene = json.loads(json.dumps(template))
-        scene["seed"] = 71_000 + index
+        scene["seed"] = {"word": 71_000 + index}
         scene["scene_key"] = f"terrain-density-{name}"
         scene["source"] = {"kind": "synthetic_fixture", "id": f"terrain-density-{name}"}
         scene["playable"]["environment"] = uniform_environment(

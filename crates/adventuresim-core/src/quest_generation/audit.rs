@@ -1,9 +1,10 @@
 pub fn audit(seeds: u64) -> BTreeMap<TemplateFamily, u64> {
     let mut out = BTreeMap::new();
-    for seed in 0..seeds {
+    for word in 0..seeds {
+        let seed = fabelgeist_determinism::Seed::from_u64(word);
         let context = GenerationContext {
             seed,
-            observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
+            observer_entropy_hi: word ^ 0x6f62_7365_7276_6572,
             observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high").seed(seed, &[]).to_u64(),
             settlement_id: "audit".into(),
             settlement_name: "Audit".into(),

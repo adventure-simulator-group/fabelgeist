@@ -5,17 +5,46 @@ use bevy::math::Vec2;
 use serde::{Deserialize, Serialize};
 
 mod polygon;
+mod spatial;
+mod window;
 pub use polygon::{ArchitecturalPlanProjection, ScenePlanPolygon};
+pub use spatial::{
+    ArchitecturalFloorDatum, ArchitecturalGateDatum, CollisionCentreDatum, CollisionRelative,
+    GateDatum, GateRelative, GroundRelative, PlotRelative, Scene, SceneDoorPose,
+};
+pub use window::SceneWindowPose;
 
-#[derive(Clone, Copy, Debug, PartialEq, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, bevy::prelude::Reflect)]
+#[reflect(opaque)]
 #[serde(transparent)]
 pub struct ScenePlanPoint(Vec2);
 impl ScenePlanPoint {
+    pub const ORIGIN: Self = Self(Vec2::ZERO);
     pub fn from_metres(point: Vec2) -> Option<Self> {
         point.is_finite().then_some(Self(point))
     }
     pub fn metres(self) -> Vec2 {
         self.0
+    }
+    pub fn translated(
+        self,
+        delta: PlanDisplacement,
+    ) -> Result<Self, adventuresim_building_generator::spatial_geometry::GeometryError> {
+        Self::try_from(self.0 + delta.metres())
+    }
+}
+impl TryFrom<Vec2> for ScenePlanPoint {
+    type Error = adventuresim_building_generator::spatial_geometry::GeometryError;
+    fn try_from(metres: Vec2) -> Result<Self, Self::Error> {
+        use adventuresim_building_generator::spatial_geometry::{CoordinateAxis, GeometryRole};
+        Self::from_metres(metres).ok_or(Self::Error::NonFinite {
+            role: GeometryRole::Position,
+            axis: if !metres.x.is_finite() {
+                CoordinateAxis::X
+            } else {
+                CoordinateAxis::Z
+            },
+        })
     }
 }
 impl PlanVertex for ScenePlanPoint {
@@ -35,6 +64,20 @@ impl PlanDisplacement {
         self.0
     }
 }
+impl TryFrom<Vec2> for PlanDisplacement {
+    type Error = adventuresim_building_generator::spatial_geometry::GeometryError;
+    fn try_from(metres: Vec2) -> Result<Self, Self::Error> {
+        use adventuresim_building_generator::spatial_geometry::{CoordinateAxis, GeometryRole};
+        Self::from_metres(metres).ok_or(Self::Error::NonFinite {
+            role: GeometryRole::Displacement,
+            axis: if !metres.x.is_finite() {
+                CoordinateAxis::X
+            } else {
+                CoordinateAxis::Z
+            },
+        })
+    }
+}
 impl<'de> Deserialize<'de> for ScenePlanPoint {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         Self::from_metres(Vec2::deserialize(deserializer)?)
@@ -52,5 +95,15 @@ mod tests {
             serde_json::from_str(&serde_json::to_string(&point).unwrap()).unwrap();
         assert_eq!(restored, point);
         assert!(serde_json::from_str::<ScenePlanPoint>("[0,null]").is_err());
+    }
+}
+
+#[cfg(test)]
+mod spatial_tests;
+
+impl From<adventuresim_building_generator::spatial_geometry::Position<Scene>> for ScenePlanPoint {
+    fn from(position: adventuresim_building_generator::spatial_geometry::Position<Scene>) -> Self {
+        let point = position.metres();
+        Self(Vec2::new(point.x, point.z))
     }
 }

@@ -47,7 +47,7 @@ pub struct BuildingKit<'a> {
 }
 
 impl<'a> BuildingKit<'a> {
-    pub fn new(plan: &'a BuildingPlan) -> Self {
+    pub fn new(plan: &'a BuildingPlan) -> Result<Self, crate::GenerationError> {
         let facade_solids = crate::lod::component_solids(plan);
         let mut kit = Self {
             plan,
@@ -85,19 +85,19 @@ impl<'a> BuildingKit<'a> {
                 continue;
             }
             let yaw = if solid.role == SolidRole::RoofFraming {
-                -solid.yaw_radians
+                -solid.yaw_radians.radians()
             } else {
-                solid.yaw_radians
+                solid.yaw_radians.radians()
             };
             let rotation = Quat::from_rotation_y(yaw)
-                * Quat::from_rotation_x(solid.crossfall_radians)
-                * Quat::from_rotation_z(solid.longfall_radians);
+                * Quat::from_rotation_x(solid.crossfall_radians.radians())
+                * Quat::from_rotation_z(solid.longfall_radians.radians());
             let (centre, size_metres) = cuboids::render_cuboid_placement(
                 solid,
                 wall,
                 cuboids::is_fachwerk_member_role(solid.role),
                 rotation,
-            );
+            )?;
             let facade = facade_solids.contains(&solid.id);
             kit.excluded.insert(solid.id);
             if facade {
@@ -114,14 +114,14 @@ impl<'a> BuildingKit<'a> {
                 facade,
             });
         }
-        kit
+        Ok(kit)
     }
 
-    pub fn detail(&self) -> BuildingDetail {
+    pub fn detail(&self) -> Result<BuildingDetail, crate::GenerationError> {
         compile_detail(self.plan, &self.excluded)
     }
 
-    pub fn facade(&self) -> crate::BuildingLod {
+    pub fn facade(&self) -> Result<crate::BuildingLod, crate::GenerationError> {
         crate::lod::compile_components(self.plan, &self.facade_excluded)
     }
 }

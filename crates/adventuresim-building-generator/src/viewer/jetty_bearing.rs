@@ -19,13 +19,21 @@ pub(super) fn item_ids(plan: &BuildingPlan) -> Vec<u64> {
     };
     let mut ids = vec![bracket.solid.0];
     for member in &frame.members {
-        let near_tip = member.start.distance(bracket.end) <= CONTACT_TOLERANCE_METRES
-            || member.end.distance(bracket.end) <= CONTACT_TOLERANCE_METRES;
+        let near_tip = member.start.metres().distance(bracket.end.metres())
+            <= CONTACT_TOLERANCE_METRES
+            || member.end.metres().distance(bracket.end.metres()) <= CONTACT_TOLERANCE_METRES;
         let upper_sill = member.role == Role::Sill
-            && (member.start.y - plan.storey_height_metres).abs() <= CONTACT_TOLERANCE_METRES
-            && member.start.distance(member.end) <= LOCAL_MEMBER_REACH_METRES
-            && (member.start.xz().distance(bracket.end.xz()) <= CONTACT_TOLERANCE_METRES
-                || member.end.xz().distance(bracket.end.xz()) <= CONTACT_TOLERANCE_METRES);
+            && (member.start.metres().y - plan.storey_height_metres).abs()
+                <= CONTACT_TOLERANCE_METRES
+            && member.start.metres().distance(member.end.metres()) <= LOCAL_MEMBER_REACH_METRES
+            && (member
+                .start
+                .metres()
+                .xz()
+                .distance(bracket.end.metres().xz())
+                <= CONTACT_TOLERANCE_METRES
+                || member.end.metres().xz().distance(bracket.end.metres().xz())
+                    <= CONTACT_TOLERANCE_METRES);
         if (near_tip
             && matches!(
                 member.role,
@@ -52,9 +60,19 @@ pub(super) fn item_ids(plan: &BuildingPlan) -> Vec<u64> {
             .iter()
             .filter(|solid| wall.host_solids.contains(&solid.id))
         {
-            let half = solid.size * 0.5 + Vec3::splat(CONTACT_TOLERANCE_METRES);
-            if interface.bounds.max.cmpge(solid.centre - half).all()
-                && interface.bounds.min.cmple(solid.centre + half).all()
+            let half = solid.size.metres() * 0.5 + Vec3::splat(CONTACT_TOLERANCE_METRES);
+            if interface
+                .bounds
+                .max()
+                .metres()
+                .cmpge(solid.centre.metres() - half)
+                .all()
+                && interface
+                    .bounds
+                    .min()
+                    .metres()
+                    .cmple(solid.centre.metres() + half)
+                    .all()
             {
                 ids.push(solid.id.0);
             }

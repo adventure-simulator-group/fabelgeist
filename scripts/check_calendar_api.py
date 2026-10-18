@@ -251,7 +251,7 @@ def main() -> int:
         relative = source.relative_to(ROOT)
         if relative == CALENDAR or relative.is_relative_to(GENERATED):
             continue
-        contents = source.read_text()
+        contents = source.read_text(encoding="utf-8")
         test_tail = re.search(r"#\[cfg\(test\)\]\s*mod tests\b", contents)
         production = contents[:test_tail.start()] if test_tail else contents
         if (
@@ -322,16 +322,16 @@ def main() -> int:
             if any(pattern.search(line) for pattern in FORBIDDEN):
                 violations.append(f"{relative}:{number}: use the shared calendar API")
     for relative, declaration in REQUIRED_SHARED_FIELDS.items():
-        if declaration not in (ROOT / relative).read_text():
+        if declaration not in (ROOT / relative).read_text(encoding="utf-8"):
             violations.append(f"{relative}: restore shared calendar field {declaration}")
     for relative, declaration in REQUIRED_TYPED_RETURNS.items():
-        if declaration not in (ROOT / relative).read_text():
+        if declaration not in (ROOT / relative).read_text(encoding="utf-8"):
             violations.append(f"{relative}: restore typed calendar return {declaration}")
     for source in sorted((ROOT / "crates/strategic-web/static").glob("*.js")):
         relative = source.relative_to(ROOT)
         if relative == BROWSER_CALENDAR:
             continue
-        contents = source.read_text()
+        contents = source.read_text(encoding="utf-8")
         for match in BROWSER_RAW_CALENDAR_ARITHMETIC.finditer(contents):
             number = contents.count("\n", 0, match.start()) + 1
             violations.append(f"{relative}:{number}: use the browser calendar adapter")

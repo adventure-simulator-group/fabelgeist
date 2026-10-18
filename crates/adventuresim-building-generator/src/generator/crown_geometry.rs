@@ -21,7 +21,7 @@ fn resolve_crown_geometry(
     walks: &[WallWalk],
     stairs: &[Stair],
     tower_portals: &[TowerPortal],
-) -> ResolvedGeometry {
+) -> Result<ResolvedGeometry, crate::GenerationError> {
     let mut geometry = ResolvedGeometry {
         schema_version: 2,
         ..ResolvedGeometry::default()
@@ -101,22 +101,24 @@ fn resolve_crown_geometry(
                     let plan = start + tangent * along_centre + normal * p.thickness_metres * 0.5;
                     let transverse =
                         p.thickness_metres + if role == SolidRole::Coping { 0.04 } else { 0.0 };
-                    ResolvedSolid {
-                        id: ResolvedItemId::default(),
-                        owner: crown.owner,
-                        centre: Vec3::new(plan.x, z + height * 0.5, plan.y),
-                        size: if horizontal {
-                            Vec3::new(along_size, height, transverse)
-                        } else {
-                            Vec3::new(transverse, height, along_size)
-                        },
-                        yaw_radians: 0.0,
-                        crossfall_radians: 0.0,
-                        longfall_radians: 0.0,
+                    Ok::<_, crate::GenerationError>(ResolvedSolid::new(
+                        CollisionCuboid::<Architectural>::from_metres(
+                            ResolvedItemId::default(),
+                            Vec3::new(plan.x, z + height * 0.5, plan.y),
+                            if horizontal {
+                                Vec3::new(along_size, height, transverse)
+                            } else {
+                                Vec3::new(transverse, height, along_size)
+                            },
+                            0.0,
+                            0.0,
+                            0.0,
+                        )?,
+                        crown.owner,
                         role,
-                        shape: crate::ResolvedSolidShape::Cuboid,
-                        supported_by: vec![support_node],
-                    }
+                        crate::ResolvedSolidShape::Cuboid,
+                        vec![support_node],
+                    ))
                 };
                 let drain_height = 0.18;
                 for &(range_start, range_end) in &active_ranges {
@@ -129,14 +131,14 @@ fn resolve_crown_geometry(
                             chunk_end - chunk_start,
                             crown.base_height_metres + drain_height,
                             p.breastwork_height_metres - drain_height,
-                        ));
+                        )?);
                         geometry.solids.push(solid(
                             SolidRole::Coping,
                             (chunk_start + chunk_end) * 0.5,
                             chunk_end - chunk_start,
                             crown.base_height_metres + p.breastwork_height_metres,
                             p.coping_height_metres,
-                        ));
+                        )?);
                         let guard_start_trim = crown.junctions.iter().any(|junction| {
                             junction.kind == CrownJunctionKind::Corner
                                 && (junction.position - original_start).length() < 0.02
@@ -159,34 +161,37 @@ fn resolve_crown_geometry(
                             let inner_guard_plan = start
                                 + tangent * ((guard_start + guard_end) * 0.5)
                                 - normal * (p.walk_clear_width_metres + 0.08);
-                            geometry.solids.push(ResolvedSolid {
-                                id: ResolvedItemId::default(),
-                                owner: crown.owner,
-                                centre: Vec3::new(
-                                    inner_guard_plan.x,
-                                    crown.base_height_metres + p.inner_guard_height_metres * 0.5,
-                                    inner_guard_plan.y,
-                                ),
-                                size: if horizontal {
+                            geometry.solids.push(ResolvedSolid::new(
+                                CollisionCuboid::<Architectural>::from_metres(
+                                    ResolvedItemId::default(),
                                     Vec3::new(
-                                        guard_end - guard_start,
-                                        p.inner_guard_height_metres,
-                                        0.12,
-                                    )
-                                } else {
-                                    Vec3::new(
-                                        0.12,
-                                        p.inner_guard_height_metres,
-                                        guard_end - guard_start,
-                                    )
-                                },
-                                yaw_radians: 0.0,
-                                crossfall_radians: 0.0,
-                                longfall_radians: 0.0,
-                                role: SolidRole::EdgeGuard,
-                                shape: crate::ResolvedSolidShape::Cuboid,
-                                supported_by: vec![support_node],
-                            });
+                                        inner_guard_plan.x,
+                                        crown.base_height_metres
+                                            + p.inner_guard_height_metres * 0.5,
+                                        inner_guard_plan.y,
+                                    ),
+                                    if horizontal {
+                                        Vec3::new(
+                                            guard_end - guard_start,
+                                            p.inner_guard_height_metres,
+                                            0.12,
+                                        )
+                                    } else {
+                                        Vec3::new(
+                                            0.12,
+                                            p.inner_guard_height_metres,
+                                            guard_end - guard_start,
+                                        )
+                                    },
+                                    0.0,
+                                    0.0,
+                                    0.0,
+                                )?,
+                                crown.owner,
+                                SolidRole::EdgeGuard,
+                                crate::ResolvedSolidShape::Cuboid,
+                                vec![support_node],
+                            ));
                         }
                         chunk_start = chunk_end;
                     }
@@ -218,7 +223,7 @@ fn resolve_crown_geometry(
                                 end - cursor,
                                 crown.base_height_metres,
                                 drain_height,
-                            ));
+                            )?);
                         }
                         cursor = (cut + 0.08).min(range_end);
                     }
@@ -255,7 +260,7 @@ fn resolve_crown_geometry(
                             + p.breastwork_height_metres
                             + p.coping_height_metres,
                         p.merlon_height_metres - p.coping_height_metres,
-                    ));
+                    )?);
                     geometry.solids.push(solid(
                         SolidRole::Coping,
                         (from + to) * 0.5,
@@ -264,11 +269,11 @@ fn resolve_crown_geometry(
                             + p.breastwork_height_metres
                             + p.merlon_height_metres,
                         p.coping_height_metres,
-                    ));
+                    )?);
                 }
                 let walk = walks.iter().find(|walk| matches!(walk, WallWalk::Linear { start: a, end: b, .. } if (*a-original_start).length()<0.02 && (*b-original_end).length()<0.02));
                 if let Some(walk) = walk {
-                    let bounds = linear_walk_bounds_for_geometry(*walk);
+                    let bounds = linear_walk_bounds_for_geometry(*walk)?;
                     geometry.surfaces.push(ResolvedSurface {
                         id: ResolvedItemId::default(),
                         owner: crown.owner,
@@ -289,18 +294,18 @@ fn resolve_crown_geometry(
                     geometry.voids.push(ResolvedVoid {
                         id: ResolvedItemId::default(),
                         owner: crown.owner,
-                        bounds: ResolvedBounds {
-                            min: Vec3::new(
+                        bounds: SpatialBounds::<Architectural>::from_metres(
+                            Vec3::new(
                                 inner.x.min(outer.x) - lateral.x,
                                 crown.base_height_metres,
                                 inner.y.min(outer.y) - lateral.y,
                             ),
-                            max: Vec3::new(
+                            Vec3::new(
                                 inner.x.max(outer.x) + lateral.x,
                                 crown.base_height_metres + 0.18,
                                 inner.y.max(outer.y) + lateral.y,
                             ),
-                        },
+                        )?,
                         role: VoidRole::Drain,
                         shape: crate::ResolvedVoidShape::Box,
                         subtracts_from: crown.owner,
@@ -309,18 +314,18 @@ fn resolve_crown_geometry(
                 geometry.surfaces.push(ResolvedSurface {
                     id: ResolvedItemId::default(),
                     owner: crown.owner,
-                    bounds: ResolvedBounds {
-                        min: Vec3::new(
+                    bounds: SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(
                             start.x.min(end.x),
                             crown.base_height_metres + p.firing_height_metres,
                             start.y.min(end.y),
                         ),
-                        max: Vec3::new(
+                        Vec3::new(
                             start.x.max(end.x),
                             crown.base_height_metres + p.firing_height_metres + 0.01,
                             start.y.max(end.y),
                         ),
-                    },
+                    )?,
                     role: SurfaceRole::FiringLine,
                     shape: crate::ResolvedSurfaceShape::Planar,
                 });
@@ -387,10 +392,12 @@ fn resolve_crown_geometry(
                     })
                 };
                 let stair_arrival = stairs.iter().find_map(|stair| match *stair {
-                    Stair::Spiral { centre: stair_centre, .. }
-                        if (stair_centre - centre).length() < 0.02 => {
-                            crate::spiral_stairs::arrival_angle(*stair)
-                        }
+                    Stair::Spiral {
+                        centre: stair_centre,
+                        ..
+                    } if (stair_centre - centre).length() < 0.02 => {
+                        crate::spiral_stairs::arrival_angle(*stair)
+                    }
                     _ => None,
                 });
                 for index in 0..segments {
@@ -401,66 +408,72 @@ fn resolve_crown_geometry(
                     let radial = Vec2::new(angle.cos(), angle.sin());
                     let tangent_length = std::f32::consts::TAU * radius_metres / segments as f32;
                     let plan = centre + radial * (radius_metres + p.thickness_metres * 0.5);
-                    geometry.solids.push(ResolvedSolid {
-                        id: ResolvedItemId::default(),
-                        owner: crown.owner,
-                        centre: Vec3::new(
-                            plan.x,
-                            crown.base_height_metres
-                                + 0.18
-                                + (p.breastwork_height_metres - 0.18) * 0.5,
-                            plan.y,
-                        ),
-                        size: Vec3::new(
-                            tangent_length + 0.03,
-                            p.breastwork_height_metres - 0.18,
-                            p.thickness_metres,
-                        ),
-                        yaw_radians: -angle - std::f32::consts::FRAC_PI_2,
-                        crossfall_radians: 0.0,
-                        longfall_radians: 0.0,
-                        role: SolidRole::Breastwork,
-                        shape: crate::ResolvedSolidShape::Cuboid,
-                        supported_by: vec![support_node],
-                    });
+                    geometry.solids.push(ResolvedSolid::new(
+                        CollisionCuboid::<Architectural>::from_metres(
+                            ResolvedItemId::default(),
+                            Vec3::new(
+                                plan.x,
+                                crown.base_height_metres
+                                    + 0.18
+                                    + (p.breastwork_height_metres - 0.18) * 0.5,
+                                plan.y,
+                            ),
+                            Vec3::new(
+                                tangent_length + 0.03,
+                                p.breastwork_height_metres - 0.18,
+                                p.thickness_metres,
+                            ),
+                            -angle - std::f32::consts::FRAC_PI_2,
+                            0.0,
+                            0.0,
+                        )?,
+                        crown.owner,
+                        SolidRole::Breastwork,
+                        crate::ResolvedSolidShape::Cuboid,
+                        vec![support_node],
+                    ));
                     // Every third segment is a genuine open scupper through the
                     // lower breastwork band, aligned with the eight declared drains.
                     if index % 3 != 0 {
-                        geometry.solids.push(ResolvedSolid {
-                            id: ResolvedItemId::default(),
-                            owner: crown.owner,
-                            centre: Vec3::new(plan.x, crown.base_height_metres + 0.09, plan.y),
-                            size: Vec3::new(tangent_length + 0.03, 0.18, p.thickness_metres),
-                            yaw_radians: -angle - std::f32::consts::FRAC_PI_2,
-                            crossfall_radians: 0.0,
-                            longfall_radians: 0.0,
-                            role: SolidRole::Breastwork,
-                            shape: crate::ResolvedSolidShape::Cuboid,
-                            supported_by: vec![support_node],
-                        });
+                        geometry.solids.push(ResolvedSolid::new(
+                            CollisionCuboid::<Architectural>::from_metres(
+                                ResolvedItemId::default(),
+                                Vec3::new(plan.x, crown.base_height_metres + 0.09, plan.y),
+                                Vec3::new(tangent_length + 0.03, 0.18, p.thickness_metres),
+                                -angle - std::f32::consts::FRAC_PI_2,
+                                0.0,
+                                0.0,
+                            )?,
+                            crown.owner,
+                            SolidRole::Breastwork,
+                            crate::ResolvedSolidShape::Cuboid,
+                            vec![support_node],
+                        ));
                     }
-                    geometry.solids.push(ResolvedSolid {
-                        id: ResolvedItemId::default(),
-                        owner: crown.owner,
-                        centre: Vec3::new(
-                            plan.x,
-                            crown.base_height_metres
-                                + p.breastwork_height_metres
-                                + p.coping_height_metres * 0.5,
-                            plan.y,
-                        ),
-                        size: Vec3::new(
-                            tangent_length + 0.03,
-                            p.coping_height_metres,
-                            p.thickness_metres + 0.04,
-                        ),
-                        yaw_radians: -angle - std::f32::consts::FRAC_PI_2,
-                        crossfall_radians: 0.0,
-                        longfall_radians: 0.0,
-                        role: SolidRole::Coping,
-                        shape: crate::ResolvedSolidShape::Cuboid,
-                        supported_by: vec![support_node],
-                    });
+                    geometry.solids.push(ResolvedSolid::new(
+                        CollisionCuboid::<Architectural>::from_metres(
+                            ResolvedItemId::default(),
+                            Vec3::new(
+                                plan.x,
+                                crown.base_height_metres
+                                    + p.breastwork_height_metres
+                                    + p.coping_height_metres * 0.5,
+                                plan.y,
+                            ),
+                            Vec3::new(
+                                tangent_length + 0.03,
+                                p.coping_height_metres,
+                                p.thickness_metres + 0.04,
+                            ),
+                            -angle - std::f32::consts::FRAC_PI_2,
+                            0.0,
+                            0.0,
+                        )?,
+                        crown.owner,
+                        SolidRole::Coping,
+                        crate::ResolvedSolidShape::Cuboid,
+                        vec![support_node],
+                    ));
                 }
                 let circumference = std::f32::consts::TAU * radius_metres;
                 let merlon_count = (circumference / (p.merlon_width_metres + p.crenel_width_metres))
@@ -475,47 +488,51 @@ fn resolve_crown_geometry(
                     }
                     let radial = Vec2::new(angle.cos(), angle.sin());
                     let plan = centre + radial * (radius_metres + p.thickness_metres * 0.5);
-                    geometry.solids.push(ResolvedSolid {
-                        id: ResolvedItemId::default(),
-                        owner: crown.owner,
-                        centre: Vec3::new(
-                            plan.x,
-                            crown.base_height_metres
-                                + p.breastwork_height_metres
-                                + p.merlon_height_metres * 0.5,
-                            plan.y,
-                        ),
-                        size: Vec3::new(merlon_width, p.merlon_height_metres, p.thickness_metres),
-                        yaw_radians: -angle - std::f32::consts::FRAC_PI_2,
-                        crossfall_radians: 0.0,
-                        longfall_radians: 0.0,
-                        role: SolidRole::Merlon,
-                        shape: crate::ResolvedSolidShape::Cuboid,
-                        supported_by: vec![support_node],
-                    });
-                    geometry.solids.push(ResolvedSolid {
-                        id: ResolvedItemId::default(),
-                        owner: crown.owner,
-                        centre: Vec3::new(
-                            plan.x,
-                            crown.base_height_metres
-                                + p.breastwork_height_metres
-                                + p.merlon_height_metres
-                                + p.coping_height_metres * 0.5,
-                            plan.y,
-                        ),
-                        size: Vec3::new(
-                            merlon_width,
-                            p.coping_height_metres,
-                            p.thickness_metres + 0.04,
-                        ),
-                        yaw_radians: -angle - std::f32::consts::FRAC_PI_2,
-                        crossfall_radians: 0.0,
-                        longfall_radians: 0.0,
-                        role: SolidRole::Coping,
-                        shape: crate::ResolvedSolidShape::Cuboid,
-                        supported_by: vec![support_node],
-                    });
+                    geometry.solids.push(ResolvedSolid::new(
+                        CollisionCuboid::<Architectural>::from_metres(
+                            ResolvedItemId::default(),
+                            Vec3::new(
+                                plan.x,
+                                crown.base_height_metres
+                                    + p.breastwork_height_metres
+                                    + p.merlon_height_metres * 0.5,
+                                plan.y,
+                            ),
+                            Vec3::new(merlon_width, p.merlon_height_metres, p.thickness_metres),
+                            -angle - std::f32::consts::FRAC_PI_2,
+                            0.0,
+                            0.0,
+                        )?,
+                        crown.owner,
+                        SolidRole::Merlon,
+                        crate::ResolvedSolidShape::Cuboid,
+                        vec![support_node],
+                    ));
+                    geometry.solids.push(ResolvedSolid::new(
+                        CollisionCuboid::<Architectural>::from_metres(
+                            ResolvedItemId::default(),
+                            Vec3::new(
+                                plan.x,
+                                crown.base_height_metres
+                                    + p.breastwork_height_metres
+                                    + p.merlon_height_metres
+                                    + p.coping_height_metres * 0.5,
+                                plan.y,
+                            ),
+                            Vec3::new(
+                                merlon_width,
+                                p.coping_height_metres,
+                                p.thickness_metres + 0.04,
+                            ),
+                            -angle - std::f32::consts::FRAC_PI_2,
+                            0.0,
+                            0.0,
+                        )?,
+                        crown.owner,
+                        SolidRole::Coping,
+                        crate::ResolvedSolidShape::Cuboid,
+                        vec![support_node],
+                    ));
                 }
                 if let Some(WallWalk::Round {
                     stairwell_radius_metres,
@@ -533,61 +550,50 @@ fn resolve_crown_geometry(
                             continue;
                         }
                         let plan = centre + radial * radius;
-                        geometry.solids.push(ResolvedSolid {
-                            id: ResolvedItemId::default(),
-                            owner: crown.owner,
-                            centre: Vec3::new(
+                        geometry.solids.push(ResolvedSolid::new(CollisionCuboid::<Architectural>::from_metres(ResolvedItemId::default(), Vec3::new(
                                 plan.x,
                                 crown.base_height_metres + p.inner_guard_height_metres * 0.5,
                                 plan.y,
-                            ),
-                            size: Vec3::new(
+                            ), Vec3::new(
                                 std::f32::consts::TAU * radius / 24.0 + 0.02,
                                 p.inner_guard_height_metres,
                                 0.12,
-                            ),
-                            yaw_radians: -angle - std::f32::consts::FRAC_PI_2,
-                            crossfall_radians: 0.0,
-                            longfall_radians: 0.0,
-                            role: SolidRole::EdgeGuard,
-                            shape: crate::ResolvedSolidShape::Cuboid,
-                            supported_by: vec![support_node],
-                        });
+                            ), -angle - std::f32::consts::FRAC_PI_2, 0.0, 0.0)?, crown.owner, SolidRole::EdgeGuard, crate::ResolvedSolidShape::Cuboid, vec![support_node]));
                     }
                 }
                 geometry.surfaces.push(ResolvedSurface {
                     id: ResolvedItemId::default(),
                     owner: crown.owner,
-                    bounds: ResolvedBounds {
-                        min: Vec3::new(
+                    bounds: SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(
                             centre.x - radius_metres,
                             crown.base_height_metres - 0.08,
                             centre.y - radius_metres,
                         ),
-                        max: Vec3::new(
+                        Vec3::new(
                             centre.x + radius_metres,
                             crown.base_height_metres,
                             centre.y + radius_metres,
                         ),
-                    },
+                    )?,
                     role: SurfaceRole::Stance,
                     shape: crate::ResolvedSurfaceShape::Planar,
                 });
                 geometry.surfaces.push(ResolvedSurface {
                     id: ResolvedItemId::default(),
                     owner: crown.owner,
-                    bounds: ResolvedBounds {
-                        min: Vec3::new(
+                    bounds: SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(
                             centre.x - radius_metres,
                             crown.base_height_metres + p.firing_height_metres,
                             centre.y - radius_metres,
                         ),
-                        max: Vec3::new(
+                        Vec3::new(
                             centre.x + radius_metres,
                             crown.base_height_metres + p.firing_height_metres + 0.01,
                             centre.y + radius_metres,
                         ),
-                    },
+                    )?,
                     role: SurfaceRole::FiringLine,
                     shape: crate::ResolvedSurfaceShape::Planar,
                 });
@@ -603,18 +609,18 @@ fn resolve_crown_geometry(
                     geometry.voids.push(ResolvedVoid {
                         id: ResolvedItemId::default(),
                         owner: crown.owner,
-                        bounds: ResolvedBounds {
-                            min: Vec3::new(
+                        bounds: SpatialBounds::<Architectural>::from_metres(
+                            Vec3::new(
                                 inner.x.min(outer.x) - lateral.x,
                                 crown.base_height_metres,
                                 inner.y.min(outer.y) - lateral.y,
                             ),
-                            max: Vec3::new(
+                            Vec3::new(
                                 inner.x.max(outer.x) + lateral.x,
                                 crown.base_height_metres + 0.18,
                                 inner.y.max(outer.y) + lateral.y,
                             ),
-                        },
+                        )?,
                         role: VoidRole::Drain,
                         shape: crate::ResolvedVoidShape::Box,
                         subtracts_from: crown.owner,
@@ -625,124 +631,112 @@ fn resolve_crown_geometry(
         for junction in crown.junctions.iter().filter(|junction| {
             junction.kind == CrownJunctionKind::Corner && crown.owner.0 < junction.other_owner.0
         }) {
-            geometry.solids.push(ResolvedSolid {
-                id: ResolvedItemId::default(),
-                owner: crown.owner,
-                centre: Vec3::new(
-                    junction.position.x,
-                    crown.base_height_metres
-                        + p.breastwork_height_metres
-                        + p.coping_height_metres
-                        + (p.merlon_height_metres - p.coping_height_metres) * 0.5,
-                    junction.position.y,
-                ),
-                size: Vec3::new(
-                    p.merlon_width_metres,
-                    p.merlon_height_metres - p.coping_height_metres,
-                    p.merlon_width_metres,
-                ),
-                yaw_radians: 0.0,
-                crossfall_radians: 0.0,
-                longfall_radians: 0.0,
-                role: SolidRole::Merlon,
-                shape: crate::ResolvedSolidShape::Cuboid,
-                supported_by: vec![support_node],
-            });
-            geometry.solids.push(ResolvedSolid {
-                id: ResolvedItemId::default(),
-                owner: crown.owner,
-                centre: Vec3::new(
-                    junction.position.x,
-                    crown.base_height_metres
-                        + p.breastwork_height_metres
-                        + p.merlon_height_metres
-                        + p.coping_height_metres * 0.5,
-                    junction.position.y,
-                ),
-                size: Vec3::new(
-                    p.merlon_width_metres + 0.04,
-                    p.coping_height_metres,
-                    p.merlon_width_metres + 0.04,
-                ),
-                yaw_radians: 0.0,
-                crossfall_radians: 0.0,
-                longfall_radians: 0.0,
-                role: SolidRole::Coping,
-                shape: crate::ResolvedSolidShape::Cuboid,
-                supported_by: vec![support_node],
-            });
+            geometry.solids.push(ResolvedSolid::new(
+                CollisionCuboid::<Architectural>::from_metres(
+                    ResolvedItemId::default(),
+                    Vec3::new(
+                        junction.position.x,
+                        crown.base_height_metres
+                            + p.breastwork_height_metres
+                            + p.coping_height_metres
+                            + (p.merlon_height_metres - p.coping_height_metres) * 0.5,
+                        junction.position.y,
+                    ),
+                    Vec3::new(
+                        p.merlon_width_metres,
+                        p.merlon_height_metres - p.coping_height_metres,
+                        p.merlon_width_metres,
+                    ),
+                    0.0,
+                    0.0,
+                    0.0,
+                )?,
+                crown.owner,
+                SolidRole::Merlon,
+                crate::ResolvedSolidShape::Cuboid,
+                vec![support_node],
+            ));
+            geometry.solids.push(ResolvedSolid::new(
+                CollisionCuboid::<Architectural>::from_metres(
+                    ResolvedItemId::default(),
+                    Vec3::new(
+                        junction.position.x,
+                        crown.base_height_metres
+                            + p.breastwork_height_metres
+                            + p.merlon_height_metres
+                            + p.coping_height_metres * 0.5,
+                        junction.position.y,
+                    ),
+                    Vec3::new(
+                        p.merlon_width_metres + 0.04,
+                        p.coping_height_metres,
+                        p.merlon_width_metres + 0.04,
+                    ),
+                    0.0,
+                    0.0,
+                    0.0,
+                )?,
+                crown.owner,
+                SolidRole::Coping,
+                crate::ResolvedSolidShape::Cuboid,
+                vec![support_node],
+            ));
         }
-        geometry.structural_nodes.push(StructuralNode {
-            id: support_node,
-            owner: crown.owner,
-            kind: if matches!(crown.path, CrownPath::Round { .. }) {
-                StructuralNodeKind::TowerShellBearing
-            } else {
-                StructuralNodeKind::WallBearing
-            },
-            position: match crown.path {
-                CrownPath::Straight { start, end, .. } => Vec3::new(
-                    (start.x + end.x) * 0.5,
-                    crown.base_height_metres,
-                    (start.y + end.y) * 0.5,
-                ),
-                CrownPath::Round { centre, .. } => {
-                    Vec3::new(centre.x, crown.base_height_metres, centre.y)
-                }
-            },
-            supported_by: Vec::new(),
-            grounded: true,
-        });
+        geometry
+            .structural_nodes
+            .push(crate::StructuralNode::from_metres(
+                support_node,
+                crown.owner,
+                if matches!(crown.path, CrownPath::Round { .. }) {
+                    StructuralNodeKind::TowerShellBearing
+                } else {
+                    StructuralNodeKind::WallBearing
+                },
+                match crown.path {
+                    CrownPath::Straight { start, end, .. } => Vec3::new(
+                        (start.x + end.x) * 0.5,
+                        crown.base_height_metres,
+                        (start.y + end.y) * 0.5,
+                    ),
+                    CrownPath::Round { centre, .. } => {
+                        Vec3::new(centre.x, crown.base_height_metres, centre.y)
+                    }
+                },
+                Vec::new(),
+                true,
+            )?);
     }
     for (index, solid) in geometry.solids.iter_mut().enumerate() {
         solid.id = ResolvedItemId((1_u64 << 60) | (u64::from(solid.owner.0) << 32) | index as u64);
         if solid.role == SolidRole::Coping {
-            solid.crossfall_radians = 0.045;
+            solid.crossfall_radians = Radians::new(0.045)?;
         }
-        let bounds = resolved_axis_bounds(solid.centre, solid.size);
-        geometry.support_interfaces.push(SupportInterface {
-            id: ResolvedItemId((4_u64 << 60) | index as u64),
-            owner: solid.owner,
-            node: solid.supported_by[0],
-            bounds: ResolvedBounds {
-                min: Vec3::new(bounds.min.x, bounds.min.y - 0.015, bounds.min.z),
-                max: Vec3::new(bounds.max.x, bounds.min.y + 0.015, bounds.max.z),
-            },
-        });
+        let bounds = resolved_axis_bounds(solid.centre.metres(), solid.size.metres())?;
+        geometry
+            .support_interfaces
+            .push(crate::SupportInterface::new(
+                ResolvedItemId((4_u64 << 60) | index as u64),
+                solid.owner,
+                solid.supported_by[0],
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(
+                        bounds.min().metres().x,
+                        bounds.min().metres().y - 0.015,
+                        bounds.min().metres().z,
+                    ),
+                    Vec3::new(
+                        bounds.max().metres().x,
+                        bounds.min().metres().y + 0.015,
+                        bounds.max().metres().z,
+                    ),
+                )?,
+            ));
     }
     for (index, surface) in geometry.surfaces.iter_mut().enumerate() {
         surface.id =
             ResolvedItemId((2_u64 << 60) | (u64::from(surface.owner.0) << 32) | index as u64);
     }
-    for (index, void) in geometry.voids.iter_mut().enumerate() {
-        void.id = ResolvedItemId((3_u64 << 60) | (u64::from(void.owner.0) << 32) | index as u64);
-        let crown = crowns
-            .iter()
-            .find(|crown| crown.owner == void.owner)
-            .expect("resolved void crown owner");
-        let centre = (void.bounds.min + void.bounds.max) * 0.5;
-        let outward = match crown.path {
-            CrownPath::Straight { outward, .. } => direction_vector(outward),
-            CrownPath::Round { centre: tower, .. } => {
-                (Vec2::new(centre.x, centre.z) - tower).normalize_or_zero()
-            }
-        };
-        geometry.drainage_routes.push(DrainageRoute {
-            id: ResolvedItemId((5_u64 << 60) | index as u64),
-            owner: void.owner,
-            outlet_void: void.id,
-            inlet: Vec3::new(
-                centre.x - outward.x * (crown.profile.thickness_metres * 0.5 + 0.01),
-                crown.base_height_metres - 0.02,
-                centre.z - outward.y * (crown.profile.thickness_metres * 0.5 + 0.01),
-            ),
-            outlet: Vec3::new(
-                centre.x + outward.x * 0.35,
-                crown.base_height_metres - 0.08,
-                centre.z + outward.y * 0.35,
-            ),
-        });
-    }
+    crown_drainage::connect_outlets(crowns, &mut geometry)?;
     // The wall-walk catchment is resolved as physical geometry rather than as
     // a nominal drainage arrow. Local +X follows the walk and local +Z is the
     // transverse axis; the signed crossfall therefore has one unambiguous
@@ -860,7 +854,7 @@ fn resolve_crown_geometry(
                                 tangent,
                                 outward,
                                 half_end - half_start,
-                            );
+                            )?;
                         }
                     }
                 }
@@ -884,16 +878,8 @@ fn resolve_crown_geometry(
                     let outward = Vec2::new(angle.cos(), angle.sin());
                     let tangent = Vec2::new(-outward.y, outward.x);
                     let segment_centre = centre + outward * deck_radius;
-                    let route = routes
-                        .iter()
-                        .min_by(|a, b| {
-                            let a_direction = Vec2::new(a.outlet.x, a.outlet.z) - centre;
-                            let b_direction = Vec2::new(b.outlet.x, b.outlet.z) - centre;
-                            let a_dot = a_direction.normalize_or_zero().dot(outward);
-                            let b_dot = b_direction.normalize_or_zero().dot(outward);
-                            b_dot.total_cmp(&a_dot)
-                        })
-                        .expect("round crown has a drainage route");
+                    let route =
+                        crown_drainage::nearest_route(&routes, centre, outward, crown.owner)?;
                     let full_length = 2.0
                         * outer_walk_radius
                         * (std::f32::consts::PI / segment_count as f32).tan()
@@ -902,12 +888,12 @@ fn resolve_crown_geometry(
                         push_drainage_catchment(
                             &mut geometry,
                             crown,
-                            *route,
+                            route,
                             segment_centre + tangent * side * full_length * 0.25,
                             tangent,
                             outward,
                             full_length * 0.5,
-                        );
+                        )?;
                     }
                 }
             }
@@ -1131,56 +1117,70 @@ fn resolve_crown_geometry(
                         Vec3::new(transverse, height, 0.16)
                     };
                     let solid_index = geometry.solids.len();
-                    let solid = ResolvedSolid {
-                        id: ResolvedItemId(
-                            (1_u64 << 60) | (u64::from(round_owner.0) << 32) | solid_index as u64,
-                        ),
-                        owner: round_owner,
-                        centre: Vec3::new(
-                            position.x,
-                            crown.base_height_metres + height * 0.5,
-                            position.y,
-                        ),
-                        size,
-                        yaw_radians: 0.0,
-                        crossfall_radians: 0.0,
-                        longfall_radians: 0.0,
+                    let solid = ResolvedSolid::new(
+                        CollisionCuboid::<Architectural>::from_metres(
+                            ResolvedItemId(
+                                (1_u64 << 60)
+                                    | (u64::from(round_owner.0) << 32)
+                                    | solid_index as u64,
+                            ),
+                            Vec3::new(
+                                position.x,
+                                crown.base_height_metres + height * 0.5,
+                                position.y,
+                            ),
+                            size,
+                            0.0,
+                            0.0,
+                            0.0,
+                        )?,
+                        round_owner,
                         role,
-                        shape: crate::ResolvedSolidShape::Cuboid,
-                        supported_by: vec![node],
-                    };
-                    let bounds = resolved_axis_bounds(solid.centre, solid.size);
-                    geometry.support_interfaces.push(SupportInterface {
-                        id: ResolvedItemId((4_u64 << 60) | solid_index as u64),
-                        owner: round_owner,
-                        node,
-                        bounds: ResolvedBounds {
-                            min: Vec3::new(bounds.min.x, bounds.min.y - 0.015, bounds.min.z),
-                            max: Vec3::new(bounds.max.x, bounds.min.y + 0.015, bounds.max.z),
-                        },
-                    });
+                        crate::ResolvedSolidShape::Cuboid,
+                        vec![node],
+                    );
+                    let bounds = resolved_axis_bounds(solid.centre.metres(), solid.size.metres())?;
+                    geometry
+                        .support_interfaces
+                        .push(crate::SupportInterface::new(
+                            ResolvedItemId((4_u64 << 60) | solid_index as u64),
+                            round_owner,
+                            node,
+                            SpatialBounds::<Architectural>::from_metres(
+                                Vec3::new(
+                                    bounds.min().metres().x,
+                                    bounds.min().metres().y - 0.015,
+                                    bounds.min().metres().z,
+                                ),
+                                Vec3::new(
+                                    bounds.max().metres().x,
+                                    bounds.min().metres().y + 0.015,
+                                    bounds.max().metres().z,
+                                ),
+                            )?,
+                        ));
                     geometry.solids.push(solid);
                 }
                 geometry.junction_bonds.push(JunctionBond {
                     id: ResolvedItemId((6_u64 << 60) | geometry.junction_bonds.len() as u64),
                     owners: pair,
-                    bounds: ResolvedBounds {
-                        min: Vec3::new(
+                    bounds: SpatialBounds::<Architectural>::from_metres(
+                        Vec3::new(
                             position.x - half.x,
                             crown.base_height_metres - 0.1,
                             position.y - half.y,
                         ),
-                        max: Vec3::new(
+                        Vec3::new(
                             position.x + half.x,
                             crown.base_height_metres + bond_height,
                             position.y + half.y,
                         ),
-                    },
+                    )?,
                     minimum_interface_area_square_metres: 0.08,
                     maximum_penetration_metres: 0.18,
                 });
             }
         }
     }
-    geometry
+    Ok(geometry)
 }

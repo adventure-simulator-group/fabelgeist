@@ -2,7 +2,10 @@
 use super::*;
 
 impl RectangularRoofWindow {
-    pub(super) fn void(&self, geometry: &mut ResolvedGeometry) -> ResolvedItemId {
+    pub(super) fn void(
+        &self,
+        geometry: &mut ResolvedGeometry,
+    ) -> Result<ResolvedItemId, crate::GenerationError> {
         let Self {
             opening_id,
             owner,
@@ -26,27 +29,30 @@ impl RectangularRoofWindow {
             -1
         };
         let void_half = tangent.abs() * (opening_width * 0.5) + outward.abs() * (thickness * 0.5);
-        wall_void(
+        Ok(wall_void(
             geometry,
             owner,
             10,
-            ResolvedBounds {
-                min: Vec3::new(
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     origin.x - void_half.x,
                     sill_elevation,
                     origin.y - void_half.y,
                 ),
-                max: Vec3::new(origin.x + void_half.x, head_bottom, origin.y + void_half.y),
-            },
+                Vec3::new(origin.x + void_half.x, head_bottom, origin.y + void_half.y),
+            )?,
             opening_id,
             opening_width,
             opening_width,
             clear_height,
             clear_height,
             exterior_depth_sign,
-        )
+        ))
     }
-    pub(super) fn reveals(&self, geometry: &mut ResolvedGeometry) -> Vec<ResolvedItemId> {
+    pub(super) fn reveals(
+        &self,
+        geometry: &mut ResolvedGeometry,
+    ) -> Result<Vec<ResolvedItemId>, crate::GenerationError> {
         let Self {
             owner,
             origin,
@@ -74,18 +80,18 @@ impl RectangularRoofWindow {
                 geometry,
                 owner,
                 slot,
-                ResolvedBounds {
-                    min: Vec3::new(
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(
                         plan.x - reveal_depth.x - side_half.x,
                         sill_elevation,
                         plan.y - reveal_depth.y - side_half.y,
                     ),
-                    max: Vec3::new(
+                    Vec3::new(
                         plan.x + reveal_depth.x + side_half.x,
                         head_bottom,
                         plan.y + reveal_depth.y + side_half.y,
                     ),
-                },
+                )?,
                 role,
             ));
         }
@@ -93,18 +99,18 @@ impl RectangularRoofWindow {
             geometry,
             owner,
             12,
-            ResolvedBounds {
-                min: Vec3::new(
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     origin.x - void_half.x,
                     sill_elevation,
                     origin.y - void_half.y,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     origin.x + void_half.x,
                     sill_elevation + 0.015,
                     origin.y + void_half.y,
                 ),
-            },
+            )?,
             SurfaceRole::WeatherSill,
             crate::ResolvedSurfaceShape::WeatherSill {
                 interior_elevation_metres: sill_elevation,
@@ -116,20 +122,23 @@ impl RectangularRoofWindow {
             geometry,
             owner,
             13,
-            ResolvedBounds {
-                min: Vec3::new(
+            SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     origin.x - void_half.x,
                     head_bottom - 0.015,
                     origin.y - void_half.y,
                 ),
-                max: Vec3::new(origin.x + void_half.x, head_bottom, origin.y + void_half.y),
-            },
+                Vec3::new(origin.x + void_half.x, head_bottom, origin.y + void_half.y),
+            )?,
             SurfaceRole::Intrados,
         ));
-        reveal_surfaces.extend(self.mouths(geometry));
-        reveal_surfaces
+        reveal_surfaces.extend(self.mouths(geometry)?);
+        Ok(reveal_surfaces)
     }
-    pub(super) fn mouths(&self, geometry: &mut ResolvedGeometry) -> Vec<ResolvedItemId> {
+    pub(super) fn mouths(
+        &self,
+        geometry: &mut ResolvedGeometry,
+    ) -> Result<Vec<ResolvedItemId>, crate::GenerationError> {
         let Self {
             owner,
             origin,
@@ -155,20 +164,20 @@ impl RectangularRoofWindow {
                 geometry,
                 owner,
                 slot,
-                ResolvedBounds {
-                    min: Vec3::new(plan.x - half.x, sill_elevation, plan.y - half.y),
-                    max: Vec3::new(plan.x + half.x, head_bottom, plan.y + half.y),
-                },
+                SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(plan.x - half.x, sill_elevation, plan.y - half.y),
+                    Vec3::new(plan.x + half.x, head_bottom, plan.y + half.y),
+                )?,
                 role,
             ));
         }
-        reveal_surfaces
+        Ok(reveal_surfaces)
     }
     pub(super) fn closures(
         &self,
         nodes: &WindowNodes,
         geometry: &mut ResolvedGeometry,
-    ) -> Vec<ResolvedItemId> {
+    ) -> Result<Vec<ResolvedItemId>, crate::GenerationError> {
         let Self {
             owner,
             origin,
@@ -203,15 +212,15 @@ impl RectangularRoofWindow {
                 role,
                 crate::ResolvedSolidShape::Cuboid,
                 head_node,
-            ));
+            )?);
         }
-        closure_solids
+        Ok(closure_solids)
     }
     pub(super) fn bearings(
         &self,
         nodes: &WindowNodes,
         geometry: &mut ResolvedGeometry,
-    ) -> ([ResolvedItemId; 2], ResolvedItemId) {
+    ) -> Result<([ResolvedItemId; 2], ResolvedItemId), crate::GenerationError> {
         let Self {
             owner,
             origin,
@@ -236,10 +245,10 @@ impl RectangularRoofWindow {
                 id,
                 owner,
                 node: head_node,
-                bounds: ResolvedBounds {
-                    min: Vec3::new(plan.x - 0.08, head_bottom, plan.y - 0.08),
-                    max: Vec3::new(plan.x + 0.08, head_bottom + 0.08, plan.y + 0.08),
-                },
+                bounds: SpatialBounds::<Architectural>::from_metres(
+                    Vec3::new(plan.x - 0.08, head_bottom, plan.y - 0.08),
+                    Vec3::new(plan.x + 0.08, head_bottom + 0.08, plan.y + 0.08),
+                )?,
             });
         }
         let wall_above_interface = ResolvedItemId((4_u64 << 60) | (u64::from(owner.0) << 32) | 62);
@@ -247,19 +256,19 @@ impl RectangularRoofWindow {
             id: wall_above_interface,
             owner,
             node: spandrel_node,
-            bounds: ResolvedBounds {
-                min: Vec3::new(
+            bounds: SpatialBounds::<Architectural>::from_metres(
+                Vec3::new(
                     origin.x - 0.08,
                     head_bottom + head_height - 0.025,
                     origin.y - 0.08,
                 ),
-                max: Vec3::new(
+                Vec3::new(
                     origin.x + 0.08,
                     head_bottom + head_height + 0.025,
                     origin.y + 0.08,
                 ),
-            },
+            )?,
         });
-        (bearing_ids, wall_above_interface)
+        Ok((bearing_ids, wall_above_interface))
     }
 }

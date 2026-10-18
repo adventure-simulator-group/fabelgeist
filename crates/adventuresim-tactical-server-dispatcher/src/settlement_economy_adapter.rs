@@ -169,7 +169,11 @@ mod tests {
         };
         let economy = economy_profile(&source);
         economy.validate().unwrap();
-        let plan = world::settlement_buildings::SettlementBuildingDemand::new(42, 6_500, &economy);
+        let plan = world::settlement_buildings::SettlementBuildingDemand::new(
+            fabelgeist_determinism::Seed::from_u64(42),
+            6_500,
+            &economy,
+        );
         assert!(
             plan.buildings
                 .iter()

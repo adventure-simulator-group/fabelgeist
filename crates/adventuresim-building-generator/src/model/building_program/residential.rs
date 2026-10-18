@@ -1,8 +1,9 @@
 use super::*;
 use RoomKind::*;
+use fabelgeist_determinism::Seed;
 
 impl BuildingProgram {
-    pub(super) fn town_house(seed: u64) -> Self {
+    pub(super) fn town_house(seed: Seed) -> Self {
         let archetype = BuildingArchetype::TownHouse;
         Self {
             archetype,
@@ -53,7 +54,7 @@ impl BuildingProgram {
         }
     }
 
-    pub(super) fn hall_house(seed: u64) -> Self {
+    pub(super) fn hall_house(seed: Seed) -> Self {
         let archetype = BuildingArchetype::HallHouse;
         Self {
             archetype,
@@ -87,7 +88,7 @@ impl BuildingProgram {
         }
     }
 
-    pub(super) fn fachwerk_cottage(seed: u64) -> Self {
+    pub(super) fn fachwerk_cottage(seed: Seed) -> Self {
         let archetype = BuildingArchetype::FachwerkCottage;
         Self {
             archetype,
@@ -118,7 +119,7 @@ impl BuildingProgram {
         }
     }
 
-    pub(super) fn fachwerk_merchant_house(seed: u64) -> Self {
+    pub(super) fn fachwerk_merchant_house(seed: Seed) -> Self {
         let archetype = BuildingArchetype::FachwerkMerchantHouse;
         Self {
             archetype,

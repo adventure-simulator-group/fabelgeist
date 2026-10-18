@@ -1,3 +1,4 @@
+
 #[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 pub(crate) enum InvestigationActionConsequence {
@@ -53,7 +54,7 @@ pub(crate) fn issue_investigation_action_capability(
     target_kind: action::InvestigationTargetKind,
     target_id: String,
     target_terrain: action::Terrain,
-    seed: u64,
+    seed: Seed,
     uncertainty_bps: u16,
     safe_summary: String,
     known_prerequisites: String,
@@ -1055,7 +1056,7 @@ fn issue_rumor_action_graph(
                 generated.target_kind,
                 generated.target_id.clone(),
                 generated_action_terrain(&manifest, generated),
-                ctx.random::<u64>(),
+                ctx.random::<fabelgeist_determinism::Seed>(),
                 7_000,
                 generated.safe_summary.clone(),
                 known_prerequisites,
@@ -1317,7 +1318,7 @@ fn issue_rumor_action_graph(
             kind_name,
             target,
             terrain,
-            ctx.random::<u64>(),
+            ctx.random::<fabelgeist_determinism::Seed>(),
             if matches!(
                 kind,
                 action::InvestigationActionKind::FollowTracks

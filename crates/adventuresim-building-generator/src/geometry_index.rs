@@ -1,121 +1,130 @@
 //! Conservative spatial candidates in source order. Callers retain their exact
 //! geometry predicates and deterministic first-match policies.
+use crate::{Architectural, SpatialBounds};
 use bevy::math::{Quat, Vec3};
 
-use crate::{ResolvedBounds, ResolvedSolid};
+use crate::ResolvedSolid;
+
+mod checked;
+pub(crate) use checked::{try_all, try_any};
 
 const MAX_LEAF_BOUNDS: usize = 8;
 
 impl ResolvedSolid {
-    pub(crate) fn yaw_bounds(&self) -> ResolvedBounds {
-        let cosine = self.yaw_radians.cos().abs();
-        let sine = self.yaw_radians.sin().abs();
-        let half = Vec3::new(
-            (self.size.x * cosine + self.size.z * sine) * 0.5,
-            self.size.y * 0.5,
-            (self.size.x * sine + self.size.z * cosine) * 0.5,
-        );
-        ResolvedBounds {
-            min: self.centre - half,
-            max: self.centre + half,
-        }
+    pub(crate) fn yaw_bounds(
+        &self,
+    ) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
+        let construct =
+            || -> Result<SpatialBounds<Architectural>, crate::spatial_geometry::GeometryError> {
+                let cosine = self.yaw_radians.radians().cos().abs();
+                let sine = self.yaw_radians.radians().sin().abs();
+                let half = Vec3::new(
+                    (self.size.metres().x * cosine + self.size.metres().z * sine) * 0.5,
+                    self.size.metres().y * 0.5,
+                    (self.size.metres().x * sine + self.size.metres().z * cosine) * 0.5,
+                );
+                SpatialBounds::<Architectural>::from_metres(
+                    self.centre.metres() - half,
+                    self.centre.metres() + half,
+                )
+            };
+        construct().map_err(|cause| {
+            crate::CollisionError {
+                source_id: self.id,
+                cause,
+            }
+            .into()
+        })
     }
 
     /// Covers both the yaw-only shape predicates and fully oriented cuboids.
-    pub(crate) fn query_bounds(&self) -> ResolvedBounds {
-        self.yaw_bounds().union(self.cuboid_bounds())
+    pub(crate) fn query_bounds(
+        &self,
+    ) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
+        Ok(self.yaw_bounds()?.union(self.cuboid_bounds()?))
     }
 
-    /// Exact world bounds of a cuboid under all three authored rotations.
-    pub fn cuboid_bounds(&self) -> ResolvedBounds {
-        let rotation = Quat::from_rotation_y(self.yaw_radians)
-            * Quat::from_rotation_x(self.crossfall_radians)
-            * Quat::from_rotation_z(self.longfall_radians);
-        let half = ((rotation * Vec3::X).abs() * self.size.x
-            + (rotation * Vec3::Y).abs() * self.size.y
-            + (rotation * Vec3::Z).abs() * self.size.z)
-            * 0.5;
-        ResolvedBounds {
-            min: self.centre - half,
-            max: self.centre + half,
-        }
-    }
-}
-
-impl ResolvedBounds {
-    fn union(self, other: Self) -> Self {
-        Self {
-            min: self.min.min(other.min),
-            max: self.max.max(other.max),
-        }
-    }
-
-    fn overlaps(self, other: Self) -> bool {
-        self.min.cmple(other.max).all() && other.min.cmple(self.max).all()
-    }
-
-    fn conservative(self) -> Self {
-        if self.min.is_finite() && self.max.is_finite() && self.min.cmple(self.max).all() {
-            self
-        } else {
-            // Invalid geometry must still reach the authoritative audit.
-            Self {
-                min: Vec3::NEG_INFINITY,
-                max: Vec3::INFINITY,
+    /// Separately rounded architectural envelope under the three authored rotations.
+    /// Contact exclusion uses computed corners; this envelope retains its original
+    /// f32 half-extent arithmetic for placement and broad-phase candidates.
+    pub fn cuboid_bounds(&self) -> Result<SpatialBounds<Architectural>, crate::GenerationError> {
+        let construct =
+            || -> Result<SpatialBounds<Architectural>, crate::spatial_geometry::GeometryError> {
+                let rotation = Quat::from_rotation_y(self.yaw_radians.radians())
+                    * Quat::from_rotation_x(self.crossfall_radians.radians())
+                    * Quat::from_rotation_z(self.longfall_radians.radians());
+                let half = ((rotation * Vec3::X).abs() * self.size.metres().x
+                    + (rotation * Vec3::Y).abs() * self.size.metres().y
+                    + (rotation * Vec3::Z).abs() * self.size.metres().z)
+                    * 0.5;
+                SpatialBounds::<Architectural>::from_metres(
+                    self.centre.metres() - half,
+                    self.centre.metres() + half,
+                )
+            };
+        construct().map_err(|cause| {
+            crate::CollisionError {
+                source_id: self.id,
+                cause,
             }
-        }
+            .into()
+        })
     }
 }
 
 pub(crate) struct BoundsIndex {
-    bounds: Vec<ResolvedBounds>,
+    bounds: Vec<SpatialBounds<Architectural>>,
     root: Option<BoundsNode>,
 }
 
 pub(crate) fn overlapping_solids(
     solids: &[ResolvedSolid],
-) -> impl Iterator<Item = (&ResolvedSolid, &ResolvedSolid)> {
-    let index = BoundsIndex::new(solids.iter().map(ResolvedSolid::query_bounds));
+) -> Result<impl Iterator<Item = (&ResolvedSolid, &ResolvedSolid)>, crate::GenerationError> {
+    let bounds = solids
+        .iter()
+        .map(ResolvedSolid::query_bounds)
+        .collect::<Result<Vec<_>, _>>()?;
+    let index = BoundsIndex::new(bounds)?;
     let pairs: Vec<_> = solids
         .iter()
         .enumerate()
-        .flat_map(|(a, solid)| {
+        .flat_map(|(a, _)| {
             index
-                .overlapping(solid.query_bounds())
+                .overlapping(index.bounds[a])
                 .into_iter()
                 .filter(move |&b| b > a)
                 .map(move |b| (a, b))
         })
         .collect();
-    pairs.into_iter().map(|(a, b)| (&solids[a], &solids[b]))
+    Ok(pairs.into_iter().map(|(a, b)| (&solids[a], &solids[b])))
 }
 
 enum BoundsNode {
     Leaf {
-        bounds: ResolvedBounds,
+        bounds: SpatialBounds<Architectural>,
         indices: Vec<usize>,
     },
     Branch {
-        bounds: ResolvedBounds,
+        bounds: SpatialBounds<Architectural>,
         children: Box<[BoundsNode; 2]>,
     },
 }
 
 impl BoundsIndex {
-    pub(crate) fn new(bounds: impl IntoIterator<Item = ResolvedBounds>) -> Self {
-        let bounds: Vec<_> = bounds
-            .into_iter()
-            .map(ResolvedBounds::conservative)
-            .collect();
+    pub(crate) fn new(
+        bounds: impl IntoIterator<Item = SpatialBounds<Architectural>>,
+    ) -> Result<Self, crate::GenerationError> {
+        let bounds: Vec<_> = bounds.into_iter().collect();
         let root = (!bounds.is_empty())
-            .then(|| BoundsNode::new(&mut (0..bounds.len()).collect::<Vec<_>>(), &bounds));
-        Self { bounds, root }
+            .then(|| BoundsNode::new(&mut (0..bounds.len()).collect::<Vec<_>>(), &bounds))
+            .transpose()?;
+        Ok(Self { bounds, root })
     }
 
-    pub(crate) fn overlapping(&self, query: ResolvedBounds) -> Vec<usize> {
+    pub(crate) fn overlapping(&self, query: SpatialBounds<Architectural>) -> Vec<usize> {
         let mut result = Vec::new();
         if let Some(root) = &self.root {
-            root.query(query.conservative(), &self.bounds, &mut result);
+            root.query(query, &self.bounds, &mut result);
         }
         result.sort_unstable();
         result
@@ -123,35 +132,54 @@ impl BoundsIndex {
 }
 
 impl BoundsNode {
-    fn new(indices: &mut [usize], source: &[ResolvedBounds]) -> Self {
-        let bounds = indices
+    fn new(
+        indices: &mut [usize],
+        source: &[SpatialBounds<Architectural>],
+    ) -> Result<Self, crate::GenerationError> {
+        let (&first, rest) = indices
+            .split_first()
+            .ok_or(crate::spatial_geometry::GeometryError::EmptySpatialPartition)?;
+        let bounds = rest
             .iter()
-            .map(|&i| source[i])
-            .reduce(ResolvedBounds::union)
-            .unwrap();
+            .fold(source[first], |bounds, &index| bounds.union(source[index]));
         if indices.len() <= MAX_LEAF_BOUNDS {
-            return Self::Leaf {
+            return Ok(Self::Leaf {
                 bounds,
                 indices: indices.to_vec(),
-            };
+            });
         }
-        let extent = bounds.max - bounds.min;
-        let axis = (0..3)
-            .max_by(|&a, &b| extent[a].total_cmp(&extent[b]))
-            .unwrap();
+        // Admission checks only arithmetic the branch actually uses. A finite
+        // degenerate leaf at a large coordinate need not have a finite doubled
+        // centre, since leaves never sort by that representation.
+        let extent = bounds.extent()?.metres();
+        let axis = (1..3).fold(0, |axis, next| {
+            if extent[next].total_cmp(&extent[axis]).is_ge() {
+                next
+            } else {
+                axis
+            }
+        });
+        for &index in indices.iter() {
+            source[index].centre()?;
+        }
         indices.sort_unstable_by(|&a, &b| {
-            let centre = |i: usize| source[i].min[axis] + source[i].max[axis];
+            let centre = |i: usize| source[i].min().metres()[axis] + source[i].max().metres()[axis];
             centre(a).total_cmp(&centre(b)).then(a.cmp(&b))
         });
         let middle = indices.len() / 2;
         let (left, right) = indices.split_at_mut(middle);
-        Self::Branch {
+        Ok(Self::Branch {
             bounds,
-            children: Box::new([Self::new(left, source), Self::new(right, source)]),
-        }
+            children: Box::new([Self::new(left, source)?, Self::new(right, source)?]),
+        })
     }
 
-    fn query(&self, query: ResolvedBounds, source: &[ResolvedBounds], result: &mut Vec<usize>) {
+    fn query(
+        &self,
+        query: SpatialBounds<Architectural>,
+        source: &[SpatialBounds<Architectural>],
+        result: &mut Vec<usize>,
+    ) {
         match self {
             Self::Leaf { bounds, indices } if bounds.overlaps(query) => {
                 result.extend(
@@ -181,13 +209,11 @@ mod tests {
             .rev()
             .map(|i| {
                 let min = Vec3::new((i % 13) as f32 - 7.0, (i % 7) as f32, i as f32 * 0.1);
-                ResolvedBounds {
-                    min,
-                    max: min + Vec3::new(1.0, 2.0, 3.0),
-                }
+                SpatialBounds::<Architectural>::from_metres(min, min + Vec3::new(1.0, 2.0, 3.0))
+                    .unwrap()
             })
             .collect();
-        let index = BoundsIndex::new(boxes.iter().copied());
+        let index = BoundsIndex::new(boxes.iter().copied()).unwrap();
         for query in &boxes {
             let expected: Vec<_> = boxes
                 .iter()
@@ -196,6 +222,47 @@ mod tests {
                 .collect();
             assert_eq!(index.overlapping(*query), expected);
         }
-        assert!(BoundsIndex::new([]).overlapping(boxes[0]).is_empty());
+        assert!(
+            BoundsIndex::new([])
+                .unwrap()
+                .overlapping(boxes[0])
+                .is_empty()
+        );
+    }
+}
+
+#[cfg(test)]
+mod admission_tests {
+    use super::*;
+    #[test]
+    fn partition_admission_checks_only_arithmetic_used_by_its_topology() {
+        let huge = SpatialBounds::<Architectural>::at(
+            crate::spatial_geometry::Position::from_metres(Vec3::splat(f32::MAX)).unwrap(),
+        );
+        let leaf = BoundsIndex::new([huge]).unwrap();
+        assert_eq!(leaf.overlapping(huge), vec![0]);
+        assert!(matches!(
+            BoundsIndex::new([huge; MAX_LEAF_BOUNDS + 1]),
+            Err(crate::GenerationError::Geometry(
+                crate::spatial_geometry::GeometryError::NonFinite {
+                    role: crate::spatial_geometry::GeometryRole::BoundsCentre,
+                    ..
+                }
+            ))
+        ));
+        let wide = SpatialBounds::<Architectural>::from_metres(
+            Vec3::splat(-f32::MAX),
+            Vec3::splat(f32::MAX),
+        )
+        .unwrap();
+        assert!(matches!(
+            BoundsIndex::new([wide; MAX_LEAF_BOUNDS + 1]),
+            Err(crate::GenerationError::Geometry(
+                crate::spatial_geometry::GeometryError::NonFinite {
+                    role: crate::spatial_geometry::GeometryRole::BoundsExtent,
+                    ..
+                }
+            ))
+        ));
     }
 }

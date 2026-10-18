@@ -1,5 +1,7 @@
 //! Reproducible distinct destinations for the real-renderer travel benchmark.
 use super::*;
+use adventuresim_tactical_core::scene_input::SceneBuildingId;
+use fabelgeist_determinism::Seed;
 
 #[test]
 #[ignore = "writes explicit benchmark scene inputs to STRATEGIC_TRAVEL_FIXTURE_DIR"]
@@ -22,24 +24,28 @@ fn distinct_city_inputs_validate_occupied_layouts() {
     }))
     .unwrap();
     let occupied = request.placements(&base);
-    for (index, offset) in [1_u64, 1001].into_iter().enumerate() {
+    for (index, (offset, destination_seeds)) in [1_u64, 1001]
+        .into_iter()
+        .zip(DESTINATION_SEEDS.iter())
+        .enumerate()
+    {
         let mut input = base.clone();
-        input.seed = input.seed.wrapping_add(offset);
+        input.seed = input.seed.wrapping_offset(offset);
         input.scene_key = format!("travel-distinct-{}", index + 1);
-        for &(id, seed) in &DESTINATION_SEEDS[index] {
-            if let Some(placement) = input.buildings.iter_mut().find(|p| p.id == id) {
+        for &DestinationSeed { building, seed } in destination_seeds {
+            if let Some(placement) = input.buildings.iter_mut().find(|p| p.id == building) {
                 placement.program.seed = seed;
             } else {
                 input
                     .distant_buildings
                     .iter_mut()
-                    .find(|p| p.id == id)
+                    .find(|p| p.id == building)
                     .unwrap()
                     .seed = seed;
             }
         }
         let destinations = request.placements(&input);
-        assert_eq!(destinations.len(), DESTINATION_SEEDS[index].len());
+        assert_eq!(destinations.len(), destination_seeds.len());
         for placement in destinations {
             let original = occupied.iter().find(|p| p.id == placement.id).unwrap();
             assert_ne!(original.program, placement.program);
@@ -65,39 +71,134 @@ fn distinct_city_inputs_validate_occupied_layouts() {
 
 // Authored fixture seeds stay fixed so generator changes cannot silently choose
 // easier layouts and invalidate benchmark comparisons.
-const DESTINATION_SEEDS: [[(u64, u64); 15]; 2] = [
+struct DestinationSeed {
+    building: SceneBuildingId,
+    seed: Seed,
+}
+
+const DESTINATION_SEEDS: [[DestinationSeed; 15]; 2] = [
     [
-        (2, 48),
-        (4, 10192903604835745921),
-        (5, 43),
-        (8, 102),
-        (10, 48),
-        (11, 48),
-        (12, 102),
-        (58, 43),
-        (66, 48),
-        (70, 43),
-        (154, 48),
-        (193, 49),
-        (390, 102),
-        (596, 102),
-        (940, 103),
+        DestinationSeed {
+            building: SceneBuildingId(2),
+            seed: Seed::from_u64(48),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(4),
+            seed: Seed::from_u64(10192903604835745921),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(5),
+            seed: Seed::from_u64(43),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(8),
+            seed: Seed::from_u64(102),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(10),
+            seed: Seed::from_u64(48),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(11),
+            seed: Seed::from_u64(48),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(12),
+            seed: Seed::from_u64(102),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(58),
+            seed: Seed::from_u64(43),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(66),
+            seed: Seed::from_u64(48),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(70),
+            seed: Seed::from_u64(43),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(154),
+            seed: Seed::from_u64(48),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(193),
+            seed: Seed::from_u64(49),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(390),
+            seed: Seed::from_u64(102),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(596),
+            seed: Seed::from_u64(102),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(940),
+            seed: Seed::from_u64(103),
+        },
     ],
     [
-        (2, 1048),
-        (4, 10192903604835746921),
-        (5, 1043),
-        (8, 1102),
-        (10, 1048),
-        (11, 1048),
-        (12, 1102),
-        (58, 1043),
-        (66, 1048),
-        (70, 1043),
-        (154, 1048),
-        (193, 1048),
-        (390, 1102),
-        (596, 1102),
-        (940, 1102),
+        DestinationSeed {
+            building: SceneBuildingId(2),
+            seed: Seed::from_u64(1048),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(4),
+            seed: Seed::from_u64(10192903604835746921),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(5),
+            seed: Seed::from_u64(1043),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(8),
+            seed: Seed::from_u64(1102),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(10),
+            seed: Seed::from_u64(1048),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(11),
+            seed: Seed::from_u64(1048),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(12),
+            seed: Seed::from_u64(1102),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(58),
+            seed: Seed::from_u64(1043),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(66),
+            seed: Seed::from_u64(1048),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(70),
+            seed: Seed::from_u64(1043),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(154),
+            seed: Seed::from_u64(1048),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(193),
+            seed: Seed::from_u64(1048),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(390),
+            seed: Seed::from_u64(1102),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(596),
+            seed: Seed::from_u64(1102),
+        },
+        DestinationSeed {
+            building: SceneBuildingId(940),
+            seed: Seed::from_u64(1102),
+        },
     ],
 ];
