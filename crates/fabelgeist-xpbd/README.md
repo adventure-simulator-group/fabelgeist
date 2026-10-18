@@ -21,3 +21,5 @@ Contact gradients, barycentric weights, effective inverse mass, and projection
 corrections retain distinct roles through the host solver. The checked native
 word fixtures cover particle records, triangle mass accumulation, contact
 resolution, and layer projection.
+The [per-second damping contract](damping.md) describes exponential velocity
+drag, native scalar boundaries and consumer admission policies.

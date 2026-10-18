@@ -1,6 +1,7 @@
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_math::Vec2;
 use fabelgeist_physics::{Collider, Collisions};
+use fabelgeist_shell::DampingRate;
 use fabelgeist_xpbd::{Solver, SolverSettings};
 
 use super::*;
@@ -292,7 +293,7 @@ async fn seams_pull_panels_together() -> Result<()> {
     let solver = harness.solver(SolverSettings {
         substeps: 15,
         gravity: Vec3::default(),
-        damping: 2.0,
+        damping: DampingRate::per_second(2.0),
         ..Default::default()
     })?;
     for _ in 0..240 {
@@ -652,7 +653,7 @@ async fn interactive_step_blocks_a_triangle_interior_crossing() -> Result<()> {
     let solver = harness.solver(SolverSettings {
         substeps: 1,
         gravity: Vec3::default(),
-        damping: 0.,
+        damping: DampingRate::per_second(0.),
         ..cloth.settings()
     })?;
     let mut collisions = harness.collisions()?;

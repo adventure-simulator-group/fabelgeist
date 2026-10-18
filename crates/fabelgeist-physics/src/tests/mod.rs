@@ -4,11 +4,36 @@ use fabelgeist_bvh::gpu::BvhKernels;
 use fabelgeist_compute::prelude::*;
 use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
+use fabelgeist_xpbd::dynamics::DampingRate;
 use fabelgeist_xpbd::{Particles, Solver, SolverSettings};
 
 use crate::collider::{Collider, Shape};
 use crate::mesh::{MeshCollider, MeshSurface};
 use crate::{Collisions, HookChain};
+
+// ----- and the GPU response -----
+
+struct Harness {
+    context: WgpuContext,
+    cache: KernelCache,
+}
+
+impl Harness {
+    async fn new() -> Result<Self> {
+        Ok(Self {
+            context: WgpuContext::new().await?,
+            cache: KernelCache::new(),
+        })
+    }
+
+    fn solver(&self, settings: SolverSettings) -> Result<Solver> {
+        Solver::with_cache(&self.context, &self.cache, settings)
+    }
+
+    fn collisions(&self) -> Result<Collisions> {
+        Collisions::new(&self.context, &self.cache)
+    }
+}
 
 /// A UV sphere, and the analytic surface it approximates.
 fn sphere_mesh(rings: usize, segments: usize, radius: f32) -> (Vec<Vec3>, Vec<[u32; 3]>) {
@@ -130,34 +155,10 @@ fn box_distance_covers_faces_edges_and_the_interior() {
     assert!((turned - 1.0).abs() < 1e-4, "expected 1.0, got {turned}");
 }
 
-// ----- and the GPU response -----
-
-struct Harness {
-    context: WgpuContext,
-    cache: KernelCache,
-}
-
-impl Harness {
-    async fn new() -> Result<Self> {
-        Ok(Self {
-            context: WgpuContext::new().await?,
-            cache: KernelCache::new(),
-        })
-    }
-
-    fn solver(&self, settings: SolverSettings) -> Result<Solver> {
-        Solver::with_cache(&self.context, &self.cache, settings)
-    }
-
-    fn collisions(&self) -> Result<Collisions> {
-        Collisions::new(&self.context, &self.cache)
-    }
-}
-
 fn settings(substeps: u32) -> SolverSettings {
     SolverSettings {
         substeps,
-        damping: 1.0,
+        damping: DampingRate::per_second(1.0),
         ..Default::default()
     }
 }
@@ -285,7 +286,7 @@ async fn friction_holds_a_particle_on_a_slope() -> Result<()> {
 
         let solver = harness.solver(SolverSettings {
             substeps: 20,
-            damping: 0.0,
+            damping: DampingRate::per_second(0.0),
             ..Default::default()
         })?;
         for _ in 0..120 {
@@ -488,7 +489,7 @@ async fn a_particle_started_inside_is_pushed_out() -> Result<()> {
     let solver = harness.solver(SolverSettings {
         substeps: 20,
         gravity: Vec3::default(),
-        damping: 5.0,
+        damping: DampingRate::per_second(5.0),
         ..Default::default()
     })?;
     for _ in 0..120 {

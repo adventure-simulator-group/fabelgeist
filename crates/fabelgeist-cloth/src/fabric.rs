@@ -6,7 +6,7 @@
 //! fabric read as itself when a garment is draped, which is what a fitting
 //! tool actually needs.
 
-use fabelgeist_shell::ParticleArealDensity;
+use fabelgeist_shell::{DampingRate, ParticleArealDensity};
 
 /// Material parameters for one garment.
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -36,7 +36,7 @@ pub struct Fabric {
     pub friction: f32,
     /// Velocity drag, per second. Air resistance, in effect: it is what stops
     /// a draped garment swinging forever.
-    pub damping: f32,
+    pub damping: DampingRate,
 }
 
 impl Default for Fabric {
@@ -54,7 +54,7 @@ impl Fabric {
         seam_compliance: 1e-9,
         thickness: 0.003,
         friction: 0.4,
-        damping: 1.2,
+        damping: DampingRate::per_second(1.2),
     };
 
     /// A plain medium-weight woven: the default for anything unspecified.
@@ -65,7 +65,7 @@ impl Fabric {
         seam_compliance: 1e-8,
         thickness: 0.0006,
         friction: 0.35,
-        damping: 0.6,
+        damping: DampingRate::per_second(0.6),
     };
 
     /// Light, slippery, and it falls in many fine folds.
@@ -76,7 +76,7 @@ impl Fabric {
         seam_compliance: 1e-8,
         thickness: 0.0003,
         friction: 0.12,
-        damping: 0.4,
+        damping: DampingRate::per_second(0.4),
     };
 
     /// Heavy and stiff: few folds, and they hold their shape.
@@ -87,7 +87,7 @@ impl Fabric {
         seam_compliance: 1e-9,
         thickness: 0.0012,
         friction: 0.5,
-        damping: 0.9,
+        damping: DampingRate::per_second(0.9),
     };
 
     /// Heavy but soft, and it clings.
@@ -98,7 +98,7 @@ impl Fabric {
         seam_compliance: 1e-8,
         thickness: 0.0010,
         friction: 0.55,
-        damping: 0.8,
+        damping: DampingRate::per_second(0.8),
     };
 
     /// Knitted: it stretches, which is the whole point of it.
@@ -109,7 +109,7 @@ impl Fabric {
         seam_compliance: 1e-7,
         thickness: 0.0008,
         friction: 0.4,
-        damping: 0.6,
+        damping: DampingRate::per_second(0.6),
     };
 
     pub const PRESETS: &'static [(&'static str, Self)] = &[

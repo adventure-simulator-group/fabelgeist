@@ -23,6 +23,7 @@ use fabelgeist_gpu::prelude::*;
 use fabelgeist_math::Vec3;
 
 use crate::constraint::ConstraintSet;
+use crate::dynamics::DampingRate;
 use crate::particles::Particles;
 use crate::wgsl;
 
@@ -39,26 +40,18 @@ pub struct SolverSettings {
     pub gravity: Vec3,
     /// Exponential velocity drag, per second. Independent of the substep
     /// count, so changing `substeps` does not change how draggy the cloth is.
-    pub damping: f32,
+    pub damping: DampingRate,
     /// Ceiling on particle speed. It only ever binds when something has
     /// already gone wrong, and it is what turns a blown-up frame into a
     /// recoverable one rather than a garment flung off the screen.
     pub max_speed: f32,
 }
 
-impl Default for SolverSettings {
-    fn default() -> Self {
-        Self {
-            substeps: 10,
-            iterations: 1,
-            // Metres per second squared, and the rest of the stack is in
-            // metres, so a garment in centimetres has to be scaled on the way
-            // in.
-            gravity: Vec3::new(0.0, -9.81, 0.0),
-            damping: 0.1,
-            max_speed: 20.0,
-        }
-    }
+/// The predict/finalize pair, and the loop that drives them.
+pub struct Solver {
+    predict: Arc<Kernel>,
+    finalize: Arc<Kernel>,
+    pub settings: SolverSettings,
 }
 
 /// Anything that wants to run between the prediction and the constraint solve
@@ -81,6 +74,21 @@ pub trait SubstepHook {
         _substep: f32,
     ) -> Result<()> {
         Ok(())
+    }
+}
+
+impl Default for SolverSettings {
+    fn default() -> Self {
+        Self {
+            substeps: 10,
+            iterations: 1,
+            // Metres per second squared, and the rest of the stack is in
+            // metres, so a garment in centimetres has to be scaled on the way
+            // in.
+            gravity: Vec3::new(0.0, -9.81, 0.0),
+            damping: DampingRate::per_second(0.1),
+            max_speed: 20.0,
+        }
     }
 }
 
@@ -107,13 +115,6 @@ where
     ) -> Result<()> {
         self(batch, particles, substep)
     }
-}
-
-/// The predict/finalize pair, and the loop that drives them.
-pub struct Solver {
-    predict: Arc<Kernel>,
-    finalize: Arc<Kernel>,
-    pub settings: SolverSettings,
 }
 
 impl Solver {
@@ -253,7 +254,8 @@ impl Solver {
             ),
         );
         parameters.insert("substep", substep);
-        parameters.insert("damping", self.settings.damping);
+        // The shader uniform consumes a native per-second scalar.
+        parameters.insert("damping", f32::from(self.settings.damping));
         parameters.insert("count", particles.count());
         parameters.insert("max_speed", self.settings.max_speed);
         batch.dispatch_items(&self.predict, &parameters, particles.count())?;
