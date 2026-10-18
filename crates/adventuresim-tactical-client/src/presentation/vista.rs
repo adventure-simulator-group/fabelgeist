@@ -1,12 +1,18 @@
 mod details;
+mod strategic;
+pub(crate) use strategic::{StrategicBackdrop, spawn_strategic_backdrop};
+#[cfg(any(target_family = "wasm", test))]
+pub(in crate::presentation) mod focused;
 pub(in crate::presentation) mod grass;
 mod natural;
+pub(in crate::presentation) mod regional;
 use details::*;
 use fabelgeist_determinism::Seed;
 mod pigment;
 use pigment::{VistaVertexColors, vista_sward_coverage};
 #[cfg(test)]
 use pigment::{presented_color, stitch_vista_color_to_playable_edge, vista_sample_color};
+pub(super) mod geographic_ground;
 mod ground;
 use ground::{tree_root_height, vista_lod_meshes_with_morph, vista_scatter_transform};
 pub(super) mod owned;
@@ -323,7 +329,10 @@ impl MaterialExtension for TacticalVistaExtension {
 pub(in crate::presentation) type TacticalVistaMaterial =
     ExtendedMaterial<StandardMaterial, TacticalVistaExtension>;
 
-fn vista_material(weather: WeatherSnapshot, grass_color: Color) -> TacticalVistaMaterial {
+pub(super) fn vista_material(
+    weather: WeatherSnapshot,
+    grass_color: Color,
+) -> TacticalVistaMaterial {
     TacticalVistaMaterial {
         base: StandardMaterial {
             base_color: Color::WHITE,
@@ -367,6 +376,200 @@ mod tests {
         assert!(shader.contains("color = mix(color, sward_target, sward)"));
         assert!(!shader.contains("sward_color = color *"));
         assert!(shader.contains("let molded_rock = vec3<f32>(0.31, 0.30, 0.275)"));
+        use adventuresim_tactical_core::regional_terrain::*;
+        use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
+        use adventuresim_world_schema::source_package::SourcePackageDigest;
+        let vertex = RegionalTerrainVertex {
+            elevation: adventuresim_world_schema::ElevationMeters::new(321).unwrap(),
+            environment: EnvironmentalSample {
+                cultivation_bps: 8_000,
+                ..default()
+            },
+        };
+        let request = RegionalTerrainRequest {
+            origin: Wgs84CoordinateMicrodegrees::from_longitude_latitude_degrees(10.5, 50.5)
+                .unwrap(),
+            scale: RegionalTerrainScale::Neighborhood,
+        };
+        let mut vertices = vec![Some(vertex); REGIONAL_TERRAIN_VERTICES];
+        vertices[0] = None;
+        let terrain = RegionalTerrain::new(
+            request,
+            SourcePackageDigest::from_hex(&"a".repeat(64)).unwrap(),
+            vertices,
+        )
+        .unwrap();
+        let mesh = regional::regional_mesh(&terrain, clear_vista_weather()).unwrap();
+        let positions = mesh
+            .attribute(Mesh::ATTRIBUTE_POSITION)
+            .unwrap()
+            .as_float3()
+            .unwrap();
+        let indices = mesh.indices().unwrap().iter().collect::<Vec<_>>();
+        assert!(!indices.contains(&0), "source holes have no triangles");
+        assert_eq!(
+            indices.len(),
+            ((REGIONAL_TERRAIN_SIDE - 1).pow(2) * 2 - 1) * 3
+        );
+        assert!(positions[1][0] > positions[0][0], "east points right");
+        assert!(
+            positions[REGIONAL_TERRAIN_SIDE][2] < positions[0][2],
+            "north points up"
+        );
+        for triangle in indices.as_chunks::<3>().0 {
+            let [a, b, c] = [triangle[0], triangle[1], triangle[2]]
+                .map(|index| Vec3::from_array(positions[index]));
+            assert_eq!(a.y, 321.0, "absolute elevation is preserved");
+            assert!((b - a).cross(c - a).y > 0.0, "upward-facing ground");
+        }
+        let empty = RegionalTerrain::new(
+            request,
+            terrain.source().clone(),
+            vec![None; REGIONAL_TERRAIN_VERTICES],
+        )
+        .unwrap();
+        assert!(regional::regional_mesh(&empty, clear_vista_weather()).is_none());
+        assert_strategic_backdrop_samples_rendered_rings();
+    }
+
+    fn assert_strategic_backdrop_samples_rendered_rings() {
+        let mut input: TacticalSceneInput = serde_json::from_str(include_str!(
+            "../../../../assets/tactical-scenes/flat-dry-grassland.json"
+        ))
+        .unwrap();
+        input.playable.width = 5;
+        input.playable.depth = 5;
+        input.playable.spacing_metres = 1.0;
+        input.playable.heights_metres = (0..25).map(|i| (i % 5 * (i / 5)) as f32 * 0.1).collect();
+        input.playable.environment = vec![
+            EnvironmentalSample {
+                surface: TacticalSurface::Water,
+                water_bps: 10_000,
+                ..default()
+            };
+            25
+        ];
+        input.vista.lods = [3.0, 9.0, 27.0]
+            .into_iter()
+            .enumerate()
+            .map(|(level, spacing)| VistaLod {
+                level: adventuresim_tactical_core::scene_input::VistaLevelIndex::new(level as u8),
+                spacing_metres: spacing,
+                width: 7,
+                depth: 7,
+                origin_east_metres: 0.0,
+                origin_north_metres: 0.0,
+                heights_metres: (0..49)
+                    .map(|i| {
+                        ((i % 7) as f32 - 3.0) * ((i / 7) as f32 - 3.0) * (level + 1) as f32 * 0.35
+                    })
+                    .collect(),
+                environment: vec![
+                    EnvironmentalSample {
+                        surface: TacticalSurface::Open,
+                        cultivation_bps: 4_000,
+                        ..default()
+                    };
+                    49
+                ],
+            })
+            .collect();
+        for maximum_lods in [1, 2] {
+            let backdrop = StrategicBackdrop::new(&input, maximum_lods).unwrap();
+            let mut environment = input.environment_snapshot("sampled-backdrop".into());
+            environment.weather.ground_moisture_bps = 7_500;
+            environment.weather.snow_cover_bps = 6_500;
+            let mut app = App::new();
+            app.init_resource::<Assets<Mesh>>()
+                .init_resource::<Assets<TacticalVistaMaterial>>();
+            let root = app.world_mut().spawn_empty().id();
+            let retained = backdrop.clone();
+            let weather = environment.weather;
+            app.add_systems(Update, move |mut commands: Commands| {
+                spawn_strategic_backdrop(
+                    &mut commands,
+                    retained.clone(),
+                    environment.clone(),
+                    root,
+                );
+            });
+            app.update();
+            let meshes = app.world().resource::<Assets<Mesh>>();
+            for (_, mesh) in meshes.iter() {
+                assert!(mesh.attribute(Mesh::ATTRIBUTE_UV_0).is_none());
+                let positions = mesh
+                    .attribute(Mesh::ATTRIBUTE_POSITION)
+                    .unwrap()
+                    .as_float3()
+                    .unwrap();
+                let bevy::mesh::VertexAttributeValues::Float32x4(colors) =
+                    mesh.attribute(Mesh::ATTRIBUTE_COLOR).unwrap()
+                else {
+                    panic!("ground pigment is required")
+                };
+                let water = pigment::vista_sample_color(input.playable.environment[0], weather);
+                for (position, color) in positions.iter().zip(colors) {
+                    if (position[0].abs() == 2.0 && position[2].abs() <= 2.0)
+                        || (position[2].abs() == 2.0 && position[0].abs() <= 2.0)
+                    {
+                        assert!(
+                            (Vec4::from_array(*color) - water).abs().max_element() < 0.000001,
+                            "shared foreground/ring edge must preserve water pigment and coverage"
+                        );
+                    }
+                }
+                for triangle in mesh
+                    .indices()
+                    .unwrap()
+                    .iter()
+                    .collect::<Vec<_>>()
+                    .as_chunks::<3>()
+                    .0
+                {
+                    let [a, b, c] = triangle.map(|index| Vec3::from_array(positions[index]));
+                    let centre = (a + b + c) / 3.0;
+                    assert!(
+                        (backdrop.height_at(centre.xz()).unwrap() - centre.y).abs() < 0.0001,
+                        "outdoor position differs from rendered triangle: {centre:?}"
+                    );
+                }
+                if positions
+                    .iter()
+                    .any(|point| point[0].abs() > 9.0 || point[2].abs() > 9.0)
+                {
+                    let bevy::mesh::VertexAttributeValues::Float32x4(colors) =
+                        mesh.attribute(Mesh::ATTRIBUTE_COLOR).unwrap()
+                    else {
+                        panic!("color coverage is required")
+                    };
+                    let expected =
+                        VistaVertexColors::new(&input.vista.lods[1], None, None, weather);
+                    for (position, color) in positions.iter().zip(colors) {
+                        assert_eq!(
+                            *color,
+                            expected
+                                .at(Vec2::new(position[0], position[2]), Vec2::splat(9.0))
+                                .unwrap(),
+                            "outer ring must keep regional pigment rather than foreground water"
+                        );
+                    }
+                }
+            }
+            assert!(
+                backdrop.height_at(Vec2::new(60.0, 0.0)).is_none(),
+                "unrendered rings cannot seat actors"
+            );
+            let mut sources = app
+                .world_mut()
+                .query_filtered::<Entity, With<StrategicBackdrop>>();
+            let source = sources.single(app.world()).unwrap();
+            assert!(!app.world().entity(source).contains::<SceneTerrain>());
+            assert!(!app.world().entity(source).contains::<SceneId>());
+            let mut rendered = app
+                .world_mut()
+                .query_filtered::<Has<NotShadowCaster>, With<Mesh3d>>();
+            assert!(rendered.iter(app.world()).all(|excluded| excluded));
+        }
     }
 
     #[test]

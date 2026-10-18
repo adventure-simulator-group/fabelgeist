@@ -1,46 +1,38 @@
-//! Declared array cardinality and the five binary element layouts.
+//! Declared array cardinality and stored payload length from the wire header.
 
-/// An unsigned encoded element count, distinct from a payload byte length.
-/// All wire declarations, including zero, remain admitted.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+use derive_more::From;
+
+/// An encoded element count, distinct from a stored payload byte length.
+#[derive(Clone, Copy, Debug, From, PartialEq, Eq)]
 pub(super) struct FbxArrayCount(u32);
 
-/// The element layouts supported by binary FBX array properties.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum FbxArrayKind {
-    Float32,
-    Float64,
-    Integer32,
-    Integer64,
-    Boolean,
-}
-
-impl From<u32> for FbxArrayCount {
-    fn from(count: u32) -> Self {
-        Self(count)
-    }
-}
+/// Length of the stored array payload, whether raw or Zlib-compressed.
+pub(super) struct FbxArrayPayloadLength(u32);
 
 impl FbxArrayCount {
-    /// Native iteration bound for the decoded element buffer.
+    pub(super) fn from_le_bytes(bytes: [u8; size_of::<u32>()]) -> Self {
+        Self(u32::from_le_bytes(bytes))
+    }
+
+    /// Host-sized bound for native buffer iteration.
     pub(super) fn native_len(self) -> usize {
         self.0 as usize
     }
 
-    /// Native allocation/length-check adapter, preserving host multiplication.
-    /// This does not add an overflow check or resource limit.
-    pub(super) fn native_byte_len(self, kind: FbxArrayKind) -> usize {
-        self.native_len() * kind.native_width()
+    /// Native buffer capacity/check using the selected decoder's input width.
+    /// Preserves host multiplication without adding a bound or overflow policy.
+    pub(super) fn native_byte_len<const ELEMENT_BYTES: usize>(self) -> usize {
+        self.native_len() * ELEMENT_BYTES
     }
 }
 
-impl FbxArrayKind {
-    /// Byte stride at native buffer and diagnostic adapters.
-    pub(super) fn native_width(self) -> usize {
-        match self {
-            Self::Boolean => 1,
-            Self::Float32 | Self::Integer32 => 4,
-            Self::Float64 | Self::Integer64 => 8,
-        }
+impl FbxArrayPayloadLength {
+    pub(super) fn from_le_bytes(bytes: [u8; size_of::<u32>()]) -> Self {
+        Self(u32::from_le_bytes(bytes))
+    }
+
+    /// Host-sized byte length at the reader's native slice boundary.
+    pub(super) fn native_len(self) -> usize {
+        self.0 as usize
     }
 }

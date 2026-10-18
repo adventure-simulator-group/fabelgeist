@@ -56,6 +56,8 @@ bevy_eidolon.workspace = true
 bevy = { workspace = true, default-features = true, features = ["file_watcher", "jpeg"] }
 
 [target."cfg(target_family = \"wasm\")".dependencies]
+# Select the shared hashing backend only for the browser renderer graph.
+blake3 = { workspace = true, features = ["wasm32_simd"] }
 bevy = { workspace = true, default-features = false, features = [
     "default_app",
     "std",

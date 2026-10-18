@@ -1,7 +1,7 @@
 //! Capture readiness reads the same resolved meshes and wearer skins as gameplay.
 use crate::equipment::{
     ItemPlaceholder, ProceduralEquipmentFailed, ProceduralEquipmentPart,
-    ProceduralEquipmentResolved, RuntimeEquipmentWarmup,
+    ProceduralEquipmentResolved,
 };
 use crate::presentation::interior_lighting::InteriorMaterial;
 use bevy::{
@@ -38,7 +38,6 @@ type EquipmentRenderPart = (
 /// Loading cuboid proxies never qualify as captured armor.
 #[derive(SystemParam)]
 pub(in crate::animation_viewer) struct EquipmentVisualStatus<'w, 's> {
-    warmup: Res<'w, RuntimeEquipmentWarmup>,
     roots: Query<
         'w,
         's,
@@ -61,11 +60,6 @@ impl EquipmentVisualStatus<'_, '_> {
         item: Entity,
         required: EquipmentVisualRequirements,
     ) -> EquipmentVisualState {
-        match self.warmup.check() {
-            Ok(true) => {}
-            Ok(false) => return EquipmentVisualState::Loading,
-            Err(_) => return EquipmentVisualState::Failed,
-        }
         let Some((_, resolved, failed)) = self.roots.iter().find(|(root, _, _)| root.0 == item)
         else {
             return EquipmentVisualState::Missing;
@@ -173,7 +167,6 @@ mod tests {
     #[test]
     fn requested_parts_require_skins_and_reject_equipment_morphs() {
         let mut world = World::new();
-        world.insert_resource(RuntimeEquipmentWarmup::ready_for_tests());
         world.init_resource::<Assets<Mesh>>();
         world.init_resource::<Assets<StandardMaterial>>();
         world.init_resource::<Assets<Image>>();
@@ -270,7 +263,6 @@ mod tests {
     #[test]
     fn missing_fallback_and_unbound_equipment_never_pass_capture_readiness() {
         let mut world = World::new();
-        world.insert_resource(RuntimeEquipmentWarmup::ready_for_tests());
         world.init_resource::<Assets<Mesh>>();
         world.init_resource::<Assets<StandardMaterial>>();
         world.init_resource::<Assets<Image>>();

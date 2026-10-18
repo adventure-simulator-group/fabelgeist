@@ -1,13 +1,15 @@
 //! Presentation-only browser boundary. Rectangles are physical canvas pixels.
 use bevy::prelude::*;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 pub(crate) const FORGE_LAYER: usize = 1;
 pub(crate) const COMPOSITOR_LAYER: usize = 2;
+use crate::presentation::ownership::REGIONAL_MAP_LAYER;
+pub(crate) const FIRST_PERSON_LAYER: usize = REGIONAL_MAP_LAYER + 1;
 
 pub(crate) use crate::presentation::venues::{Place, PlaceId, PlaceKind, PortraitId};
 
-#[derive(Clone, Copy, Debug, Deserialize, PartialEq)]
+#[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq)]
 pub(crate) struct CanvasRect {
     pub x: u32,
     pub y: u32,
@@ -85,6 +87,25 @@ pub(crate) struct StrategicView {
     pub stage: Option<CanvasRect>,
     pub forge: Option<CanvasRect>,
     pub portraits: Vec<PortraitView>,
+}
+
+impl StrategicView {
+    pub(super) fn stage_subject(&self) -> Option<PortraitId> {
+        self.selected.or_else(|| {
+            self.people
+                .iter()
+                .find(|person| {
+                    Some(&person.place) == self.active_place.as_ref()
+                        && person.presentation == PersonPresentation::Scene
+                })
+                .map(|person| person.id)
+        })
+    }
+
+    pub(super) fn requires_person(&self, id: PortraitId) -> bool {
+        self.portraits.iter().any(|portrait| portrait.id == id)
+            || (self.stage.is_some() && self.stage_subject().is_none_or(|subject| subject == id))
+    }
 }
 
 #[cfg(test)]
