@@ -5,14 +5,15 @@
 use std::collections::HashMap;
 
 use crate::{ConstraintCount, ConstraintIncidence, ConstraintIndex, ParticleIndex};
+use derive_more::{Display, From};
 use fabelgeist_gpu::prelude::PassParameters;
 
 /// A color's position in the sequential solve schedule.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
 pub struct ConstraintColor(usize);
 
 /// Number of colors in the sequential solve schedule.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq, PartialOrd, Ord)]
 pub struct ColorCount(usize);
 
 /// A constraint address after permutation into color order.
@@ -38,24 +39,6 @@ pub struct ColorRange {
 pub struct Coloring {
     order: Vec<ConstraintIndex>,
     ranges: Vec<ConstraintSlot>,
-}
-
-impl std::fmt::Display for ConstraintColor {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(formatter)
-    }
-}
-
-impl From<usize> for ColorCount {
-    fn from(colors: usize) -> Self {
-        Self(colors)
-    }
-}
-
-impl std::fmt::Display for ColorCount {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(formatter)
-    }
 }
 
 impl From<ConstraintSlot> for usize {

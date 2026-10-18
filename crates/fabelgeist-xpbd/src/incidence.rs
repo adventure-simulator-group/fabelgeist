@@ -1,4 +1,5 @@
 //! Particle incidence acquires its solver role before coloring or upload.
+use derive_more::{Display, Error, From};
 use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, BufferUpload, WgpuContext};
 use std::num::NonZeroUsize;
 
@@ -9,15 +10,15 @@ use std::num::NonZeroUsize;
 /// use fabelgeist_xpbd::{ConstraintIndex, ParticleIndex};
 /// let _: ConstraintIndex = ParticleIndex::from(3);
 /// ```
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq, Hash)]
 pub struct ParticleIndex(u32);
 
 /// Number of particle entries in a flattened constraint input.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
 pub struct ConstraintParticleCount(usize);
 
 /// A fixed constraint always touches at least one particle.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
 pub struct ConstraintArity(NonZeroUsize);
 
 /// A checked view of complete, immutable fixed-arity particle records.
@@ -31,36 +32,22 @@ pub struct ConstraintIncidence<'a> {
 #[derive(Clone, Debug, Default)]
 pub struct ConstraintEdges(Vec<[ParticleIndex; 2]>);
 
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, Display, Error, PartialEq, Eq)]
 pub enum ConstraintLayoutError {
+    #[display("ConstraintSet: arity must be at least one")]
     ZeroArity,
+    #[display(
+        "ConstraintSet: {particles} indices is not a whole number of arity-{arity} constraints"
+    )]
     Incomplete {
         particles: ConstraintParticleCount,
         arity: ConstraintArity,
     },
 }
 
-impl From<u32> for ParticleIndex {
-    fn from(word: u32) -> Self {
-        Self(word)
-    }
-}
-
 impl From<ParticleIndex> for usize {
     fn from(index: ParticleIndex) -> Self {
         index.0 as usize
-    }
-}
-
-impl std::fmt::Display for ParticleIndex {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(formatter)
-    }
-}
-
-impl std::fmt::Display for ConstraintParticleCount {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(formatter)
     }
 }
 
@@ -77,26 +64,6 @@ impl TryFrom<usize> for ConstraintArity {
             .ok_or(ConstraintLayoutError::ZeroArity)
     }
 }
-
-impl std::fmt::Display for ConstraintArity {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(formatter)
-    }
-}
-
-impl std::fmt::Display for ConstraintLayoutError {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Self::ZeroArity => formatter.write_str("ConstraintSet: arity must be at least one"),
-            Self::Incomplete { particles, arity } => write!(
-                formatter,
-                "ConstraintSet: {particles} indices is not a whole number of arity-{arity} constraints"
-            ),
-        }
-    }
-}
-
-impl std::error::Error for ConstraintLayoutError {}
 
 impl<'a> ConstraintIncidence<'a> {
     /// Borrow particle-address records, preserving their exact order.

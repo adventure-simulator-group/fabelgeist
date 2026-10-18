@@ -1,47 +1,18 @@
 //! Original constraint addresses remain separate from color-order slots.
+use derive_more::{Display, From, Into};
 use fabelgeist_gpu::prelude::{BufferByteLength, PassParameter};
 
 /// Address of a constraint in its producer's original order.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq)]
 pub struct ConstraintIndex(u32);
 
 /// Complete per-constraint record cardinality, including an empty set.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Display, From, Into, PartialEq, Eq)]
 pub struct ConstraintCount(usize);
-
-impl From<u32> for ConstraintIndex {
-    fn from(word: u32) -> Self {
-        Self(word)
-    }
-}
 
 impl From<ConstraintIndex> for usize {
     fn from(index: ConstraintIndex) -> Self {
         index.0 as usize
-    }
-}
-
-impl std::fmt::Display for ConstraintIndex {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(formatter)
-    }
-}
-
-impl From<usize> for ConstraintCount {
-    fn from(records: usize) -> Self {
-        Self(records)
-    }
-}
-
-impl From<ConstraintCount> for usize {
-    fn from(count: ConstraintCount) -> Self {
-        count.0
-    }
-}
-
-impl std::fmt::Display for ConstraintCount {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.fmt(formatter)
     }
 }
 
