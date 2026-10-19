@@ -117,6 +117,48 @@ impl Mat4 {
         }
     }
 
+    /// A perspective with depth reversed and no far plane: `near` maps to 1,
+    /// infinitely far to 0.
+    ///
+    /// Floating-point depth keeps most of its precision near zero, and
+    /// [`Self::perspective`]'s `1/z` curve spends the rest near the camera, so
+    /// the two compound and the far distance gets almost none. Reversed, the
+    /// two cancel and precision is nearly even in `log z`: a 10 cm near plane
+    /// still separates surfaces centimetres apart a thousand kilometres away.
+    /// Draw with depth cleared to 0 and compared with `Greater`.
+    pub fn perspective_reverse_infinite(fovy_rad: f32, aspect: f32, near: f32) -> Self {
+        let f = 1.0 / (fovy_rad / 2.0).tan();
+        Self {
+            columns: [
+                [f / aspect, 0.0, 0.0, 0.0],
+                [0.0, f, 0.0, 0.0],
+                [0.0, 0.0, 0.0, -1.0],
+                [0.0, 0.0, near, 0.0],
+            ],
+        }
+    }
+
+    /// A perspective whose view axis need not pass through the middle of the
+    /// picture: the near plane spans `left..right` and `bottom..top` at
+    /// distance `near`, in view space (looking down -Z, +Y up). Same depth
+    /// convention as [`Self::perspective`], which is the symmetric case:
+    /// `near` maps to 0 and `far` to 1.
+    pub fn frustum(left: f32, right: f32, bottom: f32, top: f32, near: f32, far: f32) -> Self {
+        Self {
+            columns: [
+                [2.0 * near / (right - left), 0.0, 0.0, 0.0],
+                [0.0, 2.0 * near / (top - bottom), 0.0, 0.0],
+                [
+                    (right + left) / (right - left),
+                    (top + bottom) / (top - bottom),
+                    far / (near - far),
+                    -1.0,
+                ],
+                [0.0, 0.0, (far * near) / (near - far), 0.0],
+            ],
+        }
+    }
+
     pub fn orthographic(left: f32, right: f32, bottom: f32, top: f32, near: f32, far: f32) -> Self {
         Self {
             columns: [
@@ -250,5 +292,25 @@ impl std::fmt::Display for Mat4 {
             self.columns[3][2],
             self.columns[3][3]
         )
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn depth(m: &Mat4, z: f32) -> f32 {
+        let c = m.columns;
+        let clip_z = c[2][2] * z + c[3][2];
+        let clip_w = c[2][3] * z + c[3][3];
+        clip_z / clip_w
+    }
+
+    #[test]
+    fn reverse_infinite_depth_runs_from_one_at_near_to_zero_at_infinity() {
+        let m = Mat4::perspective_reverse_infinite(1.0, 1.5, 0.1);
+        assert!((depth(&m, -0.1) - 1.0).abs() < 1e-6);
+        assert!((depth(&m, -1.0) - 0.1).abs() < 1e-6);
+        assert!(depth(&m, -1e30) >= 0.0 && depth(&m, -1e30) < 1e-20);
     }
 }

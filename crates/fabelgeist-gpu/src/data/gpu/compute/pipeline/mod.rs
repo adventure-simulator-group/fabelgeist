@@ -49,7 +49,8 @@ impl ComputePipeline {
         &self,
         device: &wgpu::Device,
         entry_point: &str,
-        blocking_validation: bool,
+        // The web never blocks to read the scope back.
+        #[cfg_attr(target_arch = "wasm32", allow(unused_variables))] blocking_validation: bool,
     ) -> anyhow::Result<Arc<wgpu::ComputePipeline>> {
         #[cfg(target_arch = "wasm32")]
         let _ = blocking_validation;

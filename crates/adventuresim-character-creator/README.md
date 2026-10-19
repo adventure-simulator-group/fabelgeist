@@ -41,8 +41,9 @@ joint is positioned at the midpoint of the generated eye joints. Their rotations
 inherit the wrist or head without mirrored negative scale.
 
 The left panel has five tabs. **Character** edits skeletal proportions
-(**Build**), identity shape (**Body**, **Head** and **Hands**) and
-**Expression**; double-click a slider to return it to neutral. **Inventory**
+(**Build**), identity shape (**Body**, **Head** and **Hands**),
+**Expression** and **Hair** (see below); double-click a slider to return it
+to neutral. **Inventory**
 holds everything the character owns (see below). **Armory** reshapes the
 catalog's parametric equipment. **Wardrobe** drapes clothes once and saves
 them for any body. **Output** loads the body model, saves and loads recipes,
@@ -59,6 +60,215 @@ model** checkbox reloads the selected LOD with or without MHR's corrective
 network for direct comparison. Recipes contain model
 coordinates, not authoritative character state, and must be regenerated and
 validated when connected to game creation.
+
+## Hair
+
+A recipe's `hair` is a hairstyle and its pigment, or `null` for a bald head.
+The **Hair** page offers the 24 hairstyles of `fabelgeist-hair`, a strand
+hair groomer after DiffLocks (Rosu et al., CVPR 2025): crops, bobs, long and
+layered cuts, ponytails, buns, braids, afros, dreadlocks and more. Its
+**Show hair** and **Show scalp** switches draw either alone, to look at the
+painted scalp without the hair over it or the hair without the scalp; they
+are the studio's, not the recipe's. Its colour is a pigment as Blender's Principled Hair takes it: **Melanin** runs
+from white through blond and brown to black, **Redness** from ashen to red,
+and a dye tints the strands on top, linear RGB, white for none. The page
+offers the hair crate's eight named natural colours and ten dyes as
+swatches, any dye from a colour picker, and the two sliders, which keep a
+dye. A dye tints the hair's own colour, so it barely shows on dark hair;
+each dye swatch also lightens the hair, as bleaching before dyeing does.
+
+The hairstyle's `shape` varies its preset; its default grows the preset as
+it is. The **Cut**, **Arrangement** and **Growth** menus swap in another of
+the hair crate's 16 cuts, 10 arrangements (natural, parted, swept, back,
+forward, down, up, ponytail, bun, braid) or 7 growth patterns (whorls,
+cowlick, radial, forward, backward, down), or keep the preset's own. The
+sliders scale or shift the preset's values: **Length** scales every length
+of the cut by 0.3 to 2, keeping the hemline as far from the crown as the hair
+is long; **Volume** adds -1 to 4 cm of lift at the crown; **Part** moves the
+part up to 6 cm either side; **Curl** and **Clumping** add -1 to 1 to how
+much the strands curl and gather into locks, each kept within 0 to 1;
+**Waves** adds -10 to 20 mm of waves either side; and **Frizz** scales the
+stray strands' wander and their share by 0 to 4. Whether hair drapes on the
+body follows the arrangement and length the shape gives: tied, styled or
+short hair does not. A changed shape regrows the hair once its slider is let
+go; choosing another hairstyle starts it from its preset's own shape. The
+recipe stores the shape strictly, rejecting a value outside its range.
+
+A hairstyle is grown once, on a worker thread, on the hair crate's mannequin
+bust, by the hair crate's GPU groomer on the studio's own render device: the
+scalp cut and the whole groom grown in compute kernels and its scalp textures
+baked in a twentieth to a twelfth of a second, where the CPU took half a second
+to a second and a half; no strand or texel comes back to the CPU.
+The kernels compile once, on the first hairstyle grown (about half a second); an
+export opens a device of its own for them. The hair is then placed on each
+generated body on the same thread and the same device, in a tenth of a second or
+so where the CPU took three or four. The body is first sampled as a distance
+field onto a grid round the hair, cells of 2.5 mm out to 10 cm from the skin
+(`hair/gpu/field.rs`): each triangle marks the cells near it, a jump flood
+carries every cell's nearest triangle out to it, and each cell takes its
+distance, signed by the vertex normals at the nearest point as the CPU's mesh
+collider signs it. The hair crate's kernels read the field from the same buffer
+they read the mannequin's shapes from, so every one of them that collides -- the
+drape's solves, the shrinkwrap, the levels of detail -- collides with the
+character's body instead. Placing stretches the bust's head to the character's
+width across the ears, its depth from the back of the skull to the tip of the
+nose and its crown, and turns it to face where the eyes look. The bust is only
+fitted to the head's extent, so wherever the character's skull is fuller its
+strands would lie under the skin: each strand is moved whole along its root's
+normal -- the bust scalp's, smooth -- until the root sits 0.5 mm off the skin.
+Pushing each root to the nearest point of the coarse body instead would move
+neighbouring roots apart along different facets' normals and part the hair along
+their edges, at the nape most.
+
+Hair that hangs free is then draped on the character's own body
+(`hair/gpu/place`). What a body does to a strand is how its equilibrium under
+gravity (the hair crate's `Settle`) against the body differs from its
+equilibrium against nothing; that is found on the bust, as groomed, and on the
+character, as carried, and the character's minus the bust's is added to the
+strand. Where the two bodies hold the hair alike it is nothing, and where the
+character's shoulders stand higher or wider it is how long hair falls over them,
+in front of them or down the back, rather than hanging through them. A tight
+coil answers a body unsteadily, so the drape takes hold only below the head,
+fading in from the ears to the jaw, and only as far as a strand sinks into the
+body as carried: from 3 cm deep, fully from 5 cm, as long hair runs through a
+shoulder. Tied and styled hair -- a ponytail, a bun, a braid, hair swept up --
+is not draped at all, as the hair crate drapes it on its bust only when it hangs
+free: the solve knows nothing of what ties a lock or holds it in place, and
+would slide a ponytail's tail off a thicker neck strand by strand, round both
+sides, where the tail rests two and a half centimetres into it and four at the
+deepest. About two thousand guides are draped and every strand follows the one
+whose root is nearest, so hair parts cleanly in front of and behind a shoulder.
+A last shrinkwrap keeps every strand out of the body, keeping its length, before
+the levels of detail are prepared against that body. Changing only the colour or
+the level of detail reuses the placed hair.
+
+**Level of detail** shows any of the hair crate's forms: its strands at the
+groom's own point count and at 24, 12 and 6 points each, drawn as ribbons,
+or its fine and coarse cut of hair cards (strips along the locks, each
+showing a painted bundle of strands from a shared atlas). Both are drawn
+with the standard material extended by `hair_preview/strand_shading.wgsl`,
+shaded as the hair crate shades them: each point's normal faces the eye,
+square to the strands' direction, turned a little towards the card's or
+ribbon's face, and the highlights lean towards the pigment's hue. Strands
+pointing at the eye, as an afro's do at its crown and hairline, have no
+such direction, and their card is seen edge-on: their normal turns to the
+eye instead, or they would catch the environment's reflection at a grazing
+angle and glint a cold grey. The baked sky visibility, which darkens the
+hair's colour, fades that reflection too, so hair deep in the groom is not
+dark and glinting at once. A card's
+atlas coverage becomes a share of each pixel's four samples, which ones
+hashed from the pixel and the card: the hardware's alpha to coverage would
+give every card of one coverage the same samples, so stacked half-covering
+cards would never add up, and the scalp showed through. Shadows and depth
+cut the coverage at half. **Strands drawn** draws a share of a strand level, each ribbon
+wider by the inverse of the share so the head stays covered; the preview
+draws at most a million and a half ribbon vertices. The level is the
+studio's choice, not the recipe's: a game picks it from the head's size on
+screen.
+
+The scalp under the hair is painted with the hair lying on it and shaded as the
+hair is, so no level shows lit skin between its strands, even between an afro's
+open curls, and the hair painted on the scalp looks like the hair drawn over it.
+The textures are baked once per hairstyle, on the bust it grew on, on the GPU
+(`hair/gpu/bake/`; a few milliseconds): each strand, an invocation, draws its
+first 8 mm off the skin, in steps of at most 2 mm, into textures 2048 texels
+square mapped afresh to the scalp. The hair crate maps its scalp by the angle
+from the crown onto a disk inside the square, a texel at the crown covering a
+few times the skin of one at the hairline, the corners unused and much of the
+disk below the hairline. The scalp's texture instead takes Lambert's equal-area
+projection about the axis of the narrowest cone from the cranium's centre that
+holds the scalp, out to just past its edge, spread over the whole square by
+Shirley and Chiu's concentric mapping, which keeps areas too: every texel covers
+about 0.13 mm of skin a side, the crown as finely as the rest, near a hair's own
+width, and the texture has no seam. The topmost strand over each texel shows --
+kept by an atomic maximum over its height, direction and shade packed in one
+word -- from 25% of the hair's colour where it meets the skin to 90% at 8 mm off
+it, and a second texture keeps the way it runs across the texture; strands
+rooted within about 4 mm of each other share a tone, so locks show where single
+strands are far finer than a pixel. Scalp no strand lies on is at 35%, in the
+shadow of hair standing further off it -- up to 25 mm, judged over blocks of
+eight texels -- as between an afro's coils. Where no hair lies over it either,
+it is bare, as at a parting or a whorl's eye, and how bare the scalp is within
+about 0.8 mm, measured twice over so the nearest counts most, turns the texture
+clear, from a tenth bare to three quarters, so the body's own skin shows lit
+through the cap. A strand's own texel clears only half as far: hair thins into a
+parting over a couple of millimetres strand by strand, the last strands' ends
+lying over the skin, while a texel or two between coils shows no skin. So the
+gaps between cards show strands running the groom's way, its parting and its
+whorl, rather than a flat patch, and the textures are filtered anisotropically
+to keep them where the eye meets the scalp obliquely. The cap is drawn with the
+hair's own surface -- its colour, roughness and highlights leaning to its hue --
+extended by `hair_preview/scalp_shading.wgsl`: each point's normal is the strand
+normal the cards and ribbons are lit by (`hair_preview/strand.wgsl`), facing the
+eye square to the topmost strand, which the cap's tangents turn from the texture
+onto the head, and the strands' shade fades the environment's reflection as the
+baked occlusion does on cards. Where no strand runs, the cap is lit by the
+scalp's own smooth normals. The body has only a few dozen vertices over the
+skull, too few to keep a parting narrow, so the bust's own scalp, cut in
+four-millimetre cells, is carried onto the character as a cap laid 0.4 mm over
+its skin and painted there. Laid by its corners, a cap triangle spanning a ridge
+or corner of the coarse body would dip under the skin and let it show through in
+specks along the body's edges, so each triangle is sampled across and lifted
+until all of it clears the skin. The cap's edge runs in the cells' steps, so it
+is blended over the skin, fading out from 5 mm above the hair crate's hairline
+over the next 6 mm -- the hairline's own smooth curve, above the steps -- and
+over a row of cells along the rest of its edge. Only the cap is painted: the
+body's skin, the neck and the shoulders hair falls over, keeps its colour, and
+the cap comes and goes with the hair.
+
+Ribbons and cards are built on the GPU too (`hair/gpu/strips.rs`), a strip to an
+invocation, in a few milliseconds, and drawn from where they were built. The
+hair's material (`hair_preview/strand_shading.rs`) binds the four buffers a
+level was built into, and its vertex shaders, for the main pass and for the
+prepass and shadows, pull each vertex from them by its index; the mesh carries
+only the triangles and each vertex's skin, wholly to the head joint, so it is
+not frustum-culled by positions it does not hold. The scalp's baked textures are
+copied on the GPU from the buffers they were baked in into their images, every
+mip level, once the renderer has made them (`hair_preview/scalp_upload.rs`).
+Only an export reads the hair back, to write it out. Strips are straight
+between their rows, and
+over a rounded shoulder or skull a straight segment between two rows just
+outside the skin passes under it, the coarse levels' long segments most. So
+every segment is cut into pieces no longer than a centimetre -- at most sixteen
+for a card's, eight for a ribbon's -- and each row near the skin is moved whole
+0.6 mm off it -- just over the scalp cap -- more for a wide card by as much as
+it sags across a curve as tight as the neck. A row's lift spreads to its
+neighbours, tapering over four rows, so a strip bends off the skin rather than
+in a sawtooth. The hair crate turns a card to face away from the head's centre,
+right beside the head; lying on a shoulder such a card would stand on its edge,
+a fin, so within 3 cm of the skin each row turns to lie flat on it.
+
+To look at hair without the studio's window, an ignored test grows a hairstyle
+on the default body, on the device it draws with, and draws every level of
+detail as the studio draws them, from the buffers it was built in and skinned to
+one joint left in place, close over the parting, from above, from the front,
+from behind and over the shoulder, printing how long placing takes, how long
+each level takes to build and how much of it lies under the skin:
+
+```powershell
+$env:MHR_ASSETS = "target/mhr-assets/v1.0.1/assets"; $env:HAIR_PRESET = "long"
+cargo test --release --manifest-path crates/adventuresim-character-creator/Cargo.toml --bin adventuresim-character-creator hair_renders -- --ignored --nocapture
+```
+
+It writes `target/hair-render/<preset>-<level>-<view>.png`, and the baked
+scalp texture as `<preset>-scalp-texture.png`, and the way its strands run as
+`<preset>-scalp-strands.png`. With
+`HAIR_ON_BUST=1` it draws the hair on the hair crate's own bust instead, as
+it grew there, to `bust-<preset>-<level>-<view>.png`: whether a fault lies in
+placing hair on a character or in drawing it. `HAIR_SHAPE` varies the preset
+as the Hair page does, taking the shape's fields that differ from its default
+-- `HAIR_SHAPE='{"length": 0.55, "curl": 0.6}'`, say -- and names the images
+`<preset>-shaped-<level>-<view>.png`. `HAIR_PIGMENT` colours it as a recipe's
+pigment does -- say
+`HAIR_PIGMENT='{"melanin": 0.1, "redness": 0.05, "dye": [0.1, 0.4, 1]}'` --
+and names the images `<preset>-coloured-...`. `HAIR_SHOW=scalp` or
+`HAIR_SHOW=hair` draws the scalp or the hair alone, as the Hair page's
+switches do, to `<preset>-scalp-only-...` or `<preset>-hair-only-...`.
+
+The hair is skinned wholly to `c_head`, so it follows the walk preview, and
+the rigged GLB exports its fine cards as a `hair` shell on the same joint,
+following the head through every body morph channel. The export carries
+neither the scalp cap nor its paint.
 
 ## Inventory
 
@@ -324,10 +534,10 @@ garment. Body, pattern, fabric, resolution or sewing changes start again,
 as does **Drape again**.
 
 Draping resolves swept vertex/triangle and edge/edge contacts after each GPU
-substep. This host projection is vendored from Prism's `shell` library and
-includes body triangle interiors and excludes joined seam copies. Fixed body
-bounds are cached between substeps. It prevents crossings missed by particle
-spheres; it does not infer layer order for already intersecting starting meshes.
+substep. This host projection comes from `fabelgeist-shell` and includes body
+triangle interiors and excludes joined seam copies. Fixed body bounds are cached
+between substeps. It prevents crossings missed by particle spheres; it does not
+infer layer order for already intersecting starting meshes.
 
 Clothing, padding and mail lie under worn rigid plate. Wherever a plate covers
 them, the last fit presses them in towards the wearer, clear of the plate's
@@ -356,14 +566,13 @@ cargo run --manifest-path crates/adventuresim-character-creator/Cargo.toml --exa
 
 The exported base establishes MHR's stable bone names and hierarchy as the
 animation-pack contract. The preview keeps body identity separate from
-animation. Prism's retargeting pipeline establishes the intended boundary:
-import a clip into an engine skeleton, retarget model-space deltas through
-semantic rig profiles, then encode the resulting MHR joint pose into MHR's 204
-model parameters. Identity remains this recipe's 45 coefficients, so one
-retargeted clip works for every generated body. The creator currently shows a
-neutral pose; clip playback should reuse Prism's `Retargeter`, `MhrRig`, and
-`MhrPoseEncoder`, including its T-pose reference and hinge correction, rather
-than copying local rotations.
+animation. The intended boundary for animation is to import a clip into an
+engine skeleton, retarget model-space deltas through semantic rig profiles, then
+encode the resulting MHR joint pose into MHR's 204 model parameters. Identity
+remains this recipe's 45 coefficients, so one retargeted clip works for every
+generated body. The creator currently shows a neutral pose; clip playback should
+reuse `fabelgeist-animation`'s `Retargeter`, including its T-pose reference and
+hinge correction, rather than copying local rotations.
 
 ## Identity morphs in game
 

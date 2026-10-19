@@ -8,7 +8,8 @@
 //!
 //! * Shaped primitives -- [`Map`], [`Reduce`], [`Scan`], [`Gather`],
 //!   [`Scatter`], [`Stream`], [`Stencil`], [`Broadcast`], [`Transpose`],
-//!   [`Reshape`], [`RadixSort`].
+//!   [`Reshape`], [`RadixSort`], and [`PrefixSum`], an exclusive scan that
+//!   records into a [`KernelBatch`].
 //! * Fields and geometry -- [`DistanceField`], [`Advect`], [`Divergence`],
 //!   [`Gradient`], marching cubes, dual contouring, advancing front, noise.
 //! * Mesh searches -- [`MeshQuery`]: nearest point, closest point on a
@@ -40,6 +41,7 @@ pub mod marching_cubes;
 pub mod matmul;
 pub mod mesh_query;
 pub mod perlin_noise;
+pub mod prefix_sum;
 pub mod prelude;
 pub mod readback;
 pub mod reduce;
@@ -69,7 +71,8 @@ pub use map::*;
 pub use matmul::*;
 pub use mesh_query::{Crossing, Hit, MeshQuery, PointTargets, QueryHits, Rays, TriangleTargets};
 pub use perlin_noise::RenderPerlin;
-pub use readback::Readback;
+pub use prefix_sum::{PrefixSum, PrefixSumScratch};
+pub use readback::{PendingReadback, Readback};
 pub use reduce::*;
 pub use reshape::*;
 pub use scan::*;

@@ -76,6 +76,7 @@ pub mod wardrobe;
 pub use adventuresim_core::item_catalog_schema;
 pub mod garment;
 pub mod garment_material;
+pub mod hair;
 
 use serde::{Deserialize, Serialize};
 
@@ -83,7 +84,7 @@ use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 pub const EXPRESSION_COUNT: usize = 72;
 
 /// Character recipes use this schema version; older recipes are not read.
-pub const RECIPE_VERSION: u8 = 13;
+pub const RECIPE_VERSION: u8 = 14;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(deny_unknown_fields)]
@@ -93,6 +94,8 @@ pub struct CharacterRecipe {
     pub proportions: adventuresim_core::character_proportions::CharacterProportions,
     pub identity: Vec<f32>,
     pub expression: Vec<f32>,
+    /// The hairstyle grown on the head; `None` is bald.
+    pub hair: Option<hair::HairDesign>,
     pub inventory: inventory::Inventory,
 }
 
@@ -115,6 +118,7 @@ impl Default for CharacterRecipe {
             name: "New adventurer".into(),
             identity: vec![0.0; IDENTITY_MORPH_COUNT],
             expression: vec![0.0; EXPRESSION_COUNT],
+            hair: None,
             inventory,
         }
     }

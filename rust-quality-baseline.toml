@@ -703,6 +703,30 @@ path = "crates/fabelgeist-animation/src/animation/retarget/retargeter.rs"
 ceiling = 711
 
 [[files]]
+path = "crates/fabelgeist-botany/src/ecosystem.rs"
+ceiling = 821
+
+[[files]]
+path = "crates/fabelgeist-botany/src/plant.rs"
+ceiling = 744
+
+[[files]]
+path = "crates/fabelgeist-botany/src/species.rs"
+ceiling = 550
+
+[[files]]
+path = "crates/fabelgeist-botany/src/viewer/sim.rs"
+ceiling = 1142
+
+[[files]]
+path = "crates/fabelgeist-botany/src/vine.rs"
+ceiling = 974
+
+[[files]]
+path = "crates/fabelgeist-buildings/src/medieval.rs"
+ceiling = 766
+
+[[files]]
 path = "crates/fabelgeist-compute/src/stencil.rs"
 ceiling = 924
 
@@ -736,7 +760,63 @@ ceiling = 538
 
 [[files]]
 path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
-ceiling = 901
+ceiling = 899
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/grow.rs"
+ceiling = 813
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/lods.rs"
+ceiling = 550
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/mod.rs"
+ceiling = 552
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/sim.rs"
+ceiling = 657
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs"
+ceiling = 1487
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs"
+ceiling = 1001
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/lod.rs"
+ceiling = 835
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/scalp.rs"
+ceiling = 514
+
+[[files]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/sim.rs"
+ceiling = 1444
+
+[[files]]
+path = "crates/fabelgeist-hair/src/hairdo.rs"
+ceiling = 517
+
+[[files]]
+path = "crates/fabelgeist-hair/src/look.rs"
+ceiling = 562
+
+[[files]]
+path = "crates/fabelgeist-hair/src/render/mod.rs"
+ceiling = 2103
+
+[[files]]
+path = "crates/fabelgeist-hair/src/rod.rs"
+ceiling = 643
+
+[[files]]
+path = "crates/fabelgeist-surface-field/src/gpu.rs"
+ceiling = 549
 
 [[files]]
 path = "crates/strategic-web/src/live.rs"
@@ -2654,6 +2734,61 @@ item = "Joint::build"
 ceiling = 173
 
 [[functions]]
+path = "crates/fabelgeist-botany/src/ecosystem.rs"
+item = "Ecosystem::tick"
+ceiling = 169
+
+[[functions]]
+path = "crates/fabelgeist-botany/src/environment/wgsl.rs"
+item = "orient"
+ceiling = 143
+
+[[functions]]
+path = "crates/fabelgeist-botany/src/plant.rs"
+item = "Plant::regulate"
+ceiling = 200
+
+[[functions]]
+path = "crates/fabelgeist-botany/src/plant.rs"
+item = "Plant::update_geometry"
+ceiling = 119
+
+[[functions]]
+path = "crates/fabelgeist-botany/src/viewer/hlod.rs"
+item = "build"
+ceiling = 112
+
+[[functions]]
+path = "crates/fabelgeist-botany/src/viewer/sim.rs"
+item = "capture"
+ceiling = 124
+
+[[functions]]
+path = "crates/fabelgeist-botany/src/viewer/sim.rs"
+item = "instances"
+ceiling = 275
+
+[[functions]]
+path = "crates/fabelgeist-botany/src/viewer/sim.rs"
+item = "run"
+ceiling = 159
+
+[[functions]]
+path = "crates/fabelgeist-botany/src/viewer/sim.rs"
+item = "vine_instances"
+ceiling = 131
+
+[[functions]]
+path = "crates/fabelgeist-buildings/src/medieval.rs"
+item = "castle"
+ceiling = 142
+
+[[functions]]
+path = "crates/fabelgeist-buildings/src/medieval.rs"
+item = "house"
+ceiling = 150
+
+[[functions]]
 path = "crates/fabelgeist-cloth/src/garment/mod.rs"
 item = "build"
 ceiling = 111
@@ -2847,6 +2982,166 @@ ceiling = 142
 path = "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs"
 item = "Blitter::new"
 ceiling = 188
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/cards.rs"
+item = "CardMesh::build"
+ceiling = 120
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/export/ply.rs"
+item = "read"
+ceiling = 103
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/grow.rs"
+item = "GpuGroomer::grow"
+ceiling = 218
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/grow.rs"
+item = "GpuGroomer::record_ops"
+ceiling = 312
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/guides.rs"
+item = "GpuGroomer::record_hairdo_guides"
+ceiling = 135
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/lods.rs"
+item = "GpuGroomer::lods_against"
+ceiling = 148
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/lods.rs"
+item = "GpuGroomer::record_cards"
+ceiling = 135
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/lods.rs"
+item = "GpuGroomer::record_cover"
+ceiling = 103
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/scalp.rs"
+item = "GpuGroomer::cut_scalp"
+ceiling = 267
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/sim.rs"
+item = "GpuGroomer::make_sim"
+ceiling = 182
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs"
+item = "interp_select"
+ceiling = 112
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs"
+item = "roots"
+ceiling = 104
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs"
+item = "settle_solve_few"
+ceiling = 113
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs"
+item = "guide_comb"
+ceiling = 341
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs"
+item = "guide_select"
+ceiling = 133
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/lod.rs"
+item = "card_build"
+ceiling = 135
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/scalp.rs"
+item = "nets_quads"
+ceiling = 108
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/sim.rs"
+item = "sim_collide"
+ceiling = 143
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/gpu/wgsl/sim.rs"
+item = "sim_step"
+ceiling = 329
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/haircut.rs"
+item = "Haircut::new"
+ceiling = 117
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/hairdo.rs"
+item = "Hairdo::comb"
+ceiling = 208
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/head.rs"
+item = "surface_nets"
+ceiling = 134
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/look.rs"
+item = "Look::groom"
+ceiling = 152
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/look.rs"
+item = "Look::new"
+ceiling = 177
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/look.rs"
+item = "Look::random"
+ceiling = 164
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/occlusion.rs"
+item = "Occlusion::bake"
+ceiling = 119
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/ops/interpolate.rs"
+item = "Interpolate::apply"
+ceiling = 150
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/presets.rs"
+item = "Preset::hairdo"
+ceiling = 182
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/render/mod.rs"
+item = "HairRenderer::new"
+ceiling = 492
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/render/mod.rs"
+item = "HairRenderer::render"
+ceiling = 478
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/render/mod.rs"
+item = "HairRenderer::resize"
+ceiling = 103
+
+[[functions]]
+path = "crates/fabelgeist-hair/src/rod.rs"
+item = "Substep<'_>::strand"
+ceiling = 160
 
 [[functions]]
 path = "crates/fabelgeist-mesh/src/gpu.rs"
