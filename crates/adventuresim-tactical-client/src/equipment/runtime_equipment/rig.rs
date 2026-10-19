@@ -1,6 +1,7 @@
 //! Evaluate proportion-dependent rest joints without reading an animated pose.
 use super::*;
 use adventuresim_core::character_proportions::{CharacterProportions, JointProportionBasis};
+use serde::Deserialize;
 
 #[cfg_attr(test, derive(Default))]
 pub(super) struct FittingRig {

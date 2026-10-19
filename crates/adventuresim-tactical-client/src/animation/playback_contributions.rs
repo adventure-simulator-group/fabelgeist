@@ -2,7 +2,7 @@
 
 use super::*;
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone)]
 pub(super) struct PlaybackContributions {
     clips: Vec<WeightedClip>,
     extrapolated: Vec<ExtrapolatedSpan>,
