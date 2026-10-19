@@ -27,8 +27,15 @@ pub struct SharedForest {
 }
 
 impl TreeBank {
+    #[cfg(not(target_family = "wasm"))]
     pub fn from_bytes(bytes: &[u8]) -> Result<Self> {
         let (library, id) = decode_library(bytes)?;
+        Ok(Self { id, library })
+    }
+
+    #[cfg(target_family = "wasm")]
+    pub async fn from_bytes(bytes: &[u8]) -> Result<Self> {
+        let (library, id) = decode_library(bytes).await?;
         Ok(Self { id, library })
     }
 

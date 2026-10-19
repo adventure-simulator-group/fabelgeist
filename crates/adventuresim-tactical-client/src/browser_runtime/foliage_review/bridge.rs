@@ -4,12 +4,16 @@ use super::{
     fault::Fault,
     wire::{Document, MAX_BANK_BYTES, MAX_POPULATION_BYTES},
 };
-use adventuresim_environment::render::benchmark::ForestRequestId;
+use adventuresim_environment::{
+    prepared::{LibraryId, PreparedError, TreeBank},
+    render::benchmark::ForestRequestId,
+};
 use anyhow::{Result, bail, ensure};
+use bevy::diagnostic::FrameCount;
 use std::{
     num::NonZeroU64,
     sync::{
-        Mutex, OnceLock,
+        Arc, Mutex, OnceLock,
         atomic::{AtomicBool, Ordering},
     },
 };
@@ -25,6 +29,16 @@ struct Bridge {
     submitted: bool,
     status: String,
     images: Vec<Vec<u8>>,
+    admission: Option<AdmissionObservation>,
+}
+
+/// Actual main-world values sampled each update, including after failure.
+/// FrameCount stays native until its read-only JSON boundary.
+#[derive(Clone, Copy)]
+pub(super) struct AdmissionObservation {
+    pub main_update: Option<FrameCount>,
+    pub active_probe_request: Option<ForestRequestId>,
+    pub resident_bank: Option<LibraryId>,
 }
 
 pub(crate) enum Command {
@@ -36,6 +50,11 @@ pub(crate) enum Command {
     Payload {
         request: ForestRequestId,
         bank: Vec<u8>,
+        population: Vec<u8>,
+    },
+    BankAdmitted {
+        request: ForestRequestId,
+        outcome: std::result::Result<Arc<TreeBank>, PreparedError>,
         population: Vec<u8>,
     },
     Fault {
@@ -56,6 +75,7 @@ impl Default for Bridge {
             submitted: false,
             status: String::new(),
             images: Vec::new(),
+            admission: None,
         }
     }
 }
@@ -111,6 +131,30 @@ pub fn wasm_foliage_status() -> String {
         .unwrap_or_else(|error| {
             serde_json::json!({"state":"failed","error":error.to_string()}).to_string()
         })
+}
+
+/// Last actual main-update admission state; it remains observable after failure.
+/// This does not mutate a request or manufacture a GPU completion receipt.
+#[wasm_bindgen]
+pub fn wasm_foliage_admission() -> String {
+    locked()
+        .map(|bridge| {
+            bridge
+                .admission
+                .map_or(serde_json::Value::Null, |observed| {
+                    serde_json::json!({"main_update":observed.main_update.map(|frame|frame.0),
+            "active_probe_request":observed.active_probe_request,
+            "resident_bank":observed.resident_bank})
+                })
+                .to_string()
+        })
+        .unwrap_or_else(|error| serde_json::json!({"error":error.to_string()}).to_string())
+}
+
+pub(super) fn observe_admission(observed: AdmissionObservation) {
+    if let Ok(mut bridge) = locked() {
+        bridge.admission = Some(observed);
+    }
 }
 
 /// PNG transport occurs after the readback timestamp, outside arrival timing.

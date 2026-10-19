@@ -49,6 +49,13 @@ and fresh population bytes. A population carries complete diagnostic ground.
 The checked decoder verifies lengths, topology, records, bank binding and
 whole-payload identities. A request admits no unknown document fields.
 Maximum document, bank and population sizes are 8 KiB, 64 MiB and 16 MiB.
+On browser Wasm, model-bank admission validates the encoded structure and
+awaits WebCrypto SHA-256 over the same complete payload. Native admission uses
+the same format and identity synchronously. Browser crypto unavailability,
+rejection or an invalid result fails the request; it does not select a second
+digest implementation. The original request clock, deadline and synchronous
+payload reservation include the asynchronous wait.
+
 The camera uses the shared forest view admission rather than a second set of
 projection or fog rules. The designated forest camera owns culling and all
 capture receipts; other retained client cameras are deactivated for review.
@@ -79,6 +86,13 @@ A/B/A sequence must change to B and restore A, retain the bank's assets and
 avoid bank reuploads while using fresh placements and disjoint scene owners.
 Inspect actual errors, including Bevy ERROR severity delivered through
 `console.log`. Observe device/status again after all image exports.
+
+`wasm_foliage_admission()` reports the last main-update sample of the actual
+renderer probe request and resident bank, with Bevy's update count. It continues
+sampling after failure. A delayed-result control must observe subsequent
+updates and require that a failed admission leaves the bootstrap probe and no
+resident bank; the cached failure message alone cannot establish that fact.
+This read-only sample is not a GPU or exact screenshot-frame receipt.
 
 Retained asset counts include the game lighting materials and describe logical
 assets after retirement. Allocation

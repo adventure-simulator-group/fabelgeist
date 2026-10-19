@@ -5,17 +5,13 @@ use super::{
     capture::{self, CaptureRole, PendingCapture, Readback},
     fault::Injection,
     scene,
-    wire::{BankTransfer, Document},
+    wire::Document,
 };
 use adventuresim_environment::{
-    prepared::{SharedForest, TreeBank},
+    prepared::TreeBank,
     render::{
-        ForestDetail,
-        benchmark::{
-            CompletionPolicy, ForestBenchmark, ForestRequestId, ValidationPhase, ValidationPolicy,
-            WindowStart,
-        },
-        trees::{TreeFeed, TreeMeshStats},
+        benchmark::{ForestBenchmark, ForestRequestId, ValidationPhase, WindowStart},
+        trees::TreeMeshStats,
     },
 };
 use anyhow::{Result, ensure};
@@ -23,6 +19,8 @@ use bevy::prelude::*;
 use serde_json::json;
 use std::{sync::Arc, time::Duration};
 use web_time::Instant;
+
+mod admission;
 
 const REQUEST_DEADLINE: Duration = Duration::from_secs(90);
 const RETIREMENT_TIME: Duration = Duration::from_secs(1);
@@ -51,6 +49,7 @@ pub(super) struct Arrival {
 
 enum State {
     Fetching,
+    BankAdmitting,
     Warming,
     Draining { started: Instant, frames: usize },
     Finalizing,
@@ -73,6 +72,13 @@ impl Session {
         );
     }
     pub fn apply(&mut self, world: &mut World, command: Command) -> Result<()> {
+        // A late owned admission result may only drop its own values. It
+        // cannot replace the original error or revive a failed session.
+        if matches!(&command, Command::BankAdmitted { .. })
+            && (self.error.is_some() || bridge::has_render_failure())
+        {
+            return Ok(());
+        }
         ensure!(
             self.error.is_none() && !bridge::has_render_failure(),
             "sticky renderer/review failure"
@@ -110,7 +116,14 @@ impl Session {
                 request,
                 bank,
                 population,
-            } => self.admit(world, request, bank, population)?,
+            } => self.begin_payload(world, request, bank, population)?,
+            Command::BankAdmitted {
+                request,
+                outcome,
+                population,
+            } => {
+                self.complete_bank(world, request, outcome, population)?;
+            }
             Command::Fault { request, fault } => {
                 let arrival = self
                     .arrival
@@ -133,78 +146,6 @@ impl Session {
                 anyhow::bail!("browser transport/device failure: {message}");
             }
         }
-        Ok(())
-    }
-    fn admit(
-        &mut self,
-        world: &mut World,
-        request: ForestRequestId,
-        bank: Vec<u8>,
-        population: Vec<u8>,
-    ) -> Result<()> {
-        let arrival = self
-            .arrival
-            .as_mut()
-            .ok_or_else(|| anyhow::anyhow!("missing request"))?;
-        ensure!(
-            arrival.request == request && matches!(arrival.state, State::Fetching),
-            "stale payload"
-        );
-        match arrival.document.transfer {
-            BankTransfer::Download => {
-                ensure!(
-                    self.bank.is_none() && !bank.is_empty(),
-                    "bank already resident or missing download"
-                );
-                let admitted = TreeBank::from_bytes(&bank)?;
-                ensure!(
-                    admitted.id() == arrival.document.bank,
-                    "bank content identity mismatch"
-                );
-                self.bank = Some(Arc::new(admitted));
-            }
-            BankTransfer::Resident => {
-                ensure!(bank.is_empty(), "resident request supplied bank bytes")
-            }
-        }
-        let bank = self
-            .bank
-            .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("missing resident bank"))?;
-        ensure!(
-            bank.id() == arrival.document.bank,
-            "resident bank identity mismatch"
-        );
-        let forest = Arc::new(SharedForest::from_population_bytes(
-            Arc::clone(bank),
-            &population,
-        )?);
-        ensure!(
-            forest.id() == arrival.document.population,
-            "population content identity mismatch"
-        );
-        ensure!(
-            forest.population().frame.terrain.is_some(),
-            "complete diagnostic ground required"
-        );
-        let probe = ForestBenchmark::new(
-            arrival.started,
-            ValidationPolicy::SamplingEndpoints,
-            request,
-            CompletionPolicy::Queued,
-        );
-        world.insert_resource(ForestDetail {
-            ..forest.bank().library().detail
-        });
-        let mut instances = forest.expected_instances();
-        if !forest.bank().library().detail.leaves {
-            instances.leaves = 0;
-        }
-        probe.expect_instances(instances);
-        probe.activate(world);
-        world.resource_mut::<TreeFeed>().show(forest);
-        arrival.probe = Some(probe);
-        arrival.state = State::Warming;
         Ok(())
     }
     fn progress(&mut self, world: &mut World) -> Result<()> {
@@ -318,11 +259,19 @@ impl Session {
 
 pub(super) fn advance(world: &mut World) {
     world.resource_scope(|world, mut session: Mut<Session>| {
-        if session.error.is_some() {
-            return;
-        }
-        if let Err(error) = session.progress(world) {
+        if session.error.is_none()
+            && let Err(error) = session.progress(world)
+        {
             session.fail(error.to_string());
         }
+        bridge::observe_admission(bridge::AdmissionObservation {
+            main_update: world
+                .get_resource::<bevy::diagnostic::FrameCount>()
+                .copied(),
+            active_probe_request: world
+                .get_resource::<ForestBenchmark>()
+                .map(ForestBenchmark::request_id),
+            resident_bank: session.bank.as_ref().map(|bank| bank.id()),
+        });
     });
 }

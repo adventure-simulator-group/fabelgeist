@@ -7,11 +7,15 @@ use sha2::{Digest, Sha256};
 use super::meshes::GridCardinality;
 use super::{AddressMesh, LibraryId, PreparedError, Result};
 
+#[cfg(target_family = "wasm")]
+mod browser_identity;
 mod headers;
 mod library;
 mod population;
 mod unique;
 
+#[cfg(target_family = "wasm")]
+pub use browser_identity::BrowserIdentityFailure;
 pub use library::{decode_library, encode_library};
 pub use population::{decode_population, encode_population};
 pub use unique::{decode_unique, encode_unique};

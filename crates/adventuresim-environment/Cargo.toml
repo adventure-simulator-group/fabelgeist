@@ -16,7 +16,10 @@ render = [
   "dep:bytemuck",
   "dep:web-time",
 ]
-prepared = ["render", "dep:serde", "dep:serde_json", "dep:sha2"]
+prepared = [
+  "render", "dep:serde", "dep:serde_json", "dep:sha2",
+  "dep:js-sys", "dep:wasm-bindgen", "dep:wasm-bindgen-futures", "dep:web-sys",
+]
 viewer = [
   "prepared",
   "bevy/default",
@@ -46,6 +49,12 @@ clap = { workspace = true, optional = true }
 serde_json = { workspace = true, optional = true }
 serde = { workspace = true, features = ["derive"], optional = true }
 sha2 = { workspace = true, optional = true }
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+js-sys = { version = "0.3", optional = true }
+wasm-bindgen = { workspace = true, optional = true }
+wasm-bindgen-futures = { version = "0.4", optional = true }
+web-sys = { version = "0.3", optional = true, features = ["Window", "Crypto", "SubtleCrypto"] }
 
 [lints]
 workspace = true

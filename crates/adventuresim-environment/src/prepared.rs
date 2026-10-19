@@ -35,6 +35,11 @@ pub use grids::{AddressMesh, MeshClass, RecordCapacity, TreeGrid};
 pub(crate) use meshes::admit_address_mesh_bytes;
 pub use resident::{PopulationId, SharedForest, TreeBank};
 
+#[cfg(target_family = "wasm")]
+pub use codec::BrowserIdentityFailure;
+
+const LIBRARY_DIGEST_BYTES: usize = 32;
+
 pub type Result<T> = std::result::Result<T, PreparedError>;
 
 /// Stable identity and root in the source area's world frame, in metres.
@@ -51,7 +56,7 @@ pub struct VariantIndex(usize);
 
 /// SHA-256 over the complete encoded model library, including its LOD settings.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-pub struct LibraryId([u8; 32]);
+pub struct LibraryId([u8; LIBRARY_DIGEST_BYTES]);
 
 /// Model-local to area-world transform: positive XZ/height scales, then Y yaw,
 /// then root translation. Normals require the inverse transpose of the scale.
@@ -184,6 +189,9 @@ impl TreeModel {
 
 #[derive(Debug, thiserror::Error)]
 pub enum PreparedError {
+    #[cfg(target_family = "wasm")]
+    #[error(transparent)]
+    BrowserIdentity(#[from] BrowserIdentityFailure),
     #[error("prepared forest address mesh count disagrees with capacity")]
     MeshCardinality,
     #[error("invalid prepared forest: {0}")]

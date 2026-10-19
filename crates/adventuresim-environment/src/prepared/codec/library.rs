@@ -60,7 +60,20 @@ pub fn encode_library(library: &TreeLibrary) -> Result<(Vec<u8>, LibraryId)> {
     Ok((bytes, id))
 }
 
+#[cfg(not(target_family = "wasm"))]
 pub fn decode_library(bytes: &[u8]) -> Result<(TreeLibrary, LibraryId)> {
+    let library = decode_records(bytes)?;
+    Ok((library, identity(bytes)))
+}
+
+#[cfg(target_family = "wasm")]
+pub async fn decode_library(bytes: &[u8]) -> Result<(TreeLibrary, LibraryId)> {
+    let library = decode_records(bytes)?;
+    let id = super::browser_identity::library_id(bytes).await?;
+    Ok((library, id))
+}
+
+fn decode_records(bytes: &[u8]) -> Result<TreeLibrary> {
     let mut reader = Reader(bytes);
     let header: Header = reader.header(LIBRARY_MAGIC)?;
     let plants = reader.records()?;
@@ -115,5 +128,5 @@ pub fn decode_library(bytes: &[u8]) -> Result<(TreeLibrary, LibraryId)> {
         grids,
     };
     library.validate()?;
-    Ok((library, identity(bytes)))
+    Ok(library)
 }
