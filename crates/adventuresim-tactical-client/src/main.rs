@@ -17,13 +17,13 @@ use bevy::asset::AssetPlugin;
 use bevy::asset::io::AssetSourceBuilder;
 use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
 use bevy::prelude::*;
-use bevy::render::error_handler::{RenderErrorHandler, RenderErrorPolicy};
 use bevy::{
     ecs::schedule::common_conditions::any_with_component,
     input::common_conditions::input_just_pressed,
     window::{CursorGrabMode, CursorOptions},
 };
 use clap::Parser;
+use render_errors::resilient_render_errors;
 #[cfg(target_family = "wasm")]
 use wasm_bindgen::prelude::*;
 use web_time::Instant;
@@ -80,6 +80,7 @@ mod player;
     reason = "the gameplay binary shares presentation review data with the native capture viewers"
 )]
 mod presentation;
+mod render_errors;
 #[cfg(any(target_family = "wasm", test))]
 #[cfg_attr(
     not(target_family = "wasm"),
@@ -260,18 +261,6 @@ pub fn wasm_weapon_editor_fields(design_json: String) -> Result<String, JsValue>
 #[wasm_bindgen]
 pub fn wasm_quote_weapon_design(design_json: String) -> Result<String, JsValue> {
     browser_runtime::quote_design_json(&design_json).map_err(|error| JsValue::from_str(&error))
-}
-
-/// Keeps rendering after a pipeline fails validation instead of quitting.
-///
-/// Browser WebGPU rejects some pipelines the native backend accepts (shader
-/// modules and limits it does not expose). Bevy's default handler hard-quits
-/// the app on the first such error, blanking the canvas. Ignoring it lets the
-/// rest of the scene draw -- the instanced grass has its own pipeline -- and
-/// surfaces every incompatible pipeline rather than only the first. Native
-/// compiles every pipeline, so this never fires there.
-fn resilient_render_errors() -> RenderErrorHandler {
-    RenderErrorHandler(|_error, _main_world, _render_world| RenderErrorPolicy::Ignore)
 }
 
 fn run(

@@ -22,6 +22,8 @@ mod records;
 pub(crate) mod shapes;
 #[cfg(feature = "prepared")]
 pub mod trees;
+#[cfg(feature = "prepared")]
+pub mod view;
 
 use bevy::asset::embedded_asset;
 use bevy::prelude::*;
@@ -32,6 +34,24 @@ pub use feed::ForestFeed;
 pub use ground::GroundPart;
 pub use levels::{Level, LevelSelection};
 pub use materials::{BranchMaterial, LeafMaterial};
+
+type UnmarkedForestCamera = (
+    With<ForestViewCamera>,
+    With<Camera3d>,
+    Without<CullComputeCamera>,
+);
+
+/// The active perspective camera that owns forest LOD and readiness evidence.
+/// Mark exactly one active camera, including in applications with other views.
+/// Eidolon's global cull buffer requires this to be the only active culling
+/// camera. Readiness rejects a different or ambiguous render-world source.
+#[derive(Component)]
+pub struct ForestViewCamera;
+
+/// Geometry owned by the forest renderer, including its supplied ground.
+/// Consumers may assign presentation layers without touching unrelated meshes.
+#[derive(Component)]
+pub struct ForestGeometry;
 
 /// How finely the forest is built, and whether its foliage is drawn.
 #[derive(Resource, Clone, Copy, Debug, PartialEq)]
@@ -119,11 +139,8 @@ impl Plugin for ForestPlugin {
     }
 }
 
-/// Every 3D camera culls the forest's instances on the GPU.
-fn cull_from_cameras(
-    mut commands: Commands,
-    cameras: Query<Entity, (With<Camera3d>, Without<CullComputeCamera>)>,
-) {
+/// The forest's explicit view participates in GPU instance culling.
+fn cull_from_cameras(mut commands: Commands, cameras: Query<Entity, UnmarkedForestCamera>) {
     for camera in &cameras {
         commands.entity(camera).insert(CullComputeCamera);
     }

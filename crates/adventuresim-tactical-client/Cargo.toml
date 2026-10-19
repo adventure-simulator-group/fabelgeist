@@ -10,11 +10,15 @@ license.workspace = true
 default = ["debug", "client-audio"]
 debug = ["bevy/debug", "bevy/bevy_remote", "adventuresim-tactical-core/avian_debug"]
 client-audio = ["bevy/audio"]
+# Local prepared-foliage admission in the persistent WebGPU renderer.
+foliage-review = ["debug", "dep:adventuresim-environment", "dep:image"]
 tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep:tracy-client-sys"]
 # See src/lib.rs - only used by crates/adventuresim-tactical-brp-generator.
 remote-types = ["debug"]
 
 [dependencies]
+image = { workspace = true, features = ["png"], optional = true }
+adventuresim-environment = { path = "../adventuresim-environment", features = ["prepared"], optional = true }
 thiserror.workspace = true
 adventuresim-character-creator = { path = "../adventuresim-character-creator", default-features = false }
 fabelgeist-armor = { path = "../fabelgeist-armor" }

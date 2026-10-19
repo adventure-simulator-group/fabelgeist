@@ -101,6 +101,7 @@ pub(super) fn show(
                 visibility_range: Vec4::new(0.0, 0.0, FAR, FAR),
             },
             aabb,
+            super::super::ForestGeometry,
             NoFrustumCulling,
             GpuCullCompute,
             Transform::default(),

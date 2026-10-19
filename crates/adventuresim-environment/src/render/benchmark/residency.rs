@@ -14,7 +14,7 @@ use bevy::{
     },
 };
 
-use super::{ForestBenchmark, ForestRequestId};
+use super::{ForestBenchmark, ForestFrameId, ForestRequestId};
 
 /// Native entity bits include generation. Buffer ordinals identify Bevy buffer
 /// objects within this process; capacity is not total device VRAM or a peak.
@@ -22,6 +22,7 @@ use super::{ForestBenchmark, ForestRequestId};
 #[cfg_attr(feature = "prepared", derive(serde::Serialize))]
 pub struct NativeResidency {
     request: ForestRequestId,
+    pub(super) frame: ForestFrameId,
     tree_entities: Vec<u64>,
     ground_entities: Vec<u64>,
     owned_scene_entities: Vec<u64>,
@@ -79,10 +80,16 @@ impl ForestBenchmark {
 
     pub fn native_residency(&self) -> Option<NativeResidency> {
         self.inner
-            .native
+            .completion
+            .receipts
             .lock()
             .ok()
-            .and_then(|native| native.clone())
+            .and_then(|receipts| {
+                receipts
+                    .final_validated
+                    .as_ref()
+                    .map(|completed| completed.inventory.clone())
+            })
     }
 
     pub(super) fn capture_native(
@@ -90,18 +97,15 @@ impl ForestBenchmark {
         meshes: &RenderAssets<RenderMesh>,
         buffers: &RenderAssets<GpuShaderBuffer>,
         allocator: &MeshAllocator,
-    ) {
+        frame: ForestFrameId,
+    ) -> Option<NativeResidency> {
         let Ok(expected) = self.inner.expected.lock() else {
             self.failure();
-            return;
+            return None;
         };
         let Ok(ground) = self.inner.ground.lock() else {
             self.failure();
-            return;
-        };
-        let Ok(mut native) = self.inner.native.lock() else {
-            self.failure();
-            return;
+            return None;
         };
         let mut tree_entities: Vec<_> = expected
             .chunks
@@ -146,17 +150,18 @@ impl ForestBenchmark {
             })
             .collect();
         storage.sort_by_key(|allocation| allocation.asset);
-        *native = Some(NativeResidency {
+        Some(NativeResidency {
             request: self.request_id(),
+            frame,
             tree_entities,
             ground_entities,
             owned_scene_entities,
             meshes: mesh_allocations,
             storage,
-        });
+        })
     }
 
-    fn failure(&self) {
+    pub(super) fn failure(&self) {
         self.inner
             .failures
             .fetch_add(1, std::sync::atomic::Ordering::Release);

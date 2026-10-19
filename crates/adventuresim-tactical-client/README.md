@@ -6,6 +6,9 @@ readiness, residency and typed preparation failures.
 [Regional environment presentation](regional-map.md) describes the retained
 geographic camera, terrain surface and browser command boundary.
 
+[Prepared foliage review](foliage-review.md) describes the optional browser
+component diagnostic, request ownership, readbacks and cleanup checks.
+
 The atmosphere extraction backport is required by the selected Bevy 0.19 engine.
 The build script reads the resolved version from the workspace lockfile and
 requires removing that backport and its guard when the project selects Bevy 0.20

@@ -60,6 +60,7 @@ impl Plugin for RegionalMapPlugin {
             .add_systems(
                 PostUpdate,
                 surface::sync_camera
+                    .in_set(crate::presentation::ownership::PresentationCameraSynchronization)
                     .before(bevy::camera::CameraUpdateSystems)
                     .before(bevy::transform::TransformSystems::Propagate),
             )

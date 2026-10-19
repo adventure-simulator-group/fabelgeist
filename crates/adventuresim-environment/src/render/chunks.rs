@@ -201,6 +201,7 @@ pub(super) fn show(
             placement.detail,
         );
         let mut chunk = commands.spawn((
+            super::ForestGeometry,
             ForestChunk {
                 key,
                 radius: gathered.radius,

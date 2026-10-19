@@ -6,7 +6,7 @@
 use std::sync::Arc;
 use std::sync::Mutex;
 use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
-use std::time::Instant;
+use web_time::Instant;
 
 use bevy::prelude::*;
 use bevy::render::extract_resource::{ExtractResource, ExtractResourcePlugin};
@@ -17,6 +17,7 @@ use bevy_eidolon::prelude::{InstancedMaterial, MaterialBatchRanges};
 
 use super::{BranchMaterial, ForestPart, LeafMaterial};
 
+mod completion;
 mod ground;
 mod observe;
 #[cfg(feature = "viewer")]
@@ -25,6 +26,7 @@ mod request;
 mod residency;
 mod validation;
 
+pub use completion::{CompletionPolicy, ForestFrameId, ForestFrameReceipt};
 pub use request::ForestRequestId;
 pub use residency::{NativeAssetCounts, NativeResidency};
 pub use validation::{
@@ -42,8 +44,8 @@ pub struct ForestBenchmark {
 
 struct Counters {
     request: ForestRequestId,
+    completion: completion::CompletionTracker,
     ground: Mutex<Vec<u64>>,
-    native: Mutex<Option<NativeResidency>>,
     started: Instant,
     queued: AtomicUsize,
     submitted: AtomicUsize,
@@ -162,12 +164,17 @@ impl Expected {
 }
 
 impl ForestBenchmark {
-    pub fn new(started: Instant, policy: ValidationPolicy, request: ForestRequestId) -> Self {
+    pub fn new(
+        started: Instant,
+        policy: ValidationPolicy,
+        request: ForestRequestId,
+        completion: CompletionPolicy,
+    ) -> Self {
         Self {
             inner: Arc::new(Counters {
                 request,
+                completion: completion::CompletionTracker::new(completion),
                 ground: Mutex::new(Vec::new()),
-                native: Mutex::new(None),
                 started,
                 queued: AtomicUsize::new(0),
                 submitted: AtomicUsize::new(0),
@@ -197,8 +204,8 @@ impl ForestBenchmark {
             .observe(self.clone());
     }
 
-    /// Install before material assets are prepared. This probe adds a GPU wait
-    /// per frame and must not be enabled in ordinary play.
+    /// Install before material assets are prepared. Waited diagnostics add a
+    /// GPU wait per frame; queued observation leaves completion asynchronous.
     pub fn install(&self, app: &mut App) {
         self.install_materials::<BranchMaterial, LeafMaterial>(app);
     }

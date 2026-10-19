@@ -18,11 +18,15 @@ use bevy::render::{
     view::{ExtractedView, RetainedViewEntity},
 };
 
-use super::super::ground::GroundPart;
+use super::super::{ForestViewCamera, ground::GroundPart};
 use super::{ForestBenchmark, ForestRequestId};
 
-type CaptureCameras<'world, 'state> =
-    Query<'world, 'state, (Entity, &'static Camera, &'static VisibleEntities), With<Camera3d>>;
+type CaptureCameras<'world, 'state> = Query<
+    'world,
+    'state,
+    (Entity, &'static Camera, &'static VisibleEntities),
+    (With<Camera3d>, With<ForestViewCamera>),
+>;
 
 /// Native entity membership for one active capture view, reset on extraction.
 #[derive(Resource, Default)]
@@ -39,6 +43,14 @@ pub(super) struct VisibilityRequest(Option<ForestRequestId>);
 struct RecordGround;
 
 impl GroundFrame {
+    pub(super) fn view(&self) -> Option<RetainedViewEntity> {
+        self.camera
+    }
+
+    pub(super) fn owns_view(&self, view: RetainedViewEntity) -> bool {
+        self.camera == Some(view)
+    }
+
     pub(super) fn complete(&self, probe: &ForestBenchmark) -> bool {
         let complete = self.request == Some(probe.request_id())
             && self.camera.is_some()

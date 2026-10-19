@@ -116,6 +116,7 @@ impl GroundAssets<'_, '_> {
         }
         let mut entity = commands.spawn((
             part,
+            super::ForestGeometry,
             Mesh3d(mesh),
             MeshMaterial3d(self.materials.add(StandardMaterial {
                 perceptual_roughness: roughness,

@@ -1,31 +1,39 @@
-//! Render-frame observation with the same draw counters and GPU wait in both policies.
+//! Current-view draw validation with explicit waited or queued completion.
 
 use super::*;
+use bevy::camera::primitives::Frustum;
 use bevy::core_pipeline::core_3d::Opaque3d;
 use bevy::ecs::system::{SystemParam, SystemParamItem, lifetimeless::SRes};
 use bevy::render::render_phase::{
     DrawFunctions, PhaseItem, RenderCommand, RenderCommandResult, RenderCommandState,
     TrackedRenderPass,
 };
-use bevy::render::render_resource::{CachedPipelineState, PipelineCache, PollType};
-use bevy::render::renderer::RenderDevice;
+use bevy::render::render_resource::{CachedPipelineState, PipelineCache};
+use bevy::render::renderer::RenderQueue;
+use bevy::render::view::ExtractedView;
+#[cfg(not(target_family = "wasm"))]
+use bevy::render::{render_resource::PollType, renderer::RenderDevice};
 use bevy::shader::ShaderCacheError;
 use bevy_eidolon::cull::pipeline::InstancedComputePipeline;
+use bevy_eidolon::prepass::CullComputeCamera;
 use bevy_eidolon::render::draw::DrawInstancedMaterial;
 
 #[derive(Resource, Default)]
-pub(super) struct FrameCheck(Option<LatchedCheck>);
-
-#[derive(Clone, Copy)]
-struct LatchedCheck {
-    request: ForestRequestId,
-    validation: validation::RenderCheck,
-}
+pub(super) struct FrameCheck(Option<completion::RenderObservation>);
 
 #[derive(SystemParam)]
-pub(super) struct ObservedFrame<'w> {
+pub(super) struct ObservedFrame<'w, 's> {
     check: Res<'w, FrameCheck>,
     ground: Res<'w, super::ground::GroundFrame>,
+    #[cfg(not(target_family = "wasm"))]
+    device: Res<'w, RenderDevice>,
+    queue: Res<'w, RenderQueue>,
+    cull_views: Query<
+        'w,
+        's,
+        (&'static ExtractedView, &'static Frustum, &'static Camera),
+        With<CullComputeCamera>,
+    >,
     #[cfg(feature = "viewer")]
     profile: Option<Res<'w, super::profile::RenderProfile>>,
 }
@@ -42,17 +50,21 @@ pub(super) struct GeometryReady<'w, B: InstancedMaterial, L: InstancedMaterial> 
 }
 
 impl<P: PhaseItem, const FOLIAGE: bool> RenderCommand<P> for RecordDraw<FOLIAGE> {
-    type Param = SRes<ForestBenchmark>;
-    type ViewQuery = ();
+    type Param = (SRes<ForestBenchmark>, SRes<super::ground::GroundFrame>);
+    type ViewQuery = &'static ExtractedView;
     type ItemQuery = ();
 
     fn render<'w>(
         _item: &P,
-        _view: (),
+        view: &'w ExtractedView,
         _entity: Option<()>,
         probe: SystemParamItem<'w, '_, Self::Param>,
         _pass: &mut TrackedRenderPass<'w>,
     ) -> RenderCommandResult {
+        let (probe, ground) = probe;
+        if !ground.into_inner().owns_view(view.retained_view_entity) {
+            return RenderCommandResult::Success;
+        }
         let counters = &probe.into_inner().inner;
         let counter = if FOLIAGE {
             &counters.leaf_draws
@@ -85,7 +97,6 @@ fn compute_ready<M: InstancedMaterial>(
 pub(super) fn complete<B: InstancedMaterial, L: InstancedMaterial>(
     probe: Res<ForestBenchmark>,
     frame: ObservedFrame,
-    device: Res<RenderDevice>,
     cache: Res<PipelineCache>,
     branches: Res<MaterialBatchRanges<B>>,
     leaves: Res<MaterialBatchRanges<L>>,
@@ -94,18 +105,7 @@ pub(super) fn complete<B: InstancedMaterial, L: InstancedMaterial>(
     let counters = &probe.inner;
     let branch_draws = counters.branch_draws.swap(0, Ordering::AcqRel);
     let leaf_draws = counters.leaf_draws.swap(0, Ordering::AcqRel);
-    #[cfg(feature = "viewer")]
-    if let Some(profile) = &frame.profile {
-        profile.begin_wait();
-    }
-    let waited = device.poll(PollType::wait_indefinitely());
-    #[cfg(feature = "viewer")]
-    if let Some(profile) = &frame.profile {
-        profile.end_wait();
-    }
-    if let Err(error) = waited {
-        error!("forest benchmark GPU wait failed: {error}");
-        counters.failures.fetch_add(1, Ordering::Release);
+    if !frame.wait_for_diagnostic(&probe) {
         return;
     }
     let Some(latched) = frame.check.0 else {
@@ -117,8 +117,12 @@ pub(super) fn complete<B: InstancedMaterial, L: InstancedMaterial>(
         return;
     }
     let check = latched.validation;
+    if !frame.cull_view_matches(&probe) {
+        frame.acknowledge(&probe, latched, false, None);
+        return;
+    }
     if !check.full {
-        probe.validation().acknowledge(check, true);
+        frame.acknowledge(&probe, latched, true, None);
         return;
     }
     if cache.pipelines().any(|pipeline| match &pipeline.state {
@@ -146,32 +150,112 @@ pub(super) fn complete<B: InstancedMaterial, L: InstancedMaterial>(
         && (counts.expected_branch_instances == 0 || compute_ready(&geometry.branches, &cache))
         && (counts.expected_leaf_instances == 0 || compute_ready(&geometry.leaves, &cache))
         && probe.complete_meshes(&geometry.meshes);
-    probe.validation().acknowledge(check, valid);
-    if valid
-        && probe
-            .validation()
-            .evidence()
-            .is_some_and(|evidence| evidence.phase == ValidationPhase::Complete)
-    {
-        probe.capture_native(&geometry.meshes, &geometry.buffers, &geometry.allocator);
+    let inventory = if valid && check.phase() == ValidationPhase::FinalRequested {
+        probe.capture_native(
+            &geometry.meshes,
+            &geometry.buffers,
+            &geometry.allocator,
+            latched.frame,
+        )
+    } else {
+        None
+    };
+    frame.acknowledge(&probe, latched, valid, inventory);
+}
+
+impl ObservedFrame<'_, '_> {
+    fn cull_view_matches(&self, probe: &ForestBenchmark) -> bool {
+        // Match the pinned Eidolon producer's exact render-world candidate
+        // query, and admit only a unique source with the owned view identity.
+        let mut active = self
+            .cull_views
+            .iter()
+            .filter(|(_, _, camera)| camera.is_active);
+        let Some((view, _, _)) = active.next() else {
+            return false;
+        };
+        let matches = active.next().is_none() && self.ground.owns_view(view.retained_view_entity);
+        if !matches
+            && self.ground.view().is_some()
+            && probe
+                .inner
+                .failures
+                .compare_exchange(0, 1, Ordering::AcqRel, Ordering::Acquire)
+                .is_ok()
+        {
+            error!("forest GPU culling does not have one matching owned camera");
+        }
+        matches
     }
-    if valid {
-        let micros = counters.started.elapsed().as_micros().min(u64::MAX as u128) as u64;
-        let _ = counters.completed_micros.compare_exchange(
-            UNOBSERVED,
-            micros.max(1),
-            Ordering::Release,
-            Ordering::Relaxed,
-        );
+
+    fn wait_for_diagnostic(&self, probe: &ForestBenchmark) -> bool {
+        if probe.completion_policy() == CompletionPolicy::Queued {
+            return true;
+        }
+        #[cfg(target_family = "wasm")]
+        {
+            error!("waited forest diagnostics require a native backend");
+            probe.failure();
+            false
+        }
+        #[cfg(not(target_family = "wasm"))]
+        {
+            #[cfg(feature = "viewer")]
+            if let Some(profile) = &self.profile {
+                profile.begin_wait();
+            }
+            let waited = self.device.poll(PollType::wait_indefinitely());
+            #[cfg(feature = "viewer")]
+            if let Some(profile) = &self.profile {
+                profile.end_wait();
+            }
+            if let Err(error) = waited {
+                error!("forest benchmark GPU wait failed: {error}");
+                probe.failure();
+                return false;
+            }
+            true
+        }
+    }
+
+    fn acknowledge(
+        &self,
+        probe: &ForestBenchmark,
+        observation: completion::RenderObservation,
+        valid: bool,
+        inventory: Option<super::NativeResidency>,
+    ) {
+        match probe.completion_policy() {
+            CompletionPolicy::WaitedDiagnostic => {
+                probe.acknowledge_frame(observation, valid, inventory)
+            }
+            CompletionPolicy::Queued => {
+                let probe = probe.clone();
+                self.queue.on_submitted_work_done(move || {
+                    probe.acknowledge_frame(observation, valid, inventory)
+                });
+            }
+        }
     }
 }
 
-pub(super) fn latch(probe: Res<ForestBenchmark>, mut frame: ResMut<FrameCheck>) {
+pub(super) fn latch(
+    probe: Res<ForestBenchmark>,
+    ground: Res<super::ground::GroundFrame>,
+    mut frame: ResMut<FrameCheck>,
+) {
+    let Some(ordinal) = probe.inner.completion.next() else {
+        probe.failure();
+        frame.0 = None;
+        return;
+    };
     frame.0 = probe
         .validation()
         .render_check()
-        .map(|validation| LatchedCheck {
+        .map(|validation| completion::RenderObservation {
             request: probe.request_id(),
+            frame: ordinal,
+            view: ground.view(),
             validation,
         });
 }

@@ -124,19 +124,22 @@ impl ValidationWindow {
         })
     }
 
-    pub(super) fn acknowledge(&self, check: RenderCheck, valid: bool) {
+    pub(super) fn acknowledge(&self, check: RenderCheck, valid: bool) -> bool {
         let Ok(mut state) = self.state.lock() else {
-            return;
+            return false;
         };
+        if state.phase != check.phase {
+            return false;
+        }
         if check.phase == ValidationPhase::Sampling {
             state.sampled_render_checks += 1;
         }
         if !check.full {
             state.skipped_structural_checks += 1;
-            return;
+            return valid;
         }
         if !valid {
-            return;
+            return false;
         }
         if matches!(
             check.phase,
@@ -146,13 +149,17 @@ impl ValidationWindow {
         ) {
             state.successful_full_checks += 1;
         }
-        if state.phase != check.phase {
-            return;
-        }
         state.phase = match state.phase {
             ValidationPhase::StartRequested => ValidationPhase::StartValidated,
             ValidationPhase::FinalRequested => ValidationPhase::Complete,
             phase => phase,
         };
+        true
+    }
+}
+
+impl RenderCheck {
+    pub(super) fn phase(self) -> ValidationPhase {
+        self.phase
     }
 }

@@ -1,5 +1,6 @@
 //! The camera, the sun and the sky the forest is seen under.
 
+use adventuresim_environment::render::ForestViewCamera;
 use bevy::light::CascadeShadowConfigBuilder;
 use bevy::prelude::*;
 use bevy_panorbit_camera::PanOrbitCamera;
@@ -55,6 +56,7 @@ impl Default for Lighting {
 pub fn camera() -> impl Bundle {
     (
         Camera3d::default(),
+        ForestViewCamera,
         distance_fog(),
         AmbientLight {
             color: SKY,

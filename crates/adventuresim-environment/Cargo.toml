@@ -14,6 +14,7 @@ render = [
   "dep:bevy",
   "dep:bevy_eidolon",
   "dep:bytemuck",
+  "dep:web-time",
 ]
 prepared = ["render", "dep:serde", "dep:serde_json", "dep:sha2"]
 viewer = [
@@ -32,6 +33,7 @@ fabelgeist-determinism = { path = "../fabelgeist-determinism" }
 fabelgeist-math = { path = "../fabelgeist-math", default-features = false }
 anyhow = "1"
 thiserror.workspace = true
+web-time = { workspace = true, optional = true }
 fabelgeist-botany = { path = "../fabelgeist-botany" }
 bevy = { workspace = true, features = ["3d_bevy_render"], optional = true }
 bevy_eidolon = { workspace = true, optional = true }

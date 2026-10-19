@@ -6,7 +6,7 @@ use adventuresim_environment::{
     prepared::{PopulationId, TreeBank},
     render::{
         ForestDetail, LevelSelection,
-        benchmark::{ForestBenchmark, ForestRequestId, ValidationPolicy},
+        benchmark::{CompletionPolicy, ForestBenchmark, ForestRequestId, ValidationPolicy},
         trees::{TreeBatching, TreeBranchMaterial, TreeLeafMaterial, TreeResidencyPolicy},
     },
 };
@@ -244,7 +244,12 @@ impl Progress {
         std::fs::create_dir(&folder)?;
         let detail = *world.resource::<ForestDetail>();
         let view = world.resource::<Still>().view.clone();
-        let probe = ForestBenchmark::new(started, ValidationPolicy::default(), phase.request());
+        let probe = ForestBenchmark::new(
+            started,
+            ValidationPolicy::default(),
+            phase.request(),
+            CompletionPolicy::WaitedDiagnostic,
+        );
         let mut instances = loaded.forest.expected_instances();
         if !detail.leaves {
             instances.leaves = 0;

@@ -13,9 +13,9 @@ use bevy::camera::primitives::Aabb;
 use bevy::prelude::*;
 use bevy_eidolon::prelude::*;
 
-use super::ForestDetail;
 use super::chunks::ForestChunk;
 use super::materials::ForestMaterials;
+use super::{ForestDetail, ForestViewCamera};
 
 /// The nearest a chunk is taken to be, metres: a camera inside one sees
 /// its plants in full detail.
@@ -135,12 +135,21 @@ impl LevelView {
     }
 }
 
-/// Follow the 3D camera.
+/// Follow the unique active forest view, never an unrelated camera.
 pub(super) fn follow_camera(
-    cameras: Query<(&Camera, &GlobalTransform, &Projection), With<Camera3d>>,
+    cameras: Query<(&Camera, &GlobalTransform, &Projection), With<ForestViewCamera>>,
     mut view: ResMut<LevelView>,
 ) {
-    let found = cameras.iter().find_map(|(camera, transform, projection)| {
+    let mut active = cameras.iter().filter(|(camera, _, _)| camera.is_active);
+    let Some((camera, transform, projection)) = active.next() else {
+        *view = LevelView::default();
+        return;
+    };
+    if active.next().is_some() {
+        *view = LevelView::default();
+        return;
+    }
+    let found = (|| {
         let Projection::Perspective(perspective) = projection else {
             return None;
         };
@@ -149,10 +158,8 @@ pub(super) fn follow_camera(
             eye: transform.translation(),
             focal: height / (2.0 * (perspective.fov * 0.5).tan()),
         })
-    });
-    if let Some(found) = found {
-        *view = found;
-    }
+    })();
+    *view = found.unwrap_or_default();
 }
 
 /// Give each chunk the level its largest plant has on screen, swapping its

@@ -13,7 +13,7 @@ use std::time::{Duration, Instant};
 
 use adventuresim_environment::render::benchmark::profile::{ProfileMode, RenderProfile};
 use adventuresim_environment::render::benchmark::{
-    ForestBenchmark, ForestRequestId, ValidationPolicy, WindowStart,
+    CompletionPolicy, ForestBenchmark, ForestRequestId, ValidationPolicy, WindowStart,
 };
 use adventuresim_environment::render::{
     ForestDetail, ForestFeed, ForestPlugin, LevelSelection,
@@ -261,7 +261,12 @@ fn capture_probe(
     }
     let started = request.map_or_else(Instant::now, |request| request.started);
     let identity = request.map_or(ForestRequestId::FIRST, |request| request.identity);
-    let probe = ForestBenchmark::new(started, validation, identity);
+    let probe = ForestBenchmark::new(
+        started,
+        validation,
+        identity,
+        CompletionPolicy::WaitedDiagnostic,
+    );
     let mut instances = forest.expected_instances();
     if !detail.leaves {
         instances.leaves = 0;

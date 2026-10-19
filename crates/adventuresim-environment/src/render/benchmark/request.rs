@@ -11,8 +11,16 @@ pub struct ForestRequestId(NonZeroU64);
 impl ForestRequestId {
     pub const FIRST: Self = Self(NonZeroU64::MIN);
 
-    /// Native sequence boundary; zero is never a submitted request.
+    /// Sequence/transport boundary; zero is never a submitted request.
     pub fn from_ordinal(ordinal: NonZeroU64) -> Self {
         Self(ordinal)
+    }
+
+    pub fn ordinal(self) -> NonZeroU64 {
+        self.0
+    }
+
+    pub fn successor(self) -> Option<Self> {
+        self.0.checked_add(1).map(Self)
     }
 }

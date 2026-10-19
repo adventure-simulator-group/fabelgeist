@@ -60,16 +60,7 @@ impl FrozenForest {
                 branches: snapshot.branches.len(),
                 leaves: snapshot.leaves.len(),
             },
-            Self::Shared(forest) => {
-                let mut branches = 0;
-                let mut leaves = 0;
-                for placement in &forest.population().placements {
-                    let model = &forest.bank().library().models[placement.variant.index()];
-                    branches += usize::from(model.branches.count > 0);
-                    leaves += usize::from(model.leaves.count > 0);
-                }
-                ForestInstances { branches, leaves }
-            }
+            Self::Shared(forest) => forest.expected_instances(),
         }
     }
 }

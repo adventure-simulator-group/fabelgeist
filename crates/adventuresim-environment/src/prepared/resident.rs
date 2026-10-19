@@ -2,7 +2,7 @@
 
 use std::sync::Arc;
 
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 
 use super::{LibraryId, Result, TreeLibrary, TreePopulation, decode_library, decode_population};
@@ -16,7 +16,7 @@ pub struct TreeBank {
 }
 
 /// SHA-256 of the complete encoded descriptors and ground, separate from bank ID.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct PopulationId([u8; 32]);
 
 /// One immutable admitted population bound to its exact shared model bank.
@@ -49,6 +49,20 @@ impl SharedForest {
             population,
             id: PopulationId(Sha256::digest(bytes).into()),
         })
+    }
+
+    /// Whole-tree draw instances; empty botanical parts require no instance.
+    pub fn expected_instances(&self) -> crate::render::benchmark::ForestInstances {
+        let mut instances = crate::render::benchmark::ForestInstances {
+            branches: 0,
+            leaves: 0,
+        };
+        for placement in &self.population.placements {
+            let model = &self.bank.library.models[placement.variant.index()];
+            instances.branches += usize::from(model.branches.count > 0);
+            instances.leaves += usize::from(model.leaves.count > 0);
+        }
+        instances
     }
 
     pub fn bank(&self) -> &Arc<TreeBank> {
