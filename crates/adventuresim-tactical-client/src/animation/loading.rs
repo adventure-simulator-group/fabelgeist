@@ -1,4 +1,7 @@
 use super::*;
+pub(super) use motion::MotionLoad;
+
+mod motion;
 
 pub(super) fn install_requests(app: &mut App) {
     app.add_systems(Startup, request_animation_packs);
@@ -43,7 +46,9 @@ pub(super) fn request_animation_packs(
             runtime
                 .requested_motions
                 .entry((pack_id.clone(), motion_id.clone()))
-                .or_insert_with(|| asset_server.load(animation_asset_path(&source.path)));
+                .or_insert_with(|| {
+                    MotionLoad::request(&asset_server, animation_asset_path(&source.path))
+                });
         }
     }
     if let Err(error) = runtime.library.validate_structure() {
@@ -85,18 +90,18 @@ pub(super) fn collect_loaded_packs(
 
     let requested = runtime
         .requested_motions
-        .iter()
-        .map(|(key, handle)| (key.clone(), handle.clone()))
+        .iter_mut()
+        .filter_map(|(key, load)| load.poll(&asset_server).map(|handle| (key.clone(), handle)))
         .collect::<Vec<_>>();
     for (key, handle) in requested {
         if runtime.processed_motions.contains(&key) || runtime.unavailable_motions.contains(&key) {
             continue;
         }
-        if matches!(asset_server.load_state(handle.id()), LoadState::Failed(_)) {
+        let Some(handle) = handle else {
             runtime.unavailable_motions.insert(key.clone());
             changed = true;
             continue;
-        }
+        };
         let Some(gltf) = gltfs.get(&handle) else {
             continue;
         };
