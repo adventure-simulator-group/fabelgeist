@@ -42,7 +42,11 @@ pub(super) enum Role {
 }
 
 impl Inspector<'_, '_> {
-    pub(super) fn collect(&self, visible: &VisibleEntities) -> Result<Vec<Member>> {
+    pub(super) fn collect(
+        &self,
+        visible: &VisibleEntities,
+        policy: draw_policy::DrawPolicy,
+    ) -> Result<Vec<Member>> {
         let visible: HashSet<_> = visible
             .get(std::any::TypeId::of::<Mesh3d>())
             .iter()
@@ -61,8 +65,8 @@ impl Inspector<'_, '_> {
                 continue;
             }
             ensure!(
-                part.unbatchable,
-                "terrain draw proof requires explicit singleton instrumentation"
+                part.unbatchable == policy.singleton_instrumentation(),
+                "terrain batching policy drift"
             );
             members.push(Member {
                 entity: part.entity,

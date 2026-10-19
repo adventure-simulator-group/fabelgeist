@@ -4,9 +4,9 @@ use super::super::capture_state::{CapturePhase, SceneCaptureState};
 use super::*;
 use crate::presentation::TacticalGameplayCamera;
 use bevy::{
-    camera::visibility::{VisibilitySystems, VisibleEntities},
+    camera::visibility::VisibleEntities,
     core_pipeline::core_3d::{AlphaMask3d, Opaque3d},
-    ecs::system::{SystemParamItem, SystemState, lifetimeless::SRes},
+    ecs::system::{SystemParamItem, lifetimeless::SRes},
     pbr::{DrawMaterial, PreparedMaterial, RenderMaterialInstances, RenderMeshInstances},
     render::{
         Extract, ExtractSchedule, Render, RenderApp, RenderSystems,
@@ -21,6 +21,7 @@ use bevy::{
 };
 use command::Record;
 use inventory::Member;
+use observation::VisibilityMark;
 use std::{
     collections::{BTreeMap, HashMap, HashSet},
     sync::{
@@ -60,9 +61,6 @@ struct Pose {
 #[derive(Resource, Default)]
 struct Frame(Option<Arc<Pose>>);
 
-#[derive(Resource, Default)]
-struct VisibilityMark(Option<usize>);
-
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "snake_case")]
 enum SingleDrawPath {
@@ -74,15 +72,7 @@ enum SingleDrawPath {
 impl SpecimenDraws {
     pub(super) fn install(app: &mut App) -> Self {
         let draws = Self::default();
-        app.insert_resource(draws.clone())
-            .init_resource::<VisibilityMark>()
-            .init_resource::<inventory::CurrentInventory>()
-            .add_systems(
-                PostUpdate,
-                observe.after(VisibilitySystems::CheckVisibility).after(
-                    crate::presentation::interior_lighting::InteriorLightingSystems::Prepare,
-                ),
-            );
+        app.insert_resource(draws.clone());
         let render = app.sub_app_mut(RenderApp);
         render
             .insert_resource(draws.clone())
@@ -178,51 +168,6 @@ impl SpecimenDraws {
                     .all(|pose| !pose.invalid.load(Ordering::Acquire))
         })
     }
-}
-
-fn observe(world: &mut World) -> bevy::prelude::Result {
-    world.resource_mut::<VisibilityMark>().0 = None;
-    let state = world.resource::<SceneCaptureState>();
-    if state.phase == CapturePhase::Configure || state.view >= state.views.len() {
-        return Ok(());
-    }
-    let view = state.view;
-    let CapturePose::Cache(expected) = state.views[view].pose else {
-        return Ok(());
-    };
-    let (camera, transform, projection) = world
-        .query_filtered::<(&Camera, &GlobalTransform, &Projection), With<TacticalGameplayCamera>>()
-        .single(world)?;
-    if !expected.matches(
-        camera,
-        transform,
-        projection,
-        world.resource::<cameras::PerspectiveDepth>(),
-    ) {
-        world.resource::<Evidence>().camera_drift(view)?;
-        world.resource::<SpecimenDraws>().invalidate(view);
-        return Ok(());
-    }
-    background::instrument(world);
-    inventory::OwnedTrees::instrument_children(world)?;
-    let checked = {
-        let mut inspection = SystemState::<inventory::Inspector>::new(world);
-        inspection.get(world).map_err(anyhow::Error::from)?.check()
-    };
-    match checked {
-        Ok(inventory) => {
-            world.insert_resource(inventory);
-            world.resource_mut::<VisibilityMark>().0 = Some(view);
-        }
-        Err(error) => {
-            world
-                .resource::<Evidence>()
-                .input_fault(view, format!("{error:#}"))?;
-            world.resource::<SpecimenDraws>().invalidate(view);
-            return Err(error.into());
-        }
-    }
-    Ok(())
 }
 
 #[expect(

@@ -13,7 +13,14 @@ impl Inspector<'_, '_> {
         ensure!(
             *local == root.transform
                 && global.to_matrix() == local.to_matrix()
-                && *visibility == Visibility::Inherited
+                && *visibility
+                    == if *self.root_visibility == draw_policy::RootVisibility::LastRootHidden
+                        && owned.last_root()? == root.cache.root()
+                    {
+                        Visibility::Hidden
+                    } else {
+                        Visibility::Inherited
+                    }
                 && presented,
             "owned root transform/visibility/capability drift"
         );
@@ -44,7 +51,7 @@ impl Inspector<'_, '_> {
                 unbatchable,
             } = self.parts.get(child)?;
             ensure!(
-                unbatchable
+                unbatchable == self.review.draw_policy.singleton_instrumentation()
                     && parent.parent() == root.cache.root()
                     && descendants.is_none_or(|children| children.is_empty()),
                 "unexpected nested or reparented specimen member"

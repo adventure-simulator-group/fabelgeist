@@ -51,7 +51,12 @@ struct OwnedRoot {
 
 struct Seal {
     members: Vec<Member>,
-    assets: assets::Snapshot,
+    assets: HeldAssets,
+}
+
+enum HeldAssets {
+    Content(assets::Snapshot),
+    RenderBindings,
 }
 
 #[derive(Resource, Default)]
@@ -60,6 +65,7 @@ pub(super) struct CurrentInventory {
     pub visible: Vec<Entity>,
     pub valid: bool,
     pub background: Vec<background::Member>,
+    draw_policy: draw_policy::DrawPolicy,
 }
 
 #[derive(bevy::ecs::query::QueryData)]
@@ -93,7 +99,9 @@ pub(in super::super) struct Inspector<'w, 's> {
     obstacles: Query<'w, 's, &'static adventuresim_tactical_core::prelude::SceneObstacle>,
     selection: Res<'w, TreeLodRenderOverride>,
     review: Res<'w, Review>,
-    draws: Res<'w, material_draws::SpecimenDraws>,
+    root_visibility: Res<'w, draw_policy::RootVisibility>,
+    draws: Res<'w, draw_evidence::DrawEvidence>,
+    tags: Query<'w, 's, &'static bevy::mesh::MeshTag>,
     background: background::Inspector<'w, 's>,
     depth: Option<Res<'w, cameras::PerspectiveDepth>>,
     cameras: Query<
@@ -185,6 +193,13 @@ impl OwnedTrees {
         })
     }
 
+    pub(super) fn last_root(&self) -> Result<Entity> {
+        self.roots
+            .last()
+            .map(|root| root.cache.root())
+            .context("missing last fixture root")
+    }
+
     pub(super) fn retained_report(&self) -> serde_json::Value {
         serde_json::json!({"origin": format!("{:?}", self.variant.origin()),
             "cache_key": self.variant.cache_key().to_u64(),
@@ -258,8 +273,7 @@ impl Inspector<'_, '_> {
             "screenshot callback camera drift"
         );
         let current = self.check()?;
-        self.draws
-            .check_background(state.view, &current.background)?;
+        self.draws.check_capture(state.view, &current, &self.tags)?;
         Ok(())
     }
 
@@ -308,35 +322,63 @@ impl Inspector<'_, '_> {
                 seal.members == members,
                 "sealed whole inventory/binding drift"
             );
-            seal.assets.check(&self.assets)?;
+            match (&seal.assets, self.review.draw_policy) {
+                (HeldAssets::Content(snapshot), draw_policy::DrawPolicy::ContentSingletons) => {
+                    snapshot.check(&self.assets)?
+                }
+                (HeldAssets::RenderBindings, draw_policy::DrawPolicy::OrdinaryGpu(_)) => {}
+                _ => anyhow::bail!("held asset policy drift"),
+            }
         } else {
             *seal = Some(Seal {
-                assets: assets::Snapshot::capture(&self.assets, &members)?,
+                assets: match self.review.draw_policy {
+                    draw_policy::DrawPolicy::ContentSingletons => {
+                        HeldAssets::Content(assets::Snapshot::capture(&self.assets, &members)?)
+                    }
+                    draw_policy::DrawPolicy::OrdinaryGpu(_) => HeldAssets::RenderBindings,
+                },
                 members: members.clone(),
             });
         }
         let (_, _, _, visible_background) = self.cameras.single()?;
-        let background = self.background.collect(visible_background)?;
+        let background = self
+            .background
+            .collect(visible_background, self.review.draw_policy)?;
         Ok(CurrentInventory {
             members,
             visible,
             valid: true,
             background,
+            draw_policy: self.review.draw_policy,
         })
+    }
+}
+
+impl Member {
+    pub(super) fn selected(self) -> bool {
+        self.visibility != Visibility::Hidden
+    }
+
+    pub(super) fn transform(self) -> Mat4 {
+        self.transform
     }
 }
 
 impl CurrentInventory {
     pub(super) fn report(&self) -> serde_json::Value {
         serde_json::json!({"whole_inventory_verified": self.valid,
-            "members": self.members.iter().map(|member| serde_json::json!({
-                "entity_bits": member.entity.to_bits(), "root_bits": member.root.to_bits(), "part": member.part,
-                "mesh": format!("{:?}", member.mesh),
-                "authored_material": format!("{:?}", member.authored_material),
-                "effective_material": format!("{:?}", member.material),
-                "selected": member.visibility != Visibility::Hidden,
-                "world_from_mesh": member.transform.to_cols_array(),
-            })).collect::<Vec<_>>(),
-            "limits": "CPU-retained selected meshes, referenced material images and interior field; no GPU uniform or texture-byte readback"})
+        "members": self.members.iter().map(|member| serde_json::json!({
+            "entity_bits": member.entity.to_bits(), "root_bits": member.root.to_bits(), "part": member.part,
+            "mesh": format!("{:?}", member.mesh),
+            "authored_material": format!("{:?}", member.authored_material),
+            "effective_material": format!("{:?}", member.material),
+            "selected": member.visibility != Visibility::Hidden,
+            "world_from_mesh": member.transform.to_cols_array(),
+        })).collect::<Vec<_>>(),
+        "draw_policy": self.draw_policy,
+        "limits": match self.draw_policy {
+            draw_policy::DrawPolicy::ContentSingletons => "CPU-retained selected meshes, referenced material images and interior field; no GPU uniform or texture-byte readback",
+            draw_policy::DrawPolicy::OrdinaryGpu(_) => "normal render extraction; exact ownership/binding checks, no held CPU vertex/texture-byte immutability claim; actual GPU submission is separate evidence",
+        }})
     }
 }

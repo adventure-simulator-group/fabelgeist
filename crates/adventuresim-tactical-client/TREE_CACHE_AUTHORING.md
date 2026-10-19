@@ -100,19 +100,19 @@ output directory for each:
 tactical-scene-viewer --scene-input scene.json \
   --cache-review-dir fresh-cache --cache-review-source SOURCE_ID \
   --cache-review-content APPROVED_CONTENT_ID \
-  --cache-review-layout single \
+  --cache-review-layout single --cache-review-draw-policy content-singletons \
   --cache-review-role reference --cache-review-representation lod2 \
   --output reference-plates
 
 tactical-scene-viewer --scene-input scene.json \
   --cache-review-dir fresh-cache --cache-review-source SOURCE_ID \
   --cache-review-content APPROVED_CONTENT_ID \
-  --cache-review-layout single \
+  --cache-review-layout single --cache-review-draw-policy content-singletons \
   --cache-review-role candidate --cache-review-representation lod2 \
   --output cache-plates
 ```
 
-The six review options are required together. Available representations are
+The seven review options are required together. Available representations are
 `cambered`, `flat`, `lod1`, `lod2`, `lod3` and `lod4`. The first two hold the
 detailed crown with curved leaves or the existing thinned flat leaf cards.
 One representation remains fixed throughout the process, including warmup.
@@ -176,3 +176,50 @@ the same admitted variant. Their corresponding parts share the production
 cache's mesh, material and image handles. Static content review deliberately
 disables automatic batching and retains selected CPU assets for inspection;
 it does not establish multi-instance GPU draws or arrival performance.
+
+
+## Ordinary GPU instance proof
+
+Use the shared layout and an explicit ordinary draw policy to inspect actual
+main-color rendering with normal GPU batching and CPU asset extraction:
+
+```text
+tactical-scene-viewer --scene-input scene.json \
+  --cache-review-dir fresh-cache --cache-review-source SOURCE_ID \
+  --cache-review-content APPROVED_CONTENT_ID \
+  --cache-review-layout shared --cache-review-draw-policy ordinary-gpu \
+  --cache-review-batch-control ordinary \
+  --cache-review-role candidate --cache-review-representation cambered \
+  --view cache-crown --output gpu-instance-proof
+```
+
+The ordinary policy requires an explicit batch control. Use `ordinary` for
+the positive case. `forced-singletons` deliberately disables batching, and
+`hidden-last-root` hides the third tree after pipeline warmup. Both negatives
+must fail the three-instance proof. Ordinary views cover the full source
+envelope; root-contact views remain content diagnostics.
+
+This observer preserves original material commands and snapshots bounded
+prefixes of their actual indirect parameters, counted batch sets and compacted
+GPU mesh-instance data. It resolves explicit mesh tags to owned tree and
+terrain entities, checking transforms, material slots, pipelines and mesh
+allocations. Each selected tree part must occur in one command containing
+the three intended instances. Successful separate draws cannot satisfy that
+condition. Terrain submissions must also match their held bindings.
+
+The required tag/root set retains every selected owned child, including a
+deliberately hidden tree. Native visibility only controls which current
+renderer bindings can exist; it never reduces required GPU membership. A
+hidden root therefore reaches an actual incomplete-batch rejection instead
+of waiting indefinitely for renderer records that cannot be extracted.
+
+Only a validated GPU readback permits screenshot readiness. Raw storage
+snapshots and command receipts are saved under `gpu-batches/`. The original
+camera, selection, ownership and tag checks remain active through the final
+image callback. Normal extraction does not retain source vertex or texture
+bytes, so this proof makes no CPU byte-immutability claim.
+
+These are untimed correctness diagnostics. Their added dispatches and readbacks
+must not be included in an unqualified production benchmark. Main-color
+membership does not validate shadow or prepass membership, moving LODs,
+browser behavior, retained memory or complete visible-area arrival.

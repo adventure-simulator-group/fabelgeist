@@ -32,10 +32,12 @@ pub(super) fn load(options: Request, setup: &SceneSetupData) -> Result<Review> {
         "suppressed_generated_obstacles": setup.generated.obstacles.len(),
         "cameras": cameras, "selection": options.representation,
         "time_phase": super::super::CAPTURE_CLOCK_PHASE_SECONDS,
+        "draw_policy": options.draw_policy,
         "scope": "isolated static content; no adaptive, arrival or motion claim"
     });
     Ok(Review {
         role: options.role,
+        draw_policy: options.draw_policy,
         layout: options.layout,
         source: options.source,
         representation: options.representation,

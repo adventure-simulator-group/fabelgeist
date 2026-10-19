@@ -22,16 +22,20 @@ pub(super) use runtime::{install, ready};
 mod admission;
 mod background;
 mod cameras;
+mod draw_evidence;
+mod draw_policy;
 mod evidence;
 pub(super) mod inventory;
 mod layout;
 mod material_draws;
+mod observation;
+mod ordinary_batches;
 mod runtime;
 
 pub(super) const PROFILE: &str = "tree-cache-review";
 
 #[derive(Debug, clap::Args)]
-#[group(multiple = true, requires_all=["directory", "source", "role", "representation", "review_content", "layout", "scene_input"], conflicts_with_all=["fixture", "profile", "prepare_tree_bank", "canopy_bps", "absolute_minute", "leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "terrain_wireframe", "triangle_census", "city_cameras", "tree_review_azimuth_degrees"])]
+#[group(multiple = true, requires_all=["directory", "source", "role", "representation", "review_content", "layout", "draw_method", "scene_input"], conflicts_with_all=["fixture", "profile", "prepare_tree_bank", "canopy_bps", "absolute_minute", "leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "terrain_wireframe", "triangle_census", "city_cameras", "tree_review_azimuth_degrees"])]
 pub(crate) struct Options {
     /// Directory containing the checked complete variant.treecache.
     #[arg(long = "cache-review-dir")]
@@ -51,6 +55,12 @@ pub(crate) struct Options {
     /// One tree or three terrain-supported roots sharing one production variant.
     #[arg(long = "cache-review-layout", value_enum)]
     layout: Option<layout::TreeLayout>,
+    /// Singleton content fidelity or ordinary submitted GPU instance evidence.
+    #[arg(long = "cache-review-draw-policy", value_enum)]
+    draw_method: Option<draw_policy::DrawMethod>,
+    /// Ordinary positive case or an explicit bounded instancing negative.
+    #[arg(long = "cache-review-batch-control", value_enum)]
+    batch_control: Option<draw_policy::BatchControl>,
 }
 
 struct Request {
@@ -60,12 +70,14 @@ struct Request {
     representation: TreeCacheRepresentation,
     content: TreeCacheContentId,
     layout: layout::TreeLayout,
+    draw_policy: draw_policy::DrawPolicy,
 }
 
 #[derive(Resource)]
 pub(super) struct Review {
     role: Role,
     layout: layout::TreeLayout,
+    draw_policy: draw_policy::DrawPolicy,
     representation: TreeCacheRepresentation,
     source: PlantId,
     cache: Option<PreparedTreeCache>,
@@ -89,8 +101,19 @@ pub(super) enum Role {
 
 impl Options {
     pub(super) fn admit(self, setup: &SceneSetupData) -> Result<Review> {
+        let draw_policy = draw_policy::DrawPolicy::admit(
+            self.draw_method
+                .context("cache review draw policy required")?,
+            self.batch_control,
+        )?;
+        let layout = self.layout.context("cache review layout required")?;
+        ensure!(
+            draw_policy.retains_cpu_content() || layout == layout::TreeLayout::Shared,
+            "ordinary GPU proof requires the three-root layout"
+        );
         let request = Request {
-            layout: self.layout.context("cache review layout required")?,
+            draw_policy,
+            layout,
             content: self
                 .review_content
                 .context("cache producer content required")?,
@@ -108,7 +131,10 @@ impl Options {
 impl Review {
     pub(super) fn views(&self, requested: &[String]) -> Result<Vec<CaptureViewSpec>, String> {
         view_selection::select(
-            &self.cameras.views(self.representation),
+            &self.cameras.views(self.representation).into_iter().filter(|view| {
+                self.draw_policy.retains_cpu_content()
+                    || !matches!(view.pose, CapturePose::Cache(camera) if camera.plate == cameras::Plate::Root)
+            }).collect::<Vec<_>>(),
             requested,
             view_selection::ViewSequence::Independent,
         )

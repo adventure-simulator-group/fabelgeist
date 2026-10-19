@@ -14,7 +14,8 @@ mod trees;
 pub(in super::super) struct ReadyPose(usize);
 
 pub(in super::super) fn install(app: &mut App, review: Review) {
-    let draws = material_draws::SpecimenDraws::install(app);
+    let draws = draw_evidence::DrawEvidence::install(app, review.draw_policy);
+    app.insert_resource(draws.clone());
     let evidence = Evidence::new(
         review.metadata.clone(),
         review.role,
@@ -68,7 +69,9 @@ fn setup_inner(world: &mut World) -> Result<()> {
         projected_scale: first.projected_scale,
     });
     let owned = trees::install(world)?;
-    owned.retain_cpu_data(world)?;
+    if world.resource::<Review>().draw_policy.retains_cpu_content() {
+        owned.retain_cpu_data(world)?;
+    }
     world.insert_resource(owned);
     {
         let mut state = world.resource_mut::<SceneCaptureState>();
@@ -97,6 +100,7 @@ fn setup_inner(world: &mut World) -> Result<()> {
             "device_type": format!("{:?}", adapter.device_type), "driver": adapter.driver,
             "driver_info": adapter.driver_info},
         "projection_depth": world.resource::<cameras::PerspectiveDepth>(),
+        "draw_policy": world.resource::<Review>().draw_policy,
         "retained_cache": world.resource::<inventory::OwnedTrees>().retained_report(),
         "actual_virtual_seconds": world.resource::<Time<Virtual>>().elapsed_secs_f64(),
         "scope": "actual native renderer, isolated held production-cache content comparison"});
@@ -135,8 +139,8 @@ fn advance(world: &mut World) -> bevy::prelude::Result {
     }
     let actual_camera = expected.actual(transform, projection)?;
     if let Some(proof) = world
-        .resource::<material_draws::SpecimenDraws>()
-        .proof(view)
+        .resource::<draw_evidence::DrawEvidence>()
+        .proof(view)?
     {
         world.resource::<Evidence>().record(
             view,

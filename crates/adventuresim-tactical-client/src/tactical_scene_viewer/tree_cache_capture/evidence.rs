@@ -18,7 +18,7 @@ pub(in super::super) struct Evidence {
 struct Data {
     metadata: serde_json::Value,
     poses: BTreeMap<usize, serde_json::Value>,
-    draws: material_draws::SpecimenDraws,
+    draws: draw_evidence::DrawEvidence,
     camera_drift_views: BTreeSet<usize>,
     input_faults: BTreeMap<usize, String>,
 }
@@ -28,7 +28,7 @@ impl Evidence {
         metadata: serde_json::Value,
         role: Role,
         representation: TreeCacheRepresentation,
-        draws: material_draws::SpecimenDraws,
+        draws: draw_evidence::DrawEvidence,
         layout: layout::TreeLayout,
     ) -> Self {
         Self {
