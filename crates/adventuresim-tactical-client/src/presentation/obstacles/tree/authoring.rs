@@ -17,7 +17,9 @@ mod evidence;
 mod records;
 mod review;
 
-pub(crate) use review::{TreeSourceGeometry, TreeSourcePart};
+pub(crate) use review::{
+    TreeSourceGeometry, TreeSourceMeshBinding, TreeSourcePart, TreeSourcePresentation,
+};
 pub(super) mod specimens;
 
 pub(crate) const SOURCE_FORMAT: &str = "production-source-bank-pilot-v1";
@@ -43,7 +45,7 @@ pub(crate) fn write_tree_bank(input_path: &Path, output: &Path) -> Result<()> {
         "mesh_bytes": library.mesh_bytes(),
         "library_bytes": library_bytes.len(),
         "population_bytes": population_bytes.len(),
-        "source_normalization_metres": specimens::source_normalization().to_array(),
+        "source_normalization_metres": super::source::source_normalization().to_array(),
         "source_specimens": prepared.evidence,
         "source_geometry_frame": "collider-centred metres before one half-trunk normalization",
         "leaf_envelopes": "logical rectangles/petioles and actual unanimated production flat/cambered mesh vertices; no opacity clipping",

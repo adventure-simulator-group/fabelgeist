@@ -191,7 +191,7 @@ pub(in crate::presentation) fn update_tree_projected_lod_ranges(
         let (next_range, next_visibility) = if let Some(forced_lod) = lod_override.lod {
             (
                 VisibilityRange::abrupt(0.0, f32::MAX),
-                if forced_lod < 4 {
+                if forced_lod < 4 && mid_trunk == (forced_lod != 0) {
                     Visibility::Inherited
                 } else {
                     Visibility::Hidden

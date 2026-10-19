@@ -43,39 +43,3 @@ preserved. Successful authoring establishes checked asset construction, not
 matching appearance, runtime replacement, or arrival performance. Production
 use requires matched images under actual game lighting and separate arrival
 measurements.
-
-## Matched static content review
-
-Use the same scene input to render one source specimen or its converted bank
-model under tactical production lighting and terrain:
-
-```text
-tactical-scene-viewer --scene-input path/to/scene.json \
-  --bank-review-dir target/tree-bank --bank-review-source SOURCE_ID \
-  --bank-review-role source --output target/source-plates
-```
-
-Read `SOURCE_ID` from `source.json`. Repeat with `--bank-review-role candidate`
-and a different fresh output directory. The three review flags belong together
-and require `--scene-input`; explicit profiles, fixtures, authoring options and
-benchmark modes conflict with this review. Ordinary capture commands do not
-require the review flags.
-
-Each process admits the bank, source binding and complete scene environment.
-Root, crown and eye-height cameras come from the full source geometry and are
-shared by both roles. Candidate uses fixed full detail. Actual tactical terrain,
-lighting, exposure and frozen clock phase remain; unrelated obstacles, scatter,
-vista trees and old review specimens are removed. Vista terrain and rock bands
-remain common background subject to the fixed views' visibility settings.
-
-`bank-review-runtime.json` records the actual adapter and camera depth planes.
-`bank-review.json` records source identity, camera contracts and successful
-role-specific draw prerequisites through the final screenshot callback. Source
-uses actual production wood, cambered leaves and buds; Candidate uses the bank
-renderer. Each accepted view requires identical settled readbacks. Missing or
-changed cameras, incomplete draws and failed readbacks reject completion.
-
-These are held content plates. Draw prerequisites precede the screenshots and
-do not timestamp their exact GPU frame. Automatic gates do not establish
-appearance, botanical fidelity, moving LOD behavior or full-area arrival time.
-Inspect the actual paired images before accepting a representation change.

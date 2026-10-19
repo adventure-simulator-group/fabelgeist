@@ -2,6 +2,50 @@
 
 use super::*;
 
+pub(super) struct TreeMaterialBindings {
+    pub(super) bark: Handle<TacticalTreeBarkMaterial>,
+    pub(super) aggregate_bark: Handle<TacticalTreeAggregateBarkMaterial>,
+    pub(super) leaf: Handle<TacticalTreeLeafCardMaterial>,
+    pub(super) bud: Handle<StandardMaterial>,
+}
+
+impl CachedTreePresentation {
+    /// Existing procedural kernel outputs retain their collider-centred frame.
+    pub(super) fn from_generated(
+        species: TreePresentationSpecies,
+        variant_seed: Seed,
+        branches: Vec<super::super::TreeBranchSegment>,
+        leaves: Vec<super::super::TreeLeaf>,
+        materials: TreeMaterialBindings,
+    ) -> Self {
+        let resident_assets = TreeAssetResidencyDiagnostics {
+            variants: 1,
+            source_branches: branches.len(),
+            source_leaves: leaves.len(),
+            ..default()
+        };
+        Self {
+            origin: TreeAssetOrigin::Generated,
+            variant_seed,
+            species,
+            species_name: species.name(),
+            branches: branches.into(),
+            leaves: leaves.into(),
+            trunk_mesh: None,
+            mid_trunk_mesh: None,
+            cluster_layout: None,
+            clusters: None,
+            aggregate_branch_meshes: [None, None],
+            lod_cards: [None, None, None, None],
+            bark_material: materials.bark,
+            aggregate_bark_material: materials.aggregate_bark,
+            leaf_material: materials.leaf,
+            bud_material: materials.bud,
+            resident_assets,
+        }
+    }
+}
+
 fn bake_tree_card_for_cached(
     cached: &CachedTreePresentation,
     lod: u8,
@@ -158,7 +202,11 @@ pub(super) fn ensure_tree_assets_resident(
     tree_materials: &mut Assets<TacticalTreeImpostorMaterial>,
     images: &mut Assets<Image>,
     diagnostics: &mut TreeAssetResidencyDiagnostics,
-) {
+) -> bevy::prelude::Result {
+    #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+    if let TreeAssetOrigin::PreparedFull(_) = &cached.origin {
+        return prepared::require_full(cached, mask, selected_leaf).map_err(Into::into);
+    }
     let mut added = TreeAssetResidencyDiagnostics::default();
     generate_tree_assets_resident(
         cached,
@@ -173,6 +221,7 @@ pub(super) fn ensure_tree_assets_resident(
     cached.resident_assets.add_resident_assets(&added);
     diagnostics.add_resident_assets(&added);
     diagnostics.generation_milliseconds += added.generation_milliseconds;
+    Ok(())
 }
 
 #[expect(

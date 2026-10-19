@@ -1,40 +1,40 @@
-//! Process-isolated source/bank content plates under production presentation.
+//! Process-isolated source/cache content plates under production presentation.
 
-use adventuresim_environment::prepared::{SharedForest, TreeBank};
 use anyhow::{Context, Result, ensure};
 use bevy::prelude::*;
 use fabelgeist_botany::identity::PlantId;
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 use std::{fs, path::PathBuf, sync::Arc};
 
 use super::{
     SceneSetupData, view_selection,
     view_specs::{CapturePose, CaptureViewSpec},
 };
-use crate::presentation::{TREE_BANK_SOURCE_FORMAT, TreePresentationSpecies, TreeSourceGeometry};
+use crate::presentation::{PreparedTreeCache, TreeSourceGeometry};
 
 mod admission;
 mod cameras;
 mod evidence;
+pub(super) mod inventory;
+mod material_draws;
 mod runtime;
-mod source_draws;
 
 pub(super) use evidence::Evidence;
 pub(super) use runtime::{install, ready};
 
-pub(super) const PROFILE: &str = "tree-bank-review";
+pub(super) const PROFILE: &str = "tree-cache-review";
 
 #[derive(Debug, clap::Args)]
 #[group(multiple = true, requires_all=["directory", "source", "role", "scene_input"], conflicts_with_all=["fixture", "profile", "prepare_tree_bank", "canopy_bps", "absolute_minute", "leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "terrain_wireframe", "triangle_census", "city_cameras"])]
 pub(crate) struct Options {
-    /// Freshly authored checked bank and source manifest directory.
-    #[arg(long = "bank-review-dir")]
+    /// Directory containing the checked fixed-Full variant.treecache.
+    #[arg(long = "cache-review-dir")]
     directory: Option<PathBuf>,
-    /// Actual source PlantId from this bank's source.json.
-    #[arg(long = "bank-review-source")]
+    /// Actual production source PlantId bound by the cache.
+    #[arg(long = "cache-review-source")]
     source: Option<u64>,
-    /// Render one whole source or its admitted converted model per process.
-    #[arg(long = "bank-review-role", value_enum)]
+    /// Render one whole source or its admitted production cache per process.
+    #[arg(long = "cache-review-role", value_enum)]
     role: Option<Role>,
 }
 
@@ -55,7 +55,7 @@ struct Request {
 pub(super) struct Review {
     role: Role,
     source: Option<TreeSourceGeometry>,
-    forest: Arc<SharedForest>,
+    cache: Option<PreparedTreeCache>,
     cameras: cameras::Cameras,
     root: Vec3,
     metadata: serde_json::Value,
@@ -64,9 +64,9 @@ pub(super) struct Review {
 impl Options {
     pub(super) fn admit(self, setup: &SceneSetupData) -> Result<Review> {
         let request = Request {
-            directory: self.directory.context("bank review directory required")?,
-            source: PlantId::from_word(self.source.context("bank source identity required")?),
-            role: self.role.context("bank review role required")?,
+            directory: self.directory.context("cache review directory required")?,
+            source: PlantId::from_word(self.source.context("cache source identity required")?),
+            role: self.role.context("cache review role required")?,
         };
         admission::load(request, setup)
     }

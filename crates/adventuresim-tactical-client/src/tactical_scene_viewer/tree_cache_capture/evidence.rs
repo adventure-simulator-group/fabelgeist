@@ -2,7 +2,6 @@
 
 use super::super::capture_state::SceneCaptureState;
 use super::*;
-use adventuresim_environment::render::benchmark::{ForestBenchmark, ValidationPhase};
 use std::{
     collections::{BTreeMap, BTreeSet},
     sync::Mutex,
@@ -13,46 +12,36 @@ pub(in super::super) struct Evidence(Arc<Mutex<Data>>);
 
 struct Data {
     metadata: serde_json::Value,
+    role: Role,
     poses: BTreeMap<usize, serde_json::Value>,
-    draws: DrawEvidence,
+    draws: material_draws::SpecimenDraws,
     camera_drift_views: BTreeSet<usize>,
-}
-
-struct DrawStatus {
-    clean: bool,
-    report: serde_json::Value,
-}
-
-enum DrawEvidence {
-    Source(source_draws::SourceDraws),
-    Candidate(Vec<ForestBenchmark>),
+    input_faults: BTreeMap<usize, String>,
 }
 
 impl Evidence {
     pub(super) fn new(
         metadata: serde_json::Value,
-        source: Option<source_draws::SourceDraws>,
+        role: Role,
+        draws: material_draws::SpecimenDraws,
     ) -> Self {
         Self(Arc::new(Mutex::new(Data {
             metadata,
-            draws: match source {
-                Some(source) => DrawEvidence::Source(source),
-                None => DrawEvidence::Candidate(Vec::new()),
-            },
+            role,
+            draws,
             poses: BTreeMap::new(),
             camera_drift_views: BTreeSet::new(),
+            input_faults: BTreeMap::new(),
         })))
     }
 
-    pub(super) fn track(&self, probe: ForestBenchmark) -> Result<()> {
+    pub(in super::super) fn input_fault(&self, view: usize, reason: String) -> Result<()> {
         let mut data = self
             .0
             .lock()
             .map_err(|_| anyhow::anyhow!("capture evidence lock"))?;
-        let DrawEvidence::Candidate(probes) = &mut data.draws else {
-            anyhow::bail!("source plate cannot own a bank probe");
-        };
-        probes.push(probe);
+        data.input_faults.entry(view).or_insert(reason);
+        data.draws.invalidate(view);
         Ok(())
     }
 
@@ -68,7 +57,7 @@ impl Evidence {
     pub(super) fn camera_intact(&self) -> bool {
         self.0
             .lock()
-            .is_ok_and(|data| data.camera_drift_views.is_empty())
+            .is_ok_and(|data| data.camera_drift_views.is_empty() && data.input_faults.is_empty())
     }
 
     pub(super) fn record(&self, view: usize, proof: serde_json::Value) -> Result<()> {
@@ -81,6 +70,35 @@ impl Evidence {
         Ok(())
     }
 
+    pub(in super::super) fn selected_cache_roots(&self) -> usize {
+        self.0
+            .lock()
+            .map_or(0, |data| usize::from(data.role == Role::Candidate))
+    }
+
+    pub(in super::super) fn capability(
+        &self,
+        presented_roots: usize,
+    ) -> super::super::manifest::TreePresentationCapability {
+        use super::super::manifest::TreePresentationCapability;
+        let Ok(data) = self.0.lock() else {
+            return TreePresentationCapability::FixedFullCache {
+                owned_inventory_verified: false,
+            };
+        };
+        let clean = data.camera_drift_views.is_empty()
+            && data.input_faults.is_empty()
+            && data.draws.inventory_verified();
+        match data.role {
+            Role::Source => TreePresentationCapability::WholeSource {
+                owned_inventory_verified: clean && presented_roots == 0,
+            },
+            Role::Candidate => TreePresentationCapability::FixedFullCache {
+                owned_inventory_verified: clean && presented_roots == 1,
+            },
+        }
+    }
+
     pub(in super::super) fn finish(&self, state: &SceneCaptureState) -> Result<()> {
         let data = self
             .0
@@ -88,39 +106,18 @@ impl Evidence {
             .map_err(|_| anyhow::anyhow!("capture evidence lock"))?;
         let poses_complete = data.poses.len() == state.views.len()
             && (0..state.views.len()).all(|view| data.poses.contains_key(&view));
-        let draw_status = match &data.draws {
-            DrawEvidence::Source(source) => {
-                let clean = source.all_valid(state.views.len());
-                DrawStatus {
-                    clean,
-                    report: serde_json::json!({"role": Role::Source, "source_prefixes_clean": clean}),
-                }
-            }
-            DrawEvidence::Candidate(probes) => {
-                let clean = probes.len() == state.views.len()
-                    && probes.iter().all(|probe| {
-                        !probe.status().failed
-                            && probe
-                                .validation()
-                                .evidence()
-                                .is_some_and(|status| status.phase == ValidationPhase::Complete)
-                            && probe.final_completed_frame().is_some()
-                            && probe.native_residency().is_some()
-                    });
-                DrawStatus {
-                    clean,
-                    report: serde_json::json!({"role": Role::Candidate, "bank_probes": probes.len(), "bank_probes_clean": clean}),
-                }
-            }
-        };
-        let passed = poses_complete && draw_status.clean && data.camera_drift_views.is_empty();
+        let draws_clean = data.draws.all_valid(state.views.len());
+        let passed = poses_complete
+            && draws_clean
+            && data.camera_drift_views.is_empty()
+            && data.input_faults.is_empty();
         let report = serde_json::json!({"metadata": data.metadata, "poses": data.poses,
-            "post_screenshots": {"poses_complete": poses_complete, "draws": draw_status.report, "camera_drift_views": data.camera_drift_views},
+            "post_screenshots": {"poses_complete": poses_complete, "draws": draws_clean, "camera_drift_views": data.camera_drift_views, "input_faults": data.input_faults},
             "capture_files": state.captures.iter().map(|capture| &capture.screenshot).collect::<Vec<_>>(),
             "passed": passed,
             "limits": "queue-prefix prerequisites and held images, not exact capture-frame timestamps, motion, geographic arrival, physical VRAM or quality approval"});
         fs::write(
-            state.output.join("bank-review.json"),
+            state.output.join("cache-review.json"),
             serde_json::to_vec_pretty(&report)?,
         )?;
         ensure!(passed, "incomplete or failed fixed-plate draw evidence");

@@ -6,7 +6,6 @@ use adventuresim_environment::{
     prepared::{PreparedUnique, TreeFocus, TreeLibrary, TreeRoot},
     render::ForestDetail,
 };
-use adventuresim_tactical_core::scene_input::TREE_TRUNK_HEIGHT_METRES;
 use anyhow::{Context, Result};
 use bevy::prelude::*;
 use fabelgeist_botany::{
@@ -22,7 +21,7 @@ use fabelgeist_math::units::Metres;
 
 use super::super::{
     OAK_GNARLING_SHOWCASE, TreePresentationSpecies,
-    source::{canopy_competition, playable_tree_source},
+    source::{canopy_competition, playable_tree_source, source_normalization},
     specimen::oak_variant_seed,
 };
 use super::{
@@ -114,10 +113,6 @@ impl PreparedSpecimens {
         self.unique.validate()?;
         Ok(())
     }
-}
-
-pub(super) fn source_normalization() -> Vec3 {
-    Vec3::Y * (TREE_TRUNK_HEIGHT_METRES * 0.5)
 }
 
 pub(super) fn prepare(environment: &SceneEnvironment) -> Result<PreparedSpecimens> {

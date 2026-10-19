@@ -86,9 +86,9 @@ impl Cameras {
     pub(super) fn views(&self) -> [CaptureViewSpec; 4] {
         [
             view("warmup", "Pipeline warmup", self.gameplay).warmup(),
-            view("bank-root", "Source tree root contact", self.root).settled_readback_pair(),
-            view("bank-crown", "Source tree full crown", self.crown).settled_readback_pair(),
-            view("bank-gameplay", "Source tree at eye height", self.gameplay)
+            view("cache-root", "Source tree root contact", self.root).settled_readback_pair(),
+            view("cache-crown", "Source tree full crown", self.crown).settled_readback_pair(),
+            view("cache-gameplay", "Source tree at eye height", self.gameplay)
                 .settled_readback_pair(),
         ]
     }
@@ -98,10 +98,12 @@ fn view(slug: &'static str, label: &'static str, camera: PlateCamera) -> Capture
     CaptureViewSpec::new(
         slug,
         label,
-        CapturePose::Bank(camera),
+        CapturePose::Cache(camera),
         FOV_DEGREES,
         FOREGROUND_BPS,
     )
+    .render_lod(0)
+    .leaf_lod(crate::presentation::TreeLeafRepresentation::TexturedMesh)
     .hide_obstacles()
     .suppress_grass()
     .suppress_understory()

@@ -33,12 +33,13 @@ path uses that bake to obtain cluster bounds. This dependency is retained even
 though Full would not draw that atlas. Other adaptive tiers, flat leaves and
 aggregate wood are absent. This artifact cannot certify adaptive LOD behavior.
 
-Coordinates remain collider-centred metres. A future presenter must apply the
-existing half-trunk placement normalization exactly once. Trunk COLOR values
+Coordinates remain collider-centred metres. The native cache attachment applies
+the existing half-trunk placement normalization exactly once. Trunk COLOR values
 carry metric root height; leaf COLOR values carry shading, shoot-shadow
 selectors and ambient visibility. They are preserved as authored, including
 leaf brightness above one. Materials, asset handles, entities and
-terrain-contact bindings are not serialized. They belong to the destination production presenter.
+terrain-contact bindings are not serialized. They belong to the destination
+production presenter.
 
 Admission checks the current format, complete BLAKE3 payload digest, exact
 uncompressed length, compression termination, input/environment/source binding,
@@ -54,3 +55,55 @@ Successful CPU validation establishes serialization and admission only.
 Production materials, shadows, actual cache attachment, held images, moving
 LOD transitions, distant instancing and complete visible-area arrival require
 separate runtime validation and performance evidence.
+
+## Matched static content review
+
+Render one source specimen and its admitted production cache in separate
+processes, using the same scene input and a fresh output directory for each:
+
+```text
+tactical-scene-viewer --scene-input scene.json \
+  --cache-review-dir fresh-cache --cache-review-source SOURCE_ID \
+  --cache-review-role source --output source-plates
+
+tactical-scene-viewer --scene-input scene.json \
+  --cache-review-dir fresh-cache --cache-review-source SOURCE_ID \
+  --cache-review-role candidate --output cache-plates
+```
+
+The three review options are required together. They conflict with explicit
+profiles, fixtures, authoring options, benchmark modes and scene overrides.
+Ordinary capture commands do not require them. Root, crown and eye-height
+cameras derive only from the full source geometry. Both roles retain actual
+production terrain, lighting, depth planes, exposure and the frozen clock.
+Unrelated obstacles, scatter, vista trees and old specimens are removed.
+Vista terrain and rock bands remain shared background.
+
+The candidate inserts decoded assets into the actual production cache and
+uses its existing streamer, material factories and child hierarchy. Every view,
+including warmup, selects production LOD0 with cambered leaves before the first
+streaming update. An unsupported tier or representation is rejected. The
+middle trunk and first atlas are dependencies; they do not replace Full
+geometry. This is an explicit fixed-Full capability, with no five-LOD claim.
+The source uses the complete mature wood, cambered leaves and buds.
+
+`cache-review-runtime.json` records the actual adapter and depth planes.
+`cache-review.json` retains camera and whole-specimen identities plus successful
+production material commands for the actual camera-visible subset. Buds must
+have completed production conversion to their effective interior-lighting
+material. The capture marks owned children as unbatchable. Each observed draw must use
+its owned mesh, effective material and single-member direct or checked
+single-range indirect command. Ordinary production batching is unchanged. Missing draws or changed bindings after the first completed
+queue prefix remain failed. The actual screenshot callback reinspects the held
+camera, selection, hierarchy and CPU-authored asset values before advancing.
+Each saved plate also requires identical settled readbacks.
+
+The capture retains selected mesh and referenced image data on the CPU and
+keeps value snapshots from the first post-conversion inventory seal for
+diagnostic comparison. This changes retained memory
+and adds inspection work. These runs are untimed content evidence; they cannot
+serve as production performance or physical memory measurements. CPU value
+checks do not read back GPU uniform, storage-buffer or texture bytes. Queue
+prefixes do not identify a screenshot's exact GPU frame. Inspect paired images
+independently before accepting appearance; moving LODs, distant instancing and
+complete visible-area arrival remain separate acceptance requirements.

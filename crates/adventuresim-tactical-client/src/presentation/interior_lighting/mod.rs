@@ -123,6 +123,11 @@ impl InteriorLightingGpu {
     }
 }
 
+#[derive(SystemSet, Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub(crate) enum InteriorLightingSystems {
+    Prepare,
+}
+
 pub(super) struct InteriorLightingPlugin;
 
 impl Plugin for InteriorLightingPlugin {
@@ -164,6 +169,7 @@ impl Plugin for InteriorLightingPlugin {
                 exposure::expose_fixed_views,
                 material::prepare_materials,
             )
+                .in_set(InteriorLightingSystems::Prepare)
                 .after(bevy::transform::TransformSystems::Propagate),
         );
     }

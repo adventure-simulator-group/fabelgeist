@@ -1,0 +1,41 @@
+//! Checked production-cache admission and source-derived cameras.
+use super::*;
+
+pub(super) fn load(options: Request, setup: &SceneSetupData) -> Result<Review> {
+    let cache = PreparedTreeCache::load(
+        &options.directory.join("variant.treecache"),
+        &setup.input,
+        &setup.environment,
+        options.source,
+    )?;
+    let source = TreeSourceGeometry::find(options.source, &setup.environment)?;
+    let ground = setup
+        .generated
+        .terrain
+        .height_at(Vec2::ZERO)
+        .context("review root lacks production terrain support")?;
+    ensure!(ground.is_finite(), "nonfinite review ground");
+    let root = Vec3::new(0.0, ground, 0.0);
+    let cameras = cameras::Cameras::from_source(&source, root, &setup.generated.terrain)?;
+    let metadata = serde_json::json!({
+        "role": options.role, "source_id": options.source.word(),
+        "species": source.species, "seed": source.seed.to_u64(),
+        "input_digest": setup.input.digest()?, "scene_digest": setup.generated.digest,
+        "environment": setup.environment, "cache_content_id": cache.content_id(),
+        "root_metres": root, "source_mesh_minimum": source.minimum,
+        "source_mesh_maximum": source.maximum,
+        "source_branches": source.branches, "source_cards": source.cards,
+        "suppressed_generated_obstacles": setup.generated.obstacles.len(),
+        "cameras": cameras, "selection": "fixed production LOD0, cambered leaves",
+        "time_phase": super::super::CAPTURE_CLOCK_PHASE_SECONDS,
+        "scope": "isolated static content; no adaptive, arrival or motion claim"
+    });
+    Ok(Review {
+        role: options.role,
+        source: Some(source),
+        cache: Some(cache),
+        cameras,
+        root,
+        metadata,
+    })
+}

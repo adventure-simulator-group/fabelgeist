@@ -39,11 +39,17 @@ mod materials;
 mod obstacles;
 #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
 pub(crate) use obstacles::tree::authoring::{
-    SOURCE_FORMAT as TREE_BANK_SOURCE_FORMAT, TreeSourceGeometry, TreeSourcePart, write_tree_bank,
+    SOURCE_FORMAT as TREE_BANK_SOURCE_FORMAT, TreeSourceGeometry, TreeSourceMeshBinding,
+    TreeSourcePart, TreeSourcePresentation, write_tree_bank,
 };
 #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
 pub(crate) use obstacles::tree::prepared_cache::{
     PreparedTreeCache, inspect_tree_cache, write_tree_cache,
+};
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+pub(crate) use obstacles::tree::{
+    InstalledCacheSpecimen, InstalledTreeMaterial, InstalledTreePart, InstalledTreePartRole,
+    PreparedCacheInspection,
 };
 pub(crate) mod ownership;
 mod procedural;

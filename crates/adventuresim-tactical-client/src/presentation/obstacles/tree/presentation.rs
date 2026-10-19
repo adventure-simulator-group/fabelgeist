@@ -45,9 +45,13 @@ use super::{TREE_PRIMARY_GROUP_COUNT, source::oak_site_key};
 
 mod assets;
 mod diagnostics;
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+pub(super) mod prepared;
 
 use assets::ensure_tree_assets_resident;
 mod residency;
+mod vista;
+pub(in crate::presentation) use vista::ensure_vista_tree_variant;
 
 #[derive(Component)]
 pub(in crate::presentation) struct PendingTreePresentation;
@@ -95,6 +99,7 @@ pub(in crate::presentation) struct CachedVistaTreePresentation {
 
 #[derive(Clone)]
 struct CachedTreePresentation {
+    origin: TreeAssetOrigin,
     variant_seed: Seed,
     species: TreePresentationSpecies,
     species_name: &'static str,
@@ -111,6 +116,13 @@ struct CachedTreePresentation {
     leaf_material: Handle<TacticalTreeLeafCardMaterial>,
     bud_material: Handle<StandardMaterial>,
     resident_assets: TreeAssetResidencyDiagnostics,
+}
+
+#[derive(Clone)]
+enum TreeAssetOrigin {
+    Generated,
+    #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+    PreparedFull(blake3::Hash),
 }
 
 #[derive(Clone)]
@@ -413,7 +425,7 @@ pub(in crate::presentation) fn stream_tree_lod_children(
     mut tree_cache: ResMut<TreePresentationCache>,
     mut residency: ResMut<TreeAssetResidencyDiagnostics>,
     prepared: PreparedTreeImpostors,
-) {
+) -> bevy::prelude::Result {
     let focal_scale = match camera.1 {
         Projection::Perspective(projection) => {
             (80.0_f32.to_radians() * 0.5).tan() / (projection.fov * 0.5).tan()
@@ -455,7 +467,7 @@ pub(in crate::presentation) fn stream_tree_lod_children(
             &mut tree_materials,
             &mut images,
             &mut residency,
-        );
+        )?;
         let desired_leaf_mask = if mask & (1 << 1) == 0 {
             0
         } else {
@@ -473,6 +485,7 @@ pub(in crate::presentation) fn stream_tree_lod_children(
         presentation.active_mask = mask;
         presentation.active_leaf = selected_leaf;
     }
+    Ok(())
 }
 
 fn tree_streamed_leaf_representation(scaled_distance: f32) -> Option<TreeLeafRepresentation> {
@@ -507,49 +520,6 @@ fn tree_streaming_mask(scaled_distance: f32) -> u8 {
 fn tree_cluster_aabb(center: Vec3, radius: f32) -> Aabb {
     let extent = Vec3::splat(radius.max(0.01));
     Aabb::from_min_max(center - extent, center + extent)
-}
-
-#[expect(
-    clippy::too_many_arguments,
-    reason = "vista tree preparation receives independent asset stores and the optional fixed-scene prebake"
-)]
-pub(in crate::presentation) fn ensure_vista_tree_variant(
-    variant_seed: Seed,
-    competition: f32,
-    species: TreePresentationSpecies,
-    meshes: &mut Assets<Mesh>,
-    tree_materials: &mut Assets<TacticalTreeImpostorMaterial>,
-    images: &mut Assets<Image>,
-    cache: &mut VistaTreePresentationCache,
-    prepared: Option<&PreparedTreeImpostorAsset>,
-) -> CachedVistaTreePresentation {
-    let competition_key = (competition * 4095.0).round() as u64;
-    let cache_key = StreamId::new("visual.tree.vista-cache-key")
-        .seed(variant_seed, &[competition_key, species.cache_salt()]);
-    if let Some(cached) = cache.variants.get(&cache_key) {
-        return cached.clone();
-    }
-    let (branches, leaves) = vista_tree_source(variant_seed, competition, species);
-    let bake = if let Some(prepared) = prepared {
-        prepared
-            .resolve(PreparedTreeImpostorUsage::Vista, species, variant_seed, 4)
-            .unwrap_or_else(|| {
-                panic!("prepared tree impostors do not match the requested vista tree")
-            })
-    } else if species == TreePresentationSpecies::EnglishOak {
-        bake_tree_lod(variant_seed, &branches, &leaves, 4)
-    } else {
-        bake_tree_lod_with_style(variant_seed, &branches, &leaves, 4, species.bake_style())
-    };
-    validate_tree_bake_provenance(&bake.provenance);
-    let texture = images.add(bake.image.clone());
-    let cached = CachedVistaTreePresentation {
-        mesh: meshes.add(bake.mesh),
-        material: tree_materials.add(tree_impostor_material(variant_seed, 4, texture)),
-        provenance: bake.provenance,
-    };
-    cache.variants.insert(cache_key, cached.clone());
-    cached
 }
 
 #[expect(
@@ -659,27 +629,18 @@ pub(in crate::presentation) fn present_pending_trees(
                 TreePresentationSpecies::CommonBeech => beech_leaf_material(&procedural_assets),
             });
             let bud_material = materials.add(super::materials::tree_bud_material(species));
-            let mut cached = CachedTreePresentation {
-                variant_seed,
+            let cached = CachedTreePresentation::from_generated(
                 species,
-                species_name: species.name(),
-                branches: branches.into(),
-                leaves: leaves.into(),
-                trunk_mesh: None,
-                mid_trunk_mesh: None,
-                cluster_layout: None,
-                clusters: None,
-                aggregate_branch_meshes: [None, None],
-                lod_cards: [None, None, None, None],
-                bark_material,
-                aggregate_bark_material,
-                leaf_material,
-                bud_material,
-                resident_assets: TreeAssetResidencyDiagnostics::default(),
-            };
-            cached.resident_assets.variants = 1;
-            cached.resident_assets.source_branches = cached.branches.len();
-            cached.resident_assets.source_leaves = cached.leaves.len();
+                variant_seed,
+                branches,
+                leaves,
+                assets::TreeMaterialBindings {
+                    bark: bark_material,
+                    aggregate_bark: aggregate_bark_material,
+                    leaf: leaf_material,
+                    bud: bud_material,
+                },
+            );
             residency.add_resident_assets(&cached.resident_assets);
             tree_cache.variants.insert(cache_key, cached);
         }
@@ -850,6 +811,7 @@ mod tests {
         let branches = procedural_tree_skeleton(variant_seed, 0.0);
         let leaves = procedural_oak_leaves(variant_seed, &branches, 0.0);
         let mut cached = CachedTreePresentation {
+            origin: TreeAssetOrigin::Generated,
             variant_seed,
             species: TreePresentationSpecies::EnglishOak,
             species_name: TreePresentationSpecies::EnglishOak.name(),
@@ -880,7 +842,8 @@ mod tests {
             &mut materials,
             &mut images,
             &mut diagnostics,
-        );
+        )
+        .expect("generated fixture assets are supported");
         assert!(cached.lod_cards[3].is_some());
         assert!(cached.lod_cards[..3].iter().all(Option::is_none));
         assert!(cached.trunk_mesh.is_none());
@@ -904,6 +867,7 @@ mod tests {
         let branches = procedural_tree_skeleton(variant_seed, 0.0);
         let leaves = procedural_oak_leaves(variant_seed, &branches, 0.0);
         let mut cached = CachedTreePresentation {
+            origin: TreeAssetOrigin::Generated,
             variant_seed,
             species: TreePresentationSpecies::EnglishOak,
             species_name: TreePresentationSpecies::EnglishOak.name(),
@@ -935,7 +899,8 @@ mod tests {
             &mut materials,
             &mut images,
             &mut diagnostics,
-        );
+        )
+        .expect("generated fixture assets are supported");
 
         assert!(cached.aggregate_branch_meshes.iter().all(Option::is_some));
         assert_eq!(diagnostics.aggregate_branch_vertices_by_lod, [4_810, 462]);

@@ -14,7 +14,7 @@ pub(super) enum TreeLightingModeId {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(super) enum CapturePose {
     #[cfg(feature = "foliage-review")]
-    Bank(super::tree_bank_capture::PlateCamera),
+    Cache(super::tree_cache_capture::PlateCamera),
     PlantLod {
         distance: f32,
     },

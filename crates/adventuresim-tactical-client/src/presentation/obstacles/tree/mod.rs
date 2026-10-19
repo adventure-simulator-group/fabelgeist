@@ -59,3 +59,9 @@ pub(crate) use presentation::{
 };
 pub(crate) use source::{TreePresentationSpecies, tree_species_for_site};
 pub(in crate::presentation) use source::{canopy_competition, vista_tree_species};
+
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+pub(crate) use presentation::prepared::{
+    InstalledCacheSpecimen, InstalledTreeMaterial, InstalledTreePart, InstalledTreePartRole,
+    PreparedCacheInspection,
+};

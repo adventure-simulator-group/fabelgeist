@@ -120,7 +120,7 @@ struct Args {
 
     #[cfg(feature = "foliage-review")]
     #[command(flatten)]
-    bank_review: Option<tactical_scene_viewer::TreeBankCaptureOptions>,
+    cache_review: Option<tactical_scene_viewer::TreeCacheCaptureOptions>,
 
     /// Render frames allowed to settle between fixed camera views.
     #[arg(long, default_value_t = 12)]
@@ -258,7 +258,7 @@ fn main() {
         args.views,
         args.city_cameras,
         #[cfg(feature = "foliage-review")]
-        args.bank_review,
+        args.cache_review,
     );
 }
 

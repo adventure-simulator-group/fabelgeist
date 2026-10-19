@@ -78,6 +78,11 @@ pub(in crate::presentation) fn canopy_competition(canopy_bps: u16) -> f32 {
     normalized * normalized * (3.0 - 2.0 * normalized)
 }
 
+/// Translate collider-centred production geometry to a ground-level root.
+pub(super) fn source_normalization() -> Vec3 {
+    Vec3::Y * (adventuresim_tactical_core::scene_input::TREE_TRUNK_HEIGHT_METRES * 0.5)
+}
+
 /// One production identity for a mature source variant at its ecological site.
 pub(super) fn playable_cache_key(
     species: TreePresentationSpecies,

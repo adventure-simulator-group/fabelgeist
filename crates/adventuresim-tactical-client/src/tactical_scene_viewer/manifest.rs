@@ -165,6 +165,38 @@ pub(super) struct VistaSummary {
     pub(super) collider_count: usize,
 }
 
+/// The focused native specimen makes no adaptive five-tier claim.
+#[derive(Serialize)]
+#[serde(tag = "required_capability", rename_all = "snake_case")]
+pub(super) enum TreePresentationCapability {
+    FiveLodProduction {
+        passed: bool,
+    },
+    #[cfg(feature = "foliage-review")]
+    WholeSource {
+        owned_inventory_verified: bool,
+    },
+    #[cfg(feature = "foliage-review")]
+    FixedFullCache {
+        owned_inventory_verified: bool,
+    },
+}
+
+impl TreePresentationCapability {
+    fn passed(&self) -> bool {
+        match self {
+            Self::FiveLodProduction { passed } => *passed,
+            #[cfg(feature = "foliage-review")]
+            Self::WholeSource {
+                owned_inventory_verified,
+            }
+            | Self::FixedFullCache {
+                owned_inventory_verified,
+            } => *owned_inventory_verified,
+        }
+    }
+}
+
 #[derive(Serialize)]
 pub(super) struct ValidationSummary {
     pub(super) all_views_captured: bool,
@@ -183,7 +215,7 @@ pub(super) struct ValidationSummary {
     pub(super) all_obstacles_presented: bool,
     pub(super) all_obstacles_collidable: bool,
     pub(super) procedural_rocks_fit_colliders: bool,
-    pub(super) trees_have_five_lods: bool,
+    pub(super) tree_presentation: TreePresentationCapability,
     pub(super) tree_detail_captured_when_expected: bool,
     pub(super) recursive_tree_lod_observed: bool,
     pub(super) terrain_material_present: bool,
@@ -494,7 +526,7 @@ pub(super) fn validation_passes(validation: &ValidationSummary) -> bool {
         && validation.all_obstacles_presented
         && validation.all_obstacles_collidable
         && validation.procedural_rocks_fit_colliders
-        && validation.trees_have_five_lods
+        && validation.tree_presentation.passed()
         && validation.tree_detail_captured_when_expected
         && validation.recursive_tree_lod_observed
         && validation.terrain_material_present
@@ -561,7 +593,7 @@ mod tests {
             all_obstacles_presented: true,
             all_obstacles_collidable: true,
             procedural_rocks_fit_colliders: true,
-            trees_have_five_lods: true,
+            tree_presentation: TreePresentationCapability::FiveLodProduction { passed: true },
             tree_detail_captured_when_expected: true,
             recursive_tree_lod_observed: true,
             terrain_material_present: true,

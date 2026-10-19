@@ -7,6 +7,7 @@ use fabelgeist_botany::identity::PlantId;
 use fabelgeist_determinism::Seed;
 use fabelgeist_math::units::Metres;
 
+use super::super::source::source_normalization;
 use super::super::{
     TreePresentationSpecies,
     materials::{
@@ -15,11 +16,14 @@ use super::super::{
     },
     procedural_oak_bud_mesh, procedural_woody_branch_mesh, procedural_woody_cambered_leaf_mesh,
 };
-use super::{evidence::SourceEnvelope, specimens::source_normalization};
+use super::evidence::SourceEnvelope;
 use crate::presentation::{
     ProceduralTextureAssets, SceneEnvironment, TacticalTreeBarkMaterial,
     TacticalTreeLeafCardMaterial, terrain_heightmap_image,
 };
+
+mod presentation;
+pub(crate) use presentation::{TreeSourceMeshBinding, TreeSourcePresentation};
 
 pub(crate) struct TreeSourceGeometry {
     pub id: PlantId,
@@ -87,68 +91,5 @@ impl TreeSourceGeometry {
             foliage,
             buds: (buds.count_vertices() > 0).then_some(buds),
         })
-    }
-
-    /// Native Bevy geometry boundary; root is area-world metres at ground level.
-    pub(crate) fn spawn(self, world: &mut World, root_metres: Vec3) -> Result<()> {
-        let terrain = world
-            .query::<&SceneTerrain>()
-            .single(world)
-            .context("one actual production terrain for source contact")?
-            .clone();
-        let textures = world.resource::<ProceduralTextureAssets>().clone();
-        let heightmap = world
-            .resource_mut::<Assets<Image>>()
-            .add(terrain_heightmap_image(&terrain));
-        let range = Vec2::new(terrain.minimum_height(), terrain.maximum_height());
-        let bark = match self.species {
-            TreePresentationSpecies::EnglishOak => {
-                oak_bark_material(&textures, heightmap, range, &terrain)
-            }
-            TreePresentationSpecies::CommonBeech => {
-                beech_bark_material(&textures, heightmap, range, &terrain)
-            }
-        };
-        let leaf = match self.species {
-            TreePresentationSpecies::EnglishOak => oak_leaf_material(&textures),
-            TreePresentationSpecies::CommonBeech => beech_leaf_material(&textures),
-        };
-        let bark = world
-            .resource_mut::<Assets<TacticalTreeBarkMaterial>>()
-            .add(bark);
-        let leaf = world
-            .resource_mut::<Assets<TacticalTreeLeafCardMaterial>>()
-            .add(leaf);
-        let wood = world.resource_mut::<Assets<Mesh>>().add(self.wood);
-        let foliage = world.resource_mut::<Assets<Mesh>>().add(self.foliage);
-        let transform = Transform::from_translation(root_metres + source_normalization());
-        world.spawn((
-            TreeSourcePart::Wood,
-            Mesh3d(wood),
-            MeshMaterial3d(bark),
-            transform,
-            Visibility::Visible,
-        ));
-        world.spawn((
-            TreeSourcePart::Foliage,
-            Mesh3d(foliage),
-            MeshMaterial3d(leaf),
-            transform,
-            Visibility::Visible,
-        ));
-        if let Some(mesh) = self.buds {
-            let mesh = world.resource_mut::<Assets<Mesh>>().add(mesh);
-            let material = world
-                .resource_mut::<Assets<StandardMaterial>>()
-                .add(tree_bud_material(self.species));
-            world.spawn((
-                TreeSourcePart::Buds,
-                Mesh3d(mesh),
-                MeshMaterial3d(material),
-                transform,
-                Visibility::Visible,
-            ));
-        }
-        Ok(())
     }
 }
