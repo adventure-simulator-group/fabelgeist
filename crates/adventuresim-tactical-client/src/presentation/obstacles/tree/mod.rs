@@ -5,6 +5,8 @@ mod impostor;
 mod impostor_assets;
 mod lod;
 mod materials;
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+pub(crate) mod prepared_cache;
 mod presentation;
 mod source;
 pub(in crate::presentation) mod specimen;

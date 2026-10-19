@@ -84,6 +84,7 @@ enum CaptureProfile {
 #[cfg(not(target_family = "wasm"))]
 #[derive(Debug, Parser)]
 #[command(version, about = "Capture and validate a tactical environment fixture")]
+#[cfg_attr(feature = "foliage-review", command(group(clap::ArgGroup::new("cache_action").args(["prepare_tree_cache", "check_tree_cache"]).multiple(false).conflicts_with_all(["profile", "canopy_bps", "absolute_minute", "output", "views", "settle_frames", "leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "scene_performance_render_diagnostics", "terrain_wireframe", "triangle_census", "tree_review_azimuth_degrees", "city_cameras"]))))]
 struct Args {
     /// Fixture name from assets/tactical-scenes, without the .json suffix.
     #[arg(long, conflicts_with = "scene_input")]
@@ -101,6 +102,21 @@ struct Args {
     #[cfg(feature = "foliage-review")]
     #[arg(long, requires = "scene_input")]
     prepare_tree_bank: Option<PathBuf>,
+
+    /// Write one lossless fixed-Full production cache without a renderer.
+    #[cfg(feature = "foliage-review")]
+    #[arg(long, requires_all = ["scene_input", "cache_source"], conflicts_with_all = ["prepare_tree_bank", "directory", "source", "role", "fixture"])]
+    prepare_tree_cache: Option<PathBuf>,
+
+    /// Validate one prepared cache on the CPU without starting a renderer.
+    #[cfg(feature = "foliage-review")]
+    #[arg(long, requires_all = ["scene_input", "cache_source"], conflicts_with_all = ["prepare_tree_bank", "directory", "source", "role", "fixture"])]
+    check_tree_cache: Option<PathBuf>,
+
+    /// Production source PlantId selected for offline cache authoring.
+    #[cfg(feature = "foliage-review")]
+    #[arg(long, requires = "cache_action")]
+    cache_source: Option<u64>,
 
     #[cfg(feature = "foliage-review")]
     #[command(flatten)]
@@ -173,6 +189,28 @@ fn main() {
     if let (Some(input), Some(output)) = (&args.scene_input, &args.prepare_tree_bank) {
         if let Err(error) = presentation::write_tree_bank(input, output) {
             eprintln!("tree bank authoring failed: {error:#}");
+            std::process::exit(1);
+        }
+        return;
+    }
+    #[cfg(feature = "foliage-review")]
+    if let (Some(input), Some(output), Some(source)) = (
+        &args.scene_input,
+        &args.prepare_tree_cache,
+        args.cache_source,
+    ) {
+        if let Err(error) = presentation::write_tree_cache(input, output, source) {
+            eprintln!("tree cache authoring failed: {error:#}");
+            std::process::exit(1);
+        }
+        return;
+    }
+    #[cfg(feature = "foliage-review")]
+    if let (Some(input), Some(cache), Some(source)) =
+        (&args.scene_input, &args.check_tree_cache, args.cache_source)
+    {
+        if let Err(error) = presentation::inspect_tree_cache(input, cache, source) {
+            eprintln!("tree cache admission failed: {error:#}");
             std::process::exit(1);
         }
         return;

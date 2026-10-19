@@ -18,7 +18,7 @@ mod records;
 mod review;
 
 pub(crate) use review::{TreeSourceGeometry, TreeSourcePart};
-mod specimens;
+pub(super) mod specimens;
 
 pub(crate) const SOURCE_FORMAT: &str = "production-source-bank-pilot-v1";
 

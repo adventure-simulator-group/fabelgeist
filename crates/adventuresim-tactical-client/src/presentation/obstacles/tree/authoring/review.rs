@@ -8,19 +8,14 @@ use fabelgeist_determinism::Seed;
 use fabelgeist_math::units::Metres;
 
 use super::super::{
-    OAK_GNARLING_SHOWCASE, TreePresentationSpecies,
+    TreePresentationSpecies,
     materials::{
         beech_bark_material, beech_leaf_material, oak_bark_material, oak_leaf_material,
         tree_bud_material,
     },
     procedural_oak_bud_mesh, procedural_woody_branch_mesh, procedural_woody_cambered_leaf_mesh,
-    source::{canopy_competition, playable_tree_source},
-    specimen::oak_variant_seed,
 };
-use super::{
-    evidence::SourceEnvelope,
-    specimens::{model_id, source_normalization},
-};
+use super::{evidence::SourceEnvelope, specimens::source_normalization};
 use crate::presentation::{
     ProceduralTextureAssets, SceneEnvironment, TacticalTreeBarkMaterial,
     TacticalTreeLeafCardMaterial, terrain_heightmap_image,
@@ -50,63 +45,48 @@ pub(crate) enum TreeSourcePart {
 
 impl TreeSourceGeometry {
     pub(crate) fn find(id: PlantId, environment: &SceneEnvironment) -> Result<Self> {
-        for species in [
-            TreePresentationSpecies::EnglishOak,
-            TreePresentationSpecies::CommonBeech,
-        ] {
-            for slot in 0..OAK_GNARLING_SHOWCASE.len() {
-                let seed = oak_variant_seed(slot);
-                if model_id(species, seed) != id {
-                    continue;
-                }
-                let (branches, leaves) = playable_tree_source(
-                    species,
-                    seed,
-                    slot,
-                    canopy_competition(environment.canopy_bps),
-                    environment,
-                );
-                let wood = procedural_woody_branch_mesh(&branches, u8::MAX);
-                let foliage = procedural_woody_cambered_leaf_mesh(&leaves);
-                let buds = procedural_oak_bud_mesh(&branches);
-                let mut minimum = Vec3::splat(f32::INFINITY);
-                let mut maximum = Vec3::splat(f32::NEG_INFINITY);
-                for mesh in [&wood, &foliage, &buds]
-                    .into_iter()
-                    .filter(|mesh| mesh.count_vertices() > 0)
-                {
-                    let envelope = SourceEnvelope::from_mesh(mesh)?;
-                    minimum = minimum.min(Vec3::from_array(
-                        envelope.minimum_metres.map(Metres::metres),
-                    ));
-                    maximum = maximum.max(Vec3::from_array(
-                        envelope.maximum_metres.map(Metres::metres),
-                    ));
-                }
-                ensure!(
-                    minimum.is_finite() && maximum.is_finite(),
-                    "source bounds unavailable"
-                );
-                return Ok(Self {
-                    id,
-                    species,
-                    species_record: super::specimens::species_info(species),
-                    seed,
-                    branches: branches.len(),
-                    cards: leaves.len(),
-                    minimum: (minimum + source_normalization())
-                        .to_array()
-                        .map(Metres::from_metres),
-                    maximum: (maximum + source_normalization())
-                        .to_array()
-                        .map(Metres::from_metres),
-                    wood,
-                    foliage,
-                    buds: (buds.count_vertices() > 0).then_some(buds),
-                });
-            }
+        let specimen = super::specimens::SourceSpecimen::find(id)?;
+        let species = specimen.species;
+        let seed = specimen.seed;
+        let (branches, leaves) = specimen.records(environment);
+        let wood = procedural_woody_branch_mesh(&branches, u8::MAX);
+        let foliage = procedural_woody_cambered_leaf_mesh(&leaves);
+        let buds = procedural_oak_bud_mesh(&branches);
+        let mut minimum = Vec3::splat(f32::INFINITY);
+        let mut maximum = Vec3::splat(f32::NEG_INFINITY);
+        for mesh in [&wood, &foliage, &buds]
+            .into_iter()
+            .filter(|mesh| mesh.count_vertices() > 0)
+        {
+            let envelope = SourceEnvelope::from_mesh(mesh)?;
+            minimum = minimum.min(Vec3::from_array(
+                envelope.minimum_metres.map(Metres::metres),
+            ));
+            maximum = maximum.max(Vec3::from_array(
+                envelope.maximum_metres.map(Metres::metres),
+            ));
         }
-        anyhow::bail!("source model has no production species/seed binding")
+        ensure!(
+            minimum.is_finite() && maximum.is_finite(),
+            "source bounds unavailable"
+        );
+        Ok(Self {
+            id,
+            species,
+            species_record: super::specimens::species_info(species),
+            seed,
+            branches: branches.len(),
+            cards: leaves.len(),
+            minimum: (minimum + source_normalization())
+                .to_array()
+                .map(Metres::from_metres),
+            maximum: (maximum + source_normalization())
+                .to_array()
+                .map(Metres::from_metres),
+            wood,
+            foliage,
+            buds: (buds.count_vertices() > 0).then_some(buds),
+        })
     }
 
     /// Native Bevy geometry boundary; root is area-world metres at ground level.

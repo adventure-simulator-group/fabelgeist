@@ -78,6 +78,23 @@ pub(in crate::presentation) fn canopy_competition(canopy_bps: u16) -> f32 {
     normalized * normalized * (3.0 - 2.0 * normalized)
 }
 
+/// One production identity for a mature source variant at its ecological site.
+pub(super) fn playable_cache_key(
+    species: TreePresentationSpecies,
+    variant_seed: Seed,
+    environment: &SceneEnvironment,
+) -> Seed {
+    let competition_key = (canopy_competition(environment.canopy_bps) * 4095.0).round() as u64;
+    StreamId::new("visual.tree.playable-cache-key").seed(
+        variant_seed,
+        &[
+            competition_key,
+            oak_site_key(environment),
+            species.cache_salt(),
+        ],
+    )
+}
+
 pub(super) fn oak_site_key(environment: &SceneEnvironment) -> u64 {
     StreamId::new("visual.tree.site")
         .seed(

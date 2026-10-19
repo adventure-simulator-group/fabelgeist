@@ -7,7 +7,7 @@ use adventuresim_environment::{
     render::ForestDetail,
 };
 use adventuresim_tactical_core::scene_input::TREE_TRUNK_HEIGHT_METRES;
-use anyhow::Result;
+use anyhow::{Context, Result};
 use bevy::prelude::*;
 use fabelgeist_botany::{
     Biome,
@@ -37,6 +37,52 @@ const SOURCE_ID: StreamId = StreamId::new("visual.tree.bank.source");
 pub(super) struct PreparedSpecimens {
     pub unique: PreparedUnique,
     pub evidence: Vec<SpecimenEvidence>,
+}
+
+pub(in crate::presentation) struct SourceSpecimen {
+    pub id: PlantId,
+    pub species: TreePresentationSpecies,
+    pub seed: fabelgeist_determinism::Seed,
+    slot: usize,
+}
+
+impl SourceSpecimen {
+    pub(in crate::presentation) fn find(id: PlantId) -> Result<Self> {
+        [
+            TreePresentationSpecies::EnglishOak,
+            TreePresentationSpecies::CommonBeech,
+        ]
+        .into_iter()
+        .flat_map(|species| {
+            (0..OAK_GNARLING_SHOWCASE.len()).map(move |slot| {
+                let seed = oak_variant_seed(slot);
+                Self {
+                    id: model_id(species, seed),
+                    species,
+                    seed,
+                    slot,
+                }
+            })
+        })
+        .find(|specimen| specimen.id == id)
+        .context("source model has no production species/seed binding")
+    }
+
+    pub(in crate::presentation) fn records(
+        &self,
+        environment: &SceneEnvironment,
+    ) -> (
+        Vec<super::super::TreeBranchSegment>,
+        Vec<super::super::TreeLeaf>,
+    ) {
+        playable_tree_source(
+            self.species,
+            self.seed,
+            self.slot,
+            canopy_competition(environment.canopy_bps),
+            environment,
+        )
+    }
 }
 
 impl PreparedSpecimens {
