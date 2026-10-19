@@ -343,6 +343,17 @@ impl Material for TacticalTreeImpostorMaterial {
     }
 }
 
+pub(super) fn tree_bud_material(species: super::TreePresentationSpecies) -> StandardMaterial {
+    StandardMaterial {
+        base_color: match species {
+            super::TreePresentationSpecies::EnglishOak => Color::srgb(0.36, 0.27, 0.1),
+            super::TreePresentationSpecies::CommonBeech => Color::srgb_u8(112, 68, 43),
+        },
+        perceptual_roughness: 0.92,
+        ..default()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -15,7 +15,12 @@ use serde_json::json;
 
 mod evidence;
 mod records;
+mod review;
+
+pub(crate) use review::{TreeSourceGeometry, TreeSourcePart};
 mod specimens;
+
+pub(crate) const SOURCE_FORMAT: &str = "production-source-bank-pilot-v1";
 
 pub(crate) fn write_tree_bank(input_path: &Path, output: &Path) -> Result<()> {
     let input = TacticalSceneInput::load(input_path)?;
@@ -29,7 +34,7 @@ pub(crate) fn write_tree_bank(input_path: &Path, output: &Path) -> Result<()> {
     let population = prepared.unique.population(&library, library_id)?;
     let population_bytes = encode_population(&population, &library, library_id)?;
     let report = json!({
-        "format": "production-source-bank-pilot-v1",
+        "format": SOURCE_FORMAT,
         "input_digest": input.digest()?,
         "scene_digest": generated.digest,
         "environment": environment,

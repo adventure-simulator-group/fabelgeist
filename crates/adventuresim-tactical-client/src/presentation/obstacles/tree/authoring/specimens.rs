@@ -85,17 +85,10 @@ pub(super) fn prepare(environment: &SceneEnvironment) -> Result<PreparedSpecimen
     ];
     for (row, species) in species.into_iter().enumerate() {
         let species_id = SpeciesId::from_word(u16::try_from(row)?);
-        let style = species.bake_style();
-        snapshot.species.push(SpeciesInfo {
-            name: species.name().into(),
-            bark: style.bark_srgb.map(|value| value / 255.0),
-            leaf: style.leaf_srgb.map(|value| value / 255.0),
-            foliage: Foliage::Broadleaf,
-            plants: OAK_GNARLING_SHOWCASE.len(),
-        });
+        snapshot.species.push(species_info(species));
         for slot in 0..OAK_GNARLING_SHOWCASE.len() {
             let seed = oak_variant_seed(slot);
-            let id = PlantId::from_word(SOURCE_ID.seed(seed, &[species.cache_salt()]).to_u64());
+            let id = model_id(species, seed);
             let plant = PlantIndex::from_word(snapshot.plant_bounds.len());
             let root = Vec3::new(
                 slot as f32 * SPACING.metres(),
@@ -189,5 +182,23 @@ fn empty_snapshot() -> Snapshot {
         structures: None,
         bounds: [[-64.0, -32.0, -64.0], [160.0, 128.0, 96.0]],
         biome: Biome::TemperateSeasonalForest,
+    }
+}
+
+pub(super) fn model_id(
+    species: TreePresentationSpecies,
+    seed: fabelgeist_determinism::Seed,
+) -> PlantId {
+    PlantId::from_word(SOURCE_ID.seed(seed, &[species.cache_salt()]).to_u64())
+}
+
+pub(super) fn species_info(species: TreePresentationSpecies) -> SpeciesInfo {
+    let style = species.bake_style();
+    SpeciesInfo {
+        name: species.name().into(),
+        bark: style.bark_srgb.map(|value| value / 255.0),
+        leaf: style.leaf_srgb.map(|value| value / 255.0),
+        foliage: Foliage::Broadleaf,
+        plants: OAK_GNARLING_SHOWCASE.len(),
     }
 }

@@ -7,12 +7,10 @@ use std::{
     time::{SystemTime, UNIX_EPOCH},
 };
 
-use adventuresim_tactical_core::physics::AdventureSimulatorPhysicsPlugin;
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::prelude::SceneVistaBundle;
 use adventuresim_world_schema::coordinates::{LatitudeMicrodegrees, LongitudeMicrodegrees};
 use bevy::{
-    app::ScheduleRunnerPlugin,
     camera::RenderTarget,
     camera::{Exposure, visibility::VisibilityRange},
     core_pipeline::tonemapping::Tonemapping,
@@ -21,8 +19,6 @@ use bevy::{
     pbr::{AtmosphereSettings, wireframe::WireframePlugin},
     prelude::*,
     render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
-    window::{ExitCondition, PresentMode},
-    winit::WinitPlugin,
 };
 use serde::Serialize;
 
@@ -30,6 +26,7 @@ mod benchmark_progress;
 mod building_review;
 mod buildings;
 mod camera_obstruction;
+mod capture_app;
 mod capture_resolution;
 mod capture_state;
 mod capture_visibility;
@@ -44,9 +41,14 @@ mod interior_furniture_capture;
 mod manifest;
 mod plant_lods;
 mod terrain_setup;
+#[cfg(feature = "foliage-review")]
+mod tree_bank_capture;
 mod triangle_census;
 mod view_camera;
+mod view_selection;
 mod view_specs;
+#[cfg(feature = "foliage-review")]
+pub(crate) use tree_bank_capture::Options as TreeBankCaptureOptions;
 mod vista_validation;
 use buildings::spawn_tactical_buildings;
 #[cfg(test)]
@@ -765,7 +767,14 @@ pub(crate) fn run(
     profile: &'static str,
     requested_views: Vec<String>,
     city_cameras: Option<PathBuf>,
+    #[cfg(feature = "foliage-review")] bank_review: Option<TreeBankCaptureOptions>,
 ) {
+    #[cfg(feature = "foliage-review")]
+    let profile = if bank_review.is_some() {
+        tree_bank_capture::PROFILE
+    } else {
+        profile
+    };
     let repository_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let (fixture, input_path) = match (fixture, scene_input) {
         (Some(fixture), None) => {
@@ -814,6 +823,14 @@ pub(crate) fn run(
     println!("CAPTURE_OUTPUT={}", output.display());
     let wireframe_output = output.clone();
 
+    #[cfg(feature = "foliage-review")]
+    let views = if bank_review.is_some() {
+        Vec::new()
+    } else {
+        selected_capture_views(profile, &requested_views)
+            .unwrap_or_else(|error| panic!("invalid capture selection: {error}"))
+    };
+    #[cfg(not(feature = "foliage-review"))]
     let views = selected_capture_views(profile, &requested_views)
         .unwrap_or_else(|error| panic!("invalid capture selection: {error}"));
 
@@ -838,53 +855,27 @@ pub(crate) fn run(
             .collect(),
         views,
     };
+    #[cfg(feature = "foliage-review")]
+    let prepared = tree_bank_capture::prepare(setup, bank_review, &requested_views)
+        .unwrap_or_else(|error| panic!("invalid source/bank capture: {error:#}"));
+    #[cfg(feature = "foliage-review")]
+    let setup = prepared.setup;
     let leaf_benchmarking = leaf_benchmark_frames.is_some();
     let tree_lighting_benchmarking = tree_lighting_benchmark_frames.is_some();
     let scene_performance_benchmarking = scene_performance_benchmark_frames.is_some();
     let scene_performance_render_diagnostics = scene_performance_render_diagnostics
         || std::env::var_os("TACTICAL_BENCH_RENDER_DIAGNOSTICS").is_some();
-    let mut app = App::new();
-    let default_plugins = DefaultPlugins
-        .set(AssetPlugin {
-            file_path: asset_root.to_string_lossy().into_owned(),
-            ..default()
-        })
-        .set(WindowPlugin {
-            primary_window: (!scene_performance_benchmarking).then(|| Window {
-                visible: false,
-                resolution: capture_resolution::window_resolution(profile),
-                present_mode: PresentMode::AutoNoVsync,
-                resizable: false,
-                decorations: false,
-                ..default()
-            }),
-            exit_condition: if scene_performance_benchmarking {
-                ExitCondition::DontExit
-            } else {
-                ExitCondition::OnAllClosed
-            },
-            ..default()
-        });
-    if scene_performance_benchmarking {
-        // Eliminate both swapchain presentation and the desktop event-loop
-        // floor. The normal RenderPlugin still renders the production camera
-        // to the offscreen texture; only frame scheduling becomes unpaced.
-        app.add_plugins(default_plugins.disable::<WinitPlugin>())
-            .add_plugins(ScheduleRunnerPlugin::run_loop(Duration::ZERO));
+    let surface = if scene_performance_benchmarking {
+        capture_app::CaptureSurface::Offscreen
     } else {
-        app.add_plugins(default_plugins)
-            .insert_resource(bevy::winit::WinitSettings::continuous());
+        capture_app::CaptureSurface::Window
+    };
+    let mut app = capture_app::new(asset_root, profile, surface);
+    app.insert_resource(SceneSetup(Some(setup)));
+    #[cfg(feature = "foliage-review")]
+    if let Some(review) = prepared.review {
+        tree_bank_capture::install(&mut app, review);
     }
-    app.add_plugins(AdventureSimulatorPhysicsPlugin {
-        enable_simulation: false,
-        enable_presentation_simulation: false,
-    })
-    // Visual-review plates use the exact production presentation defaults.
-    // Diagnostics may hide named occluder layers, but never substitute a
-    // cheaper lighting or post-processing pipeline.
-    .add_plugins(capture_presentation_plugin())
-    .insert_resource(ClearColor(Color::srgb_u8(158, 181, 195)))
-    .insert_resource(SceneSetup(Some(setup)));
     app.insert_resource(camera_contract);
     app.add_systems(PostStartup, capture_resolution::apply.after(setup_scene));
     furniture_readiness::install(&mut app, profile);
@@ -936,12 +927,12 @@ pub(crate) fn run(
             (benchmark_scene_performance, benchmark_progress::report),
         );
     } else {
-        app.add_systems(
-            Last,
-            capture_views
-                .run_if(building_review::ready)
-                .run_if(furniture_readiness::ready),
-        );
+        let capture = capture_views
+            .run_if(building_review::ready)
+            .run_if(furniture_readiness::ready);
+        #[cfg(feature = "foliage-review")]
+        let capture = capture.run_if(tree_bank_capture::ready);
+        app.add_systems(Last, capture);
     }
     let exit = app.run();
     if exit != AppExit::Success {
@@ -1127,48 +1118,12 @@ fn selected_capture_views(
         BEECH_LEAF_MOTION_PROFILE => BEECH_LEAF_MOTION_VIEWS.as_slice(),
         _ => return Err(format!("unknown profile {profile}")),
     };
-    if requested.is_empty() {
-        return Ok(profile_views.to_vec());
-    }
-    if profile == "tree-cold-traversal" {
-        let mut seen = BTreeSet::new();
-        let mut last_requested_index = 0;
-        for slug in requested {
-            if slug == "warmup" {
-                return Err("warmup is implicit and cannot be requested".into());
-            }
-            if !seen.insert(slug.as_str()) {
-                return Err(format!("duplicate requested view {slug}"));
-            }
-            let index = profile_views
-                .iter()
-                .position(|view| view.slug == slug)
-                .ok_or_else(|| format!("unknown requested view {slug}"))?;
-            last_requested_index = last_requested_index.max(index);
-        }
-        // A cold-traversal plate is temporal evidence, not an independent
-        // camera pose. Preserve every preceding approach/retreat frame so a
-        // filtered capture cannot teleport from the distant-card warmup into
-        // an unstreamed near tree and manufacture a floating crown.
-        return Ok(profile_views[..=last_requested_index].to_vec());
-    }
-    let mut selected = vec![profile_views[0]];
-    let mut seen = BTreeSet::new();
-    for slug in requested {
-        if slug == "warmup" {
-            return Err("warmup is implicit and cannot be requested".into());
-        }
-        if !seen.insert(slug.as_str()) {
-            return Err(format!("duplicate requested view {slug}"));
-        }
-        let view = profile_views
-            .iter()
-            .find(|view| view.slug == slug)
-            .copied()
-            .ok_or_else(|| format!("unknown requested view {slug}"))?;
-        selected.push(view);
-    }
-    Ok(selected)
+    let sequence = if profile == "tree-cold-traversal" {
+        view_selection::ViewSequence::Prefix
+    } else {
+        view_selection::ViewSequence::Independent
+    };
+    view_selection::select(profile_views, requested, sequence)
 }
 
 fn freeze_capture_clock(mut time: ResMut<Time<Virtual>>) {
@@ -2213,6 +2168,8 @@ fn setup_scene(
         captures: Vec::new(),
         recursive_lods_observed: BTreeSet::new(),
         recursive_aggregate_lods_observed: BTreeSet::new(),
+        #[cfg(feature = "foliage-review")]
+        tree_bank_evidence: None,
     });
     if let Some(sample_frames) = leaf_benchmark_frames {
         commands.insert_resource(LeafBenchmarkState::new(sample_frames));
@@ -3993,7 +3950,7 @@ fn capture_views(
             if let Some(pending) = final_data.take() {
                 let (manifest, valid) =
                     pending.finalize_after_screenshot(&state.captures, &state.views);
-                finish_capture(&state.output, &manifest, valid, &mut exit);
+                finish_capture(&state, &manifest, valid, &mut exit);
             }
         },
     );
@@ -4017,6 +3974,8 @@ fn focused_tree_lod_queued(
 fn camera_for_view(pose: CapturePose, state: &SceneCaptureState) -> (Transform, Vec3) {
     let half = state.terrain.width_metres.max(state.terrain.depth_metres) * 0.5;
     let (position, target, up) = match pose {
+        #[cfg(feature = "foliage-review")]
+        CapturePose::Bank(camera) => (camera.position, camera.target, camera.up),
         CapturePose::Plant { .. } | CapturePose::Fungus { .. } | CapturePose::PlantLod { .. } => {
             pose.plant_camera(state.plant_focus.expect(
                 "botanical review requires actual production roots of the requested species",
@@ -4180,15 +4139,7 @@ fn camera_for_view(pose: CapturePose, state: &SceneCaptureState) -> (Transform, 
             )
         }
         CapturePose::CityOblique { azimuth_degrees } => {
-            let frame_half = half.max(state.city_half_extent_metres + 30.0);
-            let azimuth = azimuth_degrees.to_radians();
-            (
-                state.obstacle_focus
-                    + Vec3::new(azimuth.sin(), 0.0, azimuth.cos()) * (frame_half * 1.6)
-                    + Vec3::Y * (frame_half * 0.85),
-                state.obstacle_focus + Vec3::Y * 4.0,
-                Vec3::Y,
-            )
+            view_camera::city_oblique(state, half, azimuth_degrees)
         }
         CapturePose::Horizon => {
             let mut position = state.ground_eye_position + Vec3::Y * 12.0;
@@ -4854,11 +4805,24 @@ fn debris_detail_camera(
 }
 
 fn finish_capture(
-    output: &Path,
+    state: &SceneCaptureState,
     manifest: &SceneCaptureManifest,
     valid: bool,
     exit: &mut MessageWriter<AppExit>,
 ) {
+    let output = &state.output;
+    #[cfg(feature = "foliage-review")]
+    let valid = if let Some(evidence) = &state.tree_bank_evidence {
+        match evidence.finish(state) {
+            Ok(()) => valid,
+            Err(error) => {
+                error!("Source/bank capture evidence failed: {error:#}");
+                false
+            }
+        }
+    } else {
+        valid
+    };
     fs::write(
         output.join("manifest.json"),
         serde_json::to_vec_pretty(manifest).expect("capture manifest serializes"),

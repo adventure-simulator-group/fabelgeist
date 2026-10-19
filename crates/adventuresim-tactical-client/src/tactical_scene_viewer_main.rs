@@ -102,6 +102,10 @@ struct Args {
     #[arg(long, requires = "scene_input")]
     prepare_tree_bank: Option<PathBuf>,
 
+    #[cfg(feature = "foliage-review")]
+    #[command(flatten)]
+    bank_review: Option<tactical_scene_viewer::TreeBankCaptureOptions>,
+
     /// Render frames allowed to settle between fixed camera views.
     #[arg(long, default_value_t = 12)]
     settle_frames: u32,
@@ -215,6 +219,8 @@ fn main() {
         },
         args.views,
         args.city_cameras,
+        #[cfg(feature = "foliage-review")]
+        args.bank_review,
     );
 }
 

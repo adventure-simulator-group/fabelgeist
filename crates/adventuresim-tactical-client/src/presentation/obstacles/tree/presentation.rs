@@ -920,14 +920,7 @@ pub(in crate::presentation) fn present_pending_trees(
                 TreePresentationSpecies::EnglishOak => oak_leaf_material(&procedural_assets),
                 TreePresentationSpecies::CommonBeech => beech_leaf_material(&procedural_assets),
             });
-            let bud_material = materials.add(StandardMaterial {
-                base_color: match species {
-                    TreePresentationSpecies::EnglishOak => Color::srgb(0.36, 0.27, 0.1),
-                    TreePresentationSpecies::CommonBeech => Color::srgb_u8(112, 68, 43),
-                },
-                perceptual_roughness: 0.92,
-                ..default()
-            });
+            let bud_material = materials.add(super::materials::tree_bud_material(species));
             let mut cached = CachedTreePresentation {
                 variant_seed,
                 species,

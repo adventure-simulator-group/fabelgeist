@@ -86,21 +86,18 @@ impl SourceEnvelope {
         }
     }
 
-    fn from_mesh(mesh: &Mesh) -> Result<Self> {
+    pub(super) fn from_mesh(mesh: &Mesh) -> Result<Self> {
         let Some(VertexAttributeValues::Float32x3(positions)) =
             mesh.attribute(Mesh::ATTRIBUTE_POSITION)
         else {
-            bail!("source leaf mesh has no native metre positions");
+            bail!("source mesh has no native metre positions");
         };
-        ensure!(!positions.is_empty(), "source leaf mesh is empty");
+        ensure!(!positions.is_empty(), "source mesh is empty");
         let mut minimum = Vec3::splat(f32::INFINITY);
         let mut maximum = Vec3::splat(f32::NEG_INFINITY);
         for position in positions {
             let point = Vec3::from_array(*position);
-            ensure!(
-                point.is_finite(),
-                "source leaf mesh has nonfinite positions"
-            );
+            ensure!(point.is_finite(), "source mesh has nonfinite positions");
             minimum = minimum.min(point);
             maximum = maximum.max(point);
         }

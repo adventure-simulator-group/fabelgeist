@@ -62,6 +62,7 @@ tracy-client-sys = { version = "=0.28.0", optional = true }
 bevy_eidolon.workspace = true
 
 [target."cfg(not(target_family = \"wasm\"))".dependencies]
+blake3.workspace = true
 bevy = { workspace = true, default-features = true, features = ["file_watcher", "jpeg"] }
 
 [target."cfg(target_family = \"wasm\")".dependencies]
