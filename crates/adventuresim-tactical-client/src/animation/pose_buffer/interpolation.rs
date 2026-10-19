@@ -1,7 +1,8 @@
 //! Checked phase of the pose buffer's fixed sample interval.
 
 use adventuresim_tactical_core::animation::{
-    AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult, UnitInterval,
+    AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult,
+    PositiveAnimationDuration, UnitInterval,
 };
 
 #[derive(Clone, Copy)]
@@ -12,7 +13,7 @@ impl PoseInterpolation {
     pub(super) const ONE: Self = Self(UnitInterval::ONE);
     pub(super) fn from_sample_clock(
         elapsed: AnimationElapsed,
-        interval: AnimationElapsed,
+        interval: PositiveAnimationDuration,
     ) -> AnimationValueResult<Self> {
         // Native seconds cancel only in this fixed-clock ratio kernel.
         let fraction = elapsed.seconds() / interval.seconds();

@@ -16,7 +16,10 @@ use crate::{
 
 use quickstep_trace::{LocalQuickstepTrace, trace_local_quickstep_state};
 
-use action_clock::{MeleePlaybackTiming, animation_ticks, delayed_melee_contact_seconds};
+use action_clock::{
+    MeleeAcquisitionTiming, MeleePlaybackTiming, animation_ticks, delayed_melee_contact_seconds,
+    on_attack_fired_hook,
+};
 
 mod action_clock;
 mod quickstep_trace;
@@ -250,8 +253,7 @@ impl CombatTargeting<'_, '_> {
         &self,
         attacker: Entity,
         reach: (f32, f32),
-        surface_range: bool,
-        lunge_timing: (adventuresim_core::linear_speed::NonnegativeSpeed, f32, f32),
+        lunge_timing: Option<MeleeAcquisitionTiming>,
     ) -> (Option<AttackTarget>, Option<Vec3>, Dir3) {
         let Ok((transform, collider, dimensions, attacker_side, camera)) =
             self.attackers.get(attacker)
@@ -299,7 +301,7 @@ impl CombatTargeting<'_, '_> {
                             |(_, _, _, impact_collider, _)| impact_collider.body == target,
                         );
                     let surface_distance = impact.distance;
-                    let resolved_strike = if surface_range {
+                    let resolved_strike = if let Some(lunge_timing) = lunge_timing {
                         let maximum_travel = reach.1.min(horizontal_collider_clearance(
                             transform.translation,
                             collider,
@@ -312,19 +314,8 @@ impl CombatTargeting<'_, '_> {
                             .distance(body_transform.translation.xz())
                             - adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)
                             .max(0.0);
-                        let closure = (surface_measure - reach.0).max(0.0);
-                        (closure <= maximum_travel + 1.0e-5).then(|| {
-                            let lunge = melee_lunge(surface_measure, reach.0, 0.0, maximum_travel);
-                            (
-                                position,
-                                melee_lunge_delay_seconds(
-                                    lunge,
-                                    lunge_timing.0,
-                                    lunge_timing.1,
-                                    lunge_timing.2,
-                                ),
-                            )
-                        })
+                        lunge_timing.contact_delay(surface_measure, reach.0, maximum_travel)
+                            .map(|delay| (position, delay))
                     } else {
                         Some((position, 0.0))
                     };
@@ -362,7 +353,11 @@ impl CombatTargeting<'_, '_> {
             camera_transform.translation,
             camera_transform.forward().as_vec3(),
             origin,
-            if surface_range { f32::MAX } else { reach.0 },
+            if lunge_timing.is_some() {
+                f32::MAX
+            } else {
+                reach.0
+            },
             &choices,
         );
         match selected {
@@ -682,30 +677,6 @@ fn update_attack_state_system(
     }
 }
 
-fn on_attack_fired_hook(
-    event: On<Fire<Attack>>,
-    mut cmd: Commands,
-    mut q_character: Query<(Has<AttackState>, &mut SkeletonState)>,
-    viewer: TacticalPlayerViewer,
-    time: Res<Time>,
-    combat_config: Res<TacticalCombatConfig>,
-    targeting: CombatTargeting,
-) {
-    try_start_attack(
-        AttackStartRequest {
-            entity: event.context,
-            alternate_attack: false,
-            hand: AttackHand::Main,
-        },
-        &mut cmd,
-        &mut q_character,
-        &viewer,
-        &time,
-        &combat_config,
-        &targeting,
-    );
-}
-
 #[derive(Debug, Clone, Copy)]
 struct AttackStartRequest {
     entity: Entity,
@@ -758,7 +729,7 @@ fn try_start_attack(
         return;
     }
     let start = AnimationSampleTick::from(
-        (time.elapsed_secs_f64() * locomotion_sample_hz() as f64).round() as u64,
+        (time.elapsed_secs_f64() * locomotion_sample_rate().hertz() as f64).round() as u64,
     );
     if ranged {
         if attacking {
@@ -769,15 +740,15 @@ fn try_start_attack(
             .begin_attack_timed(
                 spec,
                 start,
-                start + animation_ticks(windup_secs),
-                start + animation_ticks(windup_secs + recovery_secs),
+                start.saturating_add(animation_ticks(windup_secs)),
+                start.saturating_add(animation_ticks(windup_secs + recovery_secs)),
             )
             .is_err()
         {
             return;
         }
         let (target, target_position, aim_direction) =
-            targeting.acquire(entity, (reach, 0.0), false, (0.0, 0.0, 0.0));
+            targeting.acquire(entity, (reach, 0.0), None);
         cmd.entity(entity).insert(AttackState::new(
             windup_secs,
             windup_secs,
@@ -834,12 +805,7 @@ fn try_start_attack(
         let (target, target_position, aim_direction) = targeting.acquire(
             entity,
             acquisition_range,
-            true,
-            (
-                combat_config.movement.speeds_metres_per_second.run,
-                conservative_forward_lunge_acceleration(&combat_config.movement.motor),
-                combat_config.movement.maneuvers.quickstep_duration_seconds,
-            ),
+            Some(MeleeAcquisitionTiming::from(&combat_config.movement)),
         );
         let contact_delay = target.map_or(0.0, |target| target.contact_delay_seconds);
         let (animation_delay, contact_seconds) =
@@ -930,18 +896,13 @@ fn flush_buffered_melee_attacks(
             continue;
         }
         let start = AnimationSampleTick::from(
-            (time.elapsed_secs_f64() * locomotion_sample_hz() as f64).round() as u64,
+            (time.elapsed_secs_f64() * locomotion_sample_rate().hertz() as f64).round() as u64,
         );
         let acquisition_range = targeting.melee_acquisition_range(entity, reach, &combat_config);
         let (target, target_position, aim_direction) = targeting.acquire(
             entity,
             acquisition_range,
-            true,
-            (
-                combat_config.movement.speeds_metres_per_second.run,
-                conservative_forward_lunge_acceleration(&combat_config.movement.motor),
-                combat_config.movement.maneuvers.quickstep_duration_seconds,
-            ),
+            Some(MeleeAcquisitionTiming::from(&combat_config.movement)),
         );
         let contact_delay = target.map_or(0.0, |target| target.contact_delay_seconds);
         let (animation_delay, contact_seconds) =

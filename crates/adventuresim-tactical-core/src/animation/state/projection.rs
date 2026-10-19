@@ -80,8 +80,8 @@ impl ProjectedObservation {
         };
         let physical_speed = input.linear_velocity.xz().length();
         let local_speed = local_velocity.xz().length();
-        let acceleration = if input.tick == skeleton.locomotion_sample_tick.next() {
-            (input.linear_velocity - previous_world_velocity) * locomotion_sample_hz()
+        let acceleration = if input.tick == skeleton.locomotion_sample_tick.wrapping_next() {
+            (input.linear_velocity - previous_world_velocity) * locomotion_sample_rate().hertz()
         } else {
             Vec3::ZERO
         };

@@ -2,8 +2,26 @@
 
 use super::*;
 use adventuresim_tactical_core::animation::{
-    AnimationElapsed, AnimationSampleTick, AnimationValueResult,
+    AnimationElapsed, AnimationQuantity, AnimationSampleRate, AnimationSampleTick,
+    AnimationValueError, AnimationValueResult,
 };
+use std::time::Duration;
+
+/// Bevy's native clock requires a nonzero Duration. Preserve its f64 Hz
+/// reciprocal and native nanosecond rounding rather than the f32 pose interval.
+pub(crate) fn capture_fixed_clock(rate: AnimationSampleRate) -> AnimationValueResult<Time<Fixed>> {
+    let seconds = 1.0 / f64::from(rate.hertz());
+    let interval =
+        Duration::try_from_secs_f64(seconds).map_err(|_| AnimationValueError::Overflow {
+            quantity: AnimationQuantity::NativeSampleInterval,
+        })?;
+    if interval.is_zero() {
+        return Err(AnimationValueError::NonPositive {
+            quantity: AnimationQuantity::NativeSampleInterval,
+        });
+    }
+    Ok(Time::from_duration(interval))
+}
 
 pub(super) fn next_capture_simulation_tick(
     current: AnimationSampleTick,
@@ -12,19 +30,16 @@ pub(super) fn next_capture_simulation_tick(
     if absolute_first_sample {
         current
     } else {
-        current.next()
+        current.wrapping_next()
     }
 }
 
-pub(super) fn capture_frame_elapsed(
-    scenario_frame: usize,
-) -> AnimationValueResult<AnimationElapsed> {
-    let seconds = if scenario_frame == 0 {
-        0.0
+pub(super) fn capture_frame_elapsed(scenario_frame: usize) -> AnimationElapsed {
+    if scenario_frame == 0 {
+        AnimationElapsed::ZERO
     } else {
-        1.0 / locomotion_sample_hz()
-    };
-    AnimationElapsed::from_seconds(seconds)
+        locomotion_sample_rate().interval().elapsed()
+    }
 }
 
 #[cfg(test)]

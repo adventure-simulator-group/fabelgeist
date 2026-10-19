@@ -1,4 +1,7 @@
-use crate::animation::{AnimationElapsed, NonnegativeLength, UnitInterval};
+use crate::animation::{
+    AnimationElapsed, AnimationFrequency, AnimationSampleRate, NonnegativeLength,
+    PositiveAnimationDuration, UnitInterval,
+};
 use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
 use adventuresim_core::linear_speed::{NonnegativeSpeed, PositiveSpeed, SignedSpeed};
 use adventuresim_core::{
@@ -70,7 +73,7 @@ pub struct TacticalAnimationConfig {
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct AnimationLocomotionConfig {
-    pub sample_hz: f32,
+    pub sample_hz: AnimationSampleRate,
     pub landing: AnimationLandingConfig,
     pub walk: AnimationGaitConfig,
     pub run: AnimationGaitConfig,
@@ -95,11 +98,11 @@ pub struct AnimationGaitConfig {
 pub struct GuardFootworkConfig {
     pub default_half_width_metres: f32,
     pub contact_margin_metres: f32,
-    pub minimum_step_seconds: f32,
-    pub maximum_step_seconds: f32,
+    pub minimum_step_seconds: PositiveAnimationDuration,
+    pub maximum_step_seconds: PositiveAnimationDuration,
     pub planning_reach_metres: f32,
     pub reference_leg_length_metres: f32,
-    pub maximum_unsupported_contact_seconds: f32,
+    pub maximum_unsupported_contact_seconds: PositiveAnimationDuration,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
@@ -147,7 +150,7 @@ pub struct InverseKinematicsConfig {
     pub maximum_owner_rotation_per_tick_degrees: f32,
     pub maximum_knee_target_amplification: f32,
     pub maximum_knee_step_metres: PositiveLength,
-    pub continuity_sample_hz: f32,
+    pub continuity_sample_hz: AnimationFrequency,
     pub run_airborne_owner_step_metres: SignedLength,
     pub run_first_release_owner_step_metres: SignedLength,
     pub airborne_release_step_metres: SignedLength,
@@ -268,7 +271,7 @@ pub struct CharacterMotorConfig {
     /// above the reference value (and correspondingly less below it).
     pub quickstep_peak_horizontal_force_bodyweights_per_strength: f32,
     /// Supported push duration for an Agility 3 character.
-    pub reference_quickstep_push_seconds: f32,
+    pub reference_quickstep_push_seconds: PositiveAnimationDuration,
     /// Seconds removed from the supported push for every Agility point above
     /// the reference value (and added below it).
     pub quickstep_push_seconds_reduction_per_agility: f32,
@@ -345,7 +348,7 @@ pub struct ManeuverTimingConfig {
     pub slide_seconds: f32,
     /// Complete input-to-recovery quickstep duration. `ActionTimeline` places
     /// semantic contact halfway through this interval.
-    pub quickstep_duration_seconds: f32,
+    pub quickstep_duration_seconds: PositiveAnimationDuration,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -502,7 +505,7 @@ impl TacticalCombatConfig {
             movement
                 .motor
                 .quickstep_peak_horizontal_force_bodyweights_per_strength,
-            movement.motor.reference_quickstep_push_seconds,
+            movement.motor.reference_quickstep_push_seconds.seconds(),
             movement.motor.quickstep_push_seconds_reduction_per_agility,
             movement
                 .motor
@@ -527,7 +530,7 @@ impl TacticalCombatConfig {
             movement.maneuvers.dive_seconds,
             movement.maneuvers.backward_dive_seconds,
             movement.maneuvers.slide_seconds,
-            movement.maneuvers.quickstep_duration_seconds,
+            movement.maneuvers.quickstep_duration_seconds.seconds(),
         ];
         if !movement_values
             .into_iter()
@@ -687,21 +690,18 @@ impl TacticalCombatConfig {
             locomotion.prone,
             locomotion.supine,
         ];
-        if !locomotion.sample_hz.is_finite()
-            || locomotion.sample_hz <= 0.0
-            || gait_values.into_iter().any(|gait| {
-                ![
-                    gait.step_distance_metres,
-                    gait.support_phase_radius,
-                    gait.bounce_metres,
-                    gait.flight_apex_metres,
-                ]
-                .into_iter()
-                .all(finite_nonnegative)
-                    || gait.step_distance_metres == 0.0
-                    || !(0.0..0.5).contains(&gait.support_phase_radius)
-            })
-        {
+        if gait_values.into_iter().any(|gait| {
+            ![
+                gait.step_distance_metres,
+                gait.support_phase_radius,
+                gait.bounce_metres,
+                gait.flight_apex_metres,
+            ]
+            .into_iter()
+            .all(finite_nonnegative)
+                || gait.step_distance_metres == 0.0
+                || !(0.0..0.5).contains(&gait.support_phase_radius)
+        }) {
             return Err(TacticalCombatConfigError::Validation(
                 "invalid animation locomotion tuning",
             ));
@@ -711,11 +711,11 @@ impl TacticalCombatConfig {
         if ![
             guard.default_half_width_metres,
             guard.contact_margin_metres,
-            guard.minimum_step_seconds,
-            guard.maximum_step_seconds,
+            guard.minimum_step_seconds.seconds(),
+            guard.maximum_step_seconds.seconds(),
             guard.planning_reach_metres,
             guard.reference_leg_length_metres,
-            guard.maximum_unsupported_contact_seconds,
+            guard.maximum_unsupported_contact_seconds.seconds(),
         ]
         .into_iter()
         .all(|value| finite_nonnegative(value) && value > 0.0)
@@ -754,7 +754,7 @@ impl TacticalCombatConfig {
         if ![
             ik.maximum_owner_rotation_per_tick_degrees,
             ik.maximum_knee_target_amplification,
-            ik.continuity_sample_hz,
+            ik.continuity_sample_hz.hertz(),
             ik.stationary_turn_step_seconds,
             ik.knee_pole_maximum_foot_facing_offset_degrees,
             ik.airborne_foot_rotation_speed_degrees_per_second,
@@ -771,7 +771,7 @@ impl TacticalCombatConfig {
             || ik.terrain_blend_speed_per_second < 0.0
             || ik.knee_pole_maximum_foot_facing_offset_degrees < 0.0
             || ik.maximum_knee_target_amplification <= 0.0
-            || ik.continuity_sample_hz <= 0.0
+            || ik.continuity_sample_hz.hertz() <= 0.0
         {
             return Err(TacticalCombatConfigError::Validation(
                 "invalid inverse-kinematics tuning",

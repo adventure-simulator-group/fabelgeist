@@ -10,9 +10,11 @@ use crate::{
     inventory::{InventoryView, InventoryViewer},
 };
 
-mod combat_state;
-
 pub use combat_state::*;
+pub use input_tick::PlayerInputTick;
+
+mod combat_state;
+mod input_tick;
 
 /// BEI Component alias to mark players that are controlled by the present client.
 pub type ControlledPlayer = Actions<Player>;

@@ -3,7 +3,6 @@
 use bevy::prelude::Reflect;
 use derive_more::{Debug, Display, From};
 use serde::{Deserialize, Serialize};
-use std::ops::{Add, Sub};
 
 #[derive(
     Clone,
@@ -47,16 +46,25 @@ pub struct AnimationSampleSpan(u64);
 impl AnimationSampleTick {
     pub const ZERO: Self = Self(0);
     pub const MAX: Self = Self(u64::MAX);
+    /// Checked coordinate advance; unlike deadlines, fixture/required coordinates may fail.
+    pub fn checked_add(self, span: AnimationSampleSpan) -> Option<Self> {
+        self.0.checked_add(span.0).map(Self)
+    }
+    pub fn checked_sub_span(self, span: AnimationSampleSpan) -> Option<Self> {
+        self.0.checked_sub(span.0).map(Self)
+    }
     pub fn saturating_sub_span(self, span: AnimationSampleSpan) -> Self {
         Self(self.0.saturating_sub(span.0))
     }
+    /// A deadline never wraps into the past at the end of the clock.
     pub fn saturating_add(self, span: AnimationSampleSpan) -> Self {
         Self(self.0.saturating_add(span.0))
     }
     pub fn saturating_sub(self, previous: Self) -> AnimationSampleSpan {
         AnimationSampleSpan(self.0.saturating_sub(previous.0))
     }
-    pub fn next(self) -> Self {
+    /// Capture and consecutive-observation clocks intentionally admit MAX → 0.
+    pub fn wrapping_next(self) -> Self {
         Self(self.0.wrapping_add(1))
     }
     pub fn wrapping_delta(self, previous: Self) -> AnimationSampleSpan {
@@ -74,28 +82,17 @@ impl AnimationSampleTick {
 impl AnimationSampleSpan {
     pub const ZERO: Self = Self(0);
     pub const ONE: Self = Self(1);
+    pub fn saturating_add(self, other: Self) -> Self {
+        Self(self.0.saturating_add(other.0))
+    }
+    pub fn saturating_mul(self, count: u64) -> Self {
+        Self(self.0.saturating_mul(count))
+    }
+    pub fn half(self) -> Self {
+        Self(self.0 / 2)
+    }
     /// Native sample-count arithmetic, diagnostics or duration conversion boundary.
     pub fn samples(self) -> u64 {
         self.0
-    }
-}
-impl Add<AnimationSampleSpan> for AnimationSampleTick {
-    type Output = Self;
-    fn add(self, span: AnimationSampleSpan) -> Self {
-        Self(self.0 + span.0)
-    }
-}
-
-impl Sub<AnimationSampleSpan> for AnimationSampleTick {
-    type Output = Self;
-    fn sub(self, span: AnimationSampleSpan) -> Self {
-        Self(self.0 - span.0)
-    }
-}
-
-impl Sub<AnimationSampleTick> for AnimationSampleTick {
-    type Output = AnimationSampleSpan;
-    fn sub(self, previous: Self) -> AnimationSampleSpan {
-        AnimationSampleSpan(self.0 - previous.0)
     }
 }

@@ -26,9 +26,9 @@ pub fn melee_lunge_delay_seconds(
     lunge: MeleeLunge,
     forward_speed_metres_per_second: adventuresim_core::linear_speed::NonnegativeSpeed,
     forward_acceleration_metres_per_second_squared: f32,
-    quickstep_duration_seconds: f32,
+    quickstep_duration: crate::animation::PositiveAnimationDuration,
 ) -> f32 {
-    let fixed_tick_safety = 1.0 / crate::animation::locomotion_sample_hz();
+    let fixed_tick_safety = 1.0 / crate::animation::locomotion_sample_rate().hertz();
     match lunge {
         MeleeLunge::None => 0.0,
         MeleeLunge::Forward { distance_metres } => {
@@ -49,7 +49,7 @@ pub fn melee_lunge_delay_seconds(
             };
             travel_seconds + fixed_tick_safety
         }
-        MeleeLunge::Quickstep { .. } => quickstep_duration_seconds.max(0.0) + fixed_tick_safety,
+        MeleeLunge::Quickstep { .. } => quickstep_duration.seconds().max(0.0) + fixed_tick_safety,
     }
 }
 
@@ -143,7 +143,7 @@ mod tests {
                 adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(4.0)
                     .unwrap(),
                 4.0,
-                0.5
+                crate::animation::PositiveAnimationDuration::try_from(0.5).unwrap()
             ),
             0.0
         );
@@ -155,8 +155,8 @@ mod tests {
                 adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(4.0)
                     .unwrap(),
                 4.0,
-                0.5,
-            ) - ((0.2_f32).sqrt() + 1.0 / crate::animation::locomotion_sample_hz()))
+                crate::animation::PositiveAnimationDuration::try_from(0.5).unwrap(),
+            ) - ((0.2_f32).sqrt() + 1.0 / crate::animation::locomotion_sample_rate().hertz()))
             .abs()
                 < 1.0e-6
         );
@@ -168,8 +168,8 @@ mod tests {
                 adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(4.0)
                     .unwrap(),
                 4.0,
-                0.5,
-            ) - (0.5 + 1.0 / crate::animation::locomotion_sample_hz()))
+                crate::animation::PositiveAnimationDuration::try_from(0.5).unwrap(),
+            ) - (0.5 + 1.0 / crate::animation::locomotion_sample_rate().hertz()))
             .abs()
                 < 1.0e-6
         );

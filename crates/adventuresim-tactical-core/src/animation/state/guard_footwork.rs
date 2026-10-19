@@ -114,15 +114,18 @@ fn plan_guard_step(
     let support_seconds = if leading_contact > 0.0 {
         leading_contact / speed
     } else {
-        1.0 / locomotion_sample_hz()
+        locomotion_sample_rate().interval().seconds()
     };
-    let duration_seconds = reach_seconds
-        .min(support_seconds)
-        .clamp(tuning.minimum_step_seconds, tuning.maximum_step_seconds);
-    let duration_ticks = AnimationSampleSpan::from(
-        (duration_seconds * locomotion_sample_hz()).ceil().max(1.0) as u64,
+    let duration_seconds = reach_seconds.min(support_seconds).clamp(
+        tuning.minimum_step_seconds.seconds(),
+        tuning.maximum_step_seconds.seconds(),
     );
-    let forward = (speed * duration_ticks.samples() as f32 / locomotion_sample_hz()
+    let duration_ticks = AnimationSampleSpan::from(
+        (duration_seconds * locomotion_sample_rate().hertz())
+            .ceil()
+            .max(1.0) as u64,
+    );
+    let forward = (speed * duration_ticks.samples() as f32 / locomotion_sample_rate().hertz()
         + tuning.contact_margin_metres)
         .min(tuning.planning_reach_metres);
     let side = match swing_foot {

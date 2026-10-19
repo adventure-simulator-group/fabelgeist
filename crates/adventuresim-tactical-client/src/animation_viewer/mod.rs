@@ -11,7 +11,8 @@ use adventuresim_tactical_core::animation::dive_launch_root_rotation;
 use adventuresim_tactical_core::physics::{
     AdventureSimulatorPhysicsPlugin, TACTICAL_DIVE_HORIZONTAL_SPEED_METRES_PER_SECOND,
     quickstep_force_curve, quickstep_motion_target, quickstep_peak_horizontal_force_newtons,
-    quickstep_push_seconds, quickstep_target_displacement_metres, quickstep_tracking_force_newtons,
+    quickstep_push_duration, quickstep_target_displacement_metres,
+    quickstep_tracking_force_newtons,
 };
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::client::WeaponGuardInputState;
@@ -45,6 +46,7 @@ use crate::{
     presentation::{TacticalGameplayCamera, TacticalPresentationPlugin},
 };
 
+pub(crate) use capture::frame_clock::capture_fixed_clock;
 use capture::*;
 pub(crate) use harness::ArmorHarness;
 pub(crate) use inspection::CaptureInspection;
@@ -82,7 +84,7 @@ pub(crate) struct CaptureOptions {
     pub inspection: CaptureInspection,
 }
 
-pub(crate) fn run(options: CaptureOptions) -> AppExit {
+pub(crate) fn run(options: CaptureOptions, fixed_clock: Time<Fixed>) -> AppExit {
     let CaptureOptions {
         output,
         asset_root,
@@ -156,7 +158,7 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
         .insert_resource(LocalCharacterId(default_character_id))
         .insert_resource(CameraMode { third_person: true })
         .insert_resource(WeaponGuardInputState::default())
-        .insert_resource(Time::<Fixed>::from_hz(locomotion_sample_hz() as f64))
+        .insert_resource(fixed_clock)
         // Individual scenarios select terrain conformity explicitly so the
         // viewer can retain FK-only controls after the live default changed.
         .insert_resource(initial_terrain_ik)

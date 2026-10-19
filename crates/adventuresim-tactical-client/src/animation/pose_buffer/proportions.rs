@@ -46,7 +46,8 @@ mod tests {
             SystemState::<Query<&skeletal_proportions::SkeletalJointOffset>>::new(&mut world);
         let clip = BakedClip::new(
             ClipDuration::from_seconds(1.0).unwrap(),
-            AnimationElapsed::from_seconds(1.0).unwrap(),
+            adventuresim_tactical_core::animation::PositiveAnimationDuration::try_from(1.0)
+                .unwrap(),
             BakedFrameCount::try_from(2).unwrap(),
             vec![BoneTrack {
                 translations: vec![Vec3::new(0.1, 0.0, 0.0), Vec3::new(0.1, 0.2, 0.3)],

@@ -122,7 +122,8 @@ impl PresentedSkeleton {
                     .saturating_sub(step.start_tick())
                     .max(AnimationSampleSpan::ONE);
                 CycleDelta::from_arithmetic(
-                    delta_seconds * locomotion_sample_hz() * 0.5 / duration_ticks.samples() as f32,
+                    delta_seconds * locomotion_sample_rate().hertz() * 0.5
+                        / duration_ticks.samples() as f32,
                 )?
             } else {
                 let speed = presentation_phase_speed(next)?;
@@ -380,10 +381,11 @@ fn advance_presented_quickstep(
             source.action_phase().clamp(0.0, 1.0)
         }
     });
+    let action_span = preparation_ticks.saturating_mul(2);
     if !entering {
         *visual_phase = (*visual_phase
-            + delta_seconds.max(0.0) * locomotion_sample_hz()
-                / (2 * preparation_ticks.samples()) as f32)
+            + delta_seconds.max(0.0) * locomotion_sample_rate().hertz()
+                / action_span.samples() as f32)
             .min(1.0);
     }
 
@@ -391,14 +393,11 @@ fn advance_presented_quickstep(
     let start_tick = source
         .action_start_tick()
         .unwrap_or(AnimationSampleTick::ZERO);
-    let elapsed_ticks = (*visual_phase * (2 * preparation_ticks.samples()) as f32).round() as u64;
+    let elapsed_ticks = (*visual_phase * action_span.samples() as f32).round() as u64;
     next.advance_action(
         start_tick
             .saturating_add(AnimationSampleSpan::from(elapsed_ticks))
-            .min(
-                start_tick
-                    .saturating_add(AnimationSampleSpan::from(2 * preparation_ticks.samples())),
-            ),
+            .min(start_tick.saturating_add(action_span)),
     );
 }
 
@@ -669,7 +668,7 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
@@ -680,7 +679,7 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
@@ -708,27 +707,27 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
         let predicted = presented.action_phase();
 
-        authoritative.locomotion_sample_tick = authoritative.locomotion_sample_tick.next();
+        authoritative.locomotion_sample_tick = authoritative.locomotion_sample_tick.wrapping_next();
         authoritative.advance_action(
             adventuresim_tactical_core::animation::AnimationSampleTick::from(13u64),
         );
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
@@ -762,7 +761,7 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
@@ -778,14 +777,14 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
 
         let nominal_delta = 0.5 / 17.0;
         let maximum_correction =
-            presentation_phase_correction_rate_per_second() / locomotion_sample_hz();
+            presentation_phase_correction_rate_per_second() / locomotion_sample_rate().hertz();
         assert!(presented.action_phase() > previous_phase);
         assert!(
             presented.action_phase()
@@ -818,7 +817,7 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &attack,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
@@ -834,7 +833,7 @@ mod authored_cadence_tests {
             advance_presented_skeleton_with_strides(
                 &mut presented,
                 &idle,
-                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                locomotion_sample_rate().interval().elapsed(),
                 &strides,
             )
             .unwrap();
@@ -845,7 +844,7 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &idle,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
@@ -877,14 +876,14 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
@@ -917,8 +916,12 @@ mod authored_cadence_tests {
             .begin_attack_timed(
                 AttackSpec::main(StrikeFamily::Swing, true),
                 continuation_tick,
-                continuation_tick + AnimationSampleSpan::from(10u64),
-                continuation_tick + AnimationSampleSpan::from(20u64),
+                continuation_tick
+                    .checked_add(AnimationSampleSpan::from(10u64))
+                    .unwrap(),
+                continuation_tick
+                    .checked_add(AnimationSampleSpan::from(20u64))
+                    .unwrap(),
             )
             .unwrap();
         let mut presented = PresentedSkeleton::new(initial.clone(), None);
@@ -927,7 +930,7 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &predicted,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
@@ -944,7 +947,7 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &stale,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
@@ -958,7 +961,7 @@ mod authored_cadence_tests {
         advance_presented_skeleton_with_strides(
             &mut presented,
             &stale,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
@@ -966,13 +969,20 @@ mod authored_cadence_tests {
         assert_eq!(presented.action_start_tick(), Some(continuation_tick));
 
         let stale_follow_phase = presented.action_phase();
-        predicted.advance_action(continuation_tick + AnimationSampleSpan::from(1u64));
-        predicted = predicted
-            .with_locomotion_sample_tick(continuation_tick + AnimationSampleSpan::from(1u64));
+        predicted.advance_action(
+            continuation_tick
+                .checked_add(AnimationSampleSpan::from(1u64))
+                .unwrap(),
+        );
+        predicted = predicted.with_locomotion_sample_tick(
+            continuation_tick
+                .checked_add(AnimationSampleSpan::from(1u64))
+                .unwrap(),
+        );
         advance_presented_skeleton_with_strides(
             &mut presented,
             &predicted,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             &strides,
         )
         .unwrap();
@@ -1004,7 +1014,7 @@ mod authored_cadence_tests {
             advance_presented_skeleton_with_strides(
                 &mut presented,
                 &authoritative,
-                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                locomotion_sample_rate().interval().elapsed(),
                 &strides,
             )
             .unwrap();
@@ -1056,7 +1066,7 @@ mod authored_cadence_tests {
             advance_presented_skeleton_with_strides(
                 &mut presented,
                 &authoritative,
-                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                locomotion_sample_rate().interval().elapsed(),
                 &strides,
             )
             .unwrap();

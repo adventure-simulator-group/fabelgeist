@@ -1,13 +1,13 @@
 //! Source-clip admission, fixed-rate bake grids and cached sampling.
 
 use super::*;
-use adventuresim_tactical_core::animation::AnimationQuantity;
+use adventuresim_tactical_core::animation::{AnimationQuantity, PositiveAnimationDuration};
 use std::num::NonZeroUsize;
 
 #[derive(Clone)]
 pub(super) struct BakedClip {
     pub(super) duration: ClipDuration,
-    frame_dt: AnimationElapsed,
+    frame_dt: PositiveAnimationDuration,
     frames: BakedFrameCount,
     tracks: RigJointTable<BoneTrack>,
 }
@@ -60,7 +60,7 @@ impl BakedClip {
     /// storage and slice-only translation edits preserve these channel lengths.
     pub(super) fn new(
         duration: ClipDuration,
-        frame_dt: AnimationElapsed,
+        frame_dt: PositiveAnimationDuration,
         frames: BakedFrameCount,
         tracks: RigJointTable<BoneTrack>,
     ) -> AnimationValueResult<Self> {
@@ -109,7 +109,7 @@ impl BakedClip {
     /// One joint's local transform in the pose buffer.
     pub(super) fn sample(&self, joint: RigJointOrdinal, time_seconds: ClipTime) -> LocalPose {
         // Only this interpolation kernel projects seconds to a native grid index.
-        let frame = if self.frames.samples() == 1 || self.frame_dt.is_zero() {
+        let frame = if self.frames.samples() == 1 {
             0.0
         } else {
             (time_seconds.seconds().clamp(0.0, self.duration.seconds()) / self.frame_dt.seconds())
@@ -182,9 +182,9 @@ pub(super) fn bake_clip(
             .seconds()
             .max(pose_tuning().minimum_baked_grid_seconds.seconds()),
     )?;
-    let frame_dt = AnimationElapsed::from_seconds(pose_sample_seconds())?;
+    let frame_dt = pose_sample_interval();
     let grid_span = duration.seconds() / frame_dt.seconds();
-    if frame_dt.is_zero() || !grid_span.is_finite() || grid_span.ceil() >= usize::MAX as f32 {
+    if !grid_span.is_finite() || grid_span.ceil() >= usize::MAX as f32 {
         return Err(AnimationValueError::Overflow {
             quantity: adventuresim_tactical_core::animation::AnimationQuantity::ClipTime,
         });

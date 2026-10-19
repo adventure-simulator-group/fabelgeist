@@ -170,7 +170,7 @@ mod legacy_tests {
                     Quat::IDENTITY,
                     Vec3::NEG_Z * 5.5,
                     GroundContact::Grounded,
-                    AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                    locomotion_sample_rate().interval().elapsed(),
                     AnimationSampleTick::from(tick),
                 )
                 .unwrap(),
@@ -182,7 +182,7 @@ mod legacy_tests {
             advance_presented_skeleton(
                 &mut presented,
                 &replicated,
-                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                locomotion_sample_rate().interval().elapsed(),
             )
             .unwrap();
             let step = circular_phase_delta(previous_phase, presented.gait_phase)
@@ -222,7 +222,7 @@ mod legacy_tests {
                 Quat::IDENTITY,
                 velocity,
                 GroundContact::Grounded,
-                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                locomotion_sample_rate().interval().elapsed(),
                 AnimationSampleTick::from(1u64),
             )
             .unwrap(),
@@ -231,7 +231,7 @@ mod legacy_tests {
         advance_presented_skeleton(
             &mut presented,
             &authoritative,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
         )
         .unwrap();
 
@@ -399,7 +399,7 @@ mod legacy_tests {
         advance_presented_skeleton(
             &mut presented,
             &turned,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
         )
         .unwrap();
 

@@ -232,7 +232,7 @@ pub(crate) fn update_attack_facing_targets(
     targets: Query<&Transform>,
 ) {
     let tick = AnimationSampleTick::from(
-        (time.elapsed_secs_f64() * locomotion_sample_hz() as f64).round() as u64,
+        (time.elapsed_secs_f64() * locomotion_sample_rate().hertz() as f64).round() as u64,
     );
     for (entity, mut facing) in &mut attackers {
         if tick > facing.contact_tick {
@@ -250,17 +250,18 @@ pub(crate) fn update_attack_facing_targets(
 /// movement or look intent.
 #[derive(Component, Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub(crate) struct AuthoritativeInputTick {
-    tick: u32,
-    initialized: bool,
+    observed: Option<PlayerInputTick>,
 }
 
 impl AuthoritativeInputTick {
-    fn accept(&mut self, tick: u32) -> bool {
-        if self.initialized && !sequence_is_newer(tick, self.tick) {
+    fn accept(&mut self, tick: PlayerInputTick) -> bool {
+        if self
+            .observed
+            .is_some_and(|previous| !tick.is_newer_than(previous))
+        {
             return false;
         }
-        self.tick = tick;
-        self.initialized = true;
+        self.observed = Some(tick);
         true
     }
 }
@@ -1134,7 +1135,7 @@ pub(crate) fn on_player_input(
         info!(
             target: "quickstep_trace",
             ?entity,
-            simulation_tick = input.simulation_tick,
+            simulation_tick = input.simulation_tick.encoded(),
             sequence = validated.jump.sequence,
             ?direction,
             requested_guard = ?validated.weapon_guard,
@@ -1157,7 +1158,7 @@ pub(crate) fn on_player_input(
             warn!(
                 target: "quickstep_trace",
                 ?entity,
-                simulation_tick = input.simulation_tick,
+                simulation_tick = input.simulation_tick.encoded(),
                 sequence = validated.jump.sequence,
                 "[quickstep][server-input] rejected: incapacitated"
             );
@@ -1256,7 +1257,7 @@ pub(crate) fn on_player_input(
                 warn!(
                     target: "quickstep_trace",
                     ?entity,
-                    simulation_tick = input.simulation_tick,
+                    simulation_tick = input.simulation_tick.encoded(),
                     sequence = validated.jump.sequence,
                     transition = ?skeleton.posture_transition().map(|transition| transition.kind()),
                     "[quickstep][server-input] rejected: posture transition"
@@ -1267,7 +1268,7 @@ pub(crate) fn on_player_input(
                 warn!(
                     target: "quickstep_trace",
                     ?entity,
-                    simulation_tick = input.simulation_tick,
+                    simulation_tick = input.simulation_tick.encoded(),
                     sequence = validated.jump.sequence,
                     server_body = ?skeleton.body(),
                     "[quickstep][server-input] rejected: not grounded"
@@ -1291,7 +1292,7 @@ pub(crate) fn on_player_input(
                         info!(
                             target: "quickstep_trace",
                             ?entity,
-                            simulation_tick = input.simulation_tick,
+                            simulation_tick = input.simulation_tick.encoded(),
                             sequence = validated.jump.sequence,
                             ?direction,
                             skeleton_tick = skeleton.locomotion_sample_tick.encoded(),
@@ -1307,7 +1308,7 @@ pub(crate) fn on_player_input(
                         warn!(
                             target: "quickstep_trace",
                             ?entity,
-                            simulation_tick = input.simulation_tick,
+                            simulation_tick = input.simulation_tick.encoded(),
                             sequence = validated.jump.sequence,
                             server_guard = ?skeleton.weapon_guard(),
                             server_body = ?skeleton.body(),
@@ -1322,7 +1323,7 @@ pub(crate) fn on_player_input(
                     warn!(
                         target: "quickstep_trace",
                         ?entity,
-                        simulation_tick = input.simulation_tick,
+                        simulation_tick = input.simulation_tick.encoded(),
                         sequence = validated.jump.sequence,
                         ?direction,
                         requested_guard = ?validated.weapon_guard,
@@ -1362,10 +1363,9 @@ pub(crate) fn begin_authoritative_quickstep(
         .begin_dodge(
             spec,
             start,
-            start
-                + quickstep_action_contact_ticks(
-                    config.movement.maneuvers.quickstep_duration_seconds,
-                ),
+            start.saturating_add(quickstep_action_contact_ticks(
+                config.movement.maneuvers.quickstep_duration_seconds,
+            )),
         )
         .is_err()
     {
@@ -1533,7 +1533,11 @@ pub(crate) fn begin_get_up_transition_configured(
 }
 
 fn combat_seconds_to_ticks(seconds: f32) -> AnimationSampleSpan {
-    AnimationSampleSpan::from((seconds * locomotion_sample_hz()).round().max(1.0) as u64)
+    AnimationSampleSpan::from(
+        (seconds * locomotion_sample_rate().hertz())
+            .round()
+            .max(1.0) as u64,
+    )
 }
 
 fn roll_transition(body: BodyState, direction: RollDirection) -> Option<PostureTransitionKind> {
@@ -1666,7 +1670,7 @@ pub(crate) fn update_skeleton_locomotion(
             set_weapon_guard(&mut skeleton, lowered);
         }
         let tick = AnimationSampleTick::from(
-            (time.elapsed_secs_f64() * locomotion_sample_hz() as f64).round() as u64,
+            (time.elapsed_secs_f64() * locomotion_sample_rate().hertz() as f64).round() as u64,
         );
         let posture_transitioning = posture_transition_locks_body_facing(&skeleton);
         if posture_transitioning {
@@ -1786,7 +1790,7 @@ pub(crate) fn update_character_motion_snapshots(mut players: CharacterMotionSnap
         &mut players
     {
         *snapshot = CharacterMotionSnapshot {
-            acknowledged_input_tick: input.tick,
+            acknowledged_input_tick: input.observed,
             translation: transform.translation,
             rotation: transform.rotation,
             linear_velocity: velocity.0,
@@ -2384,11 +2388,11 @@ mod tests {
         BestiaryCategories, BodyState, CharacterControllerState, CharacterId, CharacterLook,
         CharacterMotionSnapshot, CollisionMargin, DiveDirection, DiveTrajectory, DodgeSpec,
         EquipSlot, EquipmentActionState, GroundedPosture, InventoryItems, ItemOf, JumpAnticipation,
-        Limbs, LinearVelocity, MeleePreparationInput, MovementPace, PostureTransitionKind,
-        QuickstepPush, RollDirection, Rotation, ShieldItem, SkeletonAction, SkeletonState, Skills,
-        Stats, TACTICAL_PRONE_LATERAL_SPEED_SCALE, TacticalAttributes, TacticalCombatConfig,
-        TacticalCombatSide, TacticalCombatState, advance_body_facing, controller_yaw,
-        downed_camera_roll_target,
+        Limbs, LinearVelocity, MeleePreparationInput, MovementPace, PlayerInputTick,
+        PostureTransitionKind, QuickstepPush, RollDirection, Rotation, ShieldItem, SkeletonAction,
+        SkeletonState, Skills, Stats, TACTICAL_PRONE_LATERAL_SPEED_SCALE, TacticalAttributes,
+        TacticalCombatConfig, TacticalCombatSide, TacticalCombatState, advance_body_facing,
+        controller_yaw, downed_camera_roll_target,
     };
 
     #[test]
@@ -2726,14 +2730,13 @@ mod tests {
     #[test]
     fn continuous_input_tick_rejects_duplicates_and_reordered_packets() {
         let mut newest = AuthoritativeInputTick::default();
-        assert!(newest.accept(10));
-        assert!(!newest.accept(10));
-        assert!(!newest.accept(9));
-        assert!(newest.accept(11));
+        assert!(newest.accept(PlayerInputTick::from(10u32)));
+        assert!(!newest.accept(PlayerInputTick::from(10u32)));
+        assert!(!newest.accept(PlayerInputTick::from(9u32)));
+        assert!(newest.accept(PlayerInputTick::from(11u32)));
 
-        newest.tick = u32::MAX;
-        newest.initialized = true;
-        assert!(newest.accept(0));
+        newest.observed = Some(PlayerInputTick::MAX);
+        assert!(newest.accept(PlayerInputTick::from(0u32)));
     }
 
     #[test]
@@ -2746,8 +2749,7 @@ mod tests {
                 LinearVelocity(Vec3::new(1.0, -2.0, 3.0)),
                 CharacterControllerState::default(),
                 AuthoritativeInputTick {
-                    tick: 42,
-                    initialized: true,
+                    observed: Some(PlayerInputTick::from(42u32)),
                 },
                 QuickstepPush::default(),
                 CharacterMotionSnapshot::default(),
@@ -2758,7 +2760,10 @@ mod tests {
         schedule.run(&mut world);
 
         let snapshot = world.get::<CharacterMotionSnapshot>(entity).unwrap();
-        assert_eq!(snapshot.acknowledged_input_tick, 42);
+        assert_eq!(
+            snapshot.acknowledged_input_tick,
+            Some(PlayerInputTick::from(42u32))
+        );
         assert_eq!(snapshot.translation, Vec3::new(2.0, 3.0, 4.0));
         assert_eq!(snapshot.linear_velocity, Vec3::new(1.0, -2.0, 3.0));
         assert!(!snapshot.grounded);
@@ -3114,7 +3119,7 @@ mod tests {
         assert!(input.jumped.is_none());
 
         let duration = combat_seconds_to_ticks(config.movement.maneuvers.slide_seconds);
-        skeleton.advance_posture_transition(AnimationSampleTick::from(duration.samples()));
+        skeleton.advance_posture_transition(AnimationSampleTick::ZERO.saturating_add(duration));
         assert_eq!(skeleton.body(), BodyState::Supine);
     }
 

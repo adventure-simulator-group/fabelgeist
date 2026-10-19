@@ -22,6 +22,10 @@ pub enum AnimationQuantity {
     WorldVelocity,
     #[display("body orientation")]
     BodyOrientation,
+    #[display("animation sampling frequency")]
+    SampleRate,
+    #[display("native fixed-clock interval")]
+    NativeSampleInterval,
     #[display("elapsed animation seconds")]
     Elapsed,
     #[display("landing impact speed")]

@@ -156,3 +156,15 @@ above one. Signed phase, sample times and body deflections remain unwrapped and
 signed at admission. Sample spans retain scalar unsigned encodings separately
 from absolute sample ticks. Downed turning and guarded locomotion retain named
 states while their existing wire fields remain Boolean scalars.
+
+Animation sampling rates retain the authored hertz scalar and its checked
+positive reciprocal together. Calibration frequencies instead admit every finite
+positive multiplier, including tiny values whose products underflow to zero;
+they do not require a representable reciprocal. Pose baking, interpolation and
+ragdoll finite differences consume that interval; a repeated or zero-elapsed
+observation stays separate from a positive sampling interval. Animation
+coordinates use named checked, saturating or wrapping operations rather than
+ambiguous tick operators. Client input uses a distinct 32-bit `PlayerInputTick`.
+Before an input has been observed, the replicated motion snapshot carries no
+acknowledgement; an observed zero is a real coordinate, and unreliable-channel
+ordering stays wrap-aware.

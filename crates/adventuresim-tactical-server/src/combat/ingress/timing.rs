@@ -33,7 +33,7 @@ impl MeleeAnimationTiming {
 
 pub(super) fn animation_tick(time: &Time<()>) -> AnimationSampleTick {
     AnimationSampleTick::from(
-        (time.elapsed_secs_f64() * locomotion_sample_hz() as f64).round() as u64,
+        (time.elapsed_secs_f64() * locomotion_sample_rate().hertz() as f64).round() as u64,
     )
 }
 
@@ -45,7 +45,7 @@ pub(super) fn delayed_melee_timing_ticks(
 ) -> MeleeAnimationTiming {
     let authored_ticks = duration_ticks(authored_windup);
     let arrival_ticks = AnimationSampleSpan::from(
-        (lunge_delay_seconds.max(0.0) * locomotion_sample_hz()).round() as u64,
+        (lunge_delay_seconds.max(0.0) * locomotion_sample_rate().hertz()).round() as u64,
     );
     let contact = input_tick.saturating_add(authored_ticks.max(arrival_ticks));
     let animation_start = contact.saturating_sub_span(authored_ticks);
@@ -59,7 +59,7 @@ pub(super) fn delayed_melee_timing_ticks(
 
 pub(super) fn duration_ticks(duration: CombatDuration) -> AnimationSampleSpan {
     AnimationSampleSpan::from(
-        (duration.as_secs_f32() * locomotion_sample_hz())
+        (duration.as_secs_f32() * locomotion_sample_rate().hertz())
             .round()
             .max(1.0) as u64,
     )
@@ -108,7 +108,9 @@ mod tests {
         assert_eq!(animation_start, AnimationSampleTick::from(10u64));
         assert_eq!(
             contact,
-            AnimationSampleTick::from(10u64) + duration_ticks(authored)
+            AnimationSampleTick::from(10u64)
+                .checked_add(duration_ticks(authored))
+                .unwrap()
         );
     }
 }

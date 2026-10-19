@@ -134,7 +134,7 @@ pub(super) fn seed_bodies(
     momentum: Vec3,
     config: &RagdollConfig,
 ) -> Vec<Option<BodySeed>> {
-    let sample_seconds = rig.sample_interval_seconds();
+    let sample_interval = rig.sample_interval();
     let mut seeds = vec![None; definition.bodies.len()];
     for (joint, body) in joint_bodies.indexed() {
         let Some(body) = *body else {
@@ -147,10 +147,10 @@ pub(super) fn seed_bodies(
         // `body = bone * bind_rotation⁻¹`: the body rests at identity where
         // the bone rests at its bind rotation.
         let rotation = (rotation_next * bind_rotation.inverse()).normalize();
-        let angular = angular_velocity_between(rotation_next, rotation_previous, sample_seconds)
+        let angular = angular_velocity_between(rotation_next, rotation_previous, sample_interval)
             .clamp_length_max(config.maximum_seed_spin_radians_per_second);
         let linear = momentum
-            + ((position_next - position_previous) / sample_seconds).clamp_length_max(
+            + ((position_next - position_previous) / sample_interval.seconds()).clamp_length_max(
                 config
                     .maximum_seed_speed_metres_per_second
                     .metres_per_second(),
@@ -192,12 +192,16 @@ pub(super) fn spawn_ragdoll(
 
 /// Angular velocity (rad/s) carrying `current` onto `next` over
 /// `delta_seconds`, along the short arc.
-fn angular_velocity_between(next: Quat, current: Quat, delta_seconds: f32) -> Vec3 {
+fn angular_velocity_between(
+    next: Quat,
+    current: Quat,
+    interval: adventuresim_tactical_core::animation::PositiveAnimationDuration,
+) -> Vec3 {
     let mut delta = next * current.inverse();
     if delta.w < 0.0 {
         delta = -delta;
     }
-    delta.to_scaled_axis() / delta_seconds.max(MINIMUM_VELOCITY_INTERVAL_SECONDS)
+    delta.to_scaled_axis() / interval.seconds().max(MINIMUM_VELOCITY_INTERVAL_SECONDS)
 }
 
 /// Spawn one rigid body per seeded definition body, each with a capsule
@@ -333,9 +337,19 @@ mod tests {
     fn angular_velocity_takes_the_short_arc() {
         let current = Quat::from_rotation_y(0.3);
         let next = Quat::from_rotation_y(0.5);
-        let velocity = angular_velocity_between(next, current, 0.1);
+        let velocity = angular_velocity_between(
+            next,
+            current,
+            adventuresim_tactical_core::animation::PositiveAnimationDuration::try_from(0.1)
+                .unwrap(),
+        );
         assert!((velocity.y - 2.0).abs() < 1e-4, "{velocity}");
-        let flipped = angular_velocity_between(-next, current, 0.1);
+        let flipped = angular_velocity_between(
+            -next,
+            current,
+            adventuresim_tactical_core::animation::PositiveAnimationDuration::try_from(0.1)
+                .unwrap(),
+        );
         assert!(flipped.distance(velocity) < 1e-4);
     }
 }

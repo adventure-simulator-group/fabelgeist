@@ -1,7 +1,7 @@
 //! Landing compression tuning shared by authority and presentation.
 
 use super::TacticalCombatConfigError;
-use crate::animation::AnimationElapsed;
+use crate::animation::PositiveAnimationDuration;
 use adventuresim_core::linear_speed::NonnegativeSpeed;
 use serde::{Deserialize, Serialize};
 
@@ -12,7 +12,7 @@ pub struct AnimationLandingConfig {
     pub compression_per_metre_per_second: f32,
     pub minimum_compression_metres: f32,
     pub maximum_compression_metres: f32,
-    pub recovery_seconds: AnimationElapsed,
+    pub recovery_seconds: PositiveAnimationDuration,
 }
 
 impl Default for AnimationLandingConfig {
@@ -33,7 +33,6 @@ impl AnimationLandingConfig {
         .into_iter()
         .all(finite_nonnegative)
             || landing.maximum_compression_metres < landing.minimum_compression_metres
-            || landing.recovery_seconds.is_zero()
         {
             return Err(TacticalCombatConfigError::Validation(
                 "invalid animation landing tuning",

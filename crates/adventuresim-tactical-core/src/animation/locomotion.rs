@@ -85,7 +85,7 @@ impl SkeletonState {
     }
 }
 
-pub fn locomotion_sample_hz() -> f32 {
+pub fn locomotion_sample_rate() -> super::AnimationSampleRate {
     crate::combat_config::runtime_animation_config()
         .locomotion
         .sample_hz
@@ -234,7 +234,7 @@ fn landing_profile() -> LandingProfile {
         compression_per_metre_per_second: config.compression_per_metre_per_second,
         minimum_compression_metres: config.minimum_compression_metres,
         maximum_compression_metres: config.maximum_compression_metres,
-        recovery_seconds: config.recovery_seconds,
+        recovery_seconds: config.recovery_seconds.elapsed(),
     }
 }
 

@@ -1310,7 +1310,7 @@ mod tests {
             scenario: "metric-test".into(),
             scenario_frame,
             time_seconds: AnimationElapsed::from_seconds(
-                scenario_frame as f32 / locomotion_sample_hz(),
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
             )
             .unwrap(),
             speed_metres_per_second: SignedSpeed::from_metres_per_second(2.0).unwrap(),
@@ -1541,7 +1541,7 @@ mod tests {
         let mut previous = frame.clone();
         previous.desired_body_forward_direction = Vec3::Z.to_array();
         frame.scenario_frame = 1;
-        frame.time_seconds = AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap();
+        frame.time_seconds = locomotion_sample_rate().interval().elapsed();
         assert!(maximum_facing_tracking_excess(&[&previous, &frame]) > 8.0);
 
         frame.guard_action = true;
@@ -1858,7 +1858,7 @@ mod tests {
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
             run_locomotion_profile().reference_speed,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
         )
         .unwrap()
         .cycles();
@@ -1869,7 +1869,8 @@ mod tests {
                 frame.gait_phase =
                     CyclePhase::from_cycles((index as f32 * phase_step).rem_euclid(1.0)).unwrap();
                 frame.time_seconds =
-                    AnimationElapsed::from_seconds(index as f32 / locomotion_sample_hz()).unwrap();
+                    AnimationElapsed::from_seconds(index as f32 / locomotion_sample_rate().hertz())
+                        .unwrap();
                 frame
             })
             .collect::<Vec<_>>();

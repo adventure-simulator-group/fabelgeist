@@ -3,6 +3,26 @@
 use super::*;
 use crate::animation::AnimationSampleSpan;
 
+pub(super) struct QuickstepSampleClock {
+    pub(super) elapsed: AnimationSampleSpan,
+    action: AnimationSampleSpan,
+}
+
+impl QuickstepSampleClock {
+    pub(super) fn bounded_recovery(&self, quickstep_action: bool, forward_velocity: f32) -> bool {
+        !quickstep_action
+            && self.elapsed <= self.action.saturating_add(AnimationSampleSpan::from(2u64))
+            && forward_velocity.abs() > 0.02
+    }
+
+    pub(super) fn target_phase(&self) -> f32 {
+        self.elapsed
+            .saturating_add(AnimationSampleSpan::ONE)
+            .samples() as f32
+            / self.action.samples() as f32
+    }
+}
+
 impl QuickstepPush {
     pub fn begin(
         &mut self,
@@ -21,21 +41,41 @@ impl QuickstepPush {
     pub fn cancel(&mut self) {
         self.active = false;
     }
-    /// Project the authoritative observation into this actuator's native action-clock delta.
-    pub(super) fn elapsed_sample_ticks(&self, skeleton: Option<&SkeletonState>) -> u64 {
+    pub(super) fn sample_clock(
+        &self,
+        skeleton: Option<&SkeletonState>,
+        duration: PositiveAnimationDuration,
+    ) -> QuickstepSampleClock {
+        QuickstepSampleClock {
+            elapsed: self.elapsed_sample_ticks(skeleton),
+            action: AnimationSampleSpan::from(
+                (duration.seconds() * locomotion_sample_rate().hertz())
+                    .round()
+                    .max(1.0) as u64,
+            ),
+        }
+    }
+
+    /// Retain the elapsed authoritative sample span for this actuator.
+    pub(super) fn elapsed_sample_ticks(
+        &self,
+        skeleton: Option<&SkeletonState>,
+    ) -> AnimationSampleSpan {
         skeleton
             .map_or(self.start_tick, |skeleton| skeleton.locomotion_sample_tick)
             .saturating_sub(self.start_tick)
-            .samples()
     }
 }
 
 /// Converts the configured complete quickstep duration into the midpoint tick
 /// expected by the shared symmetric dodge timeline. Keeping this conversion
 /// in one place prevents a contact duration from accidentally being doubled.
-pub fn quickstep_action_contact_ticks(duration_seconds: f32) -> AnimationSampleSpan {
-    let total_ticks = (duration_seconds.max(2.0 / locomotion_sample_hz()) * locomotion_sample_hz())
-        .round()
-        .max(2.0) as u64;
+pub fn quickstep_action_contact_ticks(duration: PositiveAnimationDuration) -> AnimationSampleSpan {
+    let total_ticks = (duration
+        .seconds()
+        .max(2.0 / locomotion_sample_rate().hertz())
+        * locomotion_sample_rate().hertz())
+    .round()
+    .max(2.0) as u64;
     AnimationSampleSpan::from((total_ticks / 2).max(1))
 }

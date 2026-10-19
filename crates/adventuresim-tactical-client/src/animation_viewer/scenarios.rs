@@ -4,15 +4,17 @@ use super::*;
 use admission::{authored_camera_angle, authored_frame_time};
 pub(super) use admission::{authored_drive_speed, canonical_john_sprint_speed};
 use adventuresim_building_generator::spatial_geometry::Radians;
+pub(super) use quickstep::{
+    quickstep_action_ticks, quickstep_fixture_vertical_state, quickstep_landing_frame,
+    quickstep_release_frame, quickstep_scenario,
+};
 
 mod admission;
 mod plan_families;
+mod quickstep;
 
 pub(super) mod terrain_policy;
-pub(super) const QUICKSTEP_FIXTURE_BIOLOGICAL_MASS_KG: f32 = 70.0;
-pub(super) const QUICKSTEP_FIXTURE_TOTAL_MASS_KG: f32 = 93.9;
 pub(super) const QUICKSTEP_FIXTURE_LEG_STRENGTH: f32 = 4.0;
-pub(super) const QUICKSTEP_FIXTURE_LEG_AGILITY: f32 = 4.0;
 // The canonical default inventory currently projects 24.9 kg into tactical
 // play: one catalog unit weight for each durable inventory row.
 pub(super) const JOHN_CURRENT_TOTAL_BURDEN_KG: f32 = 94.9;
@@ -47,7 +49,9 @@ pub(super) fn full_ragdoll_scenario() -> Vec<PlannedFrame> {
             scenario: ScenarioMetadata::authored(ScenarioId::FullRagdoll),
             scenario_frame,
             speed: authored_drive_speed(0.0),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: Vec2::ZERO,
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(0.0),
@@ -71,13 +75,15 @@ pub(super) fn steady_scenario_in_direction(
     // Fixed-rate sampling rarely lands on the mathematical wrap exactly; the
     // post-wrap sample makes every steady scenario exercise its real loop
     // transition instead of silently reporting no seam.
-    let last_frame = (duration * locomotion_sample_hz()).ceil() as usize + 1;
+    let last_frame = (duration * locomotion_sample_rate().hertz()).ceil() as usize + 1;
     (0..=last_frame)
         .map(|scenario_frame| PlannedFrame {
             scenario: name.clone(),
             scenario_frame,
             speed,
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction,
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(0.0),
@@ -90,10 +96,10 @@ pub(super) fn steady_scenario_in_direction(
 
 pub(super) fn transition_scenario() -> Vec<PlannedFrame> {
     let duration = 4.0;
-    let last_frame = (duration * locomotion_sample_hz()) as usize;
+    let last_frame = (duration * locomotion_sample_rate().hertz()) as usize;
     (0..=last_frame)
         .map(|frame| {
-            let t = frame as f32 / locomotion_sample_hz();
+            let t = frame as f32 / locomotion_sample_rate().hertz();
             let speed = if t < 0.5 {
                 2.0 * smoothstep01(t / 0.5)
             } else if t < 1.0 {
@@ -129,7 +135,9 @@ pub(super) fn terrain_toggle_scenario() -> Vec<PlannedFrame> {
             scenario: ScenarioMetadata::authored(ScenarioId::TerrainToggleMidStride),
             scenario_frame,
             speed: authored_drive_speed(2.0),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: Vec2::X,
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(0.0),
@@ -146,7 +154,9 @@ pub(super) fn terrain_half_turn_reversal_scenario() -> Vec<PlannedFrame> {
             scenario: ScenarioMetadata::authored(ScenarioId::TerrainHalfTurnReversal),
             scenario_frame,
             speed: authored_drive_speed(2.0),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: Vec2::NEG_Y,
             camera_yaw: authored_camera_angle(if scenario_frame >= 128 {
                 std::f32::consts::PI
@@ -182,7 +192,9 @@ pub(super) fn dynamics_speed_scenario(
                 scenario: name.clone(),
                 scenario_frame,
                 speed: authored_drive_speed(speed),
-                time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+                time_seconds: authored_frame_time(
+                    scenario_frame as f32 / locomotion_sample_rate().hertz(),
+                ),
                 local_direction: Vec2::NEG_Y,
                 camera_yaw: authored_camera_angle(0.0),
                 camera_pitch: authored_camera_angle(0.0),
@@ -208,7 +220,9 @@ pub(super) fn flat_grid_walk_stop_scenario() -> Vec<PlannedFrame> {
                 scenario: ScenarioMetadata::authored(ScenarioId::FlatGridWalkStop),
                 scenario_frame,
                 speed: authored_drive_speed(speed),
-                time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+                time_seconds: authored_frame_time(
+                    scenario_frame as f32 / locomotion_sample_rate().hertz(),
+                ),
                 local_direction: Vec2::NEG_Y,
                 camera_yaw: authored_camera_angle(0.0),
                 camera_pitch: authored_camera_angle(0.0),
@@ -235,7 +249,9 @@ pub(super) fn terrain_tap_stop_scenario(
             } else {
                 SignedSpeed::ZERO
             },
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction,
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(0.0),
@@ -254,7 +270,9 @@ pub(super) fn terrain_tap_restart_scenario() -> Vec<PlannedFrame> {
                 scenario: ScenarioMetadata::authored(ScenarioId::TerrainTapRestartCrossfade),
                 scenario_frame,
                 speed: authored_drive_speed(if moving { 5.5 } else { 0.0 }),
-                time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+                time_seconds: authored_frame_time(
+                    scenario_frame as f32 / locomotion_sample_rate().hertz(),
+                ),
                 local_direction: Vec2::NEG_Y,
                 camera_yaw: authored_camera_angle(0.0),
                 camera_pitch: authored_camera_angle(0.0),
@@ -297,7 +315,9 @@ pub(super) fn terrain_threshold_chatter_scenario() -> Vec<PlannedFrame> {
                 }
                 _ => 0.0,
             }),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: Vec2::NEG_Y,
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(0.0),
@@ -321,7 +341,9 @@ pub(super) fn raised_guard_lateral_tap_stop_scenario(
             } else {
                 0.0
             }),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: direction,
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(0.0),
@@ -338,7 +360,9 @@ pub(super) fn airborne_landing_scenario() -> Vec<PlannedFrame> {
             scenario: ScenarioMetadata::authored(ScenarioId::AirborneLanding),
             scenario_frame,
             speed: authored_drive_speed(0.0),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: Vec2::ZERO,
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(0.0),
@@ -369,7 +393,9 @@ pub(super) fn attack_live_scenario(
             scenario: name.clone(),
             scenario_frame,
             speed,
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             // Deliberately reverse velocity and yaw after attack start in the
             // stress fixture. The live movement input must remain the one
             // selected on frame zero.
@@ -589,153 +615,6 @@ pub(super) fn capture_plan() -> Vec<PlannedFrame> {
     .collect()
 }
 
-pub(super) fn quickstep_scenario(
-    name: ScenarioMetadata<'static>,
-    local_direction: Vec2,
-) -> Vec<PlannedFrame> {
-    let planar_speeds = quickstep_fixture_planar_speeds(72);
-    (0..72)
-        .map(|scenario_frame| PlannedFrame {
-            scenario: name.clone(),
-            scenario_frame,
-            speed: planar_speeds[scenario_frame],
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
-            local_direction,
-            camera_yaw: authored_camera_angle(0.0),
-            camera_pitch: authored_camera_angle(0.0),
-            action: SkeletonAction::Dodge,
-            weapon_guard: WeaponGuardState::Raised,
-            lead_foot: LeadFoot::Left,
-        })
-        .collect()
-}
-
-pub(super) fn quickstep_action_ticks() -> usize {
-    let config = TacticalCombatConfig::default();
-    (quickstep_action_contact_ticks(config.movement.maneuvers.quickstep_duration_seconds).samples()
-        * 2) as usize
-}
-
-pub(super) fn quickstep_push_ticks() -> usize {
-    let config = TacticalCombatConfig::default();
-    (quickstep_push_seconds(QUICKSTEP_FIXTURE_LEG_AGILITY, &config.movement.motor)
-        * locomotion_sample_hz())
-    .ceil() as usize
-}
-
-pub(super) fn quickstep_fixture_planar_speeds(frame_count: usize) -> Vec<SignedSpeed> {
-    let config = TacticalCombatConfig::default();
-    let action_ticks = quickstep_action_ticks();
-    let peak_force = quickstep_peak_horizontal_force_newtons(
-        QUICKSTEP_FIXTURE_BIOLOGICAL_MASS_KG,
-        QUICKSTEP_FIXTURE_LEG_STRENGTH,
-        &config.movement.motor,
-    );
-    let target_displacement = quickstep_target_displacement_metres(
-        CharacterDimensions::default().leg_length_metres,
-        &config.movement.motor,
-    );
-    let duration = action_ticks as f32 / locomotion_sample_hz();
-    let mut velocity: f32 = 0.0;
-    let mut displacement: f32 = 0.0;
-    let mut speeds = Vec::with_capacity(frame_count);
-    for frame in 0..frame_count {
-        speeds.push(authored_drive_speed(velocity.abs()));
-        if frame < action_ticks {
-            let target = match quickstep_motion_target(
-                (frame + 1) as f32 / action_ticks as f32,
-                target_displacement,
-                duration,
-                config
-                    .movement
-                    .motor
-                    .quickstep_authored_displacement_profile,
-            ) {
-                Ok(target) => target,
-                Err(error) => panic!("invalid authored quickstep speed: {error}"),
-            };
-            let force = quickstep_tracking_force_newtons(
-                displacement,
-                authored_drive_speed(velocity),
-                target,
-                QUICKSTEP_FIXTURE_TOTAL_MASS_KG,
-                peak_force,
-                1.0 / locomotion_sample_hz(),
-            );
-            velocity += force / QUICKSTEP_FIXTURE_TOTAL_MASS_KG / locomotion_sample_hz();
-        } else {
-            velocity = 0.0;
-        }
-        displacement += velocity / locomotion_sample_hz();
-    }
-    speeds
-}
-
-pub(super) fn quickstep_release_frame() -> usize {
-    let config = TacticalCombatConfig::default();
-    let motor = &config.movement.motor;
-    let ticks = quickstep_push_ticks();
-    let acceleration = quickstep_peak_horizontal_force_newtons(
-        QUICKSTEP_FIXTURE_BIOLOGICAL_MASS_KG,
-        QUICKSTEP_FIXTURE_LEG_STRENGTH,
-        motor,
-    ) / QUICKSTEP_FIXTURE_TOTAL_MASS_KG;
-    let mut speed = 0.0;
-    let mut displacement = 0.0;
-    for tick in 0..ticks {
-        speed += acceleration * quickstep_force_curve((tick as f32 + 0.5) / ticks as f32)
-            / locomotion_sample_hz();
-        displacement += speed / locomotion_sample_hz();
-        if displacement >= motor.quickstep_maximum_supported_root_displacement_metres {
-            return tick + 1;
-        }
-    }
-    ticks
-}
-
-pub(super) fn quickstep_landing_frame() -> usize {
-    ((quickstep_release_frame() + 1)..(quickstep_release_frame() + locomotion_sample_hz() as usize))
-        .find(|&frame| quickstep_fixture_vertical_state(frame).0 <= 0.0)
-        .expect("the quickstep fixture must return to ground within one second")
-}
-
-pub(super) fn quickstep_fixture_vertical_state(scenario_frame: usize) -> (f32, f32) {
-    let config = TacticalCombatConfig::default();
-    let motor = &config.movement.motor;
-    let push_ticks = quickstep_push_ticks();
-    let release_frame = quickstep_release_frame();
-    let peak_acceleration = quickstep_peak_horizontal_force_newtons(
-        QUICKSTEP_FIXTURE_BIOLOGICAL_MASS_KG,
-        QUICKSTEP_FIXTURE_LEG_STRENGTH,
-        motor,
-    ) / QUICKSTEP_FIXTURE_TOTAL_MASS_KG
-        * motor.quickstep_takeoff_angle_degrees.to_radians().tan();
-    let mut height = 0.0;
-    let mut velocity = 0.0;
-    for tick in 0..scenario_frame {
-        if tick < release_frame {
-            velocity += peak_acceleration
-                * quickstep_force_curve((tick as f32 + 0.5) / push_ticks as f32)
-                / locomotion_sample_hz();
-        } else {
-            velocity -= motor.gravity_metres_per_second_squared / locomotion_sample_hz();
-        }
-        height += velocity / locomotion_sample_hz();
-    }
-    (height, velocity)
-}
-
-pub(super) fn quickstep_fixture_action_distance_metres() -> f32 {
-    quickstep_scenario(
-        ScenarioMetadata::authored(ScenarioId::QuickstepRight),
-        Vec2::X,
-    )
-    .iter()
-    .take(quickstep_action_ticks() + 1)
-    .map(|frame| frame.speed.metres_per_second() / locomotion_sample_hz())
-    .sum()
-}
-
 pub(super) fn downed_contact_scenario(
     name: ScenarioMetadata<'static>,
     body: BodyState,
@@ -753,7 +632,9 @@ pub(super) fn downed_contact_scenario(
             scenario: name.clone(),
             scenario_frame,
             speed: authored_drive_speed(speed),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: Vec2::NEG_Y,
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(0.0),
@@ -770,7 +651,9 @@ pub(super) fn downed_look_scenario() -> Vec<PlannedFrame> {
             scenario: ScenarioMetadata::authored(ScenarioId::DownedProneLookAt),
             scenario_frame,
             speed: authored_drive_speed(0.0),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: Vec2::ZERO,
             camera_yaw: authored_camera_angle(std::f32::consts::FRAC_PI_2),
             camera_pitch: authored_camera_angle(0.6),
@@ -787,7 +670,9 @@ pub(super) fn ordinary_camera_pitch_scenario() -> Vec<PlannedFrame> {
             scenario: ScenarioMetadata::authored(ScenarioId::OrdinaryCameraPitch),
             scenario_frame,
             speed: authored_drive_speed(0.0),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: Vec2::ZERO,
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(if scenario_frame < 16 {
@@ -816,7 +701,9 @@ pub(super) fn posture_transition_scenario(
             scenario: name.clone(),
             scenario_frame,
             speed: authored_drive_speed(0.0),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: Vec2::ZERO,
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(0.0),
@@ -864,7 +751,9 @@ pub(super) fn dive_impact_scenario_with_aim(
             } else {
                 SignedSpeed::ZERO
             },
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction,
             camera_yaw: authored_camera_angle(if aimed { 0.85 } else { 0.0 }),
             camera_pitch: authored_camera_angle(0.0),
@@ -885,7 +774,9 @@ pub(super) fn jump_charge_scenario() -> Vec<PlannedFrame> {
             scenario: ScenarioMetadata::authored(ScenarioId::JumpChargeAnticipation),
             scenario_frame,
             speed: authored_drive_speed(0.0),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: Vec2::ZERO,
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(0.0),
@@ -976,7 +867,9 @@ pub(super) fn raised_guard_stationary_turn_scenario() -> Vec<PlannedFrame> {
                 scenario: ScenarioMetadata::authored(ScenarioId::RaisedGuardStationaryTurn),
                 scenario_frame,
                 speed: authored_drive_speed(0.0),
-                time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+                time_seconds: authored_frame_time(
+                    scenario_frame as f32 / locomotion_sample_rate().hertz(),
+                ),
                 local_direction: Vec2::ZERO,
                 camera_yaw: authored_camera_angle(
                     std::f32::consts::FRAC_PI_2 * smoothstep01(turn_progress),
@@ -1018,13 +911,15 @@ pub(super) fn raised_guard_steady_scenario_with_lead(
     lead_foot: LeadFoot,
 ) -> Vec<PlannedFrame> {
     let duration = cycles * guard_step_length() * 2.0 / speed.metres_per_second();
-    let last_frame = (duration * locomotion_sample_hz()).ceil() as usize + 1;
+    let last_frame = (duration * locomotion_sample_rate().hertz()).ceil() as usize + 1;
     (0..=last_frame)
         .map(|scenario_frame| PlannedFrame {
             scenario: name.clone(),
             scenario_frame,
             speed,
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: direction.normalize_or_zero(),
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(0.0),
@@ -1048,7 +943,7 @@ pub(super) fn raised_guard_acceleration_scenario_with_lead(
 ) -> Vec<PlannedFrame> {
     (0..=96)
         .map(|scenario_frame| {
-            let time_seconds = scenario_frame as f32 / locomotion_sample_hz();
+            let time_seconds = scenario_frame as f32 / locomotion_sample_rate().hertz();
             PlannedFrame {
                 scenario: name.clone(),
                 scenario_frame,
@@ -1071,7 +966,9 @@ pub(super) fn raised_guard_transition_scenario() -> Vec<PlannedFrame> {
             scenario: ScenarioMetadata::authored(ScenarioId::RaisedGuardTransition),
             scenario_frame,
             speed: authored_drive_speed(2.0),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: Vec2::NEG_Y,
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(0.0),
@@ -1097,7 +994,8 @@ pub(super) fn raised_guard_release_scenario_with_lead(
     name: ScenarioMetadata<'static>,
     lead_foot: LeadFoot,
 ) -> Vec<PlannedFrame> {
-    let release_frame = (guard_step_length() * 0.75 * locomotion_sample_hz()).round() as usize;
+    let release_frame =
+        (guard_step_length() * 0.75 * locomotion_sample_rate().hertz()).round() as usize;
     (0..=64)
         .map(|scenario_frame| PlannedFrame {
             scenario: name.clone(),
@@ -1107,7 +1005,9 @@ pub(super) fn raised_guard_release_scenario_with_lead(
             } else {
                 0.0
             }),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: Vec2::NEG_Y,
             camera_yaw: authored_camera_angle(0.0),
             camera_pitch: authored_camera_angle(0.0),
@@ -1134,7 +1034,9 @@ pub(super) fn raised_guard_reversal_scenario_with_lead(
             scenario: name.clone(),
             scenario_frame,
             speed: authored_drive_speed(2.0),
-            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
+            time_seconds: authored_frame_time(
+                scenario_frame as f32 / locomotion_sample_rate().hertz(),
+            ),
             local_direction: if scenario_frame < 16 {
                 Vec2::NEG_X
             } else {
@@ -1152,22 +1054,6 @@ pub(super) fn raised_guard_reversal_scenario_with_lead(
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn quickstep_fixture_keeps_feet_airborne_until_action_end() {
-        assert_eq!(quickstep_push_ticks(), 25);
-        assert_eq!(quickstep_release_frame(), 11);
-        assert_eq!(quickstep_landing_frame(), 22);
-        assert!(quickstep_landing_frame() < quickstep_action_ticks());
-    }
-
-    #[test]
-    fn johns_quickstep_fixture_covers_about_one_metre_in_half_a_second() {
-        let duration = quickstep_action_ticks() as f32 / locomotion_sample_hz();
-        let distance = quickstep_fixture_action_distance_metres();
-        assert!((0.49..=0.51).contains(&duration), "duration={duration}");
-        assert!((0.90..=1.10).contains(&distance), "distance={distance}");
-    }
 
     #[test]
     fn every_directional_dive_scenario_requires_the_shared_motion() {
@@ -1202,7 +1088,7 @@ mod tests {
                 assert!(
                     (pair[1].time_seconds.seconds()
                         - pair[0].time_seconds.seconds()
-                        - 1.0 / locomotion_sample_hz())
+                        - locomotion_sample_rate().interval().seconds())
                     .abs()
                         < 0.0001
                 );
@@ -1400,7 +1286,7 @@ mod tests {
                         AnimationElapsed::from_seconds(if frame.scenario_frame == 0 {
                             0.0
                         } else {
-                            1.0 / locomotion_sample_hz()
+                            locomotion_sample_rate().interval().seconds()
                         })
                         .unwrap(),
                         AnimationSampleTick::from(frame.scenario_frame as u64),
@@ -1444,7 +1330,7 @@ mod tests {
                         AnimationElapsed::from_seconds(if frame.scenario_frame == 0 {
                             0.0
                         } else {
-                            1.0 / locomotion_sample_hz()
+                            locomotion_sample_rate().interval().seconds()
                         })
                         .unwrap(),
                         AnimationSampleTick::from(frame.scenario_frame as u64),
@@ -1462,7 +1348,8 @@ mod tests {
         };
 
         let release = replay("raised-guard-release-at-peak");
-        let release_frame = (guard_step_length() * 0.75 * locomotion_sample_hz()).round() as usize;
+        let release_frame =
+            (guard_step_length() * 0.75 * locomotion_sample_rate().hertz()).round() as usize;
         assert!(
             release
                 .iter()

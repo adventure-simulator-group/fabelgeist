@@ -302,7 +302,7 @@ pub fn guard_contact_margin_metres() -> f32 {
     guard_footwork_config().contact_margin_metres
 }
 
-pub fn guard_maximum_unsupported_contact_seconds() -> f32 {
+pub fn guard_maximum_unsupported_contact_duration() -> super::PositiveAnimationDuration {
     guard_footwork_config().maximum_unsupported_contact_seconds
 }
 

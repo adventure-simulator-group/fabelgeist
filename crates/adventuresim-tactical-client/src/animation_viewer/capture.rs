@@ -9,7 +9,7 @@ use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
 
 mod admission;
 mod capture_schedule;
-mod frame_clock;
+pub(super) mod frame_clock;
 mod overlay;
 mod readiness;
 mod subject_motion;
@@ -519,14 +519,7 @@ pub(super) fn drive_sequence(
                 AnimationSampleSpan::from(duration as u64),
             );
         }
-        let elapsed = match capture_frame_elapsed(frame.scenario_frame) {
-            Ok(elapsed) => elapsed,
-            Err(error) => {
-                sequence.admission =
-                    CaptureAdmission::Rejected(RejectedCaptureAdmission::FrameInterval(error));
-                return;
-            }
-        };
+        let elapsed = capture_frame_elapsed(frame.scenario_frame);
         let delta_seconds = elapsed.seconds();
         procedural_clock.set_fixed_step(sequence.simulation_tick, elapsed);
         let horizontal = transform.translation.xz() + world_velocity.xz() * delta_seconds;

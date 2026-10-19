@@ -107,7 +107,7 @@ pub(super) fn windup_duration(
     start_tick: AnimationSampleTick,
 ) -> CombatDuration {
     CombatDuration::from_secs_f32(
-        contact_tick.saturating_sub(start_tick).samples() as f32 / locomotion_sample_hz(),
+        contact_tick.saturating_sub(start_tick).samples() as f32 / locomotion_sample_rate().hertz(),
     )
 }
 

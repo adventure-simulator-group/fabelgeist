@@ -48,6 +48,7 @@ mod phase_calibration;
 mod physics_pose;
 mod proportions;
 mod rig;
+mod sampling_clock;
 mod spline;
 mod stride_calibration;
 mod visibility;
@@ -367,7 +368,7 @@ impl PoseBufferRig {
         &mut self,
         target: &RigJointTable<LocalPose>,
         target_velocities: &RigJointTable<(Vec3, Vec3)>,
-    ) {
+    ) -> AnimationValueResult<()> {
         let capture_displayed = self.has_presented_pose();
         for (joint, &target_pose) in target.indexed() {
             let displayed = if capture_displayed {
@@ -390,10 +391,11 @@ impl PoseBufferRig {
                 displayed_velocity,
                 target_pose,
                 target_velocities[joint],
-                pose_tuning().inertial_blend_seconds.seconds(),
-            );
+                pose_tuning().inertial_blend_seconds,
+            )?;
         }
         self.inertial_state = InertialState::Blending;
+        Ok(())
     }
 }
 
@@ -545,7 +547,7 @@ pub(super) fn update_pose_buffers(
             .zip(&rig.next)
             .map(|(target, previous)| {
                 if rig.has_presented_pose() && direct_sampling && !transition {
-                    local_pose_velocity(*previous, *target, delta_seconds.seconds())
+                    local_pose_velocity(*previous, *target, delta_seconds)
                 } else {
                     // Poses on opposite sides of a plan change do not form a
                     // trajectory. Differentiating them invents an angular
@@ -555,7 +557,10 @@ pub(super) fn update_pose_buffers(
             })
             .collect::<RigJointTable<_>>();
         if transition {
-            rig.capture_transition_offsets(&target, &target_velocities);
+            if let Err(error) = rig.capture_transition_offsets(&target, &target_velocities) {
+                warn!(%error, "Rejected pose inertialization duration");
+                continue;
+            }
             rig.set_target_velocities(&target_velocities);
             rig.previous.clone_from(&target);
             rig.next = target;
@@ -574,37 +579,10 @@ pub(super) fn update_pose_buffers(
                 rig.interpolation_alpha = PoseInterpolation::ONE;
                 rig.set_target_velocities(&target_velocities);
             } else {
-                let due = samples_due(rig.sample_accumulator.seconds());
-                if due > 0 {
-                    rig.previous = rig.next.clone();
-                    rig.next = target;
-                    let sample_seconds = pose_sample_seconds() * due as f32;
-                    for joint in rig.next.ordinals() {
-                        let (linear, angular) = local_pose_velocity(
-                            rig.previous[joint],
-                            rig.next[joint],
-                            sample_seconds,
-                        );
-                        rig.target_linear_velocities[joint] = linear;
-                        rig.target_angular_velocities[joint] = angular;
-                    }
-                    rig.sample_accumulator = match AnimationElapsed::from_seconds(
-                        (rig.sample_accumulator.seconds() - pose_sample_seconds() * due as f32)
-                            .max(0.0),
-                    ) {
-                        Ok(elapsed) => elapsed,
-                        Err(error) => {
-                            warn!(%error, "Rejected pose-buffer remainder");
-                            continue;
-                        }
-                    };
-                }
-                // Terrain IK has already modified `next`. Interpolate local
-                // joint transforms from the preceding solved sample to that
-                // upcoming solved sample; no post-interpolation contact toggle
-                // is needed.
-                if let Err(error) = rig.update_interpolation() {
-                    warn!(%error, "Rejected pose interpolation clock");
+                // Terrain IK already owns `next`; interpolate the two solved
+                // samples without introducing another contact transition.
+                if let Err(error) = rig.advance_buffered_sample(target, pose_sample_interval()) {
+                    warn!(%error, "Rejected pose-buffer sample clock");
                     continue;
                 }
             }
@@ -632,7 +610,13 @@ pub(super) fn apply_pose_buffers(
             let pose = if rig.inertial_state == InertialState::Settled {
                 input
             } else if !delta_seconds.is_zero() {
-                rig.offsets[joint].update(input, delta_seconds.seconds())
+                match rig.offsets[joint].update(input, delta_seconds) {
+                    Ok(pose) => pose,
+                    Err(error) => {
+                        warn!(%error, "Rejected pose inertialization clock");
+                        continue;
+                    }
+                }
             } else {
                 rig.offsets[joint].peek(input)
             };
@@ -671,8 +655,8 @@ fn pose_tuning() -> PoseBufferConfig {
     runtime_animation_config().pose_buffer
 }
 
-fn pose_sample_seconds() -> f32 {
-    pose_tuning().sample_hz.recip()
+fn pose_sample_interval() -> adventuresim_tactical_core::animation::PositiveAnimationDuration {
+    pose_tuning().sample_hz.interval()
 }
 
 fn presentation_world_transform(
@@ -1405,10 +1389,6 @@ fn sanitize_pose(pose: LocalPose, fallback: LocalPose) -> LocalPose {
     }
 }
 
-fn samples_due(accumulator: f32) -> u32 {
-    (accumulator.max(0.0) / pose_sample_seconds()).floor() as u32
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1616,13 +1596,6 @@ mod tests {
     }
 
     #[test]
-    fn large_frame_gaps_are_bounded_but_consume_sampler_debt() {
-        assert_eq!(samples_due(0.0), 0);
-        assert_eq!(samples_due(pose_sample_seconds() * 3.2), 3);
-        assert_eq!(samples_due(0.1), 3);
-    }
-
-    #[test]
     fn non_finite_samples_fall_back_to_the_bind_pose() {
         let bind = pose(Vec3::Y, Quat::IDENTITY);
         let invalid = pose(Vec3::splat(f32::NAN), Quat::IDENTITY);
@@ -1660,7 +1633,8 @@ mod tests {
         };
         let clip = BakedClip::new(
             ClipDuration::from_seconds(2.0 / 30.0).unwrap(),
-            AnimationElapsed::from_seconds(1.0 / 30.0).unwrap(),
+            adventuresim_tactical_core::animation::PositiveAnimationDuration::try_from(1.0 / 30.0)
+                .unwrap(),
             BakedFrameCount::try_from(3).unwrap(),
             vec![
                 track(vec![Vec3::ZERO; 3]),
@@ -1724,7 +1698,8 @@ mod tests {
         };
         let clip = BakedClip::new(
             ClipDuration::from_seconds(duration).unwrap(),
-            AnimationElapsed::from_seconds(frame_dt).unwrap(),
+            adventuresim_tactical_core::animation::PositiveAnimationDuration::try_from(frame_dt)
+                .unwrap(),
             BakedFrameCount::try_from(frames).unwrap(),
             vec![
                 BoneTrack {

@@ -16,7 +16,7 @@ impl FootTargetSpeeds {
     pub(super) fn configured() -> AnimationValueResult<Self> {
         let tuning = ik_tuning();
         let speed = |step: f32| {
-            NonnegativeSpeed::from_metres_per_second(step * tuning.continuity_sample_hz)
+            NonnegativeSpeed::from_metres_per_second(step * tuning.continuity_sample_hz.hertz())
         };
         Ok(Self {
             release: speed(tuning.airborne_release_step_metres.metres())?,

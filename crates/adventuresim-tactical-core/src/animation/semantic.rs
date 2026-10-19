@@ -568,7 +568,7 @@ mod contract_tests {
                 Quat::IDENTITY,
                 Vec3::ZERO,
                 GroundContact::Grounded,
-                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                locomotion_sample_rate().interval().elapsed(),
                 AnimationSampleTick::from(1u64),
             )
             .unwrap(),

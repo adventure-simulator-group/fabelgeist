@@ -219,7 +219,7 @@ struct DirectControlQueries<'w, 's> {
 }
 
 #[derive(Resource, Debug, Clone, Copy, Default)]
-struct LocalInputTick(u32);
+struct LocalInputTick(PlayerInputTick);
 
 fn update_direct_control_input(
     time: Res<Time>,
@@ -680,7 +680,7 @@ fn send_player_input(
     scripted: Res<PlayerInputOverride>,
 ) {
     let simulation_tick = input_tick.0;
-    input_tick.0 = input_tick.0.wrapping_add(1);
+    input_tick.0 = input_tick.0.wrapping_next();
     for (actions, look) in &players {
         if let Some(mut request) = scripted.0 {
             request.simulation_tick = simulation_tick;

@@ -163,13 +163,6 @@ impl PoseBufferRig {
         Ok(Some(elapsed))
     }
 
-    pub(super) fn update_interpolation(&mut self) -> AnimationValueResult<()> {
-        let interval = AnimationElapsed::from_seconds(pose_sample_seconds())?;
-        let fraction = PoseInterpolation::from_sample_clock(self.sample_accumulator, interval)?;
-        self.interpolation_alpha = fraction;
-        Ok(())
-    }
-
     fn new(
         definition: Arc<RigDefinition>,
         entities: RigJointTable<Option<Entity>>,

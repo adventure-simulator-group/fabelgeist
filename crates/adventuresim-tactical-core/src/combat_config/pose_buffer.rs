@@ -1,14 +1,14 @@
 //! Pose sampling, calibration and measurement tuning authored in combat YAML.
 
 use super::TacticalCombatConfigError;
-use crate::animation::PositiveAnimationDuration;
+use crate::animation::{AnimationSampleRate, PositiveAnimationDuration};
 use adventuresim_building_generator::spatial_geometry::PositiveLength;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct PoseBufferConfig {
-    pub sample_hz: f32,
+    pub sample_hz: AnimationSampleRate,
     /// Minimum extent of the numerical bake grid, after source-duration admission.
     pub minimum_baked_grid_seconds: PositiveAnimationDuration,
     /// Minimum signed stance displacement needed for a stable phase fit.
@@ -33,7 +33,6 @@ impl PoseBufferConfig {
         let finite_nonnegative = |value: f32| value.is_finite() && value >= 0.0;
         let pose = self;
         if ![
-            pose.sample_hz,
             pose.maximum_observation_seconds.seconds(),
             pose.minimum_authored_foot_range_metres.metres(),
             pose.maximum_authored_foot_range_metres.metres(),

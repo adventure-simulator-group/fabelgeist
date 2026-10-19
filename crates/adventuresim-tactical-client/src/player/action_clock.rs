@@ -1,6 +1,17 @@
 //! Native combat seconds and the client prediction sample clock.
 
 use super::*;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
+use adventuresim_tactical_core::animation::PositiveAnimationDuration;
+
+/// Timing available only to melee surface-range acquisition. Ranged targeting
+/// has no movement-assisted timing input.
+#[derive(Clone, Copy)]
+pub(super) struct MeleeAcquisitionTiming {
+    forward_speed: NonnegativeSpeed,
+    acceleration: f32,
+    quickstep_duration: PositiveAnimationDuration,
+}
 
 #[derive(Clone, Copy)]
 pub(super) struct MeleePlaybackTiming {
@@ -9,6 +20,39 @@ pub(super) struct MeleePlaybackTiming {
     pub(super) end: AnimationSampleTick,
     /// Native seconds consumed by the predicted AttackState timers.
     pub(super) contact_from_input_seconds: f32,
+}
+
+impl From<&adventuresim_tactical_core::combat_config::TacticalMovementConfig>
+    for MeleeAcquisitionTiming
+{
+    fn from(movement: &adventuresim_tactical_core::combat_config::TacticalMovementConfig) -> Self {
+        Self {
+            forward_speed: movement.speeds_metres_per_second.run,
+            acceleration: conservative_forward_lunge_acceleration(&movement.motor),
+            quickstep_duration: movement.maneuvers.quickstep_duration_seconds,
+        }
+    }
+}
+
+impl MeleeAcquisitionTiming {
+    /// A reachable melee surface target owns its movement-assisted delay.
+    pub(super) fn contact_delay(
+        self,
+        surface_measure: f32,
+        reach: f32,
+        maximum_travel: f32,
+    ) -> Option<f32> {
+        let closure = (surface_measure - reach).max(0.0);
+        (closure <= maximum_travel + 1.0e-5).then(|| {
+            let lunge = melee_lunge(surface_measure, reach, 0.0, maximum_travel);
+            melee_lunge_delay_seconds(
+                lunge,
+                self.forward_speed,
+                self.acceleration,
+                self.quickstep_duration,
+            )
+        })
+    }
 }
 
 impl MeleePlaybackTiming {
@@ -25,9 +69,9 @@ impl MeleePlaybackTiming {
         } else {
             input
         };
-        let start = sequence_start + delay_ticks(delay);
-        let contact = sequence_start + animation_ticks(contact_seconds);
-        let end = sequence_start + animation_ticks(contact_seconds + recovery);
+        let start = sequence_start.saturating_add(delay_ticks(delay));
+        let contact = sequence_start.saturating_add(animation_ticks(contact_seconds));
+        let end = sequence_start.saturating_add(animation_ticks(contact_seconds + recovery));
         let contact_from_input_seconds =
             melee_contact_delay_from_input(skeleton, spec.continuation, contact, contact_seconds);
         Self {
@@ -38,14 +82,40 @@ impl MeleePlaybackTiming {
         }
     }
 }
+pub(super) fn on_attack_fired_hook(
+    event: On<Fire<Attack>>,
+    mut cmd: Commands,
+    mut q_character: Query<(Has<AttackState>, &mut SkeletonState)>,
+    viewer: TacticalPlayerViewer,
+    time: Res<Time>,
+    combat_config: Res<TacticalCombatConfig>,
+    targeting: CombatTargeting,
+) {
+    try_start_attack(
+        AttackStartRequest {
+            entity: event.context,
+            alternate_attack: false,
+            hand: AttackHand::Main,
+        },
+        &mut cmd,
+        &mut q_character,
+        &viewer,
+        &time,
+        &combat_config,
+        &targeting,
+    );
+}
+
 pub(super) fn animation_ticks(seconds: f32) -> AnimationSampleSpan {
     AnimationSampleSpan::from(
-        (seconds.max(1.0 / locomotion_sample_hz()) * locomotion_sample_hz()).round() as u64,
+        (seconds.max(locomotion_sample_rate().interval().seconds())
+            * locomotion_sample_rate().hertz())
+        .round() as u64,
     )
 }
 
 pub(super) fn delay_ticks(seconds: f32) -> AnimationSampleSpan {
-    AnimationSampleSpan::from((seconds.max(0.0) * locomotion_sample_hz()).round() as u64)
+    AnimationSampleSpan::from((seconds.max(0.0) * locomotion_sample_rate().hertz()).round() as u64)
 }
 
 pub(super) fn delayed_melee_contact_seconds(
@@ -66,7 +136,7 @@ pub(super) fn melee_contact_delay_from_input(
         contact_tick
             .saturating_sub(skeleton.locomotion_sample_tick)
             .samples() as f32
-            / locomotion_sample_hz()
+            / locomotion_sample_rate().hertz()
     } else {
         ordinary_contact_seconds
     }

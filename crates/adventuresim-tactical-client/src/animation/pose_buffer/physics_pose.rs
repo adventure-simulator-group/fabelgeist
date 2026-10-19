@@ -84,8 +84,10 @@ impl PoseBufferRig {
 
     /// Seconds between the two buffered samples, for finite-difference
     /// velocities.
-    pub(in crate::animation) fn sample_interval_seconds(&self) -> f32 {
-        pose_sample_seconds()
+    pub(in crate::animation) fn sample_interval(
+        &self,
+    ) -> adventuresim_tactical_core::animation::PositiveAnimationDuration {
+        pose_sample_interval()
     }
 }
 

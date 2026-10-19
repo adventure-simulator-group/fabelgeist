@@ -598,7 +598,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
     };
     let quality_score = quality_score(&frames, &scenarios, &validation);
     let manifest = AnimationCaptureManifest {
-        sample_hz: locomotion_sample_hz(),
+        sample_hz: locomotion_sample_rate().hertz(),
         playback_backend,
         global_bone_trace: "global-bone-transforms.jsonl",
         pose_buffer: pose_buffer_metrics,

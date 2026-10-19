@@ -53,9 +53,18 @@ impl AnimationElapsed {
         if self.0 < other.0 { self } else { other }
     }
 
+    pub fn max(self, other: Self) -> Self {
+        if self.0 > other.0 { self } else { other }
+    }
+
     /// Bound an elapsed observation by a configured or authored seconds limit.
     pub fn capped_by_seconds(self, maximum: f32) -> AnimationValueResult<Self> {
         Ok(self.min(Self::from_seconds(maximum)?))
+    }
+
+    /// Remaining duration, floored at zero after the same seconds subtraction.
+    pub fn saturating_sub(self, other: Self) -> Self {
+        Self((self.0 - other.0).max(0.0))
     }
 
     pub fn checked_add(self, other: Self) -> AnimationValueResult<Self> {

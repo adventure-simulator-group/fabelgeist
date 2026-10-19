@@ -213,7 +213,8 @@ mod tests {
         };
         let mut clip = BakedClip::new(
             ClipDuration::from_seconds(1.0).unwrap(),
-            AnimationElapsed::from_seconds(0.5).unwrap(),
+            adventuresim_tactical_core::animation::PositiveAnimationDuration::try_from(0.5)
+                .unwrap(),
             BakedFrameCount::try_from(3).unwrap(),
             (0..3)
                 .map(|index| BoneTrack {

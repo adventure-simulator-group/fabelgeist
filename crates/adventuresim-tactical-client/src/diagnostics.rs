@@ -719,7 +719,7 @@ fn drive_scripted_input(
             force_attack.0 = true;
         }
         let request = PlayerInputRequest {
-            simulation_tick: 0,
+            simulation_tick: PlayerInputTick::ZERO,
             movement,
             look: script.look,
             jump,

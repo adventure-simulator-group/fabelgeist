@@ -752,11 +752,11 @@ mod roll_tests {
         movement: MeleeLungeMovement,
         config: &TacticalCombatConfig,
     ) -> f32 {
-        let dt = 1.0 / locomotion_sample_hz();
+        let dt = locomotion_sample_rate().interval().seconds();
         let authored_windup_seconds = 0.18_f32;
         let contact_seconds =
             authored_windup_seconds.max(melee_lunge_movement_delay(movement, config));
-        let contact_ticks = (contact_seconds * locomotion_sample_hz()).ceil() as u64;
+        let contact_ticks = (contact_seconds * locomotion_sample_rate().hertz()).ceil() as u64;
         let motor = &config.movement.motor;
         let mass = motor.fallback_character_mass_kg;
         let mut displacement = 0.0;
@@ -764,7 +764,9 @@ mod roll_tests {
 
         if movement.quickstep {
             let action_seconds = config.movement.maneuvers.quickstep_duration_seconds;
-            let action_ticks = (action_seconds * locomotion_sample_hz()).round().max(1.0) as u64;
+            let action_ticks = (action_seconds.seconds() * locomotion_sample_rate().hertz())
+                .round()
+                .max(1.0) as u64;
             let maximum_force = quickstep_peak_horizontal_force_newtons(70.0, 3.0, motor);
             for tick in 0..contact_ticks {
                 if displacement >= movement.distance_metres {
@@ -773,7 +775,7 @@ mod roll_tests {
                 let target = adventuresim_tactical_core::physics::quickstep_motion_target(
                     (tick + 1) as f32 / action_ticks as f32,
                     movement.distance_metres,
-                    action_seconds,
+                    action_seconds.elapsed(),
                     motor.quickstep_authored_displacement_profile,
                 )
                 .unwrap();
@@ -784,7 +786,8 @@ mod roll_tests {
                     target,
                     mass,
                     maximum_force,
-                    dt,
+                    adventuresim_tactical_core::animation::AnimationElapsed::from_seconds(dt)
+                        .unwrap(),
                 );
                 velocity += force / mass * dt;
                 displacement += velocity * dt;
@@ -1384,7 +1387,7 @@ pub(super) fn on_ranged_attack_started(
         .begin_attack_timed(
             spec,
             start,
-            start + duration_ticks(event.animation_windup),
+            start.saturating_add(duration_ticks(event.animation_windup)),
             start
                 .saturating_add(duration_ticks(event.animation_windup))
                 .saturating_add(duration_ticks(recovery)),
@@ -1397,7 +1400,7 @@ pub(super) fn on_ranged_attack_started(
         &mut commands,
         event.attacker,
         event.target,
-        start + duration_ticks(event.animation_windup),
+        start.saturating_add(duration_ticks(event.animation_windup)),
         &transforms,
     );
     authority.observe(

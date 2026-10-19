@@ -56,12 +56,13 @@ pub(super) fn begin_capture_action(
     };
     if action_starts_now {
         let start = tick;
-        let contact = start
-            + AnimationSampleSpan::from(if frame.action == SkeletonAction::Attack {
+        let contact = start.saturating_add(AnimationSampleSpan::from(
+            if frame.action == SkeletonAction::Attack {
                 19u64
             } else {
                 64u64
-            });
+            },
+        ));
         match frame.action {
             SkeletonAction::Attack => {
                 let attack = if frame.scenario.is(ScenarioId::AttackLiveStationarySwing) {
@@ -85,7 +86,7 @@ pub(super) fn begin_capture_action(
                         spec,
                         start,
                         if quickstep {
-                            start + AnimationSampleSpan::from((quickstep_action_ticks() / 2) as u64)
+                            start.saturating_add(quickstep_action_ticks().half())
                         } else {
                             contact
                         },

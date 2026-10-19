@@ -23,6 +23,7 @@ pub use measurement::{NonnegativeLength, PositiveAnimationDuration, UnitInterval
 pub use motion_modes::{DownedMotion, GuardedLocomotionMode, JumpAnticipation};
 pub use pack_id::AnimationPackId;
 pub use packs::*;
+pub use sample_rate::{AnimationFrequency, AnimationSampleRate};
 pub use sample_tick::{AnimationSampleSpan, AnimationSampleTick};
 pub use sample_values::{BlendWeight, ClipMirror, CycleDelta, CyclePhase};
 pub use semantic::*;
@@ -44,6 +45,7 @@ mod measurement;
 mod motion_modes;
 mod pack_id;
 mod packs;
+mod sample_rate;
 mod sample_tick;
 mod sample_values;
 mod semantic;

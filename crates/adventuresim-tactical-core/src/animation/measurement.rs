@@ -65,6 +65,16 @@ impl PositiveAnimationDuration {
         }
         Ok(Self(value))
     }
+    /// Duration covered by a native count of fixed sample intervals.
+    pub fn sample_span(self, intervals: u32) -> AnimationValueResult<AnimationElapsed> {
+        let seconds = self.seconds() * intervals as f32;
+        if !seconds.is_finite() {
+            return Err(AnimationValueError::Overflow {
+                quantity: AnimationQuantity::Elapsed,
+            });
+        }
+        AnimationElapsed::from_seconds(seconds)
+    }
     pub fn elapsed(self) -> AnimationElapsed {
         self.0
     }

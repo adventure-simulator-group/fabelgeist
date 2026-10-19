@@ -317,7 +317,7 @@ mod legacy_tests {
                 Quat::IDENTITY,
                 Vec3::NEG_Z * 2.0,
                 GroundContact::Grounded,
-                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                locomotion_sample_rate().interval().elapsed(),
                 AnimationSampleTick::from(1u64),
             )
             .unwrap(),
@@ -409,7 +409,7 @@ mod legacy_tests {
                 Quat::IDENTITY,
                 Vec3::X * 2.5,
                 GroundContact::Grounded,
-                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                locomotion_sample_rate().interval().elapsed(),
                 AnimationSampleTick::from(11u64),
             )
             .unwrap(),
@@ -441,13 +441,13 @@ mod legacy_tests {
                 orientation,
                 current_velocity,
                 GroundContact::Grounded,
-                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                locomotion_sample_rate().interval().elapsed(),
                 AnimationSampleTick::from(5u64),
             )
             .unwrap(),
         )
         .unwrap();
-        let expected = ((current_velocity - previous_velocity) * locomotion_sample_hz())
+        let expected = ((current_velocity - previous_velocity) * locomotion_sample_rate().hertz())
             .clamp_length_max(80.0);
         assert!(state.world_acceleration.abs_diff_eq(expected, 0.0001));
     }
@@ -926,7 +926,7 @@ mod legacy_tests {
                 Quat::IDENTITY,
                 velocity,
                 GroundContact::Grounded,
-                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                locomotion_sample_rate().interval().elapsed(),
                 tick,
             )
             .unwrap()
@@ -941,7 +941,12 @@ mod legacy_tests {
 
         project_skeleton_locomotion(
             &mut state,
-            input(Vec3::ZERO, step.contact_tick() - AnimationSampleSpan::ONE),
+            input(
+                Vec3::ZERO,
+                step.contact_tick()
+                    .checked_sub_span(AnimationSampleSpan::ONE)
+                    .unwrap(),
+            ),
         )
         .unwrap();
         assert!(state.raised_locomotion().is_moving());
@@ -963,7 +968,7 @@ mod legacy_tests {
                 Quat::IDENTITY,
                 velocity,
                 GroundContact::Grounded,
-                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                locomotion_sample_rate().interval().elapsed(),
                 AnimationSampleTick::from(tick),
             )
             .unwrap()
@@ -1013,7 +1018,7 @@ mod legacy_tests {
                         Quat::IDENTITY,
                         Vec3::NEG_Z * speed,
                         GroundContact::Grounded,
-                        AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                        locomotion_sample_rate().interval().elapsed(),
                         AnimationSampleTick::from(tick),
                     )
                     .unwrap(),
@@ -1027,7 +1032,15 @@ mod legacy_tests {
         };
         let slow = plan(0.1);
         let fast = plan(2.0);
-        assert!(fast.contact_tick() - fast.start_tick() < slow.contact_tick() - slow.start_tick());
+        assert!(
+            fast.contact_tick()
+                .checked_delta(fast.start_tick())
+                .unwrap()
+                < slow
+                    .contact_tick()
+                    .checked_delta(slow.start_tick())
+                    .unwrap()
+        );
     }
 
     #[test]
@@ -1070,7 +1083,11 @@ mod legacy_tests {
 
         project_skeleton_locomotion_with_intent(
             &mut state,
-            input(Vec3::ZERO, 2, guard_maximum_unsupported_contact_seconds()),
+            input(
+                Vec3::ZERO,
+                2,
+                guard_maximum_unsupported_contact_duration().seconds(),
+            ),
             Some(Vec2::NEG_Y),
         )
         .unwrap();
@@ -1089,7 +1106,7 @@ mod legacy_tests {
                     Quat::IDENTITY,
                     Vec3::NEG_Z * 2.0,
                     GroundContact::Grounded,
-                    AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                    locomotion_sample_rate().interval().elapsed(),
                     AnimationSampleTick::from(tick),
                 )
                 .unwrap(),
@@ -1129,7 +1146,7 @@ mod legacy_tests {
                         Quat::IDENTITY,
                         velocity,
                         GroundContact::Grounded,
-                        AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                        locomotion_sample_rate().interval().elapsed(),
                         AnimationSampleTick::from(tick),
                     )
                     .unwrap(),
@@ -1195,7 +1212,7 @@ mod legacy_tests {
             Quat::IDENTITY,
             Vec3::X * 2.0,
             GroundContact::Grounded,
-            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+            locomotion_sample_rate().interval().elapsed(),
             AnimationSampleTick::from(1u64),
         )
         .unwrap();
@@ -1483,14 +1500,22 @@ mod legacy_tests {
             .begin_attack_timed(
                 AttackSpec::main(StrikeFamily::Swing, true),
                 continuation_tick,
-                continuation_tick + AnimationSampleSpan::from(24u64),
-                continuation_tick + AnimationSampleSpan::from(48u64),
+                continuation_tick
+                    .checked_add(AnimationSampleSpan::from(24u64))
+                    .unwrap(),
+                continuation_tick
+                    .checked_add(AnimationSampleSpan::from(48u64))
+                    .unwrap(),
             )
             .unwrap();
         assert!(!state.attack_is_continuation());
         assert_eq!(state.select_main_attack(StrikeFamily::Swing), None);
 
-        state.advance_action(continuation_tick - AnimationSampleSpan::from(2u64));
+        state.advance_action(
+            continuation_tick
+                .checked_sub_span(AnimationSampleSpan::from(2u64))
+                .unwrap(),
+        );
         let before_recovery = AnimationEvaluation::from_skeleton(&state).unwrap();
         let PoseSampling::CurveSpan {
             coordinate: before_coordinate,
@@ -1499,7 +1524,11 @@ mod legacy_tests {
         else {
             panic!("queued recovery should remain a frame-0-to-frame-4 extrapolation");
         };
-        state.advance_action(continuation_tick - AnimationSampleSpan::from(1u64));
+        state.advance_action(
+            continuation_tick
+                .checked_sub_span(AnimationSampleSpan::from(1u64))
+                .unwrap(),
+        );
         assert!(!state.attack_is_continuation());
         let recovery = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(recovery.action[0].pose, SemanticPose::GuardSwing);
@@ -1546,7 +1575,11 @@ mod legacy_tests {
         assert_eq!(progress, 0.0);
         assert_eq!(follow_up_start.action[0].weight.factor(), 1.0);
 
-        state.advance_action(continuation_tick + AnimationSampleSpan::from(14u64));
+        state.advance_action(
+            continuation_tick
+                .checked_add(AnimationSampleSpan::from(14u64))
+                .unwrap(),
+        );
         let prepared = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(prepared.action[0].pose, SemanticPose::GuardSwing);
         assert_eq!(
@@ -1562,7 +1595,11 @@ mod legacy_tests {
                 progress: 7.0 / 24.0,
             }
         );
-        state.advance_action(continuation_tick + AnimationSampleSpan::from(24u64));
+        state.advance_action(
+            continuation_tick
+                .checked_add(AnimationSampleSpan::from(24u64))
+                .unwrap(),
+        );
         assert_eq!(state.action_phase(), 0.5);
         assert_eq!(
             AnimationEvaluation::from_skeleton(&state).unwrap().action[0].sampling,
@@ -1597,7 +1634,7 @@ mod legacy_tests {
                 Quat::IDENTITY,
                 Vec3::NEG_Z * 2.0,
                 GroundContact::Grounded,
-                AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+                locomotion_sample_rate().interval().elapsed(),
                 AnimationSampleTick::from(tick),
             )
             .unwrap();

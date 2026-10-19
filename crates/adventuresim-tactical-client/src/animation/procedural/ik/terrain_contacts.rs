@@ -383,7 +383,7 @@ pub(in crate::animation::procedural) fn bound_late_run_contact(
     let relative_travel = ik_tuning()
         .maximum_run_swing_root_relative_step_metres
         .metres()
-        * ik_tuning().continuity_sample_hz
+        * ik_tuning().continuity_sample_hz.hertz()
         * remaining_seconds;
     let maximum_horizontal_travel = root_travel + relative_travel;
     let horizontal = desired_contact.xz() - visible_start.xz();
@@ -442,7 +442,8 @@ pub(in crate::animation::procedural) fn run_contact_within_follower_step(
     };
     let desired_owner = rig_rotation.inverse() * (desired_world - rig_origin);
     previous_owner.distance(desired_owner)
-        <= (ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz)
+        <= (ik_tuning().run_airborne_owner_step_metres.metres()
+            * ik_tuning().continuity_sample_hz.hertz())
             * delta_seconds.seconds()
             + sole_contact_tolerance_metres().metres()
 }
@@ -467,7 +468,8 @@ pub(in crate::animation::procedural) fn run_contact_within_follower_motion_step(
     };
     let desired_owner = rig_rotation.inverse() * (desired_world - rig_origin);
     previous_owner.distance(desired_owner)
-        <= (ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz)
+        <= (ik_tuning().run_airborne_owner_step_metres.metres()
+            * ik_tuning().continuity_sample_hz.hertz())
             * delta_seconds.seconds()
             + 0.0001
 }
@@ -509,7 +511,7 @@ pub(in crate::animation::procedural) fn retarget_unacquired_run_contact_for_desc
     // freezing the final acquired footprint.
     let start_world = rig_origin + rig_rotation * previous_owner;
     let maximum_motion = (ik_tuning().run_airborne_owner_step_metres.metres()
-        * ik_tuning().continuity_sample_hz)
+        * ik_tuning().continuity_sample_hz.hertz())
         * delta_seconds.seconds();
     let mut transported_contact = if fixed_within_motion {
         fixed_contact

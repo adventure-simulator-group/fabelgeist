@@ -178,7 +178,12 @@ compact deterministic field recipe, never a server-generated render mesh.
 Authored clips are sampled by the client-owned pose buffer. The semantic router
 reads presentation state, resolves weighted clip samples through the animation
 pack catalog, and applies fixed-rate FK with per-joint inertialization before
-procedural terrain, body-response, and weapon-constraint passes.
+procedural terrain, body-response, and weapon-constraint passes. The validated
+server configuration owns each sampling rate and its positive reciprocal.
+Buffered sample counts are distinct from elapsed seconds and absolute ticks;
+checked interval arithmetic precedes replacement of buffered poses. Inertial
+clocks retain checked elapsed time while their polynomial kernels keep the
+existing numerical stencil and denominator floors.
 Pose buffers distinguish inactive state from retained authored display history.
 The first plan snaps to its target; later transitions capture displayed output.
 Visibility and physics ownership remain separate: pinning a physics pose does

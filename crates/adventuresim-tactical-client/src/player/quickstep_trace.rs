@@ -1,7 +1,8 @@
 //! Local quickstep animation and actuator transition diagnostics.
 
 use adventuresim_tactical_core::prelude::{
-    AnimationSampleTick, CharacterMotionSnapshot, ControlledPlayer, SkeletonAction, SkeletonState,
+    AnimationSampleTick, CharacterMotionSnapshot, ControlledPlayer, PlayerInputTick,
+    SkeletonAction, SkeletonState,
 };
 use bevy::prelude::*;
 
@@ -95,7 +96,7 @@ pub(super) fn trace_local_quickstep_state(
                 push_active = push.active,
                 push_start_tick = push.start_tick.encoded(),
                 push_direction = ?push.direction,
-                acknowledged_input_tick = snapshot.acknowledged_input_tick,
+                acknowledged_input_tick = snapshot.acknowledged_input_tick.map(PlayerInputTick::encoded),
                 render_translation = ?transform.translation,
                 snapshot_translation = ?snapshot.translation,
                 "[quickstep][client-state] animation/actuator discrepancy"
@@ -115,7 +116,7 @@ pub(super) fn trace_local_quickstep_state(
                 push_active = push.active,
                 push_start_tick = push.start_tick.encoded(),
                 push_direction = ?push.direction,
-                acknowledged_input_tick = snapshot.acknowledged_input_tick,
+                acknowledged_input_tick = snapshot.acknowledged_input_tick.map(PlayerInputTick::encoded),
                 render_translation = ?transform.translation,
                 snapshot_translation = ?snapshot.translation,
                 "[quickstep][client-state] transition"

@@ -152,7 +152,7 @@ fn advance_attack_phase(
 }
 
 fn attack_phase_delta(delta_seconds: AnimationElapsed, duration_ticks: AnimationSampleSpan) -> f32 {
-    delta_seconds.seconds() * locomotion_sample_hz() * 0.5
+    delta_seconds.seconds() * locomotion_sample_rate().hertz() * 0.5
         / duration_ticks.max(AnimationSampleSpan::ONE).samples() as f32
 }
 

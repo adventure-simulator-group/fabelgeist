@@ -10,8 +10,8 @@ impl AttackFacing {
         tick: AnimationSampleTick,
         elapsed: AnimationElapsed,
     ) -> Quat {
-        let remaining_seconds =
-            self.contact_tick.saturating_sub(tick).samples() as f32 / locomotion_sample_hz();
+        let remaining_seconds = self.contact_tick.saturating_sub(tick).samples() as f32
+            / locomotion_sample_rate().hertz();
         let desired_forward = self.target_position - transform.translation;
         let turn_speed = body_turn_speed_for_deadline(
             transform.rotation,
