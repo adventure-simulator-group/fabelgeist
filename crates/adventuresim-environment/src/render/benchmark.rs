@@ -84,14 +84,14 @@ pub struct LodCounts {
 /// Record work submitted by a batch, before per-tree GPU culling.
 pub struct ForestWork {
     pub records: usize,
-    pub slots: usize,
+    pub indexed_slots: usize,
 }
 
 #[derive(Debug, Default)]
 pub struct LodWork {
     pub instances: LodCounts,
     pub records: LodCounts,
-    pub slots: LodCounts,
+    pub indexed_slots: LodCounts,
 }
 
 #[derive(SystemParam)]
@@ -143,7 +143,8 @@ impl LodWork {
     fn add(&mut self, chunk: &ExpectedChunk) {
         self.instances.add(chunk.level, chunk.instances);
         self.records.add(chunk.level, chunk.work.records);
-        self.slots.add(chunk.level, chunk.work.slots);
+        self.indexed_slots
+            .add(chunk.level, chunk.work.indexed_slots);
     }
 }
 

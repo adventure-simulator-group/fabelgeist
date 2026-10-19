@@ -6,6 +6,7 @@ use std::time::{Duration, Instant};
 use adventuresim_environment::prepared::ForestFrame;
 use adventuresim_environment::render::ForestDetail;
 use adventuresim_environment::render::benchmark::{ForestBenchmark, ForestBenchmarkCounts};
+use adventuresim_environment::render::trees::TreeMeshStats;
 use bevy::prelude::*;
 use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance, PlantInstance};
 use serde_json::json;
@@ -14,7 +15,7 @@ use crate::stage::Orbit;
 
 /// Consecutive readbacks must agree within this bounded number of attempts.
 const MAX_READBACKS: usize = 8;
-const REPORT_VERSION: u32 = 3;
+const REPORT_VERSION: u32 = 4;
 const READINESS_TIMEOUT: Duration = Duration::from_secs(240);
 
 pub struct Request {
@@ -185,6 +186,7 @@ impl Measurement {
         &mut self,
         image: &Image,
         probe: &ForestBenchmark,
+        topology: Option<&TreeMeshStats>,
     ) -> Result<Readback, MeasurementError> {
         let now = self.request.started.elapsed();
         self.first_readback.get_or_insert(now);
@@ -221,6 +223,7 @@ impl Measurement {
                 "middle_pixels": self.detail.middle_pixels, "leaves": self.detail.leaves,
                 "level_selection": self.detail.level,
             },
+            "shared_meshes": topology,
             "stages_ms": {
                 "scene_construction": milliseconds(self.preparation.scene),
                 "simulation_gpu_setup": milliseconds(self.preparation.gpu_setup),
@@ -246,7 +249,7 @@ impl Measurement {
                 "readbacks occur after the requested steady-frame interval and may include earlier PNG writes",
                 "GPU waits serialize frames; report separately from ordinary presentation",
                 "uploaded_record_bytes include compact placements but exclude meshes, instance buffers and textures",
-                "library mesh bytes count vertex/index payloads requested for GPU residency, not peak resident memory",
+                "library mesh bytes describe canonical source grids; shared_meshes describes actual requested grid payload, not peak memory",
                 "LOD record/slot counts describe submitted batches before per-tree GPU culling, not actual visible vertex work",
                 "fresh file reads may hit operating-system storage caches; this is not a network measurement",
             ],
@@ -292,8 +295,8 @@ impl Measurement {
                 "leaves": counts.leaf_lod.instances,
             },
             "settled_batch_records_by_lod": {
-                "branches": { "valid_records": counts.branch_lod.records, "allocated_slots": counts.branch_lod.slots },
-                "leaves": { "valid_records": counts.leaf_lod.records, "allocated_slots": counts.leaf_lod.slots },
+                "branches": { "valid_records": counts.branch_lod.records, "indexed_record_slots": counts.branch_lod.indexed_slots },
+                "leaves": { "valid_records": counts.leaf_lod.records, "indexed_record_slots": counts.leaf_lod.indexed_slots },
             },
         })
     }

@@ -237,7 +237,7 @@ pub(super) fn show(
                 level,
                 ForestWork {
                     records: instance_count,
-                    slots: instance_count,
+                    indexed_slots: instance_count,
                 },
             );
         }

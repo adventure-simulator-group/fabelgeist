@@ -14,7 +14,7 @@ use std::time::{Duration, Instant};
 use adventuresim_environment::render::benchmark::ForestBenchmark;
 use adventuresim_environment::render::{
     ForestFeed, ForestPlugin, LevelSelection,
-    trees::{TreeFeed, TreeForestPlugin},
+    trees::{TreeFeed, TreeForestPlugin, TreeLayout, TreeMeshStats},
 };
 use anyhow::Result;
 use bevy::app::{AppExit, ScheduleRunnerPlugin};
@@ -60,6 +60,7 @@ pub struct Framing {
 
 /// What to grow and how to show it.
 pub struct Request {
+    pub tree_layout: TreeLayout,
     pub path: PathBuf,
     pub source: Source,
     pub level: LevelSelection,
@@ -140,6 +141,7 @@ pub fn run(mut request: Request) -> Result<()> {
         .map(|request| Measurement::new(request, preparation, &frame, detail, orbit, arrival));
     let mut app = App::new();
     app.insert_resource(ClearColor(stage::SKY))
+        .insert_resource(request.tree_layout)
         .insert_resource(detail)
         .add_plugins(
             DefaultPlugins
@@ -359,6 +361,7 @@ fn capture(commands: &mut Commands, target: Handle<Image>, path: PathBuf) {
               mut measurement: Option<ResMut<Measurement>>,
               mut pixels: Option<ResMut<PixelStability>>,
               probe: Option<Res<ForestBenchmark>>,
+              topology: Option<Res<TreeMeshStats>>,
               mut exit: MessageWriter<AppExit>| {
             if let Some(measurement) = measurement.as_mut() {
                 let Some(probe) = probe.as_ref() else {
@@ -366,7 +369,7 @@ fn capture(commands: &mut Commands, target: Handle<Image>, path: PathBuf) {
                     exit.write(AppExit::error());
                     return;
                 };
-                match measurement.readback(&captured.image, probe) {
+                match measurement.readback(&captured.image, probe, topology.as_deref()) {
                     Ok(Readback::Repeat) => {
                         let attempt = measurement.readback_number();
                         save_to_disk(path.with_extension(format!("readback-{attempt:02}.png")))(
@@ -397,6 +400,12 @@ fn capture(commands: &mut Commands, target: Handle<Image>, path: PathBuf) {
             if let Some(probe) = probe {
                 let counts = probe.counts();
                 println!("forest ready: {}/{} writes, {}/{} branch/leaf instances, {} batches, {} meshes", counts.submitted_writes, counts.queued_writes, counts.expected_branch_instances, counts.expected_leaf_instances, counts.expected_batches, counts.expected_meshes);
+            }
+            if let Some(topology) = topology {
+                match serde_json::to_string(&*topology) {
+                    Ok(json) => println!("forest topology: {json}"),
+                    Err(error) => { error!("{error}"); exit.write(AppExit::error()); return; }
+                }
             }
             save_to_disk(path.clone())(captured);
             println!("wrote {}", path.display());

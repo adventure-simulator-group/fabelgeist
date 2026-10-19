@@ -75,6 +75,10 @@ pub(super) fn preflight(classes: &BTreeSet<MeshClass>, detail: &ForestDetail) ->
                 .ok_or(PreparedError::Invalid("mesh size overflow"))?;
         }
     }
+    admit_address_mesh_bytes(bytes)
+}
+
+pub(crate) fn admit_address_mesh_bytes(bytes: u64) -> Result<()> {
     if bytes > MAX_MESH_BYTES {
         return Err(PreparedError::Invalid(
             "address meshes exceed prototype's 256 MiB preparation limit",

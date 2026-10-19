@@ -2,9 +2,7 @@
 
 use std::collections::BTreeMap;
 
-use bevy::asset::RenderAssetUsages;
 use bevy::ecs::system::SystemParam;
-use bevy::mesh::{Indices, PrimitiveTopology};
 use bevy::prelude::*;
 use bevy::render::storage::ShaderBuffer;
 use fabelgeist_math::units::Metres;
@@ -17,11 +15,12 @@ use super::super::{
     records::{Bytes, ForestBuffers, PendingWrites, Records, Stored},
 };
 use super::{
-    SharedForest, TreeFeed, VERTEX_ADDRESS,
+    SharedForest, TreeFeed, TreeLayout, TreeMeshStats,
     batches::{self, TreeChunk},
+    grids::{self, GridKey},
     materials::{TreeBranchMaterial, TreeLeafMaterial},
 };
-use crate::prepared::{AddressMesh, MeshClass, TreeLibrary, TreeModel, TreePose};
+use crate::prepared::{TreeLibrary, TreeModel, TreePose};
 
 /// GPU ABI: two aligned pose vec4s, then branch start/count and leaf start/count.
 #[repr(C)]
@@ -39,7 +38,8 @@ pub(super) struct TreeMaterials {
 
 #[derive(Resource)]
 pub(super) struct TreeAssets {
-    pub grids: BTreeMap<MeshClass, [Handle<Mesh>; 3]>,
+    pub grids: BTreeMap<GridKey, [Handle<Mesh>; 3]>,
+    pub stats: TreeMeshStats,
     pub materials: [TreeMaterials; 3],
     _records: ForestBuffers,
     _placements: Stored,
@@ -52,6 +52,14 @@ pub(super) struct TreeStores<'w> {
     leaves: ResMut<'w, Assets<TreeLeafMaterial>>,
     buffers: ResMut<'w, Assets<ShaderBuffer>>,
     writes: ResMut<'w, PendingWrites>,
+}
+
+#[derive(SystemParam)]
+pub(super) struct TreeSight<'w> {
+    detail: Res<'w, ForestDetail>,
+    view: Res<'w, LevelView>,
+    probe: Option<Res<'w, ForestBenchmark>>,
+    layout: Res<'w, TreeLayout>,
 }
 
 impl PlacementRecord {
@@ -72,8 +80,14 @@ impl PlacementRecord {
 }
 
 impl TreeStores<'_> {
-    fn upload(&mut self, forest: &SharedForest, probe: Option<&ForestBenchmark>) -> TreeAssets {
+    fn upload(
+        &mut self,
+        forest: &SharedForest,
+        layout: TreeLayout,
+        probe: Option<&ForestBenchmark>,
+    ) -> crate::prepared::Result<TreeAssets> {
         let library = &forest.library;
+        let grids = grids::upload(library, layout, &mut self.meshes, probe)?;
         let records = Records::from_parts(
             &library.species,
             &library.branches,
@@ -93,13 +107,13 @@ impl TreeStores<'_> {
         let mut placed = Stored::new(&mut self.buffers);
         placed.write(Bytes::new(&placements), &mut self.buffers, &mut self.writes);
         let materials = materials(library, &stored, &placed, self);
-        let grids = upload_grids(library, self, probe);
-        TreeAssets {
-            grids,
+        Ok(TreeAssets {
+            grids: grids.handles,
+            stats: grids.stats,
             materials,
             _records: stored,
             _placements: placed,
-        }
+        })
     }
 }
 
@@ -108,18 +122,30 @@ pub(super) fn draw(
     mut feed: ResMut<TreeFeed>,
     mut stores: ParamSet<(TreeStores, GroundAssets)>,
     shown: Query<Entity, With<TreeChunk>>,
-    detail: Res<ForestDetail>,
-    view: Res<LevelView>,
-    probe: Option<Res<ForestBenchmark>>,
+    sight: TreeSight,
 ) -> Result {
+    let TreeSight {
+        detail,
+        view,
+        probe,
+        layout,
+    } = sight;
     let Some(forest) = feed.pending.take() else {
         return Ok(());
     };
+    if *layout != TreeLayout::CapacityBatches
+        && matches!(detail.level, super::super::LevelSelection::Adaptive)
+    {
+        return Err(crate::prepared::PreparedError::Invalid(
+            "model-layout diagnostics require a fixed LOD",
+        )
+        .into());
+    }
     for entity in &shown {
         commands.entity(entity).despawn();
     }
-    let assets = stores.p0().upload(&forest, probe.as_deref());
-    batches::show(
+    let mut assets = stores.p0().upload(&forest, *layout, probe.as_deref())?;
+    assets.stats.batch_digest = batches::show(
         &mut commands,
         &forest,
         &assets,
@@ -127,6 +153,7 @@ pub(super) fn draw(
         &detail,
         probe.as_deref(),
     )?;
+    commands.insert_resource(assets.stats);
     stores
         .p1()
         .show(&mut commands, &Ground::prepared(&forest.population.frame));
@@ -158,35 +185,4 @@ fn materials(
         });
         TreeMaterials { branches, leaves }
     })
-}
-
-fn upload_grids(
-    library: &TreeLibrary,
-    stores: &mut TreeStores,
-    probe: Option<&ForestBenchmark>,
-) -> BTreeMap<MeshClass, [Handle<Mesh>; 3]> {
-    library
-        .grids
-        .iter()
-        .map(|grid| {
-            let levels = std::array::from_fn(|index| {
-                let addresses = &grid.levels[index];
-                let mesh = stores.meshes.add(mesh(addresses));
-                if let Some(probe) = probe {
-                    probe.expect_mesh(mesh.id(), addresses.vertices.len(), addresses.indices.len());
-                }
-                mesh
-            });
-            (grid.class, levels)
-        })
-        .collect()
-}
-
-fn mesh(addresses: &AddressMesh) -> Mesh {
-    Mesh::new(
-        PrimitiveTopology::TriangleList,
-        RenderAssetUsages::RENDER_WORLD,
-    )
-    .with_inserted_attribute(VERTEX_ADDRESS, addresses.vertices.clone())
-    .with_inserted_indices(Indices::U32(addresses.indices.clone()))
 }

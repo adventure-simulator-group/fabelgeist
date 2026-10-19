@@ -44,6 +44,7 @@ use std::path::PathBuf;
 use std::time::Instant;
 
 use adventuresim_environment::prepared::VariantBudget;
+use adventuresim_environment::render::trees::TreeLayout;
 use adventuresim_environment::render::{ForestPlugin, Level, LevelSelection};
 use adventuresim_environment::{SoloSpecies, scene_named};
 use anyhow::anyhow;
@@ -80,6 +81,9 @@ struct Options {
     /// Force a common geometric level for controlled capture comparisons.
     #[arg(long, value_enum, requires = "snapshot")]
     fixed_lod: Option<Level>,
+    /// Shared-tree diagnostic: hold model mesh/batch partitions fixed.
+    #[arg(long, value_enum, requires = "prepared_forest")]
+    tree_layout: Option<TreeLayout>,
     /// The scene, by the start of its name (`boreal`, `castle-unplanted`...).
     #[arg(long)]
     scene: Option<String>,
@@ -141,6 +145,18 @@ fn main() -> anyhow::Result<()> {
         return input::prepare(options.growth(scene)?, directory.clone(), budget);
     }
     if let Some(path) = &options.snapshot {
+        anyhow::ensure!(
+            options
+                .tree_layout
+                .is_none_or(|layout| layout == TreeLayout::CapacityBatches)
+                || options.fixed_lod.is_some(),
+            "model-layout diagnostics require --fixed-lod"
+        );
+        anyhow::ensure!(
+            options.tree_layout.is_none()
+                || matches!(options.representation, Some(input::Representation::Shared)),
+            "--tree-layout requires --representation shared"
+        );
         let source = match (&options.prepared_forest, options.representation) {
             (Some(directory), Some(representation)) => input::Source::Prepared {
                 directory: directory.clone(),
@@ -155,6 +171,7 @@ fn main() -> anyhow::Result<()> {
         };
         return snapshot::run(snapshot::Request {
             path: path.clone(),
+            tree_layout: options.tree_layout.unwrap_or_default(),
             source,
             level: options
                 .fixed_lod

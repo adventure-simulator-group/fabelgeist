@@ -31,6 +31,7 @@ pub use codec::{
     encode_unique,
 };
 pub use grids::{AddressMesh, MeshClass, RecordCapacity, TreeGrid};
+pub(crate) use meshes::admit_address_mesh_bytes;
 
 pub type Result<T> = std::result::Result<T, PreparedError>;
 
@@ -309,6 +310,10 @@ impl ForestFrame {
 }
 
 impl TreeLibrary {
+    /// Library-owned ordinals, each guaranteed to address an existing model.
+    pub fn variant_indices(&self) -> impl ExactSizeIterator<Item = VariantIndex> {
+        (0..self.models.len()).map(VariantIndex)
+    }
     pub fn validate(&self) -> Result<()> {
         validation::library(self)
     }

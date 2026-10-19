@@ -10,6 +10,7 @@ use super::ForestPlugin;
 use crate::prepared::{TreeLibrary, TreePopulation};
 
 mod batches;
+mod grids;
 mod materials;
 mod upload;
 
@@ -20,6 +21,7 @@ const VERTEX_ADDRESS: bevy::mesh::MeshVertexAttribute = bevy::mesh::MeshVertexAt
     bevy::render::render_resource::VertexFormat::Uint32,
 );
 
+pub use grids::{TreeLayout, TreeMeshStats};
 pub use materials::{TreeBranchMaterial, TreeLeafMaterial};
 
 /// Library residency and one regional descriptor set, already validated.
@@ -58,6 +60,7 @@ impl Plugin for TreeForestPlugin {
             GpuCullComputePlugin::<TreeLeafMaterial>::default(),
         ))
         .init_resource::<TreeFeed>()
+        .init_resource::<TreeLayout>()
         .add_systems(
             Update,
             (upload::draw, batches::pick)

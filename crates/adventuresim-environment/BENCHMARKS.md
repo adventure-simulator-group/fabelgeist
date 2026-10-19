@@ -102,6 +102,33 @@ invocations. Peak memory remains
 unmeasured. This prototype does not implement distant impostors, ecological
 cohort updates or production area streaming.
 
+### Indexed-padding diagnostic
+
+For shared prepared snapshots, `--tree-layout model-padded` and
+`--tree-layout model-live-indices` require an explicit `--fixed-lod`.
+Both construct the same per-model/part meshes and model/cell/size batches.
+Both retain full capacity vertex arrays. The second uses only the canonical
+index prefix for actual model records; it does not index padded records.
+Assets, poses, shaders, conservative bounds and culling policy stay fixed.
+`--tree-layout capacity-batches` is the normal sharing control.
+
+Before cloning meshes, admission bounds the retained source grids plus all
+requested runtime grids to the existing 256 MiB address-payload limit in
+every mode. This is a payload bound, not a peak-memory measurement. Model
+layouts intentionally duplicate vertices and can cost more startup/memory;
+their purpose is to isolate indexed padding with matched batch partitions.
+
+Report schema 4 names per-LOD referenced work `indexed_record_slots`.
+`capacity_slots_implied_by_shared_placements` still describes per-placement
+capacity potential. `shared_meshes` records the actual requested grid count,
+vertex/index bytes, layout and a SHA-256 of batch keys, bounds and complete
+instance payloads. Canonical `library_mesh_vertex_index_bytes` describes the
+source library, which is a different payload in model modes. These counts
+exclude common primitive meshes and allocator overhead. Check matching
+batch digests and all per-LOD records/instances before interpreting a padded
+versus live-index comparison. Changing index lengths still changes buffer
+allocation/bin placement; it does not isolate one shader instruction.
+
 ## Measure on an otherwise idle machine
 
 Coordinate with other contributors before starting. Do not overlap these
