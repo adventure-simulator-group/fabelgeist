@@ -162,7 +162,7 @@ fn body_surface_coordinates(positions: &[[f32; 3]]) -> anyhow::Result<Vec<[f32; 
         maximum = maximum.max(position[1]);
     }
     let height = maximum - minimum;
-    if !height.is_finite() || height <= f32::EPSILON {
+    if !height.is_finite() || height <= 0.0 {
         bail!("runtime body has no height");
     }
     Ok(positions

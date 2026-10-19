@@ -188,7 +188,7 @@ pub(crate) fn stat_slider(
 ) -> egui::Response {
     ui.scope(|ui| {
         ui.spacing_mut().item_spacing.y = 2.0;
-        let off_neutral = (*value - neutral).abs() > f32::EPSILON;
+        let off_neutral = (*value - neutral).abs() > 0.0;
         ui.horizontal(|ui| {
             ui.label(egui::RichText::new(label).color(PARCHMENT));
             ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {

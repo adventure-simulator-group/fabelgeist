@@ -250,6 +250,7 @@ fn tube(start: [f32; 3], end: [f32; 3], radius: f32, before: f32, after: f32) ->
 }
 
 fn unit(v: [f32; 3]) -> [f32; 3] {
-    let length = dot(v, v).sqrt().max(f32::EPSILON);
-    v.map(|x| x / length)
+    bevy::math::Vec3::from_array(v)
+        .normalize_or_zero()
+        .to_array()
 }

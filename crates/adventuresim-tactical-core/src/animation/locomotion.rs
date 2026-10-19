@@ -183,6 +183,9 @@ pub fn gait_support_weights(profile: LocomotionProfile, phase: f32) -> (f32, f32
 }
 
 fn smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {
-    let t = ((value - edge0) / (edge1 - edge0).max(f32::EPSILON)).clamp(0.0, 1.0);
+    if edge1 <= edge0 {
+        return f32::from(value >= edge1);
+    }
+    let t = ((value - edge0) / (edge1 - edge0)).clamp(0.0, 1.0);
     t * t * (3.0 - 2.0 * t)
 }

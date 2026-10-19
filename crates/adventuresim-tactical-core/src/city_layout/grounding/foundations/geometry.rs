@@ -21,16 +21,22 @@ impl GroundTriangle {
         if points.iter().any(|p| !p.is_finite()) {
             return None;
         }
-        let signed_area = (points[1].xz().as_dvec2() - points[0].xz().as_dvec2())
-            .perp_dot(points[2].xz().as_dvec2() - points[0].xz().as_dvec2());
-        if signed_area.abs() <= f64::EPSILON {
+        let first = (0..3).min_by(|a, b| compare_point(points[*a], points[*b]))?;
+        points.rotate_left(first);
+        let ab = points[1].xz().as_dvec2() - points[0].xz().as_dvec2();
+        let ac = points[2].xz().as_dvec2() - points[0].xz().as_dvec2();
+        let signed_area = ab.perp_dot(ac);
+        // Bound the coordinate differences, products and subtraction in the
+        // stored order used by height_f64. Clipping slivers whose determinant
+        // is lost to cancellation cannot define a measurable affine plane.
+        // This bound has area units and scales quadratically with the face.
+        let determinant_roundoff = 8.0 * f64::EPSILON * ((ab.x * ac.y).abs() + (ab.y * ac.x).abs());
+        if signed_area.abs() <= determinant_roundoff {
             return None;
         }
         if signed_area < 0.0 {
             points.swap(1, 2);
         }
-        let first = (0..3).min_by(|a, b| compare_point(points[*a], points[*b]))?;
-        points.rotate_left(first);
         let [a, b, c] = points;
         use adventuresim_building_generator::spatial_geometry::Position;
         Some(Self([

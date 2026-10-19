@@ -88,7 +88,7 @@ impl<F: GeometryFrame> Obstruction<F> {
             .collect::<Vec<_>>();
         for edge in self.corners.edges() {
             let [a, b] = [edge.start.metres(), edge.end.metres()];
-            if (a.y - b.y).abs() < f32::EPSILON {
+            if a.y == b.y {
                 continue;
             }
             for height in [bottom.metres(), top.metres()] {

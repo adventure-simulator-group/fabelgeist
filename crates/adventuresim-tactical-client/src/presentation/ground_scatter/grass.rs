@@ -1009,9 +1009,10 @@ mod tests {
                 .expect("ordinary blades should retain authored positions");
             let base_width =
                 Vec3::from_array(positions[0]).distance(Vec3::from_array(positions[1]));
+            let expected_width = GRASS_BLADE_WIDTH_METRES * species.width_scale();
+            let width_roundoff_metres = (expected_width.next_up() - expected_width) * 8.0;
             assert!(
-                (base_width - GRASS_BLADE_WIDTH_METRES * species.width_scale()).abs()
-                    < f32::EPSILON * 8.0,
+                (base_width - expected_width).abs() <= width_roundoff_metres,
                 "{species:?} must apply its width scale to the exact 76 mm body"
             );
         }

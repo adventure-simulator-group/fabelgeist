@@ -1269,7 +1269,7 @@ mod tests {
         assert!(sprint.plan.len() > 64);
         assert!(sprint.plan.iter().all(|frame| {
             frame.scenario.label() == "flat-grid-sprint-no-ik"
-                && (frame.speed - canonical_john_sprint_speed()).abs() < f32::EPSILON
+                && frame.speed == canonical_john_sprint_speed()
                 && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Disabled
         }));
         assert!((canonical_john_sprint_speed() - 8.957_856).abs() < 0.000_01);
@@ -1279,7 +1279,7 @@ mod tests {
         assert!(walk.plan.len() > 64);
         assert!(walk.plan.iter().all(|frame| {
             frame.scenario.label() == "flat-grid-walk-no-ik"
-                && (frame.speed - 2.0).abs() < f32::EPSILON
+                && frame.speed == 2.0
                 && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Disabled
         }));
 

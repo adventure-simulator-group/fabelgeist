@@ -228,7 +228,7 @@ mod tests {
 
     #[test]
     fn scale_and_surface_response_are_physically_bounded() {
-        assert!((LEAD_SHEET_TILE_METRES - 1.6).abs() < f32::EPSILON);
+        assert_eq!(LEAD_SHEET_TILE_METRES, 1.6);
         assert!((0.0008..=0.002).contains(&LEAD_SHEET_HEIGHT_RANGE_METRES));
         let (images, textures) = generated();
         let arm = images.get(&textures.arm).unwrap().data.as_deref().unwrap();

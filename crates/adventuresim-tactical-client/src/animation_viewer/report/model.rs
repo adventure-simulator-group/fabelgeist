@@ -271,6 +271,15 @@ pub(super) struct CompletedReport {
     pub(super) acceptance_passed: bool,
 }
 
+impl FrameSample {
+    pub(super) fn has_finite_bone_transforms(&self) -> bool {
+        self.bones.values().all(|bone| {
+            bone.position.into_iter().all(f32::is_finite)
+                && bone.rotation_xyzw.into_iter().all(f32::is_finite)
+        })
+    }
+}
+
 impl PresentationEventSample {
     /// Advances the sequence without moving the observed sample tick backwards.
     pub(super) fn advances_from(&self, previous: &Self) -> bool {

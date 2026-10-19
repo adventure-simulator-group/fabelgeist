@@ -117,7 +117,7 @@ fn ring_at(angle: f32) -> vec3<f32> {
     let first = ring_angle(previous);
     let span = rem_tau(ring_angle(next) - first);
     var t = 0.0;
-    if (span > FLT_EPSILON) {
+    if (span > 0.0) {
         t = rem_tau(a - first) / span;
     }
     return mix3(ring_point(previous), ring_point(next), t);

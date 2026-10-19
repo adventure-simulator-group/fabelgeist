@@ -575,7 +575,7 @@ fn combat_pelvis_is_component_blended(
 }
 
 fn weapon_grip(skill_weights: &[f32; 9]) -> WeaponGrip {
-    if skill_weights[0] > f32::EPSILON {
+    if skill_weights[0] > 0.0 {
         WeaponGrip::Polearm
     } else {
         WeaponGrip::Hilt
@@ -683,7 +683,7 @@ fn on_successful_attack(
     event: On<SuccessfulAttackResponse>,
     mut kicks: MessageWriter<bouncy_bones::BoneKick>,
 ) {
-    if event.impact_velocity_change.length_squared() > f32::EPSILON {
+    if event.impact_velocity_change.length_squared() > 0.0 {
         kicks.write(bouncy_bones::BoneKick {
             owner: event.impact_recipient,
             role: bouncy_bones::impact_bone_role(event.body_part),

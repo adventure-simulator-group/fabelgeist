@@ -18,7 +18,6 @@ use fabelgeist_rig::RigJointOrdinal;
 pub(crate) const HOST: &str = r#"
 // The word of a fit that is nonzero once the fit has failed.
 const FIT_FAILED: u32 = 15u;
-const FLT_EPSILON: f32 = 1.1920929e-7;
 // Exact largest finite f32. A rounded decimal above this value is rejected
 // by browser WGSL parsers even when a native backend rounds it down.
 const INFINITY: f32 = MAX_FINITE;
@@ -31,9 +30,13 @@ fn host_cross(a: vec3<f32>, b: vec3<f32>) -> vec3<f32> {
     return vec3<f32>(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x);
 }
 
-// Scaled by the reciprocal of a guarded length.
+// A zero vector has no direction. Scale first so small valid vectors survive
+// squaring and large finite vectors do not overflow the length calculation.
 fn host_normalized(a: vec3<f32>) -> vec3<f32> {
-    return a * (1.0 / max(sqrt(host_dot(a, a)), FLT_EPSILON));
+    let scale = max(max(abs(a.x), abs(a.y)), abs(a.z));
+    if (scale == 0.0) { return vec3<f32>(0.0); }
+    let scaled = a / scale;
+    return scaled / sqrt(host_dot(scaled, scaled));
 }
 
 // Linear interpolation from `a` to `b`.
@@ -224,4 +227,61 @@ pub(crate) fn dispatch(
     }
     .map_err(device_error)?;
     Ok(())
+}
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use fabelgeist_armor::ArmorGpu;
+    use fabelgeist_gpu::prelude::BufferUpload;
+
+    #[test]
+    fn shader_normalization_preserves_direction_across_finite_scales() {
+        let gpu = ArmorGpu::open().unwrap();
+        let vectors: [[f32; 4]; 4] = [
+            [0.0; 4],
+            [3.0e-30, 0.0, 4.0e-30, 0.0],
+            [3.0, 0.0, 4.0, 0.0],
+            [3.0e30, 0.0, 4.0e30, 0.0],
+        ];
+        let input = gpu.upload(BufferUpload::from_elements(&vectors)).unwrap();
+        let output = gpu
+            .scratch(size_of_val(&vectors) as u64, "normalized directions")
+            .unwrap();
+        let source = format!(
+            "{}\nvar<private> frames: array<f32, 16>;\n{}\n{}\n{}",
+            wgsl::MATH,
+            wgsl::FRAME,
+            HOST,
+            r#"
+            @group(0) @binding(0) var<storage, read> vectors: array<vec4<f32>>;
+            @group(0) @binding(1) var<storage, read_write> directions: array<vec4<f32>>;
+            @compute @workgroup_size(64)
+            fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+                if (id.x >= 4u) { return; }
+                directions[id.x] = vec4<f32>(host_normalized(vectors[id.x].xyz), 0.0);
+            }
+        "#
+        );
+        let kernel = gpu.cache().get(gpu.context(), &source).unwrap();
+        let mut parameters = PassParameters::new();
+        parameters.insert("vectors", input);
+        parameters.insert("directions", output.clone());
+        let mut batch = gpu.batch("normalization scales");
+        batch
+            .dispatch_items(&kernel, &parameters, vectors.len() as u32)
+            .unwrap();
+        batch.submit();
+        let directions = gpu.read::<[f32; 4]>(&output).unwrap();
+        assert_eq!(directions[0], [0.0; 4]);
+        // Division and square root may round each unit-vector component twice.
+        let component_roundoff = 2.0 * (0.8_f32.next_up() - 0.8);
+        for direction in &directions[1..] {
+            for (actual, expected) in direction.iter().zip([0.6, 0.0, 0.8, 0.0]) {
+                assert!(
+                    (actual - expected).abs() <= component_roundoff,
+                    "{direction:?}"
+                );
+            }
+        }
+    }
 }

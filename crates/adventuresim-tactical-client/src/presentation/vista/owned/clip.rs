@@ -73,7 +73,7 @@ impl PreparedTriangle {
         let normal = (b - a).cross(c - a);
         let represented = |point: DVec3| {
             let mut point = point.as_vec3();
-            if normal.y.abs() > f64::EPSILON {
+            if normal.y.abs() > 0.0 {
                 // Height is evaluated at represented X/Z coordinates, avoiding a
                 // false steep normal in tiny pieces at large geographic coordinates.
                 point.y = (a.y
@@ -116,7 +116,7 @@ impl PreparedTriangle {
                 ((triangle[1] - triangle[0])
                     .cross(triangle[2] - triangle[0])
                     .length_squared()
-                    > f32::EPSILON)
+                    > 0.0)
                     .then_some(triangle)
             })
             .collect::<Vec<_>>();

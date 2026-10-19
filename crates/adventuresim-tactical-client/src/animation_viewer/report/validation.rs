@@ -16,12 +16,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
     } = completed;
     let scenarios = scenario_metrics(&frames);
     let jitter_validation = jitter::validate(&jitter_frames(&frames), Default::default());
-    let finite_transforms = frames.iter().all(|frame| {
-        frame.bones.values().all(|bone| {
-            bone.position.into_iter().all(f32::is_finite)
-                && bone.rotation_xyzw.into_iter().all(f32::is_finite)
-        })
-    });
+    let finite_transforms = frames.iter().all(FrameSample::has_finite_bone_transforms);
     let all_scenarios_complete = capture_scenarios_complete(&frames, &plan);
     let all_artifacts_written = capture_artifacts_written(&output, &frames);
     let continuity_within_review_bounds = scenarios.iter().all(|metrics| {
@@ -160,7 +155,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             // a sampled zero-weight frame. If a true flight frame remains,
             // retain the toe-clearance gate; otherwise the ordinary contact
             // and penetration gates own the transition.
-            metrics.maximum_no_support_seconds <= f32::EPSILON
+            metrics.maximum_no_support_seconds <= 0.0
                 || strict_transition_flight_toe_clearance_is_valid(
                     metrics.minimum_flight_toe_clearance_metres,
                 )
@@ -170,7 +165,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
         ) || raised_scenario_requires_zero_flight(ScenarioMetadata::from_label(
             &metrics.scenario,
         )) {
-            metrics.maximum_no_support_seconds <= f32::EPSILON
+            metrics.maximum_no_support_seconds <= 0.0
         } else {
             true
         }
@@ -585,11 +580,10 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
                 && metrics.pelvis_vertical_range_metres <= vertical_range_limit
                 && metrics.head_vertical_range_metres <= vertical_range_limit;
         }
-        let attack = ScenarioMetadata::from_label(&metrics.scenario).kind() == ScenarioKind::Attack;
-        let world_plants = matches!(
-            ScenarioMetadata::from_label(&metrics.scenario).kind(),
-            ScenarioKind::RaisedGuard | ScenarioKind::Attack
-        ) && !uses_authored_combat_locomotion(&metrics.scenario)
+        let kind = ScenarioMetadata::from_label(&metrics.scenario).kind();
+        let attack = kind == ScenarioKind::Attack;
+        let world_plants = matches!(kind, ScenarioKind::RaisedGuard | ScenarioKind::Attack)
+            && !uses_authored_combat_locomotion(&metrics.scenario)
             && !is_guard_stop_transition(&metrics.scenario);
         (!world_plants
             || attack

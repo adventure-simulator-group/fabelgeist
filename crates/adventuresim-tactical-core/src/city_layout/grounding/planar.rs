@@ -36,7 +36,7 @@ pub(super) fn subtract(
         let edge = corners[(index + 1) % corners.len()] - a;
         intersection = clip(intersection, |p| edge.perp_dot(p - a));
     }
-    if intersection.len() < 3 || signed_area(&intersection).abs() <= f64::EPSILON {
+    if intersection.len() < 3 || signed_area(&intersection) == 0.0 {
         return vec![inside];
     }
     let mut outside = Vec::new();

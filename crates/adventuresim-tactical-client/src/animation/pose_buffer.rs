@@ -27,6 +27,7 @@ use inertialization::{
     shortest_rotation,
 };
 use interpolation::PoseInterpolation;
+use locomotion_sampling::sample_locomotion_at_time;
 use proportions::sample_character_plan;
 use rig::{RigDefinition, RigJoint};
 use spline::clamped_cubic_spline_vec3;
@@ -42,6 +43,7 @@ mod display_history;
 mod hierarchy;
 mod inertialization;
 mod interpolation;
+mod locomotion_sampling;
 mod phase_calibration;
 mod physics_pose;
 mod proportions;
@@ -804,17 +806,11 @@ fn sample_plan(
                 continue;
             }
             let sample = if weighted.locomotion_phase.is_some() {
-                let duration = weighted.clip.duration_seconds.seconds();
-                let authored_phase = if duration == 0.0 {
-                    0.0
-                } else {
-                    weighted.time_seconds.seconds() / duration
-                };
-                sample_two_pose_locomotion_clip(
+                sample_locomotion_at_time(
                     source,
                     joint,
                     weighted.clip.duration_seconds,
-                    CyclePhase::from_cycles(authored_phase).ok()?,
+                    weighted.time_seconds,
                 )
                 .ok()?
             } else {
@@ -1019,33 +1015,6 @@ fn sample_source_clip(clip: &AnimationClip, joint: &RigJoint, time_seconds: Clip
     }
 }
 
-fn sample_two_pose_locomotion_clip(
-    clip: &AnimationClip,
-    joint: &RigJoint,
-    duration: ClipDuration,
-    authored_phase: CyclePhase,
-) -> AnimationValueResult<LocalPose> {
-    // The source owns two unique poses: contact and passing/flight. Their
-    // mirrored counterparts occupy the other half-cycle. Sample only those
-    // four semantic anchors, then own every in-between here instead of asking
-    // the glTF sampler (or the 30 Hz baked cache) for intermediate frames.
-    let (start_index, end_index, amount) = sparse_locomotion_segment(authored_phase.cycles());
-    const ANCHOR_COUNT: f32 = 4.0;
-    let sample_anchor = |index: u32| {
-        // Preserve the source kernel's multiply-then-divide f32 order.
-        ClipTime::from_seconds(duration.seconds() * index as f32 / ANCHOR_COUNT)
-            .map(|time| sample_source_clip(clip, joint, time))
-    };
-    Ok(sample_anchor(start_index)?.interpolate(sample_anchor(end_index)?, amount))
-}
-
-fn sparse_locomotion_segment(authored_phase: f32) -> (u32, u32, f32) {
-    let coordinate = authored_phase.rem_euclid(1.0) * 4.0;
-    let start = coordinate.floor() as u32;
-    let t = coordinate - start as f32;
-    (start, (start + 1) % 4, t * t * (3.0 - 2.0 * t))
-}
-
 fn conform_upcoming_pose_to_terrain(
     definition: &RigDefinition,
     pose: &mut RigJointTable<LocalPose>,
@@ -1085,7 +1054,7 @@ fn conform_upcoming_pose_to_terrain(
     .enumerate()
     {
         let weight = weight.clamp(0.0, 1.0);
-        if weight <= f32::EPSILON && locomotion_pelvis_rotation.is_none() {
+        if weight <= 0.0 && locomotion_pelvis_rotation.is_none() {
             plants[index] = None;
             continue;
         }
@@ -1273,10 +1242,7 @@ fn measure_authored_contact_step_distance(
     travel_axis: CalibrationAxis,
     expected_stance_direction: f32,
 ) -> Option<AuthoredLocomotionCalibration> {
-    if clip.duration.seconds() <= f32::EPSILON
-        || clip.frames < 4
-        || expected_stance_direction.abs() <= f32::EPSILON
-    {
+    if clip.duration.seconds() <= 0.0 || clip.frames < 4 || expected_stance_direction == 0.0 {
         return None;
     }
     let feet = [RigJointName::L_FOOT, RigJointName::R_FOOT];
@@ -1383,7 +1349,7 @@ fn measure_authored_contact_step_distance(
     let mut warped_segments = Vec::<Vec<(f32, f32)>>::new();
     for samples in &oriented_segments {
         let phase_span = samples.last()?.0 - samples.first()?.0;
-        if phase_span <= f32::EPSILON {
+        if phase_span <= 0.0 {
             return None;
         }
         let positive_deltas = samples
@@ -1444,7 +1410,7 @@ fn measure_authored_contact_step_distance(
             phase_variance += centered_phase * centered_phase;
         }
     }
-    if phase_variance <= f32::EPSILON {
+    if phase_variance <= 0.0 {
         return None;
     }
     let fitted_slope = covariance / phase_variance;
@@ -1803,17 +1769,6 @@ mod tests {
             measure_authored_foot_range(&definition, &clip, CalibrationAxis::Longitudinal),
             Some(2.5)
         );
-    }
-
-    #[test]
-    fn sparse_locomotion_sampling_uses_only_semantic_quarter_cycle_anchors() {
-        assert_eq!(sparse_locomotion_segment(0.0), (0, 1, 0.0));
-        assert_eq!(sparse_locomotion_segment(0.25), (1, 2, 0.0));
-        assert_eq!(sparse_locomotion_segment(0.5), (2, 3, 0.0));
-        assert_eq!(sparse_locomotion_segment(0.75), (3, 0, 0.0));
-        assert_eq!(sparse_locomotion_segment(1.0), (0, 1, 0.0));
-        let (_, _, midpoint) = sparse_locomotion_segment(0.125);
-        assert!((midpoint - 0.5).abs() < 0.0001);
     }
 
     #[test]

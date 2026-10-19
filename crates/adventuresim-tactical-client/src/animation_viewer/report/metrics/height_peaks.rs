@@ -20,14 +20,14 @@ pub(super) fn prominent_height_peaks(samples: &[(f32, f32)]) -> (usize, bool) {
             .iter()
             .filter_map(|&(candidate_phase, candidate_height)| {
                 let distance = (phase - candidate_phase).rem_euclid(1.0);
-                (distance > f32::EPSILON && distance <= 0.125).then_some(candidate_height)
+                (distance > 0.0 && distance <= 0.125).then_some(candidate_height)
             })
             .fold(f32::INFINITY, f32::min);
         let right_minimum = samples
             .iter()
             .filter_map(|&(candidate_phase, candidate_height)| {
                 let distance = (candidate_phase - phase).rem_euclid(1.0);
-                (distance > f32::EPSILON && distance <= 0.125).then_some(candidate_height)
+                (distance > 0.0 && distance <= 0.125).then_some(candidate_height)
             })
             .fold(f32::INFINITY, f32::min);
         let prominence = height - left_minimum.max(right_minimum);

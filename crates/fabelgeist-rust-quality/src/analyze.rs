@@ -9,7 +9,7 @@ use walkdir::WalkDir;
 use crate::{
     calendar_flow,
     config::{Baseline, Config, Debt, Exception, FindingBaseline},
-    manifests,
+    float_epsilon, manifests,
     scan::{Finding, FunctionSize, LiteralOccurrence, path_matches, scan},
 };
 
@@ -35,6 +35,7 @@ pub fn check_repository(
     let mut findings = Vec::new();
     let mut literals = Vec::new();
     let mut calendar_diagnostics = Vec::new();
+    let mut epsilon_files = Vec::new();
     let mut seen_items: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
 
     for entry in WalkDir::new(root.join("crates")) {
@@ -45,22 +46,34 @@ pub fn check_repository(
             continue;
         }
         let relative = relative_path(root, entry.path())?;
-        if excluded(config, &relative) || test_file(&relative) {
+        if excluded(config, &relative) {
             continue;
         }
         let source = fs::read_to_string(entry.path())
             .map_err(|error| format!("cannot read {relative}: {error}"))?;
         let syntax = syn::parse_file(&source)
             .map_err(|error| format!("cannot parse {relative}: {error}"))?;
+        if test_file(&relative) {
+            epsilon_files.push(float_epsilon::ParsedFile {
+                path: relative,
+                syntax,
+            });
+            continue;
+        }
         calendar_diagnostics.extend(calendar_flow::check_file(&relative, &syntax));
         let result = scan(&relative, &source, &syntax, config);
         files.insert(relative.clone(), result.production_lines);
         functions.extend(result.functions);
         findings.extend(result.findings);
         literals.extend(result.literals);
-        seen_items.insert(relative, result.seen_items);
+        seen_items.insert(relative.clone(), result.seen_items);
+        epsilon_files.push(float_epsilon::ParsedFile {
+            path: relative,
+            syntax,
+        });
     }
 
+    findings.extend(float_epsilon::check_files(root, &epsilon_files)?);
     let grouped_findings = group_findings(&findings);
     let mut diagnostics = manifests::check(root)?;
     diagnostics.extend(calendar_diagnostics);
@@ -160,7 +173,12 @@ fn validate_findings(
         .collect::<BTreeMap<_, _>>();
 
     for (key, group) in actual {
-        if let Some(expected) = baselined.get(key) {
+        if key.rule == float_epsilon::RULE && baselined.contains_key(key) {
+            diagnostics.push(format!(
+                "{}:{}: machine-epsilon requires an audited exception, not a baseline",
+                key.path, group.first_line
+            ));
+        } else if let Some(expected) = baselined.get(key) {
             if *expected != group.count {
                 diagnostics.push(format!(
                     "{}:{}: baseline for {} {} expected {} occurrence(s), found {}; tighten it",
@@ -325,6 +343,7 @@ fn snapshot(
         .collect();
     let finding_debt = findings
         .into_iter()
+        .filter(|(key, _)| key.rule != float_epsilon::RULE)
         .map(|(key, group)| FindingBaseline {
             rule: key.rule,
             path: key.path,
@@ -456,6 +475,390 @@ mod tests {
     }
 
     #[test]
+    fn precision_scan_includes_test_files_without_changing_production_metrics() {
+        let root =
+            std::env::temp_dir().join(format!("fabelgeist-epsilon-scan-{}", std::process::id()));
+        fs::create_dir(&root).unwrap();
+        fs::create_dir_all(root.join("crates/example/tests")).unwrap();
+        fs::write(
+            root.join("Cargo.toml"),
+            "[workspace]\nmembers = []\n[workspace.lints.clippy]\nall = 'warn'\n",
+        )
+        .unwrap();
+        fs::write(
+            root.join("crates/example/tests/numerics.rs"),
+            "#[test] fn boundary() { assert!(value <= f32::EPSILON); }",
+        )
+        .unwrap();
+        let config: Config = toml::from_str("file_limit = 1\nfunction_limit = 1\n").unwrap();
+        let report = check_repository(&root, &config, &Baseline::default()).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+        assert_eq!(report.diagnostics.len(), 1);
+        assert!(report.diagnostics[0].contains(float_epsilon::RULE));
+        assert!(report.snapshot.files.is_empty());
+        assert!(report.snapshot.functions.is_empty());
+    }
+
+    #[test]
+    fn epsilon_provenance_crosses_reexports_test_files_and_macro_definitions() {
+        let root = std::env::temp_dir().join(format!(
+            "fabelgeist-epsilon-reexports-{}",
+            std::process::id()
+        ));
+        fs::create_dir_all(root.join("crates/example/src")).unwrap();
+        fs::create_dir_all(root.join("crates/example/tests")).unwrap();
+        fs::write(
+            root.join("Cargo.toml"),
+            "[workspace]\nmembers = []\n[workspace.lints.clippy]\nall = 'warn'\n",
+        )
+        .unwrap();
+        // Create consumers first and reverse the alias chain's lexical order.
+        // Neither filesystem order nor the containing syntax tree determines
+        // the imported module's provenance.
+        for (path, source) in [
+            (
+                "src/lib.rs",
+                r#"
+                mod floats; pub mod bridge; mod macros;
+                use bridge::number::*;
+                pub fn near_zero(x: f32) -> bool { x <= EPSILON }
+            "#,
+            ),
+            (
+                "tests/numeric.rs",
+                r#"
+                use example::bridge::number::*;
+                #[test] fn boundary() { assert!(value <= EPSILON); }
+            "#,
+            ),
+            (
+                "src/macros.rs",
+                r#"
+                macro_rules! reexported {
+                    ($x:expr) => {{ use crate::bridge::number::*; $x <= EPSILON }};
+                }
+                macro_rules! another_alias {
+                    ($x:expr) => {{ use core::f64 as double; use double::*; $x <= EPSILON }};
+                }
+                macro_rules! grouped {
+                    ($x:expr) => {{ use std::f32::{EPSILON as error}; $x <= error }};
+                }
+            "#,
+            ),
+            ("src/bridge.rs", "pub use crate::floats::single as number;"),
+            ("src/floats.rs", "pub use std::f32 as single;"),
+        ] {
+            fs::write(root.join("crates/example").join(path), source).unwrap();
+        }
+        let config: Config = toml::from_str("file_limit = 500\nfunction_limit = 100\n").unwrap();
+        let report = check_repository(&root, &config, &Baseline::default()).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+        assert_eq!(report.diagnostics.len(), 5, "{:?}", report.diagnostics);
+        assert!(
+            report
+                .diagnostics
+                .iter()
+                .all(|diagnostic| diagnostic.contains(float_epsilon::RULE))
+        );
+        for path in ["src/lib.rs", "src/macros.rs", "tests/numeric.rs"] {
+            assert!(
+                report
+                    .diagnostics
+                    .iter()
+                    .any(|diagnostic| diagnostic.contains(path)),
+                "{path}"
+            );
+        }
+        assert!(
+            report.snapshot.findings.is_empty(),
+            "epsilon cannot be baselined"
+        );
+    }
+
+    #[test]
+    fn included_production_and_test_fragments_keep_exact_exception_locations() {
+        let root = std::env::temp_dir().join(format!(
+            "fabelgeist-epsilon-includes-{}",
+            std::process::id()
+        ));
+        fs::create_dir_all(root.join("crates/example/src")).unwrap();
+        fs::create_dir_all(root.join("crates/example/tests/fragments")).unwrap();
+        for (path, source) in [
+            (
+                "Cargo.toml",
+                "[workspace]\nmembers = []\n[workspace.lints.clippy]\nall = 'warn'\n",
+            ),
+            (
+                "crates/example/src/lib.rs",
+                r#"
+                use std::f32 as values;
+                include!("checks.rs");
+                #[cfg(test)] mod tests {
+                    use core::f64 as values;
+                    include!("../tests/fragments/checks.rs");
+                }
+            "#,
+            ),
+            (
+                "crates/example/src/checks.rs",
+                "use values::*; pub fn near_zero(x: f32) -> bool { x <= EPSILON }",
+            ),
+            (
+                "crates/example/tests/fragments/checks.rs",
+                "use values::*; #[test] fn boundary() { assert!(0.0 <= EPSILON); }",
+            ),
+        ] {
+            fs::write(root.join(path), source).unwrap();
+        }
+        let mut config: Config =
+            toml::from_str("file_limit = 500\nfunction_limit = 100\n").unwrap();
+        let report = check_repository(&root, &config, &Baseline::default()).unwrap();
+        assert_eq!(report.diagnostics.len(), 2, "{:?}", report.diagnostics);
+        for path in [
+            "crates/example/src/checks.rs",
+            "crates/example/tests/fragments/checks.rs",
+        ] {
+            assert!(report.diagnostics.iter().any(|message| {
+                message.starts_with(&format!("{path}:1: machine-epsilon in <module>"))
+            }));
+            config.exceptions.push(Exception {
+                rule: float_epsilon::RULE.into(),
+                path: path.into(),
+                item: "<module>".into(),
+                fingerprint: "EPSILON".into(),
+                occurrences: 1,
+                reason: "Fixture checks source identity for inherited floating-point imports."
+                    .into(),
+            });
+        }
+        let audited = check_repository(&root, &config, &Baseline::default()).unwrap();
+        fs::write(root.join("crates/example/src/checks.rs"), "").unwrap();
+        let stale = check_repository(&root, &config, &Baseline::default()).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+        assert!(audited.diagnostics.is_empty(), "{:?}", audited.diagnostics);
+        assert_eq!(stale.diagnostics.len(), 1, "{:?}", stale.diagnostics);
+        assert!(stale.diagnostics[0].contains("stale exception machine-epsilon"));
+        assert!(stale.diagnostics[0].contains("crates/example/src/checks.rs::<module>"));
+    }
+
+    #[test]
+    fn independent_crates_and_modules_with_matching_names_need_no_exception() {
+        let root = std::env::temp_dir().join(format!(
+            "fabelgeist-epsilon-isolation-{}",
+            std::process::id()
+        ));
+        for directory in ["crates/a/src", "crates/a/tests", "crates/b/src"] {
+            fs::create_dir_all(root.join(directory)).unwrap();
+        }
+        fs::write(
+            root.join("Cargo.toml"),
+            "[workspace]\nmembers = []\n[workspace.lints.clippy]\nall = 'warn'\n",
+        )
+        .unwrap();
+        for (path, source) in [
+            (
+                "crates/a/src/lib.rs",
+                "use std::f32 as values; mod producer; mod consumer; pub fn minimum() -> f32 { values::MIN }",
+            ),
+            (
+                "crates/a/src/producer.rs",
+                "use core::f64 as local; pub fn minimum() -> f64 { local::MIN }",
+            ),
+            (
+                "crates/a/src/consumer.rs",
+                "mod local { pub fn count() -> usize { 0 } } use local::*; pub fn count_items() -> usize { count() }",
+            ),
+            (
+                "crates/a/src/main.rs",
+                "mod values {} use values::*; fn main() {}",
+            ),
+            (
+                "crates/a/tests/independent.rs",
+                "mod values {} use values::*;",
+            ),
+            (
+                "crates/b/src/lib.rs",
+                "mod values { pub fn count() -> usize { 0 } } use values::*; pub fn count_items() -> usize { count() }",
+            ),
+        ] {
+            fs::write(root.join(path), source).unwrap();
+        }
+        let config: Config = toml::from_str("file_limit = 500\nfunction_limit = 100\n").unwrap();
+        let report = check_repository(&root, &config, &Baseline::default()).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+        assert!(report.diagnostics.is_empty(), "{:?}", report.diagnostics);
+        assert!(report.snapshot.findings.is_empty());
+    }
+
+    #[test]
+    fn cargo_target_paths_and_dependency_renames_preserve_import_identity() {
+        let root =
+            std::env::temp_dir().join(format!("fabelgeist-epsilon-cargo-{}", std::process::id()));
+        for directory in [
+            "crates/a/src",
+            "crates/b/src",
+            "crates/c/src",
+            "crates/d/src",
+            "crates/ordinary/src",
+        ] {
+            fs::create_dir_all(root.join(directory)).unwrap();
+        }
+        for (path, source) in [
+            (
+                "Cargo.toml",
+                r#"
+                [workspace]
+                members = ["crates/a", "crates/b", "crates/c", "crates/d", "crates/ordinary"]
+                resolver = '3'
+                [workspace.lints.clippy]
+                all = 'warn'
+                [workspace.dependencies]
+                shared_numbers = { package = 'numeric-origin', path = 'crates/a' }
+            "#,
+            ),
+            (
+                "crates/a/Cargo.toml",
+                r#"
+                [package]
+                name = 'numeric-origin'
+                version = '0.1.0'
+                edition = '2024'
+                [lib]
+                name = 'precision_values'
+                path = 'public.rs'
+                [lints]
+                workspace = true
+            "#,
+            ),
+            (
+                "crates/b/Cargo.toml",
+                r#"
+                [package]
+                name = 'consumer'
+                version = '0.1.0'
+                edition = '2024'
+                [dependencies]
+                numbers = { package = 'numeric-origin', path = '../a' }
+                values = { package = 'ordinary-origin', path = '../ordinary' }
+                [lints]
+                workspace = true
+            "#,
+            ),
+            (
+                "crates/c/Cargo.toml",
+                r#"
+                [package]
+                name = 'workspace-consumer'
+                version = '0.1.0'
+                edition = '2024'
+                [dependencies]
+                shared_numbers.workspace = true
+                [lints]
+                workspace = true
+            "#,
+            ),
+            (
+                "crates/d/Cargo.toml",
+                r#"
+                [package]
+                name = 'default-consumer'
+                version = '0.1.0'
+                edition = '2024'
+                [dependencies]
+                numeric-origin = { path = '../a' }
+                [lints]
+                workspace = true
+            "#,
+            ),
+            (
+                "crates/ordinary/Cargo.toml",
+                r#"
+                [package]
+                name = 'ordinary-origin'
+                version = '0.1.0'
+                edition = '2024'
+                [lib]
+                name = 'values'
+                [lints]
+                workspace = true
+            "#,
+            ),
+            (
+                "crates/a/public.rs",
+                "#[path = \"src/floats.rs\"] pub mod floats;",
+            ),
+            ("crates/a/src/floats.rs", "pub use std::f64 as values;"),
+            (
+                "crates/ordinary/src/lib.rs",
+                "use std::f32 as values; pub fn count() -> usize { 0 } pub fn minimum() -> f32 { values::MIN } pub mod exports { pub use super::*; }",
+            ),
+            (
+                "crates/b/src/lib.rs",
+                r#"
+                use values::exports::*;
+                use values::*;
+                pub fn count_items() -> usize { count() }
+                mod nested {
+                    use numbers::floats::values::*;
+                }
+            "#,
+            ),
+            (
+                "crates/c/src/lib.rs",
+                "mod nested { use shared_numbers::floats::values::*; }",
+            ),
+            (
+                "crates/d/src/lib.rs",
+                "mod nested { use precision_values::floats::values::*; }",
+            ),
+        ] {
+            fs::write(root.join(path), source).unwrap();
+        }
+        let mut config: Config =
+            toml::from_str("file_limit = 500\nfunction_limit = 100\n").unwrap();
+        let report = check_repository(&root, &config, &Baseline::default()).unwrap();
+        for path in [
+            "crates/b/src/lib.rs",
+            "crates/c/src/lib.rs",
+            "crates/d/src/lib.rs",
+        ] {
+            config.exceptions.push(Exception {
+                rule: float_epsilon::RULE.into(),
+                path: path.into(),
+                item: "nested".into(),
+                fingerprint: "EPSILON".into(),
+                occurrences: 1,
+                reason:
+                    "Fixture verifies an explicit import of floating-point precision containers."
+                        .into(),
+            });
+        }
+        let audited = check_repository(&root, &config, &Baseline::default()).unwrap();
+        let ordinary = root.join("crates/ordinary/src/lib.rs");
+        let source = fs::read_to_string(&ordinary).unwrap();
+        fs::write(
+            &ordinary,
+            source.replacen("use std::f32", "pub(crate) use std::f32", 1),
+        )
+        .unwrap();
+        let restricted = check_repository(&root, &config, &Baseline::default()).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+        assert_eq!(report.diagnostics.len(), 3, "{:?}", report.diagnostics);
+        assert!(
+            report
+                .diagnostics
+                .iter()
+                .all(|message| message.contains("machine-epsilon in nested (EPSILON)"))
+        );
+        assert!(audited.diagnostics.is_empty(), "{:?}", audited.diagnostics);
+        assert!(
+            restricted.diagnostics.is_empty(),
+            "{:?}",
+            restricted.diagnostics
+        );
+    }
+
+    #[test]
     fn stale_exceptions_fail() {
         let config = Config {
             file_limit: 500,
@@ -483,6 +886,59 @@ mod tests {
         );
         assert_eq!(diagnostics.len(), 1);
         assert!(diagnostics[0].contains("stale exception"));
+    }
+
+    #[test]
+    fn machine_precision_requires_exact_audited_exceptions() {
+        let mut config: Config =
+            toml::from_str("file_limit = 500\nfunction_limit = 100\n").unwrap();
+        let syntax = syn::parse_file("const ROUNDING: f32 = f32::EPSILON;").unwrap();
+        let findings = float_epsilon::check_file("crates/example/tests/rounding.rs", &syntax);
+        let actual = group_findings(&findings);
+        let finding = &findings[0];
+        let mut diagnostics = Vec::new();
+        validate_findings(&config, &Baseline::default(), &actual, &mut diagnostics);
+        assert_eq!(diagnostics.len(), 1);
+        config.exceptions.push(Exception {
+            rule: finding.rule.clone(),
+            path: finding.path.clone(),
+            item: finding.item.clone(),
+            fingerprint: finding.fingerprint.clone(),
+            occurrences: 1,
+            reason: "Relative roundoff in a normalized calculation.".into(),
+        });
+        diagnostics.clear();
+        validate_findings(&config, &Baseline::default(), &actual, &mut diagnostics);
+        assert!(diagnostics.is_empty());
+        config.exceptions[0].occurrences = 2;
+        validate_findings(&config, &Baseline::default(), &actual, &mut diagnostics);
+        assert!(diagnostics[0].contains("expected 2 occurrence(s), found 1"));
+        diagnostics.clear();
+        validate_findings(
+            &config,
+            &Baseline::default(),
+            &BTreeMap::new(),
+            &mut diagnostics,
+        );
+        assert!(diagnostics[0].contains("stale exception"));
+        let baseline = Baseline {
+            findings: vec![FindingBaseline {
+                rule: finding.rule.clone(),
+                path: finding.path.clone(),
+                item: finding.item.clone(),
+                fingerprint: finding.fingerprint.clone(),
+                occurrences: 1,
+            }],
+            ..Default::default()
+        };
+        diagnostics.clear();
+        validate_findings(&config, &baseline, &actual, &mut diagnostics);
+        assert!(diagnostics[0].contains("not a baseline"));
+        assert!(
+            snapshot(&config, BTreeMap::new(), Vec::new(), actual)
+                .findings
+                .is_empty()
+        );
     }
 
     #[test]

@@ -52,7 +52,8 @@ pub enum PoseSampling {
     Timeline { progress: f32 },
     /// Blend two semantic anchor poses. The client samples both catalog frames
     /// exactly and never evaluates exported in-between keys.
-    /// Both endpoints declare topology even at zero weight; zero contributes no sampling.
+    /// Both endpoints declare playback topology, including at zero or complete
+    /// progress; an endpoint with zero weight contributes no pose movement.
     Span { end: SemanticPose, progress: f32 },
     /// Extrapolate the transform delta between two semantic anchors. Unlike a
     /// normal span, the coordinate is intentionally allowed outside zero to
@@ -68,6 +69,8 @@ pub enum PoseSampling {
         finish: SemanticPose,
         start_coordinate: f32,
         incoming_tangent: f32,
+        /// Readiness knot strictly between zero and contact at phase 0.5,
+        /// supplied by the authoritative continuation curve.
         ready_phase: f32,
         progress: f32,
     },

@@ -7,7 +7,10 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::{error::Error, fmt};
 
 use crate::item_catalog_validation_material::is_equipment_material_name;
+use numeric::{finite_in, positive_f32_in};
 
+#[path = "item_catalog_validation_numeric.rs"]
+mod numeric;
 #[path = "item_catalog_validation_occupancy.rs"]
 mod occupancy;
 #[path = "item_catalog_validation_surface.rs"]
@@ -510,7 +513,7 @@ fn validate_item(
         errors.push(format!("{path}.block"), "field is only valid for shield");
     }
     if kind == "shield" {
-        finite_in(item, "block", f64::EPSILON, 10_000.0, &path, errors);
+        positive_f32_in(item, "block", 10_000.0, &path, errors);
     }
     if kind == "armor" {
         for field in ["flexibility", "range_of_motion"] {
@@ -1474,26 +1477,6 @@ fn required_string(
     }
 }
 
-fn finite_in(
-    object: &Map<String, Value>,
-    field: &str,
-    min: f64,
-    max: f64,
-    path: &str,
-    errors: &mut CatalogDiagnostics<'_>,
-) {
-    if object
-        .get(field)
-        .and_then(Value::as_f64)
-        .is_none_or(|value| !value.is_finite() || value < min || value > max)
-    {
-        errors.push(
-            format!("{path}.{field}"),
-            format!("expected finite value in {min}..={max}"),
-        );
-    }
-}
-
 fn reject_unknown(
     object: &Map<String, Value>,
     allowed: &[&str],
@@ -1511,6 +1494,35 @@ fn reject_unknown(
 mod tests {
     use super::*;
     use serde_json::json;
+
+    #[test]
+    fn shield_block_must_stay_positive_after_f32_conversion() {
+        let smallest = f64::from(0.0_f32.next_up());
+        for (block, valid) in [
+            (0.0, false),
+            (1.0e-100, false),
+            (smallest, true),
+            (1.0e-30, true),
+        ] {
+            let mut item = valid_item("test_shield");
+            item["kind"] = json!("shield");
+            item["slot"] = json!("any_holding");
+            item["block"] = json!(block);
+            let diagnostics = collect_diagnostics(|errors| {
+                validate_item(&item, 0, &mut BTreeMap::new(), errors);
+            });
+            assert_eq!(
+                !diagnostics
+                    .iter()
+                    .any(|error| error.path.ends_with(".block")),
+                valid,
+                "block {block}: {diagnostics:?}"
+            );
+            if valid {
+                assert!(serde_json::from_value::<f32>(item["block"].clone()).unwrap() > 0.0);
+            }
+        }
+    }
 
     fn collect_diagnostics(
         validate: impl FnOnce(&mut CatalogDiagnostics<'_>),
