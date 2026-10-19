@@ -3,6 +3,8 @@
 use derive_more::{Display, Error, From};
 use num_enum::TryFromPrimitive;
 
+type Result<T> = std::result::Result<T, UnsupportedFbxArrayEncoding>;
+
 /// An array encoding code this binary FBX reader does not support.
 #[derive(Clone, Copy, Debug, Display, Error, From, PartialEq, Eq)]
 #[display("unsupported FBX array encoding code {reported_code}")]
@@ -21,4 +23,10 @@ pub struct UnsupportedFbxArrayEncoding {
 pub(super) enum FbxArrayEncoding {
     Uncompressed = 0,
     Zlib = 1,
+}
+
+impl FbxArrayEncoding {
+    pub(super) fn try_from_le_bytes(bytes: [u8; size_of::<u32>()]) -> Result<Self> {
+        Self::try_from(u32::from_le_bytes(bytes))
+    }
 }
