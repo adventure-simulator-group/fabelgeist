@@ -1,6 +1,32 @@
 use super::*;
 use bevy::asset::AssetPath;
 
+impl AnimationRuntime {
+    fn rebuild_loaded_library(&mut self, catalog: &AnimationPackCatalog) {
+        self.library = AnimationPackLibrary::default();
+        for (pack_id, pack) in &catalog.packs {
+            let available = pack
+                .poses
+                .iter()
+                .filter(|(_, anchor)| {
+                    self.clips
+                        .get(&MotionKey::new(pack_id, &anchor.motion))
+                        .is_some_and(|clip| frame_fits_clip(anchor.frame, clip.duration_seconds))
+                })
+                .map(|(&pose, _)| pose)
+                .collect();
+            if let Err(error) = self.library.insert(AnimationPack {
+                id: pack_id.clone(),
+                skeleton_family: pack.skeleton_family.clone(),
+                fallback: pack.fallback.clone(),
+                clips: available,
+            }) {
+                error!(?error, pack = %pack_id, "Rejected animation pack");
+            }
+        }
+    }
+}
+
 pub(super) fn install_requests(app: &mut App) {
     app.add_systems(Startup, request_animation_packs);
     #[cfg(target_family = "wasm")]
@@ -90,7 +116,7 @@ pub(super) fn collect_loaded_packs(
         .map(|(key, handle)| (key.clone(), handle.clone()))
         .collect::<Vec<_>>();
     for (key, handle) in requested {
-        if runtime.processed_motions.contains(&key) || runtime.unavailable_motions.contains(&key) {
+        if runtime.clips.contains_key(&key) || runtime.unavailable_motions.contains(&key) {
             continue;
         }
         if matches!(asset_server.load_state(handle.id()), LoadState::Failed(_)) {
@@ -137,7 +163,16 @@ pub(super) fn collect_loaded_packs(
             changed = true;
             continue;
         };
-        if !frame_fits_clip(source.required_last_frame, clip.duration()) {
+        let duration_seconds = match ClipDuration::from_seconds(clip.duration()) {
+            Ok(duration) => duration,
+            Err(error) => {
+                warn!(%error, motion = %key.motion, "Rejected animation duration");
+                runtime.unavailable_motions.insert(key.clone());
+                changed = true;
+                continue;
+            }
+        };
+        if !frame_fits_clip(source.required_last_frame, duration_seconds) {
             warn!(
                 pack = %key.pack,
                 motion = %key.motion,
@@ -149,10 +184,14 @@ pub(super) fn collect_loaded_packs(
             changed = true;
             continue;
         }
-        runtime
-            .clip_handles
-            .insert(key.clone(), clip_handle.clone());
-        runtime.processed_motions.insert(key);
+        runtime.clips.insert(
+            key,
+            LoadedClip {
+                handle: clip_handle.clone(),
+                duration_seconds,
+                layer: ClipLayer::Whole,
+            },
+        );
         changed = true;
     }
 
@@ -160,32 +199,7 @@ pub(super) fn collect_loaded_packs(
         collect_loaded_grips(&asset_server, &gltfs, &clips, &mut runtime);
         return;
     }
-    runtime.library = AnimationPackLibrary::default();
-    for (pack_id, pack) in &catalog.packs {
-        let available = pack
-            .poses
-            .iter()
-            .filter(|(_, anchor)| {
-                let key = MotionKey::new(pack_id, &anchor.motion);
-                runtime.processed_motions.contains(&key)
-                    && runtime
-                        .clip_handles
-                        .get(&key)
-                        .and_then(|handle| clips.get(handle))
-                        .is_some_and(|clip| frame_fits_clip(anchor.frame, clip.duration()))
-            })
-            .map(|(&pose, _)| pose)
-            .collect();
-        if let Err(error) = runtime.library.insert(AnimationPack {
-            id: pack_id.clone(),
-            skeleton_family: pack.skeleton_family.clone(),
-            fallback: pack.fallback.clone(),
-            clips: available,
-        }) {
-            error!(?error, pack = %pack_id, "Rejected animation pack");
-        }
-    }
-    runtime.clips = loaded_motion_clips(&runtime, &clips);
+    runtime.rebuild_loaded_library(&catalog);
     collect_loaded_grips(&asset_server, &gltfs, &clips, &mut runtime);
 }
 
@@ -195,9 +209,10 @@ pub(super) fn sole_animation(
     (animations.len() == 1).then(|| &animations[0])
 }
 
-pub(super) fn frame_fits_clip(frame: AuthoredAnimationFrame, duration: f32) -> bool {
-    frame_seconds(frame)
-        .is_ok_and(|time| time.seconds() <= duration + 0.5 / animation_frames_per_second())
+pub(super) fn frame_fits_clip(frame: AuthoredAnimationFrame, duration: ClipDuration) -> bool {
+    frame_seconds(frame).is_ok_and(|time| {
+        time.seconds() <= duration.seconds() + 0.5 / animation_frames_per_second()
+    })
 }
 
 pub(super) fn frame_seconds(frame: AuthoredAnimationFrame) -> AnimationValueResult<ClipTime> {
@@ -400,35 +415,4 @@ fn animation_asset_path(path: &AnimationAssetPath) -> AssetPath<'static> {
     {
         AssetPath::from(path.as_ref().to_owned())
     }
-}
-
-fn loaded_motion_clips(
-    runtime: &AnimationRuntime,
-    clips: &Assets<AnimationClip>,
-) -> BTreeMap<MotionKey, LoadedClip> {
-    runtime
-        .clip_handles
-        .iter()
-        .map(|(key, handle)| (key.clone(), handle.clone()))
-        .collect::<Vec<_>>()
-        .into_iter()
-        .filter_map(|(key, handle)| {
-            let source = clips.get(&handle)?;
-            let duration_seconds = match ClipDuration::from_seconds(source.duration()) {
-                Ok(duration) => duration,
-                Err(error) => {
-                    warn!(%error, motion = %key.motion, "Rejected animation duration");
-                    return None;
-                }
-            };
-            Some((
-                key,
-                LoadedClip {
-                    handle,
-                    duration_seconds,
-                    layer: ClipLayer::Whole,
-                },
-            ))
-        })
-        .collect()
 }

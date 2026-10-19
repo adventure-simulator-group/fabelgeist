@@ -21,7 +21,7 @@ pub use locomotion::*;
 pub use pack_id::AnimationPackId;
 pub use packs::*;
 pub use sample_tick::AnimationSampleTick;
-pub use sample_values::{BlendWeight, ClipMirror, CyclePhase};
+pub use sample_values::{BlendWeight, ClipMirror, CycleDelta, CyclePhase};
 pub use semantic::*;
 pub use state::*;
 pub use value_error::{AnimationQuantity, AnimationValueError, AnimationValueResult};

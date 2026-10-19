@@ -142,7 +142,7 @@ mod tests {
             scenario_frame: 0,
             time_seconds: 0.0,
             speed_metres_per_second: 0.0,
-            gait_phase: 0.0,
+            gait_phase: CyclePhase::from_cycles(0.0).unwrap(),
             locomotion_sample_tick: 0,
             body_acceleration: Vec3::ZERO.to_array(),
             world_acceleration: Vec3::ZERO.to_array(),

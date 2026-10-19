@@ -17,6 +17,33 @@ pub(super) const RAISED_GUARD_VERTICAL_RANGE_LIMIT_METRES: f32 = 0.30;
 pub(super) const CATASTROPHIC_FOOT_HORIZONTAL_HIP_OFFSET_METRES: f32 = 0.65;
 pub(super) const CATASTROPHIC_FOOT_DISPLACEMENT_SECONDS: f32 = 0.1;
 
+/// Native report measurements collected at complete captured gait seams.
+#[derive(Default)]
+struct LoopSeamMetrics {
+    position_metres: Option<f32>,
+    rotation_degrees: Option<f32>,
+}
+
+impl LoopSeamMetrics {
+    fn measure(metadata: ScenarioMetadata<'_>, frames: &[&FrameSample]) -> Self {
+        if !expects_loop_seam(metadata.label()) {
+            return Self::default();
+        }
+        let seams = frames
+            .windows(2)
+            .filter(|pair| (pair[1].gait_phase.cycles() - pair[0].gait_phase.cycles()).abs() > 0.5)
+            .map(|pair| loop_seam(pair[0], pair[1]))
+            .collect::<Vec<_>>();
+        if seams.is_empty() {
+            return Self::default();
+        }
+        Self {
+            position_metres: Some(seams.iter().map(|seam| seam.0).fold(0.0, f32::max)),
+            rotation_degrees: Some(seams.iter().map(|seam| seam.1).fold(0.0, f32::max)),
+        }
+    }
+}
+
 pub(super) fn catastrophic_horizontal_foot_offset(hip: Vec3, foot: Vec3) -> bool {
     (foot - hip).xz().length() > CATASTROPHIC_FOOT_HORIZONTAL_HIP_OFFSET_METRES
 }
@@ -327,24 +354,7 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
                 }
             }
             let maximum_plant_drift = maximum_planted_foot_drift(metadata, &metric_frames);
-            let looped = expects_loop_seam(scenario);
-            let (loop_position, loop_rotation) = if looped {
-                let seams = frames
-                    .windows(2)
-                    .filter(|pair| (pair[1].gait_phase - pair[0].gait_phase).abs() > 0.5)
-                    .map(|pair| loop_seam(pair[0], pair[1]))
-                    .collect::<Vec<_>>();
-                if seams.is_empty() {
-                    (None, None)
-                } else {
-                    (
-                        Some(seams.iter().map(|seam| seam.0).fold(0.0, f32::max)),
-                        Some(seams.iter().map(|seam| seam.1).fold(0.0, f32::max)),
-                    )
-                }
-            } else {
-                (None, None)
-            };
+            let seam = LoopSeamMetrics::measure(metadata, &frames);
             let (visual_height_peak_count, visual_height_peaks_in_passing_windows) =
                 visual_height_peaks(&metric_frames);
             let guard_liveness = guard_step_liveness_metrics(&metric_frames);
@@ -359,8 +369,8 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
                 maximum_bone_rotation_step_degrees: maximum_rotation,
                 maximum_foot_rotation_step_degrees: maximum_foot_rotation,
                 worst_rotation,
-                loop_seam_position_metres: loop_position,
-                loop_seam_rotation_degrees: loop_rotation,
+                loop_seam_position_metres: seam.position_metres,
+                loop_seam_rotation_degrees: seam.rotation_degrees,
                 pelvis_vertical_range_metres: root_relative_vertical_range(
                     &metric_frames,
                     "pelvis",
@@ -894,16 +904,16 @@ pub(super) fn contact_to_passing_height_gain(frames: &[&FrameSample]) -> f32 {
     let contact = frames
         .iter()
         .filter(|frame| {
-            phase_distance(frame.gait_phase, 0.0) <= 0.04
-                || phase_distance(frame.gait_phase, 0.5) <= 0.04
+            phase_distance(frame.gait_phase.cycles(), 0.0) <= 0.04
+                || phase_distance(frame.gait_phase.cycles(), 0.5) <= 0.04
         })
         .filter_map(|frame| body_local(frame, "pelvis").map(|pelvis| pelvis.y))
         .fold(f32::NEG_INFINITY, f32::max);
     let passing = frames
         .iter()
         .filter(|frame| {
-            phase_distance(frame.gait_phase, 0.25) <= 0.04
-                || phase_distance(frame.gait_phase, 0.75) <= 0.04
+            phase_distance(frame.gait_phase.cycles(), 0.25) <= 0.04
+                || phase_distance(frame.gait_phase.cycles(), 0.75) <= 0.04
         })
         .filter_map(|frame| body_local(frame, "pelvis").map(|pelvis| pelvis.y))
         .fold(f32::INFINITY, f32::min);
@@ -921,14 +931,18 @@ pub(super) fn visual_height_peaks(frames: &[&FrameSample]) -> (usize, bool) {
     for cycle_end in warmed
         .windows(2)
         .enumerate()
-        .filter_map(|(index, pair)| (pair[1].gait_phase < pair[0].gait_phase).then_some(index + 1))
+        .filter_map(|(index, pair)| {
+            (pair[1].gait_phase.cycles() < pair[0].gait_phase.cycles()).then_some(index + 1)
+        })
         .chain(std::iter::once(warmed.len()))
     {
         let cycle = &warmed[cycle_start..cycle_end];
         let phase_span = cycle
             .first()
             .zip(cycle.last())
-            .map_or(0.0, |(first, last)| last.gait_phase - first.gait_phase);
+            .map_or(0.0, |(first, last)| {
+                last.gait_phase.cycles() - first.gait_phase.cycles()
+            });
         // Ignore a trailing partial cycle created when capture ends just after
         // a wrap; every complete post-warmup cycle remains independently gated.
         if phase_span >= 0.8 {
@@ -936,7 +950,7 @@ pub(super) fn visual_height_peaks(frames: &[&FrameSample]) -> (usize, bool) {
                 .iter()
                 .filter_map(|frame| {
                     body_local(frame, "pelvis")
-                        .map(|pelvis| (frame.gait_phase.rem_euclid(1.0), pelvis.y))
+                        .map(|pelvis| (frame.gait_phase.cycles().rem_euclid(1.0), pelvis.y))
                 })
                 .collect::<Vec<_>>();
             measurements.push(prominent_height_peaks(&samples));
@@ -966,7 +980,7 @@ pub(super) fn phase_height_range(frames: &[&FrameSample]) -> f32 {
 pub(super) fn phase_validation_frames<'a>(frames: &'a [&'a FrameSample]) -> Vec<&'a FrameSample> {
     let after_first_wrap = frames
         .windows(2)
-        .position(|pair| pair[1].gait_phase < pair[0].gait_phase)
+        .position(|pair| pair[1].gait_phase.cycles() < pair[0].gait_phase.cycles())
         .map_or(0, |index| index + 1);
     frames[after_first_wrap..].to_vec()
 }
@@ -1145,7 +1159,7 @@ pub(super) fn contact_sole_clearance_range(frames: &[&FrameSample]) -> (f32, f32
                 let is_contact = if procedural_solve_active {
                     support >= 0.95
                 } else {
-                    let phase = frame.gait_phase.rem_euclid(1.0);
+                    let phase = frame.gait_phase.cycles().rem_euclid(1.0);
                     let distance = if left {
                         phase.min(1.0 - phase)
                     } else {
@@ -1436,7 +1450,7 @@ mod tests {
             scenario_frame,
             time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
             speed_metres_per_second: 2.0,
-            gait_phase: 0.0,
+            gait_phase: CyclePhase::from_cycles(0.0).unwrap(),
             locomotion_sample_tick: scenario_frame as u64,
             body_acceleration: Vec3::ZERO.to_array(),
             world_acceleration: Vec3::ZERO.to_array(),
@@ -1577,7 +1591,7 @@ mod tests {
             scenario_frame: 0,
             time_seconds: 0.0,
             speed_metres_per_second: 2.0,
-            gait_phase: 0.0,
+            gait_phase: CyclePhase::from_cycles(0.0).unwrap(),
             locomotion_sample_tick: 0,
             body_acceleration: Vec3::ZERO.to_array(),
             world_acceleration: Vec3::ZERO.to_array(),
@@ -1944,13 +1958,16 @@ mod tests {
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
             run_locomotion_profile().reference_speed,
-            1.0 / locomotion_sample_hz(),
-        );
+            AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
+        )
+        .unwrap()
+        .cycles();
         let mut unsupported = (0..160)
             .map(|index| {
                 let mut frame = foot_metric_frame(index, 0.0, 0.0, 0.0, 0.0);
                 frame.scenario = "terrain-steady-run-5.5".to_owned();
-                frame.gait_phase = (index as f32 * phase_step).rem_euclid(1.0);
+                frame.gait_phase =
+                    CyclePhase::from_cycles((index as f32 * phase_step).rem_euclid(1.0)).unwrap();
                 frame.time_seconds = index as f32 / locomotion_sample_hz();
                 frame
             })
@@ -1958,7 +1975,7 @@ mod tests {
         assert!(!terrain_run_contacts_are_valid(&unsupported));
 
         for frame in &mut unsupported {
-            let phase = frame.gait_phase;
+            let phase = frame.gait_phase.cycles();
             let left_distance = phase.min(1.0 - phase);
             let right_distance = (phase - 0.5).abs();
             frame.ik_left_support_weight = (left_distance <= 0.17) as u8 as f32;

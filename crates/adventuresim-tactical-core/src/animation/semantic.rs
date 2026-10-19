@@ -202,24 +202,24 @@ mod contract_tests {
         let mut server_like = SkeletonState::default()
             .with_weapon_guard(WeaponGuardState::Raised)
             .with_raised_locomotion(intent);
-        server_like.gait_phase = 0.37;
+        server_like.gait_phase = CyclePhase::from_cycles(0.37).unwrap();
         set_weapon_guard(&mut server_like, WeaponGuardState::Raised);
         assert_eq!(server_like.raised_locomotion(), intent);
-        assert_eq!(server_like.gait_phase, 0.37);
+        assert_eq!(server_like.gait_phase.cycles(), 0.37);
 
         let mut viewer_like = server_like.clone();
         for _ in 0..8 {
             set_weapon_guard(&mut viewer_like, WeaponGuardState::Raised);
         }
         assert_eq!(viewer_like.raised_locomotion(), intent);
-        assert_eq!(viewer_like.gait_phase, 0.37);
+        assert_eq!(viewer_like.gait_phase.cycles(), 0.37);
 
         set_weapon_guard(&mut viewer_like, WeaponGuardState::Lowered);
         let lowered_phase = viewer_like.gait_phase;
         set_weapon_guard(&mut viewer_like, WeaponGuardState::Lowered);
         assert_eq!(viewer_like.gait_phase, lowered_phase);
         set_weapon_guard(&mut viewer_like, WeaponGuardState::Raised);
-        assert_eq!(viewer_like.gait_phase, 0.0);
+        assert_eq!(viewer_like.gait_phase.cycles(), 0.0);
         assert_eq!(
             viewer_like.raised_locomotion(),
             RaisedLocomotionIntent::default()
@@ -380,8 +380,14 @@ mod contract_tests {
             .unwrap(),
         )
         .unwrap();
-        let expected = gait_cycle_phase_delta(supine_locomotion_profile(), 1.6, 0.25);
-        assert!((state.gait_phase - expected).abs() < 0.000_01);
+        let expected = gait_cycle_phase_delta(
+            supine_locomotion_profile(),
+            1.6,
+            AnimationElapsed::from_seconds(0.25).unwrap(),
+        )
+        .unwrap()
+        .cycles();
+        assert!((state.gait_phase.cycles() - expected).abs() < 0.000_01);
         let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert!(
             evaluation
@@ -407,7 +413,7 @@ mod contract_tests {
                 .unwrap(),
             )
             .unwrap();
-            assert_eq!(state.gait_phase, 0.0);
+            assert_eq!(state.gait_phase.cycles(), 0.0);
             let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
             assert_eq!(evaluation.base.len(), 1);
             assert_eq!(
@@ -538,7 +544,7 @@ mod contract_tests {
         let mut state = SkeletonState::default()
             .with_body_state(BodyState::Prone)
             .with_local_velocity(Vec3::NEG_Z)
-            .with_gait_phase(0.25);
+            .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap());
         state.set_downed_turning(true);
         let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(evaluation.base.len(), 2);

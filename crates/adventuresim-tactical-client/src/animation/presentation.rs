@@ -16,22 +16,6 @@ pub(super) mod plugin;
 
 pub struct TacticalAnimationPlugin;
 
-pub(super) fn playback_tuning() -> AnimationPlaybackConfig {
-    runtime_animation_config().playback
-}
-
-pub(super) fn presentation_phase_correction_rate_per_second() -> f32 {
-    playback_tuning().phase_correction_rate_per_second
-}
-
-pub(super) fn presentation_phase_drift_deadband() -> f32 {
-    playback_tuning().phase_drift_deadband
-}
-
-pub(super) fn maximum_authored_stance_slip_metres() -> f32 {
-    playback_tuning().maximum_authored_stance_slip_metres
-}
-
 /// Client-only locomotion state used for rendering between replicated server
 /// samples. Gameplay semantics and presentation events continue to read the
 /// authoritative `SkeletonState` directly.
@@ -40,26 +24,20 @@ pub(crate) struct PresentedSkeleton {
     pub(crate) state: SkeletonState,
     source_tick: AnimationSampleTick,
     presentation_tick: Option<AnimationSampleTick>,
-    pub(crate) phase_error_remaining: f32,
-    pub(crate) last_phase_prediction_delta: f32,
-    pub(crate) last_phase_correction_delta: f32,
-    pub(crate) last_phase_measurement_error: Option<f32>,
+    pub(crate) phase_error_remaining: CycleDelta,
+    pub(crate) last_phase_prediction_delta: CycleDelta,
+    pub(crate) last_phase_correction_delta: CycleDelta,
+    pub(crate) last_phase_measurement_error: Option<CycleDelta>,
     pub(crate) last_phase_source_changed: bool,
     authored_cadence: Option<AuthoredCadence>,
     quickstep_phase: Option<f32>,
     attack_phase: Option<PresentedAttackPhase>,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-enum AuthoredCadenceKind {
-    Ordinary,
-    Combat,
-}
-
 #[derive(Debug, Clone, Copy)]
 struct AuthoredCadence {
     kind: AuthoredCadenceKind,
-    phase: f32,
+    phase: CyclePhase,
     limited: bool,
     cadence_capped: bool,
 }
@@ -72,6 +50,12 @@ struct PresentedAttackPhase {
     continuation: bool,
     phase: f32,
     error_remaining: f32,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum AuthoredCadenceKind {
+    Ordinary,
+    Combat,
 }
 
 impl PresentedAttackPhase {
@@ -94,15 +78,97 @@ impl PresentedSkeleton {
             state,
             source_tick,
             presentation_tick,
-            phase_error_remaining: 0.0,
-            last_phase_prediction_delta: 0.0,
-            last_phase_correction_delta: 0.0,
+            phase_error_remaining: CycleDelta::ZERO,
+            last_phase_prediction_delta: CycleDelta::ZERO,
+            last_phase_correction_delta: CycleDelta::ZERO,
             last_phase_measurement_error: None,
             last_phase_source_changed: false,
             authored_cadence: None,
             quickstep_phase: None,
             attack_phase: None,
         }
+    }
+    fn predict_gait(
+        &mut self,
+        previous: &SkeletonState,
+        authoritative: &SkeletonState,
+        next: &mut SkeletonState,
+        elapsed: AnimationElapsed,
+    ) -> AnimationValueResult<()> {
+        let delta_seconds = elapsed.seconds();
+        let source_gap = authoritative
+            .locomotion_sample_tick
+            .checked_delta(self.source_tick);
+        let source_is_contiguous =
+            source_gap.is_some_and(|gap| gap <= playback_tuning().maximum_source_gap_ticks);
+        if source_is_contiguous && can_predict_locomotion(previous, authoritative) {
+            let response =
+                1.0 - (-playback_tuning().velocity_response_per_second * delta_seconds).exp();
+            next.local_velocity = previous
+                .local_velocity
+                .lerp(authoritative.local_velocity, response);
+            next.world_velocity = previous
+                .world_velocity
+                .lerp(authoritative.world_velocity, response);
+
+            let prediction_delta = if next.weapon_guard() == WeaponGuardState::Raised
+                && let Some(step) = next.raised_footwork().step()
+            {
+                let duration_ticks = step.contact_tick().saturating_sub(step.start_tick()).max(1);
+                CycleDelta::from_arithmetic(
+                    delta_seconds * locomotion_sample_hz() * 0.5 / duration_ticks as f32,
+                )?
+            } else {
+                let speed = presentation_phase_speed(next);
+                gait_cycle_phase_delta(locomotion_profile(next), speed, elapsed)?
+            };
+            let predicted = previous
+                .gait_phase
+                .checked_advance(prediction_delta)?
+                .wrapped();
+            self.last_phase_prediction_delta = prediction_delta;
+            let error = circular_phase_delta(predicted, authoritative.gait_phase)?;
+            let discontinuous = error.cycles().abs() > playback_tuning().phase_snap_error;
+            if self.last_phase_source_changed && discontinuous {
+                next.gait_phase = authoritative.gait_phase;
+                self.phase_error_remaining = CycleDelta::ZERO;
+                self.last_phase_measurement_error = Some(error);
+            } else {
+                if self.last_phase_source_changed {
+                    self.last_phase_measurement_error = Some(error);
+                    let measured_drift =
+                        if error.cycles().abs() <= presentation_phase_drift_deadband() {
+                            0.0
+                        } else {
+                            error.cycles()
+                                - error.cycles().signum() * presentation_phase_drift_deadband()
+                        };
+                    // Keep one continuous correction accumulator. Replacing it
+                    // with every packet's error makes packet timing modulate the
+                    // displayed gait speed even when physical speed is constant.
+                    let measured_drift = CycleDelta::from_arithmetic(measured_drift)?;
+                    let difference = measured_drift.checked_sub(self.phase_error_remaining)?;
+                    let adjustment = CycleDelta::from_arithmetic(
+                        difference.cycles() * playback_tuning().phase_drift_measurement_blend,
+                    )?;
+                    self.phase_error_remaining =
+                        self.phase_error_remaining.checked_add(adjustment)?;
+                }
+                let maximum_correction =
+                    presentation_phase_correction_rate_per_second() * delta_seconds;
+                let correction = CycleDelta::from_arithmetic(
+                    self.phase_error_remaining
+                        .cycles()
+                        .clamp(-maximum_correction, maximum_correction),
+                )?;
+                next.gait_phase = predicted.checked_advance(correction)?.wrapped();
+                self.phase_error_remaining = self.phase_error_remaining.checked_sub(correction)?;
+                self.last_phase_correction_delta = correction;
+            }
+        } else {
+            self.phase_error_remaining = CycleDelta::ZERO;
+        }
+        Ok(())
     }
 }
 
@@ -114,8 +180,28 @@ impl std::ops::Deref for PresentedSkeleton {
     }
 }
 
-pub(super) fn circular_phase_delta(from: f32, to: f32) -> f32 {
-    (to - from + 0.5).rem_euclid(1.0) - 0.5
+pub(super) fn playback_tuning() -> AnimationPlaybackConfig {
+    runtime_animation_config().playback
+}
+
+pub(super) fn presentation_phase_correction_rate_per_second() -> f32 {
+    playback_tuning().phase_correction_rate_per_second
+}
+
+pub(super) fn presentation_phase_drift_deadband() -> f32 {
+    playback_tuning().phase_drift_deadband
+}
+
+pub(super) fn maximum_authored_stance_slip_metres() -> f32 {
+    playback_tuning().maximum_authored_stance_slip_metres
+}
+
+pub(super) fn circular_phase_delta(
+    from: CyclePhase,
+    to: CyclePhase,
+) -> AnimationValueResult<CycleDelta> {
+    let difference = to.checked_difference(from)?;
+    CycleDelta::from_arithmetic((difference.cycles() + 0.5).rem_euclid(1.0) - 0.5)
 }
 
 pub(super) fn can_predict_locomotion(
@@ -138,6 +224,60 @@ pub(super) fn can_predict_locomotion(
         && same_guard_step(previous, authoritative)
 }
 
+pub(super) fn advance_presented_skeleton(
+    presented: &mut PresentedSkeleton,
+    authoritative: &SkeletonState,
+    elapsed: AnimationElapsed,
+) -> AnimationValueResult<()> {
+    advance_presented_skeleton_with_strides(
+        presented,
+        authoritative,
+        elapsed,
+        &AuthoredLocomotionStrides::default(),
+    )
+}
+
+pub(super) fn update_presented_skeletons(
+    mut commands: Commands,
+    time: Res<Time>,
+    procedural_clock: Res<ProceduralAnimationClock>,
+    authored_strides: Res<AuthoredLocomotionStrides>,
+    character_strides: Query<&pose_buffer::CharacterLocomotionStrides>,
+    mut players: Query<(Entity, &SkeletonState, Option<&mut PresentedSkeleton>), AnimatedActors>,
+) {
+    for (entity, authoritative, presented) in &mut players {
+        let Some(mut presented) = presented else {
+            commands.entity(entity).insert(PresentedSkeleton::new(
+                authoritative.clone(),
+                procedural_clock.fixed_step().map(|step| step.tick),
+            ));
+            continue;
+        };
+        let delta_seconds = if let Some(step) = procedural_clock.fixed_step() {
+            let tick = step.tick;
+            let advances = presented.presentation_tick != Some(tick);
+            presented.presentation_tick = Some(tick);
+            if advances {
+                step.delta_seconds
+            } else {
+                AnimationElapsed::ZERO
+            }
+        } else {
+            AnimationElapsed::from(time.delta())
+        };
+        if let Err(error) = advance_presented_skeleton_with_strides(
+            &mut presented,
+            authoritative,
+            delta_seconds,
+            character_strides
+                .get(entity)
+                .map_or(&*authored_strides, |strides| &strides.measurements),
+        ) {
+            warn!(?entity, %error, "Rejected presentation interval");
+        }
+    }
+}
+
 fn same_guard_step(previous: &SkeletonState, authoritative: &SkeletonState) -> bool {
     match (
         previous.raised_footwork().step(),
@@ -153,19 +293,6 @@ fn same_guard_step(previous: &SkeletonState, authoritative: &SkeletonState) -> b
     }
 }
 
-pub(super) fn advance_presented_skeleton(
-    presented: &mut PresentedSkeleton,
-    authoritative: &SkeletonState,
-    elapsed: AnimationElapsed,
-) -> AnimationValueResult<()> {
-    advance_presented_skeleton_with_strides(
-        presented,
-        authoritative,
-        elapsed,
-        &AuthoredLocomotionStrides::default(),
-    )
-}
-
 fn advance_presented_skeleton_with_strides(
     presented: &mut PresentedSkeleton,
     authoritative: &SkeletonState,
@@ -173,74 +300,15 @@ fn advance_presented_skeleton_with_strides(
     authored_strides: &AuthoredLocomotionStrides,
 ) -> AnimationValueResult<()> {
     let elapsed = elapsed.capped_by_seconds(0.1)?;
-    let delta_seconds = elapsed.seconds();
     let source_changed = presented.source_tick != authoritative.locomotion_sample_tick;
-    presented.last_phase_prediction_delta = 0.0;
-    presented.last_phase_correction_delta = 0.0;
+    presented.last_phase_prediction_delta = CycleDelta::ZERO;
+    presented.last_phase_correction_delta = CycleDelta::ZERO;
     presented.last_phase_measurement_error = None;
     presented.last_phase_source_changed = source_changed;
-    let source_gap = authoritative
-        .locomotion_sample_tick
-        .checked_delta(presented.source_tick);
     let previous = presented.state.clone();
     let mut next = authoritative.clone();
 
-    let source_is_contiguous =
-        source_gap.is_some_and(|gap| gap <= playback_tuning().maximum_source_gap_ticks);
-    if source_is_contiguous && can_predict_locomotion(&previous, authoritative) {
-        let response =
-            1.0 - (-playback_tuning().velocity_response_per_second * delta_seconds).exp();
-        next.local_velocity = previous
-            .local_velocity
-            .lerp(authoritative.local_velocity, response);
-        next.world_velocity = previous
-            .world_velocity
-            .lerp(authoritative.world_velocity, response);
-
-        let prediction_delta = if next.weapon_guard() == WeaponGuardState::Raised
-            && let Some(step) = next.raised_footwork().step()
-        {
-            let duration_ticks = step.contact_tick().saturating_sub(step.start_tick()).max(1);
-            delta_seconds * locomotion_sample_hz() * 0.5 / duration_ticks as f32
-        } else {
-            let speed = presentation_phase_speed(&next);
-            gait_cycle_phase_delta(locomotion_profile(&next), speed, delta_seconds)
-        };
-        let predicted = (previous.gait_phase + prediction_delta).rem_euclid(1.0);
-        presented.last_phase_prediction_delta = prediction_delta;
-        let error = circular_phase_delta(predicted, authoritative.gait_phase);
-        let discontinuous = error.abs() > playback_tuning().phase_snap_error;
-        if source_changed && discontinuous {
-            next.gait_phase = authoritative.gait_phase;
-            presented.phase_error_remaining = 0.0;
-            presented.last_phase_measurement_error = Some(error);
-        } else {
-            if source_changed {
-                presented.last_phase_measurement_error = Some(error);
-                let measured_drift = if error.abs() <= presentation_phase_drift_deadband() {
-                    0.0
-                } else {
-                    error - error.signum() * presentation_phase_drift_deadband()
-                };
-                // Keep one continuous correction accumulator. Replacing it
-                // with every packet's error makes packet timing modulate the
-                // displayed gait speed even when physical speed is constant.
-                presented.phase_error_remaining += (measured_drift
-                    - presented.phase_error_remaining)
-                    * playback_tuning().phase_drift_measurement_blend;
-            }
-            let maximum_correction =
-                presentation_phase_correction_rate_per_second() * delta_seconds;
-            let correction = presented
-                .phase_error_remaining
-                .clamp(-maximum_correction, maximum_correction);
-            next.gait_phase = (predicted + correction).rem_euclid(1.0);
-            presented.phase_error_remaining -= correction;
-            presented.last_phase_correction_delta = correction;
-        }
-    } else {
-        presented.phase_error_remaining = 0.0;
-    }
+    presented.predict_gait(&previous, authoritative, &mut next, elapsed)?;
 
     advance_presented_quickstep(
         &previous,
@@ -263,7 +331,7 @@ fn advance_presented_skeleton_with_strides(
         &mut presented.authored_cadence,
         authored_strides,
         elapsed,
-    );
+    )?;
     presented.state = next;
     presented.source_tick = authoritative.locomotion_sample_tick;
     Ok(())
@@ -328,11 +396,11 @@ fn apply_authored_cadence(
     cadence: &mut Option<AuthoredCadence>,
     strides: &AuthoredLocomotionStrides,
     elapsed: AnimationElapsed,
-) {
+) -> AnimationValueResult<()> {
     let delta_seconds = elapsed.seconds();
     if next.posture() != Posture::Upright || next.is_quickstep() {
         *cadence = None;
-        return;
+        return Ok(());
     }
     let kind =
         if next.weapon_guard() == WeaponGuardState::Raised && !next.guarded_sprint_locomotion() {
@@ -348,7 +416,7 @@ fn apply_authored_cadence(
     let continuing = cadence.filter(|current| current.kind == kind);
     if measurement.is_none() && !(speed <= 0.05 && continuing.is_some()) {
         *cadence = None;
-        return;
+        return Ok(());
     }
     let mut phase = continuing.map_or(previous.gait_phase, |current| current.phase);
     let mut limited = continuing.is_some_and(|current| current.limited);
@@ -370,7 +438,8 @@ fn apply_authored_cadence(
                 "Authored locomotion clip cannot represent requested speed"
             );
         }
-        phase = (phase + step_cadence * delta_seconds.max(0.0) * 0.5).rem_euclid(1.0);
+        let delta = CycleDelta::from_arithmetic(step_cadence * delta_seconds.max(0.0) * 0.5)?;
+        phase = phase.checked_advance(delta)?.wrapped();
     }
     next.gait_phase = phase;
     *cadence = Some(AuthoredCadence {
@@ -379,6 +448,7 @@ fn apply_authored_cadence(
         limited,
         cadence_capped,
     });
+    Ok(())
 }
 
 /// Enter the cadence ceiling with continuous velocity and acceleration. A
@@ -413,47 +483,6 @@ fn presentation_phase_speed(skeleton: &SkeletonState) -> f32 {
         0.0
     } else {
         speed
-    }
-}
-
-pub(super) fn update_presented_skeletons(
-    mut commands: Commands,
-    time: Res<Time>,
-    procedural_clock: Res<ProceduralAnimationClock>,
-    authored_strides: Res<AuthoredLocomotionStrides>,
-    character_strides: Query<&pose_buffer::CharacterLocomotionStrides>,
-    mut players: Query<(Entity, &SkeletonState, Option<&mut PresentedSkeleton>), AnimatedActors>,
-) {
-    for (entity, authoritative, presented) in &mut players {
-        let Some(mut presented) = presented else {
-            commands.entity(entity).insert(PresentedSkeleton::new(
-                authoritative.clone(),
-                procedural_clock.fixed_step().map(|step| step.tick),
-            ));
-            continue;
-        };
-        let delta_seconds = if let Some(step) = procedural_clock.fixed_step() {
-            let tick = step.tick;
-            let advances = presented.presentation_tick != Some(tick);
-            presented.presentation_tick = Some(tick);
-            if advances {
-                step.delta_seconds
-            } else {
-                AnimationElapsed::ZERO
-            }
-        } else {
-            AnimationElapsed::from(time.delta())
-        };
-        if let Err(error) = advance_presented_skeleton_with_strides(
-            &mut presented,
-            authoritative,
-            delta_seconds,
-            character_strides
-                .get(entity)
-                .map_or(&*authored_strides, |strides| &strides.measurements),
-        ) {
-            warn!(?entity, %error, "Rejected presentation interval");
-        }
     }
 }
 
@@ -518,7 +547,7 @@ mod authored_cadence_tests {
         .unwrap();
 
         // One cycle owns two one-metre steps: 2 m/s advances 0.1 cycle in 0.1 s.
-        assert!((presented.gait_phase - 0.1).abs() < 0.0001);
+        assert!((presented.gait_phase.cycles() - 0.1).abs() < 0.0001);
     }
 
     #[test]
@@ -548,7 +577,7 @@ mod authored_cadence_tests {
         )
         .unwrap();
 
-        assert!((presented.gait_phase - 0.2).abs() < 0.0001);
+        assert!((presented.gait_phase.cycles() - 0.2).abs() < 0.0001);
     }
 
     #[test]
@@ -575,7 +604,7 @@ mod authored_cadence_tests {
         )
         .unwrap();
 
-        assert!((presented.gait_phase - 0.25).abs() < 0.0001);
+        assert!((presented.gait_phase.cycles() - 0.25).abs() < 0.0001);
         assert!(
             presented
                 .authored_cadence

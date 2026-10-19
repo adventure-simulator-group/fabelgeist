@@ -1536,8 +1536,12 @@ mod tests {
                 assert_eq!(evaluation.base[0].sampling, PoseSampling::Anchor);
                 phases.push(skeleton.gait_phase);
             }
-            assert!(phases.windows(2).any(|pair| pair[1] < pair[0]));
-            assert!(phases.iter().any(|&phase| phase >= 0.5));
+            assert!(
+                phases
+                    .windows(2)
+                    .any(|pair| pair[1].cycles() < pair[0].cycles())
+            );
+            assert!(phases.iter().any(|&phase| phase.cycles() >= 0.5));
         }
     }
 
@@ -1585,11 +1589,11 @@ mod tests {
             release
                 .iter()
                 .any(|(frame, phase, intent)| *frame > release_frame
-                    && *phase > 0.5
+                    && phase.cycles() > 0.5
                     && intent.is_moving())
         );
         assert!(!release.last().unwrap().2.is_moving());
-        assert_eq!(release.last().unwrap().1, 0.0);
+        assert_eq!(release.last().unwrap().1.cycles(), 0.0);
 
         let reversal = replay("raised-guard-left-right-reversal");
         let changed = reversal
@@ -1602,7 +1606,7 @@ mod tests {
             .expect("pre-reversal sample")
             .1;
         assert_eq!(changed.0, 16);
-        let phase_delta = (changed.1 - previous_phase).rem_euclid(1.0);
+        let phase_delta = (changed.1.cycles() - previous_phase.cycles()).rem_euclid(1.0);
         // A reversal may make the currently committed contact immediately
         // due and begin the opposite half-step. The authoritative guard plan
         // therefore does not promise constant phase velocity across this

@@ -81,7 +81,7 @@ impl AnimationEvaluation {
     /// final procedural pass happen after this deterministic selection stage.
     pub fn from_skeleton(state: &SkeletonState) -> AnimationValueResult<Self> {
         let speed = state.animation_speed();
-        let gait_phase = CyclePhase::from_cycles(state.gait_phase)?.wrapped();
+        let gait_phase = state.gait_phase.wrapped();
         let base = match state.action_kind() {
             SkeletonAction::Dodge => raised_guard_locomotion_samples(state),
             _ => match state.posture() {

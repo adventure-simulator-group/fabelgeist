@@ -22,8 +22,12 @@ pub enum AnimationQuantity {
     ClipTime,
     #[display("cycle phase")]
     CyclePhase,
+    #[display("cycle displacement")]
+    CycleDelta,
     #[display("blend contribution")]
     BlendWeight,
+    #[display("dive influence")]
+    DiveInfluence,
     #[display("pose interpolation fraction")]
     PoseInterpolation,
     #[display("height distance")]

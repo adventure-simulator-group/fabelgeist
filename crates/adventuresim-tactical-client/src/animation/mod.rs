@@ -5,7 +5,9 @@
 
 use adventuresim_tactical_core::animation::AttackCurve;
 use adventuresim_tactical_core::animation::{AnimationElapsed, AnimationValueError};
-use adventuresim_tactical_core::animation::{AnimationPackId, BlendWeight, ClipMirror, CyclePhase};
+use adventuresim_tactical_core::animation::{
+    AnimationPackId, BlendWeight, ClipMirror, CycleDelta, CyclePhase,
+};
 use adventuresim_tactical_core::prelude::*;
 #[cfg(not(target_family = "wasm"))]
 use adventuresim_tactical_netcode::message::PlayerInputRequest;
@@ -129,9 +131,7 @@ pub(crate) struct AnimationRuntime {
     base_load: BaseRigLoad,
     base_scene: Option<Handle<WorldAsset>>,
     requested_motions: BTreeMap<MotionKey, Handle<Gltf>>,
-    processed_motions: BTreeSet<MotionKey>,
     unavailable_motions: BTreeSet<MotionKey>,
-    clip_handles: BTreeMap<MotionKey, Handle<AnimationClip>>,
     clips: BTreeMap<MotionKey, LoadedClip>,
     requested_grips: BTreeMap<WeaponGrip, Handle<Gltf>>,
     processed_grips: BTreeSet<WeaponGrip>,
@@ -383,9 +383,7 @@ impl AnimationRuntime {
     }
 
     pub(super) fn motion_is_processed(&self, motion: &MotionId) -> bool {
-        self.processed_motions
-            .iter()
-            .any(|key| &key.motion == motion)
+        self.clips.keys().any(|key| &key.motion == motion)
     }
 }
 

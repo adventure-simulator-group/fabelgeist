@@ -62,7 +62,10 @@ mod legacy_tests {
             assert_eq!(routed.path, SemanticRoutePath::RaisedGuardAttack);
             assert!(routed.runtime_evaluated);
             assert_eq!(routed.evaluation, direct);
-            assert_eq!(routed.inputs.gait_phase.cycles(), presented.gait_phase);
+            assert_eq!(
+                routed.inputs.gait_phase.cycles(),
+                presented.gait_phase.cycles()
+            );
             assert_eq!(routed.evaluation.action_phase, expected_phase);
         }
     }
@@ -144,7 +147,10 @@ mod legacy_tests {
                 AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
             )
             .unwrap();
-            let step = circular_phase_delta(previous_phase, presented.gait_phase).abs();
+            let step = circular_phase_delta(previous_phase, presented.gait_phase)
+                .unwrap()
+                .cycles()
+                .abs();
             largest_step = largest_step.max(step);
             if tick % 4 != 0 && step > 0.001 {
                 advanced_without_sample = true;
@@ -154,7 +160,13 @@ mod legacy_tests {
 
         assert!(advanced_without_sample);
         assert!(largest_step < 0.06, "largest phase step was {largest_step}");
-        assert!(circular_phase_delta(presented.gait_phase, authoritative.gait_phase).abs() < 0.08);
+        assert!(
+            circular_phase_delta(presented.gait_phase, authoritative.gait_phase)
+                .unwrap()
+                .cycles()
+                .abs()
+                < 0.08
+        );
     }
 
     #[test]
@@ -186,10 +198,14 @@ mod legacy_tests {
         .unwrap();
 
         assert!(
-            circular_phase_delta(presented.gait_phase, authoritative.gait_phase).abs() < 0.000_01
+            circular_phase_delta(presented.gait_phase, authoritative.gait_phase)
+                .unwrap()
+                .cycles()
+                .abs()
+                < 0.000_01
         );
-        assert_eq!(presented.last_phase_correction_delta, 0.0);
-        assert_eq!(presented.phase_error_remaining, 0.0);
+        assert_eq!(presented.last_phase_correction_delta.cycles(), 0.0);
+        assert_eq!(presented.phase_error_remaining.cycles(), 0.0);
     }
 
     #[test]
@@ -198,7 +214,7 @@ mod legacy_tests {
         let authoritative = SkeletonState::default()
             .with_local_velocity(velocity)
             .with_world_velocity(velocity)
-            .with_gait_phase(0.12)
+            .with_gait_phase(CyclePhase::from_cycles(0.12).unwrap())
             .with_locomotion_sample_tick(1);
         let mut presented = PresentedSkeleton::new(
             SkeletonState::default()
@@ -216,12 +232,16 @@ mod legacy_tests {
                 AnimationElapsed::from_seconds(delta_seconds).unwrap(),
             )
             .unwrap();
-            let actual = circular_phase_delta(previous_phase, presented.gait_phase);
+            let actual = circular_phase_delta(previous_phase, presented.gait_phase)
+                .unwrap()
+                .cycles();
             let predicted = gait_cycle_phase_delta(
                 locomotion_profile(&presented.state),
                 presented.animation_speed(),
-                delta_seconds,
-            );
+                AnimationElapsed::from_seconds(delta_seconds).unwrap(),
+            )
+            .unwrap()
+            .cycles();
             let maximum = predicted
                 + presentation_phase_correction_rate_per_second() * delta_seconds
                 + 0.000_01;
@@ -246,10 +266,15 @@ mod legacy_tests {
             let predicted_delta = gait_cycle_phase_delta(
                 locomotion_profile(&presented.state),
                 presented.animation_speed(),
-                delta_seconds,
-            );
+                AnimationElapsed::from_seconds(delta_seconds).unwrap(),
+            )
+            .unwrap()
+            .cycles();
             let jitter = if tick % 2 == 0 { 0.03 } else { -0.03 };
-            authoritative.gait_phase = (previous_phase + predicted_delta + jitter).rem_euclid(1.0);
+            authoritative.gait_phase = CyclePhase::from_cycles(
+                (previous_phase.cycles() + predicted_delta + jitter).rem_euclid(1.0),
+            )
+            .unwrap();
             authoritative.locomotion_sample_tick = AnimationSampleTick::from(tick);
 
             advance_presented_skeleton(
@@ -259,10 +284,12 @@ mod legacy_tests {
             )
             .unwrap();
 
-            let actual_delta = circular_phase_delta(previous_phase, presented.gait_phase);
+            let actual_delta = circular_phase_delta(previous_phase, presented.gait_phase)
+                .unwrap()
+                .cycles();
             assert!((actual_delta - predicted_delta).abs() < 0.000_01);
-            assert_eq!(presented.last_phase_correction_delta, 0.0);
-            assert_eq!(presented.phase_error_remaining, 0.0);
+            assert_eq!(presented.last_phase_correction_delta.cycles(), 0.0);
+            assert_eq!(presented.phase_error_remaining.cycles(), 0.0);
             assert!(presented.last_phase_source_changed);
             assert!(presented.last_phase_measurement_error.is_some());
         }
@@ -282,10 +309,14 @@ mod legacy_tests {
             let predicted_delta = gait_cycle_phase_delta(
                 locomotion_profile(&presented.state),
                 presented.animation_speed(),
-                delta_seconds,
-            );
-            authoritative.gait_phase =
-                (presented.gait_phase + predicted_delta + 0.10).rem_euclid(1.0);
+                AnimationElapsed::from_seconds(delta_seconds).unwrap(),
+            )
+            .unwrap()
+            .cycles();
+            authoritative.gait_phase = CyclePhase::from_cycles(
+                (presented.gait_phase.cycles() + predicted_delta + 0.10).rem_euclid(1.0),
+            )
+            .unwrap();
             authoritative.locomotion_sample_tick = AnimationSampleTick::from(tick);
 
             advance_presented_skeleton(
@@ -295,13 +326,18 @@ mod legacy_tests {
             )
             .unwrap();
 
-            assert!(presented.last_phase_correction_delta > 0.0);
-            assert!(presented.last_phase_correction_delta <= maximum_correction + 0.000_01);
+            assert!(presented.last_phase_correction_delta.cycles() > 0.0);
+            assert!(
+                presented.last_phase_correction_delta.cycles() <= maximum_correction + 0.000_01
+            );
             let measured = presented
                 .last_phase_measurement_error
                 .expect("new authoritative sample should be measured");
-            assert!((measured - 0.10).abs() < 0.000_01);
-            assert!(presented.phase_error_remaining < 0.10 - presentation_phase_drift_deadband());
+            assert!((measured.cycles() - 0.10).abs() < 0.000_01);
+            assert!(
+                presented.phase_error_remaining.cycles()
+                    < 0.10 - presentation_phase_drift_deadband()
+            );
         }
     }
 
@@ -316,7 +352,7 @@ mod legacy_tests {
             .with_local_velocity(Vec3::X * 5.5)
             .with_world_velocity(Vec3::X * 5.5)
             .with_locomotion_sample_tick(4)
-            .with_gait_phase(0.1);
+            .with_gait_phase(CyclePhase::from_cycles(0.1).unwrap());
 
         advance_presented_skeleton(
             &mut presented,
@@ -1226,9 +1262,12 @@ mod legacy_tests {
     fn out_of_range_catalog_frame_is_unavailable() {
         assert!(frame_fits_clip(
             AuthoredAnimationFrame::from(8u16),
-            8.0 / 30.0
+            ClipDuration::from_seconds(8.0 / 30.0).unwrap()
         ));
-        assert!(!frame_fits_clip(AuthoredAnimationFrame::from(20u16), 0.1));
+        assert!(!frame_fits_clip(
+            AuthoredAnimationFrame::from(20u16),
+            ClipDuration::from_seconds(0.1).unwrap()
+        ));
     }
 
     #[test]

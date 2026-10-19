@@ -210,8 +210,15 @@ mod legacy_tests {
         assert_eq!(state.posture(), Posture::Upright);
         assert!((state.local_velocity - local_velocity).length() < 0.0001);
         assert!(
-            (state.gait_phase - gait_cycle_phase_delta(walk_locomotion_profile(), 2.0, 1.0 / 64.0))
-                .abs()
+            (state.gait_phase.cycles()
+                - gait_cycle_phase_delta(
+                    walk_locomotion_profile(),
+                    2.0,
+                    AnimationElapsed::from_seconds(1.0 / 64.0).unwrap()
+                )
+                .unwrap()
+                .cycles())
+            .abs()
                 < 0.0001
         );
         assert_eq!(state.lead_foot, LeadFoot::Left);
@@ -225,10 +232,16 @@ mod legacy_tests {
         assert!(
             (ordinary_step_distance(5.5) - run_locomotion_profile().step_distance).abs() < 0.0001
         );
-        let (walk_left, walk_right) = gait_support_weights(walk_locomotion_profile(), 0.25);
+        let (walk_left, walk_right) = gait_support_weights(
+            walk_locomotion_profile(),
+            CyclePhase::from_cycles(0.25).unwrap(),
+        );
         assert!(walk_left + walk_right > 0.0);
         assert_eq!(
-            gait_support_weights(run_locomotion_profile(), 0.25),
+            gait_support_weights(
+                run_locomotion_profile(),
+                CyclePhase::from_cycles(0.25).unwrap()
+            ),
             (0.0, 0.0)
         );
         assert_eq!(run_locomotion_profile().flight_apex_metres, 0.12);
@@ -272,7 +285,7 @@ mod legacy_tests {
     #[test]
     fn projector_sequences_contacts_acceleration_and_one_landing_edge() {
         let mut state = SkeletonState::default()
-            .with_gait_phase(0.49)
+            .with_gait_phase(CyclePhase::from_cycles(0.49).unwrap())
             .with_locomotion_sample_tick(1)
             .with_local_velocity(Vec3::new(0.0, -4.0, -1.0))
             .with_world_velocity(Vec3::new(0.0, -4.0, -1.0))
@@ -407,7 +420,7 @@ mod legacy_tests {
         };
         let mut forward = SkeletonState::default()
             .with_lead_foot(LeadFoot::Left)
-            .with_gait_phase(0.25)
+            .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
             .with_weapon_guard(WeaponGuardState::Raised);
         let mut retreat = forward.clone();
         project_skeleton_locomotion(&mut forward, input(Vec3::NEG_Z * 2.0)).unwrap();
@@ -421,7 +434,7 @@ mod legacy_tests {
 
         let mut lowered = SkeletonState::default()
             .with_lead_foot(LeadFoot::Left)
-            .with_gait_phase(0.49);
+            .with_gait_phase(CyclePhase::from_cycles(0.49).unwrap());
         project_skeleton_locomotion(&mut lowered, input(Vec3::NEG_Z * 2.0)).unwrap();
         assert_eq!(lowered.lead_foot, LeadFoot::Right);
     }
@@ -585,7 +598,7 @@ mod legacy_tests {
     fn locomotion_shares_phase_across_walk_and_run() {
         let state = SkeletonState::default()
             .with_local_velocity(Vec3::new(0.0, 0.0, 3.75))
-            .with_gait_phase(0.25);
+            .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap());
         let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(evaluation.base.len(), 2);
         assert!(evaluation.base.iter().any(|sample| {
@@ -613,7 +626,15 @@ mod legacy_tests {
         let speed = 5.5;
         let cycle_seconds = run_locomotion_profile().step_distance * 2.0 / speed;
         assert!(
-            (gait_cycle_phase_delta(run_locomotion_profile(), speed, cycle_seconds) - 1.0).abs()
+            (gait_cycle_phase_delta(
+                run_locomotion_profile(),
+                speed,
+                AnimationElapsed::from_seconds(cycle_seconds).unwrap()
+            )
+            .unwrap()
+            .cycles()
+                - 1.0)
+                .abs()
                 < 0.0001
         );
     }
@@ -626,7 +647,7 @@ mod legacy_tests {
                     .with_lead_foot(LeadFoot::Left)
                     .with_local_velocity(velocity)
                     .with_weapon_guard(WeaponGuardState::Raised)
-                    .with_gait_phase(0.25)
+                    .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
                     .with_raised_locomotion(raised_intent(velocity)),
             )
             .unwrap()
@@ -663,7 +684,7 @@ mod legacy_tests {
                 .with_lead_foot(LeadFoot::Right)
                 .with_local_velocity(Vec3::new(-3.0, 0.0, -1.0))
                 .with_weapon_guard(WeaponGuardState::Raised)
-                .with_gait_phase(0.75)
+                .with_gait_phase(CyclePhase::from_cycles(0.75).unwrap())
                 .with_raised_locomotion(raised_intent(Vec3::new(-3.0, 0.0, -1.0))),
         )
         .unwrap();
@@ -685,7 +706,7 @@ mod legacy_tests {
                 &SkeletonState::default()
                     .with_local_velocity(velocity)
                     .with_weapon_guard(WeaponGuardState::Raised)
-                    .with_gait_phase(0.0)
+                    .with_gait_phase(CyclePhase::from_cycles(0.0).unwrap())
                     .with_raised_locomotion(raised_intent(velocity)),
             )
             .unwrap()
@@ -735,7 +756,7 @@ mod legacy_tests {
                 &SkeletonState::default()
                     .with_local_velocity(velocity)
                     .with_weapon_guard(WeaponGuardState::Raised)
-                    .with_gait_phase(0.0)
+                    .with_gait_phase(CyclePhase::from_cycles(0.0).unwrap())
                     .with_raised_locomotion(raised_intent(velocity)),
             )
             .unwrap()
@@ -763,7 +784,7 @@ mod legacy_tests {
                     .with_lead_foot(LeadFoot::Right)
                     .with_local_velocity(Vec3::NEG_Z)
                     .with_weapon_guard(WeaponGuardState::Raised)
-                    .with_gait_phase(phase)
+                    .with_gait_phase(CyclePhase::from_cycles(phase).unwrap())
                     .with_raised_locomotion(raised_intent(Vec3::NEG_Z)),
             )
             .unwrap();
@@ -785,7 +806,7 @@ mod legacy_tests {
             &SkeletonState::default()
                 .with_local_velocity(Vec3::new(0.0, 0.0, -3.75))
                 .with_weapon_guard(WeaponGuardState::Raised)
-                .with_gait_phase(0.25)
+                .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
                 .with_guarded_sprint_locomotion(true)
                 .with_raised_locomotion(raised_intent(Vec3::new(0.0, 0.0, -3.75))),
         )
@@ -802,7 +823,7 @@ mod legacy_tests {
             &SkeletonState::default()
                 .with_local_velocity(Vec3::new(0.0, 0.0, -3.75))
                 .with_weapon_guard(WeaponGuardState::Raised)
-                .with_gait_phase(0.25)
+                .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
                 .with_raised_locomotion(raised_intent(Vec3::new(0.0, 0.0, -3.75))),
         )
         .unwrap();
@@ -816,17 +837,17 @@ mod legacy_tests {
     #[test]
     fn entering_raised_guard_resets_to_static_guard_endpoint_once() {
         let mut state = SkeletonState::default()
-            .with_gait_phase(0.63)
+            .with_gait_phase(CyclePhase::from_cycles(0.63).unwrap())
             .with_lead_foot(LeadFoot::Right);
         set_weapon_guard(&mut state, WeaponGuardState::Raised);
-        assert_eq!(state.gait_phase, 0.0);
+        assert_eq!(state.gait_phase.cycles(), 0.0);
         assert_eq!(state.lead_foot, LeadFoot::Right);
 
-        state.gait_phase = 0.25;
+        state.gait_phase = CyclePhase::from_cycles(0.25).unwrap();
         set_weapon_guard(&mut state, WeaponGuardState::Raised);
-        assert_eq!(state.gait_phase, 0.25);
+        assert_eq!(state.gait_phase.cycles(), 0.25);
         set_weapon_guard(&mut state, WeaponGuardState::Lowered);
-        assert_eq!(state.gait_phase, 0.25);
+        assert_eq!(state.gait_phase.cycles(), 0.25);
     }
 
     #[test]
@@ -1071,7 +1092,7 @@ mod legacy_tests {
         let evaluation = AnimationEvaluation::from_skeleton(
             &SkeletonState::default()
                 .with_local_velocity(Vec3::new(0.0, 0.0, 0.25))
-                .with_gait_phase(0.375),
+                .with_gait_phase(CyclePhase::from_cycles(0.375).unwrap()),
         )
         .unwrap();
         assert!(evaluation.base.len() >= 2);
@@ -1464,7 +1485,7 @@ mod legacy_tests {
             project_skeleton_locomotion(&mut attack, input).unwrap();
 
             assert_eq!(attack.local_velocity, guard.local_velocity);
-            assert_eq!(attack.gait_phase, guard.gait_phase);
+            assert_eq!(attack.gait_phase.cycles(), guard.gait_phase.cycles());
             assert_eq!(attack.raised_locomotion(), guard.raised_locomotion());
             assert_eq!(attack.lead_foot, guard.lead_foot);
         }

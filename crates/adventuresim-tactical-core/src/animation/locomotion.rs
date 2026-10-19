@@ -159,14 +159,22 @@ pub fn ordinary_step_distance(speed: f32) -> f32 {
     }
 }
 
-pub fn gait_cycle_phase_delta(profile: LocomotionProfile, speed: f32, delta_seconds: f32) -> f32 {
-    speed.max(0.0) * delta_seconds.max(0.0) / (profile.step_distance.max(0.01) * 2.0)
+pub fn gait_cycle_phase_delta(
+    profile: LocomotionProfile,
+    speed: f32,
+    elapsed: AnimationElapsed,
+) -> AnimationValueResult<CycleDelta> {
+    // Speed and elapsed seconds meet only in this physical cadence kernel.
+    CycleDelta::from_arithmetic(
+        speed.max(0.0) * elapsed.seconds().max(0.0) / (profile.step_distance.max(0.01) * 2.0),
+    )
 }
 
-pub fn gait_support_weights(profile: LocomotionProfile, phase: f32) -> (f32, f32) {
+pub fn gait_support_weights(profile: LocomotionProfile, phase: CyclePhase) -> (f32, f32) {
     if profile.gait == LocomotionGait::RaisedGuard {
         return (1.0, 1.0);
     }
+    let phase = phase.cycles();
     let support = |contact: f32| {
         let distance = {
             let delta = (phase - contact).abs();

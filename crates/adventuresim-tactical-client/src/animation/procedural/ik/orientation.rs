@@ -320,7 +320,7 @@ pub(in crate::animation::procedural) fn run_foot_roll_degrees(
         return 0.0;
     }
     let contact = if left { 0.0 } else { 0.5 };
-    let signed = (skeleton.gait_phase - contact + 0.5).rem_euclid(1.0) - 0.5;
+    let signed = (skeleton.gait_phase.cycles() - contact + 0.5).rem_euclid(1.0) - 0.5;
     let radius = locomotion_profile(skeleton).support_phase_radius;
     if signed < -radius {
         // Prepare the heel during the latter half of flight.

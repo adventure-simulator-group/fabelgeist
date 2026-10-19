@@ -786,7 +786,7 @@ mod contract_tests {
         app.add_systems(Update, apply_locomotion_height);
         let state = SkeletonState::default()
             .with_local_velocity(Vec3::NEG_Z * walk_locomotion_profile().reference_speed)
-            .with_gait_phase(0.25)
+            .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
             .with_locomotion_sample_tick(1);
         let owner = app
             .world_mut()
@@ -830,7 +830,7 @@ mod contract_tests {
         app.add_systems(Update, apply_locomotion_height);
         let state = SkeletonState::default()
             .with_local_velocity(Vec3::NEG_Z * run_locomotion_profile().reference_speed)
-            .with_gait_phase(0.25)
+            .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
             .with_locomotion_sample_tick(1);
         let owner = app
             .world_mut()
@@ -1031,18 +1031,33 @@ mod ik_tests {
     #[test]
     fn run_has_unconstrained_flight_but_walk_retains_support() {
         for phase in [0.25, 0.75] {
-            let (run_left, run_right) = gait_support_weights(run_locomotion_profile(), phase);
+            let (run_left, run_right) = gait_support_weights(
+                run_locomotion_profile(),
+                CyclePhase::from_cycles(phase).unwrap(),
+            );
             assert_eq!((run_left, run_right), (0.0, 0.0));
-            let (walk_left, walk_right) = gait_support_weights(walk_locomotion_profile(), phase);
+            let (walk_left, walk_right) = gait_support_weights(
+                walk_locomotion_profile(),
+                CyclePhase::from_cycles(phase).unwrap(),
+            );
             assert!(walk_left + walk_right > 0.0);
         }
 
-        let phase_step = gait_cycle_phase_delta(run_locomotion_profile(), 5.5, 1.0 / 64.0);
+        let phase_step = gait_cycle_phase_delta(
+            run_locomotion_profile(),
+            5.5,
+            AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
+        )
+        .unwrap()
+        .cycles();
         let mut longest = 0_u32;
         let mut current = 0_u32;
         for frame in 0..=64 {
             let phase = frame as f32 * phase_step;
-            let (left, right) = gait_support_weights(run_locomotion_profile(), phase);
+            let (left, right) = gait_support_weights(
+                run_locomotion_profile(),
+                CyclePhase::from_cycles(phase).unwrap(),
+            );
             if left <= 0.001 && right <= 0.001 {
                 current += 1;
                 longest = longest.max(current);
@@ -1059,13 +1074,13 @@ mod ik_tests {
         for phase in [0.0, 0.5] {
             let state = SkeletonState::default()
                 .with_local_velocity(Vec3::NEG_Z * 5.5)
-                .with_gait_phase(phase);
+                .with_gait_phase(CyclePhase::from_cycles(phase).unwrap());
             assert!(locomotion_height_wave(&state).unwrap().metres().abs() < 0.0001);
         }
         for phase in [0.25, 0.75] {
             let state = SkeletonState::default()
                 .with_local_velocity(Vec3::NEG_Z * 5.5)
-                .with_gait_phase(phase);
+                .with_gait_phase(CyclePhase::from_cycles(phase).unwrap());
             assert!(
                 (locomotion_height_wave(&state).unwrap().metres()
                     - run_locomotion_profile().flight_apex_metres)
@@ -1093,7 +1108,8 @@ mod ik_tests {
         };
         assert_eq!(
             locomotion_height_wave(
-                &moving(2.0, Posture::Upright, WeaponGuardState::Lowered,).with_gait_phase(0.25)
+                &moving(2.0, Posture::Upright, WeaponGuardState::Lowered,)
+                    .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
             )
             .unwrap()
             .metres(),
@@ -1101,7 +1117,8 @@ mod ik_tests {
         );
         assert!(
             (locomotion_height_wave(
-                &moving(5.5, Posture::Upright, WeaponGuardState::Lowered,).with_gait_phase(0.25)
+                &moving(5.5, Posture::Upright, WeaponGuardState::Lowered,)
+                    .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
             )
             .unwrap()
             .metres()
@@ -1109,7 +1126,8 @@ mod ik_tests {
                 .abs()
                 < 0.0001
         );
-        let raised = moving(2.0, Posture::Upright, WeaponGuardState::Raised).with_gait_phase(0.25);
+        let raised = moving(2.0, Posture::Upright, WeaponGuardState::Raised)
+            .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap());
         assert_eq!(locomotion_height_wave(&raised).unwrap().metres(), 0.0);
         assert_eq!(
             locomotion_height_wave(&raised.with_guarded_sprint_locomotion(true))
@@ -1436,11 +1454,11 @@ mod ik_tests {
 
     #[test]
     fn ordinary_swing_support_is_not_filled_in_by_low_speed() {
-        let idle = SkeletonState::default().with_gait_phase(0.25);
+        let idle = SkeletonState::default().with_gait_phase(CyclePhase::from_cycles(0.25).unwrap());
         assert_eq!(locomotion_support_weights(&idle), (1.0, 1.0));
 
         let stopping = SkeletonState::default()
-            .with_gait_phase(0.25)
+            .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
             .with_local_velocity(Vec3::NEG_Z * 0.2);
         let (left, right) = locomotion_support_weights(&stopping);
         let (raw_left, raw_right) =
@@ -1572,7 +1590,7 @@ mod ik_tests {
     fn attacks_keep_live_locomotion_support_while_unsupported_actions_preserve_authored_fk() {
         let mut attack = SkeletonState::default()
             .with_local_velocity(Vec3::NEG_Z * 5.5)
-            .with_gait_phase(0.0);
+            .with_gait_phase(CyclePhase::from_cycles(0.0).unwrap());
         let locomotion = locomotion_support_weights(&attack);
         attack.begin_attack(AttackSpec::default(), 0, 1).unwrap();
         assert_eq!(locomotion_support_weights(&attack), locomotion);

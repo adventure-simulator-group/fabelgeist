@@ -74,8 +74,8 @@ pub(in crate::animation::procedural) struct LegIkMemory {
     pub(super) right_planned_contact: Option<Vec3>,
     pub(super) left_planned_contact_start: Option<Vec3>,
     pub(super) right_planned_contact_start: Option<Vec3>,
-    pub(super) left_planned_contact_phase_start: Option<f32>,
-    pub(super) right_planned_contact_phase_start: Option<f32>,
+    pub(super) left_planned_contact_phase_start: Option<CycleDelta>,
+    pub(super) right_planned_contact_phase_start: Option<CycleDelta>,
     pub(super) left_support_weight: Option<f32>,
     pub(super) right_support_weight: Option<f32>,
     // Solver ownership is separate from truthful post-propagation contact

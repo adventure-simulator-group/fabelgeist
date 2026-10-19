@@ -181,10 +181,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
         // solver/reporting weights below.
         let raw_run_support =
             (locomotion_profile(skeleton).gait == LocomotionGait::Run).then(|| {
-                gait_support_weights(
-                    locomotion_profile(skeleton),
-                    skeleton.gait_phase.rem_euclid(1.0),
-                )
+                gait_support_weights(locomotion_profile(skeleton), skeleton.gait_phase.wrapped())
             });
         let mut legs = [
             (
@@ -699,8 +696,10 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     GuardFootworkPlan::Stepping(step) => {
                         let contacts = step.contacts();
                         let progress = match step.swing_foot() {
-                            LeadFoot::Left => (skeleton.gait_phase - 0.5).rem_euclid(1.0) * 2.0,
-                            LeadFoot::Right => skeleton.gait_phase * 2.0,
+                            LeadFoot::Left => {
+                                (skeleton.gait_phase.cycles() - 0.5).rem_euclid(1.0) * 2.0
+                            }
+                            LeadFoot::Right => skeleton.gait_phase.cycles() * 2.0,
                         }
                         .clamp(0.0, 1.0);
                         match step.swing_foot() {
@@ -1241,11 +1240,11 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             };
             let run = locomotion_profile(skeleton).gait == LocomotionGait::Run;
             let planned_weight = if run && !acquired && (plant.is_some() || planned.is_some()) {
-                let phase_to_contact =
-                    phase_to_next_contact(skeleton.gait_phase, foot_side == LeadFoot::Left);
+                let phase_to_contact = skeleton.gait_phase.until_contact(foot_side);
                 run_contact_approach_progress(
                     phase_to_contact,
-                    planned_phase_start.unwrap_or(ik_tuning().run_contact_approach_phase),
+                    planned_phase_start
+                        .map_or(ik_tuning().run_contact_approach_phase, CycleDelta::cycles),
                     locomotion_profile(skeleton).support_phase_radius
                         + ik_tuning().run_contact_chain_settle_phase,
                 )
@@ -1735,7 +1734,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     } else {
                         gait
                     };
-                    let phase_to_contact = phase_to_next_contact(skeleton.gait_phase, left);
+                    let phase_to_contact = skeleton.gait_phase.until_contact(foot_side);
                     let mut retained_contact = if left {
                         memory.left_planned_contact
                     } else {
@@ -1898,12 +1897,12 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         if locomotion_profile(skeleton).gait == LocomotionGait::Run {
                             run_contact_approach_progress(
                                 phase_to_contact,
-                                planned_phase_start.unwrap_or(approach_window),
+                                planned_phase_start.map_or(approach_window, CycleDelta::cycles),
                                 locomotion_profile(skeleton).support_phase_radius
                                     + ik_tuning().run_contact_chain_settle_phase,
                             )
                         } else {
-                            smoothstep(approach_window, 0.0, phase_to_contact)
+                            smoothstep(approach_window, 0.0, phase_to_contact.cycles())
                         };
                     let mut desired_target =
                         planned_contact.map_or(foot_position, |mut contact| {
@@ -2493,7 +2492,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                             projected_com,
                             planar_velocity,
                             skeleton.animation_speed(),
-                            phase_to_next_contact(skeleton.gait_phase, left),
+                            skeleton.gait_phase.until_contact(foot_side),
                             side,
                         )
                     })

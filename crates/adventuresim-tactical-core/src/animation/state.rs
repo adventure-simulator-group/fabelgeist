@@ -1502,7 +1502,7 @@ pub struct SkeletonState {
     jump_anticipation: JumpAnticipation,
     pub local_velocity: Vec3,
     pub world_velocity: Vec3,
-    pub gait_phase: f32,
+    pub gait_phase: CyclePhase,
     pub locomotion_sample_tick: AnimationSampleTick,
     pub world_acceleration: Vec3,
     pub contact_sequence: ContactSequence,
@@ -1528,7 +1528,7 @@ struct SkeletonStateWire {
     jump_anticipation: JumpAnticipation,
     local_velocity: Vec3,
     world_velocity: Vec3,
-    gait_phase: f32,
+    gait_phase: CyclePhase,
     locomotion_sample_tick: u64,
     world_acceleration: Vec3,
     contact_sequence: ContactSequence,
@@ -1561,11 +1561,7 @@ impl<'de> Deserialize<'de> for SkeletonState {
             jump_anticipation: JumpAnticipation::Inactive,
             local_velocity: finite(wire.local_velocity),
             world_velocity: finite(wire.world_velocity),
-            gait_phase: if wire.gait_phase.is_finite() {
-                wire.gait_phase.rem_euclid(1.0)
-            } else {
-                0.0
-            },
+            gait_phase: wire.gait_phase.wrapped(),
             locomotion_sample_tick: AnimationSampleTick::from(wire.locomotion_sample_tick),
             world_acceleration: finite(wire.world_acceleration),
             contact_sequence: wire.contact_sequence,
@@ -1600,7 +1596,7 @@ impl Default for SkeletonState {
             jump_anticipation: JumpAnticipation::Inactive,
             local_velocity: Vec3::ZERO,
             world_velocity: Vec3::ZERO,
-            gait_phase: 0.0,
+            gait_phase: CyclePhase::ZERO,
             locomotion_sample_tick: AnimationSampleTick::ZERO,
             world_acceleration: Vec3::ZERO,
             contact_sequence: ContactSequence::ZERO,
@@ -1631,7 +1627,7 @@ pub fn set_weapon_guard(skeleton: &mut SkeletonState, weapon_guard: WeaponGuardS
         (StanceState::Lowered, WeaponGuardState::Raised)
             if !skeleton.body.is_downed() && skeleton.posture_transition.is_none() =>
         {
-            skeleton.gait_phase = 0.0;
+            skeleton.gait_phase = CyclePhase::ZERO;
             skeleton.stance = StanceState::Raised {
                 locomotion: RaisedLocomotionIntent::default(),
             };
@@ -1673,12 +1669,8 @@ impl SkeletonState {
         };
         self
     }
-    pub fn with_gait_phase(mut self, phase: f32) -> Self {
-        self.gait_phase = if phase.is_finite() {
-            phase.rem_euclid(1.0)
-        } else {
-            0.0
-        };
+    pub fn with_gait_phase(mut self, phase: CyclePhase) -> Self {
+        self.gait_phase = phase.wrapped();
         self
     }
     pub fn with_locomotion_sample_tick(mut self, tick: u64) -> Self {
@@ -2680,7 +2672,11 @@ fn advance_raised_locomotion_intent(
     });
 }
 
-fn advance_guard_footwork(skeleton: &mut SkeletonState, delta_seconds: f32, tick: u64) {
+fn advance_guard_footwork(
+    skeleton: &mut SkeletonState,
+    delta_seconds: f32,
+    tick: u64,
+) -> AnimationValueResult<()> {
     let displacement = skeleton.local_velocity.xz() * delta_seconds.max(0.0);
     let physical_velocity = skeleton.local_velocity.xz();
     let physical_speed = physical_velocity.length();
@@ -2747,7 +2743,7 @@ fn advance_guard_footwork(skeleton: &mut SkeletonState, delta_seconds: f32, tick
         skeleton.contact_foot = opposite_foot(next_swing);
     }
 
-    skeleton.gait_phase = match plan {
+    skeleton.gait_phase = CyclePhase::from_cycles(match plan {
         GuardFootworkPlan::Stepping(step) => {
             let progress = step.progress(tick).clamp(0.0, 1.0);
             match step.swing_foot {
@@ -2761,8 +2757,9 @@ fn advance_guard_footwork(skeleton: &mut SkeletonState, delta_seconds: f32, tick
                 LeadFoot::Right => 0.5,
             }
         }
-    };
+    })?;
     skeleton.raised_footwork = plan;
+    Ok(())
 }
 
 fn plan_guard_step(

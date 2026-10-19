@@ -401,45 +401,64 @@ mod coordination_tests {
         let ready = radius + ik_tuning().run_contact_chain_settle_phase;
         assert_eq!(
             run_contact_approach_progress(
-                ik_tuning().run_contact_approach_phase,
+                CycleDelta::from_cycles(ik_tuning().run_contact_approach_phase).unwrap(),
                 ik_tuning().run_contact_approach_phase,
                 ready,
             ),
             0.0
         );
         assert_eq!(
-            run_contact_approach_progress(ready, ik_tuning().run_contact_approach_phase, ready),
+            run_contact_approach_progress(
+                CycleDelta::from_cycles(ready).unwrap(),
+                ik_tuning().run_contact_approach_phase,
+                ready
+            ),
             1.0
         );
         assert_eq!(
-            run_contact_approach_progress(radius, ik_tuning().run_contact_approach_phase, ready),
+            run_contact_approach_progress(
+                CycleDelta::from_cycles(radius).unwrap(),
+                ik_tuning().run_contact_approach_phase,
+                ready
+            ),
             1.0
         );
         let middle = run_contact_approach_progress(
-            (ik_tuning().run_contact_approach_phase + ready) * 0.5,
+            CycleDelta::from_cycles((ik_tuning().run_contact_approach_phase + ready) * 0.5)
+                .unwrap(),
             ik_tuning().run_contact_approach_phase,
             ready,
         );
         assert!((middle - 0.5).abs() < 0.0001);
         let release_finished_phase = 0.81;
         assert_eq!(
-            run_contact_approach_progress(release_finished_phase, release_finished_phase, ready,),
+            run_contact_approach_progress(
+                CycleDelta::from_cycles(release_finished_phase).unwrap(),
+                release_finished_phase,
+                ready,
+            ),
             0.0
         );
-        assert!(run_swing_clearance(radius, Some(1.0)) <= 0.0);
-        assert!(run_swing_clearance(0.3375, Some(0.5)) > 0.08);
+        assert!(run_swing_clearance(CycleDelta::from_cycles(radius).unwrap(), Some(1.0)) <= 0.0);
+        assert!(run_swing_clearance(CycleDelta::from_cycles(0.3375).unwrap(), Some(0.5)) > 0.08);
 
-        let phase_step = gait_cycle_phase_delta(run_locomotion_profile(), 5.5, 1.0 / 64.0);
+        let phase_step = gait_cycle_phase_delta(
+            run_locomotion_profile(),
+            5.5,
+            AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
+        )
+        .unwrap()
+        .cycles();
         let mut phase_to_contact = ik_tuning().run_contact_approach_phase;
         let mut previous_progress = run_contact_approach_progress(
-            phase_to_contact,
+            CycleDelta::from_cycles(phase_to_contact).unwrap(),
             ik_tuning().run_contact_approach_phase,
             ready,
         );
         while phase_to_contact > ready {
             phase_to_contact = (phase_to_contact - phase_step).max(ready);
             let progress = run_contact_approach_progress(
-                phase_to_contact,
+                CycleDelta::from_cycles(phase_to_contact).unwrap(),
                 ik_tuning().run_contact_approach_phase,
                 ready,
             );
@@ -455,12 +474,15 @@ mod coordination_tests {
         let radius = run_locomotion_profile().support_phase_radius;
         let ready = radius + ik_tuning().run_contact_chain_settle_phase;
         let early = run_contact_approach_progress(
-            ik_tuning().run_contact_approach_phase,
+            CycleDelta::from_cycles(ik_tuning().run_contact_approach_phase).unwrap(),
             ik_tuning().run_contact_approach_phase,
             ready,
         );
-        let late =
-            run_contact_approach_progress(ready, ik_tuning().run_contact_approach_phase, ready);
+        let late = run_contact_approach_progress(
+            CycleDelta::from_cycles(ready).unwrap(),
+            ik_tuning().run_contact_approach_phase,
+            ready,
+        );
         assert_eq!(early, 0.0);
         assert_eq!(late, 1.0);
 
@@ -516,7 +538,7 @@ mod coordination_tests {
             upper,
             velocity,
             5.5,
-            phase_to_contact,
+            CycleDelta::from_cycles(phase_to_contact).unwrap(),
             ready,
             reach,
             downhill,
@@ -532,7 +554,7 @@ mod coordination_tests {
                 upper,
                 velocity,
                 5.5,
-                phase_to_contact,
+                CycleDelta::from_cycles(phase_to_contact).unwrap(),
                 ready,
                 reach,
                 downhill,
@@ -548,7 +570,7 @@ mod coordination_tests {
             upper,
             velocity,
             5.5,
-            phase_to_contact,
+            CycleDelta::from_cycles(phase_to_contact).unwrap(),
             ready,
             reach,
             |_| Some(flat_height),
@@ -882,26 +904,46 @@ mod coordination_tests {
         let start = Vec3::new(0.1, 2.1, -0.304);
         let desired = Vec3::new(0.1, 2.0, -1.829);
         let phase_to_contact = 0.418;
-        assert!(late_run_plan_requires_bound(None, phase_to_contact));
-        assert!(!late_run_plan_requires_bound(None, 0.75));
+        assert!(late_run_plan_requires_bound(
+            None,
+            CycleDelta::from_cycles(phase_to_contact).unwrap()
+        ));
+        assert!(!late_run_plan_requires_bound(
+            None,
+            CycleDelta::from_cycles(0.75).unwrap()
+        ));
         assert!(!late_run_plan_requires_bound(
             Some(desired),
-            phase_to_contact
+            CycleDelta::from_cycles(phase_to_contact).unwrap()
         ));
         let ready = run_locomotion_profile().support_phase_radius
             + ik_tuning().run_contact_chain_settle_phase;
-        let bounded = bound_late_run_contact(start, desired, 5.5, phase_to_contact, ready);
+        let bounded = bound_late_run_contact(
+            start,
+            desired,
+            5.5,
+            CycleDelta::from_cycles(phase_to_contact).unwrap(),
+            ready,
+        );
         assert!(bounded.xz().distance(desired.xz()) > 0.5);
 
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
             5.5,
-            1.0 / ik_tuning().continuity_sample_hz,
+            AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
+        )
+        .unwrap()
+        .cycles();
+        let first_progress = run_contact_approach_progress(
+            CycleDelta::from_cycles(phase_to_contact).unwrap(),
+            phase_to_contact,
+            ready,
         );
-        let first_progress =
-            run_contact_approach_progress(phase_to_contact, phase_to_contact, ready);
-        let second_progress =
-            run_contact_approach_progress(phase_to_contact - phase_step, phase_to_contact, ready);
+        let second_progress = run_contact_approach_progress(
+            CycleDelta::from_cycles(phase_to_contact - phase_step).unwrap(),
+            phase_to_contact,
+            ready,
+        );
         assert_eq!(start.lerp(bounded, first_progress).xz(), start.xz());
         let first_step = start
             .lerp(bounded, second_progress)
@@ -919,7 +961,11 @@ mod coordination_tests {
         let (still_exhausted, effective_support) = support_after_exhausted_lobe(true, 0.4);
         assert!(still_exhausted);
         assert_eq!(effective_support, 0.0);
-        assert!(!run_planned_contact_allowed(still_exhausted, 0.2, 0.75));
+        assert!(!run_planned_contact_allowed(
+            still_exhausted,
+            CycleDelta::from_cycles(0.2).unwrap(),
+            0.75
+        ));
 
         let visible_release = Vec3::new(0.1, 0.2, -8.757);
         let stale_same_lobe_plan = Vec3::new(0.1, 0.08, -10.203);
@@ -939,7 +985,11 @@ mod coordination_tests {
         let (cleared, flight_support) = support_after_exhausted_lobe(true, 0.0);
         assert!(!cleared);
         assert_eq!(flight_support, 0.0);
-        assert!(run_planned_contact_allowed(cleared, 0.75, 0.75));
+        assert!(run_planned_contact_allowed(
+            cleared,
+            CycleDelta::from_cycles(0.75).unwrap(),
+            0.75
+        ));
     }
 
     #[test]
@@ -1003,15 +1053,15 @@ mod coordination_tests {
         let mut run = SkeletonState::default();
         run.local_velocity = Vec3::new(0.0, 0.0, -5.5);
         run.world_velocity = Vec3::new(0.0, 0.0, -5.5);
-        run.gait_phase = 0.84;
+        run.gait_phase = CyclePhase::from_cycles(0.84).unwrap();
         assert!(run_foot_roll_degrees(&run, true) > 0.0, "heel prepares");
-        run.gait_phase = 0.0;
+        run.gait_phase = CyclePhase::from_cycles(0.0).unwrap();
         assert_eq!(run_foot_roll_degrees(&run, true), 0.0, "flat stance");
-        run.gait_phase = 0.15;
+        run.gait_phase = CyclePhase::from_cycles(0.15).unwrap();
         assert!(run_foot_roll_degrees(&run, true) < 0.0, "toe off");
-        run.gait_phase = 0.25;
+        run.gait_phase = CyclePhase::from_cycles(0.25).unwrap();
         assert_eq!(run_foot_roll_degrees(&run, true), 0.0, "neutral swing");
-        run.gait_phase = 0.5;
+        run.gait_phase = CyclePhase::from_cycles(0.5).unwrap();
         assert_eq!(run_foot_roll_degrees(&run, false), 0.0, "mirrored contact");
     }
 
@@ -1190,8 +1240,8 @@ mod coordination_tests {
             right_planned_contact: Some(Vec3::new(0.1, 0.3, -2.0)),
             left_planned_contact_start: Some(Vec3::new(-0.1, 0.8, 0.0)),
             right_planned_contact_start: Some(Vec3::new(0.1, 0.7, -0.5)),
-            left_planned_contact_phase_start: Some(0.8),
-            right_planned_contact_phase_start: Some(0.3),
+            left_planned_contact_phase_start: Some(CycleDelta::from_cycles(0.8).unwrap()),
+            right_planned_contact_phase_start: Some(CycleDelta::from_cycles(0.3).unwrap()),
             ..default()
         };
 
@@ -1868,12 +1918,14 @@ mod coordination_tests {
             run_retained_support_through_lobe_edge(LocomotionGait::Run, 0.0, true, true,),
             0.0
         );
-        assert!(run_swing_clearance(0.82, Some(0.0)) >= 0.05);
+        assert!(run_swing_clearance(CycleDelta::from_cycles(0.82).unwrap(), Some(0.0)) >= 0.05);
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
             5.5,
-            1.0 / ik_tuning().continuity_sample_hz,
-        );
+            AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
+        )
+        .unwrap()
+        .cycles();
         let samples_to_opposite_acquisition = ((0.891_f32 - 0.698) / phase_step).ceil();
         let unsupported_seconds =
             (samples_to_opposite_acquisition - 1.0).max(0.0) / ik_tuning().continuity_sample_hz;
@@ -1888,7 +1940,7 @@ mod coordination_tests {
         );
         for rising_phase in [0.853, 0.877, 0.901, 0.926] {
             assert!(!run_is_at_support_exit(
-                rising_phase,
+                CyclePhase::from_cycles(rising_phase).unwrap(),
                 true,
                 run_locomotion_profile().support_phase_radius,
             ));
@@ -1899,18 +1951,18 @@ mod coordination_tests {
         }
         for retained_phase in [0.602, 0.626, 0.650] {
             assert!(!run_is_at_support_exit(
-                retained_phase,
+                CyclePhase::from_cycles(retained_phase).unwrap(),
                 false,
                 run_locomotion_profile().support_phase_radius,
             ));
         }
         assert!(!run_is_at_support_exit(
-            0.674,
+            CyclePhase::from_cycles(0.674).unwrap(),
             false,
             run_locomotion_profile().support_phase_radius,
         ));
         assert!(run_is_at_support_exit(
-            0.698,
+            CyclePhase::from_cycles(0.698).unwrap(),
             false,
             run_locomotion_profile().support_phase_radius,
         ));
@@ -1979,7 +2031,7 @@ mod coordination_tests {
     fn expired_late_plan_replaces_all_frozen_swing_metadata() {
         let mut contact = Some(Vec3::new(0.1, 2.06, -0.607));
         let mut start = Some(Vec3::new(0.1, 2.1, -0.268));
-        let mut phase_start = Some(0.418);
+        let mut phase_start = Some(CycleDelta::from_cycles(0.418).unwrap());
         clear_planned_contact_metadata(&mut contact, &mut start, &mut phase_start);
         assert!(contact.is_none() && start.is_none() && phase_start.is_none());
 
@@ -1991,21 +2043,28 @@ mod coordination_tests {
         let replacement_phase = 0.866;
         contact = Some(replacement);
         start = contact.map(|_| planned_contact_start(start, Some(visible), visible));
-        phase_start = contact.map(|_| phase_start.unwrap_or(replacement_phase));
+        phase_start = contact
+            .map(|_| phase_start.unwrap_or(CycleDelta::from_cycles(replacement_phase).unwrap()));
         assert_eq!(start, Some(visible));
-        assert_eq!(phase_start, Some(replacement_phase));
+        assert_eq!(phase_start.map(CycleDelta::cycles), Some(replacement_phase));
 
         let ready = run_locomotion_profile().support_phase_radius
             + ik_tuning().run_contact_chain_settle_phase;
-        let first = run_contact_approach_progress(replacement_phase, phase_start.unwrap(), ready);
+        let first = run_contact_approach_progress(
+            CycleDelta::from_cycles(replacement_phase).unwrap(),
+            phase_start.unwrap().cycles(),
+            ready,
+        );
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
             5.5,
-            1.0 / ik_tuning().continuity_sample_hz,
-        );
+            AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
+        )
+        .unwrap()
+        .cycles();
         let second = run_contact_approach_progress(
-            replacement_phase - phase_step,
-            phase_start.unwrap(),
+            CycleDelta::from_cycles(replacement_phase - phase_step).unwrap(),
+            phase_start.unwrap().cycles(),
             ready,
         );
         assert_eq!(visible.lerp(replacement, first), visible);
@@ -2028,13 +2087,19 @@ mod coordination_tests {
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
             5.5,
-            1.0 / ik_tuning().continuity_sample_hz,
-        );
+            AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
+        )
+        .unwrap()
+        .cycles();
         let root_step = 5.5 / ik_tuning().continuity_sample_hz;
         let mut previous = start;
         while phase_to_contact > ready {
             phase_to_contact = (phase_to_contact - phase_step).max(ready);
-            let progress = run_contact_approach_progress(phase_to_contact, phase_start, ready);
+            let progress = run_contact_approach_progress(
+                CycleDelta::from_cycles(phase_to_contact).unwrap(),
+                phase_start,
+                ready,
+            );
             let target = start.lerp(endpoint, progress);
             let root_relative_step = (target.distance(previous) - root_step).max(0.0);
             assert!(root_relative_step <= 0.095);
@@ -2053,8 +2118,10 @@ mod coordination_tests {
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
             5.5,
-            1.0 / ik_tuning().continuity_sample_hz,
-        );
+            AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
+        )
+        .unwrap()
+        .cycles();
         assert_eq!(
             run_toe_off_support_weight(LocomotionGait::Run, 0.773, true, false),
             (false, 0.773)
@@ -2063,7 +2130,7 @@ mod coordination_tests {
             run_toe_off_support_weight(LocomotionGait::Run, 0.0, true, true);
         assert!(toe_off);
         assert_eq!(first_weight, 0.0);
-        assert!(run_swing_clearance(0.86, Some(0.0)) >= 0.05);
+        assert!(run_swing_clearance(CycleDelta::from_cycles(0.86).unwrap(), Some(0.0)) >= 0.05);
 
         let frozen = (Some(endpoint), Some(start), Some(phase_start));
         let mut exhausted = toe_off;
@@ -2074,7 +2141,11 @@ mod coordination_tests {
             assert_eq!(effective, 0.0);
             assert_eq!(frozen, (Some(endpoint), Some(start), Some(phase_start)));
             let phase = phase_start - phase_step * (index as f32 + 1.0);
-            let progress = run_contact_approach_progress(phase, phase_start, ready);
+            let progress = run_contact_approach_progress(
+                CycleDelta::from_cycles(phase).unwrap(),
+                phase_start,
+                ready,
+            );
             let target = start.lerp(endpoint, progress);
             let root_relative =
                 (target.distance(previous) - 5.5 / ik_tuning().continuity_sample_hz).max(0.0);
@@ -2092,8 +2163,13 @@ mod coordination_tests {
         // The acquired right foot owns the post-contact shoulder until its
         // signed support exit, where toe-off exhausts only this lobe.
         let exit_phase = 0.698;
-        let (_, exit_raw) = gait_support_weights(profile, exit_phase);
-        assert!(run_is_at_support_exit(exit_phase, false, radius));
+        let (_, exit_raw) =
+            gait_support_weights(profile, CyclePhase::from_cycles(exit_phase).unwrap());
+        assert!(run_is_at_support_exit(
+            CyclePhase::from_cycles(exit_phase).unwrap(),
+            false,
+            radius
+        ));
         let (mut exhausted, effective) =
             run_toe_off_support_weight(LocomotionGait::Run, exit_raw, true, true);
         assert!(exhausted);
@@ -2102,7 +2178,8 @@ mod coordination_tests {
         // The raw cadence, not the support value suppressed by the latch,
         // proves that this foot crossed flight and begins a fresh cycle.
         let flight_phase = 0.75;
-        let (_, flight_raw) = gait_support_weights(profile, flight_phase);
+        let (_, flight_raw) =
+            gait_support_weights(profile, CyclePhase::from_cycles(flight_phase).unwrap());
         assert!(!terrain_leg_has_support(flight_raw));
         exhausted = exhausted_latch_after_raw_cadence(exhausted, flight_raw);
         assert!(!exhausted);
@@ -2112,11 +2189,12 @@ mod coordination_tests {
         // makes the final bounded descent eligible, so contact can be acquired
         // by phase .35-.40 instead of remaining pinned above terrain.
         let rising_phase = 0.36;
-        let (_, rising_raw) = gait_support_weights(profile, rising_phase);
+        let (_, rising_raw) =
+            gait_support_weights(profile, CyclePhase::from_cycles(rising_phase).unwrap());
         assert!(terrain_leg_has_support(rising_raw));
         assert!(run_plan_is_on_rising_support(
             LocomotionGait::Run,
-            rising_phase,
+            CyclePhase::from_cycles(rising_phase).unwrap(),
             false,
             radius,
             rising_raw,
@@ -2128,7 +2206,7 @@ mod coordination_tests {
             support_after_exhausted_lobe(carried, rising_raw);
         if run_plan_is_on_rising_support(
             LocomotionGait::Run,
-            rising_phase,
+            CyclePhase::from_cycles(rising_phase).unwrap(),
             false,
             radius,
             rising_raw,
@@ -2152,7 +2230,7 @@ mod coordination_tests {
         assert!(reachable);
         let eligible = run_support_eligible_for_descent(
             LocomotionGait::Run,
-            rising_phase,
+            CyclePhase::from_cycles(rising_phase).unwrap(),
             false,
             radius,
             rising_raw,
@@ -2161,7 +2239,9 @@ mod coordination_tests {
         assert!(eligible);
         assert!(
             run_airborne_clearance(
-                phase_to_next_contact(rising_phase, false),
+                CyclePhase::from_cycles(rising_phase)
+                    .unwrap()
+                    .until_contact(LeadFoot::Right),
                 Some(1.0),
                 eligible,
             ) <= 0.0
@@ -2184,10 +2264,11 @@ mod coordination_tests {
             run_clearance_target_height(endpoint.y, prior_floor.y, false),
             prior_floor.y
         );
-        let (_, post_contact_raw) = gait_support_weights(profile, 0.65);
+        let (_, post_contact_raw) =
+            gait_support_weights(profile, CyclePhase::from_cycles(0.65).unwrap());
         assert!(!run_support_eligible_for_descent(
             LocomotionGait::Run,
-            0.65,
+            CyclePhase::from_cycles(0.65).unwrap(),
             false,
             radius,
             post_contact_raw,
@@ -2200,7 +2281,7 @@ mod coordination_tests {
         assert!(stale_latch);
         if run_plan_is_on_rising_support(
             LocomotionGait::Run,
-            rising_phase,
+            CyclePhase::from_cycles(rising_phase).unwrap(),
             false,
             radius,
             rising_raw,
@@ -2216,12 +2297,24 @@ mod coordination_tests {
 
     #[test]
     fn run_release_follows_root_once_and_lifts_only_clearance_floor() {
-        let release_clearance = run_airborne_clearance_for_sample(true, 0.81, None, false);
+        let release_clearance = run_airborne_clearance_for_sample(
+            true,
+            CycleDelta::from_cycles(0.81).unwrap(),
+            None,
+            false,
+        );
         assert_eq!(
             release_clearance,
             ik_tuning().run_swing_minimum_sole_clearance_metres
         );
-        assert!(run_airborne_clearance_for_sample(false, 0.81, None, false) > release_clearance);
+        assert!(
+            run_airborne_clearance_for_sample(
+                false,
+                CycleDelta::from_cycles(0.81).unwrap(),
+                None,
+                false
+            ) > release_clearance
+        );
         let previous_root = Vec3::new(0.0, 3.10, -4.2109);
         let next_root = previous_root + Vec3::NEG_Z * (5.5 / ik_tuning().continuity_sample_hz);
         let planted_world = Vec3::new(-0.12, 2.25, -3.668);
@@ -2342,7 +2435,12 @@ mod coordination_tests {
             reach,
         ));
         assert_eq!(
-            run_airborne_clearance_for_sample(false, 0.133, Some(1.0), false),
+            run_airborne_clearance_for_sample(
+                false,
+                CycleDelta::from_cycles(0.133).unwrap(),
+                Some(1.0),
+                false
+            ),
             ik_tuning().run_swing_minimum_sole_clearance_metres
         );
     }
@@ -2712,14 +2810,16 @@ mod coordination_tests {
         // flight, then may descend to exact contact on the first eligible
         // support sample without bypassing the follower above.
         assert_eq!(
-            run_airborne_clearance(0.34, Some(1.0), false),
+            run_airborne_clearance(CycleDelta::from_cycles(0.34).unwrap(), Some(1.0), false),
             ik_tuning().run_swing_minimum_sole_clearance_metres
         );
         assert_eq!(
-            run_airborne_clearance(0.17, Some(1.0), false),
+            run_airborne_clearance(CycleDelta::from_cycles(0.17).unwrap(), Some(1.0), false),
             ik_tuning().run_swing_minimum_sole_clearance_metres
         );
-        assert!(run_airborne_clearance(0.17, Some(1.0), true) <= 0.0);
+        assert!(
+            run_airborne_clearance(CycleDelta::from_cycles(0.17).unwrap(), Some(1.0), true) <= 0.0
+        );
     }
 
     #[test]
@@ -2755,7 +2855,7 @@ mod coordination_tests {
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap()
         ));
         assert_eq!(
-            run_airborne_clearance(0.17, Some(1.0), false),
+            run_airborne_clearance(CycleDelta::from_cycles(0.17).unwrap(), Some(1.0), false),
             ik_tuning().run_swing_minimum_sole_clearance_metres
         );
     }

@@ -158,10 +158,8 @@ impl LocomotionHeightState {
         skeleton: &SkeletonState,
         elapsed: AnimationElapsed,
     ) -> AnimationValueResult<()> {
-        let compensation = grounded_height_wave(
-            CyclePhase::from_cycles(skeleton.gait_phase)?,
-            self.authored_rise_compensation,
-        )?;
+        let compensation =
+            grounded_height_wave(skeleton.gait_phase, self.authored_rise_compensation)?;
         let raw_wave = self.amplitude.difference(compensation)?;
         let state_changed = self.last_guard != Some(skeleton.weapon_guard())
             || self.last_posture != Some(skeleton.posture())
@@ -213,11 +211,7 @@ pub(super) fn locomotion_height_wave(
     if profile.flight_apex_metres <= 0.0 {
         return Ok(HeightDistance::ZERO);
     }
-    let half_step = (CyclePhase::from_cycles(skeleton.gait_phase)?
-        .cycles()
-        .rem_euclid(0.5)
-        * 2.0)
-        .clamp(0.0, 1.0);
+    let half_step = (skeleton.gait_phase.cycles().rem_euclid(0.5) * 2.0).clamp(0.0, 1.0);
     let flight = (half_step * std::f32::consts::PI).sin().powi(2) * profile.flight_apex_metres;
     HeightDistance::from_metres(flight * moving_weight)
 }

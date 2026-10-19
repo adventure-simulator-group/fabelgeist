@@ -203,12 +203,12 @@ pub(in crate::animation::procedural) fn update_measured_owner_planar_speed(
 }
 
 pub(in crate::animation::procedural) fn run_is_at_support_exit(
-    phase: f32,
+    phase: CyclePhase,
     left: bool,
     support_radius: f32,
 ) -> bool {
     let contact_phase = if left { 0.0 } else { 0.5 };
-    let post_contact = (phase - contact_phase).rem_euclid(1.0);
+    let post_contact = (phase.cycles() - contact_phase).rem_euclid(1.0);
     // Release on the first sampled phase beyond the nominal lobe, not on its
     // decaying shoulder. The half-cycle bound distinguishes this foot's
     // post-contact side from its next rising shoulder after wrap.
@@ -228,7 +228,7 @@ pub(in crate::animation::procedural) fn exhausted_latch_after_raw_cadence(
 
 pub(in crate::animation::procedural) fn run_plan_is_on_rising_support(
     gait: LocomotionGait,
-    phase: f32,
+    phase: CyclePhase,
     left: bool,
     support_radius: f32,
     raw_nominal_support: f32,
@@ -242,7 +242,7 @@ pub(in crate::animation::procedural) fn run_plan_is_on_rising_support(
         // A rising shoulder approaches this foot's contact center. The
         // post-contact shoulder has almost a complete cycle remaining and
         // must not reopen a just-exhausted lobe.
-        && phase_to_next_contact(phase, left) <= support_radius + 0.001
+        && phase.until_contact(if left { LeadFoot::Left } else { LeadFoot::Right }).cycles() <= support_radius + 0.001
 }
 
 pub(in crate::animation::procedural) fn acquired_plan_can_clear(acquired: bool) -> bool {
@@ -252,7 +252,7 @@ pub(in crate::animation::procedural) fn acquired_plan_can_clear(acquired: bool) 
 pub(in crate::animation::procedural) fn clear_planned_contact_metadata(
     contact: &mut Option<Vec3>,
     start: &mut Option<Vec3>,
-    phase_start: &mut Option<f32>,
+    phase_start: &mut Option<CycleDelta>,
 ) {
     *contact = None;
     *start = None;
@@ -301,15 +301,10 @@ pub(in crate::animation::procedural) fn support_after_exhausted_lobe(
 
 pub(in crate::animation::procedural) fn run_planned_contact_allowed(
     support_lobe_exhausted: bool,
-    phase_to_contact: f32,
+    phase_to_contact: CycleDelta,
     approach_window: f32,
 ) -> bool {
-    !support_lobe_exhausted && phase_to_contact <= approach_window
-}
-
-pub(in crate::animation::procedural) fn phase_to_next_contact(phase: f32, left: bool) -> f32 {
-    let contact_phase = if left { 0.0 } else { 0.5 };
-    (contact_phase - phase).rem_euclid(1.0)
+    !support_lobe_exhausted && phase_to_contact.cycles() <= approach_window
 }
 
 pub(in crate::animation::procedural) fn planned_contact_start(
@@ -389,10 +384,10 @@ pub(in crate::animation::procedural) fn bound_late_run_contact(
     visible_start: Vec3,
     desired_contact: Vec3,
     speed: f32,
-    phase_to_contact: f32,
+    phase_to_contact: CycleDelta,
     contact_ready_phase: f32,
 ) -> Vec3 {
-    let remaining_phase = (phase_to_contact - contact_ready_phase).max(0.0);
+    let remaining_phase = (phase_to_contact.cycles() - contact_ready_phase).max(0.0);
     let root_travel = remaining_phase * ordinary_step_distance(speed) * 2.0;
     let remaining_seconds = if speed > 0.05 {
         root_travel / speed
@@ -410,9 +405,10 @@ pub(in crate::animation::procedural) fn bound_late_run_contact(
 
 pub(in crate::animation::procedural) fn late_run_plan_requires_bound(
     retained_contact: Option<Vec3>,
-    phase_to_contact: f32,
+    phase_to_contact: CycleDelta,
 ) -> bool {
-    retained_contact.is_none() && phase_to_contact < ik_tuning().late_run_contact_plan_phase
+    retained_contact.is_none()
+        && phase_to_contact.cycles() < ik_tuning().late_run_contact_plan_phase
 }
 
 pub(in crate::animation::procedural) fn unplanned_run_support_requires_flight(
@@ -430,7 +426,7 @@ pub(in crate::animation::procedural) fn unplanned_run_support_requires_flight(
 }
 
 pub(in crate::animation::procedural) fn run_swing_clearance(
-    phase_to_contact: f32,
+    phase_to_contact: CycleDelta,
     planned_progress: Option<f32>,
 ) -> f32 {
     if let Some(progress) = planned_progress {
@@ -438,14 +434,14 @@ pub(in crate::animation::procedural) fn run_swing_clearance(
         ik_tuning().run_swing_minimum_sole_clearance_metres * (1.0 - progress)
             + (std::f32::consts::PI * progress).sin() * ik_tuning().run_swing_sole_clearance_metres
     } else {
-        let progress = (1.0 - phase_to_contact).clamp(0.0, 1.0);
+        let progress = (1.0 - phase_to_contact.cycles()).clamp(0.0, 1.0);
         ik_tuning().run_swing_minimum_sole_clearance_metres
             + (std::f32::consts::PI * progress).sin() * ik_tuning().run_swing_sole_clearance_metres
     }
 }
 
 pub(in crate::animation::procedural) fn run_airborne_clearance(
-    phase_to_contact: f32,
+    phase_to_contact: CycleDelta,
     planned_progress: Option<f32>,
     support_eligible_for_descent: bool,
 ) -> f32 {
@@ -459,7 +455,7 @@ pub(in crate::animation::procedural) fn run_airborne_clearance(
 
 pub(in crate::animation::procedural) fn run_airborne_clearance_for_sample(
     just_released: bool,
-    phase_to_contact: f32,
+    phase_to_contact: CycleDelta,
     planned_progress: Option<f32>,
     support_eligible_for_descent: bool,
 ) -> f32 {
@@ -496,7 +492,7 @@ pub(in crate::animation::procedural) fn run_clearance_target_height(
 
 pub(in crate::animation::procedural) fn run_support_eligible_for_descent(
     gait: LocomotionGait,
-    phase: f32,
+    phase: CyclePhase,
     left: bool,
     support_radius: f32,
     raw_nominal_support: f32,
@@ -508,7 +504,7 @@ pub(in crate::animation::procedural) fn run_support_eligible_for_descent(
         // Only the rising shoulder approaches this foot's contact center.
         // The symmetric raw weight on the post-contact shoulder belongs to
         // stance/toe-off and must not pull an unacquired next-cycle plan down.
-        && phase_to_next_contact(phase, left) <= support_radius + 0.001
+        && phase.until_contact(if left { LeadFoot::Left } else { LeadFoot::Right }).cycles() <= support_radius + 0.001
 }
 
 pub(in crate::animation::procedural) fn run_contact_within_follower_step(
@@ -661,7 +657,7 @@ pub(in crate::animation::procedural) fn ordinary_contact_target(
     projected_com: Vec3,
     velocity: Vec3,
     speed: f32,
-    phase_to_contact: f32,
+    phase_to_contact: CycleDelta,
     side: f32,
 ) -> Vec3 {
     let direction = velocity
@@ -671,7 +667,7 @@ pub(in crate::animation::procedural) fn ordinary_contact_target(
     // One complete phase contains two ordinary steps. Predicting by the
     // remaining phase makes the world landing nearly stationary as the root
     // advances, instead of recomputing a target that chases the body.
-    let remaining_travel = phase_to_contact * ordinary_step_distance(speed) * 2.0;
+    let remaining_travel = phase_to_contact.cycles() * ordinary_step_distance(speed) * 2.0;
     plan_settle_landing(
         rig_origin,
         rig_rotation,
@@ -690,7 +686,7 @@ pub(in crate::animation::procedural) fn reachable_run_contact_target(
     current_upper_root: Vec3,
     velocity: Vec3,
     speed: f32,
-    phase_to_contact: f32,
+    phase_to_contact: CycleDelta,
     contact_ready_phase: f32,
     maximum_reach: f32,
     terrain_height_at: impl Fn(Vec2) -> Option<f32>,
@@ -701,9 +697,9 @@ pub(in crate::animation::procedural) fn reachable_run_contact_target(
     let travel_per_phase = ordinary_step_distance(speed) * 2.0;
     let current_terrain_height = terrain_height_at(current_upper_root.xz());
     let predicted_upper_roots = [
-        phase_to_contact - support_radius,
-        phase_to_contact,
-        phase_to_contact + support_radius,
+        phase_to_contact.cycles() - support_radius,
+        phase_to_contact.cycles(),
+        phase_to_contact.cycles() + support_radius,
     ]
     .map(|remaining_phase| {
         let mut root =
@@ -1058,7 +1054,7 @@ pub(crate) fn locomotion_support_weights(skeleton: &SkeletonState) -> (f32, f32)
 pub(in crate::animation::procedural) fn exclusive_ground_support(
     left: f32,
     right: f32,
-    phase: f32,
+    phase: CyclePhase,
 ) -> (f32, f32) {
     if left <= 0.0 {
         return (0.0, contact_support_weight(right));
@@ -1066,7 +1062,7 @@ pub(in crate::animation::procedural) fn exclusive_ground_support(
     if right <= 0.0 {
         return (contact_support_weight(left), 0.0);
     }
-    if left > right || ((left - right) == 0.0 && phase.rem_euclid(1.0) >= 0.75) {
+    if left > right || ((left - right) == 0.0 && phase.cycles().rem_euclid(1.0) >= 0.75) {
         (contact_support_weight(left), 0.0)
     } else {
         (0.0, contact_support_weight(right))

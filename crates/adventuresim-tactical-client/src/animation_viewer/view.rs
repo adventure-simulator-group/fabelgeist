@@ -58,7 +58,7 @@ pub(super) fn position_capture_camera(
                 "{} | {:>4.2} m/s | phase {:>5.3} | {} view | 64 Hz frame {}",
                 frame.scenario.label(),
                 frame.speed,
-                skeleton.gait_phase,
+                skeleton.gait_phase.cycles(),
                 view.slug(),
                 frame.scenario_frame,
             );

@@ -188,7 +188,7 @@ pub fn project_skeleton_locomotion_with_body_rotation(
         local_velocity,
         physical_speed,
         requested_local_direction,
-    );
+    )?;
     skeleton.advance_action(input.tick.encoded());
     Ok(())
 }
@@ -199,7 +199,7 @@ fn advance_projected_ground_cycle(
     local_velocity: Vec3,
     physical_speed: f32,
     requested_local_direction: Option<Vec2>,
-) {
+) -> AnimationValueResult<()> {
     let ground_speed = if skeleton.downed_turning() {
         // Turning in place has no physical velocity, but its crawl/scamper
         // cycle should run at twice the former synthetic cadence.
@@ -219,7 +219,7 @@ fn advance_projected_ground_cycle(
             skeleton,
             input.delta_seconds.seconds().min(1.0),
             input.tick.encoded(),
-        );
+        )?;
     } else {
         skeleton.set_raised_locomotion(RaisedLocomotionIntent::planted());
         if input.ground_contact == GroundContact::Grounded
@@ -229,25 +229,27 @@ fn advance_projected_ground_cycle(
                     .initial_locomotion_speed_metres_per_second
         {
             let profile = locomotion_profile(skeleton);
-            let phase = skeleton.gait_phase.rem_euclid(1.0);
-            let next_phase = phase
-                + gait_cycle_phase_delta(
-                    profile,
-                    ground_speed,
-                    input.delta_seconds.seconds().min(1.0),
-                );
-            let handoffs = ((next_phase * f32::from(LOCOMOTION_CONTACTS_PER_CYCLE)).floor()
-                - (phase * f32::from(LOCOMOTION_CONTACTS_PER_CYCLE)).floor())
+            let phase = skeleton.gait_phase.wrapped();
+            let next_phase = phase.checked_advance(gait_cycle_phase_delta(
+                profile,
+                ground_speed,
+                input.delta_seconds.capped_by_seconds(1.0)?,
+            )?)?;
+            let handoffs = ((next_phase.cycles() * f32::from(LOCOMOTION_CONTACTS_PER_CYCLE))
+                .floor()
+                - (phase.cycles() * f32::from(LOCOMOTION_CONTACTS_PER_CYCLE)).floor())
             .max(0.0) as u32;
-            skeleton.gait_phase = next_phase.rem_euclid(1.0);
+            skeleton.gait_phase = next_phase.wrapped();
             advance_contact_identity(skeleton, handoffs, None);
             if skeleton.weapon_guard() == WeaponGuardState::Lowered {
-                skeleton.lead_foot = if skeleton.gait_phase < LOCOMOTION_SECOND_CONTACT_PHASE {
-                    LeadFoot::Left
-                } else {
-                    LeadFoot::Right
-                };
+                skeleton.lead_foot =
+                    if skeleton.gait_phase.cycles() < LOCOMOTION_SECOND_CONTACT_PHASE {
+                        LeadFoot::Left
+                    } else {
+                        LeadFoot::Right
+                    };
             }
         }
     }
+    Ok(())
 }

@@ -287,7 +287,7 @@ pub(super) fn drive_sequence(
     }
     let frame = sequence.plan[sequence.index].clone();
     let metadata = frame.scenario;
-    let mut gait_phase = 0.0;
+    let mut gait_phase = CyclePhase::ZERO;
     let mut observed_playback = None;
     for (
         mut skeleton,
@@ -566,7 +566,7 @@ pub(super) fn drive_sequence(
             "{} | {:>4.2} m/s | phase {:>5.3} | {} view | 64 Hz frame {}",
             frame.scenario.label(),
             frame.speed,
-            gait_phase,
+            gait_phase.cycles(),
             VIEWS[sequence.view_index].slug(),
             frame.scenario_frame,
         );

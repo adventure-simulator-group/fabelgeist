@@ -235,7 +235,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
                 LeadFoot::Left => 0.0,
                 LeadFoot::Right => 0.5,
             };
-            let phase_since_contact = (frame.gait_phase - contact_phase).rem_euclid(1.0);
+            let phase_since_contact = (frame.gait_phase.cycles() - contact_phase).rem_euclid(1.0);
             frame.root_distance_metres - phase_since_contact * cadence_step_distance * 2.0
         })
         .collect::<Vec<_>>();
@@ -293,7 +293,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
         if pair[0].scenario != "speed-ramp-up-down" || pair[1].scenario != "speed-ramp-up-down" {
             return true;
         }
-        let phase_delta = pair[1].gait_phase - pair[0].gait_phase;
+        let phase_delta = pair[1].gait_phase.cycles() - pair[0].gait_phase.cycles();
         phase_delta >= -0.001
             || (phase_delta < -0.5
                 && pair[1]

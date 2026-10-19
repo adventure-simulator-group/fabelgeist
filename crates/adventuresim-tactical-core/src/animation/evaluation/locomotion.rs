@@ -10,7 +10,7 @@ pub(super) fn combat_lower_body_samples(
         return Ok(vec![anchor_sample(SemanticPose::CombatStance)]);
     }
     if state.guarded_sprint_locomotion() {
-        return locomotion_samples(speed, CyclePhase::from_cycles(state.gait_phase)?);
+        return locomotion_samples(speed, state.gait_phase);
     }
     let direction = state.raised_locomotion().local_direction();
     let strafe = direction.x.abs();
@@ -21,7 +21,7 @@ pub(super) fn combat_lower_body_samples(
     }
     let mut samples = Vec::with_capacity(2);
     if strafe > 0.0 {
-        let phase = combat_cycle_phase(CyclePhase::from_cycles(state.gait_phase)?)?;
+        let phase = combat_cycle_phase(state.gait_phase)?;
         let mut sample = cycle_sample(
             SemanticPose::StrafeCycle,
             if direction.x < 0.0 {
@@ -34,7 +34,7 @@ pub(super) fn combat_lower_body_samples(
         samples.push(sample);
     }
     if skip > 0.0 {
-        let phase = combat_cycle_phase(CyclePhase::from_cycles(state.gait_phase)?)?;
+        let phase = combat_cycle_phase(state.gait_phase)?;
         // Forward skip selects the opposite authored contact half-cycle.
         let phase = if direction.y < 0.0 {
             CyclePhase::from_cycles((phase.cycles() + 0.5).rem_euclid(1.0))?
@@ -100,7 +100,7 @@ pub(super) fn upright_locomotion_samples(
     state: &SkeletonState,
 ) -> AnimationValueResult<Vec<PoseSample>> {
     let speed = state.animation_speed();
-    let phase = CyclePhase::from_cycles(state.gait_phase)?.wrapped();
+    let phase = state.gait_phase.wrapped();
     let direction = state.animation_local_velocity().xz().normalize_or_zero();
     let lateral = direction.x.abs();
     let longitudinal = direction.y.abs();

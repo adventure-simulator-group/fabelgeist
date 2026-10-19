@@ -1,6 +1,23 @@
-//! Weighted procedural dive rotation in the authored pelvis reference frame.
+//! Bounded procedural dive rotation in the authored pelvis reference frame.
 
 use super::*;
+
+#[derive(Debug, Clone, Copy)]
+struct DiveInfluence(f32);
+
+impl DiveInfluence {
+    fn from_factor(factor: f32) -> AnimationValueResult<Self> {
+        if !factor.is_finite() {
+            return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::DiveInfluence,
+            });
+        }
+        Ok(Self(factor.clamp(0.0, 1.0)))
+    }
+    fn fraction(self) -> f32 {
+        self.0
+    }
+}
 
 /// Tilts the pelvis and therefore its complete descendant hierarchy toward
 /// dive travel. Dive clips are upper-body-only; their root/pelvis/leg tracks
@@ -29,7 +46,7 @@ pub(in crate::animation) fn apply_procedural_dive_lower_body(
         } else {
             1.0 - smoothstep(DIVE_GROUND_CONTACT_PHASE, 1.0, phase)
         };
-        let amount = match BlendWeight::from_factor(amount) {
+        let amount = match DiveInfluence::from_factor(amount) {
             Ok(amount) => amount,
             Err(error) => {
                 warn!(%error, "Rejected dive pelvis contribution");
@@ -45,9 +62,8 @@ pub(in crate::animation) fn apply_procedural_dive_lower_body(
     }
 }
 
-fn dive_pelvis_lean(direction: DiveDirection, amount: BlendWeight) -> Quat {
-    let angle =
-        procedural_tuning().dive_pelvis_lean_degrees.to_radians() * amount.factor().clamp(0.0, 1.0);
+fn dive_pelvis_lean(direction: DiveDirection, amount: DiveInfluence) -> Quat {
+    let angle = procedural_tuning().dive_pelvis_lean_degrees.to_radians() * amount.fraction();
     match direction {
         DiveDirection::Forward => Quat::from_rotation_x(angle),
         DiveDirection::Backward => Quat::from_rotation_x(-angle),
@@ -60,11 +76,9 @@ fn procedural_dive_pelvis_rotation(
     authored: Quat,
     bind: Quat,
     direction: DiveDirection,
-    amount: BlendWeight,
+    amount: DiveInfluence,
 ) -> Quat {
-    let forward_facing = authored
-        .slerp(bind, amount.factor().clamp(0.0, 1.0))
-        .normalize();
+    let forward_facing = authored.slerp(bind, amount.fraction()).normalize();
     (dive_pelvis_lean(direction, amount) * forward_facing).normalize()
 }
 
@@ -76,16 +90,20 @@ mod tests {
     fn dive_pelvis_lean_tips_up_axis_exactly_toward_travel() {
         let forward = dive_pelvis_lean(
             DiveDirection::Forward,
-            BlendWeight::from_factor(1.0).unwrap(),
+            DiveInfluence::from_factor(1.0).unwrap(),
         ) * Vec3::Y;
         let backward = dive_pelvis_lean(
             DiveDirection::Backward,
-            BlendWeight::from_factor(1.0).unwrap(),
+            DiveInfluence::from_factor(1.0).unwrap(),
         ) * Vec3::Y;
-        let left =
-            dive_pelvis_lean(DiveDirection::Left, BlendWeight::from_factor(1.0).unwrap()) * Vec3::Y;
-        let right = dive_pelvis_lean(DiveDirection::Right, BlendWeight::from_factor(1.0).unwrap())
-            * Vec3::Y;
+        let left = dive_pelvis_lean(
+            DiveDirection::Left,
+            DiveInfluence::from_factor(1.0).unwrap(),
+        ) * Vec3::Y;
+        let right = dive_pelvis_lean(
+            DiveDirection::Right,
+            DiveInfluence::from_factor(1.0).unwrap(),
+        ) * Vec3::Y;
         assert!(forward.z > 0.64 && forward.y > 0.76);
         assert!(backward.z < -0.64 && backward.y > 0.76);
         assert!(left.x > 0.64 && left.y > 0.76);
@@ -106,9 +124,9 @@ mod tests {
                 guard,
                 bind,
                 direction,
-                BlendWeight::from_factor(1.0).unwrap(),
+                DiveInfluence::from_factor(1.0).unwrap(),
             );
-            let expected = (dive_pelvis_lean(direction, BlendWeight::from_factor(1.0).unwrap())
+            let expected = (dive_pelvis_lean(direction, DiveInfluence::from_factor(1.0).unwrap())
                 * bind)
                 .normalize();
             assert!(actual.angle_between(expected) < 0.0001);
@@ -122,7 +140,7 @@ mod tests {
             contact,
             Quat::IDENTITY,
             DiveDirection::Backward,
-            BlendWeight::from_factor(0.0).unwrap(),
+            DiveInfluence::from_factor(0.0).unwrap(),
         );
         assert!(actual.angle_between(contact) < 0.0001);
     }

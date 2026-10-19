@@ -154,7 +154,7 @@ pub(super) fn semantic_foot_ik_weights(
                 PoseSampling::Timeline { .. },
             ) => Vec2::ZERO,
             (SemanticPose::WalkContact, PoseSampling::Cycle { phase }) => {
-                let (left, right) = gait_support_weights(walk_locomotion_profile(), phase.cycles());
+                let (left, right) = gait_support_weights(walk_locomotion_profile(), phase);
                 Vec2::new(left, right)
             }
             (SemanticPose::RunContact, PoseSampling::Cycle { phase }) => {
@@ -165,7 +165,7 @@ pub(super) fn semantic_foot_ik_weights(
                     support_phase_radius: 0.11,
                     ..run_locomotion_profile()
                 };
-                let (left, right) = gait_support_weights(contact_profile, phase.cycles());
+                let (left, right) = gait_support_weights(contact_profile, phase);
                 Vec2::new(left, right)
             }
             _ => Vec2::ZERO,
