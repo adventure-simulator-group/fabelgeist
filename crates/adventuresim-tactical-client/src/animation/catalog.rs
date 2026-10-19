@@ -58,7 +58,7 @@ pub(super) struct PackBuilder {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub(super) enum CatalogError {
+pub(crate) enum CatalogError {
     InvalidAssetDirectory(String),
     InvalidMotionStem(String),
     DuplicatePose(SemanticPose),
