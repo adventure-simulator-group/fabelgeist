@@ -1,3 +1,4 @@
+use crate::linear_speed::PositiveSpeed;
 use serde::{Deserialize, Serialize};
 
 /// Authored conversion from physical work into the single visible fatigue pool.
@@ -14,7 +15,7 @@ pub struct CombatFatigueParameters {
     pub maximum_action_seconds: f32,
     pub attack_travel_metres: f32,
     pub defense_travel_metres: f32,
-    pub dodge_speed_metres_per_second: f32,
+    pub dodge_speed_metres_per_second: PositiveSpeed,
 }
 
 impl CombatFatigueParameters {
@@ -30,7 +31,6 @@ impl CombatFatigueParameters {
             self.maximum_action_seconds,
             self.attack_travel_metres,
             self.defense_travel_metres,
-            self.dodge_speed_metres_per_second,
         ];
         if positive
             .iter()

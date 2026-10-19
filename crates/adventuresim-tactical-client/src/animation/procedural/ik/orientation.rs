@@ -1,23 +1,13 @@
 //! Knee-pole, anatomical-yaw, slope, airborne-foot, and final rotation policy.
 
-use super::foot_roll::run_foot_roll_degrees;
+use super::foot_roll::run_foot_roll_world_rotation;
 use super::*;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
 
 // A 576 degree/second cap is nine degrees at the 64 Hz presentation cadence,
 // retaining numeric margin below the ten-degree review gate. Contact and swing
 // orientation share this boundary so terrain alignment can never introduce
 // the old one-frame ankle snap.
-
-pub(in crate::animation::procedural) fn canonical_knee_pole_world(
-    foot: LeadFoot,
-    rig_rotation: Quat,
-) -> Vec3 {
-    let side = match foot {
-        LeadFoot::Left => -1.0,
-        LeadFoot::Right => 1.0,
-    };
-    pole_to_world(rig_rotation, canonical_knee_pole(side))
-}
 
 pub(in crate::animation::procedural) fn authored_knee_pole_world(
     hip: Vec3,
@@ -322,6 +312,7 @@ pub(in crate::animation::procedural) fn previous_airborne_foot_orientation(
 pub(in crate::animation::procedural) fn finalize_leg_rotation_chains(
     rig: &HumanoidRig,
     skeleton: &SkeletonState,
+    speed: NonnegativeSpeed,
     rig_rotation: Quat,
     memory: &mut LegIkMemory,
     evaluation_advances: bool,
@@ -330,7 +321,7 @@ pub(in crate::animation::procedural) fn finalize_leg_rotation_chains(
     airborne_just_released: [bool; 2],
     parents: &Query<&ChildOf>,
     transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,
-) {
+) -> AnimationValueResult<()> {
     for (leg_index, (upper_role, lower_role, foot_role, foot_side)) in [
         (
             BoneRole::ThighLeft,
@@ -394,29 +385,18 @@ pub(in crate::animation::procedural) fn finalize_leg_rotation_chains(
         if evaluation_advances
             && let Some(foot_snapshot) = snapshot(foot, parents, &transforms.p0())
         {
-            let base_world = foot_snapshot.global.rotation();
-            let roll_degrees = run_foot_roll_degrees(skeleton, foot_side);
-            let desired_world = if roll_degrees.abs() > 0.0 {
-                let lateral = (rig_rotation * Vec3::X).normalize_or_zero();
-                Quat::from_axis_angle(lateral, roll_degrees.to_radians()) * base_world
-            } else {
-                base_world
-            };
-            let previous_world = if foot_side == LeadFoot::Left {
-                previous_airborne_foot_orientation(
-                    memory.left_foot_orientation_world,
-                    memory.left_last_rendered_foot_rotation_world,
-                    airborne_just_released[leg_index],
-                )
-            } else {
-                previous_airborne_foot_orientation(
-                    memory.right_foot_orientation_world,
-                    memory.right_last_rendered_foot_rotation_world,
-                    airborne_just_released[leg_index],
-                )
-            };
+            let desired_world = run_foot_roll_world_rotation(
+                skeleton,
+                speed,
+                foot_side,
+                rig_rotation,
+                foot_snapshot.global.rotation(),
+            )?;
+            let previous_world =
+                previous_foot_orientation(memory, foot_side, airborne_just_released[leg_index]);
             let final_world = if airborne_orientation_owned[leg_index] || contact_blend_active {
-                let angular_speed = if locomotion_profile(skeleton).gait == LocomotionGait::Run
+                let angular_speed = if locomotion_profile(skeleton, speed)?.gait
+                    == LocomotionGait::Run
                     && airborne_just_released[leg_index]
                 {
                     ik_tuning().first_run_release_foot_rotation_speed_degrees_per_second
@@ -462,6 +442,7 @@ pub(in crate::animation::procedural) fn finalize_leg_rotation_chains(
             memory.right_rotation_chain = Some(resolved);
         }
     }
+    Ok(())
 }
 
 pub(in crate::animation::procedural) fn final_leg_rotation_chain(
@@ -640,4 +621,23 @@ pub(in crate::animation::procedural) fn anatomical_knee_yaw_posture_is_valid(
     skeleton: &SkeletonState,
 ) -> bool {
     !skeleton.body().is_downed() && !skeleton.is_posture_transitioning() && !skeleton.is_quickstep()
+}
+
+fn previous_foot_orientation(
+    memory: &LegIkMemory,
+    foot: LeadFoot,
+    just_released: bool,
+) -> Option<Quat> {
+    let (current, rendered) = if foot == LeadFoot::Left {
+        (
+            memory.left_foot_orientation_world,
+            memory.left_last_rendered_foot_rotation_world,
+        )
+    } else {
+        (
+            memory.right_foot_orientation_world,
+            memory.right_last_rendered_foot_rotation_world,
+        )
+    };
+    previous_airborne_foot_orientation(current, rendered, just_released)
 }

@@ -251,7 +251,7 @@ impl CombatTargeting<'_, '_> {
         attacker: Entity,
         reach: (f32, f32),
         surface_range: bool,
-        lunge_timing: (f32, f32, f32),
+        lunge_timing: (adventuresim_core::linear_speed::NonnegativeSpeed, f32, f32),
     ) -> (Option<AttackTarget>, Option<Vec3>, Dir3) {
         let Ok((transform, collider, dimensions, attacker_side, camera)) =
             self.attackers.get(attacker)

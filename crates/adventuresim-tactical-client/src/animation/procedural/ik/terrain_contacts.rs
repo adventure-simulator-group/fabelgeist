@@ -1,6 +1,8 @@
 //! Ordinary and run contact acquisition, release, reach, and clearance policy.
 
 use super::*;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
+use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 pub(in crate::animation::procedural) use approach::run_contact_approach_progress;
 pub(in crate::animation::procedural) use foot_clearance::{
     ordinary_terrain_target, run_airborne_clearance, run_airborne_clearance_for_sample,
@@ -23,45 +25,16 @@ mod foot_clearance;
 // below the measured knee-singularity budget; ordinary full-swing plans retain
 // their desired footprint because their available budget is larger.
 
-pub(in crate::animation::procedural) fn run_airborne_owner_target_speed(
-    just_released: bool,
-) -> f32 {
-    if just_released {
-        // The first uphill flight sample must satisfy the semantic 5 cm sole
-        // floor and the visible 9.5 cm foot bound simultaneously. A 9 cm
-        // search sphere can contain no terrain-valid point, causing the
-        // fallback to exceed both its own budget and the rendered gate. Use
-        // the remaining sub-gate margin only for this release projection.
-        ik_tuning().run_first_release_owner_step_metres.metres() * ik_tuning().continuity_sample_hz
-    } else {
-        ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz
-    }
-}
-
-pub(in crate::animation::procedural) fn run_airborne_owner_target_speed_for_sample(
-    just_released: bool,
-    settle_cancelled_for_restart: bool,
-) -> f32 {
-    if settle_cancelled_for_restart {
-        // A cancelled settle already owns a bounded visible ankle and knee
-        // chain. Return that chain to ordinary locomotion at the settle release
-        // budget for the first restart sample; Run's wider swing budget can
-        // amplify an otherwise valid ankle step past the knee continuity gate
-        // near extension.
-        ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz
-    } else {
-        run_airborne_owner_target_speed(just_released)
-    }
-}
-
 pub(in crate::animation::procedural) fn uses_run_airborne_motion_budget(
     gait: LocomotionGait,
-    planar_speed: f32,
+    planar_speed: NonnegativeSpeed,
 ) -> bool {
     gait == LocomotionGait::Run
-        || planar_speed
-            >= (walk_locomotion_profile().reference_speed
-                + run_locomotion_profile().reference_speed)
+        || planar_speed.metres_per_second()
+            >= (walk_locomotion_profile()
+                .reference_speed
+                .metres_per_second()
+                + run_locomotion_profile().reference_speed.metres_per_second())
                 * 0.5
 }
 
@@ -79,6 +52,7 @@ pub(in crate::animation::procedural) fn bound_unacquired_run_support_release_tar
     rig_origin: Vec3,
     rig_rotation: Quat,
     delta_seconds: AnimationElapsed,
+    target_speed: NonnegativeSpeed,
     minimum_world_y: impl Fn(Vec2) -> Option<f32>,
 ) -> Vec3 {
     if run_budget && !has_plan && !acquired && release_owned {
@@ -88,7 +62,7 @@ pub(in crate::animation::procedural) fn bound_unacquired_run_support_release_tar
             rig_origin,
             rig_rotation,
             delta_seconds,
-            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            target_speed,
             minimum_world_y,
         )
     } else {
@@ -190,22 +164,28 @@ pub(in crate::animation::procedural) fn commit_resolved_unacquired_support_relea
 }
 
 pub(in crate::animation::procedural) fn update_measured_owner_planar_speed(
-    retained_speed: f32,
+    retained_speed: Option<NonnegativeSpeed>,
     previous_origin: Option<Vec3>,
     current_origin: Vec3,
     delta_seconds: AnimationElapsed,
     evaluation_advances: bool,
     owner_discontinuous: bool,
-) -> f32 {
+) -> AnimationValueResult<Option<NonnegativeSpeed>> {
     if !evaluation_advances {
-        retained_speed
+        Ok(retained_speed)
     } else if owner_discontinuous || delta_seconds.is_zero() {
-        0.0
+        Ok(None)
     } else {
         previous_origin
-            .map(|previous| current_origin.xz().distance(previous.xz()) / delta_seconds.seconds())
-            .filter(|speed| speed.is_finite())
-            .unwrap_or(0.0)
+            .map(|previous| {
+                NonnegativeSpeed::from_metres_per_second(
+                    current_origin.xz().distance(previous.xz()) / delta_seconds.seconds(),
+                )
+                .map_err(|_| AnimationValueError::Overflow {
+                    quantity: AnimationQuantity::Speed,
+                })
+            })
+            .transpose()
     }
 }
 
@@ -389,14 +369,14 @@ pub(in crate::animation::procedural) fn release_start_owner_target(
 pub(in crate::animation::procedural) fn bound_late_run_contact(
     visible_start: Vec3,
     desired_contact: Vec3,
-    speed: f32,
+    speed: NonnegativeSpeed,
     phase_to_contact: CycleDelta,
     contact_ready_phase: f32,
 ) -> Vec3 {
     let remaining_phase = (phase_to_contact.cycles() - contact_ready_phase).max(0.0);
     let root_travel = remaining_phase * ordinary_step_distance(speed) * 2.0;
-    let remaining_seconds = if speed > 0.05 {
-        root_travel / speed
+    let remaining_seconds = if speed > STATIONARY_ANIMATION_SPEED_LIMIT {
+        root_travel / speed.metres_per_second()
     } else {
         0.0
     };
@@ -421,13 +401,13 @@ pub(in crate::animation::procedural) fn late_run_plan_requires_bound(
 
 pub(in crate::animation::procedural) fn unplanned_run_support_requires_flight(
     gait: LocomotionGait,
-    speed: f32,
+    speed: NonnegativeSpeed,
     nominal_support: f32,
     acquired: bool,
     planned_contact: Option<Vec3>,
 ) -> bool {
     gait == LocomotionGait::Run
-        && speed > 0.05
+        && speed > STATIONARY_ANIMATION_SPEED_LIMIT
         && terrain_leg_has_support(nominal_support)
         && !acquired
         && planned_contact.is_none()
@@ -599,7 +579,7 @@ pub(in crate::animation::procedural) fn ordinary_contact_target(
     rig_rotation: Quat,
     projected_com: Vec3,
     velocity: Vec3,
-    speed: f32,
+    speed: NonnegativeSpeed,
     phase_to_contact: CycleDelta,
     side: f32,
 ) -> Vec3 {
@@ -628,7 +608,7 @@ pub(in crate::animation::procedural) fn reachable_run_contact_target(
     mut candidate: Vec3,
     current_upper_root: Vec3,
     velocity: Vec3,
-    speed: f32,
+    speed: NonnegativeSpeed,
     phase_to_contact: CycleDelta,
     contact_ready_phase: f32,
     maximum_reach: f32,
@@ -750,9 +730,9 @@ pub(in crate::animation::procedural) fn advance_scalar_at_speed(
     current: f32,
     desired: f32,
     delta_seconds: AnimationElapsed,
-    speed: f32,
+    speed: adventuresim_core::linear_speed::SignedSpeed,
 ) -> f32 {
-    let maximum_step = speed.max(0.0) * delta_seconds.seconds();
+    let maximum_step = speed.nonnegative_part().metres_per_second() * delta_seconds.seconds();
     current + (desired - current).clamp(-maximum_step, maximum_step)
 }
 
@@ -762,7 +742,7 @@ pub(in crate::animation::procedural) fn advance_run_airborne_world_target(
     rig_origin: Vec3,
     rig_rotation: Quat,
     delta_seconds: AnimationElapsed,
-    speed: f32,
+    speed: NonnegativeSpeed,
     minimum_ankle_y_at: impl Fn(Vec2) -> Option<f32>,
 ) -> Vec3 {
     let Some(previous_owner) = previous_owner.filter(|target| target.is_finite()) else {
@@ -773,7 +753,7 @@ pub(in crate::animation::procedural) fn advance_run_airborne_world_target(
         return target;
     };
     let start_world = rig_origin + rig_rotation * previous_owner;
-    let maximum_step = speed.max(0.0) * delta_seconds.seconds();
+    let maximum_step = speed.metres_per_second() * delta_seconds.seconds();
     let cleared_at = |progress: f32| {
         let mut target = start_world.lerp(desired_world, progress.clamp(0.0, 1.0));
         if let Some(minimum_y) = minimum_ankle_y_at(target.xz()) {
@@ -917,40 +897,6 @@ pub(in crate::animation::procedural) fn terrain_maximum_reach(
                 .to_radians()
                 .cos())
     .sqrt()
-}
-
-/// World-space plant confidence used by diagnostics. Procedural guard movement
-/// has exactly one support foot while the other follows its clearance arc.
-pub(crate) fn locomotion_support_weights(skeleton: &SkeletonState) -> (f32, f32) {
-    let speed = skeleton.animation_speed();
-    if !skeleton.is_grounded() {
-        return (0.0, 0.0);
-    }
-    if !matches!(
-        skeleton.action_kind(),
-        SkeletonAction::None | SkeletonAction::Attack
-    ) {
-        return (0.0, 0.0);
-    }
-    if speed <= 0.05 {
-        return (1.0, 1.0);
-    }
-    if skeleton.weapon_guard() == WeaponGuardState::Raised
-        && skeleton.raised_locomotion().is_moving()
-    {
-        match skeleton.contact_foot {
-            LeadFoot::Left => (1.0, 0.0),
-            LeadFoot::Right => (0.0, 1.0),
-        }
-    } else {
-        let profile = locomotion_profile(skeleton);
-        let (left, right) = gait_support_weights(profile, skeleton.gait_phase);
-        if profile.gait == LocomotionGait::Run {
-            (contact_support_weight(left), contact_support_weight(right))
-        } else {
-            exclusive_ground_support(left, right, skeleton.gait_phase)
-        }
-    }
 }
 
 pub(in crate::animation::procedural) fn exclusive_ground_support(

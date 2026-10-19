@@ -1,4 +1,5 @@
 use super::*;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
 
 mod coordination_tests {
     // These contracts deliberately stay beside the coordinator: they exercise
@@ -446,7 +447,7 @@ mod coordination_tests {
 
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
-            5.5,
+            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
         )
         .unwrap()
@@ -525,7 +526,9 @@ mod coordination_tests {
             + ik_tuning().run_contact_chain_settle_phase.fraction();
         let reach = 0.953;
         let phase_to_contact = 0.744;
-        let travel_per_phase = ordinary_step_distance(5.5) * 2.0;
+        let travel_per_phase = ordinary_step_distance(
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
+        ) * 2.0;
         let downhill = |xz: Vec2| Some(2.38 + xz.y * 0.08);
         let current_height = downhill(upper.xz()).unwrap();
         let predicted_roots = [
@@ -546,7 +549,7 @@ mod coordination_tests {
             candidate,
             upper,
             velocity,
-            5.5,
+            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             CycleDelta::from_cycles(phase_to_contact).unwrap(),
             ready,
             reach,
@@ -562,7 +565,7 @@ mod coordination_tests {
                 candidate,
                 upper,
                 velocity,
-                5.5,
+                NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
                 CycleDelta::from_cycles(phase_to_contact).unwrap(),
                 ready,
                 reach,
@@ -581,7 +584,7 @@ mod coordination_tests {
             flat_candidate,
             upper,
             velocity,
-            5.5,
+            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             CycleDelta::from_cycles(phase_to_contact).unwrap(),
             ready,
             reach,
@@ -935,7 +938,7 @@ mod coordination_tests {
         let bounded = bound_late_run_contact(
             start,
             desired,
-            5.5,
+            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             CycleDelta::from_cycles(phase_to_contact).unwrap(),
             ready,
         );
@@ -943,7 +946,7 @@ mod coordination_tests {
 
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
-            5.5,
+            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
         )
         .unwrap()
@@ -990,7 +993,11 @@ mod coordination_tests {
             Some(visible_release),
             stale_same_lobe_plan,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                ik_tuning().airborne_release_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
+            )
+            .unwrap(),
         );
         assert!(
             followed.distance(visible_release)
@@ -1014,28 +1021,28 @@ mod coordination_tests {
     fn unplanned_run_support_lobe_waits_for_true_flight() {
         assert!(unplanned_run_support_requires_flight(
             LocomotionGait::Run,
-            5.5,
+            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             0.8,
             false,
             None,
         ));
         assert!(!unplanned_run_support_requires_flight(
             LocomotionGait::Run,
-            5.5,
+            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             0.8,
             true,
             None,
         ));
         assert!(!unplanned_run_support_requires_flight(
             LocomotionGait::Run,
-            5.5,
+            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             0.8,
             false,
             Some(Vec3::NEG_Z),
         ));
         assert!(!unplanned_run_support_requires_flight(
             LocomotionGait::Run,
-            0.0,
+            NonnegativeSpeed::from_metres_per_second(0.0).unwrap(),
             0.8,
             false,
             None,
@@ -1166,7 +1173,10 @@ mod coordination_tests {
                 < 0.0001
         );
         assert_eq!(
-            settle_target_speed(settle),
+            FootTargetSpeeds::configured()
+                .unwrap()
+                .settle(settle)
+                .metres_per_second(),
             (ik_tuning().raised_settle_step_metres.metres() * ik_tuning().continuity_sample_hz)
         );
         assert!(
@@ -1261,11 +1271,17 @@ mod coordination_tests {
     #[test]
     fn cancelled_settle_returns_to_run_inside_the_existing_knee_budget() {
         assert_eq!(
-            run_airborne_owner_target_speed_for_sample(false, true),
+            FootTargetSpeeds::configured()
+                .unwrap()
+                .run_sample(false, true)
+                .metres_per_second(),
             (ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz)
         );
         assert_eq!(
-            run_airborne_owner_target_speed_for_sample(false, false),
+            FootTargetSpeeds::configured()
+                .unwrap()
+                .run_sample(false, false)
+                .metres_per_second(),
             (ik_tuning().run_airborne_owner_step_metres.metres()
                 * ik_tuning().continuity_sample_hz)
         );
@@ -1289,7 +1305,9 @@ mod coordination_tests {
             current_root,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            run_airborne_owner_target_speed_for_sample(false, true),
+            FootTargetSpeeds::configured()
+                .unwrap()
+                .run_sample(false, true),
             |_| Some(-100.0),
         );
         assert!(
@@ -1362,7 +1380,11 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                ik_tuning().airborne_release_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
+            )
+            .unwrap(),
             |_| Some(minimum),
         );
         assert!(resolved.y + 0.000001 >= minimum);
@@ -1396,7 +1418,11 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                ik_tuning().airborne_release_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
+            )
+            .unwrap(),
             |_| Some(measured_ankle_sole_offset_metres().metres()),
         );
         assert!(contact_candidate.distance_squared(contact) <= 0.000001);
@@ -1407,7 +1433,11 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                ik_tuning().airborne_release_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
+            )
+            .unwrap(),
             |_| Some(0.14365956),
         );
         assert!(flight_candidate.distance_squared(contact) > 0.000001);
@@ -1742,7 +1772,11 @@ mod coordination_tests {
             memory.left_foot_world_target,
             landing,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                ik_tuning().airborne_release_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
+            )
+            .unwrap(),
         );
         assert!(
             next.distance(prior_rendered)
@@ -1938,7 +1972,7 @@ mod coordination_tests {
         assert!(run_swing_clearance(CycleDelta::from_cycles(0.82).unwrap(), Some(0.0)) >= 0.05);
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
-            5.5,
+            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
         )
         .unwrap()
@@ -2074,7 +2108,7 @@ mod coordination_tests {
         );
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
-            5.5,
+            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
         )
         .unwrap()
@@ -2106,7 +2140,7 @@ mod coordination_tests {
             + ik_tuning().run_contact_chain_settle_phase.fraction();
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
-            5.5,
+            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
         )
         .unwrap()
@@ -2137,7 +2171,7 @@ mod coordination_tests {
             + ik_tuning().run_contact_chain_settle_phase.fraction();
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
-            5.5,
+            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
         )
         .unwrap()
@@ -2276,7 +2310,11 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
+            )
+            .unwrap(),
             |_| Some(endpoint.y),
         );
         assert!(descended.y < prior_floor.y);
@@ -2381,7 +2419,7 @@ mod coordination_tests {
             uphill_next_root,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            run_airborne_owner_target_speed(true),
+            FootTargetSpeeds::configured().unwrap().run_airborne(true),
             uphill_minimum_y,
         );
         let uphill_release_owner = uphill_release - uphill_next_root;
@@ -2403,9 +2441,19 @@ mod coordination_tests {
             (uphill_release_toe - uphill_previous_toe - (uphill_next_root - uphill_previous_root))
                 .length();
         assert!(toe_root_relative_step <= 0.095);
-        assert!(run_airborne_owner_target_speed(true) / ik_tuning().continuity_sample_hz < 0.095);
+        assert!(
+            FootTargetSpeeds::configured()
+                .unwrap()
+                .run_airborne(true)
+                .metres_per_second()
+                / ik_tuning().continuity_sample_hz
+                < 0.095
+        );
         assert_eq!(
-            run_airborne_owner_target_speed(false),
+            FootTargetSpeeds::configured()
+                .unwrap()
+                .run_airborne(false)
+                .metres_per_second(),
             (ik_tuning().run_airborne_owner_step_metres.metres()
                 * ik_tuning().continuity_sample_hz)
         );
@@ -2487,7 +2535,11 @@ mod coordination_tests {
             next_root,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
+            )
+            .unwrap(),
             |_| Some(f32::NEG_INFINITY),
         );
         let target_step = (advanced - next_root).distance(previous_owner);
@@ -2535,7 +2587,8 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0).unwrap(),
-            maximum_step,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(maximum_step)
+                .unwrap(),
             minimum_y,
         );
         assert!(target.x.abs() >= 0.02);
@@ -2557,8 +2610,11 @@ mod coordination_tests {
                 Some(owner_target),
                 desired,
                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-                ik_tuning().run_airborne_owner_step_metres.metres()
-                    * ik_tuning().continuity_sample_hz,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                    ik_tuning().run_airborne_owner_step_metres.metres()
+                        * ik_tuning().continuity_sample_hz,
+                )
+                .unwrap(),
             );
             assert!(
                 next.distance(owner_target)
@@ -2576,8 +2632,11 @@ mod coordination_tests {
                 Some(owner_target),
                 endpoint,
                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-                ik_tuning().run_airborne_owner_step_metres.metres()
-                    * ik_tuning().continuity_sample_hz,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                    ik_tuning().run_airborne_owner_step_metres.metres()
+                        * ik_tuning().continuity_sample_hz,
+                )
+                .unwrap(),
             );
         }
         assert!(owner_target.distance(endpoint) < 0.0001);
@@ -2593,19 +2652,25 @@ mod coordination_tests {
         let desired_owner = desired_solve - after_root;
         assert!(before_owner.distance(desired_owner) > 0.095);
         let measured_speed = update_measured_owner_planar_speed(
-            0.0,
+            None,
             Some(before_root),
             after_root,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
             true,
             false,
-        );
-        assert!((measured_speed - 5.5).abs() <= 0.0001);
+        )
+        .unwrap();
+        assert!((measured_speed.unwrap().metres_per_second() - 5.5).abs() <= 0.0001);
         assert!(uses_run_airborne_motion_budget(
             LocomotionGait::Walk,
-            0.5_f32.max(measured_speed),
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(0.5)
+                .unwrap()
+                .max(measured_speed.unwrap()),
         ));
-        assert!(!uses_run_airborne_motion_budget(LocomotionGait::Walk, 2.0));
+        assert!(!uses_run_airborne_motion_budget(
+            LocomotionGait::Walk,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0).unwrap()
+        ));
         assert_eq!(
             update_measured_owner_planar_speed(
                 measured_speed,
@@ -2614,7 +2679,8 @@ mod coordination_tests {
                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
                 false,
                 false,
-            ),
+            )
+            .unwrap(),
             measured_speed,
         );
         assert_eq!(
@@ -2625,8 +2691,9 @@ mod coordination_tests {
                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
                 true,
                 true,
-            ),
-            0.0,
+            )
+            .unwrap(),
+            None,
         );
 
         let resolved = advance_run_airborne_world_target(
@@ -2635,7 +2702,11 @@ mod coordination_tests {
             after_root,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
+            )
+            .unwrap(),
             |_| Some(-100.0),
         );
         let resolved_owner = resolved - after_root;
@@ -2658,6 +2729,7 @@ mod coordination_tests {
             after_root,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
+            FootTargetSpeeds::configured().unwrap().run_airborne,
             |_| Some(-100.0),
         );
         assert!(
@@ -2678,6 +2750,7 @@ mod coordination_tests {
                 after_root,
                 Quat::IDENTITY,
                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
+                FootTargetSpeeds::configured().unwrap().run_airborne,
                 |_| Some(-100.0)
             ),
             desired_solve,
@@ -2805,7 +2878,11 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
+            )
+            .unwrap(),
             minimum_y,
         );
         assert!(resolved.is_finite());
@@ -2829,7 +2906,11 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
+            )
+            .unwrap(),
             |_| Some(0.085),
         );
         assert!(
@@ -2876,7 +2957,11 @@ mod coordination_tests {
             current_root,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
+            )
+            .unwrap(),
             |_| Some(0.085),
         );
         assert!(resolved.distance(fixed_contact) < 0.0001);
@@ -2943,7 +3028,11 @@ mod coordination_tests {
             current_root,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
+            )
+            .unwrap(),
             |_| Some(measured_ankle_sole_offset_metres().metres()),
         );
         assert!(landed.distance(transported) < 0.0001);
@@ -3015,26 +3104,13 @@ mod coordination_tests {
             current_root,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
+            )
+            .unwrap(),
             |_| Some(reachable_contact.y),
         );
         assert!(landed.distance(reachable_contact) < 0.0001);
-    }
-
-    #[test]
-    fn attack_uses_the_live_guard_support_weights() {
-        let mut skeleton = SkeletonState::default()
-            .with_weapon_guard(WeaponGuardState::Raised)
-            .with_local_velocity(Vec3::NEG_Z * 2.0)
-            .with_raised_locomotion(RaisedLocomotionIntent::moving(Vec2::NEG_Y, 2.0));
-        let guard_weights = locomotion_support_weights(&skeleton);
-        skeleton
-            .begin_attack(
-                AttackSpec::new(AttackAnimation::Swing),
-                adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
-                adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64),
-            )
-            .unwrap();
-        assert_eq!(locomotion_support_weights(&skeleton), guard_weights);
     }
 }

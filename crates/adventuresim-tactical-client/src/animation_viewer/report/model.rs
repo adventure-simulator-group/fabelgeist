@@ -182,7 +182,7 @@ pub(in crate::animation_viewer) struct FrameSample {
     pub(in crate::animation_viewer) scenario: ScenarioMetadata<'static>,
     pub(in crate::animation_viewer) scenario_frame: usize,
     pub(in crate::animation_viewer) time_seconds: AnimationElapsed,
-    pub(in crate::animation_viewer) speed_metres_per_second: f32,
+    pub(in crate::animation_viewer) speed_metres_per_second: SignedSpeed,
     pub(in crate::animation_viewer) gait_phase: CyclePhase,
     pub(in crate::animation_viewer) locomotion_sample_tick: AnimationSampleTick,
     pub(in crate::animation_viewer) body_acceleration: [f32; 3],

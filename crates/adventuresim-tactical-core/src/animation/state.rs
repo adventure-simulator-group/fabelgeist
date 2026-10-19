@@ -5,11 +5,14 @@ pub use projection::{
     SkeletonLocomotionInput, project_skeleton_locomotion,
     project_skeleton_locomotion_with_body_rotation, project_skeleton_locomotion_with_intent,
 };
+pub use raised_locomotion::RaisedLocomotionIntent;
+use raised_locomotion::advance_raised_locomotion_intent;
 pub use turn_deadline::body_turn_speed_for_deadline;
 
 mod action_timeline;
 mod guard_footwork;
 mod projection;
+mod raised_locomotion;
 mod turn_deadline;
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize, Reflect)]
@@ -97,95 +100,6 @@ pub enum StanceState {
     Raised {
         locomotion: RaisedLocomotionIntent,
     },
-}
-
-/// Compact authoritative input for client-side raised-guard foot placement.
-/// The authority replicates only observed motion. Exact visual plants, swing
-/// ownership, and progress are client presentation state, as in Overgrowth's
-/// velocity-driven foot stance.
-/// This invariant-bearing type intentionally does not implement Bevy reflection;
-/// reflected field mutation would bypass its validated constructors.
-#[derive(Debug, Clone, Copy, PartialEq, Serialize)]
-pub struct RaisedLocomotionIntent(RaisedLocomotionKind);
-
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-enum RaisedLocomotionKind {
-    Planted,
-    Moving { local_direction: Vec2, speed: f32 },
-}
-
-#[derive(Deserialize)]
-struct RaisedLocomotionWire(RaisedLocomotionKind);
-
-impl<'de> Deserialize<'de> for RaisedLocomotionIntent {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let RaisedLocomotionWire(value) = RaisedLocomotionWire::deserialize(deserializer)?;
-        Ok(match value {
-            RaisedLocomotionKind::Planted => Self::planted(),
-            RaisedLocomotionKind::Moving {
-                local_direction,
-                speed,
-            } => Self::moving(local_direction, speed),
-        })
-    }
-}
-
-impl Default for RaisedLocomotionIntent {
-    fn default() -> Self {
-        Self::planted()
-    }
-}
-
-impl RaisedLocomotionIntent {
-    pub fn planted() -> Self {
-        Self(RaisedLocomotionKind::Planted)
-    }
-
-    /// Creates validated moving intent. Invalid or effectively stationary
-    /// input becomes planted while retaining its handoff identity.
-    pub fn moving(local_direction: Vec2, speed: f32) -> Self {
-        let direction = local_direction.normalize_or_zero();
-        if !local_direction.is_finite()
-            || !speed.is_finite()
-            || direction == Vec2::ZERO
-            || speed <= 0.05
-        {
-            return Self::planted();
-        }
-        Self(RaisedLocomotionKind::Moving {
-            local_direction: direction,
-            speed,
-        })
-    }
-
-    pub fn is_moving(self) -> bool {
-        matches!(self.0, RaisedLocomotionKind::Moving { .. })
-    }
-
-    pub fn local_direction(self) -> Vec2 {
-        match self.0 {
-            RaisedLocomotionKind::Moving {
-                local_direction, ..
-            } => local_direction,
-            RaisedLocomotionKind::Planted => Vec2::ZERO,
-        }
-    }
-
-    pub fn speed(self) -> f32 {
-        match self.0 {
-            RaisedLocomotionKind::Moving { speed, .. } => speed,
-            RaisedLocomotionKind::Planted => 0.0,
-        }
-    }
-
-    pub fn local_velocity(self) -> Vec3 {
-        let direction = self.local_direction();
-        Vec3::new(direction.x, 0.0, direction.y) * self.speed()
-    }
 }
 
 /// Server-authored planar contact positions for raised-guard footwork. Values
@@ -2222,26 +2136,6 @@ impl SkeletonState {
         }
     }
 
-    /// Presentation motion finishes an in-flight raised-guard step after
-    /// gameplay velocity stops. Speed otherwise follows authoritative motion.
-    pub fn animation_local_velocity(&self) -> Vec3 {
-        let raised = self.raised_locomotion();
-        if self.weapon_guard() == WeaponGuardState::Raised && raised.is_moving() {
-            raised.local_velocity()
-        } else {
-            self.local_velocity
-        }
-    }
-
-    pub fn animation_speed(&self) -> f32 {
-        let physical = self.animation_local_velocity().xz().length();
-        if self.is_downed_turning() {
-            physical.max(0.8)
-        } else {
-            physical
-        }
-    }
-
     pub fn quickstep_is_launched(&self) -> bool {
         self.is_quickstep() && self.action_phase() >= 0.50
     }
@@ -2639,36 +2533,11 @@ pub(super) fn opposite_foot(foot: LeadFoot) -> LeadFoot {
     }
 }
 
-fn advance_raised_locomotion_intent(
-    skeleton: &mut SkeletonState,
-    observed_local_velocity: Vec3,
-    requested_local_direction: Option<Vec2>,
-) {
-    let intent = skeleton.raised_locomotion();
-    let observed_speed = observed_local_velocity.xz().length();
-    let observed = (observed_speed > 0.05).then(|| {
-        RaisedLocomotionIntent::moving(
-            Vec2::new(observed_local_velocity.x, observed_local_velocity.z),
-            observed_speed,
-        )
-    });
-    let requested = requested_local_direction.and_then(|direction| direction.try_normalize());
-    let moving = observed.or_else(|| {
-        requested
-            .map(|direction| RaisedLocomotionIntent::moving(direction, intent.speed().max(0.051)))
-    });
-    skeleton.set_raised_locomotion(match moving {
-        Some(moving) => moving,
-        None if skeleton.raised_footwork.step().is_some() => intent,
-        None => RaisedLocomotionIntent::planted(),
-    });
-}
-
 // Measured hip-knee-ankle chain of the current humanoid rig. The animation
 // client uses its live rig measurement; this is the server-side fallback until
 // anatomical dimensions become part of character state.
 /// Ground distance covered by one procedural combat-stance contact interval.
-pub fn guard_step_length(_speed: f32) -> f32 {
+pub fn guard_step_length() -> f32 {
     guard_contact_travel_distance(
         guard_footwork_config().reference_leg_length_metres,
         Vec2::NEG_Y,

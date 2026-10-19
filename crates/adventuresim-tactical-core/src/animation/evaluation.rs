@@ -31,11 +31,11 @@ pub struct AnimationEvaluation {
     /// lets a raised upper-body guard retain an ordinary walk/run blend.
     pub lower_body: Vec<PoseSample>,
     pub action: Vec<PoseSample>,
-    pub movement_speed: f32,
+    pub movement_speed: NonnegativeSpeed,
     pub gait_phase: CyclePhase,
     pub airborne_phase: f32,
     pub action_phase: f32,
-    pub attack_target_height: f32,
+    pub attack_target_height: UnitInterval,
 }
 
 /// One weighted authored pose contributing to the FK result.
@@ -80,29 +80,31 @@ impl AnimationEvaluation {
     /// Evaluates semantic FK inputs. Clip resolution, bone masks, IK, and the
     /// final procedural pass happen after this deterministic selection stage.
     pub fn from_skeleton(state: &SkeletonState) -> AnimationValueResult<Self> {
-        let speed = state.animation_speed();
+        let speed = state.animation_speed()?;
         let gait_phase = state.gait_phase.wrapped();
         let base = match state.action_kind() {
             SkeletonAction::Dodge => raised_guard_locomotion_samples(state),
             _ => match state.posture() {
                 Posture::Prone => gait_or_idle(
-                    downed_animation_speed(state),
+                    downed_animation_speed(state, speed),
                     gait_phase,
                     SemanticPose::ProneIdle,
                     SemanticPose::ProneCrawlContact,
                 )?,
                 Posture::Supine => gait_or_idle(
-                    downed_animation_speed(state),
+                    downed_animation_speed(state, speed),
                     gait_phase,
                     SemanticPose::SupineIdle,
                     SemanticPose::SupineScamperContact,
                 )?,
-                Posture::Airborne => vec![airborne_sample(state.local_velocity.xz().length())],
+                Posture::Airborne => vec![airborne_sample(
+                    NonnegativeSpeed::from_metres_per_second(state.local_velocity.xz().length())?,
+                )],
                 Posture::Ragdolled => Vec::new(),
                 Posture::Upright if state.weapon_guard() == WeaponGuardState::Raised => {
                     raised_guard_locomotion_samples(state)
                 }
-                Posture::Upright => upright_locomotion_samples(state)?,
+                Posture::Upright => upright_locomotion_samples(state, speed)?,
             },
         };
         let lower_body = if let Some(transition) = state.posture_transition()
@@ -114,7 +116,7 @@ impl AnimationEvaluation {
         } else if state.posture() == Posture::Upright
             && state.weapon_guard() == WeaponGuardState::Raised
         {
-            combat_lower_body_samples(state)?
+            combat_lower_body_samples(state, speed)?
         } else {
             Vec::new()
         };
@@ -129,7 +131,9 @@ impl AnimationEvaluation {
             gait_phase,
             airborne_phase: (0.5 - state.local_velocity.y * 0.2).clamp(0.0, 1.0),
             action_phase: state.action_phase().clamp(0.0, 1.0),
-            attack_target_height: state.attack_target_height().clamp(0.0, 1.0),
+            attack_target_height: UnitInterval::from_fraction(
+                state.attack_target_height().clamp(0.0, 1.0),
+            )?,
         })
     }
 }
@@ -341,12 +345,17 @@ fn smoothstep01(value: f32) -> f32 {
     value * value * (3.0 - 2.0 * value)
 }
 
-fn airborne_sample(horizontal_speed: f32) -> PoseSample {
+fn airborne_sample(horizontal_speed: NonnegativeSpeed) -> PoseSample {
     PoseSample {
         pose: SemanticPose::AirborneCenter,
         sampling: PoseSampling::Span {
             end: SemanticPose::AirborneTravel,
-            progress: smoothstep01(horizontal_speed / walk_locomotion_profile().reference_speed),
+            progress: smoothstep01(
+                horizontal_speed.metres_per_second()
+                    / walk_locomotion_profile()
+                        .reference_speed
+                        .metres_per_second(),
+            ),
         },
         weight: BlendWeight::ONE,
         mirror_lower_body: ClipMirror::Original,

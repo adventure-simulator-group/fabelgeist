@@ -64,7 +64,7 @@ impl LocomotionHeightState {
         let ordinary_stop = skeleton.is_grounded()
             && skeleton.action_kind() == SkeletonAction::None
             && skeleton.posture() == Posture::Upright
-            && skeleton.animation_speed()
+            && skeleton.animation_speed()?
                 <= playback_tuning().initial_locomotion_speed_metres_per_second;
         self.amplitude = if ordinary_stop {
             self.amplitude.advance_towards(
@@ -142,7 +142,7 @@ impl LocomotionHeightState {
             self.landing_recovery_metres_per_second = HeightSpeed::ZERO;
         } else {
             self.landing_compression_target = landing_compression_for_action(
-                locomotion_profile(skeleton),
+                locomotion_profile(skeleton, skeleton.animation_speed()?)?,
                 skeleton.landing_impact_speed,
                 Some(previous_action),
             )?;
@@ -155,7 +155,9 @@ impl LocomotionHeightState {
             )?;
             self.landing_recovery_metres_per_second = HeightSpeed::recovery(
                 self.landing_compression_target,
-                locomotion_profile(skeleton).landing.recovery_seconds,
+                locomotion_profile(skeleton, skeleton.animation_speed()?)?
+                    .landing
+                    .recovery_seconds,
             )?;
         }
         clear_landing_foot_plants(self);
@@ -210,15 +212,20 @@ pub(super) fn locomotion_height_wave(
     if skeleton.weapon_guard() == WeaponGuardState::Raised && !skeleton.is_guarded_sprinting() {
         return Ok(HeightDistance::ZERO);
     }
-    let speed = skeleton.animation_speed();
+    let speed = skeleton.animation_speed()?;
     if speed <= playback_tuning().initial_locomotion_speed_metres_per_second {
         return Ok(HeightDistance::ZERO);
     }
-    let profile = locomotion_profile(skeleton);
+    let profile = locomotion_profile(skeleton, speed)?;
     let moving_weight = smoothstep(
-        playback_tuning().initial_locomotion_speed_metres_per_second,
-        runtime_animation_config().locomotion.blend_speed,
-        speed,
+        playback_tuning()
+            .initial_locomotion_speed_metres_per_second
+            .metres_per_second(),
+        runtime_animation_config()
+            .locomotion
+            .blend_speed
+            .metres_per_second(),
+        speed.metres_per_second(),
     );
     if profile.flight_apex_metres <= 0.0 {
         return Ok(HeightDistance::ZERO);
@@ -238,7 +245,7 @@ pub(super) fn authored_height_compensation(
     {
         return Ok(HeightDistance::ZERO);
     }
-    let run_weight = locomotion_profile(skeleton).flight_apex_metres
+    let run_weight = locomotion_profile(skeleton, skeleton.animation_speed()?)?.flight_apex_metres
         / run_locomotion_profile().flight_apex_metres;
     if !run_weight.is_finite() {
         return Err(AnimationValueError::Overflow {
@@ -251,9 +258,14 @@ pub(super) fn authored_height_compensation(
             .metres()
             * run_weight.clamp(0.0, 1.0)
             * smoothstep(
-                playback_tuning().initial_locomotion_speed_metres_per_second,
-                runtime_animation_config().locomotion.blend_speed,
-                skeleton.animation_speed(),
+                playback_tuning()
+                    .initial_locomotion_speed_metres_per_second
+                    .metres_per_second(),
+                runtime_animation_config()
+                    .locomotion
+                    .blend_speed
+                    .metres_per_second(),
+                skeleton.animation_speed()?.metres_per_second(),
             ),
     )
 }
@@ -262,7 +274,12 @@ pub(super) fn landing_compression_for_impact(
     impact_speed: LandingImpactSpeed,
 ) -> AnimationValueResult<HeightDistance> {
     let impact_speed = impact_speed.metres_per_second();
-    if impact_speed < profile.landing.minimum_impact_speed_metres_per_second {
+    if impact_speed
+        < profile
+            .landing
+            .minimum_impact_speed_metres_per_second
+            .metres_per_second()
+    {
         return Ok(HeightDistance::ZERO);
     }
     let compression = impact_speed * profile.landing.compression_per_metre_per_second;

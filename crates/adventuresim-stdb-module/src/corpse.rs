@@ -866,43 +866,19 @@ pub(crate) fn seed_autopsy_demo(ctx: &ReducerContext, actor_id: u64) -> Result<(
     actor_time.minutes = minute;
     ctx.db.character_time().character_id().update(actor_time);
 
-    let build_outcome = |victim_id: u64, victim_kind: &str, attacker_kind: &str, seed: Seed| {
-        let attacker = crate::strategic::autoresolve_enemy(
-            victim_id.saturating_sub(100),
-            attacker_kind,
-            12,
-            u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
-        )?;
-        let victim = crate::strategic::autoresolve_enemy(
-            victim_id,
-            victim_kind,
-            1,
-            u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
-        )?;
-        adventuresim_core::autopsy::resolve_death_required_incident(
-            &[attacker],
-            &[victim],
-            victim_id,
-            seed,
-            128,
-        )
-        .ok_or_else(|| {
-            String::from("Autopsy demo autoresolve could not produce its required death")
-        })
-    };
-    let recent = build_outcome(
+    let recent = autopsy_demo_outcome(
         AUTOPSY_DEMO_RECENT_VICTIM_ID,
         "poacher",
         "bear",
         fabelgeist_determinism::Seed::from_u64(0x4155_544f_5053_5901),
     )?;
-    let buried = build_outcome(
+    let buried = autopsy_demo_outcome(
         AUTOPSY_DEMO_BURIED_VICTIM_ID,
         "smuggler",
         "bear",
         fabelgeist_determinism::Seed::from_u64(0x4155_544f_5053_5902),
     )?;
-    let enemy = build_outcome(
+    let enemy = autopsy_demo_outcome(
         AUTOPSY_DEMO_ENEMY_ID,
         "kobold",
         "armed_retainer",
@@ -1969,6 +1945,35 @@ pub(crate) fn permission_topics_for_npc(
             topics
         })
         .collect()
+}
+
+fn autopsy_demo_outcome(
+    victim_id: u64,
+    victim_kind: &str,
+    attacker_kind: &str,
+    seed: Seed,
+) -> Result<BattleOutcome, String> {
+    let attacker = crate::strategic::autoresolve_enemy(
+        victim_id.saturating_sub(100),
+        attacker_kind,
+        12,
+        u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
+    )?;
+    let victim = crate::strategic::autoresolve_enemy(
+        victim_id,
+        victim_kind,
+        1,
+        u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
+    )?;
+    adventuresim_core::autopsy::resolve_death_required_incident(
+        &[attacker],
+        &[victim],
+        victim_id,
+        seed,
+        128,
+    )
+    .map_err(|error| error.to_string())?
+    .ok_or_else(|| String::from("Autopsy demo autoresolve could not produce its required death"))
 }
 
 #[cfg(test)]

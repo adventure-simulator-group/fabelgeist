@@ -5,11 +5,11 @@ use super::*;
 pub(super) fn advance_guard_footwork(
     skeleton: &mut SkeletonState,
     delta_seconds: AnimationElapsed,
+    physical_speed: NonnegativeSpeed,
     tick: AnimationSampleTick,
 ) -> AnimationValueResult<()> {
     let displacement = skeleton.local_velocity.xz() * delta_seconds.seconds();
     let physical_velocity = skeleton.local_velocity.xz();
-    let physical_speed = physical_velocity.length();
     let physical_direction = physical_velocity.normalize_or_zero();
     let mut plan = match skeleton.raised_footwork {
         GuardFootworkPlan::Uninitialized => GuardFootworkPlan::Planted {
@@ -62,12 +62,13 @@ pub(super) fn advance_guard_footwork(
         contacts,
         next_swing,
     } = plan
-        && physical_speed > 0.05
+        && physical_speed > STATIONARY_ANIMATION_SPEED_LIMIT
     {
         plan = GuardFootworkPlan::Stepping(plan_guard_step(
             contacts,
             next_swing,
             physical_velocity,
+            physical_speed,
             tick,
         ));
         skeleton.contact_foot = opposite_foot(next_swing);
@@ -96,9 +97,12 @@ fn plan_guard_step(
     contacts: GuardContacts,
     swing_foot: LeadFoot,
     local_velocity: Vec2,
+    physical_speed: NonnegativeSpeed,
     start_tick: AnimationSampleTick,
 ) -> GuardStepPlan {
-    let speed = local_velocity.length().max(0.05);
+    let speed = physical_speed
+        .max(STATIONARY_ANIMATION_SPEED_LIMIT)
+        .metres_per_second();
     let direction = local_velocity.normalize_or_zero();
     let tuning = guard_footwork_config();
     let available_reach = tuning.planning_reach_metres - tuning.contact_margin_metres;

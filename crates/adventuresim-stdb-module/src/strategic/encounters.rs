@@ -1,4 +1,3 @@
-
 fn encounter_terrain_at(route: Option<&PartyJourneyRoute>, minute: u64) -> JourneyTerrainKind {
     route
         .and_then(|route| {
@@ -1023,19 +1022,7 @@ fn resolve_random_encounter_battle(
     opening: BattleOpening,
 ) -> Result<String, String> {
     let member_ids = living_party_member_ids(ctx, &encounter.party_id);
-    let allies = member_ids
-        .iter()
-        .map(|id| {
-            let condition = crate::condition::refresh_character_strategic_condition(ctx, *id)?;
-            crate::capability::load_combatant(
-                ctx,
-                *id,
-                condition.incapacitation,
-                condition.pain,
-                condition.blood_loss,
-            )
-        })
-        .collect::<Result<Vec<_>, String>>()?;
+    let allies = load_allied_combatants(ctx, &member_ids)?;
     let difficulty = i32::from(encounter.enemy_count.max(1));
     let enemy_ids = crate::world_actor::context_character_ids(ctx, &encounter.encounter_id);
     if enemy_ids.len() != encounter.enemy_count as usize {
@@ -1052,7 +1039,13 @@ fn resolve_random_encounter_battle(
             )
         })
         .collect::<Result<Vec<_>, String>>()?;
-    let outcome = resolve_battle(allies, enemies, seed.xor_word(encounter.roll_index), opening);
+    let outcome = resolve_battle(
+        allies,
+        enemies,
+        seed.xor_word(encounter.roll_index),
+        opening,
+    )
+    .map_err(|error| error.to_string())?;
     commit_autoresolve_outcome(
         ctx,
         &encounter.encounter_id,

@@ -1,5 +1,6 @@
 //! Tuning for the client presentation ragdoll.
 
+use adventuresim_core::linear_speed::NonnegativeSpeed;
 use serde::{Deserialize, Serialize};
 
 use super::TacticalCombatConfigError;
@@ -21,7 +22,7 @@ pub struct RagdollConfig {
     pub speculative_contact_margin_metres: f32,
     /// Entry velocities sampled from the animation are clamped here so a
     /// clip loop seam cannot read as a launch.
-    pub maximum_seed_speed_metres_per_second: f32,
+    pub maximum_seed_speed_metres_per_second: NonnegativeSpeed,
     pub maximum_seed_spin_radians_per_second: f32,
     /// Horizontal velocity kept by a body resting on terrain each frame.
     pub terrain_horizontal_velocity_retention: f32,
@@ -106,7 +107,6 @@ impl RagdollConfig {
             ragdoll.joint_relative_damping_per_second,
             ragdoll.joint_maximum_brake_radians_per_second,
             ragdoll.speculative_contact_margin_metres,
-            ragdoll.maximum_seed_speed_metres_per_second,
             ragdoll.maximum_seed_spin_radians_per_second,
             ragdoll.terrain_horizontal_velocity_retention,
             muscles.tone,

@@ -7,8 +7,8 @@ const GAIT_QUARTERS_PER_CYCLE: f32 = 4.0;
 
 pub(super) fn combat_lower_body_samples(
     state: &SkeletonState,
+    speed: NonnegativeSpeed,
 ) -> AnimationValueResult<Vec<PoseSample>> {
-    let speed = state.animation_speed();
     if speed
         <= crate::combat_config::runtime_animation_config()
             .playback
@@ -84,7 +84,7 @@ pub(super) fn quickstep_lower_body_samples(
 }
 
 pub(super) fn gait_or_idle(
-    speed: f32,
+    speed: NonnegativeSpeed,
     phase: CyclePhase,
     idle: SemanticPose,
     contact: SemanticPose,
@@ -110,8 +110,8 @@ pub(super) fn gait_or_idle(
 /// the lateral contribution naturally falls to zero.
 pub(super) fn upright_locomotion_samples(
     state: &SkeletonState,
+    speed: NonnegativeSpeed,
 ) -> AnimationValueResult<Vec<PoseSample>> {
-    let speed = state.animation_speed();
     let phase = state.gait_phase.wrapped();
     let direction = state.animation_local_velocity().xz().normalize_or_zero();
     let lateral = direction.x.abs();
@@ -122,10 +122,11 @@ pub(super) fn upright_locomotion_samples(
     }
 
     let locomotion = smoothstep01(
-        speed
+        speed.metres_per_second()
             / crate::combat_config::runtime_animation_config()
                 .locomotion
-                .blend_speed,
+                .blend_speed
+                .metres_per_second(),
     );
     let longitudinal_weight = longitudinal / total;
     let lateral_weight = lateral / total;
@@ -153,11 +154,14 @@ pub(super) fn upright_locomotion_samples(
     Ok(samples)
 }
 
-pub(super) fn downed_animation_speed(state: &SkeletonState) -> f32 {
+pub(super) fn downed_animation_speed(
+    state: &SkeletonState,
+    speed: NonnegativeSpeed,
+) -> NonnegativeSpeed {
     if state.is_downed_turning() {
-        state.animation_speed()
+        speed
     } else {
-        0.0
+        NonnegativeSpeed::ZERO
     }
 }
 
@@ -210,16 +214,26 @@ fn alternating_contact_pair(
     Ok(samples)
 }
 
-fn locomotion_samples(speed: f32, phase: CyclePhase) -> AnimationValueResult<Vec<PoseSample>> {
+fn locomotion_samples(
+    speed: NonnegativeSpeed,
+    phase: CyclePhase,
+) -> AnimationValueResult<Vec<PoseSample>> {
     let locomotion = smoothstep01(
-        speed
+        speed.metres_per_second()
             / crate::combat_config::runtime_animation_config()
                 .locomotion
-                .blend_speed,
+                .blend_speed
+                .metres_per_second(),
     );
-    let run = ((speed - walk_locomotion_profile().reference_speed)
-        / (run_locomotion_profile().reference_speed - walk_locomotion_profile().reference_speed))
-        .clamp(0.0, 1.0);
+    let run = ((speed.metres_per_second()
+        - walk_locomotion_profile()
+            .reference_speed
+            .metres_per_second())
+        / (run_locomotion_profile().reference_speed.metres_per_second()
+            - walk_locomotion_profile()
+                .reference_speed
+                .metres_per_second()))
+    .clamp(0.0, 1.0);
     let mut samples = Vec::with_capacity(5);
     append_scaled(
         &mut samples,

@@ -1,6 +1,7 @@
 //! Authored locomotion roles and retained geometric cadence calibration.
 
 use super::*;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
 use strum::EnumIter;
 
 /// Per-step travel and irreducible stance slip measured from the loaded
@@ -123,12 +124,17 @@ impl AuthoredLocomotionStrides {
         )
     }
 
-    pub(super) fn ordinary(&self, speed: f32) -> Option<AuthoredStrideMeasurement> {
+    pub(super) fn ordinary(&self, speed: NonnegativeSpeed) -> Option<AuthoredStrideMeasurement> {
         let walk = self.walk?;
-        let blend = ((speed - walk_locomotion_profile().reference_speed)
-            / (run_locomotion_profile().reference_speed
-                - walk_locomotion_profile().reference_speed))
-            .clamp(0.0, 1.0);
+        let blend = ((speed.metres_per_second()
+            - walk_locomotion_profile()
+                .reference_speed
+                .metres_per_second())
+            / (run_locomotion_profile().reference_speed.metres_per_second()
+                - walk_locomotion_profile()
+                    .reference_speed
+                    .metres_per_second()))
+        .clamp(0.0, 1.0);
         if blend <= 0.0 {
             Some(walk)
         } else {

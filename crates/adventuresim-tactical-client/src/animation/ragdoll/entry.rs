@@ -150,8 +150,11 @@ pub(super) fn seed_bodies(
         let angular = angular_velocity_between(rotation_next, rotation_previous, sample_seconds)
             .clamp_length_max(config.maximum_seed_spin_radians_per_second);
         let linear = momentum
-            + ((position_next - position_previous) / sample_seconds)
-                .clamp_length_max(config.maximum_seed_speed_metres_per_second);
+            + ((position_next - position_previous) / sample_seconds).clamp_length_max(
+                config
+                    .maximum_seed_speed_metres_per_second
+                    .metres_per_second(),
+            );
         let kinematic = definition.bodies[body].kinematic;
         seeds[body] = Some(BodySeed {
             position: position_next,

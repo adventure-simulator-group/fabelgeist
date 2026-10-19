@@ -774,7 +774,8 @@ mod tests {
                 vec![enemy.clone()],
                 seed,
                 BattleOpening::Normal,
-            );
+            )
+            .unwrap();
             assert!(
                 outcome.summary.melee_attacks > 0,
                 "seed {seed} resolved without combat contact"

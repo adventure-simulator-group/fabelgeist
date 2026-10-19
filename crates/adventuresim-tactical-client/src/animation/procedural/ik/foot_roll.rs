@@ -1,26 +1,33 @@
 //! Phase-aware sagittal run-foot roll over the canonical bilateral contact.
 
 use super::*;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
+use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 
 /// Phase-aware sagittal foot roll for running. Negative phase is the approach
 /// to this foot's contact and positive phase is its stance/release. The curve
 /// arrives with a modest dorsiflexed heel presentation, flattens early in
 /// stance, then plantar-flexes into toe-off before returning to neutral during
 /// swing. Terrain-normal alignment remains the base orientation.
-pub(super) fn run_foot_roll_degrees(skeleton: &SkeletonState, foot_side: LeadFoot) -> f32 {
-    if locomotion_profile(skeleton).gait != LocomotionGait::Run
+pub(super) fn run_foot_roll_degrees(
+    skeleton: &SkeletonState,
+    speed: NonnegativeSpeed,
+    foot_side: LeadFoot,
+) -> AnimationValueResult<f32> {
+    let profile = locomotion_profile(skeleton, speed)?;
+    if profile.gait != LocomotionGait::Run
         || skeleton.action_kind() != SkeletonAction::None
         || skeleton.weapon_guard() != WeaponGuardState::Lowered
-        || skeleton.animation_speed() <= 0.05
+        || speed <= STATIONARY_ANIMATION_SPEED_LIMIT
     {
-        return 0.0;
+        return Ok(0.0);
     }
     let signed = skeleton
         .gait_phase
         .nearest_contact_offset(foot_side)
         .cycles();
-    let radius = locomotion_profile(skeleton).support_phase_radius;
-    if signed < -radius {
+    let radius = profile.support_phase_radius;
+    Ok(if signed < -radius {
         // Prepare the heel during the latter half of flight.
         8.0 * smoothstep(-0.25, -radius, signed)
     } else if signed < -0.05 {
@@ -33,7 +40,24 @@ pub(super) fn run_foot_roll_degrees(skeleton: &SkeletonState, foot_side: LeadFoo
         // Release the toe smoothly instead of carrying a pointed foot through
         // the whole airborne arc.
         -8.0 * (1.0 - smoothstep(radius, 0.25, signed))
-    }
+    })
+}
+
+/// Apply the phase-owned sagittal roll to the already terrain-aligned foot.
+pub(super) fn run_foot_roll_world_rotation(
+    skeleton: &SkeletonState,
+    speed: NonnegativeSpeed,
+    foot_side: LeadFoot,
+    rig_rotation: Quat,
+    base_world: Quat,
+) -> AnimationValueResult<Quat> {
+    let roll_degrees = run_foot_roll_degrees(skeleton, speed, foot_side)?;
+    Ok(if roll_degrees.abs() > 0.0 {
+        let lateral = (rig_rotation * Vec3::X).normalize_or_zero();
+        Quat::from_axis_angle(lateral, roll_degrees.to_radians()) * base_world
+    } else {
+        base_world
+    })
 }
 
 #[cfg(test)]
@@ -49,26 +73,31 @@ mod tests {
         run.world_velocity = Vec3::new(0.0, 0.0, -5.5);
         run.gait_phase = CyclePhase::from_cycles(0.84).unwrap();
         assert!(
-            run_foot_roll_degrees(&run, LeadFoot::Left) > 0.0,
+            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Left).unwrap()
+                > 0.0,
             "heel prepares"
         );
         run.gait_phase = CyclePhase::from_cycles(0.0).unwrap();
         assert_eq!(
-            run_foot_roll_degrees(&run, LeadFoot::Left),
+            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Left).unwrap(),
             0.0,
             "flat stance"
         );
         run.gait_phase = CyclePhase::from_cycles(0.15).unwrap();
-        assert!(run_foot_roll_degrees(&run, LeadFoot::Left) < 0.0, "toe off");
+        assert!(
+            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Left).unwrap()
+                < 0.0,
+            "toe off"
+        );
         run.gait_phase = CyclePhase::from_cycles(0.25).unwrap();
         assert_eq!(
-            run_foot_roll_degrees(&run, LeadFoot::Left),
+            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Left).unwrap(),
             0.0,
             "neutral swing"
         );
         run.gait_phase = CyclePhase::from_cycles(0.5).unwrap();
         assert_eq!(
-            run_foot_roll_degrees(&run, LeadFoot::Right),
+            run_foot_roll_degrees(&run, run.animation_speed().unwrap(), LeadFoot::Right).unwrap(),
             0.0,
             "mirrored contact"
         );

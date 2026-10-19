@@ -297,7 +297,10 @@ mod tests {
 
     #[test]
     fn deceleration_lean_follows_current_planar_speed_only_while_braking() {
-        let walking = Vec3::Z * walk_locomotion_profile().reference_speed;
+        let walking = Vec3::Z
+            * walk_locomotion_profile()
+                .reference_speed
+                .metres_per_second();
         let walking_scale = deceleration_lean_scale(
             BodyLocalVelocity::from_metres_per_second(walking).unwrap(),
             BodyLocalVelocity::from_metres_per_second(walking).unwrap(),
@@ -307,9 +310,11 @@ mod tests {
         .fraction();
         assert!(
             (walking_scale
-                - walk_locomotion_profile().reference_speed
-                    / run_locomotion_profile().reference_speed)
-                .abs()
+                - walk_locomotion_profile()
+                    .reference_speed
+                    .metres_per_second()
+                    / run_locomotion_profile().reference_speed.metres_per_second())
+            .abs()
                 <= 0.0
         );
         assert_eq!(
@@ -427,8 +432,8 @@ mod tests {
         let mut maximum_step = 0.0_f32;
 
         for frame in 0..160 {
-            let speed =
-                (frame as f32 / 32.0).clamp(0.0, 1.0) * run_locomotion_profile().reference_speed;
+            let speed = (frame as f32 / 32.0).clamp(0.0, 1.0)
+                * run_locomotion_profile().reference_speed.metres_per_second();
             let raw_acceleration = if frame <= 32 {
                 Vec3::Z * 11.0
             } else {

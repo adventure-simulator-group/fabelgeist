@@ -8,21 +8,25 @@ pub(super) struct DiveLaunch {
     pub(super) trajectory: DiveTrajectory,
 }
 
-pub(super) fn dive_horizontal_velocity(yaw: f32, direction: DiveDirection, speed: f32) -> Vec3 {
+pub(super) fn dive_horizontal_velocity(
+    yaw: f32,
+    direction: DiveDirection,
+    speed: adventuresim_core::linear_speed::NonnegativeSpeed,
+) -> Vec3 {
     let local = match direction {
         DiveDirection::Forward => Vec3::NEG_Z,
         DiveDirection::Backward => Vec3::Z,
         DiveDirection::Left => Vec3::NEG_X,
         DiveDirection::Right => Vec3::X,
     };
-    Quat::from_rotation_y(yaw) * local * speed
+    Quat::from_rotation_y(yaw) * local * speed.metres_per_second()
 }
 
 pub(super) fn apply_dive_launch_velocity(
     velocity: &mut LinearVelocity,
     yaw: f32,
     launch: DiveLaunch,
-    speed: f32,
+    speed: adventuresim_core::linear_speed::NonnegativeSpeed,
 ) {
     // Sliding is a posture change, not a fresh launch. Preserve the complete
     // sprint velocity; gravity and the later body-drag phase own its evolution.
@@ -41,10 +45,42 @@ mod tests {
     #[test]
     fn dive_launch_velocity_follows_the_requested_camera_relative_direction() {
         let yaw = std::f32::consts::FRAC_PI_2;
-        assert!(dive_horizontal_velocity(yaw, DiveDirection::Forward, 7.0).x < -6.9);
-        assert!(dive_horizontal_velocity(yaw, DiveDirection::Backward, 7.0).x > 6.9);
-        assert!(dive_horizontal_velocity(0.0, DiveDirection::Left, 7.0).x < -6.9);
-        assert!(dive_horizontal_velocity(0.0, DiveDirection::Right, 7.0).x > 6.9);
+        assert!(
+            dive_horizontal_velocity(
+                yaw,
+                DiveDirection::Forward,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(7.0)
+                    .unwrap()
+            )
+            .x < -6.9
+        );
+        assert!(
+            dive_horizontal_velocity(
+                yaw,
+                DiveDirection::Backward,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(7.0)
+                    .unwrap()
+            )
+            .x > 6.9
+        );
+        assert!(
+            dive_horizontal_velocity(
+                0.0,
+                DiveDirection::Left,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(7.0)
+                    .unwrap()
+            )
+            .x < -6.9
+        );
+        assert!(
+            dive_horizontal_velocity(
+                0.0,
+                DiveDirection::Right,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(7.0)
+                    .unwrap()
+            )
+            .x > 6.9
+        );
     }
     #[test]
     fn grounded_slide_preserves_the_complete_sprint_velocity() {
@@ -56,7 +92,7 @@ mod tests {
                 travel_direction: DiveDirection::Forward,
                 trajectory: DiveTrajectory::GroundedSlide,
             },
-            7.0,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(7.0).unwrap(),
         );
 
         assert_eq!(velocity.0, Vec3::new(1.0, 4.0, 2.0));

@@ -1,8 +1,11 @@
 //! Transient retained state and diagnostics. None of this tick-local animation
-// authority is persisted outside the Bevy presentation world.
+//! authority is persisted outside the Bevy presentation world.
 
 use super::*;
-use adventuresim_tactical_core::animation::AnimationSampleTick;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
+use adventuresim_tactical_core::animation::{
+    AnimationSampleTick, STATIONARY_ANIMATION_SPEED_LIMIT,
+};
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub(in crate::animation::procedural) struct LocomotionSettleState {
     pub(super) support_foot: LeadFoot,
@@ -102,7 +105,7 @@ pub(in crate::animation::procedural) struct LegIkMemory {
     pub(super) terrain_blend: f32,
     pub(super) rig_origin: Option<Vec3>,
     pub(super) rig_rotation: Option<Quat>,
-    pub(super) measured_owner_planar_speed: f32,
+    pub(super) measured_owner_planar_speed: Option<NonnegativeSpeed>,
     pub(super) evaluation_tick: Option<AnimationSampleTick>,
     pub(super) recent_movement_velocity: Vec3,
     pub(super) settle: Option<LocomotionSettleState>,
@@ -216,6 +219,141 @@ pub(crate) struct LegIkDiagnostics {
 }
 
 impl LegIkMemory {
+    /// A zero interval holds history. Otherwise admit the observed frame and
+    /// displacement measurement before writing history or retiring contacts.
+    pub(super) fn observe_owner_frame(
+        &mut self,
+        origin: Vec3,
+        rotation: Quat,
+        elapsed: AnimationElapsed,
+        evaluation_advances: bool,
+    ) -> AnimationValueResult<()> {
+        if elapsed.is_zero() {
+            return Ok(());
+        }
+        if !origin.is_finite() {
+            return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::WorldPosition,
+            });
+        }
+        if !rotation.is_finite() {
+            return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::BodyOrientation,
+            });
+        }
+        let previous_origin = self.rig_origin;
+        let owner_discontinuous = previous_origin.is_some_and(|previous| {
+            previous.distance(origin)
+                > ik_tuning()
+                    .maximum_owner_translation_per_tick_metres
+                    .metres()
+        }) || self.rig_rotation.is_some_and(|previous| {
+            previous.angle_between(rotation).to_degrees()
+                > ik_tuning().maximum_owner_rotation_per_tick_degrees
+        });
+        self.measured_owner_planar_speed = update_measured_owner_planar_speed(
+            self.measured_owner_planar_speed,
+            previous_origin,
+            origin,
+            elapsed,
+            evaluation_advances,
+            owner_discontinuous,
+        )?;
+        if owner_discontinuous {
+            self.left_foot_plant = None;
+            self.right_foot_plant = None;
+            self.left_foot_plant_acquired = false;
+            self.right_foot_plant_acquired = false;
+            self.left_foot_target = None;
+            self.right_foot_target = None;
+            self.left_foot_world_target = None;
+            self.right_foot_world_target = None;
+            self.left_last_rendered_world = None;
+            self.right_last_rendered_world = None;
+            self.left_last_rendered_toe_world = None;
+            self.right_last_rendered_toe_world = None;
+            self.left_last_rendered_owner = None;
+            self.right_last_rendered_owner = None;
+            self.left_last_rendered_foot_rotation_world = None;
+            self.right_last_rendered_foot_rotation_world = None;
+            self.left_authored_world_target = None;
+            self.right_authored_world_target = None;
+            clear_all_planned_contact_metadata(self);
+            self.left_support_weight = None;
+            self.right_support_weight = None;
+            self.left_transition_support_weight = None;
+            self.right_transition_support_weight = None;
+            self.left_support_exhausted_until_flight = false;
+            self.right_support_exhausted_until_flight = false;
+            self.left_terrain_pole_world = None;
+            self.right_terrain_pole_world = None;
+            self.left_terrain_end_direction = None;
+            self.right_terrain_end_direction = None;
+            self.left_foot_orientation_world = None;
+            self.right_foot_orientation_world = None;
+            self.left_contact_orientation_blend_active = false;
+            self.right_contact_orientation_blend_active = false;
+            clear_slope_rotation_cache(self);
+            self.left_release_active = false;
+            self.right_release_active = false;
+            self.left_release_target = None;
+            self.right_release_target = None;
+            self.pelvis_shift = 0.0;
+            self.measured_owner_planar_speed = None;
+            reset_terminal_settle_reach(self);
+            self.recent_movement_velocity = Vec3::ZERO;
+            self.settle = None;
+        }
+        self.rig_origin = Some(origin);
+        self.rig_rotation = Some(rotation);
+        Ok(())
+    }
+
+    /// Without an auxiliary observation, current velocity alone selects the motion budget.
+    pub(super) fn effective_planar_speed(&self, current: NonnegativeSpeed) -> NonnegativeSpeed {
+        self.measured_owner_planar_speed
+            .map_or(current, |measured| current.max(measured))
+    }
+
+    /// A retained plant carries support only with its current contact confidence.
+    pub(super) fn support_was_acquired(&self, foot: LeadFoot) -> bool {
+        if foot == LeadFoot::Left {
+            self.left_foot_plant_acquired
+                && self
+                    .left_support_weight
+                    .is_some_and(terrain_leg_has_support)
+        } else {
+            self.right_foot_plant_acquired
+                && self
+                    .right_support_weight
+                    .is_some_and(terrain_leg_has_support)
+        }
+    }
+
+    /// Retain deceleration momentum and admit the existing stationary balance-capture seam.
+    pub(super) fn observe_movement_for_settle(
+        &mut self,
+        ordinary_lowered: bool,
+        raised_footwork_handoff: bool,
+        speed: NonnegativeSpeed,
+        planar_velocity: Vec3,
+    ) -> bool {
+        if ordinary_lowered && speed > STATIONARY_ANIMATION_SPEED_LIMIT && self.settle.is_none() {
+            // Retain the strongest recent velocity through presentation deceleration,
+            // rather than letting its final sub-threshold sample erase momentum.
+            if planar_velocity.length_squared()
+                >= self.recent_movement_velocity.length_squared() * 0.25
+            {
+                self.recent_movement_velocity = planar_velocity;
+            }
+            false
+        } else {
+            (ordinary_lowered || raised_footwork_handoff)
+                && speed <= STATIONARY_ANIMATION_SPEED_LIMIT
+                && self.settle.is_none()
+        }
+    }
+
     pub(super) fn finish_terrain_release(&mut self) {
         // Once the bounded release finishes, clear leg targets so a later
         // re-enable cannot resurrect stale plants. Arm pole continuity is
@@ -262,7 +400,7 @@ impl LegIkMemory {
         self.left_release_target = None;
         self.right_release_target = None;
         self.pelvis_shift = 0.0;
-        self.measured_owner_planar_speed = 0.0;
+        self.measured_owner_planar_speed = None;
         reset_terminal_settle_reach(self);
         self.recent_movement_velocity = Vec3::ZERO;
         self.settle = None;

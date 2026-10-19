@@ -118,21 +118,31 @@ fn update_fatigue(
     });
     let moving = movement.is_some_and(|movement| movement.length_squared() > 0.0);
     let burden = view.body_weight() + view.inventory_weight();
-    let sprint_speed = tactical_sprint_speed(
-        view.raw_limb_attr(LimbAttribute::Strength, BodyPart::LeftLeg),
-        view.raw_limb_attr(LimbAttribute::Strength, BodyPart::RightLeg),
-        view.body_part_health(BodyPart::LeftLeg),
-        view.body_part_health(BodyPart::RightLeg),
-        burden,
-    );
-    let jog_speed = tactical_jog_speed(endurance);
-    let effort_speed = tactical_movement_speed_for_pace(
-        movement,
-        pace,
-        skeleton.map_or(WeaponGuardState::Lowered, SkeletonState::weapon_guard),
-        jog_speed,
-        sprint_speed,
-    );
+    let speeds = || -> adventuresim_tactical_core::animation::AnimationValueResult<_> {
+        let sprint_speed = tactical_sprint_speed(
+            view.raw_limb_attr(LimbAttribute::Strength, BodyPart::LeftLeg),
+            view.raw_limb_attr(LimbAttribute::Strength, BodyPart::RightLeg),
+            view.body_part_health(BodyPart::LeftLeg),
+            view.body_part_health(BodyPart::RightLeg),
+            burden,
+        )?;
+        let jog_speed = tactical_jog_speed(endurance)?;
+        let effort_speed = tactical_movement_speed_for_pace(
+            movement,
+            pace,
+            skeleton.map_or(WeaponGuardState::Lowered, SkeletonState::weapon_guard),
+            jog_speed,
+            sprint_speed,
+        )?;
+        Ok((jog_speed, effort_speed))
+    };
+    let (jog_speed, effort_speed) = match speeds() {
+        Ok(speeds) => speeds,
+        Err(error) => {
+            warn!(%error, "Rejected movement exertion speed");
+            return;
+        }
+    };
     state.fatigue = (state.fatigue
         + combat_movement_fatigue_per_second(
             effort_speed,

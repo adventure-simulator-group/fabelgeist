@@ -80,7 +80,9 @@ impl HeightSpeed {
     pub fn from_metres_per_second(value: f32) -> AnimationValueResult<Self> {
         NonnegativeSpeed::from_metres_per_second(value)
             .map(Self)
-            .map_err(|error| error.for_quantity(AnimationQuantity::HeightSpeed))
+            .map_err(|error| {
+                AnimationValueError::from(error).for_quantity(AnimationQuantity::HeightSpeed)
+            })
     }
     pub fn metres_per_second(self) -> f32 {
         self.0.metres_per_second()

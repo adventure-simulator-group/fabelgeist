@@ -94,7 +94,11 @@ impl Walker {
         let collider = Collider::cylinder(HUMANOID_COLLISION_RADIUS_METRES, 1.9);
         let bottom = -collider.aabb(Vec3::ZERO, Rotation::default()).min.y;
         let controller = CharacterController {
-            speed: config.movement.speeds_metres_per_second.walk,
+            speed: config
+                .movement
+                .speeds_metres_per_second
+                .walk
+                .metres_per_second(),
             gravity: motor.gravity_metres_per_second_squared,
             step_size: motor.maximum_step_height_metres,
             min_walk_cos: motor.maximum_walkable_slope_degrees.to_radians().cos(),

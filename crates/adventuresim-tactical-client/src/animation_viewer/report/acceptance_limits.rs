@@ -172,3 +172,48 @@ pub(super) fn expected_visual_height(scenario: &ScenarioMetadata<'_>) -> Option<
         _ => return None,
     })
 }
+
+pub(super) fn cadence_contacts_valid(frames: &[FrameSample]) -> bool {
+    let cadence_frames = frames
+        .iter()
+        .filter(|frame| frame.scenario.is(ScenarioId::CadenceContact))
+        .collect::<Vec<_>>();
+    let cadence_contacts = cadence_frames
+        .windows(2)
+        .filter_map(|pair| {
+            (pair[1]
+                .contact_sequence
+                .is_successor_of(pair[0].contact_sequence))
+            .then_some(pair[1])
+        })
+        .collect::<Vec<_>>();
+    let cadence_step_distance = ordinary_step_distance(
+        super::super::scenarios::authored_drive_speed(2.0).nonnegative_part(),
+    );
+    let adjusted_contact_distances = cadence_contacts
+        .iter()
+        .map(|frame| {
+            let contact_phase = match frame.contact_foot {
+                LeadFoot::Left => 0.0,
+                LeadFoot::Right => 0.5,
+            };
+            let phase_since_contact = (frame.gait_phase.cycles() - contact_phase).rem_euclid(1.0);
+            frame.root_distance_metres - phase_since_contact * cadence_step_distance * 2.0
+        })
+        .collect::<Vec<_>>();
+    let cadence_tolerance = (cadence_step_distance * 0.01).max(0.005);
+    cadence_frames.is_empty()
+        || (cadence_contacts.len() == 4
+            && cadence_contacts.windows(2).all(|pair| {
+                pair[1]
+                    .contact_sequence
+                    .is_successor_of(pair[0].contact_sequence)
+                    && pair[1].contact_foot != pair[0].contact_foot
+            })
+            && adjusted_contact_distances.windows(2).all(|pair| {
+                ((pair[1] - pair[0]) - cadence_step_distance).abs() <= cadence_tolerance
+            })
+            && adjusted_contact_distances.windows(3).all(|window| {
+                ((window[2] - window[0]) - cadence_step_distance * 2.0).abs() <= cadence_tolerance
+            }))
+}

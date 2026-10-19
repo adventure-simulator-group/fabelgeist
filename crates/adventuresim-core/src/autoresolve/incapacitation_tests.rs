@@ -36,9 +36,20 @@ fn fatigue_and_other_sources_produce_identical_combat_performance() {
 fn fatigue_does_not_slow_autoresolve_movement() {
     let (john, _) = melee_iteration_roster().unwrap();
     let mut combatant = john.combatant;
-    let fresh_speed = combatant.movement_speed_meters_per_second(0.1);
+    let fresh_speed = combatant
+        .movement_speed_meters_per_second(
+            crate::linear_speed::PositiveSpeed::from_metres_per_second(0.1).unwrap(),
+        )
+        .unwrap();
     combatant.fatigue = 0.6;
-    assert_eq!(combatant.movement_speed_meters_per_second(0.1), fresh_speed);
+    assert_eq!(
+        combatant
+            .movement_speed_meters_per_second(
+                crate::linear_speed::PositiveSpeed::from_metres_per_second(0.1).unwrap()
+            )
+            .unwrap(),
+        fresh_speed
+    );
 }
 
 #[test]

@@ -98,7 +98,7 @@ pub fn compile(root: &Path) {
     values.validate(&path);
     let resolution = values.resolution;
     let autoresolve = values.autoresolve;
-    let fatigue = format!("{:?}", resolution.fatigue);
+    let fatigue = fatigue_source(resolution.fatigue);
     resolution
         .contact
         .validate()
@@ -113,9 +113,9 @@ pub fn compile(root: &Path) {
              pub const EMBEDDED_AUTORESOLVE_PARAMETERS: AutoresolveParameters = \
              AutoresolveParameters {{ combat_round_seconds: {:?}_f32, formation_spacing_metres: \
              {:?}_f32, reference_melee_attack_seconds: {:?}_f32, \
-             minimum_movement_speed_metres_per_second: {:?}_f32, \
-             guarded_movement_speed_metres_per_second: {:?}_f32, \
-             melee_lunge_speed_metres_per_second: {:?}_f32, \
+             minimum_movement_speed_metres_per_second: match crate::linear_speed::PositiveSpeed::from_metres_per_second({:?}_f32) {{ Ok(speed) => speed, Err(_) => panic!(\"invalid embedded speed\") }}, \
+             guarded_movement_speed_metres_per_second: match crate::linear_speed::PositiveSpeed::from_metres_per_second({:?}_f32) {{ Ok(speed) => speed, Err(_) => panic!(\"invalid embedded speed\") }}, \
+             melee_lunge_speed_metres_per_second: match crate::linear_speed::PositiveSpeed::from_metres_per_second({:?}_f32) {{ Ok(speed) => speed, Err(_) => panic!(\"invalid embedded speed\") }}, \
              melee_lunge_maximum_travel_metres: {:?}_f32, \
              reference_ground_drive_force_newtons: {:?}_f32, \
              reference_leg_strength: {:?}_f32, gravity_metres_per_second_squared: {:?}_f32, \
@@ -254,4 +254,22 @@ impl CombatBuildConfig {
             path.display()
         );
     }
+}
+
+/// Source emission is the native encoding boundary; preserve the existing f32 literal spellings.
+fn fatigue_source(value: CombatFatigueParameters) -> String {
+    format!(
+        "CombatFatigueParameters {{ mechanical_efficiency: {:?}, capacity_joules_per_endurance: {:?}, recovery_watts_per_endurance: {:?}, aerobic_watts_per_endurance: {:?}, carry_watts_per_kg: {:?}, minimum_endurance: {:?}, minimum_action_seconds: {:?}, maximum_action_seconds: {:?}, attack_travel_metres: {:?}, defense_travel_metres: {:?}, dodge_speed_metres_per_second: match crate::linear_speed::PositiveSpeed::from_metres_per_second({:?}_f32) {{ Ok(speed) => speed, Err(_) => panic!(\"invalid embedded dodge speed\") }} }}",
+        value.mechanical_efficiency,
+        value.capacity_joules_per_endurance,
+        value.recovery_watts_per_endurance,
+        value.aerobic_watts_per_endurance,
+        value.carry_watts_per_kg,
+        value.minimum_endurance,
+        value.minimum_action_seconds,
+        value.maximum_action_seconds,
+        value.attack_travel_metres,
+        value.defense_travel_metres,
+        value.dodge_speed_metres_per_second.metres_per_second(),
+    )
 }

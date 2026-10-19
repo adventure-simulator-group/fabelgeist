@@ -72,6 +72,17 @@ pub(in crate::animation::procedural) fn constrain_target_to_reach(
     Vec3::new(root.x + horizontal.x, target.y, root.z + horizontal.y)
 }
 
+pub(in crate::animation::procedural) fn canonical_knee_pole_world(
+    foot: LeadFoot,
+    rig_rotation: Quat,
+) -> Vec3 {
+    let side = match foot {
+        LeadFoot::Left => -1.0,
+        LeadFoot::Right => 1.0,
+    };
+    pole_to_world(rig_rotation, canonical_knee_pole(side))
+}
+
 pub(in crate::animation::procedural) fn canonical_knee_pole(side: f32) -> Vec3 {
     (Vec3::Z + Vec3::X * side * 0.18).normalize()
 }
@@ -158,7 +169,7 @@ pub(in crate::animation::procedural) fn advance_foot_target_at_speed(
     previous: Option<Vec3>,
     desired: Vec3,
     delta_seconds: AnimationElapsed,
-    maximum_speed: f32,
+    maximum_speed: adventuresim_core::linear_speed::NonnegativeSpeed,
 ) -> Vec3 {
     let Some(previous) = previous.filter(|position| position.is_finite()) else {
         return desired;
@@ -166,7 +177,7 @@ pub(in crate::animation::procedural) fn advance_foot_target_at_speed(
     if !desired.is_finite() {
         return previous;
     }
-    let maximum_step = maximum_speed.max(0.0) * delta_seconds.seconds();
+    let maximum_step = maximum_speed.metres_per_second() * delta_seconds.seconds();
     previous + (desired - previous).clamp_length_max(maximum_step)
 }
 

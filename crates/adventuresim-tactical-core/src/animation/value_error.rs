@@ -12,8 +12,12 @@ pub enum AnimationQuantity {
     Length,
     #[display("nonnegative speed")]
     Speed,
+    #[display("signed linear speed")]
+    SignedSpeed,
     #[display("unit fraction")]
     UnitInterval,
+    #[display("world position")]
+    WorldPosition,
     #[display("world velocity")]
     WorldVelocity,
     #[display("body orientation")]
@@ -82,6 +86,19 @@ impl AnimationValueError {
             Self::NonPositive { .. } => Self::NonPositive { quantity },
             Self::OutsideUnitInterval { .. } => Self::OutsideUnitInterval { quantity },
             Self::Overflow { .. } => Self::Overflow { quantity },
+        }
+    }
+}
+
+impl From<adventuresim_core::linear_speed::SpeedError> for AnimationValueError {
+    fn from(error: adventuresim_core::linear_speed::SpeedError) -> Self {
+        use adventuresim_core::linear_speed::SpeedError;
+        let quantity = AnimationQuantity::Speed;
+        match error {
+            SpeedError::NonFinite => Self::NonFinite { quantity },
+            SpeedError::Negative => Self::Negative { quantity },
+            SpeedError::NonPositive => Self::NonPositive { quantity },
+            SpeedError::Overflow => Self::Overflow { quantity },
         }
     }
 }

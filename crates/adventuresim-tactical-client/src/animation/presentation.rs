@@ -1,4 +1,6 @@
 use super::*;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
+use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 use adventuresim_tactical_core::animation::{AnimationSampleTick, NonnegativeLength};
 use attack::advance_presented_attack;
 use events::emit_locomotion_presentation_events;
@@ -102,7 +104,7 @@ impl PresentedSkeleton {
             .checked_delta(self.source_tick);
         let source_is_contiguous =
             source_gap.is_some_and(|gap| gap <= playback_tuning().maximum_source_gap_ticks);
-        if source_is_contiguous && can_predict_locomotion(previous, authoritative) {
+        if source_is_contiguous && can_predict_locomotion(previous, authoritative)? {
             let response =
                 1.0 - (-playback_tuning().velocity_response_per_second * delta_seconds).exp();
             next.local_velocity = previous
@@ -123,8 +125,12 @@ impl PresentedSkeleton {
                     delta_seconds * locomotion_sample_hz() * 0.5 / duration_ticks.samples() as f32,
                 )?
             } else {
-                let speed = presentation_phase_speed(next);
-                gait_cycle_phase_delta(locomotion_profile(next), speed, elapsed)?
+                let speed = presentation_phase_speed(next)?;
+                gait_cycle_phase_delta(
+                    locomotion_profile(next, next.animation_speed()?)?,
+                    speed,
+                    elapsed,
+                )?
             };
             let predicted = previous
                 .gait_phase
@@ -204,21 +210,21 @@ pub(super) fn circular_phase_delta(
 pub(super) fn can_predict_locomotion(
     previous: &SkeletonState,
     authoritative: &SkeletonState,
-) -> bool {
+) -> AnimationValueResult<bool> {
     let action_is_predictable = authoritative.action_kind() == SkeletonAction::None
         || (authoritative.weapon_guard() == WeaponGuardState::Raised
             && authoritative.action_kind() == SkeletonAction::Attack);
-    authoritative.is_surface_supported()
+    Ok(authoritative.is_surface_supported()
         && action_is_predictable
         && (authoritative.posture() == Posture::Upright || authoritative.is_downed_turning())
-        && authoritative.animation_speed() > 0.05
+        && authoritative.animation_speed()? > STATIONARY_ANIMATION_SPEED_LIMIT
         && previous.posture() == authoritative.posture()
         && previous.weapon_guard() == authoritative.weapon_guard()
         && previous.action_kind() == authoritative.action_kind()
         && previous.is_surface_supported() == authoritative.is_surface_supported()
         && previous.animation_pack == authoritative.animation_pack
         && previous.contact_sequence == authoritative.contact_sequence
-        && same_guard_step(previous, authoritative)
+        && same_guard_step(previous, authoritative))
 }
 
 pub(super) fn advance_presented_skeleton(
@@ -413,30 +419,32 @@ fn apply_authored_cadence(
     } else {
         AuthoredCadenceKind::Ordinary
     };
-    let speed = next.animation_speed();
+    let speed = next.animation_speed()?;
     let measurement = match kind {
         AuthoredCadenceKind::Ordinary => strides.ordinary(speed),
         AuthoredCadenceKind::Combat => strides.combat(next.raised_locomotion().local_direction()),
     };
     let continuing = cadence.filter(|current| current.kind == kind);
-    if measurement.is_none() && !(speed <= 0.05 && continuing.is_some()) {
+    if measurement.is_none() && !(speed <= STATIONARY_ANIMATION_SPEED_LIMIT && continuing.is_some())
+    {
         *cadence = None;
         return Ok(());
     }
     let mut phase = continuing.map_or(previous.gait_phase, |current| current.phase);
     let mut limited = continuing.is_some_and(|current| current.limited);
     let mut cadence_capped = continuing.is_some_and(|current| current.cadence_capped);
-    if speed > 0.05
+    if speed > STATIONARY_ANIMATION_SPEED_LIMIT
         && let Some(measurement) = measurement
     {
-        let requested_step_cadence = speed / measurement.step_distance.max(0.01);
+        let requested_step_cadence =
+            speed.metres_per_second() / measurement.step_distance.max(0.01);
         let step_cadence = capped_authored_step_cadence(requested_step_cadence);
         cadence_capped = step_cadence < requested_step_cadence;
         limited = cadence_capped
             || measurement.maximum_stance_slip > maximum_authored_stance_slip_metres().metres();
         if cadence_capped && !continuing.is_some_and(|current| current.cadence_capped) {
             warn!(
-                speed_metres_per_second = speed,
+                speed_metres_per_second = speed.metres_per_second(),
                 requested_steps_per_second = requested_step_cadence,
                 applied_steps_per_second = step_cadence,
                 maximum_stance_slip_metres = measurement.maximum_stance_slip,
@@ -478,16 +486,16 @@ fn capped_authored_step_cadence(requested: f32) -> f32 {
             * (t - t.powi(3) + 0.5 * t.powi(4))
 }
 
-fn presentation_phase_speed(skeleton: &SkeletonState) -> f32 {
-    let speed = skeleton.animation_speed();
+fn presentation_phase_speed(skeleton: &SkeletonState) -> AnimationValueResult<NonnegativeSpeed> {
+    let speed = skeleton.animation_speed()?;
     if skeleton.is_downed_turning() {
-        speed * 2.0
+        speed.checked_scale(2.0).map_err(AnimationValueError::from)
     } else if matches!(skeleton.body(), BodyState::Prone | BodyState::Supine) {
         // Match the authority: physical translation while downed is presented
         // as an idle-pose slide, not a predicted crawl/scamper cycle.
-        0.0
+        Ok(NonnegativeSpeed::ZERO)
     } else {
-        speed
+        Ok(speed)
     }
 }
 
@@ -560,7 +568,11 @@ mod authored_cadence_tests {
         let state = SkeletonState::default()
             .with_weapon_guard(WeaponGuardState::Raised)
             .with_local_velocity(Vec3::new(1.0, 0.0, 1.0))
-            .with_raised_locomotion(RaisedLocomotionIntent::moving(Vec2::ONE, 2.0));
+            .with_raised_locomotion(RaisedLocomotionIntent::moving(
+                Vec2::ONE,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
+                    .unwrap(),
+            ));
         let mut presented = PresentedSkeleton::new(state.clone(), None);
         let strides = AuthoredLocomotionStrides {
             strafe: Some(AuthoredStrideMeasurement {

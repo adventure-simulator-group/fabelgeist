@@ -219,7 +219,7 @@ pub struct Combatant {
     #[doc(hidden)]
     melee_engagement_distance_metres: f32,
     /// Signed contribution to separation velocity: closing is negative.
-    melee_separation_velocity_metres_per_second: f32,
+    melee_separation_velocity_metres_per_second: SignedSpeed,
     #[doc(hidden)]
     melee_recovery_until_seconds: f32,
     #[doc(hidden)]
@@ -287,7 +287,7 @@ impl Combatant {
             melee_phase_adaptation_delay_seconds: 0.0,
             melee_engagement_target: None,
             melee_engagement_distance_metres: 0.0,
-            melee_separation_velocity_metres_per_second: 0.0,
+            melee_separation_velocity_metres_per_second: SignedSpeed::ZERO,
             melee_recovery_until_seconds: 0.0,
             melee_attack_started_at_seconds: None,
             melee_attack_contact_at_seconds: None,
@@ -413,7 +413,10 @@ impl Combatant {
             && melee_attack_capability(&self.body, &self.equipment.for_melee()).is_available()
     }
 
-    fn movement_speed_meters_per_second(&self, minimum_speed: f32) -> f32 {
+    fn movement_speed_meters_per_second(
+        &self,
+        minimum_speed: PositiveSpeed,
+    ) -> SpeedResult<PositiveSpeed> {
         let leg_agility = self.attributes.limb_attr_by_weight_by_parts(
             LimbAttribute::Agility,
             &self.body,
@@ -425,7 +428,11 @@ impl Combatant {
         let encumbrance = self
             .equipment
             .encumbrance_penalty_by_parts(&self.attributes, &self.body);
-        ((1.0 + leg_agility) * armor * encumbrance).max(minimum_speed)
+        let measured = (1.0 + leg_agility) * armor * encumbrance;
+        if !measured.is_finite() {
+            return Err(SpeedError::Overflow);
+        }
+        PositiveSpeed::from_metres_per_second(measured.max(minimum_speed.metres_per_second()))
     }
 }
 
@@ -643,9 +650,9 @@ pub struct MeleeTimelineEvent {
     pub movement_action: Option<MeleeMovementAction>,
     pub movement_elapsed_seconds: Option<f32>,
     pub movement_displacement_metres: Option<f32>,
-    pub movement_velocity_before_metres_per_second: Option<f32>,
-    pub movement_velocity_after_metres_per_second: Option<f32>,
-    pub movement_speed_limit_metres_per_second: Option<f32>,
+    pub movement_velocity_before_metres_per_second: Option<SignedSpeed>,
+    pub movement_velocity_after_metres_per_second: Option<SignedSpeed>,
+    pub movement_speed_limit_metres_per_second: Option<NonnegativeSpeed>,
     pub readiness_before_seconds: Option<f32>,
     pub readiness_after_seconds: Option<f32>,
     pub attack_id: Option<u64>,
@@ -902,7 +909,7 @@ pub fn resolve_battle(
     mut enemies: Vec<Combatant>,
     seed: Seed,
     opening: BattleOpening,
-) -> BattleOutcome {
+) -> SpeedResult<BattleOutcome> {
     let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
     let mut random = StreamId::new("combat.autoresolve").rng(seed, &[]);
     let mut recorder = BattleRecorder::default();
@@ -938,7 +945,7 @@ pub fn resolve_battle(
         &mut random,
         &mut recorder,
         parameters,
-    );
+    )?;
 
     for round in 0..AUTORESOLVE_MAX_COMBAT_ROUNDS {
         if let Some(terminal) =
@@ -956,7 +963,7 @@ pub fn resolve_battle(
             &mut random,
             &mut recorder,
             parameters,
-        );
+        )?;
     }
 
     let resolution = resolution.unwrap_or_else(|| {
@@ -985,7 +992,7 @@ pub fn resolve_battle(
         })
         .sum();
 
-    BattleOutcome {
+    Ok(BattleOutcome {
         seed,
         resolution,
         rounds,
@@ -994,7 +1001,7 @@ pub fn resolve_battle(
         summary: recorder.summary,
         log: recorder.log,
         timeline: recorder.timeline,
-    }
+    })
 }
 
 fn classify_battle_resolution(
@@ -1052,13 +1059,14 @@ fn resolve_battle_round(
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) {
+) -> SpeedResult<()> {
     resolve_ranged_round(allies, enemies, round, random, recorder, parameters);
-    resolve_joint_melee_round(allies, enemies, round, random, recorder, parameters);
+    resolve_joint_melee_round(allies, enemies, round, random, recorder, parameters)?;
     allies
         .iter_mut()
         .chain(enemies)
         .for_each(|combatant| combatant.advance_condition(parameters.combat_round_seconds));
+    Ok(())
 }
 
 #[derive(Clone, Copy)]
@@ -1117,9 +1125,9 @@ fn resolve_opening_volleys(
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) {
-    let ally_plans = opening_volley_plans(allies, enemies, parameters);
-    let enemy_plans = opening_volley_plans(enemies, allies, parameters);
+) -> SpeedResult<()> {
+    let ally_plans = opening_volley_plans(allies, enemies, parameters)?;
+    let enemy_plans = opening_volley_plans(enemies, allies, parameters)?;
     let ally_detour_targets: Vec<_> = active_melee_indices(enemies)
         .into_iter()
         .skip(active_melee_indices(allies).len())
@@ -1183,27 +1191,27 @@ fn resolve_opening_volleys(
             );
         }
     }
+    Ok(())
 }
 
 fn opening_volley_plans(
     ranged_side: &[Combatant],
     closing_side: &[Combatant],
     parameters: crate::combat::AutoresolveParameters,
-) -> Vec<OpeningVolleyPlan> {
+) -> SpeedResult<Vec<OpeningVolleyPlan>> {
     let screen_count = active_melee_indices(ranged_side).len();
     let closing_melee = active_melee_indices(closing_side);
     let closing_melee_count = closing_melee.len();
-    let direct_closing_speed = closing_melee
-        .iter()
-        .map(|index| {
-            closing_side[*index].movement_speed_meters_per_second(
-                parameters.minimum_movement_speed_metres_per_second,
+    let direct_closing_speed = closing_melee.iter().try_fold(
+        parameters.minimum_movement_speed_metres_per_second,
+        |retained, index| -> SpeedResult<_> {
+            Ok(
+                retained.max(closing_side[*index].movement_speed_meters_per_second(
+                    parameters.minimum_movement_speed_metres_per_second,
+                )?),
             )
-        })
-        .fold(
-            parameters.minimum_movement_speed_metres_per_second,
-            f32::max,
-        );
+        },
+    )?;
     ranged_side
         .iter()
         .map(|attacker| {
@@ -1211,7 +1219,7 @@ fn opening_volley_plans(
                 || preferred_attack_mode(attacker) != BattleAttackKind::Ranged
                 || closing_melee_count == 0
             {
-                return OpeningVolleyPlan::default();
+                return Ok(OpeningVolleyPlan::default());
             }
 
             let weapon = attacker.equipment.ranged_weapon.unwrap();
@@ -1219,7 +1227,7 @@ fn opening_volley_plans(
                 .attack_interval_seconds
                 .max(parameters.minimum_attack_interval_seconds);
             let range = weapon.ranged_range.max(0.0);
-            let direct_seconds = range / direct_closing_speed;
+            let direct_seconds = range / direct_closing_speed.metres_per_second();
             let direct_attacks = (direct_seconds / interval)
                 .ceil()
                 .clamp(0.0, AUTORESOLVE_MAX_RANGED_ATTACKS_PER_PHASE as f32)
@@ -1231,23 +1239,24 @@ fn opening_volley_plans(
             } else {
                 0.0
             };
-            let surplus_speed = closing_melee
-                .iter()
-                .skip(screen_count)
-                .map(|index| {
-                    closing_side[*index].movement_speed_meters_per_second(
-                        parameters.minimum_movement_speed_metres_per_second,
+            let surplus_speed = closing_melee.iter().skip(screen_count).try_fold(
+                direct_closing_speed,
+                |retained, index| -> SpeedResult<_> {
+                    Ok(
+                        retained.max(closing_side[*index].movement_speed_meters_per_second(
+                            parameters.minimum_movement_speed_metres_per_second,
+                        )?),
                     )
-                })
-                .fold(direct_closing_speed, f32::max);
-            let total_seconds = direct_seconds + detour / surplus_speed;
-            OpeningVolleyPlan {
+                },
+            )?;
+            let total_seconds = direct_seconds + detour / surplus_speed.metres_per_second();
+            Ok(OpeningVolleyPlan {
                 direct_attacks,
                 total_attacks: (total_seconds / interval)
                     .ceil()
                     .clamp(0.0, AUTORESOLVE_MAX_RANGED_ATTACKS_PER_PHASE as f32)
                     as usize,
-            }
+            })
         })
         .collect()
 }
@@ -1862,13 +1871,15 @@ mod tests {
             vec![fighter(2, 2.0, false)],
             fabelgeist_determinism::Seed::from_u64(42),
             BattleOpening::Normal,
-        );
+        )
+        .unwrap();
         let second = resolve_battle(
             vec![fighter(1, 3.0, false)],
             vec![fighter(2, 2.0, false)],
             fabelgeist_determinism::Seed::from_u64(42),
             BattleOpening::Normal,
-        );
+        )
+        .unwrap();
         assert_eq!(first.resolution, second.resolution);
         assert_eq!(first.rounds, second.rounds);
         assert_eq!(first.allies[0].body.health, second.allies[0].body.health);
@@ -1884,13 +1895,15 @@ mod tests {
             vec![second.clone()],
             fabelgeist_determinism::Seed::from_u64(91),
             BattleOpening::Normal,
-        );
+        )
+        .unwrap();
         let reversed = resolve_battle(
             vec![second],
             vec![first],
             fabelgeist_determinism::Seed::from_u64(91),
             BattleOpening::Normal,
-        );
+        )
+        .unwrap();
         let causal_sequence = |outcome: &BattleOutcome| {
             outcome
                 .log
@@ -1939,7 +1952,8 @@ mod tests {
             &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(7)),
             &mut recorder,
             autoresolve_parameters(),
-        );
+        )
+        .unwrap();
         assert_eq!(recorder.log.len(), 2);
         assert_eq!(recorder.log[0].round, 1);
         assert_eq!(recorder.log[1].round, 1);
@@ -1973,6 +1987,7 @@ mod tests {
                     seed,
                     BattleOpening::Normal,
                 )
+                .unwrap()
             })
             .find(|outcome| {
                 outcome
@@ -2009,13 +2024,15 @@ mod tests {
             vec![fighter(2, 5.0, false)],
             fabelgeist_determinism::Seed::from_u64(77),
             BattleOpening::AlliesSurprise,
-        );
+        )
+        .unwrap();
         let enemies_first = resolve_battle(
             vec![fighter(1, 5.0, false)],
             vec![fighter(2, 5.0, false)],
             fabelgeist_determinism::Seed::from_u64(77),
             BattleOpening::EnemiesSurprise,
-        );
+        )
+        .unwrap();
         assert_eq!(allies_first.log.first().map(|hit| hit.attacker_id), Some(1));
         assert_eq!(
             enemies_first.log.first().map(|hit| hit.attacker_id),
@@ -2487,9 +2504,11 @@ mod tests {
         surplus_closers.push(fighter(8, 3.0, false));
 
         let direct_plan =
-            opening_volley_plans(&ranged_side, &matched_closers, autoresolve_parameters())[0];
+            opening_volley_plans(&ranged_side, &matched_closers, autoresolve_parameters()).unwrap()
+                [0];
         let detour_plan =
-            opening_volley_plans(&ranged_side, &surplus_closers, autoresolve_parameters())[0];
+            opening_volley_plans(&ranged_side, &surplus_closers, autoresolve_parameters()).unwrap()
+                [0];
         assert!(direct_plan.direct_attacks > 0);
         assert_eq!(direct_plan.direct_attacks, direct_plan.total_attacks);
         assert_eq!(detour_plan.direct_attacks, direct_plan.direct_attacks);
@@ -2515,7 +2534,8 @@ mod tests {
             &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(7)),
             &mut BattleRecorder::default(),
             autoresolve_parameters(),
-        );
+        )
+        .unwrap();
 
         assert!(enemies[0].body.total_damage() > 0.0);
     }
@@ -2533,7 +2553,7 @@ mod tests {
         let screen = fighter(2, 3.0, false);
         let mut attackers = vec![archer, screen];
         let mut defenders = vec![fighter(3, 1.0, false), fighter(4, 1.0, false)];
-        let plans = opening_volley_plans(&attackers, &defenders, autoresolve_parameters());
+        let plans = opening_volley_plans(&attackers, &defenders, autoresolve_parameters()).unwrap();
         let direct_attacks = plans[0].direct_attacks;
 
         take_opening_volley_step(
@@ -2558,7 +2578,8 @@ mod tests {
             Vec::new(),
             fabelgeist_determinism::Seed::from_u64(1),
             BattleOpening::Normal,
-        );
+        )
+        .unwrap();
         assert_eq!(outcome.resolution, BattleResolution::AlliesVictory);
         assert_eq!(outcome.rounds, 0);
         assert_eq!(outcome.seed, fabelgeist_determinism::Seed::from_u64(1));
@@ -2591,10 +2612,12 @@ mod tests {
         slow.attributes.right_leg_agility = 0.0;
         let fast = fighter(3, 5.0, false);
 
-        let slow_attacks =
-            opening_volley_plans(&ranged, &[slow], autoresolve_parameters())[0].total_attacks;
-        let fast_attacks =
-            opening_volley_plans(&ranged, &[fast], autoresolve_parameters())[0].total_attacks;
+        let slow_attacks = opening_volley_plans(&ranged, &[slow], autoresolve_parameters())
+            .unwrap()[0]
+            .total_attacks;
+        let fast_attacks = opening_volley_plans(&ranged, &[fast], autoresolve_parameters())
+            .unwrap()[0]
+            .total_attacks;
         assert!(slow_attacks > fast_attacks);
     }
 
@@ -2747,7 +2770,8 @@ mod tests {
             vec![fighter(2, 1.0, false)],
             fabelgeist_determinism::Seed::from_u64(27),
             BattleOpening::Normal,
-        );
+        )
+        .unwrap();
         assert_eq!(outcome.seed, fabelgeist_determinism::Seed::from_u64(27));
         assert_eq!(outcome.summary.melee_attacks as usize, outcome.log.len());
         assert_eq!(outcome.log.first().map(|entry| entry.sequence), Some(0));
@@ -2764,6 +2788,7 @@ mod tests {
                     *seed,
                     BattleOpening::Normal,
                 )
+                .unwrap()
                 .resolution
                     == BattleResolution::AlliesVictory
             })
@@ -2777,6 +2802,7 @@ mod tests {
                     *seed,
                     BattleOpening::Normal,
                 )
+                .unwrap()
                 .resolution
                     == BattleResolution::AlliesVictory
             })

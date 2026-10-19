@@ -69,7 +69,7 @@ mod legacy_tests {
 
         assert_eq!(inputs.action, SkeletonAction::Attack);
         assert_eq!(inputs.direction, Vec2::NEG_Y);
-        assert_eq!(inputs.speed, 3.0);
+        assert_eq!(inputs.speed.metres_per_second(), 3.0);
         assert_eq!(presented.attack_animation(), Some(AttackAnimation::Swing));
         assert_eq!(before, serde_json::to_vec(&presented.state).unwrap());
     }
@@ -276,8 +276,8 @@ mod legacy_tests {
                 .unwrap()
                 .cycles();
             let predicted = gait_cycle_phase_delta(
-                locomotion_profile(&presented.state),
-                presented.animation_speed(),
+                locomotion_profile(&presented.state, presented.animation_speed().unwrap()).unwrap(),
+                presented.animation_speed().unwrap(),
                 AnimationElapsed::from_seconds(delta_seconds).unwrap(),
             )
             .unwrap()
@@ -304,8 +304,8 @@ mod legacy_tests {
         for tick in 1u64..=JITTER_OBSERVATION_COUNT {
             let previous_phase = presented.gait_phase;
             let predicted_delta = gait_cycle_phase_delta(
-                locomotion_profile(&presented.state),
-                presented.animation_speed(),
+                locomotion_profile(&presented.state, presented.animation_speed().unwrap()).unwrap(),
+                presented.animation_speed().unwrap(),
                 AnimationElapsed::from_seconds(delta_seconds).unwrap(),
             )
             .unwrap()
@@ -347,8 +347,8 @@ mod legacy_tests {
 
         for tick in 1u64..=8 {
             let predicted_delta = gait_cycle_phase_delta(
-                locomotion_profile(&presented.state),
-                presented.animation_speed(),
+                locomotion_profile(&presented.state, presented.animation_speed().unwrap()).unwrap(),
+                presented.animation_speed().unwrap(),
                 AnimationElapsed::from_seconds(delta_seconds).unwrap(),
             )
             .unwrap()

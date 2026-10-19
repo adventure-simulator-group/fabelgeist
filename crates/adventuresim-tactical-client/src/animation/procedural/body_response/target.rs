@@ -46,7 +46,8 @@ pub(super) fn deceleration_lean_scale(
     let is_decelerating = previous_planar.dot(planar_acceleration) < 0.0
         && current_squared <= previous_squared + DECELERATION_SPEED_SQUARED_ALLOWANCE;
     BrakingLeanScale::from_fraction(if is_decelerating {
-        (planar.length() / run_locomotion_profile().reference_speed).clamp(0.0, 1.0)
+        (planar.length() / run_locomotion_profile().reference_speed.metres_per_second())
+            .clamp(0.0, 1.0)
     } else {
         1.0
     })
@@ -64,7 +65,7 @@ fn travel_lean(
     // stronger combined startup pose. Keeping most of the lean in travel avoids
     // a large initial snap followed by an almost upright steady run.
     let travel_pitch = BodyAngle::from_radians(
-        velocity.z / run_locomotion_profile().reference_speed
+        velocity.z / run_locomotion_profile().reference_speed.metres_per_second()
             * tuning.steady_travel_lean_degrees.to_radians(),
     )?
     .radians()
@@ -73,7 +74,7 @@ fn travel_lean(
         tuning.maximum_travel_lean_degrees.to_radians(),
     );
     let travel_roll = BodyAngle::from_radians(
-        -velocity.x / run_locomotion_profile().reference_speed
+        -velocity.x / run_locomotion_profile().reference_speed.metres_per_second()
             * tuning.steady_travel_lean_degrees.to_radians(),
     )?
     .radians()
@@ -94,7 +95,8 @@ fn inertial_lean(
     // Acceleration is an early accent rather than a second full pose. Fade it
     // almost completely into the stable velocity posture, so reaching target
     // speed cannot release a late, visibly separate lean.
-    let speed_ratio = velocity.xz().length() / run_locomotion_profile().reference_speed;
+    let speed_ratio =
+        velocity.xz().length() / run_locomotion_profile().reference_speed.metres_per_second();
     if !speed_ratio.is_finite() {
         return Err(AnimationValueError::Overflow {
             quantity: AnimationQuantity::BodyAngle,

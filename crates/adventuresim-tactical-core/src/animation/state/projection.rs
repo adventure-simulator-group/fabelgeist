@@ -16,8 +16,9 @@ pub struct SkeletonLocomotionInput {
 
 struct ProjectedObservation {
     local_velocity: Vec3,
+    local_speed: NonnegativeSpeed,
     world_acceleration: Vec3,
-    physical_speed: f32,
+    physical_speed: NonnegativeSpeed,
     landing_impact: Option<LandingImpactSpeed>,
 }
 
@@ -78,13 +79,14 @@ impl ProjectedObservation {
             body_local
         };
         let physical_speed = input.linear_velocity.xz().length();
+        let local_speed = local_velocity.xz().length();
         let acceleration = if input.tick == skeleton.locomotion_sample_tick.next() {
             (input.linear_velocity - previous_world_velocity) * locomotion_sample_hz()
         } else {
             Vec3::ZERO
         };
         if !local_velocity.is_finite()
-            || !local_velocity.xz().length().is_finite()
+            || !local_speed.is_finite()
             || !physical_speed.is_finite()
             || !acceleration.length_squared().is_finite()
         {
@@ -105,7 +107,8 @@ impl ProjectedObservation {
         };
         Ok(Self {
             local_velocity,
-            physical_speed,
+            local_speed: NonnegativeSpeed::from_metres_per_second(local_speed)?,
+            physical_speed: NonnegativeSpeed::from_metres_per_second(physical_speed)?,
             world_acceleration: acceleration.clamp_length_max(80.0),
             landing_impact,
         })
@@ -149,6 +152,7 @@ pub fn project_skeleton_locomotion_with_body_rotation(
     let observation = ProjectedObservation::admit(skeleton, input, body_rotation)?;
     let ProjectedObservation {
         local_velocity,
+        local_speed,
         world_acceleration,
         physical_speed,
         landing_impact,
@@ -188,6 +192,7 @@ pub fn project_skeleton_locomotion_with_body_rotation(
         input,
         local_velocity,
         physical_speed,
+        local_speed,
         requested_local_direction,
     )?;
     skeleton.advance_action(input.tick);
@@ -198,29 +203,38 @@ fn advance_projected_ground_cycle(
     skeleton: &mut SkeletonState,
     input: SkeletonLocomotionInput,
     local_velocity: Vec3,
-    physical_speed: f32,
+    physical_speed: NonnegativeSpeed,
+    local_speed: NonnegativeSpeed,
     requested_local_direction: Option<Vec2>,
 ) -> AnimationValueResult<()> {
     let ground_speed = if skeleton.is_downed_turning() {
         // Turning in place has no physical velocity, but its crawl/scamper
         // cycle should run at twice the former synthetic cadence.
-        physical_speed.max(0.8) * 2.0
+        physical_speed
+            .max(crate::animation::locomotion::MINIMUM_DOWNED_ANIMATION_SPEED)
+            .checked_scale(2.0)?
     } else if matches!(skeleton.body, BodyState::Prone | BodyState::Supine) {
         // Residual impulses and collision correction may translate a downed
         // body, but prone/supine presentation deliberately slides in its idle
         // pose. Velocity-driven locomotion belongs only to upright bodies.
-        0.0
+        NonnegativeSpeed::ZERO
     } else {
         physical_speed
     };
     if skeleton.weapon_guard() == WeaponGuardState::Raised && skeleton.posture() == Posture::Upright
     {
-        advance_raised_locomotion_intent(skeleton, local_velocity, requested_local_direction);
+        advance_raised_locomotion_intent(
+            skeleton,
+            local_velocity,
+            local_speed,
+            requested_local_direction,
+        );
         advance_guard_footwork(
             skeleton,
             input
                 .delta_seconds
                 .min(AnimationElapsed::from_seconds(1.0)?),
+            local_speed,
             input.tick,
         )?;
     } else {
@@ -231,7 +245,7 @@ fn advance_projected_ground_cycle(
                     .playback
                     .initial_locomotion_speed_metres_per_second
         {
-            let profile = locomotion_profile(skeleton);
+            let profile = locomotion_profile(skeleton, skeleton.animation_speed()?)?;
             let phase = skeleton.gait_phase.wrapped();
             let next_phase = phase.checked_advance(gait_cycle_phase_delta(
                 profile,

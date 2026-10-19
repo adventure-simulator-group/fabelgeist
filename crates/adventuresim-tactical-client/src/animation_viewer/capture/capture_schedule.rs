@@ -1,8 +1,9 @@
 //! Capture-phase registration and its ordered readiness/terminal-consumption policy.
 
+use super::overlay::draw_skeleton_overlay;
 use super::{
-    capture_frame, collect_locomotion_presentation_events, draw_flat_ground_grid,
-    draw_skeleton_overlay, drive_sequence, freeze_capture_look, reject_capture,
+    capture_frame, collect_locomotion_presentation_events, draw_flat_ground_grid, drive_sequence,
+    freeze_capture_look, reject_capture,
 };
 use crate::animation_viewer::{
     harness, inspection, setup::setup_viewer, view::position_capture_camera,

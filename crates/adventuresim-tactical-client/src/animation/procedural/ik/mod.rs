@@ -9,7 +9,9 @@
 
 use super::*;
 use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
+use adventuresim_core::linear_speed::NonnegativeSpeed;
 use adventuresim_tactical_core::animation::NonnegativeLength;
+use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 
 mod evaluation_clock;
 mod foot_roll;
@@ -21,6 +23,7 @@ mod raised_footwork;
 mod settle;
 mod solver;
 mod state;
+mod target_speed;
 mod terrain_contacts;
 #[cfg(test)]
 mod tests;
@@ -29,6 +32,7 @@ pub(in crate::animation) use hands::apply_arm_and_weapon_constraints;
 #[cfg(test)]
 pub(super) use hands::secondary_grip_world;
 pub(crate) use hands::{HandIkTarget, HandSide, HeldWeaponConstraint, HumanoidIkTargets};
+pub(crate) use locomotion::locomotion_support_weights;
 pub(super) use locomotion::owns as authored_locomotion_owns;
 pub(in crate::animation) use observation::refresh_raised_support_after_propagation;
 use observation::*;
@@ -57,7 +61,7 @@ pub(super) use settle::{
 pub(super) use solver::*;
 use state::*;
 pub(crate) use state::{ArmIkState, LegIkDiagnostics, LegIkState};
-pub(crate) use terrain_contacts::locomotion_support_weights;
+use target_speed::FootTargetSpeeds;
 pub(super) use terrain_contacts::smoothstep;
 use terrain_contacts::*;
 
@@ -107,6 +111,13 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
 ) {
     let _spike = crate::animation::diagnostics::SpikeGuard::new("apply_terrain_leg_ik");
     let terrain = terrain.single().ok();
+    let target_speeds = match FootTargetSpeeds::configured() {
+        Ok(speeds) => speeds,
+        Err(error) => {
+            warn!(%error, "Rejected terrain target speeds");
+            return;
+        }
+    };
     for (owner, rig) in &rigs {
         let Ok(skeleton) = owners.get(owner) else {
             continue;
@@ -165,6 +176,13 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             }
             continue;
         }
+        let speed = match skeleton.animation_speed() {
+            Ok(speed) => speed,
+            Err(error) => {
+                warn!(%error, ?owner, "Rejected terrain IK animation speed");
+                continue;
+            }
+        };
         let raised_guard_follower = raised_footwork_posture_is_valid(skeleton)
             && skeleton.weapon_guard() == WeaponGuardState::Raised
             && matches!(
@@ -175,15 +193,27 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             .get(owner)
             .is_ok_and(|state| state.step.initialized());
         let raised_footwork_handoff = !raised_guard_follower && raised_footwork_was_active;
-        let (mut left_weight, mut right_weight) = locomotion_support_weights(skeleton);
+        let (mut left_weight, mut right_weight) = match locomotion_support_weights(skeleton, speed)
+        {
+            Ok(weights) => weights,
+            Err(error) => {
+                warn!(%error, ?owner, "Rejected locomotion support");
+                continue;
+            }
+        };
         // Preserve the profile-owned cadence before settle, ownership, and
         // exhausted-lobe state can suppress effective support. Run touchdown
         // descent is a phase fact and must never be derived from the mutable
         // solver/reporting weights below.
-        let raw_run_support =
-            (locomotion_profile(skeleton).gait == LocomotionGait::Run).then(|| {
-                gait_support_weights(locomotion_profile(skeleton), skeleton.gait_phase.wrapped())
-            });
+        let profile = match locomotion_profile(skeleton, speed) {
+            Ok(profile) => profile,
+            Err(error) => {
+                warn!(%error, ?owner, "Rejected locomotion profile");
+                continue;
+            }
+        };
+        let raw_run_support = (profile.gait == LocomotionGait::Run)
+            .then(|| gait_support_weights(profile, skeleton.gait_phase.wrapped()));
         let mut legs = [
             (
                 BoneRole::ThighLeft,
@@ -251,72 +281,14 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             memory.left_foot_world_target = Some(rig_origin + rig_rotation * left);
             memory.right_foot_world_target = Some(rig_origin + rig_rotation * right);
         }
-        if !state_delta_seconds.is_zero() {
-            let previous_rig_origin = memory.rig_origin;
-            let owner_discontinuous = previous_rig_origin.is_some_and(|previous| {
-                previous.distance(rig_origin)
-                    > ik_tuning()
-                        .maximum_owner_translation_per_tick_metres
-                        .metres()
-            }) || memory.rig_rotation.is_some_and(|previous| {
-                previous.angle_between(rig_rotation).to_degrees()
-                    > ik_tuning().maximum_owner_rotation_per_tick_degrees
-            });
-            memory.measured_owner_planar_speed = update_measured_owner_planar_speed(
-                memory.measured_owner_planar_speed,
-                previous_rig_origin,
-                rig_origin,
-                state_delta_seconds,
-                evaluation_advances,
-                owner_discontinuous,
-            );
-            if owner_discontinuous {
-                memory.left_foot_plant = None;
-                memory.right_foot_plant = None;
-                memory.left_foot_plant_acquired = false;
-                memory.right_foot_plant_acquired = false;
-                memory.left_foot_target = None;
-                memory.right_foot_target = None;
-                memory.left_foot_world_target = None;
-                memory.right_foot_world_target = None;
-                memory.left_last_rendered_world = None;
-                memory.right_last_rendered_world = None;
-                memory.left_last_rendered_toe_world = None;
-                memory.right_last_rendered_toe_world = None;
-                memory.left_last_rendered_owner = None;
-                memory.right_last_rendered_owner = None;
-                memory.left_last_rendered_foot_rotation_world = None;
-                memory.right_last_rendered_foot_rotation_world = None;
-                memory.left_authored_world_target = None;
-                memory.right_authored_world_target = None;
-                clear_all_planned_contact_metadata(&mut memory);
-                memory.left_support_weight = None;
-                memory.right_support_weight = None;
-                memory.left_transition_support_weight = None;
-                memory.right_transition_support_weight = None;
-                memory.left_support_exhausted_until_flight = false;
-                memory.right_support_exhausted_until_flight = false;
-                memory.left_terrain_pole_world = None;
-                memory.right_terrain_pole_world = None;
-                memory.left_terrain_end_direction = None;
-                memory.right_terrain_end_direction = None;
-                memory.left_foot_orientation_world = None;
-                memory.right_foot_orientation_world = None;
-                memory.left_contact_orientation_blend_active = false;
-                memory.right_contact_orientation_blend_active = false;
-                clear_slope_rotation_cache(&mut memory);
-                memory.left_release_active = false;
-                memory.right_release_active = false;
-                memory.left_release_target = None;
-                memory.right_release_target = None;
-                memory.pelvis_shift = 0.0;
-                memory.measured_owner_planar_speed = 0.0;
-                reset_terminal_settle_reach(&mut memory);
-                memory.recent_movement_velocity = Vec3::ZERO;
-                memory.settle = None;
-            }
-            memory.rig_origin = Some(rig_origin);
-            memory.rig_rotation = Some(rig_rotation);
+        if let Err(error) = memory.observe_owner_frame(
+            rig_origin,
+            rig_rotation,
+            state_delta_seconds,
+            evaluation_advances,
+        ) {
+            warn!(%error, ?owner, "Rejected owner-motion measurement");
+            continue;
         }
         if raised_footwork_handoff {
             // A mode that owns the full lower body supersedes guard footwork.
@@ -330,19 +302,20 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
         let ordinary_lowered = skeleton.weapon_guard() == WeaponGuardState::Lowered
             && skeleton.action_kind() == SkeletonAction::None;
         let planar_velocity = skeleton.world_velocity.with_y(0.0);
-        if ordinary_lowered && skeleton.animation_speed() > 0.05 && memory.settle.is_none() {
-            // Retain the strongest recent velocity through the presentation
-            // deceleration. Sampling only the final sub-threshold frame makes
-            // the capture point collapse behind the body's visible momentum.
-            if planar_velocity.length_squared()
-                >= memory.recent_movement_velocity.length_squared() * 0.25
-            {
-                memory.recent_movement_velocity = planar_velocity;
-            }
-        } else if (ordinary_lowered || raised_footwork_handoff)
-            && skeleton.animation_speed() <= 0.05
-            && memory.settle.is_none()
+        let planar_speed = match NonnegativeSpeed::from_metres_per_second(planar_velocity.length())
         {
+            Ok(speed) => speed,
+            Err(error) => {
+                warn!(%error, ?owner, "Rejected terrain planar speed");
+                continue;
+            }
+        };
+        if memory.observe_movement_for_settle(
+            ordinary_lowered,
+            raised_footwork_handoff,
+            speed,
+            planar_velocity,
+        ) {
             let projected_com = projected_body_center(rig, &transforms.p0()).unwrap_or(rig_origin);
             let has_recent_velocity = memory.recent_movement_velocity.length_squared() > 0.0025;
             let stance_known =
@@ -391,7 +364,9 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     projected_capture_point(
                         projected_com,
                         memory.recent_movement_velocity.clamp_length_max(
-                            ik_tuning().maximum_settle_capture_speed_metres_per_second,
+                            ik_tuning()
+                                .maximum_settle_capture_speed_metres_per_second
+                                .metres_per_second(),
                         ),
                         ik_tuning().assumed_center_of_mass_height_metres,
                     )
@@ -411,17 +386,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 // contact ownership separately from the visible world target
                 // so an airborne selected support keeps its toe/sole floor
                 // until it actually acquires terrain.
-                let selected_support_was_acquired = if support_foot == LeadFoot::Left {
-                    memory.left_foot_plant_acquired
-                        && memory
-                            .left_support_weight
-                            .is_some_and(terrain_leg_has_support)
-                } else {
-                    memory.right_foot_plant_acquired
-                        && memory
-                            .right_support_weight
-                            .is_some_and(terrain_leg_has_support)
-                };
+                let selected_support_was_acquired = memory.support_was_acquired(support_foot);
                 let swing_start = if support_foot == LeadFoot::Left {
                     visible_right
                 } else {
@@ -465,7 +430,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             }
         }
         let settle_cancelled_for_restart =
-            ordinary_lowered && skeleton.animation_speed() > 0.05 && memory.settle.is_some();
+            ordinary_lowered && speed > STATIONARY_ANIMATION_SPEED_LIMIT && memory.settle.is_some();
         if settle_cancelled_for_restart {
             // A restart invalidates the balance-capture trajectory immediately.
             // Keeping a cancelled settle alive until both release targets
@@ -601,7 +566,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             let previous_swing = footwork.step.swing_foot();
             let left_authored = left_foot_snapshot.global.translation();
             let right_authored = right_foot_snapshot.global.translation();
-            let live_speed = skeleton.world_velocity.with_y(0.0).length();
+            let live_speed = planar_speed;
             let handoff_targets = memory.quickstep_handoff.targets();
             let visible_left = if let Some((landing_local, _)) = handoff_targets {
                 let authored_local = rig_rotation.inverse() * (left_authored - rig_origin);
@@ -632,7 +597,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 memory.right_foot_plant_acquired = true;
             }
             let quickstep_handoff_active = memory.quickstep_handoff.is_pending();
-            if memory.quickstep_handoff.is_held() && live_speed > 0.05 {
+            if memory.quickstep_handoff.is_held() && live_speed > STATIONARY_ANIMATION_SPEED_LIMIT {
                 memory.quickstep_handoff = QuickstepContactHandoff::None;
             }
             if quickstep_handoff_active {
@@ -673,18 +638,19 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                             let local = rig_rotation.inverse() * (authored - rig_origin);
                             Vec2::new(local.x, local.z)
                         };
-                        let (left_contact, right_contact) = if live_speed <= 0.05 {
-                            // Once translation has stopped, the prepared combat
-                            // stance is the canonical footprint. Replicated tap
-                            // contacts describe the last moving sample and can
-                            // otherwise leave both feet collapsed on one side.
-                            (
-                                authored_contact(left_authored),
-                                authored_contact(right_authored),
-                            )
-                        } else {
-                            (contacts.left(), contacts.right())
-                        };
+                        let (left_contact, right_contact) =
+                            if live_speed <= STATIONARY_ANIMATION_SPEED_LIMIT {
+                                // Once translation has stopped, the prepared combat
+                                // stance is the canonical footprint. Replicated tap
+                                // contacts describe the last moving sample and can
+                                // otherwise leave both feet collapsed on one side.
+                                (
+                                    authored_contact(left_authored),
+                                    authored_contact(right_authored),
+                                )
+                            } else {
+                                (contacts.left(), contacts.right())
+                            };
                         GuardStepState::Stationary {
                             left: contact_world(left_contact, left_authored),
                             right: contact_world(right_contact, right_authored),
@@ -720,7 +686,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         }
                     }
                 };
-                if live_speed <= 0.05
+                if live_speed <= STATIONARY_ANIMATION_SPEED_LIMIT
                     && !footwork.step.initialized()
                     && let (Some(left), Some(right)) = (
                         memory.left_last_rendered_world,
@@ -748,7 +714,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     // ownership snap or contact-identity reset.
                     footwork.step = GuardStepState::Stationary { left, right, next };
                 }
-                footwork.step = if live_speed <= 0.05
+                footwork.step = if live_speed <= STATIONARY_ANIMATION_SPEED_LIMIT
                     && matches!(requested, GuardStepState::Stationary { .. })
                 {
                     advance_stationary_turn_step(footwork.step, requested, state_delta_seconds)
@@ -1076,9 +1042,10 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 memory.right_foot_orientation_world.is_none()
                     && memory.right_last_rendered_foot_rotation_world.is_some(),
             ];
-            finalize_leg_rotation_chains(
+            if let Err(error) = finalize_leg_rotation_chains(
                 rig,
                 skeleton,
+                speed,
                 rig_rotation,
                 &mut memory,
                 evaluation_advances,
@@ -1087,7 +1054,10 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 raised_orientation_handoff,
                 &parents,
                 &mut transforms,
-            );
+            ) {
+                warn!(%error, ?owner, "Rejected final leg rotation");
+                continue;
+            }
             // Classify support and retain handoff targets only after the final
             // cached-chain/orientation seam. This is the same local-transform
             // state that transform propagation exposes to viewer telemetry.
@@ -1188,7 +1158,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 LeadFoot::Left => memory.left_planned_contact_phase_start,
                 LeadFoot::Right => memory.right_planned_contact_phase_start,
             };
-            let run = locomotion_profile(skeleton).gait == LocomotionGait::Run;
+            let run = profile.gait == LocomotionGait::Run;
             let planned_weight = if run && !acquired && (plant.is_some() || planned.is_some()) {
                 let phase_to_contact = skeleton.gait_phase.until_contact(foot_side);
                 run_contact_approach_progress(
@@ -1197,7 +1167,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         ik_tuning().run_contact_approach_phase.fraction(),
                         CycleDelta::cycles,
                     ),
-                    locomotion_profile(skeleton).support_phase_radius
+                    profile.support_phase_radius
                         + ik_tuning().run_contact_chain_settle_phase.fraction(),
                 )
             } else {
@@ -1245,7 +1215,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 desired_hip_shift.min((reach_shift * reach_weight).clamp(-0.25, 0.0));
         }
         desired_hip_shift *= terrain_blend;
-        if locomotion_profile(skeleton).gait == LocomotionGait::Run {
+        if profile.gait == LocomotionGait::Run {
             // Anticipate only the reach needed by the frozen run contact. The
             // bounded contact-phase drop reinforces the two existing minima;
             // it cannot add the earlier free-running terrain wave or move the
@@ -1280,7 +1250,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             if memory_was_missing {
                 memory.pelvis_shift = desired_hip_shift;
             } else if !state_delta_seconds.is_zero() {
-                memory.pelvis_shift = if locomotion_profile(skeleton).gait == LocomotionGait::Run {
+                memory.pelvis_shift = if profile.gait == LocomotionGait::Run {
                     advance_scalar_at_speed(
                         memory.pelvis_shift,
                         desired_hip_shift,
@@ -1551,8 +1521,8 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             let exhausted = exhausted_latch_after_raw_cadence(exhausted, raw_nominal_weight);
             let exhausted = exhausted
                 || unplanned_run_support_requires_flight(
-                    locomotion_profile(skeleton).gait,
-                    skeleton.animation_speed(),
+                    profile.gait,
+                    speed,
                     weight,
                     plant_acquired,
                     retained_plan,
@@ -1560,10 +1530,10 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             let (mut next_exhausted, mut effective_weight) =
                 support_after_exhausted_lobe(exhausted, weight);
             if run_plan_is_on_rising_support(
-                locomotion_profile(skeleton).gait,
+                profile.gait,
                 skeleton.gait_phase,
                 foot_side,
-                locomotion_profile(skeleton).support_phase_radius,
+                profile.support_phase_radius,
                 raw_nominal_weight,
                 retained_plan,
                 plant_acquired,
@@ -1579,12 +1549,12 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             let release_now = run_is_at_support_exit(
                 skeleton.gait_phase,
                 foot_side,
-                locomotion_profile(skeleton).support_phase_radius,
+                profile.support_phase_radius,
             );
             let (toe_off_started, toe_off_weight) = run_toe_off_support_weight(
-                locomotion_profile(skeleton).gait,
+                profile.gait,
                 run_retained_support_through_lobe_edge(
-                    locomotion_profile(skeleton).gait,
+                    profile.gait,
                     effective_weight,
                     plant_acquired && plant.is_some(),
                     release_now,
@@ -1661,7 +1631,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         .is_some_and(terrain_leg_has_support)
             };
             weight = coordinated_support_weight(
-                locomotion_profile(skeleton).gait,
+                profile.gait,
                 weight,
                 plant_acquired && plant.is_some(),
                 opposite_acquired,
@@ -1679,12 +1649,10 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     .settle
                     .filter(|settle| settle.support_foot != foot_side);
                 if settle_swing.is_none() {
-                    let gait = locomotion_profile(skeleton).gait;
+                    let gait = profile.gait;
                     let run_airborne_budget = uses_run_airborne_motion_budget(
                         gait,
-                        planar_velocity
-                            .length()
-                            .max(memory.measured_owner_planar_speed),
+                        memory.effective_planar_speed(planar_speed),
                     );
                     let airborne_budget_gait = if run_airborne_budget {
                         LocomotionGait::Run
@@ -1775,12 +1743,11 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         rig_rotation,
                         propagated_visible_target,
                     );
-                    let approach_window =
-                        if locomotion_profile(skeleton).gait == LocomotionGait::Run {
-                            ik_tuning().run_contact_approach_phase.fraction()
-                        } else {
-                            0.12
-                        };
+                    let approach_window = if profile.gait == LocomotionGait::Run {
+                        ik_tuning().run_contact_approach_phase.fraction()
+                    } else {
+                        0.12
+                    };
                     let support_lobe_exhausted = if left {
                         memory.left_support_exhausted_until_flight
                     } else {
@@ -1798,18 +1765,18 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                                 rig_rotation,
                                 projected_body_center(rig, &transforms.p0()).unwrap_or(rig_origin),
                                 planar_velocity,
-                                skeleton.animation_speed(),
+                                speed,
                                 phase_to_contact,
                                 side,
                             );
-                            if locomotion_profile(skeleton).gait == LocomotionGait::Run {
+                            if profile.gait == LocomotionGait::Run {
                                 reachable_run_contact_target(
                                     candidate,
                                     upper_snapshot.global.translation(),
                                     planar_velocity,
-                                    skeleton.animation_speed(),
+                                    speed,
                                     phase_to_contact,
-                                    locomotion_profile(skeleton).support_phase_radius
+                                    profile.support_phase_radius
                                         + ik_tuning().run_contact_chain_settle_phase.fraction(),
                                     terrain_maximum_reach(upper_length, lower_length),
                                     |xz| terrain.height_at(xz),
@@ -1824,15 +1791,15 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         planned_contact_start(retained_start, prior_visible_target, foot_position)
                     });
                     let planned_contact = planned_contact.map(|contact| {
-                        if locomotion_profile(skeleton).gait == LocomotionGait::Run
+                        if profile.gait == LocomotionGait::Run
                             && late_run_plan_requires_bound(retained_contact, phase_to_contact)
                         {
                             bound_late_run_contact(
                                 planned_start.unwrap_or(foot_position),
                                 contact,
-                                skeleton.animation_speed(),
+                                speed,
                                 phase_to_contact,
-                                locomotion_profile(skeleton).support_phase_radius
+                                profile.support_phase_radius
                                     + ik_tuning().run_contact_chain_settle_phase.fraction(),
                             )
                         } else {
@@ -1850,17 +1817,16 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         memory.right_planned_contact_start = planned_start;
                         memory.right_planned_contact_phase_start = planned_phase_start;
                     }
-                    let planned_progress =
-                        if locomotion_profile(skeleton).gait == LocomotionGait::Run {
-                            run_contact_approach_progress(
-                                phase_to_contact,
-                                planned_phase_start.map_or(approach_window, CycleDelta::cycles),
-                                locomotion_profile(skeleton).support_phase_radius
-                                    + ik_tuning().run_contact_chain_settle_phase.fraction(),
-                            )
-                        } else {
-                            smoothstep(approach_window, 0.0, phase_to_contact.cycles())
-                        };
+                    let planned_progress = if profile.gait == LocomotionGait::Run {
+                        run_contact_approach_progress(
+                            phase_to_contact,
+                            planned_phase_start.map_or(approach_window, CycleDelta::cycles),
+                            profile.support_phase_radius
+                                + ik_tuning().run_contact_chain_settle_phase.fraction(),
+                        )
+                    } else {
+                        smoothstep(approach_window, 0.0, phase_to_contact.cycles())
+                    };
                     let mut desired_target =
                         planned_contact.map_or(foot_position, |mut contact| {
                             if let Some(height) = terrain.height_at(contact.xz()) {
@@ -1870,7 +1836,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                                 .unwrap_or(foot_position)
                                 .lerp(contact, planned_progress)
                         });
-                    if locomotion_profile(skeleton).gait == LocomotionGait::Run
+                    if profile.gait == LocomotionGait::Run
                         && let Some(height) = terrain.height_at(desired_target.xz())
                     {
                         let clearance = run_swing_clearance(
@@ -1942,18 +1908,16 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         // continuity and reaches support entry exactly. Feeding
                         // it through the old retained-target follower starts a
                         // new swing from the previous cycle's stale endpoint.
-                        let world_target =
-                            if locomotion_profile(skeleton).gait == LocomotionGait::Run {
-                                desired_target
-                            } else {
-                                advance_foot_target_at_speed(
-                                    previous_world_target,
-                                    desired_target,
-                                    state_delta_seconds,
-                                    ik_tuning().airborne_release_step_metres.metres()
-                                        * ik_tuning().continuity_sample_hz,
-                                )
-                            };
+                        let world_target = if profile.gait == LocomotionGait::Run {
+                            desired_target
+                        } else {
+                            advance_foot_target_at_speed(
+                                previous_world_target,
+                                desired_target,
+                                state_delta_seconds,
+                                target_speeds.release,
+                            )
+                        };
                         let owner_target = rig_rotation.inverse() * (world_target - rig_origin);
                         let next = (world_target.distance_squared(desired_target) > 0.000001)
                             .then_some(desired_owner_target);
@@ -1963,8 +1927,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                             || previous_support.is_some_and(|support| support > 0.5)
                             || previous_owner_target.is_some_and(|previous| {
                                 previous.distance(desired_owner_target)
-                                    > (ik_tuning().airborne_release_step_metres.metres()
-                                        * ik_tuning().continuity_sample_hz)
+                                    > target_speeds.release.metres_per_second()
                                         * state_delta_seconds.seconds()
                                         + 0.001
                             });
@@ -1978,8 +1941,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                                 previous_owner_target,
                                 release_goal,
                                 state_delta_seconds,
-                                ik_tuning().airborne_release_step_metres.metres()
-                                    * ik_tuning().continuity_sample_hz,
+                                target_speeds.release,
                             )
                         } else {
                             desired_owner_target
@@ -2019,7 +1981,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                             airborne_budget_gait,
                             skeleton.gait_phase,
                             foot_side,
-                            locomotion_profile(skeleton).support_phase_radius,
+                            profile.support_phase_radius,
                             raw_nominal_weight,
                             contact_reachable
                                 && run_contact_within_leg_reach(
@@ -2056,7 +2018,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                             airborne_budget_gait,
                             skeleton.gait_phase,
                             foot_side,
-                            locomotion_profile(skeleton).support_phase_radius,
+                            profile.support_phase_radius,
                             raw_nominal_weight,
                             contact_reachable
                                 && run_contact_within_leg_reach(
@@ -2077,10 +2039,8 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                             rig_origin,
                             rig_rotation,
                             state_delta_seconds,
-                            run_airborne_owner_target_speed_for_sample(
-                                run_release_edge,
-                                settle_cancelled_for_restart,
-                            ),
+                            target_speeds
+                                .run_sample(run_release_edge, settle_cancelled_for_restart),
                             |xz| {
                                 terrain.height_at(xz).map(|height| {
                                     height
@@ -2185,7 +2145,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                             }
                         }
                     }
-                    if locomotion_profile(skeleton).gait == LocomotionGait::Run
+                    if profile.gait == LocomotionGait::Run
                         && let Some(normal) = terrain.normal_at(target.xz())
                         && let Some(sole_axis) = rig.sole_axis(foot_side)
                     {
@@ -2284,7 +2244,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     rig_origin,
                     rig_rotation,
                     state_delta_seconds,
-                    settle_target_speed(settle),
+                    target_speeds.settle(settle),
                     |xz| {
                         let sole_minimum = terrain.height_at(xz).map(|height| {
                             height
@@ -2446,7 +2406,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 }
             }
             let ordinary_planned_contact = (ordinary_lowered
-                && skeleton.animation_speed() > 0.05
+                && speed > STATIONARY_ANIMATION_SPEED_LIMIT
                 && planar_velocity.length_squared() > 0.0025)
                 .then(|| {
                     retained_planned_contact.unwrap_or_else(|| {
@@ -2457,7 +2417,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                             rig_rotation,
                             projected_com,
                             planar_velocity,
-                            skeleton.animation_speed(),
+                            speed,
                             skeleton.gait_phase.until_contact(foot_side),
                             side,
                         )
@@ -2469,17 +2429,15 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 // Freeze the next contact as soon as the contact ramp begins.
                 // Recomputing it from the advancing COM every tick would make
                 // a nominally supported foot chase the body instead of land.
-                plant = Some(
-                    if locomotion_profile(skeleton).gait == LocomotionGait::Run {
-                        // Run planning already froze a stance-reachable world
-                        // footprint. Reapplying the body's small local foot-track
-                        // corridor here would replace it with a point under the
-                        // advancing hip and recreate the support-entry snap.
-                        planned_contact
-                    } else {
-                        constrain_foot_to_track(planned_contact, rig_origin, rig_rotation, side)
-                    },
-                );
+                plant = Some(if profile.gait == LocomotionGait::Run {
+                    // Run planning already froze a stance-reachable world
+                    // footprint. Reapplying the body's small local foot-track
+                    // corridor here would replace it with a point under the
+                    // advancing hip and recreate the support-entry snap.
+                    planned_contact
+                } else {
+                    constrain_foot_to_track(planned_contact, rig_origin, rig_rotation, side)
+                });
             } else if weight >= 0.95 && plant.is_none() && !raised_guard_follower {
                 let visible_contact = ordinary_planned_contact.unwrap_or_else(|| {
                     if left {
@@ -2528,7 +2486,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 planted_target,
                 upper_snapshot.global.translation(),
                 terrain_maximum_reach(upper_length, lower_length),
-                locomotion_profile(skeleton).gait,
+                profile.gait,
                 plant_acquired,
             );
             horizontal_target.x = planted_target.x;
@@ -2563,20 +2521,18 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             // Once contact is reported, solve directly to the frozen world
             // plant; a stance foot is stationary or released, never skated.
             let solve_weight = smoothstep(0.05, 0.9, weight) * terrain_blend;
-            let release_target_speed = memory.settle.map(settle_target_speed).unwrap_or(
-                ik_tuning().airborne_release_step_metres.metres()
-                    * ik_tuning().continuity_sample_hz,
-            );
+            let release_target_speed = memory
+                .settle
+                .map(|settle| target_speeds.settle(settle))
+                .unwrap_or(target_speeds.release);
             let support_run_airborne_budget = uses_run_airborne_motion_budget(
-                locomotion_profile(skeleton).gait,
-                planar_velocity
-                    .length()
-                    .max(memory.measured_owner_planar_speed),
+                profile.gait,
+                memory.effective_planar_speed(planar_speed),
             );
             let support_budget_gait = if support_run_airborne_budget {
                 LocomotionGait::Run
             } else {
-                locomotion_profile(skeleton).gait
+                profile.gait
             };
             let (
                 previous_owner_target,
@@ -2611,7 +2567,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             };
             let mut target = if plant_acquired {
                 planted_target
-            } else if locomotion_profile(skeleton).gait == LocomotionGait::Run {
+            } else if profile.gait == LocomotionGait::Run {
                 // Entering nominal support does not bypass the airborne
                 // follower. The frozen plant becomes direct only after the
                 // propagated sole has truthfully acquired it.
@@ -2632,10 +2588,10 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     .distance(upper_snapshot.global.translation())
                     <= final_solve_reach + 0.001;
                 let rising_support = run_support_eligible_for_descent(
-                    locomotion_profile(skeleton).gait,
+                    profile.gait,
                     skeleton.gait_phase,
                     foot_side,
-                    locomotion_profile(skeleton).support_phase_radius,
+                    profile.support_phase_radius,
                     raw_nominal_weight,
                     true,
                 );
@@ -2686,8 +2642,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     rig_origin,
                     rig_rotation,
                     state_delta_seconds,
-                    ik_tuning().run_airborne_owner_step_metres.metres()
-                        * ik_tuning().continuity_sample_hz,
+                    target_speeds.run_airborne,
                     |xz| {
                         terrain.height_at(xz).map(|height| {
                             height
@@ -2729,6 +2684,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 rig_origin,
                 rig_rotation,
                 state_delta_seconds,
+                target_speeds.run_airborne,
                 |xz| {
                     terrain
                         .height_at(xz)
@@ -2876,7 +2832,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 &parents,
                 &transforms.p0(),
             );
-            let solve_reach = if skeleton.animation_speed() <= 0.05 {
+            let solve_reach = if speed <= STATIONARY_ANIMATION_SPEED_LIMIT {
                 terrain_maximum_reach(upper_length, lower_length)
             } else {
                 maximum_reach(upper_length, lower_length)
@@ -2988,9 +2944,10 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 }
             }
         }
-        finalize_leg_rotation_chains(
+        if let Err(error) = finalize_leg_rotation_chains(
             rig,
             skeleton,
+            speed,
             rig_rotation,
             &mut memory,
             evaluation_advances,
@@ -2999,7 +2956,10 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             airborne_just_released,
             &parents,
             &mut transforms,
-        );
+        ) {
+            warn!(%error, ?owner, "Rejected final leg rotation");
+            continue;
+        }
         let safe_settle_fallback = memory.settle.is_some_and(|settle| {
             settle.elapsed_seconds >= ik_tuning().safe_settle_fallback_seconds
                 && settle_stance_is_safe(

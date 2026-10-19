@@ -3143,7 +3143,9 @@ mod tests {
                 tactical_movement_speed_for_guard(
                     accumulated.last_movement,
                     WeaponGuardState::Lowered
-                ),
+                )
+                .unwrap()
+                .metres_per_second(),
                 5.5
             );
             world
@@ -3165,7 +3167,9 @@ mod tests {
             None
         );
         assert_eq!(
-            tactical_movement_speed_for_guard(None, WeaponGuardState::Lowered),
+            tactical_movement_speed_for_guard(None, WeaponGuardState::Lowered)
+                .unwrap()
+                .metres_per_second(),
             0.0
         );
     }

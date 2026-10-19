@@ -7,7 +7,7 @@ pub(super) fn resolve_joint_melee_round(
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) {
+) -> SpeedResult<()> {
     const TACTICAL_SERVER_STEPS_PER_SECOND: f32 = 64.0;
     let step_count = (parameters.combat_round_seconds * TACTICAL_SERVER_STEPS_PER_SECOND)
         .round()
@@ -27,8 +27,9 @@ pub(super) fn resolve_joint_melee_round(
             random,
             recorder,
             parameters,
-        );
+        )?;
     }
+    Ok(())
 }
 
 #[expect(
@@ -44,7 +45,7 @@ fn resolve_joint_melee_window(
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) {
+) -> SpeedResult<()> {
     let window_end_seconds = window_start_seconds + window_seconds;
     let allies_first = allies
         .first()
@@ -72,13 +73,13 @@ fn resolve_joint_melee_window(
         (movement_until_seconds - window_start_seconds).max(0.0),
         recorder,
         parameters,
-    );
+    )?;
     sort_contacts(&mut attacks, allies, enemies);
     resolve_contacts(
         attacks, allies, enemies, round, random, recorder, parameters,
     );
     if side_defeated(allies) || side_defeated(enemies) {
-        return;
+        return Ok(());
     }
     if movement_until_seconds + 1.0e-6 < window_end_seconds {
         resolve_joint_melee_window(
@@ -90,8 +91,8 @@ fn resolve_joint_melee_window(
             random,
             recorder,
             parameters,
-        );
-        return;
+        )?;
+        return Ok(());
     }
     advance_joint_melee_movement(
         allies,
@@ -100,7 +101,7 @@ fn resolve_joint_melee_window(
         (window_end_seconds - movement_until_seconds).max(0.0),
         recorder,
         parameters,
-    );
+    )?;
     schedule_both_sides(
         allies,
         enemies,
@@ -110,6 +111,7 @@ fn resolve_joint_melee_window(
         recorder,
         parameters,
     );
+    Ok(())
 }
 
 fn scheduled_contacts(
@@ -285,7 +287,7 @@ fn advance_joint_melee_movement(
     elapsed_seconds: f32,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) {
+) -> SpeedResult<()> {
     for index in 0..allies.len().min(enemies.len()) {
         let (first, second) = if allies[index].id <= enemies[index].id {
             (&mut allies[index], &mut enemies[index])
@@ -299,6 +301,7 @@ fn advance_joint_melee_movement(
             elapsed_seconds,
             recorder,
             parameters,
-        );
+        )?;
     }
+    Ok(())
 }

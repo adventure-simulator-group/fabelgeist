@@ -775,10 +775,12 @@ mod roll_tests {
                     movement.distance_metres,
                     action_seconds,
                     motor.quickstep_authored_displacement_profile,
-                );
+                )
+                .unwrap();
                 let force = adventuresim_tactical_core::physics::quickstep_tracking_force_newtons(
                     displacement,
-                    velocity,
+                    adventuresim_core::linear_speed::SignedSpeed::from_metres_per_second(velocity)
+                        .unwrap(),
                     target,
                     mass,
                     maximum_force,
@@ -795,7 +797,7 @@ mod roll_tests {
                 if displacement >= movement.distance_metres {
                     break;
                 }
-                velocity = (velocity + drive_acceleration * dt).min(run_speed);
+                velocity = (velocity + drive_acceleration * dt).min(run_speed.metres_per_second());
                 displacement += velocity * dt;
             }
         }

@@ -3,12 +3,14 @@
 use super::*;
 pub(super) use admission::reject_capture;
 use admission::{CaptureAdmission, RejectedCaptureAdmission, fail_capture};
+use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 pub(super) use capture_schedule::CapturePlugin;
 use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
 
 mod admission;
 mod capture_schedule;
 mod frame_clock;
+mod overlay;
 mod readiness;
 mod subject_motion;
 
@@ -68,13 +70,13 @@ impl CaptureSequence {
         let selected = scenario.map(ScenarioMetadata::into_owned);
         let plan = match selected {
             Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalk20) => {
-                steady_scenario(scenario, 2.0, 3.0)
+                steady_scenario(scenario, authored_drive_speed(2.0), 3.0)
             }
             Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridRun55) => {
-                steady_scenario(scenario, 5.5, 3.0)
+                steady_scenario(scenario, authored_drive_speed(5.5), 3.0)
             }
             Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalkNoIk) => {
-                steady_scenario(scenario, 2.0, 3.0)
+                steady_scenario(scenario, authored_drive_speed(2.0), 3.0)
             }
             Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridSprintNoIk) => {
                 steady_scenario(scenario, canonical_john_sprint_speed(), 3.0)
@@ -423,7 +425,9 @@ pub(super) fn drive_sequence(
                     .is_some_and(|motion| animation_runtime.motion_is_processed(motion));
             skeleton.set_downed_motion(
                 if !frame.scenario.is(ScenarioId::DownedProneLookAt)
-                    && (preload_locomotion || (frame.scenario_frame >= 4 && frame.speed <= 0.05))
+                    && (preload_locomotion
+                        || (frame.scenario_frame >= 4
+                            && frame.speed <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)))
                 {
                     DownedMotion::Turning
                 } else {
@@ -479,9 +483,9 @@ pub(super) fn drive_sequence(
             0.0
         };
         let requested_local_velocity = Vec3::new(
-            frame.local_direction.x * frame.speed,
+            frame.local_direction.x * frame.speed.metres_per_second(),
             vertical_velocity,
-            frame.local_direction.y * frame.speed,
+            frame.local_direction.y * frame.speed.metres_per_second(),
         );
         let local_velocity = requested_local_velocity;
         let world_velocity = controller_yaw(orientation) * local_velocity;
@@ -568,7 +572,7 @@ pub(super) fn drive_sequence(
             transform.translation.y =
                 ground + CAPTURE_ROOT_GROUND_OFFSET_METRES - 0.62 * smoothstep01(fall);
         }
-        sequence.scenario_distance += frame.speed * delta_seconds;
+        sequence.scenario_distance += frame.speed.metres_per_second() * delta_seconds;
         if let Err(error) = subject_motion::project_capture_motion(
             &mut skeleton,
             &mut transform,
@@ -594,7 +598,7 @@ pub(super) fn drive_sequence(
         **label = format!(
             "{} | {:>4.2} m/s | phase {:>5.3} | {} view | 64 Hz frame {}",
             frame.scenario.label(),
-            frame.speed,
+            frame.speed.metres_per_second(),
             gait_phase.cycles(),
             VIEWS[sequence.view_index].slug(),
             frame.scenario_frame,
@@ -602,70 +606,6 @@ pub(super) fn drive_sequence(
     }
     sequence.applied = true;
     sequence.settled = 0;
-}
-
-pub(super) fn draw_skeleton_overlay(
-    sequence: Res<CaptureSequence>,
-    mut gizmos: Gizmos,
-    subjects: Query<(Entity, &PresentedSkeleton), With<CaptureSubject>>,
-    bones: Query<(&HumanoidBone, &GlobalTransform)>,
-) {
-    if matches!(
-        VIEWS[sequence.view_index.min(VIEWS.len() - 1)],
-        CaptureView::Gameplay
-    ) {
-        return;
-    }
-    let Ok((subject, skeleton)) = subjects.single() else {
-        return;
-    };
-    let positions = bones
-        .iter()
-        .filter(|(bone, _)| bone.owner == subject)
-        .map(|(bone, transform)| (bone.role, transform.translation()))
-        .collect::<BTreeMap<_, _>>();
-    let connections = [
-        (BoneRole::Pelvis, BoneRole::Chest),
-        (BoneRole::Chest, BoneRole::Head),
-        (BoneRole::Chest, BoneRole::UpperArmLeft),
-        (BoneRole::UpperArmLeft, BoneRole::ForearmLeft),
-        (BoneRole::ForearmLeft, BoneRole::HandLeft),
-        (BoneRole::Chest, BoneRole::UpperArmRight),
-        (BoneRole::UpperArmRight, BoneRole::ForearmRight),
-        (BoneRole::ForearmRight, BoneRole::HandRight),
-        (BoneRole::Pelvis, BoneRole::ThighLeft),
-        (BoneRole::ThighLeft, BoneRole::ShinLeft),
-        (BoneRole::ShinLeft, BoneRole::FootLeft),
-        (BoneRole::Pelvis, BoneRole::ThighRight),
-        (BoneRole::ThighRight, BoneRole::ShinRight),
-        (BoneRole::ShinRight, BoneRole::FootRight),
-    ];
-    for (start, end) in connections {
-        if let (Some(&start), Some(&end)) = (positions.get(&start), positions.get(&end)) {
-            gizmos.line(start, end, Color::srgba(0.1, 0.9, 1.0, 0.8));
-        }
-    }
-    let (left_support, right_support) = locomotion_support_weights(skeleton);
-    for (role, support) in [
-        (BoneRole::FootLeft, left_support),
-        (BoneRole::FootRight, right_support),
-    ] {
-        let Some(&position) = positions.get(&role) else {
-            continue;
-        };
-        let color = if support >= 0.55 {
-            Color::srgb(1.0, 0.8, 0.05)
-        } else {
-            Color::srgb(1.0, 0.1, 0.7)
-        };
-        gizmos.line(position - Vec3::X * 0.09, position + Vec3::X * 0.09, color);
-        gizmos.line(position - Vec3::Z * 0.09, position + Vec3::Z * 0.09, color);
-        gizmos.line(
-            position,
-            position + Vec3::Y * (0.05 + support * 0.15),
-            color,
-        );
-    }
 }
 
 pub(super) fn draw_flat_ground_grid(sequence: Res<CaptureSequence>, mut gizmos: Gizmos) {
@@ -864,7 +804,11 @@ pub(super) fn capture_frame(
             subject_rotation_xyzw: subject_global.rotation().to_array(),
             bones: collect_global_bone_transforms(subject, &animation_bones),
         });
-        let cadence_support = locomotion_support_weights(skeleton);
+        let Some(cadence_support) =
+            sequence.admit_locomotion_support(skeleton, semantic_route.inputs.speed)
+        else {
+            return;
+        };
         let root_distance_metres = sequence.scenario_distance;
         let (desired_left_foot_target, desired_right_foot_target) = raised_footwork
             .map(|state| (state.left_solve_target, state.right_solve_target))
@@ -1111,8 +1055,10 @@ pub(super) fn jitter_frames(frames: &[FrameSample]) -> Vec<JitterFrame<BoneRole>
                 let landing = previous_frame.landing_sequence != frame.landing_sequence;
                 let foot_contact = previous_frame.contact_sequence != frame.contact_sequence;
                 let guard_stop_handoff = is_guard_stop_transition(&frame.scenario)
-                    && previous_frame.speed_metres_per_second > 0.05
-                    && frame.speed_metres_per_second <= 0.05;
+                    && previous_frame.speed_metres_per_second
+                        > SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
+                    && frame.speed_metres_per_second
+                        <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT);
                 let quickstep_takeoff = is_quickstep_scenario(&frame.scenario)
                     && previous_frame.left_support_weight >= FULL_PLANT_SUPPORT_WEIGHT
                     && previous_frame.right_support_weight >= FULL_PLANT_SUPPORT_WEIGHT
@@ -1221,7 +1167,10 @@ mod tests {
 
     #[test]
     fn flat_grid_scenarios_are_opt_in_complete_cycles_with_explicit_ik_ownership() {
-        for (scenario, speed) in [("flat-grid-walk-2.0", 2.0), ("flat-grid-run-5.5", 5.5)] {
+        for (scenario, speed) in [
+            ("flat-grid-walk-2.0", authored_drive_speed(2.0)),
+            ("flat-grid-run-5.5", authored_drive_speed(5.5)),
+        ] {
             let sequence = CaptureSequence::new(
                 PathBuf::new(),
                 1,
@@ -1248,7 +1197,7 @@ mod tests {
                 && frame.speed == canonical_john_sprint_speed()
                 && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Disabled
         }));
-        assert!((canonical_john_sprint_speed() - 8.957_856).abs() < 0.000_01);
+        assert!((canonical_john_sprint_speed().metres_per_second() - 8.957_856).abs() < 0.000_01);
 
         let walk = CaptureSequence::new(
             PathBuf::new(),
@@ -1259,7 +1208,7 @@ mod tests {
         assert!(walk.plan.len() > 64);
         assert!(walk.plan.iter().all(|frame| {
             frame.scenario.is(ScenarioId::FlatGridWalkNoIk)
-                && frame.speed == 2.0
+                && frame.speed == authored_drive_speed(2.0)
                 && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Disabled
         }));
 
@@ -1276,8 +1225,16 @@ mod tests {
             Some(ScenarioMetadata::from_label("flat-grid-walk-stop")),
         );
         assert!(stop.uses_flat_grid());
-        assert!(stop.plan[..48].iter().all(|frame| frame.speed == 2.0));
-        assert!(stop.plan[56..].iter().all(|frame| frame.speed == 0.0));
+        assert!(
+            stop.plan[..48]
+                .iter()
+                .all(|frame| frame.speed == authored_drive_speed(2.0))
+        );
+        assert!(
+            stop.plan[56..]
+                .iter()
+                .all(|frame| frame.speed == SignedSpeed::ZERO)
+        );
         assert!(
             stop.plan[48..=56]
                 .windows(2)

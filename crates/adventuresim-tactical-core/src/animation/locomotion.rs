@@ -4,6 +4,21 @@ use super::*;
 pub const LOCOMOTION_CONTACTS_PER_CYCLE: u8 = 2;
 pub const LOCOMOTION_SECOND_CONTACT_PHASE: f32 = 0.5;
 
+/// Fixed movement-presence policy used by foot support and presentation. This
+/// deliberately remains distinct from configurable playback hysteresis speeds.
+pub const STATIONARY_ANIMATION_SPEED_LIMIT: NonnegativeSpeed =
+    match NonnegativeSpeed::from_metres_per_second(0.05) {
+        Ok(speed) => speed,
+        Err(_) => panic!("stationary animation speed limit must be finite and nonnegative"),
+    };
+
+/// Turning a downed body retains the established crawl-cycle minimum.
+pub(super) const MINIMUM_DOWNED_ANIMATION_SPEED: NonnegativeSpeed =
+    match NonnegativeSpeed::from_metres_per_second(0.8) {
+        Ok(speed) => speed,
+        Err(_) => panic!("invalid downed animation speed minimum"),
+    };
+
 /// Typed locomotion families shared by authoritative cadence projection and
 /// client-only presentation.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize, Reflect)]
@@ -17,10 +32,10 @@ pub enum LocomotionGait {
 
 /// Compact gait dynamics metadata. Phase 0..1 is one complete left/right
 /// cycle; contact phases are 0 and 0.5.
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, Reflect)]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub struct LocomotionProfile {
     pub gait: LocomotionGait,
-    pub reference_speed: f32,
+    pub reference_speed: NonnegativeSpeed,
     pub step_distance: f32,
     /// Radius around each contact phase that can carry support.
     pub support_phase_radius: f32,
@@ -31,40 +46,42 @@ pub struct LocomotionProfile {
     pub landing: LandingProfile,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, Reflect)]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub struct LandingProfile {
-    pub minimum_impact_speed_metres_per_second: f32,
+    pub minimum_impact_speed_metres_per_second: NonnegativeSpeed,
     pub compression_per_metre_per_second: f32,
     pub minimum_compression_metres: f32,
     pub maximum_compression_metres: f32,
     pub recovery_seconds: AnimationElapsed,
 }
 
-fn landing_profile() -> LandingProfile {
-    let config = crate::combat_config::runtime_animation_config()
-        .locomotion
-        .landing;
-    LandingProfile {
-        minimum_impact_speed_metres_per_second: config.minimum_impact_speed_metres_per_second,
-        compression_per_metre_per_second: config.compression_per_metre_per_second,
-        minimum_compression_metres: config.minimum_compression_metres,
-        maximum_compression_metres: config.maximum_compression_metres,
-        recovery_seconds: config.recovery_seconds,
+impl SkeletonState {
+    /// Presentation motion finishes an in-flight raised-guard step after
+    /// gameplay velocity stops. Speed otherwise follows authoritative motion.
+    pub fn animation_local_velocity(&self) -> Vec3 {
+        let raised = self.raised_locomotion();
+        if self.weapon_guard() == WeaponGuardState::Raised && raised.is_moving() {
+            raised.local_velocity()
+        } else {
+            self.local_velocity
+        }
     }
-}
 
-fn gait_profile(
-    gait: LocomotionGait,
-    config: crate::combat_config::AnimationGaitConfig,
-) -> LocomotionProfile {
-    LocomotionProfile {
-        gait,
-        reference_speed: config.reference_speed_metres_per_second,
-        step_distance: config.step_distance_metres,
-        support_phase_radius: config.support_phase_radius,
-        bounce_metres: config.bounce_metres,
-        flight_apex_metres: config.flight_apex_metres,
-        landing: landing_profile(),
+    /// Measure animation motion in the body's horizontal plane. Reject a
+    /// nonfinite norm before applying the existing downed-turning minimum.
+    pub fn animation_speed(&self) -> AnimationValueResult<NonnegativeSpeed> {
+        let physical = self.animation_local_velocity().xz().length();
+        if !physical.is_finite() {
+            return Err(AnimationValueError::Overflow {
+                quantity: AnimationQuantity::Speed,
+            });
+        }
+        let physical = NonnegativeSpeed::from_metres_per_second(physical)?;
+        Ok(if self.is_downed_turning() {
+            physical.max(MINIMUM_DOWNED_ANIMATION_SPEED)
+        } else {
+            physical
+        })
     }
 }
 
@@ -109,31 +126,36 @@ pub fn supine_locomotion_profile() -> LocomotionProfile {
     gait_profile(LocomotionGait::Downed, config)
 }
 
-pub fn locomotion_profile(state: &SkeletonState) -> LocomotionProfile {
-    let speed = state.animation_speed();
+pub fn locomotion_profile(
+    state: &SkeletonState,
+    speed: NonnegativeSpeed,
+) -> AnimationValueResult<LocomotionProfile> {
     match state.body() {
-        BodyState::Prone => return prone_locomotion_profile(),
-        BodyState::Supine => return supine_locomotion_profile(),
+        BodyState::Prone => return Ok(prone_locomotion_profile()),
+        BodyState::Supine => return Ok(supine_locomotion_profile()),
         _ => {}
     }
     if state.weapon_guard() == WeaponGuardState::Raised && !state.is_guarded_sprinting() {
-        return LocomotionProfile {
-            step_distance: guard_step_length(speed),
+        return Ok(LocomotionProfile {
+            step_distance: guard_step_length(),
             ..raised_guard_locomotion_profile()
-        };
+        });
     }
     let walk = walk_locomotion_profile();
     let run_profile = run_locomotion_profile();
-    let run = ((speed - walk.reference_speed)
-        / (run_profile.reference_speed - walk.reference_speed))
-        .clamp(0.0, 1.0);
-    LocomotionProfile {
+    let run = ((speed.metres_per_second() - walk.reference_speed.metres_per_second())
+        / (run_profile.reference_speed.metres_per_second()
+            - walk.reference_speed.metres_per_second()))
+    .clamp(0.0, 1.0);
+    Ok(LocomotionProfile {
         gait: if run >= 0.5 {
             LocomotionGait::Run
         } else {
             LocomotionGait::Walk
         },
-        reference_speed: walk.reference_speed.lerp(run_profile.reference_speed, run),
+        reference_speed: walk
+            .reference_speed
+            .checked_lerp(run_profile.reference_speed, run)?,
         step_distance: ordinary_step_distance(speed),
         support_phase_radius: walk
             .support_phase_radius
@@ -141,32 +163,37 @@ pub fn locomotion_profile(state: &SkeletonState) -> LocomotionProfile {
         bounce_metres: walk.bounce_metres * (1.0 - run),
         flight_apex_metres: run_profile.flight_apex_metres * run,
         landing: landing_profile(),
-    }
+    })
 }
 
 /// Shared distance model through authored walk/run reference points. This
 /// replaces duplicated cadence arithmetic without changing current timing.
-pub fn ordinary_step_distance(speed: f32) -> f32 {
-    let speed = speed.max(0.0);
+pub fn ordinary_step_distance(speed: NonnegativeSpeed) -> f32 {
+    let speed = speed.metres_per_second().max(0.0);
     let walk = walk_locomotion_profile();
     let run = run_locomotion_profile();
-    if speed <= walk.reference_speed {
-        0.9_f32.lerp(walk.step_distance, speed / walk.reference_speed)
+    if speed <= walk.reference_speed.metres_per_second() {
+        0.9_f32.lerp(
+            walk.step_distance,
+            speed / walk.reference_speed.metres_per_second(),
+        )
     } else {
-        let blend = ((speed - walk.reference_speed) / (run.reference_speed - walk.reference_speed))
-            .clamp(0.0, 1.0);
+        let blend = ((speed - walk.reference_speed.metres_per_second())
+            / (run.reference_speed.metres_per_second() - walk.reference_speed.metres_per_second()))
+        .clamp(0.0, 1.0);
         walk.step_distance.lerp(run.step_distance, blend)
     }
 }
 
 pub fn gait_cycle_phase_delta(
     profile: LocomotionProfile,
-    speed: f32,
+    speed: NonnegativeSpeed,
     elapsed: AnimationElapsed,
 ) -> AnimationValueResult<CycleDelta> {
     // Speed and elapsed seconds meet only in this physical cadence kernel.
     CycleDelta::from_arithmetic(
-        speed.max(0.0) * elapsed.seconds().max(0.0) / (profile.step_distance.max(0.01) * 2.0),
+        speed.metres_per_second().max(0.0) * elapsed.seconds().max(0.0)
+            / (profile.step_distance.max(0.01) * 2.0),
     )
 }
 
@@ -196,4 +223,32 @@ fn smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {
     }
     let t = ((value - edge0) / (edge1 - edge0)).clamp(0.0, 1.0);
     t * t * (3.0 - 2.0 * t)
+}
+
+fn landing_profile() -> LandingProfile {
+    let config = crate::combat_config::runtime_animation_config()
+        .locomotion
+        .landing;
+    LandingProfile {
+        minimum_impact_speed_metres_per_second: config.minimum_impact_speed_metres_per_second,
+        compression_per_metre_per_second: config.compression_per_metre_per_second,
+        minimum_compression_metres: config.minimum_compression_metres,
+        maximum_compression_metres: config.maximum_compression_metres,
+        recovery_seconds: config.recovery_seconds,
+    }
+}
+
+fn gait_profile(
+    gait: LocomotionGait,
+    config: crate::combat_config::AnimationGaitConfig,
+) -> LocomotionProfile {
+    LocomotionProfile {
+        gait,
+        reference_speed: config.reference_speed_metres_per_second.nonnegative(),
+        step_distance: config.step_distance_metres,
+        support_phase_radius: config.support_phase_radius,
+        bounce_metres: config.bounce_metres,
+        flight_apex_metres: config.flight_apex_metres,
+        landing: landing_profile(),
+    }
 }

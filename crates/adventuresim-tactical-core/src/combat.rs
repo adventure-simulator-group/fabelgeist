@@ -24,7 +24,7 @@ pub enum MeleeLunge {
 #[must_use]
 pub fn melee_lunge_delay_seconds(
     lunge: MeleeLunge,
-    forward_speed_metres_per_second: f32,
+    forward_speed_metres_per_second: adventuresim_core::linear_speed::NonnegativeSpeed,
     forward_acceleration_metres_per_second_squared: f32,
     quickstep_duration_seconds: f32,
 ) -> f32 {
@@ -35,7 +35,7 @@ pub fn melee_lunge_delay_seconds(
             if distance_metres <= 0.0 {
                 return fixed_tick_safety;
             }
-            let speed = forward_speed_metres_per_second;
+            let speed = forward_speed_metres_per_second.metres_per_second();
             let acceleration = forward_acceleration_metres_per_second_squared;
             if speed <= 0.0 || acceleration <= 0.0 {
                 return f32::INFINITY;
@@ -138,7 +138,13 @@ mod tests {
     #[test]
     fn lunge_delay_uses_existing_forward_and_quickstep_motion_timing() {
         assert_eq!(
-            melee_lunge_delay_seconds(MeleeLunge::None, 4.0, 4.0, 0.5),
+            melee_lunge_delay_seconds(
+                MeleeLunge::None,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(4.0)
+                    .unwrap(),
+                4.0,
+                0.5
+            ),
             0.0
         );
         assert!(
@@ -146,7 +152,8 @@ mod tests {
                 MeleeLunge::Forward {
                     distance_metres: 0.4
                 },
-                4.0,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(4.0)
+                    .unwrap(),
                 4.0,
                 0.5,
             ) - ((0.2_f32).sqrt() + 1.0 / crate::animation::locomotion_sample_hz()))
@@ -158,7 +165,8 @@ mod tests {
                 MeleeLunge::Quickstep {
                     distance_metres: 0.8
                 },
-                4.0,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(4.0)
+                    .unwrap(),
                 4.0,
                 0.5,
             ) - (0.5 + 1.0 / crate::animation::locomotion_sample_hz()))

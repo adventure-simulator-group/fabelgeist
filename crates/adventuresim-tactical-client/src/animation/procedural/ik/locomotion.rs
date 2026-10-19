@@ -1,5 +1,7 @@
 use super::*;
 use adventuresim_building_generator::spatial_geometry::SignedLength;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
+use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 
 #[derive(Component, Debug, Clone, Copy, Default)]
 pub(in crate::animation) struct OrdinaryLocomotionIkState {
@@ -79,6 +81,42 @@ impl PelvisShiftState {
         };
         *self = Self::Tracking { metres };
         Ok(metres)
+    }
+}
+
+/// World-space plant confidence used by diagnostics. Procedural guard movement
+/// has exactly one support foot while the other follows its clearance arc.
+pub(crate) fn locomotion_support_weights(
+    skeleton: &SkeletonState,
+    speed: NonnegativeSpeed,
+) -> AnimationValueResult<(f32, f32)> {
+    if !skeleton.is_grounded() {
+        return Ok((0.0, 0.0));
+    }
+    if !matches!(
+        skeleton.action_kind(),
+        SkeletonAction::None | SkeletonAction::Attack
+    ) {
+        return Ok((0.0, 0.0));
+    }
+    if speed <= STATIONARY_ANIMATION_SPEED_LIMIT {
+        return Ok((1.0, 1.0));
+    }
+    if skeleton.weapon_guard() == WeaponGuardState::Raised
+        && skeleton.raised_locomotion().is_moving()
+    {
+        Ok(match skeleton.contact_foot {
+            LeadFoot::Left => (1.0, 0.0),
+            LeadFoot::Right => (0.0, 1.0),
+        })
+    } else {
+        let profile = locomotion_profile(skeleton, speed)?;
+        let (left, right) = gait_support_weights(profile, skeleton.gait_phase);
+        Ok(if profile.gait == LocomotionGait::Run {
+            (contact_support_weight(left), contact_support_weight(right))
+        } else {
+            exclusive_ground_support(left, right, skeleton.gait_phase)
+        })
     }
 }
 
@@ -372,6 +410,7 @@ fn align_foot_to_slope_weighted(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use adventuresim_tactical_core::animation::{AttackAnimation, AttackSpec};
 
     #[test]
     fn authored_ownership_routes_only_translating_raised_guard_to_locomotion_ik() {
@@ -381,9 +420,14 @@ mod tests {
         let stationary_guard = ordinary.clone().with_weapon_guard(WeaponGuardState::Raised);
         assert!(!owns(&stationary_guard));
 
-        let guard_step = stationary_guard
-            .clone()
-            .with_raised_locomotion(RaisedLocomotionIntent::moving(Vec2::X, 1.0));
+        let guard_step =
+            stationary_guard
+                .clone()
+                .with_raised_locomotion(RaisedLocomotionIntent::moving(
+                    Vec2::X,
+                    adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(1.0)
+                        .unwrap(),
+                ));
         assert!(owns(&guard_step));
 
         let guarded_sprint = guard_step
@@ -422,5 +466,83 @@ mod tests {
             adventuresim_tactical_core::animation::AnimationSampleSpan::from(10u64),
         ));
         assert!(!owns(&skeleton));
+    }
+
+    #[test]
+    fn raised_guard_movement_reports_exactly_one_procedural_support_foot() {
+        for contact in [LeadFoot::Left, LeadFoot::Right] {
+            let mut skeleton = SkeletonState::default()
+                .with_local_velocity(Vec3::NEG_Z * 2.0)
+                .with_weapon_guard(WeaponGuardState::Raised)
+                .with_raised_locomotion(RaisedLocomotionIntent::moving(
+                    Vec2::NEG_Y,
+                    adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
+                        .unwrap(),
+                ));
+            skeleton.contact_foot = contact;
+            let support =
+                locomotion_support_weights(&skeleton, skeleton.animation_speed().unwrap()).unwrap();
+            assert_eq!(support.0 + support.1, 1.0);
+            assert_eq!(
+                support,
+                match contact {
+                    LeadFoot::Left => (1.0, 0.0),
+                    LeadFoot::Right => (0.0, 1.0),
+                }
+            );
+        }
+        let idle = SkeletonState::default()
+            .with_local_velocity(Vec3::ZERO)
+            .with_weapon_guard(WeaponGuardState::Raised);
+        assert_eq!(
+            locomotion_support_weights(&idle, idle.animation_speed().unwrap()).unwrap(),
+            (1.0, 1.0)
+        );
+    }
+
+    #[test]
+    fn ordinary_swing_support_is_not_filled_in_by_low_speed() {
+        let idle = SkeletonState::default().with_gait_phase(CyclePhase::from_cycles(0.25).unwrap());
+        assert_eq!(
+            locomotion_support_weights(&idle, idle.animation_speed().unwrap()).unwrap(),
+            (1.0, 1.0)
+        );
+
+        let stopping = SkeletonState::default()
+            .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
+            .with_local_velocity(Vec3::NEG_Z * 0.2);
+        let (left, right) =
+            locomotion_support_weights(&stopping, stopping.animation_speed().unwrap()).unwrap();
+        let (raw_left, raw_right) = gait_support_weights(
+            locomotion_profile(&stopping, stopping.animation_speed().unwrap()).unwrap(),
+            stopping.gait_phase,
+        );
+        assert!(left <= raw_left && right <= raw_right);
+        assert!(left <= 0.05 || right <= 0.05);
+    }
+
+    #[test]
+    fn attack_uses_the_live_guard_support_weights() {
+        let mut skeleton = SkeletonState::default()
+            .with_weapon_guard(WeaponGuardState::Raised)
+            .with_local_velocity(Vec3::NEG_Z * 2.0)
+            .with_raised_locomotion(RaisedLocomotionIntent::moving(
+                Vec2::NEG_Y,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
+                    .unwrap(),
+            ));
+        let guard_weights =
+            locomotion_support_weights(&skeleton, skeleton.animation_speed().unwrap()).unwrap();
+        skeleton
+            .begin_attack(
+                AttackSpec::new(AttackAnimation::Swing),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64),
+            )
+            .unwrap();
+        assert_eq!(
+            locomotion_support_weights(&skeleton, skeleton.animation_speed().unwrap()).unwrap(),
+            guard_weights
+        );
     }
 }

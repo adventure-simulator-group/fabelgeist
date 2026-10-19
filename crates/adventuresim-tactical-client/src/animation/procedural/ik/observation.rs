@@ -1,6 +1,8 @@
 //! Propagated-pose observation and support/contact truth reconciliation.
 
 use super::*;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
+use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 
 pub(in crate::animation::procedural) fn retain_monotonic_contact_sequence(
     current: ContactSequence,
@@ -132,55 +134,18 @@ pub(in crate::animation) fn refresh_raised_support_after_propagation(
         if locomotion::owns(skeleton) {
             continue;
         }
-        if locomotion_profile(skeleton).gait == LocomotionGait::Run
-            && skeleton.is_grounded()
-            && skeleton.action_kind() == SkeletonAction::None
-            && skeleton.weapon_guard() == WeaponGuardState::Lowered
-            && skeleton.animation_speed() > 0.05
-        {
-            let (left_nominal, right_nominal) = locomotion_support_weights(skeleton);
-            for (role, left, nominal, logical, target) in [
-                (
-                    BoneRole::FootLeft,
-                    true,
-                    left_nominal,
-                    state.0.left_transition_support_weight,
-                    state.0.left_foot_plant,
-                ),
-                (
-                    BoneRole::FootRight,
-                    false,
-                    right_nominal,
-                    state.0.right_transition_support_weight,
-                    state.0.right_foot_plant,
-                ),
-            ] {
-                let ankle = rig
-                    .get(&role)
-                    .and_then(|foot| globals.get(*foot).ok())
-                    .map(GlobalTransform::translation)
-                    .filter(|ankle| ankle.is_finite());
-                let terrain_height = ankle.and_then(|ankle| terrain.height_at(ankle.xz()));
-                let target_distance = ankle
-                    .zip(target)
-                    .map(|(ankle, target)| ankle.xz().distance(target.xz()));
-                let actual = target_distance.is_some_and(|distance| distance <= 0.02)
-                    && ankle
-                        .zip(terrain_height)
-                        .is_some_and(|(ankle, height)| sole_is_at_contact(ankle.y, height));
-                let reported = if actual {
-                    logical.unwrap_or(nominal).max(nominal)
-                } else {
-                    0.0
-                };
-                if left {
-                    state.0.left_support_weight = Some(reported);
-                    state.0.left_foot_plant_acquired |= actual;
-                } else {
-                    state.0.right_support_weight = Some(reported);
-                    state.0.right_foot_plant_acquired |= actual;
-                }
+        let speed = match skeleton.animation_speed() {
+            Ok(speed) => speed,
+            Err(error) => {
+                warn!(%error, ?owner, "Rejected propagated support animation speed");
+                continue;
             }
+        };
+        if let Err(error) =
+            refresh_run_support(skeleton, speed, rig, terrain, &globals, &mut state.0)
+        {
+            warn!(%error, ?owner, "Rejected propagated locomotion support");
+            continue;
         }
         let Ok(mut raised) = raised_states.get_mut(owner) else {
             continue;
@@ -347,4 +312,65 @@ pub(in crate::animation::procedural) fn unplanned_support_release_is_owned(
         || previous_reported_support.is_some_and(terrain_leg_has_support)
         || solved_target.distance_squared(planted_target) > 0.000001
         || unplanned_terrain_solve_requires_release(planned_contact, solved_target, authored_target)
+}
+
+fn refresh_run_support(
+    skeleton: &SkeletonState,
+    speed: NonnegativeSpeed,
+    rig: &HumanoidRig,
+    terrain: &SceneTerrain,
+    globals: &Query<&GlobalTransform>,
+    memory: &mut LegIkMemory,
+) -> AnimationValueResult<()> {
+    if locomotion_profile(skeleton, speed)?.gait == LocomotionGait::Run
+        && skeleton.is_grounded()
+        && skeleton.action_kind() == SkeletonAction::None
+        && skeleton.weapon_guard() == WeaponGuardState::Lowered
+        && speed > STATIONARY_ANIMATION_SPEED_LIMIT
+    {
+        let (left_nominal, right_nominal) = locomotion_support_weights(skeleton, speed)?;
+        for (role, left, nominal, logical, target) in [
+            (
+                BoneRole::FootLeft,
+                true,
+                left_nominal,
+                memory.left_transition_support_weight,
+                memory.left_foot_plant,
+            ),
+            (
+                BoneRole::FootRight,
+                false,
+                right_nominal,
+                memory.right_transition_support_weight,
+                memory.right_foot_plant,
+            ),
+        ] {
+            let ankle = rig
+                .get(&role)
+                .and_then(|foot| globals.get(*foot).ok())
+                .map(GlobalTransform::translation)
+                .filter(|ankle| ankle.is_finite());
+            let terrain_height = ankle.and_then(|ankle| terrain.height_at(ankle.xz()));
+            let target_distance = ankle
+                .zip(target)
+                .map(|(ankle, target)| ankle.xz().distance(target.xz()));
+            let actual = target_distance.is_some_and(|distance| distance <= 0.02)
+                && ankle
+                    .zip(terrain_height)
+                    .is_some_and(|(ankle, height)| sole_is_at_contact(ankle.y, height));
+            let reported = if actual {
+                logical.unwrap_or(nominal).max(nominal)
+            } else {
+                0.0
+            };
+            if left {
+                memory.left_support_weight = Some(reported);
+                memory.left_foot_plant_acquired |= actual;
+            } else {
+                memory.right_support_weight = Some(reported);
+                memory.right_foot_plant_acquired |= actual;
+            }
+        }
+    }
+    Ok(())
 }

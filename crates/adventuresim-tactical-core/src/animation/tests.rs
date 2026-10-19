@@ -23,7 +23,11 @@ mod legacy_tests {
 
     fn raised_intent(local_velocity: Vec3) -> RaisedLocomotionIntent {
         let speed = local_velocity.xz().length();
-        RaisedLocomotionIntent::moving(Vec2::new(local_velocity.x, local_velocity.z), speed)
+        RaisedLocomotionIntent::moving(
+            Vec2::new(local_velocity.x, local_velocity.z),
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(speed)
+                .unwrap(),
+        )
     }
 
     fn pack(
@@ -93,14 +97,21 @@ mod legacy_tests {
         let body = BodyState::Airborne;
         let mut state = SkeletonState::default()
             .with_weapon_guard(WeaponGuardState::Raised)
-            .with_raised_locomotion(RaisedLocomotionIntent::moving(Vec2::NEG_Y, 2.0));
+            .with_raised_locomotion(RaisedLocomotionIntent::moving(
+                Vec2::NEG_Y,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
+                    .unwrap(),
+            ));
 
         state.transition_body(body);
 
         assert_eq!(state.body(), body);
         assert_eq!(state.weapon_guard(), WeaponGuardState::Raised);
         assert!(!state.raised_locomotion().is_moving());
-        let rebuilt = state.with_raised_locomotion(RaisedLocomotionIntent::moving(Vec2::X, 3.0));
+        let rebuilt = state.with_raised_locomotion(RaisedLocomotionIntent::moving(
+            Vec2::X,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(3.0).unwrap(),
+        ));
         assert!(!rebuilt.raised_locomotion().is_moving());
     }
 
@@ -108,7 +119,11 @@ mod legacy_tests {
     fn deserialization_plants_invalid_raised_movement_body_combinations() {
         let moving = SkeletonState::default()
             .with_weapon_guard(WeaponGuardState::Raised)
-            .with_raised_locomotion(RaisedLocomotionIntent::moving(Vec2::NEG_Y, 2.0));
+            .with_raised_locomotion(RaisedLocomotionIntent::moving(
+                Vec2::NEG_Y,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
+                    .unwrap(),
+            ));
 
         let body = BodyState::Airborne;
         let mut wire = serde_json::to_value(&moving).unwrap();
@@ -249,7 +264,7 @@ mod legacy_tests {
             (state.gait_phase.cycles()
                 - gait_cycle_phase_delta(
                     walk_locomotion_profile(),
-                    2.0,
+                    NonnegativeSpeed::from_metres_per_second(2.0).unwrap(),
                     AnimationElapsed::from_seconds(1.0 / 64.0).unwrap()
                 )
                 .unwrap()
@@ -263,10 +278,20 @@ mod legacy_tests {
     #[test]
     fn shared_profiles_own_cadence_support_and_flight() {
         assert!(
-            (ordinary_step_distance(2.0) - walk_locomotion_profile().step_distance).abs() < 0.0001
+            (ordinary_step_distance(
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
+                    .unwrap()
+            ) - walk_locomotion_profile().step_distance)
+                .abs()
+                < 0.0001
         );
         assert!(
-            (ordinary_step_distance(5.5) - run_locomotion_profile().step_distance).abs() < 0.0001
+            (ordinary_step_distance(
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(5.5)
+                    .unwrap()
+            ) - run_locomotion_profile().step_distance)
+                .abs()
+                < 0.0001
         );
         let (walk_left, walk_right) = gait_support_weights(
             walk_locomotion_profile(),
@@ -300,8 +325,10 @@ mod legacy_tests {
         .unwrap();
 
         assert_eq!(
-            state.animation_speed(),
-            walk_locomotion_profile().reference_speed
+            state.animation_speed().unwrap().metres_per_second(),
+            walk_locomotion_profile()
+                .reference_speed
+                .metres_per_second()
         );
         let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert!(evaluation.base.iter().all(|sample| matches!(
@@ -668,7 +695,7 @@ mod legacy_tests {
         assert!(
             (gait_cycle_phase_delta(
                 run_locomotion_profile(),
-                speed,
+                NonnegativeSpeed::from_metres_per_second(speed).unwrap(),
                 AnimationElapsed::from_seconds(cycle_seconds).unwrap()
             )
             .unwrap()

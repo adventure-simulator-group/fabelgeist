@@ -138,7 +138,11 @@ mod contract_tests {
     fn lowered_stance_cannot_retain_raised_motion_and_inputs_are_normalized() {
         let raised = SkeletonState::default()
             .with_weapon_guard(WeaponGuardState::Raised)
-            .with_raised_locomotion(RaisedLocomotionIntent::moving(Vec2::new(10.0, 0.0), 2.0));
+            .with_raised_locomotion(RaisedLocomotionIntent::moving(
+                Vec2::new(10.0, 0.0),
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
+                    .unwrap(),
+            ));
         assert_eq!(raised.raised_locomotion().local_direction(), Vec2::X);
         let lowered = raised.with_weapon_guard(WeaponGuardState::Lowered);
         assert_eq!(lowered.stance(), StanceState::Lowered);
@@ -220,7 +224,10 @@ mod contract_tests {
 
     #[test]
     fn repeated_guard_writes_preserve_live_raised_footwork() {
-        let intent = RaisedLocomotionIntent::moving(Vec2::X, 2.0);
+        let intent = RaisedLocomotionIntent::moving(
+            Vec2::X,
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0).unwrap(),
+        );
         let mut server_like = SkeletonState::default()
             .with_weapon_guard(WeaponGuardState::Raised)
             .with_raised_locomotion(intent);
@@ -399,7 +406,7 @@ mod contract_tests {
     fn downed_turning_advances_contact_gait_without_planar_velocity() {
         let mut state = SkeletonState::default().with_body_state(BodyState::Supine);
         state.set_downed_motion(DownedMotion::Turning);
-        assert_eq!(state.animation_speed(), 0.8);
+        assert_eq!(state.animation_speed().unwrap().metres_per_second(), 0.8);
         project_skeleton_locomotion(
             &mut state,
             SkeletonLocomotionInput::from_controller(
@@ -414,7 +421,7 @@ mod contract_tests {
         .unwrap();
         let expected = gait_cycle_phase_delta(
             supine_locomotion_profile(),
-            1.6,
+            NonnegativeSpeed::from_metres_per_second(1.6).unwrap(),
             AnimationElapsed::from_seconds(0.25).unwrap(),
         )
         .unwrap()
@@ -669,7 +676,10 @@ mod contract_tests {
 
     #[test]
     fn raised_intent_round_trip_preserves_valid_variants_and_normalizes_wire_input() {
-        let moving = RaisedLocomotionIntent::moving(Vec2::new(3.0, 0.0), 2.0);
+        let moving = RaisedLocomotionIntent::moving(
+            Vec2::new(3.0, 0.0),
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0).unwrap(),
+        );
         let json = serde_json::to_string(&moving).unwrap();
         assert_eq!(
             serde_json::from_str::<RaisedLocomotionIntent>(&json).unwrap(),
@@ -679,7 +689,7 @@ mod contract_tests {
         let invalid = r#"{"moving":{"local_direction":[null,0.0],"speed":2.0}}"#;
         assert!(serde_json::from_str::<RaisedLocomotionIntent>(invalid).is_err());
         assert_eq!(
-            RaisedLocomotionIntent::moving(Vec2::ZERO, f32::NAN),
+            RaisedLocomotionIntent::from_native_movement(Vec2::ZERO, f32::NAN),
             RaisedLocomotionIntent::planted()
         );
 
@@ -708,7 +718,11 @@ mod contract_tests {
     fn raised_stance_round_trips_through_replication_codec() {
         for locomotion in [
             RaisedLocomotionIntent::planted(),
-            RaisedLocomotionIntent::moving(Vec2::Y, 2.0),
+            RaisedLocomotionIntent::moving(
+                Vec2::Y,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
+                    .unwrap(),
+            ),
         ] {
             let state = SkeletonState::default()
                 .with_weapon_guard(WeaponGuardState::Raised)

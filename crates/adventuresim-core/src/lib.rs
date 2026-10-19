@@ -48,6 +48,7 @@ pub mod item_references;
 pub mod knowledge;
 pub mod leadership;
 pub mod life_simulation;
+pub mod linear_speed;
 pub mod local_problem;
 pub mod material;
 pub mod mission;
@@ -114,6 +115,9 @@ pub mod prelude {
     pub use crate::essential::*;
     pub use crate::investigation::*;
     pub use crate::investigation_action::*;
+    pub use crate::linear_speed::{
+        NonnegativeSpeed, PositiveSpeed, SignedSpeed, SpeedError, SpeedResult,
+    };
     pub use crate::mission::*;
     pub use crate::morale::*;
     pub use crate::organization::*;

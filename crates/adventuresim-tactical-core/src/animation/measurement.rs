@@ -10,12 +10,6 @@ use serde::{Deserialize, Serialize};
 #[serde(try_from = "f32", into = "f32")]
 pub struct NonnegativeLength(f32);
 
-#[derive(
-    Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into,
-)]
-#[serde(try_from = "f32", into = "f32")]
-pub struct NonnegativeSpeed(f32);
-
 /// A finite fraction invariant, independent of its producer's clamp/reject policy.
 #[derive(
     Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into,
@@ -40,15 +34,6 @@ impl NonnegativeLength {
     /// Halving remains finite/nonnegative; subnormal underflow may validly reach zero.
     pub fn half(self) -> Self {
         Self(self.0 * 0.5)
-    }
-}
-impl NonnegativeSpeed {
-    pub const ZERO: Self = Self(0.0);
-    pub fn from_metres_per_second(value: f32) -> AnimationValueResult<Self> {
-        checked_nonnegative(value, AnimationQuantity::Speed).map(Self)
-    }
-    pub fn metres_per_second(self) -> f32 {
-        self.0
     }
 }
 impl UnitInterval {
@@ -98,12 +83,7 @@ impl TryFrom<f32> for NonnegativeLength {
         Self::from_metres(value)
     }
 }
-impl TryFrom<f32> for NonnegativeSpeed {
-    type Error = AnimationValueError;
-    fn try_from(value: f32) -> AnimationValueResult<Self> {
-        Self::from_metres_per_second(value)
-    }
-}
+
 impl TryFrom<f32> for UnitInterval {
     type Error = AnimationValueError;
     fn try_from(value: f32) -> AnimationValueResult<Self> {
@@ -117,7 +97,7 @@ impl TryFrom<f32> for PositiveAnimationDuration {
     }
 }
 
-pub(super) fn checked_nonnegative(
+pub(super) const fn checked_nonnegative(
     value: f32,
     quantity: AnimationQuantity,
 ) -> AnimationValueResult<f32> {

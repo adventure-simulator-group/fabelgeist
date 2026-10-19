@@ -1,6 +1,7 @@
 //! Acceptance gates and weighted quality scoring.
 
 use super::*;
+use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 
 pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedReport {
     let CompletedCapture {
@@ -193,8 +194,10 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
                     // its local sequence may finish the residual-velocity
                     // step after the replicated cadence foot has stopped.
                     || is_quickstep_scenario(&pair[0].scenario))
-            && !(pair[0].speed_metres_per_second <= 0.05
-                && pair[1].speed_metres_per_second <= 0.05
+            && !(pair[0].speed_metres_per_second
+                <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
+                && pair[1].speed_metres_per_second
+                    <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
                 && !is_guard_stop_transition(&pair[0].scenario)
                 && !pair[0].scenario.is(ScenarioId::RaisedGuardStationaryTurn)
                 && !is_quickstep_scenario(&pair[0].scenario)
@@ -217,46 +220,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             .count()
             <= 3
     });
-    let cadence_frames = frames
-        .iter()
-        .filter(|frame| frame.scenario.is(ScenarioId::CadenceContact))
-        .collect::<Vec<_>>();
-    let cadence_contacts = cadence_frames
-        .windows(2)
-        .filter_map(|pair| {
-            (pair[1]
-                .contact_sequence
-                .is_successor_of(pair[0].contact_sequence))
-            .then_some(pair[1])
-        })
-        .collect::<Vec<_>>();
-    let cadence_step_distance = ordinary_step_distance(2.0);
-    let adjusted_contact_distances = cadence_contacts
-        .iter()
-        .map(|frame| {
-            let contact_phase = match frame.contact_foot {
-                LeadFoot::Left => 0.0,
-                LeadFoot::Right => 0.5,
-            };
-            let phase_since_contact = (frame.gait_phase.cycles() - contact_phase).rem_euclid(1.0);
-            frame.root_distance_metres - phase_since_contact * cadence_step_distance * 2.0
-        })
-        .collect::<Vec<_>>();
-    let cadence_tolerance = (cadence_step_distance * 0.01).max(0.005);
-    let cadence_contact_valid = cadence_frames.is_empty()
-        || (cadence_contacts.len() == 4
-            && cadence_contacts.windows(2).all(|pair| {
-                pair[1]
-                    .contact_sequence
-                    .is_successor_of(pair[0].contact_sequence)
-                    && pair[1].contact_foot != pair[0].contact_foot
-            })
-            && adjusted_contact_distances.windows(2).all(|pair| {
-                ((pair[1] - pair[0]) - cadence_step_distance).abs() <= cadence_tolerance
-            })
-            && adjusted_contact_distances.windows(3).all(|window| {
-                ((window[2] - window[0]) - cadence_step_distance * 2.0).abs() <= cadence_tolerance
-            }));
+    let cadence_contact_valid = cadence_contacts_valid(&frames);
     let event_stream_valid = presentation_events
         .iter()
         .zip(presentation_events.iter().skip(1))
@@ -375,7 +339,8 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
                 return true;
             }
             if pair[1].scenario.kind() != ScenarioKind::Terrain
-                || pair[1].speed_metres_per_second <= 0.05
+                || pair[1].speed_metres_per_second
+                    <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
                 || pair[1].ik_settle_progress.is_some()
             {
                 return true;
@@ -472,7 +437,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             .collect::<Vec<_>>();
         scenario_frames.is_empty()
             || scenario_frames.last().is_some_and(|frame| {
-                frame.speed_metres_per_second <= 0.05
+                frame.speed_metres_per_second <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
                     && frame.ik_left_support_weight >= 0.95
                     && frame.ik_right_support_weight >= 0.95
             })

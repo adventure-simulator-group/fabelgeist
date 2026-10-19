@@ -161,7 +161,7 @@ mod tests {
             scenario: "test".into(),
             scenario_frame: 0,
             time_seconds: AnimationElapsed::from_seconds(0.0).unwrap(),
-            speed_metres_per_second: 0.0,
+            speed_metres_per_second: SignedSpeed::from_metres_per_second(0.0).unwrap(),
             gait_phase: CyclePhase::from_cycles(0.0).unwrap(),
             locomotion_sample_tick: AnimationSampleTick::from(0u64),
             body_acceleration: Vec3::ZERO.to_array(),

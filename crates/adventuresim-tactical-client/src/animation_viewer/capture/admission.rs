@@ -16,6 +16,22 @@ pub(super) enum RejectedCaptureAdmission {
 }
 
 impl CaptureSequence {
+    /// A failed support calculation is terminal admission, not another readiness wait.
+    pub(super) fn admit_locomotion_support(
+        &mut self,
+        skeleton: &SkeletonState,
+        speed: NonnegativeSpeed,
+    ) -> Option<(f32, f32)> {
+        match locomotion_support_weights(skeleton, speed) {
+            Ok(weights) => Some(weights),
+            Err(error) => {
+                self.admission =
+                    CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+                None
+            }
+        }
+    }
+
     /// Driving is permitted only before admission terminates and between captures.
     pub(super) fn can_drive_frame(&self) -> bool {
         self.admission.is_open()

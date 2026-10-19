@@ -261,72 +261,6 @@ impl AnimationRuntime {
     }
 }
 
-impl AnimationPlayback {
-    pub(super) fn authored_pose_is_ready(&self) -> bool {
-        !self.plan.is_bind()
-    }
-
-    pub(super) fn presentation_is_settled(&self) -> bool {
-        self.authored_pose_is_ready()
-    }
-
-    fn from_presented_pose(skeleton: &SkeletonState, target: PlaybackPose) -> Self {
-        let active = ordinary_locomotion_candidate(skeleton)
-            && skeleton.animation_speed()
-                > playback_tuning().initial_locomotion_speed_metres_per_second;
-        Self {
-            plan: target.plan,
-            whole_body_mirror: target.whole_body_mirror,
-            foot_ik_weights: target.foot_ik_weights,
-            weapon_guard: skeleton.weapon_guard(),
-            ordinary_locomotion: OrdinaryLocomotion::from_candidate(active),
-            cadence: target.cadence,
-        }
-    }
-
-    fn apply_presented_pose(&mut self, skeleton: &SkeletonState, target: PlaybackPose) {
-        // Hysteresis prevents sub-threshold velocity noise from repeatedly
-        // restarting the idle/locomotion presentation transition.
-        let threshold = if self.ordinary_locomotion == OrdinaryLocomotion::Active {
-            playback_tuning().locomotion_deactivation_speed_metres_per_second
-        } else {
-            playback_tuning().locomotion_activation_speed_metres_per_second
-        };
-        let active =
-            ordinary_locomotion_candidate(skeleton) && skeleton.animation_speed() > threshold;
-        self.weapon_guard = skeleton.weapon_guard();
-        self.ordinary_locomotion = OrdinaryLocomotion::from_candidate(active);
-        apply_playback_pose(self, target);
-    }
-
-    fn sampling_cadence(&self) -> PoseSamplingCadence {
-        if self.cadence == PoseSamplingCadence::Buffered
-            && self.plan.extrapolated().is_empty()
-            && self.plan.continuations().is_empty()
-        {
-            PoseSamplingCadence::Buffered
-        } else {
-            // Every action segment follows the authoritative action phase.
-            // Switching only its simple spans back to the 30 Hz clip grid
-            // aliases fast weapon motion and creates a cadence discontinuity.
-            PoseSamplingCadence::Direct
-        }
-    }
-}
-
-impl Default for AnimationPlayback {
-    fn default() -> Self {
-        Self {
-            plan: PlaybackContributions::default(),
-            whole_body_mirror: BlendWeight::ZERO,
-            foot_ik_weights: Vec2::ZERO,
-            weapon_guard: WeaponGuardState::Lowered,
-            ordinary_locomotion: OrdinaryLocomotion::Inactive,
-            cadence: PoseSamplingCadence::Buffered,
-        }
-    }
-}
-
 fn animation_frames_per_second() -> f32 {
     runtime_animation_config().playback.frames_per_second
 }
@@ -417,11 +351,15 @@ fn evaluate_skeletons(
             }
         };
         if let Some(mut playback) = playback {
-            playback.apply_presented_pose(skeleton, target);
+            playback.apply_presented_pose(skeleton, target, evaluation.movement_speed);
         } else {
             commands
                 .entity(entity)
-                .insert(AnimationPlayback::from_presented_pose(skeleton, target));
+                .insert(AnimationPlayback::from_presented_pose(
+                    skeleton,
+                    target,
+                    evaluation.movement_speed,
+                ));
         }
     }
 }
@@ -806,7 +744,11 @@ mod contract_tests {
 
         let moving = planted
             .clone()
-            .with_raised_locomotion(RaisedLocomotionIntent::moving(Vec2::X, 1.0));
+            .with_raised_locomotion(RaisedLocomotionIntent::moving(
+                Vec2::X,
+                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(1.0)
+                    .unwrap(),
+            ));
         let moving_evaluation = AnimationEvaluation::from_skeleton(&moving).unwrap();
         assert!(!moving_evaluation.action.is_empty());
         assert!(combat_pelvis_is_component_blended(

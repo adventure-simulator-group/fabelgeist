@@ -1,4 +1,5 @@
 use super::{CombatFatigueParameters, WeaponContactParameters};
+use crate::linear_speed::PositiveSpeed;
 use serde::{Deserialize, Serialize};
 
 /// Physical tuning projected from the canonical tactical combat configuration.
@@ -20,11 +21,11 @@ pub struct AutoresolveParameters {
     pub combat_round_seconds: f32,
     pub formation_spacing_metres: f32,
     pub reference_melee_attack_seconds: f32,
-    pub minimum_movement_speed_metres_per_second: f32,
+    pub minimum_movement_speed_metres_per_second: PositiveSpeed,
     /// Maximum guarded locomotion speed shared with the tactical controller.
-    pub guarded_movement_speed_metres_per_second: f32,
+    pub guarded_movement_speed_metres_per_second: PositiveSpeed,
     /// Forward lunge speed used by the tactical attack-movement planner.
-    pub melee_lunge_speed_metres_per_second: f32,
+    pub melee_lunge_speed_metres_per_second: PositiveSpeed,
     /// Maximum authored forward/quickstep travel available to a melee start.
     pub melee_lunge_maximum_travel_metres: f32,
     /// Authored ground-drive force shared with the tactical character motor.
@@ -72,9 +73,6 @@ impl AutoresolveParameters {
             self.combat_round_seconds,
             self.formation_spacing_metres,
             self.reference_melee_attack_seconds,
-            self.minimum_movement_speed_metres_per_second,
-            self.guarded_movement_speed_metres_per_second,
-            self.melee_lunge_speed_metres_per_second,
             self.melee_lunge_maximum_travel_metres,
             self.reference_ground_drive_force_newtons,
             self.reference_leg_strength,

@@ -44,9 +44,9 @@ pub(super) fn record_autoresolve_telemetry(
 pub(super) fn record_timeline_event(
     combatant: &mut AutoresolveCombatantCausal,
     event: &adventuresim_core::autoresolve::MeleeTimelineEvent,
-) {
+) -> Result<(), String> {
     match event.kind {
-        MeleeTimelineKind::Movement => record_movement_event(combatant, event),
+        MeleeTimelineKind::Movement => record_movement_event(combatant, event)?,
         MeleeTimelineKind::AttackStarted => combatant.attack_starts += 1,
         MeleeTimelineKind::Response => record_response_event(combatant, event),
         MeleeTimelineKind::AttackCanceled => combatant.committed_attacks_canceled += 1,
@@ -56,12 +56,20 @@ pub(super) fn record_timeline_event(
         }
         MeleeTimelineKind::Contact | MeleeTimelineKind::Terminal => {}
     }
+    Ok(())
 }
 
 fn record_movement_event(
     combatant: &mut AutoresolveCombatantCausal,
     event: &adventuresim_core::autoresolve::MeleeTimelineEvent,
-) {
+) -> Result<(), String> {
+    let (Some(before), Some(after), Some(speed_limit)) = (
+        event.movement_velocity_before_metres_per_second,
+        event.movement_velocity_after_metres_per_second,
+        event.movement_speed_limit_metres_per_second,
+    ) else {
+        return Err("autoresolve movement record is missing its speed observation".to_owned());
+    };
     if let Some(action) = event.movement_action {
         *combatant
             .movement_actions
@@ -70,36 +78,25 @@ fn record_movement_event(
     }
     let elapsed = event.movement_elapsed_seconds.unwrap_or_default();
     let displacement = event.movement_displacement_metres.unwrap_or_default().abs();
-    let velocity = event
-        .movement_velocity_before_metres_per_second
-        .unwrap_or_default()
-        .abs()
-        .max(
-            event
-                .movement_velocity_after_metres_per_second
-                .unwrap_or_default()
-                .abs(),
-        );
-    let speed_limit = event
-        .movement_speed_limit_metres_per_second
-        .expect("autoresolve movement records its authored speed limit");
+    let velocity = before.magnitude().max(after.magnitude());
     combatant.movement_elapsed_seconds += f64::from(elapsed);
     combatant.movement_segments += 1;
     combatant.movement_absolute_displacement_metres += f64::from(displacement);
     combatant.maximum_movement_speed_metres_per_second = combatant
         .maximum_movement_speed_metres_per_second
-        .max(f64::from(velocity));
+        .max(f64::from(velocity.metres_per_second()));
     combatant.maximum_movement_segment_seconds = combatant
         .maximum_movement_segment_seconds
         .max(f64::from(elapsed));
     combatant.movement_displacement_limit_failures +=
-        u64::from(displacement > speed_limit * elapsed + 1.0e-5);
+        u64::from(displacement > speed_limit.metres_per_second() * elapsed + 1.0e-5);
     let distance_delta = event
         .engagement_distance_before_metres
         .zip(event.engagement_distance_after_metres)
         .map_or(0.0, |(before, after)| (after - before).abs());
     combatant.movement_nonzero_delta_zero_elapsed +=
         u64::from(distance_delta > 0.0 && elapsed <= 0.0);
+    Ok(())
 }
 
 fn record_response_event(

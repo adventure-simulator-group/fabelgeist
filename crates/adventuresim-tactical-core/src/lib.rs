@@ -136,6 +136,7 @@ pub mod prelude {
     };
     pub use adventuresim_core::item_catalog;
     pub use adventuresim_core::item_catalog::{EquipmentChannel, EquipmentLocation};
+    pub use adventuresim_core::linear_speed::{NonnegativeSpeed, PositiveSpeed, SignedSpeed};
     pub use adventuresim_core::prelude::*;
     pub use avian3d::prelude::*;
     pub use bevy_ahoy::{

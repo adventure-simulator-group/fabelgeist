@@ -3,8 +3,9 @@
 //! Authoritative presentation state is converted directly into the semantic
 //! pose samples consumed by the pose buffer.
 
+use adventuresim_core::linear_speed::NonnegativeSpeed;
 use adventuresim_tactical_core::animation::{
-    AnimationPackId, AnimationValueError, AnimationValueResult, CyclePhase,
+    AnimationPackId, AnimationValueError, AnimationValueResult, CyclePhase, UnitInterval,
 };
 use std::collections::BTreeMap;
 
@@ -17,12 +18,13 @@ use super::{AnimatedActors, AnimationRuntime, PresentedSkeleton, catalog};
 /// comes from client presentation state or its pure semantic evaluation.
 #[derive(Debug, Clone, PartialEq, serde::Serialize)]
 pub(crate) struct SemanticRouteInputs {
-    pub speed: f32,
+    pub speed: NonnegativeSpeed,
     pub direction: Vec2,
     pub gait_phase: CyclePhase,
     pub action: SkeletonAction,
-    pub airborne: bool,
-    pub target_height: f32,
+    #[serde(rename = "airborne", serialize_with = "serialize_airborne")]
+    pub ground_contact: GroundContact,
+    pub target_height: UnitInterval,
     pub lead: LeadFoot,
     pub support: LeadFoot,
     pub contact_sequence: ContactSequence,
@@ -60,7 +62,7 @@ impl SemanticRouteInputs {
             direction: skeleton.animation_local_velocity().xz().normalize_or_zero(),
             gait_phase: evaluation.gait_phase,
             action: skeleton.action_kind(),
-            airborne: !skeleton.is_grounded(),
+            ground_contact: GroundContact::from(&skeleton.state),
             target_height: evaluation.attack_target_height,
             lead: skeleton.lead_foot,
             support: skeleton.contact_foot,
@@ -220,4 +222,11 @@ fn requested_path(skeleton: &PresentedSkeleton) -> SemanticRoutePath {
     } else {
         SemanticRoutePath::GeneralPose
     }
+}
+
+fn serialize_airborne<S: serde::Serializer>(
+    contact: &GroundContact,
+    serializer: S,
+) -> Result<S::Ok, S::Error> {
+    serializer.serialize_bool(*contact == GroundContact::Airborne)
 }

@@ -102,8 +102,9 @@ pub(super) fn run_autoresolve_batch(
             vec![opponent.combatant.clone()],
             args.first_seed.wrapping_offset(offset),
             BattleOpening::Normal,
-        );
-        record_autoresolve_outcome(&mut batch, &outcome, john, opponent);
+        )
+        .map_err(|error| error.to_string())?;
+        record_autoresolve_outcome(&mut batch, &outcome, john, opponent)?;
         if offset == 0 {
             write_json(&directory.join("autoresolve-trace.json"), &outcome)?;
         }
@@ -130,7 +131,7 @@ fn record_autoresolve_outcome(
     outcome: &adventuresim_core::autoresolve::BattleOutcome,
     john: &MeleeIterationBuild,
     opponent: &MeleeIterationBuild,
-) {
+) -> Result<(), String> {
     match outcome.resolution {
         BattleResolution::AlliesVictory => batch.john_wins += 1,
         BattleResolution::EnemiesVictory => batch.opponent_wins += 1,
@@ -150,7 +151,8 @@ fn record_autoresolve_outcome(
         john.combatant.equipment.melee_weapon_id,
         opponent.combatant.equipment.melee_weapon_id,
     );
-    record_autoresolve_timeline(&mut batch.causal, outcome, john.combatant.id);
+    record_autoresolve_timeline(&mut batch.causal, outcome, john.combatant.id)?;
+    Ok(())
 }
 
 fn record_final_totals(
@@ -260,7 +262,7 @@ fn record_autoresolve_timeline(
     causal: &mut AutoresolveCausalSummary,
     outcome: &adventuresim_core::autoresolve::BattleOutcome,
     john_id: u64,
-) {
+) -> Result<(), String> {
     let scheduled_contact_ticks = outcome
         .timeline
         .iter()
@@ -285,7 +287,7 @@ fn record_autoresolve_timeline(
         {
             combatant.premature_contact_events += 1;
         }
-        causal::record_timeline_event(combatant, event);
+        causal::record_timeline_event(combatant, event)?;
     }
     if let Some(first) = outcome
         .timeline
@@ -295,4 +297,5 @@ fn record_autoresolve_timeline(
         causal.john_first_contacts += u64::from(first.combatant_id == Some(john_id));
         causal.opponent_first_contacts += u64::from(first.combatant_id != Some(john_id));
     }
+    Ok(())
 }

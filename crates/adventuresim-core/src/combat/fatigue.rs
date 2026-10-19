@@ -1,9 +1,10 @@
 use super::CombatFatigueParameters;
+use crate::linear_speed::NonnegativeSpeed;
 
-impl CombatFatigueParameters {
-    fn capacity(self, endurance: f32) -> f32 {
-        self.capacity_joules_per_endurance * endurance.max(self.minimum_endurance)
-    }
+/// Energy charged once when an action begins; no hidden muscle-fatigue state.
+#[derive(Debug, Clone, Copy, Default, PartialEq)]
+pub struct CombatActionWorkload {
+    pub metabolic_joules: f32,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -13,10 +14,10 @@ pub enum CombatActionWork {
     ExplosiveDodge,
 }
 
-/// Energy charged once when an action begins; no hidden muscle-fatigue state.
-#[derive(Debug, Clone, Copy, Default, PartialEq)]
-pub struct CombatActionWorkload {
-    pub metabolic_joules: f32,
+impl CombatFatigueParameters {
+    fn capacity(self, endurance: f32) -> f32 {
+        self.capacity_joules_per_endurance * endurance.max(self.minimum_endurance)
+    }
 }
 
 #[must_use]
@@ -44,7 +45,11 @@ pub fn combat_action_workload(
         CombatActionWork::WeaponDefense => weapon_energy(parameters.defense_travel_metres),
         CombatActionWork::ExplosiveDodge => {
             let moved_mass = body_mass_kg.max(0.0) + carried_mass_kg.max(0.0);
-            0.5 * moved_mass * parameters.dodge_speed_metres_per_second.powi(2)
+            0.5 * moved_mass
+                * parameters
+                    .dodge_speed_metres_per_second
+                    .metres_per_second()
+                    .powi(2)
         }
     };
     CombatActionWorkload {
@@ -56,17 +61,20 @@ pub fn combat_action_workload(
 /// Sustainable unloaded jogging holds fatigue steady; stationary rest recovers.
 #[must_use]
 pub fn combat_movement_fatigue_per_second(
-    effort_speed_metres_per_second: f32,
-    sustainable_speed_metres_per_second: f32,
+    effort_speed_metres_per_second: NonnegativeSpeed,
+    sustainable_speed_metres_per_second: NonnegativeSpeed,
     carried_mass_kg: f32,
     endurance: f32,
     parameters: CombatFatigueParameters,
 ) -> f32 {
-    let effort = effort_speed_metres_per_second.max(0.0);
+    let effort = effort_speed_metres_per_second.metres_per_second().max(0.0);
     let ratio = if effort == 0.0 {
         0.0
     } else {
-        effort / sustainable_speed_metres_per_second.max(0.0)
+        effort
+            / sustainable_speed_metres_per_second
+                .metres_per_second()
+                .max(0.0)
     };
     let aerobic =
         parameters.aerobic_watts_per_endurance * endurance.max(parameters.minimum_endurance);
@@ -77,7 +85,6 @@ pub fn combat_movement_fatigue_per_second(
     };
     (aerobic * ratio * ratio + carry - aerobic).max(0.0) / parameters.capacity(endurance)
 }
-
 pub fn apply_combat_workload(
     fatigue: &mut f32,
     workload: CombatActionWorkload,

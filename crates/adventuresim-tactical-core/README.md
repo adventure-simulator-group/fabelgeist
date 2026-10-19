@@ -139,7 +139,17 @@ products from a different executable are not decoded through a compatibility
 path. Native preparation retains bounded immutable recipes separately from
 renderer entities and tactical state.
 Shared animation measurements distinguish zero-permitting nonnegative length
-and speed from positive durations used as divisors. Presentation height roles
+and speed from positive durations used as divisors. Scalar linear speeds live
+in `adventuresim_core::linear_speed`: measured norms allow zero, authored drive
+retains its finite sign, and configured gait references are strictly positive.
+Their Serde representation remains one numeric scalar. Physical control and
+autoresolve calculations return checked speed errors before publishing invalid
+results; strategic reducers propagate those errors through their transaction.
+The framework-free speed owner is not reflectively mutable, and locomotion and
+landing profile records use their typed construction and Serde APIs instead of
+Bevy reflection. IK displacement history distinguishes an unavailable auxiliary
+measurement from an observed zero speed; repeated samples hold the observation
+and discontinuities retire it. Presentation height roles
 retain those leaves without narrowing general movement speed. A finite unit
 interval can back bounded roles; additive `BlendWeight` still permits values
 above one. Signed phase, sample times and body deflections remain unwrapped and

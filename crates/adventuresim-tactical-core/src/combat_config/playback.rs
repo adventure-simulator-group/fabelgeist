@@ -3,6 +3,7 @@
 use super::TacticalCombatConfigError;
 use crate::animation::{AnimationSampleSpan, NonnegativeLength, UnitInterval};
 use adventuresim_building_generator::spatial_geometry::SignedLength;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
@@ -20,9 +21,9 @@ pub struct AnimationPlaybackConfig {
     pub maximum_authored_stance_slip_metres: NonnegativeLength,
     pub authored_cadence_cap_transition_width: f32,
     pub maximum_coalesced_events: u64,
-    pub initial_locomotion_speed_metres_per_second: f32,
-    pub locomotion_deactivation_speed_metres_per_second: f32,
-    pub locomotion_activation_speed_metres_per_second: f32,
+    pub initial_locomotion_speed_metres_per_second: NonnegativeSpeed,
+    pub locomotion_deactivation_speed_metres_per_second: NonnegativeSpeed,
+    pub locomotion_activation_speed_metres_per_second: NonnegativeSpeed,
 }
 
 impl AnimationPlaybackConfig {
@@ -31,9 +32,6 @@ impl AnimationPlaybackConfig {
         let finite_nonnegative = |value: f32| value.is_finite() && value >= 0.0;
         if ![
             playback.frames_per_second,
-            playback.initial_locomotion_speed_metres_per_second,
-            playback.locomotion_deactivation_speed_metres_per_second,
-            playback.locomotion_activation_speed_metres_per_second,
             playback.velocity_response_per_second,
             playback.phase_correction_rate_per_second,
             playback.phase_drift_deadband,

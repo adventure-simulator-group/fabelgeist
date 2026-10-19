@@ -372,7 +372,11 @@ fn hit_velocity_change(
     };
     let direction = Vec3::new(horizontal.x, 0.0, horizontal.y);
     let speed = ((2.0 * contact_energy / mass.max(1.0)).sqrt() * config.whole_body_velocity_scale)
-        .min(config.maximum_velocity_change_metres_per_second);
+        .min(
+            config
+                .maximum_velocity_change_metres_per_second
+                .metres_per_second(),
+        );
     (hits_attacker, direction * speed)
 }
 
@@ -973,7 +977,7 @@ mod tests {
             .init_resource::<TacticalCombatConfig>()
             .add_systems(Update, update_tactical_combat_state);
         let endurance = 3.0;
-        let jog_speed = tactical_jog_speed(endurance);
+        let jog_speed = tactical_jog_speed(endurance).unwrap();
         let actor = app
             .world_mut()
             .spawn((
@@ -992,7 +996,7 @@ mod tests {
                 AuthoritativeMovementIntent(Some(Vec2::Y)),
                 MovementPace::Jog,
                 // External physics velocity must not affect movement exertion.
-                LinearVelocity(Vec3::new(jog_speed + 10.0, 0.0, 0.0)),
+                LinearVelocity(Vec3::new(jog_speed.metres_per_second() + 10.0, 0.0, 0.0)),
             ))
             .id();
 

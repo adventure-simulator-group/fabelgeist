@@ -196,20 +196,7 @@ pub fn autoresolve_mission(
     }
 
     let member_ids = living_party_member_ids(ctx, &party_id);
-    let allies = member_ids
-        .iter()
-        .map(|member_id| {
-            let condition =
-                crate::condition::refresh_character_strategic_condition(ctx, *member_id)?;
-            crate::capability::load_combatant(
-                ctx,
-                *member_id,
-                condition.incapacitation,
-                condition.pain,
-                condition.blood_loss,
-            )
-        })
-        .collect::<Result<Vec<_>, String>>()?;
+    let allies = load_allied_combatants(ctx, &member_ids)?;
     let enemy_ids = mission.enemy_roster(ctx)
         .map_err(|error| error.to_string())?.into_enemy_ids();
     let enemies = enemy_ids
@@ -230,7 +217,8 @@ pub fn autoresolve_mission(
     } else {
         BattleOpening::AlliesSurprise
     };
-    let outcome = resolve_battle(allies, enemies, seed, opening);
+    let outcome =
+        resolve_battle(allies, enemies, seed, opening).map_err(|error| error.to_string())?;
     let morale_difficulty = mission.enemy_difficulty.max(
         mission
             .normalized_combat_power

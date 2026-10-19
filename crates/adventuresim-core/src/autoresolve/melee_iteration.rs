@@ -621,7 +621,8 @@ mod tests {
                             vec![opponent.combatant.clone()],
                             seed,
                             BattleOpening::Normal,
-                        );
+                        )
+                        .unwrap();
                         assert_bounded_progress(&outcome);
                         outcome.resolution
                     })
@@ -659,6 +660,7 @@ mod tests {
                         seed,
                         BattleOpening::Normal,
                     )
+                    .unwrap()
                     .log
                     .iter()
                     .any(|entry| {
@@ -685,7 +687,8 @@ mod tests {
             vec![hammer_brute.combatant.clone()],
             fabelgeist_determinism::Seed::from_u64(1),
             BattleOpening::Normal,
-        );
+        )
+        .unwrap();
         let scheduled_contacts = outcome
             .timeline
             .iter()
@@ -717,7 +720,8 @@ mod tests {
             vec![veteran.combatant.clone()],
             fabelgeist_determinism::Seed::from_u64(1),
             BattleOpening::Normal,
-        );
+        )
+        .unwrap();
         for movement in outcome
             .timeline
             .iter()
@@ -726,7 +730,10 @@ mod tests {
             let elapsed = movement.movement_elapsed_seconds.unwrap();
             assert!(elapsed <= 1.0 / 64.0 + 1.0e-6);
             let displacement = movement.movement_displacement_metres.unwrap().abs();
-            let speed_limit = movement.movement_speed_limit_metres_per_second.unwrap();
+            let speed_limit = movement
+                .movement_speed_limit_metres_per_second
+                .unwrap()
+                .metres_per_second();
             assert!(displacement <= speed_limit * elapsed + 1.0e-6);
         }
         let first_contact = outcome

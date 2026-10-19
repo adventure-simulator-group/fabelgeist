@@ -1,8 +1,11 @@
 //! Animation review metric policy and calculations.
 
 use super::*;
+use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
+pub(super) use catastrophic_contacts::catastrophic_foot_displacement;
 use height_peaks::prominent_height_peaks;
 
+mod catastrophic_contacts;
 mod height_peaks;
 
 pub(super) const RAISED_MINIMUM_INTER_FOOT_SEPARATION_METRES: f32 = 0.16;
@@ -13,9 +16,6 @@ pub(super) const RAISED_MAXIMUM_PELVIS_VERTICAL_STEP_METRES: f32 = 0.05;
 pub(super) const LOCOMOTION_STATE_MAXIMUM_PELVIS_VERTICAL_STEP_METRES: f32 = 0.04;
 pub(super) const ORDINARY_VERTICAL_RANGE_LIMIT_METRES: f32 = 0.20;
 pub(super) const RAISED_GUARD_VERTICAL_RANGE_LIMIT_METRES: f32 = 0.30;
-
-pub(super) const CATASTROPHIC_FOOT_HORIZONTAL_HIP_OFFSET_METRES: f32 = 0.65;
-pub(super) const CATASTROPHIC_FOOT_DISPLACEMENT_SECONDS: f32 = 0.1;
 
 /// Native report measurements collected at complete captured gait seams.
 #[derive(Default)]
@@ -44,50 +44,15 @@ impl LoopSeamMetrics {
     }
 }
 
-pub(super) fn catastrophic_horizontal_foot_offset(hip: Vec3, foot: Vec3) -> bool {
-    (foot - hip).xz().length() > CATASTROPHIC_FOOT_HORIZONTAL_HIP_OFFSET_METRES
-}
-
-pub(super) fn catastrophic_foot_displacement(frames: &[FrameSample]) -> bool {
-    let mut duration = 0.0_f32;
-    for pair in frames.windows(2) {
-        let [before, after] = pair else {
-            continue;
-        };
-        if before.scenario != after.scenario || !procedural_leg_solver_gates_apply(&after.scenario)
-        {
-            duration = 0.0;
-            continue;
-        }
-        let displaced = [
-            (BoneRole::ThighLeft, BoneRole::FootLeft),
-            (BoneRole::ThighRight, BoneRole::FootRight),
-        ]
-        .into_iter()
-        .any(|(hip, foot)| {
-            body_local(after, hip)
-                .zip(body_local(after, foot))
-                .is_some_and(|(hip, foot)| catastrophic_horizontal_foot_offset(hip, foot))
-        });
-        if displaced {
-            duration += (after.time_seconds.seconds() - before.time_seconds.seconds()).max(0.0);
-            if duration >= CATASTROPHIC_FOOT_DISPLACEMENT_SECONDS {
-                return true;
-            }
-        } else {
-            duration = 0.0;
-        }
-    }
-    false
-}
-
 pub(super) fn both_feet_behind_hips(frames: &[FrameSample]) -> bool {
     let mut duration = 0.0_f32;
     for pair in frames.windows(2) {
         let [before, after] = pair else {
             continue;
         };
-        if before.scenario != after.scenario || after.speed_metres_per_second <= 0.05 {
+        if before.scenario != after.scenario
+            || after.speed_metres_per_second <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
+        {
             duration = 0.0;
             continue;
         }
@@ -329,9 +294,9 @@ pub(super) fn guard_step_liveness_metrics(frames: &[&FrameSample]) -> GuardStepL
         metadata.kind() == ScenarioKind::RaisedGuard
             && metadata.procedural_solver()
             && metadata.repeatable()
-            && frames
-                .iter()
-                .all(|frame| frame.speed_metres_per_second > 0.05)
+            && frames.iter().all(|frame| {
+                frame.speed_metres_per_second > SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
+            })
     });
     if !required {
         return GuardStepLivenessMetrics::default();
@@ -577,7 +542,9 @@ pub(super) fn maximum_knee_foot_yaw_offset(frames: &[&FrameSample]) -> f32 {
 pub(super) fn maximum_facing_error(frames: &[&FrameSample]) -> f32 {
     frames
         .iter()
-        .filter(|frame| frame.speed_metres_per_second > 0.05)
+        .filter(|frame| {
+            frame.speed_metres_per_second > SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
+        })
         .map(|frame| {
             Vec3::from_array(frame.body_forward_direction)
                 .angle_between(Vec3::from_array(frame.desired_body_forward_direction))
@@ -589,7 +556,9 @@ pub(super) fn maximum_facing_error(frames: &[&FrameSample]) -> f32 {
 pub(super) fn maximum_facing_tracking_excess(frames: &[&FrameSample]) -> f32 {
     frames
         .windows(2)
-        .filter(|pair| pair[1].speed_metres_per_second > 0.05)
+        .filter(|pair| {
+            pair[1].speed_metres_per_second > SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
+        })
         .map(|pair| {
             let before = Vec3::from_array(pair[0].body_forward_direction);
             let actual = Vec3::from_array(pair[1].body_forward_direction);
@@ -608,7 +577,11 @@ pub(super) fn maximum_facing_tracking_excess(frames: &[&FrameSample]) -> f32 {
 pub(super) fn maximum_guard_facing_error(frames: &[&FrameSample]) -> f32 {
     frames
         .iter()
-        .filter(|frame| frame.guard_action && frame.speed_metres_per_second > 0.05)
+        .filter(|frame| {
+            frame.guard_action
+                && frame.speed_metres_per_second
+                    > SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
+        })
         .map(|frame| {
             Vec3::from_array(frame.body_forward_direction)
                 .angle_between(Vec3::from_array(frame.desired_body_forward_direction))
@@ -621,7 +594,9 @@ pub(super) fn final_facing_error(frames: &[&FrameSample]) -> f32 {
     frames
         .iter()
         .rev()
-        .find(|frame| frame.speed_metres_per_second > 0.05)
+        .find(|frame| {
+            frame.speed_metres_per_second > SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
+        })
         .map_or(0.0, |frame| {
             Vec3::from_array(frame.body_forward_direction)
                 .angle_between(Vec3::from_array(frame.desired_body_forward_direction))
@@ -722,10 +697,9 @@ pub(super) fn hard_stop_pelvis_vertical_step(frames: &[FrameSample]) -> Option<f
     if hard_stop.is_empty() {
         return None;
     }
-    let Some(first_stopped) = hard_stop
-        .iter()
-        .position(|frame| frame.speed_metres_per_second <= 0.05)
-    else {
+    let Some(first_stopped) = hard_stop.iter().position(|frame| {
+        frame.speed_metres_per_second <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
+    }) else {
         return Some(f32::INFINITY);
     };
     let transition_start = first_stopped.saturating_sub(1);
@@ -856,7 +830,7 @@ pub(super) fn maximum_no_support_seconds(frames: &[&FrameSample]) -> f32 {
 
 pub(super) fn ordinary_swing_frame_is_owned(frame: &FrameSample) -> bool {
     if frame.scenario.kind() != ScenarioKind::Terrain
-        || frame.speed_metres_per_second <= 0.05
+        || frame.speed_metres_per_second <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
         || frame.ik_settle_progress.is_some()
     {
         return true;
@@ -931,10 +905,12 @@ pub(super) fn ordinary_unplanned_release_transition_is_valid(
 }
 
 pub(super) fn frame_uses_run_motion_budget(frame: &FrameSample) -> bool {
-    let run_speed_threshold = (walk_locomotion_profile().reference_speed
-        + run_locomotion_profile().reference_speed)
+    let run_speed_threshold = (walk_locomotion_profile()
+        .reference_speed
+        .metres_per_second()
+        + run_locomotion_profile().reference_speed.metres_per_second())
         * 0.5;
-    frame.speed_metres_per_second >= run_speed_threshold
+    frame.speed_metres_per_second.metres_per_second() >= run_speed_threshold
 }
 
 #[expect(
@@ -1079,13 +1055,13 @@ pub(super) fn minimum_toe_clearance(frames: &[&FrameSample], contact: bool) -> f
 
 pub(super) fn transition_flight_toe_sample_is_active(
     scenario: &ScenarioMetadata<'_>,
-    speed_metres_per_second: f32,
+    speed_metres_per_second: SignedSpeed,
     settle_progress: Option<f32>,
 ) -> bool {
     !matches!(
         scenario.identity(),
         Some(ScenarioId::TerrainRunFlightStop) | Some(ScenarioId::TerrainTapRestartCrossfade)
-    ) || speed_metres_per_second > 0.05
+    ) || speed_metres_per_second > SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
         || settle_progress.is_some()
 }
 
@@ -1337,7 +1313,7 @@ mod tests {
                 scenario_frame as f32 / locomotion_sample_hz(),
             )
             .unwrap(),
-            speed_metres_per_second: 2.0,
+            speed_metres_per_second: SignedSpeed::from_metres_per_second(2.0).unwrap(),
             gait_phase: CyclePhase::from_cycles(0.0).unwrap(),
             locomotion_sample_tick: AnimationSampleTick::from(scenario_frame as u64),
             body_acceleration: Vec3::ZERO.to_array(),
@@ -1393,19 +1369,6 @@ mod tests {
                 (BoneRole::FootRight, foot(0.2, right_terrain_height)),
             ]),
         }
-    }
-
-    #[test]
-    fn severe_sideways_foot_displacement_is_catastrophic() {
-        let hip = Vec3::new(0.2, 1.0, 0.0);
-        assert!(!catastrophic_horizontal_foot_offset(
-            hip,
-            Vec3::new(0.84, 0.1, 0.0)
-        ));
-        assert!(catastrophic_horizontal_foot_offset(
-            hip,
-            Vec3::new(0.851, 0.1, 0.0)
-        ));
     }
 
     #[test]
@@ -1518,7 +1481,7 @@ mod tests {
             scenario: "metric-test".into(),
             scenario_frame: 0,
             time_seconds: AnimationElapsed::from_seconds(0.0).unwrap(),
-            speed_metres_per_second: 2.0,
+            speed_metres_per_second: SignedSpeed::from_metres_per_second(2.0).unwrap(),
             gait_phase: CyclePhase::from_cycles(0.0).unwrap(),
             locomotion_sample_tick: AnimationSampleTick::from(0u64),
             body_acceleration: Vec3::ZERO.to_array(),
@@ -1593,7 +1556,7 @@ mod tests {
         let frame = |scenario_frame: usize, speed: f32, pelvis_y: f32| {
             let mut frame = foot_metric_frame(scenario_frame, -0.1, 1.0, 0.0, 0.0);
             frame.scenario = "hard-stop".into();
-            frame.speed_metres_per_second = speed;
+            frame.speed_metres_per_second = SignedSpeed::from_metres_per_second(speed).unwrap();
             frame.bones.insert(
                 BoneRole::Pelvis,
                 BoneSample {
@@ -1625,7 +1588,7 @@ mod tests {
     fn cold_start_manifest_frame_requires_truthful_release_ownership() {
         let mut frame = foot_metric_frame(0, -0.1, 0.0, 0.0, 0.0);
         frame.scenario = "terrain-steady-run-5.5".into();
-        frame.speed_metres_per_second = 5.5;
+        frame.speed_metres_per_second = SignedSpeed::from_metres_per_second(5.5).unwrap();
         frame.ik_left_authored_target = Some(Vec3::ZERO.to_array());
         frame.ik_left_solve_target = Some((Vec3::Y * 0.095).to_array());
         frame.ik_right_authored_target = Some(Vec3::ZERO.to_array());
@@ -1642,8 +1605,8 @@ mod tests {
         let mut after = foot_metric_frame(1, -0.1, 0.0, 0.0, 0.0);
         before.scenario = "terrain-steady-run-5.5".into();
         after.scenario = before.scenario.clone();
-        before.speed_metres_per_second = 5.5;
-        after.speed_metres_per_second = 5.5;
+        before.speed_metres_per_second = SignedSpeed::from_metres_per_second(5.5).unwrap();
+        after.speed_metres_per_second = SignedSpeed::from_metres_per_second(5.5).unwrap();
         let origin = Some(Vec3::ZERO.to_array());
         let run_step = Some((Vec3::X * 0.0875).to_array());
         assert!(ordinary_unplanned_release_transition_is_valid(
@@ -1660,8 +1623,8 @@ mod tests {
             None,
         ));
 
-        before.speed_metres_per_second = 2.0;
-        after.speed_metres_per_second = 2.0;
+        before.speed_metres_per_second = SignedSpeed::from_metres_per_second(2.0).unwrap();
+        after.speed_metres_per_second = SignedSpeed::from_metres_per_second(2.0).unwrap();
         assert!(!ordinary_unplanned_release_transition_is_valid(
             &before, &after, origin, run_step, None, None,
         ));
@@ -1673,8 +1636,8 @@ mod tests {
         let mut after = foot_metric_frame(1, -0.1, 0.0, 0.0, 0.0);
         before.scenario = "terrain-steady-run-5.5".into();
         after.scenario = before.scenario.clone();
-        before.speed_metres_per_second = 5.5;
-        after.speed_metres_per_second = 5.5;
+        before.speed_metres_per_second = SignedSpeed::from_metres_per_second(5.5).unwrap();
+        after.speed_metres_per_second = SignedSpeed::from_metres_per_second(5.5).unwrap();
         let plan = Some(Vec3::ZERO.to_array());
         let before_solve = Some((Vec3::X * 0.05).to_array());
         let bounded_run_solve = Some((Vec3::X * 0.1375).to_array());
@@ -1707,8 +1670,8 @@ mod tests {
             false,
         ));
 
-        before.speed_metres_per_second = 2.0;
-        after.speed_metres_per_second = 2.0;
+        before.speed_metres_per_second = SignedSpeed::from_metres_per_second(2.0).unwrap();
+        after.speed_metres_per_second = SignedSpeed::from_metres_per_second(2.0).unwrap();
         assert!(!ordinary_planned_transition_is_valid(
             &before,
             &after,
@@ -1721,8 +1684,8 @@ mod tests {
             false,
         ));
 
-        before.speed_metres_per_second = 5.5;
-        after.speed_metres_per_second = 5.5;
+        before.speed_metres_per_second = SignedSpeed::from_metres_per_second(5.5).unwrap();
+        after.speed_metres_per_second = SignedSpeed::from_metres_per_second(5.5).unwrap();
         after.bones.get_mut(BoneRole::FootLeft).unwrap().position =
             Vec3::new(-0.05, 0.0, 0.0).to_array();
         let retarget = Some((Vec3::X * 0.05).to_array());

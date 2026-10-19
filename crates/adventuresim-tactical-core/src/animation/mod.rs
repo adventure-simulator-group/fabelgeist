@@ -19,9 +19,7 @@ pub use ground_contact::GroundContact;
 pub use height_measurement::{HeightDistance, HeightSpeed};
 pub use landing::{LandingImpactSpeed, LandingSequence};
 pub use locomotion::*;
-pub use measurement::{
-    NonnegativeLength, NonnegativeSpeed, PositiveAnimationDuration, UnitInterval,
-};
+pub use measurement::{NonnegativeLength, PositiveAnimationDuration, UnitInterval};
 pub use motion_modes::{DownedMotion, GuardedLocomotionMode, JumpAnticipation};
 pub use pack_id::AnimationPackId;
 pub use packs::*;
@@ -31,6 +29,8 @@ pub use semantic::*;
 pub use skeleton_family::SkeletonFamily;
 pub use state::*;
 pub use value_error::{AnimationQuantity, AnimationValueError, AnimationValueResult};
+
+use adventuresim_core::linear_speed::NonnegativeSpeed;
 
 mod attack_commitment;
 mod contact;

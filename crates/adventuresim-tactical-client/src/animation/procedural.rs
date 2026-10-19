@@ -776,7 +776,12 @@ mod contract_tests {
         let mut app = App::new();
         app.add_systems(Update, apply_locomotion_height);
         let state = SkeletonState::default()
-            .with_local_velocity(Vec3::NEG_Z * walk_locomotion_profile().reference_speed)
+            .with_local_velocity(
+                Vec3::NEG_Z
+                    * walk_locomotion_profile()
+                        .reference_speed
+                        .metres_per_second(),
+            )
             .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
             .with_locomotion_sample_tick(
                 adventuresim_tactical_core::animation::AnimationSampleTick::from(1u64),
@@ -822,7 +827,9 @@ mod contract_tests {
         let mut app = App::new();
         app.add_systems(Update, apply_locomotion_height);
         let state = SkeletonState::default()
-            .with_local_velocity(Vec3::NEG_Z * run_locomotion_profile().reference_speed)
+            .with_local_velocity(
+                Vec3::NEG_Z * run_locomotion_profile().reference_speed.metres_per_second(),
+            )
             .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
             .with_locomotion_sample_tick(
                 adventuresim_tactical_core::animation::AnimationSampleTick::from(1u64),
@@ -924,6 +931,7 @@ mod contract_tests {
 #[cfg(test)]
 mod ik_tests {
     use super::*;
+    use adventuresim_core::linear_speed::NonnegativeSpeed;
 
     #[test]
     fn canonical_mhr_role_names_are_recognized() {
@@ -1046,7 +1054,7 @@ mod ik_tests {
 
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
-            5.5,
+            NonnegativeSpeed::from_metres_per_second(5.5).unwrap(),
             AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
         )
         .unwrap()
@@ -1102,7 +1110,13 @@ mod ik_tests {
                 })
                 .with_weapon_guard(guard)
                 .with_raised_locomotion(if guard == WeaponGuardState::Raised {
-                    RaisedLocomotionIntent::moving(Vec2::NEG_Y, speed)
+                    RaisedLocomotionIntent::moving(
+                        Vec2::NEG_Y,
+                        adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(
+                            speed,
+                        )
+                        .unwrap(),
+                    )
                 } else {
                     RaisedLocomotionIntent::default()
                 })
@@ -1199,13 +1213,18 @@ mod ik_tests {
         .radians();
         let walking_braking = body_response_target(
             BodyLocalVelocity::from_metres_per_second(
-                Vec3::Z * walk_locomotion_profile().reference_speed,
+                Vec3::Z
+                    * walk_locomotion_profile()
+                        .reference_speed
+                        .metres_per_second(),
             )
             .unwrap(),
             BodyLocalAcceleration::from_metres_per_second_squared(Vec3::NEG_Z * 12.0).unwrap(),
             BrakingLeanScale::from_fraction(
-                walk_locomotion_profile().reference_speed
-                    / run_locomotion_profile().reference_speed,
+                walk_locomotion_profile()
+                    .reference_speed
+                    .metres_per_second()
+                    / run_locomotion_profile().reference_speed.metres_per_second(),
             )
             .unwrap(),
         )
@@ -1434,45 +1453,6 @@ mod ik_tests {
     }
 
     #[test]
-    fn raised_guard_movement_reports_exactly_one_procedural_support_foot() {
-        for contact in [LeadFoot::Left, LeadFoot::Right] {
-            let mut skeleton = SkeletonState::default()
-                .with_local_velocity(Vec3::NEG_Z * 2.0)
-                .with_weapon_guard(WeaponGuardState::Raised)
-                .with_raised_locomotion(RaisedLocomotionIntent::moving(Vec2::NEG_Y, 2.0));
-            skeleton.contact_foot = contact;
-            let support = locomotion_support_weights(&skeleton);
-            assert_eq!(support.0 + support.1, 1.0);
-            assert_eq!(
-                support,
-                match contact {
-                    LeadFoot::Left => (1.0, 0.0),
-                    LeadFoot::Right => (0.0, 1.0),
-                }
-            );
-        }
-        let idle = SkeletonState::default()
-            .with_local_velocity(Vec3::ZERO)
-            .with_weapon_guard(WeaponGuardState::Raised);
-        assert_eq!(locomotion_support_weights(&idle), (1.0, 1.0));
-    }
-
-    #[test]
-    fn ordinary_swing_support_is_not_filled_in_by_low_speed() {
-        let idle = SkeletonState::default().with_gait_phase(CyclePhase::from_cycles(0.25).unwrap());
-        assert_eq!(locomotion_support_weights(&idle), (1.0, 1.0));
-
-        let stopping = SkeletonState::default()
-            .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
-            .with_local_velocity(Vec3::NEG_Z * 0.2);
-        let (left, right) = locomotion_support_weights(&stopping);
-        let (raw_left, raw_right) =
-            gait_support_weights(locomotion_profile(&stopping), stopping.gait_phase);
-        assert!(left <= raw_left && right <= raw_right);
-        assert!(left <= 0.05 || right <= 0.05);
-    }
-
-    #[test]
     fn settle_landing_is_ahead_of_the_capture_point() {
         let com = Vec3::new(0.0, 1.0, 0.0);
         let velocity = Vec3::new(0.8, 0.0, -2.0);
@@ -1596,7 +1576,8 @@ mod ik_tests {
         let mut attack = SkeletonState::default()
             .with_local_velocity(Vec3::NEG_Z * 5.5)
             .with_gait_phase(CyclePhase::from_cycles(0.0).unwrap());
-        let locomotion = locomotion_support_weights(&attack);
+        let locomotion =
+            locomotion_support_weights(&attack, attack.animation_speed().unwrap()).unwrap();
         attack
             .begin_attack(
                 AttackSpec::default(),
@@ -1604,7 +1585,10 @@ mod ik_tests {
                 adventuresim_tactical_core::animation::AnimationSampleTick::from(1u64),
             )
             .unwrap();
-        assert_eq!(locomotion_support_weights(&attack), locomotion);
+        assert_eq!(
+            locomotion_support_weights(&attack, attack.animation_speed().unwrap()).unwrap(),
+            locomotion
+        );
 
         let mut dodge = SkeletonState::default();
         dodge
@@ -1614,7 +1598,10 @@ mod ik_tests {
                 adventuresim_tactical_core::animation::AnimationSampleTick::from(1u64),
             )
             .unwrap();
-        assert_eq!(locomotion_support_weights(&dodge), (0.0, 0.0));
+        assert_eq!(
+            locomotion_support_weights(&dodge, dodge.animation_speed().unwrap()).unwrap(),
+            (0.0, 0.0)
+        );
         assert!(!terrain_leg_has_support(0.0));
         assert!(!terrain_leg_has_support(0.01));
         assert!(terrain_leg_has_support(0.1));

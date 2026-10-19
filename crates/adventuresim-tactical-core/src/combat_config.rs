@@ -1,5 +1,6 @@
-use crate::animation::{AnimationElapsed, NonnegativeLength, NonnegativeSpeed, UnitInterval};
+use crate::animation::{AnimationElapsed, NonnegativeLength, UnitInterval};
 use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
+use adventuresim_core::linear_speed::{NonnegativeSpeed, PositiveSpeed, SignedSpeed};
 use adventuresim_core::{
     body::BodyPart,
     combat::{AutoresolveParameters, CombatResolutionParameters},
@@ -76,13 +77,13 @@ pub struct AnimationLocomotionConfig {
     pub raised_guard: AnimationGaitConfig,
     pub prone: AnimationGaitConfig,
     pub supine: AnimationGaitConfig,
-    pub blend_speed: f32,
+    pub blend_speed: PositiveSpeed,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct AnimationGaitConfig {
-    pub reference_speed_metres_per_second: f32,
+    pub reference_speed_metres_per_second: PositiveSpeed,
     pub step_distance_metres: f32,
     pub support_phase_radius: f32,
     pub bounce_metres: f32,
@@ -160,7 +161,7 @@ pub struct InverseKinematicsConfig {
     pub first_run_release_foot_rotation_speed_degrees_per_second: f32,
     pub maximum_retained_plant_reach_correction_metres: SignedLength,
     pub pelvis_correction_speed_metres_per_second: NonnegativeSpeed,
-    pub run_pelvis_correction_speed_metres_per_second: f32,
+    pub run_pelvis_correction_speed_metres_per_second: SignedSpeed,
     pub maximum_pelvis_correction_step_metres: NonnegativeLength,
     pub terrain_blend_speed_per_second: f32,
     pub minimum_knee_flexion_degrees: f32,
@@ -183,7 +184,7 @@ pub struct InverseKinematicsConfig {
     pub settle_step_clearance_metres: SignedLength,
     pub settle_capture_point_margin_metres: SignedLength,
     pub assumed_center_of_mass_height_metres: SignedLength,
-    pub maximum_settle_capture_speed_metres_per_second: f32,
+    pub maximum_settle_capture_speed_metres_per_second: SignedSpeed,
     pub maximum_hip_drop_metres: NonnegativeLength,
     pub sole_contact_margin_metres: SignedLength,
 }
@@ -229,7 +230,7 @@ pub struct RangedAuthorityConfig {
 #[serde(deny_unknown_fields)]
 pub struct ImpactConfig {
     pub whole_body_velocity_scale: f32,
-    pub maximum_velocity_change_metres_per_second: f32,
+    pub maximum_velocity_change_metres_per_second: NonnegativeSpeed,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -315,14 +316,14 @@ pub struct CharacterMotorConfig {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct MovementSpeedsConfig {
-    pub walk: f32,
-    pub run: f32,
-    pub raised_guard: f32,
-    pub prone_walk: f32,
-    pub prone: f32,
-    pub roll: f32,
-    pub dive: f32,
-    pub quickstep: f32,
+    pub walk: NonnegativeSpeed,
+    pub run: NonnegativeSpeed,
+    pub raised_guard: NonnegativeSpeed,
+    pub prone_walk: NonnegativeSpeed,
+    pub prone: NonnegativeSpeed,
+    pub roll: NonnegativeSpeed,
+    pub dive: NonnegativeSpeed,
+    pub quickstep: NonnegativeSpeed,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -469,7 +470,6 @@ impl TacticalCombatConfig {
             authority.ranged.range_latency_tolerance_metres,
             authority.ranged.aim_half_angle_degrees,
             authority.impact.whole_body_velocity_scale,
-            authority.impact.maximum_velocity_change_metres_per_second,
         ];
         if !authority_values.into_iter().all(finite_nonnegative) {
             return Err(TacticalCombatConfigError::Validation(
@@ -488,14 +488,6 @@ impl TacticalCombatConfig {
         }
         let movement = &self.movement;
         let movement_values = [
-            movement.speeds_metres_per_second.walk,
-            movement.speeds_metres_per_second.run,
-            movement.speeds_metres_per_second.raised_guard,
-            movement.speeds_metres_per_second.prone_walk,
-            movement.speeds_metres_per_second.prone,
-            movement.speeds_metres_per_second.roll,
-            movement.speeds_metres_per_second.dive,
-            movement.speeds_metres_per_second.quickstep,
             movement.jump_heights_metres.ordinary,
             movement.jump_heights_metres.dive,
             movement.prone_lateral_speed_scale,
@@ -697,11 +689,8 @@ impl TacticalCombatConfig {
         ];
         if !locomotion.sample_hz.is_finite()
             || locomotion.sample_hz <= 0.0
-            || !locomotion.blend_speed.is_finite()
-            || locomotion.blend_speed <= 0.0
             || gait_values.into_iter().any(|gait| {
                 ![
-                    gait.reference_speed_metres_per_second,
                     gait.step_distance_metres,
                     gait.support_phase_radius,
                     gait.bounce_metres,
@@ -709,7 +698,6 @@ impl TacticalCombatConfig {
                 ]
                 .into_iter()
                 .all(finite_nonnegative)
-                    || gait.reference_speed_metres_per_second == 0.0
                     || gait.step_distance_metres == 0.0
                     || !(0.0..0.5).contains(&gait.support_phase_radius)
             })
@@ -771,12 +759,10 @@ impl TacticalCombatConfig {
             ik.knee_pole_maximum_foot_facing_offset_degrees,
             ik.airborne_foot_rotation_speed_degrees_per_second,
             ik.first_run_release_foot_rotation_speed_degrees_per_second,
-            ik.run_pelvis_correction_speed_metres_per_second,
             ik.terrain_blend_speed_per_second,
             ik.minimum_knee_flexion_degrees,
             ik.minimum_terrain_knee_flexion_degrees,
             ik.settle_step_seconds,
-            ik.maximum_settle_capture_speed_metres_per_second,
         ]
         .into_iter()
         .all(f32::is_finite)

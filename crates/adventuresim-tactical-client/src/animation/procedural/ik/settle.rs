@@ -50,14 +50,6 @@ pub(in crate::animation::procedural) fn advance_settle_state(
     Ok(settle)
 }
 
-pub(in crate::animation::procedural) fn settle_target_speed(settle: LocomotionSettleState) -> f32 {
-    if settle.raised_handoff {
-        ik_tuning().raised_settle_step_metres.metres() * ik_tuning().continuity_sample_hz
-    } else {
-        ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz
-    }
-}
-
 pub(in crate::animation::procedural) fn cancel_settle_for_restart(
     memory: &mut LegIkMemory,
     planar_velocity: Vec3,

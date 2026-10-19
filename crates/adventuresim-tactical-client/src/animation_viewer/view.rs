@@ -57,7 +57,7 @@ pub(super) fn position_capture_camera(
             **label = format!(
                 "{} | {:>4.2} m/s | phase {:>5.3} | {} view | 64 Hz frame {}",
                 frame.scenario.label(),
-                frame.speed,
+                frame.speed.metres_per_second(),
                 skeleton.gait_phase.cycles(),
                 view.slug(),
                 frame.scenario_frame,
