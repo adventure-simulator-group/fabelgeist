@@ -8,9 +8,32 @@ use crate::input::FrozenForest;
 use adventuresim_environment::render::{ForestFeed, trees::TreeFeed};
 use bevy::prelude::*;
 
-use super::Still;
+use super::{Still, WARMUP, WARMUP_FRAMES};
 
 impl Still {
+    /// Preserve an early arrival image before the ordinary settling period.
+    pub(super) fn settle(
+        &mut self,
+        commands: &mut Commands,
+        measurement: Option<&mut Measurement>,
+    ) -> bool {
+        let drawn = *self.drawn.get_or_insert_with(Instant::now);
+        if let Some(measurement) = measurement {
+            let Some(target) = self.target.clone() else {
+                return false;
+            };
+            measurement.capture_arrival(commands, target);
+            if !measurement.arrival_ready() {
+                return false;
+            }
+        }
+        if self.settling < WARMUP_FRAMES || drawn.elapsed() < WARMUP {
+            self.settling += 1;
+            return false;
+        }
+        true
+    }
+
     pub(super) fn sample_frames(
         &mut self,
         frames: u32,

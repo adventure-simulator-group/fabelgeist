@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import re
 from pathlib import Path
 import statistics
@@ -165,7 +166,22 @@ def main() -> int:
                     previous = image.with_suffix(
                         f".readback-{data['readback_attempts'] - 1:02d}.png")
                     validation = data["probe_validation"]
-                    valid = (data["schema_version"] == 6
+                    arrival_image = report.with_suffix(".arrival.png")
+                    observed_times = [
+                        data["elapsed_from_request_ms"]["first_completed_forest_draw_commands"],
+                        data["arrival_frame"]["elapsed_from_request_ms"],
+                        data["elapsed_from_request_ms"]["first_readback"],
+                        data["elapsed_from_request_ms"]["stable_readback"],
+                    ]
+                    valid = (data["schema_version"] == 7
+                             and data["arrival_frame"]["image"] == str(arrival_image)
+                             and arrival_image.is_file()
+                             and all(isinstance(value, (int, float))
+                                     and math.isfinite(value) and value > 0
+                                     for value in observed_times)
+                             and observed_times == sorted(observed_times)
+                             and data["arrival_frame"]["resolution"] == data["resolution"]
+                             and digest(arrival_image) == digest(image)
                              and validation["policy"] == "every_frame"
                              and validation["phase"] == "complete"
                              and validation["successful_full_checks"] >= 2
@@ -187,6 +203,7 @@ def main() -> int:
                         result["image_sha256"] = digest(image)
                         result["stable_pair"] = [str(previous), str(image)]
                         result["stable_pair_sha256"] = [digest(previous), digest(image)]
+                        result["arrival_image_sha256"] = digest(arrival_image)
                 else:
                     result["reason"] = "process failed or required evidence is missing"
             except subprocess.TimeoutExpired:
@@ -207,6 +224,8 @@ def main() -> int:
             "completed_draw_commands_ms": quantiles([
                 m["elapsed_from_request_ms"]["first_completed_forest_draw_commands"]
                 for m in measured]),
+            "first_gpu_ready_readback_ms": quantiles([
+                m["arrival_frame"]["elapsed_from_request_ms"] for m in measured]),
             "frame_ms": quantiles([
                 sample for m in measured for sample in m["cpu_gpu_waited_frame_ms"]]),
             "area_acceptance": "unassessed",

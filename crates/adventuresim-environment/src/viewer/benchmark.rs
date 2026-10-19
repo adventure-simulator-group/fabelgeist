@@ -15,11 +15,13 @@ use bevy::prelude::*;
 use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance, PlantInstance};
 use serde_json::json;
 
-use crate::stage::Orbit;
+use crate::capture_view::CaptureView;
+
+mod arrival;
 
 /// Consecutive readbacks must agree within this bounded number of attempts.
 const MAX_READBACKS: usize = 8;
-const REPORT_VERSION: u32 = 6;
+const REPORT_VERSION: u32 = 7;
 pub(crate) const READINESS_TIMEOUT: Duration = Duration::from_secs(240);
 
 pub struct Request {
@@ -66,12 +68,13 @@ pub struct Measurement {
     leaves: usize,
     record_bytes: usize,
     detail: ForestDetail,
-    camera: Orbit,
+    camera: CaptureView,
     handoff: Option<Duration>,
     previous_frame: Option<Instant>,
     frames: Vec<Duration>,
     pixels: PixelStability,
     first_readback: Option<Duration>,
+    arrival_frame: arrival::ArrivalFrame,
 }
 
 pub enum Readback {
@@ -108,6 +111,12 @@ impl PixelStability {
 
 #[derive(Debug, thiserror::Error)]
 pub enum MeasurementError {
+    #[error("the first GPU-ready forest frame was not captured")]
+    MissingArrival,
+    #[error("the first-frame readback arrived outside its request")]
+    UnexpectedArrival,
+    #[error("could not encode or save the first forest frame")]
+    ArrivalImage(#[source] Box<dyn std::error::Error + Send + Sync>),
     #[error("the screenshot contains no pixel data")]
     MissingPixels,
     #[error("the frozen snapshot did not settle after {MAX_READBACKS} readbacks")]
@@ -138,7 +147,7 @@ impl Measurement {
         preparation: Preparation,
         frame: &ForestFrame,
         detail: ForestDetail,
-        camera: Orbit,
+        camera: CaptureView,
         arrival: ArrivalPath,
     ) -> Self {
         Self {
@@ -160,6 +169,7 @@ impl Measurement {
             frames: Vec::new(),
             pixels: PixelStability::default(),
             first_readback: None,
+            arrival_frame: arrival::ArrivalFrame::Pending,
         }
     }
 
@@ -219,6 +229,7 @@ impl Measurement {
             .first_submission_micros
             .ok_or(MeasurementError::MissingSubmission)?;
         let milliseconds = |duration: Duration| duration.as_secs_f64() * 1_000.0;
+        let arrival_frame = self.arrival_evidence()?;
         let report = json!({
             "schema_version": REPORT_VERSION,
             "scope": "native_offscreen_forest_component",
@@ -228,11 +239,12 @@ impl Measurement {
             "years": self.years,
             "resolution": [image.width(), image.height()],
             "camera": {
-                "focus_metres": self.camera.focus.to_array(),
-                "radius_metres": self.camera.radius,
-                "yaw_radians": self.camera.yaw,
-                "pitch_radians": self.camera.pitch,
+                "focus_metres": self.camera.orbit.focus.to_array(),
+                "radius_metres": self.camera.orbit.radius,
+                "yaw_radians": self.camera.orbit.yaw,
+                "pitch_radians": self.camera.orbit.pitch,
             },
+            "view": self.camera.evidence(),
             "counts": self.workload(&counts),
             "effective_detail": {
                 "tube_sides": self.detail.tube_sides, "tube_spans": self.detail.tube_spans,
@@ -244,6 +256,7 @@ impl Measurement {
             "shared_meshes": topology,
             "probe_validation": validation,
             "renderer_profile": profile,
+            "arrival_frame": arrival_frame,
             "stages_ms": {
                 "scene_construction": milliseconds(self.preparation.scene),
                 "simulation_gpu_setup": milliseconds(self.preparation.gpu_setup),

@@ -205,6 +205,7 @@ fn fragment(in: LeafOut, @builtin(front_facing) front: bool) -> @location(0) vec
     let ao = mix(0.3, 1.0, in.light) * mix(0.45, 1.0, smoothstep(0.1, 1.0, depth));
 
     var pbr_input: pbr_types::PbrInput = pbr_types::pbr_input_new();
+    pbr_input.material.flags |= pbr_types::STANDARD_MATERIAL_FLAGS_FOG_ENABLED_BIT;
     pbr_input.material.base_color = vec4<f32>(albedo, alpha);
     pbr_input.material.perceptual_roughness = 0.6;
     pbr_input.material.metallic = 0.0;

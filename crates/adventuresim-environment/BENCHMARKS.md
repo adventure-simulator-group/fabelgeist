@@ -118,7 +118,7 @@ every mode. This is a payload bound, not a peak-memory measurement. Model
 layouts intentionally duplicate vertices and can cost more startup/memory;
 their purpose is to isolate indexed padding with matched batch partitions.
 
-Report schema 6 names per-LOD referenced work `indexed_record_slots`.
+Report schema 7 names per-LOD referenced work `indexed_record_slots`.
 `capacity_slots_implied_by_shared_placements` still describes per-placement
 capacity potential. `shared_meshes` records the actual requested grid count,
 vertex/index bytes, layout and a SHA-256 of batch keys, bounds and complete
@@ -176,7 +176,7 @@ the render graph's rendering phase, before the camera driver. Their three
 piped stages run on one worker and queue begin/dispatch/end buffers in order.
 
 Both modes save a `.profile.json` sidecar beside the final screenshot.
-Schema 6 measurement reports also include `renderer_profile`; it is null
+Schema 7 measurement reports also include `renderer_profile`; it is null
 when no profiling mode was requested. Untimed captures exercise profiling
 and report admission without supplying frame intervals. Validate those
 captures before coordinating a timing window.
@@ -203,6 +203,50 @@ Measure its effect with a contemporary control in the same build and layout.
 Do not subtract the control difference to manufacture a production result,
 sum overlapping CPU/GPU/wait spans, or infer a critical path from opaque-pass
 timing alone. Ordinary viewing and captures omit these hooks by default.
+
+### Explicit capture views
+
+Use `--capture-view path/to/view.json` with `--snapshot` to fix the actual
+eye, target, vertical field of view, far plane and linear distance fog:
+
+```json
+{
+  "eye_metres": [0, 1.65, 0],
+  "target_metres": [0, 1.65, -100],
+  "vertical_fov_degrees": 80,
+  "far_metres": 60000,
+  "fog_start_metres": 2500,
+  "fog_end_metres": 42000
+}
+```
+
+Positions use the prepared area's coordinate frame. Admission checks finite
+distinct points, a nonvertical direction, a finite invertible projection and
+ordered fog distances before loading the forest. The document is bounded to
+4 KiB and rejects unknown fields. Explicit views conflict with the automatic
+closeup, aim, yaw, zoom and orbit options. The existing framing path retains
+its default lens and exponential haze when no document is supplied.
+
+Schema 7 records `view` with the applied transform, eye, lens and fog beside
+the framing orbit. Branch and leaf materials enable Bevy's distance fog in
+both unique and shared rendering. This corrects previously unfogged foliage;
+older captures remain historical evidence rather than exact current controls.
+
+A matching camera does not establish production presentation equivalence.
+The component's lighting, ground, visibility ranges and source populations
+must also be declared. In particular, its geometric Coarse level retains
+all botanical records and it does not reproduce the tactical presenter's
+distant tree cards or their distance fade. Use actual producer ring extents
+and separate tree-object distance limits when constructing stress fixtures;
+the camera's far plane is not a radius filled with individual trees.
+
+Measurement reports also save `arrival_frame`: the first screenshot requested
+after fresh GPU-complete forest commands, before the warmup or steady sample.
+Its time includes screenshot readback. Pixels stay in memory until sampling
+finishes, so PNG encoding cannot contaminate steady intervals. The image is
+saved beside the report with extension `.arrival.png`. Review that actual
+image for complete useful foliage; command readiness alone does not establish
+coverage. This native readback bound still excludes network/browser delivery.
 
 ## Measure on an otherwise idle machine
 

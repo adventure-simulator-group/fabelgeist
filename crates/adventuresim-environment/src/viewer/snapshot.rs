@@ -13,7 +13,7 @@ use std::time::{Duration, Instant};
 use adventuresim_environment::render::benchmark::profile::{ProfileMode, RenderProfile};
 use adventuresim_environment::render::benchmark::{ForestBenchmark, ValidationPolicy, WindowStart};
 use adventuresim_environment::render::{
-    ForestFeed, ForestPlugin, LevelSelection,
+    ForestDetail, ForestFeed, ForestPlugin, LevelSelection,
     trees::{TreeFeed, TreeForestPlugin, TreeLayout, TreeMeshStats},
 };
 use anyhow::Result;
@@ -32,6 +32,7 @@ use bevy::window::ExitCondition;
 use bevy::winit::WinitPlugin;
 
 use crate::benchmark::{self, ArrivalPath, Measurement, PixelStability, Readback};
+use crate::capture_view::CaptureView;
 use crate::input::{self, FrozenForest, Source};
 use crate::stage::{self, Orbit};
 
@@ -63,6 +64,7 @@ pub struct Framing {
 
 /// What to grow and how to show it.
 pub struct Request {
+    pub view: Option<PathBuf>,
     pub tree_layout: TreeLayout,
     pub validation: ValidationPolicy,
     pub render_profile: Option<ProfileMode>,
@@ -82,6 +84,7 @@ pub struct Request {
 /// The grown scene, waiting to be shown, and where the frame goes.
 #[derive(Resource)]
 struct Still {
+    view: CaptureView,
     forest: FrozenForest,
     started: Instant,
     shown: bool,
@@ -112,6 +115,7 @@ struct CaptureObservation<'w> {
 
 /// Grow the scene and render it headless, then leave.
 pub fn run(mut request: Request) -> Result<()> {
+    let explicit_view = request.view.as_deref().map(CaptureView::read).transpose()?;
     let prepared = matches!(&request.source, Source::Prepared { .. });
     let input::Loaded {
         forest,
@@ -126,7 +130,8 @@ pub fn run(mut request: Request) -> Result<()> {
     } else {
         ArrivalPath::GrowthReplay
     };
-    let orbit = request.framing.orbit(&frame);
+    let view = explicit_view.unwrap_or_else(|| CaptureView::framed(request.framing.orbit(&frame)));
+    let orbit = view.orbit;
     let mut detail = frame.detail;
     detail.level = request.level;
     let probe = (prepared || request.benchmark.is_some()).then(|| {
@@ -142,30 +147,12 @@ pub fn run(mut request: Request) -> Result<()> {
         probe.expect_instances(instances);
         probe
     });
-    let measurement = request
-        .benchmark
-        .take()
-        .map(|request| Measurement::new(request, preparation, &frame, detail, orbit, arrival));
-    let mut app = App::new();
-    app.insert_resource(ClearColor(stage::SKY))
-        .insert_resource(request.tree_layout)
-        .insert_resource(detail)
-        .add_plugins(
-            DefaultPlugins
-                .set(WindowPlugin {
-                    primary_window: None,
-                    exit_condition: ExitCondition::DontExit,
-                    ..default()
-                })
-                .disable::<WinitPlugin>(),
-        )
-        .add_plugins(ScheduleRunnerPlugin::run_loop(Duration::ZERO));
-    if shared {
-        app.add_plugins(TreeForestPlugin);
-    } else {
-        app.add_plugins(ForestPlugin);
-    }
+    let measurement = request.benchmark.take().map(|request| {
+        Measurement::new(request, preparation, &frame, detail, view.clone(), arrival)
+    });
+    let mut app = capture_app(detail, request.tree_layout, arrival);
     app.insert_resource(Still {
+        view,
         forest,
         started: Instant::now(),
         shown: false,
@@ -212,6 +199,33 @@ pub fn run(mut request: Request) -> Result<()> {
     Ok(())
 }
 
+/// Install the native offscreen renderer for the selected arrival path.
+fn capture_app(detail: ForestDetail, layout: TreeLayout, arrival: ArrivalPath) -> App {
+    let mut app = App::new();
+    app.insert_resource(ClearColor(stage::SKY))
+        .insert_resource(layout)
+        .insert_resource(detail)
+        .add_plugins(
+            DefaultPlugins
+                .set(WindowPlugin {
+                    primary_window: None,
+                    exit_condition: ExitCondition::DontExit,
+                    ..default()
+                })
+                .disable::<WinitPlugin>(),
+        )
+        .add_plugins(ScheduleRunnerPlugin::run_loop(Duration::ZERO));
+    match arrival {
+        ArrivalPath::PreparedShared => {
+            app.add_plugins(TreeForestPlugin);
+        }
+        ArrivalPath::GrowthReplay | ArrivalPath::PreparedUnique => {
+            app.add_plugins(ForestPlugin);
+        }
+    }
+    app
+}
+
 /// The comparison camera follows source metadata, regardless of representation.
 impl Framing {
     fn orbit(&self, frame: &adventuresim_environment::prepared::ForestFrame) -> Orbit {
@@ -236,11 +250,13 @@ fn setup(mut commands: Commands, mut images: ResMut<Assets<Image>>, mut still: R
     let mut image = Image::new_target_texture(SIZE.x, SIZE.y, TextureFormat::Rgba8UnormSrgb, None);
     image.texture_descriptor.usage |= TextureUsages::COPY_SRC;
     let target = images.add(image);
-    commands.spawn((
-        stage::camera(),
-        RenderTarget::Image(target.clone().into()),
-        still.orbit.transform(),
-    ));
+    commands
+        .spawn((
+            stage::camera(),
+            RenderTarget::Image(target.clone().into()),
+            still.view.transform(),
+        ))
+        .insert(still.view.lens());
     still.target = Some(target);
 }
 
@@ -320,9 +336,7 @@ fn step(
     {
         return;
     }
-    let drawn = *still.drawn.get_or_insert_with(Instant::now);
-    if still.settling < WARMUP_FRAMES || drawn.elapsed() < WARMUP {
-        still.settling += 1;
+    if !still.settle(&mut commands, measurement.as_deref_mut()) {
         return;
     }
     if let Some(probe) = &probe {

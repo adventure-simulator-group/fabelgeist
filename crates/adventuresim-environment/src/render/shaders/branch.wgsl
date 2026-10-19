@@ -170,6 +170,7 @@ fn fragment(in: BranchOut) -> @location(0) vec4<f32> {
     let ao = mix(0.5, 1.0, in.light) * mix(0.7, 1.0, pattern.y);
 
     var pbr_input: pbr_types::PbrInput = pbr_types::pbr_input_new();
+    pbr_input.material.flags |= pbr_types::STANDARD_MATERIAL_FLAGS_FOG_ENABLED_BIT;
     pbr_input.material.base_color = vec4<f32>(albedo, 1.0);
     pbr_input.material.perceptual_roughness = 0.9;
     pbr_input.material.metallic = 0.0;

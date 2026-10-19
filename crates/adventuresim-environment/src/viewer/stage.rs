@@ -55,17 +55,21 @@ impl Default for Lighting {
 pub fn camera() -> impl Bundle {
     (
         Camera3d::default(),
-        DistanceFog {
-            color: SKY,
-            falloff: FogFalloff::from_visibility(HAZE_DISTANCE),
-            ..default()
-        },
+        distance_fog(),
         AmbientLight {
             color: SKY,
             brightness: SKY_BRIGHTNESS,
             ..default()
         },
     )
+}
+
+pub fn distance_fog() -> DistanceFog {
+    DistanceFog {
+        color: SKY,
+        falloff: FogFalloff::from_visibility(HAZE_DISTANCE),
+        ..default()
+    }
 }
 
 /// The orbit a camera that opens before the first snapshot takes.

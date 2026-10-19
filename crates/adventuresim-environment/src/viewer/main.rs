@@ -23,6 +23,7 @@
 //! of its height; `--solo conifer` grows one plant of a species alone.
 
 mod benchmark;
+mod capture_view;
 mod frame_times;
 mod hotbar;
 mod hud;
@@ -98,6 +99,9 @@ struct Options {
     /// Grow the scene and save one frame here instead of watching it grow.
     #[arg(long)]
     snapshot: Option<PathBuf>,
+    /// Explicit eye/target, field of view, clip distance and fog JSON.
+    #[arg(long, requires = "snapshot", conflicts_with_all = ["closeup", "aim", "yaw", "zoom", "orbit"])]
+    capture_view: Option<PathBuf>,
     /// Years to grow before the snapshot.
     #[arg(long, default_value_t = 120.0)]
     years: f32,
@@ -178,6 +182,7 @@ fn main() -> anyhow::Result<()> {
             }
         };
         return snapshot::run(snapshot::Request {
+            view: options.capture_view,
             path: path.clone(),
             tree_layout: options.tree_layout.unwrap_or_default(),
             validation: options.probe_validation.unwrap_or_default(),
