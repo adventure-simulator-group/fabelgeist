@@ -97,6 +97,11 @@ struct Args {
     #[arg(long)]
     output: Option<PathBuf>,
 
+    /// Write a fresh offline oak/beech source bank instead of starting a renderer.
+    #[cfg(feature = "foliage-review")]
+    #[arg(long, requires = "scene_input")]
+    prepare_tree_bank: Option<PathBuf>,
+
     /// Render frames allowed to settle between fixed camera views.
     #[arg(long, default_value_t = 12)]
     settle_frames: u32,
@@ -159,6 +164,14 @@ fn main() {
             "one of --fixture or --scene-input is required",
         )
         .exit();
+    }
+    #[cfg(feature = "foliage-review")]
+    if let (Some(input), Some(output)) = (&args.scene_input, &args.prepare_tree_bank) {
+        if let Err(error) = presentation::write_tree_bank(input, output) {
+            eprintln!("tree bank authoring failed: {error:#}");
+            std::process::exit(1);
+        }
+        return;
     }
     tactical_scene_viewer::run(
         args.fixture,

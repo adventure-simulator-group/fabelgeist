@@ -1,3 +1,5 @@
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+pub(crate) mod authoring;
 mod geometry;
 mod impostor;
 mod impostor_assets;

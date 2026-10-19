@@ -11,7 +11,10 @@ default = ["debug", "client-audio"]
 debug = ["bevy/debug", "bevy/bevy_remote", "adventuresim-tactical-core/avian_debug"]
 client-audio = ["bevy/audio"]
 # Local prepared-foliage admission in the persistent WebGPU renderer.
-foliage-review = ["debug", "dep:adventuresim-environment", "dep:image"]
+foliage-review = [
+    "debug", "dep:adventuresim-environment", "dep:image",
+    "dep:fabelgeist-botany", "dep:fabelgeist-math",
+]
 tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep:tracy-client-sys"]
 # See src/lib.rs - only used by crates/adventuresim-tactical-brp-generator.
 remote-types = ["debug"]
@@ -38,6 +41,8 @@ adventuresim-building-generator = { workspace = true, features = ["sign-render"]
 adventuresim-procedural-textures.workspace = true
 adventuresim-plant-generator.workspace = true
 fabelgeist-determinism.workspace = true
+fabelgeist-botany = { path = "../fabelgeist-botany", features = ["viewer"], optional = true }
+fabelgeist-math = { workspace = true, optional = true }
 flate2.workspace = true
 clap.workspace = true
 serde.workspace = true

@@ -11,7 +11,8 @@ use bevy::prelude::*;
 use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, serde::Serialize)]
+#[serde(rename_all = "snake_case")]
 pub(crate) enum TreePresentationSpecies {
     EnglishOak,
     CommonBeech,

@@ -26,7 +26,7 @@ use fabelgeist_math::Vec3;
 use fabelgeist_surface_field::{Shape, SurfaceIndex};
 use rayon::prelude::*;
 
-use crate::viewer::profile::Profile;
+use crate::viewer::{profile::Profile, tangent};
 
 mod commands;
 mod foliage;
@@ -603,20 +603,6 @@ struct Segment {
     end_diameter: f32,
 }
 
-/// Octahedral encoding of a unit vector into two snorm16s, as WGSL's
-/// `unpack2x16snorm` reads them.
-fn octahedral(v: Vec3) -> u32 {
-    let n = v / (v.x.abs() + v.y.abs() + v.z.abs()).max(1e-12);
-    let sign = |x: f32| if x >= 0.0 { 1.0 } else { -1.0 };
-    let (x, y) = if n.z >= 0.0 {
-        (n.x, n.y)
-    } else {
-        ((1.0 - n.y.abs()) * sign(n.x), (1.0 - n.x.abs()) * sign(n.y))
-    };
-    let snorm = |x: f32| (x.clamp(-1.0, 1.0) * 32767.0).round() as i16 as u16 as u32;
-    snorm(x) | (snorm(y) << 16)
-}
-
 /// A plant's segments, leaf clusters and bounding sphere; `index` is its
 /// place in the snapshot.
 ///
@@ -732,7 +718,7 @@ fn instances(
         } else {
             segments[s].direction
         };
-        t0[s] = octahedral(direction);
+        t0[s] = tangent::pack(direction);
         let girth = std::f32::consts::PI * 0.5 * (segments[s].diameter + end_diameter(s));
         v[s][1] = v[s][0] + segments[s].length / girth.max(1e-4);
     }
@@ -744,7 +730,7 @@ fn instances(
         let t1 = if n != u32::MAX {
             t0[n as usize]
         } else {
-            octahedral(segment.direction)
+            tangent::pack(segment.direction)
         };
         let end = end_diameter(s);
         let p = parent[s];
@@ -969,7 +955,7 @@ fn vine_instances(
         branches.push(BranchInstance {
             a: [a.x, a.y, a.z, node.diameter * 0.5],
             b: [b.x, b.y, b.z, end * 0.5],
-            tangents: [octahedral(tangent_in(i)), octahedral(t1)],
+            tangents: [tangent::pack(tangent_in(i)), tangent::pack(t1)],
             v0: v[i][0],
             light: node.lit.clamp(0.0, 1.0),
             plant: index,

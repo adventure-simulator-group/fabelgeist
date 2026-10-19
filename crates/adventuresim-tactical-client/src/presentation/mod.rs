@@ -37,6 +37,8 @@ pub(crate) use ground_scatter::gardens::ManagedGardenPlant;
 pub(crate) mod interior_lighting;
 mod materials;
 mod obstacles;
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+pub(crate) use obstacles::tree::authoring::write_tree_bank;
 pub(crate) mod ownership;
 mod procedural;
 pub(crate) mod procedural_texture_setup;
