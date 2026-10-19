@@ -127,6 +127,9 @@ impl GroundAssets<'_, '_> {
             // presentation retains Bevy's ordinary automatic batching.
             entity.insert(bevy::render::batching::NoAutomaticBatching);
         }
+        if let Some(probe) = &self.probe {
+            probe.expect_ground_entity(entity.id());
+        }
     }
 }
 

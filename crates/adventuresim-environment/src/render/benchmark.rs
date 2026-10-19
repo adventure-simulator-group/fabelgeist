@@ -63,6 +63,7 @@ struct Expected {
     branches: usize,
     leaves: usize,
     chunks: Vec<ExpectedChunk>,
+    ground_entities: Vec<Entity>,
     meshes: Vec<ExpectedMesh>,
 }
 

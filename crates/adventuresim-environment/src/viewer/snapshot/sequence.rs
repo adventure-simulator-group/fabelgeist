@@ -86,7 +86,7 @@ pub(super) struct Inventory<'w, 's> {
     standard: Res<'w, Assets<StandardMaterial>>,
     images: Res<'w, Assets<Image>>,
     screenshots: Query<'w, 's, (Entity, Has<Captured>), With<Screenshot>>,
-    entities: Query<'w, 's, (), With<Mesh3d>>,
+    entities: Query<'w, 's, Entity, With<Mesh3d>>,
 }
 
 #[derive(Clone, Copy, Serialize)]
@@ -142,8 +142,12 @@ impl Inventory<'_, '_> {
         );
         let native = probe
             .native_residency()
-            .ok_or_else(|| anyhow::anyhow!("missing final native residency"))?
-            .asset_counts();
+            .ok_or_else(|| anyhow::anyhow!("missing final native residency"))?;
+        ensure!(
+            native.matches_scene_entities(self.entities.iter()),
+            "scene meshes differ from the current request's validated membership"
+        );
+        let native = native.asset_counts();
         Ok(AssetCounts {
             mesh_values: self.meshes.len(),
             storage_values: self.buffers.len(),
@@ -190,8 +194,7 @@ impl Progress {
                     && assets.leaf_materials <= first.assets.leaf_materials
                     && assets.standard_materials <= first.assets.standard_materials
                     && assets.images <= first.assets.images
-                    && assets.screenshot_entities <= first.assets.screenshot_entities
-                    && assets.scene_mesh_entities <= first.assets.scene_mesh_entities,
+                    && assets.screenshot_entities <= first.assets.screenshot_entities,
                 "post-drain main-world assets exceed the first bank checkpoint"
             );
             ensure!(

@@ -24,6 +24,7 @@ pub struct NativeResidency {
     request: ForestRequestId,
     tree_entities: Vec<u64>,
     ground_entities: Vec<u64>,
+    owned_scene_entities: Vec<u64>,
     meshes: Vec<MeshAllocation>,
     storage: Vec<StorageAllocation>,
 }
@@ -69,6 +70,13 @@ impl From<MeshBufferSlice<'_>> for BufferAllocation {
 }
 
 impl ForestBenchmark {
+    pub(crate) fn expect_ground_entity(&self, entity: Entity) {
+        self.mutate(|| match self.inner.expected.lock() {
+            Ok(mut expected) => expected.ground_entities.push(entity),
+            Err(_) => self.failure(),
+        });
+    }
+
     pub fn native_residency(&self) -> Option<NativeResidency> {
         self.inner
             .native
@@ -104,6 +112,18 @@ impl ForestBenchmark {
         tree_entities.sort_unstable();
         let mut ground_entities = ground.clone();
         ground_entities.sort_unstable();
+        let mut owned_scene_entities: Vec<_> = expected
+            .chunks
+            .iter()
+            .map(|chunk| chunk.entity.to_bits())
+            .chain(
+                expected
+                    .ground_entities
+                    .iter()
+                    .map(|entity| entity.to_bits()),
+            )
+            .collect();
+        owned_scene_entities.sort_unstable();
         let mut mesh_allocations: Vec<_> = meshes
             .iter()
             .map(|(asset, _)| MeshAllocation {
@@ -130,6 +150,7 @@ impl ForestBenchmark {
             request: self.request_id(),
             tree_entities,
             ground_entities,
+            owned_scene_entities,
             meshes: mesh_allocations,
             storage,
         });
@@ -143,6 +164,14 @@ impl ForestBenchmark {
 }
 
 impl NativeResidency {
+    /// Match all scene meshes against this request's owned membership,
+    /// including hidden leaves and offscreen ground that require no draw.
+    pub fn matches_scene_entities(&self, entities: impl IntoIterator<Item = Entity>) -> bool {
+        let mut actual: Vec<_> = entities.into_iter().map(Entity::to_bits).collect();
+        actual.sort_unstable();
+        actual == self.owned_scene_entities
+    }
+
     pub fn asset_counts(&self) -> NativeAssetCounts {
         NativeAssetCounts {
             meshes: self.meshes.len(),

@@ -314,7 +314,9 @@ early receipt when measurement is enabled.
 Schema 9 adds `request_id`, request-owned `arrival_frame` evidence,
 `shared_meshes.residency` and `native_residency`. Residency reports bank and
 population identities, native asset IDs and application upload bytes. Native
-snapshots include validated entity generations, mesh buffer identities and
+snapshots distinguish all request-owned scene entity generations (including
+hidden leaves and offscreen ground) from active-tree and visible-ground draw
+membership. They include mesh buffer identities and
 element ranges, storage buffer identities/capacities and current render asset
 membership. Native inventories are collected after final validation, outside
 sampled intervals. Buffer ordinals are process-local. Deduplicate shared
@@ -322,8 +324,11 @@ buffer identities before counting capacity. These are not total VRAM or peak
 memory measurements. Bevy can resize/copy allocator slabs even when logical
 grid asset IDs stay unchanged; zero application reuploads do not prove zero
 device copies. `sequence.json` records each post-drain checkpoint and rejects
-growth in retained main-world/render mesh or storage asset counts relative
-to initial A. Check current ground and group membership and actual B pixels
+growth in retained main-world/render mesh or storage asset counts, materials
+and images relative to initial A for the declared same-size fixtures. The
+sole remaining screenshot must be the current completed request. All scene
+meshes must match the current request's owned membership exactly. Check
+current ground and group membership and actual B pixels
 against independently captured fresh controls before accepting a warm result.
 
 ## Measure on an otherwise idle machine
