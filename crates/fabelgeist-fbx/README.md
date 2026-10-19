@@ -1,6 +1,4 @@
-# Binary FBX reader
-
-## Header layout
+# Binary FBX header layout
 
 The binary FBX reader admits the four-byte file version into `FbxVersion` before
 selecting node-header layout. Version 7500 changes the end offset, property
@@ -30,48 +28,79 @@ owners. The expected snapshot remains unchanged.
 ## Array encoding
 
 The binary FBX model-file reader admits the four-byte array encoding field into
-`FbxArrayEncoding` before passing it into the shared array decoder. This bespoke
-enum keeps encoding identity distinct from counts, byte lengths and property
-tags through all five array kinds: 32-bit and 64-bit floats, 32-bit and 64-bit
-integers, and Boolean bytes.
+`FbxArrayEncoding` before passing it into the shared array decoder. This keeps
+encoding identity distinct from counts, byte lengths and property tags through
+all five array kinds: 32-bit and 64-bit floats, 32-bit and 64-bit integers, and
+Boolean bytes.
 
 This reader supports exactly two encoding codes: 0 selects `Uncompressed`, and 1
 selects `Zlib`. Every other code returns `UnsupportedFbxArrayEncoding` before
 payload decoding. Its public `reported_code` field retains the raw wire value;
 callers can inspect this bespoke error through the parser's `anyhow::Error`.
-This deliberately replaces the previous policy that treated every nonzero code
-as Zlib. The shared decoder matches the two supported variants exhaustively.
+The shared decoder matches the two supported variants exhaustively.
 
 The existing regression fixture records 95 observations through the public
 parser. Independently encoded wire properties cover all five array kinds with
 codes 0, 1, 7 and 4294967295; empty, ordinary, short and extra payloads; and
 corrupt compressed streams. The 45 observations for supported encodings retain
 their exact output, including floating-point bit patterns, Boolean bytes and
-decoder errors. The other 50 observations now report the unsupported encoding
-code, including empty arrays and corrupt payloads.
+decoder errors. The other 50 observations report the unsupported encoding code,
+including empty arrays and corrupt payloads.
 
-The native `Reader::u32` call reads the serialized encoding word: FBX array
-metadata stores element count, encoding and compressed byte length as three
-little-endian 32-bit words. The enum declares codes 0 and 1 as explicit `u32`
-discriminants and derives `TryFrom<u32>` with `num_enum::TryFromPrimitive`.
-The enum's custom-error configuration makes the standard `TryFrom` associated
-error `UnsupportedFbxArrayEncoding` for every caller. Its derived `From<u32>`
-constructor retains the rejected wire value. `read_props` checks the wire word
-once and propagates that error directly with `?`; the enum remains typed through
-array decoding. Blender's published binary format description documents code 0
-for raw contents and code 1 for Zlib; it reports that other values had not been
-observed. Those values are unsupported by this reader, without asserting that
-Autodesk formally declares them invalid.
+FBX array metadata stores element count, encoding and stored payload byte length
+as three little-endian 32-bit words. Each bespoke owner decodes its own word
+from a fixed-size byte array. `FbxArrayEncoding::try_from_le_bytes` uses the
+enum's derived `TryFrom<u32>` conversion, whose error is
+`UnsupportedFbxArrayEncoding` for every caller. Unsupported codes are rejected
+before reading the payload length or payload; the supported enum remains typed
+through array decoding. Blender's published binary format description documents
+code 0 for raw contents and code 1 for Zlib; it reports that other values had
+not
+been observed. Those values are unsupported by this reader, without asserting
+that Autodesk formally declares them invalid.
 
 [Blender FBX binary format description](https://code.blender.org/2013/08/fbx-binary-file-format-specification/)
 
+## Array counts and payload lengths
+
+`FbxArrayCount` carries the declared element count from the header reader into
+array decoding. `FbxArrayPayloadLength` represents the stored payload's byte
+length, including compressed bytes when Zlib encoding is selected. The two
+types distinguish element cardinality from byte length.
+
+All encoded counts and lengths remain admitted. Their native `usize`
+projections occur at buffer slicing, capacity, length-check and iteration
+boundaries. The native array decoder determines the element width used with
+the count. These conversions retain the existing host-size casts and
+multiplication; they add no allocation limit or overflow policy.
+
+## Property tags
+
+The binary FBX model-file reader converts each one-byte property tag into the
+private `FbxPropertyTag` enum before dispatch. Its thirteen variants distinguish
+scalar numbers and Booleans, numeric and Boolean arrays, strings, and raw byte
+payloads. The derived `TryFrom<u8>` rejects unsupported bytes at this boundary,
+so property selection is exhaustive and cannot receive an unknown tag.
+Rejected bytes retain the parser's existing character diagnostic.
+
+Native little-endian scalar decoders determine their input-array widths.
+Array decoding uses the same fixed-width input contract, so a tag's selected
+decoder determines each element's width without a separate numeric argument.
+Boolean truth rules, array Boolean bytes, string encoding, read ordering and
+parser errors remain unchanged. Header layouts, array metadata, node property
+counts, offsets and structured parser errors have separate responsibilities.
+
+A regression fixture records 284 observations from the unchanged main public
+parser. Independently encoded properties cover all 256 native tag bytes, all
+thirteen known payload representations, missing and short payloads, and mixed
+forward/reverse property sequences. Comparisons retain exact floating-point bit
+patterns, invalid string bytes and the distinct string/raw property variants.
+
 ## Remaining decoding audit
 
-Header-layout and array-encoding ownership do not complete the parser's other
-responsibilities. `read_node` still carries native offsets and property counts;
-`read_props` and `decode_array` still carry property tags, array counts and
-scalar widths. Scalar conversions still contain guaranteed-length `unwrap`
-calls. Those values and the parser's errors need their own complete
-producer/consumer migrations. Header ownership adds no stricter framing,
-version or allocation policy; unsupported array encodings follow the checked
-admission described above.
+These bespoke types do not complete the parser's other responsibilities.
+`read_node` still carries native offsets and node property counts, and
+`read_props` receives the latter. Those values and the parser's errors need
+their own complete producer/consumer migrations. Header layout, array counts,
+payload lengths and property tags introduce no stricter framing, version or
+allocation policy. Array encodings follow the checked admission described above.
