@@ -4,7 +4,7 @@ use bevy::reflect::Reflect;
 use serde::{Deserialize, Serialize};
 
 /// A finite positive length in metres, for dimensions and working clearances.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
+#[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Serialize, Reflect)]
 #[repr(transparent)]
 #[serde(transparent)]
 #[reflect(opaque)]

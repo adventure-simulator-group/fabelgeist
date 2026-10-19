@@ -760,7 +760,7 @@ fn apply_character_motor(
                     target: "quickstep_trace",
                     ?entity,
                     skeleton_tick = skeleton.map_or(0, |skeleton| skeleton.locomotion_sample_tick.encoded()),
-                    push_start_tick = push.start_tick,
+                    push_start_tick = push.start_tick.encoded(),
                     elapsed_ticks,
                     ?world_direction,
                     phase,
