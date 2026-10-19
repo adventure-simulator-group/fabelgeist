@@ -110,9 +110,16 @@ class TacticalPlayMode(str, Enum):
     DIAGNOSTIC = "diagnostic"
     COMBAT = "combat"
     NETWORKING = "networking"
-    # Same fixture as `combat`, but the wasm client in a browser tab
-    # replaces the native one (see `just tactical-wasm`).
+    # Uses the combat enemy fixture with a browser client. An explicit
+    # --case-site selects a wilderness site instead of the default town site.
     BROWSER = "browser"
+
+
+class TacticalCaseSite(str, Enum):
+    """Location of the standalone mission relative to its synthetic host town."""
+
+    SETTLEMENT = "settlement"
+    WILDERNESS = "wilderness"
 
 
 def default_enemy_fixture(mode: TacticalPlayMode) -> str:
@@ -2829,7 +2836,14 @@ def tactical_play(
     client_profile: str = "dev",
     frame_timing_seconds: float | None = None,
     frame_timing_warmup_seconds: float = 5.0,
+    case_site: TacticalCaseSite | None = None,
 ) -> int:
+    if case_site is not None and mode is not TacticalPlayMode.BROWSER:
+        raise ValueError("--case-site is only valid for tactical-play browser")
+    effective_site = case_site or (
+        TacticalCaseSite.WILDERNESS if mode is TacticalPlayMode.DIAGNOSTIC
+        else TacticalCaseSite.SETTLEMENT
+    )
     benchmark = StartupBenchmark.start()
     enemy_fixture = enemy_fixture or default_enemy_fixture(mode)
     enemy_fixture_yaml = read_enemy_fixture(enemy_fixture)
@@ -2870,7 +2884,12 @@ def tactical_play(
     )
     profile_state_file = profile_dir / "tactical-profile-state.json"
     benchmark.record("tactical profile identity", phase_started_at)
-    mission_id = f"mission:{mode.value}-{session_id[:12]}"
+    mission_family = (
+        "wilderness-browser"
+        if mode is TacticalPlayMode.BROWSER and effective_site is TacticalCaseSite.WILDERNESS
+        else mode.value
+    )
+    mission_id = f"mission:{mission_family}-{session_id[:12]}"
     # Physical custody deliberately reserves zero as an invalid identity.
     character_id = 1
     config = tactical_session_config(
@@ -2880,6 +2899,7 @@ def tactical_play(
         input_script, client_profile, frame_timing_seconds,
         frame_timing_warmup_seconds,
     )
+    config["case_site"] = effective_site.value
     session_file = run_dir / "tactical-session.json"
 
     with ProfileLock(profile_dir / "lifecycle.lock") as lifecycle:
@@ -3369,6 +3389,10 @@ def create_parser() -> argparse.ArgumentParser:
     tactical_play_parser.add_argument(
         "--scene-input", default=DEFAULT_SCENE_INPUT
     )
+    tactical_play_parser.add_argument(
+        "--case-site", choices=[site.value for site in TacticalCaseSite],
+        help="Browser mission site relative to its synthetic host town; defaults to settlement",
+    )
     tactical_play_parser.add_argument("--enemy-fixture")
     tactical_play_parser.add_argument("--input-script")
     tactical_play_parser.add_argument(
@@ -3445,6 +3469,7 @@ def main() -> int:
                 args.capture_source, args.render_backend, args.scene_input,
                 args.enemy_fixture, args.input_script, args.client_profile, args.frame_timing_seconds,
                 args.frame_timing_warmup_seconds,
+                TacticalCaseSite(args.case_site) if args.case_site is not None else None,
             )
         if args.command == "tactical-status":
             return tactical_status()
