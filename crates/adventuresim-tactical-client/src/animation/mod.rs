@@ -270,7 +270,7 @@ pub(crate) struct AnimationRuntime {
     base_processed: bool,
     base_failed: bool,
     base_scene: Option<Handle<WorldAsset>>,
-    requested_motions: BTreeMap<(String, String), Handle<Gltf>>,
+    requested_motions: BTreeMap<(String, String), MotionLoad>,
     processed_motions: BTreeSet<(String, String)>,
     unavailable_motions: BTreeSet<(String, String)>,
     clip_handles: BTreeMap<(String, String), Handle<AnimationClip>>,
