@@ -40,9 +40,7 @@ use crate::animation::{
     sole_contact_tolerance_metres,
 };
 use crate::{
-    camera::{
-        CameraMode, TacticalCameraPlugin, TacticalCameraSet, animation_capture_camera_offset,
-    },
+    camera::{CameraMode, TacticalCameraPlugin, animation_capture_camera_offset},
     player::{LocalCharacterId, PlayerPlugin},
     presentation::{TacticalGameplayCamera, TacticalPresentationPlugin},
 };
@@ -56,8 +54,6 @@ use scenarios::terrain_policy::{
     terrain_ik_mode_for_frame,
 };
 use scenarios::*;
-use setup::setup_viewer;
-use view::position_capture_camera;
 
 mod capture;
 mod harness;
@@ -166,30 +162,6 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
         .insert_resource(initial_terrain_ik)
         .insert_resource(ClearColor(Color::srgb(0.08, 0.1, 0.13)))
         .insert_resource(CaptureSequence::new(output, settle_frames, scenario))
-        .add_systems(Startup, setup_viewer)
-        .add_systems(PreUpdate, (drive_sequence, freeze_capture_look).chain())
-        .add_systems(
-            PostUpdate,
-            position_capture_camera
-                .after(TacticalCameraSet::Offset)
-                .before(TransformSystems::Propagate),
-        )
-        .add_systems(
-            PostUpdate,
-            (draw_flat_ground_grid, draw_skeleton_overlay)
-                .chain()
-                .after(TransformSystems::Propagate),
-        )
-        .add_systems(
-            Last,
-            (
-                inspection::inspect_materials,
-                harness::update_readiness,
-                collect_locomotion_presentation_events,
-                reject_capture,
-                capture_frame.run_if(harness::ready),
-            )
-                .chain(),
-        )
+        .add_plugins(CapturePlugin)
         .run()
 }

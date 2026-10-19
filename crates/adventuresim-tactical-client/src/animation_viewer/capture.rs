@@ -3,9 +3,11 @@
 use super::*;
 pub(super) use admission::reject_capture;
 use admission::{CaptureAdmission, RejectedCaptureAdmission, fail_capture};
+pub(super) use capture_schedule::CapturePlugin;
 use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
 
 mod admission;
+mod capture_schedule;
 mod frame_clock;
 mod readiness;
 mod subject_motion;
