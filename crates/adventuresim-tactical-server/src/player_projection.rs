@@ -2360,6 +2360,7 @@ mod standalone_join_tests {
 
 #[cfg(test)]
 mod tests {
+    use super::dive_launch::DiveLaunch;
     use super::posture_facing::{
         advance_downed_facing_for_camera, advance_posture_transition_facing,
     };
@@ -2377,6 +2378,7 @@ mod tests {
         tactical_movement_speed_for_guard, try_claim_reconnect, update_character_motion_snapshots,
         validate_player_input,
     };
+    use adventuresim_tactical_core::animation::{AnimationSampleSpan, AnimationSampleTick};
     use adventuresim_tactical_core::physics::tactical_character_controller;
     use adventuresim_tactical_core::prelude::{
         BestiaryCategories, BodyState, CharacterControllerState, CharacterId, CharacterLook,
@@ -2891,9 +2893,9 @@ mod tests {
         );
         let landing_rotation = transform.rotation;
         let previous = skeleton.posture_transition();
-        skeleton.advance_posture_transition(
+        skeleton.advance_posture_transition(AnimationSampleTick::from(
             BACKWARD_DIVE_POSTURE_TRANSITION_TICKS + 3 + GROUND_POSTURE_TRANSITION_TICKS / 2,
-        );
+        ));
         advance_posture_transition_facing(
             &mut transform,
             &mut physics_rotation,
@@ -2906,9 +2908,9 @@ mod tests {
         );
 
         let previous = skeleton.posture_transition();
-        skeleton.advance_posture_transition(
+        skeleton.advance_posture_transition(AnimationSampleTick::from(
             BACKWARD_DIVE_POSTURE_TRANSITION_TICKS + GROUND_POSTURE_TRANSITION_TICKS + 4,
-        );
+        ));
         advance_posture_transition_facing(
             &mut transform,
             &mut physics_rotation,

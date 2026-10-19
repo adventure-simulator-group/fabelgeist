@@ -1091,7 +1091,7 @@ mod legacy_tests {
                     state
                         .begin_attack(
                             AttackSpec::default(),
-                            crate::animation::AnimationSampleTick::from(tick as u64),
+                            crate::animation::AnimationSampleTick::from(tick),
                             crate::animation::AnimationSampleTick::from(30u64),
                         )
                         .unwrap();
