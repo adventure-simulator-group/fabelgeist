@@ -13,6 +13,8 @@ pub(super) struct Stores<'w> {
     buffers: Res<'w, Assets<ShaderBuffer>>,
     bark: Res<'w, Assets<TacticalTreeBarkMaterial>>,
     leaves: Res<'w, Assets<TacticalTreeLeafCardMaterial>>,
+    aggregate: Res<'w, Assets<TacticalTreeAggregateBarkMaterial>>,
+    cards: Res<'w, Assets<TacticalTreeImpostorMaterial>>,
     interior: Res<'w, Assets<InteriorMaterial>>,
     images: Res<'w, Assets<Image>>,
 }
@@ -33,6 +35,14 @@ enum MaterialValue {
     Leaves {
         id: AssetId<TacticalTreeLeafCardMaterial>,
         value: Box<TacticalTreeLeafCardMaterial>,
+    },
+    Aggregate {
+        id: AssetId<TacticalTreeAggregateBarkMaterial>,
+        value: Box<TacticalTreeAggregateBarkMaterial>,
+    },
+    Card {
+        id: AssetId<TacticalTreeImpostorMaterial>,
+        value: Box<TacticalTreeImpostorMaterial>,
     },
     Interior {
         id: AssetId<InteriorMaterial>,
@@ -178,6 +188,18 @@ impl MaterialValue {
                 value: Box::new(stores.leaves.get(id).context("owned leaves")?.clone()),
             });
         }
+        if let Ok(id) = id.try_typed::<TacticalTreeAggregateBarkMaterial>() {
+            return Ok(Self::Aggregate {
+                id,
+                value: Box::new(stores.aggregate.get(id).context("owned aggregate")?.clone()),
+            });
+        }
+        if let Ok(id) = id.try_typed::<TacticalTreeImpostorMaterial>() {
+            return Ok(Self::Card {
+                id,
+                value: Box::new(stores.cards.get(id).context("owned card")?.clone()),
+            });
+        }
         let id = id.try_typed::<InteriorMaterial>()?;
         Ok(Self::Interior {
             id,
@@ -196,6 +218,8 @@ impl MaterialValue {
             Self::Bark { value, .. } => value.as_ref(),
             Self::Leaves { value, .. } => value.as_ref(),
             Self::Interior { value, .. } => value.as_ref(),
+            Self::Aggregate { value, .. } => value.as_ref(),
+            Self::Card { value, .. } => value.as_ref(),
         }
     }
 
@@ -207,6 +231,14 @@ impl MaterialValue {
             }),
             Self::Leaves { id, value } => stores
                 .leaves
+                .get(*id)
+                .is_some_and(|current| value.reflect_partial_eq(current) == Some(true)),
+            Self::Aggregate { id, value } => stores.aggregate.get(*id).is_some_and(|current| {
+                value.reflect_partial_eq(current) == Some(true)
+                    && value.base.cull_mode == current.base.cull_mode
+            }),
+            Self::Card { id, value } => stores
+                .cards
                 .get(*id)
                 .is_some_and(|current| value.reflect_partial_eq(current) == Some(true)),
             Self::Interior { id, value } => stores.interior.get(*id).is_some_and(|current| {
@@ -291,6 +323,22 @@ pub(super) fn retain_cpu_data(
                     .resource::<Assets<TacticalTreeLeafCardMaterial>>()
                     .get(id)
                     .context("selected leaf")?,
+                &mut images,
+            );
+        } else if let Ok(id) = material.try_typed::<TacticalTreeAggregateBarkMaterial>() {
+            image_handles(
+                world
+                    .resource::<Assets<TacticalTreeAggregateBarkMaterial>>()
+                    .get(id)
+                    .context("selected aggregate")?,
+                &mut images,
+            );
+        } else if let Ok(id) = material.try_typed::<TacticalTreeImpostorMaterial>() {
+            image_handles(
+                world
+                    .resource::<Assets<TacticalTreeImpostorMaterial>>()
+                    .get(id)
+                    .context("selected card")?,
                 &mut images,
             );
         } else {

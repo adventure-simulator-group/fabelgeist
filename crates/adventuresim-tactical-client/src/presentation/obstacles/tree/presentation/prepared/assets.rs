@@ -51,6 +51,50 @@ impl AssetStores<'_> {
 }
 
 impl TreePresentationCache {
+    pub(super) fn generate_review_variant(
+        &mut self,
+        specimen: &super::super::super::authoring::specimens::SourceSpecimen,
+        environment: &SceneEnvironment,
+        terrain: &SceneTerrain,
+        stores: &mut AssetStores,
+    ) -> Result<Seed> {
+        let key = super::super::super::source::playable_cache_key(
+            specimen.species,
+            specimen.seed,
+            environment,
+        );
+        ensure!(
+            !self.variants.contains_key(&key),
+            "generated review cache key already occupied"
+        );
+        let materials = stores.bind_materials(self, terrain, specimen.species)?;
+        let (branches, leaves) = specimen.records(environment);
+        let mut cached = CachedTreePresentation::from_generated(
+            specimen.species,
+            specimen.seed,
+            branches,
+            leaves,
+            materials,
+        );
+        // Diagnostic eager prewarming only. The ordinary streamer still creates
+        // the selected child closure; these generation costs are not arrival evidence.
+        let mut diagnostic = TreeAssetResidencyDiagnostics::default();
+        ensure_tree_assets_resident(
+            &mut cached,
+            COMPLETE_STREAM_MASK,
+            None,
+            None,
+            &mut stores.meshes,
+            &mut stores.cards,
+            &mut stores.images,
+            &mut diagnostic,
+        )
+        .map_err(|error| anyhow::anyhow!("generated review residency: {error}"))?;
+        require_resident(&cached, COMPLETE_STREAM_MASK)?;
+        self.variants.insert(key, cached);
+        Ok(key)
+    }
+
     pub(super) fn admit_variant(
         &mut self,
         variant: PreparedVariant,

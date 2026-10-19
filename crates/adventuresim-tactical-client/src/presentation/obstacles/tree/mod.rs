@@ -42,13 +42,13 @@ pub(crate) use lod::{
     TreeLeafRepresentation, TreeLod, TreeLodCluster, TreeLodRenderOverride, TreeTrunkLod,
 };
 pub(crate) use materials::{
-    TacticalTreeAggregateBarkMaterial, TacticalTreeBarkMaterial, TacticalTreeLeafCardMaterial,
-    oak_aggregate_bark_material, oak_bark_material, oak_leaf_material,
+    TacticalTreeAggregateBarkMaterial, TacticalTreeBarkMaterial, TacticalTreeImpostorMaterial,
+    TacticalTreeLeafCardMaterial, oak_aggregate_bark_material, oak_bark_material,
+    oak_leaf_material,
 };
 pub(in crate::presentation) use materials::{
-    TacticalTreeImpostorMaterial, beech_aggregate_bark_material, beech_bark_material,
-    beech_leaf_material, blackthorn_leaf_material, hawthorn_leaf_material, hazel_leaf_material,
-    leaf_material,
+    beech_aggregate_bark_material, beech_bark_material, beech_leaf_material,
+    blackthorn_leaf_material, hawthorn_leaf_material, hazel_leaf_material, leaf_material,
 };
 pub(in crate::presentation) use presentation::{
     PendingTreePresentation, RetainedTreePresentations, StreamedTreePresentation,
@@ -63,6 +63,6 @@ pub(in crate::presentation) use source::{canopy_competition, vista_tree_species}
 
 #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
 pub(crate) use presentation::prepared::{
-    InstalledCacheSpecimen, InstalledTreeMaterial, InstalledTreePart, InstalledTreePartRole,
-    PreparedCacheInspection,
+    InstalledTreeMaterial, InstalledTreeOrigin, InstalledTreePart, InstalledTreePartRole,
+    InstalledTreeSpecimen, TreeCacheInspection, TreeCacheRepresentation,
 };

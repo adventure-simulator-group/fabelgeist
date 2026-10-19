@@ -98,7 +98,7 @@ pub(super) fn installed_parts(
 
 /// Read-only cache inspection, including the actual screenshot observer.
 #[derive(SystemParam)]
-pub(crate) struct PreparedCacheInspection<'w, 's> {
+pub(crate) struct TreeCacheInspection<'w, 's> {
     cache: Res<'w, TreePresentationCache>,
     streams: Query<'w, 's, &'static StreamedTreePresentation>,
     meshes: Res<'w, Assets<Mesh>>,
@@ -110,10 +110,64 @@ pub(crate) struct PreparedCacheInspection<'w, 's> {
     buds: Res<'w, Assets<StandardMaterial>>,
 }
 
-impl PreparedCacheInspection<'_, '_> {
-    pub(crate) fn verify(&self, installed: &InstalledCacheSpecimen) -> Result<()> {
+impl TreeCacheInspection<'_, '_> {
+    pub(crate) fn verify_card(
+        &self,
+        installed: &InstalledTreeSpecimen,
+        role: InstalledTreePartRole,
+        actual: &TreeImpostorProvenance,
+    ) -> Result<()> {
+        let InstalledTreePartRole::CanopyCard { lod } = role else {
+            anyhow::bail!("card provenance supplied for non-card role");
+        };
+        ensure!(actual.lod == lod, "card child provenance tier drift");
+        let index = usize::from(lod)
+            .checked_sub(1)
+            .context("card child tier zero")?;
+        let expected = self
+            .cache
+            .variants
+            .get(&installed.cache_key)
+            .and_then(|cached| cached.lod_cards.get(index))
+            .and_then(Option::as_ref)
+            .context("owned card has no production cache record")?;
+        ensure!(
+            expected.provenance == *actual,
+            "owned card provenance drift"
+        );
+        Ok(())
+    }
+
+    pub(crate) fn verify_cluster(
+        &self,
+        installed: &InstalledTreeSpecimen,
+        actual: &TreeLodCluster,
+    ) -> Result<()> {
+        let expected = self
+            .cache
+            .variants
+            .get(&installed.cache_key)
+            .and_then(|cached| cached.clusters.as_ref())
+            .and_then(|groups| {
+                groups
+                    .iter()
+                    .find(|group| group.primary_group == actual.primary_group)
+            })
+            .context("owned crown group has no production cache record")?;
+        ensure!(
+            actual.center == expected.center && actual.radius == expected.radius,
+            "owned crown cluster layout drift"
+        );
+        Ok(())
+    }
+
+    pub(crate) fn verify(
+        &self,
+        installed: &InstalledTreeSpecimen,
+        representation: TreeCacheRepresentation,
+    ) -> Result<()> {
         let stream = self.streams.get(installed.root)?;
-        installed.verify_records(&self.cache, &self.cards, stream)?;
+        installed.verify_records(&self.cache, &self.cards, stream, representation)?;
         for part in &installed.parts {
             ensure!(
                 self.meshes.contains(part.mesh),
@@ -136,20 +190,26 @@ impl PreparedCacheInspection<'_, '_> {
     }
 }
 
-impl InstalledCacheSpecimen {
+impl InstalledTreeSpecimen {
     /// Inspect the actual retained cache and streamer without generating assets.
     fn verify_records(
         &self,
         cache: &TreePresentationCache,
         cards: &Assets<TacticalTreeImpostorMaterial>,
         stream: &StreamedTreePresentation,
+        representation: TreeCacheRepresentation,
     ) -> Result<()> {
         let cached = cache
             .variants
             .get(&self.cache_key)
             .context("retained prepared entry")?;
         ensure!(
-            matches!(cached.origin, TreeAssetOrigin::Prepared(content) if content == self.content_id),
+            match (&cached.origin, self.origin) {
+                (TreeAssetOrigin::Generated, InstalledTreeOrigin::Generated) => true,
+                (TreeAssetOrigin::Prepared(actual), InstalledTreeOrigin::Prepared(expected)) =>
+                    *actual == expected,
+                _ => false,
+            },
             "prepared origin/content drift"
         );
         require_resident(cached, COMPLETE_STREAM_MASK)?;
@@ -159,11 +219,13 @@ impl InstalledCacheSpecimen {
         );
         ensure!(
             stream.cache_key == self.cache_key
-                && stream.resident_mask == FULL_STREAM_MASK
-                && stream.active_mask == FULL_STREAM_MASK
-                && stream.resident_leaf_mask == 1
-                && stream.active_leaf == Some(TreeLeafRepresentation::TexturedMesh),
-            "actual cache root is not fixed Full/cambered"
+                && stream.resident_mask == representation.stream_mask()
+                && stream.active_mask == representation.stream_mask()
+                && stream.resident_leaf_mask == representation.leaf_mask()
+                && representation
+                    .leaf()
+                    .is_none_or(|leaf| stream.active_leaf == Some(leaf)),
+            "actual cache root fixed representation drift"
         );
         Ok(())
     }

@@ -23,7 +23,7 @@ const WHOLE_TREE_BAKE_EXPOSURE: f32 = 0.91;
 pub(in crate::presentation) const TREE_LEAF_HANDOFF_START: f32 = 1.5;
 pub(in crate::presentation) const TREE_LEAF_HANDOFF_END: f32 = 2.5;
 
-#[derive(Component, Clone, Debug)]
+#[derive(Component, Clone, Debug, PartialEq)]
 pub(crate) struct TreeImpostorProvenance {
     pub seed: Seed,
     pub lod: u8,
@@ -35,7 +35,7 @@ pub(crate) struct TreeImpostorProvenance {
     pub records: Vec<TreeImpostorBakeRecord>,
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub(crate) struct TreeImpostorBakeRecord {
     pub source_group: u16,
     pub source_leaf_count: u16,

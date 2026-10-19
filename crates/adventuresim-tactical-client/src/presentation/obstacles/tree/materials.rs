@@ -293,7 +293,7 @@ pub(in crate::presentation) fn leaf_material(
 }
 
 #[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
-pub(in crate::presentation) struct TacticalTreeImpostorMaterial {
+pub(crate) struct TacticalTreeImpostorMaterial {
     #[texture(0)]
     #[sampler(1)]
     pub(super) baked_color: Handle<Image>,

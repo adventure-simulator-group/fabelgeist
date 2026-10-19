@@ -48,8 +48,8 @@ pub(crate) use obstacles::tree::prepared_cache::{
 };
 #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
 pub(crate) use obstacles::tree::{
-    InstalledCacheSpecimen, InstalledTreeMaterial, InstalledTreePart, InstalledTreePartRole,
-    PreparedCacheInspection,
+    InstalledTreeMaterial, InstalledTreeOrigin, InstalledTreePart, InstalledTreePartRole,
+    InstalledTreeSpecimen, TreeCacheInspection, TreeCacheRepresentation,
 };
 pub(crate) mod ownership;
 mod procedural;
@@ -136,13 +136,16 @@ pub(crate) use obstacles::tree::{
     PlayableTreeDetailedLeaves, PlayableTreeDetailedTrunk, PlayableTreeDetailedWood,
     PlayableTreeMidTrunk, PlayableTreeTrunk, PreparedTreeImpostorAsset, PreparedTreeImpostorAssets,
     PresentedTree, TacticalTreeAggregateBarkMaterial, TacticalTreeBarkMaterial,
-    TacticalTreeBenchmarkIsolation, TacticalTreeLeafCardMaterial, TreeAssetResidencyDiagnostics,
-    TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod, TreeLodCluster, TreeLodRenderOverride,
-    TreePresentationSpecies, TreeTrunkLod, oak_aggregate_bark_material, oak_bark_material,
-    oak_leaf_material, oak_root_exposure_for_site, tree_species_for_site,
+    TacticalTreeBenchmarkIsolation, TacticalTreeImpostorMaterial, TacticalTreeLeafCardMaterial,
+    TreeAssetResidencyDiagnostics, TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod,
+    TreeLodCluster, TreeLodRenderOverride, TreePresentationSpecies, TreeTrunkLod,
+    oak_aggregate_bark_material, oak_bark_material, oak_leaf_material, oak_root_exposure_for_site,
+    tree_species_for_site,
 };
 pub(crate) use sky::AtmosphereIblStatus;
 pub(crate) use sky::{TacticalMoon, TacticalMoonlight, TacticalStars, TacticalSunlight};
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+pub(crate) use terrain::TerrainDrawMaterialInspection;
 pub(crate) use terrain::{
     DETAIL_PATCH_SPACING_METRES, TerrainDetailPatch, TerrainMaterialPresentation,
     terrain_heightmap_image,

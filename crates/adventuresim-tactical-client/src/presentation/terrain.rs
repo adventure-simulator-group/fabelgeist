@@ -8,6 +8,10 @@ use adventuresim_tactical_core::terrain_streams as streams;
 pub(in crate::presentation) use cliff_surface::{
     TacticalTerrainExtension, TacticalTerrainMaterial, enable_cliff_surface,
 };
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+mod capture;
+#[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+pub(crate) use capture::TerrainDrawMaterialInspection;
 use fabelgeist_determinism::Seed;
 pub(super) use ground_map::grass_cover_mask_pixels;
 use ground_map::ground_map_image;

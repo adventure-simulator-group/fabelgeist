@@ -173,11 +173,9 @@ pub(super) enum TreePresentationCapability {
         passed: bool,
     },
     #[cfg(feature = "foliage-review")]
-    WholeSource {
-        owned_inventory_verified: bool,
-    },
-    #[cfg(feature = "foliage-review")]
-    FixedFullCache {
+    FixedProductionRepresentation {
+        role: super::tree_cache_capture::Role,
+        representation: crate::presentation::TreeCacheRepresentation,
         owned_inventory_verified: bool,
     },
 }
@@ -187,11 +185,9 @@ impl TreePresentationCapability {
         match self {
             Self::FiveLodProduction { passed } => *passed,
             #[cfg(feature = "foliage-review")]
-            Self::WholeSource {
+            Self::FixedProductionRepresentation {
                 owned_inventory_verified,
-            }
-            | Self::FixedFullCache {
-                owned_inventory_verified,
+                ..
             } => *owned_inventory_verified,
         }
     }

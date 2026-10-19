@@ -10,9 +10,10 @@ use super::{
     SceneSetupData, view_selection,
     view_specs::{CapturePose, CaptureViewSpec},
 };
-use crate::presentation::{PreparedTreeCache, TreeSourceGeometry};
+use crate::presentation::{PreparedTreeCache, TreeCacheRepresentation, TreeSourceGeometry};
 
 mod admission;
+mod background;
 mod cameras;
 mod evidence;
 pub(super) mod inventory;
@@ -25,23 +26,26 @@ pub(super) use runtime::{install, ready};
 pub(super) const PROFILE: &str = "tree-cache-review";
 
 #[derive(Debug, clap::Args)]
-#[group(multiple = true, requires_all=["directory", "source", "role", "scene_input"], conflicts_with_all=["fixture", "profile", "prepare_tree_bank", "canopy_bps", "absolute_minute", "leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "terrain_wireframe", "triangle_census", "city_cameras"])]
+#[group(multiple = true, requires_all=["directory", "source", "role", "representation", "scene_input"], conflicts_with_all=["fixture", "profile", "prepare_tree_bank", "canopy_bps", "absolute_minute", "leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "terrain_wireframe", "triangle_census", "city_cameras", "tree_review_azimuth_degrees"])]
 pub(crate) struct Options {
-    /// Directory containing the checked fixed-Full variant.treecache.
+    /// Directory containing the checked complete variant.treecache.
     #[arg(long = "cache-review-dir")]
     directory: Option<PathBuf>,
     /// Actual production source PlantId bound by the cache.
     #[arg(long = "cache-review-source")]
     source: Option<u64>,
-    /// Render one whole source or its admitted production cache per process.
+    /// Render generated production assets or their admitted cache per process.
     #[arg(long = "cache-review-role", value_enum)]
     role: Option<Role>,
+    /// Fixed production representation, held for the entire process.
+    #[arg(long = "cache-review-representation", value_enum)]
+    representation: Option<TreeCacheRepresentation>,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, clap::ValueEnum, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub(super) enum Role {
-    Source,
+    Reference,
     Candidate,
 }
 
@@ -49,12 +53,14 @@ struct Request {
     directory: PathBuf,
     source: PlantId,
     role: Role,
+    representation: TreeCacheRepresentation,
 }
 
 #[derive(Resource)]
 pub(super) struct Review {
     role: Role,
-    source: Option<TreeSourceGeometry>,
+    representation: TreeCacheRepresentation,
+    source: PlantId,
     cache: Option<PreparedTreeCache>,
     cameras: cameras::Cameras,
     root: Vec3,
@@ -67,6 +73,9 @@ impl Options {
             directory: self.directory.context("cache review directory required")?,
             source: PlantId::from_word(self.source.context("cache source identity required")?),
             role: self.role.context("cache review role required")?,
+            representation: self
+                .representation
+                .context("cache representation required")?,
         };
         admission::load(request, setup)
     }
@@ -75,7 +84,7 @@ impl Options {
 impl Review {
     pub(super) fn views(&self, requested: &[String]) -> Result<Vec<CaptureViewSpec>, String> {
         view_selection::select(
-            &self.cameras.views(),
+            &self.cameras.views(self.representation),
             requested,
             view_selection::ViewSequence::Independent,
         )

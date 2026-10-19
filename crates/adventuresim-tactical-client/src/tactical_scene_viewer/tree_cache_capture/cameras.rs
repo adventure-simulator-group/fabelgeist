@@ -83,30 +83,55 @@ impl Cameras {
         })
     }
 
-    pub(super) fn views(&self) -> [CaptureViewSpec; 4] {
+    pub(super) fn views(&self, representation: TreeCacheRepresentation) -> [CaptureViewSpec; 4] {
         [
-            view("warmup", "Pipeline warmup", self.gameplay).warmup(),
-            view("cache-root", "Source tree root contact", self.root).settled_readback_pair(),
-            view("cache-crown", "Source tree full crown", self.crown).settled_readback_pair(),
-            view("cache-gameplay", "Source tree at eye height", self.gameplay)
-                .settled_readback_pair(),
+            view("warmup", "Pipeline warmup", self.gameplay, representation).warmup(),
+            view(
+                "cache-root",
+                "Source tree root contact",
+                self.root,
+                representation,
+            )
+            .settled_readback_pair(),
+            view(
+                "cache-crown",
+                "Source tree full crown",
+                self.crown,
+                representation,
+            )
+            .settled_readback_pair(),
+            view(
+                "cache-gameplay",
+                "Source tree at eye height",
+                self.gameplay,
+                representation,
+            )
+            .settled_readback_pair(),
         ]
     }
 }
 
-fn view(slug: &'static str, label: &'static str, camera: PlateCamera) -> CaptureViewSpec {
-    CaptureViewSpec::new(
+fn view(
+    slug: &'static str,
+    label: &'static str,
+    camera: PlateCamera,
+    representation: TreeCacheRepresentation,
+) -> CaptureViewSpec {
+    let mut view = CaptureViewSpec::new(
         slug,
         label,
         CapturePose::Cache(camera),
         FOV_DEGREES,
         FOREGROUND_BPS,
     )
-    .render_lod(0)
-    .leaf_lod(crate::presentation::TreeLeafRepresentation::TexturedMesh)
+    .render_lod(representation.lod())
     .hide_obstacles()
     .suppress_grass()
-    .suppress_understory()
+    .suppress_understory();
+    if let Some(leaf) = representation.leaf() {
+        view = view.leaf_lod(leaf);
+    }
+    view
 }
 
 #[derive(Resource, Serialize)]

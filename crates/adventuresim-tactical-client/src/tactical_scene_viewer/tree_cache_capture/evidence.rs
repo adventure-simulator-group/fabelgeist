@@ -8,11 +8,14 @@ use std::{
 };
 
 #[derive(Resource, Clone)]
-pub(in super::super) struct Evidence(Arc<Mutex<Data>>);
+pub(in super::super) struct Evidence {
+    data: Arc<Mutex<Data>>,
+    role: Role,
+    representation: TreeCacheRepresentation,
+}
 
 struct Data {
     metadata: serde_json::Value,
-    role: Role,
     poses: BTreeMap<usize, serde_json::Value>,
     draws: material_draws::SpecimenDraws,
     camera_drift_views: BTreeSet<usize>,
@@ -23,21 +26,25 @@ impl Evidence {
     pub(super) fn new(
         metadata: serde_json::Value,
         role: Role,
+        representation: TreeCacheRepresentation,
         draws: material_draws::SpecimenDraws,
     ) -> Self {
-        Self(Arc::new(Mutex::new(Data {
-            metadata,
+        Self {
             role,
-            draws,
-            poses: BTreeMap::new(),
-            camera_drift_views: BTreeSet::new(),
-            input_faults: BTreeMap::new(),
-        })))
+            representation,
+            data: Arc::new(Mutex::new(Data {
+                metadata,
+                draws,
+                poses: BTreeMap::new(),
+                camera_drift_views: BTreeSet::new(),
+                input_faults: BTreeMap::new(),
+            })),
+        }
     }
 
     pub(in super::super) fn input_fault(&self, view: usize, reason: String) -> Result<()> {
         let mut data = self
-            .0
+            .data
             .lock()
             .map_err(|_| anyhow::anyhow!("capture evidence lock"))?;
         data.input_faults.entry(view).or_insert(reason);
@@ -46,7 +53,7 @@ impl Evidence {
     }
 
     pub(super) fn camera_drift(&self, view: usize) -> Result<()> {
-        self.0
+        self.data
             .lock()
             .map_err(|_| anyhow::anyhow!("capture evidence lock"))?
             .camera_drift_views
@@ -55,13 +62,13 @@ impl Evidence {
     }
 
     pub(super) fn camera_intact(&self) -> bool {
-        self.0
+        self.data
             .lock()
             .is_ok_and(|data| data.camera_drift_views.is_empty() && data.input_faults.is_empty())
     }
 
     pub(super) fn record(&self, view: usize, proof: serde_json::Value) -> Result<()> {
-        self.0
+        self.data
             .lock()
             .map_err(|_| anyhow::anyhow!("capture evidence lock"))?
             .poses
@@ -71,9 +78,7 @@ impl Evidence {
     }
 
     pub(in super::super) fn selected_cache_roots(&self) -> usize {
-        self.0
-            .lock()
-            .map_or(0, |data| usize::from(data.role == Role::Candidate))
+        1
     }
 
     pub(in super::super) fn capability(
@@ -81,27 +86,21 @@ impl Evidence {
         presented_roots: usize,
     ) -> super::super::manifest::TreePresentationCapability {
         use super::super::manifest::TreePresentationCapability;
-        let Ok(data) = self.0.lock() else {
-            return TreePresentationCapability::FixedFullCache {
-                owned_inventory_verified: false,
-            };
-        };
-        let clean = data.camera_drift_views.is_empty()
-            && data.input_faults.is_empty()
-            && data.draws.inventory_verified();
-        match data.role {
-            Role::Source => TreePresentationCapability::WholeSource {
-                owned_inventory_verified: clean && presented_roots == 0,
-            },
-            Role::Candidate => TreePresentationCapability::FixedFullCache {
-                owned_inventory_verified: clean && presented_roots == 1,
-            },
+        let clean = self.data.lock().is_ok_and(|data| {
+            data.camera_drift_views.is_empty()
+                && data.input_faults.is_empty()
+                && data.draws.inventory_verified()
+        });
+        TreePresentationCapability::FixedProductionRepresentation {
+            role: self.role,
+            representation: self.representation,
+            owned_inventory_verified: clean && presented_roots == 1,
         }
     }
 
     pub(in super::super) fn finish(&self, state: &SceneCaptureState) -> Result<()> {
         let data = self
-            .0
+            .data
             .lock()
             .map_err(|_| anyhow::anyhow!("capture evidence lock"))?;
         let poses_complete = data.poses.len() == state.views.len()

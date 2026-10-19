@@ -19,6 +19,7 @@ use bevy::{
         view::{ExtractedView, RetainedViewEntity},
     },
 };
+use command::Record;
 use inventory::Member;
 use std::{
     collections::{BTreeMap, HashMap, HashSet},
@@ -28,16 +29,10 @@ use std::{
     },
 };
 
+mod command;
+
 #[derive(Resource, Clone, Default)]
 pub(super) struct SpecimenDraws(Arc<Mutex<BTreeMap<usize, Arc<Pose>>>>);
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
-#[serde(rename_all = "snake_case")]
-enum SingleDrawPath {
-    Direct,
-    DynamicUniformOffset { offset: u32 },
-    Indirect { parameter: u32 },
-}
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 struct BindingReceipt {
@@ -54,6 +49,7 @@ struct Pose {
     camera: RetainedViewEntity,
     camera_bits: u64,
     expected: Vec<Member>,
+    background: Vec<background::Member>,
     drawn: Mutex<HashMap<Entity, BindingReceipt>>,
     bindings: Mutex<Option<HashMap<Entity, BindingReceipt>>>,
     invalid: AtomicBool,
@@ -67,7 +63,13 @@ struct Frame(Option<Arc<Pose>>);
 #[derive(Resource, Default)]
 struct VisibilityMark(Option<usize>);
 
-struct Record;
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "snake_case")]
+enum SingleDrawPath {
+    Direct,
+    DynamicUniformOffset { offset: u32 },
+    Indirect { parameter: u32 },
+}
 
 impl SpecimenDraws {
     pub(super) fn install(app: &mut App) -> Self {
@@ -119,8 +121,36 @@ impl SpecimenDraws {
                     "actual_material_group": binding.map(|binding| binding.group),
                     "actual_material_slot": binding.map(|binding| binding.slot), "single_draw_path": binding.map(|binding| binding.path)})
             }).collect::<Vec<_>>(),
+            "terrain_background": pose.background.iter().map(|member| {
+                let binding = bindings.get(&member.entity);
+                serde_json::json!({"entity_bits": member.entity.to_bits(), "role": member.role,
+                    "mesh": format!("{:?}", member.mesh), "world_from_mesh":member.transform.to_cols_array(),
+                    "authored_material": format!("{:?}", member.material),
+                    "effective_material": binding.map(|binding|format!("{:?}", binding.material)),
+                    "actual_material_group":binding.map(|binding|binding.group), "actual_material_slot":binding.map(|binding|binding.slot)})
+            }).collect::<Vec<_>>(),
+            "terrain_background_complete": true,
             "queue_prefix_complete": true,
             "scope": "actual successful single-member DrawMaterial commands; per-frame held mesh/material bindings checked through callback; not exact screenshot GPU timestamps"}))
+    }
+
+    pub(super) fn check_background(
+        &self,
+        view: usize,
+        current: &[background::Member],
+    ) -> Result<()> {
+        let poses = self
+            .0
+            .lock()
+            .map_err(|_| anyhow::anyhow!("terrain draw proof lock"))?;
+        let pose = poses.get(&view).context("held terrain draw pose")?;
+        ensure!(
+            !pose.invalid.load(Ordering::Acquire)
+                && pose.complete.load(Ordering::Acquire)
+                && pose.background == current,
+            "screenshot callback terrain binding drift"
+        );
+        Ok(())
     }
 
     pub(super) fn invalidate(&self, view: usize) {
@@ -173,6 +203,7 @@ fn observe(world: &mut World) -> bevy::prelude::Result {
         world.resource::<SpecimenDraws>().invalidate(view);
         return Ok(());
     }
+    background::instrument(world);
     inventory::OwnedSpecimen::instrument_children(world)?;
     let checked = {
         let mut inspection = SystemState::<inventory::Inspector>::new(world);
@@ -242,9 +273,16 @@ fn extract(
         })
         .copied()
         .collect();
-    if !expected.iter().any(|member| member.part.is_wood())
+    if expected.is_empty()
         || (camera_pose.plate != cameras::Plate::Root
-            && !expected.iter().any(|member| member.part.is_foliage()))
+            && !expected.iter().any(|member| {
+                matches!(
+                    member.part,
+                    crate::presentation::InstalledTreePartRole::CamberedLeaves { .. }
+                        | crate::presentation::InstalledTreePartRole::FlatLeaves { .. }
+                        | crate::presentation::InstalledTreePartRole::CanopyCard { .. }
+                )
+            }))
     {
         draws.invalidate(state.view);
         return;
@@ -260,6 +298,7 @@ fn extract(
             camera: camera_id,
             camera_bits: camera.to_bits(),
             expected: expected.clone(),
+            background: inventory.background.clone(),
             drawn: Mutex::new(HashMap::new()),
             bindings: Mutex::new(None),
             invalid: AtomicBool::new(false),
@@ -267,7 +306,10 @@ fn extract(
             complete: AtomicBool::new(false),
         })
     });
-    if pose.camera != camera_id || pose.expected != expected {
+    if pose.camera != camera_id
+        || pose.expected != expected
+        || pose.background != inventory.background
+    {
         pose.invalid.store(true, Ordering::Release);
     }
     if let Ok(mut drawn) = pose.drawn.lock() {
@@ -276,97 +318,6 @@ fn extract(
         pose.invalid.store(true, Ordering::Release);
     }
     frame.0 = Some(Arc::clone(pose));
-}
-
-impl<P: PhaseItem> RenderCommand<P> for Record {
-    type Param = (
-        SRes<Frame>,
-        SRes<RenderMeshInstances>,
-        SRes<RenderMaterialInstances>,
-        SRes<ErasedRenderAssets<PreparedMaterial>>,
-    );
-    type ViewQuery = &'static ExtractedView;
-    type ItemQuery = ();
-
-    fn render<'w>(
-        item: &P,
-        view: &'w ExtractedView,
-        _entity: Option<()>,
-        params: SystemParamItem<'w, '_, Self::Param>,
-        _pass: &mut TrackedRenderPass<'w>,
-    ) -> RenderCommandResult {
-        let (frame, meshes, materials, prepared) = params;
-        let Some(pose) = &frame.into_inner().0 else {
-            return RenderCommandResult::Success;
-        };
-        if pose.camera != view.retained_view_entity {
-            return RenderCommandResult::Success;
-        }
-        let Some(member) = pose
-            .expected
-            .iter()
-            .find(|member| member.entity == item.main_entity().id())
-        else {
-            return RenderCommandResult::Success;
-        };
-        let mesh = meshes.into_inner().mesh_asset_id(item.main_entity());
-        let material = materials
-            .into_inner()
-            .instances
-            .get(&item.main_entity())
-            .map(|instance| instance.asset_id);
-        let Some(actual) = material.and_then(|id| prepared.into_inner().get(id)) else {
-            pose.invalid.store(true, Ordering::Release);
-            return RenderCommandResult::Success;
-        };
-        if mesh != Some(member.mesh)
-            || material != Some(member.material)
-            || item.batch_range().len() != 1
-        {
-            pose.invalid.store(true, Ordering::Release);
-            return RenderCommandResult::Success;
-        }
-        let path = match item.extra_index() {
-            PhaseItemExtraIndex::None => SingleDrawPath::Direct,
-            PhaseItemExtraIndex::DynamicOffset(offset) => {
-                SingleDrawPath::DynamicUniformOffset { offset }
-            }
-            PhaseItemExtraIndex::IndirectParametersIndex {
-                range,
-                batch_set_index: None,
-            } if range.len() == 1 => SingleDrawPath::Indirect {
-                parameter: range.start,
-            },
-            _ => {
-                pose.invalid.store(true, Ordering::Release);
-                return RenderCommandResult::Success;
-            }
-        };
-        let receipt = BindingReceipt {
-            mesh: member.mesh,
-            material: member.material,
-            group: actual.binding.group.0,
-            slot: actual.binding.slot.0,
-            path,
-        };
-        if let Ok(bindings) = pose.bindings.lock() {
-            if bindings.as_ref().is_some_and(|bindings| {
-                !bindings
-                    .get(&member.entity)
-                    .is_some_and(|binding| binding.same_binding(&receipt))
-            }) {
-                pose.invalid.store(true, Ordering::Release);
-            }
-        } else {
-            pose.invalid.store(true, Ordering::Release);
-        }
-        if let Ok(mut drawn) = pose.drawn.lock() {
-            drawn.insert(member.entity, receipt);
-        } else {
-            pose.invalid.store(true, Ordering::Release);
-        }
-        RenderCommandResult::Success
-    }
 }
 
 fn complete(frame: Res<Frame>, queue: Res<RenderQueue>) {
@@ -384,6 +335,10 @@ fn complete(frame: Res<Frame>, queue: Res<RenderQueue>) {
         .expected
         .iter()
         .all(|member| drawn.contains_key(&member.entity))
+        || !pose
+            .background
+            .iter()
+            .all(|member| drawn.contains_key(&member.entity))
     {
         if pose.queued.load(Ordering::Acquire) {
             pose.invalid.store(true, Ordering::Release);

@@ -26,13 +26,14 @@ pub(super) fn load(options: Request, setup: &SceneSetupData) -> Result<Review> {
         "source_mesh_maximum": source.maximum,
         "source_branches": source.branches, "source_cards": source.cards,
         "suppressed_generated_obstacles": setup.generated.obstacles.len(),
-        "cameras": cameras, "selection": "fixed production LOD0, cambered leaves",
+        "cameras": cameras, "selection": options.representation,
         "time_phase": super::super::CAPTURE_CLOCK_PHASE_SECONDS,
         "scope": "isolated static content; no adaptive, arrival or motion claim"
     });
     Ok(Review {
         role: options.role,
-        source: Some(source),
+        source: options.source,
+        representation: options.representation,
         cache: Some(cache),
         cameras,
         root,

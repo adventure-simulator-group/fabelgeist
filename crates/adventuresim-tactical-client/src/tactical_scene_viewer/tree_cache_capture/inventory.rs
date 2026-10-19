@@ -1,28 +1,24 @@
 //! Whole owned specimen inventory, separate from the camera-visible draw subset.
 use super::*;
 use crate::presentation::{
-    InstalledCacheSpecimen, InstalledTreeMaterial, InstalledTreePartRole, PreparedCacheInspection,
-    PresentedTree, TacticalTreeBarkMaterial, TacticalTreeLeafCardMaterial, TreeLeafRepresentation,
-    TreeLodRenderOverride, TreeSourcePart, TreeSourcePresentation,
+    InstalledTreeMaterial, InstalledTreeOrigin, InstalledTreePartRole, InstalledTreeSpecimen,
+    PresentedTree, TacticalTreeAggregateBarkMaterial, TacticalTreeBarkMaterial,
+    TacticalTreeImpostorMaterial, TacticalTreeLeafCardMaterial, TreeCacheInspection,
+    TreeLodRenderOverride,
     interior_lighting::{InteriorMaterial, InteriorMaterialSource},
 };
 use bevy::{
-    asset::UntypedAssetId, ecs::system::SystemParam, render::batching::NoAutomaticBatching,
+    asset::UntypedAssetId, camera::visibility::VisibleEntities, ecs::system::SystemParam,
+    render::batching::NoAutomaticBatching,
 };
 use std::sync::Mutex;
 
 mod assets;
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
-#[serde(rename_all = "snake_case")]
-pub(super) enum Part {
-    Source(TreeSourcePart),
-    Cache(InstalledTreePartRole),
-}
+mod roles;
 
 #[derive(Clone, Copy)]
 struct Binding {
-    part: Part,
+    part: InstalledTreePartRole,
     mesh: AssetId<Mesh>,
     material: UntypedAssetId,
 }
@@ -30,7 +26,7 @@ struct Binding {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(super) struct Member {
     pub entity: Entity,
-    pub part: Part,
+    pub part: InstalledTreePartRole,
     pub mesh: AssetId<Mesh>,
     pub material: UntypedAssetId,
     authored_material: UntypedAssetId,
@@ -42,7 +38,7 @@ pub(super) struct Member {
 pub(super) struct OwnedSpecimen {
     pub root: Entity,
     bindings: Vec<Binding>,
-    cache: Option<InstalledCacheSpecimen>,
+    cache: InstalledTreeSpecimen,
     root_transform: Transform,
     sealed: Mutex<Option<Seal>>,
 }
@@ -57,6 +53,27 @@ pub(super) struct CurrentInventory {
     pub members: Vec<Member>,
     pub visible: Vec<Entity>,
     pub valid: bool,
+    pub background: Vec<background::Member>,
+}
+
+#[derive(bevy::ecs::query::QueryData)]
+struct SpecimenPart {
+    entity: Entity,
+    mesh: &'static Mesh3d,
+    local: &'static Transform,
+    global: &'static GlobalTransform,
+    visibility: &'static Visibility,
+    in_view: &'static ViewVisibility,
+    bark: Option<&'static MeshMaterial3d<TacticalTreeBarkMaterial>>,
+    leaf: Option<&'static MeshMaterial3d<TacticalTreeLeafCardMaterial>>,
+    aggregate: Option<&'static MeshMaterial3d<TacticalTreeAggregateBarkMaterial>>,
+    card: Option<&'static MeshMaterial3d<TacticalTreeImpostorMaterial>>,
+    standard: Option<&'static MeshMaterial3d<StandardMaterial>>,
+    interior: Option<&'static MeshMaterial3d<InteriorMaterial>>,
+    original: Option<&'static InteriorMaterialSource>,
+    parent: &'static ChildOf,
+    descendants: Option<&'static Children>,
+    unbatchable: Has<NoAutomaticBatching>,
 }
 
 #[derive(SystemParam)]
@@ -69,6 +86,9 @@ pub(in super::super) struct Inspector<'w, 's> {
     presented_roots: Query<'w, 's, Entity, With<PresentedTree>>,
     obstacles: Query<'w, 's, &'static adventuresim_tactical_core::prelude::SceneObstacle>,
     selection: Res<'w, TreeLodRenderOverride>,
+    review: Res<'w, Review>,
+    draws: Res<'w, material_draws::SpecimenDraws>,
+    background: background::Inspector<'w, 's>,
     depth: Option<Res<'w, cameras::PerspectiveDepth>>,
     cameras: Query<
         'w,
@@ -77,6 +97,7 @@ pub(in super::super) struct Inspector<'w, 's> {
             &'static Camera,
             &'static GlobalTransform,
             &'static Projection,
+            &'static VisibleEntities,
         ),
         With<crate::presentation::TacticalGameplayCamera>,
     >,
@@ -91,80 +112,38 @@ pub(in super::super) struct Inspector<'w, 's> {
             Has<PresentedTree>,
         ),
     >,
-    parts: Query<
-        'w,
-        's,
-        (
-            Entity,
-            &'static Mesh3d,
-            &'static Transform,
-            &'static GlobalTransform,
-            &'static Visibility,
-            &'static ViewVisibility,
-            Option<&'static MeshMaterial3d<TacticalTreeBarkMaterial>>,
-            Option<&'static MeshMaterial3d<TacticalTreeLeafCardMaterial>>,
-            Option<&'static MeshMaterial3d<StandardMaterial>>,
-            Option<&'static MeshMaterial3d<InteriorMaterial>>,
-            Option<&'static InteriorMaterialSource>,
-            Option<&'static TreeSourcePart>,
-            &'static ChildOf,
-            Option<&'static Children>,
-            Has<NoAutomaticBatching>,
-        ),
-    >,
+    parts: Query<'w, 's, SpecimenPart>,
     assets: assets::Stores<'w>,
-    cache: PreparedCacheInspection<'w, 's>,
+    cache: TreeCacheInspection<'w, 's>,
+    roles: roles::RoleInspector<'w, 's>,
 }
 
 impl OwnedSpecimen {
-    pub(super) fn from_source(source: TreeSourcePresentation, world: &World) -> Result<Self> {
-        let bindings = source
-            .parts
-            .into_iter()
-            .map(|binding| Binding {
-                part: Part::Source(binding.part),
-                mesh: binding.mesh,
-                material: binding.material,
-            })
-            .collect();
-        Self::new(source.root, bindings, None, world)
-    }
-
-    pub(super) fn from_cache(cache: InstalledCacheSpecimen, world: &World) -> Result<Self> {
+    pub(super) fn from_cache(cache: InstalledTreeSpecimen, world: &World) -> Result<Self> {
+        let representation = world.resource::<Review>().representation;
         let bindings = cache
             .parts
             .iter()
-            .filter_map(|binding| {
-                if matches!(
-                    binding.role,
-                    InstalledTreePartRole::FlatLeaves { .. }
-                        | InstalledTreePartRole::AggregateWood { .. }
-                        | InstalledTreePartRole::CanopyCard { .. }
-                ) {
-                    return None;
-                }
-                let material = match binding.material {
+            .filter(|binding| representation.owns(binding.role))
+            .map(|binding| Binding {
+                part: binding.role,
+                mesh: binding.mesh,
+                material: match binding.material {
                     InstalledTreeMaterial::Bark(id) => id.untyped(),
                     InstalledTreeMaterial::Leaves(id) => id.untyped(),
                     InstalledTreeMaterial::Buds(id) => id.untyped(),
-                    InstalledTreeMaterial::Card { .. } | InstalledTreeMaterial::Aggregate(_) => {
-                        return None;
-                    }
-                };
-                Some(Binding {
-                    part: Part::Cache(binding.role),
-                    mesh: binding.mesh,
-                    material,
-                })
+                    InstalledTreeMaterial::Aggregate(id) => id.untyped(),
+                    InstalledTreeMaterial::Card { material, .. } => material,
+                },
             })
             .collect();
-        Self::new(cache.root, bindings, Some(cache), world)
+        Self::new(cache.root, bindings, cache, world)
     }
 
     fn new(
         root: Entity,
         bindings: Vec<Binding>,
-        cache: Option<InstalledCacheSpecimen>,
+        cache: InstalledTreeSpecimen,
         world: &World,
     ) -> Result<Self> {
         ensure!(!bindings.is_empty(), "empty owned specimen");
@@ -185,6 +164,16 @@ impl OwnedSpecimen {
                 .context("spawned specimen root transform")?,
             sealed: Mutex::new(None),
         })
+    }
+
+    pub(super) fn retained_report(&self) -> serde_json::Value {
+        serde_json::json!({"origin": format!("{:?}", self.cache.origin),
+            "cache_key": self.cache.cache_key.to_u64(),
+            "parts": self.cache.parts.iter().map(|part| serde_json::json!({
+                "role": part.role, "mesh": format!("{:?}", part.mesh),
+                "material": format!("{:?}", part.material),
+            })).collect::<Vec<_>>(),
+            "scope": "complete retained part identities; selected child values have separate held snapshots"})
     }
 
     pub(super) fn retain_cpu_data(&self, world: &mut World) -> Result<()> {
@@ -232,7 +221,7 @@ impl Inspector<'_, '_> {
         let CapturePose::Cache(expected) = view.pose else {
             anyhow::bail!("held cache screenshot pose");
         };
-        let (camera, transform, projection) = self.cameras.single()?;
+        let (camera, transform, projection, _) = self.cameras.single()?;
         ensure!(
             expected.matches(
                 camera,
@@ -242,41 +231,43 @@ impl Inspector<'_, '_> {
             ),
             "screenshot callback camera drift"
         );
-        self.check()?;
+        let current = self.check()?;
+        self.draws
+            .check_background(state.view, &current.background)?;
         Ok(())
     }
 
     /// Used both after visibility and inside the actual screenshot callback.
     pub(super) fn check(&self) -> Result<CurrentInventory> {
         let owned = self.owned.as_ref().context("owned review specimen")?;
-        if let Some(cache) = &owned.cache {
-            self.cache.verify(cache)?;
-            ensure!(
-                self.presented_roots.single()? == owned.root,
-                "unexpected selected/cache root count"
-            );
-        } else {
-            ensure!(
-                self.presented_roots.is_empty(),
-                "unexpected production root in source capture"
-            );
-        }
+        self.cache
+            .verify(&owned.cache, self.review.representation)?;
+        ensure!(
+            self.presented_roots.single()? == owned.root,
+            "unexpected selected/cache root count"
+        );
+        ensure!(
+            matches!(
+                (self.review.role, owned.cache.origin),
+                (Role::Reference, InstalledTreeOrigin::Generated)
+                    | (Role::Candidate, InstalledTreeOrigin::Prepared(_))
+            ),
+            "review role/cache origin mismatch"
+        );
         ensure!(
             self.obstacles.is_empty(),
             "unexpected retained scene obstacle/collider owner"
         );
         ensure!(
-            self.selection.lod == Some(0)
-                && self.selection.leaf == Some(TreeLeafRepresentation::TexturedMesh)
-                && self.selection.projected_scale.is_none(),
-            "actual fixed Full selection drift"
+            self.review.representation.matches(&self.selection),
+            "actual fixed production representation drift"
         );
         let (local, global, visibility, children, presented) = self.roots.get(owned.root)?;
         ensure!(
             *local == owned.root_transform
                 && global.to_matrix() == local.to_matrix()
                 && *visibility == Visibility::Inherited
-                && presented == owned.cache.is_some(),
+                && presented,
             "owned root transform/visibility/capability drift"
         );
         let children = children.context("owned specimen children")?;
@@ -287,7 +278,7 @@ impl Inspector<'_, '_> {
         let mut members = Vec::with_capacity(children.len());
         let mut visible = Vec::new();
         for child in children.iter() {
-            let (
+            let SpecimenPartItem {
                 entity,
                 mesh,
                 local,
@@ -296,14 +287,15 @@ impl Inspector<'_, '_> {
                 in_view,
                 bark,
                 leaf,
+                aggregate,
+                card,
                 standard,
                 interior,
                 original,
-                source_part,
                 parent,
                 descendants,
                 unbatchable,
-            ) = self.parts.get(child)?;
+            } = self.parts.get(child)?;
             ensure!(
                 unbatchable
                     && parent.parent() == owned.root
@@ -315,24 +307,28 @@ impl Inspector<'_, '_> {
                 .iter()
                 .find(|binding| binding.mesh == mesh.0.id())
                 .context("unadmitted owned mesh")?;
-            let (authored, effective) = match (bark, leaf, standard, interior, original) {
-                (Some(material), None, None, None, None) => {
-                    (material.0.id().untyped(), material.0.id().untyped())
-                }
-                (None, Some(material), None, None, None) => {
-                    (material.0.id().untyped(), material.0.id().untyped())
-                }
-                (None, None, None, Some(material), Some(original)) => {
-                    (original.0.id().untyped(), material.0.id().untyped())
-                }
-                _ => anyhow::bail!("owned material absent, ambiguous or not converted"),
-            };
-            let expected_visibility =
-                if binding.part == Part::Cache(InstalledTreePartRole::MiddleTrunk) {
-                    Visibility::Hidden
-                } else {
-                    Visibility::Inherited
+            let (authored, effective) =
+                match (bark, leaf, aggregate, card, standard, interior, original) {
+                    (Some(material), None, None, None, None, None, None) => {
+                        (material.0.id().untyped(), material.0.id().untyped())
+                    }
+                    (None, Some(material), None, None, None, None, None) => {
+                        (material.0.id().untyped(), material.0.id().untyped())
+                    }
+                    (None, None, Some(material), None, None, None, None) => {
+                        (material.0.id().untyped(), material.0.id().untyped())
+                    }
+                    (None, None, None, Some(material), None, None, None) => {
+                        (material.0.id().untyped(), material.0.id().untyped())
+                    }
+                    (None, None, None, None, None, Some(material), Some(original)) => {
+                        (original.0.id().untyped(), material.0.id().untyped())
+                    }
+                    _ => anyhow::bail!("owned material absent, ambiguous or not converted"),
                 };
+            self.roles
+                .check(entity, binding.part, &owned.cache, &self.cache)?;
+            let expected_visibility = self.review.representation.visibility(binding.part);
             ensure!(
                 authored == binding.material
                     && *local == Transform::IDENTITY
@@ -340,12 +336,6 @@ impl Inspector<'_, '_> {
                     && *visibility == expected_visibility,
                 "owned binding/transform/selection drift"
             );
-            match binding.part {
-                Part::Source(expected) => {
-                    ensure!(source_part == Some(&expected), "source role drift")
-                }
-                Part::Cache(_) => ensure!(source_part.is_none(), "cache cannot impersonate source"),
-            }
             if in_view.get() {
                 visible.push(entity);
             }
@@ -387,29 +377,14 @@ impl Inspector<'_, '_> {
                 members: members.clone(),
             });
         }
+        let (_, _, _, visible_background) = self.cameras.single()?;
+        let background = self.background.collect(visible_background)?;
         Ok(CurrentInventory {
             members,
             visible,
             valid: true,
+            background,
         })
-    }
-}
-
-impl Part {
-    pub(super) fn is_wood(self) -> bool {
-        matches!(
-            self,
-            Self::Source(TreeSourcePart::Wood)
-                | Self::Cache(InstalledTreePartRole::DetailedTrunk)
-                | Self::Cache(InstalledTreePartRole::Wood { .. })
-        )
-    }
-    pub(super) fn is_foliage(self) -> bool {
-        matches!(
-            self,
-            Self::Source(TreeSourcePart::Foliage)
-                | Self::Cache(InstalledTreePartRole::CamberedLeaves { .. })
-        )
     }
 }
 

@@ -4,14 +4,19 @@ use super::super::{
     setup_scene,
 };
 use super::*;
-use crate::presentation::{TacticalGameplayCamera, TreeLeafRepresentation, TreeLodRenderOverride};
+use crate::presentation::{InstalledTreeSpecimen, TacticalGameplayCamera, TreeLodRenderOverride};
 
 #[derive(Resource)]
 pub(in super::super) struct ReadyPose(usize);
 
 pub(in super::super) fn install(app: &mut App, review: Review) {
     let draws = material_draws::SpecimenDraws::install(app);
-    let evidence = Evidence::new(review.metadata.clone(), review.role, draws);
+    let evidence = Evidence::new(
+        review.metadata.clone(),
+        review.role,
+        review.representation,
+        draws,
+    );
     app.insert_resource(review)
         .insert_resource(evidence)
         .add_systems(
@@ -47,8 +52,8 @@ fn setup_inner(world: &mut World) -> Result<()> {
         .first()
         .context("first cache view")?;
     ensure!(
-        first.render_lod_override == Some(0)
-            && first.leaf_lod_override == Some(TreeLeafRepresentation::TexturedMesh)
+        first.render_lod_override == Some(world.resource::<Review>().representation.lod())
+            && first.leaf_lod_override == world.resource::<Review>().representation.leaf()
             && first.projected_scale.is_none(),
         "cache review requires fixed Full before first Update"
     );
@@ -60,13 +65,12 @@ fn setup_inner(world: &mut World) -> Result<()> {
     let role = world.resource::<Review>().role;
     let root = world.resource::<Review>().root;
     let owned = match role {
-        Role::Source => {
-            let source = world
-                .resource_mut::<Review>()
-                .source
-                .take()
-                .context("source consumed once")?;
-            inventory::OwnedSpecimen::from_source(source.spawn(world, root)?, world)?
+        Role::Reference => {
+            let source = world.resource::<Review>().source;
+            inventory::OwnedSpecimen::from_cache(
+                InstalledTreeSpecimen::from_generated(world, source, root)?,
+                world,
+            )?
         }
         Role::Candidate => {
             let cache = world
@@ -106,6 +110,7 @@ fn setup_inner(world: &mut World) -> Result<()> {
             "device_type": format!("{:?}", adapter.device_type), "driver": adapter.driver,
             "driver_info": adapter.driver_info},
         "projection_depth": world.resource::<cameras::PerspectiveDepth>(),
+        "retained_cache": world.resource::<inventory::OwnedSpecimen>().retained_report(),
         "actual_virtual_seconds": world.resource::<Time<Virtual>>().elapsed_secs_f64(),
         "scope": "actual native renderer, isolated held production-cache content comparison"});
     fs::write(
