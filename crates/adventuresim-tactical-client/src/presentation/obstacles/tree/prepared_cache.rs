@@ -17,13 +17,18 @@ use fabelgeist_botany::identity::PlantId;
 use fabelgeist_determinism::Seed;
 use flate2::bufread::GzDecoder;
 use serde::{Deserialize, Serialize};
-use std::{fs, io::Read, path::Path};
+use std::io::Read;
 
-mod author;
+pub(crate) use admission::admit_tree_cache;
 pub(crate) use author::{inspect_tree_cache, write_tree_cache};
+pub(crate) use identity::{ExpectedTreeCache, TreeCacheContentId};
+pub(super) use runtime::{PreparedCluster, PreparedVariant};
+
+mod admission;
+mod author;
+mod identity;
 mod mesh;
 mod runtime;
-pub(super) use runtime::{PreparedCluster, PreparedVariant};
 mod source;
 mod validation;
 
@@ -76,33 +81,10 @@ struct Group {
 /// Only checked decoded CPU data can cross into the live asset stores.
 pub(crate) struct PreparedTreeCache {
     payload: Payload,
-    digest: blake3::Hash,
+    digest: TreeCacheContentId,
 }
 
 impl PreparedTreeCache {
-    pub(crate) fn load(
-        path: &Path,
-        input: &TacticalSceneInput,
-        environment: &SceneEnvironment,
-        id: PlantId,
-    ) -> Result<Self> {
-        let mut file = fs::File::open(path)?;
-        let length = file.metadata()?.len();
-        ensure!(
-            length <= MAX_COMPRESSED_BYTES,
-            "compressed tree cache limit"
-        );
-        let mut bytes = vec![0; usize::try_from(length)?];
-        file.read_exact(&mut bytes)?;
-        ensure!(
-            file.read(&mut [0])? == 0,
-            "tree cache changed while reading"
-        );
-        let checked = Self::decode(&bytes, input, environment, id)?;
-        checked.verify_source(environment, id)?;
-        Ok(checked)
-    }
-
     fn decode(
         bytes: &[u8],
         input: &TacticalSceneInput,
@@ -141,33 +123,12 @@ impl PreparedTreeCache {
         payload.validate(input, environment, id)?;
         Ok(Self {
             payload,
-            digest: actual,
+            digest: TreeCacheContentId::from_digest(actual),
         })
     }
 
-    pub(crate) fn content_id(&self) -> String {
-        self.digest.to_hex().to_string()
-    }
-
-    pub(crate) fn verify_source(&self, environment: &SceneEnvironment, id: PlantId) -> Result<()> {
-        let specimen = SourceSpecimen::find(id)?;
-        let (branches, leaves) = specimen.records(environment);
-        ensure!(
-            postcard::to_allocvec(&source::Source::from_records(&branches, &leaves))?
-                == postcard::to_allocvec(&self.payload.source)?,
-            "exact selected source record mismatch"
-        );
-        for card in &self.payload.cards {
-            card.validate_source(&branches, &leaves)?;
-        }
-        for group in &self.payload.groups {
-            let expected = procedural_oak_bud_group_mesh(&branches, group.primary_group);
-            ensure!(
-                group.buds.vertices() == expected.count_vertices(),
-                "source bud completeness"
-            );
-        }
-        Ok(())
+    pub(crate) fn content_id(&self) -> TreeCacheContentId {
+        self.digest
     }
 }
 

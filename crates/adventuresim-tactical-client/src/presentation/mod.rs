@@ -43,9 +43,7 @@ pub(crate) use obstacles::tree::authoring::{
     TreeSourcePart, TreeSourcePresentation, write_tree_bank,
 };
 #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
-pub(crate) use obstacles::tree::prepared_cache::{
-    PreparedTreeCache, inspect_tree_cache, write_tree_cache,
-};
+pub(crate) use obstacles::tree::prepared_cache;
 #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
 pub(crate) use obstacles::tree::{
     InstalledTreeMaterial, InstalledTreeOrigin, InstalledTreePart, InstalledTreePartRole,

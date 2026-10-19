@@ -53,10 +53,28 @@ declared wire length for completed element storage, one maximum pending
 collection for malformed input, fixed container/alignment overhead and one card
 plus one mesh validation copy. It rejects a bound above 512 MiB before postcard
 collections reserve storage. Card validation copies are sequential; this is not
-measured process memory or a whole-load bound. Native content validation
+measured process memory or a whole-load bound. Offline source inspection
 additionally regenerates the selected source once to compare its complete
-records and bud completeness. That comparison is an offline correctness control,
-not an arrival fast path.
+records and bud completeness. Runtime admission instead requires an
+independently selected payload identity from accepted offline producer
+evidence. It compares the encoded header with that identity before payload
+allocation, then retains every structural, complete payload digest and live
+input/environment/source check. An adjacent manifest or the file's own header
+does not supply the caller's approved identity.
+
+The CPU runtime admission probe takes the approved content identity explicitly:
+
+```text
+tactical-scene-viewer --scene-input scene.json \
+  --admit-tree-cache fresh-cache/variant.treecache \
+  --cache-source SOURCE_ID --cache-content APPROVED_CONTENT_ID
+```
+
+The probe returns before renderer setup. It loads the scene to derive its live
+binding, but does not regenerate the source tree. `--check-tree-cache` retains
+the separate full offline source comparison. Both actions reject conflicting
+render and authoring options. The native capture still regenerates full source
+geometry for its camera contract; that diagnostic work is not arrival evidence.
 
 Successful CPU validation establishes serialization and admission only.
 Production materials, shadows, actual cache attachment, held images, moving LOD
@@ -72,22 +90,25 @@ output directory for each:
 ```text
 tactical-scene-viewer --scene-input scene.json \
   --cache-review-dir fresh-cache --cache-review-source SOURCE_ID \
+  --cache-review-content APPROVED_CONTENT_ID \
   --cache-review-role reference --cache-review-representation lod2 \
   --output reference-plates
 
 tactical-scene-viewer --scene-input scene.json \
   --cache-review-dir fresh-cache --cache-review-source SOURCE_ID \
+  --cache-review-content APPROVED_CONTENT_ID \
   --cache-review-role candidate --cache-review-representation lod2 \
   --output cache-plates
 ```
 
-The four review options are required together. Available representations are
+The five review options are required together. Available representations are
 `cambered`, `flat`, `lod1`, `lod2`, `lod3` and `lod4`. The first two hold the
 detailed crown with curved leaves or the existing thinned flat leaf cards.
 One representation remains fixed throughout the process, including warmup.
 The options conflict with explicit profiles, fixtures, authoring options,
 benchmark modes and scene overrides. Ordinary capture commands do not require
-them.
+them. The caller must hold the approved content identity independently of the
+cache directory, for example in a reviewed fixture manifest.
 
 Both roles use the actual production cache, material factories, streamer and
 child hierarchy. The reference resolves the selected production source identity,

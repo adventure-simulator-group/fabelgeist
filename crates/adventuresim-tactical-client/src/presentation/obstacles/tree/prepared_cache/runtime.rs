@@ -7,7 +7,7 @@ pub(in crate::presentation::obstacles::tree) struct PreparedVariant {
     pub(in crate::presentation::obstacles::tree) key: Seed,
     pub(in crate::presentation::obstacles::tree) seed: Seed,
     pub(in crate::presentation::obstacles::tree) species: TreePresentationSpecies,
-    pub(in crate::presentation::obstacles::tree) content: blake3::Hash,
+    pub(in crate::presentation::obstacles::tree) content: TreeCacheContentId,
     pub(in crate::presentation::obstacles::tree) branches: Arc<[TreeBranchSegment]>,
     pub(in crate::presentation::obstacles::tree) leaves: Arc<[TreeLeaf]>,
     pub(in crate::presentation::obstacles::tree) detailed_trunk: Mesh,

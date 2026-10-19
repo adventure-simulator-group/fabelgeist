@@ -9,82 +9,23 @@
 )]
 
 #[cfg(not(target_family = "wasm"))]
-mod camera;
-#[cfg(not(target_family = "wasm"))]
-mod presentation;
-#[cfg(not(target_family = "wasm"))]
-mod tactical_scene_viewer;
-
-#[cfg(not(target_family = "wasm"))]
 use std::path::PathBuf;
 
 #[cfg(not(target_family = "wasm"))]
 use clap::{Parser, ValueEnum};
 
 #[cfg(not(target_family = "wasm"))]
-fn resolve_scene_fixture(selector: &str) -> Result<PathBuf, String> {
-    Ok(adventuresim_core::fixture_path::resolve_fixture_path(
-        selector,
-        "assets/tactical-scenes",
-        "json",
-    ))
-}
-
+mod camera;
 #[cfg(not(target_family = "wasm"))]
-#[derive(Clone, Copy, Debug, Default, Eq, PartialEq, ValueEnum)]
-enum CaptureProfile {
-    /// Actual procedural flower/fungi roots at contact and gameplay distances.
-    PlantReview,
-    /// Actual placed fungi, one contact view per species and wider habitat views.
-    FungusReview,
-    /// Actual botanical LODs before, inside and after both crossfade bands.
-    PlantLodReview,
-    /// Same production roots and LODs with occluding vegetation hidden for diagnosis.
-    PlantLodIsolated,
-    /// Existing exhaustive semantic presentation suite (23 recorded views).
-    #[default]
-    Semantic,
-    /// Compact environment-art review suite; intended for matrix review.
-    EnvironmentReview,
-    /// Deterministic terrain and geological-landform material review suite.
-    LandformReview,
-    /// Eye-height views inside each civilian city-building archetype.
-    InteriorReview,
-    /// Facade, street, neighbourhood, and whole-settlement city review.
-    CityReview,
-    /// Fixed geographic cameras and matched production building LODs.
-    TerrainGrounding,
-    /// Outdoor furniture, market access and street surface review.
-    FurnitureReview,
-    /// Compact and broad interior furniture models rendered as catalog specimens.
-    InteriorFurnitureCatalog,
-    /// Furnished rooms with independently validated entrance access.
-    FurnishedRoomReview,
-    /// Storefront lettering, mounting, glass, plaster and distance review.
-    ShopSignReview,
-    /// Working-building exteriors, interiors and production distance LODs.
-    WorkplaceReview,
-    /// Capacity-scaled chapel and parish church architectural review.
-    ParishReview,
-    CompoundReview,
-    /// Supported fixed attic glazing across production building LODs.
-    GableReview,
-    HeatingReview,
-    FacadeReview,
-    /// Inspect owned garden plots and accepted planting specimens.
-    GardenReview,
-    /// Production third-person camera sweep on the unmodified animation scene.
-    AnimationPlay,
-    /// Cold first approach, retreat, and warm second approach across tree LODs.
-    TreeColdTraversal,
-    /// Consecutive fractional-pixel common-beech leaf-card slow zoom.
-    BeechLeafMotion,
-}
+mod presentation;
+#[cfg(all(not(target_family = "wasm"), feature = "foliage-review"))]
+mod tactical_scene_cache_actions;
+#[cfg(not(target_family = "wasm"))]
+mod tactical_scene_viewer;
 
 #[cfg(not(target_family = "wasm"))]
 #[derive(Debug, Parser)]
 #[command(version, about = "Capture and validate a tactical environment fixture")]
-#[cfg_attr(feature = "foliage-review", command(group(clap::ArgGroup::new("cache_action").args(["prepare_tree_cache", "check_tree_cache"]).multiple(false).conflicts_with_all(["profile", "canopy_bps", "absolute_minute", "output", "views", "settle_frames", "leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "scene_performance_render_diagnostics", "terrain_wireframe", "triangle_census", "tree_review_azimuth_degrees", "city_cameras"]))))]
 struct Args {
     /// Fixture name from assets/tactical-scenes, without the .json suffix.
     #[arg(long, conflicts_with = "scene_input")]
@@ -103,20 +44,9 @@ struct Args {
     #[arg(long, requires = "scene_input")]
     prepare_tree_bank: Option<PathBuf>,
 
-    /// Write one lossless fixed-Full production cache without a renderer.
     #[cfg(feature = "foliage-review")]
-    #[arg(long, requires_all = ["scene_input", "cache_source"], conflicts_with_all = ["prepare_tree_bank", "directory", "source", "role", "fixture"])]
-    prepare_tree_cache: Option<PathBuf>,
-
-    /// Validate one prepared cache on the CPU without starting a renderer.
-    #[cfg(feature = "foliage-review")]
-    #[arg(long, requires_all = ["scene_input", "cache_source"], conflicts_with_all = ["prepare_tree_bank", "directory", "source", "role", "fixture"])]
-    check_tree_cache: Option<PathBuf>,
-
-    /// Production source PlantId selected for offline cache authoring.
-    #[cfg(feature = "foliage-review")]
-    #[arg(long, requires = "cache_action")]
-    cache_source: Option<u64>,
+    #[command(flatten)]
+    cache_actions: Option<tactical_scene_cache_actions::TreeCacheActions>,
 
     #[cfg(feature = "foliage-review")]
     #[command(flatten)]
@@ -176,6 +106,57 @@ struct Args {
 }
 
 #[cfg(not(target_family = "wasm"))]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq, ValueEnum)]
+enum CaptureProfile {
+    /// Actual procedural flower/fungi roots at contact and gameplay distances.
+    PlantReview,
+    /// Actual placed fungi, one contact view per species and wider habitat views.
+    FungusReview,
+    /// Actual botanical LODs before, inside and after both crossfade bands.
+    PlantLodReview,
+    /// Same production roots and LODs with occluding vegetation hidden for diagnosis.
+    PlantLodIsolated,
+    /// Existing exhaustive semantic presentation suite (23 recorded views).
+    #[default]
+    Semantic,
+    /// Compact environment-art review suite; intended for matrix review.
+    EnvironmentReview,
+    /// Deterministic terrain and geological-landform material review suite.
+    LandformReview,
+    /// Eye-height views inside each civilian city-building archetype.
+    InteriorReview,
+    /// Facade, street, neighbourhood, and whole-settlement city review.
+    CityReview,
+    /// Fixed geographic cameras and matched production building LODs.
+    TerrainGrounding,
+    /// Outdoor furniture, market access and street surface review.
+    FurnitureReview,
+    /// Compact and broad interior furniture models rendered as catalog specimens.
+    InteriorFurnitureCatalog,
+    /// Furnished rooms with independently validated entrance access.
+    FurnishedRoomReview,
+    /// Storefront lettering, mounting, glass, plaster and distance review.
+    ShopSignReview,
+    /// Working-building exteriors, interiors and production distance LODs.
+    WorkplaceReview,
+    /// Capacity-scaled chapel and parish church architectural review.
+    ParishReview,
+    CompoundReview,
+    /// Supported fixed attic glazing across production building LODs.
+    GableReview,
+    HeatingReview,
+    FacadeReview,
+    /// Inspect owned garden plots and accepted planting specimens.
+    GardenReview,
+    /// Production third-person camera sweep on the unmodified animation scene.
+    AnimationPlay,
+    /// Cold first approach, retreat, and warm second approach across tree LODs.
+    TreeColdTraversal,
+    /// Consecutive fractional-pixel common-beech leaf-card slow zoom.
+    BeechLeafMotion,
+}
+
+#[cfg(not(target_family = "wasm"))]
 fn main() {
     let args = Args::parse();
     if args.fixture.is_none() && args.scene_input.is_none() {
@@ -194,23 +175,13 @@ fn main() {
         return;
     }
     #[cfg(feature = "foliage-review")]
-    if let (Some(input), Some(output), Some(source)) = (
-        &args.scene_input,
-        &args.prepare_tree_cache,
-        args.cache_source,
-    ) {
-        if let Err(error) = presentation::write_tree_cache(input, output, source) {
-            eprintln!("tree cache authoring failed: {error:#}");
+    if let Some(action) = args.cache_actions {
+        let Some(input) = args.scene_input.as_deref() else {
+            eprintln!("CPU cache action requires scene input");
             std::process::exit(1);
-        }
-        return;
-    }
-    #[cfg(feature = "foliage-review")]
-    if let (Some(input), Some(cache), Some(source)) =
-        (&args.scene_input, &args.check_tree_cache, args.cache_source)
-    {
-        if let Err(error) = presentation::inspect_tree_cache(input, cache, source) {
-            eprintln!("tree cache admission failed: {error:#}");
+        };
+        if let Err(error) = action.run(input) {
+            eprintln!("tree cache action failed: {error:#}");
             std::process::exit(1);
         }
         return;
@@ -260,6 +231,15 @@ fn main() {
         #[cfg(feature = "foliage-review")]
         args.cache_review,
     );
+}
+
+#[cfg(not(target_family = "wasm"))]
+fn resolve_scene_fixture(selector: &str) -> Result<PathBuf, String> {
+    Ok(adventuresim_core::fixture_path::resolve_fixture_path(
+        selector,
+        "assets/tactical-scenes",
+        "json",
+    ))
 }
 
 #[cfg(all(test, not(target_family = "wasm")))]

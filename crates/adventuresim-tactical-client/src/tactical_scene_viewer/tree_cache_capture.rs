@@ -10,7 +10,14 @@ use super::{
     SceneSetupData, view_selection,
     view_specs::{CapturePose, CaptureViewSpec},
 };
-use crate::presentation::{PreparedTreeCache, TreeCacheRepresentation, TreeSourceGeometry};
+use crate::presentation::prepared_cache::{
+    ExpectedTreeCache, PreparedTreeCache, TreeCacheContentId,
+};
+use crate::presentation::{TreeCacheRepresentation, TreeSourceGeometry};
+
+pub(super) use cameras::PlateCamera;
+pub(super) use evidence::Evidence;
+pub(super) use runtime::{install, ready};
 
 mod admission;
 mod background;
@@ -20,13 +27,10 @@ pub(super) mod inventory;
 mod material_draws;
 mod runtime;
 
-pub(super) use evidence::Evidence;
-pub(super) use runtime::{install, ready};
-
 pub(super) const PROFILE: &str = "tree-cache-review";
 
 #[derive(Debug, clap::Args)]
-#[group(multiple = true, requires_all=["directory", "source", "role", "representation", "scene_input"], conflicts_with_all=["fixture", "profile", "prepare_tree_bank", "canopy_bps", "absolute_minute", "leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "terrain_wireframe", "triangle_census", "city_cameras", "tree_review_azimuth_degrees"])]
+#[group(multiple = true, requires_all=["directory", "source", "role", "representation", "review_content", "scene_input"], conflicts_with_all=["fixture", "profile", "prepare_tree_bank", "canopy_bps", "absolute_minute", "leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "terrain_wireframe", "triangle_census", "city_cameras", "tree_review_azimuth_degrees"])]
 pub(crate) struct Options {
     /// Directory containing the checked complete variant.treecache.
     #[arg(long = "cache-review-dir")]
@@ -40,13 +44,9 @@ pub(crate) struct Options {
     /// Fixed production representation, held for the entire process.
     #[arg(long = "cache-review-representation", value_enum)]
     representation: Option<TreeCacheRepresentation>,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, clap::ValueEnum, Serialize)]
-#[serde(rename_all = "snake_case")]
-pub(super) enum Role {
-    Reference,
-    Candidate,
+    /// Independently pinned payload identity from accepted offline producer evidence.
+    #[arg(long = "cache-review-content")]
+    review_content: Option<TreeCacheContentId>,
 }
 
 struct Request {
@@ -54,6 +54,7 @@ struct Request {
     source: PlantId,
     role: Role,
     representation: TreeCacheRepresentation,
+    content: TreeCacheContentId,
 }
 
 #[derive(Resource)]
@@ -67,9 +68,24 @@ pub(super) struct Review {
     metadata: serde_json::Value,
 }
 
+pub(super) struct PreparedCapture {
+    pub setup: SceneSetupData,
+    pub review: Option<Review>,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, clap::ValueEnum, Serialize)]
+#[serde(rename_all = "snake_case")]
+pub(super) enum Role {
+    Reference,
+    Candidate,
+}
+
 impl Options {
     pub(super) fn admit(self, setup: &SceneSetupData) -> Result<Review> {
         let request = Request {
+            content: self
+                .review_content
+                .context("cache producer content required")?,
             directory: self.directory.context("cache review directory required")?,
             source: PlantId::from_word(self.source.context("cache source identity required")?),
             role: self.role.context("cache review role required")?,
@@ -89,13 +105,6 @@ impl Review {
             view_selection::ViewSequence::Independent,
         )
     }
-}
-
-pub(super) use cameras::PlateCamera;
-
-pub(super) struct PreparedCapture {
-    pub setup: SceneSetupData,
-    pub review: Option<Review>,
 }
 
 pub(super) fn prepare(

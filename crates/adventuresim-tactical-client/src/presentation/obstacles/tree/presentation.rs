@@ -122,7 +122,7 @@ struct CachedTreePresentation {
 enum TreeAssetOrigin {
     Generated,
     #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
-    Prepared(blake3::Hash),
+    Prepared(super::prepared_cache::TreeCacheContentId),
 }
 
 #[derive(Clone)]

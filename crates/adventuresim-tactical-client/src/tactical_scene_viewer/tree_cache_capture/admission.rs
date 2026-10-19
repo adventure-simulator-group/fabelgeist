@@ -2,12 +2,13 @@
 use super::*;
 
 pub(super) fn load(options: Request, setup: &SceneSetupData) -> Result<Review> {
-    let cache = PreparedTreeCache::load(
-        &options.directory.join("variant.treecache"),
+    let expected = ExpectedTreeCache::new(
         &setup.input,
         &setup.environment,
         options.source,
-    )?;
+        options.content,
+    );
+    let cache = PreparedTreeCache::load(&options.directory.join("variant.treecache"), &expected)?;
     let source = TreeSourceGeometry::find(options.source, &setup.environment)?;
     let ground = setup
         .generated

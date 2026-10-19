@@ -1,5 +1,7 @@
 //! Complete admitted assets use the production cache, materials and streamer.
-use super::super::prepared_cache::{PreparedCluster, PreparedTreeCache, PreparedVariant};
+use super::super::prepared_cache::{
+    PreparedCluster, PreparedTreeCache, PreparedVariant, TreeCacheContentId,
+};
 use super::*;
 use anyhow::{Context, Result, ensure};
 use bevy::ecs::system::{SystemParam, SystemState};
@@ -37,7 +39,7 @@ struct Destination {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum InstalledTreeOrigin {
     Generated,
-    Prepared(blake3::Hash),
+    Prepared(TreeCacheContentId),
 }
 
 enum VariantSource {

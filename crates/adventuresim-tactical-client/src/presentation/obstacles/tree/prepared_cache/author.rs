@@ -1,7 +1,7 @@
 //! Complete offline production cache authoring and exact source inspection.
 use super::*;
 use flate2::{Compression, write::GzEncoder};
-use std::io::Write;
+use std::{fs, io::Write, path::Path};
 
 impl Payload {
     fn author(
@@ -96,12 +96,11 @@ impl Payload {
     }
 }
 
-pub(crate) fn write_tree_cache(input_path: &Path, output: &Path, source_word: u64) -> Result<()> {
+pub(crate) fn write_tree_cache(input_path: &Path, output: &Path, id: PlantId) -> Result<()> {
     ensure!(!output.exists(), "fresh cache output directory required");
     let input = TacticalSceneInput::load(input_path)?;
     let generated = input.generate()?;
     let environment = input.environment_snapshot(generated.digest);
-    let id = PlantId::from_word(source_word);
     let payload = Payload::author(&input, &environment, id)?;
     payload.validate(&input, &environment, id)?;
     let encoded = postcard::to_allocvec(&payload)?;
@@ -127,7 +126,7 @@ pub(crate) fn write_tree_cache(input_path: &Path, output: &Path, source_word: u6
         "lossless tree cache round trip"
     );
     decoded.verify_source(&environment, id)?;
-    let report = serde_json::json!({"format": "production-cache-adaptive-v2", "content_id": decoded.content_id(), "source_id": source_word,
+    let report = serde_json::json!({"format": "production-cache-adaptive-v2", "content_id": decoded.content_id(), "source_id": id.word(),
         "species": payload.binding.species, "seed": payload.binding.seed.to_u64(), "cache_key": payload.binding.cache_key.to_u64(),
         "input_digest": input.digest()?, "environment": environment, "compressed_bytes": bytes.len(), "payload_bytes": encoded.len(), "decode_validation_allocation_bound_bytes": checked_allocation_bound(encoded.len() as u64, bytes.len() as u64)?,
         "source_frame": "collider-centred metres; placement adds half-trunk normalization once", "capability": "complete five-tier production closure, cambered and thinned flat leaves", "recipe_version": RECIPE_VERSION, "groups": payload.groups.len(),
@@ -145,23 +144,39 @@ pub(crate) fn write_tree_cache(input_path: &Path, output: &Path, source_word: u6
 }
 
 /// CPU-only admission control, including exact selected-source validation.
-pub(crate) fn inspect_tree_cache(
-    input_path: &Path,
-    cache_path: &Path,
-    source_word: u64,
-) -> Result<()> {
+pub(crate) fn inspect_tree_cache(input_path: &Path, cache_path: &Path, id: PlantId) -> Result<()> {
     let input = TacticalSceneInput::load(input_path)?;
     let generated = input.generate()?;
     let environment = input.environment_snapshot(generated.digest);
-    let checked = PreparedTreeCache::load(
-        cache_path,
-        &input,
-        &environment,
-        PlantId::from_word(source_word),
-    )?;
+    let bytes = super::admission::read_encoded(cache_path)?;
+    let checked = PreparedTreeCache::decode(&bytes, &input, &environment, id)?;
+    checked.verify_source(&environment, id)?;
     println!(
         "{}",
-        serde_json::json!({"content_id": checked.content_id(), "source_id":source_word,"complete_tiers_admitted": true,"scope":"CPU payload/source admission only"})
+        serde_json::json!({"content_id": checked.content_id(), "source_id":id.word(),"complete_tiers_admitted": true,"scope":"CPU payload/source admission only"})
     );
     Ok(())
+}
+
+impl PreparedTreeCache {
+    fn verify_source(&self, environment: &SceneEnvironment, id: PlantId) -> Result<()> {
+        let specimen = SourceSpecimen::find(id)?;
+        let (branches, leaves) = specimen.records(environment);
+        ensure!(
+            postcard::to_allocvec(&source::Source::from_records(&branches, &leaves))?
+                == postcard::to_allocvec(&self.payload.source)?,
+            "exact selected source record mismatch"
+        );
+        for card in &self.payload.cards {
+            card.validate_source(&branches, &leaves)?;
+        }
+        for group in &self.payload.groups {
+            let expected = procedural_oak_bud_group_mesh(&branches, group.primary_group);
+            ensure!(
+                group.buds.vertices() == expected.count_vertices(),
+                "source bud completeness"
+            );
+        }
+        Ok(())
+    }
 }
