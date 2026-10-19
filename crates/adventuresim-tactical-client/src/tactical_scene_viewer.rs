@@ -36,19 +36,19 @@ mod furniture_capture;
 mod furniture_overlay;
 mod furniture_readiness;
 mod gpu_readiness;
+#[cfg(feature = "grown-full-review")]
+mod grown_full_capture;
 mod interior_capture;
 mod interior_furniture_capture;
 mod manifest;
 mod plant_lods;
 mod terrain_setup;
-#[cfg(feature = "foliage-review")]
-mod tree_cache_capture;
 mod triangle_census;
 mod view_camera;
 mod view_selection;
 mod view_specs;
-#[cfg(feature = "foliage-review")]
-pub(crate) use tree_cache_capture::Options as TreeCacheCaptureOptions;
+#[cfg(feature = "grown-full-review")]
+pub(crate) use grown_full_capture::GrownFullCaptureOptions;
 mod vista_validation;
 use buildings::spawn_tactical_buildings;
 #[cfg(test)]
@@ -767,11 +767,11 @@ pub(crate) fn run(
     profile: &'static str,
     requested_views: Vec<String>,
     city_cameras: Option<PathBuf>,
-    #[cfg(feature = "foliage-review")] cache_review: Option<TreeCacheCaptureOptions>,
+    #[cfg(feature = "grown-full-review")] grown_review: Option<GrownFullCaptureOptions>,
 ) {
-    #[cfg(feature = "foliage-review")]
-    let profile = if cache_review.is_some() {
-        tree_cache_capture::PROFILE
+    #[cfg(feature = "grown-full-review")]
+    let profile = if grown_review.is_some() {
+        grown_full_capture::PROFILE
     } else {
         profile
     };
@@ -823,14 +823,14 @@ pub(crate) fn run(
     println!("CAPTURE_OUTPUT={}", output.display());
     let wireframe_output = output.clone();
 
-    #[cfg(feature = "foliage-review")]
-    let views = if cache_review.is_some() {
+    #[cfg(feature = "grown-full-review")]
+    let views = if grown_review.is_some() {
         Vec::new()
     } else {
         selected_capture_views(profile, &requested_views)
             .unwrap_or_else(|error| panic!("invalid capture selection: {error}"))
     };
-    #[cfg(not(feature = "foliage-review"))]
+    #[cfg(not(feature = "grown-full-review"))]
     let views = selected_capture_views(profile, &requested_views)
         .unwrap_or_else(|error| panic!("invalid capture selection: {error}"));
 
@@ -855,10 +855,10 @@ pub(crate) fn run(
             .collect(),
         views,
     };
-    #[cfg(feature = "foliage-review")]
-    let prepared = tree_cache_capture::prepare(setup, cache_review, &requested_views)
-        .unwrap_or_else(|error| panic!("invalid source/cache capture: {error:#}"));
-    #[cfg(feature = "foliage-review")]
+    #[cfg(feature = "grown-full-review")]
+    let prepared = grown_full_capture::prepare(setup, grown_review, &requested_views)
+        .unwrap_or_else(|error| panic!("invalid grown Full capture: {error:#}"));
+    #[cfg(feature = "grown-full-review")]
     let setup = prepared.setup;
     let leaf_benchmarking = leaf_benchmark_frames.is_some();
     let tree_lighting_benchmarking = tree_lighting_benchmark_frames.is_some();
@@ -872,9 +872,9 @@ pub(crate) fn run(
     };
     let mut app = capture_app::new(asset_root, profile, surface);
     app.insert_resource(SceneSetup(Some(setup)));
-    #[cfg(feature = "foliage-review")]
+    #[cfg(feature = "grown-full-review")]
     if let Some(review) = prepared.review {
-        tree_cache_capture::install(&mut app, review);
+        grown_full_capture::install(&mut app, review);
     }
     app.insert_resource(camera_contract);
     app.add_systems(PostStartup, capture_resolution::apply.after(setup_scene));
@@ -930,8 +930,8 @@ pub(crate) fn run(
         let capture = capture_views
             .run_if(building_review::ready)
             .run_if(furniture_readiness::ready);
-        #[cfg(feature = "foliage-review")]
-        let capture = capture.run_if(tree_cache_capture::ready);
+        #[cfg(feature = "grown-full-review")]
+        let capture = capture.run_if(grown_full_capture::ready);
         app.add_systems(Last, capture);
     }
     let exit = app.run();
@@ -2168,8 +2168,8 @@ fn setup_scene(
         captures: Vec::new(),
         recursive_lods_observed: BTreeSet::new(),
         recursive_aggregate_lods_observed: BTreeSet::new(),
-        #[cfg(feature = "foliage-review")]
-        tree_cache_evidence: None,
+        #[cfg(feature = "grown-full-review")]
+        grown_full_evidence: None,
     });
     if let Some(sample_frames) = leaf_benchmark_frames {
         commands.insert_resource(LeafBenchmarkState::new(sample_frames));
@@ -3881,8 +3881,8 @@ fn capture_views(
     commands.spawn(Screenshot::primary_window()).observe(
         move |captured: On<ScreenshotCaptured>,
               mut state: ResMut<SceneCaptureState>,
-              #[cfg(feature = "foliage-review")]
-              inspection: tree_cache_capture::inventory::Inspector,
+              #[cfg(feature = "grown-full-review")]
+              inspection: grown_full_capture::inventory::Inspector,
               mut exit: MessageWriter<AppExit>| {
             let foreground_pixel_bps = foreground_pixel_bps(captured.image.data.as_deref());
             if !matches!(
@@ -3895,13 +3895,13 @@ fn capture_views(
             ) {
                 return;
             }
-            #[cfg(feature = "foliage-review")]
-            if let Some(evidence) = &state.tree_cache_evidence
+            #[cfg(feature = "grown-full-review")]
+            if let Some(evidence) = &state.grown_full_evidence
                 && let Err(error) = inspection.check_capture(&state)
                 && let Err(error) =
                     evidence.input_fault(state.view, format!("screenshot callback: {error:#}"))
             {
-                error!("Failed to retain cache evidence fault: {error:#}");
+                error!("Failed to retain grown evidence fault: {error:#}");
                 exit.write(AppExit::error());
                 return;
             }
@@ -3987,8 +3987,8 @@ fn focused_tree_lod_queued(
 fn camera_for_view(pose: CapturePose, state: &SceneCaptureState) -> (Transform, Vec3) {
     let half = state.terrain.width_metres.max(state.terrain.depth_metres) * 0.5;
     let (position, target, up) = match pose {
-        #[cfg(feature = "foliage-review")]
-        CapturePose::Cache(camera) => (camera.position, camera.target, camera.up),
+        #[cfg(feature = "grown-full-review")]
+        CapturePose::GrownFull(camera) => (camera.position, camera.target, camera.up),
         CapturePose::Plant { .. } | CapturePose::Fungus { .. } | CapturePose::PlantLod { .. } => {
             pose.plant_camera(state.plant_focus.expect(
                 "botanical review requires actual production roots of the requested species",
@@ -4277,22 +4277,14 @@ fn build_manifest(
     weather_particle_count: usize,
     presentation_features: PresentationFeatures,
 ) -> PendingSceneCaptureManifest {
-    // Count actual roots. The dedicated cache review declares its Full-only
-    // capability separately from ordinary five-tier production presentation.
+    // The independent grown root is verified by its own exact capability.
     let presented_trees = presented_tree_roots.iter().count();
-    #[cfg(feature = "foliage-review")]
-    let selected_cache_roots = state
-        .tree_cache_evidence
-        .as_ref()
-        .map_or(0, |evidence| evidence.selected_cache_roots());
-    #[cfg(not(feature = "foliage-review"))]
-    let selected_cache_roots = 0;
     let tree_presentation = manifest::TreePresentationCapability::FiveLodProduction {
         passed: presented_trees == state.expected_trees,
     };
-    #[cfg(feature = "foliage-review")]
+    #[cfg(feature = "grown-full-review")]
     let tree_presentation = state
-        .tree_cache_evidence
+        .grown_full_evidence
         .as_ref()
         .map_or(tree_presentation, |evidence| {
             evidence.capability(presented_trees)
@@ -4551,7 +4543,7 @@ fn build_manifest(
         lighting_readiness: state.captures.iter().all(|capture| capture.lighting_ready),
         all_views_render_content: false,
         foliage_detail_present: false,
-        all_obstacles_presented: presented_trees == state.expected_trees + selected_cache_roots
+        all_obstacles_presented: presented_trees == state.expected_trees
             && presented_rocks == state.expected_rocks,
         all_obstacles_collidable: collider_trees == state.expected_trees
             && collider_rocks == state.expected_rocks,
@@ -4839,12 +4831,12 @@ fn finish_capture(
     exit: &mut MessageWriter<AppExit>,
 ) {
     let output = &state.output;
-    #[cfg(feature = "foliage-review")]
-    let valid = if let Some(evidence) = &state.tree_cache_evidence {
+    #[cfg(feature = "grown-full-review")]
+    let valid = if let Some(evidence) = &state.grown_full_evidence {
         match evidence.finish(state) {
             Ok(()) => valid,
             Err(error) => {
-                error!("Source/cache capture evidence failed: {error:#}");
+                error!("Grown Full capture evidence failed: {error:#}");
                 false
             }
         }
@@ -4852,8 +4844,8 @@ fn finish_capture(
         valid
     };
     manifest.validation.passed = valid;
-    #[cfg(feature = "foliage-review")]
-    if let Some(evidence) = &state.tree_cache_evidence {
+    #[cfg(feature = "grown-full-review")]
+    if let Some(evidence) = &state.grown_full_evidence {
         manifest.validation.tree_presentation =
             evidence.capability(manifest.obstacles.presented_trees);
     }

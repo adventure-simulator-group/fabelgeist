@@ -52,6 +52,10 @@ fn branch_vertex(branch: Branch, k: u32, j: u32, sides: u32, spans: u32) -> Bran
     var out: BranchVertex;
     out.position = surface;
     out.normal = n;
-    out.light = mix(branch.light_start, branch.light, s);
+    out.light = branch_light(branch, s);
     return out;
+}
+
+fn branch_light(branch: Branch, s: f32) -> f32 {
+    return mix(branch.light_start, branch.light, s);
 }

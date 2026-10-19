@@ -124,6 +124,11 @@ impl GrownFullGeometry {
         self.mesh_bytes
     }
 
+    /// Move real meshes into a renderer without cloning their CPU channels.
+    pub fn into_parts(self) -> impl ExactSizeIterator<Item = GrownFullPart> {
+        self.parts.into_iter()
+    }
+
     pub fn parts(&self) -> impl ExactSizeIterator<Item = &GrownFullPart> {
         self.parts.iter()
     }
@@ -136,6 +141,10 @@ impl GrownFullPart {
 
     pub fn records(&self) -> RecordSpan {
         self.records
+    }
+
+    pub fn into_mesh(self) -> Mesh {
+        self.mesh
     }
 
     pub fn mesh(&self) -> &Mesh {

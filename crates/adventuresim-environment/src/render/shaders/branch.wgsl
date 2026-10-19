@@ -4,16 +4,13 @@
 // the grid along the segment's axis, the cubic Hermite curve from ring to
 // ring.
 #import bevy_pbr::mesh_view_bindings::view
-#import bevy_pbr::pbr_types
-#import bevy_pbr::pbr_functions
-#import bevy_pbr::mesh_types::MESH_FLAGS_SHADOW_RECEIVER_BIT
 #import bevy_eidolon::render::io_types::Vertex
 #import adventuresim_environment::forest::{
     Species, PlantInfo, Branch, linear
 }
 
 #import adventuresim_environment::branch_geometry::branch_vertex
-#import adventuresim_environment::branch_surface::{bark_coordinates, bark}
+#import adventuresim_environment::branch_surface::branch_response
 
 // x: sides around a tube; y: spans along it.
 @group(3) @binding(0) var<uniform> lod: vec4<u32>;
@@ -85,29 +82,11 @@ fn vertex(vertex: Vertex) -> BranchOut {
     return out;
 }
 
+#import adventuresim_environment::surface_lighting::light_surface
+
 @fragment
 fn fragment(in: BranchOut) -> @location(0) vec4<f32> {
     let branch = branches[in.segment];
-    let palm = u32(species[in.kind].leaf.w) == 2u;
-    let place = bark_coordinates(branch, in.surface);
-    let pattern = bark(place.x, place.y, palm);
-    let albedo = linear(species[in.kind].bark.rgb) * pattern.x;
-    // Deep in a crown, and in the furrows, less sky reaches the bark.
-    let ao = mix(0.5, 1.0, in.light) * mix(0.7, 1.0, pattern.y);
-
-    var pbr_input: pbr_types::PbrInput = pbr_types::pbr_input_new();
-    pbr_input.material.flags |= pbr_types::STANDARD_MATERIAL_FLAGS_FOG_ENABLED_BIT;
-    pbr_input.material.base_color = vec4<f32>(albedo, 1.0);
-    pbr_input.material.perceptual_roughness = 0.9;
-    pbr_input.material.metallic = 0.0;
-    pbr_input.diffuse_occlusion = vec3<f32>(ao);
-    pbr_input.frag_coord = in.clip;
-    pbr_input.world_position = in.world;
-    pbr_input.flags = MESH_FLAGS_SHADOW_RECEIVER_BIT;
-    pbr_input.is_orthographic = view.clip_from_view[3].w == 1.0;
-    pbr_input.world_normal = pbr_functions::prepare_world_normal(normalize(in.normal), false, false);
-    pbr_input.N = normalize(pbr_input.world_normal);
-    pbr_input.V = pbr_functions::calculate_view(in.world, pbr_input.is_orthographic);
-    let lit = pbr_functions::apply_pbr_lighting(pbr_input);
-    return pbr_functions::main_pass_post_lighting_processing(pbr_input, lit);
+    let response = branch_response(branch, species[in.kind], in.surface, in.light);
+    return light_surface(response, 1.0, in.world, normalize(in.normal), in.clip);
 }

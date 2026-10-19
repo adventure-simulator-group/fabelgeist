@@ -7,7 +7,7 @@ use fabelgeist_botany::identity::PlantId;
 use std::path::{Path, PathBuf};
 
 #[derive(Debug, clap::Args)]
-#[group(multiple = true, conflicts_with_all = ["profile", "canopy_bps", "absolute_minute", "output", "views", "settle_frames", "leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "scene_performance_render_diagnostics", "terrain_wireframe", "triangle_census", "tree_review_azimuth_degrees", "city_cameras", "prepare_tree_bank", "directory", "source", "role", "representation", "review_content", "fixture"])]
+#[group(multiple = true, conflicts_with_all = ["profile", "canopy_bps", "absolute_minute", "output", "views", "settle_frames", "leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "scene_performance_render_diagnostics", "terrain_wireframe", "triangle_census", "tree_review_azimuth_degrees", "city_cameras", "prepare_tree_bank", "fixture"])]
 #[command(group(clap::ArgGroup::new("cache_action").args(["prepare_tree_cache", "check_tree_cache", "admit_tree_cache"]).multiple(false)))]
 pub(crate) struct TreeCacheActions {
     /// Write one complete lossless production cache without a renderer.

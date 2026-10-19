@@ -9,7 +9,8 @@ const ROOT_EYE: Metres = Metres::from_metres(1.6);
 
 const FOV_DEGREES: f32 = 60.0;
 const FRAME_MARGIN: Ratio = Ratio::from_ratio(1.15);
-const GAMEPLAY_AXIAL_OFFSET: Ratio = Ratio::from_ratio(0.75);
+const CROWN_EYE_DIRECTION: Vec3 = Vec3::new(1.0, 0.9, 1.0);
+const GAMEPLAY_CROWN_CLEARANCE: Metres = Metres::from_metres(3.0);
 const GAMEPLAY_EYE: Metres = Metres::from_metres(super::super::STANDING_EYE_HEIGHT_METRES);
 const FOREGROUND_BPS: u16 = 500;
 
@@ -21,6 +22,19 @@ pub(in super::super) struct PlateCamera {
     pub up: Vec3,
 }
 
+#[derive(Serialize)]
+pub(super) struct Cameras {
+    root: PlateCamera,
+    crown: PlateCamera,
+    gameplay: PlateCamera,
+}
+
+#[derive(Resource, Serialize)]
+pub(in super::super) struct PerspectiveDepth {
+    near: Metres,
+    far: Metres,
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
 pub(in super::super) enum Plate {
     Root,
@@ -28,53 +42,23 @@ pub(in super::super) enum Plate {
     Gameplay,
 }
 
-#[derive(Serialize)]
-pub(super) struct Cameras {
-    root: PlateCamera,
-    additional_root_contacts: Option<[PlateCamera; 2]>,
-    crown: PlateCamera,
-    gameplay: PlateCamera,
-}
-
 impl Cameras {
+    /// Numerical camera boundary: source-local metres plus one tactical root.
     pub(super) fn from_source(
-        source: &TreeSourceGeometry,
-        roots: &[Vec3],
+        bounds: TreeBounds,
+        root: Vec3,
         terrain: &SceneTerrain,
     ) -> Result<Self> {
-        let root = *roots.first().context("source camera requires a root")?;
-        let source_low = Vec3::from_array(source.minimum.map(Metres::metres));
-        let source_high = Vec3::from_array(source.maximum.map(Metres::metres));
-        let mut low = source_low;
-        let mut high = source_high;
-        for position in roots {
-            let offset = *position - root;
-            low = low.min(source_low + offset);
-            high = high.max(source_high + offset);
-        }
+        let low = Vec3::from_array(bounds.low.map(Metres::metres));
+        let high = Vec3::from_array(bounds.high.map(Metres::metres));
         let centre = (low + high) * 0.5 + root;
-        let radius = low.distance(high) * 0.5;
-        let distance = radius / (FOV_DEGREES.to_radians() * 0.5).sin() * FRAME_MARGIN.ratio();
-        ensure!(
-            distance.is_finite() && distance > 0.0,
-            "invalid source camera envelope"
-        );
+        let direction = CROWN_EYE_DIRECTION.normalize();
+        let distance = crown_distance(low, high, direction)?;
         Ok(Self {
             root: root_contact(terrain, root)?,
-            additional_root_contacts: match roots {
-                [_] => None,
-                [_, left, right] => Some([
-                    root_contact(terrain, *left)?,
-                    root_contact(terrain, *right)?,
-                ]),
-                _ => anyhow::bail!("unsupported source contact layout"),
-            },
             crown: PlateCamera {
                 plate: Plate::Crown,
-                position: crown_eye(
-                    terrain,
-                    centre + Vec3::new(1.0, 0.18, 1.0).normalize() * distance,
-                )?,
+                position: crown_eye(terrain, centre + direction * distance.metres())?,
                 target: centre,
                 up: Vec3::Y,
             },
@@ -83,9 +67,9 @@ impl Cameras {
                 position: ground_eye(
                     terrain,
                     root + Vec3::new(
-                        distance * GAMEPLAY_AXIAL_OFFSET.ratio(),
+                        low.x.abs().max(high.x.abs()) + GAMEPLAY_CROWN_CLEARANCE.metres(),
                         0.0,
-                        distance * GAMEPLAY_AXIAL_OFFSET.ratio(),
+                        low.z.abs().max(high.z.abs()) + GAMEPLAY_CROWN_CLEARANCE.metres(),
                     ),
                     GAMEPLAY_EYE,
                 )?,
@@ -95,53 +79,45 @@ impl Cameras {
         })
     }
 
-    pub(super) fn views(&self, representation: TreeCacheRepresentation) -> Vec<CaptureViewSpec> {
-        let mut views = vec![
-            view("warmup", "Pipeline warmup", self.gameplay, representation).warmup(),
+    pub(super) fn views(&self) -> Vec<CaptureViewSpec> {
+        vec![
+            view("warmup", "Pipeline warmup", self.gameplay).warmup(),
+            view("grown-root", "Grown source root contact", self.root).settled_readback_pair(),
+            view("grown-crown", "Grown source full crown", self.crown).settled_readback_pair(),
             view(
-                "cache-root",
-                "Source tree root contact",
-                self.root,
-                representation,
-            )
-            .settled_readback_pair(),
-        ];
-        if let Some([left, right]) = self.additional_root_contacts {
-            views.extend([
-                view(
-                    "cache-root-left",
-                    "Left tree root contact",
-                    left,
-                    representation,
-                )
-                .settled_readback_pair(),
-                view(
-                    "cache-root-right",
-                    "Right tree root contact",
-                    right,
-                    representation,
-                )
-                .settled_readback_pair(),
-            ]);
-        }
-        views.extend([
-            view(
-                "cache-crown",
-                "Source tree full crown",
-                self.crown,
-                representation,
-            )
-            .settled_readback_pair(),
-            view(
-                "cache-gameplay",
-                "Source tree at eye height",
+                "grown-gameplay",
+                "Grown source at eye height",
                 self.gameplay,
-                representation,
             )
             .settled_readback_pair(),
-        ]);
-        views
+        ]
     }
+}
+
+// Source-local metre vectors enter a perspective-fit numerical boundary.
+// Every original source-box corner must fit both image axes with the margin.
+fn crown_distance(low: Vec3, high: Vec3, direction: Vec3) -> Result<Metres> {
+    let centre = (low + high) * 0.5;
+    let right = Vec3::Y.cross(direction).normalize();
+    let up = direction.cross(right);
+    let vertical_scale = FRAME_MARGIN.ratio() / (FOV_DEGREES.to_radians() * 0.5).tan();
+    let horizontal_scale = vertical_scale / super::super::capture_resolution::CAPTURE_ASPECT_RATIO;
+    let mut distance = 0_f32;
+    for x in [low.x, high.x] {
+        for y in [low.y, high.y] {
+            for z in [low.z, high.z] {
+                let offset = Vec3::new(x, y, z) - centre;
+                let transverse = (offset.dot(up).abs() * vertical_scale)
+                    .max(offset.dot(right).abs() * horizontal_scale);
+                distance = distance.max(offset.dot(direction) + transverse);
+            }
+        }
+    }
+    ensure!(
+        distance.is_finite() && distance > 0.0,
+        "invalid grown source camera envelope"
+    );
+    Ok(Metres::from_metres(distance))
 }
 
 fn root_contact(terrain: &SceneTerrain, root: Vec3) -> Result<PlateCamera> {
@@ -153,33 +129,17 @@ fn root_contact(terrain: &SceneTerrain, root: Vec3) -> Result<PlateCamera> {
     })
 }
 
-fn view(
-    slug: &'static str,
-    label: &'static str,
-    camera: PlateCamera,
-    representation: TreeCacheRepresentation,
-) -> CaptureViewSpec {
-    let mut view = CaptureViewSpec::new(
+fn view(slug: &'static str, label: &'static str, camera: PlateCamera) -> CaptureViewSpec {
+    CaptureViewSpec::new(
         slug,
         label,
-        CapturePose::Cache(camera),
+        CapturePose::GrownFull(camera),
         FOV_DEGREES,
         FOREGROUND_BPS,
     )
-    .render_lod(representation.lod())
     .hide_obstacles()
     .suppress_grass()
-    .suppress_understory();
-    if let Some(leaf) = representation.leaf() {
-        view = view.leaf_lod(leaf);
-    }
-    view
-}
-
-#[derive(Resource, Serialize)]
-pub(in super::super) struct PerspectiveDepth {
-    near: Metres,
-    far: Metres,
+    .suppress_understory()
 }
 
 impl PerspectiveDepth {

@@ -16,6 +16,8 @@ pub mod address;
 pub mod benchmark;
 mod chunks;
 mod feed;
+#[cfg(all(feature = "full-authoring", not(target_family = "wasm")))]
+pub mod full;
 mod ground;
 pub(crate) mod levels;
 mod materials;
@@ -110,13 +112,22 @@ impl Default for ForestDetail {
 /// Draws the snapshots fed to [`ForestFeed`].
 pub struct ForestPlugin;
 
-impl Plugin for ForestPlugin {
+struct ForestShaderLibraries;
+
+impl Plugin for ForestShaderLibraries {
     fn build(&self, app: &mut App) {
         load_shader_library!(app, "render/shaders/forest_common.wgsl");
         load_shader_library!(app, "render/shaders/branch_geometry.wgsl");
         load_shader_library!(app, "render/shaders/branch_surface.wgsl");
         load_shader_library!(app, "render/shaders/leaf_geometry.wgsl");
         load_shader_library!(app, "render/shaders/leaf_surface.wgsl");
+        load_shader_library!(app, "render/shaders/surface_lighting.wgsl");
+    }
+}
+
+impl Plugin for ForestPlugin {
+    fn build(&self, app: &mut App) {
+        register_forest_libraries(app);
         // Bevy discovers conditional imports before pipeline specialization.
         load_shader_library!(app, "render/shaders/tree_pose.wgsl");
         embedded_asset!(app, "render/shaders/branch.wgsl");
@@ -169,6 +180,13 @@ impl Plugin for ForestPlugin {
                 levels::pick.in_set(ForestLodSystems::Select),
             ),
         );
+    }
+}
+
+// Multiple render adapters share the same source-library registration.
+fn register_forest_libraries(app: &mut App) {
+    if !app.is_plugin_added::<ForestShaderLibraries>() {
+        app.add_plugins(ForestShaderLibraries);
     }
 }
 

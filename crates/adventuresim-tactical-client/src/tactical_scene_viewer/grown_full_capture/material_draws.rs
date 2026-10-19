@@ -124,6 +124,31 @@ impl SpecimenDraws {
             "scope": "actual successful single-member DrawMaterial commands; per-frame held mesh/material bindings checked through callback; not exact screenshot GPU timestamps"}))
     }
 
+    pub(super) fn check_inventory(
+        &self,
+        view: usize,
+        members: &[Member],
+        visible: &[Entity],
+    ) -> Result<()> {
+        let poses = self
+            .0
+            .lock()
+            .map_err(|_| anyhow::anyhow!("grown submitted inventory lock"))?;
+        let pose = poses.get(&view).context("grown submitted inventory pose")?;
+        let expected: Vec<_> = members
+            .iter()
+            .filter(|member| visible.contains(&member.entity))
+            .copied()
+            .collect();
+        ensure!(
+            pose.complete.load(Ordering::Acquire)
+                && !pose.invalid.load(Ordering::Acquire)
+                && pose.expected == expected,
+            "grown callback submitted inventory drift"
+        );
+        Ok(())
+    }
+
     pub(super) fn check_background(
         &self,
         view: usize,
@@ -202,7 +227,7 @@ fn extract(
         draws.invalidate(state.view);
         return;
     }
-    let CapturePose::Cache(camera_pose) = state.views[state.view].pose else {
+    let CapturePose::GrownFull(camera_pose) = state.views[state.view].pose else {
         return;
     };
     let camera_visible: HashSet<_> = visible
@@ -220,14 +245,7 @@ fn extract(
         .collect();
     if expected.is_empty()
         || (camera_pose.plate != cameras::Plate::Root
-            && !expected.iter().any(|member| {
-                matches!(
-                    member.part,
-                    crate::presentation::InstalledTreePartRole::CamberedLeaves { .. }
-                        | crate::presentation::InstalledTreePartRole::FlatLeaves { .. }
-                        | crate::presentation::InstalledTreePartRole::CanopyCard { .. }
-                )
-            }))
+            && !expected.iter().any(|member| member.part.is_leaf()))
     {
         draws.invalidate(state.view);
         return;

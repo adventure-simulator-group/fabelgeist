@@ -1,4 +1,4 @@
-//! Fixed-plate evidence retained through the last actual screenshot callback.
+//! Sticky held-source and successful-submission evidence through final callback.
 
 use super::super::capture_state::SceneCaptureState;
 use super::*;
@@ -11,15 +11,14 @@ use std::{
 pub(in super::super) struct Evidence {
     data: Arc<Mutex<Data>>,
     role: Role,
-    representation: TreeCacheRepresentation,
-    layout: layout::TreeLayout,
+    source: PlantId,
 }
 
 struct Data {
     metadata: serde_json::Value,
     poses: BTreeMap<usize, serde_json::Value>,
-    draws: draw_evidence::DrawEvidence,
-    camera_drift_views: BTreeSet<usize>,
+    draws: material_draws::SpecimenDraws,
+    camera_drift: BTreeSet<usize>,
     input_faults: BTreeMap<usize, String>,
 }
 
@@ -27,19 +26,17 @@ impl Evidence {
     pub(super) fn new(
         metadata: serde_json::Value,
         role: Role,
-        representation: TreeCacheRepresentation,
-        draws: draw_evidence::DrawEvidence,
-        layout: layout::TreeLayout,
+        source: PlantId,
+        draws: material_draws::SpecimenDraws,
     ) -> Self {
         Self {
             role,
-            representation,
-            layout,
+            source,
             data: Arc::new(Mutex::new(Data {
                 metadata,
-                draws,
                 poses: BTreeMap::new(),
-                camera_drift_views: BTreeSet::new(),
+                draws,
+                camera_drift: BTreeSet::new(),
                 input_faults: BTreeMap::new(),
             })),
         }
@@ -49,55 +46,51 @@ impl Evidence {
         let mut data = self
             .data
             .lock()
-            .map_err(|_| anyhow::anyhow!("capture evidence lock"))?;
+            .map_err(|_| anyhow::anyhow!("grown evidence lock"))?;
         data.input_faults.entry(view).or_insert(reason);
         data.draws.invalidate(view);
         Ok(())
     }
 
     pub(super) fn camera_drift(&self, view: usize) -> Result<()> {
-        self.data
+        let mut data = self
+            .data
             .lock()
-            .map_err(|_| anyhow::anyhow!("capture evidence lock"))?
-            .camera_drift_views
-            .insert(view);
+            .map_err(|_| anyhow::anyhow!("grown evidence lock"))?;
+        data.camera_drift.insert(view);
+        data.draws.invalidate(view);
         Ok(())
     }
 
     pub(super) fn camera_intact(&self) -> bool {
         self.data
             .lock()
-            .is_ok_and(|data| data.camera_drift_views.is_empty() && data.input_faults.is_empty())
+            .is_ok_and(|data| data.camera_drift.is_empty() && data.input_faults.is_empty())
     }
 
     pub(super) fn record(&self, view: usize, proof: serde_json::Value) -> Result<()> {
         self.data
             .lock()
-            .map_err(|_| anyhow::anyhow!("capture evidence lock"))?
+            .map_err(|_| anyhow::anyhow!("grown evidence lock"))?
             .poses
             .entry(view)
             .or_insert(proof);
         Ok(())
     }
 
-    pub(in super::super) fn selected_cache_roots(&self) -> usize {
-        self.layout.root_count()
-    }
-
     pub(in super::super) fn capability(
         &self,
         presented_roots: usize,
     ) -> super::super::manifest::TreePresentationCapability {
-        use super::super::manifest::TreePresentationCapability;
         let clean = self.data.lock().is_ok_and(|data| {
-            data.camera_drift_views.is_empty()
+            data.camera_drift.is_empty()
                 && data.input_faults.is_empty()
                 && data.draws.inventory_verified()
         });
-        TreePresentationCapability::FixedProductionRepresentation {
+        super::super::manifest::TreePresentationCapability::FixedGrownFull {
             role: self.role,
-            representation: self.representation,
-            owned_inventory_verified: clean && presented_roots == self.layout.root_count(),
+            source_id: self.source.word(),
+            owned_inventory_verified: clean && presented_roots == 0,
         }
     }
 
@@ -105,24 +98,20 @@ impl Evidence {
         let data = self
             .data
             .lock()
-            .map_err(|_| anyhow::anyhow!("capture evidence lock"))?;
+            .map_err(|_| anyhow::anyhow!("grown evidence lock"))?;
         let poses_complete = data.poses.len() == state.views.len()
             && (0..state.views.len()).all(|view| data.poses.contains_key(&view));
         let draws_clean = data.draws.all_valid(state.views.len());
         let passed = poses_complete
             && draws_clean
-            && data.camera_drift_views.is_empty()
+            && data.camera_drift.is_empty()
             && data.input_faults.is_empty();
-        let report = serde_json::json!({"metadata": data.metadata, "poses": data.poses,
-            "post_screenshots": {"poses_complete": poses_complete, "draws": draws_clean, "camera_drift_views": data.camera_drift_views, "input_faults": data.input_faults},
-            "capture_files": state.captures.iter().map(|capture| &capture.screenshot).collect::<Vec<_>>(),
-            "passed": passed,
-            "limits": "queue-prefix prerequisites and held images, not exact capture-frame timestamps, motion, geographic arrival, physical VRAM or quality approval"});
+        let report = serde_json::json!({"metadata":data.metadata,"poses":data.poses,"post_screenshots":{"poses_complete":poses_complete,"draws":draws_clean,"camera_drift_views":data.camera_drift,"input_faults":data.input_faults},"capture_files":state.captures.iter().map(|capture|&capture.screenshot).collect::<Vec<_>>(),"passed":passed,"limits":"held CPU content/immutable storage lifecycle and actual singleton main-pass DrawMaterial commands plus queue prefix, not storage-byte readback, shadow draw counts, exact screenshot timestamps, memory, motion or arrival"});
         fs::write(
-            state.output.join("cache-review.json"),
+            state.output.join("grown-full-review.json"),
             serde_json::to_vec_pretty(&report)?,
         )?;
-        ensure!(passed, "incomplete or failed fixed-plate draw evidence");
+        ensure!(passed, "incomplete/failed grown Full capture evidence");
         Ok(())
     }
 }

@@ -64,8 +64,8 @@ impl CapturePhase {
 
 #[derive(Resource)]
 pub(super) struct SceneCaptureState {
-    #[cfg(feature = "foliage-review")]
-    pub(super) tree_cache_evidence: Option<super::tree_cache_capture::Evidence>,
+    #[cfg(feature = "grown-full-review")]
+    pub(super) grown_full_evidence: Option<super::grown_full_capture::Evidence>,
     pub(super) fixture: String,
     pub(super) input_path: PathBuf,
     pub(super) output: PathBuf,

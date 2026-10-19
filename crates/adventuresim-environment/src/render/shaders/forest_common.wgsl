@@ -54,6 +54,13 @@ struct Leaf {
     pad: u32,
 };
 
+// Surface response before world-space PBR lighting; source RGB is linear.
+struct SurfaceResponse {
+    albedo: vec3<f32>,
+    occlusion: f32,
+    roughness: f32,
+};
+
 // An orthonormal pair around unit `n` that turns smoothly as `n` does, so a
 // tube's rings do not twist between tangents; singular only straight down,
 // where no branch grows (Frisvad, axes cycled).

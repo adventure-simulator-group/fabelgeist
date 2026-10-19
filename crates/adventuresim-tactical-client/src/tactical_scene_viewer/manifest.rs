@@ -172,10 +172,10 @@ pub(super) enum TreePresentationCapability {
     FiveLodProduction {
         passed: bool,
     },
-    #[cfg(feature = "foliage-review")]
-    FixedProductionRepresentation {
-        role: super::tree_cache_capture::Role,
-        representation: crate::presentation::TreeCacheRepresentation,
+    #[cfg(feature = "grown-full-review")]
+    FixedGrownFull {
+        role: super::grown_full_capture::Role,
+        source_id: u64,
         owned_inventory_verified: bool,
     },
 }
@@ -184,8 +184,8 @@ impl TreePresentationCapability {
     fn passed(&self) -> bool {
         match self {
             Self::FiveLodProduction { passed } => *passed,
-            #[cfg(feature = "foliage-review")]
-            Self::FixedProductionRepresentation {
+            #[cfg(feature = "grown-full-review")]
+            Self::FixedGrownFull {
                 owned_inventory_verified,
                 ..
             } => *owned_inventory_verified,

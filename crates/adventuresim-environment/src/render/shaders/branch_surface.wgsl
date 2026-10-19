@@ -1,6 +1,6 @@
 // The original grown bark coordinates and pattern, evaluated per fragment.
 #define_import_path adventuresim_environment::branch_surface
-#import adventuresim_environment::forest::{TAU, Branch, basis, bark_noise}
+#import adventuresim_environment::forest::{Species, SurfaceResponse, linear, TAU, Branch, basis, bark_noise}
 #import adventuresim_environment::branch_geometry::axis_at
 
 // Where a point lies on its segment: `u` a turn around the axis, `v` along
@@ -41,4 +41,20 @@ fn bark(u: f32, v: f32, palm: bool) -> vec2<f32> {
     let patches = bark_noise(vec2<f32>(u * 3.0, v * 1.2), 3.0);
     let furrow = smoothstep(0.0, 0.35, ridge) * (0.7 + 0.3 * grain);
     return vec2<f32>(mix(furrow_depth, 1.1, furrow) * (0.8 + 0.4 * patches), furrow);
+}
+
+// Original source wood response, shared by live and expanded geometry.
+fn branch_response(branch: Branch, kind: Species, surface: vec3<f32>, light: f32) -> SurfaceResponse {
+    let palm = u32(kind.leaf.w) == 2u;
+    let place = bark_coordinates(branch, surface);
+    let pattern = bark(place.x, place.y, palm);
+    let albedo = linear(kind.bark.rgb) * pattern.x;
+    // Deep in a crown, and in the furrows, less sky reaches the bark.
+    let ao = mix(0.5, 1.0, light) * mix(0.7, 1.0, pattern.y);
+
+    var response: SurfaceResponse;
+    response.albedo = albedo;
+    response.occlusion = ao;
+    response.roughness = 0.9;
+    return response;
 }

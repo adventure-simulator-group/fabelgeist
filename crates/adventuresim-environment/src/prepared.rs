@@ -153,7 +153,7 @@ pub struct TreeModel {
 }
 
 /// An explicit GPU record-array boundary: a start word and record count.
-#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct RecordSpan {
     pub start: u32,
     pub count: u32,

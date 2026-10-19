@@ -1,0 +1,158 @@
+//! Install one source-owned ordinary specimen and hold its real capture poses.
+
+use super::super::{
+    capture_state::{CapturePhase, SceneCaptureState},
+    setup_scene,
+};
+use super::*;
+use crate::presentation::TacticalGameplayCamera;
+
+#[derive(Resource)]
+pub(in super::super) struct ReadyPose(usize);
+
+pub(in super::super) fn install(app: &mut App, review: Review) {
+    let source = review.source;
+    app.add_plugins(GrownFullMaterialPlugin);
+    observation::install(app);
+    let draws = material_draws::SpecimenDraws::install(app);
+    let evidence = Evidence::new(review.metadata.clone(), review.role, source, draws);
+    app.insert_resource(review)
+        .insert_resource(evidence)
+        .add_systems(
+            PostStartup,
+            setup
+                .after(setup_scene)
+                .after(super::super::freeze_capture_clock),
+        )
+        .add_systems(PreUpdate, advance)
+        .add_systems(
+            PostUpdate,
+            isolate.before(bevy::camera::visibility::VisibilitySystems::VisibilityPropagate),
+        );
+}
+
+pub(in super::super) fn ready(
+    state: Option<Res<SceneCaptureState>>,
+    review: Option<Res<Review>>,
+    ready: Option<Res<ReadyPose>>,
+    evidence: Option<Res<Evidence>>,
+) -> bool {
+    let Some(state) = state else { return true };
+    if review.is_none() {
+        return state.profile != PROFILE;
+    }
+    if state.phase == CapturePhase::Configure {
+        return true;
+    }
+    ready.is_some_and(|ready| ready.0 == state.view)
+        && evidence.is_some_and(|evidence| evidence.camera_intact())
+}
+
+fn setup(world: &mut World) -> bevy::prelude::Result {
+    setup_inner(world).map_err(Into::into)
+}
+
+fn setup_inner(world: &mut World) -> Result<()> {
+    let projection = world
+        .query_filtered::<&Projection, With<TacticalGameplayCamera>>()
+        .single(world)?;
+    let depth = cameras::PerspectiveDepth::from_projection(projection)?;
+    world.insert_resource(depth);
+    let (geometry, encoding, frame) = {
+        let mut review = world.resource_mut::<Review>();
+        (
+            review
+                .geometry
+                .take()
+                .context("prepared grown geometry missing")?,
+            review.role.encoding(),
+            Transform::from_translation(review.root),
+        )
+    };
+    let owned = inventory::OwnedGrown::install(geometry, encoding, frame, world)?;
+    world.insert_resource(owned);
+    {
+        let mut state = world.resource_mut::<SceneCaptureState>();
+        ensure!(state.profile == PROFILE, "grown setup profile mismatch");
+        state.expected_trees = 0;
+        state.expected_rocks = 0;
+        state.expects_grass = false;
+        state.tree_focus = None;
+        state.tree_focus_entity = None;
+        state.tree_review_entities.clear();
+        state.tree_review_leaf_entities.clear();
+    }
+    isolate(world);
+    background::instrument(world);
+    let evidence = world.resource::<Evidence>().clone();
+    world
+        .resource_mut::<SceneCaptureState>()
+        .grown_full_evidence = Some(evidence);
+    let adapter = world
+        .get_resource::<bevy::render::renderer::RenderAdapterInfo>()
+        .context("grown renderer adapter")?;
+    let metadata = serde_json::json!({"adapter":{"name":adapter.name,"backend":format!("{:?}",adapter.backend),"device_type":format!("{:?}",adapter.device_type),"driver":adapter.driver,"driver_info":adapter.driver_info},"projection_depth":world.resource::<cameras::PerspectiveDepth>(),"actual_virtual_seconds":world.resource::<Time<Virtual>>().elapsed_secs_f64(),"scope":"one native ordinary grown Full specimen with instrumented singleton proof; no arrival or batching performance"});
+    fs::write(
+        world
+            .resource::<SceneCaptureState>()
+            .output
+            .join("grown-full-runtime.json"),
+        serde_json::to_vec_pretty(&metadata)?,
+    )?;
+    Ok(())
+}
+
+fn advance(world: &mut World) -> bevy::prelude::Result {
+    let Some(state) = world.get_resource::<SceneCaptureState>() else {
+        return Ok(());
+    };
+    if state.view >= state.views.len() || state.phase == CapturePhase::Configure {
+        return Ok(());
+    }
+    let view = state.view;
+    let CapturePose::GrownFull(expected) = state.views[view].pose else {
+        return Err("grown held pose required".into());
+    };
+    let (camera, transform, projection) = world
+        .query_filtered::<(&Camera, &GlobalTransform, &Projection), With<TacticalGameplayCamera>>()
+        .single(world)?;
+    if !expected.matches(
+        camera,
+        transform,
+        projection,
+        world.resource::<cameras::PerspectiveDepth>(),
+    ) {
+        world.resource::<Evidence>().camera_drift(view)?;
+        return Err("grown held camera drift".into());
+    }
+    let actual = expected.actual(transform, projection)?;
+    if let Some(proof) = world
+        .resource::<material_draws::SpecimenDraws>()
+        .proof(view)
+    {
+        world.resource::<Evidence>().record(view,serde_json::json!({"camera":actual,"draws":proof,"whole_inventory":world.resource::<inventory::CurrentInventory>().report()}))?;
+        world.insert_resource(ReadyPose(view));
+    }
+    Ok(())
+}
+
+fn isolate(world: &mut World) {
+    use crate::presentation::{
+        GroundScatterLayer, UnderstoryReviewSpecimen, VistaTreePresentation,
+    };
+    use adventuresim_tactical_core::prelude::SceneObstacle;
+    let entities: Vec<_> = world
+        .query_filtered::<Entity, Or<(
+            With<SceneObstacle>,
+            With<GroundScatterLayer>,
+            With<VistaTreePresentation>,
+            With<UnderstoryReviewSpecimen>,
+            With<super::super::TreeReviewSpecimen>,
+            With<super::super::TreeReviewBackdrop>,
+        )>>()
+        .iter(world)
+        .collect();
+    for entity in entities {
+        world.despawn(entity);
+    }
+}

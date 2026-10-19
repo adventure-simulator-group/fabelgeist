@@ -1,4 +1,5 @@
-//! Shared structural observation after actual visibility and material conversion.
+//! Whole inventory after actual visibility and terrain material preparation.
+
 use super::super::capture_state::{CapturePhase, SceneCaptureState};
 use super::*;
 use crate::presentation::TacticalGameplayCamera;
@@ -9,8 +10,8 @@ pub(super) struct VisibilityMark(pub(super) Option<usize>);
 
 pub(super) fn install(app: &mut App) {
     app.init_resource::<VisibilityMark>()
-        .init_resource::<draw_policy::RootVisibility>()
         .init_resource::<inventory::CurrentInventory>()
+        .add_systems(PostUpdate, inventory::watch_mutations.before(observe))
         .add_systems(
             PostUpdate,
             observe
@@ -26,9 +27,11 @@ fn observe(world: &mut World) -> bevy::prelude::Result {
         return Ok(());
     }
     let view = state.view;
-    let CapturePose::Cache(expected) = state.views[view].pose else {
-        return Ok(());
+    let CapturePose::GrownFull(expected) = state.views[view].pose else {
+        return Err("grown pose required".into());
     };
+    // Update can add real terrain after startup; instrument before extraction.
+    background::instrument(world);
     let (camera, transform, projection) = world
         .query_filtered::<(&Camera, &GlobalTransform, &Projection), With<TacticalGameplayCamera>>()
         .single(world)?;
@@ -39,24 +42,7 @@ fn observe(world: &mut World) -> bevy::prelude::Result {
         world.resource::<cameras::PerspectiveDepth>(),
     ) {
         world.resource::<Evidence>().camera_drift(view)?;
-        world
-            .resource::<draw_evidence::DrawEvidence>()
-            .invalidate(view);
         return Ok(());
-    }
-    if world
-        .resource::<Review>()
-        .draw_policy
-        .singleton_instrumentation()
-    {
-        background::instrument(world);
-        inventory::OwnedTrees::instrument_children(world)?;
-    }
-    let policy = world.resource::<Review>().draw_policy;
-    if *world.resource::<draw_policy::RootVisibility>()
-        != draw_policy::RootVisibility::for_view(policy, view)
-    {
-        return Err("root visibility control ordering drift".into());
     }
     let checked = {
         let mut inspection = SystemState::<inventory::Inspector>::new(world);
@@ -64,8 +50,6 @@ fn observe(world: &mut World) -> bevy::prelude::Result {
     };
     match checked {
         Ok(inventory) => {
-            let draws = world.resource::<draw_evidence::DrawEvidence>().clone();
-            draws.prepare_tags(world, &inventory)?;
             world.insert_resource(inventory);
             world.resource_mut::<VisibilityMark>().0 = Some(view);
         }
@@ -73,9 +57,6 @@ fn observe(world: &mut World) -> bevy::prelude::Result {
             world
                 .resource::<Evidence>()
                 .input_fault(view, format!("{error:#}"))?;
-            world
-                .resource::<draw_evidence::DrawEvidence>()
-                .invalidate(view);
             return Err(error.into());
         }
     }
