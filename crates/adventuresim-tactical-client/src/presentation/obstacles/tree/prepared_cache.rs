@@ -17,11 +17,12 @@ use fabelgeist_botany::identity::PlantId;
 use fabelgeist_determinism::Seed;
 use flate2::bufread::GzDecoder;
 use serde::{Deserialize, Serialize};
-use std::io::Read;
+use std::{io::Read, time::Instant};
+use timings::CacheAdmissionMeasurements;
 
 pub(crate) use admission::admit_tree_cache;
 pub(crate) use author::{inspect_tree_cache, write_tree_cache};
-pub(crate) use identity::{ExpectedTreeCache, TreeCacheContentId};
+pub(crate) use identity::{ExpectedTreeCache, PreparedTreeIdentity, TreeCacheContentId};
 pub(super) use runtime::{PreparedCluster, PreparedVariant};
 
 mod admission;
@@ -30,6 +31,7 @@ mod identity;
 mod mesh;
 mod runtime;
 mod source;
+mod timings;
 mod validation;
 
 const FORMAT: &[u8; 8] = b"TREECPU2";
@@ -42,7 +44,7 @@ const RECIPE_VERSION: u32 = 1;
 const MAX_DECODED_ELEMENT_EXPANSION: u64 = 4;
 const MAX_GROUPS: usize = super::TREE_PRIMARY_GROUP_COUNT as usize;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Serialize, Deserialize)]
 struct Binding {
     source: u64,
     seed: Seed,
@@ -82,6 +84,7 @@ struct Group {
 pub(crate) struct PreparedTreeCache {
     payload: Payload,
     digest: TreeCacheContentId,
+    measurements: CacheAdmissionMeasurements,
 }
 
 impl PreparedTreeCache {
@@ -91,6 +94,7 @@ impl PreparedTreeCache {
         environment: &SceneEnvironment,
         id: PlantId,
     ) -> Result<Self> {
+        let started = Instant::now();
         let header_bytes = FORMAT.len() + blake3::OUT_LEN + std::mem::size_of::<u64>();
         ensure!(
             bytes.len() as u64 <= MAX_COMPRESSED_BYTES && bytes.len() >= header_bytes,
@@ -104,6 +108,7 @@ impl PreparedTreeCache {
         checked_allocation_bound(length, bytes.len() as u64)?;
         // The declared size is bounded before one exact allocation. Reading one
         // extra byte checks EOF/CRC without allowing growth beyond that buffer.
+        let guarded = Instant::now();
         let mut decoded = vec![0; usize::try_from(length)?];
         let mut decoder = GzDecoder::new(compressed);
         decoder.read_exact(&mut decoded)?;
@@ -115,15 +120,27 @@ impl PreparedTreeCache {
             decoder.into_inner().is_empty(),
             "tree cache compressed trailing data"
         );
+        let decompressed = Instant::now();
         let payload = decoded.as_slice();
         let actual = blake3::hash(payload);
         ensure!(actual.as_bytes() == digest, "tree cache digest");
+        let digested = Instant::now();
         let (payload, tail): (Payload, _) = postcard::take_from_bytes(payload)?;
         ensure!(tail.is_empty(), "tree cache trailing payload");
+        let deserialized = Instant::now();
         payload.validate(input, environment, id)?;
+        let validated = Instant::now();
         Ok(Self {
             payload,
             digest: TreeCacheContentId::from_digest(actual),
+            measurements: CacheAdmissionMeasurements {
+                container_guards: guarded.duration_since(started),
+                decompression: decompressed.duration_since(guarded),
+                decoded_digest: digested.duration_since(decompressed),
+                payload_decode: deserialized.duration_since(digested),
+                payload_validation: validated.duration_since(deserialized),
+                ..Default::default()
+            },
         })
     }
 

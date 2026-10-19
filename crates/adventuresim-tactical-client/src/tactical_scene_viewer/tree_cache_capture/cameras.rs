@@ -31,6 +31,7 @@ pub(in super::super) enum Plate {
 #[derive(Serialize)]
 pub(super) struct Cameras {
     root: PlateCamera,
+    additional_root_contacts: Option<[PlateCamera; 2]>,
     crown: PlateCamera,
     gameplay: PlateCamera,
 }
@@ -38,11 +39,19 @@ pub(super) struct Cameras {
 impl Cameras {
     pub(super) fn from_source(
         source: &TreeSourceGeometry,
-        root: Vec3,
+        roots: &[Vec3],
         terrain: &SceneTerrain,
     ) -> Result<Self> {
-        let low = Vec3::from_array(source.minimum.map(Metres::metres));
-        let high = Vec3::from_array(source.maximum.map(Metres::metres));
+        let root = *roots.first().context("source camera requires a root")?;
+        let source_low = Vec3::from_array(source.minimum.map(Metres::metres));
+        let source_high = Vec3::from_array(source.maximum.map(Metres::metres));
+        let mut low = source_low;
+        let mut high = source_high;
+        for position in roots {
+            let offset = *position - root;
+            low = low.min(source_low + offset);
+            high = high.max(source_high + offset);
+        }
         let centre = (low + high) * 0.5 + root;
         let radius = low.distance(high) * 0.5;
         let distance = radius / (FOV_DEGREES.to_radians() * 0.5).sin() * FRAME_MARGIN.ratio();
@@ -51,11 +60,14 @@ impl Cameras {
             "invalid source camera envelope"
         );
         Ok(Self {
-            root: PlateCamera {
-                plate: Plate::Root,
-                position: ground_eye(terrain, root + Vec3::new(3.8, 0.0, 4.2), ROOT_EYE)?,
-                target: root + Vec3::Y * 0.65,
-                up: Vec3::Y,
+            root: root_contact(terrain, root)?,
+            additional_root_contacts: match roots {
+                [_] => None,
+                [_, left, right] => Some([
+                    root_contact(terrain, *left)?,
+                    root_contact(terrain, *right)?,
+                ]),
+                _ => anyhow::bail!("unsupported source contact layout"),
             },
             crown: PlateCamera {
                 plate: Plate::Crown,
@@ -83,8 +95,8 @@ impl Cameras {
         })
     }
 
-    pub(super) fn views(&self, representation: TreeCacheRepresentation) -> [CaptureViewSpec; 4] {
-        [
+    pub(super) fn views(&self, representation: TreeCacheRepresentation) -> Vec<CaptureViewSpec> {
+        let mut views = vec![
             view("warmup", "Pipeline warmup", self.gameplay, representation).warmup(),
             view(
                 "cache-root",
@@ -93,6 +105,26 @@ impl Cameras {
                 representation,
             )
             .settled_readback_pair(),
+        ];
+        if let Some([left, right]) = self.additional_root_contacts {
+            views.extend([
+                view(
+                    "cache-root-left",
+                    "Left tree root contact",
+                    left,
+                    representation,
+                )
+                .settled_readback_pair(),
+                view(
+                    "cache-root-right",
+                    "Right tree root contact",
+                    right,
+                    representation,
+                )
+                .settled_readback_pair(),
+            ]);
+        }
+        views.extend([
             view(
                 "cache-crown",
                 "Source tree full crown",
@@ -107,8 +139,18 @@ impl Cameras {
                 representation,
             )
             .settled_readback_pair(),
-        ]
+        ]);
+        views
     }
+}
+
+fn root_contact(terrain: &SceneTerrain, root: Vec3) -> Result<PlateCamera> {
+    Ok(PlateCamera {
+        plate: Plate::Root,
+        position: ground_eye(terrain, root + Vec3::new(3.8, 0.0, 4.2), ROOT_EYE)?,
+        target: root + Vec3::Y * 0.65,
+        up: Vec3::Y,
+    })
 }
 
 fn view(

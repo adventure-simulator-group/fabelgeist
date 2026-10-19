@@ -24,13 +24,14 @@ mod background;
 mod cameras;
 mod evidence;
 pub(super) mod inventory;
+mod layout;
 mod material_draws;
 mod runtime;
 
 pub(super) const PROFILE: &str = "tree-cache-review";
 
 #[derive(Debug, clap::Args)]
-#[group(multiple = true, requires_all=["directory", "source", "role", "representation", "review_content", "scene_input"], conflicts_with_all=["fixture", "profile", "prepare_tree_bank", "canopy_bps", "absolute_minute", "leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "terrain_wireframe", "triangle_census", "city_cameras", "tree_review_azimuth_degrees"])]
+#[group(multiple = true, requires_all=["directory", "source", "role", "representation", "review_content", "layout", "scene_input"], conflicts_with_all=["fixture", "profile", "prepare_tree_bank", "canopy_bps", "absolute_minute", "leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "terrain_wireframe", "triangle_census", "city_cameras", "tree_review_azimuth_degrees"])]
 pub(crate) struct Options {
     /// Directory containing the checked complete variant.treecache.
     #[arg(long = "cache-review-dir")]
@@ -47,6 +48,9 @@ pub(crate) struct Options {
     /// Independently pinned payload identity from accepted offline producer evidence.
     #[arg(long = "cache-review-content")]
     review_content: Option<TreeCacheContentId>,
+    /// One tree or three terrain-supported roots sharing one production variant.
+    #[arg(long = "cache-review-layout", value_enum)]
+    layout: Option<layout::TreeLayout>,
 }
 
 struct Request {
@@ -55,16 +59,19 @@ struct Request {
     role: Role,
     representation: TreeCacheRepresentation,
     content: TreeCacheContentId,
+    layout: layout::TreeLayout,
 }
 
 #[derive(Resource)]
 pub(super) struct Review {
     role: Role,
+    layout: layout::TreeLayout,
     representation: TreeCacheRepresentation,
     source: PlantId,
     cache: Option<PreparedTreeCache>,
+    readmission: Option<PreparedTreeCache>,
     cameras: cameras::Cameras,
-    root: Vec3,
+    roots: Vec<Vec3>,
     metadata: serde_json::Value,
 }
 
@@ -83,6 +90,7 @@ pub(super) enum Role {
 impl Options {
     pub(super) fn admit(self, setup: &SceneSetupData) -> Result<Review> {
         let request = Request {
+            layout: self.layout.context("cache review layout required")?,
             content: self
                 .review_content
                 .context("cache producer content required")?,

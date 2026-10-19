@@ -1,9 +1,7 @@
 //! Retained CPU values, including fields ignored by StandardMaterial reflection.
 use super::*;
-use bevy::{
-    reflect::{PartialReflect, ReflectRef},
-    render::storage::ShaderBuffer,
-};
+use crate::presentation::material_image_ids;
+use bevy::{reflect::PartialReflect, render::storage::ShaderBuffer};
 use std::collections::HashSet;
 
 #[derive(SystemParam)]
@@ -54,14 +52,13 @@ impl Snapshot {
     pub(super) fn capture(stores: &Stores, members: &[Member]) -> Result<Self> {
         let meshes = members
             .iter()
-            .map(|member| {
+            .map(|member| member.mesh)
+            .collect::<HashSet<_>>()
+            .into_iter()
+            .map(|mesh| {
                 Ok((
-                    member.mesh,
-                    stores
-                        .meshes
-                        .get(member.mesh)
-                        .context("owned mesh asset")?
-                        .clone(),
+                    mesh,
+                    stores.meshes.get(mesh).context("owned mesh asset")?.clone(),
                 ))
             })
             .collect::<Result<Vec<_>>>()?;
@@ -72,7 +69,7 @@ impl Snapshot {
             .collect::<Result<Vec<_>>>()?;
         let mut image_ids = HashSet::new();
         for material in &materials {
-            image_handles(material.reflected(), &mut image_ids);
+            material_image_ids(material.reflected(), &mut image_ids);
         }
         let images = image_ids
             .into_iter()
@@ -251,46 +248,6 @@ impl MaterialValue {
     }
 }
 
-fn image_handles(value: &dyn PartialReflect, images: &mut HashSet<AssetId<Image>>) {
-    if let Some(handle) = value.try_downcast_ref::<Handle<Image>>() {
-        images.insert(handle.id());
-        return;
-    }
-    match value.reflect_ref() {
-        ReflectRef::Struct(value) => {
-            for (_, field) in value.iter_fields() {
-                image_handles(field, images);
-            }
-        }
-        ReflectRef::TupleStruct(value) => {
-            for field in value.iter_fields() {
-                image_handles(field, images);
-            }
-        }
-        ReflectRef::Tuple(value) => {
-            for field in value.iter_fields() {
-                image_handles(field, images);
-            }
-        }
-        ReflectRef::Enum(value) => {
-            for field in value.iter_fields() {
-                image_handles(field.value(), images);
-            }
-        }
-        ReflectRef::List(value) => {
-            for field in value.iter() {
-                image_handles(field, images);
-            }
-        }
-        ReflectRef::Array(value) => {
-            for field in value.iter() {
-                image_handles(field, images);
-            }
-        }
-        _ => {}
-    }
-}
-
 fn same_geometry(left: &Mesh, right: &Mesh) -> bool {
     left.primitive_topology() == right.primitive_topology()
         && left.indices() == right.indices()
@@ -310,7 +267,7 @@ pub(super) fn retain_cpu_data(
             .context("selected mesh retention")?
             .asset_usage |= bevy::asset::RenderAssetUsages::MAIN_WORLD;
         if let Ok(id) = material.try_typed::<TacticalTreeBarkMaterial>() {
-            image_handles(
+            material_image_ids(
                 world
                     .resource::<Assets<TacticalTreeBarkMaterial>>()
                     .get(id)
@@ -318,7 +275,7 @@ pub(super) fn retain_cpu_data(
                 &mut images,
             );
         } else if let Ok(id) = material.try_typed::<TacticalTreeLeafCardMaterial>() {
-            image_handles(
+            material_image_ids(
                 world
                     .resource::<Assets<TacticalTreeLeafCardMaterial>>()
                     .get(id)
@@ -326,7 +283,7 @@ pub(super) fn retain_cpu_data(
                 &mut images,
             );
         } else if let Ok(id) = material.try_typed::<TacticalTreeAggregateBarkMaterial>() {
-            image_handles(
+            material_image_ids(
                 world
                     .resource::<Assets<TacticalTreeAggregateBarkMaterial>>()
                     .get(id)
@@ -334,7 +291,7 @@ pub(super) fn retain_cpu_data(
                 &mut images,
             );
         } else if let Ok(id) = material.try_typed::<TacticalTreeImpostorMaterial>() {
-            image_handles(
+            material_image_ids(
                 world
                     .resource::<Assets<TacticalTreeImpostorMaterial>>()
                     .get(id)
@@ -343,7 +300,7 @@ pub(super) fn retain_cpu_data(
             );
         } else {
             let id = material.try_typed::<StandardMaterial>()?;
-            image_handles(
+            material_image_ids(
                 world
                     .resource::<Assets<StandardMaterial>>()
                     .get(id)

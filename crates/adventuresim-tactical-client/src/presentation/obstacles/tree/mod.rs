@@ -56,13 +56,14 @@ pub(in crate::presentation) use presentation::{
     present_pending_trees, stream_tree_lod_children,
 };
 pub(crate) use presentation::{
-    PresentedTree, TreeAssetResidencyDiagnostics, TreeLeafTriangleCount,
+    PresentedTree, TreeAssetOrigin, TreeAssetResidencyDiagnostics, TreeLeafTriangleCount,
 };
 pub(crate) use source::{TreePresentationSpecies, tree_species_for_site};
 pub(in crate::presentation) use source::{canopy_competition, vista_tree_species};
 
 #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
 pub(crate) use presentation::prepared::{
-    InstalledTreeMaterial, InstalledTreeOrigin, InstalledTreePart, InstalledTreePartRole,
-    InstalledTreeSpecimen, TreeCacheInspection, TreeCacheRepresentation,
+    InstalledTreeMaterial, InstalledTreePart, InstalledTreePartRole, InstalledTreeSpecimen,
+    InstalledTreeVariant, RootAdmissionReport, TreeCacheInspection, TreeCacheRepresentation,
+    TreeRootBatch, material_image_ids,
 };

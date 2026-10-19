@@ -70,8 +70,17 @@ tactical-scene-viewer --scene-input scene.json \
   --cache-source SOURCE_ID --cache-content APPROVED_CONTENT_ID
 ```
 
-The probe returns before renderer setup. It loads the scene to derive its live
-binding, but does not regenerate the source tree. `--check-tree-cache` retains
+The probe reports CPU input, identity and admission phases in
+microseconds. Admission subphases are separate nonoverlapping intervals;
+the outer cache-load interval includes them and must not be added to them.
+Process startup, shutdown and GPU work need separate measurements.
+
+The probe returns before renderer setup. It validates the input and derives
+the same input digest used by generated scenes, without materializing terrain,
+ground, obstacles or furniture. This establishes cache admission for that
+input identity, not successful physical scene generation. Integrated arrival
+measurements must retain any required server or client scene-generation work.
+The probe does not regenerate the source tree. `--check-tree-cache` retains
 the separate full offline source comparison. Both actions reject conflicting
 render and authoring options. The native capture still regenerates full source
 geometry for its camera contract; that diagnostic work is not arrival evidence.
@@ -91,17 +100,19 @@ output directory for each:
 tactical-scene-viewer --scene-input scene.json \
   --cache-review-dir fresh-cache --cache-review-source SOURCE_ID \
   --cache-review-content APPROVED_CONTENT_ID \
+  --cache-review-layout single \
   --cache-review-role reference --cache-review-representation lod2 \
   --output reference-plates
 
 tactical-scene-viewer --scene-input scene.json \
   --cache-review-dir fresh-cache --cache-review-source SOURCE_ID \
   --cache-review-content APPROVED_CONTENT_ID \
+  --cache-review-layout single \
   --cache-review-role candidate --cache-review-representation lod2 \
   --output cache-plates
 ```
 
-The five review options are required together. Available representations are
+The six review options are required together. Available representations are
 `cambered`, `flat`, `lod1`, `lod2`, `lod3` and `lod4`. The first two hold the
 detailed crown with curved leaves or the existing thinned flat leaf cards.
 One representation remains fixed throughout the process, including warmup.
@@ -156,3 +167,12 @@ storage-buffer or texture bytes. Queue prefixes do not identify a screenshot's
 exact GPU frame. Inspect paired images independently before accepting
 appearance. Forced static selection does not certify moving LOD transitions,
 distant instancing or complete visible-area arrival.
+
+The shared layout adds `cache-root-left` and `cache-root-right` contact
+views beside `cache-root`, so each placement has its own close ground view.
+
+Use `--cache-review-layout shared` for three terrain-supported placements of
+the same admitted variant. Their corresponding parts share the production
+cache's mesh, material and image handles. Static content review deliberately
+disables automatic batching and retains selected CPU assets for inspection;
+it does not establish multi-instance GPU draws or arrival performance.

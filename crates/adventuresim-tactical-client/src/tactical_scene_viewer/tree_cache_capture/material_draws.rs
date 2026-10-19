@@ -204,7 +204,7 @@ fn observe(world: &mut World) -> bevy::prelude::Result {
         return Ok(());
     }
     background::instrument(world);
-    inventory::OwnedSpecimen::instrument_children(world)?;
+    inventory::OwnedTrees::instrument_children(world)?;
     let checked = {
         let mut inspection = SystemState::<inventory::Inspector>::new(world);
         inspection.get(world).map_err(anyhow::Error::from)?.check()

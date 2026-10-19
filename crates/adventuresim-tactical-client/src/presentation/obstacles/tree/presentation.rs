@@ -118,11 +118,11 @@ struct CachedTreePresentation {
     resident_assets: TreeAssetResidencyDiagnostics,
 }
 
-#[derive(Clone)]
-enum TreeAssetOrigin {
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub(crate) enum TreeAssetOrigin {
     Generated,
     #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
-    Prepared(super::prepared_cache::TreeCacheContentId),
+    Prepared(super::prepared_cache::PreparedTreeIdentity),
 }
 
 #[derive(Clone)]

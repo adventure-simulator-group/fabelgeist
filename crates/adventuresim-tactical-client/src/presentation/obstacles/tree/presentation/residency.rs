@@ -95,10 +95,14 @@ impl RetainedTreePresentations {
     }
 
     pub(super) fn variant(&self, key: Seed) -> Option<CachedTreePresentation> {
-        self.scenes
-            .iter()
-            .rev()
-            .find_map(|scene| scene.cache.variants.get(&key).cloned())
+        self.scenes.iter().rev().find_map(|scene| {
+            scene
+                .cache
+                .variants
+                .get(&key)
+                .filter(|variant| matches!(variant.origin, TreeAssetOrigin::Generated))
+                .cloned()
+        })
     }
 
     pub(super) fn update_diagnostics(

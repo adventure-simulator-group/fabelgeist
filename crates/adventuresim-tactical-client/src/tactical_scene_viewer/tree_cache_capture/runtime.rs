@@ -4,7 +4,11 @@ use super::super::{
     setup_scene,
 };
 use super::*;
-use crate::presentation::{InstalledTreeSpecimen, TacticalGameplayCamera, TreeLodRenderOverride};
+use crate::presentation::{
+    InstalledTreeSpecimen, TacticalGameplayCamera, TreeLodRenderOverride, TreeRootBatch,
+};
+
+mod trees;
 
 #[derive(Resource)]
 pub(in super::super) struct ReadyPose(usize);
@@ -16,6 +20,7 @@ pub(in super::super) fn install(app: &mut App, review: Review) {
         review.role,
         review.representation,
         draws,
+        review.layout,
     );
     app.insert_resource(review)
         .insert_resource(evidence)
@@ -62,25 +67,7 @@ fn setup_inner(world: &mut World) -> Result<()> {
         leaf: first.leaf_lod_override,
         projected_scale: first.projected_scale,
     });
-    let role = world.resource::<Review>().role;
-    let root = world.resource::<Review>().root;
-    let owned = match role {
-        Role::Reference => {
-            let source = world.resource::<Review>().source;
-            inventory::OwnedSpecimen::from_cache(
-                InstalledTreeSpecimen::from_generated(world, source, root)?,
-                world,
-            )?
-        }
-        Role::Candidate => {
-            let cache = world
-                .resource_mut::<Review>()
-                .cache
-                .take()
-                .context("cache consumed once")?;
-            inventory::OwnedSpecimen::from_cache(cache.spawn(world, root)?, world)?
-        }
-    };
+    let owned = trees::install(world)?;
     owned.retain_cpu_data(world)?;
     world.insert_resource(owned);
     {
@@ -110,7 +97,7 @@ fn setup_inner(world: &mut World) -> Result<()> {
             "device_type": format!("{:?}", adapter.device_type), "driver": adapter.driver,
             "driver_info": adapter.driver_info},
         "projection_depth": world.resource::<cameras::PerspectiveDepth>(),
-        "retained_cache": world.resource::<inventory::OwnedSpecimen>().retained_report(),
+        "retained_cache": world.resource::<inventory::OwnedTrees>().retained_report(),
         "actual_virtual_seconds": world.resource::<Time<Virtual>>().elapsed_secs_f64(),
         "scope": "actual native renderer, isolated held production-cache content comparison"});
     fs::write(

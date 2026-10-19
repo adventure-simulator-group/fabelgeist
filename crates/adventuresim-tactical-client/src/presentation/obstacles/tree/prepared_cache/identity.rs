@@ -1,10 +1,19 @@
 //! Caller-selected identity of an independently verified complete producer payload.
-use super::{PlantId, SceneEnvironment, TacticalSceneInput};
+use super::{Binding, PlantId, SceneEnvironment, TacticalSceneInput, playable_cache_key};
+use anyhow::{Result, ensure};
 use serde::{Serialize, Serializer};
+use std::sync::Arc;
 use std::{fmt, str::FromStr};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) struct TreeCacheContentId(blake3::Hash);
+
+/// Complete checked producer binding retained after payload conversion.
+#[derive(Clone, PartialEq, Eq)]
+pub(crate) struct PreparedTreeIdentity {
+    content: TreeCacheContentId,
+    binding: Arc<Binding>,
+}
 
 /// The caller pins previously source-verified producer content independently
 /// of the file under review. Live input, environment and source are still
@@ -60,5 +69,45 @@ impl<'a> ExpectedTreeCache<'a> {
             source,
             content,
         }
+    }
+}
+
+impl PreparedTreeIdentity {
+    pub(super) fn from_checked(binding: Binding, content: TreeCacheContentId) -> Self {
+        Self {
+            content,
+            binding: Arc::new(binding),
+        }
+    }
+
+    pub(crate) fn content_id(&self) -> TreeCacheContentId {
+        self.content
+    }
+
+    pub(in crate::presentation::obstacles::tree) fn verify_environment(
+        &self,
+        environment: &SceneEnvironment,
+    ) -> Result<()> {
+        ensure!(
+            self.binding.environment == serde_json::to_vec(environment)?,
+            "prepared tree destination environment changed"
+        );
+        ensure!(
+            self.binding.cache_key
+                == playable_cache_key(self.binding.species, self.binding.seed, environment),
+            "prepared tree destination site changed"
+        );
+        Ok(())
+    }
+}
+
+impl fmt::Debug for PreparedTreeIdentity {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter
+            .debug_struct("PreparedTreeIdentity")
+            .field("content", &self.content)
+            .field("source", &self.binding.source)
+            .field("cache_key", &self.binding.cache_key)
+            .finish_non_exhaustive()
     }
 }

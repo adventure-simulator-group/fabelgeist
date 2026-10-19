@@ -46,8 +46,9 @@ pub(crate) use obstacles::tree::authoring::{
 pub(crate) use obstacles::tree::prepared_cache;
 #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
 pub(crate) use obstacles::tree::{
-    InstalledTreeMaterial, InstalledTreeOrigin, InstalledTreePart, InstalledTreePartRole,
-    InstalledTreeSpecimen, TreeCacheInspection, TreeCacheRepresentation,
+    InstalledTreeMaterial, InstalledTreePart, InstalledTreePartRole, InstalledTreeSpecimen,
+    InstalledTreeVariant, RootAdmissionReport, TreeAssetOrigin, TreeCacheInspection,
+    TreeCacheRepresentation, TreeRootBatch, material_image_ids,
 };
 pub(crate) mod ownership;
 mod procedural;

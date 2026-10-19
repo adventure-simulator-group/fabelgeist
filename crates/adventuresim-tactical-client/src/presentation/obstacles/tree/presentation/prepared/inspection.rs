@@ -88,7 +88,7 @@ pub(super) fn installed_parts(
             },
             mesh: card.mesh.id(),
             material: InstalledTreeMaterial::Card {
-                material: card.material.id().untyped(),
+                material: card.material.id(),
                 image: material.baked_color.id(),
             },
         });
@@ -100,6 +100,8 @@ pub(super) fn installed_parts(
 #[derive(SystemParam)]
 pub(crate) struct TreeCacheInspection<'w, 's> {
     cache: Res<'w, TreePresentationCache>,
+    active: Res<'w, ActiveTacticalScene>,
+    environments: Query<'w, 's, &'static SceneEnvironment>,
     streams: Query<'w, 's, &'static StreamedTreePresentation>,
     meshes: Res<'w, Assets<Mesh>>,
     cards: Res<'w, Assets<TacticalTreeImpostorMaterial>>,
@@ -127,7 +129,7 @@ impl TreeCacheInspection<'_, '_> {
         let expected = self
             .cache
             .variants
-            .get(&installed.cache_key)
+            .get(&installed.variant.cache_key)
             .and_then(|cached| cached.lod_cards.get(index))
             .and_then(Option::as_ref)
             .context("owned card has no production cache record")?;
@@ -146,7 +148,7 @@ impl TreeCacheInspection<'_, '_> {
         let expected = self
             .cache
             .variants
-            .get(&installed.cache_key)
+            .get(&installed.variant.cache_key)
             .and_then(|cached| cached.clusters.as_ref())
             .and_then(|groups| {
                 groups
@@ -168,24 +170,29 @@ impl TreeCacheInspection<'_, '_> {
     ) -> Result<()> {
         let stream = self.streams.get(installed.root)?;
         installed.verify_records(&self.cache, &self.cards, stream, representation)?;
-        for part in &installed.parts {
-            ensure!(
-                self.meshes.contains(part.mesh),
-                "retained prepared mesh missing"
-            );
-            let present = match part.material {
-                InstalledTreeMaterial::Bark(id) => self.bark.contains(id),
-                InstalledTreeMaterial::Aggregate(id) => self.aggregate.contains(id),
-                InstalledTreeMaterial::Leaves(id) => self.leaves.contains(id),
-                InstalledTreeMaterial::Buds(id) => self.buds.contains(id),
-                InstalledTreeMaterial::Card { material, image } => {
-                    self.cards
-                        .contains(material.try_typed::<TacticalTreeImpostorMaterial>()?)
-                        && self.images.contains(image)
-                }
-            };
-            ensure!(present, "retained prepared material/image missing");
-        }
+        ensure!(
+            self.active.entity == Some(installed.variant.scene),
+            "inspected tree variant belongs to another scene"
+        );
+        ensure!(
+            serde_json::to_vec(self.environments.get(installed.variant.scene)?)?
+                == serde_json::to_vec(&installed.variant.environment)?,
+            "inspected tree environment changed"
+        );
+        ensure!(
+            dependencies::PartDependencies {
+                meshes: &self.meshes,
+                materials: &self.buds,
+                bark: &self.bark,
+                aggregate_bark: &self.aggregate,
+                leaves: &self.leaves,
+                cards: &self.cards,
+                images: &self.images,
+            }
+            .verify(&installed.variant.parts)?
+                == installed.variant.images,
+            "retained prepared material image binding drift"
+        );
         Ok(())
     }
 }
@@ -201,24 +208,19 @@ impl InstalledTreeSpecimen {
     ) -> Result<()> {
         let cached = cache
             .variants
-            .get(&self.cache_key)
+            .get(&self.variant.cache_key)
             .context("retained prepared entry")?;
         ensure!(
-            match (&cached.origin, self.origin) {
-                (TreeAssetOrigin::Generated, InstalledTreeOrigin::Generated) => true,
-                (TreeAssetOrigin::Prepared(actual), InstalledTreeOrigin::Prepared(expected)) =>
-                    *actual == expected,
-                _ => false,
-            },
+            cached.origin == self.variant.origin,
             "prepared origin/content drift"
         );
         require_resident(cached, COMPLETE_STREAM_MASK)?;
         ensure!(
-            installed_parts(cached, cards)? == self.parts,
+            installed_parts(cached, cards)? == self.variant.parts,
             "retained cache part binding drift"
         );
         ensure!(
-            stream.cache_key == self.cache_key
+            stream.cache_key == self.variant.cache_key
                 && stream.resident_mask == representation.stream_mask()
                 && stream.active_mask == representation.stream_mask()
                 && stream.resident_leaf_mask == representation.leaf_mask()

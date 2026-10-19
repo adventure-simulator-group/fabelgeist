@@ -13,7 +13,28 @@ pub(super) struct AssetStores<'w> {
     textures: Res<'w, ProceduralTextureAssets>,
 }
 
+pub(super) struct VariantAdmission {
+    pub(super) key: Seed,
+    pub(super) assets_added: bool,
+}
+
 impl AssetStores<'_> {
+    pub(super) fn verify_parts(
+        &self,
+        parts: &[InstalledTreePart],
+    ) -> Result<std::collections::HashSet<AssetId<Image>>> {
+        dependencies::PartDependencies {
+            meshes: &self.meshes,
+            materials: &self.materials,
+            bark: &self.bark,
+            aggregate_bark: &self.aggregate_bark,
+            leaves: &self.leaves,
+            cards: &self.cards,
+            images: &self.images,
+        }
+        .verify(parts)
+    }
+
     fn bind_materials(
         &mut self,
         cache: &mut TreePresentationCache,
@@ -100,11 +121,20 @@ impl TreePresentationCache {
         variant: PreparedVariant,
         terrain: &SceneTerrain,
         stores: &mut AssetStores,
-    ) -> Result<Seed> {
-        ensure!(
-            !self.variants.contains_key(&variant.key),
-            "prepared tree cache key already occupied"
-        );
+    ) -> Result<VariantAdmission> {
+        if let Some(cached) = self.variants.get(&variant.key) {
+            ensure!(
+                cached.origin == TreeAssetOrigin::Prepared(variant.identity.clone()),
+                "prepared tree cache key has another origin/binding"
+            );
+            require_resident(cached, COMPLETE_STREAM_MASK)?;
+            let parts = inspection::installed_parts(cached, &stores.cards)?;
+            stores.verify_parts(&parts)?;
+            return Ok(VariantAdmission {
+                key: variant.key,
+                assets_added: false,
+            });
+        }
         let bindings = stores.bind_materials(self, terrain, variant.species)?;
         let mut diagnostics = TreeAssetResidencyDiagnostics {
             variants: 1,
@@ -154,7 +184,7 @@ impl TreePresentationCache {
             )?),
         ];
         let cached = CachedTreePresentation {
-            origin: TreeAssetOrigin::Prepared(variant.content),
+            origin: TreeAssetOrigin::Prepared(variant.identity),
             variant_seed: variant.seed,
             species: variant.species,
             species_name: variant.species.name(),
@@ -174,7 +204,10 @@ impl TreePresentationCache {
         };
         require_resident(&cached, COMPLETE_STREAM_MASK)?;
         self.variants.insert(variant.key, cached);
-        Ok(variant.key)
+        Ok(VariantAdmission {
+            key: variant.key,
+            assets_added: true,
+        })
     }
 }
 

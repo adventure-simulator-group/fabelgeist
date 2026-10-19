@@ -12,6 +12,7 @@ pub(in super::super) struct Evidence {
     data: Arc<Mutex<Data>>,
     role: Role,
     representation: TreeCacheRepresentation,
+    layout: layout::TreeLayout,
 }
 
 struct Data {
@@ -28,10 +29,12 @@ impl Evidence {
         role: Role,
         representation: TreeCacheRepresentation,
         draws: material_draws::SpecimenDraws,
+        layout: layout::TreeLayout,
     ) -> Self {
         Self {
             role,
             representation,
+            layout,
             data: Arc::new(Mutex::new(Data {
                 metadata,
                 draws,
@@ -78,7 +81,7 @@ impl Evidence {
     }
 
     pub(in super::super) fn selected_cache_roots(&self) -> usize {
-        1
+        self.layout.root_count()
     }
 
     pub(in super::super) fn capability(
@@ -94,7 +97,7 @@ impl Evidence {
         TreePresentationCapability::FixedProductionRepresentation {
             role: self.role,
             representation: self.representation,
-            owned_inventory_verified: clean && presented_roots == 1,
+            owned_inventory_verified: clean && presented_roots == self.layout.root_count(),
         }
     }
 
