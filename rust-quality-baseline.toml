@@ -72,7 +72,7 @@ ceiling = 1171
 
 [[files]]
 path = "crates/adventuresim-character-creator/src/export.rs"
-ceiling = 841
+ceiling = 836
 
 [[files]]
 path = "crates/adventuresim-core/src/autoresolve.rs"
@@ -224,7 +224,7 @@ ceiling = 689
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
-ceiling = 3172
+ceiling = 3037
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/condition.rs"
@@ -504,19 +504,19 @@ ceiling = 790
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-ceiling = 804
+ceiling = 738
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
-ceiling = 1433
+ceiling = 1356
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
-ceiling = 863
+ceiling = 707
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs"
-ceiling = 2771
+ceiling = 2770
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs"
@@ -524,15 +524,15 @@ ceiling = 581
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs"
-ceiling = 927
+ceiling = 924
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-ceiling = 1166
+ceiling = 1143
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
-ceiling = 1296
+ceiling = 1265
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
@@ -540,7 +540,7 @@ ceiling = 756
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
-ceiling = 1219
+ceiling = 1204
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/diagnostics.rs"
@@ -548,11 +548,11 @@ ceiling = 711
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
-ceiling = 1050
+ceiling = 1049
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/player.rs"
-ceiling = 1094
+ceiling = 1030
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/clouds.rs"
@@ -596,11 +596,11 @@ ceiling = 857
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/animation/state.rs"
-ceiling = 2545
+ceiling = 2529
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/combat_config.rs"
-ceiling = 838
+ceiling = 761
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/inventory.rs"
@@ -608,7 +608,7 @@ ceiling = 551
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/physics.rs"
-ceiling = 946
+ceiling = 945
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/scene_input.rs"
@@ -628,7 +628,7 @@ ceiling = 593
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
-ceiling = 2051
+ceiling = 2035
 
 [[files]]
 path = "crates/adventuresim-terrain/src/builder.rs"
@@ -1063,7 +1063,7 @@ ceiling = 111
 [[functions]]
 path = "crates/adventuresim-character-creator/src/export.rs"
 item = "export_rigged_glb"
-ceiling = 273
+ceiling = 268
 
 [[functions]]
 path = "crates/adventuresim-core/build.rs"
@@ -2183,12 +2183,12 @@ ceiling = 107
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/diagnostics.rs"
 item = 'log_animation_diagnostics@cfg(not(target_family="wasm"))'
-ceiling = 154
+ceiling = 150
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/loading.rs"
 item = "collect_loaded_packs"
-ceiling = 131
+ceiling = 119
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
@@ -2198,22 +2198,22 @@ ceiling = 175
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
 item = "measure_authored_contact_step_distance"
-ceiling = 211
+ceiling = 183
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
 item = "sample_plan"
-ceiling = 304
+ceiling = 271
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
 item = "update_pose_buffers"
-ceiling = 190
+ceiling = 186
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
 item = "apply_landing_leg_compression"
-ceiling = 145
+ceiling = 141
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
@@ -2233,7 +2233,7 @@ ceiling = 209
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs"
 item = "apply_terrain_leg_ik"
-ceiling = 2705
+ceiling = 2704
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs"
@@ -2253,12 +2253,12 @@ ceiling = 148
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
 item = "capture_frame"
-ceiling = 312
+ceiling = 298
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
 item = "drive_sequence"
-ceiling = 309
+ceiling = 299
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
@@ -2268,7 +2268,7 @@ ceiling = 111
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
 item = "scenario_metrics"
-ceiling = 189
+ceiling = 172
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
@@ -2413,12 +2413,12 @@ ceiling = 185
 [[functions]]
 path = "crates/adventuresim-tactical-core/src/combat_config.rs"
 item = "TacticalCombatConfig::validate"
-ceiling = 426
+ceiling = 380
 
 [[functions]]
 path = "crates/adventuresim-tactical-core/src/physics.rs"
 item = "apply_character_motor"
-ceiling = 400
+ceiling = 398
 
 [[functions]]
 path = "crates/adventuresim-tactical-netcode/src/client.rs"
