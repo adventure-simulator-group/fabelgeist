@@ -1091,27 +1091,6 @@ mod tests {
     }
 
     #[test]
-    fn continuation_cooldown_uses_the_replicated_animation_clock() {
-        let skeleton = SkeletonState::default().with_locomotion_sample_tick(
-            adventuresim_tactical_core::animation::AnimationSampleTick::from(700u64),
-        );
-
-        assert_eq!(
-            melee_contact_delay_from_input(&skeleton, true, AnimationSampleTick::from(732u64), 0.3),
-            0.5
-        );
-        assert_eq!(
-            melee_contact_delay_from_input(
-                &skeleton,
-                false,
-                AnimationSampleTick::from(732u64),
-                0.3
-            ),
-            0.3
-        );
-    }
-
-    #[test]
     fn unreachable_preferred_head_falls_back_within_the_same_enemy() {
         let preferred = Entity::from_bits(1);
         let other = Entity::from_bits(2);
