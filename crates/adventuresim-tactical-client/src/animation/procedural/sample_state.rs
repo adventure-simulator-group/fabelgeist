@@ -15,7 +15,7 @@ use bevy::prelude::*;
 // remains untouched.
 #[derive(Component, Debug, Clone, Copy, Default)]
 pub(crate) struct LocomotionHeightState {
-    pub(super) initialization: HeightInitialization,
+    pub(super) history: Option<HeightHistory>,
     pub(super) amplitude: HeightDistance,
     pub(super) authored_rise_compensation: HeightDistance,
     pub(super) displayed_wave: SignedLength,
@@ -29,12 +29,6 @@ pub(crate) struct LocomotionHeightState {
     pub(super) landing_plant_owner_position: Option<Vec3>,
     pub(super) landing_plant_tick: Option<AnimationSampleTick>,
     pub(super) landing_plant_resync_tick: Option<AnimationSampleTick>,
-    pub(super) last_landing_sequence: LandingSequence,
-    pub(super) last_guard: Option<WeaponGuardState>,
-    pub(super) last_posture: Option<Posture>,
-    pub(super) last_action: Option<SkeletonAction>,
-    pub(super) last_ground_contact: Option<GroundContact>,
-    pub(super) evaluation_tick: Option<AnimationSampleTick>,
 }
 
 #[derive(Component, Debug, Clone, Copy, Default)]
@@ -52,9 +46,25 @@ pub(crate) struct LocomotionBodyResponseState {
     pub(super) last_ground_contact: Option<GroundContact>,
 }
 
-#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
-pub(super) enum HeightInitialization {
-    #[default]
-    Pending,
-    Ready,
+#[derive(Debug, Clone, Copy)]
+pub(super) struct HeightHistory {
+    pub(super) guard: WeaponGuardState,
+    pub(super) posture: Posture,
+    pub(super) action: SkeletonAction,
+    pub(super) ground_contact: GroundContact,
+    pub(super) landing_sequence: LandingSequence,
+    pub(super) evaluation_tick: AnimationSampleTick,
+}
+
+impl HeightHistory {
+    pub(super) fn observe(skeleton: &SkeletonState) -> Self {
+        Self {
+            guard: skeleton.weapon_guard(),
+            posture: skeleton.posture(),
+            action: skeleton.action_kind(),
+            ground_contact: GroundContact::from(skeleton),
+            landing_sequence: skeleton.landing_sequence,
+            evaluation_tick: skeleton.locomotion_sample_tick,
+        }
+    }
 }

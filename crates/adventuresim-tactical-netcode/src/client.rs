@@ -1097,8 +1097,8 @@ mod tests {
                     PostureTransitionKind::ProneToSupine {
                         direction: RollDirection::Right,
                     },
-                    0,
-                    2,
+                    adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                    adventuresim_tactical_core::animation::AnimationSampleSpan::from(2u64),
                 )
         );
         schedule.run(&mut world);
@@ -1113,7 +1113,9 @@ mod tests {
         world
             .get_mut::<SkeletonState>(player)
             .unwrap()
-            .advance_posture_transition(2);
+            .advance_posture_transition(
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(2u64),
+            );
         schedule.run(&mut world);
         assert_eq!(
             world.resource::<DirectControlState>().posture_command,

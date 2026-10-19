@@ -3,7 +3,7 @@
 use super::*;
 
 pub(super) struct RigDefinition {
-    pub(super) family: String,
+    pub(super) family: SkeletonFamily,
     pub(super) joints: RigJointTable<RigJoint>,
     pub(super) name_ordinals: std::sync::OnceLock<HashMap<RigJointName, RigJointOrdinal>>,
 }
@@ -51,7 +51,7 @@ impl RigDefinitions {
     pub(super) fn bind(
         &mut self,
         owner: Entity,
-        family: String,
+        family: SkeletonFamily,
         targets: &Query<(
             Entity,
             &AnimationTargetId,
@@ -158,7 +158,7 @@ impl PoseBufferRig {
                 AnimationElapsed::from(time.delta())
             }
         }
-        .capped_by_seconds(pose_tuning().maximum_observation_seconds)?;
+        .min(pose_tuning().maximum_observation_seconds.elapsed());
         self.decay_delta_seconds = elapsed;
         Ok(Some(elapsed))
     }

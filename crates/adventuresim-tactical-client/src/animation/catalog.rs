@@ -1,10 +1,12 @@
-use adventuresim_tactical_core::animation::AnimationPackId;
-use std::{collections::BTreeMap, str::FromStr};
+use adventuresim_tactical_core::animation::{AnimationPackId, SkeletonFamily};
+use std::collections::BTreeMap;
 
 #[cfg(test)]
 use std::path::{Path, PathBuf};
 
-use super::catalog_id::{AnimationAssetPath, AuthoredAnimationFrame, MotionId};
+use super::catalog_id::{
+    AnimationAssetDirectory, AnimationAssetPath, AuthoredAnimationFrame, MotionId,
+};
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
 
@@ -23,7 +25,7 @@ pub struct AnimationPackCatalog {
 
 #[derive(Debug, Clone)]
 pub(super) struct PackCatalog {
-    pub(super) skeleton_family: String,
+    pub(super) skeleton_family: SkeletonFamily,
     pub(super) fallback: Option<AnimationPackId>,
     pub(super) motions: BTreeMap<MotionId, MotionSource>,
     pub(super) poses: BTreeMap<SemanticPose, PoseAnchor>,
@@ -51,12 +53,14 @@ pub(super) struct ReferenceAnchor {
 
 pub(super) struct PackBuilder {
     id: AnimationPackId,
-    path_prefix: String,
+    asset_directory: AnimationAssetDirectory,
     pack: PackCatalog,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(super) enum CatalogError {
+    InvalidAssetDirectory(String),
+    InvalidMotionStem(String),
     DuplicatePose(SemanticPose),
     UnknownMotion(String),
     InvalidPack(PackValidationError),
@@ -74,13 +78,13 @@ impl Default for AnimationPackCatalog {
 impl PackBuilder {
     pub(super) fn new(
         id: &AnimationPackId,
-        skeleton_family: &str,
+        skeleton_family: &SkeletonFamily,
         fallback: Option<&AnimationPackId>,
-        path_prefix: &str,
+        asset_directory: AnimationAssetDirectory,
     ) -> Self {
         Self {
             id: id.to_owned(),
-            path_prefix: path_prefix.trim_end_matches('/').to_owned(),
+            asset_directory,
             pack: PackCatalog {
                 skeleton_family: skeleton_family.to_owned(),
                 fallback: fallback.cloned(),
@@ -91,20 +95,20 @@ impl PackBuilder {
         }
     }
 
-    pub(super) fn motion(&mut self, id: &str, last_frame: AuthoredAnimationFrame) {
+    pub(super) fn motion(&mut self, id: &MotionId, last_frame: AuthoredAnimationFrame) {
         self.variable_motion(id, last_frame, last_frame);
     }
 
     pub(super) fn variable_motion(
         &mut self,
-        id: &str,
+        id: &MotionId,
         required_last_frame: AuthoredAnimationFrame,
         last_frame: AuthoredAnimationFrame,
     ) {
         self.pack.motions.insert(
-            MotionId::from(id),
+            id.clone(),
             MotionSource {
-                path: AnimationAssetPath::from(format!("{}/{id}.glb", self.path_prefix)),
+                path: self.asset_directory.motion_path(id),
                 required_last_frame,
                 last_frame,
             },
@@ -113,12 +117,11 @@ impl PackBuilder {
 
     pub(super) fn pose(
         &mut self,
-        motion: &str,
+        motion: &MotionId,
         frame: AuthoredAnimationFrame,
         pose: SemanticPose,
     ) -> Result<(), CatalogError> {
-        let motion = MotionId::from(motion);
-        if !self.pack.motions.contains_key(&motion) {
+        if !self.pack.motions.contains_key(motion) {
             return Err(CatalogError::UnknownMotion(motion.to_string()));
         }
         if self
@@ -140,19 +143,16 @@ impl PackBuilder {
 
     pub(super) fn reference(
         &mut self,
-        motion: &str,
+        motion: &MotionId,
         frame: AuthoredAnimationFrame,
-        pose: &str,
+        pose: SemanticPose,
     ) -> Result<(), CatalogError> {
-        let motion = MotionId::from(motion);
-        if !self.pack.motions.contains_key(&motion) {
+        if !self.pack.motions.contains_key(motion) {
             return Err(CatalogError::UnknownMotion(motion.to_string()));
         }
-        let pose = SemanticPose::from_str(pose)
-            .map_err(|()| CatalogError::UnknownMotion(pose.to_owned()))?;
         self.pack
             .references
-            .entry(motion)
+            .entry(motion.clone())
             .or_default()
             .push(ReferenceAnchor { pose, frame });
         Ok(())
@@ -235,9 +235,14 @@ pub(crate) fn validate_editor_asset_root(
         .with_world_velocity(Vec3::NEG_Z * 2.0);
     let mut raised_attack = SkeletonState::default();
     raised_attack
-        .begin_attack(AttackSpec::default(), 10, 20)
+        .begin_attack(
+            AttackSpec::default(),
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64),
+        )
         .expect("catalog fixture starts from idle");
-    raised_attack.advance_action(20);
+    raised_attack
+        .advance_action(adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64));
 
     let mut route_resolutions = Vec::new();
     for (route, state) in [

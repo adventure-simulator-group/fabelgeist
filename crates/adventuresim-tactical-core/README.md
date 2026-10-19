@@ -138,3 +138,11 @@ or serialized products therefore receive a fresh owning cache identity. Cached
 products from a different executable are not decoded through a compatibility
 path. Native preparation retains bounded immutable recipes separately from
 renderer entities and tactical state.
+Shared animation measurements distinguish zero-permitting nonnegative length
+and speed from positive durations used as divisors. Presentation height roles
+retain those leaves without narrowing general movement speed. A finite unit
+interval can back bounded roles; additive `BlendWeight` still permits values
+above one. Signed phase, sample times and body deflections remain unwrapped and
+signed at admission. Sample spans retain scalar unsigned encodings separately
+from absolute sample ticks. Downed turning and guarded locomotion retain named
+states while their existing wire fields remain Boolean scalars.

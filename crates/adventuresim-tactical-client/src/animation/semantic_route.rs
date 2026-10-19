@@ -35,7 +35,6 @@ pub(crate) struct SemanticRouteTrace {
     pub requested_path: SemanticRoutePath,
     pub path: SemanticRoutePath,
     pub evaluation: AnimationEvaluation,
-    pub runtime_evaluated: bool,
 }
 
 #[derive(Resource, Debug, Default)]
@@ -92,7 +91,6 @@ pub(super) fn route_semantic_pose(
         requested_path: path,
         path,
         evaluation,
-        runtime_evaluated: true,
     })
 }
 
@@ -220,11 +218,4 @@ fn requested_path(skeleton: &PresentedSkeleton) -> SemanticRoutePath {
     } else {
         SemanticRoutePath::GeneralPose
     }
-}
-
-#[cfg(test)]
-pub(super) fn route_semantic_pose_for_test(
-    In(skeleton): In<PresentedSkeleton>,
-) -> SemanticRouteTrace {
-    route_semantic_pose(&skeleton).unwrap()
 }

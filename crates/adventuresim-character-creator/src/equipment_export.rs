@@ -6,6 +6,10 @@ use adventuresim_character_creator::{
     equipment_catalog::EquipmentItemSelection, item_catalog_schema::EquipmentPlacement,
     item_design::ItemDesign,
 };
+use adventuresim_core::equipment_assets::{
+    EQUIPMENT_MANIFEST_SCHEMA_VERSION, EQUIPMENT_MHR_RELEASE, GLB_EXTENSION,
+    ProceduralEquipmentAsset, ProceduralEquipmentManifest,
+};
 
 struct EquipmentExporter<'a> {
     model: &'a BodyModel,
@@ -37,10 +41,13 @@ impl EquipmentExporter<'_> {
         item: &ItemDefinition,
         placement: &EquipmentPlacement,
         design: &ItemDesign,
-    ) -> Result<serde_json::Value> {
+    ) -> Result<ProceduralEquipmentAsset> {
         let model = self.model;
         let recipe = self.recipe;
-        let equipment = item.equipment.as_ref().expect("filtered equipment");
+        let equipment = item
+            .equipment
+            .as_ref()
+            .context("filtered equipment is missing its definition")?;
         let armor = parametric_equipment::fitted_catalog_item(
             model,
             self.generated,
@@ -92,31 +99,40 @@ impl EquipmentExporter<'_> {
             &rigged_shells,
             &[],
         )?;
-        Ok(serde_json::json!({
-            "item_id": item.id,
-            "placement_id": placement.id,
-            "file": file_name,
-            "coverage": parametric_coverage,
-            "material": equipment.material,
-            "triangles": faces.len(),
-            "armor_generator_version": fabelgeist_armor::GENERATOR_VERSION,
-            "armor_design_hash": armor.design_hash.iter().map(|byte| format!("{byte:02x}")).collect::<String>(),
-            "morph_targets": armor.morphs.len(),
-            "surface_uv_domain": armor.surface_domain,
-        }))
+        Ok(ProceduralEquipmentAsset {
+            item_id: item.id.clone(),
+            placement_id: placement.id.clone(),
+            file: file_name,
+            coverage: parametric_coverage,
+            material: equipment.material,
+            triangles: faces.len(),
+            armor_generator_version: Some(fabelgeist_armor::GENERATOR_VERSION),
+            armor_design_hash: Some(
+                armor
+                    .design_hash
+                    .iter()
+                    .map(|byte| format!("{byte:02x}"))
+                    .collect(),
+            ),
+            morph_targets: armor.morphs.len(),
+            surface_uv_domain: Some(armor.surface_domain.clone()),
+        })
     }
     fn garment(
         &self,
         output: &std::path::Path,
         item: &ItemDefinition,
         placement: &EquipmentPlacement,
-    ) -> Result<serde_json::Value> {
+    ) -> Result<ProceduralEquipmentAsset> {
         let model = self.model;
         let recipe = self.recipe;
         let generated = self.generated;
         let morphs = self.morphs;
         let character = &model.mhr.character;
-        let equipment = item.equipment.as_ref().expect("filtered equipment");
+        let equipment = item
+            .equipment
+            .as_ref()
+            .context("filtered equipment is missing its definition")?;
         let specification = GarmentSpecification::from_catalog(
             format!("{} · {}", item.display_name, placement.id).into(),
             placement,
@@ -155,15 +171,18 @@ impl EquipmentExporter<'_> {
             &[rigged_shell],
             &sockets,
         )?;
-        Ok(serde_json::json!({
-            "item_id": item.id,
-            "placement_id": placement.id,
-            "file": file_name,
-            "coverage": placement_coverage(placement),
-            "material": equipment.material,
-            "triangles": shell.faces.len(),
-            "morph_targets": targets.len(),
-        }))
+        Ok(ProceduralEquipmentAsset {
+            item_id: item.id.clone(),
+            placement_id: placement.id.clone(),
+            file: file_name,
+            coverage: placement_coverage(placement),
+            material: equipment.material,
+            triangles: shell.faces.len(),
+            morph_targets: targets.len(),
+            armor_generator_version: None,
+            armor_design_hash: None,
+            surface_uv_domain: None,
+        })
     }
     fn sockets<'a>(
         &self,
@@ -172,7 +191,10 @@ impl EquipmentExporter<'_> {
         rigged_shell: &RiggedShell<'_>,
     ) -> Result<Vec<RiggedSocket<'a>>> {
         let character = &self.model.mhr.character;
-        let equipment = item.equipment.as_ref().expect("filtered equipment");
+        let equipment = item
+            .equipment
+            .as_ref()
+            .context("filtered equipment is missing its definition")?;
         let surface_uv_layout = SurfaceUvLayout {
             domain: MHR_ANATOMICAL_UV_DOMAIN,
             texcoords: &character.mesh.texcoords,
@@ -183,7 +205,9 @@ impl EquipmentExporter<'_> {
             .iter()
             .filter(|point| point.tangent_direction.is_some())
             .map(|point| {
-                let tangent = point.tangent_direction.expect("filtered tangent");
+                let tangent = point
+                    .tangent_direction
+                    .context("filtered attachment tangent is missing")?;
                 let outward = point
                     .locations
                     .iter()
@@ -269,7 +293,10 @@ pub(super) fn generate_equipment_assets(
         if !selection.includes(item) {
             continue;
         }
-        let equipment = item.equipment.as_ref().expect("filtered equipment");
+        let equipment = item
+            .equipment
+            .as_ref()
+            .context("filtered equipment is missing its definition")?;
         for placement in &equipment.placements {
             if placement.surface.is_empty() {
                 continue;
@@ -295,7 +322,9 @@ pub(super) fn generate_equipment_assets(
     }
     for entry in std::fs::read_dir(output)? {
         let path = entry?.path();
-        if path.extension().is_some_and(|extension| extension == "glb")
+        if path
+            .extension()
+            .is_some_and(|extension| extension == GLB_EXTENSION)
             && path
                 .file_name()
                 .and_then(|name| name.to_str())
@@ -305,15 +334,15 @@ pub(super) fn generate_equipment_assets(
                 .with_context(|| format!("removing stale generated asset {}", path.display()))?;
         }
     }
-    let manifest = serde_json::json!({
-        "schema_version": 1,
-        "mhr_release": "v1.0.1",
-        "lod": model.lod,
-        "assets": assets,
-    });
+    let manifest = ProceduralEquipmentManifest {
+        schema_version: EQUIPMENT_MANIFEST_SCHEMA_VERSION,
+        mhr_release: EQUIPMENT_MHR_RELEASE.to_owned(),
+        lod: model.lod,
+        assets,
+    };
     std::fs::write(
         output.join("manifest.json"),
-        serde_json::to_vec_pretty(&manifest)?,
+        serde_json::to_vec_pretty(&serde_json::to_value(&manifest)?)?,
     )?;
     Ok(())
 }

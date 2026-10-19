@@ -97,7 +97,11 @@ pub(super) fn bake_clip(
 ) -> AnimationValueResult<BakedClip> {
     let source_duration = ClipDuration::from_seconds(clip.duration())?;
     // Preserve the existing minimum sampling-grid extent, after source admission.
-    let duration = ClipDuration::from_seconds(source_duration.seconds().max(0.001))?;
+    let duration = ClipDuration::from_seconds(
+        source_duration
+            .seconds()
+            .max(pose_tuning().minimum_baked_grid_seconds.seconds()),
+    )?;
     let frame_dt = AnimationElapsed::from_seconds(pose_sample_seconds())?;
     let grid_span = duration.seconds() / frame_dt.seconds();
     if frame_dt.is_zero() || !grid_span.is_finite() || grid_span.ceil() >= usize::MAX as f32 {

@@ -105,7 +105,7 @@ mod tests {
             }
         };
         let definition = RigDefinition {
-            family: "test".to_owned(),
+            family: "test".into(),
             joints: vec![
                 joint("root", None),
                 joint("r_lowarm", Some(0)),

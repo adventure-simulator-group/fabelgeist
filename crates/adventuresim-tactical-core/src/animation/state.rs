@@ -1,10 +1,14 @@
 use super::*;
+use action_timeline::ActionTimeline;
+use guard_footwork::advance_guard_footwork;
 pub use projection::{
     SkeletonLocomotionInput, project_skeleton_locomotion,
     project_skeleton_locomotion_with_body_rotation, project_skeleton_locomotion_with_intent,
 };
 pub use turn_deadline::body_turn_speed_for_deadline;
 
+mod action_timeline;
+mod guard_footwork;
 mod projection;
 mod turn_deadline;
 
@@ -266,8 +270,8 @@ pub struct GuardStepPlan {
     swing_foot: LeadFoot,
     swing_start: Vec2,
     landing: Vec2,
-    start_tick: u64,
-    contact_tick: u64,
+    start_tick: AnimationSampleTick,
+    contact_tick: AnimationSampleTick,
 }
 
 impl GuardStepPlan {
@@ -287,17 +291,20 @@ impl GuardStepPlan {
         self.landing
     }
 
-    pub fn start_tick(self) -> u64 {
+    pub fn start_tick(self) -> AnimationSampleTick {
         self.start_tick
     }
 
-    pub fn contact_tick(self) -> u64 {
+    pub fn contact_tick(self) -> AnimationSampleTick {
         self.contact_tick
     }
 
-    pub fn progress(self, tick: u64) -> f32 {
-        let duration = self.contact_tick.saturating_sub(self.start_tick).max(1);
-        tick.saturating_sub(self.start_tick) as f32 / duration as f32
+    pub fn progress(self, tick: AnimationSampleTick) -> f32 {
+        let duration = self
+            .contact_tick
+            .saturating_sub(self.start_tick)
+            .max(AnimationSampleSpan::ONE);
+        tick.saturating_sub(self.start_tick).samples() as f32 / duration.samples() as f32
     }
 
     pub fn direction(self) -> Vec2 {
@@ -322,7 +329,9 @@ impl GuardStepPlan {
         if !self.landing.is_finite() {
             self.landing = self.swing_start;
         }
-        self.contact_tick = self.contact_tick.max(self.start_tick.saturating_add(1));
+        self.contact_tick = self
+            .contact_tick
+            .max(self.start_tick.saturating_add(AnimationSampleSpan::ONE));
         self
     }
 }
@@ -569,19 +578,23 @@ impl DownedFacingState {
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub struct PostureTransitionState {
     kind: PostureTransitionKind,
-    start_tick: u64,
-    duration_ticks: u64,
+    start_tick: AnimationSampleTick,
+    duration_ticks: AnimationSampleSpan,
     phase: f32,
     dive_was_airborne: bool,
-    dive_landing_tick: Option<u64>,
+    dive_landing_tick: Option<AnimationSampleTick>,
 }
 
 impl PostureTransitionState {
-    fn new(kind: PostureTransitionKind, start_tick: u64, duration_ticks: u64) -> Self {
+    fn new(
+        kind: PostureTransitionKind,
+        start_tick: AnimationSampleTick,
+        duration_ticks: AnimationSampleSpan,
+    ) -> Self {
         Self {
             kind,
             start_tick,
-            duration_ticks: duration_ticks.max(1),
+            duration_ticks: duration_ticks.max(AnimationSampleSpan::ONE),
             phase: 0.0,
             dive_was_airborne: false,
             dive_landing_tick: None,
@@ -589,7 +602,7 @@ impl PostureTransitionState {
     }
 
     fn normalized(mut self) -> Self {
-        self.duration_ticks = self.duration_ticks.max(1);
+        self.duration_ticks = self.duration_ticks.max(AnimationSampleSpan::ONE);
         self.phase = if self.phase.is_finite() {
             self.phase.clamp(0.0, 1.0)
         } else {
@@ -701,54 +714,6 @@ pub fn supine_get_up_counter_yaw_delta(
     Quat::from_rotation_y(
         -std::f32::consts::PI * (current_progress - previous_progress).clamp(0.0, 1.0),
     )
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
-struct ActionTimeline {
-    start_tick: u64,
-    preparation_ticks: u64,
-    recovery_ticks: u64,
-    phase: f32,
-}
-
-impl ActionTimeline {
-    fn new(start_tick: u64, contact_tick: u64) -> Self {
-        let preparation_ticks = contact_tick.saturating_sub(start_tick).max(1);
-        Self {
-            start_tick,
-            preparation_ticks,
-            recovery_ticks: preparation_ticks,
-            phase: 0.0,
-        }
-    }
-
-    fn with_recovery(start_tick: u64, contact_tick: u64, end_tick: u64) -> Self {
-        Self {
-            start_tick,
-            preparation_ticks: contact_tick.saturating_sub(start_tick).max(1),
-            recovery_ticks: end_tick.saturating_sub(contact_tick).max(1),
-            phase: 0.0,
-        }
-    }
-
-    fn normalized(mut self) -> Self {
-        self.preparation_ticks = self.preparation_ticks.max(1);
-        self.recovery_ticks = self.recovery_ticks.max(1);
-        self.phase = if self.phase.is_finite() {
-            self.phase.clamp(0.0, 1.0)
-        } else {
-            0.0
-        };
-        self
-    }
-
-    fn contact_tick(self) -> u64 {
-        self.start_tick.saturating_add(self.preparation_ticks)
-    }
-
-    fn end_tick(self) -> u64 {
-        self.contact_tick().saturating_add(self.recovery_ticks)
-    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
@@ -1511,13 +1476,13 @@ pub struct SkeletonState {
     pub landing_sequence: LandingSequence,
     pub landing_impact_speed: LandingImpactSpeed,
     pub lead_foot: LeadFoot,
-    guarded_sprint_locomotion: bool,
+    guarded_sprint_locomotion: GuardedLocomotionMode,
     stance: StanceState,
     attack_preparation: AttackPreparation,
     pub(super) action: ActionState,
     posture_transition: Option<PostureTransitionState>,
     downed_facing: Option<DownedFacingState>,
-    downed_turning: bool,
+    downed_turning: DownedMotion,
     pub animation_pack: AnimationPackId,
     pub attack_animations: AttackAnimations,
 }
@@ -1529,22 +1494,22 @@ struct SkeletonStateWire {
     local_velocity: Vec3,
     world_velocity: Vec3,
     gait_phase: CyclePhase,
-    locomotion_sample_tick: u64,
+    locomotion_sample_tick: AnimationSampleTick,
     world_acceleration: Vec3,
     contact_sequence: ContactSequence,
     contact_foot: LeadFoot,
     #[serde(default)]
     raised_footwork: GuardFootworkPlan,
-    landing_sequence: u64,
+    landing_sequence: LandingSequence,
     landing_impact_speed: LandingImpactSpeed,
     lead_foot: LeadFoot,
-    guarded_sprint_locomotion: bool,
+    guarded_sprint_locomotion: GuardedLocomotionMode,
     stance: StanceState,
     attack_preparation: AttackPreparation,
     action: ActionState,
     posture_transition: Option<PostureTransitionState>,
     downed_facing: Option<DownedFacingState>,
-    downed_turning: bool,
+    downed_turning: DownedMotion,
     animation_pack: AnimationPackId,
     attack_animations: AttackAnimations,
 }
@@ -1562,12 +1527,12 @@ impl<'de> Deserialize<'de> for SkeletonState {
             local_velocity: finite(wire.local_velocity),
             world_velocity: finite(wire.world_velocity),
             gait_phase: wire.gait_phase.wrapped(),
-            locomotion_sample_tick: AnimationSampleTick::from(wire.locomotion_sample_tick),
+            locomotion_sample_tick: wire.locomotion_sample_tick,
             world_acceleration: finite(wire.world_acceleration),
             contact_sequence: wire.contact_sequence,
             contact_foot: wire.contact_foot,
             raised_footwork: wire.raised_footwork.normalized(),
-            landing_sequence: LandingSequence::from(wire.landing_sequence),
+            landing_sequence: wire.landing_sequence,
             landing_impact_speed: wire.landing_impact_speed,
             lead_foot: wire.lead_foot,
             guarded_sprint_locomotion: wire.guarded_sprint_locomotion,
@@ -1584,7 +1549,7 @@ impl<'de> Deserialize<'de> for SkeletonState {
         };
         state.transition_body(wire.body);
         state.set_jump_anticipation(wire.jump_anticipation == JumpAnticipation::Charging);
-        state.set_guarded_sprint_locomotion(wire.guarded_sprint_locomotion);
+        state.set_guarded_locomotion_mode(wire.guarded_sprint_locomotion);
         Ok(state)
     }
 }
@@ -1605,13 +1570,13 @@ impl Default for SkeletonState {
             landing_sequence: LandingSequence::ZERO,
             landing_impact_speed: LandingImpactSpeed::ZERO,
             lead_foot: LeadFoot::Left,
-            guarded_sprint_locomotion: false,
+            guarded_sprint_locomotion: GuardedLocomotionMode::Footwork,
             stance: StanceState::Lowered,
             attack_preparation: AttackPreparation::default(),
             action: ActionState::default(),
             posture_transition: None,
             downed_facing: None,
-            downed_turning: false,
+            downed_turning: DownedMotion::Resting,
             animation_pack: AnimationPackId::HUMANOID_UNARMED,
             attack_animations: AttackAnimations::default(),
         }
@@ -1636,7 +1601,7 @@ pub fn set_weapon_guard(skeleton: &mut SkeletonState, weapon_guard: WeaponGuardS
         (StanceState::Lowered, WeaponGuardState::Raised) => {}
         (StanceState::Raised { .. }, WeaponGuardState::Lowered) => {
             skeleton.stance = StanceState::Lowered;
-            skeleton.guarded_sprint_locomotion = false;
+            skeleton.guarded_sprint_locomotion = GuardedLocomotionMode::Footwork;
             skeleton.raised_footwork = GuardFootworkPlan::default();
         }
     }
@@ -1673,8 +1638,8 @@ impl SkeletonState {
         self.gait_phase = phase.wrapped();
         self
     }
-    pub fn with_locomotion_sample_tick(mut self, tick: u64) -> Self {
-        self.locomotion_sample_tick = AnimationSampleTick::from(tick);
+    pub fn with_locomotion_sample_tick(mut self, tick: AnimationSampleTick) -> Self {
+        self.locomotion_sample_tick = tick;
         self
     }
     pub fn with_lead_foot(mut self, lead: LeadFoot) -> Self {
@@ -1691,10 +1656,10 @@ impl SkeletonState {
         }
         if !body.is_downed() {
             self.downed_facing = None;
-            self.downed_turning = false;
+            self.downed_turning = DownedMotion::Resting;
         }
         if body != BodyState::Grounded(GroundedPosture::Upright) {
-            self.guarded_sprint_locomotion = false;
+            self.guarded_sprint_locomotion = GuardedLocomotionMode::Footwork;
         }
         if body.is_downed() {
             self.stance = StanceState::Lowered;
@@ -1718,17 +1683,22 @@ impl SkeletonState {
         self.set_raised_locomotion(locomotion);
         self
     }
-    pub fn set_guarded_sprint_locomotion(&mut self, enabled: bool) {
-        self.guarded_sprint_locomotion = enabled
-            && self.body == BodyState::Grounded(GroundedPosture::Upright)
-            && self.weapon_guard() == WeaponGuardState::Raised;
+    pub fn set_guarded_locomotion_mode(&mut self, mode: GuardedLocomotionMode) {
+        self.guarded_sprint_locomotion = if self.body
+            == BodyState::Grounded(GroundedPosture::Upright)
+            && self.weapon_guard() == WeaponGuardState::Raised
+        {
+            mode
+        } else {
+            GuardedLocomotionMode::Footwork
+        };
     }
-    pub fn with_guarded_sprint_locomotion(mut self, enabled: bool) -> Self {
-        self.set_guarded_sprint_locomotion(enabled);
+    pub fn with_guarded_locomotion_mode(mut self, mode: GuardedLocomotionMode) -> Self {
+        self.set_guarded_locomotion_mode(mode);
         self
     }
-    pub fn guarded_sprint_locomotion(&self) -> bool {
-        self.guarded_sprint_locomotion
+    pub fn is_guarded_sprinting(&self) -> bool {
+        self.guarded_sprint_locomotion == GuardedLocomotionMode::Sprint
             && self.body == BodyState::Grounded(GroundedPosture::Upright)
             && self.weapon_guard() == WeaponGuardState::Raised
     }
@@ -1779,11 +1749,17 @@ impl SkeletonState {
     pub fn downed_facing(&self) -> Option<DownedFacingState> {
         self.downed_facing
     }
-    pub fn downed_turning(&self) -> bool {
-        self.downed_turning && self.body.is_downed() && self.posture_transition.is_none()
+    pub fn is_downed_turning(&self) -> bool {
+        self.downed_turning == DownedMotion::Turning
+            && self.body.is_downed()
+            && self.posture_transition.is_none()
     }
-    pub fn set_downed_turning(&mut self, turning: bool) {
-        self.downed_turning = turning && self.body.is_downed() && self.posture_transition.is_none();
+    pub fn set_downed_motion(&mut self, motion: DownedMotion) {
+        self.downed_turning = if self.body.is_downed() && self.posture_transition.is_none() {
+            motion
+        } else {
+            DownedMotion::Resting
+        };
     }
     pub fn downed_lateral_motion(&self) -> f32 {
         if let Some(transition) = self.posture_transition {
@@ -1803,8 +1779,8 @@ impl SkeletonState {
     pub fn begin_posture_transition(
         &mut self,
         kind: PostureTransitionKind,
-        start_tick: u64,
-        duration_ticks: u64,
+        start_tick: AnimationSampleTick,
+        duration_ticks: AnimationSampleSpan,
     ) -> bool {
         if self.posture_transition.is_some() || !kind.accepts(self.body) {
             return false;
@@ -1812,10 +1788,10 @@ impl SkeletonState {
         self.stance = StanceState::Lowered;
         self.raised_footwork = GuardFootworkPlan::default();
         self.jump_anticipation = JumpAnticipation::Inactive;
-        self.guarded_sprint_locomotion = false;
+        self.guarded_sprint_locomotion = GuardedLocomotionMode::Footwork;
         self.action = ActionState::default();
         self.downed_facing = None;
-        self.downed_turning = false;
+        self.downed_turning = DownedMotion::Resting;
         self.posture_transition = Some(PostureTransitionState::new(
             kind,
             start_tick,
@@ -1823,7 +1799,7 @@ impl SkeletonState {
         ));
         true
     }
-    pub fn advance_posture_transition(&mut self, current_tick: u64) {
+    pub fn advance_posture_transition(&mut self, current_tick: AnimationSampleTick) {
         let Some(mut transition) = self.posture_transition else {
             return;
         };
@@ -1839,7 +1815,8 @@ impl SkeletonState {
                 self.finish_posture_transition(transition.kind);
                 return;
             }
-            transition.phase = elapsed as f32 / transition.duration_ticks as f32;
+            transition.phase =
+                elapsed.samples() as f32 / transition.duration_ticks.samples() as f32;
             self.posture_transition = Some(transition);
             return;
         }
@@ -1857,8 +1834,9 @@ impl SkeletonState {
                     self.finish_posture_transition(transition.kind);
                     return;
                 }
-                transition.phase =
-                    0.5 + 0.5 * recovery_elapsed as f32 / transition.duration_ticks as f32;
+                transition.phase = 0.5
+                    + 0.5 * recovery_elapsed.samples() as f32
+                        / transition.duration_ticks.samples() as f32;
                 self.posture_transition = Some(transition);
                 return;
             }
@@ -1873,7 +1851,8 @@ impl SkeletonState {
                 self.posture_transition = Some(transition);
                 return;
             }
-            transition.phase = 0.5 * elapsed as f32 / transition.duration_ticks as f32;
+            transition.phase =
+                0.5 * elapsed.samples() as f32 / transition.duration_ticks.samples() as f32;
             self.posture_transition = Some(transition);
             return;
         }
@@ -1882,7 +1861,7 @@ impl SkeletonState {
             self.transition_body(transition.kind.target());
             return;
         }
-        transition.phase = elapsed as f32 / transition.duration_ticks as f32;
+        transition.phase = elapsed.samples() as f32 / transition.duration_ticks.samples() as f32;
         self.posture_transition = Some(transition);
     }
     fn finish_posture_transition(&mut self, kind: PostureTransitionKind) {
@@ -2160,7 +2139,7 @@ impl SkeletonState {
         (self.action_kind() == SkeletonAction::None && self.attack_animations.offhand)
             .then_some(AttackSpec::offhand(family))
     }
-    pub fn action_start_tick(&self) -> Option<u64> {
+    pub fn action_start_tick(&self) -> Option<AnimationSampleTick> {
         match self.action {
             ActionState(ActionKind::Idle) => None,
             ActionState(ActionKind::Dodge { timeline, .. })
@@ -2168,7 +2147,7 @@ impl SkeletonState {
             | ActionState(ActionKind::Block { timeline, .. }) => Some(timeline.start_tick),
         }
     }
-    pub fn action_preparation_ticks(&self) -> Option<u64> {
+    pub fn action_preparation_ticks(&self) -> Option<AnimationSampleSpan> {
         match self.action {
             ActionState(ActionKind::Idle) => None,
             ActionState(ActionKind::Dodge { timeline, .. })
@@ -2185,7 +2164,7 @@ impl SkeletonState {
             })
         )
     }
-    pub fn action_recovery_ticks(&self) -> Option<u64> {
+    pub fn action_recovery_ticks(&self) -> Option<AnimationSampleSpan> {
         match self.action {
             ActionState(ActionKind::Idle) => None,
             ActionState(ActionKind::Dodge { timeline, .. })
@@ -2194,7 +2173,7 @@ impl SkeletonState {
         }
     }
 
-    pub fn action_end_tick(&self) -> Option<u64> {
+    pub fn action_end_tick(&self) -> Option<AnimationSampleTick> {
         match self.action {
             ActionState(ActionKind::Idle) => None,
             ActionState(ActionKind::Dodge { timeline, .. })
@@ -2206,7 +2185,7 @@ impl SkeletonState {
     /// Tick where a queued attack may enter its authored follow-up
     /// preparation, after the current attack reaches full follow-through but
     /// before its ordinary return-to-guard recovery would begin.
-    pub fn attack_continuation_tick(&self) -> Option<u64> {
+    pub fn attack_continuation_tick(&self) -> Option<AnimationSampleTick> {
         match self.action {
             ActionState(ActionKind::Attack {
                 curve,
@@ -2216,9 +2195,14 @@ impl SkeletonState {
             }) => {
                 let recovery_progress =
                     ((curve.queued_transition_phase() - 0.5) * 2.0).clamp(0.0, 1.0);
-                let follow_through_ticks =
-                    (timeline.recovery_ticks as f64 * recovery_progress as f64).ceil() as u64;
-                Some(timeline.contact_tick().saturating_add(follow_through_ticks))
+                let follow_through_ticks = (timeline.recovery_ticks.samples() as f64
+                    * recovery_progress as f64)
+                    .ceil() as u64;
+                Some(
+                    timeline
+                        .contact_tick()
+                        .saturating_add(AnimationSampleSpan::from(follow_through_ticks)),
+                )
             }
             _ => None,
         }
@@ -2260,7 +2244,7 @@ impl SkeletonState {
 
     pub fn animation_speed(&self) -> f32 {
         let physical = self.animation_local_velocity().xz().length();
-        if self.downed_turning() {
+        if self.is_downed_turning() {
             physical.max(0.8)
         } else {
             physical
@@ -2286,8 +2270,8 @@ impl SkeletonState {
     pub fn begin_dodge(
         &mut self,
         spec: DodgeSpec,
-        start_tick: u64,
-        contact_tick: u64,
+        start_tick: AnimationSampleTick,
+        contact_tick: AnimationSampleTick,
     ) -> Result<(), ActionTransitionError> {
         self.action_admission()?;
         if self.action_kind() == SkeletonAction::Dodge {
@@ -2305,10 +2289,12 @@ impl SkeletonState {
     pub fn begin_attack(
         &mut self,
         spec: AttackSpec,
-        start_tick: u64,
-        contact_tick: u64,
+        start_tick: AnimationSampleTick,
+        contact_tick: AnimationSampleTick,
     ) -> Result<(), ActionTransitionError> {
-        let preparation_ticks = contact_tick.saturating_sub(start_tick).max(1);
+        let preparation_ticks = contact_tick
+            .saturating_sub(start_tick)
+            .max(AnimationSampleSpan::ONE);
         self.begin_attack_timed(
             spec,
             start_tick,
@@ -2322,9 +2308,9 @@ impl SkeletonState {
     pub fn begin_attack_timed(
         &mut self,
         spec: AttackSpec,
-        start_tick: u64,
-        contact_tick: u64,
-        end_tick: u64,
+        start_tick: AnimationSampleTick,
+        contact_tick: AnimationSampleTick,
+        end_tick: AnimationSampleTick,
     ) -> Result<(), ActionTransitionError> {
         self.action_admission()?;
         let target_height = if spec.target_height.is_finite() {
@@ -2343,9 +2329,13 @@ impl SkeletonState {
         }) = &mut self.action
         {
             let recovery_progress = curve.follow_through_fraction.clamp(0.0, 1.0);
-            let transition_tick = timeline.contact_tick().saturating_add(
-                (timeline.recovery_ticks as f64 * recovery_progress as f64).ceil() as u64,
-            );
+            let transition_tick =
+                timeline
+                    .contact_tick()
+                    .saturating_add(AnimationSampleSpan::from(
+                        (timeline.recovery_ticks.samples() as f64 * recovery_progress as f64).ceil()
+                            as u64,
+                    ));
             let may_follow = queued.is_none()
                 && spec.hand == AttackHand::Main
                 && spec.continuation
@@ -2355,12 +2345,18 @@ impl SkeletonState {
                 let queued_timeline =
                     ActionTimeline::with_recovery(start_tick, contact_tick, end_tick);
                 let incoming_tangent = curve.overshoot
-                    * queued_timeline.preparation_ticks as f32
+                    * queued_timeline.preparation_ticks.samples() as f32
                     * FOLLOW_READY_PREPARATION_FRACTION
-                    / (curve.follow_through_fraction * timeline.recovery_ticks as f32);
+                    / (curve.follow_through_fraction * timeline.recovery_ticks.samples() as f32);
                 let transition_phase = 0.5
-                    + 0.5 * transition_tick.saturating_sub(timeline.contact_tick()) as f32
-                        / timeline.recovery_ticks.max(1) as f32;
+                    + 0.5
+                        * transition_tick
+                            .saturating_sub(timeline.contact_tick())
+                            .samples() as f32
+                        / timeline
+                            .recovery_ticks
+                            .max(AnimationSampleSpan::ONE)
+                            .samples() as f32;
                 *queued = Some(QueuedAttack {
                     target_height,
                     animation: spec.animation,
@@ -2400,8 +2396,8 @@ impl SkeletonState {
     pub fn begin_block(
         &mut self,
         spec: BlockSpec,
-        start_tick: u64,
-        contact_tick: u64,
+        start_tick: AnimationSampleTick,
+        contact_tick: AnimationSampleTick,
     ) -> Result<(), ActionTransitionError> {
         self.action_admission()?;
         if self.action_kind() != SkeletonAction::None {
@@ -2415,7 +2411,7 @@ impl SkeletonState {
     }
 
     /// Advances independently timed preparation, contact, and recovery.
-    pub fn advance_action(&mut self, current_tick: u64) {
+    pub fn advance_action(&mut self, current_tick: AnimationSampleTick) {
         let queued = match self.action {
             ActionState(ActionKind::Attack {
                 curve,
@@ -2423,10 +2419,13 @@ impl SkeletonState {
                 queued: Some(queued),
                 ..
             }) if current_tick
-                >= timeline.contact_tick().saturating_add(
-                    (timeline.recovery_ticks as f64 * curve.follow_through_fraction as f64).ceil()
-                        as u64,
-                ) =>
+                >= timeline
+                    .contact_tick()
+                    .saturating_add(AnimationSampleSpan::from(
+                        (timeline.recovery_ticks.samples() as f64
+                            * curve.follow_through_fraction as f64)
+                            .ceil() as u64,
+                    )) =>
             {
                 Some(queued)
             }
@@ -2453,12 +2452,12 @@ impl SkeletonState {
             | ActionState(ActionKind::Attack { timeline, .. })
             | ActionState(ActionKind::Block { timeline, .. }) => timeline,
         };
-        let preparation = timeline.preparation_ticks.max(1);
-        let recovery = timeline.recovery_ticks.max(1);
+        let preparation = timeline.preparation_ticks.max(AnimationSampleSpan::ONE);
+        let recovery = timeline.recovery_ticks.max(AnimationSampleSpan::ONE);
         let contact_tick = timeline.start_tick.saturating_add(preparation);
         let end_tick = contact_tick.saturating_add(recovery);
         if current_tick >= end_tick {
-            if current_tick > end_tick || end_tick == u64::MAX {
+            if current_tick > end_tick || end_tick == AnimationSampleTick::MAX {
                 self.action = ActionState::default();
                 return;
             }
@@ -2466,9 +2465,11 @@ impl SkeletonState {
             return;
         }
         timeline.phase = if current_tick <= contact_tick {
-            0.5 * current_tick.saturating_sub(timeline.start_tick) as f32 / preparation as f32
+            0.5 * current_tick.saturating_sub(timeline.start_tick).samples() as f32
+                / preparation.samples() as f32
         } else {
-            0.5 + 0.5 * current_tick.saturating_sub(contact_tick) as f32 / recovery as f32
+            0.5 + 0.5 * current_tick.saturating_sub(contact_tick).samples() as f32
+                / recovery.samples() as f32
         };
     }
 }
@@ -2670,147 +2671,6 @@ fn advance_raised_locomotion_intent(
         None if skeleton.raised_footwork.step().is_some() => intent,
         None => RaisedLocomotionIntent::planted(),
     });
-}
-
-fn advance_guard_footwork(
-    skeleton: &mut SkeletonState,
-    delta_seconds: f32,
-    tick: u64,
-) -> AnimationValueResult<()> {
-    let displacement = skeleton.local_velocity.xz() * delta_seconds.max(0.0);
-    let physical_velocity = skeleton.local_velocity.xz();
-    let physical_speed = physical_velocity.length();
-    let physical_direction = physical_velocity.normalize_or_zero();
-    let mut plan = match skeleton.raised_footwork {
-        GuardFootworkPlan::Uninitialized => GuardFootworkPlan::Planted {
-            contacts: GuardContacts::default(),
-            next_swing: guard_movement_front_foot(
-                skeleton.lead_foot,
-                skeleton.raised_locomotion().local_direction(),
-            ),
-        },
-        GuardFootworkPlan::Planted {
-            contacts,
-            next_swing,
-        } => GuardFootworkPlan::Planted {
-            contacts: contacts.advected(displacement),
-            next_swing,
-        },
-        GuardFootworkPlan::Stepping(step) => {
-            GuardFootworkPlan::Stepping(step.advected(displacement))
-        }
-    };
-
-    if let GuardFootworkPlan::Stepping(mut step) = plan {
-        let direction = if physical_direction == Vec2::ZERO {
-            step.direction()
-        } else {
-            physical_direction
-        };
-        let leading_contact = step
-            .contacts
-            .left
-            .dot(direction)
-            .max(step.contacts.right.dot(direction));
-        let contact_due = tick >= step.contact_tick || leading_contact <= 0.0;
-        if contact_due {
-            let contact_margin = guard_footwork_config().contact_margin_metres;
-            if step.landing.dot(direction) < contact_margin {
-                step.landing += direction * (contact_margin - step.landing.dot(direction));
-            }
-            let contacts = step.contacts.with_contact(step.swing_foot, step.landing);
-            skeleton.contact_foot = step.swing_foot;
-            skeleton.contact_sequence = skeleton.contact_sequence.next();
-            plan = GuardFootworkPlan::Planted {
-                contacts,
-                next_swing: opposite_foot(step.swing_foot),
-            };
-        }
-    }
-
-    if let GuardFootworkPlan::Planted {
-        contacts,
-        next_swing,
-    } = plan
-        && physical_speed > 0.05
-    {
-        plan = GuardFootworkPlan::Stepping(plan_guard_step(
-            contacts,
-            next_swing,
-            physical_velocity,
-            tick,
-        ));
-        skeleton.contact_foot = opposite_foot(next_swing);
-    }
-
-    skeleton.gait_phase = CyclePhase::from_cycles(match plan {
-        GuardFootworkPlan::Stepping(step) => {
-            let progress = step.progress(tick).clamp(0.0, 1.0);
-            match step.swing_foot {
-                LeadFoot::Left => (0.5 + 0.5 * progress).rem_euclid(1.0),
-                LeadFoot::Right => 0.5 * progress,
-            }
-        }
-        GuardFootworkPlan::Uninitialized | GuardFootworkPlan::Planted { .. } => {
-            match skeleton.contact_foot {
-                LeadFoot::Left => 0.0,
-                LeadFoot::Right => 0.5,
-            }
-        }
-    })?;
-    skeleton.raised_footwork = plan;
-    Ok(())
-}
-
-fn plan_guard_step(
-    contacts: GuardContacts,
-    swing_foot: LeadFoot,
-    local_velocity: Vec2,
-    start_tick: u64,
-) -> GuardStepPlan {
-    let speed = local_velocity.length().max(0.05);
-    let direction = local_velocity.normalize_or_zero();
-    let tuning = guard_footwork_config();
-    let available_reach = tuning.planning_reach_metres - tuning.contact_margin_metres;
-    let reach_seconds = available_reach / speed;
-    let leading_contact = contacts
-        .left
-        .dot(direction)
-        .max(contacts.right.dot(direction));
-    let support_seconds = if leading_contact > 0.0 {
-        leading_contact / speed
-    } else {
-        1.0 / locomotion_sample_hz()
-    };
-    let duration_seconds = reach_seconds
-        .min(support_seconds)
-        .clamp(tuning.minimum_step_seconds, tuning.maximum_step_seconds);
-    let duration_ticks = (duration_seconds * locomotion_sample_hz()).ceil().max(1.0) as u64;
-    let forward = (speed * duration_ticks as f32 / locomotion_sample_hz()
-        + tuning.contact_margin_metres)
-        .min(tuning.planning_reach_metres);
-    let side = match swing_foot {
-        LeadFoot::Left => -tuning.default_half_width_metres,
-        LeadFoot::Right => tuning.default_half_width_metres,
-    };
-    let mut landing = direction * forward + Vec2::X * side;
-    let along_shortfall = forward - landing.dot(direction);
-    if along_shortfall > 0.0 {
-        landing += direction * along_shortfall;
-    }
-    landing = landing.clamp_length_max(tuning.planning_reach_metres);
-    let swing_start = match swing_foot {
-        LeadFoot::Left => contacts.left,
-        LeadFoot::Right => contacts.right,
-    };
-    GuardStepPlan {
-        contacts,
-        swing_foot,
-        swing_start,
-        landing,
-        start_tick,
-        contact_tick: start_tick.saturating_add(duration_ticks),
-    }
 }
 
 // Measured hip-knee-ankle chain of the current humanoid rig. The animation

@@ -466,9 +466,13 @@ mod tests {
     fn diagonal_quickstep_blends_directional_authored_timelines() {
         let mut state = SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
         state
-            .begin_dodge(DodgeSpec::quickstep(Vec2::new(1.0, 1.0)).unwrap(), 0, 100)
+            .begin_dodge(
+                DodgeSpec::quickstep(Vec2::new(1.0, 1.0)).unwrap(),
+                crate::animation::AnimationSampleTick::from(0u64),
+                crate::animation::AnimationSampleTick::from(100u64),
+            )
             .unwrap();
-        state.advance_action(150);
+        state.advance_action(crate::animation::AnimationSampleTick::from(150u64));
         let samples = quickstep_lower_body_samples(&state).unwrap();
         assert_eq!(samples.len(), 2);
         assert_eq!(samples[0].pose, SemanticPose::QuickstepForwardTakeoff);
@@ -483,8 +487,14 @@ mod tests {
     #[test]
     fn attacks_keep_authored_weapon_upper_body_and_combat_lower_body_separate() {
         let mut state = SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
-        state.begin_attack(AttackSpec::default(), 0, 100).unwrap();
-        state.advance_action(50);
+        state
+            .begin_attack(
+                AttackSpec::default(),
+                crate::animation::AnimationSampleTick::from(0u64),
+                crate::animation::AnimationSampleTick::from(100u64),
+            )
+            .unwrap();
+        state.advance_action(crate::animation::AnimationSampleTick::from(50u64));
         let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(evaluation.action[0].pose, SemanticPose::GuardThrust);
         assert_eq!(evaluation.lower_body[0].pose, SemanticPose::CombatStance);

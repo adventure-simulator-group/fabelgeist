@@ -5,7 +5,7 @@ use super::*;
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AnimationPack {
     pub id: AnimationPackId,
-    pub skeleton_family: String,
+    pub skeleton_family: SkeletonFamily,
     pub fallback: Option<AnimationPackId>,
     pub clips: BTreeSet<SemanticPose>,
 }
@@ -23,7 +23,7 @@ pub enum ResolvedPose<'a> {
         semantic: SemanticPose,
         /// Authored clip sampled for that semantic pose.
         pose: SemanticPose,
-        mirrored: bool,
+        mirrored: ClipMirror,
     },
     /// Use the rig's authored bind transform. For the humanoid convention this
     /// is a T-pose and needs no animation clip.
@@ -172,7 +172,7 @@ impl AnimationPackLibrary {
                         pack_id: &pack.id,
                         semantic: pose,
                         pose,
-                        mirrored: false,
+                        mirrored: ClipMirror::Original,
                     };
                 }
                 if let Some(source) = pose.mirrored_counterpart()
@@ -182,7 +182,7 @@ impl AnimationPackLibrary {
                         pack_id: &pack.id,
                         semantic: pose,
                         pose: source,
-                        mirrored: true,
+                        mirrored: ClipMirror::Mirrored,
                     };
                 }
                 pack_id = pack.fallback.as_ref();

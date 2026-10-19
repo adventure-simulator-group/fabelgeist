@@ -2,8 +2,9 @@
 
 use super::*;
 
-#[derive(Debug, Clone, Copy)]
-struct DiveInfluence(f32);
+#[derive(derive_more::Debug, Clone, Copy)]
+#[debug("DiveInfluence({:?})", self.0.fraction())]
+struct DiveInfluence(adventuresim_tactical_core::animation::UnitInterval);
 
 impl DiveInfluence {
     fn from_factor(factor: f32) -> AnimationValueResult<Self> {
@@ -12,10 +13,12 @@ impl DiveInfluence {
                 quantity: AnimationQuantity::DiveInfluence,
             });
         }
-        Ok(Self(factor.clamp(0.0, 1.0)))
+        adventuresim_tactical_core::animation::UnitInterval::from_fraction(factor.clamp(0.0, 1.0))
+            .map(Self)
+            .map_err(|error| error.for_quantity(AnimationQuantity::DiveInfluence))
     }
     fn fraction(self) -> f32 {
-        self.0
+        self.0.fraction()
     }
 }
 

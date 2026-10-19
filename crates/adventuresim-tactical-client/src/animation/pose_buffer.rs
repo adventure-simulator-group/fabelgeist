@@ -14,7 +14,7 @@ use baking::BoneTrack;
 use baking::{BakedClip, BoneTrackSource, bake_clip, get_or_bake};
 use bevy::{
     animation::{AnimationTargetId, animated_field},
-    asset::{AssetEvent, AssetId},
+    asset::AssetId,
     camera::visibility::RenderLayers,
 };
 use display_history::PosePresentationMode;
@@ -69,10 +69,10 @@ pub(crate) struct AuthoredWeaponTarget {
 }
 
 #[derive(Resource, Default)]
-pub(super) struct RigDefinitions(HashMap<String, Arc<RigDefinition>>);
+pub(super) struct RigDefinitions(HashMap<SkeletonFamily, Arc<RigDefinition>>);
 
 #[derive(Resource, Default)]
-pub(super) struct BakedClipBank(HashMap<(String, AssetId<AnimationClip>), Arc<BakedClip>>);
+pub(super) struct BakedClipBank(HashMap<(SkeletonFamily, AssetId<AnimationClip>), Arc<BakedClip>>);
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub(in crate::animation) struct LocalPose {
@@ -102,7 +102,6 @@ struct SampledPlan {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 struct PosePlanKey {
-    pose_source: PoseSource,
     clips: Vec<(AssetId<AnimationClip>, ClipLayer)>,
 }
 
@@ -304,17 +303,18 @@ impl LocalPose {
 impl PosePlanKey {
     fn from_playback(playback: &AnimationPlayback) -> Self {
         let mut clips = playback
-            .clips
+            .plan
+            .clips()
             .iter()
             .map(|weighted| (weighted.clip.handle.id(), weighted.clip.layer))
             .collect::<Vec<_>>();
-        clips.extend(playback.extrapolated_spans.iter().flat_map(|span| {
+        clips.extend(playback.plan.extrapolated().iter().flat_map(|span| {
             [
                 (span.start.handle.id(), span.start.layer),
                 (span.end.handle.id(), span.end.layer),
             ]
         }));
-        clips.extend(playback.continuation_spans.iter().flat_map(|span| {
+        clips.extend(playback.plan.continuations().iter().flat_map(|span| {
             [
                 (span.start.handle.id(), span.start.layer),
                 (span.contact.handle.id(), span.contact.layer),
@@ -325,14 +325,27 @@ impl PosePlanKey {
         }));
         clips.sort_by_key(|(id, layer)| (*id, *layer as u8));
         clips.dedup();
-        Self {
-            pose_source: playback.pose_source,
-            clips,
-        }
+        Self { clips }
+    }
+}
+
+impl BakedClipBank {
+    pub(super) fn invalidate_assets(&mut self, changed: &HashSet<AssetId<AnimationClip>>) {
+        self.0.retain(|(_, id), _| !changed.contains(id));
     }
 }
 
 impl PoseBufferRig {
+    pub(super) fn invalidate_clip_revisions(&mut self, changed: &HashSet<AssetId<AnimationClip>>) {
+        if self
+            .plan
+            .as_ref()
+            .is_some_and(|plan| plan.clips.iter().any(|(id, _)| changed.contains(id)))
+        {
+            self.plan = None;
+        }
+    }
+
     fn set_target_velocities(&mut self, velocities: &RigJointTable<(Vec3, Vec3)>) {
         for (joint, &(linear, angular)) in velocities.indexed() {
             self.target_linear_velocities[joint] = linear;
@@ -377,7 +390,7 @@ impl PoseBufferRig {
                 displayed_velocity,
                 target_pose,
                 target_velocities[joint],
-                pose_tuning().inertial_blend_seconds,
+                pose_tuning().inertial_blend_seconds.seconds(),
             );
         }
         self.inertial_state = InertialState::Blending;
@@ -428,7 +441,7 @@ pub(super) fn update_pose_buffers(
             .packs
             .get(&skeleton.animation_pack)
             .map(|pack| pack.skeleton_family.clone())
-            .unwrap_or_else(|| "humanoid".to_owned());
+            .unwrap_or(SkeletonFamily::HUMANOID);
         let mut rig = if let Some(rig) = rig {
             rig
         } else {
@@ -644,37 +657,9 @@ pub(super) fn calibrate_authored_locomotion_strides(
     definitions: Res<RigDefinitions>,
     runtime: Res<AnimationRuntime>,
     clips: Res<Assets<AnimationClip>>,
-    mut clip_events: MessageReader<AssetEvent<AnimationClip>>,
-    mut bank: ResMut<BakedClipBank>,
     mut strides: ResMut<AuthoredLocomotionStrides>,
 ) {
-    let changed = clip_events
-        .read()
-        .map(|event| match event {
-            AssetEvent::Added { id }
-            | AssetEvent::Modified { id }
-            | AssetEvent::Removed { id }
-            | AssetEvent::Unused { id }
-            | AssetEvent::LoadedWithDependencies { id } => *id,
-        })
-        .collect::<HashSet<_>>();
-    if !changed.is_empty() {
-        let invalidated_motions = strides
-            .measured_clips
-            .iter()
-            .filter(|(_, measured)| changed.contains(measured))
-            .map(|(motion, _)| motion.clone())
-            .collect::<Vec<_>>();
-        for motion in invalidated_motions {
-            strides.clear_motion(&motion);
-        }
-        strides
-            .measured_clips
-            .retain(|_, measured| !changed.contains(measured));
-        bank.0
-            .retain(|(_, measured), _| !changed.contains(measured));
-    }
-    let Some(definition) = definitions.0.get("humanoid") else {
+    let Some(definition) = definitions.0.get(&SkeletonFamily::HUMANOID) else {
         return;
     };
     if stride_calibration::has_unmeasured_motion(&runtime, &clips, &strides) {
@@ -704,18 +689,14 @@ fn sample_plan(
     bank: &mut BakedClipBank,
     metrics: &mut PoseBufferMetrics,
 ) -> Option<SampledPlan> {
-    if playback.pose_source == PoseSource::Bind
-        || (playback.clips.is_empty()
-            && playback.extrapolated_spans.is_empty()
-            && playback.continuation_spans.is_empty())
-    {
+    if playback.plan.is_bind() {
         return Some(SampledPlan {
             pose: definition.joints.iter().map(|joint| joint.bind).collect(),
             locomotion_pelvis_rotation: None,
         });
     }
-    let mut baked = Vec::with_capacity(playback.clips.len());
-    for weighted in &playback.clips {
+    let mut baked = Vec::with_capacity(playback.plan.clips().len());
+    for weighted in playback.plan.clips() {
         let clip = get_or_bake(
             weighted.clip.handle.id(),
             &weighted.clip.handle,
@@ -726,8 +707,8 @@ fn sample_plan(
         )?;
         baked.push((weighted, clip, clips.get(&weighted.clip.handle)?));
     }
-    let mut baked_spans = Vec::with_capacity(playback.extrapolated_spans.len());
-    for span in &playback.extrapolated_spans {
+    let mut baked_spans = Vec::with_capacity(playback.plan.extrapolated().len());
+    for span in playback.plan.extrapolated() {
         let start = get_or_bake(
             span.start.handle.id(),
             &span.start.handle,
@@ -746,8 +727,8 @@ fn sample_plan(
         )?;
         baked_spans.push((span, start, end));
     }
-    let mut baked_continuations = Vec::with_capacity(playback.continuation_spans.len());
-    for span in &playback.continuation_spans {
+    let mut baked_continuations = Vec::with_capacity(playback.plan.continuations().len());
+    for span in playback.plan.continuations() {
         let start = get_or_bake(
             span.start.handle.id(),
             &span.start.handle,
@@ -1114,8 +1095,8 @@ fn conform_upcoming_pose_to_terrain(
             let reference_rotation_world = owner.rotation() * plant.reference_owner_rotation;
             let displacement = reference_world.xz() - plant.position_world.xz();
             let distance = displacement.length();
-            if distance > pose_tuning().authored_contact_plant_limit_metres {
-                let excess = distance - pose_tuning().authored_contact_plant_limit_metres;
+            if distance > pose_tuning().authored_contact_plant_limit_metres.metres() {
+                let excess = distance - pose_tuning().authored_contact_plant_limit_metres.metres();
                 plant.position_world +=
                     Vec3::new(displacement.x, 0.0, displacement.y).normalize_or_zero() * excess;
                 plant.rotation_world = hemisphere_slerp(
@@ -1271,8 +1252,12 @@ fn measure_authored_contact_step_distance(
         let height_window = ((maximum_height - minimum_height)
             * pose_tuning().authored_contact_height_fraction)
             .clamp(
-                pose_tuning().authored_contact_minimum_height_window_metres,
-                pose_tuning().authored_contact_maximum_height_window_metres,
+                pose_tuning()
+                    .authored_contact_minimum_height_window_metres
+                    .metres(),
+                pose_tuning()
+                    .authored_contact_maximum_height_window_metres
+                    .metres(),
             );
         let supported = samples
             .iter()
@@ -1432,8 +1417,8 @@ fn measure_authored_contact_step_distance(
     (step_distance.is_finite()
         && maximum_stance_slip.is_finite()
         && cycle_distance > 0.0
-        && (pose_tuning().minimum_authored_foot_range_metres
-            ..=pose_tuning().maximum_authored_foot_range_metres)
+        && (pose_tuning().minimum_authored_foot_range_metres.metres()
+            ..=pose_tuning().maximum_authored_foot_range_metres.metres())
             .contains(&step_distance))
     .then_some(AuthoredLocomotionCalibration {
         stride: AuthoredStrideMeasurement {
@@ -1479,8 +1464,8 @@ fn measure_authored_foot_range(
     };
     let stride = (left + right) * 0.5;
     (stride.is_finite()
-        && (pose_tuning().minimum_authored_foot_range_metres
-            ..=pose_tuning().maximum_authored_foot_range_metres)
+        && (pose_tuning().minimum_authored_foot_range_metres.metres()
+            ..=pose_tuning().maximum_authored_foot_range_metres.metres())
             .contains(&stride))
     .then_some(stride)
 }
@@ -1738,7 +1723,7 @@ mod tests {
             }
         };
         let definition = RigDefinition {
-            family: "test".to_owned(),
+            family: "test".into(),
             joints: vec![
                 joint("root", None),
                 joint("l_foot", Some(0)),
@@ -1785,7 +1770,7 @@ mod tests {
             }
         };
         let definition = RigDefinition {
-            family: "test".to_owned(),
+            family: "test".into(),
             joints: vec![
                 joint("root", None),
                 joint("l_foot", Some(0)),
@@ -1946,7 +1931,7 @@ mod tests {
             }
         };
         let definition = RigDefinition {
-            family: "test".to_owned(),
+            family: "test".into(),
             joints: vec![
                 joint("root", None, Vec3::ZERO),
                 joint("l_upleg", Some(0), Vec3::Y * 2.0),
@@ -2018,7 +2003,7 @@ mod tests {
             }
         };
         let definition = RigDefinition {
-            family: "test".to_owned(),
+            family: "test".into(),
             joints: vec![
                 joint("root", None, Vec3::ZERO),
                 joint("l_upleg", Some(0), Vec3::new(-0.2, 1.8, 0.0)),
@@ -2090,7 +2075,7 @@ mod tests {
             }
         };
         let definition = RigDefinition {
-            family: "test".to_owned(),
+            family: "test".into(),
             joints: vec![
                 joint("root", None, Vec3::ZERO),
                 joint("l_upleg", Some(0), Vec3::Y * 2.1),
@@ -2152,7 +2137,7 @@ mod tests {
             }
         };
         let definition = RigDefinition {
-            family: "test".to_owned(),
+            family: "test".into(),
             joints: vec![
                 joint("root", None, Vec3::ZERO),
                 joint("l_upleg", Some(0), Vec3::new(-0.2, 2.085, 0.0)),
@@ -2247,7 +2232,7 @@ mod tests {
             }
         };
         let definition = RigDefinition {
-            family: "test".to_owned(),
+            family: "test".into(),
             joints: vec![
                 joint("root", None, Vec3::ZERO),
                 joint("l_upleg", Some(0), Vec3::new(0.2, 2.1, 0.0)),
@@ -2345,7 +2330,7 @@ mod tests {
         assert!(slid.position_world.distance(acquired.position_world) > 0.001);
         assert!(
             slid.position_world.xz().distance(far_authored_world.xz())
-                <= pose_tuning().authored_contact_plant_limit_metres + 0.0001
+                <= pose_tuning().authored_contact_plant_limit_metres.metres() + 0.0001
         );
     }
 }

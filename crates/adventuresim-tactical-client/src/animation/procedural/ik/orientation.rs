@@ -1,5 +1,6 @@
 //! Knee-pole, anatomical-yaw, slope, airborne-foot, and final rotation policy.
 
+use super::foot_roll::run_foot_roll_degrees;
 use super::*;
 
 // A 576 degree/second cap is nine degrees at the 64 Hz presentation cadence,
@@ -303,41 +304,6 @@ pub(in crate::animation::procedural) fn previous_airborne_foot_orientation(
     }
 }
 
-/// Phase-aware sagittal foot roll for running. Negative phase is the approach
-/// to this foot's contact and positive phase is its stance/release. The curve
-/// arrives with a modest dorsiflexed heel presentation, flattens early in
-/// stance, then plantar-flexes into toe-off before returning to neutral during
-/// swing. Terrain-normal alignment remains the base orientation.
-pub(in crate::animation::procedural) fn run_foot_roll_degrees(
-    skeleton: &SkeletonState,
-    left: bool,
-) -> f32 {
-    if locomotion_profile(skeleton).gait != LocomotionGait::Run
-        || skeleton.action_kind() != SkeletonAction::None
-        || skeleton.weapon_guard() != WeaponGuardState::Lowered
-        || skeleton.animation_speed() <= 0.05
-    {
-        return 0.0;
-    }
-    let contact = if left { 0.0 } else { 0.5 };
-    let signed = (skeleton.gait_phase.cycles() - contact + 0.5).rem_euclid(1.0) - 0.5;
-    let radius = locomotion_profile(skeleton).support_phase_radius;
-    if signed < -radius {
-        // Prepare the heel during the latter half of flight.
-        8.0 * smoothstep(-0.25, -radius, signed)
-    } else if signed < -0.05 {
-        8.0 * (1.0 - smoothstep(-radius, -0.05, signed))
-    } else if signed <= 0.06 {
-        0.0
-    } else if signed <= radius {
-        -8.0 * smoothstep(0.06, radius, signed)
-    } else {
-        // Release the toe smoothly instead of carrying a pointed foot through
-        // the whole airborne arc.
-        -8.0 * (1.0 - smoothstep(radius, 0.25, signed))
-    }
-}
-
 #[expect(
     clippy::too_many_arguments,
     reason = "the final leg rotation boundary keeps pose state, airborne transitions, and hierarchy access explicit"
@@ -354,18 +320,18 @@ pub(in crate::animation::procedural) fn finalize_leg_rotation_chains(
     parents: &Query<&ChildOf>,
     transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,
 ) {
-    for (leg_index, (upper_role, lower_role, foot_role, left)) in [
+    for (leg_index, (upper_role, lower_role, foot_role, foot_side)) in [
         (
             BoneRole::ThighLeft,
             BoneRole::ShinLeft,
             BoneRole::FootLeft,
-            true,
+            LeadFoot::Left,
         ),
         (
             BoneRole::ThighRight,
             BoneRole::ShinRight,
             BoneRole::FootRight,
-            false,
+            LeadFoot::Right,
         ),
     ]
     .into_iter()
@@ -391,12 +357,12 @@ pub(in crate::animation::procedural) fn finalize_leg_rotation_chains(
                 foot: foot.rotation,
             }
         };
-        let cached = if left {
+        let cached = if foot_side == LeadFoot::Left {
             memory.left_rotation_chain
         } else {
             memory.right_rotation_chain
         };
-        let contact_blend_active = if left {
+        let contact_blend_active = if foot_side == LeadFoot::Left {
             memory.left_contact_orientation_blend_active
         } else {
             memory.right_contact_orientation_blend_active
@@ -418,14 +384,14 @@ pub(in crate::animation::procedural) fn finalize_leg_rotation_chains(
             && let Some(foot_snapshot) = snapshot(foot, parents, &transforms.p0())
         {
             let base_world = foot_snapshot.global.rotation();
-            let roll_degrees = run_foot_roll_degrees(skeleton, left);
+            let roll_degrees = run_foot_roll_degrees(skeleton, foot_side);
             let desired_world = if roll_degrees.abs() > 0.0 {
                 let lateral = (rig_rotation * Vec3::X).normalize_or_zero();
                 Quat::from_axis_angle(lateral, roll_degrees.to_radians()) * base_world
             } else {
                 base_world
             };
-            let previous_world = if left {
+            let previous_world = if foot_side == LeadFoot::Left {
                 previous_airborne_foot_orientation(
                     memory.left_foot_orientation_world,
                     memory.left_last_rendered_foot_rotation_world,
@@ -467,19 +433,19 @@ pub(in crate::animation::procedural) fn finalize_leg_rotation_chains(
             if contact_blend_active
                 && final_world.angle_between(desired_world) <= 0.001_f32.to_radians()
             {
-                if left {
+                if foot_side == LeadFoot::Left {
                     memory.left_contact_orientation_blend_active = false;
                 } else {
                     memory.right_contact_orientation_blend_active = false;
                 }
             }
-            if left {
+            if foot_side == LeadFoot::Left {
                 memory.left_foot_orientation_world = Some(final_world);
             } else {
                 memory.right_foot_orientation_world = Some(final_world);
             }
         }
-        if left {
+        if foot_side == LeadFoot::Left {
             memory.left_rotation_chain = Some(resolved);
         } else {
             memory.right_rotation_chain = Some(resolved);
@@ -607,7 +573,7 @@ pub(in crate::animation) fn enforce_anatomical_knee_yaw(
             let upper_length = hip.distance(knee);
             let lower_length = knee.distance(target);
             let leg_direction = (target - hip).normalize_or_zero();
-            let side = anatomical_side(rig_rotation, rig_origin, hip, foot_side == LeadFoot::Left);
+            let side = anatomical_side(rig_rotation, rig_origin, hip, foot_side);
             let canonical = pole_to_world(rig_rotation, canonical_knee_pole(side));
             let current_bend = (knee - hip)
                 .reject_from_normalized(leg_direction)

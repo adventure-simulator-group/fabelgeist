@@ -1,3 +1,5 @@
+#[cfg(not(target_family = "wasm"))]
+use super::diagnostic_record::*;
 use super::*;
 #[cfg(not(target_family = "wasm"))]
 use std::io::{BufWriter, Write};
@@ -66,17 +68,29 @@ impl RenderScheduleTelemetry {
 
 #[cfg(not(target_family = "wasm"))]
 impl AnimationDiagnosticLog {
-    pub(crate) fn write(&mut self, mut value: serde_json::Value) {
+    pub(crate) fn write(&mut self, record: impl serde::Serialize) {
+        // Value is the final wire adapter: preserve JSON's sorted keys and widened f32 numbers.
+        let mut value = match serde_json::to_value(record) {
+            Ok(value) => value,
+            Err(error) => {
+                error!(%error, "Failed to serialize animation diagnostics");
+                return;
+            }
+        };
         value["frame"] = self.frame.into();
-        serde_json::to_writer(&mut self.writer, &value)
-            .expect("animation diagnostic log should remain writable");
-        self.writer
-            .write_all(b"\n")
-            .expect("animation diagnostic log should remain writable");
-        if self.frame % 60 == 59 {
-            self.writer
-                .flush()
-                .expect("animation diagnostic log should remain writable");
+        if let Err(error) = serde_json::to_writer(&mut self.writer, &value) {
+            error!(%error, "Failed to write animation diagnostics");
+            return;
+        }
+        if let Err(error) = self.writer.write_all(b"\n") {
+            error!(%error, "Failed to finish animation diagnostic record");
+            return;
+        }
+        if self.frame % 60 == 59
+            && let Err(error) = self.writer.flush()
+        {
+            error!(%error, "Failed to flush animation diagnostics");
+            return;
         }
         self.frame += 1;
     }
@@ -119,10 +133,10 @@ pub(super) fn log_animation_diagnostics(
     };
     let render_schedule_completion = render_schedule.as_deref().map(|telemetry| {
         let (count, elapsed_micros) = telemetry.snapshot();
-        serde_json::json!({
-            "count": count,
-            "elapsed_micros": elapsed_micros,
-        })
+        ScheduleCompletion {
+            count,
+            elapsed_micros,
+        }
     });
     let wall_clock_unix_micros = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
@@ -161,14 +175,14 @@ pub(super) fn log_animation_diagnostics(
                     .and_then(|terrain| terrain.height_at(translation.xz()))
                     .map(|height| translation.y - height);
                 let name = name.map_or("<unnamed>", Name::as_str);
-                let value = serde_json::json!({
-                    "name": name,
-                    "target_id": capture_animation_target_id(*target),
-                    "translation": translation.to_array(),
-                    "rotation_xyzw": rotation.to_array(),
-                    "scale": scale.to_array(),
-                    "terrain_clearance_metres": terrain_clearance_metres,
-                });
+                let value = DiagnosticBone {
+                    name: name,
+                    target_id: capture_animation_target_id(*target),
+                    translation: translation.to_array(),
+                    rotation_xyzw: rotation.to_array(),
+                    scale: scale.to_array(),
+                    terrain_clearance_metres: terrain_clearance_metres,
+                };
                 (name, *target, value)
             })
             .collect::<Vec<_>>();
@@ -177,73 +191,73 @@ pub(super) fn log_animation_diagnostics(
             .into_iter()
             .map(|(_, _, value)| value)
             .collect::<Vec<_>>();
-        log.write(serde_json::json!({
-            "trace_format": "real-client-animation-v1",
-            "scenario": "real-client-script",
-            "scenario_frame": diagnostic_frame,
-            "elapsed_seconds": time.elapsed_secs_f64(),
-            "wall_clock_unix_micros": wall_clock_unix_micros,
-            "render_delta_seconds": time.delta_secs(),
-            "render_schedule_completion": render_schedule_completion,
-            "input": input.as_deref(),
-            "controller_transform": {
-                "translation": transform.translation.to_array(),
-                "rotation_xyzw": transform.rotation.to_array(),
+        log.write(AnimationDiagnosticRecord {
+            trace_format: "real-client-animation-v1",
+            scenario: "real-client-script",
+            scenario_frame: diagnostic_frame,
+            elapsed_seconds: time.elapsed_secs_f64(),
+            wall_clock_unix_micros: wall_clock_unix_micros,
+            render_delta_seconds: time.delta_secs(),
+            render_schedule_completion: render_schedule_completion,
+            input: input.as_deref(),
+            controller_transform: DiagnosticTransform {
+                translation: transform.translation.to_array(),
+                rotation_xyzw: transform.rotation.to_array(),
             },
-            "controller_global_transform": {
-                "translation": global_translation.to_array(),
-                "rotation_xyzw": global_transform.compute_transform().rotation.to_array(),
+            controller_global_transform: DiagnosticTransform {
+                translation: global_translation.to_array(),
+                rotation_xyzw: global_transform.compute_transform().rotation.to_array(),
             },
-            "controller_physics_rotation_xyzw": physics_rotation
+            controller_physics_rotation_xyzw: physics_rotation
                 .map(|rotation| rotation.0.to_array()),
-            "subject_translation": global_translation.to_array(),
-            "subject_rotation_xyzw": global_transform.compute_transform().rotation.to_array(),
-            "action": presented.state.action_kind(),
-            "action_phase": presented.state.action_phase(),
-            "authored_weapon_target": authored_weapon_target.map(|target| serde_json::json!({
-                "translation": target.translation.to_array(),
-                "rotation_xyzw": target.rotation.to_array(),
-            })),
-            "bones": bone_transforms,
-            "terrain_height": terrain_height,
-            "controller_height_above_terrain": terrain_height
+            subject_translation: global_translation.to_array(),
+            subject_rotation_xyzw: global_transform.compute_transform().rotation.to_array(),
+            action: presented.state.action_kind(),
+            action_phase: presented.state.action_phase(),
+            authored_weapon_target: authored_weapon_target.map(|target| DiagnosticTransform {
+                translation: target.translation.to_array(),
+                rotation_xyzw: target.rotation.to_array(),
+            }),
+            bones: bone_transforms,
+            terrain_height: terrain_height,
+            controller_height_above_terrain: terrain_height
                 .map(|height| global_translation.y - height),
-            "authoritative": authoritative,
-            "presented": &presented.state,
-            "presentation_phase_error_remaining": presented.phase_error_remaining,
-            "presentation_phase_prediction_delta": presented.last_phase_prediction_delta,
-            "presentation_phase_correction_delta": presented.last_phase_correction_delta,
-            "presentation_phase_measurement_error": presented.last_phase_measurement_error,
-            "presentation_phase_source_changed": presented.last_phase_source_changed,
-            "evaluation": evaluation,
-            "semantic_route": semantic_route.map(|trace| serde_json::json!({
-                "requested_path": trace.requested_path,
-                "path": trace.path,
-                "inputs": &trace.inputs,
-                "runtime_evaluated": trace.runtime_evaluated,
-                "evaluation_equivalent": trace.evaluation == evaluation,
-            })),
-            "playback": {
-                "use_authored_bind_pose": (playback.pose_source == super::PoseSource::Bind),
-                "whole_body_mirror": playback.whole_body_mirror,
-                "ordinary_locomotion_active": (playback.ordinary_locomotion == super::OrdinaryLocomotion::Active),
-                "clips": clips,
+            authoritative: authoritative,
+            presented: &presented.state,
+            presentation_phase_error_remaining: presented.phase_error_remaining,
+            presentation_phase_prediction_delta: presented.last_phase_prediction_delta,
+            presentation_phase_correction_delta: presented.last_phase_correction_delta,
+            presentation_phase_measurement_error: presented.last_phase_measurement_error,
+            presentation_phase_source_changed: presented.last_phase_source_changed,
+            evaluation: evaluation.clone(),
+            semantic_route: semantic_route.map(|trace| DiagnosticRoute {
+                requested_path: trace.requested_path,
+                path: trace.path,
+                inputs: &trace.inputs,
+                runtime_evaluated: true,
+                evaluation_equivalent: trace.evaluation == evaluation,
+            }),
+            playback: DiagnosticPlayback {
+                use_authored_bind_pose: (playback.plan.is_bind()),
+                whole_body_mirror: playback.whole_body_mirror,
+                ordinary_locomotion_active: (playback.ordinary_locomotion
+                    == super::OrdinaryLocomotion::Active),
+                clips: clips,
             },
-        }));
+        });
     }
 }
 
 #[cfg(not(target_family = "wasm"))]
-fn diagnostic_clips(playback: &AnimationPlayback) -> Vec<serde_json::Value> {
+fn diagnostic_clips(playback: &AnimationPlayback) -> Vec<DiagnosticClip> {
     playback
-        .clips
+        .plan
+        .clips()
         .iter()
-        .map(|clip| {
-            serde_json::json!({
-                "weight": clip.weight,
-                "time_seconds": clip.time_seconds,
-                "mirrored_weight": clip.mirrored_weight,
-            })
+        .map(|clip| DiagnosticClip {
+            weight: clip.weight,
+            time_seconds: clip.time_seconds,
+            mirrored_weight: clip.mirrored_weight,
         })
         .collect::<Vec<_>>()
 }

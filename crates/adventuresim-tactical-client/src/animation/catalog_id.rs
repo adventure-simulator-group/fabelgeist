@@ -1,12 +1,12 @@
 //! Authored motion and asset identity admitted by the animation catalog.
 
+use super::catalog::CatalogError;
 use adventuresim_tactical_core::animation::AnimationPackId;
 use derive_more::{AsRef, Debug, Display, From, Into};
 use std::borrow::Cow;
 
-#[derive(Clone, Debug, Display, PartialEq, Eq, PartialOrd, Ord, From)]
+#[derive(Clone, Debug, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[debug("{_0:?}")]
-#[from(String)]
 pub(crate) struct MotionId(Cow<'static, str>);
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
@@ -20,6 +20,9 @@ pub(super) struct MotionKey {
 #[from(String)]
 #[as_ref(str)]
 pub(super) struct AnimationAssetPath(Cow<'static, str>);
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub(super) struct AnimationAssetDirectory(Cow<'static, str>);
 
 /// An authored catalogue frame at the configured clip frame rate, not a sample tick.
 #[derive(Clone, Copy, Debug, Display, PartialEq, Eq, PartialOrd, Ord, From, Into)]
@@ -35,17 +38,83 @@ impl AuthoredAnimationFrame {
 }
 
 impl MotionId {
-    pub(super) const fn from_static(name: &'static str) -> Self {
-        Self(Cow::Borrowed(name))
-    }
+    pub(crate) const AIRBORNE_CENTER: Self = Self(Cow::Borrowed("airborne_center"));
+    pub(crate) const AIRBORNE_TRAVEL: Self = Self(Cow::Borrowed("airborne_travel"));
+    pub(crate) const COMBAT_STANCE: Self = Self(Cow::Borrowed("combat_stance"));
+    pub(crate) const DIVE: Self = Self(Cow::Borrowed("dive"));
+    pub(crate) const IDLE_RELAXED: Self = Self(Cow::Borrowed("idle_relaxed"));
+    pub(crate) const OFFHAND: Self = Self(Cow::Borrowed("offhand"));
+    pub(crate) const PRONE_CRAWL: Self = Self(Cow::Borrowed("prone_crawl"));
+    pub(crate) const PRONE_CRAWL_MIRRORED: Self = Self(Cow::Borrowed("prone_crawl_mirrored"));
+    pub(crate) const PRONE_IDLE: Self = Self(Cow::Borrowed("prone_idle"));
+    pub(crate) const PRONE_SUPINE_ROLL_LEFT: Self = Self(Cow::Borrowed("prone_supine_roll_left"));
+    pub(crate) const PRONE_SUPINE_ROLL_RIGHT: Self = Self(Cow::Borrowed("prone_supine_roll_right"));
+    pub(crate) const PRONE_TRANSITION: Self = Self(Cow::Borrowed("prone_transition"));
+    pub(crate) const QUICKSTEP_BACK: Self = Self(Cow::Borrowed("quickstep_back"));
+    pub(crate) const QUICKSTEP_FORWARD: Self = Self(Cow::Borrowed("quickstep_forward"));
+    pub(crate) const QUICKSTEP_LEFT: Self = Self(Cow::Borrowed("quickstep_left"));
+    pub(crate) const QUICKSTEP_RIGHT: Self = Self(Cow::Borrowed("quickstep_right"));
+    pub(crate) const RUN: Self = Self(Cow::Borrowed("run"));
+    pub(crate) const RUN_MIRRORED: Self = Self(Cow::Borrowed("run_mirrored"));
+    pub(crate) const SKIP: Self = Self(Cow::Borrowed("skip"));
+    pub(crate) const STRAFE: Self = Self(Cow::Borrowed("strafe"));
+    pub(crate) const SUPINE_IDLE: Self = Self(Cow::Borrowed("supine_idle"));
+    pub(crate) const SUPINE_SCAMPER: Self = Self(Cow::Borrowed("supine_scamper"));
+    pub(crate) const SUPINE_SCAMPER_MIRRORED: Self = Self(Cow::Borrowed("supine_scamper_mirrored"));
+    pub(crate) const SUPINE_TRANSITION: Self = Self(Cow::Borrowed("supine_transition"));
+    pub(crate) const SWING: Self = Self(Cow::Borrowed("swing"));
+    pub(crate) const THRUST: Self = Self(Cow::Borrowed("thrust"));
+    pub(crate) const WALK: Self = Self(Cow::Borrowed("walk"));
+    pub(crate) const WALK_MIRRORED: Self = Self(Cow::Borrowed("walk_mirrored"));
+
     pub(super) fn mirrored(&self) -> Self {
-        Self::from(format!("{self}_mirrored"))
+        // A checked filename stem remains a stem when this authored suffix is appended.
+        Self(Cow::Owned(format!("{self}_mirrored")))
     }
 }
 
-impl From<&str> for MotionId {
-    fn from(name: &str) -> Self {
-        Self(Cow::Owned(name.to_owned()))
+impl TryFrom<&str> for MotionId {
+    type Error = CatalogError;
+
+    fn try_from(name: &str) -> Result<Self, Self::Error> {
+        let invalid_stem = name.is_empty()
+            || matches!(name, "." | "..")
+            || name
+                .chars()
+                .any(|c| c.is_control() || matches!(c, '/' | '\\' | ':' | '#' | '?'));
+        if invalid_stem {
+            return Err(CatalogError::InvalidMotionStem(name.to_owned()));
+        }
+        Ok(Self(Cow::Owned(name.to_owned())))
+    }
+}
+
+impl AnimationAssetDirectory {
+    pub(super) const HUMANOID_UNARMED: Self = Self(Cow::Borrowed("animations/biped/unarmed"));
+    pub(super) const HUMANOID_2H_CLOSE: Self = Self(Cow::Borrowed("animations/biped/2h_close"));
+
+    pub(super) fn motion_path(&self, motion: &MotionId) -> AnimationAssetPath {
+        AnimationAssetPath::from(format!("{}/{motion}.glb", self.0))
+    }
+}
+
+impl TryFrom<&str> for AnimationAssetDirectory {
+    type Error = CatalogError;
+
+    fn try_from(path: &str) -> Result<Self, Self::Error> {
+        let directory = path.trim_end_matches(['/', '\\']);
+        let invalid_directory = directory.is_empty()
+            || path.starts_with(['/', '\\'])
+            || directory
+                .chars()
+                .any(|c| c.is_control() || matches!(c, '\\' | ':' | '#' | '?'))
+            || directory
+                .split('/')
+                .any(|part| matches!(part, "" | "." | ".."));
+        if invalid_directory {
+            return Err(CatalogError::InvalidAssetDirectory(path.to_owned()));
+        }
+        Ok(Self(Cow::Owned(directory.to_owned())))
     }
 }
 

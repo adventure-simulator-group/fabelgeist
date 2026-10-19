@@ -1,3 +1,4 @@
+use adventuresim_tactical_core::animation::{AnimationSampleSpan, AnimationSampleTick};
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::{
     bevy_replicon::prelude::ClientTriggerExt,
@@ -15,6 +16,12 @@ use crate::{
 
 use quickstep_trace::{LocalQuickstepTrace, trace_local_quickstep_state};
 
+use action_clock::{
+    MeleePlaybackTiming, animation_ticks, delayed_melee_contact_seconds,
+    melee_contact_delay_from_input,
+};
+
+mod action_clock;
 mod quickstep_trace;
 
 const HITBOX_LAYER: LayerMask = LayerMask(1 << 1);
@@ -753,7 +760,9 @@ fn try_start_attack(
         warn!("Trying to attack without a usable equipped weapon");
         return;
     }
-    let start = (time.elapsed_secs_f64() * locomotion_sample_hz() as f64).round() as u64;
+    let start = AnimationSampleTick::from(
+        (time.elapsed_secs_f64() * locomotion_sample_hz() as f64).round() as u64,
+    );
     if ranged {
         if attacking {
             return;
@@ -844,9 +853,16 @@ fn try_start_attack(
         } else {
             start
         };
-        let animation_start = sequence_start + delay_ticks(animation_delay);
-        let contact_tick = sequence_start + animation_ticks(contact_seconds);
-        let recovery_tick = sequence_start + animation_ticks(contact_seconds + recovery_secs);
+        let MeleePlaybackTiming {
+            start: animation_start,
+            contact: contact_tick,
+            end: recovery_tick,
+        } = MeleePlaybackTiming::delayed(
+            sequence_start,
+            animation_delay,
+            contact_seconds,
+            recovery_secs,
+        );
         let contact_from_input = melee_contact_delay_from_input(
             &skeleton,
             spec.continuation,
@@ -929,7 +945,9 @@ fn flush_buffered_melee_attacks(
         if !attack_reach_is_usable(false, melee, reach, targeting.arm_reach(entity)) {
             continue;
         }
-        let start = (time.elapsed_secs_f64() * locomotion_sample_hz() as f64).round() as u64;
+        let start = AnimationSampleTick::from(
+            (time.elapsed_secs_f64() * locomotion_sample_hz() as f64).round() as u64,
+        );
         let acquisition_range = targeting.melee_acquisition_range(entity, reach, &combat_config);
         let (target, target_position, aim_direction) = targeting.acquire(
             entity,
@@ -950,9 +968,16 @@ fn flush_buffered_melee_attacks(
         } else {
             start
         };
-        let animation_start = sequence_start + delay_ticks(animation_delay);
-        let contact_tick = sequence_start + animation_ticks(contact_seconds);
-        let recovery_tick = sequence_start + animation_ticks(contact_seconds + recovery_secs);
+        let MeleePlaybackTiming {
+            start: animation_start,
+            contact: contact_tick,
+            end: recovery_tick,
+        } = MeleePlaybackTiming::delayed(
+            sequence_start,
+            animation_delay,
+            contact_seconds,
+            recovery_secs,
+        );
         let contact_from_input = melee_contact_delay_from_input(
             &skeleton,
             spec.continuation,
@@ -990,19 +1015,6 @@ fn attack_reach_is_usable(ranged: bool, melee: bool, weapon_reach: f32, arm_reac
     } else {
         melee && arm_reach.is_finite() && arm_reach > 0.0
     }
-}
-
-fn animation_ticks(seconds: f32) -> u64 {
-    (seconds.max(1.0 / locomotion_sample_hz()) * locomotion_sample_hz()).round() as u64
-}
-
-fn delay_ticks(seconds: f32) -> u64 {
-    (seconds.max(0.0) * locomotion_sample_hz()).round() as u64
-}
-
-fn delayed_melee_contact_seconds(authored_windup: f32, predicted_arrival: f32) -> (f32, f32) {
-    let contact = authored_windup.max(predicted_arrival).max(0.0);
-    ((contact - authored_windup.max(0.0)).max(0.0), contact)
 }
 
 #[expect(
@@ -1079,20 +1091,6 @@ fn apply_direct_combat_controls(
     }
 }
 
-fn melee_contact_delay_from_input(
-    skeleton: &SkeletonState,
-    continuation: bool,
-    contact_tick: u64,
-    ordinary_contact_seconds: f32,
-) -> f32 {
-    if continuation {
-        contact_tick.saturating_sub(skeleton.locomotion_sample_tick.encoded()) as f32
-            / locomotion_sample_hz()
-    } else {
-        ordinary_contact_seconds
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1123,14 +1121,21 @@ mod tests {
 
     #[test]
     fn continuation_cooldown_uses_the_replicated_animation_clock() {
-        let skeleton = SkeletonState::default().with_locomotion_sample_tick(700);
+        let skeleton = SkeletonState::default().with_locomotion_sample_tick(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(700u64),
+        );
 
         assert_eq!(
-            melee_contact_delay_from_input(&skeleton, true, 732, 0.3),
+            melee_contact_delay_from_input(&skeleton, true, AnimationSampleTick::from(732u64), 0.3),
             0.5
         );
         assert_eq!(
-            melee_contact_delay_from_input(&skeleton, false, 732, 0.3),
+            melee_contact_delay_from_input(
+                &skeleton,
+                false,
+                AnimationSampleTick::from(732u64),
+                0.3
+            ),
             0.3
         );
     }

@@ -10,9 +10,10 @@ pub(in crate::animation) use body_response::apply_locomotion_body_response;
 #[cfg(test)]
 use body_response::body_response_target;
 use body_response::presentation_tick_delta;
+pub(crate) use body_values::BodyAngle;
 use body_values::{
-    BodyAngle, BodyAngularVelocity, BodyLocalAcceleration, BodyLocalVelocity, BodyResponseAngles,
-    BodyResponseStep, BrakingLeanScale,
+    BodyAngularMagnitude, BodyAngularVelocity, BodyLocalAcceleration, BodyLocalVelocity,
+    BodyResponseAngles, BodyResponseStep, BrakingLeanScale,
 };
 pub(crate) use clock::ProceduralAnimationClock;
 use clock::{AnimationSampleTick, FixedAnimationStep};
@@ -47,7 +48,7 @@ pub(super) use ik::{
     refresh_raised_support_after_propagation,
 };
 pub(crate) use rig::*;
-use sample_state::HeightInitialization;
+use sample_state::HeightHistory;
 pub(crate) use sample_state::{LocomotionBodyResponseState, LocomotionHeightState};
 use std::collections::BTreeMap;
 
@@ -504,7 +505,7 @@ pub(super) fn orient_guarded_run_lower_body(
             continue;
         };
         if skeleton.is_quickstep()
-            || !skeleton.guarded_sprint_locomotion()
+            || !skeleton.is_guarded_sprinting()
             || !skeleton.raised_locomotion().is_moving()
         {
             continue;
@@ -718,10 +719,7 @@ fn jump_charge_pelvis_target(anticipation: JumpAnticipation, guard: WeaponGuardS
     (anticipation == JumpAnticipation::Charging && guard == WeaponGuardState::Lowered) as u8 as f32
 }
 
-/// Additive run-flight waveform with contacts at 0/.5 and flight peaks at
-/// .25/.75. Authored joint translation remains the base pose. This is
-/// presentation-only and is never applied to the authoritative owner/controller
-/// transform.
+/// Split local travel yaw between the pelvis and its inverse leg compensation.
 fn guarded_run_split_yaw(direction: Vec2) -> Option<(Quat, Quat)> {
     let direction = direction.try_normalize()?;
     // Local movement uses -Y for character-forward, corresponding to -Z in
@@ -787,7 +785,9 @@ mod contract_tests {
         let state = SkeletonState::default()
             .with_local_velocity(Vec3::NEG_Z * walk_locomotion_profile().reference_speed)
             .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
-            .with_locomotion_sample_tick(1);
+            .with_locomotion_sample_tick(
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(1u64),
+            );
         let owner = app
             .world_mut()
             .spawn(PresentedSkeleton::new(state, None))
@@ -831,7 +831,9 @@ mod contract_tests {
         let state = SkeletonState::default()
             .with_local_velocity(Vec3::NEG_Z * run_locomotion_profile().reference_speed)
             .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap())
-            .with_locomotion_sample_tick(1);
+            .with_locomotion_sample_tick(
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(1u64),
+            );
         let owner = app
             .world_mut()
             .spawn(PresentedSkeleton::new(state, None))
@@ -862,7 +864,9 @@ mod contract_tests {
         app.update();
 
         let expected_flight = run_locomotion_profile().flight_apex_metres
-            - procedural_tuning().authored_ordinary_passing_rise_metres;
+            - procedural_tuning()
+                .authored_ordinary_passing_rise_metres
+                .metres();
         let displayed_root = app.world().get::<Transform>(root).unwrap();
         assert!(
             (displayed_root.translation.y - (authored_root.translation.y + expected_flight)).abs()
@@ -985,7 +989,11 @@ mod ik_tests {
                 > 0.1
         );
         let mut transitioning = SkeletonState::default();
-        transitioning.begin_posture_transition(PostureTransitionKind::UprightToProne, 0, 10);
+        transitioning.begin_posture_transition(
+            PostureTransitionKind::UprightToProne,
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+            adventuresim_tactical_core::animation::AnimationSampleSpan::from(10u64),
+        );
         assert_eq!(
             guarded_camera_look(
                 &look,
@@ -1130,9 +1138,11 @@ mod ik_tests {
             .with_gait_phase(CyclePhase::from_cycles(0.25).unwrap());
         assert_eq!(locomotion_height_wave(&raised).unwrap().metres(), 0.0);
         assert_eq!(
-            locomotion_height_wave(&raised.with_guarded_sprint_locomotion(true))
-                .unwrap()
-                .metres(),
+            locomotion_height_wave(
+                &raised.with_guarded_locomotion_mode(GuardedLocomotionMode::Sprint)
+            )
+            .unwrap()
+            .metres(),
             0.0
         );
         assert_eq!(
@@ -1151,8 +1161,10 @@ mod ik_tests {
             ))
             .unwrap()
             .metres()
-                - procedural_tuning().authored_ordinary_passing_rise_metres)
-                .abs()
+                - procedural_tuning()
+                    .authored_ordinary_passing_rise_metres
+                    .metres())
+            .abs()
                 < 0.0001
         );
         assert_eq!(
@@ -1541,7 +1553,12 @@ mod ik_tests {
         let rotation = Quat::from_rotation_y(0.7);
         for local_x in [-0.14_f32, 0.14_f32] {
             let swing_start = origin + rotation * Vec3::new(local_x, 0.085, 0.2);
-            let side = settle_swing_side(origin, rotation, swing_start, -local_x.signum());
+            let support_foot = if local_x < 0.0 {
+                LeadFoot::Left
+            } else {
+                LeadFoot::Right
+            };
+            let side = settle_swing_side(origin, rotation, swing_start, support_foot);
             assert_eq!(side, local_x.signum());
             let capture = origin + rotation * Vec3::NEG_Z * 0.2;
             let landing =
@@ -1592,11 +1609,23 @@ mod ik_tests {
             .with_local_velocity(Vec3::NEG_Z * 5.5)
             .with_gait_phase(CyclePhase::from_cycles(0.0).unwrap());
         let locomotion = locomotion_support_weights(&attack);
-        attack.begin_attack(AttackSpec::default(), 0, 1).unwrap();
+        attack
+            .begin_attack(
+                AttackSpec::default(),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(1u64),
+            )
+            .unwrap();
         assert_eq!(locomotion_support_weights(&attack), locomotion);
 
         let mut dodge = SkeletonState::default();
-        dodge.begin_dodge(DodgeSpec::default(), 0, 1).unwrap();
+        dodge
+            .begin_dodge(
+                DodgeSpec::default(),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(1u64),
+            )
+            .unwrap();
         assert_eq!(locomotion_support_weights(&dodge), (0.0, 0.0));
         assert!(!terrain_leg_has_support(0.0));
         assert!(!terrain_leg_has_support(0.01));
@@ -1744,13 +1773,23 @@ mod ik_tests {
             &SkeletonState::default().with_body_state(BodyState::Prone)
         ));
         let mut transition = SkeletonState::default();
-        assert!(transition.begin_posture_transition(PostureTransitionKind::UprightToProne, 0, 10,));
+        assert!(transition.begin_posture_transition(
+            PostureTransitionKind::UprightToProne,
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+            adventuresim_tactical_core::animation::AnimationSampleSpan::from(10u64),
+        ));
         assert!(!ik::anatomical_knee_yaw_posture_is_valid(&transition));
         let mut quickstep = SkeletonState::default();
         quickstep
-            .begin_dodge(DodgeSpec::quickstep(Vec2::X).unwrap(), 0, 100)
+            .begin_dodge(
+                DodgeSpec::quickstep(Vec2::X).unwrap(),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(100u64),
+            )
             .unwrap();
-        quickstep.advance_action(150);
+        quickstep.advance_action(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(150u64),
+        );
         assert!(!ik::anatomical_knee_yaw_posture_is_valid(&quickstep));
     }
 

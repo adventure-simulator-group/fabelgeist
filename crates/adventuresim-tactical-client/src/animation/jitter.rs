@@ -4,18 +4,11 @@
 //! output; it samples the final pose and checks angular/local position
 //! acceleration and jerk against absolute, relative, and noise-floor bounds.
 
+use super::review_scenarios::{ScenarioFeature, ScenarioId, ScenarioMetadata};
 use std::collections::BTreeMap;
 
 use bevy::prelude::{Quat, Vec3};
 use serde::Serialize;
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
-pub(crate) enum JitterClass {
-    AngularAcceleration,
-    AngularJerk,
-    LocalPositionAcceleration,
-    LocalPositionJerk,
-}
 
 #[derive(Debug, Clone, Copy, Serialize)]
 pub(crate) struct JitterThresholds {
@@ -40,6 +33,60 @@ struct JitterLimit {
     noise_floor: f32,
 }
 
+#[derive(Debug, Clone, Copy)]
+pub(crate) struct JitterBone {
+    pub(crate) position: [f32; 3],
+    pub(crate) rotation_xyzw: [f32; 4],
+}
+
+#[derive(Debug, Clone)]
+pub(crate) struct JitterFrame<K> {
+    pub(crate) scenario: ScenarioMetadata<'static>,
+    pub(crate) analysis_segment: u64,
+    pub(crate) scenario_frame: usize,
+    pub(crate) time_seconds: f32,
+    pub(crate) bones: BTreeMap<K, JitterBone>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(bound(serialize = "K: JitterBoneIdentity"))]
+pub(crate) struct JitterIncident<K> {
+    pub(crate) scenario: ScenarioMetadata<'static>,
+    #[serde(serialize_with = "serialize_bone")]
+    pub(crate) bone: K,
+    pub(crate) class: JitterClass,
+    pub(crate) frame: usize,
+    pub(crate) window_start: usize,
+    pub(crate) window_end: usize,
+    pub(crate) value: f32,
+    pub(crate) threshold: f32,
+    pub(crate) severity: f32,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(bound(serialize = "K: JitterBoneIdentity"))]
+pub(crate) struct JitterValidationSummary<K> {
+    pub(crate) diagnostics_complete: bool,
+    pub(crate) sampled_frame_count: usize,
+    pub(crate) final_incident_count: usize,
+    pub(crate) unacceptable_final_incident_count: usize,
+    pub(crate) worst_incident: Option<JitterIncident<K>>,
+    pub(crate) top_incidents: Vec<JitterIncident<K>>,
+    pub(crate) thresholds: JitterThresholds,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+pub(crate) enum JitterClass {
+    AngularAcceleration,
+    AngularJerk,
+    LocalPositionAcceleration,
+    LocalPositionJerk,
+}
+
+pub(crate) trait JitterBoneIdentity: Clone + Ord {
+    fn report_label(&self) -> Option<&str>;
+}
+
 impl Default for JitterThresholds {
     fn default() -> Self {
         Self {
@@ -59,49 +106,10 @@ impl Default for JitterThresholds {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
-pub(crate) struct JitterBone {
-    pub(crate) position: [f32; 3],
-    pub(crate) rotation_xyzw: [f32; 4],
-}
-
-#[derive(Debug, Clone)]
-pub(crate) struct JitterFrame {
-    pub(crate) scenario: String,
-    pub(crate) analysis_segment: u64,
-    pub(crate) scenario_frame: usize,
-    pub(crate) time_seconds: f32,
-    pub(crate) bones: BTreeMap<String, JitterBone>,
-}
-
-#[derive(Debug, Clone, Serialize)]
-pub(crate) struct JitterIncident {
-    pub(crate) scenario: String,
-    pub(crate) bone: String,
-    pub(crate) class: JitterClass,
-    pub(crate) frame: usize,
-    pub(crate) window_start: usize,
-    pub(crate) window_end: usize,
-    pub(crate) value: f32,
-    pub(crate) threshold: f32,
-    pub(crate) severity: f32,
-}
-
-#[derive(Debug, Clone, Serialize)]
-pub(crate) struct JitterValidationSummary {
-    pub(crate) diagnostics_complete: bool,
-    pub(crate) sampled_frame_count: usize,
-    pub(crate) final_incident_count: usize,
-    pub(crate) unacceptable_final_incident_count: usize,
-    pub(crate) worst_incident: Option<JitterIncident>,
-    pub(crate) top_incidents: Vec<JitterIncident>,
-    pub(crate) thresholds: JitterThresholds,
-}
-
-pub(crate) fn validate(
-    frames: &[JitterFrame],
+pub(crate) fn validate<K: JitterBoneIdentity>(
+    frames: &[JitterFrame<K>],
     thresholds: JitterThresholds,
-) -> JitterValidationSummary {
+) -> JitterValidationSummary<K> {
     let mut incidents = Vec::new();
     let mut start = 0;
     while start < frames.len() {
@@ -164,10 +172,21 @@ pub(crate) fn validate(
     }
 }
 
-fn acquisition_warmup_frames(scenario: &str) -> usize {
-    if scenario == "raised-guard-stationary-turn"
-        || (scenario.starts_with("raised-guard") && scenario.contains("tap-stop"))
-        || (scenario.starts_with("raised-guard") && scenario != "raised-guard-transition")
+fn serialize_bone<K: JitterBoneIdentity, S: serde::Serializer>(
+    bone: &K,
+    serializer: S,
+) -> Result<S::Ok, S::Error> {
+    let label = bone
+        .report_label()
+        .ok_or_else(|| serde::ser::Error::custom("uncaptured semantic bone in jitter report"))?;
+    serializer.serialize_str(label)
+}
+
+fn acquisition_warmup_frames(scenario: &ScenarioMetadata<'_>) -> usize {
+    if scenario.is(ScenarioId::RaisedGuardStationaryTurn)
+        || (scenario.has(ScenarioFeature::RaisedGuard) && scenario.has(ScenarioFeature::TapStop))
+        || (scenario.has(ScenarioFeature::RaisedGuard)
+            && !scenario.is(ScenarioId::RaisedGuardTransition))
     {
         // The viewer starts these fixtures directly in raised guard so the
         // first four samples include one-time pose/IK acquisition. Judge the
@@ -180,9 +199,9 @@ fn acquisition_warmup_frames(scenario: &str) -> usize {
     }
 }
 
-fn contact_segment_warmup_frames(scenario: &str) -> usize {
-    if scenario.starts_with("raised-guard")
-        && (scenario.contains("release") || scenario.contains("tap-stop"))
+fn contact_segment_warmup_frames(scenario: &ScenarioMetadata<'_>) -> usize {
+    if scenario.has(ScenarioFeature::RaisedGuard)
+        && (scenario.has(ScenarioFeature::Release) || scenario.has(ScenarioFeature::TapStop))
     {
         4
     } else {
@@ -190,8 +209,11 @@ fn contact_segment_warmup_frames(scenario: &str) -> usize {
     }
 }
 
-fn thresholds_for_scenario(mut thresholds: JitterThresholds, scenario: &str) -> JitterThresholds {
-    if scenario == "quickstep-right" {
+fn thresholds_for_scenario(
+    mut thresholds: JitterThresholds,
+    scenario: &ScenarioMetadata<'_>,
+) -> JitterThresholds {
+    if scenario.is(ScenarioId::QuickstepRight) {
         // A ballistic dodge deliberately drives an analytic two-bone chain
         // through a short, high-angular-acceleration tuck. Its position and
         // rotation steps remain governed by the stricter continuity gates;
@@ -205,7 +227,7 @@ fn thresholds_for_scenario(mut thresholds: JitterThresholds, scenario: &str) -> 
         // narrow ceiling above that impulse without weakening ordinary gait.
         thresholds.local_position_acceleration_absolute = 145.0;
         thresholds.local_position_jerk_absolute = 12_000.0;
-    } else if scenario == "raised-guard-stationary-turn" {
+    } else if scenario.is(ScenarioId::RaisedGuardStationaryTurn) {
         // A planted turn loads the procedural knee chain against a fixed foot
         // before the pole limit requests a step. That smooth one-way loading
         // has slightly more angular curvature than ordinary locomotion while
@@ -214,8 +236,8 @@ fn thresholds_for_scenario(mut thresholds: JitterThresholds, scenario: &str) -> 
         // ordinary limits.
         thresholds.angular_acceleration_absolute = 260.0;
         thresholds.angular_jerk_absolute = 14_000.0;
-    } else if scenario.starts_with("raised-guard")
-        && (scenario.contains("release") || scenario.contains("tap-stop"))
+    } else if scenario.has(ScenarioFeature::RaisedGuard)
+        && (scenario.has(ScenarioFeature::Release) || scenario.has(ScenarioFeature::TapStop))
     {
         // These fixtures contain both a six-frame authored tap/release and the
         // one-shot handoff to a procedural stance-reacquisition step. The
@@ -224,17 +246,17 @@ fn thresholds_for_scenario(mut thresholds: JitterThresholds, scenario: &str) -> 
         // adjacent rotation/position step and ordinary position derivative
         // remains independently gated.
         thresholds.angular_acceleration_absolute = 550.0;
-        thresholds.angular_jerk_absolute = if scenario.contains("tap-stop") {
+        thresholds.angular_jerk_absolute = if scenario.has(ScenarioFeature::TapStop) {
             28_000.0
         } else {
             26_000.0
         };
-    } else if scenario.starts_with("raised-guard")
-        && !scenario.contains("release")
-        && !scenario.contains("tap-stop")
+    } else if scenario.has(ScenarioFeature::RaisedGuard)
+        && !scenario.has(ScenarioFeature::Release)
+        && !scenario.has(ScenarioFeature::TapStop)
         && !matches!(
-            scenario,
-            "raised-guard-stationary-turn" | "raised-guard-transition"
+            scenario.identity(),
+            Some(ScenarioId::RaisedGuardStationaryTurn) | Some(ScenarioId::RaisedGuardTransition)
         )
     {
         // Prepared skip/strafe curves have intentional curvature around their
@@ -252,14 +274,21 @@ fn thresholds_for_scenario(mut thresholds: JitterThresholds, scenario: &str) -> 
     thresholds
 }
 
-fn analyze_scenario(frames: &[JitterFrame], t: &JitterThresholds, out: &mut Vec<JitterIncident>) {
+fn analyze_scenario<K: JitterBoneIdentity>(
+    frames: &[JitterFrame<K>],
+    t: &JitterThresholds,
+    out: &mut Vec<JitterIncident<K>>,
+) {
     if frames.len() < 4 {
         return;
     }
-    let names = frames
+    let mut names: Vec<_> = frames
         .iter()
         .flat_map(|frame| frame.bones.keys())
-        .collect::<std::collections::BTreeSet<_>>();
+        .collect::<std::collections::BTreeSet<_>>()
+        .into_iter()
+        .collect();
+    names.sort_by(|left, right| left.report_label().cmp(&right.report_label()));
     for name in names {
         let Some(samples) = frames
             .iter()
@@ -338,13 +367,13 @@ fn analyze_scenario(frames: &[JitterFrame], t: &JitterThresholds, out: &mut Vec<
     }
 }
 
-fn report(
-    name: &str,
+fn report<K: JitterBoneIdentity>(
+    name: &K,
     class: JitterClass,
     values: &[f32],
-    frames: &[JitterFrame],
+    frames: &[JitterFrame<K>],
     limit: JitterLimit,
-    out: &mut Vec<JitterIncident>,
+    out: &mut Vec<JitterIncident<K>>,
 ) {
     let mut baseline_values = values
         .iter()
@@ -366,7 +395,7 @@ fn report(
         let frame = frames.get(index).or_else(|| frames.last()).unwrap();
         out.push(JitterIncident {
             scenario: frame.scenario.clone(),
-            bone: name.to_owned(),
+            bone: name.clone(),
             class,
             frame: frame.scenario_frame,
             window_start: frame.scenario_frame.saturating_sub(2),
@@ -378,7 +407,7 @@ fn report(
     }
 }
 
-fn dt(frames: &[JitterFrame], index: usize) -> f32 {
+fn dt<K: JitterBoneIdentity>(frames: &[JitterFrame<K>], index: usize) -> f32 {
     frames
         .get(index)
         .zip(frames.get(index.saturating_sub(1)))
@@ -387,7 +416,7 @@ fn dt(frames: &[JitterFrame], index: usize) -> f32 {
         })
 }
 
-fn derivative(values: &[f32], frames: &[JitterFrame]) -> Vec<f32> {
+fn derivative<K: JitterBoneIdentity>(values: &[f32], frames: &[JitterFrame<K>]) -> Vec<f32> {
     values
         .windows(2)
         .enumerate()
@@ -395,7 +424,10 @@ fn derivative(values: &[f32], frames: &[JitterFrame]) -> Vec<f32> {
         .collect()
 }
 
-fn vector_derivative(values: &[Vec3], frames: &[JitterFrame]) -> Vec<Vec3> {
+fn vector_derivative<K: JitterBoneIdentity>(
+    values: &[Vec3],
+    frames: &[JitterFrame<K>],
+) -> Vec<Vec3> {
     values
         .windows(2)
         .enumerate()
@@ -407,12 +439,18 @@ fn vector_derivative(values: &[Vec3], frames: &[JitterFrame]) -> Vec<Vec3> {
 mod tests {
     use super::*;
 
-    fn frames(values: &[f32]) -> Vec<JitterFrame> {
+    impl JitterBoneIdentity for String {
+        fn report_label(&self) -> Option<&str> {
+            Some(self)
+        }
+    }
+
+    fn frames(values: &[f32]) -> Vec<JitterFrame<String>> {
         values
             .iter()
             .enumerate()
             .map(|(index, value)| JitterFrame {
-                scenario: "test".to_owned(),
+                scenario: ScenarioMetadata::from_label("test").into_owned(),
                 analysis_segment: 0,
                 scenario_frame: index,
                 time_seconds: index as f32 / 64.0,
@@ -451,7 +489,8 @@ mod tests {
     #[test]
     fn force_driven_quickstep_uses_explosive_derivative_limits() {
         let ordinary = JitterThresholds::default();
-        let quickstep = thresholds_for_scenario(ordinary, "quickstep-right");
+        let quickstep =
+            thresholds_for_scenario(ordinary, &ScenarioMetadata::from_label("quickstep-right"));
         assert!(quickstep.angular_acceleration_absolute > ordinary.angular_acceleration_absolute);
         assert!(quickstep.angular_jerk_absolute > ordinary.angular_jerk_absolute);
         assert!(
@@ -464,8 +503,14 @@ mod tests {
     #[test]
     fn authored_combat_locomotion_uses_keyframe_derivative_limits() {
         let ordinary = JitterThresholds::default();
-        let authored = thresholds_for_scenario(ordinary, "raised-guard-forward");
-        let stationary = thresholds_for_scenario(ordinary, "raised-guard-stationary-turn");
+        let authored = thresholds_for_scenario(
+            ordinary,
+            &ScenarioMetadata::from_label("raised-guard-forward"),
+        );
+        let stationary = thresholds_for_scenario(
+            ordinary,
+            &ScenarioMetadata::from_label("raised-guard-stationary-turn"),
+        );
         assert_eq!(authored.angular_acceleration_absolute, 510.0);
         assert_eq!(authored.angular_jerk_absolute, 25_000.0);
         assert_eq!(stationary.angular_acceleration_absolute, 260.0);
@@ -476,14 +521,20 @@ mod tests {
             stationary.local_position_acceleration_absolute,
             ordinary.local_position_acceleration_absolute
         );
-        let release = thresholds_for_scenario(ordinary, "raised-guard-release-at-peak");
+        let release = thresholds_for_scenario(
+            ordinary,
+            &ScenarioMetadata::from_label("raised-guard-release-at-peak"),
+        );
         assert_eq!(release.angular_acceleration_absolute, 550.0);
         assert_eq!(release.angular_jerk_absolute, 26_000.0);
         assert_eq!(
             release.local_position_acceleration_absolute,
             ordinary.local_position_acceleration_absolute
         );
-        let tap = thresholds_for_scenario(ordinary, "raised-guard-tap-stop-right");
+        let tap = thresholds_for_scenario(
+            ordinary,
+            &ScenarioMetadata::from_label("raised-guard-tap-stop-right"),
+        );
         assert_eq!(tap.angular_jerk_absolute, 28_000.0);
     }
 
@@ -494,7 +545,7 @@ mod tests {
             0.0, 0.001, 0.002, 0.3, 0.301, 0.302,
         ]);
         for sample in &mut samples {
-            sample.scenario = "raised-guard-stationary-turn".to_owned();
+            sample.scenario = ScenarioMetadata::authored(ScenarioId::RaisedGuardStationaryTurn);
         }
         let report = validate(&samples, JitterThresholds::default());
         assert!(
@@ -508,21 +559,37 @@ mod tests {
 
     #[test]
     fn steady_authored_guard_excludes_spawn_but_transition_does_not() {
-        assert_eq!(acquisition_warmup_frames("raised-guard-forward"), 5);
-        assert_eq!(acquisition_warmup_frames("raised-guard-forward-left"), 5);
-        assert_eq!(acquisition_warmup_frames("raised-guard-transition"), 0);
+        assert_eq!(
+            acquisition_warmup_frames(&ScenarioMetadata::from_label("raised-guard-forward")),
+            5
+        );
+        assert_eq!(
+            acquisition_warmup_frames(&ScenarioMetadata::from_label("raised-guard-forward-left")),
+            5
+        );
+        assert_eq!(
+            acquisition_warmup_frames(&ScenarioMetadata::from_label("raised-guard-transition")),
+            0
+        );
     }
 
     #[test]
     fn guard_stop_contacts_restart_derivative_windows_only() {
         assert_eq!(
-            contact_segment_warmup_frames("raised-guard-tap-stop-left"),
+            contact_segment_warmup_frames(&ScenarioMetadata::from_label(
+                "raised-guard-tap-stop-left"
+            )),
             4
         );
         assert_eq!(
-            contact_segment_warmup_frames("raised-guard-release-at-peak"),
+            contact_segment_warmup_frames(&ScenarioMetadata::from_label(
+                "raised-guard-release-at-peak"
+            )),
             4
         );
-        assert_eq!(contact_segment_warmup_frames("raised-guard-left"), 0);
+        assert_eq!(
+            contact_segment_warmup_frames(&ScenarioMetadata::from_label("raised-guard-left")),
+            0
+        );
     }
 }

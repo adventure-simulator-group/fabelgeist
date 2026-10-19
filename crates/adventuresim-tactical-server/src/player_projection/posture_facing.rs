@@ -1,16 +1,17 @@
 //! Preserve authored posture-facing ownership across animation projection.
 
 use super::*;
+use adventuresim_tactical_core::animation::AnimationSampleTick;
 
 impl AttackFacing {
     pub(super) fn advance_rotation(
         &self,
         transform: &Transform,
-        tick: u64,
+        tick: AnimationSampleTick,
         elapsed: AnimationElapsed,
     ) -> Quat {
         let remaining_seconds =
-            self.contact_tick.saturating_sub(tick) as f32 / locomotion_sample_hz();
+            self.contact_tick.saturating_sub(tick).samples() as f32 / locomotion_sample_hz();
         let desired_forward = self.target_position - transform.translation;
         let turn_speed = body_turn_speed_for_deadline(
             transform.rotation,
@@ -42,14 +43,14 @@ pub(super) fn advance_projected_posture(
 ) {
     // Successful projection installed this same authoritative sample tick.
     let previous_transition = skeleton.posture_transition();
-    skeleton.advance_posture_transition(skeleton.locomotion_sample_tick.encoded());
+    skeleton.advance_posture_transition(skeleton.locomotion_sample_tick);
     advance_posture_transition_facing(
         transform,
         physics_rotation,
         previous_transition,
         skeleton.posture_transition(),
     );
-    skeleton.set_guarded_sprint_locomotion(pace == MovementPace::Sprint);
+    skeleton.set_guarded_locomotion_mode(GuardedLocomotionMode::from(pace));
 }
 
 pub(super) fn advance_posture_transition_facing(

@@ -3,16 +3,14 @@
 use super::*;
 
 #[derive(Clone, Copy)]
-pub(super) struct PreviewTarget {
-    pub(super) entity: Entity,
-    pub(super) occupancy: PreviewOccupancy,
-    pub(super) attachment: PreviewAttachment,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum PreviewOccupancy {
-    Empty,
-    Occupied,
+pub(super) enum PreviewTarget {
+    EmptyAttachment {
+        parent: Entity,
+    },
+    Occupied {
+        entity: Entity,
+        attachment: PreviewAttachment,
+    },
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -41,6 +39,29 @@ impl From<Option<&ItemProperties>> for HeldPreviewItem {
     }
 }
 
+impl PreviewTarget {
+    /// Protocol addressing selects either an empty capacity's parent or its occupied item.
+    pub(super) fn addressed_entity(self) -> Entity {
+        match self {
+            Self::EmptyAttachment { parent } => parent,
+            Self::Occupied { entity, .. } => entity,
+        }
+    }
+    pub(super) fn is_occupied(self) -> bool {
+        matches!(self, Self::Occupied { .. })
+    }
+    fn accepts_attachment(self) -> bool {
+        matches!(
+            self,
+            Self::EmptyAttachment { .. }
+                | Self::Occupied {
+                    attachment: PreviewAttachment::Attached,
+                    ..
+                }
+        )
+    }
+}
+
 impl PreviewAttachment {
     fn from_predicate(attached: bool) -> Self {
         if attached {
@@ -52,9 +73,7 @@ impl PreviewAttachment {
 }
 
 pub(super) fn outermost_occupied_depth(layers: &[PreviewTarget]) -> Option<usize> {
-    layers
-        .iter()
-        .position(|target| target.occupancy == PreviewOccupancy::Occupied)
+    layers.iter().position(|target| target.is_occupied())
 }
 
 pub(super) fn eligible_slot_depth(
@@ -75,11 +94,7 @@ pub(super) fn eligible_slot_depth(
         .placements
         .iter()
         .any(|placement| !placement.parents.is_empty())
-        .then(|| {
-            layers
-                .iter()
-                .position(|target| target.attachment == PreviewAttachment::Attached)
-        })?
+        .then(|| layers.iter().position(|target| target.accepts_attachment()))?
 }
 
 pub(super) fn ordered_preview_at_location(
@@ -145,9 +160,8 @@ fn append_preview(
         return;
     }
     let Ok((_, _, _, properties)) = items.get(entity) else {
-        output.push(PreviewTarget {
+        output.push(PreviewTarget::Occupied {
             entity,
-            occupancy: PreviewOccupancy::Occupied,
             attachment: PreviewAttachment::Detached,
         });
         return;
@@ -155,9 +169,8 @@ fn append_preview(
     let Some(equipment) = item_catalog::definition(&properties.id)
         .and_then(|definition| definition.equipment.as_ref())
     else {
-        output.push(PreviewTarget {
+        output.push(PreviewTarget::Occupied {
             entity,
-            occupancy: PreviewOccupancy::Occupied,
             attachment: PreviewAttachment::Detached,
         });
         return;
@@ -186,17 +199,12 @@ fn append_preview(
             } else {
                 // Empty attachment points address their mapped parent. Depth
                 // disambiguates the exact authored point/capacity on server.
-                output.push(PreviewTarget {
-                    entity,
-                    occupancy: PreviewOccupancy::Empty,
-                    attachment: PreviewAttachment::Attached,
-                });
+                output.push(PreviewTarget::EmptyAttachment { parent: entity });
             }
         }
     }
-    output.push(PreviewTarget {
+    output.push(PreviewTarget::Occupied {
         entity,
-        occupancy: PreviewOccupancy::Occupied,
         attachment: PreviewAttachment::from_predicate(items.get(entity).is_ok_and(
             |(_, _, topology, _)| {
                 topology.occupancies.iter().any(|occupancy| {
@@ -227,9 +235,8 @@ fn append_hud_preview(
         return;
     }
     let Ok((_, _, _, properties, _)) = items.get(entity) else {
-        output.push(PreviewTarget {
+        output.push(PreviewTarget::Occupied {
             entity,
-            occupancy: PreviewOccupancy::Occupied,
             attachment: PreviewAttachment::Detached,
         });
         return;
@@ -237,9 +244,8 @@ fn append_hud_preview(
     let Some(equipment) = item_catalog::definition(&properties.id)
         .and_then(|definition| definition.equipment.as_ref())
     else {
-        output.push(PreviewTarget {
+        output.push(PreviewTarget::Occupied {
             entity,
-            occupancy: PreviewOccupancy::Occupied,
             attachment: PreviewAttachment::Detached,
         });
         return;
@@ -266,17 +272,12 @@ fn append_hud_preview(
             if let Some(child) = child {
                 append_hud_preview(child, location, items, visited, output);
             } else {
-                output.push(PreviewTarget {
-                    entity,
-                    occupancy: PreviewOccupancy::Empty,
-                    attachment: PreviewAttachment::Attached,
-                });
+                output.push(PreviewTarget::EmptyAttachment { parent: entity });
             }
         }
     }
-    output.push(PreviewTarget {
+    output.push(PreviewTarget::Occupied {
         entity,
-        occupancy: PreviewOccupancy::Occupied,
         attachment: PreviewAttachment::from_predicate(items.get(entity).is_ok_and(
             |(_, _, _, _, topology)| {
                 topology.occupancies.iter().any(|occupancy| {
@@ -299,19 +300,13 @@ mod tests {
         let parent = Entity::from_bits(1);
         let child = Entity::from_bits(2);
         let layers = [
-            PreviewTarget {
-                entity: parent,
-                occupancy: PreviewOccupancy::Empty,
-                attachment: PreviewAttachment::Attached,
-            },
-            PreviewTarget {
+            PreviewTarget::EmptyAttachment { parent: parent },
+            PreviewTarget::Occupied {
                 entity: child,
-                occupancy: PreviewOccupancy::Occupied,
                 attachment: PreviewAttachment::Attached,
             },
-            PreviewTarget {
+            PreviewTarget::Occupied {
                 entity: parent,
-                occupancy: PreviewOccupancy::Occupied,
                 attachment: PreviewAttachment::Detached,
             },
         ];
@@ -404,12 +399,21 @@ mod tests {
                 },
             )
             .unwrap();
-        assert_eq!(preview.first().map(|target| target.entity), Some(sheath));
+        assert_eq!(
+            preview.first().map(|target| target.addressed_entity()),
+            Some(sheath)
+        );
         assert!(
-            preview.first().unwrap().occupancy == PreviewOccupancy::Empty,
+            matches!(
+                preview.first().unwrap(),
+                PreviewTarget::EmptyAttachment { .. }
+            ),
             "deepest empty blade is first"
         );
-        assert_eq!(preview.last().map(|target| target.entity), Some(belt));
+        assert_eq!(
+            preview.last().map(|target| target.addressed_entity()),
+            Some(belt)
+        );
         let right_preview = world
             .run_system_once(
                 move |items: Query<(Entity, &ItemOf, &EquipmentTopology, &ItemProperties)>| {
@@ -418,11 +422,15 @@ mod tests {
             )
             .unwrap();
         assert_eq!(
-            right_preview.first().map(|target| target.entity),
+            right_preview
+                .first()
+                .map(|target| target.addressed_entity()),
             Some(right_sheath)
         );
         assert!(
-            right_preview.iter().all(|target| target.entity != sheath),
+            right_preview
+                .iter()
+                .all(|target| target.addressed_entity() != sheath),
             "the left sheath must not appear in the right belt slot"
         );
     }

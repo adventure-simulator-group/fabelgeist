@@ -19,8 +19,9 @@ pub struct TacticalAnimationPlugin;
 /// Client-only locomotion state used for rendering between replicated server
 /// samples. Gameplay semantics and presentation events continue to read the
 /// authoritative `SkeletonState` directly.
-#[derive(Component, Debug, Clone)]
+#[derive(Component, Debug, Clone, derive_more::Deref)]
 pub(crate) struct PresentedSkeleton {
+    #[deref]
     pub(crate) state: SkeletonState,
     source_tick: AnimationSampleTick,
     presentation_tick: Option<AnimationSampleTick>,
@@ -44,7 +45,7 @@ struct AuthoredCadence {
 
 #[derive(Debug, Clone, Copy)]
 struct PresentedAttackPhase {
-    start_tick: u64,
+    start_tick: AnimationSampleTick,
     animation: AttackAnimation,
     hand: AttackHand,
     continuation: bool,
@@ -99,8 +100,8 @@ impl PresentedSkeleton {
         let source_gap = authoritative
             .locomotion_sample_tick
             .checked_delta(self.source_tick);
-        let source_is_contiguous =
-            source_gap.is_some_and(|gap| gap <= playback_tuning().maximum_source_gap_ticks);
+        let source_is_contiguous = source_gap
+            .is_some_and(|gap| gap <= playback_tuning().maximum_source_gap_ticks.samples());
         if source_is_contiguous && can_predict_locomotion(previous, authoritative) {
             let response =
                 1.0 - (-playback_tuning().velocity_response_per_second * delta_seconds).exp();
@@ -114,9 +115,12 @@ impl PresentedSkeleton {
             let prediction_delta = if next.weapon_guard() == WeaponGuardState::Raised
                 && let Some(step) = next.raised_footwork().step()
             {
-                let duration_ticks = step.contact_tick().saturating_sub(step.start_tick()).max(1);
+                let duration_ticks = step
+                    .contact_tick()
+                    .saturating_sub(step.start_tick())
+                    .max(AnimationSampleSpan::ONE);
                 CycleDelta::from_arithmetic(
-                    delta_seconds * locomotion_sample_hz() * 0.5 / duration_ticks as f32,
+                    delta_seconds * locomotion_sample_hz() * 0.5 / duration_ticks.samples() as f32,
                 )?
             } else {
                 let speed = presentation_phase_speed(next);
@@ -172,14 +176,6 @@ impl PresentedSkeleton {
     }
 }
 
-impl std::ops::Deref for PresentedSkeleton {
-    type Target = SkeletonState;
-
-    fn deref(&self) -> &Self::Target {
-        &self.state
-    }
-}
-
 pub(super) fn playback_tuning() -> AnimationPlaybackConfig {
     runtime_animation_config().playback
 }
@@ -213,7 +209,7 @@ pub(super) fn can_predict_locomotion(
             && authoritative.action_kind() == SkeletonAction::Attack);
     authoritative.is_surface_supported()
         && action_is_predictable
-        && (authoritative.posture() == Posture::Upright || authoritative.downed_turning())
+        && (authoritative.posture() == Posture::Upright || authoritative.is_downed_turning())
         && authoritative.animation_speed() > 0.05
         && previous.posture() == authoritative.posture()
         && previous.weapon_guard() == authoritative.weapon_guard()
@@ -365,7 +361,10 @@ fn advance_presented_quickstep(
     } else {
         previous
     };
-    let preparation_ticks = source.action_preparation_ticks().unwrap_or(1).max(1);
+    let preparation_ticks = source
+        .action_preparation_ticks()
+        .unwrap_or(AnimationSampleSpan::ONE)
+        .max(AnimationSampleSpan::ONE);
     let entering = phase.is_none() && !previous.is_quickstep() && authoritative.is_quickstep();
     let visual_phase = phase.get_or_insert_with(|| {
         if previous.is_quickstep() {
@@ -376,17 +375,23 @@ fn advance_presented_quickstep(
     });
     if !entering {
         *visual_phase = (*visual_phase
-            + delta_seconds.max(0.0) * locomotion_sample_hz() / (2 * preparation_ticks) as f32)
+            + delta_seconds.max(0.0) * locomotion_sample_hz()
+                / (2 * preparation_ticks.samples()) as f32)
             .min(1.0);
     }
 
     *next = source.clone();
-    let start_tick = source.action_start_tick().unwrap_or(0);
-    let elapsed_ticks = (*visual_phase * (2 * preparation_ticks) as f32).round() as u64;
+    let start_tick = source
+        .action_start_tick()
+        .unwrap_or(AnimationSampleTick::ZERO);
+    let elapsed_ticks = (*visual_phase * (2 * preparation_ticks.samples()) as f32).round() as u64;
     next.advance_action(
         start_tick
-            .saturating_add(elapsed_ticks)
-            .min(start_tick.saturating_add(2 * preparation_ticks)),
+            .saturating_add(AnimationSampleSpan::from(elapsed_ticks))
+            .min(
+                start_tick
+                    .saturating_add(AnimationSampleSpan::from(2 * preparation_ticks.samples())),
+            ),
     );
 }
 
@@ -402,12 +407,11 @@ fn apply_authored_cadence(
         *cadence = None;
         return Ok(());
     }
-    let kind =
-        if next.weapon_guard() == WeaponGuardState::Raised && !next.guarded_sprint_locomotion() {
-            AuthoredCadenceKind::Combat
-        } else {
-            AuthoredCadenceKind::Ordinary
-        };
+    let kind = if next.weapon_guard() == WeaponGuardState::Raised && !next.is_guarded_sprinting() {
+        AuthoredCadenceKind::Combat
+    } else {
+        AuthoredCadenceKind::Ordinary
+    };
     let speed = next.animation_speed();
     let measurement = match kind {
         AuthoredCadenceKind::Ordinary => strides.ordinary(speed),
@@ -475,7 +479,7 @@ fn capped_authored_step_cadence(requested: f32) -> f32 {
 
 fn presentation_phase_speed(skeleton: &SkeletonState) -> f32 {
     let speed = skeleton.animation_speed();
-    if skeleton.downed_turning() {
+    if skeleton.is_downed_turning() {
         speed * 2.0
     } else if matches!(skeleton.body(), BodyState::Prone | BodyState::Supine) {
         // Match the authority: physical translation while downed is presented
@@ -502,7 +506,7 @@ mod authored_cadence_tests {
             ..default()
         };
         strides.phase_curves.insert(
-            super::MotionId::from_static("walk"),
+            super::CalibrationMotion::Walk,
             AuthoredPhaseCurve {
                 authored_phases: vec![0.25, 1.25]
                     .into_iter()
@@ -511,14 +515,14 @@ mod authored_cadence_tests {
             },
         );
 
-        strides.clear_motion(&super::MotionId::from_static("walk"));
+        strides.clear_motion(super::CalibrationMotion::Walk);
 
         assert!(strides.walk.is_none());
         assert!(strides.run.is_some());
         assert!(
             !strides
                 .phase_curves
-                .contains_key(&super::MotionId::from_static("walk"))
+                .contains_key(&super::CalibrationMotion::Walk)
         );
     }
 
@@ -636,9 +640,15 @@ mod authored_cadence_tests {
         let mut authoritative =
             SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
         authoritative
-            .begin_attack(AttackSpec::main(StrikeFamily::Swing, false), 0, 12)
+            .begin_attack(
+                AttackSpec::main(StrikeFamily::Swing, false),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(12u64),
+            )
             .unwrap();
-        authoritative.advance_action(12);
+        authoritative.advance_action(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(12u64),
+        );
         assert_eq!(authoritative.action_phase(), 0.5);
         let mut presented = PresentedSkeleton::new(authoritative.clone(), None);
         let strides = AuthoredLocomotionStrides::default();
@@ -671,9 +681,15 @@ mod authored_cadence_tests {
         let mut authoritative =
             SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
         authoritative
-            .begin_attack(AttackSpec::main(StrikeFamily::Swing, false), 0, 12)
+            .begin_attack(
+                AttackSpec::main(StrikeFamily::Swing, false),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(12u64),
+            )
             .unwrap();
-        authoritative.advance_action(12);
+        authoritative.advance_action(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(12u64),
+        );
         let mut presented = PresentedSkeleton::new(authoritative.clone(), None);
         let strides = AuthoredLocomotionStrides::default();
         advance_presented_skeleton_with_strides(
@@ -693,7 +709,9 @@ mod authored_cadence_tests {
         let predicted = presented.action_phase();
 
         authoritative.locomotion_sample_tick = authoritative.locomotion_sample_tick.next();
-        authoritative.advance_action(13);
+        authoritative.advance_action(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(13u64),
+        );
         advance_presented_skeleton_with_strides(
             &mut presented,
             &authoritative,
@@ -714,10 +732,18 @@ mod authored_cadence_tests {
         let mut authoritative =
             SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
         authoritative
-            .begin_attack_timed(AttackSpec::main(StrikeFamily::Swing, true), 0, 17, 28)
+            .begin_attack_timed(
+                AttackSpec::main(StrikeFamily::Swing, true),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(17u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(28u64),
+            )
             .unwrap();
-        authoritative.advance_action(5);
-        authoritative = authoritative.with_locomotion_sample_tick(5);
+        authoritative
+            .advance_action(adventuresim_tactical_core::animation::AnimationSampleTick::from(5u64));
+        authoritative = authoritative.with_locomotion_sample_tick(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(5u64),
+        );
         let mut presented = PresentedSkeleton::new(authoritative.clone(), None);
         let strides = AuthoredLocomotionStrides::default();
         advance_presented_skeleton_with_strides(
@@ -729,8 +755,12 @@ mod authored_cadence_tests {
         .unwrap();
         let previous_phase = presented.action_phase();
 
-        authoritative.advance_action(13);
-        authoritative = authoritative.with_locomotion_sample_tick(13);
+        authoritative.advance_action(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(13u64),
+        );
+        authoritative = authoritative.with_locomotion_sample_tick(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(13u64),
+        );
         assert!(authoritative.action_phase() - previous_phase > playback_tuning().phase_snap_error);
         advance_presented_skeleton_with_strides(
             &mut presented,
@@ -755,10 +785,19 @@ mod authored_cadence_tests {
     fn completed_authoritative_attack_finishes_its_presented_tail() {
         let mut attack = SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
         attack
-            .begin_attack_timed(AttackSpec::main(StrikeFamily::Swing, true), 0, 10, 20)
+            .begin_attack_timed(
+                AttackSpec::main(StrikeFamily::Swing, true),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64),
+            )
             .unwrap();
-        attack.advance_action(17);
-        attack = attack.with_locomotion_sample_tick(17);
+        attack.advance_action(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(17u64),
+        );
+        attack = attack.with_locomotion_sample_tick(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(17u64),
+        );
         assert!((attack.action_phase() - 0.85).abs() < 0.0001);
 
         let mut presented = PresentedSkeleton::new(attack.clone(), None);
@@ -771,8 +810,12 @@ mod authored_cadence_tests {
         )
         .unwrap();
 
-        let mut idle = attack.with_locomotion_sample_tick(21);
-        idle.advance_action(21);
+        let mut idle = attack.with_locomotion_sample_tick(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(21u64),
+        );
+        idle.advance_action(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(21u64),
+        );
         assert_eq!(idle.action_kind(), SkeletonAction::None);
         for _ in 0..4 {
             advance_presented_skeleton_with_strides(
@@ -802,8 +845,17 @@ mod authored_cadence_tests {
             SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
         let spec = AttackSpec::main(StrikeFamily::Swing, true);
         let recovery_scale = 1.0 + spec.curve.overshoot;
-        authoritative.begin_attack_timed(spec, 0, 10, 20).unwrap();
-        authoritative.advance_action(10);
+        authoritative
+            .begin_attack_timed(
+                spec,
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64),
+            )
+            .unwrap();
+        authoritative.advance_action(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+        );
         assert!(authoritative.attack_is_continuation());
         assert_eq!(authoritative.action_phase(), 0.5);
 
@@ -833,18 +885,27 @@ mod authored_cadence_tests {
     fn predicted_follow_up_survives_stale_initial_attack_packet() {
         let mut initial = SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
         initial
-            .begin_attack_timed(AttackSpec::main(StrikeFamily::Swing, false), 0, 10, 30)
+            .begin_attack_timed(
+                AttackSpec::main(StrikeFamily::Swing, false),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(30u64),
+            )
             .unwrap();
         let continuation_tick = initial.attack_continuation_tick().unwrap();
-        initial.advance_action(10);
+        initial.advance_action(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+        );
 
-        let mut predicted = initial.clone().with_locomotion_sample_tick(10);
+        let mut predicted = initial.clone().with_locomotion_sample_tick(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+        );
         predicted
             .begin_attack_timed(
                 AttackSpec::main(StrikeFamily::Swing, true),
                 continuation_tick,
-                continuation_tick + 10,
-                continuation_tick + 20,
+                continuation_tick + AnimationSampleSpan::from(10u64),
+                continuation_tick + AnimationSampleSpan::from(20u64),
             )
             .unwrap();
         let mut presented = PresentedSkeleton::new(initial.clone(), None);
@@ -860,8 +921,12 @@ mod authored_cadence_tests {
         assert!(presented.attack_has_queued_continuation());
         assert!(!presented.attack_is_continuation());
 
-        let mut stale = initial.clone().with_locomotion_sample_tick(11);
-        stale.advance_action(11);
+        let mut stale = initial.clone().with_locomotion_sample_tick(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(11u64),
+        );
+        stale.advance_action(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(11u64),
+        );
         assert!(!stale.attack_is_continuation());
         advance_presented_skeleton_with_strides(
             &mut presented,
@@ -888,8 +953,9 @@ mod authored_cadence_tests {
         assert_eq!(presented.action_start_tick(), Some(continuation_tick));
 
         let stale_follow_phase = presented.action_phase();
-        predicted.advance_action(continuation_tick + 1);
-        predicted = predicted.with_locomotion_sample_tick(continuation_tick + 1);
+        predicted.advance_action(continuation_tick + AnimationSampleSpan::from(1u64));
+        predicted = predicted
+            .with_locomotion_sample_tick(continuation_tick + AnimationSampleSpan::from(1u64));
         advance_presented_skeleton_with_strides(
             &mut presented,
             &predicted,
@@ -906,14 +972,20 @@ mod authored_cadence_tests {
         let mut authoritative =
             SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
         authoritative
-            .begin_dodge(DodgeSpec::quickstep(Vec2::X).unwrap(), 10, 20)
+            .begin_dodge(
+                DodgeSpec::quickstep(Vec2::X).unwrap(),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64),
+            )
             .unwrap();
         let mut presented = PresentedSkeleton::new(authoritative.clone(), None);
 
         // Simulate a coalesced authoritative observation that jumps directly
         // to contact/recovery complete. Presentation must still visit frame 6,
         // the midpoint of the authoritative 0/3/6/9/12 source timeline.
-        authoritative.advance_action(30);
+        authoritative.advance_action(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(30u64),
+        );
         let strides = AuthoredLocomotionStrides::default();
         for _ in 0..15 {
             advance_presented_skeleton_with_strides(
@@ -937,16 +1009,24 @@ mod authored_cadence_tests {
         let mut authoritative =
             SkeletonState::default().with_weapon_guard(WeaponGuardState::Raised);
         authoritative
-            .begin_dodge(DodgeSpec::quickstep(Vec2::X).unwrap(), 10, 20)
+            .begin_dodge(
+                DodgeSpec::quickstep(Vec2::X).unwrap(),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64),
+            )
             .unwrap();
-        authoritative.advance_action(10);
+        authoritative.advance_action(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+        );
         let mut presented = PresentedSkeleton::new(authoritative.clone(), None);
         let strides = AuthoredLocomotionStrides::default();
 
         // The server has already observed landing and guard release. The
         // presentation timeline still owns the complete authored action
         // output before it may route back to ordinary/combat locomotion.
-        authoritative.advance_action(31);
+        authoritative.advance_action(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(31u64),
+        );
         authoritative = authoritative.with_weapon_guard(WeaponGuardState::Lowered);
         authoritative = authoritative.with_local_velocity(Vec3::X * 2.0);
 

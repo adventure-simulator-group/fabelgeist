@@ -23,6 +23,10 @@ struct FallbackGeometry {
     head_radius: PositiveLength,
     arm: CuboidDimensions,
     leg: FallbackCapsule,
+    torso_anchor: Vec3,
+    head_anchor: Vec3,
+    arms: [LimbAnchor; 2],
+    legs: [LimbAnchor; 2],
 }
 
 impl FallbackCapsule {
@@ -43,6 +47,28 @@ impl FallbackGeometry {
                 radius: PositiveLength::from_metres(0.12)?,
                 segment_length: PositiveLength::from_metres(0.72)?,
             },
+            torso_anchor: Vec3::new(0.0, 0.35, 0.0),
+            head_anchor: Vec3::new(0.0, 1.02, 0.0),
+            arms: [
+                LimbAnchor {
+                    name: "l_uparm/l_lowarm/l_wrist",
+                    root_local_metres: Vec3::new(-0.56, 0.68, 0.0),
+                },
+                LimbAnchor {
+                    name: "r_uparm/r_lowarm/r_wrist",
+                    root_local_metres: Vec3::new(0.56, 0.68, 0.0),
+                },
+            ],
+            legs: [
+                LimbAnchor {
+                    name: "l_upleg/l_lowleg/l_foot",
+                    root_local_metres: Vec3::new(-0.16, -0.46, 0.0),
+                },
+                LimbAnchor {
+                    name: "r_upleg/r_lowleg/r_foot",
+                    root_local_metres: Vec3::new(0.16, -0.46, 0.0),
+                },
+            ],
         })
     }
 }
@@ -87,15 +113,15 @@ pub(crate) fn spawn_fallback_t_pose(
                 Name::new("hips/spine/chest"),
                 Mesh3d(torso),
                 MeshMaterial3d(material.clone()),
-                Transform::from_translation(torso_anchor()),
+                Transform::from_translation(geometry.torso_anchor),
             ));
             rig.spawn((
                 Name::new("head"),
                 Mesh3d(head),
                 MeshMaterial3d(material.clone()),
-                Transform::from_translation(head_anchor()),
+                Transform::from_translation(geometry.head_anchor),
             ));
-            for anchor in arm_anchors() {
+            for anchor in geometry.arms {
                 rig.spawn((
                     Name::new(anchor.name),
                     Mesh3d(arm.clone()),
@@ -103,7 +129,7 @@ pub(crate) fn spawn_fallback_t_pose(
                     Transform::from_translation(anchor.root_local_metres),
                 ));
             }
-            for anchor in leg_anchors() {
+            for anchor in geometry.legs {
                 rig.spawn((
                     Name::new(anchor.name),
                     Mesh3d(leg.clone()),
@@ -112,37 +138,4 @@ pub(crate) fn spawn_fallback_t_pose(
                 ));
             }
         });
-}
-
-fn torso_anchor() -> Vec3 {
-    Vec3::new(0.0, 0.35, 0.0)
-}
-fn head_anchor() -> Vec3 {
-    Vec3::new(0.0, 1.02, 0.0)
-}
-
-fn arm_anchors() -> [LimbAnchor; 2] {
-    [
-        LimbAnchor {
-            name: "l_uparm/l_lowarm/l_wrist",
-            root_local_metres: Vec3::new(-0.56, 0.68, 0.0),
-        },
-        LimbAnchor {
-            name: "r_uparm/r_lowarm/r_wrist",
-            root_local_metres: Vec3::new(0.56, 0.68, 0.0),
-        },
-    ]
-}
-
-fn leg_anchors() -> [LimbAnchor; 2] {
-    [
-        LimbAnchor {
-            name: "l_upleg/l_lowleg/l_foot",
-            root_local_metres: Vec3::new(-0.16, -0.46, 0.0),
-        },
-        LimbAnchor {
-            name: "r_upleg/r_lowleg/r_foot",
-            root_local_metres: Vec3::new(0.16, -0.46, 0.0),
-        },
-    ]
 }

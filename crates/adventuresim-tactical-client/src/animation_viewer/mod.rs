@@ -27,6 +27,8 @@ use serde::Serialize;
 
 use crate::animation::jitter::{self, JitterBone, JitterFrame, JitterValidationSummary};
 use crate::animation::pose_buffer::PoseBufferMetrics;
+use crate::animation::procedural::BodyAngle;
+use crate::animation::review_scenarios::*;
 use crate::animation::{
     AnimationPlayback, AnimationRuntime, ArmIkState, AuthoredBindTransform, BoneRole, HumanoidBone,
     LegIkDiagnostics, LegIkState, LocomotionBodyResponseState, LocomotionHeightState,
@@ -46,32 +48,32 @@ use crate::{
     presentation::{TacticalGameplayCamera, TacticalPresentationPlugin},
 };
 
-mod capture;
-mod harness;
-pub(crate) use harness::ArmorHarness;
-
-const CAPTURE_LOAD_FRAME_LIMIT: u32 = 1200;
-mod inspection;
-mod view;
-pub(crate) use inspection::CaptureInspection;
-use view::position_capture_camera;
-mod setup;
-use setup::setup_viewer;
-
-#[derive(Resource)]
-struct CaptureBodyProportions(
-    Option<adventuresim_core::character_proportions::CharacterProportions>,
-);
-mod report;
-mod scenarios;
-
 use capture::*;
+pub(crate) use harness::ArmorHarness;
+pub(crate) use inspection::CaptureInspection;
 use report::*;
 use scenarios::terrain_policy::{
     raised_scenario_requires_zero_flight, scenario_uses_terrain_ik, startup_terrain_ik_mode,
     terrain_ik_mode_for_frame,
 };
 use scenarios::*;
+use setup::setup_viewer;
+use view::position_capture_camera;
+
+mod capture;
+mod harness;
+mod inspection;
+mod report;
+mod scenarios;
+mod setup;
+mod view;
+
+const CAPTURE_LOAD_FRAME_LIMIT: u32 = 1200;
+
+#[derive(Resource)]
+struct CaptureBodyProportions(
+    Option<adventuresim_core::character_proportions::CharacterProportions>,
+);
 
 pub(crate) struct CaptureOptions {
     pub output: PathBuf,
@@ -103,7 +105,8 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
     });
     invalidate_previous_report(&output);
     setup::write_body_proportions(&output, body_proportions);
-    let initial_terrain_ik = startup_terrain_ik_mode(scenario.map(ScenarioMetadata::from_label));
+    let selected_scenario = scenario.map(ScenarioMetadata::from_label);
+    let initial_terrain_ik = startup_terrain_ik_mode(selected_scenario.as_ref());
     let default_character_id = default_tactical_character_id();
 
     let workspace_asset_source =

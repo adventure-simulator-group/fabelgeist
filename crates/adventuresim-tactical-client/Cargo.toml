@@ -15,7 +15,7 @@ tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep
 remote-types = ["debug"]
 
 [dependencies]
-derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "from"] }
+derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "from", "into", "deref"] }
 strum = { version = "0.27.2", features = ["derive"] }
 fabelgeist-rig.workspace = true
 thiserror.workspace = true

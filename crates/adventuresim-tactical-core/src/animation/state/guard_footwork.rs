@@ -1,0 +1,146 @@
+//! Authoritative contact planning and elapsed guard-footwork integration.
+
+use super::*;
+
+pub(super) fn advance_guard_footwork(
+    skeleton: &mut SkeletonState,
+    delta_seconds: AnimationElapsed,
+    tick: AnimationSampleTick,
+) -> AnimationValueResult<()> {
+    let displacement = skeleton.local_velocity.xz() * delta_seconds.seconds();
+    let physical_velocity = skeleton.local_velocity.xz();
+    let physical_speed = physical_velocity.length();
+    let physical_direction = physical_velocity.normalize_or_zero();
+    let mut plan = match skeleton.raised_footwork {
+        GuardFootworkPlan::Uninitialized => GuardFootworkPlan::Planted {
+            contacts: GuardContacts::default(),
+            next_swing: guard_movement_front_foot(
+                skeleton.lead_foot,
+                skeleton.raised_locomotion().local_direction(),
+            ),
+        },
+        GuardFootworkPlan::Planted {
+            contacts,
+            next_swing,
+        } => GuardFootworkPlan::Planted {
+            contacts: contacts.advected(displacement),
+            next_swing,
+        },
+        GuardFootworkPlan::Stepping(step) => {
+            GuardFootworkPlan::Stepping(step.advected(displacement))
+        }
+    };
+
+    if let GuardFootworkPlan::Stepping(mut step) = plan {
+        let direction = if physical_direction == Vec2::ZERO {
+            step.direction()
+        } else {
+            physical_direction
+        };
+        let leading_contact = step
+            .contacts
+            .left
+            .dot(direction)
+            .max(step.contacts.right.dot(direction));
+        let contact_due = tick >= step.contact_tick || leading_contact <= 0.0;
+        if contact_due {
+            let contact_margin = guard_footwork_config().contact_margin_metres;
+            if step.landing.dot(direction) < contact_margin {
+                step.landing += direction * (contact_margin - step.landing.dot(direction));
+            }
+            let contacts = step.contacts.with_contact(step.swing_foot, step.landing);
+            skeleton.contact_foot = step.swing_foot;
+            skeleton.contact_sequence = skeleton.contact_sequence.next();
+            plan = GuardFootworkPlan::Planted {
+                contacts,
+                next_swing: opposite_foot(step.swing_foot),
+            };
+        }
+    }
+
+    if let GuardFootworkPlan::Planted {
+        contacts,
+        next_swing,
+    } = plan
+        && physical_speed > 0.05
+    {
+        plan = GuardFootworkPlan::Stepping(plan_guard_step(
+            contacts,
+            next_swing,
+            physical_velocity,
+            tick,
+        ));
+        skeleton.contact_foot = opposite_foot(next_swing);
+    }
+
+    skeleton.gait_phase = CyclePhase::from_cycles(match plan {
+        GuardFootworkPlan::Stepping(step) => {
+            let progress = step.progress(tick).clamp(0.0, 1.0);
+            match step.swing_foot {
+                LeadFoot::Left => (0.5 + 0.5 * progress).rem_euclid(1.0),
+                LeadFoot::Right => 0.5 * progress,
+            }
+        }
+        GuardFootworkPlan::Uninitialized | GuardFootworkPlan::Planted { .. } => {
+            match skeleton.contact_foot {
+                LeadFoot::Left => 0.0,
+                LeadFoot::Right => 0.5,
+            }
+        }
+    })?;
+    skeleton.raised_footwork = plan;
+    Ok(())
+}
+
+fn plan_guard_step(
+    contacts: GuardContacts,
+    swing_foot: LeadFoot,
+    local_velocity: Vec2,
+    start_tick: AnimationSampleTick,
+) -> GuardStepPlan {
+    let speed = local_velocity.length().max(0.05);
+    let direction = local_velocity.normalize_or_zero();
+    let tuning = guard_footwork_config();
+    let available_reach = tuning.planning_reach_metres - tuning.contact_margin_metres;
+    let reach_seconds = available_reach / speed;
+    let leading_contact = contacts
+        .left
+        .dot(direction)
+        .max(contacts.right.dot(direction));
+    let support_seconds = if leading_contact > 0.0 {
+        leading_contact / speed
+    } else {
+        1.0 / locomotion_sample_hz()
+    };
+    let duration_seconds = reach_seconds
+        .min(support_seconds)
+        .clamp(tuning.minimum_step_seconds, tuning.maximum_step_seconds);
+    let duration_ticks = AnimationSampleSpan::from(
+        (duration_seconds * locomotion_sample_hz()).ceil().max(1.0) as u64,
+    );
+    let forward = (speed * duration_ticks.samples() as f32 / locomotion_sample_hz()
+        + tuning.contact_margin_metres)
+        .min(tuning.planning_reach_metres);
+    let side = match swing_foot {
+        LeadFoot::Left => -tuning.default_half_width_metres,
+        LeadFoot::Right => tuning.default_half_width_metres,
+    };
+    let mut landing = direction * forward + Vec2::X * side;
+    let along_shortfall = forward - landing.dot(direction);
+    if along_shortfall > 0.0 {
+        landing += direction * along_shortfall;
+    }
+    landing = landing.clamp_length_max(tuning.planning_reach_metres);
+    let swing_start = match swing_foot {
+        LeadFoot::Left => contacts.left,
+        LeadFoot::Right => contacts.right,
+    };
+    GuardStepPlan {
+        contacts,
+        swing_foot,
+        swing_start,
+        landing,
+        start_tick,
+        contact_tick: start_tick.saturating_add(duration_ticks),
+    }
+}

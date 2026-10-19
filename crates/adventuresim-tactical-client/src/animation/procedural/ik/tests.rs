@@ -1049,23 +1049,6 @@ mod coordination_tests {
     }
 
     #[test]
-    fn run_foot_roll_has_heel_flat_and_toe_off_beats() {
-        let mut run = SkeletonState::default();
-        run.local_velocity = Vec3::new(0.0, 0.0, -5.5);
-        run.world_velocity = Vec3::new(0.0, 0.0, -5.5);
-        run.gait_phase = CyclePhase::from_cycles(0.84).unwrap();
-        assert!(run_foot_roll_degrees(&run, true) > 0.0, "heel prepares");
-        run.gait_phase = CyclePhase::from_cycles(0.0).unwrap();
-        assert_eq!(run_foot_roll_degrees(&run, true), 0.0, "flat stance");
-        run.gait_phase = CyclePhase::from_cycles(0.15).unwrap();
-        assert!(run_foot_roll_degrees(&run, true) < 0.0, "toe off");
-        run.gait_phase = CyclePhase::from_cycles(0.25).unwrap();
-        assert_eq!(run_foot_roll_degrees(&run, true), 0.0, "neutral swing");
-        run.gait_phase = CyclePhase::from_cycles(0.5).unwrap();
-        assert_eq!(run_foot_roll_degrees(&run, false), 0.0, "mirrored contact");
-    }
-
-    #[test]
     fn release_target_cap_preserves_the_knee_continuity_budget() {
         let maximum_target_step = (ik_tuning().airborne_release_step_metres
             * ik_tuning().continuity_sample_hz)
@@ -1131,7 +1114,7 @@ mod coordination_tests {
     #[test]
     fn raised_stop_settle_keeps_terrain_ik_alive_across_ticks() {
         let mut settle = LocomotionSettleState {
-            support_left: true,
+            support_foot: LeadFoot::Left,
             swing_start: Vec3::new(0.2, 0.1, 0.0),
             capture_point: Vec3::ZERO,
             landing_target: Vec3::new(-0.2, 0.1, -0.3),
@@ -1188,7 +1171,7 @@ mod coordination_tests {
     #[test]
     fn immediate_restart_cancels_settle_without_waiting_for_release_targets() {
         let settle = LocomotionSettleState {
-            support_left: false,
+            support_foot: LeadFoot::Right,
             swing_start: Vec3::ZERO,
             capture_point: Vec3::Z,
             landing_target: Vec3::NEG_Z,
@@ -1415,7 +1398,7 @@ mod coordination_tests {
         let right = Vec3::new(0.1, 0.085, -0.4);
         let mut memory = LegIkMemory {
             settle: Some(LocomotionSettleState {
-                support_left: true,
+                support_foot: LeadFoot::Left,
                 swing_start: right,
                 capture_point: Vec3::NEG_Z,
                 landing_target: right,
@@ -1443,7 +1426,7 @@ mod coordination_tests {
     fn completed_settle_promotes_both_targets_to_stable_idle_plants() {
         let mut memory = LegIkMemory {
             settle: Some(LocomotionSettleState {
-                support_left: true,
+                support_foot: LeadFoot::Left,
                 swing_start: Vec3::ZERO,
                 capture_point: Vec3::NEG_Z,
                 landing_target: Vec3::new(0.2, 0.085, -0.4),
@@ -1481,7 +1464,7 @@ mod coordination_tests {
     fn terminal_settle_with_idle_followers_finishes_on_dual_terrain_contacts() {
         let settle = advance_settle_state(
             LocomotionSettleState {
-                support_left: true,
+                support_foot: LeadFoot::Left,
                 swing_start: Vec3::ZERO,
                 capture_point: Vec3::NEG_Z,
                 landing_target: Vec3::new(0.2, 0.085, -0.4),
@@ -1569,7 +1552,7 @@ mod coordination_tests {
 
         let memory = LegIkMemory {
             settle: Some(LocomotionSettleState {
-                support_left: true,
+                support_foot: LeadFoot::Left,
                 swing_start: target,
                 capture_point: target,
                 landing_target: target,
@@ -1626,7 +1609,7 @@ mod coordination_tests {
         let visible_right = Vec3::new(0.118, 0.3, -0.784);
         let mut memory = LegIkMemory {
             settle: Some(LocomotionSettleState {
-                support_left: true,
+                support_foot: LeadFoot::Left,
                 swing_start: visible_right,
                 capture_point: Vec3::ZERO,
                 landing_target: stale_right,
@@ -1674,7 +1657,7 @@ mod coordination_tests {
         let right = Vec3::new(0.12, measured_ankle_sole_offset_metres(), -0.5);
         let mut memory = LegIkMemory {
             settle: Some(LocomotionSettleState {
-                support_left: true,
+                support_foot: LeadFoot::Left,
                 swing_start: right,
                 capture_point: Vec3::ZERO,
                 landing_target: right,
@@ -1761,7 +1744,7 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
         );
-        retain_settle_support(&mut memory, false, Some(left), Some(right), true);
+        retain_settle_support(&mut memory, LeadFoot::Right, Some(left), Some(right), true);
 
         assert_eq!(memory.right_foot_plant, Some(right));
         assert!(memory.right_foot_plant_acquired);
@@ -1779,7 +1762,13 @@ mod coordination_tests {
             ..default()
         };
 
-        retain_settle_support(&mut memory, false, None, Some(airborne_right), false);
+        retain_settle_support(
+            &mut memory,
+            LeadFoot::Right,
+            None,
+            Some(airborne_right),
+            false,
+        );
 
         assert_eq!(memory.right_foot_plant, Some(airborne_right));
         assert!(!memory.right_foot_plant_acquired);
@@ -1941,7 +1930,7 @@ mod coordination_tests {
         for rising_phase in [0.853, 0.877, 0.901, 0.926] {
             assert!(!run_is_at_support_exit(
                 CyclePhase::from_cycles(rising_phase).unwrap(),
-                true,
+                LeadFoot::Left,
                 run_locomotion_profile().support_phase_radius,
             ));
             assert_eq!(
@@ -1952,18 +1941,18 @@ mod coordination_tests {
         for retained_phase in [0.602, 0.626, 0.650] {
             assert!(!run_is_at_support_exit(
                 CyclePhase::from_cycles(retained_phase).unwrap(),
-                false,
+                LeadFoot::Right,
                 run_locomotion_profile().support_phase_radius,
             ));
         }
         assert!(!run_is_at_support_exit(
             CyclePhase::from_cycles(0.674).unwrap(),
-            false,
+            LeadFoot::Right,
             run_locomotion_profile().support_phase_radius,
         ));
         assert!(run_is_at_support_exit(
             CyclePhase::from_cycles(0.698).unwrap(),
-            false,
+            LeadFoot::Right,
             run_locomotion_profile().support_phase_radius,
         ));
         assert!(run_release_edge(false, true));
@@ -2167,7 +2156,7 @@ mod coordination_tests {
             gait_support_weights(profile, CyclePhase::from_cycles(exit_phase).unwrap());
         assert!(run_is_at_support_exit(
             CyclePhase::from_cycles(exit_phase).unwrap(),
-            false,
+            LeadFoot::Right,
             radius
         ));
         let (mut exhausted, effective) =
@@ -2195,7 +2184,7 @@ mod coordination_tests {
         assert!(run_plan_is_on_rising_support(
             LocomotionGait::Run,
             CyclePhase::from_cycles(rising_phase).unwrap(),
-            false,
+            LeadFoot::Right,
             radius,
             rising_raw,
             Some(endpoint),
@@ -2207,7 +2196,7 @@ mod coordination_tests {
         if run_plan_is_on_rising_support(
             LocomotionGait::Run,
             CyclePhase::from_cycles(rising_phase).unwrap(),
-            false,
+            LeadFoot::Right,
             radius,
             rising_raw,
             Some(endpoint),
@@ -2231,7 +2220,7 @@ mod coordination_tests {
         let eligible = run_support_eligible_for_descent(
             LocomotionGait::Run,
             CyclePhase::from_cycles(rising_phase).unwrap(),
-            false,
+            LeadFoot::Right,
             radius,
             rising_raw,
             reachable,
@@ -2269,7 +2258,7 @@ mod coordination_tests {
         assert!(!run_support_eligible_for_descent(
             LocomotionGait::Run,
             CyclePhase::from_cycles(0.65).unwrap(),
-            false,
+            LeadFoot::Right,
             radius,
             post_contact_raw,
             true,
@@ -2282,7 +2271,7 @@ mod coordination_tests {
         if run_plan_is_on_rising_support(
             LocomotionGait::Run,
             CyclePhase::from_cycles(rising_phase).unwrap(),
-            false,
+            LeadFoot::Right,
             radius,
             rising_raw,
             Some(endpoint),
@@ -2724,7 +2713,7 @@ mod coordination_tests {
         ));
         commit_resolved_unplanned_airborne_release(
             &mut memory,
-            false,
+            LeadFoot::Right,
             true,
             None,
             true,
@@ -2993,7 +2982,11 @@ mod coordination_tests {
             .with_raised_locomotion(RaisedLocomotionIntent::moving(Vec2::NEG_Y, 2.0));
         let guard_weights = locomotion_support_weights(&skeleton);
         skeleton
-            .begin_attack(AttackSpec::new(AttackAnimation::Swing), 10, 20)
+            .begin_attack(
+                AttackSpec::new(AttackAnimation::Swing),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64),
+            )
             .unwrap();
         assert_eq!(locomotion_support_weights(&skeleton), guard_weights);
     }

@@ -189,7 +189,7 @@ pub fn project_skeleton_locomotion_with_body_rotation(
         physical_speed,
         requested_local_direction,
     )?;
-    skeleton.advance_action(input.tick.encoded());
+    skeleton.advance_action(input.tick);
     Ok(())
 }
 
@@ -200,7 +200,7 @@ fn advance_projected_ground_cycle(
     physical_speed: f32,
     requested_local_direction: Option<Vec2>,
 ) -> AnimationValueResult<()> {
-    let ground_speed = if skeleton.downed_turning() {
+    let ground_speed = if skeleton.is_downed_turning() {
         // Turning in place has no physical velocity, but its crawl/scamper
         // cycle should run at twice the former synthetic cadence.
         physical_speed.max(0.8) * 2.0
@@ -217,8 +217,10 @@ fn advance_projected_ground_cycle(
         advance_raised_locomotion_intent(skeleton, local_velocity, requested_local_direction);
         advance_guard_footwork(
             skeleton,
-            input.delta_seconds.seconds().min(1.0),
-            input.tick.encoded(),
+            input
+                .delta_seconds
+                .min(AnimationElapsed::from_seconds(1.0)?),
+            input.tick,
         )?;
     } else {
         skeleton.set_raised_locomotion(RaisedLocomotionIntent::planted());

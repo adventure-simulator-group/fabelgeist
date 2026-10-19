@@ -116,7 +116,7 @@ pub fn locomotion_profile(state: &SkeletonState) -> LocomotionProfile {
         BodyState::Supine => return supine_locomotion_profile(),
         _ => {}
     }
-    if state.weapon_guard() == WeaponGuardState::Raised && !state.guarded_sprint_locomotion() {
+    if state.weapon_guard() == WeaponGuardState::Raised && !state.is_guarded_sprinting() {
         return LocomotionProfile {
             step_distance: guard_step_length(speed),
             ..raised_guard_locomotion_profile()

@@ -2,14 +2,22 @@
 
 use super::*;
 
+#[cfg(test)]
+const GAIT_QUARTERS_PER_CYCLE: f32 = 4.0;
+
 pub(super) fn combat_lower_body_samples(
     state: &SkeletonState,
 ) -> AnimationValueResult<Vec<PoseSample>> {
     let speed = state.animation_speed();
-    if speed <= 0.05 || !state.raised_locomotion().is_moving() {
+    if speed
+        <= crate::combat_config::runtime_animation_config()
+            .playback
+            .initial_locomotion_speed_metres_per_second
+        || !state.raised_locomotion().is_moving()
+    {
         return Ok(vec![anchor_sample(SemanticPose::CombatStance)]);
     }
-    if state.guarded_sprint_locomotion() {
+    if state.is_guarded_sprinting() {
         return locomotion_samples(speed, state.gait_phase);
     }
     let direction = state.raised_locomotion().local_direction();
@@ -81,7 +89,11 @@ pub(super) fn gait_or_idle(
     idle: SemanticPose,
     contact: SemanticPose,
 ) -> AnimationValueResult<Vec<PoseSample>> {
-    if speed < 0.05 {
+    if speed
+        < crate::combat_config::runtime_animation_config()
+            .playback
+            .initial_locomotion_speed_metres_per_second
+    {
         Ok(vec![PoseSample {
             pose: idle,
             sampling: PoseSampling::Anchor,
@@ -142,7 +154,7 @@ pub(super) fn upright_locomotion_samples(
 }
 
 pub(super) fn downed_animation_speed(state: &SkeletonState) -> f32 {
-    if state.downed_turning() {
+    if state.is_downed_turning() {
         state.animation_speed()
     } else {
         0.0
@@ -262,21 +274,21 @@ fn append_scaled(
 
 #[cfg(test)]
 pub(in crate::animation) fn gait_pair(
-    phase: f32,
+    phase: CyclePhase,
     contact: SemanticPose,
     passing: SemanticPose,
 ) -> AnimationValueResult<Vec<PoseSample>> {
-    let quarter = phase.rem_euclid(1.0) * 4.0;
+    let quarter = phase.cycles().rem_euclid(1.0) * GAIT_QUARTERS_PER_CYCLE;
     // A smooth cubic Hermite coordinate gives every sparse contact/flight
     // anchor zero endpoint velocity. Linear quarter interpolation changed
     // velocity discontinuously at each anchor and produced a visible knee and
     // ankle snap even though the poses themselves were continuous.
     let progress = smoothstep01(quarter.fract());
     let (start, start_mirrored, end, end_mirrored) = match quarter.floor() as u8 {
-        0 => (contact, false, passing, false),
-        1 => (passing, false, contact, true),
-        2 => (contact, true, passing, true),
-        _ => (passing, true, contact, false),
+        0 => (contact, ClipMirror::Original, passing, ClipMirror::Original),
+        1 => (passing, ClipMirror::Original, contact, ClipMirror::Mirrored),
+        2 => (contact, ClipMirror::Mirrored, passing, ClipMirror::Mirrored),
+        _ => (passing, ClipMirror::Mirrored, contact, ClipMirror::Original),
     };
     let mut samples = Vec::with_capacity(2);
     if progress < 1.0 {
@@ -284,7 +296,7 @@ pub(in crate::animation) fn gait_pair(
             pose: start,
             sampling: PoseSampling::Anchor,
             weight: BlendWeight::from_factor(1.0 - progress)?,
-            mirror_lower_body: ClipMirror::from(start_mirrored),
+            mirror_lower_body: start_mirrored,
         });
     }
     if progress > 0.0 {
@@ -292,7 +304,7 @@ pub(in crate::animation) fn gait_pair(
             pose: end,
             sampling: PoseSampling::Anchor,
             weight: BlendWeight::from_factor(progress)?,
-            mirror_lower_body: ClipMirror::from(end_mirrored),
+            mirror_lower_body: end_mirrored,
         });
     }
     Ok(samples)

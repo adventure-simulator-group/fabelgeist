@@ -1,0 +1,43 @@
+//! Admitted clip topology shared by playback, readiness and sampling.
+
+use super::*;
+
+#[derive(Debug, Default)]
+pub(super) struct PlaybackContributions {
+    clips: Vec<WeightedClip>,
+    extrapolated: Vec<ExtrapolatedSpan>,
+    continuations: Vec<ContinuationSpan>,
+}
+
+impl PlaybackContributions {
+    pub(super) fn admit(
+        clips: Vec<WeightedClip>,
+        extrapolated: Vec<ExtrapolatedSpan>,
+        continuations: Vec<ContinuationSpan>,
+    ) -> AnimationValueResult<Self> {
+        // Grip endpoints join before admission. Zero weights retain their declared topology.
+        clips
+            .iter()
+            .map(|clip| clip.weight)
+            .chain(extrapolated.iter().map(|span| span.weight))
+            .chain(continuations.iter().map(|span| span.weight))
+            .try_fold(BlendWeight::ZERO, |total, weight| total.checked_add(weight))?;
+        Ok(Self {
+            clips,
+            extrapolated,
+            continuations,
+        })
+    }
+    pub(super) fn is_bind(&self) -> bool {
+        self.clips.is_empty() && self.extrapolated.is_empty() && self.continuations.is_empty()
+    }
+    pub(super) fn clips(&self) -> &[WeightedClip] {
+        &self.clips
+    }
+    pub(super) fn extrapolated(&self) -> &[ExtrapolatedSpan] {
+        &self.extrapolated
+    }
+    pub(super) fn continuations(&self) -> &[ContinuationSpan] {
+        &self.continuations
+    }
+}

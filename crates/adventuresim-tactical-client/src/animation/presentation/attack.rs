@@ -66,7 +66,7 @@ fn reconcile_attack_source(
         && previous
             .attack_continuation_tick()
             .is_some_and(|transition_tick| {
-                authoritative.locomotion_sample_tick.encoded()
+                authoritative.locomotion_sample_tick
                     <= transition_tick.saturating_add(playback_tuning().maximum_source_gap_ticks)
             });
     let stale_initial_attack = previous.attack_is_continuation()
@@ -75,9 +75,9 @@ fn reconcile_attack_source(
     let stale_attack_payload = stale_missing_queue || stale_initial_attack;
     if stale_attack_payload {
         *next = previous.clone();
-        next.advance_action(authoritative.locomotion_sample_tick.encoded());
+        next.advance_action(authoritative.locomotion_sample_tick);
     } else if authoritative.attack_has_queued_continuation() {
-        next.advance_action(authoritative.locomotion_sample_tick.encoded());
+        next.advance_action(authoritative.locomotion_sample_tick);
     }
     stale_attack_payload
 }
@@ -94,7 +94,10 @@ fn complete_attack_tail(
     if previous.action_kind() != SkeletonAction::Attack || phase.phase >= 1.0 {
         return false;
     }
-    let recovery_ticks = previous.action_recovery_ticks().unwrap_or(1).max(1);
+    let recovery_ticks = previous
+        .action_recovery_ticks()
+        .unwrap_or(AnimationSampleSpan::ONE)
+        .max(AnimationSampleSpan::ONE);
     let delta = presented_attack_phase_delta(previous, phase.phase, delta_seconds, recovery_ticks);
     phase.phase = (phase.phase + delta).min(1.0);
     phase.error_remaining = 0.0;
@@ -116,8 +119,8 @@ fn advance_attack_phase(
     } else {
         source.action_recovery_ticks()
     }
-    .unwrap_or(1)
-    .max(1);
+    .unwrap_or(AnimationSampleSpan::ONE)
+    .max(AnimationSampleSpan::ONE);
     let predicted = (phase.phase
         + presented_attack_phase_delta(source, phase.phase, delta_seconds, duration_ticks))
     .min(1.0);
@@ -148,15 +151,16 @@ fn advance_attack_phase(
     );
 }
 
-fn attack_phase_delta(delta_seconds: AnimationElapsed, duration_ticks: u64) -> f32 {
-    delta_seconds.seconds() * locomotion_sample_hz() * 0.5 / duration_ticks.max(1) as f32
+fn attack_phase_delta(delta_seconds: AnimationElapsed, duration_ticks: AnimationSampleSpan) -> f32 {
+    delta_seconds.seconds() * locomotion_sample_hz() * 0.5
+        / duration_ticks.max(AnimationSampleSpan::ONE).samples() as f32
 }
 
 fn presented_attack_phase_delta(
     source: &SkeletonState,
     phase: f32,
     delta_seconds: AnimationElapsed,
-    duration_ticks: u64,
+    duration_ticks: AnimationSampleSpan,
 ) -> f32 {
     let recovery_time_scale = if source.attack_is_continuation() && phase >= 0.5 {
         1.0 + source.attack_curve().overshoot

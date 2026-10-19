@@ -212,6 +212,8 @@ animation:
     locomotion_deactivation_speed_metres_per_second: 0.03
     locomotion_activation_speed_metres_per_second: 0.08
   pose_buffer:
+    minimum_baked_grid_seconds: 0.001
+    minimum_phase_fit_displacement_metres: 0.02
     sample_hz: 30.0
     maximum_observation_seconds: 0.1
     authored_phase_calibration_intervals: 256

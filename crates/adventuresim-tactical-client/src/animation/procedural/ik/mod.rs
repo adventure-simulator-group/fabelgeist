@@ -10,6 +10,7 @@
 use super::*;
 
 mod evaluation_clock;
+mod foot_roll;
 mod hands;
 mod locomotion;
 mod observation;
@@ -395,7 +396,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 } else {
                     projected_com
                 };
-                let support_left = choose_settle_support(
+                let support_foot = choose_settle_support(
                     memory.left_support_weight,
                     memory.right_support_weight,
                     visible_left,
@@ -408,7 +409,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 // contact ownership separately from the visible world target
                 // so an airborne selected support keeps its toe/sole floor
                 // until it actually acquires terrain.
-                let selected_support_was_acquired = if support_left {
+                let selected_support_was_acquired = if support_foot == LeadFoot::Left {
                     memory.left_foot_plant_acquired
                         && memory
                             .left_support_weight
@@ -419,18 +420,13 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                             .right_support_weight
                             .is_some_and(terrain_leg_has_support)
                 };
-                let swing_start = if support_left {
+                let swing_start = if support_foot == LeadFoot::Left {
                     visible_right
                 } else {
                     visible_left
                 }
                 .unwrap_or(rig_origin);
-                let side = settle_swing_side(
-                    rig_origin,
-                    rig_rotation,
-                    swing_start,
-                    if support_left { 1.0 } else { -1.0 },
-                );
+                let side = settle_swing_side(rig_origin, rig_rotation, swing_start, support_foot);
                 let landing_target =
                     plan_settle_landing(rig_origin, rig_rotation, capture_point, direction, side);
                 // World-target memory may be ahead of a reach-constrained
@@ -450,13 +446,13 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 // can move it several decimetres on the second stop sample.
                 retain_settle_support(
                     &mut memory,
-                    support_left,
+                    support_foot,
                     visible_left,
                     visible_right,
                     selected_support_was_acquired,
                 );
                 memory.settle = Some(LocomotionSettleState {
-                    support_left,
+                    support_foot,
                     swing_start,
                     capture_point,
                     landing_target,
@@ -489,7 +485,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 };
             }
             settle_ready_for_contact = settle.progress >= 1.0;
-            if settle.support_left {
+            if settle.support_foot == LeadFoot::Left {
                 left_weight = 1.0;
                 right_weight = 0.0;
             } else {
@@ -920,7 +916,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     rig_rotation,
                     rig_origin,
                     upper_snapshot.global.translation(),
-                    left,
+                    foot_side,
                 );
                 let quickstep_bend = if left {
                     memory.left_leg
@@ -1392,7 +1388,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             let mut weight = weight;
             let settle_support_owned = memory
                 .settle
-                .is_some_and(|settle| settle.support_left == left);
+                .is_some_and(|settle| settle.support_foot == foot_side);
             if settle_support_owned {
                 // The chosen settle support owns a retained footprint even if
                 // stop began in flight. Keep that logical solve path stable
@@ -1452,7 +1448,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 rig_rotation,
                 rig_origin,
                 upper_snapshot.global.translation(),
-                left,
+                foot_side,
             );
             let upper_length = upper_snapshot
                 .global
@@ -1607,7 +1603,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             if run_plan_is_on_rising_support(
                 locomotion_profile(skeleton).gait,
                 skeleton.gait_phase,
-                left,
+                foot_side,
                 locomotion_profile(skeleton).support_phase_radius,
                 raw_nominal_weight,
                 retained_plan,
@@ -1623,7 +1619,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             }
             let release_now = run_is_at_support_exit(
                 skeleton.gait_phase,
-                left,
+                foot_side,
                 locomotion_profile(skeleton).support_phase_radius,
             );
             let (toe_off_started, toe_off_weight) = run_toe_off_support_weight(
@@ -1720,7 +1716,9 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 // ordinary locomotion it follows authored FK immediately;
                 // during a stop it follows an explicit clearance arc toward
                 // the balance-restoring contact.
-                let settle_swing = memory.settle.filter(|settle| settle.support_left != left);
+                let settle_swing = memory
+                    .settle
+                    .filter(|settle| settle.support_foot != foot_side);
                 if settle_swing.is_none() {
                     let gait = locomotion_profile(skeleton).gait;
                     let run_airborne_budget = uses_run_airborne_motion_budget(
@@ -2061,7 +2059,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         let support_eligible_for_descent = run_support_eligible_for_descent(
                             airborne_budget_gait,
                             skeleton.gait_phase,
-                            left,
+                            foot_side,
                             locomotion_profile(skeleton).support_phase_radius,
                             raw_nominal_weight,
                             contact_reachable
@@ -2098,7 +2096,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         let support_eligible_for_descent = run_support_eligible_for_descent(
                             airborne_budget_gait,
                             skeleton.gait_phase,
-                            left,
+                            foot_side,
                             locomotion_profile(skeleton).support_phase_radius,
                             raw_nominal_weight,
                             contact_reachable
@@ -2264,7 +2262,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         // endpoint metadata unchanged.
                         commit_resolved_unplanned_airborne_release(
                             &mut memory,
-                            left,
+                            foot_side,
                             run_airborne_budget,
                             planned_contact,
                             release_active,
@@ -2667,7 +2665,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 let rising_support = run_support_eligible_for_descent(
                     locomotion_profile(skeleton).gait,
                     skeleton.gait_phase,
-                    left,
+                    foot_side,
                     locomotion_profile(skeleton).support_phase_radius,
                     raw_nominal_weight,
                     true,
@@ -2950,7 +2948,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 // ankle and diagnostics report truthful release ownership.
                 commit_resolved_unacquired_support_release(
                     &mut memory,
-                    left,
+                    foot_side,
                     bounded_unplanned_support_release,
                     solution.end,
                     rig_origin,

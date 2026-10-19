@@ -2,7 +2,7 @@ use super::*;
 use bevy::asset::AssetPath;
 
 impl AnimationRuntime {
-    fn rebuild_loaded_library(&mut self, catalog: &AnimationPackCatalog) {
+    pub(super) fn rebuild_loaded_library(&mut self, catalog: &AnimationPackCatalog) {
         self.library = AnimationPackLibrary::default();
         for (pack_id, pack) in &catalog.packs {
             let available = pack
@@ -44,8 +44,10 @@ pub(super) fn request_animation_packs(
     mut runtime: ResMut<AnimationRuntime>,
     #[cfg(target_family = "wasm")] mode: Res<crate::browser_runtime::BrowserMode>,
 ) {
-    if runtime.requested_base.is_none() {
-        runtime.requested_base = Some(asset_server.load(animation_asset_path(&BIPED_BASE_GLB)));
+    if matches!(runtime.base_rig, BaseRigLoad::Unrequested) {
+        runtime.base_rig = BaseRigLoad::Loading {
+            source: asset_server.load(animation_asset_path(&BIPED_BASE_GLB)),
+        };
     }
     for grip in WeaponGrip::ALL {
         runtime
@@ -89,23 +91,21 @@ pub(super) fn collect_loaded_packs(
     mut runtime: ResMut<AnimationRuntime>,
 ) {
     let mut changed = false;
-    if runtime.base_load == BaseRigLoad::Pending {
-        let Some(handle) = runtime.requested_base.as_ref() else {
-            return;
-        };
-        if matches!(asset_server.load_state(handle.id()), LoadState::Failed(_)) {
-            runtime.base_load = BaseRigLoad::Failed;
+    if let BaseRigLoad::Loading { source } = &runtime.base_rig {
+        let source = source.clone();
+        if matches!(asset_server.load_state(source.id()), LoadState::Failed(_)) {
+            runtime.base_rig = BaseRigLoad::Failed { source };
             warn!(path = %BIPED_BASE_GLB, "Authored base rig is unavailable");
-        } else if let Some(gltf) = gltfs.get(handle) {
-            runtime.base_scene = gltf
+        } else if let Some(gltf) = gltfs.get(&source) {
+            if let Some(scene) = gltf
                 .default_scene
                 .clone()
-                .or_else(|| gltf.scenes.first().cloned());
-            if runtime.base_scene.is_none() {
-                runtime.base_load = BaseRigLoad::Failed;
-                warn!(path = %BIPED_BASE_GLB, "Authored base rig has no scene");
+                .or_else(|| gltf.scenes.first().cloned())
+            {
+                runtime.base_rig = BaseRigLoad::Ready { source, scene };
             } else {
-                runtime.base_load = BaseRigLoad::Ready;
+                runtime.base_rig = BaseRigLoad::Failed { source };
+                warn!(path = %BIPED_BASE_GLB, "Authored base rig has no scene");
             }
         }
     }
@@ -246,7 +246,7 @@ pub(super) fn attach_loaded_rig_scenes(
         if attached {
             continue;
         }
-        let Some(scene) = runtime.base_scene.as_ref() else {
+        let Some(scene) = runtime.base_rig.scene() else {
             continue;
         };
         commands.entity(player).with_children(|parent| {

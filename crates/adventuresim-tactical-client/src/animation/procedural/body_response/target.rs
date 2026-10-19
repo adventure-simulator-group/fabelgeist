@@ -19,7 +19,7 @@ pub(in crate::animation::procedural) fn body_response_target(
     let travel = travel_lean(velocity, tuning)?;
     let inertial = inertial_lean(velocity, acceleration, braking_scale, tuning)?;
     // A cap-specific radian margin keeps degree reporting below the authored cap.
-    let maximum = BodyAngle::from_radians(
+    let maximum = BodyAngularMagnitude::from_radians(
         tuning.maximum_response_degrees.to_radians() - BODY_RESPONSE_DEGREE_REPORT_MARGIN_RADIANS,
     )?;
     travel.checked_sum_capped(inertial, maximum)

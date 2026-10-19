@@ -2,7 +2,7 @@
 
 use super::*;
 use adventuresim_tactical_core::animation::AnimationPackId;
-use strum::{EnumIter, IntoEnumIterator, IntoStaticStr};
+use strum::IntoEnumIterator;
 
 #[derive(Component)]
 pub(in crate::animation) struct CharacterLocomotionStrides {
@@ -22,15 +22,6 @@ pub(super) enum CalibrationAxis {
     Longitudinal,
 }
 
-#[derive(Clone, Copy, EnumIter, IntoStaticStr)]
-#[strum(serialize_all = "snake_case")]
-enum CalibrationMotion {
-    Walk,
-    Run,
-    Strafe,
-    Skip,
-}
-
 impl CalibrationAxis {
     pub(super) fn component(self, position: Vec3) -> f32 {
         match self {
@@ -43,7 +34,7 @@ impl CalibrationAxis {
 impl CalibrationMotion {
     fn source(self) -> CalibrationSource {
         CalibrationSource {
-            motion: MotionId::from_static(self.into()),
+            motion: self.motion(),
             axis: match self {
                 Self::Strafe => CalibrationAxis::Lateral,
                 Self::Walk | Self::Run | Self::Skip => CalibrationAxis::Longitudinal,
@@ -105,10 +96,10 @@ pub(super) fn calibrate(
             continue;
         };
         let id = loaded.handle.id();
-        if strides.measured_clips.get(&motion) == Some(&id) {
+        if strides.measured_clips.get(&kind) == Some(&id) {
             continue;
         }
-        strides.clear_motion(&motion);
+        strides.clear_motion(kind);
         let Some(clip) = clips.get(&loaded.handle) else {
             continue;
         };
@@ -143,7 +134,7 @@ pub(super) fn calibrate(
         };
         let Some(calibration) = calibration else {
             warn!(motion = %motion, "Could not infer authored locomotion stride");
-            strides.measured_clips.insert(motion.clone(), id);
+            strides.measured_clips.insert(kind, id);
             continue;
         };
         let AuthoredLocomotionCalibration {
@@ -151,7 +142,7 @@ pub(super) fn calibrate(
             phase_curve,
         } = calibration;
         if let Some(phase_curve) = phase_curve {
-            strides.phase_curves.insert(motion.clone(), phase_curve);
+            strides.phase_curves.insert(kind, phase_curve);
         }
         info!(
             motion = %motion,
@@ -173,7 +164,7 @@ pub(super) fn calibrate(
             CalibrationMotion::Strafe => strides.strafe = Some(stride),
             CalibrationMotion::Skip => strides.skip = Some(stride),
         }
-        strides.measured_clips.insert(motion.clone(), id);
+        strides.measured_clips.insert(kind, id);
     }
 }
 
@@ -189,7 +180,7 @@ pub(super) fn has_unmeasured_motion(
             .get(&MotionKey::new(&AnimationPackId::HUMANOID_UNARMED, &motion))
             .is_some_and(|loaded| {
                 clips.contains(loaded.handle.id())
-                    && strides.measured_clips.get(&motion) != Some(&loaded.handle.id())
+                    && strides.measured_clips.get(&kind) != Some(&loaded.handle.id())
             })
     })
 }

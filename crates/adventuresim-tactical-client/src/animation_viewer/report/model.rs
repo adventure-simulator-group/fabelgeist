@@ -5,7 +5,6 @@ use crate::animation_viewer::scenarios::PlannedFrame;
 use adventuresim_tactical_core::animation::{
     AnimationSampleTick, ContactSequence, LandingSequence,
 };
-use serde::ser::SerializeStruct;
 
 pub(in crate::animation_viewer) const VIEWS: [CaptureView; 3] =
     [CaptureView::Gameplay, CaptureView::Side, CaptureView::Front];
@@ -75,7 +74,7 @@ pub(in crate::animation_viewer) struct QualityCategories {
 
 #[derive(Debug)]
 pub(in crate::animation_viewer) struct PresentationEventSample {
-    pub(in crate::animation_viewer) scenario: String,
+    pub(in crate::animation_viewer) scenario: ScenarioMetadata<'static>,
     pub(in crate::animation_viewer) scenario_frame: usize,
     pub(in crate::animation_viewer) owner: String,
     pub(in crate::animation_viewer) sample_tick: AnimationSampleTick,
@@ -113,7 +112,7 @@ pub(in crate::animation_viewer) struct AnimationCaptureValidation {
     pub(in crate::animation_viewer) hard_stop_height_continuity_valid: bool,
     pub(in crate::animation_viewer) repeated_evaluation_valid: bool,
     pub(in crate::animation_viewer) semantic_route_paths_exercised: bool,
-    pub(in crate::animation_viewer) jitter_validation: JitterValidationSummary,
+    pub(in crate::animation_viewer) jitter_validation: JitterValidationSummary<BoneRole>,
     pub(in crate::animation_viewer) views_are_distinct: bool,
     pub(in crate::animation_viewer) duplicate_view_frames: Vec<String>,
     pub(in crate::animation_viewer) note: &'static str,
@@ -121,7 +120,7 @@ pub(in crate::animation_viewer) struct AnimationCaptureValidation {
 
 #[derive(Debug, Serialize)]
 pub(in crate::animation_viewer) struct ScenarioMetrics {
-    pub(in crate::animation_viewer) scenario: String,
+    pub(in crate::animation_viewer) scenario: ScenarioMetadata<'static>,
     pub(in crate::animation_viewer) frame_count: usize,
     pub(in crate::animation_viewer) maximum_root_relative_step_metres: f32,
     pub(in crate::animation_viewer) maximum_leg_root_relative_step_metres: f32,
@@ -171,7 +170,8 @@ pub(in crate::animation_viewer) struct ScenarioMetrics {
 
 #[derive(Debug, Clone, Serialize)]
 pub(in crate::animation_viewer) struct ContinuityLocation {
-    pub(in crate::animation_viewer) bone: String,
+    #[serde(serialize_with = "serialize_report_bone")]
+    pub(in crate::animation_viewer) bone: BoneRole,
     pub(in crate::animation_viewer) from_frame: usize,
     pub(in crate::animation_viewer) to_frame: usize,
     pub(in crate::animation_viewer) value: f32,
@@ -179,12 +179,12 @@ pub(in crate::animation_viewer) struct ContinuityLocation {
 
 #[derive(Debug, Clone, Serialize)]
 pub(in crate::animation_viewer) struct FrameSample {
-    pub(in crate::animation_viewer) scenario: String,
+    pub(in crate::animation_viewer) scenario: ScenarioMetadata<'static>,
     pub(in crate::animation_viewer) scenario_frame: usize,
-    pub(in crate::animation_viewer) time_seconds: f32,
+    pub(in crate::animation_viewer) time_seconds: AnimationElapsed,
     pub(in crate::animation_viewer) speed_metres_per_second: f32,
     pub(in crate::animation_viewer) gait_phase: CyclePhase,
-    pub(in crate::animation_viewer) locomotion_sample_tick: u64,
+    pub(in crate::animation_viewer) locomotion_sample_tick: AnimationSampleTick,
     pub(in crate::animation_viewer) body_acceleration: [f32; 3],
     pub(in crate::animation_viewer) world_acceleration: [f32; 3],
     pub(in crate::animation_viewer) bouncy_active_springs: u32,
@@ -192,10 +192,12 @@ pub(in crate::animation_viewer) struct FrameSample {
     pub(in crate::animation_viewer) contact_sequence: ContactSequence,
     pub(in crate::animation_viewer) contact_foot: LeadFoot,
     pub(in crate::animation_viewer) landing_sequence: LandingSequence,
-    pub(in crate::animation_viewer) landing_impact_speed: f32,
-    pub(in crate::animation_viewer) body_lean_pitch_degrees: f32,
-    pub(in crate::animation_viewer) body_lean_roll_degrees: f32,
-    pub(in crate::animation_viewer) landing_compression_metres: f32,
+    pub(in crate::animation_viewer) landing_impact_speed: LandingImpactSpeed,
+    #[serde(serialize_with = "serialize_body_degrees")]
+    pub(in crate::animation_viewer) body_lean_pitch_degrees: BodyAngle,
+    #[serde(serialize_with = "serialize_body_degrees")]
+    pub(in crate::animation_viewer) body_lean_roll_degrees: BodyAngle,
+    pub(in crate::animation_viewer) landing_compression_metres: HeightDistance,
     pub(in crate::animation_viewer) root_distance_metres: f32,
     pub(in crate::animation_viewer) root_position_metres: [f32; 3],
     pub(in crate::animation_viewer) world_travel_direction: [f32; 3],
@@ -233,7 +235,7 @@ pub(in crate::animation_viewer) struct FrameSample {
     pub(in crate::animation_viewer) semantic_route_selected_path: SemanticRoutePath,
     pub(in crate::animation_viewer) semantic_route_runtime_evaluated: bool,
     pub(in crate::animation_viewer) screenshots: BTreeMap<String, String>,
-    pub(in crate::animation_viewer) bones: BTreeMap<String, BoneSample>,
+    pub(in crate::animation_viewer) bones: CapturedBones,
 }
 
 #[derive(Debug, Clone, Copy, Serialize)]
@@ -268,7 +270,6 @@ pub(super) struct CompletedReport {
     pub(super) output: PathBuf,
     pub(super) manifest: AnimationCaptureManifest,
     pub(super) global_bone_frames: Vec<GlobalBoneFrame>,
-    pub(super) acceptance_passed: bool,
 }
 
 impl FrameSample {
@@ -291,14 +292,19 @@ impl PresentationEventSample {
     }
 }
 
+#[derive(Serialize)]
+#[serde(rename = "PresentationEventSample")]
+struct PresentationEventView<'a> {
+    scenario: &'a str,
+    scenario_frame: usize,
+    owner: &'a str,
+    sequence: u64,
+    sample_tick: AnimationSampleTick,
+    kind: &'static str,
+}
+
 impl Serialize for PresentationEventSample {
     fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
-        let mut record = serializer.serialize_struct("PresentationEventSample", 6)?;
-        record.serialize_field("scenario", &self.scenario)?;
-        record.serialize_field("scenario_frame", &self.scenario_frame)?;
-        record.serialize_field("owner", &self.owner)?;
-        record.serialize_field("sequence", &self.payload.encoded_sequence())?;
-        record.serialize_field("sample_tick", &self.sample_tick)?;
         let kind = match self.payload {
             LocomotionPresentationPayload::Contact {
                 foot: LeadFoot::Left,
@@ -310,7 +316,21 @@ impl Serialize for PresentationEventSample {
             } => "contact_right",
             LocomotionPresentationPayload::Landing { .. } => "landing",
         };
-        record.serialize_field("kind", kind)?;
-        record.end()
+        PresentationEventView {
+            scenario: self.scenario.label(),
+            scenario_frame: self.scenario_frame,
+            owner: &self.owner,
+            sequence: self.payload.encoded_sequence(),
+            sample_tick: self.sample_tick,
+            kind,
+        }
+        .serialize(serializer)
     }
+}
+
+fn serialize_body_degrees<S: serde::Serializer>(
+    angle: &BodyAngle,
+    serializer: S,
+) -> Result<S::Ok, S::Error> {
+    serializer.serialize_f32(angle.radians().to_degrees())
 }

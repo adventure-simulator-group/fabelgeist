@@ -28,7 +28,9 @@ impl ContactOrientation {
             .collect::<Option<Vec<_>>>()?
             .into_iter()
             .sum::<f32>();
-        if signed_stance_displacement.abs() <= 0.02 {
+        if signed_stance_displacement.abs()
+            <= pose_tuning().minimum_phase_fit_displacement_metres.metres()
+        {
             return None;
         }
         let direction = if signed_stance_displacement < 0.0 {

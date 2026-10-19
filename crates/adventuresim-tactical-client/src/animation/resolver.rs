@@ -25,20 +25,12 @@ impl ResolvedBodyPlan {
         self,
         evaluation: &AnimationEvaluation,
     ) -> AnimationValueResult<PlaybackPose> {
-        // Grip contributions join after body resolution. Validate the complete
-        // nonnegative total before the native per-joint blending kernel runs.
-        self.clips
-            .iter()
-            .map(|clip| clip.weight)
-            .chain(self.extrapolated_spans.iter().map(|span| span.weight))
-            .chain(self.continuation_spans.iter().map(|span| span.weight))
-            .try_fold(BlendWeight::ZERO, |total, weight| total.checked_add(weight))?;
         Ok(PlaybackPose {
-            pose_source: PoseSource::for_empty_plan(
-                self.clips.is_empty()
-                    && self.extrapolated_spans.is_empty()
-                    && self.continuation_spans.is_empty(),
-            ),
+            plan: PlaybackContributions::admit(
+                self.clips,
+                self.extrapolated_spans,
+                self.continuation_spans,
+            )?,
             whole_body_mirror: self.whole_body_mirror,
             foot_ik_weights: semantic_foot_ik_weights(evaluation)?,
             cadence: if evaluation.action.is_empty() {
@@ -46,9 +38,6 @@ impl ResolvedBodyPlan {
             } else {
                 PoseSamplingCadence::Direct
             },
-            clips: self.clips,
-            extrapolated_spans: self.extrapolated_spans,
-            continuation_spans: self.continuation_spans,
         })
     }
 }

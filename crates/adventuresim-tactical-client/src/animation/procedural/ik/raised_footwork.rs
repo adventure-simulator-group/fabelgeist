@@ -357,12 +357,12 @@ pub(in crate::animation::procedural) fn anatomical_side(
     rig_rotation: Quat,
     rig_origin: Vec3,
     hip: Vec3,
-    left: bool,
+    foot_side: LeadFoot,
 ) -> f32 {
     let hip_x = (rig_rotation.inverse() * (hip - rig_origin)).x;
     if hip_x.abs() > 0.001 {
         hip_x.signum()
-    } else if left {
+    } else if foot_side == LeadFoot::Left {
         -1.0
     } else {
         1.0

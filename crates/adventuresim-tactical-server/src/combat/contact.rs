@@ -1,4 +1,5 @@
 use super::*;
+use adventuresim_tactical_core::animation::AnimationSampleTick;
 
 pub(super) fn canonical_impact_surface(
     attacker_position: Vec3,
@@ -101,9 +102,12 @@ pub(super) fn attacker_has_weapon(
         .has_striking_item()
 }
 
-pub(super) fn windup_duration(contact_tick: u64, start_tick: u64) -> CombatDuration {
+pub(super) fn windup_duration(
+    contact_tick: AnimationSampleTick,
+    start_tick: AnimationSampleTick,
+) -> CombatDuration {
     CombatDuration::from_secs_f32(
-        contact_tick.saturating_sub(start_tick) as f32 / locomotion_sample_hz(),
+        contact_tick.saturating_sub(start_tick).samples() as f32 / locomotion_sample_hz(),
     )
 }
 

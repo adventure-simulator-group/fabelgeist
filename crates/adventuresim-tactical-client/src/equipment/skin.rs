@@ -45,6 +45,11 @@ pub(super) fn sync_procedural_equipment_skins(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use fabelgeist_rig::RigJointName;
+
+    const NARROW_HIP_X_METRES: f32 = 0.05;
+    const WIDE_HIP_X_METRES: f32 = 0.15;
+    const HIP_Y_METRES: f32 = 1.0;
     use bevy::ecs::system::RunSystemOnce;
 
     #[test]
@@ -55,17 +60,17 @@ mod tests {
         let narrow = world
             .spawn((
                 MhrBone { owner: first },
-                Name::new("l_upleg"),
-                AuthoredRigJoint::new("l_upleg".into()),
-                Transform::from_xyz(0.05, 1.0, 0.0),
+                Name::new(RigJointName::L_UPLEG.to_string()),
+                AuthoredRigJoint::new(RigJointName::L_UPLEG),
+                Transform::from_xyz(NARROW_HIP_X_METRES, HIP_Y_METRES, 0.0),
             ))
             .id();
         let wide = world
             .spawn((
                 MhrBone { owner: second },
-                Name::new("l_upleg"),
-                AuthoredRigJoint::new("l_upleg".into()),
-                Transform::from_xyz(0.15, 1.0, 0.0),
+                Name::new(RigJointName::L_UPLEG.to_string()),
+                AuthoredRigJoint::new(RigJointName::L_UPLEG),
+                Transform::from_xyz(WIDE_HIP_X_METRES, HIP_Y_METRES, 0.0),
             ))
             .id();
         let item = world.spawn(ItemOf(first)).id();
@@ -74,7 +79,7 @@ mod tests {
             .spawn(ProceduralEquipmentPart {
                 item,
                 inverse_bindposes: bindposes.clone(),
-                joint_names: vec!["l_upleg".into()],
+                joint_names: vec![RigJointName::L_UPLEG],
                 rigid_center: Vec3::ZERO,
             })
             .id();
@@ -95,7 +100,7 @@ mod tests {
                 .unwrap()
                 .translation
                 .x,
-            0.15
+            WIDE_HIP_X_METRES
         );
         world.entity_mut(item).insert(TacticalSceneItem);
         world

@@ -1,6 +1,7 @@
 //! Playback timing and locomotion presentation thresholds authored in YAML.
 
 use super::TacticalCombatConfigError;
+use crate::animation::AnimationSampleSpan;
 use adventuresim_building_generator::spatial_geometry::SignedLength;
 use serde::{Deserialize, Serialize};
 
@@ -14,7 +15,7 @@ pub struct AnimationPlaybackConfig {
     pub phase_drift_deadband: f32,
     pub phase_drift_measurement_blend: f32,
     pub phase_snap_error: f32,
-    pub maximum_source_gap_ticks: u64,
+    pub maximum_source_gap_ticks: AnimationSampleSpan,
     pub maximum_authored_step_cadence_per_second: f32,
     pub maximum_authored_stance_slip_metres: f32,
     pub authored_cadence_cap_transition_width: f32,
@@ -46,7 +47,7 @@ impl AnimationPlaybackConfig {
         .all(finite_nonnegative)
             || playback.phase_drift_measurement_blend > 1.0
             || playback.frames_per_second == 0.0
-            || playback.maximum_source_gap_ticks == 0
+            || playback.maximum_source_gap_ticks == AnimationSampleSpan::ZERO
             || playback.maximum_coalesced_events == 0
             || playback.locomotion_deactivation_speed_metres_per_second
                 > playback.initial_locomotion_speed_metres_per_second

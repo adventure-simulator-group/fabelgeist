@@ -38,7 +38,7 @@ pub(super) fn outside_views(
     let layers = layers.cloned().unwrap_or_default();
     let sphere = Sphere {
         center: position.into(),
-        radius: pose_tuning().cull_radius_metres,
+        radius: pose_tuning().cull_radius_metres.metres(),
     };
     let mut has_view = false;
     for (camera, transform, frustum, camera_layers) in views {
@@ -48,7 +48,7 @@ pub(super) fn outside_views(
         has_view = true;
         if layers.intersects(&camera_layers.cloned().unwrap_or_default())
             && position.distance_squared(transform.translation())
-                <= pose_tuning().cull_distance_metres.powi(2)
+                <= pose_tuning().cull_distance_metres.metres().powi(2)
             && frustum.intersects_sphere(&sphere, false)
         {
             return false;

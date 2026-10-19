@@ -92,6 +92,11 @@ pub(super) fn apply_slot(
 #[cfg(test)]
 mod tests {
     use super::*;
+    static MITTEN_GAUNTLET: std::sync::LazyLock<
+        &'static adventuresim_core::item_catalog::ItemDefinition,
+    > = std::sync::LazyLock::new(|| {
+        adventuresim_core::item_catalog::definition("mitten_gauntlet").unwrap()
+    });
     use adventuresim_tactical_netcode::prelude::EquipmentHand;
 
     #[test]
@@ -113,9 +118,7 @@ mod tests {
             let hud = hud_slot(
                 &session,
                 mapping,
-                HeldPreviewItem::Defined(
-                    adventuresim_core::item_catalog::definition("mitten_gauntlet").unwrap(),
-                ),
+                HeldPreviewItem::Defined(*MITTEN_GAUNTLET),
                 |_| vec![],
             )
             .unwrap();
@@ -126,9 +129,7 @@ mod tests {
             keyboard_slots(
                 &mut session,
                 &keys,
-                HeldPreviewItem::Defined(
-                    adventuresim_core::item_catalog::definition("mitten_gauntlet").unwrap(),
-                ),
+                HeldPreviewItem::Defined(*MITTEN_GAUNTLET),
                 |_| vec![],
             );
             assert_eq!(
@@ -142,9 +143,7 @@ mod tests {
             keyboard_slots(
                 &mut session,
                 &keys,
-                HeldPreviewItem::Defined(
-                    adventuresim_core::item_catalog::definition("mitten_gauntlet").unwrap(),
-                ),
+                HeldPreviewItem::Defined(*MITTEN_GAUNTLET),
                 |_| vec![],
             );
             assert_eq!(
@@ -230,7 +229,7 @@ mod tests {
                     .into_iter()
                     .map(|target| {
                         world
-                            .get::<ItemProperties>(target.entity)
+                            .get::<ItemProperties>(target.addressed_entity())
                             .unwrap()
                             .id
                             .clone()

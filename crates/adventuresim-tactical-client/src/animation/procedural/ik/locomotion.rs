@@ -1,4 +1,5 @@
 use super::*;
+use adventuresim_building_generator::spatial_geometry::SignedLength;
 
 #[derive(Component, Debug, Clone, Copy, Default)]
 pub(in crate::animation) struct OrdinaryLocomotionIkState {
@@ -12,11 +13,30 @@ enum PelvisShiftState {
     Pending,
     Tracking {
         /// Retained world-vertical correction, in signed metres.
-        metres: f32,
+        metres: SignedLength,
     },
 }
 
 impl OrdinaryLocomotionIkState {
+    /// Admit the native leg-geometry correction before updating the retained tracking state.
+    fn observe_terrain_reach(
+        &mut self,
+        desired: f32,
+        elapsed: AnimationElapsed,
+    ) -> Option<SignedLength> {
+        let desired =
+            SignedLength::from_metres(desired).map_err(|_| AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::HeightOffset,
+            });
+        match desired.and_then(|desired| self.pelvis_shift.advance(desired, elapsed)) {
+            Ok(shift) => Some(shift),
+            Err(error) => {
+                warn!(%error, "ordinary IK pelvis correction rejected");
+                None
+            }
+        }
+    }
+
     /// Elapsed IK interval, deduplicated by its typed sample tick.
     fn sample_delta_seconds(
         &mut self,
@@ -42,16 +62,23 @@ impl OrdinaryLocomotionIkState {
 }
 
 impl PelvisShiftState {
-    fn advance(&mut self, desired_metres: f32, elapsed: AnimationElapsed) -> f32 {
+    fn advance(
+        &mut self,
+        desired_metres: SignedLength,
+        elapsed: AnimationElapsed,
+    ) -> AnimationValueResult<SignedLength> {
         let metres = match *self {
             Self::Pending => desired_metres,
-            Self::Tracking { metres } if !elapsed.is_zero() => {
-                advance_pelvis_shift(metres, desired_metres, elapsed)
-            }
+            Self::Tracking { metres } if !elapsed.is_zero() => SignedLength::from_metres(
+                advance_pelvis_shift(metres.metres(), desired_metres.metres(), elapsed),
+            )
+            .map_err(|_| AnimationValueError::Overflow {
+                quantity: AnimationQuantity::HeightOffset,
+            })?,
             Self::Tracking { metres } => metres,
         };
         *self = Self::Tracking { metres };
-        metres
+        Ok(metres)
     }
 }
 
@@ -174,10 +201,11 @@ pub(in crate::animation) fn apply(
             );
         }
 
-        let pelvis_shift_metres = state
-            .pelvis_shift
-            .advance(desired_pelvis_shift, delta_seconds);
-        apply_root_vertical_shift(rig, pelvis_shift_metres, &parents, &mut transforms);
+        let Some(pelvis_shift) = state.observe_terrain_reach(desired_pelvis_shift, delta_seconds)
+        else {
+            continue;
+        };
+        apply_root_vertical_shift(rig, pelvis_shift, &parents, &mut transforms);
         let rig_rotation = rig
             .rig_scene()
             .and_then(|entity| transforms.p0().compute_global_transform(entity).ok())
@@ -275,7 +303,7 @@ pub(in crate::animation) fn apply(
             right_foot_world_target: targets[1],
             left_support_weight: Some(authored_weights.x),
             right_support_weight: Some(authored_weights.y),
-            pelvis_shift: pelvis_shift_metres,
+            pelvis_shift: pelvis_shift.metres(),
             evaluation_tick: state.evaluation_tick,
             ..default()
         };
@@ -296,10 +324,11 @@ pub(in crate::animation) fn apply(
 
 fn apply_root_vertical_shift(
     rig: &HumanoidRig,
-    shift: f32,
+    shift: SignedLength,
     parents: &Query<&ChildOf>,
     transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,
 ) {
+    let shift = shift.metres();
     if shift.abs() <= 0.0001 {
         return;
     }
@@ -369,16 +398,28 @@ mod tests {
             .with_raised_locomotion(RaisedLocomotionIntent::moving(Vec2::X, 1.0));
         assert!(owns(&guard_step));
 
-        let guarded_sprint = guard_step.clone().with_guarded_sprint_locomotion(true);
+        let guarded_sprint = guard_step
+            .clone()
+            .with_guarded_locomotion_mode(GuardedLocomotionMode::Sprint);
         assert!(owns(&guarded_sprint));
 
         let mut attacking = guard_step;
-        attacking.begin_attack(AttackSpec::default(), 0, 1).unwrap();
+        attacking
+            .begin_attack(
+                AttackSpec::default(),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(1u64),
+            )
+            .unwrap();
         assert!(owns(&attacking));
 
         let mut quickstep = stationary_guard;
         quickstep
-            .begin_dodge(DodgeSpec::quickstep(Vec2::X).unwrap(), 0, 100)
+            .begin_dodge(
+                DodgeSpec::quickstep(Vec2::X).unwrap(),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(100u64),
+            )
             .unwrap();
         assert!(!owns(&quickstep));
     }
@@ -387,7 +428,11 @@ mod tests {
     fn authored_posture_transition_excludes_ordinary_locomotion_ik() {
         let mut skeleton = SkeletonState::default();
         assert!(owns(&skeleton));
-        assert!(skeleton.begin_posture_transition(PostureTransitionKind::UprightToProne, 0, 10,));
+        assert!(skeleton.begin_posture_transition(
+            PostureTransitionKind::UprightToProne,
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+            adventuresim_tactical_core::animation::AnimationSampleSpan::from(10u64),
+        ));
         assert!(!owns(&skeleton));
     }
 }

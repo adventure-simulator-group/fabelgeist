@@ -217,6 +217,32 @@ The visual root offset uses the existing signed metre owner. Capture frames
 retain scenario classification for terrain policy; text is decoded once at
 source admission and projected back to labels for authored lookup or reports.
 
+Motion filename stems and asset directories pass checked catalogue admission.
+Built-in motions and skeleton families use authored associated constants, while
+valid custom identities remain open. A playback plan is admitted after all grip
+contributions join; even zero-weight endpoints retain their declared topology.
+Clip/source revisions invalidate availability, baked poses, per-character and
+shared cadence measurements, phase curves and retained plan keys before new
+sampling. Invalid replacement durations remain unavailable until a valid asset
+revision arrives.
+
+Height amplitudes and speeds share zero-permitting finite measurement leaves.
+Body angles retain their signed response-frame role; angular caps use a finite
+nonnegative magnitude. Dive, braking and interpolation retain separate roles
+over a shared finite unit interval, with each producer keeping its clamp or
+rejection policy. Body-response smoothing requires positive seconds; zero now
+fails configuration admission before the spring's division. The bake-grid and
+phase-fit floors retain their previous values in combat YAML.
+
+Absolute observations use `AnimationSampleTick`; durations use
+`AnimationSampleSpan`. Capture increments still wrap, while existing saturated
+action/posture deadlines retain their endpoint behavior. Review scenarios carry
+admitted execution and acceptance policy through analysis. Captured bones retain
+`BoneRole`, and analysis preserves the former lexical report-label order for
+floating folds and first-worst ties. Labels and scalar values project at JSON,
+HTML, seed and native numerical boundaries. Rejected capture observations write
+a failure artifact and terminate instead of retrying the same frame forever.
+
 ## Animation export contract
 
 The humanoid base rig is independent from authored motions:

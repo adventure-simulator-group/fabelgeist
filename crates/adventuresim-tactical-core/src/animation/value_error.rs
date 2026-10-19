@@ -8,6 +8,12 @@ pub type AnimationValueResult<T> = Result<T, AnimationValueError>;
 /// The animation role whose numeric contract failed.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Display)]
 pub enum AnimationQuantity {
+    #[display("nonnegative length")]
+    Length,
+    #[display("nonnegative speed")]
+    Speed,
+    #[display("unit fraction")]
+    UnitInterval,
     #[display("world velocity")]
     WorldVelocity,
     #[display("body orientation")]
@@ -54,8 +60,23 @@ pub enum AnimationValueError {
     NonFinite { quantity: AnimationQuantity },
     #[error("{quantity} must be nonnegative")]
     Negative { quantity: AnimationQuantity },
+    #[error("{quantity} must be positive")]
+    NonPositive { quantity: AnimationQuantity },
     #[error("{quantity} must lie in [0, 1]")]
     OutsideUnitInterval { quantity: AnimationQuantity },
     #[error("{quantity} arithmetic overflowed")]
     Overflow { quantity: AnimationQuantity },
+}
+
+impl AnimationValueError {
+    /// Retain a shared numeric rejection while identifying its semantic caller.
+    pub fn for_quantity(self, quantity: AnimationQuantity) -> Self {
+        match self {
+            Self::NonFinite { .. } => Self::NonFinite { quantity },
+            Self::Negative { .. } => Self::Negative { quantity },
+            Self::NonPositive { .. } => Self::NonPositive { quantity },
+            Self::OutsideUnitInterval { .. } => Self::OutsideUnitInterval { quantity },
+            Self::Overflow { .. } => Self::Overflow { quantity },
+        }
+    }
 }

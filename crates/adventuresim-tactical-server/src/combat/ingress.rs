@@ -1,4 +1,5 @@
 use super::*;
+use adventuresim_tactical_core::animation::{AnimationSampleSpan, AnimationSampleTick};
 
 mod attack_start;
 mod work;
@@ -9,6 +10,12 @@ struct EntityMeleeLungeRequest {
     attacker: Entity,
     target: Entity,
     weapon_reach_metres: f32,
+}
+
+struct MeleeAnimationTiming {
+    start: AnimationSampleTick,
+    contact: AnimationSampleTick,
+    end: AnimationSampleTick,
 }
 
 #[derive(Clone, Copy)]
@@ -207,8 +214,11 @@ pub(crate) fn on_melee_attack_started(
     } else {
         start
     };
-    let (animation_start_tick, contact_tick, recovery_tick) =
-        delayed_melee_timing_ticks(sequence_start, event.windup, lunge_delay, recovery);
+    let MeleeAnimationTiming {
+        start: animation_start_tick,
+        contact: contact_tick,
+        end: recovery_tick,
+    } = delayed_melee_timing_ticks(sequence_start, event.windup, lunge_delay, recovery);
     let contact_windup = super::contact::windup_duration(contact_tick, start);
     let scheduled_measure_metres = scheduled_attack_measure(&event, weapon_reach, &transforms);
     if skeleton
@@ -231,7 +241,7 @@ pub(crate) fn on_melee_attack_started(
         &event,
         selected_body_part,
         weapon_reach,
-        start,
+        start.encoded(),
         animation_start_tick,
         contact_tick,
         &transforms,
@@ -289,7 +299,7 @@ pub(crate) fn resolve_pending_melee_contacts(
 fn begin_melee_lunge(
     commands: &mut Commands,
     request: EntityMeleeLungeRequest,
-    start_tick: u64,
+    start_tick: AnimationSampleTick,
     transforms: &Query<&Transform>,
     dimensions: &Query<&CharacterDimensions>,
     colliders: &Query<&Collider>,
@@ -342,10 +352,10 @@ fn begin_melee_lunge(
         } else {
             "unreachable_no_movement"
         };
-        info!(attack_key = start_tick, attacker = ?request.attacker, target = ?request.target, outcome, reach_metres = reach, closure_metres = closure, maximum_travel_metres = maximum_travel, "melee_lunge_planned");
+        info!(attack_key = start_tick.encoded(), attacker = ?request.attacker, target = ?request.target, outcome, reach_metres = reach, closure_metres = closure, maximum_travel_metres = maximum_travel, "melee_lunge_planned");
         return;
     };
-    info!(attack_key = start_tick, attacker = ?request.attacker, target = ?request.target, outcome = if movement.quickstep { "quickstep" } else { "forward" }, reach_metres = reach, planned_distance_metres = movement.distance_metres, maximum_travel_metres = maximum_travel, "melee_lunge_planned");
+    info!(attack_key = start_tick.encoded(), attacker = ?request.attacker, target = ?request.target, outcome = if movement.quickstep { "quickstep" } else { "forward" }, reach_metres = reach, planned_distance_metres = movement.distance_metres, maximum_travel_metres = maximum_travel, "melee_lunge_planned");
     commands.entity(request.attacker).insert(movement);
     if movement.quickstep {
         commands.entity(request.attacker).insert(QuickstepPush {
@@ -693,16 +703,42 @@ mod roll_tests {
     fn lunge_delays_contact_without_stretching_authored_attack_animation() {
         let authored = CombatDuration::from_duration(Duration::from_millis(300));
         let recovery = CombatDuration::from_duration(Duration::from_millis(200));
-        let (animation_start, contact, recovery_end) =
-            delayed_melee_timing_ticks(10, authored, 0.5, recovery);
-        assert_eq!(animation_start, 23);
-        assert_eq!(contact, 42);
-        assert_eq!(contact - animation_start, duration_ticks(authored));
-        assert_eq!(recovery_end - contact, duration_ticks(recovery));
+        let MeleeAnimationTiming {
+            start: animation_start,
+            contact,
+            end: recovery_end,
+        } = delayed_melee_timing_ticks(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+            authored,
+            0.5,
+            recovery,
+        );
+        assert_eq!(animation_start, AnimationSampleTick::from(23u64));
+        assert_eq!(contact, AnimationSampleTick::from(42u64));
+        assert_eq!(
+            contact.saturating_sub(animation_start),
+            duration_ticks(authored)
+        );
+        assert_eq!(
+            recovery_end.saturating_sub(contact),
+            duration_ticks(recovery)
+        );
 
-        let (animation_start, contact, _) = delayed_melee_timing_ticks(10, authored, 0.0, recovery);
-        assert_eq!(animation_start, 10);
-        assert_eq!(contact, 10 + duration_ticks(authored));
+        let MeleeAnimationTiming {
+            start: animation_start,
+            contact,
+            ..
+        } = delayed_melee_timing_ticks(
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(10u64),
+            authored,
+            0.0,
+            recovery,
+        );
+        assert_eq!(animation_start, AnimationSampleTick::from(10u64));
+        assert_eq!(
+            contact,
+            AnimationSampleTick::from(10u64) + duration_ticks(authored)
+        );
     }
 
     #[test]
@@ -1421,28 +1457,38 @@ pub(super) fn on_ranged_attack_started(
     );
 }
 
-fn animation_tick(time: &Time<()>) -> u64 {
-    (time.elapsed_secs_f64() * locomotion_sample_hz() as f64).round() as u64
+fn animation_tick(time: &Time<()>) -> AnimationSampleTick {
+    AnimationSampleTick::from(
+        (time.elapsed_secs_f64() * locomotion_sample_hz() as f64).round() as u64,
+    )
 }
 
 fn delayed_melee_timing_ticks(
-    input_tick: u64,
+    input_tick: AnimationSampleTick,
     authored_windup: CombatDuration,
     lunge_delay_seconds: f32,
     recovery: CombatDuration,
-) -> (u64, u64, u64) {
+) -> MeleeAnimationTiming {
     let authored_ticks = duration_ticks(authored_windup);
-    let arrival_ticks = (lunge_delay_seconds.max(0.0) * locomotion_sample_hz()).round() as u64;
+    let arrival_ticks = AnimationSampleSpan::from(
+        (lunge_delay_seconds.max(0.0) * locomotion_sample_hz()).round() as u64,
+    );
     let contact = input_tick.saturating_add(authored_ticks.max(arrival_ticks));
-    let animation_start = contact.saturating_sub(authored_ticks);
+    let animation_start = contact.saturating_sub_span(authored_ticks);
     let recovery_end = contact.saturating_add(duration_ticks(recovery));
-    (animation_start, contact, recovery_end)
+    MeleeAnimationTiming {
+        start: animation_start,
+        contact,
+        end: recovery_end,
+    }
 }
 
-fn duration_ticks(duration: CombatDuration) -> u64 {
-    (duration.as_secs_f32() * locomotion_sample_hz())
-        .round()
-        .max(1.0) as u64
+fn duration_ticks(duration: CombatDuration) -> AnimationSampleSpan {
+    AnimationSampleSpan::from(
+        (duration.as_secs_f32() * locomotion_sample_hz())
+            .round()
+            .max(1.0) as u64,
+    )
 }
 
 pub(super) fn authoritative_line_of_sight(

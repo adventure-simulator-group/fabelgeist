@@ -3307,6 +3307,21 @@ mod starting_character_boundary_tests {
     };
     use adventuresim_world_schema::calendar::StrategicMinute;
 
+    const WEAPON_CARRY_SOURCE: &str = include_str!("character/weapon_carry.rs");
+    const GENERATED_CARRY_FUNCTION: &str = "fn provision_generated_weapon_carry";
+    const STARTING_PLACEMENT_FUNCTION: &str = "fn starting_item_placement_index";
+    const GENERATED_CARRY_EVIDENCE: [&str; 9] = [
+        "is_sheathable_weapon",
+        "BELT_ID",
+        "recommended_holder",
+        "BLADE_SHEATH_ID",
+        "HAFT_LOOP_ID",
+        "zip(WEAPON_CARRY_HIP_PLACEMENTS)",
+        "attachment_point_id: hip.into()",
+        "attachment_point_id: BLADE_ATTACHMENT_POINT_ID.into()",
+        "place_unheld_weapon_in_sheath",
+    ];
+
     #[test]
     fn character_occupancy_id_identifies_each_item_requirement() {
         assert_eq!(
@@ -3615,24 +3630,14 @@ mod starting_character_boundary_tests {
         assert!(insertion.contains(
             "if !newborn && options.materialize_generated_carry {\n        provision_generated_weapon_carry(ctx, character.id)?;\n    }"
         ));
-        let helper = crate::production_source(include_str!("character/weapon_carry.rs"))
-            .split("fn provision_generated_weapon_carry")
+        let helper = crate::production_source(WEAPON_CARRY_SOURCE)
+            .split(GENERATED_CARRY_FUNCTION)
             .nth(1)
             .unwrap()
-            .split("fn starting_item_placement_index")
+            .split(STARTING_PLACEMENT_FUNCTION)
             .next()
             .unwrap();
-        for evidence in [
-            "is_sheathable_weapon",
-            "BELT_ID",
-            "recommended_holder",
-            "BLADE_SHEATH_ID",
-            "HAFT_LOOP_ID",
-            "zip(WEAPON_CARRY_HIP_PLACEMENTS)",
-            "attachment_point_id: hip.into()",
-            "attachment_point_id: BLADE_ATTACHMENT_POINT_ID.into()",
-            "place_unheld_weapon_in_sheath",
-        ] {
+        for evidence in GENERATED_CARRY_EVIDENCE {
             assert!(helper.contains(evidence), "missing {evidence}");
         }
         let unheld_helper = helper
@@ -3732,7 +3737,7 @@ mod starting_character_boundary_tests {
             .split("fn equip_equipment_internal")
             .nth(1)
             .unwrap()
-            .split("fn starting_item_placement_index")
+            .split(STARTING_PLACEMENT_FUNCTION)
             .next()
             .unwrap();
         let conflict_check = reducer
@@ -3929,7 +3934,7 @@ mod starting_character_boundary_tests {
             .split("fn equip_equipment_internal")
             .nth(1)
             .unwrap()
-            .split("fn starting_item_placement_index")
+            .split(STARTING_PLACEMENT_FUNCTION)
             .next()
             .unwrap();
         assert!(reducer.contains("refresh_equipment_dependents(ctx, character_id)"));

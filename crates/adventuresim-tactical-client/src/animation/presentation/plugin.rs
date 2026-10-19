@@ -38,6 +38,7 @@ impl Plugin for TacticalAnimationPlugin {
             .add_systems(
                 Update,
                 (
+                    super::super::clip_revision::refresh_animation_revisions,
                     collect_loaded_packs,
                     attach_loaded_rig_scenes,
                     super::super::identity_morphs::sync_character_morphs,

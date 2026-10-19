@@ -1,6 +1,11 @@
 //! Deterministic animation-review fixtures and scenario classification.
 
 use super::*;
+use admission::{authored_camera_angle, authored_frame_time};
+use adventuresim_building_generator::spatial_geometry::Radians;
+
+mod admission;
+use crate::animation::review_scenarios::*;
 
 pub(super) mod terrain_policy;
 pub(super) const QUICKSTEP_FIXTURE_BIOLOGICAL_MASS_KG: f32 = 70.0;
@@ -16,113 +21,13 @@ pub(super) struct PlannedFrame {
     pub(super) scenario: ScenarioMetadata<'static>,
     pub(super) scenario_frame: usize,
     pub(super) speed: f32,
-    pub(super) time_seconds: f32,
+    pub(super) time_seconds: AnimationElapsed,
     pub(super) local_direction: Vec2,
-    pub(super) camera_yaw: f32,
-    pub(super) camera_pitch: f32,
+    pub(super) camera_yaw: Radians,
+    pub(super) camera_pitch: Radians,
     pub(super) action: SkeletonAction,
     pub(super) weapon_guard: WeaponGuardState,
     pub(super) lead_foot: LeadFoot,
-}
-
-#[derive(Debug, Clone, Copy)]
-pub(super) struct ScenarioMetadata<'a> {
-    label: &'a str,
-    terrain: terrain_policy::ScenarioTerrain,
-    kind: ScenarioKind,
-    repeatable: bool,
-    procedural_solver: bool,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(super) enum ScenarioKind {
-    Ordinary,
-    RaisedGuard,
-    Terrain,
-    Transition,
-    Landing,
-    Attack,
-}
-
-pub(super) fn uses_authored_combat_locomotion(name: &str) -> bool {
-    name.starts_with("raised-guard")
-        && !is_guard_stop_transition(name)
-        && !matches!(
-            name,
-            "raised-guard-stationary-turn" | "raised-guard-transition"
-        )
-}
-
-pub(super) fn is_guard_stop_transition(name: &str) -> bool {
-    name.starts_with("raised-guard") && (name.contains("release") || name.contains("tap-stop"))
-}
-
-pub(super) fn is_quickstep_scenario(name: &str) -> bool {
-    name.starts_with("quickstep-")
-}
-
-fn scenario_metadata(name: &str) -> ScenarioMetadata<'_> {
-    let classified = |kind, repeatable, procedural_solver| ScenarioMetadata {
-        label: name,
-        terrain: terrain_policy::ScenarioTerrain::from_label(name, kind),
-        kind,
-        repeatable,
-        procedural_solver,
-    };
-    if is_quickstep_scenario(name)
-        || name.starts_with("downed-")
-        || name.starts_with("dive-")
-        || name.ends_with("-get-up")
-        || name.starts_with("prone-roll-")
-        || name == "jump-charge-anticipation"
-    {
-        classified(ScenarioKind::Transition, false, false)
-    } else if name == "terrain-toggle-mid-stride" {
-        classified(
-            ScenarioKind::Terrain,
-            false, // contract is bounded transition continuity, not steady plants.
-            false,
-        )
-    } else if matches!(name, "flat-grid-walk-no-ik" | "flat-grid-sprint-no-ik") {
-        classified(ScenarioKind::Ordinary, true, false)
-    } else if name == "cross-slope-walk"
-        || name.starts_with("terrain-")
-        || name.starts_with("flat-grid-")
-    {
-        classified(
-            ScenarioKind::Terrain,
-            !name.contains("stop")
-                && !name.contains("turn")
-                && !name.contains("toggle")
-                && !name.contains("restart")
-                && !name.contains("chatter")
-                && !name.starts_with("terrain-steady-run"),
-            true,
-        )
-    } else if name.starts_with("attack-live-") {
-        classified(ScenarioKind::Attack, false, true)
-    } else if name.starts_with("raised-guard") {
-        classified(
-            ScenarioKind::RaisedGuard,
-            !name.contains("release")
-                && !name.contains("reversal")
-                && !name.contains("accelerate")
-                && name != "raised-guard-stationary-turn"
-                && name != "raised-guard-transition", // procedural plant/step solver.
-            !uses_authored_combat_locomotion(name),
-        )
-    } else if name == "airborne-landing" {
-        classified(ScenarioKind::Landing, false, false)
-    } else if name.contains("transition")
-        || name.contains("enter-exit")
-        || name.contains("hard-stop")
-        || name.contains("ramp")
-        || name.contains("turn")
-    {
-        classified(ScenarioKind::Transition, false, false)
-    } else {
-        classified(ScenarioKind::Ordinary, true, false)
-    }
 }
 
 pub(super) fn canonical_john_sprint_speed() -> f32 {
@@ -135,7 +40,11 @@ pub(super) fn canonical_john_sprint_speed() -> f32 {
     )
 }
 
-pub(super) fn steady_scenario(name: &'static str, speed: f32, cycles: f32) -> Vec<PlannedFrame> {
+pub(super) fn steady_scenario(
+    name: ScenarioMetadata<'static>,
+    speed: f32,
+    cycles: f32,
+) -> Vec<PlannedFrame> {
     steady_scenario_in_direction(name, speed, cycles, Vec2::NEG_Y)
 }
 
@@ -144,13 +53,13 @@ pub(super) fn full_ragdoll_scenario() -> Vec<PlannedFrame> {
     // window, so nine captured samples already cover a stable physics result.
     (0..=8)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label("full-ragdoll"),
+            scenario: ScenarioMetadata::authored(ScenarioId::FullRagdoll),
             scenario_frame,
             speed: 0.0,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: Vec2::ZERO,
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
@@ -159,7 +68,7 @@ pub(super) fn full_ragdoll_scenario() -> Vec<PlannedFrame> {
 }
 
 pub(super) fn steady_scenario_in_direction(
-    name: &'static str,
+    name: ScenarioMetadata<'static>,
     speed: f32,
     cycles: f32,
     local_direction: Vec2,
@@ -173,13 +82,13 @@ pub(super) fn steady_scenario_in_direction(
     let last_frame = (duration * locomotion_sample_hz()).ceil() as usize + 1;
     (0..=last_frame)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label(name),
+            scenario: name.clone(),
             scenario_frame,
             speed,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction,
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
@@ -207,13 +116,13 @@ pub(super) fn transition_scenario() -> Vec<PlannedFrame> {
                 0.0
             };
             PlannedFrame {
-                scenario: ScenarioMetadata::from_label("start-stop-transition"),
+                scenario: ScenarioMetadata::authored(ScenarioId::StartStopTransition),
                 scenario_frame: frame,
                 speed,
-                time_seconds: t,
+                time_seconds: authored_frame_time(t),
                 local_direction: Vec2::NEG_Y,
-                camera_yaw: 0.0,
-                camera_pitch: 0.0,
+                camera_yaw: authored_camera_angle(0.0),
+                camera_pitch: authored_camera_angle(0.0),
                 action: SkeletonAction::None,
                 weapon_guard: WeaponGuardState::Lowered,
                 lead_foot: LeadFoot::Left,
@@ -225,13 +134,13 @@ pub(super) fn transition_scenario() -> Vec<PlannedFrame> {
 pub(super) fn terrain_toggle_scenario() -> Vec<PlannedFrame> {
     (0..=112)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label("terrain-toggle-mid-stride"),
+            scenario: ScenarioMetadata::authored(ScenarioId::TerrainToggleMidStride),
             scenario_frame,
             speed: 2.0,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: Vec2::X,
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
@@ -242,17 +151,17 @@ pub(super) fn terrain_toggle_scenario() -> Vec<PlannedFrame> {
 pub(super) fn terrain_half_turn_reversal_scenario() -> Vec<PlannedFrame> {
     (0..=192)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label("terrain-half-turn-reversal"),
+            scenario: ScenarioMetadata::authored(ScenarioId::TerrainHalfTurnReversal),
             scenario_frame,
             speed: 2.0,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: Vec2::NEG_Y,
-            camera_yaw: if scenario_frame >= 128 {
+            camera_yaw: authored_camera_angle(if scenario_frame >= 128 {
                 std::f32::consts::PI
             } else {
                 0.0
-            },
-            camera_pitch: 0.0,
+            }),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
@@ -260,7 +169,10 @@ pub(super) fn terrain_half_turn_reversal_scenario() -> Vec<PlannedFrame> {
         .collect()
 }
 
-pub(super) fn dynamics_speed_scenario(name: &'static str, hard_stop: bool) -> Vec<PlannedFrame> {
+pub(super) fn dynamics_speed_scenario(
+    name: ScenarioMetadata<'static>,
+    hard_stop: bool,
+) -> Vec<PlannedFrame> {
     (0..=256)
         .map(|scenario_frame| {
             let speed = if hard_stop {
@@ -275,13 +187,13 @@ pub(super) fn dynamics_speed_scenario(name: &'static str, hard_stop: bool) -> Ve
                 0.0
             };
             PlannedFrame {
-                scenario: ScenarioMetadata::from_label(name),
+                scenario: name.clone(),
                 scenario_frame,
                 speed,
-                time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+                time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
                 local_direction: Vec2::NEG_Y,
-                camera_yaw: 0.0,
-                camera_pitch: 0.0,
+                camera_yaw: authored_camera_angle(0.0),
+                camera_pitch: authored_camera_angle(0.0),
                 action: SkeletonAction::None,
                 weapon_guard: WeaponGuardState::Lowered,
                 lead_foot: LeadFoot::Left,
@@ -301,13 +213,13 @@ pub(super) fn flat_grid_walk_stop_scenario() -> Vec<PlannedFrame> {
                 0.0
             };
             PlannedFrame {
-                scenario: ScenarioMetadata::from_label("flat-grid-walk-stop"),
+                scenario: ScenarioMetadata::authored(ScenarioId::FlatGridWalkStop),
                 scenario_frame,
                 speed,
-                time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+                time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
                 local_direction: Vec2::NEG_Y,
-                camera_yaw: 0.0,
-                camera_pitch: 0.0,
+                camera_yaw: authored_camera_angle(0.0),
+                camera_pitch: authored_camera_angle(0.0),
                 action: SkeletonAction::None,
                 weapon_guard: WeaponGuardState::Lowered,
                 lead_foot: LeadFoot::Left,
@@ -317,24 +229,24 @@ pub(super) fn flat_grid_walk_stop_scenario() -> Vec<PlannedFrame> {
 }
 
 pub(super) fn terrain_tap_stop_scenario(
-    name: &'static str,
+    name: ScenarioMetadata<'static>,
     speed: f32,
     moving_frames: std::ops::Range<usize>,
     local_direction: Vec2,
 ) -> Vec<PlannedFrame> {
     (0..=96)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label(name),
+            scenario: name.clone(),
             scenario_frame,
             speed: if moving_frames.contains(&scenario_frame) {
                 speed
             } else {
                 0.0
             },
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction,
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
@@ -347,13 +259,13 @@ pub(super) fn terrain_tap_restart_scenario() -> Vec<PlannedFrame> {
         .map(|scenario_frame| {
             let moving = matches!(scenario_frame, 8..=17 | 24..=33 | 40..=49);
             PlannedFrame {
-                scenario: ScenarioMetadata::from_label("terrain-tap-restart-crossfade"),
+                scenario: ScenarioMetadata::authored(ScenarioId::TerrainTapRestartCrossfade),
                 scenario_frame,
                 speed: if moving { 5.5 } else { 0.0 },
-                time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+                time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
                 local_direction: Vec2::NEG_Y,
-                camera_yaw: 0.0,
-                camera_pitch: 0.0,
+                camera_yaw: authored_camera_angle(0.0),
+                camera_pitch: authored_camera_angle(0.0),
                 action: SkeletonAction::None,
                 weapon_guard: WeaponGuardState::Lowered,
                 lead_foot: LeadFoot::Left,
@@ -365,7 +277,7 @@ pub(super) fn terrain_tap_restart_scenario() -> Vec<PlannedFrame> {
 pub(super) fn terrain_threshold_chatter_scenario() -> Vec<PlannedFrame> {
     (0..=128)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label("terrain-speed-threshold-chatter"),
+            scenario: ScenarioMetadata::authored(ScenarioId::TerrainSpeedThresholdChatter),
             scenario_frame,
             speed: match scenario_frame {
                 8..=39 => {
@@ -393,10 +305,10 @@ pub(super) fn terrain_threshold_chatter_scenario() -> Vec<PlannedFrame> {
                 }
                 _ => 0.0,
             },
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: Vec2::NEG_Y,
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
@@ -405,22 +317,22 @@ pub(super) fn terrain_threshold_chatter_scenario() -> Vec<PlannedFrame> {
 }
 
 pub(super) fn raised_guard_lateral_tap_stop_scenario(
-    name: &'static str,
+    name: ScenarioMetadata<'static>,
     direction: Vec2,
 ) -> Vec<PlannedFrame> {
     (0..=96)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label(name),
+            scenario: name.clone(),
             scenario_frame,
             speed: if (32..38).contains(&scenario_frame) {
                 1.0
             } else {
                 0.0
             },
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: direction,
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Raised,
             lead_foot: LeadFoot::Left,
@@ -431,13 +343,13 @@ pub(super) fn raised_guard_lateral_tap_stop_scenario(
 pub(super) fn airborne_landing_scenario() -> Vec<PlannedFrame> {
     (0..=96)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label("airborne-landing"),
+            scenario: ScenarioMetadata::authored(ScenarioId::AirborneLanding),
             scenario_frame,
             speed: 0.0,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: Vec2::ZERO,
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
@@ -451,7 +363,7 @@ pub(super) fn smoothstep01(value: f32) -> f32 {
 }
 
 pub(super) fn attack_live_scenario(
-    name: &'static str,
+    name: ScenarioMetadata<'static>,
     speed: f32,
     initial_direction: Vec2,
     lead_foot: LeadFoot,
@@ -462,26 +374,28 @@ pub(super) fn attack_live_scenario(
     // take as many bounded guard-convergence steps as it needs.
     (0..=127)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label(name),
+            scenario: name.clone(),
             scenario_frame,
             speed,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             // Deliberately reverse velocity and yaw after attack start in the
             // stress fixture. The live movement input must remain the one
             // selected on frame zero.
-            local_direction: if (reverse_velocity || name.contains("high-speed"))
+            local_direction: if (reverse_velocity || name.has(ScenarioFeature::HighSpeed))
                 && scenario_frame > START
             {
                 -initial_direction
             } else {
                 initial_direction
             },
-            camera_yaw: if name.contains("yaw-only") && scenario_frame > START {
-                std::f32::consts::FRAC_PI_2
-            } else {
-                0.0
-            },
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(
+                if name.has(ScenarioFeature::YawOnly) && scenario_frame > START {
+                    std::f32::consts::FRAC_PI_2
+                } else {
+                    0.0
+                },
+            ),
+            camera_pitch: authored_camera_angle(0.0),
             action: if scenario_frame < START {
                 SkeletonAction::None
             } else {
@@ -495,195 +409,346 @@ pub(super) fn attack_live_scenario(
 
 pub(super) fn capture_plan() -> Vec<PlannedFrame> {
     [
-        downed_contact_scenario("downed-prone-crawl", BodyState::Prone),
-        downed_contact_scenario("downed-supine-scamper", BodyState::Supine),
+        downed_contact_scenario(
+            ScenarioMetadata::authored(ScenarioId::DownedProneCrawl),
+            BodyState::Prone,
+        ),
+        downed_contact_scenario(
+            ScenarioMetadata::authored(ScenarioId::DownedSupineScamper),
+            BodyState::Supine,
+        ),
         downed_look_scenario(),
         ordinary_camera_pitch_scenario(),
         posture_transition_scenario(
-            "dive-forward",
+            ScenarioMetadata::authored(ScenarioId::DiveForward),
             BodyState::Grounded(GroundedPosture::Upright),
         ),
         posture_transition_scenario(
-            "dive-backward",
+            ScenarioMetadata::authored(ScenarioId::DiveBackward),
             BodyState::Grounded(GroundedPosture::Upright),
         ),
-        posture_transition_scenario("dive-left", BodyState::Grounded(GroundedPosture::Upright)),
-        posture_transition_scenario("dive-right", BodyState::Grounded(GroundedPosture::Upright)),
-        dive_impact_scenario("dive-left-impact"),
-        dive_impact_scenario("dive-right-impact"),
-        dive_impact_scenario("dive-backward-impact"),
-        aimed_dive_impact_scenario("dive-forward-aimed-impact"),
-        aimed_dive_impact_scenario("dive-left-aimed-impact"),
-        aimed_dive_impact_scenario("dive-right-aimed-impact"),
-        aimed_dive_impact_scenario("dive-backward-aimed-impact"),
-        posture_transition_scenario("prone-get-up", BodyState::Prone),
-        posture_transition_scenario("supine-get-up", BodyState::Supine),
-        posture_transition_scenario("prone-roll-left", BodyState::Prone),
-        posture_transition_scenario("prone-roll-right", BodyState::Prone),
+        posture_transition_scenario(
+            ScenarioMetadata::authored(ScenarioId::DiveLeft),
+            BodyState::Grounded(GroundedPosture::Upright),
+        ),
+        posture_transition_scenario(
+            ScenarioMetadata::authored(ScenarioId::DiveRight),
+            BodyState::Grounded(GroundedPosture::Upright),
+        ),
+        dive_impact_scenario(ScenarioMetadata::authored(ScenarioId::DiveLeftImpact)),
+        dive_impact_scenario(ScenarioMetadata::authored(ScenarioId::DiveRightImpact)),
+        dive_impact_scenario(ScenarioMetadata::authored(ScenarioId::DiveBackwardImpact)),
+        aimed_dive_impact_scenario(ScenarioMetadata::authored(
+            ScenarioId::DiveForwardAimedImpact,
+        )),
+        aimed_dive_impact_scenario(ScenarioMetadata::authored(ScenarioId::DiveLeftAimedImpact)),
+        aimed_dive_impact_scenario(ScenarioMetadata::authored(ScenarioId::DiveRightAimedImpact)),
+        aimed_dive_impact_scenario(ScenarioMetadata::authored(
+            ScenarioId::DiveBackwardAimedImpact,
+        )),
+        posture_transition_scenario(
+            ScenarioMetadata::authored(ScenarioId::ProneGetUp),
+            BodyState::Prone,
+        ),
+        posture_transition_scenario(
+            ScenarioMetadata::authored(ScenarioId::SupineGetUp),
+            BodyState::Supine,
+        ),
+        posture_transition_scenario(
+            ScenarioMetadata::authored(ScenarioId::ProneRollLeft),
+            BodyState::Prone,
+        ),
+        posture_transition_scenario(
+            ScenarioMetadata::authored(ScenarioId::ProneRollRight),
+            BodyState::Prone,
+        ),
         jump_charge_scenario(),
-        quickstep_scenario("quickstep-right", Vec2::X),
-        quickstep_scenario("quickstep-left", Vec2::NEG_X),
-        steady_scenario("steady-walk-2.0", 2.0, 2.0),
-        steady_scenario("walk-run-blend-3.75", 3.75, 2.0),
-        steady_scenario("steady-run-5.5", 5.5, 2.0),
-        steady_scenario_in_direction("lateral-walk-2.0", 2.0, 1.0, Vec2::X),
-        steady_scenario_in_direction("reverse-walk-2.0", 2.0, 1.0, Vec2::Y),
-        turning_scenario("gradual-camera-turn", false),
-        turning_scenario("half-turn-reversal", true),
+        quickstep_scenario(
+            ScenarioMetadata::authored(ScenarioId::QuickstepRight),
+            Vec2::X,
+        ),
+        quickstep_scenario(
+            ScenarioMetadata::authored(ScenarioId::QuickstepLeft),
+            Vec2::NEG_X,
+        ),
+        steady_scenario(
+            ScenarioMetadata::authored(ScenarioId::SteadyWalk20),
+            2.0,
+            2.0,
+        ),
+        steady_scenario(
+            ScenarioMetadata::authored(ScenarioId::WalkRunBlend375),
+            3.75,
+            2.0,
+        ),
+        steady_scenario(
+            ScenarioMetadata::authored(ScenarioId::SteadyRun55),
+            5.5,
+            2.0,
+        ),
+        steady_scenario_in_direction(
+            ScenarioMetadata::authored(ScenarioId::LateralWalk20),
+            2.0,
+            1.0,
+            Vec2::X,
+        ),
+        steady_scenario_in_direction(
+            ScenarioMetadata::authored(ScenarioId::ReverseWalk20),
+            2.0,
+            1.0,
+            Vec2::Y,
+        ),
+        turning_scenario(
+            ScenarioMetadata::authored(ScenarioId::GradualCameraTurn),
+            false,
+        ),
+        turning_scenario(
+            ScenarioMetadata::authored(ScenarioId::HalfTurnReversal),
+            true,
+        ),
         guard_plant_turn_scenario(),
         raised_guard_stationary_turn_scenario(),
-        raised_guard_steady_scenario("raised-guard-forward", 2.0, 2.0, Vec2::NEG_Y),
-        raised_guard_scenario("raised-guard-backward", Vec2::Y),
-        raised_guard_scenario("raised-guard-left", Vec2::NEG_X),
-        raised_guard_scenario("raised-guard-right", Vec2::X),
-        raised_guard_scenario("raised-guard-forward-left", Vec2::new(-1.0, -1.0)),
-        raised_guard_scenario("raised-guard-forward-right", Vec2::new(1.0, -1.0)),
-        raised_guard_scenario("raised-guard-backward-left", Vec2::new(-1.0, 1.0)),
-        raised_guard_scenario("raised-guard-backward-right", Vec2::ONE),
-        raised_guard_steady_scenario("raised-guard-half-speed", 1.0, 2.0, Vec2::X),
+        raised_guard_steady_scenario(
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardForward),
+            2.0,
+            2.0,
+            Vec2::NEG_Y,
+        ),
+        raised_guard_scenario(
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardBackward),
+            Vec2::Y,
+        ),
+        raised_guard_scenario(
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardLeft),
+            Vec2::NEG_X,
+        ),
+        raised_guard_scenario(
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardRight),
+            Vec2::X,
+        ),
+        raised_guard_scenario(
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardForwardLeft),
+            Vec2::new(-1.0, -1.0),
+        ),
+        raised_guard_scenario(
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardForwardRight),
+            Vec2::new(1.0, -1.0),
+        ),
+        raised_guard_scenario(
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardBackwardLeft),
+            Vec2::new(-1.0, 1.0),
+        ),
+        raised_guard_scenario(
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardBackwardRight),
+            Vec2::ONE,
+        ),
+        raised_guard_steady_scenario(
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardHalfSpeed),
+            1.0,
+            2.0,
+            Vec2::X,
+        ),
         raised_guard_acceleration_scenario(),
         raised_guard_release_scenario(),
-        raised_guard_lateral_tap_stop_scenario("raised-guard-tap-stop-left", Vec2::NEG_X),
-        raised_guard_lateral_tap_stop_scenario("raised-guard-tap-stop-right", Vec2::X),
+        raised_guard_lateral_tap_stop_scenario(
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardTapStopLeft),
+            Vec2::NEG_X,
+        ),
+        raised_guard_lateral_tap_stop_scenario(
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardTapStopRight),
+            Vec2::X,
+        ),
         raised_guard_reversal_scenario(),
         raised_guard_steady_scenario_with_lead(
-            "raised-guard-right-support-left",
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardRightSupportLeft),
             2.0,
             1.0,
             Vec2::NEG_X,
             LeadFoot::Right,
         ),
         raised_guard_steady_scenario_with_lead(
-            "raised-guard-right-support-right",
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardRightSupportRight),
             2.0,
             1.0,
             Vec2::X,
             LeadFoot::Right,
         ),
         raised_guard_steady_scenario_with_lead(
-            "raised-guard-right-support-forward-right",
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardRightSupportForwardRight),
             2.0,
             1.0,
             Vec2::new(1.0, -1.0),
             LeadFoot::Right,
         ),
         raised_guard_acceleration_scenario_with_lead(
-            "raised-guard-right-support-accelerate",
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardRightSupportAccelerate),
             LeadFoot::Right,
         ),
         raised_guard_release_scenario_with_lead(
-            "raised-guard-right-support-release",
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardRightSupportRelease),
             LeadFoot::Right,
         ),
         raised_guard_reversal_scenario_with_lead(
-            "raised-guard-right-support-reversal",
+            ScenarioMetadata::authored(ScenarioId::RaisedGuardRightSupportReversal),
             LeadFoot::Right,
         ),
         raised_guard_transition_scenario(),
         attack_live_scenario(
-            "attack-live-forward-left-support",
+            ScenarioMetadata::authored(ScenarioId::AttackLiveForwardLeftSupport),
             2.0,
             Vec2::NEG_Y,
             LeadFoot::Left,
             false,
         ),
         attack_live_scenario(
-            "attack-live-forward-right-support",
+            ScenarioMetadata::authored(ScenarioId::AttackLiveForwardRightSupport),
             2.0,
             Vec2::NEG_Y,
             LeadFoot::Right,
             false,
         ),
         attack_live_scenario(
-            "attack-live-backward-left-support",
+            ScenarioMetadata::authored(ScenarioId::AttackLiveBackwardLeftSupport),
             2.0,
             Vec2::Y,
             LeadFoot::Left,
             false,
         ),
         attack_live_scenario(
-            "attack-live-backward-right-support",
+            ScenarioMetadata::authored(ScenarioId::AttackLiveBackwardRightSupport),
             2.0,
             Vec2::Y,
             LeadFoot::Right,
             false,
         ),
         attack_live_scenario(
-            "attack-live-stationary",
+            ScenarioMetadata::authored(ScenarioId::AttackLiveStationary),
             0.0,
             Vec2::ZERO,
             LeadFoot::Left,
             false,
         ),
         attack_live_scenario(
-            "attack-live-moving-thrust",
+            ScenarioMetadata::authored(ScenarioId::AttackLiveMovingThrust),
             2.0,
             Vec2::NEG_Y,
             LeadFoot::Left,
             false,
         ),
         attack_live_scenario(
-            "attack-live-stationary-swing",
+            ScenarioMetadata::authored(ScenarioId::AttackLiveStationarySwing),
             0.0,
             Vec2::ZERO,
             LeadFoot::Left,
             false,
         ),
         attack_live_scenario(
-            "attack-live-high-speed-reversal",
+            ScenarioMetadata::authored(ScenarioId::AttackLiveHighSpeedReversal),
             5.5,
             Vec2::NEG_Y,
             LeadFoot::Left,
             false,
         ),
         attack_live_scenario(
-            "attack-live-reversal",
+            ScenarioMetadata::authored(ScenarioId::AttackLiveReversal),
             2.0,
             Vec2::NEG_Y,
             LeadFoot::Left,
             true,
         ),
         attack_live_scenario(
-            "attack-live-yaw-only",
+            ScenarioMetadata::authored(ScenarioId::AttackLiveYawOnly),
             2.0,
             Vec2::NEG_Y,
             LeadFoot::Left,
             false,
         ),
         attack_live_scenario(
-            "attack-live-terrain-cross-slope",
+            ScenarioMetadata::authored(ScenarioId::AttackLiveTerrainCrossSlope),
             2.0,
             Vec2::new(0.5, -1.0).normalize(),
             LeadFoot::Left,
             false,
         ),
-        dynamics_speed_scenario("speed-ramp-up-down", false),
-        dynamics_speed_scenario("hard-stop", true),
-        dynamics_turn_scenario("dynamics-turn-90", std::f32::consts::FRAC_PI_2),
-        dynamics_turn_scenario("dynamics-turn-180", std::f32::consts::PI),
+        dynamics_speed_scenario(
+            ScenarioMetadata::authored(ScenarioId::SpeedRampUpDown),
+            false,
+        ),
+        dynamics_speed_scenario(ScenarioMetadata::authored(ScenarioId::HardStop), true),
+        dynamics_turn_scenario(
+            ScenarioMetadata::authored(ScenarioId::DynamicsTurn90),
+            std::f32::consts::FRAC_PI_2,
+        ),
+        dynamics_turn_scenario(
+            ScenarioMetadata::authored(ScenarioId::DynamicsTurn180),
+            std::f32::consts::PI,
+        ),
         airborne_landing_scenario(),
-        steady_scenario("cadence-contact", 2.0, 2.0),
+        steady_scenario(
+            ScenarioMetadata::authored(ScenarioId::CadenceContact),
+            2.0,
+            2.0,
+        ),
         // Terrain IK captures include a complete calibration cycle plus two
         // review cycles. The old one-cycle probe discarded its only full cycle
         // as warmup and judged a tiny post-wrap tail.
-        steady_scenario_in_direction("cross-slope-walk", 2.0, 3.0, Vec2::X),
-        steady_scenario("terrain-uphill-walk", 2.0, 3.0),
-        steady_scenario_in_direction("terrain-downhill-walk", 2.0, 3.0, Vec2::Y),
         steady_scenario_in_direction(
-            "terrain-diagonal-walk",
+            ScenarioMetadata::authored(ScenarioId::CrossSlopeWalk),
+            2.0,
+            3.0,
+            Vec2::X,
+        ),
+        steady_scenario(
+            ScenarioMetadata::authored(ScenarioId::TerrainUphillWalk),
+            2.0,
+            3.0,
+        ),
+        steady_scenario_in_direction(
+            ScenarioMetadata::authored(ScenarioId::TerrainDownhillWalk),
+            2.0,
+            3.0,
+            Vec2::Y,
+        ),
+        steady_scenario_in_direction(
+            ScenarioMetadata::authored(ScenarioId::TerrainDiagonalWalk),
             2.0,
             3.0,
             Vec2::new(1.0, -1.0).normalize(),
         ),
         terrain_toggle_scenario(),
-        dynamics_speed_scenario("terrain-hard-stop", true),
-        terrain_tap_stop_scenario("terrain-tap-stop-forward", 0.8, 8..20, Vec2::NEG_Y),
-        terrain_tap_stop_scenario("terrain-stop-mid-swing", 2.0, 8..28, Vec2::NEG_Y),
-        terrain_tap_stop_scenario("terrain-run-flight-stop", 5.5, 8..18, Vec2::NEG_Y),
+        dynamics_speed_scenario(
+            ScenarioMetadata::authored(ScenarioId::TerrainHardStop),
+            true,
+        ),
+        terrain_tap_stop_scenario(
+            ScenarioMetadata::authored(ScenarioId::TerrainTapStopForward),
+            0.8,
+            8..20,
+            Vec2::NEG_Y,
+        ),
+        terrain_tap_stop_scenario(
+            ScenarioMetadata::authored(ScenarioId::TerrainStopMidSwing),
+            2.0,
+            8..28,
+            Vec2::NEG_Y,
+        ),
+        terrain_tap_stop_scenario(
+            ScenarioMetadata::authored(ScenarioId::TerrainRunFlightStop),
+            5.5,
+            8..18,
+            Vec2::NEG_Y,
+        ),
         terrain_tap_restart_scenario(),
         terrain_threshold_chatter_scenario(),
-        steady_scenario("terrain-steady-run-5.5", 5.5, 3.0),
-        dynamics_turn_scenario("terrain-turn-90", std::f32::consts::FRAC_PI_2),
+        steady_scenario(
+            ScenarioMetadata::authored(ScenarioId::TerrainSteadyRun55),
+            5.5,
+            3.0,
+        ),
+        dynamics_turn_scenario(
+            ScenarioMetadata::authored(ScenarioId::TerrainTurn90),
+            std::f32::consts::FRAC_PI_2,
+        ),
         terrain_half_turn_reversal_scenario(),
         transition_scenario(),
     ]
@@ -692,17 +757,20 @@ pub(super) fn capture_plan() -> Vec<PlannedFrame> {
     .collect()
 }
 
-pub(super) fn quickstep_scenario(name: &'static str, local_direction: Vec2) -> Vec<PlannedFrame> {
+pub(super) fn quickstep_scenario(
+    name: ScenarioMetadata<'static>,
+    local_direction: Vec2,
+) -> Vec<PlannedFrame> {
     let planar_speeds = quickstep_fixture_planar_speeds(72);
     (0..72)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label(name),
+            scenario: name.clone(),
             scenario_frame,
             speed: planar_speeds[scenario_frame],
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction,
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::Dodge,
             weapon_guard: WeaponGuardState::Raised,
             lead_foot: LeadFoot::Left,
@@ -712,8 +780,8 @@ pub(super) fn quickstep_scenario(name: &'static str, local_direction: Vec2) -> V
 
 pub(super) fn quickstep_action_ticks() -> usize {
     let config = TacticalCombatConfig::default();
-    (quickstep_action_contact_ticks(config.movement.maneuvers.quickstep_duration_seconds) * 2)
-        as usize
+    (quickstep_action_contact_ticks(config.movement.maneuvers.quickstep_duration_seconds).samples()
+        * 2) as usize
 }
 
 pub(super) fn quickstep_push_ticks() -> usize {
@@ -823,14 +891,20 @@ pub(super) fn quickstep_fixture_vertical_state(scenario_frame: usize) -> (f32, f
 }
 
 pub(super) fn quickstep_fixture_action_distance_metres() -> f32 {
-    quickstep_scenario("quickstep-right", Vec2::X)
-        .iter()
-        .take(quickstep_action_ticks() + 1)
-        .map(|frame| frame.speed / locomotion_sample_hz())
-        .sum()
+    quickstep_scenario(
+        ScenarioMetadata::authored(ScenarioId::QuickstepRight),
+        Vec2::X,
+    )
+    .iter()
+    .take(quickstep_action_ticks() + 1)
+    .map(|frame| frame.speed / locomotion_sample_hz())
+    .sum()
 }
 
-pub(super) fn downed_contact_scenario(name: &'static str, body: BodyState) -> Vec<PlannedFrame> {
+pub(super) fn downed_contact_scenario(
+    name: ScenarioMetadata<'static>,
+    body: BodyState,
+) -> Vec<PlannedFrame> {
     let speed = match body {
         BodyState::Prone => 2.0,
         BodyState::Supine => 0.8,
@@ -841,13 +915,13 @@ pub(super) fn downed_contact_scenario(name: &'static str, body: BodyState) -> Ve
     // the kind of crawl discontinuity this scenario is meant to diagnose.
     (0..=148)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label(name),
+            scenario: name.clone(),
             scenario_frame,
             speed,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: Vec2::NEG_Y,
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
@@ -858,13 +932,13 @@ pub(super) fn downed_contact_scenario(name: &'static str, body: BodyState) -> Ve
 pub(super) fn downed_look_scenario() -> Vec<PlannedFrame> {
     (0..=64)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label("downed-prone-look-at"),
+            scenario: ScenarioMetadata::authored(ScenarioId::DownedProneLookAt),
             scenario_frame,
             speed: 0.0,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: Vec2::ZERO,
-            camera_yaw: std::f32::consts::FRAC_PI_2,
-            camera_pitch: 0.6,
+            camera_yaw: authored_camera_angle(std::f32::consts::FRAC_PI_2),
+            camera_pitch: authored_camera_angle(0.6),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Raised,
             lead_foot: LeadFoot::Left,
@@ -875,19 +949,19 @@ pub(super) fn downed_look_scenario() -> Vec<PlannedFrame> {
 pub(super) fn ordinary_camera_pitch_scenario() -> Vec<PlannedFrame> {
     (0..=64)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label("ordinary-camera-pitch"),
+            scenario: ScenarioMetadata::authored(ScenarioId::OrdinaryCameraPitch),
             scenario_frame,
             speed: 0.0,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: Vec2::ZERO,
-            camera_yaw: 0.0,
-            camera_pitch: if scenario_frame < 16 {
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(if scenario_frame < 16 {
                 0.0
             } else if scenario_frame < 40 {
                 0.6
             } else {
                 -0.6
-            },
+            }),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
@@ -896,7 +970,7 @@ pub(super) fn ordinary_camera_pitch_scenario() -> Vec<PlannedFrame> {
 }
 
 pub(super) fn posture_transition_scenario(
-    name: &'static str,
+    name: ScenarioMetadata<'static>,
     _start: BodyState,
 ) -> Vec<PlannedFrame> {
     // Stop just before the runtime-owned endpoint handoff. The viewer is
@@ -904,13 +978,13 @@ pub(super) fn posture_transition_scenario(
     // validate the contact endpoint independently.
     (0..=80)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label(name),
+            scenario: name.clone(),
             scenario_frame,
             speed: 0.0,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: Vec2::ZERO,
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
@@ -918,34 +992,33 @@ pub(super) fn posture_transition_scenario(
         .collect()
 }
 
-pub(super) fn dive_impact_scenario(name: &'static str) -> Vec<PlannedFrame> {
+pub(super) fn dive_impact_scenario(name: ScenarioMetadata<'static>) -> Vec<PlannedFrame> {
     dive_impact_scenario_with_aim(name, false)
 }
 
-pub(super) fn aimed_dive_impact_scenario(name: &'static str) -> Vec<PlannedFrame> {
+pub(super) fn aimed_dive_impact_scenario(name: ScenarioMetadata<'static>) -> Vec<PlannedFrame> {
     dive_impact_scenario_with_aim(name, true)
 }
 
-pub(super) fn dive_impact_scenario_with_aim(name: &'static str, aimed: bool) -> Vec<PlannedFrame> {
-    let local_direction = if name.starts_with("dive-forward") {
-        Vec2::NEG_Y
-    } else if name.starts_with("dive-backward") {
-        Vec2::Y
-    } else if name.starts_with("dive-left") {
-        Vec2::NEG_X
-    } else if name.starts_with("dive-right") {
-        Vec2::X
-    } else {
-        Vec2::ZERO
+pub(super) fn dive_impact_scenario_with_aim(
+    name: ScenarioMetadata<'static>,
+    aimed: bool,
+) -> Vec<PlannedFrame> {
+    let local_direction = match name.dive_direction() {
+        Some(DiveDirection::Forward) => Vec2::NEG_Y,
+        Some(DiveDirection::Backward) => Vec2::Y,
+        Some(DiveDirection::Left) => Vec2::NEG_X,
+        Some(DiveDirection::Right) => Vec2::X,
+        None => Vec2::ZERO,
     };
-    let final_frame = if name.starts_with("dive-backward") {
+    let final_frame = if name.dive_direction() == Some(DiveDirection::Backward) {
         56
     } else {
         48
     };
     (0..=final_frame)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label(name),
+            scenario: name.clone(),
             scenario_frame,
             // Match the server's camera-relative launch rather than judging a
             // directional pose on a stationary root. Retain velocity through
@@ -956,10 +1029,10 @@ pub(super) fn dive_impact_scenario_with_aim(name: &'static str, aimed: bool) -> 
             } else {
                 0.0
             },
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction,
-            camera_yaw: if aimed { 0.85 } else { 0.0 },
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(if aimed { 0.85 } else { 0.0 }),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: if aimed {
                 WeaponGuardState::Raised
@@ -974,13 +1047,13 @@ pub(super) fn dive_impact_scenario_with_aim(name: &'static str, aimed: bool) -> 
 pub(super) fn jump_charge_scenario() -> Vec<PlannedFrame> {
     (0..=64)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label("jump-charge-anticipation"),
+            scenario: ScenarioMetadata::authored(ScenarioId::JumpChargeAnticipation),
             scenario_frame,
             speed: 0.0,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: Vec2::ZERO,
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
@@ -988,92 +1061,27 @@ pub(super) fn jump_charge_scenario() -> Vec<PlannedFrame> {
         .collect()
 }
 
-pub(super) fn downed_body_for_scenario(scenario: &str) -> Option<BodyState> {
-    match scenario {
-        "downed-prone-crawl" | "downed-prone-look-at" => Some(BodyState::Prone),
-        "downed-supine-scamper" => Some(BodyState::Supine),
-        "full-ragdoll" => Some(BodyState::Ragdolled),
-        _ => None,
-    }
-}
-
-pub(super) fn required_motion_for_scenario(scenario: &str) -> Option<&'static str> {
-    if scenario.starts_with("dive-") {
-        return Some("dive");
-    }
-    match scenario {
-        "downed-prone-crawl" => Some("prone_crawl"),
-        "downed-supine-scamper" => Some("supine_scamper"),
-        "downed-prone-look-at" => Some("prone_idle"),
-        "prone-get-up" => Some("prone_transition"),
-        "supine-get-up" => Some("supine_transition"),
-        "prone-roll-left" => Some("prone_supine_roll_left"),
-        "prone-roll-right" => Some("prone_supine_roll_right"),
-        _ => None,
-    }
-}
-
-pub(super) fn transition_for_scenario(
-    scenario: &str,
-) -> Option<(BodyState, PostureTransitionKind)> {
-    let upright = BodyState::Grounded(GroundedPosture::Upright);
-    let dive_direction = if scenario.starts_with("dive-forward") {
-        Some(DiveDirection::Forward)
-    } else if scenario.starts_with("dive-backward") {
-        Some(DiveDirection::Backward)
-    } else if scenario.starts_with("dive-left") {
-        Some(DiveDirection::Left)
-    } else if scenario.starts_with("dive-right") {
-        Some(DiveDirection::Right)
-    } else {
-        None
-    };
-    if let Some(direction) = dive_direction {
-        return Some((
-            upright,
-            PostureTransitionKind::DiveToDowned {
-                direction,
-                trajectory: DiveTrajectory::Airborne,
-            },
-        ));
-    }
-    match scenario {
-        "prone-get-up" => Some((BodyState::Prone, PostureTransitionKind::ProneToUpright)),
-        "supine-get-up" => Some((BodyState::Supine, PostureTransitionKind::SupineToUpright)),
-        "prone-roll-left" => Some((
-            BodyState::Prone,
-            PostureTransitionKind::ProneToSupine {
-                direction: RollDirection::Left,
-            },
-        )),
-        "prone-roll-right" => Some((
-            BodyState::Prone,
-            PostureTransitionKind::ProneToSupine {
-                direction: RollDirection::Right,
-            },
-        )),
-        _ => None,
-    }
-}
-
-pub(super) fn turning_scenario(name: &'static str, reversal: bool) -> Vec<PlannedFrame> {
+pub(super) fn turning_scenario(
+    name: ScenarioMetadata<'static>,
+    reversal: bool,
+) -> Vec<PlannedFrame> {
     (0..=64)
         .map(|frame| {
             let progress = frame as f32 / 64.0;
             PlannedFrame {
-                scenario: ScenarioMetadata::from_label(name),
+                scenario: name.clone(),
                 scenario_frame: frame,
                 speed: 2.0,
-                time_seconds: progress,
+                time_seconds: authored_frame_time(progress),
                 local_direction: Vec2::NEG_Y,
-                camera_yaw: if reversal && frame > 0 {
+                camera_yaw: authored_camera_angle(if reversal && frame > 0 {
                     std::f32::consts::PI
                 } else if reversal {
                     0.0
                 } else {
                     std::f32::consts::FRAC_PI_2 * progress
-                },
-                camera_pitch: 0.55 * progress,
+                }),
+                camera_pitch: authored_camera_angle(0.55 * progress),
                 action: SkeletonAction::None,
                 weapon_guard: WeaponGuardState::Lowered,
                 lead_foot: LeadFoot::Left,
@@ -1082,18 +1090,21 @@ pub(super) fn turning_scenario(name: &'static str, reversal: bool) -> Vec<Planne
         .collect()
 }
 
-pub(super) fn dynamics_turn_scenario(name: &'static str, angle_radians: f32) -> Vec<PlannedFrame> {
+pub(super) fn dynamics_turn_scenario(
+    name: ScenarioMetadata<'static>,
+    angle_radians: f32,
+) -> Vec<PlannedFrame> {
     (0..=64)
         .map(|frame| {
             let progress = frame as f32 / 64.0;
             PlannedFrame {
-                scenario: ScenarioMetadata::from_label(name),
+                scenario: name.clone(),
                 scenario_frame: frame,
                 speed: 5.5,
-                time_seconds: progress,
+                time_seconds: authored_frame_time(progress),
                 local_direction: Vec2::NEG_Y,
-                camera_yaw: angle_radians * progress,
-                camera_pitch: 0.0,
+                camera_yaw: authored_camera_angle(angle_radians * progress),
+                camera_pitch: authored_camera_angle(0.0),
                 action: SkeletonAction::None,
                 weapon_guard: WeaponGuardState::Lowered,
                 lead_foot: LeadFoot::Left,
@@ -1107,13 +1118,13 @@ pub(super) fn guard_plant_turn_scenario() -> Vec<PlannedFrame> {
         .map(|frame| {
             let progress = frame as f32 / 64.0;
             PlannedFrame {
-                scenario: ScenarioMetadata::from_label("planted-guard-turn"),
+                scenario: ScenarioMetadata::authored(ScenarioId::PlantedGuardTurn),
                 scenario_frame: frame,
                 speed: 0.35,
-                time_seconds: progress,
+                time_seconds: authored_frame_time(progress),
                 local_direction: Vec2::X,
-                camera_yaw: std::f32::consts::FRAC_PI_2 * progress,
-                camera_pitch: 0.0,
+                camera_yaw: authored_camera_angle(std::f32::consts::FRAC_PI_2 * progress),
+                camera_pitch: authored_camera_angle(0.0),
                 action: SkeletonAction::Block,
                 weapon_guard: WeaponGuardState::Lowered,
                 lead_foot: LeadFoot::Left,
@@ -1127,13 +1138,15 @@ pub(super) fn raised_guard_stationary_turn_scenario() -> Vec<PlannedFrame> {
         .map(|scenario_frame| {
             let turn_progress = (scenario_frame as f32 / 64.0).clamp(0.0, 1.0);
             PlannedFrame {
-                scenario: ScenarioMetadata::from_label("raised-guard-stationary-turn"),
+                scenario: ScenarioMetadata::authored(ScenarioId::RaisedGuardStationaryTurn),
                 scenario_frame,
                 speed: 0.0,
-                time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+                time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
                 local_direction: Vec2::ZERO,
-                camera_yaw: std::f32::consts::FRAC_PI_2 * smoothstep01(turn_progress),
-                camera_pitch: 0.0,
+                camera_yaw: authored_camera_angle(
+                    std::f32::consts::FRAC_PI_2 * smoothstep01(turn_progress),
+                ),
+                camera_pitch: authored_camera_angle(0.0),
                 action: SkeletonAction::None,
                 weapon_guard: WeaponGuardState::Raised,
                 lead_foot: LeadFoot::Left,
@@ -1142,7 +1155,10 @@ pub(super) fn raised_guard_stationary_turn_scenario() -> Vec<PlannedFrame> {
         .collect()
 }
 
-pub(super) fn raised_guard_scenario(name: &'static str, direction: Vec2) -> Vec<PlannedFrame> {
+pub(super) fn raised_guard_scenario(
+    name: ScenarioMetadata<'static>,
+    direction: Vec2,
+) -> Vec<PlannedFrame> {
     let direction = direction.normalize_or_zero();
     // Leave enough post-startup time for both local support identities to
     // complete. One semantic cycle could end before the client-owned first
@@ -1151,7 +1167,7 @@ pub(super) fn raised_guard_scenario(name: &'static str, direction: Vec2) -> Vec<
 }
 
 pub(super) fn raised_guard_steady_scenario(
-    name: &'static str,
+    name: ScenarioMetadata<'static>,
     speed: f32,
     cycles: f32,
     direction: Vec2,
@@ -1160,7 +1176,7 @@ pub(super) fn raised_guard_steady_scenario(
 }
 
 pub(super) fn raised_guard_steady_scenario_with_lead(
-    name: &'static str,
+    name: ScenarioMetadata<'static>,
     speed: f32,
     cycles: f32,
     direction: Vec2,
@@ -1170,13 +1186,13 @@ pub(super) fn raised_guard_steady_scenario_with_lead(
     let last_frame = (duration * locomotion_sample_hz()).ceil() as usize + 1;
     (0..=last_frame)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label(name),
+            scenario: name.clone(),
             scenario_frame,
             speed,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: direction.normalize_or_zero(),
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Raised,
             lead_foot,
@@ -1186,26 +1202,26 @@ pub(super) fn raised_guard_steady_scenario_with_lead(
 
 pub(super) fn raised_guard_acceleration_scenario() -> Vec<PlannedFrame> {
     raised_guard_acceleration_scenario_with_lead(
-        "raised-guard-accelerate-from-rest",
+        ScenarioMetadata::authored(ScenarioId::RaisedGuardAccelerateFromRest),
         LeadFoot::Left,
     )
 }
 
 pub(super) fn raised_guard_acceleration_scenario_with_lead(
-    name: &'static str,
+    name: ScenarioMetadata<'static>,
     lead_foot: LeadFoot,
 ) -> Vec<PlannedFrame> {
     (0..=96)
         .map(|scenario_frame| {
             let time_seconds = scenario_frame as f32 / locomotion_sample_hz();
             PlannedFrame {
-                scenario: ScenarioMetadata::from_label(name),
+                scenario: name.clone(),
                 scenario_frame,
                 speed: (time_seconds / 0.5).clamp(0.0, 1.0) * 2.0,
-                time_seconds,
+                time_seconds: authored_frame_time(time_seconds),
                 local_direction: Vec2::X,
-                camera_yaw: 0.0,
-                camera_pitch: 0.0,
+                camera_yaw: authored_camera_angle(0.0),
+                camera_pitch: authored_camera_angle(0.0),
                 action: SkeletonAction::None,
                 weapon_guard: WeaponGuardState::Raised,
                 lead_foot,
@@ -1217,13 +1233,13 @@ pub(super) fn raised_guard_acceleration_scenario_with_lead(
 pub(super) fn raised_guard_transition_scenario() -> Vec<PlannedFrame> {
     (0..=64)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label("raised-guard-transition"),
+            scenario: ScenarioMetadata::authored(ScenarioId::RaisedGuardTransition),
             scenario_frame,
             speed: 2.0,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: Vec2::NEG_Y,
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: if scenario_frame < 16 {
                 WeaponGuardState::Lowered
@@ -1236,27 +1252,30 @@ pub(super) fn raised_guard_transition_scenario() -> Vec<PlannedFrame> {
 }
 
 pub(super) fn raised_guard_release_scenario() -> Vec<PlannedFrame> {
-    raised_guard_release_scenario_with_lead("raised-guard-release-at-peak", LeadFoot::Left)
+    raised_guard_release_scenario_with_lead(
+        ScenarioMetadata::authored(ScenarioId::RaisedGuardReleaseAtPeak),
+        LeadFoot::Left,
+    )
 }
 
 pub(super) fn raised_guard_release_scenario_with_lead(
-    name: &'static str,
+    name: ScenarioMetadata<'static>,
     lead_foot: LeadFoot,
 ) -> Vec<PlannedFrame> {
     let release_frame = (guard_step_length(2.0) * 0.75 * locomotion_sample_hz()).round() as usize;
     (0..=64)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label(name),
+            scenario: name.clone(),
             scenario_frame,
             speed: if scenario_frame <= release_frame {
                 2.0
             } else {
                 0.0
             },
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: Vec2::NEG_Y,
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Raised,
             lead_foot,
@@ -1265,26 +1284,29 @@ pub(super) fn raised_guard_release_scenario_with_lead(
 }
 
 pub(super) fn raised_guard_reversal_scenario() -> Vec<PlannedFrame> {
-    raised_guard_reversal_scenario_with_lead("raised-guard-left-right-reversal", LeadFoot::Left)
+    raised_guard_reversal_scenario_with_lead(
+        ScenarioMetadata::authored(ScenarioId::RaisedGuardLeftRightReversal),
+        LeadFoot::Left,
+    )
 }
 
 pub(super) fn raised_guard_reversal_scenario_with_lead(
-    name: &'static str,
+    name: ScenarioMetadata<'static>,
     lead_foot: LeadFoot,
 ) -> Vec<PlannedFrame> {
     (0..=64)
         .map(|scenario_frame| PlannedFrame {
-            scenario: ScenarioMetadata::from_label(name),
+            scenario: name.clone(),
             scenario_frame,
             speed: 2.0,
-            time_seconds: scenario_frame as f32 / locomotion_sample_hz(),
+            time_seconds: authored_frame_time(scenario_frame as f32 / locomotion_sample_hz()),
             local_direction: if scenario_frame < 16 {
                 Vec2::NEG_X
             } else {
                 Vec2::X
             },
-            camera_yaw: 0.0,
-            camera_pitch: 0.0,
+            camera_yaw: authored_camera_angle(0.0),
+            camera_pitch: authored_camera_angle(0.0),
             action: SkeletonAction::None,
             weapon_guard: WeaponGuardState::Raised,
             lead_foot,
@@ -1320,21 +1342,29 @@ mod tests {
             "dive-left-aimed-impact",
             "dive-right",
         ] {
-            assert_eq!(required_motion_for_scenario(scenario), Some("dive"));
+            assert_eq!(
+                ScenarioMetadata::from_label(scenario)
+                    .required_motion()
+                    .cloned(),
+                Some(crate::animation::MotionId::DIVE)
+            );
         }
     }
 
     #[test]
     fn steady_scenarios_use_authoritative_fixed_tick_samples() {
         for (name, speed) in [("walk", 2.0), ("blend", 3.75), ("run", 5.5)] {
-            let frames = steady_scenario(name, speed, 2.0);
-            assert_eq!(frames.first().unwrap().time_seconds, 0.0);
+            let frames =
+                steady_scenario(ScenarioMetadata::from_label(name).into_owned(), speed, 2.0);
+            assert_eq!(frames.first().unwrap().time_seconds.seconds(), 0.0);
             assert!(frames.len() > 30);
             for pair in frames.windows(2) {
                 assert!(pair[1].time_seconds > pair[0].time_seconds);
                 assert!(
-                    (pair[1].time_seconds - pair[0].time_seconds - 1.0 / locomotion_sample_hz())
-                        .abs()
+                    (pair[1].time_seconds.seconds()
+                        - pair[0].time_seconds.seconds()
+                        - 1.0 / locomotion_sample_hz())
+                    .abs()
                         < 0.0001
                 );
             }
@@ -1347,14 +1377,19 @@ mod tests {
             ("raised-guard-tap-stop-left", Vec2::NEG_X),
             ("raised-guard-tap-stop-right", Vec2::X),
         ] {
-            let frames = raised_guard_lateral_tap_stop_scenario(name, direction);
+            let frames = raised_guard_lateral_tap_stop_scenario(
+                ScenarioMetadata::from_label(name).into_owned(),
+                direction,
+            );
             assert_eq!(
                 ScenarioMetadata::from_label(name).kind(),
                 ScenarioKind::RaisedGuard
             );
-            assert!(scenario_uses_terrain_ik(ScenarioMetadata::from_label(name)));
+            assert!(scenario_uses_terrain_ik(&ScenarioMetadata::from_label(
+                name
+            )));
             assert!(!raised_scenario_requires_zero_flight(
-                ScenarioMetadata::from_label(name)
+                &ScenarioMetadata::from_label(name)
             ));
             assert!(
                 frames
@@ -1366,32 +1401,32 @@ mod tests {
 
     #[test]
     fn terrain_and_steady_raised_gate_classification_remain_distinct() {
-        assert!(scenario_uses_terrain_ik(ScenarioMetadata::from_label(
-            "cross-slope-walk"
+        assert!(scenario_uses_terrain_ik(&ScenarioMetadata::authored(
+            ScenarioId::CrossSlopeWalk
         )));
-        assert!(!scenario_uses_terrain_ik(ScenarioMetadata::from_label(
-            "raised-guard-forward"
+        assert!(!scenario_uses_terrain_ik(&ScenarioMetadata::authored(
+            ScenarioId::RaisedGuardForward
         )));
-        assert!(!scenario_uses_terrain_ik(ScenarioMetadata::from_label(
-            "raised-guard-stationary-turn"
+        assert!(!scenario_uses_terrain_ik(&ScenarioMetadata::authored(
+            ScenarioId::RaisedGuardStationaryTurn
         )));
-        assert!(!scenario_uses_terrain_ik(ScenarioMetadata::from_label(
-            "steady-walk-2.0"
+        assert!(!scenario_uses_terrain_ik(&ScenarioMetadata::authored(
+            ScenarioId::SteadyWalk20
         )));
         assert!(raised_scenario_requires_zero_flight(
-            ScenarioMetadata::from_label("raised-guard-forward")
+            &ScenarioMetadata::authored(ScenarioId::RaisedGuardForward)
         ));
         assert!(raised_scenario_requires_zero_flight(
-            ScenarioMetadata::from_label("raised-guard-stationary-turn")
+            &ScenarioMetadata::authored(ScenarioId::RaisedGuardStationaryTurn)
         ));
         assert!(!raised_scenario_requires_zero_flight(
-            ScenarioMetadata::from_label("raised-guard-tap-stop-right")
+            &ScenarioMetadata::authored(ScenarioId::RaisedGuardTapStopRight)
         ));
         assert!(!raised_scenario_requires_zero_flight(
-            ScenarioMetadata::from_label("cross-slope-walk")
+            &ScenarioMetadata::authored(ScenarioId::CrossSlopeWalk)
         ));
 
-        let stationary_turn = ScenarioMetadata::from_label("raised-guard-stationary-turn");
+        let stationary_turn = ScenarioMetadata::authored(ScenarioId::RaisedGuardStationaryTurn);
         assert_eq!(stationary_turn.kind(), ScenarioKind::RaisedGuard);
         assert!(!stationary_turn.repeatable());
         assert!(stationary_turn.procedural_solver());
@@ -1402,7 +1437,7 @@ mod tests {
         let frames = transition_scenario();
         assert_eq!(frames.len(), 257);
         assert!(frames.iter().all(|frame| frame.speed.is_finite()
-            && frame.time_seconds.is_finite()
+            && frame.time_seconds.seconds().is_finite()
             && frame.local_direction.is_finite()));
         assert_eq!(frames.first().unwrap().speed, 0.0);
         assert_eq!(frames.last().unwrap().speed, 0.0);
@@ -1449,9 +1484,10 @@ mod tests {
                 && frame.local_direction == Vec2::ZERO
                 && frame.weapon_guard == WeaponGuardState::Raised
         }));
-        assert!(stationary_turn.first().unwrap().camera_yaw.abs() < 0.0001);
+        assert!(stationary_turn.first().unwrap().camera_yaw.radians().abs() < 0.0001);
         assert!(
-            (stationary_turn.last().unwrap().camera_yaw - std::f32::consts::FRAC_PI_2).abs()
+            (stationary_turn.last().unwrap().camera_yaw.radians() - std::f32::consts::FRAC_PI_2)
+                .abs()
                 < 0.0001
         );
         let transition = plan

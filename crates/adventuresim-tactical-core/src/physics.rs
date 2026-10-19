@@ -11,6 +11,8 @@ use crate::{
 };
 
 mod plugin;
+pub use quickstep::quickstep_action_contact_ticks;
+
 mod quickstep;
 pub use plugin::{AdventureSimulatorPhysicsPlugin, AdventureSimulatorPhysicsSet};
 
@@ -227,7 +229,7 @@ pub struct CharacterMotionSnapshot {
 )]
 #[reflect(Component)]
 pub struct QuickstepPush {
-    pub start_tick: u64,
+    pub start_tick: crate::animation::AnimationSampleTick,
     pub direction: Vec2,
     pub orientation: Quat,
     pub origin: Vec3,
@@ -409,16 +411,6 @@ pub fn quickstep_tracking_force_newtons(
     } else {
         force
     }
-}
-
-/// Converts the configured complete quickstep duration into the midpoint tick
-/// expected by the shared symmetric dodge timeline. Keeping this conversion
-/// in one place prevents a contact duration from accidentally being doubled.
-pub fn quickstep_action_contact_ticks(duration_seconds: f32) -> u64 {
-    let total_ticks = (duration_seconds.max(2.0 / locomotion_sample_hz()) * locomotion_sample_hz())
-        .round()
-        .max(2.0) as u64;
-    (total_ticks / 2).max(1)
 }
 
 /// Preserves the analogue movement magnitude after Ahoy normalizes its wish
@@ -1248,12 +1240,17 @@ mod tests {
         skeleton
             .begin_dodge(
                 crate::animation::DodgeSpec::quickstep(Vec2::Y).unwrap(),
-                0,
-                20,
+                crate::animation::AnimationSampleTick::from(0u64),
+                crate::animation::AnimationSampleTick::from(20u64),
             )
             .unwrap();
         let mut push = QuickstepPush::default();
-        push.begin(0, Vec2::Y, Quat::IDENTITY, Vec3::ZERO);
+        push.begin(
+            crate::animation::AnimationSampleTick::from(0u64),
+            Vec2::Y,
+            Quat::IDENTITY,
+            Vec3::ZERO,
+        );
         let mut world = World::new();
         let entity = world
             .spawn((
@@ -1980,8 +1977,8 @@ mod tests {
         let mut transitioning = SkeletonState::default();
         assert!(transitioning.begin_posture_transition(
             crate::animation::PostureTransitionKind::UprightToProne,
-            0,
-            10,
+            crate::animation::AnimationSampleTick::from(0u64),
+            crate::animation::AnimationSampleSpan::from(10u64),
         ));
         let transition = world
             .spawn((
@@ -2000,8 +1997,8 @@ mod tests {
             crate::animation::PostureTransitionKind::ProneToSupine {
                 direction: crate::animation::RollDirection::Left,
             },
-            0,
-            10,
+            crate::animation::AnimationSampleTick::from(0u64),
+            crate::animation::AnimationSampleSpan::from(10u64),
         ));
         let roll = world
             .spawn((

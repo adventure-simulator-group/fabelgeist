@@ -39,7 +39,7 @@ pub(super) fn restore_authored_bind_pose(
     for (bind, offset, mut transform) in &mut nodes {
         if playbacks
             .get(bind.owner)
-            .is_ok_and(|playback| playback.pose_source == super::PoseSource::Bind)
+            .is_ok_and(|playback| playback.plan.is_bind())
         {
             *transform = bind.local;
             transform.translation += offset.map(|offset| offset.0).unwrap_or_default();

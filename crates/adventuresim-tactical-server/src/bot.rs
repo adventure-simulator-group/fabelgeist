@@ -1000,13 +1000,19 @@ mod tests {
             .entity_mut(target)
             .get_mut::<SkeletonState>()
             .unwrap()
-            .begin_attack(AttackSpec::default(), 0, 1_000)
+            .begin_attack(
+                AttackSpec::default(),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(1_000u64),
+            )
             .unwrap();
         app.world_mut()
             .entity_mut(target)
             .get_mut::<SkeletonState>()
             .unwrap()
-            .advance_action(999);
+            .advance_action(
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(999u64),
+            );
         app.world_mut()
             .entity_mut(actor)
             .get_mut::<OffensiveCombatAi>()

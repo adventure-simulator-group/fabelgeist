@@ -5,7 +5,7 @@ use super::*;
 use adventuresim_tactical_core::animation::AnimationSampleTick;
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub(in crate::animation::procedural) struct LocomotionSettleState {
-    pub(super) support_left: bool,
+    pub(super) support_foot: LeadFoot,
     pub(super) swing_start: Vec3,
     pub(super) capture_point: Vec3,
     pub(super) landing_target: Vec3,
@@ -223,11 +223,11 @@ impl LegIkState {
             left_authored_target: self.0.left_authored_world_target,
             right_authored_target: self.0.right_authored_world_target,
             left_planned_contact: settle
-                .filter(|state| !state.support_left)
+                .filter(|state| state.support_foot == LeadFoot::Right)
                 .map(|state| state.landing_target)
                 .or(self.0.left_planned_contact),
             right_planned_contact: settle
-                .filter(|state| state.support_left)
+                .filter(|state| state.support_foot == LeadFoot::Left)
                 .map(|state| state.landing_target)
                 .or(self.0.right_planned_contact),
             settle_capture_point: settle.map(|state| state.capture_point),

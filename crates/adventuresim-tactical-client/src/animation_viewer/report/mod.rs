@@ -1,12 +1,20 @@
 //! Capture report assembly and artifact writing.
 
 use super::*;
+pub(super) use bones::{
+    CapturedBones, REPORT_BONES, parent_bone, report_bone_label, serialize_report_bone,
+};
 
+mod acceptance_limits;
+mod body_response_validation;
+mod bones;
 mod html;
 mod metrics;
 mod model;
 mod validation;
 
+use acceptance_limits::*;
+use body_response_validation::*;
 use html::*;
 use metrics::*;
 pub(super) use model::*;
@@ -31,11 +39,11 @@ pub(super) fn invalidate_previous_report(output: &std::path::Path) {
 fn capture_scenarios_complete(frames: &[FrameSample], plan: &[PlannedFrame]) -> bool {
     frames.len() == plan.len()
         && frames.iter().zip(plan).all(|(frame, planned)| {
-            frame.scenario == planned.scenario.label()
+            frame.scenario == planned.scenario
                 && frame.scenario_frame == planned.scenario_frame
-                && TRACKED_BONE_NAMES
+                && REPORT_BONES
                     .iter()
-                    .all(|name| frame.bones.contains_key(*name))
+                    .all(|(role, _)| frame.bones.contains_key(*role))
         })
 }
 
@@ -56,7 +64,6 @@ pub(super) fn write_completed_capture(completed: CompletedCapture) -> AppExit {
         output,
         manifest,
         global_bone_frames,
-        acceptance_passed,
     } = build_completed_report(completed);
     let global_bone_trace_path = output.join("global-bone-transforms.jsonl");
     let trace_file = File::create(&global_bone_trace_path)
@@ -76,14 +83,27 @@ pub(super) fn write_completed_capture(completed: CompletedCapture) -> AppExit {
     let manifest_path = output.join("manifest.json");
     fs::write(
         &manifest_path,
-        serde_json::to_string_pretty(&manifest).expect("capture manifest must serialize"),
+        match serde_json::to_string_pretty(&manifest) {
+            Ok(json) => json,
+            Err(error) => {
+                error!(%error, "capture manifest serialization failed");
+                return AppExit::Error(std::num::NonZeroU8::MIN);
+            }
+        },
     )
     .unwrap_or_else(|error| panic!("failed to write {manifest_path:?}: {error}"));
     let index_path = output.join("index.html");
-    fs::write(&index_path, review_html(&manifest))
+    let html = match review_html(&manifest) {
+        Ok(html) => html,
+        Err(error) => {
+            error!(%error, "capture HTML serialization failed");
+            return AppExit::Error(std::num::NonZeroU8::MIN);
+        }
+    };
+    fs::write(&index_path, html)
         .unwrap_or_else(|error| panic!("failed to write {index_path:?}: {error}"));
     info!(path = ?index_path, "Animation review capture completed");
-    if acceptance_passed {
+    if validation_passed(&manifest.validation) {
         AppExit::Success
     } else {
         let failure_path = output.join("failure.txt");
@@ -100,7 +120,7 @@ pub(super) fn write_completed_capture(completed: CompletedCapture) -> AppExit {
 mod tests {
     use super::*;
 
-    fn unique_test_output(name: &str) -> PathBuf {
+    fn unique_test_output(name: &BoneRole) -> PathBuf {
         std::env::temp_dir().join(format!(
             "adventuresim-animation-viewer-{name}-{}",
             std::process::id()
@@ -140,10 +160,10 @@ mod tests {
         let frame = FrameSample {
             scenario: "test".into(),
             scenario_frame: 0,
-            time_seconds: 0.0,
+            time_seconds: AnimationElapsed::from_seconds(0.0).unwrap(),
             speed_metres_per_second: 0.0,
             gait_phase: CyclePhase::from_cycles(0.0).unwrap(),
-            locomotion_sample_tick: 0,
+            locomotion_sample_tick: AnimationSampleTick::from(0u64),
             body_acceleration: Vec3::ZERO.to_array(),
             world_acceleration: Vec3::ZERO.to_array(),
             bouncy_active_springs: 0,
@@ -151,10 +171,10 @@ mod tests {
             contact_sequence: ContactSequence::ZERO,
             contact_foot: LeadFoot::Left,
             landing_sequence: adventuresim_tactical_core::animation::LandingSequence::ZERO,
-            landing_impact_speed: 0.0,
-            body_lean_pitch_degrees: 0.0,
-            body_lean_roll_degrees: 0.0,
-            landing_compression_metres: 0.0,
+            landing_impact_speed: LandingImpactSpeed::ZERO,
+            body_lean_pitch_degrees: BodyAngle::ZERO,
+            body_lean_roll_degrees: BodyAngle::ZERO,
+            landing_compression_metres: HeightDistance::ZERO,
             root_distance_metres: 0.0,
             root_position_metres: Vec3::ZERO.to_array(),
             world_travel_direction: Vec3::Z.to_array(),
@@ -192,7 +212,7 @@ mod tests {
             semantic_route_selected_path: SemanticRoutePath::GeneralPose,
             semantic_route_runtime_evaluated: false,
             screenshots,
-            bones: BTreeMap::new(),
+            bones: CapturedBones::default(),
         };
         for name in frame.screenshots.values() {
             fs::write(output.join(name), b"png").unwrap();

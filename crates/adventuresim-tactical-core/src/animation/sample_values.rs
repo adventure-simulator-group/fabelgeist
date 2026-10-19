@@ -7,23 +7,22 @@ use super::{
 use serde::{Deserialize, Serialize};
 
 /// Finite cycles, deliberately signed and unwrapped until a periodic operation.
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, derive_more::Into)]
 #[serde(try_from = "f32", into = "f32")]
 pub struct CyclePhase(f32);
 
 /// Finite signed cycle displacement; unlike a coordinate, it never wraps implicitly.
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, derive_more::Into)]
 #[serde(try_from = "f32", into = "f32")]
 pub struct CycleDelta(f32);
 
 /// A finite nonnegative contribution. Independent contributions may exceed one.
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, derive_more::Into)]
 #[serde(try_from = "f32", into = "f32")]
 pub struct BlendWeight(f32);
 
 /// Binary selection of the authored original or mirrored clip.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(from = "bool", into = "bool")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ClipMirror {
     Original,
     Mirrored,
@@ -61,11 +60,22 @@ impl CyclePhase {
     /// subtract-then-modulo order. Subtracting zero or half a cycle from a
     /// finite f32 cannot overflow, so this periodic kernel remains infallible.
     pub fn until_contact(self, foot: LeadFoot) -> CycleDelta {
-        let contact = match foot {
+        CycleDelta((Self::contact_cycles(foot) - self.0).rem_euclid(1.0))
+    }
+    /// Elapsed cycles after this foot's contact, retaining subtract-then-modulo order.
+    pub fn since_contact(self, foot: LeadFoot) -> CycleDelta {
+        CycleDelta((self.0 - Self::contact_cycles(foot)).rem_euclid(1.0))
+    }
+    /// Signed offset from the nearest contact for sagittal foot roll.
+    /// The half-cycle shift remains after subtraction and before modulo.
+    pub fn nearest_contact_offset(self, foot: LeadFoot) -> CycleDelta {
+        CycleDelta((self.0 - Self::contact_cycles(foot) + 0.5).rem_euclid(1.0) - 0.5)
+    }
+    fn contact_cycles(foot: LeadFoot) -> f32 {
+        match foot {
             LeadFoot::Left => 0.0,
             LeadFoot::Right => LOCOMOTION_SECOND_CONTACT_PHASE,
-        };
-        CycleDelta((contact - self.0).rem_euclid(1.0))
+        }
     }
 }
 
@@ -149,20 +159,10 @@ impl TryFrom<f32> for CyclePhase {
         Self::from_cycles(value)
     }
 }
-impl From<CyclePhase> for f32 {
-    fn from(value: CyclePhase) -> Self {
-        value.cycles()
-    }
-}
 impl TryFrom<f32> for CycleDelta {
     type Error = AnimationValueError;
     fn try_from(value: f32) -> AnimationValueResult<Self> {
         Self::from_cycles(value)
-    }
-}
-impl From<CycleDelta> for f32 {
-    fn from(value: CycleDelta) -> Self {
-        value.cycles()
     }
 }
 impl TryFrom<f32> for BlendWeight {
@@ -171,22 +171,17 @@ impl TryFrom<f32> for BlendWeight {
         Self::from_factor(value)
     }
 }
-impl From<BlendWeight> for f32 {
-    fn from(value: BlendWeight) -> Self {
-        value.factor()
+impl Serialize for ClipMirror {
+    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        serializer.serialize_bool(*self == Self::Mirrored)
     }
 }
-impl From<bool> for ClipMirror {
-    fn from(mirrored: bool) -> Self {
-        if mirrored {
+impl<'de> Deserialize<'de> for ClipMirror {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        Ok(if bool::deserialize(deserializer)? {
             Self::Mirrored
         } else {
             Self::Original
-        }
-    }
-}
-impl From<ClipMirror> for bool {
-    fn from(mirror: ClipMirror) -> Self {
-        mirror == ClipMirror::Mirrored
+        })
     }
 }

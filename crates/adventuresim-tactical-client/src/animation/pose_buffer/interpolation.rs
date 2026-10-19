@@ -1,15 +1,15 @@
 //! Checked phase of the pose buffer's fixed sample interval.
 
 use adventuresim_tactical_core::animation::{
-    AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult,
+    AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult, UnitInterval,
 };
 
 #[derive(Clone, Copy)]
-pub(super) struct PoseInterpolation(f32);
+pub(super) struct PoseInterpolation(UnitInterval);
 
 impl PoseInterpolation {
-    pub(super) const ZERO: Self = Self(0.0);
-    pub(super) const ONE: Self = Self(1.0);
+    pub(super) const ZERO: Self = Self(UnitInterval::ZERO);
+    pub(super) const ONE: Self = Self(UnitInterval::ONE);
     pub(super) fn from_sample_clock(
         elapsed: AnimationElapsed,
         interval: AnimationElapsed,
@@ -21,22 +21,16 @@ impl PoseInterpolation {
                 quantity: AnimationQuantity::PoseInterpolation,
             });
         }
-        Self::from_fraction(fraction.clamp(0.0, 1.0))
+        Self::from_fraction(
+            fraction.clamp(UnitInterval::ZERO.fraction(), UnitInterval::ONE.fraction()),
+        )
     }
     pub(super) fn fraction(self) -> f32 {
-        self.0
+        self.0.fraction()
     }
     fn from_fraction(fraction: f32) -> AnimationValueResult<Self> {
-        if !fraction.is_finite() {
-            return Err(AnimationValueError::NonFinite {
-                quantity: AnimationQuantity::PoseInterpolation,
-            });
-        }
-        if !(0.0..=1.0).contains(&fraction) {
-            return Err(AnimationValueError::OutsideUnitInterval {
-                quantity: AnimationQuantity::PoseInterpolation,
-            });
-        }
-        Ok(Self(fraction))
+        UnitInterval::from_fraction(fraction)
+            .map(Self)
+            .map_err(|error| error.for_quantity(AnimationQuantity::PoseInterpolation))
     }
 }

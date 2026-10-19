@@ -22,7 +22,7 @@ impl LocomotionBodyResponseState {
             }) if self.last_tick == Some(fixed_tick) => AnimationElapsed::ZERO,
             Some(FixedAnimationStep { delta_seconds, .. }) => delta_seconds,
             None => AnimationElapsed::from(time.delta())
-                .capped_by_seconds(body_response_tuning().maximum_frame_seconds)?,
+                .min(body_response_tuning().maximum_frame_seconds),
         };
         let inverse_body_rotation = owner_transform.rotation.inverse();
         let body_velocity = BodyLocalVelocity::from_metres_per_second(
@@ -100,7 +100,11 @@ pub(in crate::animation::procedural) fn presentation_tick_delta(
         None => Some(0),
         Some(previous) => {
             let delta = current.wrapping_delta(previous);
-            (delta <= body_response_tuning().maximum_presentation_sample_gap_ticks).then_some(delta)
+            (delta
+                <= body_response_tuning()
+                    .maximum_presentation_sample_gap_ticks
+                    .samples())
+            .then_some(delta)
         }
     }
 }
@@ -231,7 +235,7 @@ fn advance_body_response(
     let target = target.radians();
     let velocity = velocity.radians_per_second();
     let delta_seconds = elapsed.seconds();
-    let omega = 2.0 / body_response_tuning().smooth_time_seconds;
+    let omega = 2.0 / body_response_tuning().smooth_time_seconds.seconds();
     let omega_squared = omega * omega;
     let denominator =
         1.0 + 2.0 * delta_seconds * omega + delta_seconds * delta_seconds * omega_squared;

@@ -2,11 +2,12 @@
 
 use crate::animation::sample_values::AnimationValueResult;
 use adventuresim_building_generator::spatial_geometry::Radians;
-use adventuresim_tactical_core::animation::{AnimationQuantity, AnimationValueError};
+use adventuresim_tactical_core::animation::{AnimationQuantity, AnimationValueError, UnitInterval};
 use bevy::prelude::*;
 
 #[derive(Clone, Copy, Default, derive_more::Debug)]
 #[debug("BodyAngle({:?})", self.0.radians())]
+/// Signed pitch/roll deflection in the presentation body's local response frame.
 pub(crate) struct BodyAngle(Radians);
 
 #[derive(Debug, Clone, Copy, Default)]
@@ -30,12 +31,16 @@ pub(super) struct BodyResponseStep {
 }
 
 /// Fraction of the braking-induced lean, independent of additive pose weight.
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub(super) struct BrakingLeanScale(f32);
+#[derive(Clone, Copy, derive_more::Debug, PartialEq)]
+#[debug("BrakingLeanScale({:?})", self.0.fraction())]
+pub(super) struct BrakingLeanScale(UnitInterval);
+
+/// Finite nonnegative angular cap; unlike signed body deflection, it is a magnitude.
+pub(super) struct BodyAngularMagnitude(Radians);
 
 impl BodyAngle {
-    pub(super) const ZERO: Self = Self(Radians::ZERO);
-    pub(super) fn from_radians(value: f32) -> AnimationValueResult<Self> {
+    pub(crate) const ZERO: Self = Self(Radians::ZERO);
+    pub(crate) fn from_radians(value: f32) -> AnimationValueResult<Self> {
         Radians::new(value)
             .map(Self)
             .map_err(|_| AnimationValueError::NonFinite {
@@ -112,7 +117,7 @@ impl BodyResponseAngles {
     pub(super) fn checked_sum_capped(
         self,
         other: Self,
-        maximum: BodyAngle,
+        maximum: BodyAngularMagnitude,
     ) -> AnimationValueResult<Self> {
         let response = self.radians() + other.radians();
         if !response.length_squared().is_finite() {
@@ -141,21 +146,30 @@ impl BodyResponseAngles {
     }
 }
 
+impl BodyAngularMagnitude {
+    pub(crate) fn from_radians(value: f32) -> AnimationValueResult<Self> {
+        let radians = Radians::new(value).map_err(|_| AnimationValueError::NonFinite {
+            quantity: AnimationQuantity::BodyAngle,
+        })?;
+        if value < 0.0 {
+            return Err(AnimationValueError::Negative {
+                quantity: AnimationQuantity::BodyAngle,
+            });
+        }
+        Ok(Self(radians))
+    }
+    fn radians(self) -> f32 {
+        self.0.radians()
+    }
+}
+
 impl BrakingLeanScale {
     pub(super) fn from_fraction(value: f32) -> AnimationValueResult<Self> {
-        if !value.is_finite() {
-            return Err(AnimationValueError::NonFinite {
-                quantity: AnimationQuantity::BrakingLeanScale,
-            });
-        }
-        if !(0.0..=1.0).contains(&value) {
-            return Err(AnimationValueError::OutsideUnitInterval {
-                quantity: AnimationQuantity::BrakingLeanScale,
-            });
-        }
-        Ok(Self(value))
+        UnitInterval::from_fraction(value)
+            .map(Self)
+            .map_err(|error| error.for_quantity(AnimationQuantity::BrakingLeanScale))
     }
     pub(super) fn fraction(self) -> f32 {
-        self.0
+        self.0.fraction()
     }
 }

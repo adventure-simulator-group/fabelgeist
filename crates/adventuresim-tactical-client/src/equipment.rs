@@ -8,6 +8,7 @@ use crate::{
     player::ClientPlayer,
     presentation::GrabTargetOutline,
 };
+use adventuresim_core::equipment_assets::EquipmentAssets;
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::{
     bevy_replicon::prelude::ClientTriggerExt,
@@ -41,7 +42,6 @@ pub(crate) use runtime_equipment::RuntimeEquipmentBodyCache;
 #[cfg(test)]
 use runtime_equipment::RuntimeEquipmentPresentation;
 use runtime_equipment::generate_runtime_equipment_models;
-use serde::Deserialize;
 use skin::sync_procedural_equipment_skins;
 use std::{
     collections::{BTreeMap, HashMap},
@@ -132,26 +132,16 @@ const EQUIPMENT_ICON_SLUGS: [&str; 56] = [
     "wood-club",
 ];
 
-static PROCEDURAL_EQUIPMENT_ASSETS: LazyLock<BTreeMap<String, BTreeMap<String, String>>> =
-    LazyLock::new(|| {
-        let manifest: ProceduralEquipmentManifest = serde_json::from_str(include_str!(concat!(
-            env!("CARGO_MANIFEST_DIR"),
-            "/../../assets/equipment/procedural/manifest.json"
-        )))
-        .expect("committed procedural equipment manifest must be valid");
-        let mut assets = BTreeMap::<String, BTreeMap<String, String>>::new();
-        for asset in manifest.assets {
-            let replaced = assets
-                .entry(asset.item_id)
-                .or_default()
-                .insert(asset.placement_id, asset.file);
-            assert!(
-                replaced.is_none(),
-                "procedural equipment manifest keys must be unique"
-            );
-        }
-        assets
-    });
+static PROCEDURAL_EQUIPMENT_ASSETS: LazyLock<EquipmentAssets> = LazyLock::new(|| {
+    // This is a committed build input, not gameplay admission. Invalid embedded data is an invariant failure.
+    match EquipmentAssets::from_json(include_str!(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/../../assets/equipment/procedural/manifest.json"
+    ))) {
+        Ok(assets) => assets,
+        Err(error) => panic!("committed procedural equipment manifest must be valid: {error}"),
+    }
+});
 
 pub(crate) struct TacticalEquipmentPlugin;
 
@@ -207,18 +197,6 @@ struct WeaponIconCacheKey {
 
 #[derive(Component)]
 pub(crate) struct ItemPlaceholder(pub(crate) Entity);
-
-#[derive(Component, Deserialize)]
-struct ProceduralEquipmentManifest {
-    assets: Vec<ProceduralEquipmentManifestAsset>,
-}
-
-#[derive(Deserialize)]
-struct ProceduralEquipmentManifestAsset {
-    item_id: String,
-    placement_id: String,
-    file: String,
-}
 
 #[derive(Component)]
 pub(crate) struct ProceduralEquipmentResolved;
@@ -284,12 +262,19 @@ fn icon_uv(slug: &str) -> egui::Rect {
 }
 
 fn procedural_equipment_file(item_id: &str, placement_id: Option<&str>) -> Option<&'static str> {
-    let placements = PROCEDURAL_EQUIPMENT_ASSETS.get(item_id)?;
-    match placement_id {
-        Some(placement_id) => placements.get(placement_id),
-        None => placements.values().next(),
-    }
-    .map(String::as_str)
+    // ItemProperties and replicated placement text enter the canonical catalogue here.
+    let item = item_catalog::definition(item_id)?;
+    let placement = match placement_id {
+        Some(id) => Some(
+            item.equipment
+                .as_ref()?
+                .placements
+                .iter()
+                .find(|placement| placement.id == id)?,
+        ),
+        None => None,
+    };
+    PROCEDURAL_EQUIPMENT_ASSETS.file_for(item, placement)
 }
 
 fn procedural_equipment_asset_path(file: &str) -> String {
@@ -390,7 +375,7 @@ fn update_grab_input(
             depth,
             expected_destination: ordered_preview_at_location(actor, location, &topologies)
                 .get(depth as usize)
-                .map(|target| target.entity),
+                .map(|target| target.addressed_entity()),
         },
         Some(GrabSelection::Hand(destination)) => EquipmentAction::Hand {
             destination,
@@ -535,7 +520,7 @@ fn draw_slot_hud(
                                     let Some((_, layer)) = outermost else {
                                         return;
                                     };
-                                    let Ok((_, _, _, item, topology)) = items.get(layer.entity)
+                                    let Ok((_, _, _, item, topology)) = items.get(layer.addressed_entity())
                                     else {
                                         return;
                                     };
@@ -544,7 +529,7 @@ fn draw_slot_hud(
                                         .unwrap_or("help");
                                     let response = ui.add(
                                         equipment_icon_image(
-                                            Some(layer.entity),
+                                            Some(layer.addressed_entity()),
                                             icon,
                                             egui::vec2(27.0, 27.0),
                                             &procedural_textures,
@@ -568,7 +553,7 @@ fn draw_slot_hud(
                                         .count()
                                         > 1;
                                     if multi {
-                                        joined_cells.push((response.rect, layer.entity));
+                                        joined_cells.push((response.rect, layer.addressed_entity()));
                                     }
                                 });
                             let tooltip = if let Some((_, _, _, held, _)) = held {
@@ -586,7 +571,7 @@ fn draw_slot_hud(
                                     )
                                 }
                             } else if let Some((_, layer)) = outermost {
-                                if let Ok((_, _, _, item, _)) = items.get(layer.entity) {
+                                if let Ok((_, _, _, item, _)) = items.get(layer.addressed_entity()) {
                                     format!(
                                         "{}: draw {}",
                                         mapping.input.to_uppercase(),
@@ -1145,17 +1130,16 @@ mod tests {
         assert_eq!(procedural_equipment_file("arming_sword", None), None);
 
         let asset_root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../assets");
-        for placements in PROCEDURAL_EQUIPMENT_ASSETS.values() {
-            for file in placements.values() {
-                let portrait = format!("icons/{}.png", file.strip_suffix(".glb").unwrap());
-                assert!(
-                    asset_root
-                        .join("equipment/procedural")
-                        .join(portrait)
-                        .is_file(),
-                    "manifest asset {file} must ship its portrait"
-                );
-            }
+        for entry in PROCEDURAL_EQUIPMENT_ASSETS.entries() {
+            let file = &entry.file;
+            let portrait = format!("icons/{}.png", file.strip_suffix(".glb").unwrap());
+            assert!(
+                asset_root
+                    .join("equipment/procedural")
+                    .join(portrait)
+                    .is_file(),
+                "manifest asset {file} must ship its portrait"
+            );
         }
     }
 

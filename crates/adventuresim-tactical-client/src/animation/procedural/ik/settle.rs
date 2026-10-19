@@ -212,7 +212,11 @@ pub(in crate::animation::procedural) fn prepare_terminal_settle_contacts(
     memory.left_foot_plant_acquired = false;
     memory.right_foot_plant_acquired = false;
     if let Some(settle) = memory.settle.as_mut() {
-        settle.landing_target = if settle.support_left { right } else { left };
+        settle.landing_target = if settle.support_foot == LeadFoot::Left {
+            right
+        } else {
+            left
+        };
     }
     memory.terminal_contacts_prepared = true;
     true
@@ -318,12 +322,12 @@ pub(in crate::animation::procedural) fn settle_visible_foot(
 
 pub(in crate::animation::procedural) fn retain_settle_support(
     memory: &mut LegIkMemory,
-    support_left: bool,
+    support_foot: LeadFoot,
     left: Option<Vec3>,
     right: Option<Vec3>,
     acquired: bool,
 ) {
-    if support_left {
+    if support_foot == LeadFoot::Left {
         memory.left_foot_plant = left;
         memory.left_foot_plant_acquired = acquired && left.is_some();
         memory.left_transition_support_weight = Some(1.0);
@@ -419,21 +423,29 @@ pub(in crate::animation::procedural) fn choose_settle_support(
     right_foot: Option<Vec3>,
     projected_com: Vec3,
     direction: Vec3,
-) -> bool {
+) -> LeadFoot {
     let left_weight = left_weight.unwrap_or(0.0);
     let right_weight = right_weight.unwrap_or(0.0);
     if (left_weight - right_weight).abs() > 0.05 {
-        return left_weight > right_weight;
+        return if left_weight > right_weight {
+            LeadFoot::Left
+        } else {
+            LeadFoot::Right
+        };
     }
     match (left_foot, right_foot) {
         (Some(left), Some(right)) => {
             // In flight, retain the foot behind the moving body so the other
             // foot can capture ahead of its projected center.
-            (left - projected_com).dot(direction) <= (right - projected_com).dot(direction)
+            if (left - projected_com).dot(direction) <= (right - projected_com).dot(direction) {
+                LeadFoot::Left
+            } else {
+                LeadFoot::Right
+            }
         }
-        (Some(_), None) => true,
-        (None, Some(_)) => false,
-        (None, None) => true,
+        (Some(_), None) => LeadFoot::Left,
+        (None, Some(_)) => LeadFoot::Right,
+        (None, None) => LeadFoot::Left,
     }
 }
 
@@ -468,12 +480,15 @@ pub(in crate::animation::procedural) fn settle_swing_side(
     rig_origin: Vec3,
     rig_rotation: Quat,
     swing_start: Vec3,
-    semantic_fallback: f32,
+    support_foot: LeadFoot,
 ) -> f32 {
     let authored_side = (rig_rotation.inverse() * (swing_start - rig_origin)).x;
     if authored_side.abs() > 0.001 {
         authored_side.signum()
     } else {
-        semantic_fallback.signum()
+        match support_foot {
+            LeadFoot::Left => 1.0,
+            LeadFoot::Right => -1.0,
+        }
     }
 }

@@ -1,10 +1,7 @@
 //! Carried playback choices, separate from local selection predicates.
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(super) enum PoseSource {
-    Bind,
-    Clips,
-}
+use bevy::gltf::Gltf;
+use bevy::prelude::*;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub(super) enum TimelineDirection {
@@ -18,12 +15,20 @@ pub(super) enum OrdinaryLocomotion {
     Active,
 }
 
-#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+#[derive(Debug, Clone, Default)]
 pub(super) enum BaseRigLoad {
     #[default]
-    Pending,
-    Ready,
-    Failed,
+    Unrequested,
+    Loading {
+        source: Handle<Gltf>,
+    },
+    Ready {
+        source: Handle<Gltf>,
+        scene: Handle<WorldAsset>,
+    },
+    Failed {
+        source: Handle<Gltf>,
+    },
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -44,9 +49,21 @@ pub(super) enum InertialState {
     Blending,
 }
 
-impl PoseSource {
-    pub(super) fn for_empty_plan(empty: bool) -> Self {
-        if empty { Self::Bind } else { Self::Clips }
+impl BaseRigLoad {
+    pub(super) fn source(&self) -> Option<&Handle<Gltf>> {
+        match self {
+            Self::Unrequested => None,
+            Self::Loading { source } | Self::Ready { source, .. } | Self::Failed { source } => {
+                Some(source)
+            }
+        }
+    }
+
+    pub(super) fn scene(&self) -> Option<&Handle<WorldAsset>> {
+        match self {
+            Self::Ready { scene, .. } => Some(scene),
+            _ => None,
+        }
     }
 }
 

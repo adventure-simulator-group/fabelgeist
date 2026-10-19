@@ -133,7 +133,7 @@ pub(in crate::animation::procedural) fn airborne_unplanned_release_uses_resolved
 )]
 pub(in crate::animation::procedural) fn commit_resolved_unplanned_airborne_release(
     memory: &mut LegIkMemory,
-    left: bool,
+    foot_side: LeadFoot,
     run_airborne_budget: bool,
     planned_contact: Option<Vec3>,
     release_active: bool,
@@ -143,7 +143,7 @@ pub(in crate::animation::procedural) fn commit_resolved_unplanned_airborne_relea
 ) {
     commit_resolved_unacquired_support_release(
         memory,
-        left,
+        foot_side,
         airborne_unplanned_release_uses_resolved_end(
             run_airborne_budget,
             planned_contact,
@@ -157,7 +157,7 @@ pub(in crate::animation::procedural) fn commit_resolved_unplanned_airborne_relea
 
 pub(in crate::animation::procedural) fn commit_resolved_unacquired_support_release(
     memory: &mut LegIkMemory,
-    left: bool,
+    foot_side: LeadFoot,
     bounded_unplanned_release: bool,
     resolved_end: Vec3,
     rig_origin: Vec3,
@@ -171,7 +171,7 @@ pub(in crate::animation::procedural) fn commit_resolved_unacquired_support_relea
     ) else {
         return;
     };
-    if left {
+    if foot_side == LeadFoot::Left {
         memory.left_foot_world_target = Some(resolved_world);
         memory.left_foot_target = Some(resolved_owner);
         memory.left_release_target = Some(resolved_owner);
@@ -204,11 +204,10 @@ pub(in crate::animation::procedural) fn update_measured_owner_planar_speed(
 
 pub(in crate::animation::procedural) fn run_is_at_support_exit(
     phase: CyclePhase,
-    left: bool,
+    foot_side: LeadFoot,
     support_radius: f32,
 ) -> bool {
-    let contact_phase = if left { 0.0 } else { 0.5 };
-    let post_contact = (phase.cycles() - contact_phase).rem_euclid(1.0);
+    let post_contact = phase.since_contact(foot_side).cycles();
     // Release on the first sampled phase beyond the nominal lobe, not on its
     // decaying shoulder. The half-cycle bound distinguishes this foot's
     // post-contact side from its next rising shoulder after wrap.
@@ -229,7 +228,7 @@ pub(in crate::animation::procedural) fn exhausted_latch_after_raw_cadence(
 pub(in crate::animation::procedural) fn run_plan_is_on_rising_support(
     gait: LocomotionGait,
     phase: CyclePhase,
-    left: bool,
+    foot_side: LeadFoot,
     support_radius: f32,
     raw_nominal_support: f32,
     planned_contact: Option<Vec3>,
@@ -242,7 +241,7 @@ pub(in crate::animation::procedural) fn run_plan_is_on_rising_support(
         // A rising shoulder approaches this foot's contact center. The
         // post-contact shoulder has almost a complete cycle remaining and
         // must not reopen a just-exhausted lobe.
-        && phase.until_contact(if left { LeadFoot::Left } else { LeadFoot::Right }).cycles() <= support_radius + 0.001
+        && phase.until_contact(foot_side).cycles() <= support_radius + 0.001
 }
 
 pub(in crate::animation::procedural) fn acquired_plan_can_clear(acquired: bool) -> bool {
@@ -493,7 +492,7 @@ pub(in crate::animation::procedural) fn run_clearance_target_height(
 pub(in crate::animation::procedural) fn run_support_eligible_for_descent(
     gait: LocomotionGait,
     phase: CyclePhase,
-    left: bool,
+    foot_side: LeadFoot,
     support_radius: f32,
     raw_nominal_support: f32,
     contact_reachable: bool,
@@ -504,7 +503,7 @@ pub(in crate::animation::procedural) fn run_support_eligible_for_descent(
         // Only the rising shoulder approaches this foot's contact center.
         // The symmetric raw weight on the post-contact shoulder belongs to
         // stance/toe-off and must not pull an unacquired next-cycle plan down.
-        && phase.until_contact(if left { LeadFoot::Left } else { LeadFoot::Right }).cycles() <= support_radius + 0.001
+        && phase.until_contact(foot_side).cycles() <= support_radius + 0.001
 }
 
 pub(in crate::animation::procedural) fn run_contact_within_follower_step(
