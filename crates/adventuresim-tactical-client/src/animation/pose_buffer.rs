@@ -1070,7 +1070,7 @@ fn conform_upcoming_pose_to_terrain(
                 reference_foot_world.with_y(
                     reference_foot_world
                         .y
-                        .max(height + measured_ankle_sole_offset_metres()),
+                        .max(height + measured_ankle_sole_offset_metres().metres()),
                 )
             })
             .unwrap_or(reference_foot_world);
@@ -1111,7 +1111,7 @@ fn conform_upcoming_pose_to_terrain(
                 plant.position_world.y = plant
                     .position_world
                     .y
-                    .max(plant_height + measured_ankle_sole_offset_metres());
+                    .max(plant_height + measured_ankle_sole_offset_metres().metres());
             }
             plants[index] = Some(plant);
         }
@@ -1804,7 +1804,7 @@ mod tests {
         assert!(
             misleading.is_none_or(|measurement| {
                 measurement.stride.maximum_stance_slip
-                    > presentation::maximum_authored_stance_slip_metres()
+                    > presentation::maximum_authored_stance_slip_metres().metres()
             }),
             "a visibly low wrong-way approach must make the fit unrepresentable"
         );
@@ -1910,7 +1910,7 @@ mod tests {
         .translation;
         assert!(displayed_foot.y > 0.0);
         assert!(displayed_foot.y < next_foot.y);
-        assert!((next_foot.y - (0.5 + measured_ankle_sole_offset_metres())).abs() < 0.001);
+        assert!((next_foot.y - (0.5 + measured_ankle_sole_offset_metres().metres())).abs() < 0.001);
     }
 
     #[test]
@@ -2043,7 +2043,7 @@ mod tests {
             &mut RigJointTable::from(vec![None; next.len()]),
         )
         .translation;
-        assert!(before.y > measured_ankle_sole_offset_metres());
+        assert!(before.y > measured_ankle_sole_offset_metres().metres());
         assert!(after.distance(before) < 0.0001);
     }
 

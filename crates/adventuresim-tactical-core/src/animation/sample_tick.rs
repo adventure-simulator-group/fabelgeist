@@ -59,11 +59,11 @@ impl AnimationSampleTick {
     pub fn next(self) -> Self {
         Self(self.0.wrapping_add(1))
     }
-    pub fn wrapping_delta(self, previous: Self) -> u64 {
-        self.0.wrapping_sub(previous.0)
+    pub fn wrapping_delta(self, previous: Self) -> AnimationSampleSpan {
+        AnimationSampleSpan(self.0.wrapping_sub(previous.0))
     }
-    pub fn checked_delta(self, previous: Self) -> Option<u64> {
-        self.0.checked_sub(previous.0)
+    pub fn checked_delta(self, previous: Self) -> Option<AnimationSampleSpan> {
+        self.0.checked_sub(previous.0).map(AnimationSampleSpan)
     }
     /// Native simulation clock, event/report or deterministic-seed encoding.
     pub fn encoded(self) -> u64 {

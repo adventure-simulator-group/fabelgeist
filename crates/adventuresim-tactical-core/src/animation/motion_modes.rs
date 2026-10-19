@@ -19,6 +19,26 @@ pub enum GuardedLocomotionMode {
     Sprint,
 }
 
+/// Presentation-only anticipation for a release-triggered jump. Charging a
+/// jump does not change authoritative posture or movement speed.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub enum JumpAnticipation {
+    #[default]
+    Inactive,
+    Charging,
+}
+
+impl From<bool> for JumpAnticipation {
+    /// Native controller or scenario predicate admission; carried state stays typed.
+    fn from(charging: bool) -> Self {
+        if charging {
+            Self::Charging
+        } else {
+            Self::Inactive
+        }
+    }
+}
+
 impl From<MovementPace> for GuardedLocomotionMode {
     fn from(pace: MovementPace) -> Self {
         match pace {

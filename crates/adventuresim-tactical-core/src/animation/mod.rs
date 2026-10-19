@@ -22,7 +22,7 @@ pub use locomotion::*;
 pub use measurement::{
     NonnegativeLength, NonnegativeSpeed, PositiveAnimationDuration, UnitInterval,
 };
-pub use motion_modes::{DownedMotion, GuardedLocomotionMode};
+pub use motion_modes::{DownedMotion, GuardedLocomotionMode, JumpAnticipation};
 pub use pack_id::AnimationPackId;
 pub use packs::*;
 pub use sample_tick::{AnimationSampleSpan, AnimationSampleTick};

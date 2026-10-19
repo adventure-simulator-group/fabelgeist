@@ -1,5 +1,5 @@
 use super::*;
-use adventuresim_tactical_core::animation::AnimationSampleTick;
+use adventuresim_tactical_core::animation::{AnimationSampleTick, NonnegativeLength};
 use attack::advance_presented_attack;
 use events::emit_locomotion_presentation_events;
 pub(crate) use events::{LocomotionPresentationEvent, LocomotionPresentationPayload};
@@ -100,8 +100,8 @@ impl PresentedSkeleton {
         let source_gap = authoritative
             .locomotion_sample_tick
             .checked_delta(self.source_tick);
-        let source_is_contiguous = source_gap
-            .is_some_and(|gap| gap <= playback_tuning().maximum_source_gap_ticks.samples());
+        let source_is_contiguous =
+            source_gap.is_some_and(|gap| gap <= playback_tuning().maximum_source_gap_ticks);
         if source_is_contiguous && can_predict_locomotion(previous, authoritative) {
             let response =
                 1.0 - (-playback_tuning().velocity_response_per_second * delta_seconds).exp();
@@ -153,7 +153,8 @@ impl PresentedSkeleton {
                     let measured_drift = CycleDelta::from_arithmetic(measured_drift)?;
                     let difference = measured_drift.checked_sub(self.phase_error_remaining)?;
                     let adjustment = CycleDelta::from_arithmetic(
-                        difference.cycles() * playback_tuning().phase_drift_measurement_blend,
+                        difference.cycles()
+                            * playback_tuning().phase_drift_measurement_blend.fraction(),
                     )?;
                     self.phase_error_remaining =
                         self.phase_error_remaining.checked_add(adjustment)?;
@@ -188,7 +189,7 @@ pub(super) fn presentation_phase_drift_deadband() -> f32 {
     playback_tuning().phase_drift_deadband
 }
 
-pub(super) fn maximum_authored_stance_slip_metres() -> f32 {
+pub(super) fn maximum_authored_stance_slip_metres() -> NonnegativeLength {
     playback_tuning().maximum_authored_stance_slip_metres
 }
 
@@ -432,7 +433,7 @@ fn apply_authored_cadence(
         let step_cadence = capped_authored_step_cadence(requested_step_cadence);
         cadence_capped = step_cadence < requested_step_cadence;
         limited = cadence_capped
-            || measurement.maximum_stance_slip > maximum_authored_stance_slip_metres();
+            || measurement.maximum_stance_slip > maximum_authored_stance_slip_metres().metres();
         if cadence_capped && !continuing.is_some_and(|current| current.cadence_capped) {
             warn!(
                 speed_metres_per_second = speed,

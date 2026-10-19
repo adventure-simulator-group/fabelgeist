@@ -1,24 +1,32 @@
 //! Checked animation measurements shared by configuration and presentation.
 
 use super::{AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult};
+use adventuresim_building_generator::spatial_geometry::PositiveLength;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[derive(
+    Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into,
+)]
 #[serde(try_from = "f32", into = "f32")]
 pub struct NonnegativeLength(f32);
 
-#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[derive(
+    Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into,
+)]
 #[serde(try_from = "f32", into = "f32")]
 pub struct NonnegativeSpeed(f32);
 
 /// A finite fraction invariant, independent of its producer's clamp/reject policy.
-#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[derive(
+    Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into,
+)]
 #[serde(try_from = "f32", into = "f32")]
 pub struct UnitInterval(f32);
 
 /// Positive elapsed seconds for settings used as divisors or decay lengths.
-#[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into)]
 #[serde(try_from = "f32", into = "f32")]
+#[into(f32)]
 pub struct PositiveAnimationDuration(AnimationElapsed);
 
 impl NonnegativeLength {
@@ -28,6 +36,10 @@ impl NonnegativeLength {
     }
     pub fn metres(self) -> f32 {
         self.0
+    }
+    /// Halving remains finite/nonnegative; subnormal underflow may validly reach zero.
+    pub fn half(self) -> Self {
+        Self(self.0 * 0.5)
     }
 }
 impl NonnegativeSpeed {
@@ -75,15 +87,15 @@ impl PositiveAnimationDuration {
         self.0.seconds()
     }
 }
+impl From<PositiveLength> for NonnegativeLength {
+    fn from(value: PositiveLength) -> Self {
+        Self(value.metres())
+    }
+}
 impl TryFrom<f32> for NonnegativeLength {
     type Error = AnimationValueError;
     fn try_from(value: f32) -> AnimationValueResult<Self> {
         Self::from_metres(value)
-    }
-}
-impl From<NonnegativeLength> for f32 {
-    fn from(value: NonnegativeLength) -> Self {
-        value.metres()
     }
 }
 impl TryFrom<f32> for NonnegativeSpeed {
@@ -92,31 +104,16 @@ impl TryFrom<f32> for NonnegativeSpeed {
         Self::from_metres_per_second(value)
     }
 }
-impl From<NonnegativeSpeed> for f32 {
-    fn from(value: NonnegativeSpeed) -> Self {
-        value.metres_per_second()
-    }
-}
 impl TryFrom<f32> for UnitInterval {
     type Error = AnimationValueError;
     fn try_from(value: f32) -> AnimationValueResult<Self> {
         Self::from_fraction(value)
     }
 }
-impl From<UnitInterval> for f32 {
-    fn from(value: UnitInterval) -> Self {
-        value.fraction()
-    }
-}
 impl TryFrom<f32> for PositiveAnimationDuration {
     type Error = AnimationValueError;
     fn try_from(value: f32) -> AnimationValueResult<Self> {
         Self::from_elapsed(AnimationElapsed::from_seconds(value)?)
-    }
-}
-impl From<PositiveAnimationDuration> for f32 {
-    fn from(value: PositiveAnimationDuration) -> Self {
-        value.seconds()
     }
 }
 

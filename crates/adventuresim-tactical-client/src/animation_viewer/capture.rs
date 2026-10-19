@@ -1,7 +1,8 @@
 //! ECS fixture driving, sampling, and three-view capture.
 
 use super::*;
-use admission::{RejectedCaptureAdmission, fail_capture};
+pub(super) use admission::reject_capture;
+use admission::{CaptureAdmission, RejectedCaptureAdmission, fail_capture};
 use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
 
 mod admission;
@@ -26,7 +27,7 @@ pub(super) struct CaptureSequence {
     index: usize,
     view_index: usize,
     applied: bool,
-    rejection: Option<RejectedCaptureAdmission>,
+    admission: CaptureAdmission,
     settled: u32,
     waiting: u32,
     capture_in_flight: bool,
@@ -102,7 +103,7 @@ impl CaptureSequence {
             index: 0,
             view_index: 0,
             applied: false,
-            rejection: None,
+            admission: CaptureAdmission::Open,
             settled: 0,
             waiting: 0,
             capture_in_flight: false,
@@ -298,6 +299,9 @@ pub(super) fn freeze_capture_look(
     sequence: Res<CaptureSequence>,
     mut subjects: Query<&mut CharacterLook, With<CaptureSubject>>,
 ) {
+    if !sequence.admission.is_open() {
+        return;
+    }
     let Some(frame) = sequence.plan.get(sequence.index) else {
         return;
     };
@@ -335,7 +339,7 @@ pub(super) fn drive_sequence(
     >,
     mut labels: Query<&mut Text, With<CaptureLabel>>,
 ) {
-    if sequence.applied || sequence.capture_in_flight || sequence.index >= sequence.plan.len() {
+    if !sequence.can_drive_frame() {
         return;
     }
     let frame = sequence.plan[sequence.index].clone();
@@ -434,11 +438,7 @@ pub(super) fn drive_sequence(
         );
         look.yaw = frame.camera_yaw.radians();
         look.pitch = frame.camera_pitch.radians();
-        let attack_start_frame = frame
-            .scenario
-            .label()
-            .starts_with("attack-live-")
-            .then_some(8);
+        let attack_start_frame = frame.scenario.has(ScenarioFeature::AttackLive).then_some(8);
         if frame.action != SkeletonAction::Attack
             || attack_start_frame == Some(frame.scenario_frame)
         {
@@ -516,7 +516,8 @@ pub(super) fn drive_sequence(
         let elapsed = match capture_frame_elapsed(frame.scenario_frame) {
             Ok(elapsed) => elapsed,
             Err(error) => {
-                sequence.rejection = Some(RejectedCaptureAdmission::FrameInterval(error));
+                sequence.admission =
+                    CaptureAdmission::Rejected(RejectedCaptureAdmission::FrameInterval(error));
                 return;
             }
         };
@@ -578,7 +579,8 @@ pub(super) fn drive_sequence(
             },
             &sequence,
         ) {
-            sequence.rejection = Some(RejectedCaptureAdmission::Locomotion(error));
+            sequence.admission =
+                CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
             return;
         }
         gait_phase = skeleton.gait_phase;
@@ -703,7 +705,7 @@ pub(super) fn collect_locomotion_presentation_events(
     mut events: MessageReader<LocomotionPresentationEvent>,
     mut sequence: ResMut<CaptureSequence>,
 ) {
-    if sequence.index >= sequence.plan.len() {
+    if !sequence.admission.is_open() || sequence.index >= sequence.plan.len() {
         return;
     }
     let scenario = sequence.plan[sequence.index].scenario.clone();
@@ -756,11 +758,7 @@ pub(super) fn capture_frame(
 ) {
     let playback_backend = "pose_buffer";
     let pose_buffer_metrics = *pose_buffer_metrics;
-    if let Some(rejection) = sequence.rejection.take() {
-        fail_capture(&sequence, &rejection.message(), &mut exit);
-        return;
-    }
-    if !sequence.applied || sequence.capture_in_flight {
+    if !sequence.admission.is_open() || !sequence.applied || sequence.capture_in_flight {
         return;
     }
     let Ok((

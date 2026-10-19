@@ -186,6 +186,7 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
                 inspection::inspect_materials,
                 harness::update_readiness,
                 collect_locomotion_presentation_events,
+                reject_capture,
                 capture_frame.run_if(harness::ready),
             )
                 .chain(),

@@ -182,9 +182,9 @@ pub(in crate::animation::procedural) fn advance_stationary_turn_step(
             // after touchdown; treating that vertical correction as another
             // reach violation immediately relaunches the foot that just landed.
             let left_exceeded = left.xz().distance(desired_left.xz())
-                > ik_tuning().stationary_turn_foot_limit_metres;
+                > ik_tuning().stationary_turn_foot_limit_metres.metres();
             let right_exceeded = right.xz().distance(desired_right.xz())
-                > ik_tuning().stationary_turn_foot_limit_metres;
+                > ik_tuning().stationary_turn_foot_limit_metres.metres();
             let swing = match (left_exceeded, right_exceeded, next) {
                 (false, false, _) => return GuardStepState::Stationary { left, right, next },
                 (true, false, _) => LeadFoot::Left,
@@ -377,8 +377,8 @@ pub(in crate::animation::procedural) fn constrain_foot_to_track(
 ) -> Vec3 {
     let mut local = rig_rotation.inverse() * (world - rig_origin);
     let signed_x = (local.x * side).clamp(
-        foot_track_inner_metres(),
-        ik_tuning().outer_foot_track_metres,
+        foot_track_inner_metres().metres(),
+        ik_tuning().outer_foot_track_metres.metres(),
     );
     local.x = signed_x * side;
     rig_origin + rig_rotation * local
@@ -388,7 +388,7 @@ pub(in crate::animation::procedural) fn terrain_conformed_guard_target(
     terrain_height: Option<f32>,
 ) -> Vec3 {
     if let Some(height) = terrain_height {
-        flat_target.y = height + measured_ankle_sole_offset_metres();
+        flat_target.y = height + measured_ankle_sole_offset_metres().metres();
     }
     flat_target
 }

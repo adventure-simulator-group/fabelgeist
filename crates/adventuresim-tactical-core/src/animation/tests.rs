@@ -1815,7 +1815,7 @@ mod legacy_tests {
     #[test]
     fn jump_anticipation_does_not_change_upright_posture() {
         let mut state = SkeletonState::default();
-        state.set_jump_anticipation(true);
+        state.set_jump_anticipation(JumpAnticipation::Charging);
         assert_eq!(state.jump_anticipation(), JumpAnticipation::Charging);
         assert_eq!(state.body(), BodyState::Grounded(GroundedPosture::Upright));
         assert_eq!(state.posture(), Posture::Upright);

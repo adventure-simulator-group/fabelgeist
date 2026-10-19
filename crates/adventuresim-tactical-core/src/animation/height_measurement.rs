@@ -9,18 +9,36 @@ use serde::{Deserialize, Serialize};
 
 /// A zero-permitting height amplitude or compression, in metres.
 #[derive(
-    Clone, Copy, derive_more::Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize,
+    Clone,
+    Copy,
+    derive_more::Debug,
+    Default,
+    PartialEq,
+    PartialOrd,
+    Serialize,
+    Deserialize,
+    derive_more::Into,
 )]
 #[serde(try_from = "f32", into = "f32")]
 #[debug("HeightDistance({:?})", self.0.metres())]
+#[into(f32)]
 pub struct HeightDistance(NonnegativeLength);
 
 /// A nonnegative absorption or recovery rate, in metres per second.
 #[derive(
-    Clone, Copy, derive_more::Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize,
+    Clone,
+    Copy,
+    derive_more::Debug,
+    Default,
+    PartialEq,
+    PartialOrd,
+    Serialize,
+    Deserialize,
+    derive_more::Into,
 )]
 #[serde(try_from = "f32", into = "f32")]
 #[debug("HeightSpeed({:?})", self.0.metres_per_second())]
+#[into(f32)]
 pub struct HeightSpeed(NonnegativeSpeed);
 
 impl HeightDistance {
@@ -93,19 +111,9 @@ impl TryFrom<f32> for HeightDistance {
         Self::from_metres(value)
     }
 }
-impl From<HeightDistance> for f32 {
-    fn from(value: HeightDistance) -> Self {
-        value.metres()
-    }
-}
 impl TryFrom<f32> for HeightSpeed {
     type Error = AnimationValueError;
     fn try_from(value: f32) -> AnimationValueResult<Self> {
         Self::from_metres_per_second(value)
-    }
-}
-impl From<HeightSpeed> for f32 {
-    fn from(value: HeightSpeed) -> Self {
-        value.metres_per_second()
     }
 }

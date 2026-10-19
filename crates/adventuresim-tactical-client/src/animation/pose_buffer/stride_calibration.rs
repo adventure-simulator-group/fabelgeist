@@ -150,7 +150,8 @@ pub(super) fn calibrate(
             maximum_stance_slip_metres = stride.maximum_stance_slip,
             "Measured authored locomotion stride"
         );
-        if stride.maximum_stance_slip > presentation::maximum_authored_stance_slip_metres() {
+        if stride.maximum_stance_slip > presentation::maximum_authored_stance_slip_metres().metres()
+        {
             warn!(
                 motion = %motion,
                 stride_metres = stride.step_distance,

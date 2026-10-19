@@ -44,15 +44,6 @@ pub enum GroundedPosture {
     Upright,
 }
 
-/// Presentation-only anticipation for a release-triggered jump. Charging a
-/// jump does not change authoritative posture or movement speed.
-#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
-pub enum JumpAnticipation {
-    #[default]
-    Inactive,
-    Charging,
-}
-
 impl BodyState {
     pub fn is_grounded(self) -> bool {
         matches!(self, Self::Grounded(_))
@@ -1548,7 +1539,7 @@ impl<'de> Deserialize<'de> for SkeletonState {
             attack_animations: wire.attack_animations,
         };
         state.transition_body(wire.body);
-        state.set_jump_anticipation(wire.jump_anticipation == JumpAnticipation::Charging);
+        state.set_jump_anticipation(wire.jump_anticipation);
         state.set_guarded_locomotion_mode(wire.guarded_sprint_locomotion);
         Ok(state)
     }
@@ -1733,8 +1724,8 @@ impl SkeletonState {
     pub fn jump_anticipation(&self) -> JumpAnticipation {
         self.jump_anticipation
     }
-    pub fn set_jump_anticipation(&mut self, charging: bool) {
-        self.jump_anticipation = if charging
+    pub fn set_jump_anticipation(&mut self, anticipation: JumpAnticipation) {
+        self.jump_anticipation = if anticipation == JumpAnticipation::Charging
             && self.body == BodyState::Grounded(GroundedPosture::Upright)
             && self.posture_transition.is_none()
         {

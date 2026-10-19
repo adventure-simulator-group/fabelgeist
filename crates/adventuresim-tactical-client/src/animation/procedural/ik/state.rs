@@ -215,6 +215,60 @@ pub(crate) struct LegIkDiagnostics {
     pub right_knee_foot_yaw_offset_degrees: f32,
 }
 
+impl LegIkMemory {
+    pub(super) fn finish_terrain_release(&mut self) {
+        // Once the bounded release finishes, clear leg targets so a later
+        // re-enable cannot resurrect stale plants. Arm pole continuity is
+        // unrelated.
+        self.left_foot_plant = None;
+        self.right_foot_plant = None;
+        self.left_foot_plant_acquired = false;
+        self.right_foot_plant_acquired = false;
+        self.left_foot_target = None;
+        self.right_foot_target = None;
+        self.left_foot_world_target = None;
+        self.right_foot_world_target = None;
+        self.left_last_rendered_world = None;
+        self.right_last_rendered_world = None;
+        self.left_last_rendered_toe_world = None;
+        self.right_last_rendered_toe_world = None;
+        self.left_last_rendered_owner = None;
+        self.right_last_rendered_owner = None;
+        self.left_last_rendered_foot_rotation_world = None;
+        self.right_last_rendered_foot_rotation_world = None;
+        self.left_authored_world_target = None;
+        self.right_authored_world_target = None;
+        self.left_planned_contact_start = None;
+        self.right_planned_contact_start = None;
+        self.left_planned_contact_phase_start = None;
+        self.right_planned_contact_phase_start = None;
+        self.left_support_weight = None;
+        self.right_support_weight = None;
+        self.left_transition_support_weight = None;
+        self.right_transition_support_weight = None;
+        self.left_support_exhausted_until_flight = false;
+        self.right_support_exhausted_until_flight = false;
+        self.left_terrain_pole_world = None;
+        self.right_terrain_pole_world = None;
+        self.left_terrain_end_direction = None;
+        self.right_terrain_end_direction = None;
+        self.left_foot_orientation_world = None;
+        self.right_foot_orientation_world = None;
+        self.left_contact_orientation_blend_active = false;
+        self.right_contact_orientation_blend_active = false;
+        clear_slope_rotation_cache(self);
+        self.left_release_active = false;
+        self.right_release_active = false;
+        self.left_release_target = None;
+        self.right_release_target = None;
+        self.pelvis_shift = 0.0;
+        self.measured_owner_planar_speed = 0.0;
+        reset_terminal_settle_reach(self);
+        self.recent_movement_velocity = Vec3::ZERO;
+        self.settle = None;
+    }
+}
+
 impl LegIkState {
     pub(crate) fn diagnostics(&self) -> LegIkDiagnostics {
         let settle = self.0.settle;

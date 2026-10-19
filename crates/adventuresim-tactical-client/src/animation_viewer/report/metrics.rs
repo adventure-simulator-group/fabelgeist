@@ -1029,7 +1029,7 @@ pub(super) fn contact_sole_clearance_range(frames: &[&FrameSample]) -> (f32, f32
                     .bones
                     .get(foot)?
                     .terrain_clearance_metres
-                    .map(|ankle| ankle - measured_ankle_sole_offset_metres())
+                    .map(|ankle| ankle - measured_ankle_sole_offset_metres().metres())
             })
         })
         .fold(
@@ -1094,6 +1094,7 @@ pub(super) fn strict_transition_flight_toe_clearance_is_valid(clearance_metres: 
 }
 
 pub(super) fn reported_support_contacts_are_valid(frames: &[FrameSample]) -> bool {
+    let tolerance = sole_contact_tolerance_metres();
     frames.iter().all(|frame| {
         if is_quickstep_scenario(&frame.scenario)
             || frame.scenario.kind() == ScenarioKind::Attack
@@ -1123,7 +1124,7 @@ pub(super) fn reported_support_contacts_are_valid(frames: &[FrameSample]) -> boo
                     .bones
                     .get(toe)
                     .and_then(|bone| bone.terrain_clearance_metres)
-                    .is_some_and(|clearance| clearance.abs() <= sole_contact_tolerance_metres())
+                    .is_some_and(|clearance| clearance.abs() <= tolerance.metres())
             } else {
                 false
             };
@@ -1135,14 +1136,14 @@ pub(super) fn reported_support_contacts_are_valid(frames: &[FrameSample]) -> boo
                         .get(foot)
                         .and_then(|bone| bone.terrain_clearance_metres)
                         .is_some_and(|ankle_clearance| {
-                            (ankle_clearance - measured_ankle_sole_offset_metres()).abs()
+                            (ankle_clearance - measured_ankle_sole_offset_metres().metres()).abs()
                                 <= if frame.scenario.is(ScenarioId::RaisedGuardStationaryTurn) {
                                     // The combat stance is deliberately
                                     // non-flat-footed; its planted pole target
                                     // has a measured 1.11 cm ankle residual.
                                     0.012
                                 } else {
-                                    sole_contact_tolerance_metres()
+                                    tolerance.metres()
                                 }
                         }))
         })
@@ -1857,16 +1858,21 @@ mod tests {
             .bones
             .get_mut(BoneRole::FootLeft)
             .unwrap()
-            .terrain_clearance_metres =
-            Some(measured_ankle_sole_offset_metres() + sole_contact_tolerance_metres() - 0.00001);
+            .terrain_clearance_metres = Some(
+            measured_ankle_sole_offset_metres().metres() + sole_contact_tolerance_metres().metres()
+                - 0.00001,
+        );
         assert!(reported_support_contacts_are_valid(&[frame.clone()]));
 
         frame
             .bones
             .get_mut(BoneRole::FootLeft)
             .unwrap()
-            .terrain_clearance_metres =
-            Some(measured_ankle_sole_offset_metres() + sole_contact_tolerance_metres() + 0.0001);
+            .terrain_clearance_metres = Some(
+            measured_ankle_sole_offset_metres().metres()
+                + sole_contact_tolerance_metres().metres()
+                + 0.0001,
+        );
         assert!(!reported_support_contacts_are_valid(&[frame]));
     }
 

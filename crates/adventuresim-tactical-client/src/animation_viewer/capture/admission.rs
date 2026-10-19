@@ -3,9 +3,32 @@
 use super::*;
 use adventuresim_tactical_core::animation::AnimationValueError;
 
+/// One terminal authority: a rejected admission cannot return to driving.
+pub(super) enum CaptureAdmission {
+    Open,
+    Rejected(RejectedCaptureAdmission),
+    Terminated,
+}
+
 pub(super) enum RejectedCaptureAdmission {
     FrameInterval(AnimationValueError),
     Locomotion(AnimationValueError),
+}
+
+impl CaptureSequence {
+    /// Driving is permitted only before admission terminates and between captures.
+    pub(super) fn can_drive_frame(&self) -> bool {
+        self.admission.is_open()
+            && !self.applied
+            && !self.capture_in_flight
+            && self.index < self.plan.len()
+    }
+}
+
+impl CaptureAdmission {
+    pub(super) fn is_open(&self) -> bool {
+        matches!(self, Self::Open)
+    }
 }
 
 impl RejectedCaptureAdmission {
@@ -16,6 +39,17 @@ impl RejectedCaptureAdmission {
                 format!("capture locomotion observation rejected: {error}\n")
             }
         }
+    }
+}
+
+/// Admission rejection must terminate even while equipment is still loading.
+pub(in crate::animation_viewer) fn reject_capture(
+    mut sequence: ResMut<CaptureSequence>,
+    mut exit: MessageWriter<AppExit>,
+) {
+    if let CaptureAdmission::Rejected(rejection) = &sequence.admission {
+        fail_capture(&sequence, &rejection.message(), &mut exit);
+        sequence.admission = CaptureAdmission::Terminated;
     }
 }
 

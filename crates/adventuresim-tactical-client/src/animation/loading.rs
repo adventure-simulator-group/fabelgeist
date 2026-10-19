@@ -1,5 +1,6 @@
 use super::*;
 use bevy::asset::AssetPath;
+use fabelgeist_rig::RigJointName;
 
 impl AnimationRuntime {
     pub(super) fn rebuild_loaded_library(&mut self, catalog: &AnimationPackCatalog) {
@@ -275,7 +276,8 @@ pub(super) fn establish_animation_targets(
     names: Query<&Name>,
 ) {
     for (rig_root, _owner) in &roots {
-        let Some(skeleton_root) = find_named_descendant(rig_root, "Skeleton", &children, &names)
+        let Some(skeleton_root) =
+            find_named_descendant(rig_root, RigJointName::SKELETON.as_ref(), &children, &names)
         else {
             continue;
         };

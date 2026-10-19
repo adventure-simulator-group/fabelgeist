@@ -133,7 +133,7 @@ fn advance_attack_phase(
             measured_error - measured_error.signum() * presentation_phase_drift_deadband()
         };
         phase.error_remaining += (measured_drift - phase.error_remaining)
-            * playback_tuning().phase_drift_measurement_blend;
+            * playback_tuning().phase_drift_measurement_blend.fraction();
     } else if presentation_owned_recovery {
         phase.error_remaining = 0.0;
     }

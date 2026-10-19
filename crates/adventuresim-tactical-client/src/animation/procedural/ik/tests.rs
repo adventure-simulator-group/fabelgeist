@@ -273,7 +273,7 @@ mod coordination_tests {
                 left: Vec3::NEG_X,
                 right: Vec3::X,
             },
-            raised_pelvis_shift: -ik_tuning().guard_reach_pelvis_drop_metres,
+            raised_pelvis_shift: -ik_tuning().guard_reach_pelvis_drop_metres.metres(),
             ..default()
         };
         release_raised_state_for_authored_locomotion(&mut memory);
@@ -398,11 +398,11 @@ mod coordination_tests {
     #[test]
     fn run_contact_approach_reaches_the_plant_at_support_entry() {
         let radius = run_locomotion_profile().support_phase_radius;
-        let ready = radius + ik_tuning().run_contact_chain_settle_phase;
+        let ready = radius + ik_tuning().run_contact_chain_settle_phase.fraction();
         assert_eq!(
             run_contact_approach_progress(
-                CycleDelta::from_cycles(ik_tuning().run_contact_approach_phase).unwrap(),
-                ik_tuning().run_contact_approach_phase,
+                CycleDelta::from_cycles(ik_tuning().run_contact_approach_phase.fraction()).unwrap(),
+                ik_tuning().run_contact_approach_phase.fraction(),
                 ready,
             ),
             0.0
@@ -410,7 +410,7 @@ mod coordination_tests {
         assert_eq!(
             run_contact_approach_progress(
                 CycleDelta::from_cycles(ready).unwrap(),
-                ik_tuning().run_contact_approach_phase,
+                ik_tuning().run_contact_approach_phase.fraction(),
                 ready
             ),
             1.0
@@ -418,15 +418,17 @@ mod coordination_tests {
         assert_eq!(
             run_contact_approach_progress(
                 CycleDelta::from_cycles(radius).unwrap(),
-                ik_tuning().run_contact_approach_phase,
+                ik_tuning().run_contact_approach_phase.fraction(),
                 ready
             ),
             1.0
         );
         let middle = run_contact_approach_progress(
-            CycleDelta::from_cycles((ik_tuning().run_contact_approach_phase + ready) * 0.5)
-                .unwrap(),
-            ik_tuning().run_contact_approach_phase,
+            CycleDelta::from_cycles(
+                (ik_tuning().run_contact_approach_phase.fraction() + ready) * 0.5,
+            )
+            .unwrap(),
+            ik_tuning().run_contact_approach_phase.fraction(),
             ready,
         );
         assert!((middle - 0.5).abs() < 0.0001);
@@ -449,17 +451,17 @@ mod coordination_tests {
         )
         .unwrap()
         .cycles();
-        let mut phase_to_contact = ik_tuning().run_contact_approach_phase;
+        let mut phase_to_contact = ik_tuning().run_contact_approach_phase.fraction();
         let mut previous_progress = run_contact_approach_progress(
             CycleDelta::from_cycles(phase_to_contact).unwrap(),
-            ik_tuning().run_contact_approach_phase,
+            ik_tuning().run_contact_approach_phase.fraction(),
             ready,
         );
         while phase_to_contact > ready {
             phase_to_contact = (phase_to_contact - phase_step).max(ready);
             let progress = run_contact_approach_progress(
                 CycleDelta::from_cycles(phase_to_contact).unwrap(),
-                ik_tuning().run_contact_approach_phase,
+                ik_tuning().run_contact_approach_phase.fraction(),
                 ready,
             );
             let three_metre_world_step = 3.0 * (progress - previous_progress);
@@ -472,15 +474,15 @@ mod coordination_tests {
     #[test]
     fn planned_run_contact_anticipates_a_bounded_pelvis_reach_drop() {
         let radius = run_locomotion_profile().support_phase_radius;
-        let ready = radius + ik_tuning().run_contact_chain_settle_phase;
+        let ready = radius + ik_tuning().run_contact_chain_settle_phase.fraction();
         let early = run_contact_approach_progress(
-            CycleDelta::from_cycles(ik_tuning().run_contact_approach_phase).unwrap(),
-            ik_tuning().run_contact_approach_phase,
+            CycleDelta::from_cycles(ik_tuning().run_contact_approach_phase.fraction()).unwrap(),
+            ik_tuning().run_contact_approach_phase.fraction(),
             ready,
         );
         let late = run_contact_approach_progress(
             CycleDelta::from_cycles(ready).unwrap(),
-            ik_tuning().run_contact_approach_phase,
+            ik_tuning().run_contact_approach_phase.fraction(),
             ready,
         );
         assert_eq!(early, 0.0);
@@ -488,11 +490,15 @@ mod coordination_tests {
 
         let required_reach_shift = -0.11;
         let early_target = (required_reach_shift * early).clamp(
-            -ik_tuning().run_maximum_planned_reach_pelvis_drop_metres,
+            -ik_tuning()
+                .run_maximum_planned_reach_pelvis_drop_metres
+                .metres(),
             0.0,
         );
         let late_target = (required_reach_shift * late).clamp(
-            -ik_tuning().run_maximum_planned_reach_pelvis_drop_metres,
+            -ik_tuning()
+                .run_maximum_planned_reach_pelvis_drop_metres
+                .metres(),
             0.0,
         );
         assert_eq!(early_target, 0.0);
@@ -516,7 +522,7 @@ mod coordination_tests {
         let upper = Vec3::new(0.1, 3.109, -2.847);
         let velocity = Vec3::NEG_Z * 5.5;
         let ready = run_locomotion_profile().support_phase_radius
-            + ik_tuning().run_contact_chain_settle_phase;
+            + ik_tuning().run_contact_chain_settle_phase.fraction();
         let reach = 0.953;
         let phase_to_contact = 0.744;
         let travel_per_phase = ordinary_step_distance(5.5) * 2.0;
@@ -530,7 +536,10 @@ mod coordination_tests {
         .map(|remaining_phase| {
             let mut root = upper + Vec3::NEG_Z * (remaining_phase * travel_per_phase);
             root.y += downhill(root.xz()).unwrap() - current_height;
-            root - Vec3::Y * ik_tuning().run_maximum_planned_reach_pelvis_drop_metres
+            root - Vec3::Y
+                * ik_tuning()
+                    .run_maximum_planned_reach_pelvis_drop_metres
+                    .metres()
         });
         let candidate = Vec3::new(0.1, 0.0, -6.117);
         let frozen = reachable_run_contact_target(
@@ -562,9 +571,12 @@ mod coordination_tests {
         );
 
         let flat_predicted_center = upper + Vec3::NEG_Z * (phase_to_contact * travel_per_phase)
-            - Vec3::Y * ik_tuning().run_maximum_planned_reach_pelvis_drop_metres;
+            - Vec3::Y
+                * ik_tuning()
+                    .run_maximum_planned_reach_pelvis_drop_metres
+                    .metres();
         let flat_candidate = flat_predicted_center + Vec3::new(0.1, -0.5, 0.0);
-        let flat_height = flat_candidate.y - measured_ankle_sole_offset_metres();
+        let flat_height = flat_candidate.y - measured_ankle_sole_offset_metres().metres();
         let flat = reachable_run_contact_target(
             flat_candidate,
             upper,
@@ -585,7 +597,9 @@ mod coordination_tests {
         let pelvis_shift = (0..20).fold(0.0, |shift, _| {
             advance_scalar_at_speed(
                 shift,
-                -ik_tuning().run_maximum_planned_reach_pelvis_drop_metres,
+                -ik_tuning()
+                    .run_maximum_planned_reach_pelvis_drop_metres
+                    .metres(),
                 AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
                 ik_tuning().run_pelvis_correction_speed_metres_per_second,
             )
@@ -917,7 +931,7 @@ mod coordination_tests {
             CycleDelta::from_cycles(phase_to_contact).unwrap()
         ));
         let ready = run_locomotion_profile().support_phase_radius
-            + ik_tuning().run_contact_chain_settle_phase;
+            + ik_tuning().run_contact_chain_settle_phase.fraction();
         let bounded = bound_late_run_contact(
             start,
             desired,
@@ -952,7 +966,10 @@ mod coordination_tests {
         let root_step = 5.5 / ik_tuning().continuity_sample_hz;
         assert!(
             first_step - root_step
-                <= ik_tuning().maximum_run_swing_root_relative_step_metres + 0.0001
+                <= ik_tuning()
+                    .maximum_run_swing_root_relative_step_metres
+                    .metres()
+                    + 0.0001
         );
     }
 
@@ -973,11 +990,12 @@ mod coordination_tests {
             Some(visible_release),
             stale_same_lobe_plan,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().airborne_release_step_metres * ik_tuning().continuity_sample_hz,
+            ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz,
         );
         assert!(
             followed.distance(visible_release)
-                <= (ik_tuning().airborne_release_step_metres * ik_tuning().continuity_sample_hz)
+                <= (ik_tuning().airborne_release_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz)
                     / ik_tuning().continuity_sample_hz
                     + 0.0001
         );
@@ -1050,12 +1068,12 @@ mod coordination_tests {
 
     #[test]
     fn release_target_cap_preserves_the_knee_continuity_budget() {
-        let maximum_target_step = (ik_tuning().airborne_release_step_metres
+        let maximum_target_step = (ik_tuning().airborne_release_step_metres.metres()
             * ik_tuning().continuity_sample_hz)
             / ik_tuning().continuity_sample_hz;
         assert!(
             maximum_target_step * ik_tuning().maximum_knee_target_amplification
-                < ik_tuning().maximum_knee_step_metres
+                < ik_tuning().maximum_knee_step_metres.metres()
         );
         assert!(maximum_target_step < 3.4 / ik_tuning().continuity_sample_hz);
     }
@@ -1065,17 +1083,18 @@ mod coordination_tests {
         let terrain_height = 0.0;
         assert!(raised_support_is_actual(
             true,
-            measured_ankle_sole_offset_metres() + sole_contact_tolerance_metres() - 0.001,
+            measured_ankle_sole_offset_metres().metres() + sole_contact_tolerance_metres().metres()
+                - 0.001,
             terrain_height,
         ));
         assert!(!raised_support_is_actual(
             true,
-            measured_ankle_sole_offset_metres() + 0.023,
+            measured_ankle_sole_offset_metres().metres() + 0.023,
             terrain_height,
         ));
         assert!(!raised_support_is_actual(
             false,
-            measured_ankle_sole_offset_metres(),
+            measured_ankle_sole_offset_metres().metres(),
             terrain_height,
         ));
     }
@@ -1148,18 +1167,19 @@ mod coordination_tests {
         );
         assert_eq!(
             settle_target_speed(settle),
-            (ik_tuning().raised_settle_step_metres * ik_tuning().continuity_sample_hz)
+            (ik_tuning().raised_settle_step_metres.metres() * ik_tuning().continuity_sample_hz)
         );
         assert!(
-            (ik_tuning().raised_settle_step_metres * ik_tuning().continuity_sample_hz)
-                < (ik_tuning().airborne_release_step_metres * ik_tuning().continuity_sample_hz)
+            (ik_tuning().raised_settle_step_metres.metres() * ik_tuning().continuity_sample_hz)
+                < (ik_tuning().airborne_release_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz)
         );
         assert!(
-            (ik_tuning().raised_settle_step_metres * ik_tuning().continuity_sample_hz)
+            (ik_tuning().raised_settle_step_metres.metres() * ik_tuning().continuity_sample_hz)
                 / ik_tuning().continuity_sample_hz
                 * ik_tuning().maximum_knee_target_amplification
-                + ik_tuning().raised_settle_pelvis_knee_budget_metres
-                < ik_tuning().maximum_knee_step_metres
+                + ik_tuning().raised_settle_pelvis_knee_budget_metres.metres()
+                < ik_tuning().maximum_knee_step_metres.metres()
         );
         assert!(!terrain_ik_is_required(
             crate::animation::TerrainIkMode::Disabled,
@@ -1242,11 +1262,12 @@ mod coordination_tests {
     fn cancelled_settle_returns_to_run_inside_the_existing_knee_budget() {
         assert_eq!(
             run_airborne_owner_target_speed_for_sample(false, true),
-            (ik_tuning().airborne_release_step_metres * ik_tuning().continuity_sample_hz)
+            (ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz)
         );
         assert_eq!(
             run_airborne_owner_target_speed_for_sample(false, false),
-            (ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz)
+            (ik_tuning().run_airborne_owner_step_metres.metres()
+                * ik_tuning().continuity_sample_hz)
         );
 
         // Native terrain-tap-restart-crossfade frames 39 -> 40: the settle
@@ -1273,7 +1294,8 @@ mod coordination_tests {
         );
         assert!(
             (resolved_ankle - current_root).distance(previous_owner)
-                <= (ik_tuning().airborne_release_step_metres * ik_tuning().continuity_sample_hz)
+                <= (ik_tuning().airborne_release_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz)
                     / ik_tuning().continuity_sample_hz
                     + 0.0001
         );
@@ -1307,7 +1329,7 @@ mod coordination_tests {
         .expect("the bounded restart target remains reachable");
         let knee_root_relative_step =
             (solution.knee - current_root).distance(previous_knee - previous_root);
-        assert!(knee_root_relative_step <= ik_tuning().maximum_knee_step_metres);
+        assert!(knee_root_relative_step <= ik_tuning().maximum_knee_step_metres.metres());
     }
 
     #[test]
@@ -1321,7 +1343,9 @@ mod coordination_tests {
             rendered_ankle,
             rendered_toe,
             Vec2::new(0.14, -1.7),
-            ik_tuning().terrain_transition_flight_toe_clearance_metres,
+            ik_tuning()
+                .terrain_transition_flight_toe_clearance_metres
+                .metres(),
             |_| Some(0.0),
         )
         .unwrap();
@@ -1338,13 +1362,14 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().airborne_release_step_metres * ik_tuning().continuity_sample_hz,
+            ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz,
             |_| Some(minimum),
         );
         assert!(resolved.y + 0.000001 >= minimum);
         assert!(
             resolved.distance(rendered_ankle)
-                <= (ik_tuning().airborne_release_step_metres * ik_tuning().continuity_sample_hz)
+                <= (ik_tuning().airborne_release_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz)
                     / ik_tuning().continuity_sample_hz
                     + 0.0001
         );
@@ -1353,11 +1378,11 @@ mod coordination_tests {
             Vec3::new(0.21, 0.085, 0.0),
             Vec3::new(0.21, -0.015733838, -0.1),
             Vec2::new(0.21, 0.0),
-            ik_tuning().terrain_contact_toe_clearance_metres,
+            ik_tuning().terrain_contact_toe_clearance_metres.metres(),
             |_| Some(0.0),
         )
         .unwrap();
-        assert!(contact_minimum > measured_ankle_sole_offset_metres());
+        assert!(contact_minimum > measured_ankle_sole_offset_metres().metres());
         assert!((contact_minimum - 0.09173384).abs() <= 0.000001);
     }
 
@@ -1371,8 +1396,8 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().airborne_release_step_metres * ik_tuning().continuity_sample_hz,
-            |_| Some(measured_ankle_sole_offset_metres()),
+            ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            |_| Some(measured_ankle_sole_offset_metres().metres()),
         );
         assert!(contact_candidate.distance_squared(contact) <= 0.000001);
 
@@ -1382,7 +1407,7 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().airborne_release_step_metres * ik_tuning().continuity_sample_hz,
+            ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz,
             |_| Some(0.14365956),
         );
         assert!(flight_candidate.distance_squared(contact) > 0.000001);
@@ -1505,11 +1530,11 @@ mod coordination_tests {
         assert!(memory.settle.is_none());
         assert_eq!(
             memory.left_foot_plant.unwrap().y,
-            measured_ankle_sole_offset_metres()
+            measured_ankle_sole_offset_metres().metres()
         );
         assert_eq!(
             memory.right_foot_plant.unwrap().y,
-            measured_ankle_sole_offset_metres()
+            measured_ankle_sole_offset_metres().metres()
         );
         assert_eq!(memory.left_support_weight, Some(1.0));
         assert_eq!(memory.right_support_weight, Some(1.0));
@@ -1535,7 +1560,9 @@ mod coordination_tests {
                 required,
                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
             );
-            assert!((next - shift).abs() <= maximum_pelvis_correction_step_metres() + 0.0001);
+            assert!(
+                (next - shift).abs() <= maximum_pelvis_correction_step_metres().metres() + 0.0001
+            );
             shift = next;
             // Sparse idle FK may preserve the preceding procedural local.
             // Absolute application from the frozen base must still converge,
@@ -1575,8 +1602,8 @@ mod coordination_tests {
 
     #[test]
     fn terminal_prepared_contacts_own_both_solves_despite_zero_idle_cadence() {
-        let left = Vec3::new(-0.12, measured_ankle_sole_offset_metres(), -0.2);
-        let right = Vec3::new(0.12, measured_ankle_sole_offset_metres(), -0.5);
+        let left = Vec3::new(-0.12, measured_ankle_sole_offset_metres().metres(), -0.2);
+        let right = Vec3::new(0.12, measured_ankle_sole_offset_metres().metres(), -0.5);
         for plant in [left, right] {
             let (logical_weight, solve_plant) =
                 terminal_contact_solve_ownership(true, 0.0, Some(plant));
@@ -1634,8 +1661,8 @@ mod coordination_tests {
         let right = memory.right_foot_world_target.unwrap();
         assert_eq!(left.xz(), visible_left.xz());
         assert_eq!(right.xz(), visible_right.xz());
-        assert_eq!(left.y, measured_ankle_sole_offset_metres());
-        assert_eq!(right.y, measured_ankle_sole_offset_metres());
+        assert_eq!(left.y, measured_ankle_sole_offset_metres().metres());
+        assert_eq!(right.y, measured_ankle_sole_offset_metres().metres());
         assert_eq!(memory.left_foot_plant, Some(left));
         assert_eq!(memory.right_foot_plant, Some(right));
 
@@ -1653,8 +1680,8 @@ mod coordination_tests {
 
     #[test]
     fn finished_terminal_reach_persists_through_held_idle() {
-        let left = Vec3::new(-0.12, measured_ankle_sole_offset_metres(), -0.2);
-        let right = Vec3::new(0.12, measured_ankle_sole_offset_metres(), -0.5);
+        let left = Vec3::new(-0.12, measured_ankle_sole_offset_metres().metres(), -0.2);
+        let right = Vec3::new(0.12, measured_ankle_sole_offset_metres().metres(), -0.5);
         let mut memory = LegIkMemory {
             settle: Some(LocomotionSettleState {
                 support_foot: LeadFoot::Left,
@@ -1715,11 +1742,12 @@ mod coordination_tests {
             memory.left_foot_world_target,
             landing,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().airborne_release_step_metres * ik_tuning().continuity_sample_hz,
+            ik_tuning().airborne_release_step_metres.metres() * ik_tuning().continuity_sample_hz,
         );
         assert!(
             next.distance(prior_rendered)
-                <= (ik_tuning().airborne_release_step_metres * ik_tuning().continuity_sample_hz)
+                <= (ik_tuning().airborne_release_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz)
                     / ik_tuning().continuity_sample_hz
                     + 0.0001
         );
@@ -2038,7 +2066,7 @@ mod coordination_tests {
         assert_eq!(phase_start.map(CycleDelta::cycles), Some(replacement_phase));
 
         let ready = run_locomotion_profile().support_phase_radius
-            + ik_tuning().run_contact_chain_settle_phase;
+            + ik_tuning().run_contact_chain_settle_phase.fraction();
         let first = run_contact_approach_progress(
             CycleDelta::from_cycles(replacement_phase).unwrap(),
             phase_start.unwrap().cycles(),
@@ -2061,7 +2089,10 @@ mod coordination_tests {
         let root_step = 5.5 / ik_tuning().continuity_sample_hz;
         assert!(
             world_step - root_step
-                <= ik_tuning().maximum_run_swing_root_relative_step_metres + 0.0001
+                <= ik_tuning()
+                    .maximum_run_swing_root_relative_step_metres
+                    .metres()
+                    + 0.0001
         );
     }
 
@@ -2072,7 +2103,7 @@ mod coordination_tests {
         let mut phase_to_contact = 0.856;
         let phase_start = phase_to_contact;
         let ready = run_locomotion_profile().support_phase_radius
-            + ik_tuning().run_contact_chain_settle_phase;
+            + ik_tuning().run_contact_chain_settle_phase.fraction();
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
             5.5,
@@ -2103,7 +2134,7 @@ mod coordination_tests {
         let endpoint = Vec3::new(-0.1210, 2.3074, -11.0308);
         let phase_start = 0.8674;
         let ready = run_locomotion_profile().support_phase_radius
-            + ik_tuning().run_contact_chain_settle_phase;
+            + ik_tuning().run_contact_chain_settle_phase.fraction();
         let phase_step = gait_cycle_phase_delta(
             run_locomotion_profile(),
             5.5,
@@ -2147,7 +2178,7 @@ mod coordination_tests {
     fn raw_run_cycle_clears_toe_off_latch_and_reacquires_rising_plan() {
         let profile = run_locomotion_profile();
         let radius = profile.support_phase_radius;
-        let endpoint = Vec3::new(0.1, measured_ankle_sole_offset_metres(), -9.256);
+        let endpoint = Vec3::new(0.1, measured_ankle_sole_offset_metres().metres(), -9.256);
 
         // The acquired right foot owns the post-contact shoulder until its
         // signed support exit, where toe-off exhausts only this lobe.
@@ -2208,7 +2239,8 @@ mod coordination_tests {
         assert!(!next_exhausted);
         assert!(terrain_leg_has_support(effective_support));
 
-        let prior_floor = endpoint + Vec3::Y * ik_tuning().run_swing_minimum_sole_clearance_metres;
+        let prior_floor =
+            endpoint + Vec3::Y * ik_tuning().run_swing_minimum_sole_clearance_metres.metres();
         let reachable = run_contact_within_follower_step(
             Some(prior_floor),
             endpoint,
@@ -2244,7 +2276,7 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz,
+            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
             |_| Some(endpoint.y),
         );
         assert!(descended.y < prior_floor.y);
@@ -2294,7 +2326,7 @@ mod coordination_tests {
         );
         assert_eq!(
             release_clearance,
-            ik_tuning().run_swing_minimum_sole_clearance_metres
+            ik_tuning().run_swing_minimum_sole_clearance_metres.metres()
         );
         assert!(
             run_airborne_clearance_for_sample(
@@ -2317,12 +2349,16 @@ mod coordination_tests {
             Vec3::ZERO,
         );
         let transported = next_root + owner;
-        let lifted = transported + Vec3::Y * ik_tuning().run_swing_minimum_sole_clearance_metres;
+        let lifted =
+            transported + Vec3::Y * ik_tuning().run_swing_minimum_sole_clearance_metres.metres();
         let root_delta = next_root - previous_root;
         let root_relative_step = (lifted - planted_world - root_delta).length();
-        assert!(root_relative_step <= ik_tuning().run_swing_minimum_sole_clearance_metres + 0.0001);
+        assert!(
+            root_relative_step
+                <= ik_tuning().run_swing_minimum_sole_clearance_metres.metres() + 0.0001
+        );
         assert!(root_relative_step <= 0.095);
-        assert!(root_relative_step <= ik_tuning().maximum_knee_step_metres);
+        assert!(root_relative_step <= ik_tuning().maximum_knee_step_metres.metres());
 
         // Captured uphill release f49->50: neither full owner transport nor a
         // literal world hold can combine terrain rise and 5 cm clearance under
@@ -2335,7 +2371,7 @@ mod coordination_tests {
         let uphill_minimum_y = |xz: Vec2| {
             Some(
                 uphill_plant.y
-                    + ik_tuning().run_swing_minimum_sole_clearance_metres
+                    + ik_tuning().run_swing_minimum_sole_clearance_metres.metres()
                     + (uphill_plant.z - xz.y).max(0.0) * 0.475,
             )
         };
@@ -2351,7 +2387,7 @@ mod coordination_tests {
         let uphill_release_owner = uphill_release - uphill_next_root;
         assert!(
             uphill_release_owner.distance(uphill_owner)
-                <= (ik_tuning().run_first_release_owner_step_metres
+                <= (ik_tuning().run_first_release_owner_step_metres.metres()
                     * ik_tuning().continuity_sample_hz)
                     / ik_tuning().continuity_sample_hz
                     + 0.0001
@@ -2370,15 +2406,18 @@ mod coordination_tests {
         assert!(run_airborne_owner_target_speed(true) / ik_tuning().continuity_sample_hz < 0.095);
         assert_eq!(
             run_airborne_owner_target_speed(false),
-            (ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz)
+            (ik_tuning().run_airborne_owner_step_metres.metres()
+                * ik_tuning().continuity_sample_hz)
         );
         assert!(
-            (ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz)
+            (ik_tuning().run_airborne_owner_step_metres.metres()
+                * ik_tuning().continuity_sample_hz)
                 / ik_tuning().continuity_sample_hz
                 > 5.5 / 64.0
         );
         assert!(
-            (ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz)
+            (ik_tuning().run_airborne_owner_step_metres.metres()
+                * ik_tuning().continuity_sample_hz)
                 / ik_tuning().continuity_sample_hz
                 < 0.09
         );
@@ -2417,7 +2456,8 @@ mod coordination_tests {
         let reach = terrain_maximum_reach(0.5230801, 0.42998108);
         assert!(!run_contact_within_leg_reach(contact, upper_root, reach));
 
-        let flight_floor = contact + Vec3::Y * ik_tuning().run_swing_minimum_sole_clearance_metres;
+        let flight_floor =
+            contact + Vec3::Y * ik_tuning().run_swing_minimum_sole_clearance_metres.metres();
         assert!(run_contact_within_leg_reach(
             flight_floor,
             upper_root,
@@ -2430,7 +2470,7 @@ mod coordination_tests {
                 Some(1.0),
                 false
             ),
-            ik_tuning().run_swing_minimum_sole_clearance_metres
+            ik_tuning().run_swing_minimum_sole_clearance_metres.metres()
         );
     }
 
@@ -2447,7 +2487,7 @@ mod coordination_tests {
             next_root,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz,
+            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
             |_| Some(f32::NEG_INFINITY),
         );
         let target_step = (advanced - next_root).distance(previous_owner);
@@ -2517,11 +2557,12 @@ mod coordination_tests {
                 Some(owner_target),
                 desired,
                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-                ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz,
+                ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
             );
             assert!(
                 next.distance(owner_target)
-                    <= (ik_tuning().run_airborne_owner_step_metres
+                    <= (ik_tuning().run_airborne_owner_step_metres.metres()
                         * ik_tuning().continuity_sample_hz)
                         / ik_tuning().continuity_sample_hz
                         + 0.0001
@@ -2535,7 +2576,8 @@ mod coordination_tests {
                 Some(owner_target),
                 endpoint,
                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-                ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz,
+                ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz,
             );
         }
         assert!(owner_target.distance(endpoint) < 0.0001);
@@ -2593,13 +2635,14 @@ mod coordination_tests {
             after_root,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz,
+            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
             |_| Some(-100.0),
         );
         let resolved_owner = resolved - after_root;
         assert!(
             resolved_owner.distance(before_owner)
-                <= (ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz)
+                <= (ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz)
                     / ik_tuning().continuity_sample_hz
                     + 0.0001
         );
@@ -2619,7 +2662,8 @@ mod coordination_tests {
         );
         assert!(
             (support_path - after_root).distance(before_owner)
-                <= (ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz)
+                <= (ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz)
                     / ik_tuning().continuity_sample_hz
                     + 0.0001
         );
@@ -2761,14 +2805,15 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz,
+            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
             minimum_y,
         );
         assert!(resolved.is_finite());
         assert!(resolved.y + 0.000001 >= minimum_y(resolved.xz()).unwrap());
         assert!(
             resolved.distance(previous_owner)
-                <= (ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz)
+                <= (ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz)
                     / ik_tuning().continuity_sample_hz
                     + 0.0001
         );
@@ -2784,12 +2829,13 @@ mod coordination_tests {
             Vec3::ZERO,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz,
+            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
             |_| Some(0.085),
         );
         assert!(
             resolved.distance(previous_owner)
-                <= (ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz)
+                <= (ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz)
                     / ik_tuning().continuity_sample_hz
                     + 0.0001
         );
@@ -2800,11 +2846,11 @@ mod coordination_tests {
         // support sample without bypassing the follower above.
         assert_eq!(
             run_airborne_clearance(CycleDelta::from_cycles(0.34).unwrap(), Some(1.0), false),
-            ik_tuning().run_swing_minimum_sole_clearance_metres
+            ik_tuning().run_swing_minimum_sole_clearance_metres.metres()
         );
         assert_eq!(
             run_airborne_clearance(CycleDelta::from_cycles(0.17).unwrap(), Some(1.0), false),
-            ik_tuning().run_swing_minimum_sole_clearance_metres
+            ik_tuning().run_swing_minimum_sole_clearance_metres.metres()
         );
         assert!(
             run_airborne_clearance(CycleDelta::from_cycles(0.17).unwrap(), Some(1.0), true) <= 0.0
@@ -2830,7 +2876,7 @@ mod coordination_tests {
             current_root,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz,
+            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
             |_| Some(0.085),
         );
         assert!(resolved.distance(fixed_contact) < 0.0001);
@@ -2845,7 +2891,7 @@ mod coordination_tests {
         ));
         assert_eq!(
             run_airborne_clearance(CycleDelta::from_cycles(0.17).unwrap(), Some(1.0), false),
-            ik_tuning().run_swing_minimum_sole_clearance_metres
+            ik_tuning().run_swing_minimum_sole_clearance_metres.metres()
         );
     }
 
@@ -2853,9 +2899,9 @@ mod coordination_tests {
     fn final_run_descent_transports_unacquired_footprint_then_freezes_it() {
         let previous_root = Vec3::new(0.0, 0.0, -4.0);
         let current_root = previous_root + Vec3::NEG_Z * (5.5 / ik_tuning().continuity_sample_hz);
-        let fixed_contact = Vec3::new(0.1, measured_ankle_sole_offset_metres(), -4.5);
+        let fixed_contact = Vec3::new(0.1, measured_ankle_sole_offset_metres().metres(), -4.5);
         let prior_floor =
-            fixed_contact + Vec3::Y * ik_tuning().run_swing_minimum_sole_clearance_metres;
+            fixed_contact + Vec3::Y * ik_tuning().run_swing_minimum_sole_clearance_metres.metres();
         let previous_owner = prior_floor - previous_root;
 
         // Root travel plus the contact descent is 9.94 cm, so the stationary
@@ -2883,7 +2929,7 @@ mod coordination_tests {
             (transported.z - (fixed_contact.z - 5.5 / ik_tuning().continuity_sample_hz)).abs()
                 < 0.0001
         );
-        assert_eq!(transported.y, measured_ankle_sole_offset_metres());
+        assert_eq!(transported.y, measured_ankle_sole_offset_metres().metres());
         assert!(run_contact_within_follower_step(
             Some(previous_owner),
             transported,
@@ -2897,13 +2943,14 @@ mod coordination_tests {
             current_root,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz,
-            |_| Some(measured_ankle_sole_offset_metres()),
+            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
+            |_| Some(measured_ankle_sole_offset_metres().metres()),
         );
         assert!(landed.distance(transported) < 0.0001);
         assert!(
             landed.distance(current_root + previous_owner)
-                <= (ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz)
+                <= (ik_tuning().run_airborne_owner_step_metres.metres()
+                    * ik_tuning().continuity_sample_hz)
                     / ik_tuning().continuity_sample_hz
                     + 0.0001
         );
@@ -2936,7 +2983,7 @@ mod coordination_tests {
         ));
         assert!(frozen_contact.distance(upper_root) > solve_reach + 0.001);
 
-        let terrain_height = frozen_contact.y - measured_ankle_sole_offset_metres();
+        let terrain_height = frozen_contact.y - measured_ankle_sole_offset_metres().metres();
         let reachable_contact = retarget_unacquired_run_contact_for_descent(
             Some(previous_owner),
             frozen_contact,
@@ -2960,7 +3007,7 @@ mod coordination_tests {
         ));
         assert_eq!(
             reachable_contact.y,
-            terrain_height + measured_ankle_sole_offset_metres()
+            terrain_height + measured_ankle_sole_offset_metres().metres()
         );
         let landed = advance_run_airborne_world_target(
             Some(previous_owner),
@@ -2968,7 +3015,7 @@ mod coordination_tests {
             current_root,
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz).unwrap(),
-            ik_tuning().run_airborne_owner_step_metres * ik_tuning().continuity_sample_hz,
+            ik_tuning().run_airborne_owner_step_metres.metres() * ik_tuning().continuity_sample_hz,
             |_| Some(reachable_contact.y),
         );
         assert!(landed.distance(reachable_contact) < 0.0001);

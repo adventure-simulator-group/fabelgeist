@@ -1,6 +1,6 @@
 //! Authoritative landing observations retained by animation state.
 
-use super::{AnimationQuantity, AnimationValueError, AnimationValueResult};
+use super::{AnimationQuantity, AnimationValueError, AnimationValueResult, NonnegativeSpeed};
 use derive_more::{Debug, Display, From};
 use serde::{Deserialize, Serialize};
 
@@ -11,8 +11,9 @@ pub struct LandingSequence(u64);
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Serialize, Deserialize, derive_more::Into)]
 #[serde(try_from = "f32", into = "f32")]
-#[debug("{_0:?}")]
-pub struct LandingImpactSpeed(f32);
+#[debug("{:?}", self.0.metres_per_second())]
+#[into(f32)]
+pub struct LandingImpactSpeed(NonnegativeSpeed);
 
 impl LandingSequence {
     pub const ZERO: Self = Self(0);
@@ -33,22 +34,14 @@ impl LandingSequence {
 }
 
 impl LandingImpactSpeed {
-    pub const ZERO: Self = Self(0.0);
+    pub const ZERO: Self = Self(NonnegativeSpeed::ZERO);
     pub fn from_metres_per_second(speed: f32) -> AnimationValueResult<Self> {
-        if !speed.is_finite() {
-            return Err(AnimationValueError::NonFinite {
-                quantity: AnimationQuantity::LandingImpactSpeed,
-            });
-        }
-        if speed < 0.0 {
-            return Err(AnimationValueError::Negative {
-                quantity: AnimationQuantity::LandingImpactSpeed,
-            });
-        }
-        Ok(Self(speed))
+        NonnegativeSpeed::from_metres_per_second(speed)
+            .map(Self)
+            .map_err(|error| error.for_quantity(AnimationQuantity::LandingImpactSpeed))
     }
     pub fn metres_per_second(self) -> f32 {
-        self.0
+        self.0.metres_per_second()
     }
 }
 

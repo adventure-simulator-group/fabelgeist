@@ -84,6 +84,7 @@ impl ProjectedObservation {
             Vec3::ZERO
         };
         if !local_velocity.is_finite()
+            || !local_velocity.xz().length().is_finite()
             || !physical_speed.is_finite()
             || !acceleration.length_squared().is_finite()
         {

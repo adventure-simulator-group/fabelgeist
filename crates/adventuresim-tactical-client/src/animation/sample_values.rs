@@ -7,11 +7,15 @@ pub(super) use adventuresim_tactical_core::animation::AnimationValueResult;
 /// Existing coalescing resolution for samples from the same clip/layer.
 const SAMPLE_COHERENCE_SECONDS: f32 = 0.0001;
 
-#[derive(Debug, Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(
+    Debug, Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize, derive_more::Into,
+)]
 #[serde(try_from = "f32", into = "f32")]
 pub(super) struct ClipDuration(f32);
 
-#[derive(Debug, Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(
+    Debug, Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize, derive_more::Into,
+)]
 #[serde(try_from = "f32", into = "f32")]
 pub(super) struct ClipTime(f32);
 
@@ -67,21 +71,11 @@ impl TryFrom<f32> for ClipDuration {
         Self::from_seconds(value)
     }
 }
-impl From<ClipDuration> for f32 {
-    fn from(value: ClipDuration) -> Self {
-        value.seconds()
-    }
-}
 
 impl TryFrom<f32> for ClipTime {
     type Error = AnimationValueError;
     fn try_from(value: f32) -> AnimationValueResult<Self> {
         Self::from_seconds(value)
-    }
-}
-impl From<ClipTime> for f32 {
-    fn from(value: ClipTime) -> Self {
-        value.seconds()
     }
 }
 

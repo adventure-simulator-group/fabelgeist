@@ -1,3 +1,5 @@
+use crate::animation::{AnimationElapsed, NonnegativeLength, NonnegativeSpeed, UnitInterval};
+use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
 use adventuresim_core::{
     body::BodyPart,
     combat::{AutoresolveParameters, CombatResolutionParameters},
@@ -136,54 +138,54 @@ pub struct BouncyBonesConfig {
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct InverseKinematicsConfig {
-    pub minimum_inter_foot_separation_metres: f32,
-    pub safe_settle_fallback_seconds: f32,
-    pub outer_foot_track_metres: f32,
-    pub maximum_plant_discontinuity_metres: f32,
-    pub maximum_owner_translation_per_tick_metres: f32,
+    pub minimum_inter_foot_separation_metres: PositiveLength,
+    pub safe_settle_fallback_seconds: AnimationElapsed,
+    pub outer_foot_track_metres: PositiveLength,
+    pub maximum_plant_discontinuity_metres: SignedLength,
+    pub maximum_owner_translation_per_tick_metres: SignedLength,
     pub maximum_owner_rotation_per_tick_degrees: f32,
     pub maximum_knee_target_amplification: f32,
-    pub maximum_knee_step_metres: f32,
+    pub maximum_knee_step_metres: PositiveLength,
     pub continuity_sample_hz: f32,
-    pub run_airborne_owner_step_metres: f32,
-    pub run_first_release_owner_step_metres: f32,
-    pub airborne_release_step_metres: f32,
-    pub raised_settle_pelvis_knee_budget_metres: f32,
-    pub raised_settle_step_metres: f32,
-    pub guard_reach_pelvis_drop_metres: f32,
-    pub stationary_turn_foot_limit_metres: f32,
+    pub run_airborne_owner_step_metres: SignedLength,
+    pub run_first_release_owner_step_metres: SignedLength,
+    pub airborne_release_step_metres: SignedLength,
+    pub raised_settle_pelvis_knee_budget_metres: SignedLength,
+    pub raised_settle_step_metres: SignedLength,
+    pub guard_reach_pelvis_drop_metres: SignedLength,
+    pub stationary_turn_foot_limit_metres: SignedLength,
     pub stationary_turn_step_seconds: f32,
     pub knee_pole_maximum_foot_facing_offset_degrees: f32,
     pub airborne_foot_rotation_speed_degrees_per_second: f32,
     pub first_run_release_foot_rotation_speed_degrees_per_second: f32,
-    pub maximum_retained_plant_reach_correction_metres: f32,
-    pub pelvis_correction_speed_metres_per_second: f32,
+    pub maximum_retained_plant_reach_correction_metres: SignedLength,
+    pub pelvis_correction_speed_metres_per_second: NonnegativeSpeed,
     pub run_pelvis_correction_speed_metres_per_second: f32,
-    pub maximum_pelvis_correction_step_metres: f32,
+    pub maximum_pelvis_correction_step_metres: NonnegativeLength,
     pub terrain_blend_speed_per_second: f32,
     pub minimum_knee_flexion_degrees: f32,
     pub minimum_terrain_knee_flexion_degrees: f32,
-    pub landing_knee_reserve_release_compression_metres: f32,
-    pub landing_knee_reserve_full_compression_metres: f32,
-    pub measured_ankle_sole_offset_metres: f32,
-    pub sole_contact_tolerance_metres: f32,
-    pub swing_sole_clearance_metres: f32,
-    pub run_swing_sole_clearance_metres: f32,
-    pub terrain_transition_flight_toe_clearance_metres: f32,
-    pub terrain_contact_toe_clearance_metres: f32,
-    pub run_swing_minimum_sole_clearance_metres: f32,
-    pub run_contact_approach_phase: f32,
-    pub run_contact_chain_settle_phase: f32,
-    pub run_maximum_planned_reach_pelvis_drop_metres: f32,
-    pub late_run_contact_plan_phase: f32,
-    pub maximum_run_swing_root_relative_step_metres: f32,
+    pub landing_knee_reserve_release_compression_metres: SignedLength,
+    pub landing_knee_reserve_full_compression_metres: SignedLength,
+    pub measured_ankle_sole_offset_metres: PositiveLength,
+    pub sole_contact_tolerance_metres: PositiveLength,
+    pub swing_sole_clearance_metres: SignedLength,
+    pub run_swing_sole_clearance_metres: SignedLength,
+    pub terrain_transition_flight_toe_clearance_metres: SignedLength,
+    pub terrain_contact_toe_clearance_metres: SignedLength,
+    pub run_swing_minimum_sole_clearance_metres: SignedLength,
+    pub run_contact_approach_phase: UnitInterval,
+    pub run_contact_chain_settle_phase: UnitInterval,
+    pub run_maximum_planned_reach_pelvis_drop_metres: NonnegativeLength,
+    pub late_run_contact_plan_phase: UnitInterval,
+    pub maximum_run_swing_root_relative_step_metres: SignedLength,
     pub settle_step_seconds: f32,
-    pub settle_step_clearance_metres: f32,
-    pub settle_capture_point_margin_metres: f32,
-    pub assumed_center_of_mass_height_metres: f32,
+    pub settle_step_clearance_metres: SignedLength,
+    pub settle_capture_point_margin_metres: SignedLength,
+    pub assumed_center_of_mass_height_metres: SignedLength,
     pub maximum_settle_capture_speed_metres_per_second: f32,
-    pub maximum_hip_drop_metres: f32,
-    pub sole_contact_margin_metres: f32,
+    pub maximum_hip_drop_metres: NonnegativeLength,
+    pub sole_contact_margin_metres: SignedLength,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -762,67 +764,28 @@ impl TacticalCombatConfig {
         }
         let ik = animation.inverse_kinematics;
         if ![
-            ik.minimum_inter_foot_separation_metres,
-            ik.safe_settle_fallback_seconds,
-            ik.outer_foot_track_metres,
-            ik.maximum_plant_discontinuity_metres,
-            ik.maximum_owner_translation_per_tick_metres,
             ik.maximum_owner_rotation_per_tick_degrees,
             ik.maximum_knee_target_amplification,
-            ik.maximum_knee_step_metres,
             ik.continuity_sample_hz,
-            ik.run_airborne_owner_step_metres,
-            ik.run_first_release_owner_step_metres,
-            ik.airborne_release_step_metres,
-            ik.raised_settle_pelvis_knee_budget_metres,
-            ik.raised_settle_step_metres,
-            ik.guard_reach_pelvis_drop_metres,
-            ik.stationary_turn_foot_limit_metres,
             ik.stationary_turn_step_seconds,
             ik.knee_pole_maximum_foot_facing_offset_degrees,
             ik.airborne_foot_rotation_speed_degrees_per_second,
             ik.first_run_release_foot_rotation_speed_degrees_per_second,
-            ik.maximum_retained_plant_reach_correction_metres,
-            ik.pelvis_correction_speed_metres_per_second,
             ik.run_pelvis_correction_speed_metres_per_second,
-            ik.maximum_pelvis_correction_step_metres,
             ik.terrain_blend_speed_per_second,
             ik.minimum_knee_flexion_degrees,
             ik.minimum_terrain_knee_flexion_degrees,
-            ik.landing_knee_reserve_release_compression_metres,
-            ik.landing_knee_reserve_full_compression_metres,
-            ik.measured_ankle_sole_offset_metres,
-            ik.sole_contact_tolerance_metres,
-            ik.swing_sole_clearance_metres,
-            ik.run_swing_sole_clearance_metres,
-            ik.terrain_transition_flight_toe_clearance_metres,
-            ik.terrain_contact_toe_clearance_metres,
-            ik.run_swing_minimum_sole_clearance_metres,
-            ik.run_contact_approach_phase,
-            ik.run_contact_chain_settle_phase,
-            ik.run_maximum_planned_reach_pelvis_drop_metres,
-            ik.late_run_contact_plan_phase,
-            ik.maximum_run_swing_root_relative_step_metres,
             ik.settle_step_seconds,
-            ik.settle_step_clearance_metres,
-            ik.settle_capture_point_margin_metres,
-            ik.assumed_center_of_mass_height_metres,
             ik.maximum_settle_capture_speed_metres_per_second,
-            ik.maximum_hip_drop_metres,
-            ik.sole_contact_margin_metres,
         ]
         .into_iter()
         .all(f32::is_finite)
-            || ik.minimum_inter_foot_separation_metres <= 0.0
-            || ik.outer_foot_track_metres <= ik.minimum_inter_foot_separation_metres * 0.5
+            || ik.outer_foot_track_metres.metres()
+                <= ik.minimum_inter_foot_separation_metres.metres() * 0.5
+            || ik.terrain_blend_speed_per_second < 0.0
+            || ik.knee_pole_maximum_foot_facing_offset_degrees < 0.0
             || ik.maximum_knee_target_amplification <= 0.0
-            || ik.maximum_knee_step_metres <= 0.0
             || ik.continuity_sample_hz <= 0.0
-            || ik.measured_ankle_sole_offset_metres <= 0.0
-            || ik.sole_contact_tolerance_metres <= 0.0
-            || !(0.0..=1.0).contains(&ik.run_contact_approach_phase)
-            || !(0.0..=1.0).contains(&ik.run_contact_chain_settle_phase)
-            || !(0.0..=1.0).contains(&ik.late_run_contact_plan_phase)
         {
             return Err(TacticalCombatConfigError::Validation(
                 "invalid inverse-kinematics tuning",

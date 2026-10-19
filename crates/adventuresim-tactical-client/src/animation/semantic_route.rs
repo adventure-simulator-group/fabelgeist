@@ -113,6 +113,8 @@ pub(super) fn evaluate_semantic_route_paths(
             Ok(trace) => trace,
             Err(error) => {
                 warn!(%error, ?entity, "Rejected semantic animation evaluation");
+                // The chain synchronizes Commands before evaluating skeletons.
+                commands.entity(entity).remove::<SemanticRouteTrace>();
                 continue;
             }
         };

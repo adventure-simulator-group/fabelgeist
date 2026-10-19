@@ -1168,7 +1168,7 @@ pub(crate) fn on_player_input(
         accumulated_input.crouched = false;
         posture_intent.facing = CameraFacingIntent::Free;
         quickstep_push.cancel();
-        skeleton.set_jump_anticipation(false);
+        skeleton.set_jump_anticipation(JumpAnticipation::Inactive);
         set_weapon_guard(
             &mut skeleton,
             authoritative_weapon_guard(validated.weapon_guard, true),
@@ -1386,7 +1386,7 @@ struct ValidatedPlayerInput {
     yaw: f32,
     pitch: f32,
     jump: JumpCommand,
-    jump_charge: bool,
+    jump_charge: JumpAnticipation,
     downed_align: bool,
     posture: PostureCommand,
     pace: MovementPace,
@@ -1428,7 +1428,7 @@ fn validate_player_input(input: PlayerInputRequest) -> Option<ValidatedPlayerInp
             - std::f32::consts::PI,
         pitch: look.y.clamp(-1.5, 1.5),
         jump,
-        jump_charge,
+        jump_charge: JumpAnticipation::from(jump_charge),
         downed_align,
         posture,
         pace,
@@ -2383,10 +2383,10 @@ mod tests {
     use adventuresim_tactical_core::prelude::{
         BestiaryCategories, BodyState, CharacterControllerState, CharacterId, CharacterLook,
         CharacterMotionSnapshot, CollisionMargin, DiveDirection, DiveTrajectory, DodgeSpec,
-        EquipSlot, EquipmentActionState, GroundedPosture, InventoryItems, ItemOf, Limbs,
-        LinearVelocity, MeleePreparationInput, MovementPace, PostureTransitionKind, QuickstepPush,
-        RollDirection, Rotation, ShieldItem, SkeletonAction, SkeletonState, Skills, Stats,
-        TACTICAL_PRONE_LATERAL_SPEED_SCALE, TacticalAttributes, TacticalCombatConfig,
+        EquipSlot, EquipmentActionState, GroundedPosture, InventoryItems, ItemOf, JumpAnticipation,
+        Limbs, LinearVelocity, MeleePreparationInput, MovementPace, PostureTransitionKind,
+        QuickstepPush, RollDirection, Rotation, ShieldItem, SkeletonAction, SkeletonState, Skills,
+        Stats, TACTICAL_PRONE_LATERAL_SPEED_SCALE, TacticalAttributes, TacticalCombatConfig,
         TacticalCombatSide, TacticalCombatState, advance_body_facing, controller_yaw,
         downed_camera_roll_target,
     };
@@ -2786,7 +2786,7 @@ mod tests {
         assert!(validated.yaw.is_finite() && validated.pitch.is_finite());
         assert_eq!(validated.weapon_guard, WeaponGuardState::Raised);
         assert_eq!(validated.jump.sequence, 7);
-        assert!(validated.jump_charge);
+        assert!(validated.jump_charge == JumpAnticipation::Charging);
         assert!(validated.downed_align);
     }
 

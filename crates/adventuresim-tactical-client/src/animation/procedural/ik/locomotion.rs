@@ -177,15 +177,7 @@ pub(in crate::animation) fn apply(
             let Some(height) = terrain.height_at(foot_position.xz()) else {
                 continue;
             };
-            // Pose-buffer terrain conformity owns the upcoming sample. This
-            // compatibility solve may lift the rendered sample further when
-            // terrain rises, but must never lower the authored flat-ground
-            // clearance toward a fixed ankle offset.
-            let terrain_target = foot_position.with_y(foot_position.y.max(
-                height + measured_ankle_sole_offset_metres()
-                    - ik_tuning().sole_contact_margin_metres,
-            ));
-            let target = foot_position.lerp(terrain_target, weight.clamp(0.0, 1.0));
+            let target = ordinary_terrain_target(foot_position, height, weight);
             targets[index] = Some(target);
 
             let upper_length = upper_snapshot
@@ -196,7 +188,7 @@ pub(in crate::animation) fn apply(
             let reach = maximum_reach(upper_length, lower_length);
             desired_pelvis_shift = desired_pelvis_shift.min(
                 required_hip_shift_for_reach(upper_snapshot.global.translation(), target, reach)
-                    .clamp(-ik_tuning().maximum_hip_drop_metres, 0.0)
+                    .clamp(-ik_tuning().maximum_hip_drop_metres.metres(), 0.0)
                     * weight,
             );
         }

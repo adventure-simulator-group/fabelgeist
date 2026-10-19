@@ -12,7 +12,7 @@ pub(in crate::animation::procedural) fn plant_is_continuous(
 ) -> bool {
     plant.is_finite()
         && current_foot.is_finite()
-        && plant.distance(current_foot) <= ik_tuning().maximum_plant_discontinuity_metres
+        && plant.distance(current_foot) <= ik_tuning().maximum_plant_discontinuity_metres.metres()
 }
 
 pub(in crate::animation::procedural) fn advance_pelvis_shift(
@@ -20,9 +20,11 @@ pub(in crate::animation::procedural) fn advance_pelvis_shift(
     desired: f32,
     delta_seconds: AnimationElapsed,
 ) -> f32 {
-    let maximum_step = (ik_tuning().pelvis_correction_speed_metres_per_second
+    let maximum_step = (ik_tuning()
+        .pelvis_correction_speed_metres_per_second
+        .metres_per_second()
         * delta_seconds.seconds())
-    .min(maximum_pelvis_correction_step_metres());
+    .min(maximum_pelvis_correction_step_metres().metres());
     current + (desired - current).clamp(-maximum_step, maximum_step)
 }
 
@@ -46,8 +48,12 @@ pub(in crate::animation::procedural) fn landing_maximum_reach(
     let full_reach = upper_length + lower_length - 0.0001;
     let released_reach = authored_reach.clamp(reserved_reach, full_reach);
     let reserve_weight = smoothstep(
-        ik_tuning().landing_knee_reserve_release_compression_metres,
-        ik_tuning().landing_knee_reserve_full_compression_metres,
+        ik_tuning()
+            .landing_knee_reserve_release_compression_metres
+            .metres(),
+        ik_tuning()
+            .landing_knee_reserve_full_compression_metres
+            .metres(),
         compression,
     );
     released_reach.lerp(reserved_reach, reserve_weight)

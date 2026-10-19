@@ -40,9 +40,9 @@ use ik::{
     foot_track_inner_metres, landing_maximum_reach, maximum_pelvis_correction_step_metres,
     maximum_reach, minimum_inter_foot_separation_metres, plan_settle_landing, plant_is_continuous,
     projected_capture_point, raised_footwork_posture_is_valid, retained_plant_requires_release,
-    secondary_grip_world, settle_swing_side, settle_swing_target, slope_aligned_world_rotation,
-    sole_is_at_contact, solve_two_bone, terrain_conformed_guard_target,
-    terrain_ik_posture_is_valid, terrain_leg_has_support,
+    secondary_grip_world, settle_swing_side, slope_aligned_world_rotation, sole_is_at_contact,
+    solve_two_bone, terrain_conformed_guard_target, terrain_ik_posture_is_valid,
+    terrain_leg_has_support,
 };
 pub(super) use ik::{
     apply_arm_and_weapon_constraints, apply_terrain_leg_ik, enforce_anatomical_knee_yaw,
@@ -877,7 +877,7 @@ mod contract_tests {
 
     #[test]
     fn measured_sole_offset_matches_the_authored_rig() {
-        assert_eq!(measured_ankle_sole_offset_metres(), 0.085);
+        assert_eq!(measured_ankle_sole_offset_metres().metres(), 0.085);
     }
 
     #[test]
@@ -887,7 +887,7 @@ mod contract_tests {
                 Some(AnimationSampleTick::from(u64::MAX)),
                 AnimationSampleTick::ZERO
             ),
-            Some(1)
+            Some(AnimationSampleSpan::ONE)
         );
         assert_eq!(
             presentation_tick_delta(
@@ -1298,14 +1298,14 @@ mod ik_tests {
                 Some(AnimationSampleTick::from(10u64)),
                 AnimationSampleTick::from(10u64)
             ),
-            Some(0)
+            Some(AnimationSampleSpan::ZERO)
         );
         assert_eq!(
             presentation_tick_delta(
                 Some(AnimationSampleTick::from(10u64)),
                 AnimationSampleTick::from(14u64)
             ),
-            Some(4)
+            Some(AnimationSampleSpan::from(4u64))
         );
         assert_eq!(
             presentation_tick_delta(
@@ -1477,20 +1477,15 @@ mod ik_tests {
         let com = Vec3::new(0.0, 1.0, 0.0);
         let velocity = Vec3::new(0.8, 0.0, -2.0);
         let direction = velocity.normalize();
-        let capture = projected_capture_point(com, velocity, 1.0);
+        let capture = projected_capture_point(
+            com,
+            velocity,
+            adventuresim_building_generator::spatial_geometry::SignedLength::from_metres(1.0)
+                .unwrap(),
+        );
         let landing = plan_settle_landing(Vec3::ZERO, Quat::IDENTITY, capture, direction, -1.0);
         assert!((landing - capture).dot(direction) >= 0.119);
         assert!(landing.is_finite());
-    }
-
-    #[test]
-    fn settle_swing_leaves_and_returns_to_ground_only_at_contact() {
-        let start = Vec3::new(-0.12, 0.085, 0.25);
-        let landing = Vec3::new(-0.12, 0.085, -0.35);
-        assert_eq!(settle_swing_target(start, landing, 0.0), start);
-        assert!(settle_swing_target(start, landing, 0.5).y > start.y + 0.09);
-        assert!(settle_swing_target(start, landing, 0.75).z < start.z);
-        assert!(settle_swing_target(start, landing, 1.0).abs_diff_eq(landing, 0.0001));
     }
 
     #[test]
@@ -1528,14 +1523,14 @@ mod ik_tests {
     #[test]
     fn rendered_sole_contact_uses_the_shared_hierarchy_tolerance() {
         let terrain_height = 2.0;
-        let exact_ankle = terrain_height + measured_ankle_sole_offset_metres();
+        let exact_ankle = terrain_height + measured_ankle_sole_offset_metres().metres();
         assert!(sole_is_at_contact(exact_ankle, terrain_height));
         assert!(sole_is_at_contact(
-            exact_ankle + sole_contact_tolerance_metres() - 0.00001,
+            exact_ankle + sole_contact_tolerance_metres().metres() - 0.00001,
             terrain_height
         ));
         assert!(!sole_is_at_contact(
-            exact_ankle + sole_contact_tolerance_metres() + 0.0001,
+            exact_ankle + sole_contact_tolerance_metres().metres() + 0.0001,
             terrain_height
         ));
     }
@@ -1557,7 +1552,7 @@ mod ik_tests {
             let landing =
                 plan_settle_landing(origin, rotation, capture, rotation * Vec3::NEG_Z, side);
             let landing_local = rotation.inverse() * (landing - origin);
-            assert!(landing_local.x * local_x.signum() >= foot_track_inner_metres());
+            assert!(landing_local.x * local_x.signum() >= foot_track_inner_metres().metres());
         }
     }
 
@@ -1718,7 +1713,10 @@ mod ik_tests {
         let left_local = rotation.inverse() * (left - origin);
         let right_local = rotation.inverse() * (right - origin);
         assert!(left_local.x < 0.0 && right_local.x > 0.0);
-        assert!(right_local.x - left_local.x >= minimum_inter_foot_separation_metres() - 0.0001);
+        assert!(
+            right_local.x - left_local.x
+                >= minimum_inter_foot_separation_metres().metres() - 0.0001
+        );
     }
 
     #[test]
@@ -1754,7 +1752,7 @@ mod ik_tests {
 
         let after_hitch =
             advance_pelvis_shift(0.0, -1.0, AnimationElapsed::from_seconds(1.0).unwrap());
-        assert!((after_hitch + maximum_pelvis_correction_step_metres()).abs() < 0.0001);
+        assert!((after_hitch + maximum_pelvis_correction_step_metres().metres()).abs() < 0.0001);
     }
 
     #[test]

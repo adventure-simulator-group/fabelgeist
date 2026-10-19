@@ -35,7 +35,8 @@ impl LocomotionHeightState {
         let tick_delta = presentation_tick_delta(previous_tick, skeleton.locomotion_sample_tick)
             .unwrap_or_default();
         history.evaluation_tick = skeleton.locomotion_sample_tick;
-        let elapsed = AnimationElapsed::from_seconds(tick_delta as f32 / locomotion_sample_hz())?;
+        let elapsed =
+            AnimationElapsed::from_seconds(tick_delta.samples() as f32 / locomotion_sample_hz())?;
         self.advance_amplitude(skeleton, target_wave, target_compensation, elapsed)?;
         self.advance_landing(skeleton, elapsed, &mut history)?;
         self.advance_wave(skeleton, elapsed, &mut history)?;

@@ -32,7 +32,7 @@ impl LocomotionBodyResponseState {
             inverse_body_rotation * skeleton.world_acceleration,
         )?;
         let discontinuous = tick_delta.is_none();
-        let source_changed = matches!(tick_delta, Some(1..));
+        let source_changed = tick_delta.is_some_and(|delta| delta > AnimationSampleSpan::ZERO);
         if skeleton.is_posture_transitioning()
             || skeleton.action_kind() != SkeletonAction::None
             || !skeleton.is_grounded()
@@ -95,16 +95,12 @@ impl LocomotionBodyResponseState {
 pub(in crate::animation::procedural) fn presentation_tick_delta(
     previous: Option<AnimationSampleTick>,
     current: AnimationSampleTick,
-) -> Option<u64> {
+) -> Option<AnimationSampleSpan> {
     match previous {
-        None => Some(0),
+        None => Some(AnimationSampleSpan::ZERO),
         Some(previous) => {
             let delta = current.wrapping_delta(previous);
-            (delta
-                <= body_response_tuning()
-                    .maximum_presentation_sample_gap_ticks
-                    .samples())
-            .then_some(delta)
+            (delta <= body_response_tuning().maximum_presentation_sample_gap_ticks).then_some(delta)
         }
     }
 }

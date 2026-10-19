@@ -255,7 +255,9 @@ pub(in crate::animation::procedural) fn retained_plant_requires_release(
     reachable: Vec3,
 ) -> bool {
     retained.xz().distance(reachable.xz())
-        > ik_tuning().maximum_retained_plant_reach_correction_metres
+        > ik_tuning()
+            .maximum_retained_plant_reach_correction_metres
+            .metres()
 }
 
 pub(in crate::animation::procedural) fn ordinary_plant_requires_clear(

@@ -28,7 +28,7 @@ pub(super) fn project_capture_motion(
         tick,
     )?;
     project_skeleton_locomotion_with_body_rotation(skeleton, input, transform.rotation, None)?;
-    skeleton.set_jump_anticipation(jump_charging);
+    skeleton.set_jump_anticipation(JumpAnticipation::from(jump_charging));
     if sequence.warmup_frames == 0 && frame.scenario.transition().is_some() {
         let previous_transition = skeleton.posture_transition();
         skeleton.advance_posture_transition(tick);
