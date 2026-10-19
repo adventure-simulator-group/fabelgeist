@@ -1,4 +1,4 @@
-import { prepareRegionalCity } from "./strategic-generation.js";
+import { prepareRegionalCity } from "./strategic-generation.js?v=worker-reuse-1";
 
 // One focused settlement per document owner. The admitted Rust document and
 // ticket stay opaque: JSON rewriting would lose precision in physical seeds.

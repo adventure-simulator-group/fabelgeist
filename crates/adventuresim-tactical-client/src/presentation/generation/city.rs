@@ -16,6 +16,11 @@ pub(in crate::presentation) struct PreparedCityProduct {
 }
 
 impl PreparedCityProduct {
+    /// Complete source, placement, environment and graphics identity for reuse.
+    pub(in crate::presentation) fn same_presentation_inputs(&self, other: &Self) -> bool {
+        self.matches(&other.document, &other.graphics)
+    }
+
     pub(super) fn generate(
         document: RegionalCityInput,
         graphics: String,

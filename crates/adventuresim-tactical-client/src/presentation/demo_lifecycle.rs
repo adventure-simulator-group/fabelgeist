@@ -4,6 +4,9 @@ use super::*;
 
 pub(crate) fn clear_demo_scene(world: &mut World) {
     clear_scene_entities(world);
+    #[cfg(target_family = "wasm")]
+    regional_map::clear_city(world);
+    #[cfg(not(target_family = "wasm"))]
     buildings::reset_gpu(world, ownership::PresentationOwner::RegionalMap);
     world.insert_resource(buildings::TacticalBuildingMeshCache::default());
     #[cfg(target_family = "wasm")]

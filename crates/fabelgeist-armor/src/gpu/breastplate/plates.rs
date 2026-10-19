@@ -156,13 +156,7 @@ impl Plates {
         let front_extrusion =
             results.prefix::<[f32; 3]>(front_extrusion, self.front.count() as usize);
         let back_extrusion = results.prefix::<[f32; 3]>(back_extrusion, self.back.count() as usize);
-        match results.status(status) {
-            0 => {}
-            bits if bits & crate::gpu::anatomy::STATUS_DEGENERATE != 0 => {
-                return Err(GenerateError::Degenerate);
-            }
-            _ => return Err(GenerateError::InvalidSurface),
-        }
+        super::status::BreastplateStatus::from_device_word(results.status(status)).validate()?;
         let mut front = ClippedCarrier::new(&self.front.topology, &front, &front_extrusion)?;
         let mut back = ClippedCarrier::new(&self.back.topology, &back, &back_extrusion)?;
         front.trim_arms(&results.prefix::<f32>(front_arm, self.front.count() as usize))?;

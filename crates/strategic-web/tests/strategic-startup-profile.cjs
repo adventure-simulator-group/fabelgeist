@@ -124,8 +124,8 @@ const transforms = {
       'window.startupProfile.mark("generation-ready"); install({ location, input, preparation });'],
   ],
   "strategic-generation.js": [
-    ['\n    pool?.close();',
-      '\n    if (window.stopStartupWorkers) await window.stopStartupWorkers(); pool?.close();'],
+    ['signal?.removeEventListener("abort", cancel);',
+      'if (window.stopStartupWorkers) await window.stopStartupWorkers(); signal?.removeEventListener("abort", cancel);'],
     ['const started = performance.now();',
       'const started = performance.now(); window.startupProfile.mark("generation-start");'],
     ['runtime.wasm_receive_job(preparation, job, bytes);',

@@ -252,6 +252,7 @@ fn upload(
         "GPU city resident"
     );
     Ok(CityGpuScene {
+        publication_root: None,
         frame,
         frame_buffer,
         buildings,
@@ -286,6 +287,11 @@ fn assemble_owner(world: &mut World, owner: PresentationOwner) {
                 .get_mut(owner)
                 .frame = publication.frame;
             world
+                .resource_mut::<CityGpuScenes>()
+                .owners
+                .get_mut(owner)
+                .publication_root = Some(publication.root);
+            world
                 .entity_mut(publication.root)
                 .insert(CityAssemblyPublished)
                 .remove::<CityAssemblyFailure>();
@@ -305,7 +311,7 @@ fn assemble_owner(world: &mut World, owner: PresentationOwner) {
         .groups(world.get_resource())
         .and_then(|groups| pack(world, groups))
         .and_then(|packed| upload(world, owner, packed, frame));
-    let scene = match scene {
+    let mut scene = match scene {
         Ok(scene) => scene,
         Err(error) => {
             warn!(?owner, %error, "Could not assemble GPU city");
@@ -317,6 +323,10 @@ fn assemble_owner(world: &mut World, owner: PresentationOwner) {
             return;
         }
     };
+    scene.publication_root = pending
+        .publication
+        .as_ref()
+        .map(|publication| publication.root);
     if let Some(publication) = &pending.publication {
         world
             .entity_mut(publication.root)
@@ -344,11 +354,7 @@ fn assemble_owner(world: &mut World, owner: PresentationOwner) {
         world.resource_mut::<CityGpuScenes>().owners.get_mut(owner),
         scene,
     );
-    for batch in previous.batches.iter() {
-        if let Ok(entity) = world.get_entity_mut(batch.anchor) {
-            entity.despawn();
-        }
-    }
+    previous.discard(world);
 }
 
 #[cfg(test)]

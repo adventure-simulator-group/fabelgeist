@@ -40,6 +40,7 @@ mod shape_tests;
 mod shape_wgsl;
 mod skin_wgsl;
 mod solid_grid;
+mod status;
 mod topology;
 mod trimmed_carrier;
 mod wearer_wgsl;
@@ -47,7 +48,7 @@ mod wearer_wgsl;
 use fabelgeist_compute::{KernelBatch, NormalWeighting, VertexNormals};
 use fabelgeist_gpu::prelude::Buffer;
 
-use super::anatomy::{DeviceSurface, STATUS_DEGENERATE};
+use super::anatomy::DeviceSurface;
 use super::body::GpuBody;
 use super::bracer::deltas;
 use super::{ArmorGpu, device_error};
@@ -58,6 +59,8 @@ use crate::{
 use kernels::{Params, dispatch};
 use plates::{Plates, Shell};
 use skin_wgsl::SKIN_WORDS;
+use status::BreastplateStatus;
+pub use status::{STATUS_COINCIDENT_LANDMARKS, STATUS_DEGENERATE_WIDTH, STATUS_NO_WIDTH};
 
 /// Floats of the rig anchors a breastplate reads: the torso's anterior
 /// direction, the neck base, then the left and right shoulders.
@@ -264,13 +267,7 @@ impl DeviceBreastplate {
             .collect::<Vec<_>>();
         let skin_slot = staging.stage(&self.skin);
         let results = gpu.read_staged_async(staging).await?;
-        let status = results.status(status_slot);
-        if status & STATUS_DEGENERATE != 0 {
-            return Err(GenerateError::Degenerate);
-        }
-        if status != 0 {
-            return Err(GenerateError::InvalidSurface);
-        }
+        BreastplateStatus::from_device_word(results.status(status_slot)).validate()?;
         let count = self.shell.count() as usize;
         let read_mesh = |slots: [super::Staged; 3]| {
             if results.status(slots[0]) != 0 {

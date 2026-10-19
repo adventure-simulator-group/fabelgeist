@@ -71,12 +71,15 @@ fn admit(
     })?;
     let residency = &world.resource::<MapState>().city;
     if residency.pending.is_none()
-        && residency
-            .installed
-            .as_ref()
-            .is_some_and(|city| Arc::ptr_eq(&city.product, &product))
+        && residency.installed.as_ref().is_some_and(|city| {
+            matches!(city.geometry, CityGeometry::Active)
+                && city.product.same_presentation_inputs(&product)
+        })
     {
         return Ok(Admission::Resident);
+    }
+    if let Some(city) = super::retention::reuse(world, &product, origin)? {
+        return Ok(Admission::Replacement(Box::new(city)));
     }
     let frame = CityFrame::from_geographic_city(&document, origin);
     let owner = PresentationOwner::RegionalMap;
@@ -103,6 +106,7 @@ fn admit(
                 root,
                 product,
                 ground,
+                geometry: CityGeometry::Active,
                 frame,
             })
         });
