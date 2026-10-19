@@ -97,6 +97,19 @@ impl PreparedTreeLodBake {
     }
 
     #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+    pub(in crate::presentation::obstacles::tree) fn maximum_pending_collection_bytes() -> usize {
+        MAX_CARD_PIXELS
+    }
+
+    #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+    pub(in crate::presentation::obstacles::tree) fn summary(&self) -> serde_json::Value {
+        serde_json::json!({"lod":self.lod,"vertices":self.positions.len(),"indices":self.indices.len(),
+            "atlas_width":self.atlas_width,"atlas_height":self.atlas_height,"texture_bytes":self.pixels.len(),
+            "records":self.records.len(),"clusters":self.clusters.len(),"source_geometry_hash":self.source_geometry_hash,
+            "bake_version":self.bake_version})
+    }
+
+    #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
     pub(in crate::presentation::obstacles::tree) fn maximum_storage_bytes() -> usize {
         MAX_CARD_VERTICES * (std::mem::size_of::<[f32; 3]>() * 2 + std::mem::size_of::<[f32; 2]>())
             + MAX_CARD_INDICES * std::mem::size_of::<u32>()
@@ -106,19 +119,21 @@ impl PreparedTreeLodBake {
     }
 
     #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
-    pub(in crate::presentation::obstacles::tree) fn validate_full_dependency(
+    pub(in crate::presentation::obstacles::tree) fn validate_playable_tier(
         &self,
         species: TreePresentationSpecies,
         seed: Seed,
+        lod: u8,
     ) -> anyhow::Result<()> {
         use anyhow::ensure;
         ensure!(
             self.usage == PreparedTreeImpostorUsage::Playable
                 && self.species == species_tag(species)
                 && self.seed == seed
-                && self.lod == 1
+                && (1..=4).contains(&lod)
+                && self.lod == lod
                 && self.bake_version == TREE_IMPOSTOR_BAKE_VERSION,
-            "Full cache card identity"
+            "production cache card tier identity"
         );
         let pixels = u64::from(self.atlas_width)
             .checked_mul(u64::from(self.atlas_height))
@@ -154,9 +169,20 @@ impl PreparedTreeLodBake {
                 .all(|value| value.is_finite()),
             "nonfinite card mesh"
         );
+        self.validate_provenance(lod)
+    }
+
+    #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+    fn validate_provenance(&self, lod: u8) -> anyhow::Result<()> {
+        use anyhow::ensure;
         let mut groups = std::collections::BTreeSet::new();
         ensure!(
-            !self.clusters.is_empty() && !self.records.is_empty() && self.source_geometry_hash != 0,
+            (if lod == 4 {
+                self.clusters.is_empty()
+            } else {
+                self.clusters.len() == MAX_CARD_GROUPS
+            }) && !self.records.is_empty()
+                && self.source_geometry_hash != 0,
             "card cluster/provenance missing"
         );
         for cluster in &self.clusters {
@@ -197,6 +223,28 @@ impl PreparedTreeLodBake {
                 "nonfinite card provenance"
             );
         }
+        Ok(())
+    }
+
+    #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+    pub(in crate::presentation::obstacles::tree) fn shares_source(&self, reference: &Self) -> bool {
+        self.source_geometry_hash == reference.source_geometry_hash
+            && self.seed == reference.seed
+            && self.species == reference.species
+    }
+
+    #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
+    pub(in crate::presentation::obstacles::tree) fn validate_source(
+        &self,
+        branches: &[super::super::TreeBranchSegment],
+        leaves: &[super::super::TreeLeaf],
+    ) -> anyhow::Result<()> {
+        anyhow::ensure!(
+            self.source_geometry_hash
+                == tree_source_geometry_hash(branches, leaves)
+                    ^ u64::from(TREE_IMPOSTOR_BAKE_VERSION),
+            "card source geometry mismatch"
+        );
         Ok(())
     }
 

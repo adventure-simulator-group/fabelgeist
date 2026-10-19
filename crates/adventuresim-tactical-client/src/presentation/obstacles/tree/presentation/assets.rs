@@ -204,8 +204,8 @@ pub(super) fn ensure_tree_assets_resident(
     diagnostics: &mut TreeAssetResidencyDiagnostics,
 ) -> bevy::prelude::Result {
     #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
-    if let TreeAssetOrigin::PreparedFull(_) = &cached.origin {
-        return prepared::require_full(cached, mask, selected_leaf).map_err(Into::into);
+    if let TreeAssetOrigin::Prepared(_) = &cached.origin {
+        return prepared::require_resident(cached, mask).map_err(Into::into);
     }
     let mut added = TreeAssetResidencyDiagnostics::default();
     generate_tree_assets_resident(
@@ -277,14 +277,11 @@ fn generate_tree_assets_resident(
             images,
             diagnostics,
         );
-        if lod <= 2 && cached.aggregate_branch_meshes[lod as usize - 1].is_none() {
-            let (depth, quality) = if lod == 1 {
-                (2, WoodyBranchMeshQuality::AggregateLod1)
-            } else {
-                (1, WoodyBranchMeshQuality::AggregateLod2)
-            };
-            let mesh = procedural_woody_crown_mesh(&cached.branches, depth, quality);
-            let aggregate_index = lod as usize - 1;
+        if let Some(aggregate) = super::super::AggregateTreeLod::from_render_lod(lod)
+            && cached.aggregate_branch_meshes[aggregate.index()].is_none()
+        {
+            let mesh = aggregate.mesh(&cached.branches);
+            let aggregate_index = aggregate.index();
             let vertices = mesh.count_vertices();
             let triangles = mesh
                 .indices()
@@ -294,7 +291,7 @@ fn generate_tree_assets_resident(
             diagnostics.aggregate_branch_vertices += vertices;
             diagnostics.aggregate_branch_vertices_by_lod[aggregate_index] += vertices;
             diagnostics.aggregate_branch_triangles_by_lod[aggregate_index] += triangles;
-            cached.aggregate_branch_meshes[lod as usize - 1] = Some(meshes.add(mesh));
+            cached.aggregate_branch_meshes[aggregate_index] = Some(meshes.add(mesh));
         }
     }
     let elapsed = started.elapsed().as_millis();

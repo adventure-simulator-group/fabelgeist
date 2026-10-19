@@ -11,6 +11,7 @@ mod presentation;
 mod source;
 pub(in crate::presentation) mod specimen;
 
+pub(crate) use geometry::AggregateTreeLod;
 pub(crate) use specimen::oak_root_exposure_for_site;
 
 pub(in crate::presentation) use geometry::{

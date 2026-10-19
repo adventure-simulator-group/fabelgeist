@@ -257,6 +257,8 @@ pub(in crate::presentation) struct TreeBranchSegment {
     pub(in crate::presentation) is_limb_tip: bool,
 }
 
+mod aggregate;
+pub(crate) use aggregate::AggregateTreeLod;
 mod leaves;
 mod skeleton;
 mod wood_mesh;

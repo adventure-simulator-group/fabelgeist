@@ -135,11 +135,21 @@ impl OwnedSpecimen {
             .parts
             .iter()
             .filter_map(|binding| {
+                if matches!(
+                    binding.role,
+                    InstalledTreePartRole::FlatLeaves { .. }
+                        | InstalledTreePartRole::AggregateWood { .. }
+                        | InstalledTreePartRole::CanopyCard { .. }
+                ) {
+                    return None;
+                }
                 let material = match binding.material {
                     InstalledTreeMaterial::Bark(id) => id.untyped(),
                     InstalledTreeMaterial::Leaves(id) => id.untyped(),
                     InstalledTreeMaterial::Buds(id) => id.untyped(),
-                    InstalledTreeMaterial::Card { .. } => return None,
+                    InstalledTreeMaterial::Card { .. } | InstalledTreeMaterial::Aggregate(_) => {
+                        return None;
+                    }
                 };
                 Some(Binding {
                     part: Part::Cache(binding.role),
@@ -318,7 +328,7 @@ impl Inspector<'_, '_> {
                 _ => anyhow::bail!("owned material absent, ambiguous or not converted"),
             };
             let expected_visibility =
-                if binding.part == Part::Cache(InstalledTreePartRole::MidTrunkDependency) {
+                if binding.part == Part::Cache(InstalledTreePartRole::MiddleTrunk) {
                     Visibility::Hidden
                 } else {
                     Visibility::Inherited
