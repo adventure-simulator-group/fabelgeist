@@ -23,7 +23,7 @@ pub use unique::{decode_unique, encode_unique};
 const MAX_METADATA_BYTES: usize = 4 * 1024 * 1024;
 const UNIQUE_MAGIC: &[u8; 8] = b"FORESTU1";
 const LIBRARY_MAGIC: &[u8; 8] = b"FORESTL2";
-const POPULATION_MAGIC: &[u8; 8] = b"FORESTP1";
+const POPULATION_MAGIC: &[u8; 8] = b"FORESTP2";
 
 struct Reader<'a>(&'a [u8]);
 

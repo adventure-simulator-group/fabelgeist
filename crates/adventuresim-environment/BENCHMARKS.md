@@ -102,6 +102,32 @@ invocations. Peak memory remains
 unmeasured. This prototype does not implement distant impostors, ecological
 cohort updates or production area streaming.
 
+### Per-tree distance visibility
+
+Population format `FORESTP2` carries a required `TreeVisibility` for every
+placement. Offline growth preparation uses the explicit unbounded role.
+Production descriptors may instead admit two positive-width, nonoverlapping
+root-distance margins through `TreeVisibility::distance` or the native Bevy
+`VisibilityRange` adapter. The adapter requires `use_aabb: false`. Invalid,
+negative, nonfinite, subnormal or zero-width margins are rejected at admission.
+Population identity covers this data; the immutable model library is unchanged.
+
+Finite margins preserve the production vista material's crisp, quantized
+handoff using the same root-to-LOD-view distance and rounded GPU range kernel.
+They do not add translucent fading or screen-door dithering. The ideal near
+edge is open and the far edge closed, at 17/32 through each margin; floating
+point evaluation still follows the original kernel. For `1600..1900` metres,
+the ideal far cutoff is 1759.375 metres, rather than the arithmetic midpoint.
+
+Visibility does not partition draw batches. One spatial batch can contain
+trees with different windows. The placement record is four aligned vec4s,
+64 bytes per tree. A shared predicate clips excluded branch and leaf vertices
+before botanical record reads. The existing broad native distance envelope
+and batch-frustum culling still apply. Hidden trees can retain source instances,
+indirect counts and vertex invocations: this is not compute-side removal or
+an exact post-cull visible-tree counter. Measure repeated vertex-predicate
+cost before interpreting a timing change.
+
 ### Indexed-padding diagnostic
 
 For shared prepared snapshots, `--tree-layout model-padded` and

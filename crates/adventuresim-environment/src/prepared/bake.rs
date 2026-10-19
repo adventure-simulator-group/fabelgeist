@@ -7,8 +7,8 @@ use super::form::TreeForm;
 use super::selection::{self, SourceTree};
 use super::{
     ForestFrame, LibraryId, PreparedError, PreparedUnique, RecordSpan, Result, TreeLibrary,
-    TreeModel, TreePlacement, TreePopulation, TreePose, TreeYaw, VariantBudget, VariantIndex,
-    meshes,
+    TreeModel, TreePlacement, TreePopulation, TreePose, TreeVisibility, TreeYaw, VariantBudget,
+    VariantIndex, meshes,
 };
 
 pub(super) fn library(unique: &PreparedUnique, budget: VariantBudget) -> Result<TreeLibrary> {
@@ -142,6 +142,7 @@ pub(super) fn population(
             };
             Ok(TreePlacement {
                 id: tree.root.id,
+                visibility: TreeVisibility::unbounded(),
                 variant: VariantIndex(index),
                 pose: TreePose::new(
                     tree.root.position,

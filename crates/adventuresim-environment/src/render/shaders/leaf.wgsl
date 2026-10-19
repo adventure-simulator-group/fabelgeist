@@ -19,7 +19,7 @@ const GOLDEN: f32 = 2.39996323;
 @group(3) @binding(1) var<storage, read> leaves: array<Leaf>;
 @group(3) @binding(2) var<storage, read> species: array<Species>;
 #ifdef FOREST_SHARED_TREES
-#import adventuresim_environment::tree_pose::{TreeInstance, TreeVertex, place_tree, tree_normal}
+#import adventuresim_environment::tree_pose::{TreeInstance, TreeVertex, place_tree, tree_normal, tree_visible}
 @group(3) @binding(4) var<storage, read> placements: array<TreeInstance>;
 #endif
 
@@ -52,7 +52,8 @@ fn vertex(vertex: Vertex) -> LeafOut {
     let placement = placements[vertex.i_index];
     let address = vertex.address;
     let record = address / (blades * 4u);
-    if record >= placement.records.w {
+    if record >= placement.records.w
+        || !tree_visible(placement, view.lod_view_world_position.xyz) {
         var clipped: LeafOut;
         clipped.clip = vec4<f32>(0.0, 0.0, -1.0, 1.0);
         return clipped;

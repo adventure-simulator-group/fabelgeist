@@ -18,7 +18,7 @@
 @group(3) @binding(2) var<storage, read> species: array<Species>;
 @group(3) @binding(3) var<storage, read> plants: array<PlantInfo>;
 #ifdef FOREST_SHARED_TREES
-#import adventuresim_environment::tree_pose::{TreeInstance, TreeVertex, place_tree, tree_normal}
+#import adventuresim_environment::tree_pose::{TreeInstance, TreeVertex, place_tree, tree_normal, tree_visible}
 @group(3) @binding(4) var<storage, read> placements: array<TreeInstance>;
 #endif
 
@@ -68,7 +68,8 @@ fn vertex(vertex: Vertex) -> BranchOut {
     let record = vertex.address / (columns * (spans + 1u));
     // Every triangle belongs to one record. Padding is fully clipped before
     // any branch/species/plant reads or span-start arithmetic.
-    if record >= placement.records.y {
+    if record >= placement.records.y
+        || !tree_visible(placement, view.lod_view_world_position.xyz) {
         var clipped: BranchOut;
         clipped.clip = vec4<f32>(0.0, 0.0, -1.0, 1.0);
         return clipped;

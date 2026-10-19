@@ -21,15 +21,17 @@ use super::{
     materials::{TreeBranchMaterial, TreeLeafMaterial},
     resident::{ResidentBank, TreeBankAssets, TreeResidencyPolicy},
 };
-use crate::prepared::{SharedForest, TreeLibrary, TreeModel, TreePose};
+use crate::prepared::{SharedForest, TreeLibrary, TreeModel, TreePlacement};
 
-/// GPU ABI: two aligned pose vec4s, then branch start/count and leaf start/count.
+/// GPU ABI: two pose vec4s, branch/leaf spans, then root-distance margins.
+/// Four aligned vec4s occupy 64 bytes per placement.
 #[repr(C)]
 #[derive(Clone, Copy, bytemuck::Pod, bytemuck::Zeroable)]
 struct PlacementRecord {
     origin_horizontal: [f32; 4],
     vertical_yaw: [f32; 4],
     records: [u32; 4],
+    visibility: [f32; 4],
 }
 
 pub(super) struct TreeMaterials {
@@ -67,10 +69,24 @@ pub(super) struct TreeSight<'w> {
 }
 
 impl PlacementRecord {
-    fn new(pose: TreePose, model: &TreeModel) -> Self {
+    fn new(placement: &TreePlacement, model: &TreeModel) -> Self {
+        let pose = placement.pose;
         let [x, y, z] = pose.origin().map(Metres::metres);
         let (sin, cos) = pose.yaw().radians().sin_cos();
         Self {
+            // All-zero margins encode the explicit unbounded role. Finite
+            // admitted ranges always have a positive far endpoint.
+            visibility: placement
+                .visibility
+                .native_range()
+                .map_or([0.0; 4], |range| {
+                    [
+                        range.start_margin.start,
+                        range.start_margin.end,
+                        range.end_margin.start,
+                        range.end_margin.end,
+                    ]
+                }),
             origin_horizontal: [x, y, z, pose.horizontal().ratio()],
             vertical_yaw: [pose.vertical().ratio(), sin, cos, 0.0],
             records: [
@@ -97,7 +113,7 @@ impl TreeStores<'_> {
             .placements
             .iter()
             .map(|placement| {
-                PlacementRecord::new(placement.pose, &library.models[placement.variant.index()])
+                PlacementRecord::new(placement, &library.models[placement.variant.index()])
             })
             .collect();
         let mut placed = Stored::new(&mut self.buffers);

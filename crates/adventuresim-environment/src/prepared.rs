@@ -26,6 +26,7 @@ mod meshes;
 mod resident;
 mod selection;
 mod validation;
+mod visibility;
 
 pub use codec::{
     decode_library, decode_population, decode_unique, encode_library, encode_population,
@@ -34,6 +35,7 @@ pub use codec::{
 pub use grids::{AddressMesh, MeshClass, RecordCapacity, TreeGrid};
 pub(crate) use meshes::admit_address_mesh_bytes;
 pub use resident::{PopulationId, SharedForest, TreeBank};
+pub use visibility::TreeVisibility;
 
 #[cfg(target_family = "wasm")]
 pub use codec::BrowserIdentityFailure;
@@ -78,6 +80,7 @@ pub struct TreePlacement {
     pub id: PlantId,
     pub variant: VariantIndex,
     pub pose: TreePose,
+    pub visibility: TreeVisibility,
 }
 
 /// A conservative box in model-local metres, valid for all stored LODs.

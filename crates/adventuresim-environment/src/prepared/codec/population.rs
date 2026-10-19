@@ -8,7 +8,8 @@ use super::{
     headers::{self, FrameHeader},
 };
 use crate::prepared::{
-    LibraryId, Result, TreeLibrary, TreePlacement, TreePopulation, TreePose, VariantIndex,
+    LibraryId, Result, TreeLibrary, TreePlacement, TreePopulation, TreePose, TreeVisibility,
+    VariantIndex,
 };
 
 #[derive(Serialize, Deserialize)]
@@ -23,6 +24,7 @@ struct PlacementHeader {
     id: u64,
     variant: VariantIndex,
     pose: TreePose,
+    visibility: TreeVisibility,
 }
 
 pub fn encode_population(
@@ -41,6 +43,7 @@ pub fn encode_population(
                 id: p.id.word(),
                 variant: p.variant,
                 pose: p.pose,
+                visibility: p.visibility,
             })
             .collect(),
     };
@@ -66,6 +69,7 @@ pub fn decode_population(
                 id: PlantId::from_word(p.id),
                 variant: p.variant,
                 pose: p.pose,
+                visibility: p.visibility,
             })
             .collect(),
     };
