@@ -23,6 +23,7 @@ mod codec;
 mod form;
 mod grids;
 mod meshes;
+mod resident;
 mod selection;
 mod validation;
 
@@ -32,6 +33,7 @@ pub use codec::{
 };
 pub use grids::{AddressMesh, MeshClass, RecordCapacity, TreeGrid};
 pub(crate) use meshes::admit_address_mesh_bytes;
+pub use resident::{PopulationId, SharedForest, TreeBank};
 
 pub type Result<T> = std::result::Result<T, PreparedError>;
 

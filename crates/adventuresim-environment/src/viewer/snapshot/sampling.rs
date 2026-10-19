@@ -8,7 +8,7 @@ use crate::input::FrozenForest;
 use adventuresim_environment::render::{ForestFeed, trees::TreeFeed};
 use bevy::prelude::*;
 
-use super::{Still, WARMUP, WARMUP_FRAMES};
+use super::{Retirement, Still, WARMUP, WARMUP_FRAMES, sequence};
 
 impl Still {
     /// Preserve an early arrival image before the ordinary settling period.
@@ -17,7 +17,6 @@ impl Still {
         commands: &mut Commands,
         measurement: Option<&mut Measurement>,
     ) -> bool {
-        let drawn = *self.drawn.get_or_insert_with(Instant::now);
         if let Some(measurement) = measurement {
             let Some(target) = self.target.clone() else {
                 return false;
@@ -27,7 +26,12 @@ impl Still {
                 return false;
             }
         }
-        if self.settling < WARMUP_FRAMES || drawn.elapsed() < WARMUP {
+        let drawn = *self.drawn.get_or_insert_with(Instant::now);
+        let frames = match self.retirement {
+            Retirement::Snapshot => WARMUP_FRAMES,
+            Retirement::Bank => sequence::RETIREMENT_FRAMES,
+        };
+        if self.settling < frames || drawn.elapsed() < WARMUP {
             self.settling += 1;
             return false;
         }

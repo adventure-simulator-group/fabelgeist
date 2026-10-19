@@ -227,7 +227,7 @@ ordered fog distances before loading the forest. The document is bounded to
 closeup, aim, yaw, zoom and orbit options. The existing framing path retains
 its default lens and exponential haze when no document is supplied.
 
-Schema 8 records `view` with the applied transform, eye, lens and fog beside
+Schema 9 records `view` with the applied transform, eye, lens and fog beside
 the framing orbit. Branch and leaf materials enable Bevy's distance fog in
 both unique and shared rendering. This corrects previously unfogged foliage;
 older captures remain historical evidence rather than exact current controls.
@@ -267,6 +267,64 @@ at a view edge. Fixed-level captures control that difference. Source batch
 occupancy appears in `shared_meshes.occupancy`: `policy` and a histogram from
 instance count to nonempty batch count. These counts precede GPU culling.
 Record payload, grids and tree poses are unchanged by this policy.
+
+### Persistent bank arrivals
+
+An admitted `TreeBank` retains the validated complete library identity with
+immutable content. `SharedForest` admits population bytes against that bank;
+callers cannot attach an arbitrary claimed identity to mutable library data.
+The renderer retains one bank/layout slot. Reusing it preserves grid assets
+and botanical record buffers. Each population gets fresh placement storage
+and materials, so old render frames cannot read an overwritten placement
+array. Normal shared rendering uses resident reuse.
+
+Use a serial native arrival sequence to measure unseen and return populations
+in one renderer:
+
+```json
+{
+  "bank_directory": "path/to/initial-prepared-forest",
+  "unseen_population": "path/to/other/population.forest",
+  "capture_view": "path/to/view.json"
+}
+```
+
+```powershell
+environment-viewer --arrival-sequence sequence.json --sequence-output fresh-output --tree-batching regional-cells --bank-residency resident
+```
+
+The checked manifest is bounded to 8 KiB and rejects unknown fields. Initial
+and unseen inputs must include complete terrain. The unseen population must
+have a different content identity; return reads the initial descriptor file
+again and verifies its original identity. Output must be new. Each arrival
+reads/decodes its descriptors after its own clock starts. Initial arrival
+also includes bank loading and renderer setup. Later requests share the CPU
+bank in both policies; `reupload-diagnostic` forces GPU bank reconstruction
+as a contemporary control without recreating the device.
+
+Each arrival has a new nonzero request identity, probe, validation window and
+request-owned screenshot callbacks. Render checks and post-visibility ground
+extraction latch that identity. Late buffer writes retain their original
+owner. A CPU handoff flag does not establish current GPU or pixel readiness.
+The sequence preserves an actual early image, then drains at least sixty
+frames and one second before final stable images and asset checkpoints.
+Single captures retain their thirty-frame minimum; settling starts after the
+early receipt when measurement is enabled.
+
+Schema 9 adds `request_id`, request-owned `arrival_frame` evidence,
+`shared_meshes.residency` and `native_residency`. Residency reports bank and
+population identities, native asset IDs and application upload bytes. Native
+snapshots include validated entity generations, mesh buffer identities and
+element ranges, storage buffer identities/capacities and current render asset
+membership. Native inventories are collected after final validation, outside
+sampled intervals. Buffer ordinals are process-local. Deduplicate shared
+buffer identities before counting capacity. These are not total VRAM or peak
+memory measurements. Bevy can resize/copy allocator slabs even when logical
+grid asset IDs stay unchanged; zero application reuploads do not prove zero
+device copies. `sequence.json` records each post-drain checkpoint and rejects
+growth in retained main-world/render mesh or storage asset counts relative
+to initial A. Check current ground and group membership and actual B pixels
+against independently captured fresh controls before accepting a warm result.
 
 ## Measure on an otherwise idle machine
 

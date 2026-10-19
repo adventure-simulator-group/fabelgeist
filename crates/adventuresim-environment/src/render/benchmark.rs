@@ -9,6 +9,7 @@ use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::time::Instant;
 
 use bevy::prelude::*;
+use bevy::render::extract_resource::{ExtractResource, ExtractResourcePlugin};
 use bevy::render::mesh::{RenderMesh, RenderMeshBufferInfo};
 use bevy::render::render_asset::RenderAssets;
 use bevy::render::{Render, RenderApp, RenderSystems};
@@ -20,8 +21,12 @@ mod ground;
 mod observe;
 #[cfg(feature = "viewer")]
 pub mod profile;
+mod request;
+mod residency;
 mod validation;
 
+pub use request::ForestRequestId;
+pub use residency::{NativeAssetCounts, NativeResidency};
 pub use validation::{
     ValidationEvidence, ValidationPhase, ValidationPolicy, ValidationWindow, WindowStart,
 };
@@ -30,12 +35,15 @@ pub use validation::{
 const UNOBSERVED: u64 = 0;
 
 /// Counters for a single immutable snapshot, shared with its render world.
-#[derive(Resource, Clone)]
+#[derive(Resource, Clone, ExtractResource)]
 pub struct ForestBenchmark {
     inner: Arc<Counters>,
 }
 
 struct Counters {
+    request: ForestRequestId,
+    ground: Mutex<Vec<u64>>,
+    native: Mutex<Option<NativeResidency>>,
     started: Instant,
     queued: AtomicUsize,
     submitted: AtomicUsize,
@@ -153,9 +161,12 @@ impl Expected {
 }
 
 impl ForestBenchmark {
-    pub fn new(started: Instant, policy: ValidationPolicy) -> Self {
+    pub fn new(started: Instant, policy: ValidationPolicy, request: ForestRequestId) -> Self {
         Self {
             inner: Arc::new(Counters {
+                request,
+                ground: Mutex::new(Vec::new()),
+                native: Mutex::new(None),
                 started,
                 queued: AtomicUsize::new(0),
                 submitted: AtomicUsize::new(0),
@@ -172,6 +183,19 @@ impl ForestBenchmark {
         }
     }
 
+    pub fn request_id(&self) -> ForestRequestId {
+        self.inner.request
+    }
+
+    /// Activate fresh counters without installing observer systems again.
+    /// Queued writes retain their original clone, including late submissions.
+    pub fn activate(&self, world: &mut World) {
+        world.insert_resource(self.clone());
+        world
+            .resource_mut::<super::records::PendingWrites>()
+            .observe(self.clone());
+    }
+
     /// Install before material assets are prepared. This probe adds a GPU wait
     /// per frame and must not be enabled in ordinary play.
     pub fn install(&self, app: &mut App) {
@@ -186,10 +210,9 @@ impl ForestBenchmark {
     }
 
     fn install_materials<B: InstancedMaterial, L: InstancedMaterial>(&self, app: &mut App) {
-        app.insert_resource(self.clone());
-        app.world_mut()
-            .resource_mut::<super::records::PendingWrites>()
-            .observe(self.clone());
+        self.activate(app.world_mut());
+        app.add_plugins(ExtractResourcePlugin::<Self>::default());
+        ground::observe_visibility(app);
         let Some(render) = app.get_sub_app_mut(RenderApp) else {
             self.inner.failures.fetch_add(1, Ordering::Relaxed);
             return;

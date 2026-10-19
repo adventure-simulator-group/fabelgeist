@@ -7,7 +7,7 @@ use bevy::mesh::{Indices, PrimitiveTopology};
 use bevy::prelude::*;
 use serde::Serialize;
 
-use super::{TreeBatchOccupancy, VERTEX_ADDRESS};
+use super::{TreeBatchOccupancy, TreeResidencyEvidence, VERTEX_ADDRESS};
 use crate::prepared::{
     AddressMesh, MeshClass, PreparedError, Result, TreeGrid, TreeLibrary, VariantIndex,
     admit_address_mesh_bytes,
@@ -29,6 +29,7 @@ pub enum TreeLayout {
 pub struct TreeMeshStats {
     pub layout: TreeLayout,
     pub occupancy: TreeBatchOccupancy,
+    pub residency: Option<TreeResidencyEvidence>,
     pub grid_meshes: usize,
     pub vertex_bytes: usize,
     pub index_bytes: usize,
@@ -48,6 +49,13 @@ pub(super) enum GridKey {
 pub(super) struct UploadedGrids {
     pub handles: BTreeMap<GridKey, [Handle<Mesh>; 3]>,
     pub stats: TreeMeshStats,
+    readiness: Vec<MeshReadiness>,
+}
+
+struct MeshReadiness {
+    mesh: AssetId<Mesh>,
+    vertices: usize,
+    indices: usize,
 }
 
 struct GridPlan<'a> {
@@ -80,6 +88,14 @@ impl GridKey {
     }
 }
 
+impl UploadedGrids {
+    pub(super) fn observe(&self, probe: &ForestBenchmark) {
+        for mesh in &self.readiness {
+            probe.expect_mesh(mesh.mesh, mesh.vertices, mesh.indices);
+        }
+    }
+}
+
 impl GridPlan<'_> {
     fn index_count(&self, addresses: &AddressMesh) -> Result<usize> {
         let capacity = self.grid.class.capacity.records() as usize;
@@ -105,6 +121,7 @@ pub(super) fn upload(
     let mut stats = TreeMeshStats {
         layout,
         occupancy: TreeBatchOccupancy::default(),
+        residency: None,
         grid_meshes: plans
             .len()
             .checked_mul(3)
@@ -132,6 +149,7 @@ pub(super) fn upload(
         .ok_or(PreparedError::MeshCardinality)?;
     admit_address_mesh_bytes(bytes)?;
     let mut handles = BTreeMap::new();
+    let mut readiness = Vec::new();
     for plan in plans {
         let mut levels = Vec::new();
         for addresses in &plan.grid.levels {
@@ -147,6 +165,11 @@ pub(super) fn upload(
             if let Some(probe) = probe {
                 probe.expect_mesh(mesh.id(), addresses.vertices.len(), count);
             }
+            readiness.push(MeshReadiness {
+                mesh: mesh.id(),
+                vertices: addresses.vertices.len(),
+                indices: count,
+            });
             levels.push(mesh);
         }
         handles.insert(
@@ -156,7 +179,11 @@ pub(super) fn upload(
                 .map_err(|_| PreparedError::MeshCardinality)?,
         );
     }
-    Ok(UploadedGrids { handles, stats })
+    Ok(UploadedGrids {
+        handles,
+        stats,
+        readiness,
+    })
 }
 
 fn plan(library: &TreeLibrary, layout: TreeLayout) -> Result<Vec<GridPlan<'_>>> {

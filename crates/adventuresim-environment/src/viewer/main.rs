@@ -47,7 +47,7 @@ use std::time::Instant;
 use adventuresim_environment::prepared::VariantBudget;
 use adventuresim_environment::render::benchmark::ValidationPolicy;
 use adventuresim_environment::render::benchmark::profile::ProfileMode;
-use adventuresim_environment::render::trees::{TreeBatching, TreeLayout};
+use adventuresim_environment::render::trees::{TreeBatching, TreeLayout, TreeResidencyPolicy};
 use adventuresim_environment::render::{ForestPlugin, Level, LevelSelection};
 use adventuresim_environment::{SoloSpecies, scene_named};
 use anyhow::anyhow;
@@ -66,7 +66,15 @@ const WINDOW_SIZE: [u32; 2] = [1480, 900];
 
 #[derive(Parser)]
 #[command(about = "Watch a botany ecosystem grow, or capture one frame of it")]
+#[command(group(clap::ArgGroup::new("prepared_input").args(["prepared_forest", "arrival_sequence"])))]
 struct Options {
+    /// Run serial A/B/A arrivals in one renderer using a checked JSON manifest.
+    #[arg(long, requires = "sequence_output", conflicts_with_all = ["prepare_forest", "prepared_forest", "snapshot", "representation", "frames", "fixed_lod", "probe_validation", "render_profile", "benchmark_report", "scene", "solo", "years", "profile", "closeup", "aim", "yaw", "zoom", "orbit", "refeed", "capture_view", "tree_layout", "all_plants", "variants_per_species"])]
+    arrival_sequence: Option<PathBuf>,
+    #[arg(long, requires = "arrival_sequence")]
+    sequence_output: Option<PathBuf>,
+    #[arg(long, value_enum, requires = "arrival_sequence")]
+    bank_residency: Option<TreeResidencyPolicy>,
     /// Grow and freeze render assets offline; this never times arrival.
     #[arg(long, conflicts_with_all = ["snapshot", "prepared_forest", "frames", "benchmark_report", "orbit", "refeed"]) ]
     prepare_forest: Option<PathBuf>,
@@ -88,7 +96,7 @@ struct Options {
     #[arg(long, value_enum, requires = "prepared_forest")]
     tree_layout: Option<TreeLayout>,
     /// Shared-tree spatial cells; regional cells trade finer culling for reuse.
-    #[arg(long, value_enum, requires = "prepared_forest")]
+    #[arg(long, value_enum, requires = "prepared_input")]
     tree_batching: Option<TreeBatching>,
     /// Diagnose repeated probe checks on a frozen snapshot with fixed LOD.
     #[arg(long, value_enum, requires_all = ["prepared_forest", "fixed_lod"])]
@@ -143,6 +151,9 @@ struct Options {
 fn main() -> anyhow::Result<()> {
     let started = Instant::now();
     let options = Options::parse();
+    if let Some(manifest) = &options.arrival_sequence {
+        return options.capture_sequence(manifest, started);
+    }
     let scene = match &options.scene {
         Some(name) => scene_named(name)?,
         None => Scene::MixedForest,
@@ -185,6 +196,8 @@ fn main() -> anyhow::Result<()> {
             }
         };
         return snapshot::run(snapshot::Request {
+            sequence: None,
+            residency: TreeResidencyPolicy::default(),
             view: options.capture_view,
             path: path.clone(),
             tree_layout: options.tree_layout.unwrap_or_default(),
@@ -204,9 +217,11 @@ fn main() -> anyhow::Result<()> {
             frames: options.frames,
             orbit: options.orbit,
             refeed: options.refeed,
-            benchmark: options
-                .benchmark_report
-                .map(|report| benchmark::Request { report, started }),
+            benchmark: options.benchmark_report.map(|report| benchmark::Request {
+                report,
+                started,
+                identity: adventuresim_environment::render::benchmark::ForestRequestId::FIRST,
+            }),
         });
     }
     let [width, height] = WINDOW_SIZE;
@@ -227,6 +242,20 @@ fn main() -> anyhow::Result<()> {
 }
 
 impl Options {
+    fn capture_sequence(&self, manifest: &std::path::Path, started: Instant) -> anyhow::Result<()> {
+        let output = self
+            .sequence_output
+            .clone()
+            .ok_or_else(|| anyhow!("missing sequence output"))?;
+        snapshot::sequence::run(
+            manifest.to_path_buf(),
+            output,
+            self.tree_batching.unwrap_or_default(),
+            self.bank_residency.unwrap_or_default(),
+            started,
+        )
+    }
+
     fn growth(&self, scene: Scene) -> anyhow::Result<input::Growth> {
         let profile = Profile::named(&self.profile)
             .ok_or_else(|| anyhow!("unknown profile `{}`", self.profile))?;

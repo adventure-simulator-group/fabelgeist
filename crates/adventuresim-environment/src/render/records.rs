@@ -51,6 +51,13 @@ impl Bytes {
 }
 
 impl Records {
+    pub(super) fn byte_len(&self) -> usize {
+        self.species.bytes.len()
+            + self.branches.bytes.len()
+            + self.plants.bytes.len()
+            + self.leaves.bytes.len()
+    }
+
     /// The bytes of `snapshot`'s records. It copies and reads every record,
     /// so it runs off the main thread.
     pub(super) fn new(snapshot: &Snapshot) -> Self {

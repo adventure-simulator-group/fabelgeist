@@ -15,10 +15,8 @@ use super::super::{
     chunks::{FAR, size_class},
     levels::{Level, LevelView},
 };
-use super::{
-    SharedForest, TreeBatchOccupancy, TreeBatching, TreeLayout, grids::GridKey, upload::TreeAssets,
-};
-use crate::prepared::{MeshClass, Result};
+use super::{TreeBatchOccupancy, TreeBatching, TreeLayout, grids::GridKey, upload::TreeAssets};
+use crate::prepared::{MeshClass, Result, SharedForest};
 
 #[derive(Component)]
 pub(super) struct TreeChunk {
@@ -135,8 +133,8 @@ fn gather(
     batching: TreeBatching,
 ) -> Result<BTreeMap<BatchKey, Gathering>> {
     let mut batches = BTreeMap::new();
-    for (index, placement) in forest.population.placements.iter().enumerate() {
-        let model = &forest.library.models[placement.variant.index()];
+    for (index, placement) in forest.population().placements.iter().enumerate() {
+        let model = &forest.bank().library().models[placement.variant.index()];
         let bounds = model.bounds.transformed(placement.pose);
         let low = Vec3::from_array(bounds.low.map(Metres::metres));
         let high = Vec3::from_array(bounds.high.map(Metres::metres));

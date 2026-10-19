@@ -14,7 +14,13 @@ use bevy_eidolon::cull::pipeline::InstancedComputePipeline;
 use bevy_eidolon::render::draw::DrawInstancedMaterial;
 
 #[derive(Resource, Default)]
-pub(super) struct FrameCheck(Option<validation::RenderCheck>);
+pub(super) struct FrameCheck(Option<LatchedCheck>);
+
+#[derive(Clone, Copy)]
+struct LatchedCheck {
+    request: ForestRequestId,
+    validation: validation::RenderCheck,
+}
 
 #[derive(SystemParam)]
 pub(super) struct ObservedFrame<'w> {
@@ -31,6 +37,8 @@ pub(super) struct GeometryReady<'w, B: InstancedMaterial, L: InstancedMaterial> 
     branches: Res<'w, InstancedComputePipeline<B>>,
     leaves: Res<'w, InstancedComputePipeline<L>>,
     meshes: Res<'w, RenderAssets<RenderMesh>>,
+    buffers: Res<'w, RenderAssets<bevy::render::storage::GpuShaderBuffer>>,
+    allocator: Res<'w, bevy::render::mesh::allocator::MeshAllocator>,
 }
 
 impl<P: PhaseItem, const FOLIAGE: bool> RenderCommand<P> for RecordDraw<FOLIAGE> {
@@ -100,10 +108,15 @@ pub(super) fn complete<B: InstancedMaterial, L: InstancedMaterial>(
         counters.failures.fetch_add(1, Ordering::Release);
         return;
     }
-    let Some(check) = frame.check.0 else {
+    let Some(latched) = frame.check.0 else {
         counters.failures.fetch_add(1, Ordering::Release);
         return;
     };
+    if latched.request != probe.request_id() {
+        counters.failures.fetch_add(1, Ordering::Release);
+        return;
+    }
+    let check = latched.validation;
     if !check.full {
         probe.validation().acknowledge(check, true);
         return;
@@ -128,12 +141,20 @@ pub(super) fn complete<B: InstancedMaterial, L: InstancedMaterial>(
         && probe.complete_chunks(&branches, &leaves);
     let valid = writes_done
         && draws_done
-        && frame.ground.complete()
+        && frame.ground.complete(&probe)
         && counts.gpu_failures == 0
         && (counts.expected_branch_instances == 0 || compute_ready(&geometry.branches, &cache))
         && (counts.expected_leaf_instances == 0 || compute_ready(&geometry.leaves, &cache))
         && probe.complete_meshes(&geometry.meshes);
     probe.validation().acknowledge(check, valid);
+    if valid
+        && probe
+            .validation()
+            .evidence()
+            .is_some_and(|evidence| evidence.phase == ValidationPhase::Complete)
+    {
+        probe.capture_native(&geometry.meshes, &geometry.buffers, &geometry.allocator);
+    }
     if valid {
         let micros = counters.started.elapsed().as_micros().min(u64::MAX as u128) as u64;
         let _ = counters.completed_micros.compare_exchange(
@@ -146,5 +167,11 @@ pub(super) fn complete<B: InstancedMaterial, L: InstancedMaterial>(
 }
 
 pub(super) fn latch(probe: Res<ForestBenchmark>, mut frame: ResMut<FrameCheck>) {
-    frame.0 = probe.validation().render_check();
+    frame.0 = probe
+        .validation()
+        .render_check()
+        .map(|validation| LatchedCheck {
+            request: probe.request_id(),
+            validation,
+        });
 }

@@ -1,6 +1,6 @@
 //! Upload shared capacity grids once, with each placement's actual record spans.
 
-use std::collections::BTreeMap;
+use std::{collections::BTreeMap, sync::Arc};
 
 use bevy::ecs::system::SystemParam;
 use bevy::prelude::*;
@@ -12,15 +12,16 @@ use super::super::{
     benchmark::ForestBenchmark,
     ground::{Ground, GroundAssets},
     levels::{Level, LevelView},
-    records::{Bytes, ForestBuffers, PendingWrites, Records, Stored},
+    records::{Bytes, ForestBuffers, PendingWrites, Stored},
 };
 use super::{
-    SharedForest, TreeBatching, TreeFeed, TreeLayout, TreeMeshStats,
+    TreeBatching, TreeFeed, TreeLayout, TreeMeshStats,
     batches::{self, TreeChunk},
-    grids::{self, GridKey},
+    grids::GridKey,
     materials::{TreeBranchMaterial, TreeLeafMaterial},
+    resident::{ResidentBank, TreeBankAssets, TreeResidencyPolicy},
 };
-use crate::prepared::{TreeLibrary, TreeModel, TreePose};
+use crate::prepared::{SharedForest, TreeLibrary, TreeModel, TreePose};
 
 /// GPU ABI: two aligned pose vec4s, then branch start/count and leaf start/count.
 #[repr(C)]
@@ -41,17 +42,19 @@ pub(super) struct TreeAssets {
     pub grids: BTreeMap<GridKey, [Handle<Mesh>; 3]>,
     pub stats: TreeMeshStats,
     pub materials: [TreeMaterials; 3],
-    _records: ForestBuffers,
+    _bank: Arc<TreeBankAssets>,
     _placements: Stored,
 }
 
 #[derive(SystemParam)]
 pub(super) struct TreeStores<'w> {
-    meshes: ResMut<'w, Assets<Mesh>>,
+    pub(super) meshes: ResMut<'w, Assets<Mesh>>,
     branches: ResMut<'w, Assets<TreeBranchMaterial>>,
     leaves: ResMut<'w, Assets<TreeLeafMaterial>>,
-    buffers: ResMut<'w, Assets<ShaderBuffer>>,
-    writes: ResMut<'w, PendingWrites>,
+    pub(super) buffers: ResMut<'w, Assets<ShaderBuffer>>,
+    pub(super) writes: ResMut<'w, PendingWrites>,
+    pub(super) resident: ResMut<'w, ResidentBank>,
+    pub(super) residency_policy: Res<'w, TreeResidencyPolicy>,
 }
 
 #[derive(SystemParam)]
@@ -87,18 +90,10 @@ impl TreeStores<'_> {
         layout: TreeLayout,
         probe: Option<&ForestBenchmark>,
     ) -> crate::prepared::Result<TreeAssets> {
-        let library = &forest.library;
-        let grids = grids::upload(library, layout, &mut self.meshes, probe)?;
-        let records = Records::from_parts(
-            &library.species,
-            &library.branches,
-            &library.plants,
-            &library.leaves,
-        );
-        let mut stored = ForestBuffers::new(&mut self.buffers);
-        stored.write(records, &mut self.buffers, &mut self.writes);
+        let library = forest.bank().library();
+        let selected = self.bank(Arc::clone(forest.bank()), layout, probe)?;
         let placements: Vec<_> = forest
-            .population
+            .population()
             .placements
             .iter()
             .map(|placement| {
@@ -107,12 +102,18 @@ impl TreeStores<'_> {
             .collect();
         let mut placed = Stored::new(&mut self.buffers);
         placed.write(Bytes::new(&placements), &mut self.buffers, &mut self.writes);
-        let materials = materials(library, &stored, &placed, self);
+        let materials = materials(library, &selected.bank.records, &placed, self);
+        let mut stats = selected.bank.grids.stats.clone();
+        stats.residency = Some(selected.evidence(
+            forest,
+            &placed,
+            std::mem::size_of_val(placements.as_slice()),
+        ));
         Ok(TreeAssets {
-            grids: grids.handles,
-            stats: grids.stats,
+            grids: selected.bank.grids.handles.clone(),
+            stats,
             materials,
-            _records: stored,
+            _bank: selected.bank,
             _placements: placed,
         })
     }
@@ -161,7 +162,7 @@ pub(super) fn draw(
     commands.insert_resource(assets.stats.clone());
     stores
         .p1()
-        .show(&mut commands, &Ground::prepared(&forest.population.frame));
+        .show(&mut commands, &Ground::prepared(&forest.population().frame));
     commands.insert_resource(assets);
     feed.drawn = true;
     Ok(())

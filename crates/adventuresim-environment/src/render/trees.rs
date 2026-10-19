@@ -7,12 +7,13 @@ use bevy::prelude::*;
 use bevy_eidolon::prelude::*;
 
 use super::ForestPlugin;
-use crate::prepared::{TreeLibrary, TreePopulation};
+use crate::prepared::SharedForest;
 
 mod batches;
 mod batching;
 mod grids;
 mod materials;
+mod resident;
 mod upload;
 
 /// Explicit Bevy vertex ABI: one integer address, decoded by the forest shader.
@@ -25,12 +26,7 @@ const VERTEX_ADDRESS: bevy::mesh::MeshVertexAttribute = bevy::mesh::MeshVertexAt
 pub use batching::{TreeBatchOccupancy, TreeBatching};
 pub use grids::{TreeLayout, TreeMeshStats};
 pub use materials::{TreeBranchMaterial, TreeLeafMaterial};
-
-/// Library residency and one regional descriptor set, already validated.
-pub struct SharedForest {
-    pub library: Arc<TreeLibrary>,
-    pub population: Arc<TreePopulation>,
-}
+pub use resident::{TreeResidencyEvidence, TreeResidencyPolicy};
 
 #[derive(Resource, Default)]
 pub struct TreeFeed {
@@ -64,6 +60,8 @@ impl Plugin for TreeForestPlugin {
         .init_resource::<TreeFeed>()
         .init_resource::<TreeLayout>()
         .init_resource::<TreeBatching>()
+        .init_resource::<TreeResidencyPolicy>()
+        .init_resource::<resident::ResidentBank>()
         .add_systems(
             Update,
             (upload::draw, batches::pick)

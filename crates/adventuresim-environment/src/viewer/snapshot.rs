@@ -7,14 +7,17 @@
 //! the forest the snapshot again every so many frames, as the simulation
 //! hands it new ones.
 
+use self::readbacks::capture;
 use std::path::PathBuf;
 use std::time::{Duration, Instant};
 
 use adventuresim_environment::render::benchmark::profile::{ProfileMode, RenderProfile};
-use adventuresim_environment::render::benchmark::{ForestBenchmark, ValidationPolicy, WindowStart};
+use adventuresim_environment::render::benchmark::{
+    ForestBenchmark, ForestRequestId, ValidationPolicy, WindowStart,
+};
 use adventuresim_environment::render::{
     ForestDetail, ForestFeed, ForestPlugin, LevelSelection,
-    trees::{TreeBatching, TreeFeed, TreeForestPlugin, TreeLayout, TreeMeshStats},
+    trees::{TreeBatching, TreeFeed, TreeForestPlugin, TreeLayout, TreeResidencyPolicy},
 };
 use anyhow::Result;
 use bevy::app::{AppExit, ScheduleRunnerPlugin};
@@ -26,18 +29,19 @@ use bevy::render::diagnostic::RenderDiagnosticsPlugin;
 use bevy::render::render_resource::TextureFormat;
 use bevy::render::render_resource::TextureUsages;
 use bevy::render::renderer::RenderDevice;
-use bevy::render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk};
 use bevy::render::{Render, RenderApp, RenderSystems};
 use bevy::window::ExitCondition;
 use bevy::winit::WinitPlugin;
 
-use crate::benchmark::{self, ArrivalPath, Measurement, PixelStability, Readback};
+use crate::benchmark::{self, ArrivalPath, Measurement, PixelStability};
 use crate::capture_view::CaptureView;
 use crate::input::{self, FrozenForest, Source};
 use crate::stage::{self, Orbit};
 
 mod profiling;
+mod readbacks;
 mod sampling;
+pub(crate) mod sequence;
 
 /// The image's size, pixels.
 const SIZE: UVec2 = UVec2::new(1600, 1000);
@@ -64,6 +68,8 @@ pub struct Framing {
 
 /// What to grow and how to show it.
 pub struct Request {
+    pub sequence: Option<sequence::Plan>,
+    pub residency: TreeResidencyPolicy,
     pub view: Option<PathBuf>,
     pub tree_layout: TreeLayout,
     pub tree_batching: TreeBatching,
@@ -85,6 +91,7 @@ pub struct Request {
 /// The grown scene, waiting to be shown, and where the frame goes.
 #[derive(Resource)]
 struct Still {
+    retirement: Retirement,
     view: CaptureView,
     forest: FrozenForest,
     started: Instant,
@@ -103,6 +110,11 @@ struct Still {
     timed: u32,
     timed_elapsed: Option<Duration>,
     captured: bool,
+}
+
+enum Retirement {
+    Snapshot,
+    Bank,
 }
 
 #[derive(SystemParam)]
@@ -124,6 +136,11 @@ pub fn run(mut request: Request) -> Result<()> {
         preparation,
     } = input::load(request.source)?;
     let shared = matches!(&forest, FrozenForest::Shared(_));
+    let sequence = request
+        .sequence
+        .take()
+        .map(|plan| sequence::Progress::new(plan, &forest))
+        .transpose()?;
     let arrival = if shared {
         ArrivalPath::PreparedShared
     } else if prepared {
@@ -135,25 +152,25 @@ pub fn run(mut request: Request) -> Result<()> {
     let orbit = view.orbit;
     let mut detail = frame.detail;
     detail.level = request.level;
-    let probe = (prepared || request.benchmark.is_some()).then(|| {
-        let started = request
-            .benchmark
-            .as_ref()
-            .map_or_else(Instant::now, |r| r.started);
-        let probe = ForestBenchmark::new(started, request.validation);
-        let mut instances = forest.expected_instances();
-        if !detail.leaves {
-            instances.leaves = 0;
-        }
-        probe.expect_instances(instances);
-        probe
-    });
+    let probe = capture_probe(
+        request.benchmark.as_ref(),
+        arrival,
+        request.validation,
+        &forest,
+        &detail,
+    );
     let measurement = request.benchmark.take().map(|request| {
         Measurement::new(request, preparation, &frame, detail, view.clone(), arrival)
     });
     let mut app = capture_app(detail, request.tree_layout, arrival);
-    app.insert_resource(request.tree_batching);
+    app.insert_resource(request.tree_batching)
+        .insert_resource(request.residency);
     app.insert_resource(Still {
+        retirement: if sequence.is_some() {
+            Retirement::Bank
+        } else {
+            Retirement::Snapshot
+        },
         view,
         forest,
         started: Instant::now(),
@@ -173,6 +190,10 @@ pub fn run(mut request: Request) -> Result<()> {
     })
     .add_systems(Startup, (setup, stage::sun))
     .add_systems(Update, (show, step).chain());
+    if let Some(sequence) = sequence {
+        app.insert_resource(sequence)
+            .add_systems(PreUpdate, sequence::advance);
+    }
     let observed = probe.is_some();
     if let Some(probe) = probe {
         if shared {
@@ -228,6 +249,27 @@ fn capture_app(detail: ForestDetail, layout: TreeLayout, arrival: ArrivalPath) -
     app
 }
 
+fn capture_probe(
+    request: Option<&benchmark::Request>,
+    arrival: ArrivalPath,
+    validation: ValidationPolicy,
+    forest: &FrozenForest,
+    detail: &ForestDetail,
+) -> Option<ForestBenchmark> {
+    if matches!(arrival, ArrivalPath::GrowthReplay) && request.is_none() {
+        return None;
+    }
+    let started = request.map_or_else(Instant::now, |request| request.started);
+    let identity = request.map_or(ForestRequestId::FIRST, |request| request.identity);
+    let probe = ForestBenchmark::new(started, validation, identity);
+    let mut instances = forest.expected_instances();
+    if !detail.leaves {
+        instances.leaves = 0;
+    }
+    probe.expect_instances(instances);
+    Some(probe)
+}
+
 /// The comparison camera follows source metadata, regardless of representation.
 impl Framing {
     fn orbit(&self, frame: &adventuresim_environment::prepared::ForestFrame) -> Orbit {
@@ -244,6 +286,33 @@ impl Framing {
         }
         orbit.radius /= self.zoom;
         orbit
+    }
+}
+
+impl Still {
+    fn check_probe(&self, probe: Option<&ForestBenchmark>) -> Result<()> {
+        let Some(probe) = probe else {
+            return Ok(());
+        };
+        let status = probe.status();
+        anyhow::ensure!(
+            !status.failed && self.started.elapsed() <= benchmark::READINESS_TIMEOUT,
+            "forest capture readiness failed: {status:?}"
+        );
+        Ok(())
+    }
+
+    fn restart(&mut self, forest: FrozenForest, path: PathBuf) {
+        self.forest = forest;
+        self.path = path;
+        self.started = Instant::now();
+        self.shown = false;
+        self.drawn = None;
+        self.settling = 0;
+        self.timing = None;
+        self.timed = 0;
+        self.timed_elapsed = None;
+        self.captured = false;
     }
 }
 
@@ -313,14 +382,10 @@ fn step(
         exit.write(AppExit::error());
         return;
     }
-    if let Some(probe) = &probe {
-        let status = probe.status();
-        const CAPTURE_TIMEOUT: Duration = Duration::from_secs(240);
-        if status.failed || still.started.elapsed() > CAPTURE_TIMEOUT {
-            error!("forest capture readiness failed: {status:?}");
-            exit.write(AppExit::error());
-            return;
-        }
+    if let Err(error) = still.check_probe(probe.as_deref()) {
+        error!("{error}");
+        exit.write(AppExit::error());
+        return;
     }
     let is_drawn = match &still.forest {
         FrozenForest::Unique(_) => feed.is_drawn(),
@@ -381,72 +446,11 @@ fn step(
     };
     still.captured = true;
     let path = still.path.clone();
-    capture(&mut commands, target, path);
-}
-
-fn capture(commands: &mut Commands, target: Handle<Image>, path: PathBuf) {
-    commands.spawn(Screenshot::image(target.clone())).observe(
-        move |captured: On<ScreenshotCaptured>,
-              mut commands: Commands,
-              mut measurement: Option<ResMut<Measurement>>,
-              mut pixels: Option<ResMut<PixelStability>>,
-              probe: Option<Res<ForestBenchmark>>,
-              topology: Option<Res<TreeMeshStats>>,
-              profile: Option<Res<RenderProfile>>,
-              diagnostics: Option<Res<DiagnosticsStore>>,
-              mut exit: MessageWriter<AppExit>| {
-            if let Some(measurement) = measurement.as_mut() {
-                let Some(probe) = probe.as_ref() else {
-                    error!("the foliage benchmark probe is missing");
-                    exit.write(AppExit::error());
-                    return;
-                };
-                match measurement.readback(&captured.image, probe, topology.as_deref(), profile.as_deref(), diagnostics.as_deref()) {
-                    Ok(Readback::Repeat) => {
-                        let attempt = measurement.readback_number();
-                        save_to_disk(path.with_extension(format!("readback-{attempt:02}.png")))(
-                            captured,
-                        );
-                        capture(&mut commands, target.clone(), path.clone());
-                        return;
-                    }
-                    Ok(Readback::Stable) => {}
-                    Err(error) => {
-                        error!("{error}");
-                        exit.write(AppExit::error());
-                        return;
-                    }
-                }
-            }
-            if let Some(pixels) = pixels.as_mut() {
-                match pixels.observe(&captured.image) {
-                    Ok(Readback::Repeat) => {
-                        save_to_disk(path.with_extension(format!("readback-{:02}.png", pixels.attempts())))(captured);
-                        capture(&mut commands, target.clone(), path.clone());
-                        return;
-                    }
-                    Ok(Readback::Stable) => {}
-                    Err(error) => { error!("{error}"); exit.write(AppExit::error()); return; }
-                }
-            }
-            if let Err(error) = profiling::save(profile.as_deref(), diagnostics.as_deref(), &path) {
-                error!("{error}"); exit.write(AppExit::error()); return;
-            }
-            if let Some(probe) = probe {
-                let counts = probe.counts();
-                println!("forest validation: {:?}", probe.validation().evidence());
-                println!("forest ready: {}/{} writes, {}/{} branch/leaf instances, {} batches, {} meshes", counts.submitted_writes, counts.queued_writes, counts.expected_branch_instances, counts.expected_leaf_instances, counts.expected_batches, counts.expected_meshes);
-            }
-            if let Some(topology) = topology {
-                match serde_json::to_string(&*topology) {
-                    Ok(json) => println!("forest topology: {json}"),
-                    Err(error) => { error!("{error}"); exit.write(AppExit::error()); return; }
-                }
-            }
-            save_to_disk(path.clone())(captured);
-            println!("wrote {}", path.display());
-            exit.write(AppExit::Success);
-        },
+    capture(
+        &mut commands,
+        target,
+        path,
+        probe.as_ref().map(|probe| probe.request_id()),
     );
 }
 

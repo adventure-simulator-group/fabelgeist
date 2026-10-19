@@ -3,8 +3,11 @@
 use std::{path::PathBuf, sync::Arc, time::Instant};
 
 use adventuresim_environment::{
-    prepared::{self, ForestFrame, PreparedUnique, TreeFocus, TreeRoot, VariantBudget},
-    render::{ForestDetail, ForestPart, trees::SharedForest},
+    prepared::{
+        self, ForestFrame, PreparedUnique, SharedForest, TreeBank, TreeFocus, TreeRoot,
+        VariantBudget,
+    },
+    render::{ForestDetail, ForestPart},
 };
 use anyhow::{Context, Result, ensure};
 use fabelgeist_botany::{
@@ -60,8 +63,8 @@ impl FrozenForest {
             Self::Shared(forest) => {
                 let mut branches = 0;
                 let mut leaves = 0;
-                for placement in &forest.population.placements {
-                    let model = &forest.library.models[placement.variant.index()];
+                for placement in &forest.population().placements {
+                    let model = &forest.bank().library().models[placement.variant.index()];
                     branches += usize::from(model.branches.count > 0);
                     leaves += usize::from(model.leaves.count > 0);
                 }
@@ -143,29 +146,10 @@ fn load_prepared(directory: PathBuf, representation: Representation) -> Result<L
             (FrozenForest::Unique(Arc::new(unique.snapshot)), frame)
         }
         Representation::Shared => {
-            let (library, id) = prepared::decode_library(&bytes[0])?;
-            let population = prepared::decode_population(&bytes[1], &library, id)?;
-            preparation.mesh_bytes = library.mesh_bytes();
-            preparation.library_models = library.models.len();
-            preparation.grid_classes = library.grids.len();
-            preparation.library_branches = library.branches.len();
-            preparation.library_leaves = library.leaves.len();
-            for placement in &population.placements {
-                let model = &library.models[placement.variant.index()];
-                preparation.placed_branches += model.branches.count as usize;
-                preparation.placed_leaves += model.leaves.count as usize;
-                preparation.branch_slots +=
-                    prepared::MeshClass::for_records(ForestPart::Branches, model.branches.count)?
-                        .map_or(0, |class| class.capacity.records() as usize);
-                preparation.leaf_slots +=
-                    prepared::MeshClass::for_records(ForestPart::Leaves, model.leaves.count)?
-                        .map_or(0, |class| class.capacity.records() as usize);
-            }
-            let forest = SharedForest {
-                library: Arc::new(library),
-                population: Arc::new(population),
-            };
-            let frame = forest.population.frame.clone();
+            let bank = Arc::new(TreeBank::from_bytes(&bytes[0])?);
+            let forest = SharedForest::from_population_bytes(bank, &bytes[1])?;
+            preparation.shared_counts(&forest)?;
+            let frame = forest.population().frame.clone();
             (FrozenForest::Shared(Arc::new(forest)), frame)
         }
     };
@@ -175,6 +159,51 @@ fn load_prepared(directory: PathBuf, representation: Representation) -> Result<L
         frame,
         preparation,
     })
+}
+
+/// Read a fresh population while retaining the admitted CPU bank in both GPU policies.
+pub fn load_population(bank: Arc<TreeBank>, path: &std::path::Path) -> Result<Loaded> {
+    let started = Instant::now();
+    let bytes =
+        std::fs::read(path).with_context(|| format!("read population {}", path.display()))?;
+    let asset_load = started.elapsed();
+    let started = Instant::now();
+    let forest = SharedForest::from_population_bytes(bank, &bytes)?;
+    let mut preparation = Preparation {
+        asset_load,
+        asset_bytes: bytes.len(),
+        ..Default::default()
+    };
+    preparation.shared_counts(&forest)?;
+    preparation.asset_decode = started.elapsed();
+    Ok(Loaded {
+        frame: forest.population().frame.clone(),
+        forest: FrozenForest::Shared(Arc::new(forest)),
+        preparation,
+    })
+}
+
+impl Preparation {
+    fn shared_counts(&mut self, forest: &SharedForest) -> Result<()> {
+        let library = forest.bank().library();
+        self.mesh_bytes = library.mesh_bytes();
+        self.library_models = library.models.len();
+        self.grid_classes = library.grids.len();
+        self.library_branches = library.branches.len();
+        self.library_leaves = library.leaves.len();
+        for placement in &forest.population().placements {
+            let model = &library.models[placement.variant.index()];
+            self.placed_branches += model.branches.count as usize;
+            self.placed_leaves += model.leaves.count as usize;
+            self.branch_slots +=
+                prepared::MeshClass::for_records(ForestPart::Branches, model.branches.count)?
+                    .map_or(0, |class| class.capacity.records() as usize);
+            self.leaf_slots +=
+                prepared::MeshClass::for_records(ForestPart::Leaves, model.leaves.count)?
+                    .map_or(0, |class| class.capacity.records() as usize);
+        }
+        Ok(())
+    }
 }
 
 fn grow(mut growth: Growth) -> Result<(PreparedUnique, Preparation)> {

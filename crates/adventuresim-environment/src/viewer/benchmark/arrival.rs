@@ -8,6 +8,7 @@ use bevy::render::view::screenshot::{Screenshot, ScreenshotCaptured};
 use serde_json::{Value, json};
 
 use super::{Measurement, MeasurementError};
+use adventuresim_environment::render::benchmark::ForestRequestId;
 
 pub(super) enum ArrivalFrame {
     Pending,
@@ -25,11 +26,12 @@ impl Measurement {
             return;
         }
         self.arrival_frame = ArrivalFrame::Requested;
+        let owner = self.request_id();
         commands.spawn(Screenshot::image(target)).observe(
-            |captured: On<ScreenshotCaptured>,
-             mut measurement: ResMut<Measurement>,
-             mut exit: MessageWriter<AppExit>| {
-                if let Err(error) = measurement.receive_arrival(&captured.image) {
+            move |captured: On<ScreenshotCaptured>,
+                  mut measurement: ResMut<Measurement>,
+                  mut exit: MessageWriter<AppExit>| {
+                if let Err(error) = measurement.receive_arrival(owner, &captured.image) {
                     error!("{error}");
                     exit.write(AppExit::error());
                 }
@@ -41,7 +43,12 @@ impl Measurement {
         matches!(self.arrival_frame, ArrivalFrame::Captured { .. })
     }
 
-    fn receive_arrival(&mut self, image: &Image) -> Result<(), MeasurementError> {
+    fn receive_arrival(
+        &mut self,
+        owner: ForestRequestId,
+        image: &Image,
+    ) -> Result<(), MeasurementError> {
+        self.require_request(owner)?;
         if !matches!(self.arrival_frame, ArrivalFrame::Requested) {
             return Err(MeasurementError::UnexpectedArrival);
         }
@@ -70,6 +77,7 @@ impl Measurement {
             .save(&path)
             .map_err(|error| MeasurementError::ArrivalImage(Box::new(error)))?;
         Ok(json!({
+            "request_id": self.request_id(),
             "elapsed_from_request_ms": elapsed.as_secs_f64() * 1000.0,
             "image": path,
             "resolution": [image.width(), image.height()],
