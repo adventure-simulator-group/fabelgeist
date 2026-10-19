@@ -4,6 +4,41 @@ use adventuresim_environment::{prepared::*, render::ForestDetail};
 use fabelgeist_botany::{Biome, identity::PlantId, species::Foliage, viewer::sim::*};
 use fabelgeist_math::units::Metres;
 
+/// Different non-power-of-two spans exercise shared grids and clipped padding.
+pub fn padded_fixture() -> PreparedUnique {
+    let mut unique = fixture();
+    let mut branches = Vec::new();
+    let mut leaves = Vec::new();
+    for (index, original) in unique.snapshot.branches.iter().copied().enumerate() {
+        let count = if index % 2 == 0 { 3 } else { 5 };
+        branches.push(original);
+        for twig in 1..count {
+            let mut branch = original;
+            branch.a = original.b;
+            branch.b = [
+                original.b[0] + twig as f32 * 0.25,
+                original.b[1] + twig as f32 * 0.15,
+                original.b[2] + (twig % 2) as f32 * 0.3,
+                0.01,
+            ];
+            branch.v0 = original.v1;
+            branch.v1 = original.v1 + 1.0;
+            branches.push(branch);
+        }
+        let original = unique.snapshot.leaves[index];
+        for blade in 0..(if index % 2 == 0 { 5 } else { 7 }) {
+            let mut leaf = original;
+            leaf.center[0] += (blade as f32 - 2.0) * 0.22;
+            leaf.center[2] += (blade % 2) as f32 * 0.2;
+            leaf.seed += blade as f32 * 0.07;
+            leaves.push(leaf);
+        }
+    }
+    unique.snapshot.branches = branches;
+    unique.snapshot.leaves = leaves;
+    unique
+}
+
 pub fn fixture() -> PreparedUnique {
     let roots: Vec<_> = [
         [-8.0, 0.0, 0.0],

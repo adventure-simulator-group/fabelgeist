@@ -21,6 +21,7 @@ use crate::render::ForestDetail;
 mod bake;
 mod codec;
 mod form;
+mod grids;
 mod meshes;
 mod selection;
 mod validation;
@@ -29,6 +30,7 @@ pub use codec::{
     decode_library, decode_population, decode_unique, encode_library, encode_population,
     encode_unique,
 };
+pub use grids::{AddressMesh, MeshClass, RecordCapacity, TreeGrid};
 
 pub type Result<T> = std::result::Result<T, PreparedError>;
 
@@ -113,13 +115,14 @@ pub struct ForestFrame {
     pub focus: Option<TreeFocus>,
 }
 
-/// Shared records and address meshes, stored once per representative tree.
+/// Representative records and topology grids shared by record-capacity class.
 pub struct TreeLibrary {
     pub species: Vec<SpeciesInfo>,
     pub branches: Vec<BranchInstance>,
     pub leaves: Vec<LeafInstance>,
     pub plants: Vec<PlantInstance>,
     pub models: Vec<TreeModel>,
+    pub grids: Vec<TreeGrid>,
     pub detail: ForestDetail,
 }
 
@@ -129,7 +132,6 @@ pub struct TreeModel {
     pub bounds: TreeBounds,
     pub branches: RecordSpan,
     pub leaves: RecordSpan,
-    pub meshes: [LevelMeshes; 3],
 }
 
 /// An explicit GPU record-array boundary: a start word and record count.
@@ -137,17 +139,6 @@ pub struct TreeModel {
 pub struct RecordSpan {
     pub start: u32,
     pub count: u32,
-}
-
-pub struct LevelMeshes {
-    pub branches: AddressMesh,
-    pub leaves: AddressMesh,
-}
-
-/// GPU vertex addresses, not physical positions. Bounds come from TreeModel.
-pub struct AddressMesh {
-    pub vertices: Vec<[f32; 3]>,
-    pub indices: Vec<u32>,
 }
 
 /// Regional descriptors and ground, bound to a particular model bank.
@@ -190,6 +181,8 @@ impl TreeModel {
 
 #[derive(Debug, thiserror::Error)]
 pub enum PreparedError {
+    #[error("prepared forest address mesh count disagrees with capacity")]
+    MeshCardinality,
     #[error("invalid prepared forest: {0}")]
     Invalid(&'static str),
     #[error("prepared forest metadata: {0}")]
@@ -320,11 +313,10 @@ impl TreeLibrary {
         validation::library(self)
     }
     pub fn mesh_bytes(&self) -> usize {
-        self.models
+        self.grids
             .iter()
-            .flat_map(|m| &m.meshes)
-            .flat_map(|m| [&m.branches, &m.leaves])
-            .map(|m| m.vertices.len() * size_of::<[f32; 3]>() + m.indices.len() * size_of::<u32>())
+            .flat_map(|grid| &grid.levels)
+            .map(|mesh| (mesh.vertices.len() + mesh.indices.len()) * size_of::<u32>())
             .sum()
     }
 }

@@ -14,7 +14,7 @@ use crate::stage::Orbit;
 
 /// Consecutive readbacks must agree within this bounded number of attempts.
 const MAX_READBACKS: usize = 8;
-const REPORT_VERSION: u32 = 2;
+const REPORT_VERSION: u32 = 3;
 const READINESS_TIMEOUT: Duration = Duration::from_secs(240);
 
 pub struct Request {
@@ -33,10 +33,13 @@ pub struct Preparation {
     pub asset_bytes: usize,
     pub mesh_bytes: usize,
     pub library_models: usize,
+    pub grid_classes: usize,
     pub library_branches: usize,
     pub library_leaves: usize,
     pub placed_branches: usize,
     pub placed_leaves: usize,
+    pub branch_slots: usize,
+    pub leaf_slots: usize,
 }
 
 pub enum ArrivalPath {
@@ -244,6 +247,7 @@ impl Measurement {
                 "GPU waits serialize frames; report separately from ordinary presentation",
                 "uploaded_record_bytes include compact placements but exclude meshes, instance buffers and textures",
                 "library mesh bytes count vertex/index payloads requested for GPU residency, not peak resident memory",
+                "LOD record/slot counts describe submitted batches before per-tree GPU culling, not actual visible vertex work",
                 "fresh file reads may hit operating-system storage caches; this is not a network measurement",
             ],
         });
@@ -268,19 +272,28 @@ impl Measurement {
             "required_asset_file_bytes": self.preparation.asset_bytes,
             "library_mesh_vertex_index_bytes": self.preparation.mesh_bytes,
             "library_models": self.preparation.library_models,
+            "shared_grid_classes": self.preparation.grid_classes,
             "library_branches": self.preparation.library_branches,
             "library_leaf_clusters": self.preparation.library_leaves,
             "records_implied_by_shared_placements": {
                 "branches": self.preparation.placed_branches,
                 "leaf_clusters": self.preparation.placed_leaves,
             },
+            "capacity_slots_implied_by_shared_placements": {
+                "branches": self.preparation.branch_slots,
+                "leaf_clusters": self.preparation.leaf_slots,
+            },
             "expected_branch_draw_instances": counts.expected_branch_instances,
             "expected_leaf_draw_instances": counts.expected_leaf_instances,
             "completed_spatial_batches": counts.expected_batches,
             "required_gpu_meshes": counts.expected_meshes,
             "settled_draw_instances_by_lod": {
-                "branches": { "full": counts.branch_lod.full, "middle": counts.branch_lod.middle, "coarse": counts.branch_lod.coarse },
-                "leaves": { "full": counts.leaf_lod.full, "middle": counts.leaf_lod.middle, "coarse": counts.leaf_lod.coarse },
+                "branches": counts.branch_lod.instances,
+                "leaves": counts.leaf_lod.instances,
+            },
+            "settled_batch_records_by_lod": {
+                "branches": { "valid_records": counts.branch_lod.records, "allocated_slots": counts.branch_lod.slots },
+                "leaves": { "valid_records": counts.leaf_lod.records, "allocated_slots": counts.leaf_lod.slots },
             },
         })
     }

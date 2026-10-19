@@ -18,8 +18,8 @@
 @group(3) @binding(2) var<storage, read> species: array<Species>;
 @group(3) @binding(3) var<storage, read> plants: array<PlantInfo>;
 #ifdef FOREST_SHARED_TREES
-#import adventuresim_environment::tree_pose::{TreePose, place_tree, tree_normal}
-@group(3) @binding(4) var<storage, read> placements: array<TreePose>;
+#import adventuresim_environment::tree_pose::{TreeInstance, TreeVertex, place_tree, tree_normal}
+@group(3) @binding(4) var<storage, read> placements: array<TreeInstance>;
 #endif
 
 struct BranchOut {
@@ -55,17 +55,33 @@ fn axis_at(branch: Branch, s: f32) -> AxisPoint {
 }
 
 @vertex
-fn vertex(vertex: Vertex) -> BranchOut {
 #ifdef FOREST_SHARED_TREES
-    let index = u32(round(vertex.position.z));
+fn vertex(vertex: TreeVertex) -> BranchOut {
 #else
-    let index = vertex.i_index;
+fn vertex(vertex: Vertex) -> BranchOut {
 #endif
-    let branch = branches[index];
     let sides = lod.x;
     let spans = lod.y;
+#ifdef FOREST_SHARED_TREES
+    let placement = placements[vertex.i_index];
+    let columns = sides + 1u;
+    let record = vertex.address / (columns * (spans + 1u));
+    // Every triangle belongs to one record. Padding is fully clipped before
+    // any branch/species/plant reads or span-start arithmetic.
+    if record >= placement.records.y {
+        var clipped: BranchOut;
+        clipped.clip = vec4<f32>(0.0, 0.0, -1.0, 1.0);
+        return clipped;
+    }
+    let index = placement.records.x + record;
+    let k = vertex.address % columns;
+    let j = (vertex.address / columns) % (spans + 1u);
+#else
+    let index = vertex.i_index;
     let k = u32(round(vertex.position.x));
     let j = u32(round(vertex.position.y));
+#endif
+    let branch = branches[index];
     let s = f32(j) / f32(spans);
     // The end rings are taken as stored, so a neighbour sharing one builds
     // the very same vertices.
@@ -87,7 +103,7 @@ fn vertex(vertex: Vertex) -> BranchOut {
     var world = vec4<f32>(surface, 1.0);
     var normal = n;
 #ifdef FOREST_SHARED_TREES
-    let pose = placements[vertex.i_index];
+    let pose = placement.pose;
     world = vec4<f32>(place_tree(pose, surface), 1.0);
     normal = tree_normal(pose, n);
 #endif

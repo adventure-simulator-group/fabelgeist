@@ -4,7 +4,7 @@ use std::{path::PathBuf, sync::Arc, time::Instant};
 
 use adventuresim_environment::{
     prepared::{self, ForestFrame, PreparedUnique, TreeFocus, TreeRoot, VariantBudget},
-    render::{ForestDetail, trees::SharedForest},
+    render::{ForestDetail, ForestPart, trees::SharedForest},
 };
 use anyhow::{Context, Result, ensure};
 use fabelgeist_botany::{
@@ -147,12 +147,19 @@ fn load_prepared(directory: PathBuf, representation: Representation) -> Result<L
             let population = prepared::decode_population(&bytes[1], &library, id)?;
             preparation.mesh_bytes = library.mesh_bytes();
             preparation.library_models = library.models.len();
+            preparation.grid_classes = library.grids.len();
             preparation.library_branches = library.branches.len();
             preparation.library_leaves = library.leaves.len();
             for placement in &population.placements {
                 let model = &library.models[placement.variant.index()];
                 preparation.placed_branches += model.branches.count as usize;
                 preparation.placed_leaves += model.leaves.count as usize;
+                preparation.branch_slots +=
+                    prepared::MeshClass::for_records(ForestPart::Branches, model.branches.count)?
+                        .map_or(0, |class| class.capacity.records() as usize);
+                preparation.leaf_slots +=
+                    prepared::MeshClass::for_records(ForestPart::Leaves, model.leaves.count)?
+                        .map_or(0, |class| class.capacity.records() as usize);
             }
             let forest = SharedForest {
                 library: Arc::new(library),

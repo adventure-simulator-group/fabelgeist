@@ -1,78 +1,157 @@
-//! Offline address-grid expansion; arrival only decodes these meshes.
+//! Canonical indexed integer grids shared by model capacity and LOD.
 
-use bevy::mesh::{Indices, VertexAttributeValues};
-use bevy::prelude::Mesh;
+use std::collections::BTreeSet;
 
-use super::{AddressMesh, LevelMeshes, PreparedError, RecordSpan, Result};
-use crate::render::{ForestDetail, levels::Level, shapes};
+use bevy::{mesh::Indices, prelude::Mesh};
 
-/// Every integer through this value is exactly representable in a GPU f32.
-pub(super) const EXACT_ADDRESS: u64 = 1 << 24;
-/// Bound the prototype's offline address payload before allocating its grids.
+use super::{AddressMesh, MeshClass, PreparedError, Result, TreeGrid, TreeModel};
+use crate::render::{
+    ForestDetail, ForestPart,
+    levels::{Level, Shape},
+    shapes,
+};
+
+/// Bound offline address payload before allocating any expanded grids.
 const MAX_MESH_BYTES: u64 = 256 * 1024 * 1024;
 
-pub(super) fn preflight(branches: usize, leaves: usize, detail: &ForestDetail) -> Result<()> {
+pub(super) struct GridCardinality {
+    pub vertices: u32,
+    pub indices: u32,
+}
+
+impl MeshClass {
+    fn primitive(self, shape: &Shape) -> Mesh {
+        match self.part {
+            ForestPart::Branches => shapes::branch_grid(shape.sides, shape.spans),
+            ForestPart::Leaves => shapes::leaf_blades(shape.blades),
+        }
+    }
+    pub(super) fn cardinality(self, shape: &Shape) -> Result<GridCardinality> {
+        // GPU/file count boundary. Arithmetic is widened before multiplication.
+        let (vertices, indices) = match self.part {
+            ForestPart::Branches => (
+                (u64::from(shape.sides) + 1) * (u64::from(shape.spans) + 1),
+                u64::from(shape.sides) * u64::from(shape.spans) * 6,
+            ),
+            ForestPart::Leaves => (u64::from(shape.blades) * 4, u64::from(shape.blades) * 6),
+        };
+        let vertices = vertices * u64::from(self.capacity.records());
+        let indices = indices * u64::from(self.capacity.records());
+        Ok(GridCardinality {
+            vertices: u32::try_from(vertices)
+                .map_err(|_| PreparedError::Invalid("grid vertex overflow"))?,
+            indices: u32::try_from(indices)
+                .map_err(|_| PreparedError::Invalid("grid index overflow"))?,
+        })
+    }
+}
+
+pub(super) fn classes(models: &[TreeModel]) -> Result<BTreeSet<MeshClass>> {
+    let mut classes = BTreeSet::new();
+    for model in models {
+        for (part, span) in [
+            (ForestPart::Branches, model.branches),
+            (ForestPart::Leaves, model.leaves),
+        ] {
+            if let Some(class) = MeshClass::for_records(part, span.count)? {
+                classes.insert(class);
+            }
+        }
+    }
+    Ok(classes)
+}
+
+pub(super) fn preflight(classes: &BTreeSet<MeshClass>, detail: &ForestDetail) -> Result<()> {
+    super::validation::detail(detail)?;
     let mut bytes = 0_u64;
-    for level in Level::ALL {
-        let shape = level.shape(detail);
-        let branch = u64::from((shape.sides + 1) * (shape.spans + 1)) * 12
-            + u64::from(shape.sides * shape.spans * 6) * 4;
-        let leaf = u64::from(shape.blades) * (4 * 12 + 6 * 4);
-        bytes = bytes
-            .checked_add(branch * branches as u64 + leaf * leaves as u64)
-            .ok_or(PreparedError::Invalid("mesh size overflow"))?;
+    for &class in classes {
+        for level in Level::ALL {
+            let counts = class.cardinality(&level.shape(detail))?;
+            bytes = bytes
+                .checked_add(
+                    (u64::from(counts.vertices) + u64::from(counts.indices))
+                        * size_of::<u32>() as u64,
+                )
+                .ok_or(PreparedError::Invalid("mesh size overflow"))?;
+        }
     }
     if bytes > MAX_MESH_BYTES {
         return Err(PreparedError::Invalid(
-            "address meshes exceed prototype's 256 MiB preparation limit; use a smaller oracle or variant budget",
+            "address meshes exceed prototype's 256 MiB preparation limit",
         ));
     }
     Ok(())
 }
 
-pub(super) fn levels(
-    branches: RecordSpan,
-    leaves: RecordSpan,
-    detail: &ForestDetail,
-) -> Result<[LevelMeshes; 3]> {
-    let mut output = Vec::new();
-    for level in Level::ALL {
-        let shape = level.shape(detail);
-        output.push(LevelMeshes {
-            branches: expand(shapes::branch_grid(shape.sides, shape.spans), branches, 1)?,
-            leaves: expand(shapes::leaf_blades(shape.blades), leaves, shape.blades)?,
-        });
-    }
-    output
-        .try_into()
-        .map_err(|_| PreparedError::Invalid("LOD cardinality"))
+pub(super) fn build(models: &[TreeModel], detail: &ForestDetail) -> Result<Vec<TreeGrid>> {
+    let classes = classes(models)?;
+    preflight(&classes, detail)?;
+    classes
+        .into_iter()
+        .map(|class| {
+            let levels = Level::ALL
+                .into_iter()
+                .map(|level| expand(class, &level.shape(detail)))
+                .collect::<Result<Vec<_>>>()?;
+            Ok(TreeGrid {
+                class,
+                levels: levels
+                    .try_into()
+                    .map_err(|_| PreparedError::Invalid("LOD cardinality"))?,
+            })
+        })
+        .collect()
 }
 
-fn expand(grid: Mesh, records: RecordSpan, stride: u32) -> Result<AddressMesh> {
-    let Some(VertexAttributeValues::Float32x3(positions)) =
-        grid.attribute(Mesh::ATTRIBUTE_POSITION)
-    else {
-        return Err(PreparedError::Invalid("address grid positions"));
-    };
+pub(super) fn expand(class: MeshClass, shape: &Shape) -> Result<AddressMesh> {
+    let counts = class.cardinality(shape)?;
+    let grid = class.primitive(shape);
     let Some(Indices::U32(triangles)) = grid.indices() else {
-        return Err(PreparedError::Invalid("address grid indices"));
+        return Err(PreparedError::Invalid("canonical grid indices"));
     };
-    if u64::from(records.start + records.count) * u64::from(stride) > EXACT_ADDRESS {
-        return Err(PreparedError::Invalid(
-            "GPU address exceeds exact f32 integer range",
-        ));
-    }
-    let mut vertices = Vec::with_capacity(positions.len() * records.count as usize);
-    let mut indices = Vec::with_capacity(triangles.len() * records.count as usize);
-    for record in records.start..records.start + records.count {
-        let base = u32::try_from(vertices.len())
-            .map_err(|_| PreparedError::Invalid("mesh vertex index overflow"))?;
-        vertices.extend(
-            positions
+    let vertices_per_record = grid.count_vertices() as u32;
+    let indices = (0..class.capacity.records())
+        .flat_map(|record| {
+            triangles
                 .iter()
-                .map(|&[x, y, z]| [x, y, z + (record * stride) as f32]),
-        );
-        indices.extend(triangles.iter().map(|&index| base + index));
+                .map(move |&index| record * vertices_per_record + index)
+        })
+        .collect();
+    Ok(AddressMesh {
+        vertices: (0..counts.vertices).collect(),
+        indices,
+    })
+}
+
+pub(super) fn validate(class: MeshClass, mesh: &AddressMesh, shape: &Shape) -> Result<()> {
+    let counts = class.cardinality(shape)?;
+    if mesh.vertices.len() as u64 != u64::from(counts.vertices)
+        || mesh.indices.len() as u64 != u64::from(counts.indices)
+    {
+        return Err(PreparedError::MeshCardinality);
     }
-    Ok(AddressMesh { vertices, indices })
+    if !mesh
+        .vertices
+        .iter()
+        .enumerate()
+        .all(|(index, &address)| index as u64 == u64::from(address))
+    {
+        return Err(PreparedError::Invalid("noncanonical GPU vertex address"));
+    }
+    let grid = class.primitive(shape);
+    let Some(Indices::U32(triangles)) = grid.indices() else {
+        return Err(PreparedError::Invalid("canonical grid indices"));
+    };
+    let vertices_per_record = grid.count_vertices() as u64;
+    for (index, &actual) in mesh.indices.iter().enumerate() {
+        let record = index / triangles.len();
+        let expected =
+            u64::from(triangles[index % triangles.len()]) + record as u64 * vertices_per_record;
+        if u64::from(actual) != expected {
+            return Err(PreparedError::Invalid(
+                "noncanonical address mesh triangles",
+            ));
+        }
+    }
+    Ok(())
 }

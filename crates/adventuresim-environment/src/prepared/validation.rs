@@ -1,19 +1,15 @@
 //! Admission checks before serialized records can become GPU addresses.
 
-use bevy::{
-    mesh::{Indices, VertexAttributeValues},
-    prelude::Mesh,
-};
 use std::collections::HashSet;
 
 use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance, PlantInstance, SpeciesInfo};
 use fabelgeist_math::units::Metres;
 
 use super::{
-    AddressMesh, ForestFrame, LibraryId, PreparedError, PreparedUnique, RecordSpan, Result,
-    TreeBounds, TreeLibrary, TreePopulation, TreePose,
+    ForestFrame, LibraryId, PreparedError, PreparedUnique, RecordSpan, Result, TreeBounds,
+    TreeLibrary, TreePopulation, TreePose,
 };
-use crate::render::{ForestDetail, levels::Level, shapes};
+use crate::render::{ForestDetail, levels::Level};
 
 pub(super) fn unique(unique: &PreparedUnique) -> Result<()> {
     let snapshot = &unique.snapshot;
@@ -105,20 +101,17 @@ pub(super) fn library(library: &TreeLibrary) -> Result<()> {
             }),
             "model bounds do not cover shader geometry",
         )?;
-        for (level, meshes) in Level::ALL.into_iter().zip(&model.meshes) {
-            let shape = level.shape(&library.detail);
-            address_mesh(
-                &meshes.branches,
-                model.branches,
-                shapes::branch_grid(shape.sides, shape.spans),
-                1,
-            )?;
-            address_mesh(
-                &meshes.leaves,
-                model.leaves,
-                shapes::leaf_blades(shape.blades),
-                shape.blades,
-            )?;
+    }
+    let classes = super::meshes::classes(&library.models)?;
+    require(
+        classes == library.grids.iter().map(|grid| grid.class).collect()
+            && classes.len() == library.grids.len(),
+        "missing, unused or duplicate grid classes",
+    )?;
+    super::meshes::preflight(&classes, &library.detail)?;
+    for grid in &library.grids {
+        for (level, mesh) in Level::ALL.into_iter().zip(&grid.levels) {
+            super::meshes::validate(grid.class, mesh, &level.shape(&library.detail))?;
         }
     }
     require(
@@ -225,7 +218,7 @@ fn frame(frame: &ForestFrame) -> Result<()> {
     Ok(())
 }
 
-fn detail(detail: &ForestDetail) -> Result<()> {
+pub(super) fn detail(detail: &ForestDetail) -> Result<()> {
     // Fixed prototype resource bounds prevent overflow and unreasonable grids.
     const MAX_GRID: u32 = 64;
     require(
@@ -296,45 +289,6 @@ fn records(
                 && leaf.crown[3] >= 0.0
                 && leaf.axis.iter().map(|x| x * x).sum::<f32>() > 0.0,
             "leaf record",
-        )?;
-    }
-    Ok(())
-}
-
-fn address_mesh(mesh: &AddressMesh, span: RecordSpan, grid: Mesh, stride: u32) -> Result<()> {
-    let Some(VertexAttributeValues::Float32x3(vertices)) = grid.attribute(Mesh::ATTRIBUTE_POSITION)
-    else {
-        return Err(PreparedError::Invalid("canonical grid positions"));
-    };
-    let Some(Indices::U32(indices)) = grid.indices() else {
-        return Err(PreparedError::Invalid("canonical grid indices"));
-    };
-    require(
-        mesh.vertices.len() as u64 == u64::from(span.count) * vertices.len() as u64
-            && mesh.indices.len() as u64 == u64::from(span.count) * indices.len() as u64,
-        "address mesh cardinality",
-    )?;
-    surface(&mesh.indices, mesh.vertices.len())?;
-    let high = (u64::from(span.start) + u64::from(span.count)) * u64::from(stride);
-    require(
-        high <= super::meshes::EXACT_ADDRESS,
-        "inexact GPU record address",
-    )?;
-    for (index, vertex) in mesh.vertices.iter().enumerate() {
-        let [x, y, z] = vertices[index % vertices.len()];
-        let record = span.start as usize + index / vertices.len();
-        require(
-            *vertex == [x, y, z + (record as u64 * u64::from(stride)) as f32],
-            "noncanonical GPU vertex address",
-        )?;
-    }
-    for (index, &triangle) in mesh.indices.iter().enumerate() {
-        let record = index / indices.len();
-        require(
-            u64::from(triangle)
-                == u64::from(indices[index % indices.len()])
-                    + record as u64 * vertices.len() as u64,
-            "noncanonical address mesh triangles",
         )?;
     }
     Ok(())

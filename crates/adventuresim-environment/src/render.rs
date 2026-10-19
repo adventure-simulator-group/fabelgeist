@@ -52,6 +52,14 @@ pub struct ForestDetail {
     pub level: LevelSelection,
 }
 
+/// The two independently rendered parts of forest geometry.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[cfg_attr(feature = "prepared", derive(serde::Serialize, serde::Deserialize))]
+pub enum ForestPart {
+    Branches,
+    Leaves,
+}
+
 impl Default for ForestDetail {
     /// The detail plants are drawn at unless asked otherwise.
     fn default() -> Self {

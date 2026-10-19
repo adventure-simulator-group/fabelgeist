@@ -4,6 +4,7 @@ use bytemuck::Pod;
 use serde::{Serialize, de::DeserializeOwned};
 use sha2::{Digest, Sha256};
 
+use super::meshes::GridCardinality;
 use super::{AddressMesh, LibraryId, PreparedError, Result};
 
 mod headers;
@@ -17,7 +18,7 @@ pub use unique::{decode_unique, encode_unique};
 
 const MAX_METADATA_BYTES: usize = 4 * 1024 * 1024;
 const UNIQUE_MAGIC: &[u8; 8] = b"FORESTU1";
-const LIBRARY_MAGIC: &[u8; 8] = b"FORESTL1";
+const LIBRARY_MAGIC: &[u8; 8] = b"FORESTL2";
 const POPULATION_MAGIC: &[u8; 8] = b"FORESTP1";
 
 struct Reader<'a>(&'a [u8]);
@@ -53,6 +54,9 @@ impl<'a> Reader<'a> {
     }
     fn records<T: Pod>(&mut self) -> Result<Vec<T>> {
         let count = self.count()?;
+        self.array(count)
+    }
+    fn array<T: Pod>(&mut self, count: usize) -> Result<Vec<T>> {
         let length = count
             .checked_mul(size_of::<T>())
             .ok_or(PreparedError::Invalid("record byte length overflow"))?;
@@ -62,10 +66,16 @@ impl<'a> Reader<'a> {
             .map(bytemuck::pod_read_unaligned)
             .collect())
     }
-    fn mesh(&mut self) -> Result<AddressMesh> {
+    fn exact_records<T: Pod>(&mut self, expected: u32) -> Result<Vec<T>> {
+        if self.count()? as u64 != u64::from(expected) {
+            return Err(PreparedError::MeshCardinality);
+        }
+        self.array(expected as usize)
+    }
+    fn mesh(&mut self, expected: GridCardinality) -> Result<AddressMesh> {
         Ok(AddressMesh {
-            vertices: self.records()?,
-            indices: self.records()?,
+            vertices: self.exact_records(expected.vertices)?,
+            indices: self.exact_records(expected.indices)?,
         })
     }
     fn finish(self) -> Result<()> {

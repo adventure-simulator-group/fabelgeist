@@ -5,8 +5,11 @@ use serde::{Deserialize, Serialize};
 
 use super::{LIBRARY_MAGIC, Reader, begin, headers::SpeciesHeader, identity, mesh, records};
 use crate::{
-    prepared::{LevelMeshes, LibraryId, RecordSpan, Result, TreeBounds, TreeLibrary, TreeModel},
-    render::ForestDetail,
+    prepared::{
+        LibraryId, MeshClass, RecordSpan, Result, TreeBounds, TreeGrid, TreeLibrary, TreeModel,
+        meshes,
+    },
+    render::{ForestDetail, levels::Level},
 };
 
 #[derive(Serialize, Deserialize)]
@@ -14,6 +17,7 @@ struct Header {
     detail: ForestDetail,
     species: Vec<SpeciesHeader>,
     models: Vec<ModelHeader>,
+    grids: Vec<MeshClass>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -41,15 +45,15 @@ pub fn encode_library(library: &TreeLibrary) -> Result<(Vec<u8>, LibraryId)> {
                 leaves: model.leaves,
             })
             .collect(),
+        grids: library.grids.iter().map(|grid| grid.class).collect(),
     };
     let mut bytes = begin(LIBRARY_MAGIC, &header)?;
     records(&mut bytes, &library.plants);
     records(&mut bytes, &library.branches);
     records(&mut bytes, &library.leaves);
-    for model in &library.models {
-        for level in &model.meshes {
-            mesh(&mut bytes, &level.branches);
-            mesh(&mut bytes, &level.leaves);
+    for grid in &library.grids {
+        for level in &grid.levels {
+            mesh(&mut bytes, level);
         }
     }
     let id = identity(&bytes);
@@ -62,24 +66,35 @@ pub fn decode_library(bytes: &[u8]) -> Result<(TreeLibrary, LibraryId)> {
     let plants = reader.records()?;
     let branches = reader.records()?;
     let leaves = reader.records()?;
-    let models = header
+    let models: Vec<_> = header
         .models
         .into_iter()
-        .map(|model| {
-            let mut meshes = Vec::new();
-            for _ in 0..3 {
-                meshes.push(LevelMeshes {
-                    branches: reader.mesh()?,
-                    leaves: reader.mesh()?,
-                });
-            }
-            Ok(TreeModel {
-                source: PlantId::from_word(model.source),
-                species: SpeciesId::from_word(model.species),
-                bounds: model.bounds,
-                branches: model.branches,
-                leaves: model.leaves,
-                meshes: meshes
+        .map(|model| TreeModel {
+            source: PlantId::from_word(model.source),
+            species: SpeciesId::from_word(model.species),
+            bounds: model.bounds,
+            branches: model.branches,
+            leaves: model.leaves,
+        })
+        .collect();
+    let classes = header.grids.iter().copied().collect();
+    if meshes::classes(&models)? != classes || header.grids.len() != classes.len() {
+        return Err(super::PreparedError::Invalid(
+            "missing, unused or duplicate grid classes",
+        ));
+    }
+    meshes::preflight(&classes, &header.detail)?;
+    let grids = header
+        .grids
+        .into_iter()
+        .map(|class| {
+            let levels = Level::ALL
+                .into_iter()
+                .map(|level| reader.mesh(class.cardinality(&level.shape(&header.detail))?))
+                .collect::<Result<Vec<_>>>()?;
+            Ok(TreeGrid {
+                class,
+                levels: levels
                     .try_into()
                     .map_err(|_| super::PreparedError::Invalid("LOD cardinality"))?,
             })
@@ -97,6 +112,7 @@ pub fn decode_library(bytes: &[u8]) -> Result<(TreeLibrary, LibraryId)> {
         branches,
         leaves,
         models,
+        grids,
     };
     library.validate()?;
     Ok((library, identity(bytes)))

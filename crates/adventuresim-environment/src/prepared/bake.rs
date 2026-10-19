@@ -15,26 +15,19 @@ pub(super) fn library(unique: &PreparedUnique, budget: VariantBudget) -> Result<
     unique.validate()?;
     let trees = selection::trees(unique)?;
     let selected = selection::choose(&trees, budget)?;
-    let branches = selected
-        .iter()
-        .map(|&index| trees[index].branches.len())
-        .sum();
-    let leaves = selected
-        .iter()
-        .map(|&index| trees[index].leaves.len())
-        .sum();
-    meshes::preflight(branches, leaves, &unique.detail)?;
     let mut library = TreeLibrary {
         species: unique.snapshot.species.clone(),
         branches: Vec::new(),
         leaves: Vec::new(),
         plants: Vec::new(),
         models: Vec::new(),
+        grids: Vec::new(),
         detail: unique.detail,
     };
     for index in selected {
         append(&mut library, unique, &trees[index])?;
     }
+    library.grids = meshes::build(&library.models, &library.detail)?;
     library.validate()?;
     Ok(library)
 }
@@ -87,7 +80,6 @@ fn append(library: &mut TreeLibrary, unique: &PreparedUnique, tree: &SourceTree)
         bounds,
         branches,
         leaves,
-        meshes: meshes::levels(branches, leaves, &unique.detail)?,
     });
     Ok(())
 }

@@ -8,17 +8,17 @@ use bevy_eidolon::prelude::*;
 use fabelgeist_math::units::Metres;
 
 use super::super::{
-    ForestDetail,
-    benchmark::{ForestBenchmark, ForestPart},
+    ForestDetail, ForestPart,
+    benchmark::{ForestBenchmark, ForestWork},
     chunks::{CHUNK, FAR, size_class},
     levels::{Level, LevelView},
 };
 use super::{SharedForest, upload::TreeAssets};
+use crate::prepared::{MeshClass, Result};
 
 #[derive(Component)]
 pub(super) struct TreeChunk {
-    variant: usize,
-    foliage: bool,
+    class: MeshClass,
     radius: f32,
     level: Level,
 }
@@ -28,6 +28,7 @@ struct Gathering {
     low: Vec3,
     high: Vec3,
     radius: f32,
+    records: usize,
 }
 
 pub(super) fn show(
@@ -37,7 +38,7 @@ pub(super) fn show(
     view: &LevelView,
     detail: &ForestDetail,
     probe: Option<&ForestBenchmark>,
-) {
+) -> Result<()> {
     let mut batches = BTreeMap::new();
     for (index, placement) in forest.population.placements.iter().enumerate() {
         let variant = placement.variant.index();
@@ -49,21 +50,26 @@ pub(super) fn show(
         let radius = (high - low).length() * 0.5;
         let root = Vec3::from_array(placement.pose.origin().map(Metres::metres));
         let cell = (root.xz() / CHUNK).floor().as_ivec2();
-        for (foliage, count) in [(false, model.branches.count), (true, model.leaves.count)] {
-            if count == 0 {
+        for (part, count) in [
+            (ForestPart::Branches, model.branches.count),
+            (ForestPart::Leaves, model.leaves.count),
+        ] {
+            let Some(class) = MeshClass::for_records(part, count)? else {
                 continue;
-            }
+            };
             let batch = batches
-                .entry((variant, cell.x, cell.y, size_class(radius), foliage))
+                .entry((class, cell.x, cell.y, size_class(radius)))
                 .or_insert_with(|| Gathering {
                     instances: Vec::new(),
                     low,
                     high,
                     radius,
+                    records: 0,
                 });
             batch.low = batch.low.min(low);
             batch.high = batch.high.max(high);
             batch.radius = batch.radius.max(radius);
+            batch.records += count as usize;
             // Only GPU culling reads this centre/radius. Geometry reads the
             // separate placement buffer by index, never this scalar transform.
             batch.instances.push(InstanceData {
@@ -74,12 +80,11 @@ pub(super) fn show(
             });
         }
     }
-    for ((variant, _, _, _, foliage), gathered) in batches {
+    for ((class, _, _, _), gathered) in batches {
         let aabb = Aabb::from_min_max(gathered.low, gathered.high);
         let level = view.level(&aabb, gathered.radius, Level::Coarse, detail);
         let chunk = TreeChunk {
-            variant,
-            foliage,
+            class,
             radius: gathered.radius,
             level,
         };
@@ -101,16 +106,17 @@ pub(super) fn show(
             probe.expect_chunk(
                 entity.id(),
                 count,
-                if foliage {
-                    ForestPart::Leaves
-                } else {
-                    ForestPart::Branches
-                },
+                class.part,
                 level,
+                ForestWork {
+                    records: gathered.records,
+                    slots: count * class.capacity.records() as usize,
+                },
             );
         }
         entity.insert(chunk);
     }
+    Ok(())
 }
 
 pub(super) fn pick(
@@ -125,7 +131,7 @@ pub(super) fn pick(
         return;
     };
     for (entity, mut chunk, aabb, mut visibility) in &mut chunks {
-        *visibility = if chunk.foliage && !detail.leaves {
+        *visibility = if chunk.class.part == ForestPart::Leaves && !detail.leaves {
             Visibility::Hidden
         } else {
             Visibility::Inherited
@@ -142,24 +148,21 @@ pub(super) fn pick(
 }
 
 fn dress(entity: &mut EntityCommands, assets: &TreeAssets, chunk: &TreeChunk) {
-    let level = &assets.models[chunk.variant][chunk.level.index()];
-    if chunk.foliage {
-        let Some(mesh) = &level.leaf_mesh else {
-            error!("tree batch requested absent foliage geometry");
-            return;
-        };
+    let Some(grid) = assets.grids.get(&chunk.class) else {
+        error!("tree batch requested absent capacity grid");
+        return;
+    };
+    let mesh = &grid[chunk.level.index()];
+    let materials = &assets.materials[chunk.level.index()];
+    if chunk.class.part == ForestPart::Leaves {
         entity.insert((
             Mesh3d(mesh.clone()),
-            InstancedMeshMaterial(level.leaves.clone()),
+            InstancedMeshMaterial(materials.leaves.clone()),
         ));
     } else {
-        let Some(mesh) = &level.branch_mesh else {
-            error!("tree batch requested absent branch geometry");
-            return;
-        };
         entity.insert((
             Mesh3d(mesh.clone()),
-            InstancedMeshMaterial(level.branches.clone()),
+            InstancedMeshMaterial(materials.branches.clone()),
         ));
     }
 }

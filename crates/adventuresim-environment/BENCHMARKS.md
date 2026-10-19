@@ -42,8 +42,8 @@ geometry. Prepare each source forest offline with an explicit species-wide
 variant budget; this command does not measure arrival:
 
 ```powershell
-environment-viewer --prepare-forest target/prepared/mixed --scene mixed --years 120 --profile fast --variants-per-species 8
-environment-viewer --prepare-forest target/prepared/boreal --scene boreal --years 120 --profile fast --variants-per-species 8
+environment-viewer --prepare-forest target/prepared/mixed --scene mixed --years 120 --profile fast --variants-per-species 16
+environment-viewer --prepare-forest target/prepared/boreal --scene boreal --years 120 --profile fast --variants-per-species 16
 ```
 
 Each new output directory contains unique records, a separate model library,
@@ -62,8 +62,9 @@ environment-viewer --prepared-forest target/prepared/mixed --representation shar
 Prepared captures require completed draws and consecutive identical GPU
 readbacks. For a small all-plants renderer oracle, prepare with `--all-plants`
 and compare both representations with `--fixed-lod full`, `middle`, and
-`coarse`. Preparation rejects address meshes larger than 256 MiB; the full
-mature boreal all-plants oracle exceeds this prototype resource limit.
+`coarse`. Use a small deterministic fixture for this exact geometry control.
+Preparation rejects address meshes larger than 256 MiB; metadata and GPU
+integer-address bounds also apply.
 
 Shared trees retain species, stable identity and root. Offline matching uses
 height, radial width, branch/leaf complexity and vertical crown occupancy;
@@ -76,10 +77,17 @@ geometry states. A model's source light samples and crown shape remain an
 approximation when reused elsewhere. Review silhouettes, repetition, canopy
 coverage and lighting before interpreting timings.
 
-The shared renderer instances whole-tree meshes in variant/size/16-metre-cell
-batches. Frustum culling is per spatial batch; distance culling is per tree.
-Address-grid meshes and records reside once per library model and LOD.
-Placements carry positive horizontal/vertical scale, yaw and translation.
+The shared renderer instances whole trees in capacity/size/16-metre-cell
+batches. Power-of-two branch and leaf capacities share one integer-address
+grid per class and LOD across source models and species. Placements select
+actual model record spans. Padded slots return clipped degenerate vertices
+before reading botanical records. They still cost vertex invocations and
+placement metadata reads; report allocated slots separately from live records.
+All three grid LODs remain resident. Frustum culling is per spatial batch;
+distance culling is per tree. Conservative bounds come from actual transformed
+models, not grid capacity. Merged batches can change adaptive LOD decisions,
+so use fixed common LOD for renderer equivalence and review adaptive views.
+Placements also carry horizontal/vertical scale, yaw and translation.
 Procedural bark and crown occlusion use model coordinates; surface normals
 use the inverse transpose of the placement scale.
 
@@ -88,7 +96,9 @@ runner with `--prepared-root target/prepared --representation unique` or
 `shared`. Omitting those options measures replay. Freeze the same asset files
 and effective detail for each comparison. The runner records required asset
 hashes and bytes; the viewer reports library records, placement instances,
-spatial batches and all-LOD mesh payloads separately. Peak memory remains
+spatial batches, capacity slots and all-LOD mesh payloads separately. Per-LOD
+record/slot totals describe batches before GPU culling, not visible vertex
+invocations. Peak memory remains
 unmeasured. This prototype does not implement distant impostors, ecological
 cohort updates or production area streaming.
 

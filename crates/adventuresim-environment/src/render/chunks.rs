@@ -13,7 +13,8 @@ use bevy_eidolon::prelude::*;
 use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance, PlantInstance, Snapshot};
 
 use super::ForestDetail;
-use super::benchmark::{ForestBenchmark, ForestPart};
+use super::ForestPart;
+use super::benchmark::{ForestBenchmark, ForestWork};
 use super::levels::{Level, LevelView};
 use super::materials::ForestMaterials;
 use super::records::fingerprint;
@@ -229,7 +230,16 @@ pub(super) fn show(
             } else {
                 ForestPart::Branches
             };
-            probe.expect_chunk(chunk.id(), instance_count, part, level);
+            probe.expect_chunk(
+                chunk.id(),
+                instance_count,
+                part,
+                level,
+                ForestWork {
+                    records: instance_count,
+                    slots: instance_count,
+                },
+            );
         }
     }
 }

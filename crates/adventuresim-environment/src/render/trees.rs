@@ -1,5 +1,5 @@
-//! Whole trees as instances of stored model meshes. Frustum culling is per
-//! variant/size/ground-cell batch; instance distance culling remains Eidolon's.
+//! Whole trees as instances of shared capacity grids. Frustum culling is per
+//! capacity/size/ground-cell batch; instance distance culling remains Eidolon's.
 
 use std::sync::Arc;
 
@@ -12,6 +12,13 @@ use crate::prepared::{TreeLibrary, TreePopulation};
 mod batches;
 mod materials;
 mod upload;
+
+/// Explicit Bevy vertex ABI: one integer address, decoded by the forest shader.
+const VERTEX_ADDRESS: bevy::mesh::MeshVertexAttribute = bevy::mesh::MeshVertexAttribute::new(
+    "ForestAddress",
+    0x4652_5354_4144_4452,
+    bevy::render::render_resource::VertexFormat::Uint32,
+);
 
 pub use materials::{TreeBranchMaterial, TreeLeafMaterial};
 

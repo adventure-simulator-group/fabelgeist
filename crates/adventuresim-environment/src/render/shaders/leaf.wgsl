@@ -19,8 +19,8 @@ const GOLDEN: f32 = 2.39996323;
 @group(3) @binding(1) var<storage, read> leaves: array<Leaf>;
 @group(3) @binding(2) var<storage, read> species: array<Species>;
 #ifdef FOREST_SHARED_TREES
-#import adventuresim_environment::tree_pose::{TreePose, place_tree, tree_normal}
-@group(3) @binding(4) var<storage, read> placements: array<TreePose>;
+#import adventuresim_environment::tree_pose::{TreeInstance, TreeVertex, place_tree, tree_normal}
+@group(3) @binding(4) var<storage, read> placements: array<TreeInstance>;
 #endif
 
 struct LeafOut {
@@ -42,19 +42,31 @@ fn rand(seed: f32, i: u32, k: f32) -> f32 {
 }
 
 @vertex
+#ifdef FOREST_SHARED_TREES
+fn vertex(vertex: TreeVertex) -> LeafOut {
+#else
 fn vertex(vertex: Vertex) -> LeafOut {
+#endif
     let blades = lod.x;
 #ifdef FOREST_SHARED_TREES
-    let address = u32(round(vertex.position.z));
-    let inst = leaves[address / blades];
-    let i = address % blades;
+    let placement = placements[vertex.i_index];
+    let address = vertex.address;
+    let record = address / (blades * 4u);
+    if record >= placement.records.w {
+        var clipped: LeafOut;
+        clipped.clip = vec4<f32>(0.0, 0.0, -1.0, 1.0);
+        return clipped;
+    }
+    let inst = leaves[placement.records.z + record];
+    let i = (address / 4u) % blades;
+    let corner = vec2<f32>(f32(address % 2u), f32((address / 2u) % 2u));
 #else
     let inst = leaves[vertex.i_index];
     let i = u32(round(vertex.position.z));
+    let corner = vec2<f32>(vertex.position.x, vertex.position.y);
 #endif
     // Fewer blades cover as much, each larger.
     let spread = sqrt(10.0 / f32(blades));
-    let corner = vec2<f32>(vertex.position.x, vertex.position.y);
     let foliage = u32(species[inst.kind].leaf.w);
     let up = vec3<f32>(0.0, 1.0, 0.0);
     let tip = inst.center_size.xyz;
@@ -126,7 +138,7 @@ fn vertex(vertex: Vertex) -> LeafOut {
 
     out.surface = world;
 #ifdef FOREST_SHARED_TREES
-    let pose = placements[vertex.i_index];
+    let pose = placement.pose;
     world = place_tree(pose, world);
     normal = tree_normal(pose, normal);
 #endif

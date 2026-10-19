@@ -28,7 +28,7 @@ use bevy_eidolon::cull::pipeline::InstancedComputePipeline;
 use bevy_eidolon::prelude::{InstancedMaterial, MaterialBatchRanges};
 use bevy_eidolon::render::draw::DrawInstancedMaterial;
 
-use super::{BranchMaterial, LeafMaterial};
+use super::{BranchMaterial, ForestPart, LeafMaterial};
 
 /// Zero is reserved for a GPU submission not observed yet.
 const UNOBSERVED: u64 = 0;
@@ -74,10 +74,24 @@ pub struct ForestInstances {
 }
 
 #[derive(Debug, Default)]
-pub struct LodInstances {
+#[cfg_attr(feature = "prepared", derive(serde::Serialize))]
+pub struct LodCounts {
     pub full: usize,
     pub middle: usize,
     pub coarse: usize,
+}
+
+/// Record work submitted by a batch, before per-tree GPU culling.
+pub struct ForestWork {
+    pub records: usize,
+    pub slots: usize,
+}
+
+#[derive(Debug, Default)]
+pub struct LodWork {
+    pub instances: LodCounts,
+    pub records: LodCounts,
+    pub slots: LodCounts,
 }
 
 #[derive(SystemParam)]
@@ -92,11 +106,7 @@ struct ExpectedChunk {
     instances: usize,
     part: ForestPart,
     level: super::Level,
-}
-
-pub(super) enum ForestPart {
-    Branches,
-    Leaves,
+    work: ForestWork,
 }
 
 /// A diagnostic snapshot; counts include only work observed by this probe.
@@ -113,19 +123,27 @@ pub struct ForestBenchmarkCounts {
     pub expected_leaf_instances: usize,
     pub expected_batches: usize,
     pub expected_meshes: usize,
-    pub branch_lod: LodInstances,
-    pub leaf_lod: LodInstances,
+    pub branch_lod: LodWork,
+    pub leaf_lod: LodWork,
 }
 
 struct RecordDraw<const FOLIAGE: bool>;
 
-impl LodInstances {
+impl LodCounts {
     fn add(&mut self, level: super::Level, count: usize) {
         match level {
             super::Level::Full => self.full += count,
             super::Level::Middle => self.middle += count,
             super::Level::Coarse => self.coarse += count,
         }
+    }
+}
+
+impl LodWork {
+    fn add(&mut self, chunk: &ExpectedChunk) {
+        self.instances.add(chunk.level, chunk.instances);
+        self.records.add(chunk.level, chunk.work.records);
+        self.slots.add(chunk.level, chunk.work.slots);
     }
 }
 
@@ -189,8 +207,8 @@ impl ForestBenchmark {
         let read = |counter: &AtomicUsize| counter.load(Ordering::Acquire);
         let micros = self.inner.completed_micros.load(Ordering::Acquire);
         let expected = self.inner.expected.lock().ok();
-        let mut branch_lod = LodInstances::default();
-        let mut leaf_lod = LodInstances::default();
+        let mut branch_lod = LodWork::default();
+        let mut leaf_lod = LodWork::default();
         if let Some(expected) = &expected {
             for chunk in expected
                 .chunks
@@ -198,8 +216,8 @@ impl ForestBenchmark {
                 .filter(|chunk| expected.active(chunk))
             {
                 match chunk.part {
-                    ForestPart::Branches => branch_lod.add(chunk.level, chunk.instances),
-                    ForestPart::Leaves => leaf_lod.add(chunk.level, chunk.instances),
+                    ForestPart::Branches => branch_lod.add(chunk),
+                    ForestPart::Leaves => leaf_lod.add(chunk),
                 }
             }
         }
@@ -262,6 +280,7 @@ impl ForestBenchmark {
         instances: usize,
         part: ForestPart,
         level: super::Level,
+        work: ForestWork,
     ) {
         match self.inner.expected.lock() {
             Ok(mut expected) => expected.chunks.push(ExpectedChunk {
@@ -269,6 +288,7 @@ impl ForestBenchmark {
                 instances,
                 part,
                 level,
+                work,
             }),
             Err(_) => {
                 self.inner.failures.fetch_add(1, Ordering::Release);

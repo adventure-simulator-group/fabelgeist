@@ -53,10 +53,10 @@ impl InstancedMaterial for TreeBranchMaterial {
     }
     fn specialize(
         descriptor: &mut RenderPipelineDescriptor,
-        _layout: &MeshVertexBufferLayoutRef,
+        layout: &MeshVertexBufferLayoutRef,
         _key: Self::Data,
     ) -> Result<(), SpecializedMeshPipelineError> {
-        specialize_shared(descriptor);
+        specialize_shared(descriptor, layout)?;
         Ok(())
     }
 }
@@ -79,19 +79,28 @@ impl InstancedMaterial for TreeLeafMaterial {
     }
     fn specialize(
         descriptor: &mut RenderPipelineDescriptor,
-        _layout: &MeshVertexBufferLayoutRef,
+        layout: &MeshVertexBufferLayoutRef,
         _key: Self::Data,
     ) -> Result<(), SpecializedMeshPipelineError> {
-        specialize_shared(descriptor);
+        specialize_shared(descriptor, layout)?;
         descriptor.primitive.cull_mode = None;
         descriptor.multisample.alpha_to_coverage_enabled = descriptor.multisample.count > 1;
         Ok(())
     }
 }
 
-fn specialize_shared(descriptor: &mut RenderPipelineDescriptor) {
+fn specialize_shared(
+    descriptor: &mut RenderPipelineDescriptor,
+    layout: &MeshVertexBufferLayoutRef,
+) -> Result<(), SpecializedMeshPipelineError> {
+    descriptor.vertex.buffers = vec![
+        layout
+            .0
+            .get_layout(&[super::VERTEX_ADDRESS.at_shader_location(0)])?,
+    ];
     descriptor.vertex.shader_defs.push(SHARED_DEFINE.into());
     if let Some(fragment) = &mut descriptor.fragment {
         fragment.shader_defs.push(SHARED_DEFINE.into());
     }
+    Ok(())
 }

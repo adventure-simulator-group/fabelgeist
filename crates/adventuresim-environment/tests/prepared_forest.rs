@@ -5,9 +5,39 @@
 use std::num::NonZeroU16;
 
 use adventuresim_environment::prepared::*;
+use adventuresim_environment::render::ForestPart;
 use fabelgeist_math::units::{Metres, Ratio};
 
 mod support;
+
+#[test]
+fn declared_grid_counts_fail_before_reading_or_allocating_array_payload() {
+    use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance, PlantInstance};
+    let library = support::padded_fixture()
+        .bake(VariantBudget::AllPlants)
+        .unwrap();
+    let (bytes, _) = encode_library(&library).unwrap();
+    let count =
+        |offset: usize| u64::from_le_bytes(bytes[offset..offset + 8].try_into().unwrap()) as usize;
+    let mut first_grid = 16 + count(8);
+    for record_size in [
+        size_of::<PlantInstance>(),
+        size_of::<BranchInstance>(),
+        size_of::<LeafInstance>(),
+    ] {
+        first_grid += 8 + count(first_grid) * record_size;
+    }
+    let first_indices =
+        first_grid + 8 + library.grids[0].levels[0].vertices.len() * size_of::<u32>();
+    for offset in [first_grid, first_indices] {
+        let mut malformed = bytes[..offset + 8].to_vec();
+        malformed[offset..offset + 8].copy_from_slice(&u64::from(u32::MAX).to_le_bytes());
+        assert!(matches!(
+            decode_library(&malformed),
+            Err(PreparedError::MeshCardinality)
+        ));
+    }
+}
 
 #[test]
 fn bounded_sharing_preserves_sparse_and_dense_crowns_deterministically() {
@@ -121,9 +151,19 @@ fn every_plant_oracle_keeps_its_own_model_at_all_three_levels() {
         assert_eq!(model.source, placement.id);
         assert_eq!(placement.pose.horizontal(), Ratio::from_ratio(1.0));
         assert_eq!(placement.pose.vertical(), Ratio::from_ratio(1.0));
-        for level in &model.meshes {
-            assert!(!level.branches.indices.is_empty());
-            assert!(!level.leaves.indices.is_empty());
+        for (part, span) in [
+            (ForestPart::Branches, model.branches),
+            (ForestPart::Leaves, model.leaves),
+        ] {
+            let class = MeshClass::for_records(part, span.count).unwrap().unwrap();
+            let grid = library
+                .grids
+                .iter()
+                .find(|grid| grid.class == class)
+                .unwrap();
+            for level in &grid.levels {
+                assert!(!level.indices.is_empty());
+            }
         }
         let branch = library.branches[model.branches.start as usize];
         let world = placement
@@ -191,8 +231,19 @@ fn translated_rotated_stretched_placements_survive_asset_loading() {
 #[test]
 fn corrupt_mesh_addresses_and_metadata_are_rejected() {
     let mut library = support::fixture().bake(VariantBudget::AllPlants).unwrap();
-    library.models[0].meshes[0].branches.vertices[0][0] = 999.0;
+    library.grids[0].levels[0].vertices[0] = 999;
     assert!(encode_library(&library).is_err());
+    let mut library = support::padded_fixture()
+        .bake(VariantBudget::AllPlants)
+        .unwrap();
+    library.grids[0].levels[0].indices[0] = u32::MAX;
+    assert!(encode_library(&library).is_err());
+    let mut library = support::fixture().bake(VariantBudget::AllPlants).unwrap();
+    library.grids.pop();
+    assert!(encode_library(&library).is_err());
+    assert!(RecordCapacity::try_from(0).is_err());
+    assert!(RecordCapacity::try_from(3).is_err());
+    assert!(RecordCapacity::covering(u32::MAX).is_err());
     let unique = support::fixture();
     let library = unique.bake(VariantBudget::AllPlants).unwrap();
     let (_, id) = encode_library(&library).unwrap();
@@ -285,6 +336,33 @@ fn export_small_rendering_oracles_when_requested() {
     let mut hidden = support::fixture();
     hidden.detail.leaves = false;
     write_fixture(hidden, &directory.join("hidden"));
+    write_fixture(support::padded_fixture(), &directory.join("padded"));
+}
+
+#[test]
+fn capacity_grids_share_topology_while_placements_keep_exact_botanical_spans() {
+    let unique = support::padded_fixture();
+    let library = unique.bake(VariantBudget::AllPlants).unwrap();
+    assert!(library.grids.len() < library.models.len() * 2);
+    let (bytes, id) = encode_library(&library).unwrap();
+    let (loaded, loaded_id) = decode_library(&bytes).unwrap();
+    assert_eq!(id, loaded_id);
+    let population = unique.population(&loaded, id).unwrap();
+    for placement in &population.placements {
+        let model = &loaded.models[placement.variant.index()];
+        assert_eq!(model.source, placement.id);
+        assert!([3, 5].contains(&model.branches.count));
+        assert!([5, 7].contains(&model.leaves.count));
+        for (part, span) in [
+            (ForestPart::Branches, model.branches),
+            (ForestPart::Leaves, model.leaves),
+        ] {
+            let class = MeshClass::for_records(part, span.count).unwrap().unwrap();
+            assert!(class.capacity.records() >= span.count);
+            assert!(class.capacity.records() < span.count * 2);
+            assert!(loaded.grids.iter().any(|grid| grid.class == class));
+        }
+    }
 }
 
 fn write_fixture(unique: PreparedUnique, directory: &std::path::Path) {
