@@ -111,7 +111,7 @@ struct LoadedClip {
 #[derive(Resource, Default)]
 pub(crate) struct AnimationRuntime {
     base_rig: BaseRigLoad,
-    requested_motions: BTreeMap<MotionKey, Handle<Gltf>>,
+    requested_motions: BTreeMap<MotionKey, MotionLoad>,
     unavailable_motions: BTreeSet<MotionKey>,
     clips: BTreeMap<MotionKey, LoadedClip>,
     requested_grips: BTreeMap<WeaponGrip, Handle<Gltf>>,

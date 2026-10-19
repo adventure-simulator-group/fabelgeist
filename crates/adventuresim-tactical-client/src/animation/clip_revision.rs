@@ -46,17 +46,20 @@ pub(super) fn refresh_animation_revisions(
     let motions = runtime
         .requested_motions
         .iter()
-        .filter(|(key, source)| {
-            sources.contains(&source.id())
+        .filter(|(key, load)| {
+            let source = load.source();
+            source.is_some_and(|source| sources.contains(&source.id()))
                 || runtime
                     .clips
                     .get(*key)
                     .is_some_and(|clip| changed.contains(&clip.handle.id()))
-                || gltfs.get(*source).is_some_and(|gltf| {
-                    gltf.animations
-                        .iter()
-                        .any(|clip| changed.contains(&clip.id()))
-                })
+                || source
+                    .and_then(|source| gltfs.get(source))
+                    .is_some_and(|gltf| {
+                        gltf.animations
+                            .iter()
+                            .any(|clip| changed.contains(&clip.id()))
+                    })
         })
         .map(|(key, _)| key.clone())
         .collect::<Vec<_>>();
