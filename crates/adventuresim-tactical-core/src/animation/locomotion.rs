@@ -40,18 +40,18 @@ pub struct LocomotionProfile {
     /// Radius around each contact phase that can carry support.
     pub support_phase_radius: f32,
     /// Visual grounded bounce, in metres.
-    pub bounce_metres: f32,
+    pub bounce_metres: HeightDistance,
     /// Visual unsupported apex, in metres. Zero means a grounded curve.
-    pub flight_apex_metres: f32,
+    pub flight_apex_metres: HeightDistance,
     pub landing: LandingProfile,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub struct LandingProfile {
     pub minimum_impact_speed_metres_per_second: NonnegativeSpeed,
-    pub compression_per_metre_per_second: f32,
-    pub minimum_compression_metres: f32,
-    pub maximum_compression_metres: f32,
+    pub compression_per_metre_per_second: ImpactCompressionCompliance,
+    pub minimum_compression_metres: HeightDistance,
+    pub maximum_compression_metres: HeightDistance,
     pub recovery_seconds: AnimationElapsed,
 }
 
@@ -160,8 +160,12 @@ pub fn locomotion_profile(
         support_phase_radius: walk
             .support_phase_radius
             .lerp(run_profile.support_phase_radius, run),
-        bounce_metres: walk.bounce_metres * (1.0 - run),
-        flight_apex_metres: run_profile.flight_apex_metres * run,
+        bounce_metres: walk
+            .bounce_metres
+            .scaled_by(UnitInterval::from_fraction(1.0 - run)?)?,
+        flight_apex_metres: run_profile
+            .flight_apex_metres
+            .scaled_by(UnitInterval::from_fraction(run)?)?,
         landing: landing_profile(),
     })
 }

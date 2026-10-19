@@ -54,6 +54,20 @@ pub enum AnimationQuantity {
     HeightSpeed,
     #[display("braking lean scale")]
     BrakingLeanScale,
+    #[display("muscle tone")]
+    MuscleTone,
+    #[display("angular stiffness")]
+    AngularStiffness,
+    #[display("reference acceleration")]
+    ReferenceAcceleration,
+    #[display("response rate")]
+    ResponseRate,
+    #[display("inertial lean gain")]
+    InertialLeanGain,
+    #[display("impact compression compliance")]
+    ImpactCompressionCompliance,
+    #[display("look distribution")]
+    LookDistribution,
     #[display("body angle")]
     BodyAngle,
     #[display("body angular velocity")]
@@ -76,6 +90,8 @@ pub enum AnimationValueError {
     NonPositive { quantity: AnimationQuantity },
     #[error("{quantity} must lie in [0, 1]")]
     OutsideUnitInterval { quantity: AnimationQuantity },
+    #[error("{quantity} bounds are inverted")]
+    InvertedBounds { quantity: AnimationQuantity },
     #[error("{quantity} arithmetic overflowed")]
     Overflow { quantity: AnimationQuantity },
 }
@@ -89,6 +105,7 @@ impl AnimationValueError {
             Self::Negative { .. } => Self::Negative { quantity },
             Self::NonPositive { .. } => Self::NonPositive { quantity },
             Self::OutsideUnitInterval { .. } => Self::OutsideUnitInterval { quantity },
+            Self::InvertedBounds { .. } => Self::InvertedBounds { quantity },
             Self::Overflow { .. } => Self::Overflow { quantity },
         }
     }

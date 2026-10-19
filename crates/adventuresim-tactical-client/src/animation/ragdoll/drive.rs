@@ -139,8 +139,8 @@ pub(in crate::animation) fn resolve_ragdoll_terrain_contacts(
             // presentation frames.
             velocity.y = 0.0;
         }
-        velocity.x *= retention;
-        velocity.z *= retention;
+        velocity.x *= retention.fraction();
+        velocity.z *= retention.fraction();
     }
 }
 
@@ -154,22 +154,25 @@ fn capsule_terrain_penetration(
     mut height_at: impl FnMut(Vec2) -> Option<f32>,
 ) -> f32 {
     let center = position + rotation * part.center_local;
-    let axis = rotation * part.axis_local * part.half_length;
+    let axis = rotation * part.axis_local * part.half_length.metres();
     [center - axis, center, center + axis]
         .into_iter()
-        .filter_map(|sample| height_at(sample.xz()).map(|height| height + part.radius - sample.y))
+        .filter_map(|sample| {
+            height_at(sample.xz()).map(|height| height + part.radius.metres() - sample.y)
+        })
         .fold(0.0_f32, f32::max)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
 
     #[test]
     fn tilted_capsule_samples_its_low_endpoint_on_a_slope() {
         let part = RagdollBodyPart {
-            radius: 0.1,
-            half_length: 0.5,
+            radius: PositiveLength::from_metres(0.1).unwrap(),
+            half_length: SignedLength::from_metres(0.5).unwrap(),
             center_local: Vec3::ZERO,
             axis_local: Vec3::Y,
             kinematic: false,
@@ -185,8 +188,8 @@ mod tests {
     #[test]
     fn capsule_offset_from_its_body_origin_is_honoured() {
         let part = RagdollBodyPart {
-            radius: 0.1,
-            half_length: 0.2,
+            radius: PositiveLength::from_metres(0.1).unwrap(),
+            half_length: SignedLength::from_metres(0.2).unwrap(),
             center_local: Vec3::NEG_Y * 0.2,
             axis_local: Vec3::NEG_Y,
             kinematic: false,

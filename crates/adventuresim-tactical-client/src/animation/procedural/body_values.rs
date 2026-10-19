@@ -2,7 +2,9 @@
 
 use crate::animation::sample_values::AnimationValueResult;
 use adventuresim_building_generator::spatial_geometry::Radians;
-use adventuresim_tactical_core::animation::{AnimationQuantity, AnimationValueError, UnitInterval};
+use adventuresim_tactical_core::animation::{
+    AngularMagnitudeDegrees, AnimationQuantity, AnimationValueError, InertialLeanGain, UnitInterval,
+};
 use bevy::prelude::*;
 
 #[derive(Clone, Copy, Default, derive_more::Debug)]
@@ -46,6 +48,37 @@ impl BodyAngle {
             .map_err(|_| AnimationValueError::NonFinite {
                 quantity: AnimationQuantity::BodyAngle,
             })
+    }
+    /// Preserve ratio-before-angle multiplication at the body-target numerical kernel.
+    pub(super) fn from_authored_scale(
+        scale: f32,
+        angle: AngularMagnitudeDegrees,
+    ) -> AnimationValueResult<Self> {
+        Self::from_radians(scale * angle.radians())
+    }
+    pub(super) fn clamped_symmetric(
+        self,
+        maximum: AngularMagnitudeDegrees,
+    ) -> AnimationValueResult<Self> {
+        Self::from_radians(self.radians().clamp(-maximum.radians(), maximum.radians()))
+    }
+    pub(super) fn clamped_positive(
+        self,
+        maximum: AngularMagnitudeDegrees,
+    ) -> AnimationValueResult<Self> {
+        Self::from_radians(self.radians().clamp(0.0, maximum.radians()))
+    }
+    pub(super) fn clamped_negative(
+        self,
+        maximum: AngularMagnitudeDegrees,
+    ) -> AnimationValueResult<Self> {
+        Self::from_radians(self.radians().clamp(-maximum.radians(), 0.0))
+    }
+    pub(super) fn scaled_inertial(self, gain: InertialLeanGain) -> AnimationValueResult<Self> {
+        Self::from_radians(self.radians() * gain.gain())
+    }
+    pub(super) fn scaled_braking(self, scale: BrakingLeanScale) -> AnimationValueResult<Self> {
+        Self::from_radians(self.radians() * scale.fraction())
     }
     pub(crate) fn radians(self) -> f32 {
         self.0.radians()
@@ -164,6 +197,7 @@ impl BodyAngularMagnitude {
 }
 
 impl BrakingLeanScale {
+    pub(super) const FULL: Self = Self(UnitInterval::ONE);
     pub(super) fn from_fraction(value: f32) -> AnimationValueResult<Self> {
         UnitInterval::from_fraction(value)
             .map(Self)

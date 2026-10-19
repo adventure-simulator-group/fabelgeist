@@ -1,5 +1,5 @@
 use crate::animation::{
-    AnimationElapsed, AnimationFrequency, AnimationSampleRate, NonnegativeLength,
+    AnimationElapsed, AnimationFrequency, AnimationSampleRate, HeightDistance, NonnegativeLength,
     PositiveAnimationDuration, UnitInterval,
 };
 use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
@@ -18,7 +18,7 @@ use thiserror::Error;
 pub use ai_offense::AiOffenseConfig;
 pub use incapacitation_forecast::IncapacitationForecastConfig;
 pub use ragdoll::{
-    RagdollCapsuleConfig, RagdollCapsulesConfig, RagdollConfig, RagdollMusclesConfig,
+    MuscleRelease, RagdollCapsuleConfig, RagdollCapsulesConfig, RagdollConfig, RagdollMusclesConfig,
 };
 pub use runtime::{
     runtime_animation_config, runtime_combat_presentation_config, runtime_melee_authority_config,
@@ -89,8 +89,8 @@ pub struct AnimationGaitConfig {
     pub reference_speed_metres_per_second: PositiveSpeed,
     pub step_distance_metres: f32,
     pub support_phase_radius: f32,
-    pub bounce_metres: f32,
-    pub flight_apex_metres: f32,
+    pub bounce_metres: HeightDistance,
+    pub flight_apex_metres: HeightDistance,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
@@ -694,8 +694,8 @@ impl TacticalCombatConfig {
             ![
                 gait.step_distance_metres,
                 gait.support_phase_radius,
-                gait.bounce_metres,
-                gait.flight_apex_metres,
+                gait.bounce_metres.metres(),
+                gait.flight_apex_metres.metres(),
             ]
             .into_iter()
             .all(finite_nonnegative)
@@ -728,7 +728,6 @@ impl TacticalCombatConfig {
         }
         animation.playback.validate()?;
         animation.pose_buffer.validate()?;
-        animation.ragdoll.validate()?;
         animation.procedural.validate()?;
         let bouncy = animation.bouncy_bones;
         if ![

@@ -7,10 +7,12 @@
 //! momentum, so a mid-swing limb carries its swing into physics.
 
 use super::super::pose_buffer::PoseBufferRig;
+use super::geometry::RagdollGeometry;
 use super::{
     RAGDOLL_LAYER, RagdollBodyPart, RagdollPart,
     definition::{RagdollDefinition, RagdollJointKind},
 };
+use adventuresim_building_generator::spatial_geometry::GeometryResult;
 use adventuresim_tactical_core::prelude::*;
 use bevy::{math::Affine3A, prelude::*};
 use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
@@ -148,7 +150,11 @@ pub(super) fn seed_bodies(
         // the bone rests at its bind rotation.
         let rotation = (rotation_next * bind_rotation.inverse()).normalize();
         let angular = angular_velocity_between(rotation_next, rotation_previous, sample_interval)
-            .clamp_length_max(config.maximum_seed_spin_radians_per_second);
+            .clamp_length_max(
+                config
+                    .maximum_seed_spin_radians_per_second
+                    .radians_per_second(),
+            );
         let linear = momentum
             + ((position_next - position_previous) / sample_interval.seconds()).clamp_length_max(
                 config
@@ -175,19 +181,23 @@ pub(super) fn spawn_ragdoll(
     seeds: &[Option<BodySeed>],
     scale: f32,
     config: &RagdollConfig,
-) -> SpawnedRagdoll {
+) -> GeometryResult<SpawnedRagdoll> {
+    let geometry = RagdollGeometry::prepare(
+        definition,
+        seeds,
+        scale,
+        config.speculative_contact_margin_metres,
+    )?;
     let mut parts = Vec::new();
-    let bodies = spawn_bodies(
-        commands, owner, definition, seeds, scale, config, &mut parts,
-    );
+    let bodies = spawn_bodies(commands, owner, definition, seeds, &geometry, &mut parts);
     let muscles = spawn_joints(
         commands, owner, definition, seeds, scale, &bodies, &mut parts,
     );
-    SpawnedRagdoll {
+    Ok(SpawnedRagdoll {
         parts,
         bodies,
         muscles,
-    }
+    })
 }
 
 /// Angular velocity (rad/s) carrying `current` onto `next` over
@@ -211,8 +221,7 @@ fn spawn_bodies(
     owner: Entity,
     definition: &RagdollDefinition,
     seeds: &[Option<BodySeed>],
-    scale: f32,
-    config: &RagdollConfig,
+    geometry: &RagdollGeometry,
     parts: &mut Vec<Entity>,
 ) -> Vec<Option<Entity>> {
     let mut bodies = vec![None; definition.bodies.len()];
@@ -225,7 +234,9 @@ fn spawn_bodies(
         } else {
             RigidBody::Dynamic
         };
-        let axis_local = body.collider_local.rotation * Vec3::Y;
+        let Some(capsule) = &geometry.capsules[index] else {
+            continue;
+        };
         let entity = commands
             .spawn((
                 Name::new(format!("Presentation ragdoll {:?}", body.role)),
@@ -241,23 +252,16 @@ fn spawn_bodies(
                 // A resting body cycling sleep/wake reads as floor shaking,
                 // and these bodies despawn on exit anyway.
                 SleepingDisabled,
-                SpeculativeMargin(config.speculative_contact_margin_metres),
+                SpeculativeMargin(geometry.margin.metres()),
                 RagdollPart { owner },
-                RagdollBodyPart {
-                    radius: body.shape.radius * scale,
-                    half_length: body.shape.length * scale * 0.5,
-                    center_local: body.collider_local.translation * scale,
-                    axis_local,
-                    kinematic: body.kinematic,
-                },
+                capsule.part,
             ))
             .remove::<RigidBodyDisabled>()
             .id();
         commands.spawn((
             ChildOf(entity),
-            Transform::from_translation(body.collider_local.translation * scale)
-                .with_rotation(body.collider_local.rotation),
-            Collider::capsule(body.shape.radius * scale, body.shape.length * scale),
+            capsule.collider_local,
+            Collider::capsule(capsule.part.radius.metres(), capsule.segment.metres()),
             // A client-only collision island: non-neighbouring parts collide
             // with one another and nothing else.
             CollisionLayers::new(RAGDOLL_LAYER, RAGDOLL_LAYER),
@@ -301,8 +305,8 @@ fn spawn_joints(
                         .with_local_anchor1(anchor1)
                         .with_local_anchor2(anchor2)
                         .with_twist_axis(twist_axis)
-                        .with_swing_limits(-swing, swing)
-                        .with_twist_limits(-twist, twist),
+                        .with_swing_limits(-swing.radians(), swing.radians())
+                        .with_twist_limits(-twist.radians(), twist.radians()),
                     JointCollisionDisabled,
                     RagdollPart { owner },
                 ))
@@ -313,7 +317,7 @@ fn spawn_joints(
                         .with_local_anchor1(anchor1)
                         .with_local_anchor2(anchor2)
                         .with_hinge_axis(axis)
-                        .with_angle_limits(limits.0, limits.1),
+                        .with_angle_limits(limits.minimum.radians(), limits.maximum.radians()),
                     JointCollisionDisabled,
                     RagdollPart { owner },
                 ))

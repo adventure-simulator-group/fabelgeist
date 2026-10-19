@@ -23,6 +23,7 @@ use super::{
     procedural::{BoneRole, HumanoidRig},
     skeletal_proportions::SkeletalJointOffset,
 };
+use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
 use adventuresim_tactical_core::prelude::*;
 use bevy::{math::Affine3A, prelude::*};
 pub(super) use drive::{
@@ -34,6 +35,7 @@ pub(super) use muscles::{apply_muscles, damp_joints};
 mod definition;
 mod drive;
 mod entry;
+mod geometry;
 mod muscles;
 
 /// The client-only collision island every ragdoll body lives on.
@@ -57,7 +59,7 @@ pub(crate) struct Ragdolling {
     joint_order: Vec<RigJointOrdinal>,
     muscles: Vec<MuscleTarget>,
     /// Seconds since entry; drives the stun, rise, and limp envelope.
-    age_seconds: f32,
+    age_seconds: AnimationElapsed,
     /// The owner's uniform world scale at entry: bind-space lengths are
     /// multiplied by it.
     scale: f32,
@@ -76,8 +78,8 @@ pub(super) struct RagdollPart {
 /// Capsule geometry for the terrain contact solver, world units.
 #[derive(Component, Debug, Clone, Copy)]
 pub(super) struct RagdollBodyPart {
-    radius: f32,
-    half_length: f32,
+    radius: PositiveLength,
+    half_length: SignedLength,
     center_local: Vec3,
     axis_local: Vec3,
     kinematic: bool,
@@ -209,9 +211,16 @@ fn enter_ragdoll(
             .get(&role)
             .and_then(|entity| proportioned_bind_global(*entity, owner, bind_nodes))
     };
-    let Some(definition) = RagdollDefinition::from_bind_pose(bind, &config.capsules) else {
-        warn_once!("ragdoll: rig {owner} lacks a driving bone; no presentation ragdoll");
-        return;
+    let definition = match RagdollDefinition::from_bind_pose(bind, &config.capsules) {
+        Ok(Some(definition)) => definition,
+        Ok(None) => {
+            warn_once!("ragdoll: rig {owner} lacks a driving bone; no presentation ragdoll");
+            return;
+        }
+        Err(error) => {
+            warn!(?owner, %error, "Rejected presentation ragdoll joint angles");
+            return;
+        }
     };
     let joint_bodies = (0..rig.joint_count())
         .map(RigJointOrdinal::from)
@@ -239,7 +248,13 @@ fn enter_ragdoll(
         warn_once!("ragdoll: rig {owner} has no pelvis joint in its pose buffer");
         return;
     };
-    let spawned = spawn_ragdoll(commands, owner, &definition, &seeds, scale, config);
+    let spawned = match spawn_ragdoll(commands, owner, &definition, &seeds, scale, config) {
+        Ok(spawned) => spawned,
+        Err(error) => {
+            warn!(?owner, %error, "Rejected presentation ragdoll geometry");
+            return;
+        }
+    };
     let pelvis_owner_local = owner_world.inverse()
         * Affine3A::from_rotation_translation(pelvis.rotation, pelvis.position);
     rig.set_ownership(crate::animation::PoseOwnership::Physics);
@@ -250,7 +265,7 @@ fn enter_ragdoll(
         joint_bodies,
         joint_order,
         muscles: spawned.muscles,
-        age_seconds: 0.0,
+        age_seconds: AnimationElapsed::ZERO,
         scale,
         pelvis_owner_local,
     });

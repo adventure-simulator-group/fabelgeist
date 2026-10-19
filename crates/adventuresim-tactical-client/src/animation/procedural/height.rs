@@ -6,7 +6,7 @@ use super::height_values::{
 use super::*;
 use crate::animation::presentation::playback_tuning;
 use adventuresim_building_generator::spatial_geometry::SignedLength;
-use adventuresim_tactical_core::animation::CyclePhase;
+use adventuresim_tactical_core::animation::{CyclePhase, UnitInterval};
 
 impl LocomotionHeightState {
     pub(super) fn advance_height(mut self, skeleton: &SkeletonState) -> AnimationValueResult<Self> {
@@ -49,10 +49,8 @@ impl LocomotionHeightState {
         skeleton.is_grounded()
             && !skeleton.is_posture_transitioning()
             && skeleton.action_kind() == SkeletonAction::None
-            && self.landing_compression.metres()
-                > procedural_tuning()
-                    .landing_plant_minimum_compression_metres
-                    .metres()
+            && self.landing_compression
+                > procedural_tuning().landing_plant_minimum_compression_metres
     }
 
     fn advance_amplitude(
@@ -147,13 +145,10 @@ impl LocomotionHeightState {
                 skeleton.landing_impact_speed,
                 Some(previous_action),
             )?;
-            self.landing_absorption_metres_per_second = HeightSpeed::from_metres_per_second(
-                skeleton.landing_impact_speed.metres_per_second().max(
-                    procedural_tuning()
-                        .minimum_landing_absorption_speed_metres_per_second
-                        .metres_per_second(),
-                ),
-            )?;
+            self.landing_absorption_metres_per_second = HeightSpeed::absorption(
+                skeleton.landing_impact_speed,
+                procedural_tuning().minimum_landing_absorption_speed_metres_per_second,
+            );
             self.landing_recovery_metres_per_second = HeightSpeed::recovery(
                 self.landing_compression_target,
                 locomotion_profile(skeleton, skeleton.animation_speed()?)?
@@ -228,12 +223,14 @@ pub(super) fn locomotion_height_wave(
             .metres_per_second(),
         speed.metres_per_second(),
     );
-    if profile.flight_apex_metres <= 0.0 {
+    if profile.flight_apex_metres <= HeightDistance::ZERO {
         return Ok(HeightDistance::ZERO);
     }
-    let half_step = (skeleton.gait_phase.cycles().rem_euclid(0.5) * 2.0).clamp(0.0, 1.0);
-    let flight = (half_step * std::f32::consts::PI).sin().powi(2) * profile.flight_apex_metres;
-    HeightDistance::from_metres(flight * moving_weight)
+    profile.flight_apex_metres.flight_wave(
+        skeleton.gait_phase,
+        UnitInterval::from_fraction(moving_weight)
+            .map_err(|error| error.for_quantity(AnimationQuantity::HeightDistance))?,
+    )
 }
 pub(super) fn authored_height_compensation(
     skeleton: &SkeletonState,
@@ -246,19 +243,20 @@ pub(super) fn authored_height_compensation(
     {
         return Ok(HeightDistance::ZERO);
     }
-    let run_weight = locomotion_profile(skeleton, skeleton.animation_speed()?)?.flight_apex_metres
-        / run_locomotion_profile().flight_apex_metres;
+    let run_weight = locomotion_profile(skeleton, skeleton.animation_speed()?)?
+        .flight_apex_metres
+        .metres()
+        / run_locomotion_profile().flight_apex_metres.metres();
     if !run_weight.is_finite() {
         return Err(AnimationValueError::Overflow {
             quantity: AnimationQuantity::HeightDistance,
         });
     }
-    HeightDistance::from_metres(
-        procedural_tuning()
-            .authored_ordinary_passing_rise_metres
-            .metres()
-            * run_weight.clamp(0.0, 1.0)
-            * smoothstep(
+    procedural_tuning()
+        .authored_ordinary_passing_rise_metres
+        .scaled_by(UnitInterval::from_fraction(run_weight.clamp(0.0, 1.0))?)?
+        .scaled_by(
+            UnitInterval::from_fraction(smoothstep(
                 playback_tuning()
                     .initial_locomotion_speed_metres_per_second
                     .metres_per_second(),
@@ -267,15 +265,15 @@ pub(super) fn authored_height_compensation(
                     .blend_speed
                     .metres_per_second(),
                 skeleton.animation_speed()?.metres_per_second(),
-            ),
-    )
+            ))
+            .map_err(|error| error.for_quantity(AnimationQuantity::HeightDistance))?,
+        )
 }
 pub(super) fn landing_compression_for_impact(
     profile: LocomotionProfile,
     impact_speed: LandingImpactSpeed,
 ) -> AnimationValueResult<HeightDistance> {
-    let impact_speed = impact_speed.metres_per_second();
-    if impact_speed
+    if impact_speed.metres_per_second()
         < profile
             .landing
             .minimum_impact_speed_metres_per_second
@@ -283,16 +281,14 @@ pub(super) fn landing_compression_for_impact(
     {
         return Ok(HeightDistance::ZERO);
     }
-    let compression = impact_speed * profile.landing.compression_per_metre_per_second;
-    if !compression.is_finite() {
-        return Err(AnimationValueError::Overflow {
-            quantity: AnimationQuantity::HeightDistance,
-        });
-    }
-    HeightDistance::from_metres(compression.clamp(
-        profile.landing.minimum_compression_metres,
-        profile.landing.maximum_compression_metres,
-    ))
+    profile
+        .landing
+        .compression_per_metre_per_second
+        .compression(
+            impact_speed,
+            profile.landing.minimum_compression_metres,
+            profile.landing.maximum_compression_metres,
+        )
 }
 pub(super) fn landing_compression_for_action(
     profile: LocomotionProfile,
@@ -315,5 +311,5 @@ fn grounded_height_wave(
 ) -> AnimationValueResult<HeightDistance> {
     // A native periodic metre-amplitude kernel; the signed offset is computed afterward.
     let sine = (phase.wrapped().cycles() * std::f32::consts::TAU).sin();
-    HeightDistance::from_metres(amplitude.metres() * sine * sine)
+    HeightDistance::from_arithmetic(amplitude.metres() * sine * sine)
 }

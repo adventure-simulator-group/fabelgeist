@@ -1,8 +1,8 @@
 //! Height treatment roles over shared finite nonnegative measurements.
 
 use super::{
-    AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult,
-    NonnegativeLength, NonnegativeSpeed,
+    AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult, CyclePhase,
+    LandingImpactSpeed, NonnegativeLength, NonnegativeSpeed, UnitInterval,
 };
 use adventuresim_building_generator::spatial_geometry::SignedLength;
 use serde::{Deserialize, Serialize};
@@ -51,6 +51,19 @@ impl HeightDistance {
     pub fn metres(self) -> f32 {
         self.0.metres()
     }
+    pub fn scaled_by(self, weight: UnitInterval) -> AnimationValueResult<Self> {
+        Self::from_arithmetic(self.metres() * weight.fraction())
+    }
+    /// A flight wave multiplies the periodic factor before its authored amplitude.
+    pub fn flight_wave(
+        self,
+        phase: CyclePhase,
+        weight: UnitInterval,
+    ) -> AnimationValueResult<Self> {
+        let half_step = (phase.cycles().rem_euclid(0.5) * 2.0).clamp(0.0, 1.0);
+        let flight = (half_step * std::f32::consts::PI).sin().powi(2) * self.metres();
+        Self::from_arithmetic(flight * weight.fraction())
+    }
     pub fn advance_towards(self, target: Self, maximum_delta: Self) -> AnimationValueResult<Self> {
         let value = self.metres()
             + (target.metres() - self.metres()).clamp(
@@ -89,6 +102,10 @@ impl HeightSpeed {
     }
     pub fn max(self, other: Self) -> Self {
         if self.0 >= other.0 { self } else { other }
+    }
+    /// Landing absorption uses the larger of the measured impact and configured minimum.
+    pub fn absorption(impact: LandingImpactSpeed, minimum: Self) -> Self {
+        Self(impact.speed().max(minimum.0))
     }
     pub fn recovery(
         compression: HeightDistance,

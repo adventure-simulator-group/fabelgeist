@@ -66,7 +66,7 @@ pub(in crate::animation) fn apply_procedural_dive_lower_body(
 }
 
 fn dive_pelvis_lean(direction: DiveDirection, amount: DiveInfluence) -> Quat {
-    let angle = procedural_tuning().dive_pelvis_lean_degrees.to_radians() * amount.fraction();
+    let angle = procedural_tuning().dive_pelvis_lean_degrees.radians() * amount.fraction();
     match direction {
         DiveDirection::Forward => Quat::from_rotation_x(angle),
         DiveDirection::Backward => Quat::from_rotation_x(-angle),

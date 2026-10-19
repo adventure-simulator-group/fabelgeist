@@ -39,11 +39,14 @@ pub(crate) struct LocomotionBodyResponseState {
     pub(super) target_pitch_radians: BodyAngle,
     pub(super) target_roll_radians: BodyAngle,
     pub(super) smoothed_body_acceleration: BodyLocalAcceleration,
-    pub(super) last_body_velocity: BodyLocalVelocity,
-    pub(super) last_tick: Option<AnimationSampleTick>,
-    pub(super) last_posture: Option<Posture>,
-    pub(super) last_action: Option<SkeletonAction>,
-    pub(super) last_ground_contact: Option<GroundContact>,
+    pub(super) observation: Option<BodyObservation>,
+}
+
+/// A real authoritative observation; neutral filter values are not measurement history.
+#[derive(Debug, Clone, Copy)]
+pub(super) struct BodyObservation {
+    pub(super) tick: AnimationSampleTick,
+    pub(super) velocity: BodyLocalVelocity,
 }
 
 #[derive(Debug, Clone, Copy)]

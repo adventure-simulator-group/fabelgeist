@@ -15,11 +15,12 @@ impl LocomotionBodyResponseState {
         time: &Time,
     ) -> AnimationValueResult<Self> {
         let tick = skeleton.locomotion_sample_tick;
-        let tick_delta = presentation_tick_delta(self.last_tick, tick);
+        let previous_tick = self.observation.map(|observation| observation.tick);
+        let tick_delta = presentation_tick_delta(previous_tick, tick);
         let delta_seconds = match procedural_clock.fixed_step() {
             Some(FixedAnimationStep {
                 tick: fixed_tick, ..
-            }) if self.last_tick == Some(fixed_tick) => AnimationElapsed::ZERO,
+            }) if previous_tick == Some(fixed_tick) => AnimationElapsed::ZERO,
             Some(FixedAnimationStep { delta_seconds, .. }) => delta_seconds,
             None => AnimationElapsed::from(time.delta())
                 .min(body_response_tuning().maximum_frame_seconds),
@@ -56,11 +57,19 @@ impl LocomotionBodyResponseState {
                 body_acceleration,
                 delta_seconds,
             )?;
-            let braking_scale = deceleration_lean_scale(
-                self.last_body_velocity,
-                body_velocity,
-                self.smoothed_body_acceleration,
-            )?;
+            let braking_scale = match self.observation {
+                Some(observation) => deceleration_lean_scale(
+                    observation.velocity,
+                    body_velocity,
+                    self.smoothed_body_acceleration,
+                )?,
+                // No prior measurement can demonstrate deceleration. The old
+                // neutral velocity's zero dot product selected this same scale.
+                None => {
+                    body_velocity.planar_squared()?;
+                    BrakingLeanScale::FULL
+                }
+            };
             let combined = body_response_target(
                 body_velocity,
                 self.smoothed_body_acceleration,
@@ -81,13 +90,11 @@ impl LocomotionBodyResponseState {
             self.roll_radians = advanced.angles.roll;
             self.angular_velocity_radians_per_second = advanced.angular_velocity;
         }
-        if self.last_tick.is_none() || discontinuous || source_changed {
-            self.last_body_velocity = body_velocity;
-        }
-        self.last_tick = Some(tick);
-        self.last_posture = Some(skeleton.posture());
-        self.last_action = Some(skeleton.action_kind());
-        self.last_ground_contact = Some(GroundContact::from(skeleton));
+        let velocity = match self.observation {
+            Some(observation) if !discontinuous && !source_changed => observation.velocity,
+            _ => body_velocity,
+        };
+        self.observation = Some(BodyObservation { tick, velocity });
         Ok(self)
     }
 }
@@ -204,14 +211,8 @@ fn smooth_acceleration(
     } else {
         body_response_tuning().acceleration_release_response_per_second
     };
-    let exponent = -rate * elapsed.seconds();
-    if !exponent.is_finite() {
-        return Err(AnimationValueError::Overflow {
-            quantity: AnimationQuantity::BodyLocalAcceleration,
-        });
-    }
-    let response = 1.0 - exponent.exp();
-    BodyLocalAcceleration::from_metres_per_second_squared(current.lerp(target, response))
+    let response = rate.exponential_fraction(elapsed)?;
+    BodyLocalAcceleration::from_metres_per_second_squared(current.lerp(target, response.fraction()))
 }
 
 fn advance_body_response(
@@ -247,7 +248,9 @@ fn advance_body_response(
             quantity: AnimationQuantity::BodyAngularVelocity,
         });
     }
-    let maximum_speed = body_response_tuning().degrees_per_second.to_radians();
+    let maximum_speed = body_response_tuning()
+        .degrees_per_second
+        .radians_per_second();
     let next_velocity = next_velocity.clamp_length_max(maximum_speed);
     let next = current + next_velocity * delta_seconds;
     Ok(BodyResponseStep {
@@ -390,10 +393,17 @@ mod tests {
             )
         })
         .unwrap();
-        let maximum_step = body_response_tuning().degrees_per_second.to_radians() * frame_seconds;
+        let maximum_step = body_response_tuning()
+            .degrees_per_second
+            .radians_per_second()
+            * frame_seconds;
         assert!(advanced.length() <= maximum_step + 0.000_001);
         assert!(
-            velocity.length() <= body_response_tuning().degrees_per_second.to_radians() + 0.000_001
+            velocity.length()
+                <= body_response_tuning()
+                    .degrees_per_second
+                    .radians_per_second()
+                    + 0.000_001
         );
     }
 

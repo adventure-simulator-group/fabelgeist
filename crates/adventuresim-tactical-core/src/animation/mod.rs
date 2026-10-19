@@ -12,6 +12,7 @@ use adventuresim_core::combat_style::MeleeAttackStyle;
 use bevy::prelude::*;
 use serde::{Deserialize, Serialize};
 
+pub use authored_angle::{AngularMagnitudeDegrees, AngularSpeedDegrees, AngularSpeedRadians};
 pub use contact::ContactSequence;
 pub use elapsed::AnimationElapsed;
 pub use evaluation::*;
@@ -23,6 +24,10 @@ pub use measurement::{NonnegativeLength, PositiveAnimationDuration, UnitInterval
 pub use motion_modes::{DownedMotion, GuardedLocomotionMode, JumpAnticipation};
 pub use pack_id::AnimationPackId;
 pub use packs::*;
+pub use response_parameters::{
+    AngularStiffness, ImpactCompressionCompliance, InertialLeanGain, LookDistribution, MuscleTone,
+    ReferenceAcceleration, ResponseRate,
+};
 pub use sample_rate::{AnimationFrequency, AnimationSampleRate};
 pub use sample_tick::{AnimationSampleSpan, AnimationSampleTick};
 pub use sample_values::{BlendWeight, ClipMirror, CycleDelta, CyclePhase};
@@ -34,6 +39,7 @@ pub use value_error::{AnimationQuantity, AnimationValueError, AnimationValueResu
 use adventuresim_core::linear_speed::NonnegativeSpeed;
 
 mod attack_commitment;
+mod authored_angle;
 mod contact;
 mod elapsed;
 mod evaluation;
@@ -45,6 +51,7 @@ mod measurement;
 mod motion_modes;
 mod pack_id;
 mod packs;
+mod response_parameters;
 mod sample_rate;
 mod sample_tick;
 mod sample_values;

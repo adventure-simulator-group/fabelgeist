@@ -168,3 +168,26 @@ ambiguous tick operators. Client input uses a distinct 32-bit `PlayerInputTick`.
 Before an input has been observed, the replicated motion snapshot carries no
 acknowledgement; an observed zero is a real coordinate, and unreliable-channel
 ordering stays wrap-aware.
+
+Configured gait bounce, flight apex and landing compression retain checked,
+zero-permitting metre amplitudes through profile selection and presentation
+history. Signed visual offsets remain distinct from these amplitudes. Authored
+body-response angle magnitudes and angular-speed caps retain their original
+finite, nonnegative degree scalars for serialization; response and quaternion
+operations convert them to radians without serializing a converted round trip.
+Signed body-local deflections, velocities and accelerations retain their frames.
+The response filter distinguishes its neutral initial condition from an absent
+previous velocity observation, and publishes checked target and spring results
+before replacing retained presentation state.
+
+Ragdoll capsule dimensions retain positive bind lengths and checked world
+lengths until collider construction and terrain geometry. Native collider radii
+must remain strictly positive after scaling; zero, underflowed and negative
+radii fail preparation before any entities are queued. Signed segment lengths
+retain their endpoint order. Muscle release is explicit: `limp_at_seconds` is a
+positive scalar age or `null` for never releasing; numeric zero is rejected.
+The committed positive release age remains unchanged. Muscle tone is an
+unbounded nonnegative gain, angular stiffness is acceleration per radian of pose
+error, and inverse-second response coefficients retain their exponential or
+linear per-step laws. These controllers apply angular-velocity kicks rather than
+physical torques. No shared scalar type imposes a new global angular bound.

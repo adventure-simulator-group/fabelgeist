@@ -1,6 +1,7 @@
 //! Authored travel and inertial target policy in body-local coordinates.
 
 use super::*;
+use adventuresim_tactical_core::animation::UnitInterval;
 
 /// Squared m/s comparison allowance for classifying measured deceleration.
 const DECELERATION_SPEED_SQUARED_ALLOWANCE: f32 = 0.000_1;
@@ -20,7 +21,7 @@ pub(in crate::animation::procedural) fn body_response_target(
     let inertial = inertial_lean(velocity, acceleration, braking_scale, tuning)?;
     // A cap-specific radian margin keeps degree reporting below the authored cap.
     let maximum = BodyAngularMagnitude::from_radians(
-        tuning.maximum_response_degrees.to_radians() - BODY_RESPONSE_DEGREE_REPORT_MARGIN_RADIANS,
+        tuning.maximum_response_degrees.radians() - BODY_RESPONSE_DEGREE_REPORT_MARGIN_RADIANS,
     )?;
     travel.checked_sum_capped(inertial, maximum)
 }
@@ -64,25 +65,21 @@ fn travel_lean(
     // travel supplies a pronounced base lean and acceleration adds a somewhat
     // stronger combined startup pose. Keeping most of the lean in travel avoids
     // a large initial snap followed by an almost upright steady run.
-    let travel_pitch = BodyAngle::from_radians(
-        velocity.z / run_locomotion_profile().reference_speed.metres_per_second()
-            * tuning.steady_travel_lean_degrees.to_radians(),
+    let reference_speed = run_locomotion_profile().reference_speed.metres_per_second();
+    let travel_pitch = BodyAngle::from_authored_scale(
+        velocity.z / reference_speed,
+        tuning.steady_travel_lean_degrees,
     )?
-    .radians()
-    .clamp(
-        -tuning.maximum_travel_lean_degrees.to_radians(),
-        tuning.maximum_travel_lean_degrees.to_radians(),
-    );
-    let travel_roll = BodyAngle::from_radians(
-        -velocity.x / run_locomotion_profile().reference_speed.metres_per_second()
-            * tuning.steady_travel_lean_degrees.to_radians(),
+    .clamped_symmetric(tuning.maximum_travel_lean_degrees)?;
+    let travel_roll = BodyAngle::from_authored_scale(
+        -velocity.x / reference_speed,
+        tuning.steady_travel_lean_degrees,
     )?
-    .radians()
-    .clamp(
-        -tuning.maximum_travel_lean_degrees.to_radians(),
-        tuning.maximum_travel_lean_degrees.to_radians(),
-    );
-    BodyResponseAngles::from_radians(Vec2::new(travel_pitch, travel_roll))
+    .clamped_symmetric(tuning.maximum_travel_lean_degrees)?;
+    Ok(BodyResponseAngles {
+        pitch: travel_pitch,
+        roll: travel_roll,
+    })
 }
 fn inertial_lean(
     velocity: BodyLocalVelocity,
@@ -102,46 +99,42 @@ fn inertial_lean(
             quantity: AnimationQuantity::BodyAngle,
         });
     }
-    let speed_fraction = speed_ratio.clamp(0.0, 1.0);
+    let speed_fraction = UnitInterval::from_fraction(speed_ratio.clamp(0.0, 1.0))?;
     let startup_inertial_scale = tuning
         .startup_inertial_lean_scale
-        .lerp(tuning.sustained_inertial_lean_scale, speed_fraction);
+        .interpolated(tuning.sustained_inertial_lean_scale, speed_fraction)?;
     let inertial_pitch = if acceleration.z > 0.0 {
-        BodyAngle::from_radians(
-            acceleration.z / tuning.forward_reference_acceleration_metres_per_second_squared
-                * tuning.forward_acceleration_lean_degrees.to_radians(),
-        )?
-        .radians()
-        .clamp(
-            0.0,
+        BodyAngle::from_authored_scale(
             tuning
-                .maximum_forward_acceleration_lean_degrees
-                .to_radians(),
-        ) * startup_inertial_scale
-    } else {
-        BodyAngle::from_radians(
-            acceleration.z / tuning.forward_reference_acceleration_metres_per_second_squared
-                * tuning.braking_acceleration_lean_degrees.to_radians(),
+                .forward_reference_acceleration_metres_per_second_squared
+                .component_ratio(acceleration.z),
+            tuning.forward_acceleration_lean_degrees,
         )?
-        .radians()
-        .clamp(-tuning.maximum_braking_lean_degrees.to_radians(), 0.0)
-            * braking_scale.fraction()
+        .clamped_positive(tuning.maximum_forward_acceleration_lean_degrees)?
+        .scaled_inertial(startup_inertial_scale)?
+    } else {
+        BodyAngle::from_authored_scale(
+            tuning
+                .forward_reference_acceleration_metres_per_second_squared
+                .component_ratio(acceleration.z),
+            tuning.braking_acceleration_lean_degrees,
+        )?
+        .clamped_negative(tuning.maximum_braking_lean_degrees)?
+        .scaled_braking(braking_scale)?
     };
     // Turning should read clearly without the extreme motorcycle-like bank of
     // the first stronger-lean pass. Keep lateral travel posture unchanged and
     // scale only acceleration-driven turning response to 60% of that tuning.
-    let inertial_roll = BodyAngle::from_radians(
-        -acceleration.x / tuning.lateral_reference_acceleration_metres_per_second_squared
-            * tuning.lateral_acceleration_lean_degrees.to_radians(),
-    )?
-    .radians()
-    .clamp(
-        -tuning
-            .maximum_lateral_acceleration_lean_degrees
-            .to_radians(),
+    let inertial_roll = BodyAngle::from_authored_scale(
         tuning
-            .maximum_lateral_acceleration_lean_degrees
-            .to_radians(),
-    ) * startup_inertial_scale;
-    BodyResponseAngles::from_radians(Vec2::new(inertial_pitch, inertial_roll))
+            .lateral_reference_acceleration_metres_per_second_squared
+            .component_ratio(-acceleration.x),
+        tuning.lateral_acceleration_lean_degrees,
+    )?
+    .clamped_symmetric(tuning.maximum_lateral_acceleration_lean_degrees)?
+    .scaled_inertial(startup_inertial_scale)?;
+    Ok(BodyResponseAngles {
+        pitch: inertial_pitch,
+        roll: inertial_roll,
+    })
 }

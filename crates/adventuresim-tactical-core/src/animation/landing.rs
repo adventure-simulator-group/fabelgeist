@@ -42,6 +42,9 @@ impl LandingImpactSpeed {
                 AnimationValueError::from(error).for_quantity(AnimationQuantity::LandingImpactSpeed)
             })
     }
+    pub fn speed(self) -> NonnegativeSpeed {
+        self.0
+    }
     pub fn metres_per_second(self) -> f32 {
         self.0.metres_per_second()
     }

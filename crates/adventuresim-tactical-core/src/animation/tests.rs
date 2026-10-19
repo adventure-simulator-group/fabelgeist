@@ -305,7 +305,7 @@ mod legacy_tests {
             ),
             (0.0, 0.0)
         );
-        assert_eq!(run_locomotion_profile().flight_apex_metres, 0.12);
+        assert_eq!(run_locomotion_profile().flight_apex_metres.metres(), 0.12);
     }
 
     #[test]

@@ -49,7 +49,7 @@ pub(super) use ik::{
     refresh_raised_support_after_propagation,
 };
 pub(crate) use rig::*;
-use sample_state::HeightHistory;
+use sample_state::{BodyObservation, HeightHistory};
 pub(crate) use sample_state::{LocomotionBodyResponseState, LocomotionHeightState};
 use std::collections::BTreeMap;
 
@@ -700,7 +700,7 @@ fn guarded_camera_look(
 
 fn constrained_camera_look(look: &CharacterLook, owner_rotation: Quat) -> Vec2 {
     let tuning = procedural_tuning();
-    let joint_limit = tuning.guarded_look_joint_limit_degrees.to_radians();
+    let joint_limit = tuning.guarded_look_joint_limit_degrees.radians();
     let camera_forward = Quat::from_euler(EulerRot::YXZ, look.yaw, look.pitch, 0.0) * Vec3::NEG_Z;
     let local = owner_rotation.inverse() * camera_forward;
     // Directly behind the body there is no anatomically preferable left/right
@@ -711,8 +711,14 @@ fn constrained_camera_look(look: &CharacterLook, owner_rotation: Quat) -> Vec2 {
     let yaw = local.x.atan2(local.z.abs());
     let pitch = local.y.atan2(local.xz().length());
     Vec2::new(
-        (yaw / tuning.guarded_look_joint_count).clamp(-joint_limit, joint_limit),
-        (pitch / tuning.guarded_look_joint_count).clamp(-joint_limit, joint_limit),
+        tuning
+            .guarded_look_joint_count
+            .distribute_radians(yaw)
+            .clamp(-joint_limit, joint_limit),
+        tuning
+            .guarded_look_joint_count
+            .distribute_radians(pitch)
+            .clamp(-joint_limit, joint_limit),
     )
 }
 
@@ -863,7 +869,7 @@ mod contract_tests {
 
         app.update();
 
-        let expected_flight = run_locomotion_profile().flight_apex_metres
+        let expected_flight = run_locomotion_profile().flight_apex_metres.metres()
             - procedural_tuning()
                 .authored_ordinary_passing_rise_metres
                 .metres();
@@ -1092,8 +1098,8 @@ mod ik_tests {
                 .with_gait_phase(CyclePhase::from_cycles(phase).unwrap());
             assert!(
                 (locomotion_height_wave(&state).unwrap().metres()
-                    - run_locomotion_profile().flight_apex_metres)
-                    .abs()
+                    - run_locomotion_profile().flight_apex_metres.metres())
+                .abs()
                     < 0.0001
             );
         }
@@ -1137,8 +1143,8 @@ mod ik_tests {
             )
             .unwrap()
             .metres()
-                - run_locomotion_profile().flight_apex_metres)
-                .abs()
+                - run_locomotion_profile().flight_apex_metres.metres())
+            .abs()
                 < 0.0001
         );
         let raised = moving(2.0, Posture::Upright, WeaponGuardState::Raised)
