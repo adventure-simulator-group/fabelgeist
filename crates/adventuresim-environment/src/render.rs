@@ -112,6 +112,10 @@ pub struct ForestPlugin;
 impl Plugin for ForestPlugin {
     fn build(&self, app: &mut App) {
         load_shader_library!(app, "render/shaders/forest_common.wgsl");
+        load_shader_library!(app, "render/shaders/branch_geometry.wgsl");
+        load_shader_library!(app, "render/shaders/branch_surface.wgsl");
+        load_shader_library!(app, "render/shaders/leaf_geometry.wgsl");
+        load_shader_library!(app, "render/shaders/leaf_surface.wgsl");
         // Bevy discovers conditional imports before pipeline specialization.
         load_shader_library!(app, "render/shaders/tree_pose.wgsl");
         embedded_asset!(app, "render/shaders/branch.wgsl");

@@ -10,9 +10,10 @@
 #import bevy_pbr::pbr_functions
 #import bevy_pbr::mesh_types::MESH_FLAGS_SHADOW_RECEIVER_BIT
 #import bevy_eidolon::render::io_types::Vertex
-#import adventuresim_environment::forest::{TAU, Species, Leaf, basis, linear}
+#import adventuresim_environment::forest::{Species, Leaf, linear}
 
-const GOLDEN: f32 = 2.39996323;
+#import adventuresim_environment::leaf_geometry::leaf_vertex
+#import adventuresim_environment::leaf_surface::{leaf_shape, coverage}
 
 // x: blades a cluster.
 @group(3) @binding(0) var<uniform> lod: vec4<u32>;
@@ -36,10 +37,6 @@ struct LeafOut {
     @location(6) @interpolate(flat) crown: vec4<f32>,
     @location(7) surface: vec3<f32>,
 };
-
-fn rand(seed: f32, i: u32, k: f32) -> f32 {
-    return fract(sin(seed * 91.17 + f32(i) * 12.9898 + k * 78.233) * 43758.5453);
-}
 
 @vertex
 #ifdef FOREST_SHARED_TREES
@@ -66,77 +63,11 @@ fn vertex(vertex: Vertex) -> LeafOut {
     let i = u32(round(vertex.position.z));
     let corner = vec2<f32>(vertex.position.x, vertex.position.y);
 #endif
-    // Fewer blades cover as much, each larger.
-    let spread = sqrt(10.0 / f32(blades));
-    let foliage = u32(species[inst.kind].leaf.w);
-    let up = vec3<f32>(0.0, 1.0, 0.0);
-    let tip = inst.center_size.xyz;
-    let size = inst.center_size.w;
-    let axis = normalize(inst.axis_light.xyz);
-    let frame = basis(axis);
-    let r0 = rand(inst.seed, i, 0.0);
-    let r1 = rand(inst.seed, i, 1.0);
-    let r2 = rand(inst.seed, i, 2.0);
-
+    let geometry = leaf_vertex(inst, species[inst.kind], i, corner, blades);
+    var world = geometry.position;
+    var normal = geometry.normal;
     var out: LeafOut;
-    var world: vec3<f32>;
-    var normal: vec3<f32>;
-    var uv = corner;
-    if (foliage == 2u) {
-        // One frond along `axis`, arching over under its own weight: blade
-        // pairs along it, hinged at the rib.
-        let side = select(-1.0, 1.0, i % 2u == 1u);
-        let segments = f32(max(blades / 2u, 1u));
-        let len = size * 4.0;
-        let droop = 0.3 + 0.35 * fract(inst.seed * 13.7);
-        let t = (f32(i / 2u) + corner.y) / segments;
-        let along = normalize(axis - up * (2.0 * droop * t));
-        var flat = cross(along, up);
-        if (dot(flat, flat) < 1e-4) {
-            flat = frame[0];
-        }
-        let level = normalize(flat);
-        let face = normalize(cross(level, along)) * select(-1.0, 1.0, dot(cross(level, along), up) >= 0.0);
-        let hinge = 0.5;
-        let across = level * side;
-        normal = normalize(face * cos(hinge) + across * sin(hinge));
-        let spine = tip + (axis * t - up * droop * t * t) * len;
-        let half = 0.5 * max(len * 0.3 * sin(3.14159 * min(t * 1.15, 1.0)), len * 0.02);
-        let leaflet = across * cos(hinge) - face * sin(hinge);
-        world = spine + leaflet * half * corner.x;
-        uv = vec2<f32>(0.5 + 0.5 * side * corner.x, t);
-        out.seed = inst.seed;
-    } else {
-        // Blades along the shoot's last stretch, the youngest at its tip.
-        let needles = foliage == 1u;
-        let t = (f32(i) + 0.7 * r0) / f32(blades);
-        let attach = tip - axis * size * select(0.9, 1.6, needles) * t;
-        let phi = inst.seed * TAU + f32(i) * GOLDEN;
-        let radial = cos(phi) * frame[0] + sin(phi) * frame[1];
-        let forward = select(0.55, 0.9, needles) + 0.3 * r1;
-        let dir = normalize(radial + axis * forward - up * (0.15 + 0.35 * r2));
-        var level = cross(up, dir);
-        if (dot(level, level) < 1e-4) {
-            level = frame[0];
-        }
-        level = normalize(level);
-        let roll = (r0 - 0.5) * select(0.9, 1.4, needles);
-        let above = cross(dir, level);
-        let across = normalize(level * cos(roll) + above * sin(roll));
-        normal = normalize(cross(dir, across));
-        if (normal.y < 0.0) {
-            normal = -normal;
-        }
-        var len = size * (0.62 + 0.3 * r1) * (1.0 - 0.25 * t) * spread;
-        var width = len * (0.5 + 0.12 * r2);
-        if (needles) {
-            len = size * (1.3 + 0.4 * r1) * spread;
-            width = len * 0.5;
-        }
-        world = attach + dir * len * uv.y + across * width * (uv.x - 0.5);
-        out.seed = fract(inst.seed * 7.13 + f32(i) * 0.618);
-    }
-
+    out.seed = geometry.seed;
     out.surface = world;
 #ifdef FOREST_SHARED_TREES
     let pose = placement.pose;
@@ -148,39 +79,9 @@ fn vertex(vertex: Vertex) -> LeafOut {
     out.normal = normal;
     out.kind = inst.kind;
     out.light = inst.axis_light.w;
-    out.uv = uv;
+    out.uv = geometry.uv;
     out.crown = inst.crown;
     return out;
-}
-
-// The blade's outline, positive inside: an ovate toothed blade, a needle
-// spray frayed at its edge, or a frond's leaflets.
-fn leaf_shape(uv: vec2<f32>, foliage: u32, seed: f32) -> f32 {
-    let x = abs(uv.x - 0.5);
-    let y = uv.y;
-    let b = clamp((y - 0.1) / 0.9, 0.0, 1.0);
-    let half = 0.5 * pow(sin(3.14159 * pow(b, 0.7)), 0.85) * (1.0 - 0.15 * b);
-    let teeth = 0.012 * abs(fract(b * 14.0 + seed) - 0.5);
-    let blade = select(0.018 - x, half - teeth - x, y > 0.1);
-    let broad = min(blade, min(y, 1.0 - y) * 0.5);
-    let reach = 0.5 * pow(sin(3.14159 * min(y * 1.05, 1.0)), 0.4);
-    let needle = abs(fract(y * 15.0 - x * 5.0 + seed * 3.0) - 0.5);
-    let needles = min(reach - x, max(reach * 0.4 - x, (0.4 - needle) * 0.05));
-    let leaflet = abs(fract(y * 22.0 - x * 4.0 + seed) - 0.5);
-    let fronds = max(0.03 - x, min(0.48 - x, (0.3 - leaflet) * 0.06));
-    if (foliage == 1u) {
-        return needles;
-    } else if (foliage == 2u) {
-        return fronds;
-    }
-    return broad;
-}
-
-// How much of the pixel the outline covers: its distance over its rate of
-// change across the pixel. Under multisampling it becomes sample coverage,
-// so sub-pixel needles add up rather than shimmer.
-fn coverage(sdf: f32) -> f32 {
-    return clamp(sdf / max(fwidth(sdf), 1e-5) + 0.5, 0.0, 1.0);
 }
 
 @fragment
