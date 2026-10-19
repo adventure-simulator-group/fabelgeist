@@ -185,9 +185,9 @@ pub(super) fn log_animation_diagnostics(
             scenario: "real-client-script",
             scenario_frame: diagnostic_frame,
             elapsed_seconds: time.elapsed_secs_f64(),
-            wall_clock_unix_micros: wall_clock_unix_micros,
+            wall_clock_unix_micros,
             render_delta_seconds: time.delta_secs(),
-            render_schedule_completion: render_schedule_completion,
+            render_schedule_completion,
             input: input.as_deref(),
             controller_transform: DiagnosticTransform {
                 translation: transform.translation.to_array(),
@@ -208,10 +208,10 @@ pub(super) fn log_animation_diagnostics(
                 rotation_xyzw: target.rotation.to_array(),
             }),
             bones: bone_transforms,
-            terrain_height: terrain_height,
+            terrain_height,
             controller_height_above_terrain: terrain_height
                 .map(|height| global_translation.y - height),
-            authoritative: authoritative,
+            authoritative,
             presented: &presented.state,
             presentation_phase_error_remaining: presented.phase_error_remaining,
             presentation_phase_prediction_delta: presented.last_phase_prediction_delta,
@@ -231,7 +231,7 @@ pub(super) fn log_animation_diagnostics(
                 whole_body_mirror: playback.whole_body_mirror,
                 ordinary_locomotion_active: (playback.ordinary_locomotion
                     == super::OrdinaryLocomotion::Active),
-                clips: clips,
+                clips,
             },
         });
     }

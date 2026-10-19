@@ -1725,7 +1725,7 @@ pub(crate) fn update_skeleton_locomotion(
             velocity.0,
             GroundContact::from(controller.grounded.is_some() || quickstep_push.active),
             AnimationElapsed::from(time.delta()),
-            AnimationSampleTick::from(tick),
+            tick,
         );
         if let Err(error) = observation.and_then(|input| {
             project_skeleton_locomotion_with_body_rotation(

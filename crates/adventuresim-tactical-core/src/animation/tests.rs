@@ -125,7 +125,7 @@ mod legacy_tests {
         let mut library = AnimationPackLibrary::default();
         library
             .insert(pack(
-                "unarmed",
+                UNARMED_PACK.clone(),
                 None,
                 [
                     SemanticPose::AttackSwing,
@@ -894,22 +894,29 @@ mod legacy_tests {
     fn raised_guard_release_finishes_the_authoritative_in_flight_step() {
         let mut state = SkeletonState::default();
         set_weapon_guard(&mut state, WeaponGuardState::Raised);
-        let input = |velocity, tick: u64| {
+        let input = |velocity, tick: AnimationSampleTick| {
             SkeletonLocomotionInput::from_controller(
                 Quat::IDENTITY,
                 velocity,
                 GroundContact::Grounded,
                 AnimationElapsed::from_seconds(1.0 / locomotion_sample_hz()).unwrap(),
-                AnimationSampleTick::from(tick),
+                tick,
             )
             .unwrap()
         };
-        project_skeleton_locomotion(&mut state, input(Vec3::NEG_Z * 2.0, 1)).unwrap();
+        project_skeleton_locomotion(
+            &mut state,
+            input(Vec3::NEG_Z * 2.0, AnimationSampleTick::from(1u64)),
+        )
+        .unwrap();
         assert!(state.raised_locomotion().is_moving());
         let step = state.raised_footwork().step().unwrap();
 
-        project_skeleton_locomotion(&mut state, input(Vec3::ZERO, step.contact_tick() - 1))
-            .unwrap();
+        project_skeleton_locomotion(
+            &mut state,
+            input(Vec3::ZERO, step.contact_tick() - AnimationSampleSpan::ONE),
+        )
+        .unwrap();
         assert!(state.raised_locomotion().is_moving());
         assert_eq!(state.raised_locomotion().local_direction(), Vec2::NEG_Y);
         project_skeleton_locomotion(&mut state, input(Vec3::ZERO, step.contact_tick())).unwrap();
@@ -1237,7 +1244,7 @@ mod legacy_tests {
             [PoseSampling::Anchor; 4]
         );
         assert_eq!(
-            samples.map(|sample| (sample.mirror_lower_body == ClipMirror::Mirrored)),
+            samples.map(|sample| sample.mirror_lower_body == ClipMirror::Mirrored),
             [false, false, true, true]
         );
         let between = gait_pair(
@@ -1477,7 +1484,11 @@ mod legacy_tests {
         assert!(coordinate < 1.0 + state.attack_curve().overshoot);
 
         let expected_start_coordinate = state.attack_curve().queued_recovery_coordinate(
-            0.5 + 0.5 * continuation_tick.saturating_sub(20) as f32 / 10.0,
+            0.5 + 0.5
+                * continuation_tick
+                    .saturating_sub(AnimationSampleTick::from(20u64))
+                    .samples() as f32
+                / 10.0,
         );
         state.advance_action(continuation_tick);
         assert!(state.attack_is_continuation());
