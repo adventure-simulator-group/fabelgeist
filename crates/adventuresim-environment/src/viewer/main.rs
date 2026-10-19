@@ -45,6 +45,7 @@ use std::time::Instant;
 
 use adventuresim_environment::prepared::VariantBudget;
 use adventuresim_environment::render::benchmark::ValidationPolicy;
+use adventuresim_environment::render::benchmark::profile::ProfileMode;
 use adventuresim_environment::render::trees::TreeLayout;
 use adventuresim_environment::render::{ForestPlugin, Level, LevelSelection};
 use adventuresim_environment::{SoloSpecies, scene_named};
@@ -88,6 +89,9 @@ struct Options {
     /// Diagnose repeated probe checks on a frozen snapshot with fixed LOD.
     #[arg(long, value_enum, requires_all = ["prepared_forest", "fixed_lod"])]
     probe_validation: Option<ValidationPolicy>,
+    /// Diagnose CPU render phases and native GPU tree-culling spans.
+    #[arg(long, value_enum, requires_all = ["prepared_forest", "fixed_lod"])]
+    render_profile: Option<ProfileMode>,
     /// The scene, by the start of its name (`boreal`, `castle-unplanted`...).
     #[arg(long)]
     scene: Option<String>,
@@ -177,6 +181,7 @@ fn main() -> anyhow::Result<()> {
             path: path.clone(),
             tree_layout: options.tree_layout.unwrap_or_default(),
             validation: options.probe_validation.unwrap_or_default(),
+            render_profile: options.render_profile,
             source,
             level: options
                 .fixed_lod

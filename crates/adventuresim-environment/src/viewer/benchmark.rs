@@ -5,10 +5,12 @@ use std::time::{Duration, Instant};
 
 use adventuresim_environment::prepared::ForestFrame;
 use adventuresim_environment::render::ForestDetail;
+use adventuresim_environment::render::benchmark::profile::{ProfileReportError, RenderProfile};
 use adventuresim_environment::render::benchmark::{
     ForestBenchmark, ForestBenchmarkCounts, ValidationPhase,
 };
 use adventuresim_environment::render::trees::TreeMeshStats;
+use bevy::diagnostic::DiagnosticsStore;
 use bevy::prelude::*;
 use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance, PlantInstance};
 use serde_json::json;
@@ -17,8 +19,8 @@ use crate::stage::Orbit;
 
 /// Consecutive readbacks must agree within this bounded number of attempts.
 const MAX_READBACKS: usize = 8;
-const REPORT_VERSION: u32 = 5;
-const READINESS_TIMEOUT: Duration = Duration::from_secs(240);
+const REPORT_VERSION: u32 = 6;
+pub(crate) const READINESS_TIMEOUT: Duration = Duration::from_secs(240);
 
 pub struct Request {
     pub report: PathBuf,
@@ -45,6 +47,7 @@ pub struct Preparation {
     pub leaf_slots: usize,
 }
 
+#[derive(Clone, Copy)]
 pub enum ArrivalPath {
     GrowthReplay,
     PreparedUnique,
@@ -113,6 +116,8 @@ pub enum MeasurementError {
     MissingSubmission,
     #[error("the final full forest validation was not acknowledged")]
     MissingFinalValidation,
+    #[error(transparent)]
+    RenderProfile(#[from] ProfileReportError),
     #[error("the forest upload or GPU probe failed: {0:?}")]
     FailedSubmission(Box<ForestBenchmarkCounts>),
     #[error("the forest readiness probe exceeded its bounded deadline")]
@@ -190,6 +195,8 @@ impl Measurement {
         image: &Image,
         probe: &ForestBenchmark,
         topology: Option<&TreeMeshStats>,
+        profile: Option<&RenderProfile>,
+        diagnostics: Option<&DiagnosticsStore>,
     ) -> Result<Readback, MeasurementError> {
         let now = self.request.started.elapsed();
         self.first_readback.get_or_insert(now);
@@ -201,6 +208,9 @@ impl Measurement {
             .evidence()
             .filter(|evidence| evidence.phase == ValidationPhase::Complete)
             .ok_or(MeasurementError::MissingFinalValidation)?;
+        let profile = profile
+            .map(|profile| profile.report(diagnostics.ok_or(ProfileReportError::MissingStore)?))
+            .transpose()?;
         let counts = probe.counts();
         if counts.discarded_writes > 0 || counts.gpu_failures > 0 || counts.superseded_writes > 0 {
             return Err(MeasurementError::FailedSubmission(Box::new(counts)));
@@ -233,6 +243,7 @@ impl Measurement {
             },
             "shared_meshes": topology,
             "probe_validation": validation,
+            "renderer_profile": profile,
             "stages_ms": {
                 "scene_construction": milliseconds(self.preparation.scene),
                 "simulation_gpu_setup": milliseconds(self.preparation.gpu_setup),

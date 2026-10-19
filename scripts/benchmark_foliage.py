@@ -165,7 +165,7 @@ def main() -> int:
                     previous = image.with_suffix(
                         f".readback-{data['readback_attempts'] - 1:02d}.png")
                     validation = data["probe_validation"]
-                    valid = (data["schema_version"] == 5
+                    valid = (data["schema_version"] == 6
                              and validation["policy"] == "every_frame"
                              and validation["phase"] == "complete"
                              and validation["successful_full_checks"] >= 2

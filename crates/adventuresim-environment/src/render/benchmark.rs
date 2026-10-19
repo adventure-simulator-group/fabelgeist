@@ -17,6 +17,8 @@ use bevy_eidolon::prelude::{InstancedMaterial, MaterialBatchRanges};
 use super::{BranchMaterial, ForestPart, LeafMaterial};
 
 mod observe;
+#[cfg(feature = "viewer")]
+pub mod profile;
 mod validation;
 
 pub use validation::{

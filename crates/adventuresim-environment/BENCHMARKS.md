@@ -118,7 +118,7 @@ every mode. This is a payload bound, not a peak-memory measurement. Model
 layouts intentionally duplicate vertices and can cost more startup/memory;
 their purpose is to isolate indexed padding with matched batch partitions.
 
-Report schema 5 names per-LOD referenced work `indexed_record_slots`.
+Report schema 6 names per-LOD referenced work `indexed_record_slots`.
 `capacity_slots_implied_by_shared_placements` still describes per-placement
 capacity potential. `shared_meshes` records the actual requested grid count,
 vertex/index bytes, layout and a SHA-256 of batch keys, bounds and complete
@@ -151,7 +151,7 @@ intermediate-frame structural validity or detect transient pipeline errors
 that disappear before the final scan. This is a diagnostic for frozen
 inputs, not a validation policy for gameplay or moving-camera captures.
 
-`probe_validation` in schema 5 records the policy, completed lifecycle and
+`probe_validation` records the policy, completed lifecycle and
 successful full/skipped structural check counts. An untimed capture using
 either explicit policy exercises the same start/end handshake and one
 intermediate render, without `--frames` or `--benchmark-report`. Compare
@@ -163,6 +163,46 @@ within this serialized harness. It does not measure total probe overhead
 or ordinary presentation throughput: draw counters and GPU waits remain.
 Use a contemporary every-frame control; do not pool historical results
 from the previous lifecycle with this comparison.
+
+### Render-stage profiling
+
+For prepared snapshots with an explicit `--fixed-lod`,
+`--render-profile control` leaves the original render systems in place.
+`--render-profile instrumented` records render-phase wall spans and wraps
+the original tree-culling functions with native GPU timestamp markers.
+The original functions still encode the dispatches. Each original system
+must be found exactly once; setup fails otherwise. The wrappers run inside
+the render graph's rendering phase, before the camera driver. Their three
+piped stages run on one worker and queue begin/dispatch/end buffers in order.
+
+Both modes save a `.profile.json` sidecar beside the final screenshot.
+Schema 6 measurement reports also include `renderer_profile`; it is null
+when no profiling mode was requested. Untimed captures exercise profiling
+and report admission without supplying frame intervals. Validate those
+captures before coordinating a timing window.
+
+CPU samples begin when Queue observes the frozen Sampling phase. They cover
+Queue, Prepare, graph encoding, graph submission and the existing blocking
+GPU poll. A complete frame needs all five spans. These are inclusive wall
+times, including scheduling gaps, not CPU busy times. They are not matched
+by ordinal to the main-world frame-interval vector. Submission includes
+encoder finishing and uncovered-target handling as well as queue submission.
+The GPU wait remains a stall span, not additional GPU execution time.
+
+The branch and leaf culling histories include CPU encoding-body and GPU
+timestamp observations. CPU cull spans exclude deferred encoder finishing
+and actual submission; marker work can contribute. These and the other
+render diagnostics retain Bevy's asynchronous bounded histories. They may
+include warmup or final frames and are not an exact 1800-frame distribution.
+Preserve their paths and raw history values. Instrumented mode requires
+enabled encoder timestamp-query features and all four cull diagnostic paths.
+Missing evidence fails capture rather than becoming a zero-duration result.
+
+Profiling adds clocks, schedule boundaries, command buffers and GPU queries.
+Measure its effect with a contemporary control in the same build and layout.
+Do not subtract the control difference to manufacture a production result,
+sum overlapping CPU/GPU/wait spans, or infer a critical path from opaque-pass
+timing alone. Ordinary viewing and captures omit these hooks by default.
 
 ## Measure on an otherwise idle machine
 

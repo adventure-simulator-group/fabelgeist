@@ -10,6 +10,7 @@
 use std::path::PathBuf;
 use std::time::{Duration, Instant};
 
+use adventuresim_environment::render::benchmark::profile::{ProfileMode, RenderProfile};
 use adventuresim_environment::render::benchmark::{ForestBenchmark, ValidationPolicy, WindowStart};
 use adventuresim_environment::render::{
     ForestFeed, ForestPlugin, LevelSelection,
@@ -34,6 +35,7 @@ use crate::benchmark::{self, ArrivalPath, Measurement, PixelStability, Readback}
 use crate::input::{self, FrozenForest, Source};
 use crate::stage::{self, Orbit};
 
+mod profiling;
 mod sampling;
 
 /// The image's size, pixels.
@@ -63,6 +65,7 @@ pub struct Framing {
 pub struct Request {
     pub tree_layout: TreeLayout,
     pub validation: ValidationPolicy,
+    pub render_profile: Option<ProfileMode>,
     pub path: PathBuf,
     pub source: Source,
     pub level: LevelSelection,
@@ -103,6 +106,7 @@ struct CaptureObservation<'w> {
     diagnostics: Option<Res<'w, DiagnosticsStore>>,
     measurement: Option<ResMut<'w, Measurement>>,
     probe: Option<Res<'w, ForestBenchmark>>,
+    profile: Option<Res<'w, RenderProfile>>,
     exit: MessageWriter<'w, AppExit>,
 }
 
@@ -193,12 +197,13 @@ pub fn run(mut request: Request) -> Result<()> {
     } else if prepared {
         app.init_resource::<PixelStability>();
     }
-    if request.frames.is_some() {
+    if request.frames.is_some() || request.render_profile.is_some() {
         app.add_plugins(RenderDiagnosticsPlugin);
         if !observed && let Some(render) = app.get_sub_app_mut(RenderApp) {
             render.add_systems(Render, wait_for_gpu.in_set(RenderSystems::Cleanup));
         }
     }
+    profiling::install(&mut app, request.render_profile, arrival)?;
     let outcome = app.run();
     anyhow::ensure!(
         matches!(outcome, AppExit::Success),
@@ -275,8 +280,14 @@ fn step(
         diagnostics,
         mut measurement,
         probe,
+        profile,
         mut exit,
     } = observation;
+    if profile.as_ref().is_some_and(|profile| !profile.healthy()) {
+        error!("render profiling failed");
+        exit.write(AppExit::error());
+        return;
+    }
     if let (Some(measurement), Some(probe)) = (measurement.as_ref(), probe.as_ref())
         && let Err(error) = measurement.check(probe)
     {
@@ -320,6 +331,9 @@ fn step(
             WindowStart::Active => {}
         }
     }
+    if profile.as_ref().is_some_and(|profile| !profile.ready()) {
+        return;
+    }
     if let Some(frames) = still.frames {
         if still.sample_frames(
             frames,
@@ -362,6 +376,8 @@ fn capture(commands: &mut Commands, target: Handle<Image>, path: PathBuf) {
               mut pixels: Option<ResMut<PixelStability>>,
               probe: Option<Res<ForestBenchmark>>,
               topology: Option<Res<TreeMeshStats>>,
+              profile: Option<Res<RenderProfile>>,
+              diagnostics: Option<Res<DiagnosticsStore>>,
               mut exit: MessageWriter<AppExit>| {
             if let Some(measurement) = measurement.as_mut() {
                 let Some(probe) = probe.as_ref() else {
@@ -369,7 +385,7 @@ fn capture(commands: &mut Commands, target: Handle<Image>, path: PathBuf) {
                     exit.write(AppExit::error());
                     return;
                 };
-                match measurement.readback(&captured.image, probe, topology.as_deref()) {
+                match measurement.readback(&captured.image, probe, topology.as_deref(), profile.as_deref(), diagnostics.as_deref()) {
                     Ok(Readback::Repeat) => {
                         let attempt = measurement.readback_number();
                         save_to_disk(path.with_extension(format!("readback-{attempt:02}.png")))(
@@ -396,6 +412,9 @@ fn capture(commands: &mut Commands, target: Handle<Image>, path: PathBuf) {
                     Ok(Readback::Stable) => {}
                     Err(error) => { error!("{error}"); exit.write(AppExit::error()); return; }
                 }
+            }
+            if let Err(error) = profiling::save(profile.as_deref(), diagnostics.as_deref(), &path) {
+                error!("{error}"); exit.write(AppExit::error()); return;
             }
             if let Some(probe) = probe {
                 let counts = probe.counts();

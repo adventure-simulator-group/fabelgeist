@@ -16,6 +16,13 @@ use bevy_eidolon::render::draw::DrawInstancedMaterial;
 #[derive(Resource, Default)]
 pub(super) struct FrameCheck(Option<validation::RenderCheck>);
 
+#[derive(SystemParam)]
+pub(super) struct ObservedFrame<'w> {
+    check: Res<'w, FrameCheck>,
+    #[cfg(feature = "viewer")]
+    profile: Option<Res<'w, super::profile::RenderProfile>>,
+}
+
 struct RecordDraw<const FOLIAGE: bool>;
 
 #[derive(SystemParam)]
@@ -68,7 +75,7 @@ fn compute_ready<M: InstancedMaterial>(
 
 pub(super) fn complete<B: InstancedMaterial, L: InstancedMaterial>(
     probe: Res<ForestBenchmark>,
-    frame: Res<FrameCheck>,
+    frame: ObservedFrame,
     device: Res<RenderDevice>,
     cache: Res<PipelineCache>,
     branches: Res<MaterialBatchRanges<B>>,
@@ -78,12 +85,21 @@ pub(super) fn complete<B: InstancedMaterial, L: InstancedMaterial>(
     let counters = &probe.inner;
     let branch_draws = counters.branch_draws.swap(0, Ordering::AcqRel);
     let leaf_draws = counters.leaf_draws.swap(0, Ordering::AcqRel);
-    if let Err(error) = device.poll(PollType::wait_indefinitely()) {
+    #[cfg(feature = "viewer")]
+    if let Some(profile) = &frame.profile {
+        profile.begin_wait();
+    }
+    let waited = device.poll(PollType::wait_indefinitely());
+    #[cfg(feature = "viewer")]
+    if let Some(profile) = &frame.profile {
+        profile.end_wait();
+    }
+    if let Err(error) = waited {
         error!("forest benchmark GPU wait failed: {error}");
         counters.failures.fetch_add(1, Ordering::Release);
         return;
     }
-    let Some(check) = frame.0 else {
+    let Some(check) = frame.check.0 else {
         counters.failures.fetch_add(1, Ordering::Release);
         return;
     };
