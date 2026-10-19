@@ -26,13 +26,15 @@ pub mod trees;
 pub mod view;
 
 use bevy::asset::embedded_asset;
+use bevy::camera::{CameraUpdateSystems, visibility::VisibilitySystems};
 use bevy::prelude::*;
 use bevy::shader::load_shader_library;
+use bevy::transform::TransformSystems;
 use bevy_eidolon::{prelude::*, prepass::CullComputeCamera};
 
 pub use feed::ForestFeed;
 pub use ground::GroundPart;
-pub use levels::{Level, LevelSelection};
+pub use levels::{ForestLodCamera, ForestLodView, Level, LevelSelection};
 pub use materials::{BranchMaterial, LeafMaterial};
 
 type UnmarkedForestCamera = (
@@ -47,6 +49,15 @@ type UnmarkedForestCamera = (
 /// camera. Readiness rejects a different or ambiguous render-world source.
 #[derive(Component)]
 pub struct ForestViewCamera;
+
+/// Camera sampling and selection use the same propagated frame. Consumers
+/// applying a camera pose must do so before transform propagation and camera
+/// update; observers read selection only after `Select` and visibility checks.
+#[derive(SystemSet, Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum ForestLodSystems {
+    FollowCamera,
+    Select,
+}
 
 /// Geometry owned by the forest renderer, including its supplied ground.
 /// Consumers may assign presentation layers without touching unrelated meshes.
@@ -120,21 +131,38 @@ impl Plugin for ForestPlugin {
             GpuCullComputePlugin::<LeafMaterial>::default(),
         ))
         .init_resource::<ForestFeed>()
-        .init_resource::<levels::LevelView>()
+        .init_resource::<ForestLodView>()
         .init_resource::<ForestDetail>()
+        .configure_sets(
+            PostUpdate,
+            (
+                ForestLodSystems::FollowCamera
+                    .after(TransformSystems::Propagate)
+                    .after(CameraUpdateSystems),
+                ForestLodSystems::Select
+                    .after(ForestLodSystems::FollowCamera)
+                    .before(VisibilitySystems::VisibilityPropagate)
+                    .before(VisibilitySystems::CheckVisibility),
+            ),
+        )
         .add_systems(Startup, materials::setup)
         .add_systems(
             Update,
             (
                 cull_from_cameras,
-                levels::follow_camera,
                 materials::follow_detail,
                 feed::draw,
                 feed::prepare,
-                levels::pick,
                 show_leaves,
             )
                 .chain(),
+        )
+        .add_systems(
+            PostUpdate,
+            (
+                levels::follow_camera.in_set(ForestLodSystems::FollowCamera),
+                levels::pick.in_set(ForestLodSystems::Select),
+            ),
         );
     }
 }

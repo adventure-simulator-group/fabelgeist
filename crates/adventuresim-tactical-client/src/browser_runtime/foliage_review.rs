@@ -33,6 +33,7 @@ impl Plugin for FoliageReviewPlugin {
                     .chain()
                     .after(crate::presentation::ownership::PresentationCameraSynchronization)
                     .before(bevy::camera::CameraUpdateSystems)
+                    .before(bevy::transform::TransformSystems::Propagate)
                     .before(bevy::camera::visibility::VisibilitySystems::CheckVisibility),
             );
         ForestBenchmark::new(

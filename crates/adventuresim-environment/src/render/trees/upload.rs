@@ -11,7 +11,7 @@ use super::super::{
     ForestDetail,
     benchmark::ForestBenchmark,
     ground::{Ground, GroundAssets},
-    levels::{Level, LevelView},
+    levels::{ForestLodView, Level},
     records::{Bytes, ForestBuffers, PendingWrites, Stored},
 };
 use super::{
@@ -60,7 +60,7 @@ pub(super) struct TreeStores<'w> {
 #[derive(SystemParam)]
 pub(super) struct TreeSight<'w> {
     detail: Res<'w, ForestDetail>,
-    view: Res<'w, LevelView>,
+    view: Res<'w, ForestLodView>,
     probe: Option<Res<'w, ForestBenchmark>>,
     layout: Res<'w, TreeLayout>,
     batching: Res<'w, TreeBatching>,

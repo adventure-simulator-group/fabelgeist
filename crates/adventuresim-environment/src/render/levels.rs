@@ -109,13 +109,29 @@ impl Level {
 
 /// Where the camera stands, and how many pixels a metre at a metre's
 /// distance spans on its screen.
-#[derive(Resource, Clone, Copy, Debug, Default)]
-pub(super) struct LevelView {
-    eye: Vec3,
+#[derive(Resource, Clone, Debug, Default)]
+pub struct ForestLodView {
+    camera: Option<ForestLodCamera>,
     focal: f32,
 }
 
-impl LevelView {
+/// Actual native camera inputs sampled after propagation and camera update.
+/// This is selection-source evidence, not a GPU uniform-buffer readback.
+#[derive(Clone, Debug)]
+pub struct ForestLodCamera {
+    pub entity: Entity,
+    pub world_from_view: GlobalTransform,
+    pub projection: Projection,
+    pub physical_viewport: UVec2,
+}
+
+impl ForestLodView {
+    /// The unique active perspective camera used for this frame's selection.
+    /// Missing or ambiguous ownership yields no source and adaptive coarse LOD.
+    pub fn camera(&self) -> Option<&ForestLodCamera> {
+        self.camera.as_ref()
+    }
+
     /// The level a chunk around `aabb` whose largest plant has `radius`
     /// needs, now at `current`; the coarsest before a camera is seen.
     pub(super) fn level(
@@ -128,35 +144,44 @@ impl LevelView {
         if let LevelSelection::Fixed(level) = detail.level {
             return level;
         }
+        let Some(camera) = &self.camera else {
+            return Level::Coarse;
+        };
+        let eye = camera.world_from_view.translation();
         let low = Vec3::from(aabb.min());
         let high = Vec3::from(aabb.max());
-        let distance = self.eye.distance(self.eye.clamp(low, high)).max(NEAREST);
+        let distance = eye.distance(eye.clamp(low, high)).max(NEAREST);
         Level::of(radius * self.focal / distance, current, detail)
     }
 }
 
 /// Follow the unique active forest view, never an unrelated camera.
 pub(super) fn follow_camera(
-    cameras: Query<(&Camera, &GlobalTransform, &Projection), With<ForestViewCamera>>,
-    mut view: ResMut<LevelView>,
+    cameras: Query<(Entity, &Camera, &GlobalTransform, &Projection), With<ForestViewCamera>>,
+    mut view: ResMut<ForestLodView>,
 ) {
-    let mut active = cameras.iter().filter(|(camera, _, _)| camera.is_active);
-    let Some((camera, transform, projection)) = active.next() else {
-        *view = LevelView::default();
+    let mut active = cameras.iter().filter(|(_, camera, _, _)| camera.is_active);
+    let Some((entity, camera, transform, projection)) = active.next() else {
+        *view = ForestLodView::default();
         return;
     };
     if active.next().is_some() {
-        *view = LevelView::default();
+        *view = ForestLodView::default();
         return;
     }
     let found = (|| {
         let Projection::Perspective(perspective) = projection else {
             return None;
         };
-        let height = camera.physical_viewport_size()?.y as f32;
-        Some(LevelView {
-            eye: transform.translation(),
-            focal: height / (2.0 * (perspective.fov * 0.5).tan()),
+        let physical_viewport = camera.physical_viewport_size()?;
+        Some(ForestLodView {
+            camera: Some(ForestLodCamera {
+                entity,
+                world_from_view: *transform,
+                projection: projection.clone(),
+                physical_viewport,
+            }),
+            focal: physical_viewport.y as f32 / (2.0 * (perspective.fov * 0.5).tan()),
         })
     })();
     *view = found.unwrap_or_default();
@@ -167,7 +192,7 @@ pub(super) fn follow_camera(
 pub(super) fn pick(
     mut commands: Commands,
     detail: Res<ForestDetail>,
-    view: Res<LevelView>,
+    view: Res<ForestLodView>,
     forest: Res<ForestMaterials>,
     mut chunks: Query<(Entity, &mut ForestChunk, &Aabb)>,
     probe: Option<Res<super::benchmark::ForestBenchmark>>,

@@ -6,7 +6,7 @@ use std::sync::Arc;
 use bevy::prelude::*;
 use bevy_eidolon::prelude::*;
 
-use super::ForestPlugin;
+use super::{ForestLodSystems, ForestPlugin};
 use crate::prepared::SharedForest;
 
 mod batches;
@@ -62,11 +62,7 @@ impl Plugin for TreeForestPlugin {
         .init_resource::<TreeBatching>()
         .init_resource::<TreeResidencyPolicy>()
         .init_resource::<resident::ResidentBank>()
-        .add_systems(
-            Update,
-            (upload::draw, batches::pick)
-                .chain()
-                .after(super::levels::follow_camera),
-        );
+        .add_systems(Update, upload::draw)
+        .add_systems(PostUpdate, batches::pick.in_set(ForestLodSystems::Select));
     }
 }

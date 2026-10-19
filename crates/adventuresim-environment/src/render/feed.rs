@@ -65,7 +65,7 @@ pub(super) fn prepare(mut feed: ResMut<ForestFeed>) {
 /// asked for.
 #[derive(SystemParam)]
 pub(super) struct Sight<'w> {
-    view: Res<'w, levels::LevelView>,
+    view: Res<'w, levels::ForestLodView>,
     detail: Res<'w, ForestDetail>,
     probe: Option<Res<'w, ForestBenchmark>>,
 }

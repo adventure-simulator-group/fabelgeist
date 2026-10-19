@@ -15,7 +15,7 @@ use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance, PlantInstance
 use super::ForestDetail;
 use super::ForestPart;
 use super::benchmark::{ForestBenchmark, ForestWork};
-use super::levels::{Level, LevelView};
+use super::levels::{ForestLodView, Level};
 use super::materials::ForestMaterials;
 use super::records::fingerprint;
 
@@ -166,7 +166,7 @@ impl Chunks {
 /// Where new chunks go, and at what level of detail.
 pub(super) struct Placement<'a> {
     pub(super) forest: &'a ForestMaterials,
-    pub(super) view: &'a LevelView,
+    pub(super) view: &'a ForestLodView,
     pub(super) detail: &'a ForestDetail,
 }
 

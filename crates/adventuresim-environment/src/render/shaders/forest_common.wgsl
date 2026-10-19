@@ -15,9 +15,9 @@ struct Species {
 struct PlantInfo {
     sphere: vec4<f32>,
     kind: u32,
-    pad0: u32,
-    pad1: u32,
-    pad2: u32,
+    padding_x: u32,
+    padding_y: u32,
+    padding_z: u32,
 };
 
 // A branch segment: a tube from ring `a` to ring `b` (centre, radius),
@@ -38,8 +38,8 @@ struct Branch {
     v_end: f32,
     axis: u32,
     exit: f32,
-    pad0: u32,
-    pad1: u32,
+    padding_x: u32,
+    padding_y: u32,
 };
 
 // One leaf cluster at a shoot tip.

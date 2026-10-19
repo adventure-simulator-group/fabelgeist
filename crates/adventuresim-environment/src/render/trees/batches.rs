@@ -13,7 +13,7 @@ use super::super::{
     ForestDetail, ForestPart,
     benchmark::{ForestBenchmark, ForestWork},
     chunks::{FAR, size_class},
-    levels::{Level, LevelView},
+    levels::{ForestLodView, Level},
 };
 use super::{TreeBatchOccupancy, TreeBatching, TreeLayout, grids::GridKey, upload::TreeAssets};
 use crate::prepared::{MeshClass, Result, SharedForest};
@@ -61,7 +61,7 @@ pub(super) fn show(
     commands: &mut Commands,
     forest: &SharedForest,
     assets: &TreeAssets,
-    view: &LevelView,
+    view: &ForestLodView,
     detail: &ForestDetail,
     probe: Option<&ForestBenchmark>,
     batching: TreeBatching,
@@ -189,7 +189,7 @@ fn gather(
 pub(super) fn pick(
     mut commands: Commands,
     detail: Res<ForestDetail>,
-    view: Res<LevelView>,
+    view: Res<ForestLodView>,
     assets: Option<Res<TreeAssets>>,
     mut chunks: Query<(Entity, &mut TreeChunk, &Aabb, &mut Visibility)>,
     probe: Option<Res<ForestBenchmark>>,
