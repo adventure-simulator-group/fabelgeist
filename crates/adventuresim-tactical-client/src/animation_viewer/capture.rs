@@ -414,7 +414,7 @@ pub(super) fn drive_sequence(
                 && !frame
                     .scenario
                     .required_motion()
-                    .is_some_and(|motion| animation_runtime.motion_is_processed(&motion));
+                    .is_some_and(|motion| animation_runtime.motion_is_processed(motion));
             skeleton.set_downed_motion(
                 if !frame.scenario.is(ScenarioId::DownedProneLookAt)
                     && (preload_locomotion || (frame.scenario_frame >= 4 && frame.speed <= 0.05))
@@ -1159,7 +1159,7 @@ pub(super) fn jitter_frames(frames: &[FrameSample]) -> Vec<JitterFrame<BoneRole>
                                 )
                             });
                         (
-                            name.clone(),
+                            *name,
                             JitterBone {
                                 position: position.to_array(),
                                 rotation_xyzw: rotation.to_array(),
