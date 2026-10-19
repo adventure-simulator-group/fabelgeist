@@ -63,7 +63,7 @@ fn vertex(vertex: Vertex) -> LeafOut {
     let i = u32(round(vertex.position.z));
     let corner = vec2<f32>(vertex.position.x, vertex.position.y);
 #endif
-    let geometry = leaf_vertex(inst, species[inst.kind], i, corner, blades);
+    let geometry = leaf_vertex(inst, u32(species[inst.kind].leaf.w), i, corner, blades);
     var world = geometry.position;
     var normal = geometry.normal;
     var out: LeafOut;

@@ -16,13 +16,6 @@ mod materials;
 mod resident;
 mod upload;
 
-/// Explicit Bevy vertex ABI: one integer address, decoded by the forest shader.
-const VERTEX_ADDRESS: bevy::mesh::MeshVertexAttribute = bevy::mesh::MeshVertexAttribute::new(
-    "ForestAddress",
-    0x4652_5354_4144_4452,
-    bevy::render::render_resource::VertexFormat::Uint32,
-);
-
 pub use batching::{TreeBatchOccupancy, TreeBatching};
 pub use grids::{TreeLayout, TreeMeshStats};
 pub use materials::{TreeBranchMaterial, TreeLeafMaterial};

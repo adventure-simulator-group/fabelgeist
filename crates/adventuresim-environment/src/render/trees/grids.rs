@@ -7,11 +7,12 @@ use bevy::mesh::{Indices, PrimitiveTopology};
 use bevy::prelude::*;
 use serde::Serialize;
 
-use super::{TreeBatchOccupancy, TreeResidencyEvidence, VERTEX_ADDRESS};
+use super::{TreeBatchOccupancy, TreeResidencyEvidence};
 use crate::prepared::{
     AddressMesh, MeshClass, PreparedError, Result, TreeGrid, TreeLibrary, VariantIndex,
     admit_address_mesh_bytes,
 };
+use crate::render::address::VERTEX_ADDRESS;
 use crate::render::{ForestPart, benchmark::ForestBenchmark};
 
 /// Default reuse, or matched per-model mesh/batch partitions for diagnostics.

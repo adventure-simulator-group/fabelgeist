@@ -1,6 +1,6 @@
 // Exact grown blade evaluation; no camera, material binding or derivatives.
 #define_import_path adventuresim_environment::leaf_geometry
-#import adventuresim_environment::forest::{TAU, Species, Leaf, basis}
+#import adventuresim_environment::forest::{TAU, Leaf, basis}
 
 const GOLDEN: f32 = 2.39996323;
 
@@ -15,10 +15,9 @@ fn rand(seed: f32, i: u32, k: f32) -> f32 {
     return fract(sin(seed * 91.17 + f32(i) * 12.9898 + k * 78.233) * 43758.5453);
 }
 
-fn leaf_vertex(inst: Leaf, species: Species, i: u32, corner: vec2<f32>, blades: u32) -> LeafVertex {
+fn leaf_vertex(inst: Leaf, foliage: u32, i: u32, corner: vec2<f32>, blades: u32) -> LeafVertex {
     // Fewer blades cover as much, each larger.
     let spread = sqrt(10.0 / f32(blades));
-    let foliage = u32(species.leaf.w);
     let up = vec3<f32>(0.0, 1.0, 0.0);
     let tip = inst.center_size.xyz;
     let size = inst.center_size.w;
@@ -55,7 +54,6 @@ fn leaf_vertex(inst: Leaf, species: Species, i: u32, corner: vec2<f32>, blades: 
         let leaflet = across * cos(hinge) - face * sin(hinge);
         world = spine + leaflet * half * corner.x;
         uv = vec2<f32>(0.5 + 0.5 * side * corner.x, t);
-        out.seed = inst.seed;
     } else {
         // Blades along the shoot's last stretch, the youngest at its tip.
         let needles = foliage == 1u;
@@ -84,11 +82,19 @@ fn leaf_vertex(inst: Leaf, species: Species, i: u32, corner: vec2<f32>, blades: 
             width = len * 0.5;
         }
         world = attach + dir * len * uv.y + across * width * (uv.x - 0.5);
-        out.seed = fract(inst.seed * 7.13 + f32(i) * 0.618);
     }
 
+    out.seed = leaf_seed(inst.seed, i, foliage);
     out.position = world;
     out.normal = normal;
     out.uv = uv;
     return out;
+}
+
+// The original per-blade pigment seed, also recoverable from an integer address.
+fn leaf_seed(seed: f32, i: u32, foliage: u32) -> f32 {
+    if foliage == 2u {
+        return seed;
+    }
+    return fract(seed * 7.13 + f32(i) * 0.618);
 }

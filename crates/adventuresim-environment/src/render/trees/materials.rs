@@ -96,7 +96,7 @@ fn specialize_shared(
     descriptor.vertex.buffers = vec![
         layout
             .0
-            .get_layout(&[super::VERTEX_ADDRESS.at_shader_location(0)])?,
+            .get_layout(&[crate::render::address::VERTEX_ADDRESS.at_shader_location(0)])?,
     ];
     descriptor.vertex.shader_defs.push(SHARED_DEFINE.into());
     if let Some(fragment) = &mut descriptor.fragment {

@@ -20,6 +20,8 @@ prepared = [
   "render", "dep:serde", "dep:serde_json", "dep:sha2",
   "dep:js-sys", "dep:wasm-bindgen", "dep:wasm-bindgen-futures", "dep:web-sys",
 ]
+# Bounded native mesh authoring on an owned compute device, before presentation.
+full-authoring = ["prepared", "dep:fabelgeist-gpu", "dep:naga_oil", "dep:wgpu"]
 viewer = [
   "prepared",
   "bevy/default",
@@ -49,6 +51,10 @@ clap = { workspace = true, optional = true }
 serde_json = { workspace = true, optional = true }
 serde = { workspace = true, features = ["derive"], optional = true }
 sha2 = { workspace = true, optional = true }
+
+[target.'cfg(not(target_family = "wasm"))'.dependencies]
+naga_oil = { version = "0.22.0", default-features = false, optional = true }
+wgpu = { version = "29.0.4", default-features = false, features = ["wgsl"], optional = true }
 
 [target.'cfg(target_family = "wasm")'.dependencies]
 js-sys = { version = "0.3", optional = true }
