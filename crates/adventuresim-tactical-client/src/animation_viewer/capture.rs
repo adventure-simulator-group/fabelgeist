@@ -60,32 +60,32 @@ pub(super) struct CompletedCapture {
 }
 
 impl CaptureSequence {
-    pub(super) fn new(output: PathBuf, settle_frames: u32, scenario: Option<&str>) -> Self {
-        let selected = scenario.map(|label| ScenarioMetadata::from_label(label).into_owned());
-        let plan = match selected.as_ref().and_then(ScenarioMetadata::identity) {
-            Some(ScenarioId::FlatGridWalk20) => steady_scenario(
-                ScenarioMetadata::authored(ScenarioId::FlatGridWalk20),
-                2.0,
-                3.0,
-            ),
-            Some(ScenarioId::FlatGridRun55) => steady_scenario(
-                ScenarioMetadata::authored(ScenarioId::FlatGridRun55),
-                5.5,
-                3.0,
-            ),
-            Some(ScenarioId::FlatGridWalkNoIk) => steady_scenario(
-                ScenarioMetadata::authored(ScenarioId::FlatGridWalkNoIk),
-                2.0,
-                3.0,
-            ),
-            Some(ScenarioId::FlatGridSprintNoIk) => steady_scenario(
-                ScenarioMetadata::authored(ScenarioId::FlatGridSprintNoIk),
-                canonical_john_sprint_speed(),
-                3.0,
-            ),
-            Some(ScenarioId::FlatGridWalkStop) => flat_grid_walk_stop_scenario(),
-            Some(ScenarioId::FullRagdoll) => full_ragdoll_scenario(),
-            _ => capture_plan()
+    pub(super) fn new(
+        output: PathBuf,
+        settle_frames: u32,
+        scenario: Option<ScenarioMetadata<'_>>,
+    ) -> Self {
+        let selected = scenario.map(ScenarioMetadata::into_owned);
+        let plan = match selected {
+            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalk20) => {
+                steady_scenario(scenario, 2.0, 3.0)
+            }
+            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridRun55) => {
+                steady_scenario(scenario, 5.5, 3.0)
+            }
+            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalkNoIk) => {
+                steady_scenario(scenario, 2.0, 3.0)
+            }
+            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridSprintNoIk) => {
+                steady_scenario(scenario, canonical_john_sprint_speed(), 3.0)
+            }
+            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalkStop) => {
+                flat_grid_walk_stop_scenario()
+            }
+            Some(scenario) if scenario.identity() == Some(ScenarioId::FullRagdoll) => {
+                full_ragdoll_scenario()
+            }
+            selected => capture_plan()
                 .into_iter()
                 .filter(|frame| {
                     selected
@@ -1222,7 +1222,11 @@ mod tests {
     #[test]
     fn flat_grid_scenarios_are_opt_in_complete_cycles_with_explicit_ik_ownership() {
         for (scenario, speed) in [("flat-grid-walk-2.0", 2.0), ("flat-grid-run-5.5", 5.5)] {
-            let sequence = CaptureSequence::new(PathBuf::new(), 1, Some(scenario));
+            let sequence = CaptureSequence::new(
+                PathBuf::new(),
+                1,
+                Some(ScenarioMetadata::from_label(scenario)),
+            );
             assert!(sequence.uses_flat_grid());
             assert!(sequence.plan.len() > 64);
             assert!(sequence.plan.iter().all(|frame| {
@@ -1232,7 +1236,11 @@ mod tests {
             }));
         }
 
-        let sprint = CaptureSequence::new(PathBuf::new(), 1, Some("flat-grid-sprint-no-ik"));
+        let sprint = CaptureSequence::new(
+            PathBuf::new(),
+            1,
+            Some(ScenarioMetadata::from_label("flat-grid-sprint-no-ik")),
+        );
         assert!(sprint.uses_flat_grid());
         assert!(sprint.plan.len() > 64);
         assert!(sprint.plan.iter().all(|frame| {
@@ -1242,7 +1250,11 @@ mod tests {
         }));
         assert!((canonical_john_sprint_speed() - 8.957_856).abs() < 0.000_01);
 
-        let walk = CaptureSequence::new(PathBuf::new(), 1, Some("flat-grid-walk-no-ik"));
+        let walk = CaptureSequence::new(
+            PathBuf::new(),
+            1,
+            Some(ScenarioMetadata::from_label("flat-grid-walk-no-ik")),
+        );
         assert!(walk.uses_flat_grid());
         assert!(walk.plan.len() > 64);
         assert!(walk.plan.iter().all(|frame| {
@@ -1251,10 +1263,18 @@ mod tests {
                 && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Disabled
         }));
 
-        let ordinary = CaptureSequence::new(PathBuf::new(), 1, Some("steady-walk-2.0"));
+        let ordinary = CaptureSequence::new(
+            PathBuf::new(),
+            1,
+            Some(ScenarioMetadata::from_label("steady-walk-2.0")),
+        );
         assert!(!ordinary.uses_flat_grid());
 
-        let stop = CaptureSequence::new(PathBuf::new(), 1, Some("flat-grid-walk-stop"));
+        let stop = CaptureSequence::new(
+            PathBuf::new(),
+            1,
+            Some(ScenarioMetadata::from_label("flat-grid-walk-stop")),
+        );
         assert!(stop.uses_flat_grid());
         assert!(stop.plan[..48].iter().all(|frame| frame.speed == 2.0));
         assert!(stop.plan[56..].iter().all(|frame| frame.speed == 0.0));
@@ -1268,7 +1288,11 @@ mod tests {
     #[test]
     fn completed_capture_owns_the_finished_ecs_state() {
         let output = PathBuf::from("owned-capture");
-        let mut sequence = CaptureSequence::new(output.clone(), 1, Some("flat-grid-walk-2.0"));
+        let mut sequence = CaptureSequence::new(
+            output.clone(),
+            1,
+            Some(ScenarioMetadata::from_label("flat-grid-walk-2.0")),
+        );
         let plan_len = sequence.plan.len();
 
         let completed = sequence.complete("pose_buffer", PoseBufferMetrics::default());

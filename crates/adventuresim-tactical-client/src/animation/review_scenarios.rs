@@ -3,15 +3,17 @@
 use super::{MotionId, TerrainIkMode};
 use adventuresim_tactical_core::prelude::*;
 pub(crate) use authored::ScenarioId;
-pub(crate) use metadata::{Repeatability, ScenarioFeature, SolverUse};
+pub(crate) use feature_policy::ScenarioFeature;
+pub(crate) use metadata::{Repeatability, SolverUse};
 use serde::Serialize;
 use std::{borrow::Cow, collections::BTreeSet};
 
 mod authored;
 mod authored_policy;
+mod feature_policy;
 mod metadata;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq)]
 pub(crate) struct ScenarioMetadata<'a> {
     label: Cow<'a, str>,
     identity: Option<ScenarioId>,
@@ -23,7 +25,7 @@ pub(crate) struct ScenarioMetadata<'a> {
     execution: ScenarioExecution,
 }
 
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
 struct ScenarioExecution {
     body: Option<BodyState>,
     motion: Option<MotionId>,
@@ -40,7 +42,7 @@ pub(crate) enum ScenarioKind {
     Attack,
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub(crate) enum ScenarioTerrain {
     Absent,
     Authored,

@@ -45,12 +45,12 @@ pub(super) fn sync_procedural_equipment_skins(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use bevy::ecs::system::RunSystemOnce;
     use fabelgeist_rig::RigJointName;
 
     const NARROW_HIP_X_METRES: f32 = 0.05;
     const WIDE_HIP_X_METRES: f32 = 0.15;
     const HIP_Y_METRES: f32 = 1.0;
-    use bevy::ecs::system::RunSystemOnce;
 
     #[test]
     fn skeletal_proportions_follow_equipment_transfer_without_rebinding_shared_assets() {

@@ -161,7 +161,11 @@ pub(crate) fn run(options: CaptureOptions) -> AppExit {
         // viewer can retain FK-only controls after the live default changed.
         .insert_resource(initial_terrain_ik)
         .insert_resource(ClearColor(Color::srgb(0.08, 0.1, 0.13)))
-        .insert_resource(CaptureSequence::new(output, settle_frames, scenario))
+        .insert_resource(CaptureSequence::new(
+            output,
+            settle_frames,
+            selected_scenario,
+        ))
         .add_plugins(CapturePlugin)
         .run()
 }
