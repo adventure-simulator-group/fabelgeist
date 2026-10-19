@@ -18,6 +18,7 @@ use body_values::{
 pub(crate) use clock::ProceduralAnimationClock;
 use clock::{AnimationSampleTick, FixedAnimationStep};
 pub(super) use dive::apply_procedural_dive_lower_body;
+use height::clear_landing_foot_plants;
 #[cfg(test)]
 use height::{
     authored_height_compensation, landing_compression_for_action, landing_compression_for_impact,
@@ -745,14 +746,6 @@ fn landing_plant_is_discontinuous(
     presentation_tick_delta(previous_tick, current_tick).is_none()
         || previous_owner_position
             .is_some_and(|previous| previous.distance_squared(current_owner_position) > 4.0)
-}
-
-fn clear_landing_foot_plants(height: &mut LocomotionHeightState) {
-    height.landing_left_foot_target = None;
-    height.landing_right_foot_target = None;
-    height.landing_plant_owner_position = None;
-    height.landing_plant_tick = None;
-    height.landing_plant_resync_tick = None;
 }
 
 fn mirrored_global_affine(source: GlobalTransform, owner: GlobalTransform) -> Affine3A {

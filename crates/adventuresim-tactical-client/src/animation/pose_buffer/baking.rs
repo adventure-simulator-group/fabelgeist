@@ -1,14 +1,21 @@
 //! Source-clip admission, fixed-rate bake grids and cached sampling.
 
 use super::*;
+use adventuresim_tactical_core::animation::AnimationQuantity;
+use std::num::NonZeroUsize;
 
 #[derive(Clone)]
 pub(super) struct BakedClip {
     pub(super) duration: ClipDuration,
-    pub(super) frame_dt: AnimationElapsed,
-    pub(super) frames: usize,
-    pub(super) tracks: RigJointTable<BoneTrack>,
+    frame_dt: AnimationElapsed,
+    frames: BakedFrameCount,
+    tracks: RigJointTable<BoneTrack>,
 }
+
+/// Stored samples, including the endpoint: 64 intervals require 65 samples.
+/// A one-sample clip is valid and has no interpolation interval.
+#[derive(Clone, Copy)]
+pub(super) struct BakedFrameCount(NonZeroUsize);
 
 #[derive(Clone)]
 pub(super) struct BoneTrack {
@@ -25,18 +32,91 @@ pub(super) enum BoneTrackSource {
     BindPose,
 }
 
-/// One joint's local transform in the pose buffer.
+impl TryFrom<usize> for BakedFrameCount {
+    type Error = AnimationValueError;
+
+    fn try_from(samples: usize) -> AnimationValueResult<Self> {
+        NonZeroUsize::new(samples)
+            .map(Self)
+            .ok_or(AnimationValueError::NonPositive {
+                quantity: AnimationQuantity::BakedFrameCount,
+            })
+    }
+}
+
+impl BakedFrameCount {
+    /// Native grid cardinality for allocation, indexing and calibration kernels.
+    pub(super) fn samples(self) -> usize {
+        self.0.get()
+    }
+
+    pub(super) fn intervals(self) -> usize {
+        self.0.get() - 1
+    }
+}
+
 impl BakedClip {
+    /// Admit the complete grid before sampling can index any channel. Private
+    /// storage and slice-only translation edits preserve these channel lengths.
+    pub(super) fn new(
+        duration: ClipDuration,
+        frame_dt: AnimationElapsed,
+        frames: BakedFrameCount,
+        tracks: RigJointTable<BoneTrack>,
+    ) -> AnimationValueResult<Self> {
+        for track in &tracks {
+            for actual in [
+                track.translations.len(),
+                track.rotations.len(),
+                track.scales.len(),
+            ] {
+                if actual != frames.samples() {
+                    return Err(AnimationValueError::BakedChannelSampleCount {
+                        expected: frames.samples(),
+                        actual,
+                    });
+                }
+            }
+        }
+        Ok(Self {
+            duration,
+            frame_dt,
+            frames,
+            tracks,
+        })
+    }
+
+    pub(super) fn frame_count(&self) -> BakedFrameCount {
+        self.frames
+    }
+
+    pub(super) fn track_source(&self, joint: RigJointOrdinal) -> BoneTrackSource {
+        self.tracks[joint].source
+    }
+
+    pub(super) fn translations_mut(&mut self, joint: RigJointOrdinal) -> &mut [Vec3] {
+        &mut self.tracks[joint].translations
+    }
+
+    pub(super) fn offset_translations(&mut self, offsets: &[Vec3]) {
+        for (joint, offset) in self.tracks.ordinals().zip(offsets) {
+            for translation in self.translations_mut(joint) {
+                *translation += *offset;
+            }
+        }
+    }
+
+    /// One joint's local transform in the pose buffer.
     pub(super) fn sample(&self, joint: RigJointOrdinal, time_seconds: ClipTime) -> LocalPose {
         // Only this interpolation kernel projects seconds to a native grid index.
-        let frame = if self.frames == 1 || self.frame_dt.is_zero() {
+        let frame = if self.frames.samples() == 1 || self.frame_dt.is_zero() {
             0.0
         } else {
             (time_seconds.seconds().clamp(0.0, self.duration.seconds()) / self.frame_dt.seconds())
-                .min((self.frames - 1) as f32)
+                .min(self.frames.intervals() as f32)
         };
         let first = frame as usize;
-        let second = (first + 1).min(self.frames - 1);
+        let second = (first + 1).min(self.frames.intervals());
         let alpha = frame.fract();
         let track = &self.tracks[joint];
         LocalPose {
@@ -109,8 +189,8 @@ pub(super) fn bake_clip(
             quantity: adventuresim_tactical_core::animation::AnimationQuantity::ClipTime,
         });
     }
-    let frames = grid_span.ceil() as usize + 1;
-    if !((frames - 1) as f32 * frame_dt.seconds()).is_finite() {
+    let frames = BakedFrameCount::try_from(grid_span.ceil() as usize + 1)?;
+    if !(frames.intervals() as f32 * frame_dt.seconds()).is_finite() {
         return Err(AnimationValueError::Overflow {
             quantity: adventuresim_tactical_core::animation::AnimationQuantity::ClipTime,
         });
@@ -124,19 +204,19 @@ pub(super) fn bake_clip(
         .map(|joint| {
             let sample_time =
                 |frame: usize| (frame as f32 * frame_dt.seconds()).min(duration.seconds());
-            let translations = (0..frames)
+            let translations = (0..frames.samples())
                 .map(|frame| {
                     clip.sample_clamped(translation_field.clone(), joint.target, sample_time(frame))
                         .unwrap_or(joint.bind.translation)
                 })
                 .collect::<Vec<_>>();
-            let rotations = (0..frames)
+            let rotations = (0..frames.samples())
                 .map(|frame| {
                     clip.sample_clamped(rotation_field.clone(), joint.target, sample_time(frame))
                         .unwrap_or(joint.bind.rotation)
                 })
                 .collect::<Vec<_>>();
-            let scales = (0..frames)
+            let scales = (0..frames.samples())
                 .map(|frame| {
                     clip.sample_clamped(scale_field.clone(), joint.target, sample_time(frame))
                         .unwrap_or(joint.bind.scale)
@@ -154,10 +234,5 @@ pub(super) fn bake_clip(
             }
         })
         .collect();
-    Ok(BakedClip {
-        duration,
-        frame_dt,
-        frames,
-        tracks,
-    })
+    BakedClip::new(duration, frame_dt, frames, tracks)
 }

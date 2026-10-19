@@ -7,19 +7,34 @@ pub(super) struct MeleePlaybackTiming {
     pub(super) start: AnimationSampleTick,
     pub(super) contact: AnimationSampleTick,
     pub(super) end: AnimationSampleTick,
+    /// Native seconds consumed by the predicted AttackState timers.
+    pub(super) contact_from_input_seconds: f32,
 }
 
 impl MeleePlaybackTiming {
     pub(super) fn delayed(
+        skeleton: &SkeletonState,
+        spec: &AttackSpec,
         input: AnimationSampleTick,
         delay: f32,
         contact_seconds: f32,
         recovery: f32,
     ) -> Self {
+        let sequence_start = if spec.continuation {
+            skeleton.attack_continuation_tick().unwrap_or(input)
+        } else {
+            input
+        };
+        let start = sequence_start + delay_ticks(delay);
+        let contact = sequence_start + animation_ticks(contact_seconds);
+        let end = sequence_start + animation_ticks(contact_seconds + recovery);
+        let contact_from_input_seconds =
+            melee_contact_delay_from_input(skeleton, spec.continuation, contact, contact_seconds);
         Self {
-            start: input + delay_ticks(delay),
-            contact: input + animation_ticks(contact_seconds),
-            end: input + animation_ticks(contact_seconds + recovery),
+            start,
+            contact,
+            end,
+            contact_from_input_seconds,
         }
     }
 }

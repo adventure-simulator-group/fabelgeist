@@ -8,6 +8,17 @@ use super::*;
 // orientation share this boundary so terrain alignment can never introduce
 // the old one-frame ankle snap.
 
+pub(in crate::animation::procedural) fn canonical_knee_pole_world(
+    foot: LeadFoot,
+    rig_rotation: Quat,
+) -> Vec3 {
+    let side = match foot {
+        LeadFoot::Left => -1.0,
+        LeadFoot::Right => 1.0,
+    };
+    pole_to_world(rig_rotation, canonical_knee_pole(side))
+}
+
 pub(in crate::animation::procedural) fn authored_knee_pole_world(
     hip: Vec3,
     authored_knee: Vec3,

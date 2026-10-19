@@ -26,6 +26,8 @@ pub enum AnimationQuantity {
     ClipDuration,
     #[display("clip sample time")]
     ClipTime,
+    #[display("baked stored-sample count")]
+    BakedFrameCount,
     #[display("cycle phase")]
     CyclePhase,
     #[display("cycle displacement")]
@@ -56,6 +58,8 @@ pub enum AnimationQuantity {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
 pub enum AnimationValueError {
+    #[error("baked animation channel has {actual} samples; expected {expected}")]
+    BakedChannelSampleCount { expected: usize, actual: usize },
     #[error("{quantity} must be finite")]
     NonFinite { quantity: AnimationQuantity },
     #[error("{quantity} must be nonnegative")]
@@ -72,6 +76,7 @@ impl AnimationValueError {
     /// Retain a shared numeric rejection while identifying its semantic caller.
     pub fn for_quantity(self, quantity: AnimationQuantity) -> Self {
         match self {
+            Self::BakedChannelSampleCount { .. } => self,
             Self::NonFinite { .. } => Self::NonFinite { quantity },
             Self::Negative { .. } => Self::Negative { quantity },
             Self::NonPositive { .. } => Self::NonPositive { quantity },

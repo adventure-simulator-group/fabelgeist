@@ -242,11 +242,7 @@ pub(in crate::animation) fn apply(
                 .global
                 .translation()
                 .distance(foot_snapshot.global.translation());
-            let left = foot_side == LeadFoot::Left;
-            let canonical = pole_to_world(
-                rig_rotation,
-                canonical_knee_pole(if left { -1.0 } else { 1.0 }),
-            );
+            let canonical = canonical_knee_pole_world(foot_side, rig_rotation);
             let pole = authored_knee_pole_world(
                 upper_snapshot.global.translation(),
                 lower_snapshot.global.translation(),

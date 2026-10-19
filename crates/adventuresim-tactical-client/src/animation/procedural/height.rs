@@ -282,6 +282,14 @@ pub(super) fn landing_compression_for_action(
 ) -> AnimationValueResult<HeightDistance> {
     landing_compression_for_impact(profile, impact_speed)
 }
+pub(super) fn clear_landing_foot_plants(height: &mut LocomotionHeightState) {
+    height.landing_left_foot_target = None;
+    height.landing_right_foot_target = None;
+    height.landing_plant_owner_position = None;
+    height.landing_plant_tick = None;
+    height.landing_plant_resync_tick = None;
+}
+
 fn grounded_height_wave(
     phase: CyclePhase,
     amplitude: HeightDistance,

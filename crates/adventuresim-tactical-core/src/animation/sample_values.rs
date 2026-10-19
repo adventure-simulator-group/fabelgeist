@@ -22,7 +22,8 @@ pub struct CycleDelta(f32);
 pub struct BlendWeight(f32);
 
 /// Binary selection of the authored original or mirrored clip.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(from = "bool", into = "bool")]
 pub enum ClipMirror {
     Original,
     Mirrored,
@@ -33,6 +34,15 @@ impl CyclePhase {
     pub fn from_cycles(cycles: f32) -> AnimationValueResult<Self> {
         if !cycles.is_finite() {
             return Err(AnimationValueError::NonFinite {
+                quantity: AnimationQuantity::CyclePhase,
+            });
+        }
+        Ok(Self(cycles))
+    }
+    /// Admit a native coordinate-kernel result before retaining a phase.
+    pub fn from_arithmetic(cycles: f32) -> AnimationValueResult<Self> {
+        if !cycles.is_finite() {
+            return Err(AnimationValueError::Overflow {
                 quantity: AnimationQuantity::CyclePhase,
             });
         }
@@ -171,17 +181,17 @@ impl TryFrom<f32> for BlendWeight {
         Self::from_factor(value)
     }
 }
-impl Serialize for ClipMirror {
-    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
-        serializer.serialize_bool(*self == Self::Mirrored)
-    }
-}
-impl<'de> Deserialize<'de> for ClipMirror {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        Ok(if bool::deserialize(deserializer)? {
+impl From<bool> for ClipMirror {
+    fn from(mirrored: bool) -> Self {
+        if mirrored {
             Self::Mirrored
         } else {
             Self::Original
-        })
+        }
+    }
+}
+impl From<ClipMirror> for bool {
+    fn from(mirror: ClipMirror) -> Self {
+        mirror == ClipMirror::Mirrored
     }
 }

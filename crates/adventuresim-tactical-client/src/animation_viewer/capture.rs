@@ -164,6 +164,53 @@ pub(super) struct RepeatedEvaluationSnapshot {
     leg_ik: LegIkDiagnostics,
 }
 
+impl RepeatedEvaluationSnapshot {
+    fn matches(
+        &self,
+        frame: &PlannedFrame,
+        bones: &CapturedBones,
+        skeleton: &SkeletonState,
+        event_count: usize,
+        leg_ik: LegIkDiagnostics,
+    ) -> bool {
+        let bone_mismatch = repeated_bone_mismatch(&self.bones, bones);
+        let bones_match = bone_mismatch.is_none();
+        let repeated_evaluation_matches = self.scenario == frame.scenario
+            && self.scenario_frame == frame.scenario_frame
+            && bones_match
+            && self.contact_sequence == skeleton.contact_sequence
+            && self.landing_sequence == skeleton.landing_sequence
+            && self.event_count == event_count
+            && repeated_leg_ik_matches(self.leg_ik, leg_ik);
+        if !repeated_evaluation_matches
+            && let Some((bone, position_delta, rotation_delta)) = &bone_mismatch
+        {
+            warn!(
+                scenario = frame.scenario.label(),
+                scenario_frame = frame.scenario_frame,
+                bone,
+                position_delta,
+                rotation_delta,
+                "repeated animation evaluation changed a captured bone"
+            );
+        }
+        if !repeated_evaluation_matches && bone_mismatch.is_none() {
+            warn!(
+                scenario = frame.scenario.label(),
+                scenario_frame = frame.scenario_frame,
+                baseline_contact = self.contact_sequence.encoded(),
+                contact = skeleton.contact_sequence.encoded(),
+                baseline_landing = self.landing_sequence.encoded(),
+                landing = skeleton.landing_sequence.encoded(),
+                baseline_events = self.event_count,
+                events = event_count,
+                "repeated animation evaluation changed non-bone state"
+            );
+        }
+        repeated_evaluation_matches
+    }
+}
+
 pub(super) fn repeated_bone_mismatch(
     expected: &CapturedBones,
     actual: &CapturedBones,
@@ -801,40 +848,13 @@ pub(super) fn capture_frame(
             leg_ik: evaluation_leg_ik,
         });
     } else if let Some(baseline) = &sequence.repeated_evaluation_baseline {
-        let bone_mismatch = repeated_bone_mismatch(&baseline.bones, &evaluation_bones);
-        let bones_match = bone_mismatch.is_none();
-        let repeated_evaluation_matches = baseline.scenario == frame.scenario
-            && baseline.scenario_frame == frame.scenario_frame
-            && bones_match
-            && baseline.contact_sequence == skeleton.contact_sequence
-            && baseline.landing_sequence == skeleton.landing_sequence
-            && baseline.event_count == sequence.presentation_events.len()
-            && repeated_leg_ik_matches(baseline.leg_ik, evaluation_leg_ik);
-        if !repeated_evaluation_matches
-            && let Some((bone, position_delta, rotation_delta)) = &bone_mismatch
-        {
-            warn!(
-                scenario = frame.scenario.label(),
-                scenario_frame = frame.scenario_frame,
-                bone,
-                position_delta,
-                rotation_delta,
-                "repeated animation evaluation changed a captured bone"
-            );
-        }
-        if !repeated_evaluation_matches && bone_mismatch.is_none() {
-            warn!(
-                scenario = frame.scenario.label(),
-                scenario_frame = frame.scenario_frame,
-                baseline_contact = baseline.contact_sequence.encoded(),
-                contact = skeleton.contact_sequence.encoded(),
-                baseline_landing = baseline.landing_sequence.encoded(),
-                landing = skeleton.landing_sequence.encoded(),
-                baseline_events = baseline.event_count,
-                events = sequence.presentation_events.len(),
-                "repeated animation evaluation changed non-bone state"
-            );
-        }
+        let repeated_evaluation_matches = baseline.matches(
+            &frame,
+            &evaluation_bones,
+            skeleton,
+            sequence.presentation_events.len(),
+            evaluation_leg_ik,
+        );
         sequence.repeated_evaluation_valid &= repeated_evaluation_matches;
     }
     if sequence.view_index == 0 {

@@ -33,6 +33,7 @@ use crate::{
     mission::MissionState,
     stdb::{SpacetimeDb, SpacetimeDbReady},
 };
+use dive_launch::{DiveLaunch, apply_dive_launch_velocity};
 use input::AccumulatedInput;
 use posture_facing::{
     advance_downed_facing_for_camera, advance_projected_posture,
@@ -43,6 +44,7 @@ use projection_equipment::{
     projected_weapon_appearance,
 };
 
+mod dive_launch;
 mod posture_facing;
 mod projection_equipment;
 
@@ -1514,12 +1516,6 @@ fn apply_posture_action(
     None
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-struct DiveLaunch {
-    travel_direction: DiveDirection,
-    trajectory: DiveTrajectory,
-}
-
 pub(crate) fn begin_get_up_transition_configured(
     skeleton: &mut SkeletonState,
     config: &TacticalCombatConfig,
@@ -1534,32 +1530,6 @@ pub(crate) fn begin_get_up_transition_configured(
         skeleton.locomotion_sample_tick,
         combat_seconds_to_ticks(config.movement.maneuvers.get_up_seconds),
     )
-}
-
-fn dive_horizontal_velocity(yaw: f32, direction: DiveDirection, speed: f32) -> Vec3 {
-    let local = match direction {
-        DiveDirection::Forward => Vec3::NEG_Z,
-        DiveDirection::Backward => Vec3::Z,
-        DiveDirection::Left => Vec3::NEG_X,
-        DiveDirection::Right => Vec3::X,
-    };
-    Quat::from_rotation_y(yaw) * local * speed
-}
-
-fn apply_dive_launch_velocity(
-    velocity: &mut LinearVelocity,
-    yaw: f32,
-    launch: DiveLaunch,
-    speed: f32,
-) {
-    // Sliding is a posture change, not a fresh launch. Preserve the complete
-    // sprint velocity; gravity and the later body-drag phase own its evolution.
-    if launch.trajectory == DiveTrajectory::GroundedSlide {
-        return;
-    }
-    let horizontal = dive_horizontal_velocity(yaw, launch.travel_direction, speed);
-    velocity.x = horizontal.x;
-    velocity.z = horizontal.z;
 }
 
 fn combat_seconds_to_ticks(seconds: f32) -> AnimationSampleSpan {
@@ -2396,16 +2366,16 @@ mod tests {
     use super::projection_equipment::parametric_combat_geometry;
     use super::{
         AuthoritativeInputTick, AuthoritativeMovementIntent, AuthoritativePostureIntent,
-        BACKWARD_DIVE_POSTURE_TRANSITION_TICKS, CameraFacingIntent, DisconnectedPlayer, DiveLaunch,
+        BACKWARD_DIVE_POSTURE_TRANSITION_TICKS, CameraFacingIntent, DisconnectedPlayer,
         GROUND_POSTURE_TRANSITION_TICKS, MeleeAttackAuthority, Player, RECONNECT_GRACE_SECS,
         ROLL_POSTURE_TRANSITION_TICKS, RangedAttackAuthority, ReconnectSession, WeaponGuardState,
-        apply_dive_launch_velocity, apply_posture_action, authoritative_weapon_guard,
-        begin_authoritative_quickstep, combat_seconds_to_ticks, dive_horizontal_velocity,
-        downed_tank_controller_input, input, mission_enemy_health_scale, mission_enemy_scale,
-        on_client_disconnected, player_collider, posture_transition_locks_body_facing,
-        queue_replication_rebind, reconnect_matches, restore_authoritative_movement_intent,
-        sequence_is_newer, tactical_movement_speed_for_guard, try_claim_reconnect,
-        update_character_motion_snapshots, validate_player_input,
+        apply_posture_action, authoritative_weapon_guard, begin_authoritative_quickstep,
+        combat_seconds_to_ticks, downed_tank_controller_input, input, mission_enemy_health_scale,
+        mission_enemy_scale, on_client_disconnected, player_collider,
+        posture_transition_locks_body_facing, queue_replication_rebind, reconnect_matches,
+        restore_authoritative_movement_intent, sequence_is_newer,
+        tactical_movement_speed_for_guard, try_claim_reconnect, update_character_motion_snapshots,
+        validate_player_input,
     };
     use adventuresim_tactical_core::physics::tactical_character_controller;
     use adventuresim_tactical_core::prelude::{
@@ -3436,31 +3406,6 @@ mod tests {
             adventuresim_tactical_core::animation::AnimationSampleSpan::from(10u64)
         ));
         assert!(posture_transition_locks_body_facing(&supine));
-    }
-
-    #[test]
-    fn dive_launch_velocity_follows_the_requested_camera_relative_direction() {
-        let yaw = std::f32::consts::FRAC_PI_2;
-        assert!(dive_horizontal_velocity(yaw, DiveDirection::Forward, 7.0).x < -6.9);
-        assert!(dive_horizontal_velocity(yaw, DiveDirection::Backward, 7.0).x > 6.9);
-        assert!(dive_horizontal_velocity(0.0, DiveDirection::Left, 7.0).x < -6.9);
-        assert!(dive_horizontal_velocity(0.0, DiveDirection::Right, 7.0).x > 6.9);
-    }
-
-    #[test]
-    fn grounded_slide_preserves_the_complete_sprint_velocity() {
-        let mut velocity = LinearVelocity(Vec3::new(1.0, 4.0, 2.0));
-        apply_dive_launch_velocity(
-            &mut velocity,
-            0.0,
-            DiveLaunch {
-                travel_direction: DiveDirection::Forward,
-                trajectory: DiveTrajectory::GroundedSlide,
-            },
-            7.0,
-        );
-
-        assert_eq!(velocity.0, Vec3::new(1.0, 4.0, 2.0));
     }
 
     #[test]

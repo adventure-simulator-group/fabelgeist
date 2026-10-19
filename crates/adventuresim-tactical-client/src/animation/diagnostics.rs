@@ -170,19 +170,8 @@ pub(super) fn log_animation_diagnostics(
             .iter()
             .filter(|(_, bind, _, _)| bind.owner == player)
             .map(|(target, _, name, transform)| {
-                let (scale, rotation, translation) = transform.to_scale_rotation_translation();
-                let terrain_clearance_metres = terrain
-                    .and_then(|terrain| terrain.height_at(translation.xz()))
-                    .map(|height| translation.y - height);
-                let name = name.map_or("<unnamed>", Name::as_str);
-                let value = DiagnosticBone {
-                    name: name,
-                    target_id: capture_animation_target_id(*target),
-                    translation: translation.to_array(),
-                    rotation_xyzw: rotation.to_array(),
-                    scale: scale.to_array(),
-                    terrain_clearance_metres: terrain_clearance_metres,
-                };
+                let value = DiagnosticBone::from_global(*target, name, transform, terrain);
+                let name = value.name;
                 (name, *target, value)
             })
             .collect::<Vec<_>>();

@@ -10,11 +10,43 @@ pub(super) struct LocalQuickstepTrace {
     observation: Option<QuickstepTraceObservation>,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug)]
 struct QuickstepTraceObservation {
-    dodge_action: bool,
-    push_active: bool,
-    push_start_tick: AnimationSampleTick,
+    action: SkeletonAction,
+    actuator: ObservedQuickstepActuator,
+}
+
+#[derive(Clone, Copy, Debug)]
+enum ObservedQuickstepActuator {
+    Inactive {
+        retained_start_tick: AnimationSampleTick,
+    },
+    Active {
+        start_tick: AnimationSampleTick,
+    },
+}
+
+impl QuickstepTraceObservation {
+    fn has_changed_since(self, previous: Self) -> bool {
+        (self.action == SkeletonAction::Dodge) != (previous.action == SkeletonAction::Dodge)
+            || self.actuator.is_active() != previous.actuator.is_active()
+            || self.actuator.start_tick() != previous.actuator.start_tick()
+    }
+}
+
+impl ObservedQuickstepActuator {
+    fn is_active(self) -> bool {
+        matches!(self, Self::Active { .. })
+    }
+
+    fn start_tick(self) -> AnimationSampleTick {
+        match self {
+            Self::Inactive {
+                retained_start_tick,
+            } => retained_start_tick,
+            Self::Active { start_tick } => start_tick,
+        }
+    }
 }
 
 pub(super) fn trace_local_quickstep_state(
@@ -30,14 +62,24 @@ pub(super) fn trace_local_quickstep_state(
     >,
 ) {
     for (entity, skeleton, snapshot, transform, mut trace) in &mut players {
-        let dodge_action = skeleton.action_kind() == SkeletonAction::Dodge;
+        let action = skeleton.action_kind();
+        let dodge_action = action == SkeletonAction::Dodge;
         let push = snapshot.quickstep_push;
         let observation = QuickstepTraceObservation {
-            dodge_action,
-            push_active: push.active,
-            push_start_tick: push.start_tick,
+            action,
+            actuator: if push.active {
+                ObservedQuickstepActuator::Active {
+                    start_tick: push.start_tick,
+                }
+            } else {
+                ObservedQuickstepActuator::Inactive {
+                    retained_start_tick: push.start_tick,
+                }
+            },
         };
-        let changed = trace.observation != Some(observation);
+        let changed = trace
+            .observation
+            .is_none_or(|previous| observation.has_changed_since(previous));
         if !changed {
             continue;
         }
@@ -60,9 +102,9 @@ pub(super) fn trace_local_quickstep_state(
             );
         } else if dodge_action
             || push.active
-            || trace
-                .observation
-                .is_some_and(|previous| previous.dodge_action || previous.push_active)
+            || trace.observation.is_some_and(|previous| {
+                previous.action == SkeletonAction::Dodge || previous.actuator.is_active()
+            })
         {
             info!(
                 target: "quickstep_trace",

@@ -3,14 +3,16 @@
 use crate::physics::MovementPace;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(from = "bool", into = "bool")]
 pub enum DownedMotion {
     #[default]
     Resting,
     Turning,
 }
 
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(from = "bool", into = "bool")]
 pub enum GuardedLocomotionMode {
     #[default]
     Footwork,
@@ -25,31 +27,31 @@ impl From<MovementPace> for GuardedLocomotionMode {
         }
     }
 }
-impl Serialize for DownedMotion {
-    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
-        serializer.serialize_bool(*self == Self::Turning)
-    }
-}
-impl<'de> Deserialize<'de> for DownedMotion {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        Ok(if bool::deserialize(deserializer)? {
+impl From<bool> for DownedMotion {
+    fn from(turning: bool) -> Self {
+        if turning {
             Self::Turning
         } else {
             Self::Resting
-        })
+        }
     }
 }
-impl Serialize for GuardedLocomotionMode {
-    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
-        serializer.serialize_bool(*self == Self::Sprint)
+impl From<DownedMotion> for bool {
+    fn from(motion: DownedMotion) -> Self {
+        motion == DownedMotion::Turning
     }
 }
-impl<'de> Deserialize<'de> for GuardedLocomotionMode {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        Ok(if bool::deserialize(deserializer)? {
+impl From<bool> for GuardedLocomotionMode {
+    fn from(sprinting: bool) -> Self {
+        if sprinting {
             Self::Sprint
         } else {
             Self::Footwork
-        })
+        }
+    }
+}
+impl From<GuardedLocomotionMode> for bool {
+    fn from(mode: GuardedLocomotionMode) -> Self {
+        mode == GuardedLocomotionMode::Sprint
     }
 }

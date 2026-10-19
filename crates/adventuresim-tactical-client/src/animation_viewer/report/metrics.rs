@@ -130,15 +130,8 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
     grouped
         .into_iter()
         .map(|(scenario, frames)| {
-            // Terrain conformity calibrates retained pelvis/plant state during
-            // its first cycle. Judge its steady gait after that deterministic
-            // warmup, matching the phase-height validation window.
             let metadata = scenario;
-            let metric_frames = if metadata.kind() == ScenarioKind::Terrain {
-                phase_validation_frames(&frames)
-            } else {
-                frames.clone()
-            };
+            let metric_frames = metric_frames_after_warmup(metadata, &frames);
             let procedural_frames = metric_frames
                 .iter()
                 .copied()
@@ -274,7 +267,7 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
                 minimum_contact_toe_clearance_metres: minimum_toe_clearance(&metric_frames, true),
                 head_vertical_range_metres: root_relative_vertical_range(
                     &metric_frames,
-                    &BoneRole::Head,
+                    BoneRole::Head,
                 ),
                 foot_terrain_relief_metres: foot_terrain_relief(&metric_frames),
                 minimum_knee_forward_bend_metres: minimum_knee_bend(&metric_frames),
@@ -1306,6 +1299,18 @@ pub(super) fn minimum_foot_clearance(frames: &[&FrameSample]) -> f32 {
         .filter_map(|foot| foot.terrain_clearance_metres)
         .fold(f32::INFINITY, f32::min);
     if minimum.is_finite() { minimum } else { -1.0 }
+}
+
+fn metric_frames_after_warmup<'a>(
+    metadata: &ScenarioMetadata<'_>,
+    frames: &[&'a FrameSample],
+) -> Vec<&'a FrameSample> {
+    // Terrain conformity calibrates retained pelvis/plant state during its first cycle.
+    if metadata.kind() == ScenarioKind::Terrain {
+        phase_validation_frames(frames)
+    } else {
+        frames.to_vec()
+    }
 }
 
 #[cfg(test)]

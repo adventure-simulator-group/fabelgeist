@@ -44,18 +44,19 @@ mod tests {
             .id();
         let mut state =
             SystemState::<Query<&skeletal_proportions::SkeletalJointOffset>>::new(&mut world);
-        let clip = BakedClip {
-            duration: ClipDuration::from_seconds(1.0).unwrap(),
-            frame_dt: AnimationElapsed::from_seconds(1.0).unwrap(),
-            frames: 2,
-            tracks: vec![BoneTrack {
+        let clip = BakedClip::new(
+            ClipDuration::from_seconds(1.0).unwrap(),
+            AnimationElapsed::from_seconds(1.0).unwrap(),
+            BakedFrameCount::try_from(2).unwrap(),
+            vec![BoneTrack {
                 translations: vec![Vec3::new(0.1, 0.0, 0.0), Vec3::new(0.1, 0.2, 0.3)],
                 rotations: vec![Quat::IDENTITY, Quat::from_rotation_z(0.4)],
                 scales: vec![Vec3::ONE; 2],
                 source: BoneTrackSource::Authored,
             }]
             .into(),
-        };
+        )
+        .unwrap();
         let offsets = state.get(&world).unwrap();
         for _ in 0..2 {
             let source = clip.sample(

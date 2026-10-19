@@ -110,7 +110,7 @@ pub(super) fn calibrate(
                 continue;
             }
         };
-        apply_baked_offsets(&mut baked, offsets);
+        baked.offset_translations(offsets);
         let calibration = match kind {
             // Walk and run use a measured distance-domain phase curve while
             // the live sampler interpolates only their sparse semantic poses.
@@ -185,14 +185,6 @@ pub(super) fn has_unmeasured_motion(
     })
 }
 
-fn apply_baked_offsets(clip: &mut BakedClip, offsets: &[Vec3]) {
-    for (track, offset) in clip.tracks.iter_mut().zip(offsets) {
-        for translation in &mut track.translations {
-            *translation += *offset;
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -218,11 +210,11 @@ mod tests {
                 .collect(),
             name_ordinals: Default::default(),
         };
-        let mut clip = BakedClip {
-            duration: ClipDuration::from_seconds(1.0).unwrap(),
-            frame_dt: AnimationElapsed::from_seconds(0.5).unwrap(),
-            frames: 3,
-            tracks: (0..3)
+        let mut clip = BakedClip::new(
+            ClipDuration::from_seconds(1.0).unwrap(),
+            AnimationElapsed::from_seconds(0.5).unwrap(),
+            BakedFrameCount::try_from(3).unwrap(),
+            (0..3)
                 .map(|index| BoneTrack {
                     translations: vec![if index == 0 { Vec3::Y } else { Vec3::NEG_Y }; 3],
                     rotations: if index == 0 {
@@ -238,13 +230,11 @@ mod tests {
                     source: BoneTrackSource::Authored,
                 })
                 .collect(),
-        };
+        )
+        .unwrap();
         let original =
             measure_authored_foot_range(&definition, &clip, CalibrationAxis::Longitudinal).unwrap();
-        apply_baked_offsets(
-            &mut clip,
-            &[Vec3::ZERO, Vec3::NEG_Y * 0.5, Vec3::NEG_Y * 0.5],
-        );
+        clip.offset_translations(&[Vec3::ZERO, Vec3::NEG_Y * 0.5, Vec3::NEG_Y * 0.5]);
         let longer =
             measure_authored_foot_range(&definition, &clip, CalibrationAxis::Longitudinal).unwrap();
         assert!((longer / original - 1.5).abs() < 1e-5);

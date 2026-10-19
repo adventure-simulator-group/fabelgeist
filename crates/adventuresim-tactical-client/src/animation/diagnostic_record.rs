@@ -81,3 +81,25 @@ pub(super) struct AnimationDiagnosticRecord<'a> {
     pub(super) semantic_route: Option<DiagnosticRoute<'a>>,
     pub(super) playback: DiagnosticPlayback,
 }
+
+impl<'a> DiagnosticBone<'a> {
+    pub(super) fn from_global(
+        target: AnimationTargetId,
+        name: Option<&'a Name>,
+        transform: &GlobalTransform,
+        terrain: Option<&SceneTerrain>,
+    ) -> Self {
+        let (scale, rotation, translation) = transform.to_scale_rotation_translation();
+        let terrain_clearance_metres = terrain
+            .and_then(|terrain| terrain.height_at(translation.xz()))
+            .map(|height| translation.y - height);
+        Self {
+            name: name.map_or("<unnamed>", Name::as_str),
+            target_id: capture_animation_target_id(target),
+            translation: translation.to_array(),
+            rotation_xyzw: rotation.to_array(),
+            scale: scale.to_array(),
+            terrain_clearance_metres,
+        }
+    }
+}

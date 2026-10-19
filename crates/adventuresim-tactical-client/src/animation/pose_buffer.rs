@@ -9,9 +9,9 @@
 
 use super::procedural::clock::{AnimationSampleTick, FixedAnimationStep};
 use super::*;
-#[cfg(test)]
-use baking::BoneTrack;
 use baking::{BakedClip, BoneTrackSource, bake_clip, get_or_bake};
+#[cfg(test)]
+use baking::{BakedFrameCount, BoneTrack};
 use bevy::{
     animation::{AnimationTargetId, animated_field},
     asset::AssetId,
@@ -931,7 +931,7 @@ fn sample_plan(
             let mut hand_weight = BlendWeight::ZERO;
             for (weighted, clip, _) in &baked {
                 if weighted.clip.layer != hand
-                    || clip.tracks[joint_index].source != BoneTrackSource::Authored
+                    || clip.track_source(joint_index) != BoneTrackSource::Authored
                     || weighted.weight.is_absent()
                 {
                     continue;
@@ -1223,11 +1223,14 @@ fn measure_authored_contact_step_distance(
     travel_axis: CalibrationAxis,
     expected_stance_direction: f32,
 ) -> Option<AuthoredLocomotionCalibration> {
-    if clip.duration.seconds() <= 0.0 || clip.frames < 4 || expected_stance_direction == 0.0 {
+    if clip.duration.seconds() <= 0.0
+        || clip.frame_count().samples() < 4
+        || expected_stance_direction == 0.0
+    {
         return None;
     }
     let feet = [RigJointName::L_FOOT, RigJointName::R_FOOT];
-    let sample_count = clip.frames.saturating_sub(1);
+    let sample_count = clip.frame_count().intervals();
     let mut segments = Vec::new();
     for name in feet {
         let mut foot_segments = Vec::new();
@@ -1241,28 +1244,7 @@ fn measure_authored_contact_step_distance(
                 Some((time.seconds() / clip.duration.seconds(), position))
             })
             .collect::<Option<Vec<_>>>()?;
-        let minimum_height = samples
-            .iter()
-            .map(|(_, position)| position.y)
-            .reduce(f32::min)?;
-        let maximum_height = samples
-            .iter()
-            .map(|(_, position)| position.y)
-            .reduce(f32::max)?;
-        let height_window = ((maximum_height - minimum_height)
-            * pose_tuning().authored_contact_height_fraction)
-            .clamp(
-                pose_tuning()
-                    .authored_contact_minimum_height_window_metres
-                    .metres(),
-                pose_tuning()
-                    .authored_contact_maximum_height_window_metres
-                    .metres(),
-            );
-        let supported = samples
-            .iter()
-            .map(|(_, position)| position.y <= minimum_height + height_window)
-            .collect::<Vec<_>>();
+        let supported = phase_calibration::low_height_contacts(&samples)?;
         if supported.iter().all(|supported| *supported) {
             return None;
         }
@@ -1275,10 +1257,10 @@ fn measure_authored_contact_step_distance(
             let index = (start + offset) % sample_count;
             if supported[index] {
                 let wraps = (start + offset) / sample_count;
-                current.push((
-                    samples[index].0 + wraps as f32,
-                    travel_axis.component(samples[index].1),
-                ));
+                current.push(phase_calibration::AuthoredContactSample {
+                    authored: CyclePhase::from_cycles(samples[index].0 + wraps as f32).ok()?,
+                    position: travel_axis.component(samples[index].1),
+                });
             } else if !current.is_empty() {
                 if current.len() >= 3 {
                     foot_segments.push(std::mem::take(&mut current));
@@ -1300,85 +1282,19 @@ fn measure_authored_contact_step_distance(
 
     let orientation =
         phase_calibration::ContactOrientation::fit(&segments, expected_stance_direction)?;
-    let direction = orientation.direction;
-    let phase_offset = orientation.offset.cycles();
-    let oriented_segments = segments
-        .iter()
-        .map(|samples| {
-            if direction == TimelineDirection::Reversed {
-                samples
-                    .iter()
-                    .rev()
-                    .map(|&(authored_phase, position)| {
-                        (phase_offset - authored_phase, authored_phase, position)
-                    })
-                    .collect::<Vec<_>>()
-            } else {
-                samples
-                    .iter()
-                    .map(|&(authored_phase, position)| {
-                        (authored_phase - phase_offset, authored_phase, position)
-                    })
-                    .collect::<Vec<_>>()
-            }
-        })
-        .collect::<Vec<_>>();
-
-    // Reparameterize each low-foot interval by its positive travel-axis
-    // displacement. This is the inverse of the articulated foot projection:
-    // physical phase advances linearly in distance while authored sample phase
-    // accelerates and decelerates through the corresponding joint rotation.
-    // A tiny derivative floor keeps the result strictly monotone if a sampled
-    // curve contains a short plateau or wrong-way interval.
-    let mut phase_spans = Vec::<Vec<(f32, f32)>>::new();
-    let mut warped_segments = Vec::<Vec<(f32, f32)>>::new();
-    for samples in &oriented_segments {
-        let phase_span = samples.last()?.0 - samples.first()?.0;
-        if phase_span <= 0.0 {
+    let fitted = match phase_calibration::ContactPhaseFit::fit(
+        &segments,
+        orientation,
+        expected_stance_direction,
+    ) {
+        Ok(Some(fitted)) => fitted,
+        Ok(None) => return None,
+        Err(error) => {
+            warn!(%error, "Rejected authored phase calibration");
             return None;
         }
-        let positive_deltas = samples
-            .windows(2)
-            .map(|pair| ((pair[1].2 - pair[0].2) * expected_stance_direction.signum()).max(0.0))
-            .collect::<Vec<_>>();
-        let positive_total = positive_deltas.iter().sum::<f32>();
-        if positive_total <= 0.01 {
-            return None;
-        }
-        // Blend the exact distance inverse with a uniform phase derivative.
-        // Pure inversion approaches infinite playback speed where the foot's
-        // projected velocity approaches zero; this floor bounds that speed
-        // without baking a hand-authored timing curve into the clip.
-        let derivative_floor = positive_total * 0.5 / positive_deltas.len() as f32;
-        let weighted_total = positive_total + derivative_floor * positive_deltas.len() as f32;
-        let mut physical_phase = samples.first()?.0;
-        let mut span = vec![(physical_phase, samples.first()?.1)];
-        let mut warped = vec![(physical_phase, samples.first()?.2)];
-        for (index, delta) in positive_deltas.into_iter().enumerate() {
-            physical_phase += phase_span * (delta + derivative_floor) / weighted_total;
-            span.push((physical_phase, samples[index + 1].1));
-            warped.push((physical_phase, samples[index + 1].2));
-        }
-        // Preserve exact interval boundaries so adjacent unwarped swing
-        // sampling remains continuous.
-        if let Some(last) = span.last_mut() {
-            last.0 = samples.last()?.0;
-        }
-        if let Some(last) = warped.last_mut() {
-            last.0 = samples.last()?.0;
-        }
-        phase_spans.push(span);
-        warped_segments.push(warped);
-    }
-
-    let phase_curve =
-        match AuthoredPhaseCurve::fit_contact_spans(&phase_spans, direction, phase_offset) {
-            Ok(curve) => curve,
-            Err(error) => {
-                warn!(%error, "Rejected authored phase calibration");
-                return None;
-            }
-        };
+    };
+    let warped_segments = fitted.trajectories;
 
     // Each stance gets its own intercept; only the common virtual-root slope
     // is shared between feet and contact lobes. Measure the residual after the
@@ -1387,11 +1303,15 @@ fn measure_authored_contact_step_distance(
     let mut phase_variance = 0.0;
     for samples in &warped_segments {
         let count = samples.len() as f32;
-        let mean_phase = samples.iter().map(|sample| sample.0).sum::<f32>() / count;
-        let mean_position = samples.iter().map(|sample| sample.1).sum::<f32>() / count;
-        for &(phase, position) in samples {
-            let centered_phase = phase - mean_phase;
-            covariance += centered_phase * (position - mean_position);
+        let mean_phase = samples
+            .iter()
+            .map(|sample| sample.physical.cycles())
+            .sum::<f32>()
+            / count;
+        let mean_position = samples.iter().map(|sample| sample.position).sum::<f32>() / count;
+        for sample in samples {
+            let centered_phase = sample.physical.cycles() - mean_phase;
+            covariance += centered_phase * (sample.position - mean_position);
             phase_variance += centered_phase * centered_phase;
         }
     }
@@ -1406,7 +1326,7 @@ fn measure_authored_contact_step_distance(
         .map(|samples| {
             let residuals = samples
                 .iter()
-                .map(|(phase, position)| position - fitted_slope * phase);
+                .map(|sample| sample.position - fitted_slope * sample.physical.cycles());
             let (minimum, maximum) = residuals.fold(
                 (f32::INFINITY, f32::NEG_INFINITY),
                 |(minimum, maximum), residual| (minimum.min(residual), maximum.max(residual)),
@@ -1425,7 +1345,7 @@ fn measure_authored_contact_step_distance(
             step_distance,
             maximum_stance_slip,
         },
-        phase_curve: Some(phase_curve),
+        phase_curve: Some(fitted.curve),
     })
 }
 
@@ -1442,7 +1362,7 @@ fn measure_authored_foot_range(
     let ranges = [left, right].map(|foot| {
         let mut minimum = f32::INFINITY;
         let mut maximum = f32::NEG_INFINITY;
-        for frame in 0..clip.frames {
+        for frame in 0..clip.frame_count().samples() {
             let mut globals = RigJointTable::from(vec![None; definition.joints.len()]);
             let position = travel_axis.component(
                 sampled_global_transform(
@@ -1738,17 +1658,18 @@ mod tests {
             scales: vec![Vec3::ONE; 3],
             source: BoneTrackSource::Authored,
         };
-        let clip = BakedClip {
-            duration: ClipDuration::from_seconds(2.0 / 30.0).unwrap(),
-            frame_dt: AnimationElapsed::from_seconds(1.0 / 30.0).unwrap(),
-            frames: 3,
-            tracks: vec![
+        let clip = BakedClip::new(
+            ClipDuration::from_seconds(2.0 / 30.0).unwrap(),
+            AnimationElapsed::from_seconds(1.0 / 30.0).unwrap(),
+            BakedFrameCount::try_from(3).unwrap(),
+            vec![
                 track(vec![Vec3::ZERO; 3]),
                 track(vec![Vec3::ZERO, Vec3::Z, Vec3::Z * 2.0]),
                 track(vec![Vec3::ZERO, Vec3::Z * -1.5, Vec3::Z * -3.0]),
             ]
             .into(),
-        };
+        )
+        .unwrap();
 
         assert_eq!(
             measure_authored_foot_range(&definition, &clip, CalibrationAxis::Longitudinal),
@@ -1801,11 +1722,11 @@ mod tests {
             scales: vec![Vec3::ONE; frames],
             source: BoneTrackSource::Authored,
         };
-        let clip = BakedClip {
-            duration: ClipDuration::from_seconds(duration).unwrap(),
-            frame_dt: AnimationElapsed::from_seconds(frame_dt).unwrap(),
-            frames,
-            tracks: vec![
+        let clip = BakedClip::new(
+            ClipDuration::from_seconds(duration).unwrap(),
+            AnimationElapsed::from_seconds(frame_dt).unwrap(),
+            BakedFrameCount::try_from(frames).unwrap(),
+            vec![
                 BoneTrack {
                     translations: vec![Vec3::ZERO; frames],
                     rotations: vec![Quat::IDENTITY; frames],
@@ -1816,7 +1737,8 @@ mod tests {
                 foot_track(0.6, -80.0),
             ]
             .into(),
-        };
+        )
+        .unwrap();
 
         let measurement = measure_authored_contact_step_distance(
             &definition,
@@ -1831,8 +1753,9 @@ mod tests {
 
         let mut projected_rotation = clip.clone();
         for (track_index, contact_phase) in [(1usize, 0.1_f32), (2, 0.6_f32)] {
-            let track = &mut projected_rotation.tracks[RigJointOrdinal::from(track_index)];
-            for (frame, translation) in track.translations.iter_mut().enumerate() {
+            let translations =
+                projected_rotation.translations_mut(RigJointOrdinal::from(track_index));
+            for (frame, translation) in translations.iter_mut().enumerate() {
                 let phase = frame as f32 / (frames - 1) as f32;
                 let stance_phase = phase - contact_phase;
                 if (-0.0001..=0.2001).contains(&stance_phase) {
@@ -1866,9 +1789,10 @@ mod tests {
 
         let mut low_wrong_way_approach = clip.clone();
         for (track_index, indices) in [(1usize, [0, 1]), (2, [10, 11])] {
-            let track = &mut low_wrong_way_approach.tracks[RigJointOrdinal::from(track_index)];
+            let translations =
+                low_wrong_way_approach.translations_mut(RigJointOrdinal::from(track_index));
             for (offset, index) in indices.into_iter().enumerate() {
-                track.translations[index] = Vec3::new(0.0, 0.005, 0.2 - offset as f32 * 0.1);
+                translations[index] = Vec3::new(0.0, 0.005, 0.2 - offset as f32 * 0.1);
             }
         }
         let misleading = measure_authored_contact_step_distance(
@@ -1886,8 +1810,8 @@ mod tests {
         );
 
         let mut wrong_way = clip.clone();
-        for track in wrong_way.tracks.iter_mut().skip(1) {
-            for translation in &mut track.translations {
+        for joint in definition.joints.ordinals().skip(1) {
+            for translation in wrong_way.translations_mut(joint) {
                 translation.z = -translation.z;
             }
         }

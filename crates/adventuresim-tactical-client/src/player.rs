@@ -16,10 +16,7 @@ use crate::{
 
 use quickstep_trace::{LocalQuickstepTrace, trace_local_quickstep_state};
 
-use action_clock::{
-    MeleePlaybackTiming, animation_ticks, delayed_melee_contact_seconds,
-    melee_contact_delay_from_input,
-};
+use action_clock::{MeleePlaybackTiming, animation_ticks, delayed_melee_contact_seconds};
 
 mod action_clock;
 mod quickstep_trace;
@@ -848,28 +845,15 @@ fn try_start_attack(
         let (animation_delay, contact_seconds) =
             delayed_melee_contact_seconds(windup_secs, contact_delay);
         spec.curve = curve;
-        let sequence_start = if spec.continuation {
-            skeleton.attack_continuation_tick().unwrap_or(start)
-        } else {
-            start
-        };
-        let MeleePlaybackTiming {
-            start: animation_start,
-            contact: contact_tick,
-            end: recovery_tick,
-        } = MeleePlaybackTiming::delayed(
-            sequence_start,
+        let timing = MeleePlaybackTiming::delayed(
+            &skeleton,
+            &spec,
+            start,
             animation_delay,
             contact_seconds,
             recovery_secs,
         );
-        let contact_from_input = melee_contact_delay_from_input(
-            &skeleton,
-            spec.continuation,
-            contact_tick,
-            contact_seconds,
-        );
-        match skeleton.begin_attack_timed(spec, animation_start, contact_tick, recovery_tick) {
+        match skeleton.begin_attack_timed(spec, timing.start, timing.contact, timing.end) {
             Ok(()) => {}
             Err(ActionTransitionError::ActionBusy) => {
                 cmd.entity(entity).insert(BufferedMeleeAttack {
@@ -884,8 +868,8 @@ fn try_start_attack(
         }
         cmd.entity(entity)
             .insert(AttackState::new(
-                contact_from_input,
-                contact_from_input,
+                timing.contact_from_input_seconds,
+                timing.contact_from_input_seconds,
                 reach,
                 false,
                 target,
@@ -963,37 +947,24 @@ fn flush_buffered_melee_attacks(
         let (animation_delay, contact_seconds) =
             delayed_melee_contact_seconds(windup_secs, contact_delay);
         let spec = AttackSpec { curve, ..spec };
-        let sequence_start = if spec.continuation {
-            skeleton.attack_continuation_tick().unwrap_or(start)
-        } else {
-            start
-        };
-        let MeleePlaybackTiming {
-            start: animation_start,
-            contact: contact_tick,
-            end: recovery_tick,
-        } = MeleePlaybackTiming::delayed(
-            sequence_start,
+        let timing = MeleePlaybackTiming::delayed(
+            &skeleton,
+            &spec,
+            start,
             animation_delay,
             contact_seconds,
             recovery_secs,
         );
-        let contact_from_input = melee_contact_delay_from_input(
-            &skeleton,
-            spec.continuation,
-            contact_tick,
-            contact_seconds,
-        );
         if skeleton
-            .begin_attack_timed(spec, animation_start, contact_tick, recovery_tick)
+            .begin_attack_timed(spec, timing.start, timing.contact, timing.end)
             .is_err()
         {
             continue;
         }
         cmd.entity(entity)
             .insert(AttackState::new(
-                contact_from_input,
-                contact_from_input,
+                timing.contact_from_input_seconds,
+                timing.contact_from_input_seconds,
                 reach,
                 false,
                 target,

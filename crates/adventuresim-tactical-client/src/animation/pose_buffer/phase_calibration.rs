@@ -1,29 +1,75 @@
 //! Fit the periodic physical-cycle to authored-cycle calibration curve.
 //!
-//! Native two-column cycle coordinates stay inside this fitting kernel. The
-//! published curve contains only checked finite, deliberately unwrapped phases.
+//! Admitted mapping spans retain finite unwrapped coordinates and strictly
+//! increasing physical samples. Native metre projection and interpolation
+//! arithmetic stay within this calibration owner.
 
 use super::*;
+use adventuresim_tactical_core::animation::AnimationQuantity;
+use periodic_smoothing::smooth_periodic_phase_curve;
+
+mod periodic_smoothing;
 
 /// Authored-cycle endpoint allowance for the fitted contact span, in cycles.
 const CONTACT_SPAN_ENDPOINT_ALLOWANCE_CYCLES: f32 = 0.000_001;
-/// A periodic smoothing stencil requires three distinct samples.
-const MINIMUM_PERIODIC_SAMPLES: usize = 3;
 
+/// Projected foot position in metres along the selected rig-local travel axis.
+/// Phases remain unwrapped when the contact crosses the loop seam.
+pub(super) struct AuthoredContactSample {
+    pub(super) authored: CyclePhase,
+    pub(super) position: f32,
+}
+
+pub(super) struct PhysicalContactSample {
+    pub(super) physical: CyclePhase,
+    pub(super) position: f32,
+}
+
+pub(super) struct ContactPhaseFit {
+    pub(super) curve: AuthoredPhaseCurve,
+    pub(super) trajectories: Vec<Vec<PhysicalContactSample>>,
+}
+
+#[derive(Clone, Copy)]
 pub(super) struct ContactOrientation {
-    pub(super) direction: TimelineDirection,
-    pub(super) offset: CyclePhase,
+    direction: TimelineDirection,
+    offset: CyclePhase,
+}
+
+#[derive(Clone, Copy)]
+struct PhaseMappingSample {
+    physical: CyclePhase,
+    authored: CyclePhase,
+}
+
+struct OrientedContactSample {
+    mapping: PhaseMappingSample,
+    position: f32,
+}
+
+/// Nonempty and strictly increasing in physical phase. Authored coordinates
+/// may decrease for reverse playback, and a singleton span is valid.
+struct ContactPhaseSpan {
+    samples: Vec<PhaseMappingSample>,
+}
+
+struct FittedContactSpan {
+    mapping: ContactPhaseSpan,
+    trajectory: Vec<PhysicalContactSample>,
 }
 
 impl ContactOrientation {
     pub(super) fn fit(
-        segments: &[Vec<(f32, f32)>],
+        segments: &[Vec<AuthoredContactSample>],
         expected_stance_direction: f32,
     ) -> Option<Self> {
         let signed_stance_displacement = segments
             .iter()
             .map(|samples| {
-                Some((samples.last()?.1 - samples.first()?.1) * expected_stance_direction.signum())
+                Some(
+                    (samples.last()?.position - samples.first()?.position)
+                        * expected_stance_direction.signum(),
+                )
             })
             .collect::<Option<Vec<_>>>()?
             .into_iter()
@@ -44,7 +90,9 @@ impl ContactOrientation {
                 .iter()
                 .zip(semantic_contact_centers)
                 .map(|(samples, semantic_center)| {
-                    let authored_center = (samples.first()?.0 + samples.last()?.0) * 0.5;
+                    let authored_center = (samples.first()?.authored.cycles()
+                        + samples.last()?.authored.cycles())
+                        * 0.5;
                     if direction == TimelineDirection::Reversed {
                         Some(authored_center + semantic_center)
                     } else {
@@ -64,114 +112,275 @@ impl ContactOrientation {
             offset: CyclePhase::from_cycles(phase_offset).ok()?,
         })
     }
+
+    /// The fallback and smoothing baseline retain their original operand order.
+    fn fallback(self, physical: CyclePhase) -> AnimationValueResult<CyclePhase> {
+        CyclePhase::from_arithmetic(if self.direction == TimelineDirection::Reversed {
+            self.offset.cycles() - physical.cycles()
+        } else {
+            physical.cycles() + self.offset.cycles()
+        })
+    }
+
+    fn smoothing_baseline(self, physical: CyclePhase) -> AnimationValueResult<CyclePhase> {
+        CyclePhase::from_arithmetic(if self.direction == TimelineDirection::Reversed {
+            self.offset.cycles() - physical.cycles()
+        } else {
+            self.offset.cycles() + physical.cycles()
+        })
+    }
+
+    fn orient_segment(
+        self,
+        samples: &[AuthoredContactSample],
+    ) -> AnimationValueResult<Vec<OrientedContactSample>> {
+        let orient = |sample: &AuthoredContactSample| {
+            let physical =
+                CyclePhase::from_arithmetic(if self.direction == TimelineDirection::Reversed {
+                    self.offset.cycles() - sample.authored.cycles()
+                } else {
+                    sample.authored.cycles() - self.offset.cycles()
+                })?;
+            Ok(OrientedContactSample {
+                mapping: PhaseMappingSample {
+                    physical,
+                    authored: sample.authored,
+                },
+                position: sample.position,
+            })
+        };
+        if self.direction == TimelineDirection::Reversed {
+            samples.iter().rev().map(orient).collect()
+        } else {
+            samples.iter().map(orient).collect()
+        }
+    }
+}
+
+impl ContactPhaseFit {
+    pub(super) fn fit(
+        segments: &[Vec<AuthoredContactSample>],
+        orientation: ContactOrientation,
+        expected_stance_direction: f32,
+    ) -> AnimationValueResult<Option<Self>> {
+        let mut spans = Vec::new();
+        let mut trajectories = Vec::new();
+        for samples in segments {
+            let oriented = orientation.orient_segment(samples)?;
+            let Some(fitted) =
+                FittedContactSpan::fit_distance(&oriented, expected_stance_direction)?
+            else {
+                return Ok(None);
+            };
+            spans.push(fitted.mapping);
+            trajectories.push(fitted.trajectory);
+        }
+        Ok(Some(Self {
+            curve: AuthoredPhaseCurve::fit_contact_spans(&spans, orientation)?,
+            trajectories,
+        }))
+    }
+}
+
+impl ContactPhaseSpan {
+    fn new(
+        first: PhaseMappingSample,
+        remaining: Vec<PhaseMappingSample>,
+    ) -> AnimationValueResult<Self> {
+        let mut previous = first.physical;
+        for sample in &remaining {
+            let width = sample.physical.checked_difference(previous)?;
+            if width.cycles() <= 0.0 {
+                return Err(AnimationValueError::NonPositive {
+                    quantity: AnimationQuantity::CycleDelta,
+                });
+            }
+            previous = sample.physical;
+        }
+        let samples = std::iter::once(first).chain(remaining).collect();
+        Ok(Self { samples })
+    }
+
+    fn sample(
+        &self,
+        physical: CyclePhase,
+        orientation: ContactOrientation,
+    ) -> AnimationValueResult<Option<CyclePhase>> {
+        for cycle_offset in [-1.0, 0.0, 1.0] {
+            let authored_offset =
+                CycleDelta::from_cycles(if orientation.direction == TimelineDirection::Reversed {
+                    -cycle_offset
+                } else {
+                    cycle_offset
+                })?;
+            let cycle_offset = CycleDelta::from_cycles(cycle_offset)?;
+            // Admission proves a first sample; each selected interval has positive width.
+            let first = self.samples[0];
+            let last = self.samples[self.samples.len() - 1];
+            let start = first.physical.checked_advance(cycle_offset)?;
+            let end = last.physical.checked_advance(cycle_offset)?;
+            let before = CyclePhase::from_arithmetic(
+                physical.cycles() + CONTACT_SPAN_ENDPOINT_ALLOWANCE_CYCLES,
+            )?;
+            let after = CyclePhase::from_arithmetic(
+                physical.cycles() - CONTACT_SPAN_ENDPOINT_ALLOWANCE_CYCLES,
+            )?;
+            if before.cycles() < start.cycles() || after.cycles() > end.cycles() {
+                continue;
+            }
+            // The shifted comparison cannot overflow: the ordered endpoints above
+            // have already admitted this shift for every intermediate coordinate.
+            let upper = self.samples.partition_point(|sample| {
+                sample.physical.cycles() + cycle_offset.cycles() < physical.cycles()
+            });
+            if upper == 0 {
+                return first.authored.checked_advance(authored_offset).map(Some);
+            }
+            if upper >= self.samples.len() {
+                return last.authored.checked_advance(authored_offset).map(Some);
+            }
+            let lower = self.samples[upper - 1];
+            let upper = self.samples[upper];
+            let shifted_lower = lower.physical.checked_advance(cycle_offset)?;
+            let query_delta = physical.checked_difference(shifted_lower)?;
+            let width = upper.physical.checked_difference(lower.physical)?;
+            // Project the admitted cycle distances only for this interpolation kernel.
+            let amount = query_delta.cycles() / width.cycles();
+            if !amount.is_finite() {
+                return Err(AnimationValueError::Overflow {
+                    quantity: AnimationQuantity::CyclePhase,
+                });
+            }
+            let amount = amount.clamp(0.0, 1.0);
+            let lower_authored = lower.authored.checked_advance(authored_offset)?;
+            let upper_authored = upper.authored.checked_advance(authored_offset)?;
+            return CyclePhase::from_arithmetic(
+                lower_authored
+                    .cycles()
+                    .lerp(upper_authored.cycles(), amount),
+            )
+            .map(Some);
+        }
+        Ok(None)
+    }
+}
+
+impl FittedContactSpan {
+    /// Invert travel-axis metres to physical phase. The derivative floor is the
+    /// existing blend with uniform phase speed, not an admission tolerance.
+    fn fit_distance(
+        samples: &[OrientedContactSample],
+        expected_stance_direction: f32,
+    ) -> AnimationValueResult<Option<Self>> {
+        let (Some(first), Some(last)) = (samples.first(), samples.last()) else {
+            return Ok(None);
+        };
+        let phase_span = last
+            .mapping
+            .physical
+            .checked_difference(first.mapping.physical)?;
+        if phase_span.cycles() <= 0.0 {
+            return Ok(None);
+        }
+        let positive_deltas = samples
+            .windows(2)
+            .map(|pair| {
+                ((pair[1].position - pair[0].position) * expected_stance_direction.signum())
+                    .max(0.0)
+            })
+            .collect::<Vec<_>>();
+        let positive_total = positive_deltas.iter().sum::<f32>();
+        if positive_total <= 0.01 {
+            return Ok(None);
+        }
+        let derivative_floor = positive_total * 0.5 / positive_deltas.len() as f32;
+        let weighted_total = positive_total + derivative_floor * positive_deltas.len() as f32;
+        let mut physical = first.mapping.physical;
+        let mut remaining = Vec::new();
+        let mut trajectory = vec![PhysicalContactSample {
+            physical,
+            position: first.position,
+        }];
+        for (index, delta) in positive_deltas.into_iter().enumerate() {
+            let weighted_delta =
+                CycleDelta::from_arithmetic(phase_span.cycles() * (delta + derivative_floor))?;
+            let step = CycleDelta::from_arithmetic(weighted_delta.cycles() / weighted_total)?;
+            physical = physical.checked_advance(step)?;
+            remaining.push(PhaseMappingSample {
+                physical,
+                authored: samples[index + 1].mapping.authored,
+            });
+            trajectory.push(PhysicalContactSample {
+                physical,
+                position: samples[index + 1].position,
+            });
+        }
+        // Preserve exact endpoints before admitting strictly increasing spans.
+        if let Some(endpoint) = remaining.last_mut() {
+            endpoint.physical = last.mapping.physical;
+        }
+        if let Some(endpoint) = trajectory.last_mut() {
+            endpoint.physical = last.mapping.physical;
+        }
+        Ok(Some(Self {
+            mapping: ContactPhaseSpan::new(first.mapping, remaining)?,
+            trajectory,
+        }))
+    }
 }
 
 impl AuthoredPhaseCurve {
-    pub(super) fn fit_contact_spans(
-        phase_spans: &[Vec<(f32, f32)>],
-        direction: TimelineDirection,
-        phase_offset: f32,
+    fn fit_contact_spans(
+        spans: &[ContactPhaseSpan],
+        orientation: ContactOrientation,
     ) -> AnimationValueResult<Self> {
         let intervals = pose_tuning().authored_phase_calibration_intervals;
         let mut authored_phases = (0..=intervals)
             .map(|index| {
-                let physical_phase = index as f32 / intervals as f32;
-                sample_authored_phase_spans(phase_spans, physical_phase, direction, phase_offset)
+                let physical = CyclePhase::from_cycles(index as f32 / intervals as f32)?;
+                sample_authored_phase_spans(spans, physical, orientation)
             })
-            .collect::<Vec<_>>();
-        smooth_periodic_phase_curve(&mut authored_phases, direction, phase_offset);
-        let authored_phases = authored_phases
-            .into_iter()
-            .map(CyclePhase::from_cycles)
             .collect::<AnimationValueResult<Vec<_>>>()?;
+        smooth_periodic_phase_curve(&mut authored_phases, orientation)?;
         Ok(Self { authored_phases })
     }
 }
 
-fn sample_authored_phase_spans(
-    spans: &[Vec<(f32, f32)>],
-    physical_phase: f32,
-    direction: TimelineDirection,
-    phase_offset: f32,
-) -> f32 {
-    for span in spans {
-        for cycle_offset in [-1.0, 0.0, 1.0] {
-            let authored_offset = if direction == TimelineDirection::Reversed {
-                -cycle_offset
-            } else {
-                cycle_offset
-            };
-            let start = span[0].0 + cycle_offset;
-            let end = span[span.len() - 1].0 + cycle_offset;
-            if physical_phase + CONTACT_SPAN_ENDPOINT_ALLOWANCE_CYCLES < start
-                || physical_phase - CONTACT_SPAN_ENDPOINT_ALLOWANCE_CYCLES > end
-            {
-                continue;
-            }
-            let upper = span.partition_point(|(phase, _)| *phase + cycle_offset < physical_phase);
-            if upper == 0 {
-                return span[0].1 + authored_offset;
-            }
-            if upper >= span.len() {
-                return span[span.len() - 1].1 + authored_offset;
-            }
-            let (lower_phase, lower_authored) = span[upper - 1];
-            let (upper_phase, upper_authored) = span[upper];
-            let amount = ((physical_phase - (lower_phase + cycle_offset))
-                / (upper_phase - lower_phase))
-                .clamp(0.0, 1.0);
-            return (lower_authored + authored_offset)
-                .lerp(upper_authored + authored_offset, amount);
-        }
-    }
-    if direction == TimelineDirection::Reversed {
-        phase_offset - physical_phase
-    } else {
-        physical_phase + phase_offset
-    }
+/// Classify low-height samples inside the native sampled-position calibration kernel.
+pub(super) fn low_height_contacts(samples: &[(f32, Vec3)]) -> Option<Vec<bool>> {
+    let minimum_height = samples
+        .iter()
+        .map(|(_, position)| position.y)
+        .reduce(f32::min)?;
+    let maximum_height = samples
+        .iter()
+        .map(|(_, position)| position.y)
+        .reduce(f32::max)?;
+    let height_window =
+        ((maximum_height - minimum_height) * pose_tuning().authored_contact_height_fraction).clamp(
+            pose_tuning()
+                .authored_contact_minimum_height_window_metres
+                .metres(),
+            pose_tuning()
+                .authored_contact_maximum_height_window_metres
+                .metres(),
+        );
+    let supported = samples
+        .iter()
+        .map(|(_, position)| position.y <= minimum_height + height_window)
+        .collect::<Vec<_>>();
+    Some(supported)
 }
 
-fn smooth_periodic_phase_curve(
-    values: &mut [f32],
-    direction: TimelineDirection,
-    phase_offset: f32,
-) {
-    let sample_count = values.len().saturating_sub(1);
-    if sample_count < MINIMUM_PERIODIC_SAMPLES {
-        return;
-    }
-    let deviations = (0..sample_count)
-        .map(|index| {
-            let phase = index as f32 / sample_count as f32;
-            let base = if direction == TimelineDirection::Reversed {
-                phase_offset - phase
-            } else {
-                phase_offset + phase
-            };
-            values[index] - base
-        })
-        .collect::<Vec<_>>();
-    const RADIUS: isize = 6;
-    for (index, value) in values.iter_mut().take(sample_count).enumerate() {
-        let mut weighted_sum = 0.0;
-        let mut total_weight = 0.0;
-        for offset in -RADIUS..=RADIUS {
-            let wrapped = (index as isize + offset).rem_euclid(sample_count as isize) as usize;
-            let weight = (RADIUS + 1 - offset.abs()) as f32;
-            weighted_sum += deviations[wrapped] * weight;
-            total_weight += weight;
+fn sample_authored_phase_spans(
+    spans: &[ContactPhaseSpan],
+    physical: CyclePhase,
+    orientation: ContactOrientation,
+) -> AnimationValueResult<CyclePhase> {
+    for span in spans {
+        if let Some(authored) = span.sample(physical, orientation)? {
+            return Ok(authored);
         }
-        let phase = index as f32 / sample_count as f32;
-        let base = if direction == TimelineDirection::Reversed {
-            phase_offset - phase
-        } else {
-            phase_offset + phase
-        };
-        *value = base + weighted_sum / total_weight;
     }
-    values[sample_count] = if direction == TimelineDirection::Reversed {
-        values[0] - 1.0
-    } else {
-        values[0] + 1.0
-    };
+    orientation.fallback(physical)
 }
