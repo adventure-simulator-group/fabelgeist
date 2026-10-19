@@ -15,7 +15,7 @@ use super::super::{
     records::{Bytes, ForestBuffers, PendingWrites, Records, Stored},
 };
 use super::{
-    SharedForest, TreeFeed, TreeLayout, TreeMeshStats,
+    SharedForest, TreeBatching, TreeFeed, TreeLayout, TreeMeshStats,
     batches::{self, TreeChunk},
     grids::{self, GridKey},
     materials::{TreeBranchMaterial, TreeLeafMaterial},
@@ -60,6 +60,7 @@ pub(super) struct TreeSight<'w> {
     view: Res<'w, LevelView>,
     probe: Option<Res<'w, ForestBenchmark>>,
     layout: Res<'w, TreeLayout>,
+    batching: Res<'w, TreeBatching>,
 }
 
 impl PlacementRecord {
@@ -129,6 +130,7 @@ pub(super) fn draw(
         view,
         probe,
         layout,
+        batching,
     } = sight;
     let Some(forest) = feed.pending.take() else {
         return Ok(());
@@ -145,15 +147,18 @@ pub(super) fn draw(
         commands.entity(entity).despawn();
     }
     let mut assets = stores.p0().upload(&forest, *layout, probe.as_deref())?;
-    assets.stats.batch_digest = batches::show(
+    let spawned = batches::show(
         &mut commands,
         &forest,
         &assets,
         &view,
         &detail,
         probe.as_deref(),
+        *batching,
     )?;
-    commands.insert_resource(assets.stats);
+    assets.stats.batch_digest = spawned.digest;
+    assets.stats.occupancy = spawned.occupancy;
+    commands.insert_resource(assets.stats.clone());
     stores
         .p1()
         .show(&mut commands, &Ground::prepared(&forest.population.frame));

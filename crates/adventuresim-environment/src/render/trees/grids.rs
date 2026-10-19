@@ -7,7 +7,7 @@ use bevy::mesh::{Indices, PrimitiveTopology};
 use bevy::prelude::*;
 use serde::Serialize;
 
-use super::VERTEX_ADDRESS;
+use super::{TreeBatchOccupancy, VERTEX_ADDRESS};
 use crate::prepared::{
     AddressMesh, MeshClass, PreparedError, Result, TreeGrid, TreeLibrary, VariantIndex,
     admit_address_mesh_bytes,
@@ -25,9 +25,10 @@ pub enum TreeLayout {
 }
 
 /// Requested grid payload, excluding common primitives and allocator overhead.
-#[derive(Resource, Clone, Copy, Debug, Serialize)]
+#[derive(Resource, Clone, Debug, Serialize)]
 pub struct TreeMeshStats {
     pub layout: TreeLayout,
+    pub occupancy: TreeBatchOccupancy,
     pub grid_meshes: usize,
     pub vertex_bytes: usize,
     pub index_bytes: usize,
@@ -103,6 +104,7 @@ pub(super) fn upload(
     let plans = plan(library, layout)?;
     let mut stats = TreeMeshStats {
         layout,
+        occupancy: TreeBatchOccupancy::default(),
         grid_meshes: plans
             .len()
             .checked_mul(3)

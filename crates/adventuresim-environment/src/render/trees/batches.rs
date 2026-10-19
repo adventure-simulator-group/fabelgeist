@@ -12,10 +12,12 @@ use sha2::{Digest, Sha256};
 use super::super::{
     ForestDetail, ForestPart,
     benchmark::{ForestBenchmark, ForestWork},
-    chunks::{CHUNK, FAR, size_class},
+    chunks::{FAR, size_class},
     levels::{Level, LevelView},
 };
-use super::{SharedForest, TreeLayout, grids::GridKey, upload::TreeAssets};
+use super::{
+    SharedForest, TreeBatchOccupancy, TreeBatching, TreeLayout, grids::GridKey, upload::TreeAssets,
+};
 use crate::prepared::{MeshClass, Result};
 
 #[derive(Component)]
@@ -32,6 +34,11 @@ struct Gathering {
     radius: f32,
     records: usize,
     indexed_slots: usize,
+}
+
+pub(super) struct SpawnedBatches {
+    pub digest: [u8; 32],
+    pub occupancy: TreeBatchOccupancy,
 }
 
 /// Integer spatial bins at the renderer's world-to-cell boundary.
@@ -59,10 +66,19 @@ pub(super) fn show(
     view: &LevelView,
     detail: &ForestDetail,
     probe: Option<&ForestBenchmark>,
-) -> Result<[u8; 32]> {
-    let batches = gather(forest, assets.stats.layout)?;
+    batching: TreeBatching,
+) -> Result<SpawnedBatches> {
+    let batches = gather(forest, assets.stats.layout, batching)?;
+    let mut occupancy = TreeBatchOccupancy {
+        policy: batching,
+        ..Default::default()
+    };
     let mut digest = Sha256::new();
     for (key, gathered) in batches {
+        *occupancy
+            .histogram
+            .entry(gathered.instances.len())
+            .or_default() += 1;
         let aabb = Aabb::from_min_max(gathered.low, gathered.high);
         let level = view.level(&aabb, gathered.radius, Level::Coarse, detail);
         // Metadata gives each variable-length instance stream a boundary.
@@ -107,10 +123,17 @@ pub(super) fn show(
         }
         entity.insert(chunk);
     }
-    Ok(digest.finalize().into())
+    Ok(SpawnedBatches {
+        digest: digest.finalize().into(),
+        occupancy,
+    })
 }
 
-fn gather(forest: &SharedForest, layout: TreeLayout) -> Result<BTreeMap<BatchKey, Gathering>> {
+fn gather(
+    forest: &SharedForest,
+    layout: TreeLayout,
+    batching: TreeBatching,
+) -> Result<BTreeMap<BatchKey, Gathering>> {
     let mut batches = BTreeMap::new();
     for (index, placement) in forest.population.placements.iter().enumerate() {
         let model = &forest.library.models[placement.variant.index()];
@@ -120,7 +143,10 @@ fn gather(forest: &SharedForest, layout: TreeLayout) -> Result<BTreeMap<BatchKey
         let center = (low + high) * 0.5;
         let radius = (high - low).length() * 0.5;
         let root = Vec3::from_array(placement.pose.origin().map(Metres::metres));
-        let cell = (root.xz() / CHUNK).floor().as_ivec2();
+        // Native vector kernel: area-world root metres to integer spatial bins.
+        let cell = (root.xz() / batching.cell_width().metres())
+            .floor()
+            .as_ivec2();
         for (part, count) in [
             (ForestPart::Branches, model.branches.count),
             (ForestPart::Leaves, model.leaves.count),
@@ -147,8 +173,9 @@ fn gather(forest: &SharedForest, layout: TreeLayout) -> Result<BTreeMap<BatchKey
             batch.radius = batch.radius.max(radius);
             batch.records += count as usize;
             batch.indexed_slots += layout.indexed_records(class, count) as usize;
-            // Only GPU culling reads this centre/radius. Geometry reads the
-            // separate placement buffer by index, never this scalar transform.
+            // GPU distance culling reads this centre; frustum tests use the
+            // union batch bounds. Geometry reads the separate placement buffer
+            // by index, never this scalar transform.
             batch.instances.push(InstanceData {
                 position: center,
                 scale: radius,

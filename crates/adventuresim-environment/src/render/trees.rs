@@ -10,6 +10,7 @@ use super::ForestPlugin;
 use crate::prepared::{TreeLibrary, TreePopulation};
 
 mod batches;
+mod batching;
 mod grids;
 mod materials;
 mod upload;
@@ -21,6 +22,7 @@ const VERTEX_ADDRESS: bevy::mesh::MeshVertexAttribute = bevy::mesh::MeshVertexAt
     bevy::render::render_resource::VertexFormat::Uint32,
 );
 
+pub use batching::{TreeBatchOccupancy, TreeBatching};
 pub use grids::{TreeLayout, TreeMeshStats};
 pub use materials::{TreeBranchMaterial, TreeLeafMaterial};
 
@@ -61,6 +63,7 @@ impl Plugin for TreeForestPlugin {
         ))
         .init_resource::<TreeFeed>()
         .init_resource::<TreeLayout>()
+        .init_resource::<TreeBatching>()
         .add_systems(
             Update,
             (upload::draw, batches::pick)

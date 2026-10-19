@@ -21,7 +21,7 @@ mod arrival;
 
 /// Consecutive readbacks must agree within this bounded number of attempts.
 const MAX_READBACKS: usize = 8;
-const REPORT_VERSION: u32 = 7;
+const REPORT_VERSION: u32 = 8;
 pub(crate) const READINESS_TIMEOUT: Duration = Duration::from_secs(240);
 
 pub struct Request {

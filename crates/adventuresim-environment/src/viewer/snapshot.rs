@@ -14,7 +14,7 @@ use adventuresim_environment::render::benchmark::profile::{ProfileMode, RenderPr
 use adventuresim_environment::render::benchmark::{ForestBenchmark, ValidationPolicy, WindowStart};
 use adventuresim_environment::render::{
     ForestDetail, ForestFeed, ForestPlugin, LevelSelection,
-    trees::{TreeFeed, TreeForestPlugin, TreeLayout, TreeMeshStats},
+    trees::{TreeBatching, TreeFeed, TreeForestPlugin, TreeLayout, TreeMeshStats},
 };
 use anyhow::Result;
 use bevy::app::{AppExit, ScheduleRunnerPlugin};
@@ -66,6 +66,7 @@ pub struct Framing {
 pub struct Request {
     pub view: Option<PathBuf>,
     pub tree_layout: TreeLayout,
+    pub tree_batching: TreeBatching,
     pub validation: ValidationPolicy,
     pub render_profile: Option<ProfileMode>,
     pub path: PathBuf,
@@ -151,6 +152,7 @@ pub fn run(mut request: Request) -> Result<()> {
         Measurement::new(request, preparation, &frame, detail, view.clone(), arrival)
     });
     let mut app = capture_app(detail, request.tree_layout, arrival);
+    app.insert_resource(request.tree_batching);
     app.insert_resource(Still {
         view,
         forest,

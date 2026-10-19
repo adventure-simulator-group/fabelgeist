@@ -173,7 +173,7 @@ def main() -> int:
                         data["elapsed_from_request_ms"]["first_readback"],
                         data["elapsed_from_request_ms"]["stable_readback"],
                     ]
-                    valid = (data["schema_version"] == 7
+                    valid = (data["schema_version"] == 8
                              and data["arrival_frame"]["image"] == str(arrival_image)
                              and arrival_image.is_file()
                              and all(isinstance(value, (int, float))

@@ -47,7 +47,7 @@ use std::time::Instant;
 use adventuresim_environment::prepared::VariantBudget;
 use adventuresim_environment::render::benchmark::ValidationPolicy;
 use adventuresim_environment::render::benchmark::profile::ProfileMode;
-use adventuresim_environment::render::trees::TreeLayout;
+use adventuresim_environment::render::trees::{TreeBatching, TreeLayout};
 use adventuresim_environment::render::{ForestPlugin, Level, LevelSelection};
 use adventuresim_environment::{SoloSpecies, scene_named};
 use anyhow::anyhow;
@@ -87,6 +87,9 @@ struct Options {
     /// Shared-tree diagnostic: hold model mesh/batch partitions fixed.
     #[arg(long, value_enum, requires = "prepared_forest")]
     tree_layout: Option<TreeLayout>,
+    /// Shared-tree spatial cells; regional cells trade finer culling for reuse.
+    #[arg(long, value_enum, requires = "prepared_forest")]
+    tree_batching: Option<TreeBatching>,
     /// Diagnose repeated probe checks on a frozen snapshot with fixed LOD.
     #[arg(long, value_enum, requires_all = ["prepared_forest", "fixed_lod"])]
     probe_validation: Option<ValidationPolicy>,
@@ -165,9 +168,9 @@ fn main() -> anyhow::Result<()> {
             "model-layout diagnostics require --fixed-lod"
         );
         anyhow::ensure!(
-            options.tree_layout.is_none()
+            (options.tree_layout.is_none() && options.tree_batching.is_none())
                 || matches!(options.representation, Some(input::Representation::Shared)),
-            "--tree-layout requires --representation shared"
+            "--tree-layout and --tree-batching require --representation shared"
         );
         let source = match (&options.prepared_forest, options.representation) {
             (Some(directory), Some(representation)) => input::Source::Prepared {
@@ -185,6 +188,7 @@ fn main() -> anyhow::Result<()> {
             view: options.capture_view,
             path: path.clone(),
             tree_layout: options.tree_layout.unwrap_or_default(),
+            tree_batching: options.tree_batching.unwrap_or_default(),
             validation: options.probe_validation.unwrap_or_default(),
             render_profile: options.render_profile,
             source,

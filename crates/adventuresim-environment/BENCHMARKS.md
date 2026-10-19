@@ -227,7 +227,7 @@ ordered fog distances before loading the forest. The document is bounded to
 closeup, aim, yaw, zoom and orbit options. The existing framing path retains
 its default lens and exponential haze when no document is supplied.
 
-Schema 7 records `view` with the applied transform, eye, lens and fog beside
+Schema 8 records `view` with the applied transform, eye, lens and fog beside
 the framing orbit. Branch and leaf materials enable Bevy's distance fog in
 both unique and shared rendering. This corrects previously unfogged foliage;
 older captures remain historical evidence rather than exact current controls.
@@ -257,6 +257,16 @@ out of automatic batching so one multidraw representative cannot stand in
 for several required entities. This observation cost is included in measured
 intervals; ordinary presentation keeps automatic batching. Do not pool older
 forest-only readiness measurements with this stricter scene-ready boundary.
+
+Shared prepared captures also accept `--tree-batching local-cells` (the
+default 16 m bins) or `regional-cells` (128 m bins). Both retain the same
+capacity grids, size classes and per-instance distance tests. Each batch
+keeps the union of its transformed tree bounds and largest tree radius;
+larger bins can therefore select finer adaptive detail and submit more work
+at a view edge. Fixed-level captures control that difference. Source batch
+occupancy appears in `shared_meshes.occupancy`: `policy` and a histogram from
+instance count to nonempty batch count. These counts precede GPU culling.
+Record payload, grids and tree poses are unchanged by this policy.
 
 ## Measure on an otherwise idle machine
 
