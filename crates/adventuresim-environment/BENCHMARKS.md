@@ -247,6 +247,16 @@ finishes, so PNG encoding cannot contaminate steady intervals. The image is
 saved beside the report with extension `.arrival.png`. Review that actual
 image for complete useful foliage; command readiness alone does not establish
 coverage. This native readback bound still excludes network/browser delivery.
+The probe also requires uploaded ground meshes and successful ordinary draws
+for terrain/structures visible to the active camera. It does not wait for
+offscreen structures to draw. First-frame PNGs use the same RGB encoding as
+final screenshots; static benchmark admission requires exact image equality.
+Ground observation is restricted to exactly one active 3D capture camera and
+tracks its visible main-world entities. Under the probe, ground entities opt
+out of automatic batching so one multidraw representative cannot stand in
+for several required entities. This observation cost is included in measured
+intervals; ordinary presentation keeps automatic batching. Do not pool older
+forest-only readiness measurements with this stricter scene-ready boundary.
 
 ## Measure on an otherwise idle machine
 

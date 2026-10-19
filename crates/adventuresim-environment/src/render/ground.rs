@@ -38,14 +38,18 @@ impl Ground {
 }
 
 /// The terrain or a scene's buildings: what a pointer can rest on.
-#[derive(Component)]
-pub struct GroundPart;
+#[derive(Component, Clone, Copy)]
+pub enum GroundPart {
+    Terrain,
+    Structures,
+}
 
 #[derive(SystemParam)]
 pub(super) struct GroundAssets<'w, 's> {
     meshes: ResMut<'w, Assets<Mesh>>,
     materials: ResMut<'w, Assets<StandardMaterial>>,
     shown: Query<'w, 's, Entity, With<GroundPart>>,
+    probe: Option<Res<'w, super::benchmark::ForestBenchmark>>,
 }
 
 impl GroundAssets<'_, '_> {
@@ -67,6 +71,7 @@ impl GroundAssets<'_, '_> {
                 indices: terrain.indices.clone(),
             },
             TERRAIN_ROUGHNESS,
+            GroundPart::Terrain,
         );
         let Some(structures) = &ground.structures else {
             return;
@@ -84,10 +89,17 @@ impl GroundAssets<'_, '_> {
                 indices: structures.indices.clone(),
             },
             STRUCTURE_ROUGHNESS,
+            GroundPart::Structures,
         );
     }
 
-    fn spawn(&mut self, commands: &mut Commands, surface: Surface, roughness: f32) {
+    fn spawn(
+        &mut self,
+        commands: &mut Commands,
+        surface: Surface,
+        roughness: f32,
+        part: GroundPart,
+    ) {
         let mesh = Mesh::new(
             PrimitiveTopology::TriangleList,
             RenderAssetUsages::default(),
@@ -96,14 +108,25 @@ impl GroundAssets<'_, '_> {
         .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, surface.normals)
         .with_inserted_attribute(Mesh::ATTRIBUTE_COLOR, surface.colors)
         .with_inserted_indices(Indices::U32(surface.indices));
-        commands.spawn((
-            GroundPart,
-            Mesh3d(self.meshes.add(mesh)),
+        let vertices = mesh.count_vertices();
+        let indices = mesh.indices().map_or(0, Indices::len);
+        let mesh = self.meshes.add(mesh);
+        if let Some(probe) = &self.probe {
+            probe.expect_mesh(mesh.id(), vertices, indices);
+        }
+        let mut entity = commands.spawn((
+            part,
+            Mesh3d(mesh),
             MeshMaterial3d(self.materials.add(StandardMaterial {
                 perceptual_roughness: roughness,
                 ..default()
             })),
         ));
+        if self.probe.is_some() {
+            // The diagnostic observes every ground entity separately; normal
+            // presentation retains Bevy's ordinary automatic batching.
+            entity.insert(bevy::render::batching::NoAutomaticBatching);
+        }
     }
 }
 

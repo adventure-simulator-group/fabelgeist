@@ -19,6 +19,7 @@ pub(super) struct FrameCheck(Option<validation::RenderCheck>);
 #[derive(SystemParam)]
 pub(super) struct ObservedFrame<'w> {
     check: Res<'w, FrameCheck>,
+    ground: Res<'w, super::ground::GroundFrame>,
     #[cfg(feature = "viewer")]
     profile: Option<Res<'w, super::profile::RenderProfile>>,
 }
@@ -127,6 +128,7 @@ pub(super) fn complete<B: InstancedMaterial, L: InstancedMaterial>(
         && probe.complete_chunks(&branches, &leaves);
     let valid = writes_done
         && draws_done
+        && frame.ground.complete()
         && counts.gpu_failures == 0
         && (counts.expected_branch_instances == 0 || compute_ready(&geometry.branches, &cache))
         && (counts.expected_leaf_instances == 0 || compute_ready(&geometry.leaves, &cache))

@@ -66,6 +66,7 @@ impl Measurement {
             .try_into_dynamic()
             .map_err(|error| MeasurementError::ArrivalImage(Box::new(error)))?;
         decoded
+            .to_rgb8()
             .save(&path)
             .map_err(|error| MeasurementError::ArrivalImage(Box::new(error)))?;
         Ok(json!({

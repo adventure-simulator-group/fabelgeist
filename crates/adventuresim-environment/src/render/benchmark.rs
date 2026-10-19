@@ -16,6 +16,7 @@ use bevy_eidolon::prelude::{InstancedMaterial, MaterialBatchRanges};
 
 use super::{BranchMaterial, ForestPart, LeafMaterial};
 
+mod ground;
 mod observe;
 #[cfg(feature = "viewer")]
 pub mod profile;
@@ -194,6 +195,8 @@ impl ForestBenchmark {
             return;
         };
         render.insert_resource(self.clone());
+        ground::install(render.world_mut());
+        render.add_systems(bevy::render::ExtractSchedule, ground::extract);
         observe::draws::<B, false>(render.world_mut());
         observe::draws::<L, true>(render.world_mut());
         render.init_resource::<observe::FrameCheck>();
