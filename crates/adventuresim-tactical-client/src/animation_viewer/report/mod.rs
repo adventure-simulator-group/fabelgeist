@@ -120,7 +120,7 @@ pub(super) fn write_completed_capture(completed: CompletedCapture) -> AppExit {
 mod tests {
     use super::*;
 
-    fn unique_test_output(name: &BoneRole) -> PathBuf {
+    fn unique_test_output(name: &str) -> PathBuf {
         std::env::temp_dir().join(format!(
             "adventuresim-animation-viewer-{name}-{}",
             std::process::id()

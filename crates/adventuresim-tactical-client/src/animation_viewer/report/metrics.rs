@@ -159,8 +159,8 @@ pub(super) fn scenario_metrics(frames: &[FrameSample]) -> Vec<ScenarioMetrics> {
                     let Some(after_bone) = after.bones.get(*name) else {
                         continue;
                     };
-                    let displacement = body_local(after, name)
-                        .zip(body_local(before, name))
+                    let displacement = body_local(after, *name)
+                        .zip(body_local(before, *name))
                         .map_or(f32::INFINITY, |(after, before)| after.distance(before));
                     if displacement > maximum_step {
                         maximum_step = displacement;
@@ -662,7 +662,7 @@ pub(super) fn loop_seam(first: &FrameSample, last: &FrameSample) -> (f32, f32) {
             // contact solution with world position and fixed-step aliasing.
             // Its continuity is gated by per-frame plant slip/drift instead;
             // this seam metric checks the repeatable authored upper body.
-            if name.ends_with("_hip") || name.ends_with("_knee") || name.ends_with("_foot") {
+            if is_leg_bone(name) {
                 return metrics;
             }
             let Some(b) = last.bones.get(*name) else {
@@ -670,8 +670,8 @@ pub(super) fn loop_seam(first: &FrameSample, last: &FrameSample) -> (f32, f32) {
             };
             (
                 metrics.0.max(
-                    body_local(last, name)
-                        .zip(body_local(first, name))
+                    body_local(last, *name)
+                        .zip(body_local(first, *name))
                         .map_or(f32::INFINITY, |(last, first)| last.distance(first)),
                 ),
                 metrics.1.max(
@@ -832,7 +832,7 @@ pub(super) fn phase_height_range(frames: &[&FrameSample]) -> f32 {
     root_relative_vertical_range(&frames, BoneRole::Pelvis)
 }
 
-pub(super) fn phase_validation_frames<'a>(frames: &'a [&'a FrameSample]) -> Vec<&'a FrameSample> {
+pub(super) fn phase_validation_frames<'a>(frames: &[&'a FrameSample]) -> Vec<&'a FrameSample> {
     let after_first_wrap = frames
         .windows(2)
         .position(|pair| pair[1].gait_phase.cycles() < pair[0].gait_phase.cycles())
@@ -944,7 +944,7 @@ pub(super) fn frame_uses_run_motion_budget(frame: &FrameSample) -> bool {
 pub(super) fn ordinary_planned_transition_is_valid(
     before: &FrameSample,
     after: &FrameSample,
-    foot: &str,
+    foot: BoneRole,
     before_plan: Option<[f32; 3]>,
     after_plan: Option<[f32; 3]>,
     before_solve: Option<[f32; 3]>,
@@ -1476,19 +1476,15 @@ mod tests {
 
     #[test]
     fn transient_toe_gate_excludes_idle_preroll_but_keeps_motion_and_settle() {
-        for scenario in ["terrain-run-flight-stop", "terrain-tap-restart-crossfade"] {
+        for scenario in ["terrain-run-flight-stop", "terrain-tap-restart-crossfade"]
+            .map(ScenarioMetadata::from_label)
+        {
             assert!(!transition_flight_toe_sample_is_active(
-                &ScenarioMetadata::from_label(scenario),
-                0.0,
-                None
+                &scenario, 0.0, None
             ));
+            assert!(transition_flight_toe_sample_is_active(&scenario, 5.5, None));
             assert!(transition_flight_toe_sample_is_active(
-                &ScenarioMetadata::from_label(scenario),
-                5.5,
-                None
-            ));
-            assert!(transition_flight_toe_sample_is_active(
-                scenario,
+                &scenario,
                 0.0,
                 Some(0.25)
             ));
@@ -1509,7 +1505,7 @@ mod tests {
             rotation_xyzw: Quat::IDENTITY.to_array(),
             terrain_clearance_metres: Some(0.0),
         };
-        let bones = BTreeMap::from([
+        let bones = CapturedBones::from_iter([
             (BoneRole::ThighLeft, bone(Vec3::new(-0.15, 1.0, 0.0))),
             (BoneRole::ShinLeft, bone(Vec3::new(-0.1, 0.5, 0.2))),
             (BoneRole::FootLeft, bone(Vec3::new(0.12, 0.0, 0.0))),
@@ -1924,12 +1920,12 @@ mod tests {
 
     #[test]
     fn continuity_bone_classes_separate_feet_from_knees() {
-        assert!(is_foot_bone(BoneRole::FootLeft));
-        assert!(is_foot_bone(BoneRole::FootRight));
-        assert!(!is_foot_bone(BoneRole::ShinLeft));
-        assert!(is_knee_bone(BoneRole::ShinLeft));
-        assert!(is_knee_bone(BoneRole::ShinRight));
-        assert!(!is_knee_bone(BoneRole::ThighRight));
+        assert!(is_foot_bone(&BoneRole::FootLeft));
+        assert!(is_foot_bone(&BoneRole::FootRight));
+        assert!(!is_foot_bone(&BoneRole::ShinLeft));
+        assert!(is_knee_bone(&BoneRole::ShinLeft));
+        assert!(is_knee_bone(&BoneRole::ShinRight));
+        assert!(!is_knee_bone(&BoneRole::ThighRight));
     }
 
     #[test]
@@ -2009,7 +2005,10 @@ mod scenario_policy_tests {
             inter_foot_separation_limit(&ScenarioMetadata::from_label("quickstep-right")),
             0.04
         );
-        assert_eq!(planted_drift_limit("raised-guard-right"), 0.01);
+        assert_eq!(
+            planted_drift_limit(&ScenarioMetadata::from_label("raised-guard-right")),
+            0.01
+        );
         assert_eq!(
             inter_foot_separation_limit(&ScenarioMetadata::from_label("raised-guard-right")),
             0.08
@@ -2020,7 +2019,10 @@ mod scenario_policy_tests {
             )),
             0.16
         );
-        assert_eq!(planted_drift_limit("steady-walk-2.0"), 0.035);
+        assert_eq!(
+            planted_drift_limit(&ScenarioMetadata::from_label("steady-walk-2.0")),
+            0.035
+        );
         assert_eq!(
             inter_foot_separation_limit(&ScenarioMetadata::from_label("steady-walk-2.0")),
             0.08
@@ -2059,8 +2061,10 @@ mod scenario_policy_tests {
             "raised-guard-accelerate-from-rest",
             "terrain-tap-restart-crossfade",
             "terrain-speed-threshold-chatter",
-        ] {
-            assert!(!expects_loop_seam(transition));
+        ]
+        .map(ScenarioMetadata::from_label)
+        {
+            assert!(!expects_loop_seam(&transition));
         }
     }
 }

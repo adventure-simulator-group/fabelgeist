@@ -45,7 +45,7 @@ pub(crate) use presentation::{
     *,
 };
 pub(crate) use procedural::{
-    ArmIkState, BoneRole, HandIkTarget, HandSide, HeldWeaponConstraint, HumanoidBone,
+    ArmIkState, BodyAngle, BoneRole, HandIkTarget, HandSide, HeldWeaponConstraint, HumanoidBone,
     HumanoidIkTargets, HumanoidRig, LegIkDiagnostics, LegIkState, LocomotionBodyResponseState,
     LocomotionHeightState, MhrBone, ProceduralAnimationClock, RaisedFootworkState,
     authored_bind_global, cache_humanoid_rigs, locomotion_support_weights,

@@ -27,11 +27,10 @@ use serde::Serialize;
 
 use crate::animation::jitter::{self, JitterBone, JitterFrame, JitterValidationSummary};
 use crate::animation::pose_buffer::PoseBufferMetrics;
-use crate::animation::procedural::BodyAngle;
 use crate::animation::review_scenarios::*;
 use crate::animation::{
-    AnimationPlayback, AnimationRuntime, ArmIkState, AuthoredBindTransform, BoneRole, HumanoidBone,
-    LegIkDiagnostics, LegIkState, LocomotionBodyResponseState, LocomotionHeightState,
+    AnimationPlayback, AnimationRuntime, ArmIkState, AuthoredBindTransform, BodyAngle, BoneRole,
+    HumanoidBone, LegIkDiagnostics, LegIkState, LocomotionBodyResponseState, LocomotionHeightState,
     LocomotionPresentationEvent, LocomotionPresentationPayload, PresentedSkeleton,
     ProceduralAnimationClock, RaisedFootworkState, TacticalAnimationPlugin, TerrainIkMode,
     bouncy_bones::BouncyBonesTelemetry,

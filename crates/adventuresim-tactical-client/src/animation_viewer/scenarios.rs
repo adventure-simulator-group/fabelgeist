@@ -6,7 +6,6 @@ use adventuresim_building_generator::spatial_geometry::Radians;
 
 mod admission;
 mod plan_families;
-use crate::animation::review_scenarios::*;
 
 pub(super) mod terrain_policy;
 pub(super) const QUICKSTEP_FIXTURE_BIOLOGICAL_MASS_KG: f32 = 70.0;

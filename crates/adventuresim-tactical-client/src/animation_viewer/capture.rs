@@ -188,7 +188,9 @@ impl RepeatedEvaluationSnapshot {
             warn!(
                 scenario = frame.scenario.label(),
                 scenario_frame = frame.scenario_frame,
-                bone,
+                bone = report_bone_label(*bone)
+                    .map(str::to_owned)
+                    .unwrap_or_else(|| format!("{bone:?}")),
                 position_delta,
                 rotation_delta,
                 "repeated animation evaluation changed a captured bone"
@@ -214,23 +216,17 @@ impl RepeatedEvaluationSnapshot {
 pub(super) fn repeated_bone_mismatch(
     expected: &CapturedBones,
     actual: &CapturedBones,
-) -> Option<(String, f32, f32)> {
+) -> Option<(BoneRole, f32, f32)> {
     if let Some(name) = expected
         .keys()
-        .find(|name| !actual.contains_key(*name))
-        .or_else(|| actual.keys().find(|name| !expected.contains_key(*name)))
+        .find(|name| !actual.contains_key(**name))
+        .or_else(|| actual.keys().find(|name| !expected.contains_key(**name)))
     {
-        return Some((
-            report_bone_label(*name)
-                .map(str::to_owned)
-                .unwrap_or_else(|| format!("{name:?}")),
-            f32::INFINITY,
-            f32::INFINITY,
-        ));
+        return Some((*name, f32::INFINITY, f32::INFINITY));
     }
     expected.iter().find_map(|(name, expected)| {
         let actual = actual
-            .get(name)
+            .get(*name)
             .expect("equal repeated-evaluation bone keys were checked above");
         let position_delta =
             Vec3::from_array(expected.position).distance(Vec3::from_array(actual.position));
@@ -250,7 +246,7 @@ pub(super) fn repeated_bone_mismatch(
         // Re-evaluating one logical tick must be visually identical. Keep only
         // sub-half-millimetre/sub-twentieth-degree numeric noise.
         (position_delta > 0.0005 || rotation_delta > 0.05).then_some((
-            name.clone(),
+            *name,
             position_delta,
             rotation_delta,
         ))
@@ -542,7 +538,7 @@ pub(super) fn drive_sequence(
         transform.translation = Vec3::new(horizontal.x, vertical, horizontal.y);
         subject_motion::begin_capture_action(
             &mut skeleton,
-            frame,
+            &frame,
             sequence.simulation_tick,
             attack_start_frame,
         );

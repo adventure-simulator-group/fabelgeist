@@ -300,7 +300,7 @@ mod tests {
         let parent = Entity::from_bits(1);
         let child = Entity::from_bits(2);
         let layers = [
-            PreviewTarget::EmptyAttachment { parent: parent },
+            PreviewTarget::EmptyAttachment { parent },
             PreviewTarget::Occupied {
                 entity: child,
                 attachment: PreviewAttachment::Attached,
