@@ -7,11 +7,10 @@
 //! the forest the snapshot again every so many frames, as the simulation
 //! hands it new ones.
 
-use std::f32::consts::TAU;
 use std::path::PathBuf;
 use std::time::{Duration, Instant};
 
-use adventuresim_environment::render::benchmark::ForestBenchmark;
+use adventuresim_environment::render::benchmark::{ForestBenchmark, ValidationPolicy, WindowStart};
 use adventuresim_environment::render::{
     ForestFeed, ForestPlugin, LevelSelection,
     trees::{TreeFeed, TreeForestPlugin, TreeLayout, TreeMeshStats},
@@ -34,6 +33,8 @@ use bevy::winit::WinitPlugin;
 use crate::benchmark::{self, ArrivalPath, Measurement, PixelStability, Readback};
 use crate::input::{self, FrozenForest, Source};
 use crate::stage::{self, Orbit};
+
+mod sampling;
 
 /// The image's size, pixels.
 const SIZE: UVec2 = UVec2::new(1600, 1000);
@@ -61,6 +62,7 @@ pub struct Framing {
 /// What to grow and how to show it.
 pub struct Request {
     pub tree_layout: TreeLayout,
+    pub validation: ValidationPolicy,
     pub path: PathBuf,
     pub source: Source,
     pub level: LevelSelection,
@@ -92,6 +94,7 @@ struct Still {
     /// When the timing started, and the frames timed since.
     timing: Option<Instant>,
     timed: u32,
+    timed_elapsed: Option<Duration>,
     captured: bool,
 }
 
@@ -127,7 +130,7 @@ pub fn run(mut request: Request) -> Result<()> {
             .benchmark
             .as_ref()
             .map_or_else(Instant::now, |r| r.started);
-        let probe = ForestBenchmark::new(started);
+        let probe = ForestBenchmark::new(started, request.validation);
         let mut instances = forest.expected_instances();
         if !detail.leaves {
             instances.leaves = 0;
@@ -172,6 +175,7 @@ pub fn run(mut request: Request) -> Result<()> {
         settling: 0,
         timing: None,
         timed: 0,
+        timed_elapsed: None,
         captured: false,
     })
     .add_systems(Startup, (setup, stage::sun))
@@ -281,14 +285,10 @@ fn step(
         return;
     }
     if let Some(probe) = &probe {
-        let counts = probe.counts();
+        let status = probe.status();
         const CAPTURE_TIMEOUT: Duration = Duration::from_secs(240);
-        if counts.gpu_failures > 0
-            || counts.discarded_writes > 0
-            || counts.superseded_writes > 0
-            || still.started.elapsed() > CAPTURE_TIMEOUT
-        {
-            error!("forest capture readiness failed: {counts:?}");
+        if status.failed || still.started.elapsed() > CAPTURE_TIMEOUT {
+            error!("forest capture readiness failed: {status:?}");
             exit.write(AppExit::error());
             return;
         }
@@ -305,7 +305,7 @@ fn step(
     }
     if probe
         .as_ref()
-        .is_some_and(|probe| probe.counts().first_submission_micros.is_none())
+        .is_some_and(|probe| probe.status().first_submission_micros.is_none())
     {
         return;
     }
@@ -314,37 +314,37 @@ fn step(
         still.settling += 1;
         return;
     }
-    if let Some(frames) = still.frames {
-        if let Some(measurement) = measurement.as_mut() {
-            measurement.frame();
+    if let Some(probe) = &probe {
+        match probe.validation().begin_sampling() {
+            WindowStart::Waiting | WindowStart::Opened => return,
+            WindowStart::Active => {}
         }
-        let started = *still.timing.get_or_insert_with(Instant::now);
-        let timed = still.timed;
-        still.timed += 1;
-        if timed < frames {
-            if still.turning {
-                let mut orbit = still.orbit;
-                orbit.yaw += TAU * timed as f32 / frames as f32;
-                for mut transform in &mut cameras {
-                    *transform = orbit.transform();
-                }
-            }
-            if still
-                .refeed
-                .is_some_and(|every| timed.is_multiple_of(every.max(1)))
-            {
-                match &still.forest {
-                    FrozenForest::Unique(snapshot) => feed.show(snapshot.clone()),
-                    FrozenForest::Shared(forest) => {
-                        if let Some(trees) = trees.as_mut() {
-                            trees.show(forest.clone());
-                        }
-                    }
-                }
-            }
+    }
+    if let Some(frames) = still.frames {
+        if still.sample_frames(
+            frames,
+            measurement.as_deref_mut(),
+            &mut feed,
+            trees.as_deref_mut(),
+            &mut cameras,
+        ) {
             return;
         }
-        report(started.elapsed(), frames, diagnostics.as_deref());
+        if probe
+            .as_ref()
+            .is_some_and(|probe| !probe.validation().finish_sampling())
+        {
+            return;
+        }
+        if let Some(elapsed) = still.timed_elapsed {
+            report(elapsed, frames, diagnostics.as_deref());
+        }
+    }
+    if probe
+        .as_ref()
+        .is_some_and(|probe| !probe.validation().finish_sampling())
+    {
+        return;
     }
     let Some(target) = still.target.clone() else {
         return;
@@ -399,6 +399,7 @@ fn capture(commands: &mut Commands, target: Handle<Image>, path: PathBuf) {
             }
             if let Some(probe) = probe {
                 let counts = probe.counts();
+                println!("forest validation: {:?}", probe.validation().evidence());
                 println!("forest ready: {}/{} writes, {}/{} branch/leaf instances, {} batches, {} meshes", counts.submitted_writes, counts.queued_writes, counts.expected_branch_instances, counts.expected_leaf_instances, counts.expected_batches, counts.expected_meshes);
             }
             if let Some(topology) = topology {

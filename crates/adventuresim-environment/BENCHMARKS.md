@@ -118,7 +118,7 @@ every mode. This is a payload bound, not a peak-memory measurement. Model
 layouts intentionally duplicate vertices and can cost more startup/memory;
 their purpose is to isolate indexed padding with matched batch partitions.
 
-Report schema 4 names per-LOD referenced work `indexed_record_slots`.
+Report schema 5 names per-LOD referenced work `indexed_record_slots`.
 `capacity_slots_implied_by_shared_placements` still describes per-placement
 capacity potential. `shared_meshes` records the actual requested grid count,
 vertex/index bytes, layout and a SHA-256 of batch keys, bounds and complete
@@ -128,6 +128,41 @@ exclude common primitive meshes and allocator overhead. Check matching
 batch digests and all per-LOD records/instances before interpreting a padded
 versus live-index comparison. Changing index lengths still changes buffer
 allocation/bin placement; it does not isolate one shader instruction.
+
+### Structural-observer diagnostic
+
+`--probe-validation every-frame` and
+`--probe-validation sampling-endpoints` compare the cost of repeated
+structural checks on a prepared snapshot with an explicit `--fixed-lod`.
+Use the same binary, assets, camera, mesh layout and requested frame count
+for each pair. The default remains `every-frame`.
+
+Both policies require a fresh full check after warmup and another after
+sampling. Each request is latched before that render frame's draws and
+acknowledged only after its GPU wait and full validation. The first draw
+milestone cannot satisfy either request. Both policies reject new uploads
+or expected-geometry changes after the start request. Final screenshots
+and reports wait for the final acknowledgement and two stable readbacks.
+
+Only during sampling, `sampling-endpoints` omits the repeated pipeline,
+mesh, batch-membership and count-histogram scans. It keeps per-draw atomic
+counters, GPU waits and constant-cost failure polling. It cannot establish
+intermediate-frame structural validity or detect transient pipeline errors
+that disappear before the final scan. This is a diagnostic for frozen
+inputs, not a validation policy for gameplay or moving-camera captures.
+
+`probe_validation` in schema 5 records the policy, completed lifecycle and
+successful full/skipped structural check counts. An untimed capture using
+either explicit policy exercises the same start/end handshake and one
+intermediate render, without `--frames` or `--benchmark-report`. Compare
+those captures before timing. Sampling starts after the start transition;
+final validation and screenshot work occur after the last frame timestamp.
+
+The difference between policies measures repeated structural observation
+within this serialized harness. It does not measure total probe overhead
+or ordinary presentation throughput: draw counters and GPU waits remain.
+Use a contemporary every-frame control; do not pool historical results
+from the previous lifecycle with this comparison.
 
 ## Measure on an otherwise idle machine
 

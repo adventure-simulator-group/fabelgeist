@@ -164,7 +164,14 @@ def main() -> int:
                     counts = data["counts"]
                     previous = image.with_suffix(
                         f".readback-{data['readback_attempts'] - 1:02d}.png")
-                    valid = (previous.is_file()
+                    validation = data["probe_validation"]
+                    valid = (data["schema_version"] == 5
+                             and validation["policy"] == "every_frame"
+                             and validation["phase"] == "complete"
+                             and validation["successful_full_checks"] >= 2
+                             and validation["skipped_structural_checks"] == 0
+                             and validation["sampled_render_checks"] >= 1
+                             and previous.is_file()
                              and digest(previous) == digest(image)
                              and counts["branches"] > 0 and counts["leaf_clusters"] > 0
                              and counts["queued_writes"] == counts["submitted_writes"]

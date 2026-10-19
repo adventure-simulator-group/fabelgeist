@@ -5,7 +5,9 @@ use std::time::{Duration, Instant};
 
 use adventuresim_environment::prepared::ForestFrame;
 use adventuresim_environment::render::ForestDetail;
-use adventuresim_environment::render::benchmark::{ForestBenchmark, ForestBenchmarkCounts};
+use adventuresim_environment::render::benchmark::{
+    ForestBenchmark, ForestBenchmarkCounts, ValidationPhase,
+};
 use adventuresim_environment::render::trees::TreeMeshStats;
 use bevy::prelude::*;
 use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance, PlantInstance};
@@ -15,7 +17,7 @@ use crate::stage::Orbit;
 
 /// Consecutive readbacks must agree within this bounded number of attempts.
 const MAX_READBACKS: usize = 8;
-const REPORT_VERSION: u32 = 4;
+const REPORT_VERSION: u32 = 5;
 const READINESS_TIMEOUT: Duration = Duration::from_secs(240);
 
 pub struct Request {
@@ -109,6 +111,8 @@ pub enum MeasurementError {
     UnstablePixels,
     #[error("the forest GPU submission was not acknowledged")]
     MissingSubmission,
+    #[error("the final full forest validation was not acknowledged")]
+    MissingFinalValidation,
     #[error("the forest upload or GPU probe failed: {0:?}")]
     FailedSubmission(Box<ForestBenchmarkCounts>),
     #[error("the forest readiness probe exceeded its bounded deadline")]
@@ -160,9 +164,8 @@ impl Measurement {
     }
 
     pub fn check(&self, probe: &ForestBenchmark) -> Result<(), MeasurementError> {
-        let counts = probe.counts();
-        if counts.discarded_writes > 0 || counts.gpu_failures > 0 || counts.superseded_writes > 0 {
-            return Err(MeasurementError::FailedSubmission(Box::new(counts)));
+        if probe.status().failed {
+            return Err(MeasurementError::FailedSubmission(Box::new(probe.counts())));
         }
         if self.request.started.elapsed() > READINESS_TIMEOUT {
             return Err(MeasurementError::ReadinessTimeout);
@@ -193,6 +196,11 @@ impl Measurement {
         if matches!(self.pixels.observe(image)?, Readback::Repeat) {
             return Ok(Readback::Repeat);
         }
+        let validation = probe
+            .validation()
+            .evidence()
+            .filter(|evidence| evidence.phase == ValidationPhase::Complete)
+            .ok_or(MeasurementError::MissingFinalValidation)?;
         let counts = probe.counts();
         if counts.discarded_writes > 0 || counts.gpu_failures > 0 || counts.superseded_writes > 0 {
             return Err(MeasurementError::FailedSubmission(Box::new(counts)));
@@ -224,6 +232,7 @@ impl Measurement {
                 "level_selection": self.detail.level,
             },
             "shared_meshes": topology,
+            "probe_validation": validation,
             "stages_ms": {
                 "scene_construction": milliseconds(self.preparation.scene),
                 "simulation_gpu_setup": milliseconds(self.preparation.gpu_setup),
@@ -247,6 +256,8 @@ impl Measurement {
                 "encoded indirect draws do not establish nonzero visible counts or observed cull dispatch",
                 "settled readbacks include the existing one-second and thirty-frame warmup",
                 "readbacks occur after the requested steady-frame interval and may include earlier PNG writes",
+                "endpoint validation does not establish intermediate-frame structural or pipeline-error coverage",
+                "both policies retain per-draw counters and GPU waits; their difference is not total observer cost",
                 "GPU waits serialize frames; report separately from ordinary presentation",
                 "uploaded_record_bytes include compact placements but exclude meshes, instance buffers and textures",
                 "library mesh bytes describe canonical source grids; shared_meshes describes actual requested grid payload, not peak memory",

@@ -8,27 +8,20 @@ use std::sync::Mutex;
 use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::time::Instant;
 
-use bevy::core_pipeline::core_3d::Opaque3d;
-use bevy::ecs::system::SystemParam;
-use bevy::ecs::system::{SystemParamItem, lifetimeless::SRes};
 use bevy::prelude::*;
-use bevy::render::render_phase::{
-    DrawFunctions, PhaseItem, RenderCommand, RenderCommandResult, RenderCommandState,
-    TrackedRenderPass,
-};
-use bevy::render::render_resource::{CachedPipelineState, PipelineCache, PollType};
-use bevy::render::renderer::RenderDevice;
+use bevy::render::mesh::{RenderMesh, RenderMeshBufferInfo};
+use bevy::render::render_asset::RenderAssets;
 use bevy::render::{Render, RenderApp, RenderSystems};
-use bevy::render::{
-    mesh::{RenderMesh, RenderMeshBufferInfo},
-    render_asset::RenderAssets,
-};
-use bevy::shader::ShaderCacheError;
-use bevy_eidolon::cull::pipeline::InstancedComputePipeline;
 use bevy_eidolon::prelude::{InstancedMaterial, MaterialBatchRanges};
-use bevy_eidolon::render::draw::DrawInstancedMaterial;
 
 use super::{BranchMaterial, ForestPart, LeafMaterial};
+
+mod observe;
+mod validation;
+
+pub use validation::{
+    ValidationEvidence, ValidationPhase, ValidationPolicy, ValidationWindow, WindowStart,
+};
 
 /// Zero is reserved for a GPU submission not observed yet.
 const UNOBSERVED: u64 = 0;
@@ -51,6 +44,7 @@ struct Counters {
     completed_micros: AtomicU64,
     failures: AtomicUsize,
     expected: Mutex<Expected>,
+    validation: ValidationWindow,
 }
 
 #[derive(Default)]
@@ -59,6 +53,13 @@ struct Expected {
     leaves: usize,
     chunks: Vec<ExpectedChunk>,
     meshes: Vec<ExpectedMesh>,
+}
+
+/// Per-frame status; endpoint sampling avoids constructing full LOD histograms.
+#[derive(Debug)]
+pub struct ForestStatus {
+    pub first_submission_micros: Option<u64>,
+    pub failed: bool,
 }
 
 struct ExpectedMesh {
@@ -94,13 +95,6 @@ pub struct LodWork {
     pub indexed_slots: LodCounts,
 }
 
-#[derive(SystemParam)]
-struct GeometryReady<'w, B: InstancedMaterial, L: InstancedMaterial> {
-    branches: Res<'w, InstancedComputePipeline<B>>,
-    leaves: Res<'w, InstancedComputePipeline<L>>,
-    meshes: Res<'w, RenderAssets<RenderMesh>>,
-}
-
 struct ExpectedChunk {
     entity: Entity,
     instances: usize,
@@ -126,8 +120,6 @@ pub struct ForestBenchmarkCounts {
     pub branch_lod: LodWork,
     pub leaf_lod: LodWork,
 }
-
-struct RecordDraw<const FOLIAGE: bool>;
 
 impl LodCounts {
     fn add(&mut self, level: super::Level, count: usize) {
@@ -158,7 +150,7 @@ impl Expected {
 }
 
 impl ForestBenchmark {
-    pub fn new(started: Instant) -> Self {
+    pub fn new(started: Instant, policy: ValidationPolicy) -> Self {
         Self {
             inner: Arc::new(Counters {
                 started,
@@ -172,6 +164,7 @@ impl ForestBenchmark {
                 completed_micros: AtomicU64::new(UNOBSERVED),
                 failures: AtomicUsize::new(0),
                 expected: Mutex::new(Expected::default()),
+                validation: ValidationWindow::new(policy),
             }),
         }
     }
@@ -199,9 +192,50 @@ impl ForestBenchmark {
             return;
         };
         render.insert_resource(self.clone());
-        observe_draws::<B, false>(render.world_mut());
-        observe_draws::<L, true>(render.world_mut());
-        render.add_systems(Render, complete::<B, L>.in_set(RenderSystems::Cleanup));
+        observe::draws::<B, false>(render.world_mut());
+        observe::draws::<L, true>(render.world_mut());
+        render.init_resource::<observe::FrameCheck>();
+        render.add_systems(
+            Render,
+            observe::latch.in_set(RenderSystems::PrepareResources),
+        );
+        render.add_systems(
+            Render,
+            observe::complete::<B, L>.in_set(RenderSystems::Cleanup),
+        );
+    }
+
+    pub fn validation(&self) -> &ValidationWindow {
+        &self.inner.validation
+    }
+
+    pub fn status(&self) -> ForestStatus {
+        if !self.validation().skip_structure() {
+            let counts = self.counts();
+            return ForestStatus {
+                first_submission_micros: counts.first_submission_micros,
+                failed: counts.gpu_failures > 0
+                    || counts.discarded_writes > 0
+                    || counts.superseded_writes > 0,
+            };
+        }
+        let counters = &self.inner;
+        let micros = counters.completed_micros.load(Ordering::Acquire);
+        ForestStatus {
+            first_submission_micros: (micros != UNOBSERVED).then_some(micros),
+            failed: counters.failures.load(Ordering::Acquire) > 0
+                || counters.discarded.load(Ordering::Acquire) > 0
+                || counters.superseded.load(Ordering::Acquire) > 0,
+        }
+    }
+
+    fn mutate(&self, mutation: impl FnOnce()) {
+        self.validation().with_mutation(|frozen| {
+            if frozen {
+                self.inner.failures.fetch_add(1, Ordering::Release);
+            }
+            mutation();
+        });
     }
 
     pub fn counts(&self) -> ForestBenchmarkCounts {
@@ -242,7 +276,7 @@ impl ForestBenchmark {
     }
 
     pub fn expect_instances(&self, instances: ForestInstances) {
-        match self.inner.expected.lock() {
+        self.mutate(|| match self.inner.expected.lock() {
             Ok(mut expected) => {
                 expected.branches = instances.branches;
                 expected.leaves = instances.leaves;
@@ -250,11 +284,11 @@ impl ForestBenchmark {
             Err(_) => {
                 self.inner.failures.fetch_add(1, Ordering::Release);
             }
-        }
+        });
     }
 
     pub(super) fn expect_mesh(&self, id: AssetId<Mesh>, vertices: usize, indices: usize) {
-        match self.inner.expected.lock() {
+        self.mutate(|| match self.inner.expected.lock() {
             Ok(mut expected) => expected.meshes.push(ExpectedMesh {
                 id,
                 vertices,
@@ -263,7 +297,7 @@ impl ForestBenchmark {
             Err(_) => {
                 self.inner.failures.fetch_add(1, Ordering::Release);
             }
-        }
+        });
     }
 
     fn complete_meshes(&self, meshes: &RenderAssets<RenderMesh>) -> bool {
@@ -283,7 +317,7 @@ impl ForestBenchmark {
         level: super::Level,
         work: ForestWork,
     ) {
-        match self.inner.expected.lock() {
+        self.mutate(|| match self.inner.expected.lock() {
             Ok(mut expected) => expected.chunks.push(ExpectedChunk {
                 entity,
                 instances,
@@ -294,21 +328,23 @@ impl ForestBenchmark {
             Err(_) => {
                 self.inner.failures.fetch_add(1, Ordering::Release);
             }
-        }
+        });
     }
 
     pub(super) fn expect_level(&self, entity: Entity, level: super::Level) {
-        if let Ok(mut expected) = self.inner.expected.lock() {
-            if let Some(chunk) = expected
-                .chunks
-                .iter_mut()
-                .find(|chunk| chunk.entity == entity)
-            {
-                chunk.level = level;
+        self.mutate(|| {
+            if let Ok(mut expected) = self.inner.expected.lock() {
+                if let Some(chunk) = expected
+                    .chunks
+                    .iter_mut()
+                    .find(|chunk| chunk.entity == entity)
+                {
+                    chunk.level = level;
+                }
+            } else {
+                self.inner.failures.fetch_add(1, Ordering::Release);
             }
-        } else {
-            self.inner.failures.fetch_add(1, Ordering::Release);
-        }
+        });
     }
 
     fn complete_chunks<B: InstancedMaterial, L: InstancedMaterial>(
@@ -350,7 +386,9 @@ impl ForestBenchmark {
     }
 
     pub(super) fn queued(&self) {
-        self.inner.queued.fetch_add(1, Ordering::Release);
+        self.mutate(|| {
+            self.inner.queued.fetch_add(1, Ordering::Release);
+        });
     }
 
     pub(super) fn superseded(&self) {
@@ -362,99 +400,9 @@ impl ForestBenchmark {
     }
 
     pub(super) fn submitted(&self, bytes: usize) {
-        self.inner.bytes.fetch_add(bytes as u64, Ordering::Release);
-        self.inner.submitted.fetch_add(1, Ordering::Release);
-    }
-}
-
-impl<P: PhaseItem, const FOLIAGE: bool> RenderCommand<P> for RecordDraw<FOLIAGE> {
-    type Param = SRes<ForestBenchmark>;
-    type ViewQuery = ();
-    type ItemQuery = ();
-
-    fn render<'w>(
-        _item: &P,
-        _view: (),
-        _entity: Option<()>,
-        probe: SystemParamItem<'w, '_, Self::Param>,
-        _pass: &mut TrackedRenderPass<'w>,
-    ) -> RenderCommandResult {
-        let counters = &probe.into_inner().inner;
-        let counter = if FOLIAGE {
-            &counters.leaf_draws
-        } else {
-            &counters.branch_draws
-        };
-        counter.fetch_add(1, Ordering::Relaxed);
-        RenderCommandResult::Success
-    }
-}
-
-fn observe_draws<M: InstancedMaterial, const FOLIAGE: bool>(world: &mut World) {
-    let command =
-        RenderCommandState::<Opaque3d, (DrawInstancedMaterial<M>, RecordDraw<FOLIAGE>)>::new(world);
-    world
-        .resource::<DrawFunctions<Opaque3d>>()
-        .write()
-        .add_with::<DrawInstancedMaterial<M>, _>(command);
-}
-
-fn compute_ready<M: InstancedMaterial>(
-    pipeline: &InstancedComputePipeline<M>,
-    cache: &PipelineCache,
-) -> bool {
-    pipeline
-        .pipeline_id
-        .is_some_and(|id| cache.get_compute_pipeline(id).is_some())
-}
-
-fn complete<B: InstancedMaterial, L: InstancedMaterial>(
-    probe: Res<ForestBenchmark>,
-    device: Res<RenderDevice>,
-    cache: Res<PipelineCache>,
-    branches: Res<MaterialBatchRanges<B>>,
-    leaves: Res<MaterialBatchRanges<L>>,
-    geometry: GeometryReady<B, L>,
-) {
-    let counters = &probe.inner;
-    let branch_draws = counters.branch_draws.swap(0, Ordering::AcqRel);
-    let leaf_draws = counters.leaf_draws.swap(0, Ordering::AcqRel);
-    if let Err(error) = device.poll(PollType::wait_indefinitely()) {
-        error!("forest benchmark GPU wait failed: {error}");
-        counters.failures.fetch_add(1, Ordering::Release);
-        return;
-    }
-    if cache.pipelines().any(|pipeline| match &pipeline.state {
-        CachedPipelineState::Err(
-            ShaderCacheError::ShaderNotLoaded(_) | ShaderCacheError::ShaderImportNotYetAvailable,
-        ) => false,
-        CachedPipelineState::Err(_) => true,
-        _ => false,
-    }) {
-        counters.failures.fetch_add(1, Ordering::Release);
-        return;
-    }
-    let counts = probe.counts();
-    let writes_done = counts.queued_writes > 0
-        && counts.queued_writes == counts.submitted_writes
-        && counts.superseded_writes == 0
-        && counts.discarded_writes == 0;
-    let draws_done = branch_draws == branches.entities.len()
-        && leaf_draws == leaves.entities.len()
-        && probe.complete_chunks(&branches, &leaves);
-    if writes_done
-        && draws_done
-        && counts.gpu_failures == 0
-        && (counts.expected_branch_instances == 0 || compute_ready(&geometry.branches, &cache))
-        && (counts.expected_leaf_instances == 0 || compute_ready(&geometry.leaves, &cache))
-        && probe.complete_meshes(&geometry.meshes)
-    {
-        let micros = counters.started.elapsed().as_micros().min(u64::MAX as u128) as u64;
-        let _ = counters.completed_micros.compare_exchange(
-            UNOBSERVED,
-            micros.max(1),
-            Ordering::Release,
-            Ordering::Relaxed,
-        );
+        self.mutate(|| {
+            self.inner.bytes.fetch_add(bytes as u64, Ordering::Release);
+            self.inner.submitted.fetch_add(1, Ordering::Release);
+        });
     }
 }

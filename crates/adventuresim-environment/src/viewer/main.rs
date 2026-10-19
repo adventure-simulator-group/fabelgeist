@@ -44,6 +44,7 @@ use std::path::PathBuf;
 use std::time::Instant;
 
 use adventuresim_environment::prepared::VariantBudget;
+use adventuresim_environment::render::benchmark::ValidationPolicy;
 use adventuresim_environment::render::trees::TreeLayout;
 use adventuresim_environment::render::{ForestPlugin, Level, LevelSelection};
 use adventuresim_environment::{SoloSpecies, scene_named};
@@ -84,6 +85,9 @@ struct Options {
     /// Shared-tree diagnostic: hold model mesh/batch partitions fixed.
     #[arg(long, value_enum, requires = "prepared_forest")]
     tree_layout: Option<TreeLayout>,
+    /// Diagnose repeated probe checks on a frozen snapshot with fixed LOD.
+    #[arg(long, value_enum, requires_all = ["prepared_forest", "fixed_lod"])]
+    probe_validation: Option<ValidationPolicy>,
     /// The scene, by the start of its name (`boreal`, `castle-unplanted`...).
     #[arg(long)]
     scene: Option<String>,
@@ -172,6 +176,7 @@ fn main() -> anyhow::Result<()> {
         return snapshot::run(snapshot::Request {
             path: path.clone(),
             tree_layout: options.tree_layout.unwrap_or_default(),
+            validation: options.probe_validation.unwrap_or_default(),
             source,
             level: options
                 .fixed_lod
