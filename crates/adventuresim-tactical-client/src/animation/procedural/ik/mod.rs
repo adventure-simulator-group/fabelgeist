@@ -369,8 +369,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             frame,
             terrain,
             raised_footwork_handoff,
-        )
-        {
+        ) {
             warn!(%error, "settle planning rejected");
             continue;
         }
