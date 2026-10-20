@@ -6,8 +6,8 @@
 use adventuresim_tactical_core::animation::AttackCurve;
 use adventuresim_tactical_core::animation::{AnimationElapsed, AnimationValueError};
 use adventuresim_tactical_core::animation::{
-    AnimationPackId, AnimationSampleSpan, AnimationSampleTick, BlendWeight, ClipMirror, CycleDelta,
-    CyclePhase, SkeletonFamily,
+    AnimationFrequency, AnimationPackId, AnimationSampleSpan, AnimationSampleTick, BlendWeight,
+    ClipMirror, CycleDelta, CyclePhase, SkeletonFamily,
 };
 use adventuresim_tactical_core::prelude::*;
 #[cfg(not(target_family = "wasm"))]
@@ -261,7 +261,7 @@ impl AnimationRuntime {
     }
 }
 
-fn animation_frames_per_second() -> f32 {
+fn animation_frames_per_second() -> AnimationFrequency {
     runtime_animation_config().playback.frames_per_second
 }
 

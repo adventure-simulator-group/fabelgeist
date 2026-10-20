@@ -676,7 +676,7 @@ mod legacy_tests {
                             catalog.packs[&AnimationPackId::HUMANOID_UNARMED].motions
                                 [&anchor.motion]
                                 .last_frame,
-                        )) / animation_frames_per_second(),
+                        )) / animation_frames_per_second().hertz(),
                     )
                     .unwrap(),
                     layer: ClipLayer::Whole,
@@ -763,7 +763,8 @@ mod legacy_tests {
             sample.time_seconds.seconds() == 0.0 && (sample.weight.factor() - 0.5).abs() < 0.0001
         }));
         assert!(weighted.iter().any(|sample| {
-            (sample.time_seconds.seconds() - 16.0 / animation_frames_per_second()).abs() < 0.0001
+            (sample.time_seconds.seconds() - 16.0 / animation_frames_per_second().hertz()).abs()
+                < 0.0001
                 && (sample.weight.factor() - 0.5).abs() < 0.0001
         }));
     }
@@ -807,7 +808,8 @@ mod legacy_tests {
                     && (sample.weight.factor() - 0.5).abs() < 0.0001)
         );
         assert!(weighted.iter().any(|sample| {
-            (sample.time_seconds.seconds() - 4.0 / animation_frames_per_second()).abs() < 0.0001
+            (sample.time_seconds.seconds() - 4.0 / animation_frames_per_second().hertz()).abs()
+                < 0.0001
                 && (sample.weight.factor() - 0.5).abs() < 0.0001
         }));
     }
@@ -823,8 +825,10 @@ mod legacy_tests {
             MotionKey::new(&AnimationPackId::HUMANOID_UNARMED, &MotionId::RUN_MIRRORED),
             LoadedClip {
                 handle: mirrored_handle.clone(),
-                duration_seconds: ClipDuration::from_seconds(64.0 / animation_frames_per_second())
-                    .unwrap(),
+                duration_seconds: ClipDuration::from_seconds(
+                    64.0 / animation_frames_per_second().hertz(),
+                )
+                .unwrap(),
                 layer: ClipLayer::Whole,
             },
         );
@@ -1010,8 +1014,10 @@ mod legacy_tests {
                 start: clip.clone(),
                 start_time_seconds: ClipTime::ZERO,
                 end: clip,
-                end_time_seconds: ClipTime::from_seconds(4.0 / animation_frames_per_second())
-                    .unwrap(),
+                end_time_seconds: ClipTime::from_seconds(
+                    4.0 / animation_frames_per_second().hertz(),
+                )
+                .unwrap(),
                 coordinate: 1.0,
                 weight: BlendWeight::ONE,
                 mirrored_weight: BlendWeight::ZERO,
@@ -1124,7 +1130,8 @@ mod legacy_tests {
         assert_eq!(weighted.len(), 1);
         assert_eq!(weighted[0].clip.handle.id(), back);
         assert!(
-            (weighted[0].time_seconds.seconds() - 9.0 / animation_frames_per_second()).abs()
+            (weighted[0].time_seconds.seconds() - 9.0 / animation_frames_per_second().hertz())
+                .abs()
                 < 0.0001
         );
         assert!((weighted[0].weight.factor() - 1.0).abs() < 0.0001);
@@ -1163,7 +1170,8 @@ mod legacy_tests {
         assert_eq!(weighted.len(), 1);
         assert_eq!(weighted[0].clip.handle.id(), right);
         assert!(
-            (weighted[0].time_seconds.seconds() - 6.0 / animation_frames_per_second()).abs()
+            (weighted[0].time_seconds.seconds() - 6.0 / animation_frames_per_second().hertz())
+                .abs()
                 < 0.0001
         );
     }

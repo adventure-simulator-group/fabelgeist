@@ -115,7 +115,9 @@ impl BakedClip {
             (time_seconds.seconds().clamp(0.0, self.duration.seconds()) / self.frame_dt.seconds())
                 .min(self.frames.intervals() as f32)
         };
-        let first = frame as usize;
+        // A large interval count can round upward when projected to f32;
+        // indexing still ends at the last admitted channel sample.
+        let first = (frame as usize).min(self.frames.intervals());
         let second = (first + 1).min(self.frames.intervals());
         let alpha = frame.fract();
         let track = &self.tracks[joint];

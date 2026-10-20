@@ -170,13 +170,13 @@ pub(super) fn sole_animation(
 
 pub(super) fn frame_fits_clip(frame: AuthoredAnimationFrame, duration: ClipDuration) -> bool {
     frame_seconds(frame).is_ok_and(|time| {
-        time.seconds() <= duration.seconds() + 0.5 / animation_frames_per_second()
+        time.seconds() <= duration.seconds() + 0.5 / animation_frames_per_second().hertz()
     })
 }
 
 pub(super) fn frame_seconds(frame: AuthoredAnimationFrame) -> AnimationValueResult<ClipTime> {
     // Catalog frames enter the engine's seconds coordinate here.
-    ClipTime::from_seconds(f32::from(u16::from(frame)) / animation_frames_per_second())
+    ClipTime::from_seconds(f32::from(u16::from(frame)) / animation_frames_per_second().hertz())
 }
 
 pub(super) fn clip_targets_match_base(
