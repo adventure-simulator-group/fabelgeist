@@ -3,6 +3,10 @@
 //! Quaternions are stored `[x, y, z, w]`, matching momentum's skeleton state
 //! layout `[tx, ty, tz, qx, qy, qz, qw, s]`.
 
+mod euler_order;
+
+pub use euler_order::EulerOrder;
+
 pub type Quat = [f64; 4];
 pub type Vec3 = [f64; 3];
 /// Row-major 4x4 matrix.
@@ -31,40 +35,25 @@ pub fn quat_normalize(q: Quat) -> Quat {
     }
 }
 
-/// Rotation about a coordinate axis (0 = x, 1 = y, 2 = z).
-fn quat_axis(axis: usize, angle: f64) -> Quat {
-    let (s, c) = (angle * 0.5).sin_cos();
-    let mut q = [0.0, 0.0, 0.0, c];
-    q[axis] = s;
-    q
-}
-
 /// Euler angles (radians) composed in the given order, momentum-style: the
 /// axis listed first is applied first, so XYZ yields `Rz * Ry * Rx`.
-pub fn quat_from_euler(angles: Vec3, order: [usize; 3]) -> Quat {
+pub fn quat_from_euler(angles: Vec3, order: EulerOrder) -> Quat {
     let mut result = IDENTITY;
-    for axis in order {
-        result = quat_mul(quat_axis(axis, angles[axis]), result);
+    // Project the order only where native [x, y, z] angles and [x, y, z, w]
+    // quaternion arrays require coordinate indexes for the arithmetic.
+    for axis in order.native_indices() {
+        let (s, c) = (angles[axis] * 0.5).sin_cos();
+        let mut q = [0.0, 0.0, 0.0, c];
+        q[axis] = s;
+        result = quat_mul(q, result);
     }
     result
 }
 
 /// FBX stores Euler angles in degrees.
-pub fn quat_from_euler_degrees(angles: Vec3, order: [usize; 3]) -> Quat {
+pub fn quat_from_euler_degrees(angles: Vec3, order: EulerOrder) -> Quat {
     let radians = angles.map(f64::to_radians);
     quat_from_euler(radians, order)
-}
-
-/// FBX `RotationOrder` enum -> the axis order used by [`quat_from_euler`].
-pub fn rotation_order(order: i64) -> [usize; 3] {
-    match order {
-        1 => [0, 2, 1], // XZY
-        2 => [1, 2, 0], // YZX
-        3 => [1, 0, 2], // YXZ
-        4 => [2, 0, 1], // ZXY
-        5 => [2, 1, 0], // ZYX
-        _ => [0, 1, 2], // XYZ (and spherical, which MHR does not use)
-    }
 }
 
 /// Shepperd's method, matching `Eigen::Quaternion(Matrix3)`.
@@ -287,7 +276,11 @@ mod tests {
             cr * cp * sy - sr * sp * cy,
             cr * cp * cy + sr * sp * sy,
         ];
-        approx(&quat_from_euler([rx, ry, rz], [0, 1, 2]), &expected, 1e-12);
+        approx(
+            &quat_from_euler([rx, ry, rz], EulerOrder::Xyz),
+            &expected,
+            1e-12,
+        );
     }
 
     #[test]
