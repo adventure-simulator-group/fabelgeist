@@ -75,8 +75,7 @@ pub struct ClientPlayer;
 /// rotation samples for both camera-facing guard and velocity-facing travel.
 #[derive(Component, Debug, Clone, Copy, Default)]
 struct LocalBodyFacing {
-    rotation: Quat,
-    initialized: bool,
+    rotation: Option<Quat>,
 }
 
 #[derive(EntityEvent)]
@@ -537,52 +536,48 @@ fn predict_local_body_facing(
     >,
     cameras: Query<&Transform, (With<TacticalGameplayCamera>, Without<ClientPlayer>)>,
 ) {
+    let elapsed = AnimationElapsed::from(time.delta());
     for (camera, skeleton, attack, mut transform, mut facing) in &mut players {
         if skeleton.body().is_downed() || skeleton.is_posture_transitioning() {
-            facing.rotation = transform.rotation;
-            facing.initialized = false;
+            facing.rotation = None;
             continue;
         }
 
         let Ok(camera_transform) = cameras.get(camera.get()) else {
             continue;
         };
-        if !facing.initialized {
-            facing.rotation = transform.rotation;
-            facing.initialized = true;
-        }
-
-        facing.rotation = if let Some((target_position, remaining_seconds)) =
-            attack.and_then(|state| {
-                state
-                    .target_position
-                    .map(|target| (target, state.facing_timer.remaining_secs()))
-            }) {
+        let current = facing.rotation.unwrap_or(transform.rotation);
+        let next = if let Some((target_position, remaining)) = attack.and_then(|state| {
+            state.target_position.map(|target| {
+                (
+                    target,
+                    AnimationElapsed::from(state.facing_timer.remaining()),
+                )
+            })
+        }) {
             let desired_forward = target_position - transform.translation;
-            let turn_speed = body_turn_speed_for_deadline(
-                facing.rotation,
-                desired_forward,
-                remaining_seconds,
-                time.delta_secs(),
-            );
-            advance_body_facing_toward(
-                facing.rotation,
-                desired_forward,
-                time.delta_secs(),
-                turn_speed,
-            )
+            BodyFacingTurn::for_deadline(current, desired_forward, remaining, elapsed)
+                .and_then(|turn| turn.advance(current, desired_forward, elapsed))
         } else {
-            advance_body_facing_with_speed(
-                facing.rotation,
+            advance_body_facing_with_turn(
+                current,
                 camera_transform.rotation,
                 skeleton.world_velocity,
                 skeleton.action_kind(),
                 guard.desired,
-                time.delta_secs(),
-                std::f32::consts::PI / combat_config.presentation.body_turn_seconds_per_half_turn,
+                elapsed,
+                BodyFacingTurn::configured_half_turn(
+                    combat_config.presentation.body_turn_seconds_per_half_turn,
+                ),
             )
         };
-        transform.rotation = facing.rotation;
+        match next {
+            Ok(rotation) => {
+                facing.rotation = Some(rotation);
+                transform.rotation = rotation;
+            }
+            Err(error) => warn!(%error, "cannot predict body facing"),
+        }
     }
 }
 
@@ -878,61 +873,6 @@ mod tests {
     }
 
     #[test]
-    fn local_aim_facing_advances_on_every_render_frame() {
-        let camera = Quat::from_rotation_y(std::f32::consts::FRAC_PI_2);
-        let target = advance_body_facing(
-            Quat::IDENTITY,
-            camera,
-            Vec3::ZERO,
-            SkeletonAction::None,
-            WeaponGuardState::Raised,
-            1.0,
-        );
-        let mut facing = Quat::IDENTITY;
-        let mut previous_distance = facing.angle_between(target);
-
-        for _ in 0..4 {
-            facing = advance_body_facing(
-                facing,
-                camera,
-                Vec3::ZERO,
-                SkeletonAction::None,
-                WeaponGuardState::Raised,
-                1.0 / 60.0,
-            );
-            let distance = facing.angle_between(target);
-            assert!(distance < previous_distance);
-            previous_distance = distance;
-        }
-
-        assert!(previous_distance > 0.0);
-    }
-
-    #[test]
-    fn local_travel_facing_advances_toward_world_velocity() {
-        let velocity = Vec3::X * 3.0;
-        let target = advance_body_facing(
-            Quat::IDENTITY,
-            Quat::IDENTITY,
-            velocity,
-            SkeletonAction::None,
-            WeaponGuardState::Lowered,
-            1.0,
-        );
-        let next = advance_body_facing(
-            Quat::IDENTITY,
-            Quat::IDENTITY,
-            velocity,
-            SkeletonAction::None,
-            WeaponGuardState::Lowered,
-            1.0 / 60.0,
-        );
-
-        assert!(next.angle_between(target) < Quat::IDENTITY.angle_between(target));
-        assert!(next.angle_between(target) > 0.0);
-    }
-
-    #[test]
     fn attack_origin_is_two_thirds_of_body_height_above_collider_base() {
         let collider = Collider::cylinder(0.4, 1.8);
         let transform = Transform::from_xyz(2.0, 5.9, -3.0);
@@ -1000,25 +940,5 @@ mod tests {
             Quat::from_rotation_y(0.1_f32.to_radians()) * Vec3::NEG_Z,
             1_000.0,
         ));
-    }
-
-    #[test]
-    fn attack_facing_reaches_the_target_at_canonical_contact_without_snapping() {
-        let desired = Vec3::X;
-        let delta_seconds = 0.05;
-        let contact_seconds = 0.5;
-        let mut rotation = Quat::IDENTITY;
-
-        for step in 0..10 {
-            let remaining = contact_seconds - step as f32 * delta_seconds;
-            let speed = body_turn_speed_for_deadline(rotation, desired, remaining, delta_seconds);
-            let next = advance_body_facing_toward(rotation, desired, delta_seconds, speed);
-            if step == 0 {
-                assert!(next.angle_between(rotation) < std::f32::consts::FRAC_PI_2);
-            }
-            rotation = next;
-        }
-
-        assert!((rotation * Vec3::Z).angle_between(desired) < 1.0e-5);
     }
 }

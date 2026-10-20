@@ -315,9 +315,24 @@ mod contract_tests {
     #[test]
     fn aimed_downed_facing_holds_half_roll_and_reaches_supine() {
         let mut state = SkeletonState::default().with_body_state(BodyState::Prone);
-        assert!(state.advance_downed_facing(0.5, true, 1.0));
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 0.5);
-        assert_eq!(state.downed_lateral_motion(), 1.0);
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.5).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            0.5
+        );
+        assert_eq!(state.downed_lateral_motion().fraction(), 1.0);
         assert_eq!(state.body(), BodyState::Prone);
         let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(
@@ -325,9 +340,24 @@ mod contract_tests {
             SemanticPose::ProneSupineRollRight
         );
 
-        assert!(state.advance_downed_facing(1.0, true, 1.0));
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(1.0).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(state.body(), BodyState::Supine);
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 1.0);
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            1.0
+        );
         assert!(
             AnimationEvaluation::from_skeleton(&state)
                 .unwrap()
@@ -342,12 +372,27 @@ mod contract_tests {
 
         // The prone sector nominally ends at 0.25 half-turns (45 degrees),
         // but remains committed through the ten-degree sticky margin.
-        assert!(state.advance_downed_facing(0.30, true, 1.0));
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.30).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(
             state.downed_facing().unwrap().target(),
             DownedFacingPose::Prone
         );
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 0.0);
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            0.0
+        );
         assert!(
             AnimationEvaluation::from_skeleton(&state)
                 .unwrap()
@@ -355,37 +400,90 @@ mod contract_tests {
                 .is_empty()
         );
 
-        assert!(state.advance_downed_facing(0.31, true, 1.0));
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.31).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(
             state.downed_facing().unwrap().target(),
             DownedFacingPose::RollRight
         );
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 0.5);
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            0.5
+        );
 
         // Reversing across the nominal boundary does not chatter back. It
         // must clear the opposite side of the hysteresis deadband first.
-        assert!(state.advance_downed_facing(0.24, true, 1.0));
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.24).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(
             state.downed_facing().unwrap().target(),
             DownedFacingPose::RollRight
         );
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 0.5);
-        assert!(state.advance_downed_facing(0.19, true, 1.0));
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            0.5
+        );
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.19).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(
             state.downed_facing().unwrap().target(),
             DownedFacingPose::Prone
         );
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 0.0);
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            0.0
+        );
     }
 
     #[test]
     fn aimed_downed_facing_interpolates_only_after_sector_commit() {
         let mut state = SkeletonState::default().with_body_state(BodyState::Prone);
-        assert!(state.advance_downed_facing(0.5, true, 0.125));
+        assert!(
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.5).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(0.125).unwrap()
+                )
+                .unwrap()
+        );
         let transition = state.downed_facing().unwrap();
         assert_eq!(transition.target(), DownedFacingPose::RollRight);
-        assert_eq!(transition.half_turns(), 0.125);
-        assert_eq!(transition.lateral_motion(), 1.0);
+        assert_eq!(transition.roll_coordinate().half_turns(), 0.125);
+        assert_eq!(transition.lateral_motion().fraction(), 1.0);
         assert!(
             !AnimationEvaluation::from_skeleton(&state)
                 .unwrap()
@@ -394,14 +492,33 @@ mod contract_tests {
         );
 
         for _ in 0..3 {
-            state.advance_downed_facing(0.5, true, 0.125);
+            state
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.5).unwrap(),
+                    DownedFacingAim::Held,
+                    DownedFacingStep::from_half_turns(0.125).unwrap(),
+                )
+                .unwrap();
         }
-        assert_eq!(state.downed_facing().unwrap().half_turns(), 0.5);
-        state.advance_downed_facing(0.55, true, 0.125);
+        assert_eq!(
+            state
+                .downed_facing()
+                .unwrap()
+                .roll_coordinate()
+                .half_turns(),
+            0.5
+        );
+        state
+            .advance_downed_facing(
+                SignedHalfTurns::from_half_turns(0.55).unwrap(),
+                DownedFacingAim::Held,
+                DownedFacingStep::from_half_turns(0.125).unwrap(),
+            )
+            .unwrap();
         let settled = state.downed_facing().unwrap();
         assert_eq!(settled.target(), DownedFacingPose::RollRight);
-        assert_eq!(settled.half_turns(), 0.5);
-        assert_eq!(settled.lateral_motion(), 0.0);
+        assert_eq!(settled.roll_coordinate().half_turns(), 0.5);
+        assert_eq!(settled.lateral_motion().fraction(), 0.0);
     }
 
     #[test]
@@ -471,20 +588,60 @@ mod contract_tests {
     #[test]
     fn releasing_aim_settles_downed_roll_to_nearest_contact() {
         let mut toward_prone = SkeletonState::default().with_body_state(BodyState::Prone);
-        toward_prone.advance_downed_facing(0.4, true, 1.0);
-        assert!(!toward_prone.advance_downed_facing(0.4, false, 1.0));
+        toward_prone
+            .advance_downed_facing(
+                SignedHalfTurns::from_half_turns(0.4).unwrap(),
+                DownedFacingAim::Held,
+                DownedFacingStep::from_half_turns(1.0).unwrap(),
+            )
+            .unwrap();
+        assert!(
+            !toward_prone
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.4).unwrap(),
+                    DownedFacingAim::Released,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(toward_prone.body(), BodyState::Prone);
         assert!(toward_prone.downed_facing().is_none());
 
         let mut toward_supine = SkeletonState::default().with_body_state(BodyState::Prone);
-        toward_supine.advance_downed_facing(1.0, true, 0.6);
-        assert!(!toward_supine.advance_downed_facing(0.0, false, 1.0));
+        toward_supine
+            .advance_downed_facing(
+                SignedHalfTurns::from_half_turns(1.0).unwrap(),
+                DownedFacingAim::Held,
+                DownedFacingStep::from_half_turns(0.6).unwrap(),
+            )
+            .unwrap();
+        assert!(
+            !toward_supine
+                .advance_downed_facing(
+                    SignedHalfTurns::from_half_turns(0.0).unwrap(),
+                    DownedFacingAim::Released,
+                    DownedFacingStep::from_half_turns(1.0).unwrap()
+                )
+                .unwrap()
+        );
         assert_eq!(toward_supine.body(), BodyState::Supine);
         assert!(toward_supine.downed_facing().is_none());
 
         let mut exact_half_roll = SkeletonState::default().with_body_state(BodyState::Prone);
-        exact_half_roll.advance_downed_facing(0.5, true, 1.0);
-        exact_half_roll.advance_downed_facing(0.5, false, 1.0);
+        exact_half_roll
+            .advance_downed_facing(
+                SignedHalfTurns::from_half_turns(0.5).unwrap(),
+                DownedFacingAim::Held,
+                DownedFacingStep::from_half_turns(1.0).unwrap(),
+            )
+            .unwrap();
+        exact_half_roll
+            .advance_downed_facing(
+                SignedHalfTurns::from_half_turns(0.5).unwrap(),
+                DownedFacingAim::Released,
+                DownedFacingStep::from_half_turns(1.0).unwrap(),
+            )
+            .unwrap();
         assert_eq!(exact_half_roll.body(), BodyState::Prone);
     }
 

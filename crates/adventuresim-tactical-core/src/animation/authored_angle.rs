@@ -57,6 +57,7 @@ impl TryFrom<f32> for AngularSpeedDegrees {
 }
 
 impl AngularSpeedRadians {
+    pub const ZERO: Self = Self(0.0);
     pub fn from_radians_per_second(value: f32) -> AnimationValueResult<Self> {
         checked_nonnegative(value, AnimationQuantity::BodyAngularVelocity).map(Self)
     }

@@ -154,6 +154,15 @@ Raised aiming resolves the center-screen camera target and the subsequent
 muzzle path separately. Debug builds use `F6` to show rig, collision, smoothing,
 occlusion classification, and aim-ray telemetry.
 
+Camera frame intervals are capped at 0.1 seconds. Collision hold time is a
+finite nonnegative interval, including zero, with the existing 0.12-second
+default. Horizontal and vertical follow, mode-transition and collision-recovery
+coefficients are finite signed shaping seconds. Profile interpolation precedes
+the damping equation's existing response floor, so finite zero and negative
+coefficients retain their behavior. Invalid authored temporal values fail
+checked admission. Blend and profile results are prepared before replacing
+their retained filter values; this does not make all camera updates atomic.
+
 The tactical workspace targets Bevy 0.19, Avian 0.7, Ahoy 0.2, Replicon
 0.41, Aeronet 0.21, Enhanced Input 0.26, and Flair 0.8. The engine upgrade does
 not move animation or movement authority: `SkeletonState` and controller state

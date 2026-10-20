@@ -1,5 +1,9 @@
 use super::*;
 use action_timeline::ActionTimeline;
+pub use downed_facing::{
+    DownedFacingAim, DownedFacingPose, DownedFacingState, DownedFacingStep, DownedRollMotion,
+    SignedHalfTurns, downed_camera_roll_target,
+};
 use guard_footwork::advance_guard_footwork;
 pub use projection::{
     SkeletonLocomotionInput, project_skeleton_locomotion,
@@ -7,9 +11,14 @@ pub use projection::{
 };
 pub use raised_locomotion::RaisedLocomotionIntent;
 use raised_locomotion::advance_raised_locomotion_intent;
-pub use turn_deadline::body_turn_speed_for_deadline;
+pub use turn_deadline::{
+    BodyFacingTurn, advance_body_facing, advance_body_facing_with_turn, advance_downed_body_facing,
+    advance_downed_body_facing_with_speed, body_facing_turn, controller_yaw,
+    dive_launch_root_rotation, downed_turn_speed_radians,
+};
 
 mod action_timeline;
+mod downed_facing;
 mod guard_footwork;
 mod projection;
 mod raised_locomotion;
@@ -399,84 +408,6 @@ impl PostureTransitionKind {
                 BodyState::Grounded(GroundedPosture::Upright)
             }
         }
-    }
-}
-
-/// Discrete camera-facing pose selected while a character is downed.
-/// Interpolation occurs only while moving between these four sector centers.
-#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
-pub enum DownedFacingPose {
-    #[default]
-    Prone,
-    RollRight,
-    Supine,
-    RollLeft,
-}
-
-impl DownedFacingPose {
-    fn from_half_turns(value: f32) -> Self {
-        match (value * 2.0).round() as i64 % 4 {
-            0 => Self::Prone,
-            1 | -3 => Self::RollRight,
-            2 | -2 => Self::Supine,
-            3 | -1 => Self::RollLeft,
-            _ => unreachable!("remainder is bounded to four downed poses"),
-        }
-    }
-
-    fn canonical_half_turns(self) -> f32 {
-        match self {
-            Self::Prone => 0.0,
-            Self::RollRight => 0.5,
-            Self::Supine => 1.0,
-            Self::RollLeft => -0.5,
-        }
-    }
-
-    fn half_turns_near(self, reference: f32) -> f32 {
-        let canonical = self.canonical_half_turns();
-        canonical + ((reference - canonical) / 2.0).round() * 2.0
-    }
-}
-
-/// Camera-driven roll around a downed character's head-to-feet axis. The
-/// target is one of four sticky sectors; `half_turns` is the transient
-/// interpolation coordinate. Values remain unwrapped so crossing the rear
-/// camera seam does not reverse an in-progress roll.
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
-pub struct DownedFacingState {
-    half_turns: f32,
-    target: DownedFacingPose,
-    lateral_motion: f32,
-}
-
-impl DownedFacingState {
-    fn normalized(mut self) -> Self {
-        self.half_turns = if self.half_turns.is_finite() {
-            self.half_turns
-        } else {
-            0.0
-        };
-        self.lateral_motion = if self.lateral_motion.is_finite() {
-            self.lateral_motion.clamp(-1.0, 1.0)
-        } else {
-            0.0
-        };
-        self.target =
-            DownedFacingPose::from_half_turns(self.target.half_turns_near(self.half_turns));
-        self
-    }
-
-    pub fn half_turns(self) -> f32 {
-        self.half_turns
-    }
-
-    pub fn lateral_motion(self) -> f32 {
-        self.lateral_motion
-    }
-
-    pub fn target(self) -> DownedFacingPose {
-        self.target
     }
 }
 
@@ -1666,20 +1597,20 @@ impl SkeletonState {
             DownedMotion::Resting
         };
     }
-    pub fn downed_lateral_motion(&self) -> f32 {
+    pub fn downed_lateral_motion(&self) -> DownedRollMotion {
         if let Some(transition) = self.posture_transition {
             return match transition.kind {
                 PostureTransitionKind::ProneToSupine { direction }
                 | PostureTransitionKind::SupineToProne { direction } => match direction {
-                    RollDirection::Left => -1.0,
-                    RollDirection::Right => 1.0,
+                    RollDirection::Left => DownedRollMotion::LEFT,
+                    RollDirection::Right => DownedRollMotion::RIGHT,
                 },
-                _ => 0.0,
+                _ => DownedRollMotion::REST,
             };
         }
         self.downed_facing
             .map(DownedFacingState::lateral_motion)
-            .unwrap_or(0.0)
+            .unwrap_or(DownedRollMotion::REST)
     }
     pub fn begin_posture_transition(
         &mut self,
@@ -1781,118 +1712,16 @@ impl SkeletonState {
             PostureTransitionKind::DiveToDowned {
                 direction: DiveDirection::Left,
                 ..
-            } => Some(DownedFacingState {
-                half_turns: -0.5,
-                target: DownedFacingPose::RollLeft,
-                lateral_motion: 0.0,
-            }),
+            } => Some(DownedFacingState::landed(DownedFacingPose::RollLeft)),
             PostureTransitionKind::DiveToDowned {
                 direction: DiveDirection::Right,
                 ..
-            } => Some(DownedFacingState {
-                half_turns: 0.5,
-                target: DownedFacingPose::RollRight,
-                lateral_motion: 0.0,
-            }),
+            } => Some(DownedFacingState::landed(DownedFacingPose::RollRight)),
             _ => None,
         };
     }
     pub fn is_posture_transitioning(&self) -> bool {
         self.posture_transition.is_some()
-    }
-    /// Follows or settles the downed roll. Held aim selects one of four sticky
-    /// camera sectors; only a sector change interpolates the pose. After
-    /// release, the raw camera angle selects the nearer whole contact pose.
-    /// Returns true while the camera-driven state remains active.
-    pub fn advance_downed_facing(
-        &mut self,
-        camera_target_half_turns: f32,
-        aim_held: bool,
-        maximum_step: f32,
-    ) -> bool {
-        if !matches!(self.body, BodyState::Prone | BodyState::Supine)
-            || self.posture_transition.is_some()
-        {
-            self.downed_facing = None;
-            return false;
-        }
-        let camera_target = if camera_target_half_turns.is_finite() {
-            camera_target_half_turns
-        } else {
-            0.0
-        };
-        let initial_target = match self.body {
-            BodyState::Prone => DownedFacingPose::Prone,
-            BodyState::Supine => DownedFacingPose::Supine,
-            _ => unreachable!("downed body checked above"),
-        };
-        let initial = initial_target.half_turns_near(camera_target);
-        let previous = self.downed_facing;
-        let current = previous
-            .map(DownedFacingState::half_turns)
-            .unwrap_or(initial);
-        let target = if aim_held {
-            let tuning = crate::combat_config::runtime_animation_config().state_transitions;
-            let committed = previous.map(|state| state.target).unwrap_or(initial_target);
-            let committed_half_turns = committed.half_turns_near(current);
-            let camera_unwrapped =
-                camera_target + ((committed_half_turns - camera_target) / 2.0).round() * 2.0;
-            let target_pose = if (camera_unwrapped - committed_half_turns).abs()
-                > tuning.downed_facing_sector_half_width + tuning.downed_facing_edge_stickiness
-            {
-                DownedFacingPose::from_half_turns(camera_unwrapped)
-            } else {
-                committed
-            };
-            target_pose.half_turns_near(camera_unwrapped)
-        } else {
-            let lower = current.floor();
-            if (current - lower - 0.5).abs() <= 1.0e-4 {
-                match self.body {
-                    BodyState::Prone => (current / 2.0).round() * 2.0,
-                    BodyState::Supine => ((current - 1.0) / 2.0).round() * 2.0 + 1.0,
-                    _ => unreachable!("downed body checked above"),
-                }
-            } else {
-                current.round()
-            }
-        };
-        let target_pose = if aim_held {
-            DownedFacingPose::from_half_turns(target)
-        } else if (target as i64).rem_euclid(2) == 0 {
-            DownedFacingPose::Prone
-        } else {
-            DownedFacingPose::Supine
-        };
-        let step = if maximum_step.is_finite() {
-            maximum_step.max(0.0)
-        } else {
-            0.0
-        };
-        let next = current + (target - current).clamp(-step, step);
-        self.downed_facing = Some(DownedFacingState {
-            half_turns: next,
-            target: target_pose,
-            lateral_motion: if (next - current).abs() > 1.0e-5 {
-                (next - current).signum()
-            } else {
-                0.0
-            },
-        });
-
-        if (next - next.round()).abs() <= 1.0e-4 {
-            let contact = next.round() as i64;
-            self.transition_body(if contact.rem_euclid(2) == 0 {
-                BodyState::Prone
-            } else {
-                BodyState::Supine
-            });
-            if !aim_held {
-                self.downed_facing = None;
-                return false;
-            }
-        }
-        true
     }
     pub fn is_grounded(&self) -> bool {
         self.body.is_grounded()
@@ -2357,158 +2186,6 @@ impl SkeletonState {
                 / recovery.samples() as f32
         };
     }
-}
-
-pub fn body_turn_speed_radians() -> f32 {
-    std::f32::consts::PI
-        / crate::combat_config::runtime_combat_presentation_config().body_turn_seconds_per_half_turn
-}
-
-pub fn downed_turn_speed_radians() -> f32 {
-    crate::combat_config::runtime_combat_presentation_config().downed_turn_radians_per_second
-}
-
-/// Returns the controller's yaw without allowing camera pitch or roll to tilt
-/// planar locomotion into or out of the ground plane.
-pub fn controller_yaw(orientation: Quat) -> Quat {
-    let forward = orientation * Vec3::NEG_Z;
-    let Some(flat_forward) = forward.xz().try_normalize() else {
-        return Quat::IDENTITY;
-    };
-    Quat::from_rotation_y((-flat_forward.x).atan2(-flat_forward.y))
-}
-
-/// Root orientation committed when a procedural directional dive launches.
-/// Dive travel and pelvis tilt are both camera-relative, so they must capture
-/// the same controller frame before posture-transition facing locks.
-pub fn dive_launch_root_rotation(controller_orientation: Quat) -> Quat {
-    let forward = controller_yaw(controller_orientation) * Vec3::NEG_Z;
-    Quat::from_rotation_y(forward.x.atan2(forward.z))
-}
-
-/// Advances the authored body's +Z forward axis toward its single desired
-/// world direction. Attack and block are the current guard boundary and keep
-/// look-facing; all other moving states face authoritative planar velocity.
-/// At exactly 180 degrees the positive turn direction is chosen consistently,
-/// avoiding a normalize-through-zero snap.
-pub fn advance_body_facing(
-    current: Quat,
-    controller_orientation: Quat,
-    linear_velocity: Vec3,
-    action: SkeletonAction,
-    weapon_guard: WeaponGuardState,
-    delta_seconds: f32,
-) -> Quat {
-    advance_body_facing_with_speed(
-        current,
-        controller_orientation,
-        linear_velocity,
-        action,
-        weapon_guard,
-        delta_seconds,
-        body_turn_speed_radians(),
-    )
-}
-
-pub fn advance_body_facing_with_speed(
-    current: Quat,
-    controller_orientation: Quat,
-    linear_velocity: Vec3,
-    action: SkeletonAction,
-    weapon_guard: WeaponGuardState,
-    delta_seconds: f32,
-    turn_speed_radians: f32,
-) -> Quat {
-    let current_yaw = body_yaw(current);
-    let desired_forward = if weapon_guard == WeaponGuardState::Raised
-        || matches!(action, SkeletonAction::Attack | SkeletonAction::Block)
-    {
-        controller_yaw(controller_orientation) * Vec3::NEG_Z
-    } else {
-        if linear_velocity.xz().length() <= 0.05 {
-            return Quat::from_rotation_y(current_yaw);
-        }
-        let Some(direction) = linear_velocity.xz().try_normalize() else {
-            return Quat::from_rotation_y(current_yaw);
-        };
-        Vec3::new(direction.x, 0.0, direction.y)
-    };
-    advance_body_facing_toward(current, desired_forward, delta_seconds, turn_speed_radians)
-}
-
-/// Advances the authored body's +Z axis toward an explicit planar target.
-/// Attack target acquisition uses this lower-level seam to share the ordinary
-/// bounded facing actuator while choosing a target independently of camera yaw.
-pub fn advance_body_facing_toward(
-    current: Quat,
-    desired_forward: Vec3,
-    delta_seconds: f32,
-    turn_speed_radians: f32,
-) -> Quat {
-    let current_yaw = body_yaw(current);
-    let desired_yaw = desired_forward.x.atan2(desired_forward.z);
-    let mut delta = (desired_yaw - current_yaw + std::f32::consts::PI)
-        .rem_euclid(std::f32::consts::TAU)
-        - std::f32::consts::PI;
-    if (delta + std::f32::consts::PI).abs() <= 1.0e-5 {
-        delta = std::f32::consts::PI;
-    }
-    let maximum = (turn_speed_radians * delta_seconds.max(0.0)).min(std::f32::consts::PI);
-    Quat::from_rotation_y(current_yaw + delta.clamp(-maximum, maximum))
-}
-
-/// Rotates a downed body's fixed head direction toward camera yaw only while
-/// the caller keeps the alignment modifier held.
-pub fn advance_downed_body_facing(
-    current: Quat,
-    controller_orientation: Quat,
-    delta_seconds: f32,
-) -> Quat {
-    advance_downed_body_facing_with_speed(
-        current,
-        controller_orientation,
-        delta_seconds,
-        downed_turn_speed_radians(),
-    )
-}
-
-pub fn advance_downed_body_facing_with_speed(
-    current: Quat,
-    controller_orientation: Quat,
-    delta_seconds: f32,
-    turn_speed_radians: f32,
-) -> Quat {
-    let current_yaw = body_yaw(current);
-    let desired_forward = controller_yaw(controller_orientation) * Vec3::NEG_Z;
-    let desired_yaw = desired_forward.x.atan2(desired_forward.z);
-    let mut delta = (desired_yaw - current_yaw + std::f32::consts::PI)
-        .rem_euclid(std::f32::consts::TAU)
-        - std::f32::consts::PI;
-    if (delta + std::f32::consts::PI).abs() <= 1.0e-5 {
-        delta = std::f32::consts::PI;
-    }
-    let maximum = (turn_speed_radians * delta_seconds.max(0.0)).min(std::f32::consts::PI);
-    Quat::from_rotation_y(current_yaw + delta.clamp(-maximum, maximum))
-}
-
-fn body_yaw(rotation: Quat) -> f32 {
-    let forward = rotation * Vec3::Z;
-    forward.x.atan2(forward.z)
-}
-
-/// Converts camera yaw into the continuous downed-roll coordinate relative to
-/// the body's fixed head direction. A quarter turn is the half-roll pose and a
-/// half turn is the opposite contact pose.
-pub fn downed_camera_roll_target(body_rotation: Quat, controller_orientation: Quat) -> f32 {
-    let body = body_yaw(body_rotation);
-    let camera_forward = controller_yaw(controller_orientation) * Vec3::NEG_Z;
-    let camera = camera_forward.x.atan2(camera_forward.z);
-    let mut delta = (camera - body + std::f32::consts::PI).rem_euclid(std::f32::consts::TAU)
-        - std::f32::consts::PI;
-    if (delta + std::f32::consts::PI).abs() <= 1.0e-5 {
-        delta = std::f32::consts::PI;
-    }
-    delta / std::f32::consts::PI
 }
 
 fn advance_contact_identity(

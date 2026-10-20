@@ -79,7 +79,7 @@ fn place(
         &SpatialQueryFilter::default(),
         &|_| true,
         &config,
-        1.0 / 60.0,
+        AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
     )
 }
 
@@ -219,24 +219,49 @@ fn brief_doorway_gaps_do_not_pump_distance_and_recovery_is_monotonic() {
     let config = CameraRigConfig::default();
     let mut boom = BoomRecovery::default();
     boom.reset(3.75);
-    boom.recover(3.75, 1.2, &config, 1.0 / 60.0);
+    boom.recover(
+        3.75,
+        1.2,
+        &config,
+        AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
+    );
     assert_eq!(boom.distance, 1.2);
     // The camera may have been pressed against the jamb for several seconds.
     for _ in 0..120 {
-        boom.recover(3.75, 1.2, &config, 1.0 / 60.0);
+        boom.recover(
+            3.75,
+            1.2,
+            &config,
+            AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
+        );
     }
     for _ in 0..4 {
-        boom.recover(3.75, 3.75, &config, 1.0 / 60.0);
+        boom.recover(
+            3.75,
+            3.75,
+            &config,
+            AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
+        );
         assert_eq!(boom.distance, 1.2);
     }
     let mut previous = boom.distance;
     for _ in 0..180 {
-        boom.recover(3.75, 3.75, &config, 1.0 / 60.0);
+        boom.recover(
+            3.75,
+            3.75,
+            &config,
+            AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
+        );
         assert!(boom.distance >= previous && boom.distance <= 3.75);
         previous = boom.distance;
     }
     assert!(boom.distance > 3.74);
-    boom.recover(3.75, 0.6, &config, 1.0 / 60.0);
+    boom.recover(
+        3.75,
+        0.6,
+        &config,
+        AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
+    );
     assert_eq!(
         boom.distance, 0.6,
         "a new obstruction must override recovery immediately"

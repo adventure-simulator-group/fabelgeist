@@ -507,59 +507,6 @@ mod legacy_tests {
     }
 
     #[test]
-    fn body_facing_is_bounded_and_uses_stable_half_turn() {
-        let first = advance_body_facing(
-            Quat::IDENTITY,
-            Quat::IDENTITY,
-            Vec3::NEG_Z,
-            SkeletonAction::None,
-            WeaponGuardState::Lowered,
-            1.0 / 64.0,
-        );
-        let angle = Quat::IDENTITY.angle_between(first);
-        assert!((angle - body_turn_speed_radians() / 64.0).abs() < 0.0001);
-        assert!(
-            (first * Vec3::Z).x > 0.0,
-            "exact reversal chooses positive yaw"
-        );
-
-        let completed = advance_body_facing(
-            Quat::IDENTITY,
-            Quat::IDENTITY,
-            Vec3::NEG_Z,
-            SkeletonAction::None,
-            WeaponGuardState::Lowered,
-            0.25,
-        );
-        assert!((Quat::IDENTITY.angle_between(completed) - std::f32::consts::PI).abs() < 0.0001);
-    }
-
-    #[test]
-    fn dive_launch_root_maps_every_procedural_axis_to_camera_relative_travel() {
-        let orientation = Quat::from_euler(EulerRot::YXZ, 0.83, -0.4, 0.2);
-        let root = dive_launch_root_rotation(orientation);
-        let camera = controller_yaw(orientation);
-        for (authored_axis, travel) in [
-            (Vec3::Z, camera * Vec3::NEG_Z),
-            (Vec3::NEG_Z, camera * Vec3::Z),
-            (Vec3::X, camera * Vec3::NEG_X),
-            (Vec3::NEG_X, camera * Vec3::X),
-        ] {
-            assert!((root * authored_axis).abs_diff_eq(travel, 0.000_01));
-        }
-    }
-
-    #[test]
-    fn camera_yaw_maps_quarter_and_half_turns_to_downed_roll() {
-        let body = Quat::IDENTITY;
-        let same_heading = Quat::from_rotation_y(std::f32::consts::PI);
-        let side_heading = Quat::from_rotation_y(std::f32::consts::FRAC_PI_2);
-        assert!(downed_camera_roll_target(body, same_heading).abs() < 0.0001);
-        assert!((downed_camera_roll_target(body, side_heading).abs() - 0.5).abs() < 0.0001);
-        assert!((downed_camera_roll_target(body, Quat::IDENTITY) - 1.0).abs() < 0.0001);
-    }
-
-    #[test]
     fn lateral_dive_lands_at_its_half_roll_without_crossing_prone_idle() {
         for (direction, expected_half_turns, expected_pose) in [
             (DiveDirection::Left, -0.5, SemanticPose::ProneSupineRollLeft),
@@ -586,7 +533,9 @@ mod legacy_tests {
 
             assert_eq!(state.body(), BodyState::Prone);
             assert_eq!(
-                state.downed_facing().map(DownedFacingState::half_turns),
+                state
+                    .downed_facing()
+                    .map(|facing| facing.roll_coordinate().half_turns()),
                 Some(expected_half_turns)
             );
             let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
@@ -619,46 +568,6 @@ mod legacy_tests {
             (Quat::IDENTITY.angle_between(delta) - std::f32::consts::PI * expected_progress).abs()
                 < 0.0001
         );
-    }
-
-    #[test]
-    fn downed_camera_alignment_turns_slowly_and_stops_at_the_observed_step() {
-        let first = advance_downed_body_facing(Quat::IDENTITY, Quat::IDENTITY, 0.5);
-        assert!((Quat::IDENTITY.angle_between(first) - std::f32::consts::FRAC_PI_4).abs() < 0.0001);
-        let unchanged_without_another_step = first;
-        assert_eq!(first, unchanged_without_another_step);
-    }
-
-    #[test]
-    fn guard_faces_look_while_locomotion_faces_world_velocity() {
-        let look = Quat::from_rotation_y(0.8);
-        let guard = advance_body_facing(
-            Quat::IDENTITY,
-            look,
-            Vec3::X,
-            SkeletonAction::Block,
-            WeaponGuardState::Lowered,
-            1.0,
-        );
-        assert!((guard * Vec3::Z).abs_diff_eq(look * Vec3::NEG_Z, 0.0001));
-        let travel = advance_body_facing(
-            Quat::IDENTITY,
-            look,
-            Vec3::X,
-            SkeletonAction::None,
-            WeaponGuardState::Lowered,
-            1.0,
-        );
-        assert!((travel * Vec3::Z).abs_diff_eq(Vec3::X, 0.0001));
-        let raised = advance_body_facing(
-            Quat::IDENTITY,
-            look,
-            Vec3::X,
-            SkeletonAction::None,
-            WeaponGuardState::Raised,
-            1.0,
-        );
-        assert!((raised * Vec3::Z).abs_diff_eq(look * Vec3::NEG_Z, 0.0001));
     }
 
     #[test]

@@ -1,8 +1,8 @@
 //! Animation frequencies and checked reciprocal sampling intervals.
 
 use super::{
-    AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult,
-    PositiveAnimationDuration,
+    AnimationElapsed, AnimationQuantity, AnimationSampleSpan, AnimationValueError,
+    AnimationValueResult, PositiveAnimationDuration,
 };
 use serde::{Deserialize, Serialize};
 
@@ -50,6 +50,16 @@ impl AnimationSampleRate {
     /// Native reciprocal duration for fixed-step sampling.
     pub fn interval(self) -> PositiveAnimationDuration {
         self.interval
+    }
+    /// Convert a remaining sample span at its authoritative frequency. Preserve
+    /// the original f32 count-before-division order, rather than reciprocal multiplication.
+    pub fn elapsed_for_span(
+        self,
+        span: AnimationSampleSpan,
+    ) -> AnimationValueResult<AnimationElapsed> {
+        Ok(AnimationElapsed::from_seconds(
+            span.samples() as f32 / self.hertz(),
+        )?)
     }
 }
 

@@ -1,10 +1,8 @@
-pub(crate) mod collision;
-mod smoothing;
-
-use collision::{BoomRecovery, CameraFrame, CameraVolume, CloseCameraProfile};
-use smoothing::{
-    blend_profile, camera_view_metrics, critical_damp_scalar, damp_focus, sweet_spot_target,
-};
+use adventuresim_tactical_core::animation::AnimationElapsed;
+use collision::{CameraFrame, CameraVolume};
+pub use config::{CameraProfile, CameraRigConfig, CameraShapingTime};
+use rig_history::CameraRigState;
+use smoothing::{camera_view_metrics, critical_damp_scalar, damp_focus, sweet_spot_target};
 
 use adventuresim_tactical_core::prelude::{
     BodyState, CharacterControllerCameraOf, CharacterControllerState, PlayerEquipment,
@@ -12,6 +10,11 @@ use adventuresim_tactical_core::prelude::{
 };
 use adventuresim_tactical_netcode::client::WeaponGuardInputState;
 use bevy::prelude::*;
+
+pub(crate) mod collision;
+mod config;
+mod rig_history;
+mod smoothing;
 
 pub struct TacticalCameraPlugin;
 
@@ -64,107 +67,6 @@ impl Default for CameraMode {
 /// camera. Foliage, particles, and thin decorative props should use this.
 #[derive(Component, Debug, Clone, Copy, Default)]
 pub struct CameraSoftOccluder;
-
-#[derive(Debug, Clone, Copy)]
-pub struct CameraProfile {
-    pub distance: f32,
-    pub shoulder_offset: f32,
-    /// Height above the controller transform, which is centered in its capsule.
-    pub focus_height: f32,
-    pub horizontal_follow_time: f32,
-    pub vertical_follow_time: f32,
-    pub maximum_follow_error: f32,
-    /// Half-extents in normalized screen coordinates.
-    pub sweet_spot: Vec2,
-}
-
-#[derive(Resource, Debug, Clone, Copy)]
-pub struct CameraRigConfig {
-    pub lowered: CameraProfile,
-    pub raised: CameraProfile,
-    pub transition_time: f32,
-    pub close: CloseCameraProfile,
-    pub collision_margin: f32,
-    pub collision_recovery_time: f32,
-    pub collision_hysteresis: f32,
-    /// Seconds to hold a retracted view before recovering through a doorway.
-    pub collision_hold_time: f32,
-    pub teleport_distance: f32,
-    pub crouch_focus_adjustment: f32,
-    pub prone_focus_adjustment: f32,
-    pub supine_focus_adjustment: f32,
-    pub aim_distance: f32,
-    pub muzzle_offset: Vec3,
-}
-
-impl Default for CameraRigConfig {
-    fn default() -> Self {
-        Self {
-            lowered: CameraProfile {
-                distance: 3.75,
-                shoulder_offset: 0.0,
-                focus_height: 0.48,
-                horizontal_follow_time: 0.18,
-                vertical_follow_time: 0.34,
-                maximum_follow_error: 0.85,
-                sweet_spot: Vec2::new(0.09, 0.065),
-            },
-            raised: CameraProfile {
-                distance: 2.75,
-                shoulder_offset: 0.5,
-                focus_height: 0.62,
-                horizontal_follow_time: 0.055,
-                vertical_follow_time: 0.08,
-                maximum_follow_error: 0.22,
-                sweet_spot: Vec2::splat(0.01),
-            },
-            transition_time: 0.18,
-            close: CloseCameraProfile::default(),
-            collision_margin: 0.04,
-            collision_recovery_time: 0.32,
-            collision_hysteresis: 0.08,
-            collision_hold_time: 0.12,
-            teleport_distance: 2.0,
-            crouch_focus_adjustment: -0.45,
-            prone_focus_adjustment: -0.82,
-            supine_focus_adjustment: -0.76,
-            aim_distance: 100.0,
-            // Local right, up, and forward from the controller center.
-            muzzle_offset: Vec3::new(0.28, 0.55, 0.42),
-        }
-    }
-}
-
-#[derive(Resource, Debug, Clone)]
-pub(crate) struct CameraRigState {
-    initialized: bool,
-    focus: Vec3,
-    focus_velocity: Vec3,
-    blend: f32,
-    blend_velocity: f32,
-    boom: BoomRecovery,
-    shoulder_offset: f32,
-    shoulder_velocity: f32,
-    last_anchor: Vec3,
-    subject: Option<Entity>,
-}
-
-impl Default for CameraRigState {
-    fn default() -> Self {
-        Self {
-            initialized: false,
-            focus: Vec3::ZERO,
-            focus_velocity: Vec3::ZERO,
-            blend: 0.0,
-            blend_velocity: 0.0,
-            boom: BoomRecovery::default(),
-            shoulder_offset: 0.0,
-            shoulder_velocity: 0.0,
-            last_anchor: Vec3::ZERO,
-            subject: None,
-        }
-    }
-}
 
 #[derive(Resource, Debug, Clone, Copy, Default)]
 pub(crate) struct CameraRigDebugState {
@@ -247,28 +149,31 @@ fn update_camera_rig(
     mut debug: ResMut<CameraRigDebugState>,
 ) {
     if !mode.third_person {
-        state.initialized = false;
+        state.reset_observation();
         debug.active = false;
         return;
     }
 
-    let dt = time.delta_secs().min(0.1);
+    let elapsed = match AnimationElapsed::from_seconds(time.delta_secs().min(0.1)) {
+        Ok(elapsed) => elapsed,
+        Err(error) => {
+            warn!(%error, "cannot admit camera frame interval");
+            return;
+        }
+    };
     for (mut camera, camera_of, projection) in &mut cameras {
         let Ok((controller, controller_state, skeleton)) =
             controllers.get(camera_of.character_controller)
         else {
             continue;
         };
-        let target_blend = f32::from(guard.desired == WeaponGuardState::Raised);
-        state.blend = critical_damp_scalar(
-            state.blend,
-            target_blend,
-            &mut state.blend_velocity,
-            config.transition_time,
-            dt,
-        )
-        .clamp(0.0, 1.0);
-        let profile = blend_profile(config.lowered, config.raised, state.blend);
+        let profile = match state.advance_profile(guard.desired, &config, elapsed) {
+            Ok(profile) => profile,
+            Err(error) => {
+                warn!(%error, "cannot blend camera profile");
+                continue;
+            }
+        };
         let crouch_adjustment = match skeleton.map(SkeletonState::body) {
             Some(BodyState::Prone) => config.prone_focus_adjustment,
             Some(BodyState::Supine) => config.supine_focus_adjustment,
@@ -277,70 +182,64 @@ fn update_camera_rig(
         };
         let anchor = controller.translation + Vec3::Y * (profile.focus_height + crouch_adjustment);
 
-        let discontinuity = state.initialized
-            && (state.subject != Some(camera_of.character_controller)
-                || anchor.distance(state.last_anchor) > config.teleport_distance);
-        if !state.initialized || discontinuity {
-            state.initialized = true;
-            state.focus = anchor;
-            state.focus_velocity = Vec3::ZERO;
-            state.boom.reset(profile.distance);
-            state.shoulder_offset = profile.shoulder_offset;
-            state.shoulder_velocity = 0.0;
-        }
-        state.last_anchor = anchor;
-        state.subject = Some(camera_of.character_controller);
+        let raised_blend = state.blend.fraction();
+        let history = state.observe(
+            camera_of.character_controller,
+            anchor,
+            profile,
+            config.teleport_distance,
+        );
 
         let rotation = camera.rotation;
         let (aspect, tan_half_fov) = camera_view_metrics(projection);
         let (focus_target, screen_error) = sweet_spot_target(
             anchor,
-            state.focus,
+            history.focus,
             rotation,
-            state.boom.distance,
+            history.boom.distance,
             profile.sweet_spot,
             aspect,
             tan_half_fov,
         );
-        state.focus = damp_focus(
-            state.focus,
+        history.focus = damp_focus(
+            history.focus,
             focus_target,
-            &mut state.focus_velocity,
+            &mut history.focus_velocity,
             profile,
-            dt,
+            elapsed,
         );
-        let follow_error = anchor - state.focus;
+        let follow_error = anchor - history.focus;
         if follow_error.length() > profile.maximum_follow_error {
-            state.focus = anchor - follow_error.normalize() * profile.maximum_follow_error;
-            state.focus_velocity = state
+            history.focus = anchor - follow_error.normalize() * profile.maximum_follow_error;
+            history.focus_velocity = history
                 .focus_velocity
                 .reject_from_normalized(follow_error.normalize());
         }
 
-        state.shoulder_offset = critical_damp_scalar(
-            state.shoulder_offset,
+        history.shoulder_offset = critical_damp_scalar(
+            history.shoulder_offset,
             profile.shoulder_offset,
-            &mut state.shoulder_velocity,
+            &mut history.shoulder_velocity,
             config.transition_time,
-            dt,
+            elapsed,
         );
         let frame = CameraFrame {
             origin: controller.translation,
             anchor,
-            focus: state.focus,
+            focus: history.focus,
             rotation,
-            shoulder_offset: state.shoulder_offset,
+            shoulder_offset: history.shoulder_offset,
             distance: profile.distance,
         };
         let volume = CameraVolume::new(projection, config.collision_margin);
-        let placement = state.boom.place(
+        let placement = history.boom.place(
             &frame,
             &volume,
             &spatial,
             &SpatialQueryFilter::from_excluded_entities([camera_of.character_controller]),
             &|entity| !soft_occluders.contains(entity),
             &config,
-            dt,
+            elapsed,
         );
         camera.translation = placement.position;
         let subject_delta = anchor - camera.translation;
@@ -357,9 +256,9 @@ fn update_camera_rig(
 
         *debug = CameraRigDebugState {
             active: true,
-            raised_blend: state.blend,
+            raised_blend,
             subject: anchor,
-            focus: state.focus,
+            focus: history.focus,
             collision_origin: frame.origin,
             collision_volume: Transform {
                 translation: camera.translation + rotation * volume.local_center,
@@ -375,8 +274,8 @@ fn update_camera_rig(
                 + *subject_direction * soft_occlusion.map_or(0.0, |hit| hit.distance),
             desired_distance: profile.distance,
             limited_distance: placement.limited_distance,
-            focus_velocity: state.focus_velocity,
-            boom_velocity: state.boom.velocity,
+            focus_velocity: history.focus_velocity,
+            boom_velocity: history.boom.velocity,
             screen_error,
             sweet_spot: profile.sweet_spot,
         };
@@ -501,15 +400,6 @@ mod tests {
         world.insert_resource(CameraMode::default());
         world.run_system_cached(toggle_camera_mode).unwrap();
         assert!(!world.resource::<CameraMode>().third_person);
-    }
-
-    #[test]
-    fn reversing_a_mode_blend_continues_from_the_displayed_state() {
-        let mut velocity = 0.0;
-        let raised = critical_damp_scalar(0.0, 1.0, &mut velocity, 0.18, 0.08);
-        let reversed = critical_damp_scalar(raised, 0.0, &mut velocity, 0.18, 0.01);
-        assert!((reversed - raised).abs() < 0.1);
-        assert!(reversed > 0.0 && reversed < 1.0);
     }
 
     #[test]

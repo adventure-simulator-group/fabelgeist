@@ -1,4 +1,7 @@
-use adventuresim_tactical_core::animation::{AnimationSampleSpan, AnimationSampleTick};
+use adventuresim_building_generator::spatial_geometry::Radians;
+use adventuresim_tactical_core::animation::{
+    AnimationElapsed, AnimationSampleSpan, AnimationSampleTick,
+};
 use std::collections::BTreeMap;
 
 use adventuresim_core::{
@@ -35,10 +38,7 @@ use crate::{
 };
 use dive_launch::{DiveLaunch, apply_dive_launch_velocity};
 use input::AccumulatedInput;
-use posture_facing::{
-    advance_downed_facing_for_camera, advance_projected_posture,
-    posture_transition_locks_body_facing,
-};
+use posture_facing::advance_projected_posture;
 use projection_equipment::{
     projected_armor, projected_holder_appearance, projected_parametric_weapon,
     projected_weapon_appearance,
@@ -201,6 +201,28 @@ pub(crate) struct AttackFacing {
     pub(crate) target: Entity,
     pub(crate) target_position: Vec3,
     pub(crate) contact_tick: AnimationSampleTick,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+struct ValidatedPlayerInput {
+    movement: Option<Vec2>,
+    yaw: Radians,
+    pitch: Radians,
+    jump: JumpCommand,
+    jump_charge: JumpAnticipation,
+    downed_align: bool,
+    posture: PostureCommand,
+    pace: MovementPace,
+    weapon_guard: WeaponGuardState,
+    melee_preparation: MeleePreparationInput,
+}
+
+impl ValidatedPlayerInput {
+    /// Project the once-normalized angles at Ahoy's native controller fields.
+    fn write_look(self, look: &mut CharacterLook) {
+        look.yaw = self.yaw.radians();
+        look.pitch = self.pitch.radians();
+    }
 }
 
 pub(crate) fn begin_attack_facing(
@@ -1182,10 +1204,10 @@ pub(crate) fn on_player_input(
     }
     trace!(
         "DEBUG on_player_input entity={entity:?} input.look={:?} validated.yaw={}",
-        input.look, validated.yaw
+        input.look,
+        validated.yaw.radians()
     );
-    look.yaw = validated.yaw;
-    look.pitch = validated.pitch;
+    validated.write_look(&mut look);
     accumulated_input.last_movement = validated.movement;
     if sequence_is_newer(
         validated.posture.sequence,
@@ -1213,7 +1235,7 @@ pub(crate) fn on_player_input(
             // body on the first frame, independently of its inverted animation.
             apply_dive_launch_velocity(
                 &mut velocity,
-                look.yaw,
+                validated.yaw,
                 launch,
                 combat_config.movement.speeds_metres_per_second.dive,
             );
@@ -1380,20 +1402,6 @@ fn sequence_is_newer(candidate: u32, previous: u32) -> bool {
     distance != 0 && distance <= u32::MAX / 2
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
-struct ValidatedPlayerInput {
-    movement: Option<Vec2>,
-    yaw: f32,
-    pitch: f32,
-    jump: JumpCommand,
-    jump_charge: JumpAnticipation,
-    downed_align: bool,
-    posture: PostureCommand,
-    pace: MovementPace,
-    weapon_guard: WeaponGuardState,
-    melee_preparation: MeleePreparationInput,
-}
-
 fn validate_player_input(input: PlayerInputRequest) -> Option<ValidatedPlayerInput> {
     let PlayerInputRequest {
         simulation_tick: _,
@@ -1424,9 +1432,12 @@ fn validate_player_input(input: PlayerInputRequest) -> Option<ValidatedPlayerInp
     };
     Some(ValidatedPlayerInput {
         movement: movement.map(|movement| movement.clamp_length_max(1.0)),
-        yaw: (look.x + std::f32::consts::PI).rem_euclid(std::f32::consts::TAU)
-            - std::f32::consts::PI,
-        pitch: look.y.clamp(-1.5, 1.5),
+        yaw: Radians::new(
+            (look.x + std::f32::consts::PI).rem_euclid(std::f32::consts::TAU)
+                - std::f32::consts::PI,
+        )
+        .ok()?,
+        pitch: Radians::new(look.y.clamp(-1.5, 1.5)).ok()?,
         jump,
         jump_charge: JumpAnticipation::from(jump_charge),
         downed_align,
@@ -1502,7 +1513,10 @@ fn apply_posture_action(
         | PostureTransitionKind::SupineToProne { .. } => {
             combat_seconds_to_ticks(config.movement.maneuvers.roll_seconds)
         }
-        _ => combat_seconds_to_ticks(config.movement.maneuvers.get_up_seconds),
+        _ => config
+            .movement
+            .maneuvers
+            .get_up_sample_span(locomotion_sample_rate()),
     };
     if !skeleton.begin_posture_transition(transition, tick, duration) {
         return None;
@@ -1528,7 +1542,10 @@ pub(crate) fn begin_get_up_transition_configured(
     skeleton.begin_posture_transition(
         transition,
         skeleton.locomotion_sample_tick,
-        combat_seconds_to_ticks(config.movement.maneuvers.get_up_seconds),
+        config
+            .movement
+            .maneuvers
+            .get_up_sample_span(locomotion_sample_rate()),
     )
 }
 
@@ -1629,14 +1646,14 @@ pub(crate) fn restore_authoritative_movement_intent(
         accumulated_input.crouched =
             skeleton.body().is_downed() || skeleton.is_posture_transitioning();
         let roll_motion = skeleton.downed_lateral_motion();
-        if roll_motion.abs() > 0.0 {
+        if roll_motion.is_moving() {
             accumulated_input.last_movement = match (controller, transform) {
                 (Some(controller), Some(transform)) => Some(body_relative_controller_input(
-                    Vec3::new(-roll_motion, 0.0, 0.0),
+                    Vec3::new(-roll_motion.fraction(), 0.0, 0.0),
                     transform.rotation,
                     controller.orientation,
                 )),
-                _ => Some(Vec2::X * roll_motion),
+                _ => Some(Vec2::X * roll_motion.fraction()),
             };
         } else if skeleton.is_posture_transitioning() {
             accumulated_input.last_movement = None;
@@ -1651,6 +1668,7 @@ pub(crate) fn update_skeleton_locomotion(
     combat_config: Res<TacticalCombatConfig>,
     mut players: LocomotionQuery<'_, '_>,
 ) {
+    let elapsed = AnimationElapsed::from(time.delta());
     for (
         controller,
         velocity,
@@ -1672,63 +1690,24 @@ pub(crate) fn update_skeleton_locomotion(
         let tick = AnimationSampleTick::from(
             (time.elapsed_secs_f64() * locomotion_sample_rate().hertz() as f64).round() as u64,
         );
-        let posture_transitioning = posture_transition_locks_body_facing(&skeleton);
-        if posture_transitioning {
-            // Authored transitions own their direction relative to a fixed
-            // root until a roll or get-up has reached its endpoint.
-            skeleton.set_downed_motion(DownedMotion::Resting);
-        } else if matches!(skeleton.body(), BodyState::Prone | BodyState::Supine)
-            && !skeleton.is_posture_transitioning()
-        {
-            let target = downed_camera_roll_target(transform.rotation, controller.orientation);
-            if posture.facing == CameraFacingIntent::DownedAlign {
-                let next = advance_downed_body_facing_with_speed(
-                    transform.rotation,
-                    controller.orientation,
-                    time.delta_secs(),
-                    combat_config.presentation.downed_turn_radians_per_second,
-                );
-                skeleton.set_downed_motion(if transform.rotation.angle_between(next) > 1.0e-5 {
-                    DownedMotion::Turning
-                } else {
-                    DownedMotion::Resting
-                });
-                transform.rotation = next;
-            } else {
-                skeleton.set_downed_motion(DownedMotion::Resting);
-                advance_downed_facing_for_camera(
-                    &mut skeleton,
-                    posture.facing,
-                    target,
-                    time.delta_secs() / combat_config.movement.maneuvers.get_up_seconds,
-                );
-            }
-        } else if skeleton.body() != BodyState::Ragdolled {
-            skeleton.set_downed_motion(DownedMotion::Resting);
-            transform.rotation = if let Some(attack_facing) = attack_facing {
-                attack_facing.advance_rotation(
-                    &transform,
-                    tick,
-                    AnimationElapsed::from(time.delta()),
-                )
-            } else {
-                advance_body_facing_with_speed(
-                    transform.rotation,
-                    controller.orientation,
-                    velocity.0,
-                    skeleton.action_kind(),
-                    skeleton.weapon_guard(),
-                    time.delta_secs(),
-                    std::f32::consts::PI
-                        / combat_config.presentation.body_turn_seconds_per_half_turn,
-                )
-            };
+        let facing = posture_facing::AuthoritativeFacing {
+            controller_orientation: controller.orientation,
+            world_velocity: velocity.0,
+            camera: posture.facing,
+            attack: attack_facing,
+            tick,
+            elapsed,
+            config: &combat_config,
+        };
+        if let Err(error) = facing.advance(&mut skeleton, &mut transform) {
+            warn!(%error, "cannot advance authoritative facing");
+            continue;
         }
         let observation = SkeletonLocomotionInput::from_controller(
             controller.orientation,
             velocity.0,
             GroundContact::from(controller.grounded.is_some() || quickstep_push.active),
-            AnimationElapsed::from(time.delta()),
+            elapsed,
             tick,
         );
         if let Err(error) = observation.and_then(|input| {
@@ -2367,6 +2346,7 @@ mod tests {
     use super::dive_launch::DiveLaunch;
     use super::posture_facing::{
         advance_downed_facing_for_camera, advance_posture_transition_facing,
+        posture_transition_locks_body_facing,
     };
     use super::projection_equipment::parametric_combat_geometry;
     use super::{
@@ -2376,13 +2356,15 @@ mod tests {
         ROLL_POSTURE_TRANSITION_TICKS, RangedAttackAuthority, ReconnectSession, WeaponGuardState,
         apply_posture_action, authoritative_weapon_guard, begin_authoritative_quickstep,
         combat_seconds_to_ticks, downed_tank_controller_input, input, mission_enemy_health_scale,
-        mission_enemy_scale, on_client_disconnected, player_collider,
-        posture_transition_locks_body_facing, queue_replication_rebind, reconnect_matches,
-        restore_authoritative_movement_intent, sequence_is_newer,
+        mission_enemy_scale, on_client_disconnected, player_collider, queue_replication_rebind,
+        reconnect_matches, restore_authoritative_movement_intent, sequence_is_newer,
         tactical_movement_speed_for_guard, try_claim_reconnect, update_character_motion_snapshots,
         validate_player_input,
     };
-    use adventuresim_tactical_core::animation::{AnimationSampleSpan, AnimationSampleTick};
+    use adventuresim_tactical_core::animation::{
+        AnimationElapsed, AnimationSampleSpan, AnimationSampleTick, DownedFacingStep,
+        SignedHalfTurns,
+    };
     use adventuresim_tactical_core::physics::tactical_character_controller;
     use adventuresim_tactical_core::prelude::{
         BestiaryCategories, BodyState, CharacterControllerState, CharacterId, CharacterLook,
@@ -2701,7 +2683,7 @@ mod tests {
                 ..valid_player_input_request()
             }) {
                 controller_input = (
-                    Vec2::new(validated.yaw, validated.pitch),
+                    Vec2::new(validated.yaw.radians(), validated.pitch.radians()),
                     validated.movement,
                     validated.jump,
                     validated.weapon_guard,
@@ -2785,10 +2767,10 @@ mod tests {
             ..valid_player_input_request()
         })
         .unwrap();
-        assert!((validated.yaw - 0.25).abs() < 0.0001);
-        assert_eq!(validated.pitch, 1.5);
+        assert!((validated.yaw.radians() - 0.25).abs() < 0.0001);
+        assert_eq!(validated.pitch.radians(), 1.5);
         assert!(validated.movement.unwrap().length() <= 1.0001);
-        assert!(validated.yaw.is_finite() && validated.pitch.is_finite());
+        assert!(validated.yaw.radians().is_finite() && validated.pitch.radians().is_finite());
         assert_eq!(validated.weapon_guard, WeaponGuardState::Raised);
         assert_eq!(validated.jump.sequence, 7);
         assert!(validated.jump_charge == JumpAnticipation::Charging);
@@ -2934,8 +2916,9 @@ mod tests {
             Vec3::ZERO,
             SkeletonAction::None,
             WeaponGuardState::Raised,
-            1.0,
-        );
+            AnimationElapsed::from_seconds(1.0).unwrap(),
+        )
+        .unwrap();
         assert!(!transform.rotation.abs_diff_eq(standing_rotation, 0.000_01));
         assert!(!transform.rotation.abs_diff_eq(landing_rotation, 0.000_01));
     }
@@ -3010,7 +2993,7 @@ mod tests {
                 direction: RollDirection::Left,
             }
         );
-        assert_eq!(skeleton.downed_lateral_motion(), -1.0);
+        assert_eq!(skeleton.downed_lateral_motion().fraction(), -1.0);
         skeleton.advance_posture_transition(AnimationSampleTick::from(
             ROLL_POSTURE_TRANSITION_TICKS - 1,
         ));
@@ -3049,7 +3032,13 @@ mod tests {
 
         // A camera looking toward the character's feet maps back toward the
         // prone sector, but it is inert without held aim.
-        advance_downed_facing_for_camera(&mut skeleton, CameraFacingIntent::Free, 0.0, 1.0);
+        advance_downed_facing_for_camera(
+            &mut skeleton,
+            CameraFacingIntent::Free,
+            SignedHalfTurns::from_half_turns(0.0).unwrap(),
+            DownedFacingStep::from_half_turns(1.0).unwrap(),
+        )
+        .unwrap();
         assert_eq!(skeleton.body(), BodyState::Supine);
         assert!(skeleton.downed_facing().is_none());
     }
@@ -3491,13 +3480,15 @@ mod tests {
                 "{direction:?} physics rotation diverged from replicated transform"
             );
             assert_eq!(
-                skeleton.downed_facing().map(|facing| facing.half_turns()),
+                skeleton
+                    .downed_facing()
+                    .map(|facing| facing.roll_coordinate().half_turns()),
                 expected_half_roll,
                 "{direction:?}"
             );
             if let Some(expected_half_roll) = expected_half_roll {
                 assert!(
-                    (downed_camera_roll_target(transform.rotation, Quat::IDENTITY)
+                    (downed_camera_roll_target(transform.rotation, Quat::IDENTITY).half_turns()
                         - expected_half_roll)
                         .abs()
                         < 0.000_01,

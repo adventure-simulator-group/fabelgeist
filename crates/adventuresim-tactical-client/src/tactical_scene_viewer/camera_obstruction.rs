@@ -2,6 +2,7 @@
 
 use super::*;
 use crate::camera::collision::{BoomRecovery, CameraFrame, CameraVolume};
+use adventuresim_tactical_core::animation::AnimationElapsed;
 
 pub(super) fn animation_play_obstruction_camera(
     state: &SceneCaptureState,
@@ -79,7 +80,7 @@ fn resolve(
         &SpatialQueryFilter::default(),
         &|_| true,
         &config,
-        0.0,
+        AnimationElapsed::ZERO,
     );
     (
         Transform::from_translation(placement.position).with_rotation(rotation),

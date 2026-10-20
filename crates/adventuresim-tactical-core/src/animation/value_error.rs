@@ -72,6 +72,16 @@ pub enum AnimationQuantity {
     ImpactCompressionCompliance,
     #[display("look distribution")]
     LookDistribution,
+    #[display("camera blend velocity")]
+    CameraBlendVelocity,
+    #[display("camera shaping seconds")]
+    CameraShapingTime,
+    #[display("downed half-turn coordinate")]
+    DownedFacing,
+    #[display("downed half-turn step")]
+    DownedFacingStep,
+    #[display("downed roll command")]
+    DownedRollMotion,
     #[display("body angle")]
     BodyAngle,
     #[display("body angular velocity")]
@@ -94,6 +104,8 @@ pub enum AnimationValueError {
     NonPositive { quantity: AnimationQuantity },
     #[error("{quantity} must lie in [0, 1]")]
     OutsideUnitInterval { quantity: AnimationQuantity },
+    #[error("{quantity} must lie in [-1, 1]")]
+    OutsideSignedUnitInterval { quantity: AnimationQuantity },
     #[error("{quantity} bounds are inverted")]
     InvertedBounds { quantity: AnimationQuantity },
     #[error("{quantity} arithmetic overflowed")]
@@ -109,6 +121,7 @@ impl AnimationValueError {
             Self::Negative { .. } => Self::Negative { quantity },
             Self::NonPositive { .. } => Self::NonPositive { quantity },
             Self::OutsideUnitInterval { .. } => Self::OutsideUnitInterval { quantity },
+            Self::OutsideSignedUnitInterval { .. } => Self::OutsideSignedUnitInterval { quantity },
             Self::InvertedBounds { .. } => Self::InvertedBounds { quantity },
             Self::Overflow { .. } => Self::Overflow { quantity },
         }

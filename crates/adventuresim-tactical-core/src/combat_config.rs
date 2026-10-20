@@ -1,6 +1,6 @@
 use crate::animation::{
-    AnimationElapsed, AnimationFrequency, AnimationSampleRate, HeightDistance, NonnegativeLength,
-    PositiveAnimationDuration, UnitInterval,
+    AngularSpeedRadians, AnimationElapsed, AnimationFrequency, AnimationSampleRate, HeightDistance,
+    NonnegativeLength, PositiveAnimationDuration, SignedHalfTurns, UnitInterval,
 };
 use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
 use adventuresim_core::linear_speed::{NonnegativeSpeed, PositiveSpeed, SignedSpeed};
@@ -10,6 +10,7 @@ use adventuresim_core::{
 };
 use bevy::prelude::Resource;
 pub use landing::AnimationLandingConfig;
+pub use maneuvers::ManeuverTimingConfig;
 pub use playback::AnimationPlaybackConfig;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
@@ -33,6 +34,7 @@ mod ai_offense;
 mod defaults;
 mod incapacitation_forecast;
 mod landing;
+mod maneuvers;
 mod playback;
 mod pose_buffer;
 mod procedural;
@@ -109,8 +111,8 @@ pub struct GuardFootworkConfig {
 #[serde(deny_unknown_fields)]
 pub struct AnimationStateTransitionConfig {
     pub dive_root_handoff_start_fraction: f32,
-    pub downed_facing_sector_half_width: f32,
-    pub downed_facing_edge_stickiness: f32,
+    pub downed_facing_sector_half_width: SignedHalfTurns,
+    pub downed_facing_edge_stickiness: SignedHalfTurns,
 }
 
 /// Additive rotational hit springs on the rendered skeleton. A hit kicks
@@ -338,21 +340,6 @@ pub struct JumpHeightsConfig {
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub struct ManeuverTimingConfig {
-    pub get_up_seconds: f32,
-    pub roll_seconds: f32,
-    pub dive_seconds: f32,
-    pub backward_dive_seconds: f32,
-    /// Full sprint-slide duration. Its authored midpoint is body contact;
-    /// only the second half is subject to slide drag.
-    pub slide_seconds: f32,
-    /// Complete input-to-recovery quickstep duration. `ActionTimeline` places
-    /// semantic contact halfway through this interval.
-    pub quickstep_duration_seconds: PositiveAnimationDuration,
-}
-
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct TacticalAiConfig {
     pub ordinary: OrdinaryAiConfig,
 }
@@ -405,8 +392,8 @@ pub struct BodyPartHitboxConfig {
 pub struct CombatPresentationConfig {
     pub incapacitation_forecast: IncapacitationForecastConfig,
     pub dodge_seconds: f32,
-    pub body_turn_seconds_per_half_turn: f32,
-    pub downed_turn_radians_per_second: f32,
+    pub body_turn_seconds_per_half_turn: PositiveAnimationDuration,
+    pub downed_turn_radians_per_second: AngularSpeedRadians,
     pub attack_curve: AttackCurveConfig,
 }
 
@@ -524,7 +511,7 @@ impl TacticalCombatConfig {
             movement.motor.slide_drag_coefficient,
             movement.motor.maximum_step_height_metres,
             movement.motor.maximum_walkable_slope_degrees,
-            movement.maneuvers.get_up_seconds,
+            movement.maneuvers.get_up_seconds.seconds(),
             movement.maneuvers.roll_seconds,
             movement.maneuvers.dive_seconds,
             movement.maneuvers.backward_dive_seconds,
@@ -644,8 +631,10 @@ impl TacticalCombatConfig {
         let presentation = &self.presentation;
         if ![
             presentation.dodge_seconds,
-            presentation.body_turn_seconds_per_half_turn,
-            presentation.downed_turn_radians_per_second,
+            presentation.body_turn_seconds_per_half_turn.seconds(),
+            presentation
+                .downed_turn_radians_per_second
+                .radians_per_second(),
         ]
         .into_iter()
         .all(|value| finite_nonnegative(value) && value > 0.0)

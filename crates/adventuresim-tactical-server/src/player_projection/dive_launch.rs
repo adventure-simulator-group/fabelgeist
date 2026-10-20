@@ -1,6 +1,7 @@
 //! Native horizontal velocity projection for an admitted posture launch.
 
 use super::*;
+use adventuresim_building_generator::spatial_geometry::Radians;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub(super) struct DiveLaunch {
@@ -9,7 +10,7 @@ pub(super) struct DiveLaunch {
 }
 
 pub(super) fn dive_horizontal_velocity(
-    yaw: f32,
+    yaw: Radians,
     direction: DiveDirection,
     speed: adventuresim_core::linear_speed::NonnegativeSpeed,
 ) -> Vec3 {
@@ -19,12 +20,12 @@ pub(super) fn dive_horizontal_velocity(
         DiveDirection::Left => Vec3::NEG_X,
         DiveDirection::Right => Vec3::X,
     };
-    Quat::from_rotation_y(yaw) * local * speed.metres_per_second()
+    Quat::from_rotation_y(yaw.radians()) * local * speed.metres_per_second()
 }
 
 pub(super) fn apply_dive_launch_velocity(
     velocity: &mut LinearVelocity,
-    yaw: f32,
+    yaw: Radians,
     launch: DiveLaunch,
     speed: adventuresim_core::linear_speed::NonnegativeSpeed,
 ) {
@@ -44,7 +45,7 @@ mod tests {
 
     #[test]
     fn dive_launch_velocity_follows_the_requested_camera_relative_direction() {
-        let yaw = std::f32::consts::FRAC_PI_2;
+        let yaw = Radians::new(std::f32::consts::FRAC_PI_2).unwrap();
         assert!(
             dive_horizontal_velocity(
                 yaw,
@@ -65,7 +66,7 @@ mod tests {
         );
         assert!(
             dive_horizontal_velocity(
-                0.0,
+                Radians::new(0.0).unwrap(),
                 DiveDirection::Left,
                 adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(7.0)
                     .unwrap()
@@ -74,7 +75,7 @@ mod tests {
         );
         assert!(
             dive_horizontal_velocity(
-                0.0,
+                Radians::new(0.0).unwrap(),
                 DiveDirection::Right,
                 adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(7.0)
                     .unwrap()
@@ -87,7 +88,7 @@ mod tests {
         let mut velocity = LinearVelocity(Vec3::new(1.0, 4.0, 2.0));
         apply_dive_launch_velocity(
             &mut velocity,
-            0.0,
+            Radians::new(0.0).unwrap(),
             DiveLaunch {
                 travel_direction: DiveDirection::Forward,
                 trajectory: DiveTrajectory::GroundedSlide,

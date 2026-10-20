@@ -1,7 +1,84 @@
 //! Preserve authored posture-facing ownership across animation projection.
 
 use super::*;
-use adventuresim_tactical_core::animation::AnimationSampleTick;
+use adventuresim_tactical_core::animation::{
+    AnimationSampleTick, DownedFacingStep, SignedHalfTurns,
+};
+
+/// One authoritative facing observation, before locomotion projection.
+/// This borrows the same immutable configuration snapshot for the whole solve.
+pub(super) struct AuthoritativeFacing<'a> {
+    pub(super) controller_orientation: Quat,
+    pub(super) world_velocity: Vec3,
+    pub(super) camera: CameraFacingIntent,
+    pub(super) attack: Option<&'a AttackFacing>,
+    pub(super) tick: AnimationSampleTick,
+    pub(super) elapsed: AnimationElapsed,
+    pub(super) config: &'a TacticalCombatConfig,
+}
+
+impl AuthoritativeFacing<'_> {
+    pub(super) fn advance(
+        self,
+        skeleton: &mut SkeletonState,
+        transform: &mut Transform,
+    ) -> AnimationValueResult<()> {
+        let posture_transitioning = posture_transition_locks_body_facing(skeleton);
+        if posture_transitioning {
+            // Authored transitions own their direction relative to a fixed
+            // root until a roll or get-up has reached its endpoint.
+            skeleton.set_downed_motion(DownedMotion::Resting);
+        } else if matches!(skeleton.body(), BodyState::Prone | BodyState::Supine)
+            && !skeleton.is_posture_transitioning()
+        {
+            let target = downed_camera_roll_target(transform.rotation, self.controller_orientation);
+            if self.camera == CameraFacingIntent::DownedAlign {
+                let next = advance_downed_body_facing_with_speed(
+                    transform.rotation,
+                    self.controller_orientation,
+                    self.elapsed,
+                    self.config.presentation.downed_turn_radians_per_second,
+                )?;
+                skeleton.set_downed_motion(if transform.rotation.angle_between(next) > 1.0e-5 {
+                    DownedMotion::Turning
+                } else {
+                    DownedMotion::Resting
+                });
+                transform.rotation = next;
+            } else {
+                skeleton.set_downed_motion(DownedMotion::Resting);
+                advance_downed_facing_for_camera(
+                    skeleton,
+                    self.camera,
+                    target,
+                    DownedFacingStep::for_frame(
+                        self.elapsed,
+                        self.config.movement.maneuvers.get_up_seconds,
+                    ),
+                )?;
+            }
+        } else if skeleton.body() != BodyState::Ragdolled {
+            skeleton.set_downed_motion(DownedMotion::Resting);
+            let next_rotation = if let Some(attack_facing) = self.attack {
+                attack_facing.advance_rotation(transform, self.tick, self.elapsed)
+            } else {
+                advance_body_facing_with_turn(
+                    transform.rotation,
+                    self.controller_orientation,
+                    self.world_velocity,
+                    skeleton.action_kind(),
+                    skeleton.weapon_guard(),
+                    self.elapsed,
+                    BodyFacingTurn::configured_half_turn(
+                        self.config.presentation.body_turn_seconds_per_half_turn,
+                    ),
+                )
+            };
+            transform.rotation = next_rotation?;
+        }
+        Ok(())
+    }
+}
 
 impl AttackFacing {
     pub(super) fn advance_rotation(
@@ -9,22 +86,13 @@ impl AttackFacing {
         transform: &Transform,
         tick: AnimationSampleTick,
         elapsed: AnimationElapsed,
-    ) -> Quat {
-        let remaining_seconds = self.contact_tick.saturating_sub(tick).samples() as f32
-            / locomotion_sample_rate().hertz();
+    ) -> AnimationValueResult<Quat> {
+        let remaining =
+            locomotion_sample_rate().elapsed_for_span(self.contact_tick.saturating_sub(tick))?;
         let desired_forward = self.target_position - transform.translation;
-        let turn_speed = body_turn_speed_for_deadline(
-            transform.rotation,
-            desired_forward,
-            remaining_seconds,
-            elapsed.seconds(),
-        );
-        advance_body_facing_toward(
-            transform.rotation,
-            desired_forward,
-            elapsed.seconds(),
-            turn_speed,
-        )
+        let turn =
+            BodyFacingTurn::for_deadline(transform.rotation, desired_forward, remaining, elapsed)?;
+        turn.advance(transform.rotation, desired_forward, elapsed)
     }
 }
 
@@ -73,14 +141,20 @@ pub(super) fn advance_posture_transition_facing(
 pub(super) fn advance_downed_facing_for_camera(
     skeleton: &mut SkeletonState,
     facing: CameraFacingIntent,
-    target: f32,
-    maximum_step: f32,
-) {
+    target: SignedHalfTurns,
+    maximum_step: DownedFacingStep,
+) -> AnimationValueResult<bool> {
     if facing == CameraFacingIntent::Aim {
-        skeleton.advance_downed_facing(target, true, maximum_step);
+        skeleton.advance_downed_facing(target, DownedFacingAim::Held, maximum_step)
     } else if skeleton.downed_facing().is_some() {
         // Aim release resolves an already-active interpolation to its nearest
         // stable contact. A free camera cannot seed a new prone/supine roll.
-        skeleton.advance_downed_facing(target, false, 1.0);
+        skeleton.advance_downed_facing(
+            target,
+            DownedFacingAim::Released,
+            DownedFacingStep::SETTLE_CONTACT,
+        )
+    } else {
+        Ok(false)
     }
 }

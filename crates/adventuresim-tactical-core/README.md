@@ -169,6 +169,15 @@ Before an input has been observed, the replicated motion snapshot carries no
 acknowledgement; an observed zero is a real coordinate, and unreliable-channel
 ordering stays wrap-aware.
 
+Facing keeps configured angular speeds or half-turn durations separate from
+live contact deadlines. A deadline retains its checked angle and interval until
+the planar turn computes the original quotient, frame product and half-turn cap;
+a transient unbounded quotient is never stored as an angular speed. Downed
+camera roll retains a signed, unwrapped half-turn coordinate and a separate
+bounded signed controller command. Their existing snapshot fields keep scalar
+encodings and their established wire normalization. Camera and local render
+facing histories begin with an actual observation rather than an identity pose.
+
 Configured gait bounce, flight apex and landing compression retain checked,
 zero-permitting metre amplitudes through profile selection and presentation
 history. Signed visual offsets remain distinct from these amplitudes. Authored

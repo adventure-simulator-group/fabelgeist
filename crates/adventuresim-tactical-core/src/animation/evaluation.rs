@@ -196,7 +196,7 @@ fn posture_transition_samples(state: &SkeletonState) -> Option<Vec<PoseSample>> 
 }
 
 fn downed_facing_samples(state: &SkeletonState) -> Option<Vec<PoseSample>> {
-    let roll = state.downed_facing()?.half_turns();
+    let roll = state.downed_facing()?.roll_coordinate().half_turns();
     // Whole values are already represented by the body's prone/supine base
     // pose. Leaving a zero-progress roll action active here would mask the
     // crawl/scamper base layer for as long as aim remains held.

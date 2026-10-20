@@ -563,10 +563,8 @@ pub(super) fn maximum_facing_tracking_excess(frames: &[&FrameSample]) -> f32 {
             let before = Vec3::from_array(pair[0].body_forward_direction);
             let actual = Vec3::from_array(pair[1].body_forward_direction);
             let desired = Vec3::from_array(pair[1].desired_body_forward_direction);
-            let elapsed =
-                (pair[1].time_seconds.seconds() - pair[0].time_seconds.seconds()).max(0.0);
-            let permitted_residual =
-                (before.angle_between(desired) - body_turn_speed_radians() * elapsed).max(0.0);
+            let elapsed = pair[1].time_seconds.saturating_sub(pair[0].time_seconds);
+            let permitted_residual = body_facing_turn().tracking_residual(before, desired, elapsed);
             (actual.angle_between(desired) - permitted_residual)
                 .abs()
                 .to_degrees()

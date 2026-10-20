@@ -10,6 +10,28 @@ pub(super) struct CaptureMotion {
     pub(super) elapsed: AnimationElapsed,
 }
 
+/// Root facing follows the fixture action only outside authored posture ownership.
+pub(super) fn advance_capture_facing(
+    skeleton: &SkeletonState,
+    transform: &mut Transform,
+    orientation: Quat,
+    world_velocity: Vec3,
+    action: SkeletonAction,
+    elapsed: AnimationElapsed,
+) -> AnimationValueResult<()> {
+    if !skeleton.is_posture_transitioning() {
+        transform.rotation = advance_body_facing(
+            transform.rotation,
+            orientation,
+            world_velocity,
+            action,
+            skeleton.weapon_guard(),
+            elapsed,
+        )?;
+    }
+    Ok(())
+}
+
 pub(super) fn project_capture_motion(
     skeleton: &mut SkeletonState,
     transform: &mut Transform,

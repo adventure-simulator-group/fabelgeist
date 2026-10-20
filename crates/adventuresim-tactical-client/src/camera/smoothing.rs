@@ -1,6 +1,7 @@
 //! Analytic camera follow damping.
 
-use super::CameraProfile;
+use super::{CameraProfile, CameraShapingTime};
+use adventuresim_tactical_core::animation::{AnimationElapsed, AnimationValueResult, UnitInterval};
 use bevy::prelude::*;
 
 pub(super) fn damp_focus(
@@ -8,7 +9,7 @@ pub(super) fn damp_focus(
     target: Vec3,
     velocity: &mut Vec3,
     profile: CameraProfile,
-    dt: f32,
+    elapsed: AnimationElapsed,
 ) -> Vec3 {
     let mut horizontal_velocity = Vec3::new(velocity.x, 0.0, velocity.z);
     let horizontal = critical_damp_vec3(
@@ -16,7 +17,7 @@ pub(super) fn damp_focus(
         Vec3::new(target.x, 0.0, target.z),
         &mut horizontal_velocity,
         profile.horizontal_follow_time,
-        dt,
+        elapsed,
     );
     let mut vertical_velocity = velocity.y;
     let y = critical_damp_scalar(
@@ -24,7 +25,7 @@ pub(super) fn damp_focus(
         target.y,
         &mut vertical_velocity,
         profile.vertical_follow_time,
-        dt,
+        elapsed,
     );
     *velocity = Vec3::new(
         horizontal_velocity.x,
@@ -38,10 +39,11 @@ pub(super) fn critical_damp_vec3(
     current: Vec3,
     target: Vec3,
     velocity: &mut Vec3,
-    smooth_time: f32,
-    dt: f32,
+    smooth_time: CameraShapingTime,
+    elapsed: AnimationElapsed,
 ) -> Vec3 {
-    let omega = 2.0 / smooth_time.max(0.0001);
+    let dt = elapsed.seconds();
+    let omega = 2.0 / smooth_time.seconds().max(0.0001);
     let displacement = current - target;
     let exponential = (-omega * dt).exp();
     let temporary = (*velocity + displacement * omega) * dt;
@@ -53,10 +55,11 @@ pub(super) fn critical_damp_scalar(
     current: f32,
     target: f32,
     velocity: &mut f32,
-    smooth_time: f32,
-    dt: f32,
+    smooth_time: CameraShapingTime,
+    elapsed: AnimationElapsed,
 ) -> f32 {
-    let omega = 2.0 / smooth_time.max(0.0001);
+    let dt = elapsed.seconds();
+    let omega = 2.0 / smooth_time.seconds().max(0.0001);
     let displacement = current - target;
     let exponential = (-omega * dt).exp();
     let temporary = (*velocity + displacement * omega) * dt;
@@ -74,16 +77,25 @@ pub(super) fn camera_view_metrics(projection: &Projection) -> (f32, f32) {
     }
 }
 
-pub(super) fn blend_profile(a: CameraProfile, b: CameraProfile, t: f32) -> CameraProfile {
-    CameraProfile {
+pub(super) fn blend_profile(
+    a: CameraProfile,
+    b: CameraProfile,
+    blend: UnitInterval,
+) -> AnimationValueResult<CameraProfile> {
+    let t = blend.fraction();
+    Ok(CameraProfile {
         distance: a.distance.lerp(b.distance, t),
         shoulder_offset: a.shoulder_offset.lerp(b.shoulder_offset, t),
         focus_height: a.focus_height.lerp(b.focus_height, t),
-        horizontal_follow_time: a.horizontal_follow_time.lerp(b.horizontal_follow_time, t),
-        vertical_follow_time: a.vertical_follow_time.lerp(b.vertical_follow_time, t),
+        horizontal_follow_time: a
+            .horizontal_follow_time
+            .checked_lerp(b.horizontal_follow_time, blend)?,
+        vertical_follow_time: a
+            .vertical_follow_time
+            .checked_lerp(b.vertical_follow_time, blend)?,
         maximum_follow_error: a.maximum_follow_error.lerp(b.maximum_follow_error, t),
         sweet_spot: a.sweet_spot.lerp(b.sweet_spot, t),
-    }
+    })
 }
 
 pub(super) fn sweet_spot_target(
@@ -127,6 +139,27 @@ mod tests {
     use crate::camera::CameraRigConfig;
 
     #[test]
+    fn reversing_a_mode_blend_continues_from_the_displayed_state() {
+        let mut velocity = 0.0;
+        let raised = critical_damp_scalar(
+            0.0,
+            1.0,
+            &mut velocity,
+            CameraShapingTime::from_seconds(0.18).unwrap(),
+            AnimationElapsed::from_seconds(0.08).unwrap(),
+        );
+        let reversed = critical_damp_scalar(
+            raised,
+            0.0,
+            &mut velocity,
+            CameraShapingTime::from_seconds(0.18).unwrap(),
+            AnimationElapsed::from_seconds(0.01).unwrap(),
+        );
+        assert!((reversed - raised).abs() < 0.1);
+        assert!(reversed > 0.0 && reversed < 1.0);
+    }
+
+    #[test]
     fn critical_damping_is_nearly_render_rate_independent() {
         let simulate = |steps: usize| {
             let mut value = Vec3::ZERO;
@@ -136,8 +169,8 @@ mod tests {
                     value,
                     Vec3::new(2.0, 1.0, -3.0),
                     &mut velocity,
-                    0.25,
-                    1.0 / steps as f32,
+                    CameraShapingTime::from_seconds(0.25).unwrap(),
+                    AnimationElapsed::from_seconds(1.0 / steps as f32).unwrap(),
                 );
             }
             value

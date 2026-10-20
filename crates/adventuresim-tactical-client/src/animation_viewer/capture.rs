@@ -455,15 +455,18 @@ pub(super) fn drive_sequence(
         set_weapon_guard(&mut skeleton, guard_input.desired);
         if frame.scenario.is(ScenarioId::DownedProneLookAt) {
             let target = downed_camera_roll_target(transform.rotation, orientation);
-            skeleton.advance_downed_facing(
-                target,
-                true,
-                if frame.scenario_frame == 0 {
-                    0.0
-                } else {
-                    1.0 / 84.0
-                },
-            );
+            let step = if frame.scenario_frame == 0 {
+                Ok(DownedFacingStep::ZERO)
+            } else {
+                DownedFacingStep::from_half_turns(1.0 / 84.0)
+            };
+            if let Err(error) = step.and_then(|step| {
+                skeleton.advance_downed_facing(target, DownedFacingAim::Held, step)
+            }) {
+                sequence.admission =
+                    CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+                return;
+            }
         }
         let dive_impact = frame.scenario.has(ScenarioFeature::Impact);
         let quickstep = is_quickstep_scenario(&frame.scenario);
@@ -542,15 +545,17 @@ pub(super) fn drive_sequence(
             sequence.simulation_tick,
             attack_start_frame,
         );
-        if !skeleton.is_posture_transitioning() {
-            transform.rotation = advance_body_facing(
-                transform.rotation,
-                orientation,
-                world_velocity,
-                frame.action,
-                skeleton.weapon_guard(),
-                delta_seconds,
-            );
+        if let Err(error) = subject_motion::advance_capture_facing(
+            &skeleton,
+            &mut transform,
+            orientation,
+            world_velocity,
+            frame.action,
+            elapsed,
+        ) {
+            sequence.admission =
+                CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+            return;
         }
         if frame.scenario.is(ScenarioId::FullRagdoll) {
             let fall = ((frame.scenario_frame + 4) as f32 / 8.0).clamp(0.0, 1.0);

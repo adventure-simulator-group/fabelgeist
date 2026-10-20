@@ -22,12 +22,13 @@ pub use movement_speed::{
 use crate::{
     animation::{
         AnimationElapsed, AnimationQuantity, AnimationSampleSpan, AnimationValueError,
-        AnimationValueResult, PositiveAnimationDuration, SkeletonState, WeaponGuardState,
-        locomotion_sample_rate,
+        AnimationValueResult, DownedRollMotion, PositiveAnimationDuration, SkeletonState,
+        WeaponGuardState, locomotion_sample_rate,
     },
     player::{CharacterDimensions, PlayerInputTick, TacticalPlayerViewer},
 };
 
+mod controller_config;
 mod movement_speed;
 mod plugin;
 pub use quickstep::quickstep_action_contact_ticks;
@@ -387,18 +388,12 @@ fn apply_character_motor(
             }
         });
         let motor = &movement_config.motor;
-        controller.acceleration_hz = 0.0;
-        controller.air_acceleration_hz = 0.0;
-        controller.water_acceleration_hz = 0.0;
-        controller.friction_hz = 0.0;
-        controller.stop_speed = 0.0;
-        controller.gravity = motor.gravity_metres_per_second_squared;
-        controller.step_size = motor.maximum_step_height_metres;
-        controller.min_walk_cos = motor.maximum_walkable_slope_degrees.to_radians().cos();
+        controller_config::apply_motor_config(&mut controller, motor);
         let guard = skeleton.map_or(WeaponGuardState::Lowered, SkeletonState::weapon_guard);
-        let roll_motion = skeleton.map_or(0.0, SkeletonState::downed_lateral_motion);
-        if roll_motion.abs() > 0.0 {
-            controller.speed = speeds.roll.metres_per_second() * roll_motion.abs();
+        let roll_motion =
+            skeleton.map_or(DownedRollMotion::REST, SkeletonState::downed_lateral_motion);
+        if roll_motion.is_moving() {
+            controller.speed = speeds.roll.metres_per_second() * roll_motion.fraction().abs();
         } else if skeleton.is_some_and(SkeletonState::is_posture_transitioning) {
             controller.speed = 0.0;
         } else if skeleton.is_some_and(|skeleton| {

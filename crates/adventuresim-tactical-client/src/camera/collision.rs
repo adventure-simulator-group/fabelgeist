@@ -1,6 +1,7 @@
 //! Camera clearance and close-range composition. Every displayed position is
 //! swept from the subject, including positions modified by framing or recovery.
 
+use adventuresim_tactical_core::animation::AnimationElapsed;
 use adventuresim_tactical_core::prelude::{
     Collider, ShapeCastConfig, ShapeHitData, SpatialQuery, SpatialQueryFilter,
 };
@@ -136,7 +137,7 @@ pub(crate) struct CameraPlacement {
 pub(crate) struct BoomRecovery {
     pub(crate) distance: f32,
     pub(crate) velocity: f32,
-    hold_remaining: f32,
+    hold_remaining: AnimationElapsed,
 }
 
 impl BoomRecovery {
@@ -153,7 +154,13 @@ impl BoomRecovery {
         self.hold_remaining = config.collision_hold_time;
     }
 
-    fn recover(&mut self, desired: f32, limited: f32, config: &CameraRigConfig, dt: f32) {
+    fn recover(
+        &mut self,
+        desired: f32,
+        limited: f32,
+        config: &CameraRigConfig,
+        elapsed: AnimationElapsed,
+    ) {
         if limited < self.distance {
             self.retract(limited, config);
             return;
@@ -163,8 +170,8 @@ impl BoomRecovery {
             self.hold_remaining = config.collision_hold_time;
             return;
         }
-        if self.hold_remaining > 0.0 {
-            self.hold_remaining = (self.hold_remaining - dt).max(0.0);
+        if !self.hold_remaining.is_zero() {
+            self.hold_remaining = self.hold_remaining.saturating_sub(elapsed);
             return;
         }
         self.distance = critical_damp_scalar(
@@ -172,7 +179,7 @@ impl BoomRecovery {
             desired.min(limited),
             &mut self.velocity,
             config.collision_recovery_time,
-            dt,
+            elapsed,
         )
         .min(limited);
     }
@@ -189,7 +196,7 @@ impl BoomRecovery {
         filter: &SpatialQueryFilter,
         hard_obstacle: &dyn Fn(Entity) -> bool,
         config: &CameraRigConfig,
-        dt: f32,
+        elapsed: AnimationElapsed,
     ) -> CameraPlacement {
         let desired = frame.endpoint(frame.distance, config.close);
         let mut limited = frame.distance;
@@ -206,7 +213,7 @@ impl BoomRecovery {
                 break;
             }
         }
-        self.recover(frame.distance, limited, config, dt);
+        self.recover(frame.distance, limited, config, elapsed);
 
         let candidate = frame.endpoint(self.distance, config.close);
         // Framing, focus lag and damping all change the tested path. Validate
