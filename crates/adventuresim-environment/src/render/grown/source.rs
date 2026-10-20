@@ -1,11 +1,11 @@
 //! Immutable grown record uploads and their two ordinary material bindings.
 
 use super::{
-    GrownBufferRole, GrownLeafMaterial, GrownMaterialHandle, GrownSourceBuffer,
+    GrownBankAssets, GrownBufferRole, GrownLeafMaterial, GrownMaterialHandle, GrownSourceBuffer,
     GrownVertexEncoding, GrownWoodMaterial,
 };
 use crate::{
-    prepared::GrownGeometry,
+    prepared::{GrownGeometry, TreeBank},
     render::{ForestPart, materials::SpeciesRecord},
 };
 use anyhow::{Context, Result, ensure};
@@ -14,9 +14,9 @@ use bevy::{
     prelude::*,
     render::{renderer::RenderDevice, storage::ShaderBuffer},
 };
+use std::sync::Arc;
 
 pub(super) struct SourceMaterials {
-    pub buffers: Vec<GrownSourceBuffer>,
     wood: Option<Handle<GrownWoodMaterial>>,
     leaves: Option<Handle<GrownLeafMaterial>>,
 }
@@ -27,22 +27,17 @@ struct SourceUpload<'a> {
     bytes: &'a [u8],
 }
 
-impl SourceMaterials {
-    pub fn from_geometry(
-        geometry: &GrownGeometry,
-        encoding: GrownVertexEncoding,
-        world: &mut World,
-    ) -> Result<Self> {
-        let library = geometry.bank().library();
-        let model = library
-            .models
-            .get(geometry.variant().index())
-            .context("grown material model")?;
-        let shape = geometry.level().shape(&library.detail);
-        let packed_shape = UVec4::new(shape.sides, shape.spans, shape.blades, 0);
+impl GrownBankAssets {
+    /// Explicit asset-store lifetime: call once, then reuse this Arc.
+    /// This does not perform process-global or device-global deduplication.
+    pub fn upload(source: Arc<TreeBank>, world: &mut World) -> Result<Arc<Self>> {
+        ensure!(
+            world.contains_resource::<Assets<ShaderBuffer>>(),
+            "grown bank upload requires renderer assets"
+        );
+        let library = source.library();
         let species: Vec<SpeciesRecord> = library.species.iter().map(SpeciesRecord::from).collect();
-        let mut buffers = Vec::new();
-        for upload in [
+        let uploads = [
             SourceUpload {
                 role: GrownBufferRole::Wood,
                 bytes: bytemuck::cast_slice(&library.branches),
@@ -59,21 +54,51 @@ impl SourceMaterials {
                 role: GrownBufferRole::Plants,
                 bytes: bytemuck::cast_slice(&library.plants),
             },
-        ] {
+        ];
+        for upload in &uploads {
+            if !upload.bytes.is_empty() {
+                upload.byte_size(world)?;
+            }
+        }
+        let mut buffers = Vec::new();
+        for upload in uploads {
             if !upload.bytes.is_empty() {
                 buffers.push(GrownSourceBuffer::upload(upload.role, upload.bytes, world)?);
             }
         }
-        let species_buffer = buffer_handle(&buffers, GrownBufferRole::Species)?;
+        Ok(Arc::new(Self {
+            source,
+            world: world.id(),
+            buffers,
+        }))
+    }
+}
+
+impl SourceMaterials {
+    pub fn from_geometry(
+        geometry: &GrownGeometry,
+        bank_assets: &GrownBankAssets,
+        encoding: GrownVertexEncoding,
+        world: &mut World,
+    ) -> Result<Self> {
+        let library = bank_assets.bank().library();
+        let model = library
+            .models
+            .get(geometry.variant().index())
+            .context("grown material model")?;
+        let shape = geometry.level().shape(&library.detail);
+        let packed_shape = UVec4::new(shape.sides, shape.spans, shape.blades, 0);
+        let buffers = &bank_assets.buffers;
+        let species_buffer = buffer_handle(buffers, GrownBufferRole::Species)?;
         let wood = if model.branches.count > 0 {
             Some(
                 world
                     .resource_mut::<Assets<GrownWoodMaterial>>()
                     .add(GrownWoodMaterial {
                         shape: packed_shape,
-                        records: buffer_handle(&buffers, GrownBufferRole::Wood)?,
+                        records: buffer_handle(buffers, GrownBufferRole::Wood)?,
                         species: species_buffer.clone(),
-                        plants: buffer_handle(&buffers, GrownBufferRole::Plants)?,
+                        plants: buffer_handle(buffers, GrownBufferRole::Plants)?,
                         encoding,
                     }),
             )
@@ -86,7 +111,7 @@ impl SourceMaterials {
                     .resource_mut::<Assets<GrownLeafMaterial>>()
                     .add(GrownLeafMaterial {
                         shape: packed_shape,
-                        records: buffer_handle(&buffers, GrownBufferRole::Leaves)?,
+                        records: buffer_handle(buffers, GrownBufferRole::Leaves)?,
                         species: species_buffer,
                         encoding,
                     }),
@@ -94,11 +119,7 @@ impl SourceMaterials {
         } else {
             None
         };
-        Ok(Self {
-            buffers,
-            wood,
-            leaves,
-        })
+        Ok(Self { wood, leaves })
     }
 
     pub fn material(&self, role: ForestPart) -> Result<GrownMaterialHandle> {
@@ -113,19 +134,27 @@ impl SourceMaterials {
     }
 }
 
-impl GrownSourceBuffer {
-    fn upload(role: GrownBufferRole, bytes: &[u8], world: &mut World) -> Result<Self> {
+impl SourceUpload<'_> {
+    // Native GPU buffer-size boundary; no allocation precedes this check.
+    fn byte_size(&self, world: &World) -> Result<u64> {
         let limits = world
             .get_resource::<RenderDevice>()
             .context("grown material render device")?
             .limits();
-        let size = u64::try_from(bytes.len())?;
+        let size = u64::try_from(self.bytes.len())?;
         ensure!(
             size > 0
                 && size <= limits.max_buffer_size
                 && size <= limits.max_storage_buffer_binding_size,
             "grown material source exceeds device storage limit"
         );
+        Ok(size)
+    }
+}
+
+impl GrownSourceBuffer {
+    fn upload(role: GrownBufferRole, bytes: &[u8], world: &mut World) -> Result<Self> {
+        let size = SourceUpload { role, bytes }.byte_size(world)?;
         let mut asset = ShaderBuffer::new(bytes, RenderAssetUsages::RENDER_WORLD);
         asset.buffer_description.size = size;
         let handle = world.resource_mut::<Assets<ShaderBuffer>>().add(asset);

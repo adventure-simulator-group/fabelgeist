@@ -115,8 +115,16 @@ and grass scatter, and named review specimens are removed. Shared playable,
 detail and vista terrain remain. This isolated layout is not a complete forest
 scene.
 
-`GrownAssets` retains the admitted bank, source identity, mesh partitions,
-selected level, source-buffer handles and ordinary materials. Placement identity
+Upload the admitted bank once per presenting Bevy asset world with
+`GrownBankAssets::upload`. Retain its returned `Arc` and pass it to every
+`GrownAssets::install` for that bank, across models, levels and encodings.
+Each installation checks the actual library identity and asset world before
+creating its meshes or materials. Source handles are shared through this
+explicit owner; uploading a second owner deliberately creates separate assets.
+There is no automatic global lookup or replacement-source fallback.
+
+`GrownAssets` retains that shared bank owner, source identity, mesh partitions,
+selected level and ordinary materials. Placement identity
 is separate from botanical source identity. Source root coordinates are removed
 during library authoring, then destination root transforms are applied once. Do
 not apply collider half-height normalization to these meshes.

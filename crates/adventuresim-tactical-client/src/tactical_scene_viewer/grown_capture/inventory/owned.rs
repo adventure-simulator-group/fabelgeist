@@ -1,6 +1,7 @@
 //! One installed geometry closure and three independently grounded root bindings.
 
 use super::*;
+use adventuresim_environment::render::grown::GrownBankAssets;
 
 pub(super) struct RootBinding {
     pub entity: Entity,
@@ -26,7 +27,8 @@ impl OwnedGrown {
         control: controls::BatchControl,
         world: &mut World,
     ) -> Result<Self> {
-        let assets = GrownAssets::install(geometry, encoding, world)?;
+        let bank_assets = GrownBankAssets::upload(geometry.bank().clone(), world)?;
+        let assets = GrownAssets::install(geometry, bank_assets, encoding, world)?;
         let mut roots = Vec::new();
         for placement in placements.iter().copied() {
             let entity = world

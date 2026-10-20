@@ -2,7 +2,9 @@
 
 use std::sync::Arc;
 
-use bevy::{camera::primitives::Aabb, prelude::*, render::storage::ShaderBuffer};
+use bevy::{
+    camera::primitives::Aabb, ecs::world::WorldId, prelude::*, render::storage::ShaderBuffer,
+};
 use fabelgeist_botany::identity::PlantId;
 
 use super::{ForestPart, Level};
@@ -23,16 +25,23 @@ pub struct GrownSourceBuffer {
     handle: Handle<ShaderBuffer>,
 }
 
+/// One immutable bank's source uploads in one presenting asset world.
+/// Share the returned Arc across model, level and encoding installations.
+pub struct GrownBankAssets {
+    source: Arc<TreeBank>,
+    world: WorldId,
+    buffers: Vec<GrownSourceBuffer>,
+}
+
 /// A complete ownership record for one fixed grown geometry, not a scene cache.
 #[derive(Resource)]
 pub struct GrownAssets {
-    bank: Arc<TreeBank>,
+    bank_assets: Arc<GrownBankAssets>,
     source: PlantId,
     variant: VariantIndex,
     level: Level,
     encoding: GrownVertexEncoding,
     parts: Vec<GrownPartAsset>,
-    buffers: Vec<GrownSourceBuffer>,
 }
 
 pub struct GrownPartAsset {
@@ -77,9 +86,15 @@ impl Plugin for GrownMaterialPlugin {
     }
 }
 
+impl GrownBankAssets {
+    pub fn bank(&self) -> &Arc<TreeBank> {
+        &self.source
+    }
+}
+
 impl GrownAssets {
     pub fn bank(&self) -> &Arc<TreeBank> {
-        &self.bank
+        self.bank_assets.bank()
     }
     pub fn source(&self) -> PlantId {
         self.source
@@ -97,7 +112,7 @@ impl GrownAssets {
         self.parts.iter()
     }
     pub fn buffers(&self) -> impl ExactSizeIterator<Item = &GrownSourceBuffer> {
-        self.buffers.iter()
+        self.bank_assets.buffers.iter()
     }
 }
 
