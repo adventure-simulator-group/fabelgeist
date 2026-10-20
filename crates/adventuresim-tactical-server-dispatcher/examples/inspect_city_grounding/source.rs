@@ -39,7 +39,8 @@ impl TerrainStages {
         input: &TacticalSceneInput,
     ) -> Result<Self, Box<dyn std::error::Error>> {
         let stages: TerrainStages = serde_json::from_slice(&std::fs::read(
-            request.terrain_stages
+            request
+                .terrain_stages
                 .as_ref()
                 .ok_or("missing terrain stages")?,
         )?)?;

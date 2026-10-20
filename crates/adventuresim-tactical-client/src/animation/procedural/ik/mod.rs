@@ -59,8 +59,10 @@ pub(crate) use state::{ArmIkState, LegIkDiagnostics, LegIkState};
 use target_speed::FootTargetSpeeds;
 use terminal::TerminalContacts;
 pub(super) use terrain_contacts::smoothstep;
-pub(crate) use terrain_contacts::{measured_ankle_sole_offset_metres, sole_contact_tolerance_metres};
 use terrain_contacts::*;
+pub(crate) use terrain_contacts::{
+    measured_ankle_sole_offset_metres, sole_contact_tolerance_metres,
+};
 pub(in crate::animation::procedural) use track::FootTrackSide;
 
 mod evaluation_clock;
