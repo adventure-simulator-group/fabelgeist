@@ -363,17 +363,16 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             raised_footwork_handoff,
             speed,
             planar_velocity,
-        ) {
-            if let Err(error) = memory.begin_settle_if_needed(
-                rig,
-                &transforms.p0(),
-                frame,
-                terrain,
-                raised_footwork_handoff,
-            ) {
-                warn!(%error, "settle planning rejected");
-                continue;
-            }
+        ) && let Err(error) = memory.begin_settle_if_needed(
+            rig,
+            &transforms.p0(),
+            frame,
+            terrain,
+            raised_footwork_handoff,
+        )
+        {
+            warn!(%error, "settle planning rejected");
+            continue;
         }
 
         let settle_cancelled_for_restart =

@@ -36,11 +36,8 @@ impl OrdinaryLeg {
         ) else {
             return None;
         };
-        let Some((upper_snapshot, lower_snapshot, foot_snapshot)) =
-            snapshot_chain(upper, lower, foot, parents, &transforms.p0())
-        else {
-            return None;
-        };
+        let (upper_snapshot, lower_snapshot, foot_snapshot) =
+            snapshot_chain(upper, lower, foot, parents, &transforms.p0())?;
         if target.distance(foot_snapshot.global.translation()) <= 0.0001 {
             // Preserve an already-clear authored chain exactly. Solving an
             // identity ankle target can still rotate it through a newly

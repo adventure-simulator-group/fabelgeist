@@ -741,8 +741,8 @@ fn apply_direct_combat_controls(
                 progress: controls.local_preparation_progress,
             });
         }
-        if controls.attack_just_pressed {
-            if let Err(error) = try_start_attack(
+        if controls.attack_just_pressed
+            && let Err(error) = try_start_attack(
                 AttackStartRequest {
                     entity,
                     alternate_attack: controls.alternate_attack,
@@ -754,9 +754,9 @@ fn apply_direct_combat_controls(
                 &time,
                 &combat_config,
                 &targeting,
-            ) {
-                warn!(?entity, %error, "cannot schedule attack");
-            }
+            )
+        {
+            warn!(?entity, %error, "cannot schedule attack");
         }
         // Quicksteps travel on the sequenced PlayerInputRequest stream. Do not
         // predict only the SkeletonState here: the client does not simulate the
