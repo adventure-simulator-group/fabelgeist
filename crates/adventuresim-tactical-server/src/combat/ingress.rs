@@ -5,10 +5,10 @@ use adventuresim_tactical_core::animation::{
 };
 
 use attack_start::*;
-#[cfg(test)]
-use lunge::{melee_collision_clearance, planned_melee_lunge};
 use lunge::{EntityMeleeLungeRequest, PlannedMeleeLunge, planned_melee_lunge_for_entities};
 pub(crate) use lunge::{MeleeLungeRequest, melee_surface_measure, melee_target_lunge_arrival};
+#[cfg(test)]
+use lunge::{melee_collision_clearance, planned_melee_lunge};
 use timing::{MeleeAnimationTiming, ObservedMeleeStart, animation_tick};
 use work::*;
 
