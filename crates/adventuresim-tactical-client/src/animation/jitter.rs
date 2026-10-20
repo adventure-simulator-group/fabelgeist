@@ -16,11 +16,10 @@ const MINIMUM_DERIVATIVE_INTERVAL: AnimationElapsed =
         Ok(interval) => interval,
         Err(_) => panic!("jitter derivative interval floor must be finite and nonnegative"),
     };
-const MISSING_FRAME_INTERVAL: AnimationElapsed =
-    match AnimationElapsed::from_seconds(1.0 / 64.0) {
-        Ok(interval) => interval,
-        Err(_) => panic!("jitter missing-frame interval must be finite and nonnegative"),
-    };
+const MISSING_FRAME_INTERVAL: AnimationElapsed = match AnimationElapsed::from_seconds(1.0 / 64.0) {
+    Ok(interval) => interval,
+    Err(_) => panic!("jitter missing-frame interval must be finite and nonnegative"),
+};
 
 #[derive(Debug, Clone, Copy, Serialize)]
 pub(crate) struct JitterThresholds {

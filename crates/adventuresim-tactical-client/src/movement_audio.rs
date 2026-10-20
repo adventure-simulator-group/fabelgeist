@@ -133,8 +133,7 @@ fn play_locomotion_audio(
                     spawn_rustle(
                         &mut commands,
                         &asset_server,
-                        StreamId::new("audio.understory-rustle")
-                            .seed(event_seed, &[]),
+                        StreamId::new("audio.understory-rustle").seed(event_seed, &[]),
                         position,
                         config.movement.bush_rustle_relative_volume,
                         config.movement.bush_rustle_pitch,
@@ -189,11 +188,10 @@ fn play_grounded_dive_impacts(
                 &mut commands,
                 &asset_server,
                 "impactSoft_heavy_00",
-                StreamId::new("audio.grounded-dive")
-                    .seed(
-                        (character_id.0).into(),
-                        &[skeleton.locomotion_sample_tick.encoded()],
-                    ),
+                StreamId::new("audio.grounded-dive").seed(
+                    (character_id.0).into(),
+                    &[skeleton.locomotion_sample_tick.encoded()],
+                ),
                 transform.translation(),
                 config.movement.body_impact_relative_volume,
                 config.movement.pitch_randomization,
