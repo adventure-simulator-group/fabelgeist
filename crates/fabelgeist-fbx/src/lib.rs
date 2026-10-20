@@ -10,14 +10,18 @@
 //! how FBX's transform chain composes, what units the file is in — is left to
 //! callers, because rigs disagree about all three.
 //!
-//! Deliberately free of heavy dependencies (`anyhow` and a pure-Rust inflate),
-//! so an asset pipeline can read FBX without pulling in a tensor runtime.
+//! Asset parsing has no tensor dependency. Header layout and the remaining
+//! decoding audit are documented in the owning crate guide.
 
 use std::collections::HashMap;
 use std::io::Read;
 
 use anyhow::{Context, Result, anyhow, bail};
 use array_encoding::FbxArrayEncoding;
+use binary_layout::{
+    ASCII_FBX_PREFIX, BINARY_MAGIC_PREFIX, FILE_HEADER_BYTES, FILE_VERSION_OFFSET, FbxVersion,
+    HeaderFormat, UTF8_BOM_ASCII_FBX_PREFIX,
+};
 use flate2::read::ZlibDecoder;
 
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
@@ -26,6 +30,7 @@ pub use array_encoding::UnsupportedFbxArrayEncoding;
 pub mod animation;
 
 mod array_encoding;
+mod binary_layout;
 
 /// One node record of the FBX tree.
 #[derive(Debug, Clone)]
@@ -38,7 +43,7 @@ pub struct Node {
 struct Reader<'a> {
     data: &'a [u8],
     pos: usize,
-    version: u32,
+    version: FbxVersion,
 }
 
 /// An entry of the `Objects` block.
@@ -247,16 +252,14 @@ impl<'a> Reader<'a> {
 
     /// Node headers went 32-bit -> 64-bit in FBX 7500.
     fn header_word(&mut self) -> Result<u64> {
-        if self.version >= 7500 {
-            self.u64()
-        } else {
-            Ok(self.u32()? as u64)
+        match self.version.format() {
+            HeaderFormat::Wide => self.u64(),
+            HeaderFormat::Narrow => Ok(self.u32()? as u64),
         }
     }
 
     fn header_size(&self) -> usize {
-        // 3 header words + the 1-byte name length.
-        if self.version >= 7500 { 25 } else { 13 }
+        self.version.format().record_width()
     }
 }
 
@@ -390,19 +393,21 @@ impl Scene {
 
 /// Parses the top-level node list of a binary FBX file.
 pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
-    const MAGIC: &[u8] = b"Kaydara FBX Binary  \x00";
-    if data.len() < 27 || &data[..MAGIC.len()] != MAGIC {
+    if data.len() < FILE_HEADER_BYTES || &data[..BINARY_MAGIC_PREFIX.len()] != BINARY_MAGIC_PREFIX {
         // ASCII FBX is a different format sharing the extension. Saying so is
         // more use than "not a binary FBX file", because the fix is a re-export.
-        if data.starts_with(b"; FBX") || data.starts_with(b"\xef\xbb\xbf; FBX") {
+        if data.starts_with(ASCII_FBX_PREFIX) || data.starts_with(UTF8_BOM_ASCII_FBX_PREFIX) {
             bail!("this is an ASCII FBX file; re-export it as binary FBX");
         }
         bail!("not a binary FBX file");
     }
-    let version = u32::from_le_bytes(data[23..27].try_into().unwrap());
+    // The preceding header-length guard proves this native four-byte copy.
+    let mut wire_version = [0; size_of::<u32>()];
+    wire_version.copy_from_slice(&data[FILE_VERSION_OFFSET..FILE_HEADER_BYTES]);
+    let version = FbxVersion::from(u32::from_le_bytes(wire_version));
     let mut reader = Reader {
         data,
-        pos: 27,
+        pos: FILE_HEADER_BYTES,
         version,
     };
 
@@ -563,3 +568,5 @@ fn qualified_name(raw: &[u8]) -> String {
 }
 #[cfg(test)]
 mod array_encoding_tests;
+#[cfg(test)]
+mod binary_layout_tests;

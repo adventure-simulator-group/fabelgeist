@@ -1,4 +1,38 @@
-# Binary FBX array encoding
+# Binary FBX reader
+
+## Header layout
+
+The binary FBX reader admits the four-byte file version into `FbxVersion` before
+selecting node-header layout. Version 7500 changes the end offset, property
+count and property-list byte length from 32-bit to 64-bit fields. A one-byte
+name length follows those three words, giving 13-byte and 25-byte records and
+null sentinels. `HeaderFormat` calculates the widths from those field types.
+
+Blender's FBX reader implements the two layouts as `<IIIB` and `<QQQB` and
+selects the wider layout at version 7500. Its binary signature also establishes
+the four-byte version's location immediately after the signature.
+[Blender FBX reader](https://github.com/blender/blender-addons/blob/main/io_scene_fbx/parse_fbx.py)
+
+The version remains an open wire identity: every `u32` is admitted, including
+values outside the documented 7100–7700 range. Layout selection preserves the
+existing cutoff without claiming support for other features. Derived `From` and
+`Into` provide native decoding and fixture-serialization ports. The parser still
+checks only the original magic prefix; its two following marker bytes remain
+ignored. Naming the full signature's width does not strengthen that validation.
+
+The format owner also names the exact ASCII FBX prefixes: `; FBX`, either at
+byte zero or following a UTF-8 byte-order mark. The ASCII re-export hint still
+runs only after the binary header length or magic check fails; prefix detection
+does not parse ASCII FBX or remove the byte-order mark.
+
+Named version and record scenarios encode the same 59 public-parser observations
+as the original golden fixture. The version uses the shared `FbxVersion` owner.
+Independent narrow/wide wire encoders and named wire-header and node records
+describe serialized fields before reader admission. Their native offsets, byte
+lengths and counts are fixture-encoding ports, not parallel production semantic
+owners. The expected snapshot remains unchanged.
+
+## Array encoding
 
 The binary FBX model-file reader admits the four-byte array encoding field into
 `FbxArrayEncoding` before passing it into the shared array decoder. This bespoke
@@ -35,3 +69,14 @@ observed. Those values are unsupported by this reader, without asserting that
 Autodesk formally declares them invalid.
 
 [Blender FBX binary format description](https://code.blender.org/2013/08/fbx-binary-file-format-specification/)
+
+## Remaining decoding audit
+
+Header-layout and array-encoding ownership do not complete the parser's other
+responsibilities. `read_node` still carries native offsets and property counts;
+`read_props` and `decode_array` still carry property tags, array counts and
+scalar widths. Scalar conversions still contain guaranteed-length `unwrap`
+calls. Those values and the parser's errors need their own complete
+producer/consumer migrations. Header ownership adds no stricter framing,
+version or allocation policy; unsupported array encodings follow the checked
+admission described above.
