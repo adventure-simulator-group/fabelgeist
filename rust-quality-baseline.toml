@@ -519,10 +519,6 @@ path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs"
 ceiling = 2745
 
 [[files]]
-path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs"
-ceiling = 566
-
-[[files]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs"
 ceiling = 844
 
@@ -2186,11 +2182,6 @@ item = 'log_animation_diagnostics@cfg(not(target_family="wasm"))'
 ceiling = 140
 
 [[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/loading.rs"
-item = "collect_loaded_packs"
-ceiling = 117
-
-[[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
 item = "conform_upcoming_pose_to_terrain"
 ceiling = 175
@@ -2294,11 +2285,6 @@ ceiling = 155
 path = "crates/adventuresim-tactical-client/src/player.rs"
 item = "CombatTargeting<'_,'_>::acquire"
 ceiling = 124
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/player.rs"
-item = "try_start_attack"
-ceiling = 170
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/clouds.rs"
