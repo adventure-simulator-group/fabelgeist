@@ -154,8 +154,7 @@ pub(super) fn on_targeted_attack_started(
     };
     if let Ok((_, state, defense, chances)) = q_ai.get(target)
         && !state.is_incapacitated()
-    {
-        if let Err(error) = try_start_reaction(
+        && let Err(error) = try_start_reaction(
             &mut cmd,
             BotReactionAttempt {
                 defender: target,
@@ -167,9 +166,9 @@ pub(super) fn on_targeted_attack_started(
             },
             &combat_config.ai.ordinary.defense,
             &mut random,
-        ) {
-            warn!(%error, "cannot schedule bot reaction");
-        }
+        )
+    {
+        warn!(%error, "cannot schedule bot reaction");
     }
 }
 
@@ -194,8 +193,7 @@ pub(super) fn on_targeted_ranged_attack_started(
     };
     if let Ok((_, state, defense, chances)) = q_ai.get(target)
         && !state.is_incapacitated()
-    {
-        if let Err(error) = try_start_reaction(
+        && let Err(error) = try_start_reaction(
             &mut cmd,
             BotReactionAttempt {
                 defender: target,
@@ -207,9 +205,9 @@ pub(super) fn on_targeted_ranged_attack_started(
             },
             &combat_config.ai.ordinary.defense,
             &mut random,
-        ) {
-            warn!(%error, "cannot schedule bot reaction");
-        }
+        )
+    {
+        warn!(%error, "cannot schedule bot reaction");
     }
 }
 

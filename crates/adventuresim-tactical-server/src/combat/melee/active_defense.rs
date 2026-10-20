@@ -38,7 +38,7 @@ pub(super) fn prepare_active_defense(
             return None;
         }
     };
-    let prepared_response = match {
+    let response_preparation = {
         let authority = q_authorities.get(attack.target()).ok();
         prepare_melee_defender_response(
             pending,
@@ -52,7 +52,8 @@ pub(super) fn prepare_active_defense(
             incoming_started_at,
             &config.realtime_authority.defense,
         )
-    } {
+    };
+    let prepared_response = match response_preparation {
         Ok(response) => response,
         Err(error) => {
             warn!(%error, "cannot resolve defense timing");
