@@ -19,6 +19,7 @@ use std::io::Read;
 use anyhow::{Context, Result, anyhow, bail};
 use array_encoding::FbxArrayEncoding;
 use flate2::read::ZlibDecoder;
+use property_count::FbxPropertyCount;
 
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
 pub use array_encoding::UnsupportedFbxArrayEncoding;
@@ -26,6 +27,7 @@ pub use array_encoding::UnsupportedFbxArrayEncoding;
 pub mod animation;
 
 mod array_encoding;
+mod property_count;
 
 /// One node record of the FBX tree.
 #[derive(Debug, Clone)]
@@ -444,9 +446,9 @@ fn decode_array<T: Copy>(
         .collect())
 }
 
-fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
-    let mut props = Vec::with_capacity(count);
-    for _ in 0..count {
+fn read_props(reader: &mut Reader<'_>, count: FbxPropertyCount) -> Result<Vec<Prop>> {
+    let mut props = Vec::with_capacity(count.native_len());
+    for _ in 0..count.native_len() {
         let kind = reader.u8()?;
         let prop = match kind {
             b'Y' => Prop::I16(i16::from_le_bytes(reader.take(2)?.try_into().unwrap())),
@@ -512,7 +514,7 @@ fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
 /// Reads one node record. Returns `None` for the null record that terminates a list.
 fn read_node(reader: &mut Reader<'_>) -> Result<Option<Node>> {
     let end_offset = reader.header_word()? as usize;
-    let num_props = reader.header_word()? as usize;
+    let num_props = FbxPropertyCount::from(reader.header_word()?);
     let _prop_list_len = reader.header_word()?;
     let name_len = reader.u8()? as usize;
     let name = String::from_utf8_lossy(reader.take(name_len)?).into_owned();
@@ -563,3 +565,5 @@ fn qualified_name(raw: &[u8]) -> String {
 }
 #[cfg(test)]
 mod array_encoding_tests;
+#[cfg(test)]
+mod property_count_tests;
