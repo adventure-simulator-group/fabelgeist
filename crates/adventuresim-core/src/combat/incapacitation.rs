@@ -27,7 +27,6 @@ impl From<RecoveryTime> for Option<AnimationElapsed> {
 
 /// The remaining combat effectiveness after all wheel contributions, not a
 /// separate fatigue penalty. Limb injury effects remain independently modeled.
-#[must_use]
 pub fn combat_incapacitation_performance(incapacitation: f32) -> FractionResult<UnitInterval> {
     UnitInterval::from_fraction(1.0 - incapacitation.clamp(0.0, 1.0))
 }
