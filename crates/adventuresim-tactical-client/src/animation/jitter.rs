@@ -7,8 +7,20 @@
 use super::review_scenarios::{ScenarioFeature, ScenarioId, ScenarioMetadata};
 use std::collections::BTreeMap;
 
+use adventuresim_core::elapsed::AnimationElapsed;
 use bevy::prelude::{Quat, Vec3};
 use serde::Serialize;
+
+const MINIMUM_DERIVATIVE_INTERVAL: AnimationElapsed =
+    match AnimationElapsed::from_seconds(1.0 / 1000.0) {
+        Ok(interval) => interval,
+        Err(_) => panic!("jitter derivative interval floor must be finite and nonnegative"),
+    };
+const MISSING_FRAME_INTERVAL: AnimationElapsed =
+    match AnimationElapsed::from_seconds(1.0 / 64.0) {
+        Ok(interval) => interval,
+        Err(_) => panic!("jitter missing-frame interval must be finite and nonnegative"),
+    };
 
 #[derive(Debug, Clone, Copy, Serialize)]
 pub(crate) struct JitterThresholds {
@@ -44,7 +56,7 @@ pub(crate) struct JitterFrame<K> {
     pub(crate) scenario: ScenarioMetadata<'static>,
     pub(crate) analysis_segment: u64,
     pub(crate) scenario_frame: usize,
-    pub(crate) time_seconds: f32,
+    pub(crate) time_seconds: AnimationElapsed,
     pub(crate) bones: BTreeMap<K, JitterBone>,
 }
 
@@ -312,7 +324,7 @@ fn analyze_scenario<K: JitterBoneIdentity>(
         let angular_velocity = angles
             .windows(2)
             .enumerate()
-            .map(|(index, pair)| pair[0].angle_between(pair[1]) / dt(frames, index + 1))
+            .map(|(index, pair)| pair[0].angle_between(pair[1]) / dt(frames, index + 1).seconds())
             .collect::<Vec<_>>();
         let angular_accel = derivative(&angular_velocity, &frames[1..]);
         let angular_jerk = derivative(&angular_accel, &frames[2..]);
@@ -407,12 +419,14 @@ fn report<K: JitterBoneIdentity>(
     }
 }
 
-fn dt<K: JitterBoneIdentity>(frames: &[JitterFrame<K>], index: usize) -> f32 {
+fn dt<K: JitterBoneIdentity>(frames: &[JitterFrame<K>], index: usize) -> AnimationElapsed {
     frames
         .get(index)
         .zip(frames.get(index.saturating_sub(1)))
-        .map_or(1.0 / 64.0, |(a, b)| {
-            (a.time_seconds - b.time_seconds).abs().max(1.0 / 1000.0)
+        .map_or(MISSING_FRAME_INTERVAL, |(a, b)| {
+            a.time_seconds
+                .abs_diff(b.time_seconds)
+                .max(MINIMUM_DERIVATIVE_INTERVAL)
         })
 }
 
@@ -420,7 +434,7 @@ fn derivative<K: JitterBoneIdentity>(values: &[f32], frames: &[JitterFrame<K>]) 
     values
         .windows(2)
         .enumerate()
-        .map(|(index, pair)| (pair[1] - pair[0]).abs() / dt(frames, index + 1))
+        .map(|(index, pair)| (pair[1] - pair[0]).abs() / dt(frames, index + 1).seconds())
         .collect()
 }
 
@@ -431,7 +445,7 @@ fn vector_derivative<K: JitterBoneIdentity>(
     values
         .windows(2)
         .enumerate()
-        .map(|(index, pair)| (pair[1] - pair[0]) / dt(frames, index + 1))
+        .map(|(index, pair)| (pair[1] - pair[0]) / dt(frames, index + 1).seconds())
         .collect()
 }
 
@@ -453,7 +467,7 @@ mod tests {
                 scenario: ScenarioMetadata::from_label("test").into_owned(),
                 analysis_segment: 0,
                 scenario_frame: index,
-                time_seconds: index as f32 / 64.0,
+                time_seconds: AnimationElapsed::from_seconds(index as f32 / 64.0).unwrap(),
                 bones: [(
                     "foot".to_owned(),
                     JitterBone {

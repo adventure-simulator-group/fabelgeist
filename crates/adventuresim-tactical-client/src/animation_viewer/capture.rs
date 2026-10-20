@@ -1062,7 +1062,7 @@ pub(super) fn jitter_frames(frames: &[FrameSample]) -> Vec<JitterFrame<BoneRole>
                 scenario: frame.scenario.clone(),
                 analysis_segment,
                 scenario_frame: frame.scenario_frame,
-                time_seconds: frame.time_seconds.seconds(),
+                time_seconds: frame.time_seconds,
                 bones: frame
                     .bones
                     .iter()

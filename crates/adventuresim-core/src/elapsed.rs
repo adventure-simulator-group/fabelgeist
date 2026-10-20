@@ -60,6 +60,12 @@ impl AnimationElapsed {
         Self((self.0 - other.0).max(0.0))
     }
 
+    /// Separation of two finite, nonnegative elapsed observations. Their
+    /// difference cannot exceed the larger operand, so it remains finite.
+    pub fn abs_diff(self, other: Self) -> Self {
+        Self((self.0 - other.0).abs())
+    }
+
     pub fn checked_scale(self, factor: f32) -> ElapsedResult<Self> {
         let seconds = self.0 * factor;
         if !seconds.is_finite() {
