@@ -172,9 +172,10 @@ pub(super) enum TreePresentationCapability {
     FiveLodProduction {
         passed: bool,
     },
-    #[cfg(feature = "grown-full-review")]
-    FixedGrownFull {
-        role: super::grown_full_capture::Role,
+    #[cfg(feature = "grown-review")]
+    FixedGrownLevel {
+        role: super::grown_capture::Role,
+        level: adventuresim_environment::render::Level,
         source_id: u64,
         owned_inventory_verified: bool,
     },
@@ -184,8 +185,8 @@ impl TreePresentationCapability {
     fn passed(&self) -> bool {
         match self {
             Self::FiveLodProduction { passed } => *passed,
-            #[cfg(feature = "grown-full-review")]
-            Self::FixedGrownFull {
+            #[cfg(feature = "grown-review")]
+            Self::FixedGrownLevel {
                 owned_inventory_verified,
                 ..
             } => *owned_inventory_verified,

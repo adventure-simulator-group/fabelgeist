@@ -1,4 +1,4 @@
-//! Full numerical-kernel shapes; packed GPU words exist only at submission.
+//! grown numerical-kernel shapes; packed GPU words exist only at submission.
 
 use anyhow::{Context, Result};
 use fabelgeist_botany::{
@@ -15,9 +15,9 @@ pub(super) enum RecordGeometry {
 }
 
 impl RecordGeometry {
-    pub fn full(detail: &ForestDetail, foliage: Foliage) -> [Self; 2] {
+    pub fn at_level(detail: &ForestDetail, foliage: Foliage, level: Level) -> [Self; 2] {
         // The renderer owns the admitted minimum sides/spans/blades.
-        let shape = Level::Full.shape(detail);
+        let shape = level.shape(detail);
         [
             Self::Tube {
                 sides: shape.sides,
@@ -46,9 +46,9 @@ impl RecordGeometry {
                         .checked_add(1)
                         .and_then(|rings| columns.checked_mul(rings))
                 })
-                .context("Full tube vertex overflow"),
+                .context("grown tube vertex overflow"),
             Self::Blades { count, .. } => {
-                count.checked_mul(4).context("Full blade vertex overflow")
+                count.checked_mul(4).context("grown blade vertex overflow")
             }
         }
     }
@@ -60,7 +60,7 @@ impl RecordGeometry {
                 .and_then(|quads| quads.checked_mul(6)),
             Self::Blades { count, .. } => count.checked_mul(6),
         }
-        .context("Full record index overflow")
+        .context("grown record index overflow")
     }
 
     pub fn record_stride(self) -> u64 {

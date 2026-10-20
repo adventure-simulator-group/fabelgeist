@@ -9,14 +9,14 @@ use bevy::{
 };
 
 use super::{
-    GrownFullAssets, GrownLeafMaterial, GrownPartAsset, GrownVertexEncoding, GrownWoodMaterial,
+    GrownAssets, GrownLeafMaterial, GrownPartAsset, GrownVertexEncoding, GrownWoodMaterial,
 };
-use crate::prepared::GrownFullGeometry;
+use crate::prepared::GrownGeometry;
 
-impl GrownFullAssets {
+impl GrownAssets {
     /// Framework boundary: moves every mesh; it does not duplicate a scene cache.
     pub fn install(
-        geometry: GrownFullGeometry,
+        geometry: GrownGeometry,
         encoding: GrownVertexEncoding,
         world: &mut World,
     ) -> Result<Self> {
@@ -30,6 +30,7 @@ impl GrownFullAssets {
         let bank = geometry.bank().clone();
         let source = geometry.source();
         let variant = geometry.variant();
+        let level = geometry.level();
         let library = bank.library();
         let model = library
             .models
@@ -38,7 +39,7 @@ impl GrownFullAssets {
         let low = Vec3::from_array(model.bounds.low.map(|value| value.metres()));
         let high = Vec3::from_array(model.bounds.high.map(|value| value.metres()));
         let source_bounds = Aabb::from_min_max(low, high);
-        let sources = super::source::SourceMaterials::from_model(&bank, variant, encoding, world)?;
+        let sources = super::source::SourceMaterials::from_geometry(&geometry, encoding, world)?;
         let mut parts = Vec::new();
         for part in geometry.into_parts() {
             let role = part.role();
@@ -72,6 +73,7 @@ impl GrownFullAssets {
             bank,
             source,
             variant,
+            level,
             encoding,
             parts,
             buffers: sources.buffers,

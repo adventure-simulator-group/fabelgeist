@@ -9,6 +9,12 @@ excluded_paths = [
 
 [[scopes]]
 kind = "boundary_adapter"
+path = "crates/adventuresim-tactical-client/src/tactical_scene_viewer/grown_capture.rs"
+item = "parse_level"
+reason = "Admits the three closed command-line detail tokens into the renderer-owned Level enum."
+
+[[scopes]]
+kind = "boundary_adapter"
 path = "crates/adventuresim-tactical-client/build.rs"
 item = "CargoPackageRole::from"
 reason = "Classifies Cargo lockfile package names in the derived Serde String conversion without admitting non-string values."

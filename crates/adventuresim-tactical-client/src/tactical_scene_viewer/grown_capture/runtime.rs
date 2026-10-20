@@ -12,11 +12,17 @@ pub(in super::super) struct ReadyPose(usize);
 
 pub(in super::super) fn install(app: &mut App, review: Review) {
     let source = review.source;
-    app.add_plugins(GrownFullMaterialPlugin);
+    app.add_plugins(GrownMaterialPlugin);
     observation::install(app);
     app.init_resource::<controls::RootVisibility>();
     let draws = ordinary_batches::OrdinaryBatches::install(app, review.control);
-    let evidence = Evidence::new(review.metadata.clone(), review.role, source, draws);
+    let evidence = Evidence::new(
+        review.metadata.clone(),
+        review.role,
+        source,
+        review.level,
+        draws,
+    );
     app.insert_resource(review)
         .insert_resource(evidence)
         .add_systems(
@@ -87,18 +93,16 @@ fn setup_inner(world: &mut World) -> Result<()> {
     isolate(world);
     background::instrument(world);
     let evidence = world.resource::<Evidence>().clone();
-    world
-        .resource_mut::<SceneCaptureState>()
-        .grown_full_evidence = Some(evidence);
+    world.resource_mut::<SceneCaptureState>().grown_evidence = Some(evidence);
     let adapter = world
         .get_resource::<bevy::render::renderer::RenderAdapterInfo>()
         .context("grown renderer adapter")?;
-    let metadata = serde_json::json!({"adapter":{"name":adapter.name,"backend":format!("{:?}",adapter.backend),"device_type":format!("{:?}",adapter.device_type),"driver":adapter.driver,"driver_info":adapter.driver_info},"projection_depth":world.resource::<cameras::PerspectiveDepth>(),"actual_virtual_seconds":world.resource::<Time<Virtual>>().elapsed_secs_f64(),"scope":"three grounded native grown Full instances sharing one asset set; ordinary main-pass GPU membership proof; no arrival or performance"});
+    let metadata = serde_json::json!({"adapter":{"name":adapter.name,"backend":format!("{:?}",adapter.backend),"device_type":format!("{:?}",adapter.device_type),"driver":adapter.driver,"driver_info":adapter.driver_info},"projection_depth":world.resource::<cameras::PerspectiveDepth>(),"actual_virtual_seconds":world.resource::<Time<Virtual>>().elapsed_secs_f64(),"scope":"three grounded native grown instances sharing one asset set; ordinary main-pass GPU membership proof; no arrival or performance"});
     fs::write(
         world
             .resource::<SceneCaptureState>()
             .output
-            .join("grown-full-runtime.json"),
+            .join("grown-runtime.json"),
         serde_json::to_vec_pretty(&metadata)?,
     )?;
     Ok(())
@@ -112,7 +116,7 @@ fn advance(world: &mut World) -> bevy::prelude::Result {
         return Ok(());
     }
     let view = state.view;
-    let CapturePose::GrownFull(expected) = state.views[view].pose else {
+    let CapturePose::Grown(expected) = state.views[view].pose else {
         return Err("grown held pose required".into());
     };
     let (camera, transform, projection) = world

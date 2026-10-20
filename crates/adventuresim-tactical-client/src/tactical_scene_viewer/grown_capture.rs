@@ -1,13 +1,16 @@
-//! Three grounded instances of one source-owned Full asset set in the tactical host.
+//! Three grounded instances of one source-owned grown asset set in the tactical host.
 
 use std::{fs, path::PathBuf, sync::Arc};
 
 use adventuresim_environment::{
     prepared::{
-        FullAuthoringContext, FullExpansionBudget, FullPartVertexLimit, GrownFullGeometry,
-        TreeBank, TreeBounds,
+        GrownAuthoringContext, GrownExpansionBudget, GrownGeometry, GrownPartVertexLimit, TreeBank,
+        TreeBounds,
     },
-    render::full::{GrownFullAssets, GrownFullMaterialPlugin, GrownVertexEncoding},
+    render::{
+        Level,
+        grown::{GrownAssets, GrownMaterialPlugin, GrownVertexEncoding},
+    },
 };
 use anyhow::{Context, Result, ensure};
 use bevy::prelude::*;
@@ -33,13 +36,13 @@ mod observation;
 mod ordinary_batches;
 mod runtime;
 
-pub(super) const PROFILE: &str = "grown-full-review";
+pub(super) const PROFILE: &str = "grown-review";
 const PART_VERTEX_LIMIT: u32 = 100_000;
 const FINAL_MESH_BYTE_LIMIT: u64 = 64 * 1024 * 1024;
 
 #[derive(Debug, clap::Args)]
-#[group(multiple=true, requires_all=["library","source","role","control","scene_input"], conflicts_with_all=["fixture","profile","prepare_tree_bank","canopy_bps","absolute_minute","leaf_benchmark_frames","tree_lighting_benchmark_frames","scene_performance_benchmark_frames","terrain_wireframe","triangle_census","city_cameras","tree_review_azimuth_degrees","cache_action"])]
-pub(crate) struct GrownFullCaptureOptions {
+#[group(multiple=true, requires_all=["library","source","role","level","control","scene_input"], conflicts_with_all=["fixture","profile","prepare_tree_bank","canopy_bps","absolute_minute","leaf_benchmark_frames","tree_lighting_benchmark_frames","scene_performance_benchmark_frames","terrain_wireframe","triangle_census","city_cameras","tree_review_azimuth_degrees","cache_action"])]
+pub(crate) struct GrownCaptureOptions {
     /// Exact admitted grown library from the independent producer.
     #[arg(long = "grown-review-library")]
     library: Option<PathBuf>,
@@ -49,6 +52,9 @@ pub(crate) struct GrownFullCaptureOptions {
     /// Live address expansion or native real-attribute evaluation.
     #[arg(long = "grown-review-role", value_enum)]
     role: Option<Role>,
+    /// Explicit geometry detail, shared by native expansion and source materials.
+    #[arg(long = "grown-review-level", value_parser = parse_level)]
+    level: Option<Level>,
     /// Actual batching, or an explicit expected-rejection control.
     #[arg(long = "grown-review-batch-control", value_enum)]
     control: Option<controls::BatchControl>,
@@ -57,9 +63,10 @@ pub(crate) struct GrownFullCaptureOptions {
 #[derive(Resource)]
 pub(super) struct Review {
     role: Role,
+    level: Level,
     control: controls::BatchControl,
     source: PlantId,
-    geometry: Option<GrownFullGeometry>,
+    geometry: Option<GrownGeometry>,
     cameras: cameras::Cameras,
     placements: layout::RootPlacements,
     metadata: serde_json::Value,
@@ -86,9 +93,10 @@ impl Role {
     }
 }
 
-impl GrownFullCaptureOptions {
+impl GrownCaptureOptions {
     fn admit(self, setup: &SceneSetupData) -> Result<Review> {
         let role = self.role.context("grown role required")?;
+        let level = self.level.context("grown level required")?;
         let control = self.control.context("grown batch control required")?;
         let source = PlantId::from_word(self.source.context("grown source required")?);
         let path = self.library.context("grown library required")?;
@@ -111,20 +119,21 @@ impl GrownFullCaptureOptions {
             .context("grown species missing")?;
         let placements = layout::RootPlacements::on_terrain(&setup.generated.terrain)?;
         let cameras = cameras::Cameras::from_source(bounds, &placements, &setup.generated.terrain)?;
-        let mut author = pollster::block_on(FullAuthoringContext::new())?;
+        let mut author = pollster::block_on(GrownAuthoringContext::new())?;
         let adapter = author.adapter_info();
-        let geometry = pollster::block_on(bank.expand_full(
+        let geometry = pollster::block_on(bank.expand_grown(
             &mut author,
             source,
-            FullExpansionBudget {
-                part_vertices: FullPartVertexLimit::from_vertices(PART_VERTEX_LIMIT)?,
+            level,
+            GrownExpansionBudget {
+                part_vertices: GrownPartVertexLimit::from_vertices(PART_VERTEX_LIMIT)?,
                 total_mesh_bytes: FINAL_MESH_BYTE_LIMIT.into(),
             },
         ))?;
         // Authoring has finished; this device never borrows the active renderer.
         drop(author);
         let metadata = serde_json::json!({
-            "role":role,"source_id":source.word(),"variant":geometry.variant().index(),"bank_id":bank.id(),
+            "role":role,"level":geometry.level(),"source_id":source.word(),"variant":geometry.variant().index(),"bank_id":bank.id(),
             "library_bytes":bytes.len(),"species":species.name,"foliage":format!("{:?}",species.foliage),
             "bark_rgb":species.bark,"leaf_rgb":species.leaf,"bounds":bounds,
             "source_branches":source_branches,"source_leaves":source_leaves,
@@ -136,10 +145,11 @@ impl GrownFullCaptureOptions {
             "time_phase":super::CAPTURE_CLOCK_PHASE_SECONDS,
             "draw_policy":"ordinary_gpu_membership","batch_control":control,"shadow_cutout":"analytic source alpha < 0.02 discarded; binary depth/shadow, fractional forward coverage",
             "source_terrain":"saved flat source growth; destination placement by grounded root translations only",
-            "scope":"three grounded placements of one Full source asset set; actual main-pass instance membership diagnostic, no complete cache, species calibration, adaptive LOD, motion, memory, performance or arrival acceptance"
+            "scope":"three grounded placements of one grown source asset set; actual main-pass instance membership diagnostic, no complete cache, species calibration, adaptive LOD, motion, memory, performance or arrival acceptance"
         });
         Ok(Review {
             role,
+            level,
             control,
             source,
             geometry: Some(geometry),
@@ -162,7 +172,7 @@ impl Review {
 
 pub(super) fn prepare(
     mut setup: SceneSetupData,
-    options: Option<GrownFullCaptureOptions>,
+    options: Option<GrownCaptureOptions>,
     requested: &[String],
 ) -> Result<PreparedCapture> {
     let review = options.map(|options| options.admit(&setup)).transpose()?;
@@ -176,4 +186,14 @@ pub(super) fn prepare(
             .collect();
     }
     Ok(PreparedCapture { setup, review })
+}
+
+// Closed CLI token boundary; the renderer owns the shared Level enum.
+fn parse_level(value: &str) -> Result<Level, String> {
+    match value {
+        "full" => Ok(Level::Full),
+        "middle" => Ok(Level::Middle),
+        "coarse" => Ok(Level::Coarse),
+        _ => Err("expected full, middle or coarse".to_owned()),
+    }
 }

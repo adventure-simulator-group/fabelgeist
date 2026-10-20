@@ -51,7 +51,7 @@ impl NativeExpansion {
                 && limits.max_storage_buffers_per_shader_stage >= 2
                 && limits.max_uniform_buffers_per_shader_stage >= 1
                 && limits.max_uniform_buffer_binding_size as usize >= size_of::<Params>(),
-            "device cannot bind the Full authoring ABI"
+            "device cannot bind the grown authoring ABI"
         );
         let branch = Kernel::new(&context, ForestPart::Branches)?;
         let leaf = Kernel::new(&context, ForestPart::Leaves)?;
@@ -75,7 +75,7 @@ impl NativeExpansion {
     ) -> Result<u32> {
         ensure!(
             vertices_per_record > 0 && record_stride > 0,
-            "invalid Full record shape"
+            "invalid grown record shape"
         );
         let limits = self.context.device.limits();
         let bytes = limits
@@ -103,14 +103,14 @@ impl NativeExpansion {
                 let records = library
                     .branches
                     .get(part.source_range()?)
-                    .context("Full wood span outside bank")?;
+                    .context("grown wood span outside bank")?;
                 self.dispatch(records, part).await
             }
             ForestPart::Leaves => {
                 let records = library
                     .leaves
                     .get(part.source_range()?)
-                    .context("Full foliage span outside bank")?;
+                    .context("grown foliage span outside bank")?;
                 self.dispatch(records, part).await
             }
         }
@@ -130,7 +130,7 @@ impl NativeExpansion {
     ) -> Result<Vec<ExpandedVertex>> {
         ensure!(
             records.len() == usize::try_from(part.records.count)?,
-            "Full partition input count mismatch"
+            "grown partition input count mismatch"
         );
         let context = &self.context;
         let kernel = self.kernel(part.geometry.role());
@@ -150,7 +150,7 @@ impl NativeExpansion {
         uniform.write(context, upload)?;
         let output_bytes = u64::from(part.vertices)
             .checked_mul(size_of::<ExpandedVertex>() as u64)
-            .context("Full output byte overflow")?;
+            .context("grown output byte overflow")?;
         let output = Buffer::new(
             context,
             BufferByteLength::from(output_bytes),
@@ -163,7 +163,7 @@ impl NativeExpansion {
             .submit_and_read(part, kernel, &input, &uniform, &output)
             .await;
         if let Some(error) = scope.pop().await {
-            anyhow::bail!("Full compute validation: {error}");
+            anyhow::bail!("grown compute validation: {error}");
         }
         result
     }
@@ -181,11 +181,11 @@ impl NativeExpansion {
             .pipeline
             .bind_group_layouts
             .first()
-            .context("missing Full group0")?;
+            .context("missing grown group0")?;
         let group = context
             .device
             .create_bind_group(&wgpu::BindGroupDescriptor {
-                label: Some("grown Full expansion"),
+                label: Some("grown grown expansion"),
                 layout: layout.as_ref(),
                 entries: &[
                     wgpu::BindGroupEntry {
@@ -206,15 +206,15 @@ impl NativeExpansion {
             .pipeline
             .pipeline
             .as_deref()
-            .context("uncompiled Full kernel")?;
+            .context("uncompiled grown kernel")?;
         let mut encoder = context
             .device
             .create_command_encoder(&wgpu::CommandEncoderDescriptor {
-                label: Some("grown Full expansion"),
+                label: Some("grown grown expansion"),
             });
         {
             let mut pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
-                label: Some("grown Full expansion"),
+                label: Some("grown grown expansion"),
                 timestamp_writes: None,
             });
             pass.set_pipeline(pipeline);

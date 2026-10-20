@@ -16,7 +16,7 @@ foliage-review = [
     "dep:fabelgeist-botany", "dep:fabelgeist-math",
 ]
 # Native held content check of grown real meshes under tactical lighting.
-grown-full-review = ["foliage-review", "adventuresim-environment/full-authoring", "dep:pollster"]
+grown-review = ["foliage-review", "adventuresim-environment/grown-authoring", "dep:pollster"]
 tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep:tracy-client-sys"]
 # See src/lib.rs - only used by crates/adventuresim-tactical-brp-generator.
 remote-types = ["debug"]

@@ -13,8 +13,8 @@ pub(super) enum TreeLightingModeId {
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(super) enum CapturePose {
-    #[cfg(feature = "grown-full-review")]
-    GrownFull(super::grown_full_capture::PlateCamera),
+    #[cfg(feature = "grown-review")]
+    Grown(super::grown_capture::PlateCamera),
     PlantLod {
         distance: f32,
     },

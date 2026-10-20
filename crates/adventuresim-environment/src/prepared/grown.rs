@@ -1,4 +1,4 @@
-//! Bounded Full mesh authoring from admitted grown records, before presentation.
+//! Bounded grown mesh authoring from admitted grown records, before presentation.
 //!
 //! The author owns a separate compute device. Readback may block that device;
 //! it never borrows a continuously submitting renderer. This is not a complete
@@ -12,7 +12,7 @@ use fabelgeist_botany::identity::PlantId;
 use fabelgeist_gpu::prelude::BufferByteLength;
 
 use super::{RecordSpan, TreeBank, VariantIndex};
-use crate::render::ForestPart;
+use crate::render::{ForestPart, Level};
 
 mod geometry;
 mod gpu;
@@ -22,42 +22,43 @@ mod shader;
 
 /// An explicit allocation limit, independent of source botanical identity.
 #[derive(Clone, Copy, Debug)]
-pub struct FullPartVertexLimit(NonZeroU32);
+pub struct GrownPartVertexLimit(NonZeroU32);
 
 /// Bounds final mesh payload, separately from transient GPU/readback memory.
 #[derive(Clone, Copy, Debug)]
-pub struct FullExpansionBudget {
-    pub part_vertices: FullPartVertexLimit,
+pub struct GrownExpansionBudget {
+    pub part_vertices: GrownPartVertexLimit,
     pub total_mesh_bytes: BufferByteLength,
 }
 
 /// The only construction path owns a dedicated, non-presenting compute device.
-pub struct FullAuthoringContext {
+pub struct GrownAuthoringContext {
     gpu: gpu::NativeExpansion,
 }
 
 /// Real positions/normals/UVs plus the original integer bank vertex address.
 /// The retained admitted bank binds the source records used by surface shaders.
-pub struct GrownFullGeometry {
+pub struct GrownGeometry {
     bank: Arc<TreeBank>,
     variant: VariantIndex,
     source: PlantId,
-    parts: Vec<GrownFullPart>,
+    level: Level,
+    parts: Vec<GrownGeometryPart>,
     mesh_bytes: BufferByteLength,
 }
 
 /// An allocation partition of a source record span, not a botanical group.
-pub struct GrownFullPart {
+pub struct GrownGeometryPart {
     role: ForestPart,
     records: RecordSpan,
     mesh: Mesh,
 }
 
-impl FullPartVertexLimit {
+impl GrownPartVertexLimit {
     /// Native vertex-count boundary; at least one complete record must fit.
     pub fn from_vertices(vertices: u32) -> Result<Self> {
         let vertices = NonZeroU32::new(vertices)
-            .ok_or_else(|| anyhow::anyhow!("Full part vertex limit is zero"))?;
+            .ok_or_else(|| anyhow::anyhow!("grown part vertex limit is zero"))?;
         Ok(Self(vertices))
     }
 
@@ -66,7 +67,7 @@ impl FullPartVertexLimit {
     }
 }
 
-impl FullAuthoringContext {
+impl GrownAuthoringContext {
     pub async fn new() -> Result<Self> {
         Ok(Self {
             gpu: gpu::NativeExpansion::new().await?,
@@ -80,34 +81,36 @@ impl FullAuthoringContext {
 
 impl TreeBank {
     /// Expand the exact selected grown model; never generate replacement trees.
-    pub async fn expand_full(
+    pub async fn expand_grown(
         self: &Arc<Self>,
-        author: &mut FullAuthoringContext,
+        author: &mut GrownAuthoringContext,
         source: PlantId,
-        budget: FullExpansionBudget,
-    ) -> Result<GrownFullGeometry> {
-        let plan = plan::ExpansionPlan::new(self, source, budget, &author.gpu)?;
+        level: Level,
+        budget: GrownExpansionBudget,
+    ) -> Result<GrownGeometry> {
+        let plan = plan::ExpansionPlan::new(self, source, level, budget, &author.gpu)?;
         let mut parts = Vec::with_capacity(plan.parts.len());
         for part in &plan.parts {
             let vertices = author.gpu.expand(self.library(), part).await?;
             let mesh = mesh::construct(self.library(), part, vertices)?;
-            parts.push(GrownFullPart {
+            parts.push(GrownGeometryPart {
                 role: part.geometry.role(),
                 records: part.records,
                 mesh,
             });
         }
-        Ok(GrownFullGeometry {
+        Ok(GrownGeometry {
             bank: self.clone(),
             variant: plan.variant,
             source,
+            level: plan.level,
             parts,
             mesh_bytes: plan.mesh_bytes,
         })
     }
 }
 
-impl GrownFullGeometry {
+impl GrownGeometry {
     pub fn bank(&self) -> &Arc<TreeBank> {
         &self.bank
     }
@@ -120,21 +123,25 @@ impl GrownFullGeometry {
         self.source
     }
 
+    pub fn level(&self) -> Level {
+        self.level
+    }
+
     pub fn mesh_bytes(&self) -> BufferByteLength {
         self.mesh_bytes
     }
 
     /// Move real meshes into a renderer without cloning their CPU channels.
-    pub fn into_parts(self) -> impl ExactSizeIterator<Item = GrownFullPart> {
+    pub fn into_parts(self) -> impl ExactSizeIterator<Item = GrownGeometryPart> {
         self.parts.into_iter()
     }
 
-    pub fn parts(&self) -> impl ExactSizeIterator<Item = &GrownFullPart> {
+    pub fn parts(&self) -> impl ExactSizeIterator<Item = &GrownGeometryPart> {
         self.parts.iter()
     }
 }
 
-impl GrownFullPart {
+impl GrownGeometryPart {
     pub fn role(&self) -> ForestPart {
         self.role
     }

@@ -6,7 +6,7 @@ use adventuresim_environment::{
     prepared::RecordSpan,
     render::{
         ForestPart,
-        full::{GrownLeafMaterial, GrownMaterialHandle, GrownPartAsset, GrownWoodMaterial},
+        grown::{GrownLeafMaterial, GrownMaterialHandle, GrownPartAsset, GrownWoodMaterial},
     },
 };
 use bevy::{
@@ -31,12 +31,13 @@ pub(super) struct PartOrdinal(usize);
 
 #[derive(Resource)]
 pub(super) struct OwnedGrown {
-    assets: GrownFullAssets,
+    assets: GrownAssets,
     roots: Vec<RootBinding>,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
 pub(super) struct PartIdentity {
+    level: Level,
     ordinal: PartOrdinal,
     role: ForestPart,
     records: RecordSpan,
@@ -139,6 +140,12 @@ impl Inspector<'_, '_> {
                 && owned.assets.source() == review.source,
             "grown source/encoding drift"
         );
+        let held_level = owned.assets.level();
+        ensure!(
+            held_level == review.level,
+            "grown level drift: held {held_level:?}, requested {:?}",
+            review.level
+        );
         ensure!(
             self.presented.is_empty() && self.obstacles.is_empty(),
             "old tactical tree/obstacle retained in isolated grown witness"
@@ -154,7 +161,7 @@ impl Inspector<'_, '_> {
         for root in &owned.roots {
             inventory.roots.push(self.inspect_root(root)?);
             for (binding, asset) in root.parts.iter().zip(owned.assets.parts()) {
-                let member = self.inspect_part(root, binding, asset, review.control)?;
+                let member = self.inspect_part(root, binding, asset, review)?;
                 if camera_visible.contains(&member.entity) {
                     inventory.visible.push(member.entity);
                 }
@@ -207,7 +214,7 @@ impl Inspector<'_, '_> {
         root: &RootBinding,
         binding: &BoundPart,
         asset: &GrownPartAsset,
-        control: controls::BatchControl,
+        review: &Review,
     ) -> Result<Member> {
         let part = self.parts.get(binding.entity)?;
         ensure!(
@@ -231,7 +238,7 @@ impl Inspector<'_, '_> {
         );
         ensure!(
             *part.visibility == Visibility::Inherited
-                && part.unbatchable == (control == controls::BatchControl::ForcedSingletons)
+                && part.unbatchable == (review.control == controls::BatchControl::ForcedSingletons)
                 && !part.no_shadow,
             "grown visibility/shadow/draw policy drift"
         );
@@ -250,6 +257,7 @@ impl Inspector<'_, '_> {
             entity: part.entity,
             root: root.entity,
             part: PartIdentity {
+                level: review.level,
                 ordinal: binding.ordinal,
                 role: asset.role(),
                 records: asset.records(),
@@ -271,7 +279,7 @@ impl Inspector<'_, '_> {
             .context("grown callback view")?
             .pose
         {
-            CapturePose::GrownFull(camera) => camera,
+            CapturePose::Grown(camera) => camera,
             _ => anyhow::bail!("grown callback pose missing"),
         };
         let (camera, transform, projection, _) = self.cameras.single()?;

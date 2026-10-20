@@ -26,7 +26,7 @@ fn observe(world: &mut World) -> bevy::prelude::Result {
         return Ok(());
     }
     let view = state.view;
-    let CapturePose::GrownFull(expected) = state.views[view].pose else {
+    let CapturePose::Grown(expected) = state.views[view].pose else {
         return Err("grown pose required".into());
     };
     // Update can add real terrain after startup; instrument before extraction.

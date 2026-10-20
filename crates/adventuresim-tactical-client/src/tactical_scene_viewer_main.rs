@@ -48,9 +48,9 @@ struct Args {
     #[command(flatten)]
     cache_actions: Option<tactical_scene_cache_actions::TreeCacheActions>,
 
-    #[cfg(feature = "grown-full-review")]
+    #[cfg(feature = "grown-review")]
     #[command(flatten)]
-    grown_review: Option<tactical_scene_viewer::GrownFullCaptureOptions>,
+    grown_review: Option<tactical_scene_viewer::GrownCaptureOptions>,
 
     /// Render frames allowed to settle between fixed camera views.
     #[arg(long, default_value_t = 12)]
@@ -228,7 +228,7 @@ fn main() {
         },
         args.views,
         args.city_cameras,
-        #[cfg(feature = "grown-full-review")]
+        #[cfg(feature = "grown-review")]
         args.grown_review,
     );
 }

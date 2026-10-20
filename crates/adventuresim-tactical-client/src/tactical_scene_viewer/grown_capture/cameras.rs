@@ -59,8 +59,7 @@ impl Cameras {
     pub(super) fn views(&self) -> Vec<CaptureViewSpec> {
         vec![
             view("warmup", "Grown shared pipeline warmup", self.shared).warmup(),
-            view("grown-shared", "Three shared grown Full trees", self.shared)
-                .settled_readback_pair(),
+            view("grown-shared", "Three shared grown trees", self.shared).settled_readback_pair(),
         ]
     }
 }
@@ -69,7 +68,7 @@ fn view(slug: &'static str, label: &'static str, camera: PlateCamera) -> Capture
     CaptureViewSpec::new(
         slug,
         label,
-        CapturePose::GrownFull(camera),
+        CapturePose::Grown(camera),
         FOV_DEGREES,
         FOREGROUND_BPS,
     )

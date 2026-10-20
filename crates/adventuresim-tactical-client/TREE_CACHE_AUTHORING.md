@@ -83,7 +83,7 @@ measurements must retain any required server or client scene-generation work.
 The probe does not regenerate the source tree. `--check-tree-cache` retains
 the separate full offline source comparison. Both actions reject conflicting
 render and authoring options. For the separate ordinary Full source-library
-comparison, see [Full mesh review](GROWN_FULL_REVIEW.md). That profile consumes
+comparison, see [Full mesh review](GROWN_REVIEW.md). That profile consumes
 `library.forest`, not this production cache payload.
 
 Successful CPU validation establishes serialization and admission only.

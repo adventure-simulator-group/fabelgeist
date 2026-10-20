@@ -9,6 +9,7 @@ pub(super) enum BatchControl {
     ForcedSingletons,
     HiddenLastRoot,
     MissingLastTag,
+    ChangedLevel,
 }
 
 #[derive(Resource, Default, Clone, Copy)]

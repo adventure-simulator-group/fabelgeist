@@ -12,6 +12,7 @@ pub(in super::super) struct Evidence {
     data: Arc<Mutex<Data>>,
     role: Role,
     source: PlantId,
+    level: Level,
 }
 
 struct Data {
@@ -27,11 +28,13 @@ impl Evidence {
         metadata: serde_json::Value,
         role: Role,
         source: PlantId,
+        level: Level,
         draws: ordinary_batches::OrdinaryBatches,
     ) -> Self {
         Self {
             role,
             source,
+            level,
             data: Arc::new(Mutex::new(Data {
                 metadata,
                 poses: BTreeMap::new(),
@@ -89,9 +92,10 @@ impl Evidence {
                 && data.draws.inventory_verified()
                 && data.draws.all_valid(data.poses.len())
         });
-        super::super::manifest::TreePresentationCapability::FixedGrownFull {
+        super::super::manifest::TreePresentationCapability::FixedGrownLevel {
             role: self.role,
             source_id: self.source.word(),
+            level: self.level,
             owned_inventory_verified: clean && presented_roots == 0,
         }
     }
@@ -110,10 +114,10 @@ impl Evidence {
             && data.input_faults.is_empty();
         let report = serde_json::json!({"metadata":data.metadata,"poses":data.poses,"post_screenshots":{"poses_complete":poses_complete,"draws":draws_clean,"camera_drift_views":data.camera_drift,"input_faults":data.input_faults},"capture_files":state.captures.iter().map(|capture|&capture.screenshot).collect::<Vec<_>>(),"passed":passed,"limits":"held source/asset/camera bindings and actual main-pass indirect commands plus compacted GPU instance membership; no vertex/source storage-byte readback, shadow/prepass counts, exact screenshot timestamps, memory, motion, performance or arrival"});
         fs::write(
-            state.output.join("grown-full-review.json"),
+            state.output.join("grown-review.json"),
             serde_json::to_vec_pretty(&report)?,
         )?;
-        ensure!(passed, "incomplete/failed grown Full capture evidence");
+        ensure!(passed, "incomplete/failed grown capture evidence");
         Ok(())
     }
 }

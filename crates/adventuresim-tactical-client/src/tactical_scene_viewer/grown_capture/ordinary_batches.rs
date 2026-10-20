@@ -316,6 +316,13 @@ fn apply_control(world: &mut World) -> bevy::prelude::Result {
             let part = world.resource::<inventory::OwnedGrown>().last_part()?;
             world.entity_mut(part).remove::<MeshTag>();
         }
+        BatchControl::ChangedLevel => {
+            let held = world.resource::<inventory::OwnedGrown>().level();
+            world.resource_mut::<Review>().level = match held {
+                Level::Full => Level::Middle,
+                Level::Middle | Level::Coarse => Level::Full,
+            };
+        }
         BatchControl::Ordinary | BatchControl::ForcedSingletons => {}
     }
     Ok(())

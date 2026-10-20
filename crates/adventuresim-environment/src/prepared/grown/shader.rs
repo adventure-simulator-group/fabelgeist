@@ -31,7 +31,7 @@ impl Kernel {
             (BRANCH_GEOMETRY, "branch_geometry.wgsl"),
             (BRANCH_SURFACE, "branch_surface.wgsl"),
             (LEAF_GEOMETRY, "leaf_geometry.wgsl"),
-            (COMMON, "full_expansion.wgsl"),
+            (COMMON, "grown_expansion.wgsl"),
         ] {
             if let Err(error) = composer.add_composable_module(ComposableModuleDescriptor {
                 source,
@@ -48,7 +48,7 @@ impl Kernel {
         let module = composer
             .make_naga_module(NagaModuleDescriptor {
                 source,
-                file_path: "full_compute.wgsl",
+                file_path: "grown_compute.wgsl",
                 ..Default::default()
             })
             .map_err(|error| anyhow::anyhow!(error.emit_to_string(&composer)))?;
@@ -57,7 +57,7 @@ impl Kernel {
         ensure!(
             width.get() <= limits.max_compute_workgroup_size_x
                 && width.get() <= limits.max_compute_invocations_per_workgroup,
-            "Full workgroup exceeds device limits"
+            "grown workgroup exceeds device limits"
         );
         let info = wgpu::naga::valid::Validator::new(
             wgpu::naga::valid::ValidationFlags::all(),
@@ -73,7 +73,7 @@ impl Kernel {
         let pipeline = ComputePipeline::new(context, shader)?;
         ensure!(
             pipeline.bind_group_layouts.len() == 1,
-            "unexpected Full bind group count"
+            "unexpected grown bind group count"
         );
         Ok(Self { pipeline, width })
     }
@@ -81,16 +81,16 @@ impl Kernel {
 
 fn validate_interface(module: &wgpu::naga::Module, role: ForestPart) -> Result<NonZeroU32> {
     let [entry] = module.entry_points.as_slice() else {
-        bail!("Full kernel needs one entry point");
+        bail!("grown kernel needs one entry point");
     };
     ensure!(
         entry.stage == wgpu::naga::ShaderStage::Compute && entry.workgroup_size[1..] == [1, 1],
-        "invalid Full dispatch shape"
+        "invalid grown dispatch shape"
     );
-    let width = NonZeroU32::new(entry.workgroup_size[0]).context("zero Full workgroup width")?;
+    let width = NonZeroU32::new(entry.workgroup_size[0]).context("zero grown workgroup width")?;
     ensure!(
         module.global_variables.len() == 3,
-        "unexpected Full global binding count"
+        "unexpected grown global binding count"
     );
     let input_stride = match role {
         ForestPart::Branches => size_of::<BranchInstance>(),
@@ -99,16 +99,16 @@ fn validate_interface(module: &wgpu::naga::Module, role: ForestPart) -> Result<N
     for (binding, expected) in [(0, input_stride), (2, size_of::<ExpandedVertex>())] {
         let variable = binding_variable(module, binding)?;
         let wgpu::naga::TypeInner::Array { stride, .. } = module.types[variable.ty].inner else {
-            bail!("Full storage binding is not an array");
+            bail!("grown storage binding is not an array");
         };
         ensure!(
             usize::try_from(stride)? == expected,
-            "Full storage stride mismatch"
+            "grown storage stride mismatch"
         );
     }
     let uniform = binding_variable(module, 1)?;
     let wgpu::naga::TypeInner::Struct { ref members, span } = module.types[uniform.ty].inner else {
-        bail!("Full params are not a struct");
+        bail!("grown params are not a struct");
     };
     ensure!(
         usize::try_from(span)? == size_of::<Params>()
@@ -116,7 +116,7 @@ fn validate_interface(module: &wgpu::naga::Module, role: ForestPart) -> Result<N
                 u32::try_from(std::mem::offset_of!(Params, shape))?,
                 u32::try_from(std::mem::offset_of!(Params, span))?,
             ]),
-        "Full uniform layout mismatch"
+        "grown uniform layout mismatch"
     );
     Ok(width)
 }
@@ -135,5 +135,5 @@ fn binding_variable(
                 .as_ref()
                 .is_some_and(|slot| slot.group == 0 && slot.binding == binding)
         })
-        .context("missing Full kernel binding")
+        .context("missing grown kernel binding")
 }

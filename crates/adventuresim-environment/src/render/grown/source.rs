@@ -5,8 +5,8 @@ use super::{
     GrownVertexEncoding, GrownWoodMaterial,
 };
 use crate::{
-    prepared::{TreeBank, VariantIndex},
-    render::{ForestPart, Level, materials::SpeciesRecord},
+    prepared::GrownGeometry,
+    render::{ForestPart, materials::SpeciesRecord},
 };
 use anyhow::{Context, Result, ensure};
 use bevy::{
@@ -28,18 +28,17 @@ struct SourceUpload<'a> {
 }
 
 impl SourceMaterials {
-    pub fn from_model(
-        bank: &TreeBank,
-        variant: VariantIndex,
+    pub fn from_geometry(
+        geometry: &GrownGeometry,
         encoding: GrownVertexEncoding,
         world: &mut World,
     ) -> Result<Self> {
-        let library = bank.library();
+        let library = geometry.bank().library();
         let model = library
             .models
-            .get(variant.index())
+            .get(geometry.variant().index())
             .context("grown material model")?;
-        let shape = Level::Full.shape(&library.detail);
+        let shape = geometry.level().shape(&library.detail);
         let packed_shape = UVec4::new(shape.sides, shape.spans, shape.blades, 0);
         let species: Vec<SpeciesRecord> = library.species.iter().map(SpeciesRecord::from).collect();
         let mut buffers = Vec::new();

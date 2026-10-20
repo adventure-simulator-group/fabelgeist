@@ -21,7 +21,7 @@ prepared = [
   "dep:js-sys", "dep:wasm-bindgen", "dep:wasm-bindgen-futures", "dep:web-sys",
 ]
 # Bounded native mesh authoring on an owned compute device, before presentation.
-full-authoring = ["prepared", "dep:fabelgeist-gpu", "dep:naga_oil", "dep:wgpu"]
+grown-authoring = ["prepared", "dep:fabelgeist-gpu", "dep:naga_oil", "dep:wgpu"]
 viewer = [
   "prepared",
   "bevy/default",

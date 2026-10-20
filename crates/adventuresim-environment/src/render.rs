@@ -16,9 +16,9 @@ pub mod address;
 pub mod benchmark;
 mod chunks;
 mod feed;
-#[cfg(all(feature = "full-authoring", not(target_family = "wasm")))]
-pub mod full;
 mod ground;
+#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
+pub mod grown;
 pub(crate) mod levels;
 mod materials;
 mod records;

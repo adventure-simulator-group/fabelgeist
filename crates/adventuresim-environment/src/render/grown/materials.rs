@@ -21,7 +21,7 @@ const LEAF_DEFINE: &str = "GROWN_LEAF";
 const ADDRESS_DEFINE: &str = "GROWN_ADDRESS";
 const EXPANDED_DEFINE: &str = "GROWN_EXPANDED";
 
-const SHADER: &str = "embedded://adventuresim_environment/render/full/shaders/material.wgsl";
+const SHADER: &str = "embedded://adventuresim_environment/render/grown/shaders/material.wgsl";
 
 #[derive(Asset, TypePath, AsBindGroup, Debug, Clone, PartialEq)]
 #[bind_group_data(GrownVertexEncoding)]

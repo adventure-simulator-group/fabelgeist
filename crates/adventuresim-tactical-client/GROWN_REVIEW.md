@@ -1,10 +1,13 @@
-# Review shared Full tree meshes
+# Review shared grown tree meshes
 
 The native tactical viewer places three grounded instances of one admitted
-source tree. It installs the Full mesh and material closure once, then shares
-the handles between placements. The diagnostic checks actual indirect GPU draws
-and compacted instance records before saving an image. Full means the library's
-declared detail, held fixed throughout the run.
+source tree. It installs the selected mesh and material closure once, then
+shares the handles between placements. The diagnostic checks actual indirect GPU
+draws and compacted instance records before saving an image. Each process holds
+one explicit Full, Middle or Coarse level throughout the run. Full uses the
+library's declared detail; Middle uses six tube sides, one span and six leaf
+blades; Coarse uses four sides, one span and two blades. The same admitted
+records and botanical source identity are used at every level.
 
 This does not replace the gameplay tree presenter, select adaptive levels of
 detail, or demonstrate arrival performance.
@@ -20,25 +23,26 @@ produced, biological age, or species calibration.
 The library must use `FORESTL3`, with its exact canonical topology revision.
 It contains source records and model metadata, not generated address meshes.
 Regenerate older libraries from their source; this tool has no older-format
-decoder. Full authoring builds only the live triangle prefix for each part.
+decoder. Native authoring builds only the live triangle prefix for each part.
 The library digest changes with the new payload, so regenerate any populations
 bound to that library as well.
 
-Build the native viewer with `grown-full-review`, then use a fresh process and
+Build the native viewer with `grown-review`, then use a fresh process and
 output directory:
 
 ```powershell
 cargo build --locked -p adventuresim-tactical-client `
-  --bin tactical-scene-viewer --features grown-full-review
+  --bin tactical-scene-viewer --features grown-review
 
 # Use the executable in the configured Cargo target directory.
 tactical-scene-viewer --scene-input scene.json `
   --grown-review-library library.forest --grown-review-source SOURCE_ID `
-  --grown-review-role candidate --grown-review-batch-control ordinary `
+  --grown-review-role candidate --grown-review-level full `
+  --grown-review-batch-control ordinary `
   --output shared-plates
 ```
 
-The four review options and scene input are required together. They conflict
+The five review options and scene input are required together. They conflict
 with explicit fixtures, profiles, source authoring, benchmark modes and scene
 overrides. The `grown-shared` plate and its warmup use the same camera, derived
 from the union of the three original source envelopes. Candidate mesh bounds
@@ -49,7 +53,17 @@ The candidate uses real positions, normals and texture coordinates authored on
 a separate compute device. The reference role evaluates original integer vertex
 addresses in the vertex shader. Both share branch/leaf surface functions and
 tactical lighting. Use `--grown-review-role reference` for that diagnostic
-counterpart; its GPU membership requirement remains unchanged.
+counterpart with the same level. Geometry owns the immutable selected level;
+materials derive their record-address stride from that owner. Part identity and
+the final capture checks include the level. Each level can partition its source
+records differently under the allocation limit, so part counts can differ.
+
+Fewer branch spans straighten the sampled curve. Fewer leaf blades change both
+attachment and blade size. This preserves the existing renderer's approximation
+policy; it does not establish visual suitability at a given distance. Compare
+reference and candidate at the same level and camera for conversion fidelity,
+then compare adjacent levels at the same intended-distance camera for quality.
+The current close plate is a geometry diagnostic, not distant LOD acceptance.
 
 The author rejects meshes above explicit per-part and total payload limits. Its
 device is released before the tactical renderer starts. The two stages may
@@ -67,11 +81,11 @@ Unrelated scene obstacles, playable ground scatter, vista trees and named review
 specimens are removed. Shared terrain remains; vista rock and grass background
 can remain too. This isolated layout is not a complete forest scene.
 
-`GrownFullAssets` retains the admitted bank, source identity, mesh partitions,
-source-buffer handles and ordinary materials. Placement identity is separate
-from botanical source identity. Source root coordinates are removed during
-library authoring, then destination root transforms are applied once. Do not
-apply collider half-height normalization to these meshes.
+`GrownAssets` retains the admitted bank, source identity, mesh partitions,
+selected level, source-buffer handles and ordinary materials. Placement identity
+is separate from botanical source identity. Source root coordinates are removed
+during library authoring, then destination root transforms are applied once. Do
+not apply collider half-height normalization to these meshes.
 
 Attach supplied bounds with `NoAutoAabb`. Address evaluation needs its original
 source-conservative bounds; the candidate uses actual mesh bounds. Normal
@@ -106,19 +120,21 @@ explicit controls in separate fresh processes:
   three-root GPU membership requirement.
 - `missing-last-tag` removes a held part's tag after warmup. It must fail the
   tag ownership check.
+- `changed-level` changes the review selection after warmup while keeping the
+  installed geometry and materials. It must fail the held source/level check
+  before the next pose can authorize a GPU proof.
 
-`grown-full-runtime.json` records the render adapter and depth planes.
-`grown-full-review.json` records source metadata, held cameras, complete owned
+`grown-runtime.json` records the render adapter and depth planes.
+`grown-review.json` records source metadata, held cameras, complete owned
 inventory and GPU membership results. Raw snapshots, command receipts and proofs
-are saved under `gpu-batches/`. The manifest records fixed Full capability,
-separate from adaptive gameplay tree presentation.
+are saved under `gpu-batches/`. The manifest records the actual fixed-level
+capability, separate from adaptive gameplay tree presentation.
 
 The manifest records equal settled raw-readback hashes. Normal output saves the
 final RGB PNG; a settling mismatch can also save retry PNGs. It does not
 guarantee independently decodable files for the accepted raw pair or retain
 alpha. Compare reference and candidate images directly and report differences
-rather than
-assuming pixel parity.
+rather than assuming pixel parity.
 
 Diagnostic copies, readbacks and serialization add work. These runs are untimed
 correctness evidence. Main-color membership does not validate shadow or prepass

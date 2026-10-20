@@ -1,11 +1,11 @@
-//! Ordinary Full materials retain the exact grown source used by each mesh.
+//! Ordinary grown materials retain the exact grown source used by each mesh.
 
 use std::sync::Arc;
 
 use bevy::{camera::primitives::Aabb, prelude::*, render::storage::ShaderBuffer};
 use fabelgeist_botany::identity::PlantId;
 
-use super::ForestPart;
+use super::{ForestPart, Level};
 use crate::prepared::{RecordSpan, TreeBank, VariantIndex};
 
 pub use materials::{GrownLeafMaterial, GrownWoodMaterial};
@@ -15,7 +15,7 @@ mod materials;
 mod source;
 
 /// Registers ordinary material pipelines without an instanced forest feed.
-pub struct GrownFullMaterialPlugin;
+pub struct GrownMaterialPlugin;
 
 /// Source role and render handle remain bound to the admitted bank owner.
 pub struct GrownSourceBuffer {
@@ -23,12 +23,13 @@ pub struct GrownSourceBuffer {
     handle: Handle<ShaderBuffer>,
 }
 
-/// A complete ownership record for one fixed Full geometry, not a scene cache.
+/// A complete ownership record for one fixed grown geometry, not a scene cache.
 #[derive(Resource)]
-pub struct GrownFullAssets {
+pub struct GrownAssets {
     bank: Arc<TreeBank>,
     source: PlantId,
     variant: VariantIndex,
+    level: Level,
     encoding: GrownVertexEncoding,
     parts: Vec<GrownPartAsset>,
     buffers: Vec<GrownSourceBuffer>,
@@ -64,11 +65,11 @@ pub enum GrownBufferRole {
     Plants,
 }
 
-impl Plugin for GrownFullMaterialPlugin {
+impl Plugin for GrownMaterialPlugin {
     fn build(&self, app: &mut App) {
         super::register_forest_libraries(app);
-        bevy::asset::embedded_asset!(app, "full/shaders/material.wgsl");
-        bevy::shader::load_shader_library!(app, "full/shaders/vertices.wgsl");
+        bevy::asset::embedded_asset!(app, "grown/shaders/material.wgsl");
+        bevy::shader::load_shader_library!(app, "grown/shaders/vertices.wgsl");
         app.add_plugins((
             bevy::pbr::MaterialPlugin::<GrownWoodMaterial>::default(),
             bevy::pbr::MaterialPlugin::<GrownLeafMaterial>::default(),
@@ -76,7 +77,7 @@ impl Plugin for GrownFullMaterialPlugin {
     }
 }
 
-impl GrownFullAssets {
+impl GrownAssets {
     pub fn bank(&self) -> &Arc<TreeBank> {
         &self.bank
     }
@@ -85,6 +86,9 @@ impl GrownFullAssets {
     }
     pub fn variant(&self) -> VariantIndex {
         self.variant
+    }
+    pub fn level(&self) -> Level {
+        self.level
     }
     pub fn encoding(&self) -> GrownVertexEncoding {
         self.encoding

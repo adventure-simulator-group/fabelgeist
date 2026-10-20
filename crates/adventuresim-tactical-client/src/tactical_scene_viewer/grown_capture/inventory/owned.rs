@@ -20,13 +20,13 @@ struct ExpectedSpan {
 
 impl OwnedGrown {
     pub(in super::super) fn install(
-        geometry: GrownFullGeometry,
+        geometry: GrownGeometry,
         encoding: GrownVertexEncoding,
         placements: layout::RootPlacements,
         control: controls::BatchControl,
         world: &mut World,
     ) -> Result<Self> {
-        let assets = GrownFullAssets::install(geometry, encoding, world)?;
+        let assets = GrownAssets::install(geometry, encoding, world)?;
         let mut roots = Vec::new();
         for placement in placements.iter().copied() {
             let entity = world
@@ -134,6 +134,10 @@ impl OwnedGrown {
             );
         }
         Ok(())
+    }
+
+    pub(in super::super) fn level(&self) -> Level {
+        self.assets.level()
     }
 
     pub(in super::super) fn last_root(&self) -> Result<Entity> {

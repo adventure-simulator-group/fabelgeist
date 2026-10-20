@@ -21,9 +21,9 @@ use crate::render::ForestDetail;
 mod bake;
 mod codec;
 mod form;
-#[cfg(all(feature = "full-authoring", not(target_family = "wasm")))]
-mod full;
 mod grids;
+#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
+mod grown;
 mod meshes;
 mod resident;
 mod selection;
@@ -34,12 +34,12 @@ pub use codec::{
     decode_library, decode_population, decode_unique, encode_library, encode_population,
     encode_unique,
 };
-#[cfg(all(feature = "full-authoring", not(target_family = "wasm")))]
-pub use full::{
-    FullAuthoringContext, FullExpansionBudget, FullPartVertexLimit, GrownFullGeometry,
-    GrownFullPart,
-};
 pub use grids::{AddressMesh, MeshClass, RecordCapacity, RecordCount};
+#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
+pub use grown::{
+    GrownAuthoringContext, GrownExpansionBudget, GrownGeometry, GrownGeometryPart,
+    GrownPartVertexLimit,
+};
 pub(crate) use meshes::admit_address_mesh_bytes;
 pub use meshes::{CanonicalTopologyBytes, TopologyRequirements};
 pub use resident::{PopulationId, SharedForest, TreeBank};

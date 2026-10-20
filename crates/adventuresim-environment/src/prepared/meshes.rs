@@ -137,7 +137,7 @@ pub(crate) fn admit_address_mesh_bytes(bytes: u64) -> Result<()> {
     Ok(())
 }
 
-/// Native Full meshes need only live triangles, never padded address vertices.
+/// Native grown meshes need only live triangles, never padded address vertices.
 pub(super) fn index_prefix(
     part: ForestPart,
     level: Level,

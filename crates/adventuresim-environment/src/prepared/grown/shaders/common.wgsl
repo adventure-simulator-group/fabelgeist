@@ -1,7 +1,7 @@
 // Native authoring boundary. Positions retain the source record's local metres.
-#define_import_path adventuresim_environment::full_expansion
+#define_import_path adventuresim_environment::grown_expansion
 
-const FULL_EXPANSION_GROUP_WIDTH: u32 = 64u;
+const GROWN_EXPANSION_GROUP_WIDTH: u32 = 64u;
 
 struct Params {
     shape: vec4<u32>,

@@ -1,12 +1,12 @@
 #import adventuresim_environment::forest::Leaf
 #import adventuresim_environment::leaf_geometry::leaf_vertex
-#import adventuresim_environment::full_expansion::{Params, ExpandedVertex, FULL_EXPANSION_GROUP_WIDTH}
+#import adventuresim_environment::grown_expansion::{Params, ExpandedVertex, GROWN_EXPANSION_GROUP_WIDTH}
 
 @group(0) @binding(0) var<storage, read> records: array<Leaf>;
 @group(0) @binding(1) var<uniform> params: Params;
 @group(0) @binding(2) var<storage, read_write> vertices: array<ExpandedVertex>;
 
-@compute @workgroup_size(FULL_EXPANSION_GROUP_WIDTH)
+@compute @workgroup_size(GROWN_EXPANSION_GROUP_WIDTH)
 fn expand(@builtin(global_invocation_id) invocation: vec3<u32>) {
     let address = invocation.x;
     if address >= params.span.z {
