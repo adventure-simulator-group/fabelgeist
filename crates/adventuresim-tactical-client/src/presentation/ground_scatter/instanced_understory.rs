@@ -25,7 +25,7 @@ use bevy::{
 use bevy_eidolon::prelude::*;
 
 use super::{
-    WoodyUnderstoryPresentationCache,
+    ShrubRepresentation, WoodyUnderstoryPresentationCache,
     instanced_grass::fitted_batch_aabb,
     understory::{self, ShrubPlacement, UnderstoryHabitat, UnderstorySpecies},
 };
@@ -137,29 +137,6 @@ impl InstancedMaterial for TacticalShrubLeafInstancedMaterial {
     }
 }
 
-/// Fade bands per representation; adjacent cambered/card bands share their
-/// endpoints so the complementary crossfade partition hands off exactly.
-fn representation_band(representation: ShrubRepresentation) -> Vec4 {
-    match representation {
-        ShrubRepresentation::Branches => Vec4::new(0.0, 0.001, 44.0, 52.0),
-        ShrubRepresentation::CamberedLeaves => Vec4::new(0.0, 0.001, 26.0, 34.0),
-        ShrubRepresentation::LeafCards => Vec4::new(26.0, 34.0, 84.0, 96.0),
-    }
-}
-
-#[derive(Clone, Copy, PartialEq, Eq)]
-enum ShrubRepresentation {
-    Branches,
-    CamberedLeaves,
-    LeafCards,
-}
-
-const REPRESENTATIONS: [ShrubRepresentation; 3] = [
-    ShrubRepresentation::Branches,
-    ShrubRepresentation::CamberedLeaves,
-    ShrubRepresentation::LeafCards,
-];
-
 #[expect(
     clippy::too_many_arguments,
     reason = "the instanced-understory construction boundary keeps asset stores, habitat, and placement inputs explicit"
@@ -209,13 +186,9 @@ pub(super) fn spawn(
             continue;
         }
         let presentation = cache.presentation(species);
-        let (Some(branches), Some(cambered), Some(cards), Some(bark_handle), Some(leaf_handle)) = (
-            presentation.branches.clone(),
-            presentation.cambered_leaves.clone(),
-            presentation.leaf_cards.clone(),
-            presentation.bark.as_ref(),
-            presentation.leaves.as_ref(),
-        ) else {
+        let (Some(bark_handle), Some(leaf_handle)) =
+            (presentation.bark.as_ref(), presentation.leaves.as_ref())
+        else {
             continue;
         };
         let bark_color = standard_materials
@@ -235,15 +208,14 @@ pub(super) fn spawn(
         };
         let aabb = fitted_batch_aabb(&instances, SHRUB_FOOTPRINT_METRES);
         let bark = bark_materials.add(TacticalShrubBarkInstancedMaterial { color: bark_color });
-        for representation in REPRESENTATIONS {
-            let (mesh, name) = match representation {
-                ShrubRepresentation::Branches => (branches.clone(), "wood"),
-                ShrubRepresentation::CamberedLeaves => (cambered.clone(), "cambered leaves"),
-                ShrubRepresentation::LeafCards => (cards.clone(), "leaf cards"),
+        for representation in ShrubRepresentation::ALL {
+            let Some(mesh) = representation.mesh(presentation) else {
+                continue;
             };
             let mut entity = commands.spawn((
                 Name::new(format!(
-                    "Instanced {species:?} shrub {name} ({})",
+                    "Instanced {species:?} shrub {} ({})",
+                    representation.label(),
                     instances.len()
                 )),
                 super::GroundScatterLayer::Understory,
@@ -257,34 +229,31 @@ pub(super) fn spawn(
                 InstanceMaterialData {
                     instances: instances.clone(),
                     color: LinearRgba::WHITE,
-                    visibility_range: representation_band(representation),
+                    visibility_range: representation.instance_range(),
                 },
                 Transform::default(),
                 Visibility::Inherited,
             ));
-            match representation {
-                ShrubRepresentation::Branches => {
-                    entity.insert(InstancedMeshMaterial(bark.clone()));
-                }
-                ShrubRepresentation::CamberedLeaves | ShrubRepresentation::LeafCards => {
-                    // Both the cambered near leaves and the distant cards shade
-                    // fast now; the cambered path's former full PBR was pure
-                    // per-fragment cost. y=0.72 scales the flat ambient.
-                    entity.insert(InstancedMeshMaterial(leaf_materials.add(
-                        TacticalShrubLeafInstancedMaterial {
-                            opacity: leaf.opacity.clone(),
-                            front_albedo: leaf.front_albedo.clone(),
-                            back_albedo: leaf.back_albedo.clone(),
-                            front_normal: leaf.front_normal.clone(),
-                            back_normal: leaf.back_normal.clone(),
-                            arm: leaf.arm.clone(),
-                            parameters: leaf.parameters,
-                            surface_parameters: leaf.surface_parameters,
-                            physical_parameters: leaf.physical_parameters,
-                            shading: Vec4::new(1.0, 0.72, 0.0, 0.0),
-                        },
-                    )));
-                }
+            if representation.is_wood() {
+                entity.insert(InstancedMeshMaterial(bark.clone()));
+            } else {
+                // Both the cambered near leaves and the distant cards shade
+                // fast now; the cambered path's former full PBR was pure
+                // per-fragment cost. y=0.72 scales the flat ambient.
+                entity.insert(InstancedMeshMaterial(leaf_materials.add(
+                    TacticalShrubLeafInstancedMaterial {
+                        opacity: leaf.opacity.clone(),
+                        front_albedo: leaf.front_albedo.clone(),
+                        back_albedo: leaf.back_albedo.clone(),
+                        front_normal: leaf.front_normal.clone(),
+                        back_normal: leaf.back_normal.clone(),
+                        arm: leaf.arm.clone(),
+                        parameters: leaf.parameters,
+                        surface_parameters: leaf.surface_parameters,
+                        physical_parameters: leaf.physical_parameters,
+                        shading: Vec4::new(1.0, 0.72, 0.0, 0.0),
+                    },
+                )));
             }
         }
     }

@@ -1,6 +1,105 @@
 //! Resolved woody specimens shared by wild and property-owned planting.
 use super::*;
 use adventuresim_tactical_core::city_layout::GardenSpecimen;
+use bevy::camera::visibility::VisibilityRange;
+use std::ops::Range;
+
+/// Close shrub wood carries twigs and full-detail stems; beyond this band a
+/// twig is under a pixel wide and the aggregate stems take over.
+const SHRUB_NEAR_WOOD_HANDOFF_METRES: Range<f32> = 12.0..16.0;
+/// Cambered leaves only read as curved surfaces at arm's length; past this
+/// band every leaf continues as a flat alpha card.
+const SHRUB_CAMBERED_LEAF_HANDOFF_METRES: Range<f32> = 4.0..6.0;
+/// Individual leaf cards hand over to enlarged per-shoot cluster cards once a
+/// leaf spans only a few pixels; the cluster outline keeps the species read.
+const SHRUB_SPARSE_LEAF_HANDOFF_METRES: Range<f32> = 26.0..34.0;
+const SHRUB_WOOD_RETIREMENT_METRES: Range<f32> = 44.0..52.0;
+const SHRUB_LEAF_RETIREMENT_METRES: Range<f32> = 84.0..96.0;
+
+/// Distance-banded shrub representations shared by wild understory and
+/// property gardens. Adjacent bands share endpoints so complementary
+/// dithering hands one representation to the next exactly.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(super) enum ShrubRepresentation {
+    NearWood,
+    FarWood,
+    CamberedLeaves,
+    LeafCards,
+    SparseLeafCards,
+}
+
+impl ShrubRepresentation {
+    pub(super) const ALL: [Self; 5] = [
+        Self::NearWood,
+        Self::FarWood,
+        Self::CamberedLeaves,
+        Self::LeafCards,
+        Self::SparseLeafCards,
+    ];
+
+    /// Fade-in and fade-out margins in metres from the camera.
+    fn margins(self) -> (Range<f32>, Range<f32>) {
+        match self {
+            Self::NearWood => (0.0..0.0, SHRUB_NEAR_WOOD_HANDOFF_METRES),
+            Self::FarWood => (SHRUB_NEAR_WOOD_HANDOFF_METRES, SHRUB_WOOD_RETIREMENT_METRES),
+            Self::CamberedLeaves => (0.0..0.0, SHRUB_CAMBERED_LEAF_HANDOFF_METRES),
+            Self::LeafCards => (
+                SHRUB_CAMBERED_LEAF_HANDOFF_METRES,
+                SHRUB_SPARSE_LEAF_HANDOFF_METRES,
+            ),
+            Self::SparseLeafCards => (
+                SHRUB_SPARSE_LEAF_HANDOFF_METRES,
+                SHRUB_LEAF_RETIREMENT_METRES,
+            ),
+        }
+    }
+
+    pub(super) fn visibility_range(self) -> VisibilityRange {
+        let (start_margin, end_margin) = self.margins();
+        VisibilityRange {
+            start_margin,
+            end_margin,
+            use_aabb: false,
+        }
+    }
+
+    /// Eidolon's per-instance band packs both margins into one vector. Its
+    /// fade-in divides by the margin width, so an always-visible start keeps
+    /// a millimetre-wide margin.
+    pub(super) fn instance_range(self) -> Vec4 {
+        let (start, end) = self.margins();
+        Vec4::new(
+            start.start,
+            start.end.max(start.start + 0.001),
+            end.start,
+            end.end,
+        )
+    }
+
+    pub(super) fn mesh(self, presentation: &WoodyUnderstoryPresentation) -> Option<Handle<Mesh>> {
+        match self {
+            Self::NearWood => presentation.branches.clone(),
+            Self::FarWood => presentation.far_branches.clone(),
+            Self::CamberedLeaves => presentation.cambered_leaves.clone(),
+            Self::LeafCards => presentation.leaf_cards.clone(),
+            Self::SparseLeafCards => presentation.sparse_leaf_cards.clone(),
+        }
+    }
+
+    pub(super) fn is_wood(self) -> bool {
+        matches!(self, Self::NearWood | Self::FarWood)
+    }
+
+    pub(super) fn label(self) -> &'static str {
+        match self {
+            Self::NearWood => "near wood",
+            Self::FarWood => "far wood",
+            Self::CamberedLeaves => "cambered leaves",
+            Self::LeafCards => "leaf cards",
+            Self::SparseLeafCards => "sparse leaf cards",
+        }
+    }
+}
 
 pub(super) fn ensure_understory_presentations(
     meshes: &mut Assets<Mesh>,
@@ -43,19 +142,19 @@ pub(super) fn ensure_understory_presentations(
             adventuresim_tactical_core::city_layout::gardens::GARDEN_LEAF_WIND_STRENGTH_METRES;
         let branches = procedural_woody_plant_skeleton(seed, 0.0, parameters);
         let leaves = procedural_woody_plant_leaves(seed, &branches, 0.0, parameters);
-        let mut branch_mesh = procedural_woody_branch_mesh(&branches, 3);
+        let [mut branch_mesh, mut far_branch_mesh] = [
+            procedural_woody_branch_mesh(&branches, 3),
+            procedural_woody_aggregate_shrub_mesh(&branches),
+        ];
         // Tree bark uses COLOR for root-height geometry. Plain shrub bark must
         // not multiply that payload into its pigment.
         branch_mesh.remove_attribute(Mesh::ATTRIBUTE_COLOR);
+        far_branch_mesh.remove_attribute(Mesh::ATTRIBUTE_COLOR);
         cache.branches = Some(meshes.add(branch_mesh));
+        cache.far_branches = Some(meshes.add(far_branch_mesh));
         cache.cambered_leaves = Some(meshes.add(procedural_woody_cambered_leaf_mesh(&leaves)));
-        // A single minimal card tier replaces the former full-card and far
-        // sparse-card tiers. It carries the close shrub silhouette only until
-        // the terrain and distant canopy can take over.
-        cache.minimal_leaf_cards =
-            Some(meshes.add(procedural_woody_sparse_leaf_card_mesh(&leaves)));
-        // Full-coverage cards for the instanced shrub renderer's leaf-card tier.
         cache.leaf_cards = Some(meshes.add(procedural_woody_leaf_card_mesh(&leaves)));
+        cache.sparse_leaf_cards = Some(meshes.add(procedural_woody_sparse_leaf_card_mesh(&leaves)));
         cache.bark = Some(materials.add(StandardMaterial {
             base_color: bark_color,
             perceptual_roughness: 0.96,
@@ -68,6 +167,29 @@ pub(super) fn ensure_understory_presentations(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn shrub_bands_hand_off_without_gaps() {
+        let margins = |representation: ShrubRepresentation| representation.margins();
+        let wood = [ShrubRepresentation::NearWood, ShrubRepresentation::FarWood];
+        let leaves = [
+            ShrubRepresentation::CamberedLeaves,
+            ShrubRepresentation::LeafCards,
+            ShrubRepresentation::SparseLeafCards,
+        ];
+        for chain in [&wood[..], &leaves[..]] {
+            assert_eq!(margins(chain[0]).0, 0.0..0.0);
+            for pair in chain.windows(2) {
+                assert_eq!(margins(pair[0]).1, margins(pair[1]).0);
+            }
+        }
+        // Wood retires before the leaf cards that hide it.
+        assert!(
+            margins(ShrubRepresentation::FarWood).1.end
+                < margins(ShrubRepresentation::SparseLeafCards).1.end
+        );
+    }
+
     #[test]
     fn managed_hazel_matches_shared_envelope() {
         let envelope = GardenSpecimen::CommonHazel.envelope();
@@ -76,6 +198,7 @@ mod tests {
         let leaves = procedural_woody_plant_leaves(seed, &branches, 0.0, COMMON_HAZEL_PARAMETERS);
         let meshes = [
             procedural_woody_branch_mesh(&branches, 3),
+            procedural_woody_aggregate_shrub_mesh(&branches),
             procedural_woody_cambered_leaf_mesh(&leaves),
             procedural_woody_leaf_card_mesh(&leaves),
             procedural_woody_sparse_leaf_card_mesh(&leaves),

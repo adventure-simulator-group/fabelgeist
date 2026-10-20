@@ -22,9 +22,10 @@ use super::obstacles::tree::{
     BLACKTHORN_PARAMETERS, COMMON_HAWTHORN_PARAMETERS, COMMON_HAZEL_PARAMETERS,
     TacticalTreeBarkMaterial, TacticalTreeImpostorMaterial, TacticalTreeLeafCardMaterial,
     TreeLeafRepresentation, blackthorn_leaf_material, hawthorn_leaf_material, hazel_leaf_material,
-    procedural_woody_branch_mesh, procedural_woody_cambered_leaf_mesh,
-    procedural_woody_leaf_card_mesh, procedural_woody_plant_leaves,
-    procedural_woody_plant_skeleton, procedural_woody_sparse_leaf_card_mesh,
+    procedural_woody_aggregate_shrub_mesh, procedural_woody_branch_mesh,
+    procedural_woody_cambered_leaf_mesh, procedural_woody_leaf_card_mesh,
+    procedural_woody_plant_leaves, procedural_woody_plant_skeleton,
+    procedural_woody_sparse_leaf_card_mesh,
 };
 use super::{
     PresentedCelestialLighting, ProceduralTextureAssets, TacticalGraphicsSettings, bps,
@@ -51,7 +52,7 @@ pub(in crate::presentation) mod gardens;
 mod scene_mask;
 mod specimens;
 mod understory;
-use specimens::ensure_understory_presentations;
+use specimens::{ShrubRepresentation, ensure_understory_presentations};
 
 use scene_mask::{GroundScatterSceneQuery, scatter_ground_without_patch};
 
@@ -100,11 +101,10 @@ pub(crate) struct GroundLitterDiagnostics {
 #[derive(Default)]
 pub(in crate::presentation) struct WoodyUnderstoryPresentation {
     branches: Option<Handle<Mesh>>,
+    far_branches: Option<Handle<Mesh>>,
     cambered_leaves: Option<Handle<Mesh>>,
-    minimal_leaf_cards: Option<Handle<Mesh>>,
-    // Full-coverage leaf cards consumed by the instanced shrub renderer,
-    // which draws its own leaf-card representation tier.
     leaf_cards: Option<Handle<Mesh>>,
+    sparse_leaf_cards: Option<Handle<Mesh>>,
     bark: Option<Handle<StandardMaterial>>,
     leaves: Option<Handle<TacticalTreeLeafCardMaterial>>,
 }

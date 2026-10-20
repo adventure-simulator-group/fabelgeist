@@ -21,7 +21,7 @@ use bevy::{
     pbr::{AtmosphereSettings, wireframe::WireframePlugin},
     prelude::*,
     render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
-    window::{ExitCondition, PresentMode},
+    window::ExitCondition,
     winit::WinitPlugin,
 };
 use serde::Serialize;
@@ -65,8 +65,8 @@ use manifest::{
     validation_passes,
 };
 use triangle_census::{
-    TerrainWireframeCaptureState, TriangleCensusState, capture_terrain_wireframe,
-    capture_triangle_census,
+    MeshTriangleCounts, TerrainWireframeCaptureState, TriangleCensusState,
+    capture_terrain_wireframe, capture_triangle_census, record_mesh_triangle_counts,
 };
 #[cfg(test)]
 use view_specs::TREE_BILLBOARD_TRANSITION_SCALES;
@@ -93,6 +93,8 @@ use crate::presentation::{
     oak_review_terminal_specimen, spawn_understory_review_specimens, terrain_heightmap_image,
 };
 
+/// Census frames only settle streaming; ~30 Hz keeps the GPU mostly idle.
+const TRIANGLE_CENSUS_FRAME_INTERVAL: Duration = Duration::from_millis(33);
 const PERFORMANCE_VIEW_WIDTH: u32 = 2560;
 const PERFORMANCE_VIEW_HEIGHT: u32 = 1440;
 const PERFORMANCE_TARGET_FPS: f64 = 60.0;
@@ -145,6 +147,7 @@ struct PlasterGrazingReviewLight;
 )]
 struct LightingObservationParams<'w, 's> {
     spatial: SpatialQuery<'w, 's>,
+    offscreen: Res<'w, OffscreenCaptureTarget>,
     settings: Res<'w, TacticalGraphicsSettings>,
     ambient: Res<'w, GlobalAmbientLight>,
     ambient_handoff: Res<'w, AtmosphereIblStatus>,
@@ -850,31 +853,23 @@ pub(crate) fn run(
             ..default()
         })
         .set(WindowPlugin {
-            primary_window: (!scene_performance_benchmarking).then(|| Window {
-                visible: false,
-                resolution: capture_resolution::window_resolution(profile),
-                present_mode: PresentMode::AutoNoVsync,
-                resizable: false,
-                decorations: false,
-                ..default()
-            }),
-            exit_condition: if scene_performance_benchmarking {
-                ExitCondition::DontExit
-            } else {
-                ExitCondition::OnAllClosed
-            },
+            // Every mode renders offscreen: Wayland ignores `Window::visible`,
+            // so any primary window would map and take desktop focus.
+            primary_window: None,
+            exit_condition: ExitCondition::DontExit,
             ..default()
         });
-    if scene_performance_benchmarking {
-        // Eliminate both swapchain presentation and the desktop event-loop
-        // floor. The normal RenderPlugin still renders the production camera
-        // to the offscreen texture; only frame scheduling becomes unpaced.
-        app.add_plugins(default_plugins.disable::<WinitPlugin>())
-            .add_plugins(ScheduleRunnerPlugin::run_loop(Duration::ZERO));
+    // Eliminate both swapchain presentation and the desktop event-loop floor.
+    // The normal RenderPlugin still renders the production camera to the
+    // offscreen texture. Benchmarks and captures run unpaced; the census needs
+    // only settled ECS state, so it paces itself to spare the GPU.
+    let frame_interval = if triangle_census {
+        TRIANGLE_CENSUS_FRAME_INTERVAL
     } else {
-        app.add_plugins(default_plugins)
-            .insert_resource(bevy::winit::WinitSettings::continuous());
-    }
+        Duration::ZERO
+    };
+    app.add_plugins(default_plugins.disable::<WinitPlugin>())
+        .add_plugins(ScheduleRunnerPlugin::run_loop(frame_interval));
     app.add_plugins(AdventureSimulatorPhysicsPlugin {
         enable_simulation: false,
         enable_presentation_simulation: false,
@@ -886,14 +881,18 @@ pub(crate) fn run(
     .insert_resource(ClearColor(Color::srgb_u8(158, 181, 195)))
     .insert_resource(SceneSetup(Some(setup)));
     app.insert_resource(camera_contract);
-    app.add_systems(PostStartup, capture_resolution::apply.after(setup_scene));
     furniture_readiness::install(&mut app, profile);
     if terrain_wireframe {
         app.add_plugins(WireframePlugin::default())
             .insert_resource(TerrainWireframeCaptureState::new(wireframe_output));
     }
     if triangle_census {
-        app.init_resource::<TriangleCensusState>();
+        app.init_resource::<TriangleCensusState>()
+            .init_resource::<MeshTriangleCounts>()
+            .add_systems(
+                PostUpdate,
+                record_mesh_triangle_counts.after(bevy::asset::AssetEventSystems),
+            );
     }
     app.insert_gizmo_config(
         PhysicsGizmos::default(),
@@ -902,23 +901,31 @@ pub(crate) fn run(
             ..default()
         },
     );
-    if scene_performance_benchmarking {
-        app.add_systems(
-            PostStartup,
-            (
-                setup_scene,
-                fixed_city_cameras::apply,
-                redirect_performance_camera_offscreen,
-                freeze_capture_clock,
-            )
-                .chain(),
-        );
+    let offscreen_pixels = if scene_performance_benchmarking {
+        UVec2::new(PERFORMANCE_VIEW_WIDTH, PERFORMANCE_VIEW_HEIGHT)
     } else {
-        app.add_systems(
-            PostStartup,
-            (setup_scene, fixed_city_cameras::apply, freeze_capture_clock).chain(),
-        );
-    }
+        capture_resolution::physical_pixels(profile)
+    };
+    let offscreen_target =
+        app.world_mut()
+            .resource_mut::<Assets<Image>>()
+            .add(Image::new_target_texture(
+                offscreen_pixels.x,
+                offscreen_pixels.y,
+                bevy::render::render_resource::TextureFormat::Rgba8UnormSrgb,
+                None,
+            ));
+    app.insert_resource(OffscreenCaptureTarget(offscreen_target));
+    app.add_systems(
+        PostStartup,
+        (
+            setup_scene,
+            fixed_city_cameras::apply,
+            redirect_camera_offscreen,
+            freeze_capture_clock,
+        )
+            .chain(),
+    );
     if scene_performance_benchmarking && scene_performance_render_diagnostics {
         app.add_plugins(bevy::render::diagnostic::RenderDiagnosticsPlugin);
     }
@@ -949,22 +956,27 @@ pub(crate) fn run(
     }
 }
 
-/// Render performance captures into a texture so Windows compositor pacing
-/// cannot masquerade as renderer work on sub-refresh-rate frame budgets.
-fn redirect_performance_camera_offscreen(
+/// The gameplay camera's offscreen render target, which every capture reads
+/// back instead of a desktop window.
+#[derive(Resource, Clone)]
+struct OffscreenCaptureTarget(Handle<Image>);
+
+impl OffscreenCaptureTarget {
+    fn screenshot(&self) -> Screenshot {
+        Screenshot::image(self.0.clone())
+    }
+}
+
+/// Render into a texture so no window maps on the desktop and compositor
+/// pacing cannot masquerade as renderer work on sub-refresh-rate budgets.
+fn redirect_camera_offscreen(
     mut commands: Commands,
     camera: Single<Entity, With<TacticalGameplayCamera>>,
-    mut images: ResMut<Assets<Image>>,
+    target: Res<OffscreenCaptureTarget>,
 ) {
-    let image = Image::new_target_texture(
-        PERFORMANCE_VIEW_WIDTH,
-        PERFORMANCE_VIEW_HEIGHT,
-        bevy::render::render_resource::TextureFormat::Rgba8UnormSrgb,
-        None,
-    );
     commands
         .entity(*camera)
-        .insert(RenderTarget::Image(images.add(image).into()));
+        .insert(RenderTarget::Image(target.0.clone().into()));
 }
 
 fn capture_presentation_plugin() -> TacticalPresentationPlugin {
@@ -3815,7 +3827,7 @@ fn capture_views(
             prime_readbacks,
             kind: CaptureReadback::Prime,
         };
-        commands.spawn(Screenshot::primary_window()).observe(
+        commands.spawn(lighting.offscreen.screenshot()).observe(
             |captured: On<ScreenshotCaptured>, mut state: ResMut<SceneCaptureState>| {
                 let CapturePhase::Readback {
                     view,
@@ -3847,7 +3859,7 @@ fn capture_views(
             prime_readbacks,
             kind: CaptureReadback::Warmup,
         };
-        commands.spawn(Screenshot::primary_window()).observe(
+        commands.spawn(lighting.offscreen.screenshot()).observe(
             |_: On<ScreenshotCaptured>, mut state: ResMut<SceneCaptureState>| {
                 if !matches!(
                     state.phase,
@@ -3920,7 +3932,7 @@ fn capture_views(
         prime_readbacks,
         kind: CaptureReadback::Screenshot,
     };
-    commands.spawn(Screenshot::primary_window()).observe(
+    commands.spawn(lighting.offscreen.screenshot()).observe(
         move |captured: On<ScreenshotCaptured>,
               mut state: ResMut<SceneCaptureState>,
               mut exit: MessageWriter<AppExit>| {
