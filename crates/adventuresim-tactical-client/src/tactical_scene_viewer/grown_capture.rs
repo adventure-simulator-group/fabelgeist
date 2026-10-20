@@ -67,7 +67,7 @@ pub(super) struct Review {
     control: controls::BatchControl,
     source: PlantId,
     geometry: Option<GrownGeometry>,
-    cameras: cameras::Cameras,
+    requested: Vec<String>,
     placements: layout::RootPlacements,
     metadata: serde_json::Value,
 }
@@ -118,7 +118,6 @@ impl GrownCaptureOptions {
             .get(model.species.index())
             .context("grown species missing")?;
         let placements = layout::RootPlacements::on_terrain(&setup.generated.terrain)?;
-        let cameras = cameras::Cameras::from_source(bounds, &placements, &setup.generated.terrain)?;
         let mut author = pollster::block_on(GrownAuthoringContext::new())?;
         let adapter = author.adapter_info();
         let geometry = pollster::block_on(bank.expand_grown(
@@ -141,7 +140,7 @@ impl GrownCaptureOptions {
             "part_count":geometry.parts().len(),"part_vertex_limit":PART_VERTEX_LIMIT,"final_mesh_byte_limit":FINAL_MESH_BYTE_LIMIT,
             "authoring_adapter":{"name":adapter.name,"backend":format!("{:?}",adapter.backend),"device_type":format!("{:?}",adapter.device_type),"driver":adapter.driver,"driver_info":adapter.driver_info},
             "input_digest":setup.input.digest()?,"scene_digest":setup.generated.digest,"environment":setup.environment,
-            "root_placements":placements,"cameras":cameras,"suppressed_generated_obstacles":setup.generated.obstacles.len(),
+            "root_placements":placements,"suppressed_generated_obstacles":setup.generated.obstacles.len(),
             "time_phase":super::CAPTURE_CLOCK_PHASE_SECONDS,
             "draw_policy":"ordinary_gpu_membership","batch_control":control,"shadow_cutout":"analytic source alpha < 0.02 discarded; binary depth/shadow, fractional forward coverage",
             "source_terrain":"saved flat source growth; destination placement by grounded root translations only",
@@ -153,20 +152,10 @@ impl GrownCaptureOptions {
             control,
             source,
             geometry: Some(geometry),
-            cameras,
+            requested: Vec::new(),
             placements,
             metadata,
         })
-    }
-}
-
-impl Review {
-    fn views(&self, requested: &[String]) -> Result<Vec<CaptureViewSpec>, String> {
-        view_selection::select(
-            &self.cameras.views(),
-            requested,
-            view_selection::ViewSequence::Independent,
-        )
     }
 }
 
@@ -175,15 +164,15 @@ pub(super) fn prepare(
     options: Option<GrownCaptureOptions>,
     requested: &[String],
 ) -> Result<PreparedCapture> {
-    let review = options.map(|options| options.admit(&setup)).transpose()?;
-    if let Some(review) = &review {
-        setup.views = review.views(requested).map_err(anyhow::Error::msg)?;
-        setup.requested_views = setup
-            .views
-            .iter()
-            .filter(|view| !view.warmup)
-            .map(|view| view.slug.to_owned())
-            .collect();
+    if options.is_some() {
+        view_selection::validate(&cameras::Cameras::slugs(), requested)
+            .map_err(anyhow::Error::msg)?;
+    }
+    let mut review = options.map(|options| options.admit(&setup)).transpose()?;
+    if let Some(review) = &mut review {
+        review.requested = requested.to_vec();
+        setup.views.clear();
+        setup.requested_views.clear();
     }
     Ok(PreparedCapture { setup, review })
 }

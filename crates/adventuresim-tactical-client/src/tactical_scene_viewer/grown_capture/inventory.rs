@@ -128,10 +128,12 @@ pub(in super::super) struct Inspector<'w, 's> {
     >,
     tags: Query<'w, 's, &'static MeshTag>,
     background: background::Inspector<'w, 's>,
+    support: cameras::SupportInspector<'w, 's>,
 }
 
 impl Inspector<'_, '_> {
-    pub(super) fn check(&self) -> Result<CurrentInventory> {
+    pub(super) fn check(&self, scene_digest: &str) -> Result<CurrentInventory> {
+        self.support.check(scene_digest)?;
         let owned = self.owned.as_ref().context("grown ownership missing")?;
         let review = self.review.as_ref().context("grown review missing")?;
         owned.check_source()?;
@@ -272,7 +274,7 @@ impl Inspector<'_, '_> {
         &self,
         state: &super::super::capture_state::SceneCaptureState,
     ) -> Result<()> {
-        let inventory = self.check()?;
+        let inventory = self.check(&state.digest)?;
         let expected = match state
             .views
             .get(state.view)

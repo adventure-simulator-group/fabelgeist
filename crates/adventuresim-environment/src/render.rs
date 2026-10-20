@@ -37,7 +37,10 @@ use bevy_eidolon::{prelude::*, prepass::CullComputeCamera};
 
 pub use feed::ForestFeed;
 pub use ground::GroundPart;
-pub use levels::{ForestLodCamera, ForestLodView, Level, LevelSelection};
+pub use levels::{
+    ForestLodCamera, ForestLodProjection, ForestLodView, Level, LevelSelection,
+    ProjectedRadiusPixels, source_bounds_radius,
+};
 pub use materials::{BranchMaterial, LeafMaterial};
 
 type UnmarkedForestCamera = (

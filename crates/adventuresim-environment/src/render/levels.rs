@@ -12,14 +12,15 @@
 use bevy::camera::primitives::Aabb;
 use bevy::prelude::*;
 use bevy_eidolon::prelude::*;
+use fabelgeist_math::units::Metres;
 
 use super::chunks::ForestChunk;
 use super::materials::ForestMaterials;
 use super::{ForestDetail, ForestViewCamera};
 
-/// The nearest a chunk is taken to be, metres: a camera inside one sees
-/// its plants in full detail.
-const NEAREST: f32 = 0.01;
+mod projection;
+pub use projection::{ForestLodProjection, ProjectedRadiusPixels, source_bounds_radius};
+
 /// How far under its threshold a chunk's plants shrink on screen before
 /// the chunk turns coarser, as a share of the threshold.
 const HYSTERESIS: f32 = 0.15;
@@ -87,7 +88,12 @@ impl Level {
 
     /// The level of a plant whose radius spans `pixels` on screen, for a
     /// chunk now at `current`.
-    fn of(pixels: f32, current: Level, detail: &ForestDetail) -> Self {
+    pub fn for_projected_radius(
+        pixels: ProjectedRadiusPixels,
+        current: Level,
+        detail: &ForestDetail,
+    ) -> Self {
+        let pixels = pixels.pixels();
         let keep = 1.0 - HYSTERESIS;
         let full = match current {
             Level::Full => detail.full_pixels * keep,
@@ -111,8 +117,13 @@ impl Level {
 /// distance spans on its screen.
 #[derive(Resource, Clone, Debug, Default)]
 pub struct ForestLodView {
-    camera: Option<ForestLodCamera>,
-    focal: f32,
+    source: Option<ForestViewSource>,
+}
+
+#[derive(Clone, Debug)]
+struct ForestViewSource {
+    camera: ForestLodCamera,
+    projection: ForestLodProjection,
 }
 
 /// Actual native camera inputs sampled after propagation and camera update.
@@ -129,7 +140,7 @@ impl ForestLodView {
     /// The unique active perspective camera used for this frame's selection.
     /// Missing or ambiguous ownership yields no source and adaptive coarse LOD.
     pub fn camera(&self) -> Option<&ForestLodCamera> {
-        self.camera.as_ref()
+        self.source.as_ref().map(|source| &source.camera)
     }
 
     /// The level a chunk around `aabb` whose largest plant has `radius`
@@ -144,14 +155,18 @@ impl ForestLodView {
         if let LevelSelection::Fixed(level) = detail.level {
             return level;
         }
-        let Some(camera) = &self.camera else {
+        let Some(source) = &self.source else {
             return Level::Coarse;
         };
-        let eye = camera.world_from_view.translation();
-        let low = Vec3::from(aabb.min());
-        let high = Vec3::from(aabb.max());
-        let distance = eye.distance(eye.clamp(low, high)).max(NEAREST);
-        Level::of(radius * self.focal / distance, current, detail)
+        // The batcher's native vector kernel supplies world-metre radii.
+        let pixels = source.projection.projected_radius(
+            source.camera.world_from_view.translation(),
+            aabb,
+            Metres::from_metres(radius),
+        );
+        pixels.map_or(Level::Coarse, |pixels| {
+            Level::for_projected_radius(pixels, current, detail)
+        })
     }
 }
 
@@ -174,14 +189,17 @@ pub(super) fn follow_camera(
             return None;
         };
         let physical_viewport = camera.physical_viewport_size()?;
+        let screen = ForestLodProjection::from_perspective(perspective, physical_viewport)?;
         Some(ForestLodView {
-            camera: Some(ForestLodCamera {
-                entity,
-                world_from_view: *transform,
-                projection: projection.clone(),
-                physical_viewport,
+            source: Some(ForestViewSource {
+                camera: ForestLodCamera {
+                    entity,
+                    world_from_view: *transform,
+                    projection: projection.clone(),
+                    physical_viewport,
+                },
+                projection: screen,
             }),
-            focal: physical_viewport.y as f32 / (2.0 * (perspective.fov * 0.5).tan()),
         })
     })();
     *view = found.unwrap_or_default();

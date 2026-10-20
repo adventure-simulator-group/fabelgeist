@@ -13,19 +13,19 @@ pub(super) fn select(
     requested: &[String],
     sequence: ViewSequence,
 ) -> Result<Vec<CaptureViewSpec>, String> {
+    validate(
+        &profile_views
+            .iter()
+            .map(|view| view.slug)
+            .collect::<Vec<_>>(),
+        requested,
+    )?;
     if requested.is_empty() {
         return Ok(profile_views.to_vec());
     }
     if matches!(sequence, ViewSequence::Prefix) {
-        let mut seen = BTreeSet::new();
         let mut last_requested_index = 0;
         for slug in requested {
-            if slug == "warmup" {
-                return Err("warmup is implicit and cannot be requested".into());
-            }
-            if !seen.insert(slug.as_str()) {
-                return Err(format!("duplicate requested view {slug}"));
-            }
             let index = profile_views
                 .iter()
                 .position(|view| view.slug == slug)
@@ -39,14 +39,7 @@ pub(super) fn select(
         return Ok(profile_views[..=last_requested_index].to_vec());
     }
     let mut selected = vec![profile_views[0]];
-    let mut seen = BTreeSet::new();
     for slug in requested {
-        if slug == "warmup" {
-            return Err("warmup is implicit and cannot be requested".into());
-        }
-        if !seen.insert(slug.as_str()) {
-            return Err(format!("duplicate requested view {slug}"));
-        }
         let view = profile_views
             .iter()
             .find(|view| view.slug == slug)
@@ -55,4 +48,20 @@ pub(super) fn select(
         selected.push(view);
     }
     Ok(selected)
+}
+
+pub(super) fn validate(profile_slugs: &[&str], requested: &[String]) -> Result<(), String> {
+    let mut seen = BTreeSet::new();
+    for slug in requested {
+        if slug == "warmup" {
+            return Err("warmup is implicit and cannot be requested".into());
+        }
+        if !seen.insert(slug.as_str()) {
+            return Err(format!("duplicate requested view {slug}"));
+        }
+        if !profile_slugs.contains(&slug.as_str()) {
+            return Err(format!("unknown requested view {slug}"));
+        }
+    }
+    Ok(())
 }

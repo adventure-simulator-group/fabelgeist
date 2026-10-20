@@ -11,20 +11,11 @@ use crate::presentation::TacticalGameplayCamera;
 pub(in super::super) struct ReadyPose(usize);
 
 pub(in super::super) fn install(app: &mut App, review: Review) {
-    let source = review.source;
     app.add_plugins(GrownMaterialPlugin);
     observation::install(app);
     app.init_resource::<controls::RootVisibility>();
-    let draws = ordinary_batches::OrdinaryBatches::install(app, review.control);
-    let evidence = Evidence::new(
-        review.metadata.clone(),
-        review.role,
-        source,
-        review.level,
-        draws,
-    );
+    ordinary_batches::OrdinaryBatches::install(app, review.control);
     app.insert_resource(review)
-        .insert_resource(evidence)
         .add_systems(
             PostStartup,
             setup
@@ -65,18 +56,55 @@ fn setup_inner(world: &mut World) -> Result<()> {
         .single(world)?;
     let depth = cameras::PerspectiveDepth::from_projection(projection)?;
     world.insert_resource(depth);
-    let (geometry, encoding, placements, control) = {
-        let mut review = world.resource_mut::<Review>();
-        (
-            review
-                .geometry
-                .take()
-                .context("prepared grown geometry missing")?,
-            review.role.encoding(),
-            review.placements,
-            review.control,
-        )
-    };
+    let mut review = world
+        .remove_resource::<Review>()
+        .context("grown review missing at setup")?;
+    let geometry = review
+        .geometry
+        .take()
+        .context("prepared grown geometry missing")?;
+    let resolved = cameras::resolve(world, &geometry, &review.placements)?;
+    let cameras = resolved.cameras;
+    let support = resolved.support;
+    let views = view_selection::select(
+        &cameras.views(),
+        &review.requested,
+        view_selection::ViewSequence::Independent,
+    )
+    .map_err(anyhow::Error::msg)?;
+    {
+        let mut state = world.resource_mut::<SceneCaptureState>();
+        ensure!(
+            state.phase == CapturePhase::Configure
+                && state.view == 0
+                && state.captures.is_empty()
+                && state.views.is_empty(),
+            "grown cameras must resolve once before capture"
+        );
+        state.requested_views = views
+            .iter()
+            .filter(|view| !view.warmup)
+            .map(|view| view.slug.to_owned())
+            .collect();
+        state.views = views;
+    }
+    review.metadata["cameras"] = serde_json::to_value(&cameras)?;
+    review.metadata["camera_support"] = support.report();
+    let evidence = Evidence::new(
+        review.metadata.clone(),
+        review.role,
+        review.source,
+        review.level,
+        world
+            .resource::<ordinary_batches::OrdinaryBatches>()
+            .clone(),
+    );
+    let encoding = review.role.encoding();
+    let placements = review.placements;
+    let control = review.control;
+    world.insert_resource(review);
+    world.insert_resource(support);
+    world.insert_resource(evidence);
     let owned = inventory::OwnedGrown::install(geometry, encoding, placements, control, world)?;
     world.insert_resource(owned);
     {
@@ -131,7 +159,7 @@ fn advance(world: &mut World) -> bevy::prelude::Result {
         world.resource::<Evidence>().camera_drift(view)?;
         return Err("grown held camera drift".into());
     }
-    let actual = expected.actual(transform, projection)?;
+    let actual = expected.actual(camera, transform, projection)?;
     if let Some(proof) = world
         .resource::<ordinary_batches::OrdinaryBatches>()
         .proof(view)?
@@ -144,7 +172,8 @@ fn advance(world: &mut World) -> bevy::prelude::Result {
 
 fn isolate(world: &mut World) {
     use crate::presentation::{
-        GroundScatterLayer, UnderstoryReviewSpecimen, VistaTreePresentation,
+        GroundScatterLayer, UnderstoryReviewSpecimen, VistaGrassPresentation,
+        VistaRockPresentation, VistaTreePresentation,
     };
     use adventuresim_tactical_core::prelude::SceneObstacle;
     let entities: Vec<_> = world
@@ -152,6 +181,8 @@ fn isolate(world: &mut World) {
             With<SceneObstacle>,
             With<GroundScatterLayer>,
             With<VistaTreePresentation>,
+            With<VistaGrassPresentation>,
+            With<VistaRockPresentation>,
             With<UnderstoryReviewSpecimen>,
             With<super::super::TreeReviewSpecimen>,
             With<super::super::TreeReviewBackdrop>,

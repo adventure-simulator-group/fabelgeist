@@ -45,7 +45,10 @@ fn observe(world: &mut World) -> bevy::prelude::Result {
     }
     let checked = {
         let mut inspection = SystemState::<inventory::Inspector>::new(world);
-        inspection.get(world).map_err(anyhow::Error::from)?.check()
+        inspection
+            .get(world)
+            .map_err(anyhow::Error::from)?
+            .check(&world.resource::<SceneCaptureState>().digest)
     };
     match checked {
         Ok(inventory) => {

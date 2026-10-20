@@ -140,7 +140,8 @@ fn gather(
         let low = Vec3::from_array(bounds.low.map(Metres::metres));
         let high = Vec3::from_array(bounds.high.map(Metres::metres));
         let center = (low + high) * 0.5;
-        let radius = (high - low).length() * 0.5;
+        // Native gathering uses scalar world metres from the shared source kernel.
+        let radius = crate::render::source_bounds_radius(low, high).metres();
         let root = Vec3::from_array(placement.pose.origin().map(Metres::metres));
         // Native vector kernel: area-world root metres to integer spatial bins.
         let cell = (root.xz() / batching.cell_width().metres())

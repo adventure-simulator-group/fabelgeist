@@ -29,7 +29,7 @@ mod surface;
 
 pub(crate) use streets::CityGroundMaterial;
 use streets::UrbanGround;
-pub(super) use surface::ActiveVistaSurface;
+pub(crate) use surface::ActiveVistaSurface;
 pub(crate) use surface::{VistaTerrain, VistaTerrainMesh};
 
 /// Marker for a distant tree billboard spawned as part of a vista ring.

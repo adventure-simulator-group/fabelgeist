@@ -5,7 +5,7 @@ use super::*;
 /// Keeps the closest vista rings for camera-local terrain refinement and city
 /// ground seating. Every consumer queries the same stitched surface.
 #[derive(Resource, Default, Clone)]
-pub(in crate::presentation) struct ActiveVistaSurface {
+pub(crate) struct ActiveVistaSurface {
     revision: u64,
     scene_digest: String,
     playable_half_extent: Vec2,
@@ -15,6 +15,10 @@ pub(in crate::presentation) struct ActiveVistaSurface {
 }
 
 impl ActiveVistaSurface {
+    pub(crate) fn is_for_scene(&self, digest: &str) -> bool {
+        self.scene_digest == digest
+    }
+
     pub(in crate::presentation) fn update(&mut self, bundle: &SceneVistaBundle) {
         self.revision = self.revision.wrapping_add(1);
         self.scene_digest.clone_from(&bundle.scene_digest);
@@ -24,7 +28,7 @@ impl ActiveVistaSurface {
         self.ground_support = default();
     }
 
-    pub(in crate::presentation) fn is_urban_scene(&self, digest: &str) -> bool {
+    pub(crate) fn is_urban_scene(&self, digest: &str) -> bool {
         self.urban && self.scene_digest == digest
     }
 
@@ -75,11 +79,15 @@ impl ActiveVistaSurface {
         ));
     }
 
-    pub(in crate::presentation) fn revision(&self) -> u64 {
+    pub(crate) fn retained_levels(&self) -> impl Iterator<Item = VistaLevelIndex> + '_ {
+        self.lods.iter().map(|lod| lod.level)
+    }
+
+    pub(crate) fn revision(&self) -> u64 {
         self.revision
     }
 
-    pub(in crate::presentation) fn presented_height_at(
+    pub(crate) fn presented_height_at(
         &self,
         scene_digest: &str,
         terrain: &SceneTerrain,

@@ -44,10 +44,43 @@ tactical-scene-viewer --scene-input scene.json `
 
 The five review options and scene input are required together. They conflict
 with explicit fixtures, profiles, source authoring, benchmark modes and scene
-overrides. The `grown-shared` plate and its warmup use the same camera, derived
-from the union of the three original source envelopes. Candidate mesh bounds
-never determine framing. A supported camera can still have obstructed sight
-lines; inspect the actual image before accepting its usefulness.
+overrides. Use `--view grown-middle-interior` to select one intended-distance
+plate, or omit `--view` to capture the finite catalog. Warmup is implicit.
+
+Every level and encoding uses the same source-only camera catalog. The
+`grown-shared` close plate and warmup fit the union of the three original
+source envelopes. The other five plates use each original source envelope's
+projected radius, with the renderer's physical-pixel projection and level
+selection policy. Candidate mesh bounds never determine framing.
+
+| Plate | Target largest source radius |
+|---|---|
+| `grown-full-side` | 1.05 times the source's Full threshold |
+| `grown-middle-full-side` | 0.80 times the Full threshold |
+| `grown-middle-interior` | Geometric mean of Full and Middle thresholds |
+| `grown-middle-coarse-side` | 1.05 times the Middle threshold |
+| `grown-coarse-side` | 0.80 times the Middle threshold |
+
+The factors position review plates around the existing transitions; they are
+not new runtime thresholds. The report records all three roots' actual source
+proxies and the level each would select from every previous level. Roots can
+straddle a transition. Static plates do not demonstrate adaptive movement or
+hysteresis over time. A supported camera can still have obstructed sight lines;
+inspect the actual image before accepting its usefulness.
+
+Cameras resolve once after the captured natural scene and its vista support
+are admitted. Every eye uses the presentation owner's stitched terrain height,
+with standing-eye clearance. Unsupported eyes and missing retained terrain
+rings fail startup. Intended-distance plates display actual vista terrain.
+The close plate remains a local geometry diagnostic. This bounded witness
+uses natural terrain support; urban support is not admitted.
+
+Observation and final screenshot checks retain the actual scene entity,
+environment, vista revision, chunk membership and final eye-height samples.
+They also require the actual physical viewport to match the fitting viewport.
+These checks bind camera support; they do not seal every terrain asset byte or
+prove that a terrain draw completed. Separate material-readiness and ordinary
+GPU membership checks cover the visible terrain submissions.
 
 The candidate uses real positions, normals and texture coordinates authored on
 a separate compute device. The reference role evaluates original integer vertex
@@ -77,9 +110,10 @@ supplies no replacement-source fallback.
 The destination roots use authored offsets at the scene centre and twelve metres
 to either side. Each samples its own terrain support and retains identity scale
 and yaw. Source growth on other terrain is not adapted to the destination slope.
-Unrelated scene obstacles, playable ground scatter, vista trees and named review
-specimens are removed. Shared terrain remains; vista rock and grass background
-can remain too. This isolated layout is not a complete forest scene.
+Unrelated scene obstacles, playable ground scatter, vista trees, vista rock
+and grass scatter, and named review specimens are removed. Shared playable,
+detail and vista terrain remain. This isolated layout is not a complete forest
+scene.
 
 `GrownAssets` retains the admitted bank, source identity, mesh partitions,
 selected level, source-buffer handles and ordinary materials. Placement identity
