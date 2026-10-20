@@ -1,17 +1,29 @@
 //! grown numerical-kernel shapes; packed GPU words exist only at submission.
 
 use anyhow::{Context, Result};
-use fabelgeist_botany::{
-    species::Foliage,
-    viewer::sim::{BranchInstance, LeafInstance},
-};
+use fabelgeist_botany::species::Foliage;
 
 use crate::render::{ForestDetail, ForestPart, Level};
+#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
+use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance};
 
 #[derive(Clone, Copy)]
 pub(super) enum RecordGeometry {
-    Tube { sides: u32, spans: u32 },
-    Blades { count: u32, foliage: Foliage },
+    Tube {
+        sides: u32,
+        spans: u32,
+    },
+    Blades {
+        count: u32,
+        #[cfg_attr(
+            not(all(feature = "grown-authoring", not(target_family = "wasm"))),
+            expect(
+                dead_code,
+                reason = "Address evaluation reads foliage from source shader records"
+            )
+        )]
+        foliage: Foliage,
+    },
 }
 
 impl RecordGeometry {
@@ -63,6 +75,7 @@ impl RecordGeometry {
         .context("grown record index overflow")
     }
 
+    #[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
     pub fn record_stride(self) -> u64 {
         match self {
             Self::Tube { .. } => size_of::<BranchInstance>() as u64,
@@ -71,6 +84,7 @@ impl RecordGeometry {
     }
 
     /// Explicit native uniform boundary; source roles do not travel as arrays.
+    #[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
     pub fn shader_words(self) -> Result<[u32; 4]> {
         let vertices = self.vertices_per_record()?;
         Ok(match self {

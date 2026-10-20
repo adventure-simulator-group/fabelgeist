@@ -99,13 +99,12 @@ fn setup_inner(world: &mut World) -> Result<()> {
             .resource::<ordinary_batches::OrdinaryBatches>()
             .clone(),
     );
-    let encoding = review.role.encoding();
     let placements = review.placements;
     let control = review.control;
     world.insert_resource(review);
     world.insert_resource(support);
     world.insert_resource(evidence);
-    let owned = inventory::OwnedGrown::install(geometry, encoding, placements, control, world)?;
+    let owned = inventory::OwnedGrown::install(geometry, placements, control, world)?;
     world.insert_resource(owned);
     {
         let mut state = world.resource_mut::<SceneCaptureState>();

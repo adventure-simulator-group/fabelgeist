@@ -22,7 +22,6 @@ mod bake;
 mod codec;
 mod form;
 mod grids;
-#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
 mod grown;
 mod meshes;
 mod resident;
@@ -36,9 +35,10 @@ pub use codec::{
 };
 pub use grids::{AddressMesh, MeshClass, RecordCapacity, RecordCount};
 #[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
+pub use grown::GrownAuthoringContext;
 pub use grown::{
-    GrownAuthoringContext, GrownExpansionBudget, GrownGeometry, GrownGeometryPart,
-    GrownPartVertexLimit,
+    GrownGeometry, GrownGeometryPart, GrownMeshBudget, GrownMeshBytes, GrownPartVertexLimit,
+    GrownVertexEncoding,
 };
 pub(crate) use meshes::admit_address_mesh_bytes;
 pub use meshes::{CanonicalTopologyBytes, TopologyRequirements};

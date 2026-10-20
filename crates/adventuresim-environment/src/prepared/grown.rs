@@ -1,23 +1,28 @@
-//! Bounded grown mesh authoring from admitted grown records, before presentation.
+//! Checked grown geometry from admitted records, with explicit vertex encoding.
 //!
-//! The author owns a separate compute device. Readback may block that device;
-//! it never borrows a continuously submitting renderer. This is not a complete
-//! tactical cache, a resumable ecosystem, or a background scheduler.
+//! Address meshes need no authoring device. Optional native expansion owns a
+//! separate compute device and never borrows the presenting renderer.
 
 use std::{num::NonZeroU32, sync::Arc};
 
 use anyhow::Result;
 use bevy::mesh::Mesh;
 use fabelgeist_botany::identity::PlantId;
-use fabelgeist_gpu::prelude::BufferByteLength;
 
 use super::{RecordSpan, TreeBank, VariantIndex};
 use crate::render::{ForestPart, Level};
 
+#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
+pub use native::GrownAuthoringContext;
+
 mod geometry;
+#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
 mod gpu;
 mod mesh;
+#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
+mod native;
 mod plan;
+#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
 mod shader;
 
 /// An explicit allocation limit, independent of source botanical identity.
@@ -26,25 +31,25 @@ pub struct GrownPartVertexLimit(NonZeroU32);
 
 /// Bounds final mesh payload, separately from transient GPU/readback memory.
 #[derive(Clone, Copy, Debug)]
-pub struct GrownExpansionBudget {
+pub struct GrownMeshBudget {
     pub part_vertices: GrownPartVertexLimit,
-    pub total_mesh_bytes: BufferByteLength,
+    pub total_mesh_bytes: GrownMeshBytes,
 }
 
-/// The only construction path owns a dedicated, non-presenting compute device.
-pub struct GrownAuthoringContext {
-    gpu: gpu::NativeExpansion,
-}
+/// Logical mesh channel/index payload, not allocation, RAM or GPU memory.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct GrownMeshBytes(u64);
 
-/// Real positions/normals/UVs plus the original integer bank vertex address.
-/// The retained admitted bank binds the source records used by surface shaders.
+/// Checked meshes plus their actual channel encoding and immutable source.
+/// Address evaluation uses placeholder attributes and original bank addresses.
 pub struct GrownGeometry {
     bank: Arc<TreeBank>,
     variant: VariantIndex,
     source: PlantId,
     level: Level,
     parts: Vec<GrownGeometryPart>,
-    mesh_bytes: BufferByteLength,
+    mesh_bytes: GrownMeshBytes,
+    encoding: GrownVertexEncoding,
 }
 
 /// An allocation partition of a source record span, not a botanical group.
@@ -52,6 +57,13 @@ pub struct GrownGeometryPart {
     role: ForestPart,
     records: RecordSpan,
     mesh: Mesh,
+}
+
+/// Channel evaluation is owned by construction, never chosen during installation.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum GrownVertexEncoding {
+    Address,
+    Expanded,
 }
 
 impl GrownPartVertexLimit {
@@ -67,36 +79,34 @@ impl GrownPartVertexLimit {
     }
 }
 
-impl GrownAuthoringContext {
-    pub async fn new() -> Result<Self> {
-        Ok(Self {
-            gpu: gpu::NativeExpansion::new().await?,
-        })
+impl GrownMeshBytes {
+    /// Logical payload accounting boundary, in bytes of retained mesh channels.
+    pub fn from_bytes(bytes: u64) -> Self {
+        Self(bytes)
     }
 
-    pub fn adapter_info(&self) -> wgpu::AdapterInfo {
-        self.gpu.adapter_info()
+    pub fn bytes(self) -> u64 {
+        self.0
     }
 }
 
 impl TreeBank {
-    /// Expand the exact selected grown model; never generate replacement trees.
-    pub async fn expand_grown(
+    /// Construct exact live address topology without a compute device/readback.
+    pub fn address_grown(
         self: &Arc<Self>,
-        author: &mut GrownAuthoringContext,
         source: PlantId,
         level: Level,
-        budget: GrownExpansionBudget,
+        budget: GrownMeshBudget,
     ) -> Result<GrownGeometry> {
-        let plan = plan::ExpansionPlan::new(self, source, level, budget, &author.gpu)?;
+        let plan = plan::GeometryPlan::new(self, source, level, budget, |geometry| {
+            Ok(budget.part_vertices.vertices() / geometry.vertices_per_record()?)
+        })?;
         let mut parts = Vec::with_capacity(plan.parts.len());
         for part in &plan.parts {
-            let vertices = author.gpu.expand(self.library(), part).await?;
-            let mesh = mesh::construct(self.library(), part, vertices)?;
             parts.push(GrownGeometryPart {
                 role: part.geometry.role(),
                 records: part.records,
-                mesh,
+                mesh: mesh::address(self.library(), part)?,
             });
         }
         Ok(GrownGeometry {
@@ -106,6 +116,7 @@ impl TreeBank {
             level: plan.level,
             parts,
             mesh_bytes: plan.mesh_bytes,
+            encoding: GrownVertexEncoding::Address,
         })
     }
 }
@@ -127,11 +138,15 @@ impl GrownGeometry {
         self.level
     }
 
-    pub fn mesh_bytes(&self) -> BufferByteLength {
+    pub fn mesh_bytes(&self) -> GrownMeshBytes {
         self.mesh_bytes
     }
 
-    /// Move real meshes into a renderer without cloning their CPU channels.
+    pub fn encoding(&self) -> GrownVertexEncoding {
+        self.encoding
+    }
+
+    /// Move meshes into a renderer without cloning their CPU channels.
     pub fn into_parts(self) -> impl ExactSizeIterator<Item = GrownGeometryPart> {
         self.parts.into_iter()
     }

@@ -2,7 +2,7 @@
 
 use super::{
     GrownBankAssets, GrownBufferRole, GrownLeafMaterial, GrownMaterialHandle, GrownSourceBuffer,
-    GrownVertexEncoding, GrownWoodMaterial,
+    GrownWoodMaterial,
 };
 use crate::{
     prepared::{GrownGeometry, TreeBank},
@@ -78,9 +78,9 @@ impl SourceMaterials {
     pub fn from_geometry(
         geometry: &GrownGeometry,
         bank_assets: &GrownBankAssets,
-        encoding: GrownVertexEncoding,
         world: &mut World,
     ) -> Result<Self> {
+        let encoding = geometry.encoding();
         let library = bank_assets.bank().library();
         let model = library
             .models

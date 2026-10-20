@@ -4,12 +4,12 @@ use std::{fs, path::PathBuf, sync::Arc};
 
 use adventuresim_environment::{
     prepared::{
-        GrownAuthoringContext, GrownExpansionBudget, GrownGeometry, GrownPartVertexLimit, TreeBank,
-        TreeBounds,
+        GrownGeometry, GrownMeshBudget, GrownMeshBytes, GrownPartVertexLimit, GrownVertexEncoding,
+        TreeBank, TreeBounds,
     },
     render::{
         Level,
-        grown::{GrownAssets, GrownMaterialPlugin, GrownVertexEncoding},
+        grown::{GrownAssets, GrownMaterialPlugin},
     },
 };
 use anyhow::{Context, Result, ensure};
@@ -28,6 +28,7 @@ pub(super) use runtime::{install, ready};
 
 mod background;
 mod cameras;
+mod construction;
 mod controls;
 mod evidence;
 pub(super) mod inventory;
@@ -118,27 +119,24 @@ impl GrownCaptureOptions {
             .get(model.species.index())
             .context("grown species missing")?;
         let placements = layout::RootPlacements::on_terrain(&setup.generated.terrain)?;
-        let mut author = pollster::block_on(GrownAuthoringContext::new())?;
-        let adapter = author.adapter_info();
-        let geometry = pollster::block_on(bank.expand_grown(
-            &mut author,
+        let constructed = role.construct(
+            &bank,
             source,
             level,
-            GrownExpansionBudget {
+            GrownMeshBudget {
                 part_vertices: GrownPartVertexLimit::from_vertices(PART_VERTEX_LIMIT)?,
-                total_mesh_bytes: FINAL_MESH_BYTE_LIMIT.into(),
+                total_mesh_bytes: GrownMeshBytes::from_bytes(FINAL_MESH_BYTE_LIMIT),
             },
-        ))?;
-        // Authoring has finished; this device never borrows the active renderer.
-        drop(author);
+        )?;
+        let geometry = constructed.geometry;
         let metadata = serde_json::json!({
             "role":role,"level":geometry.level(),"source_id":source.word(),"variant":geometry.variant().index(),"bank_id":bank.id(),
             "library_bytes":bytes.len(),"species":species.name,"foliage":format!("{:?}",species.foliage),
             "bark_rgb":species.bark,"leaf_rgb":species.leaf,"bounds":bounds,
             "source_branches":source_branches,"source_leaves":source_leaves,
-            "detail":library.detail,"mesh_payload_bytes":u64::from(geometry.mesh_bytes()),
+            "detail":library.detail,"mesh_payload_bytes":geometry.mesh_bytes().bytes(),
             "part_count":geometry.parts().len(),"part_vertex_limit":PART_VERTEX_LIMIT,"final_mesh_byte_limit":FINAL_MESH_BYTE_LIMIT,
-            "authoring_adapter":{"name":adapter.name,"backend":format!("{:?}",adapter.backend),"device_type":format!("{:?}",adapter.device_type),"driver":adapter.driver,"driver_info":adapter.driver_info},
+            "vertex_encoding":format!("{:?}",geometry.encoding()),"authoring_adapter":constructed.authoring_adapter,
             "input_digest":setup.input.digest()?,"scene_digest":setup.generated.digest,"environment":setup.environment,
             "root_placements":placements,"suppressed_generated_obstacles":setup.generated.obstacles.len(),
             "time_phase":super::CAPTURE_CLOCK_PHASE_SECONDS,

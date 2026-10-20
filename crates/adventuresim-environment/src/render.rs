@@ -17,7 +17,7 @@ pub mod benchmark;
 mod chunks;
 mod feed;
 mod ground;
-#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
+#[cfg(feature = "prepared")]
 pub mod grown;
 pub(crate) mod levels;
 mod materials;

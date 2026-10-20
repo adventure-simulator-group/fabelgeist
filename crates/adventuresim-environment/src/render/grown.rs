@@ -8,7 +8,7 @@ use bevy::{
 use fabelgeist_botany::identity::PlantId;
 
 use super::{ForestPart, Level};
-use crate::prepared::{RecordSpan, TreeBank, VariantIndex};
+use crate::prepared::{GrownVertexEncoding, RecordSpan, TreeBank, VariantIndex};
 
 pub use materials::{GrownLeafMaterial, GrownWoodMaterial};
 
@@ -56,13 +56,6 @@ pub struct GrownPartAsset {
 pub enum GrownMaterialHandle {
     Wood(Handle<GrownWoodMaterial>),
     Leaves(Handle<GrownLeafMaterial>),
-}
-
-/// Only vertex evaluation changes; all surface and pass semantics are shared.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub enum GrownVertexEncoding {
-    Address,
-    Expanded,
 }
 
 /// Immutable source storage roles, distinct from mesh part roles.

@@ -1,4 +1,4 @@
-//! Consume validated native meshes into owned ordinary material assets.
+//! Consume checked encoded meshes into their matching ordinary material assets.
 
 use anyhow::{Context, Result, ensure};
 use bevy::{
@@ -9,18 +9,14 @@ use bevy::{
 };
 use std::sync::Arc;
 
-use super::{
-    GrownAssets, GrownBankAssets, GrownLeafMaterial, GrownPartAsset, GrownVertexEncoding,
-    GrownWoodMaterial,
-};
-use crate::prepared::GrownGeometry;
+use super::{GrownAssets, GrownBankAssets, GrownLeafMaterial, GrownPartAsset, GrownWoodMaterial};
+use crate::prepared::{GrownGeometry, GrownVertexEncoding};
 
 impl GrownAssets {
     /// Framework boundary: moves every mesh; it does not duplicate a scene cache.
     pub fn install(
         geometry: GrownGeometry,
         bank_assets: Arc<GrownBankAssets>,
-        encoding: GrownVertexEncoding,
         world: &mut World,
     ) -> Result<Self> {
         ensure!(
@@ -38,6 +34,7 @@ impl GrownAssets {
                 && world.contains_resource::<Assets<ShaderBuffer>>(),
             "grown material plugin and renderer must be installed"
         );
+        let encoding = geometry.encoding();
         let source = geometry.source();
         let variant = geometry.variant();
         let level = geometry.level();
@@ -49,26 +46,15 @@ impl GrownAssets {
         let low = Vec3::from_array(model.bounds.low.map(|value| value.metres()));
         let high = Vec3::from_array(model.bounds.high.map(|value| value.metres()));
         let source_bounds = Aabb::from_min_max(low, high);
-        let sources = super::source::SourceMaterials::from_geometry(
-            &geometry,
-            &bank_assets,
-            encoding,
-            world,
-        )?;
+        let sources =
+            super::source::SourceMaterials::from_geometry(&geometry, &bank_assets, world)?;
         let mut parts = Vec::new();
         for part in geometry.into_parts() {
             let role = part.role();
             let records = part.records();
             let mut mesh = part.into_mesh();
             let bounds = match encoding {
-                GrownVertexEncoding::Address => {
-                    // Every reference channel is ignored; culling uses the source envelope.
-                    let count = mesh.count_vertices();
-                    mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, vec![[0_f32; 3]; count]);
-                    mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, vec![[0_f32; 3]; count]);
-                    mesh.insert_attribute(Mesh::ATTRIBUTE_UV_0, vec![[0_f32; 2]; count]);
-                    source_bounds
-                }
+                GrownVertexEncoding::Address => source_bounds,
                 GrownVertexEncoding::Expanded => {
                     mesh.compute_aabb().context("grown mesh bounds")?
                 }

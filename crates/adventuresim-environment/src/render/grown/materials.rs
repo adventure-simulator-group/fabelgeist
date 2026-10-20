@@ -13,7 +13,7 @@ use bevy::{
     shader::ShaderRef,
 };
 
-use super::GrownVertexEncoding;
+use crate::prepared::GrownVertexEncoding;
 use crate::render::address::VERTEX_ADDRESS;
 
 const PREPASS_DEFINE: &str = "PREPASS_PIPELINE";

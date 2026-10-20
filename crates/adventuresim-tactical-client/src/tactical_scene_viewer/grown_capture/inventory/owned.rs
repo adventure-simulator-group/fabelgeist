@@ -22,13 +22,12 @@ struct ExpectedSpan {
 impl OwnedGrown {
     pub(in super::super) fn install(
         geometry: GrownGeometry,
-        encoding: GrownVertexEncoding,
         placements: layout::RootPlacements,
         control: controls::BatchControl,
         world: &mut World,
     ) -> Result<Self> {
         let bank_assets = GrownBankAssets::upload(geometry.bank().clone(), world)?;
-        let assets = GrownAssets::install(geometry, bank_assets, encoding, world)?;
+        let assets = GrownAssets::install(geometry, bank_assets, world)?;
         let mut roots = Vec::new();
         for placement in placements.iter().copied() {
             let entity = world

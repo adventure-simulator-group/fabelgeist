@@ -23,7 +23,7 @@ produced, biological age, or species calibration.
 The library must use `FORESTL3`, with its exact canonical topology revision.
 It contains source records and model metadata, not generated address meshes.
 Regenerate older libraries from their source; this tool has no older-format
-decoder. Native authoring builds only the live triangle prefix for each part.
+decoder. Both constructions build only the live triangle prefix for each part.
 The library digest changes with the new payload, so regenerate any populations
 bound to that library as well.
 
@@ -86,8 +86,17 @@ The candidate uses real positions, normals and texture coordinates authored on
 a separate compute device. The reference role evaluates original integer vertex
 addresses in the vertex shader. Both share branch/leaf surface functions and
 tactical lighting. Use `--grown-review-role reference` for that diagnostic
-counterpart with the same level. Geometry owns the immutable selected level;
-materials derive their record-address stride from that owner. Part identity and
+counterpart with the same level. Its meshes are built directly from checked
+integer addresses and live triangle prefixes, with placeholder position,
+normal and texture-coordinate channels. It does not create a compute device or
+expand attributes only to discard them. The ordinary geometry and materials
+are available with the environment crate's `prepared` feature on native and
+Wasm targets; native compute expansion additionally needs `grown-authoring`.
+Compiling for Wasm alone does not demonstrate browser rendering.
+
+Geometry owns its actual vertex encoding and immutable selected level;
+installation cannot choose a different interpretation. Materials derive their
+encoding and record-address stride from that owner. Part identity and
 the final capture checks include the level. Each level can partition its source
 records differently under the allocation limit, so part counts can differ.
 
@@ -98,8 +107,10 @@ reference and candidate at the same level and camera for conversion fidelity,
 then compare adjacent levels at the same intended-distance camera for quality.
 The current close plate is a geometry diagnostic, not distant LOD acceptance.
 
-The author rejects meshes above explicit per-part and total payload limits. Its
-device is released before the tactical renderer starts. The two stages may
+Both constructors reject meshes above explicit per-part and total payload
+limits before allocating their channels. Native expansion also applies its
+device's compute/storage limits. Its device is released before the tactical
+renderer starts. The two stages may
 select different adapters or backends; inspect both receipts. Do not borrow an
 active renderer for blocking authoring readback. Installation errors are
 terminal; partially installed assets are not reusable results and the tool

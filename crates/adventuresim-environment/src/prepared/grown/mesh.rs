@@ -1,18 +1,22 @@
-//! Validate actual readback attributes and retain original topology winding.
+//! Exact live topology and global addresses for each checked whole-record part.
 
 use anyhow::{Context, Result, ensure};
 use bevy::{
     asset::RenderAssetUsages,
-    camera::primitives::MeshAabb,
     mesh::{Indices, Mesh, PrimitiveTopology},
 };
 
-use super::{gpu::ExpandedVertex, plan::PartPlan};
+#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
+use super::gpu::ExpandedVertex;
+use super::plan::PartPlan;
 use crate::{
     prepared::{RecordCount, TreeLibrary, meshes},
     render::address::VERTEX_ADDRESS,
 };
+#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
+use bevy::camera::primitives::MeshAabb;
 
+#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
 pub(super) fn construct(
     library: &TreeLibrary,
     part: &PartPlan,
@@ -64,20 +68,7 @@ pub(super) fn construct(
         uvs.push(vertex.uv);
         addresses.push(vertex.address);
     }
-    let indices = meshes::index_prefix(
-        part.geometry.role(),
-        part.level,
-        &library.detail,
-        RecordCount::from_records(part.records.count)?,
-    )?;
-    ensure!(
-        indices.len() == usize::try_from(part.indices)?,
-        "grown topology length differs"
-    );
-    ensure!(
-        indices.iter().all(|index| *index < part.vertices),
-        "grown index outside part"
-    );
+    let indices = topology(library, part)?;
     let mesh = Mesh::new(
         PrimitiveTopology::TriangleList,
         RenderAssetUsages::default(),
@@ -93,4 +84,44 @@ pub(super) fn construct(
         "nonfinite grown bounds"
     );
     Ok(mesh)
+}
+
+pub(super) fn address(library: &TreeLibrary, part: &PartPlan) -> Result<Mesh> {
+    let count = usize::try_from(part.vertices)?;
+    let base = part
+        .records
+        .start
+        .checked_mul(part.geometry.vertices_per_record()?)
+        .context("grown address overflow")?;
+    let end = base
+        .checked_add(part.vertices)
+        .context("grown address overflow")?;
+    let indices = topology(library, part)?;
+    Ok(Mesh::new(
+        PrimitiveTopology::TriangleList,
+        RenderAssetUsages::default(),
+    )
+    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, vec![[0_f32; 3]; count])
+    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, vec![[0_f32; 3]; count])
+    .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, vec![[0_f32; 2]; count])
+    .with_inserted_attribute(VERTEX_ADDRESS, (base..end).collect::<Vec<_>>())
+    .with_inserted_indices(Indices::U32(indices)))
+}
+
+fn topology(library: &TreeLibrary, part: &PartPlan) -> Result<Vec<u32>> {
+    let indices = meshes::index_prefix(
+        part.geometry.role(),
+        part.level,
+        &library.detail,
+        RecordCount::from_records(part.records.count)?,
+    )?;
+    ensure!(
+        indices.len() == usize::try_from(part.indices)?,
+        "grown topology length differs"
+    );
+    ensure!(
+        indices.iter().all(|index| *index < part.vertices),
+        "grown index outside part"
+    );
+    Ok(indices)
 }

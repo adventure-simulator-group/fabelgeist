@@ -2,9 +2,8 @@
 
 use anyhow::{Context, Result, ensure};
 use fabelgeist_botany::identity::PlantId;
-use fabelgeist_gpu::prelude::BufferByteLength;
 
-use super::{GrownExpansionBudget, geometry::RecordGeometry, gpu::NativeExpansion};
+use super::{GrownMeshBudget, GrownMeshBytes, geometry::RecordGeometry};
 use crate::{
     prepared::{RecordSpan, TreeBank, VariantIndex},
     render::Level,
@@ -13,11 +12,11 @@ use crate::{
 const MESH_VERTEX_BYTES: u64 =
     (size_of::<[f32; 3]>() * 2 + size_of::<[f32; 2]>() + size_of::<u32>()) as u64;
 
-pub(super) struct ExpansionPlan {
+pub(super) struct GeometryPlan {
     pub level: Level,
     pub variant: VariantIndex,
     pub parts: Vec<PartPlan>,
-    pub mesh_bytes: BufferByteLength,
+    pub mesh_bytes: GrownMeshBytes,
 }
 
 pub(super) struct PartPlan {
@@ -39,13 +38,13 @@ struct RecordShape {
     geometry: RecordGeometry,
 }
 
-impl ExpansionPlan {
+impl GeometryPlan {
     pub fn new(
         bank: &TreeBank,
         source: PlantId,
         level: Level,
-        budget: GrownExpansionBudget,
-        gpu: &NativeExpansion,
+        budget: GrownMeshBudget,
+        capacity: impl Fn(RecordGeometry) -> Result<u32>,
     ) -> Result<Self> {
         let selected = SourceParts::from_bank(bank, source, level)?;
         let mut parts = Vec::new();
@@ -61,16 +60,16 @@ impl ExpansionPlan {
                 .checked_add(bytes)
                 .context("grown total byte overflow")?;
             ensure!(
-                total <= u64::from(budget.total_mesh_bytes),
+                total <= budget.total_mesh_bytes.bytes(),
                 "grown mesh byte budget exceeded"
             );
-            shape.partition(gpu, budget, &mut parts)?;
+            shape.partition(&capacity, &mut parts)?;
         }
         Ok(Self {
             level,
             variant: selected.variant,
             parts,
-            mesh_bytes: total.into(),
+            mesh_bytes: GrownMeshBytes::from_bytes(total),
         })
     }
 }
@@ -116,8 +115,7 @@ impl SourceParts {
 impl RecordShape {
     fn partition(
         self,
-        gpu: &NativeExpansion,
-        budget: GrownExpansionBudget,
+        capacity: &impl Fn(RecordGeometry) -> Result<u32>,
         parts: &mut Vec<PartPlan>,
     ) -> Result<()> {
         if self.records.count == 0 {
@@ -137,14 +135,7 @@ impl RecordShape {
         source_end
             .checked_mul(vertices_per_record)
             .context("grown integer address overflow")?;
-        let cap = gpu
-            .record_capacity(
-                self.geometry.role(),
-                vertices_per_record,
-                self.geometry.record_stride(),
-                budget.part_vertices.vertices(),
-            )?
-            .min(u32::MAX / indices_per_record);
+        let cap = capacity(self.geometry)?.min(u32::MAX / indices_per_record);
         ensure!(cap > 0, "no complete grown record fits the part budget");
         let mut start = self.records.start;
         while start < source_end {
@@ -169,6 +160,7 @@ impl RecordShape {
     }
 }
 
+#[cfg(all(feature = "grown-authoring", not(target_family = "wasm")))]
 impl PartPlan {
     pub fn source_range(&self) -> Result<std::ops::Range<usize>> {
         let start = usize::try_from(self.records.start)?;
