@@ -18,6 +18,7 @@ use std::io::Read;
 
 use anyhow::{Context, Result, anyhow, bail};
 use array_encoding::FbxArrayEncoding;
+use array_layout::{FbxArrayCount, FbxArrayKind};
 use flate2::read::ZlibDecoder;
 
 pub use animation::{Curve, NodeAnimation, Take, TransformChannel};
@@ -26,6 +27,7 @@ pub use array_encoding::UnsupportedFbxArrayEncoding;
 pub mod animation;
 
 mod array_encoding;
+mod array_layout;
 
 /// One node record of the FBX tree.
 #[derive(Debug, Clone)]
@@ -418,28 +420,31 @@ pub fn parse(data: &[u8]) -> Result<Vec<Node>> {
 
 fn decode_array<T: Copy>(
     raw: &[u8],
-    count: usize,
+    count: FbxArrayCount,
     encoding: FbxArrayEncoding,
     parse: impl Fn(&[u8]) -> T,
-    width: usize,
+    kind: FbxArrayKind,
 ) -> Result<Vec<T>> {
     let bytes = match encoding {
         FbxArrayEncoding::Uncompressed => raw.to_vec(),
         FbxArrayEncoding::Zlib => {
-            let mut out = Vec::with_capacity(count * width);
+            let mut out = Vec::with_capacity(count.native_byte_len(kind));
             ZlibDecoder::new(raw)
                 .read_to_end(&mut out)
                 .context("inflating FBX array property")?;
             out
         }
     };
-    if bytes.len() < count * width {
+    if bytes.len() < count.native_byte_len(kind) {
         bail!(
-            "FBX array property is short: {} bytes for {count} x {width}",
-            bytes.len()
+            "FBX array property is short: {} bytes for {} x {}",
+            bytes.len(),
+            count.native_len(),
+            kind.native_width()
         );
     }
-    Ok((0..count)
+    let width = kind.native_width();
+    Ok((0..count.native_len())
         .map(|i| parse(&bytes[i * width..(i + 1) * width]))
         .collect())
 }
@@ -456,7 +461,7 @@ fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
             b'D' => Prop::F64(f64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
             b'L' => Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
             b'f' | b'd' | b'l' | b'i' | b'b' => {
-                let count = reader.u32()? as usize;
+                let count = FbxArrayCount::from(reader.u32()?);
                 // FBX array metadata stores encoding as a little-endian u32.
                 // Admit only supported encodings before decoding the payload.
                 let encoding = FbxArrayEncoding::try_from(reader.u32()?)?;
@@ -468,30 +473,36 @@ fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
                         count,
                         encoding,
                         |b| f32::from_le_bytes(b.try_into().unwrap()),
-                        4,
+                        FbxArrayKind::Float32,
                     )?),
                     b'd' => Prop::ArrF64(decode_array(
                         raw,
                         count,
                         encoding,
                         |b| f64::from_le_bytes(b.try_into().unwrap()),
-                        8,
+                        FbxArrayKind::Float64,
                     )?),
                     b'i' => Prop::ArrI32(decode_array(
                         raw,
                         count,
                         encoding,
                         |b| i32::from_le_bytes(b.try_into().unwrap()),
-                        4,
+                        FbxArrayKind::Integer32,
                     )?),
                     b'l' => Prop::ArrI64(decode_array(
                         raw,
                         count,
                         encoding,
                         |b| i64::from_le_bytes(b.try_into().unwrap()),
-                        8,
+                        FbxArrayKind::Integer64,
                     )?),
-                    _ => Prop::ArrBool(decode_array(raw, count, encoding, |b| b[0], 1)?),
+                    _ => Prop::ArrBool(decode_array(
+                        raw,
+                        count,
+                        encoding,
+                        |b| b[0],
+                        FbxArrayKind::Boolean,
+                    )?),
                 }
             }
             b'S' => {
@@ -563,3 +574,5 @@ fn qualified_name(raw: &[u8]) -> String {
 }
 #[cfg(test)]
 mod array_encoding_tests;
+#[cfg(test)]
+mod array_layout_tests;
