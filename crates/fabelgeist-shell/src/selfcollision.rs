@@ -130,7 +130,7 @@ impl SelfCollision {
                 BufferUpload::from_elements(&flat),
                 storage.with_label(("self-collision adjacency").into()),
             )?,
-            scratch: SortScratch::new(context, capacity)?,
+            scratch: SortScratch::new(context, capacity.into())?,
 
             table_size,
             capacity,
@@ -211,8 +211,8 @@ impl SelfCollision {
             &self.cells,
             &self.indices,
             &mut self.scratch,
-            count,
-            32,
+            count.into(),
+            32.into(),
         )?;
 
         let mut clear_parameters = PassParameters::new();

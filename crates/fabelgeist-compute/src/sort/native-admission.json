@@ -1,0 +1,32 @@
+{
+  "byte_error": "RadixSort: 4 elements need 16 bytes; keys hold 4, values hold 4",
+  "dispatches": 0,
+  "growth": [
+    {
+      "capacity": 1,
+      "grew": false,
+      "requested": 0
+    },
+    {
+      "capacity": 1,
+      "grew": false,
+      "requested": 1
+    },
+    {
+      "capacity": 2,
+      "grew": true,
+      "requested": 2
+    },
+    {
+      "capacity": 2,
+      "grew": false,
+      "requested": 1
+    },
+    {
+      "capacity": 4,
+      "grew": true,
+      "requested": 4
+    }
+  ],
+  "scratch_error": "RadixSort: scratch holds 2 elements, asked to sort 4"
+}

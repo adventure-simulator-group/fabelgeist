@@ -250,7 +250,7 @@ impl VertexNormals {
             corners: buffer(corner_capacity as u64 * 4, "corners by vertex")?,
             starts: buffer(vertex_capacity as u64 * 4, "vertex corner starts")?,
             ends: buffer(vertex_capacity as u64 * 4, "vertex corner ends")?,
-            sort: SortScratch::new(context, corner_capacity)?,
+            sort: SortScratch::new(context, corner_capacity.into())?,
             vertex_capacity,
             triangle_capacity,
         })
@@ -333,8 +333,8 @@ impl VertexNormalKernels {
             &output.keys,
             &output.corners,
             &mut output.sort,
-            corner_count,
-            bits.max(1),
+            corner_count.into(),
+            bits.max(1).into(),
         )?;
 
         let mut ranges = counted(corner_count);

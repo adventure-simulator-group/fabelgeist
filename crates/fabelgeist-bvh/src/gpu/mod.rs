@@ -130,7 +130,7 @@ impl GpuBvh {
                 (nodes * BOUNDS_WORDS * 4).into(),
                 storage.with_label(("bvh node bounds").into()),
             )?,
-            sort_scratch: SortScratch::new(context, capacity)?,
+            sort_scratch: SortScratch::new(context, capacity.into())?,
             capacity,
             count: 0,
         })
@@ -238,8 +238,8 @@ impl GpuBvh {
             &self.codes,
             &self.indices,
             &mut self.sort_scratch,
-            count,
-            morton::BITS,
+            count.into(),
+            morton::BITS.into(),
         )?;
 
         let mut hierarchy = params.clone();
