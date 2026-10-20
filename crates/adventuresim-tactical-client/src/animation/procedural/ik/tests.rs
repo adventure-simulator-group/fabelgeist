@@ -857,7 +857,7 @@ mod coordination_tests {
             Vec3::X,
             leg_direction,
             foot_facing,
-            BodyAngularMagnitude::from_radians(std::f32::consts::FRAC_PI_8).unwrap(),
+            AngularMagnitudeDegrees::from_degrees(22.5).unwrap(),
         )
         .unwrap();
 
@@ -873,7 +873,7 @@ mod coordination_tests {
             Vec3::X,
             leg_direction,
             foot_facing,
-            BodyAngularMagnitude::from_radians(std::f32::consts::FRAC_PI_8).unwrap(),
+            AngularMagnitudeDegrees::from_degrees(22.5).unwrap(),
         )
         .unwrap();
 
@@ -889,7 +889,7 @@ mod coordination_tests {
             expected,
             leg_direction,
             Vec3::Z,
-            BodyAngularMagnitude::from_radians(std::f32::consts::FRAC_PI_8).unwrap(),
+            AngularMagnitudeDegrees::from_degrees(22.5).unwrap(),
         )
         .unwrap();
 

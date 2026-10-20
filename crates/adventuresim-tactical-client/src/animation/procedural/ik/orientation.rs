@@ -111,12 +111,7 @@ pub(in crate::animation::procedural) fn stabilized_knee_pole(
                 selected,
                 next_end_direction,
                 facing,
-                BodyAngularMagnitude::from_radians(
-                    ik_tuning()
-                        .knee_pole_maximum_foot_facing_offset_degrees
-                        .radians(),
-                )
-                .ok()?,
+                ik_tuning().knee_pole_maximum_foot_facing_offset_degrees,
             )
         })
         .or(Some(selected))
@@ -126,7 +121,7 @@ pub(in crate::animation::procedural) fn constrain_knee_pole_to_foot_facing(
     pole: Vec3,
     leg_direction: Vec3,
     foot_facing: Vec3,
-    maximum_offset: BodyAngularMagnitude,
+    maximum_offset: AngularMagnitudeDegrees,
 ) -> Option<Vec3> {
     let leg_direction = leg_direction.try_normalize()?;
     let facing_yaw = foot_facing.xz().try_normalize()?;
@@ -180,12 +175,7 @@ pub(in crate::animation::procedural) fn constrain_rendered_leg_pole(
                 pole,
                 target - hip,
                 facing,
-                BodyAngularMagnitude::from_radians(
-                    ik_tuning()
-                        .knee_pole_maximum_foot_facing_offset_degrees
-                        .radians(),
-                )
-                .ok()?,
+                ik_tuning().knee_pole_maximum_foot_facing_offset_degrees,
             )
         })
         // Sparse/non-humanoid rigs may not expose a toe direction. Preserve
