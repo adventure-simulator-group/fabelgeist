@@ -46,7 +46,8 @@ impl GuardStepLivenessMetrics {
                 && metadata.procedural_solver()
                 && metadata.repeatable()
                 && frames.iter().all(|frame| {
-                    frame.speed_metres_per_second > SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
+                    frame.speed_metres_per_second
+                        > SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
                 })
         })
     }
