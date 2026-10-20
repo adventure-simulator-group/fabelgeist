@@ -611,7 +611,9 @@ mod tests {
                     .rev()
                     .filter(|event| event.combatant_id == Some(fighter.id))
                     .find_map(|event| event.readiness_after_seconds)
-                    .is_some_and(|ready| ready.seconds().is_finite() && ready > terminal.time_seconds);
+                    .is_some_and(|ready| {
+                        ready.seconds().is_finite() && ready > terminal.time_seconds
+                    });
                 ongoing_bleeding || scheduled
             });
         assert!(

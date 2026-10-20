@@ -846,7 +846,9 @@ pub fn resolve_battle(
 
     let terminal_seconds = match recorder.timeline.last() {
         Some(event) => event.time_seconds,
-        None => BattleTime::from_seconds(rounds as f32 * parameters.combat_round_seconds.seconds())?,
+        None => {
+            BattleTime::from_seconds(rounds as f32 * parameters.combat_round_seconds.seconds())?
+        }
     };
     recorder.record_timeline(
         MeleeTimelineEvent::at(MeleeTimelineKind::Terminal, terminal_seconds)
