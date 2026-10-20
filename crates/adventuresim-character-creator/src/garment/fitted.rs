@@ -455,6 +455,7 @@ fn norm(a: V) -> f64 {
 mod tests {
     use super::*;
     use fabelgeist_armor::gpu::{COIF_DRAPE_SECTIONS, FIT_PROFILE_WORD, frame_words, record_coif};
+    use fabelgeist_compute::KernelBatchLabel;
     use std::f32::consts::TAU;
 
     fn head() -> PartFrame {
@@ -527,7 +528,7 @@ mod tests {
         let placement = gpu
             .upload(BufferUpload::from_elements(&frame_words(&frame)))
             .unwrap();
-        let mut batch = gpu.batch("coif carrier test");
+        let mut batch = gpu.batch(KernelBatchLabel::from("coif carrier test"));
         let part = record_coif(gpu, &mut batch, &design, &fit, &placement).unwrap();
         batch.submit();
         let carrier = CoifCarrier::read(gpu, &part).unwrap();

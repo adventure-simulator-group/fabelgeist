@@ -1,5 +1,6 @@
 //! Horizontal overlapping courses sampled from the completed fitted torso.
 use fabelgeist_compute::KernelBatch;
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_gpu::prelude::Buffer;
 
 use super::anime_sampling::CourseSampler;
@@ -44,7 +45,7 @@ impl Articulation {
         let sampler = CourseSampler::new(gpu, &mut batch, &source, &input, design)?;
         batch.submit();
         let layout = sampler.layout(gpu, design).await?;
-        let mut batch = gpu.batch("triangulated armor courses");
+        let mut batch = gpu.batch(KernelBatchLabel::from("triangulated armor courses"));
         let sampled = sampler.finish(gpu, &mut batch, &layout)?;
         batch.submit();
         Ok(Articulated {

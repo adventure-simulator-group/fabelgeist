@@ -6,6 +6,7 @@
 //! times over. Instead each result stages the buffers it needs, one
 //! [`Readback`] brings them all back, and each result parses its own slice.
 
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_compute::Readback;
 use fabelgeist_gpu::prelude::Buffer;
 
@@ -68,7 +69,7 @@ impl ArmorGpu {
         &self,
         staging: Staging<'_>,
     ) -> Result<StagedResults, GenerateError> {
-        let mut batch = self.batch("armor readback");
+        let mut batch = self.batch(KernelBatchLabel::from("armor readback"));
         let readback = Readback::record(self.context(), &mut batch, &staging.buffers);
         batch.submit();
         let bytes = readback.read(self.context()).await.map_err(device_error)?;

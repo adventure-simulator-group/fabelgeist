@@ -6,6 +6,7 @@ use super::super::{
 };
 use super::*;
 use crate::{BreastplateDesign, Millimeters, Permille};
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_gpu::prelude::BufferUpload;
 
 #[test]
@@ -97,7 +98,7 @@ fn deep_laps_keep_noncollapsed_rows_and_distinct_metal_surfaces_at_the_hem() {
             front_count: (rows * width) as u32,
             ..Default::default()
         };
-        let mut batch = gpu.batch("deep lap geometry");
+        let mut batch = gpu.batch(KernelBatchLabel::from("deep lap geometry"));
         dispatch(
             &gpu,
             &mut batch,

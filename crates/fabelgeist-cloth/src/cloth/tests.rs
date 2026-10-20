@@ -1,3 +1,4 @@
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_gpu::prelude::BufferUpload;
 use fabelgeist_math::Vec2;
 use fabelgeist_physics::{Collider, Collisions};
@@ -625,7 +626,10 @@ async fn coincident_non_neighbours_separate_and_pinned_particles_stay_fixed() ->
         &[vec![], vec![]],
         0.005,
     )?;
-    let mut batch = KernelBatch::labelled(&harness.context, "coincident contact");
+    let mut batch = KernelBatch::labelled(
+        &harness.context,
+        KernelBatchLabel::from("coincident contact"),
+    );
     collision.record(&mut batch, &particles, true)?;
     batch.submit();
     let p = particles.read_positions(&harness.context).await?;

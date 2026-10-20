@@ -44,6 +44,7 @@ mod topology;
 mod trimmed_carrier;
 mod wearer_wgsl;
 
+use fabelgeist_compute::KernelBatchLabel;
 use fabelgeist_compute::{KernelBatch, NormalWeighting, VertexNormals};
 use fabelgeist_gpu::prelude::Buffer;
 
@@ -115,7 +116,7 @@ impl DeviceBreastplate {
         let mut extrusions = plates.record_extrusions(gpu, &mut batch, &fitted.plate, status)?;
         batch.submit();
         plates.remesh(gpu, status, &mut extrusions).await?;
-        let mut batch = gpu.batch("triangulated breastplate");
+        let mut batch = gpu.batch(KernelBatchLabel::from("triangulated breastplate"));
         extrusions.record_miters(gpu, &mut batch, &plates, status)?;
         let shell = plates.record_shell(
             gpu,
