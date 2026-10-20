@@ -2,7 +2,7 @@
 
 use super::*;
 use adventuresim_tactical_core::animation::{
-    AnimationSampleTick, DownedFacingStep, SignedHalfTurns,
+    AnimationSampleTick, AnimationValueResult, DownedFacingStep, SignedHalfTurns,
 };
 
 /// One authoritative facing observation, before locomotion projection.
