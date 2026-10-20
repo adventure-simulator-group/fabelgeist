@@ -26,18 +26,18 @@ mod plan;
 mod shader;
 
 /// An explicit allocation limit, independent of source botanical identity.
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct GrownPartVertexLimit(NonZeroU32);
 
 /// Bounds final mesh payload, separately from transient GPU/readback memory.
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct GrownMeshBudget {
     pub part_vertices: GrownPartVertexLimit,
     pub total_mesh_bytes: GrownMeshBytes,
 }
 
 /// Logical mesh channel/index payload, not allocation, RAM or GPU memory.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub struct GrownMeshBytes(u64);
 
 /// Checked meshes plus their actual channel encoding and immutable source.
@@ -60,7 +60,7 @@ pub struct GrownGeometryPart {
 }
 
 /// Channel evaluation is owned by construction, never chosen during installation.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, serde::Serialize)]
 pub enum GrownVertexEncoding {
     Address,
     Expanded,
@@ -80,6 +80,10 @@ impl GrownPartVertexLimit {
 }
 
 impl GrownMeshBytes {
+    pub fn checked_sub(self, other: Self) -> Option<Self> {
+        self.0.checked_sub(other.0).map(Self)
+    }
+
     /// Logical payload accounting boundary, in bytes of retained mesh channels.
     pub fn from_bytes(bytes: u64) -> Self {
         Self(bytes)

@@ -1,5 +1,6 @@
 //! Actual same-frame renderer mesh allocation, material and pipeline joins.
 use super::*;
+use availability::{MissingBinding, MissingMemberResource};
 use bevy::{
     asset::UntypedAssetId,
     pbr::{
@@ -18,6 +19,10 @@ use bevy::{
     },
 };
 use members::NativeVisibility;
+
+pub(super) use availability::Availability;
+
+mod availability;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) struct MeshBinding {
@@ -56,6 +61,16 @@ pub(super) struct RenderMember {
 pub(super) enum Extraction {
     Present,
     Absent,
+}
+
+struct BindingSources<'a> {
+    meshes: &'a RenderAssets<RenderMesh>,
+    instances: &'a RenderMeshInstances,
+    materials: &'a RenderMaterialInstances,
+    prepared: &'a ErasedRenderAssets<PreparedMaterial>,
+    allocator: &'a MeshAllocator,
+    specializations: &'a SpecializedMaterialPipelineCache,
+    pipelines: &'a PipelineCache,
 }
 
 impl MeshBinding {
@@ -152,9 +167,18 @@ impl RenderMember {
         allocator: &MeshAllocator,
         specializations: &SpecializedMaterialPipelineCache,
         pipelines: &PipelineCache,
-    ) -> Result<Option<Vec<Self>>> {
-        let Some(view_pipelines) = specializations.get(&pose.camera) else {
-            return Ok(None);
+    ) -> Result<Availability<Vec<Self>>> {
+        if specializations.get(&pose.camera).is_none() {
+            return Ok(Availability::Missing(MissingBinding::ViewSpecializations));
+        }
+        let sources = BindingSources {
+            meshes,
+            instances,
+            materials,
+            prepared,
+            allocator,
+            specializations,
+            pipelines,
         };
         let mut members = Vec::with_capacity(pose.expected.len());
         for member in &pose.expected {
@@ -163,49 +187,12 @@ impl RenderMember {
             if member.native_visibility == NativeVisibility::NotVisible {
                 continue;
             }
-            let main_entity: MainEntity = member.entity.into();
-            let extraction = match instances.mesh_asset_id(main_entity) {
-                Some(extracted) => {
-                    ensure!(
-                        extracted == member.mesh,
-                        "actual extracted mesh differs from held member"
-                    );
-                    Extraction::Present
-                }
-                None => Extraction::Absent,
-            };
-            let Some(material) = materials.instances.get(&main_entity) else {
-                return Ok(None);
-            };
-            ensure!(
-                material.asset_id == member.material,
-                "actual extracted material differs from held member"
-            );
-            let Some(material) = prepared.get(member.material) else {
-                return Ok(None);
-            };
-            let Some(mesh) = meshes.get(member.mesh) else {
-                return Ok(None);
-            };
-            let Some(binding) = MeshBinding::read(member.mesh, mesh, allocator) else {
-                return Ok(None);
-            };
-            let Some(pipeline) = view_pipelines.get(&main_entity) else {
-                return Ok(None);
-            };
-            if pipelines.get_render_pipeline(*pipeline).is_none() {
-                return Ok(None);
+            match sources.resolve(pose.camera, member)? {
+                Availability::Ready(member) => members.push(member),
+                Availability::Missing(reason) => return Ok(Availability::Missing(reason)),
             }
-            members.push(Self {
-                member: member.clone(),
-                extraction,
-                pipeline: *pipeline,
-                binding,
-                material_group: material.binding.group.0,
-                material_slot: material.binding.slot.0,
-            });
         }
-        Ok(Some(members))
+        Ok(Availability::Ready(members))
     }
 
     pub(super) fn report(&self) -> serde_json::Value {
@@ -217,6 +204,79 @@ impl RenderMember {
 
     pub(super) fn material_type(&self) -> std::any::TypeId {
         self.member.material.type_id()
+    }
+}
+
+impl BindingSources<'_> {
+    fn resolve(
+        &self,
+        camera: RetainedViewEntity,
+        member: &TaggedMember,
+    ) -> Result<Availability<RenderMember>> {
+        let unavailable = |resource| {
+            Availability::Missing(MissingBinding::Member {
+                member: Box::new(member.clone()),
+                resource,
+            })
+        };
+        let main_entity: MainEntity = member.entity.into();
+        let extraction = match self.instances.mesh_asset_id(main_entity) {
+            Some(extracted) => {
+                ensure!(
+                    extracted == member.mesh,
+                    "actual extracted mesh differs from held member"
+                );
+                Extraction::Present
+            }
+            None => Extraction::Absent,
+        };
+        let Some(material) = self.materials.instances.get(&main_entity) else {
+            return Ok(unavailable(MissingMemberResource::MaterialInstance));
+        };
+        ensure!(
+            material.asset_id == member.material,
+            "actual extracted material differs from held member"
+        );
+        let Some(material) = self.prepared.get(member.material) else {
+            return Ok(unavailable(MissingMemberResource::PreparedMaterial));
+        };
+        let Some(mesh) = self.meshes.get(member.mesh) else {
+            return Ok(unavailable(MissingMemberResource::Mesh));
+        };
+        let Some(binding) = MeshBinding::read(member.mesh, mesh, self.allocator) else {
+            return Ok(unavailable(MissingMemberResource::MeshAllocation {
+                vertex_slice_present: self.allocator.mesh_vertex_slice(&member.mesh).is_some(),
+                slabs_present: self.allocator.mesh_slabs(&member.mesh).is_some(),
+                indexed: matches!(mesh.buffer_info, RenderMeshBufferInfo::Indexed { .. }),
+                index_slice_present: self.allocator.mesh_index_slice(&member.mesh).is_some(),
+            }));
+        };
+        let Some(pipeline) = self
+            .specializations
+            .get(&camera)
+            .and_then(|view| view.get(&main_entity))
+        else {
+            return Ok(unavailable(MissingMemberResource::EntitySpecialization {
+                mesh_queue_data_present: self
+                    .instances
+                    .render_mesh_queue_data(main_entity)
+                    .is_some(),
+            }));
+        };
+        if self.pipelines.get_render_pipeline(*pipeline).is_none() {
+            return Ok(unavailable(MissingMemberResource::CompiledPipeline {
+                pipeline: format!("{pipeline:?}"),
+                preparation: self.pipelines.get_render_pipeline_state(*pipeline).into(),
+            }));
+        }
+        Ok(Availability::Ready(RenderMember {
+            member: member.clone(),
+            extraction,
+            pipeline: *pipeline,
+            binding,
+            material_group: material.binding.group.0,
+            material_slot: material.binding.slot.0,
+        }))
     }
 }
 

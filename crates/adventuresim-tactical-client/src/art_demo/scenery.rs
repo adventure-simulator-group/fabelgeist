@@ -57,6 +57,7 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     world
         .spawn((
             SceneId(input.scene_key.clone()),
+            adventuresim_tactical_core::prelude::SceneTreeContent::Recipe,
             environment,
             generated.ground,
             generated.terrain,

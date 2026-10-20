@@ -76,7 +76,7 @@ impl Plugin for InstancedGrassPlugin {
 
 /// Marks scenes whose instanced sward has been generated.
 #[derive(Component)]
-pub(super) struct InstancedGrassPresented;
+pub(in crate::presentation) struct InstancedGrassPresented;
 
 /// Instanced counterpart of the grass portion of `present_ground_scatter`.
 /// Builds the playable scene's sward once per scene, alongside the vista rings

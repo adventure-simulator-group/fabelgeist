@@ -11,11 +11,49 @@ use bevy::{
 };
 
 use super::{capture_presentation_plugin, capture_resolution};
+#[cfg(feature = "grown-review")]
+use bevy::ecs::schedule::common_conditions::not;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub(super) enum CaptureSurface {
     Window,
     Offscreen,
+}
+
+pub(super) enum CaptureWorkload {
+    TerrainWireframe,
+    TriangleCensus,
+    LeafBenchmark,
+    TreeLightingBenchmark,
+    ScenePerformanceBenchmark,
+    Review,
+}
+
+pub(super) fn install_capture(app: &mut App, workload: CaptureWorkload) {
+    match workload {
+        CaptureWorkload::TerrainWireframe => {
+            app.add_systems(Last, super::capture_terrain_wireframe);
+        }
+        CaptureWorkload::TriangleCensus => {
+            app.add_systems(Last, super::capture_triangle_census);
+        }
+        CaptureWorkload::LeafBenchmark => {
+            app.add_systems(Last, super::benchmark_leaf_representations);
+        }
+        CaptureWorkload::TreeLightingBenchmark => {
+            app.add_systems(Last, super::benchmark_tree_lighting);
+        }
+        CaptureWorkload::ScenePerformanceBenchmark => {
+            app.add_systems(
+                Last,
+                (
+                    super::benchmark_scene_performance,
+                    super::benchmark_progress::report,
+                ),
+            );
+        }
+        CaptureWorkload::Review => install_review(app),
+    }
 }
 
 pub(super) fn new(asset_root: PathBuf, profile: &str, surface: CaptureSurface) -> App {
@@ -62,4 +100,25 @@ pub(super) fn new(asset_root: PathBuf, profile: &str, surface: CaptureSurface) -
     .add_plugins(capture_presentation_plugin())
     .insert_resource(ClearColor(Color::srgb_u8(158, 181, 195)));
     app
+}
+
+fn install_review(app: &mut App) {
+    let capture = super::capture_views
+        .run_if(super::building_review::ready)
+        .run_if(super::furniture_readiness::ready);
+    #[cfg(feature = "grown-review")]
+    let capture = capture.run_if(super::grown_capture::ready).run_if(not(
+        super::grown_capture::generated::pending_adaptive_configuration,
+    ));
+    app.add_systems(Last, capture);
+    #[cfg(feature = "grown-review")]
+    app.add_systems(
+        PreUpdate,
+        super::capture_views
+            .run_if(super::building_review::ready)
+            .run_if(super::furniture_readiness::ready)
+            .run_if(super::grown_capture::ready)
+            .run_if(super::grown_capture::generated::pending_adaptive_configuration)
+            .after(super::grown_capture::runtime::advance),
+    );
 }

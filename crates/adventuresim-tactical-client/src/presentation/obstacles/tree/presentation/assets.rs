@@ -18,7 +18,7 @@ impl CachedTreePresentation {
         leaves: Vec<super::super::TreeLeaf>,
         materials: TreeMaterialBindings,
     ) -> Self {
-        let resident_assets = TreeAssetResidencyDiagnostics {
+        let resident_assets = RecipeTreeAssetResidencyDiagnostics {
             variants: 1,
             source_branches: branches.len(),
             source_leaves: leaves.len(),
@@ -83,7 +83,7 @@ fn ensure_tree_card_resident(
     meshes: &mut Assets<Mesh>,
     tree_materials: &mut Assets<TacticalTreeImpostorMaterial>,
     images: &mut Assets<Image>,
-    diagnostics: &mut TreeAssetResidencyDiagnostics,
+    diagnostics: &mut RecipeTreeAssetResidencyDiagnostics,
 ) {
     let index = lod as usize - 1;
     if cached.lod_cards[index].is_some() {
@@ -125,7 +125,7 @@ fn ensure_detailed_tree_assets_resident(
     cached: &mut CachedTreePresentation,
     selected_leaf: Option<TreeLeafRepresentation>,
     meshes: &mut Assets<Mesh>,
-    diagnostics: &mut TreeAssetResidencyDiagnostics,
+    diagnostics: &mut RecipeTreeAssetResidencyDiagnostics,
 ) {
     if cached.clusters.is_none() {
         cached.clusters = Some(
@@ -201,13 +201,13 @@ pub(super) fn ensure_tree_assets_resident(
     meshes: &mut Assets<Mesh>,
     tree_materials: &mut Assets<TacticalTreeImpostorMaterial>,
     images: &mut Assets<Image>,
-    diagnostics: &mut TreeAssetResidencyDiagnostics,
+    diagnostics: &mut RecipeTreeAssetResidencyDiagnostics,
 ) -> bevy::prelude::Result {
     #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
     if let TreeAssetOrigin::Prepared(_) = &cached.origin {
         return prepared::require_resident(cached, mask).map_err(Into::into);
     }
-    let mut added = TreeAssetResidencyDiagnostics::default();
+    let mut added = RecipeTreeAssetResidencyDiagnostics::default();
     generate_tree_assets_resident(
         cached,
         mask,
@@ -236,7 +236,7 @@ fn generate_tree_assets_resident(
     meshes: &mut Assets<Mesh>,
     tree_materials: &mut Assets<TacticalTreeImpostorMaterial>,
     images: &mut Assets<Image>,
-    diagnostics: &mut TreeAssetResidencyDiagnostics,
+    diagnostics: &mut RecipeTreeAssetResidencyDiagnostics,
 ) {
     let started = web_time::Instant::now();
     if mask & 1 != 0 && cached.trunk_mesh.is_none() {

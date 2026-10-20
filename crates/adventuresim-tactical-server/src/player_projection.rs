@@ -12,7 +12,7 @@ use adventuresim_tactical_netcode::{
     bevy_replicon::prelude::{FromClient, Replicated, SendTargets, ServerTriggerExt, ToClients},
     prelude::{
         DefendRequest, JoinRequest, JumpCommand, PlayerInputRequest, PostureActionRequest,
-        PostureCommand, ReconnectCapability, ReconnectToken, TacticalCombatConfigSnapshot,
+        PostureCommand, ReconnectCapability, ReconnectToken,
     },
 };
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
@@ -20,7 +20,7 @@ use bevy::prelude::*;
 use bevy::time::Stopwatch;
 
 use crate::{
-    Args, SceneVistaBundleResource,
+    Args,
     bot::{CombatantBehaviorPackages, MissionEnemy},
     combat::{
         MeleeAttackAuthority, PendingMeleeContact, RangedAttackAuthority, TacticalCombatSide,
@@ -34,10 +34,12 @@ use crate::{
 };
 use input::AccumulatedInput;
 mod projection_equipment;
+mod scene_delivery;
 use projection_equipment::{
     projected_armor, projected_holder_appearance, projected_parametric_weapon,
     projected_weapon_appearance,
 };
+use scene_delivery::SceneJoinDelivery;
 
 type PlayerInputStateQuery<'world, 'state> = Query<
     'world,
@@ -957,10 +959,9 @@ pub(crate) fn on_join_request(
     mut action_sequences: ResMut<LastEquipmentSequence>,
     conn: Res<SpacetimeDb>,
     ready: Res<SpacetimeDbReady>,
-    vista: Res<SceneVistaBundleResource>,
-    combat_config: Res<TacticalCombatConfig>,
+    delivery: SceneJoinDelivery,
 ) -> Result {
-    let Some(client) = join.client_id.entity() else {
+    let Some(client) = delivery.admit_transport(join.client_id)? else {
         return Ok(());
     };
     if loading_players.contains(client) || players.contains(client) {
@@ -985,8 +986,7 @@ pub(crate) fn on_join_request(
             token,
         });
         send_reconnect_capability(&mut commands, join.client_id, join.character_id, token);
-        send_scene_vista(&mut commands, join.client_id, &vista);
-        send_combat_config(&mut commands, join.client_id, &combat_config);
+        delivery.send_to(&mut commands, join.client_id);
         reconnect_equipment_lifecycle(
             disconnected,
             client,
@@ -1036,8 +1036,7 @@ pub(crate) fn on_join_request(
         },
     ));
     send_reconnect_capability(&mut commands, join.client_id, join.character_id, token);
-    send_scene_vista(&mut commands, join.client_id, &vista);
-    send_combat_config(&mut commands, join.client_id, &combat_config);
+    delivery.send_to(&mut commands, join.client_id);
     info!(
         "[startup] Character {} connected and entered mission, awaiting loading",
         join.character_id.0
@@ -2023,30 +2022,6 @@ fn send_reconnect_capability(
             character_id,
             token,
         },
-    });
-}
-
-fn send_scene_vista(
-    commands: &mut Commands,
-    client_id: adventuresim_tactical_netcode::bevy_replicon::prelude::ClientId,
-    vista: &SceneVistaBundleResource,
-) {
-    if let Some(message) = &vista.0 {
-        commands.server_trigger(ToClients {
-            targets: SendTargets::Single(client_id),
-            message: message.clone(),
-        });
-    }
-}
-
-fn send_combat_config(
-    commands: &mut Commands,
-    client_id: adventuresim_tactical_netcode::bevy_replicon::prelude::ClientId,
-    config: &TacticalCombatConfig,
-) {
-    commands.server_trigger(ToClients {
-        targets: SendTargets::Single(client_id),
-        message: TacticalCombatConfigSnapshot(config.clone()),
     });
 }
 

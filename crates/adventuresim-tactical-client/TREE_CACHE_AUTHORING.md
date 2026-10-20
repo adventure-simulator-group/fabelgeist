@@ -90,3 +90,61 @@ Successful CPU validation establishes serialization and admission only.
 Production materials, shadows, actual cache attachment, held images, moving LOD
 transitions, distant instancing and complete visible-area arrival require
 separate runtime validation and performance evidence.
+
+## Live recipe ownership
+
+The playable-tree cache starts unbound. Activating recipe content binds its
+asset payload to the actual scene entity and complete SceneEnvironment, rather
+than only a scene digest. A retained payload can return for an equal
+environment on a new scene entity; this reuses assets without restoring
+authority over roots from the previous entity. The active scene and two
+previous scenes remain the retention limit.
+
+The recipe payload owns its required terrain contact image and existing
+source, material and five-tier residency state. The ordinary pending-tree and
+streaming systems remain the consumers. Failed binding or missing resident
+assets propagate an error. Moving code into the streaming and material owners
+does not change recipe geometry, leaf handoff distances, shadow policy or
+selected representations.
+
+Scene intent is explicit in `TreeContentRequest`. Ordinary captures request
+Recipe content. Prepared Recipe installation rejects a live Grown request
+before activating the cache or inserting assets.
+
+Weather shelter checks the actual scene kind. Non-clear playable weather
+requires the Recipe payload bound to that exact entity and environment. Clear
+Grown scenes skip shelter processing; wet or snow-covered Grown requests are
+rejected explicitly. A strategic backdrop with no playable trees uses its
+existing empty shelter image and does not activate a playable cache. A missing
+or mismatched playable binding is never treated as that backdrop case.
+
+## Grown catalogue ownership
+
+With the foliage review feature, `TreeContentRequest::Grown` admits an actual
+bank, distinct botanical source identities, an aggregate mesh budget and an
+explicit fixed detail level. Each selected source owns Full, Middle and Coarse
+Address geometry through the same cache. These closures share one source-bank
+upload owner in the presenting world. The complete CPU catalogue must fit its
+budget before the first buffer, material or mesh insertion. Logical mesh bytes
+are not a physical-memory measurement.
+
+The existing pending-tree presenter attaches these shared parts through a
+visual child of each admitted physical root. The physical collider transform,
+body, layers and scene ownership remain authoritative. The visual child removes
+the collider-centre offset; part bounds remain source-derived. The existing
+streamer checks the fixed source, level and root binding without Recipe masks.
+Grown currently requires clear weather without precipitation intensity or snow.
+Unsupported weather is rejected rather than using Recipe shelter data.
+
+Retained Grown catalogues use the same active-plus-two-previous-scene limit.
+Reuse checks the actual scene, complete environment, bank, selected sources,
+partition policy, budget and presenting world. Matching catalogues can share
+assets across environments; returning to an equal environment rebinds its
+retained payload to the new scene entity. Recipe residency counters describe
+Recipe assets; their zero values do not describe Grown memory.
+
+These APIs implement the cache and physical-root attachment boundary. The
+native generated-scene capture host, actual GPU instance/buffer verification
+and runtime reuse witnesses remain separate work. No adaptive five-tier,
+distant-tree, weather, browser, physical-memory or complete-arrival acceptance
+follows from compilation or from the existence of these APIs.

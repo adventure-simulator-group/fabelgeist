@@ -1,4 +1,4 @@
-//! Exact GPU membership, geometry/material joins and three-way tree batches.
+//! Exact recorded-frame GPU membership, geometry/material joins and root groups.
 use super::*;
 use bevy::{
     math::{Affine3, Affine3Ext},
@@ -23,6 +23,8 @@ struct Audit<'a> {
     submitted_instances: u64,
     nonempty_commands: usize,
     budget: WorkBudget,
+    subject: Subject,
+    shared_sources: Vec<crate::presentation::GrownSource>,
 }
 
 pub(super) fn verify(
@@ -40,6 +42,8 @@ pub(super) fn verify(
         submitted_instances: 0,
         nonempty_commands: 0,
         budget: WorkBudget::new(),
+        subject: pose.subject,
+        shared_sources: Vec::new(),
     };
     for receipt in &submission.commands {
         ensure!(
@@ -73,13 +77,12 @@ pub(super) fn verify(
                 .all(|member| audit.seen.contains(&member.tag)),
         "missing expected GPU member"
     );
-    ensure!(
-        !audit.tree_batches.is_empty(),
-        "no actual three-way tree command"
-    );
+    ensure!(!audit.tree_batches.is_empty(), "no actual tree command");
+    pose.subject.require_shared_sources(&audit.shared_sources)?;
     Ok(
-        serde_json::json!({"role":pose.role, "view":pose.view, "frame":submission.frame,
-        "camera_entity_bits":pose.camera_bits, "gpu_membership_verified":true,
+        serde_json::json!({"subject":pose.subject, "view":pose.view, "frame":submission.frame,
+        "camera_entity_bits":pose.camera_bits,"readiness_requirement":pose.readiness,"first_extracted_frame":pose.first_frame,"selection":pose.selection.as_ref().map(|selection|selection.report()), "gpu_membership_verified":true,
+        "prepared_source_allocations":submission.sources.iter().map(source_buffers::PreparedSource::report).collect::<Vec<_>>(),
         "expected_membership":pose.expected.iter().map(TaggedMember::report).collect::<Vec<_>>(),
         "render_members":submission.members.iter().map(RenderMember::report).collect::<Vec<_>>(),
         "api_color_dispatches":submission.commands.len(),
@@ -89,7 +92,7 @@ pub(super) fn verify(
         "owned_instances":audit.seen.len(), "tree_batches":audit.tree_batches,
         "actual_commands":audit.commands,
         "terrain_background_complete":true,
-        "scope":"actual main-color indirect dispatches and decoded compacted GPU instance membership; held camera/entity/material bindings; no exact screenshot-frame timestamp, prepass/shadow, browser, adaptive, arrival, vertex/texture-byte or performance acceptance"}),
+        "scope":"recorded-frame main-color indirect dispatches and decoded compacted GPU instance membership; later held camera/entity/material bindings and semantic command shape for owned tree/terrain members; no exact screenshot-frame timestamp, prepass/shadow, browser, continuous motion, arrival, vertex/texture-byte or performance acceptance"}),
     )
 }
 
@@ -116,11 +119,22 @@ impl Audit<'_> {
         if command.instance_count > 0 {
             self.nonempty_commands += 1;
         }
+        let owned_tree_geometry = self.members.iter().any(|member| {
+            matches!(member.member.role, MemberRole::Tree { .. })
+                && receipt.binding.slabs == member.binding.slabs
+                && receipt.binding.vertex_buffer == member.binding.vertex_buffer
+                && receipt.binding.index_buffer == member.binding.index_buffer
+                && command.geometry == member.binding.geometry
+        });
         let mut owned = Vec::new();
         for instance in instances {
             // Admit the primitive at the native MeshUniform-to-MeshTag boundary.
             let tag = MeshTag(instance.tag);
             if tag.0 == 0 {
+                ensure!(
+                    !owned_tree_geometry,
+                    "untagged instance in owned grown geometry command"
+                );
                 continue;
             }
             let member = self
@@ -173,16 +187,26 @@ impl Audit<'_> {
             .filter(|member| {
                 matches!(member.role,
             MemberRole::Tree { part:expected, .. } if expected == part)
+                    && self.members.iter().any(|actual| {
+                        actual.member.tag == member.tag
+                            && receipt.compatible(actual)
+                            && actual.binding.geometry == command.geometry
+                    })
             })
             .collect();
-        let required = layout::ROOT_COUNT;
-        ensure!(
-            expected.len() == required,
-            "expected tree part is not one per root"
-        );
+        let required = expected.len();
+        if matches!(self.subject, Subject::Specimens { .. }) {
+            ensure!(
+                required == layout::ROOT_COUNT,
+                "private tree part is not one per root"
+            );
+        }
+        if required > 1 && !self.shared_sources.contains(&part.source) {
+            self.shared_sources.push(part.source);
+        }
         ensure!(
             usize::try_from(command.instance_count)? == required && owned.len() == required,
-            "tree part was split or mixed instead of one shared three-instance command"
+            "tree part was split or mixed instead of its complete shared instance command"
         );
         let mut expected_tags: Vec<_> = expected.iter().map(|member| member.tag.clone()).collect();
         let mut actual_tags: Vec<_> = instances

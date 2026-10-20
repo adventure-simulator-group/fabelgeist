@@ -142,24 +142,16 @@ fn captured(
         "readback followed renderer failure"
     );
     let elapsed_from_request_millis = arrival.started.elapsed().as_secs_f64() * 1000.0;
-    let image = event.image.clone().try_into_dynamic()?;
-    let width = image.width();
-    let height = image.height();
-    ensure!(width > 0 && height > 0, "empty browser readback");
-    let mut png = std::io::Cursor::new(Vec::new());
-    image
-        .to_rgb8()
-        .write_to(&mut png, image::ImageFormat::Png)?;
-    let png = png.into_inner();
+    let image = crate::presentation::capture_image::CapturedPng::encode(event.image.clone())?;
     arrival.readbacks.push(Readback {
         role: pending.role,
         prerequisite_completed_frame: pending.receipt,
         elapsed_from_request_millis,
-        width,
-        height,
-        png_bytes: png.len(),
-        png_blake3: blake3::hash(&png).to_hex().to_string(),
+        width: image.width,
+        height: image.height,
+        png_bytes: image.bytes.len(),
+        png_blake3: image.blake3,
     });
-    bridge::push_image(png)?;
+    bridge::push_image(image.bytes)?;
     Ok(())
 }

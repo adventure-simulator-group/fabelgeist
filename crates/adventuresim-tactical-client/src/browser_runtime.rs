@@ -21,6 +21,8 @@ use bevy::{
 };
 use serde::Deserialize;
 
+#[cfg(feature = "debug")]
+use crate::presentation::frame_receipt;
 use crate::weapon_preview_material::preview_material;
 
 use crate::{
@@ -39,6 +41,8 @@ pub(crate) enum BrowserMode {
 #[derive(Deserialize)]
 #[serde(tag = "type", rename_all = "kebab-case")]
 enum BrowserCommand {
+    #[cfg(feature = "debug")]
+    InspectTacticalLighting,
     #[cfg(feature = "foliage-review")]
     #[serde(skip)]
     ReviewFoliage(foliage_review::Command),
@@ -158,6 +162,8 @@ impl Plugin for BrowserRuntimePlugin {
                     .before(bevy::camera::CameraUpdateSystems)
                     .before(bevy::transform::TransformSystems::Propagate),
             );
+        #[cfg(all(feature = "debug", feature = "grown-trees"))]
+        crate::presentation::arrival::install(app);
     }
 }
 
@@ -217,6 +223,8 @@ fn drain_browser_commands(
 
     for command in pending {
         match command {
+            #[cfg(feature = "debug")]
+            BrowserCommand::InspectTacticalLighting => commands.queue(frame_receipt::arm),
             #[cfg(feature = "foliage-review")]
             BrowserCommand::ReviewFoliage(command) => {
                 commands.queue(move |world: &mut World| foliage_review::apply(world, command));

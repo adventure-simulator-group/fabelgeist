@@ -4,6 +4,7 @@ use bevy::prelude::*;
 
 pub(crate) fn spawn(
     commands: &mut Commands,
+    scene: Entity,
     obstacles: Vec<GeneratedObstacle>,
     terrain: &SceneTerrain,
     obstacle_spacing: f32,
@@ -39,6 +40,7 @@ pub(crate) fn spawn(
         };
         commands.spawn((
             Replicated,
+            SceneObstacleOf(scene),
             Name::new(format!("Tactical scene {label}")),
             kind,
             RigidBody::Static,

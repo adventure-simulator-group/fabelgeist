@@ -8,11 +8,6 @@ use tree::{PendingTreePresentation, canopy_competition};
 pub(super) mod rock;
 pub(super) mod tree;
 
-/// Local scene membership, assigned by the owner of an obstacle spawn batch.
-/// This is not replicated authority or an inferred active-scene association.
-#[derive(Component, Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) struct SceneObstacleOf(pub(crate) Entity);
-
 pub(in crate::presentation) fn on_scene_obstacle_added(
     event: On<Add, SceneObstacle>,
     mut commands: Commands,

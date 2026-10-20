@@ -49,34 +49,37 @@ impl ActiveVistaSurface {
         }
     }
 
-    pub(super) fn present_chunk(
+    pub(super) fn present_lod(
         &mut self,
         commands: &mut Commands,
         meshes: &mut Assets<Mesh>,
         material: Handle<TacticalVistaMaterial>,
-        mesh: Mesh,
+        chunks: Vec<Mesh>,
         lod: &VistaLod,
-        chunk: usize,
-    ) {
+    ) -> usize {
         let origin = Vec3::new(
             lod.origin_east_metres as f32,
             0.0,
             lod.origin_north_metres as f32,
         );
-        if self.urban {
-            self.ground_support.add_mesh(&mesh, origin);
+        let count = chunks.len();
+        for (chunk, mesh) in chunks.into_iter().enumerate() {
+            if self.urban {
+                self.ground_support.add_mesh(&mesh, origin);
+            }
+            let triangle_count = mesh_triangle_count(&mesh);
+            commands.spawn((
+                Name::new(format!("Tactical vista LOD {} chunk {chunk}", lod.level)),
+                VistaTerrain(lod.level),
+                VistaTerrainMesh(lod.level),
+                TerrainTriangleCount(triangle_count),
+                NotShadowCaster,
+                Mesh3d(meshes.add(mesh)),
+                MeshMaterial3d(material.clone()),
+                Transform::from_translation(origin),
+            ));
         }
-        let triangle_count = mesh_triangle_count(&mesh);
-        commands.spawn((
-            Name::new(format!("Tactical vista LOD {} chunk {chunk}", lod.level)),
-            VistaTerrain(lod.level),
-            VistaTerrainMesh(lod.level),
-            TerrainTriangleCount(triangle_count),
-            NotShadowCaster,
-            Mesh3d(meshes.add(mesh)),
-            MeshMaterial3d(material),
-            Transform::from_translation(origin),
-        ));
+        count
     }
 
     pub(crate) fn retained_levels(&self) -> impl Iterator<Item = VistaLevelIndex> + '_ {

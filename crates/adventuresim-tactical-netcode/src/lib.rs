@@ -7,6 +7,7 @@ pub mod message;
 pub mod replication;
 #[cfg(feature = "server")]
 pub mod server;
+pub mod transport_policy;
 
 pub use aeronet;
 pub use aeronet_replicon;
@@ -21,8 +22,8 @@ pub mod prelude {
         DebugDumpWorldRequest, DebugGameTimeScaleRequest, DefendRequest, EquipmentAction,
         EquipmentActionRequest, EquipmentHand, JoinRequest, JumpCommand, MeleeActionRequest,
         PlayerInputRequest, PostureActionRequest, PostureCommand, RangedActionRequest,
-        ReconnectCapability, ReconnectToken, SceneVistaBundle, TacticalCombatConfigSnapshot,
-        TacticalOutcome, TacticalOutcomeResponse,
+        ReconnectCapability, ReconnectToken, SceneTreeBankAsset, SceneVistaBundle,
+        TacticalCombatConfigSnapshot, TacticalOutcome, TacticalOutcomeResponse,
     };
     #[cfg(feature = "server")]
     pub use crate::server::AdventureSimulatorServer;

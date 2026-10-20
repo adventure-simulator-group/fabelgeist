@@ -231,6 +231,7 @@ fn scene_plugin_spawns_batches_and_is_idempotent() {
         .world_mut()
         .spawn((
             SceneId("plant-ecs".into()),
+            adventuresim_tactical_core::prelude::SceneTreeContent::Recipe,
             SceneTerrain::from_heightmap(17, 17, 2.0, vec![0.0; 17 * 17]).unwrap(),
             SceneGround::from_samples(17, 17, 2.0, vec![GroundSurface::default(); 17 * 17])
                 .unwrap(),

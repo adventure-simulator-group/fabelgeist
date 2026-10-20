@@ -137,6 +137,7 @@ impl RootAdmissionReport {
         let before = Footprint::capture(world)?;
         let cached = world
             .resource_mut::<TreePresentationCache>()
+            .recipe_mut()?
             .variants
             .remove(&variant.cache_key)
             .context("control cache entry")?;
@@ -146,6 +147,7 @@ impl RootAdmissionReport {
         removed.verify(world)?;
         world
             .resource_mut::<TreePresentationCache>()
+            .recipe_mut()?
             .variants
             .insert(variant.cache_key, cached);
         ensure!(result.is_err(), "evicted variant regenerated or accepted");
@@ -154,6 +156,7 @@ impl RootAdmissionReport {
         let original = {
             let mut cache = world.resource_mut::<TreePresentationCache>();
             let cached = cache
+                .recipe_mut()?
                 .variants
                 .get_mut(&variant.cache_key)
                 .context("control origin")?;
@@ -165,6 +168,7 @@ impl RootAdmissionReport {
         changed.verify(world)?;
         world
             .resource_mut::<TreePresentationCache>()
+            .recipe_mut()?
             .variants
             .get_mut(&variant.cache_key)
             .context("restore control origin")?

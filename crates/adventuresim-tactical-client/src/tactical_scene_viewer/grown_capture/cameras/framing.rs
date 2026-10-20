@@ -157,7 +157,7 @@ impl SourceEnvelopes {
 
 // World-space original-source envelope metres enter a perspective-fit boundary.
 // Every original source-box corner must fit both image axes with the margin.
-fn crown_distance(low: Vec3, high: Vec3, direction: Vec3) -> Result<Metres> {
+pub(in super::super) fn crown_distance(low: Vec3, high: Vec3, direction: Vec3) -> Result<Metres> {
     let centre = (low + high) * 0.5;
     let right = Vec3::Y.cross(direction).normalize();
     let up = direction.cross(right);

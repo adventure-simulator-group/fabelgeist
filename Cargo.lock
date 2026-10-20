@@ -415,8 +415,10 @@ dependencies = [
  "bevy_enhanced_input",
  "bevy_replicon",
  "fabelgeist-determinism",
+ "postcard",
  "serde",
  "serde_json",
+ "thiserror 2.0.20",
 ]
 
 [[package]]
@@ -425,6 +427,7 @@ version = "0.1.0"
 dependencies = [
  "adventuresim-building-generator",
  "adventuresim-core",
+ "adventuresim-environment",
  "adventuresim-stdb-client",
  "adventuresim-tactical-core",
  "adventuresim-tactical-netcode",

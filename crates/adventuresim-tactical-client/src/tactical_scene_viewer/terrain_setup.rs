@@ -7,6 +7,7 @@ pub(super) fn spawn(
     ground: SceneGround,
     terrain: SceneTerrain,
     terrain_patch: Option<&SceneTerrainPatch>,
+    tree_content: crate::presentation::TreeContentRequest,
 ) -> Result<Entity> {
     let colliders = terrain_patch.map_or_else(
         || terrain.colliders(),
@@ -15,7 +16,9 @@ pub(super) fn spawn(
     let mut terrain_entity = commands.spawn((
         Name::new("Captured tactical terrain"),
         SceneId(input.scene_key.clone()),
+        tree_content.family(),
         environment,
+        tree_content,
         ground,
         terrain,
         Transform::default(),

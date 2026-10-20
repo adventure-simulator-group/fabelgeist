@@ -1,7 +1,10 @@
 //! One installed geometry closure and three independently grounded root bindings.
 
 use super::*;
-use adventuresim_environment::render::grown::GrownBankAssets;
+use adventuresim_environment::{
+    prepared::RecordSpan,
+    render::{ForestPart, grown::GrownBankAssets},
+};
 
 pub(super) struct RootBinding {
     pub entity: Entity,

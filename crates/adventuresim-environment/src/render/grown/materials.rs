@@ -17,6 +17,7 @@ use crate::prepared::GrownVertexEncoding;
 use crate::render::address::VERTEX_ADDRESS;
 
 const PREPASS_DEFINE: &str = "PREPASS_PIPELINE";
+const RANGE_DITHER_DEFINE: &str = "VISIBILITY_RANGE_DITHER";
 const LEAF_DEFINE: &str = "GROWN_LEAF";
 const ADDRESS_DEFINE: &str = "GROWN_ADDRESS";
 const EXPANDED_DEFINE: &str = "GROWN_EXPANDED";
@@ -80,6 +81,17 @@ impl Material for GrownWoodMaterial {
         layout: &MeshVertexBufferLayoutRef,
         key: MaterialPipelineKey<Self>,
     ) -> Result<(), SpecializedMeshPipelineError> {
+        if descriptor
+            .vertex
+            .shader_defs
+            .contains(&PREPASS_DEFINE.into())
+            && descriptor
+                .vertex
+                .shader_defs
+                .contains(&RANGE_DITHER_DEFINE.into())
+        {
+            ensure_prepass_fragment(descriptor);
+        }
         specialize(descriptor, layout, key.bind_group_data)?;
         Ok(())
     }
@@ -111,13 +123,8 @@ impl Material for GrownLeafMaterial {
             .vertex
             .shader_defs
             .contains(&PREPASS_DEFINE.into());
-        if prepass && descriptor.fragment.is_none() {
-            descriptor.fragment = Some(FragmentState {
-                shader: descriptor.vertex.shader.clone(),
-                shader_defs: descriptor.vertex.shader_defs.clone(),
-                targets: Vec::new(),
-                ..default()
-            });
+        if prepass {
+            ensure_prepass_fragment(descriptor);
         }
         specialize(descriptor, layout, key.bind_group_data)?;
         descriptor.vertex.shader_defs.push(LEAF_DEFINE.into());
@@ -128,6 +135,19 @@ impl Material for GrownLeafMaterial {
         descriptor.multisample.alpha_to_coverage_enabled =
             descriptor.multisample.count > 1 && !prepass;
         Ok(())
+    }
+}
+
+/// Opaque range fades also discard in a depth-only prepass, whose engine
+/// descriptor otherwise has no fragment stage. Leaves always need cutouts.
+fn ensure_prepass_fragment(descriptor: &mut RenderPipelineDescriptor) {
+    if descriptor.fragment.is_none() {
+        descriptor.fragment = Some(FragmentState {
+            shader: descriptor.vertex.shader.clone(),
+            shader_defs: descriptor.vertex.shader_defs.clone(),
+            targets: Vec::new(),
+            ..default()
+        });
     }
 }
 

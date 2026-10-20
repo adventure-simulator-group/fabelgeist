@@ -32,6 +32,7 @@ use types::{ColorPhase, SnapshotKey, SnapshotKind};
 #[derive(SystemParam)]
 struct RendererSources<'w> {
     meshes: Res<'w, RenderAssets<RenderMesh>>,
+    source_buffers: Res<'w, RenderAssets<bevy::render::storage::GpuShaderBuffer>>,
     instances: Res<'w, RenderMeshInstances>,
     materials: Res<'w, RenderMaterialInstances>,
     prepared: Res<'w, ErasedRenderAssets<PreparedMaterial>>,
@@ -68,7 +69,10 @@ fn gather(
     if pose.camera != view.retained_view_entity || pose.invalid.load(Ordering::Acquire) {
         return Ok(());
     }
-    let current = bindings::RenderMember::collect(
+    if !pose.camera_intact(view, frame.serial)? {
+        return Ok(());
+    }
+    let availability = bindings::RenderMember::collect(
         pose,
         &sources.meshes,
         &sources.instances,
@@ -78,28 +82,56 @@ fn gather(
         &sources.specializations,
         &sources.pipelines,
     )?;
+    let current = availability.as_ready();
     let commands = frame
         .commands
         .lock()
         .map_err(|_| "GPU command lock")?
         .clone();
     let mut held = pose.submission.lock().map_err(|_| "GPU submission lock")?;
+    let prepared_sources =
+        source_buffers::PreparedSource::resolve(&pose.buffers, &sources.source_buffers)?;
     if let Some(held) = held.as_ref() {
-        if current.as_ref() != Some(&held.members) {
+        if prepared_sources.as_ref() != Some(&held.sources) {
+            pose.fail("held prepared source allocation changed or disappeared");
+        }
+        if current != Some(&held.members) {
             pose.fail("held renderer allocation/material/pipeline drift");
         }
         if let Err(error) = held.check_commands(&commands, frame.serial, pose.camera) {
             pose.fail(format!("held successful draws: {error:#}"));
+            held.record_command_drift(pose, &commands, frame.serial, &error)?;
         }
         return Ok(());
     }
-    let Some(members) = current else {
+    if pose.readiness == Readiness::FirstTransitionFrame && frame.serial != pose.first_frame {
+        pose.unready(frame.serial, ReadinessStage::MissedFirstFrame, &commands)?;
         return Ok(());
+    }
+    let Some(prepared_sources) = prepared_sources else {
+        pose.unready(frame.serial, ReadinessStage::SourceBuffers, &commands)?;
+        return Ok(());
+    };
+    let members = match availability {
+        bindings::Availability::Ready(members) => members,
+        bindings::Availability::Missing(reason) => {
+            if pose.readiness == Readiness::FirstTransitionFrame {
+                pose.fail("first transition frame is incomplete: MeshMaterialPipeline");
+                pose.record_frame_failure(
+                    frame.serial,
+                    ReadinessStage::MeshMaterialPipeline,
+                    &commands,
+                    reason.report(),
+                )?;
+            }
+            return Ok(());
+        }
     };
     if !members
         .iter()
         .all(|member| commands.iter().any(|command| command.compatible(member)))
     {
+        pose.unready(frame.serial, ReadinessStage::DrawCommands, &commands)?;
         return Ok(());
     }
     if !sources.preprocessing.is_available() {
@@ -117,7 +149,8 @@ fn gather(
     let prefixes = source_prefixes(&commands, buffers, &sources.indirect)?;
     let copier = copier.get_or_insert_with(|| CopyPipeline::new(context.render_device()));
     let encoded = copier.encode(&mut context, &prefixes)?;
-    let submission = proof::Submission::new(pose.view, frame.serial, members, commands);
+    let submission =
+        proof::Submission::new(pose.view, frame.serial, members, commands, prepared_sources);
     readbacks.enqueue(
         Arc::clone(pose),
         frame.serial,

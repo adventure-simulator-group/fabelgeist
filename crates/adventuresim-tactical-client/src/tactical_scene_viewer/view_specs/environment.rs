@@ -17,7 +17,8 @@ pub(in crate::tactical_scene_viewer) const ENVIRONMENT_REVIEW_VIEWS: [CaptureVie
         65.0,
         1000
     )
-    .vista(),
+    .vista()
+    .settled_readback_pair(),
     v!(
         "beauty-overhead",
         "Overhead playable-area and terrain composition",
@@ -35,7 +36,8 @@ pub(in crate::tactical_scene_viewer) const ENVIRONMENT_REVIEW_VIEWS: [CaptureVie
     )
     .suppress_grass()
     .suppress_understory()
-    .detail(DetailRequirement::TreeFocus),
+    .detail(DetailRequirement::TreeFocus)
+    .settled_readback_pair(),
     v!(
         "tree-branch-junction",
         "Trunk and primary-branch junction detail",

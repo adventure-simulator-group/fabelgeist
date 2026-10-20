@@ -20,6 +20,8 @@ prepared = [
   "render", "dep:serde", "dep:serde_json", "dep:sha2",
   "dep:js-sys", "dep:wasm-bindgen", "dep:wasm-bindgen-futures", "dep:web-sys",
 ]
+# Genuine request-driven finite source growth on the native CPU.
+finite-growth = ["prepared"]
 # Bounded native mesh authoring on an owned compute device, before presentation.
 grown-authoring = ["prepared", "dep:fabelgeist-gpu", "dep:naga_oil", "dep:wgpu"]
 viewer = [

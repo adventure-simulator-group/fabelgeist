@@ -10,8 +10,44 @@ use crate::presentation::TacticalGameplayCamera;
 #[derive(Resource)]
 pub(in super::super) struct ReadyPose(usize);
 
+#[derive(bevy::ecs::system::SystemParam)]
+pub(in super::super) struct CaptureTerrain<'w, 's> {
+    pipelines: Res<'w, crate::presentation::TerrainPipelineReadiness>,
+    scenes: Query<
+        'w,
+        's,
+        (
+            Entity,
+            &'static adventuresim_tactical_core::prelude::SceneEnvironment,
+        ),
+        With<adventuresim_tactical_core::prelude::SceneTerrain>,
+    >,
+    cameras: Query<'w, 's, (Entity, &'static Camera), With<TacticalGameplayCamera>>,
+}
+
+impl CaptureTerrain<'_, '_> {
+    fn ready_for(&self, state: &SceneCaptureState) -> bool {
+        let Some((scene, _)) = self
+            .scenes
+            .iter()
+            .find(|(_, environment)| environment.scene_digest == state.digest)
+        else {
+            return false;
+        };
+        let mut cameras = self.cameras.iter().filter(|(_, camera)| camera.is_active);
+        let Some((camera, _)) = cameras.next() else {
+            return false;
+        };
+        cameras.next().is_none() && self.pipelines.is_ready_for(scene, camera)
+    }
+}
+
 pub(in super::super) fn install(app: &mut App, review: Review) {
-    app.add_plugins(GrownMaterialPlugin);
+    app.insert_resource(Subject::Specimens {
+        role: review.role,
+        source: review.source,
+        level: review.level,
+    });
     observation::install(app);
     app.init_resource::<controls::RootVisibility>();
     ordinary_batches::OrdinaryBatches::install(app, review.control);
@@ -31,16 +67,24 @@ pub(in super::super) fn install(app: &mut App, review: Review) {
 
 pub(in super::super) fn ready(
     state: Option<Res<SceneCaptureState>>,
-    review: Option<Res<Review>>,
+    subject: Option<Res<Subject>>,
+    configured: Option<Res<generated::Configured>>,
     ready: Option<Res<ReadyPose>>,
     evidence: Option<Res<Evidence>>,
+    terrain: CaptureTerrain,
 ) -> bool {
     let Some(state) = state else { return true };
-    if review.is_none() {
-        return state.profile != PROFILE;
-    }
+    let Some(subject) = subject else {
+        return !matches!(state.profile.as_str(), PROFILE | GENERATED_PROFILE);
+    };
     if state.phase == CapturePhase::Configure {
-        return true;
+        if matches!(*subject, Subject::Generated { .. })
+            && state.view == 0
+            && !terrain.ready_for(&state)
+        {
+            return false;
+        }
+        return matches!(*subject, Subject::Specimens { .. }) || configured.is_some();
     }
     ready.is_some_and(|ready| ready.0 == state.view)
         && evidence.is_some_and(|evidence| evidence.camera_intact())
@@ -98,9 +142,7 @@ fn setup_inner(world: &mut World) -> Result<()> {
     review.metadata["camera_support"] = support.report();
     let evidence = Evidence::new(
         review.metadata.clone(),
-        review.role,
-        review.source,
-        review.level,
+        *world.resource::<Subject>(),
         world
             .resource::<ordinary_batches::OrdinaryBatches>()
             .clone(),
@@ -141,7 +183,7 @@ fn setup_inner(world: &mut World) -> Result<()> {
     Ok(())
 }
 
-fn advance(world: &mut World) -> bevy::prelude::Result {
+pub(in super::super) fn advance(world: &mut World) -> bevy::prelude::Result {
     let Some(state) = world.get_resource::<SceneCaptureState>() else {
         return Ok(());
     };
@@ -169,7 +211,7 @@ fn advance(world: &mut World) -> bevy::prelude::Result {
         .resource::<ordinary_batches::OrdinaryBatches>()
         .proof(view)?
     {
-        world.resource::<Evidence>().record(view,serde_json::json!({"camera":actual,"draws":proof,"whole_inventory":world.resource::<inventory::CurrentInventory>().report()}))?;
+        world.resource::<Evidence>().record(view,serde_json::json!({"camera":actual,"draws":proof,"whole_inventory":world.resource::<ordinary_batches::inventory::CurrentInventory>().report(),"terrain_detail_preparation":world.resource::<crate::presentation::TerrainPipelineReadiness>().report()}))?;
         world.insert_resource(ReadyPose(view));
     }
     Ok(())

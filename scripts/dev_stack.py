@@ -1970,17 +1970,20 @@ def tactical_executable(package: str, build_profile: str = "dev") -> Path:
     return (target / directory / f"{package}{suffix}").resolve()
 
 
-def build_tactical_play(launch_client: bool, client_profile: str = "dev") -> int:
+def build_tactical_play(
+    launch_client: bool, client_profile: str = "dev", grown_trees: bool = False,
+) -> int:
     if client_profile not in {"dev", "release"}:
         raise ValueError(f"unsupported tactical client profile: {client_profile}")
+    features = "debug,grown-trees" if grown_trees else "debug"
     commands = [[
         "cargo", "build", "--package", "adventuresim-tactical-server",
-        "--bin", "adventuresim-tactical-server", "--features", "debug",
+        "--bin", "adventuresim-tactical-server", "--features", features,
     ]]
     if launch_client:
         client_command = [
             "cargo", "build", "--package", "adventuresim-tactical-client",
-            "--bin", "adventuresim-tactical-client", "--features", "debug",
+            "--bin", "adventuresim-tactical-client", "--features", features,
         ]
         if client_profile == "release":
             client_command.insert(2, "--release")
@@ -2156,7 +2159,7 @@ def tactical_combat_scale(mode: TacticalPlayMode) -> int:
     return 10_000 if mode in combat_modes else 0
 
 
-def verify_wasm_bundle() -> None:
+def verify_wasm_bundle(grown_trees: bool = False) -> None:
     """Fail before the database starts when the browser bundle cannot run.
 
     `build_wasm.py` writes both halves - the wasm-bindgen output and a fresh
@@ -2176,6 +2179,20 @@ def verify_wasm_bundle() -> None:
         raise RuntimeError(
             "browser tactical bundle is incomplete; run `just build-wasm`:\n" + listing
         )
+
+    if grown_trees:
+        receipt = TACTICAL_STATIC_DIR / "wasm" / "bundle-sizes.json"
+        try:
+            built = json.loads(receipt.read_text(encoding="utf-8"))
+            bundle_name = "adventuresim-tactical-client_bg.wasm"
+            expected = built["bundles"][bundle_name]["sha256"]
+            actual = hashlib.sha256((receipt.parent / bundle_name).read_bytes()).hexdigest()
+            if "grown-trees" not in built["gameplay_features"] or actual != expected:
+                raise ValueError("grown capability or bundle hash differs")
+        except (OSError, ValueError, KeyError, TypeError) as error:
+            raise RuntimeError(
+                "grown browser bundle is unverified; run scripts/build_wasm.py --grown-trees"
+            ) from error
 
 
 def launch_recorded_static_server(
@@ -2837,7 +2854,10 @@ def tactical_play(
     frame_timing_seconds: float | None = None,
     frame_timing_warmup_seconds: float = 5.0,
     case_site: TacticalCaseSite | None = None,
+    grown_trees: bool = False,
 ) -> int:
+    if grown_trees and mode is not TacticalPlayMode.BROWSER:
+        raise ValueError("--grown-trees currently requires tactical-play browser")
     if case_site is not None and mode is not TacticalPlayMode.BROWSER:
         raise ValueError("--case-site is only valid for tactical-play browser")
     effective_site = case_site or (
@@ -2861,9 +2881,9 @@ def tactical_play(
         TacticalPlayMode.NETWORKING, TacticalPlayMode.BROWSER,
     )
     if browser_client:
-        verify_wasm_bundle()
+        verify_wasm_bundle(grown_trees)
     phase_started_at = time.monotonic()
-    code = build_tactical_play(launch_client, client_profile)
+    code = build_tactical_play(launch_client, client_profile, grown_trees)
     benchmark.record("native tactical binary build", phase_started_at)
     if code:
         return code
@@ -2900,6 +2920,7 @@ def tactical_play(
         frame_timing_warmup_seconds,
     )
     config["case_site"] = effective_site.value
+    config["tree_content"] = "grown" if grown_trees else "recipe"
     session_file = run_dir / "tactical-session.json"
 
     with ProfileLock(profile_dir / "lifecycle.lock") as lifecycle:
@@ -3033,6 +3054,8 @@ def tactical_play(
                 "--enemy-combat-scale-bps", str(combat_scale), "--no-timeout",
                 "--enemy-fixture", enemy_fixture,
             ]
+            if grown_trees:
+                server_command.append("--grown-trees")
             if scene_input:
                 server_command.extend(["--scene-input", scene_input])
             server_process = spawn_recorded(
@@ -3393,6 +3416,7 @@ def create_parser() -> argparse.ArgumentParser:
         "--case-site", choices=[site.value for site in TacticalCaseSite],
         help="Browser mission site relative to its synthetic host town; defaults to settlement",
     )
+    tactical_play_parser.add_argument("--grown-trees", action="store_true")
     tactical_play_parser.add_argument("--enemy-fixture")
     tactical_play_parser.add_argument("--input-script")
     tactical_play_parser.add_argument(
@@ -3470,6 +3494,7 @@ def main() -> int:
                 args.enemy_fixture, args.input_script, args.client_profile, args.frame_timing_seconds,
                 args.frame_timing_warmup_seconds,
                 TacticalCaseSite(args.case_site) if args.case_site is not None else None,
+                args.grown_trees,
             )
         if args.command == "tactical-status":
             return tactical_status()

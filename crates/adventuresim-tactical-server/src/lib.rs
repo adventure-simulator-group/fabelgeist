@@ -25,6 +25,8 @@ pub mod iteration;
 pub mod mission;
 pub mod openings;
 pub mod player_projection;
+#[cfg(feature = "grown-trees")]
+mod scene_tree_assets;
 pub mod stdb;
 
 /// Stand-in for `main.rs`'s real (clap-derived) `Args` - `player_projection`

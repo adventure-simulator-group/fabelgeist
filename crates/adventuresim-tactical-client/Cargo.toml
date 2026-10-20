@@ -8,13 +8,14 @@ license.workspace = true
 
 [features]
 default = ["debug", "client-audio"]
-debug = ["bevy/debug", "bevy/bevy_remote", "adventuresim-tactical-core/avian_debug"]
+debug = ["bevy/debug", "bevy/bevy_remote", "adventuresim-tactical-core/avian_debug", "dep:image"]
 client-audio = ["bevy/audio"]
-# Local prepared-foliage admission in the persistent WebGPU renderer.
-foliage-review = [
-    "debug", "dep:adventuresim-environment", "dep:image",
-    "dep:fabelgeist-botany", "dep:fabelgeist-math",
+# Ordinary generated tree presentation in the normal native/browser client.
+grown-trees = [
+    "dep:adventuresim-environment", "dep:fabelgeist-botany",
 ]
+# Local prepared-foliage diagnostics compose the actual runtime capability.
+foliage-review = ["debug", "grown-trees"]
 # Native held content check of grown real meshes under tactical lighting.
 grown-review = ["foliage-review", "adventuresim-environment/grown-authoring", "dep:pollster"]
 tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep:tracy-client-sys"]
@@ -44,7 +45,7 @@ adventuresim-procedural-textures.workspace = true
 adventuresim-plant-generator.workspace = true
 fabelgeist-determinism.workspace = true
 fabelgeist-botany = { path = "../fabelgeist-botany", features = ["viewer"], optional = true }
-fabelgeist-math = { workspace = true, optional = true }
+fabelgeist-math.workspace = true
 flate2.workspace = true
 clap.workspace = true
 serde.workspace = true

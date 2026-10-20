@@ -4,16 +4,17 @@ use super::*;
 use fabelgeist_math::units::Metres;
 
 pub(super) use catalog::Cameras;
-pub(super) use support::{Inspector as SupportInspector, resolve};
+pub(super) use framing::crown_distance;
+pub(super) use support::{Inspector as SupportInspector, SupportedCameras, resolve, with_support};
 
 mod catalog;
 mod framing;
 mod support;
 
 const CAMERA_ROTATION_EPSILON: f32 = 1.0e-5;
-const FOV_DEGREES: f32 = 60.0;
+pub(super) const FOV_DEGREES: f32 = 60.0;
 const CROWN_EYE_DIRECTION: Vec3 = Vec3::new(1.0, 0.9, 1.0);
-const FOREGROUND_BPS: u16 = 500;
+pub(super) const FOREGROUND_BPS: u16 = 500;
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize)]
 pub(in super::super) struct PlateCamera {

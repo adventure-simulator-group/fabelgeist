@@ -8,7 +8,10 @@ pub(super) enum BatchControl {
     Ordinary,
     ForcedSingletons,
     HiddenLastRoot,
+    HiddenVistaRoot,
     MissingLastTag,
+    MissingVistaTag,
+    MissingInactiveTag,
     ChangedLevel,
     ChangedSceneOwner,
     ParentedOriginalRoot,
@@ -32,13 +35,17 @@ impl RootVisibility {
 }
 
 impl BatchControl {
+    pub(super) fn requires_vista(self) -> bool {
+        matches!(self, Self::HiddenVistaRoot | Self::MissingVistaTag)
+    }
+
     /// Corrupt one real original root before the pre-isolation batch check.
     pub(super) fn apply_original_batch(self, world: &mut World) -> Result<()> {
         if !matches!(self, Self::ChangedSceneOwner | Self::ParentedOriginalRoot) {
             return Ok(());
         }
-        use crate::presentation::SceneObstacleOf;
         use adventuresim_tactical_core::prelude::SceneObstacle;
+        use adventuresim_tactical_core::prelude::SceneObstacleOf;
         let root = world
             .query_filtered::<Entity, With<SceneObstacle>>()
             .iter(world)

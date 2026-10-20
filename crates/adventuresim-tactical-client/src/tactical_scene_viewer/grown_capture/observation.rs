@@ -10,7 +10,7 @@ pub(super) struct VisibilityMark(pub(super) Option<usize>);
 
 pub(super) fn install(app: &mut App) {
     app.init_resource::<VisibilityMark>()
-        .init_resource::<inventory::CurrentInventory>()
+        .init_resource::<ordinary_batches::inventory::CurrentInventory>()
         .add_systems(
             PostUpdate,
             observe
@@ -19,7 +19,7 @@ pub(super) fn install(app: &mut App) {
         );
 }
 
-fn observe(world: &mut World) -> bevy::prelude::Result {
+pub(super) fn observe(world: &mut World) -> bevy::prelude::Result {
     world.resource_mut::<VisibilityMark>().0 = None;
     let state = world.resource::<SceneCaptureState>();
     if state.phase == CapturePhase::Configure || state.view >= state.views.len() {
@@ -48,14 +48,31 @@ fn observe(world: &mut World) -> bevy::prelude::Result {
         inspection
             .get(world)
             .map_err(anyhow::Error::from)?
-            .check(&world.resource::<SceneCaptureState>().digest)
+            .check(world.resource::<SceneCaptureState>())
     };
     match checked {
-        Ok(inventory) => {
-            world
+        Ok(mut inventory) => {
+            if let Some(selection) = &inventory.selection {
+                world
+                    .resource_mut::<generated::selection::SelectionHistory>()
+                    .seal(selection.clone())?;
+            }
+            let tagging = world
                 .resource::<ordinary_batches::OrdinaryBatches>()
                 .clone()
-                .prepare_tags(world, &inventory)?;
+                .prepare_tags(world, &inventory);
+            if let Err(error) = tagging {
+                world
+                    .resource::<Evidence>()
+                    .input_fault(view, format!("{error:#}"))?;
+                return Err(error.into());
+            }
+
+            if matches!(world.resource::<Subject>(), Subject::Generated { .. })
+                && !generated::demand::hold(world, view, &mut inventory)?
+            {
+                return Ok(());
+            }
             world.insert_resource(inventory);
             world.resource_mut::<VisibilityMark>().0 = Some(view);
         }

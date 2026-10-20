@@ -19,6 +19,7 @@ pub(super) fn setup_viewer(
             "Animation review hills scene"
         }),
         SceneId("hills".to_owned()),
+        adventuresim_tactical_core::prelude::SceneTreeContent::Recipe,
         SceneEnvironmentFixture::TemperateHills.snapshot("hills"),
         terrain,
         Transform::default(),

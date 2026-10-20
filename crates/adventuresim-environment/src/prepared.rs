@@ -20,6 +20,8 @@ use crate::render::ForestDetail;
 
 mod bake;
 mod codec;
+#[cfg(all(feature = "finite-growth", not(target_family = "wasm")))]
+pub mod finite_growth;
 mod form;
 mod grids;
 mod grown;

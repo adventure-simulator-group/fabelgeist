@@ -9,6 +9,7 @@ impl InstalledTreeVariant {
     ) -> Result<Vec<InstalledTreeSpecimen>> {
         // Preflight every root before activating or inserting any assets.
         roots.verify(world)?;
+        super::super::TreeContentRequest::require_scene_recipe(world, roots.destination.scene)?;
         let destination = &roots.destination;
         let (species, origin) = match &source {
             VariantSource::Generated(specimen) => (specimen.species, TreeAssetOrigin::Generated),
@@ -20,24 +21,26 @@ impl InstalledTreeVariant {
         let mut state = SystemState::<(
             ResMut<TreePresentationCache>,
             ResMut<RetainedTreePresentations>,
-            ResMut<TreeAssetResidencyDiagnostics>,
+            ResMut<RecipeTreeAssetResidencyDiagnostics>,
             AssetStores,
         )>::new(world);
         let (key, parts, images) = {
             let (mut cache, mut retained, mut diagnostics, mut stores) = state.get_mut(world)?;
-            retained.activate(
+            retained.activate_recipe(
+                destination.scene,
                 &destination.environment,
                 &destination.terrain,
                 &mut cache,
                 &mut diagnostics,
                 &mut stores.images,
-            );
+            )?;
+            let recipe = cache.recipe_mut()?;
             let admission = match source {
                 VariantSource::Prepared(variant) => {
-                    cache.admit_variant(*variant, &destination.terrain, &mut stores)?
+                    recipe.admit_variant(*variant, &destination.terrain, &mut stores)?
                 }
                 VariantSource::Generated(specimen) => VariantAdmission {
-                    key: cache.generate_review_variant(
+                    key: recipe.generate_review_variant(
                         &specimen,
                         &destination.environment,
                         &destination.terrain,
@@ -46,7 +49,7 @@ impl InstalledTreeVariant {
                     assets_added: true,
                 },
             };
-            let installed = cache
+            let installed = recipe
                 .variants
                 .get(&admission.key)
                 .context("installed tree cache entry")?;
@@ -77,6 +80,7 @@ impl InstalledTreeVariant {
         roots: TreeRootBatch,
     ) -> Result<Vec<InstalledTreeSpecimen>> {
         roots.verify(world)?;
+        super::super::TreeContentRequest::require_scene_recipe(world, roots.destination.scene)?;
         ensure!(
             self.scene == roots.destination.scene
                 && serde_json::to_vec(&self.environment)?
@@ -89,12 +93,8 @@ impl InstalledTreeVariant {
         let mut state = SystemState::<(Res<TreePresentationCache>, AssetStores)>::new(world);
         {
             let (cache, stores) = state.get_mut(world)?;
-            ensure!(
-                cache.terrain_scene_digest.as_deref()
-                    == Some(self.environment.scene_digest.as_str()),
-                "installed tree variant is not active"
-            );
-            let cached = cache
+            let recipe = cache.recipe_for_scene(self.scene, &self.environment)?;
+            let cached = recipe
                 .variants
                 .get(&self.cache_key)
                 .context("installed tree variant was evicted")?;

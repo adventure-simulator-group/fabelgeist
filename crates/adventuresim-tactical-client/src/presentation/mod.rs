@@ -24,8 +24,14 @@ mod closure_meshes;
 mod doors;
 mod furniture;
 pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
+#[cfg(all(target_family = "wasm", feature = "debug", feature = "grown-trees"))]
+pub(crate) mod arrival;
 mod building_closures;
+#[cfg(all(target_family = "wasm", feature = "debug", feature = "grown-trees"))]
+pub(crate) mod capture_image;
 mod environment;
+#[cfg(all(target_family = "wasm", feature = "debug"))]
+pub(crate) mod frame_receipt;
 mod ground_palette;
 pub(crate) mod ground_scatter;
 #[cfg(any(target_family = "wasm", test))]
@@ -57,10 +63,14 @@ pub(crate) mod recipe_mesh;
 mod sky;
 mod strategic_scene_assets;
 mod terrain;
+mod terrain_pipeline_readiness;
 pub(crate) use strategic_scene_assets::PreparedStrategicScene;
+pub(crate) use terrain_pipeline_readiness::TerrainPipelineReadiness;
 pub(crate) mod venues;
 mod vista;
 pub(crate) use buildings::queue_strategic_city;
+#[cfg(feature = "grown-review")]
+pub(crate) use vista::{GrownVistaPart, VistaTreeCensus};
 pub(crate) use vista::{StrategicBackdrop, spawn_strategic_backdrop};
 mod volumetric;
 mod weather;
@@ -125,22 +135,27 @@ pub(crate) use ground_scatter::{
     GroundScatterLayer, LooseStonePebblePatch, PlantCaptureAnchors, PlantLodInstance,
     UnderstoryReviewSpecimen, WoodyUnderstoryPresentationCache, spawn_understory_review_specimens,
 };
+pub(crate) use obstacles::oak_review_terminal_specimen;
 pub(crate) use obstacles::rock::ProceduralRockVisual;
+pub(crate) use obstacles::tree::TreeContentRequest;
 pub(crate) use obstacles::tree::TreeImpostorProvenance;
 #[cfg(test)]
 pub(crate) use obstacles::tree::prepare_art_demo_tree_impostor_asset;
+#[cfg(feature = "grown-trees")]
+pub(crate) use obstacles::tree::{
+    GrownPartBinding, GrownRootAttachment, GrownSceneAssets, GrownSceneRequest, GrownSource,
+};
 pub(crate) use obstacles::tree::{
     PlayableTreeAggregateWood, PlayableTreeBuds, PlayableTreeCanopyCard,
     PlayableTreeDetailedLeaves, PlayableTreeDetailedTrunk, PlayableTreeDetailedWood,
     PlayableTreeMidTrunk, PlayableTreeTrunk, PreparedTreeImpostorAsset, PreparedTreeImpostorAssets,
-    PresentedTree, TacticalTreeAggregateBarkMaterial, TacticalTreeBarkMaterial,
-    TacticalTreeBenchmarkIsolation, TacticalTreeImpostorMaterial, TacticalTreeLeafCardMaterial,
-    TreeAssetResidencyDiagnostics, TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod,
+    PresentedTree, RecipeTreeAssetResidencyDiagnostics, TacticalTreeAggregateBarkMaterial,
+    TacticalTreeBarkMaterial, TacticalTreeBenchmarkIsolation, TacticalTreeImpostorMaterial,
+    TacticalTreeLeafCardMaterial, TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod,
     TreeLodCluster, TreeLodRenderOverride, TreePresentationSpecies, TreeTrunkLod,
     oak_aggregate_bark_material, oak_bark_material, oak_leaf_material, oak_root_exposure_for_site,
     tree_species_for_site,
 };
-pub(crate) use obstacles::{SceneObstacleOf, oak_review_terminal_specimen};
 pub(crate) use sky::AtmosphereIblStatus;
 pub(crate) use sky::{TacticalMoon, TacticalMoonlight, TacticalStars, TacticalSunlight};
 #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
@@ -241,10 +256,9 @@ impl Plugin for TacticalPresentationPlugin {
         // GPU-instanced grass renders through bevy_eidolon on native and wasm
         // (the fork's WebGPU draw path substitutes draw_indexed_indirect for
         // multi-draw-indirect on the browser backend).
-        app.add_plugins((
-            ground_scatter::InstancedGrassPlugin,
-            ground_scatter::gardens::GardenPresentationPlugin,
-        ));
+        app.add_plugins(ground_scatter::GroundScatterPlugin);
+        #[cfg(all(target_family = "wasm", feature = "debug"))]
+        frame_receipt::install(app);
         app.add_plugins(materials::TacticalMaterialsPlugin)
             .add_plugins(interior_lighting::InteriorLightingPlugin)
             // Tactical play uses one compact close-range cascade for whichever
@@ -270,11 +284,10 @@ impl Plugin for TacticalPresentationPlugin {
                 )
                     .chain(),
             )
-            .init_resource::<WoodyUnderstoryPresentationCache>()
-            .init_resource::<GroundFoliagePresentationCache>()
+            .add_plugins(obstacles::tree::TreeContentPlugin)
             .init_resource::<TreePresentationCache>()
             .init_resource::<obstacles::tree::RetainedTreePresentations>()
-            .init_resource::<TreeAssetResidencyDiagnostics>()
+            .init_resource::<RecipeTreeAssetResidencyDiagnostics>()
             .init_resource::<VistaTreePresentationCache>()
             .init_resource::<PreparedTreeImpostorAssets>()
             .init_asset::<PreparedTreeImpostorAsset>()
@@ -295,7 +308,7 @@ impl Plugin for TacticalPresentationPlugin {
                 (
                     (
                         present_pending_terrain,
-                        vista::pending::present_ready_vista,
+                        vista::pending::present_ready_vista.after(present_pending_trees),
                         update_terrain_detail_patch,
                         present_ground_scatter,
                     )
@@ -310,7 +323,7 @@ impl Plugin for TacticalPresentationPlugin {
                         .after(update_presented_celestial_lighting)
                         .after(present_pending_trees),
                     (
-                        present_pending_trees,
+                        present_pending_trees.after(refresh_active_tactical_scene),
                         stream_tree_lod_children,
                         update_tree_projected_lod_ranges,
                     )
@@ -347,6 +360,8 @@ impl Plugin for TacticalPresentationPlugin {
     }
 
     fn finish(&self, app: &mut App) {
+        #[cfg(feature = "grown-trees")]
+        obstacles::tree::install_grown_streaming(app);
         // Install this after every plugin has built so the RenderApp and
         // Bevy's atmosphere extractor exist regardless of plugin order.
         install_atmosphere_cleanup_backport(app);

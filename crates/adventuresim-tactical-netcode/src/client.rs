@@ -1,14 +1,18 @@
-use crate::DEFAULT_SERVER_URL;
 use crate::message::{
-    JoinRequest, JumpCommand, PlayerInputRequest, PostureActionRequest, PostureCommand,
-    ReconnectCapability, ReconnectToken, TacticalCombatConfigSnapshot,
+    JumpCommand, PlayerInputRequest, PostureActionRequest, PostureCommand,
+    TacticalCombatConfigSnapshot,
 };
 use adventuresim_tactical_core::prelude::*;
-use aeronet_replicon::client::{AeronetRepliconClient, AeronetRepliconClientPlugin};
-use aeronet_websocket::client::{ClientConfig, WebSocketClient, WebSocketClientPlugin};
+use aeronet_replicon::client::AeronetRepliconClientPlugin;
+use aeronet_websocket::client::WebSocketClientPlugin;
 use bevy::ecs::system::SystemParam;
 use bevy::prelude::*;
 use bevy_replicon::prelude::*;
+
+pub use connection::{AdventureSimulatorClient, normalize_server_url};
+use connection::{ReconnectCredential, announce_join, on_client_added, store_reconnect_capability};
+
+mod connection;
 
 #[cfg(test)]
 const SPRINT_HOLD_THRESHOLD_SECONDS: f32 = 0.25;
@@ -54,18 +58,6 @@ fn store_tactical_combat_config(
         return;
     }
     *config = snapshot.0.clone();
-}
-
-/// Kept in the running client application across transport reconnects. It is
-/// neither an ECS component nor replicated to peers.
-#[derive(Resource, Debug, Clone, Copy, Default)]
-struct ReconnectCredential(Option<(CharacterId, ReconnectToken)>);
-
-fn store_reconnect_capability(
-    capability: On<ReconnectCapability>,
-    mut credential: ResMut<ReconnectCredential>,
-) {
-    credential.0 = Some((capability.character_id, capability.token));
 }
 
 #[derive(Resource, Debug, Clone, Copy, Default, PartialEq, Eq)]
@@ -621,55 +613,6 @@ fn dive_direction(input: Vec2) -> DiveDirection {
     }
 }
 
-#[derive(Component, Clone, Debug)]
-#[require(Name::from("Client"), AeronetRepliconClient)]
-pub struct AdventureSimulatorClient {
-    pub player_id: u64,
-    pub server_url: String,
-}
-
-impl Default for AdventureSimulatorClient {
-    fn default() -> Self {
-        Self {
-            player_id: 0,
-            server_url: DEFAULT_SERVER_URL.to_string(),
-        }
-    }
-}
-
-fn on_client_added(
-    event: On<Add, AdventureSimulatorClient>,
-    mut commands: Commands,
-    clients: Query<&AdventureSimulatorClient>,
-) -> Result {
-    let client = clients.get(event.entity)?;
-
-    commands
-        .entity(event.entity)
-        .queue(WebSocketClient::connect(
-            websocket_config(&client.server_url),
-            normalize_server_url(&client.server_url),
-        ));
-
-    Ok(())
-}
-
-fn announce_join(
-    mut commands: Commands,
-    client: Single<&AdventureSimulatorClient>,
-    credential: Res<ReconnectCredential>,
-) {
-    info!("[startup] tactical network connected; announcing join");
-    let character_id = CharacterId(client.player_id);
-    commands.client_trigger(JoinRequest {
-        character_id,
-        reconnect_token: credential
-            .0
-            .filter(|(stored, _)| *stored == character_id)
-            .map(|(_, token)| token),
-    });
-}
-
 fn send_player_input(
     mut commands: Commands,
     mut input_tick: ResMut<LocalInputTick>,
@@ -711,40 +654,9 @@ fn queue_posture_action(controls: &mut DirectControlState, action: PostureAction
     controls.posture_command.action = Some(action);
 }
 
-#[cfg(target_family = "wasm")]
-fn websocket_config(_server_url: &str) -> ClientConfig {
-    ClientConfig
-}
-
-#[cfg(not(target_family = "wasm"))]
-fn websocket_config(server_url: &str) -> ClientConfig {
-    if normalize_server_url(server_url).starts_with("wss://") {
-        ClientConfig::default()
-    } else {
-        ClientConfig::builder().with_no_encryption()
-    }
-}
-
-pub fn normalize_server_url(server_url: &str) -> String {
-    if server_url.contains("://") {
-        server_url.to_string()
-    } else {
-        format!("ws://{server_url}")
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn reconnect_credential_is_process_owned_not_transport_owned() {
-        let credential = ReconnectCredential(Some((CharacterId(42), ReconnectToken([5; 32]))));
-        // A transport state transition does not recreate App resources; the
-        // same contract is compiled for native and wasm clients.
-        assert_eq!(credential.0.unwrap().0, CharacterId(42));
-        assert_eq!(credential.0.unwrap().1, ReconnectToken([5; 32]));
-    }
 
     fn input_fixture() -> (World, Schedule) {
         let mut world = World::new();

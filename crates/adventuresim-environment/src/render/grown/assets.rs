@@ -13,20 +13,50 @@ use super::{GrownAssets, GrownBankAssets, GrownLeafMaterial, GrownPartAsset, Gro
 use crate::prepared::{GrownGeometry, GrownVertexEncoding};
 
 impl GrownAssets {
-    /// Framework boundary: moves every mesh; it does not duplicate a scene cache.
-    pub fn install(
-        geometry: GrownGeometry,
-        bank_assets: Arc<GrownBankAssets>,
-        world: &mut World,
-    ) -> Result<Self> {
-        ensure!(
-            bank_assets.world == world.id(),
-            "grown bank assets belong to another world"
-        );
-        ensure!(
-            bank_assets.bank().id() == geometry.bank().id(),
-            "grown bank identity differs from geometry"
-        );
+    /// Read-only native asset-store join; successful draws are verified separately.
+    pub fn validate_materials(
+        &self,
+        wood: &Assets<GrownWoodMaterial>,
+        leaves: &Assets<GrownLeafMaterial>,
+    ) -> Result<()> {
+        use super::{GrownBufferRole, GrownMaterialHandle};
+        let shape = self.level.shape(&self.bank().library().detail);
+        let shape = UVec4::new(shape.sides, shape.spans, shape.blades, 0);
+        let buffers = &self.bank_assets.buffers;
+        let species = super::source::buffer_handle(buffers, GrownBufferRole::Species)?;
+        for part in self.parts() {
+            match part.material() {
+                GrownMaterialHandle::Wood(handle) => {
+                    let actual = wood.get(handle).context("grown wood material removed")?;
+                    ensure!(
+                        actual.shape == shape
+                            && actual.encoding == self.encoding
+                            && actual.records
+                                == super::source::buffer_handle(buffers, GrownBufferRole::Wood)?
+                            && actual.species == species
+                            && actual.plants
+                                == super::source::buffer_handle(buffers, GrownBufferRole::Plants)?,
+                        "grown wood source/shape binding changed"
+                    );
+                }
+                GrownMaterialHandle::Leaves(handle) => {
+                    let actual = leaves.get(handle).context("grown leaf material removed")?;
+                    ensure!(
+                        actual.shape == shape
+                            && actual.encoding == self.encoding
+                            && actual.records
+                                == super::source::buffer_handle(buffers, GrownBufferRole::Leaves)?
+                            && actual.species == species,
+                        "grown leaf source/shape binding changed"
+                    );
+                }
+            }
+        }
+        Ok(())
+    }
+
+    /// Check the complete target before a catalogue inserts its first asset.
+    pub fn validate_target(world: &World) -> Result<()> {
         ensure!(
             world.contains_resource::<Assets<GrownWoodMaterial>>()
                 && world.contains_resource::<Assets<GrownLeafMaterial>>()
@@ -34,6 +64,21 @@ impl GrownAssets {
                 && world.contains_resource::<Assets<ShaderBuffer>>(),
             "grown material plugin and renderer must be installed"
         );
+        Ok(())
+    }
+
+    /// Framework boundary: moves every mesh; it does not duplicate a scene cache.
+    pub fn install(
+        geometry: GrownGeometry,
+        bank_assets: Arc<GrownBankAssets>,
+        world: &mut World,
+    ) -> Result<Self> {
+        bank_assets.validate_world(world)?;
+        ensure!(
+            bank_assets.bank().id() == geometry.bank().id(),
+            "grown bank identity differs from geometry"
+        );
+        Self::validate_target(world)?;
         let encoding = geometry.encoding();
         let source = geometry.source();
         let variant = geometry.variant();

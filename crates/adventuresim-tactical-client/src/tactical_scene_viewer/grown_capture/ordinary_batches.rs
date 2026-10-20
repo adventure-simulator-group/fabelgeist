@@ -14,6 +14,7 @@ use bevy::{
 };
 use controls::BatchControl;
 use members::TaggedMember;
+use readiness::{Readiness, ReadinessStage};
 use std::{
     collections::{BTreeMap, HashMap},
     sync::{
@@ -28,10 +29,14 @@ mod decode;
 mod gather;
 mod gpu_commands;
 mod inbox;
+pub(super) mod inventory;
 mod members;
 mod proof;
 mod readbacks;
+mod readiness;
 mod snapshots;
+mod source_buffers;
+mod tags;
 mod types;
 mod validate;
 
@@ -43,12 +48,18 @@ pub(super) struct OrdinaryBatches(Arc<Shared>);
 struct Shared {
     poses: Mutex<BTreeMap<usize, Arc<Pose>>>,
     tags: Mutex<HashMap<Entity, MeshTag>>,
+    tag_capacity: Mutex<tags::TagCapacity>,
+    retained_tags: Mutex<tags::RetainedTaggedMembers>,
     control: BatchControl,
 }
 
 struct Pose {
     view: usize,
-    role: Role,
+    subject: Subject,
+    first_frame: types::RenderFrameId,
+    readiness: Readiness,
+    selection: Option<Arc<generated::selection::CheckpointSelection>>,
+    buffers: Vec<inventory::SourceBinding>,
     camera: RetainedViewEntity,
     camera_bits: u64,
     expected: Vec<TaggedMember>,
@@ -71,6 +82,8 @@ impl OrdinaryBatches {
         let observer = Self(Arc::new(Shared {
             poses: Mutex::new(BTreeMap::new()),
             tags: Mutex::new(HashMap::new()),
+            tag_capacity: Mutex::new(tags::TagCapacity::default()),
+            retained_tags: Mutex::new(tags::RetainedTaggedMembers::default()),
             control,
         }));
         app.insert_resource(observer.clone()).add_systems(
@@ -133,59 +146,13 @@ impl OrdinaryBatches {
         })
     }
 
-    pub(super) fn prepare_tags(
-        &self,
-        world: &mut World,
-        inventory: &inventory::CurrentInventory,
-    ) -> Result<()> {
-        let mut saved = self
-            .0
-            .tags
-            .lock()
-            .map_err(|_| anyhow::anyhow!("tree tag lock"))?;
-        for (entity, actual) in world.query::<(Entity, &MeshTag)>().iter(world) {
-            ensure!(
-                saved
-                    .get(&entity)
-                    .is_some_and(|expected| expected.0 == actual.0)
-                    || (!saved.contains_key(&entity) && actual.0 == 0),
-                "unexpected diagnostic mesh tag"
-            );
-        }
-        let mut entities: Vec<_> = inventory
-            .members
-            .iter()
-            .map(|member| member.entity)
-            .chain(inventory.background.iter().map(|member| member.entity))
-            .collect();
-        entities.sort_unstable();
-        entities.dedup();
-        for entity in entities {
-            if let Some(tag) = saved.get(&entity) {
-                ensure!(
-                    world
-                        .get::<MeshTag>(entity)
-                        .is_some_and(|actual| actual.0 == tag.0),
-                    "owned tag disappeared or changed"
-                );
-                continue;
-            }
-            ensure!(saved.len() < MAX_FIXTURE_MEMBERS, "tree tag fixture budget");
-            let tag = MeshTag(u32::try_from(
-                saved.len().checked_add(1).context("tree tag overflow")?,
-            )?);
-            saved.insert(entity, tag.clone());
-            world.entity_mut(entity).insert(tag);
-        }
-        Ok(())
-    }
-
     pub(super) fn check_capture(
         &self,
         view: usize,
         current: &inventory::CurrentInventory,
         tags: &Query<&MeshTag>,
     ) -> Result<()> {
+        self.check_retained_tags(|entity| tags.get(entity).ok().cloned())?;
         let pose = self.pose(view)?.context("held GPU batch pose")?;
         ensure!(
             pose.complete.load(Ordering::Acquire) && !pose.invalid.load(Ordering::Acquire),
@@ -240,7 +207,7 @@ fn extract(
     state: Extract<Option<Res<SceneCaptureState>>>,
     mark: Extract<Res<observation::VisibilityMark>>,
     inventory: Extract<Res<inventory::CurrentInventory>>,
-    review: Extract<Res<Review>>,
+    subject: Extract<Res<Subject>>,
     tags: Extract<Query<&MeshTag>>,
     cameras: Extract<Query<(Entity, &Camera), With<crate::presentation::TacticalGameplayCamera>>>,
 ) -> bevy::prelude::Result {
@@ -258,6 +225,16 @@ fn extract(
         return Ok(());
     }
     if mark.0 != Some(state.view) || !inventory.valid {
+        if matches!(
+            **subject,
+            Subject::Generated {
+                selection: LevelSelection::Adaptive,
+                ..
+            }
+        ) && observer.0.control == BatchControl::Ordinary
+        {
+            return Err("adaptive extraction lacks this frame's camera/selection inventory".into());
+        }
         observer.invalidate(state.view);
         return Ok(());
     }
@@ -265,6 +242,12 @@ fn extract(
     if !active.is_active {
         return Err("GPU proof camera inactive".into());
     }
+    if let Some(selection) = &inventory.selection
+        && (selection.view != state.view || selection.camera.entity != camera)
+    {
+        return Err("adaptive extracted camera/checkpoint owner changed".into());
+    }
+    observer.check_retained_tags(|entity| tags.get(entity).ok().cloned())?;
     let saved = observer.0.tags.lock().map_err(|_| "GPU tag lock")?;
     let expected = TaggedMember::collect(&inventory, &saved)?;
     if expected.is_empty() {
@@ -280,7 +263,11 @@ fn extract(
     let pose = poses.entry(state.view).or_insert_with(|| {
         Arc::new(Pose {
             view: state.view,
-            role: review.role,
+            subject: **subject,
+            first_frame: frame.serial,
+            readiness: Readiness::for_view(**subject, observer.0.control, &state.views[state.view]),
+            selection: inventory.selection.clone(),
+            buffers: inventory.buffers.clone(),
             camera: retained,
             camera_bits: camera.to_bits(),
             expected: expected.clone(),
@@ -291,7 +278,12 @@ fn extract(
             submission: Mutex::new(None),
         })
     });
-    if pose.camera != retained || pose.expected != expected {
+    if pose.camera != retained
+        || pose.expected != expected
+        || pose.subject != **subject
+        || pose.buffers != inventory.buffers
+        || pose.selection != inventory.selection
+    {
         pose.fail("held GPU pose membership or camera changed");
     }
     frame.pose = Some(Arc::clone(pose));
@@ -299,6 +291,9 @@ fn extract(
 }
 
 fn apply_control(world: &mut World) -> bevy::prelude::Result {
+    if matches!(world.resource::<Subject>(), Subject::Generated { .. }) {
+        return Ok(());
+    }
     let observer = world.resource::<OrdinaryBatches>();
     if world.resource::<SceneCaptureState>().view == 0 {
         return Ok(());
@@ -307,21 +302,30 @@ fn apply_control(world: &mut World) -> bevy::prelude::Result {
         BatchControl::HiddenLastRoot => {
             *world.resource_mut::<controls::RootVisibility>() =
                 controls::RootVisibility::LastRootHidden;
-            let hidden = world.resource::<inventory::OwnedGrown>().last_root()?;
+            let hidden = world
+                .resource::<super::inventory::OwnedGrown>()
+                .last_root()?;
             if world.get::<Visibility>(hidden) != Some(&Visibility::Hidden) {
                 world.entity_mut(hidden).insert(Visibility::Hidden);
             }
         }
         BatchControl::MissingLastTag => {
-            let part = world.resource::<inventory::OwnedGrown>().last_part()?;
+            let part = world
+                .resource::<super::inventory::OwnedGrown>()
+                .last_part()?;
             world.entity_mut(part).remove::<MeshTag>();
         }
         BatchControl::ChangedLevel => {
-            let held = world.resource::<inventory::OwnedGrown>().level();
+            let held = world.resource::<super::inventory::OwnedGrown>().level();
             world.resource_mut::<Review>().level = match held {
                 Level::Full => Level::Middle,
                 Level::Middle | Level::Coarse => Level::Full,
             };
+        }
+        BatchControl::MissingInactiveTag
+        | BatchControl::MissingVistaTag
+        | BatchControl::HiddenVistaRoot => {
+            return Err("selected control requires generated tree roots".into());
         }
         BatchControl::Ordinary
         | BatchControl::ForcedSingletons

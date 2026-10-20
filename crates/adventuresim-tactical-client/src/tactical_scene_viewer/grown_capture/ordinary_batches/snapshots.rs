@@ -17,7 +17,7 @@ use std::{
     sync::{Arc, Mutex},
 };
 
-// This is a three-root correctness fixture, never an unbounded GPU dump.
+// This is a bounded correctness census, never an unbounded GPU dump.
 const MAX_SNAPSHOT_BYTES: u64 = 16 * 1024 * 1024;
 const COPY_GROUP_WORDS: u32 = 64;
 // Two color phases, each with mesh output and indexed/nonindexed args/sets.

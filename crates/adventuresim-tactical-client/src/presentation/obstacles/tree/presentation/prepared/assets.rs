@@ -37,14 +37,11 @@ impl AssetStores<'_> {
 
     fn bind_materials(
         &mut self,
-        cache: &mut TreePresentationCache,
+        cache: &mut RecipeTreeCache,
         terrain: &SceneTerrain,
         species: TreePresentationSpecies,
     ) -> Result<super::super::assets::TreeMaterialBindings> {
-        let heightmap = cache
-            .terrain_heightmap
-            .clone()
-            .context("active destination tree heightmap")?;
+        let heightmap = cache.terrain_heightmap.clone();
         let bark =
             cache.bark_for_terrain(species, &self.textures, heightmap, terrain, &mut self.bark);
         let aggregate_bark = match species {
@@ -71,7 +68,7 @@ impl AssetStores<'_> {
     }
 }
 
-impl TreePresentationCache {
+impl RecipeTreeCache {
     pub(super) fn generate_review_variant(
         &mut self,
         specimen: &super::super::super::authoring::specimens::SourceSpecimen,
@@ -99,7 +96,7 @@ impl TreePresentationCache {
         );
         // Diagnostic eager prewarming only. The ordinary streamer still creates
         // the selected child closure; these generation costs are not arrival evidence.
-        let mut diagnostic = TreeAssetResidencyDiagnostics::default();
+        let mut diagnostic = RecipeTreeAssetResidencyDiagnostics::default();
         ensure_tree_assets_resident(
             &mut cached,
             COMPLETE_STREAM_MASK,
@@ -136,7 +133,7 @@ impl TreePresentationCache {
             });
         }
         let bindings = stores.bind_materials(self, terrain, variant.species)?;
-        let mut diagnostics = TreeAssetResidencyDiagnostics {
+        let mut diagnostics = RecipeTreeAssetResidencyDiagnostics {
             variants: 1,
             source_branches: variant.branches.len(),
             source_leaves: variant.leaves.len(),
@@ -216,7 +213,7 @@ impl AssetStores<'_> {
         &mut self,
         mesh: Mesh,
         lod: super::super::super::AggregateTreeLod,
-        diagnostics: &mut TreeAssetResidencyDiagnostics,
+        diagnostics: &mut RecipeTreeAssetResidencyDiagnostics,
     ) -> Result<Handle<Mesh>> {
         let index = lod.index();
         let vertices = mesh.count_vertices();
@@ -231,7 +228,7 @@ impl AssetStores<'_> {
         &mut self,
         card: TreeLodBake,
         seed: Seed,
-        diagnostics: &mut TreeAssetResidencyDiagnostics,
+        diagnostics: &mut RecipeTreeAssetResidencyDiagnostics,
     ) -> CachedTreeCardPresentation {
         let index = card.lod as usize - 1;
         let vertices = card.mesh.count_vertices();
@@ -259,7 +256,7 @@ impl CachedTreeClusterPresentation {
         group: PreparedCluster,
         source_leaves: usize,
         meshes: &mut Assets<Mesh>,
-        diagnostics: &mut TreeAssetResidencyDiagnostics,
+        diagnostics: &mut RecipeTreeAssetResidencyDiagnostics,
     ) -> Self {
         diagnostics.detailed_branch_vertices += group.wood.count_vertices();
         diagnostics.bud_vertices += group.buds.count_vertices();

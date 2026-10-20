@@ -1,7 +1,7 @@
 //! Native obstacle shapes and explicit membership of their real terrain scene.
 
 use super::*;
-use crate::presentation::SceneObstacleOf;
+use adventuresim_tactical_core::prelude::SceneObstacleOf;
 use anyhow::{Context, Result, ensure};
 
 const OVERLAY_RADIAL_SCALE: f32 = 1.08;
@@ -21,6 +21,7 @@ pub(super) struct ObstacleShape {
     pub overlay_color: Color,
 }
 
+#[derive(Clone, Copy)]
 pub(super) struct SpawnedObstacle {
     pub entity: Entity,
     pub kind: SceneObstacle,
@@ -80,6 +81,10 @@ impl ObstacleShape {
 }
 
 impl CapturedObstacleBatch {
+    pub(super) fn members(&self) -> impl Iterator<Item = &SpawnedObstacle> {
+        self.members.iter()
+    }
+
     /// The actual spawner binds its exact members after terrain creation.
     pub(super) fn bind(
         commands: &mut Commands,

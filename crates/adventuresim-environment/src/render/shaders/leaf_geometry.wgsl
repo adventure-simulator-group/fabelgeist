@@ -71,10 +71,9 @@ fn leaf_vertex(inst: Leaf, foliage: u32, i: u32, corner: vec2<f32>, blades: u32)
         let roll = (r0 - 0.5) * select(0.9, 1.4, needles);
         let above = cross(dir, level);
         let across = normalize(level * cos(roll) + above * sin(roll));
-        normal = normalize(cross(dir, across));
-        if (normal.y < 0.0) {
-            normal = -normal;
-        }
+        // Match the quad's (across, along) winding. The fragment flips this
+        // normal on a back face; an upward normal would invert both sides.
+        normal = normalize(cross(across, dir));
         var len = size * (0.62 + 0.3 * r1) * (1.0 - 0.25 * t) * spread;
         var width = len * (0.5 + 0.12 * r2);
         if (needles) {

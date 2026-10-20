@@ -164,8 +164,40 @@ impl<P: ObservedPhase> RenderCommand<P> for Record {
     }
 }
 
+impl Dispatch {
+    fn same_held_shape(&self, other: &Self) -> bool {
+        match (self, other) {
+            (
+                Self::Indirect { parameters, count },
+                Self::Indirect {
+                    parameters: other_parameters,
+                    count: other_count,
+                },
+            ) => {
+                // Bevy rebuilds these addresses per frame. Their positive span
+                // and count source remain held; exact addresses stay in receipts.
+                parameters
+                    .end
+                    .checked_sub(parameters.start)
+                    .is_some_and(|commands| {
+                        commands > 0
+                            && Some(commands)
+                                == other_parameters.end.checked_sub(other_parameters.start)
+                    })
+                    && matches!(
+                        (count, other_count),
+                        (CommandCount::Range, CommandCount::Range)
+                            | (CommandCount::BatchSet(_), CommandCount::BatchSet(_))
+                    )
+            }
+            _ => self == other,
+        }
+    }
+}
+
 impl Receipt {
-    pub(super) fn same_draw(&self, other: &Self) -> bool {
+    /// Hold semantic draw identity, not frame-local indirect-buffer addresses.
+    pub(super) fn same_batch(&self, other: &Self) -> bool {
         self.phase == other.phase
             && self.camera == other.camera
             && self.pipeline == other.pipeline
@@ -173,7 +205,7 @@ impl Receipt {
             && self.material == other.material
             && self.material_group == other.material_group
             && self.binding == other.binding
-            && self.dispatch == other.dispatch
+            && self.dispatch.same_held_shape(&other.dispatch)
     }
 
     pub(super) fn compatible(&self, member: &bindings::RenderMember) -> bool {

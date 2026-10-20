@@ -2,6 +2,9 @@ use adventuresim_tactical_core::prelude::*;
 use bevy::{ecs::entity::MapEntities, prelude::*};
 use serde::{Deserialize, Serialize};
 
+pub(crate) mod tree_bank;
+pub use tree_bank::{SceneTreeBankAsset, TreeBankWireError};
+
 /// Sent by the client whenever the player dodges or rolls defensively.
 ///
 /// This is a simplified version of [`DefenderResponse`] that omits

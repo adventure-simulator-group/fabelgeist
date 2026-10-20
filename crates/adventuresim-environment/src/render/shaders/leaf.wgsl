@@ -24,7 +24,7 @@
 struct LeafOut {
     @builtin(position) clip: vec4<f32>,
     @location(0) world: vec4<f32>,
-    // The blade's upper side.
+    // Surface normal, oriented to the visible side in the fragment.
     @location(1) normal: vec3<f32>,
     @location(2) @interpolate(flat) kind: u32,
     @location(3) light: f32,

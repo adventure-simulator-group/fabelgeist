@@ -15,7 +15,7 @@ use crate::FIXED_TIMESTEP_HZ;
 use crate::message::{
     DebugDumpWorldRequest, DebugGameTimeScaleRequest, DefendRequest, EquipmentActionRequest,
     JoinRequest, MeleeActionRequest, PlayerInputRequest, RangedActionRequest, ReconnectCapability,
-    SceneVistaBundle, SuccessfulAttackResponse, TacticalCombatConfigSnapshot,
+    SceneTreeBankAsset, SceneVistaBundle, SuccessfulAttackResponse, TacticalCombatConfigSnapshot,
     TacticalOutcomeResponse,
 };
 
@@ -57,10 +57,13 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
             .replicate::<EquipSlot>()
             .replicate::<ItemOf>()
             .replicate::<SceneId>()
+            .replicate::<SceneTreeContent>()
             .replicate::<SceneTerrain>()
             .replicate::<SceneGround>()
             .replicate::<SceneEnvironment>()
             .replicate::<SceneObstacle>()
+            .replicate::<SceneObstacleOf>()
+            .replicate_once::<SceneObstacleCensus>()
             .replicate_once::<SceneFurniture>()
             .replicate_once::<TerrainLandformRecipe>()
             .replicate_with(RuleFns::new(
@@ -75,6 +78,11 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
             .add_client_event::<JoinRequest>(Channel::Ordered)
             .add_server_event::<ReconnectCapability>(Channel::Ordered)
             .add_server_event::<SceneVistaBundle>(Channel::Ordered)
+            .add_server_event_with::<SceneTreeBankAsset>(
+                Channel::Ordered,
+                crate::message::tree_bank::serialize,
+                crate::message::tree_bank::deserialize,
+            )
             .add_server_event::<TacticalCombatConfigSnapshot>(Channel::Ordered)
             .add_client_event::<PlayerInputRequest>(Channel::Unreliable)
             .add_client_event::<DebugGameTimeScaleRequest>(Channel::Ordered)

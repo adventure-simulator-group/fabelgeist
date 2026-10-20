@@ -8,7 +8,7 @@ use bevy::prelude::*;
 /// a faster frame cannot hide an accidental increase in active geometry.
 /// Previous scenes retain additional assets, reported in separate counters.
 #[derive(Resource, Debug, Clone, Default, serde::Serialize)]
-pub(crate) struct TreeAssetResidencyDiagnostics {
+pub(crate) struct RecipeTreeAssetResidencyDiagnostics {
     pub(crate) retained_scenes: usize,
     pub(crate) retained_variants: usize,
     pub(crate) retained_impostor_texture_bytes: usize,
@@ -50,7 +50,7 @@ pub(crate) struct TreeAssetResidencyDiagnostics {
     pub(crate) generation_milliseconds: u128,
 }
 
-impl TreeAssetResidencyDiagnostics {
+impl RecipeTreeAssetResidencyDiagnostics {
     pub(super) fn add_resident_assets(&mut self, added: &Self) {
         self.variants += added.variants;
         self.source_branches += added.source_branches;

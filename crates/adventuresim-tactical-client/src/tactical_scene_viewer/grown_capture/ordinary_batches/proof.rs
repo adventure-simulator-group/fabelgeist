@@ -9,6 +9,7 @@ pub(super) struct Submission {
     pub members: Vec<RenderMember>,
     pub commands: Vec<commands::Receipt>,
     pub inbox: Inbox,
+    pub sources: Vec<source_buffers::PreparedSource>,
     state: Readback,
 }
 
@@ -32,11 +33,13 @@ impl Submission {
         frame: RenderFrameId,
         members: Vec<RenderMember>,
         commands: Vec<commands::Receipt>,
+        sources: Vec<source_buffers::PreparedSource>,
     ) -> Self {
         Self {
             frame,
             members,
             commands,
+            sources,
             inbox: Inbox::new(view, frame),
             state: Readback::Awaiting,
         }
@@ -49,18 +52,35 @@ impl Submission {
         camera: RetainedViewEntity,
     ) -> Result<()> {
         ensure!(
-            current.len() == self.commands.len(),
-            "held successful draw count drift"
+            current
+                .iter()
+                .all(|command| command.frame == frame && command.camera == camera),
+            "stale held-frame draw"
         );
-        let mut unmatched: Vec<_> = self.commands.iter().collect();
+        let mut unmatched: Vec<_> = self
+            .commands
+            .iter()
+            .filter(|command| self.can_draw_owned(command))
+            .collect();
+        let current: Vec<_> = current
+            .iter()
+            .filter(|command| {
+                self.can_draw_owned(command)
+                    || unmatched
+                        .iter()
+                        .any(|held| held.representative == command.representative)
+            })
+            .collect();
+        ensure!(
+            current.len() == unmatched.len(),
+            "held owned draw count drift: held {}, current {}",
+            unmatched.len(),
+            current.len()
+        );
         for command in current {
-            ensure!(
-                command.frame == frame && command.camera == camera,
-                "stale held-frame draw"
-            );
             let index = unmatched
                 .iter()
-                .position(|held| held.same_draw(command))
+                .position(|held| held.same_batch(command))
                 .context("held successful draw command drift")?;
             unmatched.swap_remove(index);
         }
@@ -68,11 +88,37 @@ impl Submission {
         Ok(())
     }
 
+    pub(super) fn record_command_drift(
+        &self,
+        pose: &Pose,
+        current: &[commands::Receipt],
+        frame: RenderFrameId,
+        reason: &anyhow::Error,
+    ) -> Result<()> {
+        fs::write(
+            pose.output
+                .join(format!("gpu-command-drift-view-{:03}.json", pose.view)),
+            serde_json::to_vec_pretty(&serde_json::json!({
+                "held":self.header(pose),"observed_frame":frame,
+                "observed_commands":current.iter().map(commands::Receipt::report).collect::<Vec<_>>(),
+                "failure":format!("{reason:#}"),"passed":false,
+                "scope":"first held-command mismatch; diagnostic only"}))?,
+        )?;
+        Ok(())
+    }
+
+    fn can_draw_owned(&self, command: &commands::Receipt) -> bool {
+        self.members.iter().any(|member| {
+            member.member.entity == command.representative || command.compatible(member)
+        })
+    }
+
     fn header(&self, pose: &Pose) -> serde_json::Value {
-        serde_json::json!({"view":pose.view, "frame":self.frame, "role":pose.role,
+        serde_json::json!({"view":pose.view, "frame":self.frame, "subject":pose.subject,"readiness_requirement":pose.readiness,"first_extracted_frame":pose.first_frame,"selection":pose.selection.as_ref().map(|selection|selection.report()),
             "camera_entity_bits":pose.camera_bits,
             "expected_membership":pose.expected.iter().map(TaggedMember::report).collect::<Vec<_>>(),
             "render_members":self.members.iter().map(RenderMember::report).collect::<Vec<_>>(),
+            "prepared_source_allocations":self.sources.iter().map(source_buffers::PreparedSource::report).collect::<Vec<_>>(),
             "actual_color_dispatches":self.commands.iter().map(commands::Receipt::report).collect::<Vec<_>>()})
     }
 }

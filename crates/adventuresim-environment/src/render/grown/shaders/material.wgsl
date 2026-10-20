@@ -4,6 +4,9 @@
 #import adventuresim_environment::branch_geometry::branch_light
 #import adventuresim_environment::leaf_geometry::leaf_seed
 #import adventuresim_environment::leaf_surface::{leaf_shape, coverage}
+#ifdef VISIBILITY_RANGE_DITHER
+#import bevy_pbr::pbr_functions::visibility_range_dither
+#endif
 
 @group(#{MATERIAL_BIND_GROUP}) @binding(0) var<uniform> shape: vec4<u32>;
 @group(#{MATERIAL_BIND_GROUP}) @binding(2) var<storage, read> species: array<Species>;
@@ -23,6 +26,9 @@ struct GrownVertex {
 };
 
 struct GrownVaryings {
+#ifdef VISIBILITY_RANGE_DITHER
+    @location(10) @interpolate(flat) range_dither_level: i32,
+#endif
     @builtin(position) position: vec4<f32>,
     @location(0) world: vec4<f32>,
     @location(1) normal: vec3<f32>,
@@ -65,6 +71,9 @@ fn vertex(vertex: GrownVertex) -> GrownVaryings {
     let model = mesh_functions::get_world_from_local(vertex.instance_index);
     let world = mesh_functions::mesh_position_local_to_world(model, vec4<f32>(local.position, 1.0));
     out.world = world;
+#ifdef VISIBILITY_RANGE_DITHER
+    out.range_dither_level = mesh_functions::get_visibility_range_dither_level(vertex.instance_index, model[3]);
+#endif
     out.position = position_world_to_clip(world.xyz);
     out.normal = mesh_functions::mesh_normal_local_to_world(local.normal, vertex.instance_index);
     out.surface = local.position;
@@ -92,6 +101,9 @@ fn fragment(in: GrownVaryings, @builtin(front_facing) front: bool) -> FragmentOu
 #else
 @fragment
 fn fragment(in: GrownVaryings, @builtin(front_facing) front: bool) {
+#endif
+#ifdef VISIBILITY_RANGE_DITHER
+    visibility_range_dither(in.position, in.range_dither_level);
 #endif
 #ifdef GROWN_LEAF
     let alpha = coverage(leaf_shape(in.uv, u32(species[in.kind].leaf.w), in.seed));
@@ -125,6 +137,9 @@ fn fragment(in: GrownVaryings, @builtin(front_facing) front: bool) {
 #import adventuresim_environment::surface_lighting::light_surface
 @fragment
 fn fragment(in: GrownVaryings, @builtin(front_facing) front: bool) -> @location(0) vec4<f32> {
+#ifdef VISIBILITY_RANGE_DITHER
+    visibility_range_dither(in.position, in.range_dither_level);
+#endif
 #ifdef GROWN_LEAF
     let leaf = leaves[in.record];
     let alpha = coverage(leaf_shape(in.uv, u32(species[in.kind].leaf.w), in.seed));

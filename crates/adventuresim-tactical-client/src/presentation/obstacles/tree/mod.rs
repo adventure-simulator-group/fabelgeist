@@ -51,12 +51,12 @@ pub(in crate::presentation) use materials::{
     blackthorn_leaf_material, hawthorn_leaf_material, hazel_leaf_material, leaf_material,
 };
 pub(in crate::presentation) use presentation::{
-    PendingTreePresentation, RetainedTreePresentations, StreamedTreePresentation,
+    PendingTreePresentation, RecipeTreeCache, RetainedTreePresentations, StreamedTreePresentation,
     TreePresentationCache, VistaTreePresentationCache, ensure_vista_tree_variant,
     present_pending_trees, stream_tree_lod_children,
 };
 pub(crate) use presentation::{
-    PresentedTree, TreeAssetOrigin, TreeAssetResidencyDiagnostics, TreeLeafTriangleCount,
+    PresentedTree, RecipeTreeAssetResidencyDiagnostics, TreeAssetOrigin, TreeLeafTriangleCount,
 };
 pub(crate) use source::{TreePresentationSpecies, tree_species_for_site};
 pub(in crate::presentation) use source::{canopy_competition, vista_tree_species};
@@ -66,4 +66,14 @@ pub(crate) use presentation::prepared::{
     InstalledTreeMaterial, InstalledTreePart, InstalledTreePartRole, InstalledTreeSpecimen,
     InstalledTreeVariant, RootAdmissionReport, TreeCacheInspection, TreeCacheRepresentation,
     TreeRootBatch, material_image_ids,
+};
+
+pub(crate) use presentation::TreeContentRequest;
+pub(in crate::presentation) use presentation::content::TreeContentPlugin;
+#[cfg(feature = "grown-trees")]
+pub(in crate::presentation) use presentation::install_grown_streaming;
+#[cfg(feature = "grown-trees")]
+pub(crate) use presentation::{
+    GrownCatalogueAssets, GrownPartBinding, GrownRootAttachment, GrownSceneAssets,
+    GrownSceneRequest, GrownSource,
 };

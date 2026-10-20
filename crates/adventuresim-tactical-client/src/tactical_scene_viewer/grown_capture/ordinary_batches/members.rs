@@ -34,6 +34,9 @@ impl TaggedMember {
     ) -> Result<Vec<Self>> {
         let mut members = Vec::new();
         for member in &current.members {
+            if !current.requires(member.entity) {
+                continue;
+            }
             members.push(Self {
                 tag: tags.get(&member.entity).context("owned tree tag")?.clone(),
                 entity: member.entity,

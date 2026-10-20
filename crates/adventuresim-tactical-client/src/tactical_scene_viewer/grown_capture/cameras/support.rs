@@ -11,14 +11,14 @@ use std::num::NonZeroU64;
 
 const SUPPORT_EYE: Metres = Metres::from_metres(super::super::super::STANDING_EYE_HEIGHT_METRES);
 
-pub(super) struct Reader<'a> {
+pub(in super::super) struct Reader<'a> {
     terrain: &'a SceneTerrain,
     environment: &'a SceneEnvironment,
     surface: &'a ActiveVistaSurface,
 }
 
-pub(in super::super) struct SupportedCameras {
-    pub(in super::super) cameras: catalog::Cameras,
+pub(in super::super) struct SupportedCameras<T> {
+    pub(in super::super) cameras: T,
     pub(in super::super) support: HeldSupport,
 }
 
@@ -64,7 +64,7 @@ impl Reader<'_> {
         Ok(Metres::from_metres(height))
     }
 
-    pub(super) fn clamp_eye(&self, mut eye: Vec3) -> Result<Vec3> {
+    pub(in super::super) fn clamp_eye(&self, mut eye: Vec3) -> Result<Vec3> {
         eye.y = eye.y.max(self.height(eye)?.metres() + SUPPORT_EYE.metres());
         ensure!(eye.is_finite(), "nonfinite supported camera eye");
         Ok(eye)
@@ -124,7 +124,25 @@ pub(in super::super) fn resolve(
     world: &mut World,
     geometry: &GrownGeometry,
     placements: &layout::RootPlacements,
-) -> Result<SupportedCameras> {
+) -> Result<SupportedCameras<catalog::Cameras>> {
+    let library = geometry.bank().library();
+    let bounds = library
+        .models
+        .get(geometry.variant().index())
+        .context("grown camera model")?
+        .bounds;
+    with_support(
+        world,
+        |reader| catalog::Cameras::from_source(bounds, placements, &library.detail, reader),
+        |cameras| cameras.eyes().collect(),
+    )
+}
+
+pub(in super::super) fn with_support<T>(
+    world: &mut World,
+    build: impl FnOnce(&Reader<'_>) -> Result<T>,
+    eyes: impl FnOnce(&T) -> Vec<Vec3>,
+) -> Result<SupportedCameras<T>> {
     let mut scenes = world.query::<(Entity, &SceneTerrain, &SceneEnvironment)>();
     let mut chunks_query = world.query_filtered::<(Entity, &VistaTerrainMesh), With<Mesh3d>>();
     let (scene, terrain, environment) = scenes.single(world)?;
@@ -158,15 +176,9 @@ pub(in super::super) fn resolve(
         environment,
         surface,
     };
-    let library = geometry.bank().library();
-    let bounds = library
-        .models
-        .get(geometry.variant().index())
-        .context("grown camera source model missing")?
-        .bounds;
-    let cameras = catalog::Cameras::from_source(bounds, placements, &library.detail, &reader)?;
-    let samples = cameras
-        .eyes()
+    let cameras = build(&reader)?;
+    let samples = eyes(&cameras)
+        .into_iter()
         .map(|eye| {
             Ok(SupportSample {
                 eye,

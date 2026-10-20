@@ -18,8 +18,26 @@ REVIEW_LOCATIONS = {
     "harz-forest": (51.6500, 10.5000),
     "brocken-summit": (51.7990, 10.6170),
 }
+# Curated capture-source label. Executable, feature, input and complete source
+# pins remain separate evidence; this is not a transitive build fingerprint.
 SOURCE_PATHS = (
+    Path("Cargo.toml"),
     Path("Cargo.lock"),
+    Path("crates/adventuresim-environment/Cargo.toml"),
+    Path("crates/adventuresim-environment/src"),
+    Path("crates/fabelgeist-botany/Cargo.toml"),
+    Path("crates/fabelgeist-botany/src"),
+    Path("crates/fabelgeist-math/Cargo.toml"),
+    Path("crates/fabelgeist-math/src"),
+    Path("crates/fabelgeist-determinism/Cargo.toml"),
+    Path("crates/fabelgeist-determinism/src"),
+    Path("crates/fabelgeist-spatial-hash/Cargo.toml"),
+    Path("crates/fabelgeist-spatial-hash/src"),
+    Path("crates/fabelgeist-gpu/Cargo.toml"),
+    Path("crates/fabelgeist-gpu/src"),
+    Path("crates/adventuresim-tactical-core/Cargo.toml"),
+    Path("crates/adventuresim-tactical-core/src"),
+    Path("crates/adventuresim-tactical-client/src/tactical_scene_viewer_main.rs"),
     Path("crates/adventuresim-tactical-client/Cargo.toml"),
     Path("crates/adventuresim-tactical-client/src/presentation"),
     Path("crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs"),
@@ -101,6 +119,8 @@ def source_files() -> list[Path]:
     files: list[Path] = []
     for relative in SOURCE_PATHS:
         path = ROOT / relative
+        if not path.exists():
+            raise FileNotFoundError(f"Declared capture source is missing: {relative}")
         files.extend(path.rglob("*") if path.is_dir() else (path,))
     return sorted(file for file in files if file.is_file())
 

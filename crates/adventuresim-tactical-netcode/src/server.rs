@@ -12,7 +12,8 @@ pub struct AdventureSimulatorServerPlugin;
 impl Plugin for AdventureSimulatorServerPlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins((WebSocketServerPlugin, AeronetRepliconServerPlugin))
-            .add_observer(on_server_added);
+            .add_observer(on_server_added)
+            .add_observer(configure_session);
     }
 }
 
@@ -45,6 +46,22 @@ fn on_server_added(
         .queue(WebSocketServer::open(websocket_config(server.addr)));
 
     Ok(())
+}
+
+fn configure_session(
+    event: On<Add, aeronet::io::Session>,
+    sessions: Query<&ChildOf, With<aeronet::io::Session>>,
+    servers: Query<(), With<AdventureSimulatorServer>>,
+    mut commands: Commands,
+) {
+    let Ok(parent) = sessions.get(event.entity) else {
+        return;
+    };
+    if servers.contains(parent.parent()) {
+        commands
+            .entity(event.entity)
+            .insert(crate::transport_policy::tactical_transport_config());
+    }
 }
 
 fn websocket_config(addr: SocketAddr) -> ServerConfig {

@@ -28,6 +28,15 @@ struct SourceUpload<'a> {
 }
 
 impl GrownBankAssets {
+    /// Retained assets may be reused only in their original presenting world.
+    pub fn validate_world(&self, world: &World) -> Result<()> {
+        ensure!(
+            self.world == world.id(),
+            "grown bank assets belong to another world"
+        );
+        Ok(())
+    }
+
     /// Explicit asset-store lifetime: call once, then reuse this Arc.
     /// This does not perform process-global or device-global deduplication.
     pub fn upload(source: Arc<TreeBank>, world: &mut World) -> Result<Arc<Self>> {
@@ -162,7 +171,7 @@ impl GrownSourceBuffer {
     }
 }
 
-fn buffer_handle(
+pub(super) fn buffer_handle(
     buffers: &[GrownSourceBuffer],
     role: GrownBufferRole,
 ) -> Result<Handle<ShaderBuffer>> {

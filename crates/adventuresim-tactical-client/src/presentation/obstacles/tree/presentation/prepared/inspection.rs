@@ -102,6 +102,7 @@ pub(crate) struct TreeCacheInspection<'w, 's> {
     cache: Res<'w, TreePresentationCache>,
     active: Res<'w, ActiveTacticalScene>,
     environments: Query<'w, 's, &'static SceneEnvironment>,
+    requests: Query<'w, 's, &'static super::super::TreeContentRequest>,
     streams: Query<'w, 's, &'static StreamedTreePresentation>,
     meshes: Res<'w, Assets<Mesh>>,
     cards: Res<'w, Assets<TacticalTreeImpostorMaterial>>,
@@ -113,6 +114,47 @@ pub(crate) struct TreeCacheInspection<'w, 's> {
 }
 
 impl TreeCacheInspection<'_, '_> {
+    pub(crate) fn grown_root(
+        &self,
+        root: Entity,
+    ) -> Result<super::super::grown::GrownRootAttachment> {
+        let StreamedTreePresentation::Grown(stream) = self.streams.get(root)? else {
+            anyhow::bail!("actual generated root has Recipe stream");
+        };
+        stream.attachment(root)
+    }
+
+    pub(crate) fn grown_level(
+        &self,
+        root: Entity,
+    ) -> Result<Option<adventuresim_environment::render::Level>> {
+        let StreamedTreePresentation::Grown(stream) = self.streams.get(root)? else {
+            anyhow::bail!("actual generated root has Recipe stream");
+        };
+        Ok(stream.selected_level())
+    }
+
+    pub(crate) fn grown_scene(&self) -> Result<super::super::grown::GrownSceneAssets> {
+        let scene = self
+            .active
+            .entity
+            .context("grown cache inspection requires an active scene")?;
+        let environment = self.environments.get(scene)?;
+        let super::super::TreeContentRequest::Grown(request) = self.requests.get(scene)? else {
+            anyhow::bail!("scene requests Recipe content");
+        };
+        adventuresim_tactical_core::prelude::SceneTreeContent::Grown
+            .validate_environment(environment)?;
+        let cache = self.cache.grown_for_scene(scene, environment)?;
+        ensure!(
+            cache.catalogue.matches(request) && cache.selection == request.selection(),
+            "grown cache differs from actual scene intent"
+        );
+        Ok(super::super::grown::GrownSceneAssets::from_cache(
+            scene, cache,
+        ))
+    }
+
     pub(crate) fn verify_card(
         &self,
         installed: &InstalledTreeSpecimen,
@@ -128,6 +170,7 @@ impl TreeCacheInspection<'_, '_> {
             .context("card child tier zero")?;
         let expected = self
             .cache
+            .recipe_for_scene(installed.variant.scene, &installed.variant.environment)?
             .variants
             .get(&installed.variant.cache_key)
             .and_then(|cached| cached.lod_cards.get(index))
@@ -147,6 +190,7 @@ impl TreeCacheInspection<'_, '_> {
     ) -> Result<()> {
         let expected = self
             .cache
+            .recipe_for_scene(installed.variant.scene, &installed.variant.environment)?
             .variants
             .get(&installed.variant.cache_key)
             .and_then(|cached| cached.clusters.as_ref())
@@ -206,7 +250,9 @@ impl InstalledTreeSpecimen {
         stream: &StreamedTreePresentation,
         representation: TreeCacheRepresentation,
     ) -> Result<()> {
+        let stream = stream.recipe()?;
         let cached = cache
+            .recipe_for_scene(self.variant.scene, &self.variant.environment)?
             .variants
             .get(&self.variant.cache_key)
             .context("retained prepared entry")?;

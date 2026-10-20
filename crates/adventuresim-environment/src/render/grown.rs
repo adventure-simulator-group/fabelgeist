@@ -67,6 +67,10 @@ pub enum GrownBufferRole {
     Plants,
 }
 
+impl GrownBufferRole {
+    pub const ALL: [Self; 4] = [Self::Wood, Self::Leaves, Self::Species, Self::Plants];
+}
+
 impl Plugin for GrownMaterialPlugin {
     fn build(&self, app: &mut App) {
         super::register_forest_libraries(app);
@@ -86,6 +90,10 @@ impl GrownBankAssets {
 }
 
 impl GrownAssets {
+    pub fn bank_assets(&self) -> &Arc<GrownBankAssets> {
+        &self.bank_assets
+    }
+
     pub fn bank(&self) -> &Arc<TreeBank> {
         self.bank_assets.bank()
     }
