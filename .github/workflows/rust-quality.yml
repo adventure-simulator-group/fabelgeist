@@ -167,6 +167,11 @@ jobs:
         run: |
           set -o pipefail
           cargo test --locked --package fabelgeist-rig 2>&1 | tee target/rig-contracts/rig.log
+      - name: Test autoresolve battle-time consumers
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-core --lib autoresolve:: -- --test-threads=1 2>&1 | tee target/rig-contracts/autoresolve.log
+          cargo test --locked --package adventuresim-core --lib combat::defense:: -- --test-threads=1 2>&1 | tee target/rig-contracts/contact-defense.log
       - name: Test MHR rig admission
         run: |
           set -o pipefail
@@ -250,7 +255,8 @@ jobs:
           if not re.fullmatch(r"[0-9a-f]{40}", revision) or revision != os.environ["EXPECTED_RIG_REVISION"]:
               raise SystemExit("Recorded rig revision does not match the required PR head")
           required = [
-              "rig", "mhr", "animation", "audio", "equipment",
+              "rig", "autoresolve", "contact-defense", "mhr",
+              "animation", "audio", "equipment",
               "creator-armor-frames", "creator-clothing",
               "creator-device-frames", "creator-gorget-bib",
               "creator-gorget-collar", "creator-wrapped-tasset",

@@ -5,11 +5,11 @@ pub(in crate::autoresolve) fn melee_effective_reach(combatant: &Combatant) -> f3
 }
 
 pub(in crate::autoresolve) fn available_attack_start(
-    window_start: f32,
-    window_end: f32,
-    measure_at: f32,
-    recovery: f32,
-) -> Option<f32> {
+    window_start: BattleTime,
+    window_end: BattleTime,
+    measure_at: BattleTime,
+    recovery: BattleTime,
+) -> Option<BattleTime> {
     let start = window_start.max(measure_at).max(recovery);
     (start <= window_end).then_some(start)
 }
@@ -135,14 +135,15 @@ pub(in crate::autoresolve) fn preferred_melee_measure(
 pub(in crate::autoresolve) fn advance_melee_pair_movement(
     first: &mut Combatant,
     second: &mut Combatant,
-    interval_start: f32,
+    interval_start: BattleTime,
     elapsed: AnimationElapsed,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) -> SpeedResult<()> {
+) -> BattleResolutionResult<()> {
     if elapsed.is_zero() || first.is_defeated() || second.is_defeated() {
         return Ok(());
     }
+    let time = interval_start.checked_add(elapsed)?;
     if first.melee_engagement_target != Some(second.id)
         || second.melee_engagement_target != Some(first.id)
     {
@@ -162,7 +163,6 @@ pub(in crate::autoresolve) fn advance_melee_pair_movement(
         movement.first.velocity_after_metres_per_second;
     second.melee_separation_velocity_metres_per_second =
         movement.second.velocity_after_metres_per_second;
-    let time = interval_start + elapsed.seconds();
     let (a, a_axis, a_intent, b, b_axis, b_intent) = if first.id <= second.id {
         (
             &*first,
@@ -187,7 +187,7 @@ pub(in crate::autoresolve) fn advance_melee_pair_movement(
     Ok(())
 }
 
-fn movement_phase(combatant: &Combatant, time: f32) -> MeleeTimelinePhase {
+fn movement_phase(combatant: &Combatant, time: BattleTime) -> MeleeTimelinePhase {
     if combatant.melee_attack_started_at_seconds.is_some() {
         MeleeTimelinePhase::Windup
     } else if combatant.melee_recovery_until_seconds > time {
@@ -204,7 +204,7 @@ fn record_movement(
     movement: OpposedMovement,
     axis: AxisMotion,
     intent: MeleeMovementAction,
-    time: f32,
+    time: BattleTime,
 ) {
     let phase = movement_phase(combatant, time);
     let mut event = MeleeTimelineEvent::at(MeleeTimelineKind::Movement, time);

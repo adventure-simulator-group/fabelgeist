@@ -11,8 +11,8 @@ struct AttackStartTrace {
     attacker_id: u64,
     target_id: u64,
     distance: f32,
-    readiness: f32,
-    window_start: f32,
+    readiness: BattleTime,
+    window_start: BattleTime,
     adaptation: AnimationElapsed,
     timing: ScheduledMeleeTiming,
 }
@@ -122,7 +122,7 @@ pub(in crate::autoresolve) fn initialize_melee_phases(
             .checked_scale(random.unit_f32())?;
         // Both derived spans are checked before publishing this initial schedule.
         let delay = AnimationElapsed::from_seconds(delay)?;
-        combatant.melee_recovery_until_seconds = delay.seconds();
+        combatant.melee_recovery_until_seconds = BattleTime::from_elapsed_since_start(delay);
         combatant.melee_interval_jitter_seconds = jitter;
     }
     Ok(())
@@ -136,7 +136,9 @@ pub(in crate::autoresolve) fn schedule_side_melee_attacks(
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) -> BattleResolutionResult<Vec<ScheduledMeleeAttack>> {
-    let start = round.saturating_sub(1) as f32 * parameters.combat_round_seconds.seconds();
+    let start = BattleTime::from_seconds(
+        round.saturating_sub(1) as f32 * parameters.combat_round_seconds.seconds(),
+    )?;
     schedule_side_melee_attacks_in_window(
         attackers,
         defenders,
@@ -151,7 +153,7 @@ pub(in crate::autoresolve) fn schedule_side_melee_attacks(
 pub(in crate::autoresolve) fn schedule_side_melee_attacks_in_window(
     attackers: &mut [Combatant],
     defenders: &mut [Combatant],
-    window_start: f32,
+    window_start: BattleTime,
     window_seconds: AnimationElapsed,
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
@@ -183,7 +185,7 @@ fn schedule_attacker(
     index: usize,
     attackers: &mut [Combatant],
     defenders: &mut [Combatant],
-    window_start: f32,
+    window_start: BattleTime,
     window_seconds: AnimationElapsed,
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
@@ -200,7 +202,7 @@ fn schedule_attacker(
         return Ok(None);
     }
     let (target_index, flanking) = melee_assignment(index, attackers, defenders, parameters);
-    let window_end = window_start + window_seconds.seconds();
+    let window_end = window_start.checked_add(window_seconds)?;
     if let (Some(started_at_seconds), Some(contact_at_seconds)) = (
         attackers[index].melee_attack_started_at_seconds,
         attackers[index].melee_attack_contact_at_seconds,
@@ -231,10 +233,9 @@ fn schedule_attacker(
         engagement.commit(&mut attackers[index], &mut defenders[target_index]);
         return Ok(None);
     }
-    let readiness = attackers[index].melee_recovery_until_seconds
-        + attackers[index]
-            .melee_phase_adaptation_delay_seconds
-            .seconds();
+    let readiness = attackers[index]
+        .melee_recovery_until_seconds
+        .checked_add(attackers[index].melee_phase_adaptation_delay_seconds)?;
     let Some(started) = available_attack_start(window_start, window_end, window_start, readiness)
     else {
         engagement.commit(&mut attackers[index], &mut defenders[target_index]);
@@ -244,16 +245,16 @@ fn schedule_attacker(
         engagement.commit(&mut attackers[index], &mut defenders[target_index]);
         return Ok(None);
     };
-    engagement.commit(&mut attackers[index], &mut defenders[target_index]);
     let timing = ScheduledMeleeTiming {
         started_at_seconds: started,
-        contact_at_seconds: started + parameters.melee_windup_seconds.seconds(),
-        recovery_until_seconds: started + interval.seconds(),
+        contact_at_seconds: started.checked_add(parameters.melee_windup_seconds)?,
+        recovery_until_seconds: started.checked_add(interval)?,
     };
     let adaptation = attackers[index].melee_phase_adaptation_delay_seconds;
     let jitter = parameters
         .melee_cadence_jitter_seconds
         .checked_scale(random.unit_f32())?;
+    engagement.commit(&mut attackers[index], &mut defenders[target_index]);
     timing.commit(&mut attackers[index], distance, jitter);
     AttackStartTrace {
         attacker_id,
@@ -296,8 +297,8 @@ fn attack_interval(
 pub(in crate::autoresolve) fn scheduled_side_contacts_in_window(
     attackers: &[Combatant],
     defenders: &[Combatant],
-    start: f32,
-    end: f32,
+    start: BattleTime,
+    end: BattleTime,
     parameters: crate::combat::AutoresolveParameters,
 ) -> Vec<ScheduledMeleeAttack> {
     attackers

@@ -7,12 +7,14 @@ pub(super) fn phase_adaptation_delay(
     parameters: crate::combat::AutoresolveParameters,
 ) -> BattleResolutionResult<AnimationElapsed> {
     let gap = match phase {
-        MeleeDefenderPhase::CommittedAttack(timing) => {
-            (timing.contact_at_seconds - incoming.contact_at_seconds).max(0.0)
+        MeleeDefenderPhase::CommittedAttack(timing) => timing
+            .contact_at_seconds
+            .saturating_elapsed_since(incoming.contact_at_seconds)?,
+        MeleeDefenderPhase::NeutralGuard | MeleeDefenderPhase::OccupiedRecovery { .. } => {
+            AnimationElapsed::ZERO
         }
-        MeleeDefenderPhase::NeutralGuard | MeleeDefenderPhase::OccupiedRecovery { .. } => 0.0,
     };
-    Ok(AnimationElapsed::from_seconds(gap)?.min(
+    Ok(gap.min(
         defender
             .equipment
             .melee_weapon

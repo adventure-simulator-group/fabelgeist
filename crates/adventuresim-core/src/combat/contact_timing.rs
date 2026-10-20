@@ -1,5 +1,6 @@
 //! Signed timing of the defender's committed contact relative to an incoming one.
 
+use crate::battle_time::BattleTime;
 use crate::elapsed::{ElapsedError, ElapsedResult};
 use serde::{Deserialize, Serialize};
 use std::time::Duration;
@@ -18,11 +19,14 @@ impl ContactTimingOffset {
         Ok(Self(seconds))
     }
 
-    /// Native absolute battle-time coordinates are subtracted in their original
-    /// f32 order; only their signed difference crosses into the contact policy.
-    pub fn between_contacts(own_contact: f32, incoming_contact: f32) -> ElapsedResult<Self> {
-        let seconds = own_contact - incoming_contact;
-        if own_contact.is_finite() && incoming_contact.is_finite() && !seconds.is_finite() {
+    /// Subtract battle coordinates in their original f32 order; the signed
+    /// difference owns the contact policy's relative timing.
+    pub fn between_contacts(
+        own_contact: BattleTime,
+        incoming_contact: BattleTime,
+    ) -> ElapsedResult<Self> {
+        let seconds = own_contact.seconds() - incoming_contact.seconds();
+        if !seconds.is_finite() {
             return Err(ElapsedError::ContactOffsetOverflow);
         }
         Self::from_seconds(seconds)

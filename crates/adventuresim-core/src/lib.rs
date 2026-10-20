@@ -5,6 +5,7 @@ pub mod attribute;
 pub mod autopsy;
 pub mod autoresolve;
 pub mod battle_rewards;
+pub mod battle_time;
 pub mod bestiary;
 pub mod body;
 pub mod book;

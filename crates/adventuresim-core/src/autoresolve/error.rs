@@ -1,3 +1,4 @@
+use crate::battle_time::BattleTimeError;
 use crate::elapsed::ElapsedError;
 use crate::unit_interval::FractionError;
 
@@ -8,6 +9,8 @@ pub enum BattleResolutionError {
     Speed(#[from] crate::linear_speed::SpeedError),
     #[error(transparent)]
     Timing(#[from] ElapsedError),
+    #[error(transparent)]
+    BattleTime(#[from] BattleTimeError),
     #[error(transparent)]
     Performance(#[from] FractionError),
 }

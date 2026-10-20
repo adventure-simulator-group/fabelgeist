@@ -105,13 +105,14 @@ fn simultaneous_contact_evidence(
     enemies[0].melee_engagement_target = Some(allies[0].id);
     allies[0].melee_engagement_distance_metres = 0.4;
     enemies[0].melee_engagement_distance_metres = 0.4;
-    let contact = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS
-        .melee_windup_seconds
-        .seconds();
+    let contact = BattleTime::from_elapsed_since_start(
+        crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS.melee_windup_seconds,
+    );
     for combatant in [&mut allies[0], &mut enemies[0]] {
-        combatant.melee_attack_started_at_seconds = Some(0.0);
+        combatant.melee_attack_started_at_seconds = Some(BattleTime::ZERO);
         combatant.melee_attack_contact_at_seconds = Some(contact);
-        combatant.melee_recovery_until_seconds = contact + 0.5;
+        combatant.melee_recovery_until_seconds =
+            contact.checked_add(AnimationElapsed::from_seconds(0.5)?)?;
     }
     let mut recorder = BattleRecorder::default();
     resolve_joint_melee_round(

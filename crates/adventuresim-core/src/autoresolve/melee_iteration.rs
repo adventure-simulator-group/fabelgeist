@@ -561,12 +561,12 @@ mod tests {
         assert_eq!(terminal.terminal_resolution, Some(outcome.resolution));
         assert!(outcome.rounds <= AUTORESOLVE_MAX_COMBAT_ROUNDS);
         assert!(outcome.timeline.iter().all(|event| {
-            event.time_seconds.is_finite()
-                && event.time_seconds >= 0.0
+            event.time_seconds.seconds().is_finite()
+                && event.time_seconds >= BattleTime::ZERO
                 && event.tick == MeleeTimelineEvent::tick_at(event.time_seconds)
         }));
         assert!(
-            terminal.time_seconds
+            terminal.time_seconds.seconds()
                 <= outcome.rounds as f32
                     * crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS
                         .combat_round_seconds
@@ -611,7 +611,7 @@ mod tests {
                     .rev()
                     .filter(|event| event.combatant_id == Some(fighter.id))
                     .find_map(|event| event.readiness_after_seconds)
-                    .is_some_and(|ready| ready.is_finite() && ready > terminal.time_seconds);
+                    .is_some_and(|ready| ready.seconds().is_finite() && ready > terminal.time_seconds);
                 ongoing_bleeding || scheduled
             });
         assert!(

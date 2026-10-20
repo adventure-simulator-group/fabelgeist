@@ -64,10 +64,12 @@ fn committed_attack_response(
     commitment_sample: f32,
     parameters: crate::combat::AutoresolveParameters,
 ) -> BattleResolutionResult<Option<AutoresolveMeleeDefenderDecision>> {
-    let response_delay = defender_attack.started_at_seconds - incoming.started_at_seconds;
     let intercept_window = defender_attack.started_at_seconds > incoming.started_at_seconds
         && defender_attack.started_at_seconds <= incoming.contact_at_seconds
-        && response_delay <= parameters.melee_reflex_window_seconds.seconds();
+        && defender_attack.started_at_seconds.is_within(
+            incoming.started_at_seconds,
+            parameters.melee_reflex_window_seconds,
+        );
     if !intercept_window {
         return Ok(
             (defender_attack.started_at_seconds <= incoming.contact_at_seconds
@@ -75,6 +77,9 @@ fn committed_attack_response(
                 .then(|| AutoresolveMeleeDefenderDecision::response(DefenderResponse::None)),
         );
     }
+    let response_delay = defender_attack
+        .started_at_seconds
+        .elapsed_since(incoming.started_at_seconds)?;
     let weapon = defender.equipment.melee_weapon.unwrap_or_default();
     let equipment = defender.equipment.for_melee();
     let skill = weapon.skills.weighted_check(|skill| {
@@ -87,8 +92,9 @@ fn committed_attack_response(
             LimbWeights::all_equal(),
         )
     });
-    let timing =
-        (1.0 - response_delay / parameters.melee_reflex_window_seconds.seconds()).clamp(0.0, 1.0);
+    let timing = (1.0
+        - response_delay.seconds() / parameters.melee_reflex_window_seconds.seconds())
+    .clamp(0.0, 1.0);
     let engagement = (timing
         * ((skill + defender.attributes.instinct) / 10.0).clamp(0.0, 1.0)
         * defender.incapacitation_performance()?.fraction())
@@ -98,9 +104,9 @@ fn committed_attack_response(
             defender_attack.contact_at_seconds,
             incoming.contact_at_seconds,
         )?,
-        own_windup_seconds: AnimationElapsed::from_seconds(
-            defender_attack.contact_at_seconds - defender_attack.started_at_seconds,
-        )?,
+        own_windup_seconds: defender_attack
+            .contact_at_seconds
+            .elapsed_since(defender_attack.started_at_seconds)?,
         expected_intercept_engagement: engagement,
         incapacitation: defender.incapacitation(),
         weapon_moment_of_inertia_kg_m2: weapon.moment_of_inertia_kg_m2,
@@ -127,7 +133,7 @@ fn committed_attack_response(
 
 fn recovering_response(
     can_block: bool,
-    until_seconds: f32,
+    until_seconds: BattleTime,
     incoming: ScheduledMeleeTiming,
     parameters: crate::combat::AutoresolveParameters,
 ) -> BattleResolutionResult<AutoresolveMeleeDefenderDecision> {
@@ -135,7 +141,7 @@ fn recovering_response(
         until_seconds,
         incoming.contact_at_seconds,
         parameters.melee_windup_seconds,
-    );
+    )?;
     Ok(if can_block && effectiveness > 0.0 {
         AutoresolveMeleeDefenderDecision::response(DefenderResponse::Block { effectiveness })
     } else {
@@ -144,15 +150,15 @@ fn recovering_response(
 }
 
 pub(super) fn recovery_guard_effectiveness(
-    recovery: f32,
-    contact: f32,
+    recovery: BattleTime,
+    contact: BattleTime,
     windup: AnimationElapsed,
-) -> f32 {
-    let remaining = (recovery - contact).max(0.0);
-    if remaining == 0.0 {
-        return 1.0;
+) -> ElapsedResult<f32> {
+    let remaining = recovery.saturating_elapsed_since(contact)?;
+    if remaining.is_zero() {
+        return Ok(1.0);
     }
-    (1.0 - remaining / windup.seconds().max(0.0)).clamp(0.0, 1.0)
+    Ok((1.0 - remaining.seconds() / windup.seconds().max(0.0)).clamp(0.0, 1.0))
 }
 
 pub(super) fn autoresolve_melee_input_reflex(
@@ -164,9 +170,9 @@ pub(super) fn autoresolve_melee_input_reflex(
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(super) struct ScheduledMeleeTiming {
-    pub started_at_seconds: f32,
-    pub contact_at_seconds: f32,
-    pub recovery_until_seconds: f32,
+    pub started_at_seconds: BattleTime,
+    pub contact_at_seconds: BattleTime,
+    pub recovery_until_seconds: BattleTime,
 }
 
 impl ScheduledMeleeTiming {
@@ -188,7 +194,7 @@ impl ScheduledMeleeTiming {
 pub(super) enum MeleeDefenderPhase {
     NeutralGuard,
     CommittedAttack(ScheduledMeleeTiming),
-    OccupiedRecovery { until_seconds: f32 },
+    OccupiedRecovery { until_seconds: BattleTime },
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]

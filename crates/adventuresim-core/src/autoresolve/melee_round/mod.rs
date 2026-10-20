@@ -1,14 +1,19 @@
 use super::*;
 
+pub(in crate::autoresolve) use assignment::*;
+pub(in crate::autoresolve) use commitment::*;
+pub(in crate::autoresolve) use mobility::*;
+pub(in crate::autoresolve) use scheduling::*;
+
 mod assignment;
 mod commitment;
 mod mobility;
 mod scheduling;
 
-pub(in crate::autoresolve) use assignment::*;
-pub(in crate::autoresolve) use commitment::*;
-pub(in crate::autoresolve) use mobility::*;
-pub(in crate::autoresolve) use scheduling::*;
+struct DefenderReadiness {
+    before: BattleTime,
+    after: BattleTime,
+}
 
 #[expect(
     clippy::too_many_arguments,
@@ -204,12 +209,20 @@ fn apply_defender_response(
     let adaptation = (commitment.kind == MeleeDefenseCommitmentKind::CanceledSameWeapon)
         .then(|| phase_adaptation_delay(phase, incoming, defender, parameters))
         .transpose()?;
+    let after_readiness = readiness_before.max(
+        incoming
+            .contact_at_seconds
+            .checked_add(commitment.recovery_seconds_after_contact)?,
+    );
     record_response_timeline(
         recorder,
         defender,
         attacker_id,
         engagement_distance,
-        readiness_before,
+        DefenderReadiness {
+            before: readiness_before,
+            after: after_readiness,
+        },
         phase,
         decision,
         response,
@@ -218,9 +231,7 @@ fn apply_defender_response(
         adaptation,
     );
     if response != DefenderResponse::None {
-        defender.melee_recovery_until_seconds = defender
-            .melee_recovery_until_seconds
-            .max(incoming.contact_at_seconds + commitment.recovery_seconds_after_contact.seconds());
+        defender.melee_recovery_until_seconds = after_readiness;
     }
     if commitment.kind == MeleeDefenseCommitmentKind::CanceledSameWeapon {
         defender.melee_consecutive_intercepts =
@@ -250,7 +261,7 @@ fn record_response_timeline(
     defender: &Combatant,
     attacker_id: u64,
     distance: f32,
-    readiness: f32,
+    readiness: DefenderReadiness,
     phase: MeleeDefenderPhase,
     decision: AutoresolveMeleeDefenderDecision,
     response: DefenderResponse,
@@ -264,8 +275,6 @@ fn record_response_timeline(
     };
     let before = timeline_phase(phase);
     let after = timeline_phase_after_commitment(commitment.kind, phase);
-    let after_readiness = readiness
-        .max(incoming.contact_at_seconds + commitment.recovery_seconds_after_contact.seconds());
     let mut event =
         MeleeTimelineEvent::at(MeleeTimelineKind::Response, incoming.contact_at_seconds);
     event.combatant_id = Some(defender.id);
@@ -303,8 +312,8 @@ fn record_response_timeline(
     event.affected_attack_id = affected;
     event.engagement_distance_before_metres = Some(distance);
     event.engagement_distance_after_metres = Some(distance);
-    event.readiness_before_seconds = Some(readiness);
-    event.readiness_after_seconds = Some(after_readiness);
+    event.readiness_before_seconds = Some(readiness.before);
+    event.readiness_after_seconds = Some(readiness.after);
     recorder.record_timeline(event);
     if matches!(
         commitment.kind,
@@ -323,8 +332,8 @@ fn record_response_timeline(
         transformation.affected_attack_id = affected;
         transformation.phase_before = Some(before);
         transformation.phase_after = Some(after);
-        transformation.readiness_before_seconds = Some(readiness);
-        transformation.readiness_after_seconds = Some(after_readiness);
+        transformation.readiness_before_seconds = Some(readiness.before);
+        transformation.readiness_after_seconds = Some(readiness.after);
         recorder.record_timeline(transformation);
     }
 }
@@ -491,7 +500,7 @@ mod tests {
             ..CombatWeapon::default()
         });
         short.equipment.weapon = short.equipment.melee_weapon;
-        short.melee_attack_started_at_seconds = Some(0.0);
+        short.melee_attack_started_at_seconds = Some(BattleTime::ZERO);
         let mut long = Combatant::new(2);
         long.equipment.melee_weapon = Some(CombatWeapon {
             melee: true,
@@ -545,15 +554,41 @@ mod tests {
 
     #[test]
     fn movement_and_recovery_gate_one_exact_attack_start() {
-        let whole = available_attack_start(0.0, 1.0, 0.3, 0.4);
-        let first_half = available_attack_start(0.0, 0.5, 0.3, 0.4);
-        assert_eq!(whole, Some(0.4));
+        let whole = available_attack_start(
+            BattleTime::ZERO,
+            BattleTime::from_seconds(1.0).unwrap(),
+            BattleTime::from_seconds(0.3).unwrap(),
+            BattleTime::from_seconds(0.4).unwrap(),
+        );
+        let first_half = available_attack_start(
+            BattleTime::ZERO,
+            BattleTime::from_seconds(0.5).unwrap(),
+            BattleTime::from_seconds(0.3).unwrap(),
+            BattleTime::from_seconds(0.4).unwrap(),
+        );
+        assert_eq!(whole, Some(BattleTime::from_seconds(0.4).unwrap()));
         assert_eq!(first_half, whole);
     }
 
     #[test]
     fn attack_start_waits_for_later_of_measure_and_recovery() {
-        assert_eq!(available_attack_start(0.0, 0.5, 0.6, 0.4), None);
-        assert_eq!(available_attack_start(0.5, 1.0, 0.6, 0.8), Some(0.8));
+        assert_eq!(
+            available_attack_start(
+                BattleTime::ZERO,
+                BattleTime::from_seconds(0.5).unwrap(),
+                BattleTime::from_seconds(0.6).unwrap(),
+                BattleTime::from_seconds(0.4).unwrap(),
+            ),
+            None
+        );
+        assert_eq!(
+            available_attack_start(
+                BattleTime::from_seconds(0.5).unwrap(),
+                BattleTime::from_seconds(1.0).unwrap(),
+                BattleTime::from_seconds(0.6).unwrap(),
+                BattleTime::from_seconds(0.8).unwrap(),
+            ),
+            Some(BattleTime::from_seconds(0.8).unwrap())
+        );
     }
 }

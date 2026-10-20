@@ -1,5 +1,6 @@
 //! Framework-neutral, deterministic combat simulation for strategic autoresolve.
 
+use crate::battle_time::BattleTime;
 use crate::elapsed::{AnimationElapsed, ElapsedResult};
 use crate::unit_interval::{FractionResult, UnitInterval};
 
@@ -22,6 +23,10 @@ pub use power::autoresolve_combat_power;
 #[cfg(test)]
 use power::finite_log_component;
 pub use threat::authored_threat_combatant;
+pub use timeline::{
+    MeleeResponseAvailability, MeleeResponseChoice, MeleeTimelineEvent, MeleeTimelineKind,
+    MeleeTimelinePhase,
+};
 
 mod classification;
 mod error;
@@ -34,6 +39,7 @@ mod melee_round;
 mod model;
 mod power;
 mod threat;
+mod timeline;
 
 const AUTORESOLVE_MAX_COMBAT_ROUNDS: usize = 256;
 const AUTORESOLVE_MAX_RANGED_ATTACKS_PER_PHASE: usize = 64;
@@ -224,11 +230,11 @@ pub struct Combatant {
     /// Signed contribution to separation velocity: closing is negative.
     melee_separation_velocity_metres_per_second: SignedSpeed,
     #[doc(hidden)]
-    melee_recovery_until_seconds: f32,
+    melee_recovery_until_seconds: BattleTime,
     #[doc(hidden)]
-    melee_attack_started_at_seconds: Option<f32>,
+    melee_attack_started_at_seconds: Option<BattleTime>,
     #[doc(hidden)]
-    melee_attack_contact_at_seconds: Option<f32>,
+    melee_attack_contact_at_seconds: Option<BattleTime>,
     #[doc(hidden)]
     melee_attack_scheduled_measure_metres: Option<f32>,
     #[doc(hidden)]
@@ -291,7 +297,7 @@ impl Combatant {
             melee_engagement_target: None,
             melee_engagement_distance_metres: 0.0,
             melee_separation_velocity_metres_per_second: SignedSpeed::ZERO,
-            melee_recovery_until_seconds: 0.0,
+            melee_recovery_until_seconds: BattleTime::ZERO,
             melee_attack_started_at_seconds: None,
             melee_attack_contact_at_seconds: None,
             melee_attack_scheduled_measure_metres: None,
@@ -598,142 +604,6 @@ pub struct BattleOutcome {
     pub timeline: Vec<MeleeTimelineEvent>,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
-#[serde(rename_all = "snake_case")]
-pub enum MeleeTimelineKind {
-    Movement,
-    AttackStarted,
-    Response,
-    AttackCanceled,
-    AttackTransformed,
-    Contact,
-    Terminal,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
-#[serde(rename_all = "snake_case")]
-pub enum MeleeTimelinePhase {
-    NeutralGuard,
-    Windup,
-    Recovery,
-    UnableToContinue,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
-#[serde(rename_all = "snake_case")]
-pub enum MeleeResponseAvailability {
-    NeutralGuard,
-    ReciprocalWindup,
-    OccupiedByEarlierAttack,
-    OccupiedRecovery,
-    NoImplement,
-    DodgeChosen,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
-#[serde(rename_all = "snake_case")]
-pub enum MeleeResponseChoice {
-    None,
-    Block,
-    Parry,
-    Dodge,
-    FinishTrade,
-}
-
-#[derive(Clone, Debug, PartialEq, Serialize)]
-pub struct MeleeTimelineEvent {
-    pub sequence: u64,
-    pub tick: u64,
-    pub time_seconds: f32,
-    pub kind: MeleeTimelineKind,
-    pub combatant_id: Option<u64>,
-    pub target_id: Option<u64>,
-    pub engagement_distance_before_metres: Option<f32>,
-    pub engagement_distance_after_metres: Option<f32>,
-    pub movement_action: Option<MeleeMovementAction>,
-    pub movement_elapsed_seconds: Option<AnimationElapsed>,
-    pub movement_displacement_metres: Option<f32>,
-    pub movement_velocity_before_metres_per_second: Option<SignedSpeed>,
-    pub movement_velocity_after_metres_per_second: Option<SignedSpeed>,
-    pub movement_speed_limit_metres_per_second: Option<NonnegativeSpeed>,
-    pub readiness_before_seconds: Option<f32>,
-    pub readiness_after_seconds: Option<f32>,
-    pub attack_id: Option<u64>,
-    pub attack_started_tick: Option<u64>,
-    pub attack_contact_tick: Option<u64>,
-    pub attack_recovery_tick: Option<u64>,
-    pub phase_before: Option<MeleeTimelinePhase>,
-    pub phase_after: Option<MeleeTimelinePhase>,
-    pub response_choice: Option<MeleeResponseChoice>,
-    pub committed_finish_trade_probability: Option<f32>,
-    pub committed_completed_work_fraction: Option<f32>,
-    pub committed_expected_intercept_benefit: Option<f32>,
-    pub consecutive_intercepts_before: Option<u8>,
-    pub consecutive_intercepts_after: Option<u8>,
-    /// One-shot guarded hesitation added after a repeated phase interception.
-    /// This is elapsed readiness time, not uncharged action work.
-    pub phase_adaptation_delay_seconds: Option<AnimationElapsed>,
-    pub response_availability: Option<MeleeResponseAvailability>,
-    pub affected_attack_id: Option<u64>,
-    pub simultaneous_batch_id: Option<u64>,
-    pub simultaneous_members: Vec<u64>,
-    pub simultaneous_order: Option<u32>,
-    pub terminal_resolution: Option<BattleResolution>,
-}
-
-impl MeleeTimelineEvent {
-    const STEPS_PER_SECOND: f32 = 64.0;
-
-    fn at(kind: MeleeTimelineKind, time_seconds: f32) -> Self {
-        Self {
-            sequence: 0,
-            tick: Self::tick_at(time_seconds),
-            time_seconds,
-            kind,
-            combatant_id: None,
-            target_id: None,
-            engagement_distance_before_metres: None,
-            engagement_distance_after_metres: None,
-            movement_action: None,
-            movement_elapsed_seconds: None,
-            movement_displacement_metres: None,
-            movement_velocity_before_metres_per_second: None,
-            movement_velocity_after_metres_per_second: None,
-            movement_speed_limit_metres_per_second: None,
-            readiness_before_seconds: None,
-            readiness_after_seconds: None,
-            attack_id: None,
-            attack_started_tick: None,
-            attack_contact_tick: None,
-            attack_recovery_tick: None,
-            phase_before: None,
-            phase_after: None,
-            response_choice: None,
-            committed_finish_trade_probability: None,
-            committed_completed_work_fraction: None,
-            committed_expected_intercept_benefit: None,
-            consecutive_intercepts_before: None,
-            consecutive_intercepts_after: None,
-            phase_adaptation_delay_seconds: None,
-            response_availability: None,
-            affected_attack_id: None,
-            simultaneous_batch_id: None,
-            simultaneous_members: Vec::new(),
-            simultaneous_order: None,
-            terminal_resolution: None,
-        }
-    }
-
-    fn tick_at(time_seconds: f32) -> u64 {
-        (time_seconds.max(0.0) * Self::STEPS_PER_SECOND).round() as u64
-    }
-
-    fn with_terminal(mut self, resolution: BattleResolution) -> Self {
-        self.terminal_resolution = Some(resolution);
-        self
-    }
-}
-
 #[derive(Clone, Copy)]
 struct PendingAttack {
     attacker_index: usize,
@@ -974,10 +844,10 @@ pub fn resolve_battle(
             .expect("exhausting the bounded round schedule is terminal")
     });
 
-    let terminal_seconds = recorder.timeline.last().map_or(
-        rounds as f32 * parameters.combat_round_seconds.seconds(),
-        |event| event.time_seconds,
-    );
+    let terminal_seconds = match recorder.timeline.last() {
+        Some(event) => event.time_seconds,
+        None => BattleTime::from_seconds(rounds as f32 * parameters.combat_round_seconds.seconds())?,
+    };
     recorder.record_timeline(
         MeleeTimelineEvent::at(MeleeTimelineKind::Terminal, terminal_seconds)
             .with_terminal(resolution),
@@ -2635,9 +2505,9 @@ mod tests {
         let defender = fighter(2, 3.0, false);
         let parameters = autoresolve_parameters();
         let incoming = ScheduledMeleeTiming {
-            started_at_seconds: 0.0,
-            contact_at_seconds: 0.65,
-            recovery_until_seconds: 0.9,
+            started_at_seconds: BattleTime::ZERO,
+            contact_at_seconds: BattleTime::from_seconds(0.65).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(0.9).unwrap(),
         };
         let below = parameters.melee_dodge_reaction_chance.next_down();
         let above = parameters.melee_dodge_reaction_chance.next_up();
@@ -2682,9 +2552,9 @@ mod tests {
         defender.equipment.shield_block_bonus = 2.0;
         let parameters = autoresolve_parameters();
         let incoming = ScheduledMeleeTiming {
-            started_at_seconds: 0.0,
-            contact_at_seconds: 0.65,
-            recovery_until_seconds: 0.9,
+            started_at_seconds: BattleTime::ZERO,
+            contact_at_seconds: BattleTime::from_seconds(0.65).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(0.9).unwrap(),
         };
 
         assert!(matches!(
@@ -2716,9 +2586,9 @@ mod tests {
             DefenderResponse::Dodge { .. }
         ));
         let occupied = ScheduledMeleeTiming {
-            started_at_seconds: -0.1,
-            contact_at_seconds: 0.5,
-            recovery_until_seconds: 0.8,
+            started_at_seconds: BattleTime::from_seconds(-0.1).unwrap(),
+            contact_at_seconds: BattleTime::from_seconds(0.5).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(0.8).unwrap(),
         };
         assert!(matches!(
             autoresolve_melee_defender_response(
@@ -2741,7 +2611,9 @@ mod tests {
                 0.5,
                 0.5,
                 incoming,
-                MeleeDefenderPhase::OccupiedRecovery { until_seconds: 0.8 },
+                MeleeDefenderPhase::OccupiedRecovery {
+                    until_seconds: BattleTime::from_seconds(0.8).unwrap(),
+                },
                 parameters,).unwrap().response,
             DefenderResponse::Block { effectiveness }
                 if effectiveness > 0.0 && effectiveness < 1.0
@@ -2750,11 +2622,15 @@ mod tests {
 
     #[test]
     fn guard_access_recovers_continuously_before_incoming_contact() {
-        let contact = 1.0;
+        let contact = BattleTime::from_seconds(1.0).unwrap();
         let windup = crate::elapsed::AnimationElapsed::from_seconds(0.65).unwrap();
-        let almost_recovered = recovery_guard_effectiveness(1.1, contact, windup);
-        let deeply_committed = recovery_guard_effectiveness(1.6, contact, windup);
-        let recovered = recovery_guard_effectiveness(contact, contact, windup);
+        let almost_recovered =
+            recovery_guard_effectiveness(BattleTime::from_seconds(1.1).unwrap(), contact, windup)
+                .unwrap();
+        let deeply_committed =
+            recovery_guard_effectiveness(BattleTime::from_seconds(1.6).unwrap(), contact, windup)
+                .unwrap();
+        let recovered = recovery_guard_effectiveness(contact, contact, windup).unwrap();
 
         assert!(deeply_committed < almost_recovered);
         assert!(almost_recovered < recovered);
@@ -2873,9 +2749,9 @@ mod tests {
                 precision: 0.8,
             },
             MeleeDefenderPhase::CommittedAttack(ScheduledMeleeTiming {
-                started_at_seconds: 0.0,
-                contact_at_seconds: 0.65,
-                recovery_until_seconds: 0.9,
+                started_at_seconds: BattleTime::ZERO,
+                contact_at_seconds: BattleTime::from_seconds(0.65).unwrap(),
+                recovery_until_seconds: BattleTime::from_seconds(0.9).unwrap(),
             }),
         )
         .unwrap();
@@ -2904,9 +2780,9 @@ mod tests {
                 precision: 0.8,
             },
             MeleeDefenderPhase::CommittedAttack(ScheduledMeleeTiming {
-                started_at_seconds: 0.0,
-                contact_at_seconds: 0.65,
-                recovery_until_seconds: 0.9,
+                started_at_seconds: BattleTime::ZERO,
+                contact_at_seconds: BattleTime::from_seconds(0.65).unwrap(),
+                recovery_until_seconds: BattleTime::from_seconds(0.9).unwrap(),
             }),
         )
         .unwrap();
@@ -2920,9 +2796,9 @@ mod tests {
     fn canceled_scheduled_attack_cannot_emit_a_ghost_contact() {
         let mut attacker = fighter(2, 3.0, false);
         let timing = ScheduledMeleeTiming {
-            started_at_seconds: 1.0,
-            contact_at_seconds: 1.65,
-            recovery_until_seconds: 1.9,
+            started_at_seconds: BattleTime::from_seconds(1.0).unwrap(),
+            contact_at_seconds: BattleTime::from_seconds(1.65).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(1.9).unwrap(),
         };
         attacker.melee_attack_started_at_seconds = Some(timing.started_at_seconds);
         attacker.melee_attack_contact_at_seconds = Some(timing.contact_at_seconds);
@@ -2937,14 +2813,14 @@ mod tests {
         let defender = fighter(2, 3.0, false);
         let parameters = autoresolve_parameters();
         let incoming = ScheduledMeleeTiming {
-            started_at_seconds: 1.0,
-            contact_at_seconds: 1.65,
-            recovery_until_seconds: 1.9,
+            started_at_seconds: BattleTime::from_seconds(1.0).unwrap(),
+            contact_at_seconds: BattleTime::from_seconds(1.65).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(1.9).unwrap(),
         };
         let later = ScheduledMeleeTiming {
-            started_at_seconds: 1.2,
-            contact_at_seconds: 1.85,
-            recovery_until_seconds: 2.1,
+            started_at_seconds: BattleTime::from_seconds(1.2).unwrap(),
+            contact_at_seconds: BattleTime::from_seconds(1.85).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(2.1).unwrap(),
         };
         assert!(matches!(
             autoresolve_melee_defender_response(
@@ -2959,9 +2835,9 @@ mod tests {
                 if precision == parameters.maximum_hit_precision
         ));
         let earlier = ScheduledMeleeTiming {
-            started_at_seconds: 0.9,
-            contact_at_seconds: 1.55,
-            recovery_until_seconds: 1.8,
+            started_at_seconds: BattleTime::from_seconds(0.9).unwrap(),
+            contact_at_seconds: BattleTime::from_seconds(1.55).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(1.8).unwrap(),
         };
         assert_eq!(
             autoresolve_melee_defender_response(
@@ -2978,9 +2854,9 @@ mod tests {
             DefenderResponse::None
         );
         let too_late = ScheduledMeleeTiming {
-            started_at_seconds: 1.7,
-            contact_at_seconds: 2.35,
-            recovery_until_seconds: 2.6,
+            started_at_seconds: BattleTime::from_seconds(1.7).unwrap(),
+            contact_at_seconds: BattleTime::from_seconds(2.35).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(2.6).unwrap(),
         };
         assert_eq!(
             autoresolve_melee_defender_response(
@@ -3007,9 +2883,9 @@ mod tests {
             DefenderResponse::Block { effectiveness: 0.8 },
             DefenderResponse::Block { effectiveness: 0.8 },
             MeleeDefenderPhase::CommittedAttack(ScheduledMeleeTiming {
-                started_at_seconds: 0.0,
-                contact_at_seconds: 0.65,
-                recovery_until_seconds: 0.9,
+                started_at_seconds: BattleTime::ZERO,
+                contact_at_seconds: BattleTime::from_seconds(0.65).unwrap(),
+                recovery_until_seconds: BattleTime::from_seconds(0.9).unwrap(),
             }),
         )
         .unwrap();
@@ -3036,22 +2912,31 @@ mod tests {
     fn reading_defender_phase_never_mutates_the_scheduled_attack() {
         let mut defender = fighter(2, 3.0, false);
         defender.melee_engagement_target = Some(1);
-        defender.melee_attack_started_at_seconds = Some(1.3);
-        defender.melee_attack_contact_at_seconds = Some(1.95);
-        defender.melee_recovery_until_seconds = 2.2;
+        defender.melee_attack_started_at_seconds = Some(BattleTime::from_seconds(1.3).unwrap());
+        defender.melee_attack_contact_at_seconds = Some(BattleTime::from_seconds(1.95).unwrap());
+        defender.melee_recovery_until_seconds = BattleTime::from_seconds(2.2).unwrap();
         let phase = defender_phase_at_contact(
             &defender,
             1,
             ScheduledMeleeTiming {
-                started_at_seconds: 1.0,
-                contact_at_seconds: 1.65,
-                recovery_until_seconds: 1.9,
+                started_at_seconds: BattleTime::from_seconds(1.0).unwrap(),
+                contact_at_seconds: BattleTime::from_seconds(1.65).unwrap(),
+                recovery_until_seconds: BattleTime::from_seconds(1.9).unwrap(),
             },
         );
         assert!(matches!(phase, MeleeDefenderPhase::CommittedAttack(_)));
-        assert_eq!(defender.melee_attack_started_at_seconds, Some(1.3));
-        assert_eq!(defender.melee_attack_contact_at_seconds, Some(1.95));
-        assert_eq!(defender.melee_recovery_until_seconds, 2.2);
+        assert_eq!(
+            defender.melee_attack_started_at_seconds,
+            Some(BattleTime::from_seconds(1.3).unwrap())
+        );
+        assert_eq!(
+            defender.melee_attack_contact_at_seconds,
+            Some(BattleTime::from_seconds(1.95).unwrap())
+        );
+        assert_eq!(
+            defender.melee_recovery_until_seconds,
+            BattleTime::from_seconds(2.2).unwrap()
+        );
     }
 
     #[test]
@@ -3062,7 +2947,7 @@ mod tests {
         defender.melee_engagement_target = Some(attacker.id);
         attacker.melee_engagement_distance_metres = 0.5;
         defender.melee_engagement_distance_metres = 0.5;
-        attacker.melee_recovery_until_seconds = 1.0;
+        attacker.melee_recovery_until_seconds = BattleTime::from_seconds(1.0).unwrap();
         attacker.melee_phase_adaptation_delay_seconds =
             crate::elapsed::AnimationElapsed::from_seconds(0.2).unwrap();
         let mut attackers = vec![attacker];
@@ -3071,7 +2956,7 @@ mod tests {
         let scheduled = schedule_side_melee_attacks_in_window(
             &mut attackers,
             &mut defenders,
-            0.0,
+            BattleTime::ZERO,
             crate::elapsed::AnimationElapsed::from_seconds(2.0).unwrap(),
             &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(11)),
             &mut recorder,
@@ -3080,7 +2965,7 @@ mod tests {
         .unwrap();
 
         assert_eq!(scheduled.len(), 1);
-        assert!((scheduled[0].attack_timing.started_at_seconds - 1.2).abs() < 1.0e-6);
+        assert!((scheduled[0].attack_timing.started_at_seconds.seconds() - 1.2).abs() < 1.0e-6);
         assert_eq!(
             attackers[0].melee_phase_adaptation_delay_seconds.seconds(),
             0.0
