@@ -285,7 +285,10 @@ mod legacy_tests {
             .unwrap()
             .cycles();
             let maximum = predicted
-                + playback_tuning().phase_correction_rate_per_second.phase_units_per_second() * delta_seconds
+                + playback_tuning()
+                    .phase_correction_rate_per_second
+                    .phase_units_per_second()
+                    * delta_seconds
                 + 0.000_01;
             assert!(actual >= 0.0, "phase moved backwards by {actual}");
             assert!(actual <= maximum, "phase step {actual} exceeded {maximum}");
@@ -345,7 +348,10 @@ mod legacy_tests {
             .with_world_velocity(velocity);
         let mut presented = PresentedSkeleton::new(authoritative.clone(), None);
         let delta_seconds = 1.0 / 60.0;
-        let maximum_correction = playback_tuning().phase_correction_rate_per_second.phase_units_per_second() * delta_seconds;
+        let maximum_correction = playback_tuning()
+            .phase_correction_rate_per_second
+            .phase_units_per_second()
+            * delta_seconds;
 
         for tick in 1u64..=8 {
             let predicted_delta = gait_cycle_phase_delta(

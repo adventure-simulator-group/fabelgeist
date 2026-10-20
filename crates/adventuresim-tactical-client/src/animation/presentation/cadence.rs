@@ -67,7 +67,8 @@ pub(super) fn apply_authored_cadence(
             AuthoredCadenceLimit::Unrestricted
         };
         if limit == AuthoredCadenceLimit::CadenceCapped
-            && !continuing.is_some_and(|current| current.limit == AuthoredCadenceLimit::CadenceCapped)
+            && !continuing
+                .is_some_and(|current| current.limit == AuthoredCadenceLimit::CadenceCapped)
         {
             warn!(
                 speed_metres_per_second = speed.metres_per_second(),

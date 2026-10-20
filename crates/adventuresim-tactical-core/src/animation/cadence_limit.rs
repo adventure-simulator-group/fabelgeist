@@ -106,8 +106,7 @@ impl AuthoredCadenceCap {
                     // Integral of 1 - smoothstep(t): unit initial slope,
                     // zero final slope and zero curvature at both ends.
                     let applied = transition_start
-                        + self.transition_width_per_second.0
-                            * (t - t.powi(3) + 0.5 * t.powi(4));
+                        + self.transition_width_per_second.0 * (t - t.powi(3) + 0.5 * t.powi(4));
                     if !applied.is_finite() {
                         return Err(AnimationValueError::Overflow {
                             quantity: AnimationQuantity::StepCadence,

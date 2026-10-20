@@ -96,7 +96,8 @@ pub(in crate::animation) fn coalesced_contacts(
     let delta = current
         .events_since(previous)
         .filter(|delta| playback_tuning().maximum_coalesced_events.contains(*delta))?;
-    delta.offsets()
+    delta
+        .offsets()
         .rev()
         .map(|offset| {
             let foot = if offset.is_even() {

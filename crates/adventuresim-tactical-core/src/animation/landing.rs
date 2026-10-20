@@ -1,7 +1,8 @@
 //! Authoritative landing observations retained by animation state.
 
 use super::{
-    AnimationEventSpan, AnimationQuantity, AnimationValueError, AnimationValueResult, NonnegativeSpeed,
+    AnimationEventSpan, AnimationQuantity, AnimationValueError, AnimationValueResult,
+    NonnegativeSpeed,
 };
 use derive_more::{Debug, Display, From};
 use serde::{Deserialize, Serialize};

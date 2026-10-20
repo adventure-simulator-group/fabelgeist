@@ -69,8 +69,7 @@ fn diagonal_combat_cadence_blends_strafe_and_skip_stride() {
         .with_local_velocity(Vec3::new(1.0, 0.0, 1.0))
         .with_raised_locomotion(RaisedLocomotionIntent::moving(
             Vec2::ONE,
-            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
-                .unwrap(),
+            adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0).unwrap(),
         ));
     let mut presented = PresentedSkeleton::new(state.clone(), None);
     let strides = AuthoredLocomotionStrides {
@@ -132,35 +131,72 @@ fn authored_cadence_reports_and_caps_unrepresentable_speed() {
 fn authored_cadence_cap_has_a_smooth_bounded_transition() {
     let cap = playback_tuning().authored_step_cadence;
     assert_eq!(
-        cap.select(CadenceDemand::Finite(StepCadence::from_per_second(4.0).unwrap()))
-            .unwrap().applied().per_second(),
+        cap.select(CadenceDemand::Finite(
+            StepCadence::from_per_second(4.0).unwrap()
+        ))
+        .unwrap()
+        .applied()
+        .per_second(),
         4.0,
     );
     assert_eq!(
-        cap.select(CadenceDemand::Finite(StepCadence::from_per_second(5.5).unwrap()))
-            .unwrap().applied().per_second(),
+        cap.select(CadenceDemand::Finite(
+            StepCadence::from_per_second(5.5).unwrap()
+        ))
+        .unwrap()
+        .applied()
+        .per_second(),
         5.0,
     );
     assert_eq!(
-        cap.select(CadenceDemand::Finite(StepCadence::from_per_second(7.0).unwrap()))
-            .unwrap().applied().per_second(),
+        cap.select(CadenceDemand::Finite(
+            StepCadence::from_per_second(7.0).unwrap()
+        ))
+        .unwrap()
+        .applied()
+        .per_second(),
         5.0,
     );
-    let near_cap = cap.select(CadenceDemand::Finite(StepCadence::from_per_second(5.0).unwrap()))
-        .unwrap().applied().per_second();
+    let near_cap = cap
+        .select(CadenceDemand::Finite(
+            StepCadence::from_per_second(5.0).unwrap(),
+        ))
+        .unwrap()
+        .applied()
+        .per_second();
     assert!(near_cap < 5.0);
     assert!(near_cap > 4.8);
 
     let epsilon = 0.001;
-    let slope_before = (cap.select(CadenceDemand::Finite(StepCadence::from_per_second(4.5).unwrap()))
-        .unwrap().applied().per_second()
-        - cap.select(CadenceDemand::Finite(StepCadence::from_per_second(4.5 - epsilon).unwrap()))
-            .unwrap().applied().per_second())
+    let slope_before = (cap
+        .select(CadenceDemand::Finite(
+            StepCadence::from_per_second(4.5).unwrap(),
+        ))
+        .unwrap()
+        .applied()
+        .per_second()
+        - cap
+            .select(CadenceDemand::Finite(
+                StepCadence::from_per_second(4.5 - epsilon).unwrap(),
+            ))
+            .unwrap()
+            .applied()
+            .per_second())
         / epsilon;
-    let slope_after = (cap.select(CadenceDemand::Finite(StepCadence::from_per_second(5.5 + epsilon).unwrap()))
-        .unwrap().applied().per_second()
-        - cap.select(CadenceDemand::Finite(StepCadence::from_per_second(5.5).unwrap()))
-            .unwrap().applied().per_second())
+    let slope_after = (cap
+        .select(CadenceDemand::Finite(
+            StepCadence::from_per_second(5.5 + epsilon).unwrap(),
+        ))
+        .unwrap()
+        .applied()
+        .per_second()
+        - cap
+            .select(CadenceDemand::Finite(
+                StepCadence::from_per_second(5.5).unwrap(),
+            ))
+            .unwrap()
+            .applied()
+            .per_second())
         / epsilon;
     assert!((slope_before - 1.0).abs() < 0.001);
     assert!(slope_after.abs() < 0.001);

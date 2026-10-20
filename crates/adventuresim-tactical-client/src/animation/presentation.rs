@@ -150,14 +150,15 @@ impl PresentedSkeleton {
                     let measured_drift = CycleDelta::from_arithmetic(measured_drift)?;
                     let difference = measured_drift.checked_sub(self.phase_error_remaining)?;
                     let adjustment = CycleDelta::from_arithmetic(
-                        difference.cycles()
-                            * playback.phase_drift_measurement_blend.fraction(),
+                        difference.cycles() * playback.phase_drift_measurement_blend.fraction(),
                     )?;
                     self.phase_error_remaining =
                         self.phase_error_remaining.checked_add(adjustment)?;
                 }
-                let maximum_correction =
-                    playback.phase_correction_rate_per_second.phase_units_per_second() * delta_seconds;
+                let maximum_correction = playback
+                    .phase_correction_rate_per_second
+                    .phase_units_per_second()
+                    * delta_seconds;
                 let correction = CycleDelta::from_arithmetic(
                     self.phase_error_remaining
                         .cycles()
@@ -542,8 +543,10 @@ mod authored_cadence_tests {
         .unwrap();
 
         let nominal_delta = 0.5 / 17.0;
-        let maximum_correction =
-            playback_tuning().phase_correction_rate_per_second.phase_units_per_second() / locomotion_sample_rate().hertz();
+        let maximum_correction = playback_tuning()
+            .phase_correction_rate_per_second
+            .phase_units_per_second()
+            / locomotion_sample_rate().hertz();
         assert!(presented.action_phase().fraction() > previous_phase);
         assert!(
             presented.action_phase().fraction()
