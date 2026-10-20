@@ -323,7 +323,10 @@ fn apply_control(world: &mut World) -> bevy::prelude::Result {
                 Level::Middle | Level::Coarse => Level::Full,
             };
         }
-        BatchControl::Ordinary | BatchControl::ForcedSingletons => {}
+        BatchControl::Ordinary
+        | BatchControl::ForcedSingletons
+        | BatchControl::ChangedSceneOwner
+        | BatchControl::ParentedOriginalRoot => {}
     }
     Ok(())
 }

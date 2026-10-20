@@ -41,6 +41,7 @@ mod grown_capture;
 mod interior_capture;
 mod interior_furniture_capture;
 mod manifest;
+mod obstacle_setup;
 mod plant_lods;
 mod terrain_setup;
 mod triangle_census;
@@ -1733,6 +1734,7 @@ fn setup_scene(
     let mut tree_focus = None;
     let mut rock_focus = None;
     let mut tree_focus_entity = None;
+    let mut spawned_obstacles = Vec::new();
 
     let catalog_cameras = interior_furniture_capture::setup_catalog(
         &mut commands,
@@ -1800,36 +1802,19 @@ fn setup_scene(
     ));
 
     for obstacle in obstacles {
-        let (grid_x, grid_z, kind, collider, y_offset, overlay_shape, overlay_color) =
-            match obstacle {
-                GeneratedObstacle::Tree { x, z } => {
-                    expected_trees += 1;
-                    (
-                        x,
-                        z,
-                        SceneObstacle::Tree,
-                        Collider::cylinder(TREE_TRUNK_RADIUS_METRES, TREE_TRUNK_HEIGHT_METRES),
-                        TREE_TRUNK_HEIGHT_METRES * 0.5,
-                        meshes.add(Cylinder::new(
-                            TREE_TRUNK_RADIUS_METRES * 1.08,
-                            TREE_TRUNK_HEIGHT_METRES * 1.02,
-                        )),
-                        Color::srgb(0.1, 1.0, 0.85),
-                    )
-                }
-                GeneratedObstacle::Rock { x, z, recipe } => {
-                    expected_rocks += 1;
-                    (
-                        x,
-                        z,
-                        SceneObstacle::Rock(recipe),
-                        Collider::sphere(recipe.collision_radius_metres()),
-                        recipe.collision_radius_metres(),
-                        meshes.add(Sphere::new(recipe.collision_radius_metres() * 1.08)),
-                        Color::srgb(1.0, 0.08, 0.72),
-                    )
-                }
-            };
+        let obstacle_setup::ObstacleShape {
+            grid_x,
+            grid_z,
+            kind,
+            collider,
+            y_offset,
+            overlay_shape,
+            overlay_color,
+        } = obstacle_setup::ObstacleShape::from_generated(obstacle, &mut meshes);
+        match kind {
+            SceneObstacle::Tree => expected_trees += 1,
+            SceneObstacle::Rock(_) => expected_rocks += 1,
+        }
         let x = f32::from(grid_x) * input.playable.spacing_metres - terrain.width() * 0.5;
         let z = f32::from(grid_z) * input.playable.spacing_metres - terrain.depth() * 0.5;
         let y = terrain.height_at(Vec2::new(x, z)).unwrap_or_default() + y_offset;
@@ -1870,6 +1855,11 @@ fn setup_scene(
         if focuses_tree {
             tree_focus_entity = Some(obstacle_entity);
         }
+        spawned_obstacles.push(obstacle_setup::SpawnedObstacle {
+            entity: obstacle_entity,
+            kind,
+            collider_frame: transform,
+        });
         commands.spawn((
             Name::new("Capture collider overlay"),
             CaptureOverlay,
@@ -2086,7 +2076,7 @@ fn setup_scene(
         &procedural_assets,
         understory_review_origin,
     );
-    terrain_setup::spawn(
+    let scene = terrain_setup::spawn(
         &mut commands,
         &input,
         environment,
@@ -2094,6 +2084,12 @@ fn setup_scene(
         terrain,
         terrain_patch.as_ref(),
     )?;
+    obstacle_setup::CapturedObstacleBatch::bind(
+        &mut commands,
+        scene,
+        spawned_obstacles,
+        digest.clone(),
+    );
     commands.trigger(SceneVistaBundle {
         properties: input.properties.clone(),
         scene_digest: digest.clone(),

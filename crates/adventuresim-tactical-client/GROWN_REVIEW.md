@@ -118,6 +118,19 @@ supplies no replacement-source fallback.
 
 ## Scene and ownership
 
+The native host binds its original generated obstacle batch to the actual
+terrain-scene entity. Before isolation, it checks each original obstacle's
+identity, kind, unparented collider-centred transform, static body, collision
+layers and collider presence. The report retains this original batch
+separately. Those obstacles are then removed for the private layout below.
+This check does not mean that grown meshes use the generated physical roots or
+establish ownership for replicated multi-scene gameplay.
+
+The `changed-scene-owner` and `parented-original-root` controls corrupt one
+actual generated obstacle before this check. They must fail before private
+layout installation or any held-pose GPU proof. They are startup rejection
+controls, rather than controls that wait for an intended-distance pose.
+
 The destination roots use authored offsets at the scene centre and twelve metres
 to either side. Each samples its own terrain support and retains identity scale
 and yaw. Source growth on other terrain is not adapted to the destination slope.

@@ -63,6 +63,12 @@ fn setup_inner(world: &mut World) -> Result<()> {
         .geometry
         .take()
         .context("prepared grown geometry missing")?;
+    let digest = world.resource::<SceneCaptureState>().digest.clone();
+    review.control.apply_original_batch(world)?;
+    let original_batch =
+        super::super::obstacle_setup::CapturedObstacleBatch::check(world, &digest)?;
+    review.metadata["pre_isolation_generated_obstacle_batch"] =
+        serde_json::to_value(original_batch)?;
     let resolved = cameras::resolve(world, &geometry, &review.placements)?;
     let cameras = resolved.cameras;
     let support = resolved.support;

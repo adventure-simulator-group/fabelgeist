@@ -7,7 +7,7 @@ pub(super) fn spawn(
     ground: SceneGround,
     terrain: SceneTerrain,
     terrain_patch: Option<&SceneTerrainPatch>,
-) -> Result {
+) -> Result<Entity> {
     let colliders = terrain_patch.map_or_else(
         || terrain.colliders(),
         |patch| patch.colliders_with_terrain(&terrain),
@@ -36,5 +36,5 @@ pub(super) fn spawn(
             ));
         }
     });
-    Ok(())
+    Ok(terrain_entity.id())
 }

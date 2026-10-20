@@ -125,7 +125,6 @@ pub(crate) use ground_scatter::{
     GroundScatterLayer, LooseStonePebblePatch, PlantCaptureAnchors, PlantLodInstance,
     UnderstoryReviewSpecimen, WoodyUnderstoryPresentationCache, spawn_understory_review_specimens,
 };
-pub(crate) use obstacles::oak_review_terminal_specimen;
 pub(crate) use obstacles::rock::ProceduralRockVisual;
 pub(crate) use obstacles::tree::TreeImpostorProvenance;
 #[cfg(test)]
@@ -141,6 +140,7 @@ pub(crate) use obstacles::tree::{
     oak_aggregate_bark_material, oak_bark_material, oak_leaf_material, oak_root_exposure_for_site,
     tree_species_for_site,
 };
+pub(crate) use obstacles::{SceneObstacleOf, oak_review_terminal_specimen};
 pub(crate) use sky::AtmosphereIblStatus;
 pub(crate) use sky::{TacticalMoon, TacticalMoonlight, TacticalStars, TacticalSunlight};
 #[cfg(all(feature = "foliage-review", not(target_family = "wasm")))]
