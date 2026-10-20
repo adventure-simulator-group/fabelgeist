@@ -84,10 +84,18 @@ fn owned_vista_roots_use_the_accepted_surface_without_restitching_raw_heights() 
 #[test]
 fn owned_vista_roots_reject_missing_support_and_the_existing_steep_slope_limit() {
     check(&owned_terrain(0.0), |placement| {
-        assert!(placement.height(ScenePlanPoint::from_metres(Vec2::splat(400.0)).unwrap()).is_none())
+        assert!(
+            placement
+                .height(ScenePlanPoint::from_metres(Vec2::splat(400.0)).unwrap())
+                .is_none()
+        )
     });
     check(&owned_terrain(1.0), |placement| {
-        assert!(placement.height(ScenePlanPoint::from_metres(Vec2::new(40.0, 30.0)).unwrap()).is_none())
+        assert!(
+            placement
+                .height(ScenePlanPoint::from_metres(Vec2::new(40.0, 30.0)).unwrap())
+                .is_none()
+        )
     });
 }
 
@@ -105,6 +113,9 @@ fn sampled_vista_scenes_retain_their_presented_heightfield_policy() {
         )
         .unwrap();
         let point = ScenePlanPoint::from_metres(point).unwrap();
-        assert_eq!(placement.height(point), SupportElevation::from_metres(expected));
+        assert_eq!(
+            placement.height(point),
+            SupportElevation::from_metres(expected)
+        );
     });
 }

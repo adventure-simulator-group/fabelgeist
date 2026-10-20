@@ -1,10 +1,8 @@
 //! Actual playable/vista support, with an explicit authority boundary.
 use super::*;
 use crate::{
-    city_layout::grounding::SupportElevation,
-    scene::GroundSubstrate,
-    scene_coordinates::ScenePlanPoint,
-    vista_surface::vista_triangle_height,
+    city_layout::grounding::SupportElevation, scene::GroundSubstrate,
+    scene_coordinates::ScenePlanPoint, vista_surface::vista_triangle_height,
 };
 const WET_GROUND_LIMIT_BPS: u16 = 2500;
 pub(super) struct PlacementGround<'a> {
@@ -28,10 +26,7 @@ impl<'a> PlacementGround<'a> {
             ground,
         }
     }
-    pub(super) fn height_at(
-        &self,
-        point: ScenePlanPoint,
-    ) -> Option<SupportElevation> {
+    pub(super) fn height_at(&self, point: ScenePlanPoint) -> Option<SupportElevation> {
         self.terrain.height_at(point).or_else(|| {
             SupportElevation::from_metres(vista_triangle_height(
                 self.input.vista.lods.first()?,

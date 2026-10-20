@@ -65,7 +65,6 @@ pub(super) fn stair_limits() -> CourtStairLimits {
     COMPARISON_STAIRS
 }
 
-
 pub(super) fn compare(
     property: &CityCompound,
     members: ComparisonMembers,

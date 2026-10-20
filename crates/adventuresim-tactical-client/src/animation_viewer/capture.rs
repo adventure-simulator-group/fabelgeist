@@ -4,11 +4,11 @@ use super::*;
 pub(super) use admission::reject_capture;
 use admission::{CaptureAdmission, RejectedCaptureAdmission, fail_capture};
 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 pub(super) use capture_schedule::CapturePlugin;
 use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
 use repeated_evaluation::RepeatedEvaluationSnapshot;
 use root_motion::CaptureGround;
-use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 
 mod admission;
 mod capture_schedule;
@@ -260,11 +260,14 @@ pub(super) fn drive_sequence(
             if let Some(mut body_response) = body_response {
                 *body_response = LocomotionBodyResponseState::default();
             }
-            let Some(ground) = sequence.admit_terrain_height(&terrain, ScenePlanPoint::ORIGIN) else {
+            let Some(ground) = sequence.admit_terrain_height(&terrain, ScenePlanPoint::ORIGIN)
+            else {
                 return;
             };
             let Some(position) = sequence.admit_scene_position(Vec3::new(
-                0.0, ground.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES, 0.0,
+                0.0,
+                ground.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES,
+                0.0,
             )) else {
                 return;
             };
@@ -408,7 +411,11 @@ pub(super) fn drive_sequence(
             elapsed,
         };
         let Some(position) = sequence.fixture_root_position(
-            &terrain, transform.translation, &frame, &motion, *terrain_ik,
+            &terrain,
+            transform.translation,
+            &frame,
+            &motion,
+            *terrain_ik,
         ) else {
             return;
         };

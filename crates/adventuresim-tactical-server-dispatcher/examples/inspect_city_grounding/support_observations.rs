@@ -5,8 +5,7 @@ use adventuresim_building_generator::{
     spatial_geometry::{GeometryError, GeometryResult},
 };
 use adventuresim_tactical_core::{
-    city_layout::grounding::SupportElevation,
-    scene_coordinates::ScenePlanPoint,
+    city_layout::grounding::SupportElevation, scene_coordinates::ScenePlanPoint,
 };
 use bevy::math::{Vec2, Vec3Swizzles};
 use serde_json::{Value, json};
@@ -32,7 +31,9 @@ pub(super) fn grounded_nodes(
     elevation: SupportElevation,
     source: &InspectionSource<'_>,
 ) -> ObservationResult<Vec<Value>> {
-    plan.resolved_geometry.structural_nodes.iter()
+    plan.resolved_geometry
+        .structural_nodes
+        .iter()
         .filter(|node| node.grounded)
         .map(|node| {
             let point = world(node.position.metres().xz())?;
@@ -51,11 +52,16 @@ pub(super) fn exterior_thresholds(
     elevation: SupportElevation,
     source: &InspectionSource<'_>,
 ) -> ObservationResult<Vec<Value>> {
-    compile_operable_doors(plan)?.iter()
+    compile_operable_doors(plan)?
+        .iter()
         .map(|door| {
-            let opening = plan.opening_assemblies.iter()
+            let opening = plan
+                .opening_assemblies
+                .iter()
                 .find(|opening| opening.id == door.opening)
-                .ok_or(ObservationError::MissingOpening { opening: door.opening })?;
+                .ok_or(ObservationError::MissingOpening {
+                    opening: door.opening,
+                })?;
             let point = world(door.closed_centre.metres().xz())?;
             Ok(json!({"id":opening.id, "point":point,
                 "sill_elevation":opening.sill_elevation_metres + elevation.metres(),

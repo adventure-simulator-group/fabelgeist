@@ -75,7 +75,9 @@ impl RetainedTreePresentations {
         diagnostics: &mut TreeAssetResidencyDiagnostics,
         images: &mut Assets<Image>,
     ) -> TerrainHeightmapResult<()> {
-        if cache.terrain_contact.as_ref()
+        if cache
+            .terrain_contact
+            .as_ref()
             .is_some_and(|contact| contact.scene_digest == environment.scene_digest)
         {
             return Ok(());
@@ -84,7 +86,10 @@ impl RetainedTreePresentations {
             .scenes
             .iter()
             .position(|scene| {
-                scene.cache.terrain_contact.as_ref()
+                scene
+                    .cache
+                    .terrain_contact
+                    .as_ref()
                     .is_some_and(|contact| contact.scene_digest == environment.scene_digest)
             })
             .and_then(|index| self.scenes.remove(index));
@@ -132,7 +137,9 @@ impl RetainedTreePresentations {
         if cache.variants.contains_key(&key) {
             return;
         }
-        let Some(mut cached) = self.variant(key) else { return; };
+        let Some(mut cached) = self.variant(key) else {
+            return;
+        };
         // Plant geometry is site-local; bind only bark to destination terrain.
         cached.bark_material = cache.bark_for_terrain(species, binding);
         diagnostics.add_resident_assets(&cached.resident_assets);

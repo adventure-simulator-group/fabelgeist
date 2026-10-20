@@ -5,7 +5,8 @@ use crate::presentation::{
 };
 use adventuresim_building_generator::{GenerationError, spatial_geometry::GeometryError};
 use adventuresim_tactical_core::{
-    scene::TerrainSupportError, scene_input::{SceneBuildingId, SceneInputError},
+    scene::TerrainSupportError,
+    scene_input::{SceneBuildingId, SceneInputError},
 };
 use bevy::ecs::error::BevyError;
 use std::sync::Arc;

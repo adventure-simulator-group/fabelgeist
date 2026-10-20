@@ -79,9 +79,12 @@ mod tests {
         )))
         .unwrap();
         let compound: CityCompound = serde_json::from_value(fixture["compound"].clone()).unwrap();
-        let floor: SupportElevation = serde_json::from_value(fixture["front_floor_m"].clone()).unwrap();
-        let street: SupportElevation = serde_json::from_value(fixture["street_approach_source_m"].clone()).unwrap();
-        let gate: SupportElevation = serde_json::from_value(fixture["gate_source_m"].clone()).unwrap();
+        let floor: SupportElevation =
+            serde_json::from_value(fixture["front_floor_m"].clone()).unwrap();
+        let street: SupportElevation =
+            serde_json::from_value(fixture["street_approach_source_m"].clone()).unwrap();
+        let gate: SupportElevation =
+            serde_json::from_value(fixture["gate_source_m"].clone()).unwrap();
         let height = |point| {
             Some(if point == compound.access[0].start() {
                 street
@@ -89,7 +92,8 @@ mod tests {
                 gate
             })
         };
-        let court: SupportElevation = serde_json::from_value(fixture["court_candidate_m"].clone()).unwrap();
+        let court: SupportElevation =
+            serde_json::from_value(fixture["court_candidate_m"].clone()).unwrap();
         let report = inspect(&compound, floor, court, height, 0.65)
             .unwrap()
             .unwrap();

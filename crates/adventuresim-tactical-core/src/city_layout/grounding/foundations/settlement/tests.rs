@@ -1,6 +1,6 @@
 use super::*;
-use crate::scene_coordinates::ScenePlanPoint;
 use crate::city_layout::grounding::tests::Fixture;
+use crate::scene_coordinates::ScenePlanPoint;
 
 fn fixtures() -> (Vec<CompoundSupportPlan>, GeographicSurface) {
     let fixtures = [Fixture::load_965(), Fixture::load()];
@@ -44,10 +44,7 @@ fn goslar_properties_share_one_clipped_source_and_iteration_independent_support(
     for plan in plans {
         for member in plan.member_support() {
             let point = member.contact.centre();
-            let heights: Vec<_> = forward
-                .elevations_at(point)
-                .iter()
-                .collect();
+            let heights: Vec<_> = forward.elevations_at(point).iter().collect();
             assert_eq!(
                 heights.len(),
                 1,
@@ -55,9 +52,7 @@ fn goslar_properties_share_one_clipped_source_and_iteration_independent_support(
                 member.building_id
             );
             assert!((heights[0].metres() - member.elevation.metres()).abs() < 0.001);
-            let hit = forward
-                .highest_surface_at(point)
-                .unwrap();
+            let hit = forward.highest_surface_at(point).unwrap();
             let normal = *hit.normal;
             assert!((normal - Vec3::Y).length() < 0.001);
         }
@@ -326,10 +321,7 @@ fn unowned_source_query_does_not_extrapolate_a_nearby_graded_floor() {
             .local_to_world(Vec2::new(-plot.dimensions_metres().x * 0.5 - 0.0005, 0.0));
     let point = ScenePlanPoint::try_from(point).unwrap();
     assert!(!surface.contains(point));
-    let expected = source
-        .elevation_at(point)
-        .unwrap()
-        .metres();
+    let expected = source.elevation_at(point).unwrap().metres();
     let observed = terrain
         .highest_surface_at(point)
         .unwrap()

@@ -170,7 +170,8 @@ pub(in crate::animation::procedural) fn reachable_run_contact_target(
     let support_radius =
         (contact_ready_phase - ik_tuning().run_contact_chain_settle_phase.fraction()).max(0.0);
     let travel_per_phase = step_distance.metres() * 2.0;
-    let current_terrain_height = terrain_height_at(ScenePlanPoint::from_metres(current_upper_root.xz())?);
+    let current_terrain_height =
+        terrain_height_at(ScenePlanPoint::from_metres(current_upper_root.xz())?);
     let [Some(entry), Some(centre), Some(exit)] = [
         phase_to_contact.cycles() - support_radius,
         phase_to_contact.cycles(),
@@ -179,15 +180,18 @@ pub(in crate::animation::procedural) fn reachable_run_contact_target(
     .map(|remaining_phase| {
         let mut root =
             current_upper_root + direction * (remaining_phase.max(0.0) * travel_per_phase);
-        if let (Some(current_height), Some(predicted_height)) =
-            (current_terrain_height, terrain_height_at(ScenePlanPoint::from_metres(root.xz())?))
-        {
+        if let (Some(current_height), Some(predicted_height)) = (
+            current_terrain_height,
+            terrain_height_at(ScenePlanPoint::from_metres(root.xz())?),
+        ) {
             root.y += predicted_height.metres() - current_height.metres();
         }
-        Some(root - Vec3::Y
-            * ik_tuning()
-                .run_maximum_planned_reach_pelvis_drop_metres
-                .metres())
+        Some(
+            root - Vec3::Y
+                * ik_tuning()
+                    .run_maximum_planned_reach_pelvis_drop_metres
+                    .metres(),
+        )
     }) else {
         return None;
     };
@@ -270,4 +274,3 @@ pub(in crate::animation::procedural) fn run_contact_reachable_through_stance(
         .into_iter()
         .all(|root| candidate.distance(root) <= maximum_reach + 0.001)
 }
-

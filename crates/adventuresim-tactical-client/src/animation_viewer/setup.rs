@@ -15,7 +15,9 @@ pub(super) fn setup_viewer(
         return Ok(());
     };
     let Some(position) = sequence.admit_scene_position(Vec3::new(
-        0.0, height.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES, 0.0,
+        0.0,
+        height.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES,
+        0.0,
     )) else {
         return Ok(());
     };

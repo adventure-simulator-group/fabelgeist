@@ -111,9 +111,10 @@ pub(super) fn report_terrain_delta(name: &str, input: &TacticalSceneInput, terra
                 z as f32 * spacing_metres - terrain.depth() * 0.5,
             );
             let scene_point = ScenePlanPoint::from_metres(point).unwrap();
-            let (Some(fine), Some(coarse)) =
-                (terrain.height_at(scene_point), terrain.coarse_height_at(scene_point))
-            else {
+            let (Some(fine), Some(coarse)) = (
+                terrain.height_at(scene_point),
+                terrain.coarse_height_at(scene_point),
+            ) else {
                 continue;
             };
             let delta = fine.metres() - coarse.metres();

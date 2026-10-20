@@ -1,7 +1,9 @@
 //! Woody-shelter rasterization and publication of matching weather textures.
 
 use super::*;
-use adventuresim_building_generator::spatial_geometry::{Elevation, GeometryResult, PositiveLength};
+use adventuresim_building_generator::spatial_geometry::{
+    Elevation, GeometryResult, PositiveLength,
+};
 use adventuresim_tactical_core::scene_coordinates::Scene;
 
 pub(in crate::presentation) fn update_weather_occlusion_map(
@@ -92,7 +94,6 @@ fn weather_occlusion_tree_signature(
     .to_u64()
 }
 
-
 fn weather_occlusion_image(
     terrain: &SceneTerrain,
     bounds: SceneElevationRange,
@@ -119,7 +120,8 @@ fn weather_occlusion_image(
         let Some(height) = height else {
             continue;
         };
-        let encoded = (((height.metres() - minimum) / range).clamp(0.0, 1.0) * 65_535.0).round() as u16;
+        let encoded =
+            (((height.metres() - minimum) / range).clamp(0.0, 1.0) * 65_535.0).round() as u16;
         pixels[index * 4] = (encoded & 0xff) as u8;
         pixels[index * 4 + 1] = (encoded >> 8) as u8;
         pixels[index * 4 + 3] = 255;
@@ -191,12 +193,13 @@ fn rasterize_weather_branch(
             if point.distance_squared(centre) > (radius + half_diagonal).powi(2) {
                 continue;
             }
-            let shelter_height = Elevation::from_metres(
-                start.y + (end.y - start.y) * along + radius,
-            )?;
+            let shelter_height =
+                Elevation::from_metres(start.y + (end.y - start.y) * along + radius)?;
             let index = z as usize * WEATHER_OCCLUSION_RESOLUTION as usize + x as usize;
-            shelter_heights[index] = Some(shelter_heights[index]
-                .map_or(shelter_height, |previous| previous.max(shelter_height)));
+            shelter_heights[index] = Some(
+                shelter_heights[index]
+                    .map_or(shelter_height, |previous| previous.max(shelter_height)),
+            );
         }
     }
     Ok(())
@@ -224,7 +227,8 @@ mod tests {
             WEATHER_OCCLUSION_RESOLUTION as usize
                 * WEATHER_OCCLUSION_RESOLUTION as usize
         ];
-        rasterize_weather_branch(&mut heights, &terrain, &GlobalTransform::IDENTITY, &branch).unwrap();
+        rasterize_weather_branch(&mut heights, &terrain, &GlobalTransform::IDENTITY, &branch)
+            .unwrap();
         let covered = heights
             .iter()
             .enumerate()
@@ -243,6 +247,11 @@ mod tests {
             + 1;
         assert!(covered.len() > 1_000);
         assert!(width > depth * 5);
-        assert!(heights[256 * WEATHER_OCCLUSION_RESOLUTION as usize + 256].unwrap().metres() >= 5.18);
+        assert!(
+            heights[256 * WEATHER_OCCLUSION_RESOLUTION as usize + 256]
+                .unwrap()
+                .metres()
+                >= 5.18
+        );
     }
 }

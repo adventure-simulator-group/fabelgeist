@@ -14,7 +14,10 @@ pub(super) fn oak_variant_for_site(point: ScenePlanPoint) -> (usize, Seed) {
     (index, oak_variant_seed(index))
 }
 
-pub(crate) fn oak_root_exposure_for_site(point: ScenePlanPoint, environment: &SceneEnvironment) -> f32 {
+pub(crate) fn oak_root_exposure_for_site(
+    point: ScenePlanPoint,
+    environment: &SceneEnvironment,
+) -> f32 {
     let (index, seed) = oak_variant_for_site(point);
     oak_gnarling_for_site(OAK_GNARLING_SHOWCASE[index], environment, seed).root_exposure
 }

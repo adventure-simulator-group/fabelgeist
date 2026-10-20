@@ -51,10 +51,11 @@ pub(super) fn compare(
     )) else {
         return Ok(None);
     };
-    let Some(rear) = SupportElevation::from_metres(rear_source.metres().clamp(
-        court.metres() - rear_reach,
-        court.metres() + rear_reach,
-    )) else {
+    let Some(rear) = SupportElevation::from_metres(
+        rear_source
+            .metres()
+            .clamp(court.metres() - rear_reach, court.metres() + rear_reach),
+    ) else {
         return Ok(None);
     };
     let candidate = |name: &str, levels: [SupportElevation; 3]| {

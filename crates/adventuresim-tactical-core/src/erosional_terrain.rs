@@ -79,8 +79,8 @@ fn field(
 ) -> TerrainRecipeResult<f32> {
     let collar = recipe.transition_collar();
     let weight = collar.blend_weight(point.xz());
-    let query = ScenePlanPoint::from_metres(point.xz())
-        .ok_or(TerrainRecipeError::NonFiniteField)?;
+    let query =
+        ScenePlanPoint::from_metres(point.xz()).ok_or(TerrainRecipeError::NonFiniteField)?;
     let height = height_at_extended_edge(terrain, query)?;
     let base = point.y - height.metres();
     if weight <= 0.0 {
@@ -96,10 +96,8 @@ fn field(
     let foot_distance = f32::from(recipe.half_width_cm() - recipe.collar_cm()) / 100.0;
     // Grade to the existing downhill foot. Subtracting relief from every local
     // height would create a closed trench when the collar returned uphill.
-    let foot_point = ScenePlanPoint::from_metres(
-        point.xz() + downhill * (foot_distance - local.y),
-    )
-    .ok_or(TerrainRecipeError::NonFiniteField)?;
+    let foot_point = ScenePlanPoint::from_metres(point.xz() + downhill * (foot_distance - local.y))
+        .ok_or(TerrainRecipeError::NonFiniteField)?;
     let foot = height_at_extended_edge(terrain, foot_point)?;
     let relief = (height.metres() - foot.metres())
         .max(0.001)
@@ -195,12 +193,16 @@ mod tests {
                     recipe,
                     Vec3::new(0.0, -7.0 + step as f32 * 0.08, centre),
                 )
-                .unwrap() > 0.0
+                .unwrap()
+                    > 0.0
             })
             .collect();
         assert!(signs.windows(2).filter(|pair| pair[0] != pair[1]).count() >= 3);
         assert!(field(&terrain, recipe, Vec3::new(0.0, -0.5, centre)).unwrap() < 0.0);
-        assert_eq!(field(&terrain, recipe, Vec3::new(20.0, 1.0, 0.0)).unwrap(), 1.0);
+        assert_eq!(
+            field(&terrain, recipe, Vec3::new(20.0, 1.0, 0.0)).unwrap(),
+            1.0
+        );
     }
 
     #[test]
@@ -263,7 +265,8 @@ mod tests {
                                 recipe,
                                 Vec3::new(x, -6.0 + layer as f32 * 0.05, z),
                             )
-                            .unwrap() > 0.0
+                            .unwrap()
+                                > 0.0
                         })
                         .collect();
                     signs.windows(2).filter(|pair| pair[0] != pair[1]).count()

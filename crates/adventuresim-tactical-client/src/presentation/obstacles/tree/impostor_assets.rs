@@ -1,7 +1,5 @@
 //! Canonical software-baked tree cards loaded only by fixed prepared scenes.
 
-#[cfg(test)]
-use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use super::TreePresentationSpecies;
 #[cfg(test)]
 use super::impostor::{BEECH_TREE_BAKE_STYLE, OAK_TREE_BAKE_STYLE, bake_tree_lod_with_style};
@@ -15,6 +13,8 @@ use super::source::{
 };
 #[cfg(test)]
 use super::specimen::oak_variant_for_site;
+#[cfg(test)]
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::{
     asset::{AssetLoader, LoadContext, RenderAssetUsages, io::Reader},
     ecs::system::SystemParam,

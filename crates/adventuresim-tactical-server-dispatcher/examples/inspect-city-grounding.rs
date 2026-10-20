@@ -3,16 +3,14 @@ use adventuresim_building_generator::{
     BuildingLodLevel, BuildingProgram, compile_building_lod, compile_program_shell,
 };
 use adventuresim_tactical_core::{
-    city_layout::grounding::SupportElevation,
-    prelude::*,
-    scene_coordinates::ScenePlanPoint,
+    city_layout::grounding::SupportElevation, prelude::*, scene_coordinates::ScenePlanPoint,
     scene_input::GeneratedBuildingRecipes,
 };
 use bevy::math::{Vec2, Vec3Swizzles};
 use clap::Parser;
 use serde_json::{Value, json};
-use std::path::PathBuf;
 use source::InspectionSource;
+use std::path::PathBuf;
 #[path = "inspect_city_grounding/footprint.rs"]
 mod footprint;
 #[path = "inspect_city_grounding/solutions.rs"]
@@ -139,8 +137,14 @@ impl Inspection {
         comparison["support_solution_comparison"] = solutions::compare(
             compound,
             solutions::ComparisonMembers {
-                front: solutions::ComparisonMember { bearing: contact, threshold: front },
-                rear: solutions::ComparisonMember { bearing: rear_contact, threshold: rear },
+                front: solutions::ComparisonMember {
+                    bearing: contact,
+                    threshold: front,
+                },
+                rear: solutions::ComparisonMember {
+                    bearing: rear_contact,
+                    threshold: rear,
+                },
             },
             proposed,
             &footprint::vista_triangles(lod, vista.lods.get(1), &raw, compound.plot.corners()),
@@ -273,7 +277,8 @@ fn inspect(
     let source = InspectionSource::new(terrain, &input.vista);
     let height = |point| source.height_at(point);
     let supports = support_observations::grounded_nodes(&recipe.plan, &world, elevation, &source)?;
-    let thresholds = support_observations::exterior_thresholds(&recipe.plan, &world, elevation, &source)?;
+    let thresholds =
+        support_observations::exterior_thresholds(&recipe.plan, &world, elevation, &source)?;
     let levels = lod_minima(&recipe.plan, program, elevation)?;
     let [a, b, c, d] = [
         recipe.collision.bounds.min().metres().xz(),
@@ -327,10 +332,12 @@ fn lod_minima(
             .flat_map(|mesh| &mesh.vertices)
             .map(|vertex| vertex.position.y)
             .reduce(f32::min);
-        let world_minimum = minimum.map(|minimum| {
-            SupportElevation::from_metres(minimum + elevation.metres())
-                .ok_or(support_observations::ObservationError::InvalidLodElevation { level })
-        }).transpose()?;
+        let world_minimum = minimum
+            .map(|minimum| {
+                SupportElevation::from_metres(minimum + elevation.metres())
+                    .ok_or(support_observations::ObservationError::InvalidLodElevation { level })
+            })
+            .transpose()?;
         levels.push(json!({"level": level, "local_minimum": minimum,
             "world_minimum": world_minimum}));
     }

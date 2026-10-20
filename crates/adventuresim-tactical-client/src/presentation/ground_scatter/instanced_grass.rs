@@ -419,7 +419,9 @@ impl TuftPlacement for ScenePlacement<'_> {
     }
 
     fn height(&self, centre: ScenePlanPoint) -> Option<SupportElevation> {
-        let hit = self.terrain.surface_below(SupportQuery::unbounded(centre))?;
+        let hit = self
+            .terrain
+            .surface_below(SupportQuery::unbounded(centre))?;
         (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(hit.elevation)
     }
 

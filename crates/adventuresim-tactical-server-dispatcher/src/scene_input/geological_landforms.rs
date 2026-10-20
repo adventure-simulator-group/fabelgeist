@@ -59,7 +59,8 @@ pub(super) fn select(
                     z as f32 - (f32::from(grid.depth) - 1.0) * 0.5,
                 ) * grid.spacing_metres,
             )?;
-            let offset = PositiveLength::from_metres(grid.spacing_metres * CANDIDATE_STRIDE as f32).ok()?;
+            let offset =
+                PositiveLength::from_metres(grid.spacing_metres * CANDIDATE_STRIDE as f32).ok()?;
             let gradient = source_gradient(&terrain, point, offset)?;
             let grade = gradient.length();
             if !(MIN_SOURCE_GRADE..=MAX_SOURCE_GRADE).contains(&grade) {
@@ -146,7 +147,6 @@ pub(super) fn mapped_fault_surface(
     .ok()
 }
 
-
 /// Native centred finite difference in scene east/north metres; output is grade.
 fn source_gradient(
     terrain: &SceneTerrain,
@@ -167,10 +167,12 @@ fn source_gradient(
         point.metres() - Vec2::Y * offset,
     )?)?;
     // Metres become native coefficients only for this finite difference.
-    Some(Vec2::new(
-        east.metres() - west.metres(),
-        north.metres() - south.metres(),
-    ) / (offset * 2.0))
+    Some(
+        Vec2::new(
+            east.metres() - west.metres(),
+            north.metres() - south.metres(),
+        ) / (offset * 2.0),
+    )
 }
 
 fn kind_for_lithology(lithology: SurfaceLithology) -> Option<TerrainLandformKind> {
@@ -293,7 +295,6 @@ fn mapped_lithology(
     Some(window.lithology)
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -367,9 +368,15 @@ mod tests {
         };
         window.lithology = SurfaceLithology::Sedimentary(SedimentaryRock::Shale);
 
-        let surface =
-            mapped_fault_surface(&features, center, ScenePlanPoint::ORIGIN, 45.0, 42.into(), [10_000, 0])
-                .expect("a containing mapped unit must drive every fault surface family");
+        let surface = mapped_fault_surface(
+            &features,
+            center,
+            ScenePlanPoint::ORIGIN,
+            45.0,
+            42.into(),
+            [10_000, 0],
+        )
+        .expect("a containing mapped unit must drive every fault surface family");
 
         assert_eq!(
             surface.lithology(),

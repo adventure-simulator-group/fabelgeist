@@ -139,7 +139,9 @@ pub(super) fn occupied_walker(
     input: &TacticalSceneInput,
     open_property: Option<crate::city_layout::CityPropertyId>,
 ) -> Walker {
-    let elevation = ground.height_at(ScenePlanPoint::from_metres(start).unwrap()).unwrap();
+    let elevation = ground
+        .height_at(ScenePlanPoint::from_metres(start).unwrap())
+        .unwrap();
     // Bounds selection drops no geometry near an access lane. The natural
     // source body intersects this box and retains its complete original BVH.
     let inside = |position: Vec3, shape: &Collider, rotation: Quat| {

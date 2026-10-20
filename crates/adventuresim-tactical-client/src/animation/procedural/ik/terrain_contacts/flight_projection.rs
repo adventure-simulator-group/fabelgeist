@@ -134,7 +134,11 @@ pub(in crate::animation::procedural) fn terrain_feasible_target_in_step(
                 let Some(floor) = clearance_floor_at(checked_scene_point_metres(xz)?)? else {
                     return Ok(None);
                 };
-                let candidate = Vec3::new(xz.x, desired_world.y.max(floor.minimum_height()?.metres()), xz.y);
+                let candidate = Vec3::new(
+                    xz.x,
+                    desired_world.y.max(floor.minimum_height()?.metres()),
+                    xz.y,
+                );
                 if candidate.distance(start_world) > maximum_step + 0.000001 {
                     continue;
                 }

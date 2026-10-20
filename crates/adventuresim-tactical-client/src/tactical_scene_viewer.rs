@@ -9,8 +9,8 @@ use std::{
 
 use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_tactical_core::physics::AdventureSimulatorPhysicsPlugin;
-use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use adventuresim_tactical_netcode::prelude::SceneVistaBundle;
 use adventuresim_world_schema::coordinates::{LatitudeMicrodegrees, LongitudeMicrodegrees};
 use bevy::{
@@ -29,7 +29,6 @@ use bevy::{
 use serde::Serialize;
 
 use buildings::spawn_tactical_buildings;
-use debris_capture::{DebrisCaptureTarget, debris_detail_camera};
 #[cfg(test)]
 use capture_state::lighting_samples_stable;
 use capture_state::{
@@ -38,6 +37,7 @@ use capture_state::{
     lighting_convergence, luminance_delta, mean_luminance, settled_luminance_samples,
     tree_canopy_pixel_bps,
 };
+use debris_capture::{DebrisCaptureTarget, debris_detail_camera};
 use manifest::{
     CaptureRecord, CaptureTonemapping, CelestialProvenance, FoliageSummary,
     ObservedPresentationFeatures, ObstacleSummary, PendingSceneCaptureManifest,
@@ -66,12 +66,13 @@ use crate::presentation::{
     PresentedTree, ProceduralRockVisual, ProceduralTextureAssets, TacticalCloudAnimationStatus,
     TacticalCloudBenchmarkIsolation, TacticalCloudLayer, TacticalGameplayCamera,
     TacticalGraphicsSettings, TacticalPresentationPlugin, TacticalTreeBarkMaterial,
-    TacticalTreeBenchmarkIsolation, TacticalTreeLeafCardMaterial, TerrainDetailPatch,
-    TerrainMaterialPresentation, TreeAssetResidencyDiagnostics, TreeImpostorProvenance,
-    TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod, TreeLodCluster, TreeLodRenderOverride,
-    TreeTrunkLod, UnderstoryReviewSpecimen, VistaTerrain, VistaTreePresentation, WeatherParticle,
-    WoodyUnderstoryPresentationCache, TreePresentationSpecies, oak_bark_material, oak_leaf_material,
-    oak_review_terminal_specimen, spawn_understory_review_specimens, TerrainContactHeightmap,
+    TacticalTreeBenchmarkIsolation, TacticalTreeLeafCardMaterial, TerrainContactHeightmap,
+    TerrainDetailPatch, TerrainMaterialPresentation, TreeAssetResidencyDiagnostics,
+    TreeImpostorProvenance, TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod, TreeLodCluster,
+    TreeLodRenderOverride, TreePresentationSpecies, TreeTrunkLod, UnderstoryReviewSpecimen,
+    VistaTerrain, VistaTreePresentation, WeatherParticle, WoodyUnderstoryPresentationCache,
+    oak_bark_material, oak_leaf_material, oak_review_terminal_specimen,
+    spawn_understory_review_specimens,
 };
 
 use view_camera::camera_for_view;
@@ -1186,7 +1187,6 @@ fn freeze_capture_clock(mut time: ResMut<Time<Virtual>>) {
     time.pause();
 }
 
-
 fn absolute_from_current(path: PathBuf) -> PathBuf {
     if path.is_absolute() {
         path
@@ -1343,11 +1343,20 @@ fn setup_scene(
     ));
 
     let setup_obstacles::CapturedObstacles {
-        expected_trees, expected_rocks,
-        position_sum: obstacle_position_sum, count: obstacle_count,
-        tree_focus, rock_focus, tree_focus_entity,
+        expected_trees,
+        expected_rocks,
+        position_sum: obstacle_position_sum,
+        count: obstacle_count,
+        tree_focus,
+        rock_focus,
+        tree_focus_entity,
     } = setup_obstacles::CapturedObstacles::spawn(
-        &mut commands, &mut meshes, &mut materials, &terrain, &input.playable, obstacles,
+        &mut commands,
+        &mut meshes,
+        &mut materials,
+        &terrain,
+        &input.playable,
+        obstacles,
     )?;
 
     let mut obstacle_focus = if obstacle_count == 0 {
@@ -1414,7 +1423,9 @@ fn setup_scene(
             let point = ScenePlanPoint::try_from(native)?;
             let elevation = terrain.required_height_at(point)?;
             Ok::<_, BevyError>(Position::from_metres(Vec3::new(
-                native.x, elevation.metres() + 0.018, native.y,
+                native.x,
+                elevation.metres() + 0.018,
+                native.y,
             ))?)
         })
         .transpose()?;
@@ -1638,7 +1649,6 @@ fn setup_scene(
     }
     Ok(())
 }
-
 
 fn benchmark_leaf_representations(
     mut state: Option<ResMut<LeafBenchmarkState>>,
@@ -2792,14 +2802,19 @@ fn capture_views(
             .flat_map(|anchors| anchors.0.iter().copied())
             .filter(|anchor| view.pose.accepts_plant(anchor.species))
             .map(|anchor| anchor.root)
-            .min_by(|a, b| a.metres().length_squared().total_cmp(&b.metres().length_squared()));
+            .min_by(|a, b| {
+                a.metres()
+                    .length_squared()
+                    .total_cmp(&b.metres().length_squared())
+            });
         if view.debris_target {
             let pairs = lighting
                 .litter_anchors
                 .iter()
                 .flat_map(|anchors| anchors.pairs.iter().copied())
                 .collect::<Vec<_>>();
-            let Some(terrain) = lighting.required_capture_terrain(&state.output, &mut commands) else {
+            let Some(terrain) = lighting.required_capture_terrain(&state.output, &mut commands)
+            else {
                 return;
             };
             let target = match DebrisCaptureTarget::reviewable(
@@ -2916,9 +2931,16 @@ fn capture_views(
                     }
                 }
             }
-            CapturePose::AnimationPlayBoundary { player, yaw_degrees } => {
+            CapturePose::AnimationPlayBoundary {
+                player,
+                yaw_degrees,
+            } => {
                 let Some(camera) = lighting.boundary_camera(
-                    &camera.3, player, yaw_degrees, &state.output, &mut commands,
+                    &camera.3,
+                    player,
+                    yaw_degrees,
+                    &state.output,
+                    &mut commands,
                 ) else {
                     return;
                 };
@@ -2929,7 +2951,9 @@ fn capture_views(
                 elevation_degrees,
                 orbit_degrees,
             } => {
-                let focus = understory_focus.map(Position::metres).unwrap_or(state.obstacle_focus);
+                let focus = understory_focus
+                    .map(Position::metres)
+                    .unwrap_or(state.obstacle_focus);
                 let azimuth = (state.tree_review_azimuth_degrees + orbit_degrees).to_radians();
                 let elevation = elevation_degrees.to_radians();
                 let target = focus + Vec3::Y * 1.35;
@@ -2946,14 +2970,18 @@ fn capture_views(
                 )
             }
             CapturePose::TreeReview => {
-                let species = state.tree_focus_entity
-                    .and_then(|entity| lighting.presented_tree_species.get(entity).ok()).copied();
+                let species = state
+                    .tree_focus_entity
+                    .and_then(|entity| lighting.presented_tree_species.get(entity).ok())
+                    .copied();
                 let (transform, target) = view_camera::lit_tree_review(state, species);
                 (transform, target, None)
             }
             CapturePose::BranchJunction => {
-                let species = state.tree_focus_entity
-                    .and_then(|entity| lighting.presented_tree_species.get(entity).ok()).copied();
+                let species = state
+                    .tree_focus_entity
+                    .and_then(|entity| lighting.presented_tree_species.get(entity).ok())
+                    .copied();
                 let (transform, target) = view_camera::lit_branch_junction(state, species);
                 (transform, target, None)
             }
@@ -3358,7 +3386,6 @@ fn focused_tree_lod_queued(
     })
 }
 
-
 #[derive(Clone, Copy)]
 struct VistaTreeObservation {
     distance_metres: f32,
@@ -3568,8 +3595,12 @@ fn build_manifest(
         presented_lods: vista_observation.presented_lods.clone(),
         presented_chunks: vista_observation.chunks,
         diameter_metres: state.vista_geometry.map(|geometry| geometry.diameter()),
-        minimum_height_metres: state.vista_geometry.map(|geometry| geometry.minimum().elevation),
-        peak_height_metres: state.vista_geometry.map(|geometry| geometry.maximum().elevation),
+        minimum_height_metres: state
+            .vista_geometry
+            .map(|geometry| geometry.minimum().elevation),
+        peak_height_metres: state
+            .vista_geometry
+            .map(|geometry| geometry.maximum().elevation),
         relief_metres: state.vista_geometry.map(|geometry| geometry.relief()),
         collider_count: vista_observation.colliders,
     };
@@ -3580,7 +3611,9 @@ fn build_manifest(
         "sparse-woodland" => state.expected_trees >= 1,
         "flat-dry-grassland" => state.expected_trees == 0,
         "steep-open-hillside" => state.expected_rocks >= 1,
-        "narrow-peak-lod-boundary" => state.vista_geometry.is_some_and(|geometry| geometry.maximum().elevation.metres() >= 850.0),
+        "narrow-peak-lod-boundary" => state
+            .vista_geometry
+            .is_some_and(|geometry| geometry.maximum().elevation.metres() >= 850.0),
         _ => true,
     };
     let expects_understory = matches!(
@@ -3655,12 +3688,12 @@ fn build_manifest(
                 DetailRequirement::GrassPresent => state.expects_grass && grass_clumps > 0,
                 DetailRequirement::DebrisPair => {
                     state.debris_focus.is_some()
-                        && state
-                            .debris_leaf_distance_metres
-                            .is_some_and(|distance| distance <= GroundLitterCapturePair::MAXIMUM_SEPARATION.half())
-                        && state
-                            .debris_twig_distance_metres
-                            .is_some_and(|distance| distance <= GroundLitterCapturePair::MAXIMUM_SEPARATION.half())
+                        && state.debris_leaf_distance_metres.is_some_and(|distance| {
+                            distance <= GroundLitterCapturePair::MAXIMUM_SEPARATION.half()
+                        })
+                        && state.debris_twig_distance_metres.is_some_and(|distance| {
+                            distance <= GroundLitterCapturePair::MAXIMUM_SEPARATION.half()
+                        })
                         && dry_leaf_patches > 0
                         && twig_patches > 0
                 }
@@ -4222,11 +4255,23 @@ mod capture_lighting_tests {
             .map(|point| Position::from_metres(point).unwrap());
         let twigs = [Vec3::new(4.2, 0.0, 3.0), Vec3::new(0.4, 0.0, 0.0)]
             .map(|point| Position::from_metres(point).unwrap());
-        let pair = DebrisCaptureTarget::nearest(&leaves, &twigs, GroundLitterCapturePair::MAXIMUM_SEPARATION).unwrap();
+        let pair = DebrisCaptureTarget::nearest(
+            &leaves,
+            &twigs,
+            GroundLitterCapturePair::MAXIMUM_SEPARATION,
+        )
+        .unwrap();
         assert_eq!(pair.focus.metres(), Vec3::new(4.1, 0.0, 3.0));
         assert!((pair.leaf_distance.metres() - 0.1).abs() < 0.00001);
         assert!((pair.twig_distance.metres() - 0.1).abs() < 0.00001);
-        assert_eq!(DebrisCaptureTarget::nearest(&[leaves[1]], &[twigs[0]], GroundLitterCapturePair::MAXIMUM_SEPARATION), None);
+        assert_eq!(
+            DebrisCaptureTarget::nearest(
+                &[leaves[1]],
+                &[twigs[0]],
+                GroundLitterCapturePair::MAXIMUM_SEPARATION
+            ),
+            None
+        );
 
         let terrain = SceneTerrain::from_heightmap(2, 2, 1.0, vec![1.0, 1.0, 1.0, 1.0]).unwrap();
         let snapped = DebrisCaptureTarget::terrain_snapped(
@@ -4236,7 +4281,10 @@ mod capture_lighting_tests {
             &terrain,
         )
         .unwrap();
-        let ground = terrain.height_at(ScenePlanPoint::from(snapped.focus)).unwrap().metres();
+        let ground = terrain
+            .height_at(ScenePlanPoint::from(snapped.focus))
+            .unwrap()
+            .metres();
         assert!(snapped.focus.metres().y >= ground);
     }
 
@@ -4330,12 +4378,22 @@ mod capture_lighting_tests {
                 .join("../../assets/tactical-scenes/valley-distant-ridge.json"),
         )
         .unwrap();
-        let geometry = vista_geometry::VistaCaptureGeometry::from_source(&input).unwrap().unwrap();
+        let geometry = vista_geometry::VistaCaptureGeometry::from_source(&input)
+            .unwrap()
+            .unwrap();
         let minimum = geometry.minimum();
         let maximum = geometry.maximum();
         assert!(minimum.elevation.metres() < maximum.elevation.metres());
-        let valley = Vec3::new(minimum.point.metres().x, minimum.elevation.metres(), minimum.point.metres().y);
-        let peak = Vec3::new(maximum.point.metres().x, maximum.elevation.metres(), maximum.point.metres().y);
+        let valley = Vec3::new(
+            minimum.point.metres().x,
+            minimum.elevation.metres(),
+            minimum.point.metres().y,
+        );
+        let peak = Vec3::new(
+            maximum.point.metres().x,
+            maximum.elevation.metres(),
+            maximum.point.metres().y,
+        );
         assert_eq!(valley.y, minimum.elevation.metres());
         assert_eq!(peak.y, maximum.elevation.metres());
         assert!(geometry.relief().metres() > 100.0);

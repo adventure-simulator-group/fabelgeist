@@ -22,9 +22,11 @@ pub(super) fn setup_catalog(
             (index / CATALOG_COLUMNS) as f32 - 3.0,
         ) * CATALOG_BAY_SPACING_METRES;
         let keys = FurnitureVariant::ALL.map(|variant| FurnitureKey::natural(kind, variant));
-        let [compact, broad] = keys.map(|key| key.interior_spec()
-            .map(|spec| spec.size_metres.metres())
-            .ok_or(CatalogAdmissionError::MissingInteriorSpec { key }));
+        let [compact, broad] = keys.map(|key| {
+            key.interior_spec()
+                .map(|spec| spec.size_metres.metres())
+                .ok_or(CatalogAdmissionError::MissingInteriorSpec { key })
+        });
         let sizes = [compact?, broad?];
         let pair_width = sizes[0].x + sizes[1].x + catalog_pair_gap(kind);
         for (variant, key) in keys.into_iter().enumerate() {
@@ -51,9 +53,16 @@ pub(super) fn setup_catalog(
                 },
                 position_metres:
                     adventuresim_building_generator::spatial_geometry::Position::from_metres(
-                        Vec3::new(point.x, terrain.required_height_at(ScenePlanPoint::try_from(point)?)?.metres(), point.y),
+                        Vec3::new(
+                            point.x,
+                            terrain
+                                .required_height_at(ScenePlanPoint::try_from(point)?)?
+                                .metres(),
+                            point.y,
+                        ),
                     )?,
-                orientation: BuildingOrientation::from_radians(std::f32::consts::PI).ok_or(CatalogAdmissionError::InvalidOrientation)?,
+                orientation: BuildingOrientation::from_radians(std::f32::consts::PI)
+                    .ok_or(CatalogAdmissionError::InvalidOrientation)?,
             });
         }
         let envelope = Vec3::new(
@@ -61,19 +70,33 @@ pub(super) fn setup_catalog(
             sizes[0].y.max(sizes[1].y),
             sizes[0].z.max(sizes[1].z),
         );
-        let ground = Vec3::new(bay.x, terrain.required_height_at(ScenePlanPoint::try_from(bay)?)?.metres(), bay.y);
+        let ground = Vec3::new(
+            bay.x,
+            terrain
+                .required_height_at(ScenePlanPoint::try_from(bay)?)?
+                .metres(),
+            bay.y,
+        );
         cameras.push(catalog_camera(kind, envelope, ground));
     }
     cameras.push(joined_counters(layout, terrain)?);
     cameras.extend(finishes::stage(layout, terrain)?);
     expect_furniture(commands, layout)?;
-    std::fs::write(output.join("interior-catalog.json"), serde_json::to_vec_pretty(
+    std::fs::write(
+        output.join("interior-catalog.json"),
+        serde_json::to_vec_pretty(
             &serde_json::json!({ "left_variant": "Compact", "right_variant": "Broad", "finish_order": ["natural", "handled", "repaired", "painted"],
-            "instances": layout.instances, "note": "Production furniture models staged as catalog specimens; building_id zero is reserved for these captures." }))?)?;
+            "instances": layout.instances, "note": "Production furniture models staged as catalog specimens; building_id zero is reserved for these captures." }),
+        )?,
+    )?;
     Ok(Some(cameras))
 }
 
-pub(super) fn catalog_camera(kind: FurnitureKind, size: Vec3, ground: Vec3) -> BuildingReviewCamera {
+pub(super) fn catalog_camera(
+    kind: FurnitureKind,
+    size: Vec3,
+    ground: Vec3,
+) -> BuildingReviewCamera {
     let side = if kind == FurnitureKind::BunkBed {
         1.1
     } else {
@@ -119,12 +142,16 @@ fn joined_counters(
     let variant = FurnitureVariant::Broad;
     let size = FurnitureKey::natural(Counter, variant)
         .interior_spec()
-        .ok_or(CatalogAdmissionError::MissingInteriorSpec { key: FurnitureKey::natural(Counter, variant) })?
+        .ok_or(CatalogAdmissionError::MissingInteriorSpec {
+            key: FurnitureKey::natural(Counter, variant),
+        })?
         .size_metres
         .metres();
     let corner = FurnitureKey::natural(CounterCorner, variant)
         .interior_spec()
-        .ok_or(CatalogAdmissionError::MissingInteriorSpec { key: FurnitureKey::natural(CounterCorner, variant) })?
+        .ok_or(CatalogAdmissionError::MissingInteriorSpec {
+            key: FurnitureKey::natural(CounterCorner, variant),
+        })?
         .size_metres
         .metres();
     let first = (corner.x + size.x) * 0.5;
@@ -162,7 +189,8 @@ fn joined_counters(
                 adventuresim_building_generator::spatial_geometry::Position::from_metres(
                     Vec3::new(point.x, ground.metres(), point.y),
                 )?,
-            orientation: BuildingOrientation::from_radians(yaw + std::f32::consts::PI).ok_or(CatalogAdmissionError::InvalidOrientation)?,
+            orientation: BuildingOrientation::from_radians(yaw + std::f32::consts::PI)
+                .ok_or(CatalogAdmissionError::InvalidOrientation)?,
         });
     }
     let target = Vec3::new(bay.x - first, ground.metres() + size.y * 0.5, bay.y - first);
@@ -172,4 +200,3 @@ fn joined_counters(
         plaster_raking_light: None,
     })
 }
-

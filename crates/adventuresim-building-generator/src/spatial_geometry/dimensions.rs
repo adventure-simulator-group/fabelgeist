@@ -5,7 +5,6 @@ use bevy::{
 };
 use serde::{Deserialize, Serialize};
 
-
 /// Cuboid-axis extents in metres. Degenerate solids can contribute point or line contact.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
 #[repr(transparent)]

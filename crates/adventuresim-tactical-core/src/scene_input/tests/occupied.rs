@@ -1,9 +1,9 @@
 //! Occupied test drafts declare exact producer reservations before generation.
 use super::*;
-use crate::scene_coordinates::ScenePlanPoint;
 use crate::city_layout::{
     CityPlotBounds, CityPropertyId, CitySceneLayout, CitySingleProperty, CompoundGradingPolicy,
 };
+use crate::scene_coordinates::ScenePlanPoint;
 use adventuresim_building_generator::{BuildingArchetype, BuildingProgram};
 use bevy::math::Vec2;
 
@@ -81,7 +81,9 @@ fn bound_building_has_static_collision_without_rewriting_surrounding_source() {
     assert!(!building.collision.cuboids.is_empty());
     assert_eq!(generated.repairs.levelled_building_samples, 0);
     let centre_height = generated.terrain.height_at(ScenePlanPoint::ORIGIN).unwrap();
-    assert!((centre_height.metres() - building.placement.base_elevation_metres.metres()).abs() < 0.0001);
+    assert!(
+        (centre_height.metres() - building.placement.base_elevation_metres.metres()).abs() < 0.0001
+    );
     assert_eq!(
         generated.ground.ground_at(ScenePlanPoint::ORIGIN),
         Some(GroundSurface {

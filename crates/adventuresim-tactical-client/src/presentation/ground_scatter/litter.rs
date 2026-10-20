@@ -1,18 +1,16 @@
-use adventuresim_tactical_core::{
-    animation::NonnegativeLength, scene_coordinates::ScenePlanPoint,
-};
-pub(super) use assets::{PatchMeshes, prepare_meshes};
 use adventuresim_building_generator::spatial_geometry::{
     Displacement, Elevation, GeometryResult, PlanDirection, Position, PositiveLength,
 };
+use adventuresim_tactical_core::{animation::NonnegativeLength, scene_coordinates::ScenePlanPoint};
+pub(super) use assets::{PatchMeshes, prepare_meshes};
+use batching::append_litter_batch;
+pub(crate) use capture::GroundLitterCapturePair;
 use fabelgeist_determinism::Seed;
 use geometry::{
     BentTwig, CamberedLeaf, LitterPatch, RosetteLeaf, TwigBase, TwigCrossSection, TwigStation,
 };
 use mesh::GroundLitterMeshData;
-use batching::append_litter_batch;
 use placement::LitterPlacement;
-pub(crate) use capture::GroundLitterCapturePair;
 
 use adventuresim_tactical_core::prelude::{GroundCover, SceneGround, SceneTerrain};
 use bevy::{
@@ -32,8 +30,8 @@ use crate::presentation::generate_procedural_textures;
 use crate::presentation::{ProceduralTextureAssets, bps, leaf_material};
 
 use super::{
-    GroundLitterCaptureAnchors, GroundScatterLayer,
-    TacticalFoliageMaterial, TacticalTreeLeafCardMaterial,
+    GroundLitterCaptureAnchors, GroundScatterLayer, TacticalFoliageMaterial,
+    TacticalTreeLeafCardMaterial,
 };
 
 mod assets;
@@ -208,7 +206,10 @@ pub(super) fn spawn(
         }
     }
     let pairs = GroundLitterCapturePair::closest(
-        &leaf_anchors, &twig_anchors, GroundLitterCapturePair::MAXIMUM_SEPARATION, 64,
+        &leaf_anchors,
+        &twig_anchors,
+        GroundLitterCapturePair::MAXIMUM_SEPARATION,
+        64,
     );
     if !pairs.is_empty() {
         commands.spawn((
@@ -512,7 +513,11 @@ fn leaf_litter_proximity(ground: &SceneGround, grid_x: usize, grid_z: usize) -> 
                 continue;
             };
             nearest = Some(nearest.map_or(distance, |nearest| {
-                if distance < nearest { distance } else { nearest }
+                if distance < nearest {
+                    distance
+                } else {
+                    nearest
+                }
             }));
         }
     }
@@ -520,7 +525,6 @@ fn leaf_litter_proximity(ground: &SceneGround, grid_x: usize, grid_z: usize) -> 
         (1.0 - nearest.metres() / WOODLAND_FLOOR_TRANSITION_METRES).clamp(0.0, 1.0)
     })
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -655,7 +659,12 @@ mod tests {
             .map(|point| Position::from_metres(point).unwrap());
         let twigs = [Vec3::new(0.42, 1.01, 0.27), Vec3::new(7.0, 1.0, 7.0)]
             .map(|point| Position::from_metres(point).unwrap());
-        let pairs = GroundLitterCapturePair::closest(&leaves, &twigs, GroundLitterCapturePair::MAXIMUM_SEPARATION, 4);
+        let pairs = GroundLitterCapturePair::closest(
+            &leaves,
+            &twigs,
+            GroundLitterCapturePair::MAXIMUM_SEPARATION,
+            4,
+        );
         assert_eq!(pairs[0].dry_leaf, leaves[0]);
         assert_eq!(pairs[0].twig, twigs[0]);
         assert_ne!(pairs[0].dry_leaf, Position::ORIGIN);

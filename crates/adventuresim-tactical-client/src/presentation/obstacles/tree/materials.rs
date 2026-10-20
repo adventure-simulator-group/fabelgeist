@@ -360,9 +360,16 @@ mod tests {
         let terrain = SceneTerrain::new(2, 2, 1.0, |point| point.x * 0.1 + point.y * 0.2).unwrap();
         let heightmap = Handle::<Image>::default();
         let terrain_height_range = SceneElevationRange::new(
-            adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(-0.075).unwrap(),
-            adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(0.705).unwrap(),
-        ).unwrap();
+            adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(
+                -0.075,
+            )
+            .unwrap(),
+            adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(
+                0.705,
+            )
+            .unwrap(),
+        )
+        .unwrap();
         let bark = oak_bark_material(&assets, heightmap.clone(), terrain_height_range, &terrain);
 
         assert_eq!(bark.base.base_color, Color::srgb_u8(96, 68, 43));

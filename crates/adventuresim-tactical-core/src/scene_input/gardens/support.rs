@@ -41,14 +41,14 @@ impl SceneGarden {
             .plants
             .iter()
             .map(|plant| {
-                let elevation = terrain
-                    .height_at(plant.centre_metres)
-                    .ok_or(GardenSupportError::MissingSoil {
+                let elevation = terrain.height_at(plant.centre_metres).ok_or(
+                    GardenSupportError::MissingSoil {
                         property: garden.owner,
                         building: garden.front_building_id,
                         plant: plant.id,
                         location_metres: plant.centre_metres,
-                    })?;
+                    },
+                )?;
                 Ok(GardenPlantSupport {
                     plant_id: plant.id,
                     elevation,

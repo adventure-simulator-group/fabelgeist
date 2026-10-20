@@ -23,10 +23,16 @@ struct HeightExtrema {
 impl HeightExtrema {
     fn observe(&mut self, control: GeographicHeightControl) {
         self.vertices += 1;
-        if self.low.is_none_or(|low| control.elevation.metres() < low.elevation.metres()) {
+        if self
+            .low
+            .is_none_or(|low| control.elevation.metres() < low.elevation.metres())
+        {
             self.low = Some(control);
         }
-        if self.high.is_none_or(|high| control.elevation.metres() > high.elevation.metres()) {
+        if self
+            .high
+            .is_none_or(|high| control.elevation.metres() > high.elevation.metres())
+        {
             self.high = Some(control);
         }
     }
@@ -117,11 +123,13 @@ mod tests {
             Vec2::new(3.0, 0.0),
             Vec2::new(0.0, 3.0),
             Vec2::new(-3.0, 0.0),
-        ].map(|point| ScenePlanPoint::try_from(point).unwrap());
-        assert!(corners.iter().all(|p| {
-            terrain.height_at(*p)
-                .map(SupportElevation::metres) == Some(0.0)
-        }));
+        ]
+        .map(|point| ScenePlanPoint::try_from(point).unwrap());
+        assert!(
+            corners
+                .iter()
+                .all(|p| { terrain.height_at(*p).map(SupportElevation::metres) == Some(0.0) })
+        );
         let report = terrain_extrema(&terrain, corners);
         assert_eq!(report["maximum_metres"], 2.0);
         assert_eq!(report["minimum_metres"], 0.0);
@@ -136,7 +144,8 @@ mod tests {
             Vec2::new(0.1, -0.1),
             Vec2::new(0.1, 0.1),
             Vec2::new(-0.1, 0.1),
-        ].map(|point| ScenePlanPoint::try_from(point).unwrap());
+        ]
+        .map(|point| ScenePlanPoint::try_from(point).unwrap());
         let report = terrain_extrema(&terrain, corners);
         assert_eq!(report["maximum_metres"], 2.0);
         assert!((report["minimum_metres"].as_f64().unwrap() - 1.6).abs() < 0.001);

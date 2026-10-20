@@ -12,8 +12,8 @@ use serde::{Deserialize, Serialize};
 use super::{
     DemoEntity, StudioEntity,
     camera::{CameraSpace, OrbitView},
-    scenery,
     preparation::{ArtDemoPreparationError, ArtDemoPreparationResult},
+    scenery,
 };
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Deserialize, Serialize)]
@@ -199,7 +199,11 @@ pub(super) fn studio(world: &mut World) {
 }
 
 fn weapon(world: &mut World, id: ExhibitId, catalog_id: &str) -> ArtDemoPreparationResult<()> {
-    let design = default_design(catalog_id).ok_or_else(|| ArtDemoPreparationError::UnknownWeaponChassis { chassis: catalog_id.into() })?;
+    let design = default_design(catalog_id).ok_or_else(|| {
+        ArtDemoPreparationError::UnknownWeaponChassis {
+            chassis: catalog_id.into(),
+        }
+    })?;
     let generated = generate(&design)?;
     let center =
         (Vec3::from_array(generated.bounds.min) + Vec3::from_array(generated.bounds.max)) * 0.5;

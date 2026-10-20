@@ -1,8 +1,8 @@
 use adventuresim_building_generator::spatial_geometry::GeometryError;
-use bevy::mesh::MeshMergeError;
 use adventuresim_tactical_core::prelude::{
     SceneEnvironment, SceneGround, SceneId, SceneTerrain, TerrainTransitionCollar,
 };
+use bevy::mesh::MeshMergeError;
 use bevy::{
     color::{ColorToComponents, LinearRgba},
     ecs::change_detection::DetectChanges,
@@ -66,15 +66,15 @@ pub(crate) use loose_stone::{
 };
 
 mod cover_mask;
+pub(in crate::presentation) mod gardens;
 mod grass;
-mod layers;
 pub(crate) mod instanced_grass;
 mod instanced_understory;
+mod layers;
 mod litter;
 mod loose_stone;
 pub(super) mod plants;
 mod review_specimens;
-pub(in crate::presentation) mod gardens;
 mod scene_mask;
 mod specimens;
 mod understory;

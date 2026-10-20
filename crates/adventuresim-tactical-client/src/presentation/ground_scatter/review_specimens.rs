@@ -33,15 +33,19 @@ impl PreparedSpecimen {
         focus: Position<Scene>,
     ) -> Result<Self, UnderstoryReviewError> {
         let (Some(branches), Some(bark), Some(leaf_cards), Some(leaves)) = (
-            &presentation.branches, &presentation.bark,
-            &presentation.leaf_cards, &presentation.leaves,
+            &presentation.branches,
+            &presentation.bark,
+            &presentation.leaf_cards,
+            &presentation.leaves,
         ) else {
             return Err(UnderstoryReviewError::IncompletePresentation { common_name });
         };
         Ok(Self {
             marker: UnderstoryReviewSpecimen { common_name, focus },
-            branches: branches.clone(), bark: bark.clone(),
-            leaf_cards: leaf_cards.clone(), leaves: leaves.clone(),
+            branches: branches.clone(),
+            bark: bark.clone(),
+            leaf_cards: leaf_cards.clone(),
+            leaves: leaves.clone(),
         })
     }
 }
@@ -66,9 +70,10 @@ pub(crate) fn spawn_understory_review_specimens(
         ("common hazel", &cache.hazel),
         ("blackthorn", &cache.blackthorn),
         ("common hawthorn", &cache.hawthorn),
-    ].into_iter()
-        .map(|(name, presentation)| PreparedSpecimen::from_cache(name, presentation, origin))
-        .collect::<Result<Vec<_>, _>>()?;
+    ]
+    .into_iter()
+    .map(|(name, presentation)| PreparedSpecimen::from_cache(name, presentation, origin))
+    .collect::<Result<Vec<_>, _>>()?;
     for specimen in prepared {
         let marker = specimen.marker;
         let common_name = marker.common_name;

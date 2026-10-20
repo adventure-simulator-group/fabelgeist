@@ -1,12 +1,12 @@
 //! Exact managed-ground ownership, independent of terrain grading and sampling.
 use super::*;
-use adventuresim_building_generator::spatial_geometry::{GeometryResult as Result, PlanDimensions};
 use crate::{
     city_layout::{
         CityPlotBounds, CityStreetPatch, CityStreetSurface, CityYardPatch, SPATIAL_BUCKET_METRES,
     },
     scene_input::GeneratedBuilding,
 };
+use adventuresim_building_generator::spatial_geometry::{GeometryResult as Result, PlanDimensions};
 use std::{collections::BTreeMap, sync::OnceLock};
 
 #[derive(Default, Debug, Clone)]
@@ -331,7 +331,9 @@ mod tests {
                     });
                 let scene_point = ScenePlanPoint::from_metres(point).unwrap();
                 assert_eq!(
-                    lookup.surface_at(scene_point).map(|surface| surface.substrate),
+                    lookup
+                        .surface_at(scene_point)
+                        .map(|surface| surface.substrate),
                     expected,
                     "ownership differed at {point}"
                 );
@@ -357,7 +359,13 @@ mod tests {
         let transported: SceneGround =
             serde_json::from_slice(&serde_json::to_vec(&ground).unwrap()).unwrap();
         for point in [Vec2::new(0.31, 0.31), Vec2::new(1.69, 1.69)] {
-            assert_eq!(transported.ground_at(ScenePlanPoint::from_metres(point).unwrap()).unwrap().cover_density_bps, 0);
+            assert_eq!(
+                transported
+                    .ground_at(ScenePlanPoint::from_metres(point).unwrap())
+                    .unwrap()
+                    .cover_density_bps,
+                0
+            );
         }
         assert_eq!(
             transported

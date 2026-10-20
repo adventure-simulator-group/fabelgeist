@@ -18,7 +18,6 @@ mod preparation;
 mod residency;
 mod scenery;
 
-
 static PENDING: Mutex<Vec<DemoCommand>> = Mutex::new(Vec::new());
 static STATUS: Mutex<DemoStatus> = Mutex::new(DemoStatus::Starting);
 

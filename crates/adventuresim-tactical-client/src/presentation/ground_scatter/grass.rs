@@ -1,7 +1,7 @@
-use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use adventuresim_tactical_core::prelude::{
     EnvironmentalSample, GroundCover, SceneEnvironment, SceneGround, SceneTerrain, TacticalSurface,
 };
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::{
     asset::RenderAssetUsages,
     camera::visibility::VisibilityRange,
@@ -120,7 +120,9 @@ pub(super) fn cell_allows_grass(
         (z as f32 + jitter_z * jitter_fraction) * cell_spacing,
     );
     ScenePlanPoint::from_metres(render_centre)
-        .and_then(|centre| grass_patch_placement_with_spacing(terrain, ground, centre, cell_spacing))
+        .and_then(|centre| {
+            grass_patch_placement_with_spacing(terrain, ground, centre, cell_spacing)
+        })
         .is_some()
 }
 

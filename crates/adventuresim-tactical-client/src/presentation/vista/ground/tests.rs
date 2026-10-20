@@ -51,12 +51,29 @@ fn owned_vista_tree_roots_follow_support_across_detail_levels() {
     coarse.spacing_metres = 250.0;
     for point in [Vec2::new(40.0, 30.0), Vec2::new(-45.0, -30.0)] {
         let point = ScenePlanPoint::from_metres(point).unwrap();
-        assert!((presented_height_at(&lod, point.metres(), Some(&coarse)).unwrap() - 7.0).abs() > 1.0);
+        assert!(
+            (presented_height_at(&lod, point.metres(), Some(&coarse)).unwrap() - 7.0).abs() > 1.0
+        );
         for (lod, next) in [(&lod, Some(&coarse)), (&coarse, None)] {
-            assert!((tree_root_height(&terrain, lod, next, point).unwrap().metres() - 7.0).abs() < 0.001);
+            assert!(
+                (tree_root_height(&terrain, lod, next, point)
+                    .unwrap()
+                    .metres()
+                    - 7.0)
+                    .abs()
+                    < 0.001
+            );
         }
     }
-    assert!(tree_root_height(&terrain, &coarse, None, ScenePlanPoint::from_metres(Vec2::splat(400.0)).unwrap()).is_none());
+    assert!(
+        tree_root_height(
+            &terrain,
+            &coarse,
+            None,
+            ScenePlanPoint::from_metres(Vec2::splat(400.0)).unwrap()
+        )
+        .is_none()
+    );
 }
 
 #[test]
@@ -65,9 +82,7 @@ fn owned_vista_rocks_use_support_normal_and_keep_the_existing_slope_gate() {
     let point = ScenePlanPoint::from_metres(Vec2::new(40.0, 30.0)).unwrap();
     let terrain = owned_terrain(0.5);
     let hit = terrain
-        .surface_below(
-            SupportQuery::unbounded(point),
-        )
+        .surface_below(SupportQuery::unbounded(point))
         .unwrap();
     let height = hit.elevation.metres();
     let normal = *hit.normal;
@@ -119,7 +134,8 @@ fn sampled_vista_trees_and_rocks_retain_the_presented_heightfield() {
         presented_height_at(&lod, point.metres(), None).and_then(SupportElevation::from_metres)
     );
     let expected =
-        presented_vista_vertex_height(&lod, None, Some(&terrain), point.metres(), Vec2::ONE).unwrap();
+        presented_vista_vertex_height(&lod, None, Some(&terrain), point.metres(), Vec2::ONE)
+            .unwrap();
     let rock = vista_scatter_transform(
         &lod,
         None,
@@ -156,17 +172,11 @@ fn goslar_property_1236_vista_scenery_uses_accepted_support() {
     )
     .unwrap();
     assert!(
-        owner
-            .elevation_at(
-                point
-            )
-            .is_some(),
+        owner.elevation_at(point).is_some(),
         "reported point must lie on property 1236"
     );
     let hit = terrain
-        .surface_below(
-            SupportQuery::unbounded(point),
-        )
+        .surface_below(SupportQuery::unbounded(point))
         .unwrap();
     let height = hit.elevation.metres();
     let normal = *hit.normal;
@@ -177,7 +187,14 @@ fn goslar_property_1236_vista_scenery_uses_accepted_support() {
         (height - raw).abs() > 1.0,
         "required reproduction: {height} vs {raw}"
     );
-    assert!((tree_root_height(terrain, lod, coarser, point).unwrap().metres() - height).abs() < 0.001);
+    assert!(
+        (tree_root_height(terrain, lod, coarser, point)
+            .unwrap()
+            .metres()
+            - height)
+            .abs()
+            < 0.001
+    );
     let rock = vista_scatter_transform(
         lod,
         coarser,
@@ -224,9 +241,7 @@ fn required_city_vista_scenery_matches_property_support() {
                 / 3.0;
             let world = ScenePlanPoint::from_metres(Vec2::new(point.x, point.z)).unwrap();
             let hit = terrain
-                .surface_below(
-                    SupportQuery::unbounded(world),
-                )
+                .surface_below(SupportQuery::unbounded(world))
                 .unwrap();
             let height = hit.elevation.metres();
             let normal = *hit.normal;
@@ -239,7 +254,12 @@ fn required_city_vista_scenery_matches_property_support() {
             for (i, lod) in input.vista.lods.iter().take(2).enumerate() {
                 let next = input.vista.lods.get(i + 1);
                 assert!(
-                    (tree_root_height(terrain, lod, next, world).unwrap().metres() - point.y).abs() < 0.001
+                    (tree_root_height(terrain, lod, next, world)
+                        .unwrap()
+                        .metres()
+                        - point.y)
+                        .abs()
+                        < 0.001
                 );
                 let rock = vista_scatter_transform(
                     lod,

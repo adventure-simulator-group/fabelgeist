@@ -1,7 +1,7 @@
-use adventuresim_building_generator::spatial_geometry::Position;
-use adventuresim_tactical_core::scene_coordinates::Scene;
 use crate::presentation::PlantLodInstance;
+use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_plant_generator::{PlantLod, PlantSpecies};
+use adventuresim_tactical_core::scene_coordinates::Scene;
 use bevy::camera::visibility::VisibleEntities;
 use bevy::prelude::*;
 use serde::Serialize;
@@ -91,7 +91,13 @@ mod tests {
         let mut state = bevy::ecs::system::SystemState::<Instances>::new(&mut world);
         let instances = state.get(&world).unwrap();
         let meshes = Assets::<Mesh>::default();
-        let near = observe(&instances, &meshes, &cameras[0], Some(root), root.metres() + Vec3::Z);
+        let near = observe(
+            &instances,
+            &meshes,
+            &cameras[0],
+            Some(root),
+            root.metres() + Vec3::Z,
+        );
         let far = observe(
             &instances,
             &meshes,

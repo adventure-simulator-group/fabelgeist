@@ -244,7 +244,8 @@ fn cached_habitat_matches_uncached_across_cells_seeds_and_profiles() {
         let mut field = GrassCommunityField::new(seed);
         for z in -16..=16 {
             for x in -16..=16 {
-                let point = ScenePlanPoint::from_metres(Vec2::new(x as f32 * 6.0, z as f32 * 6.0)).unwrap();
+                let point =
+                    ScenePlanPoint::from_metres(Vec2::new(x as f32 * 6.0, z as f32 * 6.0)).unwrap();
                 for profile in [
                     GrassCommunityProfile::from_site_drivers(0.0, 0.0),
                     GrassCommunityProfile::from_site_drivers(1.0, 0.4),

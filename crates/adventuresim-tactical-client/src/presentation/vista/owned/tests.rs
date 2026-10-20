@@ -148,7 +148,8 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
         // single-valued comparison across that edge invents a height error.
         for route in &garden.access {
             for p in [route.start_metres(), route.end_metres()] {
-                let p = adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(p).unwrap();
+                let p = adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(p)
+                    .unwrap();
                 assert!(
                     (presented.elevation_at(p).unwrap().metres()
                         - terrain.height_at(p).unwrap().metres())
@@ -190,12 +191,10 @@ fn graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams() {
         Vec2::new(-1.0, -0.31),
         Vec2::new(1.01, 0.37),
     ] {
-        let point = adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(point).unwrap();
+        let point =
+            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(point).unwrap();
         assert!(
-            (presented
-                .elevation_at(point)
-                .unwrap()
-                .metres()
+            (presented.elevation_at(point).unwrap().metres()
                 - terrain.height_at(point).unwrap().metres())
             .abs()
                 < 0.001

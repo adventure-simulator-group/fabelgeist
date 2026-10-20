@@ -1611,7 +1611,10 @@ mod ik_tests {
     #[test]
     fn terrain_height_is_transient_during_an_active_guard_step() {
         let flat = Vec3::new(0.2, -0.85, 0.3);
-        let elevated = terrain_conformed_guard_target(flat, Some(SupportElevation::from_metres(1.25).unwrap()));
+        let elevated = terrain_conformed_guard_target(
+            flat,
+            Some(SupportElevation::from_metres(1.25).unwrap()),
+        );
         assert_eq!(elevated.y, 1.335);
         assert_eq!(terrain_conformed_guard_target(flat, None), flat);
         assert_eq!(flat.y, -0.85);

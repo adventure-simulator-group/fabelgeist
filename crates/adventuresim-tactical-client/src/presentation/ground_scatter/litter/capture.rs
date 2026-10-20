@@ -22,7 +22,9 @@ impl GroundLitterCapturePair {
     pub(crate) const MAXIMUM_SEPARATION: NonnegativeLength =
         match NonnegativeLength::from_metres(0.55) {
             Ok(distance) => distance,
-            Err(_) => panic!("the authored litter capture separation must be finite and nonnegative"),
+            Err(_) => {
+                panic!("the authored litter capture separation must be finite and nonnegative")
+            }
         };
 
     pub(in crate::presentation::ground_scatter::litter) fn closest(
@@ -69,20 +71,52 @@ impl GroundLitterCapturePair {
                         };
                         candidates.push(PairCandidate {
                             separation,
-                            pair: Self { dry_leaf: leaf, twig },
+                            pair: Self {
+                                dry_leaf: leaf,
+                                twig,
+                            },
                         });
                     }
                 }
             }
         }
         candidates.sort_by(|left, right| {
-            left.separation.metres()
+            left.separation
+                .metres()
                 .total_cmp(&right.separation.metres())
-                .then_with(|| left.pair.dry_leaf.metres().x.total_cmp(&right.pair.dry_leaf.metres().x))
-                .then_with(|| left.pair.dry_leaf.metres().z.total_cmp(&right.pair.dry_leaf.metres().z))
-                .then_with(|| left.pair.twig.metres().x.total_cmp(&right.pair.twig.metres().x))
-                .then_with(|| left.pair.twig.metres().z.total_cmp(&right.pair.twig.metres().z))
+                .then_with(|| {
+                    left.pair
+                        .dry_leaf
+                        .metres()
+                        .x
+                        .total_cmp(&right.pair.dry_leaf.metres().x)
+                })
+                .then_with(|| {
+                    left.pair
+                        .dry_leaf
+                        .metres()
+                        .z
+                        .total_cmp(&right.pair.dry_leaf.metres().z)
+                })
+                .then_with(|| {
+                    left.pair
+                        .twig
+                        .metres()
+                        .x
+                        .total_cmp(&right.pair.twig.metres().x)
+                })
+                .then_with(|| {
+                    left.pair
+                        .twig
+                        .metres()
+                        .z
+                        .total_cmp(&right.pair.twig.metres().z)
+                })
         });
-        candidates.into_iter().take(maximum_pairs).map(|candidate| candidate.pair).collect()
+        candidates
+            .into_iter()
+            .take(maximum_pairs)
+            .map(|candidate| candidate.pair)
+            .collect()
     }
 }

@@ -15,7 +15,8 @@ use std::sync::Arc;
 
 use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_tactical_core::{
-    prelude::{SceneGround, SceneTerrain}, scene_coordinates::Scene,
+    prelude::{SceneGround, SceneTerrain},
+    scene_coordinates::Scene,
 };
 use bevy::{
     color::LinearRgba,
@@ -28,7 +29,7 @@ use bevy::{
 use bevy_eidolon::prelude::*;
 
 use super::{
-    WoodyUnderstoryPresentationCache, PLACEMENT_SCALE, PLACEMENT_YAW,
+    PLACEMENT_SCALE, PLACEMENT_YAW, WoodyUnderstoryPresentationCache,
     instanced_grass::fitted_batch_aabb,
     understory::{self, ShrubPlacement, UnderstoryHabitat, UnderstorySpecies},
 };
@@ -197,7 +198,9 @@ pub(super) fn spawn(
             continue;
         }
         let Ok(root) = Position::from_metres(Vec3::new(
-            point.metres().x, height.metres(), point.metres().y,
+            point.metres().x,
+            height.metres(),
+            point.metres().y,
         )) else {
             continue;
         };
@@ -304,15 +307,8 @@ fn species_index(species: UnderstorySpecies) -> usize {
 }
 
 fn shrub_instance(hash: Seed, root: Position<Scene>) -> InstanceData {
-    let yaw = PLACEMENT_YAW
-        .rng(hash, &[])
-        .inclusive_unit_f32()
-        * core::f32::consts::TAU;
-    let scale = 0.72
-        + PLACEMENT_SCALE
-            .rng(hash, &[])
-            .inclusive_unit_f32()
-            * 0.58;
+    let yaw = PLACEMENT_YAW.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU;
+    let scale = 0.72 + PLACEMENT_SCALE.rng(hash, &[]).inclusive_unit_f32() * 0.58;
     InstanceData {
         position: root.metres(),
         scale,

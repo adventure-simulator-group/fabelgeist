@@ -3,9 +3,7 @@
 use super::*;
 use crate::camera::collision::{BoomRecovery, CameraFrame, CameraVolume};
 use adventuresim_tactical_core::{
-    animation::AnimationElapsed,
-    scene::TerrainSupportResult,
-    scene_coordinates::ScenePlanPoint,
+    animation::AnimationElapsed, scene::TerrainSupportResult, scene_coordinates::ScenePlanPoint,
 };
 
 pub(super) fn animation_play_obstruction_camera(

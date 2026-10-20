@@ -195,9 +195,10 @@ pub(in crate::animation::procedural) fn prepare_terminal_settle_contacts(
     ) else {
         return false;
     };
-    let (Some(left_height), Some(right_height)) =
-        (terrain_height_at(left_point), terrain_height_at(right_point))
-    else {
+    let (Some(left_height), Some(right_height)) = (
+        terrain_height_at(left_point),
+        terrain_height_at(right_point),
+    ) else {
         return false;
     };
     left.y = left_height.metres() + measured_ankle_sole_offset_metres().metres();
@@ -249,7 +250,10 @@ pub(in crate::animation::procedural) fn terminal_settle_contacts_are_rendered(
                 };
                 rendered.xz().distance(target.xz()) <= 0.01
                     && terrain_height_at(ankle_point).is_some_and(|height| {
-                        (rendered.y - height.metres() - measured_ankle_sole_offset_metres().metres()).abs()
+                        (rendered.y
+                            - height.metres()
+                            - measured_ankle_sole_offset_metres().metres())
+                        .abs()
                             <= 0.01
                     })
                     && terrain_height_at(toe_point).is_some_and(|height| {

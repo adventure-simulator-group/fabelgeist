@@ -2,8 +2,13 @@
 
 use super::*;
 
-pub(super) fn vista_valley(state: &SceneCaptureState, half: f32) -> CaptureCameraResult<(Vec3, Vec3, Vec3)> {
-    let vista = state.vista_geometry.ok_or(CaptureCameraError::MissingVista)?;
+pub(super) fn vista_valley(
+    state: &SceneCaptureState,
+    half: f32,
+) -> CaptureCameraResult<(Vec3, Vec3, Vec3)> {
+    let vista = state
+        .vista_geometry
+        .ok_or(CaptureCameraError::MissingVista)?;
     let direction = (vista.minimum().point.metres() - state.obstacle_focus.xz())
         .try_normalize()
         .unwrap_or(-Vec2::X);
@@ -24,7 +29,6 @@ pub(super) fn vista_valley(state: &SceneCaptureState, half: f32) -> CaptureCamer
     Ok((position, target, Vec3::Y))
 }
 
-
 pub(super) fn horizon(state: &SceneCaptureState, half: f32) -> (Vec3, Vec3, Vec3) {
     let mut position = state.ground_eye_position + Vec3::Y * 12.0;
     let peak = state.vista_geometry.map(|vista| vista.maximum());
@@ -35,16 +39,18 @@ pub(super) fn horizon(state: &SceneCaptureState, half: f32) -> (Vec3, Vec3, Vec3
     let heading = peak.map_or(state.ground_eye_target.xz() - position.xz(), |peak| {
         peak.point.metres() - position.xz()
     });
-    let direction = heading
-        .try_normalize()
-        .unwrap_or(Vec2::X);
-    let target =
-        position + Vec3::new(direction.x, -0.08, direction.y) * (half * 10.0).max(200.0);
+    let direction = heading.try_normalize().unwrap_or(Vec2::X);
+    let target = position + Vec3::new(direction.x, -0.08, direction.y) * (half * 10.0).max(200.0);
     (position, target, Vec3::Y)
 }
 
-pub(super) fn vista_peak(state: &SceneCaptureState, half: f32) -> CaptureCameraResult<(Vec3, Vec3, Vec3)> {
-    let vista = state.vista_geometry.ok_or(CaptureCameraError::MissingVista)?;
+pub(super) fn vista_peak(
+    state: &SceneCaptureState,
+    half: f32,
+) -> CaptureCameraResult<(Vec3, Vec3, Vec3)> {
+    let vista = state
+        .vista_geometry
+        .ok_or(CaptureCameraError::MissingVista)?;
     let direction = (vista.maximum().point.metres() - state.obstacle_focus.xz())
         .try_normalize()
         .unwrap_or(Vec2::X);
@@ -78,7 +84,11 @@ pub(super) fn terrain_grazing(state: &SceneCaptureState) -> (Vec3, Vec3, Vec3) {
     )
 }
 
-pub(super) fn city_oblique(state: &SceneCaptureState, half: f32, azimuth_degrees: f32) -> (Vec3, Vec3, Vec3) {
+pub(super) fn city_oblique(
+    state: &SceneCaptureState,
+    half: f32,
+    azimuth_degrees: f32,
+) -> (Vec3, Vec3, Vec3) {
     let frame_half = half.max(state.city_half_extent_metres + 30.0);
     let azimuth = azimuth_degrees.to_radians();
     (

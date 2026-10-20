@@ -1,16 +1,17 @@
 //! Curated views of the existing city and sparse-woodland fixtures.
 
 use super::{
-    camera::OrbitView, exhibits::ExhibitId,
+    camera::OrbitView,
+    exhibits::ExhibitId,
     preparation::{ArtDemoPreparationError, ArtDemoPreparationResult},
 };
 use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_tactical_core::scene_input::{GeneratedBuildingRecipes, SupportedSceneTerrain};
 use adventuresim_tactical_core::{
     city_layout::grounding::GeographicHeightControl,
     prelude::*,
     scene_coordinates::{Scene, ScenePlanPoint},
 };
-use adventuresim_tactical_core::scene_input::{GeneratedBuildingRecipes, SupportedSceneTerrain};
 use adventuresim_tactical_netcode::prelude::SceneVistaBundle;
 use bevy::prelude::*;
 
@@ -42,8 +43,7 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> ArtDemoPreparationResul
     // Building-anchored furniture is prepared alongside the city offline.
     // Keep its accepted instances and reservations instead of regenerating
     // from a scene stripped of the buildings that own those activity groups.
-    let generated = input
-        .prepare_supported_terrain(&mut GeneratedBuildingRecipes::default())?;
+    let generated = input.prepare_supported_terrain(&mut GeneratedBuildingRecipes::default())?;
     let digest = input.digest()?;
     let environment = input.environment_snapshot(digest.clone());
     let (asset_scene_digest, rgba8): (&str, &'static [u8]) = if id == ExhibitId::Oak {
@@ -59,7 +59,8 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> ArtDemoPreparationResul
     };
     if asset_scene_digest != cloud_asset_digest {
         return Err(ArtDemoPreparationError::CloudSceneMismatch {
-            baked: asset_scene_digest, scene: cloud_asset_digest,
+            baked: asset_scene_digest,
+            scene: cloud_asset_digest,
         });
     }
     world.insert_resource(crate::presentation::PrebakedCloudEnvironment { rgba8 });
@@ -67,9 +68,7 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> ArtDemoPreparationResul
     if id == ExhibitId::Oak {
         spawn_oak(world, &input, &generated, &environment)?;
     }
-    let colliders = generated
-        .terrain
-        .colliders()?;
+    let colliders = generated.terrain.colliders()?;
     world
         .spawn((
             SceneId(input.scene_key.clone()),
@@ -125,8 +124,7 @@ fn prepare_input(id: ExhibitId) -> ArtDemoPreparationResult<PreparedSceneryInput
     } else {
         include_str!("../../../../assets/tactical-scenes/massive-city.json")
     };
-    let mut input: TacticalSceneInput =
-        serde_json::from_str(json)?;
+    let mut input: TacticalSceneInput = serde_json::from_str(json)?;
     // Clouds use the authored fixture's environment. Key their offline bake
     // before installing the separately prepared, fully bound city layout.
     let cloud_asset_digest = input.digest()?;
@@ -151,10 +149,17 @@ fn spawn_oak(
 ) -> ArtDemoPreparationResult<()> {
     let site = oak_exhibit_site(input, generated, environment)
         .ok_or(ArtDemoPreparationError::MissingOak)?;
-    world.spawn((SceneObstacle::Tree, Transform::from_translation(site.root.metres())));
+    world.spawn((
+        SceneObstacle::Tree,
+        Transform::from_translation(site.root.metres()),
+    ));
     let mut view = world.resource_mut::<OrbitView>();
     let position = site.surface.point.metres();
-    view.focus = Vec3::new(position.x, site.surface.elevation.metres() + view.focus.y, position.y);
+    view.focus = Vec3::new(
+        position.x,
+        site.surface.elevation.metres() + view.focus.y,
+        position.y,
+    );
     view.pitch = 0.06;
     let downhill = root_slope(&generated.terrain, site.surface);
     view.yaw = downhill.x.atan2(downhill.y) + std::f32::consts::FRAC_PI_2;
@@ -167,9 +172,13 @@ fn oak_exhibit_site(
     environment: &SceneEnvironment,
 ) -> Option<OakExhibitSite> {
     let terrain = &generated.terrain;
-    generated.obstacles.iter()
+    generated
+        .obstacles
+        .iter()
         .filter_map(|obstacle| {
-            let GeneratedObstacle::Tree { x, z } = obstacle else { return None; };
+            let GeneratedObstacle::Tree { x, z } = obstacle else {
+                return None;
+            };
             let point = ScenePlanPoint::from_metres(
                 Vec2::new(f32::from(*x), f32::from(*z)) * input.playable.spacing_metres
                     - Vec2::new(terrain.width(), terrain.depth()) * 0.5,
@@ -179,17 +188,25 @@ fn oak_exhibit_site(
                 point.metres().x,
                 elevation.metres() + TREE_TRUNK_HEIGHT_METRES * 0.5,
                 point.metres().y,
-            )).ok()?;
+            ))
+            .ok()?;
             (crate::presentation::tree_species_for_site(point, environment)
                 == crate::presentation::TreePresentationSpecies::EnglishOak)
                 .then_some(OakCandidate {
-                    site: OakExhibitSite { surface: GeographicHeightControl { point, elevation }, root },
-                    root_exposure: crate::presentation::oak_root_exposure_for_site(point, environment),
+                    site: OakExhibitSite {
+                        surface: GeographicHeightControl { point, elevation },
+                        root,
+                    },
+                    root_exposure: crate::presentation::oak_root_exposure_for_site(
+                        point,
+                        environment,
+                    ),
                 })
         })
         .max_by(|a, b| {
             a.root_exposure.total_cmp(&b.root_exposure).then_with(|| {
-                root_slope(terrain, a.site.surface).length_squared()
+                root_slope(terrain, a.site.surface)
+                    .length_squared()
                     .total_cmp(&root_slope(terrain, b.site.surface).length_squared())
             })
         })
@@ -205,8 +222,10 @@ fn root_slope(terrain: &SceneTerrain, centre: GeographicHeightControl) -> Vec2 {
             .unwrap_or(centre.elevation)
     };
     Vec2::new(
-        height(-Vec2::X * ROOT_SPREAD_METRES).metres() - height(Vec2::X * ROOT_SPREAD_METRES).metres(),
-        height(-Vec2::Y * ROOT_SPREAD_METRES).metres() - height(Vec2::Y * ROOT_SPREAD_METRES).metres(),
+        height(-Vec2::X * ROOT_SPREAD_METRES).metres()
+            - height(Vec2::X * ROOT_SPREAD_METRES).metres(),
+        height(-Vec2::Y * ROOT_SPREAD_METRES).metres()
+            - height(Vec2::Y * ROOT_SPREAD_METRES).metres(),
     )
 }
 
@@ -334,7 +353,10 @@ mod tests {
             .collect::<Vec<_>>();
         assert_eq!(roots.len(), 1);
         assert_eq!(
-            crate::presentation::tree_species_for_site(ScenePlanPoint::from_metres(roots[0].translation.xz()).unwrap(), &environment),
+            crate::presentation::tree_species_for_site(
+                ScenePlanPoint::from_metres(roots[0].translation.xz()).unwrap(),
+                &environment
+            ),
             crate::presentation::TreePresentationSpecies::EnglishOak
         );
         let bounds = generated.terrain.required_elevation_range().unwrap();

@@ -546,7 +546,11 @@ pub(crate) fn spawn_connected_players(
         return Ok(());
     };
     let admitted = PreparedPlayerSpawns::prepare(
-        conn.take_connected_players(), &q_loading, terrain, &args, &combat_config,
+        conn.take_connected_players(),
+        &q_loading,
+        terrain,
+        &args,
+        &combat_config,
     )?;
     admitted.project(&args, &mut cmd, &combat_config);
     Ok(())
@@ -558,7 +562,12 @@ fn spawn_connected_player(
     cmd: &mut Commands,
     combat_config: &TacticalCombatConfig,
 ) {
-    let AdmittedPlayer { player, recipient, position, collider: player_collider } = admitted;
+    let AdmittedPlayer {
+        player,
+        recipient,
+        position,
+        collider: player_collider,
+    } = admitted;
     let player = &player;
     let entity = match recipient {
         SpawnRecipient::Loading(entity) => entity,

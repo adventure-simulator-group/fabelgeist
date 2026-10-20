@@ -25,7 +25,9 @@ pub(super) fn capture_cameras(
     let bounds = PlacementBounds::collect(buildings, distant_buildings)?;
     // The corridor search supplies a completed native scene-plane interpolation.
     let clear = |native| {
-        let Some(point) = ScenePlanPoint::from_metres(native) else { return false; };
+        let Some(point) = ScenePlanPoint::from_metres(native) else {
+            return false;
+        };
         bounds.iter().all(|bounds| !bounds.contains(native)) && terrain.height_at(point).is_some()
     };
     let mut focus_candidates = buildings.iter().collect::<Vec<_>>();
@@ -54,7 +56,11 @@ pub(super) fn capture_cameras(
         selected.ok_or("city review has no clear street corridor facing a playable building")?;
     let eye = |point: ScenePlanPoint| -> Result<Vec3> {
         let elevation = terrain.required_height_at(point)?;
-        Ok(Vec3::new(point.metres().x, elevation.metres() + STREET_EYE_HEIGHT_METRES, point.metres().y))
+        Ok(Vec3::new(
+            point.metres().x,
+            elevation.metres() + STREET_EYE_HEIGHT_METRES,
+            point.metres().y,
+        ))
     };
     let context = [-STREET_CONTEXT_OFFSET_METRES, STREET_CONTEXT_OFFSET_METRES]
         .into_iter()
@@ -94,7 +100,11 @@ pub(super) fn capture_cameras(
         },
         BuildingReviewCamera {
             position: eye(ScenePlanPoint::try_from(context.point())?)?,
-            target: Vec3::new(street_target.x, eye(ScenePlanPoint::try_from(context.point())?)?.y, street_target.y),
+            target: Vec3::new(
+                street_target.x,
+                eye(ScenePlanPoint::try_from(context.point())?)?.y,
+                street_target.y,
+            ),
             plaster_raking_light: None,
         },
         playable_bounds.oblique_camera(0.95, 0.8),

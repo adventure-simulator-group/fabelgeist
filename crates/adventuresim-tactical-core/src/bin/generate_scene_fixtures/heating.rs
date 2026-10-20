@@ -144,7 +144,10 @@ mod tests {
                             .placement
                             .orientation
                             .local_to_world(half * Vec2::new(x, z));
-                    let point = adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(point)
+                    let point =
+                        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                            point,
+                        )
                         .unwrap();
                     assert!(generated.terrain.height_at(point).is_some());
                     let ground = generated.ground.ground_at(point).unwrap();

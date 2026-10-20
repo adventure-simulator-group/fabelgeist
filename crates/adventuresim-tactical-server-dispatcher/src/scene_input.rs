@@ -256,9 +256,7 @@ fn nearest_fault_scarp(
     let surface = geological_landforms::mapped_fault_surface(
         terrain_features,
         center,
-        ScenePlanPoint::from_metres(
-            Vec2::new(origin_cm[0] as f32, origin_cm[1] as f32) / 100.0,
-        )?,
+        ScenePlanPoint::from_metres(Vec2::new(origin_cm[0] as f32, origin_cm[1] as f32) / 100.0)?,
         f64::from(SCARP_DEFAULT_HALF_LENGTH_CM.max(SCARP_DEFAULT_HALF_WIDTH_CM)) / 100.0,
         seed,
         tangent_permyriad,

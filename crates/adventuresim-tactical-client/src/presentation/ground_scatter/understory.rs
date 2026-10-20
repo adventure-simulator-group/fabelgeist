@@ -1,7 +1,7 @@
-use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use adventuresim_tactical_core::prelude::{
     GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneTerrain,
 };
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::prelude::Vec2;
 use fabelgeist_determinism::Seed;
 

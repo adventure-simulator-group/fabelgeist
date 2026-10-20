@@ -19,6 +19,10 @@ fn ground_grid_queries_discrete_centered_samples_and_rejects_invalid_data() {
         0.3,
         GroundCover::LeafLitter,
     ));
-    assert!(ground.ground_at(ScenePlanPoint::from_metres(Vec2::new(2.01, 0.0)).unwrap()).is_none());
+    assert!(
+        ground
+            .ground_at(ScenePlanPoint::from_metres(Vec2::new(2.01, 0.0)).unwrap())
+            .is_none()
+    );
     assert!(SceneGround::from_samples(1, 3, 1.0, vec![GroundSurface::default(); 3]).is_none());
 }

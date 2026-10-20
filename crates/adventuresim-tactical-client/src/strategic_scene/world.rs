@@ -1,10 +1,10 @@
 //! Local presentation of the same scene document consumed by the tactical server.
 //! These entities carry asset descriptors only; authority arrives through replication.
-use super::{RetainedScene, SceneRoot, buildings, protocol::StrategicView};
 use super::preparation::{PreparationError, PreparationResult, SharedPreparationResult};
+use super::{RetainedScene, SceneRoot, buildings, protocol::StrategicView};
 use adventuresim_tactical_core::{prelude::*, scene_input::SceneInputError};
-use std::sync::Arc;
 use bevy::prelude::*;
+use std::sync::Arc;
 
 #[derive(Resource)]
 pub(crate) struct SceneDocument {
@@ -36,7 +36,9 @@ impl SceneDocument {
         }
     }
 
-    fn generated_scene(&self) -> SharedPreparationResult<crate::presentation::PreparedStrategicScene> {
+    fn generated_scene(
+        &self,
+    ) -> SharedPreparationResult<crate::presentation::PreparedStrategicScene> {
         let input = self.input.as_ref().map_err(Arc::clone)?;
         #[cfg(target_family = "wasm")]
         let generated = crate::presentation::generation::activate(self.preparation, input);

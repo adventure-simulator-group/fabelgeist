@@ -104,8 +104,8 @@ pub fn stitch_vista_height_to_playable_edge(
     vista_height: f32,
 ) -> f32 {
     let boundary = local.clamp(-playable_half_extent, playable_half_extent);
-    let Some(playable_height) = ScenePlanPoint::from_metres(boundary)
-        .and_then(|point| terrain.height_at(point))
+    let Some(playable_height) =
+        ScenePlanPoint::from_metres(boundary).and_then(|point| terrain.height_at(point))
     else {
         return vista_height;
     };

@@ -75,7 +75,12 @@ pub(super) fn vista_scatter_transform(
         return None;
     }
     Some(
-        Transform::from_xyz(point.metres().x, hit.elevation.metres() + lift, point.metres().y).with_rotation(
+        Transform::from_xyz(
+            point.metres().x,
+            hit.elevation.metres() + lift,
+            point.metres().y,
+        )
+        .with_rotation(
             Quat::from_rotation_arc(Vec3::Y, *hit.normal)
                 * Quat::from_rotation_y(
                     streams::ROCK_YAW.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU,

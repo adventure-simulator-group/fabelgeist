@@ -44,24 +44,15 @@ impl ConversationPose {
                 let height = floor_height(building, centre);
                 let clearance = match clearances.entry(height.to_bits()) {
                     std::collections::btree_map::Entry::Occupied(entry) => entry.into_mut(),
-                    std::collections::btree_map::Entry::Vacant(entry) => {
-                        entry.insert(StandingClearance::new(
-                            &obstacles,
-                            Elevation::from_metres(
-                                height,
-                            )?,
-                        )?)
-                    }
+                    std::collections::btree_map::Entry::Vacant(entry) => entry.insert(
+                        StandingClearance::new(&obstacles, Elevation::from_metres(height)?)?,
+                    ),
                 };
                 for direction in [Vec2::X, Vec2::Y, Vec2::NEG_X, Vec2::NEG_Y] {
                     let camera = centre + direction * CONVERSATION_DISTANCE_METRES;
                     if !clearance.is_clear(
-                        Position::from_metres(
-                            Vec3::new(centre.x, height, centre.y),
-                        )?,
-                        Position::from_metres(
-                            Vec3::new(camera.x, height, camera.y),
-                        )?,
+                        Position::from_metres(Vec3::new(centre.x, height, centre.y))?,
+                        Position::from_metres(Vec3::new(camera.x, height, camera.y))?,
                     ) {
                         continue;
                     }
@@ -118,8 +109,7 @@ fn floor_height(building: &GeneratedBuilding, point: Vec2) -> f32 {
 fn obstacles(
     building: &GeneratedBuilding,
     layout: &InteriorLayout,
-) -> Result<Vec<CollisionCuboid<Architectural>>>
-{
+) -> Result<Vec<CollisionCuboid<Architectural>>> {
     let mut obstacles = building.collision.cuboids.clone();
     for placement in &layout.placements {
         let size = placement.key.interior_spec()?.size_metres.metres();

@@ -1,7 +1,10 @@
 //! Admission of scene-supported tactical entities precedes command publication.
 
 use adventuresim_building_generator::spatial_geometry::GeometryError;
-use adventuresim_tactical_core::{prelude::{CharacterId, SceneTerrain}, scene::TerrainSupportError};
+use adventuresim_tactical_core::{
+    prelude::{CharacterId, SceneTerrain},
+    scene::TerrainSupportError,
+};
 use bevy::prelude::Query;
 
 pub(crate) type SceneSpawnResult<T> = Result<T, SceneSpawnError>;

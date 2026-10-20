@@ -27,9 +27,18 @@ fn height_sampling_matches_each_mesh_triangle() {
     // Avian's heightfield diagonal joins the two zero-height off-diagonal
     // vertices. The high corner therefore affects only its own triangle,
     // and CPU queries and rendered indices must use that same split.
-    assert_eq!(terrain.height_at(southeast).unwrap(), SupportElevation::ZERO);
-    assert_eq!(terrain.height_at(northwest).unwrap(), SupportElevation::ZERO);
-    assert_eq!(terrain.height_at(ScenePlanPoint::ORIGIN).unwrap(), SupportElevation::ZERO);
+    assert_eq!(
+        terrain.height_at(southeast).unwrap(),
+        SupportElevation::ZERO
+    );
+    assert_eq!(
+        terrain.height_at(northwest).unwrap(),
+        SupportElevation::ZERO
+    );
+    assert_eq!(
+        terrain.height_at(ScenePlanPoint::ORIGIN).unwrap(),
+        SupportElevation::ZERO
+    );
     assert!((terrain.height_at(northeast).unwrap().metres() - 0.5).abs() < 0.0001);
 }
 

@@ -45,18 +45,18 @@ use crate::{
     stdb::{SpacetimeDb, SpacetimeDbReady},
 };
 
-#[cfg(feature = "debug")]
-mod debug_dump;
 mod bot;
 mod combat;
+#[cfg(feature = "debug")]
+mod debug_dump;
 mod equipment;
 mod furniture;
 mod mission;
 mod openings;
 mod player_projection;
 mod scene_obstacles;
-mod scene_spawn;
 mod scene_setup;
+mod scene_spawn;
 mod startup;
 mod stdb;
 mod terrain_collision;

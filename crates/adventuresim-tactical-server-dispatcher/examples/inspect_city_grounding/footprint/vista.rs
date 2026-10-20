@@ -27,13 +27,17 @@ pub(crate) fn extrema(
         let polygon = clip(points.to_vec(), &corners);
         result.area_m2 += area(&polygon);
         for point in polygon {
-            let Some(elevation) = SupportElevation::from_metres(height_in_triangle(triangle, point)) else {
+            let Some(elevation) =
+                SupportElevation::from_metres(height_in_triangle(triangle, point))
+            else {
                 continue;
             };
             let Some(point) = ScenePlanPoint::from_metres(point) else {
                 continue;
             };
-            result.samples.observe(GeographicHeightControl { point, elevation });
+            result
+                .samples
+                .observe(GeographicHeightControl { point, elevation });
         }
     }
     json!({"required_footprint_area_m2":area(&corners),"clipped_vista_area_m2":result.area_m2,

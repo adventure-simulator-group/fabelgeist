@@ -1,7 +1,6 @@
 //! Exhibit preparation keeps owned causes through the retained loading state.
 use adventuresim_tactical_core::{
-    city_layout::grounding::SupportColliderError,
-    scene_input::SceneInputError,
+    city_layout::grounding::SupportColliderError, scene_input::SceneInputError,
 };
 use std::sync::Arc;
 
@@ -33,7 +32,10 @@ pub(super) enum ArtDemoPreparationError {
     #[error("oak impostor asset was not requested")]
     ImpostorNotRequested,
     #[error("prepared oak impostors failed: {source}")]
-    ImpostorLoad { #[source] source: Arc<bevy::asset::AssetLoadError> },
+    ImpostorLoad {
+        #[source]
+        source: Arc<bevy::asset::AssetLoadError>,
+    },
 }
 
 impl From<SceneInputError> for ArtDemoPreparationError {

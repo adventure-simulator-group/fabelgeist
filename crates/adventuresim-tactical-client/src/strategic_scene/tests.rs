@@ -106,8 +106,14 @@ fn strategic_scene_keeps_character_entities_without_tactical_authority() {
                 anchor: Position::ORIGIN,
                 approach: Position::ORIGIN,
                 positions: vec![
-                    staging::ConversationPose { anchor: Position::ORIGIN, facing: Quat::IDENTITY },
-                    staging::ConversationPose { anchor: Position::from_metres(Vec3::X).unwrap(), facing: Quat::IDENTITY },
+                    staging::ConversationPose {
+                        anchor: Position::ORIGIN,
+                        facing: Quat::IDENTITY,
+                    },
+                    staging::ConversationPose {
+                        anchor: Position::from_metres(Vec3::X).unwrap(),
+                        facing: Quat::IDENTITY,
+                    },
                 ],
             },
         )]
@@ -161,7 +167,9 @@ fn strategic_scene_keeps_character_entities_without_tactical_authority() {
             .contains_key(&PortraitId(7))
     );
     assert_eq!(
-        app.world().resource::<RetainedScene>().people[&id].anchor.metres(),
+        app.world().resource::<RetainedScene>().people[&id]
+            .anchor
+            .metres(),
         Vec3::X,
         "unseen earlier residents still determine the visible resident's rank"
     );

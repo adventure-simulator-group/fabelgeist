@@ -1,8 +1,8 @@
 //! Load the prepared production-generated settlement without validating every
 //! building plan again on the browser's main thread.
+use super::preparation::{ArtDemoPreparationError, ArtDemoPreparationResult};
 use adventuresim_tactical_core::prelude::*;
 use serde::Deserialize;
-use super::preparation::{ArtDemoPreparationError, ArtDemoPreparationResult};
 
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -26,7 +26,9 @@ pub(super) struct PreparedOutdoorFurniture {
     pub groups: Vec<FurnitureGroup>,
 }
 
-pub(super) fn curate(input: &mut TacticalSceneInput) -> ArtDemoPreparationResult<PreparedOutdoorFurniture> {
+pub(super) fn curate(
+    input: &mut TacticalSceneInput,
+) -> ArtDemoPreparationResult<PreparedOutdoorFurniture> {
     let layout: CityLayout =
         serde_json::from_str(include_str!("../../../../assets/art-demo/city-layout.json"))?;
     bevy::log::info!(

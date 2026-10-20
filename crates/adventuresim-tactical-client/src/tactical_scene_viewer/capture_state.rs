@@ -1,5 +1,5 @@
-use adventuresim_tactical_core::animation::NonnegativeLength;
 use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_tactical_core::animation::NonnegativeLength;
 use adventuresim_tactical_core::scene_coordinates::Scene;
 use fabelgeist_determinism::Seed;
 use std::{collections::BTreeSet, path::PathBuf};

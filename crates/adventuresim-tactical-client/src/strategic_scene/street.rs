@@ -1,8 +1,8 @@
 //! One full-size frontage in the retained city, viewed through one perspective camera.
-use super::protocol::PlaceId;
 use super::preparation::{PreparationError, PreparationResult};
-use adventuresim_building_generator::spatial_geometry::Position;
+use super::protocol::PlaceId;
 use adventuresim_building_generator::OpeningUse;
+use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_core::scene_coordinates::{PlanDisplacement, Scene, ScenePlanPoint};
 use bevy::prelude::*;
@@ -90,13 +90,9 @@ impl Street {
                     })
                     .map_or(Vec2::Y, |opening| opening.frame.outward);
                 let yaw = -outward.x.atan2(outward.y);
-                let orientation =
-                    BuildingOrientation::from_radians(yaw).ok_or(PreparationError::DoorwayOrientation)?;
-                let extent = building
-                    .collision
-                    .bounds
-                    .extent()?
-                    .metres();
+                let orientation = BuildingOrientation::from_radians(yaw)
+                    .ok_or(PreparationError::DoorwayOrientation)?;
+                let extent = building.collision.bounds.extent()?.metres();
                 let rotation = Quat::from_rotation_y(yaw);
                 let size =
                     (rotation * Vec3::X * extent.x).abs() + (rotation * Vec3::Z * extent.z).abs();
@@ -126,8 +122,7 @@ impl Street {
         for building in &mut generated.buildings {
             if let Some(relocation) = moves.get_mut(&building.placement.id) {
                 let centre = building.placement.centre_metres;
-                building.placement.centre_metres = centre
-                    .translated(centering)?;
+                building.placement.centre_metres = centre.translated(centering)?;
                 relocation.after = building.transform()?;
             }
         }
@@ -137,8 +132,10 @@ impl Street {
 
     pub(super) fn camera(&self) -> Transform {
         let target = self.front.metres() + Vec3::Y * self.height * FRAME_CENTRE_HEIGHT_FRACTION;
-        Transform::from_translation(self.front.metres() + Vec3::new(0.0, EYE_HEIGHT_METRES, self.distance()))
-            .looking_at(target, Vec3::Y)
+        Transform::from_translation(
+            self.front.metres() + Vec3::new(0.0, EYE_HEIGHT_METRES, self.distance()),
+        )
+        .looking_at(target, Vec3::Y)
     }
 
     pub(super) fn vertical_fov(&self) -> f32 {
@@ -186,16 +183,14 @@ pub(super) fn build_ground(
 
 fn relocate_interior_furniture(
     furniture: &mut FurnitureLayout,
-    moves: &HashMap<
-        adventuresim_tactical_core::scene_input::SceneBuildingId,
-        BuildingRelocation,
-    >,
+    moves: &HashMap<adventuresim_tactical_core::scene_input::SceneBuildingId, BuildingRelocation>,
 ) -> PreparationResult<()> {
     for furniture in &mut furniture.instances {
         if let FurnitureLocation::Interior { building_id, .. } = furniture.scene.location
             && let Some(relocation) = moves.get(&building_id)
         {
-            let local = relocation.before
+            let local = relocation
+                .before
                 .compute_affine()
                 .inverse()
                 .transform_point3(furniture.position_metres.metres());
@@ -311,6 +306,9 @@ mod tests {
         assert!(previous_right <= street.width * 0.5);
         assert_eq!(street.camera().translation.x, 0.0);
         assert!(street.camera().translation.z > street.front.metres().z);
-        assert!((street.camera().translation.y - street.front.metres().y - EYE_HEIGHT_METRES).abs() < 0.001);
+        assert!(
+            (street.camera().translation.y - street.front.metres().y - EYE_HEIGHT_METRES).abs()
+                < 0.001
+        );
     }
 }

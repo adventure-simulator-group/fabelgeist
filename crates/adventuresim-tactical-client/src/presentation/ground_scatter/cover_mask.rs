@@ -1,6 +1,6 @@
 use super::*;
-use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use crate::presentation::grass_cover_mask_pixels;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use fabelgeist_determinism::Seed;
 
 /// CPU-side sampler over the same feathered cover mask the legacy renderer

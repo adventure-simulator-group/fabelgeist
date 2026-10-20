@@ -273,7 +273,10 @@ fn furniture_groups_are_deterministic_supported_and_leave_routes_clear() {
                 .orientation
                 .local_to_world(Vec2::new(support.metres().x, support.metres().z));
             assert!(
-                (terrain.height_at(ScenePlanPoint::from_metres(point).unwrap()).unwrap().metres()
+                (terrain
+                    .height_at(ScenePlanPoint::from_metres(point).unwrap())
+                    .unwrap()
+                    .metres()
                     - instance.position_metres.metres().y
                     - support.metres().y)
                     .abs()

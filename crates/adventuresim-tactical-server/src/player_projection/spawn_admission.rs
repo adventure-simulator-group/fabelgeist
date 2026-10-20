@@ -8,7 +8,10 @@ use crate::{
 };
 use adventuresim_building_generator::spatial_geometry::{Position, SignedLength};
 use adventuresim_stdb_client::*;
-use adventuresim_tactical_core::{prelude::*, scene_coordinates::{Scene, ScenePlanPoint}};
+use adventuresim_tactical_core::{
+    prelude::*,
+    scene_coordinates::{Scene, ScenePlanPoint},
+};
 use bevy::prelude::*;
 
 pub(super) struct PreparedPlayerSpawns(Vec<AdmittedPlayer>);
@@ -76,7 +79,12 @@ impl PreparedPlayerSpawns {
                 elevation.metres() + offset.metres(),
                 point.metres().y,
             ))?;
-            admitted.push(AdmittedPlayer { player, recipient, position, collider });
+            admitted.push(AdmittedPlayer {
+                player,
+                recipient,
+                position,
+                collider,
+            });
         }
         Ok(Self(admitted))
     }

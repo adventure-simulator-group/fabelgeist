@@ -303,7 +303,9 @@ fn stitched_vista_topology_coverage(
     if urban_ground.suppresses_grass(point) {
         return 0.0;
     }
-    let boundary = point.metres().clamp(-playable_half_extent, playable_half_extent);
+    let boundary = point
+        .metres()
+        .clamp(-playable_half_extent, playable_half_extent);
     let playable_coverage = ScenePlanPoint::from_metres(boundary)
         .and_then(|point| playable_ground.ground_at(point))
         .filter(|sample| sample.cover == GroundCover::TallGrass)
@@ -556,7 +558,14 @@ mod tests {
                 }
             }
             assert!(
-                backdrop.height_at(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(Vec2::new(60.0, 0.0)).unwrap()).is_none(),
+                backdrop
+                    .height_at(
+                        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+                            Vec2::new(60.0, 0.0)
+                        )
+                        .unwrap()
+                    )
+                    .is_none(),
                 "unrendered rings cannot seat actors"
             );
             let mut sources = app
@@ -805,7 +814,10 @@ mod tests {
 
         for sample in 0..terrain.grid_depth() {
             let z = -half_extent.y + sample as f32 * terrain.grid_scale();
-            let expected_height = terrain.height_at(ScenePlanPoint::from_metres(Vec2::new(half_extent.x, z)).unwrap()).unwrap().metres();
+            let expected_height = terrain
+                .height_at(ScenePlanPoint::from_metres(Vec2::new(half_extent.x, z)).unwrap())
+                .unwrap()
+                .metres();
             assert!(
                 east_edge.iter().any(|position| {
                     (position[2] - z).abs() < 0.001 && (position[1] - expected_height).abs() < 0.001

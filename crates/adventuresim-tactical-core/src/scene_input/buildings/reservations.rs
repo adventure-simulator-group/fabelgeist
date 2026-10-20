@@ -19,7 +19,10 @@ pub(in crate::scene_input) struct ObstacleReservation {
 
 impl ObstacleReservation {
     fn contains_apron(self, point: ScenePlanPoint) -> bool {
-        let offset = self.orientation.world_to_local(point.metres() - self.centre.metres()).abs();
+        let offset = self
+            .orientation
+            .world_to_local(point.metres() - self.centre.metres())
+            .abs();
         offset
             .cmple(self.half_extents.metres() + Vec2::splat(OBSTACLE_APRON_METRES))
             .all()
@@ -39,5 +42,7 @@ pub(in crate::scene_input) fn obstacle_intersects_building(
     let point = ScenePlanPoint::try_from(
         Vec2::new(f32::from(x), f32::from(z)) * obstacle_spacing - terrain_extent * 0.5,
     )?;
-    Ok(reservations.iter().any(|reservation| reservation.contains_apron(point)))
+    Ok(reservations
+        .iter()
+        .any(|reservation| reservation.contains_apron(point)))
 }

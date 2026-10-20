@@ -5,22 +5,22 @@ use adventuresim_core::linear_speed::NonnegativeSpeed;
 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 pub(in crate::animation::procedural) use approach::run_contact_approach_progress;
 pub(in crate::animation::procedural) use flight_projection::advance_run_airborne_world_target;
+pub(in crate::animation::procedural) use foot_clearance::{
+    FootClearanceFloor, FootDescent, checked_foot_target, checked_scene_point_metres,
+    conform_run_swing_target, conform_settle_swing_target, ordinary_terrain_target,
+    run_airborne_clearance_for_sample, settle_swing_target, terrain_clearance_floor,
+    toe_aware_clearance_floor, transition_clearance_floor,
+};
 pub(in crate::animation::procedural) use run_reach::{
     reachable_run_contact_target, retarget_unacquired_run_contact_for_descent,
     run_contact_within_follower_motion_step, run_contact_within_follower_step,
     run_contact_within_leg_reach,
 };
-pub(in crate::animation::procedural) use foot_clearance::{
-    FootClearanceFloor, FootDescent, checked_foot_target, checked_scene_point_metres,
-    conform_run_swing_target, conform_settle_swing_target, ordinary_terrain_target,
-    run_airborne_clearance_for_sample,
-    settle_swing_target, terrain_clearance_floor, toe_aware_clearance_floor,
-    transition_clearance_floor,
-};
 
 #[cfg(test)]
 pub(in crate::animation::procedural) use foot_clearance::{
-    checked_scene_elevation, run_airborne_clearance, run_swing_clearance, transition_toe_clearance_with_rotation_margin,
+    checked_scene_elevation, run_airborne_clearance, run_swing_clearance,
+    transition_toe_clearance_with_rotation_margin,
 };
 
 mod approach;

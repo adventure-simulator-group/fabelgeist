@@ -127,7 +127,10 @@ impl<F: GeometryFrame> Elevation<F> {
     }
     /// Selecting a finite elevation preserves its datum and signed-zero behavior.
     pub fn max(self, other: Self) -> Self {
-        Self { metres: self.metres.max(other.metres), frame: PhantomData }
+        Self {
+            metres: self.metres.max(other.metres),
+            frame: PhantomData,
+        }
     }
 }
 impl<'de, F: GeometryFrame> Deserialize<'de> for Elevation<F> {

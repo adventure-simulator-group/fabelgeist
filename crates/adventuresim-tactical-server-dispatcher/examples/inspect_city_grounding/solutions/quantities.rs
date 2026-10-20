@@ -1,7 +1,9 @@
 //! Rough construction quantities; complete triangle intersections bound cut/fill.
 use super::*;
 use crate::footprint::{clip, height_in_triangle};
-use adventuresim_tactical_core::city_layout::grounding::{DiagnosticMetres, SurfaceDifferenceControl};
+use adventuresim_tactical_core::city_layout::grounding::{
+    DiagnosticMetres, SurfaceDifferenceControl,
+};
 use bevy::math::Vec2;
 
 const PERIMETER_QUANTITY_PROBE_METRES: f32 = 1.0;
@@ -52,13 +54,14 @@ pub(super) fn measure(
                 .collect();
             for (point, difference) in polygon.iter().zip(&differences) {
                 let control = displacement_control_at(support, *source, *point)?;
-                if maximum.is_none_or(|best| f64::from(difference.abs()) > best.difference_metres.metres().abs()) {
+                if maximum.is_none_or(|best| {
+                    f64::from(difference.abs()) > best.difference_metres.metres().abs()
+                }) {
                     maximum = Some(control);
                 }
-                if let Err(error) = plan.validate_displacement_at(
-                    control.position_metres,
-                    control.second_elevation,
-                ) {
+                if let Err(error) =
+                    plan.validate_displacement_at(control.position_metres, control.second_elevation)
+                {
                     rejection.get_or_insert(error);
                 }
             }
@@ -101,8 +104,8 @@ fn displacement_control_at(
     let support_height = height_in_triangle(support, point);
     let source_height = height_in_triangle(source, point);
     let difference = support_height - source_height;
-    let location = ScenePlanPoint::from_metres(point)
-        .ok_or(QuantityError::NonFiniteLocation { point })?;
+    let location =
+        ScenePlanPoint::from_metres(point).ok_or(QuantityError::NonFiniteLocation { point })?;
     Ok(SurfaceDifferenceControl {
         position_metres: location,
         first_elevation: SupportElevation::from_metres(support_height)

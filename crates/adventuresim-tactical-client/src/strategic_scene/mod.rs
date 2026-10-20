@@ -20,8 +20,8 @@ mod world;
 
 use crate::animation::StrategicModel;
 use adventuresim_building_generator::spatial_geometry::Position;
-use adventuresim_tactical_core::scene_coordinates::Scene;
 use adventuresim_tactical_core::prelude::{CharacterId, SkeletonState};
+use adventuresim_tactical_core::scene_coordinates::Scene;
 use bevy::{camera::visibility::RenderLayers, prelude::*};
 use buildings::Venue;
 use protocol::{PlaceId, PortraitId, StrategicView};

@@ -1,8 +1,7 @@
 //! Landform fields extend the actual scene support at its clamped edge.
 use super::{TerrainRecipeError, TerrainRecipeResult};
 use crate::{
-    city_layout::grounding::SupportElevation,
-    scene::SceneTerrain,
+    city_layout::grounding::SupportElevation, scene::SceneTerrain,
     scene_coordinates::ScenePlanPoint,
 };
 use bevy::math::Vec2;

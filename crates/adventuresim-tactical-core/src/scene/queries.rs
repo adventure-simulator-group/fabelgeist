@@ -59,7 +59,10 @@ impl SceneElevationRange {
 }
 
 impl SceneTerrain {
-    pub fn required_height_at(&self, point: ScenePlanPoint) -> TerrainSupportResult<SupportElevation> {
+    pub fn required_height_at(
+        &self,
+        point: ScenePlanPoint,
+    ) -> TerrainSupportResult<SupportElevation> {
         self.height_at(point)
             .ok_or(TerrainSupportError::MissingSupport { point })
     }
@@ -81,7 +84,8 @@ impl SceneTerrain {
     }
 
     pub fn height_at(&self, point: ScenePlanPoint) -> Option<SupportElevation> {
-        self.surface_at_stride(point, 1).map(|sample| sample.elevation)
+        self.surface_at_stride(point, 1)
+            .map(|sample| sample.elevation)
     }
 
     /// Samples the triangle surface used by the coarse render LOD.
@@ -160,7 +164,6 @@ impl SceneTerrain {
         let normal = tangent_z.cross(tangent_x);
         SurfaceHit::from_geometry(height, normal)
     }
-
 }
 
 #[cfg(test)]

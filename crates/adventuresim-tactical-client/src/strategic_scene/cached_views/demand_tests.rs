@@ -1,10 +1,10 @@
 use super::*;
-use adventuresim_building_generator::spatial_geometry::Position;
 use crate::strategic_scene::{
     RetainedPerson,
     protocol::{Person, PersonPresentation, PlaceId, PortraitView},
     status::{SceneAssetsReady, SceneInstallationReady},
 };
+use adventuresim_building_generator::spatial_geometry::Position;
 
 #[test]
 fn requested_portraits_capture_on_first_visit_and_reuse_their_completed_images() {

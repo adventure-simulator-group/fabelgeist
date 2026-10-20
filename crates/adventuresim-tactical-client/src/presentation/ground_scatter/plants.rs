@@ -2,7 +2,6 @@
 use super::{GroundScatterLayer, scatter_ground_without_patch};
 use crate::presentation::{bps, stable_text_seed};
 use adventuresim_building_generator::spatial_geometry::Position;
-use adventuresim_tactical_core::scene_coordinates::{Scene, ScenePlanPoint};
 use adventuresim_plant_generator::{
     PlantSpecies,
     habitat::{PlantGround, PlantHabitat},
@@ -11,14 +10,15 @@ use adventuresim_tactical_core::prelude::{
     GroundCover, GroundSubstrate, GroundSurface, SceneEnvironment, SceneGround, SceneId,
     SceneTerrain, TerrainLandformRecipe,
 };
+use adventuresim_tactical_core::scene_coordinates::{Scene, ScenePlanPoint};
 use adventuresim_world_schema::calendar::StrategicMinute;
 use bevy::prelude::*;
 use fabelgeist_determinism::Seed;
 pub(crate) use lod::PlantLodInstance;
 use lod::SpecimenCache;
 
-mod streams;
 mod lod;
+mod streams;
 
 const SITE_SPACING_METRES: f32 = 2.0;
 const MAX_SPECIMENS: usize = 512;
@@ -102,7 +102,6 @@ fn present(
     }
 }
 
-
 fn placements(
     terrain: &SceneTerrain,
     ground: &SceneGround,
@@ -161,7 +160,9 @@ fn placements(
                 continue;
             };
             let Ok(root) = Position::from_metres(Vec3::new(
-                world.metres().x, height.metres() - ROOT_EMBED_METRES, world.metres().y,
+                world.metres().x,
+                height.metres() - ROOT_EMBED_METRES,
+                world.metres().y,
             )) else {
                 continue;
             };
@@ -174,7 +175,13 @@ fn placements(
     }
     // Stable priority sampling spreads the bounded population over the entire
     // scene; truncating row order would leave one populated corner.
-    candidates.sort_by_key(|site| (site.hash, site.root.metres().x.to_bits(), site.root.metres().z.to_bits()));
+    candidates.sort_by_key(|site| {
+        (
+            site.hash,
+            site.root.metres().x.to_bits(),
+            site.root.metres().z.to_bits(),
+        )
+    });
     candidates.truncate(MAX_SPECIMENS);
     candidates
 }

@@ -78,7 +78,10 @@ pub(super) fn spawn_vista_rocks(
     }
 }
 
-pub(super) fn sample_vista_environment(lod: &VistaLod, world: ScenePlanPoint) -> Option<EnvironmentalSample> {
+pub(super) fn sample_vista_environment(
+    lod: &VistaLod,
+    world: ScenePlanPoint,
+) -> Option<EnvironmentalSample> {
     let width = usize::from(lod.width);
     let depth = usize::from(lod.depth);
     let origin = Vec2::new(
@@ -247,7 +250,8 @@ pub(super) fn spawn_vista_trees(
                     MeshMaterial3d(cached.material.clone()),
                     cached.provenance.clone(),
                     vista_tree_visibility(lod.spacing_metres, card_height, scale),
-                    Transform::from_xyz(local.x, height.metres(), local.y).with_scale(Vec3::splat(scale)),
+                    Transform::from_xyz(local.x, height.metres(), local.y)
+                        .with_scale(Vec3::splat(scale)),
                 ));
             }
         }

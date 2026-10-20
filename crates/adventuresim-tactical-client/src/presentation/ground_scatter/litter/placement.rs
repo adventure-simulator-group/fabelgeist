@@ -1,6 +1,6 @@
 //! Retain scene roots until the mesh batching port consumes the placement.
-use super::{BatchKind, streams};
 use super::super::{PLACEMENT_SCALE, PLACEMENT_YAW};
+use super::{BatchKind, streams};
 use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_tactical_core::{
     prelude::{GroundCover, SceneGround, SceneTerrain},
@@ -34,7 +34,10 @@ impl LitterPlacement {
             ) * jitter;
         let point = ScenePlanPoint::from_metres(position)?;
         if ground.ground_at(point).is_none_or(|sample| {
-            !matches!(sample.cover, GroundCover::LeafLitter | GroundCover::TallGrass)
+            !matches!(
+                sample.cover,
+                GroundCover::LeafLitter | GroundCover::TallGrass
+            )
         }) {
             return None;
         }
@@ -57,12 +60,19 @@ impl LitterPlacement {
             point.metres().x,
             height.metres() + height_offset,
             point.metres().y,
-        )).ok()?;
-        let scale = Vec3::splat(scale) * match kind {
-            BatchKind::Leaves => 0.8,
-            BatchKind::Twigs => 0.72,
-            BatchKind::Plants => 0.7,
-        };
-        Some(Self { root, rotation: terrain_rotation * yaw, scale, kind })
+        ))
+        .ok()?;
+        let scale = Vec3::splat(scale)
+            * match kind {
+                BatchKind::Leaves => 0.8,
+                BatchKind::Twigs => 0.72,
+                BatchKind::Plants => 0.7,
+            };
+        Some(Self {
+            root,
+            rotation: terrain_rotation * yaw,
+            scale,
+            kind,
+        })
     }
 }

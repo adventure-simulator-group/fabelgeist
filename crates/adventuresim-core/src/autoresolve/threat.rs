@@ -25,12 +25,13 @@ pub fn authored_threat_combatant(
     combat_scale_bps: u32,
     countermeasure_multiplier_bps: u32,
 ) -> AuthoredThreatResult<Combatant> {
-    let threat: ThreatId = enemy_type
-        .parse()
-        .map_err(|source| AuthoredThreatError::UnknownThreat {
-            enemy_type: enemy_type.to_owned(),
-            source,
-        })?;
+    let threat: ThreatId =
+        enemy_type
+            .parse()
+            .map_err(|source| AuthoredThreatError::UnknownThreat {
+                enemy_type: enemy_type.to_owned(),
+                source,
+            })?;
     let (physical_scale, training_scale) = crate::threat_escalation::combat_scaling_multipliers(
         combat_scale_bps,
         countermeasure_multiplier_bps,

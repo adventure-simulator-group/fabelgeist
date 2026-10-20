@@ -13,15 +13,15 @@ use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::{fs, path::Path};
 
+use crate::scene_ground::build_scene_ground;
+#[cfg(test)]
+use crate::scene_ground::tree_leaf_litter_probability;
+use crate::terrain_streams as streams;
 use crate::{
     city_layout::{CityStreetPatch, CityYardPatch},
     scene::{GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneTerrain},
     volumetric_terrain::TerrainLandformRecipe,
 };
-use crate::scene_ground::build_scene_ground;
-#[cfg(test)]
-use crate::scene_ground::tree_leaf_litter_probability;
-use crate::terrain_streams as streams;
 
 pub use buildings::{
     BuildingOrientation, DistantBuildingPlacement, DistantBuildingVariant, GeneratedBuilding,
@@ -608,7 +608,9 @@ mod tests {
 
         let generated = input.generate().unwrap();
         assert_eq!(
-            generated.ground.ground_at(ScenePlanPoint::from_metres(bevy::math::Vec2::new(1.0, 0.0)).unwrap()),
+            generated
+                .ground
+                .ground_at(ScenePlanPoint::from_metres(bevy::math::Vec2::new(1.0, 0.0)).unwrap()),
             Some(GroundSurface {
                 substrate: GroundSubstrate::Soil,
                 cover: GroundCover::Bare,
@@ -617,7 +619,9 @@ mod tests {
             })
         );
         assert_eq!(
-            generated.ground.ground_at(ScenePlanPoint::from_metres(bevy::math::Vec2::new(-1.0, 0.0)).unwrap()),
+            generated
+                .ground
+                .ground_at(ScenePlanPoint::from_metres(bevy::math::Vec2::new(-1.0, 0.0)).unwrap()),
             Some(GroundSurface {
                 substrate: GroundSubstrate::Road,
                 cover: GroundCover::Bare,
@@ -893,7 +897,11 @@ mod tests {
                 f32::from(z) * sparse_spacing - sparse.terrain.depth() * 0.5,
             );
             assert_eq!(
-                sparse.ground.ground_at(ScenePlanPoint::from_metres(position).unwrap()).unwrap().cover,
+                sparse
+                    .ground
+                    .ground_at(ScenePlanPoint::from_metres(position).unwrap())
+                    .unwrap()
+                    .cover,
                 GroundCover::LeafLitter
             );
         }
@@ -966,10 +974,13 @@ mod tests {
         let height = |x: usize, z: usize| {
             first
                 .terrain
-                .height_at(ScenePlanPoint::from_metres(bevy::math::Vec2::new(
-                    x as f32 * spacing - world_width * 0.5,
-                    z as f32 * spacing - world_depth * 0.5,
-                )).unwrap())
+                .height_at(
+                    ScenePlanPoint::from_metres(bevy::math::Vec2::new(
+                        x as f32 * spacing - world_width * 0.5,
+                        z as f32 * spacing - world_depth * 0.5,
+                    ))
+                    .unwrap(),
+                )
                 .unwrap()
         };
         for z in 0..depth {

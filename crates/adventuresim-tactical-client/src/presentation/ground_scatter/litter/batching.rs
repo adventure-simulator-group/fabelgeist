@@ -115,7 +115,8 @@ mod tests {
                         kind: BatchKind::Leaves,
                     },
                     &mut batches,
-                ).unwrap();
+                )
+                .unwrap();
                 let batch = batches[&(0, 0)].leaves.as_ref().unwrap();
                 assert_eq!(batch.asset_usage, RenderAssetUsages::RENDER_WORLD);
                 assert_eq!(

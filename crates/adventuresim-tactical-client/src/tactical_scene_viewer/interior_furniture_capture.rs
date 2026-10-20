@@ -9,8 +9,8 @@ use super::{
     view_specs::{CapturePose, CaptureViewSpec},
 };
 
-pub(super) use catalog::setup_catalog;
 use catalog::catalog_camera;
+pub(super) use catalog::setup_catalog;
 
 mod catalog;
 mod finishes;

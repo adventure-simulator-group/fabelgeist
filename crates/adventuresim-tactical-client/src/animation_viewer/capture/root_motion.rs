@@ -5,7 +5,8 @@ use adventuresim_building_generator::spatial_geometry::{
     CoordinateAxis, GeometryError, GeometryRole, Position,
 };
 use adventuresim_tactical_core::{
-    city_layout::grounding::SupportElevation, scene_coordinates::{Scene, ScenePlanPoint},
+    city_layout::grounding::SupportElevation,
+    scene_coordinates::{Scene, ScenePlanPoint},
 };
 
 #[derive(Clone, Copy)]
@@ -30,7 +31,10 @@ impl CaptureSequence {
         let vertical = if is_quickstep_scenario(&frame.scenario) {
             let ground = self.admit_terrain_height(terrain, point)?.metres()
                 + CAPTURE_ROOT_GROUND_OFFSET_METRES;
-            ground + quickstep_fixture_vertical_state(frame.scenario_frame).0.max(0.0)
+            ground
+                + quickstep_fixture_vertical_state(frame.scenario_frame)
+                    .0
+                    .max(0.0)
         } else if terrain_ik.is_enabled() {
             self.admit_terrain_height(terrain, point)?.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES
         } else {
@@ -72,7 +76,10 @@ impl CaptureSequence {
             return Some(CaptureGround::AuthoredPlane(height));
         }
         self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(
-            GeometryError::NonFinite { role: GeometryRole::Elevation, axis: CoordinateAxis::Y },
+            GeometryError::NonFinite {
+                role: GeometryRole::Elevation,
+                axis: CoordinateAxis::Y,
+            },
         ));
         None
     }

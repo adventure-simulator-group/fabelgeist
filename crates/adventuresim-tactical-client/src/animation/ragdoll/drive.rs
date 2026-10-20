@@ -11,7 +11,9 @@ use adventuresim_building_generator::spatial_geometry::{
     GeometryResult, Position as ScenePosition, SignedLength,
 };
 use adventuresim_tactical_core::{
-    city_layout::grounding::SupportElevation, prelude::*, scene_coordinates::{Scene, ScenePlanPoint},
+    city_layout::grounding::SupportElevation,
+    prelude::*,
+    scene_coordinates::{Scene, ScenePlanPoint},
 };
 use bevy::{math::Affine3A, prelude::*};
 use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
@@ -202,8 +204,13 @@ mod tests {
         let penetration =
             capsule_terrain_penetration(&part, Vec3::new(0.0, 0.2, 0.0), rotation, |point| {
                 SupportElevation::from_metres(point.metres().x.max(0.0))
-            }).unwrap();
-        assert!((penetration.metres() - 0.4).abs() < 1.0e-5, "{}", penetration.metres());
+            })
+            .unwrap();
+        assert!(
+            (penetration.metres() - 0.4).abs() < 1.0e-5,
+            "{}",
+            penetration.metres()
+        );
     }
 
     #[test]
@@ -218,8 +225,13 @@ mod tests {
         let penetration =
             capsule_terrain_penetration(&part, Vec3::new(0.0, 0.45, 0.0), Quat::IDENTITY, |_| {
                 Some(SupportElevation::ZERO)
-            }).unwrap();
+            })
+            .unwrap();
         // Lowest sample is the far cap centre at y = 0.05, radius 0.1.
-        assert!((penetration.metres() - 0.05).abs() < 1.0e-5, "{}", penetration.metres());
+        assert!(
+            (penetration.metres() - 0.05).abs() < 1.0e-5,
+            "{}",
+            penetration.metres()
+        );
     }
 }

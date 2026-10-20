@@ -1,6 +1,9 @@
 use crate::scene_spawn::SceneSpawnResult;
 use adventuresim_building_generator::spatial_geometry::Position;
-use adventuresim_tactical_core::{prelude::*, scene_coordinates::{Scene, ScenePlanPoint}};
+use adventuresim_tactical_core::{
+    prelude::*,
+    scene_coordinates::{Scene, ScenePlanPoint},
+};
 use adventuresim_tactical_netcode::bevy_replicon::prelude::Replicated;
 use bevy::prelude::*;
 
@@ -47,7 +50,12 @@ impl AdmittedObstacle {
             }
             SceneObstacle::Tree => 0.0,
         };
-        Ok(Self { kind, collider, position, rotation: Quat::from_rotation_y(yaw) })
+        Ok(Self {
+            kind,
+            collider,
+            position,
+            rotation: Quat::from_rotation_y(yaw),
+        })
     }
 }
 
@@ -57,7 +65,8 @@ pub(crate) fn spawn(
     terrain: &SceneTerrain,
     obstacle_spacing: f32,
 ) -> SceneSpawnResult<()> {
-    let admitted = obstacles.into_iter()
+    let admitted = obstacles
+        .into_iter()
         .map(|obstacle| AdmittedObstacle::from_generated(obstacle, terrain, obstacle_spacing))
         .collect::<SceneSpawnResult<Vec<_>>>()?;
     for obstacle in admitted {
@@ -72,7 +81,8 @@ pub(crate) fn spawn(
             RigidBody::Static,
             CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
             obstacle.collider,
-            Transform::from_translation(obstacle.position.metres()).with_rotation(obstacle.rotation),
+            Transform::from_translation(obstacle.position.metres())
+                .with_rotation(obstacle.rotation),
         ));
     }
     Ok(())

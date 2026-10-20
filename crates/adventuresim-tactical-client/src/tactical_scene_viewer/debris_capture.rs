@@ -1,4 +1,5 @@
 //! Frame physical litter roots while retaining their scene and distance contracts.
+use crate::presentation::GroundLitterCapturePair;
 use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_tactical_core::{
     animation::NonnegativeLength,
@@ -6,7 +7,6 @@ use adventuresim_tactical_core::{
     scene_coordinates::{Scene, ScenePlanPoint},
 };
 use bevy::prelude::{GlobalTransform, Result, Vec2, Vec3, Vec3Swizzles};
-use crate::presentation::GroundLitterCapturePair;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(super) struct DebrisCaptureTarget {
@@ -54,7 +54,8 @@ impl DebrisCaptureTarget {
             })
             .collect::<Vec<_>>();
         candidates.sort_by(|left, right| {
-            left.separation.metres()
+            left.separation
+                .metres()
                 .total_cmp(&right.separation.metres())
                 .then_with(|| left.leaf.metres().x.total_cmp(&right.leaf.metres().x))
                 .then_with(|| left.leaf.metres().z.total_cmp(&right.leaf.metres().z))
@@ -68,8 +69,10 @@ impl DebrisCaptureTarget {
         Some(Self {
             focus: Position::from_metres(focus).ok()?,
             camera: None,
-            leaf_distance: NonnegativeLength::from_arithmetic(focus.xz().distance(leaf.xz())).ok()?,
-            twig_distance: NonnegativeLength::from_arithmetic(focus.xz().distance(twig.xz())).ok()?,
+            leaf_distance: NonnegativeLength::from_arithmetic(focus.xz().distance(leaf.xz()))
+                .ok()?,
+            twig_distance: NonnegativeLength::from_arithmetic(focus.xz().distance(twig.xz()))
+                .ok()?,
         })
     }
 
@@ -94,10 +97,16 @@ impl DebrisCaptureTarget {
         fallback_azimuth_degrees: f32,
     ) -> Result<Option<Self>> {
         // Admit the complete native ECS observation before selecting a target.
-        let obstacles = observed_obstacles.into_iter()
+        let obstacles = observed_obstacles
+            .into_iter()
             .map(|(obstacle, transform)| CaptureObstacle::from_observation(obstacle, transform))
             .collect::<Result<Vec<_>>>()?;
-        Ok(Self::select(pairs, terrain, &obstacles, fallback_azimuth_degrees))
+        Ok(Self::select(
+            pairs,
+            terrain,
+            &obstacles,
+            fallback_azimuth_degrees,
+        ))
     }
 
     fn select(
@@ -112,8 +121,10 @@ impl DebrisCaptureTarget {
             .iter()
             .filter_map(|pair| {
                 let mut target = Self::terrain_snapped(
-                    &[pair.dry_leaf], &[pair.twig],
-                    GroundLitterCapturePair::MAXIMUM_SEPARATION, terrain,
+                    &[pair.dry_leaf],
+                    &[pair.twig],
+                    GroundLitterCapturePair::MAXIMUM_SEPARATION,
+                    terrain,
                 )?;
                 let normal = terrain.normal_at(ScenePlanPoint::from(target.focus))?;
                 // Native planar clearance, camera and weighted ranking math use
@@ -124,7 +135,9 @@ impl DebrisCaptureTarget {
                     return None;
                 }
                 let nearest = obstacles.iter().min_by(|left, right| {
-                    focus.xz().distance(left.position.metres().xz())
+                    focus
+                        .xz()
+                        .distance(left.position.metres().xz())
                         .total_cmp(&focus.xz().distance(right.position.metres().xz()))
                 });
                 let obstacle_clearance = nearest.map_or(half_width.min(half_depth), |obstacle| {
@@ -135,24 +148,43 @@ impl DebrisCaptureTarget {
                 }
                 let fallback = fallback_azimuth_degrees.to_radians();
                 let camera_horizontal = nearest
-                    .map(|obstacle| (focus.xz() - obstacle.position.metres().xz()).normalize_or_zero())
+                    .map(|obstacle| {
+                        (focus.xz() - obstacle.position.metres().xz()).normalize_or_zero()
+                    })
                     .filter(|direction| direction.length_squared() > 0.5)
                     .unwrap_or(Vec2::new(fallback.sin(), fallback.cos()));
                 let camera_xz = focus.xz() + camera_horizontal * 1.15;
                 let camera_ground = terrain.height_at(ScenePlanPoint::from_metres(camera_xz)?)?;
-                target.camera = Some(Position::from_metres(Vec3::new(
-                    camera_xz.x,
-                    (focus.y + 1.35).max(camera_ground.metres() + 1.0),
-                    camera_xz.y,
-                )).ok()?);
+                target.camera = Some(
+                    Position::from_metres(Vec3::new(
+                        camera_xz.x,
+                        (focus.y + 1.35).max(camera_ground.metres() + 1.0),
+                        camera_xz.y,
+                    ))
+                    .ok()?,
+                );
                 let score = obstacle_clearance.min(8.0) * 4.0 + edge_clearance.min(8.0) + normal.y;
                 Some(RankedTarget { score, target })
             })
             .collect::<Vec<_>>();
         candidates.sort_by(|left, right| {
-            right.score.total_cmp(&left.score)
-                .then_with(|| left.target.focus.metres().x.total_cmp(&right.target.focus.metres().x))
-                .then_with(|| left.target.focus.metres().z.total_cmp(&right.target.focus.metres().z))
+            right
+                .score
+                .total_cmp(&left.score)
+                .then_with(|| {
+                    left.target
+                        .focus
+                        .metres()
+                        .x
+                        .total_cmp(&right.target.focus.metres().x)
+                })
+                .then_with(|| {
+                    left.target
+                        .focus
+                        .metres()
+                        .z
+                        .total_cmp(&right.target.focus.metres().z)
+                })
         });
         candidates.first().map(|candidate| candidate.target)
     }
@@ -180,7 +212,8 @@ pub(super) fn debris_detail_camera(
     let target = target.metres();
     let azimuth = azimuth_degrees.to_radians();
     (
-        camera.map(Position::metres)
+        camera
+            .map(Position::metres)
             .unwrap_or(target + Vec3::new(azimuth.sin() * 1.15, 1.35, azimuth.cos() * 1.15)),
         target,
         Vec3::Y,

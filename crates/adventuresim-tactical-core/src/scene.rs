@@ -4,9 +4,9 @@ use bevy::prelude::*;
 use noiz::prelude::*;
 use serde::{Deserialize, Serialize};
 
-use crate::{city_layout::grounding::SupportElevation, scene_coordinates::ScenePlanPoint};
 #[cfg(test)]
 use crate::terrain_transition::TerrainTransitionCollar;
+use crate::{city_layout::grounding::SupportElevation, scene_coordinates::ScenePlanPoint};
 
 pub use admission::TerrainAdmissionError;
 pub use grade::{TerrainGradeError, TerrainGradeLimit};
@@ -472,7 +472,6 @@ mod tests {
         );
     }
 
-
     #[test]
     fn refined_surface_keeps_a_coarse_lod_without_splitting_query_authority() {
         let coarse = SceneTerrain::new(4, 4, 1.0, |_| 0.0).unwrap();
@@ -480,9 +479,10 @@ mod tests {
             .refined(0.5, |point, base| {
                 let point = point.metres();
                 SupportElevation::from_metres(
-                    base.metres() + (point.x * core::f32::consts::PI).sin()
-                        * (point.y * core::f32::consts::PI).sin()
-                        * 0.04,
+                    base.metres()
+                        + (point.x * core::f32::consts::PI).sin()
+                            * (point.y * core::f32::consts::PI).sin()
+                            * 0.04,
                 )
             })
             .unwrap();
@@ -527,7 +527,10 @@ mod tests {
             Vec2::new(0.6, 0.2),
             Vec2::ZERO,
         ] {
-            let expected_height = terrain.height_at(ScenePlanPoint::from_metres(point).unwrap()).unwrap().metres();
+            let expected_height = terrain
+                .height_at(ScenePlanPoint::from_metres(point).unwrap())
+                .unwrap()
+                .metres();
             let ray_origin = Vec3::new(point.x, 30.0, point.y);
             let (distance, _) = collider
                 .cast_ray(
@@ -547,6 +550,4 @@ mod tests {
             );
         }
     }
-
-
 }

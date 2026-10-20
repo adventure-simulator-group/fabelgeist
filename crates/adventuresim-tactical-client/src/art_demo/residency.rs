@@ -1,8 +1,11 @@
 //! Keep recently used studio exhibits resident in a bounded navigation cache.
 //! Scenery shares prepared facades, but releases terrain and inspection detail.
 
-use std::{collections::{HashMap, VecDeque}, sync::Arc};
 use super::preparation::{ArtDemoPreparationError, ArtDemoPreparationResult, SharedArtDemoResult};
+use std::{
+    collections::{HashMap, VecDeque},
+    sync::Arc,
+};
 
 use super::*;
 
@@ -164,7 +167,10 @@ fn scenery_ready(world: &World, exhibit: &Exhibit) -> ArtDemoPreparationResult<b
     Ok(server.is_loaded_with_dependencies(handle.id()))
 }
 
-fn load_studio(world: &mut World, exhibit: &Exhibit) -> SharedArtDemoResult<Option<Handle<WorldAsset>>> {
+fn load_studio(
+    world: &mut World,
+    exhibit: &Exhibit,
+) -> SharedArtDemoResult<Option<Handle<WorldAsset>>> {
     if let Some(result) = world
         .resource::<ExhibitCache>()
         .studio

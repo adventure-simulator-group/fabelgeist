@@ -11,12 +11,12 @@ use super::*;
 use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
 use adventuresim_core::linear_speed::NonnegativeSpeed;
 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
-use adventuresim_tactical_core::{
-    city_layout::grounding::SupportElevation, scene_coordinates::ScenePlanPoint,
-};
 use adventuresim_tactical_core::animation::{
     AngularMagnitudeDegrees, HeightDistance, NonnegativeLength, SettleProgress, SignedAngleDegrees,
     SignedAngularSpeedDegrees, UnitInterval,
+};
+use adventuresim_tactical_core::{
+    city_layout::grounding::SupportElevation, scene_coordinates::ScenePlanPoint,
 };
 
 use frame::ObservedRigFrame;
@@ -583,7 +583,11 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         + rig_rotation * Vec3::new(contact.x, authored_local.y, contact.y);
                     if enabled.is_enabled() {
                         terrain.map_or(target, |terrain| {
-                            terrain_conformed_guard_target(target, ScenePlanPoint::from_metres(target.xz()).and_then(|point| terrain.height_at(point)))
+                            terrain_conformed_guard_target(
+                                target,
+                                ScenePlanPoint::from_metres(target.xz())
+                                    .and_then(|point| terrain.height_at(point)),
+                            )
                         })
                     } else {
                         target
@@ -914,7 +918,8 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 if enabled.is_enabled()
                     && reported_support
                     && let Some(terrain) = terrain
-                    && let Some(normal) = ScenePlanPoint::from_metres(target.xz()).and_then(|point| terrain.normal_at(point))
+                    && let Some(normal) = ScenePlanPoint::from_metres(target.xz())
+                        .and_then(|point| terrain.normal_at(point))
                     && let Some(sole_axis) = rig.sole_axis(foot_side)
                 {
                     let cached_chain = if left {
@@ -1060,7 +1065,9 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 continue;
             };
             let position = foot_snapshot.global.translation();
-            if let Some(height) = ScenePlanPoint::from_metres(position.xz()).and_then(|point| terrain.height_at(point)) {
+            if let Some(height) = ScenePlanPoint::from_metres(position.xz())
+                .and_then(|point| terrain.height_at(point))
+            {
                 let desired_ankle = height.metres() + measured_ankle_sole_offset_metres().metres();
                 desired_hip_shift = desired_hip_shift
                     .min(((desired_ankle - position.y) * weight.fraction()).clamp(-0.18, 0.0));
@@ -1321,11 +1328,13 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                 let Some(frozen_plant) = terminal_plant else {
                     continue;
                 };
-                let Some(height) = ScenePlanPoint::from_metres(frozen_plant.xz()).and_then(|point| terrain.height_at(point)) else {
+                let Some(height) = ScenePlanPoint::from_metres(frozen_plant.xz())
+                    .and_then(|point| terrain.height_at(point))
+                else {
                     continue;
                 };
-                let target =
-                    frozen_plant.with_y(height.metres() + measured_ankle_sole_offset_metres().metres());
+                let target = frozen_plant
+                    .with_y(height.metres() + measured_ankle_sole_offset_metres().metres());
                 let canonical_world = pole_to_world(rig_rotation, canonical_knee_pole(side));
                 let (remembered_pole, previous_end_direction) = if left {
                     (
@@ -1394,7 +1403,8 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         }
                     }
                 }
-                if let Some(normal) = ScenePlanPoint::from_metres(target.xz()).and_then(|point| terrain.normal_at(point))
+                if let Some(normal) = ScenePlanPoint::from_metres(target.xz())
+                    .and_then(|point| terrain.normal_at(point))
                     && let Some(sole_axis) = rig.sole_axis(foot_side)
                 {
                     align_foot_to_slope(foot, sole_axis, normal, &parents, &mut transforms);
@@ -1503,7 +1513,8 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             }
             if plant_acquired
                 && let Some(retained_plant) = plant
-                && let Some(height) = ScenePlanPoint::from_metres(retained_plant.xz()).and_then(|point| terrain.height_at(point))
+                && let Some(height) = ScenePlanPoint::from_metres(retained_plant.xz())
+                    .and_then(|point| terrain.height_at(point))
             {
                 let retained_target = Vec3::new(
                     retained_plant.x,
@@ -1779,8 +1790,11 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                     };
                     let mut desired_target =
                         planned_contact.map_or(foot_position, |mut contact| {
-                            if let Some(height) = ScenePlanPoint::from_metres(contact.xz()).and_then(|point| terrain.height_at(point)) {
-                                contact.y = height.metres() + measured_ankle_sole_offset_metres().metres();
+                            if let Some(height) = ScenePlanPoint::from_metres(contact.xz())
+                                .and_then(|point| terrain.height_at(point))
+                            {
+                                contact.y =
+                                    height.metres() + measured_ankle_sole_offset_metres().metres();
                             }
                             planned_start
                                 .unwrap_or(foot_position)
@@ -1922,7 +1936,10 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         // feasible fraction of root transport.
                         target = previous_world_target.unwrap_or(target);
                     }
-                    if run_airborne_budget && let Some(height) = ScenePlanPoint::from_metres(target.xz()).and_then(|point| terrain.height_at(point)) {
+                    if run_airborne_budget
+                        && let Some(height) = ScenePlanPoint::from_metres(target.xz())
+                            .and_then(|point| terrain.height_at(point))
+                    {
                         let contact_reachable = run_contact_within_follower_step(
                             previous_owner_target,
                             target,
@@ -2118,7 +2135,8 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         }
                     }
                     if profile.gait == LocomotionGait::Run
-                        && let Some(normal) = ScenePlanPoint::from_metres(target.xz()).and_then(|point| terrain.normal_at(point))
+                        && let Some(normal) = ScenePlanPoint::from_metres(target.xz())
+                            .and_then(|point| terrain.normal_at(point))
                         && let Some(sole_axis) = rig.sole_axis(foot_side)
                     {
                         // Run swing orientation is terrain-aware before the
@@ -2303,7 +2321,8 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
                         }
                     }
                 }
-                if let Some(normal) = ScenePlanPoint::from_metres(target.xz()).and_then(|point| terrain.normal_at(point))
+                if let Some(normal) = ScenePlanPoint::from_metres(target.xz())
+                    .and_then(|point| terrain.normal_at(point))
                     && let Some(sole_axis) = rig.sole_axis(foot_side)
                 {
                     // A settling foot approaches its contact tangent throughout
@@ -2813,10 +2832,13 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
             );
             let mut reported_support_weight = UnitInterval::ZERO;
             if let Some(solution) = solution {
-                let sole_at_contact = ScenePlanPoint::from_metres(solution.end.xz()).and_then(|point| terrain.height_at(point)).is_some_and(|height| {
-                    sole_is_at_contact(solution.end.y, height)
-                        && plant.is_some_and(|plant| solution.end.xz().distance(plant.xz()) <= 0.02)
-                });
+                let sole_at_contact = ScenePlanPoint::from_metres(solution.end.xz())
+                    .and_then(|point| terrain.height_at(point))
+                    .is_some_and(|height| {
+                        sole_is_at_contact(solution.end.y, height)
+                            && plant
+                                .is_some_and(|plant| solution.end.xz().distance(plant.xz()) <= 0.02)
+                    });
                 if sole_at_contact {
                     reported_support_weight = weight;
                     if left {

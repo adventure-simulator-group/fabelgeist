@@ -216,8 +216,8 @@ fn vertex_on_edge(
         start.value / denominator
     }
     .clamp(0.0, 1.0);
-    let index = u32::try_from(mesh_positions.len())
-        .map_err(|_| TerrainRecipeError::VertexCountOverflow)?;
+    let index =
+        u32::try_from(mesh_positions.len()).map_err(|_| TerrainRecipeError::VertexCountOverflow)?;
     mesh_positions.push(start.position.lerp(end.position, fraction));
     edge_vertices.insert(key, index);
     Ok(index)

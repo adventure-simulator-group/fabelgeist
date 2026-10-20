@@ -34,7 +34,8 @@ impl CapturedObstacles {
         grid: &TerrainSampleGrid,
         obstacles: Vec<GeneratedObstacle>,
     ) -> Result<Self> {
-        let supported = obstacles.into_iter()
+        let supported = obstacles
+            .into_iter()
             .map(|obstacle| SupportedObstacle::new(obstacle, terrain, grid))
             .collect::<Result<Vec<_>>>()?;
         let mut result = Self::default();
@@ -46,10 +47,21 @@ impl CapturedObstacles {
 }
 
 impl SupportedObstacle {
-    fn new(obstacle: GeneratedObstacle, terrain: &SceneTerrain, grid: &TerrainSampleGrid) -> Result<Self> {
+    fn new(
+        obstacle: GeneratedObstacle,
+        terrain: &SceneTerrain,
+        grid: &TerrainSampleGrid,
+    ) -> Result<Self> {
         let (x, z, kind, offset) = match obstacle {
-            GeneratedObstacle::Tree { x, z } => (x, z, SceneObstacle::Tree, TREE_TRUNK_HEIGHT_METRES * 0.5),
-            GeneratedObstacle::Rock { x, z, recipe } => (x, z, SceneObstacle::Rock(recipe), recipe.collision_radius_metres()),
+            GeneratedObstacle::Tree { x, z } => {
+                (x, z, SceneObstacle::Tree, TREE_TRUNK_HEIGHT_METRES * 0.5)
+            }
+            GeneratedObstacle::Rock { x, z, recipe } => (
+                x,
+                z,
+                SceneObstacle::Rock(recipe),
+                recipe.collision_radius_metres(),
+            ),
         };
         // Decode the serialized grid with its original multiply-then-subtract order.
         let point = ScenePlanPoint::try_from(Vec2::new(
@@ -58,7 +70,9 @@ impl SupportedObstacle {
         ))?;
         let elevation = terrain.required_height_at(point)?;
         let position = Position::from_metres(Vec3::new(
-            point.metres().x, elevation.metres() + offset, point.metres().y,
+            point.metres().x,
+            elevation.metres() + offset,
+            point.metres().y,
         ))?;
         Ok(Self { kind, position })
     }
@@ -78,12 +92,16 @@ impl SupportedObstacle {
         let visual = ObstacleVisual::new(kind, meshes);
         let position = self.position.metres();
         let focuses_tree = matches!(kind, SceneObstacle::Tree)
-            && state.tree_focus.is_none_or(|focus| position.xz().length_squared() < focus.metres().xz().length_squared());
+            && state.tree_focus.is_none_or(|focus| {
+                position.xz().length_squared() < focus.metres().xz().length_squared()
+            });
         if focuses_tree {
             state.tree_focus = Some(self.position);
         }
         let focuses_rock = matches!(kind, SceneObstacle::Rock(_))
-            && state.rock_focus.is_none_or(|focus| position.xz().length_squared() < focus.metres().xz().length_squared());
+            && state.rock_focus.is_none_or(|focus| {
+                position.xz().length_squared() < focus.metres().xz().length_squared()
+            });
         if focuses_rock {
             state.rock_focus = Some(self.position);
         }
@@ -96,24 +114,33 @@ impl SupportedObstacle {
             }
             SceneObstacle::Tree => 0.0,
         };
-        let transform = Transform::from_translation(position).with_rotation(Quat::from_rotation_y(yaw));
-        let obstacle_entity = commands.spawn((
-            Name::new("Captured tactical obstacle"), kind,
-            RigidBody::Static,
-            CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
-            visual.collider, transform,
-        )).id();
+        let transform =
+            Transform::from_translation(position).with_rotation(Quat::from_rotation_y(yaw));
+        let obstacle_entity = commands
+            .spawn((
+                Name::new("Captured tactical obstacle"),
+                kind,
+                RigidBody::Static,
+                CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
+                visual.collider,
+                transform,
+            ))
+            .id();
         if focuses_tree {
             state.tree_focus_entity = Some(obstacle_entity);
         }
         commands.spawn((
-            Name::new("Capture collider overlay"), CaptureOverlay,
+            Name::new("Capture collider overlay"),
+            CaptureOverlay,
             Mesh3d(visual.overlay_mesh),
             MeshMaterial3d(materials.add(StandardMaterial {
-                base_color: visual.overlay_color, emissive: LinearRgba::new(6.0, 6.0, 6.0, 1.0),
-                unlit: true, ..default()
+                base_color: visual.overlay_color,
+                emissive: LinearRgba::new(6.0, 6.0, 6.0, 1.0),
+                unlit: true,
+                ..default()
             })),
-            Visibility::Hidden, transform,
+            Visibility::Hidden,
+            transform,
         ));
     }
 }
@@ -123,7 +150,10 @@ impl ObstacleVisual {
         match kind {
             SceneObstacle::Tree => Self {
                 collider: Collider::cylinder(TREE_TRUNK_RADIUS_METRES, TREE_TRUNK_HEIGHT_METRES),
-                overlay_mesh: meshes.add(Cylinder::new(TREE_TRUNK_RADIUS_METRES * 1.08, TREE_TRUNK_HEIGHT_METRES * 1.02)),
+                overlay_mesh: meshes.add(Cylinder::new(
+                    TREE_TRUNK_RADIUS_METRES * 1.08,
+                    TREE_TRUNK_HEIGHT_METRES * 1.02,
+                )),
                 overlay_color: Color::srgb(0.1, 1.0, 0.85),
             },
             SceneObstacle::Rock(recipe) => Self {

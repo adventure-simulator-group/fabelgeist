@@ -46,16 +46,16 @@ pub(super) fn refine_authoritative_terrain(
     let mut terrain = terrain
         .refined(AUTHORITATIVE_DETAIL_SPACING_METRES, |point, base_height| {
             SupportElevation::from_metres(
-                    base_height.metres()
-                        + authoritative_surface_relief(
-                            detail_seed,
-                            point,
-                            terrain,
-                            ground,
-                            moisture_bps,
-                            &influences,
-                            &noise,
-                        ),
+                base_height.metres()
+                    + authoritative_surface_relief(
+                        detail_seed,
+                        point,
+                        terrain,
+                        ground,
+                        moisture_bps,
+                        &influences,
+                        &noise,
+                    ),
             )
         })
         .ok_or(SceneInputError::Validation(
@@ -102,12 +102,8 @@ fn authoritative_surface_relief(
     let roots = tree_root_relief(seed, point, &influences.trees);
     let rock_contact = boulder_ground_relief(seed, point, shape, &influences.rocks, noise);
     let rock_strata = match surface.map(|surface| surface.substrate) {
-        Some(GroundSubstrate::Stone) => {
-            rocky_substrate_relief(seed, point, shape, 1.0, noise)
-        }
-        Some(GroundSubstrate::Gravel) => {
-            rocky_substrate_relief(seed, point, shape, 0.62, noise)
-        }
+        Some(GroundSubstrate::Stone) => rocky_substrate_relief(seed, point, shape, 1.0, noise),
+        Some(GroundSubstrate::Gravel) => rocky_substrate_relief(seed, point, shape, 0.62, noise),
         _ => 0.0,
     };
     let substrate_strength = match surface.map(|surface| surface.substrate) {
@@ -136,10 +132,18 @@ fn terrain_shape_sample(
     radius: f32,
 ) -> Option<TerrainShapeSample> {
     let centre = terrain.height_at(point)?;
-    let east = terrain.height_at(ScenePlanPoint::from_metres(point.metres() + Vec2::X * radius)?)?;
-    let west = terrain.height_at(ScenePlanPoint::from_metres(point.metres() - Vec2::X * radius)?)?;
-    let north = terrain.height_at(ScenePlanPoint::from_metres(point.metres() + Vec2::Y * radius)?)?;
-    let south = terrain.height_at(ScenePlanPoint::from_metres(point.metres() - Vec2::Y * radius)?)?;
+    let east = terrain.height_at(ScenePlanPoint::from_metres(
+        point.metres() + Vec2::X * radius,
+    )?)?;
+    let west = terrain.height_at(ScenePlanPoint::from_metres(
+        point.metres() - Vec2::X * radius,
+    )?)?;
+    let north = terrain.height_at(ScenePlanPoint::from_metres(
+        point.metres() + Vec2::Y * radius,
+    )?)?;
+    let south = terrain.height_at(ScenePlanPoint::from_metres(
+        point.metres() - Vec2::Y * radius,
+    )?)?;
     let gradient = Vec2::new(
         east.metres() - west.metres(),
         north.metres() - south.metres(),
@@ -154,15 +158,12 @@ fn terrain_shape_sample(
         downhill,
         slope,
         concavity: ((east.metres() + west.metres() + north.metres() + south.metres()) * 0.25
-            - centre.metres()) * 0.18,
+            - centre.metres())
+            * 0.18,
     })
 }
 
-fn signed_ground_noise(
-    seed: Seed,
-    point: Vec2,
-    noise: &DetailNoise,
-) -> f32 {
+fn signed_ground_noise(seed: Seed, point: Vec2, noise: &DetailNoise) -> f32 {
     noise.sample(seed, point) * 2.0 - 1.0
 }
 
@@ -194,11 +195,7 @@ fn drainage_relief(
     (-channel * (0.026 + moisture * 0.012) + shoulder * 0.009) * slope_weight
 }
 
-fn soil_creep_relief(
-    point: ScenePlanPoint,
-    shape: TerrainShapeSample,
-    noise: &DetailNoise,
-) -> f32 {
+fn soil_creep_relief(point: ScenePlanPoint, shape: TerrainShapeSample, noise: &DetailNoise) -> f32 {
     let point = point.metres();
     let slope_weight = detail_smoothstep(0.035, 0.22, shape.slope);
     let warp = signed_ground_noise(noise.fields.creep_warp, point / 7.0, noise) * 0.55;
@@ -299,11 +296,7 @@ fn boulder_ground_relief(
     relief.clamp(-0.055, 0.07)
 }
 
-fn tree_root_relief(
-    seed: Seed,
-    point: ScenePlanPoint,
-    tree_positions: &[ScenePlanPoint],
-) -> f32 {
+fn tree_root_relief(seed: Seed, point: ScenePlanPoint, tree_positions: &[ScenePlanPoint]) -> f32 {
     let point = point.metres();
     let mut relief = 0.0;
     for &tree in tree_positions {

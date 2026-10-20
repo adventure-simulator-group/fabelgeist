@@ -354,7 +354,6 @@ fn record_response_timeline(
     }
 }
 
-
 fn prepare_melee_exchange(
     attacker: &mut Combatant,
     defender: &Combatant,

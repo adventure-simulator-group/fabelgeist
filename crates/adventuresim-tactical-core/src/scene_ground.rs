@@ -5,9 +5,8 @@ use crate::{
     scene::{GroundCover, GroundSubstrate, SceneGround, SceneTerrain},
     scene_input::{
         EnvironmentalSample, GeneratedBuilding, GeneratedObstacle, SceneInputError,
-        SceneInputResult, SceneValidationError,
-        TREE_CANOPY_GROUND_RADIUS_METRES, TREE_DENSE_LEAF_LITTER_RADIUS_METRES,
-        base_ground_surface,
+        SceneInputResult, SceneValidationError, TREE_CANOPY_GROUND_RADIUS_METRES,
+        TREE_DENSE_LEAF_LITTER_RADIUS_METRES, base_ground_surface,
     },
 };
 
@@ -71,9 +70,8 @@ pub(crate) fn build_scene_ground(
             }
         }
     }
-    let mut ground = SceneGround::from_samples(width, depth, spacing, samples).ok_or({
-        SceneInputError::Validation(SceneValidationError::GroundSurface)
-    })?;
+    let mut ground = SceneGround::from_samples(width, depth, spacing, samples)
+        .ok_or({ SceneInputError::Validation(SceneValidationError::GroundSurface) })?;
     ground.urban = crate::scene::UrbanGroundSurfaces::new(streets, yards, buildings)?;
     Ok(ground)
 }

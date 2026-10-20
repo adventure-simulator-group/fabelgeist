@@ -1,9 +1,7 @@
 //! Diagnostic source sampling; vista observations never become tactical support.
 use adventuresim_tactical_core::{
-    city_layout::grounding::SupportElevation,
-    scene::SceneTerrain,
-    scene_coordinates::ScenePlanPoint,
-    scene_input::VistaSample,
+    city_layout::grounding::SupportElevation, scene::SceneTerrain,
+    scene_coordinates::ScenePlanPoint, scene_input::VistaSample,
     vista_surface::vista_triangle_height,
 };
 

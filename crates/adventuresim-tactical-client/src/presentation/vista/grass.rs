@@ -1,12 +1,12 @@
 //! Shared pure vista tuft preparation and renderer installation.
 use super::*;
-use adventuresim_tactical_core::{
-    city_layout::grounding::{SupportElevation, SupportQuery},
-    scene_coordinates::ScenePlanPoint,
-};
 use crate::presentation::ground_scatter::{
     GrassWorld, MINIMUM_GRASS_SLOPE_NORMAL_Y, TierSpeciesBatches, TuftPigment, TuftPlacement,
     grass_scatter_density, scatter_cell_tufts, spawn_tuft_batches,
+};
+use adventuresim_tactical_core::{
+    city_layout::grounding::{SupportElevation, SupportQuery},
+    scene_coordinates::ScenePlanPoint,
 };
 use fabelgeist_determinism::Seed;
 
@@ -68,7 +68,9 @@ impl TuftPlacement for VistaTuftPlacement<'_> {
 
     fn height(&self, centre: ScenePlanPoint) -> Option<SupportElevation> {
         if self.playable_terrain.property_surface().is_some() {
-            let hit = self.playable_terrain.surface_below(SupportQuery::unbounded(centre))?;
+            let hit = self
+                .playable_terrain
+                .surface_below(SupportQuery::unbounded(centre))?;
             return (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(hit.elevation);
         }
         let origin = Vec2::new(

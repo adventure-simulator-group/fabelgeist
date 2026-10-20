@@ -1,9 +1,9 @@
 use super::*;
-use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use adventuresim_procedural_textures::{
     FOREST_LITTER_HEIGHT_RANGE_METRES, FOREST_LITTER_TILE_METRES, FOREST_SOIL_HEIGHT_RANGE_METRES,
     FOREST_SOIL_TILE_METRES, ROCK_HEIGHT_RANGE_METRES, ROCK_TILE_METRES,
 };
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 #[cfg(test)]
 use adventuresim_tactical_core::terrain_streams as streams;
 pub(in crate::presentation) use cliff_surface::{
@@ -12,9 +12,9 @@ pub(in crate::presentation) use cliff_surface::{
 use fabelgeist_determinism::Seed;
 pub(super) use ground_map::grass_cover_mask_pixels;
 use ground_map::ground_map_image;
-pub(crate) use heightmap::{TerrainContactHeightmap, TerrainHeightmapResult};
 #[cfg(test)]
 use ground_map::{ground_mask_noise, ground_surface_pixel, organic_ground_pixels};
+pub(crate) use heightmap::{TerrainContactHeightmap, TerrainHeightmapResult};
 pub(in crate::presentation) use landform_product::PreparedTerrainLandform;
 pub(in crate::presentation) use material::terrain_material;
 pub(in crate::presentation) use urban::{UrbanGroundCoveragePlugin, urban_playable_mesh};
@@ -218,7 +218,10 @@ pub(in crate::presentation) fn update_terrain_detail_patch(
     for (source, mut patch, mesh_handle, mut triangle_count) in &mut patches {
         if active.entity.is_some_and(|entity| entity != source.0)
             || (patch.vista_revision == vista.revision()
-                && patch.centre.metres().distance_squared(desired_centre.metres())
+                && patch
+                    .centre
+                    .metres()
+                    .distance_squared(desired_centre.metres())
                     < DETAIL_PATCH_SNAP_METRES * DETAIL_PATCH_SNAP_METRES * 0.25)
         {
             continue;
@@ -285,7 +288,9 @@ fn terrain_detail_patch_mesh(
             let fine_height = point.and_then(|point| {
                 vista.presented_height_at(&environment.scene_digest, terrain, point)
             });
-            let coarse_height = point.and_then(|point| terrain.coarse_height_at(point)).or(fine_height);
+            let coarse_height = point
+                .and_then(|point| terrain.coarse_height_at(point))
+                .or(fine_height);
             let radius = metres.distance(centre);
             let morph = 1.0
                 - terrain_smoothstep(
@@ -436,12 +441,32 @@ fn terrain_shape_sample(
     point: Vec2,
     radius: f32,
 ) -> Option<TerrainShapeSample> {
-    let centre = vista.presented_height_at(scene_digest, terrain, ScenePlanPoint::from_metres(point)?)?;
-    let east = vista.presented_height_at(scene_digest, terrain, ScenePlanPoint::from_metres(point + Vec2::X * radius)?)?;
-    let west = vista.presented_height_at(scene_digest, terrain, ScenePlanPoint::from_metres(point - Vec2::X * radius)?)?;
-    let north = vista.presented_height_at(scene_digest, terrain, ScenePlanPoint::from_metres(point + Vec2::Y * radius)?)?;
-    let south = vista.presented_height_at(scene_digest, terrain, ScenePlanPoint::from_metres(point - Vec2::Y * radius)?)?;
-    let gradient = Vec2::new(east.metres() - west.metres(), north.metres() - south.metres()) / (radius * 2.0);
+    let centre =
+        vista.presented_height_at(scene_digest, terrain, ScenePlanPoint::from_metres(point)?)?;
+    let east = vista.presented_height_at(
+        scene_digest,
+        terrain,
+        ScenePlanPoint::from_metres(point + Vec2::X * radius)?,
+    )?;
+    let west = vista.presented_height_at(
+        scene_digest,
+        terrain,
+        ScenePlanPoint::from_metres(point - Vec2::X * radius)?,
+    )?;
+    let north = vista.presented_height_at(
+        scene_digest,
+        terrain,
+        ScenePlanPoint::from_metres(point + Vec2::Y * radius)?,
+    )?;
+    let south = vista.presented_height_at(
+        scene_digest,
+        terrain,
+        ScenePlanPoint::from_metres(point - Vec2::Y * radius)?,
+    )?;
+    let gradient = Vec2::new(
+        east.metres() - west.metres(),
+        north.metres() - south.metres(),
+    ) / (radius * 2.0);
     let slope = gradient.length();
     let downhill = if slope > 0.000_1 {
         -gradient / slope
@@ -451,7 +476,9 @@ fn terrain_shape_sample(
     // Positive values are bowls where transported material plausibly settles;
     // negative values are exposed convexities. Keep this a small residual,
     // rather than changing the authoritative broad landform.
-    let concavity = ((east.metres() + west.metres() + north.metres() + south.metres()) * 0.25 - centre.metres()) * 0.18;
+    let concavity = ((east.metres() + west.metres() + north.metres() + south.metres()) * 0.25
+        - centre.metres())
+        * 0.18;
     Some(TerrainShapeSample {
         downhill,
         slope,
@@ -1009,8 +1036,10 @@ mod tests {
             .unwrap();
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("detail-patch");
         let vista = ActiveVistaSurface::default();
-        let first = terrain_detail_patch_mesh(&terrain, &environment, &vista, ScenePlanPoint::ORIGIN, None);
-        let repeated = terrain_detail_patch_mesh(&terrain, &environment, &vista, ScenePlanPoint::ORIGIN, None);
+        let first =
+            terrain_detail_patch_mesh(&terrain, &environment, &vista, ScenePlanPoint::ORIGIN, None);
+        let repeated =
+            terrain_detail_patch_mesh(&terrain, &environment, &vista, ScenePlanPoint::ORIGIN, None);
         let positions = match first.attribute(Mesh::ATTRIBUTE_POSITION).unwrap() {
             VertexAttributeValues::Float32x3(values) => values,
             other => panic!("unexpected positions {other:?}"),
@@ -1047,7 +1076,8 @@ mod tests {
                 let point = ScenePlanPoint::from_metres(point).unwrap();
                 let canonical = terrain.height_at(point).unwrap();
                 assert!((position[1] - canonical.metres()).abs() < 0.000_01);
-                let lod_delta = canonical.metres() - terrain.coarse_height_at(point).unwrap().metres();
+                let lod_delta =
+                    canonical.metres() - terrain.coarse_height_at(point).unwrap().metres();
                 minimum_lod_delta = minimum_lod_delta.min(lod_delta);
                 maximum_lod_delta = maximum_lod_delta.max(lod_delta);
             }
@@ -1078,7 +1108,13 @@ mod tests {
             }
             let rendered_height = vertices.iter().map(|position| position[1]).sum::<f32>() / 3.0;
             assert!(
-                (rendered_height - terrain.height_at(ScenePlanPoint::from_metres(point).unwrap()).unwrap().metres()).abs() < 0.000_01,
+                (rendered_height
+                    - terrain
+                        .height_at(ScenePlanPoint::from_metres(point).unwrap())
+                        .unwrap()
+                        .metres())
+                .abs()
+                    < 0.000_01,
                 "detail triangle must match the canonical collider triangle at {point}"
             );
         }
@@ -1098,7 +1134,9 @@ mod tests {
             if point.length() < DETAIL_PATCH_RADIUS_METRES - DETAIL_PATCH_SPACING_METRES * 1.5 {
                 continue;
             }
-            let expected = terrain.coarse_height_at(ScenePlanPoint::from_metres(point).unwrap()).unwrap();
+            let expected = terrain
+                .coarse_height_at(ScenePlanPoint::from_metres(point).unwrap())
+                .unwrap();
             assert!((position[1] - expected.metres()).abs() < 0.000_01);
         }
     }
@@ -1143,8 +1181,13 @@ mod tests {
             },
         )
         .unwrap();
-        let mesh =
-            terrain_detail_patch_mesh(&terrain, &environment, &vista, ScenePlanPoint::ORIGIN, Some(collar));
+        let mesh = terrain_detail_patch_mesh(
+            &terrain,
+            &environment,
+            &vista,
+            ScenePlanPoint::ORIGIN,
+            Some(collar),
+        );
         let positions = match mesh.attribute(Mesh::ATTRIBUTE_POSITION).unwrap() {
             VertexAttributeValues::Float32x3(values) => values,
             other => panic!("unexpected positions {other:?}"),

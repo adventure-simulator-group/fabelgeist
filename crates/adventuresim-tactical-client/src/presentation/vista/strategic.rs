@@ -56,7 +56,8 @@ impl StrategicBackdrop {
         &self,
         point: ScenePlanPoint,
     ) -> TerrainSupportResult<SupportElevation> {
-        self.height_at(point).ok_or(TerrainSupportError::MissingSupport { point })
+        self.height_at(point)
+            .ok_or(TerrainSupportError::MissingSupport { point })
     }
 
     pub(crate) fn height_at(&self, point: ScenePlanPoint) -> Option<SupportElevation> {

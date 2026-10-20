@@ -93,7 +93,9 @@ impl AutoresolveParameters {
         if !positive
             .into_iter()
             .all(|value| value.is_finite() && value > 0.0)
-            || positive_durations.into_iter().any(AnimationElapsed::is_zero)
+            || positive_durations
+                .into_iter()
+                .any(AnimationElapsed::is_zero)
             || ![
                 self.minimum_hit_precision,
                 self.maximum_hit_precision,

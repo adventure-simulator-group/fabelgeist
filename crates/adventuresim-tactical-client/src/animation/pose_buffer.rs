@@ -1093,9 +1093,8 @@ fn conform_upcoming_pose_to_terrain(
                     (excess / distance).clamp(0.0, 1.0),
                 );
             }
-            if let Some(plant_height) =
-                ScenePlanPoint::from_metres(plant.position_world.xz())
-                    .and_then(|point| terrain.and_then(|terrain| terrain.height_at(point)))
+            if let Some(plant_height) = ScenePlanPoint::from_metres(plant.position_world.xz())
+                .and_then(|point| terrain.and_then(|terrain| terrain.height_at(point)))
             {
                 plant.position_world.y = plant
                     .position_world

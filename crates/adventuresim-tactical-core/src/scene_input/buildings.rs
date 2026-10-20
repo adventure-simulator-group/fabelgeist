@@ -7,11 +7,11 @@ use adventuresim_building_generator::{
 #[cfg(test)]
 use adventuresim_building_generator::{compile_building_collision, generate};
 use bevy::{math::Vec2, prelude::Component};
-use serde::{Deserialize, Serialize};
 pub use collision::compile_tactical_building_collider;
 pub use exterior::DistantBuildingVariant;
 pub use identity::SceneBuildingId;
 pub(super) use reservations::{ObstacleReservation, obstacle_intersects_building};
+use serde::{Deserialize, Serialize};
 pub use window::{SceneWindow, SceneWindowError};
 
 mod collision;
@@ -226,7 +226,6 @@ pub struct GeneratedBuilding {
     pub collision: BuildingCollision,
 }
 
-
 pub(super) fn validate_building_placements(
     placements: &[TacticalBuildingPlacement],
 ) -> SceneInputResult<()> {
@@ -360,7 +359,6 @@ pub(crate) fn oriented_rectangles_overlap(
         centre_delta.dot(axis).abs() < first_radius + second_radius
     })
 }
-
 
 #[cfg(test)]
 mod tests {

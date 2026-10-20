@@ -1,11 +1,11 @@
-use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use adventuresim_tactical_core::prelude::{GroundCover, RockLithology, SceneGround, SceneTerrain};
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::{
-    math::Dir3,
     asset::RenderAssetUsages,
     camera::visibility::VisibilityRange,
     color::ColorToComponents,
     light::NotShadowCaster,
+    math::Dir3,
     mesh::{Indices, PrimitiveTopology},
     pbr::Material,
     prelude::{

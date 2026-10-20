@@ -75,7 +75,11 @@ pub(super) fn setup(
             let point = ScenePlanPoint::try_from(instance.position_metres.metres().xz() + offset)?;
             let height = terrain.required_height_at(point)?;
             Ok(camera(
-                Vec3::new(point.metres().x, height.metres() + EYE_HEIGHT_METRES, point.metres().y),
+                Vec3::new(
+                    point.metres().x,
+                    height.metres() + EYE_HEIGHT_METRES,
+                    point.metres().y,
+                ),
                 instance.position_metres.metres() + Vec3::Y * bounds.centre()?.metres().y,
             ))
         })
@@ -91,21 +95,36 @@ pub(super) fn setup(
     }
     let centre = market.iter().copied().sum::<Vec2>() / market.len() as f32;
     let point = ScenePlanPoint::try_from(centre)?;
-    let target = Vec3::new(centre.x, terrain.required_height_at(point)?.metres(), centre.y);
+    let target = Vec3::new(
+        centre.x,
+        terrain.required_height_at(point)?.metres(),
+        centre.y,
+    );
     cameras.push(camera(target + Vec3::new(48.0, 40.0, -58.0), target));
     cameras.push(camera(
         Vec3::new(
             -10.0,
-            terrain.required_height_at(ScenePlanPoint::try_from(Vec2::new(-10.0, -30.0))?)?.metres() + EYE_HEIGHT_METRES,
+            terrain
+                .required_height_at(ScenePlanPoint::try_from(Vec2::new(-10.0, -30.0))?)?
+                .metres()
+                + EYE_HEIGHT_METRES,
             -30.0,
         ),
         Vec3::new(
             15.0,
-            terrain.required_height_at(ScenePlanPoint::try_from(Vec2::new(15.0, -30.0))?)?.metres(),
+            terrain
+                .required_height_at(ScenePlanPoint::try_from(Vec2::new(15.0, -30.0))?)?
+                .metres(),
             -30.0,
         ),
     ));
-    let junction = Vec3::new(-30.0, terrain.required_height_at(ScenePlanPoint::try_from(Vec2::splat(-30.0))?)?.metres(), -30.0);
+    let junction = Vec3::new(
+        -30.0,
+        terrain
+            .required_height_at(ScenePlanPoint::try_from(Vec2::splat(-30.0))?)?
+            .metres(),
+        -30.0,
+    );
     cameras.push(camera(junction + Vec3::new(-21.0, 24.0, -23.0), junction));
     cameras.push(camera(junction + Vec3::new(-9.0, 7.0, -10.0), junction));
     commands.insert_resource(super::furniture_readiness::ExpectedFurniture {

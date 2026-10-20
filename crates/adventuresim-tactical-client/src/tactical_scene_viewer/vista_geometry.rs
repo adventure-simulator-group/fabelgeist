@@ -59,7 +59,12 @@ impl VistaCaptureGeometry {
                             range.maximum = control;
                         }
                     }
-                    None => extrema = Some(GeographicHeightRange { minimum: control, maximum: control }),
+                    None => {
+                        extrema = Some(GeographicHeightRange {
+                            minimum: control,
+                            maximum: control,
+                        })
+                    }
                 }
             }
         }
@@ -69,7 +74,9 @@ impl VistaCaptureGeometry {
         Ok(Some(Self {
             diameter: SignedLength::from_metres(diameter)?,
             extrema,
-            relief: SignedLength::from_metres(extrema.maximum.elevation.metres() - extrema.minimum.elevation.metres())?,
+            relief: SignedLength::from_metres(
+                extrema.maximum.elevation.metres() - extrema.minimum.elevation.metres(),
+            )?,
         }))
     }
 

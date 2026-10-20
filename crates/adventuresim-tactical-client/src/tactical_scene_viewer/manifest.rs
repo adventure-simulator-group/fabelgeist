@@ -1,10 +1,10 @@
+use crate::presentation::TreePresentationSpecies;
+use adventuresim_building_generator::spatial_geometry::SignedLength;
 use adventuresim_tactical_core::animation::NonnegativeLength;
+use adventuresim_tactical_core::prelude::{SceneRepairReport, SceneSource, WeatherSnapshot};
 use adventuresim_tactical_core::{
     city_layout::grounding::SupportElevation, scene::TerrainSupportResult,
 };
-use crate::presentation::TreePresentationSpecies;
-use adventuresim_building_generator::spatial_geometry::SignedLength;
-use adventuresim_tactical_core::prelude::{SceneRepairReport, SceneSource, WeatherSnapshot};
 use fabelgeist_determinism::Seed;
 use serde::Serialize;
 

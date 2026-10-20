@@ -149,10 +149,7 @@ fn sloped_garden_preserves_soil_relief_and_binds_each_retained_root() {
         let point = ScenePlanPoint::from_metres(point).unwrap();
         assert!(
             (generated.terrain.height_at(point).unwrap().metres()
-                - source
-                    .elevation_at(point)
-                    .unwrap()
-                    .metres())
+                - source.elevation_at(point).unwrap().metres())
             .abs()
                 < 0.001
         );

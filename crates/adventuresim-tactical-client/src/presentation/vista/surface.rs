@@ -25,7 +25,6 @@ pub(crate) struct VistaTerrain(pub(crate) VistaLevelIndex);
 #[derive(Component)]
 pub(crate) struct VistaTerrainMesh(pub(crate) VistaLevelIndex);
 
-
 impl ActiveVistaSurface {
     pub(in crate::presentation) fn update(&mut self, bundle: &SceneVistaBundle) {
         self.revision = self.revision.wrapping_add(1);
@@ -146,15 +145,27 @@ mod tests {
             ground_support: default(),
         };
         assert_eq!(
-            retained.presented_height_at("boundary", &terrain, ScenePlanPoint::from_metres(Vec2::new(2.0, 0.0)).unwrap()),
+            retained.presented_height_at(
+                "boundary",
+                &terrain,
+                ScenePlanPoint::from_metres(Vec2::new(2.0, 0.0)).unwrap()
+            ),
             Some(SupportElevation::from_metres(10.0).unwrap())
         );
         let outside = retained
-            .presented_height_at("boundary", &terrain, ScenePlanPoint::from_metres(Vec2::new(3.0, 0.0)).unwrap())
+            .presented_height_at(
+                "boundary",
+                &terrain,
+                ScenePlanPoint::from_metres(Vec2::new(3.0, 0.0)).unwrap(),
+            )
             .unwrap();
         assert!((outside.metres() - 15.0).abs() < 0.0001, "{outside:?}");
         assert_eq!(
-            retained.presented_height_at("different", &terrain, ScenePlanPoint::from_metres(Vec2::new(3.0, 0.0)).unwrap()),
+            retained.presented_height_at(
+                "different",
+                &terrain,
+                ScenePlanPoint::from_metres(Vec2::new(3.0, 0.0)).unwrap()
+            ),
             None
         );
     }

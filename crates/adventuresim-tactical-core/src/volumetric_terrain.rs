@@ -38,8 +38,8 @@ mod error;
 mod patch;
 mod recipe;
 mod resistance;
-mod surface_recipe;
 pub(crate) mod support;
+mod surface_recipe;
 
 const SCARP_EROSION_STEPS: usize = 224;
 const SCARP_COLLUVIAL_GRADE: f32 = 0.46;
@@ -142,7 +142,10 @@ impl SimulatedScarpSurface {
             .try_reduce(
                 || (f32::INFINITY, f32::NEG_INFINITY),
                 |(left_minimum, left_maximum), (right_minimum, right_maximum)| {
-                    Ok((left_minimum.min(right_minimum), left_maximum.max(right_maximum)))
+                    Ok((
+                        left_minimum.min(right_minimum),
+                        left_maximum.max(right_maximum),
+                    ))
                 },
             )?;
         SceneElevationRange::new(
@@ -200,10 +203,9 @@ pub fn terrain_landform_patch(
     let surface_heights = (0..side * side)
         .into_par_iter()
         .map(|index| -> TerrainRecipeResult<f32> {
-            let point = ScenePlanPoint::from_metres(
-                sample_position([index % side, 0, index / side]).xz(),
-            )
-            .ok_or(TerrainRecipeError::NonFiniteField)?;
+            let point =
+                ScenePlanPoint::from_metres(sample_position([index % side, 0, index / side]).xz())
+                    .ok_or(TerrainRecipeError::NonFiniteField)?;
             Ok(height_at_extended_edge(terrain, point)?.metres() + surface.offset_at(point))
         })
         .collect::<TerrainRecipeResult<Vec<_>>>()?;
@@ -239,33 +241,35 @@ fn simulate_fault_scarp(
         .zip(masks.par_iter_mut())
         .zip(base_heights.par_iter_mut())
         .enumerate()
-        .try_for_each(|(index, ((offset, mask), base_height))| -> TerrainRecipeResult<()> {
-            let x = index % side;
-            let z = index / side;
-            let point = ScenePlanPoint::from_metres(
-                minimum.metres() + Vec2::new(x as f32, z as f32) * spacing,
-            )
-            .ok_or(TerrainRecipeError::NonFiniteField)?;
-            let local = collar.local_coordinates(point.metres());
-            let along = local.x;
-            let across = local.y;
-            *mask = collar.blend_weight(point.metres());
-            let throw_variation = 0.84
-                + (smooth_value_noise(
-                    StreamId::new("terrain.volume.throw").seed(recipe.seed, &[]),
-                    along / 3.6,
-                ) * 0.5
-                    + 0.5)
-                    * 0.16;
-            *offset = if across >= 0.0 {
-                hanging_wall_drop
-            } else {
-                footwall_uplift
-            } * *mask
-                * throw_variation;
-            *base_height = height_at_extended_edge(terrain, point)?.metres();
-            Ok(())
-        })?;
+        .try_for_each(
+            |(index, ((offset, mask), base_height))| -> TerrainRecipeResult<()> {
+                let x = index % side;
+                let z = index / side;
+                let point = ScenePlanPoint::from_metres(
+                    minimum.metres() + Vec2::new(x as f32, z as f32) * spacing,
+                )
+                .ok_or(TerrainRecipeError::NonFiniteField)?;
+                let local = collar.local_coordinates(point.metres());
+                let along = local.x;
+                let across = local.y;
+                *mask = collar.blend_weight(point.metres());
+                let throw_variation = 0.84
+                    + (smooth_value_noise(
+                        StreamId::new("terrain.volume.throw").seed(recipe.seed, &[]),
+                        along / 3.6,
+                    ) * 0.5
+                        + 0.5)
+                        * 0.16;
+                *offset = if across >= 0.0 {
+                    hanging_wall_drop
+                } else {
+                    footwall_uplift
+                } * *mask
+                    * throw_variation;
+                *base_height = height_at_extended_edge(terrain, point)?.metres();
+                Ok(())
+            },
+        )?;
 
     erode_surface(
         &mut offsets,
@@ -510,7 +514,13 @@ mod tests {
         let side = (radius * 2.0 / spacing).round() as usize + 1;
         let minimum = ScenePlanPoint::from_metres(Vec2::splat(-radius)).unwrap();
         let surface = simulate_fault_scarp(&terrain, recipe, side, spacing, minimum).unwrap();
-        assert_eq!(surface.offset_at(ScenePlanPoint::from_metres(Vec2::new(0.0, 8.0)).unwrap()), 0.0);
-        assert_eq!(surface.offset_at(ScenePlanPoint::from_metres(Vec2::new(10.0, 0.0)).unwrap()), 0.0);
+        assert_eq!(
+            surface.offset_at(ScenePlanPoint::from_metres(Vec2::new(0.0, 8.0)).unwrap()),
+            0.0
+        );
+        assert_eq!(
+            surface.offset_at(ScenePlanPoint::from_metres(Vec2::new(10.0, 0.0)).unwrap()),
+            0.0
+        );
     }
 }

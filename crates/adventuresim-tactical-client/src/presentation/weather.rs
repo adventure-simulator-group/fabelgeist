@@ -175,7 +175,11 @@ fn weather_particle_batches(
         layer: WeatherParticle::Falling,
         mesh: weather_particle_mesh(FALLING_PARTICLE_CAPACITY),
         material: weather_material(
-            environment, terrain, range, heightmap.clone(), occlusion_map.clone(),
+            environment,
+            terrain,
+            range,
+            heightmap.clone(),
+            occlusion_map.clone(),
             WeatherParticle::Falling,
         ),
     }];
@@ -185,7 +189,11 @@ fn weather_particle_batches(
             layer: WeatherParticle::Impact,
             mesh: weather_particle_mesh(IMPACT_PARTICLE_CAPACITY),
             material: weather_material(
-                environment, terrain, range, heightmap.clone(), occlusion_map.clone(),
+                environment,
+                terrain,
+                range,
+                heightmap.clone(),
+                occlusion_map.clone(),
                 WeatherParticle::Impact,
             ),
         });
@@ -195,7 +203,11 @@ fn weather_particle_batches(
                 layer: WeatherParticle::DistantSheet,
                 mesh: weather_sheet_mesh(DISTANT_SHEET_SEGMENTS, DISTANT_SHEET_LAYERS),
                 material: weather_material(
-                    environment, terrain, range, heightmap, occlusion_map,
+                    environment,
+                    terrain,
+                    range,
+                    heightmap,
+                    occlusion_map,
                     WeatherParticle::DistantSheet,
                 ),
             });
@@ -348,7 +360,9 @@ mod tests {
     #[test]
     fn heightmap_encoding_preserves_terrain_range() {
         let terrain = SceneTerrain::from_heightmap(2, 2, 1.0, vec![-2.0, 0.0, 1.0, 4.0]).unwrap();
-        let image = TerrainContactHeightmap::from_terrain(&terrain).unwrap().into_image();
+        let image = TerrainContactHeightmap::from_terrain(&terrain)
+            .unwrap()
+            .into_image();
         assert_eq!(image.texture_descriptor.size.width, 2);
         assert_eq!(image.texture_descriptor.size.height, 2);
         let pixels = image.data.as_deref().unwrap();
@@ -362,8 +376,14 @@ mod tests {
         .unwrap();
         let backdrop = StrategicBackdrop::new(&input, input.vista.lods.len()).unwrap();
         assert_eq!(
-            TerrainContactHeightmap::from_terrain(weather_surface(None, Some(&backdrop)).unwrap()).unwrap().into_image().data,
-            TerrainContactHeightmap::from_terrain(backdrop.weather_surface()).unwrap().into_image().data
+            TerrainContactHeightmap::from_terrain(weather_surface(None, Some(&backdrop)).unwrap())
+                .unwrap()
+                .into_image()
+                .data,
+            TerrainContactHeightmap::from_terrain(backdrop.weather_surface())
+                .unwrap()
+                .into_image()
+                .data
         );
         assert!(std::ptr::eq(
             weather_surface(Some(&terrain), None).unwrap(),
@@ -379,5 +399,4 @@ mod tests {
         assert_eq!(mesh.count_vertices(), 8 * 6 * 4);
         assert_eq!(mesh.indices().unwrap().len(), 8 * 6 * 6);
     }
-
 }

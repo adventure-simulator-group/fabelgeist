@@ -1,4 +1,3 @@
-use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use super::impostor::{
     BEECH_TREE_BAKE_STYLE, OAK_TREE_BAKE_STYLE, TREE_LEAF_HANDOFF_END, TREE_LEAF_HANDOFF_START,
     TreeImpostorProvenance, TreeLodBake, bake_tree_lod, bake_tree_lod_with_style,
@@ -30,6 +29,7 @@ use crate::presentation::{
     ActiveTacticalScene, ActiveVistaSurface, ProceduralTextureAssets, SceneEnvironment,
 };
 use adventuresim_tactical_core::prelude::SceneTerrain;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::{
     camera::{primitives::Aabb, visibility::NoFrustumCulling},
     light::NotShadowCaster,
@@ -39,8 +39,8 @@ use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
 
 pub(crate) use diagnostics::TreeAssetResidencyDiagnostics;
-use residency::{CachedTerrainContactHeightmap, TerrainBarkBinding};
 pub(in crate::presentation) use residency::RetainedTreePresentations;
+use residency::{CachedTerrainContactHeightmap, TerrainBarkBinding};
 
 #[cfg(test)]
 use super::TREE_PRIMARY_GROUP_COUNT;
@@ -875,7 +875,11 @@ pub(in crate::presentation) fn present_pending_trees(
             &[competition_key, site_key, species.cache_salt()],
         );
         retained.restore_variant(
-            cache_key, &mut tree_cache, &mut residency, species, &mut bark_binding,
+            cache_key,
+            &mut tree_cache,
+            &mut residency,
+            species,
+            &mut bark_binding,
         );
         if !tree_cache.variants.contains_key(&cache_key) {
             let (branches, leaves) = playable_tree_source(
@@ -1275,20 +1279,28 @@ mod tests {
         let mesic_count = (-30..30)
             .flat_map(|x| (-30..30).map(move |z| Vec3::new(x as f32 * 30.0, 0.0, z as f32 * 30.0)))
             .filter(|position| {
-                tree_species_for_site(ScenePlanPoint::from_metres(position.xz()).unwrap(), &mesic) == TreePresentationSpecies::CommonBeech
+                tree_species_for_site(ScenePlanPoint::from_metres(position.xz()).unwrap(), &mesic)
+                    == TreePresentationSpecies::CommonBeech
             })
             .count();
         let open_count = (-30..30)
             .flat_map(|x| (-30..30).map(move |z| Vec3::new(x as f32 * 30.0, 0.0, z as f32 * 30.0)))
             .filter(|position| {
-                tree_species_for_site(ScenePlanPoint::from_metres(position.xz()).unwrap(), &open) == TreePresentationSpecies::CommonBeech
+                tree_species_for_site(ScenePlanPoint::from_metres(position.xz()).unwrap(), &open)
+                    == TreePresentationSpecies::CommonBeech
             })
             .count();
         assert!(mesic_count > open_count * 3);
-        let origin = tree_species_for_site(ScenePlanPoint::from_metres(Vec3::new(1.0, 0.0, 1.0).xz()).unwrap(), &mesic);
+        let origin = tree_species_for_site(
+            ScenePlanPoint::from_metres(Vec3::new(1.0, 0.0, 1.0).xz()).unwrap(),
+            &mesic,
+        );
         assert_eq!(
             origin,
-            tree_species_for_site(ScenePlanPoint::from_metres(Vec3::new(29.0, 0.0, 29.0).xz()).unwrap(), &mesic)
+            tree_species_for_site(
+                ScenePlanPoint::from_metres(Vec3::new(29.0, 0.0, 29.0).xz()).unwrap(),
+                &mesic
+            )
         );
     }
 

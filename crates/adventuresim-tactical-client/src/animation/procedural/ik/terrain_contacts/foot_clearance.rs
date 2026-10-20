@@ -28,11 +28,15 @@ impl FootDescent {
 }
 
 impl FootClearanceFloor {
-    pub(in crate::animation::procedural) fn minimum_height(self) -> AnimationValueResult<Elevation<Scene>> {
+    pub(in crate::animation::procedural) fn minimum_height(
+        self,
+    ) -> AnimationValueResult<Elevation<Scene>> {
         match self {
             Self::Minimum(height) => Ok(height),
             Self::Terrain { surface, clearance } => checked_scene_elevation(
-                surface.metres() + measured_ankle_sole_offset_metres().metres() + clearance.metres(),
+                surface.metres()
+                    + measured_ankle_sole_offset_metres().metres()
+                    + clearance.metres(),
             ),
         }
     }
@@ -100,11 +104,7 @@ pub(in crate::animation::procedural) fn run_airborne_clearance_for_sample(
     if just_released {
         Ok(ik_tuning().run_swing_minimum_sole_clearance_metres)
     } else {
-        run_airborne_clearance(
-            phase_to_contact,
-            planned_progress,
-            descent,
-        )
+        run_airborne_clearance(phase_to_contact, planned_progress, descent)
     }
 }
 
@@ -156,12 +156,16 @@ pub(in crate::animation::procedural) fn conform_settle_swing_target(
     let minimum = checked_scene_elevation(
         height.metres()
             + measured_ankle_sole_offset_metres().metres()
-            + (ik_tuning().swing_sole_clearance_metres.metres()
-                * (1.0 - progress.fraction()))
-            .max(ik_tuning().terrain_transition_flight_toe_clearance_metres.metres()),
+            + (ik_tuning().swing_sole_clearance_metres.metres() * (1.0 - progress.fraction())).max(
+                ik_tuning()
+                    .terrain_transition_flight_toe_clearance_metres
+                    .metres(),
+            ),
     )?;
     desired_target.y = desired_target.y.max(
-        authored_foot.y.lerp(minimum.metres(), terrain_blend.fraction()),
+        authored_foot
+            .y
+            .lerp(minimum.metres(), terrain_blend.fraction()),
     );
     if let Some((ankle, toe)) = rendered
         && let Some(floor) = toe_aware_clearance_floor(
@@ -198,8 +202,10 @@ pub(in crate::animation::procedural) fn toe_aware_clearance_floor(
     let Some(desired_height) = terrain_height_at(desired_ankle) else {
         return Ok(None);
     };
-    checked_scene_elevation(desired_height.metres() + ankle_above_toe + minimum_toe_clearance.metres())
-        .map(|height| Some(FootClearanceFloor::Minimum(height)))
+    checked_scene_elevation(
+        desired_height.metres() + ankle_above_toe + minimum_toe_clearance.metres(),
+    )
+    .map(|height| Some(FootClearanceFloor::Minimum(height)))
 }
 
 pub(in crate::animation::procedural) fn transition_toe_clearance_with_rotation_margin(
@@ -259,7 +265,9 @@ pub(in crate::animation::procedural) fn transition_clearance_floor(
             };
             let toe_clearance = toe.y - toe_support.metres();
             let above_toe = ankle_clearance - toe_clearance;
-            Ok(terrain.height_at(point).map(|height| height.metres() + above_toe + margin))
+            Ok(terrain
+                .height_at(point)
+                .map(|height| height.metres() + above_toe + margin))
         })
         .transpose()?
         .flatten();
