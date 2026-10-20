@@ -2347,8 +2347,8 @@ mod tests {
         ROLL_POSTURE_TRANSITION_TICKS, RangedAttackAuthority, ReconnectSession, WeaponGuardState,
         apply_posture_action, authoritative_weapon_guard, begin_authoritative_quickstep,
         downed_tank_controller_input, input, mission_enemy_health_scale, mission_enemy_scale,
-        on_client_disconnected, player_collider, queue_replication_rebind,
-        reconnect_matches, restore_authoritative_movement_intent, sequence_is_newer,
+        on_client_disconnected, player_collider, queue_replication_rebind, reconnect_matches,
+        restore_authoritative_movement_intent, sequence_is_newer,
         tactical_movement_speed_for_guard, try_claim_reconnect, update_character_motion_snapshots,
         validate_player_input,
     };
