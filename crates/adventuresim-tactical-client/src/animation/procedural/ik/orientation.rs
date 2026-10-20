@@ -6,6 +6,7 @@ pub(in crate::animation::procedural) use anatomical_yaw::anatomical_knee_yaw_pos
 pub(in crate::animation) use anatomical_yaw::enforce_anatomical_knee_yaw;
 
 use adventuresim_core::linear_speed::NonnegativeSpeed;
+use bevy::math::Dir3;
 
 mod anatomical_yaw;
 
@@ -250,7 +251,7 @@ pub(in crate::animation::procedural) fn projected_body_center(
 pub(in crate::animation::procedural) fn align_foot_to_slope(
     foot: Entity,
     sole_up_local: Vec3,
-    normal: Vec3,
+    normal: Dir3,
     parents: &Query<&ChildOf>,
     transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,
 ) {
@@ -494,9 +495,9 @@ pub(in crate::animation::procedural) fn prepare_slope_rotation_cache(
 pub(in crate::animation::procedural) fn slope_aligned_world_rotation(
     current_world: Quat,
     sole_up_local: Vec3,
-    terrain_normal: Vec3,
+    terrain_normal: Dir3,
 ) -> Option<Quat> {
-    let normal = terrain_normal.try_normalize()?;
+    let normal = (*terrain_normal).try_normalize()?;
     let tilt_angle = Vec3::Y.angle_between(normal).min(28.0_f32.to_radians());
     let bounded_normal = Vec3::Y
         .cross(normal)

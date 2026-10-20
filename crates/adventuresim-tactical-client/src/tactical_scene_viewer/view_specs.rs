@@ -1,5 +1,6 @@
 use crate::presentation::TreeLeafRepresentation;
-use bevy::prelude::Vec3;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+use bevy::prelude::{Vec2, Vec3};
 
 pub(super) const TREE_BILLBOARD_TRANSITION_SCALES: [f32; 3] = [0.357, 0.345, 0.333];
 
@@ -28,8 +29,7 @@ pub(super) enum CapturePose {
         yaw_degrees: f32,
     },
     AnimationPlayBoundary {
-        player_x: f32,
-        player_z: f32,
+        player: ScenePlanPoint,
         yaw_degrees: f32,
     },
     AnimationPlayObstruction {
@@ -268,6 +268,14 @@ impl CaptureViewSpec {
 }
 
 macro_rules! v {
+    (@scene_point_metres $east:expr, $north:expr) => {
+        const {
+            match ScenePlanPoint::from_metres(Vec2::new($east, $north)) {
+                Some(point) => point,
+                None => panic!("authored capture coordinates must be finite scene metres"),
+            }
+        }
+    };
     ($slug:literal, $label:literal, $pose:expr, $fov:expr, $min:expr) => {
         CaptureViewSpec::new($slug, $label, $pose, $fov, $min)
     };
@@ -782,8 +790,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "animation-play-boundary-n",
         "Production camera at the north playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
-            player_x: 0.0,
-            player_z: 44.0,
+            player: v!(@scene_point_metres 0.0, 44.0),
             yaw_degrees: 180.0
         },
         80.0,
@@ -794,8 +801,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "animation-play-boundary-ne",
         "Production camera at the north-east playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
-            player_x: 31.0,
-            player_z: 31.0,
+            player: v!(@scene_point_metres 31.0, 31.0),
             yaw_degrees: 225.0
         },
         80.0,
@@ -806,8 +812,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "animation-play-boundary-e",
         "Production camera at the east playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
-            player_x: 44.0,
-            player_z: 0.0,
+            player: v!(@scene_point_metres 44.0, 0.0),
             yaw_degrees: 270.0
         },
         80.0,
@@ -818,8 +823,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "animation-play-boundary-se",
         "Production camera at the south-east playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
-            player_x: 31.0,
-            player_z: -31.0,
+            player: v!(@scene_point_metres 31.0, -31.0),
             yaw_degrees: 315.0
         },
         80.0,
@@ -830,8 +834,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "animation-play-boundary-s",
         "Production camera at the south playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
-            player_x: 0.0,
-            player_z: -44.0,
+            player: v!(@scene_point_metres 0.0, -44.0),
             yaw_degrees: 0.0
         },
         80.0,
@@ -842,8 +845,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "animation-play-boundary-sw",
         "Production camera at the south-west playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
-            player_x: -31.0,
-            player_z: -31.0,
+            player: v!(@scene_point_metres -31.0, -31.0),
             yaw_degrees: 45.0
         },
         80.0,
@@ -854,8 +856,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "animation-play-boundary-w",
         "Production camera at the west playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
-            player_x: -44.0,
-            player_z: 0.0,
+            player: v!(@scene_point_metres -44.0, 0.0),
             yaw_degrees: 90.0
         },
         80.0,
@@ -866,8 +867,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "animation-play-boundary-nw",
         "Production camera at the north-west playable boundary facing the vista",
         CapturePose::AnimationPlayBoundary {
-            player_x: -31.0,
-            player_z: 31.0,
+            player: v!(@scene_point_metres -31.0, 31.0),
             yaw_degrees: 135.0
         },
         80.0,
@@ -878,8 +878,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "tree-family-se-playable-only",
         "South-east boundary camera with playable trees only",
         CapturePose::AnimationPlayBoundary {
-            player_x: 31.0,
-            player_z: -31.0,
+            player: v!(@scene_point_metres 31.0, -31.0),
             yaw_degrees: 315.0
         },
         80.0,
@@ -889,8 +888,7 @@ pub(super) const ANIMATION_PLAY_VIEWS: [CaptureViewSpec; 23] = [
         "tree-family-se-vista-only",
         "South-east boundary camera with vista trees only",
         CapturePose::AnimationPlayBoundary {
-            player_x: 31.0,
-            player_z: -31.0,
+            player: v!(@scene_point_metres 31.0, -31.0),
             yaw_degrees: 315.0
         },
         80.0,

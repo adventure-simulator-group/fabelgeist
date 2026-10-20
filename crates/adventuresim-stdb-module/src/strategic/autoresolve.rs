@@ -145,6 +145,7 @@ pub(crate) fn autoresolve_enemy_with_countermeasure(
         combat_scale_bps,
         countermeasure_multiplier_bps,
     )
+    .map_err(|error| error.to_string())
 }
 
 fn autoresolve_drop(enemy_type: &str) -> Result<Option<&'static str>, String> {

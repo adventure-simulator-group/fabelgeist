@@ -1,5 +1,9 @@
 //! Select the physical surface for vista meshes and scenery placement.
 use super::*;
+use adventuresim_tactical_core::{
+    city_layout::grounding::{SupportElevation, SupportQuery, SurfaceHit},
+    scene_coordinates::ScenePlanPoint,
+};
 use fabelgeist_determinism::Seed;
 
 const MINIMUM_VISTA_ROCK_SLOPE_NORMAL_Y: f32 = 0.72;
@@ -56,7 +60,7 @@ pub(super) fn vista_scatter_transform(
     coarser_lod: Option<&VistaLod>,
     playable_terrain: &SceneTerrain,
     playable_half_extent: Vec2,
-    point: Vec2,
+    point: ScenePlanPoint,
     hash: Seed,
     lift: f32,
 ) -> Option<Transform> {
@@ -71,7 +75,7 @@ pub(super) fn vista_scatter_transform(
         return None;
     }
     Some(
-        Transform::from_xyz(point.x, hit.elevation.metres() + lift, point.y).with_rotation(
+        Transform::from_xyz(point.metres().x, hit.elevation.metres() + lift, point.metres().y).with_rotation(
             Quat::from_rotation_arc(Vec3::Y, *hit.normal)
                 * Quat::from_rotation_y(
                     streams::ROCK_YAW.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU,
@@ -84,20 +88,14 @@ pub(super) fn tree_root_height(
     terrain: &SceneTerrain,
     lod: &VistaLod,
     coarser: Option<&VistaLod>,
-    world: Vec2,
-) -> Option<f32> {
+    world: ScenePlanPoint,
+) -> Option<SupportElevation> {
     if terrain.property_surface().is_some() {
         return terrain
-            .surface_below(
-                adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
-                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
-                        bevy::math::Vec2::new(world.x, world.y),
-                    )?,
-                ),
-            )
-            .map(|hit| hit.elevation.metres());
+            .surface_below(SupportQuery::unbounded(world))
+            .map(|hit| hit.elevation);
     }
-    presented_height_at(lod, world, coarser)
+    presented_height_at(lod, world.metres(), coarser).and_then(SupportElevation::from_metres)
 }
 
 /// Owned scenery uses the same highest exterior support as the rendered ground.
@@ -107,22 +105,16 @@ fn scenery_surface(
     coarser_lod: Option<&VistaLod>,
     playable_terrain: &SceneTerrain,
     playable_half_extent: Vec2,
-    point: Vec2,
-) -> Option<adventuresim_tactical_core::city_layout::grounding::SurfaceHit> {
+    point: ScenePlanPoint,
+) -> Option<SurfaceHit> {
     if playable_terrain.property_surface().is_some() {
-        return playable_terrain.surface_below(
-            adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
-                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
-                    bevy::math::Vec2::new(point.x, point.y),
-                )?,
-            ),
-        );
+        return playable_terrain.surface_below(SupportQuery::unbounded(point));
     }
     let origin = Vec2::new(
         lod.origin_east_metres as f32,
         lod.origin_north_metres as f32,
     );
-    let local = point - origin;
+    let local = point.metres() - origin;
     let height = presented_vista_vertex_height(
         lod,
         coarser_lod,
@@ -144,7 +136,7 @@ fn scenery_surface(
     let tangent_x = Vec3::new(delta * 2.0, at(Vec2::X * delta) - at(-Vec2::X * delta), 0.0);
     let tangent_z = Vec3::new(0.0, at(Vec2::Y * delta) - at(-Vec2::Y * delta), delta * 2.0);
     let normal = tangent_z.cross(tangent_x);
-    adventuresim_tactical_core::city_layout::grounding::SurfaceHit::from_geometry(height, normal)
+    SurfaceHit::from_geometry(height, normal)
 }
 
 #[cfg(test)]

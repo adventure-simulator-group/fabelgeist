@@ -9,6 +9,12 @@ use adventuresim_tactical_core::{
 };
 use bevy::math::Vec3Swizzles;
 
+#[derive(Default)]
+struct Intersection {
+    area_m2: f64,
+    samples: HeightExtrema,
+}
+
 pub(crate) fn extrema(
     lod: &VistaLod,
     coarser: Option<&VistaLod>,
@@ -21,13 +27,21 @@ pub(crate) fn extrema(
         let polygon = clip(points.to_vec(), &corners);
         result.area_m2 += area(&polygon);
         for point in polygon {
-            result.observe(point, height_in_triangle(triangle, point));
+            let Some(elevation) = SupportElevation::from_metres(height_in_triangle(triangle, point)) else {
+                continue;
+            };
+            let Some(point) = ScenePlanPoint::from_metres(point) else {
+                continue;
+            };
+            result.samples.observe(GeographicHeightControl { point, elevation });
         }
     }
     json!({"required_footprint_area_m2":area(&corners),"clipped_vista_area_m2":result.area_m2,
-        "intersection_vertices":result.vertices,
-        "minimum_metres":result.low.map(|(_,h)|h),"minimum_location":result.low.map(|(p,_)|p),
-        "maximum_metres":result.high.map(|(_,h)|h),"maximum_location":result.high.map(|(p,_)|p),
+        "intersection_vertices":result.samples.vertices,
+        "minimum_metres":result.samples.low.map(|sample|sample.elevation),
+        "minimum_location":result.samples.low.map(|sample|sample.point),
+        "maximum_metres":result.samples.high.map(|sample|sample.elevation),
+        "maximum_location":result.samples.high.map(|sample|sample.point),
         "method":"Production clipped vista triangles with playable-boundary subdivision and LOD vertex morph. Area coverage is reported explicitly; playable terrain and other LODs are not substituted."})
 }
 
@@ -107,24 +121,6 @@ pub(crate) fn height_in_triangle(triangle: [bevy::math::Vec3; 3], point: Vec2) -
     a.y + (b.y - a.y) * u + (c.y - a.y) * v
 }
 
-#[derive(Default)]
-struct Intersection {
-    area_m2: f64,
-    vertices: usize,
-    low: Option<(Vec2, f32)>,
-    high: Option<(Vec2, f32)>,
-}
-impl Intersection {
-    fn observe(&mut self, point: Vec2, height: f32) {
-        self.vertices += 1;
-        if self.low.is_none_or(|(_, h)| height < h) {
-            self.low = Some((point, height));
-        }
-        if self.high.is_none_or(|(_, h)| height > h) {
-            self.high = Some((point, height));
-        }
-    }
-}
 fn area(polygon: &[Vec2]) -> f64 {
     let Some(origin) = polygon.first() else {
         return 0.0;

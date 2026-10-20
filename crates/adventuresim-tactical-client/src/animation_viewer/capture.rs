@@ -7,6 +7,8 @@ use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 pub(super) use capture_schedule::CapturePlugin;
 use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
 use repeated_evaluation::RepeatedEvaluationSnapshot;
+use root_motion::CaptureGround;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 
 mod admission;
 mod capture_schedule;
@@ -15,6 +17,7 @@ mod global_bones;
 mod overlay;
 mod readiness;
 mod repeated_evaluation;
+mod root_motion;
 mod subject_motion;
 
 pub(super) const CAPTURE_ROOT_GROUND_OFFSET_METRES: f32 = 0.95;
@@ -257,8 +260,15 @@ pub(super) fn drive_sequence(
             if let Some(mut body_response) = body_response {
                 *body_response = LocomotionBodyResponseState::default();
             }
-            let ground = terrain.height_at(Vec2::ZERO).unwrap_or_default();
-            transform.translation = Vec3::new(0.0, ground + CAPTURE_ROOT_GROUND_OFFSET_METRES, 0.0);
+            let Some(ground) = sequence.admit_terrain_height(&terrain, ScenePlanPoint::ORIGIN) else {
+                return;
+            };
+            let Some(position) = sequence.admit_scene_position(Vec3::new(
+                0.0, ground.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES, 0.0,
+            )) else {
+                return;
+            };
+            transform.translation = position.metres();
             transform.rotation = Quat::from_rotation_y(std::f32::consts::PI);
             if frame.scenario.has(ScenarioFeature::RaisedTapStop) {
                 // Prime the static combat stance and its terrain-conformed IK
@@ -391,20 +401,18 @@ pub(super) fn drive_sequence(
         let elapsed = capture_frame_elapsed(frame.scenario_frame);
         let delta_seconds = elapsed.seconds();
         procedural_clock.set_fixed_step(sequence.simulation_tick, elapsed);
-        let horizontal = transform.translation.xz() + world_velocity.xz() * delta_seconds;
-        let vertical = if quickstep {
-            let ground = terrain.height_at(horizontal).unwrap_or_default()
-                + CAPTURE_ROOT_GROUND_OFFSET_METRES;
-            ground
-                + quickstep_fixture_vertical_state(frame.scenario_frame)
-                    .0
-                    .max(0.0)
-        } else if terrain_ik.is_enabled() {
-            terrain.height_at(horizontal).unwrap_or_default() + CAPTURE_ROOT_GROUND_OFFSET_METRES
-        } else {
-            transform.translation.y
+        let motion = subject_motion::CaptureMotion {
+            orientation,
+            world_velocity,
+            contact: GroundContact::from(grounded),
+            elapsed,
         };
-        transform.translation = Vec3::new(horizontal.x, vertical, horizontal.y);
+        let Some(position) = sequence.fixture_root_position(
+            &terrain, transform.translation, &frame, &motion, *terrain_ik,
+        ) else {
+            return;
+        };
+        transform.translation = position.metres();
         subject_motion::begin_capture_action(
             &mut skeleton,
             &frame,
@@ -424,29 +432,17 @@ pub(super) fn drive_sequence(
             return;
         }
         if frame.scenario.is(ScenarioId::FullRagdoll) {
-            let fall = ((frame.scenario_frame + 4) as f32 / 8.0).clamp(0.0, 1.0);
-            transform.rotation = Quat::from_rotation_y(std::f32::consts::PI)
-                * Quat::from_rotation_x(1.25 * smoothstep01(fall));
-            // The production root becomes a coarse dynamic body while the
-            // client ragdoll is active. Reproduce its descent in this focused
-            // viewer so the first sixty-frame settle window actually exercises
-            // whole-body terrain contact instead of suspending the pelvis at
-            // the standing controller height.
-            let ground = terrain.height_at(Vec2::ZERO).unwrap_or_default();
-            transform.translation.y =
-                ground + CAPTURE_ROOT_GROUND_OFFSET_METRES - 0.62 * smoothstep01(fall);
+            let Some(projected) = sequence.full_ragdoll_root(&terrain, *transform, &frame) else {
+                return;
+            };
+            *transform = projected;
         }
         sequence.scenario_distance += frame.speed.metres_per_second() * delta_seconds;
         if let Err(error) = subject_motion::project_capture_motion(
             &mut skeleton,
             &mut transform,
             &frame,
-            subject_motion::CaptureMotion {
-                orientation,
-                world_velocity,
-                contact: GroundContact::from(grounded),
-                elapsed,
-            },
+            motion,
             &sequence,
         ) {
             sequence.admission =
@@ -629,13 +625,10 @@ pub(super) fn capture_frame(
     let view = VIEWS[sequence.view_index];
     let file_name = view.screenshot_name(&frame);
     let path = sequence.output.join(&file_name);
-    let evaluation_bones = collect_bones(
-        subject,
-        &bones,
-        &terrain,
-        (!terrain_ik.is_enabled())
-            .then_some(subject_global.translation().y - CAPTURE_ROOT_GROUND_OFFSET_METRES),
-    );
+    let Some(ground) = sequence.capture_ground(*terrain_ik, subject_global.translation()) else {
+        return;
+    };
+    let evaluation_bones = collect_bones(subject, &bones, &terrain, ground);
     let evaluation_leg_ik = leg_ik.map(LegIkState::diagnostics).unwrap_or_default();
     sequence.record_repeated_evaluation(&frame, &evaluation_bones, skeleton, evaluation_leg_ik);
     if sequence.view_index == 0 {
@@ -831,31 +824,6 @@ pub(super) fn visual_fingerprint(image: &Image) -> u64 {
     hash
 }
 
-pub(super) fn collect_bones(
-    subject: Entity,
-    bones: &Query<(&HumanoidBone, &GlobalTransform)>,
-    terrain: &SceneTerrain,
-    flat_ground_height: Option<f32>,
-) -> CapturedBones {
-    bones
-        .iter()
-        .filter(|(bone, _)| bone.owner == subject && report_bone_label(bone.role).is_some())
-        .map(|(bone, transform)| {
-            let rotation = transform.rotation();
-            (
-                bone.role,
-                BoneSample {
-                    position: transform.translation().to_array(),
-                    rotation_xyzw: [rotation.x, rotation.y, rotation.z, rotation.w],
-                    terrain_clearance_metres: flat_ground_height
-                        .or_else(|| terrain.height_at(transform.translation().xz()))
-                        .map(|height| transform.translation().y - height),
-                },
-            )
-        })
-        .collect()
-}
-
 pub(super) fn jitter_frames(frames: &[FrameSample]) -> Vec<JitterFrame<BoneRole>> {
     let mut previous: Option<&FrameSample> = None;
     let mut analysis_segment = 0_u64;
@@ -947,6 +915,35 @@ pub(super) fn wait_or_fail(
         sequence.waiting
     );
     fail_capture(sequence, &message, exit);
+}
+
+fn collect_bones(
+    subject: Entity,
+    bones: &Query<(&HumanoidBone, &GlobalTransform)>,
+    terrain: &SceneTerrain,
+    ground: CaptureGround,
+) -> CapturedBones {
+    bones
+        .iter()
+        .filter(|(bone, _)| bone.owner == subject && report_bone_label(bone.role).is_some())
+        .map(|(bone, transform)| {
+            let rotation = transform.rotation();
+            let elevation = match ground {
+                CaptureGround::AuthoredPlane(height) => Some(height),
+                CaptureGround::Terrain => ScenePlanPoint::from_metres(transform.translation().xz())
+                    .and_then(|point| terrain.height_at(point)),
+            };
+            (
+                bone.role,
+                BoneSample {
+                    position: transform.translation().to_array(),
+                    rotation_xyzw: [rotation.x, rotation.y, rotation.z, rotation.w],
+                    terrain_clearance_metres: elevation
+                        .map(|height| transform.translation().y - height.metres()),
+                },
+            )
+        })
+        .collect()
 }
 
 #[cfg(test)]

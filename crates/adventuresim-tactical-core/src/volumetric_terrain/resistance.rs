@@ -4,7 +4,7 @@
 //! depends on the recipe and edge midpoint, independently of evolving offsets.
 //! Sampling it once keeps every erosion step's floating-point update unchanged.
 use super::{TerrainLandformRecipe, smooth_value_noise, smoothstep01};
-use crate::terrain_transition::TerrainTransitionCollar;
+use crate::{scene_coordinates::ScenePlanPoint, terrain_transition::TerrainTransitionCollar};
 use bevy::math::Vec2;
 use fabelgeist_determinism::{Seed, StreamId};
 use rayon::prelude::*;
@@ -26,16 +26,17 @@ pub(super) struct CellResistance {
 pub(super) struct ScarpResistance(f32);
 
 impl ScarpResistanceGrid {
-    /// Native numerical boundary: square-grid indices, spacing and minimum use
-    /// the same bounded lattice and metre coordinates as the erosion solver.
+    /// Grid indices and spacing use the erosion solver's native lattice.
+    /// Project the checked scene minimum only for stencil coordinate arithmetic.
     pub(super) fn new(
         masks: &[f32],
         recipe: TerrainLandformRecipe,
         collar: TerrainTransitionCollar,
         side: usize,
         spacing: f32,
-        minimum: Vec2,
+        minimum: ScenePlanPoint,
     ) -> Self {
+        let minimum = minimum.metres();
         let half_length = f32::from(recipe.half_length_cm()) / 100.0;
         let cells = (0..masks.len())
             .into_par_iter()

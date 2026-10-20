@@ -1,5 +1,6 @@
 //! Cache pebble assets and place only patches clear of managed ground.
 use super::*;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use adventuresim_tactical_core::prelude::GroundSurface;
 use bevy::prelude::Handle;
 use fabelgeist_determinism::Seed;
@@ -188,6 +189,7 @@ impl PatchPlacement {
             grid_x as f32 * ground.grid_scale() - ground.width() * 0.5,
             grid_z as f32 * ground.grid_scale() - ground.depth() * 0.5,
         );
+        let position = ScenePlanPoint::from_metres(position)?;
         // The patch can rotate and tilt. Exclude its full existing bounds,
         // including pebble overhang, from exact managed-ground ownership.
         let envelope_radius = Vec3::new(half_extent + 0.3, 0.4, half_extent + 0.3).length();
@@ -232,11 +234,11 @@ impl PatchPlacement {
                 * core::f32::consts::TAU,
         );
         let transform = Transform::from_xyz(
-            position.x,
-            height + if woodland { -0.006 } else { 0.006 },
-            position.y,
+            position.metres().x,
+            height.metres() + if woodland { -0.006 } else { 0.006 },
+            position.metres().y,
         )
-        .with_rotation(Quat::from_rotation_arc(Vec3::Y, normal) * yaw)
+        .with_rotation(Quat::from_rotation_arc(Vec3::Y, *normal) * yaw)
         .with_scale(Vec3::splat(if woodland { 0.58 } else { 1.0 }));
 
         Some(Self {

@@ -241,6 +241,44 @@ jobs:
         run: |
           set -euo pipefail
           cargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server player_projection::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/maneuver-consumers.log
+      - name: Test shared terrain support contracts
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-scene.log
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene_input:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-scene-input.log
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene_coordinates:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-scene-coordinates.log
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib city_layout::grounding:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-grounding.log
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib volumetric_terrain:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-landforms.log
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib erosional_terrain:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-erosion.log
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib marching_tetrahedra:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-extraction.log
+      - name: Test terrain presentation and retained scene consumers
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-presentation.log
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client strategic_scene:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-strategic.log
+      - name: Test existing terrain capture and art-demo consumers
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-tactical-client --features debug --bin tactical-scene-viewer tactical_scene_viewer:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-viewer.log
+          cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-art-demo.log
+          cargo test --locked --package adventuresim-tactical-client --features debug --bin animation-viewer animation_viewer::capture:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-animation-capture.log
+      - name: Test dispatcher terrain selection and inspection consumers
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-tactical-server-dispatcher --lib scene_input:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-dispatcher.log
+          cargo test --locked --package adventuresim-tactical-server-dispatcher --example inspect-city-grounding -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-inspection.log
       - name: Export semantic family baseline snapshot
         env:
           EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -273,6 +311,20 @@ jobs:
               "creator-torso-domain", "creator-underlayer-design",
               "creator-character-morphs", "creator-animation-preview",
               "creator-device-bracer", "creator-device-breastplate",
+              "terrain-scene",
+              "terrain-scene-input",
+              "terrain-scene-coordinates",
+              "terrain-grounding",
+              "terrain-landforms",
+              "terrain-erosion",
+              "terrain-extraction",
+              "terrain-presentation",
+              "terrain-strategic",
+              "terrain-viewer",
+              "terrain-art-demo",
+              "terrain-dispatcher",
+              "terrain-inspection",
+              "terrain-animation-capture",
           ]
           cells = []
           for label in required:

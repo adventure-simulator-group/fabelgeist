@@ -2,6 +2,8 @@
 use super::diagnostic_record::*;
 use super::*;
 #[cfg(not(target_family = "wasm"))]
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+#[cfg(not(target_family = "wasm"))]
 use std::io::{BufWriter, Write};
 #[cfg(not(target_family = "wasm"))]
 use std::{
@@ -157,7 +159,8 @@ pub(super) fn log_animation_diagnostics(
     {
         let diagnostic_frame = log.frame;
         let global_translation = global_transform.translation();
-        let terrain_height = terrain.and_then(|terrain| terrain.height_at(global_translation.xz()));
+        let terrain_height = ScenePlanPoint::from_metres(global_translation.xz())
+            .and_then(|point| terrain.and_then(|terrain| terrain.height_at(point)));
         let evaluation = match AnimationEvaluation::from_skeleton(presented) {
             Ok(evaluation) => evaluation,
             Err(error) => {
@@ -210,7 +213,7 @@ pub(super) fn log_animation_diagnostics(
             bones: bone_transforms,
             terrain_height,
             controller_height_above_terrain: terrain_height
-                .map(|height| global_translation.y - height),
+                .map(|height| global_translation.y - height.metres()),
             authoritative,
             presented: &presented.state,
             presentation_phase_error_remaining: presented.phase_error_remaining,

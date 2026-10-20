@@ -1,5 +1,5 @@
 //! Shared vista geometry policy for terrain presentation and supported scenery.
-use crate::{scene::SceneTerrain, scene_input::VistaLod};
+use crate::{scene::SceneTerrain, scene_coordinates::ScenePlanPoint, scene_input::VistaLod};
 use bevy::math::{FloatExt, UVec2, Vec2};
 
 pub fn presented_vista_vertex_height(
@@ -104,7 +104,9 @@ pub fn stitch_vista_height_to_playable_edge(
     vista_height: f32,
 ) -> f32 {
     let boundary = local.clamp(-playable_half_extent, playable_half_extent);
-    let Some(playable_height) = terrain.height_at(boundary) else {
+    let Some(playable_height) = ScenePlanPoint::from_metres(boundary)
+        .and_then(|point| terrain.height_at(point))
+    else {
         return vista_height;
     };
     let outside_distance = (local.abs() - playable_half_extent)
@@ -115,7 +117,7 @@ pub fn stitch_vista_height_to_playable_edge(
     } else {
         f32::from(outside_distance > 0.0)
     };
-    playable_height.lerp(vista_height, vista_weight)
+    playable_height.metres().lerp(vista_height, vista_weight)
 }
 
 pub fn cell_rectangles_outside_inner_rectangle(

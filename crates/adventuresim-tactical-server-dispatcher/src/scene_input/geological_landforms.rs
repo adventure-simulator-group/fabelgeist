@@ -8,6 +8,8 @@
 //! corridor exclude additional landforms before any geometry is generated.
 
 use super::*;
+use adventuresim_building_generator::spatial_geometry::PositiveLength;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use adventuresim_world_schema::{
     IgneousRock, SedimentaryRock, SurfaceLithology, UnconsolidatedDeposit,
 };
@@ -24,6 +26,11 @@ const CORRIDOR_HALF_WIDTH_METRES: f32 = 7.0;
 const PROTECTED_COVER_BPS: u16 = 1_000;
 const GEOLOGIC_PROJECTION_MARGIN_METRES: f64 = 2.0;
 const CANDIDATE_STRIDE: usize = 8;
+
+struct MappedLandformProfile {
+    kind: TerrainLandformKind,
+    lithology: SurfaceLithology,
+}
 
 pub(super) fn select(
     features: &[TerrainFeature],
@@ -46,17 +53,14 @@ pub(super) fn select(
         for x in
             (CANDIDATE_STRIDE..usize::from(grid.width) - CANDIDATE_STRIDE).step_by(CANDIDATE_STRIDE)
         {
-            let point = Vec2::new(
-                x as f32 - (f32::from(grid.width) - 1.0) * 0.5,
-                z as f32 - (f32::from(grid.depth) - 1.0) * 0.5,
-            ) * grid.spacing_metres;
-            let offset = grid.spacing_metres * CANDIDATE_STRIDE as f32;
-            let gradient = Vec2::new(
-                terrain.height_at(point + Vec2::X * offset)?
-                    - terrain.height_at(point - Vec2::X * offset)?,
-                terrain.height_at(point + Vec2::Y * offset)?
-                    - terrain.height_at(point - Vec2::Y * offset)?,
-            ) / (offset * 2.0);
+            let point = ScenePlanPoint::from_metres(
+                Vec2::new(
+                    x as f32 - (f32::from(grid.width) - 1.0) * 0.5,
+                    z as f32 - (f32::from(grid.depth) - 1.0) * 0.5,
+                ) * grid.spacing_metres,
+            )?;
+            let offset = PositiveLength::from_metres(grid.spacing_metres * CANDIDATE_STRIDE as f32).ok()?;
+            let gradient = source_gradient(&terrain, point, offset)?;
             let grade = gradient.length();
             if !(MIN_SOURCE_GRADE..=MAX_SOURCE_GRADE).contains(&grade) {
                 continue;
@@ -71,7 +75,7 @@ pub(super) fn select(
                 (tangent.x * 10000.0).round() as i16,
                 (tangent.y * 10000.0).round() as i16,
             ];
-            let Some((kind, lithology)) = mapped_profile(
+            let Some(MappedLandformProfile { kind, lithology }) = mapped_profile(
                 features,
                 center,
                 point,
@@ -93,8 +97,8 @@ pub(super) fn select(
                     .ok()?,
                     seed,
                     origin_cm: [
-                        (point.x * 100.0).round() as i32,
-                        (point.y * 100.0).round() as i32,
+                        (point.metres().x * 100.0).round() as i32,
+                        (point.metres().y * 100.0).round() as i32,
                     ],
                     tangent_permyriad,
                     relief_cm: (relief * 100.0).round() as u16,
@@ -112,6 +116,61 @@ pub(super) fn select(
         }
     }
     None
+}
+
+pub(super) fn mapped_fault_surface(
+    features: &[TerrainFeature],
+    center: Wgs84CoordinateE7,
+    point: ScenePlanPoint,
+    radius_metres: f64,
+    seed: fabelgeist_determinism::Seed,
+    tangent_permyriad: [i16; 2],
+) -> Option<TerrainSurfaceRecipe> {
+    let geographic =
+        Proj::from_proj_string("+proj=longlat +datum=WGS84 +ellps=WGS84 +no_defs").ok()?;
+    let projected = Proj::from_proj_string("+proj=lcc +lat_0=52 +lon_0=10 +lat_1=35 +lat_2=65 +x_0=4000000 +y_0=2800000 +ellps=GRS80 +units=m +no_defs").ok()?;
+    let lithology = mapped_lithology(
+        features,
+        center,
+        point,
+        radius_metres,
+        &geographic,
+        &projected,
+    )?;
+    TerrainSurfaceRecipe::new(
+        lithology,
+        TerrainSurfaceSource::Mapped,
+        seed,
+        tangent_permyriad,
+    )
+    .ok()
+}
+
+
+/// Native centred finite difference in scene east/north metres; output is grade.
+fn source_gradient(
+    terrain: &SceneTerrain,
+    point: ScenePlanPoint,
+    offset: PositiveLength,
+) -> Option<Vec2> {
+    let offset = offset.metres();
+    let east = terrain.height_at(ScenePlanPoint::from_metres(
+        point.metres() + Vec2::X * offset,
+    )?)?;
+    let west = terrain.height_at(ScenePlanPoint::from_metres(
+        point.metres() - Vec2::X * offset,
+    )?)?;
+    let north = terrain.height_at(ScenePlanPoint::from_metres(
+        point.metres() + Vec2::Y * offset,
+    )?)?;
+    let south = terrain.height_at(ScenePlanPoint::from_metres(
+        point.metres() - Vec2::Y * offset,
+    )?)?;
+    // Metres become native coefficients only for this finite difference.
+    Some(Vec2::new(
+        east.metres() - west.metres(),
+        north.metres() - south.metres(),
+    ) / (offset * 2.0))
 }
 
 fn kind_for_lithology(lithology: SurfaceLithology) -> Option<TerrainLandformKind> {
@@ -176,11 +235,11 @@ fn safe_footprint(
 fn mapped_profile(
     features: &[TerrainFeature],
     center: Wgs84CoordinateE7,
-    point: Vec2,
+    point: ScenePlanPoint,
     footprint_radius_metres: f64,
     geographic: &Proj,
     projected: &Proj,
-) -> Option<(TerrainLandformKind, SurfaceLithology)> {
+) -> Option<MappedLandformProfile> {
     let lithology = mapped_lithology(
         features,
         center,
@@ -189,13 +248,13 @@ fn mapped_profile(
         geographic,
         projected,
     )?;
-    kind_for_lithology(lithology).map(|kind| (kind, lithology))
+    kind_for_lithology(lithology).map(|kind| MappedLandformProfile { kind, lithology })
 }
 
 fn mapped_lithology(
     features: &[TerrainFeature],
     center: Wgs84CoordinateE7,
-    point: Vec2,
+    point: ScenePlanPoint,
     footprint_radius_metres: f64,
     geographic: &Proj,
     projected: &Proj,
@@ -204,6 +263,8 @@ fn mapped_lithology(
     // lie inside one containment-verified source window. Margin absorbs
     // rounding and local east/north versus map-projection curvature.
     let radius = footprint_radius_metres + GEOLOGIC_PROJECTION_MARGIN_METRES;
+    // Proj4 consumes native longitude/latitude derived from this scene footprint.
+    let point = point.metres();
     let corners = [-radius, 0.0, radius]
         .into_iter()
         .flat_map(|dx| [-radius, 0.0, radius].map(|dz| (dx, dz)))
@@ -232,33 +293,6 @@ fn mapped_lithology(
     Some(window.lithology)
 }
 
-pub(super) fn mapped_fault_surface(
-    features: &[TerrainFeature],
-    center: Wgs84CoordinateE7,
-    point: Vec2,
-    radius_metres: f64,
-    seed: fabelgeist_determinism::Seed,
-    tangent_permyriad: [i16; 2],
-) -> Option<TerrainSurfaceRecipe> {
-    let geographic =
-        Proj::from_proj_string("+proj=longlat +datum=WGS84 +ellps=WGS84 +no_defs").ok()?;
-    let projected = Proj::from_proj_string("+proj=lcc +lat_0=52 +lon_0=10 +lat_1=35 +lat_2=65 +x_0=4000000 +y_0=2800000 +ellps=GRS80 +units=m +no_defs").ok()?;
-    let lithology = mapped_lithology(
-        features,
-        center,
-        point,
-        radius_metres,
-        &geographic,
-        &projected,
-    )?;
-    TerrainSurfaceRecipe::new(
-        lithology,
-        TerrainSurfaceSource::Mapped,
-        seed,
-        tangent_permyriad,
-    )
-    .ok()
-}
 
 #[cfg(test)]
 mod tests {
@@ -334,7 +368,7 @@ mod tests {
         window.lithology = SurfaceLithology::Sedimentary(SedimentaryRock::Shale);
 
         let surface =
-            mapped_fault_surface(&features, center, Vec2::ZERO, 45.0, 42.into(), [10_000, 0])
+            mapped_fault_surface(&features, center, ScenePlanPoint::ORIGIN, 45.0, 42.into(), [10_000, 0])
                 .expect("a containing mapped unit must drive every fault surface family");
 
         assert_eq!(

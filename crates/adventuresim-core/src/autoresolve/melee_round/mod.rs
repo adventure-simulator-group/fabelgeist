@@ -1,4 +1,5 @@
 use super::*;
+use crate::combat::RecoveryTime;
 
 pub(in crate::autoresolve) use assignment::*;
 pub(in crate::autoresolve) use commitment::*;
@@ -13,6 +14,21 @@ mod scheduling;
 struct DefenderReadiness {
     before: BattleTime,
     after: BattleTime,
+}
+
+struct PreparedMeleeExchange {
+    attack_power_multiplier: f32,
+    contact_at_time: MeleeContactAtTime,
+    scheduled_defender_timing_before: Option<ScheduledMeleeTiming>,
+    defender_phase: MeleeDefenderPhase,
+    defender_decision: AutoresolveMeleeDefenderDecision,
+    response: DefenderResponse,
+    exchange: MeleeExchangeOutcome,
+    result: AttackResult,
+    part: BodyPart,
+    attacker_incapacitation_performance: UnitInterval,
+    attack_duration: AnimationElapsed,
+    attack_interval: RecoveryTime,
 }
 
 #[expect(
@@ -338,20 +354,6 @@ fn record_response_timeline(
     }
 }
 
-struct PreparedMeleeExchange {
-    attack_power_multiplier: f32,
-    contact_at_time: MeleeContactAtTime,
-    scheduled_defender_timing_before: Option<ScheduledMeleeTiming>,
-    defender_phase: MeleeDefenderPhase,
-    defender_decision: AutoresolveMeleeDefenderDecision,
-    response: DefenderResponse,
-    exchange: MeleeExchangeOutcome,
-    result: AttackResult,
-    part: BodyPart,
-    attacker_incapacitation_performance: UnitInterval,
-    attack_duration: AnimationElapsed,
-    attack_interval: crate::combat::RecoveryTime,
-}
 
 fn prepare_melee_exchange(
     attacker: &mut Combatant,

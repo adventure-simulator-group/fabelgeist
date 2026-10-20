@@ -6,7 +6,6 @@ use std::collections::BTreeMap;
 
 use adventuresim_core::{
     attribute::PlayerAttributeValues, combat::HUMANOID_COLLISION_RADIUS_METRES,
-    tactical_fixture::TacticalEnemyFixture,
 };
 use adventuresim_stdb_client::*;
 use adventuresim_tactical_core::animation::dive_launch_root_rotation;
@@ -25,7 +24,7 @@ use bevy::time::Stopwatch;
 
 use crate::{
     Args, SceneVistaBundleResource,
-    bot::{CombatantBehaviorPackages, MissionEnemy},
+    bot::MissionEnemy,
     combat::{
         MeleeAttackAuthority, PendingMeleeContact, RangedAttackAuthority, TacticalCombatSide,
     },
@@ -44,9 +43,12 @@ use projection_equipment::{
     projected_weapon_appearance,
 };
 
+use spawn_admission::{AdmittedPlayer, PreparedPlayerSpawns, SpawnRecipient};
+
 mod dive_launch;
 mod posture_facing;
 mod projection_equipment;
+mod spawn_admission;
 
 type PlayerInputStateQuery<'world, 'state> = Query<
     'world,
@@ -539,59 +541,30 @@ pub(crate) fn spawn_connected_players(
     q_loading: Query<(Entity, &LoadingPlayer)>,
     q_scene: Query<&SceneTerrain>,
     combat_config: Res<TacticalCombatConfig>,
-) {
-    for player in conn.take_connected_players() {
-        spawn_connected_player(
-            &player,
-            args.enemy_combat_scale_bps,
-            args.enemy_fixture.as_ref(),
-            &mut cmd,
-            &q_loading,
-            &q_scene,
-            &combat_config,
-        );
-    }
+) -> Result {
+    let Some(terrain) = crate::scene_spawn::authoritative_terrain(&q_scene)? else {
+        return Ok(());
+    };
+    let admitted = PreparedPlayerSpawns::prepare(
+        conn.take_connected_players(), &q_loading, terrain, &args, &combat_config,
+    )?;
+    admitted.project(&args, &mut cmd, &combat_config);
+    Ok(())
 }
 
 fn spawn_connected_player(
-    player: &ConnectedPlayer,
+    admitted: AdmittedPlayer,
     enemy_combat_scale_bps: u32,
-    enemy_fixture: Option<&TacticalEnemyFixture>,
     cmd: &mut Commands,
-    q_loading: &Query<(Entity, &LoadingPlayer)>,
-    q_scene: &Query<&SceneTerrain>,
     combat_config: &TacticalCombatConfig,
 ) {
-    let entity = if player.mission_side == TacticalMissionSide::Enemy {
-        let packages = if let Some(fixture) = enemy_fixture {
-            let enemy = fixture
-                .enemy_named(&player.character.name)
-                .unwrap_or_else(|| {
-                    panic!(
-                        "seeded enemy '{}' is absent from the loaded enemy fixture",
-                        player.character.name
-                    )
-                });
-            CombatantBehaviorPackages::from_fixture(enemy.behavior, combat_config)
-        } else if enemy_combat_scale_bps > 0 {
-            CombatantBehaviorPackages::standard_combat(combat_config)
-        } else {
-            CombatantBehaviorPackages::passive()
-        };
-        cmd.spawn((MissionEnemy, TacticalCombatSide::Enemy, packages))
-            .id()
-    } else {
-        let Some((entity, _)) = q_loading
-            .iter()
-            .find(|(_, id)| id.requested_character.0 == player.character.id)
-        else {
-            warn!(
-                "Got new ConnectedPlayer from stdb, but there is no LoadingPlayer for it: {}#{}",
-                player.character.name, player.character.id
-            );
-            return;
-        };
-        entity
+    let AdmittedPlayer { player, recipient, position, collider: player_collider } = admitted;
+    let player = &player;
+    let entity = match recipient {
+        SpawnRecipient::Loading(entity) => entity,
+        SpawnRecipient::Enemy(packages) => cmd
+            .spawn((MissionEnemy, TacticalCombatSide::Enemy, packages))
+            .id(),
     };
 
     let mut skills = Skills {
@@ -733,20 +706,6 @@ fn spawn_connected_player(
         focus: player.stats.focus,
     };
 
-    let player_collider = player_collider();
-    let mut spawn_random = fabelgeist_determinism::StreamId::new("tactical.player-spawn")
-        .rng(player.character.id.into(), &[]);
-    let spawn_position = Vec2::new(
-        spawn_random.range_f32(-5.0, 5.0),
-        spawn_random.range_f32(-5.0, 5.0),
-    );
-    let spawn_height = q_scene
-        .iter()
-        .next()
-        .and_then(|terrain| terrain.height_at(spawn_position))
-        .unwrap_or_default()
-        + player_spawn_offset(&player_collider);
-
     let (starting_incapacitation, starting_blood_fraction) = derive_combat_starting_condition(
         player.strategic_incapacitation,
         player.strategic_pain,
@@ -793,7 +752,7 @@ fn spawn_connected_player(
         } else {
             TacticalCombatSide::Party
         },
-        Transform::from_xyz(spawn_position.x, spawn_height, spawn_position.y)
+        Transform::from_translation(position.metres())
             .with_rotation(Quat::from_rotation_y(std::f32::consts::PI)),
         (
             player_collider.clone(),
@@ -2023,14 +1982,6 @@ pub(crate) fn expire_disconnected_players(
     }
 }
 
-fn player_collider() -> Collider {
-    Collider::cylinder(HUMANOID_COLLISION_RADIUS_METRES, 1.9)
-}
-
-fn player_spawn_offset(collider: &Collider) -> f32 {
-    -collider.aabb(default(), Rotation::default()).min.y
-}
-
 /// Fires whenever `Player` lands on any entity - via the normal
 /// SpacetimeDB-driven [`spawn_connected_player`], a loaded world dump
 /// (`load_world_dump`), or a dump-to-live-client merge
@@ -2185,6 +2136,10 @@ pub(crate) fn bind_dumped_character_on_join(world: &mut World) {
             ),
         }
     }
+}
+
+fn player_collider() -> Collider {
+    Collider::cylinder(HUMANOID_COLLISION_RADIUS_METRES, 1.9)
 }
 
 #[cfg(feature = "debug")]

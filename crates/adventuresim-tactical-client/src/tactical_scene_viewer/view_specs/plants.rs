@@ -1,3 +1,5 @@
+use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_tactical_core::scene_coordinates::Scene;
 use super::*;
 impl CapturePose {
     pub(in crate::tactical_scene_viewer) fn accepts_plant(
@@ -12,7 +14,8 @@ impl CapturePose {
         }
     }
 
-    pub(in crate::tactical_scene_viewer) fn plant_camera(self, root: Vec3) -> (Vec3, Vec3, Vec3) {
+    pub(in crate::tactical_scene_viewer) fn plant_camera(self, root: Position<Scene>) -> (Vec3, Vec3, Vec3) {
+        let root = root.metres();
         if let Self::PlantLod { distance } = self {
             let approach = Vec3::new(-root.x, 0.0, -root.z).normalize_or(Vec3::Z);
             let eye = root + (approach + Vec3::Y * 0.2).normalize() * distance;

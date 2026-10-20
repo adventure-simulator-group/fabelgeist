@@ -7,7 +7,12 @@ use super::{
     RagdollBodyPart, Ragdolling,
     entry::{joint_base_affine, joint_world_affines},
 };
-use adventuresim_tactical_core::prelude::*;
+use adventuresim_building_generator::spatial_geometry::{
+    GeometryResult, Position as ScenePosition, SignedLength,
+};
+use adventuresim_tactical_core::{
+    city_layout::grounding::SupportElevation, prelude::*, scene_coordinates::{Scene, ScenePlanPoint},
+};
 use bevy::{math::Affine3A, prelude::*};
 use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
 
@@ -124,16 +129,30 @@ pub(in crate::animation) fn resolve_ragdoll_terrain_contacts(
         if part.kinematic {
             continue;
         }
-        let penetration = capsule_terrain_penetration(part, position.0, rotation.0, |point| {
+        let penetration = match capsule_terrain_penetration(part, position.0, rotation.0, |point| {
             terrains
                 .iter()
                 .filter_map(|terrain| terrain.height_at(point))
-                .reduce(f32::max)
-        });
-        if penetration <= 0.0 {
+                .reduce(SupportElevation::max)
+        }) {
+            Ok(penetration) => penetration,
+            Err(error) => {
+                warn!(%error, "Ragdoll terrain penetration rejected");
+                continue;
+            }
+        };
+        if penetration.metres() <= 0.0 {
             continue;
         }
-        position.0.y += penetration;
+        let corrected = position.0.with_y(position.0.y + penetration.metres());
+        let corrected = match ScenePosition::<Scene>::from_metres(corrected) {
+            Ok(corrected) => corrected,
+            Err(error) => {
+                warn!(%error, "Ragdoll terrain correction rejected");
+                continue;
+            }
+        };
+        position.0 = corrected.metres();
         if velocity.y < 0.0 {
             // Settle rather than rebound through the surface between
             // presentation frames.
@@ -151,16 +170,18 @@ fn capsule_terrain_penetration(
     part: &RagdollBodyPart,
     position: Vec3,
     rotation: Quat,
-    mut height_at: impl FnMut(Vec2) -> Option<f32>,
-) -> f32 {
+    mut height_at: impl FnMut(ScenePlanPoint) -> Option<SupportElevation>,
+) -> GeometryResult<SignedLength> {
     let center = position + rotation * part.center_local;
     let axis = rotation * part.axis_local * part.half_length.metres();
-    [center - axis, center, center + axis]
+    let penetration = [center - axis, center, center + axis]
         .into_iter()
         .filter_map(|sample| {
-            height_at(sample.xz()).map(|height| height + part.radius.metres() - sample.y)
+            let point = ScenePlanPoint::from_metres(sample.xz())?;
+            height_at(point).map(|height| height.metres() + part.radius.metres() - sample.y)
         })
-        .fold(0.0_f32, f32::max)
+        .fold(0.0_f32, f32::max);
+    SignedLength::from_metres(penetration)
 }
 
 #[cfg(test)]
@@ -180,9 +201,9 @@ mod tests {
         let rotation = Quat::from_rotation_z(std::f32::consts::FRAC_PI_2);
         let penetration =
             capsule_terrain_penetration(&part, Vec3::new(0.0, 0.2, 0.0), rotation, |point| {
-                Some(point.x.max(0.0))
-            });
-        assert!((penetration - 0.4).abs() < 1.0e-5, "{penetration}");
+                SupportElevation::from_metres(point.metres().x.max(0.0))
+            }).unwrap();
+        assert!((penetration.metres() - 0.4).abs() < 1.0e-5, "{}", penetration.metres());
     }
 
     #[test]
@@ -196,9 +217,9 @@ mod tests {
         };
         let penetration =
             capsule_terrain_penetration(&part, Vec3::new(0.0, 0.45, 0.0), Quat::IDENTITY, |_| {
-                Some(0.0)
-            });
+                Some(SupportElevation::ZERO)
+            }).unwrap();
         // Lowest sample is the far cap centre at y = 0.05, radius 0.1.
-        assert!((penetration - 0.05).abs() < 1.0e-5, "{penetration}");
+        assert!((penetration.metres() - 0.05).abs() < 1.0e-5, "{}", penetration.metres());
     }
 }

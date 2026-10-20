@@ -9,12 +9,12 @@ pub(in crate::animation::procedural) fn advance_run_airborne_world_target(
     rig_rotation: Quat,
     delta_seconds: AnimationElapsed,
     speed: NonnegativeSpeed,
-    minimum_ankle_y_at: impl Fn(Vec2) -> AnimationValueResult<Option<SignedLength>>,
+    clearance_floor_at: impl Fn(ScenePlanPoint) -> AnimationValueResult<Option<FootClearanceFloor>>,
 ) -> AnimationValueResult<Vec3> {
     let Some(previous_owner) = previous_owner.filter(|target| target.is_finite()) else {
         let mut target = desired_world;
-        if let Some(minimum_y) = minimum_ankle_y_at(target.xz())? {
-            target.y = target.y.max(minimum_y.metres());
+        if let Some(floor) = clearance_floor_at(checked_scene_point_metres(target.xz())?)? {
+            target.y = target.y.max(floor.minimum_height()?.metres());
         }
         return checked_foot_target(target);
     };
@@ -22,8 +22,8 @@ pub(in crate::animation::procedural) fn advance_run_airborne_world_target(
     let maximum_step = speed.metres_per_second() * delta_seconds.seconds();
     let cleared_at = |progress: f32| {
         let mut target = start_world.lerp(desired_world, progress.clamp(0.0, 1.0));
-        if let Some(minimum_y) = minimum_ankle_y_at(target.xz())? {
-            target.y = target.y.max(minimum_y.metres());
+        if let Some(floor) = clearance_floor_at(checked_scene_point_metres(target.xz())?)? {
+            target.y = target.y.max(floor.minimum_height()?.metres());
         }
         checked_foot_target(target)
     };
@@ -60,7 +60,7 @@ pub(in crate::animation::procedural) fn advance_run_airborne_world_target(
             start_world,
             desired_world,
             maximum_step,
-            &minimum_ankle_y_at,
+            &clearance_floor_at,
         )? {
             return Ok(feasible);
         }
@@ -99,7 +99,7 @@ pub(in crate::animation::procedural) fn terrain_feasible_target_in_step(
     start_world: Vec3,
     desired_world: Vec3,
     maximum_step: f32,
-    minimum_ankle_y_at: &impl Fn(Vec2) -> AnimationValueResult<Option<SignedLength>>,
+    clearance_floor_at: &impl Fn(ScenePlanPoint) -> AnimationValueResult<Option<FootClearanceFloor>>,
 ) -> AnimationValueResult<Option<Vec3>> {
     if maximum_step <= 0.0 {
         return Ok(None);
@@ -131,10 +131,10 @@ pub(in crate::animation::procedural) fn terrain_feasible_target_in_step(
                 if xz.distance(nearest_chord) > 0.04 {
                     continue;
                 }
-                let Some(minimum_y) = minimum_ankle_y_at(xz)? else {
+                let Some(floor) = clearance_floor_at(checked_scene_point_metres(xz)?)? else {
                     return Ok(None);
                 };
-                let candidate = Vec3::new(xz.x, desired_world.y.max(minimum_y.metres()), xz.y);
+                let candidate = Vec3::new(xz.x, desired_world.y.max(floor.minimum_height()?.metres()), xz.y);
                 if candidate.distance(start_world) > maximum_step + 0.000001 {
                     continue;
                 }
@@ -204,7 +204,11 @@ mod tests {
             AnimationElapsed::from_seconds(1.0).unwrap(),
             adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(maximum_step)
                 .unwrap(),
-            |xz| minimum_y(xz).map(checked_world_height).transpose(),
+            |point| {
+                minimum_y(point.metres())
+                    .map(|height| checked_scene_elevation(height).map(FootClearanceFloor::Minimum))
+                    .transpose()
+            },
         )
         .unwrap();
         assert!(target.x.abs() >= 0.02);
@@ -228,7 +232,11 @@ mod tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |xz| minimum_y(xz).map(checked_world_height).transpose(),
+            |point| {
+                minimum_y(point.metres())
+                    .map(|height| checked_scene_elevation(height).map(FootClearanceFloor::Minimum))
+                    .transpose()
+            },
         )
         .unwrap();
         assert!(resolved.is_finite());

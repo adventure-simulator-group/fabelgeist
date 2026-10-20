@@ -1,6 +1,7 @@
 use adventuresim_tactical_core::prelude::{
     BuildingOrientation, CityStreetPatch, DistantBuildingPlacement, GeneratedBuilding, SceneTerrain,
 };
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use bevy::prelude::*;
 
 use super::capture_state::BuildingReviewCamera;
@@ -22,8 +23,10 @@ pub(super) fn capture_cameras(
         return Ok(Vec::new());
     }
     let bounds = PlacementBounds::collect(buildings, distant_buildings)?;
-    let clear = |point| {
-        bounds.iter().all(|bounds| !bounds.contains(point)) && terrain.height_at(point).is_some()
+    // The corridor search supplies a completed native scene-plane interpolation.
+    let clear = |native| {
+        let Some(point) = ScenePlanPoint::from_metres(native) else { return false; };
+        bounds.iter().all(|bounds| !bounds.contains(native)) && terrain.height_at(point).is_some()
     };
     let mut focus_candidates = buildings.iter().collect::<Vec<_>>();
     focus_candidates.sort_by(|left, right| {
@@ -49,15 +52,9 @@ pub(super) fn capture_cameras(
     }
     let (focus, facade_target, street) =
         selected.ok_or("city review has no clear street corridor facing a playable building")?;
-    let eye = |point: Vec2| {
-        Vec3::new(
-            point.x,
-            terrain
-                .height_at(point)
-                .expect("street review stays on playable terrain")
-                + STREET_EYE_HEIGHT_METRES,
-            point.y,
-        )
+    let eye = |point: ScenePlanPoint| -> Result<Vec3> {
+        let elevation = terrain.required_height_at(point)?;
+        Ok(Vec3::new(point.metres().x, elevation.metres() + STREET_EYE_HEIGHT_METRES, point.metres().y))
     };
     let context = [-STREET_CONTEXT_OFFSET_METRES, STREET_CONTEXT_OFFSET_METRES]
         .into_iter()
@@ -91,13 +88,13 @@ pub(super) fn capture_cameras(
 
     Ok(vec![
         BuildingReviewCamera {
-            position: eye(street.point()),
+            position: eye(ScenePlanPoint::try_from(street.point())?)?,
             target: facade_target,
             plaster_raking_light: None,
         },
         BuildingReviewCamera {
-            position: eye(context.point()),
-            target: Vec3::new(street_target.x, eye(context.point()).y, street_target.y),
+            position: eye(ScenePlanPoint::try_from(context.point())?)?,
+            target: Vec3::new(street_target.x, eye(ScenePlanPoint::try_from(context.point())?)?.y, street_target.y),
             plaster_raking_light: None,
         },
         playable_bounds.oblique_camera(0.95, 0.8),

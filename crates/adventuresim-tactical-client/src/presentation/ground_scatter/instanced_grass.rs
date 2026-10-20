@@ -18,7 +18,11 @@ mod variation;
 use fabelgeist_determinism::Seed;
 use std::sync::Arc;
 
-use adventuresim_tactical_core::prelude::{SceneEnvironment, SceneGround, SceneTerrain};
+use adventuresim_tactical_core::{
+    city_layout::grounding::{SupportElevation, SupportQuery},
+    prelude::{SceneEnvironment, SceneGround, SceneTerrain},
+    scene_coordinates::ScenePlanPoint,
+};
 use bevy::{
     camera::{primitives::Aabb, visibility::NoFrustumCulling},
     color::Color,
@@ -360,13 +364,13 @@ pub(in crate::presentation) trait TuftPlacement {
     fn cell_allows(&self, cell_hash: Seed, cell: IVec2, cell_spacing: f32, jitter: f32) -> bool;
 
     /// Ground-cover coverage at a tuft centre; 0 leaves the site bare.
-    fn coverage(&self, centre: Vec2) -> u8;
+    fn coverage(&self, centre: ScenePlanPoint) -> u8;
 
     /// Ground height at a tuft centre, or `None` where the slope rejects grass.
-    fn height(&self, centre: Vec2) -> Option<f32>;
+    fn height(&self, centre: ScenePlanPoint) -> Option<SupportElevation>;
 
     /// Which community - and so which species pool - claims this site.
-    fn community(&mut self, centre: Vec2) -> GrassCommunity;
+    fn community(&mut self, centre: ScenePlanPoint) -> GrassCommunity;
 }
 
 /// The command buffer and asset stores a sward spawn writes through.
@@ -410,22 +414,16 @@ impl TuftPlacement for ScenePlacement<'_> {
         )
     }
 
-    fn coverage(&self, centre: Vec2) -> u8 {
+    fn coverage(&self, centre: ScenePlanPoint) -> u8 {
         self.mask.coverage_byte(centre)
     }
 
-    fn height(&self, centre: Vec2) -> Option<f32> {
-        let hit = self.terrain.surface_below(
-            adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
-                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
-                    bevy::math::Vec2::new(centre.x, centre.y),
-                )?,
-            ),
-        )?;
-        (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(hit.elevation.metres())
+    fn height(&self, centre: ScenePlanPoint) -> Option<SupportElevation> {
+        let hit = self.terrain.surface_below(SupportQuery::unbounded(centre))?;
+        (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(hit.elevation)
     }
 
-    fn community(&mut self, centre: Vec2) -> GrassCommunity {
+    fn community(&mut self, centre: ScenePlanPoint) -> GrassCommunity {
         self.communities.at(centre, self.profile)
     }
 }
@@ -482,6 +480,9 @@ pub(in crate::presentation) fn scatter_cell_tufts(
                     let jitter = variation.jitter * footprint * 0.35;
                     let centre =
                         cell_origin + Vec2::new(tuft_x as f32, tuft_z as f32) * footprint + jitter;
+                    let Some(centre) = ScenePlanPoint::from_metres(centre) else {
+                        continue;
+                    };
                     let coverage = placement.coverage(centre);
                     if coverage == 0 {
                         continue;
@@ -493,7 +494,7 @@ pub(in crate::presentation) fn scatter_cell_tufts(
                     let species = grass_species(community, variation.species);
                     let batch = &mut species_batches[species.index()];
                     batch.push(InstanceData {
-                        position: Vec3::new(centre.x, height, centre.y),
+                        position: Vec3::new(centre.metres().x, height.metres(), centre.metres().y),
                         scale: 1.0,
                         rotation: variation.rotation,
                         index: batch.len() as u32,

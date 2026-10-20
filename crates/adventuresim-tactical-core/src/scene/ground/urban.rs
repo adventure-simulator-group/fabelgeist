@@ -1,5 +1,6 @@
 //! Exact managed-ground ownership, independent of terrain grading and sampling.
 use super::*;
+use adventuresim_building_generator::spatial_geometry::{GeometryResult as Result, PlanDimensions};
 use crate::{
     city_layout::{
         CityPlotBounds, CityStreetPatch, CityStreetSurface, CityYardPatch, SPATIAL_BUCKET_METRES,
@@ -10,6 +11,27 @@ use std::{collections::BTreeMap, sync::OnceLock};
 
 #[derive(Default, Debug, Clone)]
 struct SpatialBuckets(BTreeMap<(i32, i32), Vec<usize>>);
+
+/// Exact urban-surface queries accelerated by a coarse spatial lookup.
+#[derive(Default, Debug, Clone)]
+pub struct UrbanGroundLookup {
+    streets: Vec<CityStreetPatch>,
+    yards: Vec<CityYardPatch>,
+    buildings: Vec<CityPlotBounds>,
+    street_buckets: SpatialBuckets,
+    yard_buckets: SpatialBuckets,
+    building_buckets: SpatialBuckets,
+}
+
+#[derive(Default, Serialize, Deserialize, Debug, Reflect, Clone)]
+pub struct UrbanGroundSurfaces {
+    streets: Vec<CityStreetPatch>,
+    yards: Vec<CityYardPatch>,
+    buildings: Vec<CityPlotBounds>,
+    #[serde(skip)]
+    #[reflect(ignore)]
+    lookup: OnceLock<UrbanGroundLookup>,
+}
 
 impl SpatialBuckets {
     fn new(bounds: impl IntoIterator<Item = (Vec2, Vec2)>) -> Self {
@@ -42,17 +64,6 @@ impl SpatialBuckets {
     }
 }
 
-/// Exact urban-surface queries accelerated by a coarse spatial lookup.
-#[derive(Default, Debug, Clone)]
-pub struct UrbanGroundLookup {
-    streets: Vec<CityStreetPatch>,
-    yards: Vec<CityYardPatch>,
-    buildings: Vec<CityPlotBounds>,
-    street_buckets: SpatialBuckets,
-    yard_buckets: SpatialBuckets,
-    building_buckets: SpatialBuckets,
-}
-
 impl UrbanGroundLookup {
     pub fn new(
         streets: &[CityStreetPatch],
@@ -75,25 +86,25 @@ impl UrbanGroundLookup {
         }
     }
 
-    pub fn suppresses_grass(&self, point: Vec2) -> bool {
+    pub fn suppresses_grass(&self, point: ScenePlanPoint) -> bool {
         self.street_buckets
-            .at(point)
+            .at(point.metres())
             .iter()
-            .any(|&index| self.streets[index].contains(point))
+            .any(|&index| self.streets[index].contains(point.metres()))
             || self
                 .yard_buckets
-                .at(point)
+                .at(point.metres())
                 .iter()
-                .any(|&index| self.yards[index].contains(point))
+                .any(|&index| self.yards[index].contains(point.metres()))
     }
 
-    fn surface_at(&self, position: Vec2) -> Option<GroundSurface> {
+    fn surface_at(&self, position: ScenePlanPoint) -> Option<GroundSurface> {
         let substrate = if let Some(street) = self
             .street_buckets
-            .at(position)
+            .at(position.metres())
             .iter()
             .map(|&index| self.streets[index])
-            .filter(|street| street.contains(position))
+            .filter(|street| street.contains(position.metres()))
             .max_by_key(|street| street.surface().priority())
         {
             match street.surface() {
@@ -103,16 +114,16 @@ impl UrbanGroundLookup {
             }
         } else if self
             .building_buckets
-            .at(position)
+            .at(position.metres())
             .iter()
-            .any(|&index| self.buildings[index].contains(position))
+            .any(|&index| self.buildings[index].contains(position.metres()))
         {
             GroundSubstrate::Stone
         } else if self
             .yard_buckets
-            .at(position)
+            .at(position.metres())
             .iter()
-            .any(|&index| self.yards[index].contains(position))
+            .any(|&index| self.yards[index].contains(position.metres()))
         {
             GroundSubstrate::Soil
         } else {
@@ -126,7 +137,8 @@ impl UrbanGroundLookup {
         })
     }
 
-    fn overlaps_disk(&self, centre: Vec2, radius_metres: f32) -> bool {
+    fn overlaps_disk(&self, centre: ScenePlanPoint, radius_metres: f32) -> bool {
+        let centre = centre.metres();
         let minimum = centre - Vec2::splat(radius_metres);
         let maximum = centre + Vec2::splat(radius_metres);
         self.street_buckets
@@ -165,16 +177,6 @@ impl UrbanGroundLookup {
     }
 }
 
-#[derive(Default, Serialize, Deserialize, Debug, Reflect, Clone)]
-pub struct UrbanGroundSurfaces {
-    streets: Vec<CityStreetPatch>,
-    yards: Vec<CityYardPatch>,
-    buildings: Vec<CityPlotBounds>,
-    #[serde(skip)]
-    #[reflect(ignore)]
-    lookup: OnceLock<UrbanGroundLookup>,
-}
-
 impl PartialEq for UrbanGroundSurfaces {
     fn eq(&self, other: &Self) -> bool {
         self.streets == other.streets
@@ -188,11 +190,19 @@ impl UrbanGroundSurfaces {
         streets: &[CityStreetPatch],
         yards: &[CityYardPatch],
         buildings: &[GeneratedBuilding],
-    ) -> Result<Self, adventuresim_building_generator::spatial_geometry::GeometryError> {
+    ) -> Result<Self> {
         let buildings = buildings
             .iter()
-            .map(|building| CityPlotBounds::new(crate::scene_coordinates::ScenePlanPoint::try_from(building.placement.centre_metres.metres())?,adventuresim_building_generator::spatial_geometry::PlanDimensions::from_metres(building.collision.bounds.plan_half_extents()?.metres() * 2.0)?,building.placement.orientation))
-            .collect::<Result<Vec<_>, adventuresim_building_generator::spatial_geometry::GeometryError>>()?;
+            .map(|building| {
+                CityPlotBounds::new(
+                    building.placement.centre_metres,
+                    PlanDimensions::from_metres(
+                        building.collision.bounds.plan_half_extents()?.metres() * 2.0,
+                    )?,
+                    building.placement.orientation,
+                )
+            })
+            .collect::<Result<Vec<_>>>()?;
         let lookup = OnceLock::from(UrbanGroundLookup::new(streets, yards, &buildings));
         Ok(Self {
             streets: streets.to_vec(),
@@ -202,12 +212,12 @@ impl UrbanGroundSurfaces {
         })
     }
 
-    pub fn surface_at(&self, position: Vec2) -> Option<GroundSurface> {
+    pub fn surface_at(&self, position: ScenePlanPoint) -> Option<GroundSurface> {
         self.lookup().surface_at(position)
     }
 
     /// Conservative exclusion for a rotating wild-scatter patch's full envelope.
-    pub fn overlaps_disk(&self, centre: Vec2, radius_metres: f32) -> bool {
+    pub fn overlaps_disk(&self, centre: ScenePlanPoint, radius_metres: f32) -> bool {
         self.lookup().overlaps_disk(centre, radius_metres)
     }
 
@@ -319,12 +329,13 @@ mod tests {
                             .any(|yard| yard.contains(point))
                             .then_some(GroundSubstrate::Soil)
                     });
+                let scene_point = ScenePlanPoint::from_metres(point).unwrap();
                 assert_eq!(
-                    lookup.surface_at(point).map(|surface| surface.substrate),
+                    lookup.surface_at(scene_point).map(|surface| surface.substrate),
                     expected,
                     "ownership differed at {point}"
                 );
-                assert_eq!(lookup.suppresses_grass(point), expected.is_some());
+                assert_eq!(lookup.suppresses_grass(scene_point), expected.is_some());
             }
         }
     }
@@ -340,16 +351,17 @@ mod tests {
             },
         );
         ground.urban = UrbanGroundSurfaces::garden_test();
-        assert!(ground.urban.overlaps_disk(Vec2::new(0.1, 1.0), 0.3));
-        assert!(!ground.urban.overlaps_disk(Vec2::new(0.1, 1.0), 0.1));
+        let centre = ScenePlanPoint::from_metres(Vec2::new(0.1, 1.0)).unwrap();
+        assert!(ground.urban.overlaps_disk(centre, 0.3));
+        assert!(!ground.urban.overlaps_disk(centre, 0.1));
         let transported: SceneGround =
             serde_json::from_slice(&serde_json::to_vec(&ground).unwrap()).unwrap();
         for point in [Vec2::new(0.31, 0.31), Vec2::new(1.69, 1.69)] {
-            assert_eq!(transported.ground_at(point).unwrap().cover_density_bps, 0);
+            assert_eq!(transported.ground_at(ScenePlanPoint::from_metres(point).unwrap()).unwrap().cover_density_bps, 0);
         }
         assert_eq!(
             transported
-                .ground_at(Vec2::new(0.29, 0.31))
+                .ground_at(ScenePlanPoint::from_metres(Vec2::new(0.29, 0.31)).unwrap())
                 .unwrap()
                 .cover_density_bps,
             9600

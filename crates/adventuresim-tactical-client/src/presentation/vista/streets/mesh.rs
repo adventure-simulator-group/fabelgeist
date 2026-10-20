@@ -288,7 +288,7 @@ mod tests {
                         Vec3::new(0.6, 0.1, 0.3),
                     ] {
                         let point = a * weights.x + b * weights.y + c * weights.z;
-                        let clearance = point.y - terrain.height_at(point.xz()).unwrap();
+                        let clearance = point.y - terrain.height_at(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(point.xz()).unwrap()).unwrap().metres();
                         assert!(
                             (clearance - 0.01).abs() < 0.0001,
                             "clearance {clearance} at {point:?}"

@@ -1,22 +1,22 @@
 //! Compare one level courtyard with stepped terraces and a central landing.
 //! This is a decision experiment, not runtime grading or acceptance geometry.
-use adventuresim_tactical_core::city_layout::CityCompound;
-use bevy::math::Vec2;
+use adventuresim_tactical_core::{
+    city_layout::{CityCompound, grounding::SupportElevation},
+    scene_coordinates::ScenePlanPoint,
+};
 use serde_json::{Value, json};
 #[path = "gate_approach.rs"]
 mod gate_approach;
 
 pub(super) fn compare(
     compound: &CityCompound,
-    front_threshold: Vec2,
-    rear_threshold: Vec2,
-    front_floor: f32,
-    terrain_height: impl Fn(Vec2) -> Option<f32>,
+    front_threshold: ScenePlanPoint,
+    rear_threshold: ScenePlanPoint,
+    front_floor: SupportElevation,
+    terrain_height: impl Fn(ScenePlanPoint) -> Option<SupportElevation>,
     maximum_grade: f32,
 ) -> Result<Option<Value>, adventuresim_building_generator::DoorError> {
-    let route_to = |threshold: Vec2| {
-        let threshold =
-            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(threshold)?;
+    let route_to = |threshold: ScenePlanPoint| {
         let mut matches = compound
             .access
             .iter()
@@ -37,7 +37,7 @@ pub(super) fn compare(
     let Some(rear_run) = stairs.available_run_metres(rear_route) else {
         return Ok(None);
     };
-    let Some(court_source) = terrain_height(compound.court.centre_metres()) else {
+    let Some(court_source) = terrain_height(compound.court.centre()) else {
         return Ok(None);
     };
     let Some(rear_source) = terrain_height(rear_threshold) else {
@@ -45,9 +45,19 @@ pub(super) fn compare(
     };
     let front_reach = front_run * maximum_grade;
     let rear_reach = rear_run * maximum_grade;
-    let court = court_source.clamp(front_floor - front_reach, front_floor + front_reach);
-    let rear = rear_source.clamp(court - rear_reach, court + rear_reach);
-    let candidate = |name: &str, levels: [f32; 3]| {
+    let Some(court) = SupportElevation::from_metres(court_source.metres().clamp(
+        front_floor.metres() - front_reach,
+        front_floor.metres() + front_reach,
+    )) else {
+        return Ok(None);
+    };
+    let Some(rear) = SupportElevation::from_metres(rear_source.metres().clamp(
+        court.metres() - rear_reach,
+        court.metres() + rear_reach,
+    )) else {
+        return Ok(None);
+    };
+    let candidate = |name: &str, levels: [SupportElevation; 3]| {
         json!({
             "name": name,
             "property_id": compound.id,
@@ -57,8 +67,8 @@ pub(super) fn compare(
             "rear_route":rear_route,
             "front_available_flight_run_m":front_run,
             "rear_available_flight_run_m":rear_run,
-            "front_mean_flight_grade":(levels[0]-levels[1]).abs()/front_run,
-            "rear_mean_flight_grade":(levels[2]-levels[1]).abs()/rear_run,
+            "front_mean_flight_grade":(levels[0].metres()-levels[1].metres()).abs()/front_run,
+            "rear_mean_flight_grade":(levels[2].metres()-levels[1].metres()).abs()/rear_run,
             "central_landing_elevation_m":levels[1],
             "entire_court_is_level":levels[0] == levels[1] && levels[1] == levels[2],
             "court_requires_terraced_surface":levels[0] != levels[1] || levels[1] != levels[2],
@@ -84,13 +94,14 @@ pub(super) fn compare(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use bevy::math::Vec2;
     struct Fixture {
         compound: CityCompound,
-        front_threshold: Vec2,
-        rear_threshold: Vec2,
-        front_floor_m: f32,
-        court_source_m: f32,
-        rear_source_m: f32,
+        front_threshold: ScenePlanPoint,
+        rear_threshold: ScenePlanPoint,
+        front_floor_m: SupportElevation,
+        court_source_m: SupportElevation,
+        rear_source_m: SupportElevation,
     }
 
     impl Fixture {
@@ -104,9 +115,9 @@ mod tests {
                 compound: serde_json::from_value(value["compound"].clone()).unwrap(),
                 front_threshold: serde_json::from_value(value["front_threshold"].clone()).unwrap(),
                 rear_threshold: serde_json::from_value(value["rear_threshold"].clone()).unwrap(),
-                front_floor_m: value["front_floor_m"].as_f64().unwrap() as f32,
-                court_source_m: value["court_source_m"].as_f64().unwrap() as f32,
-                rear_source_m: value["rear_source_m"].as_f64().unwrap() as f32,
+                front_floor_m: serde_json::from_value(value["front_floor_m"].clone()).unwrap(),
+                court_source_m: serde_json::from_value(value["court_source_m"].clone()).unwrap(),
+                rear_source_m: serde_json::from_value(value["rear_source_m"].clone()).unwrap(),
             }
         }
     }
@@ -114,8 +125,8 @@ mod tests {
     #[test]
     fn goslar_1238_requires_a_stepped_court_and_reserves_both_landings() {
         let fixture = Fixture::load();
-        let height = |point: Vec2| {
-            Some(if point == fixture.compound.court.centre_metres() {
+        let height = |point: ScenePlanPoint| {
+            Some(if point == fixture.compound.court.centre() {
                 fixture.court_source_m
             } else {
                 fixture.rear_source_m
@@ -178,10 +189,10 @@ mod tests {
         assert!(
             compare(
                 &fixture.compound,
-                fixture.front_threshold + Vec2::X,
+                ScenePlanPoint::try_from(fixture.front_threshold.metres() + Vec2::X).unwrap(),
                 fixture.rear_threshold,
                 fixture.front_floor_m,
-                |_| Some(0.0),
+                |_| Some(SupportElevation::ZERO),
                 0.65
             )
             .unwrap()

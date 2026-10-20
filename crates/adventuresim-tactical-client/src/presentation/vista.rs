@@ -1,36 +1,45 @@
-mod details;
-mod strategic;
-pub(crate) use strategic::{StrategicBackdrop, spawn_strategic_backdrop};
-#[cfg(any(target_family = "wasm", test))]
-pub(in crate::presentation) mod focused;
-pub(in crate::presentation) mod grass;
-mod natural;
-pub(in crate::presentation) mod regional;
+use super::ground_scatter::TacticalGrassInstancedMaterial;
+use super::*;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+use adventuresim_tactical_core::scene_input::VistaLevelIndex;
+use adventuresim_tactical_core::vista_surface::*;
 use details::*;
 use fabelgeist_determinism::Seed;
-mod pigment;
+use grass::spawn_near_vista_scatter;
+use ground::{tree_root_height, vista_lod_meshes_with_morph, vista_scatter_transform};
 use pigment::{VistaVertexColors, vista_sward_coverage};
 #[cfg(test)]
 use pigment::{presented_color, stitch_vista_color_to_playable_edge, vista_sample_color};
-pub(super) mod geographic_ground;
-mod ground;
-use ground::{tree_root_height, vista_lod_meshes_with_morph, vista_scatter_transform};
-pub(super) mod owned;
-pub(super) mod pending;
-mod streams;
-use super::ground_scatter::TacticalGrassInstancedMaterial;
-use super::*;
-use adventuresim_tactical_core::scene_input::VistaLevelIndex;
-use adventuresim_tactical_core::vista_surface::*;
-use grass::spawn_near_vista_scatter;
-
-pub(super) mod streets;
-mod surface;
-
+pub(crate) use strategic::{BackdropError, StrategicBackdrop, spawn_strategic_backdrop};
 pub(crate) use streets::CityGroundMaterial;
 use streets::UrbanGround;
 pub(super) use surface::ActiveVistaSurface;
 pub(crate) use surface::{VistaTerrain, VistaTerrainMesh};
+
+mod details;
+#[cfg(any(target_family = "wasm", test))]
+pub(in crate::presentation) mod focused;
+pub(super) mod geographic_ground;
+pub(in crate::presentation) mod grass;
+mod ground;
+mod natural;
+pub(super) mod owned;
+pub(super) mod pending;
+mod pigment;
+pub(in crate::presentation) mod regional;
+mod strategic;
+mod streams;
+pub(super) mod streets;
+mod surface;
+
+const VISTA_GRASS_BOUNDARY_STITCH_METRES: f32 = 12.0;
+// Chunking is a CPU/ECS submission boundary, not a visual tessellation
+// boundary. Thirty-two cells retains the exact terrain vertices while cutting
+// a 50 km three-ring vista to about one sixteenth as many render entities.
+const VISTA_CHUNK_CELLS: usize = 32;
+
+pub(in crate::presentation) type TacticalVistaMaterial =
+    ExtendedMaterial<StandardMaterial, TacticalVistaExtension>;
 
 /// Marker for a distant tree billboard spawned as part of a vista ring.
 #[derive(Component)]
@@ -42,6 +51,20 @@ pub(crate) struct VistaGrassPresentation;
 
 #[derive(Component)]
 pub(crate) struct VistaRockPresentation;
+
+#[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
+pub(in crate::presentation) struct TacticalVistaExtension {
+    #[uniform(100)]
+    weather: Vec4,
+    #[uniform(100)]
+    grass_color: Vec4,
+}
+
+impl MaterialExtension for TacticalVistaExtension {
+    fn fragment_shader() -> ShaderRef {
+        "shaders/tactical_vista.wgsl".into()
+    }
+}
 
 #[expect(
     clippy::too_many_arguments,
@@ -76,6 +99,9 @@ pub(super) fn on_scene_vista_bundle(
     if !pending.accept(&bundle, playable_scene.iter().map(|scene| scene.2)) {
         return;
     }
+    let Some((terrain, ground, environment, landform)) = playable_scene else {
+        return;
+    };
     let started = web_time::Instant::now();
     let mut presented_chunk_count = 0_usize;
     info!("Generating tactical vista presentation");
@@ -88,9 +114,6 @@ pub(super) fn on_scene_vista_bundle(
         .iter()
         .take(settings.config.rendering.vista.maximum_lods)
         .collect::<Vec<_>>();
-    let (terrain, ground, environment, landform) =
-        playable_scene.expect("matching canonical terrain");
-    let playable_terrain = Some(terrain);
     let playable_environment = Some(environment);
     active_surface.retain_playable(terrain, landform);
     let weather = environment.weather;
@@ -102,7 +125,7 @@ pub(super) fn on_scene_vista_bundle(
             lod,
             inner_half_extent,
             visible_lods.get(index + 1).copied(),
-            playable_terrain,
+            Some(terrain),
             (index == 0).then_some(playable_environment).flatten(),
             weather,
             landform.map(|recipe| recipe.transition_collar()),
@@ -164,6 +187,42 @@ pub(super) fn on_scene_vista_bundle(
         );
     }
     log_vista_generation(presented_chunk_count, visible_lods.len(), started);
+}
+
+#[cfg(test)]
+pub(super) fn vista_lod_meshes(lod: &VistaLod, inner_half_extent: Vec2) -> Vec<Mesh> {
+    vista_lod_meshes_with_morph(
+        lod,
+        inner_half_extent,
+        None,
+        None,
+        None,
+        clear_vista_weather(),
+        None,
+    )
+}
+
+pub(super) fn vista_material(
+    weather: WeatherSnapshot,
+    grass_color: Color,
+) -> TacticalVistaMaterial {
+    TacticalVistaMaterial {
+        base: StandardMaterial {
+            base_color: Color::WHITE,
+            perceptual_roughness: 0.94,
+            metallic: 0.0,
+            ..default()
+        },
+        extension: TacticalVistaExtension {
+            weather: Vec4::new(
+                bps(weather.ground_moisture_bps),
+                bps(weather.snow_cover_bps),
+                bps(weather.wind_speed_bps),
+                0.0,
+            ),
+            grass_color: color_vec4(grass_color),
+        },
+    }
 }
 
 fn log_vista_generation(chunks: usize, lods: usize, started: web_time::Instant) {
@@ -229,7 +288,6 @@ fn spawn_near_vista_details(
     );
 }
 
-const VISTA_GRASS_BOUNDARY_STITCH_METRES: f32 = 12.0;
 fn smoothstep01(value: f32) -> f32 {
     let value = value.clamp(0.0, 1.0);
     value * value * (3.0 - 2.0 * value)
@@ -239,18 +297,18 @@ fn stitched_vista_topology_coverage(
     lod: &VistaLod,
     playable_half_extent: Vec2,
     playable_ground: &SceneGround,
-    point: Vec2,
+    point: ScenePlanPoint,
     urban_ground: &UrbanGround,
 ) -> f32 {
     if urban_ground.suppresses_grass(point) {
         return 0.0;
     }
-    let boundary = point.clamp(-playable_half_extent, playable_half_extent);
-    let playable_coverage = playable_ground
-        .ground_at(boundary)
+    let boundary = point.metres().clamp(-playable_half_extent, playable_half_extent);
+    let playable_coverage = ScenePlanPoint::from_metres(boundary)
+        .and_then(|point| playable_ground.ground_at(point))
         .filter(|sample| sample.cover == GroundCover::TallGrass)
         .map_or(0.0, |sample| bps(sample.cover_density_bps));
-    let outside = (point.abs() - playable_half_extent)
+    let outside = (point.metres().abs() - playable_half_extent)
         .max(Vec2::ZERO)
         .max_element();
     if outside <= 0.0 {
@@ -262,19 +320,6 @@ fn stitched_vista_topology_coverage(
     playable_coverage.lerp(
         vista_coverage,
         smoothstep01(outside / VISTA_GRASS_BOUNDARY_STITCH_METRES),
-    )
-}
-
-#[cfg(test)]
-pub(super) fn vista_lod_meshes(lod: &VistaLod, inner_half_extent: Vec2) -> Vec<Mesh> {
-    vista_lod_meshes_with_morph(
-        lod,
-        inner_half_extent,
-        None,
-        None,
-        None,
-        clear_vista_weather(),
-        None,
     )
 }
 
@@ -311,51 +356,6 @@ fn clear_vista_weather() -> WeatherSnapshot {
         atmosphere: Default::default(),
     }
 }
-
-#[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
-pub(in crate::presentation) struct TacticalVistaExtension {
-    #[uniform(100)]
-    weather: Vec4,
-    #[uniform(100)]
-    grass_color: Vec4,
-}
-
-impl MaterialExtension for TacticalVistaExtension {
-    fn fragment_shader() -> ShaderRef {
-        "shaders/tactical_vista.wgsl".into()
-    }
-}
-
-pub(in crate::presentation) type TacticalVistaMaterial =
-    ExtendedMaterial<StandardMaterial, TacticalVistaExtension>;
-
-pub(super) fn vista_material(
-    weather: WeatherSnapshot,
-    grass_color: Color,
-) -> TacticalVistaMaterial {
-    TacticalVistaMaterial {
-        base: StandardMaterial {
-            base_color: Color::WHITE,
-            perceptual_roughness: 0.94,
-            metallic: 0.0,
-            ..default()
-        },
-        extension: TacticalVistaExtension {
-            weather: Vec4::new(
-                bps(weather.ground_moisture_bps),
-                bps(weather.snow_cover_bps),
-                bps(weather.wind_speed_bps),
-                0.0,
-            ),
-            grass_color: color_vec4(grass_color),
-        },
-    }
-}
-
-// Chunking is a CPU/ECS submission boundary, not a visual tessellation
-// boundary. Thirty-two cells retains the exact terrain vertices while cutting
-// a 50 km three-ring vista to about one sixteenth as many render entities.
-const VISTA_CHUNK_CELLS: usize = 32;
 
 #[cfg(test)]
 mod tests {
@@ -529,7 +529,7 @@ mod tests {
                     let [a, b, c] = triangle.map(|index| Vec3::from_array(positions[index]));
                     let centre = (a + b + c) / 3.0;
                     assert!(
-                        (backdrop.height_at(centre.xz()).unwrap() - centre.y).abs() < 0.0001,
+                        (backdrop.height_at(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(centre.xz()).unwrap()).unwrap().metres() - centre.y).abs() < 0.0001,
                         "outdoor position differs from rendered triangle: {centre:?}"
                     );
                 }
@@ -556,7 +556,7 @@ mod tests {
                 }
             }
             assert!(
-                backdrop.height_at(Vec2::new(60.0, 0.0)).is_none(),
+                backdrop.height_at(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(Vec2::new(60.0, 0.0)).unwrap()).is_none(),
                 "unrendered rings cannot seat actors"
             );
             let mut sources = app
@@ -805,7 +805,7 @@ mod tests {
 
         for sample in 0..terrain.grid_depth() {
             let z = -half_extent.y + sample as f32 * terrain.grid_scale();
-            let expected_height = terrain.height_at(Vec2::new(half_extent.x, z)).unwrap();
+            let expected_height = terrain.height_at(ScenePlanPoint::from_metres(Vec2::new(half_extent.x, z)).unwrap()).unwrap().metres();
             assert!(
                 east_edge.iter().any(|position| {
                     (position[2] - z).abs() < 0.001 && (position[1] - expected_height).abs() < 0.001
@@ -955,7 +955,7 @@ mod tests {
                 &lod,
                 Vec2::splat(10.0),
                 &ground,
-                Vec2::new(x, 0.0),
+                ScenePlanPoint::from_metres(Vec2::new(x, 0.0)).unwrap(),
                 &UrbanGround::new(&[], &[]),
             )
         };
@@ -979,7 +979,7 @@ mod tests {
                 &lod,
                 Vec2::splat(10.0),
                 &ground,
-                Vec2::new(22.0, 0.0),
+                ScenePlanPoint::from_metres(Vec2::new(22.0, 0.0)).unwrap(),
                 &UrbanGround::new(&street, &[]),
             ),
             0.0

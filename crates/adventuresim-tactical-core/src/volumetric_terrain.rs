@@ -5,7 +5,6 @@
 //! no terrain simulation or mesh persistence runs during tactical ticks.
 //! The heightfield remains authoritative outside the transition collar.
 
-mod error;
 use bevy::{
     math::{FloatExt, Vec2, Vec3, Vec3Swizzles},
     prelude::Component,
@@ -16,12 +15,15 @@ use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 
 use crate::marching_tetrahedra::marching_height_surface;
-use crate::{scene::SceneTerrain, terrain_transition::TerrainTransitionCollar};
+use crate::{
+    city_layout::grounding::SupportElevation,
+    scene::{SceneElevationRange, SceneTerrain},
+    scene_coordinates::ScenePlanPoint,
+    terrain_transition::TerrainTransitionCollar,
+};
 use resistance::{ScarpResistance, ScarpResistanceGrid};
+use support::height_at_extended_edge;
 
-mod recipe;
-mod resistance;
-mod surface_recipe;
 pub use recipe::{
     QuantizedLandformRecipe, TerrainLandformKind, TerrainLandformLod, TerrainLandformRecipe,
 };
@@ -30,8 +32,28 @@ pub use surface_recipe::{
     TerrainSurfaceSource,
 };
 
-mod patch;
 pub use patch::{SceneTerrainPatch, TerrainMeshBuffers};
+
+mod error;
+mod patch;
+mod recipe;
+mod resistance;
+mod surface_recipe;
+pub(crate) mod support;
+
+const SCARP_EROSION_STEPS: usize = 224;
+const SCARP_COLLUVIAL_GRADE: f32 = 0.46;
+const SCARP_RESISTANT_FACE_GRADE_RANGE: f32 = 2.6;
+const SCARP_MAXIMUM_TRANSFER_FRACTION: f32 = 0.20;
+const SCARP_RUPTURE_WANDER_METRES: f32 = 1.25;
+const SCARP_WIDTH_VARIATION_BPS: u16 = 1_200;
+
+struct SimulatedScarpSurface {
+    minimum: ScenePlanPoint,
+    spacing: f32,
+    side: usize,
+    offsets: Vec<f32>,
+}
 
 impl SceneTerrainPatch {
     pub fn collider(&self) -> avian3d::prelude::Collider {
@@ -82,6 +104,55 @@ impl SceneTerrainPatch {
     }
 }
 
+impl SimulatedScarpSurface {
+    fn offset_at(&self, point: ScenePlanPoint) -> f32 {
+        let grid = (point.metres() - self.minimum.metres()) / self.spacing;
+        let x0 = (grid.x.floor() as usize).min(self.side - 2);
+        let z0 = (grid.y.floor() as usize).min(self.side - 2);
+        let fraction = (grid - Vec2::new(x0 as f32, z0 as f32)).clamp(Vec2::ZERO, Vec2::ONE);
+        let a = self.offsets[z0 * self.side + x0];
+        let b = self.offsets[z0 * self.side + x0 + 1];
+        let c = self.offsets[(z0 + 1) * self.side + x0];
+        let d = self.offsets[(z0 + 1) * self.side + x0 + 1];
+        a.lerp(b, fraction.x)
+            .lerp(c.lerp(d, fraction.x), fraction.y)
+    }
+
+    fn height_range(&self, terrain: &SceneTerrain) -> TerrainRecipeResult<SceneElevationRange> {
+        if self.offsets.is_empty() {
+            return Err(TerrainRecipeError::EmptySurface);
+        }
+        let (minimum, maximum) = self
+            .offsets
+            .par_iter()
+            .enumerate()
+            .map(|(index, offset)| -> TerrainRecipeResult<(f32, f32)> {
+                let x = index % self.side;
+                let z = index / self.side;
+                let point = ScenePlanPoint::from_metres(
+                    self.minimum.metres() + Vec2::new(x as f32, z as f32) * self.spacing,
+                )
+                .ok_or(TerrainRecipeError::NonFiniteField)?;
+                let height = height_at_extended_edge(terrain, point)?.metres() + offset;
+                if !height.is_finite() {
+                    return Err(TerrainRecipeError::NonFiniteField);
+                }
+                Ok((height, height))
+            })
+            .try_reduce(
+                || (f32::INFINITY, f32::NEG_INFINITY),
+                |(left_minimum, left_maximum), (right_minimum, right_maximum)| {
+                    Ok((left_minimum.min(right_minimum), left_maximum.max(right_maximum)))
+                },
+            )?;
+        SceneElevationRange::new(
+            SupportElevation::from_metres(minimum).ok_or(TerrainRecipeError::NonFiniteField)?,
+            SupportElevation::from_metres(maximum).ok_or(TerrainRecipeError::NonFiniteField)?,
+        )
+        .ok_or(TerrainRecipeError::NonFiniteField)
+    }
+}
+
 pub fn terrain_landform_patch(
     terrain: &SceneTerrain,
     recipe: TerrainLandformRecipe,
@@ -101,14 +172,16 @@ pub fn terrain_landform_patch(
     let radius = (radius / spacing).ceil() * spacing + spacing;
     let side = ((radius * 2.0 / spacing).round() as usize).saturating_add(1);
     let throw = f32::from(recipe.relief_cm) / 100.0;
-    let surface =
-        simulate_fault_scarp(terrain, recipe, side, spacing, origin - Vec2::splat(radius))?;
-    let (minimum, maximum) = surface.height_range(terrain)?;
+    let minimum = ScenePlanPoint::from_metres(origin - Vec2::splat(radius))
+        .ok_or(TerrainRecipeError::NonFiniteField)?;
+    let surface = simulate_fault_scarp(terrain, recipe, side, spacing, minimum)?;
+    let range = surface.height_range(terrain)?;
     // Offset the vertical lattice so a flat heightfield cannot coincide with
     // an entire voxel plane. Coincident zero-valued edges collapse otherwise
     // valid tetrahedra at the zero-displacement collar contour.
-    let bottom = ((minimum - throw - spacing * 2.0) / spacing).floor() * spacing - spacing * 0.5;
-    let required_top = maximum + throw + spacing * 2.0;
+    let bottom = ((range.minimum().metres() - throw - spacing * 2.0) / spacing).floor() * spacing
+        - spacing * 0.5;
+    let required_top = range.maximum().metres() + throw + spacing * 2.0;
     let vertical = ((required_top - bottom) / spacing).ceil() as usize + 1;
     if side > 195 || vertical > 96 {
         return Err(TerrainRecipeError::VoxelGridBound);
@@ -126,11 +199,14 @@ pub fn terrain_landform_patch(
     // producer's coordinate expression so ownership-edge rounding is unchanged.
     let surface_heights = (0..side * side)
         .into_par_iter()
-        .map(|index| {
-            let point = sample_position([index % side, 0, index / side]).xz();
-            terrain_height_extended_to_edge(terrain, point) + surface.offset_at(point)
+        .map(|index| -> TerrainRecipeResult<f32> {
+            let point = ScenePlanPoint::from_metres(
+                sample_position([index % side, 0, index / side]).xz(),
+            )
+            .ok_or(TerrainRecipeError::NonFiniteField)?;
+            Ok(height_at_extended_edge(terrain, point)?.metres() + surface.offset_at(point))
         })
-        .collect::<Vec<_>>();
+        .collect::<TerrainRecipeResult<Vec<_>>>()?;
     marching_height_surface(
         dimensions,
         sample_position,
@@ -139,60 +215,12 @@ pub fn terrain_landform_patch(
     )
 }
 
-const SCARP_EROSION_STEPS: usize = 224;
-const SCARP_COLLUVIAL_GRADE: f32 = 0.46;
-const SCARP_RESISTANT_FACE_GRADE_RANGE: f32 = 2.6;
-const SCARP_MAXIMUM_TRANSFER_FRACTION: f32 = 0.20;
-const SCARP_RUPTURE_WANDER_METRES: f32 = 1.25;
-const SCARP_WIDTH_VARIATION_BPS: u16 = 1_200;
-
-struct SimulatedScarpSurface {
-    minimum: Vec2,
-    spacing: f32,
-    side: usize,
-    offsets: Vec<f32>,
-}
-
-impl SimulatedScarpSurface {
-    fn offset_at(&self, point: Vec2) -> f32 {
-        let grid = (point - self.minimum) / self.spacing;
-        let x0 = (grid.x.floor() as usize).min(self.side - 2);
-        let z0 = (grid.y.floor() as usize).min(self.side - 2);
-        let fraction = (grid - Vec2::new(x0 as f32, z0 as f32)).clamp(Vec2::ZERO, Vec2::ONE);
-        let a = self.offsets[z0 * self.side + x0];
-        let b = self.offsets[z0 * self.side + x0 + 1];
-        let c = self.offsets[(z0 + 1) * self.side + x0];
-        let d = self.offsets[(z0 + 1) * self.side + x0 + 1];
-        a.lerp(b, fraction.x)
-            .lerp(c.lerp(d, fraction.x), fraction.y)
-    }
-
-    fn height_range(&self, terrain: &SceneTerrain) -> TerrainRecipeResult<(f32, f32)> {
-        let range = self
-            .offsets
-            .par_iter()
-            .enumerate()
-            .map(|(index, offset)| {
-                let x = index % self.side;
-                let z = index / self.side;
-                let point = self.minimum + Vec2::new(x as f32, z as f32) * self.spacing;
-                let height = terrain_height_extended_to_edge(terrain, point) + offset;
-                (height, height)
-            })
-            .reduce(
-                || (f32::INFINITY, f32::NEG_INFINITY),
-                |left, right| (left.0.min(right.0), left.1.max(right.1)),
-            );
-        Ok(range)
-    }
-}
-
 fn simulate_fault_scarp(
     terrain: &SceneTerrain,
     recipe: TerrainLandformRecipe,
     side: usize,
     spacing: f32,
-    minimum: Vec2,
+    minimum: ScenePlanPoint,
 ) -> TerrainRecipeResult<SimulatedScarpSurface> {
     let collar = recipe.transition_collar();
     let throw = f32::from(recipe.relief_cm) / 100.0;
@@ -211,14 +239,17 @@ fn simulate_fault_scarp(
         .zip(masks.par_iter_mut())
         .zip(base_heights.par_iter_mut())
         .enumerate()
-        .for_each(|(index, ((offset, mask), base_height))| {
+        .try_for_each(|(index, ((offset, mask), base_height))| -> TerrainRecipeResult<()> {
             let x = index % side;
             let z = index / side;
-            let point = minimum + Vec2::new(x as f32, z as f32) * spacing;
-            let local = collar.local_coordinates(point);
+            let point = ScenePlanPoint::from_metres(
+                minimum.metres() + Vec2::new(x as f32, z as f32) * spacing,
+            )
+            .ok_or(TerrainRecipeError::NonFiniteField)?;
+            let local = collar.local_coordinates(point.metres());
             let along = local.x;
             let across = local.y;
-            *mask = collar.blend_weight(point);
+            *mask = collar.blend_weight(point.metres());
             let throw_variation = 0.84
                 + (smooth_value_noise(
                     StreamId::new("terrain.volume.throw").seed(recipe.seed, &[]),
@@ -232,8 +263,9 @@ fn simulate_fault_scarp(
                 footwall_uplift
             } * *mask
                 * throw_variation;
-            *base_height = terrain_height_extended_to_edge(terrain, point);
-        });
+            *base_height = height_at_extended_edge(terrain, point)?.metres();
+            Ok(())
+        })?;
 
     erode_surface(
         &mut offsets,
@@ -266,7 +298,7 @@ fn erode_surface(
     collar: TerrainTransitionCollar,
     side: usize,
     spacing: f32,
-    minimum: Vec2,
+    minimum: ScenePlanPoint,
 ) {
     let resistances = ScarpResistanceGrid::new(masks, recipe, collar, side, spacing, minimum);
     let mut horizontal_transfers = vec![0.0; offsets.len()];
@@ -323,13 +355,6 @@ fn erode_surface(
                 *offset += transfer;
             });
     }
-}
-
-fn terrain_height_extended_to_edge(terrain: &SceneTerrain, point: Vec2) -> f32 {
-    let half = Vec2::new(terrain.width(), terrain.depth()) * 0.5;
-    terrain
-        .height_at(point.clamp(-half, half))
-        .expect("clamped point lies on validated terrain")
 }
 
 fn smooth_value_noise(seed: fabelgeist_determinism::Seed, coordinate: f32) -> f32 {
@@ -483,9 +508,9 @@ mod tests {
         let spacing = f32::from(recipe.lod.voxel_cm()) / 100.0;
         let radius = f32::from(recipe.half_length_cm.max(recipe.half_width_cm)) / 100.0;
         let side = (radius * 2.0 / spacing).round() as usize + 1;
-        let surface =
-            simulate_fault_scarp(&terrain, recipe, side, spacing, Vec2::splat(-radius)).unwrap();
-        assert_eq!(surface.offset_at(Vec2::new(0.0, 8.0)), 0.0);
-        assert_eq!(surface.offset_at(Vec2::new(10.0, 0.0)), 0.0);
+        let minimum = ScenePlanPoint::from_metres(Vec2::splat(-radius)).unwrap();
+        let surface = simulate_fault_scarp(&terrain, recipe, side, spacing, minimum).unwrap();
+        assert_eq!(surface.offset_at(ScenePlanPoint::from_metres(Vec2::new(0.0, 8.0)).unwrap()), 0.0);
+        assert_eq!(surface.offset_at(ScenePlanPoint::from_metres(Vec2::new(10.0, 0.0)).unwrap()), 0.0);
     }
 }

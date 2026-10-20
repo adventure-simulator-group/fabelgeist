@@ -9,6 +9,7 @@
 
 use super::procedural::clock::{AnimationSampleTick, FixedAnimationStep};
 use super::*;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use baking::{BakedClip, BoneTrackSource, bake_clip, get_or_bake};
 #[cfg(test)]
 use baking::{BakedFrameCount, BoneTrack};
@@ -1051,13 +1052,13 @@ fn conform_upcoming_pose_to_terrain(
         };
         let reference_foot_world = owner.transform_point(reference_foot.translation);
         let reference_foot_rotation_world = owner.rotation() * reference_foot.rotation;
-        let terrain_target_world = terrain
-            .and_then(|terrain| terrain.height_at(reference_foot_world.xz()))
+        let terrain_target_world = ScenePlanPoint::from_metres(reference_foot_world.xz())
+            .and_then(|point| terrain.and_then(|terrain| terrain.height_at(point)))
             .map(|height| {
                 reference_foot_world.with_y(
                     reference_foot_world
                         .y
-                        .max(height + measured_ankle_sole_offset_metres().metres()),
+                        .max(height.metres() + measured_ankle_sole_offset_metres().metres()),
                 )
             })
             .unwrap_or(reference_foot_world);
@@ -1093,12 +1094,13 @@ fn conform_upcoming_pose_to_terrain(
                 );
             }
             if let Some(plant_height) =
-                terrain.and_then(|terrain| terrain.height_at(plant.position_world.xz()))
+                ScenePlanPoint::from_metres(plant.position_world.xz())
+                    .and_then(|point| terrain.and_then(|terrain| terrain.height_at(point)))
             {
                 plant.position_world.y = plant
                     .position_world
                     .y
-                    .max(plant_height + measured_ankle_sole_offset_metres().metres());
+                    .max(plant_height.metres() + measured_ankle_sole_offset_metres().metres());
             }
             plants[index] = Some(plant);
         }

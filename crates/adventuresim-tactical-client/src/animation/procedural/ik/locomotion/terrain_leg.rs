@@ -108,7 +108,10 @@ impl OrdinaryLeg {
         if weight.fraction() > 0.001
             && let (Some(_), Some(normal), Some(sole_axis)) = (
                 terrain,
-                terrain.and_then(|terrain| terrain.normal_at(target.xz())),
+                terrain.and_then(|terrain| {
+                    ScenePlanPoint::from_metres(target.xz())
+                        .and_then(|point| terrain.normal_at(point))
+                }),
                 rig.sole_axis(foot_side),
             )
         {

@@ -157,7 +157,7 @@ pub(in crate::animation::procedural) fn prepare_terminal_settle_contacts(
     memory: &mut LegIkMemory,
     rig_origin: Vec3,
     rig_rotation: Quat,
-    terrain_height_at: impl Fn(Vec2) -> Option<f32>,
+    terrain_height_at: impl Fn(ScenePlanPoint) -> Option<SupportElevation>,
 ) -> bool {
     if !memory.terminal_contacts.is_prepared() {
         // Terminal solve changes from ordinary pelvis ownership to an
@@ -189,13 +189,19 @@ pub(in crate::animation::procedural) fn prepare_terminal_settle_contacts(
     let Some(mut right) = right_seed else {
         return false;
     };
+    let (Some(left_point), Some(right_point)) = (
+        ScenePlanPoint::from_metres(left.xz()),
+        ScenePlanPoint::from_metres(right.xz()),
+    ) else {
+        return false;
+    };
     let (Some(left_height), Some(right_height)) =
-        (terrain_height_at(left.xz()), terrain_height_at(right.xz()))
+        (terrain_height_at(left_point), terrain_height_at(right_point))
     else {
         return false;
     };
-    left.y = left_height + measured_ankle_sole_offset_metres().metres();
-    right.y = right_height + measured_ankle_sole_offset_metres().metres();
+    left.y = left_height.metres() + measured_ankle_sole_offset_metres().metres();
+    right.y = right_height.metres() + measured_ankle_sole_offset_metres().metres();
     memory.left_foot_world_target = Some(left);
     memory.right_foot_world_target = Some(right);
     memory.left_foot_target = Some(rig_rotation.inverse() * (left - rig_origin));
@@ -215,7 +221,7 @@ pub(in crate::animation::procedural) fn prepare_terminal_settle_contacts(
 
 pub(in crate::animation::procedural) fn terminal_settle_contacts_are_rendered(
     memory: &LegIkMemory,
-    terrain_height_at: impl Fn(Vec2) -> Option<f32>,
+    terrain_height_at: impl Fn(ScenePlanPoint) -> Option<SupportElevation>,
 ) -> bool {
     [
         (
@@ -235,13 +241,19 @@ pub(in crate::animation::procedural) fn terminal_settle_contacts_are_rendered(
             .zip(target)
             .zip(toe)
             .is_some_and(|((rendered, target), toe)| {
+                let Some(ankle_point) = ScenePlanPoint::from_metres(rendered.xz()) else {
+                    return false;
+                };
+                let Some(toe_point) = ScenePlanPoint::from_metres(toe.xz()) else {
+                    return false;
+                };
                 rendered.xz().distance(target.xz()) <= 0.01
-                    && terrain_height_at(rendered.xz()).is_some_and(|height| {
-                        (rendered.y - height - measured_ankle_sole_offset_metres().metres()).abs()
+                    && terrain_height_at(ankle_point).is_some_and(|height| {
+                        (rendered.y - height.metres() - measured_ankle_sole_offset_metres().metres()).abs()
                             <= 0.01
                     })
-                    && terrain_height_at(toe.xz()).is_some_and(|height| {
-                        let clearance = toe.y - height;
+                    && terrain_height_at(toe_point).is_some_and(|height| {
+                        let clearance = toe.y - height.metres();
                         (-0.01..=0.10).contains(&clearance)
                     })
             })
@@ -324,8 +336,8 @@ pub(in crate::animation::procedural) fn settle_stance_is_safe(
         return false;
     };
     let at_contact = |foot: Vec3| {
-        terrain
-            .height_at(foot.xz())
+        ScenePlanPoint::from_metres(foot.xz())
+            .and_then(|point| terrain.height_at(point))
             .is_some_and(|height| sole_is_at_contact(foot.y, height))
     };
     if !at_contact(left) || !at_contact(right) {
@@ -342,16 +354,16 @@ pub(in crate::animation::procedural) fn settle_stance_is_safe(
 
 pub(in crate::animation::procedural) fn sole_is_at_contact(
     ankle_y: f32,
-    terrain_height: f32,
+    terrain_height: SupportElevation,
 ) -> bool {
-    (ankle_y - terrain_height - measured_ankle_sole_offset_metres().metres()).abs()
+    (ankle_y - terrain_height.metres() - measured_ankle_sole_offset_metres().metres()).abs()
         <= sole_contact_tolerance_metres().metres()
 }
 
 pub(in crate::animation::procedural) fn raised_support_is_actual(
     nominal_support: bool,
     ankle_y: f32,
-    terrain_height: f32,
+    terrain_height: SupportElevation,
 ) -> bool {
     nominal_support && sole_is_at_contact(ankle_y, terrain_height)
 }

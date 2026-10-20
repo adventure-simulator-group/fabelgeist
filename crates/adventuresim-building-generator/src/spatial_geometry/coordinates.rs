@@ -6,17 +6,6 @@ use bevy::{
 use serde::{Deserialize, Serialize};
 use std::marker::PhantomData;
 
-/// Implemented by the module owning a coordinate frame, never by native vectors.
-pub trait GeometryFrame:
-    Copy + std::fmt::Debug + PartialEq + TypePath + Send + Sync + 'static
-{
-}
-
-/// Building-local X/Y/Z, in metres, with architectural ground at Y=0.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Reflect)]
-pub enum Architectural {}
-impl GeometryFrame for Architectural {}
-
 /// A finite point in one declared frame; it is not a translation or dimensions.
 ///
 /// ```compile_fail
@@ -38,6 +27,37 @@ pub struct Position<F: GeometryFrame> {
     #[serde(skip)]
     pub(super) frame: PhantomData<F>,
 }
+
+/// A finite signed translation. Zero is valid and does not need a direction.
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
+#[repr(transparent)]
+#[serde(transparent, bound = "")]
+#[reflect(opaque)]
+pub struct Displacement<F: GeometryFrame> {
+    pub(super) metres: Vec3,
+    #[serde(skip)]
+    pub(super) frame: PhantomData<F>,
+}
+/// Signed finite elevation from the declared frame's datum, in metres.
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
+#[repr(transparent)]
+#[serde(transparent, bound = "")]
+#[reflect(opaque)]
+pub struct Elevation<F: GeometryFrame> {
+    metres: f32,
+    #[serde(skip)]
+    pub(super) frame: PhantomData<F>,
+}
+/// Building-local X/Y/Z, in metres, with architectural ground at Y=0.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Reflect)]
+pub enum Architectural {}
+/// Implemented by the module owning a coordinate frame, never by native vectors.
+pub trait GeometryFrame:
+    Copy + std::fmt::Debug + PartialEq + TypePath + Send + Sync + 'static
+{
+}
+
+impl GeometryFrame for Architectural {}
 
 impl<F: GeometryFrame> Position<F> {
     pub const ORIGIN: Self = Self {
@@ -68,16 +88,6 @@ impl<'de, F: GeometryFrame> Deserialize<'de> for Position<F> {
     }
 }
 
-/// A finite signed translation. Zero is valid and does not need a direction.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
-#[repr(transparent)]
-#[serde(transparent, bound = "")]
-#[reflect(opaque)]
-pub struct Displacement<F: GeometryFrame> {
-    pub(super) metres: Vec3,
-    #[serde(skip)]
-    pub(super) frame: PhantomData<F>,
-}
 impl<F: GeometryFrame> Displacement<F> {
     pub const ZERO: Self = Self {
         metres: Vec3::ZERO,
@@ -100,16 +110,6 @@ impl<'de, F: GeometryFrame> Deserialize<'de> for Displacement<F> {
     }
 }
 
-/// Signed finite elevation from the declared frame's datum, in metres.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
-#[repr(transparent)]
-#[serde(transparent, bound = "")]
-#[reflect(opaque)]
-pub struct Elevation<F: GeometryFrame> {
-    metres: f32,
-    #[serde(skip)]
-    pub(super) frame: PhantomData<F>,
-}
 impl<F: GeometryFrame> Elevation<F> {
     pub const ZERO: Self = Self {
         metres: 0.0,
@@ -124,6 +124,10 @@ impl<F: GeometryFrame> Elevation<F> {
     }
     pub fn metres(self) -> f32 {
         self.metres
+    }
+    /// Selecting a finite elevation preserves its datum and signed-zero behavior.
+    pub fn max(self, other: Self) -> Self {
+        Self { metres: self.metres.max(other.metres), frame: PhantomData }
     }
 }
 impl<'de, F: GeometryFrame> Deserialize<'de> for Elevation<F> {

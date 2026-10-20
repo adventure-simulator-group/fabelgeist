@@ -1,5 +1,10 @@
 //! Frozen road conditions at Goslar's native/browser source discrepancy.
 use super::*;
+use crate::{
+    city_layout::CityStreetPatch,
+    scene::{GroundSurface, SceneTerrain},
+    terrain_streams as streams,
+};
 use bevy::math::Vec2;
 
 #[test]
@@ -19,7 +24,7 @@ fn goslar_road_rut_preserves_the_cross_runtime_source_vertex() {
     .unwrap();
     let seed = streams::DETAIL.seed(3_918_113_949_425_128_608.into(), &[]);
     let relief = road_surface_relief(
-        Vec2::new(-43.5, -39.5),
+        ScenePlanPoint::from_metres(Vec2::new(-43.5, -39.5)).unwrap(),
         &ground,
         &crate::scene_input::detail_noise::DetailNoise::new(seed),
     );

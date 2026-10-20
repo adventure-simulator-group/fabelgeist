@@ -1,15 +1,20 @@
 //! Actual playable/vista support, with an explicit authority boundary.
 use super::*;
-use crate::{scene::GroundSubstrate, vista_surface::vista_triangle_height};
+use crate::{
+    city_layout::grounding::SupportElevation,
+    scene::GroundSubstrate,
+    scene_coordinates::ScenePlanPoint,
+    vista_surface::vista_triangle_height,
+};
 const WET_GROUND_LIMIT_BPS: u16 = 2500;
-pub(super) enum PlacementScope {
-    Playable,
-    Vista,
-}
 pub(super) struct PlacementGround<'a> {
     input: &'a TacticalSceneInput,
     terrain: &'a SceneTerrain,
     ground: &'a SceneGround,
+}
+pub(super) enum PlacementScope {
+    Playable,
+    Vista,
 }
 impl<'a> PlacementGround<'a> {
     pub(super) fn new(
@@ -25,20 +30,16 @@ impl<'a> PlacementGround<'a> {
     }
     pub(super) fn height_at(
         &self,
-        point: crate::scene_coordinates::ScenePlanPoint,
-    ) -> Option<crate::city_layout::grounding::SupportElevation> {
-        let point = point.metres();
-        self.terrain
-            .height_at(point)
-            .or_else(|| {
-                vista_triangle_height(
-                    self.input.vista.lods.first()?,
-                    self.input.vista.lods.get(1),
-                    self.terrain,
-                    point,
-                )
-            })
-            .and_then(crate::city_layout::grounding::SupportElevation::from_metres)
+        point: ScenePlanPoint,
+    ) -> Option<SupportElevation> {
+        self.terrain.height_at(point).or_else(|| {
+            SupportElevation::from_metres(vista_triangle_height(
+                self.input.vista.lods.first()?,
+                self.input.vista.lods.get(1),
+                self.terrain,
+                point.metres(),
+            )?)
+        })
     }
     pub(super) fn scope(&self, footprint: FurnitureFootprint) -> Option<PlacementScope> {
         let playable = FurnitureFootprint::from_metres(
@@ -58,11 +59,12 @@ impl<'a> PlacementGround<'a> {
             Some(PlacementScope::Vista)
         }
     }
-    pub(super) fn allows_activity(&self, point: Vec2) -> bool {
-        if self.input.landform.is_some_and(|l| {
-            crate::scene_coordinates::ScenePlanPoint::try_from(point)
-                .is_ok_and(|point| l.transition_collar().contains(point))
-        }) {
+    pub(super) fn allows_activity(&self, point: ScenePlanPoint) -> bool {
+        if self
+            .input
+            .landform
+            .is_some_and(|landform| landform.transition_collar().contains(point))
+        {
             return false;
         }
         if let Some(surface) = self.ground.ground_at(point) {
@@ -74,7 +76,7 @@ impl<'a> PlacementGround<'a> {
         let Some(lod) = self.input.vista.lods.first() else {
             return false;
         };
-        let local = point
+        let local = point.metres()
             - Vec2::new(
                 lod.origin_east_metres as f32,
                 lod.origin_north_metres as f32,

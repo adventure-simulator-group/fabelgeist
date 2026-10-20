@@ -1,4 +1,5 @@
 use super::*;
+use crate::scene_coordinates::ScenePlanPoint;
 use bevy::math::Vec3Swizzles;
 
 #[test]
@@ -56,7 +57,7 @@ fn real_city_places_market_vendors_behind_its_wide_street_reservations() {
         assert!(
             scene
                 .terrain
-                .height_at(instance.position_metres.metres().xz())
+                .height_at(ScenePlanPoint::from(instance.position_metres))
                 .is_some()
         );
         for foot in &instance.scene.key.recipe().unwrap().support_points_metres {
@@ -109,12 +110,13 @@ pub(super) fn report_terrain_delta(name: &str, input: &TacticalSceneInput, terra
                 x as f32 * spacing_metres - terrain.width() * 0.5,
                 z as f32 * spacing_metres - terrain.depth() * 0.5,
             );
+            let scene_point = ScenePlanPoint::from_metres(point).unwrap();
             let (Some(fine), Some(coarse)) =
-                (terrain.height_at(point), terrain.coarse_height_at(point))
+                (terrain.height_at(scene_point), terrain.coarse_height_at(scene_point))
             else {
                 continue;
             };
-            let delta = fine - coarse;
+            let delta = fine.metres() - coarse.metres();
             max_abs = max_abs.max(delta.abs());
             max_positive = max_positive.max(delta);
             if input.streets.iter().any(|patch| patch.contains(point)) {

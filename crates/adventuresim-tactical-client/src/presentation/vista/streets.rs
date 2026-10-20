@@ -36,7 +36,7 @@ impl UrbanGround {
         Self(UrbanGroundLookup::new(streets, yards, &[]))
     }
 
-    pub(super) fn suppresses_grass(&self, point: Vec2) -> bool {
+    pub(super) fn suppresses_grass(&self, point: ScenePlanPoint) -> bool {
         self.0.suppresses_grass(point)
     }
 }

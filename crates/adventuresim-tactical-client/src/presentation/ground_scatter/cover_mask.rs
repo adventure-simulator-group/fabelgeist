@@ -1,4 +1,5 @@
 use super::*;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use crate::presentation::grass_cover_mask_pixels;
 use fabelgeist_determinism::Seed;
 
@@ -24,7 +25,8 @@ impl CoverageMask {
         }
     }
 
-    pub(super) fn coverage_byte(&self, world: Vec2) -> u8 {
+    pub(super) fn coverage_byte(&self, world: ScenePlanPoint) -> u8 {
+        let world = world.metres();
         let u = (world.x / self.ground_width + 0.5).clamp(0.0, 1.0);
         let v = (world.y / self.ground_depth + 0.5).clamp(0.0, 1.0);
         let x = ((u * self.width as f32) as usize).min(self.width - 1);

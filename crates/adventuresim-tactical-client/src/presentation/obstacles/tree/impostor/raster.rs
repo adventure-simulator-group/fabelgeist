@@ -830,7 +830,9 @@ mod tests {
         // more frequent variant-0 seed in the manifest belongs to vista/cache
         // bakes and is not the tree framed by the forced-LOD views.
         let fixture_position = Vec3::new(12.5, 0.0, 37.5);
-        let obstacle_seed = obstacle_seed(fixture_position);
+        let obstacle_seed = obstacle_seed(adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+            Vec2::new(fixture_position.x, fixture_position.z),
+        ).unwrap());
         let variant_index = (obstacle_seed.to_u64() & 3) as usize;
         let variant_seed =
             crate::presentation::obstacles::tree::specimen::oak_variant_seed(variant_index);

@@ -2,6 +2,7 @@ use super::*;
 use adventuresim_building_generator::spatial_geometry::SignedLength;
 use adventuresim_core::linear_speed::NonnegativeSpeed;
 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
+use bevy::math::Dir3;
 use terrain_leg::OrdinaryLeg;
 
 mod terrain_leg;
@@ -240,12 +241,12 @@ pub(in crate::animation) fn apply(
             };
             let foot_position = foot_snapshot.global.translation();
             authored[index] = Some(foot_position);
-            let Some(height) = terrain.height_at(foot_position.xz()) else {
+            let Some(height) = ScenePlanPoint::from_metres(foot_position.xz())
+                .and_then(|point| terrain.height_at(point))
+            else {
                 continue;
             };
-            let target = match checked_world_height(height)
-                .and_then(|height| ordinary_terrain_target(foot_position, height, weight))
-            {
+            let target = match ordinary_terrain_target(foot_position, height, weight) {
                 Ok(target) => target,
                 Err(error) => {
                     warn!(%error, "authored terrain target rejected");
@@ -364,7 +365,7 @@ fn apply_root_vertical_shift(
 fn align_foot_to_slope_weighted(
     foot: Entity,
     sole_up_local: Vec3,
-    normal: Vec3,
+    normal: Dir3,
     weight: UnitInterval,
     parents: &Query<&ChildOf>,
     transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,

@@ -1,3 +1,6 @@
+use adventuresim_tactical_core::animation::NonnegativeLength;
+use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_tactical_core::scene_coordinates::Scene;
 use fabelgeist_determinism::Seed;
 use std::{collections::BTreeSet, path::PathBuf};
 
@@ -8,8 +11,12 @@ use bevy::prelude::{Entity, Resource, Vec3};
 use super::{
     manifest::{CaptureRecord, RepairSummary, TerrainSummary},
     view_specs::CaptureViewSpec,
+    vista_geometry::VistaCaptureGeometry,
 };
 use crate::presentation::TreeLeafRepresentation;
+
+/// Maximum settled readbacks for asynchronous production lighting to converge.
+const LIGHTING_READBACK_BUDGET: usize = 8;
 
 #[derive(Clone, Copy, Debug)]
 pub(super) struct BuildingReviewCamera {
@@ -23,6 +30,60 @@ pub(super) struct PlasterRakingLight {
     pub(super) wall_point: Vec3,
     pub(super) inward_normal: Vec3,
     pub(super) position: Vec3,
+}
+
+#[derive(Resource)]
+pub(super) struct SceneCaptureState {
+    pub(super) fixture: String,
+    pub(super) input_path: PathBuf,
+    pub(super) output: PathBuf,
+    pub(super) digest: String,
+    pub(super) seed: Seed,
+    pub(super) absolute_minute: StrategicMinute,
+    pub(super) latitude_microdegrees: i32,
+    pub(super) longitude_microdegrees: i32,
+    pub(super) canopy_bps: u16,
+    pub(super) generation_version: u16,
+    pub(super) scene_source: SceneSource,
+    pub(super) weather: WeatherSnapshot,
+    pub(super) repairs: RepairSummary,
+    pub(super) terrain: TerrainSummary,
+    pub(super) expected_trees: usize,
+    pub(super) expected_rocks: usize,
+    pub(super) expects_grass: bool,
+    pub(super) vista_contract: super::vista_validation::VistaCaptureContract,
+    pub(super) vista_geometry: Option<VistaCaptureGeometry>,
+    pub(super) city_half_extent_metres: f32,
+    pub(super) obstacle_focus: Vec3,
+    pub(super) tree_focus: Option<Position<Scene>>,
+    pub(super) rock_focus: Option<Position<Scene>>,
+    pub(super) debris_focus: Option<Position<Scene>>,
+    pub(super) plant_focus: Option<Position<Scene>>,
+    pub(super) debris_camera: Option<Position<Scene>>,
+    pub(super) debris_leaf_distance_metres: Option<NonnegativeLength>,
+    pub(super) debris_twig_distance_metres: Option<NonnegativeLength>,
+    pub(super) tree_leaf_focus: Option<Vec3>,
+    pub(super) tree_leaf_camera: Option<Vec3>,
+    pub(super) tree_focus_entity: Option<Entity>,
+    pub(super) tree_review_entities: Vec<Entity>,
+    pub(super) tree_review_leaf_entities: Vec<(Entity, TreeLeafRepresentation)>,
+    pub(super) ground_eye_position: Vec3,
+    pub(super) ground_eye_target: Vec3,
+    pub(super) animation_play_focus: Vec3,
+    pub(super) building_interior_cameras: Vec<BuildingReviewCamera>,
+    pub(super) city_exterior_cameras: Vec<BuildingReviewCamera>,
+    pub(super) settle_frames: u32,
+    pub(super) tree_review_azimuth_degrees: f32,
+    pub(super) profile: String,
+    pub(super) requested_views: Vec<String>,
+    pub(super) views: Vec<CaptureViewSpec>,
+    pub(super) view: usize,
+    pub(super) phase: CapturePhase,
+    pub(super) lighting_luminance_samples: Vec<f32>,
+    pub(super) last_prime_readback_hash: Option<u64>,
+    pub(super) captures: Vec<CaptureRecord>,
+    pub(super) recursive_lods_observed: BTreeSet<(u8, u8)>,
+    pub(super) recursive_aggregate_lods_observed: BTreeSet<u8>,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -46,6 +107,13 @@ pub(super) enum CapturePhase {
     },
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(super) enum LightingConvergence {
+    Pending,
+    Ready,
+    Exhausted,
+}
+
 impl CapturePhase {
     pub(super) fn settling(self) -> Option<(u32, u8)> {
         match self {
@@ -60,65 +128,6 @@ impl CapturePhase {
     pub(super) fn readback_in_flight(self) -> bool {
         matches!(self, Self::Readback { .. })
     }
-}
-
-#[derive(Resource)]
-pub(super) struct SceneCaptureState {
-    pub(super) fixture: String,
-    pub(super) input_path: PathBuf,
-    pub(super) output: PathBuf,
-    pub(super) digest: String,
-    pub(super) seed: Seed,
-    pub(super) absolute_minute: StrategicMinute,
-    pub(super) latitude_microdegrees: i32,
-    pub(super) longitude_microdegrees: i32,
-    pub(super) canopy_bps: u16,
-    pub(super) generation_version: u16,
-    pub(super) scene_source: SceneSource,
-    pub(super) weather: WeatherSnapshot,
-    pub(super) repairs: RepairSummary,
-    pub(super) terrain: TerrainSummary,
-    pub(super) expected_trees: usize,
-    pub(super) expected_rocks: usize,
-    pub(super) expects_grass: bool,
-    pub(super) vista_contract: super::vista_validation::VistaCaptureContract,
-    pub(super) vista_diameter_metres: f32,
-    pub(super) vista_minimum_metres: f32,
-    pub(super) vista_peak_metres: f32,
-    pub(super) vista_relief_metres: f32,
-    pub(super) city_half_extent_metres: f32,
-    pub(super) peak_target: Vec3,
-    pub(super) valley_target: Vec3,
-    pub(super) obstacle_focus: Vec3,
-    pub(super) tree_focus: Option<Vec3>,
-    pub(super) rock_focus: Option<Vec3>,
-    pub(super) debris_focus: Option<Vec3>,
-    pub(super) plant_focus: Option<Vec3>,
-    pub(super) debris_camera: Option<Vec3>,
-    pub(super) debris_leaf_distance_metres: Option<f32>,
-    pub(super) debris_twig_distance_metres: Option<f32>,
-    pub(super) tree_leaf_focus: Option<Vec3>,
-    pub(super) tree_leaf_camera: Option<Vec3>,
-    pub(super) tree_focus_entity: Option<Entity>,
-    pub(super) tree_review_entities: Vec<Entity>,
-    pub(super) tree_review_leaf_entities: Vec<(Entity, TreeLeafRepresentation)>,
-    pub(super) ground_eye_position: Vec3,
-    pub(super) ground_eye_target: Vec3,
-    pub(super) animation_play_focus: Vec3,
-    pub(super) building_interior_cameras: Vec<BuildingReviewCamera>,
-    pub(super) city_exterior_cameras: Vec<BuildingReviewCamera>,
-    pub(super) settle_frames: u32,
-    pub(super) tree_review_azimuth_degrees: f32,
-    pub(super) profile: String,
-    pub(super) requested_views: Vec<String>,
-    pub(super) views: Vec<CaptureViewSpec>,
-    pub(super) view: usize,
-    pub(super) phase: CapturePhase,
-    pub(super) lighting_luminance_samples: Vec<f32>,
-    pub(super) last_prime_readback_hash: Option<u64>,
-    pub(super) captures: Vec<CaptureRecord>,
-    pub(super) recursive_lods_observed: BTreeSet<(u8, u8)>,
-    pub(super) recursive_aggregate_lods_observed: BTreeSet<u8>,
 }
 
 pub(super) fn foreground_pixel_bps(data: Option<&[u8]>) -> u16 {
@@ -186,16 +195,6 @@ pub(super) fn lighting_samples_stable(samples: &[f32]) -> bool {
     luminance_delta(samples) <= (mean * 0.02).max(1.5)
 }
 
-/// Maximum settled readbacks for asynchronous production lighting to converge.
-const LIGHTING_READBACK_BUDGET: usize = 8;
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub(super) enum LightingConvergence {
-    Pending,
-    Ready,
-    Exhausted,
-}
-
 /// Preserve the full diagnostic trace while testing the latest consecutive pair.
 pub(super) fn settled_luminance_samples(samples: &[f32]) -> &[f32] {
     &samples[samples.len().saturating_sub(2)..]
@@ -208,36 +207,6 @@ pub(super) fn lighting_convergence(samples: &[f32]) -> LightingConvergence {
         LightingConvergence::Exhausted
     } else {
         LightingConvergence::Pending
-    }
-}
-
-#[cfg(test)]
-mod lighting_tests {
-    use super::*;
-
-    #[test]
-    fn delayed_lighting_convergence_retains_initial_readback_evidence() {
-        let mut trace = vec![58.356556, 69.16572];
-        assert_eq!(lighting_convergence(&trace), LightingConvergence::Pending);
-        trace.push(69.16572);
-        assert_eq!(lighting_convergence(&trace), LightingConvergence::Ready);
-        assert_eq!(trace.len(), 3);
-        assert!(luminance_delta(&trace) > 10.0);
-        assert_eq!(luminance_delta(settled_luminance_samples(&trace)), 0.0);
-    }
-
-    #[test]
-    fn unstable_lighting_exhausts_its_budget_without_becoming_ready() {
-        let mut trace = Vec::new();
-        for sample in 0..LIGHTING_READBACK_BUDGET {
-            assert_eq!(lighting_convergence(&trace), LightingConvergence::Pending);
-            trace.push(if sample % 2 == 0 { 40.0 } else { 80.0 });
-        }
-        assert_eq!(lighting_convergence(&trace), LightingConvergence::Exhausted);
-        assert_eq!(
-            lighting_convergence(&[f32::NAN; LIGHTING_READBACK_BUDGET]),
-            LightingConvergence::Exhausted
-        );
     }
 }
 
@@ -370,5 +339,35 @@ mod tests {
         let pixel = 4;
         image[pixel..pixel + 4].copy_from_slice(&[20, 60, 25, 255]);
         assert!(tree_canopy_pixel_bps(Some(&image), 4, 4) > 0);
+    }
+}
+
+#[cfg(test)]
+mod lighting_tests {
+    use super::*;
+
+    #[test]
+    fn delayed_lighting_convergence_retains_initial_readback_evidence() {
+        let mut trace = vec![58.356556, 69.16572];
+        assert_eq!(lighting_convergence(&trace), LightingConvergence::Pending);
+        trace.push(69.16572);
+        assert_eq!(lighting_convergence(&trace), LightingConvergence::Ready);
+        assert_eq!(trace.len(), 3);
+        assert!(luminance_delta(&trace) > 10.0);
+        assert_eq!(luminance_delta(settled_luminance_samples(&trace)), 0.0);
+    }
+
+    #[test]
+    fn unstable_lighting_exhausts_its_budget_without_becoming_ready() {
+        let mut trace = Vec::new();
+        for sample in 0..LIGHTING_READBACK_BUDGET {
+            assert_eq!(lighting_convergence(&trace), LightingConvergence::Pending);
+            trace.push(if sample % 2 == 0 { 40.0 } else { 80.0 });
+        }
+        assert_eq!(lighting_convergence(&trace), LightingConvergence::Exhausted);
+        assert_eq!(
+            lighting_convergence(&[f32::NAN; LIGHTING_READBACK_BUDGET]),
+            LightingConvergence::Exhausted
+        );
     }
 }

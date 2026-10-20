@@ -4,9 +4,6 @@ use adventuresim_building_generator::plan_geometry::{PlanPolygon, PlanVertex};
 use bevy::math::Vec2;
 use serde::{Deserialize, Serialize};
 
-mod polygon;
-mod spatial;
-mod window;
 pub use polygon::{ArchitecturalPlanProjection, ScenePlanPolygon};
 pub use spatial::{
     ArchitecturalFloorDatum, ArchitecturalGateDatum, CollisionCentreDatum, CollisionRelative,
@@ -14,14 +11,27 @@ pub use spatial::{
 };
 pub use window::SceneWindowPose;
 
+mod polygon;
+mod spatial;
+mod window;
+
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, bevy::prelude::Reflect)]
 #[reflect(opaque)]
 #[serde(transparent)]
 pub struct ScenePlanPoint(Vec2);
+
+/// Finite scene-local east/north translation in metres; not a point or direction.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct PlanDisplacement(Vec2);
+
 impl ScenePlanPoint {
     pub const ORIGIN: Self = Self(Vec2::ZERO);
-    pub fn from_metres(point: Vec2) -> Option<Self> {
-        point.is_finite().then_some(Self(point))
+    pub const fn from_metres(point: Vec2) -> Option<Self> {
+        if point.x.is_finite() && point.y.is_finite() {
+            Some(Self(point))
+        } else {
+            None
+        }
     }
     pub fn metres(self) -> Vec2 {
         self.0
@@ -52,9 +62,6 @@ impl PlanVertex for ScenePlanPoint {
         self.metres()
     }
 }
-/// Finite scene-local east/north translation in metres; not a point or direction.
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub struct PlanDisplacement(Vec2);
 impl PlanDisplacement {
     pub const ZERO: Self = Self(Vec2::ZERO);
     pub fn from_metres(metres: Vec2) -> Option<Self> {
@@ -84,6 +91,14 @@ impl<'de> Deserialize<'de> for ScenePlanPoint {
             .ok_or_else(|| serde::de::Error::custom("scene plan point must be finite"))
     }
 }
+
+impl From<adventuresim_building_generator::spatial_geometry::Position<Scene>> for ScenePlanPoint {
+    fn from(position: adventuresim_building_generator::spatial_geometry::Position<Scene>) -> Self {
+        let point = position.metres();
+        Self(Vec2::new(point.x, point.z))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -100,10 +115,3 @@ mod tests {
 
 #[cfg(test)]
 mod spatial_tests;
-
-impl From<adventuresim_building_generator::spatial_geometry::Position<Scene>> for ScenePlanPoint {
-    fn from(position: adventuresim_building_generator::spatial_geometry::Position<Scene>) -> Self {
-        let point = position.metres();
-        Self(Vec2::new(point.x, point.z))
-    }
-}

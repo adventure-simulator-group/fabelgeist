@@ -1,23 +1,11 @@
-mod streams;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use adventuresim_tactical_core::prelude::{
     GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneTerrain,
 };
-use bevy::{
-    camera::visibility::VisibilityRange,
-    prelude::{Commands, Mesh3d, MeshMaterial3d, Name, Vec2},
-};
+use bevy::prelude::Vec2;
 use fabelgeist_determinism::Seed;
 
-use super::{
-    GroundScatterLayer, TreeLeafRepresentation, WoodyUnderstoryPresentationCache, foliage_transform,
-};
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub(super) enum UnderstorySpecies {
-    CommonHazel,
-    Blackthorn,
-    CommonHawthorn,
-}
+mod streams;
 
 #[derive(Clone, Copy, Debug)]
 pub(super) struct UnderstoryHabitat {
@@ -25,6 +13,21 @@ pub(super) struct UnderstoryHabitat {
     pub(super) wetland: f32,
     pub(super) cultivation: f32,
     pub(super) moisture: f32,
+}
+
+/// One shrub site produced by the shared placement walk, consumed by both
+/// the legacy per-entity renderer and the instanced batches.
+pub(super) struct ShrubPlacement {
+    pub(super) species: UnderstorySpecies,
+    pub(super) point: ScenePlanPoint,
+    pub(super) hash: Seed,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(super) enum UnderstorySpecies {
+    CommonHazel,
+    Blackthorn,
+    CommonHawthorn,
 }
 
 pub(super) fn select_species(hash: Seed, habitat: UnderstoryHabitat) -> UnderstorySpecies {
@@ -52,6 +55,53 @@ pub(super) fn select_species(hash: Seed, habitat: UnderstoryHabitat) -> Understo
         UnderstorySpecies::Blackthorn,
         UnderstorySpecies::CommonHawthorn,
     ][index]
+}
+
+/// Deterministic shrub placement walk shared by both renderers, so the
+/// instanced path reproduces the legacy thickets exactly.
+pub(super) fn placements(
+    terrain: &SceneTerrain,
+    ground: &SceneGround,
+    base_seed: Seed,
+    chance: f32,
+    habitat: UnderstoryHabitat,
+) -> Vec<ShrubPlacement> {
+    let spacing = 3.2;
+    let count_x = (terrain.width() / spacing).floor() as i32;
+    let count_z = (terrain.depth() / spacing).floor() as i32;
+    let half_x = terrain.width() * 0.5;
+    let half_z = terrain.depth() * 0.5;
+    let mut sites = Vec::new();
+    for z in 0..count_z {
+        for x in 0..count_x {
+            let hash = streams::SPECIMEN.seed(base_seed, &[x as u32 as u64, z as u32 as u64]);
+            let community = community_hash(base_seed, x, z);
+            let local_chance = (chance * community_density_multiplier(community)).min(0.82);
+            if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() >= local_chance {
+                continue;
+            }
+            let jitter_x = streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5;
+            let jitter_z = streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5;
+            let world_x = -half_x + (x as f32 + 0.5 + jitter_x * 0.72) * spacing;
+            let world_z = -half_z + (z as f32 + 0.5 + jitter_z * 0.72) * spacing;
+            let Some(point) = ScenePlanPoint::from_metres(Vec2::new(world_x, world_z)) else {
+                continue;
+            };
+            let species = select_species(community, habitat);
+            if ground
+                .ground_at(point)
+                .is_none_or(|sample| !ground_allows_species(sample, species))
+            {
+                continue;
+            }
+            sites.push(ShrubPlacement {
+                species,
+                point,
+                hash,
+            });
+        }
+    }
+    sites
 }
 
 fn community_hash(base_seed: Seed, x: i32, z: i32) -> Seed {
@@ -97,60 +147,6 @@ fn ground_allows_species(surface: GroundSurface, species: UnderstorySpecies) -> 
         GroundCover::Bare | GroundCover::TallGrass => true,
         GroundCover::Reeds => false,
     }
-}
-
-/// One shrub site produced by the shared placement walk, consumed by both
-/// the legacy per-entity renderer and the instanced batches.
-pub(super) struct ShrubPlacement {
-    pub(super) species: UnderstorySpecies,
-    pub(super) world_x: f32,
-    pub(super) world_z: f32,
-    pub(super) hash: Seed,
-}
-
-/// Deterministic shrub placement walk shared by both renderers, so the
-/// instanced path reproduces the legacy thickets exactly.
-pub(super) fn placements(
-    terrain: &SceneTerrain,
-    ground: &SceneGround,
-    base_seed: Seed,
-    chance: f32,
-    habitat: UnderstoryHabitat,
-) -> Vec<ShrubPlacement> {
-    let spacing = 3.2;
-    let count_x = (terrain.width() / spacing).floor() as i32;
-    let count_z = (terrain.depth() / spacing).floor() as i32;
-    let half_x = terrain.width() * 0.5;
-    let half_z = terrain.depth() * 0.5;
-    let mut sites = Vec::new();
-    for z in 0..count_z {
-        for x in 0..count_x {
-            let hash = streams::SPECIMEN.seed(base_seed, &[x as u32 as u64, z as u32 as u64]);
-            let community = community_hash(base_seed, x, z);
-            let local_chance = (chance * community_density_multiplier(community)).min(0.82);
-            if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() >= local_chance {
-                continue;
-            }
-            let jitter_x = streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5;
-            let jitter_z = streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5;
-            let world_x = -half_x + (x as f32 + 0.5 + jitter_x * 0.72) * spacing;
-            let world_z = -half_z + (z as f32 + 0.5 + jitter_z * 0.72) * spacing;
-            let species = select_species(community, habitat);
-            if ground
-                .ground_at(Vec2::new(world_x, world_z))
-                .is_none_or(|sample| !ground_allows_species(sample, species))
-            {
-                continue;
-            }
-            sites.push(ShrubPlacement {
-                species,
-                world_x,
-                world_z,
-                hash,
-            });
-        }
-    }
-    sites
 }
 
 #[cfg(test)]

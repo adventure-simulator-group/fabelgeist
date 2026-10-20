@@ -1,5 +1,6 @@
 //! Distant rock and tree presentation from the admitted source terrain.
 use super::*;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use fabelgeist_determinism::Seed;
 
 #[expect(
@@ -43,6 +44,9 @@ pub(super) fn spawn_vista_rocks(
             {
                 continue;
             }
+            let Some(point) = ScenePlanPoint::from_metres(point) else {
+                continue;
+            };
             let Some(sample) = sample_vista_environment(lod, point) else {
                 continue;
             };
@@ -74,14 +78,14 @@ pub(super) fn spawn_vista_rocks(
     }
 }
 
-pub(super) fn sample_vista_environment(lod: &VistaLod, world: Vec2) -> Option<EnvironmentalSample> {
+pub(super) fn sample_vista_environment(lod: &VistaLod, world: ScenePlanPoint) -> Option<EnvironmentalSample> {
     let width = usize::from(lod.width);
     let depth = usize::from(lod.depth);
     let origin = Vec2::new(
         lod.origin_east_metres as f32,
         lod.origin_north_metres as f32,
     );
-    let coordinate = (world - origin) / lod.spacing_metres
+    let coordinate = (world.metres() - origin) / lod.spacing_metres
         + Vec2::new((width - 1) as f32 * 0.5, (depth - 1) as f32 * 0.5);
     if coordinate.x < 0.0
         || coordinate.y < 0.0
@@ -197,6 +201,9 @@ pub(super) fn spawn_vista_trees(
                         lod.origin_east_metres as f32,
                         lod.origin_north_metres as f32,
                     );
+                let Some(world) = ScenePlanPoint::from_metres(world) else {
+                    continue;
+                };
                 let Some(height) = tree_root_height(terrain, lod, coarser_lod, world) else {
                     continue;
                 };
@@ -240,7 +247,7 @@ pub(super) fn spawn_vista_trees(
                     MeshMaterial3d(cached.material.clone()),
                     cached.provenance.clone(),
                     vista_tree_visibility(lod.spacing_metres, card_height, scale),
-                    Transform::from_xyz(local.x, height, local.y).with_scale(Vec3::splat(scale)),
+                    Transform::from_xyz(local.x, height.metres(), local.y).with_scale(Vec3::splat(scale)),
                 ));
             }
         }

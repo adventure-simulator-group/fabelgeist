@@ -933,6 +933,7 @@ mod ik_tests {
     use adventuresim_building_generator::spatial_geometry::SignedLength;
     use adventuresim_core::linear_speed::NonnegativeSpeed;
     use adventuresim_tactical_core::animation::NonnegativeLength;
+    use adventuresim_tactical_core::city_layout::grounding::SupportElevation;
 
     #[test]
     fn canonical_mhr_role_names_are_recognized() {
@@ -1528,8 +1529,8 @@ mod ik_tests {
 
     #[test]
     fn rendered_sole_contact_uses_the_shared_hierarchy_tolerance() {
-        let terrain_height = 2.0;
-        let exact_ankle = terrain_height + measured_ankle_sole_offset_metres().metres();
+        let terrain_height = SupportElevation::from_metres(2.0).unwrap();
+        let exact_ankle = terrain_height.metres() + measured_ankle_sole_offset_metres().metres();
         assert!(sole_is_at_contact(exact_ankle, terrain_height));
         assert!(sole_is_at_contact(
             exact_ankle + sole_contact_tolerance_metres().metres() - 0.00001,
@@ -1610,7 +1611,7 @@ mod ik_tests {
     #[test]
     fn terrain_height_is_transient_during_an_active_guard_step() {
         let flat = Vec3::new(0.2, -0.85, 0.3);
-        let elevated = terrain_conformed_guard_target(flat, Some(1.25));
+        let elevated = terrain_conformed_guard_target(flat, Some(SupportElevation::from_metres(1.25).unwrap()));
         assert_eq!(elevated.y, 1.335);
         assert_eq!(terrain_conformed_guard_target(flat, None), flat);
         assert_eq!(flat.y, -0.85);
@@ -1641,7 +1642,7 @@ mod ik_tests {
         let bind = Quat::from_xyzw(0.8856122, 0.00000032, 0.00000032, 0.46442544).normalize();
         let sole_up = sole_up_axis_from_bind(bind).normalize();
         let current = Quat::from_rotation_y(0.7) * bind;
-        let steep_normal = Vec3::new(0.8, 0.3, -0.4).normalize();
+        let steep_normal = bevy::math::Dir3::new(Vec3::new(0.8, 0.3, -0.4)).unwrap();
 
         let once = slope_aligned_world_rotation(current, sole_up, steep_normal).unwrap();
         let twice = slope_aligned_world_rotation(once, sole_up, steep_normal).unwrap();

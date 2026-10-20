@@ -84,6 +84,9 @@ impl SupportElevation {
     pub fn metres(self) -> f32 {
         self.0
     }
+    pub fn max(self, other: Self) -> Self {
+        Self(self.0.max(other.0))
+    }
 }
 
 impl<'de> Deserialize<'de> for SupportElevation {

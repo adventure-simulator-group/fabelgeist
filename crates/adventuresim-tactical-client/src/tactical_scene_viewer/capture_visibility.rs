@@ -19,6 +19,7 @@ pub(super) type ProductionLeaves = (
 #[cfg(test)]
 mod tests {
     use super::*;
+    use adventuresim_building_generator::spatial_geometry::Position;
 
     #[test]
     fn production_visibility_excludes_isolated_review_specimens() {
@@ -29,7 +30,7 @@ mod tests {
             TreeLeafRepresentation::AlphaCard,
             UnderstoryReviewSpecimen {
                 common_name: "common hazel",
-                focus: Vec3::ZERO,
+                focus: Position::ORIGIN,
             },
         ));
         let mut query = world.query_filtered::<Entity, ProductionLeaves>();

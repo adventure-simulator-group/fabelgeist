@@ -1,6 +1,10 @@
 //! Rough construction quantities; complete triangle intersections bound cut/fill.
 use super::*;
 use crate::footprint::{clip, height_in_triangle};
+use adventuresim_tactical_core::city_layout::grounding::{DiagnosticMetres, SurfaceDifferenceControl};
+use bevy::math::Vec2;
+
+const PERIMETER_QUANTITY_PROBE_METRES: f32 = 1.0;
 
 #[derive(Debug, serde::Serialize)]
 #[serde(rename_all = "snake_case")]
@@ -14,14 +18,15 @@ pub(super) enum QuantityError {
     NonFiniteElevation {
         point: Vec2,
     },
+    NonFiniteDisplacement {
+        point: ScenePlanPoint,
+    },
 }
-
-const PERIMETER_QUANTITY_PROBE_METRES: f32 = 1.0;
 
 pub(super) fn measure(
     plan: &CompoundSupportPlan,
     geographic: &[[Vec3; 3]],
-    terrain_height: &impl Fn(Vec2) -> Option<f32>,
+    terrain_height: &impl Fn(ScenePlanPoint) -> Option<SupportElevation>,
     assumed_wall_thickness_metres: f32,
 ) -> Result<Value, QuantityError> {
     let mesh = plan
@@ -30,7 +35,7 @@ pub(super) fn measure(
     let mut covered = 0.0;
     let mut fill = 0.0;
     let mut cut = 0.0;
-    let mut maximum = (0.0_f32, Vec2::ZERO);
+    let mut maximum: Option<SurfaceDifferenceControl> = None;
     let mut rejection = None;
     for indices in mesh.support_triangles() {
         let support = indices.map(|i| mesh.positions()[i as usize]);
@@ -46,16 +51,13 @@ pub(super) fn measure(
                 .map(|p| height_in_triangle(support, *p) - height_in_triangle(*source, *p))
                 .collect();
             for (point, difference) in polygon.iter().zip(&differences) {
-                if difference.abs() > maximum.0 {
-                    maximum = (difference.abs(), *point);
+                let control = displacement_control_at(support, *source, *point)?;
+                if maximum.is_none_or(|best| f64::from(difference.abs()) > best.difference_metres.metres().abs()) {
+                    maximum = Some(control);
                 }
                 if let Err(error) = plan.validate_displacement_at(
-                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
-                        *point,
-                    )
-                    .ok_or(QuantityError::NonFiniteLocation { point: *point })?,
-                    SupportElevation::from_metres(height_in_triangle(*source, *point))
-                        .ok_or(QuantityError::NonFiniteElevation { point: *point })?,
+                    control.position_metres,
+                    control.second_elevation,
                 ) {
                     rejection.get_or_insert(error);
                 }
@@ -78,7 +80,8 @@ pub(super) fn measure(
         "covered_reservation_area_m2":covered,
         "required_reservation_area_m2":area(&plan.reservation().corners()),
         "fill_volume_m3":fill,"cut_volume_m3":cut,
-        "maximum_absolute_displacement_m":maximum.0,"maximum_displacement_location_m":maximum.1,
+        "maximum_absolute_displacement_m":maximum.map(|control|control.difference_metres.metres().abs()),
+        "maximum_displacement_location_m":maximum.map(|control|control.position_metres),
         "grading_rejection":rejection,
         "internal_retaining_and_riser_face_area_m2":internal_faces,
         "perimeter_face_area_estimate_m2":perimeter_faces,
@@ -89,9 +92,31 @@ pub(super) fn measure(
     }))
 }
 
+// Native clipped triangles complete both affine samples before admitting a control.
+fn displacement_control_at(
+    support: [Vec3; 3],
+    source: [Vec3; 3],
+    point: Vec2,
+) -> Result<SurfaceDifferenceControl, QuantityError> {
+    let support_height = height_in_triangle(support, point);
+    let source_height = height_in_triangle(source, point);
+    let difference = support_height - source_height;
+    let location = ScenePlanPoint::from_metres(point)
+        .ok_or(QuantityError::NonFiniteLocation { point })?;
+    Ok(SurfaceDifferenceControl {
+        position_metres: location,
+        first_elevation: SupportElevation::from_metres(support_height)
+            .ok_or(QuantityError::NonFiniteElevation { point })?,
+        second_elevation: SupportElevation::from_metres(source_height)
+            .ok_or(QuantityError::NonFiniteElevation { point })?,
+        difference_metres: DiagnosticMetres::from_metres(f64::from(difference))
+            .ok_or(QuantityError::NonFiniteDisplacement { point: location })?,
+    })
+}
+
 fn perimeter_faces(
     plan: &CompoundSupportPlan,
-    height: &impl Fn(Vec2) -> Option<f32>,
+    height: &impl Fn(ScenePlanPoint) -> Option<SupportElevation>,
 ) -> Result<Option<f64>, QuantityError> {
     let corners = plan.reservation().corners();
     let mesh = plan
@@ -106,16 +131,15 @@ fn perimeter_faces(
         let mut previous = None;
         for station in 0..=stations {
             let p = a.lerp(b, station as f32 / stations as f32);
-            let Some(geographic) = height(p) else {
+            let point = ScenePlanPoint::from_metres(p)
+                .ok_or(QuantityError::NonFiniteLocation { point: p })?;
+            let Some(geographic) = height(point) else {
                 return Ok(None);
             };
             let difference = mesh
-                .elevations_at(
-                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(p)
-                        .ok_or(QuantityError::NonFiniteLocation { point: p })?,
-                )
+                .elevations_at(point)
                 .iter()
-                .map(|h| (h.metres() - geographic).abs())
+                .map(|h| (h.metres() - geographic.metres()).abs())
                 .max_by(f32::total_cmp);
             let Some(difference) = difference else {
                 return Ok(None);

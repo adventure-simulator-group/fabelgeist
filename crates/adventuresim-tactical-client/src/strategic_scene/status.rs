@@ -207,7 +207,8 @@ fn update_status(
         equipment_pending: (!equipment_ready).then(|| equipment.pending_summary(items.iter())),
         error: scene
             .error
-            .clone()
+            .as_ref()
+            .map(ToString::to_string)
             .or_else(|| failure.0.clone())
             .or_else(|| {
                 city.as_ref()

@@ -1,4 +1,5 @@
 use super::*;
+use crate::scene_coordinates::ScenePlanPoint;
 use bevy::math::Vec2;
 fn fixture() -> TacticalSceneInput {
     serde_json::from_str(include_str!(
@@ -122,8 +123,9 @@ fn sloped_garden_preserves_soil_relief_and_binds_each_retained_root() {
             (support.elevation.metres()
                 - generated
                     .terrain
-                    .height_at(plant.centre_metres.metres())
-                    .unwrap())
+                    .height_at(plant.centre_metres)
+                    .unwrap()
+                    .metres())
             .abs()
                 < 0.001
         );
@@ -144,12 +146,11 @@ fn sloped_garden_preserves_soil_relief_and_binds_each_retained_root() {
             > 0.1
     }));
     for point in garden.garden().cultivated_bounds.corners() {
+        let point = ScenePlanPoint::from_metres(point).unwrap();
         assert!(
-            (generated.terrain.height_at(point).unwrap()
+            (generated.terrain.height_at(point).unwrap().metres()
                 - source
-                    .elevation_at(
-                        crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap()
-                    )
+                    .elevation_at(point)
                     .unwrap()
                     .metres())
             .abs()
@@ -268,7 +269,7 @@ fn straddling_garden_roots_follow_the_same_stitched_soil_inside_and_outside_play
             .unwrap()
             .centre_metres;
         assert!(
-            (support.elevation.metres() - generated.terrain.height_at(point.metres()).unwrap())
+            (support.elevation.metres() - generated.terrain.height_at(point).unwrap().metres())
                 .abs()
                 < 0.001
         );
@@ -321,8 +322,9 @@ fn distant_garden_projection_retains_roots_membership_and_horizontal_geometry() 
         assert!(
             (generated
                 .terrain
-                .height_at(plant.centre_metres.metres())
+                .height_at(plant.centre_metres)
                 .unwrap()
+                .metres()
                 - support.elevation.metres())
             .abs()
                 < 0.001

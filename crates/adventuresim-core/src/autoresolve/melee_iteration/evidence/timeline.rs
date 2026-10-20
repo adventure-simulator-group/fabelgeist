@@ -2,6 +2,7 @@ use super::*;
 use fabelgeist_determinism::Seed;
 
 const SEED: Seed = Seed::from_u64(1);
+const CANCELLATION_EVIDENCE_SEED_LIMIT: u64 = 64;
 
 pub(super) fn autoresolve_timeline_evidence(
     john: &MeleeIterationBuild,
@@ -135,7 +136,7 @@ fn cancellation_evidence(
     hammer: &MeleeIterationBuild,
 ) -> BattleResolutionResult<Option<BattleOutcome>> {
     let mut cancellation = None;
-    for seed in (1..=64).map(Seed::from_u64) {
+    for seed in (1..=CANCELLATION_EVIDENCE_SEED_LIMIT).map(Seed::from_u64) {
         let outcome = resolve_battle(
             vec![john.combatant.clone()],
             vec![hammer.combatant.clone()],

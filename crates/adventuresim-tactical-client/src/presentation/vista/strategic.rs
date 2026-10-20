@@ -1,5 +1,10 @@
 //! Sampled strategic scenery never becomes tactical terrain or ground support.
 use super::*;
+use adventuresim_tactical_core::{
+    city_layout::grounding::SupportElevation,
+    scene::{TerrainSupportError, TerrainSupportResult},
+    scene_coordinates::ScenePlanPoint,
+};
 mod colors;
 
 #[derive(Component, Clone)]
@@ -47,7 +52,14 @@ impl StrategicBackdrop {
         &self.terrain
     }
 
-    pub(crate) fn height_at(&self, point: Vec2) -> Option<f32> {
+    pub(crate) fn required_height_at(
+        &self,
+        point: ScenePlanPoint,
+    ) -> TerrainSupportResult<SupportElevation> {
+        self.height_at(point).ok_or(TerrainSupportError::MissingSupport { point })
+    }
+
+    pub(crate) fn height_at(&self, point: ScenePlanPoint) -> Option<SupportElevation> {
         if let Some(height) = self.terrain.height_at(point) {
             return Some(height);
         }
@@ -58,10 +70,10 @@ impl StrategicBackdrop {
                 self.lods.get(index + 1),
                 (index == 0).then_some(&self.terrain),
                 inner,
-                point,
+                point.metres(),
             );
             if height.is_some() {
-                return height;
+                return height.and_then(SupportElevation::from_metres);
             }
             inner = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))
                 * lod.spacing_metres

@@ -1,9 +1,11 @@
 use super::*;
-
-mod timeline;
-use timeline::autoresolve_timeline_evidence;
-mod armor;
+use crate::combat::RecoveryTime;
+use crate::elapsed::AnimationElapsed;
 use armor::{forced_armor_contacts, mirrored_vambrace_contacts};
+use timeline::autoresolve_timeline_evidence;
+
+mod armor;
+mod timeline;
 
 #[derive(Clone, Debug, serde::Serialize)]
 pub struct MeleeIterationAcceptanceEvidence {
@@ -107,8 +109,8 @@ pub struct FatigueCadenceEvidence {
     pub completed_weapon_defenses: u32,
     pub completed_explosive_dodges: u32,
     pub fatigue: f32,
-    pub fresh_recovery_seconds: crate::combat::RecoveryTime,
-    pub fatigued_recovery_seconds: crate::combat::RecoveryTime,
+    pub fresh_recovery_seconds: RecoveryTime,
+    pub fatigued_recovery_seconds: RecoveryTime,
 }
 
 pub fn melee_iteration_acceptance_evidence() -> Result<MeleeIterationAcceptanceEvidence, String> {
@@ -323,19 +325,19 @@ fn fatigue_cadence_evidence(build: &MeleeIterationBuild) -> Result<FatigueCadenc
     };
     let attack = workload(
         CombatActionWork::Attack,
-        crate::elapsed::AnimationElapsed::from_seconds(0.75).map_err(|error| error.to_string())?,
+        AnimationElapsed::from_seconds(0.75).map_err(|error| error.to_string())?,
         weapon.weight,
         weapon.moment_of_inertia_kg_m2,
     );
     let defense = workload(
         CombatActionWork::WeaponDefense,
-        crate::elapsed::AnimationElapsed::from_seconds(0.5).map_err(|error| error.to_string())?,
+        AnimationElapsed::from_seconds(0.5).map_err(|error| error.to_string())?,
         weapon.weight,
         weapon.moment_of_inertia_kg_m2,
     );
     let dodge = workload(
         CombatActionWork::ExplosiveDodge,
-        crate::elapsed::AnimationElapsed::from_seconds(0.5).map_err(|error| error.to_string())?,
+        AnimationElapsed::from_seconds(0.5).map_err(|error| error.to_string())?,
         0.0,
         0.0,
     );

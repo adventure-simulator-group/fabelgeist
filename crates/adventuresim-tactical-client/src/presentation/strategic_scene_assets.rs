@@ -1,6 +1,8 @@
 //! Building-local strategic geometry never contains tactical terrain or actors.
 #[cfg(not(target_family = "wasm"))]
 use adventuresim_tactical_core::scene_input::TacticalSceneInput;
+#[cfg(not(target_family = "wasm"))]
+use super::generation::PreparationResult;
 use adventuresim_tactical_core::scene_input::furniture::FurnitureLayout;
 use adventuresim_tactical_core::scene_input::{GeneratedBuilding, GeneratedBuildingRecipes};
 #[derive(Clone)]
@@ -13,10 +15,10 @@ pub(crate) struct PreparedStrategicScene {
 
 impl PreparedStrategicScene {
     #[cfg(not(target_family = "wasm"))]
-    pub(crate) fn generate(input: &TacticalSceneInput) -> Result<Self, String> {
-        input.validate().map_err(|error| error.to_string())?;
+    pub(crate) fn generate(input: &TacticalSceneInput) -> PreparationResult<Self> {
+        input.validate()?;
         let mut scene = Self {
-            digest: input.digest().map_err(|error| error.to_string())?,
+            digest: input.digest()?,
             buildings: Vec::new(),
             building_recipes: Default::default(),
             furniture: Default::default(),
@@ -24,8 +26,7 @@ impl PreparedStrategicScene {
         for placement in &input.buildings {
             let recipe = scene
                 .building_recipes
-                .get_or_generate(&placement.program)
-                .map_err(|error| error.to_string())?;
+                .get_or_generate(&placement.program)?;
             scene.buildings.push(GeneratedBuilding {
                 placement: placement.clone(),
                 plan: recipe.plan.clone(),
@@ -34,8 +35,7 @@ impl PreparedStrategicScene {
         }
         scene
             .furniture
-            .furnish_interiors(&scene.buildings)
-            .map_err(|error| error.to_string())?;
+            .furnish_interiors(&scene.buildings)?;
         Ok(scene)
     }
 }

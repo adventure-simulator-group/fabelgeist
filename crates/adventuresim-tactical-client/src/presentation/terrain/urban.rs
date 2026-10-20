@@ -233,7 +233,7 @@ mod tests {
             .spawn((
                 ScenePresentationOf(scene),
                 TerrainDetailPatch {
-                    centre: Vec2::ZERO,
+                    centre: adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::ORIGIN,
                     vista_revision: 0,
                 },
                 Visibility::Inherited,

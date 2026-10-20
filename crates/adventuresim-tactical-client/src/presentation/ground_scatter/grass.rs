@@ -1,5 +1,4 @@
-mod community;
-mod streams;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use adventuresim_tactical_core::prelude::{
     EnvironmentalSample, GroundCover, SceneEnvironment, SceneGround, SceneTerrain, TacticalSurface,
 };
@@ -27,6 +26,9 @@ use crate::presentation::{
 };
 
 use super::{GroundScatterLayer, TacticalFoliageMaterial, foliage_material};
+
+mod community;
+mod streams;
 
 // A 32 x 32 grid preserves the established macro-patch footprint and overlap
 // while reducing the close interactive sward to the density that still reads
@@ -63,42 +65,41 @@ pub(in crate::presentation) const TERMINAL_SWARD_FADE_START_METRES: f32 = 42.0;
 pub(in crate::presentation) const TERMINAL_SWARD_FADE_END_METRES: f32 = 50.0;
 fn ground_allows_grass_patch_with_spacing(
     ground: &SceneGround,
-    centre: Vec2,
+    centre: ScenePlanPoint,
     patch_spacing: f32,
 ) -> bool {
     let half_extent = patch_spacing * 0.58;
     [-1.0, 0.0, 1.0].into_iter().any(|z| {
         [-1.0, 0.0, 1.0].into_iter().any(|x| {
-            ground
-                .ground_at(centre + Vec2::new(x, z) * half_extent)
+            ScenePlanPoint::from_metres(centre.metres() + Vec2::new(x, z) * half_extent)
+                .and_then(|point| ground.ground_at(point))
                 .is_some_and(|sample| sample.cover == GroundCover::TallGrass)
         })
     })
 }
 
-fn grass_patch_transform(terrain: &SceneTerrain, world_x: f32, world_z: f32) -> Option<Transform> {
-    let sample = Vec2::new(world_x, world_z);
-    let height = terrain.height_at(sample)?;
-    let normal = terrain.normal_at(sample)?;
+fn grass_patch_transform(terrain: &SceneTerrain, point: ScenePlanPoint) -> Option<Transform> {
+    let height = terrain.height_at(point)?;
+    let normal = terrain.normal_at(point)?;
     if normal.y < 0.72 {
         return None;
     }
     Some(
-        Transform::from_xyz(world_x, height, world_z)
-            .with_rotation(Quat::from_rotation_arc(Vec3::Y, normal)),
+        Transform::from_xyz(point.metres().x, height.metres(), point.metres().y)
+            .with_rotation(Quat::from_rotation_arc(Vec3::Y, *normal)),
     )
 }
 
 fn grass_patch_placement_with_spacing(
     terrain: &SceneTerrain,
     ground: &SceneGround,
-    render_centre: Vec2,
+    render_centre: ScenePlanPoint,
     patch_spacing: f32,
 ) -> Option<Transform> {
     if !ground_allows_grass_patch_with_spacing(ground, render_centre, patch_spacing) {
         return None;
     }
-    grass_patch_transform(terrain, render_centre.x, render_centre.y)
+    grass_patch_transform(terrain, render_centre)
 }
 
 /// Applies the canonical render-centre cover and slope gates for one placement
@@ -118,7 +119,9 @@ pub(super) fn cell_allows_grass(
         (x as f32 + jitter_x * jitter_fraction) * cell_spacing,
         (z as f32 + jitter_z * jitter_fraction) * cell_spacing,
     );
-    grass_patch_placement_with_spacing(terrain, ground, render_centre, cell_spacing).is_some()
+    ScenePlanPoint::from_metres(render_centre)
+        .and_then(|centre| grass_patch_placement_with_spacing(terrain, ground, centre, cell_spacing))
+        .is_some()
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -382,6 +385,7 @@ struct GrassBlade {
     species: GrassSpecies,
 }
 
+/// Tuft-local metre geometry retained only until native mesh-quad emission.
 #[derive(Clone, Copy)]
 struct GrassInflorescence {
     root: Vec3,
@@ -880,7 +884,7 @@ mod tests {
 
     #[test]
     fn coherent_sward_selector_honors_habitat_profiles_deterministically() {
-        let point = Vec2::new(17.0, -9.0);
+        let point = ScenePlanPoint::from_metres(Vec2::new(17.0, -9.0)).unwrap();
         let mesic = GrassCommunityProfile {
             weights: [1.0, 0.0, 0.0],
         };
@@ -943,6 +947,7 @@ mod tests {
             Vec2::new(24.01, -17.0),
             Vec2::new(71.5, 54.25),
         ] {
+            let point = ScenePlanPoint::from_metres(point).unwrap();
             let near = grass_community_at(point, seed, profile);
             let far = grass_community_at(point, seed, profile);
             let vista = grass_community_at(point, seed, profile);

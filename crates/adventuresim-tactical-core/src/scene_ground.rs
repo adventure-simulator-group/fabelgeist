@@ -5,16 +5,13 @@ use crate::{
     scene::{GroundCover, GroundSubstrate, SceneGround, SceneTerrain},
     scene_input::{
         EnvironmentalSample, GeneratedBuilding, GeneratedObstacle, SceneInputError,
+        SceneInputResult, SceneValidationError,
         TREE_CANOPY_GROUND_RADIUS_METRES, TREE_DENSE_LEAF_LITTER_RADIUS_METRES,
         base_ground_surface,
     },
 };
 
-#[allow(clippy::too_many_arguments)]
 pub(crate) fn build_scene_ground(
-    width: usize,
-    depth: usize,
-    spacing: f32,
     environment: &[EnvironmentalSample],
     terrain: &SceneTerrain,
     obstacles: &[GeneratedObstacle],
@@ -22,7 +19,10 @@ pub(crate) fn build_scene_ground(
     buildings: &[GeneratedBuilding],
     streets: &[CityStreetPatch],
     yards: &[CityYardPatch],
-) -> Result<SceneGround, SceneInputError> {
+) -> SceneInputResult<SceneGround> {
+    let width = terrain.grid_width();
+    let depth = terrain.grid_depth();
+    let spacing = terrain.grid_scale();
     let mut samples = environment
         .iter()
         .copied()
@@ -72,9 +72,7 @@ pub(crate) fn build_scene_ground(
         }
     }
     let mut ground = SceneGround::from_samples(width, depth, spacing, samples).ok_or({
-        crate::scene_input::SceneInputError::Validation(
-            crate::scene_input::SceneValidationError::GroundSurface,
-        )
+        SceneInputError::Validation(SceneValidationError::GroundSurface)
     })?;
     ground.urban = crate::scene::UrbanGroundSurfaces::new(streets, yards, buildings)?;
     Ok(ground)

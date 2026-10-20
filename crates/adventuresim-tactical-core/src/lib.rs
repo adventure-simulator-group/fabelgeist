@@ -108,8 +108,8 @@ pub mod prelude {
         configure_attack_curve, default_tactical_character_id, effective_weapon_handling_skill,
     };
     pub use crate::scene::{
-        GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneId, SceneTerrain,
-        TerrainGenerator, UrbanGroundLookup,
+        GroundCover, GroundSubstrate, GroundSurface, SceneElevationRange, SceneGround, SceneId,
+        SceneTerrain, TerrainGenerator, UrbanGroundLookup,
     };
     pub use crate::scene_input::furniture::{
         FurnitureAnchor, FurnitureFootprint, FurnitureGroup, FurnitureGroupId, FurnitureGroupKind,

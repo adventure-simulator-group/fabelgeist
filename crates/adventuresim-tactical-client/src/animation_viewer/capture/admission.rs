@@ -1,6 +1,12 @@
 //! Terminal capture admission rejection, separate from loading/readiness waits.
 
 use super::*;
+use adventuresim_building_generator::spatial_geometry::{GeometryError, Position};
+use adventuresim_tactical_core::{
+    city_layout::grounding::SupportElevation,
+    scene::TerrainSupportError,
+    scene_coordinates::{Scene, ScenePlanPoint},
+};
 use adventuresim_tactical_core::animation::{AnimationQuantity, AnimationValueError, UnitInterval};
 
 /// One terminal authority: a rejected admission cannot return to driving.
@@ -13,9 +19,48 @@ pub(super) enum CaptureAdmission {
 pub(super) enum RejectedCaptureAdmission {
     FrameInterval(AnimationValueError),
     Locomotion(AnimationValueError),
+    Terrain(TerrainSupportError),
+    Geometry(GeometryError),
 }
 
 impl CaptureSequence {
+    pub(in crate::animation_viewer) fn admit_terrain_height(
+        &mut self,
+        terrain: &SceneTerrain,
+        point: ScenePlanPoint,
+    ) -> Option<SupportElevation> {
+        match terrain.required_height_at(point) {
+            Ok(height) => Some(height),
+            Err(error) => {
+                self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Terrain(error));
+                None
+            }
+        }
+    }
+
+    pub(super) fn admit_terrain_point(&mut self, metres: Vec2) -> Option<ScenePlanPoint> {
+        match ScenePlanPoint::try_from(metres) {
+            Ok(point) => Some(point),
+            Err(error) => {
+                self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
+                None
+            }
+        }
+    }
+
+    pub(in crate::animation_viewer) fn admit_scene_position(
+        &mut self,
+        metres: Vec3,
+    ) -> Option<Position<Scene>> {
+        match Position::from_metres(metres) {
+            Ok(position) => Some(position),
+            Err(error) => {
+                self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
+                None
+            }
+        }
+    }
+
     /// A failed support calculation is terminal admission, not another readiness wait.
     pub(super) fn admit_locomotion_support(
         &mut self,
@@ -89,6 +134,8 @@ impl RejectedCaptureAdmission {
             Self::Locomotion(error) => {
                 format!("capture locomotion observation rejected: {error}\n")
             }
+            Self::Terrain(error) => format!("capture terrain support rejected: {error}\n"),
+            Self::Geometry(error) => format!("capture scene geometry rejected: {error}\n"),
         }
     }
 }

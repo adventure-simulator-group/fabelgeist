@@ -58,14 +58,14 @@ pub(super) fn integrate_opposed_movement(
         first_intent,
         first_maximum_speed_metres_per_second,
         first_maximum_acceleration_metres_per_second_squared,
-        elapsed_seconds.seconds(),
+        elapsed_seconds,
     )?;
     let mut second = integrate_axis(
         second_velocity_metres_per_second,
         second_intent,
         second_maximum_speed_metres_per_second,
         second_maximum_acceleration_metres_per_second_squared,
-        elapsed_seconds.seconds(),
+        elapsed_seconds,
     )?;
     let raw_after = distance_metres + first.displacement_metres + second.displacement_metres;
     let bounded_after = raw_after.clamp(minimum_distance_metres, maximum_distance_metres);
@@ -109,9 +109,9 @@ fn integrate_axis(
     intent: MeleeMovementAction,
     maximum_speed_metres_per_second: NonnegativeSpeed,
     maximum_acceleration_metres_per_second_squared: f32,
-    elapsed_seconds: f32,
+    elapsed_seconds: AnimationElapsed,
 ) -> SpeedResult<AxisMotion> {
-    let elapsed_seconds = elapsed_seconds.max(0.0);
+    let elapsed_seconds = elapsed_seconds.seconds().max(0.0);
     let maximum_speed = maximum_speed_metres_per_second.max(NonnegativeSpeed::ZERO);
     let maximum_speed_scalar = maximum_speed.metres_per_second();
     let acceleration = maximum_acceleration_metres_per_second_squared.max(0.0);
@@ -156,7 +156,7 @@ mod tests {
             MeleeMovementAction::Close,
             crate::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0).unwrap(),
             0.0,
-            0.5,
+            AnimationElapsed::from_seconds(0.5).unwrap(),
         )
         .unwrap();
         assert_eq!(
@@ -169,7 +169,7 @@ mod tests {
             MeleeMovementAction::Close,
             crate::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0).unwrap(),
             1.0,
-            0.0,
+            AnimationElapsed::ZERO,
         )
         .unwrap();
         assert_eq!(
@@ -197,7 +197,7 @@ mod tests {
                 intent,
                 SPEED,
                 ACCELERATION,
-                0.25,
+                AnimationElapsed::from_seconds(0.25).unwrap(),
             )
             .unwrap();
             assert!(motion.displacement_metres.abs() <= SPEED.metres_per_second() * 0.25 + 1.0e-6);
@@ -211,7 +211,7 @@ mod tests {
             MeleeMovementAction::Close,
             SPEED,
             ACCELERATION,
-            0.2,
+            AnimationElapsed::from_seconds(0.2).unwrap(),
         )
         .unwrap();
         let first = integrate_axis(
@@ -219,7 +219,7 @@ mod tests {
             MeleeMovementAction::Close,
             SPEED,
             ACCELERATION,
-            0.1,
+            AnimationElapsed::from_seconds(0.1).unwrap(),
         )
         .unwrap();
         let second = integrate_axis(
@@ -227,7 +227,7 @@ mod tests {
             MeleeMovementAction::Close,
             SPEED,
             ACCELERATION,
-            0.1,
+            AnimationElapsed::from_seconds(0.1).unwrap(),
         )
         .unwrap();
         assert!(
@@ -257,7 +257,7 @@ mod tests {
             MeleeMovementAction::Close,
             SPEED,
             12.0,
-            0.01,
+            AnimationElapsed::from_seconds(0.01).unwrap(),
         )
         .unwrap();
         assert!(motion.velocity_after_metres_per_second.metres_per_second() > 0.0);

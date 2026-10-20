@@ -160,10 +160,10 @@ fn placement_is_repeatable_bounded_grounded_and_excludes_roads_water_and_winter(
     assert!(
         sites
             .iter()
-            .all(|s| (s.root.y - (2.0 - ROOT_EMBED_METRES)).abs() < 0.0001)
+            .all(|s| (s.root.metres().y - (2.0 - ROOT_EMBED_METRES)).abs() < 0.0001)
     );
-    assert!(sites.iter().any(|s| s.root.x > 0.0));
-    assert!(sites.iter().any(|s| s.root.x < 0.0));
+    assert!(sites.iter().any(|s| s.root.metres().x > 0.0));
+    assert!(sites.iter().any(|s| s.root.metres().x < 0.0));
     let dense_sward = SceneGround::from_samples(
         65,
         65,

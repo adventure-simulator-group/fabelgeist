@@ -2,6 +2,7 @@
 //! building plan again on the browser's main thread.
 use adventuresim_tactical_core::prelude::*;
 use serde::Deserialize;
+use super::preparation::{ArtDemoPreparationError, ArtDemoPreparationResult};
 
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -25,10 +26,9 @@ pub(super) struct PreparedOutdoorFurniture {
     pub groups: Vec<FurnitureGroup>,
 }
 
-pub(super) fn curate(input: &mut TacticalSceneInput) -> Result<PreparedOutdoorFurniture, String> {
+pub(super) fn curate(input: &mut TacticalSceneInput) -> ArtDemoPreparationResult<PreparedOutdoorFurniture> {
     let layout: CityLayout =
-        serde_json::from_str(include_str!("../../../../assets/art-demo/city-layout.json"))
-            .map_err(|error| error.to_string())?;
+        serde_json::from_str(include_str!("../../../../assets/art-demo/city-layout.json"))?;
     bevy::log::info!(
         population = layout.resident_population,
         buildings = layout.buildings.len(),
@@ -37,9 +37,7 @@ pub(super) fn curate(input: &mut TacticalSceneInput) -> Result<PreparedOutdoorFu
     if layout.schema_version != input.schema_version
         || layout.generation_version != input.generation_version
     {
-        return Err(
-            "prepared city uses a different scene format; regenerate the city assets".into(),
-        );
+        return Err(ArtDemoPreparationError::CityFormatMismatch);
     }
     input.grounding = Some(layout.grounding);
     input.establishments = layout.establishments;
@@ -50,11 +48,10 @@ pub(super) fn curate(input: &mut TacticalSceneInput) -> Result<PreparedOutdoorFu
     input.parishes = layout.parishes;
     input.compounds = layout.compounds;
     input.gardens = layout.gardens;
-    input.validate().map_err(|error| error.to_string())?;
-    serde_json::from_str(include_str!(
+    input.validate()?;
+    Ok(serde_json::from_str(include_str!(
         "../../../../assets/art-demo/city-furniture.json"
-    ))
-    .map_err(|error| error.to_string())
+    ))?)
 }
 
 #[cfg(test)]

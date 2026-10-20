@@ -23,6 +23,7 @@ pub enum ElapsedError {
 
 impl AnimationElapsed {
     pub const ZERO: Self = Self(0.0);
+    pub const SECOND: Self = Self(1.0);
 
     pub const fn from_seconds(seconds: f32) -> ElapsedResult<Self> {
         if !seconds.is_finite() {

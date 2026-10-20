@@ -103,9 +103,12 @@ fn strategic_scene_keeps_character_entities_without_tactical_authority() {
         venues: [(
             place.clone(),
             Venue {
-                anchor: Vec3::ZERO,
-                approach: Vec3::ZERO,
-                positions: vec![Transform::default(), Transform::from_translation(Vec3::X)],
+                anchor: Position::ORIGIN,
+                approach: Position::ORIGIN,
+                positions: vec![
+                    staging::ConversationPose { anchor: Position::ORIGIN, facing: Quat::IDENTITY },
+                    staging::ConversationPose { anchor: Position::from_metres(Vec3::X).unwrap(), facing: Quat::IDENTITY },
+                ],
             },
         )]
         .into(),
@@ -158,7 +161,7 @@ fn strategic_scene_keeps_character_entities_without_tactical_authority() {
             .contains_key(&PortraitId(7))
     );
     assert_eq!(
-        app.world().resource::<RetainedScene>().people[&id].anchor,
+        app.world().resource::<RetainedScene>().people[&id].anchor.metres(),
         Vec3::X,
         "unseen earlier residents still determine the visible resident's rank"
     );
@@ -242,8 +245,8 @@ fn strategic_scene_keeps_character_entities_without_tactical_authority() {
         });
     app.update();
     let scene = app.world().resource::<RetainedScene>();
-    assert_eq!(scene.people[&id].anchor, Vec3::X);
-    assert_eq!(scene.people[&PortraitId(99)].anchor, Vec3::ZERO);
+    assert_eq!(scene.people[&id].anchor.metres(), Vec3::X);
+    assert_eq!(scene.people[&PortraitId(99)].anchor.metres(), Vec3::ZERO);
     assert_ne!(scene.people[&id].layer, scene.people[&PortraitId(99)].layer);
     app.world_mut().resource_mut::<StrategicView>().people[1]
         .equipment

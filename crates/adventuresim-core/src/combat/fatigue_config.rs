@@ -28,14 +28,14 @@ impl CombatFatigueParameters {
             self.aerobic_watts_per_endurance,
             self.carry_watts_per_kg,
             self.minimum_endurance,
-            self.minimum_action_seconds.seconds(),
-            self.maximum_action_seconds.seconds(),
             self.attack_travel_metres,
             self.defense_travel_metres,
         ];
         if positive
             .iter()
             .any(|value| !value.is_finite() || *value <= 0.0)
+            || self.minimum_action_seconds.is_zero()
+            || self.maximum_action_seconds.is_zero()
             || self.mechanical_efficiency > 1.0
             || self.minimum_action_seconds > self.maximum_action_seconds
         {

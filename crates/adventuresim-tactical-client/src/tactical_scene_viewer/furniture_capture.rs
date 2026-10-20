@@ -1,6 +1,6 @@
 //! Cameras and placement annotations only; production observers render all furniture.
 use adventuresim_building_generator::furniture::FurnitureKind;
-use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_core::{prelude::*, scene_coordinates::ScenePlanPoint};
 use bevy::prelude::*;
 
 use super::capture_state::BuildingReviewCamera;
@@ -8,6 +8,12 @@ use super::capture_state::BuildingReviewCamera;
 pub(super) const PROFILE: &str = "furniture-review";
 const EYE_HEIGHT_METRES: f32 = 1.65;
 const CAMERA_OBJECT_CLEARANCE_METRES: f32 = 3.0;
+
+#[derive(Debug, thiserror::Error)]
+enum FurnitureCaptureError {
+    #[error("furniture review requires generated market vendors")]
+    MissingVendors,
+}
 
 pub(super) fn spawn(commands: &mut Commands, layout: &FurnitureLayout) -> Result {
     for instance in &layout.instances {
@@ -66,12 +72,10 @@ pub(super) fn setup(
             let offset = instance
                 .orientation
                 .local_to_world(Vec2::new(distance * 0.6, -distance));
-            let point = instance.position_metres.metres().xz() + offset;
-            let height = terrain
-                .height_at(point)
-                .expect("furniture camera stays on playable terrain");
+            let point = ScenePlanPoint::try_from(instance.position_metres.metres().xz() + offset)?;
+            let height = terrain.required_height_at(point)?;
             Ok(camera(
-                Vec3::new(point.x, height + EYE_HEIGHT_METRES, point.y),
+                Vec3::new(point.metres().x, height.metres() + EYE_HEIGHT_METRES, point.metres().y),
                 instance.position_metres.metres() + Vec3::Y * bounds.centre()?.metres().y,
             ))
         })
@@ -82,26 +86,26 @@ pub(super) fn setup(
         .filter(|group| group.kind == FurnitureGroupKind::Vendor)
         .map(|group| group.footprint.centre().metres())
         .collect::<Vec<_>>();
-    assert!(
-        !market.is_empty(),
-        "furniture review requires generated market vendors"
-    );
+    if market.is_empty() {
+        return Err(FurnitureCaptureError::MissingVendors.into());
+    }
     let centre = market.iter().copied().sum::<Vec2>() / market.len() as f32;
-    let target = Vec3::new(centre.x, terrain.height_at(centre).unwrap(), centre.y);
+    let point = ScenePlanPoint::try_from(centre)?;
+    let target = Vec3::new(centre.x, terrain.required_height_at(point)?.metres(), centre.y);
     cameras.push(camera(target + Vec3::new(48.0, 40.0, -58.0), target));
     cameras.push(camera(
         Vec3::new(
             -10.0,
-            terrain.height_at(Vec2::new(-10.0, -30.0)).unwrap() + EYE_HEIGHT_METRES,
+            terrain.required_height_at(ScenePlanPoint::try_from(Vec2::new(-10.0, -30.0))?)?.metres() + EYE_HEIGHT_METRES,
             -30.0,
         ),
         Vec3::new(
             15.0,
-            terrain.height_at(Vec2::new(15.0, -30.0)).unwrap(),
+            terrain.required_height_at(ScenePlanPoint::try_from(Vec2::new(15.0, -30.0))?)?.metres(),
             -30.0,
         ),
     ));
-    let junction = Vec3::new(-30.0, terrain.height_at(Vec2::splat(-30.0)).unwrap(), -30.0);
+    let junction = Vec3::new(-30.0, terrain.required_height_at(ScenePlanPoint::try_from(Vec2::splat(-30.0))?)?.metres(), -30.0);
     cameras.push(camera(junction + Vec3::new(-21.0, 24.0, -23.0), junction));
     cameras.push(camera(junction + Vec3::new(-9.0, 7.0, -10.0), junction));
     commands.insert_resource(super::furniture_readiness::ExpectedFurniture {

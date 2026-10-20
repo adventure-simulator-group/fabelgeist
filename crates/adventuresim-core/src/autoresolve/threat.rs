@@ -1,5 +1,20 @@
 use super::*;
-use crate::bestiary::{AttackStyle, Protection, RigTopology, ThreatId};
+use crate::bestiary::{AttackStyle, Protection, RigTopology, ThreatId, UnknownThreatId};
+use crate::elapsed::ElapsedError;
+
+pub type AuthoredThreatResult<T> = Result<T, AuthoredThreatError>;
+
+#[derive(Debug, thiserror::Error)]
+pub enum AuthoredThreatError {
+    #[error("Unknown threat ID: {enemy_type}")]
+    UnknownThreat {
+        enemy_type: String,
+        #[source]
+        source: UnknownThreatId,
+    },
+    #[error(transparent)]
+    Timing(#[from] ElapsedError),
+}
 
 /// Build the same authored threat combatant used by strategic autoresolve and
 /// observer-safe contract assessment.
@@ -9,10 +24,13 @@ pub fn authored_threat_combatant(
     difficulty: i32,
     combat_scale_bps: u32,
     countermeasure_multiplier_bps: u32,
-) -> Result<Combatant, String> {
+) -> AuthoredThreatResult<Combatant> {
     let threat: ThreatId = enemy_type
         .parse()
-        .map_err(|_| format!("Unknown threat ID: {enemy_type}"))?;
+        .map_err(|source| AuthoredThreatError::UnknownThreat {
+            enemy_type: enemy_type.to_owned(),
+            source,
+        })?;
     let (physical_scale, training_scale) = crate::threat_escalation::combat_scaling_multipliers(
         combat_scale_bps,
         countermeasure_multiplier_bps,
@@ -27,7 +45,7 @@ pub fn authored_threat_combatant(
     let training = base_rating * 1_500.0 * profile.training_multiplier * training_scale;
     combatant.skills = threat_skills(training, profile.ranged, profile.protection, profile.morale);
     combatant.body.weight_kg = profile.weight_kg;
-    let weapon = threat_weapon(profile).map_err(|error| error.to_string())?;
+    let weapon = threat_weapon(profile)?;
     combatant.equipment.weapon = Some(weapon);
     equip_threat_weapon(&mut combatant, weapon, profile.ranged);
     let innate = profile.innate_protection;

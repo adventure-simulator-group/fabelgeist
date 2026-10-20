@@ -244,7 +244,8 @@ pub(super) fn observed_support_weight(
 ) -> Option<UnitInterval> {
     let supported = if mode.is_enabled() {
         let ankle = ankle?;
-        let height = terrain?.height_at(ankle.xz())?;
+        let point = ScenePlanPoint::from_metres(ankle.xz())?;
+        let height = terrain?.height_at(point)?;
         raised_support_is_actual(nominal_support, ankle.y, height)
     } else {
         nominal_support
@@ -422,7 +423,9 @@ fn refresh_run_support(
                 .and_then(|foot| globals.get(*foot).ok())
                 .map(GlobalTransform::translation)
                 .filter(|ankle| ankle.is_finite());
-            let terrain_height = ankle.and_then(|ankle| terrain.height_at(ankle.xz()));
+            let terrain_height = ankle
+                .and_then(|ankle| ScenePlanPoint::from_metres(ankle.xz()))
+                .and_then(|point| terrain.height_at(point));
             let target_distance = ankle
                 .zip(target)
                 .map(|(ankle, target)| ankle.xz().distance(target.xz()));

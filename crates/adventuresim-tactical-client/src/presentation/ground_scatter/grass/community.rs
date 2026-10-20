@@ -1,5 +1,6 @@
 //! Spatially coherent grass communities and local habitat selection.
 use super::*;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use fabelgeist_determinism::Seed;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -105,10 +106,11 @@ impl GrassCommunityProfile {
 
 #[cfg(test)]
 pub(in crate::presentation) fn grass_community_at(
-    point: Vec2,
+    point: ScenePlanPoint,
     seed: Seed,
     profile: GrassCommunityProfile,
 ) -> GrassCommunity {
+    let point = point.metres();
     // Jittered Voronoi cells create coherent 12-40 m sward communities. A
     // patch selects one community; species vary within that community rather
     // than becoming independent blade-by-blade confetti.
@@ -200,9 +202,10 @@ impl GrassCommunityField {
 
     pub(in crate::presentation) fn at(
         &mut self,
-        point: Vec2,
+        point: ScenePlanPoint,
         profile: GrassCommunityProfile,
     ) -> GrassCommunity {
+        let point = point.metres();
         let cell = (point / COMMUNITY_CELL_SIZE_METRES).floor().as_ivec2();
         if self
             .neighbourhood
@@ -241,7 +244,7 @@ fn cached_habitat_matches_uncached_across_cells_seeds_and_profiles() {
         let mut field = GrassCommunityField::new(seed);
         for z in -16..=16 {
             for x in -16..=16 {
-                let point = Vec2::new(x as f32 * 6.0, z as f32 * 6.0);
+                let point = ScenePlanPoint::from_metres(Vec2::new(x as f32 * 6.0, z as f32 * 6.0)).unwrap();
                 for profile in [
                     GrassCommunityProfile::from_site_drivers(0.0, 0.0),
                     GrassCommunityProfile::from_site_drivers(1.0, 0.4),

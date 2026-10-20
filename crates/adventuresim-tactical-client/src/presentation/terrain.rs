@@ -1,4 +1,5 @@
 use super::*;
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use adventuresim_procedural_textures::{
     FOREST_LITTER_HEIGHT_RANGE_METRES, FOREST_LITTER_TILE_METRES, FOREST_SOIL_HEIGHT_RANGE_METRES,
     FOREST_SOIL_TILE_METRES, ROCK_HEIGHT_RANGE_METRES, ROCK_TILE_METRES,
@@ -11,6 +12,7 @@ pub(in crate::presentation) use cliff_surface::{
 use fabelgeist_determinism::Seed;
 pub(super) use ground_map::grass_cover_mask_pixels;
 use ground_map::ground_map_image;
+pub(crate) use heightmap::{TerrainContactHeightmap, TerrainHeightmapResult};
 #[cfg(test)]
 use ground_map::{ground_mask_noise, ground_surface_pixel, organic_ground_pixels};
 pub(in crate::presentation) use landform_product::PreparedTerrainLandform;
@@ -20,6 +22,7 @@ pub(in crate::presentation) use volumetric::terrain_patch_mesh;
 
 mod cliff_surface;
 mod ground_map;
+mod heightmap;
 mod landform_product;
 mod material;
 mod urban;
@@ -37,58 +40,6 @@ const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
 #[cfg(test)]
 const DETAIL_RELIEF_MAXIMUM_METRES: f32 = 0.105;
 
-pub(crate) fn terrain_heightmap_image(terrain: &SceneTerrain) -> Image {
-    let width = terrain.grid_width() as u32;
-    let height = terrain.grid_depth() as u32;
-    let minimum = terrain.minimum_height();
-    let maximum = terrain.maximum_height();
-    encoded_terrain_heightmap_image(width, height, minimum, maximum, |x, z| {
-        let world = Vec2::new(
-            x as f32 * terrain.grid_scale() - terrain.width() * 0.5,
-            z as f32 * terrain.grid_scale() - terrain.depth() * 0.5,
-        );
-        terrain.height_at(world).unwrap_or(minimum)
-    })
-}
-
-/// Builds the authoritative heightfield used to seat tree materials against
-/// the same surface queried by collision and IK.
-pub(crate) fn terrain_contact_heightmap_image(terrain: &SceneTerrain) -> (Image, Vec2) {
-    (
-        terrain_heightmap_image(terrain),
-        Vec2::new(terrain.minimum_height(), terrain.maximum_height()),
-    )
-}
-
-fn encoded_terrain_heightmap_image(
-    width: u32,
-    height: u32,
-    minimum: f32,
-    maximum: f32,
-    mut height_at: impl FnMut(u32, u32) -> f32,
-) -> Image {
-    let range = (maximum - minimum).max(0.001);
-    let mut pixels = Vec::with_capacity(width as usize * height as usize * 4);
-    for z in 0..height {
-        for x in 0..width {
-            let normalized = ((height_at(x, z) - minimum) / range).clamp(0.0, 1.0);
-            let encoded = (normalized * 65_535.0).round() as u16;
-            pixels.extend_from_slice(&[(encoded & 0xff) as u8, (encoded >> 8) as u8, 0, 255]);
-        }
-    }
-    Image::new(
-        Extent3d {
-            width,
-            height,
-            depth_or_array_layers: 1,
-        },
-        TextureDimension::D2,
-        pixels,
-        TextureFormat::Rgba8Unorm,
-        RenderAssetUsages::RENDER_WORLD,
-    )
-}
-
 #[derive(Component)]
 pub(in crate::presentation) struct ScenePresentationOf(pub(in crate::presentation) Entity);
 
@@ -98,7 +49,7 @@ pub(crate) struct TerrainMaterialPresentation;
 /// Camera-local render LOD of the authoritative terrain surface.
 #[derive(Component, Debug, Clone, Copy)]
 pub(crate) struct TerrainDetailPatch {
-    centre: Vec2,
+    centre: ScenePlanPoint,
     vista_revision: u64,
 }
 
@@ -209,7 +160,7 @@ pub(in crate::presentation) fn present_pending_terrain(
                 prepared,
                 urban::GroundCoverage::new(terrain, environment, &vista),
             );
-            let centre = Vec2::ZERO;
+            let centre = ScenePlanPoint::ORIGIN;
             let detail_mesh =
                 terrain_detail_patch_mesh(terrain, environment, &vista, centre, transition_collar);
             commands.spawn((
@@ -259,12 +210,15 @@ pub(in crate::presentation) fn update_terrain_detail_patch(
     mut meshes: ResMut<Assets<Mesh>>,
 ) {
     let camera_position = camera.translation().xz();
-    let desired_centre =
-        (camera_position / DETAIL_PATCH_SNAP_METRES).round() * DETAIL_PATCH_SNAP_METRES;
+    let Some(desired_centre) = ScenePlanPoint::from_metres(
+        (camera_position / DETAIL_PATCH_SNAP_METRES).round() * DETAIL_PATCH_SNAP_METRES,
+    ) else {
+        return;
+    };
     for (source, mut patch, mesh_handle, mut triangle_count) in &mut patches {
         if active.entity.is_some_and(|entity| entity != source.0)
             || (patch.vista_revision == vista.revision()
-                && patch.centre.distance_squared(desired_centre)
+                && patch.centre.metres().distance_squared(desired_centre.metres())
                     < DETAIL_PATCH_SNAP_METRES * DETAIL_PATCH_SNAP_METRES * 0.25)
         {
             continue;
@@ -298,7 +252,7 @@ fn terrain_detail_patch_mesh(
     terrain: &SceneTerrain,
     environment: &SceneEnvironment,
     vista: &ActiveVistaSurface,
-    centre: Vec2,
+    centre: ScenePlanPoint,
     transition_collar: Option<TerrainTransitionCollar>,
 ) -> Mesh {
     // Canonical urban geometry owns the entire playable surface. Coverage hides
@@ -318,6 +272,7 @@ fn terrain_detail_patch_mesh(
     let diameter_steps =
         (DETAIL_PATCH_RADIUS_METRES * 2.0 / DETAIL_PATCH_SPACING_METRES).round() as usize;
     let width = diameter_steps + 1;
+    let centre = centre.metres();
     let minimum = centre - Vec2::splat(DETAIL_PATCH_RADIUS_METRES);
     let mut positions = Vec::with_capacity(width * width);
     let mut uvs = Vec::with_capacity(width * width);
@@ -325,10 +280,13 @@ fn terrain_detail_patch_mesh(
 
     for z in 0..width {
         for x in 0..width {
-            let point = minimum + Vec2::new(x as f32, z as f32) * DETAIL_PATCH_SPACING_METRES;
-            let fine_height = vista.presented_height_at(&environment.scene_digest, terrain, point);
-            let coarse_height = terrain.coarse_height_at(point).or(fine_height);
-            let radius = point.distance(centre);
+            let metres = minimum + Vec2::new(x as f32, z as f32) * DETAIL_PATCH_SPACING_METRES;
+            let point = ScenePlanPoint::from_metres(metres);
+            let fine_height = point.and_then(|point| {
+                vista.presented_height_at(&environment.scene_digest, terrain, point)
+            });
+            let coarse_height = point.and_then(|point| terrain.coarse_height_at(point)).or(fine_height);
+            let radius = metres.distance(centre);
             let morph = 1.0
                 - terrain_smoothstep(
                     DETAIL_PATCH_MORPH_START_METRES,
@@ -337,11 +295,12 @@ fn terrain_detail_patch_mesh(
                 );
             let height = fine_height
                 .zip(coarse_height)
-                .map(|(fine, coarse)| coarse + (fine - coarse) * morph);
-            positions.push([point.x, height.unwrap_or_default(), point.y]);
+                .map(|(fine, coarse)| coarse.metres() + (fine.metres() - coarse.metres()) * morph)
+                .filter(|height| height.is_finite());
+            positions.push([metres.x, height.unwrap_or_default(), metres.y]);
             uvs.push([
-                (point.x / terrain.width() + 0.5).clamp(0.0, 1.0),
-                (point.y / terrain.depth() + 0.5).clamp(0.0, 1.0),
+                (metres.x / terrain.width() + 0.5).clamp(0.0, 1.0),
+                (metres.y / terrain.depth() + 0.5).clamp(0.0, 1.0),
             ]);
             valid.push(height.is_some());
         }
@@ -400,7 +359,8 @@ fn terrain_surface_relief(
     tree_positions: &[Vec2],
     rock_influences: &[DetailRockInfluence],
 ) -> f32 {
-    let surface = ground.and_then(|ground| ground.ground_at(point));
+    let surface = ScenePlanPoint::from_metres(point)
+        .and_then(|point| ground.and_then(|ground| ground.ground_at(point)));
     if surface.is_some_and(|surface| surface.substrate == GroundSubstrate::Water) {
         return 0.0;
     }
@@ -476,12 +436,12 @@ fn terrain_shape_sample(
     point: Vec2,
     radius: f32,
 ) -> Option<TerrainShapeSample> {
-    let centre = vista.presented_height_at(scene_digest, terrain, point)?;
-    let east = vista.presented_height_at(scene_digest, terrain, point + Vec2::X * radius)?;
-    let west = vista.presented_height_at(scene_digest, terrain, point - Vec2::X * radius)?;
-    let north = vista.presented_height_at(scene_digest, terrain, point + Vec2::Y * radius)?;
-    let south = vista.presented_height_at(scene_digest, terrain, point - Vec2::Y * radius)?;
-    let gradient = Vec2::new(east - west, north - south) / (radius * 2.0);
+    let centre = vista.presented_height_at(scene_digest, terrain, ScenePlanPoint::from_metres(point)?)?;
+    let east = vista.presented_height_at(scene_digest, terrain, ScenePlanPoint::from_metres(point + Vec2::X * radius)?)?;
+    let west = vista.presented_height_at(scene_digest, terrain, ScenePlanPoint::from_metres(point - Vec2::X * radius)?)?;
+    let north = vista.presented_height_at(scene_digest, terrain, ScenePlanPoint::from_metres(point + Vec2::Y * radius)?)?;
+    let south = vista.presented_height_at(scene_digest, terrain, ScenePlanPoint::from_metres(point - Vec2::Y * radius)?)?;
+    let gradient = Vec2::new(east.metres() - west.metres(), north.metres() - south.metres()) / (radius * 2.0);
     let slope = gradient.length();
     let downhill = if slope > 0.000_1 {
         -gradient / slope
@@ -491,7 +451,7 @@ fn terrain_shape_sample(
     // Positive values are bowls where transported material plausibly settles;
     // negative values are exposed convexities. Keep this a small residual,
     // rather than changing the authoritative broad landform.
-    let concavity = ((east + west + north + south) * 0.25 - centre) * 0.18;
+    let concavity = ((east.metres() + west.metres() + north.metres() + south.metres()) * 0.25 - centre.metres()) * 0.18;
     Some(TerrainShapeSample {
         downhill,
         slope,
@@ -689,12 +649,12 @@ fn wrapped_angle_difference(left: f32, right: f32) -> f32 {
 #[cfg(test)]
 fn road_surface_relief(seed: Seed, point: Vec2, ground: &SceneGround) -> f32 {
     let is_road = |sample: Vec2| {
-        ground
-            .ground_at(sample)
+        ScenePlanPoint::from_metres(sample)
+            .and_then(|point| ground.ground_at(point))
             .is_some_and(|surface| surface.substrate == GroundSubstrate::Road)
     };
     let mut tangent = Vec2::X;
-    let mut best_score = -1_i32;
+    let mut best_score: Option<i32> = None;
     for direction_index in 0..8 {
         let angle = direction_index as f32 * core::f32::consts::PI / 8.0;
         let candidate = Vec2::new(angle.cos(), angle.sin());
@@ -705,8 +665,8 @@ fn road_surface_relief(seed: Seed, point: Vec2, ground: &SceneGround) -> f32 {
                     + i32::from(is_road(point - candidate * distance))
             })
             .sum();
-        if score > best_score {
-            best_score = score;
+        if best_score.is_none_or(|best| score > best) {
+            best_score = Some(score);
             tangent = candidate;
         }
     }
@@ -1049,8 +1009,8 @@ mod tests {
             .unwrap();
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("detail-patch");
         let vista = ActiveVistaSurface::default();
-        let first = terrain_detail_patch_mesh(&terrain, &environment, &vista, Vec2::ZERO, None);
-        let repeated = terrain_detail_patch_mesh(&terrain, &environment, &vista, Vec2::ZERO, None);
+        let first = terrain_detail_patch_mesh(&terrain, &environment, &vista, ScenePlanPoint::ORIGIN, None);
+        let repeated = terrain_detail_patch_mesh(&terrain, &environment, &vista, ScenePlanPoint::ORIGIN, None);
         let positions = match first.attribute(Mesh::ATTRIBUTE_POSITION).unwrap() {
             VertexAttributeValues::Float32x3(values) => values,
             other => panic!("unexpected positions {other:?}"),
@@ -1084,9 +1044,10 @@ mod tests {
         for position in positions {
             let point = Vec2::new(position[0], position[2]);
             if point.length() <= DETAIL_PATCH_MORPH_START_METRES {
+                let point = ScenePlanPoint::from_metres(point).unwrap();
                 let canonical = terrain.height_at(point).unwrap();
-                assert!((position[1] - canonical).abs() < 0.000_01);
-                let lod_delta = canonical - terrain.coarse_height_at(point).unwrap();
+                assert!((position[1] - canonical.metres()).abs() < 0.000_01);
+                let lod_delta = canonical.metres() - terrain.coarse_height_at(point).unwrap().metres();
                 minimum_lod_delta = minimum_lod_delta.min(lod_delta);
                 maximum_lod_delta = maximum_lod_delta.max(lod_delta);
             }
@@ -1117,7 +1078,7 @@ mod tests {
             }
             let rendered_height = vertices.iter().map(|position| position[1]).sum::<f32>() / 3.0;
             assert!(
-                (rendered_height - terrain.height_at(point).unwrap()).abs() < 0.000_01,
+                (rendered_height - terrain.height_at(ScenePlanPoint::from_metres(point).unwrap()).unwrap().metres()).abs() < 0.000_01,
                 "detail triangle must match the canonical collider triangle at {point}"
             );
         }
@@ -1137,8 +1098,8 @@ mod tests {
             if point.length() < DETAIL_PATCH_RADIUS_METRES - DETAIL_PATCH_SPACING_METRES * 1.5 {
                 continue;
             }
-            let expected = terrain.coarse_height_at(point).unwrap();
-            assert!((position[1] - expected).abs() < 0.000_01);
+            let expected = terrain.coarse_height_at(ScenePlanPoint::from_metres(point).unwrap()).unwrap();
+            assert!((position[1] - expected.metres()).abs() < 0.000_01);
         }
     }
 
@@ -1183,7 +1144,7 @@ mod tests {
         )
         .unwrap();
         let mesh =
-            terrain_detail_patch_mesh(&terrain, &environment, &vista, Vec2::ZERO, Some(collar));
+            terrain_detail_patch_mesh(&terrain, &environment, &vista, ScenePlanPoint::ORIGIN, Some(collar));
         let positions = match mesh.attribute(Mesh::ATTRIBUTE_POSITION).unwrap() {
             VertexAttributeValues::Float32x3(values) => values,
             other => panic!("unexpected positions {other:?}"),

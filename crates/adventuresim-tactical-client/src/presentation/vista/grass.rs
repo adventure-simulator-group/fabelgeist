@@ -1,5 +1,9 @@
 //! Shared pure vista tuft preparation and renderer installation.
 use super::*;
+use adventuresim_tactical_core::{
+    city_layout::grounding::{SupportElevation, SupportQuery},
+    scene_coordinates::ScenePlanPoint,
+};
 use crate::presentation::ground_scatter::{
     GrassWorld, MINIMUM_GRASS_SLOPE_NORMAL_Y, TierSpeciesBatches, TuftPigment, TuftPlacement,
     grass_scatter_density, scatter_cell_tufts, spawn_tuft_batches,
@@ -43,12 +47,12 @@ impl TuftPlacement for VistaTuftPlacement<'_> {
         centre.x.abs() > interior.x || centre.y.abs() > interior.y
     }
 
-    fn coverage(&self, centre: Vec2) -> u8 {
+    fn coverage(&self, centre: ScenePlanPoint) -> u8 {
         // The playable sward owns everything inside its rectangle. Gating per
         // tuft rather than per cell keeps the boundary exact, so neither
         // sward doubles up nor leaves a gap along it.
-        if centre.x.abs() <= self.playable_half_extent.x
-            && centre.y.abs() <= self.playable_half_extent.y
+        if centre.metres().x.abs() <= self.playable_half_extent.x
+            && centre.metres().y.abs() <= self.playable_half_extent.y
         {
             return 0;
         }
@@ -62,23 +66,16 @@ impl TuftPlacement for VistaTuftPlacement<'_> {
         (coverage.clamp(0.0, 1.0) * 255.0) as u8
     }
 
-    fn height(&self, centre: Vec2) -> Option<f32> {
+    fn height(&self, centre: ScenePlanPoint) -> Option<SupportElevation> {
         if self.playable_terrain.property_surface().is_some() {
-            let hit = self.playable_terrain.surface_below(
-                adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
-                    adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
-                        bevy::math::Vec2::new(centre.x, centre.y),
-                    )?,
-                ),
-            )?;
-            return (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y)
-                .then_some(hit.elevation.metres());
+            let hit = self.playable_terrain.surface_below(SupportQuery::unbounded(centre))?;
+            return (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(hit.elevation);
         }
         let origin = Vec2::new(
             self.lod.origin_east_metres as f32,
             self.lod.origin_north_metres as f32,
         );
-        let local = centre - origin;
+        let local = centre.metres() - origin;
         let at = |offset: Vec2| {
             presented_vista_vertex_height(
                 self.lod,
@@ -104,10 +101,10 @@ impl TuftPlacement for VistaTuftPlacement<'_> {
             delta * 2.0,
         );
         let normal = tangent_z.cross(tangent_x).normalize_or_zero();
-        (normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(height)
+        SupportElevation::from_metres(height).filter(|_| normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y)
     }
 
-    fn community(&mut self, centre: Vec2) -> GrassCommunity {
+    fn community(&mut self, centre: ScenePlanPoint) -> GrassCommunity {
         let profile = sample_vista_environment(self.lod, centre)
             .map_or(self.profile, |sample| self.profile.localized(sample));
         self.communities.at(centre, profile)

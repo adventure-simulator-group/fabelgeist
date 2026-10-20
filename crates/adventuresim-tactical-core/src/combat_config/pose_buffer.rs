@@ -32,24 +32,8 @@ pub struct PoseBufferConfig {
 
 impl PoseBufferConfig {
     pub(super) fn validate(&self) -> Result<(), TacticalCombatConfigError> {
-        let finite_nonnegative = |value: f32| value.is_finite() && value >= 0.0;
         let pose = self;
-        if ![
-            pose.maximum_observation_seconds.seconds(),
-            pose.minimum_authored_foot_range_metres.metres(),
-            pose.maximum_authored_foot_range_metres.metres(),
-            pose.inertial_blend_seconds.seconds(),
-            pose.cull_distance_metres.metres(),
-            pose.cull_radius_metres.metres(),
-            pose.authored_contact_plant_limit_metres.metres(),
-            pose.authored_contact_height_fraction.factor(),
-            pose.authored_contact_minimum_height_window_metres.metres(),
-            pose.authored_contact_maximum_height_window_metres.metres(),
-        ]
-        .into_iter()
-        .all(|value| finite_nonnegative(value) && value > 0.0)
-            || pose.authored_phase_calibration_intervals.count() < 3
-            || pose.maximum_authored_foot_range_metres < pose.minimum_authored_foot_range_metres
+        if pose.maximum_authored_foot_range_metres < pose.minimum_authored_foot_range_metres
             || pose.authored_contact_maximum_height_window_metres
                 < pose.authored_contact_minimum_height_window_metres
         {

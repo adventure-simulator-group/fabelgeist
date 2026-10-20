@@ -1,4 +1,5 @@
 use super::*;
+use crate::scene_coordinates::ScenePlanPoint;
 use crate::city_layout::grounding::tests::Fixture;
 
 fn fixtures() -> (Vec<CompoundSupportPlan>, GeographicSurface) {
@@ -42,11 +43,9 @@ fn goslar_properties_share_one_clipped_source_and_iteration_independent_support(
     assert_eq!(forward.colliders().unwrap().len(), 3);
     for plan in plans {
         for member in plan.member_support() {
-            let point = member.contact.centre_metres();
+            let point = member.contact.centre();
             let heights: Vec<_> = forward
-                .elevations_at(
-                    crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap(),
-                )
+                .elevations_at(point)
                 .iter()
                 .collect();
             assert_eq!(
@@ -57,9 +56,7 @@ fn goslar_properties_share_one_clipped_source_and_iteration_independent_support(
             );
             assert!((heights[0].metres() - member.elevation.metres()).abs() < 0.001);
             let hit = forward
-                .highest_surface_at(
-                    crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap(),
-                )
+                .highest_surface_at(point)
                 .unwrap();
             let normal = *hit.normal;
             assert!((normal - Vec3::Y).length() < 0.001);
@@ -262,8 +259,8 @@ fn runtime_terrain_retains_the_accepted_source_diagonal_and_roundtrips_owned_geo
                 let triangle =
                     GroundTriangle::new(indices.map(|i| Vec3::from_array(fine.0[i as usize])))?;
                 triangle
-                    .contains(point, 0.001)
-                    .then(|| triangle.height_at(point))
+                    .contains(point.metres(), 0.001)
+                    .then(|| triangle.height_at(point.metres()))
             })
             .max_by(f32::total_cmp)
             .unwrap();
@@ -271,8 +268,8 @@ fn runtime_terrain_retains_the_accepted_source_diagonal_and_roundtrips_owned_geo
             (rendered - expected).abs() < 0.001,
             "rendered foundation {rendered}, floor {expected}"
         );
-        assert!((bound.height_at(point).unwrap() - expected).abs() < 0.001);
-        assert!((bound.coarse_height_at(point).unwrap() - expected).abs() < 0.001);
+        assert!((bound.height_at(point).unwrap().metres() - expected).abs() < 0.001);
+        assert!((bound.coarse_height_at(point).unwrap().metres() - expected).abs() < 0.001);
         let mut hits = bound
             .colliders()
             .unwrap()
@@ -281,7 +278,7 @@ fn runtime_terrain_retains_the_accepted_source_diagonal_and_roundtrips_owned_geo
                 collider.cast_ray(
                     Vec3::ZERO,
                     avian3d::prelude::Rotation::default(),
-                    Vec3::new(point.x, expected + 10.0, point.y),
+                    Vec3::new(point.metres().x, expected + 10.0, point.metres().y),
                     Vec3::NEG_Y,
                     20.0,
                     false,
@@ -293,17 +290,17 @@ fn runtime_terrain_retains_the_accepted_source_diagonal_and_roundtrips_owned_geo
         assert!((hits.last().unwrap() - expected).abs() < 0.001, "{hits:?}");
         assert!(hits.iter().all(|height| *height <= expected + 0.001));
     }
-    let point = Vec2::new(-100.0, -300.0);
+    let point = ScenePlanPoint::from_metres(Vec2::new(-100.0, -300.0)).unwrap();
     assert_eq!(bound.height_at(point), sampled.height_at(point));
     // Rewriting or refining an already selected surface must not turn steps
     // into a heightfield or invalidate its support contract.
-    assert!(!bound.rewrite_heights(|_, _| 0.0));
+    assert!(!bound.rewrite_heights(|_, _| Some(SupportElevation::ZERO)));
     assert_eq!(
         bound
             .constrain_max_grade(crate::scene::grade::TerrainGradeLimit::from_ratio(0.65).unwrap()),
         Err(crate::scene::TerrainGradeError::OwnedSurface)
     );
-    assert!(bound.refined(1.0, |_, h| h).is_none());
+    assert!(bound.refined(1.0, |_, height| Some(height)).is_none());
     assert_eq!(bound, decoded);
 }
 
@@ -327,13 +324,14 @@ fn unowned_source_query_does_not_extrapolate_a_nearby_graded_floor() {
         + plot
             .orientation()
             .local_to_world(Vec2::new(-plot.dimensions_metres().x * 0.5 - 0.0005, 0.0));
-    assert!(!surface.contains(crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap()));
+    let point = ScenePlanPoint::try_from(point).unwrap();
+    assert!(!surface.contains(point));
     let expected = source
-        .elevation_at(crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap())
+        .elevation_at(point)
         .unwrap()
         .metres();
     let observed = terrain
-        .highest_surface_at(crate::scene_coordinates::ScenePlanPoint::from_metres(point).unwrap())
+        .highest_surface_at(point)
         .unwrap()
         .elevation
         .metres();

@@ -5,21 +5,6 @@ use bevy::{
 };
 use serde::{Deserialize, Serialize};
 
-fn dimensions(value: Vec3, role: GeometryRole, positive: bool) -> Result<(), GeometryError> {
-    finite(value, role)?;
-    for (axis, component) in [CoordinateAxis::X, CoordinateAxis::Y, CoordinateAxis::Z]
-        .into_iter()
-        .zip(value.to_array())
-    {
-        if component < 0.0 {
-            return Err(GeometryError::NegativeExtent { role, axis });
-        }
-        if positive && component == 0.0 {
-            return Err(GeometryError::ZeroExtent { role, axis });
-        }
-    }
-    Ok(())
-}
 
 /// Cuboid-axis extents in metres. Degenerate solids can contribute point or line contact.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
@@ -85,6 +70,11 @@ impl PlanDimensions {
     pub fn metres(self) -> Vec2 {
         self.0
     }
+
+    /// Plan half extents remain finite and nonnegative; subnormal halves may be zero.
+    pub fn half_extents(self) -> PlanExtents {
+        PlanExtents(self.0 * 0.5)
+    }
 }
 impl<'de> Deserialize<'de> for PlanDimensions {
     fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
@@ -115,4 +105,20 @@ impl<'de> Deserialize<'de> for PlanExtents {
     fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
         Self::from_metres(Vec2::deserialize(d)?).map_err(serde::de::Error::custom)
     }
+}
+
+fn dimensions(value: Vec3, role: GeometryRole, positive: bool) -> Result<(), GeometryError> {
+    finite(value, role)?;
+    for (axis, component) in [CoordinateAxis::X, CoordinateAxis::Y, CoordinateAxis::Z]
+        .into_iter()
+        .zip(value.to_array())
+    {
+        if component < 0.0 {
+            return Err(GeometryError::NegativeExtent { role, axis });
+        }
+        if positive && component == 0.0 {
+            return Err(GeometryError::ZeroExtent { role, axis });
+        }
+    }
+    Ok(())
 }

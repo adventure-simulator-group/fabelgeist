@@ -22,7 +22,7 @@ pub use model::*;
 pub use power::autoresolve_combat_power;
 #[cfg(test)]
 use power::finite_log_component;
-pub use threat::authored_threat_combatant;
+pub use threat::{AuthoredThreatError, AuthoredThreatResult, authored_threat_combatant};
 pub use timeline::{
     MeleeResponseAvailability, MeleeResponseChoice, MeleeTimelineEvent, MeleeTimelineKind,
     MeleeTimelinePhase,

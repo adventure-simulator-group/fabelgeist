@@ -1,10 +1,28 @@
 //! Curated views of the existing city and sparse-woodland fixtures.
 
-use super::{camera::OrbitView, exhibits::ExhibitId};
-use adventuresim_tactical_core::prelude::*;
+use super::{
+    camera::OrbitView, exhibits::ExhibitId,
+    preparation::{ArtDemoPreparationError, ArtDemoPreparationResult},
+};
+use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_tactical_core::{
+    city_layout::grounding::GeographicHeightControl,
+    prelude::*,
+    scene_coordinates::{Scene, ScenePlanPoint},
+};
 use adventuresim_tactical_core::scene_input::{GeneratedBuildingRecipes, SupportedSceneTerrain};
 use adventuresim_tactical_netcode::prelude::SceneVistaBundle;
 use bevy::prelude::*;
+
+struct OakExhibitSite {
+    surface: GeographicHeightControl,
+    root: Position<Scene>,
+}
+
+struct OakCandidate {
+    site: OakExhibitSite,
+    root_exposure: f32,
+}
 
 struct PreparedSceneryInput {
     input: TacticalSceneInput,
@@ -12,7 +30,7 @@ struct PreparedSceneryInput {
     cloud_asset_digest: String,
 }
 
-pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
+pub(super) fn spawn(world: &mut World, id: ExhibitId) -> ArtDemoPreparationResult<()> {
     let PreparedSceneryInput {
         input,
         furniture: prepared_furniture,
@@ -25,9 +43,8 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     // Keep its accepted instances and reservations instead of regenerating
     // from a scene stripped of the buildings that own those activity groups.
     let generated = input
-        .prepare_supported_terrain(&mut GeneratedBuildingRecipes::default())
-        .map_err(|error| error.to_string())?;
-    let digest = input.digest().map_err(|error| error.to_string())?;
+        .prepare_supported_terrain(&mut GeneratedBuildingRecipes::default())?;
+    let digest = input.digest()?;
     let environment = input.environment_snapshot(digest.clone());
     let (asset_scene_digest, rgba8): (&str, &'static [u8]) = if id == ExhibitId::Oak {
         (
@@ -41,9 +58,9 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
         )
     };
     if asset_scene_digest != cloud_asset_digest {
-        return Err(format!(
-            "prebaked cloud asset belongs to scene {asset_scene_digest}, not {cloud_asset_digest}"
-        ));
+        return Err(ArtDemoPreparationError::CloudSceneMismatch {
+            baked: asset_scene_digest, scene: cloud_asset_digest,
+        });
     }
     world.insert_resource(crate::presentation::PrebakedCloudEnvironment { rgba8 });
     let half_extent = Vec2::new(generated.terrain.width(), generated.terrain.depth()) * 0.5;
@@ -52,8 +69,7 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     }
     let colliders = generated
         .terrain
-        .colliders()
-        .map_err(|error| error.to_string())?;
+        .colliders()?;
     world
         .spawn((
             SceneId(input.scene_key.clone()),
@@ -103,17 +119,17 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     Ok(())
 }
 
-fn prepare_input(id: ExhibitId) -> Result<PreparedSceneryInput, String> {
+fn prepare_input(id: ExhibitId) -> ArtDemoPreparationResult<PreparedSceneryInput> {
     let json = if id == ExhibitId::Oak {
         include_str!("../../../../assets/tactical-scenes/sparse-woodland.json")
     } else {
         include_str!("../../../../assets/tactical-scenes/massive-city.json")
     };
     let mut input: TacticalSceneInput =
-        serde_json::from_str(json).map_err(|error| error.to_string())?;
+        serde_json::from_str(json)?;
     // Clouds use the authored fixture's environment. Key their offline bake
     // before installing the separately prepared, fully bound city layout.
-    let cloud_asset_digest = input.digest().map_err(|error| error.to_string())?;
+    let cloud_asset_digest = input.digest()?;
     let prepared_furniture = if id == ExhibitId::City {
         let furniture = super::district::curate(&mut input)?;
         Some(furniture)
@@ -132,19 +148,16 @@ fn spawn_oak(
     input: &TacticalSceneInput,
     generated: &SupportedSceneTerrain,
     environment: &SceneEnvironment,
-) -> Result<(), String> {
-    let terrain = &generated.terrain;
-    let (position, root) = oak_exhibit_site(input, generated, environment)
-        .ok_or("woodland fixture contains no oak specimen")?;
-    {
-        let ground = terrain.height_at(position).unwrap_or_default();
-        world.spawn((SceneObstacle::Tree, Transform::from_translation(root)));
-        let mut view = world.resource_mut::<OrbitView>();
-        view.focus = Vec3::new(position.x, ground + view.focus.y, position.y);
-        view.pitch = 0.06;
-        let downhill = root_slope(terrain, position);
-        view.yaw = downhill.x.atan2(downhill.y) + std::f32::consts::FRAC_PI_2;
-    }
+) -> ArtDemoPreparationResult<()> {
+    let site = oak_exhibit_site(input, generated, environment)
+        .ok_or(ArtDemoPreparationError::MissingOak)?;
+    world.spawn((SceneObstacle::Tree, Transform::from_translation(site.root.metres())));
+    let mut view = world.resource_mut::<OrbitView>();
+    let position = site.surface.point.metres();
+    view.focus = Vec3::new(position.x, site.surface.elevation.metres() + view.focus.y, position.y);
+    view.pitch = 0.06;
+    let downhill = root_slope(&generated.terrain, site.surface);
+    view.yaw = downhill.x.atan2(downhill.y) + std::f32::consts::FRAC_PI_2;
     Ok(())
 }
 
@@ -152,60 +165,48 @@ fn oak_exhibit_site(
     input: &TacticalSceneInput,
     generated: &SupportedSceneTerrain,
     environment: &SceneEnvironment,
-) -> Option<(Vec2, Vec3)> {
+) -> Option<OakExhibitSite> {
     let terrain = &generated.terrain;
-    generated
-        .obstacles
-        .iter()
+    generated.obstacles.iter()
         .filter_map(|obstacle| {
-            let GeneratedObstacle::Tree { x, z } = obstacle else {
-                return None;
-            };
-            let position = Vec2::new(f32::from(*x), f32::from(*z)) * input.playable.spacing_metres
-                - Vec2::new(terrain.width(), terrain.depth()) * 0.5;
-            let root = Vec3::new(
-                position.x,
-                terrain.height_at(position)? + TREE_TRUNK_HEIGHT_METRES * 0.5,
-                position.y,
-            );
-            (crate::presentation::tree_species_for_site(root, environment)
+            let GeneratedObstacle::Tree { x, z } = obstacle else { return None; };
+            let point = ScenePlanPoint::from_metres(
+                Vec2::new(f32::from(*x), f32::from(*z)) * input.playable.spacing_metres
+                    - Vec2::new(terrain.width(), terrain.depth()) * 0.5,
+            )?;
+            let elevation = terrain.height_at(point)?;
+            let root = Position::from_metres(Vec3::new(
+                point.metres().x,
+                elevation.metres() + TREE_TRUNK_HEIGHT_METRES * 0.5,
+                point.metres().y,
+            )).ok()?;
+            (crate::presentation::tree_species_for_site(point, environment)
                 == crate::presentation::TreePresentationSpecies::EnglishOak)
-                .then_some((
-                    position,
-                    crate::presentation::oak_root_exposure_for_site(root, environment),
-                ))
+                .then_some(OakCandidate {
+                    site: OakExhibitSite { surface: GeographicHeightControl { point, elevation }, root },
+                    root_exposure: crate::presentation::oak_root_exposure_for_site(point, environment),
+                })
         })
         .max_by(|a, b| {
-            a.1.total_cmp(&b.1).then_with(|| {
-                root_slope(terrain, a.0)
-                    .length_squared()
-                    .total_cmp(&root_slope(terrain, b.0).length_squared())
+            a.root_exposure.total_cmp(&b.root_exposure).then_with(|| {
+                root_slope(terrain, a.site.surface).length_squared()
+                    .total_cmp(&root_slope(terrain, b.site.surface).length_squared())
             })
         })
-        .map(|(position, _)| {
-            let root = Vec3::new(
-                position.x,
-                terrain.height_at(position).unwrap_or_default() + TREE_TRUNK_HEIGHT_METRES * 0.5,
-                position.y,
-            );
-            (position, root)
-        })
+        .map(|candidate| candidate.site)
 }
 
 // The local slope ranks exposed sites and orients a lit view across the hill.
-fn root_slope(terrain: &SceneTerrain, position: Vec2) -> Vec2 {
+fn root_slope(terrain: &SceneTerrain, centre: GeographicHeightControl) -> Vec2 {
     const ROOT_SPREAD_METRES: f32 = 1.5;
-    let centre_height = terrain
-        .height_at(position)
-        .expect("oak lies on its terrain");
     let height = |offset| {
-        terrain
-            .height_at(position + offset)
-            .unwrap_or(centre_height)
+        ScenePlanPoint::from_metres(centre.point.metres() + offset)
+            .and_then(|point| terrain.height_at(point))
+            .unwrap_or(centre.elevation)
     };
     Vec2::new(
-        height(-Vec2::X * ROOT_SPREAD_METRES) - height(Vec2::X * ROOT_SPREAD_METRES),
-        height(-Vec2::Y * ROOT_SPREAD_METRES) - height(Vec2::Y * ROOT_SPREAD_METRES),
+        height(-Vec2::X * ROOT_SPREAD_METRES).metres() - height(Vec2::X * ROOT_SPREAD_METRES).metres(),
+        height(-Vec2::Y * ROOT_SPREAD_METRES).metres() - height(Vec2::Y * ROOT_SPREAD_METRES).metres(),
     )
 }
 
@@ -250,7 +251,8 @@ mod tests {
         let environment = prepared
             .input
             .environment_snapshot(prepared.input.digest().unwrap());
-        let (_, root) = oak_exhibit_site(&prepared.input, &generated, &environment).unwrap();
+        let site = oak_exhibit_site(&prepared.input, &generated, &environment).unwrap();
+        let root = site.surface.point;
         let asset = crate::presentation::PreparedTreeImpostorAsset::decode(include_bytes!(
             "../../../../assets/art-demo/oak.tree-impostors"
         ));
@@ -298,7 +300,8 @@ mod tests {
         let environment = prepared
             .input
             .environment_snapshot(prepared.input.digest().unwrap());
-        let (_, root) = oak_exhibit_site(&prepared.input, &generated, &environment).unwrap();
+        let site = oak_exhibit_site(&prepared.input, &generated, &environment).unwrap();
+        let root = site.surface.point;
         let asset = crate::presentation::prepare_art_demo_tree_impostor_asset(root, &environment);
         let bytes = asset.compressed_bytes();
         let output = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
@@ -331,9 +334,10 @@ mod tests {
             .collect::<Vec<_>>();
         assert_eq!(roots.len(), 1);
         assert_eq!(
-            crate::presentation::tree_species_for_site(roots[0].translation, &environment),
+            crate::presentation::tree_species_for_site(ScenePlanPoint::from_metres(roots[0].translation.xz()).unwrap(), &environment),
             crate::presentation::TreePresentationSpecies::EnglishOak
         );
-        assert!(generated.terrain.maximum_height() - generated.terrain.minimum_height() > 1.0);
+        let bounds = generated.terrain.required_elevation_range().unwrap();
+        assert!(bounds.maximum().metres() - bounds.minimum().metres() > 1.0);
     }
 }

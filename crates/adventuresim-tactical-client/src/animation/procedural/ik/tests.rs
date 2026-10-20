@@ -584,8 +584,10 @@ mod coordination_tests {
         .unwrap()
         .metres()
             * 2.0;
-        let downhill = |xz: Vec2| Some(2.38 + xz.y * 0.08);
-        let current_height = downhill(upper.xz()).unwrap();
+        let downhill = |point: ScenePlanPoint| {
+            Some(SupportElevation::from_metres(2.38 + point.metres().y * 0.08).unwrap())
+        };
+        let current_height = downhill(ScenePlanPoint::from_metres(upper.xz()).unwrap()).unwrap();
         let predicted_roots = [
             phase_to_contact - run_locomotion_profile().support_phase_radius.cycles(),
             phase_to_contact,
@@ -593,7 +595,7 @@ mod coordination_tests {
         ]
         .map(|remaining_phase| {
             let mut root = upper + Vec3::NEG_Z * (remaining_phase * travel_per_phase);
-            root.y += downhill(root.xz()).unwrap() - current_height;
+            root.y += downhill(ScenePlanPoint::from_metres(root.xz()).unwrap()).unwrap().metres() - current_height.metres();
             root - Vec3::Y
                 * ik_tuning()
                     .run_maximum_planned_reach_pelvis_drop_metres
@@ -637,7 +639,9 @@ mod coordination_tests {
                     .run_maximum_planned_reach_pelvis_drop_metres
                     .metres();
         let flat_candidate = flat_predicted_center + Vec3::new(0.1, -0.5, 0.0);
-        let flat_height = flat_candidate.y - measured_ankle_sole_offset_metres().metres();
+        let flat_height = SupportElevation::from_metres(
+            flat_candidate.y - measured_ankle_sole_offset_metres().metres(),
+        ).unwrap();
         let flat = reachable_run_contact_target(
             flat_candidate,
             upper,
@@ -1193,7 +1197,7 @@ mod coordination_tests {
 
     #[test]
     fn raised_support_requires_rendered_sole_contact() {
-        let terrain_height = 0.0;
+        let terrain_height = SupportElevation::ZERO;
         assert!(raised_support_is_actual(
             true,
             measured_ankle_sole_offset_metres().metres() + sole_contact_tolerance_metres().metres()
@@ -1429,7 +1433,7 @@ mod coordination_tests {
             FootTargetSpeeds::configured()
                 .unwrap()
                 .run_sample(false, true),
-            |_| checked_world_height(-100.0).map(Some),
+            |_| checked_scene_elevation(-100.0).map(|height| Some(FootClearanceFloor::Minimum(height))),
         )
         .unwrap();
         assert!(
@@ -1482,16 +1486,16 @@ mod coordination_tests {
         // the next target for the strict +1.1 cm transition toe floor.
         let rendered_ankle = Vec3::new(0.14, 0.1154449, -1.5);
         let rendered_toe = Vec3::new(0.14, -0.017214656, -1.62);
-        let minimum = toe_aware_minimum_ankle_y(
+        let minimum = toe_aware_clearance_floor(
             rendered_ankle,
             rendered_toe,
-            Vec2::new(0.14, -1.7),
+            ScenePlanPoint::from_metres(Vec2::new(0.14, -1.7)).unwrap(),
             ik_tuning().terrain_transition_flight_toe_clearance_metres,
-            |_| Some(0.0),
+            |_| Some(SupportElevation::ZERO),
         )
         .unwrap()
         .unwrap();
-        assert!((minimum.metres() - 0.14365956).abs() <= 0.000001);
+        assert!((minimum.minimum_height().unwrap().metres() - 0.14365956).abs() <= 0.000001);
         let rotation_safe_clearance = transition_toe_clearance_with_rotation_margin(
             rendered_ankle,
             rendered_toe,
@@ -1513,7 +1517,7 @@ mod coordination_tests {
             |_| Ok(Some(minimum)),
         )
         .unwrap();
-        assert!(resolved.y + 0.000001 >= minimum.metres());
+        assert!(resolved.y + 0.000001 >= minimum.minimum_height().unwrap().metres());
         assert!(
             resolved.distance(rendered_ankle)
                 <= (ik_tuning().airborne_release_step_metres.metres()
@@ -1522,17 +1526,17 @@ mod coordination_tests {
                     + 0.0001
         );
 
-        let contact_minimum = toe_aware_minimum_ankle_y(
+        let contact_minimum = toe_aware_clearance_floor(
             Vec3::new(0.21, 0.085, 0.0),
             Vec3::new(0.21, -0.015733838, -0.1),
-            Vec2::new(0.21, 0.0),
+            ScenePlanPoint::from_metres(Vec2::new(0.21, 0.0)).unwrap(),
             ik_tuning().terrain_contact_toe_clearance_metres,
-            |_| Some(0.0),
+            |_| Some(SupportElevation::ZERO),
         )
         .unwrap()
         .unwrap();
-        assert!(contact_minimum.metres() > measured_ankle_sole_offset_metres().metres());
-        assert!((contact_minimum.metres() - 0.09173384).abs() <= 0.000001);
+        assert!(contact_minimum.minimum_height().unwrap().metres() > measured_ankle_sole_offset_metres().metres());
+        assert!((contact_minimum.minimum_height().unwrap().metres() - 0.09173384).abs() <= 0.000001);
     }
 
     #[test]
@@ -1550,7 +1554,7 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| checked_world_height(measured_ankle_sole_offset_metres().metres()).map(Some),
+            |_| checked_scene_elevation(measured_ankle_sole_offset_metres().metres()).map(|height| Some(FootClearanceFloor::Minimum(height))),
         )
         .unwrap();
         assert!(contact_candidate.distance_squared(contact) <= 0.000001);
@@ -1566,7 +1570,7 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| checked_world_height(0.14365956).map(Some),
+            |_| checked_scene_elevation(0.14365956).map(|height| Some(FootClearanceFloor::Minimum(height))),
         )
         .unwrap();
         assert!(flight_candidate.distance_squared(contact) > 0.000001);
@@ -1600,7 +1604,7 @@ mod coordination_tests {
             &mut memory,
             Vec3::ZERO,
             Quat::IDENTITY,
-            |_| Some(0.0),
+            |_| Some(SupportElevation::ZERO),
         ));
         assert_eq!(memory.terminal_contacts.shift().metres(), -0.21);
         assert!(matches!(
@@ -1690,19 +1694,15 @@ mod coordination_tests {
             &mut memory,
             Vec3::ZERO,
             Quat::IDENTITY,
-            |_| Some(0.0),
+            |_| Some(SupportElevation::ZERO),
         ));
         assert!(memory.settle.is_some());
-        assert!(!terminal_settle_contacts_are_rendered(&memory, |_| Some(
-            0.0
-        ),));
+        assert!(!terminal_settle_contacts_are_rendered(&memory, |_| Some(SupportElevation::ZERO),));
         memory.left_last_rendered_world = memory.left_foot_world_target;
         memory.right_last_rendered_world = memory.right_foot_world_target;
         memory.left_last_rendered_toe_world = Some(Vec3::new(-0.12, 0.005, -0.3));
         memory.right_last_rendered_toe_world = Some(Vec3::new(0.12, 0.005, -0.6));
-        assert!(terminal_settle_contacts_are_rendered(&memory, |_| Some(
-            0.0
-        ),));
+        assert!(terminal_settle_contacts_are_rendered(&memory, |_| Some(SupportElevation::ZERO),));
         finish_settle_for_idle(&mut memory);
         assert!(memory.settle.is_none());
         assert_eq!(
@@ -1784,9 +1784,7 @@ mod coordination_tests {
             right_last_rendered_toe_world: Some(target + Vec3::X * 0.24),
             ..default()
         };
-        assert!(!terminal_settle_contacts_are_rendered(&memory, |_| Some(
-            2.045
-        )));
+        assert!(!terminal_settle_contacts_are_rendered(&memory, |_| Some(SupportElevation::from_metres(2.045).unwrap())));
     }
 
     #[test]
@@ -1845,7 +1843,7 @@ mod coordination_tests {
             &mut memory,
             Vec3::ZERO,
             Quat::IDENTITY,
-            |_| Some(0.0),
+            |_| Some(SupportElevation::ZERO),
         ));
         let left = memory.left_foot_world_target.unwrap();
         let right = memory.right_foot_world_target.unwrap();
@@ -1862,7 +1860,7 @@ mod coordination_tests {
             &mut memory,
             Vec3::ZERO,
             Quat::IDENTITY,
-            |_| Some(0.0),
+            |_| Some(SupportElevation::ZERO),
         ));
         assert_eq!(memory.left_foot_world_target, Some(left));
         assert_eq!(memory.right_foot_world_target, Some(right));
@@ -2571,7 +2569,7 @@ mod coordination_tests {
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
         );
         assert!(reachable);
-        let eligible = run_support_eligible_for_descent(
+        let descent = run_support_descent(
             LocomotionGait::Run,
             CyclePhase::from_cycles(rising_phase).unwrap(),
             LeadFoot::Right,
@@ -2579,22 +2577,22 @@ mod coordination_tests {
             rising_raw,
             reachable,
         );
-        assert!(eligible);
+        assert!(descent.permits_descent());
         assert!(
             run_airborne_clearance(
                 CyclePhase::from_cycles(rising_phase)
                     .unwrap()
                     .until_contact(LeadFoot::Right),
                 Some(UnitInterval::from_fraction(1.0).unwrap()),
-                eligible,
+                descent,
             )
             .unwrap()
             .metres()
                 <= 0.0
         );
         let lowered_y =
-            FootClearanceFloor::Measured(SignedLength::from_metres(endpoint.y).unwrap())
-                .apply(prior_floor, eligible)
+            FootClearanceFloor::Minimum(checked_scene_elevation(endpoint.y).unwrap())
+                .apply(prior_floor, descent)
                 .unwrap()
                 .y;
         assert!(lowered_y < prior_floor.y);
@@ -2610,28 +2608,28 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| checked_world_height(endpoint.y).map(Some),
+            |_| checked_scene_elevation(endpoint.y).map(|height| Some(FootClearanceFloor::Minimum(height))),
         )
         .unwrap();
         assert!(descended.y < prior_floor.y);
         assert!(descended.distance(endpoint) <= 0.0001);
         assert_eq!(
-            FootClearanceFloor::Measured(SignedLength::from_metres(prior_floor.y).unwrap())
-                .apply(endpoint, false)
+            FootClearanceFloor::Minimum(checked_scene_elevation(prior_floor.y).unwrap())
+                .apply(endpoint, FootDescent::RaiseOnly)
                 .unwrap()
                 .y,
             prior_floor.y
         );
         let (_, post_contact_raw) =
             gait_support_weights(profile, CyclePhase::from_cycles(0.65).unwrap()).unwrap();
-        assert!(!run_support_eligible_for_descent(
+        assert!(!run_support_descent(
             LocomotionGait::Run,
             CyclePhase::from_cycles(0.65).unwrap(),
             LeadFoot::Right,
             CycleDelta::from_cycles(radius).unwrap(),
             post_contact_raw,
             true,
-        ));
+        ).permits_descent());
 
         // Even if a low-rate consumer skipped the explicit flight sample, the
         // signed rising shoulder is an unambiguous new-lobe boundary.
@@ -2659,7 +2657,7 @@ mod coordination_tests {
             true,
             CycleDelta::from_cycles(0.81).unwrap(),
             None,
-            false,
+            FootDescent::RaiseOnly,
         )
         .unwrap()
         .metres();
@@ -2672,7 +2670,7 @@ mod coordination_tests {
                 false,
                 CycleDelta::from_cycles(0.81).unwrap(),
                 None,
-                false
+                FootDescent::RaiseOnly
             )
             .unwrap()
             .metres()
@@ -2711,12 +2709,12 @@ mod coordination_tests {
         let uphill_next_root = Vec3::new(0.0, 3.096167, -4.296875);
         let uphill_plant = Vec3::new(-0.11504457, 2.2510452, -3.7630615);
         let uphill_owner = uphill_plant - uphill_previous_root;
-        let uphill_minimum_y = |xz: Vec2| {
-            Some(
+        let uphill_minimum_y = |point: ScenePlanPoint| {
+            checked_scene_elevation(
                 uphill_plant.y
                     + ik_tuning().run_swing_minimum_sole_clearance_metres.metres()
-                    + (uphill_plant.z - xz.y).max(0.0) * 0.475,
-            )
+                    + (uphill_plant.z - point.metres().y).max(0.0) * 0.475,
+            ).map(|height| Some(FootClearanceFloor::Minimum(height)))
         };
         let uphill_release = advance_run_airborne_world_target(
             Some(uphill_owner),
@@ -2725,7 +2723,7 @@ mod coordination_tests {
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
             FootTargetSpeeds::configured().unwrap().run_airborne(true),
-            |xz| uphill_minimum_y(xz).map(checked_world_height).transpose(),
+            uphill_minimum_y,
         )
         .unwrap();
         let uphill_release_owner = uphill_release - uphill_next_root;
@@ -2736,8 +2734,8 @@ mod coordination_tests {
                     / ik_tuning().continuity_sample_hz.hertz()
                     + 0.0001
         );
-        assert!(uphill_release.y + 0.0001 >= uphill_minimum_y(uphill_release.xz()).unwrap());
-        assert!(uphill_release.y - uphill_minimum_y(uphill_release.xz()).unwrap() <= 0.0001);
+        assert!(uphill_release.y + 0.0001 >= uphill_minimum_y(ScenePlanPoint::from_metres(uphill_release.xz()).unwrap()).unwrap().unwrap().minimum_height().unwrap().metres());
+        assert!(uphill_release.y - uphill_minimum_y(ScenePlanPoint::from_metres(uphill_release.xz()).unwrap()).unwrap().unwrap().minimum_height().unwrap().metres() <= 0.0001);
         assert!(uphill_release.z < uphill_plant.z);
         assert!(uphill_release.z > uphill_plant.z - 5.5 / ik_tuning().continuity_sample_hz.hertz());
         let captured_toe_offset = Vec3::new(-0.0108, 0.0007, -0.1370);
@@ -2825,7 +2823,7 @@ mod coordination_tests {
                 false,
                 CycleDelta::from_cycles(0.133).unwrap(),
                 Some(UnitInterval::from_fraction(1.0).unwrap()),
-                false
+                FootDescent::RaiseOnly
             )
             .unwrap()
             .metres(),
@@ -2972,7 +2970,7 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| checked_world_height(-100.0).map(Some),
+            |_| checked_scene_elevation(-100.0).map(|height| Some(FootClearanceFloor::Minimum(height))),
         )
         .unwrap();
         let resolved_owner = resolved - after_root;
@@ -2996,7 +2994,7 @@ mod coordination_tests {
             Quat::IDENTITY,
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
             FootTargetSpeeds::configured().unwrap().run_airborne,
-            |_| checked_world_height(-100.0).map(Some),
+            |_| checked_scene_elevation(-100.0).map(|height| Some(FootClearanceFloor::Minimum(height))),
         )
         .unwrap();
         assert!(
@@ -3019,7 +3017,7 @@ mod coordination_tests {
                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz())
                     .unwrap(),
                 FootTargetSpeeds::configured().unwrap().run_airborne,
-                |_| checked_world_height(-100.0).map(Some)
+                |_| checked_scene_elevation(-100.0).map(|height| Some(FootClearanceFloor::Minimum(height)))
             )
             .unwrap(),
             desired_solve,
@@ -3152,7 +3150,7 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| checked_world_height(0.085).map(Some),
+            |_| checked_scene_elevation(0.085).map(|height| Some(FootClearanceFloor::Minimum(height))),
         )
         .unwrap();
         assert!(
@@ -3171,7 +3169,7 @@ mod coordination_tests {
             run_airborne_clearance(
                 CycleDelta::from_cycles(0.34).unwrap(),
                 Some(UnitInterval::from_fraction(1.0).unwrap()),
-                false
+                FootDescent::RaiseOnly
             )
             .unwrap()
             .metres(),
@@ -3181,7 +3179,7 @@ mod coordination_tests {
             run_airborne_clearance(
                 CycleDelta::from_cycles(0.17).unwrap(),
                 Some(UnitInterval::from_fraction(1.0).unwrap()),
-                false
+                FootDescent::RaiseOnly
             )
             .unwrap()
             .metres(),
@@ -3191,7 +3189,7 @@ mod coordination_tests {
             run_airborne_clearance(
                 CycleDelta::from_cycles(0.17).unwrap(),
                 Some(UnitInterval::from_fraction(1.0).unwrap()),
-                true
+                FootDescent::FollowFloor
             )
             .unwrap()
             .metres()
@@ -3224,7 +3222,7 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| checked_world_height(0.085).map(Some),
+            |_| checked_scene_elevation(0.085).map(|height| Some(FootClearanceFloor::Minimum(height))),
         )
         .unwrap();
         assert!(resolved.distance(fixed_contact) < 0.0001);
@@ -3241,7 +3239,7 @@ mod coordination_tests {
             run_airborne_clearance(
                 CycleDelta::from_cycles(0.17).unwrap(),
                 Some(UnitInterval::from_fraction(1.0).unwrap()),
-                false
+                FootDescent::RaiseOnly
             )
             .unwrap()
             .metres(),
@@ -3277,7 +3275,7 @@ mod coordination_tests {
             Vec3::new(0.1, 0.9, current_root.z - 0.5),
             ReachLimit::Fixed(NonnegativeLength::from_metres(1.0).unwrap()),
             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
-            |_| Some(0.0),
+            |_| Some(SupportElevation::ZERO),
         )
         .expect("the owner-local footprint should remain reachable after its 5 cm descent");
         assert!(
@@ -3304,7 +3302,7 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| checked_world_height(measured_ankle_sole_offset_metres().metres()).map(Some),
+            |_| checked_scene_elevation(measured_ankle_sole_offset_metres().metres()).map(|height| Some(FootClearanceFloor::Minimum(height))),
         )
         .unwrap();
         assert!(landed.distance(transported) < 0.0001);
@@ -3347,7 +3345,9 @@ mod coordination_tests {
         ));
         assert!(frozen_contact.distance(upper_root) > solve_reach.native_metres().unwrap() + 0.001);
 
-        let terrain_height = frozen_contact.y - measured_ankle_sole_offset_metres().metres();
+        let terrain_height = SupportElevation::from_metres(
+            frozen_contact.y - measured_ankle_sole_offset_metres().metres(),
+        ).unwrap();
         let reachable_contact = retarget_unacquired_run_contact_for_descent(
             Some(previous_owner),
             frozen_contact,
@@ -3373,7 +3373,7 @@ mod coordination_tests {
         ));
         assert_eq!(
             reachable_contact.y,
-            terrain_height + measured_ankle_sole_offset_metres().metres()
+            terrain_height.metres() + measured_ankle_sole_offset_metres().metres()
         );
         let landed = advance_run_airborne_world_target(
             Some(previous_owner),
@@ -3386,7 +3386,7 @@ mod coordination_tests {
                     * ik_tuning().continuity_sample_hz.hertz(),
             )
             .unwrap(),
-            |_| checked_world_height(reachable_contact.y).map(Some),
+            |_| checked_scene_elevation(reachable_contact.y).map(|height| Some(FootClearanceFloor::Minimum(height))),
         )
         .unwrap();
         assert!(landed.distance(reachable_contact) < 0.0001);

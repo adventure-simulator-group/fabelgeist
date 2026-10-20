@@ -449,17 +449,11 @@ impl TacticalCombatConfig {
         self.autoresolve.validate()?;
         let authority = &self.realtime_authority;
         let authority_values = [
-            authority.defense.reflex_window_seconds.seconds(),
             authority.defense.roll_dodge_effectiveness,
-            authority.melee.replay_cooldown_seconds.seconds(),
-            authority.melee.completion_allowance_seconds.seconds(),
             authority.melee.range_latency_tolerance_metres,
             authority.melee.windup_jitter_fraction,
-            authority.melee.maximum_windup_jitter_seconds.seconds(),
             authority.melee.lunge_range_window_metres,
             authority.melee.lunge_quickstep_threshold_metres,
-            authority.ranged.cooldown_seconds.seconds(),
-            authority.ranged.completion_allowance_seconds.seconds(),
             authority.ranged.range_latency_tolerance_metres,
             authority.ranged.aim_half_angle_degrees,
             authority.impact.whole_body_velocity_scale,
@@ -495,7 +489,6 @@ impl TacticalCombatConfig {
             movement
                 .motor
                 .quickstep_peak_horizontal_force_bodyweights_per_strength,
-            movement.motor.reference_quickstep_push_seconds.seconds(),
             movement.motor.quickstep_push_seconds_reduction_per_agility,
             movement
                 .motor
@@ -569,10 +562,7 @@ impl TacticalCombatConfig {
                 "AI dodge probability must be between zero and one",
             ));
         }
-        if !ai.defense.reaction_delay_min_seconds.seconds().is_finite()
-            || ai.defense.reaction_delay_min_seconds.seconds() < 0.0
-            || ai.defense.reaction_delay_max_seconds < ai.defense.reaction_delay_min_seconds
-            || !ai.defense.reaction_delay_max_seconds.seconds().is_finite()
+        if ai.defense.reaction_delay_max_seconds < ai.defense.reaction_delay_min_seconds
             || !ai.offense.has_valid_intervals()
         {
             return Err(TacticalCombatConfigError::Validation("invalid AI interval"));
@@ -625,7 +615,6 @@ impl TacticalCombatConfig {
         let presentation = &self.presentation;
         if ![
             presentation.dodge_seconds,
-            presentation.body_turn_seconds_per_half_turn.seconds(),
             presentation
                 .downed_turn_radians_per_second
                 .radians_per_second(),
@@ -693,11 +682,7 @@ impl TacticalCombatConfig {
         if ![
             guard.default_half_width_metres,
             guard.contact_margin_metres,
-            guard.minimum_step_seconds.seconds(),
-            guard.maximum_step_seconds.seconds(),
             guard.planning_reach_metres,
-            guard.reference_leg_length_metres.metres(),
-            guard.maximum_unsupported_contact_seconds.seconds(),
         ]
         .into_iter()
         .all(|value| finite_nonnegative(value) && value > 0.0)
@@ -736,7 +721,6 @@ impl TacticalCombatConfig {
             ik.maximum_owner_rotation_per_tick_degrees.degrees(),
             ik.maximum_knee_target_amplification.factor(),
             ik.continuity_sample_hz.hertz(),
-            ik.stationary_turn_step_seconds.seconds(),
             ik.knee_pole_maximum_foot_facing_offset_degrees.degrees(),
             ik.airborne_foot_rotation_speed_degrees_per_second
                 .degrees_per_second(),
@@ -745,7 +729,6 @@ impl TacticalCombatConfig {
             ik.terrain_blend_speed_per_second.per_second(),
             ik.minimum_knee_flexion_degrees.degrees(),
             ik.minimum_terrain_knee_flexion_degrees.degrees(),
-            ik.settle_step_seconds.seconds(),
         ]
         .into_iter()
         .all(f32::is_finite)

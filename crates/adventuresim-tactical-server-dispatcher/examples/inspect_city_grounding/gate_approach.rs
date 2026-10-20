@@ -1,15 +1,17 @@
 //! Test the street-to-gate constraint before accepting interior route endpoints.
-use adventuresim_tactical_core::city_layout::{CityAccessSegment, CityCompound};
-use bevy::math::Vec2;
+use adventuresim_tactical_core::{
+    city_layout::{CityAccessSegment, CityCompound, grounding::SupportElevation},
+    scene_coordinates::ScenePlanPoint,
+};
 use serde_json::{Value, json};
 #[path = "gate_approach/profile.rs"]
 mod profile;
 
 pub(super) fn inspect(
     compound: &CityCompound,
-    common_floor: f32,
-    court_floor: f32,
-    terrain_height: impl Fn(Vec2) -> Option<f32>,
+    common_floor: SupportElevation,
+    court_floor: SupportElevation,
+    terrain_height: impl Fn(ScenePlanPoint) -> Option<SupportElevation>,
     maximum_grade: f32,
 ) -> Result<Option<Value>, adventuresim_building_generator::DoorError> {
     let gate = compound.boundary.gate.centre_metres;
@@ -30,22 +32,22 @@ pub(super) fn inspect(
     }
     let length = route.start_metres().distance(gate);
     let effective_run = (length - route.half_width_metres() * 2.0).max(0.0);
-    let Some(street_height) = terrain_height(route.start_metres()) else {
+    let Some(street_height) = terrain_height(route.start()) else {
         return Ok(None);
     };
-    let Some(natural_gate_height) = terrain_height(gate) else {
+    let Some(natural_gate_height) = terrain_height(gate_point) else {
         return Ok(None);
     };
     let maximum_rise = effective_run * maximum_grade;
-    let report = |name, gate_floor: f32| {
-        let rise = (street_height - gate_floor).abs();
+    let report = |name, gate_floor: SupportElevation| {
+        let rise = (street_height.metres() - gate_floor.metres()).abs();
         json!({
             "name":name,"gate_floor_m":gate_floor,
             "required_rise_m":rise,"permitted_rise_m":maximum_rise,
             "shortfall_m":(rise-maximum_rise).max(0.0),
             "grade":if effective_run > 0.0 {Some(rise/effective_run)} else {None},
             "passes_endpoint_grade":effective_run > 0.0 && rise <= maximum_rise,
-            "difference_from_front_floor_m":gate_floor-common_floor,
+            "difference_from_front_floor_m":gate_floor.metres()-common_floor.metres(),
         })
     };
     Ok(Some(json!({
@@ -77,17 +79,17 @@ mod tests {
         )))
         .unwrap();
         let compound: CityCompound = serde_json::from_value(fixture["compound"].clone()).unwrap();
-        let floor = fixture["front_floor_m"].as_f64().unwrap() as f32;
-        let street = fixture["street_approach_source_m"].as_f64().unwrap() as f32;
-        let gate = fixture["gate_source_m"].as_f64().unwrap() as f32;
+        let floor: SupportElevation = serde_json::from_value(fixture["front_floor_m"].clone()).unwrap();
+        let street: SupportElevation = serde_json::from_value(fixture["street_approach_source_m"].clone()).unwrap();
+        let gate: SupportElevation = serde_json::from_value(fixture["gate_source_m"].clone()).unwrap();
         let height = |point| {
-            Some(if point == compound.access[0].start_metres() {
+            Some(if point == compound.access[0].start() {
                 street
             } else {
                 gate
             })
         };
-        let court = fixture["court_candidate_m"].as_f64().unwrap() as f32;
+        let court: SupportElevation = serde_json::from_value(fixture["court_candidate_m"].clone()).unwrap();
         let report = inspect(&compound, floor, court, height, 0.65)
             .unwrap()
             .unwrap();

@@ -489,10 +489,10 @@ pub(in crate::animation::procedural) fn constrain_foot_to_track(
 }
 pub(in crate::animation::procedural) fn terrain_conformed_guard_target(
     mut flat_target: Vec3,
-    terrain_height: Option<f32>,
+    terrain_height: Option<SupportElevation>,
 ) -> Vec3 {
     if let Some(height) = terrain_height {
-        flat_target.y = height + measured_ankle_sole_offset_metres().metres();
+        flat_target.y = height.metres() + measured_ankle_sole_offset_metres().metres();
     }
     flat_target
 }

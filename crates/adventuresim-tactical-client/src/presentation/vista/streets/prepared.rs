@@ -185,7 +185,7 @@ mod tests {
         .unwrap();
         assert_eq!(
             support.position(query).unwrap().y,
-            terrain.height_at(query.metres()).unwrap()
+            terrain.height_at(query).unwrap().metres()
         );
         assert!(
             support

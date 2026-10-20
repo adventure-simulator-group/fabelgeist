@@ -1,6 +1,9 @@
 //! Retained vista heights and the shared playable-to-vista surface boundary.
 
 use super::*;
+use adventuresim_tactical_core::{
+    city_layout::grounding::SupportElevation, scene_coordinates::ScenePlanPoint,
+};
 
 /// Keeps the closest vista rings for camera-local terrain refinement and city
 /// ground seating. Every consumer queries the same stitched surface.
@@ -13,6 +16,15 @@ pub(in crate::presentation) struct ActiveVistaSurface {
     urban: bool,
     ground_support: streets::GroundSupport,
 }
+
+#[derive(Component, Clone, Copy)]
+pub(crate) struct VistaTerrain(pub(crate) VistaLevelIndex);
+
+/// A terrain-surface chunk, excluding vista grass, rocks, and tree cards that
+/// also carry [`VistaTerrain`] for broad visibility isolation.
+#[derive(Component)]
+pub(crate) struct VistaTerrainMesh(pub(crate) VistaLevelIndex);
+
 
 impl ActiveVistaSurface {
     pub(in crate::presentation) fn update(&mut self, bundle: &SceneVistaBundle) {
@@ -83,8 +95,8 @@ impl ActiveVistaSurface {
         &self,
         scene_digest: &str,
         terrain: &SceneTerrain,
-        local: Vec2,
-    ) -> Option<f32> {
+        local: ScenePlanPoint,
+    ) -> Option<SupportElevation> {
         if let Some(height) = terrain.height_at(local) {
             return Some(height);
         }
@@ -92,15 +104,15 @@ impl ActiveVistaSurface {
             return None;
         }
         let lod = self.lods.first()?;
-        let world = local
+        let world = local.metres()
             + Vec2::new(
                 lod.origin_east_metres as f32,
                 lod.origin_north_metres as f32,
             );
         let vista_height = presented_height_at(lod, world, self.lods.get(1))?;
-        Some(stitch_vista_height_to_playable_edge(
+        SupportElevation::from_metres(stitch_vista_height_to_playable_edge(
             terrain,
-            local,
+            local.metres(),
             self.playable_half_extent,
             lod.spacing_metres,
             vista_height,
@@ -134,24 +146,16 @@ mod tests {
             ground_support: default(),
         };
         assert_eq!(
-            retained.presented_height_at("boundary", &terrain, Vec2::new(2.0, 0.0)),
-            Some(10.0)
+            retained.presented_height_at("boundary", &terrain, ScenePlanPoint::from_metres(Vec2::new(2.0, 0.0)).unwrap()),
+            Some(SupportElevation::from_metres(10.0).unwrap())
         );
         let outside = retained
-            .presented_height_at("boundary", &terrain, Vec2::new(3.0, 0.0))
+            .presented_height_at("boundary", &terrain, ScenePlanPoint::from_metres(Vec2::new(3.0, 0.0)).unwrap())
             .unwrap();
-        assert!((outside - 15.0).abs() < 0.0001, "{outside}");
+        assert!((outside.metres() - 15.0).abs() < 0.0001, "{outside:?}");
         assert_eq!(
-            retained.presented_height_at("different", &terrain, Vec2::new(3.0, 0.0)),
+            retained.presented_height_at("different", &terrain, ScenePlanPoint::from_metres(Vec2::new(3.0, 0.0)).unwrap()),
             None
         );
     }
 }
-
-#[derive(Component, Clone, Copy)]
-pub(crate) struct VistaTerrain(pub(crate) VistaLevelIndex);
-
-/// A terrain-surface chunk, excluding vista grass, rocks, and tree cards that
-/// also carry [`VistaTerrain`] for broad visibility isolation.
-#[derive(Component)]
-pub(crate) struct VistaTerrainMesh(pub(crate) VistaLevelIndex);

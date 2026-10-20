@@ -74,8 +74,9 @@ fn owned_vista_roots_use_the_accepted_surface_without_restitching_raw_heights() 
                 (old_height - 7.0).abs() > 0.1,
                 "fixture must expose old restitching"
             );
+            let point = ScenePlanPoint::from_metres(point).unwrap();
             assert_eq!(placement.height(point), terrain.height_at(point));
-            assert!((placement.height(point).unwrap() - 7.0).abs() < 0.001);
+            assert!((placement.height(point).unwrap().metres() - 7.0).abs() < 0.001);
         }
     });
 }
@@ -83,10 +84,10 @@ fn owned_vista_roots_use_the_accepted_surface_without_restitching_raw_heights() 
 #[test]
 fn owned_vista_roots_reject_missing_support_and_the_existing_steep_slope_limit() {
     check(&owned_terrain(0.0), |placement| {
-        assert!(placement.height(Vec2::splat(400.0)).is_none())
+        assert!(placement.height(ScenePlanPoint::from_metres(Vec2::splat(400.0)).unwrap()).is_none())
     });
     check(&owned_terrain(1.0), |placement| {
-        assert!(placement.height(Vec2::new(40.0, 30.0)).is_none())
+        assert!(placement.height(ScenePlanPoint::from_metres(Vec2::new(40.0, 30.0)).unwrap()).is_none())
     });
 }
 
@@ -103,6 +104,7 @@ fn sampled_vista_scenes_retain_their_presented_heightfield_policy() {
             placement.playable_half_extent,
         )
         .unwrap();
-        assert_eq!(placement.height(point), Some(expected));
+        let point = ScenePlanPoint::from_metres(point).unwrap();
+        assert_eq!(placement.height(point), SupportElevation::from_metres(expected));
     });
 }

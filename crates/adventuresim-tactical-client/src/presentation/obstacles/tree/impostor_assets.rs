@@ -1,5 +1,7 @@
 //! Canonical software-baked tree cards loaded only by fixed prepared scenes.
 
+#[cfg(test)]
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
 use super::TreePresentationSpecies;
 #[cfg(test)]
 use super::impostor::{BEECH_TREE_BAKE_STYLE, OAK_TREE_BAKE_STYLE, bake_tree_lod_with_style};
@@ -95,12 +97,12 @@ impl PreparedTreeImpostorAsset {
     #[cfg(test)]
     pub(crate) fn matches_art_demo(
         &self,
-        position: Vec3,
+        point: ScenePlanPoint,
         environment: &crate::presentation::SceneEnvironment,
     ) -> bool {
         let competition = canopy_competition(environment.canopy_bps);
-        let species = tree_species_for_site(position, environment);
-        let (variant_index, variant_seed) = oak_variant_for_site(position);
+        let species = tree_species_for_site(point, environment);
+        let (variant_index, variant_seed) = oak_variant_for_site(point);
         let (branches, leaves) = playable_tree_source(
             species,
             variant_seed,
@@ -144,12 +146,12 @@ impl PreparedTreeImpostorAsset {
 
 #[cfg(test)]
 pub(crate) fn prepare_art_demo_tree_impostor_asset(
-    position: Vec3,
+    point: ScenePlanPoint,
     environment: &crate::presentation::SceneEnvironment,
 ) -> PreparedTreeImpostorAsset {
     let competition = canopy_competition(environment.canopy_bps);
-    let species = tree_species_for_site(position, environment);
-    let (variant_index, variant_seed) = oak_variant_for_site(position);
+    let species = tree_species_for_site(point, environment);
+    let (variant_index, variant_seed) = oak_variant_for_site(point);
     let (branches, leaves) = playable_tree_source(
         species,
         variant_seed,

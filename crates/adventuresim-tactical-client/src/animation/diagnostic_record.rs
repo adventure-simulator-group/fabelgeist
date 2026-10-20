@@ -1,6 +1,9 @@
 //! Native diagnostic JSON records, after application-state interpretation.
 
 use super::*;
+use adventuresim_tactical_core::{
+    city_layout::grounding::SupportElevation, scene_coordinates::ScenePlanPoint,
+};
 use serde::Serialize;
 
 #[derive(Clone, Copy, Serialize)]
@@ -68,7 +71,7 @@ pub(super) struct AnimationDiagnosticRecord<'a> {
     pub(super) action_phase: UnitInterval,
     pub(super) authored_weapon_target: Option<DiagnosticTransform>,
     pub(super) bones: Vec<DiagnosticBone<'a>>,
-    pub(super) terrain_height: Option<f32>,
+    pub(super) terrain_height: Option<SupportElevation>,
     pub(super) controller_height_above_terrain: Option<f32>,
     pub(super) authoritative: &'a SkeletonState,
     pub(super) presented: &'a SkeletonState,
@@ -90,9 +93,9 @@ impl<'a> DiagnosticBone<'a> {
         terrain: Option<&SceneTerrain>,
     ) -> Self {
         let (scale, rotation, translation) = transform.to_scale_rotation_translation();
-        let terrain_clearance_metres = terrain
-            .and_then(|terrain| terrain.height_at(translation.xz()))
-            .map(|height| translation.y - height);
+        let terrain_clearance_metres = ScenePlanPoint::from_metres(translation.xz())
+            .and_then(|point| terrain.and_then(|terrain| terrain.height_at(point)))
+            .map(|height| translation.y - height.metres());
         Self {
             name: name.map_or("<unnamed>", Name::as_str),
             target_id: capture_animation_target_id(target),

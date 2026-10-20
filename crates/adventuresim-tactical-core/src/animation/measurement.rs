@@ -18,8 +18,11 @@ pub struct PositiveAnimationDuration(AnimationElapsed);
 
 impl NonnegativeLength {
     pub const ZERO: Self = Self(0.0);
-    pub fn from_metres(value: f32) -> AnimationValueResult<Self> {
-        checked_nonnegative(value, AnimationQuantity::Length).map(Self)
+    pub const fn from_metres(value: f32) -> AnimationValueResult<Self> {
+        match checked_nonnegative(value, AnimationQuantity::Length) {
+            Ok(value) => Ok(Self(value)),
+            Err(error) => Err(error),
+        }
     }
     /// Admit a completed nonnegative distance computation before retaining it.
     pub fn from_arithmetic(value: f32) -> AnimationValueResult<Self> {
