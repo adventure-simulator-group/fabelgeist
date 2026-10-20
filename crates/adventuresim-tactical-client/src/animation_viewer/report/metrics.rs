@@ -1431,22 +1431,29 @@ mod tests {
 
     #[test]
     fn transient_toe_gate_excludes_idle_preroll_but_keeps_motion_and_settle() {
+        let moving_speed = SignedSpeed::from_metres_per_second(5.5).unwrap();
         for scenario in ["terrain-run-flight-stop", "terrain-tap-restart-crossfade"]
             .map(ScenarioMetadata::from_label)
         {
             assert!(!transition_flight_toe_sample_is_active(
-                &scenario, 0.0, None
+                &scenario,
+                SignedSpeed::ZERO,
+                None
             ));
-            assert!(transition_flight_toe_sample_is_active(&scenario, 5.5, None));
             assert!(transition_flight_toe_sample_is_active(
                 &scenario,
-                0.0,
+                moving_speed,
+                None
+            ));
+            assert!(transition_flight_toe_sample_is_active(
+                &scenario,
+                SignedSpeed::ZERO,
                 Some(0.25)
             ));
         }
         assert!(transition_flight_toe_sample_is_active(
             &ScenarioMetadata::from_label("terrain-steady-run-5.5"),
-            0.0,
+            SignedSpeed::ZERO,
             None
         ));
         assert!(strict_transition_flight_toe_clearance_is_valid(0.01));
