@@ -5,13 +5,13 @@
 use std::num::NonZeroU16;
 
 use adventuresim_environment::prepared::*;
-use adventuresim_environment::render::ForestPart;
+use adventuresim_environment::render::{ForestPart, Level};
 use fabelgeist_math::units::{Metres, Ratio};
 
 mod support;
 
 #[test]
-fn declared_grid_counts_fail_before_reading_or_allocating_array_payload() {
+fn declared_record_counts_fail_before_reading_or_allocating_array_payload() {
     use fabelgeist_botany::viewer::sim::{BranchInstance, LeafInstance, PlantInstance};
     let library = support::padded_fixture()
         .bake(VariantBudget::AllPlants)
@@ -19,24 +19,19 @@ fn declared_grid_counts_fail_before_reading_or_allocating_array_payload() {
     let (bytes, _) = encode_library(&library).unwrap();
     let count =
         |offset: usize| u64::from_le_bytes(bytes[offset..offset + 8].try_into().unwrap()) as usize;
-    let mut first_grid = 16 + count(8);
-    for record_size in [
+    let mut offset = 16 + count(8);
+    for stride in [
         size_of::<PlantInstance>(),
         size_of::<BranchInstance>(),
         size_of::<LeafInstance>(),
     ] {
-        first_grid += 8 + count(first_grid) * record_size;
-    }
-    let first_indices =
-        first_grid + 8 + library.grids[0].levels[0].vertices.len() * size_of::<u32>();
-    for offset in [first_grid, first_indices] {
         let mut malformed = bytes[..offset + 8].to_vec();
-        malformed[offset..offset + 8].copy_from_slice(&u64::from(u32::MAX).to_le_bytes());
-        assert!(matches!(
-            decode_library(&malformed),
-            Err(PreparedError::MeshCardinality)
-        ));
+        malformed[offset..offset + 8].copy_from_slice(&u64::MAX.to_le_bytes());
+        assert!(decode_library(&malformed).is_err());
+        offset += 8 + count(offset) * stride;
     }
+    // No serialized address/index words follow the three source arrays.
+    assert_eq!(offset, bytes.len());
 }
 
 #[test]
@@ -156,13 +151,20 @@ fn every_plant_oracle_keeps_its_own_model_at_all_three_levels() {
             (ForestPart::Leaves, model.leaves),
         ] {
             let class = MeshClass::for_records(part, span.count).unwrap().unwrap();
-            let grid = library
-                .grids
-                .iter()
-                .find(|grid| grid.class == class)
-                .unwrap();
-            for level in &grid.levels {
-                assert!(!level.indices.is_empty());
+            for level in [Level::Full, Level::Middle, Level::Coarse] {
+                let mesh = class
+                    .address_mesh(
+                        level,
+                        &library.detail,
+                        RecordCount::from_records(span.count).unwrap(),
+                    )
+                    .unwrap();
+                assert!(!mesh.indices.is_empty());
+                assert!(
+                    mesh.indices
+                        .iter()
+                        .all(|&index| (index as usize) < mesh.vertices.len())
+                );
             }
         }
         let branch = library.branches[model.branches.start as usize];
@@ -229,18 +231,39 @@ fn translated_rotated_stretched_placements_survive_asset_loading() {
 }
 
 #[test]
-fn corrupt_mesh_addresses_and_metadata_are_rejected() {
-    let mut library = support::fixture().bake(VariantBudget::AllPlants).unwrap();
-    library.grids[0].levels[0].vertices[0] = 999;
-    assert!(encode_library(&library).is_err());
-    let mut library = support::padded_fixture()
-        .bake(VariantBudget::AllPlants)
-        .unwrap();
-    library.grids[0].levels[0].indices[0] = u32::MAX;
-    assert!(encode_library(&library).is_err());
-    let mut library = support::fixture().bake(VariantBudget::AllPlants).unwrap();
-    library.grids.pop();
-    assert!(encode_library(&library).is_err());
+fn incompatible_topology_contract_and_metadata_are_rejected() {
+    let library = support::fixture().bake(VariantBudget::AllPlants).unwrap();
+    let (bytes, _) = encode_library(&library).unwrap();
+    let mut old_magic = bytes.clone();
+    old_magic[7] = b'2';
+    assert!(decode_library(&old_magic).is_err());
+    let mut trailing = bytes.clone();
+    trailing.push(0);
+    assert!(decode_library(&trailing).is_err());
+    let header_length = u64::from_le_bytes(bytes[8..16].try_into().unwrap()) as usize;
+    let mut header: serde_json::Value =
+        serde_json::from_slice(&bytes[16..16 + header_length]).unwrap();
+    for invalid in [serde_json::json!("canonical_v2"), serde_json::Value::Null] {
+        header["topology"] = invalid;
+        let metadata = serde_json::to_vec(&header).unwrap();
+        let mut malformed = bytes[..8].to_vec();
+        malformed.extend_from_slice(&(metadata.len() as u64).to_le_bytes());
+        malformed.extend_from_slice(&metadata);
+        malformed.extend_from_slice(&bytes[16 + header_length..]);
+        assert!(decode_library(&malformed).is_err());
+    }
+    let huge = MeshClass {
+        part: ForestPart::Branches,
+        capacity: RecordCapacity::try_from(1 << 30).unwrap(),
+    };
+    assert!(
+        huge.address_mesh(
+            Level::Full,
+            &library.detail,
+            RecordCount::from_records(1).unwrap()
+        )
+        .is_err()
+    );
     assert!(RecordCapacity::try_from(0).is_err());
     assert!(RecordCapacity::try_from(3).is_err());
     assert!(RecordCapacity::covering(u32::MAX).is_err());
@@ -343,7 +366,7 @@ fn export_small_rendering_oracles_when_requested() {
 fn capacity_grids_share_topology_while_placements_keep_exact_botanical_spans() {
     let unique = support::padded_fixture();
     let library = unique.bake(VariantBudget::AllPlants).unwrap();
-    assert!(library.grids.len() < library.models.len() * 2);
+    assert!(library.topology_requirements().unwrap().classes().len() < library.models.len() * 2);
     let (bytes, id) = encode_library(&library).unwrap();
     let (loaded, loaded_id) = decode_library(&bytes).unwrap();
     assert_eq!(id, loaded_id);
@@ -360,7 +383,13 @@ fn capacity_grids_share_topology_while_placements_keep_exact_botanical_spans() {
             let class = MeshClass::for_records(part, span.count).unwrap().unwrap();
             assert!(class.capacity.records() >= span.count);
             assert!(class.capacity.records() < span.count * 2);
-            assert!(loaded.grids.iter().any(|grid| grid.class == class));
+            assert!(
+                loaded
+                    .topology_requirements()
+                    .unwrap()
+                    .classes()
+                    .any(|actual| actual == class)
+            );
         }
     }
 }

@@ -39,8 +39,9 @@ pub use full::{
     FullAuthoringContext, FullExpansionBudget, FullPartVertexLimit, GrownFullGeometry,
     GrownFullPart,
 };
-pub use grids::{AddressMesh, MeshClass, RecordCapacity, TreeGrid};
+pub use grids::{AddressMesh, MeshClass, RecordCapacity, RecordCount};
 pub(crate) use meshes::admit_address_mesh_bytes;
+pub use meshes::{CanonicalTopologyBytes, TopologyRequirements};
 pub use resident::{PopulationId, SharedForest, TreeBank};
 pub use visibility::TreeVisibility;
 
@@ -133,14 +134,13 @@ pub struct ForestFrame {
     pub focus: Option<TreeFocus>,
 }
 
-/// Representative records and topology grids shared by record-capacity class.
+/// Representative biological records; canonical topology is derived at use.
 pub struct TreeLibrary {
     pub species: Vec<SpeciesInfo>,
     pub branches: Vec<BranchInstance>,
     pub leaves: Vec<LeafInstance>,
     pub plants: Vec<PlantInstance>,
     pub models: Vec<TreeModel>,
-    pub grids: Vec<TreeGrid>,
     pub detail: ForestDetail,
 }
 
@@ -337,12 +337,9 @@ impl TreeLibrary {
     pub fn validate(&self) -> Result<()> {
         validation::library(self)
     }
-    pub fn mesh_bytes(&self) -> usize {
-        self.grids
-            .iter()
-            .flat_map(|grid| &grid.levels)
-            .map(|mesh| (mesh.vertices.len() + mesh.indices.len()) * size_of::<u32>())
-            .sum()
+    /// Prospective shared address topology, without building any vertex/index arrays.
+    pub fn topology_requirements(&self) -> Result<TopologyRequirements> {
+        TopologyRequirements::from_models(&self.models, &self.detail)
     }
 }
 

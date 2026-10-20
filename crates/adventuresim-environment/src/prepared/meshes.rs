@@ -1,47 +1,114 @@
-//! Canonical indexed integer grids shared by model capacity and LOD.
+//! Canonical address topology derived only at an actual mesh consumer.
 
 use std::collections::BTreeSet;
 
 use bevy::{mesh::Indices, prelude::Mesh};
 
-use super::{AddressMesh, MeshClass, PreparedError, Result, TreeGrid, TreeModel};
+use super::{AddressMesh, MeshClass, PreparedError, RecordCount, Result, TreeModel};
 use crate::render::{
     ForestDetail, ForestPart,
     levels::{Level, Shape},
     shapes,
 };
 
-/// Bound offline address payload before allocating any expanded grids.
+/// Prospective address topology admission; not physical RAM, VRAM or wire bytes.
 const MAX_MESH_BYTES: u64 = 256 * 1024 * 1024;
 
-pub(super) struct GridCardinality {
+#[derive(Clone, Copy, Debug)]
+pub struct CanonicalTopologyBytes(u64);
+
+/// Derived class set and total all-level topology, with no retained mesh arrays.
+pub struct TopologyRequirements {
+    classes: BTreeSet<MeshClass>,
+    bytes: CanonicalTopologyBytes,
+}
+
+pub(crate) struct GridCardinality {
     pub vertices: u32,
     pub indices: u32,
 }
 
-impl MeshClass {
-    fn primitive(self, shape: &Shape) -> Mesh {
-        match self.part {
-            ForestPart::Branches => shapes::branch_grid(shape.sides, shape.spans),
-            ForestPart::Leaves => shapes::leaf_blades(shape.blades),
-        }
+impl CanonicalTopologyBytes {
+    /// Numerical report boundary, in bytes of canonical u32 address/index words.
+    pub fn bytes(self) -> u64 {
+        self.0
     }
-    pub(super) fn cardinality(self, shape: &Shape) -> Result<GridCardinality> {
-        // GPU/file count boundary. Arithmetic is widened before multiplication.
-        let (vertices, indices) = match self.part {
-            ForestPart::Branches => (
-                (u64::from(shape.sides) + 1) * (u64::from(shape.spans) + 1),
-                u64::from(shape.sides) * u64::from(shape.spans) * 6,
-            ),
-            ForestPart::Leaves => (u64::from(shape.blades) * 4, u64::from(shape.blades) * 6),
+}
+
+impl TopologyRequirements {
+    pub(super) fn from_models(models: &[TreeModel], detail: &ForestDetail) -> Result<Self> {
+        super::validation::detail(detail)?;
+        let classes = classes(models)?;
+        let mut bytes = 0_u64;
+        for &class in &classes {
+            for level in Level::ALL {
+                let counts = class.cardinality(&level.shape(detail))?;
+                bytes = bytes
+                    .checked_add(counts.bytes())
+                    .ok_or(PreparedError::Invalid("mesh size overflow"))?;
+            }
+        }
+        admit_address_mesh_bytes(bytes)?;
+        Ok(Self {
+            classes,
+            bytes: CanonicalTopologyBytes(bytes),
+        })
+    }
+
+    pub fn classes(&self) -> impl ExactSizeIterator<Item = MeshClass> + '_ {
+        self.classes.iter().copied()
+    }
+
+    pub fn projected_bytes(&self) -> CanonicalTopologyBytes {
+        self.bytes
+    }
+}
+
+impl GridCardinality {
+    pub(crate) fn bytes(&self) -> u64 {
+        (u64::from(self.vertices) + u64::from(self.indices)) * size_of::<u32>() as u64
+    }
+}
+
+impl MeshClass {
+    fn cardinality(self, shape: &Shape) -> Result<GridCardinality> {
+        cardinality(self.part, shape, self.capacity.records())
+    }
+
+    pub(crate) fn mesh_counts(
+        self,
+        level: Level,
+        detail: &ForestDetail,
+        indexed_records: RecordCount,
+    ) -> Result<GridCardinality> {
+        super::validation::detail(detail)?;
+        if indexed_records.records() > self.capacity.records() {
+            return Err(PreparedError::MeshCardinality);
+        }
+        let shape = level.shape(detail);
+        let capacity = self.cardinality(&shape)?;
+        let indexed = cardinality(self.part, &shape, indexed_records.records())?;
+        let counts = GridCardinality {
+            vertices: capacity.vertices,
+            indices: indexed.indices,
         };
-        let vertices = vertices * u64::from(self.capacity.records());
-        let indices = indices * u64::from(self.capacity.records());
-        Ok(GridCardinality {
-            vertices: u32::try_from(vertices)
-                .map_err(|_| PreparedError::Invalid("grid vertex overflow"))?,
-            indices: u32::try_from(indices)
-                .map_err(|_| PreparedError::Invalid("grid index overflow"))?,
+        admit_address_mesh_bytes(counts.bytes())?;
+        Ok(counts)
+    }
+
+    /// Capacity vertex addresses and an exact complete-record index prefix.
+    /// Private shape parameters are derived from the public level/detail contract.
+    pub fn address_mesh(
+        self,
+        level: Level,
+        detail: &ForestDetail,
+        indexed_records: RecordCount,
+    ) -> Result<AddressMesh> {
+        let counts = self.mesh_counts(level, detail, indexed_records)?;
+        let indices = index_prefix(self.part, level, detail, indexed_records)?;
+        Ok(AddressMesh {
+            vertices: (0..counts.vertices).collect(),
+            indices,
         })
     }
 }
@@ -61,23 +128,6 @@ pub(super) fn classes(models: &[TreeModel]) -> Result<BTreeSet<MeshClass>> {
     Ok(classes)
 }
 
-pub(super) fn preflight(classes: &BTreeSet<MeshClass>, detail: &ForestDetail) -> Result<()> {
-    super::validation::detail(detail)?;
-    let mut bytes = 0_u64;
-    for &class in classes {
-        for level in Level::ALL {
-            let counts = class.cardinality(&level.shape(detail))?;
-            bytes = bytes
-                .checked_add(
-                    (u64::from(counts.vertices) + u64::from(counts.indices))
-                        * size_of::<u32>() as u64,
-                )
-                .ok_or(PreparedError::Invalid("mesh size overflow"))?;
-        }
-    }
-    admit_address_mesh_bytes(bytes)
-}
-
 pub(crate) fn admit_address_mesh_bytes(bytes: u64) -> Result<()> {
     if bytes > MAX_MESH_BYTES {
         return Err(PreparedError::Invalid(
@@ -87,75 +137,54 @@ pub(crate) fn admit_address_mesh_bytes(bytes: u64) -> Result<()> {
     Ok(())
 }
 
-pub(super) fn build(models: &[TreeModel], detail: &ForestDetail) -> Result<Vec<TreeGrid>> {
-    let classes = classes(models)?;
-    preflight(&classes, detail)?;
-    classes
-        .into_iter()
-        .map(|class| {
-            let levels = Level::ALL
-                .into_iter()
-                .map(|level| expand(class, &level.shape(detail)))
-                .collect::<Result<Vec<_>>>()?;
-            Ok(TreeGrid {
-                class,
-                levels: levels
-                    .try_into()
-                    .map_err(|_| PreparedError::Invalid("LOD cardinality"))?,
-            })
-        })
-        .collect()
-}
-
-pub(super) fn expand(class: MeshClass, shape: &Shape) -> Result<AddressMesh> {
-    let counts = class.cardinality(shape)?;
-    let grid = class.primitive(shape);
+/// Native Full meshes need only live triangles, never padded address vertices.
+pub(super) fn index_prefix(
+    part: ForestPart,
+    level: Level,
+    detail: &ForestDetail,
+    records: RecordCount,
+) -> Result<Vec<u32>> {
+    super::validation::detail(detail)?;
+    let shape = level.shape(detail);
+    let counts = cardinality(part, &shape, records.records())?;
+    admit_address_mesh_bytes(counts.bytes())?;
+    let grid = primitive(part, &shape);
     let Some(Indices::U32(triangles)) = grid.indices() else {
         return Err(PreparedError::Invalid("canonical grid indices"));
     };
-    let vertices_per_record = grid.count_vertices() as u32;
-    let indices = (0..class.capacity.records())
-        .flat_map(|record| {
+    let vertices_per_record =
+        u32::try_from(grid.count_vertices()).map_err(|_| PreparedError::MeshCardinality)?;
+    let mut indices = Vec::with_capacity(counts.indices as usize);
+    for record in 0..records.records() {
+        indices.extend(
             triangles
                 .iter()
-                .map(move |&index| record * vertices_per_record + index)
-        })
-        .collect();
-    Ok(AddressMesh {
-        vertices: (0..counts.vertices).collect(),
-        indices,
-    })
+                .map(|&index| record * vertices_per_record + index),
+        );
+    }
+    Ok(indices)
 }
 
-pub(super) fn validate(class: MeshClass, mesh: &AddressMesh, shape: &Shape) -> Result<()> {
-    let counts = class.cardinality(shape)?;
-    if mesh.vertices.len() as u64 != u64::from(counts.vertices)
-        || mesh.indices.len() as u64 != u64::from(counts.indices)
-    {
-        return Err(PreparedError::MeshCardinality);
+fn primitive(part: ForestPart, shape: &Shape) -> Mesh {
+    match part {
+        ForestPart::Branches => shapes::branch_grid(shape.sides, shape.spans),
+        ForestPart::Leaves => shapes::leaf_blades(shape.blades),
     }
-    if !mesh
-        .vertices
-        .iter()
-        .enumerate()
-        .all(|(index, &address)| index as u64 == u64::from(address))
-    {
-        return Err(PreparedError::Invalid("noncanonical GPU vertex address"));
-    }
-    let grid = class.primitive(shape);
-    let Some(Indices::U32(triangles)) = grid.indices() else {
-        return Err(PreparedError::Invalid("canonical grid indices"));
+}
+
+fn cardinality(part: ForestPart, shape: &Shape, records: u32) -> Result<GridCardinality> {
+    // Native allocation/kernel boundary. Widen every shape/count product first.
+    let (vertices, indices) = match part {
+        ForestPart::Branches => (
+            (u64::from(shape.sides) + 1) * (u64::from(shape.spans) + 1),
+            u64::from(shape.sides) * u64::from(shape.spans) * 6,
+        ),
+        ForestPart::Leaves => (u64::from(shape.blades) * 4, u64::from(shape.blades) * 6),
     };
-    let vertices_per_record = grid.count_vertices() as u64;
-    for (index, &actual) in mesh.indices.iter().enumerate() {
-        let record = index / triangles.len();
-        let expected =
-            u64::from(triangles[index % triangles.len()]) + record as u64 * vertices_per_record;
-        if u64::from(actual) != expected {
-            return Err(PreparedError::Invalid(
-                "noncanonical address mesh triangles",
-            ));
-        }
-    }
-    Ok(())
+    Ok(GridCardinality {
+        vertices: u32::try_from(vertices * u64::from(records))
+            .map_err(|_| PreparedError::Invalid("grid vertex overflow"))?,
+        indices: u32::try_from(indices * u64::from(records))
+            .map_err(|_| PreparedError::Invalid("grid index overflow"))?,
+    })
 }

@@ -13,10 +13,16 @@ detail, or demonstrate arrival performance.
 
 Supply a checked `library.forest`, its actual botanical `PlantId`, and a
 tactical scene input. The identifier is neither a model ordinal nor a placement
-ID. The
-selected model must contain both branch and leaf records. Keep source generation
-evidence separately: decoding cannot establish how records were produced,
-biological age, or species calibration.
+ID. The selected model must contain both branch and leaf records. Keep source
+generation evidence separately: decoding cannot establish how records were
+produced, biological age, or species calibration.
+
+The library must use `FORESTL3`, with its exact canonical topology revision.
+It contains source records and model metadata, not generated address meshes.
+Regenerate older libraries from their source; this tool has no older-format
+decoder. Full authoring builds only the live triangle prefix for each part.
+The library digest changes with the new payload, so regenerate any populations
+bound to that library as well.
 
 Build the native viewer with `grown-full-review`, then use a fresh process and
 output directory:
@@ -110,8 +116,8 @@ separate from adaptive gameplay tree presentation.
 The manifest records equal settled raw-readback hashes. Normal output saves the
 final RGB PNG; a settling mismatch can also save retry PNGs. It does not
 guarantee independently decodable files for the accepted raw pair or retain
-alpha. Compare
-reference and candidate images directly and report differences rather than
+alpha. Compare reference and candidate images directly and report differences
+rather than
 assuming pixel parity.
 
 Diagnostic copies, readbacks and serialization add work. These runs are untimed

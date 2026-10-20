@@ -52,6 +52,21 @@ All required files must be available to a fresh client. File reads, decoding,
 record uploads and mesh readiness count in the prepared arrival path. Local
 file reads do not establish network-transfer costs.
 
+Model libraries use the exact `FORESTL3` format. They store botanical records,
+source models, bounds and detail settings, with a canonical topology revision
+included in the content identity. They do not store generated vertex addresses
+or triangle arrays. Older library formats are rejected. Regenerate libraries
+and their bound populations from the selected source; a population bound to an
+older library digest cannot be admitted with the new bank.
+
+Baking and decoding check the prospective shared topology against the 256 MiB
+address-mesh limit without allocating it. The shared renderer generates all
+three address-grid levels on the bank's first upload, then retains their mesh
+handles for reuse. Capacity vertices and complete live-record index prefixes
+come from the same canonical triangle builder. Native Full authoring requests
+only its actual part's index prefix. These first-use costs remain part of any
+arrival measurement.
+
 Capture these assets without replay or performance measurements:
 
 ```powershell
@@ -63,8 +78,9 @@ Prepared captures require completed draws and consecutive identical GPU
 readbacks. For a small all-plants renderer oracle, prepare with `--all-plants`
 and compare both representations with `--fixed-lod full`, `middle`, and
 `coarse`. Use a small deterministic fixture for this exact geometry control.
-Preparation rejects address meshes larger than 256 MiB; metadata and GPU
-integer-address bounds also apply.
+Preparation rejects prospective address topology larger than 256 MiB;
+metadata and GPU integer-address bounds also apply. Renderer upload also checks
+the complete selected layout before inserting any mesh assets.
 
 Shared trees retain species, stable identity and root. Offline matching uses
 height, radial width, branch/leaf complexity and vertical crown occupancy;
@@ -96,7 +112,8 @@ runner with `--prepared-root target/prepared --representation unique` or
 `shared`. Omitting those options measures replay. Freeze the same asset files
 and effective detail for each comparison. The runner records required asset
 hashes and bytes; the viewer reports library records, placement instances,
-spatial batches, capacity slots and all-LOD mesh payloads separately. Per-LOD
+spatial batches, capacity slots, prospective canonical topology and actual
+all-LOD mesh upload payloads separately. Per-LOD
 record/slot totals describe batches before GPU culling, not visible vertex
 invocations. Peak memory remains
 unmeasured. This prototype does not implement distant impostors, ecological
@@ -138,19 +155,22 @@ index prefix for actual model records; it does not index padded records.
 Assets, poses, shaders, conservative bounds and culling policy stay fixed.
 `--tree-layout capacity-batches` is the normal sharing control.
 
-Before cloning meshes, admission bounds the retained source grids plus all
-requested runtime grids to the existing 256 MiB address-payload limit in
-every mode. This is a payload bound, not a peak-memory measurement. Model
-layouts intentionally duplicate vertices and can cost more startup/memory;
-their purpose is to isolate indexed padding with matched batch partitions.
+Before constructing meshes, admission checks the prospective shared topology
+and the complete requested runtime layout separately against the 256 MiB
+address-payload limit. The library retains no generated address/index arrays.
+Each generated mesh moves its arrays into the asset owner. This is a payload
+bound, not a peak-memory measurement. Model layouts intentionally duplicate
+vertices and can cost more startup/memory; their purpose is to isolate indexed
+padding with matched batch partitions.
 
-Report schema 7 names per-LOD referenced work `indexed_record_slots`.
+Report schema 10 names per-LOD referenced work `indexed_record_slots`.
 `capacity_slots_implied_by_shared_placements` still describes per-placement
 capacity potential. `shared_meshes` records the actual requested grid count,
 vertex/index bytes, layout and a SHA-256 of batch keys, bounds and complete
-instance payloads. Canonical `library_mesh_vertex_index_bytes` describes the
-source library, which is a different payload in model modes. These counts
-exclude common primitive meshes and allocator overhead. Check matching
+instance payloads. `prospective_canonical_topology_bytes` describes derived
+shared topology before construction; it is neither encoded library bytes nor
+the actual uploaded layout, which can differ in model modes. These topology
+counts exclude common primitive meshes and allocator overhead. Check matching
 batch digests and all per-LOD records/instances before interpreting a padded
 versus live-index comparison. Changing index lengths still changes buffer
 allocation/bin placement; it does not isolate one shader instruction.
@@ -202,7 +222,7 @@ the render graph's rendering phase, before the camera driver. Their three
 piped stages run on one worker and queue begin/dispatch/end buffers in order.
 
 Both modes save a `.profile.json` sidecar beside the final screenshot.
-Schema 7 measurement reports also include `renderer_profile`; it is null
+Schema 10 measurement reports also include `renderer_profile`; it is null
 when no profiling mode was requested. Untimed captures exercise profiling
 and report admission without supplying frame intervals. Validate those
 captures before coordinating a timing window.
@@ -253,7 +273,7 @@ ordered fog distances before loading the forest. The document is bounded to
 closeup, aim, yaw, zoom and orbit options. The existing framing path retains
 its default lens and exponential haze when no document is supplied.
 
-Schema 9 records `view` with the applied transform, eye, lens and fog beside
+Schema 10 records `view` with the applied transform, eye, lens and fog beside
 the framing orbit. Branch and leaf materials enable Bevy's distance fog in
 both unique and shared rendering. This corrects previously unfogged foliage;
 older captures remain historical evidence rather than exact current controls.
@@ -337,7 +357,7 @@ frames and one second before final stable images and asset checkpoints.
 Single captures retain their thirty-frame minimum; settling starts after the
 early receipt when measurement is enabled.
 
-Schema 9 adds `request_id`, request-owned `arrival_frame` evidence,
+Schema 10 includes `request_id`, request-owned `arrival_frame` evidence,
 `shared_meshes.residency` and `native_residency`. Residency reports bank and
 population identities, native asset IDs and application upload bytes. Native
 snapshots distinguish all request-owned scene entity generations (including

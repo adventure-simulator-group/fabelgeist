@@ -5,7 +5,7 @@ use fabelgeist_botany::identity::PlantId;
 use fabelgeist_gpu::prelude::BufferByteLength;
 
 use super::{FullExpansionBudget, geometry::RecordGeometry, gpu::NativeExpansion};
-use crate::prepared::{MeshClass, RecordSpan, TreeBank, VariantIndex};
+use crate::prepared::{RecordSpan, TreeBank, VariantIndex};
 
 const MESH_VERTEX_BYTES: u64 =
     (size_of::<[f32; 3]>() * 2 + size_of::<[f32; 2]>() + size_of::<u32>()) as u64;
@@ -21,7 +21,6 @@ pub(super) struct PartPlan {
     pub geometry: RecordGeometry,
     pub vertices: u32,
     pub indices: u32,
-    pub class: MeshClass,
 }
 
 struct SourceParts {
@@ -137,8 +136,6 @@ impl RecordShape {
             )?
             .min(u32::MAX / indices_per_record);
         ensure!(cap > 0, "no complete Full record fits the part budget");
-        let class = MeshClass::for_records(self.geometry.role(), self.records.count)?
-            .context("empty Full topology class")?;
         let mut start = self.records.start;
         while start < source_end {
             let count = cap.min(source_end - start);
@@ -151,7 +148,6 @@ impl RecordShape {
                 indices: count
                     .checked_mul(indices_per_record)
                     .context("Full part index overflow")?,
-                class,
             });
             start = start
                 .checked_add(count)

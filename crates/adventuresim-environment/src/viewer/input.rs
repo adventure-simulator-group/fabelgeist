@@ -99,12 +99,12 @@ pub fn prepare(growth: Growth, directory: PathBuf, budget: VariantBudget) -> Res
     std::fs::write(directory.join("library.forest"), &library_bytes)?;
     std::fs::write(directory.join("population.forest"), &population_bytes)?;
     println!(
-        "prepared {} models / {} placements; unique {} bytes, library {} bytes ({} mesh bytes), population {} bytes",
+        "prepared {} models / {} placements; unique {} bytes, library {} bytes ({} prospective topology bytes), population {} bytes",
         library.models.len(),
         population.placements.len(),
         unique_bytes.len(),
         library_bytes.len(),
-        library.mesh_bytes(),
+        library.topology_requirements()?.projected_bytes().bytes(),
         population_bytes.len()
     );
     Ok(())
@@ -177,9 +177,10 @@ pub fn load_population(bank: Arc<TreeBank>, path: &std::path::Path) -> Result<Lo
 impl Preparation {
     fn shared_counts(&mut self, forest: &SharedForest) -> Result<()> {
         let library = forest.bank().library();
-        self.mesh_bytes = library.mesh_bytes();
+        let topology = library.topology_requirements()?;
+        self.projected_topology_bytes = topology.projected_bytes().bytes();
         self.library_models = library.models.len();
-        self.grid_classes = library.grids.len();
+        self.grid_classes = topology.classes().len();
         self.library_branches = library.branches.len();
         self.library_leaves = library.leaves.len();
         for placement in &forest.population().placements {

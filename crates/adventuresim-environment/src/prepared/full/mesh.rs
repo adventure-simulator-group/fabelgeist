@@ -8,7 +8,10 @@ use bevy::{
 };
 
 use super::{gpu::ExpandedVertex, plan::PartPlan};
-use crate::{prepared::TreeLibrary, render::address::VERTEX_ADDRESS};
+use crate::{
+    prepared::{RecordCount, TreeLibrary, meshes},
+    render::{Level, address::VERTEX_ADDRESS},
+};
 
 pub(super) fn construct(
     library: &TreeLibrary,
@@ -61,16 +64,16 @@ pub(super) fn construct(
         uvs.push(vertex.uv);
         addresses.push(vertex.address);
     }
-    let grid = library
-        .grids
-        .iter()
-        .find(|grid| grid.class == part.class)
-        .context("missing admitted Full topology grid")?;
-    let indices = grid.levels[0]
-        .indices
-        .get(..usize::try_from(part.indices)?)
-        .context("Full topology prefix outside grid")?
-        .to_vec();
+    let indices = meshes::index_prefix(
+        part.geometry.role(),
+        Level::Full,
+        &library.detail,
+        RecordCount::from_records(part.records.count)?,
+    )?;
+    ensure!(
+        indices.len() == usize::try_from(part.indices)?,
+        "Full topology length differs"
+    );
     ensure!(
         indices.iter().all(|index| *index < part.vertices),
         "Full index outside part"

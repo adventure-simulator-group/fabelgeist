@@ -42,7 +42,7 @@ pub(crate) fn write_tree_bank(input_path: &Path, output: &Path) -> Result<()> {
         "environment": environment,
         "library": library_id,
         "models": library.models.len(),
-        "mesh_bytes": library.mesh_bytes(),
+        "prospective_canonical_topology_bytes": library.topology_requirements()?.projected_bytes().bytes(),
         "library_bytes": library_bytes.len(),
         "population_bytes": population_bytes.len(),
         "source_normalization_metres": super::source::source_normalization().to_array(),

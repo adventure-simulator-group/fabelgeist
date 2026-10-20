@@ -9,11 +9,11 @@ use serde::Serialize;
 
 use super::{TreeBatchOccupancy, TreeResidencyEvidence};
 use crate::prepared::{
-    AddressMesh, MeshClass, PreparedError, Result, TreeGrid, TreeLibrary, VariantIndex,
+    MeshClass, PreparedError, RecordCount, Result, TreeLibrary, VariantIndex,
     admit_address_mesh_bytes,
 };
 use crate::render::address::VERTEX_ADDRESS;
-use crate::render::{ForestPart, benchmark::ForestBenchmark};
+use crate::render::{ForestPart, Level, benchmark::ForestBenchmark};
 
 /// Default reuse, or matched per-model mesh/batch partitions for diagnostics.
 #[derive(Resource, Clone, Copy, Debug, Default, PartialEq, Eq, Serialize)]
@@ -59,10 +59,10 @@ struct MeshReadiness {
     indices: usize,
 }
 
-struct GridPlan<'a> {
+struct GridPlan {
     key: GridKey,
-    grid: &'a TreeGrid,
-    indexed_records: u32,
+    class: MeshClass,
+    indexed_records: RecordCount,
 }
 
 impl TreeLayout {
@@ -97,21 +97,6 @@ impl UploadedGrids {
     }
 }
 
-impl GridPlan<'_> {
-    fn index_count(&self, addresses: &AddressMesh) -> Result<usize> {
-        let capacity = self.grid.class.capacity.records() as usize;
-        if self.indexed_records == 0
-            || self.indexed_records as usize > capacity
-            || !addresses.indices.len().is_multiple_of(capacity)
-        {
-            return Err(PreparedError::MeshCardinality);
-        }
-        (addresses.indices.len() / capacity)
-            .checked_mul(self.indexed_records as usize)
-            .ok_or(PreparedError::MeshCardinality)
-    }
-}
-
 pub(super) fn upload(
     library: &TreeLibrary,
     layout: TreeLayout,
@@ -132,43 +117,50 @@ pub(super) fn upload(
         batch_digest: [0; 32],
     };
     for plan in &plans {
-        for addresses in &plan.grid.levels {
+        for level in Level::ALL {
+            let counts = plan
+                .class
+                .mesh_counts(level, &library.detail, plan.indexed_records)?;
             stats.vertex_bytes = stats
                 .vertex_bytes
-                .checked_add(word_bytes(addresses.vertices.len())?)
+                .checked_add(word_bytes(counts.vertices as usize)?)
                 .ok_or(PreparedError::MeshCardinality)?;
             stats.index_bytes = stats
                 .index_bytes
-                .checked_add(word_bytes(plan.index_count(addresses)?)?)
+                .checked_add(word_bytes(counts.indices as usize)?)
                 .ok_or(PreparedError::MeshCardinality)?;
         }
     }
-    let source_bytes = library.mesh_bytes();
-    let bytes = (source_bytes as u64)
-        .checked_add(stats.vertex_bytes as u64)
-        .and_then(|bytes| bytes.checked_add(stats.index_bytes as u64))
+    // All planned allocations are admitted before the first asset insertion.
+    // No bank-owned CPU address/index arrays remain to count or clone.
+    let bytes = (stats.vertex_bytes as u64)
+        .checked_add(stats.index_bytes as u64)
         .ok_or(PreparedError::MeshCardinality)?;
     admit_address_mesh_bytes(bytes)?;
     let mut handles = BTreeMap::new();
     let mut readiness = Vec::new();
     for plan in plans {
         let mut levels = Vec::new();
-        for addresses in &plan.grid.levels {
-            let count = plan.index_count(addresses)?;
+        for level in Level::ALL {
+            let addresses =
+                plan.class
+                    .address_mesh(level, &library.detail, plan.indexed_records)?;
+            let vertices = addresses.vertices.len();
+            let count = addresses.indices.len();
             let mesh = meshes.add(
                 Mesh::new(
                     PrimitiveTopology::TriangleList,
                     RenderAssetUsages::RENDER_WORLD,
                 )
-                .with_inserted_attribute(VERTEX_ADDRESS, addresses.vertices.clone())
-                .with_inserted_indices(Indices::U32(addresses.indices[..count].to_vec())),
+                .with_inserted_attribute(VERTEX_ADDRESS, addresses.vertices)
+                .with_inserted_indices(Indices::U32(addresses.indices)),
             );
             if let Some(probe) = probe {
-                probe.expect_mesh(mesh.id(), addresses.vertices.len(), count);
+                probe.expect_mesh(mesh.id(), vertices, count);
             }
             readiness.push(MeshReadiness {
                 mesh: mesh.id(),
-                vertices: addresses.vertices.len(),
+                vertices,
                 indices: count,
             });
             levels.push(mesh);
@@ -187,23 +179,20 @@ pub(super) fn upload(
     })
 }
 
-fn plan(library: &TreeLibrary, layout: TreeLayout) -> Result<Vec<GridPlan<'_>>> {
+fn plan(library: &TreeLibrary, layout: TreeLayout) -> Result<Vec<GridPlan>> {
+    let requirements = library.topology_requirements()?;
     if layout == TreeLayout::CapacityBatches {
-        return Ok(library
-            .grids
-            .iter()
-            .map(|grid| GridPlan {
-                key: GridKey::Capacity(grid.class),
-                grid,
-                indexed_records: grid.class.capacity.records(),
+        return requirements
+            .classes()
+            .map(|class| {
+                Ok(GridPlan {
+                    key: GridKey::Capacity(class),
+                    class,
+                    indexed_records: RecordCount::from_records(class.capacity.records())?,
+                })
             })
-            .collect());
+            .collect();
     }
-    let grids: BTreeMap<_, _> = library
-        .grids
-        .iter()
-        .map(|grid| (grid.class, grid))
-        .collect();
     let mut plans = Vec::new();
     for variant in library.variant_indices() {
         let model = &library.models[variant.index()];
@@ -214,13 +203,12 @@ fn plan(library: &TreeLibrary, layout: TreeLayout) -> Result<Vec<GridPlan<'_>>> 
             let Some(class) = MeshClass::for_records(part, span.count)? else {
                 continue;
             };
-            let grid = grids
-                .get(&class)
-                .ok_or(PreparedError::Invalid("missing diagnostic source grid"))?;
             plans.push(GridPlan {
                 key: layout.key(variant, class),
-                grid,
-                indexed_records: layout.indexed_records(class, span.count),
+                class,
+                indexed_records: RecordCount::from_records(
+                    layout.indexed_records(class, span.count),
+                )?,
             });
         }
     }

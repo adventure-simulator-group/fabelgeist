@@ -95,7 +95,7 @@ impl Measurement {
                 "both policies retain per-draw counters and GPU waits; their difference is not total observer cost",
                 "GPU waits serialize frames; report separately from ordinary presentation",
                 "uploaded_record_bytes include compact placements but exclude meshes, instance buffers and textures",
-                "library mesh bytes describe canonical source grids; shared_meshes describes actual requested grid payload, not peak memory",
+                "prospective_canonical_topology_bytes estimates generated topology; shared_meshes records requested grid payload; neither measures peak memory",
                 "LOD record/slot counts describe submitted batches before per-tree GPU culling, not actual visible vertex work",
                 "fresh file reads may hit operating-system storage caches; this is not a network measurement",
             ],

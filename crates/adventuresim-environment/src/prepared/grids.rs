@@ -1,5 +1,7 @@
 //! Shared grid topology classes, distinct from tree identities and bounds.
 
+use std::num::NonZeroU32;
+
 use serde::{Deserialize, Serialize};
 
 use super::{PreparedError, Result};
@@ -18,16 +20,28 @@ pub struct MeshClass {
     pub capacity: RecordCapacity,
 }
 
-pub struct TreeGrid {
-    pub class: MeshClass,
-    pub levels: [AddressMesh; 3],
-}
+/// Positive number of complete botanical records indexed by one mesh.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct RecordCount(NonZeroU32);
 
 /// Local integer vertex addresses, not positions or global botanical indices.
 /// Bounds always come from the placed TreeModel, including for padded slots.
 pub struct AddressMesh {
     pub vertices: Vec<u32>,
     pub indices: Vec<u32>,
+}
+
+impl RecordCount {
+    /// Native count boundary; an empty part has no mesh.
+    pub fn from_records(records: u32) -> Result<Self> {
+        NonZeroU32::new(records)
+            .map(Self)
+            .ok_or(PreparedError::Invalid("empty indexed record count"))
+    }
+
+    pub fn records(self) -> u32 {
+        self.0.get()
+    }
 }
 
 impl RecordCapacity {

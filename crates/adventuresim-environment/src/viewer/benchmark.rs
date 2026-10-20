@@ -22,7 +22,7 @@ mod report;
 
 /// Consecutive readbacks must agree within this bounded number of attempts.
 const MAX_READBACKS: usize = 8;
-const REPORT_VERSION: u32 = 9;
+const REPORT_VERSION: u32 = 10;
 pub(crate) const READINESS_TIMEOUT: Duration = Duration::from_secs(240);
 
 pub struct Request {
@@ -40,7 +40,7 @@ pub struct Preparation {
     pub asset_load: Duration,
     pub asset_decode: Duration,
     pub asset_bytes: usize,
-    pub mesh_bytes: usize,
+    pub projected_topology_bytes: u64,
     pub library_models: usize,
     pub grid_classes: usize,
     pub library_branches: usize,
@@ -247,7 +247,7 @@ impl Measurement {
             "uploaded_record_bytes": counts.uploaded_bytes,
             "gpu_failures": counts.gpu_failures,
             "required_asset_file_bytes": self.preparation.asset_bytes,
-            "library_mesh_vertex_index_bytes": self.preparation.mesh_bytes,
+            "prospective_canonical_topology_bytes": self.preparation.projected_topology_bytes,
             "library_models": self.preparation.library_models,
             "shared_grid_classes": self.preparation.grid_classes,
             "library_branches": self.preparation.library_branches,

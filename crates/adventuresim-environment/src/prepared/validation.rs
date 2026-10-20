@@ -9,7 +9,7 @@ use super::{
     ForestFrame, LibraryId, PreparedError, PreparedUnique, RecordSpan, Result, TreeBounds,
     TreeLibrary, TreePopulation, TreePose,
 };
-use crate::render::{ForestDetail, levels::Level};
+use crate::render::ForestDetail;
 
 pub(super) fn unique(unique: &PreparedUnique) -> Result<()> {
     let snapshot = &unique.snapshot;
@@ -102,18 +102,7 @@ pub(super) fn library(library: &TreeLibrary) -> Result<()> {
             "model bounds do not cover shader geometry",
         )?;
     }
-    let classes = super::meshes::classes(&library.models)?;
-    require(
-        classes == library.grids.iter().map(|grid| grid.class).collect()
-            && classes.len() == library.grids.len(),
-        "missing, unused or duplicate grid classes",
-    )?;
-    super::meshes::preflight(&classes, &library.detail)?;
-    for grid in &library.grids {
-        for (level, mesh) in Level::ALL.into_iter().zip(&grid.levels) {
-            super::meshes::validate(grid.class, mesh, &level.shape(&library.detail))?;
-        }
-    }
+    library.topology_requirements()?;
     require(
         branch_start == library.branches.len() && leaf_start == library.leaves.len(),
         "unowned library records",

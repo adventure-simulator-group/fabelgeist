@@ -3,21 +3,26 @@
 use fabelgeist_botany::identity::{PlantId, SpeciesId};
 use serde::{Deserialize, Serialize};
 
-use super::{LIBRARY_MAGIC, Reader, begin, headers::SpeciesHeader, identity, mesh, records};
+use super::{LIBRARY_MAGIC, Reader, begin, headers::SpeciesHeader, identity, records};
 use crate::{
-    prepared::{
-        LibraryId, MeshClass, RecordSpan, Result, TreeBounds, TreeGrid, TreeLibrary, TreeModel,
-        meshes,
-    },
-    render::{ForestDetail, levels::Level},
+    prepared::{LibraryId, RecordSpan, Result, TreeBounds, TreeLibrary, TreeModel},
+    render::ForestDetail,
 };
 
 #[derive(Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 struct Header {
+    topology: TopologyRevision,
     detail: ForestDetail,
     species: Vec<SpeciesHeader>,
     models: Vec<ModelHeader>,
-    grids: Vec<MeshClass>,
+}
+
+/// Exact canonical address/winding contract, included in the library identity.
+#[derive(Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+enum TopologyRevision {
+    CanonicalV1,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -32,6 +37,7 @@ struct ModelHeader {
 pub fn encode_library(library: &TreeLibrary) -> Result<(Vec<u8>, LibraryId)> {
     library.validate()?;
     let header = Header {
+        topology: TopologyRevision::CanonicalV1,
         detail: library.detail,
         species: library.species.iter().map(SpeciesHeader::from).collect(),
         models: library
@@ -45,17 +51,11 @@ pub fn encode_library(library: &TreeLibrary) -> Result<(Vec<u8>, LibraryId)> {
                 leaves: model.leaves,
             })
             .collect(),
-        grids: library.grids.iter().map(|grid| grid.class).collect(),
     };
     let mut bytes = begin(LIBRARY_MAGIC, &header)?;
     records(&mut bytes, &library.plants);
     records(&mut bytes, &library.branches);
     records(&mut bytes, &library.leaves);
-    for grid in &library.grids {
-        for level in &grid.levels {
-            mesh(&mut bytes, level);
-        }
-    }
     let id = identity(&bytes);
     Ok((bytes, id))
 }
@@ -76,9 +76,6 @@ pub async fn decode_library(bytes: &[u8]) -> Result<(TreeLibrary, LibraryId)> {
 fn decode_records(bytes: &[u8]) -> Result<TreeLibrary> {
     let mut reader = Reader(bytes);
     let header: Header = reader.header(LIBRARY_MAGIC)?;
-    let plants = reader.records()?;
-    let branches = reader.records()?;
-    let leaves = reader.records()?;
     let models: Vec<_> = header
         .models
         .into_iter()
@@ -90,29 +87,11 @@ fn decode_records(bytes: &[u8]) -> Result<TreeLibrary> {
             leaves: model.leaves,
         })
         .collect();
-    let classes = header.grids.iter().copied().collect();
-    if meshes::classes(&models)? != classes || header.grids.len() != classes.len() {
-        return Err(super::PreparedError::Invalid(
-            "missing, unused or duplicate grid classes",
-        ));
-    }
-    meshes::preflight(&classes, &header.detail)?;
-    let grids = header
-        .grids
-        .into_iter()
-        .map(|class| {
-            let levels = Level::ALL
-                .into_iter()
-                .map(|level| reader.mesh(class.cardinality(&level.shape(&header.detail))?))
-                .collect::<Result<Vec<_>>>()?;
-            Ok(TreeGrid {
-                class,
-                levels: levels
-                    .try_into()
-                    .map_err(|_| super::PreparedError::Invalid("LOD cardinality"))?,
-            })
-        })
-        .collect::<Result<_>>()?;
+    // Header-owned dimensions are bounded before allocating source arrays.
+    super::super::TopologyRequirements::from_models(&models, &header.detail)?;
+    let plants = reader.records()?;
+    let branches = reader.records()?;
+    let leaves = reader.records()?;
     reader.finish()?;
     let library = TreeLibrary {
         detail: header.detail,
@@ -125,7 +104,6 @@ fn decode_records(bytes: &[u8]) -> Result<TreeLibrary> {
         branches,
         leaves,
         models,
-        grids,
     };
     library.validate()?;
     Ok(library)

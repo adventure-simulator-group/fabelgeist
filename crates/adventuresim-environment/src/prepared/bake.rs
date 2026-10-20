@@ -8,7 +8,7 @@ use super::selection::{self, SourceTree};
 use super::{
     ForestFrame, LibraryId, PreparedError, PreparedUnique, RecordSpan, Result, TreeLibrary,
     TreeModel, TreePlacement, TreePopulation, TreePose, TreeVisibility, TreeYaw, VariantBudget,
-    VariantIndex, meshes,
+    VariantIndex,
 };
 
 pub(super) fn library(unique: &PreparedUnique, budget: VariantBudget) -> Result<TreeLibrary> {
@@ -21,13 +21,11 @@ pub(super) fn library(unique: &PreparedUnique, budget: VariantBudget) -> Result<
         leaves: Vec::new(),
         plants: Vec::new(),
         models: Vec::new(),
-        grids: Vec::new(),
         detail: unique.detail,
     };
     for index in selected {
         append(&mut library, unique, &trees[index])?;
     }
-    library.grids = meshes::build(&library.models, &library.detail)?;
     library.validate()?;
     Ok(library)
 }

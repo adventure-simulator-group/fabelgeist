@@ -4,8 +4,7 @@ use bytemuck::Pod;
 use serde::{Serialize, de::DeserializeOwned};
 use sha2::{Digest, Sha256};
 
-use super::meshes::GridCardinality;
-use super::{AddressMesh, LibraryId, PreparedError, Result};
+use super::{LibraryId, PreparedError, Result};
 
 #[cfg(target_family = "wasm")]
 mod browser_identity;
@@ -22,7 +21,7 @@ pub use unique::{decode_unique, encode_unique};
 
 const MAX_METADATA_BYTES: usize = 4 * 1024 * 1024;
 const UNIQUE_MAGIC: &[u8; 8] = b"FORESTU1";
-const LIBRARY_MAGIC: &[u8; 8] = b"FORESTL2";
+const LIBRARY_MAGIC: &[u8; 8] = b"FORESTL3";
 const POPULATION_MAGIC: &[u8; 8] = b"FORESTP2";
 
 struct Reader<'a>(&'a [u8]);
@@ -70,18 +69,6 @@ impl<'a> Reader<'a> {
             .map(bytemuck::pod_read_unaligned)
             .collect())
     }
-    fn exact_records<T: Pod>(&mut self, expected: u32) -> Result<Vec<T>> {
-        if self.count()? as u64 != u64::from(expected) {
-            return Err(PreparedError::MeshCardinality);
-        }
-        self.array(expected as usize)
-    }
-    fn mesh(&mut self, expected: GridCardinality) -> Result<AddressMesh> {
-        Ok(AddressMesh {
-            vertices: self.exact_records(expected.vertices)?,
-            indices: self.exact_records(expected.indices)?,
-        })
-    }
     fn finish(self) -> Result<()> {
         if self.0.is_empty() {
             Ok(())
@@ -108,11 +95,6 @@ fn begin(magic: &[u8; 8], header: &impl Serialize) -> Result<Vec<u8>> {
 fn records<T: Pod>(bytes: &mut Vec<u8>, values: &[T]) {
     bytes.extend_from_slice(&(values.len() as u64).to_le_bytes());
     bytes.extend_from_slice(bytemuck::cast_slice(values));
-}
-
-fn mesh(bytes: &mut Vec<u8>, mesh: &AddressMesh) {
-    records(bytes, &mesh.vertices);
-    records(bytes, &mesh.indices);
 }
 
 fn identity(bytes: &[u8]) -> LibraryId {
