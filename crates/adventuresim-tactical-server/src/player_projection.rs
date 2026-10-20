@@ -2406,7 +2406,9 @@ mod tests {
         )
         .unwrap();
 
-        assert!((short.melee_reach_m() - 2.0).abs() < 1.0e-6);
+        // The authored spike tip is at 2.18 m; the controlling grip is at the
+        // centre of the 1.82 m shaft.
+        assert!((short.melee_reach_m() - 1.27).abs() < 1.0e-6);
         assert!(long.melee_reach_m() > short.melee_reach_m() + 0.10);
         assert!(long.mass_kg > short.mass_kg);
         assert!(long.moment_of_inertia_kg_m2 > short.moment_of_inertia_kg_m2);
