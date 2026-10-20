@@ -12,6 +12,7 @@ use adventuresim_core::combat_style::MeleeAttackStyle;
 use bevy::prelude::*;
 use serde::{Deserialize, Serialize};
 
+pub use adventuresim_core::animation_pack_id::AnimationPackId;
 pub use adventuresim_core::elapsed::AnimationElapsed;
 pub use adventuresim_core::unit_interval::UnitInterval;
 pub use authored_angle::{AngularMagnitudeDegrees, AngularSpeedDegrees, AngularSpeedRadians};
@@ -24,7 +25,6 @@ pub use landing::{LandingImpactSpeed, LandingSequence};
 pub use locomotion::*;
 pub use measurement::{NonnegativeLength, PositiveAnimationDuration};
 pub use motion_modes::{DownedMotion, GuardedLocomotionMode, JumpAnticipation};
-pub use pack_id::AnimationPackId;
 pub use packs::*;
 pub use response_parameters::{
     AngularStiffness, ImpactCompressionCompliance, InertialLeanGain, LookDistribution, MuscleTone,
@@ -51,7 +51,6 @@ mod landing;
 mod locomotion;
 mod measurement;
 mod motion_modes;
-mod pack_id;
 mod packs;
 mod response_parameters;
 mod sample_rate;

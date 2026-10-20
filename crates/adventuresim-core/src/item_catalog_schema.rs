@@ -410,7 +410,7 @@ pub enum ItemKind {
         /// Optional specialized animation pack. Two-handed weapons without one
         /// use the shared close-grip two-handed pack.
         #[serde(default)]
-        animation_pack: Option<String>,
+        animation_pack: Option<crate::animation_pack_id::AnimationPackId>,
         /// Whether the weapon fits an authored sheath/holster or must remain
         /// in a hand (or be dropped) when not otherwise carried.
         carry: WeaponCarry,

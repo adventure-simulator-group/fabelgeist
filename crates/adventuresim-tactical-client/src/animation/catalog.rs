@@ -261,6 +261,7 @@ pub(crate) fn validate_editor_asset_root(
         }
         for sample in samples {
             match resolve_editor_pose(
+                route,
                 &catalog,
                 &AnimationPackId::HUMANOID_UNARMED,
                 sample.pose,
@@ -274,11 +275,7 @@ pub(crate) fn validate_editor_asset_root(
                             resolution.motion_path.display()
                         ));
                     }
-                    route_resolutions.push(EditorRouteResolution {
-                        route,
-                        requested: sample.pose,
-                        ..resolution
-                    });
+                    route_resolutions.push(resolution);
                 }
                 None => errors.push(format!(
                     "route {route} cannot resolve semantic pose {} from pack humanoid_unarmed",
@@ -287,6 +284,7 @@ pub(crate) fn validate_editor_asset_root(
             }
             if let PoseSampling::Span { end, .. } = sample.sampling {
                 match resolve_editor_pose(
+                    route,
                     &catalog,
                     &AnimationPackId::HUMANOID_UNARMED,
                     end,
@@ -300,11 +298,7 @@ pub(crate) fn validate_editor_asset_root(
                                 resolution.motion_path.display()
                             ));
                         }
-                        route_resolutions.push(EditorRouteResolution {
-                            route,
-                            requested: end,
-                            ..resolution
-                        });
+                        route_resolutions.push(resolution);
                     }
                     None => errors.push(format!(
                         "route {route} cannot resolve span endpoint {} from pack humanoid_unarmed",
@@ -330,6 +324,7 @@ pub(crate) fn validate_editor_asset_root(
 
 #[cfg(test)]
 fn resolve_editor_pose(
+    route: &'static str,
     catalog: &AnimationPackCatalog,
     requested_pack: &AnimationPackId,
     requested_pose: SemanticPose,
@@ -351,7 +346,7 @@ fn resolve_editor_pose(
         if let Some((resolved_pose, anchor, mirrored)) = resolved {
             let motion = pack.motions.get(&anchor.motion)?;
             return Some(EditorRouteResolution {
-                route: "",
+                route,
                 requested: requested_pose,
                 resolved_pack: pack_id.to_owned(),
                 resolved_pose,

@@ -1,8 +1,10 @@
 //! Asset revision invalidation before loaded availability and pose sampling.
 
 use super::*;
-use bevy::asset::AssetEvent;
 use bevy::ecs::system::SystemParam;
+use events::RevisionEvents;
+
+mod events;
 
 #[derive(SystemParam)]
 pub(super) struct RevisionCaches<'w, 's> {
@@ -13,56 +15,47 @@ pub(super) struct RevisionCaches<'w, 's> {
 }
 
 pub(super) fn refresh_animation_revisions(
-    mut clip_events: MessageReader<AssetEvent<AnimationClip>>,
-    mut source_events: MessageReader<AssetEvent<Gltf>>,
+    mut events: RevisionEvents,
+    asset_server: Res<AssetServer>,
     gltfs: Res<Assets<Gltf>>,
     catalog: Res<AnimationPackCatalog>,
     mut runtime: ResMut<AnimationRuntime>,
     mut caches: RevisionCaches,
 ) {
-    let mut changed = clip_events
-        .read()
-        .map(|event| match event {
-            AssetEvent::Added { id }
-            | AssetEvent::Modified { id }
-            | AssetEvent::Removed { id }
-            | AssetEvent::Unused { id }
-            | AssetEvent::LoadedWithDependencies { id } => *id,
-        })
-        .collect::<HashSet<_>>();
-    let sources = source_events
-        .read()
-        .map(|event| match event {
-            AssetEvent::Added { id }
-            | AssetEvent::Modified { id }
-            | AssetEvent::Removed { id }
-            | AssetEvent::Unused { id }
-            | AssetEvent::LoadedWithDependencies { id } => *id,
-        })
-        .collect::<HashSet<_>>();
+    let revisions = events.read(&runtime);
+    let mut changed = revisions.clips;
+    let sources = revisions.sources;
     if changed.is_empty() && sources.is_empty() {
         return;
     }
-    let motions = runtime
-        .requested_motions
-        .iter()
-        .filter(|(key, load)| {
-            let source = load.source();
-            source.is_some_and(|source| sources.contains(&source.id()))
-                || runtime
-                    .clips
-                    .get(*key)
-                    .is_some_and(|clip| changed.contains(&clip.handle.id()))
-                || source
-                    .and_then(|source| gltfs.get(source))
-                    .is_some_and(|gltf| {
-                        gltf.animations
-                            .iter()
-                            .any(|clip| changed.contains(&clip.id()))
-                    })
-        })
-        .map(|(key, _)| key.clone())
-        .collect::<Vec<_>>();
+    let motions = {
+        let AnimationRuntime {
+            requested_motions,
+            clips,
+            ..
+        } = &mut *runtime;
+        requested_motions
+            .iter_mut()
+            .filter_map(|(key, load)| {
+                let source_changed = sources
+                    .iter()
+                    .any(|&id| load.observe_source_revision(&asset_server, id));
+                let affected = source_changed
+                    || clips
+                        .get(key)
+                        .is_some_and(|clip| changed.contains(&clip.handle.id()))
+                    || load
+                        .source()
+                        .and_then(|source| gltfs.get(source))
+                        .is_some_and(|gltf| {
+                            gltf.animations
+                                .iter()
+                                .any(|clip| changed.contains(&clip.id()))
+                        });
+                affected.then(|| key.clone())
+            })
+            .collect::<Vec<_>>()
+    };
     let grips = runtime
         .requested_grips
         .iter()

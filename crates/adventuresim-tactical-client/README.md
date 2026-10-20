@@ -238,7 +238,16 @@ contributions join; even zero-weight endpoints retain their declared topology.
 Clip/source revisions invalidate availability, baked poses, per-character and
 shared cadence measurements, phase curves and retained plan keys before new
 sampling. Invalid replacement durations remain unavailable until a valid asset
-revision arrives.
+revision arrives. Completed optional requests retain their admitted path even
+when no typed handle was returned, so a later managed glTF revision can recover
+the same motion by its full asset source, path and label. A failed source or
+child clip cannot republish an older asset value as available. This association
+does not create a per-frame file retry or a watcher for unrequested assets.
+Native asset-store changes invalidate asset-derived pose, stride, phase and
+cadence caches before either evaluation or presentation. This conservatively
+rebuilds unaffected entries too; native event flushing can cause one additional
+rebuild after a real change, while stable frames retain their caches. Actor
+observation history and animation clocks are unchanged.
 
 Height amplitudes and speeds share zero-permitting finite measurement leaves.
 Body angles retain their signed response-frame role; angular caps use a finite

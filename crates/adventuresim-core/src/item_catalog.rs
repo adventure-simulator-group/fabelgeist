@@ -149,9 +149,11 @@ pub fn weapon_precision(id: &str) -> Option<f32> {
     }
 }
 
-pub fn weapon_animation_pack(id: &str) -> Option<&'static str> {
+pub fn weapon_animation_pack(
+    id: &str,
+) -> Option<&'static crate::animation_pack_id::AnimationPackId> {
     match &definition(id)?.kind {
-        ItemKind::Weapon { animation_pack, .. } => animation_pack.as_deref(),
+        ItemKind::Weapon { animation_pack, .. } => animation_pack.as_ref(),
         _ => None,
     }
 }

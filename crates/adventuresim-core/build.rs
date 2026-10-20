@@ -22,6 +22,9 @@ mod personality;
 )]
 mod strategic_presence;
 
+#[path = "src/animation_pack_id.rs"]
+pub mod animation_pack_id;
+
 #[path = "src/elapsed.rs"]
 pub mod elapsed;
 #[path = "src/linear_speed.rs"]

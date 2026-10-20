@@ -453,7 +453,7 @@ fn animation_pack_for_weapon(item_id: &str, uses_offhand: bool) -> AnimationPack
         return AnimationPackId::HUMANOID_UNARMED;
     }
     if let Some(pack) = item_catalog::weapon_animation_pack(item_id) {
-        return AnimationPackId::from(pack);
+        return pack.clone();
     }
     match item_catalog::weapon_handling(item_id) {
         Some(item_catalog::WeaponHandling::TwoHanded) => AnimationPackId::HUMANOID_2H_CLOSE,

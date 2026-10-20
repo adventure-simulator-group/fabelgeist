@@ -1,5 +1,6 @@
 pub mod activity;
 pub mod alcohol;
+pub mod animation_pack_id;
 pub mod attribute;
 pub mod autopsy;
 pub mod autoresolve;

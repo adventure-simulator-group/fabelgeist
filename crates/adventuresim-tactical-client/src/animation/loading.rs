@@ -131,71 +131,26 @@ pub(super) fn collect_loaded_packs(
         let Some(gltf) = gltfs.get(&handle) else {
             continue;
         };
-        let Some(clip_handle) = sole_animation(&gltf.animations) else {
-            warn!(
-                pack = %key.pack,
-                motion = %key.motion,
-                count = gltf.animations.len(),
-                "Motion must contain exactly one animation"
-            );
-            runtime.unavailable_motions.insert(key.clone());
-            changed = true;
-            continue;
-        };
-        let Some(clip) = clips.get(clip_handle) else {
-            continue;
-        };
-        if runtime.canonical_targets.is_empty() {
-            continue;
-        }
-        if !clip_targets_match_base(clip, &runtime.canonical_targets) {
-            warn!(
-                pack = %key.pack,
-                motion = %key.motion,
-                "Motion targets are incompatible with the base rig"
-            );
-            runtime.unavailable_motions.insert(key.clone());
-            changed = true;
-            continue;
-        }
-        let Some(source) = catalog
+        let source = catalog
             .packs
             .get(&key.pack)
-            .and_then(|pack| pack.motions.get(&key.motion))
-        else {
-            runtime.unavailable_motions.insert(key.clone());
-            changed = true;
-            continue;
-        };
-        let duration_seconds = match ClipDuration::from_seconds(clip.duration()) {
-            Ok(duration) => duration,
-            Err(error) => {
-                warn!(%error, motion = %key.motion, "Rejected animation duration");
-                runtime.unavailable_motions.insert(key.clone());
-                changed = true;
-                continue;
+            .and_then(|pack| pack.motions.get(&key.motion));
+        match motion::MotionClipAdmission::admit(
+            &key,
+            source,
+            gltf,
+            &asset_server,
+            &clips,
+            &runtime.canonical_targets,
+        ) {
+            motion::MotionClipAdmission::Pending => continue,
+            motion::MotionClipAdmission::Unavailable => {
+                runtime.unavailable_motions.insert(key);
             }
-        };
-        if !frame_fits_clip(source.required_last_frame, duration_seconds) {
-            warn!(
-                pack = %key.pack,
-                motion = %key.motion,
-                last_frame = u16::from(source.required_last_frame),
-                duration = clip.duration(),
-                "Motion is shorter than its catalog frames"
-            );
-            runtime.unavailable_motions.insert(key.clone());
-            changed = true;
-            continue;
+            motion::MotionClipAdmission::Ready(clip) => {
+                runtime.clips.insert(key, clip);
+            }
         }
-        runtime.clips.insert(
-            key,
-            LoadedClip {
-                handle: clip_handle.clone(),
-                duration_seconds,
-                layer: ClipLayer::Whole,
-            },
-        );
         changed = true;
     }
 
@@ -360,10 +315,14 @@ fn collect_loaded_grips(
         if runtime.processed_grips.contains(&grip) || runtime.unavailable_grips.contains(&grip) {
             continue;
         }
-        if matches!(asset_server.load_state(handle.id()), LoadState::Failed(_)) {
-            runtime.unavailable_grips.insert(grip);
-            warn!(path = %grip.path(), "Authored weapon grip is unavailable");
-            continue;
+        match asset_server.load_state(handle.id()) {
+            LoadState::Failed(_) => {
+                runtime.unavailable_grips.insert(grip);
+                warn!(path = %grip.path(), "Authored weapon grip is unavailable");
+                continue;
+            }
+            LoadState::NotLoaded | LoadState::Loading => continue,
+            LoadState::Loaded => {}
         }
         let Some(gltf) = gltfs.get(&handle) else {
             continue;
@@ -377,6 +336,14 @@ fn collect_loaded_grips(
             runtime.unavailable_grips.insert(grip);
             continue;
         };
+        match asset_server.load_state(clip_handle.id()) {
+            LoadState::Failed(_) => {
+                runtime.unavailable_grips.insert(grip);
+                continue;
+            }
+            LoadState::NotLoaded | LoadState::Loading => continue,
+            LoadState::Loaded => {}
+        }
         let Some(clip) = clips.get(clip_handle) else {
             continue;
         };
