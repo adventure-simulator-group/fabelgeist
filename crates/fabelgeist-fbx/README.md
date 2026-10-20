@@ -1,7 +1,13 @@
-# Binary FBX array encoding
+# Fabelgeist FBX
+
+A pure Rust binary FBX reader with scene and animation queries.
+
+[Binary decoding failures and native boundary contract](binary-errors.md)
+
+## Array encoding
 
 The binary FBX model-file reader admits the four-byte array encoding field into
-`FbxArrayEncoding` before passing it into the shared array decoder. This bespoke
+`FbxArrayEncoding` before payload decoding. This bespoke
 enum keeps encoding identity distinct from counts, byte lengths and property
 tags through all five array kinds: 32-bit and 64-bit floats, 32-bit and 64-bit
 integers, and Boolean bytes.
@@ -9,7 +15,8 @@ integers, and Boolean bytes.
 This reader supports exactly two encoding codes: 0 selects `Uncompressed`, and 1
 selects `Zlib`. Every other code returns `UnsupportedFbxArrayEncoding` before
 payload decoding. Its public `reported_code` field retains the raw wire value;
-callers can inspect this bespoke error through the parser's `anyhow::Error`.
+`FbxDecodeError::UnsupportedArrayEncoding` wraps it without losing the value,
+and `Error::source` exposes the canonical error.
 This deliberately replaces the previous policy that treated every nonzero code
 as Zlib. The shared decoder matches the two supported variants exhaustively.
 
@@ -27,7 +34,7 @@ little-endian 32-bit words. The enum declares codes 0 and 1 as explicit `u32`
 discriminants and derives `TryFrom<u32>` with `num_enum::TryFromPrimitive`.
 The enum's custom-error configuration makes the standard `TryFrom` associated
 error `UnsupportedFbxArrayEncoding` for every caller. Its derived `From<u32>`
-constructor retains the rejected wire value. `read_props` checks the wire word
+constructor retains the rejected wire value. `Reader::array` checks the wire word
 once and propagates that error directly with `?`; the enum remains typed through
 array decoding. Blender's published binary format description documents code 0
 for raw contents and code 1 for Zlib; it reports that other values had not been
