@@ -19,11 +19,37 @@ pub(super) const LOCOMOTION_STATE_MAXIMUM_PELVIS_VERTICAL_STEP_METRES: f32 = 0.0
 pub(super) const ORDINARY_VERTICAL_RANGE_LIMIT_METRES: f32 = 0.20;
 pub(super) const RAISED_GUARD_VERTICAL_RANGE_LIMIT_METRES: f32 = 0.30;
 
+pub(super) const MINIMUM_GUARD_SWING_TRAVEL_METRES: f32 = 0.05;
+pub(super) const MINIMUM_GUARD_SWING_CLEARANCE_GAIN_METRES: f32 = 0.03;
+
+#[derive(Debug, Default)]
+pub(super) struct GuardStepLivenessMetrics {
+    required: bool,
+    completed_half_steps: usize,
+    visible_half_steps: usize,
+    minimum_swing_travel_metres: f32,
+    minimum_swing_clearance_gain_metres: f32,
+}
+
 /// Native report measurements collected at complete captured gait seams.
 #[derive(Default)]
 struct LoopSeamMetrics {
     position_metres: f32,
     rotation_degrees: f32,
+}
+
+impl GuardStepLivenessMetrics {
+    fn is_required(frames: &[&FrameSample]) -> bool {
+        frames.first().is_some_and(|frame| {
+            let metadata = frame.scenario.clone();
+            metadata.kind() == ScenarioKind::RaisedGuard
+                && metadata.procedural_solver()
+                && metadata.repeatable()
+                && frames.iter().all(|frame| {
+                    frame.speed_metres_per_second > SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
+                })
+        })
+    }
 }
 
 impl LoopSeamMetrics {
@@ -251,28 +277,8 @@ pub(super) fn body_local(frame: &FrameSample, bone: BoneRole) -> Option<Vec3> {
     Some(Quat::from_array(frame.body_rotation_xyzw).inverse() * world)
 }
 
-pub(super) const MINIMUM_GUARD_SWING_TRAVEL_METRES: f32 = 0.05;
-pub(super) const MINIMUM_GUARD_SWING_CLEARANCE_GAIN_METRES: f32 = 0.03;
-
-#[derive(Debug, Default)]
-pub(super) struct GuardStepLivenessMetrics {
-    required: bool,
-    completed_half_steps: usize,
-    visible_half_steps: usize,
-    minimum_swing_travel_metres: f32,
-    minimum_swing_clearance_gain_metres: f32,
-}
-
 pub(super) fn guard_step_liveness_metrics(frames: &[&FrameSample]) -> GuardStepLivenessMetrics {
-    let required = frames.first().is_some_and(|frame| {
-        let metadata = frame.scenario.clone();
-        metadata.kind() == ScenarioKind::RaisedGuard
-            && metadata.procedural_solver()
-            && metadata.repeatable()
-            && frames.iter().all(|frame| {
-                frame.speed_metres_per_second > SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
-            })
-    });
+    let required = GuardStepLivenessMetrics::is_required(frames);
     if !required {
         return GuardStepLivenessMetrics::default();
     }
