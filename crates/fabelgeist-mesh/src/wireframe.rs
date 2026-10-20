@@ -73,6 +73,7 @@ impl MeshWireframe {
             BufferUpload::from_elements(&line_indices),
             BufferDefinition::index().with_label(("Wireframe Line Indices").into()),
         )
+        .map_err(anyhow::Error::from)
     }
 
     pub async fn build_neighbor_lines_indices(
@@ -141,6 +142,7 @@ impl MeshWireframe {
             BufferUpload::from_elements(&line_indices),
             BufferDefinition::index().with_label(("Neighbor Lines Indices").into()),
         )
+        .map_err(anyhow::Error::from)
     }
 
     pub async fn build_neighbor_lines_from_neighborhood(
@@ -176,5 +178,6 @@ impl MeshWireframe {
             BufferUpload::from_elements(&line_indices),
             BufferDefinition::index().with_label(("Neighbor Lines Indices").into()),
         )
+        .map_err(anyhow::Error::from)
     }
 }

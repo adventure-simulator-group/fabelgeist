@@ -8,7 +8,7 @@ use fabelgeist_gpu::data::gpu::parameters::{PassParameter, PassParameters};
 use fabelgeist_gpu::data::matrix::Mat4;
 use fabelgeist_gpu::data::vector::Vec4;
 use fabelgeist_gpu::globals::WgpuContext;
-use fabelgeist_gpu::prelude::BufferUpload;
+use fabelgeist_gpu::prelude::{BufferCreationResult, BufferUpload};
 
 /// A 4x4 rigid transform, by rows.
 pub type Matrix4 = [[f32; 4]; 4];
@@ -140,7 +140,7 @@ pub struct StereoDepth {
     frames: u64,
 }
 
-fn storage(context: &WgpuContext, label: &str, bytes: u64) -> Result<Buffer> {
+fn storage(context: &WgpuContext, label: &str, bytes: u64) -> BufferCreationResult<Buffer> {
     Buffer::new(
         context,
         (bytes.max(4)).into(),

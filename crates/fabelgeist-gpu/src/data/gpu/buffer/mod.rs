@@ -2,11 +2,13 @@ use crate::globals::WgpuContext;
 use anyhow::{Result, anyhow};
 use std::sync::Arc;
 
+mod creation_error;
 mod definition;
 mod extent;
 mod label;
 mod readback;
 mod upload;
+pub use creation_error::{BufferCreationError, BufferCreationResult};
 pub use definition::{BufferDefinition, BufferUse};
 pub use extent::{BufferByteLength, BufferByteOffset};
 pub use label::BufferLabel;
@@ -24,9 +26,9 @@ impl Buffer {
         context: &WgpuContext,
         bytes: BufferByteLength,
         definition: BufferDefinition,
-    ) -> Result<Buffer> {
-        if u64::from(bytes) == 0 {
-            return Err(anyhow!("Buffer size must be greater than 0"));
+    ) -> BufferCreationResult<Self> {
+        if bytes.is_empty() {
+            return Err(BufferCreationError::Empty);
         }
         let buffer = definition.allocate_native(context, bytes);
         let usage = buffer.usage();
@@ -154,13 +156,13 @@ impl Buffer {
         context: &WgpuContext,
         data: BufferUpload<'_>,
         definition: BufferDefinition,
-    ) -> Result<Buffer> {
+    ) -> BufferCreationResult<Self> {
         let buffer = Self::new(
             context,
             data.length(),
             definition.with_usage(BufferUse::CopyDestination),
         )?;
-        buffer.write(context, data)?;
+        data.write_to(context, &buffer.buffer, BufferByteOffset::START);
         Ok(buffer)
     }
 }
