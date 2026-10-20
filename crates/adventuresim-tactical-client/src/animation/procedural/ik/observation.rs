@@ -2,7 +2,7 @@
 
 use super::*;
 use adventuresim_core::linear_speed::NonnegativeSpeed;
-use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
+use adventuresim_tactical_core::animation::{AnimationEventSpan, STATIONARY_ANIMATION_SPEED_LIMIT};
 
 impl LegIkMemory {
     fn observe_rendered_endpoints(
@@ -79,7 +79,7 @@ pub(in crate::animation::procedural) fn retain_monotonic_contact_sequence(
     // transition, not a landing, so retain the presentation sequence until
     // stationary raised footwork takes over. Genuine cadence increments (and
     // the u64 wrap) remain forward by exactly one.
-    if observed.wrapping_distance_from(current) <= 1 {
+    if observed.wrapping_distance_from(current) <= AnimationEventSpan::ONE {
         observed
     } else {
         current

@@ -204,9 +204,11 @@ animation:
     phase_drift_measurement_blend: 0.15
     phase_snap_error: 0.20
     maximum_source_gap_ticks: 32
-    maximum_authored_step_cadence_per_second: 5.0
+    authored_step_cadence:
+      maximum_per_second: 5.0
+      transition_width_per_second: 1.0
+      minimum_step_distance_metres: 0.01
     maximum_authored_stance_slip_metres: 0.03
-    authored_cadence_cap_transition_width: 1.0
     maximum_coalesced_events: 8
     initial_locomotion_speed_metres_per_second: 0.05
     locomotion_deactivation_speed_metres_per_second: 0.03

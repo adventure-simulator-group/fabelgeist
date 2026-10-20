@@ -125,8 +125,13 @@ impl LocomotionHeightState {
         let landing_delta = skeleton
             .landing_sequence
             .events_since(history.landing_sequence)
-            .filter(|delta| *delta <= runtime_animation_config().playback.maximum_coalesced_events);
-        let landed = landing_delta.is_some_and(|delta| delta > 0);
+            .filter(|delta| {
+                runtime_animation_config()
+                    .playback
+                    .maximum_coalesced_events
+                    .contains(*delta)
+            });
+        let landed = landing_delta.is_some_and(|delta| !delta.is_zero());
         if skeleton.landing_sequence != history.landing_sequence {
             history.landing_sequence = skeleton.landing_sequence;
         }

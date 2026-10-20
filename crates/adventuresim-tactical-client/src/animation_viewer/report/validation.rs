@@ -1,7 +1,7 @@
 //! Acceptance gates and weighted quality scoring.
 
 use super::*;
-use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
+use adventuresim_tactical_core::animation::{AnimationEventSpan, STATIONARY_ANIMATION_SPEED_LIMIT};
 
 pub(super) fn build_completed_report(
     completed: CompletedCapture,
@@ -187,8 +187,8 @@ pub(super) fn build_completed_report(
         let delta = pair[1]
             .contact_sequence
             .wrapping_distance_from(pair[0].contact_sequence);
-        delta <= 1
-            && (delta == 0
+        delta <= AnimationEventSpan::ONE
+            && (delta.is_zero()
                     || pair[1].contact_foot != pair[0].contact_foot
                     || is_guard_stop_transition(&pair[0].scenario)
                     || pair[0].scenario.is(ScenarioId::RaisedGuardStationaryTurn)
@@ -204,7 +204,7 @@ pub(super) fn build_completed_report(
                 && !pair[0].scenario.is(ScenarioId::RaisedGuardStationaryTurn)
                 && !is_quickstep_scenario(&pair[0].scenario)
                 && !pair[0].scenario.has(ScenarioFeature::Downed)
-                && delta != 0)
+                && !delta.is_zero())
     }) && [
         ScenarioMetadata::authored(ScenarioId::RaisedGuardTapStopLeft),
         ScenarioMetadata::authored(ScenarioId::RaisedGuardTapStopRight),
@@ -272,7 +272,7 @@ pub(super) fn build_completed_report(
                 && pair[1]
                     .contact_sequence
                     .wrapping_distance_from(pair[0].contact_sequence)
-                    == 1)
+                    == AnimationEventSpan::ONE)
     });
     let BodyResponseValidation {
         response: body_response_valid,
@@ -289,7 +289,7 @@ pub(super) fn build_completed_report(
             .is_some_and(|(last, first)| {
                 last.landing_sequence
                     .wrapping_distance_from(first.landing_sequence)
-                    == 1
+                    == AnimationEventSpan::ONE
             })
             && (0.04..=0.08).contains(
                 &landing_frames

@@ -285,7 +285,7 @@ mod legacy_tests {
             .unwrap()
             .cycles();
             let maximum = predicted
-                + presentation_phase_correction_rate_per_second() * delta_seconds
+                + playback_tuning().phase_correction_rate_per_second.phase_units_per_second() * delta_seconds
                 + 0.000_01;
             assert!(actual >= 0.0, "phase moved backwards by {actual}");
             assert!(actual <= maximum, "phase step {actual} exceeded {maximum}");
@@ -345,7 +345,7 @@ mod legacy_tests {
             .with_world_velocity(velocity);
         let mut presented = PresentedSkeleton::new(authoritative.clone(), None);
         let delta_seconds = 1.0 / 60.0;
-        let maximum_correction = presentation_phase_correction_rate_per_second() * delta_seconds;
+        let maximum_correction = playback_tuning().phase_correction_rate_per_second.phase_units_per_second() * delta_seconds;
 
         for tick in 1u64..=8 {
             let predicted_delta = gait_cycle_phase_delta(
@@ -378,7 +378,7 @@ mod legacy_tests {
             assert!((measured.cycles() - 0.10).abs() < 0.000_01);
             assert!(
                 presented.phase_error_remaining.cycles()
-                    < 0.10 - presentation_phase_drift_deadband()
+                    < 0.10 - playback_tuning().phase_drift_deadband.phase_units()
             );
         }
     }
@@ -1448,7 +1448,7 @@ mod legacy_tests {
         );
         assert_eq!(
             ContactSequence::from(9u64).events_since(ContactSequence::from(7u64)),
-            Some(2)
+            Some(adventuresim_tactical_core::animation::AnimationEventSpan::from(2u64))
         );
         assert_eq!(
             ContactSequence::from(7u64).events_since(ContactSequence::from(9u64)),

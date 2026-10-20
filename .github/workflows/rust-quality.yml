@@ -209,6 +209,10 @@ jobs:
           set -o pipefail
           cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/animation.log
           cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client movement_audio::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/audio.log
+      - name: Test existing animation report consumers
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-client --features debug --bin animation-viewer animation_viewer::report:: -- --test-threads=1 2>&1 | tee target/rig-contracts/animation-reports.log
       - name: Test tactical equipment contracts
         run: |
           set -o pipefail
@@ -260,7 +264,7 @@ jobs:
               raise SystemExit("Recorded rig revision does not match the required PR head")
           required = [
               "rig", "autoresolve", "contact-defense", "mhr",
-              "animation", "audio", "equipment", "maneuver-consumers",
+              "animation", "audio", "animation-reports", "equipment", "maneuver-consumers",
               "creator-armor-frames", "creator-clothing",
               "creator-device-frames", "creator-gorget-bib",
               "creator-gorget-collar", "creator-wrapped-tasset",

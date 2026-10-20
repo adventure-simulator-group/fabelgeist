@@ -19,9 +19,11 @@ pub use authored_angle::{
     AngularMagnitudeDegrees, AngularSpeedDegrees, AngularSpeedRadians, SignedAngleDegrees,
     SignedAngularSpeedDegrees,
 };
+pub use cadence_limit::{AuthoredCadenceCap, CadenceDemand, CadenceSelection, StepCadence};
 pub use calibration_parameters::{ContactHeightScale, PhaseCalibrationIntervals};
 pub use contact::ContactSequence;
 pub use elapsed_reflection::ReflectedAnimationElapsed;
+pub use event_span::{AnimationEventSpan, CoalescedEventBudget};
 pub use evaluation::*;
 pub use fraction_reflection::ReflectedUnitInterval;
 pub use ground_contact::GroundContact;
@@ -32,6 +34,7 @@ pub use locomotion::*;
 pub use measurement::{NonnegativeLength, PositiveAnimationDuration};
 pub use motion_modes::{DownedMotion, GuardedLocomotionMode, JumpAnticipation};
 pub use packs::*;
+pub use phase_response::{PhaseCorrectionRate, PhaseErrorLimit};
 pub use pose_coordinates::{ActionProgressDelta, AttackPoseCoordinate};
 pub use response_parameters::{
     AngularStiffness, ImpactCompressionCompliance, InertialLeanGain, LookDistribution, MuscleTone,
@@ -50,9 +53,11 @@ use adventuresim_core::linear_speed::NonnegativeSpeed;
 
 mod attack_commitment;
 mod authored_angle;
+mod cadence_limit;
 mod calibration_parameters;
 mod contact;
 mod elapsed_reflection;
+mod event_span;
 mod evaluation;
 mod fraction_reflection;
 mod ground_contact;
@@ -63,6 +68,7 @@ mod locomotion;
 mod measurement;
 mod motion_modes;
 mod packs;
+mod phase_response;
 mod pose_coordinates;
 mod response_parameters;
 mod sample_rate;

@@ -67,11 +67,8 @@ impl ResponseRate {
         elapsed: AnimationElapsed,
     ) -> AnimationValueResult<UnitInterval> {
         let exponent = -self.0 * elapsed.seconds();
-        if !exponent.is_finite() {
-            return Err(AnimationValueError::Overflow {
-                quantity: AnimationQuantity::BodyLocalAcceleration,
-            });
-        }
+        // Finite nonnegative inputs can overflow the exponent to -infinity;
+        // exp(-infinity) still gives the valid full-response limit.
         Ok(UnitInterval::from_fraction(1.0 - exponent.exp())?)
     }
     /// Linear per-step drain, capped at full response by the existing damping law.

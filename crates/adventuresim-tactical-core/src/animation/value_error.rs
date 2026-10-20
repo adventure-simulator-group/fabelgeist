@@ -81,6 +81,14 @@ pub enum AnimationQuantity {
     ReferenceAcceleration,
     #[display("response rate")]
     ResponseRate,
+    #[display("phase correction rate")]
+    PhaseCorrectionRate,
+    #[display("phase error limit")]
+    PhaseErrorLimit,
+    #[display("authored step cadence")]
+    StepCadence,
+    #[display("coalesced animation-event budget")]
+    CoalescedEventBudget,
     #[display("inertial lean gain")]
     InertialLeanGain,
     #[display("impact compression compliance")]
@@ -109,6 +117,8 @@ pub enum AnimationQuantity {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
 pub enum AnimationValueError {
+    #[error("authored cadence smoothing transition cannot begin below zero steps per second")]
+    CadenceTransitionBelowZero,
     #[error("{quantity} is unavailable")]
     UnavailableObservation { quantity: AnimationQuantity },
     #[error("authored phase curve must close by one forward or reverse cycle")]
@@ -137,7 +147,8 @@ impl AnimationValueError {
     /// Retain a shared numeric rejection while identifying its semantic caller.
     pub fn for_quantity(self, quantity: AnimationQuantity) -> Self {
         match self {
-            Self::BakedChannelSampleCount { .. }
+            Self::CadenceTransitionBelowZero
+            | Self::BakedChannelSampleCount { .. }
             | Self::InvalidPhaseCurveSeam
             | Self::InsufficientPhaseIntervals { .. } => self,
             Self::UnavailableObservation { .. } => Self::UnavailableObservation { quantity },

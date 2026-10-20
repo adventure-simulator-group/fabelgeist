@@ -67,10 +67,10 @@ impl LocomotionPresentationPayload {
                 },
             ) => sequence
                 .events_since(earlier)
-                .is_some_and(|delta| delta > 0),
+                .is_some_and(|delta| !delta.is_zero()),
             (Self::Landing { sequence }, Self::Landing { sequence: earlier }) => sequence
                 .events_since(earlier)
-                .is_some_and(|delta| delta > 0),
+                .is_some_and(|delta| !delta.is_zero()),
             _ => false,
         }
     }
@@ -82,7 +82,9 @@ pub(in crate::animation) fn latest_coalesced_landing(
 ) -> Option<LandingSequence> {
     current
         .events_since(previous)
-        .filter(|delta| *delta > 0 && *delta <= maximum_coalesced_presentation_events())
+        .filter(|delta| {
+            !delta.is_zero() && playback_tuning().maximum_coalesced_events.contains(*delta)
+        })
         .map(|_| current)
 }
 
@@ -93,11 +95,11 @@ pub(in crate::animation) fn coalesced_contacts(
 ) -> Option<Vec<CoalescedContact>> {
     let delta = current
         .events_since(previous)
-        .filter(|delta| *delta <= maximum_coalesced_presentation_events())?;
-    (0..delta)
+        .filter(|delta| playback_tuning().maximum_coalesced_events.contains(*delta))?;
+    delta.offsets()
         .rev()
         .map(|offset| {
-            let foot = if offset % 2 == 0 {
+            let foot = if offset.is_even() {
                 latest_foot
             } else {
                 match latest_foot {
@@ -168,8 +170,4 @@ pub(super) fn emit_locomotion_presentation_events(
             commands.entity(owner).insert(next);
         }
     }
-}
-
-fn maximum_coalesced_presentation_events() -> u64 {
-    playback_tuning().maximum_coalesced_events
 }

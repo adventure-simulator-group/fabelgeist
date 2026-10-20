@@ -3,6 +3,7 @@ use adventuresim_core::linear_speed::NonnegativeSpeed;
 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
 use adventuresim_tactical_core::animation::{AnimationSampleTick, NonnegativeLength};
 use attack::advance_presented_attack;
+use cadence::{AuthoredCadence, apply_authored_cadence};
 use events::emit_locomotion_presentation_events;
 pub(crate) use events::{LocomotionPresentationEvent, LocomotionPresentationPayload};
 pub(super) use events::{
@@ -13,6 +14,7 @@ pub(super) use events::{
 pub(super) use events::CoalescedContact;
 
 mod attack;
+mod cadence;
 mod events;
 pub(super) mod plugin;
 
@@ -38,14 +40,6 @@ pub(crate) struct PresentedSkeleton {
 }
 
 #[derive(Debug, Clone, Copy)]
-struct AuthoredCadence {
-    kind: AuthoredCadenceKind,
-    phase: CyclePhase,
-    limited: bool,
-    cadence_capped: bool,
-}
-
-#[derive(Debug, Clone, Copy)]
 struct PresentedAttackPhase {
     start_tick: AnimationSampleTick,
     animation: AttackAnimation,
@@ -53,12 +47,6 @@ struct PresentedAttackPhase {
     continuation: bool,
     phase: UnitInterval,
     error_remaining: ActionProgressDelta,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-enum AuthoredCadenceKind {
-    Ordinary,
-    Combat,
 }
 
 impl PresentedAttackPhase {
@@ -99,14 +87,17 @@ impl PresentedSkeleton {
         elapsed: AnimationElapsed,
     ) -> AnimationValueResult<()> {
         let delta_seconds = elapsed.seconds();
+        let playback = playback_tuning();
         let source_gap = authoritative
             .locomotion_sample_tick
             .checked_delta(self.source_tick);
         let source_is_contiguous =
-            source_gap.is_some_and(|gap| gap <= playback_tuning().maximum_source_gap_ticks);
+            source_gap.is_some_and(|gap| gap <= playback.maximum_source_gap_ticks);
         if source_is_contiguous && can_predict_locomotion(previous, authoritative)? {
-            let response =
-                1.0 - (-playback_tuning().velocity_response_per_second * delta_seconds).exp();
+            let response = playback
+                .velocity_response_per_second
+                .exponential_fraction(elapsed)?
+                .fraction();
             next.local_velocity = previous
                 .local_velocity
                 .lerp(authoritative.local_velocity, response);
@@ -139,7 +130,7 @@ impl PresentedSkeleton {
                 .wrapped();
             self.last_phase_prediction_delta = prediction_delta;
             let error = circular_phase_delta(predicted, authoritative.gait_phase)?;
-            let discontinuous = error.cycles().abs() > playback_tuning().phase_snap_error;
+            let discontinuous = error.cycles().abs() > playback.phase_snap_error.phase_units();
             if self.last_phase_source_changed && discontinuous {
                 next.gait_phase = authoritative.gait_phase;
                 self.phase_error_remaining = CycleDelta::ZERO;
@@ -147,13 +138,12 @@ impl PresentedSkeleton {
             } else {
                 if self.last_phase_source_changed {
                     self.last_phase_measurement_error = Some(error);
-                    let measured_drift =
-                        if error.cycles().abs() <= presentation_phase_drift_deadband() {
-                            0.0
-                        } else {
-                            error.cycles()
-                                - error.cycles().signum() * presentation_phase_drift_deadband()
-                        };
+                    let deadband = playback.phase_drift_deadband.phase_units();
+                    let measured_drift = if error.cycles().abs() <= deadband {
+                        0.0
+                    } else {
+                        error.cycles() - error.cycles().signum() * deadband
+                    };
                     // Keep one continuous correction accumulator. Replacing it
                     // with every packet's error makes packet timing modulate the
                     // displayed gait speed even when physical speed is constant.
@@ -161,13 +151,13 @@ impl PresentedSkeleton {
                     let difference = measured_drift.checked_sub(self.phase_error_remaining)?;
                     let adjustment = CycleDelta::from_arithmetic(
                         difference.cycles()
-                            * playback_tuning().phase_drift_measurement_blend.fraction(),
+                            * playback.phase_drift_measurement_blend.fraction(),
                     )?;
                     self.phase_error_remaining =
                         self.phase_error_remaining.checked_add(adjustment)?;
                 }
                 let maximum_correction =
-                    presentation_phase_correction_rate_per_second() * delta_seconds;
+                    playback.phase_correction_rate_per_second.phase_units_per_second() * delta_seconds;
                 let correction = CycleDelta::from_arithmetic(
                     self.phase_error_remaining
                         .cycles()
@@ -186,14 +176,6 @@ impl PresentedSkeleton {
 
 pub(super) fn playback_tuning() -> AnimationPlaybackConfig {
     runtime_animation_config().playback
-}
-
-pub(super) fn presentation_phase_correction_rate_per_second() -> f32 {
-    playback_tuning().phase_correction_rate_per_second
-}
-
-pub(super) fn presentation_phase_drift_deadband() -> f32 {
-    playback_tuning().phase_drift_deadband
 }
 
 pub(super) fn maximum_authored_stance_slip_metres() -> NonnegativeLength {
@@ -403,92 +385,6 @@ fn advance_presented_quickstep(
     Ok(())
 }
 
-fn apply_authored_cadence(
-    previous: &SkeletonState,
-    next: &mut SkeletonState,
-    cadence: &mut Option<AuthoredCadence>,
-    strides: &AuthoredLocomotionStrides,
-    elapsed: AnimationElapsed,
-) -> AnimationValueResult<()> {
-    let delta_seconds = elapsed.seconds();
-    if next.posture() != Posture::Upright || next.is_quickstep() {
-        *cadence = None;
-        return Ok(());
-    }
-    let kind = if next.weapon_guard() == WeaponGuardState::Raised && !next.is_guarded_sprinting() {
-        AuthoredCadenceKind::Combat
-    } else {
-        AuthoredCadenceKind::Ordinary
-    };
-    let speed = next.animation_speed()?;
-    let measurement = match kind {
-        AuthoredCadenceKind::Ordinary => strides.ordinary(speed)?,
-        AuthoredCadenceKind::Combat => {
-            strides.combat(next.raised_locomotion().local_direction())?
-        }
-    };
-    let continuing = cadence.filter(|current| current.kind == kind);
-    if measurement.is_none() && !(speed <= STATIONARY_ANIMATION_SPEED_LIMIT && continuing.is_some())
-    {
-        *cadence = None;
-        return Ok(());
-    }
-    let mut phase = continuing.map_or(previous.gait_phase, |current| current.phase);
-    let mut limited = continuing.is_some_and(|current| current.limited);
-    let mut cadence_capped = continuing.is_some_and(|current| current.cadence_capped);
-    if speed > STATIONARY_ANIMATION_SPEED_LIMIT
-        && let Some(measurement) = measurement
-    {
-        let requested_step_cadence =
-            speed.metres_per_second() / measurement.step_distance.metres().max(0.01);
-        let step_cadence = capped_authored_step_cadence(requested_step_cadence);
-        cadence_capped = step_cadence < requested_step_cadence;
-        limited = cadence_capped
-            || measurement.maximum_stance_slip > maximum_authored_stance_slip_metres();
-        if cadence_capped && !continuing.is_some_and(|current| current.cadence_capped) {
-            warn!(
-                speed_metres_per_second = speed.metres_per_second(),
-                requested_steps_per_second = requested_step_cadence,
-                applied_steps_per_second = step_cadence,
-                maximum_stance_slip_metres = measurement.maximum_stance_slip.metres(),
-                "Authored locomotion clip cannot represent requested speed"
-            );
-        }
-        let delta = CycleDelta::from_arithmetic(step_cadence * delta_seconds.max(0.0) * 0.5)?;
-        phase = phase.checked_advance(delta)?.wrapped();
-    }
-    next.gait_phase = phase;
-    *cadence = Some(AuthoredCadence {
-        kind,
-        phase,
-        limited,
-        cadence_capped,
-    });
-    Ok(())
-}
-
-/// Enter the cadence ceiling with continuous velocity and acceleration. A
-/// hard `min` makes a steadily accelerating character acquire an animation
-/// acceleration corner on the exact frame that reaches the cap.
-fn capped_authored_step_cadence(requested: f32) -> f32 {
-    let half_width = playback_tuning().authored_cadence_cap_transition_width * 0.5;
-    let transition_start = playback_tuning().maximum_authored_step_cadence_per_second - half_width;
-    let transition_end = playback_tuning().maximum_authored_step_cadence_per_second + half_width;
-    if requested <= transition_start {
-        return requested;
-    }
-    if requested >= transition_end {
-        return playback_tuning().maximum_authored_step_cadence_per_second;
-    }
-    let t =
-        (requested - transition_start) / playback_tuning().authored_cadence_cap_transition_width;
-    // Integral of `1 - smoothstep(t)`: slope begins at one, ends at zero,
-    // and its derivative is also zero at both boundaries.
-    transition_start
-        + playback_tuning().authored_cadence_cap_transition_width
-            * (t - t.powi(3) + 0.5 * t.powi(4))
-}
-
 fn presentation_phase_speed(skeleton: &SkeletonState) -> AnimationValueResult<NonnegativeSpeed> {
     let speed = skeleton.animation_speed()?;
     if skeleton.is_downed_turning() {
@@ -505,152 +401,6 @@ fn presentation_phase_speed(skeleton: &SkeletonState) -> AnimationValueResult<No
 #[cfg(test)]
 mod authored_cadence_tests {
     use super::*;
-
-    #[test]
-    fn rejected_recalibration_clears_only_the_changed_motion() {
-        let measurement = AuthoredStrideMeasurement {
-            step_distance: NonnegativeLength::from_metres(1.0).unwrap(),
-            maximum_stance_slip: NonnegativeLength::from_metres(0.0).unwrap(),
-        };
-        let mut strides = AuthoredLocomotionStrides {
-            walk: Some(measurement),
-            run: Some(measurement),
-            ..default()
-        };
-        strides.phase_curves.insert(
-            super::CalibrationMotion::Walk,
-            AuthoredPhaseCurve::from_samples(
-                vec![0.25, 1.25]
-                    .into_iter()
-                    .map(|phase| CyclePhase::from_cycles(phase).unwrap())
-                    .collect(),
-            )
-            .unwrap(),
-        );
-
-        strides.clear_motion(super::CalibrationMotion::Walk);
-
-        assert!(strides.walk.is_none());
-        assert!(strides.run.is_some());
-        assert!(
-            !strides
-                .phase_curves
-                .contains_key(&super::CalibrationMotion::Walk)
-        );
-    }
-
-    #[test]
-    fn authored_walk_stride_controls_visual_cycle_rate() {
-        let state = SkeletonState::default().with_local_velocity(Vec3::NEG_Z * 2.0);
-        let mut presented = PresentedSkeleton::new(state.clone(), None);
-        let strides = AuthoredLocomotionStrides {
-            walk: Some(AuthoredStrideMeasurement {
-                step_distance: NonnegativeLength::from_metres(1.0).unwrap(),
-                maximum_stance_slip: NonnegativeLength::from_metres(0.0).unwrap(),
-            }),
-            run: Some(AuthoredStrideMeasurement {
-                step_distance: NonnegativeLength::from_metres(2.0).unwrap(),
-                maximum_stance_slip: NonnegativeLength::from_metres(0.0).unwrap(),
-            }),
-            ..default()
-        };
-
-        advance_presented_skeleton_with_strides(
-            &mut presented,
-            &state,
-            AnimationElapsed::from_seconds(0.1).unwrap(),
-            &strides,
-        )
-        .unwrap();
-
-        // One cycle owns two one-metre steps: 2 m/s advances 0.1 cycle in 0.1 s.
-        assert!((presented.gait_phase.cycles() - 0.1).abs() < 0.0001);
-    }
-
-    #[test]
-    fn diagonal_combat_cadence_blends_strafe_and_skip_stride() {
-        let state = SkeletonState::default()
-            .with_weapon_guard(WeaponGuardState::Raised)
-            .with_local_velocity(Vec3::new(1.0, 0.0, 1.0))
-            .with_raised_locomotion(RaisedLocomotionIntent::moving(
-                Vec2::ONE,
-                adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
-                    .unwrap(),
-            ));
-        let mut presented = PresentedSkeleton::new(state.clone(), None);
-        let strides = AuthoredLocomotionStrides {
-            strafe: Some(AuthoredStrideMeasurement {
-                step_distance: NonnegativeLength::from_metres(0.25).unwrap(),
-                maximum_stance_slip: NonnegativeLength::from_metres(0.0).unwrap(),
-            }),
-            skip: Some(AuthoredStrideMeasurement {
-                step_distance: NonnegativeLength::from_metres(0.75).unwrap(),
-                maximum_stance_slip: NonnegativeLength::from_metres(0.0).unwrap(),
-            }),
-            ..default()
-        };
-
-        advance_presented_skeleton_with_strides(
-            &mut presented,
-            &state,
-            AnimationElapsed::from_seconds(0.1).unwrap(),
-            &strides,
-        )
-        .unwrap();
-
-        assert!((presented.gait_phase.cycles() - 0.2).abs() < 0.0001);
-    }
-
-    #[test]
-    fn authored_cadence_reports_and_caps_unrepresentable_speed() {
-        let state = SkeletonState::default().with_local_velocity(Vec3::NEG_Z * 9.0);
-        let mut presented = PresentedSkeleton::new(state.clone(), None);
-        let strides = AuthoredLocomotionStrides {
-            walk: Some(AuthoredStrideMeasurement {
-                step_distance: NonnegativeLength::from_metres(1.0).unwrap(),
-                maximum_stance_slip: NonnegativeLength::from_metres(0.0).unwrap(),
-            }),
-            run: Some(AuthoredStrideMeasurement {
-                step_distance: NonnegativeLength::from_metres(1.5).unwrap(),
-                maximum_stance_slip: NonnegativeLength::from_metres(0.04).unwrap(),
-            }),
-            ..default()
-        };
-
-        advance_presented_skeleton_with_strides(
-            &mut presented,
-            &state,
-            AnimationElapsed::from_seconds(0.1).unwrap(),
-            &strides,
-        )
-        .unwrap();
-
-        assert!((presented.gait_phase.cycles() - 0.25).abs() < 0.0001);
-        assert!(
-            presented
-                .authored_cadence
-                .is_some_and(|cadence| cadence.limited)
-        );
-    }
-
-    #[test]
-    fn authored_cadence_cap_has_a_smooth_bounded_transition() {
-        assert_eq!(capped_authored_step_cadence(4.0), 4.0);
-        assert_eq!(capped_authored_step_cadence(5.5), 5.0);
-        assert_eq!(capped_authored_step_cadence(7.0), 5.0);
-        assert!(capped_authored_step_cadence(5.0) < 5.0);
-        assert!(capped_authored_step_cadence(5.0) > 4.8);
-
-        let epsilon = 0.001;
-        let slope_before = (capped_authored_step_cadence(4.5)
-            - capped_authored_step_cadence(4.5 - epsilon))
-            / epsilon;
-        let slope_after = (capped_authored_step_cadence(5.5 + epsilon)
-            - capped_authored_step_cadence(5.5))
-            / epsilon;
-        assert!((slope_before - 1.0).abs() < 0.001);
-        assert!(slope_after.abs() < 0.001);
-    }
 
     #[test]
     fn ordinary_attack_advances_between_repeated_authoritative_contact_samples() {
@@ -781,7 +531,7 @@ mod authored_cadence_tests {
         );
         assert!(
             authoritative.action_phase().fraction() - previous_phase
-                > playback_tuning().phase_snap_error
+                > playback_tuning().phase_snap_error.phase_units()
         );
         advance_presented_skeleton_with_strides(
             &mut presented,
@@ -793,7 +543,7 @@ mod authored_cadence_tests {
 
         let nominal_delta = 0.5 / 17.0;
         let maximum_correction =
-            presentation_phase_correction_rate_per_second() / locomotion_sample_rate().hertz();
+            playback_tuning().phase_correction_rate_per_second.phase_units_per_second() / locomotion_sample_rate().hertz();
         assert!(presented.action_phase().fraction() > previous_phase);
         assert!(
             presented.action_phase().fraction()

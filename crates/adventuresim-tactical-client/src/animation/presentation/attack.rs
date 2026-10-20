@@ -40,16 +40,20 @@ impl PresentedAttackPhase {
             source.attack_is_continuation() && self.phase.fraction() >= 0.5;
         if measure_source && !presentation_owned_recovery {
             let measured_error = source.action_phase().fraction() - predicted.fraction();
-            let drift = if measured_error.abs() <= presentation_phase_drift_deadband() {
+            let deadband = playback_tuning().phase_drift_deadband.phase_units();
+            let drift = if measured_error.abs() <= deadband {
                 0.0
             } else {
-                measured_error - measured_error.signum() * presentation_phase_drift_deadband()
+                measured_error - measured_error.signum() * deadband
             };
             error += (drift - error) * playback_tuning().phase_drift_measurement_blend.fraction();
         } else if presentation_owned_recovery {
             error = 0.0;
         }
-        let maximum = presentation_phase_correction_rate_per_second() * elapsed.seconds();
+        let maximum = playback_tuning()
+            .phase_correction_rate_per_second
+            .phase_units_per_second()
+            * elapsed.seconds();
         let correction = error.clamp(-maximum, maximum);
         let phase = UnitInterval::from_fraction(
             (predicted.fraction() + correction).clamp(self.phase.fraction(), 1.0),

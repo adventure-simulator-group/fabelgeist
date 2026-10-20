@@ -1,6 +1,8 @@
 //! Authoritative landing observations retained by animation state.
 
-use super::{AnimationQuantity, AnimationValueError, AnimationValueResult, NonnegativeSpeed};
+use super::{
+    AnimationEventSpan, AnimationQuantity, AnimationValueError, AnimationValueResult, NonnegativeSpeed,
+};
 use derive_more::{Debug, Display, From};
 use serde::{Deserialize, Serialize};
 
@@ -20,12 +22,12 @@ impl LandingSequence {
     pub fn next(self) -> Self {
         Self(self.0.wrapping_add(1))
     }
-    pub fn events_since(self, previous: Self) -> Option<u64> {
-        self.0.checked_sub(previous.0)
+    pub fn events_since(self, previous: Self) -> Option<AnimationEventSpan> {
+        self.0.checked_sub(previous.0).map(AnimationEventSpan::from)
     }
     /// Observed report continuity is distinct from checked event coalescing.
-    pub fn wrapping_distance_from(self, previous: Self) -> u64 {
-        self.0.wrapping_sub(previous.0)
+    pub fn wrapping_distance_from(self, previous: Self) -> AnimationEventSpan {
+        AnimationEventSpan::from(self.0.wrapping_sub(previous.0))
     }
     /// Scalar event-stream encoding, separate from a rig slot or sample tick.
     pub fn encoded(self) -> u64 {

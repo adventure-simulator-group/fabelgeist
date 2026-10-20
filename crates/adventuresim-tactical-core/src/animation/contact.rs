@@ -1,5 +1,6 @@
 //! Authoritative foot-contact observations, independent of simulation sample ticks.
 
+use super::AnimationEventSpan;
 use derive_more::{Debug, Display, From};
 use serde::{Deserialize, Serialize};
 
@@ -28,23 +29,23 @@ impl ContactSequence {
         Self(self.0.wrapping_add(1))
     }
 
-    pub fn events_since(self, previous: Self) -> Option<u64> {
-        self.0.checked_sub(previous.0)
+    pub fn events_since(self, previous: Self) -> Option<AnimationEventSpan> {
+        self.0.checked_sub(previous.0).map(AnimationEventSpan::from)
     }
 
     /// Observational continuity permits the authoritative counter to wrap.
-    pub fn wrapping_distance_from(self, previous: Self) -> u64 {
-        self.0.wrapping_sub(previous.0)
+    pub fn wrapping_distance_from(self, previous: Self) -> AnimationEventSpan {
+        AnimationEventSpan::from(self.0.wrapping_sub(previous.0))
     }
 
     /// Locate an earlier contact in a proven forward coalescing interval.
-    pub fn preceding(self, contacts: u64) -> Option<Self> {
-        self.0.checked_sub(contacts).map(Self)
+    pub fn preceding(self, contacts: AnimationEventSpan) -> Option<Self> {
+        self.0.checked_sub(contacts.events()).map(Self)
     }
 
     /// Cadence validation requires a non-wrapping immediate successor.
     pub fn is_successor_of(self, previous: Self) -> bool {
-        self.events_since(previous) == Some(1)
+        self.events_since(previous) == Some(AnimationEventSpan::ONE)
     }
 
     /// Scalar encoding for serialization, tracing and deterministic native seeds.
