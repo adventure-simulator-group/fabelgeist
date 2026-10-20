@@ -1,0 +1,16 @@
+lookup:"Unknown:key\0suffix"=Some(Node { name: "P", props: [Str([85, 110, 107, 110, 111, 119, 110, 58, 107, 101, 121, 0, 115, 117, 102, 102, 105, 120]), Str([107, 105, 110, 100]), Str([]), Str([]), I16(42)], children: [] });integer=42
+lookup:"Scalar"=Some(Node { name: "P", props: [Raw([83, 99, 97, 108, 97, 114]), Str([107, 105, 110, 100]), Str([]), Str([]), Bool(true)], children: [] });integer=1
+lookup:"scalar"=None;integer=-7
+lookup:""=Some(Node { name: "P", props: [Str([]), Str([107, 105, 110, 100]), Str([]), Str([]), I32(-5)], children: [] });integer=-5
+lookup:"Empty"=Some(Node { name: "P", props: [Str([69, 109, 112, 116, 121]), Str([107, 105, 110, 100]), Str([]), Str([])], children: [] });integer=-7
+lookup:"OnlySecondBlock"=None;integer=-7
+lookup:"OtherRecord"=Some(Node { name: "NotP", props: [Str([79, 116, 104, 101, 114, 82, 101, 99, 111, 114, 100]), I32(0), I32(0), I32(0), I64(17)], children: [] });integer=17
+lookup:"missing"=None;integer=-7
+vector:Vector=[1.25, 2.0, -3.5]
+vector:Partial=[10.0, 20.0, 30.0]
+vector:Short=[10.0, 20.0, 30.0]
+vector:missing=[10.0, 20.0, 30.0]
+temporary:Some(Node { name: "P", props: [Raw([83, 99, 97, 108, 97, 114]), Str([107, 105, 110, 100]), Str([]), Str([]), Bool(true)], children: [] })
+take0:[Take { name: "item2", duration: 1.0, nodes: [NodeAnimation { node: 1, name: "ns:item1", translation: Some(TransformChannel { x: Curve { times: [0.0, 2.0], values: [4.0, 6.0] }, y: Curve { times: [], values: [] }, z: Curve { times: [], values: [] }, default: [1.25, 2.0, 0.0] }), rotation: None, scale: None }] }]
+take1:[Take { name: "item2", duration: 2.0, nodes: [NodeAnimation { node: 1, name: "ns:item1", translation: Some(TransformChannel { x: Curve { times: [0.0, 2.0], values: [4.0, 6.0] }, y: Curve { times: [], values: [] }, z: Curve { times: [], values: [] }, default: [1.25, 2.0, 0.0] }), rotation: None, scale: None }] }]
+take2:[Take { name: "item2", duration: 2.0, nodes: [NodeAnimation { node: 1, name: "ns:item1", translation: Some(TransformChannel { x: Curve { times: [0.0, 2.0], values: [4.0, 6.0] }, y: Curve { times: [], values: [] }, z: Curve { times: [], values: [] }, default: [1.25, 2.0, 0.0] }), rotation: None, scale: None }] }]

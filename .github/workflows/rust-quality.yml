@@ -107,6 +107,8 @@ jobs:
           cargo test --locked --package fabelgeist-fbx --lib
           array_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior
           -- --exact --nocapture
+      - name: Test existing FBX property-key queries
+        run: cargo test --locked --package fabelgeist-fbx
       - name: Check semantic values and Rust growth
         run: |
           cargo test --package fabelgeist-rust-quality
