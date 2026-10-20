@@ -1018,7 +1018,8 @@ mod tests {
             .unwrap()
             .advance_action(
                 adventuresim_tactical_core::animation::AnimationSampleTick::from(999u64),
-            );
+            )
+            .unwrap();
         app.world_mut()
             .entity_mut(actor)
             .get_mut::<OffensiveCombatAi>()

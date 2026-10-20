@@ -1,10 +1,13 @@
 use super::*;
-use action_timeline::ActionTimeline;
+use action_timeline::{ActionTimeline, ActionTimelineSample};
 pub use downed_facing::{
     DownedFacingAim, DownedFacingPose, DownedFacingState, DownedFacingStep, DownedRollMotion,
     SignedHalfTurns, downed_camera_roll_target,
 };
 use guard_footwork::advance_guard_footwork;
+pub use posture_transition::{
+    PostureTransitionState, dive_landing_facing_delta, supine_get_up_counter_yaw_delta,
+};
 pub use projection::{
     SkeletonLocomotionInput, project_skeleton_locomotion,
     project_skeleton_locomotion_with_body_rotation, project_skeleton_locomotion_with_intent,
@@ -20,6 +23,7 @@ pub use turn_deadline::{
 mod action_timeline;
 mod downed_facing;
 mod guard_footwork;
+mod posture_transition;
 mod projection;
 mod raised_locomotion;
 mod turn_deadline;
@@ -412,147 +416,6 @@ impl PostureTransitionKind {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
-pub struct PostureTransitionState {
-    kind: PostureTransitionKind,
-    start_tick: AnimationSampleTick,
-    duration_ticks: AnimationSampleSpan,
-    phase: f32,
-    dive_was_airborne: bool,
-    dive_landing_tick: Option<AnimationSampleTick>,
-}
-
-impl PostureTransitionState {
-    fn new(
-        kind: PostureTransitionKind,
-        start_tick: AnimationSampleTick,
-        duration_ticks: AnimationSampleSpan,
-    ) -> Self {
-        Self {
-            kind,
-            start_tick,
-            duration_ticks: duration_ticks.max(AnimationSampleSpan::ONE),
-            phase: 0.0,
-            dive_was_airborne: false,
-            dive_landing_tick: None,
-        }
-    }
-
-    fn normalized(mut self) -> Self {
-        self.duration_ticks = self.duration_ticks.max(AnimationSampleSpan::ONE);
-        self.phase = if self.phase.is_finite() {
-            self.phase.clamp(0.0, 1.0)
-        } else {
-            0.0
-        };
-        self
-    }
-
-    pub fn kind(self) -> PostureTransitionKind {
-        self.kind
-    }
-
-    pub fn phase(self) -> f32 {
-        self.phase
-    }
-
-    /// Returns the dive recovery progress after terrain contact.
-    /// The first half of a dive is guard-to-airborne and remains fixed at its
-    /// airborne endpoint until impact; only the second half transfers the
-    /// directional pose into its canonical downed contact pose.
-    pub fn dive_recovery(self) -> Option<(DiveDirection, f32)> {
-        let PostureTransitionKind::DiveToDowned {
-            direction,
-            trajectory,
-        } = self.kind
-        else {
-            return None;
-        };
-        // The authored body first settles out of its tilted dive pose, then
-        // expresses the planar yaw of the downed contact. Starting root yaw at
-        // contact gets ahead of that anatomical turn and visibly twists the
-        // whole character before the supine pose catches up. Reserve the first
-        // part of recovery for settling, then transfer root yaw with zero
-        // endpoint velocity. The endpoint remains the complete canonical turn.
-        let root_handoff_start_fraction = crate::combat_config::runtime_animation_config()
-            .state_transitions
-            .dive_root_handoff_start_fraction;
-        let root_handoff_end_fraction = match trajectory {
-            // The shorter slide devotes a larger normalized share to the same
-            // fixed presentation settling time, so its handoff finishes with
-            // the transition. The longer airborne recovery can finish just
-            // before the terminal pose without outrunning the authored turn.
-            DiveTrajectory::GroundedSlide => 1.0,
-            DiveTrajectory::Airborne => 0.92,
-        };
-        let recovery = ((self.phase - 0.5) * 2.0).clamp(0.0, 1.0);
-        let handoff = ((recovery - root_handoff_start_fraction)
-            / (root_handoff_end_fraction - root_handoff_start_fraction))
-            .clamp(0.0, 1.0);
-        Some((direction, smoothstep(handoff)))
-    }
-}
-
-/// Incremental root-yaw handoff for the directional downed contact pose.
-/// Applying this after each posture-transition advance keeps the character's
-/// world-space head-to-feet direction fixed from contact through the final
-/// downed pose.
-pub fn dive_landing_facing_delta(
-    previous: Option<PostureTransitionState>,
-    current: Option<PostureTransitionState>,
-) -> Quat {
-    let Some((direction, previous_progress)) =
-        previous.and_then(PostureTransitionState::dive_recovery)
-    else {
-        return Quat::IDENTITY;
-    };
-    let current_progress = current
-        .and_then(PostureTransitionState::dive_recovery)
-        .filter(|(current_direction, _)| *current_direction == direction)
-        .map_or(1.0, |(_, progress)| progress);
-    let total_yaw = match direction {
-        DiveDirection::Forward => 0.0,
-        // The authored backward-dive-to-supine blend contains the body's
-        // half-turn. Transfer the inverse half-turn to the gameplay root over
-        // the same contact-recovery interval so visible facing stays fixed
-        // while the root reaches the canonical supine orientation. This must
-        // not be omitted or applied as a single completion-tick correction.
-        DiveDirection::Backward => std::f32::consts::PI,
-        DiveDirection::Left => std::f32::consts::FRAC_PI_2,
-        DiveDirection::Right => -std::f32::consts::FRAC_PI_2,
-    };
-    Quat::from_rotation_y(total_yaw * (current_progress - previous_progress).clamp(0.0, 1.0))
-}
-
-/// Returns the incremental root counter-yaw for a supine get-up.
-///
-/// Supine contact poses use the head-facing orientation required by the
-/// continuous prone/supine roll coordinate. Interpolating that convention
-/// into canonical upright poses therefore contains an implicit positive-pi
-/// turn during the midpoint-to-upright half of the transition. Applying the
-/// equivalent negative root turn only during that same half cancels the turn
-/// in world space while leaving the root in the correct upright orientation at
-/// the endpoint. No other posture transition receives this correction.
-pub fn supine_get_up_counter_yaw_delta(
-    previous: Option<PostureTransitionState>,
-    current: Option<PostureTransitionState>,
-) -> Quat {
-    let Some(previous) =
-        previous.filter(|transition| transition.kind() == PostureTransitionKind::SupineToUpright)
-    else {
-        return Quat::IDENTITY;
-    };
-    let previous_progress = ((previous.phase() - 0.5) * 2.0).clamp(0.0, 1.0);
-    let current_progress = current
-        .filter(|transition| transition.kind() == PostureTransitionKind::SupineToUpright)
-        .map_or(1.0, |transition| {
-            ((transition.phase() - 0.5) * 2.0).clamp(0.0, 1.0)
-        });
-    Quat::from_rotation_y(
-        -std::f32::consts::PI * (current_progress - previous_progress).clamp(0.0, 1.0),
-    )
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 struct QueuedAttack {
     target_height: f32,
     animation: AttackAnimation,
@@ -758,6 +621,7 @@ pub enum ActionTransitionError {
     Downed,
     PostureTransitionActive,
     ActionBusy,
+    InvalidAnimationValue(AnimationValueError),
 }
 
 /// Bounded blend-coordinate curve for an attack's authored guard/contact
@@ -846,8 +710,8 @@ impl AttackCurve {
 
     /// Unclamped semantic pose coordinate at a normalized action phase where
     /// contact remains exactly 0.5.
-    pub fn coordinate(self, phase: f32) -> f32 {
-        let phase = finite_clamp(phase, 0.0, 1.0, 0.0);
+    pub fn coordinate(self, phase: UnitInterval) -> AnimationValueResult<AttackPoseCoordinate> {
+        let phase = phase.fraction();
         let tell_end = self.tell_fraction * 0.5;
         let follow_through_end = 0.5 + self.follow_through_fraction * 0.5;
         let [
@@ -855,7 +719,7 @@ impl AttackCurve {
             contact_acceleration,
             follow_through_acceleration,
         ] = self.knot_accelerations();
-        if phase <= tell_end {
+        let coordinate = if phase <= tell_end {
             quintic_hermite(
                 0.0,
                 -self.drawback,
@@ -899,17 +763,22 @@ impl AttackCurve {
                 0.0,
                 (phase - follow_through_end) / duration,
             )
-        }
+        };
+        AttackPoseCoordinate::from_arithmetic(coordinate)
     }
 
     /// A queued continuation consumes the complete post-contact backswing.
     /// It reaches the furthest frame-0-to-frame-4 extrapolation with a live
     /// tangent so the follow-up preparation can inherit its momentum.
-    pub fn queued_recovery_coordinate(self, phase: f32) -> f32 {
-        let phase = finite_clamp(phase, 0.0, 1.0, 0.0);
+    pub fn queued_recovery_coordinate(
+        self,
+        phase: UnitInterval,
+    ) -> AnimationValueResult<AttackPoseCoordinate> {
+        let progress = phase;
+        let phase = progress.fraction();
         let follow_through_end = 0.5 + self.follow_through_fraction * 0.5;
-        if phase <= 0.5 {
-            self.coordinate(phase)
+        let coordinate = if phase <= 0.5 {
+            return self.coordinate(progress);
         } else if phase <= follow_through_end {
             let duration = follow_through_end - 0.5;
             let contact_acceleration = self.knot_accelerations()[1];
@@ -927,7 +796,8 @@ impl AttackCurve {
             let coordinate =
                 1.0 + self.overshoot + (phase - follow_through_end) * self.overshoot / duration;
             coordinate.min(1.0 + Self::maximum_overshoot())
-        }
+        };
+        AttackPoseCoordinate::from_arithmetic(coordinate)
     }
 
     fn queued_transition_phase(self) -> f32 {
@@ -1104,9 +974,9 @@ impl ActionState {
             Self(ActionKind::Block { .. }) => SkeletonAction::Block,
         }
     }
-    pub fn phase(self) -> f32 {
+    pub fn phase(self) -> UnitInterval {
         match self {
-            Self(ActionKind::Idle) => 0.0,
+            Self(ActionKind::Idle) => UnitInterval::ZERO,
             Self(ActionKind::Dodge { timeline, .. })
             | Self(ActionKind::Attack { timeline, .. })
             | Self(ActionKind::Block { timeline, .. }) => timeline.phase,
@@ -1140,7 +1010,8 @@ pub enum MeleePreparationInput {
 pub struct AttackPreparation {
     pub from: AttackAnimation,
     pub to: AttackAnimation,
-    pub progress: f32,
+    #[serde(deserialize_with = "crate::animation::pose_coordinates::deserialize_progress")]
+    pub progress: UnitInterval,
 }
 
 impl Default for AttackPreparation {
@@ -1155,7 +1026,7 @@ impl AttackPreparation {
         Self {
             from: animation,
             to: animation,
-            progress: 1.0,
+            progress: UnitInterval::ONE,
         }
     }
 
@@ -1163,17 +1034,8 @@ impl AttackPreparation {
         Self {
             from: AttackAnimation::Offhand,
             to: AttackAnimation::Offhand,
-            progress: 1.0,
+            progress: UnitInterval::ONE,
         }
-    }
-
-    fn normalized(mut self) -> Self {
-        self.progress = if self.progress.is_finite() {
-            self.progress.clamp(0.0, 1.0)
-        } else {
-            0.0
-        };
-        self
     }
 }
 
@@ -1373,7 +1235,7 @@ impl<'de> Deserialize<'de> for SkeletonState {
             lead_foot: wire.lead_foot,
             guarded_sprint_locomotion: wire.guarded_sprint_locomotion,
             stance: wire.stance,
-            attack_preparation: wire.attack_preparation.normalized(),
+            attack_preparation: wire.attack_preparation,
             action: wire.action,
             posture_transition: wire
                 .posture_transition
@@ -1635,9 +1497,12 @@ impl SkeletonState {
         ));
         true
     }
-    pub fn advance_posture_transition(&mut self, current_tick: AnimationSampleTick) {
+    pub fn advance_posture_transition(
+        &mut self,
+        current_tick: AnimationSampleTick,
+    ) -> AnimationValueResult<()> {
         let Some(mut transition) = self.posture_transition else {
-            return;
+            return Ok(());
         };
         let elapsed = current_tick.saturating_sub(transition.start_tick);
         if matches!(
@@ -1649,32 +1514,34 @@ impl SkeletonState {
         ) {
             if elapsed >= transition.duration_ticks {
                 self.finish_posture_transition(transition.kind);
-                return;
+                return Ok(());
             }
-            transition.phase =
-                elapsed.samples() as f32 / transition.duration_ticks.samples() as f32;
+            transition.phase = UnitInterval::from_fraction(
+                elapsed.samples() as f32 / transition.duration_ticks.samples() as f32,
+            )?;
             self.posture_transition = Some(transition);
-            return;
+            return Ok(());
         }
         if matches!(transition.kind, PostureTransitionKind::DiveToDowned { .. }) {
             if !self.body.is_surface_supported() {
                 transition.dive_was_airborne = true;
-                transition.phase = 0.5;
+                transition.phase = UnitInterval::HALF;
                 self.posture_transition = Some(transition);
-                return;
+                return Ok(());
             }
             if transition.dive_was_airborne {
                 let landing_tick = *transition.dive_landing_tick.get_or_insert(current_tick);
                 let recovery_elapsed = current_tick.saturating_sub(landing_tick);
                 if recovery_elapsed >= transition.duration_ticks {
                     self.finish_posture_transition(transition.kind);
-                    return;
+                    return Ok(());
                 }
-                transition.phase = 0.5
-                    + 0.5 * recovery_elapsed.samples() as f32
-                        / transition.duration_ticks.samples() as f32;
+                transition.phase = UnitInterval::from_fraction(
+                    0.5 + 0.5 * recovery_elapsed.samples() as f32
+                        / transition.duration_ticks.samples() as f32,
+                )?;
                 self.posture_transition = Some(transition);
-                return;
+                return Ok(());
             }
             if elapsed >= transition.duration_ticks {
                 // A delayed or missed unsupported-controller sample must not
@@ -1683,22 +1550,26 @@ impl SkeletonState {
                 // landing so pose and facing remain continuous.
                 transition.dive_was_airborne = true;
                 transition.dive_landing_tick = Some(current_tick);
-                transition.phase = 0.5;
+                transition.phase = UnitInterval::HALF;
                 self.posture_transition = Some(transition);
-                return;
+                return Ok(());
             }
-            transition.phase =
-                0.5 * elapsed.samples() as f32 / transition.duration_ticks.samples() as f32;
+            transition.phase = UnitInterval::from_fraction(
+                0.5 * elapsed.samples() as f32 / transition.duration_ticks.samples() as f32,
+            )?;
             self.posture_transition = Some(transition);
-            return;
+            return Ok(());
         }
         if elapsed >= transition.duration_ticks {
             self.posture_transition = None;
             self.transition_body(transition.kind.target());
-            return;
+            return Ok(());
         }
-        transition.phase = elapsed.samples() as f32 / transition.duration_ticks.samples() as f32;
+        transition.phase = UnitInterval::from_fraction(
+            elapsed.samples() as f32 / transition.duration_ticks.samples() as f32,
+        )?;
         self.posture_transition = Some(transition);
+        Ok(())
     }
     fn finish_posture_transition(&mut self, kind: PostureTransitionKind) {
         self.posture_transition = None;
@@ -1735,7 +1606,7 @@ impl SkeletonState {
     pub fn action_kind(&self) -> SkeletonAction {
         self.action.kind()
     }
-    pub fn action_phase(&self) -> f32 {
+    pub fn action_phase(&self) -> UnitInterval {
         self.action.phase()
     }
     pub fn action_direction(&self) -> Vec2 {
@@ -1825,7 +1696,7 @@ impl SkeletonState {
     }
 
     pub fn set_attack_preparation(&mut self, preparation: AttackPreparation) {
-        self.attack_preparation = preparation.normalized();
+        self.attack_preparation = preparation;
     }
     pub fn available_strike_family(&self, preferred: StrikeFamily) -> Option<StrikeFamily> {
         if self.attack_animations.supports_family(preferred) {
@@ -1945,18 +1816,14 @@ impl SkeletonState {
     /// Overrides only the visual progress of an admitted action. Tactical
     /// presentation uses this on its private `PresentedSkeleton`; gameplay
     /// admission, timing, contact, and outcomes remain authoritative.
-    pub fn set_presentation_action_phase(&mut self, phase: f32) {
+    pub fn set_presentation_action_phase(&mut self, phase: UnitInterval) {
         let timeline = match &mut self.action {
             ActionState(ActionKind::Idle) => return,
             ActionState(ActionKind::Dodge { timeline, .. })
             | ActionState(ActionKind::Attack { timeline, .. })
             | ActionState(ActionKind::Block { timeline, .. }) => timeline,
         };
-        timeline.phase = if phase.is_finite() {
-            phase.clamp(0.0, 1.0)
-        } else {
-            timeline.phase
-        };
+        timeline.phase = phase;
     }
     pub fn incoming_attack_line(&self) -> AttackLine {
         match self.action {
@@ -1966,7 +1833,7 @@ impl SkeletonState {
     }
 
     pub fn quickstep_is_launched(&self) -> bool {
-        self.is_quickstep() && self.action_phase() >= 0.50
+        self.is_quickstep() && self.action_phase().fraction() >= 0.50
     }
 
     fn action_admission(&self) -> Result<(), ActionTransitionError> {
@@ -2078,7 +1945,14 @@ impl SkeletonState {
                     hand: spec.hand,
                     curve: spec.curve.normalized(),
                     timeline: queued_timeline,
-                    start_coordinate: curve.queued_recovery_coordinate(transition_phase),
+                    start_coordinate: curve
+                        .queued_recovery_coordinate(
+                            UnitInterval::from_fraction(transition_phase).map_err(|error| {
+                                ActionTransitionError::InvalidAnimationValue(error.into())
+                            })?,
+                        )
+                        .map_err(ActionTransitionError::InvalidAnimationValue)?
+                        .coordinate(),
                     incoming_tangent,
                 });
                 return Ok(());
@@ -2125,8 +1999,12 @@ impl SkeletonState {
     }
 
     /// Advances independently timed preparation, contact, and recovery.
-    pub fn advance_action(&mut self, current_tick: AnimationSampleTick) {
-        let queued = match self.action {
+    pub fn advance_action(
+        &mut self,
+        current_tick: AnimationSampleTick,
+    ) -> AnimationValueResult<()> {
+        let mut action = self.action;
+        let queued = match action {
             ActionState(ActionKind::Attack {
                 curve,
                 timeline,
@@ -2146,7 +2024,7 @@ impl SkeletonState {
             _ => None,
         };
         if let Some(queued) = queued {
-            self.action = ActionState(ActionKind::Attack {
+            action = ActionState(ActionKind::Attack {
                 target_height: queued.target_height,
                 animation: queued.animation,
                 strike_family: queued.strike_family,
@@ -2160,31 +2038,18 @@ impl SkeletonState {
                 queued: None,
             });
         }
-        let timeline = match &mut self.action {
-            ActionState(ActionKind::Idle) => return,
+        let timeline = match &mut action {
+            ActionState(ActionKind::Idle) => return Ok(()),
             ActionState(ActionKind::Dodge { timeline, .. })
             | ActionState(ActionKind::Attack { timeline, .. })
             | ActionState(ActionKind::Block { timeline, .. }) => timeline,
         };
-        let preparation = timeline.preparation_ticks.max(AnimationSampleSpan::ONE);
-        let recovery = timeline.recovery_ticks.max(AnimationSampleSpan::ONE);
-        let contact_tick = timeline.start_tick.saturating_add(preparation);
-        let end_tick = contact_tick.saturating_add(recovery);
-        if current_tick >= end_tick {
-            if current_tick > end_tick || end_tick == AnimationSampleTick::MAX {
-                self.action = ActionState::default();
-                return;
-            }
-            timeline.phase = 1.0;
-            return;
+        match timeline.sample(current_tick)? {
+            ActionTimelineSample::Complete => action = ActionState::default(),
+            ActionTimelineSample::Active(phase) => timeline.phase = phase,
         }
-        timeline.phase = if current_tick <= contact_tick {
-            0.5 * current_tick.saturating_sub(timeline.start_tick).samples() as f32
-                / preparation.samples() as f32
-        } else {
-            0.5 + 0.5 * current_tick.saturating_sub(contact_tick).samples() as f32
-                / recovery.samples() as f32
-        };
+        self.action = action;
+        Ok(())
     }
 }
 

@@ -242,7 +242,8 @@ pub(crate) fn validate_editor_asset_root(
         )
         .expect("catalog fixture starts from idle");
     raised_attack
-        .advance_action(adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64));
+        .advance_action(adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64))
+        .unwrap();
 
     let mut route_resolutions = Vec::new();
     for (route, state) in [

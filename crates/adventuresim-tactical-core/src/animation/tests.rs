@@ -526,10 +526,16 @@ mod legacy_tests {
                 crate::animation::AnimationSampleSpan::from(10u64),
             ));
             state.transition_body(BodyState::Airborne);
-            state.advance_posture_transition(crate::animation::AnimationSampleTick::from(1u64));
+            state
+                .advance_posture_transition(crate::animation::AnimationSampleTick::from(1u64))
+                .unwrap();
             state.transition_body(BodyState::Grounded(GroundedPosture::Upright));
-            state.advance_posture_transition(crate::animation::AnimationSampleTick::from(2u64));
-            state.advance_posture_transition(crate::animation::AnimationSampleTick::from(12u64));
+            state
+                .advance_posture_transition(crate::animation::AnimationSampleTick::from(2u64))
+                .unwrap();
+            state
+                .advance_posture_transition(crate::animation::AnimationSampleTick::from(12u64))
+                .unwrap();
 
             assert_eq!(state.body(), BodyState::Prone);
             assert_eq!(
@@ -555,13 +561,19 @@ mod legacy_tests {
             crate::animation::AnimationSampleSpan::from(8u64),
         ));
         state.transition_body(BodyState::Airborne);
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(1u64));
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(1u64))
+            .unwrap();
         state.transition_body(BodyState::Grounded(GroundedPosture::Upright));
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(2u64));
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(2u64))
+            .unwrap();
         let previous = state.posture_transition();
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(6u64));
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(6u64))
+            .unwrap();
 
-        let delta = dive_landing_facing_delta(previous, state.posture_transition());
+        let delta = dive_landing_facing_delta(previous, state.posture_transition()).unwrap();
         let expected_linear = (0.5 - 0.18) / (0.92 - 0.18);
         let expected_progress = expected_linear * expected_linear * (3.0 - 2.0 * expected_linear);
         assert!(
@@ -1334,7 +1346,9 @@ mod legacy_tests {
                 crate::animation::AnimationSampleTick::from(100u64),
             )
             .unwrap();
-        state.advance_action(crate::animation::AnimationSampleTick::from(100u64));
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(100u64))
+            .unwrap();
         let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(
             evaluation.action,
@@ -1342,18 +1356,21 @@ mod legacy_tests {
                 pose: SemanticPose::GuardSwing,
                 sampling: PoseSampling::CurveSpan {
                     end: SemanticPose::AttackSwing,
-                    coordinate: 1.0,
+                    coordinate: AttackPoseCoordinate::from_coordinate(1.0).unwrap(),
                 },
                 weight: BlendWeight::ONE,
                 mirror_lower_body: ClipMirror::Original,
             }]
         );
 
-        state.advance_action(crate::animation::AnimationSampleTick::from(199u64));
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(199u64))
+            .unwrap();
         let end = AnimationEvaluation::from_skeleton(&state).unwrap();
         let PoseSampling::CurveSpan { end, coordinate } = end.action[0].sampling else {
             panic!("attack recovery should remain an extrapolating curve span");
         };
+        let coordinate = coordinate.coordinate();
         assert_eq!(end, SemanticPose::AttackSwing);
         assert!(coordinate > 0.0 && coordinate < 0.01);
     }
@@ -1397,7 +1414,9 @@ mod legacy_tests {
                 crate::animation::AnimationSampleTick::from(20u64),
             )
             .unwrap();
-        state.advance_action(crate::animation::AnimationSampleTick::from(19u64));
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(19u64))
+            .unwrap();
         assert_eq!(
             state.select_main_attack(StrikeFamily::Swing),
             Some(AttackSpec::main(StrikeFamily::Swing, true))
@@ -1420,11 +1439,13 @@ mod legacy_tests {
         assert!(!state.attack_is_continuation());
         assert_eq!(state.select_main_attack(StrikeFamily::Swing), None);
 
-        state.advance_action(
-            continuation_tick
-                .checked_sub_span(AnimationSampleSpan::from(2u64))
-                .unwrap(),
-        );
+        state
+            .advance_action(
+                continuation_tick
+                    .checked_sub_span(AnimationSampleSpan::from(2u64))
+                    .unwrap(),
+            )
+            .unwrap();
         let before_recovery = AnimationEvaluation::from_skeleton(&state).unwrap();
         let PoseSampling::CurveSpan {
             coordinate: before_coordinate,
@@ -1433,31 +1454,42 @@ mod legacy_tests {
         else {
             panic!("queued recovery should remain a frame-0-to-frame-4 extrapolation");
         };
-        state.advance_action(
-            continuation_tick
-                .checked_sub_span(AnimationSampleSpan::from(1u64))
-                .unwrap(),
-        );
+        let before_coordinate = before_coordinate.coordinate();
+        state
+            .advance_action(
+                continuation_tick
+                    .checked_sub_span(AnimationSampleSpan::from(1u64))
+                    .unwrap(),
+            )
+            .unwrap();
         assert!(!state.attack_is_continuation());
         let recovery = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(recovery.action[0].pose, SemanticPose::GuardSwing);
         let PoseSampling::CurveSpan { end, coordinate } = recovery.action[0].sampling else {
             panic!("queued recovery should remain a frame-0-to-frame-4 extrapolation");
         };
+        let coordinate = coordinate.coordinate();
         assert_eq!(end, SemanticPose::AttackSwing);
         assert!(coordinate > before_coordinate);
         assert!(coordinate < 1.0 + state.attack_curve().overshoot);
 
-        let expected_start_coordinate = state.attack_curve().queued_recovery_coordinate(
-            0.5 + 0.5
-                * continuation_tick
-                    .saturating_sub(AnimationSampleTick::from(20u64))
-                    .samples() as f32
-                / 10.0,
-        );
-        state.advance_action(continuation_tick);
+        let expected_start_coordinate = state
+            .attack_curve()
+            .queued_recovery_coordinate(
+                UnitInterval::from_fraction(
+                    0.5 + 0.5
+                        * continuation_tick
+                            .saturating_sub(AnimationSampleTick::from(20u64))
+                            .samples() as f32
+                        / 10.0,
+                )
+                .unwrap(),
+            )
+            .unwrap()
+            .coordinate();
+        state.advance_action(continuation_tick).unwrap();
         assert!(state.attack_is_continuation());
-        assert_eq!(state.action_phase(), 0.0);
+        assert_eq!(state.action_phase().fraction(), 0.0);
         let follow_up_start = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(follow_up_start.action.len(), 1);
         let PoseSampling::ContinuationSpan {
@@ -1484,11 +1516,13 @@ mod legacy_tests {
         assert_eq!(progress, 0.0);
         assert_eq!(follow_up_start.action[0].weight.factor(), 1.0);
 
-        state.advance_action(
-            continuation_tick
-                .checked_add(AnimationSampleSpan::from(14u64))
-                .unwrap(),
-        );
+        state
+            .advance_action(
+                continuation_tick
+                    .checked_add(AnimationSampleSpan::from(14u64))
+                    .unwrap(),
+            )
+            .unwrap();
         let prepared = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(prepared.action[0].pose, SemanticPose::GuardSwing);
         assert_eq!(
@@ -1504,12 +1538,14 @@ mod legacy_tests {
                 progress: 7.0 / 24.0,
             }
         );
-        state.advance_action(
-            continuation_tick
-                .checked_add(AnimationSampleSpan::from(24u64))
-                .unwrap(),
-        );
-        assert_eq!(state.action_phase(), 0.5);
+        state
+            .advance_action(
+                continuation_tick
+                    .checked_add(AnimationSampleSpan::from(24u64))
+                    .unwrap(),
+            )
+            .unwrap();
+        assert_eq!(state.action_phase().fraction(), 0.5);
         assert_eq!(
             AnimationEvaluation::from_skeleton(&state).unwrap().action[0].sampling,
             PoseSampling::ContinuationSpan {
@@ -1573,7 +1609,7 @@ mod legacy_tests {
                 evaluation.base[0].sampling,
                 PoseSampling::Span {
                     end: SemanticPose::AirborneTravel,
-                    progress
+                    progress: UnitInterval::from_fraction(progress).unwrap()
                 }
             );
         }
@@ -1588,7 +1624,9 @@ mod legacy_tests {
                 crate::animation::AnimationSampleTick::from(100u64),
             )
             .unwrap();
-        dodge_state.advance_action(crate::animation::AnimationSampleTick::from(150u64));
+        dodge_state
+            .advance_action(crate::animation::AnimationSampleTick::from(150u64))
+            .unwrap();
         let dodge = AnimationEvaluation::from_skeleton(&dodge_state).unwrap();
         assert_eq!(dodge.base[0].pose, SemanticPose::GuardThrust);
         assert!(dodge.action.is_empty());
@@ -1601,7 +1639,9 @@ mod legacy_tests {
                 crate::animation::AnimationSampleTick::from(100u64),
             )
             .unwrap();
-        right_lead_dodge_state.advance_action(crate::animation::AnimationSampleTick::from(50u64));
+        right_lead_dodge_state
+            .advance_action(crate::animation::AnimationSampleTick::from(50u64))
+            .unwrap();
         let right_lead_dodge = AnimationEvaluation::from_skeleton(&right_lead_dodge_state).unwrap();
         assert_eq!(right_lead_dodge.base[0].pose, SemanticPose::GuardThrust);
         assert!(right_lead_dodge.action.is_empty());
@@ -1623,7 +1663,9 @@ mod legacy_tests {
                 crate::animation::AnimationSampleTick::from(100u64),
             )
             .unwrap();
-        block_state.advance_action(crate::animation::AnimationSampleTick::from(150u64));
+        block_state
+            .advance_action(crate::animation::AnimationSampleTick::from(150u64))
+            .unwrap();
         let block = AnimationEvaluation::from_skeleton(&block_state).unwrap();
         assert!(block.action.is_empty());
     }
@@ -1641,7 +1683,9 @@ mod legacy_tests {
 
         for (tick, expected_progress) in [(0, 0.0), (50, 0.25), (100, 0.5), (150, 0.75), (200, 1.0)]
         {
-            state.advance_action(crate::animation::AnimationSampleTick::from(tick as u64));
+            state
+                .advance_action(crate::animation::AnimationSampleTick::from(tick as u64))
+                .unwrap();
             let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
             assert_eq!(evaluation.lower_body.len(), 1);
             assert_eq!(
@@ -1651,7 +1695,7 @@ mod legacy_tests {
             assert_eq!(
                 evaluation.lower_body[0].sampling,
                 PoseSampling::Timeline {
-                    progress: expected_progress
+                    progress: UnitInterval::from_fraction(expected_progress).unwrap()
                 }
             );
         }
@@ -1667,15 +1711,25 @@ mod legacy_tests {
                 crate::animation::AnimationSampleTick::from(20u64),
             )
             .unwrap();
-        state.advance_action(crate::animation::AnimationSampleTick::from(15u64));
-        assert_eq!(state.action_phase(), 0.25);
-        state.advance_action(crate::animation::AnimationSampleTick::from(20u64));
-        assert_eq!(state.action_phase(), 0.5);
-        state.advance_action(crate::animation::AnimationSampleTick::from(25u64));
-        assert_eq!(state.action_phase(), 0.75);
-        state.advance_action(crate::animation::AnimationSampleTick::from(30u64));
-        assert_eq!(state.action_phase(), 1.0);
-        state.advance_action(crate::animation::AnimationSampleTick::from(31u64));
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(15u64))
+            .unwrap();
+        assert_eq!(state.action_phase().fraction(), 0.25);
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(20u64))
+            .unwrap();
+        assert_eq!(state.action_phase().fraction(), 0.5);
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(25u64))
+            .unwrap();
+        assert_eq!(state.action_phase().fraction(), 0.75);
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(30u64))
+            .unwrap();
+        assert_eq!(state.action_phase().fraction(), 1.0);
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(31u64))
+            .unwrap();
         assert_eq!(state.action(), ActionState::default());
     }
 
@@ -1690,11 +1744,17 @@ mod legacy_tests {
                 crate::animation::AnimationSampleTick::from(26u64),
             )
             .unwrap();
-        state.advance_action(crate::animation::AnimationSampleTick::from(23u64));
-        assert_eq!(state.action_phase(), 0.75);
-        state.advance_action(crate::animation::AnimationSampleTick::from(26u64));
-        assert_eq!(state.action_phase(), 1.0);
-        state.advance_action(crate::animation::AnimationSampleTick::from(27u64));
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(23u64))
+            .unwrap();
+        assert_eq!(state.action_phase().fraction(), 0.75);
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(26u64))
+            .unwrap();
+        assert_eq!(state.action_phase().fraction(), 1.0);
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(27u64))
+            .unwrap();
         assert_eq!(state.action(), ActionState::default());
     }
 
@@ -1703,10 +1763,41 @@ mod legacy_tests {
         let controlled = AttackCurve::from_handling(0.03, 5.0);
         let uncontrolled = AttackCurve::from_handling(1.2, 1.0);
         assert!(uncontrolled.tell_fraction > controlled.tell_fraction);
-        assert!(uncontrolled.coordinate(0.15) < controlled.coordinate(0.15));
-        assert!(uncontrolled.coordinate(0.6) > controlled.coordinate(0.6));
-        assert_eq!(uncontrolled.coordinate(0.5), 1.0);
-        assert!(uncontrolled.coordinate(1.0).abs() < 1.0e-6);
+        assert!(
+            uncontrolled
+                .coordinate(UnitInterval::from_fraction(0.15).unwrap())
+                .unwrap()
+                .coordinate()
+                < controlled
+                    .coordinate(UnitInterval::from_fraction(0.15).unwrap())
+                    .unwrap()
+                    .coordinate()
+        );
+        assert!(
+            uncontrolled
+                .coordinate(UnitInterval::from_fraction(0.6).unwrap())
+                .unwrap()
+                .coordinate()
+                > controlled
+                    .coordinate(UnitInterval::from_fraction(0.6).unwrap())
+                    .unwrap()
+                    .coordinate()
+        );
+        assert_eq!(
+            uncontrolled
+                .coordinate(UnitInterval::from_fraction(0.5).unwrap())
+                .unwrap()
+                .coordinate(),
+            1.0
+        );
+        assert!(
+            uncontrolled
+                .coordinate(UnitInterval::from_fraction(1.0).unwrap())
+                .unwrap()
+                .coordinate()
+                .abs()
+                < 1.0e-6
+        );
     }
 
     #[test]
@@ -1717,12 +1808,31 @@ mod legacy_tests {
             AttackCurve::from_handling(1.2, 1.0),
         ] {
             let step = 0.0025;
-            let contact = curve.coordinate(0.5);
-            let left_velocity = (3.0 * contact - 4.0 * curve.coordinate(0.5 - step)
-                + curve.coordinate(0.5 - 2.0 * step))
+            let contact = curve
+                .coordinate(UnitInterval::from_fraction(0.5).unwrap())
+                .unwrap()
+                .coordinate();
+            let left_velocity = (3.0 * contact
+                - 4.0
+                    * curve
+                        .coordinate(UnitInterval::from_fraction(0.5 - step).unwrap())
+                        .unwrap()
+                        .coordinate()
+                + curve
+                    .coordinate(UnitInterval::from_fraction(0.5 - 2.0 * step).unwrap())
+                    .unwrap()
+                    .coordinate())
                 / (2.0 * step);
-            let right_velocity = (-3.0 * contact + 4.0 * curve.coordinate(0.5 + step)
-                - curve.coordinate(0.5 + 2.0 * step))
+            let right_velocity = (-3.0 * contact
+                + 4.0
+                    * curve
+                        .coordinate(UnitInterval::from_fraction(0.5 + step).unwrap())
+                        .unwrap()
+                        .coordinate()
+                - curve
+                    .coordinate(UnitInterval::from_fraction(0.5 + 2.0 * step).unwrap())
+                    .unwrap()
+                    .coordinate())
                 / (2.0 * step);
             assert!(left_velocity > 0.1, "contact must retain forward velocity");
             assert!(right_velocity > 0.1, "follow-through must continue forward");
@@ -1741,11 +1851,34 @@ mod legacy_tests {
             AttackCurve::from_handling(1.2, 1.0),
         ] {
             let step = 0.01;
-            let contact = curve.coordinate(0.5);
+            let contact = curve
+                .coordinate(UnitInterval::from_fraction(0.5).unwrap())
+                .unwrap()
+                .coordinate();
             let one_sided_acceleration = |direction: f32, sample_step: f32| {
-                (2.0 * contact - 5.0 * curve.coordinate(0.5 + direction * sample_step)
-                    + 4.0 * curve.coordinate(0.5 + direction * 2.0 * sample_step)
-                    - curve.coordinate(0.5 + direction * 3.0 * sample_step))
+                (2.0 * contact
+                    - 5.0
+                        * curve
+                            .coordinate(
+                                UnitInterval::from_fraction(0.5 + direction * sample_step).unwrap(),
+                            )
+                            .unwrap()
+                            .coordinate()
+                    + 4.0
+                        * curve
+                            .coordinate(
+                                UnitInterval::from_fraction(0.5 + direction * 2.0 * sample_step)
+                                    .unwrap(),
+                            )
+                            .unwrap()
+                            .coordinate()
+                    - curve
+                        .coordinate(
+                            UnitInterval::from_fraction(0.5 + direction * 3.0 * sample_step)
+                                .unwrap(),
+                        )
+                        .unwrap()
+                        .coordinate())
                     / (sample_step * sample_step)
             };
             let left_acceleration = (4.0 * one_sided_acceleration(-1.0, step * 0.5)
@@ -1772,10 +1905,16 @@ mod legacy_tests {
         ] {
             let tell_end = curve.tell_fraction * 0.5;
             let follow_through_end = 0.5 + curve.follow_through_fraction * 0.5;
-            let mut previous = curve.coordinate(tell_end);
+            let mut previous = curve
+                .coordinate(UnitInterval::from_fraction(tell_end).unwrap())
+                .unwrap()
+                .coordinate();
             for sample in 1..=128 {
                 let phase = tell_end + (follow_through_end - tell_end) * sample as f32 / 128.0;
-                let coordinate = curve.coordinate(phase);
+                let coordinate = curve
+                    .coordinate(UnitInterval::from_fraction(phase).unwrap())
+                    .unwrap()
+                    .coordinate();
                 assert!(
                     coordinate + 1.0e-5 >= previous,
                     "attack reversed at phase {phase}: {previous} -> {coordinate}"

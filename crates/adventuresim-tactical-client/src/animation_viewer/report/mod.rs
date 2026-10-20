@@ -184,7 +184,7 @@ mod tests {
             weapon_guard: WeaponGuardState::Lowered,
             lead_foot: LeadFoot::Left,
             action: SkeletonAction::None,
-            action_phase: 0.0,
+            action_phase: adventuresim_tactical_core::animation::UnitInterval::ZERO,
             attack_animation: None,
             strike_family: StrikeFamily::Thrust,
             guard_action: false,

@@ -7,7 +7,13 @@ pub(super) struct ActionTimeline {
     pub(super) start_tick: AnimationSampleTick,
     pub(super) preparation_ticks: AnimationSampleSpan,
     pub(super) recovery_ticks: AnimationSampleSpan,
-    pub(super) phase: f32,
+    #[serde(deserialize_with = "crate::animation::pose_coordinates::deserialize_progress")]
+    pub(super) phase: UnitInterval,
+}
+
+pub(super) enum ActionTimelineSample {
+    Complete,
+    Active(UnitInterval),
 }
 
 impl ActionTimeline {
@@ -19,7 +25,7 @@ impl ActionTimeline {
             start_tick,
             preparation_ticks,
             recovery_ticks: preparation_ticks,
-            phase: 0.0,
+            phase: UnitInterval::ZERO,
         }
     }
 
@@ -36,18 +42,13 @@ impl ActionTimeline {
             recovery_ticks: end_tick
                 .saturating_sub(contact_tick)
                 .max(AnimationSampleSpan::ONE),
-            phase: 0.0,
+            phase: UnitInterval::ZERO,
         }
     }
 
     pub(super) fn normalized(mut self) -> Self {
         self.preparation_ticks = self.preparation_ticks.max(AnimationSampleSpan::ONE);
         self.recovery_ticks = self.recovery_ticks.max(AnimationSampleSpan::ONE);
-        self.phase = if self.phase.is_finite() {
-            self.phase.clamp(0.0, 1.0)
-        } else {
-            0.0
-        };
         self
     }
 
@@ -57,5 +58,32 @@ impl ActionTimeline {
 
     pub(super) fn end_tick(self) -> AnimationSampleTick {
         self.contact_tick().saturating_add(self.recovery_ticks)
+    }
+    /// Keep the existing saturated deadlines and integer-before-float ratios.
+    pub(super) fn sample(
+        self,
+        current_tick: AnimationSampleTick,
+    ) -> AnimationValueResult<ActionTimelineSample> {
+        let preparation = self.preparation_ticks.max(AnimationSampleSpan::ONE);
+        let recovery = self.recovery_ticks.max(AnimationSampleSpan::ONE);
+        let contact_tick = self.start_tick.saturating_add(preparation);
+        let end_tick = contact_tick.saturating_add(recovery);
+        if current_tick >= end_tick {
+            return Ok(
+                if current_tick > end_tick || end_tick == AnimationSampleTick::MAX {
+                    ActionTimelineSample::Complete
+                } else {
+                    ActionTimelineSample::Active(UnitInterval::ONE)
+                },
+            );
+        }
+        let phase = UnitInterval::from_fraction(if current_tick <= contact_tick {
+            0.5 * current_tick.saturating_sub(self.start_tick).samples() as f32
+                / preparation.samples() as f32
+        } else {
+            0.5 + 0.5 * current_tick.saturating_sub(contact_tick).samples() as f32
+                / recovery.samples() as f32
+        })?;
+        Ok(ActionTimelineSample::Active(phase))
     }
 }

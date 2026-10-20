@@ -157,6 +157,13 @@ signed at admission. Sample spans retain scalar unsigned encodings separately
 from absolute sample ticks. Downed turning and guarded locomotion retain named
 states while their existing wire fields remain Boolean scalars.
 
+Action, posture and attack-preparation progress retain checked unit fractions;
+finite out-of-range decoded values keep their existing clamp, while nonfinite
+progress is rejected. Attack pose coordinates remain finite and signed so
+readable drawback and overshoot are retained. Presentation corrects action
+progress with a distinct nonwrapping signed offset; cyclic gait displacement
+and additive pose contributions keep their separate contracts.
+
 Animation sampling rates retain the authored hertz scalar and its checked
 positive reciprocal together. Calibration frequencies instead admit every finite
 positive multiplier, including tiny values whose products underflow to zero;

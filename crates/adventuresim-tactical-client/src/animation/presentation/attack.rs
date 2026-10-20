@@ -1,60 +1,119 @@
 use super::*;
 
-/// Advance an already-authoritative ordinary attack on render time. Replicated
-/// fixed-tick phases can repeat for one or more render frames; copying them
-/// directly produces a visible stop followed by a phase jump at contact.
+impl PresentedAttackPhase {
+    /// The whole native bounded prediction keeps division before the final cap.
+    /// An overflowing transient delta can still complete a finite progress.
+    fn predicted(
+        self,
+        source: &SkeletonState,
+        elapsed: AnimationElapsed,
+        duration: AnimationSampleSpan,
+    ) -> AnimationValueResult<UnitInterval> {
+        let scale = if source.attack_is_continuation() && self.phase.fraction() >= 0.5 {
+            1.0 + source.attack_curve().overshoot
+        } else {
+            1.0
+        };
+        let delta = elapsed.seconds() * locomotion_sample_rate().hertz() * 0.5
+            / duration.max(AnimationSampleSpan::ONE).samples() as f32;
+        Ok(UnitInterval::from_fraction(
+            (self.phase.fraction() + delta / scale).min(1.0),
+        )?)
+    }
+
+    fn advanced(
+        self,
+        source: &SkeletonState,
+        measure_source: bool,
+        elapsed: AnimationElapsed,
+    ) -> AnimationValueResult<Self> {
+        let duration = if self.phase.fraction() < 0.5 {
+            source.action_preparation_ticks()
+        } else {
+            source.action_recovery_ticks()
+        }
+        .unwrap_or(AnimationSampleSpan::ONE)
+        .max(AnimationSampleSpan::ONE);
+        let predicted = self.predicted(source, elapsed, duration)?;
+        let mut error = self.error_remaining.fraction();
+        let presentation_owned_recovery =
+            source.attack_is_continuation() && self.phase.fraction() >= 0.5;
+        if measure_source && !presentation_owned_recovery {
+            let measured_error = source.action_phase().fraction() - predicted.fraction();
+            let drift = if measured_error.abs() <= presentation_phase_drift_deadband() {
+                0.0
+            } else {
+                measured_error - measured_error.signum() * presentation_phase_drift_deadband()
+            };
+            error += (drift - error) * playback_tuning().phase_drift_measurement_blend.fraction();
+        } else if presentation_owned_recovery {
+            error = 0.0;
+        }
+        let maximum = presentation_phase_correction_rate_per_second() * elapsed.seconds();
+        let correction = error.clamp(-maximum, maximum);
+        let phase = UnitInterval::from_fraction(
+            (predicted.fraction() + correction).clamp(self.phase.fraction(), 1.0),
+        )?;
+        error -= phase.fraction() - predicted.fraction();
+        Ok(Self {
+            phase,
+            error_remaining: ActionProgressDelta::from_arithmetic(error)?,
+            ..self
+        })
+    }
+}
+
+/// Advance an admitted ordinary attack between replicated observations. All
+/// checked candidate progress is ready before its presentation fields commit.
 pub(super) fn advance_presented_attack(
     previous: &SkeletonState,
     authoritative: &SkeletonState,
     next: &mut SkeletonState,
     presented: &mut Option<PresentedAttackPhase>,
     source_changed: bool,
-    delta_seconds: AnimationElapsed,
-) {
-    let stale_attack_payload = reconcile_attack_source(previous, authoritative, next);
-    let source = next.clone();
+    elapsed: AnimationElapsed,
+) -> AnimationValueResult<()> {
+    let mut candidate = next.clone();
+    let mut candidate_phase = *presented;
+    let stale = reconcile_attack_source(previous, authoritative, &mut candidate)?;
+    let source = candidate.clone();
     if source.action_kind() != SkeletonAction::Attack {
-        if complete_attack_tail(previous, next, presented, delta_seconds) {
-            return;
+        if !complete_attack_tail(previous, &mut candidate, &mut candidate_phase, elapsed)? {
+            candidate_phase = None;
         }
-        *presented = None;
-        return;
+    } else if let Some(start_tick) = source.action_start_tick() {
+        if !candidate_phase.is_some_and(|phase| phase.matches(&source)) {
+            candidate_phase = Some(PresentedAttackPhase {
+                start_tick,
+                animation: source.attack_animation().unwrap_or(AttackAnimation::Thrust),
+                hand: source.attack_hand(),
+                continuation: source.attack_is_continuation(),
+                phase: source.action_phase(),
+                error_remaining: ActionProgressDelta::ZERO,
+            });
+        } else if let Some(phase) = candidate_phase {
+            let phase = phase.advanced(&source, source_changed && !stale, elapsed)?;
+            candidate = source.clone();
+            candidate.set_presentation_action_phase(phase.phase);
+            debug_assert!(
+                previous.action_kind() != SkeletonAction::Attack
+                    || phase.phase >= previous.action_phase()
+            );
+            candidate_phase = Some(phase);
+        }
+    } else {
+        candidate_phase = None;
     }
-    let Some(start_tick) = source.action_start_tick() else {
-        *presented = None;
-        return;
-    };
-    let animation = source.attack_animation().unwrap_or(AttackAnimation::Thrust);
-    if !presented.is_some_and(|phase| phase.matches(&source)) {
-        *presented = Some(PresentedAttackPhase {
-            start_tick,
-            animation,
-            hand: source.attack_hand(),
-            continuation: source.attack_is_continuation(),
-            phase: source.action_phase().clamp(0.0, 1.0),
-            error_remaining: 0.0,
-        });
-        return;
-    }
-
-    let Some(phase) = presented.as_mut() else {
-        return;
-    };
-    advance_attack_phase(
-        previous,
-        &source,
-        next,
-        phase,
-        source_changed && !stale_attack_payload,
-        delta_seconds,
-    );
+    *next = candidate;
+    *presented = candidate_phase;
+    Ok(())
 }
 
 fn reconcile_attack_source(
     previous: &SkeletonState,
     authoritative: &SkeletonState,
     next: &mut SkeletonState,
-) -> bool {
+) -> AnimationValueResult<bool> {
     let same_initial_attack = authoritative.action_kind() == SkeletonAction::Attack
         && !authoritative.attack_is_continuation()
         && authoritative.attack_animation() == previous.attack_animation()
@@ -75,97 +134,33 @@ fn reconcile_attack_source(
     let stale_attack_payload = stale_missing_queue || stale_initial_attack;
     if stale_attack_payload {
         *next = previous.clone();
-        next.advance_action(authoritative.locomotion_sample_tick);
+        next.advance_action(authoritative.locomotion_sample_tick)?;
     } else if authoritative.attack_has_queued_continuation() {
-        next.advance_action(authoritative.locomotion_sample_tick);
+        next.advance_action(authoritative.locomotion_sample_tick)?;
     }
-    stale_attack_payload
+    Ok(stale_attack_payload)
 }
 
 fn complete_attack_tail(
     previous: &SkeletonState,
     next: &mut SkeletonState,
     presented: &mut Option<PresentedAttackPhase>,
-    delta_seconds: AnimationElapsed,
-) -> bool {
-    let Some(phase) = presented.as_mut() else {
-        return false;
+    elapsed: AnimationElapsed,
+) -> AnimationValueResult<bool> {
+    let Some(mut phase) = *presented else {
+        return Ok(false);
     };
-    if previous.action_kind() != SkeletonAction::Attack || phase.phase >= 1.0 {
-        return false;
+    if previous.action_kind() != SkeletonAction::Attack || phase.phase == UnitInterval::ONE {
+        return Ok(false);
     }
-    let recovery_ticks = previous
+    let duration = previous
         .action_recovery_ticks()
         .unwrap_or(AnimationSampleSpan::ONE)
         .max(AnimationSampleSpan::ONE);
-    let delta = presented_attack_phase_delta(previous, phase.phase, delta_seconds, recovery_ticks);
-    phase.phase = (phase.phase + delta).min(1.0);
-    phase.error_remaining = 0.0;
+    phase.phase = phase.predicted(previous, elapsed, duration)?;
+    phase.error_remaining = ActionProgressDelta::ZERO;
     *next = previous.clone();
     next.set_presentation_action_phase(phase.phase);
-    true
-}
-
-fn advance_attack_phase(
-    previous: &SkeletonState,
-    source: &SkeletonState,
-    next: &mut SkeletonState,
-    phase: &mut PresentedAttackPhase,
-    measure_source: bool,
-    delta_seconds: AnimationElapsed,
-) {
-    let duration_ticks = if phase.phase < 0.5 {
-        source.action_preparation_ticks()
-    } else {
-        source.action_recovery_ticks()
-    }
-    .unwrap_or(AnimationSampleSpan::ONE)
-    .max(AnimationSampleSpan::ONE);
-    let predicted = (phase.phase
-        + presented_attack_phase_delta(source, phase.phase, delta_seconds, duration_ticks))
-    .min(1.0);
-    let presentation_owned_recovery = source.attack_is_continuation() && phase.phase >= 0.5;
-    if measure_source && !presentation_owned_recovery {
-        let measured_error = source.action_phase().clamp(0.0, 1.0) - predicted;
-        let measured_drift = if measured_error.abs() <= presentation_phase_drift_deadband() {
-            0.0
-        } else {
-            measured_error - measured_error.signum() * presentation_phase_drift_deadband()
-        };
-        phase.error_remaining += (measured_drift - phase.error_remaining)
-            * playback_tuning().phase_drift_measurement_blend.fraction();
-    } else if presentation_owned_recovery {
-        phase.error_remaining = 0.0;
-    }
-    let maximum_correction =
-        presentation_phase_correction_rate_per_second() * delta_seconds.seconds();
-    let correction = phase
-        .error_remaining
-        .clamp(-maximum_correction, maximum_correction);
-    phase.phase = (predicted + correction).clamp(phase.phase, 1.0);
-    phase.error_remaining -= phase.phase - predicted;
-    *next = source.clone();
-    next.set_presentation_action_phase(phase.phase);
-    debug_assert!(
-        previous.action_kind() != SkeletonAction::Attack || phase.phase >= previous.action_phase()
-    );
-}
-
-fn attack_phase_delta(delta_seconds: AnimationElapsed, duration_ticks: AnimationSampleSpan) -> f32 {
-    delta_seconds.seconds() * locomotion_sample_rate().hertz() * 0.5
-        / duration_ticks.max(AnimationSampleSpan::ONE).samples() as f32
-}
-
-fn presented_attack_phase_delta(
-    source: &SkeletonState,
-    phase: f32,
-    delta_seconds: AnimationElapsed,
-    duration_ticks: AnimationSampleSpan,
-) -> f32 {
-    let recovery_time_scale = if source.attack_is_continuation() && phase >= 0.5 {
-        1.0 + source.attack_curve().overshoot
-    } else {
-        1.0
-    };
-    attack_phase_delta(delta_seconds, duration_ticks) / recovery_time_scale
+    *presented = Some(phase);
+    Ok(true)
 }

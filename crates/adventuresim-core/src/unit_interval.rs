@@ -18,6 +18,7 @@ pub enum FractionError {
 impl UnitInterval {
     pub const ZERO: Self = Self(0.0);
     pub const ONE: Self = Self(1.0);
+    pub const HALF: Self = Self(0.5);
     pub fn from_fraction(value: f32) -> FractionResult<Self> {
         if !value.is_finite() {
             return Err(FractionError::NonFinite);

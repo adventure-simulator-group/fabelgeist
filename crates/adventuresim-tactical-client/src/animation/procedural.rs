@@ -340,8 +340,8 @@ pub(super) fn apply_pose_mirroring(
         let Ok(playback) = playbacks.get(owner) else {
             continue;
         };
-        let whole_body_weight = playback.whole_body_mirror.factor().clamp(0.0, 1.0);
-        if whole_body_weight <= 0.0 {
+        let whole_body_weight = playback.whole_body_mirror;
+        if whole_body_weight == UnitInterval::ZERO {
             continue;
         }
         let Some(rig_scene) = topology.rig_scene() else {
@@ -393,7 +393,7 @@ pub(super) fn apply_pose_mirroring(
             (rig, rig_global)
         };
         let mut desired_globals = BTreeMap::<Entity, Affine3A>::new();
-        let mut mirror_weights = BTreeMap::<Entity, f32>::new();
+        let mut mirror_weights = BTreeMap::<Entity, UnitInterval>::new();
         for &entity in topology.mirror_centers() {
             let Some(bone) = rig.get(&entity) else {
                 continue;
@@ -424,7 +424,7 @@ pub(super) fn apply_pose_mirroring(
             let Some(&weight) = mirror_weights.get(&bone.entity) else {
                 continue;
             };
-            if weight <= 0.0 {
+            if weight == UnitInterval::ZERO {
                 continue;
             }
             let desired_parent = bone
@@ -437,9 +437,9 @@ pub(super) fn apply_pose_mirroring(
                 continue;
             }
             if let Ok(mut transform) = bones.get_mut(bone.entity) {
-                transform.translation = bone.local.translation.lerp(translation, weight);
-                transform.rotation = bone.local.rotation.slerp(rotation, weight);
-                transform.scale = bone.local.scale.lerp(scale, weight);
+                transform.translation = bone.local.translation.lerp(translation, weight.fraction());
+                transform.rotation = bone.local.rotation.slerp(rotation, weight.fraction());
+                transform.scale = bone.local.scale.lerp(scale, weight.fraction());
             }
         }
     }
@@ -1771,9 +1771,11 @@ mod ik_tests {
                 adventuresim_tactical_core::animation::AnimationSampleTick::from(100u64),
             )
             .unwrap();
-        quickstep.advance_action(
-            adventuresim_tactical_core::animation::AnimationSampleTick::from(150u64),
-        );
+        quickstep
+            .advance_action(
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(150u64),
+            )
+            .unwrap();
         assert!(!ik::anatomical_knee_yaw_posture_is_valid(&quickstep));
     }
 

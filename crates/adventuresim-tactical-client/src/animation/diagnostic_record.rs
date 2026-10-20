@@ -35,7 +35,7 @@ pub(super) struct DiagnosticClip {
 #[derive(Serialize)]
 pub(super) struct DiagnosticPlayback {
     pub(super) use_authored_bind_pose: bool,
-    pub(super) whole_body_mirror: BlendWeight,
+    pub(super) whole_body_mirror: UnitInterval,
     pub(super) ordinary_locomotion_active: bool,
     pub(super) clips: Vec<DiagnosticClip>,
 }
@@ -65,7 +65,7 @@ pub(super) struct AnimationDiagnosticRecord<'a> {
     pub(super) subject_translation: [f32; 3],
     pub(super) subject_rotation_xyzw: [f32; 4],
     pub(super) action: SkeletonAction,
-    pub(super) action_phase: f32,
+    pub(super) action_phase: UnitInterval,
     pub(super) authored_weapon_target: Option<DiagnosticTransform>,
     pub(super) bones: Vec<DiagnosticBone<'a>>,
     pub(super) terrain_height: Option<f32>,

@@ -661,7 +661,7 @@ fn apply_character_motor(
             // The authored first half lowers the body while retaining exact
             // sprint momentum. After body contact, integrate bounded kinetic
             // drag; do not hand the slide to the ordinary target-speed motor.
-            if transition.phase() >= 0.5 && controller_state.grounded.is_some() {
+            if transition.phase().fraction() >= 0.5 && controller_state.grounded.is_some() {
                 let next = slide_drag_velocity(velocity.xz(), motor, time.delta_secs());
                 velocity.x = next.x;
                 velocity.z = next.y;

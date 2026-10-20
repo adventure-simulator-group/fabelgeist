@@ -23,7 +23,7 @@ impl<'a> PoseSampleResolver<'a> {
         let PoseSampling::Span { end, progress } = sample.sampling else {
             return Ok(());
         };
-        let progress = finite_sample_value(progress)?.clamp(0.0, 1.0);
+        let progress = progress.fraction();
         let Some(span) = self.resolve_span(start, sample.pose, end) else {
             return append_weighted_anchor(
                 weighted,
@@ -64,10 +64,7 @@ impl<'a> PoseSampleResolver<'a> {
         let PoseSampling::CurveSpan { end, coordinate } = sample.sampling else {
             return Ok(());
         };
-        let coordinate = finite_sample_value(coordinate)?.clamp(
-            -AttackCurve::maximum_drawback(),
-            1.0 + AttackCurve::maximum_overshoot(),
-        );
+        let coordinate = coordinate.clamped_to_curve();
         let Some(span) = self.resolve_span(start, sample.pose, end) else {
             return append_weighted_anchor(
                 weighted,

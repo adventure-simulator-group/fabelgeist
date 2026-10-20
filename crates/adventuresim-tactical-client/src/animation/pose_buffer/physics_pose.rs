@@ -38,7 +38,7 @@ impl PoseBufferRig {
     /// The pose the renderer shows this frame, inertial offset included.
     pub(in crate::animation) fn displayed_pose(&self, joint: RigJointOrdinal) -> LocalPose {
         let pose =
-            self.previous[joint].interpolate(self.next[joint], self.interpolation_alpha.fraction());
+            self.previous[joint].interpolate(self.next[joint], self.interpolation_alpha.amount());
         if self.inertial_state == InertialState::Settled {
             pose
         } else {

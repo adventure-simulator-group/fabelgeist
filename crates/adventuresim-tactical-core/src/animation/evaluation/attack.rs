@@ -1,7 +1,7 @@
 use super::*;
 
-pub(super) fn attack_samples(state: &SkeletonState) -> Vec<PoseSample> {
-    let phase = state.action_phase().clamp(0.0, 1.0);
+pub(super) fn attack_samples(state: &SkeletonState) -> AnimationValueResult<Vec<PoseSample>> {
+    let phase = state.action_phase();
     let animation = state.attack_animation().unwrap_or(AttackAnimation::Thrust);
     let start_guard =
         if animation == AttackAnimation::Offhand && !state.attack_animations.offhand_preparation {
@@ -18,7 +18,7 @@ pub(super) fn attack_samples(state: &SkeletonState) -> Vec<PoseSample> {
         };
     if state.attack_is_continuation() {
         let curve = state.attack_curve();
-        return vec![PoseSample {
+        return Ok(vec![PoseSample {
             pose: start_guard,
             sampling: PoseSampling::ContinuationSpan {
                 contact,
@@ -30,18 +30,18 @@ pub(super) fn attack_samples(state: &SkeletonState) -> Vec<PoseSample> {
                     .unwrap_or(1.0 + curve.overshoot),
                 incoming_tangent: state.attack_continuation_incoming_tangent().unwrap_or(0.0),
                 ready_phase: continuation_ready_phase(),
-                progress: phase,
+                progress: phase.fraction(),
             },
             weight: BlendWeight::ONE,
             mirror_lower_body: ClipMirror::Original,
-        }];
+        }]);
     }
-    let coordinate = if phase < 0.5 || !state.attack_has_queued_continuation() {
-        state.attack_curve().coordinate(phase)
+    let coordinate = if phase.fraction() < 0.5 || !state.attack_has_queued_continuation() {
+        state.attack_curve().coordinate(phase)?
     } else {
-        state.attack_curve().queued_recovery_coordinate(phase)
+        state.attack_curve().queued_recovery_coordinate(phase)?
     };
-    vec![PoseSample {
+    Ok(vec![PoseSample {
         pose: start_guard,
         sampling: PoseSampling::CurveSpan {
             end: contact,
@@ -49,7 +49,7 @@ pub(super) fn attack_samples(state: &SkeletonState) -> Vec<PoseSample> {
         },
         weight: BlendWeight::ONE,
         mirror_lower_body: ClipMirror::Original,
-    }]
+    }])
 }
 
 pub(super) fn guard_pose(animation: AttackAnimation) -> SemanticPose {

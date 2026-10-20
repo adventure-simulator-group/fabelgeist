@@ -42,6 +42,10 @@ pub enum AnimationQuantity {
     CyclePhase,
     #[display("cycle displacement")]
     CycleDelta,
+    #[display("authored attack pose coordinate")]
+    AttackPoseCoordinate,
+    #[display("action progress displacement")]
+    ActionProgressDelta,
     #[display("blend contribution")]
     BlendWeight,
     #[display("dive influence")]

@@ -19,6 +19,7 @@ pub use authored_angle::{AngularMagnitudeDegrees, AngularSpeedDegrees, AngularSp
 pub use contact::ContactSequence;
 pub use elapsed_reflection::ReflectedAnimationElapsed;
 pub use evaluation::*;
+pub use fraction_reflection::ReflectedUnitInterval;
 pub use ground_contact::GroundContact;
 pub use height_measurement::{HeightDistance, HeightSpeed};
 pub use landing::{LandingImpactSpeed, LandingSequence};
@@ -26,6 +27,7 @@ pub use locomotion::*;
 pub use measurement::{NonnegativeLength, PositiveAnimationDuration};
 pub use motion_modes::{DownedMotion, GuardedLocomotionMode, JumpAnticipation};
 pub use packs::*;
+pub use pose_coordinates::{ActionProgressDelta, AttackPoseCoordinate};
 pub use response_parameters::{
     AngularStiffness, ImpactCompressionCompliance, InertialLeanGain, LookDistribution, MuscleTone,
     ReferenceAcceleration, ResponseRate,
@@ -45,6 +47,7 @@ mod authored_angle;
 mod contact;
 mod elapsed_reflection;
 mod evaluation;
+mod fraction_reflection;
 mod ground_contact;
 mod height_measurement;
 mod landing;
@@ -52,6 +55,7 @@ mod locomotion;
 mod measurement;
 mod motion_modes;
 mod packs;
+mod pose_coordinates;
 mod response_parameters;
 mod sample_rate;
 mod sample_tick;

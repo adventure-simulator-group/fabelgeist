@@ -17,7 +17,7 @@ pub(super) struct ResolvedBodyPlan {
     pub(super) clips: Vec<WeightedClip>,
     extrapolated_spans: Vec<ExtrapolatedSpan>,
     continuation_spans: Vec<ContinuationSpan>,
-    whole_body_mirror: BlendWeight,
+    whole_body_mirror: UnitInterval,
 }
 
 impl ResolvedBodyPlan {
@@ -174,7 +174,7 @@ impl PoseSampleResolver<'_> {
                 )
             }
             PoseSampling::Timeline { progress } => {
-                let progress = finite_sample_value(progress)?.clamp(0.0, 1.0);
+                let progress = progress.fraction();
                 let timeline = if start.timeline_direction == TimelineDirection::Reversed {
                     1.0 - progress
                 } else {
@@ -197,7 +197,7 @@ impl PoseSampleResolver<'_> {
 
 fn mirror_fraction(
     contributions: impl Iterator<Item = (BlendWeight, BlendWeight)>,
-) -> AnimationValueResult<BlendWeight> {
+) -> AnimationValueResult<UnitInterval> {
     let mut total = BlendWeight::ZERO;
     let mut mirrored = BlendWeight::ZERO;
     for (weight, mirror) in contributions {
@@ -205,7 +205,7 @@ fn mirror_fraction(
         mirrored = mirrored.checked_add(mirror)?;
     }
     if total.is_absent() {
-        return Ok(BlendWeight::ZERO);
+        return Ok(UnitInterval::ZERO);
     }
     let fraction = mirrored.factor() / total.factor();
     if !fraction.is_finite() {
@@ -213,5 +213,5 @@ fn mirror_fraction(
             quantity: adventuresim_tactical_core::animation::AnimationQuantity::BlendWeight,
         });
     }
-    BlendWeight::from_factor(fraction.clamp(0.0, 1.0))
+    Ok(UnitInterval::from_fraction(fraction.clamp(0.0, 1.0))?)
 }

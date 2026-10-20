@@ -45,11 +45,11 @@ pub(in crate::animation) fn apply_procedural_dive_lower_body(
         let PostureTransitionKind::DiveToDowned { direction, .. } = transition.kind() else {
             continue;
         };
-        let phase = transition.phase().clamp(0.0, 1.0);
-        let amount = if phase <= DIVE_GROUND_CONTACT_PHASE {
-            smoothstep(0.0, DIVE_GROUND_CONTACT_PHASE, phase)
+        let phase = transition.phase().fraction().clamp(0.0, 1.0);
+        let amount = if phase <= DIVE_GROUND_CONTACT_PHASE.fraction() {
+            smoothstep(0.0, DIVE_GROUND_CONTACT_PHASE.fraction(), phase)
         } else {
-            1.0 - smoothstep(DIVE_GROUND_CONTACT_PHASE, 1.0, phase)
+            1.0 - smoothstep(DIVE_GROUND_CONTACT_PHASE.fraction(), 1.0, phase)
         };
         let amount = match DiveInfluence::from_factor(amount) {
             Ok(amount) => amount,

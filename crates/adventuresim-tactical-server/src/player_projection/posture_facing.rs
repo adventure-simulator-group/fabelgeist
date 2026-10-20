@@ -108,17 +108,18 @@ pub(super) fn advance_projected_posture(
     transform: &mut Transform,
     physics_rotation: &mut Rotation,
     pace: MovementPace,
-) {
+) -> AnimationValueResult<()> {
     // Successful projection installed this same authoritative sample tick.
     let previous_transition = skeleton.posture_transition();
-    skeleton.advance_posture_transition(skeleton.locomotion_sample_tick);
+    skeleton.advance_posture_transition(skeleton.locomotion_sample_tick)?;
     advance_posture_transition_facing(
         transform,
         physics_rotation,
         previous_transition,
         skeleton.posture_transition(),
-    );
+    )?;
     skeleton.set_guarded_locomotion_mode(GuardedLocomotionMode::from(pace));
+    Ok(())
 }
 
 pub(super) fn advance_posture_transition_facing(
@@ -126,16 +127,17 @@ pub(super) fn advance_posture_transition_facing(
     physics_rotation: &mut Rotation,
     previous_transition: Option<PostureTransitionState>,
     current_transition: Option<PostureTransitionState>,
-) {
+) -> AnimationValueResult<()> {
     // Directional dives transfer the downed contact pose's yaw to the root
     // during landing. A backward dive's half-turn is spread across contact
     // recovery; the supine get-up applies the inverse convention change.
     let rotation = (transform.rotation
-        * dive_landing_facing_delta(previous_transition, current_transition)
+        * dive_landing_facing_delta(previous_transition, current_transition)?
         * supine_get_up_counter_yaw_delta(previous_transition, current_transition))
     .normalize();
     transform.rotation = rotation;
     physics_rotation.0 = rotation;
+    Ok(())
 }
 
 pub(super) fn advance_downed_facing_for_camera(

@@ -60,7 +60,7 @@ pub(super) fn quickstep_lower_body_samples(
     state: &SkeletonState,
 ) -> AnimationValueResult<Vec<PoseSample>> {
     // The full action phase keeps authored load/launch/landing on the physical force curve.
-    let progress = state.action_phase().clamp(0.0, 1.0);
+    let progress = state.action_phase();
     let direction = state.action_direction().normalize_or_zero();
     let directional = [
         (direction.y.max(0.0), SemanticPose::QuickstepForwardTakeoff),
@@ -127,7 +127,8 @@ pub(super) fn upright_locomotion_samples(
                 .locomotion
                 .blend_speed
                 .metres_per_second(),
-    );
+    )?
+    .fraction();
     let longitudinal_weight = longitudinal / total;
     let lateral_weight = lateral / total;
     let mut samples = locomotion_samples(speed, phase)?;
@@ -188,7 +189,7 @@ fn alternating_contact_pair(
     contact: SemanticPose,
 ) -> AnimationValueResult<Vec<PoseSample>> {
     let half = phase.wrapped().cycles() * 2.0;
-    let progress = smoothstep01(half.fract());
+    let progress = smoothstep01(half.fract())?.fraction();
     let (start_mirrored, end_mirrored) = if half < 1.0 {
         (ClipMirror::Original, ClipMirror::Mirrored)
     } else {
@@ -224,7 +225,8 @@ fn locomotion_samples(
                 .locomotion
                 .blend_speed
                 .metres_per_second(),
-    );
+    )?
+    .fraction();
     let run = ((speed.metres_per_second()
         - walk_locomotion_profile()
             .reference_speed
@@ -297,7 +299,7 @@ pub(in crate::animation) fn gait_pair(
     // anchor zero endpoint velocity. Linear quarter interpolation changed
     // velocity discontinuously at each anchor and produced a visible knee and
     // ankle snap even though the poses themselves were continuous.
-    let progress = smoothstep01(quarter.fract());
+    let progress = smoothstep01(quarter.fract())?.fraction();
     let (start, start_mirrored, end, end_mirrored) = match quarter.floor() as u8 {
         0 => (contact, ClipMirror::Original, passing, ClipMirror::Original),
         1 => (passing, ClipMirror::Original, contact, ClipMirror::Mirrored),

@@ -53,9 +53,9 @@ pub(super) fn project_capture_motion(
     skeleton.set_jump_anticipation(JumpAnticipation::from(jump_charging));
     if sequence.warmup_frames == 0 && frame.scenario.transition().is_some() {
         let previous_transition = skeleton.posture_transition();
-        skeleton.advance_posture_transition(tick);
+        skeleton.advance_posture_transition(tick)?;
         transform.rotation = (transform.rotation
-            * dive_landing_facing_delta(previous_transition, skeleton.posture_transition())
+            * dive_landing_facing_delta(previous_transition, skeleton.posture_transition())?
             * supine_get_up_counter_yaw_delta(previous_transition, skeleton.posture_transition()))
         .normalize();
     }

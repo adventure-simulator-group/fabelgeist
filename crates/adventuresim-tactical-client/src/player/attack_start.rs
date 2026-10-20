@@ -254,6 +254,7 @@ impl ImmediateMeleeAttack {
         } = prepared;
         match skeleton.begin_attack_timed(spec, timing.start, timing.contact, timing.end) {
             Ok(()) => {}
+            Err(ActionTransitionError::InvalidAnimationValue(error)) => return Err(error),
             Err(ActionTransitionError::ActionBusy) => {
                 cmd.entity(entity).insert(BufferedMeleeAttack {
                     family: strike_family,

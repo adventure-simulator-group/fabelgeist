@@ -12,8 +12,11 @@ pub(super) fn initiative_delay_seconds(
     AnimationElapsed::from_seconds(sampled * (3.0 / instinct.max(0.5)).clamp(0.6, 2.0))
 }
 
-pub(super) fn committed_threat_recognition_probability(attack_phase: f32, instinct: f32) -> f32 {
-    let visible_windup = (attack_phase.clamp(0.0, 0.5) * 2.0).sqrt();
+pub(super) fn committed_threat_recognition_probability(
+    attack_phase: adventuresim_tactical_core::animation::UnitInterval,
+    instinct: f32,
+) -> f32 {
+    let visible_windup = (attack_phase.fraction().clamp(0.0, 0.5) * 2.0).sqrt();
     (visible_windup * instinct.max(0.0) / 5.0).clamp(0.0, 1.0)
 }
 

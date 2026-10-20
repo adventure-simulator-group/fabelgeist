@@ -59,9 +59,9 @@ mod legacy_tests {
                 adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64),
             )
             .unwrap();
-        skeleton.advance_action(
-            adventuresim_tactical_core::animation::AnimationSampleTick::from(15u64),
-        );
+        skeleton
+            .advance_action(adventuresim_tactical_core::animation::AnimationSampleTick::from(15u64))
+            .unwrap();
         let before = serde_json::to_vec(&skeleton).unwrap();
         let presented = PresentedSkeleton::new(skeleton, None);
         let evaluation = AnimationEvaluation::from_skeleton(&presented).unwrap();
@@ -87,9 +87,11 @@ mod legacy_tests {
                     adventuresim_tactical_core::animation::AnimationSampleTick::from(20u64),
                 )
                 .unwrap();
-            skeleton.advance_action(
-                adventuresim_tactical_core::animation::AnimationSampleTick::from(tick as u64),
-            );
+            skeleton
+                .advance_action(
+                    adventuresim_tactical_core::animation::AnimationSampleTick::from(tick as u64),
+                )
+                .unwrap();
             let presented = PresentedSkeleton::new(skeleton.clone(), None);
             let direct = AnimationEvaluation::from_skeleton(&skeleton).unwrap();
             let routed = route(skeleton);
@@ -105,7 +107,7 @@ mod legacy_tests {
                 presented.gait_phase.cycles()
             );
             assert_eq!(
-                routed.as_ref().unwrap().evaluation.action_phase,
+                routed.as_ref().unwrap().evaluation.action_phase.fraction(),
                 expected_phase
             );
         }
@@ -704,7 +706,10 @@ mod legacy_tests {
                     &AnimationPackId::HUMANOID_UNARMED,
                     PoseSample {
                         pose: start,
-                        sampling: PoseSampling::Span { end, progress },
+                        sampling: PoseSampling::Span {
+                            end,
+                            progress: UnitInterval::from_fraction(progress).unwrap(),
+                        },
                         weight: BlendWeight::from_factor(1.0).unwrap(),
                         mirror_lower_body: ClipMirror::Original,
                     },
@@ -751,7 +756,7 @@ mod legacy_tests {
                 pose: SemanticPose::WalkContact,
                 sampling: PoseSampling::Span {
                     end: SemanticPose::WalkPassing,
-                    progress: 0.5,
+                    progress: UnitInterval::from_fraction(0.5).unwrap(),
                 },
                 weight: BlendWeight::from_factor(1.0).unwrap(),
                 mirror_lower_body: ClipMirror::Original,
@@ -784,7 +789,7 @@ mod legacy_tests {
                 pose: SemanticPose::GuardThrust,
                 sampling: PoseSampling::Span {
                     end: SemanticPose::AttackThrust,
-                    progress: 0.5,
+                    progress: UnitInterval::from_fraction(0.5).unwrap(),
                 },
                 weight: BlendWeight::from_factor(1.0).unwrap(),
                 mirror_lower_body: ClipMirror::Original,
@@ -1018,7 +1023,7 @@ mod legacy_tests {
                     4.0 / animation_frames_per_second().hertz(),
                 )
                 .unwrap(),
-                coordinate: 1.0,
+                coordinate: AttackPoseCoordinate::from_coordinate(1.0).unwrap(),
                 weight: BlendWeight::ONE,
                 mirrored_weight: BlendWeight::ZERO,
             }],
@@ -1114,7 +1119,9 @@ mod legacy_tests {
             &AnimationPackId::HUMANOID_UNARMED,
             PoseSample {
                 pose: SemanticPose::QuickstepForwardTakeoff,
-                sampling: PoseSampling::Timeline { progress: 0.25 },
+                sampling: PoseSampling::Timeline {
+                    progress: UnitInterval::from_fraction(0.25).unwrap(),
+                },
                 weight: BlendWeight::from_factor(1.0).unwrap(),
                 mirror_lower_body: ClipMirror::Original,
             },
@@ -1154,7 +1161,9 @@ mod legacy_tests {
             &AnimationPackId::HUMANOID_UNARMED,
             PoseSample {
                 pose: SemanticPose::QuickstepRightTakeoff,
-                sampling: PoseSampling::Timeline { progress: 0.5 },
+                sampling: PoseSampling::Timeline {
+                    progress: UnitInterval::from_fraction(0.5).unwrap(),
+                },
                 weight: BlendWeight::from_factor(1.0).unwrap(),
                 mirror_lower_body: ClipMirror::Original,
             },
@@ -1206,7 +1215,9 @@ mod legacy_tests {
             (
                 PoseSample {
                     pose: SemanticPose::QuickstepRightTakeoff,
-                    sampling: PoseSampling::Timeline { progress: 0.5 },
+                    sampling: PoseSampling::Timeline {
+                        progress: UnitInterval::from_fraction(0.5).unwrap(),
+                    },
                     weight: BlendWeight::from_factor(1.0).unwrap(),
                     mirror_lower_body: ClipMirror::Original,
                 },

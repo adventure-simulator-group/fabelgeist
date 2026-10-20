@@ -217,8 +217,8 @@ impl LocalPose {
         }
     }
 
-    fn interpolate(self, next: Self, alpha: f32) -> Self {
-        let alpha = alpha.clamp(0.0, 1.0);
+    fn interpolate(self, next: Self, alpha: UnitInterval) -> Self {
+        let alpha = alpha.fraction().clamp(0.0, 1.0);
         Self {
             translation: self.translation.lerp(next.translation, alpha),
             rotation: hemisphere_slerp(self.rotation, next.rotation, alpha),
@@ -226,11 +226,8 @@ impl LocalPose {
         }
     }
 
-    fn extrapolate(self, next: Self, coordinate: f32) -> Self {
-        let coordinate = coordinate.clamp(
-            -AttackCurve::maximum_drawback(),
-            1.0 + AttackCurve::maximum_overshoot(),
-        );
+    fn extrapolate(self, next: Self, coordinate: AttackPoseCoordinate) -> Self {
+        let coordinate = coordinate.clamped_to_curve().coordinate();
         self.extrapolate_unbounded(next, coordinate)
     }
 
@@ -245,7 +242,13 @@ impl LocalPose {
     }
 
     fn continuation_transition(self, transition: ContinuationTransition, progress: f32) -> Self {
-        let start = self.extrapolate(transition.contact, transition.start_coordinate);
+        let start = self.extrapolate_unbounded(
+            transition.contact,
+            transition.start_coordinate.clamp(
+                -AttackCurve::maximum_drawback(),
+                1.0 + AttackCurve::maximum_overshoot(),
+            ),
+        );
         let progress = progress.clamp(0.0, 1.0);
         let ready_phase = transition.ready_phase;
         let knots = [0.0, ready_phase, 0.5, 1.0];
@@ -599,7 +602,7 @@ pub(super) fn apply_pose_buffers(
         if !rig.has_presented_pose() || rig.visibility == PoseVisibility::Frozen {
             continue;
         }
-        let alpha = rig.interpolation_alpha.fraction();
+        let alpha = rig.interpolation_alpha.amount();
         let delta_seconds = rig.decay_delta_seconds;
         let rig = &mut *rig;
         for joint in rig.entities.ordinals() {
@@ -948,7 +951,10 @@ fn accumulate_local_pose(
     let next_pose = if accumulated_weight.is_absent() {
         sample
     } else {
-        accumulated_pose.interpolate(sample, weight.factor() / next_total.factor())
+        accumulated_pose.interpolate(
+            sample,
+            UnitInterval::from_fraction(weight.factor() / next_total.factor())?,
+        )
     };
     *accumulated_pose = next_pose;
     *accumulated_weight = next_total;
@@ -1425,8 +1431,9 @@ mod tests {
     fn pose_extrapolation_extends_translation_and_shortest_rotation() {
         let start = pose(Vec3::ZERO, Quat::IDENTITY);
         let end = pose(Vec3::X, Quat::from_rotation_y(0.5));
-        let drawback = start.extrapolate(end, -0.5);
-        let follow_through = start.extrapolate(end, 1.5);
+        let drawback = start.extrapolate(end, AttackPoseCoordinate::from_coordinate(-0.5).unwrap());
+        let follow_through =
+            start.extrapolate(end, AttackPoseCoordinate::from_coordinate(1.5).unwrap());
         assert!((drawback.translation.x + 0.5).abs() < 1.0e-5);
         assert!((follow_through.translation.x - 1.5).abs() < 1.0e-5);
         assert!(
@@ -1456,9 +1463,15 @@ mod tests {
             scale: Vec3::ONE,
         };
         let step = 0.001;
-        let before = start.extrapolate(end, 1.0 - step);
-        let contact = start.extrapolate(end, 1.0);
-        let after = start.extrapolate(end, 1.0 + step);
+        let before = start.extrapolate(
+            end,
+            AttackPoseCoordinate::from_coordinate(1.0 - step).unwrap(),
+        );
+        let contact = start.extrapolate(end, AttackPoseCoordinate::from_coordinate(1.0).unwrap());
+        let after = start.extrapolate(
+            end,
+            AttackPoseCoordinate::from_coordinate(1.0 + step).unwrap(),
+        );
         let incoming_velocity = (contact.translation.x - before.translation.x) / step;
         let outgoing_velocity = (after.translation.x - contact.translation.x) / step;
         assert!((incoming_velocity - outgoing_velocity).abs() < 0.01);
@@ -1867,7 +1880,9 @@ mod tests {
         let displayed = previous
             .iter()
             .zip(&next)
-            .map(|(previous, next)| previous.interpolate(*next, 0.5))
+            .map(|(previous, next)| {
+                previous.interpolate(*next, UnitInterval::from_fraction(0.5).unwrap())
+            })
             .collect::<RigJointTable<_>>();
         let next_foot = local_pose_global(
             &definition,

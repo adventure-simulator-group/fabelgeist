@@ -250,12 +250,22 @@ pub(super) fn on_attack_committed_to_defense(
 #[cfg(test)]
 mod tests {
     use super::{below_preferred_long_weapon_measure, committed_threat_recognition_probability};
+    use adventuresim_tactical_core::animation::UnitInterval;
 
     #[test]
     fn threat_recognition_grows_with_visible_commitment_and_instinct() {
-        let early = committed_threat_recognition_probability(0.05, 3.0);
-        let late = committed_threat_recognition_probability(0.4, 3.0);
-        let expert = committed_threat_recognition_probability(0.4, 5.0);
+        let early = committed_threat_recognition_probability(
+            UnitInterval::from_fraction(0.05).unwrap(),
+            3.0,
+        );
+        let late = committed_threat_recognition_probability(
+            UnitInterval::from_fraction(0.4).unwrap(),
+            3.0,
+        );
+        let expert = committed_threat_recognition_probability(
+            UnitInterval::from_fraction(0.4).unwrap(),
+            5.0,
+        );
         assert!(early < late);
         assert!(late < expert);
         assert!((0.0..=1.0).contains(&early));

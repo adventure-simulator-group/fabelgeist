@@ -195,7 +195,7 @@ pub fn project_skeleton_locomotion_with_body_rotation(
         local_speed,
         requested_local_direction,
     )?;
-    skeleton.advance_action(input.tick);
+    skeleton.advance_action(input.tick)?;
     Ok(())
 }
 

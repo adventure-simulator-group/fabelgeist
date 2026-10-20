@@ -162,9 +162,9 @@ mod contract_tests {
                 AnimationSampleTick::MAX,
             )
             .unwrap();
-        state.advance_action(AnimationSampleTick::MAX);
+        state.advance_action(AnimationSampleTick::MAX).unwrap();
         assert_eq!(state.action(), ActionState::default());
-        assert_eq!(state.action_phase(), 0.0);
+        assert_eq!(state.action_phase().fraction(), 0.0);
     }
 
     #[test]
@@ -205,22 +205,28 @@ mod contract_tests {
                 crate::animation::AnimationSampleTick::from(10u64),
             )
             .unwrap();
-        state.advance_action(crate::animation::AnimationSampleTick::from(5u64));
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(5u64))
+            .unwrap();
         let early = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(early.action[0].pose, SemanticPose::GuardThrust);
         let PoseSampling::CurveSpan { end, coordinate } = early.action[0].sampling else {
             panic!("ordinary attacks should use the extrapolating pose curve");
         };
+        let coordinate = coordinate.coordinate();
         assert_eq!(end, SemanticPose::AttackThrust);
         assert!(
             coordinate < 0.0,
             "the early readable tell draws behind guard"
         );
-        state.advance_action(crate::animation::AnimationSampleTick::from(11u64));
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(11u64))
+            .unwrap();
         let recovery = AnimationEvaluation::from_skeleton(&state).unwrap();
         let PoseSampling::CurveSpan { coordinate, .. } = recovery.action[0].sampling else {
             panic!("ordinary recovery should use the extrapolating pose curve");
         };
+        let coordinate = coordinate.coordinate();
         assert!(coordinate > 1.0, "recovery begins beyond contact");
     }
 
@@ -293,7 +299,9 @@ mod contract_tests {
             crate::animation::AnimationSampleTick::from(10u64),
             crate::animation::AnimationSampleSpan::from(20u64),
         ));
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(20u64));
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(20u64))
+            .unwrap();
         let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(evaluation.action.len(), 1);
         assert_eq!(
@@ -304,10 +312,12 @@ mod contract_tests {
             evaluation.action[0].sampling,
             PoseSampling::Span {
                 end: SemanticPose::SupineIdle,
-                progress: 0.0,
+                progress: UnitInterval::from_fraction(0.0).unwrap(),
             }
         );
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(30u64));
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(30u64))
+            .unwrap();
         assert_eq!(state.body(), BodyState::Supine);
         assert!(state.posture_transition().is_none());
     }
@@ -656,21 +666,33 @@ mod contract_tests {
             crate::animation::AnimationSampleTick::from(0u64),
             crate::animation::AnimationSampleSpan::from(11u64),
         ));
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(5u64));
-        assert!(state.posture_transition().unwrap().phase() < 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(5u64))
+            .unwrap();
+        assert!(state.posture_transition().unwrap().phase().fraction() < 0.5);
 
         state.transition_body(BodyState::Airborne);
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(6u64));
-        assert_eq!(state.posture_transition().unwrap().phase(), 0.5);
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(100u64));
-        assert_eq!(state.posture_transition().unwrap().phase(), 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(6u64))
+            .unwrap();
+        assert_eq!(state.posture_transition().unwrap().phase().fraction(), 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(100u64))
+            .unwrap();
+        assert_eq!(state.posture_transition().unwrap().phase().fraction(), 0.5);
 
         state.transition_body(BodyState::Grounded(GroundedPosture::Upright));
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(101u64));
-        assert_eq!(state.posture_transition().unwrap().phase(), 0.5);
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(106u64));
-        assert!(state.posture_transition().unwrap().phase() > 0.5);
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(112u64));
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(101u64))
+            .unwrap();
+        assert_eq!(state.posture_transition().unwrap().phase().fraction(), 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(106u64))
+            .unwrap();
+        assert!(state.posture_transition().unwrap().phase().fraction() > 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(112u64))
+            .unwrap();
         assert_eq!(state.body(), BodyState::Prone);
         assert!(state.posture_transition().is_none());
     }
@@ -687,10 +709,16 @@ mod contract_tests {
             crate::animation::AnimationSampleSpan::from(11u64),
         ));
         state.transition_body(BodyState::Airborne);
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(6u64));
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(6u64))
+            .unwrap();
         state.transition_body(BodyState::Grounded(GroundedPosture::Upright));
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(7u64));
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(18u64));
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(7u64))
+            .unwrap();
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(18u64))
+            .unwrap();
         assert_eq!(state.body(), BodyState::Supine);
         assert!(state.posture_transition().is_none());
     }
@@ -707,13 +735,21 @@ mod contract_tests {
             crate::animation::AnimationSampleSpan::from(8u64),
         ));
 
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(7u64));
-        assert!(state.posture_transition().unwrap().phase() < 0.5);
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(8u64));
-        assert_eq!(state.posture_transition().unwrap().phase(), 0.5);
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(12u64));
-        assert_eq!(state.posture_transition().unwrap().phase(), 0.75);
-        state.advance_posture_transition(crate::animation::AnimationSampleTick::from(16u64));
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(7u64))
+            .unwrap();
+        assert!(state.posture_transition().unwrap().phase().fraction() < 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(8u64))
+            .unwrap();
+        assert_eq!(state.posture_transition().unwrap().phase().fraction(), 0.5);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(12u64))
+            .unwrap();
+        assert_eq!(state.posture_transition().unwrap().phase().fraction(), 0.75);
+        state
+            .advance_posture_transition(crate::animation::AnimationSampleTick::from(16u64))
+            .unwrap();
         assert_eq!(state.body(), BodyState::Supine);
     }
 
@@ -866,7 +902,7 @@ mod contract_tests {
         wire["action"]["Attack"]["timeline"]["phase"] = serde_json::json!(2.0);
         let normalized_action: ActionState =
             serde_json::from_value(wire["action"].clone()).unwrap();
-        assert_eq!(normalized_action.phase(), 1.0);
+        assert_eq!(normalized_action.phase().fraction(), 1.0);
         let normalized: SkeletonState = serde_json::from_value(wire).unwrap();
         assert_eq!(normalized.body(), BodyState::Prone);
         assert_eq!(normalized.stance(), StanceState::Lowered);

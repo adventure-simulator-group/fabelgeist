@@ -4,11 +4,12 @@
 )]
 
 use adventuresim_tactical_core::animation::AttackCurve;
-use adventuresim_tactical_core::animation::{AnimationElapsed, AnimationValueError};
 use adventuresim_tactical_core::animation::{
-    AnimationFrequency, AnimationPackId, AnimationSampleSpan, AnimationSampleTick, BlendWeight,
-    ClipMirror, CycleDelta, CyclePhase, SkeletonFamily,
+    ActionProgressDelta, AnimationFrequency, AnimationPackId, AnimationSampleSpan,
+    AnimationSampleTick, AttackPoseCoordinate, BlendWeight, ClipMirror, CycleDelta, CyclePhase,
+    SkeletonFamily, UnitInterval,
 };
+use adventuresim_tactical_core::animation::{AnimationElapsed, AnimationValueError};
 use adventuresim_tactical_core::prelude::*;
 #[cfg(not(target_family = "wasm"))]
 use adventuresim_tactical_netcode::message::PlayerInputRequest;
@@ -125,7 +126,7 @@ pub(crate) struct AnimationRuntime {
 #[derive(Component, Debug)]
 pub(super) struct AnimationPlayback {
     plan: PlaybackContributions,
-    whole_body_mirror: BlendWeight,
+    whole_body_mirror: UnitInterval,
     pub(super) foot_ik_weights: Vec2,
     weapon_guard: WeaponGuardState,
     ordinary_locomotion: OrdinaryLocomotion,
@@ -138,7 +139,7 @@ struct ExtrapolatedSpan {
     start_time_seconds: ClipTime,
     end: LoadedClip,
     end_time_seconds: ClipTime,
-    coordinate: f32,
+    coordinate: AttackPoseCoordinate,
     weight: BlendWeight,
     mirrored_weight: BlendWeight,
 }
@@ -146,7 +147,7 @@ struct ExtrapolatedSpan {
 #[derive(Debug, Clone)]
 struct PlaybackPose {
     plan: PlaybackContributions,
-    whole_body_mirror: BlendWeight,
+    whole_body_mirror: UnitInterval,
     foot_ik_weights: Vec2,
     cadence: PoseSamplingCadence,
 }
@@ -785,9 +786,11 @@ mod contract_tests {
         // authored takeoff. Once frame 0 owns the lower body, every authored
         // quickstep pose remains completely free of leg IK.
         for tick in [100, 150, 199] {
-            state.advance_action(
-                adventuresim_tactical_core::animation::AnimationSampleTick::from(tick as u64),
-            );
+            state
+                .advance_action(
+                    adventuresim_tactical_core::animation::AnimationSampleTick::from(tick as u64),
+                )
+                .unwrap();
             let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
             assert_eq!(
                 semantic_foot_ik_weights(&evaluation).unwrap(),

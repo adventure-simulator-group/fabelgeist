@@ -363,8 +363,8 @@ pub struct AiDefenseConfig {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct ClientInputConfig {
-    pub alternate_attack_hold_seconds: f32,
-    pub sprint_hold_seconds: f32,
+    pub alternate_attack_hold_seconds: PositiveAnimationDuration,
+    pub sprint_hold_seconds: PositiveAnimationDuration,
     pub movement_deadzone: f32,
     pub roll_deadzone: f32,
     pub quickstep_threshold: f32,
@@ -582,8 +582,6 @@ impl TacticalCombatConfig {
 
         let input = &self.client_input;
         if ![
-            input.alternate_attack_hold_seconds,
-            input.sprint_hold_seconds,
             input.movement_deadzone,
             input.roll_deadzone,
             input.quickstep_threshold,
@@ -592,8 +590,6 @@ impl TacticalCombatConfig {
         .into_iter()
         .all(finite_nonnegative)
             || !input.gamepad_look_scale.into_iter().all(f32::is_finite)
-            || input.alternate_attack_hold_seconds == 0.0
-            || input.sprint_hold_seconds == 0.0
             || input.movement_deadzone > 1.0
             || input.roll_deadzone > 1.0
             || input.quickstep_threshold > 1.0

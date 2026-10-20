@@ -207,7 +207,8 @@ pub(in crate::animation_viewer) struct FrameSample {
     pub(in crate::animation_viewer) weapon_guard: WeaponGuardState,
     pub(in crate::animation_viewer) lead_foot: LeadFoot,
     pub(in crate::animation_viewer) action: SkeletonAction,
-    pub(in crate::animation_viewer) action_phase: f32,
+    pub(in crate::animation_viewer) action_phase:
+        adventuresim_tactical_core::animation::UnitInterval,
     pub(in crate::animation_viewer) attack_animation: Option<AttackAnimation>,
     pub(in crate::animation_viewer) strike_family: StrikeFamily,
     pub(in crate::animation_viewer) guard_action: bool,
@@ -251,7 +252,8 @@ pub(in crate::animation_viewer) struct GlobalBoneFrame {
     pub(in crate::animation_viewer) scenario_frame: usize,
     pub(in crate::animation_viewer) time_seconds: f32,
     pub(in crate::animation_viewer) action: SkeletonAction,
-    pub(in crate::animation_viewer) action_phase: f32,
+    pub(in crate::animation_viewer) action_phase:
+        adventuresim_tactical_core::animation::UnitInterval,
     pub(in crate::animation_viewer) subject_translation: [f32; 3],
     pub(in crate::animation_viewer) subject_rotation_xyzw: [f32; 4],
     pub(in crate::animation_viewer) bones: Vec<GlobalBoneTransformSample>,

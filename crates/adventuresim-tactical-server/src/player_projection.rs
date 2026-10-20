@@ -1723,7 +1723,11 @@ pub(crate) fn update_skeleton_locomotion(
             warn!(%error, "Rejected controller animation observation");
             continue;
         }
-        advance_projected_posture(&mut skeleton, &mut transform, &mut physics_rotation, *pace);
+        if let Err(error) =
+            advance_projected_posture(&mut skeleton, &mut transform, &mut physics_rotation, *pace)
+        {
+            warn!(%error, "Rejected posture transition progress");
+        }
     }
 }
 
@@ -2849,23 +2853,30 @@ mod tests {
         let mut physics_rotation = Rotation(transform.rotation);
 
         skeleton.transition_body(BodyState::Airborne);
-        skeleton.advance_posture_transition(
-            adventuresim_tactical_core::animation::AnimationSampleTick::from(1u64),
-        );
+        skeleton
+            .advance_posture_transition(
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(1u64),
+            )
+            .unwrap();
         skeleton.transition_body(BodyState::Grounded(GroundedPosture::Upright));
-        skeleton.advance_posture_transition(
-            adventuresim_tactical_core::animation::AnimationSampleTick::from(2u64),
-        );
+        skeleton
+            .advance_posture_transition(
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(2u64),
+            )
+            .unwrap();
         let previous = skeleton.posture_transition();
-        skeleton.advance_posture_transition(AnimationSampleTick::from(
-            BACKWARD_DIVE_POSTURE_TRANSITION_TICKS + 2,
-        ));
+        skeleton
+            .advance_posture_transition(AnimationSampleTick::from(
+                BACKWARD_DIVE_POSTURE_TRANSITION_TICKS + 2,
+            ))
+            .unwrap();
         advance_posture_transition_facing(
             &mut transform,
             &mut physics_rotation,
             previous,
             skeleton.posture_transition(),
-        );
+        )
+        .unwrap();
         assert_eq!(skeleton.body(), BodyState::Supine);
         assert!((transform.rotation * Vec3::Z).abs_diff_eq(Vec3::Z, 0.000_01));
 
@@ -2880,30 +2891,36 @@ mod tests {
         );
         let landing_rotation = transform.rotation;
         let previous = skeleton.posture_transition();
-        skeleton.advance_posture_transition(AnimationSampleTick::from(
-            BACKWARD_DIVE_POSTURE_TRANSITION_TICKS + 3 + GROUND_POSTURE_TRANSITION_TICKS / 2,
-        ));
+        skeleton
+            .advance_posture_transition(AnimationSampleTick::from(
+                BACKWARD_DIVE_POSTURE_TRANSITION_TICKS + 3 + GROUND_POSTURE_TRANSITION_TICKS / 2,
+            ))
+            .unwrap();
         advance_posture_transition_facing(
             &mut transform,
             &mut physics_rotation,
             previous,
             skeleton.posture_transition(),
-        );
+        )
+        .unwrap();
         assert!(
             transform.rotation.abs_diff_eq(landing_rotation, 0.000_01),
             "supine-to-midpoint recovery must not begin the counter-yaw"
         );
 
         let previous = skeleton.posture_transition();
-        skeleton.advance_posture_transition(AnimationSampleTick::from(
-            BACKWARD_DIVE_POSTURE_TRANSITION_TICKS + GROUND_POSTURE_TRANSITION_TICKS + 4,
-        ));
+        skeleton
+            .advance_posture_transition(AnimationSampleTick::from(
+                BACKWARD_DIVE_POSTURE_TRANSITION_TICKS + GROUND_POSTURE_TRANSITION_TICKS + 4,
+            ))
+            .unwrap();
         advance_posture_transition_facing(
             &mut transform,
             &mut physics_rotation,
             previous,
             skeleton.posture_transition(),
-        );
+        )
+        .unwrap();
         assert_eq!(
             skeleton.body(),
             BodyState::Grounded(GroundedPosture::Upright)
@@ -2936,27 +2953,33 @@ mod tests {
         let mut physics_rotation = Rotation(initial);
 
         let previous = skeleton.posture_transition();
-        skeleton.advance_posture_transition(AnimationSampleTick::from(
-            GROUND_POSTURE_TRANSITION_TICKS / 2,
-        ));
+        skeleton
+            .advance_posture_transition(AnimationSampleTick::from(
+                GROUND_POSTURE_TRANSITION_TICKS / 2,
+            ))
+            .unwrap();
         advance_posture_transition_facing(
             &mut transform,
             &mut physics_rotation,
             previous,
             skeleton.posture_transition(),
-        );
+        )
+        .unwrap();
         assert!(transform.rotation.abs_diff_eq(initial, 0.000_01));
 
         let previous = skeleton.posture_transition();
-        skeleton.advance_posture_transition(AnimationSampleTick::from(
-            GROUND_POSTURE_TRANSITION_TICKS + 1,
-        ));
+        skeleton
+            .advance_posture_transition(AnimationSampleTick::from(
+                GROUND_POSTURE_TRANSITION_TICKS + 1,
+            ))
+            .unwrap();
         advance_posture_transition_facing(
             &mut transform,
             &mut physics_rotation,
             previous,
             skeleton.posture_transition(),
-        );
+        )
+        .unwrap();
         assert!(transform.rotation.abs_diff_eq(initial, 0.000_01));
     }
 
@@ -2977,7 +3000,8 @@ mod tests {
             PostureTransitionKind::UprightToProne
         );
         skeleton
-            .advance_posture_transition(AnimationSampleTick::from(GROUND_POSTURE_TRANSITION_TICKS));
+            .advance_posture_transition(AnimationSampleTick::from(GROUND_POSTURE_TRANSITION_TICKS))
+            .unwrap();
         assert_eq!(skeleton.body(), BodyState::Prone);
 
         let _ = apply_posture_action(
@@ -2994,13 +3018,16 @@ mod tests {
             }
         );
         assert_eq!(skeleton.downed_lateral_motion().fraction(), -1.0);
-        skeleton.advance_posture_transition(AnimationSampleTick::from(
-            ROLL_POSTURE_TRANSITION_TICKS - 1,
-        ));
+        skeleton
+            .advance_posture_transition(AnimationSampleTick::from(
+                ROLL_POSTURE_TRANSITION_TICKS - 1,
+            ))
+            .unwrap();
         assert_eq!(skeleton.body(), BodyState::Prone);
         assert!(skeleton.is_posture_transitioning());
         skeleton
-            .advance_posture_transition(AnimationSampleTick::from(ROLL_POSTURE_TRANSITION_TICKS));
+            .advance_posture_transition(AnimationSampleTick::from(ROLL_POSTURE_TRANSITION_TICKS))
+            .unwrap();
         assert_eq!(skeleton.body(), BodyState::Supine);
 
         let _ = apply_posture_action(
@@ -3027,7 +3054,8 @@ mod tests {
             AnimationSampleSpan::from(ROLL_POSTURE_TRANSITION_TICKS),
         ));
         skeleton
-            .advance_posture_transition(AnimationSampleTick::from(ROLL_POSTURE_TRANSITION_TICKS));
+            .advance_posture_transition(AnimationSampleTick::from(ROLL_POSTURE_TRANSITION_TICKS))
+            .unwrap();
         assert_eq!(skeleton.body(), BodyState::Supine);
 
         // A camera looking toward the character's feet maps back toward the
@@ -3108,7 +3136,9 @@ mod tests {
         assert!(input.jumped.is_none());
 
         let duration = combat_seconds_to_ticks(config.movement.maneuvers.slide_seconds);
-        skeleton.advance_posture_transition(AnimationSampleTick::ZERO.saturating_add(duration));
+        skeleton
+            .advance_posture_transition(AnimationSampleTick::ZERO.saturating_add(duration))
+            .unwrap();
         assert_eq!(skeleton.body(), BodyState::Supine);
     }
 
@@ -3361,7 +3391,8 @@ mod tests {
         assert!(posture_transition_locks_body_facing(&skeleton));
 
         skeleton
-            .advance_posture_transition(AnimationSampleTick::from(GROUND_POSTURE_TRANSITION_TICKS));
+            .advance_posture_transition(AnimationSampleTick::from(GROUND_POSTURE_TRANSITION_TICKS))
+            .unwrap();
         assert!(!posture_transition_locks_body_facing(&skeleton));
         assert_eq!(skeleton.body(), BodyState::Supine);
     }
@@ -3430,24 +3461,31 @@ mod tests {
             let mut physics_rotation = Rotation(transform.rotation);
 
             skeleton.transition_body(BodyState::Airborne);
-            skeleton.advance_posture_transition(
-                adventuresim_tactical_core::animation::AnimationSampleTick::from(1u64),
-            );
+            skeleton
+                .advance_posture_transition(
+                    adventuresim_tactical_core::animation::AnimationSampleTick::from(1u64),
+                )
+                .unwrap();
             skeleton.transition_body(BodyState::Grounded(GroundedPosture::Upright));
-            skeleton.advance_posture_transition(
-                adventuresim_tactical_core::animation::AnimationSampleTick::from(2u64),
-            );
+            skeleton
+                .advance_posture_transition(
+                    adventuresim_tactical_core::animation::AnimationSampleTick::from(2u64),
+                )
+                .unwrap();
 
             let previous = skeleton.posture_transition();
-            skeleton.advance_posture_transition(
-                adventuresim_tactical_core::animation::AnimationSampleTick::from(7u64),
-            );
+            skeleton
+                .advance_posture_transition(
+                    adventuresim_tactical_core::animation::AnimationSampleTick::from(7u64),
+                )
+                .unwrap();
             advance_posture_transition_facing(
                 &mut transform,
                 &mut physics_rotation,
                 previous,
                 skeleton.posture_transition(),
-            );
+            )
+            .unwrap();
             let halfway = transform.rotation * Vec3::Z;
             if direction != DiveDirection::Forward {
                 assert!(
@@ -3461,15 +3499,18 @@ mod tests {
             }
 
             let previous = skeleton.posture_transition();
-            skeleton.advance_posture_transition(
-                adventuresim_tactical_core::animation::AnimationSampleTick::from(12u64),
-            );
+            skeleton
+                .advance_posture_transition(
+                    adventuresim_tactical_core::animation::AnimationSampleTick::from(12u64),
+                )
+                .unwrap();
             advance_posture_transition_facing(
                 &mut transform,
                 &mut physics_rotation,
                 previous,
                 skeleton.posture_transition(),
-            );
+            )
+            .unwrap();
             let facing = transform.rotation * Vec3::Z;
             assert!(
                 facing.abs_diff_eq(expected_world_heading, 0.000_01),

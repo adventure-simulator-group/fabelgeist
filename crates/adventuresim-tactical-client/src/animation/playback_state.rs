@@ -5,7 +5,9 @@ use super::{
     apply_playback_pose, ordinary_locomotion_candidate, playback_tuning,
 };
 use adventuresim_core::linear_speed::NonnegativeSpeed;
-use adventuresim_tactical_core::animation::{BlendWeight, SkeletonState, WeaponGuardState};
+use adventuresim_tactical_core::animation::{
+    BlendWeight, SkeletonState, UnitInterval, WeaponGuardState,
+};
 use bevy::gltf::Gltf;
 use bevy::prelude::*;
 
@@ -143,7 +145,7 @@ impl Default for AnimationPlayback {
     fn default() -> Self {
         Self {
             plan: PlaybackContributions::default(),
-            whole_body_mirror: BlendWeight::ZERO,
+            whole_body_mirror: UnitInterval::ZERO,
             foot_ik_weights: Vec2::ZERO,
             weapon_guard: WeaponGuardState::Lowered,
             ordinary_locomotion: OrdinaryLocomotion::Inactive,

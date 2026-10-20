@@ -10,7 +10,7 @@ mod attack;
 pub(super) mod locomotion;
 
 /// The dive action reaches authored ground contact halfway through its timeline.
-pub const DIVE_GROUND_CONTACT_PHASE: f32 = 0.5;
+pub const DIVE_GROUND_CONTACT_PHASE: UnitInterval = UnitInterval::HALF;
 
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub struct PoseSample {
@@ -33,8 +33,8 @@ pub struct AnimationEvaluation {
     pub action: Vec<PoseSample>,
     pub movement_speed: NonnegativeSpeed,
     pub gait_phase: CyclePhase,
-    pub airborne_phase: f32,
-    pub action_phase: f32,
+    pub airborne_phase: UnitInterval,
+    pub action_phase: UnitInterval,
     pub attack_target_height: UnitInterval,
 }
 
@@ -49,16 +49,26 @@ pub enum PoseSampling {
     Cycle { phase: CyclePhase },
     /// Sample a finite authored motion from its first through final frame.
     /// Progress one holds the final frame rather than wrapping to the start.
-    Timeline { progress: f32 },
+    Timeline {
+        #[serde(deserialize_with = "crate::animation::pose_coordinates::deserialize_progress")]
+        progress: UnitInterval,
+    },
     /// Blend two semantic anchor poses. The client samples both catalog frames
     /// exactly and never evaluates exported in-between keys.
     /// Both endpoints declare playback topology, including at zero or complete
     /// progress; an endpoint with zero weight contributes no pose movement.
-    Span { end: SemanticPose, progress: f32 },
+    Span {
+        end: SemanticPose,
+        #[serde(deserialize_with = "crate::animation::pose_coordinates::deserialize_progress")]
+        progress: UnitInterval,
+    },
     /// Extrapolate the transform delta between two semantic anchors. Unlike a
     /// normal span, the coordinate is intentionally allowed outside zero to
     /// one, within the bounds enforced by [`AttackCurve`].
-    CurveSpan { end: SemanticPose, coordinate: f32 },
+    CurveSpan {
+        end: SemanticPose,
+        coordinate: AttackPoseCoordinate,
+    },
     /// Carry an extrapolated attack tangent through the full-backswing
     /// waypoint and every authored follow-up anchor with one C2-continuous
     /// path, ending at the next guard with zero velocity.
@@ -99,7 +109,7 @@ impl AnimationEvaluation {
                 )?,
                 Posture::Airborne => vec![airborne_sample(
                     NonnegativeSpeed::from_metres_per_second(state.local_velocity.xz().length())?,
-                )],
+                )?],
                 Posture::Ragdolled => Vec::new(),
                 Posture::Upright if state.weapon_guard() == WeaponGuardState::Raised => {
                     raised_guard_locomotion_samples(state)
@@ -110,7 +120,7 @@ impl AnimationEvaluation {
         let lower_body = if let Some(transition) = state.posture_transition()
             && let PostureTransitionKind::DiveToDowned { direction, .. } = transition.kind()
         {
-            dive_lower_body_samples(state.lead_foot, direction, transition.phase())
+            dive_lower_body_samples(state.lead_foot, direction, transition.phase())?
         } else if state.is_quickstep() {
             quickstep_lower_body_samples(state)?
         } else if state.posture() == Posture::Upright
@@ -120,17 +130,23 @@ impl AnimationEvaluation {
         } else {
             Vec::new()
         };
-        let action = posture_transition_samples(state)
-            .or_else(|| downed_facing_samples(state))
-            .unwrap_or_else(|| action_samples(state));
+        let action = if let Some(samples) = posture_transition_samples(state)? {
+            samples
+        } else if let Some(samples) = downed_facing_samples(state)? {
+            samples
+        } else {
+            action_samples(state)?
+        };
         Ok(Self {
             base,
             lower_body,
             action,
             movement_speed: speed,
             gait_phase,
-            airborne_phase: (0.5 - state.local_velocity.y * 0.2).clamp(0.0, 1.0),
-            action_phase: state.action_phase().clamp(0.0, 1.0),
+            airborne_phase: UnitInterval::from_fraction(
+                (0.5 - state.local_velocity.y * 0.2).clamp(0.0, 1.0),
+            )?,
+            action_phase: state.action_phase(),
             attack_target_height: UnitInterval::from_fraction(
                 state.attack_target_height().clamp(0.0, 1.0),
             )?,
@@ -138,15 +154,19 @@ impl AnimationEvaluation {
     }
 }
 
-fn posture_transition_samples(state: &SkeletonState) -> Option<Vec<PoseSample>> {
-    let transition = state.posture_transition()?;
+fn posture_transition_samples(
+    state: &SkeletonState,
+) -> AnimationValueResult<Option<Vec<PoseSample>>> {
+    let Some(transition) = state.posture_transition() else {
+        return Ok(None);
+    };
     use PostureTransitionKind::*;
     if let DiveToDowned { direction, .. } = transition.kind() {
-        return Some(dive_transition_samples(
+        return Ok(Some(dive_transition_samples(
             state.lead_foot,
             direction,
             transition.phase(),
-        ));
+        )?));
     }
     let (start, middle, end) = match transition.kind() {
         UprightToProne => (
@@ -178,30 +198,33 @@ fn posture_transition_samples(state: &SkeletonState) -> Option<Vec<PoseSample>> 
         ),
         DiveToDowned { .. } => unreachable!("dive transitions return above"),
     };
-    let phase = transition.phase().clamp(0.0, 1.0);
+    let phase = transition.phase().fraction();
     let (pose, next, progress) = if phase < 0.5 {
         (start, middle, phase * 2.0)
     } else {
         (middle, end, (phase - 0.5) * 2.0)
     };
-    Some(vec![PoseSample {
+    Ok(Some(vec![PoseSample {
         pose,
         sampling: PoseSampling::Span {
             end: next,
-            progress,
+            progress: UnitInterval::from_fraction(progress)?,
         },
         weight: BlendWeight::ONE,
         mirror_lower_body: ClipMirror::Original,
-    }])
+    }]))
 }
 
-fn downed_facing_samples(state: &SkeletonState) -> Option<Vec<PoseSample>> {
-    let roll = state.downed_facing()?.roll_coordinate().half_turns();
+fn downed_facing_samples(state: &SkeletonState) -> AnimationValueResult<Option<Vec<PoseSample>>> {
+    let Some(facing) = state.downed_facing() else {
+        return Ok(None);
+    };
+    let roll = facing.roll_coordinate().half_turns();
     // Whole values are already represented by the body's prone/supine base
     // pose. Leaving a zero-progress roll action active here would mask the
     // crawl/scamper base layer for as long as aim remains held.
     if (roll - roll.round()).abs() <= 1.0e-4 {
-        return None;
+        return Ok(None);
     }
     let start_index = roll.floor() as i64;
     let progress = roll - roll.floor();
@@ -221,34 +244,35 @@ fn downed_facing_samples(state: &SkeletonState) -> Option<Vec<PoseSample>> {
     } else {
         (middle, end, (progress - 0.5) * 2.0)
     };
-    Some(vec![PoseSample {
+    Ok(Some(vec![PoseSample {
         pose,
         sampling: PoseSampling::Span {
             end: next,
-            progress: span,
+            progress: UnitInterval::from_fraction(span)?,
         },
         weight: BlendWeight::ONE,
         mirror_lower_body: ClipMirror::Original,
-    }])
+    }]))
 }
 
 fn dive_transition_samples(
     _lead: LeadFoot,
     direction: DiveDirection,
-    phase: f32,
-) -> Vec<PoseSample> {
+    phase: UnitInterval,
+) -> AnimationValueResult<Vec<PoseSample>> {
     let dive = dive_pose(direction);
-    let phase = phase.clamp(0.0, 1.0);
-    if phase < DIVE_GROUND_CONTACT_PHASE {
-        return vec![PoseSample {
+    let progress = phase;
+    let phase = progress.fraction();
+    if phase < DIVE_GROUND_CONTACT_PHASE.fraction() {
+        return Ok(vec![PoseSample {
             pose: SemanticPose::GuardThrust,
             sampling: PoseSampling::Span {
                 end: dive,
-                progress: phase * 2.0,
+                progress: UnitInterval::from_fraction(phase * 2.0)?,
             },
             weight: BlendWeight::ONE,
             mirror_lower_body: ClipMirror::Original,
-        }];
+        }]);
     }
     let contact = match direction {
         DiveDirection::Forward => SemanticPose::ProneIdle,
@@ -260,8 +284,8 @@ fn dive_transition_samples(
     // pelvis release and the authoritative directional root handoff. Starting
     // this span linearly made the complete upper-body chain visibly twist on
     // the first grounded frame, including on forward dives with no root yaw.
-    let recovery = dive_contact_pose_progress(phase);
-    vec![PoseSample {
+    let recovery = dive_contact_pose_progress(progress)?;
+    Ok(vec![PoseSample {
         pose: dive,
         sampling: PoseSampling::Span {
             end: contact,
@@ -269,7 +293,7 @@ fn dive_transition_samples(
         },
         weight: BlendWeight::ONE,
         mirror_lower_body: ClipMirror::Original,
-    }]
+    }])
 }
 
 /// The dive clip contributes only above the pelvis. The lower body holds the
@@ -277,10 +301,11 @@ fn dive_transition_samples(
 fn dive_lower_body_samples(
     _lead: LeadFoot,
     direction: DiveDirection,
-    phase: f32,
-) -> Vec<PoseSample> {
-    let phase = phase.clamp(0.0, 1.0);
-    let sampling = if phase < DIVE_GROUND_CONTACT_PHASE {
+    phase: UnitInterval,
+) -> AnimationValueResult<Vec<PoseSample>> {
+    let progress = phase;
+    let phase = progress.fraction();
+    let sampling = if phase < DIVE_GROUND_CONTACT_PHASE.fraction() {
         PoseSampling::Anchor
     } else {
         let contact = match direction {
@@ -291,19 +316,19 @@ fn dive_lower_body_samples(
         };
         PoseSampling::Span {
             end: contact,
-            progress: dive_contact_pose_progress(phase),
+            progress: dive_contact_pose_progress(progress)?,
         }
     };
-    vec![PoseSample {
+    Ok(vec![PoseSample {
         pose: SemanticPose::GuardThrust,
         sampling,
         weight: BlendWeight::ONE,
         mirror_lower_body: ClipMirror::Original,
-    }]
+    }])
 }
 
-fn dive_contact_pose_progress(phase: f32) -> f32 {
-    smoothstep01((phase - DIVE_GROUND_CONTACT_PHASE) * 2.0)
+fn dive_contact_pose_progress(phase: UnitInterval) -> AnimationValueResult<UnitInterval> {
+    smoothstep01((phase.fraction() - DIVE_GROUND_CONTACT_PHASE.fraction()) * 2.0)
 }
 
 fn dive_pose(direction: DiveDirection) -> SemanticPose {
@@ -340,13 +365,15 @@ fn raised_guard_locomotion_samples(state: &SkeletonState) -> Vec<PoseSample> {
     }]
 }
 
-fn smoothstep01(value: f32) -> f32 {
+fn smoothstep01(value: f32) -> AnimationValueResult<UnitInterval> {
     let value = value.clamp(0.0, 1.0);
-    value * value * (3.0 - 2.0 * value)
+    Ok(UnitInterval::from_fraction(
+        value * value * (3.0 - 2.0 * value),
+    )?)
 }
 
-fn airborne_sample(horizontal_speed: NonnegativeSpeed) -> PoseSample {
-    PoseSample {
+fn airborne_sample(horizontal_speed: NonnegativeSpeed) -> AnimationValueResult<PoseSample> {
+    Ok(PoseSample {
         pose: SemanticPose::AirborneCenter,
         sampling: PoseSampling::Span {
             end: SemanticPose::AirborneTravel,
@@ -355,19 +382,19 @@ fn airborne_sample(horizontal_speed: NonnegativeSpeed) -> PoseSample {
                     / walk_locomotion_profile()
                         .reference_speed
                         .metres_per_second(),
-            ),
+            )?,
         },
         weight: BlendWeight::ONE,
         mirror_lower_body: ClipMirror::Original,
-    }
+    })
 }
 
-fn action_samples(state: &SkeletonState) -> Vec<PoseSample> {
+fn action_samples(state: &SkeletonState) -> AnimationValueResult<Vec<PoseSample>> {
     match state.action_kind() {
-        SkeletonAction::None => Vec::new(),
-        SkeletonAction::Dodge => Vec::new(),
+        SkeletonAction::None => Ok(Vec::new()),
+        SkeletonAction::Dodge => Ok(Vec::new()),
         SkeletonAction::Attack => attack_samples(state),
-        SkeletonAction::Block => Vec::new(),
+        SkeletonAction::Block => Ok(Vec::new()),
     }
 }
 
@@ -377,34 +404,49 @@ mod tests {
 
     #[test]
     fn dive_blends_from_guard_to_directional_airborne_pose() {
-        let loading = dive_transition_samples(LeadFoot::Left, DiveDirection::Right, 0.1);
+        let loading = dive_transition_samples(
+            LeadFoot::Left,
+            DiveDirection::Right,
+            UnitInterval::from_fraction(0.1).unwrap(),
+        )
+        .unwrap();
         assert_eq!(loading[0].pose, SemanticPose::GuardThrust);
         assert_eq!(
             loading[0].sampling,
             PoseSampling::Span {
                 end: SemanticPose::DiveRight,
-                progress: 0.2,
+                progress: UnitInterval::from_fraction(0.2).unwrap(),
             }
         );
 
-        let contact = dive_transition_samples(LeadFoot::Left, DiveDirection::Right, 0.5);
+        let contact = dive_transition_samples(
+            LeadFoot::Left,
+            DiveDirection::Right,
+            UnitInterval::from_fraction(0.5).unwrap(),
+        )
+        .unwrap();
         assert_eq!(contact[0].pose, SemanticPose::DiveRight);
         assert_eq!(
             contact[0].sampling,
             PoseSampling::Span {
                 end: SemanticPose::ProneSupineRollRight,
-                progress: 0.0,
+                progress: UnitInterval::from_fraction(0.0).unwrap(),
             }
         );
 
-        let recovery = dive_transition_samples(LeadFoot::Left, DiveDirection::Right, 0.75);
+        let recovery = dive_transition_samples(
+            LeadFoot::Left,
+            DiveDirection::Right,
+            UnitInterval::from_fraction(0.75).unwrap(),
+        )
+        .unwrap();
         assert_eq!(recovery.len(), 1);
         assert_eq!(recovery[0].pose, SemanticPose::DiveRight);
         assert_eq!(
             recovery[0].sampling,
             PoseSampling::Span {
                 end: SemanticPose::ProneSupineRollRight,
-                progress: 0.5,
+                progress: UnitInterval::from_fraction(0.5).unwrap(),
             }
         );
     }
@@ -415,13 +457,18 @@ mod tests {
             (DiveDirection::Left, SemanticPose::ProneSupineRollLeft),
             (DiveDirection::Right, SemanticPose::ProneSupineRollRight),
         ] {
-            let sample = dive_transition_samples(LeadFoot::Left, direction, 1.0);
+            let sample = dive_transition_samples(
+                LeadFoot::Left,
+                direction,
+                UnitInterval::from_fraction(1.0).unwrap(),
+            )
+            .unwrap();
             assert_eq!(sample[0].pose, dive_pose(direction));
             assert_eq!(
                 sample[0].sampling,
                 PoseSampling::Span {
                     end: contact,
-                    progress: 1.0,
+                    progress: UnitInterval::from_fraction(1.0).unwrap(),
                 }
             );
         }
@@ -429,45 +476,70 @@ mod tests {
 
     #[test]
     fn dive_lower_body_holds_guard_until_ground_contact() {
-        let contact = dive_lower_body_samples(LeadFoot::Left, DiveDirection::Backward, 0.5);
+        let contact = dive_lower_body_samples(
+            LeadFoot::Left,
+            DiveDirection::Backward,
+            UnitInterval::from_fraction(0.5).unwrap(),
+        )
+        .unwrap();
         assert_eq!(contact[0].pose, SemanticPose::GuardThrust);
         assert_eq!(
             contact[0].sampling,
             PoseSampling::Span {
                 end: SemanticPose::SupineIdle,
-                progress: 0.0,
+                progress: UnitInterval::from_fraction(0.0).unwrap(),
             }
         );
 
-        let recovery = dive_lower_body_samples(LeadFoot::Left, DiveDirection::Backward, 0.75);
+        let recovery = dive_lower_body_samples(
+            LeadFoot::Left,
+            DiveDirection::Backward,
+            UnitInterval::from_fraction(0.75).unwrap(),
+        )
+        .unwrap();
         assert_eq!(recovery[0].pose, SemanticPose::GuardThrust);
         assert_eq!(
             recovery[0].sampling,
             PoseSampling::Span {
                 end: SemanticPose::SupineIdle,
-                progress: 0.5,
+                progress: UnitInterval::from_fraction(0.5).unwrap(),
             }
         );
     }
 
     #[test]
     fn dive_contact_recovery_starts_with_zero_slope() {
-        let sample = dive_transition_samples(LeadFoot::Left, DiveDirection::Forward, 0.525);
+        let sample = dive_transition_samples(
+            LeadFoot::Left,
+            DiveDirection::Forward,
+            UnitInterval::from_fraction(0.525).unwrap(),
+        )
+        .unwrap();
         let PoseSampling::Span { progress, .. } = sample[0].sampling else {
             panic!("dive recovery must remain an authored pose span");
         };
-        assert!((progress - 0.00725).abs() < 0.000_01);
+        assert!((progress.fraction() - 0.00725).abs() < 0.000_01);
 
-        let lower = dive_lower_body_samples(LeadFoot::Left, DiveDirection::Forward, 0.525);
+        let lower = dive_lower_body_samples(
+            LeadFoot::Left,
+            DiveDirection::Forward,
+            UnitInterval::from_fraction(0.525).unwrap(),
+        )
+        .unwrap();
         let PoseSampling::Span { progress, .. } = lower[0].sampling else {
             panic!("dive lower-body recovery must remain an authored pose span");
         };
-        assert!((progress - 0.00725).abs() < 0.000_01);
+        assert!((progress.fraction() - 0.00725).abs() < 0.000_01);
     }
 
     #[test]
     fn forward_dive_airborne_pose_is_independent_of_guard_lead() {
-        let sample = dive_transition_samples(LeadFoot::Right, DiveDirection::Forward, 0.6);
+        let sample = dive_transition_samples(
+            LeadFoot::Right,
+            DiveDirection::Forward,
+            UnitInterval::from_fraction(0.6).unwrap(),
+        )
+        .unwrap();
         assert_eq!(sample[0].pose, SemanticPose::DiveForward);
     }
 
@@ -481,7 +553,9 @@ mod tests {
                 crate::animation::AnimationSampleTick::from(100u64),
             )
             .unwrap();
-        state.advance_action(crate::animation::AnimationSampleTick::from(150u64));
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(150u64))
+            .unwrap();
         let samples = quickstep_lower_body_samples(&state).unwrap();
         assert_eq!(samples.len(), 2);
         assert_eq!(samples[0].pose, SemanticPose::QuickstepForwardTakeoff);
@@ -489,7 +563,7 @@ mod tests {
         assert_eq!(samples[1].pose, SemanticPose::QuickstepRightTakeoff);
         assert_eq!(samples[1].weight.factor(), 0.5);
         assert!(samples.iter().all(|sample| {
-            matches!(sample.sampling, PoseSampling::Timeline { progress: 0.75 })
+            matches!(sample.sampling, PoseSampling::Timeline { progress } if progress.fraction() == 0.75)
         }));
     }
 
@@ -503,7 +577,9 @@ mod tests {
                 crate::animation::AnimationSampleTick::from(100u64),
             )
             .unwrap();
-        state.advance_action(crate::animation::AnimationSampleTick::from(50u64));
+        state
+            .advance_action(crate::animation::AnimationSampleTick::from(50u64))
+            .unwrap();
         let evaluation = AnimationEvaluation::from_skeleton(&state).unwrap();
         assert_eq!(evaluation.action[0].pose, SemanticPose::GuardThrust);
         assert_eq!(evaluation.lower_body[0].pose, SemanticPose::CombatStance);

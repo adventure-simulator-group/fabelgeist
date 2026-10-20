@@ -201,7 +201,7 @@ fn drive_pursuit_phase(
             Some(MeleeLungeArrival::NotNeeded | MeleeLungeArrival::ArrivesIn(_))
         )
         && target_skeleton.action_kind() == SkeletonAction::Attack
-        && target_skeleton.action_phase() < 0.5
+        && target_skeleton.action_phase().fraction() < 0.5
         && random.unit_f32()
             < committed_threat_recognition_probability(
                 target_skeleton.action_phase(),
@@ -265,7 +265,7 @@ fn maintain_committed_threat_guard(
 ) -> ElapsedResult<()> {
     input.0 = None;
     if target_skeleton.action_kind() != SkeletonAction::Attack
-        || target_skeleton.action_phase() >= 0.5
+        || target_skeleton.action_phase().fraction() >= 0.5
     {
         controller.phase = OffensiveCombatPhase::Assessing(Timer::new(
             initiative_delay_seconds(random, facts.instinct, config)?.native_duration()?,

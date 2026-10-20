@@ -26,6 +26,9 @@ impl PoseInterpolation {
             fraction.clamp(UnitInterval::ZERO.fraction(), UnitInterval::ONE.fraction()),
         )
     }
+    pub(super) fn amount(self) -> UnitInterval {
+        self.0
+    }
     pub(super) fn fraction(self) -> f32 {
         self.0.fraction()
     }
