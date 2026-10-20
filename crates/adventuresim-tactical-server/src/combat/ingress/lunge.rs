@@ -83,6 +83,7 @@ impl PlannedMeleeLunge {
         self,
         commands: &mut Commands,
         request: EntityMeleeLungeRequest,
+        attack_key: MeleeAttackKey,
         start_tick: AnimationSampleTick,
     ) {
         commands
@@ -94,10 +95,10 @@ impl PlannedMeleeLunge {
             } else {
                 "unreachable_no_movement"
             };
-            info!(attack_key = start_tick.encoded(), attacker = ?request.attacker, target = ?request.target, outcome, reach_metres = self.reach, closure_metres = self.closure, maximum_travel_metres = self.maximum_travel, "melee_lunge_planned");
+            info!(attack_key = attack_key.encoded(), attacker = ?request.attacker, target = ?request.target, outcome, reach_metres = self.reach, closure_metres = self.closure, maximum_travel_metres = self.maximum_travel, "melee_lunge_planned");
             return;
         };
-        info!(attack_key = start_tick.encoded(), attacker = ?request.attacker, target = ?request.target, outcome = if movement.quickstep { "quickstep" } else { "forward" }, reach_metres = self.reach, planned_distance_metres = movement.distance_metres, maximum_travel_metres = self.maximum_travel, "melee_lunge_planned");
+        info!(attack_key = attack_key.encoded(), attacker = ?request.attacker, target = ?request.target, outcome = if movement.quickstep { "quickstep" } else { "forward" }, reach_metres = self.reach, planned_distance_metres = movement.distance_metres, maximum_travel_metres = self.maximum_travel, "melee_lunge_planned");
         commands.entity(request.attacker).insert(movement);
         if movement.quickstep {
             commands.entity(request.attacker).insert(QuickstepPush {

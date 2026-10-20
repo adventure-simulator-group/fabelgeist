@@ -258,7 +258,7 @@ pub struct MeleeAttackResolved {
 pub(crate) struct MeleeAttackCommittedToDefense {
     pub(crate) defender: Entity,
     pub(crate) incoming_attacker: Entity,
-    pub(crate) canceled_attack_key: u64,
+    pub(crate) canceled_attack_key: MeleeAttackKey,
     pub(crate) response: DefenderResponse,
     pub(crate) engagement: f32,
 }
@@ -267,7 +267,7 @@ pub(crate) struct MeleeAttackCommittedToDefense {
 pub(crate) struct MeleeAttackTransformedByDefense {
     pub(crate) defender: Entity,
     pub(crate) incoming_attacker: Entity,
-    pub(crate) attack_key: u64,
+    pub(crate) attack_key: MeleeAttackKey,
     pub(crate) retained_power: f32,
     pub(crate) response: DefenderResponse,
     pub(crate) engagement: f32,
@@ -315,7 +315,7 @@ fn trace_attack_committed_to_defense(event: On<MeleeAttackCommittedToDefense>) {
     trace!(
         defender = ?event.defender,
         incoming_attacker = ?event.incoming_attacker,
-        canceled_attack_key = event.canceled_attack_key,
+        canceled_attack_key = event.canceled_attack_key.encoded(),
         response = ?event.response,
         engagement = event.engagement,
         "melee_attack_committed_to_defense"
@@ -327,7 +327,7 @@ fn trace_attack_transformed_by_defense(event: On<MeleeAttackTransformedByDefense
     trace!(
         defender = ?event.defender,
         incoming_attacker = ?event.incoming_attacker,
-        attack_key = event.attack_key,
+        attack_key = event.attack_key.encoded(),
         retained_power = event.retained_power,
         response = ?event.response,
         engagement = event.engagement,

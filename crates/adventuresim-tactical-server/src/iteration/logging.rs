@@ -1,7 +1,9 @@
 use fabelgeist_determinism::Seed;
 use std::collections::HashMap;
 
-use adventuresim_tactical_core::{inventory::ArmorLayerContact, prelude::*};
+use adventuresim_tactical_core::{
+    animation::NonnegativeLength, inventory::ArmorLayerContact, prelude::*,
+};
 use bevy::prelude::*;
 use serde::Serialize;
 
@@ -148,7 +150,7 @@ pub struct TacticalDecisionLogEntry {
     pub target: Option<String>,
     pub center_separation_metres: Option<f32>,
     pub preferred_melee_measure_metres: Option<f32>,
-    pub attack_key: Option<u64>,
+    pub attack_key: Option<MeleeAttackKey>,
     pub cause: Option<&'static str>,
 }
 
@@ -167,7 +169,7 @@ pub struct TacticalMeleeOutcome {
     pub simulated_ticks: u64,
     pub simulated_seconds: f32,
     pub initial_center_separation_metres: f32,
-    pub final_center_separation_metres: f32,
+    pub final_center_separation_metres: Option<NonnegativeLength>,
     pub attack_starts: u32,
     pub resolved_attacks: u32,
     pub events: Vec<TacticalMeleeLogEntry>,

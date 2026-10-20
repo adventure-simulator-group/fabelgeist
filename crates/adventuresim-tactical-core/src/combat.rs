@@ -3,6 +3,10 @@ use crate::animation::{
 };
 use bevy_enhanced_input::prelude::InputAction;
 
+pub use attack_key::MeleeAttackKey;
+
+mod attack_key;
+
 const MELEE_LUNGE_DISTANCE_EPSILON_METRES: f32 = 1.0e-5;
 
 /// Finite forward drive produced by the conservative lunge motor. Nonpositive

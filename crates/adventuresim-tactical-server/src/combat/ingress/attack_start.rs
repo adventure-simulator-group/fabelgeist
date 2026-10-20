@@ -15,7 +15,7 @@ pub(super) struct StartedMeleePublication {
     pub(super) event: MeleeAttackStartedIntent,
     pub(super) body_part: Option<BodyPart>,
     pub(super) contact: super::super::contact::InitialMeleeContact,
-    pub(super) start: AnimationSampleTick,
+    pub(super) observation: ObservedMeleeStart,
     pub(super) timing: MeleeAnimationTiming,
     pub(super) contact_windup: CombatDuration,
     pub(super) work_duration: AnimationElapsed,
@@ -27,7 +27,7 @@ pub(super) struct StartedMeleePublication {
 pub(super) struct StartedMeleePreparation {
     pub(super) event: MeleeAttackStartedIntent,
     pub(super) contact: super::super::contact::InitialMeleeContact,
-    pub(super) start: AnimationSampleTick,
+    pub(super) observation: ObservedMeleeStart,
     pub(super) plan: Option<PlannedMeleeLunge>,
     pub(super) recovery: MeleeRecoverySchedule,
 }
@@ -57,7 +57,7 @@ impl StartedMeleePreparation {
         };
         let timing = MeleeStartTiming::admit(
             &event,
-            self.start,
+            self.observation.sample,
             arrival,
             self.recovery.recovery,
             skeleton,
@@ -69,7 +69,7 @@ impl StartedMeleePreparation {
             event,
             body_part,
             contact: self.contact,
-            start: self.start,
+            observation: self.observation,
             timing: timing.animation,
             contact_windup: timing.contact_windup,
             work_duration: timing.work_duration,
@@ -93,13 +93,12 @@ impl StartedMeleePublication {
             &self.event,
             self.body_part,
             self.contact.weapon_reach,
-            self.start.encoded(),
+            self.observation.key,
             self.timing.start,
             self.timing.contact,
             transforms,
             self.plan,
         );
-        // Correlation/seed identity encoding, not an animation coordinate API.
         authorize_started_attack(
             commands,
             authority,
@@ -107,7 +106,7 @@ impl StartedMeleePublication {
             self.body_part,
             self.contact.sample,
             self.contact.defense_alignment_sample,
-            self.start.encoded(),
+            self.observation.key,
             self.contact_windup,
             self.scheduled_measure,
             time,
@@ -220,7 +219,7 @@ pub(super) fn authorize_started_attack(
     selected_body_part: Option<BodyPart>,
     contact_sample: f32,
     defense_alignment_sample: f32,
-    attack_key: u64,
+    attack_key: MeleeAttackKey,
     contact_windup: CombatDuration,
     scheduled_measure_metres: f32,
     time: &Time<()>,
@@ -259,13 +258,13 @@ pub(super) fn begin_started_attack_movement(
     event: &MeleeAttackStartedIntent,
     selected_body_part: Option<BodyPart>,
     weapon_reach: f32,
-    attack_key: u64,
+    attack_key: MeleeAttackKey,
     animation_start_tick: AnimationSampleTick,
     contact_tick: AnimationSampleTick,
     transforms: &Query<&Transform>,
     plan: Option<PlannedMeleeLunge>,
 ) {
-    info!(attack_key, attacker = ?event.attacker, target = ?event.target, body_part = ?selected_body_part, strike_family = ?event.strike_family, hand = ?event.hand, "melee_attack_started");
+    info!(attack_key = attack_key.encoded(), attacker = ?event.attacker, target = ?event.target, body_part = ?selected_body_part, strike_family = ?event.strike_family, hand = ?event.hand, "melee_attack_started");
     begin_attack_facing(
         commands,
         event.attacker,
@@ -281,6 +280,7 @@ pub(super) fn begin_started_attack_movement(
                 target,
                 weapon_reach_metres: weapon_reach,
             },
+            attack_key,
             animation_start_tick,
         );
     } else {
@@ -290,6 +290,6 @@ pub(super) fn begin_started_attack_movement(
         if event.target.is_some() {
             return;
         }
-        info!(attack_key, attacker = ?event.attacker, target = ?event.target, body_part = ?selected_body_part, outcome = "untargeted_no_movement", "melee_lunge_planned");
+        info!(attack_key = attack_key.encoded(), attacker = ?event.attacker, target = ?event.target, body_part = ?selected_body_part, outcome = "untargeted_no_movement", "melee_lunge_planned");
     }
 }

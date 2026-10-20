@@ -2,10 +2,25 @@
 
 use super::*;
 
+pub(super) struct ObservedMeleeStart {
+    pub(super) key: MeleeAttackKey,
+    pub(super) sample: AnimationSampleTick,
+}
+
 pub(super) struct MeleeAnimationTiming {
     pub(super) start: AnimationSampleTick,
     pub(super) contact: AnimationSampleTick,
     pub(super) end: AnimationSampleTick,
+}
+
+impl ObservedMeleeStart {
+    pub(super) fn observe(time: &Time<()>) -> Self {
+        let word = observed_sample_word(time);
+        Self {
+            key: MeleeAttackKey::from(word),
+            sample: AnimationSampleTick::from(word),
+        }
+    }
 }
 
 impl MeleeAnimationTiming {
@@ -41,9 +56,7 @@ impl MeleeAnimationTiming {
 }
 
 pub(super) fn animation_tick(time: &Time<()>) -> AnimationSampleTick {
-    AnimationSampleTick::from(
-        (time.elapsed_secs_f64() * locomotion_sample_rate().hertz() as f64).round() as u64,
-    )
+    AnimationSampleTick::from(observed_sample_word(time))
 }
 
 pub(super) fn delayed_melee_timing_ticks(
@@ -92,6 +105,12 @@ fn rounded_samples(
     } else {
         rounded
     } as u64))
+}
+
+// One native Time/f64 quantization; neither application value is reconstructed
+// from a delayed coordinate or from the other value's scalar representation.
+fn observed_sample_word(time: &Time<()>) -> u64 {
+    (time.elapsed_secs_f64() * locomotion_sample_rate().hertz() as f64).round() as u64
 }
 
 #[cfg(test)]

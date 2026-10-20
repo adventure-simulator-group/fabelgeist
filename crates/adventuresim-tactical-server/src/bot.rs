@@ -1078,7 +1078,7 @@ mod tests {
             .trigger(crate::combat::MeleeAttackCommittedToDefense {
                 defender: actor,
                 incoming_attacker: attacker,
-                canceled_attack_key: 7,
+                canceled_attack_key: MeleeAttackKey::from(7),
                 response: DefenderResponse::Parry {
                     input_reflex: 0.8,
                     precision: 0.6,

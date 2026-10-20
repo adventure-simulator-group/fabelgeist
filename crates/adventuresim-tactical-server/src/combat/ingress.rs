@@ -12,7 +12,7 @@ pub(crate) use lunge::{
     MeleeLungeRequest, melee_collision_clearance, melee_surface_measure,
     melee_target_lunge_arrival, melee_target_reachable,
 };
-use timing::{MeleeAnimationTiming, animation_tick};
+use timing::{MeleeAnimationTiming, ObservedMeleeStart, animation_tick};
 use work::*;
 
 mod attack_start;
@@ -215,7 +215,7 @@ pub(crate) fn on_melee_attack_started(
             return;
         }
     };
-    let start = animation_tick(&time);
+    let observation = ObservedMeleeStart::observe(&time);
     let contact = super::contact::initial_melee_contact(
         &viewer,
         &event,
@@ -240,7 +240,7 @@ pub(crate) fn on_melee_attack_started(
     let prepared = match (StartedMeleePreparation {
         event: *event,
         contact,
-        start,
+        observation,
         plan,
         recovery,
     })
@@ -290,7 +290,7 @@ pub(crate) fn resolve_pending_melee_contacts(
             if let Ok(mut authority) = authorities.get_mut(attacker) {
                 authority.complete_miss();
             }
-            info!(attack_key = contact.attack_key, attacker = ?attacker, target = ?contact.target, body_part = ?contact.body_part, outcome = "miss", reason = "untargeted", "melee_attack_resolved");
+            info!(attack_key = contact.attack_key.encoded(), attacker = ?attacker, target = ?contact.target, body_part = ?contact.body_part, outcome = "miss", reason = "untargeted", "melee_attack_resolved");
             continue;
         };
         commands.trigger(MeleeAttackIntent {
@@ -619,7 +619,7 @@ mod roll_tests {
                 dimensions,
                 MeleeAttackAuthority::default(),
                 PendingMeleeContact {
-                    attack_key: 42,
+                    attack_key: MeleeAttackKey::from(42),
                     target: Some(target),
                     body_part: Some(BodyPart::Chest),
                     contact_sample: 0.5,

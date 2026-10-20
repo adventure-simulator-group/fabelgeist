@@ -222,3 +222,11 @@ all native-representable intervals, including zero, remain available. The bot's
 live reflection dump retains the checked recovery value through an opaque
 reflection adapter rather than a mutable raw seconds field. Reports preserve
 finite seconds as scalars and unavailable recovery as null.
+
+Melee correlation retains the original observed request word as `MeleeAttackKey`,
+separate from animation start/contact coordinates and action deadlines. Zero is
+an ordinary key; missing authority remains absent. Lunge diagnostics use that
+same key even when assisted movement delays the animation. Deterministic seed
+composition preserves its original little-endian bytes. Iteration outcomes
+retain final separation as an optional checked length: missing transforms are
+unavailable, while malformed measured geometry returns its owning error.

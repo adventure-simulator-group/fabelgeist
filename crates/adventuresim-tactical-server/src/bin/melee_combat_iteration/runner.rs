@@ -37,7 +37,8 @@ pub(super) fn run_tactical_batch(
             john,
             opponent,
             args.first_seed.wrapping_offset(offset),
-        );
+        )
+        .map_err(|error| error.to_string())?;
         batch.simulated_seconds += f64::from(outcome.simulated_seconds);
         record_tactical_causal(&mut batch.causal, &outcome, &john.name);
         match &outcome.resolution {

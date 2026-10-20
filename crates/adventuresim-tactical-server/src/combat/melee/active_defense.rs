@@ -128,14 +128,13 @@ pub(super) fn commit_defense_during_attack(
     if defender_view.shield_block_bonus() > 0.0
         && let DefenderResponse::Block { effectiveness } = effective
         && let Ok(mut authority) = authorities.get_mut(incoming.target())
-        && let Some((attack_key, retained_power)) =
-            authority.transform_attack_for_offhand_defense(effectiveness)
+        && let Some(transformed) = authority.transform_attack_for_offhand_defense(effectiveness)
     {
         cmd.trigger(MeleeAttackTransformedByDefense {
             defender: incoming.target(),
             incoming_attacker: incoming.attacker(),
-            attack_key,
-            retained_power,
+            attack_key: transformed.attack_key,
+            retained_power: transformed.retained_power,
             response: attempted,
             engagement,
         });
