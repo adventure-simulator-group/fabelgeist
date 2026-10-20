@@ -14,7 +14,6 @@ use bevy::{
     prelude::*,
     render::{renderer::RenderDevice, storage::ShaderBuffer},
 };
-use std::sync::Arc;
 
 pub(super) struct SourceMaterials {
     pub buffers: Vec<GrownSourceBuffer>,
@@ -128,14 +127,10 @@ impl GrownSourceBuffer {
                 && size <= limits.max_storage_buffer_binding_size,
             "grown material source exceeds device storage limit"
         );
-        let mut asset = ShaderBuffer::new(bytes, RenderAssetUsages::default());
+        let mut asset = ShaderBuffer::new(bytes, RenderAssetUsages::RENDER_WORLD);
         asset.buffer_description.size = size;
         let handle = world.resource_mut::<Assets<ShaderBuffer>>().add(asset);
-        Ok(Self {
-            role,
-            handle,
-            bytes: Arc::from(bytes),
-        })
+        Ok(Self { role, handle })
     }
 }
 

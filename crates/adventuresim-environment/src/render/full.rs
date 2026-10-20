@@ -17,11 +17,10 @@ mod source;
 /// Registers ordinary material pipelines without an instanced forest feed.
 pub struct GrownFullMaterialPlugin;
 
-/// Original CPU bytes remain available after Bevy consumes upload data.
+/// Source role and render handle remain bound to the admitted bank owner.
 pub struct GrownSourceBuffer {
     role: GrownBufferRole,
     handle: Handle<ShaderBuffer>,
-    bytes: Arc<[u8]>,
 }
 
 /// A complete ownership record for one fixed Full geometry, not a scene cache.
@@ -104,10 +103,6 @@ impl GrownSourceBuffer {
     }
     pub fn handle(&self) -> &Handle<ShaderBuffer> {
         &self.handle
-    }
-    /// Upload boundary bytes; GPU residency must be observed independently.
-    pub fn bytes(&self) -> &[u8] {
-        &self.bytes
     }
 }
 

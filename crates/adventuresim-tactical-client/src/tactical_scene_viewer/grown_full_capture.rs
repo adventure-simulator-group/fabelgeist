@@ -1,4 +1,4 @@
-//! One genuine grown Full specimen in the production tactical capture host.
+//! Three grounded instances of one source-owned Full asset set in the tactical host.
 
 use std::{fs, path::PathBuf, sync::Arc};
 
@@ -25,10 +25,12 @@ pub(super) use runtime::{install, ready};
 
 mod background;
 mod cameras;
+mod controls;
 mod evidence;
 pub(super) mod inventory;
-mod material_draws;
+mod layout;
 mod observation;
+mod ordinary_batches;
 mod runtime;
 
 pub(super) const PROFILE: &str = "grown-full-review";
@@ -36,7 +38,7 @@ const PART_VERTEX_LIMIT: u32 = 100_000;
 const FINAL_MESH_BYTE_LIMIT: u64 = 64 * 1024 * 1024;
 
 #[derive(Debug, clap::Args)]
-#[group(multiple=true, requires_all=["library","source","role","scene_input"], conflicts_with_all=["fixture","profile","prepare_tree_bank","canopy_bps","absolute_minute","leaf_benchmark_frames","tree_lighting_benchmark_frames","scene_performance_benchmark_frames","terrain_wireframe","triangle_census","city_cameras","tree_review_azimuth_degrees","cache_action"])]
+#[group(multiple=true, requires_all=["library","source","role","control","scene_input"], conflicts_with_all=["fixture","profile","prepare_tree_bank","canopy_bps","absolute_minute","leaf_benchmark_frames","tree_lighting_benchmark_frames","scene_performance_benchmark_frames","terrain_wireframe","triangle_census","city_cameras","tree_review_azimuth_degrees","cache_action"])]
 pub(crate) struct GrownFullCaptureOptions {
     /// Exact admitted grown library from the independent producer.
     #[arg(long = "grown-review-library")]
@@ -47,15 +49,19 @@ pub(crate) struct GrownFullCaptureOptions {
     /// Live address expansion or native real-attribute evaluation.
     #[arg(long = "grown-review-role", value_enum)]
     role: Option<Role>,
+    /// Actual batching, or an explicit expected-rejection control.
+    #[arg(long = "grown-review-batch-control", value_enum)]
+    control: Option<controls::BatchControl>,
 }
 
 #[derive(Resource)]
 pub(super) struct Review {
     role: Role,
+    control: controls::BatchControl,
     source: PlantId,
     geometry: Option<GrownFullGeometry>,
     cameras: cameras::Cameras,
-    root: Vec3,
+    placements: layout::RootPlacements,
     metadata: serde_json::Value,
 }
 
@@ -83,6 +89,7 @@ impl Role {
 impl GrownFullCaptureOptions {
     fn admit(self, setup: &SceneSetupData) -> Result<Review> {
         let role = self.role.context("grown role required")?;
+        let control = self.control.context("grown batch control required")?;
         let source = PlantId::from_word(self.source.context("grown source required")?);
         let path = self.library.context("grown library required")?;
         let bytes = fs::read(&path)?;
@@ -102,17 +109,8 @@ impl GrownFullCaptureOptions {
             .species
             .get(model.species.index())
             .context("grown species missing")?;
-        let root = Vec3::new(
-            0.0,
-            setup
-                .generated
-                .terrain
-                .height_at(Vec2::ZERO)
-                .context("grown root lacks tactical terrain")?,
-            0.0,
-        );
-        ensure!(root.is_finite(), "nonfinite grown root");
-        let cameras = cameras::Cameras::from_source(bounds, root, &setup.generated.terrain)?;
+        let placements = layout::RootPlacements::on_terrain(&setup.generated.terrain)?;
+        let cameras = cameras::Cameras::from_source(bounds, &placements, &setup.generated.terrain)?;
         let mut author = pollster::block_on(FullAuthoringContext::new())?;
         let adapter = author.adapter_info();
         let geometry = pollster::block_on(bank.expand_full(
@@ -134,18 +132,19 @@ impl GrownFullCaptureOptions {
             "part_count":geometry.parts().len(),"part_vertex_limit":PART_VERTEX_LIMIT,"final_mesh_byte_limit":FINAL_MESH_BYTE_LIMIT,
             "authoring_adapter":{"name":adapter.name,"backend":format!("{:?}",adapter.backend),"device_type":format!("{:?}",adapter.device_type),"driver":adapter.driver,"driver_info":adapter.driver_info},
             "input_digest":setup.input.digest()?,"scene_digest":setup.generated.digest,"environment":setup.environment,
-            "root_metres":root,"cameras":cameras,"suppressed_generated_obstacles":setup.generated.obstacles.len(),
+            "root_placements":placements,"cameras":cameras,"suppressed_generated_obstacles":setup.generated.obstacles.len(),
             "time_phase":super::CAPTURE_CLOCK_PHASE_SECONDS,
-            "draw_policy":"instrumented_singletons","shadow_cutout":"analytic source alpha < 0.02 discarded; binary depth/shadow, fractional forward coverage",
-            "source_terrain":"saved flat source growth; Harz destination placement by root translation only",
-            "scope":"one fixed genuinely grown Full specimen; no complete cache, species calibration, adaptive LOD, motion, memory or arrival acceptance"
+            "draw_policy":"ordinary_gpu_membership","batch_control":control,"shadow_cutout":"analytic source alpha < 0.02 discarded; binary depth/shadow, fractional forward coverage",
+            "source_terrain":"saved flat source growth; destination placement by grounded root translations only",
+            "scope":"three grounded placements of one Full source asset set; actual main-pass instance membership diagnostic, no complete cache, species calibration, adaptive LOD, motion, memory, performance or arrival acceptance"
         });
         Ok(Review {
             role,
+            control,
             source,
             geometry: Some(geometry),
             cameras,
-            root,
+            placements,
             metadata,
         })
     }

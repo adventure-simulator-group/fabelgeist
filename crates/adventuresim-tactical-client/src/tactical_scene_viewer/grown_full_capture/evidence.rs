@@ -17,7 +17,7 @@ pub(in super::super) struct Evidence {
 struct Data {
     metadata: serde_json::Value,
     poses: BTreeMap<usize, serde_json::Value>,
-    draws: material_draws::SpecimenDraws,
+    draws: ordinary_batches::OrdinaryBatches,
     camera_drift: BTreeSet<usize>,
     input_faults: BTreeMap<usize, String>,
 }
@@ -27,7 +27,7 @@ impl Evidence {
         metadata: serde_json::Value,
         role: Role,
         source: PlantId,
-        draws: material_draws::SpecimenDraws,
+        draws: ordinary_batches::OrdinaryBatches,
     ) -> Self {
         Self {
             role,
@@ -85,7 +85,9 @@ impl Evidence {
         let clean = self.data.lock().is_ok_and(|data| {
             data.camera_drift.is_empty()
                 && data.input_faults.is_empty()
+                && !data.poses.is_empty()
                 && data.draws.inventory_verified()
+                && data.draws.all_valid(data.poses.len())
         });
         super::super::manifest::TreePresentationCapability::FixedGrownFull {
             role: self.role,
@@ -106,7 +108,7 @@ impl Evidence {
             && draws_clean
             && data.camera_drift.is_empty()
             && data.input_faults.is_empty();
-        let report = serde_json::json!({"metadata":data.metadata,"poses":data.poses,"post_screenshots":{"poses_complete":poses_complete,"draws":draws_clean,"camera_drift_views":data.camera_drift,"input_faults":data.input_faults},"capture_files":state.captures.iter().map(|capture|&capture.screenshot).collect::<Vec<_>>(),"passed":passed,"limits":"held CPU content/immutable storage lifecycle and actual singleton main-pass DrawMaterial commands plus queue prefix, not storage-byte readback, shadow draw counts, exact screenshot timestamps, memory, motion or arrival"});
+        let report = serde_json::json!({"metadata":data.metadata,"poses":data.poses,"post_screenshots":{"poses_complete":poses_complete,"draws":draws_clean,"camera_drift_views":data.camera_drift,"input_faults":data.input_faults},"capture_files":state.captures.iter().map(|capture|&capture.screenshot).collect::<Vec<_>>(),"passed":passed,"limits":"held source/asset/camera bindings and actual main-pass indirect commands plus compacted GPU instance membership; no vertex/source storage-byte readback, shadow/prepass counts, exact screenshot timestamps, memory, motion, performance or arrival"});
         fs::write(
             state.output.join("grown-full-review.json"),
             serde_json::to_vec_pretty(&report)?,

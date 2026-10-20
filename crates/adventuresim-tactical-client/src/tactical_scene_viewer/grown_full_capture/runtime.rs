@@ -1,4 +1,4 @@
-//! Install one source-owned ordinary specimen and hold its real capture poses.
+//! Install one shared source closure and hold three actual grounded instances.
 
 use super::super::{
     capture_state::{CapturePhase, SceneCaptureState},
@@ -14,7 +14,8 @@ pub(in super::super) fn install(app: &mut App, review: Review) {
     let source = review.source;
     app.add_plugins(GrownFullMaterialPlugin);
     observation::install(app);
-    let draws = material_draws::SpecimenDraws::install(app);
+    app.init_resource::<controls::RootVisibility>();
+    let draws = ordinary_batches::OrdinaryBatches::install(app, review.control);
     let evidence = Evidence::new(review.metadata.clone(), review.role, source, draws);
     app.insert_resource(review)
         .insert_resource(evidence)
@@ -58,7 +59,7 @@ fn setup_inner(world: &mut World) -> Result<()> {
         .single(world)?;
     let depth = cameras::PerspectiveDepth::from_projection(projection)?;
     world.insert_resource(depth);
-    let (geometry, encoding, frame) = {
+    let (geometry, encoding, placements, control) = {
         let mut review = world.resource_mut::<Review>();
         (
             review
@@ -66,10 +67,11 @@ fn setup_inner(world: &mut World) -> Result<()> {
                 .take()
                 .context("prepared grown geometry missing")?,
             review.role.encoding(),
-            Transform::from_translation(review.root),
+            review.placements,
+            review.control,
         )
     };
-    let owned = inventory::OwnedGrown::install(geometry, encoding, frame, world)?;
+    let owned = inventory::OwnedGrown::install(geometry, encoding, placements, control, world)?;
     world.insert_resource(owned);
     {
         let mut state = world.resource_mut::<SceneCaptureState>();
@@ -91,7 +93,7 @@ fn setup_inner(world: &mut World) -> Result<()> {
     let adapter = world
         .get_resource::<bevy::render::renderer::RenderAdapterInfo>()
         .context("grown renderer adapter")?;
-    let metadata = serde_json::json!({"adapter":{"name":adapter.name,"backend":format!("{:?}",adapter.backend),"device_type":format!("{:?}",adapter.device_type),"driver":adapter.driver,"driver_info":adapter.driver_info},"projection_depth":world.resource::<cameras::PerspectiveDepth>(),"actual_virtual_seconds":world.resource::<Time<Virtual>>().elapsed_secs_f64(),"scope":"one native ordinary grown Full specimen with instrumented singleton proof; no arrival or batching performance"});
+    let metadata = serde_json::json!({"adapter":{"name":adapter.name,"backend":format!("{:?}",adapter.backend),"device_type":format!("{:?}",adapter.device_type),"driver":adapter.driver,"driver_info":adapter.driver_info},"projection_depth":world.resource::<cameras::PerspectiveDepth>(),"actual_virtual_seconds":world.resource::<Time<Virtual>>().elapsed_secs_f64(),"scope":"three grounded native grown Full instances sharing one asset set; ordinary main-pass GPU membership proof; no arrival or performance"});
     fs::write(
         world
             .resource::<SceneCaptureState>()
@@ -127,8 +129,8 @@ fn advance(world: &mut World) -> bevy::prelude::Result {
     }
     let actual = expected.actual(transform, projection)?;
     if let Some(proof) = world
-        .resource::<material_draws::SpecimenDraws>()
-        .proof(view)
+        .resource::<ordinary_batches::OrdinaryBatches>()
+        .proof(view)?
     {
         world.resource::<Evidence>().record(view,serde_json::json!({"camera":actual,"draws":proof,"whole_inventory":world.resource::<inventory::CurrentInventory>().report()}))?;
         world.insert_resource(ReadyPose(view));

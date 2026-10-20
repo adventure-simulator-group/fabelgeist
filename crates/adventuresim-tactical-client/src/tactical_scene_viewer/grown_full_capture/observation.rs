@@ -11,7 +11,6 @@ pub(super) struct VisibilityMark(pub(super) Option<usize>);
 pub(super) fn install(app: &mut App) {
     app.init_resource::<VisibilityMark>()
         .init_resource::<inventory::CurrentInventory>()
-        .add_systems(PostUpdate, inventory::watch_mutations.before(observe))
         .add_systems(
             PostUpdate,
             observe
@@ -50,6 +49,10 @@ fn observe(world: &mut World) -> bevy::prelude::Result {
     };
     match checked {
         Ok(inventory) => {
+            world
+                .resource::<ordinary_batches::OrdinaryBatches>()
+                .clone()
+                .prepare_tags(world, &inventory)?;
             world.insert_resource(inventory);
             world.resource_mut::<VisibilityMark>().0 = Some(view);
         }

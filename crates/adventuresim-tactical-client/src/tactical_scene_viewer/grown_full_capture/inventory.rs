@@ -1,4 +1,4 @@
-//! Whole source-owned inventory, separate from camera-visible submission.
+//! Exact source part/root bindings, independent of native GPU-visible membership.
 
 use super::*;
 use crate::presentation::{PresentedTree, TacticalGameplayCamera};
@@ -6,7 +6,7 @@ use adventuresim_environment::{
     prepared::RecordSpan,
     render::{
         ForestPart,
-        full::{GrownLeafMaterial, GrownMaterialHandle, GrownWoodMaterial},
+        full::{GrownLeafMaterial, GrownMaterialHandle, GrownPartAsset, GrownWoodMaterial},
     },
 };
 use bevy::{
@@ -16,12 +16,12 @@ use bevy::{
         visibility::{NoAutoAabb, VisibleEntities},
     },
     ecs::system::SystemParam,
+    mesh::MeshTag,
     render::batching::NoAutomaticBatching,
 };
+use owned::{BoundPart, RootBinding};
 
-pub(super) use assets::watch_mutations;
-
-mod assets;
+mod owned;
 
 #[derive(Component)]
 pub(super) struct GrownRoot;
@@ -31,19 +31,11 @@ pub(super) struct PartOrdinal(usize);
 
 #[derive(Resource)]
 pub(super) struct OwnedGrown {
-    root: Entity,
-    frame: Transform,
     assets: GrownFullAssets,
-    parts: Vec<BoundPart>,
-    held: assets::Snapshot,
+    roots: Vec<RootBinding>,
 }
 
-struct BoundPart {
-    entity: Entity,
-    ordinal: PartOrdinal,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
 pub(super) struct PartIdentity {
     ordinal: PartOrdinal,
     role: ForestPart,
@@ -57,11 +49,19 @@ pub(super) struct Member {
     pub part: PartIdentity,
     pub mesh: AssetId<Mesh>,
     pub material: UntypedAssetId,
-    transform: Mat4,
+    pub transform: Mat4,
+}
+
+#[derive(Clone, Copy)]
+struct RootMember {
+    entity: Entity,
+    ordinal: layout::RootOrdinal,
+    frame: Mat4,
 }
 
 #[derive(Resource, Default)]
 pub(super) struct CurrentInventory {
+    roots: Vec<RootMember>,
     pub members: Vec<Member>,
     pub visible: Vec<Entity>,
     pub valid: bool,
@@ -89,18 +89,20 @@ struct Part {
 #[derive(SystemParam)]
 #[expect(
     clippy::type_complexity,
-    reason = "native witness joins exact root, part and effective terrain state"
+    reason = "joins held root/source members to native scene and camera state"
 )]
 pub(in super::super) struct Inspector<'w, 's> {
     owned: Option<Res<'w, OwnedGrown>>,
     review: Option<Res<'w, Review>>,
     depth: Option<Res<'w, cameras::PerspectiveDepth>>,
-    draws: Option<Res<'w, material_draws::SpecimenDraws>>,
+    batches: Option<Res<'w, ordinary_batches::OrdinaryBatches>>,
+    root_visibility: Option<Res<'w, controls::RootVisibility>>,
     roots: Query<
         'w,
         's,
         (
             Entity,
+            &'static layout::RootOrdinal,
             &'static Transform,
             &'static GlobalTransform,
             &'static Visibility,
@@ -123,137 +125,8 @@ pub(in super::super) struct Inspector<'w, 's> {
         ),
         With<TacticalGameplayCamera>,
     >,
+    tags: Query<'w, 's, &'static MeshTag>,
     background: background::Inspector<'w, 's>,
-    assets: assets::Stores<'w>,
-}
-
-struct ExpectedSpan {
-    role: ForestPart,
-    records: RecordSpan,
-}
-
-impl OwnedGrown {
-    pub(super) fn install(
-        geometry: GrownFullGeometry,
-        encoding: GrownVertexEncoding,
-        frame: Transform,
-        world: &mut World,
-    ) -> Result<Self> {
-        let assets = GrownFullAssets::install(geometry, encoding, world)?;
-        let root = world
-            .spawn((
-                GrownRoot,
-                frame,
-                GlobalTransform::default(),
-                Visibility::Visible,
-            ))
-            .id();
-        let mut parts = Vec::new();
-        for (ordinal, asset) in assets.parts().enumerate() {
-            let ordinal = PartOrdinal(ordinal);
-            let mut child = world.spawn((
-                ordinal,
-                Mesh3d(asset.mesh().clone()),
-                asset.bounds(),
-                NoAutoAabb,
-                Transform::IDENTITY,
-                GlobalTransform::default(),
-                Visibility::Inherited,
-                NoAutomaticBatching,
-                ChildOf(root),
-            ));
-            match asset.material() {
-                GrownMaterialHandle::Wood(handle) => {
-                    child.insert(MeshMaterial3d(handle.clone()));
-                }
-                GrownMaterialHandle::Leaves(handle) => {
-                    child.insert(MeshMaterial3d(handle.clone()));
-                }
-            }
-            parts.push(BoundPart {
-                entity: child.id(),
-                ordinal,
-            });
-        }
-        let held = assets::Snapshot::capture(world, &assets)?;
-        let owned = Self {
-            root,
-            frame,
-            assets,
-            parts,
-            held,
-        };
-        owned.check_source()?;
-        Ok(owned)
-    }
-
-    fn check_source(&self) -> Result<()> {
-        let model = self
-            .assets
-            .bank()
-            .library()
-            .models
-            .get(self.assets.variant().index())
-            .context("held grown source")?;
-        ensure!(
-            model.source == self.assets.source(),
-            "held grown source identity drift"
-        );
-        ensure!(
-            self.parts.len() == self.assets.parts().len(),
-            "held grown part count drift"
-        );
-        for expected in [
-            ExpectedSpan {
-                role: ForestPart::Branches,
-                records: model.branches,
-            },
-            ExpectedSpan {
-                role: ForestPart::Leaves,
-                records: model.leaves,
-            },
-        ] {
-            let source = expected.records;
-            let mut start = source.start;
-            for asset in self
-                .assets
-                .parts()
-                .filter(|asset| asset.role() == expected.role)
-            {
-                let records = asset.records();
-                ensure!(
-                    records.start == start && records.count > 0,
-                    "grown partition gap/overlap"
-                );
-                start = start
-                    .checked_add(records.count)
-                    .context("grown partition coverage overflow")?;
-            }
-            ensure!(
-                start
-                    == source
-                        .start
-                        .checked_add(source.count)
-                        .context("grown source span overflow")?,
-                "grown source incomplete"
-            );
-        }
-        Ok(())
-    }
-
-    pub(super) fn owns_buffer(&self, id: AssetId<bevy::render::storage::ShaderBuffer>) -> bool {
-        self.assets
-            .buffers()
-            .any(|buffer| buffer.handle().id() == id)
-    }
-    pub(super) fn owns_mesh(&self, id: AssetId<Mesh>) -> bool {
-        self.assets.parts().any(|part| part.mesh().id() == id)
-    }
-    pub(super) fn owns_material(&self, id: UntypedAssetId) -> bool {
-        self.assets
-            .parts()
-            .any(|part| material_id(part.material()) == id)
-    }
 }
 
 impl Inspector<'_, '_> {
@@ -270,87 +143,120 @@ impl Inspector<'_, '_> {
             self.presented.is_empty() && self.obstacles.is_empty(),
             "old tactical tree/obstacle retained in isolated grown witness"
         );
-        let (root, local, global, visibility, children, parent) = self.roots.single()?;
         ensure!(
-            root == owned.root
-                && *local == owned.frame
-                && global.to_matrix() == owned.frame.to_matrix()
-                && *visibility == Visibility::Visible
+            self.roots.iter().count() == owned.roots.len()
+                && self.parts.iter().count() == owned.assets.parts().len() * owned.roots.len(),
+            "grown root/child inventory drift"
+        );
+        let visible_entities = self.cameras.single()?.3;
+        let camera_visible = visible_entities.get(std::any::TypeId::of::<Mesh3d>());
+        let mut inventory = CurrentInventory::default();
+        for root in &owned.roots {
+            inventory.roots.push(self.inspect_root(root)?);
+            for (binding, asset) in root.parts.iter().zip(owned.assets.parts()) {
+                let member = self.inspect_part(root, binding, asset, review.control)?;
+                if camera_visible.contains(&member.entity) {
+                    inventory.visible.push(member.entity);
+                }
+                inventory.members.push(member);
+            }
+        }
+        inventory
+            .members
+            .sort_by_key(|member| member.entity.to_bits());
+        inventory.visible.sort_by_key(|entity| entity.to_bits());
+        inventory.background = self.background.collect(visible_entities)?;
+        inventory.valid = true;
+        Ok(inventory)
+    }
+
+    fn inspect_root(&self, binding: &RootBinding) -> Result<RootMember> {
+        let (entity, ordinal, local, global, visibility, children, parent) =
+            self.roots.get(binding.entity)?;
+        let expected_visibility = self
+            .root_visibility
+            .as_ref()
+            .context("grown root visibility policy")?
+            .expected(binding.placement.ordinal);
+        ensure!(
+            entity == binding.entity
+                && *ordinal == binding.placement.ordinal
+                && *local == binding.placement.frame
+                && global.to_matrix() == binding.placement.frame.to_matrix()
+                && *visibility == expected_visibility
                 && parent.is_none(),
             "grown root frame/ownership drift"
         );
         ensure!(
-            children.len() == owned.parts.len() && self.parts.iter().count() == owned.parts.len(),
-            "grown children/inventory count drift"
+            children.len() == binding.parts.len()
+                && binding
+                    .parts
+                    .iter()
+                    .all(|part| children.contains(&part.entity)),
+            "grown child hierarchy drift"
         );
-        let (_, _, _, camera_visible) = self.cameras.single()?;
-        let camera_visible = camera_visible.get(std::any::TypeId::of::<Mesh3d>());
-        let mut members = Vec::new();
-        let mut visible = Vec::new();
-        for (binding, asset) in owned.parts.iter().zip(owned.assets.parts()) {
-            let part = self.parts.get(binding.entity)?;
-            ensure!(
-                children.contains(&binding.entity)
-                    && part.parent.parent() == owned.root
-                    && part.descendants.is_none_or(|children| children.is_empty()),
-                "grown hierarchy drift"
-            );
-            ensure!(
-                *part.ordinal == binding.ordinal
-                    && part.mesh.0 == *asset.mesh()
-                    && *part.local == Transform::IDENTITY
-                    && part.global.to_matrix() == owned.frame.to_matrix(),
-                "grown part/frame binding drift"
-            );
-            let expected_bounds = asset.bounds();
-            ensure!(
-                part.owned_bounds
-                    && part.bounds.center == expected_bounds.center
-                    && part.bounds.half_extents == expected_bounds.half_extents,
-                "grown culling bounds drift"
-            );
-            ensure!(
-                *part.visibility == Visibility::Inherited && part.unbatchable && !part.no_shadow,
-                "grown visibility/shadow/draw policy drift"
-            );
-            let material = match (asset.material(), part.wood, part.leaves) {
-                (GrownMaterialHandle::Wood(expected), Some(actual), None)
-                    if actual.0 == *expected =>
-                {
-                    expected.id().untyped()
-                }
-                (GrownMaterialHandle::Leaves(expected), None, Some(actual))
-                    if actual.0 == *expected =>
-                {
-                    expected.id().untyped()
-                }
-                _ => anyhow::bail!("grown material component drift"),
-            };
-            members.push(Member {
-                entity: part.entity,
-                root,
-                part: PartIdentity {
-                    ordinal: binding.ordinal,
-                    role: asset.role(),
-                    records: asset.records(),
-                },
-                mesh: asset.mesh().id(),
-                material,
-                transform: part.global.to_matrix(),
-            });
-            if camera_visible.contains(&part.entity) {
-                visible.push(part.entity);
+        Ok(RootMember {
+            entity,
+            ordinal: *ordinal,
+            frame: global.to_matrix(),
+        })
+    }
+
+    fn inspect_part(
+        &self,
+        root: &RootBinding,
+        binding: &BoundPart,
+        asset: &GrownPartAsset,
+        control: controls::BatchControl,
+    ) -> Result<Member> {
+        let part = self.parts.get(binding.entity)?;
+        ensure!(
+            part.parent.parent() == root.entity
+                && part.descendants.is_none_or(|children| children.is_empty()),
+            "grown part hierarchy drift"
+        );
+        ensure!(
+            *part.ordinal == binding.ordinal
+                && part.mesh.0 == *asset.mesh()
+                && *part.local == Transform::IDENTITY
+                && part.global.to_matrix() == root.placement.frame.to_matrix(),
+            "grown part/frame binding drift"
+        );
+        let bounds = asset.bounds();
+        ensure!(
+            part.owned_bounds
+                && part.bounds.center == bounds.center
+                && part.bounds.half_extents == bounds.half_extents,
+            "grown culling bounds drift"
+        );
+        ensure!(
+            *part.visibility == Visibility::Inherited
+                && part.unbatchable == (control == controls::BatchControl::ForcedSingletons)
+                && !part.no_shadow,
+            "grown visibility/shadow/draw policy drift"
+        );
+        let material = match (asset.material(), part.wood, part.leaves) {
+            (GrownMaterialHandle::Wood(expected), Some(actual), None) if actual.0 == *expected => {
+                expected.id().untyped()
             }
-        }
-        owned.held.check(&self.assets, &owned.assets)?;
-        members.sort_by_key(|member| member.entity.to_bits());
-        visible.sort_by_key(|entity| entity.to_bits());
-        let background = self.background.collect(self.cameras.single()?.3)?;
-        Ok(CurrentInventory {
-            members,
-            visible,
-            valid: true,
-            background,
+            (GrownMaterialHandle::Leaves(expected), None, Some(actual))
+                if actual.0 == *expected =>
+            {
+                expected.id().untyped()
+            }
+            _ => anyhow::bail!("grown material component drift"),
+        };
+        Ok(Member {
+            entity: part.entity,
+            root: root.entity,
+            part: PartIdentity {
+                ordinal: binding.ordinal,
+                role: asset.role(),
+                records: asset.records(),
+            },
+            mesh: asset.mesh().id(),
+            material,
+            transform: part.global.to_matrix(),
         })
     }
 
@@ -378,31 +284,16 @@ impl Inspector<'_, '_> {
             ),
             "grown callback camera drift"
         );
-        let draws = self
-            .draws
+        self.batches
             .as_ref()
-            .context("grown submitted draw observer missing")?;
-        draws.check_inventory(state.view, &inventory.members, &inventory.visible)?;
-        draws.check_background(state.view, &inventory.background)?;
+            .context("grown GPU observer missing")?
+            .check_capture(state.view, &inventory, &self.tags)?;
         Ok(())
-    }
-}
-
-impl PartIdentity {
-    pub(super) fn is_leaf(self) -> bool {
-        self.role == ForestPart::Leaves
     }
 }
 
 impl CurrentInventory {
     pub(super) fn report(&self) -> serde_json::Value {
-        serde_json::json!({"whole_inventory_verified":self.valid,"owned_grown_roots":1,"members":self.members.iter().map(|member|serde_json::json!({"entity_bits":member.entity.to_bits(),"root_bits":member.root.to_bits(),"part":member.part,"mesh":format!("{:?}",member.mesh),"material":format!("{:?}",member.material),"world_from_mesh":member.transform.to_cols_array()})).collect::<Vec<_>>(),"draw_policy":"instrumented_singletons","limits":"retained CPU content and immutable source asset lifecycle; no GPU storage-byte readback or performance claim"})
-    }
-}
-
-fn material_id(material: &GrownMaterialHandle) -> UntypedAssetId {
-    match material {
-        GrownMaterialHandle::Wood(handle) => handle.id().untyped(),
-        GrownMaterialHandle::Leaves(handle) => handle.id().untyped(),
+        serde_json::json!({"whole_inventory_verified":self.valid,"owned_grown_roots":self.roots.len(),"roots":self.roots.iter().map(|root|serde_json::json!({"entity_bits":root.entity.to_bits(),"ordinal":root.ordinal,"world_from_root":root.frame.to_cols_array()})).collect::<Vec<_>>(),"members":self.members.iter().map(|member|serde_json::json!({"entity_bits":member.entity.to_bits(),"root_bits":member.root.to_bits(),"part":member.part,"mesh":format!("{:?}",member.mesh),"material":format!("{:?}",member.material),"world_from_mesh":member.transform.to_cols_array()})).collect::<Vec<_>>(),"draw_policy":"ordinary_gpu_membership","limits":"held source/asset identities and actual GPU instance membership; no CPU byte seals, shadow/prepass membership or performance claim"})
     }
 }

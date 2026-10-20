@@ -1,22 +1,18 @@
-//! Fixed camera contracts derived only from full source geometry, never candidate bounds.
+//! Camera from the union of original source envelopes at actual grounded roots.
 
 use super::*;
 use adventuresim_tactical_core::prelude::SceneTerrain;
 use fabelgeist_math::units::{Metres, Ratio};
 
 const CAMERA_ROTATION_EPSILON: f32 = 1.0e-5;
-const ROOT_EYE: Metres = Metres::from_metres(1.6);
-
 const FOV_DEGREES: f32 = 60.0;
 const FRAME_MARGIN: Ratio = Ratio::from_ratio(1.15);
 const CROWN_EYE_DIRECTION: Vec3 = Vec3::new(1.0, 0.9, 1.0);
-const GAMEPLAY_CROWN_CLEARANCE: Metres = Metres::from_metres(3.0);
-const GAMEPLAY_EYE: Metres = Metres::from_metres(super::super::STANDING_EYE_HEIGHT_METRES);
+const SUPPORT_EYE: Metres = Metres::from_metres(super::super::STANDING_EYE_HEIGHT_METRES);
 const FOREGROUND_BPS: u16 = 500;
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize)]
 pub(in super::super) struct PlateCamera {
-    pub plate: Plate,
     pub position: Vec3,
     pub target: Vec3,
     pub up: Vec3,
@@ -24,9 +20,7 @@ pub(in super::super) struct PlateCamera {
 
 #[derive(Serialize)]
 pub(super) struct Cameras {
-    root: PlateCamera,
-    crown: PlateCamera,
-    gameplay: PlateCamera,
+    shared: PlateCamera,
 }
 
 #[derive(Resource, Serialize)]
@@ -35,44 +29,27 @@ pub(in super::super) struct PerspectiveDepth {
     far: Metres,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
-pub(in super::super) enum Plate {
-    Root,
-    Crown,
-    Gameplay,
-}
-
 impl Cameras {
-    /// Numerical camera boundary: source-local metres plus one tactical root.
+    /// Native geometry boundary: source-local metre bounds plus world root frames.
     pub(super) fn from_source(
         bounds: TreeBounds,
-        root: Vec3,
+        placements: &layout::RootPlacements,
         terrain: &SceneTerrain,
     ) -> Result<Self> {
-        let low = Vec3::from_array(bounds.low.map(Metres::metres));
-        let high = Vec3::from_array(bounds.high.map(Metres::metres));
-        let centre = (low + high) * 0.5 + root;
+        let source_low = Vec3::from_array(bounds.low.map(Metres::metres));
+        let source_high = Vec3::from_array(bounds.high.map(Metres::metres));
+        let mut low = Vec3::splat(f32::INFINITY);
+        let mut high = Vec3::splat(f32::NEG_INFINITY);
+        for placement in placements.iter() {
+            low = low.min(source_low + placement.frame.translation);
+            high = high.max(source_high + placement.frame.translation);
+        }
+        let centre = (low + high) * 0.5;
         let direction = CROWN_EYE_DIRECTION.normalize();
         let distance = crown_distance(low, high, direction)?;
         Ok(Self {
-            root: root_contact(terrain, root)?,
-            crown: PlateCamera {
-                plate: Plate::Crown,
+            shared: PlateCamera {
                 position: crown_eye(terrain, centre + direction * distance.metres())?,
-                target: centre,
-                up: Vec3::Y,
-            },
-            gameplay: PlateCamera {
-                plate: Plate::Gameplay,
-                position: ground_eye(
-                    terrain,
-                    root + Vec3::new(
-                        low.x.abs().max(high.x.abs()) + GAMEPLAY_CROWN_CLEARANCE.metres(),
-                        0.0,
-                        low.z.abs().max(high.z.abs()) + GAMEPLAY_CROWN_CLEARANCE.metres(),
-                    ),
-                    GAMEPLAY_EYE,
-                )?,
                 target: centre,
                 up: Vec3::Y,
             },
@@ -81,20 +58,27 @@ impl Cameras {
 
     pub(super) fn views(&self) -> Vec<CaptureViewSpec> {
         vec![
-            view("warmup", "Pipeline warmup", self.gameplay).warmup(),
-            view("grown-root", "Grown source root contact", self.root).settled_readback_pair(),
-            view("grown-crown", "Grown source full crown", self.crown).settled_readback_pair(),
-            view(
-                "grown-gameplay",
-                "Grown source at eye height",
-                self.gameplay,
-            )
-            .settled_readback_pair(),
+            view("warmup", "Grown shared pipeline warmup", self.shared).warmup(),
+            view("grown-shared", "Three shared grown Full trees", self.shared)
+                .settled_readback_pair(),
         ]
     }
 }
 
-// Source-local metre vectors enter a perspective-fit numerical boundary.
+fn view(slug: &'static str, label: &'static str, camera: PlateCamera) -> CaptureViewSpec {
+    CaptureViewSpec::new(
+        slug,
+        label,
+        CapturePose::GrownFull(camera),
+        FOV_DEGREES,
+        FOREGROUND_BPS,
+    )
+    .hide_obstacles()
+    .suppress_grass()
+    .suppress_understory()
+}
+
+// World-space original-source envelope metres enter a perspective-fit boundary.
 // Every original source-box corner must fit both image axes with the margin.
 fn crown_distance(low: Vec3, high: Vec3, direction: Vec3) -> Result<Metres> {
     let centre = (low + high) * 0.5;
@@ -118,28 +102,6 @@ fn crown_distance(low: Vec3, high: Vec3, direction: Vec3) -> Result<Metres> {
         "invalid grown source camera envelope"
     );
     Ok(Metres::from_metres(distance))
-}
-
-fn root_contact(terrain: &SceneTerrain, root: Vec3) -> Result<PlateCamera> {
-    Ok(PlateCamera {
-        plate: Plate::Root,
-        position: ground_eye(terrain, root + Vec3::new(3.8, 0.0, 4.2), ROOT_EYE)?,
-        target: root + Vec3::Y * 0.65,
-        up: Vec3::Y,
-    })
-}
-
-fn view(slug: &'static str, label: &'static str, camera: PlateCamera) -> CaptureViewSpec {
-    CaptureViewSpec::new(
-        slug,
-        label,
-        CapturePose::GrownFull(camera),
-        FOV_DEGREES,
-        FOREGROUND_BPS,
-    )
-    .hide_obstacles()
-    .suppress_grass()
-    .suppress_understory()
 }
 
 impl PerspectiveDepth {
@@ -213,6 +175,6 @@ fn ground_eye(terrain: &SceneTerrain, mut position: Vec3, eye: Metres) -> Result
 fn crown_eye(terrain: &SceneTerrain, mut position: Vec3) -> Result<Vec3> {
     position.y = position
         .y
-        .max(ground_eye(terrain, position, GAMEPLAY_EYE)?.y);
+        .max(ground_eye(terrain, position, SUPPORT_EYE)?.y);
     Ok(position)
 }

@@ -2,6 +2,7 @@
 
 use anyhow::{Context, Result, ensure};
 use bevy::{
+    asset::RenderAssetUsages,
     camera::primitives::{Aabb, MeshAabb},
     prelude::*,
     render::storage::ShaderBuffer,
@@ -57,6 +58,7 @@ impl GrownFullAssets {
                 }
             };
             let material = sources.material(role)?;
+            mesh.asset_usage = RenderAssetUsages::RENDER_WORLD;
             let mesh = world.resource_mut::<Assets<Mesh>>().add(mesh);
             parts.push(GrownPartAsset {
                 role,
