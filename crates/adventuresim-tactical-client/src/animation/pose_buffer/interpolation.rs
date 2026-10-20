@@ -32,6 +32,8 @@ impl PoseInterpolation {
     fn from_fraction(fraction: f32) -> AnimationValueResult<Self> {
         UnitInterval::from_fraction(fraction)
             .map(Self)
-            .map_err(|error| error.for_quantity(AnimationQuantity::PoseInterpolation))
+            .map_err(|error| {
+                AnimationValueError::from(error).for_quantity(AnimationQuantity::PoseInterpolation)
+            })
     }
 }

@@ -315,7 +315,8 @@ pub(super) fn authored_melee_weapon(
         _ => unreachable!(),
     };
     let timing =
-        crate::equipment::melee_attack_timing(*preferred_attack, moment_of_inertia_kg_m2, false);
+        crate::equipment::melee_attack_timing(*preferred_attack, moment_of_inertia_kg_m2, false)
+            .map_err(|error| error.to_string())?;
     let grip_to_tip_m = definition
         .equipment
         .as_ref()
@@ -367,8 +368,10 @@ pub(super) fn authored_melee_weapon(
         // Autoresolve advances the same complete attack cycle as the tactical
         // bot: the authored server windup to contact plus inertia/style-based
         // recovery before another fresh attack may begin.
-        attack_interval_seconds: EMBEDDED_AUTORESOLVE_PARAMETERS.melee_windup_seconds
-            + timing.recovery_secs,
+        attack_interval_seconds: EMBEDDED_AUTORESOLVE_PARAMETERS
+            .melee_windup_seconds
+            .checked_add(timing.recovery_secs)
+            .map_err(|error| error.to_string())?,
         balance: crate::equipment::weapon_balance_from_moment(
             moment_of_inertia_kg_m2,
             definition.weight_kg,
@@ -486,15 +489,20 @@ mod tests {
                 preferred_attack,
                 moment_of_inertia_kg_m2,
                 false,
-            );
-            let expected_interval = EMBEDDED_AUTORESOLVE_PARAMETERS.melee_windup_seconds
-                + expected_timing.recovery_secs;
+            )
+            .unwrap();
+            let expected_interval = EMBEDDED_AUTORESOLVE_PARAMETERS
+                .melee_windup_seconds
+                .seconds()
+                + expected_timing.recovery_secs.seconds();
             let expected_balance = crate::equipment::weapon_balance_from_moment(
                 moment_of_inertia_kg_m2,
                 definition.weight_kg,
                 grip_to_tip_m,
             );
-            assert!((projected.attack_interval_seconds - expected_interval).abs() < 1.0e-6);
+            assert!(
+                (projected.attack_interval_seconds.seconds() - expected_interval).abs() < 1.0e-6
+            );
             assert!((projected.balance - expected_balance).abs() < 1.0e-6);
         }
     }
@@ -524,7 +532,8 @@ mod tests {
                 0.0,
                 response,
                 samples,
-            );
+            )
+            .unwrap();
             let high = melee_exchange(
                 &attacker.combatant,
                 &expert,
@@ -532,7 +541,8 @@ mod tests {
                 0.0,
                 response,
                 samples,
-            );
+            )
+            .unwrap();
             matches!(low.result, AttackResult::ToDefender { .. })
                 && matches!(
                     high.result,
@@ -558,7 +568,9 @@ mod tests {
         assert!(
             terminal.time_seconds
                 <= outcome.rounds as f32
-                    * crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS.combat_round_seconds
+                    * crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS
+                        .combat_round_seconds
+                        .seconds()
         );
         assert!(outcome.timeline.windows(2).all(|events| {
             events[0].sequence < events[1].sequence
@@ -727,7 +739,7 @@ mod tests {
             .iter()
             .filter(|event| event.kind == MeleeTimelineKind::Movement)
         {
-            let elapsed = movement.movement_elapsed_seconds.unwrap();
+            let elapsed = movement.movement_elapsed_seconds.unwrap().seconds();
             assert!(elapsed <= 1.0 / 64.0 + 1.0e-6);
             let displacement = movement.movement_displacement_metres.unwrap().abs();
             let speed_limit = movement
@@ -866,8 +878,16 @@ mod tests {
         assert!(evidence.fatigue_cadence.fatigue > 0.0);
         assert!(evidence.fatigue_cadence.fatigue < 1.0);
         assert!(
-            evidence.fatigue_cadence.fatigued_recovery_seconds
-                > evidence.fatigue_cadence.fresh_recovery_seconds
+            evidence
+                .fatigue_cadence
+                .fatigued_recovery_seconds
+                .available()
+                .unwrap()
+                > evidence
+                    .fatigue_cadence
+                    .fresh_recovery_seconds
+                    .available()
+                    .unwrap()
         );
         assert!(
             evidence

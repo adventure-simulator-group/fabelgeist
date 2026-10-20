@@ -204,18 +204,18 @@ pub struct RealtimeAuthorityConfig {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct DefenseAuthorityConfig {
-    pub reflex_window_seconds: f32,
+    pub reflex_window_seconds: AnimationElapsed,
     pub roll_dodge_effectiveness: f32,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct MeleeAuthorityConfig {
-    pub replay_cooldown_seconds: f32,
-    pub completion_allowance_seconds: f32,
+    pub replay_cooldown_seconds: AnimationElapsed,
+    pub completion_allowance_seconds: AnimationElapsed,
     pub range_latency_tolerance_metres: f32,
     pub windup_jitter_fraction: f32,
-    pub maximum_windup_jitter_seconds: f32,
+    pub maximum_windup_jitter_seconds: AnimationElapsed,
     pub lunge_range_window_metres: f32,
     pub lunge_quickstep_threshold_metres: f32,
 }
@@ -223,8 +223,8 @@ pub struct MeleeAuthorityConfig {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct RangedAuthorityConfig {
-    pub cooldown_seconds: f32,
-    pub completion_allowance_seconds: f32,
+    pub cooldown_seconds: AnimationElapsed,
+    pub completion_allowance_seconds: AnimationElapsed,
     pub range_latency_tolerance_metres: f32,
     pub aim_half_angle_degrees: f32,
 }
@@ -368,8 +368,8 @@ pub struct OrdinaryAiConfig {
 #[serde(deny_unknown_fields)]
 pub struct AiDefenseConfig {
     pub dodge_chance: f64,
-    pub reaction_delay_min_seconds: f32,
-    pub reaction_delay_max_seconds: f32,
+    pub reaction_delay_min_seconds: AnimationElapsed,
+    pub reaction_delay_max_seconds: AnimationElapsed,
     pub frontal_flanking_max: f32,
 }
 
@@ -453,23 +453,22 @@ fn validate_schema_version(schema_version: u16) -> Result<(), TacticalCombatConf
 impl TacticalCombatConfig {
     pub fn validate(&self) -> Result<(), TacticalCombatConfigError> {
         validate_schema_version(self.schema_version)?;
-        self.presentation.incapacitation_forecast.validate()?;
         let finite_nonnegative = |value: f32| value.is_finite() && value >= 0.0;
         self.resolution.validate()?;
         self.autoresolve.validate()?;
         let authority = &self.realtime_authority;
         let authority_values = [
-            authority.defense.reflex_window_seconds,
+            authority.defense.reflex_window_seconds.seconds(),
             authority.defense.roll_dodge_effectiveness,
-            authority.melee.replay_cooldown_seconds,
-            authority.melee.completion_allowance_seconds,
+            authority.melee.replay_cooldown_seconds.seconds(),
+            authority.melee.completion_allowance_seconds.seconds(),
             authority.melee.range_latency_tolerance_metres,
             authority.melee.windup_jitter_fraction,
-            authority.melee.maximum_windup_jitter_seconds,
+            authority.melee.maximum_windup_jitter_seconds.seconds(),
             authority.melee.lunge_range_window_metres,
             authority.melee.lunge_quickstep_threshold_metres,
-            authority.ranged.cooldown_seconds,
-            authority.ranged.completion_allowance_seconds,
+            authority.ranged.cooldown_seconds.seconds(),
+            authority.ranged.completion_allowance_seconds.seconds(),
             authority.ranged.range_latency_tolerance_metres,
             authority.ranged.aim_half_angle_degrees,
             authority.impact.whole_body_velocity_scale,
@@ -482,8 +481,8 @@ impl TacticalCombatConfig {
         if authority.defense.roll_dodge_effectiveness > 1.0
             || authority.melee.windup_jitter_fraction > 1.0
             || authority.ranged.aim_half_angle_degrees > 180.0
-            || authority.melee.completion_allowance_seconds > 5.0
-            || authority.ranged.completion_allowance_seconds > 5.0
+            || authority.melee.completion_allowance_seconds.seconds() > 5.0
+            || authority.ranged.completion_allowance_seconds.seconds() > 5.0
         {
             return Err(TacticalCombatConfigError::Validation(
                 "authority values exceed compiled safety bounds",
@@ -585,10 +584,10 @@ impl TacticalCombatConfig {
                 "AI dodge probability must be between zero and one",
             ));
         }
-        if !ai.defense.reaction_delay_min_seconds.is_finite()
-            || ai.defense.reaction_delay_min_seconds < 0.0
+        if !ai.defense.reaction_delay_min_seconds.seconds().is_finite()
+            || ai.defense.reaction_delay_min_seconds.seconds() < 0.0
             || ai.defense.reaction_delay_max_seconds < ai.defense.reaction_delay_min_seconds
-            || !ai.defense.reaction_delay_max_seconds.is_finite()
+            || !ai.defense.reaction_delay_max_seconds.seconds().is_finite()
             || !ai.offense.has_valid_intervals()
         {
             return Err(TacticalCombatConfigError::Validation("invalid AI interval"));

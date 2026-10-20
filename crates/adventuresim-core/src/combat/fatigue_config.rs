@@ -1,3 +1,4 @@
+use crate::elapsed::AnimationElapsed;
 use crate::linear_speed::PositiveSpeed;
 use serde::{Deserialize, Serialize};
 
@@ -11,8 +12,8 @@ pub struct CombatFatigueParameters {
     pub aerobic_watts_per_endurance: f32,
     pub carry_watts_per_kg: f32,
     pub minimum_endurance: f32,
-    pub minimum_action_seconds: f32,
-    pub maximum_action_seconds: f32,
+    pub minimum_action_seconds: AnimationElapsed,
+    pub maximum_action_seconds: AnimationElapsed,
     pub attack_travel_metres: f32,
     pub defense_travel_metres: f32,
     pub dodge_speed_metres_per_second: PositiveSpeed,
@@ -27,8 +28,8 @@ impl CombatFatigueParameters {
             self.aerobic_watts_per_endurance,
             self.carry_watts_per_kg,
             self.minimum_endurance,
-            self.minimum_action_seconds,
-            self.maximum_action_seconds,
+            self.minimum_action_seconds.seconds(),
+            self.maximum_action_seconds.seconds(),
             self.attack_travel_metres,
             self.defense_travel_metres,
         ];

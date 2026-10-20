@@ -435,7 +435,7 @@ fn record_autoresolve_combatant_causal(
     attacker: &mut AutoresolveCombatantCausal,
     defender: &mut AutoresolveCombatantCausal,
     entry: &adventuresim_core::autoresolve::BattleLogEntry,
-) {
+) -> Result<(), String> {
     attacker.attacks += 1;
     attacker.hits_dealt += u64::from(matches!(
         entry.outcome,
@@ -461,7 +461,7 @@ fn record_autoresolve_combatant_causal(
         defender.effective_weapon_contacts += 1;
     }
     if let Some(telemetry) = &entry.melee_telemetry {
-        causal::record_autoresolve_telemetry(attacker, defender, telemetry);
+        causal::record_autoresolve_telemetry(attacker, defender, telemetry)?;
     }
     if let Some(impact) = entry.armor_impact {
         defender.armor_surface_contacts_received += 1;
@@ -477,6 +477,7 @@ fn record_autoresolve_combatant_causal(
     ) {
         defender.armor_gap_contacts_received += 1;
     }
+    Ok(())
 }
 
 fn record_tactical_causal(

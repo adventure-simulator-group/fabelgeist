@@ -8,8 +8,12 @@ fn fatigue_and_other_sources_produce_identical_combat_performance() {
     tired.fatigue += 0.2;
     otherwise_impaired.starting_incapacitation += 0.2;
     assert!(
-        (tired.incapacitation_performance() - otherwise_impaired.incapacitation_performance())
-            .abs()
+        (tired.incapacitation_performance().unwrap().fraction()
+            - otherwise_impaired
+                .incapacitation_performance()
+                .unwrap()
+                .fraction())
+        .abs()
             < 0.00001
     );
     let attack = |attacker: &Combatant| {
@@ -24,6 +28,7 @@ fn fatigue_and_other_sources_produce_identical_combat_performance() {
                 defense_alignment: 0.4,
             },
         )
+        .unwrap()
         .result
     };
     assert_eq!(

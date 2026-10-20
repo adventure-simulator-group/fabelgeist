@@ -228,8 +228,9 @@ pub(super) fn locomotion_height_wave(
     }
     profile.flight_apex_metres.flight_wave(
         skeleton.gait_phase,
-        UnitInterval::from_fraction(moving_weight)
-            .map_err(|error| error.for_quantity(AnimationQuantity::HeightDistance))?,
+        UnitInterval::from_fraction(moving_weight).map_err(|error| {
+            AnimationValueError::from(error).for_quantity(AnimationQuantity::HeightDistance)
+        })?,
     )
 }
 pub(super) fn authored_height_compensation(
@@ -266,7 +267,9 @@ pub(super) fn authored_height_compensation(
                     .metres_per_second(),
                 skeleton.animation_speed()?.metres_per_second(),
             ))
-            .map_err(|error| error.for_quantity(AnimationQuantity::HeightDistance))?,
+            .map_err(|error| {
+                AnimationValueError::from(error).for_quantity(AnimationQuantity::HeightDistance)
+            })?,
         )
 }
 pub(super) fn landing_compression_for_impact(

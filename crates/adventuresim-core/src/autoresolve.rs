@@ -1,25 +1,16 @@
 //! Framework-neutral, deterministic combat simulation for strategic autoresolve.
 
+use crate::elapsed::{AnimationElapsed, ElapsedResult};
+use crate::unit_interval::{FractionResult, UnitInterval};
+
 use crate::prelude::*;
 use adventuresim_world_schema::{BestiaryCategory, BestiaryHours};
 use fabelgeist_determinism::{DeterministicRng, Seed, StreamId};
 use serde::Serialize;
 
-mod classification;
-#[cfg(test)]
-mod incapacitation_tests;
-mod joint_melee;
-mod melee_defense;
-mod melee_exchange;
-mod melee_iteration;
-mod melee_movement;
-mod melee_round;
-mod model;
-mod power;
-mod threat;
-
 use crate::projectile::ProjectileKind;
 pub use classification::{BattleAttackKind, MeleeMovementAction};
+pub use error::{BattleResolutionError, BattleResolutionResult};
 use joint_melee::*;
 use melee_defense::*;
 use melee_exchange::*;
@@ -31,6 +22,18 @@ pub use power::autoresolve_combat_power;
 #[cfg(test)]
 use power::finite_log_component;
 pub use threat::authored_threat_combatant;
+
+mod classification;
+mod error;
+mod joint_melee;
+mod melee_defense;
+mod melee_exchange;
+mod melee_iteration;
+mod melee_movement;
+mod melee_round;
+mod model;
+mod power;
+mod threat;
 
 const AUTORESOLVE_MAX_COMBAT_ROUNDS: usize = 256;
 const AUTORESOLVE_MAX_RANGED_ATTACKS_PER_PHASE: usize = 64;
@@ -204,16 +207,16 @@ pub struct Combatant {
     #[doc(hidden)]
     pub acute_trauma: f32,
     #[doc(hidden)]
-    pub active_work_seconds: f32,
+    pub active_work_seconds: AnimationElapsed,
     #[doc(hidden)]
     #[doc(hidden)]
     pub melee_attack_power_multiplier: f32,
     #[doc(hidden)]
-    pub melee_interval_jitter_seconds: f32,
+    pub melee_interval_jitter_seconds: AnimationElapsed,
     #[doc(hidden)]
     melee_consecutive_intercepts: u8,
     #[doc(hidden)]
-    melee_phase_adaptation_delay_seconds: f32,
+    melee_phase_adaptation_delay_seconds: AnimationElapsed,
     #[doc(hidden)]
     melee_engagement_target: Option<u64>,
     #[doc(hidden)]
@@ -280,11 +283,11 @@ impl Combatant {
             wounds: Vec::new(),
             fatigue: 0.0,
             acute_trauma: 0.0,
-            active_work_seconds: 0.0,
+            active_work_seconds: AnimationElapsed::ZERO,
             melee_attack_power_multiplier: 1.0,
-            melee_interval_jitter_seconds: 0.0,
+            melee_interval_jitter_seconds: AnimationElapsed::ZERO,
             melee_consecutive_intercepts: 0,
-            melee_phase_adaptation_delay_seconds: 0.0,
+            melee_phase_adaptation_delay_seconds: AnimationElapsed::ZERO,
             melee_engagement_target: None,
             melee_engagement_distance_metres: 0.0,
             melee_separation_velocity_metres_per_second: SignedSpeed::ZERO,
@@ -362,25 +365,25 @@ impl Combatant {
         self.is_incapacitated() || self.yielded
     }
 
-    fn recover_balance(&mut self, elapsed_seconds: f32) {
+    fn recover_balance(&mut self, elapsed_seconds: AnimationElapsed) {
         self.imbalance = recover_combat_imbalance(self.imbalance, elapsed_seconds);
     }
 
-    fn advance_condition(&mut self, elapsed_seconds: f32) {
+    fn advance_condition(&mut self, elapsed_seconds: AnimationElapsed) {
         self.recover_balance(elapsed_seconds);
         self.blood_loss_fraction =
             advance_combat_bleeding(self.blood_loss_fraction, &self.wounds, elapsed_seconds);
-        let recovery_seconds = (elapsed_seconds - self.active_work_seconds).max(0.0);
+        let recovery_seconds = elapsed_seconds.saturating_sub(self.active_work_seconds);
         recover_combat_fatigue(
             &mut self.fatigue,
             recovery_seconds,
             self.attributes.endurance,
             EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.fatigue,
         );
-        self.active_work_seconds = (self.active_work_seconds - elapsed_seconds).max(0.0);
+        self.active_work_seconds = self.active_work_seconds.saturating_sub(elapsed_seconds);
     }
 
-    fn charge_action_work(&mut self, work: CombatActionWork, duration_seconds: f32) {
+    fn charge_action_work(&mut self, work: CombatActionWork, duration_seconds: AnimationElapsed) {
         let weapon = self.equipment.melee_weapon.unwrap_or_default();
         let workload = combat_action_workload(
             work,
@@ -400,7 +403,7 @@ impl Combatant {
         self.active_work_seconds = self.active_work_seconds.max(duration_seconds);
     }
 
-    fn incapacitation_performance(&self) -> f32 {
+    fn incapacitation_performance(&self) -> FractionResult<UnitInterval> {
         combat_incapacitation_performance(self.incapacitation())
     }
 
@@ -579,8 +582,8 @@ pub struct MeleeContactTelemetry {
     pub defender_attack_commitment: &'static str,
     pub defender_retained_attack_power: Option<f32>,
     pub attack_power_multiplier: f32,
-    pub attacker_incapacitation_performance: f32,
-    pub attack_interval_seconds: f32,
+    pub attacker_incapacitation_performance: UnitInterval,
+    pub attack_interval_seconds: crate::combat::RecoveryTime,
 }
 
 #[derive(Clone, Debug, Serialize)]
@@ -648,7 +651,7 @@ pub struct MeleeTimelineEvent {
     pub engagement_distance_before_metres: Option<f32>,
     pub engagement_distance_after_metres: Option<f32>,
     pub movement_action: Option<MeleeMovementAction>,
-    pub movement_elapsed_seconds: Option<f32>,
+    pub movement_elapsed_seconds: Option<AnimationElapsed>,
     pub movement_displacement_metres: Option<f32>,
     pub movement_velocity_before_metres_per_second: Option<SignedSpeed>,
     pub movement_velocity_after_metres_per_second: Option<SignedSpeed>,
@@ -669,7 +672,7 @@ pub struct MeleeTimelineEvent {
     pub consecutive_intercepts_after: Option<u8>,
     /// One-shot guarded hesitation added after a repeated phase interception.
     /// This is elapsed readiness time, not uncharged action work.
-    pub phase_adaptation_delay_seconds: Option<f32>,
+    pub phase_adaptation_delay_seconds: Option<AnimationElapsed>,
     pub response_availability: Option<MeleeResponseAvailability>,
     pub affected_attack_id: Option<u64>,
     pub simultaneous_batch_id: Option<u64>,
@@ -909,14 +912,14 @@ pub fn resolve_battle(
     mut enemies: Vec<Combatant>,
     seed: Seed,
     opening: BattleOpening,
-) -> SpeedResult<BattleOutcome> {
+) -> BattleResolutionResult<BattleOutcome> {
     let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
     let mut random = StreamId::new("combat.autoresolve").rng(seed, &[]);
     let mut recorder = BattleRecorder::default();
     let mut resolution = None;
     let mut rounds = 0;
 
-    initialize_melee_phases(&mut allies, &mut enemies, &mut random, parameters);
+    initialize_melee_phases(&mut allies, &mut enemies, &mut random, parameters)?;
 
     // Awareness was already resolved by the strategic encounter. Do not roll
     // stealth again here: exactly one authoritative side receives the opener.
@@ -929,7 +932,7 @@ pub fn resolve_battle(
             &mut random,
             &mut recorder,
             parameters,
-        ),
+        )?,
         BattleOpening::EnemiesSurprise => take_side_turns(
             &mut enemies,
             &mut allies,
@@ -937,7 +940,7 @@ pub fn resolve_battle(
             &mut random,
             &mut recorder,
             parameters,
-        ),
+        )?,
     }
     resolve_opening_volleys(
         &mut allies,
@@ -971,12 +974,10 @@ pub fn resolve_battle(
             .expect("exhausting the bounded round schedule is terminal")
     });
 
-    let terminal_seconds = recorder
-        .timeline
-        .last()
-        .map_or(rounds as f32 * parameters.combat_round_seconds, |event| {
-            event.time_seconds
-        });
+    let terminal_seconds = recorder.timeline.last().map_or(
+        rounds as f32 * parameters.combat_round_seconds.seconds(),
+        |event| event.time_seconds,
+    );
     recorder.record_timeline(
         MeleeTimelineEvent::at(MeleeTimelineKind::Terminal, terminal_seconds)
             .with_terminal(resolution),
@@ -1018,40 +1019,6 @@ fn classify_battle_resolution(
     }
 }
 
-fn initialize_melee_phases(
-    allies: &mut [Combatant],
-    enemies: &mut [Combatant],
-    random: &mut DeterministicRng,
-    parameters: crate::combat::AutoresolveParameters,
-) {
-    let mut order = allies
-        .iter()
-        .enumerate()
-        .map(|(index, combatant)| (combatant.id, ScheduledBattleSide::Allies, index))
-        .chain(
-            enemies
-                .iter()
-                .enumerate()
-                .map(|(index, combatant)| (combatant.id, ScheduledBattleSide::Enemies, index)),
-        )
-        .collect::<Vec<_>>();
-    order.sort_by_key(|(id, _, _)| *id);
-    for (_, side, index) in order {
-        let combatant = match side {
-            ScheduledBattleSide::Allies => &mut allies[index],
-            ScheduledBattleSide::Enemies => &mut enemies[index],
-        };
-        let sampled_delay = parameters.melee_initiative_delay_min_seconds
-            + random.unit_f32()
-                * (parameters.melee_initiative_delay_max_seconds
-                    - parameters.melee_initiative_delay_min_seconds);
-        let delay = sampled_delay * (3.0 / combatant.attributes.instinct.max(0.5)).clamp(0.6, 2.0);
-        combatant.melee_recovery_until_seconds = delay;
-        combatant.melee_interval_jitter_seconds =
-            random.unit_f32() * parameters.melee_cadence_jitter_seconds;
-    }
-}
-
 fn resolve_battle_round(
     allies: &mut [Combatant],
     enemies: &mut [Combatant],
@@ -1059,8 +1026,8 @@ fn resolve_battle_round(
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) -> SpeedResult<()> {
-    resolve_ranged_round(allies, enemies, round, random, recorder, parameters);
+) -> BattleResolutionResult<()> {
+    resolve_ranged_round(allies, enemies, round, random, recorder, parameters)?;
     resolve_joint_melee_round(allies, enemies, round, random, recorder, parameters)?;
     allies
         .iter_mut()
@@ -1125,7 +1092,7 @@ fn resolve_opening_volleys(
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) -> SpeedResult<()> {
+) -> BattleResolutionResult<()> {
     let ally_plans = opening_volley_plans(allies, enemies, parameters)?;
     let enemy_plans = opening_volley_plans(enemies, allies, parameters)?;
     let ally_detour_targets: Vec<_> = active_melee_indices(enemies)
@@ -1157,7 +1124,7 @@ fn resolve_opening_volleys(
                 random,
                 recorder,
                 parameters,
-            );
+            )?;
             take_opening_volley_step(
                 enemies,
                 &enemy_plans,
@@ -1167,7 +1134,7 @@ fn resolve_opening_volleys(
                 random,
                 recorder,
                 parameters,
-            );
+            )?;
         } else {
             take_opening_volley_step(
                 enemies,
@@ -1178,7 +1145,7 @@ fn resolve_opening_volleys(
                 random,
                 recorder,
                 parameters,
-            );
+            )?;
             take_opening_volley_step(
                 allies,
                 &ally_plans,
@@ -1188,7 +1155,7 @@ fn resolve_opening_volleys(
                 random,
                 recorder,
                 parameters,
-            );
+            )?;
         }
     }
     Ok(())
@@ -1225,7 +1192,8 @@ fn opening_volley_plans(
             let weapon = attacker.equipment.ranged_weapon.unwrap();
             let interval = weapon
                 .attack_interval_seconds
-                .max(parameters.minimum_attack_interval_seconds);
+                .max(parameters.minimum_attack_interval_seconds)
+                .seconds();
             let range = weapon.ranged_range.max(0.0);
             let direct_seconds = range / direct_closing_speed.metres_per_second();
             let direct_attacks = (direct_seconds / interval)
@@ -1274,7 +1242,7 @@ fn take_opening_volley_step(
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) {
+) -> FractionResult<()> {
     for attacker_index in 0..attackers.len() {
         let plan = plans[attacker_index];
         if plan.total_attacks <= step
@@ -1308,7 +1276,7 @@ fn take_opening_volley_step(
             autoresolve_hit_precision(random, parameters),
             part,
             parameters,
-        );
+        )?;
         attackers[attacker_index].equipment.ammunition -= 1;
         let effect = apply_attack_result(
             &mut attackers[attacker_index],
@@ -1333,6 +1301,7 @@ fn take_opening_volley_step(
             None,
         );
     }
+    Ok(())
 }
 
 fn resolve_ranged_round(
@@ -1342,11 +1311,12 @@ fn resolve_ranged_round(
     random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
-) {
-    let ally_attacks = plan_ranged_round(allies, enemies, round, random, parameters);
-    let enemy_attacks = plan_ranged_round(enemies, allies, round, random, parameters);
+) -> FractionResult<()> {
+    let ally_attacks = plan_ranged_round(allies, enemies, round, random, parameters)?;
+    let enemy_attacks = plan_ranged_round(enemies, allies, round, random, parameters)?;
     apply_pending_attacks(allies, enemies, &ally_attacks, recorder);
     apply_pending_attacks(enemies, allies, &enemy_attacks, recorder);
+    Ok(())
 }
 
 fn plan_ranged_round(
@@ -1355,7 +1325,7 @@ fn plan_ranged_round(
     round: usize,
     random: &mut DeterministicRng,
     parameters: crate::combat::AutoresolveParameters,
-) -> Vec<PendingAttack> {
+) -> FractionResult<Vec<PendingAttack>> {
     let mut attacks = Vec::new();
     for (attacker_index, attacker) in attackers.iter_mut().enumerate() {
         if attacker.is_defeated() || !attacker.can_attack_ranged() {
@@ -1366,8 +1336,9 @@ fn plan_ranged_round(
             .ranged_weapon
             .unwrap()
             .attack_interval_seconds
-            .max(parameters.minimum_attack_interval_seconds);
-        attacker.ranged_attack_progress += parameters.combat_round_seconds / interval;
+            .max(parameters.minimum_attack_interval_seconds)
+            .seconds();
+        attacker.ranged_attack_progress += parameters.combat_round_seconds.seconds() / interval;
         let attack_count =
             (attacker.ranged_attack_progress.floor() as u32).min(attacker.equipment.ammunition);
         attacker.ranged_attack_progress -= attack_count as f32;
@@ -1385,7 +1356,7 @@ fn plan_ranged_round(
                 autoresolve_hit_precision(random, parameters),
                 part,
                 parameters,
-            );
+            )?;
             attacker.equipment.ammunition -= 1;
             attacks.push(PendingAttack {
                 attacker_index,
@@ -1398,7 +1369,7 @@ fn plan_ranged_round(
             });
         }
     }
-    attacks
+    Ok(attacks)
 }
 
 fn apply_attack_result(
@@ -1455,17 +1426,17 @@ fn ranged_exchange(
     flanking: f32,
     part: BodyPart,
     response: DefenderResponse,
-) -> AttackResult {
+) -> FractionResult<AttackResult> {
     let attacker_equipment = attacker.equipment.for_ranged();
     let attacker_view = attacker.view_with_equipment(&attacker_equipment);
-    attacker_view.resolve_ranged_attack(
+    Ok(attacker_view.resolve_ranged_attack(
         crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
         &defender.view_with_equipment(&defender.equipment),
-        response.scaled_for_performance(defender.incapacitation_performance()),
-        precision * attacker.incapacitation_performance(),
+        response.scaled_for_performance(defender.incapacitation_performance()?),
+        precision * attacker.incapacitation_performance()?.fraction(),
         flanking,
         part,
-    )
+    ))
 }
 
 fn autoresolve_optimal_ranged_exchange(
@@ -1474,7 +1445,7 @@ fn autoresolve_optimal_ranged_exchange(
     precision: f32,
     part: BodyPart,
     parameters: crate::combat::AutoresolveParameters,
-) -> AttackResult {
+) -> FractionResult<AttackResult> {
     let block = if defender.equipment.melee_weapon.is_some()
         || defender.equipment.shield_block_bonus > 0.0
     {
@@ -1482,17 +1453,32 @@ fn autoresolve_optimal_ranged_exchange(
     } else {
         DefenderResponse::None
     };
-    [
+    let neutral = ranged_exchange(
+        attacker,
+        defender,
+        precision,
+        0.0,
+        part,
         DefenderResponse::None,
+    )?;
+    let dodge = ranged_exchange(
+        attacker,
+        defender,
+        precision,
+        0.0,
+        part,
         DefenderResponse::Dodge {
             input_reflex: parameters.ranged_defense_input_reflex,
         },
-        block,
-    ]
-    .into_iter()
-    .map(|response| ranged_exchange(attacker, defender, precision, 0.0, part, response))
-    .min_by(|left, right| attack_harm(*left).total_cmp(&attack_harm(*right)))
-    .unwrap()
+    )?;
+    let block = ranged_exchange(attacker, defender, precision, 0.0, part, block)?;
+    Ok([dodge, block].into_iter().fold(neutral, |best, candidate| {
+        if attack_harm(candidate).total_cmp(&attack_harm(best)).is_lt() {
+            candidate
+        } else {
+            best
+        }
+    }))
 }
 
 fn autoresolve_hit_precision(
@@ -1628,11 +1614,11 @@ mod tests {
     fn fatigue_recovery_preserves_active_work_across_time_slices() {
         let mut whole = fighter(1, 3.0, false);
         whole.fatigue = 0.5;
-        whole.active_work_seconds = 1.0;
+        whole.active_work_seconds = crate::elapsed::AnimationElapsed::from_seconds(1.0).unwrap();
         let mut sliced = whole.clone();
-        whole.advance_condition(1.5);
+        whole.advance_condition(crate::elapsed::AnimationElapsed::from_seconds(1.5).unwrap());
         for _ in 0..3 {
-            sliced.advance_condition(0.5);
+            sliced.advance_condition(crate::elapsed::AnimationElapsed::from_seconds(0.5).unwrap());
         }
         assert_eq!(whole.fatigue, sliced.fatigue);
         assert!(whole.fatigue < 0.5);
@@ -1723,7 +1709,7 @@ mod tests {
             body_material: (!ranged).then_some(EquipmentMaterial::RoughSteel),
             striking_material: (!ranged).then_some(EquipmentMaterial::RoughSteel),
             ranged_range: if ranged { 20.0 } else { 0.0 },
-            attack_interval_seconds: 1.0,
+            attack_interval_seconds: crate::elapsed::AnimationElapsed::from_seconds(1.0).unwrap(),
             ranged_force_joules: 50.0,
             ..CombatWeapon::default()
         };
@@ -1782,7 +1768,7 @@ mod tests {
 
         let mut slower = novice.clone();
         let weapon = slower.equipment.melee_weapon.as_mut().unwrap();
-        weapon.attack_interval_seconds *= 2.0;
+        weapon.attack_interval_seconds = weapon.attack_interval_seconds.checked_scale(2.0).unwrap();
         slower.equipment.weapon = slower.equipment.melee_weapon;
         assert!(autoresolve_combat_power(&slower) < autoresolve_combat_power(&novice));
 
@@ -1844,7 +1830,8 @@ mod tests {
         weapon.preferred_melee_style = crate::combat_style::MeleeAttackStyle::Swing;
         weapon.weight = 1.5;
         weapon.melee_reach = 1.0;
-        weapon.attack_interval_seconds = 1.0;
+        weapon.attack_interval_seconds =
+            crate::elapsed::AnimationElapsed::from_seconds(1.0).unwrap();
         attacker.equipment.weapon = Some(weapon);
         attacker.equipment.melee_weapon = Some(weapon);
 
@@ -1860,7 +1847,8 @@ mod tests {
                 contact: 0.5,
                 defense_alignment: 0.5,
             },
-        );
+        )
+        .unwrap();
         health_damage_from_attack(exchange.result, exchange.contact.body_part)
     }
 
@@ -2053,7 +2041,8 @@ mod tests {
             1.0,
             BodyPart::Chest,
             DefenderResponse::None,
-        );
+        )
+        .unwrap();
         assert!(health_damage_from_attack(result, BodyPart::Chest) > 0.0);
     }
 
@@ -2068,7 +2057,8 @@ mod tests {
             0.0,
             BodyPart::Chest,
             DefenderResponse::None,
-        );
+        )
+        .unwrap();
         let weapon_block = ranged_exchange(
             &attacker,
             &defender,
@@ -2076,7 +2066,8 @@ mod tests {
             0.0,
             BodyPart::Chest,
             DefenderResponse::Block { effectiveness: 1.0 },
-        );
+        )
+        .unwrap();
         assert!(
             health_damage_from_attack(weapon_block, BodyPart::Chest)
                 < health_damage_from_attack(undefended, BodyPart::Chest)
@@ -2100,6 +2091,7 @@ mod tests {
                 defense_alignment: 0.5,
             },
         )
+        .unwrap()
         .result;
         assert!(matches!(
             block,
@@ -2121,6 +2113,7 @@ mod tests {
                 defense_alignment: 0.5,
             },
         )
+        .unwrap()
         .result;
         if let AttackResult::ToAttacker {
             physical_contact,
@@ -2159,7 +2152,8 @@ mod tests {
                 contact: 0.5,
                 defense_alignment: 0.5,
             },
-        );
+        )
+        .unwrap();
         let result = exchange.result;
         let part = exchange.contact.body_part;
 
@@ -2211,9 +2205,9 @@ mod tests {
                 &attack_equipment,
                 attacker.equipment.melee_holding_side,
                 attack_equipment.weapon_preferred_melee_style(),
-                attacker.incapacitation_performance(),
+                attacker.incapacitation_performance().unwrap().fraction(),
                 0.0,
-                response.scaled_for_performance(defender.incapacitation_performance()),
+                response.scaled_for_performance(defender.incapacitation_performance().unwrap()),
                 &defender.skills,
                 &defender.attributes,
                 &defender.body,
@@ -2290,7 +2284,8 @@ mod tests {
             0.0,
             BodyPart::Chest,
             DefenderResponse::None,
-        );
+        )
+        .unwrap();
         attacker.equipment.ranged_weapon.as_mut().unwrap().precision = 0.1;
         let armored = ranged_exchange(
             &attacker,
@@ -2299,7 +2294,8 @@ mod tests {
             0.0,
             BodyPart::Chest,
             DefenderResponse::None,
-        );
+        )
+        .unwrap();
 
         assert_eq!(health_damage_from_attack(critical, BodyPart::Chest), 0.0);
         assert_eq!(health_damage_from_attack(armored, BodyPart::Chest), 0.0);
@@ -2339,7 +2335,8 @@ mod tests {
                 contact: 0.5,
                 defense_alignment: 0.5,
             },
-        );
+        )
+        .unwrap();
         attacker.equipment.melee_weapon.as_mut().unwrap().precision = 0.1;
         let armored = melee_exchange(
             &attacker,
@@ -2351,7 +2348,8 @@ mod tests {
                 contact: 0.5,
                 defense_alignment: 0.5,
             },
-        );
+        )
+        .unwrap();
 
         assert_eq!(
             health_damage_from_attack(critical.result, critical.contact.body_part),
@@ -2565,7 +2563,8 @@ mod tests {
             &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(17)),
             &mut BattleRecorder::default(),
             autoresolve_parameters(),
-        );
+        )
+        .unwrap();
 
         assert_eq!(defenders[0].body.total_damage(), 0.0);
         assert!(defenders[1].body.total_damage() > 0.0);
@@ -2592,7 +2591,7 @@ mod tests {
             .ranged_weapon
             .as_mut()
             .unwrap()
-            .attack_interval_seconds = 0.5;
+            .attack_interval_seconds = crate::elapsed::AnimationElapsed::from_seconds(0.5).unwrap();
         let defenders = vec![fighter(2, 3.0, false)];
         let attacks = plan_ranged_round(
             &mut [fast],
@@ -2600,7 +2599,8 @@ mod tests {
             1,
             &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(3)),
             autoresolve_parameters(),
-        );
+        )
+        .unwrap();
         assert_eq!(attacks.len(), 2);
     }
 
@@ -2624,9 +2624,9 @@ mod tests {
     #[test]
     fn autoresolve_earlier_reaction_has_at_least_as_much_dodge_reflex() {
         let parameters = autoresolve_parameters();
-        let early = autoresolve_melee_input_reflex(0.0, parameters);
-        let middle = autoresolve_melee_input_reflex(0.5, parameters);
-        let late = autoresolve_melee_input_reflex(1.0, parameters);
+        let early = autoresolve_melee_input_reflex(0.0, parameters).unwrap();
+        let middle = autoresolve_melee_input_reflex(0.5, parameters).unwrap();
+        let late = autoresolve_melee_input_reflex(1.0, parameters).unwrap();
         assert!(early > middle && middle > late);
     }
 
@@ -2651,6 +2651,7 @@ mod tests {
                 MeleeDefenderPhase::NeutralGuard,
                 parameters
             )
+            .unwrap()
             .response,
             DefenderResponse::Dodge { .. }
         ));
@@ -2664,14 +2665,15 @@ mod tests {
                 MeleeDefenderPhase::NeutralGuard,
                 parameters
             )
+            .unwrap()
             .response,
             DefenderResponse::Block { .. }
         ));
-        let early = autoresolve_melee_reaction_timing(0.0, parameters);
-        let late = autoresolve_melee_reaction_timing(1.0, parameters);
+        let early = autoresolve_melee_reaction_timing(0.0, parameters).unwrap();
+        let late = autoresolve_melee_reaction_timing(1.0, parameters).unwrap();
         assert!(early.displacement_time_seconds > late.displacement_time_seconds);
-        assert!((early.displacement_time_seconds - 0.45).abs() < 1.0e-6);
-        assert!((late.displacement_time_seconds - 0.38).abs() < 1.0e-6);
+        assert!((early.displacement_time_seconds.seconds() - 0.45).abs() < 1.0e-6);
+        assert!((late.displacement_time_seconds.seconds() - 0.38).abs() < 1.0e-6);
     }
 
     #[test]
@@ -2695,6 +2697,7 @@ mod tests {
                 MeleeDefenderPhase::NeutralGuard,
                 parameters
             )
+            .unwrap()
             .response,
             DefenderResponse::Block { effectiveness: 1.0 }
         ));
@@ -2708,6 +2711,7 @@ mod tests {
                 MeleeDefenderPhase::NeutralGuard,
                 parameters
             )
+            .unwrap()
             .response,
             DefenderResponse::Dodge { .. }
         ));
@@ -2726,6 +2730,7 @@ mod tests {
                 MeleeDefenderPhase::CommittedAttack(occupied),
                 parameters,
             )
+            .unwrap()
             .response,
             DefenderResponse::None
         ));
@@ -2737,8 +2742,7 @@ mod tests {
                 0.5,
                 incoming,
                 MeleeDefenderPhase::OccupiedRecovery { until_seconds: 0.8 },
-                parameters,
-            ).response,
+                parameters,).unwrap().response,
             DefenderResponse::Block { effectiveness }
                 if effectiveness > 0.0 && effectiveness < 1.0
         ));
@@ -2747,7 +2751,7 @@ mod tests {
     #[test]
     fn guard_access_recovers_continuously_before_incoming_contact() {
         let contact = 1.0;
-        let windup = 0.65;
+        let windup = crate::elapsed::AnimationElapsed::from_seconds(0.65).unwrap();
         let almost_recovered = recovery_guard_effectiveness(1.1, contact, windup);
         let deeply_committed = recovery_guard_effectiveness(1.6, contact, windup);
         let recovered = recovery_guard_effectiveness(contact, contact, windup);
@@ -2873,8 +2877,12 @@ mod tests {
                 contact_at_seconds: 0.65,
                 recovery_until_seconds: 0.9,
             }),
+        )
+        .unwrap();
+        defender.charge_action_work(
+            CombatActionWork::WeaponDefense,
+            crate::elapsed::AnimationElapsed::from_seconds(0.5).unwrap(),
         );
-        defender.charge_action_work(CombatActionWork::WeaponDefense, 0.5);
         assert_eq!(
             commitment.kind,
             MeleeDefenseCommitmentKind::CanceledSameWeapon
@@ -2900,7 +2908,8 @@ mod tests {
                 contact_at_seconds: 0.65,
                 recovery_until_seconds: 0.9,
             }),
-        );
+        )
+        .unwrap();
         assert_eq!(
             commitment.kind,
             MeleeDefenseCommitmentKind::CanceledSameWeapon
@@ -2945,8 +2954,7 @@ mod tests {
                 1.0,
                 incoming,
                 MeleeDefenderPhase::CommittedAttack(later),
-                parameters,
-            ).response,
+                parameters,).unwrap().response,
             DefenderResponse::Parry { precision, .. }
                 if precision == parameters.maximum_hit_precision
         ));
@@ -2965,6 +2973,7 @@ mod tests {
                 MeleeDefenderPhase::CommittedAttack(earlier),
                 parameters,
             )
+            .unwrap()
             .response,
             DefenderResponse::None
         );
@@ -2983,6 +2992,7 @@ mod tests {
                 MeleeDefenderPhase::CommittedAttack(too_late),
                 parameters,
             )
+            .unwrap()
             .response,
             DefenderResponse::Block { effectiveness: 1.0 }
         );
@@ -3001,7 +3011,8 @@ mod tests {
                 contact_at_seconds: 0.65,
                 recovery_until_seconds: 0.9,
             }),
-        );
+        )
+        .unwrap();
         assert!((defender.melee_attack_power_multiplier - 0.68).abs() < 1.0e-6);
     }
 
@@ -3013,7 +3024,8 @@ mod tests {
             DefenderResponse::Block { effectiveness: 0.8 },
             DefenderResponse::Block { effectiveness: 0.8 },
             MeleeDefenderPhase::NeutralGuard,
-        );
+        )
+        .unwrap();
         assert_eq!(
             commitment.kind,
             MeleeDefenseCommitmentKind::NeutralGuardRecovery
@@ -3051,7 +3063,8 @@ mod tests {
         attacker.melee_engagement_distance_metres = 0.5;
         defender.melee_engagement_distance_metres = 0.5;
         attacker.melee_recovery_until_seconds = 1.0;
-        attacker.melee_phase_adaptation_delay_seconds = 0.2;
+        attacker.melee_phase_adaptation_delay_seconds =
+            crate::elapsed::AnimationElapsed::from_seconds(0.2).unwrap();
         let mut attackers = vec![attacker];
         let mut defenders = vec![defender];
         let mut recorder = BattleRecorder::default();
@@ -3059,22 +3072,29 @@ mod tests {
             &mut attackers,
             &mut defenders,
             0.0,
-            2.0,
+            crate::elapsed::AnimationElapsed::from_seconds(2.0).unwrap(),
             &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(11)),
             &mut recorder,
             autoresolve_parameters(),
-        );
+        )
+        .unwrap();
 
         assert_eq!(scheduled.len(), 1);
         assert!((scheduled[0].attack_timing.started_at_seconds - 1.2).abs() < 1.0e-6);
-        assert_eq!(attackers[0].melee_phase_adaptation_delay_seconds, 0.0);
-        assert_eq!(attackers[0].active_work_seconds, 0.0);
+        assert_eq!(
+            attackers[0].melee_phase_adaptation_delay_seconds.seconds(),
+            0.0
+        );
+        assert_eq!(attackers[0].active_work_seconds.seconds(), 0.0);
         let start = recorder
             .timeline
             .iter()
             .find(|event| event.kind == MeleeTimelineKind::AttackStarted)
             .expect("attack start is recorded");
-        assert_eq!(start.phase_adaptation_delay_seconds, Some(0.2));
+        assert_eq!(
+            start.phase_adaptation_delay_seconds,
+            Some(crate::elapsed::AnimationElapsed::from_seconds(0.2).unwrap())
+        );
     }
 
     #[test]
@@ -3090,7 +3110,8 @@ mod tests {
             &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(7)),
             &mut BattleRecorder::default(),
             autoresolve_parameters(),
-        );
+        )
+        .unwrap();
         assert!(attackers[0].yielded);
         assert!(side_defeated(&attackers));
     }
@@ -3108,3 +3129,6 @@ mod tests {
         );
     }
 }
+
+#[cfg(test)]
+mod incapacitation_tests;

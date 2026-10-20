@@ -170,19 +170,21 @@ mod contract_tests {
     #[test]
     fn projection_rejects_nonfinite_elapsed_before_mutating_body() {
         let mut state = SkeletonState::default();
-        let admission = AnimationElapsed::from_seconds(f32::NAN).and_then(|delta_seconds| {
-            project_skeleton_locomotion(
-                &mut state,
-                SkeletonLocomotionInput::from_controller(
-                    Quat::IDENTITY,
-                    Vec3::splat(f32::NAN),
-                    GroundContact::Airborne,
-                    delta_seconds,
-                    AnimationSampleTick::from(1u64),
+        let admission = AnimationElapsed::from_seconds(f32::NAN)
+            .map_err(AnimationValueError::from)
+            .and_then(|delta_seconds| {
+                project_skeleton_locomotion(
+                    &mut state,
+                    SkeletonLocomotionInput::from_controller(
+                        Quat::IDENTITY,
+                        Vec3::splat(f32::NAN),
+                        GroundContact::Airborne,
+                        delta_seconds,
+                        AnimationSampleTick::from(1u64),
+                    )
+                    .unwrap(),
                 )
-                .unwrap(),
-            )
-        });
+            });
         assert_eq!(
             admission,
             Err(AnimationValueError::NonFinite {

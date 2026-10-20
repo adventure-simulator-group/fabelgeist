@@ -144,7 +144,7 @@ mod tests {
         let parameters = EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.fatigue;
         let work = combat_action_workload(
             CombatActionWork::Attack,
-            0.75,
+            adventuresim_core::elapsed::AnimationElapsed::from_seconds(0.75).unwrap(),
             1.4,
             0.18,
             16.0,
@@ -156,7 +156,9 @@ mod tests {
         assert!(sources.fatigue > 0.2);
         assert_eq!(sources.total(), state.incapacitation);
         assert_eq!(
-            combat_incapacitation_performance(state.incapacitation),
+            combat_incapacitation_performance(state.incapacitation)
+                .unwrap()
+                .fraction(),
             1.0 - sources.total()
         );
         state.charge_work(

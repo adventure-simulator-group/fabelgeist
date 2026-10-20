@@ -1,3 +1,4 @@
+use adventuresim_core::elapsed::{AnimationElapsed, ElapsedResult};
 use adventuresim_core::{
     body::{BodyPart, BodySide},
     combat_style::MeleeAttackStyle,
@@ -23,6 +24,7 @@ mod armor;
 mod ordering;
 mod quantity;
 mod query;
+mod timing;
 
 pub use armor::*;
 pub use ordering::EquipmentRootOrder;
@@ -477,22 +479,24 @@ impl PlayerEquipment for InventoryView<'_, '_, '_> {
             .map(|weapon| weapon.striking_material)
     }
 
-    fn weapon_windup_secs(&self) -> f32 {
-        self.melee_timing_for(self.weapon_preferred_melee_style())
-            .preparation_secs
+    fn weapon_windup_secs(&self) -> ElapsedResult<AnimationElapsed> {
+        Ok(self
+            .melee_timing_for(self.weapon_preferred_melee_style())?
+            .preparation_secs)
     }
 
-    fn weapon_windup_secs_for(&self, style: MeleeAttackStyle) -> f32 {
-        self.melee_timing_for(style).preparation_secs
+    fn weapon_windup_secs_for(&self, style: MeleeAttackStyle) -> ElapsedResult<AnimationElapsed> {
+        Ok(self.melee_timing_for(style)?.preparation_secs)
     }
 
-    fn weapon_recovery_secs(&self) -> f32 {
-        self.melee_timing_for(self.weapon_preferred_melee_style())
-            .recovery_secs
+    fn weapon_recovery_secs(&self) -> ElapsedResult<AnimationElapsed> {
+        Ok(self
+            .melee_timing_for(self.weapon_preferred_melee_style())?
+            .recovery_secs)
     }
 
-    fn weapon_recovery_secs_for(&self, style: MeleeAttackStyle) -> f32 {
-        self.melee_timing_for(style).recovery_secs
+    fn weapon_recovery_secs_for(&self, style: MeleeAttackStyle) -> ElapsedResult<AnimationElapsed> {
+        Ok(self.melee_timing_for(style)?.recovery_secs)
     }
 
     fn weapon_balance(&self) -> f32 {
@@ -581,20 +585,6 @@ impl PlayerEquipment for InventoryView<'_, '_, '_> {
     }
 }
 
-impl InventoryView<'_, '_, '_> {
-    fn melee_timing_for(
-        &self,
-        style: MeleeAttackStyle,
-    ) -> adventuresim_core::equipment::MeleeAttackTiming {
-        let weapon = self.equipped_weapon().and_then(|item| item.weapon);
-        adventuresim_core::equipment::melee_attack_timing(
-            style,
-            weapon.map_or(0.0, |weapon| weapon.moment_of_inertia_kg_m2),
-            weapon.is_none(),
-        )
-    }
-}
-
 pub(super) fn body_part_index(part: BodyPart) -> usize {
     match part {
         BodyPart::LeftArm => 0,
@@ -672,7 +662,8 @@ mod tests {
 
         let unarmed = inventory.get(owner);
         assert_eq!(unarmed.weapon_reach(), 0.0);
-        let cycle = unarmed.weapon_windup_secs() + unarmed.weapon_recovery_secs();
+        let cycle = unarmed.weapon_windup_secs().unwrap().seconds()
+            + unarmed.weapon_recovery_secs().unwrap().seconds();
         assert!((cycle - 0.36).abs() < 1.0e-5);
         assert_eq!(
             inventory.get(owner).weapon_preferred_melee_style(),

@@ -191,3 +191,25 @@ unbounded nonnegative gain, angular stiffness is acceleration per radian of pose
 error, and inverse-second response coefficients retain their exponential or
 linear per-step laws. These controllers apply angular-velocity kicks rather than
 physical torques. No shared scalar type imposes a new global angular bound.
+
+Combat scheduling retains shared checked seconds from
+`adventuresim_core::elapsed::AnimationElapsed`, with one direct animation
+re-export. Authored windup, recovery and work intervals remain distinct from
+absolute battle-clock coordinates. A lunge plan owns both assisted movement and
+its `NotNeeded`, `ArrivesIn` or `CannotArrive` timing. Client and server attacks
+that cannot arrive still make an ordinary unassisted swing; bots keep pursuing,
+guarding or abandoning the attempt under their existing policies.
+
+Recovery is `After` a checked interval or `CannotRecover` at the current
+performance snapshot. Genuine zero recovery remains immediate even at zero
+performance. Positive recovery at zero performance does not start an attack or
+a timer. Performance retains the canonical checked unit interval after the
+existing total-incapacitation clamp. Signed contact offsets instead retain
+own-contact minus incoming-contact seconds, without wrapping or normalization.
+
+The native timer boundary rejects an unrepresentable interval before publishing
+its scheduled action. It no longer truncates every interval to thirty seconds;
+all native-representable intervals, including zero, remain available. The bot's
+live reflection dump retains the checked recovery value through an opaque
+reflection adapter rather than a mutable raw seconds field. Reports preserve
+finite seconds as scalars and unavailable recovery as null.

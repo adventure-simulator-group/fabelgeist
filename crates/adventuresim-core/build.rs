@@ -22,6 +22,8 @@ mod personality;
 )]
 mod strategic_presence;
 
+#[path = "src/elapsed.rs"]
+pub mod elapsed;
 #[path = "src/linear_speed.rs"]
 pub mod linear_speed;
 

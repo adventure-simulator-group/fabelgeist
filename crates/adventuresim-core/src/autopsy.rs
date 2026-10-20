@@ -148,7 +148,7 @@ pub fn resolve_death_required_incident(
     victim_enemy_id: u64,
     base_seed: Seed,
     max_attempts: u16,
-) -> crate::linear_speed::SpeedResult<Option<BattleOutcome>> {
+) -> crate::autoresolve::BattleResolutionResult<Option<BattleOutcome>> {
     for attempt in 0..max_attempts {
         let seed = DEATH_REQUIRED_ATTEMPT.seed(base_seed, &[u64::from(attempt)]);
         let outcome = resolve_battle(

@@ -26,6 +26,8 @@ pub enum AnimationQuantity {
     SampleRate,
     #[display("native fixed-clock interval")]
     NativeSampleInterval,
+    #[display("contact timing offset seconds")]
+    ContactTimingOffset,
     #[display("elapsed animation seconds")]
     Elapsed,
     #[display("landing impact speed")]
@@ -58,6 +60,8 @@ pub enum AnimationQuantity {
     MuscleTone,
     #[display("angular stiffness")]
     AngularStiffness,
+    #[display("forward lunge acceleration")]
+    LungeAcceleration,
     #[display("reference acceleration")]
     ReferenceAcceleration,
     #[display("response rate")]
@@ -120,6 +124,35 @@ impl From<adventuresim_core::linear_speed::SpeedError> for AnimationValueError {
             SpeedError::Negative => Self::Negative { quantity },
             SpeedError::NonPositive => Self::NonPositive { quantity },
             SpeedError::Overflow => Self::Overflow { quantity },
+        }
+    }
+}
+
+impl From<adventuresim_core::elapsed::ElapsedError> for AnimationValueError {
+    fn from(error: adventuresim_core::elapsed::ElapsedError) -> Self {
+        use adventuresim_core::elapsed::ElapsedError;
+        let quantity = AnimationQuantity::Elapsed;
+        match error {
+            ElapsedError::NonFiniteContactOffset => Self::NonFinite {
+                quantity: AnimationQuantity::ContactTimingOffset,
+            },
+            ElapsedError::ContactOffsetOverflow => Self::Overflow {
+                quantity: AnimationQuantity::ContactTimingOffset,
+            },
+            ElapsedError::NonFinite => Self::NonFinite { quantity },
+            ElapsedError::Negative => Self::Negative { quantity },
+            ElapsedError::Overflow | ElapsedError::NativeRange => Self::Overflow { quantity },
+        }
+    }
+}
+
+impl From<adventuresim_core::unit_interval::FractionError> for AnimationValueError {
+    fn from(error: adventuresim_core::unit_interval::FractionError) -> Self {
+        use adventuresim_core::unit_interval::FractionError;
+        let quantity = AnimationQuantity::UnitInterval;
+        match error {
+            FractionError::NonFinite => Self::NonFinite { quantity },
+            FractionError::OutsideUnitInterval => Self::OutsideUnitInterval { quantity },
         }
     }
 }

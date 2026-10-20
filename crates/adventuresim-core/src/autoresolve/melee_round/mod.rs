@@ -26,7 +26,7 @@ pub(super) fn resolve_melee_turn(
     parameters: crate::combat::AutoresolveParameters,
     attack_timing: ScheduledMeleeTiming,
     contact_batch: MeleeContactBatch,
-) {
+) -> BattleResolutionResult<()> {
     let prepared = prepare_melee_exchange(
         &mut attackers[attacker_index],
         &defenders[target_index],
@@ -34,7 +34,7 @@ pub(super) fn resolve_melee_turn(
         random,
         parameters,
         attack_timing,
-    );
+    )?;
     let PreparedMeleeExchange {
         attack_power_multiplier,
         contact_at_time,
@@ -47,6 +47,7 @@ pub(super) fn resolve_melee_turn(
         part,
         attacker_incapacitation_performance,
         attack_duration,
+        attack_interval,
     } = prepared;
     attackers[attacker_index].charge_action_work(CombatActionWork::Attack, attack_duration);
     let defense_commitment = apply_defender_response(
@@ -61,7 +62,7 @@ pub(super) fn resolve_melee_turn(
         attack_timing,
         parameters,
         recorder,
-    );
+    )?;
     record_melee_result(
         &mut attackers[attacker_index],
         &mut defenders[target_index],
@@ -74,11 +75,12 @@ pub(super) fn resolve_melee_turn(
         defense_commitment,
         attack_power_multiplier,
         attacker_incapacitation_performance,
-        attack_duration,
+        attack_interval,
         attack_timing,
         contact_batch,
         recorder,
     );
+    Ok(())
 }
 
 #[expect(
@@ -96,8 +98,8 @@ fn record_melee_result(
     contact: MeleeContactAtTime,
     commitment: DefenseCommitment,
     power: f32,
-    performance: f32,
-    duration: f32,
+    performance: UnitInterval,
+    interval: crate::combat::RecoveryTime,
     timing: ScheduledMeleeTiming,
     batch: MeleeContactBatch,
     recorder: &mut BattleRecorder,
@@ -145,7 +147,7 @@ fn record_melee_result(
             defender_retained_attack_power: commitment.retained_power,
             attack_power_multiplier: power,
             attacker_incapacitation_performance: performance,
-            attack_interval_seconds: duration / performance,
+            attack_interval_seconds: interval,
         }),
     );
     record_contact_timeline(recorder, attacker, defender.id, timing, batch);
@@ -193,14 +195,15 @@ fn apply_defender_response(
     incoming: ScheduledMeleeTiming,
     parameters: crate::combat::AutoresolveParameters,
     recorder: &mut BattleRecorder,
-) -> DefenseCommitment {
+) -> BattleResolutionResult<DefenseCommitment> {
     let readiness_before = scheduled_before
         .map_or(defender.melee_recovery_until_seconds, |timing| {
             timing.recovery_until_seconds
         });
-    let commitment = commit_defensive_action(defender, response, effective_response, phase);
+    let commitment = commit_defensive_action(defender, response, effective_response, phase)?;
     let adaptation = (commitment.kind == MeleeDefenseCommitmentKind::CanceledSameWeapon)
-        .then(|| phase_adaptation_delay(phase, incoming, defender, parameters));
+        .then(|| phase_adaptation_delay(phase, incoming, defender, parameters))
+        .transpose()?;
     record_response_timeline(
         recorder,
         defender,
@@ -217,12 +220,13 @@ fn apply_defender_response(
     if response != DefenderResponse::None {
         defender.melee_recovery_until_seconds = defender
             .melee_recovery_until_seconds
-            .max(incoming.contact_at_seconds + commitment.recovery_seconds_after_contact);
+            .max(incoming.contact_at_seconds + commitment.recovery_seconds_after_contact.seconds());
     }
     if commitment.kind == MeleeDefenseCommitmentKind::CanceledSameWeapon {
         defender.melee_consecutive_intercepts =
             defender.melee_consecutive_intercepts.saturating_add(1);
-        defender.melee_phase_adaptation_delay_seconds = adaptation.unwrap_or(0.0);
+        defender.melee_phase_adaptation_delay_seconds =
+            adaptation.unwrap_or(AnimationElapsed::ZERO);
         defender.melee_attack_started_at_seconds = None;
         defender.melee_attack_contact_at_seconds = None;
         defender.melee_attack_scheduled_measure_metres = None;
@@ -233,8 +237,8 @@ fn apply_defender_response(
         defender.melee_consecutive_intercepts =
             defender.melee_consecutive_intercepts.saturating_sub(1);
     }
-    charge_defensive_work(defender, response);
-    commitment
+    charge_defensive_work(defender, response)?;
+    Ok(commitment)
 }
 
 #[expect(
@@ -252,7 +256,7 @@ fn record_response_timeline(
     response: DefenderResponse,
     incoming: ScheduledMeleeTiming,
     commitment: DefenseCommitment,
-    adaptation: Option<f32>,
+    adaptation: Option<AnimationElapsed>,
 ) {
     let affected = match phase {
         MeleeDefenderPhase::CommittedAttack(timing) => Some(timing.attack_id(defender.id)),
@@ -260,8 +264,8 @@ fn record_response_timeline(
     };
     let before = timeline_phase(phase);
     let after = timeline_phase_after_commitment(commitment.kind, phase);
-    let after_readiness =
-        readiness.max(incoming.contact_at_seconds + commitment.recovery_seconds_after_contact);
+    let after_readiness = readiness
+        .max(incoming.contact_at_seconds + commitment.recovery_seconds_after_contact.seconds());
     let mut event =
         MeleeTimelineEvent::at(MeleeTimelineKind::Response, incoming.contact_at_seconds);
     event.combatant_id = Some(defender.id);
@@ -335,8 +339,9 @@ struct PreparedMeleeExchange {
     exchange: MeleeExchangeOutcome,
     result: AttackResult,
     part: BodyPart,
-    attacker_incapacitation_performance: f32,
-    attack_duration: f32,
+    attacker_incapacitation_performance: UnitInterval,
+    attack_duration: AnimationElapsed,
+    attack_interval: crate::combat::RecoveryTime,
 }
 
 fn prepare_melee_exchange(
@@ -346,7 +351,15 @@ fn prepare_melee_exchange(
     random: &mut DeterministicRng,
     parameters: crate::combat::AutoresolveParameters,
     timing: ScheduledMeleeTiming,
-) -> PreparedMeleeExchange {
+) -> BattleResolutionResult<PreparedMeleeExchange> {
+    let duration = attacker
+        .equipment
+        .melee_weapon
+        .map_or(parameters.reference_melee_attack_seconds, |weapon| {
+            weapon.attack_interval_seconds
+        });
+    let interval =
+        incapacitation_adjusted_recovery_seconds(duration, attacker.incapacitation_performance()?)?;
     let power = std::mem::replace(&mut attacker.melee_attack_power_multiplier, 1.0);
     let scheduled_measure = attacker
         .melee_attack_scheduled_measure_metres
@@ -391,13 +404,13 @@ fn prepare_melee_exchange(
         timing,
         phase,
         parameters,
-    );
+    )?;
     let sample = random.unit_f32();
-    let contact = autoresolve_melee_contact_location(attacker, defender, precision, sample);
+    let contact = autoresolve_melee_contact_location(attacker, defender, precision, sample)?;
     let response = shield_aligned_response(
         decision
             .response
-            .scaled_for_performance(defender.incapacitation_performance()),
+            .scaled_for_performance(defender.incapacitation_performance()?),
         defender.equipment.shield_holding_side(),
         contact,
     );
@@ -410,9 +423,9 @@ fn prepare_melee_exchange(
         response,
         random.unit_f32(),
         contact_at_time,
-    );
+    )?;
     let result = exchange.result * power;
-    PreparedMeleeExchange {
+    Ok(PreparedMeleeExchange {
         attack_power_multiplier: power,
         contact_at_time,
         scheduled_defender_timing_before: defender_timing,
@@ -420,16 +433,12 @@ fn prepare_melee_exchange(
         defender_decision: decision,
         response,
         part: exchange.contact.body_part,
-        attacker_incapacitation_performance: attacker.incapacitation_performance(),
-        attack_duration: attacker
-            .equipment
-            .melee_weapon
-            .map_or(parameters.reference_melee_attack_seconds, |weapon| {
-                weapon.attack_interval_seconds
-            }),
+        attacker_incapacitation_performance: attacker.incapacitation_performance()?,
+        attack_duration: duration,
+        attack_interval: interval,
         exchange,
         result,
-    }
+    })
 }
 
 #[cfg(test)]

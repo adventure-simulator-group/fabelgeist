@@ -1,4 +1,6 @@
-use adventuresim_tactical_core::animation::{AnimationSampleSpan, AnimationSampleTick};
+use adventuresim_tactical_core::animation::{
+    AnimationElapsed, AnimationSampleSpan, AnimationSampleTick, AnimationValueResult,
+};
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::{
     bevy_replicon::prelude::ClientTriggerExt,
@@ -17,11 +19,13 @@ use crate::{
 use quickstep_trace::{LocalQuickstepTrace, trace_local_quickstep_state};
 
 use action_clock::{
-    MeleeAcquisitionTiming, MeleePlaybackTiming, animation_ticks, delayed_melee_contact_seconds,
-    on_attack_fired_hook,
+    MeleeAcquisitionTiming, MeleePlaybackTiming, animation_ticks, on_attack_fired_hook,
 };
 
+use attack_start::{flush_buffered_melee_attacks, try_start_attack};
+
 mod action_clock;
+mod attack_start;
 mod quickstep_trace;
 
 const HITBOX_LAYER: LayerMask = LayerMask(1 << 1);
@@ -103,7 +107,7 @@ struct AttackTarget {
     hitbox: Entity,
     body_part: BodyPart,
     local_strike_point: Vec3,
-    contact_delay_seconds: f32,
+    arrival: MeleeLungeArrival,
 }
 
 #[derive(Clone, Copy)]
@@ -200,17 +204,17 @@ struct BufferedMeleeAttack {
 
 impl AttackState {
     fn new(
-        pre_hit_delay: f32,
-        facing_delay: f32,
+        pre_hit_delay: AnimationElapsed,
+        facing_delay: AnimationElapsed,
         reach: f32,
         ranged: bool,
         target: Option<AttackTarget>,
         target_position: Option<Vec3>,
         aim_direction: Dir3,
-    ) -> Self {
-        let pre_hit_timer = Timer::from_seconds(pre_hit_delay, TimerMode::Once);
-        let facing_timer = Timer::from_seconds(facing_delay, TimerMode::Once);
-        Self {
+    ) -> AnimationValueResult<Self> {
+        let pre_hit_timer = Timer::new(pre_hit_delay.native_duration()?, TimerMode::Once);
+        let facing_timer = Timer::new(facing_delay.native_duration()?, TimerMode::Once);
+        Ok(Self {
             pre_hit_timer,
             facing_timer,
             reach,
@@ -218,7 +222,7 @@ impl AttackState {
             target,
             target_position,
             aim_direction,
-        }
+        })
     }
 
     pub fn is_attacking(&self) -> bool {
@@ -254,14 +258,14 @@ impl CombatTargeting<'_, '_> {
         attacker: Entity,
         reach: (f32, f32),
         lunge_timing: Option<MeleeAcquisitionTiming>,
-    ) -> (Option<AttackTarget>, Option<Vec3>, Dir3) {
+    ) -> AnimationValueResult<(Option<AttackTarget>, Option<Vec3>, Dir3)> {
         let Ok((transform, collider, dimensions, attacker_side, camera)) =
             self.attackers.get(attacker)
         else {
-            return (None, None, Dir3::NEG_Z);
+            return Ok((None, None, Dir3::NEG_Z));
         };
         let Ok(camera_transform) = self.cameras.get(camera.get()) else {
-            return (None, None, Dir3::NEG_Z);
+            return Ok((None, None, Dir3::NEG_Z));
         };
         let origin = attack_origin(transform, collider, *dimensions);
         let excluded: Vec<_> = self.scene_items.iter().chain([attacker]).collect();
@@ -269,22 +273,22 @@ impl CombatTargeting<'_, '_> {
         let choices: Vec<_> = self
             .hitboxes
             .iter()
-            .filter_map(
+            .map(
                 |(hitbox, target_transform, _hitbox_collider, collider_of, limb)| {
                     let target = collider_of.body;
                     let Ok((target_side, target_state, body_transform, body_collider)) =
                         self.combatants.get(target)
                     else {
-                        return None;
+                        return Ok(None);
                     };
                     if target_side == attacker_side || target_state.is_incapacitated() {
-                        return None;
+                        return Ok(None);
                     }
                     let position = target_transform.translation();
                     let sight = position - origin;
                     let distance = sight.length();
-                    let direction = Dir3::new(sight).ok()?;
-                    let impact = (distance > 0.0)
+                    let Ok(direction) = Dir3::new(sight) else { return Ok(None); };
+                    let Some(impact) = (distance > 0.0)
                         .then(|| {
                             self.spatial.cast_ray(
                                 origin,
@@ -294,7 +298,7 @@ impl CombatTargeting<'_, '_> {
                                 &obstruction_filter,
                             )
                         })
-                        .flatten()?;
+                        .flatten() else { return Ok(None); };
                     let visible = impact.entity == target
                         || impact.entity == hitbox
                         || self.hitboxes.get(impact.entity).is_ok_and(
@@ -314,21 +318,21 @@ impl CombatTargeting<'_, '_> {
                             .distance(body_transform.translation.xz())
                             - adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)
                             .max(0.0);
-                        lunge_timing.contact_delay(surface_measure, reach.0, maximum_travel)
-                            .map(|delay| (position, delay))
+                        lunge_timing.contact_arrival(surface_measure, reach.0, maximum_travel)?
+                            .map(|arrival| (position, arrival))
                     } else {
-                        Some((position, 0.0))
+                        Some((position, MeleeLungeArrival::NotNeeded))
                     };
                     if !attack_target_within_angular_threshold(
                         camera_transform.forward().as_vec3(),
                         position - camera_transform.translation,
                         surface_distance,
                     ) {
-                        return None;
+                        return Ok(None);
                     }
-                    visible.then_some(BodyStableChoice {
+                    Ok(visible.then_some(BodyStableChoice {
                         body: target,
-                        resolved: resolved_strike.map(|(strike_point, contact_delay_seconds)| {
+                        resolved: resolved_strike.map(|(strike_point, arrival)| {
                             (
                                 AttackTarget {
                                     body: target,
@@ -338,17 +342,18 @@ impl CombatTargeting<'_, '_> {
                                         .affine()
                                         .inverse()
                                         .transform_point3(strike_point),
-                                    contact_delay_seconds,
+                                    arrival,
                                 },
                                 strike_point,
                             )
                         }),
                         ideal_position: position,
                         stable_key: hitbox.to_bits(),
-                    })
+                    }))
                 },
             )
-            .collect();
+            .collect::<AnimationValueResult<Vec<_>>>()?
+            .into_iter().flatten().collect();
         let selected = body_stable_auto_aim(
             camera_transform.translation,
             camera_transform.forward().as_vec3(),
@@ -360,10 +365,10 @@ impl CombatTargeting<'_, '_> {
             },
             &choices,
         );
-        match selected {
+        Ok(match selected {
             Some((target, position)) => (Some(target), Some(position), camera_transform.forward()),
             None => (None, None, camera_transform.forward()),
-        }
+        })
     }
 }
 
@@ -684,263 +689,6 @@ struct AttackStartRequest {
     hand: AttackHand,
 }
 
-fn try_start_attack(
-    request: AttackStartRequest,
-    cmd: &mut Commands,
-    q_character: &mut Query<(Has<AttackState>, &mut SkeletonState)>,
-    viewer: &TacticalPlayerViewer,
-    time: &Time,
-    combat_config: &TacticalCombatConfig,
-    targeting: &CombatTargeting,
-) {
-    let AttackStartRequest {
-        entity,
-        alternate_attack,
-        hand,
-    } = request;
-    let Ok((attacking, mut skeleton)) = q_character.get_mut(entity) else {
-        return;
-    };
-    let Ok((reach, ranged, melee, windup_secs, recovery_secs, curve, preferred_style)) =
-        viewer.get_for_attack(entity, hand).map(|character| {
-            (
-                character.weapon_reach(),
-                hand == AttackHand::Main && character.weapon_is_ranged(),
-                character.weapon_is_melee(),
-                character.weapon_ranged_windup_secs(),
-                attack_recovery_secs(&character, character.weapon_preferred_melee_style(), false),
-                configure_attack_curve(
-                    AttackSpec::default(),
-                    &character,
-                    &combat_config.presentation.attack_curve,
-                )
-                .curve,
-                character.weapon_preferred_melee_style(),
-            )
-        })
-    else {
-        warn!("Trying to attack, but can't get weapon reach. Not holding any weapons ?");
-        return;
-    };
-
-    let arm_reach = targeting.arm_reach(entity);
-    if !attack_reach_is_usable(ranged, melee, reach, arm_reach) {
-        warn!("Trying to attack without a usable equipped weapon");
-        return;
-    }
-    let start = AnimationSampleTick::from(
-        (time.elapsed_secs_f64() * locomotion_sample_rate().hertz() as f64).round() as u64,
-    );
-    if ranged {
-        if attacking {
-            return;
-        }
-        let spec = AttackSpec { curve, ..default() };
-        if skeleton
-            .begin_attack_timed(
-                spec,
-                start,
-                start.saturating_add(animation_ticks(windup_secs)),
-                start.saturating_add(animation_ticks(windup_secs + recovery_secs)),
-            )
-            .is_err()
-        {
-            return;
-        }
-        let (target, target_position, aim_direction) =
-            targeting.acquire(entity, (reach, 0.0), None);
-        cmd.entity(entity).insert(AttackState::new(
-            windup_secs,
-            windup_secs,
-            reach,
-            true,
-            target,
-            target_position,
-            aim_direction,
-        ));
-        cmd.client_trigger(RangedActionRequest::Start {
-            target: target.map(|target| target.body),
-        });
-    } else {
-        let preferred_family = StrikeFamily::from_melee_style(preferred_style);
-        let requested_family = if alternate_attack && hand == AttackHand::Main {
-            preferred_family.alternate()
-        } else {
-            preferred_family
-        };
-        let Some(strike_family) = skeleton.available_strike_family(requested_family) else {
-            return;
-        };
-        let Some(mut spec) = (!attacking)
-            .then(|| match hand {
-                AttackHand::Main => skeleton.select_main_attack(strike_family),
-                AttackHand::Offhand => skeleton.select_offhand_attack(strike_family),
-            })
-            .flatten()
-        else {
-            cmd.entity(entity).insert(BufferedMeleeAttack {
-                family: strike_family,
-                hand,
-            });
-            return;
-        };
-        let style = strike_family.melee_style();
-        let Ok((windup_secs, recovery_secs, curve)) =
-            viewer.get_for_attack(entity, hand).map(|character| {
-                (
-                    attack_preparation_secs(&character, style),
-                    attack_recovery_secs(&character, style, spec.continuation),
-                    configure_attack_curve(
-                        AttackSpec::default(),
-                        &character,
-                        &combat_config.presentation.attack_curve,
-                    )
-                    .curve,
-                )
-            })
-        else {
-            return;
-        };
-        let acquisition_range = targeting.melee_acquisition_range(entity, reach, combat_config);
-        let (target, target_position, aim_direction) = targeting.acquire(
-            entity,
-            acquisition_range,
-            Some(MeleeAcquisitionTiming::from(&combat_config.movement)),
-        );
-        let contact_delay = target.map_or(0.0, |target| target.contact_delay_seconds);
-        let (animation_delay, contact_seconds) =
-            delayed_melee_contact_seconds(windup_secs, contact_delay);
-        spec.curve = curve;
-        let timing = MeleePlaybackTiming::delayed(
-            &skeleton,
-            &spec,
-            start,
-            animation_delay,
-            contact_seconds,
-            recovery_secs,
-        );
-        match skeleton.begin_attack_timed(spec, timing.start, timing.contact, timing.end) {
-            Ok(()) => {}
-            Err(ActionTransitionError::ActionBusy) => {
-                cmd.entity(entity).insert(BufferedMeleeAttack {
-                    family: strike_family,
-                    hand,
-                });
-                return;
-            }
-            Err(ActionTransitionError::Downed | ActionTransitionError::PostureTransitionActive) => {
-                return;
-            }
-        }
-        cmd.entity(entity)
-            .insert(AttackState::new(
-                timing.contact_from_input_seconds,
-                timing.contact_from_input_seconds,
-                reach,
-                false,
-                target,
-                target_position,
-                aim_direction,
-            ))
-            .remove::<BufferedMeleeAttack>();
-        cmd.client_trigger(MeleeActionRequest {
-            strike_family,
-            hand,
-            target: target.map(|target| target.body),
-        });
-    }
-}
-
-fn flush_buffered_melee_attacks(
-    mut cmd: Commands,
-    mut characters: Query<
-        (Entity, &BufferedMeleeAttack, &mut SkeletonState),
-        With<ControlledPlayer>,
-    >,
-    viewer: TacticalPlayerViewer,
-    time: Res<Time>,
-    combat_config: Res<TacticalCombatConfig>,
-    targeting: CombatTargeting,
-) {
-    for (entity, buffered, mut skeleton) in &mut characters {
-        let Some(spec) = (match buffered.hand {
-            AttackHand::Main => skeleton.select_main_attack(buffered.family),
-            AttackHand::Offhand => skeleton.select_offhand_attack(buffered.family),
-        }) else {
-            continue;
-        };
-        let Ok((reach, melee, windup_secs, recovery_secs, curve)) = viewer
-            .get_for_attack(entity, buffered.hand)
-            .map(|character| {
-                (
-                    character.weapon_reach(),
-                    character.weapon_is_melee(),
-                    attack_preparation_secs(&character, buffered.family.melee_style()),
-                    attack_recovery_secs(
-                        &character,
-                        buffered.family.melee_style(),
-                        spec.continuation,
-                    ),
-                    configure_attack_curve(
-                        AttackSpec::default(),
-                        &character,
-                        &combat_config.presentation.attack_curve,
-                    )
-                    .curve,
-                )
-            })
-        else {
-            continue;
-        };
-        if !attack_reach_is_usable(false, melee, reach, targeting.arm_reach(entity)) {
-            continue;
-        }
-        let start = AnimationSampleTick::from(
-            (time.elapsed_secs_f64() * locomotion_sample_rate().hertz() as f64).round() as u64,
-        );
-        let acquisition_range = targeting.melee_acquisition_range(entity, reach, &combat_config);
-        let (target, target_position, aim_direction) = targeting.acquire(
-            entity,
-            acquisition_range,
-            Some(MeleeAcquisitionTiming::from(&combat_config.movement)),
-        );
-        let contact_delay = target.map_or(0.0, |target| target.contact_delay_seconds);
-        let (animation_delay, contact_seconds) =
-            delayed_melee_contact_seconds(windup_secs, contact_delay);
-        let spec = AttackSpec { curve, ..spec };
-        let timing = MeleePlaybackTiming::delayed(
-            &skeleton,
-            &spec,
-            start,
-            animation_delay,
-            contact_seconds,
-            recovery_secs,
-        );
-        if skeleton
-            .begin_attack_timed(spec, timing.start, timing.contact, timing.end)
-            .is_err()
-        {
-            continue;
-        }
-        cmd.entity(entity)
-            .insert(AttackState::new(
-                timing.contact_from_input_seconds,
-                timing.contact_from_input_seconds,
-                reach,
-                false,
-                target,
-                target_position,
-                aim_direction,
-            ))
-            .remove::<BufferedMeleeAttack>();
-        cmd.client_trigger(MeleeActionRequest {
-            strike_family: buffered.family,
-            hand: buffered.hand,
-            target: target.map(|target| target.body),
-        });
-    }
-}
-
 fn attack_reach_is_usable(ranged: bool, melee: bool, weapon_reach: f32, arm_reach: f32) -> bool {
     if ranged {
         weapon_reach.is_finite() && weapon_reach > 0.0
@@ -999,7 +747,7 @@ fn apply_direct_combat_controls(
             });
         }
         if controls.attack_just_pressed {
-            try_start_attack(
+            if let Err(error) = try_start_attack(
                 AttackStartRequest {
                     entity,
                     alternate_attack: controls.alternate_attack,
@@ -1011,7 +759,9 @@ fn apply_direct_combat_controls(
                 &time,
                 &combat_config,
                 &targeting,
-            );
+            ) {
+                warn!(?entity, %error, "cannot schedule attack");
+            }
         }
         // Quicksteps travel on the sequenced PlayerInputRequest stream. Do not
         // predict only the SkeletonState here: the client does not simulate the
@@ -1029,11 +779,30 @@ mod tests {
 
     #[test]
     fn melee_animation_overlaps_lunge_and_contact_waits_for_arrival() {
-        assert_eq!(delayed_melee_contact_seconds(0.3, 0.1), (0.0, 0.3));
-        let (animation_delay, contact) = delayed_melee_contact_seconds(0.3, 0.5);
-        assert!((animation_delay - 0.2).abs() < 1.0e-6);
-        assert!((contact - 0.5).abs() < 1.0e-6);
-        assert!((contact - animation_delay - 0.3).abs() < 1.0e-6);
+        assert_eq!(
+            MeleeLungeArrival::ArrivesIn(
+                adventuresim_core::elapsed::AnimationElapsed::from_seconds(0.1).unwrap()
+            )
+            .contact_timing(
+                adventuresim_core::elapsed::AnimationElapsed::from_seconds(0.3).unwrap()
+            )
+            .unwrap(),
+            MeleeContactTiming {
+                delay: adventuresim_core::elapsed::AnimationElapsed::from_seconds(0.0).unwrap(),
+                contact: adventuresim_core::elapsed::AnimationElapsed::from_seconds(0.3).unwrap()
+            }
+        );
+        let MeleeContactTiming {
+            delay: animation_delay,
+            contact,
+        } = MeleeLungeArrival::ArrivesIn(
+            adventuresim_core::elapsed::AnimationElapsed::from_seconds(0.5).unwrap(),
+        )
+        .contact_timing(adventuresim_core::elapsed::AnimationElapsed::from_seconds(0.3).unwrap())
+        .unwrap();
+        assert!((animation_delay.seconds() - 0.2).abs() < 1.0e-6);
+        assert!((contact.seconds() - 0.5).abs() < 1.0e-6);
+        assert!((contact.seconds() - animation_delay.seconds() - 0.3).abs() < 1.0e-6);
 
         let state = AttackState::new(
             contact,
@@ -1043,7 +812,8 @@ mod tests {
             None,
             Some(Vec3::NEG_Z),
             Dir3::NEG_Z,
-        );
+        )
+        .unwrap();
         assert_eq!(
             state.facing_timer.remaining(),
             state.pre_hit_timer.remaining(),

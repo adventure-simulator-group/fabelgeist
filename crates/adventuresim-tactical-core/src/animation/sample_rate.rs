@@ -60,7 +60,7 @@ impl TryFrom<f32> for AnimationSampleRate {
         let quantity = AnimationQuantity::SampleRate;
         let interval = PositiveAnimationDuration::from_elapsed(
             AnimationElapsed::from_seconds(hertz.recip())
-                .map_err(|error| error.for_quantity(quantity))?,
+                .map_err(|error| AnimationValueError::from(error).for_quantity(quantity))?,
         )?;
         Ok(Self {
             frequency,

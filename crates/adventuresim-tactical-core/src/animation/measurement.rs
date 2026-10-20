@@ -10,13 +10,6 @@ use serde::{Deserialize, Serialize};
 #[serde(try_from = "f32", into = "f32")]
 pub struct NonnegativeLength(f32);
 
-/// A finite fraction invariant, independent of its producer's clamp/reject policy.
-#[derive(
-    Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into,
-)]
-#[serde(try_from = "f32", into = "f32")]
-pub struct UnitInterval(f32);
-
 /// Positive elapsed seconds for settings used as divisors or decay lengths.
 #[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into)]
 #[serde(try_from = "f32", into = "f32")]
@@ -36,26 +29,6 @@ impl NonnegativeLength {
         Self(self.0 * 0.5)
     }
 }
-impl UnitInterval {
-    pub const ZERO: Self = Self(0.0);
-    pub const ONE: Self = Self(1.0);
-    pub fn from_fraction(value: f32) -> AnimationValueResult<Self> {
-        if !value.is_finite() {
-            return Err(AnimationValueError::NonFinite {
-                quantity: AnimationQuantity::UnitInterval,
-            });
-        }
-        if !(0.0..=1.0).contains(&value) {
-            return Err(AnimationValueError::OutsideUnitInterval {
-                quantity: AnimationQuantity::UnitInterval,
-            });
-        }
-        Ok(Self(value))
-    }
-    pub fn fraction(self) -> f32 {
-        self.0
-    }
-}
 impl PositiveAnimationDuration {
     pub fn from_elapsed(value: AnimationElapsed) -> AnimationValueResult<Self> {
         if value.is_zero() {
@@ -73,7 +46,7 @@ impl PositiveAnimationDuration {
                 quantity: AnimationQuantity::Elapsed,
             });
         }
-        AnimationElapsed::from_seconds(seconds)
+        Ok(AnimationElapsed::from_seconds(seconds)?)
     }
     pub fn elapsed(self) -> AnimationElapsed {
         self.0
@@ -94,12 +67,6 @@ impl TryFrom<f32> for NonnegativeLength {
     }
 }
 
-impl TryFrom<f32> for UnitInterval {
-    type Error = AnimationValueError;
-    fn try_from(value: f32) -> AnimationValueResult<Self> {
-        Self::from_fraction(value)
-    }
-}
 impl TryFrom<f32> for PositiveAnimationDuration {
     type Error = AnimationValueError;
     fn try_from(value: f32) -> AnimationValueResult<Self> {

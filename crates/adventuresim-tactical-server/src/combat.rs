@@ -1,13 +1,5 @@
-mod authority;
-mod condition;
-mod consequence;
-mod contact;
-mod defense;
-mod ingress;
-mod melee;
-mod protocol;
-mod ragdoll;
-mod ranged;
+use adventuresim_core::elapsed::{AnimationElapsed, ElapsedResult};
+use adventuresim_core::unit_interval::UnitInterval;
 
 use adventuresim_core::{
     combat::{
@@ -48,9 +40,9 @@ use consequence::{
     attacker_weapon_contact_matches, defender_equipment_contact_matches, record_party_injury,
 };
 use contact::canonical_impact_surface;
-use defense::{resolve_melee_defender_response, resolve_passive_block};
+use defense::{prepare_melee_defender_response, resolve_passive_block};
 pub(crate) use ingress::apply_defend_intent;
-pub(crate) use ingress::{MeleeLungeRequest, melee_target_lunge_delay};
+pub(crate) use ingress::{MeleeLungeRequest, melee_target_lunge_arrival};
 use ingress::{
     authoritative_line_of_sight, on_defender_response_request, on_melee_action_request,
     on_ranged_action_request, on_ranged_attack_started,
@@ -63,6 +55,17 @@ pub(crate) use protocol::{
 };
 use ragdoll::update_authoritative_ragdoll_lifecycle;
 use ranged::resolve_ranged_attack;
+
+mod authority;
+mod condition;
+mod consequence;
+mod contact;
+mod defense;
+mod ingress;
+mod melee;
+mod protocol;
+mod ragdoll;
+mod ranged;
 
 fn authoritative_impact_effects(
     inventory: &InventoryViewer<'_, '_>,
@@ -831,8 +834,11 @@ mod tests {
         assert_eq!(defender.blood_loss_fraction, 0.0);
         assert_eq!(wounds.len(), 1);
         assert_eq!(wounds[0].kind, CombatWoundKind::Open);
-        defender.blood_loss_fraction =
-            advance_combat_bleeding(defender.blood_loss_fraction, &wounds, 60.0);
+        defender.blood_loss_fraction = advance_combat_bleeding(
+            defender.blood_loss_fraction,
+            &wounds,
+            adventuresim_core::elapsed::AnimationElapsed::from_seconds(60.0).unwrap(),
+        );
         assert!((defender.blood_loss_fraction - 0.1).abs() < 0.0001);
         assert!((defender.imbalance - 0.4).abs() < 0.0001);
 
@@ -916,8 +922,20 @@ mod tests {
         assert!(combat_incapacitation(0.0, 1.0, 0.3, 0.0, 1.0, 0.0) >= 1.0);
         assert!(combat_incapacitation(0.2, 1.0, 0.0, 1.0, 0.0, 0.0) >= 1.0);
         assert!(combat_incapacitation(0.0, 1.0, 0.0, 0.0, 1.0, 1.0) >= 1.0);
-        assert_eq!(recover_combat_imbalance(0.75, 2.0), 0.25);
-        assert_eq!(recover_combat_imbalance(0.01, 1.0), 0.0);
+        assert_eq!(
+            recover_combat_imbalance(
+                0.75,
+                adventuresim_core::elapsed::AnimationElapsed::from_seconds(2.0).unwrap()
+            ),
+            0.25
+        );
+        assert_eq!(
+            recover_combat_imbalance(
+                0.01,
+                adventuresim_core::elapsed::AnimationElapsed::from_seconds(1.0).unwrap()
+            ),
+            0.0
+        );
     }
 
     #[test]

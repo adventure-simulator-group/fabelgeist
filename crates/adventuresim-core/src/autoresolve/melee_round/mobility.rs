@@ -55,7 +55,7 @@ pub(super) fn maximum_melee_pair_surface_separation(
 pub(in crate::autoresolve) fn preview_melee_pair_movement(
     first: &Combatant,
     second: &Combatant,
-    elapsed: f32,
+    elapsed: AnimationElapsed,
     parameters: crate::combat::AutoresolveParameters,
 ) -> SpeedResult<(OpposedMovement, MeleeMovementAction, MeleeMovementAction)> {
     let surface = first
@@ -136,11 +136,11 @@ pub(in crate::autoresolve) fn advance_melee_pair_movement(
     first: &mut Combatant,
     second: &mut Combatant,
     interval_start: f32,
-    elapsed: f32,
+    elapsed: AnimationElapsed,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) -> SpeedResult<()> {
-    if elapsed <= 0.0 || first.is_defeated() || second.is_defeated() {
+    if elapsed.is_zero() || first.is_defeated() || second.is_defeated() {
         return Ok(());
     }
     if first.melee_engagement_target != Some(second.id)
@@ -162,7 +162,7 @@ pub(in crate::autoresolve) fn advance_melee_pair_movement(
         movement.first.velocity_after_metres_per_second;
     second.melee_separation_velocity_metres_per_second =
         movement.second.velocity_after_metres_per_second;
-    let time = interval_start + elapsed;
+    let time = interval_start + elapsed.seconds();
     let (a, a_axis, a_intent, b, b_axis, b_intent) = if first.id <= second.id {
         (
             &*first,

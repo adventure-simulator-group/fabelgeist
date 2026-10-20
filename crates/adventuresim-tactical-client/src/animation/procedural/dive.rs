@@ -15,7 +15,9 @@ impl DiveInfluence {
         }
         adventuresim_tactical_core::animation::UnitInterval::from_fraction(factor.clamp(0.0, 1.0))
             .map(Self)
-            .map_err(|error| error.for_quantity(AnimationQuantity::DiveInfluence))
+            .map_err(|error| {
+                AnimationValueError::from(error).for_quantity(AnimationQuantity::DiveInfluence)
+            })
     }
     fn fraction(self) -> f32 {
         self.0.fraction()

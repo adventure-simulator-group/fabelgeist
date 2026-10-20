@@ -107,8 +107,8 @@ pub struct FatigueCadenceEvidence {
     pub completed_weapon_defenses: u32,
     pub completed_explosive_dodges: u32,
     pub fatigue: f32,
-    pub fresh_recovery_seconds: f32,
-    pub fatigued_recovery_seconds: f32,
+    pub fresh_recovery_seconds: crate::combat::RecoveryTime,
+    pub fatigued_recovery_seconds: crate::combat::RecoveryTime,
 }
 
 pub fn melee_iteration_acceptance_evidence() -> Result<MeleeIterationAcceptanceEvidence, String> {
@@ -323,17 +323,22 @@ fn fatigue_cadence_evidence(build: &MeleeIterationBuild) -> Result<FatigueCadenc
     };
     let attack = workload(
         CombatActionWork::Attack,
-        0.75,
+        crate::elapsed::AnimationElapsed::from_seconds(0.75).map_err(|error| error.to_string())?,
         weapon.weight,
         weapon.moment_of_inertia_kg_m2,
     );
     let defense = workload(
         CombatActionWork::WeaponDefense,
-        0.5,
+        crate::elapsed::AnimationElapsed::from_seconds(0.5).map_err(|error| error.to_string())?,
         weapon.weight,
         weapon.moment_of_inertia_kg_m2,
     );
-    let dodge = workload(CombatActionWork::ExplosiveDodge, 0.5, 0.0, 0.0);
+    let dodge = workload(
+        CombatActionWork::ExplosiveDodge,
+        crate::elapsed::AnimationElapsed::from_seconds(0.5).map_err(|error| error.to_string())?,
+        0.0,
+        0.0,
+    );
     let mut fatigue = 0.0;
     for workload in std::iter::repeat_n(attack, ATTACKS as usize)
         .chain(std::iter::repeat_n(defense, WEAPON_DEFENSES as usize))
@@ -348,11 +353,17 @@ fn fatigue_cadence_evidence(build: &MeleeIterationBuild) -> Result<FatigueCadenc
     }
     let mut worked = build.combatant.clone();
     worked.fatigue = fatigue;
-    let performance = worked.incapacitation_performance();
+    let performance = worked
+        .incapacitation_performance()
+        .map_err(|error| error.to_string())?;
     let fresh_recovery_seconds = incapacitation_adjusted_recovery_seconds(
         weapon.attack_interval_seconds,
-        build.combatant.incapacitation_performance(),
-    );
+        build
+            .combatant
+            .incapacitation_performance()
+            .map_err(|error| error.to_string())?,
+    )
+    .map_err(|error| error.to_string())?;
     Ok(FatigueCadenceEvidence {
         combatant: build.name.clone(),
         completed_attacks: ATTACKS,
@@ -363,7 +374,8 @@ fn fatigue_cadence_evidence(build: &MeleeIterationBuild) -> Result<FatigueCadenc
         fatigued_recovery_seconds: incapacitation_adjusted_recovery_seconds(
             weapon.attack_interval_seconds,
             performance,
-        ),
+        )
+        .map_err(|error| error.to_string())?,
     })
 }
 

@@ -1,4 +1,5 @@
 use super::MeleeMovementAction;
+use crate::elapsed::AnimationElapsed;
 use crate::linear_speed::{NonnegativeSpeed, SignedSpeed, SpeedError, SpeedResult};
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -15,7 +16,7 @@ pub(super) struct OpposedMovement {
     pub distance_after_metres: f32,
     pub first: AxisMotion,
     pub second: AxisMotion,
-    pub elapsed_seconds: f32,
+    pub elapsed_seconds: AnimationElapsed,
 }
 
 pub(super) fn ground_drive_acceleration(
@@ -48,7 +49,7 @@ pub(super) fn integrate_opposed_movement(
     second_maximum_speed_metres_per_second: NonnegativeSpeed,
     first_maximum_acceleration_metres_per_second_squared: f32,
     second_maximum_acceleration_metres_per_second_squared: f32,
-    elapsed_seconds: f32,
+    elapsed_seconds: AnimationElapsed,
     minimum_distance_metres: f32,
     maximum_distance_metres: f32,
 ) -> SpeedResult<OpposedMovement> {
@@ -57,14 +58,14 @@ pub(super) fn integrate_opposed_movement(
         first_intent,
         first_maximum_speed_metres_per_second,
         first_maximum_acceleration_metres_per_second_squared,
-        elapsed_seconds,
+        elapsed_seconds.seconds(),
     )?;
     let mut second = integrate_axis(
         second_velocity_metres_per_second,
         second_intent,
         second_maximum_speed_metres_per_second,
         second_maximum_acceleration_metres_per_second_squared,
-        elapsed_seconds,
+        elapsed_seconds.seconds(),
     )?;
     let raw_after = distance_metres + first.displacement_metres + second.displacement_metres;
     let bounded_after = raw_after.clamp(minimum_distance_metres, maximum_distance_metres);
@@ -95,7 +96,7 @@ pub(super) fn integrate_opposed_movement(
         distance_after_metres: bounded_after,
         first,
         second,
-        elapsed_seconds: elapsed_seconds.max(0.0),
+        elapsed_seconds: elapsed_seconds.max(AnimationElapsed::ZERO),
     })
 }
 
@@ -275,7 +276,7 @@ mod tests {
             SPEED,
             ACCELERATION,
             ACCELERATION,
-            0.25,
+            crate::elapsed::AnimationElapsed::from_seconds(0.25).unwrap(),
             0.0,
             3.0,
         )
@@ -290,7 +291,7 @@ mod tests {
             SPEED,
             ACCELERATION,
             ACCELERATION,
-            0.25,
+            crate::elapsed::AnimationElapsed::from_seconds(0.25).unwrap(),
             0.0,
             3.0,
         )
@@ -311,7 +312,7 @@ mod tests {
             SPEED,
             ACCELERATION,
             ACCELERATION,
-            0.1,
+            crate::elapsed::AnimationElapsed::from_seconds(0.1).unwrap(),
             0.8,
             3.0,
         )
@@ -347,7 +348,7 @@ mod tests {
             SPEED,
             ACCELERATION,
             ACCELERATION,
-            0.2,
+            crate::elapsed::AnimationElapsed::from_seconds(0.2).unwrap(),
             0.8,
             3.0,
         )
@@ -362,7 +363,7 @@ mod tests {
             SPEED,
             ACCELERATION,
             ACCELERATION,
-            0.1,
+            crate::elapsed::AnimationElapsed::from_seconds(0.1).unwrap(),
             0.8,
             3.0,
         )
@@ -377,7 +378,7 @@ mod tests {
             SPEED,
             ACCELERATION,
             ACCELERATION,
-            0.1,
+            crate::elapsed::AnimationElapsed::from_seconds(0.1).unwrap(),
             0.8,
             3.0,
         )

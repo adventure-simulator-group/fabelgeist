@@ -98,14 +98,16 @@ fn simultaneous_contact_evidence(
     john: &MeleeIterationBuild,
     hammer: &MeleeIterationBuild,
     seed: Seed,
-) -> SpeedResult<Vec<MeleeTimelineEvent>> {
+) -> BattleResolutionResult<Vec<MeleeTimelineEvent>> {
     let mut allies = vec![john.combatant.clone()];
     let mut enemies = vec![hammer.combatant.clone()];
     allies[0].melee_engagement_target = Some(enemies[0].id);
     enemies[0].melee_engagement_target = Some(allies[0].id);
     allies[0].melee_engagement_distance_metres = 0.4;
     enemies[0].melee_engagement_distance_metres = 0.4;
-    let contact = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS.melee_windup_seconds;
+    let contact = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS
+        .melee_windup_seconds
+        .seconds();
     for combatant in [&mut allies[0], &mut enemies[0]] {
         combatant.melee_attack_started_at_seconds = Some(0.0);
         combatant.melee_attack_contact_at_seconds = Some(contact);
@@ -130,7 +132,7 @@ fn simultaneous_contact_evidence(
 fn cancellation_evidence(
     john: &MeleeIterationBuild,
     hammer: &MeleeIterationBuild,
-) -> SpeedResult<Option<BattleOutcome>> {
+) -> BattleResolutionResult<Option<BattleOutcome>> {
     let mut cancellation = None;
     for seed in (1..=64).map(Seed::from_u64) {
         let outcome = resolve_battle(

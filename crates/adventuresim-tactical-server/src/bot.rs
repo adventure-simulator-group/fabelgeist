@@ -1,5 +1,8 @@
-mod defense;
-mod offense;
+use adventuresim_core::{
+    combat::RecoveryTime,
+    elapsed::{AnimationElapsed, ElapsedResult},
+};
+use adventuresim_tactical_core::animation::AnimationValueResult;
 
 use adventuresim_core::{
     combat::{
@@ -28,6 +31,16 @@ use crate::{
     player_projection::{AuthoritativeMovementIntent, begin_get_up_transition_configured},
 };
 
+pub use defense::{DefenseChances, ReactiveDefenseAi};
+use defense::{
+    on_attack_started, on_targeted_attack_started, on_targeted_ranged_attack_started,
+    tick_bot_reactions,
+};
+pub use offense::OffensiveCombatAi;
+
+mod defense;
+mod offense;
+
 pub(crate) fn resolve_scene_fixture(selector: &str) -> Result<PathBuf, String> {
     Ok(resolve_fixture_path(
         selector,
@@ -47,13 +60,6 @@ pub(crate) fn apply_enemy_fixture(mut args: Args) -> Args {
     }
     args
 }
-pub use defense::{DefenseChances, ReactiveDefenseAi};
-use defense::{
-    on_attack_started, on_targeted_attack_started, on_targeted_ranged_attack_started,
-    tick_bot_reactions,
-};
-pub use offense::OffensiveCombatAi;
-
 #[derive(Resource)]
 pub(crate) struct CombatRandom(DeterministicRng);
 

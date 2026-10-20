@@ -201,7 +201,9 @@ impl BrakingLeanScale {
     pub(super) fn from_fraction(value: f32) -> AnimationValueResult<Self> {
         UnitInterval::from_fraction(value)
             .map(Self)
-            .map_err(|error| error.for_quantity(AnimationQuantity::BrakingLeanScale))
+            .map_err(|error| {
+                AnimationValueError::from(error).for_quantity(AnimationQuantity::BrakingLeanScale)
+            })
     }
     pub(super) fn fraction(self) -> f32 {
         self.0.fraction()

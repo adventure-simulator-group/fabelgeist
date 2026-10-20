@@ -45,7 +45,7 @@ pub struct CombatWeapon {
     pub body_material: Option<crate::item_catalog_schema::EquipmentMaterial>,
     pub striking_material: Option<crate::item_catalog_schema::EquipmentMaterial>,
     pub ranged_range: f32,
-    pub attack_interval_seconds: f32,
+    pub attack_interval_seconds: crate::elapsed::AnimationElapsed,
     pub balance: f32,
     pub ranged_force_joules: f32,
 }

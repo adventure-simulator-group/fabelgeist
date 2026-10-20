@@ -27,7 +27,7 @@ pub fn authored_threat_combatant(
     let training = base_rating * 1_500.0 * profile.training_multiplier * training_scale;
     combatant.skills = threat_skills(training, profile.ranged, profile.protection, profile.morale);
     combatant.body.weight_kg = profile.weight_kg;
-    let weapon = threat_weapon(profile);
+    let weapon = threat_weapon(profile).map_err(|error| error.to_string())?;
     combatant.equipment.weapon = Some(weapon);
     equip_threat_weapon(&mut combatant, weapon, profile.ranged);
     let innate = profile.innate_protection;
@@ -80,8 +80,8 @@ fn threat_skills(training: f32, ranged: bool, protection: Protection, morale: u8
     }
 }
 
-fn threat_weapon(profile: crate::bestiary::CombatProfile) -> CombatWeapon {
-    CombatWeapon {
+fn threat_weapon(profile: crate::bestiary::CombatProfile) -> ElapsedResult<CombatWeapon> {
+    Ok(CombatWeapon {
         skills: if profile.ranged {
             crate::equipment::WeaponSkillDistribution {
                 bow: 1.0,
@@ -117,11 +117,15 @@ fn threat_weapon(profile: crate::bestiary::CombatProfile) -> CombatWeapon {
         grip_to_tip_m: 0.8,
         total_length_m: 0.8,
         ranged_range: if profile.ranged { 20.0 } else { 0.0 },
-        attack_interval_seconds: if profile.ranged { 1.0 } else { 0.75 },
+        attack_interval_seconds: AnimationElapsed::from_seconds(if profile.ranged {
+            1.0
+        } else {
+            0.75
+        })?,
         balance: 0.3,
         ranged_force_joules: if profile.ranged { 40.0 } else { 0.0 },
         ..CombatWeapon::default()
-    }
+    })
 }
 
 fn equip_threat_weapon(combatant: &mut Combatant, weapon: CombatWeapon, ranged: bool) {

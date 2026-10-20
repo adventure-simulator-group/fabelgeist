@@ -72,11 +72,13 @@ impl ResponseRate {
                 quantity: AnimationQuantity::BodyLocalAcceleration,
             });
         }
-        UnitInterval::from_fraction(1.0 - exponent.exp())
+        Ok(UnitInterval::from_fraction(1.0 - exponent.exp())?)
     }
     /// Linear per-step drain, capped at full response by the existing damping law.
     pub fn step_fraction(self, elapsed: AnimationElapsed) -> AnimationValueResult<UnitInterval> {
-        UnitInterval::from_fraction((self.0 * elapsed.seconds()).min(1.0))
+        Ok(UnitInterval::from_fraction(
+            (self.0 * elapsed.seconds()).min(1.0),
+        )?)
     }
     /// Native coefficient multiplying angular velocity in the PD muscle kernel.
     pub fn per_second(self) -> f32 {

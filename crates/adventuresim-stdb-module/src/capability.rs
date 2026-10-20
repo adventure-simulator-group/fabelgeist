@@ -16,9 +16,11 @@ use crate::{
 };
 
 mod armor;
+mod combatant;
 mod equipment_projection;
 mod mass;
 use armor::*;
+pub(crate) use combatant::load_combatant;
 use equipment_projection::combat_weapon;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -474,7 +476,9 @@ impl StrategicEquipment {
         self.survival_clothing
     }
 
-    pub(crate) fn combat_equipment(&self) -> CombatEquipment {
+    pub(crate) fn combat_equipment(
+        &self,
+    ) -> adventuresim_core::elapsed::ElapsedResult<CombatEquipment> {
         let mut armor = [CombatArmor {
             flexibility: 1.0,
             range_of_motion: 1.0,
@@ -494,19 +498,22 @@ impl StrategicEquipment {
                     .unwrap_or_default(),
             };
         }
-        CombatEquipment {
+        Ok(CombatEquipment {
             weapon: self
                 .weapon
                 .as_ref()
-                .map(|item| combat_weapon(item, self.melee_weapon_geometry.filter(|_| item.melee))),
+                .map(|item| combat_weapon(item, self.melee_weapon_geometry.filter(|_| item.melee)))
+                .transpose()?,
             melee_weapon: self
                 .melee_weapon
                 .as_ref()
-                .map(|item| combat_weapon(item, self.melee_weapon_geometry)),
+                .map(|item| combat_weapon(item, self.melee_weapon_geometry))
+                .transpose()?,
             ranged_weapon: self
                 .ranged_weapon
                 .as_ref()
-                .map(|item| combat_weapon(item, None)),
+                .map(|item| combat_weapon(item, None))
+                .transpose()?,
             melee_weapon_id: self.melee_weapon_inventory_id,
             ranged_weapon_id: self.ranged_weapon_inventory_id,
             ranged_projectile_kind: self.ranged_weapon.as_ref().map(|weapon| {
@@ -525,7 +532,7 @@ impl StrategicEquipment {
             shield_side: self.shield_side,
             armor,
             inventory_weight: self.inventory_weight,
-        }
+        })
     }
 }
 
@@ -621,108 +628,6 @@ impl PlayerEquipment for StrategicEquipment {
     }
 }
 
-pub(crate) fn load_combatant(
-    ctx: &ReducerContext,
-    character_id: u64,
-    strategic_incapacitation: f32,
-    strategic_pain: f32,
-    strategic_blood_loss: f32,
-) -> Result<Combatant, String> {
-    let attributes = ctx
-        .db
-        .character_attributes()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character attributes not found")?;
-    let attributes = crate::disease::effective_attributes(ctx, character_id, attributes)?;
-    let skills = ctx
-        .db
-        .character_skills()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character skills not found")?;
-    let limbs = ctx
-        .db
-        .character_limbs()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character limbs not found")?;
-    let stats = ctx
-        .db
-        .character_stats()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character stats not found")?;
-    let condition = ctx
-        .db
-        .character_condition()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character condition not found")?;
-    let fatigue = fatigue_incapacitation(stats.fatigue_by_parts(&attributes, &limbs));
-    let equipment = StrategicEquipment::load(ctx, character_id);
-    let combat_equipment = equipment.combat_equipment();
-    let (starting_incapacitation, starting_blood_fraction) = derive_combat_starting_condition(
-        strategic_incapacitation,
-        strategic_pain,
-        strategic_blood_loss,
-        condition.current_blood_ml,
-        condition.maximum_blood_ml,
-    );
-
-    Ok(Combatant::from_strategic_state(CombatantStrategicState {
-        fatigue,
-        id: character_id,
-        attributes: attributes.into(),
-        body: CombatBody {
-            health: [
-                limbs.left_arm_health,
-                limbs.right_arm_health,
-                limbs.left_leg_health,
-                limbs.right_leg_health,
-                limbs.chest_health,
-                limbs.stomach_health,
-                limbs.head_health,
-            ],
-            weight_kg: condition.body_weight_kg,
-            primary_side: BodySide::Right,
-        },
-        essentials: CombatEssentials {
-            calories_used_today: stats.calories_used,
-            focus_level: stats.focus,
-        },
-        equipment: combat_equipment,
-        skills: CombatSkills {
-            polearm_hours: skills.polearm_hours,
-            axe_hours: skills.axe_hours,
-            bludgeon_hours: skills.bludgeon_hours,
-            sword_hours: skills.sword_hours,
-            knife_hours: skills.knife_hours,
-            dodge_hours: skills.dodge_hours,
-            block_hours: skills.block_hours,
-            bow_hours: skills.bow_hours,
-            crossbow_hours: skills.crossbow_hours,
-            firearm_hours: skills.firearm_hours,
-            throw_hours: skills.throw_hours,
-            will_hours: skills.will_hours,
-            insight_hours: skills.insight_hours,
-            charm_hours: skills.charm_hours,
-            command_hours: skills.command_hours,
-            deception_hours: skills.deception_hours,
-            physiology_hours: skills.physiology_hours,
-            religion_hours: skills.religion_hours.total_direct(),
-            stealth_hours: skills.stealth_hours,
-            balance_hours: skills.balance_hours,
-            bestiary_hours: skills.bestiary_hours,
-            surgery_hours: skills.surgery_hours,
-            tailoring_hours: skills.tailoring_hours,
-            smithing_hours: skills.smithing_hours,
-        },
-        starting_incapacitation,
-        starting_blood_fraction,
-    }))
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -735,7 +640,7 @@ mod tests {
             ..Item::default()
         };
 
-        let weapon = combat_weapon(&item, None);
+        let weapon = combat_weapon(&item, None).unwrap();
         let definition = adventuresim_core::item_catalog::definition(&item.id).unwrap();
         let equipment = definition.equipment.as_ref().unwrap();
 
@@ -768,8 +673,8 @@ mod tests {
             2.5, 2.3, 2.1, 0.25, 5.1, 0.49, 0.9,
         )
         .unwrap();
-        let short = combat_weapon(&item, Some(short));
-        let long = combat_weapon(&item, Some(long));
+        let short = combat_weapon(&item, Some(short)).unwrap();
+        let long = combat_weapon(&item, Some(long)).unwrap();
 
         assert!((short.precision - 1.2).abs() < 1e-6);
         assert!((long.precision - 0.9).abs() < 1e-6);

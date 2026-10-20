@@ -4,12 +4,12 @@ pub(super) fn initiative_delay_seconds(
     random: &mut CombatRandom,
     instinct: f32,
     config: &AiOffenseConfig,
-) -> f32 {
+) -> ElapsedResult<AnimationElapsed> {
     let sampled = random.range_f32(
-        config.initiative_delay_min_seconds,
-        config.initiative_delay_max_seconds,
+        config.initiative_delay_min_seconds.seconds(),
+        config.initiative_delay_max_seconds.seconds(),
     );
-    sampled * (3.0 / instinct.max(0.5)).clamp(0.6, 2.0)
+    AnimationElapsed::from_seconds(sampled * (3.0 / instinct.max(0.5)).clamp(0.6, 2.0))
 }
 
 pub(super) fn committed_threat_recognition_probability(attack_phase: f32, instinct: f32) -> f32 {

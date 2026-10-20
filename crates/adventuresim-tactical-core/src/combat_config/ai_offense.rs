@@ -5,11 +5,11 @@ use super::*;
 pub struct AiOffenseConfig {
     pub hit_precision: f32,
     pub target_body_part: BodyPart,
-    pub windup_seconds: f32,
-    pub cooldown_seconds: f32,
-    pub initiative_delay_min_seconds: f32,
-    pub initiative_delay_max_seconds: f32,
-    pub cadence_jitter_seconds: f32,
+    pub windup_seconds: AnimationElapsed,
+    pub cooldown_seconds: AnimationElapsed,
+    pub initiative_delay_min_seconds: AnimationElapsed,
+    pub initiative_delay_max_seconds: AnimationElapsed,
+    pub cadence_jitter_seconds: AnimationElapsed,
     pub long_weapon_measure_threshold_metres: f32,
     pub melee_measure_reach_fraction: f32,
     pub ranged_standoff_min_metres: f32,
@@ -22,11 +22,11 @@ impl AiOffenseConfig {
     pub(super) fn has_valid_intervals(&self) -> bool {
         self.ranged_standoff_min_metres.is_finite()
             && self.ranged_standoff_max_metres >= self.ranged_standoff_min_metres
-            && self.initiative_delay_min_seconds.is_finite()
-            && self.initiative_delay_min_seconds >= 0.0
+            && self.initiative_delay_min_seconds.seconds().is_finite()
+            && self.initiative_delay_min_seconds.seconds() >= 0.0
             && self.initiative_delay_max_seconds >= self.initiative_delay_min_seconds
-            && self.cadence_jitter_seconds.is_finite()
-            && self.cadence_jitter_seconds >= 0.0
+            && self.cadence_jitter_seconds.seconds().is_finite()
+            && self.cadence_jitter_seconds.seconds() >= 0.0
             && self.long_weapon_measure_threshold_metres.is_finite()
             && self.long_weapon_measure_threshold_metres > 0.0
             && self.melee_measure_reach_fraction.is_finite()

@@ -952,19 +952,25 @@ mod tests {
         let braking_acceleration = braking_force / mass;
         let traction_acceleration =
             motor.gravity_metres_per_second_squared * motor.traction_coefficient;
-        let predicted_acceleration = crate::combat::conservative_forward_lunge_acceleration(motor);
+        let predicted_acceleration =
+            crate::combat::conservative_forward_lunge_acceleration(motor).unwrap();
         let run_speed = config.movement.speeds_metres_per_second.run;
         let dt = locomotion_sample_rate().interval().seconds();
 
         for distance in [0.101, 0.404, 0.441, 0.499] {
-            let predicted_seconds = crate::combat::melee_lunge_delay_seconds(
+            let arrival = crate::combat::melee_lunge_arrival(
                 crate::combat::MeleeLunge::Forward {
                     distance_metres: distance,
                 },
                 run_speed,
                 predicted_acceleration,
                 config.movement.maneuvers.quickstep_duration_seconds,
-            );
+            )
+            .unwrap();
+            let predicted_seconds = match arrival {
+                crate::combat::MeleeLungeArrival::ArrivesIn(elapsed) => elapsed.seconds(),
+                other => panic!("expected lunge arrival: {other:?}"),
+            };
             let ticks = (predicted_seconds * locomotion_sample_rate().hertz()).ceil() as usize;
             let mut velocity = Vec2::ZERO;
             let mut displacement = 0.0;

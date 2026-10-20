@@ -4,7 +4,14 @@ pub(super) fn record_autoresolve_telemetry(
     attacker: &mut AutoresolveCombatantCausal,
     defender: &mut AutoresolveCombatantCausal,
     telemetry: &adventuresim_core::autoresolve::MeleeContactTelemetry,
-) {
+) -> Result<(), String> {
+    let interval = telemetry
+        .attack_interval_seconds
+        .available()
+        .ok_or_else(|| {
+            "autoresolve contact has no recoverable interval at this performance snapshot"
+                .to_owned()
+        })?;
     *attacker
         .contact_classifications
         .entry(format!("{:?}", telemetry.contact_classification))
@@ -29,9 +36,9 @@ pub(super) fn record_autoresolve_telemetry(
         *distribution.entry(key).or_default() += 1;
     }
     attacker.attack_samples += 1;
-    attacker.mean_attack_interval_seconds += f64::from(telemetry.attack_interval_seconds);
+    attacker.mean_attack_interval_seconds += f64::from(interval.seconds());
     attacker.mean_attack_power_multiplier += f64::from(telemetry.attack_power_multiplier);
-    let performance = f64::from(telemetry.attacker_incapacitation_performance);
+    let performance = f64::from(telemetry.attacker_incapacitation_performance.fraction());
     if attacker.attack_samples == 1 {
         attacker.minimum_attack_incapacitation_performance = performance;
     } else {
@@ -39,6 +46,7 @@ pub(super) fn record_autoresolve_telemetry(
             .minimum_attack_incapacitation_performance
             .min(performance);
     }
+    Ok(())
 }
 
 pub(super) fn record_timeline_event(
@@ -63,12 +71,15 @@ fn record_movement_event(
     combatant: &mut AutoresolveCombatantCausal,
     event: &adventuresim_core::autoresolve::MeleeTimelineEvent,
 ) -> Result<(), String> {
-    let (Some(before), Some(after), Some(speed_limit)) = (
+    let (Some(before), Some(after), Some(speed_limit), Some(elapsed)) = (
         event.movement_velocity_before_metres_per_second,
         event.movement_velocity_after_metres_per_second,
         event.movement_speed_limit_metres_per_second,
+        event.movement_elapsed_seconds,
     ) else {
-        return Err("autoresolve movement record is missing its speed observation".to_owned());
+        return Err(
+            "autoresolve movement record is missing its speed or elapsed observation".to_owned(),
+        );
     };
     if let Some(action) = event.movement_action {
         *combatant
@@ -76,7 +87,7 @@ fn record_movement_event(
             .entry(format!("{action:?}"))
             .or_default() += 1;
     }
-    let elapsed = event.movement_elapsed_seconds.unwrap_or_default();
+    let elapsed = elapsed.seconds();
     let displacement = event.movement_displacement_metres.unwrap_or_default().abs();
     let velocity = before.magnitude().max(after.magnitude());
     combatant.movement_elapsed_seconds += f64::from(elapsed);
@@ -116,10 +127,10 @@ fn record_response_event(
             .or_default() += 1;
     }
     if let Some(delay) = event.phase_adaptation_delay_seconds
-        && delay > 0.0
+        && !delay.is_zero()
     {
         combatant.phase_adaptation_events += 1;
-        combatant.phase_adaptation_delay_seconds += f64::from(delay);
+        combatant.phase_adaptation_delay_seconds += f64::from(delay.seconds());
     }
 }
 

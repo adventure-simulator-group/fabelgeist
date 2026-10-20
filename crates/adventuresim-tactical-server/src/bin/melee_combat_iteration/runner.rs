@@ -150,7 +150,7 @@ fn record_autoresolve_outcome(
         john.combatant.id,
         john.combatant.equipment.melee_weapon_id,
         opponent.combatant.equipment.melee_weapon_id,
-    );
+    )?;
     record_autoresolve_timeline(&mut batch.causal, outcome, john.combatant.id)?;
     Ok(())
 }
@@ -178,7 +178,7 @@ fn record_autoresolve_log(
     john_id: u64,
     john_weapon_id: Option<u64>,
     opponent_weapon_id: Option<u64>,
-) {
+) -> Result<(), String> {
     for entry in &outcome.log {
         if entry.attack_kind != BattleAttackKind::Melee {
             continue;
@@ -201,11 +201,12 @@ fn record_autoresolve_log(
         causal.total_contact_energy_joules += f64::from(entry.contact_stress);
         causal.total_health_damage += f64::from(entry.health_damage);
         if john_attacks {
-            record_autoresolve_combatant_causal(&mut causal.john, &mut causal.opponent, entry);
+            record_autoresolve_combatant_causal(&mut causal.john, &mut causal.opponent, entry)?;
         } else {
-            record_autoresolve_combatant_causal(&mut causal.opponent, &mut causal.john, entry);
+            record_autoresolve_combatant_causal(&mut causal.opponent, &mut causal.john, entry)?;
         }
     }
+    Ok(())
 }
 
 fn record_autoresolve_dodge(

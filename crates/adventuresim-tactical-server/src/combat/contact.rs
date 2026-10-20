@@ -105,10 +105,10 @@ pub(super) fn attacker_has_weapon(
 pub(super) fn windup_duration(
     contact_tick: AnimationSampleTick,
     start_tick: AnimationSampleTick,
-) -> CombatDuration {
-    CombatDuration::from_secs_f32(
+) -> ElapsedResult<CombatDuration> {
+    CombatDuration::from_elapsed(AnimationElapsed::from_seconds(
         contact_tick.saturating_sub(start_tick).samples() as f32 / locomotion_sample_rate().hertz(),
-    )
+    )?)
 }
 
 #[expect(
