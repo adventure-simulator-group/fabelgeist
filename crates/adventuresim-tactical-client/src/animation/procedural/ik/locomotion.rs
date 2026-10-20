@@ -442,15 +442,11 @@ mod tests {
     fn authored_posture_transition_excludes_ordinary_locomotion_ik() {
         let mut skeleton = SkeletonState::default();
         assert!(owns(&skeleton));
-        assert!(
-            skeleton
-                .begin_posture_transition(
-                    PostureTransitionKind::UprightToProne,
-                    adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
-                    adventuresim_tactical_core::animation::AnimationSampleSpan::from(10u64),
-                )
-                .unwrap()
-        );
+        assert!(skeleton.begin_posture_transition(
+            PostureTransitionKind::UprightToProne,
+            adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+            adventuresim_tactical_core::animation::AnimationSampleSpan::from(10u64),
+        ));
         assert!(!owns(&skeleton));
     }
 

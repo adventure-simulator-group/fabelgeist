@@ -1,9 +1,15 @@
 //! Capture report assembly and artifact writing.
 
 use super::*;
+use acceptance_limits::*;
+use body_response_validation::*;
 pub(super) use bones::{
     CapturedBones, REPORT_BONES, parent_bone, report_bone_label, serialize_report_bone,
 };
+use html::*;
+use metrics::*;
+pub(super) use model::*;
+use validation::*;
 
 mod acceptance_limits;
 mod body_response_validation;
@@ -11,14 +17,8 @@ mod bones;
 mod html;
 mod metrics;
 mod model;
+mod presentation_events;
 mod validation;
-
-use acceptance_limits::*;
-use body_response_validation::*;
-use html::*;
-use metrics::*;
-pub(super) use model::*;
-use validation::*;
 
 pub(super) fn invalidate_previous_report(output: &std::path::Path) {
     for name in [
@@ -34,29 +34,6 @@ pub(super) fn invalidate_previous_report(output: &std::path::Path) {
             panic!("failed to invalidate previous animation report {path:?}: {error}");
         }
     }
-}
-
-fn capture_scenarios_complete(frames: &[FrameSample], plan: &[PlannedFrame]) -> bool {
-    frames.len() == plan.len()
-        && frames.iter().zip(plan).all(|(frame, planned)| {
-            frame.scenario == planned.scenario
-                && frame.scenario_frame == planned.scenario_frame
-                && REPORT_BONES
-                    .iter()
-                    .all(|(role, _)| frame.bones.contains_key(*role))
-        })
-}
-
-fn capture_artifacts_written(output: &std::path::Path, frames: &[FrameSample]) -> bool {
-    frames.iter().all(|frame| {
-        VIEWS.iter().all(|view| {
-            frame
-                .screenshots
-                .get(view.slug())
-                .and_then(|name| fs::metadata(output.join(name)).ok())
-                .is_some_and(|metadata| metadata.len() > 0)
-        })
-    })
 }
 
 pub(super) fn write_completed_capture(completed: CompletedCapture) -> AppExit {
@@ -120,6 +97,29 @@ pub(super) fn write_completed_capture(completed: CompletedCapture) -> AppExit {
         .unwrap_or_else(|error| panic!("failed to write {failure_path:?}: {error}"));
         AppExit::Error(1.try_into().expect("one is non-zero"))
     }
+}
+
+fn capture_scenarios_complete(frames: &[FrameSample], plan: &[PlannedFrame]) -> bool {
+    frames.len() == plan.len()
+        && frames.iter().zip(plan).all(|(frame, planned)| {
+            frame.scenario == planned.scenario
+                && frame.scenario_frame == planned.scenario_frame
+                && REPORT_BONES
+                    .iter()
+                    .all(|(role, _)| frame.bones.contains_key(*role))
+        })
+}
+
+fn capture_artifacts_written(output: &std::path::Path, frames: &[FrameSample]) -> bool {
+    frames.iter().all(|frame| {
+        VIEWS.iter().all(|view| {
+            frame
+                .screenshots
+                .get(view.slug())
+                .and_then(|name| fs::metadata(output.join(name)).ok())
+                .is_some_and(|metadata| metadata.len() > 0)
+        })
+    })
 }
 
 #[cfg(test)]

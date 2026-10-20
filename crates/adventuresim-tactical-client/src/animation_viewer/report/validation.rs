@@ -223,43 +223,8 @@ pub(super) fn build_completed_report(
             <= 3
     });
     let cadence_contact_valid = cadence_contacts_valid(&frames)?;
-    let event_stream_valid = presentation_events
-        .iter()
-        .zip(presentation_events.iter().skip(1))
-        .all(|(previous, current)| {
-            previous.scenario != current.scenario
-                || !previous.payload.same_stream(current.payload)
-                || current.advances_from(previous)
-        })
-        && presentation_events
-            .iter()
-            .enumerate()
-            .all(|(index, event)| {
-                !presentation_events.iter().take(index).any(|previous| {
-                    previous.owner == event.owner
-                        && previous.scenario == event.scenario
-                        && previous.payload == event.payload
-                })
-            })
-        && (cadence_frames.is_empty()
-            || presentation_events
-                .iter()
-                .filter(|event| {
-                    event.scenario.is(ScenarioId::CadenceContact) && event.payload.is_contact()
-                })
-                .count()
-                == 4)
-        && (!frames
-            .iter()
-            .any(|frame| frame.scenario.is(ScenarioId::AirborneLanding))
-            || presentation_events
-                .iter()
-                .filter(|event| {
-                    event.scenario.is(ScenarioId::AirborneLanding)
-                        && matches!(event.payload, LocomotionPresentationPayload::Landing { .. })
-                })
-                .count()
-                == 1);
+    let event_stream_valid =
+        presentation_events::presentation_events_valid(&frames, &presentation_events);
     let speed_ramp_phase_continuity_valid = frames.windows(2).all(|pair| {
         if !pair[0].scenario.is(ScenarioId::SpeedRampUpDown)
             || !pair[1].scenario.is(ScenarioId::SpeedRampUpDown)

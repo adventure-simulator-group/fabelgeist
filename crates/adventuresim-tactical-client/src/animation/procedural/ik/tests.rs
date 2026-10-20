@@ -1795,8 +1795,8 @@ mod coordination_tests {
         let right = Vec3::new(0.12, measured_ankle_sole_offset_metres().metres(), -0.5);
         for plant in [left, right] {
             let (logical_weight, solve_plant) =
-                terminal_contact_solve_ownership(true, 0.0, Some(plant));
-            assert_eq!(logical_weight, 1.0);
+                terminal_contact_solve_ownership(true, UnitInterval::ZERO, Some(plant));
+            assert_eq!(logical_weight, UnitInterval::ONE);
             assert_eq!(solve_plant, Some(plant));
 
             let restored_idle_fk = plant + Vec3::new(0.0, 0.12, 0.4);
@@ -1806,14 +1806,15 @@ mod coordination_tests {
                 solve_plant,
                 restored_idle_fk,
             ));
-            let (_, next_tick_plant) = terminal_contact_solve_ownership(true, 0.0, solve_plant);
+            let (_, next_tick_plant) =
+                terminal_contact_solve_ownership(true, UnitInterval::ZERO, solve_plant);
             assert_eq!(next_tick_plant, Some(plant));
             assert_eq!(next_tick_plant.unwrap().distance(plant), 0.0);
         }
 
         assert_eq!(
-            terminal_contact_solve_ownership(false, 0.0, Some(left)),
-            (0.0, Some(left))
+            terminal_contact_solve_ownership(false, UnitInterval::ZERO, Some(left)),
+            (UnitInterval::ZERO, Some(left))
         );
     }
 
@@ -2736,9 +2737,7 @@ mod coordination_tests {
                     + 0.0001
         );
         assert!(uphill_release.y + 0.0001 >= uphill_minimum_y(uphill_release.xz()).unwrap());
-        assert!(
-            uphill_release.y - uphill_minimum_y(uphill_release.xz()).unwrap().metres() <= 0.0001
-        );
+        assert!(uphill_release.y - uphill_minimum_y(uphill_release.xz()).unwrap() <= 0.0001);
         assert!(uphill_release.z < uphill_plant.z);
         assert!(uphill_release.z > uphill_plant.z - 5.5 / ik_tuning().continuity_sample_hz.hertz());
         let captured_toe_offset = Vec3::new(-0.0108, 0.0007, -0.1370);
