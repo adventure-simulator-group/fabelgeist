@@ -137,7 +137,8 @@ impl Walker {
         let tick = self.app.world().resource::<Time<Fixed>>().delta_secs();
         // Preserve the existing ten-second control window. Long geographic
         // approaches need a route-length budget, not a larger movement limit.
-        let route_ticks = ((start.distance(target) / speed * 2.0 + 1.0) / tick).ceil() as usize;
+        let route_ticks =
+            ((start.distance(target) / speed.metres_per_second() * 2.0 + 1.0) / tick).ceil() as usize;
         self.app
             .world_mut()
             .entity_mut(self.entity)
